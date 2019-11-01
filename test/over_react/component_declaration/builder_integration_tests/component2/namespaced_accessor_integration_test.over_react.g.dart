@@ -11,7 +11,7 @@ part of 'namespaced_accessor_integration_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $NamespacedAccessorTestComponentFactory = registerComponent2(
-  () => new _$NamespacedAccessorTestComponent(),
+  () => _$NamespacedAccessorTestComponent(),
   builderFactory: NamespacedAccessorTest,
   componentClass: NamespacedAccessorTestComponent,
   isWrapper: false,
@@ -155,8 +155,8 @@ class NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
 
 _$$NamespacedAccessorTestProps _$NamespacedAccessorTest([Map backingProps]) =>
     backingProps == null
-        ? new _$$NamespacedAccessorTestProps$JsMap(new JsBackedMap())
-        : new _$$NamespacedAccessorTestProps(backingProps);
+        ? _$$NamespacedAccessorTestProps$JsMap(JsBackedMap())
+        : _$$NamespacedAccessorTestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -169,13 +169,13 @@ abstract class _$$NamespacedAccessorTestProps
 
   factory _$$NamespacedAccessorTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$NamespacedAccessorTestProps$JsMap(backingMap);
+      return _$$NamespacedAccessorTestProps$JsMap(backingMap);
     } else {
-      return new _$$NamespacedAccessorTestProps$PlainMap(backingMap);
+      return _$$NamespacedAccessorTestProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -213,9 +213,9 @@ class _$$NamespacedAccessorTestProps$JsMap
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$NamespacedAccessorTestProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -370,13 +370,13 @@ abstract class _$$NamespacedAccessorTestState
 
   factory _$$NamespacedAccessorTestState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$NamespacedAccessorTestState$JsMap(backingMap);
+      return _$$NamespacedAccessorTestState$JsMap(backingMap);
     } else {
-      return new _$$NamespacedAccessorTestState$PlainMap(backingMap);
+      return _$$NamespacedAccessorTestState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -405,9 +405,9 @@ class _$$NamespacedAccessorTestState$JsMap
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$NamespacedAccessorTestState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -443,11 +443,11 @@ class _$NamespacedAccessorTestComponent
   @override
   _$$NamespacedAccessorTestProps$JsMap typedPropsFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$NamespacedAccessorTestProps$JsMap(backingMap);
+      _$$NamespacedAccessorTestProps$JsMap(backingMap);
 
   @override
   _$$NamespacedAccessorTestProps typedPropsFactory(Map backingMap) =>
-      new _$$NamespacedAccessorTestProps(backingMap);
+      _$$NamespacedAccessorTestProps(backingMap);
 
   _$$NamespacedAccessorTestState$JsMap _cachedTypedState;
   @override
@@ -466,11 +466,11 @@ class _$NamespacedAccessorTestComponent
   @override
   _$$NamespacedAccessorTestState$JsMap typedStateFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$NamespacedAccessorTestState$JsMap(backingMap);
+      _$$NamespacedAccessorTestState$JsMap(backingMap);
 
   @override
   _$$NamespacedAccessorTestState typedStateFactory(Map backingMap) =>
-      new _$$NamespacedAccessorTestState(backingMap);
+      _$$NamespacedAccessorTestState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

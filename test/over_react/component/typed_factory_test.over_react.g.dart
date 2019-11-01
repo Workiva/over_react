@@ -11,7 +11,7 @@ part of 'typed_factory_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TypedFactoryTesterComponentFactory = registerComponent2(
-  () => new _$TypedFactoryTesterComponent(),
+  () => _$TypedFactoryTesterComponent(),
   builderFactory: TypedFactoryTester,
   componentClass: TypedFactoryTesterComponent,
   isWrapper: false,
@@ -59,8 +59,8 @@ class TypedFactoryTesterProps extends _$TypedFactoryTesterProps
 
 _$$TypedFactoryTesterProps _$TypedFactoryTester([Map backingProps]) =>
     backingProps == null
-        ? new _$$TypedFactoryTesterProps$JsMap(new JsBackedMap())
-        : new _$$TypedFactoryTesterProps(backingProps);
+        ? _$$TypedFactoryTesterProps$JsMap(JsBackedMap())
+        : _$$TypedFactoryTesterProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -72,13 +72,13 @@ abstract class _$$TypedFactoryTesterProps extends _$TypedFactoryTesterProps
 
   factory _$$TypedFactoryTesterProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TypedFactoryTesterProps$JsMap(backingMap);
+      return _$$TypedFactoryTesterProps$JsMap(backingMap);
     } else {
-      return new _$$TypedFactoryTesterProps$PlainMap(backingMap);
+      return _$$TypedFactoryTesterProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -114,9 +114,9 @@ class _$$TypedFactoryTesterProps$JsMap extends _$$TypedFactoryTesterProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TypedFactoryTesterProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -173,13 +173,13 @@ abstract class _$$TypedFactoryTesterState extends _$TypedFactoryTesterState
 
   factory _$$TypedFactoryTesterState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TypedFactoryTesterState$JsMap(backingMap);
+      return _$$TypedFactoryTesterState$JsMap(backingMap);
     } else {
-      return new _$$TypedFactoryTesterState$PlainMap(backingMap);
+      return _$$TypedFactoryTesterState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -206,9 +206,9 @@ class _$$TypedFactoryTesterState$JsMap extends _$$TypedFactoryTesterState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TypedFactoryTesterState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -243,11 +243,11 @@ class _$TypedFactoryTesterComponent extends TypedFactoryTesterComponent {
   @override
   _$$TypedFactoryTesterProps$JsMap typedPropsFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$TypedFactoryTesterProps$JsMap(backingMap);
+      _$$TypedFactoryTesterProps$JsMap(backingMap);
 
   @override
   _$$TypedFactoryTesterProps typedPropsFactory(Map backingMap) =>
-      new _$$TypedFactoryTesterProps(backingMap);
+      _$$TypedFactoryTesterProps(backingMap);
 
   _$$TypedFactoryTesterState$JsMap _cachedTypedState;
   @override
@@ -266,11 +266,11 @@ class _$TypedFactoryTesterComponent extends TypedFactoryTesterComponent {
   @override
   _$$TypedFactoryTesterState$JsMap typedStateFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$TypedFactoryTesterState$JsMap(backingMap);
+      _$$TypedFactoryTesterState$JsMap(backingMap);
 
   @override
   _$$TypedFactoryTesterState typedStateFactory(Map backingMap) =>
-      new _$$TypedFactoryTesterState(backingMap);
+      _$$TypedFactoryTesterState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

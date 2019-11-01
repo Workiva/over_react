@@ -11,7 +11,7 @@ part of 'context_type_component.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ContextTypeComponentFactory = registerComponent2(
-  () => new _$ContextTypeComponent(),
+  () => _$ContextTypeComponent(),
   builderFactory: ContextType,
   componentClass: ContextTypeComponent,
   isWrapper: false,
@@ -40,8 +40,8 @@ class ContextTypeProps extends _$ContextTypeProps
 }
 
 _$$ContextTypeProps _$ContextType([Map backingProps]) => backingProps == null
-    ? new _$$ContextTypeProps$JsMap(new JsBackedMap())
-    : new _$$ContextTypeProps(backingProps);
+    ? _$$ContextTypeProps$JsMap(JsBackedMap())
+    : _$$ContextTypeProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -53,13 +53,13 @@ abstract class _$$ContextTypeProps extends _$ContextTypeProps
 
   factory _$$ContextTypeProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ContextTypeProps$JsMap(backingMap);
+      return _$$ContextTypeProps$JsMap(backingMap);
     } else {
-      return new _$$ContextTypeProps$PlainMap(backingMap);
+      return _$$ContextTypeProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -95,9 +95,9 @@ class _$$ContextTypeProps$JsMap extends _$$ContextTypeProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ContextTypeProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -131,11 +131,11 @@ class _$ContextTypeComponent extends ContextTypeComponent {
 
   @override
   _$$ContextTypeProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$ContextTypeProps$JsMap(backingMap);
+      _$$ContextTypeProps$JsMap(backingMap);
 
   @override
   _$$ContextTypeProps typedPropsFactory(Map backingMap) =>
-      new _$$ContextTypeProps(backingMap);
+      _$$ContextTypeProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

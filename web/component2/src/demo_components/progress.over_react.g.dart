@@ -11,7 +11,7 @@ part of 'progress.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ProgressComponentFactory = registerComponent2(
-  () => new _$ProgressComponent(),
+  () => _$ProgressComponent(),
   builderFactory: Progress,
   componentClass: ProgressComponent,
   isWrapper: false,
@@ -301,8 +301,8 @@ class ProgressProps extends _$ProgressProps with _$ProgressPropsAccessorsMixin {
 }
 
 _$$ProgressProps _$Progress([Map backingProps]) => backingProps == null
-    ? new _$$ProgressProps$JsMap(new JsBackedMap())
-    : new _$$ProgressProps(backingProps);
+    ? _$$ProgressProps$JsMap(JsBackedMap())
+    : _$$ProgressProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -314,13 +314,13 @@ abstract class _$$ProgressProps extends _$ProgressProps
 
   factory _$$ProgressProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ProgressProps$JsMap(backingMap);
+      return _$$ProgressProps$JsMap(backingMap);
     } else {
-      return new _$$ProgressProps$PlainMap(backingMap);
+      return _$$ProgressProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -356,9 +356,9 @@ class _$$ProgressProps$JsMap extends _$$ProgressProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ProgressProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -419,13 +419,13 @@ abstract class _$$ProgressState extends _$ProgressState
 
   factory _$$ProgressState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ProgressState$JsMap(backingMap);
+      return _$$ProgressState$JsMap(backingMap);
     } else {
-      return new _$$ProgressState$PlainMap(backingMap);
+      return _$$ProgressState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -452,9 +452,9 @@ class _$$ProgressState$JsMap extends _$$ProgressState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ProgressState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -488,11 +488,11 @@ class _$ProgressComponent extends ProgressComponent {
 
   @override
   _$$ProgressProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$ProgressProps$JsMap(backingMap);
+      _$$ProgressProps$JsMap(backingMap);
 
   @override
   _$$ProgressProps typedPropsFactory(Map backingMap) =>
-      new _$$ProgressProps(backingMap);
+      _$$ProgressProps(backingMap);
 
   _$$ProgressState$JsMap _cachedTypedState;
   @override
@@ -510,11 +510,11 @@ class _$ProgressComponent extends ProgressComponent {
 
   @override
   _$$ProgressState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      new _$$ProgressState$JsMap(backingMap);
+      _$$ProgressState$JsMap(backingMap);
 
   @override
   _$$ProgressState typedStateFactory(Map backingMap) =>
-      new _$$ProgressState(backingMap);
+      _$$ProgressState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

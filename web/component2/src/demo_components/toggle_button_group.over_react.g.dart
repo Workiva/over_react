@@ -11,7 +11,7 @@ part of 'toggle_button_group.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ToggleButtonGroupComponentFactory = registerComponent2(
-  () => new _$ToggleButtonGroupComponent(),
+  () => _$ToggleButtonGroupComponent(),
   builderFactory: ToggleButtonGroup,
   componentClass: ToggleButtonGroupComponent,
   isWrapper: false,
@@ -43,8 +43,8 @@ class ToggleButtonGroupProps extends _$ToggleButtonGroupProps
 
 _$$ToggleButtonGroupProps _$ToggleButtonGroup([Map backingProps]) =>
     backingProps == null
-        ? new _$$ToggleButtonGroupProps$JsMap(new JsBackedMap())
-        : new _$$ToggleButtonGroupProps(backingProps);
+        ? _$$ToggleButtonGroupProps$JsMap(JsBackedMap())
+        : _$$ToggleButtonGroupProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -56,13 +56,13 @@ abstract class _$$ToggleButtonGroupProps extends _$ToggleButtonGroupProps
 
   factory _$$ToggleButtonGroupProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ToggleButtonGroupProps$JsMap(backingMap);
+      return _$$ToggleButtonGroupProps$JsMap(backingMap);
     } else {
-      return new _$$ToggleButtonGroupProps$PlainMap(backingMap);
+      return _$$ToggleButtonGroupProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -98,9 +98,9 @@ class _$$ToggleButtonGroupProps$JsMap extends _$$ToggleButtonGroupProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ToggleButtonGroupProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -140,13 +140,13 @@ abstract class _$$ToggleButtonGroupState extends _$ToggleButtonGroupState
 
   factory _$$ToggleButtonGroupState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ToggleButtonGroupState$JsMap(backingMap);
+      return _$$ToggleButtonGroupState$JsMap(backingMap);
     } else {
-      return new _$$ToggleButtonGroupState$PlainMap(backingMap);
+      return _$$ToggleButtonGroupState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -173,9 +173,9 @@ class _$$ToggleButtonGroupState$JsMap extends _$$ToggleButtonGroupState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ToggleButtonGroupState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -209,11 +209,11 @@ class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
 
   @override
   _$$ToggleButtonGroupProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$ToggleButtonGroupProps$JsMap(backingMap);
+      _$$ToggleButtonGroupProps$JsMap(backingMap);
 
   @override
   _$$ToggleButtonGroupProps typedPropsFactory(Map backingMap) =>
-      new _$$ToggleButtonGroupProps(backingMap);
+      _$$ToggleButtonGroupProps(backingMap);
 
   _$$ToggleButtonGroupState$JsMap _cachedTypedState;
   @override
@@ -231,11 +231,11 @@ class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
 
   @override
   _$$ToggleButtonGroupState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      new _$$ToggleButtonGroupState$JsMap(backingMap);
+      _$$ToggleButtonGroupState$JsMap(backingMap);
 
   @override
   _$$ToggleButtonGroupState typedStateFactory(Map backingMap) =>
-      new _$$ToggleButtonGroupState(backingMap);
+      _$$ToggleButtonGroupState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

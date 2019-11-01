@@ -11,7 +11,7 @@ part of 'annotation_error_integration_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $AnnotationErrorDefaultPropsComponentFactory = registerComponent(
-    () => new _$AnnotationErrorDefaultPropsComponent(),
+    () => _$AnnotationErrorDefaultPropsComponent(),
     builderFactory: AnnotationErrorDefaultProps,
     componentClass: AnnotationErrorDefaultPropsComponent,
     isWrapper: false,
@@ -42,7 +42,7 @@ class AnnotationErrorDefaultPropsProps
 
 _$$AnnotationErrorDefaultPropsProps _$AnnotationErrorDefaultProps(
         [Map backingProps]) =>
-    new _$$AnnotationErrorDefaultPropsProps(backingProps);
+    _$$AnnotationErrorDefaultPropsProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -62,7 +62,7 @@ class _$$AnnotationErrorDefaultPropsProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -84,7 +84,7 @@ class _$AnnotationErrorDefaultPropsComponent
     extends AnnotationErrorDefaultPropsComponent {
   @override
   _$$AnnotationErrorDefaultPropsProps typedPropsFactory(Map backingMap) =>
-      new _$$AnnotationErrorDefaultPropsProps(backingMap);
+      _$$AnnotationErrorDefaultPropsProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -102,7 +102,7 @@ class _$AnnotationErrorDefaultPropsComponent
 //
 // Registers component implementation and links type meta to builder factory.
 final $AnnotationErrorComponentFactory = registerComponent(
-    () => new _$AnnotationErrorComponent(),
+    () => _$AnnotationErrorComponent(),
     builderFactory: AnnotationError,
     componentClass: AnnotationErrorComponent,
     isWrapper: false,
@@ -131,7 +131,7 @@ class AnnotationErrorProps extends _$AnnotationErrorProps
 }
 
 _$$AnnotationErrorProps _$AnnotationError([Map backingProps]) =>
-    new _$$AnnotationErrorProps(backingProps);
+    _$$AnnotationErrorProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -150,7 +150,7 @@ class _$$AnnotationErrorProps extends _$AnnotationErrorProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -171,7 +171,7 @@ class _$$AnnotationErrorProps extends _$AnnotationErrorProps
 class _$AnnotationErrorComponent extends AnnotationErrorComponent {
   @override
   _$$AnnotationErrorProps typedPropsFactory(Map backingMap) =>
-      new _$$AnnotationErrorProps(backingMap);
+      _$$AnnotationErrorProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -189,7 +189,7 @@ class _$AnnotationErrorComponent extends AnnotationErrorComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $AnnotationErrorStatefulComponentFactory = registerComponent(
-    () => new _$AnnotationErrorStatefulComponent(),
+    () => _$AnnotationErrorStatefulComponent(),
     builderFactory: AnnotationErrorStateful,
     componentClass: AnnotationErrorStatefulComponent,
     isWrapper: false,
@@ -218,7 +218,7 @@ class AnnotationErrorStatefulProps extends _$AnnotationErrorStatefulProps
 }
 
 _$$AnnotationErrorStatefulProps _$AnnotationErrorStateful([Map backingProps]) =>
-    new _$$AnnotationErrorStatefulProps(backingProps);
+    _$$AnnotationErrorStatefulProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -237,7 +237,7 @@ class _$$AnnotationErrorStatefulProps extends _$AnnotationErrorStatefulProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -289,7 +289,7 @@ class _$$AnnotationErrorStatefulState extends _$AnnotationErrorStatefulState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -302,11 +302,11 @@ class _$AnnotationErrorStatefulComponent
     extends AnnotationErrorStatefulComponent {
   @override
   _$$AnnotationErrorStatefulProps typedPropsFactory(Map backingMap) =>
-      new _$$AnnotationErrorStatefulProps(backingMap);
+      _$$AnnotationErrorStatefulProps(backingMap);
 
   @override
   _$$AnnotationErrorStatefulState typedStateFactory(Map backingMap) =>
-      new _$$AnnotationErrorStatefulState(backingMap);
+      _$$AnnotationErrorStatefulState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -324,7 +324,7 @@ class _$AnnotationErrorStatefulComponent
 //
 // Registers component implementation and links type meta to builder factory.
 final $AnnotationErrorStatefulDefaultPropsComponentFactory = registerComponent(
-    () => new _$AnnotationErrorStatefulDefaultPropsComponent(),
+    () => _$AnnotationErrorStatefulDefaultPropsComponent(),
     builderFactory: AnnotationErrorStatefulDefaultProps,
     componentClass: AnnotationErrorStatefulDefaultPropsComponent,
     isWrapper: false,
@@ -356,7 +356,7 @@ class AnnotationErrorStatefulDefaultPropsProps
 
 _$$AnnotationErrorStatefulDefaultPropsProps
     _$AnnotationErrorStatefulDefaultProps([Map backingProps]) =>
-        new _$$AnnotationErrorStatefulDefaultPropsProps(backingProps);
+        _$$AnnotationErrorStatefulDefaultPropsProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -377,7 +377,7 @@ class _$$AnnotationErrorStatefulDefaultPropsProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -434,7 +434,7 @@ class _$$AnnotationErrorStatefulDefaultPropsState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -448,12 +448,12 @@ class _$AnnotationErrorStatefulDefaultPropsComponent
   @override
   _$$AnnotationErrorStatefulDefaultPropsProps typedPropsFactory(
           Map backingMap) =>
-      new _$$AnnotationErrorStatefulDefaultPropsProps(backingMap);
+      _$$AnnotationErrorStatefulDefaultPropsProps(backingMap);
 
   @override
   _$$AnnotationErrorStatefulDefaultPropsState typedStateFactory(
           Map backingMap) =>
-      new _$$AnnotationErrorStatefulDefaultPropsState(backingMap);
+      _$$AnnotationErrorStatefulDefaultPropsState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

@@ -11,7 +11,7 @@ part of 'my_context_component.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $MyContextComponentComponentFactory = registerComponent2(
-  () => new _$MyContextComponentComponent(),
+  () => _$MyContextComponentComponent(),
   builderFactory: MyContextComponent,
   componentClass: MyContextComponentComponent,
   isWrapper: false,
@@ -42,8 +42,8 @@ class MyContextComponentProps extends _$MyContextComponentProps
 
 _$$MyContextComponentProps _$MyContextComponent([Map backingProps]) =>
     backingProps == null
-        ? new _$$MyContextComponentProps$JsMap(new JsBackedMap())
-        : new _$$MyContextComponentProps(backingProps);
+        ? _$$MyContextComponentProps$JsMap(JsBackedMap())
+        : _$$MyContextComponentProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -55,13 +55,13 @@ abstract class _$$MyContextComponentProps extends _$MyContextComponentProps
 
   factory _$$MyContextComponentProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$MyContextComponentProps$JsMap(backingMap);
+      return _$$MyContextComponentProps$JsMap(backingMap);
     } else {
-      return new _$$MyContextComponentProps$PlainMap(backingMap);
+      return _$$MyContextComponentProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -97,9 +97,9 @@ class _$$MyContextComponentProps$JsMap extends _$$MyContextComponentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$MyContextComponentProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -134,11 +134,11 @@ class _$MyContextComponentComponent extends MyContextComponentComponent {
   @override
   _$$MyContextComponentProps$JsMap typedPropsFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$MyContextComponentProps$JsMap(backingMap);
+      _$$MyContextComponentProps$JsMap(backingMap);
 
   @override
   _$$MyContextComponentProps typedPropsFactory(Map backingMap) =>
-      new _$$MyContextComponentProps(backingMap);
+      _$$MyContextComponentProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

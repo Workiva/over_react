@@ -11,7 +11,7 @@ part of 'two_level_wrapper.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TwoLevelWrapper2ComponentFactory = registerComponent2(
-  () => new _$TwoLevelWrapper2Component(),
+  () => _$TwoLevelWrapper2Component(),
   builderFactory: TwoLevelWrapper2,
   componentClass: TwoLevelWrapper2Component,
   isWrapper: true,
@@ -42,8 +42,8 @@ class TwoLevelWrapper2Props extends _$TwoLevelWrapper2Props
 
 _$$TwoLevelWrapper2Props _$TwoLevelWrapper2([Map backingProps]) =>
     backingProps == null
-        ? new _$$TwoLevelWrapper2Props$JsMap(new JsBackedMap())
-        : new _$$TwoLevelWrapper2Props(backingProps);
+        ? _$$TwoLevelWrapper2Props$JsMap(JsBackedMap())
+        : _$$TwoLevelWrapper2Props(backingProps);
 
 // Concrete props implementation.
 //
@@ -55,13 +55,13 @@ abstract class _$$TwoLevelWrapper2Props extends _$TwoLevelWrapper2Props
 
   factory _$$TwoLevelWrapper2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TwoLevelWrapper2Props$JsMap(backingMap);
+      return _$$TwoLevelWrapper2Props$JsMap(backingMap);
     } else {
-      return new _$$TwoLevelWrapper2Props$PlainMap(backingMap);
+      return _$$TwoLevelWrapper2Props$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -97,9 +97,9 @@ class _$$TwoLevelWrapper2Props$JsMap extends _$$TwoLevelWrapper2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TwoLevelWrapper2Props$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -133,11 +133,11 @@ class _$TwoLevelWrapper2Component extends TwoLevelWrapper2Component {
 
   @override
   _$$TwoLevelWrapper2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$TwoLevelWrapper2Props$JsMap(backingMap);
+      _$$TwoLevelWrapper2Props$JsMap(backingMap);
 
   @override
   _$$TwoLevelWrapper2Props typedPropsFactory(Map backingMap) =>
-      new _$$TwoLevelWrapper2Props(backingMap);
+      _$$TwoLevelWrapper2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

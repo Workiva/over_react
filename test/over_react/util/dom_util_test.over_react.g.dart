@@ -10,8 +10,7 @@ part of 'dom_util_test.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $DomTestComponentFactory = registerComponent(
-    () => new _$DomTestComponent(),
+final $DomTestComponentFactory = registerComponent(() => _$DomTestComponent(),
     builderFactory: DomTest,
     componentClass: DomTestComponent,
     isWrapper: false,
@@ -37,8 +36,7 @@ class DomTestProps extends _$DomTestProps with _$DomTestPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForDomTestProps;
 }
 
-_$$DomTestProps _$DomTest([Map backingProps]) =>
-    new _$$DomTestProps(backingProps);
+_$$DomTestProps _$DomTest([Map backingProps]) => _$$DomTestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -57,7 +55,7 @@ class _$$DomTestProps extends _$DomTestProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -78,7 +76,7 @@ class _$$DomTestProps extends _$DomTestProps
 class _$DomTestComponent extends DomTestComponent {
   @override
   _$$DomTestProps typedPropsFactory(Map backingMap) =>
-      new _$$DomTestProps(backingMap);
+      _$$DomTestProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

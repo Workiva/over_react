@@ -11,7 +11,7 @@ part of 'counter.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $CounterComponentFactory = registerComponent2(
-  () => new _$CounterComponent(),
+  () => _$CounterComponent(),
   builderFactory: Counter,
   componentClass: CounterComponent,
   isWrapper: false,
@@ -104,8 +104,8 @@ class CounterProps extends _$CounterProps with _$CounterPropsAccessorsMixin {
 }
 
 _$$CounterProps _$Counter([Map backingProps]) => backingProps == null
-    ? new _$$CounterProps$JsMap(new JsBackedMap())
-    : new _$$CounterProps(backingProps);
+    ? _$$CounterProps$JsMap(JsBackedMap())
+    : _$$CounterProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -117,13 +117,13 @@ abstract class _$$CounterProps extends _$CounterProps
 
   factory _$$CounterProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$CounterProps$JsMap(backingMap);
+      return _$$CounterProps$JsMap(backingMap);
     } else {
-      return new _$$CounterProps$PlainMap(backingMap);
+      return _$$CounterProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -159,9 +159,9 @@ class _$$CounterProps$JsMap extends _$$CounterProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$CounterProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -195,11 +195,11 @@ class _$CounterComponent extends CounterComponent {
 
   @override
   _$$CounterProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$CounterProps$JsMap(backingMap);
+      _$$CounterProps$JsMap(backingMap);
 
   @override
   _$$CounterProps typedPropsFactory(Map backingMap) =>
-      new _$$CounterProps(backingMap);
+      _$$CounterProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

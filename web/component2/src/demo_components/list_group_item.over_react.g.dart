@@ -11,7 +11,7 @@ part of 'list_group_item.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ListGroupItemComponentFactory = registerComponent2(
-  () => new _$ListGroupItemComponent(),
+  () => _$ListGroupItemComponent(),
   builderFactory: ListGroupItem,
   componentClass: ListGroupItemComponent,
   isWrapper: false,
@@ -319,8 +319,8 @@ class ListGroupItemProps extends _$ListGroupItemProps
 
 _$$ListGroupItemProps _$ListGroupItem([Map backingProps]) =>
     backingProps == null
-        ? new _$$ListGroupItemProps$JsMap(new JsBackedMap())
-        : new _$$ListGroupItemProps(backingProps);
+        ? _$$ListGroupItemProps$JsMap(JsBackedMap())
+        : _$$ListGroupItemProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -332,13 +332,13 @@ abstract class _$$ListGroupItemProps extends _$ListGroupItemProps
 
   factory _$$ListGroupItemProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ListGroupItemProps$JsMap(backingMap);
+      return _$$ListGroupItemProps$JsMap(backingMap);
     } else {
-      return new _$$ListGroupItemProps$PlainMap(backingMap);
+      return _$$ListGroupItemProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -374,9 +374,9 @@ class _$$ListGroupItemProps$JsMap extends _$$ListGroupItemProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ListGroupItemProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -410,11 +410,11 @@ class _$ListGroupItemComponent extends ListGroupItemComponent {
 
   @override
   _$$ListGroupItemProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$ListGroupItemProps$JsMap(backingMap);
+      _$$ListGroupItemProps$JsMap(backingMap);
 
   @override
   _$$ListGroupItemProps typedPropsFactory(Map backingMap) =>
-      new _$$ListGroupItemProps(backingMap);
+      _$$ListGroupItemProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

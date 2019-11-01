@@ -10,7 +10,7 @@ part of 'private_props_ddc_bug.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $FooComponentFactory = registerComponent(() => new _$FooComponent(),
+final $FooComponentFactory = registerComponent(() => _$FooComponent(),
     builderFactory: Foo,
     componentClass: FooComponent,
     isWrapper: false,
@@ -48,7 +48,7 @@ class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForFooProps;
 }
 
-_$$FooProps _$Foo([Map backingProps]) => new _$$FooProps(backingProps);
+_$$FooProps _$Foo([Map backingProps]) => _$$FooProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -67,7 +67,7 @@ class _$$FooProps extends _$FooProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -87,7 +87,7 @@ class _$$FooProps extends _$FooProps
 // generated for the associated props class.
 class _$FooComponent extends FooComponent {
   @override
-  _$$FooProps typedPropsFactory(Map backingMap) => new _$$FooProps(backingMap);
+  _$$FooProps typedPropsFactory(Map backingMap) => _$$FooProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

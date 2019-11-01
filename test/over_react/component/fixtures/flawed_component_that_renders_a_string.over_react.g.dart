@@ -11,7 +11,7 @@ part of 'flawed_component_that_renders_a_string.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $FlawedWithStringChildComponentFactory = registerComponent(
-    () => new _$FlawedWithStringChildComponent(),
+    () => _$FlawedWithStringChildComponent(),
     builderFactory: FlawedWithStringChild,
     componentClass: FlawedWithStringChildComponent,
     isWrapper: false,
@@ -35,7 +35,7 @@ const PropsMeta _$metaForFlawedWithStringChildProps = PropsMeta(
 );
 
 _$$FlawedWithStringChildProps _$FlawedWithStringChild([Map backingProps]) =>
-    new _$$FlawedWithStringChildProps(backingProps);
+    _$$FlawedWithStringChildProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -54,7 +54,7 @@ class _$$FlawedWithStringChildProps extends _$FlawedWithStringChildProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -75,7 +75,7 @@ class _$$FlawedWithStringChildProps extends _$FlawedWithStringChildProps
 class _$FlawedWithStringChildComponent extends FlawedWithStringChildComponent {
   @override
   _$$FlawedWithStringChildProps typedPropsFactory(Map backingMap) =>
-      new _$$FlawedWithStringChildProps(backingMap);
+      _$$FlawedWithStringChildProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

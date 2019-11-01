@@ -11,7 +11,7 @@ part of 'dummy_composite_component.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestCompositeComponentComponentFactory = registerComponent(
-    () => new _$TestCompositeComponentComponent(),
+    () => _$TestCompositeComponentComponent(),
     builderFactory: TestCompositeComponent,
     componentClass: TestCompositeComponentComponent,
     isWrapper: false,
@@ -98,7 +98,7 @@ class TestCompositeComponentProps extends _$TestCompositeComponentProps
 }
 
 _$$TestCompositeComponentProps _$TestCompositeComponent([Map backingProps]) =>
-    new _$$TestCompositeComponentProps(backingProps);
+    _$$TestCompositeComponentProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -117,7 +117,7 @@ class _$$TestCompositeComponentProps extends _$TestCompositeComponentProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -139,7 +139,7 @@ class _$TestCompositeComponentComponent
     extends TestCompositeComponentComponent {
   @override
   _$$TestCompositeComponentProps typedPropsFactory(Map backingMap) =>
-      new _$$TestCompositeComponentProps(backingMap);
+      _$$TestCompositeComponentProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

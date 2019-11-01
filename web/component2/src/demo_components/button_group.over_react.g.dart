@@ -11,7 +11,7 @@ part of 'button_group.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ButtonGroupComponentFactory = registerComponent2(
-  () => new _$ButtonGroupComponent(),
+  () => _$ButtonGroupComponent(),
   builderFactory: ButtonGroup,
   componentClass: ButtonGroupComponent,
   isWrapper: false,
@@ -114,8 +114,8 @@ class ButtonGroupProps extends _$ButtonGroupProps
 }
 
 _$$ButtonGroupProps _$ButtonGroup([Map backingProps]) => backingProps == null
-    ? new _$$ButtonGroupProps$JsMap(new JsBackedMap())
-    : new _$$ButtonGroupProps(backingProps);
+    ? _$$ButtonGroupProps$JsMap(JsBackedMap())
+    : _$$ButtonGroupProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -127,13 +127,13 @@ abstract class _$$ButtonGroupProps extends _$ButtonGroupProps
 
   factory _$$ButtonGroupProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ButtonGroupProps$JsMap(backingMap);
+      return _$$ButtonGroupProps$JsMap(backingMap);
     } else {
-      return new _$$ButtonGroupProps$PlainMap(backingMap);
+      return _$$ButtonGroupProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -169,9 +169,9 @@ class _$$ButtonGroupProps$JsMap extends _$$ButtonGroupProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ButtonGroupProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -210,13 +210,13 @@ abstract class _$$ButtonGroupState extends _$ButtonGroupState
 
   factory _$$ButtonGroupState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ButtonGroupState$JsMap(backingMap);
+      return _$$ButtonGroupState$JsMap(backingMap);
     } else {
-      return new _$$ButtonGroupState$PlainMap(backingMap);
+      return _$$ButtonGroupState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -243,9 +243,9 @@ class _$$ButtonGroupState$JsMap extends _$$ButtonGroupState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ButtonGroupState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -279,11 +279,11 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
 
   @override
   _$$ButtonGroupProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$ButtonGroupProps$JsMap(backingMap);
+      _$$ButtonGroupProps$JsMap(backingMap);
 
   @override
   _$$ButtonGroupProps typedPropsFactory(Map backingMap) =>
-      new _$$ButtonGroupProps(backingMap);
+      _$$ButtonGroupProps(backingMap);
 
   _$$ButtonGroupState$JsMap _cachedTypedState;
   @override
@@ -301,11 +301,11 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
 
   @override
   _$$ButtonGroupState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      new _$$ButtonGroupState$JsMap(backingMap);
+      _$$ButtonGroupState$JsMap(backingMap);
 
   @override
   _$$ButtonGroupState typedStateFactory(Map backingMap) =>
-      new _$$ButtonGroupState(backingMap);
+      _$$ButtonGroupState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

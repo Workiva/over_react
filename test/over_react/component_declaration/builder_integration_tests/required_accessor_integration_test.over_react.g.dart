@@ -11,7 +11,7 @@ part of 'required_accessor_integration_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ComponentTestComponentFactory = registerComponent(
-    () => new _$ComponentTestComponent(),
+    () => _$ComponentTestComponent(),
     builderFactory: ComponentTest,
     componentClass: ComponentTestComponent,
     isWrapper: false,
@@ -92,7 +92,7 @@ class ComponentTestProps extends _$ComponentTestProps
 }
 
 _$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
-    new _$$ComponentTestProps(backingProps);
+    _$$ComponentTestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -111,7 +111,7 @@ class _$$ComponentTestProps extends _$ComponentTestProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -132,7 +132,7 @@ class _$$ComponentTestProps extends _$ComponentTestProps
 class _$ComponentTestComponent extends ComponentTestComponent {
   @override
   _$$ComponentTestProps typedPropsFactory(Map backingMap) =>
-      new _$$ComponentTestProps(backingMap);
+      _$$ComponentTestProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

@@ -11,7 +11,7 @@ part of 'abstract_inheritance.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $SubComponentFactory = registerComponent2(
-  () => new _$SubComponent(),
+  () => _$SubComponent(),
   builderFactory: Sub,
   componentClass: SubComponent,
   isWrapper: false,
@@ -50,8 +50,8 @@ class SubProps extends _$SubProps with _$SubPropsAccessorsMixin {
 }
 
 _$$SubProps _$Sub([Map backingProps]) => backingProps == null
-    ? new _$$SubProps$JsMap(new JsBackedMap())
-    : new _$$SubProps(backingProps);
+    ? _$$SubProps$JsMap(JsBackedMap())
+    : _$$SubProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -63,13 +63,13 @@ abstract class _$$SubProps extends _$SubProps
 
   factory _$$SubProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$SubProps$JsMap(backingMap);
+      return _$$SubProps$JsMap(backingMap);
     } else {
-      return new _$$SubProps$PlainMap(backingMap);
+      return _$$SubProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -105,9 +105,9 @@ class _$$SubProps$JsMap extends _$$SubProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$SubProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -156,13 +156,13 @@ abstract class _$$SubState extends _$SubState
 
   factory _$$SubState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$SubState$JsMap(backingMap);
+      return _$$SubState$JsMap(backingMap);
     } else {
-      return new _$$SubState$PlainMap(backingMap);
+      return _$$SubState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -189,9 +189,9 @@ class _$$SubState$JsMap extends _$$SubState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$SubState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -225,10 +225,10 @@ class _$SubComponent extends SubComponent {
 
   @override
   _$$SubProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$SubProps$JsMap(backingMap);
+      _$$SubProps$JsMap(backingMap);
 
   @override
-  _$$SubProps typedPropsFactory(Map backingMap) => new _$$SubProps(backingMap);
+  _$$SubProps typedPropsFactory(Map backingMap) => _$$SubProps(backingMap);
 
   _$$SubState$JsMap _cachedTypedState;
   @override
@@ -246,10 +246,10 @@ class _$SubComponent extends SubComponent {
 
   @override
   _$$SubState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      new _$$SubState$JsMap(backingMap);
+      _$$SubState$JsMap(backingMap);
 
   @override
-  _$$SubState typedStateFactory(Map backingMap) => new _$$SubState(backingMap);
+  _$$SubState typedStateFactory(Map backingMap) => _$$SubState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

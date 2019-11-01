@@ -10,7 +10,7 @@ part of 'tag.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $TagComponentFactory = registerComponent(() => new _$TagComponent(),
+final $TagComponentFactory = registerComponent(() => _$TagComponent(),
     builderFactory: Tag,
     componentClass: TagComponent,
     isWrapper: false,
@@ -91,7 +91,7 @@ class TagProps extends _$TagProps with _$TagPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTagProps;
 }
 
-_$$TagProps _$Tag([Map backingProps]) => new _$$TagProps(backingProps);
+_$$TagProps _$Tag([Map backingProps]) => _$$TagProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -110,7 +110,7 @@ class _$$TagProps extends _$TagProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -130,7 +130,7 @@ class _$$TagProps extends _$TagProps
 // generated for the associated props class.
 class _$TagComponent extends TagComponent {
   @override
-  _$$TagProps typedPropsFactory(Map backingMap) => new _$$TagProps(backingMap);
+  _$$TagProps typedPropsFactory(Map backingMap) => _$$TagProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

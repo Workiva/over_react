@@ -11,7 +11,7 @@ part of 'basic_child_component.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $BasicChildComponentFactory = registerComponent2(
-  () => new _$BasicChildComponent(),
+  () => _$BasicChildComponent(),
   builderFactory: BasicChild,
   componentClass: BasicChildComponent,
   isWrapper: false,
@@ -40,8 +40,8 @@ class BasicChildProps extends _$BasicChildProps
 }
 
 _$$BasicChildProps _$BasicChild([Map backingProps]) => backingProps == null
-    ? new _$$BasicChildProps$JsMap(new JsBackedMap())
-    : new _$$BasicChildProps(backingProps);
+    ? _$$BasicChildProps$JsMap(JsBackedMap())
+    : _$$BasicChildProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -53,13 +53,13 @@ abstract class _$$BasicChildProps extends _$BasicChildProps
 
   factory _$$BasicChildProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$BasicChildProps$JsMap(backingMap);
+      return _$$BasicChildProps$JsMap(backingMap);
     } else {
-      return new _$$BasicChildProps$PlainMap(backingMap);
+      return _$$BasicChildProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -95,9 +95,9 @@ class _$$BasicChildProps$JsMap extends _$$BasicChildProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$BasicChildProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -131,11 +131,11 @@ class _$BasicChildComponent extends BasicChildComponent {
 
   @override
   _$$BasicChildProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$BasicChildProps$JsMap(backingMap);
+      _$$BasicChildProps$JsMap(backingMap);
 
   @override
   _$$BasicChildProps typedPropsFactory(Map backingMap) =>
-      new _$$BasicChildProps(backingMap);
+      _$$BasicChildProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

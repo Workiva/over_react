@@ -11,7 +11,7 @@ part of 'component_integration_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ComponentTestComponentFactory = registerComponent2(
-  () => new _$ComponentTestComponent(),
+  () => _$ComponentTestComponent(),
   builderFactory: ComponentTest,
   componentClass: ComponentTestComponent,
   isWrapper: false,
@@ -180,8 +180,8 @@ class ComponentTestProps extends _$ComponentTestProps
 
 _$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
     backingProps == null
-        ? new _$$ComponentTestProps$JsMap(new JsBackedMap())
-        : new _$$ComponentTestProps(backingProps);
+        ? _$$ComponentTestProps$JsMap(JsBackedMap())
+        : _$$ComponentTestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -193,13 +193,13 @@ abstract class _$$ComponentTestProps extends _$ComponentTestProps
 
   factory _$$ComponentTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ComponentTestProps$JsMap(backingMap);
+      return _$$ComponentTestProps$JsMap(backingMap);
     } else {
-      return new _$$ComponentTestProps$PlainMap(backingMap);
+      return _$$ComponentTestProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -235,9 +235,9 @@ class _$$ComponentTestProps$JsMap extends _$$ComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ComponentTestProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -271,11 +271,11 @@ class _$ComponentTestComponent extends ComponentTestComponent {
 
   @override
   _$$ComponentTestProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$ComponentTestProps$JsMap(backingMap);
+      _$$ComponentTestProps$JsMap(backingMap);
 
   @override
   _$$ComponentTestProps typedPropsFactory(Map backingMap) =>
-      new _$$ComponentTestProps(backingMap);
+      _$$ComponentTestProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -293,7 +293,7 @@ class _$ComponentTestComponent extends ComponentTestComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $IsErrorBoundaryComponentFactory = registerComponent2(
-  () => new _$IsErrorBoundaryComponent(),
+  () => _$IsErrorBoundaryComponent(),
   builderFactory: IsErrorBoundary,
   componentClass: IsErrorBoundaryComponent,
   isWrapper: false,
@@ -325,8 +325,8 @@ class IsErrorBoundaryProps extends _$IsErrorBoundaryProps
 
 _$$IsErrorBoundaryProps _$IsErrorBoundary([Map backingProps]) =>
     backingProps == null
-        ? new _$$IsErrorBoundaryProps$JsMap(new JsBackedMap())
-        : new _$$IsErrorBoundaryProps(backingProps);
+        ? _$$IsErrorBoundaryProps$JsMap(JsBackedMap())
+        : _$$IsErrorBoundaryProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -338,13 +338,13 @@ abstract class _$$IsErrorBoundaryProps extends _$IsErrorBoundaryProps
 
   factory _$$IsErrorBoundaryProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$IsErrorBoundaryProps$JsMap(backingMap);
+      return _$$IsErrorBoundaryProps$JsMap(backingMap);
     } else {
-      return new _$$IsErrorBoundaryProps$PlainMap(backingMap);
+      return _$$IsErrorBoundaryProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -380,9 +380,9 @@ class _$$IsErrorBoundaryProps$JsMap extends _$$IsErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$IsErrorBoundaryProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -416,11 +416,11 @@ class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
 
   @override
   _$$IsErrorBoundaryProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$IsErrorBoundaryProps$JsMap(backingMap);
+      _$$IsErrorBoundaryProps$JsMap(backingMap);
 
   @override
   _$$IsErrorBoundaryProps typedPropsFactory(Map backingMap) =>
-      new _$$IsErrorBoundaryProps(backingMap);
+      _$$IsErrorBoundaryProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -438,7 +438,7 @@ class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $IsNotErrorBoundaryComponentFactory = registerComponent2(
-  () => new _$IsNotErrorBoundaryComponent(),
+  () => _$IsNotErrorBoundaryComponent(),
   builderFactory: IsNotErrorBoundary,
   componentClass: IsNotErrorBoundaryComponent,
   isWrapper: false,
@@ -469,8 +469,8 @@ class IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
 
 _$$IsNotErrorBoundaryProps _$IsNotErrorBoundary([Map backingProps]) =>
     backingProps == null
-        ? new _$$IsNotErrorBoundaryProps$JsMap(new JsBackedMap())
-        : new _$$IsNotErrorBoundaryProps(backingProps);
+        ? _$$IsNotErrorBoundaryProps$JsMap(JsBackedMap())
+        : _$$IsNotErrorBoundaryProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -482,13 +482,13 @@ abstract class _$$IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
 
   factory _$$IsNotErrorBoundaryProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$IsNotErrorBoundaryProps$JsMap(backingMap);
+      return _$$IsNotErrorBoundaryProps$JsMap(backingMap);
     } else {
-      return new _$$IsNotErrorBoundaryProps$PlainMap(backingMap);
+      return _$$IsNotErrorBoundaryProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -524,9 +524,9 @@ class _$$IsNotErrorBoundaryProps$JsMap extends _$$IsNotErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$IsNotErrorBoundaryProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -561,11 +561,11 @@ class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
   @override
   _$$IsNotErrorBoundaryProps$JsMap typedPropsFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$IsNotErrorBoundaryProps$JsMap(backingMap);
+      _$$IsNotErrorBoundaryProps$JsMap(backingMap);
 
   @override
   _$$IsNotErrorBoundaryProps typedPropsFactory(Map backingMap) =>
-      new _$$IsNotErrorBoundaryProps(backingMap);
+      _$$IsNotErrorBoundaryProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

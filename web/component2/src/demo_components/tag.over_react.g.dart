@@ -11,7 +11,7 @@ part of 'tag.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TagComponentFactory = registerComponent2(
-  () => new _$TagComponent(),
+  () => _$TagComponent(),
   builderFactory: Tag,
   componentClass: TagComponent,
   isWrapper: false,
@@ -94,8 +94,8 @@ class TagProps extends _$TagProps with _$TagPropsAccessorsMixin {
 }
 
 _$$TagProps _$Tag([Map backingProps]) => backingProps == null
-    ? new _$$TagProps$JsMap(new JsBackedMap())
-    : new _$$TagProps(backingProps);
+    ? _$$TagProps$JsMap(JsBackedMap())
+    : _$$TagProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -107,13 +107,13 @@ abstract class _$$TagProps extends _$TagProps
 
   factory _$$TagProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TagProps$JsMap(backingMap);
+      return _$$TagProps$JsMap(backingMap);
     } else {
-      return new _$$TagProps$PlainMap(backingMap);
+      return _$$TagProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -149,9 +149,9 @@ class _$$TagProps$JsMap extends _$$TagProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TagProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -185,10 +185,10 @@ class _$TagComponent extends TagComponent {
 
   @override
   _$$TagProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$TagProps$JsMap(backingMap);
+      _$$TagProps$JsMap(backingMap);
 
   @override
-  _$$TagProps typedPropsFactory(Map backingMap) => new _$$TagProps(backingMap);
+  _$$TagProps typedPropsFactory(Map backingMap) => _$$TagProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

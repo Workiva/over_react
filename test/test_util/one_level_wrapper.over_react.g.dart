@@ -11,7 +11,7 @@ part of 'one_level_wrapper.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $OneLevelWrapperComponentFactory = registerComponent(
-    () => new _$OneLevelWrapperComponent(),
+    () => _$OneLevelWrapperComponent(),
     builderFactory: OneLevelWrapper,
     componentClass: OneLevelWrapperComponent,
     isWrapper: true,
@@ -40,7 +40,7 @@ class OneLevelWrapperProps extends _$OneLevelWrapperProps
 }
 
 _$$OneLevelWrapperProps _$OneLevelWrapper([Map backingProps]) =>
-    new _$$OneLevelWrapperProps(backingProps);
+    _$$OneLevelWrapperProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -59,7 +59,7 @@ class _$$OneLevelWrapperProps extends _$OneLevelWrapperProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -80,7 +80,7 @@ class _$$OneLevelWrapperProps extends _$OneLevelWrapperProps
 class _$OneLevelWrapperComponent extends OneLevelWrapperComponent {
   @override
   _$$OneLevelWrapperProps typedPropsFactory(Map backingMap) =>
-      new _$$OneLevelWrapperProps(backingMap);
+      _$$OneLevelWrapperProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

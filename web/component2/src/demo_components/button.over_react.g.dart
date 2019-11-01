@@ -11,7 +11,7 @@ part of 'button.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ButtonComponentFactory = registerComponent2(
-  () => new _$ButtonComponent(),
+  () => _$ButtonComponent(),
   builderFactory: Button,
   componentClass: ButtonComponent,
   isWrapper: false,
@@ -258,8 +258,8 @@ class ButtonProps extends _$ButtonProps with _$ButtonPropsAccessorsMixin {
 }
 
 _$$ButtonProps _$Button([Map backingProps]) => backingProps == null
-    ? new _$$ButtonProps$JsMap(new JsBackedMap())
-    : new _$$ButtonProps(backingProps);
+    ? _$$ButtonProps$JsMap(JsBackedMap())
+    : _$$ButtonProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -271,13 +271,13 @@ abstract class _$$ButtonProps extends _$ButtonProps
 
   factory _$$ButtonProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ButtonProps$JsMap(backingMap);
+      return _$$ButtonProps$JsMap(backingMap);
     } else {
-      return new _$$ButtonProps$PlainMap(backingMap);
+      return _$$ButtonProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -313,9 +313,9 @@ class _$$ButtonProps$JsMap extends _$$ButtonProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ButtonProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -353,13 +353,13 @@ abstract class _$$ButtonState extends _$ButtonState
 
   factory _$$ButtonState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ButtonState$JsMap(backingMap);
+      return _$$ButtonState$JsMap(backingMap);
     } else {
-      return new _$$ButtonState$PlainMap(backingMap);
+      return _$$ButtonState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -386,9 +386,9 @@ class _$$ButtonState$JsMap extends _$$ButtonState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ButtonState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -422,11 +422,11 @@ class _$ButtonComponent extends ButtonComponent {
 
   @override
   _$$ButtonProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$ButtonProps$JsMap(backingMap);
+      _$$ButtonProps$JsMap(backingMap);
 
   @override
   _$$ButtonProps typedPropsFactory(Map backingMap) =>
-      new _$$ButtonProps(backingMap);
+      _$$ButtonProps(backingMap);
 
   _$$ButtonState$JsMap _cachedTypedState;
   @override
@@ -444,11 +444,11 @@ class _$ButtonComponent extends ButtonComponent {
 
   @override
   _$$ButtonState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      new _$$ButtonState$JsMap(backingMap);
+      _$$ButtonState$JsMap(backingMap);
 
   @override
   _$$ButtonState typedStateFactory(Map backingMap) =>
-      new _$$ButtonState(backingMap);
+      _$$ButtonState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

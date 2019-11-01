@@ -11,7 +11,7 @@ part of 'generic_inheritance_sub.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $GenericSubComponentFactory = registerComponent2(
-  () => new _$GenericSubComponent(),
+  () => _$GenericSubComponent(),
   builderFactory: GenericSub,
   componentClass: GenericSubComponent,
   isWrapper: false,
@@ -54,8 +54,8 @@ class GenericSubProps extends _$GenericSubProps
 }
 
 _$$GenericSubProps _$GenericSub([Map backingProps]) => backingProps == null
-    ? new _$$GenericSubProps$JsMap(new JsBackedMap())
-    : new _$$GenericSubProps(backingProps);
+    ? _$$GenericSubProps$JsMap(JsBackedMap())
+    : _$$GenericSubProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -67,13 +67,13 @@ abstract class _$$GenericSubProps extends _$GenericSubProps
 
   factory _$$GenericSubProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$GenericSubProps$JsMap(backingMap);
+      return _$$GenericSubProps$JsMap(backingMap);
     } else {
-      return new _$$GenericSubProps$PlainMap(backingMap);
+      return _$$GenericSubProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -109,9 +109,9 @@ class _$$GenericSubProps$JsMap extends _$$GenericSubProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$GenericSubProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -165,13 +165,13 @@ abstract class _$$GenericSubState extends _$GenericSubState
 
   factory _$$GenericSubState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$GenericSubState$JsMap(backingMap);
+      return _$$GenericSubState$JsMap(backingMap);
     } else {
-      return new _$$GenericSubState$PlainMap(backingMap);
+      return _$$GenericSubState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -198,9 +198,9 @@ class _$$GenericSubState$JsMap extends _$$GenericSubState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$GenericSubState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -234,11 +234,11 @@ class _$GenericSubComponent extends GenericSubComponent {
 
   @override
   _$$GenericSubProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$GenericSubProps$JsMap(backingMap);
+      _$$GenericSubProps$JsMap(backingMap);
 
   @override
   _$$GenericSubProps typedPropsFactory(Map backingMap) =>
-      new _$$GenericSubProps(backingMap);
+      _$$GenericSubProps(backingMap);
 
   _$$GenericSubState$JsMap _cachedTypedState;
   @override
@@ -256,11 +256,11 @@ class _$GenericSubComponent extends GenericSubComponent {
 
   @override
   _$$GenericSubState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      new _$$GenericSubState$JsMap(backingMap);
+      _$$GenericSubState$JsMap(backingMap);
 
   @override
   _$$GenericSubState typedStateFactory(Map backingMap) =>
-      new _$$GenericSubState(backingMap);
+      _$$GenericSubState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

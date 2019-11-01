@@ -351,8 +351,7 @@ T getDartComponent<T extends react.Component>(/* ReactElement|ReactComponent|Ele
 ///
 /// The component instance will be of the type:
 ///
-// ignore: deprecated_member_use
-///   * [react.Component] for Dart components
+///   * [react.Component2] for Dart components
 ///   * [ReactComponent] for JS composite components
 ///   * [Element] for DOM components
 ///

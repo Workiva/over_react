@@ -11,7 +11,7 @@ part of 'flux_component_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestBasicComponentFactory = registerComponent2(
-  () => new _$TestBasicComponent(),
+  () => _$TestBasicComponent(),
   builderFactory: TestBasic,
   componentClass: TestBasicComponent,
   isWrapper: false,
@@ -40,8 +40,8 @@ class TestBasicProps extends _$TestBasicProps
 }
 
 _$$TestBasicProps _$TestBasic([Map backingProps]) => backingProps == null
-    ? new _$$TestBasicProps$JsMap(new JsBackedMap())
-    : new _$$TestBasicProps(backingProps);
+    ? _$$TestBasicProps$JsMap(JsBackedMap())
+    : _$$TestBasicProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -53,13 +53,13 @@ abstract class _$$TestBasicProps extends _$TestBasicProps
 
   factory _$$TestBasicProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestBasicProps$JsMap(backingMap);
+      return _$$TestBasicProps$JsMap(backingMap);
     } else {
-      return new _$$TestBasicProps$PlainMap(backingMap);
+      return _$$TestBasicProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -95,9 +95,9 @@ class _$$TestBasicProps$JsMap extends _$$TestBasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestBasicProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -131,11 +131,11 @@ class _$TestBasicComponent extends TestBasicComponent {
 
   @override
   _$$TestBasicProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$TestBasicProps$JsMap(backingMap);
+      _$$TestBasicProps$JsMap(backingMap);
 
   @override
   _$$TestBasicProps typedPropsFactory(Map backingMap) =>
-      new _$$TestBasicProps(backingMap);
+      _$$TestBasicProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -153,7 +153,7 @@ class _$TestBasicComponent extends TestBasicComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestHandlerLifecycleComponentFactory = registerComponent2(
-  () => new _$TestHandlerLifecycleComponent(),
+  () => _$TestHandlerLifecycleComponent(),
   builderFactory: TestHandlerLifecycle,
   componentClass: TestHandlerLifecycleComponent,
   isWrapper: false,
@@ -184,8 +184,8 @@ class TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
 
 _$$TestHandlerLifecycleProps _$TestHandlerLifecycle([Map backingProps]) =>
     backingProps == null
-        ? new _$$TestHandlerLifecycleProps$JsMap(new JsBackedMap())
-        : new _$$TestHandlerLifecycleProps(backingProps);
+        ? _$$TestHandlerLifecycleProps$JsMap(JsBackedMap())
+        : _$$TestHandlerLifecycleProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -197,13 +197,13 @@ abstract class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
 
   factory _$$TestHandlerLifecycleProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestHandlerLifecycleProps$JsMap(backingMap);
+      return _$$TestHandlerLifecycleProps$JsMap(backingMap);
     } else {
-      return new _$$TestHandlerLifecycleProps$PlainMap(backingMap);
+      return _$$TestHandlerLifecycleProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -240,9 +240,9 @@ class _$$TestHandlerLifecycleProps$JsMap extends _$$TestHandlerLifecycleProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestHandlerLifecycleProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -277,11 +277,11 @@ class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
   @override
   _$$TestHandlerLifecycleProps$JsMap typedPropsFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$TestHandlerLifecycleProps$JsMap(backingMap);
+      _$$TestHandlerLifecycleProps$JsMap(backingMap);
 
   @override
   _$$TestHandlerLifecycleProps typedPropsFactory(Map backingMap) =>
-      new _$$TestHandlerLifecycleProps(backingMap);
+      _$$TestHandlerLifecycleProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -299,7 +299,7 @@ class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestHandlerPrecedenceComponentFactory = registerComponent2(
-  () => new _$TestHandlerPrecedenceComponent(),
+  () => _$TestHandlerPrecedenceComponent(),
   builderFactory: TestHandlerPrecedence,
   componentClass: TestHandlerPrecedenceComponent,
   isWrapper: false,
@@ -330,8 +330,8 @@ class TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
 
 _$$TestHandlerPrecedenceProps _$TestHandlerPrecedence([Map backingProps]) =>
     backingProps == null
-        ? new _$$TestHandlerPrecedenceProps$JsMap(new JsBackedMap())
-        : new _$$TestHandlerPrecedenceProps(backingProps);
+        ? _$$TestHandlerPrecedenceProps$JsMap(JsBackedMap())
+        : _$$TestHandlerPrecedenceProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -344,13 +344,13 @@ abstract class _$$TestHandlerPrecedenceProps
 
   factory _$$TestHandlerPrecedenceProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestHandlerPrecedenceProps$JsMap(backingMap);
+      return _$$TestHandlerPrecedenceProps$JsMap(backingMap);
     } else {
-      return new _$$TestHandlerPrecedenceProps$PlainMap(backingMap);
+      return _$$TestHandlerPrecedenceProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -388,9 +388,9 @@ class _$$TestHandlerPrecedenceProps$JsMap
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestHandlerPrecedenceProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -425,11 +425,11 @@ class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
   @override
   _$$TestHandlerPrecedenceProps$JsMap typedPropsFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$TestHandlerPrecedenceProps$JsMap(backingMap);
+      _$$TestHandlerPrecedenceProps$JsMap(backingMap);
 
   @override
   _$$TestHandlerPrecedenceProps typedPropsFactory(Map backingMap) =>
-      new _$$TestHandlerPrecedenceProps(backingMap);
+      _$$TestHandlerPrecedenceProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -447,7 +447,7 @@ class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestPropValidationComponentFactory = registerComponent2(
-  () => new _$TestPropValidationComponent(),
+  () => _$TestPropValidationComponent(),
   builderFactory: TestPropValidation,
   componentClass: TestPropValidationComponent,
   isWrapper: false,
@@ -498,8 +498,8 @@ class TestPropValidationProps extends _$TestPropValidationProps
 
 _$$TestPropValidationProps _$TestPropValidation([Map backingProps]) =>
     backingProps == null
-        ? new _$$TestPropValidationProps$JsMap(new JsBackedMap())
-        : new _$$TestPropValidationProps(backingProps);
+        ? _$$TestPropValidationProps$JsMap(JsBackedMap())
+        : _$$TestPropValidationProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -511,13 +511,13 @@ abstract class _$$TestPropValidationProps extends _$TestPropValidationProps
 
   factory _$$TestPropValidationProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestPropValidationProps$JsMap(backingMap);
+      return _$$TestPropValidationProps$JsMap(backingMap);
     } else {
-      return new _$$TestPropValidationProps$PlainMap(backingMap);
+      return _$$TestPropValidationProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -553,9 +553,9 @@ class _$$TestPropValidationProps$JsMap extends _$$TestPropValidationProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestPropValidationProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -590,11 +590,11 @@ class _$TestPropValidationComponent extends TestPropValidationComponent {
   @override
   _$$TestPropValidationProps$JsMap typedPropsFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$TestPropValidationProps$JsMap(backingMap);
+      _$$TestPropValidationProps$JsMap(backingMap);
 
   @override
   _$$TestPropValidationProps typedPropsFactory(Map backingMap) =>
-      new _$$TestPropValidationProps(backingMap);
+      _$$TestPropValidationProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -612,7 +612,7 @@ class _$TestPropValidationComponent extends TestPropValidationComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestRedrawOnComponentFactory = registerComponent2(
-  () => new _$TestRedrawOnComponent(),
+  () => _$TestRedrawOnComponent(),
   builderFactory: TestRedrawOn,
   componentClass: TestRedrawOnComponent,
   isWrapper: false,
@@ -642,8 +642,8 @@ class TestRedrawOnProps extends _$TestRedrawOnProps
 }
 
 _$$TestRedrawOnProps _$TestRedrawOn([Map backingProps]) => backingProps == null
-    ? new _$$TestRedrawOnProps$JsMap(new JsBackedMap())
-    : new _$$TestRedrawOnProps(backingProps);
+    ? _$$TestRedrawOnProps$JsMap(JsBackedMap())
+    : _$$TestRedrawOnProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -655,13 +655,13 @@ abstract class _$$TestRedrawOnProps extends _$TestRedrawOnProps
 
   factory _$$TestRedrawOnProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestRedrawOnProps$JsMap(backingMap);
+      return _$$TestRedrawOnProps$JsMap(backingMap);
     } else {
-      return new _$$TestRedrawOnProps$PlainMap(backingMap);
+      return _$$TestRedrawOnProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -697,9 +697,9 @@ class _$$TestRedrawOnProps$JsMap extends _$$TestRedrawOnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestRedrawOnProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -733,11 +733,11 @@ class _$TestRedrawOnComponent extends TestRedrawOnComponent {
 
   @override
   _$$TestRedrawOnProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$TestRedrawOnProps$JsMap(backingMap);
+      _$$TestRedrawOnProps$JsMap(backingMap);
 
   @override
   _$$TestRedrawOnProps typedPropsFactory(Map backingMap) =>
-      new _$$TestRedrawOnProps(backingMap);
+      _$$TestRedrawOnProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -755,7 +755,7 @@ class _$TestRedrawOnComponent extends TestRedrawOnComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStoreHandlersComponentFactory = registerComponent2(
-  () => new _$TestStoreHandlersComponent(),
+  () => _$TestStoreHandlersComponent(),
   builderFactory: TestStoreHandlers,
   componentClass: TestStoreHandlersComponent,
   isWrapper: false,
@@ -786,8 +786,8 @@ class TestStoreHandlersProps extends _$TestStoreHandlersProps
 
 _$$TestStoreHandlersProps _$TestStoreHandlers([Map backingProps]) =>
     backingProps == null
-        ? new _$$TestStoreHandlersProps$JsMap(new JsBackedMap())
-        : new _$$TestStoreHandlersProps(backingProps);
+        ? _$$TestStoreHandlersProps$JsMap(JsBackedMap())
+        : _$$TestStoreHandlersProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -799,13 +799,13 @@ abstract class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
 
   factory _$$TestStoreHandlersProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestStoreHandlersProps$JsMap(backingMap);
+      return _$$TestStoreHandlersProps$JsMap(backingMap);
     } else {
-      return new _$$TestStoreHandlersProps$PlainMap(backingMap);
+      return _$$TestStoreHandlersProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -841,9 +841,9 @@ class _$$TestStoreHandlersProps$JsMap extends _$$TestStoreHandlersProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStoreHandlersProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -877,11 +877,11 @@ class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
 
   @override
   _$$TestStoreHandlersProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$TestStoreHandlersProps$JsMap(backingMap);
+      _$$TestStoreHandlersProps$JsMap(backingMap);
 
   @override
   _$$TestStoreHandlersProps typedPropsFactory(Map backingMap) =>
-      new _$$TestStoreHandlersProps(backingMap);
+      _$$TestStoreHandlersProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -899,7 +899,7 @@ class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulBasicComponentFactory = registerComponent2(
-  () => new _$TestStatefulBasicComponent(),
+  () => _$TestStatefulBasicComponent(),
   builderFactory: TestStatefulBasic,
   componentClass: TestStatefulBasicComponent,
   isWrapper: false,
@@ -930,8 +930,8 @@ class TestStatefulBasicProps extends _$TestStatefulBasicProps
 
 _$$TestStatefulBasicProps _$TestStatefulBasic([Map backingProps]) =>
     backingProps == null
-        ? new _$$TestStatefulBasicProps$JsMap(new JsBackedMap())
-        : new _$$TestStatefulBasicProps(backingProps);
+        ? _$$TestStatefulBasicProps$JsMap(JsBackedMap())
+        : _$$TestStatefulBasicProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -943,13 +943,13 @@ abstract class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
 
   factory _$$TestStatefulBasicProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestStatefulBasicProps$JsMap(backingMap);
+      return _$$TestStatefulBasicProps$JsMap(backingMap);
     } else {
-      return new _$$TestStatefulBasicProps$PlainMap(backingMap);
+      return _$$TestStatefulBasicProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -985,9 +985,9 @@ class _$$TestStatefulBasicProps$JsMap extends _$$TestStatefulBasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulBasicProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -1027,13 +1027,13 @@ abstract class _$$TestStatefulBasicState extends _$TestStatefulBasicState
 
   factory _$$TestStatefulBasicState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestStatefulBasicState$JsMap(backingMap);
+      return _$$TestStatefulBasicState$JsMap(backingMap);
     } else {
-      return new _$$TestStatefulBasicState$PlainMap(backingMap);
+      return _$$TestStatefulBasicState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -1060,9 +1060,9 @@ class _$$TestStatefulBasicState$JsMap extends _$$TestStatefulBasicState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulBasicState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -1096,11 +1096,11 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
 
   @override
   _$$TestStatefulBasicProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$TestStatefulBasicProps$JsMap(backingMap);
+      _$$TestStatefulBasicProps$JsMap(backingMap);
 
   @override
   _$$TestStatefulBasicProps typedPropsFactory(Map backingMap) =>
-      new _$$TestStatefulBasicProps(backingMap);
+      _$$TestStatefulBasicProps(backingMap);
 
   _$$TestStatefulBasicState$JsMap _cachedTypedState;
   @override
@@ -1118,11 +1118,11 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
 
   @override
   _$$TestStatefulBasicState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      new _$$TestStatefulBasicState$JsMap(backingMap);
+      _$$TestStatefulBasicState$JsMap(backingMap);
 
   @override
   _$$TestStatefulBasicState typedStateFactory(Map backingMap) =>
-      new _$$TestStatefulBasicState(backingMap);
+      _$$TestStatefulBasicState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -1140,7 +1140,7 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulHandlerLifecycleComponentFactory = registerComponent2(
-  () => new _$TestStatefulHandlerLifecycleComponent(),
+  () => _$TestStatefulHandlerLifecycleComponent(),
   builderFactory: TestStatefulHandlerLifecycle,
   componentClass: TestStatefulHandlerLifecycleComponent,
   isWrapper: false,
@@ -1173,8 +1173,8 @@ class TestStatefulHandlerLifecycleProps
 _$$TestStatefulHandlerLifecycleProps _$TestStatefulHandlerLifecycle(
         [Map backingProps]) =>
     backingProps == null
-        ? new _$$TestStatefulHandlerLifecycleProps$JsMap(new JsBackedMap())
-        : new _$$TestStatefulHandlerLifecycleProps(backingProps);
+        ? _$$TestStatefulHandlerLifecycleProps$JsMap(JsBackedMap())
+        : _$$TestStatefulHandlerLifecycleProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -1187,13 +1187,13 @@ abstract class _$$TestStatefulHandlerLifecycleProps
 
   factory _$$TestStatefulHandlerLifecycleProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestStatefulHandlerLifecycleProps$JsMap(backingMap);
+      return _$$TestStatefulHandlerLifecycleProps$JsMap(backingMap);
     } else {
-      return new _$$TestStatefulHandlerLifecycleProps$PlainMap(backingMap);
+      return _$$TestStatefulHandlerLifecycleProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -1231,9 +1231,9 @@ class _$$TestStatefulHandlerLifecycleProps$JsMap
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulHandlerLifecycleProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -1275,13 +1275,13 @@ abstract class _$$TestStatefulHandlerLifecycleState
 
   factory _$$TestStatefulHandlerLifecycleState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestStatefulHandlerLifecycleState$JsMap(backingMap);
+      return _$$TestStatefulHandlerLifecycleState$JsMap(backingMap);
     } else {
-      return new _$$TestStatefulHandlerLifecycleState$PlainMap(backingMap);
+      return _$$TestStatefulHandlerLifecycleState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -1310,9 +1310,9 @@ class _$$TestStatefulHandlerLifecycleState$JsMap
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulHandlerLifecycleState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -1348,11 +1348,11 @@ class _$TestStatefulHandlerLifecycleComponent
   @override
   _$$TestStatefulHandlerLifecycleProps$JsMap typedPropsFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$TestStatefulHandlerLifecycleProps$JsMap(backingMap);
+      _$$TestStatefulHandlerLifecycleProps$JsMap(backingMap);
 
   @override
   _$$TestStatefulHandlerLifecycleProps typedPropsFactory(Map backingMap) =>
-      new _$$TestStatefulHandlerLifecycleProps(backingMap);
+      _$$TestStatefulHandlerLifecycleProps(backingMap);
 
   _$$TestStatefulHandlerLifecycleState$JsMap _cachedTypedState;
   @override
@@ -1371,11 +1371,11 @@ class _$TestStatefulHandlerLifecycleComponent
   @override
   _$$TestStatefulHandlerLifecycleState$JsMap typedStateFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$TestStatefulHandlerLifecycleState$JsMap(backingMap);
+      _$$TestStatefulHandlerLifecycleState$JsMap(backingMap);
 
   @override
   _$$TestStatefulHandlerLifecycleState typedStateFactory(Map backingMap) =>
-      new _$$TestStatefulHandlerLifecycleState(backingMap);
+      _$$TestStatefulHandlerLifecycleState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -1393,7 +1393,7 @@ class _$TestStatefulHandlerLifecycleComponent
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulHandlerPrecedenceComponentFactory = registerComponent2(
-  () => new _$TestStatefulHandlerPrecedenceComponent(),
+  () => _$TestStatefulHandlerPrecedenceComponent(),
   builderFactory: TestStatefulHandlerPrecedence,
   componentClass: TestStatefulHandlerPrecedenceComponent,
   isWrapper: false,
@@ -1426,8 +1426,8 @@ class TestStatefulHandlerPrecedenceProps
 _$$TestStatefulHandlerPrecedenceProps _$TestStatefulHandlerPrecedence(
         [Map backingProps]) =>
     backingProps == null
-        ? new _$$TestStatefulHandlerPrecedenceProps$JsMap(new JsBackedMap())
-        : new _$$TestStatefulHandlerPrecedenceProps(backingProps);
+        ? _$$TestStatefulHandlerPrecedenceProps$JsMap(JsBackedMap())
+        : _$$TestStatefulHandlerPrecedenceProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -1440,13 +1440,13 @@ abstract class _$$TestStatefulHandlerPrecedenceProps
 
   factory _$$TestStatefulHandlerPrecedenceProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestStatefulHandlerPrecedenceProps$JsMap(backingMap);
+      return _$$TestStatefulHandlerPrecedenceProps$JsMap(backingMap);
     } else {
-      return new _$$TestStatefulHandlerPrecedenceProps$PlainMap(backingMap);
+      return _$$TestStatefulHandlerPrecedenceProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -1484,9 +1484,9 @@ class _$$TestStatefulHandlerPrecedenceProps$JsMap
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulHandlerPrecedenceProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -1528,13 +1528,13 @@ abstract class _$$TestStatefulHandlerPrecedenceState
 
   factory _$$TestStatefulHandlerPrecedenceState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestStatefulHandlerPrecedenceState$JsMap(backingMap);
+      return _$$TestStatefulHandlerPrecedenceState$JsMap(backingMap);
     } else {
-      return new _$$TestStatefulHandlerPrecedenceState$PlainMap(backingMap);
+      return _$$TestStatefulHandlerPrecedenceState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -1563,9 +1563,9 @@ class _$$TestStatefulHandlerPrecedenceState$JsMap
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulHandlerPrecedenceState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -1601,11 +1601,11 @@ class _$TestStatefulHandlerPrecedenceComponent
   @override
   _$$TestStatefulHandlerPrecedenceProps$JsMap typedPropsFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$TestStatefulHandlerPrecedenceProps$JsMap(backingMap);
+      _$$TestStatefulHandlerPrecedenceProps$JsMap(backingMap);
 
   @override
   _$$TestStatefulHandlerPrecedenceProps typedPropsFactory(Map backingMap) =>
-      new _$$TestStatefulHandlerPrecedenceProps(backingMap);
+      _$$TestStatefulHandlerPrecedenceProps(backingMap);
 
   _$$TestStatefulHandlerPrecedenceState$JsMap _cachedTypedState;
   @override
@@ -1624,11 +1624,11 @@ class _$TestStatefulHandlerPrecedenceComponent
   @override
   _$$TestStatefulHandlerPrecedenceState$JsMap typedStateFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$TestStatefulHandlerPrecedenceState$JsMap(backingMap);
+      _$$TestStatefulHandlerPrecedenceState$JsMap(backingMap);
 
   @override
   _$$TestStatefulHandlerPrecedenceState typedStateFactory(Map backingMap) =>
-      new _$$TestStatefulHandlerPrecedenceState(backingMap);
+      _$$TestStatefulHandlerPrecedenceState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -1646,7 +1646,7 @@ class _$TestStatefulHandlerPrecedenceComponent
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulPropValidationComponentFactory = registerComponent2(
-  () => new _$TestStatefulPropValidationComponent(),
+  () => _$TestStatefulPropValidationComponent(),
   builderFactory: TestStatefulPropValidation,
   componentClass: TestStatefulPropValidationComponent,
   isWrapper: false,
@@ -1701,8 +1701,8 @@ class TestStatefulPropValidationProps extends _$TestStatefulPropValidationProps
 _$$TestStatefulPropValidationProps _$TestStatefulPropValidation(
         [Map backingProps]) =>
     backingProps == null
-        ? new _$$TestStatefulPropValidationProps$JsMap(new JsBackedMap())
-        : new _$$TestStatefulPropValidationProps(backingProps);
+        ? _$$TestStatefulPropValidationProps$JsMap(JsBackedMap())
+        : _$$TestStatefulPropValidationProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -1715,13 +1715,13 @@ abstract class _$$TestStatefulPropValidationProps
 
   factory _$$TestStatefulPropValidationProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestStatefulPropValidationProps$JsMap(backingMap);
+      return _$$TestStatefulPropValidationProps$JsMap(backingMap);
     } else {
-      return new _$$TestStatefulPropValidationProps$PlainMap(backingMap);
+      return _$$TestStatefulPropValidationProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -1759,9 +1759,9 @@ class _$$TestStatefulPropValidationProps$JsMap
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulPropValidationProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -1802,13 +1802,13 @@ abstract class _$$TestStatefulPropValidationState
 
   factory _$$TestStatefulPropValidationState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestStatefulPropValidationState$JsMap(backingMap);
+      return _$$TestStatefulPropValidationState$JsMap(backingMap);
     } else {
-      return new _$$TestStatefulPropValidationState$PlainMap(backingMap);
+      return _$$TestStatefulPropValidationState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -1837,9 +1837,9 @@ class _$$TestStatefulPropValidationState$JsMap
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulPropValidationState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -1875,11 +1875,11 @@ class _$TestStatefulPropValidationComponent
   @override
   _$$TestStatefulPropValidationProps$JsMap typedPropsFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$TestStatefulPropValidationProps$JsMap(backingMap);
+      _$$TestStatefulPropValidationProps$JsMap(backingMap);
 
   @override
   _$$TestStatefulPropValidationProps typedPropsFactory(Map backingMap) =>
-      new _$$TestStatefulPropValidationProps(backingMap);
+      _$$TestStatefulPropValidationProps(backingMap);
 
   _$$TestStatefulPropValidationState$JsMap _cachedTypedState;
   @override
@@ -1898,11 +1898,11 @@ class _$TestStatefulPropValidationComponent
   @override
   _$$TestStatefulPropValidationState$JsMap typedStateFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$TestStatefulPropValidationState$JsMap(backingMap);
+      _$$TestStatefulPropValidationState$JsMap(backingMap);
 
   @override
   _$$TestStatefulPropValidationState typedStateFactory(Map backingMap) =>
-      new _$$TestStatefulPropValidationState(backingMap);
+      _$$TestStatefulPropValidationState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -1920,7 +1920,7 @@ class _$TestStatefulPropValidationComponent
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulRedrawOnComponentFactory = registerComponent2(
-  () => new _$TestStatefulRedrawOnComponent(),
+  () => _$TestStatefulRedrawOnComponent(),
   builderFactory: TestStatefulRedrawOn,
   componentClass: TestStatefulRedrawOnComponent,
   isWrapper: false,
@@ -1951,8 +1951,8 @@ class TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
 
 _$$TestStatefulRedrawOnProps _$TestStatefulRedrawOn([Map backingProps]) =>
     backingProps == null
-        ? new _$$TestStatefulRedrawOnProps$JsMap(new JsBackedMap())
-        : new _$$TestStatefulRedrawOnProps(backingProps);
+        ? _$$TestStatefulRedrawOnProps$JsMap(JsBackedMap())
+        : _$$TestStatefulRedrawOnProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -1964,13 +1964,13 @@ abstract class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
 
   factory _$$TestStatefulRedrawOnProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestStatefulRedrawOnProps$JsMap(backingMap);
+      return _$$TestStatefulRedrawOnProps$JsMap(backingMap);
     } else {
-      return new _$$TestStatefulRedrawOnProps$PlainMap(backingMap);
+      return _$$TestStatefulRedrawOnProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -2007,9 +2007,9 @@ class _$$TestStatefulRedrawOnProps$JsMap extends _$$TestStatefulRedrawOnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulRedrawOnProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -2049,13 +2049,13 @@ abstract class _$$TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
 
   factory _$$TestStatefulRedrawOnState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestStatefulRedrawOnState$JsMap(backingMap);
+      return _$$TestStatefulRedrawOnState$JsMap(backingMap);
     } else {
-      return new _$$TestStatefulRedrawOnState$PlainMap(backingMap);
+      return _$$TestStatefulRedrawOnState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -2083,9 +2083,9 @@ class _$$TestStatefulRedrawOnState$JsMap extends _$$TestStatefulRedrawOnState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulRedrawOnState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -2120,11 +2120,11 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
   @override
   _$$TestStatefulRedrawOnProps$JsMap typedPropsFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$TestStatefulRedrawOnProps$JsMap(backingMap);
+      _$$TestStatefulRedrawOnProps$JsMap(backingMap);
 
   @override
   _$$TestStatefulRedrawOnProps typedPropsFactory(Map backingMap) =>
-      new _$$TestStatefulRedrawOnProps(backingMap);
+      _$$TestStatefulRedrawOnProps(backingMap);
 
   _$$TestStatefulRedrawOnState$JsMap _cachedTypedState;
   @override
@@ -2143,11 +2143,11 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
   @override
   _$$TestStatefulRedrawOnState$JsMap typedStateFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$TestStatefulRedrawOnState$JsMap(backingMap);
+      _$$TestStatefulRedrawOnState$JsMap(backingMap);
 
   @override
   _$$TestStatefulRedrawOnState typedStateFactory(Map backingMap) =>
-      new _$$TestStatefulRedrawOnState(backingMap);
+      _$$TestStatefulRedrawOnState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -2165,7 +2165,7 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulStoreHandlersComponentFactory = registerComponent2(
-  () => new _$TestStatefulStoreHandlersComponent(),
+  () => _$TestStatefulStoreHandlersComponent(),
   builderFactory: TestStatefulStoreHandlers,
   componentClass: TestStatefulStoreHandlersComponent,
   isWrapper: false,
@@ -2197,8 +2197,8 @@ class TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
 _$$TestStatefulStoreHandlersProps _$TestStatefulStoreHandlers(
         [Map backingProps]) =>
     backingProps == null
-        ? new _$$TestStatefulStoreHandlersProps$JsMap(new JsBackedMap())
-        : new _$$TestStatefulStoreHandlersProps(backingProps);
+        ? _$$TestStatefulStoreHandlersProps$JsMap(JsBackedMap())
+        : _$$TestStatefulStoreHandlersProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -2211,13 +2211,13 @@ abstract class _$$TestStatefulStoreHandlersProps
 
   factory _$$TestStatefulStoreHandlersProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestStatefulStoreHandlersProps$JsMap(backingMap);
+      return _$$TestStatefulStoreHandlersProps$JsMap(backingMap);
     } else {
-      return new _$$TestStatefulStoreHandlersProps$PlainMap(backingMap);
+      return _$$TestStatefulStoreHandlersProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -2255,9 +2255,9 @@ class _$$TestStatefulStoreHandlersProps$JsMap
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulStoreHandlersProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -2298,13 +2298,13 @@ abstract class _$$TestStatefulStoreHandlersState
 
   factory _$$TestStatefulStoreHandlersState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestStatefulStoreHandlersState$JsMap(backingMap);
+      return _$$TestStatefulStoreHandlersState$JsMap(backingMap);
     } else {
-      return new _$$TestStatefulStoreHandlersState$PlainMap(backingMap);
+      return _$$TestStatefulStoreHandlersState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -2333,9 +2333,9 @@ class _$$TestStatefulStoreHandlersState$JsMap
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestStatefulStoreHandlersState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -2371,11 +2371,11 @@ class _$TestStatefulStoreHandlersComponent
   @override
   _$$TestStatefulStoreHandlersProps$JsMap typedPropsFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$TestStatefulStoreHandlersProps$JsMap(backingMap);
+      _$$TestStatefulStoreHandlersProps$JsMap(backingMap);
 
   @override
   _$$TestStatefulStoreHandlersProps typedPropsFactory(Map backingMap) =>
-      new _$$TestStatefulStoreHandlersProps(backingMap);
+      _$$TestStatefulStoreHandlersProps(backingMap);
 
   _$$TestStatefulStoreHandlersState$JsMap _cachedTypedState;
   @override
@@ -2394,11 +2394,11 @@ class _$TestStatefulStoreHandlersComponent
   @override
   _$$TestStatefulStoreHandlersState$JsMap typedStateFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$TestStatefulStoreHandlersState$JsMap(backingMap);
+      _$$TestStatefulStoreHandlersState$JsMap(backingMap);
 
   @override
   _$$TestStatefulStoreHandlersState typedStateFactory(Map backingMap) =>
-      new _$$TestStatefulStoreHandlersState(backingMap);
+      _$$TestStatefulStoreHandlersState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

@@ -11,7 +11,7 @@ part of 'toggle_button.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ToggleButtonComponentFactory =
-    registerComponent(() => new _$ToggleButtonComponent(),
+    registerComponent(() => _$ToggleButtonComponent(),
         builderFactory: ToggleButton,
         componentClass: ToggleButtonComponent,
         isWrapper: false,
@@ -155,7 +155,7 @@ class ToggleButtonProps extends _$ToggleButtonProps
 }
 
 _$$ToggleButtonProps _$ToggleButton([Map backingProps]) =>
-    new _$$ToggleButtonProps(backingProps);
+    _$$ToggleButtonProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -174,7 +174,7 @@ class _$$ToggleButtonProps extends _$ToggleButtonProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -277,7 +277,7 @@ class _$$ToggleButtonState extends _$ToggleButtonState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -289,11 +289,11 @@ class _$$ToggleButtonState extends _$ToggleButtonState
 class _$ToggleButtonComponent extends ToggleButtonComponent {
   @override
   _$$ToggleButtonProps typedPropsFactory(Map backingMap) =>
-      new _$$ToggleButtonProps(backingMap);
+      _$$ToggleButtonProps(backingMap);
 
   @override
   _$$ToggleButtonState typedStateFactory(Map backingMap) =>
-      new _$$ToggleButtonState(backingMap);
+      _$$ToggleButtonState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

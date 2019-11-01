@@ -11,7 +11,7 @@ part of 'list_group.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ListGroupComponentFactory = registerComponent2(
-  () => new _$ListGroupComponent(),
+  () => _$ListGroupComponent(),
   builderFactory: ListGroup,
   componentClass: ListGroupComponent,
   isWrapper: false,
@@ -65,8 +65,8 @@ class ListGroupProps extends _$ListGroupProps
 }
 
 _$$ListGroupProps _$ListGroup([Map backingProps]) => backingProps == null
-    ? new _$$ListGroupProps$JsMap(new JsBackedMap())
-    : new _$$ListGroupProps(backingProps);
+    ? _$$ListGroupProps$JsMap(JsBackedMap())
+    : _$$ListGroupProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -78,13 +78,13 @@ abstract class _$$ListGroupProps extends _$ListGroupProps
 
   factory _$$ListGroupProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ListGroupProps$JsMap(backingMap);
+      return _$$ListGroupProps$JsMap(backingMap);
     } else {
-      return new _$$ListGroupProps$PlainMap(backingMap);
+      return _$$ListGroupProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -120,9 +120,9 @@ class _$$ListGroupProps$JsMap extends _$$ListGroupProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ListGroupProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -156,11 +156,11 @@ class _$ListGroupComponent extends ListGroupComponent {
 
   @override
   _$$ListGroupProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$ListGroupProps$JsMap(backingMap);
+      _$$ListGroupProps$JsMap(backingMap);
 
   @override
   _$$ListGroupProps typedPropsFactory(Map backingMap) =>
-      new _$$ListGroupProps(backingMap);
+      _$$ListGroupProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

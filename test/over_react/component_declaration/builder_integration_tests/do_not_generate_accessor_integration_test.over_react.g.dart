@@ -11,7 +11,7 @@ part of 'do_not_generate_accessor_integration_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $DoNotGenerateAccessorTestComponentFactory = registerComponent(
-    () => new _$DoNotGenerateAccessorTestComponent(),
+    () => _$DoNotGenerateAccessorTestComponent(),
     builderFactory: DoNotGenerateAccessorTest,
     componentClass: DoNotGenerateAccessorTestComponent,
     isWrapper: false,
@@ -98,7 +98,7 @@ class DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
 
 _$$DoNotGenerateAccessorTestProps _$DoNotGenerateAccessorTest(
         [Map backingProps]) =>
-    new _$$DoNotGenerateAccessorTestProps(backingProps);
+    _$$DoNotGenerateAccessorTestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -117,7 +117,7 @@ class _$$DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -227,7 +227,7 @@ class _$$DoNotGenerateAccessorTestState extends _$DoNotGenerateAccessorTestState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -240,11 +240,11 @@ class _$DoNotGenerateAccessorTestComponent
     extends DoNotGenerateAccessorTestComponent {
   @override
   _$$DoNotGenerateAccessorTestProps typedPropsFactory(Map backingMap) =>
-      new _$$DoNotGenerateAccessorTestProps(backingMap);
+      _$$DoNotGenerateAccessorTestProps(backingMap);
 
   @override
   _$$DoNotGenerateAccessorTestState typedStateFactory(Map backingMap) =>
-      new _$$DoNotGenerateAccessorTestState(backingMap);
+      _$$DoNotGenerateAccessorTestState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

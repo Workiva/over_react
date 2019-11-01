@@ -71,8 +71,8 @@ class ImplGenerator {
 
       final generatedComponentFactoryName = _componentFactoryName(componentClassName);
 
-      StringBuffer typedPropsFactoryImpl = new StringBuffer();
-      StringBuffer typedStateFactoryImpl = new StringBuffer();
+      StringBuffer typedPropsFactoryImpl = StringBuffer();
+      StringBuffer typedStateFactoryImpl = StringBuffer();
 
       // ----------------------------------------------------------------------
       //   Factory implementation
@@ -111,7 +111,7 @@ class ImplGenerator {
           ..writeln('// React component factory implementation.')
           ..writeln('//')
           ..writeln('// Registers component implementation and links type meta to builder factory.')
-          ..writeln('final $generatedComponentFactoryName = registerComponent2(() => new $componentClassImplMixinName(),')
+          ..writeln('final $generatedComponentFactoryName = registerComponent2(() => $componentClassImplMixinName(),')
           ..writeln('    builderFactory: $factoryName,')
           ..writeln('    componentClass: $componentClassName,')
           ..writeln('    isWrapper: ${componentDeclNode.meta.isWrapper},')
@@ -122,8 +122,7 @@ class ImplGenerator {
           // Override `skipMethods` as an empty list so that
           // the `componentDidCatch` and `getDerivedStateFromError`
           // lifecycle methods are included in the component's JS bindings.
-          outputContentsBuffer
-            ..writeln('    skipMethods: const [],');
+          outputContentsBuffer.writeln('    skipMethods: const [],');
         }
 
         outputContentsBuffer
@@ -134,7 +133,7 @@ class ImplGenerator {
           ..writeln('// React component factory implementation.')
           ..writeln('//')
           ..writeln('// Registers component implementation and links type meta to builder factory.')
-          ..writeln('final $generatedComponentFactoryName = registerComponent(() => new $componentClassImplMixinName(),')
+          ..writeln('final $generatedComponentFactoryName = registerComponent(() => $componentClassImplMixinName(),')
           ..writeln('    builderFactory: $factoryName,')
           ..writeln('    componentClass: $componentClassName,')
           ..writeln('    isWrapper: ${componentDeclNode.meta.isWrapper},')
@@ -161,14 +160,14 @@ class ImplGenerator {
           '$propsImplName $privateSourcePrefix$factoryName([Map backingProps]) => ');
 
       if (!isComponent2) {
-        /// _$$FooProps _$Foo([Map backingProps]) => new _$$FooProps(backingProps);
-        outputContentsBuffer.writeln('new $propsImplName(backingProps);');
+        /// _$$FooProps _$Foo([Map backingProps]) => _$$FooProps(backingProps);
+        outputContentsBuffer.writeln('$propsImplName(backingProps);');
       } else {
-        /// _$$FooProps _$Foo([Map backingProps]) => backingProps == null ? new $jsMapImplName(new JsBackedMap()) : new _$$FooProps(backingProps);
+        /// _$$FooProps _$Foo([Map backingProps]) => backingProps == null ? $jsMapImplName(JsBackedMap()) : _$$FooProps(backingProps);
         final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(propsImplName);
         // Optimize this case for when backingProps is null to promote inlining of `jsMapImplName` typing
         outputContentsBuffer.writeln(
-              'backingProps == null ? new $jsMapImplName(new JsBackedMap()) : new $propsImplName(backingProps);'
+              'backingProps == null ? $jsMapImplName(JsBackedMap()) : $propsImplName(backingProps);'
         );
       }
 
@@ -209,12 +208,12 @@ class ImplGenerator {
           ..writeln('  }')
           ..writeln()
           ..writeln('  @override ')
-          ..writeln('  $jsMapImplName typedPropsFactoryJs(JsBackedMap backingMap) => new $jsMapImplName(backingMap);')
+          ..writeln('  $jsMapImplName typedPropsFactoryJs(JsBackedMap backingMap) => $jsMapImplName(backingMap);')
           ..writeln();
       }
       typedPropsFactoryImpl
         ..writeln('  @override')
-        ..writeln('  $propsImplName typedPropsFactory(Map backingMap) => new $propsImplName(backingMap);')
+        ..writeln('  $propsImplName typedPropsFactory(Map backingMap) => $propsImplName(backingMap);')
         ..writeln();
 
 
@@ -267,12 +266,12 @@ class ImplGenerator {
             ..writeln()
             ..writeln('  @override ')
             // FIXME 3.0.0-wip: is this implementation still needed here to get good dart2js output, or can we do it in the superclass?
-            ..writeln('  $jsMapImplName typedStateFactoryJs(JsBackedMap backingMap) => new $jsMapImplName(backingMap);')
+            ..writeln('  $jsMapImplName typedStateFactoryJs(JsBackedMap backingMap) => $jsMapImplName(backingMap);')
             ..writeln();
         }
         typedStateFactoryImpl
           ..writeln('  @override')
-          ..writeln('  $stateImplName typedStateFactory(Map backingMap) => new $stateImplName(backingMap);')
+          ..writeln('  $stateImplName typedStateFactory(Map backingMap) => $stateImplName(backingMap);')
           ..writeln();
       }
 
@@ -859,7 +858,7 @@ class ImplGenerator {
     final typeParamsOnClass = node.node.typeParameters?.toSource() ?? '';
     final typeParamsOnSuper = removeBoundsFromTypeParameters(node.node.typeParameters);
 
-    final classDeclaration = new StringBuffer();
+    final classDeclaration = StringBuffer();
     if (isComponent2) {
       // This class will only have a factory constructor that instantiates one
       // of two subclasses.
@@ -873,7 +872,7 @@ class ImplGenerator {
     final propsOrState = type.isProps ? 'props' : 'state';
 
     // Class declaration
-    final buffer = new StringBuffer()
+    final buffer = StringBuffer()
       ..writeln('// Concrete $propsOrState implementation.')
       ..writeln('//')
       ..writeln('// Implements constructor and backing map${type.isProps ? ', and links up to generated component factory' : ''}.')
@@ -888,9 +887,9 @@ class ImplGenerator {
         ..writeln()
         ..writeln('  factory $implName(Map backingMap) {')
         ..writeln('    if (backingMap == null || backingMap is JsBackedMap) {')
-        ..writeln('      return new $jsMapImplName(backingMap);')
+        ..writeln('      return $jsMapImplName(backingMap);')
         ..writeln('    } else {')
-        ..writeln('      return new $plainMapImplName(backingMap);')
+        ..writeln('      return $plainMapImplName(backingMap);')
         ..writeln('    }')
         ..writeln('  }');
     } else {
@@ -914,7 +913,7 @@ class ImplGenerator {
     }
     buffer
       ..writeln()
-      ..writeln('  /// Let [${type.isProps ? 'UiProps' : 'UiState'}] internals know that this class has been generated.')
+      ..writeln('  /// Let `${type.isProps ? 'UiProps' : 'UiState'}` internals know that this class has been generated.')
       ..writeln('  @override')
       ..writeln('  bool get \$isClassGenerated => true;');
     if (type.isProps) {
@@ -959,8 +958,8 @@ class ImplGenerator {
         ..writeln('  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
         ..writeln('  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
         // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
-        ..writeln('  $jsMapImplName(JsBackedMap backingMap) : this._$propsOrState = new JsBackedMap(), super._() {')
-        ..writeln('     this._$propsOrState = backingMap ?? new JsBackedMap();')
+        ..writeln('  $jsMapImplName(JsBackedMap backingMap) : this._$propsOrState = JsBackedMap(), super._() {')
+        ..writeln('     this._$propsOrState = backingMap ?? JsBackedMap();')
         ..writeln('  }')
         ..writeln()
         ..writeln('  /// The backing $propsOrState map proxied by this class.')

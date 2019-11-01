@@ -11,7 +11,7 @@ part of 'flawed_component_on_mount.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $FlawedOnMountComponentFactory = registerComponent(
-    () => new _$FlawedOnMountComponent(),
+    () => _$FlawedOnMountComponent(),
     builderFactory: FlawedOnMount,
     componentClass: FlawedOnMountComponent,
     isWrapper: false,
@@ -35,7 +35,7 @@ const PropsMeta _$metaForFlawedOnMountProps = PropsMeta(
 );
 
 _$$FlawedOnMountProps _$FlawedOnMount([Map backingProps]) =>
-    new _$$FlawedOnMountProps(backingProps);
+    _$$FlawedOnMountProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -54,7 +54,7 @@ class _$$FlawedOnMountProps extends _$FlawedOnMountProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -75,7 +75,7 @@ class _$$FlawedOnMountProps extends _$FlawedOnMountProps
 class _$FlawedOnMountComponent extends FlawedOnMountComponent {
   @override
   _$$FlawedOnMountProps typedPropsFactory(Map backingMap) =>
-      new _$$FlawedOnMountProps(backingMap);
+      _$$FlawedOnMountProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

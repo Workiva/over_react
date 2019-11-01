@@ -11,7 +11,7 @@ part of 'private_factory_public_component.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $FormActionInputComponentFactory = registerComponent2(
-  () => new _$FormActionInputComponent(),
+  () => _$FormActionInputComponent(),
   builderFactory: _FormActionInput,
   componentClass: FormActionInputComponent,
   isWrapper: false,
@@ -57,8 +57,8 @@ class FormActionInputProps extends _$FormActionInputProps
 
 _$$FormActionInputProps _$_FormActionInput([Map backingProps]) =>
     backingProps == null
-        ? new _$$FormActionInputProps$JsMap(new JsBackedMap())
-        : new _$$FormActionInputProps(backingProps);
+        ? _$$FormActionInputProps$JsMap(JsBackedMap())
+        : _$$FormActionInputProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -70,13 +70,13 @@ abstract class _$$FormActionInputProps extends _$FormActionInputProps
 
   factory _$$FormActionInputProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$FormActionInputProps$JsMap(backingMap);
+      return _$$FormActionInputProps$JsMap(backingMap);
     } else {
-      return new _$$FormActionInputProps$PlainMap(backingMap);
+      return _$$FormActionInputProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -112,9 +112,9 @@ class _$$FormActionInputProps$JsMap extends _$$FormActionInputProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$FormActionInputProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -148,11 +148,11 @@ class _$FormActionInputComponent extends FormActionInputComponent {
 
   @override
   _$$FormActionInputProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$FormActionInputProps$JsMap(backingMap);
+      _$$FormActionInputProps$JsMap(backingMap);
 
   @override
   _$$FormActionInputProps typedPropsFactory(Map backingMap) =>
-      new _$$FormActionInputProps(backingMap);
+      _$$FormActionInputProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

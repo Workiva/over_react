@@ -11,7 +11,7 @@ part of 'extendedtype.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestExtendtype2ComponentFactory = registerComponent2(
-  () => new _$TestExtendtype2Component(),
+  () => _$TestExtendtype2Component(),
   builderFactory: TestExtendtype2,
   componentClass: TestExtendtype2Component,
   isWrapper: false,
@@ -43,8 +43,8 @@ class TestExtendtype2Props extends _$TestExtendtype2Props
 
 _$$TestExtendtype2Props _$TestExtendtype2([Map backingProps]) =>
     backingProps == null
-        ? new _$$TestExtendtype2Props$JsMap(new JsBackedMap())
-        : new _$$TestExtendtype2Props(backingProps);
+        ? _$$TestExtendtype2Props$JsMap(JsBackedMap())
+        : _$$TestExtendtype2Props(backingProps);
 
 // Concrete props implementation.
 //
@@ -56,13 +56,13 @@ abstract class _$$TestExtendtype2Props extends _$TestExtendtype2Props
 
   factory _$$TestExtendtype2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestExtendtype2Props$JsMap(backingMap);
+      return _$$TestExtendtype2Props$JsMap(backingMap);
     } else {
-      return new _$$TestExtendtype2Props$PlainMap(backingMap);
+      return _$$TestExtendtype2Props$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -98,9 +98,9 @@ class _$$TestExtendtype2Props$JsMap extends _$$TestExtendtype2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestExtendtype2Props$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -134,11 +134,11 @@ class _$TestExtendtype2Component extends TestExtendtype2Component {
 
   @override
   _$$TestExtendtype2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$TestExtendtype2Props$JsMap(backingMap);
+      _$$TestExtendtype2Props$JsMap(backingMap);
 
   @override
   _$$TestExtendtype2Props typedPropsFactory(Map backingMap) =>
-      new _$$TestExtendtype2Props(backingMap);
+      _$$TestExtendtype2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

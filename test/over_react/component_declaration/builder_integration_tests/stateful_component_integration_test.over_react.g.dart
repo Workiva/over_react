@@ -11,7 +11,7 @@ part of 'stateful_component_integration_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $StatefulComponentTestComponentFactory = registerComponent(
-    () => new _$StatefulComponentTestComponent(),
+    () => _$StatefulComponentTestComponent(),
     builderFactory: StatefulComponentTest,
     componentClass: StatefulComponentTestComponent,
     isWrapper: false,
@@ -40,7 +40,7 @@ class StatefulComponentTestProps extends _$StatefulComponentTestProps
 }
 
 _$$StatefulComponentTestProps _$StatefulComponentTest([Map backingProps]) =>
-    new _$$StatefulComponentTestProps(backingProps);
+    _$$StatefulComponentTestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -59,7 +59,7 @@ class _$$StatefulComponentTestProps extends _$StatefulComponentTestProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -225,7 +225,7 @@ class _$$StatefulComponentTestState extends _$StatefulComponentTestState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -237,11 +237,11 @@ class _$$StatefulComponentTestState extends _$StatefulComponentTestState
 class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
   @override
   _$$StatefulComponentTestProps typedPropsFactory(Map backingMap) =>
-      new _$$StatefulComponentTestProps(backingMap);
+      _$$StatefulComponentTestProps(backingMap);
 
   @override
   _$$StatefulComponentTestState typedStateFactory(Map backingMap) =>
-      new _$$StatefulComponentTestState(backingMap);
+      _$$StatefulComponentTestState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

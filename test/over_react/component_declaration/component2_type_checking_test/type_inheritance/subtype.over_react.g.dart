@@ -11,7 +11,7 @@ part of 'subtype.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestSubtype2ComponentFactory = registerComponent2(
-  () => new _$TestSubtype2Component(),
+  () => _$TestSubtype2Component(),
   builderFactory: TestSubtype2,
   componentClass: TestSubtype2Component,
   isWrapper: false,
@@ -42,8 +42,8 @@ class TestSubtype2Props extends _$TestSubtype2Props
 }
 
 _$$TestSubtype2Props _$TestSubtype2([Map backingProps]) => backingProps == null
-    ? new _$$TestSubtype2Props$JsMap(new JsBackedMap())
-    : new _$$TestSubtype2Props(backingProps);
+    ? _$$TestSubtype2Props$JsMap(JsBackedMap())
+    : _$$TestSubtype2Props(backingProps);
 
 // Concrete props implementation.
 //
@@ -55,13 +55,13 @@ abstract class _$$TestSubtype2Props extends _$TestSubtype2Props
 
   factory _$$TestSubtype2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestSubtype2Props$JsMap(backingMap);
+      return _$$TestSubtype2Props$JsMap(backingMap);
     } else {
-      return new _$$TestSubtype2Props$PlainMap(backingMap);
+      return _$$TestSubtype2Props$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -97,9 +97,9 @@ class _$$TestSubtype2Props$JsMap extends _$$TestSubtype2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestSubtype2Props$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -133,11 +133,11 @@ class _$TestSubtype2Component extends TestSubtype2Component {
 
   @override
   _$$TestSubtype2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$TestSubtype2Props$JsMap(backingMap);
+      _$$TestSubtype2Props$JsMap(backingMap);
 
   @override
   _$$TestSubtype2Props typedPropsFactory(Map backingMap) =>
-      new _$$TestSubtype2Props(backingMap);
+      _$$TestSubtype2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

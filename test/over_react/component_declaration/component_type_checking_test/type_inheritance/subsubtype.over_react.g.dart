@@ -11,7 +11,7 @@ part of 'subsubtype.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestSubsubtypeComponentFactory =
-    registerComponent(() => new _$TestSubsubtypeComponent(),
+    registerComponent(() => _$TestSubsubtypeComponent(),
         builderFactory: TestSubsubtype,
         componentClass: TestSubsubtypeComponent,
         isWrapper: false,
@@ -41,7 +41,7 @@ class TestSubsubtypeProps extends _$TestSubsubtypeProps
 }
 
 _$$TestSubsubtypeProps _$TestSubsubtype([Map backingProps]) =>
-    new _$$TestSubsubtypeProps(backingProps);
+    _$$TestSubsubtypeProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -60,7 +60,7 @@ class _$$TestSubsubtypeProps extends _$TestSubsubtypeProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -81,7 +81,7 @@ class _$$TestSubsubtypeProps extends _$TestSubsubtypeProps
 class _$TestSubsubtypeComponent extends TestSubsubtypeComponent {
   @override
   _$$TestSubsubtypeProps typedPropsFactory(Map backingMap) =>
-      new _$$TestSubsubtypeProps(backingMap);
+      _$$TestSubsubtypeProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

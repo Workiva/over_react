@@ -11,7 +11,7 @@ part of 'prop_validation_wrap.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $PropTypesWrapComponentFactory = registerComponent2(
-  () => new _$PropTypesWrapComponent(),
+  () => _$PropTypesWrapComponent(),
   builderFactory: PropTypesWrap,
   componentClass: PropTypesWrapComponent,
   isWrapper: false,
@@ -42,8 +42,8 @@ class PropTypesWrapProps extends _$PropTypesWrapProps
 
 _$$PropTypesWrapProps _$PropTypesWrap([Map backingProps]) =>
     backingProps == null
-        ? new _$$PropTypesWrapProps$JsMap(new JsBackedMap())
-        : new _$$PropTypesWrapProps(backingProps);
+        ? _$$PropTypesWrapProps$JsMap(JsBackedMap())
+        : _$$PropTypesWrapProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -55,13 +55,13 @@ abstract class _$$PropTypesWrapProps extends _$PropTypesWrapProps
 
   factory _$$PropTypesWrapProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$PropTypesWrapProps$JsMap(backingMap);
+      return _$$PropTypesWrapProps$JsMap(backingMap);
     } else {
-      return new _$$PropTypesWrapProps$PlainMap(backingMap);
+      return _$$PropTypesWrapProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -97,9 +97,9 @@ class _$$PropTypesWrapProps$JsMap extends _$$PropTypesWrapProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$PropTypesWrapProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -156,13 +156,13 @@ abstract class _$$PropTypesWrapState extends _$PropTypesWrapState
 
   factory _$$PropTypesWrapState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$PropTypesWrapState$JsMap(backingMap);
+      return _$$PropTypesWrapState$JsMap(backingMap);
     } else {
-      return new _$$PropTypesWrapState$PlainMap(backingMap);
+      return _$$PropTypesWrapState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -189,9 +189,9 @@ class _$$PropTypesWrapState$JsMap extends _$$PropTypesWrapState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$PropTypesWrapState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -225,11 +225,11 @@ class _$PropTypesWrapComponent extends PropTypesWrapComponent {
 
   @override
   _$$PropTypesWrapProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$PropTypesWrapProps$JsMap(backingMap);
+      _$$PropTypesWrapProps$JsMap(backingMap);
 
   @override
   _$$PropTypesWrapProps typedPropsFactory(Map backingMap) =>
-      new _$$PropTypesWrapProps(backingMap);
+      _$$PropTypesWrapProps(backingMap);
 
   _$$PropTypesWrapState$JsMap _cachedTypedState;
   @override
@@ -247,11 +247,11 @@ class _$PropTypesWrapComponent extends PropTypesWrapComponent {
 
   @override
   _$$PropTypesWrapState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      new _$$PropTypesWrapState$JsMap(backingMap);
+      _$$PropTypesWrapState$JsMap(backingMap);
 
   @override
   _$$PropTypesWrapState typedStateFactory(Map backingMap) =>
-      new _$$PropTypesWrapState(backingMap);
+      _$$PropTypesWrapState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

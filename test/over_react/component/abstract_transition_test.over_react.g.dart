@@ -11,7 +11,7 @@ part of 'abstract_transition_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TransitionerComponentFactory = registerComponent(
-    () => new _$TransitionerComponent(),
+    () => _$TransitionerComponent(),
     builderFactory: Transitioner,
     componentClass: TransitionerComponent,
     isWrapper: false,
@@ -201,7 +201,7 @@ class TransitionerProps extends _$TransitionerProps
 }
 
 _$$TransitionerProps _$Transitioner([Map backingProps]) =>
-    new _$$TransitionerProps(backingProps);
+    _$$TransitionerProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -220,7 +220,7 @@ class _$$TransitionerProps extends _$TransitionerProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -272,7 +272,7 @@ class _$$TransitionerState extends _$TransitionerState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -284,11 +284,11 @@ class _$$TransitionerState extends _$TransitionerState
 class _$TransitionerComponent extends TransitionerComponent {
   @override
   _$$TransitionerProps typedPropsFactory(Map backingMap) =>
-      new _$$TransitionerProps(backingMap);
+      _$$TransitionerProps(backingMap);
 
   @override
   _$$TransitionerState typedStateFactory(Map backingMap) =>
-      new _$$TransitionerState(backingMap);
+      _$$TransitionerState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

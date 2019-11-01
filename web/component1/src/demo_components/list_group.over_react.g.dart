@@ -11,7 +11,7 @@ part of 'list_group.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ListGroupComponentFactory = registerComponent(
-    () => new _$ListGroupComponent(),
+    () => _$ListGroupComponent(),
     builderFactory: ListGroup,
     componentClass: ListGroupComponent,
     isWrapper: false,
@@ -64,7 +64,7 @@ class ListGroupProps extends _$ListGroupProps
 }
 
 _$$ListGroupProps _$ListGroup([Map backingProps]) =>
-    new _$$ListGroupProps(backingProps);
+    _$$ListGroupProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -83,7 +83,7 @@ class _$$ListGroupProps extends _$ListGroupProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -104,7 +104,7 @@ class _$$ListGroupProps extends _$ListGroupProps
 class _$ListGroupComponent extends ListGroupComponent {
   @override
   _$$ListGroupProps typedPropsFactory(Map backingMap) =>
-      new _$$ListGroupProps(backingMap);
+      _$$ListGroupProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

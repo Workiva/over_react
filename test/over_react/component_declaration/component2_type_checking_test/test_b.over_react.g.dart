@@ -11,7 +11,7 @@ part of 'test_b.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestB2ComponentFactory = registerComponent2(
-  () => new _$TestB2Component(),
+  () => _$TestB2Component(),
   builderFactory: TestB2,
   componentClass: TestB2Component,
   isWrapper: false,
@@ -39,8 +39,8 @@ class TestB2Props extends _$TestB2Props with _$TestB2PropsAccessorsMixin {
 }
 
 _$$TestB2Props _$TestB2([Map backingProps]) => backingProps == null
-    ? new _$$TestB2Props$JsMap(new JsBackedMap())
-    : new _$$TestB2Props(backingProps);
+    ? _$$TestB2Props$JsMap(JsBackedMap())
+    : _$$TestB2Props(backingProps);
 
 // Concrete props implementation.
 //
@@ -52,13 +52,13 @@ abstract class _$$TestB2Props extends _$TestB2Props
 
   factory _$$TestB2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestB2Props$JsMap(backingMap);
+      return _$$TestB2Props$JsMap(backingMap);
     } else {
-      return new _$$TestB2Props$PlainMap(backingMap);
+      return _$$TestB2Props$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -94,9 +94,9 @@ class _$$TestB2Props$JsMap extends _$$TestB2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestB2Props$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -130,11 +130,11 @@ class _$TestB2Component extends TestB2Component {
 
   @override
   _$$TestB2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$TestB2Props$JsMap(backingMap);
+      _$$TestB2Props$JsMap(backingMap);
 
   @override
   _$$TestB2Props typedPropsFactory(Map backingMap) =>
-      new _$$TestB2Props(backingMap);
+      _$$TestB2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

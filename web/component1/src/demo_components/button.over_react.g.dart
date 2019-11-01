@@ -10,7 +10,7 @@ part of 'button.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $ButtonComponentFactory = registerComponent(() => new _$ButtonComponent(),
+final $ButtonComponentFactory = registerComponent(() => _$ButtonComponent(),
     builderFactory: Button,
     componentClass: ButtonComponent,
     isWrapper: false,
@@ -255,7 +255,7 @@ class ButtonProps extends _$ButtonProps with _$ButtonPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForButtonProps;
 }
 
-_$$ButtonProps _$Button([Map backingProps]) => new _$$ButtonProps(backingProps);
+_$$ButtonProps _$Button([Map backingProps]) => _$$ButtonProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -274,7 +274,7 @@ class _$$ButtonProps extends _$ButtonProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -324,7 +324,7 @@ class _$$ButtonState extends _$ButtonState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -336,11 +336,11 @@ class _$$ButtonState extends _$ButtonState
 class _$ButtonComponent extends ButtonComponent {
   @override
   _$$ButtonProps typedPropsFactory(Map backingMap) =>
-      new _$$ButtonProps(backingMap);
+      _$$ButtonProps(backingMap);
 
   @override
   _$$ButtonState typedStateFactory(Map backingMap) =>
-      new _$$ButtonState(backingMap);
+      _$$ButtonState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

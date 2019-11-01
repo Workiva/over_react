@@ -11,7 +11,7 @@ part of 'abstract_transition2_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TransitionerComponentFactory = registerComponent2(
-  () => new _$TransitionerComponent(),
+  () => _$TransitionerComponent(),
   builderFactory: Transitioner,
   componentClass: TransitionerComponent,
   isWrapper: false,
@@ -202,8 +202,8 @@ class TransitionerProps extends _$TransitionerProps
 }
 
 _$$TransitionerProps _$Transitioner([Map backingProps]) => backingProps == null
-    ? new _$$TransitionerProps$JsMap(new JsBackedMap())
-    : new _$$TransitionerProps(backingProps);
+    ? _$$TransitionerProps$JsMap(JsBackedMap())
+    : _$$TransitionerProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -215,13 +215,13 @@ abstract class _$$TransitionerProps extends _$TransitionerProps
 
   factory _$$TransitionerProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TransitionerProps$JsMap(backingMap);
+      return _$$TransitionerProps$JsMap(backingMap);
     } else {
-      return new _$$TransitionerProps$PlainMap(backingMap);
+      return _$$TransitionerProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -257,9 +257,9 @@ class _$$TransitionerProps$JsMap extends _$$TransitionerProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TransitionerProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -299,13 +299,13 @@ abstract class _$$TransitionerState extends _$TransitionerState
 
   factory _$$TransitionerState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TransitionerState$JsMap(backingMap);
+      return _$$TransitionerState$JsMap(backingMap);
     } else {
-      return new _$$TransitionerState$PlainMap(backingMap);
+      return _$$TransitionerState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -332,9 +332,9 @@ class _$$TransitionerState$JsMap extends _$$TransitionerState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TransitionerState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -368,11 +368,11 @@ class _$TransitionerComponent extends TransitionerComponent {
 
   @override
   _$$TransitionerProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$TransitionerProps$JsMap(backingMap);
+      _$$TransitionerProps$JsMap(backingMap);
 
   @override
   _$$TransitionerProps typedPropsFactory(Map backingMap) =>
-      new _$$TransitionerProps(backingMap);
+      _$$TransitionerProps(backingMap);
 
   _$$TransitionerState$JsMap _cachedTypedState;
   @override
@@ -390,11 +390,11 @@ class _$TransitionerComponent extends TransitionerComponent {
 
   @override
   _$$TransitionerState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      new _$$TransitionerState$JsMap(backingMap);
+      _$$TransitionerState$JsMap(backingMap);
 
   @override
   _$$TransitionerState typedStateFactory(Map backingMap) =>
-      new _$$TransitionerState(backingMap);
+      _$$TransitionerState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

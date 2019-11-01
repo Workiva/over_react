@@ -11,7 +11,7 @@ part of 'flux_component_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestBasicComponentFactory = registerComponent(
-    () => new _$TestBasicComponent(),
+    () => _$TestBasicComponent(),
     builderFactory: TestBasic,
     componentClass: TestBasicComponent,
     isWrapper: false,
@@ -39,7 +39,7 @@ class TestBasicProps extends _$TestBasicProps
 }
 
 _$$TestBasicProps _$TestBasic([Map backingProps]) =>
-    new _$$TestBasicProps(backingProps);
+    _$$TestBasicProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -58,7 +58,7 @@ class _$$TestBasicProps extends _$TestBasicProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -79,7 +79,7 @@ class _$$TestBasicProps extends _$TestBasicProps
 class _$TestBasicComponent extends TestBasicComponent {
   @override
   _$$TestBasicProps typedPropsFactory(Map backingMap) =>
-      new _$$TestBasicProps(backingMap);
+      _$$TestBasicProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -97,7 +97,7 @@ class _$TestBasicComponent extends TestBasicComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestHandlerLifecycleComponentFactory = registerComponent(
-    () => new _$TestHandlerLifecycleComponent(),
+    () => _$TestHandlerLifecycleComponent(),
     builderFactory: TestHandlerLifecycle,
     componentClass: TestHandlerLifecycleComponent,
     isWrapper: false,
@@ -126,7 +126,7 @@ class TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
 }
 
 _$$TestHandlerLifecycleProps _$TestHandlerLifecycle([Map backingProps]) =>
-    new _$$TestHandlerLifecycleProps(backingProps);
+    _$$TestHandlerLifecycleProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -145,7 +145,7 @@ class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -166,7 +166,7 @@ class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
 class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
   @override
   _$$TestHandlerLifecycleProps typedPropsFactory(Map backingMap) =>
-      new _$$TestHandlerLifecycleProps(backingMap);
+      _$$TestHandlerLifecycleProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -184,7 +184,7 @@ class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestHandlerPrecedenceComponentFactory = registerComponent(
-    () => new _$TestHandlerPrecedenceComponent(),
+    () => _$TestHandlerPrecedenceComponent(),
     builderFactory: TestHandlerPrecedence,
     componentClass: TestHandlerPrecedenceComponent,
     isWrapper: false,
@@ -213,7 +213,7 @@ class TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
 }
 
 _$$TestHandlerPrecedenceProps _$TestHandlerPrecedence([Map backingProps]) =>
-    new _$$TestHandlerPrecedenceProps(backingProps);
+    _$$TestHandlerPrecedenceProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -232,7 +232,7 @@ class _$$TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -253,7 +253,7 @@ class _$$TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
 class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
   @override
   _$$TestHandlerPrecedenceProps typedPropsFactory(Map backingMap) =>
-      new _$$TestHandlerPrecedenceProps(backingMap);
+      _$$TestHandlerPrecedenceProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -271,7 +271,7 @@ class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestPropValidationComponentFactory = registerComponent(
-    () => new _$TestPropValidationComponent(),
+    () => _$TestPropValidationComponent(),
     builderFactory: TestPropValidation,
     componentClass: TestPropValidationComponent,
     isWrapper: false,
@@ -320,7 +320,7 @@ class TestPropValidationProps extends _$TestPropValidationProps
 }
 
 _$$TestPropValidationProps _$TestPropValidation([Map backingProps]) =>
-    new _$$TestPropValidationProps(backingProps);
+    _$$TestPropValidationProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -339,7 +339,7 @@ class _$$TestPropValidationProps extends _$TestPropValidationProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -360,7 +360,7 @@ class _$$TestPropValidationProps extends _$TestPropValidationProps
 class _$TestPropValidationComponent extends TestPropValidationComponent {
   @override
   _$$TestPropValidationProps typedPropsFactory(Map backingMap) =>
-      new _$$TestPropValidationProps(backingMap);
+      _$$TestPropValidationProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -378,7 +378,7 @@ class _$TestPropValidationComponent extends TestPropValidationComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestRedrawOnComponentFactory = registerComponent(
-    () => new _$TestRedrawOnComponent(),
+    () => _$TestRedrawOnComponent(),
     builderFactory: TestRedrawOn,
     componentClass: TestRedrawOnComponent,
     isWrapper: false,
@@ -407,7 +407,7 @@ class TestRedrawOnProps extends _$TestRedrawOnProps
 }
 
 _$$TestRedrawOnProps _$TestRedrawOn([Map backingProps]) =>
-    new _$$TestRedrawOnProps(backingProps);
+    _$$TestRedrawOnProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -426,7 +426,7 @@ class _$$TestRedrawOnProps extends _$TestRedrawOnProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -447,7 +447,7 @@ class _$$TestRedrawOnProps extends _$TestRedrawOnProps
 class _$TestRedrawOnComponent extends TestRedrawOnComponent {
   @override
   _$$TestRedrawOnProps typedPropsFactory(Map backingMap) =>
-      new _$$TestRedrawOnProps(backingMap);
+      _$$TestRedrawOnProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -465,7 +465,7 @@ class _$TestRedrawOnComponent extends TestRedrawOnComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStoreHandlersComponentFactory = registerComponent(
-    () => new _$TestStoreHandlersComponent(),
+    () => _$TestStoreHandlersComponent(),
     builderFactory: TestStoreHandlers,
     componentClass: TestStoreHandlersComponent,
     isWrapper: false,
@@ -494,7 +494,7 @@ class TestStoreHandlersProps extends _$TestStoreHandlersProps
 }
 
 _$$TestStoreHandlersProps _$TestStoreHandlers([Map backingProps]) =>
-    new _$$TestStoreHandlersProps(backingProps);
+    _$$TestStoreHandlersProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -513,7 +513,7 @@ class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -534,7 +534,7 @@ class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
 class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
   @override
   _$$TestStoreHandlersProps typedPropsFactory(Map backingMap) =>
-      new _$$TestStoreHandlersProps(backingMap);
+      _$$TestStoreHandlersProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -552,7 +552,7 @@ class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulBasicComponentFactory = registerComponent(
-    () => new _$TestStatefulBasicComponent(),
+    () => _$TestStatefulBasicComponent(),
     builderFactory: TestStatefulBasic,
     componentClass: TestStatefulBasicComponent,
     isWrapper: false,
@@ -581,7 +581,7 @@ class TestStatefulBasicProps extends _$TestStatefulBasicProps
 }
 
 _$$TestStatefulBasicProps _$TestStatefulBasic([Map backingProps]) =>
-    new _$$TestStatefulBasicProps(backingProps);
+    _$$TestStatefulBasicProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -600,7 +600,7 @@ class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -652,7 +652,7 @@ class _$$TestStatefulBasicState extends _$TestStatefulBasicState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -664,11 +664,11 @@ class _$$TestStatefulBasicState extends _$TestStatefulBasicState
 class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
   @override
   _$$TestStatefulBasicProps typedPropsFactory(Map backingMap) =>
-      new _$$TestStatefulBasicProps(backingMap);
+      _$$TestStatefulBasicProps(backingMap);
 
   @override
   _$$TestStatefulBasicState typedStateFactory(Map backingMap) =>
-      new _$$TestStatefulBasicState(backingMap);
+      _$$TestStatefulBasicState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -686,7 +686,7 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulHandlerLifecycleComponentFactory = registerComponent(
-    () => new _$TestStatefulHandlerLifecycleComponent(),
+    () => _$TestStatefulHandlerLifecycleComponent(),
     builderFactory: TestStatefulHandlerLifecycle,
     componentClass: TestStatefulHandlerLifecycleComponent,
     isWrapper: false,
@@ -717,7 +717,7 @@ class TestStatefulHandlerLifecycleProps
 
 _$$TestStatefulHandlerLifecycleProps _$TestStatefulHandlerLifecycle(
         [Map backingProps]) =>
-    new _$$TestStatefulHandlerLifecycleProps(backingProps);
+    _$$TestStatefulHandlerLifecycleProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -737,7 +737,7 @@ class _$$TestStatefulHandlerLifecycleProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -791,7 +791,7 @@ class _$$TestStatefulHandlerLifecycleState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -804,11 +804,11 @@ class _$TestStatefulHandlerLifecycleComponent
     extends TestStatefulHandlerLifecycleComponent {
   @override
   _$$TestStatefulHandlerLifecycleProps typedPropsFactory(Map backingMap) =>
-      new _$$TestStatefulHandlerLifecycleProps(backingMap);
+      _$$TestStatefulHandlerLifecycleProps(backingMap);
 
   @override
   _$$TestStatefulHandlerLifecycleState typedStateFactory(Map backingMap) =>
-      new _$$TestStatefulHandlerLifecycleState(backingMap);
+      _$$TestStatefulHandlerLifecycleState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -826,7 +826,7 @@ class _$TestStatefulHandlerLifecycleComponent
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulHandlerPrecedenceComponentFactory = registerComponent(
-    () => new _$TestStatefulHandlerPrecedenceComponent(),
+    () => _$TestStatefulHandlerPrecedenceComponent(),
     builderFactory: TestStatefulHandlerPrecedence,
     componentClass: TestStatefulHandlerPrecedenceComponent,
     isWrapper: false,
@@ -857,7 +857,7 @@ class TestStatefulHandlerPrecedenceProps
 
 _$$TestStatefulHandlerPrecedenceProps _$TestStatefulHandlerPrecedence(
         [Map backingProps]) =>
-    new _$$TestStatefulHandlerPrecedenceProps(backingProps);
+    _$$TestStatefulHandlerPrecedenceProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -877,7 +877,7 @@ class _$$TestStatefulHandlerPrecedenceProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -931,7 +931,7 @@ class _$$TestStatefulHandlerPrecedenceState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -944,11 +944,11 @@ class _$TestStatefulHandlerPrecedenceComponent
     extends TestStatefulHandlerPrecedenceComponent {
   @override
   _$$TestStatefulHandlerPrecedenceProps typedPropsFactory(Map backingMap) =>
-      new _$$TestStatefulHandlerPrecedenceProps(backingMap);
+      _$$TestStatefulHandlerPrecedenceProps(backingMap);
 
   @override
   _$$TestStatefulHandlerPrecedenceState typedStateFactory(Map backingMap) =>
-      new _$$TestStatefulHandlerPrecedenceState(backingMap);
+      _$$TestStatefulHandlerPrecedenceState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -966,7 +966,7 @@ class _$TestStatefulHandlerPrecedenceComponent
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulPropValidationComponentFactory = registerComponent(
-    () => new _$TestStatefulPropValidationComponent(),
+    () => _$TestStatefulPropValidationComponent(),
     builderFactory: TestStatefulPropValidation,
     componentClass: TestStatefulPropValidationComponent,
     isWrapper: false,
@@ -1019,7 +1019,7 @@ class TestStatefulPropValidationProps extends _$TestStatefulPropValidationProps
 
 _$$TestStatefulPropValidationProps _$TestStatefulPropValidation(
         [Map backingProps]) =>
-    new _$$TestStatefulPropValidationProps(backingProps);
+    _$$TestStatefulPropValidationProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -1039,7 +1039,7 @@ class _$$TestStatefulPropValidationProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -1092,7 +1092,7 @@ class _$$TestStatefulPropValidationState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -1105,11 +1105,11 @@ class _$TestStatefulPropValidationComponent
     extends TestStatefulPropValidationComponent {
   @override
   _$$TestStatefulPropValidationProps typedPropsFactory(Map backingMap) =>
-      new _$$TestStatefulPropValidationProps(backingMap);
+      _$$TestStatefulPropValidationProps(backingMap);
 
   @override
   _$$TestStatefulPropValidationState typedStateFactory(Map backingMap) =>
-      new _$$TestStatefulPropValidationState(backingMap);
+      _$$TestStatefulPropValidationState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -1127,7 +1127,7 @@ class _$TestStatefulPropValidationComponent
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulRedrawOnComponentFactory = registerComponent(
-    () => new _$TestStatefulRedrawOnComponent(),
+    () => _$TestStatefulRedrawOnComponent(),
     builderFactory: TestStatefulRedrawOn,
     componentClass: TestStatefulRedrawOnComponent,
     isWrapper: false,
@@ -1156,7 +1156,7 @@ class TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
 }
 
 _$$TestStatefulRedrawOnProps _$TestStatefulRedrawOn([Map backingProps]) =>
-    new _$$TestStatefulRedrawOnProps(backingProps);
+    _$$TestStatefulRedrawOnProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -1175,7 +1175,7 @@ class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -1227,7 +1227,7 @@ class _$$TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -1239,11 +1239,11 @@ class _$$TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
 class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
   @override
   _$$TestStatefulRedrawOnProps typedPropsFactory(Map backingMap) =>
-      new _$$TestStatefulRedrawOnProps(backingMap);
+      _$$TestStatefulRedrawOnProps(backingMap);
 
   @override
   _$$TestStatefulRedrawOnState typedStateFactory(Map backingMap) =>
-      new _$$TestStatefulRedrawOnState(backingMap);
+      _$$TestStatefulRedrawOnState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -1261,7 +1261,7 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulStoreHandlersComponentFactory = registerComponent(
-    () => new _$TestStatefulStoreHandlersComponent(),
+    () => _$TestStatefulStoreHandlersComponent(),
     builderFactory: TestStatefulStoreHandlers,
     componentClass: TestStatefulStoreHandlersComponent,
     isWrapper: false,
@@ -1291,7 +1291,7 @@ class TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
 
 _$$TestStatefulStoreHandlersProps _$TestStatefulStoreHandlers(
         [Map backingProps]) =>
-    new _$$TestStatefulStoreHandlersProps(backingProps);
+    _$$TestStatefulStoreHandlersProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -1310,7 +1310,7 @@ class _$$TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -1362,7 +1362,7 @@ class _$$TestStatefulStoreHandlersState extends _$TestStatefulStoreHandlersState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -1375,11 +1375,11 @@ class _$TestStatefulStoreHandlersComponent
     extends TestStatefulStoreHandlersComponent {
   @override
   _$$TestStatefulStoreHandlersProps typedPropsFactory(Map backingMap) =>
-      new _$$TestStatefulStoreHandlersProps(backingMap);
+      _$$TestStatefulStoreHandlersProps(backingMap);
 
   @override
   _$$TestStatefulStoreHandlersState typedStateFactory(Map backingMap) =>
-      new _$$TestStatefulStoreHandlersState(backingMap);
+      _$$TestStatefulStoreHandlersState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

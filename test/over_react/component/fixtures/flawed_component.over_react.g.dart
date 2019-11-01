@@ -10,7 +10,7 @@ part of 'flawed_component.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $FlawedComponentFactory = registerComponent(() => new _$FlawedComponent(),
+final $FlawedComponentFactory = registerComponent(() => _$FlawedComponent(),
     builderFactory: Flawed,
     componentClass: FlawedComponent,
     isWrapper: false,
@@ -49,7 +49,7 @@ const PropsMeta _$metaForFlawedProps = PropsMeta(
   keys: _$FlawedPropsAccessorsMixin.$propKeys,
 );
 
-_$$FlawedProps _$Flawed([Map backingProps]) => new _$$FlawedProps(backingProps);
+_$$FlawedProps _$Flawed([Map backingProps]) => _$$FlawedProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -68,7 +68,7 @@ class _$$FlawedProps extends _$FlawedProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -147,7 +147,7 @@ class _$$FlawedState extends _$FlawedState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -159,11 +159,11 @@ class _$$FlawedState extends _$FlawedState
 class _$FlawedComponent extends FlawedComponent {
   @override
   _$$FlawedProps typedPropsFactory(Map backingMap) =>
-      new _$$FlawedProps(backingMap);
+      _$$FlawedProps(backingMap);
 
   @override
   _$$FlawedState typedStateFactory(Map backingMap) =>
-      new _$$FlawedState(backingMap);
+      _$$FlawedState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

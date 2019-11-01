@@ -11,7 +11,7 @@ part of 'basic_library.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $BasicPartOfLibComponentFactory = registerComponent2(
-  () => new _$BasicPartOfLibComponent(),
+  () => _$BasicPartOfLibComponent(),
   builderFactory: BasicPartOfLib,
   componentClass: BasicPartOfLibComponent,
   isWrapper: false,
@@ -139,8 +139,8 @@ class BasicPartOfLibProps extends _$BasicPartOfLibProps
 
 _$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
     backingProps == null
-        ? new _$$BasicPartOfLibProps$JsMap(new JsBackedMap())
-        : new _$$BasicPartOfLibProps(backingProps);
+        ? _$$BasicPartOfLibProps$JsMap(JsBackedMap())
+        : _$$BasicPartOfLibProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -152,13 +152,13 @@ abstract class _$$BasicPartOfLibProps extends _$BasicPartOfLibProps
 
   factory _$$BasicPartOfLibProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$BasicPartOfLibProps$JsMap(backingMap);
+      return _$$BasicPartOfLibProps$JsMap(backingMap);
     } else {
-      return new _$$BasicPartOfLibProps$PlainMap(backingMap);
+      return _$$BasicPartOfLibProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -194,9 +194,9 @@ class _$$BasicPartOfLibProps$JsMap extends _$$BasicPartOfLibProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$BasicPartOfLibProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -253,13 +253,13 @@ abstract class _$$BasicPartOfLibState extends _$BasicPartOfLibState
 
   factory _$$BasicPartOfLibState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$BasicPartOfLibState$JsMap(backingMap);
+      return _$$BasicPartOfLibState$JsMap(backingMap);
     } else {
-      return new _$$BasicPartOfLibState$PlainMap(backingMap);
+      return _$$BasicPartOfLibState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -286,9 +286,9 @@ class _$$BasicPartOfLibState$JsMap extends _$$BasicPartOfLibState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$BasicPartOfLibState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -322,11 +322,11 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
 
   @override
   _$$BasicPartOfLibProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$BasicPartOfLibProps$JsMap(backingMap);
+      _$$BasicPartOfLibProps$JsMap(backingMap);
 
   @override
   _$$BasicPartOfLibProps typedPropsFactory(Map backingMap) =>
-      new _$$BasicPartOfLibProps(backingMap);
+      _$$BasicPartOfLibProps(backingMap);
 
   _$$BasicPartOfLibState$JsMap _cachedTypedState;
   @override
@@ -344,11 +344,11 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
 
   @override
   _$$BasicPartOfLibState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      new _$$BasicPartOfLibState$JsMap(backingMap);
+      _$$BasicPartOfLibState$JsMap(backingMap);
 
   @override
   _$$BasicPartOfLibState typedStateFactory(Map backingMap) =>
-      new _$$BasicPartOfLibState(backingMap);
+      _$$BasicPartOfLibState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -366,7 +366,7 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $SubPartOfLibComponentFactory = registerComponent(
-    () => new _$SubPartOfLibComponent(),
+    () => _$SubPartOfLibComponent(),
     builderFactory: SubPartOfLib,
     componentClass: SubPartOfLibComponent,
     isWrapper: false,
@@ -410,7 +410,7 @@ class SubPartOfLibProps extends _$SubPartOfLibProps
 }
 
 _$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) =>
-    new _$$SubPartOfLibProps(backingProps);
+    _$$SubPartOfLibProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -429,7 +429,7 @@ class _$$SubPartOfLibProps extends _$SubPartOfLibProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -450,7 +450,7 @@ class _$$SubPartOfLibProps extends _$SubPartOfLibProps
 class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   @override
   _$$SubPartOfLibProps typedPropsFactory(Map backingMap) =>
-      new _$$SubPartOfLibProps(backingMap);
+      _$$SubPartOfLibProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

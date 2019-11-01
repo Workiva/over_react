@@ -11,7 +11,7 @@ part of 'button_group.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ButtonGroupComponentFactory = registerComponent(
-    () => new _$ButtonGroupComponent(),
+    () => _$ButtonGroupComponent(),
     builderFactory: ButtonGroup,
     componentClass: ButtonGroupComponent,
     isWrapper: false,
@@ -113,7 +113,7 @@ class ButtonGroupProps extends _$ButtonGroupProps
 }
 
 _$$ButtonGroupProps _$ButtonGroup([Map backingProps]) =>
-    new _$$ButtonGroupProps(backingProps);
+    _$$ButtonGroupProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -132,7 +132,7 @@ class _$$ButtonGroupProps extends _$ButtonGroupProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -183,7 +183,7 @@ class _$$ButtonGroupState extends _$ButtonGroupState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -195,11 +195,11 @@ class _$$ButtonGroupState extends _$ButtonGroupState
 class _$ButtonGroupComponent extends ButtonGroupComponent {
   @override
   _$$ButtonGroupProps typedPropsFactory(Map backingMap) =>
-      new _$$ButtonGroupProps(backingMap);
+      _$$ButtonGroupProps(backingMap);
 
   @override
   _$$ButtonGroupState typedStateFactory(Map backingMap) =>
-      new _$$ButtonGroupState(backingMap);
+      _$$ButtonGroupState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

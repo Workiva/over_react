@@ -11,7 +11,7 @@ part of 'parent.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestParent2ComponentFactory = registerComponent2(
-  () => new _$TestParent2Component(),
+  () => _$TestParent2Component(),
   builderFactory: TestParent2,
   componentClass: TestParent2Component,
   isWrapper: false,
@@ -40,8 +40,8 @@ class TestParent2Props extends _$TestParent2Props
 }
 
 _$$TestParent2Props _$TestParent2([Map backingProps]) => backingProps == null
-    ? new _$$TestParent2Props$JsMap(new JsBackedMap())
-    : new _$$TestParent2Props(backingProps);
+    ? _$$TestParent2Props$JsMap(JsBackedMap())
+    : _$$TestParent2Props(backingProps);
 
 // Concrete props implementation.
 //
@@ -53,13 +53,13 @@ abstract class _$$TestParent2Props extends _$TestParent2Props
 
   factory _$$TestParent2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestParent2Props$JsMap(backingMap);
+      return _$$TestParent2Props$JsMap(backingMap);
     } else {
-      return new _$$TestParent2Props$PlainMap(backingMap);
+      return _$$TestParent2Props$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -95,9 +95,9 @@ class _$$TestParent2Props$JsMap extends _$$TestParent2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestParent2Props$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -131,11 +131,11 @@ class _$TestParent2Component extends TestParent2Component {
 
   @override
   _$$TestParent2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$TestParent2Props$JsMap(backingMap);
+      _$$TestParent2Props$JsMap(backingMap);
 
   @override
   _$$TestParent2Props typedPropsFactory(Map backingMap) =>
-      new _$$TestParent2Props(backingMap);
+      _$$TestParent2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

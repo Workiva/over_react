@@ -11,7 +11,7 @@ part of 'prop_validation.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $PropTypesTestComponentFactory = registerComponent2(
-  () => new _$PropTypesTestComponent(),
+  () => _$PropTypesTestComponent(),
   builderFactory: PropTypesTest,
   componentClass: PropTypesTestComponent,
   isWrapper: false,
@@ -201,8 +201,8 @@ class PropTypesTestProps extends _$PropTypesTestProps
 
 _$$PropTypesTestProps _$PropTypesTest([Map backingProps]) =>
     backingProps == null
-        ? new _$$PropTypesTestProps$JsMap(new JsBackedMap())
-        : new _$$PropTypesTestProps(backingProps);
+        ? _$$PropTypesTestProps$JsMap(JsBackedMap())
+        : _$$PropTypesTestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -214,13 +214,13 @@ abstract class _$$PropTypesTestProps extends _$PropTypesTestProps
 
   factory _$$PropTypesTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$PropTypesTestProps$JsMap(backingMap);
+      return _$$PropTypesTestProps$JsMap(backingMap);
     } else {
-      return new _$$PropTypesTestProps$PlainMap(backingMap);
+      return _$$PropTypesTestProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -256,9 +256,9 @@ class _$$PropTypesTestProps$JsMap extends _$$PropTypesTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$PropTypesTestProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -292,11 +292,11 @@ class _$PropTypesTestComponent extends PropTypesTestComponent {
 
   @override
   _$$PropTypesTestProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$PropTypesTestProps$JsMap(backingMap);
+      _$$PropTypesTestProps$JsMap(backingMap);
 
   @override
   _$$PropTypesTestProps typedPropsFactory(Map backingMap) =>
-      new _$$PropTypesTestProps(backingMap);
+      _$$PropTypesTestProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

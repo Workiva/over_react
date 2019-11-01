@@ -11,7 +11,7 @@ part of 'my_provider_component.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $MyProviderComponentComponentFactory = registerComponent2(
-  () => new _$MyProviderComponentComponent(),
+  () => _$MyProviderComponentComponent(),
   builderFactory: MyProviderComponent,
   componentClass: MyProviderComponentComponent,
   isWrapper: false,
@@ -42,8 +42,8 @@ class MyProviderComponentProps extends _$MyProviderComponentProps
 
 _$$MyProviderComponentProps _$MyProviderComponent([Map backingProps]) =>
     backingProps == null
-        ? new _$$MyProviderComponentProps$JsMap(new JsBackedMap())
-        : new _$$MyProviderComponentProps(backingProps);
+        ? _$$MyProviderComponentProps$JsMap(JsBackedMap())
+        : _$$MyProviderComponentProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -55,13 +55,13 @@ abstract class _$$MyProviderComponentProps extends _$MyProviderComponentProps
 
   factory _$$MyProviderComponentProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$MyProviderComponentProps$JsMap(backingMap);
+      return _$$MyProviderComponentProps$JsMap(backingMap);
     } else {
-      return new _$$MyProviderComponentProps$PlainMap(backingMap);
+      return _$$MyProviderComponentProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -97,9 +97,9 @@ class _$$MyProviderComponentProps$JsMap extends _$$MyProviderComponentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$MyProviderComponentProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -156,13 +156,13 @@ abstract class _$$MyProviderComponentState extends _$MyProviderComponentState
 
   factory _$$MyProviderComponentState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$MyProviderComponentState$JsMap(backingMap);
+      return _$$MyProviderComponentState$JsMap(backingMap);
     } else {
-      return new _$$MyProviderComponentState$PlainMap(backingMap);
+      return _$$MyProviderComponentState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -189,9 +189,9 @@ class _$$MyProviderComponentState$JsMap extends _$$MyProviderComponentState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$MyProviderComponentState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -226,11 +226,11 @@ class _$MyProviderComponentComponent extends MyProviderComponentComponent {
   @override
   _$$MyProviderComponentProps$JsMap typedPropsFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$MyProviderComponentProps$JsMap(backingMap);
+      _$$MyProviderComponentProps$JsMap(backingMap);
 
   @override
   _$$MyProviderComponentProps typedPropsFactory(Map backingMap) =>
-      new _$$MyProviderComponentProps(backingMap);
+      _$$MyProviderComponentProps(backingMap);
 
   _$$MyProviderComponentState$JsMap _cachedTypedState;
   @override
@@ -249,11 +249,11 @@ class _$MyProviderComponentComponent extends MyProviderComponentComponent {
   @override
   _$$MyProviderComponentState$JsMap typedStateFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$MyProviderComponentState$JsMap(backingMap);
+      _$$MyProviderComponentState$JsMap(backingMap);
 
   @override
   _$$MyProviderComponentState typedStateFactory(Map backingMap) =>
-      new _$$MyProviderComponentState(backingMap);
+      _$$MyProviderComponentState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

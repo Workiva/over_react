@@ -10,7 +10,7 @@ part of 'faulty-component.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $FaultyComponentFactory = registerComponent(() => new _$FaultyComponent(),
+final $FaultyComponentFactory = registerComponent(() => _$FaultyComponent(),
     builderFactory: Faulty,
     componentClass: FaultyComponent,
     isWrapper: false,
@@ -32,7 +32,7 @@ const PropsMeta _$metaForFaultyProps = PropsMeta(
   keys: _$FaultyPropsAccessorsMixin.$propKeys,
 );
 
-_$$FaultyProps _$Faulty([Map backingProps]) => new _$$FaultyProps(backingProps);
+_$$FaultyProps _$Faulty([Map backingProps]) => _$$FaultyProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -51,7 +51,7 @@ class _$$FaultyProps extends _$FaultyProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -111,7 +111,7 @@ class _$$FaultyState extends _$FaultyState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -123,11 +123,11 @@ class _$$FaultyState extends _$FaultyState
 class _$FaultyComponent extends FaultyComponent {
   @override
   _$$FaultyProps typedPropsFactory(Map backingMap) =>
-      new _$$FaultyProps(backingMap);
+      _$$FaultyProps(backingMap);
 
   @override
   _$$FaultyState typedStateFactory(Map backingMap) =>
-      new _$$FaultyState(backingMap);
+      _$$FaultyState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

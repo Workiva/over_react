@@ -11,7 +11,7 @@ part of 'required_accessor_integration_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ComponentTestComponentFactory = registerComponent2(
-  () => new _$ComponentTestComponent(),
+  () => _$ComponentTestComponent(),
   builderFactory: ComponentTest,
   componentClass: ComponentTestComponent,
   isWrapper: false,
@@ -119,8 +119,8 @@ class ComponentTestProps extends _$ComponentTestProps
 
 _$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
     backingProps == null
-        ? new _$$ComponentTestProps$JsMap(new JsBackedMap())
-        : new _$$ComponentTestProps(backingProps);
+        ? _$$ComponentTestProps$JsMap(JsBackedMap())
+        : _$$ComponentTestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -132,13 +132,13 @@ abstract class _$$ComponentTestProps extends _$ComponentTestProps
 
   factory _$$ComponentTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ComponentTestProps$JsMap(backingMap);
+      return _$$ComponentTestProps$JsMap(backingMap);
     } else {
-      return new _$$ComponentTestProps$PlainMap(backingMap);
+      return _$$ComponentTestProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -174,9 +174,9 @@ class _$$ComponentTestProps$JsMap extends _$$ComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ComponentTestProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -210,11 +210,11 @@ class _$ComponentTestComponent extends ComponentTestComponent {
 
   @override
   _$$ComponentTestProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$ComponentTestProps$JsMap(backingMap);
+      _$$ComponentTestProps$JsMap(backingMap);
 
   @override
   _$$ComponentTestProps typedPropsFactory(Map backingMap) =>
-      new _$$ComponentTestProps(backingMap);
+      _$$ComponentTestProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

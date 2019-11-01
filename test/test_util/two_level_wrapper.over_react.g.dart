@@ -11,7 +11,7 @@ part of 'two_level_wrapper.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TwoLevelWrapperComponentFactory = registerComponent(
-    () => new _$TwoLevelWrapperComponent(),
+    () => _$TwoLevelWrapperComponent(),
     builderFactory: TwoLevelWrapper,
     componentClass: TwoLevelWrapperComponent,
     isWrapper: true,
@@ -40,7 +40,7 @@ class TwoLevelWrapperProps extends _$TwoLevelWrapperProps
 }
 
 _$$TwoLevelWrapperProps _$TwoLevelWrapper([Map backingProps]) =>
-    new _$$TwoLevelWrapperProps(backingProps);
+    _$$TwoLevelWrapperProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -59,7 +59,7 @@ class _$$TwoLevelWrapperProps extends _$TwoLevelWrapperProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -80,7 +80,7 @@ class _$$TwoLevelWrapperProps extends _$TwoLevelWrapperProps
 class _$TwoLevelWrapperComponent extends TwoLevelWrapperComponent {
   @override
   _$$TwoLevelWrapperProps typedPropsFactory(Map backingMap) =>
-      new _$$TwoLevelWrapperProps(backingMap);
+      _$$TwoLevelWrapperProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

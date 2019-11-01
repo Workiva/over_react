@@ -11,7 +11,7 @@ part of 'resize_sensor.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ResizeSensorComponentFactory = registerComponent(
-    () => new _$ResizeSensorComponent(),
+    () => _$ResizeSensorComponent(),
     builderFactory: ResizeSensor,
     componentClass: ResizeSensorComponent,
     isWrapper: false,
@@ -40,7 +40,7 @@ class ResizeSensorProps extends _$ResizeSensorProps
 }
 
 _$$ResizeSensorProps _$ResizeSensor([Map backingProps]) =>
-    new _$$ResizeSensorProps(backingProps);
+    _$$ResizeSensorProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -59,7 +59,7 @@ class _$$ResizeSensorProps extends _$ResizeSensorProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -80,7 +80,7 @@ class _$$ResizeSensorProps extends _$ResizeSensorProps
 class _$ResizeSensorComponent extends ResizeSensorComponent {
   @override
   _$$ResizeSensorProps typedPropsFactory(Map backingMap) =>
-      new _$$ResizeSensorProps(backingMap);
+      _$$ResizeSensorProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

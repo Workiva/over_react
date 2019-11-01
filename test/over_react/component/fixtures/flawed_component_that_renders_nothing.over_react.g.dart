@@ -11,7 +11,7 @@ part of 'flawed_component_that_renders_nothing.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $FlawedWithNoChildComponentFactory = registerComponent(
-    () => new _$FlawedWithNoChildComponent(),
+    () => _$FlawedWithNoChildComponent(),
     builderFactory: FlawedWithNoChild,
     componentClass: FlawedWithNoChildComponent,
     isWrapper: false,
@@ -35,7 +35,7 @@ const PropsMeta _$metaForFlawedWithNoChildProps = PropsMeta(
 );
 
 _$$FlawedWithNoChildProps _$FlawedWithNoChild([Map backingProps]) =>
-    new _$$FlawedWithNoChildProps(backingProps);
+    _$$FlawedWithNoChildProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -54,7 +54,7 @@ class _$$FlawedWithNoChildProps extends _$FlawedWithNoChildProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -75,7 +75,7 @@ class _$$FlawedWithNoChildProps extends _$FlawedWithNoChildProps
 class _$FlawedWithNoChildComponent extends FlawedWithNoChildComponent {
   @override
   _$$FlawedWithNoChildProps typedPropsFactory(Map backingMap) =>
-      new _$$FlawedWithNoChildProps(backingMap);
+      _$$FlawedWithNoChildProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

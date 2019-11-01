@@ -10,8 +10,7 @@ part of 'progress.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $ProgressComponentFactory = registerComponent(
-    () => new _$ProgressComponent(),
+final $ProgressComponentFactory = registerComponent(() => _$ProgressComponent(),
     builderFactory: Progress,
     componentClass: ProgressComponent,
     isWrapper: false,
@@ -300,7 +299,7 @@ class ProgressProps extends _$ProgressProps with _$ProgressPropsAccessorsMixin {
 }
 
 _$$ProgressProps _$Progress([Map backingProps]) =>
-    new _$$ProgressProps(backingProps);
+    _$$ProgressProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -319,7 +318,7 @@ class _$$ProgressProps extends _$ProgressProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -392,7 +391,7 @@ class _$$ProgressState extends _$ProgressState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -404,11 +403,11 @@ class _$$ProgressState extends _$ProgressState
 class _$ProgressComponent extends ProgressComponent {
   @override
   _$$ProgressProps typedPropsFactory(Map backingMap) =>
-      new _$$ProgressProps(backingMap);
+      _$$ProgressProps(backingMap);
 
   @override
   _$$ProgressState typedStateFactory(Map backingMap) =>
-      new _$$ProgressState(backingMap);
+      _$$ProgressState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

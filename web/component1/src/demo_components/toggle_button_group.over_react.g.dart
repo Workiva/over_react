@@ -11,7 +11,7 @@ part of 'toggle_button_group.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ToggleButtonGroupComponentFactory =
-    registerComponent(() => new _$ToggleButtonGroupComponent(),
+    registerComponent(() => _$ToggleButtonGroupComponent(),
         builderFactory: ToggleButtonGroup,
         componentClass: ToggleButtonGroupComponent,
         isWrapper: false,
@@ -41,7 +41,7 @@ class ToggleButtonGroupProps extends _$ToggleButtonGroupProps
 }
 
 _$$ToggleButtonGroupProps _$ToggleButtonGroup([Map backingProps]) =>
-    new _$$ToggleButtonGroupProps(backingProps);
+    _$$ToggleButtonGroupProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -60,7 +60,7 @@ class _$$ToggleButtonGroupProps extends _$ToggleButtonGroupProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -112,7 +112,7 @@ class _$$ToggleButtonGroupState extends _$ToggleButtonGroupState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -124,11 +124,11 @@ class _$$ToggleButtonGroupState extends _$ToggleButtonGroupState
 class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
   @override
   _$$ToggleButtonGroupProps typedPropsFactory(Map backingMap) =>
-      new _$$ToggleButtonGroupProps(backingMap);
+      _$$ToggleButtonGroupProps(backingMap);
 
   @override
   _$$ToggleButtonGroupState typedStateFactory(Map backingMap) =>
-      new _$$ToggleButtonGroupState(backingMap);
+      _$$ToggleButtonGroupState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

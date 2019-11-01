@@ -11,7 +11,7 @@ part of 'do_not_generate_accessor_integration_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $DoNotGenerateAccessorTestComponentFactory = registerComponent2(
-  () => new _$DoNotGenerateAccessorTestComponent(),
+  () => _$DoNotGenerateAccessorTestComponent(),
   builderFactory: DoNotGenerateAccessorTest,
   componentClass: DoNotGenerateAccessorTestComponent,
   isWrapper: false,
@@ -100,8 +100,8 @@ class DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
 _$$DoNotGenerateAccessorTestProps _$DoNotGenerateAccessorTest(
         [Map backingProps]) =>
     backingProps == null
-        ? new _$$DoNotGenerateAccessorTestProps$JsMap(new JsBackedMap())
-        : new _$$DoNotGenerateAccessorTestProps(backingProps);
+        ? _$$DoNotGenerateAccessorTestProps$JsMap(JsBackedMap())
+        : _$$DoNotGenerateAccessorTestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -114,13 +114,13 @@ abstract class _$$DoNotGenerateAccessorTestProps
 
   factory _$$DoNotGenerateAccessorTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$DoNotGenerateAccessorTestProps$JsMap(backingMap);
+      return _$$DoNotGenerateAccessorTestProps$JsMap(backingMap);
     } else {
-      return new _$$DoNotGenerateAccessorTestProps$PlainMap(backingMap);
+      return _$$DoNotGenerateAccessorTestProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -158,9 +158,9 @@ class _$$DoNotGenerateAccessorTestProps$JsMap
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$DoNotGenerateAccessorTestProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -259,13 +259,13 @@ abstract class _$$DoNotGenerateAccessorTestState
 
   factory _$$DoNotGenerateAccessorTestState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$DoNotGenerateAccessorTestState$JsMap(backingMap);
+      return _$$DoNotGenerateAccessorTestState$JsMap(backingMap);
     } else {
-      return new _$$DoNotGenerateAccessorTestState$PlainMap(backingMap);
+      return _$$DoNotGenerateAccessorTestState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -294,9 +294,9 @@ class _$$DoNotGenerateAccessorTestState$JsMap
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$DoNotGenerateAccessorTestState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -332,11 +332,11 @@ class _$DoNotGenerateAccessorTestComponent
   @override
   _$$DoNotGenerateAccessorTestProps$JsMap typedPropsFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$DoNotGenerateAccessorTestProps$JsMap(backingMap);
+      _$$DoNotGenerateAccessorTestProps$JsMap(backingMap);
 
   @override
   _$$DoNotGenerateAccessorTestProps typedPropsFactory(Map backingMap) =>
-      new _$$DoNotGenerateAccessorTestProps(backingMap);
+      _$$DoNotGenerateAccessorTestProps(backingMap);
 
   _$$DoNotGenerateAccessorTestState$JsMap _cachedTypedState;
   @override
@@ -355,11 +355,11 @@ class _$DoNotGenerateAccessorTestComponent
   @override
   _$$DoNotGenerateAccessorTestState$JsMap typedStateFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$DoNotGenerateAccessorTestState$JsMap(backingMap);
+      _$$DoNotGenerateAccessorTestState$JsMap(backingMap);
 
   @override
   _$$DoNotGenerateAccessorTestState typedStateFactory(Map backingMap) =>
-      new _$$DoNotGenerateAccessorTestState(backingMap);
+      _$$DoNotGenerateAccessorTestState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

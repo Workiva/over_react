@@ -11,7 +11,7 @@ part of 'extendedtype.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestExtendtypeComponentFactory =
-    registerComponent(() => new _$TestExtendtypeComponent(),
+    registerComponent(() => _$TestExtendtypeComponent(),
         builderFactory: TestExtendtype,
         componentClass: TestExtendtypeComponent,
         isWrapper: false,
@@ -41,7 +41,7 @@ class TestExtendtypeProps extends _$TestExtendtypeProps
 }
 
 _$$TestExtendtypeProps _$TestExtendtype([Map backingProps]) =>
-    new _$$TestExtendtypeProps(backingProps);
+    _$$TestExtendtypeProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -60,7 +60,7 @@ class _$$TestExtendtypeProps extends _$TestExtendtypeProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -81,7 +81,7 @@ class _$$TestExtendtypeProps extends _$TestExtendtypeProps
 class _$TestExtendtypeComponent extends TestExtendtypeComponent {
   @override
   _$$TestExtendtypeProps typedPropsFactory(Map backingMap) =>
-      new _$$TestExtendtypeProps(backingMap);
+      _$$TestExtendtypeProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

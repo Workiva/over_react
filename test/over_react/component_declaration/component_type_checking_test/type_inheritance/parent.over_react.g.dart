@@ -11,7 +11,7 @@ part of 'parent.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestParentComponentFactory = registerComponent(
-    () => new _$TestParentComponent(),
+    () => _$TestParentComponent(),
     builderFactory: TestParent,
     componentClass: TestParentComponent,
     isWrapper: false,
@@ -39,7 +39,7 @@ class TestParentProps extends _$TestParentProps
 }
 
 _$$TestParentProps _$TestParent([Map backingProps]) =>
-    new _$$TestParentProps(backingProps);
+    _$$TestParentProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -58,7 +58,7 @@ class _$$TestParentProps extends _$TestParentProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -79,7 +79,7 @@ class _$$TestParentProps extends _$TestParentProps
 class _$TestParentComponent extends TestParentComponent {
   @override
   _$$TestParentProps typedPropsFactory(Map backingMap) =>
-      new _$$TestParentProps(backingMap);
+      _$$TestParentProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

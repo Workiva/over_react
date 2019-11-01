@@ -11,7 +11,7 @@ part of 'redux_component_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestDefaultComponentFactory = registerComponent(
-    () => new _$TestDefaultComponent(),
+    () => _$TestDefaultComponent(),
     builderFactory: TestDefault,
     componentClass: TestDefaultComponent,
     isWrapper: false,
@@ -39,7 +39,7 @@ class TestDefaultProps extends _$TestDefaultProps
 }
 
 _$$TestDefaultProps _$TestDefault([Map backingProps]) =>
-    new _$$TestDefaultProps(backingProps);
+    _$$TestDefaultProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -58,7 +58,7 @@ class _$$TestDefaultProps extends _$TestDefaultProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -79,7 +79,7 @@ class _$$TestDefaultProps extends _$TestDefaultProps
 class _$TestDefaultComponent extends TestDefaultComponent {
   @override
   _$$TestDefaultProps typedPropsFactory(Map backingMap) =>
-      new _$$TestDefaultProps(backingMap);
+      _$$TestDefaultProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -97,7 +97,7 @@ class _$TestDefaultComponent extends TestDefaultComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestConnectComponentFactory = registerComponent(
-    () => new _$TestConnectComponent(),
+    () => _$TestConnectComponent(),
     builderFactory: TestConnect,
     componentClass: TestConnectComponent,
     isWrapper: false,
@@ -125,7 +125,7 @@ class TestConnectProps extends _$TestConnectProps
 }
 
 _$$TestConnectProps _$TestConnect([Map backingProps]) =>
-    new _$$TestConnectProps(backingProps);
+    _$$TestConnectProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -144,7 +144,7 @@ class _$$TestConnectProps extends _$TestConnectProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -165,7 +165,7 @@ class _$$TestConnectProps extends _$TestConnectProps
 class _$TestConnectComponent extends TestConnectComponent {
   @override
   _$$TestConnectProps typedPropsFactory(Map backingMap) =>
-      new _$$TestConnectProps(backingMap);
+      _$$TestConnectProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -182,8 +182,7 @@ class _$TestConnectComponent extends TestConnectComponent {
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $TestPureComponentFactory = registerComponent(
-    () => new _$TestPureComponent(),
+final $TestPureComponentFactory = registerComponent(() => _$TestPureComponent(),
     builderFactory: TestPure,
     componentClass: TestPureComponent,
     isWrapper: false,
@@ -210,7 +209,7 @@ class TestPureProps extends _$TestPureProps with _$TestPurePropsAccessorsMixin {
 }
 
 _$$TestPureProps _$TestPure([Map backingProps]) =>
-    new _$$TestPureProps(backingProps);
+    _$$TestPureProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -229,7 +228,7 @@ class _$$TestPureProps extends _$TestPureProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -250,7 +249,7 @@ class _$$TestPureProps extends _$TestPureProps
 class _$TestPureComponent extends TestPureComponent {
   @override
   _$$TestPureProps typedPropsFactory(Map backingMap) =>
-      new _$$TestPureProps(backingMap);
+      _$$TestPureProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

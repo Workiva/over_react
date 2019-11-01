@@ -11,7 +11,7 @@ part of 'safe_render_manager_helper.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $SafeRenderManagerHelperComponentFactory = registerComponent(
-    () => new _$SafeRenderManagerHelperComponent(),
+    () => _$SafeRenderManagerHelperComponent(),
     builderFactory: SafeRenderManagerHelper,
     componentClass: SafeRenderManagerHelperComponent,
     isWrapper: false,
@@ -73,7 +73,7 @@ const PropsMeta _$metaForSafeRenderManagerHelperProps = PropsMeta(
 );
 
 _$$SafeRenderManagerHelperProps _$SafeRenderManagerHelper([Map backingProps]) =>
-    new _$$SafeRenderManagerHelperProps(backingProps);
+    _$$SafeRenderManagerHelperProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -92,7 +92,7 @@ class _$$SafeRenderManagerHelperProps extends _$SafeRenderManagerHelperProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -156,7 +156,7 @@ class _$$SafeRenderManagerHelperState extends _$SafeRenderManagerHelperState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -169,11 +169,11 @@ class _$SafeRenderManagerHelperComponent
     extends SafeRenderManagerHelperComponent {
   @override
   _$$SafeRenderManagerHelperProps typedPropsFactory(Map backingMap) =>
-      new _$$SafeRenderManagerHelperProps(backingMap);
+      _$$SafeRenderManagerHelperProps(backingMap);
 
   @override
   _$$SafeRenderManagerHelperState typedStateFactory(Map backingMap) =>
-      new _$$SafeRenderManagerHelperState(backingMap);
+      _$$SafeRenderManagerHelperState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

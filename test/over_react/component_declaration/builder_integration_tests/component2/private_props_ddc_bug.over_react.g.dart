@@ -11,7 +11,7 @@ part of 'private_props_ddc_bug.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $FooComponentFactory = registerComponent2(
-  () => new _$FooComponent(),
+  () => _$FooComponent(),
   builderFactory: Foo,
   componentClass: FooComponent,
   isWrapper: false,
@@ -51,8 +51,8 @@ class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
 }
 
 _$$FooProps _$Foo([Map backingProps]) => backingProps == null
-    ? new _$$FooProps$JsMap(new JsBackedMap())
-    : new _$$FooProps(backingProps);
+    ? _$$FooProps$JsMap(JsBackedMap())
+    : _$$FooProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -64,13 +64,13 @@ abstract class _$$FooProps extends _$FooProps
 
   factory _$$FooProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$FooProps$JsMap(backingMap);
+      return _$$FooProps$JsMap(backingMap);
     } else {
-      return new _$$FooProps$PlainMap(backingMap);
+      return _$$FooProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -106,9 +106,9 @@ class _$$FooProps$JsMap extends _$$FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$FooProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -142,10 +142,10 @@ class _$FooComponent extends FooComponent {
 
   @override
   _$$FooProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$FooProps$JsMap(backingMap);
+      _$$FooProps$JsMap(backingMap);
 
   @override
-  _$$FooProps typedPropsFactory(Map backingMap) => new _$$FooProps(backingMap);
+  _$$FooProps typedPropsFactory(Map backingMap) => _$$FooProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

@@ -11,7 +11,7 @@ part of 'namespaced_accessor_integration_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $NamespacedAccessorTestComponentFactory = registerComponent(
-    () => new _$NamespacedAccessorTestComponent(),
+    () => _$NamespacedAccessorTestComponent(),
     builderFactory: NamespacedAccessorTest,
     componentClass: NamespacedAccessorTestComponent,
     isWrapper: false,
@@ -153,7 +153,7 @@ class NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
 }
 
 _$$NamespacedAccessorTestProps _$NamespacedAccessorTest([Map backingProps]) =>
-    new _$$NamespacedAccessorTestProps(backingProps);
+    _$$NamespacedAccessorTestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -172,7 +172,7 @@ class _$$NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -338,7 +338,7 @@ class _$$NamespacedAccessorTestState extends _$NamespacedAccessorTestState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -351,11 +351,11 @@ class _$NamespacedAccessorTestComponent
     extends NamespacedAccessorTestComponent {
   @override
   _$$NamespacedAccessorTestProps typedPropsFactory(Map backingMap) =>
-      new _$$NamespacedAccessorTestProps(backingMap);
+      _$$NamespacedAccessorTestProps(backingMap);
 
   @override
   _$$NamespacedAccessorTestState typedStateFactory(Map backingMap) =>
-      new _$$NamespacedAccessorTestState(backingMap);
+      _$$NamespacedAccessorTestState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

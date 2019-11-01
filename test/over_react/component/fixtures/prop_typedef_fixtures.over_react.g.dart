@@ -151,7 +151,7 @@ abstract class TestAbstractCustomRendererComponentState
 // Registers component implementation and links type meta to builder factory.
 final $TestConsumingAbstractCustomRendererComponentComponentFactory =
     registerComponent(
-        () => new _$TestConsumingAbstractCustomRendererComponentComponent(),
+        () => _$TestConsumingAbstractCustomRendererComponentComponent(),
         builderFactory: TestConsumingAbstractCustomRendererComponent,
         componentClass: TestConsumingAbstractCustomRendererComponentComponent,
         isWrapper: false,
@@ -229,7 +229,7 @@ class TestConsumingAbstractCustomRendererComponentProps
 
 _$$TestConsumingAbstractCustomRendererComponentProps
     _$TestConsumingAbstractCustomRendererComponent([Map backingProps]) =>
-        new _$$TestConsumingAbstractCustomRendererComponentProps(backingProps);
+        _$$TestConsumingAbstractCustomRendererComponentProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -250,7 +250,7 @@ class _$$TestConsumingAbstractCustomRendererComponentProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -275,7 +275,7 @@ class _$TestConsumingAbstractCustomRendererComponentComponent
   @override
   _$$TestConsumingAbstractCustomRendererComponentProps typedPropsFactory(
           Map backingMap) =>
-      new _$$TestConsumingAbstractCustomRendererComponentProps(backingMap);
+      _$$TestConsumingAbstractCustomRendererComponentProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -293,7 +293,7 @@ class _$TestConsumingAbstractCustomRendererComponentComponent
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestConsumingCustomRendererComponentComponentFactory = registerComponent(
-    () => new _$TestConsumingCustomRendererComponentComponent(),
+    () => _$TestConsumingCustomRendererComponentComponent(),
     builderFactory: TestConsumingCustomRendererComponent,
     componentClass: TestConsumingCustomRendererComponentComponent,
     isWrapper: false,
@@ -368,7 +368,7 @@ class TestConsumingCustomRendererComponentProps
 
 _$$TestConsumingCustomRendererComponentProps
     _$TestConsumingCustomRendererComponent([Map backingProps]) =>
-        new _$$TestConsumingCustomRendererComponentProps(backingProps);
+        _$$TestConsumingCustomRendererComponentProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -389,7 +389,7 @@ class _$$TestConsumingCustomRendererComponentProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -413,7 +413,7 @@ class _$TestConsumingCustomRendererComponentComponent
   @override
   _$$TestConsumingCustomRendererComponentProps typedPropsFactory(
           Map backingMap) =>
-      new _$$TestConsumingCustomRendererComponentProps(backingMap);
+      _$$TestConsumingCustomRendererComponentProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -432,7 +432,7 @@ class _$TestConsumingCustomRendererComponentComponent
 // Registers component implementation and links type meta to builder factory.
 final $TestCustomRendererFromAbstractComponentComponentFactory =
     registerComponent(
-        () => new _$TestCustomRendererFromAbstractComponentComponent(),
+        () => _$TestCustomRendererFromAbstractComponentComponent(),
         builderFactory: TestCustomRendererFromAbstractComponent,
         componentClass: TestCustomRendererFromAbstractComponentComponent,
         isWrapper: false,
@@ -487,7 +487,7 @@ class TestCustomRendererFromAbstractComponentProps
 
 _$$TestCustomRendererFromAbstractComponentProps
     _$TestCustomRendererFromAbstractComponent([Map backingProps]) =>
-        new _$$TestCustomRendererFromAbstractComponentProps(backingProps);
+        _$$TestCustomRendererFromAbstractComponentProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -508,7 +508,7 @@ class _$$TestCustomRendererFromAbstractComponentProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -567,7 +567,7 @@ class _$$TestCustomRendererFromAbstractComponentState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -581,12 +581,12 @@ class _$TestCustomRendererFromAbstractComponentComponent
   @override
   _$$TestCustomRendererFromAbstractComponentProps typedPropsFactory(
           Map backingMap) =>
-      new _$$TestCustomRendererFromAbstractComponentProps(backingMap);
+      _$$TestCustomRendererFromAbstractComponentProps(backingMap);
 
   @override
   _$$TestCustomRendererFromAbstractComponentState typedStateFactory(
           Map backingMap) =>
-      new _$$TestCustomRendererFromAbstractComponentState(backingMap);
+      _$$TestCustomRendererFromAbstractComponentState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -604,7 +604,7 @@ class _$TestCustomRendererFromAbstractComponentComponent
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestCustomRendererComponentComponentFactory = registerComponent(
-    () => new _$TestCustomRendererComponentComponent(),
+    () => _$TestCustomRendererComponentComponent(),
     builderFactory: TestCustomRendererComponent,
     componentClass: TestCustomRendererComponentComponent,
     isWrapper: false,
@@ -722,7 +722,7 @@ class TestCustomRendererComponentProps
 
 _$$TestCustomRendererComponentProps _$TestCustomRendererComponent(
         [Map backingProps]) =>
-    new _$$TestCustomRendererComponentProps(backingProps);
+    _$$TestCustomRendererComponentProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -742,7 +742,7 @@ class _$$TestCustomRendererComponentProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
@@ -814,7 +814,7 @@ class _$$TestCustomRendererComponentState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -827,11 +827,11 @@ class _$TestCustomRendererComponentComponent
     extends TestCustomRendererComponentComponent {
   @override
   _$$TestCustomRendererComponentProps typedPropsFactory(Map backingMap) =>
-      new _$$TestCustomRendererComponentProps(backingMap);
+      _$$TestCustomRendererComponentProps(backingMap);
 
   @override
   _$$TestCustomRendererComponentState typedStateFactory(Map backingMap) =>
-      new _$$TestCustomRendererComponentState(backingMap);
+      _$$TestCustomRendererComponentState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
