@@ -38,6 +38,8 @@ dev_dependencies:
   dependency_validator: ^1.2.2
   mockito: ^4.0.0
   over_react_test: ^2.5.2
+  redux_dev_tools: ^0.4.0
+  redux_remote_devtools: ^0.0.7
   test: ^1.0.0
 
 dependency_overrides:
