@@ -225,11 +225,11 @@ void main() {
   }
 
   group('FluxUiComponent', () {
-    sharedComponentTests( TestComponents());
+    sharedComponentTests(TestComponents());
   });
 
   group('FluxUiStatefulComponent', () {
-    sharedComponentTests( TestStatefulComponents());
+    sharedComponentTests(TestStatefulComponents());
   });
 }
 

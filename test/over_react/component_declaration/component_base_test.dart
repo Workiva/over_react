@@ -502,7 +502,7 @@ main() {
             expect(props1, same(props2));
           });
 
-          test('creates a UiProps object when the props map changes', () {
+          test('creates a new UiProps object when the props map changes', () {
             var propsBeforeChange = component.props;
             component.unwrappedProps = {};
             var propsAfterChange = component.props;
@@ -520,7 +520,7 @@ main() {
         });
       });
 
-      test('newProps() returns a UiProps instance backed by a Map', () {
+      test('newProps() returns a new UiProps instance backed by a new Map', () {
         var newProps1 = component.newProps();
         var newProps2 = component.newProps();
         expect(newProps1, const TypeMatcher<TestComponentProps>());
@@ -606,7 +606,7 @@ main() {
         });
       });
 
-      test('forwardingClassNameBuilder() returns a ClassNameBuilder based on the component\'s props', () {
+      test('forwardingClassNameBuilder() returns a new ClassNameBuilder based on the component\'s props', () {
         component.props = {
           'className': 'class-1',
           'classNameBlacklist': 'blacklist-1',
@@ -831,7 +831,7 @@ main() {
             expect(state1, same(state2));
           });
 
-          test('creates a UiState object when the state map changes', () {
+          test('creates a new UiState object when the state map changes', () {
             var stateBeforeChange = statefulComponent.state;
             statefulComponent.unwrappedState = {};
             var stateAfterChange = statefulComponent.state;
@@ -857,7 +857,7 @@ main() {
         });
       });
 
-      test('newState() returns a UiProps instance backed by a Map', () {
+      test('newState() returns a new UiProps instance backed by a Map', () {
         var newState1 = statefulComponent.newState();
         var newState2 = statefulComponent.newState();
         expect(newState1, const TypeMatcher<TestStatefulComponentState>());
@@ -875,7 +875,7 @@ main() {
             var reactComponentFactory = registerComponent(dummyComponentFactory, isWrapper: true);
             var meta = getComponentTypeMeta(reactComponentFactory.type);
 
-            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a meta instance');
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
             expect(meta.isWrapper, isTrue);
           });
 
@@ -883,7 +883,7 @@ main() {
             var reactComponentFactory = registerComponent(dummyComponentFactory, isWrapper: false);
             var meta = getComponentTypeMeta(reactComponentFactory.type);
 
-            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a meta instance');
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
             expect(meta.isWrapper, isFalse);
           });
         });
@@ -893,7 +893,7 @@ main() {
             var reactComponentFactory = registerComponent(dummyComponentFactory);
             var meta = getComponentTypeMeta(reactComponentFactory.type);
 
-            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a meta instance');
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
             expect(meta.parentType, isNull);
           });
 
@@ -901,7 +901,7 @@ main() {
             var reactComponentFactory = registerComponent(dummyComponentFactory);
             var meta = getComponentTypeMeta(reactComponentFactory.type);
 
-            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a meta instance');
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
             expect(meta.parentType, isNull);
           });
 
@@ -911,7 +911,7 @@ main() {
             var reactComponentFactory = registerComponent(dummyComponentFactory, parentType: parentFactory);
             var meta = getComponentTypeMeta(reactComponentFactory.type);
 
-            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a meta instance');
+            expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
             expect(meta.parentType, equals(parentFactory));
           });
         });
@@ -952,7 +952,7 @@ main() {
       var reactComponentFactory = registerAbstractComponent(typeAlias, parentType: parentFactory);
       var meta = getComponentTypeMeta(reactComponentFactory.type);
 
-      expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a meta instance');
+      expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
       expect(meta.parentType, equals(parentFactory));
       expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
     });

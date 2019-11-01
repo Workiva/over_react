@@ -67,7 +67,7 @@ main() {
     expect(syntheticKeyboardEvent.timeStamp, 0);
     expect(syntheticKeyboardEvent.type, 'type');
     expect(syntheticKeyboardEvent.altKey, isFalse);
-    expect(syntheticKeyboardEvent.char,  String.fromCharCode(0));
+    expect(syntheticKeyboardEvent.char, String.fromCharCode(0));
     expect(syntheticKeyboardEvent.charCode, 0);
     expect(syntheticKeyboardEvent.ctrlKey, isFalse);
     expect(syntheticKeyboardEvent.locale, isNull);
