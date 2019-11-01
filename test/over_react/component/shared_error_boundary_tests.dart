@@ -792,7 +792,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory builder) {
 
       test('and an unrecoverable component error is caught', () async {
         triggerAComponentError();
-        await new Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs ~/ 2));
+        await Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs ~/ 2));
         triggerAComponentError();
 
         expect(logRecords, hasLength(2));
