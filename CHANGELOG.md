@@ -1,81 +1,17 @@
 # OverReact Changelog
 
-## 3.0.0 (alpha)
+## 3.0.0
 
-- __3.0.0-alpha.6__
+__ReactJS 16.x Support__
 
-  * [#404] Clean up Dart 2 lints
-  * [#371] Fix `manageAndReturnTypedDisposable` null exception
-  
-  > Complete `3.0.0-alpha.6` Changesets:
-  >
-  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.5+dart2...3.0.0-alpha.6+dart2)
-  > - Dart 1 (no changes)
+- Support for the new / updated lifecycle methods from ReactJS 16 [will be released in version `3.1.0`](https://github.com/Workiva/over_react/milestone/3).
 
-- __3.0.0-alpha.5__
+> Complete `3.0.0` Changesets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.7.0+dart2...3.0.0+dart2)
+> - [Dart 1](https://github.com/Workiva/over_react/compare/2.7.0+dart1...3.0.0+dart1)
 
-  * [#390] Add new SafeRenderManager utility
-  
-  > Complete `3.0.0-alpha.5` Changesets:
-  >
-  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.4+dart2...3.0.0-alpha.5+dart2)
-  > - [Dart 1](https://github.com/Workiva/over_react/compare/3.0.0-alpha.4+dart1...3.0.0-alpha.5+dart1)
-
-- __3.0.0-alpha.4__
-
-  * [#383] Update prop typedef to work around [Dart 2.6 compiler regression](https://github.com/dart-lang/sdk/issues/38880)
-
-  > Complete `3.0.0-alpha.4` Changesets:
-  >
-  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.3+dart2...3.0.0-alpha.4+dart2)
-  > - Dart 1 (no changes)
-
-- __3.0.0-alpha.3__
-
-  * [#370] Add error logging to ErrorBoundary
-
-  > Complete `3.0.0-alpha.3` Changesets:
-  >
-  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.2+dart2...3.0.0-alpha.3+dart2)
-  > - [Dart 1](https://github.com/Workiva/over_react/compare/3.0.0-alpha.2+dart1...3.0.0-alpha.3+dart1)
-
-- __3.0.0-alpha.2__
-
-  * [#363] Dart 2 Widen `analyzer` dependency range
-
-  > Complete `3.0.0-alpha.2` Changesets:
-  >
-  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.1+dart2...3.0.0-alpha.2+dart2)
-  > - Dart 1 (no changes)
-
-- __3.0.0-alpha.1__
-
-  * [#350] Improve handling of “repeat” errors thrown from components wrapped by an `ErrorBoundary`.
-
-  > Complete `3.0.0-alpha.1` Changesets:
-  >
-  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.0+dart2...3.0.0-alpha.1+dart2)
-  > - [Dart 1](https://github.com/Workiva/over_react/compare/3.0.0-alpha.0+dart1...3.0.0-alpha.1+dart1)
-
-- __3.0.0-alpha.0__
-
-  __ReactJS 16.x Support__ _(and Dart 1 compatible)_
-
-  * The underlying `react` dependency ([version 5.0.0](https://github.com/cleandart/react-dart/pull/214)) now provides ReactJS version 16 `.js` source files.
-  * Support for the new / updated lifecycle methods from ReactJS 16 [will be released in version `3.1.0`](https://github.com/Workiva/over_react/milestone/3).
-
-  __Breaking Changes__
-
-  * [#314] The `.over_react.g.dart` part directive is required on Dart 2. The
-    builder now logs at the `SEVERE` level (which causes the build to fail) when
-    a missing part directive is detected. Previously, the builder only logged this
-    as a warning. In other words, the issue has been promoted from a runtime
-    exception to a build-time error.
-
-  > Complete `3.0.0-alpha.0` Changesets:
-  >
-  > - [Dart 2](https://github.com/Workiva/over_react/compare/2.5.2+dart2...3.0.0-alpha.0+dart2)
-  > - [Dart 1](https://github.com/Workiva/over_react/compare/2.5.0+dart1...3.0.0-alpha.0+dart1)
+> __[Full List of Breaking Changes](https://github.com/Workiva/over_react/pull/408)__
 
 ## 2.7.0
 
