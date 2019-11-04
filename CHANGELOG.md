@@ -2,6 +2,16 @@
 
 ## 3.0.0 (alpha)
 
+- __3.0.0-alpha.6__
+
+  * [#404] Clean up Dart 2 lints
+  * [#371] Fix `manageAndReturnTypedDisposable` null exception
+  
+  > Complete `3.0.0-alpha.6` Changesets:
+  >
+  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.5+dart2...3.0.0-alpha.6+dart2)
+  > - Dart 1 (no changes)
+
 - __3.0.0-alpha.5__
 
   * [#390] Add new SafeRenderManager utility
