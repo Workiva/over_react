@@ -368,7 +368,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
   /// The parameter may not be `null`.
   @override
   T manageAndReturnTypedDisposable<T extends Disposable>(T disposable) =>
-      _disposableProxy.manageAndReturnTypedDisposable(disposable);
+      _getDisposableProxy().manageAndReturnTypedDisposable(disposable);
 
   //
   //   END DisposableManagerV7 interface implementation
