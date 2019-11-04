@@ -101,12 +101,12 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
 
   /// <!-- Generated from [_$StatefulComponentTestState.untypedState] -->
   @override
-  dynamic get untypedState =>
+  get untypedState =>
       state[_$key__untypedState___$StatefulComponentTestState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$StatefulComponentTestState.untypedState] -->
   @override
-  set untypedState(dynamic value) =>
+  set untypedState(value) =>
       state[_$key__untypedState___$StatefulComponentTestState] = value;
 
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyState] -->

@@ -34,12 +34,12 @@ abstract class _$TestAbstractPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestAbstractProps.untypedProp] -->
   @override
-  dynamic get untypedProp =>
+  get untypedProp =>
       props[_$key__untypedProp___$TestAbstractProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestAbstractProps.untypedProp] -->
   @override
-  set untypedProp(dynamic value) =>
+  set untypedProp(value) =>
       props[_$key__untypedProp___$TestAbstractProps] = value;
 
   /// <!-- Generated from [_$TestAbstractProps.customKeyProp] -->
@@ -159,12 +159,12 @@ abstract class _$TestCustomNamespaceAbstractPropsAccessorsMixin
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.untypedProp] -->
   @override
-  dynamic get untypedProp =>
+  get untypedProp =>
       props[_$key__untypedProp___$TestCustomNamespaceAbstractProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.untypedProp] -->
   @override
-  set untypedProp(dynamic value) =>
+  set untypedProp(value) =>
       props[_$key__untypedProp___$TestCustomNamespaceAbstractProps] = value;
 
   /// <!-- Generated from [_$TestCustomNamespaceAbstractProps.customKeyProp] -->
