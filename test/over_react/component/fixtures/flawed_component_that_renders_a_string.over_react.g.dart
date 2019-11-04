@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'flawed_component_that_renders_a_string.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'flawed_component_that_renders_a_string.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $FlawedWithStringChildComponentFactory = registerComponent(
-    () => new _$FlawedWithStringChildComponent(),
+    () => _$FlawedWithStringChildComponent(),
     builderFactory: FlawedWithStringChild,
     componentClass: FlawedWithStringChildComponent,
     isWrapper: false,
@@ -24,17 +25,17 @@ abstract class _$FlawedWithStringChildPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForFlawedWithStringChildProps = const PropsMeta(
+const PropsMeta _$metaForFlawedWithStringChildProps = PropsMeta(
   fields: _$FlawedWithStringChildPropsAccessorsMixin.$props,
   keys: _$FlawedWithStringChildPropsAccessorsMixin.$propKeys,
 );
 
 _$$FlawedWithStringChildProps _$FlawedWithStringChild([Map backingProps]) =>
-    new _$$FlawedWithStringChildProps(backingProps);
+    _$$FlawedWithStringChildProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -54,11 +55,11 @@ class _$$FlawedWithStringChildProps extends _$FlawedWithStringChildProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       $FlawedWithStringChildComponentFactory;
@@ -75,14 +76,14 @@ class _$$FlawedWithStringChildProps extends _$FlawedWithStringChildProps
 class _$FlawedWithStringChildComponent extends FlawedWithStringChildComponent {
   @override
   _$$FlawedWithStringChildProps typedPropsFactory(Map backingMap) =>
-      new _$$FlawedWithStringChildProps(backingMap);
+      _$$FlawedWithStringChildProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$FlawedWithStringChildProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForFlawedWithStringChildProps

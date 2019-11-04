@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library event_helpers_test;
 
 import 'dart:html';
@@ -23,9 +24,9 @@ import 'package:test/test.dart';
 /// Main entry point for Event Helpers testing
 main() {
   test('wrapNativeKeyboardEvent', () {
-    var nativeKeyboardEvent = new MockKeyboardEvent();
-    var currentTarget = new DivElement();
-    var target = new DivElement();
+    var nativeKeyboardEvent = MockKeyboardEvent();
+    var currentTarget = DivElement();
+    var target = DivElement();
     var calls = <String>[];
 
     when(nativeKeyboardEvent.bubbles).thenReturn(true);
@@ -66,7 +67,7 @@ main() {
     expect(syntheticKeyboardEvent.timeStamp, 0);
     expect(syntheticKeyboardEvent.type, 'type');
     expect(syntheticKeyboardEvent.altKey, isFalse);
-    expect(syntheticKeyboardEvent.char, new String.fromCharCode(0));
+    expect(syntheticKeyboardEvent.char, String.fromCharCode(0));
     expect(syntheticKeyboardEvent.charCode, 0);
     expect(syntheticKeyboardEvent.ctrlKey, isFalse);
     expect(syntheticKeyboardEvent.locale, isNull);
@@ -79,10 +80,10 @@ main() {
   });
 
   test('wrapNativeMouseEvent', () {
-    var nativeMouseEvent = new MockMouseEvent();
-    var currentTarget = new DivElement();
-    var target = new DivElement();
-    var relatedTarget = new DivElement();
+    var nativeMouseEvent = MockMouseEvent();
+    var currentTarget = DivElement();
+    var target = DivElement();
+    var relatedTarget = DivElement();
     var calls = <String>[];
 
     when(nativeMouseEvent.bubbles).thenReturn(true);
@@ -135,7 +136,7 @@ main() {
   });
 
   test('fakeSyntheticFormEvent', () {
-    var element = new DivElement();
+    var element = DivElement();
     var fakeEvent = fakeSyntheticFormEvent(element, 'change');
 
     expect(fakeEvent.bubbles, isFalse);
@@ -154,5 +155,7 @@ main() {
 }
 
 
+// ignore: avoid_implementing_value_types
 class MockKeyboardEvent extends Mock implements KeyboardEvent {}
+// ignore: avoid_implementing_value_types
 class MockMouseEvent extends Mock implements MouseEvent {}

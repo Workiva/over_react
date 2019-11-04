@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'generic_inheritance_super.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'generic_inheritance_super.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $GenericSuperComponentFactory = registerComponent(
-    () => new _$GenericSuperComponent(),
+    () => _$GenericSuperComponent(),
     builderFactory: GenericSuper,
     componentClass: GenericSuperComponent,
     isWrapper: false,
@@ -53,11 +54,11 @@ abstract class _$GenericSuperPropsAccessorsMixin
       props[_$key__superProp1___$GenericSuperProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__otherSuperProp___$GenericSuperProps =
-      const PropDescriptor(_$key__otherSuperProp___$GenericSuperProps);
+      PropDescriptor(_$key__otherSuperProp___$GenericSuperProps);
   static const PropDescriptor _$prop__superProp___$GenericSuperProps =
-      const PropDescriptor(_$key__superProp___$GenericSuperProps);
+      PropDescriptor(_$key__superProp___$GenericSuperProps);
   static const PropDescriptor _$prop__superProp1___$GenericSuperProps =
-      const PropDescriptor(_$key__superProp1___$GenericSuperProps);
+      PropDescriptor(_$key__superProp1___$GenericSuperProps);
   static const String _$key__otherSuperProp___$GenericSuperProps =
       'GenericSuperProps.otherSuperProp';
   static const String _$key__superProp___$GenericSuperProps =
@@ -65,19 +66,19 @@ abstract class _$GenericSuperPropsAccessorsMixin
   static const String _$key__superProp1___$GenericSuperProps =
       'GenericSuperProps.superProp1';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__otherSuperProp___$GenericSuperProps,
     _$prop__superProp___$GenericSuperProps,
     _$prop__superProp1___$GenericSuperProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__otherSuperProp___$GenericSuperProps,
     _$key__superProp___$GenericSuperProps,
     _$key__superProp1___$GenericSuperProps
   ];
 }
 
-const PropsMeta _$metaForGenericSuperProps = const PropsMeta(
+const PropsMeta _$metaForGenericSuperProps = PropsMeta(
   fields: _$GenericSuperPropsAccessorsMixin.$props,
   keys: _$GenericSuperPropsAccessorsMixin.$propKeys,
 );
@@ -88,7 +89,7 @@ class GenericSuperProps extends _$GenericSuperProps
 }
 
 _$$GenericSuperProps _$GenericSuper([Map backingProps]) =>
-    new _$$GenericSuperProps(backingProps);
+    _$$GenericSuperProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -108,11 +109,11 @@ class _$$GenericSuperProps extends _$GenericSuperProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       $GenericSuperComponentFactory;
@@ -138,19 +139,19 @@ abstract class _$GenericSuperStateAccessorsMixin
       state[_$key__superState___$GenericSuperState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__superState___$GenericSuperState =
-      const StateDescriptor(_$key__superState___$GenericSuperState);
+      StateDescriptor(_$key__superState___$GenericSuperState);
   static const String _$key__superState___$GenericSuperState =
       'GenericSuperState.superState';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__superState___$GenericSuperState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__superState___$GenericSuperState
   ];
 }
 
-const StateMeta _$metaForGenericSuperState = const StateMeta(
+const StateMeta _$metaForGenericSuperState = StateMeta(
   fields: _$GenericSuperStateAccessorsMixin.$state,
   keys: _$GenericSuperStateAccessorsMixin.$stateKeys,
 );
@@ -178,7 +179,7 @@ class _$$GenericSuperState extends _$GenericSuperState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -190,18 +191,18 @@ class _$$GenericSuperState extends _$GenericSuperState
 class _$GenericSuperComponent extends GenericSuperComponent {
   @override
   _$$GenericSuperProps typedPropsFactory(Map backingMap) =>
-      new _$$GenericSuperProps(backingMap);
+      _$$GenericSuperProps(backingMap);
 
   @override
   _$$GenericSuperState typedStateFactory(Map backingMap) =>
-      new _$$GenericSuperState(backingMap);
+      _$$GenericSuperState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$GenericSuperProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForGenericSuperProps

@@ -8,10 +8,13 @@ platforms:
 concurrency: 4
 
 presets:
+  vm:
+    paths:
+      - test/vm_tests/
+
   dartdevc:
     exclude_tags: no-ddc
     paths:
-      - test/vm_tests/
       - test/over_react_component_declaration_test.dart
       - test/over_react_component_test.dart
       - test/over_react_dom_test.dart

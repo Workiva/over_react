@@ -47,32 +47,32 @@ main() {
 
       test('returns the ReactClass type for a ReactDartComponentFactoryProxy', () {
         var reactClass = createTestReactClass();
-        var factory = new ReactDartComponentFactoryProxy(reactClass);
+        var factory = ReactDartComponentFactoryProxy(reactClass);
         expect(getComponentTypeFromAlias(factory), same(reactClass));
       });
 
       test('returns the String type for a ReactDomComponentFactoryProxy', () {
-        var factory = new ReactDomComponentFactoryProxy('div');
+        var factory = ReactDomComponentFactoryProxy('div');
         expect(getComponentTypeFromAlias(factory), equals('div'));
       });
 
       test('returns the ReactClass type for an aliased ReactDartComponentFactoryProxy', () {
         var reactClass = createTestReactClass();
-        var factory = new ReactDartComponentFactoryProxy(reactClass);
+        var factory = ReactDartComponentFactoryProxy(reactClass);
 
-        var typeAlias = new Object();
+        var typeAlias = Object();
         registerComponentTypeAlias(factory, typeAlias);
 
         expect(getComponentTypeFromAlias(typeAlias), same(reactClass));
       });
 
       test('returns null for an unregistered/invalid type alias', () {
-        var unregisteredTypeAlias = new Object();
+        var unregisteredTypeAlias = Object();
         expect(getComponentTypeFromAlias(unregisteredTypeAlias), isNull);
       });
 
       group('returns null and does not throw when passed', () {
-        var type;
+        dynamic type;
 
         test('null', () {
           expect(() {
@@ -148,7 +148,7 @@ main() {
         test('asserts that the input is a valid component type', () {
           expect(() {
             // Fully iterate the result by calling toList().
-            getParentTypes(new Object()).toList();
+            getParentTypes(Object()).toList();
           }, throwsA(const TypeMatcher<AssertionError>()));
         }, testOn: '!js');
       });
@@ -161,7 +161,7 @@ main() {
         });
 
         test('a component and an invalid/unregistered type alias', () {
-          expect(isComponentOfType(TestA()(), new Object()), isFalse);
+          expect(isComponentOfType(TestA()(), Object()), isFalse);
         });
 
         test('a component and its factory', () {
@@ -329,6 +329,7 @@ main() {
 }
 
 ReactClass createTestReactClass() {
-  return React.createClass(new ReactClassConfig(render: allowInterop(() => false)))
+  // ignore: deprecated_member_use
+  return React.createClass(ReactClassConfig(render: allowInterop(() => false)))
       ..dartDefaultProps = const {};
 }

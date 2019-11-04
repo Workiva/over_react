@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Various prop related mixins to be used with [UiComponent] descendants.
+/// Various prop related mixins to be used with `UiComponent` descendants.
 library over_react.prop_mixins;
 
 import 'package:over_react/over_react.dart' show AriaPropsMapView, AriaPropsMixin, DomProps, PropsMeta;
@@ -50,6 +50,7 @@ abstract class _$ReactPropsMixin {
   /// * <https://facebook.github.io/react/docs/multiple-components.html#children>
   /// * <https://facebook.github.io/react/docs/reconciliation.html>
   String get key        => props['key'];
+  /// ignore: prefer_null_aware_operators
   set key(Object value) => props['key'] = value == null ? null : value.toString();
 
   /// Either a String used to retrieve the element at a later time via [react.Component.ref],
@@ -161,8 +162,7 @@ abstract class _$UbiquitousDomPropsMixin {
   ///       ..aria.controls = 'my_popover'
   ///     )('Open popover')
   AriaPropsMixin get aria {
-    _aria ??= new AriaPropsMapView(props);
-    return _aria;
+    return _aria ??= AriaPropsMapView(props);
   }
 
   /// A view into this map that can be used to access DOM props, for convenience.
@@ -173,8 +173,7 @@ abstract class _$UbiquitousDomPropsMixin {
   ///       ..dom.draggable = true
   ///     )('Untitled Document')
   DomPropsMixin get dom {
-    _dom ??= new DomProps(null, props);
-    return _dom;
+    return _dom ??= DomProps(null, props);
   }
 
   /// Whether the element if focusable.

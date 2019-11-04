@@ -44,14 +44,14 @@ class TransformMatcher extends CustomMatcher {
 ///           ]]
 ///         ]
 List parseCssTransform(String transformString) {
-  return new RegExp(r'\w+(\([^\)]+\))?').allMatches(transformString).map((match) {
+  return RegExp(r'\w+(\([^\)]+\))?').allMatches(transformString).map((match) {
     var transform = match[0];
 
-    var transformParts = new RegExp(r'(\w+)\s*\(\s*(.+)\s*\)').firstMatch(transform);
+    var transformParts = RegExp(r'(\w+)\s*\(\s*(.+)\s*\)').firstMatch(transform);
 
     String name = transformParts[1];
-    List arguments = transformParts[2].split(new RegExp(r',\s*')).map((argument) {
-      var valueMatch = new RegExp(r'^([\d\.\-]+)(.*)').firstMatch(argument);
+    List arguments = transformParts[2].split(RegExp(r',\s*')).map((argument) {
+      var valueMatch = RegExp(r'^([\d\.\-]+)(.*)').firstMatch(argument);
 
       var number = double.parse(valueMatch[1]);
       var unit = valueMatch[2];
@@ -70,7 +70,7 @@ List parseCssTransform(String transformString) {
 /// Example:
 ///
 /// * `matchesTransform('translate(0, 5px) rotate(90deg)')` will match `'translate(0px, 5.001px) rotate(89.999deg)'`
-Matcher matchesTransform(String transformString, {double tolerance: .01}) {
+Matcher matchesTransform(String transformString, {double tolerance = .01}) {
   var matcher = parseCssTransform(transformString).map((transformPartTuple) {
     var name = transformPartTuple[0];
     var arguments = transformPartTuple[1];
@@ -89,5 +89,5 @@ Matcher matchesTransform(String transformString, {double tolerance: .01}) {
     return [name, argumentMatcher];
   }).toList();
 
-  return new TransformMatcher(matcher);
+  return TransformMatcher(matcher);
 }

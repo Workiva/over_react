@@ -96,6 +96,7 @@ class CallbackUtil0Arg extends CallbackUtil {
 
       if (aDidReturnFalse || bDidReturnFalse) return false;
     }
+
     return chained;
   }
 
@@ -125,6 +126,7 @@ class CallbackUtil1Arg<T> extends CallbackUtil {
 
       if (aDidReturnFalse || bDidReturnFalse) return false;
     }
+
     return chained;
   }
 
@@ -154,6 +156,7 @@ class CallbackUtil2Arg<T1, T2> extends CallbackUtil {
 
       if (aDidReturnFalse || bDidReturnFalse) return false;
     }
+
     return chained;
   }
 
@@ -183,6 +186,7 @@ class CallbackUtil3Arg<T1, T2, T3> extends CallbackUtil {
 
       if (aDidReturnFalse || bDidReturnFalse) return false;
     }
+
     return chained;
   }
 
@@ -212,6 +216,7 @@ class CallbackUtil4Arg<T1, T2, T3, T4> extends CallbackUtil {
 
       if (aDidReturnFalse || bDidReturnFalse) return false;
     }
+
     return chained;
   }
 

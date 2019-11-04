@@ -22,7 +22,7 @@ import 'package:over_react/over_react.dart';
 ///
 /// Used where a native [KeyboardEvent] is given and a [SyntheticKeyboardEvent] is needed.
 SyntheticKeyboardEvent wrapNativeKeyboardEvent(KeyboardEvent nativeKeyboardEvent) {
-  return new SyntheticKeyboardEvent(
+  return SyntheticKeyboardEvent(
     nativeKeyboardEvent.bubbles,
     nativeKeyboardEvent.cancelable,
     nativeKeyboardEvent.currentTarget,
@@ -36,7 +36,7 @@ SyntheticKeyboardEvent wrapNativeKeyboardEvent(KeyboardEvent nativeKeyboardEvent
     nativeKeyboardEvent.timeStamp,
     nativeKeyboardEvent.type,
     nativeKeyboardEvent.altKey,
-    nativeKeyboardEvent.charCode == null ? null : new String.fromCharCode(nativeKeyboardEvent.charCode),
+    nativeKeyboardEvent.charCode == null ? null :  String.fromCharCode(nativeKeyboardEvent.charCode),
     nativeKeyboardEvent.charCode,
     nativeKeyboardEvent.ctrlKey,
     null, // locale
@@ -52,7 +52,7 @@ SyntheticKeyboardEvent wrapNativeKeyboardEvent(KeyboardEvent nativeKeyboardEvent
 ///
 /// Used where a native [MouseEvent] is given and a [SyntheticMouseEvent] is needed.
 SyntheticMouseEvent wrapNativeMouseEvent(MouseEvent nativeMouseEvent) {
-  return new SyntheticMouseEvent(
+  return SyntheticMouseEvent(
     nativeMouseEvent.bubbles,
     nativeMouseEvent.cancelable,
     nativeMouseEvent.currentTarget,
@@ -88,7 +88,7 @@ SyntheticMouseEvent wrapNativeMouseEvent(MouseEvent nativeMouseEvent) {
 /// This helper method generates a "fake" [SyntheticFormEvent], with nothing but the `target` set to [element],
 /// `type` set to [type] and `timeStamp` set to the current time. All other arguments are `noop`, `false` or `null`.
 SyntheticFormEvent fakeSyntheticFormEvent(Element element, String type) {
-  return new SyntheticFormEvent(
+  return SyntheticFormEvent(
     false,
     false,
     element,
@@ -99,7 +99,7 @@ SyntheticFormEvent fakeSyntheticFormEvent(Element element, String type) {
     false,
     null,
     element,
-    new DateTime.now().millisecondsSinceEpoch,
+    DateTime.now().millisecondsSinceEpoch,
     type
   );
 }

@@ -39,11 +39,10 @@ class GeneratedClass {
 
   void _throwIfNotGenerated() {
     if (!this.$isClassGenerated) {
-      throw new IllegalInstantiationError(runtimeType: this.runtimeType);
+      throw IllegalInstantiationError(runtimeType: this.runtimeType);
     }
   }
 }
-
 
 /// See: [component_base.UiComponent]
 ///
@@ -56,7 +55,7 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
 
   /// The default consumed props, taken from the keys generated in the associated @[annotations.Props] class.
   @toBeGenerated
-  Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
+  Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw UngeneratedError(member: #$defaultConsumedProps);
 
   /// The keys for the non-forwarding props defined in this component.
   ///
@@ -69,9 +68,8 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
   /// Required to properly instantiate the generic [TProps] class.
   @override
   @toBeGenerated
-  TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedPropsFactory);
+  TProps typedPropsFactory(Map propsMap) => throw UngeneratedError(member: #typedPropsFactory);
 }
-
 
 /// See: [component_base.UiStatefulComponent]
 ///
@@ -85,7 +83,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 
   /// The default consumed prop keys, taken from the keys generated in the associated @[annotations.Props] class.
   @toBeGenerated
-  Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
+  Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw UngeneratedError(member: #$defaultConsumedProps);
 
   /// The keys for the non-forwarding props defined in this component.
   ///
@@ -99,12 +97,12 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   /// Required to properly instantiate the generic [TProps] class.
   @override
   @toBeGenerated
-  TProps typedPropsFactory(Map propsMap) => throw new UngeneratedError(member: #typedPropsFactory);
+  TProps typedPropsFactory(Map propsMap) => throw UngeneratedError(member: #typedPropsFactory);
 
   /// Returns a typed state object backed by the specified [stateMap].
   ///
   /// Required to properly instantiate the generic [TState] class.
-  @override @toBeGenerated TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: #typedStateFactory, message:
+  @override @toBeGenerated TState typedStateFactory(Map stateMap) => throw UngeneratedError(member: #typedStateFactory, message:
       '${#typedStateFactory}` should be implemented by code generation.\n\n'
       'This error may be due to your `UiState` class not being annotated with `@State()`,\n'
       'or because you are extending a stateful component without redeclaring your own `@State()`, like so:\n\n'
@@ -126,10 +124,9 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
     _throwIfNotGenerated();
   }
 
-  @toBeGenerated String get propKeyNamespace => throw new UngeneratedError(member: #propKeyNamespace);
-
-  @override @toBeGenerated Map get props                 => throw new UngeneratedError(member: #props);
-  @override @toBeGenerated ReactComponentFactoryProxy get componentFactory => throw new UngeneratedError(member: #componentFactory);
+  @toBeGenerated String get propKeyNamespace                               => throw UngeneratedError(member: #propKeyNamespace);
+  @override @toBeGenerated Map get props                                   => throw UngeneratedError(member: #props);
+  @override @toBeGenerated ReactComponentFactoryProxy get componentFactory => throw UngeneratedError(member: #componentFactory);
 }
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
@@ -141,9 +138,8 @@ abstract class UiState extends component_base.UiState with GeneratedClass {
     _throwIfNotGenerated();
   }
 
-  @override @toBeGenerated Map get state => throw new UngeneratedError(member: #state);
+  @override @toBeGenerated Map get state => throw UngeneratedError(member: #state);
 }
-
 
 // ----------------------------------------------------------------------
 //   Errors/annotations related to code generation
@@ -152,13 +148,13 @@ abstract class UiState extends component_base.UiState with GeneratedClass {
 /// Annotation that denotes that a given member will be implemented via code generation.
 ///
 /// Used in place of the `abstract` keyword so that subclasses don't have to be abstract.
-const toBeGenerated = const _ToBeGenerated();
+const toBeGenerated = _ToBeGenerated();
 
 class _ToBeGenerated {
   const _ToBeGenerated();
 }
 
-/// Thrown when stubbed code (usually annotated with [ToBeGenerated]) that expects to be
+/// Thrown when stubbed code (usually annotated with `ToBeGenerated`) that expects to be
 /// overridden by generated code is called unexpectedly.
 ///
 /// Usually this is due to improper usage of the code-generating builder.
@@ -166,26 +162,27 @@ class UngeneratedError extends Error implements UnimplementedError {
   @override
   final String message;
   UngeneratedError({String message, Symbol member}) :
-      this.message = message ?? "`$member` should be implemented by code generation";
+      this.message = message ?? '`$member` should be implemented by code generation';
 
   @override
   String toString() =>
-      "UngeneratedError: $message.\n\n"
-      "Ensure that you're running a build via build_runner.";
+      'UngeneratedError: $message.\n\n'
+      'Ensure that you\'re running a build via build_runner.';
 }
 
 /// Thrown when a class is directly instantiated when it should not be.
 class IllegalInstantiationError extends Error {
   final String message;
   IllegalInstantiationError({String message, Type runtimeType}) :
-      this.message = message ?? "`$runtimeType` cannot be instantated directly, but only indirectly via the UiFactory";
+      this.message = message ?? '`$runtimeType` cannot be instantated directly, but only indirectly via the UiFactory';
+
 
   @override
   String toString() =>
-      "IllegalInstantiationError: $message.\n\n"
-      "Be sure to follow usage instructions for over_react component classes.\n\n"
-      "If you need to do something extra custom and want to implement everything without code generation, "
-      "base classes are available by importing the "
-      "`package:over_react/src/component_declaration/component_base.dart` "
-      "library directly. ";
+      'IllegalInstantiationError: $message.\n\n'
+      'Be sure to follow usage instructions for over_react component classes.\n\n'
+      'If you need to do something extra custom and want to implement everything without code generation, '
+      'base classes are available by importing the '
+      '`package:over_react/src/component_declaration/component_base.dart` '
+      'library directly. ';
 }

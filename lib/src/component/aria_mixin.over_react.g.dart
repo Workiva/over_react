@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'aria_mixin.dart';
 
 // **************************************************************************
@@ -61,7 +62,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Indicates whether assistive technologies will present all, or only parts of, the changed region
   /// based on the change notifications defined by the aria-relevant attribute. See related aria-relevant.
   ///
-  /// Both accessibility APIs and the Document Object Model [DOM] provide events to allow the assistive
+  /// Both accessibility APIs and the Document Object Model `DOM` provide events to allow the assistive
   /// technologies to determine changed areas of the document.
   ///
   /// When the content of a live region changes, user agents SHOULD examine the changed element
@@ -88,7 +89,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// Indicates whether assistive technologies will present all, or only parts of, the changed region
   /// based on the change notifications defined by the aria-relevant attribute. See related aria-relevant.
   ///
-  /// Both accessibility APIs and the Document Object Model [DOM] provide events to allow the assistive
+  /// Both accessibility APIs and the Document Object Model `DOM` provide events to allow the assistive
   /// technologies to determine changed areas of the document.
   ///
   /// When the content of a live region changes, user agents SHOULD examine the changed element
@@ -172,7 +173,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   @Accessor(key: 'aria-busy')
   set busy(bool value) => props[_$key__busy___$AriaPropsMixin] = value;
 
-  /// Indicates the current "checked" state of checkboxes, radio buttons, and other widgets. See
+  /// Indicates the current 'checked' state of checkboxes, radio buttons, and other widgets. See
   /// related aria-pressed and aria-selected.
   ///
   /// The aria-checked attribute indicates whether the element is checked (true), unchecked (false),
@@ -195,7 +196,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   dynamic get checked =>
       props[_$key__checked___$AriaPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Indicates the current "checked" state of checkboxes, radio buttons, and other widgets. See
+  /// Indicates the current 'checked' state of checkboxes, radio buttons, and other widgets. See
   /// related aria-pressed and aria-selected.
   ///
   /// The aria-checked attribute indicates whether the element is checked (true), unchecked (false),
@@ -447,7 +448,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   @Accessor(key: 'aria-flowto')
   set flowto(dynamic value) => props[_$key__flowto___$AriaPropsMixin] = value;
 
-  /// Indicates an element's "grabbed" state in a drag-and-drop operation.
+  /// Indicates an element's 'grabbed' state in a drag-and-drop operation.
   ///
   /// When it is set to true it has been selected for dragging, false indicates that the element
   /// can be grabbed for a drag-and-drop operation, but is not currently grabbed, and undefined
@@ -466,7 +467,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   dynamic get grabbed =>
       props[_$key__grabbed___$AriaPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Indicates an element's "grabbed" state in a drag-and-drop operation.
+  /// Indicates an element's 'grabbed' state in a drag-and-drop operation.
   ///
   /// When it is set to true it has been selected for dragging, false indicates that the element
   /// can be grabbed for a drag-and-drop operation, but is not currently grabbed, and undefined
@@ -522,17 +523,17 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// to true. When the element is presented, authors MUST set the aria-hidden attribute to false
   /// or remove the attribute, indicating that the element is visible. Some assistive technologies
   /// access WAI-ARIA information directly through the DOM and not through platform accessibility
-  /// supported by the browser. Authors MUST set aria-hidden="true" on content that is not displayed,
+  /// supported by the browser. Authors MUST set aria-hidden='true' on content that is not displayed,
   /// regardless of the mechanism used to hide it. This allows assistive technologies or user agents
   /// to properly skip hidden elements in the document.
   ///
   /// It is recommended that authors key visibility of elements off this attribute, rather than
   /// change visibility and separately have to remember to update this property. CSS 2 provides
-  /// a way to select on attribute values ([CSS]). The following CSS declaration makes content visible
+  /// a way to select on attribute values (`CSS`). The following CSS declaration makes content visible
   /// unless the aria-hidden attribute is true; scripts need only update the value of this attribute
   /// to change visibility:
   ///
-  /// [aria-hidden="true"] { visibility: hidden; }
+  /// [aria-hidden='true'] { visibility: hidden; }
   ///
   /// Note: Authors are reminded that visibility:hidden and display:none apply to all CSS media
   /// types; therefore, use of either will hide the content from assistive technologies that access
@@ -573,17 +574,17 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// to true. When the element is presented, authors MUST set the aria-hidden attribute to false
   /// or remove the attribute, indicating that the element is visible. Some assistive technologies
   /// access WAI-ARIA information directly through the DOM and not through platform accessibility
-  /// supported by the browser. Authors MUST set aria-hidden="true" on content that is not displayed,
+  /// supported by the browser. Authors MUST set aria-hidden='true' on content that is not displayed,
   /// regardless of the mechanism used to hide it. This allows assistive technologies or user agents
   /// to properly skip hidden elements in the document.
   ///
   /// It is recommended that authors key visibility of elements off this attribute, rather than
   /// change visibility and separately have to remember to update this property. CSS 2 provides
-  /// a way to select on attribute values ([CSS]). The following CSS declaration makes content visible
+  /// a way to select on attribute values (`CSS`). The following CSS declaration makes content visible
   /// unless the aria-hidden attribute is true; scripts need only update the value of this attribute
   /// to change visibility:
   ///
-  /// [aria-hidden="true"] { visibility: hidden; }
+  /// [aria-hidden='true'] { visibility: hidden; }
   ///
   /// Note: Authors are reminded that visibility:hidden and display:none apply to all CSS media
   /// types; therefore, use of either will hide the content from assistive technologies that access
@@ -675,7 +676,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// use aria-label. There may be instances where the name of an element cannot be determined programmatically
   /// from the content of the element, and there are cases where providing a visible label is not
   /// the desired user experience. Most host languages provide an attribute that could be used to
-  /// name the element (e.g., the title attribute in HTML [HTML]), yet this could present a browser
+  /// name the element (e.g., the title attribute in HTML `HTML`), yet this could present a browser
   /// tooltip. In the cases where a visible label or visible tooltip is undesirable, authors MAY
   /// set the accessible name of the element using aria-label. As required by the text alternative
   /// computation, user agents give precedence to aria-labelledby over aria-label when computing
@@ -699,7 +700,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// use aria-label. There may be instances where the name of an element cannot be determined programmatically
   /// from the content of the element, and there are cases where providing a visible label is not
   /// the desired user experience. Most host languages provide an attribute that could be used to
-  /// name the element (e.g., the title attribute in HTML [HTML]), yet this could present a browser
+  /// name the element (e.g., the title attribute in HTML `HTML`), yet this could present a browser
   /// tooltip. In the cases where a visible label or visible tooltip is undesirable, authors MAY
   /// set the accessible name of the element using aria-label. As required by the text alternative
   /// computation, user agents give precedence to aria-labelledby over aria-label when computing
@@ -729,7 +730,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// is intended to provide more verbose information.
   ///
   /// Note: The expected spelling of this property in U.S. English is "labeledby." However, the
-  /// accessibility API features to which this property is mapped have established the "labelledby"
+  /// accessibility API features to which this property is mapped have established the 'labelledby'
   /// spelling. This property is spelled that way to match the convention and minimize the difficulty
   /// for developers.
   ///
@@ -758,7 +759,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// is intended to provide more verbose information.
   ///
   /// Note: The expected spelling of this property in U.S. English is "labeledby." However, the
-  /// accessibility API features to which this property is mapped have established the "labelledby"
+  /// accessibility API features to which this property is mapped have established the 'labelledby'
   /// spelling. This property is spelled that way to match the convention and minimize the difficulty
   /// for developers.
   ///
@@ -928,7 +929,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   ///
   /// Note: In most user agent implementations, the default behavior of the ENTER or RETURN key
   /// is different between the single-line and multi-line text fields in HTML. When user has focus
-  /// in a single-line &lt;input type="text"&gt; element, the keystroke usually submits the form.
+  /// in a single-line &lt;input type='text'&gt; element, the keystroke usually submits the form.
   /// When user has focus in a multi-line &lt;textarea&gt; element, the keystroke inserts a line
   /// break. The WAI-ARIA textbox role differentiates these types of boxes with the aria-multiline
   /// attribute, so authors are advised to be aware of this distinction when designing the field.
@@ -945,7 +946,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   ///
   /// Note: In most user agent implementations, the default behavior of the ENTER or RETURN key
   /// is different between the single-line and multi-line text fields in HTML. When user has focus
-  /// in a single-line &lt;input type="text"&gt; element, the keystroke usually submits the form.
+  /// in a single-line &lt;input type='text'&gt; element, the keystroke usually submits the form.
   /// When user has focus in a multi-line &lt;textarea&gt; element, the keystroke inserts a line
   /// break. The WAI-ARIA textbox role differentiates these types of boxes with the aria-multiline
   /// attribute, so authors are advised to be aware of this distinction when designing the field.
@@ -1094,7 +1095,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   @Accessor(key: 'aria-posinset')
   set posinset(int value) => props[_$key__posinset___$AriaPropsMixin] = value;
 
-  /// Indicates the current "pressed" state of toggle buttons. See related aria-checked and aria-selected.
+  /// Indicates the current 'pressed' state of toggle buttons. See related aria-checked and aria-selected.
   ///
   /// Toggle buttons require a full press-and-release cycle to change their value. Activating it
   /// once changes the value to true, and activating it another time changes the value back to false.
@@ -1113,7 +1114,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   dynamic get pressed =>
       props[_$key__pressed___$AriaPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Indicates the current "pressed" state of toggle buttons. See related aria-checked and aria-selected.
+  /// Indicates the current 'pressed' state of toggle buttons. See related aria-checked and aria-selected.
   ///
   /// Toggle buttons require a full press-and-release cycle to change their value. Activating it
   /// once changes the value to true, and activating it another time changes the value back to false.
@@ -1199,7 +1200,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// technologies, but assistive technologies are not required to present changes of all the relevant
   /// types.
   ///
-  /// Both accessibility APIs and Document Object Model Level 2 Events [DOM] provides events to
+  /// Both accessibility APIs and Document Object Model Level 2 Events `DOM` provides events to
   /// allow assistive technologies to determine changed areas of the document.
   ///
   /// When aria-relevant is not defined, an element's value is inherited from the nearest ancestor
@@ -1249,7 +1250,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// technologies, but assistive technologies are not required to present changes of all the relevant
   /// types.
   ///
-  /// Both accessibility APIs and Document Object Model Level 2 Events [DOM] provides events to
+  /// Both accessibility APIs and Document Object Model Level 2 Events `DOM` provides events to
   /// allow assistive technologies to determine changed areas of the document.
   ///
   /// When aria-relevant is not defined, an element's value is inherited from the nearest ancestor
@@ -1332,7 +1333,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   @override
   set role(String value) => props[_$key__role___$AriaPropsMixin] = value;
 
-  /// Indicates the current "selected" state of various widgets. See related aria-checked and aria-pressed.
+  /// Indicates the current 'selected' state of various widgets. See related aria-checked and aria-pressed.
   ///
   /// This attribute is used with single-selection and multiple-selection widgets:
   ///
@@ -1355,7 +1356,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   dynamic get selected =>
       props[_$key__selected___$AriaPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Indicates the current "selected" state of various widgets. See related aria-checked and aria-pressed.
+  /// Indicates the current 'selected' state of various widgets. See related aria-checked and aria-pressed.
   ///
   /// This attribute is used with single-selection and multiple-selection widgets:
   ///
@@ -1652,77 +1653,77 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
       props[_$key__valuetext___$AriaPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__activedescendant___$AriaPropsMixin =
-      const PropDescriptor(_$key__activedescendant___$AriaPropsMixin);
+      PropDescriptor(_$key__activedescendant___$AriaPropsMixin);
   static const PropDescriptor _$prop__atomic___$AriaPropsMixin =
-      const PropDescriptor(_$key__atomic___$AriaPropsMixin);
+      PropDescriptor(_$key__atomic___$AriaPropsMixin);
   static const PropDescriptor _$prop__autocomplete___$AriaPropsMixin =
-      const PropDescriptor(_$key__autocomplete___$AriaPropsMixin);
+      PropDescriptor(_$key__autocomplete___$AriaPropsMixin);
   static const PropDescriptor _$prop__busy___$AriaPropsMixin =
-      const PropDescriptor(_$key__busy___$AriaPropsMixin);
+      PropDescriptor(_$key__busy___$AriaPropsMixin);
   static const PropDescriptor _$prop__checked___$AriaPropsMixin =
-      const PropDescriptor(_$key__checked___$AriaPropsMixin);
+      PropDescriptor(_$key__checked___$AriaPropsMixin);
   static const PropDescriptor _$prop__controls___$AriaPropsMixin =
-      const PropDescriptor(_$key__controls___$AriaPropsMixin);
+      PropDescriptor(_$key__controls___$AriaPropsMixin);
   static const PropDescriptor _$prop__describedby___$AriaPropsMixin =
-      const PropDescriptor(_$key__describedby___$AriaPropsMixin);
+      PropDescriptor(_$key__describedby___$AriaPropsMixin);
   static const PropDescriptor _$prop__disabled___$AriaPropsMixin =
-      const PropDescriptor(_$key__disabled___$AriaPropsMixin);
+      PropDescriptor(_$key__disabled___$AriaPropsMixin);
   static const PropDescriptor _$prop__dropeffect___$AriaPropsMixin =
-      const PropDescriptor(_$key__dropeffect___$AriaPropsMixin);
+      PropDescriptor(_$key__dropeffect___$AriaPropsMixin);
   static const PropDescriptor _$prop__expanded___$AriaPropsMixin =
-      const PropDescriptor(_$key__expanded___$AriaPropsMixin);
+      PropDescriptor(_$key__expanded___$AriaPropsMixin);
   static const PropDescriptor _$prop__flowto___$AriaPropsMixin =
-      const PropDescriptor(_$key__flowto___$AriaPropsMixin);
+      PropDescriptor(_$key__flowto___$AriaPropsMixin);
   static const PropDescriptor _$prop__grabbed___$AriaPropsMixin =
-      const PropDescriptor(_$key__grabbed___$AriaPropsMixin);
+      PropDescriptor(_$key__grabbed___$AriaPropsMixin);
   static const PropDescriptor _$prop__haspopup___$AriaPropsMixin =
-      const PropDescriptor(_$key__haspopup___$AriaPropsMixin);
+      PropDescriptor(_$key__haspopup___$AriaPropsMixin);
   static const PropDescriptor _$prop__hidden___$AriaPropsMixin =
-      const PropDescriptor(_$key__hidden___$AriaPropsMixin);
+      PropDescriptor(_$key__hidden___$AriaPropsMixin);
   static const PropDescriptor _$prop__invalid___$AriaPropsMixin =
-      const PropDescriptor(_$key__invalid___$AriaPropsMixin);
+      PropDescriptor(_$key__invalid___$AriaPropsMixin);
   static const PropDescriptor _$prop__label___$AriaPropsMixin =
-      const PropDescriptor(_$key__label___$AriaPropsMixin);
+      PropDescriptor(_$key__label___$AriaPropsMixin);
   static const PropDescriptor _$prop__labelledby___$AriaPropsMixin =
-      const PropDescriptor(_$key__labelledby___$AriaPropsMixin);
+      PropDescriptor(_$key__labelledby___$AriaPropsMixin);
   static const PropDescriptor _$prop__level___$AriaPropsMixin =
-      const PropDescriptor(_$key__level___$AriaPropsMixin);
+      PropDescriptor(_$key__level___$AriaPropsMixin);
   static const PropDescriptor _$prop__live___$AriaPropsMixin =
-      const PropDescriptor(_$key__live___$AriaPropsMixin);
+      PropDescriptor(_$key__live___$AriaPropsMixin);
   static const PropDescriptor _$prop__multiline___$AriaPropsMixin =
-      const PropDescriptor(_$key__multiline___$AriaPropsMixin);
+      PropDescriptor(_$key__multiline___$AriaPropsMixin);
   static const PropDescriptor _$prop__multiselectable___$AriaPropsMixin =
-      const PropDescriptor(_$key__multiselectable___$AriaPropsMixin);
+      PropDescriptor(_$key__multiselectable___$AriaPropsMixin);
   static const PropDescriptor _$prop__orientation___$AriaPropsMixin =
-      const PropDescriptor(_$key__orientation___$AriaPropsMixin);
+      PropDescriptor(_$key__orientation___$AriaPropsMixin);
   static const PropDescriptor _$prop__owns___$AriaPropsMixin =
-      const PropDescriptor(_$key__owns___$AriaPropsMixin);
+      PropDescriptor(_$key__owns___$AriaPropsMixin);
   static const PropDescriptor _$prop__posinset___$AriaPropsMixin =
-      const PropDescriptor(_$key__posinset___$AriaPropsMixin);
+      PropDescriptor(_$key__posinset___$AriaPropsMixin);
   static const PropDescriptor _$prop__pressed___$AriaPropsMixin =
-      const PropDescriptor(_$key__pressed___$AriaPropsMixin);
+      PropDescriptor(_$key__pressed___$AriaPropsMixin);
   static const PropDescriptor _$prop__readonly___$AriaPropsMixin =
-      const PropDescriptor(_$key__readonly___$AriaPropsMixin);
+      PropDescriptor(_$key__readonly___$AriaPropsMixin);
   static const PropDescriptor _$prop__relevant___$AriaPropsMixin =
-      const PropDescriptor(_$key__relevant___$AriaPropsMixin);
+      PropDescriptor(_$key__relevant___$AriaPropsMixin);
   static const PropDescriptor _$prop__required___$AriaPropsMixin =
-      const PropDescriptor(_$key__required___$AriaPropsMixin);
+      PropDescriptor(_$key__required___$AriaPropsMixin);
   static const PropDescriptor _$prop__role___$AriaPropsMixin =
-      const PropDescriptor(_$key__role___$AriaPropsMixin);
+      PropDescriptor(_$key__role___$AriaPropsMixin);
   static const PropDescriptor _$prop__selected___$AriaPropsMixin =
-      const PropDescriptor(_$key__selected___$AriaPropsMixin);
+      PropDescriptor(_$key__selected___$AriaPropsMixin);
   static const PropDescriptor _$prop__setsize___$AriaPropsMixin =
-      const PropDescriptor(_$key__setsize___$AriaPropsMixin);
+      PropDescriptor(_$key__setsize___$AriaPropsMixin);
   static const PropDescriptor _$prop__sort___$AriaPropsMixin =
-      const PropDescriptor(_$key__sort___$AriaPropsMixin);
+      PropDescriptor(_$key__sort___$AriaPropsMixin);
   static const PropDescriptor _$prop__valuemax___$AriaPropsMixin =
-      const PropDescriptor(_$key__valuemax___$AriaPropsMixin);
+      PropDescriptor(_$key__valuemax___$AriaPropsMixin);
   static const PropDescriptor _$prop__valuemin___$AriaPropsMixin =
-      const PropDescriptor(_$key__valuemin___$AriaPropsMixin);
+      PropDescriptor(_$key__valuemin___$AriaPropsMixin);
   static const PropDescriptor _$prop__valuenow___$AriaPropsMixin =
-      const PropDescriptor(_$key__valuenow___$AriaPropsMixin);
+      PropDescriptor(_$key__valuenow___$AriaPropsMixin);
   static const PropDescriptor _$prop__valuetext___$AriaPropsMixin =
-      const PropDescriptor(_$key__valuetext___$AriaPropsMixin);
+      PropDescriptor(_$key__valuetext___$AriaPropsMixin);
   static const String _$key__activedescendant___$AriaPropsMixin =
       'aria-activedescendant';
   static const String _$key__atomic___$AriaPropsMixin = 'aria-atomic';
@@ -1763,7 +1764,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   static const String _$key__valuenow___$AriaPropsMixin = 'aria-valuenow';
   static const String _$key__valuetext___$AriaPropsMixin = 'aria-valuetext';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__activedescendant___$AriaPropsMixin,
     _$prop__atomic___$AriaPropsMixin,
     _$prop__autocomplete___$AriaPropsMixin,
@@ -1801,7 +1802,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
     _$prop__valuenow___$AriaPropsMixin,
     _$prop__valuetext___$AriaPropsMixin
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__activedescendant___$AriaPropsMixin,
     _$key__atomic___$AriaPropsMixin,
     _$key__autocomplete___$AriaPropsMixin,
@@ -1841,7 +1842,7 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   ];
 }
 
-const PropsMeta _$metaForAriaPropsMixin = const PropsMeta(
+const PropsMeta _$metaForAriaPropsMixin = PropsMeta(
   fields: AriaPropsMixin.$props,
   keys: AriaPropsMixin.$propKeys,
 );

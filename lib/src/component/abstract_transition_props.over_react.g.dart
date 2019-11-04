@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'abstract_transition_props.dart';
 
 // **************************************************************************
@@ -11,8 +12,8 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   Map get props;
 
   static const PropsMeta meta = _$metaForTransitionPropsMixin;
-  static final TransitionPropsMapView defaultProps =
-      new TransitionPropsMapView({})..transitionCount = 1;
+  static final TransitionPropsMapView defaultProps = TransitionPropsMapView({})
+    ..transitionCount = 1;
 
   /// The number of `transitionend` event that occur when the transition node is shown/hidden.
   ///
@@ -137,21 +138,21 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
       props[_$key__onDidShow___$TransitionPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__transitionCount___$TransitionPropsMixin =
-      const PropDescriptor(_$key__transitionCount___$TransitionPropsMixin);
+      PropDescriptor(_$key__transitionCount___$TransitionPropsMixin);
   static const PropDescriptor
       _$prop__transitionInCount___$TransitionPropsMixin =
-      const PropDescriptor(_$key__transitionInCount___$TransitionPropsMixin);
+      PropDescriptor(_$key__transitionInCount___$TransitionPropsMixin);
   static const PropDescriptor
       _$prop__transitionOutCount___$TransitionPropsMixin =
-      const PropDescriptor(_$key__transitionOutCount___$TransitionPropsMixin);
+      PropDescriptor(_$key__transitionOutCount___$TransitionPropsMixin);
   static const PropDescriptor _$prop__onWillHide___$TransitionPropsMixin =
-      const PropDescriptor(_$key__onWillHide___$TransitionPropsMixin);
+      PropDescriptor(_$key__onWillHide___$TransitionPropsMixin);
   static const PropDescriptor _$prop__onDidHide___$TransitionPropsMixin =
-      const PropDescriptor(_$key__onDidHide___$TransitionPropsMixin);
+      PropDescriptor(_$key__onDidHide___$TransitionPropsMixin);
   static const PropDescriptor _$prop__onWillShow___$TransitionPropsMixin =
-      const PropDescriptor(_$key__onWillShow___$TransitionPropsMixin);
+      PropDescriptor(_$key__onWillShow___$TransitionPropsMixin);
   static const PropDescriptor _$prop__onDidShow___$TransitionPropsMixin =
-      const PropDescriptor(_$key__onDidShow___$TransitionPropsMixin);
+      PropDescriptor(_$key__onDidShow___$TransitionPropsMixin);
   static const String _$key__transitionCount___$TransitionPropsMixin =
       'TransitionPropsMixin.transitionCount';
   static const String _$key__transitionInCount___$TransitionPropsMixin =
@@ -167,7 +168,7 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   static const String _$key__onDidShow___$TransitionPropsMixin =
       'TransitionPropsMixin.onDidShow';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__transitionCount___$TransitionPropsMixin,
     _$prop__transitionInCount___$TransitionPropsMixin,
     _$prop__transitionOutCount___$TransitionPropsMixin,
@@ -176,7 +177,7 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
     _$prop__onWillShow___$TransitionPropsMixin,
     _$prop__onDidShow___$TransitionPropsMixin
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__transitionCount___$TransitionPropsMixin,
     _$key__transitionInCount___$TransitionPropsMixin,
     _$key__transitionOutCount___$TransitionPropsMixin,
@@ -187,7 +188,7 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   ];
 }
 
-const PropsMeta _$metaForTransitionPropsMixin = const PropsMeta(
+const PropsMeta _$metaForTransitionPropsMixin = PropsMeta(
   fields: TransitionPropsMixin.$props,
   keys: TransitionPropsMixin.$propKeys,
 );

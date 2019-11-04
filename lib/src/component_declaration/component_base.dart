@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: prefer_generic_function_type_aliases
 library over_react.component_declaration.component_base;
 
 import 'dart:async';
 import 'dart:collection';
-import 'dart:html';
 
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
@@ -37,16 +37,16 @@ export 'package:over_react/src/component_declaration/component_type_checking.dar
 /// treated as if it were the wrapped component.
 ///
 /// * [builderFactory]/[componentClass]: the [UiFactory] and [UiComponent] members to be potentially
-/// used as types for [isComponentOfType]/[getComponentFactory].
+/// used as types for [isComponentOfType]/`getComponentFactory`.
 ///
 /// * [displayName]: the name of the component for use when debugging.
-ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFactory(), {
-    bool isWrapper: false,
+ReactDartComponentFactoryProxy registerComponent(
+    react.Component Function() dartComponentFactory,
+    {bool isWrapper = false,
     ReactDartComponentFactoryProxy parentType,
     UiFactory builderFactory,
     Type componentClass,
-    String displayName
-}) {
+    String displayName}) {
   ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
 
   if (displayName != null) {
@@ -68,7 +68,7 @@ ReactDartComponentFactoryProxy registerComponent(react.Component dartComponentFa
 ///
 ///     var $`AbstractComponentClassName`Factory = registerAbstractComponent(`AbstractComponentClassName`);
 ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentClass, {ReactDartComponentFactoryProxy parentType}) =>
-    registerComponent(() => new DummyComponent(), componentClass: abstractComponentClass, parentType: parentType);
+    registerComponent(() => DummyComponent(), componentClass: abstractComponentClass, parentType: parentType);
 
 /// A function that returns a new [TProps] instance, optionally backed by the specified [backingProps].
 ///
@@ -138,7 +138,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
   ///
   /// > Related [copyUnconsumedDomProps]
   Map copyUnconsumedProps() {
-    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
+    var consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys) ?? const [];
 
     return copyProps(keySetsToOmit: consumedPropKeys);
   }
@@ -149,20 +149,19 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
   ///
   /// > Related [copyUnconsumedProps]
   Map copyUnconsumedDomProps() {
-    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys) ?? const [];
+    var consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys) ?? const [];
 
     return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
   }
 
   /// Returns a copy of this component's props with React props optionally omitted, and
   /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
-  Map copyProps({bool omitReservedReactProps: true, bool onlyCopyDomProps: false, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
+  Map copyProps({bool omitReservedReactProps = true, bool onlyCopyDomProps = false, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
     return getPropsToForward(this.props,
         omitReactProps: omitReservedReactProps,
         onlyCopyDomProps: onlyCopyDomProps,
         keysToOmit: keysToOmit,
-        keySetsToOmit: keySetsToOmit
-    );
+        keySetsToOmit: keySetsToOmit);
   }
 
   /// Throws a [PropError] if [appliedProps] are invalid.
@@ -188,13 +187,13 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
 
   /// Validates that props with the `@requiredProp` annotation are present.
   void validateRequiredProps(Map appliedProps) {
-    consumedProps?.forEach((ConsumedProps consumedProps) {
-      consumedProps.props.forEach((PropDescriptor prop) {
+    consumedProps?.forEach((consumedProps) {
+      consumedProps.props.forEach((prop) {
         if (!prop.isRequired) return;
         if (prop.isNullable && appliedProps.containsKey(prop.key)) return;
         if (!prop.isNullable && appliedProps[prop.key] != null) return;
 
-        throw new PropError.required(prop.key, prop.errorMessage);
+        throw PropError.required(prop.key, prop.errorMessage);
       });
     });
   }
@@ -206,7 +205,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
   ///
   /// > Should be used alongside [copyUnconsumedProps] or [copyUnconsumedDomProps].
   ClassNameBuilder forwardingClassNameBuilder() {
-    return new ClassNameBuilder.fromProps(this.props);
+    return ClassNameBuilder.fromProps(this.props);
   }
 
   @override
@@ -231,13 +230,12 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
     _disposableProxy?.dispose();
   }
 
-
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
   //   BEGIN Typed props helpers
   //
 
-  var _typedPropsCache = new Expando<TProps>();
+  var _typedPropsCache = Expando<TProps>();
 
   /// A typed props object corresponding to the current untyped props Map ([unwrappedProps]).
   ///
@@ -252,6 +250,7 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
     }
     return typedProps;
   }
+
   /// Equivalent to setting [unwrappedProps], but needed by react-dart to effect props changes.
   @override
   set props(Map value) => super.props = value;
@@ -282,27 +281,28 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
 
   @override
   Future<T> awaitBeforeDispose<T>(Future<T> future) =>
-    _getDisposableProxy().awaitBeforeDispose<T>(future);
+      _getDisposableProxy().awaitBeforeDispose<T>(future);
 
   @override
-  Future<T> getManagedDelayedFuture<T>(Duration duration, T callback()) =>
-    _getDisposableProxy().getManagedDelayedFuture<T>(duration, callback);
+  Future<T> getManagedDelayedFuture<T>(Duration duration, T Function() callback) =>
+      _getDisposableProxy().getManagedDelayedFuture<T>(duration, callback);
 
   @override
-  ManagedDisposer getManagedDisposer(Disposer disposer) => _getDisposableProxy().getManagedDisposer(disposer);
+  ManagedDisposer getManagedDisposer(Disposer disposer) =>
+      _getDisposableProxy().getManagedDisposer(disposer);
 
   @override
-  Timer getManagedPeriodicTimer(Duration duration, void callback(Timer timer)) =>
-    _getDisposableProxy().getManagedPeriodicTimer(duration, callback);
+  Timer getManagedPeriodicTimer(Duration duration, void Function(Timer timer) callback) =>
+      _getDisposableProxy().getManagedPeriodicTimer(duration, callback);
 
   @override
-  Timer getManagedTimer(Duration duration, void callback()) =>
-    _getDisposableProxy().getManagedTimer(duration, callback);
+  Timer getManagedTimer(Duration duration, void Function() callback) =>
+      _getDisposableProxy().getManagedTimer(duration, callback);
 
   @override
   StreamSubscription<T> listenToStream<T>(
-      Stream<T> stream, void onData(T event),
-      {Function onError, void onDone(), bool cancelOnError}) =>
+          Stream<T> stream, void Function(T event) onData,
+      {Function onError, void Function() onDone, bool cancelOnError}) =>
       _getDisposableProxy().listenToStream(
         stream, onData, onError: onError, onDone: onDone, cancelOnError: cancelOnError);
 
@@ -312,35 +312,32 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
 
   @override
   Completer<T> manageCompleter<T>(Completer<T> completer) =>
-    _getDisposableProxy().manageCompleter<T>(completer);
+      _getDisposableProxy().manageCompleter<T>(completer);
 
   @override
   void manageDisposable(Disposable disposable) =>
-    _getDisposableProxy().manageDisposable(disposable);
+      _getDisposableProxy().manageDisposable(disposable);
 
   /// DEPRECATED. Use [getManagedDisposer] instead.
   @Deprecated('2.0.0')
   @override
   void manageDisposer(Disposer disposer) =>
-    _getDisposableProxy().manageDisposer(disposer);
+      _getDisposableProxy().manageDisposer(disposer);
 
   @override
   void manageStreamController(StreamController controller) =>
-    _getDisposableProxy().manageStreamController(controller);
+      _getDisposableProxy().manageStreamController(controller);
 
   /// DEPRECATED. Use [listenToStream] instead.
   @Deprecated('2.0.0')
   @override
   void manageStreamSubscription(StreamSubscription subscription) =>
-    _getDisposableProxy().manageStreamSubscription(subscription);
+      _getDisposableProxy().manageStreamSubscription(subscription);
 
   /// Instantiates a new [Disposable] instance on the first call to the
   /// [DisposableManagerV7] method.
   Disposable _getDisposableProxy() {
-    if (_disposableProxy == null) {
-      _disposableProxy = new Disposable();
-    }
-    return _disposableProxy;
+    return _disposableProxy ??= Disposable();
   }
 
   /// Automatically dispose another object when this object is disposed.
@@ -407,7 +404,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
   //   BEGIN Typed state helpers
   //
 
-  var _typedStateCache = new Expando<TState>();
+  var _typedStateCache = Expando<TState>();
 
   /// A typed state object corresponding to the current untyped state Map ([unwrappedState]).
   ///
@@ -417,11 +414,12 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
     var unwrappedState = this.unwrappedState;
     var typedState = _typedStateCache[unwrappedState];
     if (typedState == null) {
-    typedState = typedStateFactory(inReactDevMode ? _WarnOnModify(unwrappedState, false) : unwrappedState);
+      typedState = typedStateFactory(inReactDevMode ? _WarnOnModify(unwrappedState, false) : unwrappedState);
       _typedStateCache[unwrappedState] = typedState;
     }
     return typedState;
   }
+
   /// Equivalent to setting [unwrappedState], but needed by react-dart to effect state changes.
   @override
   set state(Map value) => super.state = value;
@@ -452,7 +450,7 @@ class _WarnOnModify<K, V> extends MapView<K, V> {
 
   String message;
 
-  _WarnOnModify(Map componentData, this.isProps): super(componentData);
+  _WarnOnModify(Map componentData, this.isProps) : super(componentData);
 
   @override
   operator []=(K key, V value) {
@@ -507,8 +505,7 @@ abstract class UiProps extends MapBase
         ReactPropsMixin,
         UbiquitousDomPropsMixin,
         CssClassPropsMixin
-    implements
-        Map {
+    implements Map {
   /// Adds an arbitrary [propKey]/[value] pair if [shouldAdd] is `true`.
   ///
   /// Is a noop if [shouldAdd] is `false`.
@@ -536,7 +533,7 @@ abstract class UiProps extends MapBase
   /// Is a noop if [shouldModify] is `false` or [modifier] is `null`.
   ///
   /// > Related: [addProps]
-  void modifyProps(PropsModifier modifier, [bool shouldModify = true]){
+  void modifyProps(PropsModifier modifier, [bool shouldModify = true]) {
     if (!shouldModify || modifier == null) return;
 
     modifier(this);
@@ -548,7 +545,7 @@ abstract class UiProps extends MapBase
   static bool testMode = false;
 
   /// Whether [UiProps] is in a testing environment at build time.
-  static const bool _testModeFromEnvironment = const bool.fromEnvironment('testing');
+  static const bool _testModeFromEnvironment = bool.fromEnvironment('testing');
 
   /// Whether [UiProps] is in a testing environment at build time or otherwise.
   ///
@@ -563,7 +560,7 @@ abstract class UiProps extends MapBase
   /// Allows for an element to have multiple test IDs to prevent overwriting when cloning elements or components.
   ///
   /// > For use in a testing environment (when [testMode] is true).
-  void addTestId(String value, {String key: defaultTestIdKey}) {
+  void addTestId(String value, {String key = defaultTestIdKey}) {
     if (!_inTestMode || value == null) {
       return;
     }
@@ -580,7 +577,7 @@ abstract class UiProps extends MapBase
   /// Gets the [defaultTestIdKey] prop value, or one testId from the prop _(or custom [key] prop value)_.
   ///
   /// > For use in a testing environment (when [testMode] is true).
-  String getTestId({String key: defaultTestIdKey}) {
+  String getTestId({String key = defaultTestIdKey}) {
     return props[key];
   }
 
@@ -667,7 +664,7 @@ abstract class UiProps extends MapBase
 
         // TODO: Remove ValidationUtil.warn call when https://github.com/dart-lang/sdk/issues/26093 is resolved.
         ValidationUtil.warn(errorMessage, this);
-        throw new ArgumentError(errorMessage);
+        throw ArgumentError(errorMessage);
       }
     }
 
@@ -679,7 +676,6 @@ abstract class UiProps extends MapBase
   /// An unmodifiable map view of the default props for this component brought
   /// in from the [componentFactory].
   Map get componentDefaultProps => componentFactory is ReactDartComponentFactoryProxy
-      // ignore: avoid_as
       ? (componentFactory as ReactDartComponentFactoryProxy).defaultProps
       : const {};
 }
@@ -730,21 +726,21 @@ abstract class StateMapViewMixin implements _OverReactMapViewBase {
 /// For use by concrete [UiProps] and [UiState] implementations (either generated or manual),
 /// and thus must remain public.
 abstract class MapViewMixin<K, V> implements _OverReactMapViewBase<K, V>, Map<K, V> {
-  @override Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> f(K key, V value)) => _map.map<K2, V2>(f);
+  @override Map<K2, V2> map<K2, V2>(MapEntry<K2, V2> Function(K key, V value) f) => _map.map<K2, V2>(f);
   @override Iterable<MapEntry<K, V>> get entries => _map.entries;
   @override void addEntries(Iterable<MapEntry<K, V>> newEntries) => _map.addEntries(newEntries);
-  @override void removeWhere(bool predicate(K key, V value)) => _map.removeWhere(predicate);
-  @override V update(K key, V update(V value), {V ifAbsent()}) => _map.update(key, update, ifAbsent: ifAbsent);
-  @override void updateAll(V update(K key, V value)) => _map.updateAll(update);
+  @override void removeWhere(bool Function(K key, V value) predicate) => _map.removeWhere(predicate);
+  @override V update(K key, V Function(V value) update, {V Function() ifAbsent}) => _map.update(key, update, ifAbsent: ifAbsent);
+  @override void updateAll(V Function(K key, V value) update) => _map.updateAll(update);
   @override Map<RK, RV> cast<RK, RV>() => _map.cast<RK, RV>();
-  @override V operator[](Object key) => _map[key];
-  @override void operator[]=(K key, V value) { _map[key] = value; }
+  @override V operator [](Object key) => _map[key];
+  @override void operator []=(K key, V value) { _map[key] = value; }
   @override void addAll(Map<K, V> other) { _map.addAll(other); }
   @override void clear() { _map.clear(); }
-  @override V putIfAbsent(K key, V ifAbsent()) => _map.putIfAbsent(key, ifAbsent);
+  @override V putIfAbsent(K key, V Function() ifAbsent) => _map.putIfAbsent(key, ifAbsent);
   @override bool containsKey(Object key) => _map.containsKey(key);
   @override bool containsValue(Object value) => _map.containsValue(value);
-  @override void forEach(void action(K key, V value)) { _map.forEach(action); }
+  @override void forEach(void Function(K key, V value) action) { _map.forEach(action); }
   @override bool get isEmpty => _map.isEmpty;
   @override bool get isNotEmpty => _map.isNotEmpty;
   @override int get length => _map.length;
@@ -764,14 +760,17 @@ class PropDescriptor implements _Descriptor {
   /// The string key associated with the `prop`.
   @override
   final String key;
+
   /// Whether the `prop` is required to be set.
   final bool isRequired;
+
   /// Whether setting the `prop` to `null` is valid.
   final bool isNullable;
+
   /// The message included in the thrown [PropError] if the `prop` is not set.
   final String errorMessage;
 
-  const PropDescriptor(this.key, {this.isRequired: false, this.isNullable: false, this.errorMessage: ''});
+  const PropDescriptor(this.key, {this.isRequired = false, this.isNullable = false, this.errorMessage = ''});
 }
 
 /// Provides a representation of a single `state` declared within a [UiState] subclass or state mixin.
@@ -781,20 +780,23 @@ class StateDescriptor implements _Descriptor {
   /// The string key associated with the `state`.
   @override
   final String key;
+
   /// Whether the `state` is required to be set.
   ///
   /// __Currently not used.__
   final bool isRequired;
+
   /// Whether setting the `state` to `null` is valid.
   ///
   /// __Currently not used.__
   final bool isNullable;
+
   /// The message included in the thrown error if the `state` is not set.
   ///
   /// __Currently not used.__
   final String errorMessage;
 
-  const StateDescriptor(this.key, {this.isRequired: false, this.isNullable: false, this.errorMessage});
+  const StateDescriptor(this.key, {this.isRequired = false, this.isNullable = false, this.errorMessage});
 }
 
 /// Provides a list of [PropDescriptor]s and a top-level list of their keys, for easy access.
@@ -803,6 +805,7 @@ class ConsumedProps {
   ///
   /// This includes string keys, and required prop validation related fields.
   final List<PropDescriptor> props;
+
   /// Top-level accessor of string keys of props stored in [props].
   final List<String> keys;
 
@@ -819,7 +822,7 @@ abstract class AccessorMeta<T extends _Descriptor> {
 /// for which prop accessors are generated.
 ///
 /// This metadata includes map key values corresponding to these fields, which
-/// is used in [UiComponent.consumedPropKeys], as well as other prop
+/// is used in `consumedPropKeys`, as well as other prop
 /// configuration done via @[Accessor]/@[requiredProp]/etc., which is used to
 /// perform prop validation within [UiComponent] lifecycle methods.
 ///
@@ -831,7 +834,7 @@ abstract class AccessorMeta<T extends _Descriptor> {
 ///
 ///       String foo;
 ///
-///       @Accessor(isRequired: true, key: 'custom_key', keyNamespace: 'custom_namespace')
+///       @Accessor(isRequired = true, key = 'custom_key', keyNamespace = 'custom_namespace')
 ///       int bar;
 ///     }
 ///
@@ -896,4 +899,3 @@ class StateMeta implements AccessorMeta<StateDescriptor> {
 
   const StateMeta({this.fields, this.keys});
 }
-

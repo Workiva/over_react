@@ -51,7 +51,7 @@ class SafeRenderManager extends Disposable {
   List<ReactElement> _renderQueue = [];
 
   SafeRenderManager({Element mountNode, this.autoAttachMountNode = false})
-      : mountNode = mountNode ?? new DivElement();
+      : mountNode = mountNode ?? DivElement();
 
   /// Renders [content] into [mountNode], chaining existing callback refs to
   /// provide access to the rendered component via [contentRef].
@@ -111,7 +111,7 @@ class SafeRenderManager extends Disposable {
   /// other.
   ///
   /// If nothing is currently rendered, [onMaybeUnmounted] will be called immediately.
-  void tryUnmount({void onMaybeUnmounted(bool isUnmounted)}) {
+  void tryUnmount({void Function(bool isUnmounted) onMaybeUnmounted}) {
     // Check here since we call _tryUnmountContent in this class's disposal logic.
     _checkDisposalState();
     _safeUnmountContent(onMaybeUnmounted: onMaybeUnmounted, force: false);
@@ -130,7 +130,7 @@ class SafeRenderManager extends Disposable {
   }
 
   void _safeUnmountContent(
-      {void onMaybeUnmounted(bool isUnmounted), @required bool force}) {
+      {void Function(bool isUnmounted) onMaybeUnmounted, @required bool force}) {
     var _hasBeenCalled = false;
     /// Helper to call onMaybeUnmounted at most one time, for cases
     /// where there have to be error handlers at multiple levels
@@ -174,7 +174,7 @@ class SafeRenderManager extends Disposable {
 
   void _checkDisposalState() {
     if (isOrWillBeDisposed) {
-      throw new ObjectDisposedException();
+      throw ObjectDisposedException();
     }
   }
 
@@ -195,7 +195,7 @@ class SafeRenderManager extends Disposable {
 
   @override
   Future<Null> onDispose() async {
-    var completer = new Completer<Null>();
+    var completer = Completer<Null>();
     final completerFuture = completer.future;
 
     // Set up an onError handler in case onMaybeUnmounted isn't called due to
