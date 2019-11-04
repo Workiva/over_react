@@ -7,6 +7,7 @@ import 'package:over_react/over_react_redux.dart';
 import 'package:redux/redux.dart' as redux;
 import 'package:w_flux/w_flux_server.dart' as flux;
 
+import 'value_mutation_checker.dart';
 
 part 'over_react_flux.over_react.g.dart';
 
@@ -77,26 +78,25 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
 
   if (areStatePropsEqual == null) {
     const defaultAreStatePropsEqual = _shallowMapEquality;
-    final Expando<int> _listLength = new Expando();
+    final mutationDetector = InstanceMutationDetector.lengthBased();
     bool areStatePropsEqualWrapper(TProps nextProps, TProps prevProps) {
       final result = defaultAreStatePropsEqual(nextProps, prevProps);
 
       assert(() {
         prevProps.forEach((key, value) {
-          if (value is List && identical(value, nextProps[key])) {
-            final lastLength = _listLength[value];
-            final currentLength = _listLength[value] = value.length;
-            if (lastLength != null && lastLength != currentLength) {
-              window.console.warn(
-                  'connect: Value mapped from store "$TStore" to prop "$key" was mutated directly, which will prevent updates from being detected.'
-                      ' Instead of mutating datastructures within the store, overwrite them with modified copies.\n'
-                      '\n  Good: `_items = [..._items, newItem]`'
-                      '\n  Bad:  `_items.add(newItem)`'
-                      '\n\nIf this is not possible, then either:'
-                      '\n - update `areStatePropsEqual` to reflect this behavior: `areStatePropsEqual: (_, __) => false`'
-                      '\n - set `pure: false`'
-              );
-            }
+          if (!identical(value, nextProps[key])) return;
+
+          final hasDefinitelyMutated = mutationDetector.check(value);
+          if (hasDefinitelyMutated) {
+            window.console.warn(
+                'connect: The instance of the value mapped from store "$TStore" to prop "$key" was mutated directly, which will prevent updates from being detected.'
+                    ' Instead of mutating datastructure instances within the store, overwrite them with modified copies.\n'
+                    '\n  Good: `_items = [..._items, newItem]`'
+                    '\n  Bad:  `_items.add(newItem)`'
+                    '\n\nIf this is not possible, then either:'
+                    '\n - update `areStatePropsEqual` to reflect this behavior: `areStatePropsEqual: (_, __) => false`'
+                    '\n - set `pure: false`'
+            );
           }
         });
 
