@@ -77,6 +77,15 @@
   > - [Dart 2](https://github.com/Workiva/over_react/compare/2.5.2+dart2...3.0.0-alpha.0+dart2)
   > - [Dart 1](https://github.com/Workiva/over_react/compare/2.5.0+dart1...3.0.0-alpha.0+dart1)
 
+## 2.7.0
+
+> Complete `2.7.0` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.6.1+dart2...2.7.0+dart2)
+> - [Dart 1](https://github.com/Workiva/over_react/compare/2.6.1+dart1...2.7.0+dart1)
+
+* This release brings in the `SafeRenderManager` utilities added to the 3.x alpha line-of-release via [#390]  
+
 ## 2.6.1
 
 > Complete `2.6.1` Changsets:
