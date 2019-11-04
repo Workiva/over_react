@@ -51,7 +51,7 @@ class CssValue implements Comparable<CssValue> {
   ///     20
   ///     '1.25em'
   ///     '-15%'
-  factory CssValue.parse(dynamic source, {CssValue onError(value, error)}) { // ignore: use_function_type_syntax_for_parameters
+  factory CssValue.parse(dynamic source, {CssValue Function(dynamic value, dynamic error) onError}) {
     num number;
     String unit;
 

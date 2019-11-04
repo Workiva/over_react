@@ -109,7 +109,7 @@ class ValidationUtil {
 
 class ValidationWarning extends Error {
   /// Message describing the problem.
-  String message;
+  final String message;
 
   ValidationWarning([this.message]);
 }
