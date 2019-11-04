@@ -66,12 +66,12 @@ abstract class _$ComponentTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$ComponentTestProps.untypedProp] -->
   @override
-  dynamic get untypedProp =>
+  get untypedProp =>
       props[_$key__untypedProp___$ComponentTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ComponentTestProps.untypedProp] -->
   @override
-  set untypedProp(dynamic value) =>
+  set untypedProp(value) =>
       props[_$key__untypedProp___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.customKeyProp] -->

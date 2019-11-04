@@ -46,12 +46,12 @@ abstract class _$NamespacedAccessorTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$NamespacedAccessorTestProps.untypedProp] -->
   @override
-  dynamic get untypedProp =>
+  get untypedProp =>
       props[_$key__untypedProp___$NamespacedAccessorTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$NamespacedAccessorTestProps.untypedProp] -->
   @override
-  set untypedProp(dynamic value) =>
+  set untypedProp(value) =>
       props[_$key__untypedProp___$NamespacedAccessorTestProps] = value;
 
   /// <!-- Generated from [_$NamespacedAccessorTestProps.customKeyProp] -->
@@ -251,12 +251,12 @@ abstract class _$NamespacedAccessorTestStateAccessorsMixin
 
   /// <!-- Generated from [_$NamespacedAccessorTestState.untypedState] -->
   @override
-  dynamic get untypedState =>
+  get untypedState =>
       state[_$key__untypedState___$NamespacedAccessorTestState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$NamespacedAccessorTestState.untypedState] -->
   @override
-  set untypedState(dynamic value) =>
+  set untypedState(value) =>
       state[_$key__untypedState___$NamespacedAccessorTestState] = value;
 
   /// <!-- Generated from [_$NamespacedAccessorTestState.customKeyState] -->

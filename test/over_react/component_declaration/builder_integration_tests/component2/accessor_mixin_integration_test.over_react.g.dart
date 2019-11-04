@@ -35,13 +35,12 @@ abstract class TestPropsMixin implements _$TestPropsMixin {
 
   /// <!-- Generated from [_$TestPropsMixin.untypedProp] -->
   @override
-  dynamic get untypedProp =>
+  get untypedProp =>
       props[_$key__untypedProp___$TestPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestPropsMixin.untypedProp] -->
   @override
-  set untypedProp(dynamic value) =>
-      props[_$key__untypedProp___$TestPropsMixin] = value;
+  set untypedProp(value) => props[_$key__untypedProp___$TestPropsMixin] = value;
 
   /// <!-- Generated from [_$TestPropsMixin.customKeyProp] -->
   @override
@@ -157,12 +156,12 @@ abstract class TestCustomNamespacePropsMixin
 
   /// <!-- Generated from [_$TestCustomNamespacePropsMixin.untypedProp] -->
   @override
-  dynamic get untypedProp =>
+  get untypedProp =>
       props[_$key__untypedProp___$TestCustomNamespacePropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestCustomNamespacePropsMixin.untypedProp] -->
   @override
-  set untypedProp(dynamic value) =>
+  set untypedProp(value) =>
       props[_$key__untypedProp___$TestCustomNamespacePropsMixin] = value;
 
   /// <!-- Generated from [_$TestCustomNamespacePropsMixin.customKeyProp] -->
@@ -290,12 +289,12 @@ abstract class TestStateMixin implements _$TestStateMixin {
 
   /// <!-- Generated from [_$TestStateMixin.untypedState] -->
   @override
-  dynamic get untypedState =>
+  get untypedState =>
       state[_$key__untypedState___$TestStateMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestStateMixin.untypedState] -->
   @override
-  set untypedState(dynamic value) =>
+  set untypedState(value) =>
       state[_$key__untypedState___$TestStateMixin] = value;
 
   /// <!-- Generated from [_$TestStateMixin.customKeyState] -->
@@ -412,12 +411,12 @@ abstract class TestCustomNamespaceStateMixin
 
   /// <!-- Generated from [_$TestCustomNamespaceStateMixin.untypedState] -->
   @override
-  dynamic get untypedState =>
+  get untypedState =>
       state[_$key__untypedState___$TestCustomNamespaceStateMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$TestCustomNamespaceStateMixin.untypedState] -->
   @override
-  set untypedState(dynamic value) =>
+  set untypedState(value) =>
       state[_$key__untypedState___$TestCustomNamespaceStateMixin] = value;
 
   /// <!-- Generated from [_$TestCustomNamespaceStateMixin.customKeyState] -->
