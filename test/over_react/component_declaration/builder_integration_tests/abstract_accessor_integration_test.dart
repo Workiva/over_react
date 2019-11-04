@@ -153,7 +153,7 @@ main() {
 abstract class _$TestAbstractProps extends UiProps {
   String stringProp;
   dynamic dynamicProp;
-  dynamic untypedProp;
+  var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
   @Accessor(key: 'custom key!')
   dynamic customKeyProp;
@@ -178,7 +178,7 @@ class TestAbstractPropsSubclass extends TestAbstractProps {
 abstract class _$TestCustomNamespaceAbstractProps extends UiProps {
   String stringProp;
   dynamic dynamicProp;
-  dynamic untypedProp;
+  var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
   @Accessor(key: 'custom key!')
   dynamic customKeyProp;

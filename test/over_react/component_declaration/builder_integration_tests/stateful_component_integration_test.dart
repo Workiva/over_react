@@ -90,7 +90,7 @@ class _$StatefulComponentTestProps extends UiProps {}
 class _$StatefulComponentTestState extends UiState {
   String stringState;
   dynamic dynamicState;
-  dynamic untypedState;
+  var untypedState; // ignore: prefer_typing_uninitialized_variables
 
   @Accessor(key: 'custom key!')
   dynamic customKeyState;

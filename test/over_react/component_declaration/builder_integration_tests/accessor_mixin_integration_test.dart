@@ -154,7 +154,7 @@ abstract class _$TestPropsMixin {
 
   String stringProp;
   dynamic dynamicProp;
-  dynamic untypedProp;
+  var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
   @Accessor(key: 'custom key!')
   dynamic customKeyProp;
@@ -178,7 +178,7 @@ abstract class _$TestCustomNamespacePropsMixin {
 
   String stringProp;
   dynamic dynamicProp;
-  dynamic untypedProp;
+  var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
   @Accessor(key: 'custom key!')
   dynamic customKeyProp;

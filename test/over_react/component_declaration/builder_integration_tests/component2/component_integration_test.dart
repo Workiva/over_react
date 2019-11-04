@@ -175,7 +175,7 @@ class _$ComponentTestProps extends UiProps {
   bool shouldSetPropsDirectly;
   bool shouldUseJsFactory;
   dynamic dynamicProp;
-  dynamic untypedProp;
+  var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
   @Accessor(key: 'custom key!')
   dynamic customKeyProp;

@@ -521,7 +521,7 @@ main() {
         });
       });
 
-      test('newProps() returns a new UiProps instance backed by a Map', () {
+      test('newProps() returns a new UiProps instance backed by a new Map', () {
         var newProps1 = component.newProps();
         var newProps2 = component.newProps();
         expect(newProps1, isA<TestComponentProps>());
@@ -1004,7 +1004,7 @@ main() {
             expect(state1, same(state2));
           });
 
-          test('creates a UiState object when the state map changes', () {
+          test('creates a new UiState object when the state map changes', () {
             var stateBeforeChange = statefulComponent.state;
             statefulComponent.unwrappedState = {};
             var stateAfterChange = statefulComponent.state;

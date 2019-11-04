@@ -109,7 +109,7 @@ UiFactory<NamespacedAccessorTestProps> NamespacedAccessorTest = _$NamespacedAcce
 class _$NamespacedAccessorTestProps extends UiProps {
   String stringProp;
   dynamic dynamicProp;
-  dynamic untypedProp;
+  var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
   @Accessor(key: 'custom key!')
   dynamic customKeyProp;
@@ -125,7 +125,7 @@ class _$NamespacedAccessorTestProps extends UiProps {
 class _$NamespacedAccessorTestState extends UiState {
   String stringState;
   dynamic dynamicState;
-  dynamic untypedState;
+  var untypedState; // ignore: prefer_typing_uninitialized_variables
 
   @Accessor(key: 'custom key!')
   dynamic customKeyState;
