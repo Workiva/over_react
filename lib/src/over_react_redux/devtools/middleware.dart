@@ -38,7 +38,7 @@ class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     });
     try {
       devToolsExt = reduxExtConnect();
-    } catch(e) {
+    } catch(_) {
       log.warning(
         'Unable to connect to the redux dev tools browser extension.\n'
         'Please install it...\n'
@@ -56,17 +56,18 @@ class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
 
   get store => _store;
 
-  dynamic _encodeForTransit(dynamic content) {
+  dynamic _encodeForTransit(dynamic content, {bool shouldRethrow = true}) {
     try {
       return jsify(jsonDecode(jsonEncode(content)));
-    } catch (_) {
+    } catch (e) {
       log.warning('You must implement a `toJson` method in your state and actions in order to view state changes in the redux dev tools.');
+      if (shouldRethrow) rethrow;
     }
   }
 
   dynamic _encodeActionForTransit(dynamic action) {
     try {
-      return _encodeForTransit({'type': _getActionType(action), 'payload': action});
+      return _encodeForTransit({'type': _getActionType(action), 'payload': action}, shouldRethrow: true);
     } on Error {
       return _encodeForTransit({'type': _getActionType(action)});
     }
@@ -85,8 +86,8 @@ class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
 
     if (state != null) {
       try {
-        message['payload'] = _encodeForTransit(state);
-      } catch (error) {
+        message['payload'] = _encodeForTransit(state, shouldRethrow: true);
+      } catch (_) {
         message['payload'] = 'Could not encode state. Ensure state is json encodable';
       }
     }
