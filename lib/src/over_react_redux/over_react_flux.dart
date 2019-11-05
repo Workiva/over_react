@@ -78,16 +78,15 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
 
   if (areStatePropsEqual == null) {
     const defaultAreStatePropsEqual = _shallowMapEquality;
-    final mutationDetector = InstanceMutationDetector.lengthBased();
+    const propHasher = CollectionLengthHasher();
     bool areStatePropsEqualWrapper(TProps nextProps, TProps prevProps) {
       final result = defaultAreStatePropsEqual(nextProps, prevProps);
 
       assert(() {
         prevProps.forEach((key, value) {
-          if (!identical(value, nextProps[key])) return;
-
-          final hasDefinitelyMutated = mutationDetector.check(value);
-          if (hasDefinitelyMutated) {
+          // If the value is the same instance, check if the instance has been mutated,
+          // causing its hash to be updated
+          if (identical(value, nextProps[key]) && propHasher.hasHashChanged(value)) {
             window.console.warn(
                 'connect: The instance of the value mapped from store "$TStore" to prop "$key" was mutated directly, which will prevent updates from being detected.'
                     ' Instead of mutating datastructure instances within the store, overwrite them with modified copies.\n'

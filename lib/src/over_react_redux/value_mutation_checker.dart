@@ -1,61 +1,60 @@
+import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
-abstract class InstanceMutationDetector {
-  final Expando<Object> _digestForInstance = new Expando();
+abstract class InstanceHasher {
+  static final Expando<Object> _hashForInstance = new Expando();
 
-  InstanceMutationDetector();
+  const InstanceHasher();
 
-  factory InstanceMutationDetector.lengthBased() = _LengthBasedMutationDetector;
-
-  /// Returns whether [instance] has been mutated in a detectable way
-  /// (whether [digest]) returns a different value
+  /// Returns whether the [hash] for [instance] has changed
   /// since the last time this method was called with it.
   ///
-  /// Since the kinds of mutations detected are limited and very based on
-  /// the implementations [canCheck]/[digest], a `false` return value does not mean that
-  /// there were no mutations; rather, that it could not be determined with certainty
-  /// whether the object was mutated.
-  bool check(Object instance) {
-    if (canCheck(instance)) {
-      final lastDigest = _digestForInstance[instance];
-      final currentDigest = _digestForInstance[instance] = digest(instance);
-      return lastDigest != null && lastDigest != currentDigest;
+  /// Returns false if hashing [instance] isn't supported,
+  /// as determined by [canHash].
+  bool hasHashChanged(Object instance) {
+    if (canHash(instance)) {
+      final last = _hashForInstance[instance];
+      final current = _hashForInstance[instance] = hash(instance);
+      return last != null && last != current;
     }
 
     return false;
   }
 
   @protected
-  bool canCheck(Object value);
+  bool canHash(Object value);
 
   @protected
-  Object digest(Object value);
+  Object hash(Object value);
 }
 
-/// A simple checker that flags when a Map/List value has changed
-class _LengthBasedMutationDetector extends InstanceMutationDetector {
-  @override
-  bool canCheck(Object instance) => instance is Map || instance is Iterable;
+class CollectionLengthHasher extends InstanceHasher {
+  const CollectionLengthHasher();
 
   @override
-  int digest(Object instance) {
+  bool canHash(Object instance) => instance is Map || instance is Iterable;
+
+  @override
+  int hash(Object instance) {
     if (instance is Map) return instance.length;
     if (instance is Iterable) return instance.length;
     throw ArgumentError.value(instance, 'object', 'Unexpected type');
   }
 }
 
-enum MutationCheckResult { hasMutated, hasNotMutated, unknown }
 
+class CollectionShallowHasher extends InstanceHasher {
+  const CollectionShallowHasher();
 
-main() {
-  final list = [];
-  final checker = InstanceMutationDetector.lengthBased();
-  print(checker.check(list));
-  print(checker.check(list));
-  list.add('foo');
-  print(checker.check(list));
-  print(checker.check(list));
-  list[0] = 'bar';
-  print(checker.check(list));
+  @override
+  bool canHash(Object instance) => instance is Map || instance is Iterable;
+
+  @override
+  int hash(Object instance) {
+    if (instance is Map) return const MapEquality().hash(instance);
+    // Don't use IterableEquality for sets, since the order affects the output.
+    if (instance is Set) return const SetEquality().hash(instance);
+    if (instance is Iterable) return const IterableEquality().hash(instance);
+    throw ArgumentError.value(instance, 'object', 'Unexpected type');
+  }
 }
