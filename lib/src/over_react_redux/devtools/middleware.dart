@@ -56,10 +56,10 @@ class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
 
   get store => _store;
 
-  dynamic _encodeForTransit(dynamic content, {bool shouldRethrow = true}) {
+  dynamic _encodeForTransit(dynamic content, {bool shouldRethrow = false}) {
     try {
       return jsify(jsonDecode(jsonEncode(content)));
-    } catch (e) {
+    } catch (_) {
       log.warning('You must implement a `toJson` method in your state and actions in order to view state changes in the redux dev tools.');
       if (shouldRethrow) rethrow;
     }
