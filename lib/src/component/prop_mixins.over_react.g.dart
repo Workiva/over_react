@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'prop_mixins.dart';
 
 // **************************************************************************
@@ -11,7 +12,9 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
   Map get props;
 
   static const PropsMeta meta = _$metaForReactPropsMixin;
+  @override
   String get key => props['key'];
+  @override
   set key(Object value) =>
       props['key'] = value == null ? null : value.toString();
 
@@ -48,23 +51,23 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
   set ref(dynamic value) => props[_$key__ref___$ReactPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__children___$ReactPropsMixin =
-      const PropDescriptor(_$key__children___$ReactPropsMixin);
+      PropDescriptor(_$key__children___$ReactPropsMixin);
   static const PropDescriptor _$prop__ref___$ReactPropsMixin =
-      const PropDescriptor(_$key__ref___$ReactPropsMixin);
+      PropDescriptor(_$key__ref___$ReactPropsMixin);
   static const String _$key__children___$ReactPropsMixin = 'children';
   static const String _$key__ref___$ReactPropsMixin = 'ref';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__children___$ReactPropsMixin,
     _$prop__ref___$ReactPropsMixin
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__children___$ReactPropsMixin,
     _$key__ref___$ReactPropsMixin
   ];
 }
 
-const PropsMeta _$metaForReactPropsMixin = const PropsMeta(
+const PropsMeta _$metaForReactPropsMixin = PropsMeta(
   fields: ReactPropsMixin.$props,
   keys: ReactPropsMixin.$propKeys,
 );
@@ -2113,427 +2116,427 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   set autoFocus(bool value) => props[_$key__autoFocus___$DomPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__cols___$DomPropsMixin =
-      const PropDescriptor(_$key__cols___$DomPropsMixin);
+      PropDescriptor(_$key__cols___$DomPropsMixin);
   static const PropDescriptor _$prop__minLength___$DomPropsMixin =
-      const PropDescriptor(_$key__minLength___$DomPropsMixin);
+      PropDescriptor(_$key__minLength___$DomPropsMixin);
   static const PropDescriptor _$prop__rows___$DomPropsMixin =
-      const PropDescriptor(_$key__rows___$DomPropsMixin);
+      PropDescriptor(_$key__rows___$DomPropsMixin);
   static const PropDescriptor _$prop__size___$DomPropsMixin =
-      const PropDescriptor(_$key__size___$DomPropsMixin);
+      PropDescriptor(_$key__size___$DomPropsMixin);
   static const PropDescriptor _$prop__span___$DomPropsMixin =
-      const PropDescriptor(_$key__span___$DomPropsMixin);
+      PropDescriptor(_$key__span___$DomPropsMixin);
   static const PropDescriptor _$prop__start___$DomPropsMixin =
-      const PropDescriptor(_$key__start___$DomPropsMixin);
+      PropDescriptor(_$key__start___$DomPropsMixin);
   static const PropDescriptor _$prop__high___$DomPropsMixin =
-      const PropDescriptor(_$key__high___$DomPropsMixin);
+      PropDescriptor(_$key__high___$DomPropsMixin);
   static const PropDescriptor _$prop__low___$DomPropsMixin =
-      const PropDescriptor(_$key__low___$DomPropsMixin);
+      PropDescriptor(_$key__low___$DomPropsMixin);
   static const PropDescriptor _$prop__marginHeight___$DomPropsMixin =
-      const PropDescriptor(_$key__marginHeight___$DomPropsMixin);
+      PropDescriptor(_$key__marginHeight___$DomPropsMixin);
   static const PropDescriptor _$prop__marginWidth___$DomPropsMixin =
-      const PropDescriptor(_$key__marginWidth___$DomPropsMixin);
+      PropDescriptor(_$key__marginWidth___$DomPropsMixin);
   static const PropDescriptor _$prop__optimum___$DomPropsMixin =
-      const PropDescriptor(_$key__optimum___$DomPropsMixin);
+      PropDescriptor(_$key__optimum___$DomPropsMixin);
   static const PropDescriptor _$prop__htmlDefault___$DomPropsMixin =
-      const PropDescriptor(_$key__htmlDefault___$DomPropsMixin);
+      PropDescriptor(_$key__htmlDefault___$DomPropsMixin);
   static const PropDescriptor _$prop__htmlIs___$DomPropsMixin =
-      const PropDescriptor(_$key__htmlIs___$DomPropsMixin);
+      PropDescriptor(_$key__htmlIs___$DomPropsMixin);
   static const PropDescriptor _$prop__allowFullScreen___$DomPropsMixin =
-      const PropDescriptor(_$key__allowFullScreen___$DomPropsMixin);
+      PropDescriptor(_$key__allowFullScreen___$DomPropsMixin);
   static const PropDescriptor _$prop__async___$DomPropsMixin =
-      const PropDescriptor(_$key__async___$DomPropsMixin);
+      PropDescriptor(_$key__async___$DomPropsMixin);
   static const PropDescriptor _$prop__autoPlay___$DomPropsMixin =
-      const PropDescriptor(_$key__autoPlay___$DomPropsMixin);
+      PropDescriptor(_$key__autoPlay___$DomPropsMixin);
   static const PropDescriptor _$prop__checked___$DomPropsMixin =
-      const PropDescriptor(_$key__checked___$DomPropsMixin);
+      PropDescriptor(_$key__checked___$DomPropsMixin);
   static const PropDescriptor _$prop__controls___$DomPropsMixin =
-      const PropDescriptor(_$key__controls___$DomPropsMixin);
+      PropDescriptor(_$key__controls___$DomPropsMixin);
   static const PropDescriptor _$prop__defer___$DomPropsMixin =
-      const PropDescriptor(_$key__defer___$DomPropsMixin);
+      PropDescriptor(_$key__defer___$DomPropsMixin);
   static const PropDescriptor _$prop__disabled___$DomPropsMixin =
-      const PropDescriptor(_$key__disabled___$DomPropsMixin);
+      PropDescriptor(_$key__disabled___$DomPropsMixin);
   static const PropDescriptor _$prop__formNoValidate___$DomPropsMixin =
-      const PropDescriptor(_$key__formNoValidate___$DomPropsMixin);
+      PropDescriptor(_$key__formNoValidate___$DomPropsMixin);
   static const PropDescriptor _$prop__hidden___$DomPropsMixin =
-      const PropDescriptor(_$key__hidden___$DomPropsMixin);
+      PropDescriptor(_$key__hidden___$DomPropsMixin);
   static const PropDescriptor _$prop__loop___$DomPropsMixin =
-      const PropDescriptor(_$key__loop___$DomPropsMixin);
+      PropDescriptor(_$key__loop___$DomPropsMixin);
   static const PropDescriptor _$prop__multiple___$DomPropsMixin =
-      const PropDescriptor(_$key__multiple___$DomPropsMixin);
+      PropDescriptor(_$key__multiple___$DomPropsMixin);
   static const PropDescriptor _$prop__muted___$DomPropsMixin =
-      const PropDescriptor(_$key__muted___$DomPropsMixin);
+      PropDescriptor(_$key__muted___$DomPropsMixin);
   static const PropDescriptor _$prop__noValidate___$DomPropsMixin =
-      const PropDescriptor(_$key__noValidate___$DomPropsMixin);
+      PropDescriptor(_$key__noValidate___$DomPropsMixin);
   static const PropDescriptor _$prop__open___$DomPropsMixin =
-      const PropDescriptor(_$key__open___$DomPropsMixin);
+      PropDescriptor(_$key__open___$DomPropsMixin);
   static const PropDescriptor _$prop__readOnly___$DomPropsMixin =
-      const PropDescriptor(_$key__readOnly___$DomPropsMixin);
+      PropDescriptor(_$key__readOnly___$DomPropsMixin);
   static const PropDescriptor _$prop__required___$DomPropsMixin =
-      const PropDescriptor(_$key__required___$DomPropsMixin);
+      PropDescriptor(_$key__required___$DomPropsMixin);
   static const PropDescriptor _$prop__reversed___$DomPropsMixin =
-      const PropDescriptor(_$key__reversed___$DomPropsMixin);
+      PropDescriptor(_$key__reversed___$DomPropsMixin);
   static const PropDescriptor _$prop__scoped___$DomPropsMixin =
-      const PropDescriptor(_$key__scoped___$DomPropsMixin);
+      PropDescriptor(_$key__scoped___$DomPropsMixin);
   static const PropDescriptor _$prop__seamless___$DomPropsMixin =
-      const PropDescriptor(_$key__seamless___$DomPropsMixin);
+      PropDescriptor(_$key__seamless___$DomPropsMixin);
   static const PropDescriptor _$prop__selected___$DomPropsMixin =
-      const PropDescriptor(_$key__selected___$DomPropsMixin);
+      PropDescriptor(_$key__selected___$DomPropsMixin);
   static const PropDescriptor _$prop__style___$DomPropsMixin =
-      const PropDescriptor(_$key__style___$DomPropsMixin);
+      PropDescriptor(_$key__style___$DomPropsMixin);
   static const PropDescriptor _$prop__challenge___$DomPropsMixin =
-      const PropDescriptor(_$key__challenge___$DomPropsMixin);
+      PropDescriptor(_$key__challenge___$DomPropsMixin);
   static const PropDescriptor _$prop__cite___$DomPropsMixin =
-      const PropDescriptor(_$key__cite___$DomPropsMixin);
+      PropDescriptor(_$key__cite___$DomPropsMixin);
   static const PropDescriptor _$prop__className___$DomPropsMixin =
-      const PropDescriptor(_$key__className___$DomPropsMixin);
+      PropDescriptor(_$key__className___$DomPropsMixin);
   static const PropDescriptor _$prop__controlsList___$DomPropsMixin =
-      const PropDescriptor(_$key__controlsList___$DomPropsMixin);
+      PropDescriptor(_$key__controlsList___$DomPropsMixin);
   static const PropDescriptor _$prop__formAction___$DomPropsMixin =
-      const PropDescriptor(_$key__formAction___$DomPropsMixin);
+      PropDescriptor(_$key__formAction___$DomPropsMixin);
   static const PropDescriptor _$prop__formEncType___$DomPropsMixin =
-      const PropDescriptor(_$key__formEncType___$DomPropsMixin);
+      PropDescriptor(_$key__formEncType___$DomPropsMixin);
   static const PropDescriptor _$prop__formMethod___$DomPropsMixin =
-      const PropDescriptor(_$key__formMethod___$DomPropsMixin);
+      PropDescriptor(_$key__formMethod___$DomPropsMixin);
   static const PropDescriptor _$prop__formTarget___$DomPropsMixin =
-      const PropDescriptor(_$key__formTarget___$DomPropsMixin);
+      PropDescriptor(_$key__formTarget___$DomPropsMixin);
   static const PropDescriptor _$prop__headers___$DomPropsMixin =
-      const PropDescriptor(_$key__headers___$DomPropsMixin);
+      PropDescriptor(_$key__headers___$DomPropsMixin);
   static const PropDescriptor _$prop__id___$DomPropsMixin =
-      const PropDescriptor(_$key__id___$DomPropsMixin);
+      PropDescriptor(_$key__id___$DomPropsMixin);
   static const PropDescriptor _$prop__inputMode___$DomPropsMixin =
-      const PropDescriptor(_$key__inputMode___$DomPropsMixin);
+      PropDescriptor(_$key__inputMode___$DomPropsMixin);
   static const PropDescriptor _$prop__integrity___$DomPropsMixin =
-      const PropDescriptor(_$key__integrity___$DomPropsMixin);
+      PropDescriptor(_$key__integrity___$DomPropsMixin);
   static const PropDescriptor _$prop__keyParams___$DomPropsMixin =
-      const PropDescriptor(_$key__keyParams___$DomPropsMixin);
+      PropDescriptor(_$key__keyParams___$DomPropsMixin);
   static const PropDescriptor _$prop__keyType___$DomPropsMixin =
-      const PropDescriptor(_$key__keyType___$DomPropsMixin);
+      PropDescriptor(_$key__keyType___$DomPropsMixin);
   static const PropDescriptor _$prop__kind___$DomPropsMixin =
-      const PropDescriptor(_$key__kind___$DomPropsMixin);
+      PropDescriptor(_$key__kind___$DomPropsMixin);
   static const PropDescriptor _$prop__nonce___$DomPropsMixin =
-      const PropDescriptor(_$key__nonce___$DomPropsMixin);
+      PropDescriptor(_$key__nonce___$DomPropsMixin);
   static const PropDescriptor _$prop__srcLang___$DomPropsMixin =
-      const PropDescriptor(_$key__srcLang___$DomPropsMixin);
+      PropDescriptor(_$key__srcLang___$DomPropsMixin);
   static const PropDescriptor _$prop__summary___$DomPropsMixin =
-      const PropDescriptor(_$key__summary___$DomPropsMixin);
+      PropDescriptor(_$key__summary___$DomPropsMixin);
   static const PropDescriptor _$prop__title___$DomPropsMixin =
-      const PropDescriptor(_$key__title___$DomPropsMixin);
+      PropDescriptor(_$key__title___$DomPropsMixin);
   static const PropDescriptor _$prop__wrap___$DomPropsMixin =
-      const PropDescriptor(_$key__wrap___$DomPropsMixin);
+      PropDescriptor(_$key__wrap___$DomPropsMixin);
   static const PropDescriptor _$prop__accept___$DomPropsMixin =
-      const PropDescriptor(_$key__accept___$DomPropsMixin);
+      PropDescriptor(_$key__accept___$DomPropsMixin);
   static const PropDescriptor _$prop__acceptCharset___$DomPropsMixin =
-      const PropDescriptor(_$key__acceptCharset___$DomPropsMixin);
+      PropDescriptor(_$key__acceptCharset___$DomPropsMixin);
   static const PropDescriptor _$prop__accessKey___$DomPropsMixin =
-      const PropDescriptor(_$key__accessKey___$DomPropsMixin);
+      PropDescriptor(_$key__accessKey___$DomPropsMixin);
   static const PropDescriptor _$prop__action___$DomPropsMixin =
-      const PropDescriptor(_$key__action___$DomPropsMixin);
+      PropDescriptor(_$key__action___$DomPropsMixin);
   static const PropDescriptor _$prop__allowTransparency___$DomPropsMixin =
-      const PropDescriptor(_$key__allowTransparency___$DomPropsMixin);
+      PropDescriptor(_$key__allowTransparency___$DomPropsMixin);
   static const PropDescriptor _$prop__alt___$DomPropsMixin =
-      const PropDescriptor(_$key__alt___$DomPropsMixin);
+      PropDescriptor(_$key__alt___$DomPropsMixin);
   static const PropDescriptor _$prop__autoComplete___$DomPropsMixin =
-      const PropDescriptor(_$key__autoComplete___$DomPropsMixin);
+      PropDescriptor(_$key__autoComplete___$DomPropsMixin);
   static const PropDescriptor _$prop__capture___$DomPropsMixin =
-      const PropDescriptor(_$key__capture___$DomPropsMixin);
+      PropDescriptor(_$key__capture___$DomPropsMixin);
   static const PropDescriptor _$prop__cellPadding___$DomPropsMixin =
-      const PropDescriptor(_$key__cellPadding___$DomPropsMixin);
+      PropDescriptor(_$key__cellPadding___$DomPropsMixin);
   static const PropDescriptor _$prop__cellSpacing___$DomPropsMixin =
-      const PropDescriptor(_$key__cellSpacing___$DomPropsMixin);
+      PropDescriptor(_$key__cellSpacing___$DomPropsMixin);
   static const PropDescriptor _$prop__charSet___$DomPropsMixin =
-      const PropDescriptor(_$key__charSet___$DomPropsMixin);
+      PropDescriptor(_$key__charSet___$DomPropsMixin);
   static const PropDescriptor _$prop__classID___$DomPropsMixin =
-      const PropDescriptor(_$key__classID___$DomPropsMixin);
+      PropDescriptor(_$key__classID___$DomPropsMixin);
   static const PropDescriptor _$prop__colSpan___$DomPropsMixin =
-      const PropDescriptor(_$key__colSpan___$DomPropsMixin);
+      PropDescriptor(_$key__colSpan___$DomPropsMixin);
   static const PropDescriptor _$prop__content___$DomPropsMixin =
-      const PropDescriptor(_$key__content___$DomPropsMixin);
+      PropDescriptor(_$key__content___$DomPropsMixin);
   static const PropDescriptor _$prop__contentEditable___$DomPropsMixin =
-      const PropDescriptor(_$key__contentEditable___$DomPropsMixin);
+      PropDescriptor(_$key__contentEditable___$DomPropsMixin);
   static const PropDescriptor _$prop__contextMenu___$DomPropsMixin =
-      const PropDescriptor(_$key__contextMenu___$DomPropsMixin);
+      PropDescriptor(_$key__contextMenu___$DomPropsMixin);
   static const PropDescriptor _$prop__coords___$DomPropsMixin =
-      const PropDescriptor(_$key__coords___$DomPropsMixin);
+      PropDescriptor(_$key__coords___$DomPropsMixin);
   static const PropDescriptor _$prop__crossOrigin___$DomPropsMixin =
-      const PropDescriptor(_$key__crossOrigin___$DomPropsMixin);
+      PropDescriptor(_$key__crossOrigin___$DomPropsMixin);
   static const PropDescriptor _$prop__data___$DomPropsMixin =
-      const PropDescriptor(_$key__data___$DomPropsMixin);
+      PropDescriptor(_$key__data___$DomPropsMixin);
   static const PropDescriptor _$prop__dateTime___$DomPropsMixin =
-      const PropDescriptor(_$key__dateTime___$DomPropsMixin);
+      PropDescriptor(_$key__dateTime___$DomPropsMixin);
   static const PropDescriptor _$prop__dir___$DomPropsMixin =
-      const PropDescriptor(_$key__dir___$DomPropsMixin);
+      PropDescriptor(_$key__dir___$DomPropsMixin);
   static const PropDescriptor _$prop__download___$DomPropsMixin =
-      const PropDescriptor(_$key__download___$DomPropsMixin);
+      PropDescriptor(_$key__download___$DomPropsMixin);
   static const PropDescriptor _$prop__draggable___$DomPropsMixin =
-      const PropDescriptor(_$key__draggable___$DomPropsMixin);
+      PropDescriptor(_$key__draggable___$DomPropsMixin);
   static const PropDescriptor _$prop__encType___$DomPropsMixin =
-      const PropDescriptor(_$key__encType___$DomPropsMixin);
+      PropDescriptor(_$key__encType___$DomPropsMixin);
   static const PropDescriptor _$prop__form___$DomPropsMixin =
-      const PropDescriptor(_$key__form___$DomPropsMixin);
+      PropDescriptor(_$key__form___$DomPropsMixin);
   static const PropDescriptor _$prop__frameBorder___$DomPropsMixin =
-      const PropDescriptor(_$key__frameBorder___$DomPropsMixin);
+      PropDescriptor(_$key__frameBorder___$DomPropsMixin);
   static const PropDescriptor _$prop__height___$DomPropsMixin =
-      const PropDescriptor(_$key__height___$DomPropsMixin);
+      PropDescriptor(_$key__height___$DomPropsMixin);
   static const PropDescriptor _$prop__href___$DomPropsMixin =
-      const PropDescriptor(_$key__href___$DomPropsMixin);
+      PropDescriptor(_$key__href___$DomPropsMixin);
   static const PropDescriptor _$prop__hrefLang___$DomPropsMixin =
-      const PropDescriptor(_$key__hrefLang___$DomPropsMixin);
+      PropDescriptor(_$key__hrefLang___$DomPropsMixin);
   static const PropDescriptor _$prop__htmlFor___$DomPropsMixin =
-      const PropDescriptor(_$key__htmlFor___$DomPropsMixin);
+      PropDescriptor(_$key__htmlFor___$DomPropsMixin);
   static const PropDescriptor _$prop__httpEquiv___$DomPropsMixin =
-      const PropDescriptor(_$key__httpEquiv___$DomPropsMixin);
+      PropDescriptor(_$key__httpEquiv___$DomPropsMixin);
   static const PropDescriptor _$prop__icon___$DomPropsMixin =
-      const PropDescriptor(_$key__icon___$DomPropsMixin);
+      PropDescriptor(_$key__icon___$DomPropsMixin);
   static const PropDescriptor _$prop__label___$DomPropsMixin =
-      const PropDescriptor(_$key__label___$DomPropsMixin);
+      PropDescriptor(_$key__label___$DomPropsMixin);
   static const PropDescriptor _$prop__lang___$DomPropsMixin =
-      const PropDescriptor(_$key__lang___$DomPropsMixin);
+      PropDescriptor(_$key__lang___$DomPropsMixin);
   static const PropDescriptor _$prop__list___$DomPropsMixin =
-      const PropDescriptor(_$key__list___$DomPropsMixin);
+      PropDescriptor(_$key__list___$DomPropsMixin);
   static const PropDescriptor _$prop__manifest___$DomPropsMixin =
-      const PropDescriptor(_$key__manifest___$DomPropsMixin);
+      PropDescriptor(_$key__manifest___$DomPropsMixin);
   static const PropDescriptor _$prop__max___$DomPropsMixin =
-      const PropDescriptor(_$key__max___$DomPropsMixin);
+      PropDescriptor(_$key__max___$DomPropsMixin);
   static const PropDescriptor _$prop__maxLength___$DomPropsMixin =
-      const PropDescriptor(_$key__maxLength___$DomPropsMixin);
+      PropDescriptor(_$key__maxLength___$DomPropsMixin);
   static const PropDescriptor _$prop__media___$DomPropsMixin =
-      const PropDescriptor(_$key__media___$DomPropsMixin);
+      PropDescriptor(_$key__media___$DomPropsMixin);
   static const PropDescriptor _$prop__mediaGroup___$DomPropsMixin =
-      const PropDescriptor(_$key__mediaGroup___$DomPropsMixin);
+      PropDescriptor(_$key__mediaGroup___$DomPropsMixin);
   static const PropDescriptor _$prop__method___$DomPropsMixin =
-      const PropDescriptor(_$key__method___$DomPropsMixin);
+      PropDescriptor(_$key__method___$DomPropsMixin);
   static const PropDescriptor _$prop__min___$DomPropsMixin =
-      const PropDescriptor(_$key__min___$DomPropsMixin);
+      PropDescriptor(_$key__min___$DomPropsMixin);
   static const PropDescriptor _$prop__name___$DomPropsMixin =
-      const PropDescriptor(_$key__name___$DomPropsMixin);
+      PropDescriptor(_$key__name___$DomPropsMixin);
   static const PropDescriptor _$prop__pattern___$DomPropsMixin =
-      const PropDescriptor(_$key__pattern___$DomPropsMixin);
+      PropDescriptor(_$key__pattern___$DomPropsMixin);
   static const PropDescriptor _$prop__placeholder___$DomPropsMixin =
-      const PropDescriptor(_$key__placeholder___$DomPropsMixin);
+      PropDescriptor(_$key__placeholder___$DomPropsMixin);
   static const PropDescriptor _$prop__poster___$DomPropsMixin =
-      const PropDescriptor(_$key__poster___$DomPropsMixin);
+      PropDescriptor(_$key__poster___$DomPropsMixin);
   static const PropDescriptor _$prop__preload___$DomPropsMixin =
-      const PropDescriptor(_$key__preload___$DomPropsMixin);
+      PropDescriptor(_$key__preload___$DomPropsMixin);
   static const PropDescriptor _$prop__radioGroup___$DomPropsMixin =
-      const PropDescriptor(_$key__radioGroup___$DomPropsMixin);
+      PropDescriptor(_$key__radioGroup___$DomPropsMixin);
   static const PropDescriptor _$prop__rel___$DomPropsMixin =
-      const PropDescriptor(_$key__rel___$DomPropsMixin);
+      PropDescriptor(_$key__rel___$DomPropsMixin);
   static const PropDescriptor _$prop__role___$DomPropsMixin =
-      const PropDescriptor(_$key__role___$DomPropsMixin);
+      PropDescriptor(_$key__role___$DomPropsMixin);
   static const PropDescriptor _$prop__rowSpan___$DomPropsMixin =
-      const PropDescriptor(_$key__rowSpan___$DomPropsMixin);
+      PropDescriptor(_$key__rowSpan___$DomPropsMixin);
   static const PropDescriptor _$prop__sandbox___$DomPropsMixin =
-      const PropDescriptor(_$key__sandbox___$DomPropsMixin);
+      PropDescriptor(_$key__sandbox___$DomPropsMixin);
   static const PropDescriptor _$prop__scope___$DomPropsMixin =
-      const PropDescriptor(_$key__scope___$DomPropsMixin);
+      PropDescriptor(_$key__scope___$DomPropsMixin);
   static const PropDescriptor _$prop__scrolling___$DomPropsMixin =
-      const PropDescriptor(_$key__scrolling___$DomPropsMixin);
+      PropDescriptor(_$key__scrolling___$DomPropsMixin);
   static const PropDescriptor _$prop__shape___$DomPropsMixin =
-      const PropDescriptor(_$key__shape___$DomPropsMixin);
+      PropDescriptor(_$key__shape___$DomPropsMixin);
   static const PropDescriptor _$prop__sizes___$DomPropsMixin =
-      const PropDescriptor(_$key__sizes___$DomPropsMixin);
+      PropDescriptor(_$key__sizes___$DomPropsMixin);
   static const PropDescriptor _$prop__spellCheck___$DomPropsMixin =
-      const PropDescriptor(_$key__spellCheck___$DomPropsMixin);
+      PropDescriptor(_$key__spellCheck___$DomPropsMixin);
   static const PropDescriptor _$prop__src___$DomPropsMixin =
-      const PropDescriptor(_$key__src___$DomPropsMixin);
+      PropDescriptor(_$key__src___$DomPropsMixin);
   static const PropDescriptor _$prop__srcDoc___$DomPropsMixin =
-      const PropDescriptor(_$key__srcDoc___$DomPropsMixin);
+      PropDescriptor(_$key__srcDoc___$DomPropsMixin);
   static const PropDescriptor _$prop__srcSet___$DomPropsMixin =
-      const PropDescriptor(_$key__srcSet___$DomPropsMixin);
+      PropDescriptor(_$key__srcSet___$DomPropsMixin);
   static const PropDescriptor _$prop__step___$DomPropsMixin =
-      const PropDescriptor(_$key__step___$DomPropsMixin);
+      PropDescriptor(_$key__step___$DomPropsMixin);
   static const PropDescriptor _$prop__tabIndex___$DomPropsMixin =
-      const PropDescriptor(_$key__tabIndex___$DomPropsMixin);
+      PropDescriptor(_$key__tabIndex___$DomPropsMixin);
   static const PropDescriptor _$prop__target___$DomPropsMixin =
-      const PropDescriptor(_$key__target___$DomPropsMixin);
+      PropDescriptor(_$key__target___$DomPropsMixin);
   static const PropDescriptor _$prop__type___$DomPropsMixin =
-      const PropDescriptor(_$key__type___$DomPropsMixin);
+      PropDescriptor(_$key__type___$DomPropsMixin);
   static const PropDescriptor _$prop__useMap___$DomPropsMixin =
-      const PropDescriptor(_$key__useMap___$DomPropsMixin);
+      PropDescriptor(_$key__useMap___$DomPropsMixin);
   static const PropDescriptor _$prop__value___$DomPropsMixin =
-      const PropDescriptor(_$key__value___$DomPropsMixin);
+      PropDescriptor(_$key__value___$DomPropsMixin);
   static const PropDescriptor _$prop__width___$DomPropsMixin =
-      const PropDescriptor(_$key__width___$DomPropsMixin);
+      PropDescriptor(_$key__width___$DomPropsMixin);
   static const PropDescriptor _$prop__wmode___$DomPropsMixin =
-      const PropDescriptor(_$key__wmode___$DomPropsMixin);
+      PropDescriptor(_$key__wmode___$DomPropsMixin);
   static const PropDescriptor _$prop__onAnimationEnd___$DomPropsMixin =
-      const PropDescriptor(_$key__onAnimationEnd___$DomPropsMixin);
+      PropDescriptor(_$key__onAnimationEnd___$DomPropsMixin);
   static const PropDescriptor _$prop__onAnimationIteration___$DomPropsMixin =
-      const PropDescriptor(_$key__onAnimationIteration___$DomPropsMixin);
+      PropDescriptor(_$key__onAnimationIteration___$DomPropsMixin);
   static const PropDescriptor _$prop__onAnimationStart___$DomPropsMixin =
-      const PropDescriptor(_$key__onAnimationStart___$DomPropsMixin);
+      PropDescriptor(_$key__onAnimationStart___$DomPropsMixin);
   static const PropDescriptor _$prop__onCopy___$DomPropsMixin =
-      const PropDescriptor(_$key__onCopy___$DomPropsMixin);
+      PropDescriptor(_$key__onCopy___$DomPropsMixin);
   static const PropDescriptor _$prop__onCut___$DomPropsMixin =
-      const PropDescriptor(_$key__onCut___$DomPropsMixin);
+      PropDescriptor(_$key__onCut___$DomPropsMixin);
   static const PropDescriptor _$prop__onPaste___$DomPropsMixin =
-      const PropDescriptor(_$key__onPaste___$DomPropsMixin);
+      PropDescriptor(_$key__onPaste___$DomPropsMixin);
   static const PropDescriptor _$prop__onKeyDown___$DomPropsMixin =
-      const PropDescriptor(_$key__onKeyDown___$DomPropsMixin);
+      PropDescriptor(_$key__onKeyDown___$DomPropsMixin);
   static const PropDescriptor _$prop__onKeyPress___$DomPropsMixin =
-      const PropDescriptor(_$key__onKeyPress___$DomPropsMixin);
+      PropDescriptor(_$key__onKeyPress___$DomPropsMixin);
   static const PropDescriptor _$prop__onKeyUp___$DomPropsMixin =
-      const PropDescriptor(_$key__onKeyUp___$DomPropsMixin);
+      PropDescriptor(_$key__onKeyUp___$DomPropsMixin);
   static const PropDescriptor _$prop__onFocus___$DomPropsMixin =
-      const PropDescriptor(_$key__onFocus___$DomPropsMixin);
+      PropDescriptor(_$key__onFocus___$DomPropsMixin);
   static const PropDescriptor _$prop__onBlur___$DomPropsMixin =
-      const PropDescriptor(_$key__onBlur___$DomPropsMixin);
+      PropDescriptor(_$key__onBlur___$DomPropsMixin);
   static const PropDescriptor _$prop__onChange___$DomPropsMixin =
-      const PropDescriptor(_$key__onChange___$DomPropsMixin);
+      PropDescriptor(_$key__onChange___$DomPropsMixin);
   static const PropDescriptor _$prop__onInput___$DomPropsMixin =
-      const PropDescriptor(_$key__onInput___$DomPropsMixin);
+      PropDescriptor(_$key__onInput___$DomPropsMixin);
   static const PropDescriptor _$prop__onSubmit___$DomPropsMixin =
-      const PropDescriptor(_$key__onSubmit___$DomPropsMixin);
+      PropDescriptor(_$key__onSubmit___$DomPropsMixin);
   static const PropDescriptor _$prop__onReset___$DomPropsMixin =
-      const PropDescriptor(_$key__onReset___$DomPropsMixin);
+      PropDescriptor(_$key__onReset___$DomPropsMixin);
   static const PropDescriptor _$prop__onClick___$DomPropsMixin =
-      const PropDescriptor(_$key__onClick___$DomPropsMixin);
+      PropDescriptor(_$key__onClick___$DomPropsMixin);
   static const PropDescriptor _$prop__onContextMenu___$DomPropsMixin =
-      const PropDescriptor(_$key__onContextMenu___$DomPropsMixin);
+      PropDescriptor(_$key__onContextMenu___$DomPropsMixin);
   static const PropDescriptor _$prop__onDoubleClick___$DomPropsMixin =
-      const PropDescriptor(_$key__onDoubleClick___$DomPropsMixin);
+      PropDescriptor(_$key__onDoubleClick___$DomPropsMixin);
   static const PropDescriptor _$prop__onDrag___$DomPropsMixin =
-      const PropDescriptor(_$key__onDrag___$DomPropsMixin);
+      PropDescriptor(_$key__onDrag___$DomPropsMixin);
   static const PropDescriptor _$prop__onDragEnd___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragEnd___$DomPropsMixin);
+      PropDescriptor(_$key__onDragEnd___$DomPropsMixin);
   static const PropDescriptor _$prop__onDragEnter___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragEnter___$DomPropsMixin);
+      PropDescriptor(_$key__onDragEnter___$DomPropsMixin);
   static const PropDescriptor _$prop__onDragExit___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragExit___$DomPropsMixin);
+      PropDescriptor(_$key__onDragExit___$DomPropsMixin);
   static const PropDescriptor _$prop__onDragLeave___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragLeave___$DomPropsMixin);
+      PropDescriptor(_$key__onDragLeave___$DomPropsMixin);
   static const PropDescriptor _$prop__onDragOver___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragOver___$DomPropsMixin);
+      PropDescriptor(_$key__onDragOver___$DomPropsMixin);
   static const PropDescriptor _$prop__onDragStart___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragStart___$DomPropsMixin);
+      PropDescriptor(_$key__onDragStart___$DomPropsMixin);
   static const PropDescriptor _$prop__onDrop___$DomPropsMixin =
-      const PropDescriptor(_$key__onDrop___$DomPropsMixin);
+      PropDescriptor(_$key__onDrop___$DomPropsMixin);
   static const PropDescriptor _$prop__onMouseDown___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseDown___$DomPropsMixin);
+      PropDescriptor(_$key__onMouseDown___$DomPropsMixin);
   static const PropDescriptor _$prop__onMouseEnter___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseEnter___$DomPropsMixin);
+      PropDescriptor(_$key__onMouseEnter___$DomPropsMixin);
   static const PropDescriptor _$prop__onMouseLeave___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseLeave___$DomPropsMixin);
+      PropDescriptor(_$key__onMouseLeave___$DomPropsMixin);
   static const PropDescriptor _$prop__onMouseMove___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseMove___$DomPropsMixin);
+      PropDescriptor(_$key__onMouseMove___$DomPropsMixin);
   static const PropDescriptor _$prop__onMouseOut___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseOut___$DomPropsMixin);
+      PropDescriptor(_$key__onMouseOut___$DomPropsMixin);
   static const PropDescriptor _$prop__onMouseOver___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseOver___$DomPropsMixin);
+      PropDescriptor(_$key__onMouseOver___$DomPropsMixin);
   static const PropDescriptor _$prop__onMouseUp___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseUp___$DomPropsMixin);
+      PropDescriptor(_$key__onMouseUp___$DomPropsMixin);
   static const PropDescriptor _$prop__onPointerCancel___$DomPropsMixin =
-      const PropDescriptor(_$key__onPointerCancel___$DomPropsMixin);
+      PropDescriptor(_$key__onPointerCancel___$DomPropsMixin);
   static const PropDescriptor _$prop__onPointerDown___$DomPropsMixin =
-      const PropDescriptor(_$key__onPointerDown___$DomPropsMixin);
+      PropDescriptor(_$key__onPointerDown___$DomPropsMixin);
   static const PropDescriptor _$prop__onPointerEnter___$DomPropsMixin =
-      const PropDescriptor(_$key__onPointerEnter___$DomPropsMixin);
+      PropDescriptor(_$key__onPointerEnter___$DomPropsMixin);
   static const PropDescriptor _$prop__onPointerLeave___$DomPropsMixin =
-      const PropDescriptor(_$key__onPointerLeave___$DomPropsMixin);
+      PropDescriptor(_$key__onPointerLeave___$DomPropsMixin);
   static const PropDescriptor _$prop__onPointerMove___$DomPropsMixin =
-      const PropDescriptor(_$key__onPointerMove___$DomPropsMixin);
+      PropDescriptor(_$key__onPointerMove___$DomPropsMixin);
   static const PropDescriptor _$prop__onPointerOver___$DomPropsMixin =
-      const PropDescriptor(_$key__onPointerOver___$DomPropsMixin);
+      PropDescriptor(_$key__onPointerOver___$DomPropsMixin);
   static const PropDescriptor _$prop__onPointerOut___$DomPropsMixin =
-      const PropDescriptor(_$key__onPointerOut___$DomPropsMixin);
+      PropDescriptor(_$key__onPointerOut___$DomPropsMixin);
   static const PropDescriptor _$prop__onPointerUp___$DomPropsMixin =
-      const PropDescriptor(_$key__onPointerUp___$DomPropsMixin);
+      PropDescriptor(_$key__onPointerUp___$DomPropsMixin);
   static const PropDescriptor _$prop__onTouchCancel___$DomPropsMixin =
-      const PropDescriptor(_$key__onTouchCancel___$DomPropsMixin);
+      PropDescriptor(_$key__onTouchCancel___$DomPropsMixin);
   static const PropDescriptor _$prop__onTouchEnd___$DomPropsMixin =
-      const PropDescriptor(_$key__onTouchEnd___$DomPropsMixin);
+      PropDescriptor(_$key__onTouchEnd___$DomPropsMixin);
   static const PropDescriptor _$prop__onTouchMove___$DomPropsMixin =
-      const PropDescriptor(_$key__onTouchMove___$DomPropsMixin);
+      PropDescriptor(_$key__onTouchMove___$DomPropsMixin);
   static const PropDescriptor _$prop__onTouchStart___$DomPropsMixin =
-      const PropDescriptor(_$key__onTouchStart___$DomPropsMixin);
+      PropDescriptor(_$key__onTouchStart___$DomPropsMixin);
   static const PropDescriptor _$prop__onTransitionEnd___$DomPropsMixin =
-      const PropDescriptor(_$key__onTransitionEnd___$DomPropsMixin);
+      PropDescriptor(_$key__onTransitionEnd___$DomPropsMixin);
   static const PropDescriptor _$prop__onScroll___$DomPropsMixin =
-      const PropDescriptor(_$key__onScroll___$DomPropsMixin);
+      PropDescriptor(_$key__onScroll___$DomPropsMixin);
   static const PropDescriptor _$prop__onWheel___$DomPropsMixin =
-      const PropDescriptor(_$key__onWheel___$DomPropsMixin);
+      PropDescriptor(_$key__onWheel___$DomPropsMixin);
   static const PropDescriptor _$prop__onCopyCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onCopyCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onCopyCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onCutCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onCutCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onCutCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onPasteCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onPasteCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onPasteCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onKeyDownCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onKeyDownCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onKeyDownCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onKeyPressCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onKeyPressCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onKeyPressCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onKeyUpCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onKeyUpCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onKeyUpCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onFocusCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onFocusCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onFocusCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onBlurCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onBlurCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onBlurCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onChangeCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onChangeCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onChangeCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onInputCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onInputCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onInputCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onSubmitCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onSubmitCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onSubmitCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onResetCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onResetCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onResetCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onClickCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onClickCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onClickCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onContextMenuCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onContextMenuCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onContextMenuCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onDoubleClickCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onDoubleClickCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onDoubleClickCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onDragCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onDragCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onDragEndCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragEndCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onDragEndCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onDragEnterCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragEnterCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onDragEnterCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onDragExitCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragExitCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onDragExitCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onDragLeaveCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragLeaveCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onDragLeaveCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onDragOverCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragOverCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onDragOverCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onDragStartCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onDragStartCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onDragStartCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onDropCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onDropCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onDropCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onMouseDownCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseDownCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onMouseDownCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onMouseEnterCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseEnterCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onMouseEnterCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onMouseLeaveCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseLeaveCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onMouseLeaveCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onMouseMoveCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseMoveCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onMouseMoveCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onMouseOutCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseOutCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onMouseOutCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onMouseOverCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseOverCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onMouseOverCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onMouseUpCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onMouseUpCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onMouseUpCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onGotPointerCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onGotPointerCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onGotPointerCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onLostPointerCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onLostPointerCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onLostPointerCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onTouchCancelCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onTouchCancelCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onTouchCancelCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onTouchEndCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onTouchEndCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onTouchEndCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onTouchMoveCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onTouchMoveCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onTouchMoveCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onTouchStartCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onTouchStartCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onTouchStartCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onScrollCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onScrollCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onScrollCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__onWheelCapture___$DomPropsMixin =
-      const PropDescriptor(_$key__onWheelCapture___$DomPropsMixin);
+      PropDescriptor(_$key__onWheelCapture___$DomPropsMixin);
   static const PropDescriptor _$prop__defaultChecked___$DomPropsMixin =
-      const PropDescriptor(_$key__defaultChecked___$DomPropsMixin);
+      PropDescriptor(_$key__defaultChecked___$DomPropsMixin);
   static const PropDescriptor _$prop__defaultValue___$DomPropsMixin =
-      const PropDescriptor(_$key__defaultValue___$DomPropsMixin);
+      PropDescriptor(_$key__defaultValue___$DomPropsMixin);
   static const PropDescriptor _$prop__autoFocus___$DomPropsMixin =
-      const PropDescriptor(_$key__autoFocus___$DomPropsMixin);
+      PropDescriptor(_$key__autoFocus___$DomPropsMixin);
   static const String _$key__cols___$DomPropsMixin = 'cols';
   static const String _$key__minLength___$DomPropsMixin = 'minLength';
   static const String _$key__rows___$DomPropsMixin = 'rows';
@@ -2779,7 +2782,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const String _$key__defaultValue___$DomPropsMixin = 'defaultValue';
   static const String _$key__autoFocus___$DomPropsMixin = 'autoFocus';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__cols___$DomPropsMixin,
     _$prop__minLength___$DomPropsMixin,
     _$prop__rows___$DomPropsMixin,
@@ -2992,7 +2995,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__defaultValue___$DomPropsMixin,
     _$prop__autoFocus___$DomPropsMixin
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__cols___$DomPropsMixin,
     _$key__minLength___$DomPropsMixin,
     _$key__rows___$DomPropsMixin,
@@ -3207,7 +3210,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   ];
 }
 
-const PropsMeta _$metaForDomPropsMixin = const PropsMeta(
+const PropsMeta _$metaForDomPropsMixin = PropsMeta(
   fields: DomPropsMixin.$props,
   keys: DomPropsMixin.$propKeys,
 );
@@ -5473,475 +5476,475 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   set xmlBase(dynamic value) => props[_$key__xmlBase___$SvgPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__htmlIn___$SvgPropsMixin =
-      const PropDescriptor(_$key__htmlIn___$SvgPropsMixin);
+      PropDescriptor(_$key__htmlIn___$SvgPropsMixin);
   static const PropDescriptor _$prop__htmlValues___$SvgPropsMixin =
-      const PropDescriptor(_$key__htmlValues___$SvgPropsMixin);
+      PropDescriptor(_$key__htmlValues___$SvgPropsMixin);
   static const PropDescriptor _$prop__accumulate___$SvgPropsMixin =
-      const PropDescriptor(_$key__accumulate___$SvgPropsMixin);
+      PropDescriptor(_$key__accumulate___$SvgPropsMixin);
   static const PropDescriptor _$prop__additive___$SvgPropsMixin =
-      const PropDescriptor(_$key__additive___$SvgPropsMixin);
+      PropDescriptor(_$key__additive___$SvgPropsMixin);
   static const PropDescriptor _$prop__alignmentBaseline___$SvgPropsMixin =
-      const PropDescriptor(_$key__alignmentBaseline___$SvgPropsMixin);
+      PropDescriptor(_$key__alignmentBaseline___$SvgPropsMixin);
   static const PropDescriptor _$prop__allowReorder___$SvgPropsMixin =
-      const PropDescriptor(_$key__allowReorder___$SvgPropsMixin);
+      PropDescriptor(_$key__allowReorder___$SvgPropsMixin);
   static const PropDescriptor _$prop__arabicForm___$SvgPropsMixin =
-      const PropDescriptor(_$key__arabicForm___$SvgPropsMixin);
+      PropDescriptor(_$key__arabicForm___$SvgPropsMixin);
   static const PropDescriptor _$prop__attributeName___$SvgPropsMixin =
-      const PropDescriptor(_$key__attributeName___$SvgPropsMixin);
+      PropDescriptor(_$key__attributeName___$SvgPropsMixin);
   static const PropDescriptor _$prop__attributeType___$SvgPropsMixin =
-      const PropDescriptor(_$key__attributeType___$SvgPropsMixin);
+      PropDescriptor(_$key__attributeType___$SvgPropsMixin);
   static const PropDescriptor
       _$prop__colorInterpolationFilters___$SvgPropsMixin =
-      const PropDescriptor(_$key__colorInterpolationFilters___$SvgPropsMixin);
+      PropDescriptor(_$key__colorInterpolationFilters___$SvgPropsMixin);
   static const PropDescriptor _$prop__fillRule___$SvgPropsMixin =
-      const PropDescriptor(_$key__fillRule___$SvgPropsMixin);
+      PropDescriptor(_$key__fillRule___$SvgPropsMixin);
   static const PropDescriptor _$prop__filter___$SvgPropsMixin =
-      const PropDescriptor(_$key__filter___$SvgPropsMixin);
+      PropDescriptor(_$key__filter___$SvgPropsMixin);
   static const PropDescriptor _$prop__mask___$SvgPropsMixin =
-      const PropDescriptor(_$key__mask___$SvgPropsMixin);
+      PropDescriptor(_$key__mask___$SvgPropsMixin);
   static const PropDescriptor _$prop__result___$SvgPropsMixin =
-      const PropDescriptor(_$key__result___$SvgPropsMixin);
+      PropDescriptor(_$key__result___$SvgPropsMixin);
   static const PropDescriptor _$prop__strokeLinejoin___$SvgPropsMixin =
-      const PropDescriptor(_$key__strokeLinejoin___$SvgPropsMixin);
+      PropDescriptor(_$key__strokeLinejoin___$SvgPropsMixin);
   static const PropDescriptor _$prop__xChannelSelector___$SvgPropsMixin =
-      const PropDescriptor(_$key__xChannelSelector___$SvgPropsMixin);
+      PropDescriptor(_$key__xChannelSelector___$SvgPropsMixin);
   static const PropDescriptor _$prop__xmlns___$SvgPropsMixin =
-      const PropDescriptor(_$key__xmlns___$SvgPropsMixin);
+      PropDescriptor(_$key__xmlns___$SvgPropsMixin);
   static const PropDescriptor _$prop__xmlnsXlink___$SvgPropsMixin =
-      const PropDescriptor(_$key__xmlnsXlink___$SvgPropsMixin);
+      PropDescriptor(_$key__xmlnsXlink___$SvgPropsMixin);
   static const PropDescriptor _$prop__yChannelSelector___$SvgPropsMixin =
-      const PropDescriptor(_$key__yChannelSelector___$SvgPropsMixin);
+      PropDescriptor(_$key__yChannelSelector___$SvgPropsMixin);
   static const PropDescriptor _$prop__zoomAndPan___$SvgPropsMixin =
-      const PropDescriptor(_$key__zoomAndPan___$SvgPropsMixin);
+      PropDescriptor(_$key__zoomAndPan___$SvgPropsMixin);
   static const PropDescriptor _$prop__accentHeight___$SvgPropsMixin =
-      const PropDescriptor(_$key__accentHeight___$SvgPropsMixin);
+      PropDescriptor(_$key__accentHeight___$SvgPropsMixin);
   static const PropDescriptor _$prop__alphabetic___$SvgPropsMixin =
-      const PropDescriptor(_$key__alphabetic___$SvgPropsMixin);
+      PropDescriptor(_$key__alphabetic___$SvgPropsMixin);
   static const PropDescriptor _$prop__amplitude___$SvgPropsMixin =
-      const PropDescriptor(_$key__amplitude___$SvgPropsMixin);
+      PropDescriptor(_$key__amplitude___$SvgPropsMixin);
   static const PropDescriptor _$prop__ascent___$SvgPropsMixin =
-      const PropDescriptor(_$key__ascent___$SvgPropsMixin);
+      PropDescriptor(_$key__ascent___$SvgPropsMixin);
   static const PropDescriptor _$prop__autoReverse___$SvgPropsMixin =
-      const PropDescriptor(_$key__autoReverse___$SvgPropsMixin);
+      PropDescriptor(_$key__autoReverse___$SvgPropsMixin);
   static const PropDescriptor _$prop__azimuth___$SvgPropsMixin =
-      const PropDescriptor(_$key__azimuth___$SvgPropsMixin);
+      PropDescriptor(_$key__azimuth___$SvgPropsMixin);
   static const PropDescriptor _$prop__baseFrequency___$SvgPropsMixin =
-      const PropDescriptor(_$key__baseFrequency___$SvgPropsMixin);
+      PropDescriptor(_$key__baseFrequency___$SvgPropsMixin);
   static const PropDescriptor _$prop__baseProfile___$SvgPropsMixin =
-      const PropDescriptor(_$key__baseProfile___$SvgPropsMixin);
+      PropDescriptor(_$key__baseProfile___$SvgPropsMixin);
   static const PropDescriptor _$prop__baselineShift___$SvgPropsMixin =
-      const PropDescriptor(_$key__baselineShift___$SvgPropsMixin);
+      PropDescriptor(_$key__baselineShift___$SvgPropsMixin);
   static const PropDescriptor _$prop__bbox___$SvgPropsMixin =
-      const PropDescriptor(_$key__bbox___$SvgPropsMixin);
+      PropDescriptor(_$key__bbox___$SvgPropsMixin);
   static const PropDescriptor _$prop__begin___$SvgPropsMixin =
-      const PropDescriptor(_$key__begin___$SvgPropsMixin);
+      PropDescriptor(_$key__begin___$SvgPropsMixin);
   static const PropDescriptor _$prop__bias___$SvgPropsMixin =
-      const PropDescriptor(_$key__bias___$SvgPropsMixin);
+      PropDescriptor(_$key__bias___$SvgPropsMixin);
   static const PropDescriptor _$prop__by___$SvgPropsMixin =
-      const PropDescriptor(_$key__by___$SvgPropsMixin);
+      PropDescriptor(_$key__by___$SvgPropsMixin);
   static const PropDescriptor _$prop__calcMode___$SvgPropsMixin =
-      const PropDescriptor(_$key__calcMode___$SvgPropsMixin);
+      PropDescriptor(_$key__calcMode___$SvgPropsMixin);
   static const PropDescriptor _$prop__capHeight___$SvgPropsMixin =
-      const PropDescriptor(_$key__capHeight___$SvgPropsMixin);
+      PropDescriptor(_$key__capHeight___$SvgPropsMixin);
   static const PropDescriptor _$prop__clip___$SvgPropsMixin =
-      const PropDescriptor(_$key__clip___$SvgPropsMixin);
+      PropDescriptor(_$key__clip___$SvgPropsMixin);
   static const PropDescriptor _$prop__clipPath___$SvgPropsMixin =
-      const PropDescriptor(_$key__clipPath___$SvgPropsMixin);
+      PropDescriptor(_$key__clipPath___$SvgPropsMixin);
   static const PropDescriptor _$prop__clipPathUnits___$SvgPropsMixin =
-      const PropDescriptor(_$key__clipPathUnits___$SvgPropsMixin);
+      PropDescriptor(_$key__clipPathUnits___$SvgPropsMixin);
   static const PropDescriptor _$prop__clipRule___$SvgPropsMixin =
-      const PropDescriptor(_$key__clipRule___$SvgPropsMixin);
+      PropDescriptor(_$key__clipRule___$SvgPropsMixin);
   static const PropDescriptor _$prop__colorInterpolation___$SvgPropsMixin =
-      const PropDescriptor(_$key__colorInterpolation___$SvgPropsMixin);
+      PropDescriptor(_$key__colorInterpolation___$SvgPropsMixin);
   static const PropDescriptor _$prop__colorProfile___$SvgPropsMixin =
-      const PropDescriptor(_$key__colorProfile___$SvgPropsMixin);
+      PropDescriptor(_$key__colorProfile___$SvgPropsMixin);
   static const PropDescriptor _$prop__colorRendering___$SvgPropsMixin =
-      const PropDescriptor(_$key__colorRendering___$SvgPropsMixin);
+      PropDescriptor(_$key__colorRendering___$SvgPropsMixin);
   static const PropDescriptor _$prop__contentScriptType___$SvgPropsMixin =
-      const PropDescriptor(_$key__contentScriptType___$SvgPropsMixin);
+      PropDescriptor(_$key__contentScriptType___$SvgPropsMixin);
   static const PropDescriptor _$prop__contentStyleType___$SvgPropsMixin =
-      const PropDescriptor(_$key__contentStyleType___$SvgPropsMixin);
+      PropDescriptor(_$key__contentStyleType___$SvgPropsMixin);
   static const PropDescriptor _$prop__cursor___$SvgPropsMixin =
-      const PropDescriptor(_$key__cursor___$SvgPropsMixin);
+      PropDescriptor(_$key__cursor___$SvgPropsMixin);
   static const PropDescriptor _$prop__cx___$SvgPropsMixin =
-      const PropDescriptor(_$key__cx___$SvgPropsMixin);
+      PropDescriptor(_$key__cx___$SvgPropsMixin);
   static const PropDescriptor _$prop__cy___$SvgPropsMixin =
-      const PropDescriptor(_$key__cy___$SvgPropsMixin);
+      PropDescriptor(_$key__cy___$SvgPropsMixin);
   static const PropDescriptor _$prop__d___$SvgPropsMixin =
-      const PropDescriptor(_$key__d___$SvgPropsMixin);
+      PropDescriptor(_$key__d___$SvgPropsMixin);
   static const PropDescriptor _$prop__decelerate___$SvgPropsMixin =
-      const PropDescriptor(_$key__decelerate___$SvgPropsMixin);
+      PropDescriptor(_$key__decelerate___$SvgPropsMixin);
   static const PropDescriptor _$prop__descent___$SvgPropsMixin =
-      const PropDescriptor(_$key__descent___$SvgPropsMixin);
+      PropDescriptor(_$key__descent___$SvgPropsMixin);
   static const PropDescriptor _$prop__diffuseConstant___$SvgPropsMixin =
-      const PropDescriptor(_$key__diffuseConstant___$SvgPropsMixin);
+      PropDescriptor(_$key__diffuseConstant___$SvgPropsMixin);
   static const PropDescriptor _$prop__direction___$SvgPropsMixin =
-      const PropDescriptor(_$key__direction___$SvgPropsMixin);
+      PropDescriptor(_$key__direction___$SvgPropsMixin);
   static const PropDescriptor _$prop__display___$SvgPropsMixin =
-      const PropDescriptor(_$key__display___$SvgPropsMixin);
+      PropDescriptor(_$key__display___$SvgPropsMixin);
   static const PropDescriptor _$prop__divisor___$SvgPropsMixin =
-      const PropDescriptor(_$key__divisor___$SvgPropsMixin);
+      PropDescriptor(_$key__divisor___$SvgPropsMixin);
   static const PropDescriptor _$prop__dominantBaseline___$SvgPropsMixin =
-      const PropDescriptor(_$key__dominantBaseline___$SvgPropsMixin);
+      PropDescriptor(_$key__dominantBaseline___$SvgPropsMixin);
   static const PropDescriptor _$prop__dur___$SvgPropsMixin =
-      const PropDescriptor(_$key__dur___$SvgPropsMixin);
+      PropDescriptor(_$key__dur___$SvgPropsMixin);
   static const PropDescriptor _$prop__dx___$SvgPropsMixin =
-      const PropDescriptor(_$key__dx___$SvgPropsMixin);
+      PropDescriptor(_$key__dx___$SvgPropsMixin);
   static const PropDescriptor _$prop__dy___$SvgPropsMixin =
-      const PropDescriptor(_$key__dy___$SvgPropsMixin);
+      PropDescriptor(_$key__dy___$SvgPropsMixin);
   static const PropDescriptor _$prop__edgeMode___$SvgPropsMixin =
-      const PropDescriptor(_$key__edgeMode___$SvgPropsMixin);
+      PropDescriptor(_$key__edgeMode___$SvgPropsMixin);
   static const PropDescriptor _$prop__elevation___$SvgPropsMixin =
-      const PropDescriptor(_$key__elevation___$SvgPropsMixin);
+      PropDescriptor(_$key__elevation___$SvgPropsMixin);
   static const PropDescriptor _$prop__enableBackground___$SvgPropsMixin =
-      const PropDescriptor(_$key__enableBackground___$SvgPropsMixin);
+      PropDescriptor(_$key__enableBackground___$SvgPropsMixin);
   static const PropDescriptor _$prop__end___$SvgPropsMixin =
-      const PropDescriptor(_$key__end___$SvgPropsMixin);
+      PropDescriptor(_$key__end___$SvgPropsMixin);
   static const PropDescriptor _$prop__exponent___$SvgPropsMixin =
-      const PropDescriptor(_$key__exponent___$SvgPropsMixin);
+      PropDescriptor(_$key__exponent___$SvgPropsMixin);
   static const PropDescriptor
       _$prop__externalResourcesRequired___$SvgPropsMixin =
-      const PropDescriptor(_$key__externalResourcesRequired___$SvgPropsMixin);
+      PropDescriptor(_$key__externalResourcesRequired___$SvgPropsMixin);
   static const PropDescriptor _$prop__fill___$SvgPropsMixin =
-      const PropDescriptor(_$key__fill___$SvgPropsMixin);
+      PropDescriptor(_$key__fill___$SvgPropsMixin);
   static const PropDescriptor _$prop__fillOpacity___$SvgPropsMixin =
-      const PropDescriptor(_$key__fillOpacity___$SvgPropsMixin);
+      PropDescriptor(_$key__fillOpacity___$SvgPropsMixin);
   static const PropDescriptor _$prop__filterRes___$SvgPropsMixin =
-      const PropDescriptor(_$key__filterRes___$SvgPropsMixin);
+      PropDescriptor(_$key__filterRes___$SvgPropsMixin);
   static const PropDescriptor _$prop__filterUnits___$SvgPropsMixin =
-      const PropDescriptor(_$key__filterUnits___$SvgPropsMixin);
+      PropDescriptor(_$key__filterUnits___$SvgPropsMixin);
   static const PropDescriptor _$prop__floodColor___$SvgPropsMixin =
-      const PropDescriptor(_$key__floodColor___$SvgPropsMixin);
+      PropDescriptor(_$key__floodColor___$SvgPropsMixin);
   static const PropDescriptor _$prop__floodOpacity___$SvgPropsMixin =
-      const PropDescriptor(_$key__floodOpacity___$SvgPropsMixin);
+      PropDescriptor(_$key__floodOpacity___$SvgPropsMixin);
   static const PropDescriptor _$prop__focusable___$SvgPropsMixin =
-      const PropDescriptor(_$key__focusable___$SvgPropsMixin);
+      PropDescriptor(_$key__focusable___$SvgPropsMixin);
   static const PropDescriptor _$prop__fontFamily___$SvgPropsMixin =
-      const PropDescriptor(_$key__fontFamily___$SvgPropsMixin);
+      PropDescriptor(_$key__fontFamily___$SvgPropsMixin);
   static const PropDescriptor _$prop__fontSize___$SvgPropsMixin =
-      const PropDescriptor(_$key__fontSize___$SvgPropsMixin);
+      PropDescriptor(_$key__fontSize___$SvgPropsMixin);
   static const PropDescriptor _$prop__fontSizeAdjust___$SvgPropsMixin =
-      const PropDescriptor(_$key__fontSizeAdjust___$SvgPropsMixin);
+      PropDescriptor(_$key__fontSizeAdjust___$SvgPropsMixin);
   static const PropDescriptor _$prop__fontStretch___$SvgPropsMixin =
-      const PropDescriptor(_$key__fontStretch___$SvgPropsMixin);
+      PropDescriptor(_$key__fontStretch___$SvgPropsMixin);
   static const PropDescriptor _$prop__fontStyle___$SvgPropsMixin =
-      const PropDescriptor(_$key__fontStyle___$SvgPropsMixin);
+      PropDescriptor(_$key__fontStyle___$SvgPropsMixin);
   static const PropDescriptor _$prop__fontVariant___$SvgPropsMixin =
-      const PropDescriptor(_$key__fontVariant___$SvgPropsMixin);
+      PropDescriptor(_$key__fontVariant___$SvgPropsMixin);
   static const PropDescriptor _$prop__fontWeight___$SvgPropsMixin =
-      const PropDescriptor(_$key__fontWeight___$SvgPropsMixin);
+      PropDescriptor(_$key__fontWeight___$SvgPropsMixin);
   static const PropDescriptor _$prop__format___$SvgPropsMixin =
-      const PropDescriptor(_$key__format___$SvgPropsMixin);
+      PropDescriptor(_$key__format___$SvgPropsMixin);
   static const PropDescriptor _$prop__from___$SvgPropsMixin =
-      const PropDescriptor(_$key__from___$SvgPropsMixin);
+      PropDescriptor(_$key__from___$SvgPropsMixin);
   static const PropDescriptor _$prop__fx___$SvgPropsMixin =
-      const PropDescriptor(_$key__fx___$SvgPropsMixin);
+      PropDescriptor(_$key__fx___$SvgPropsMixin);
   static const PropDescriptor _$prop__fy___$SvgPropsMixin =
-      const PropDescriptor(_$key__fy___$SvgPropsMixin);
+      PropDescriptor(_$key__fy___$SvgPropsMixin);
   static const PropDescriptor _$prop__g1___$SvgPropsMixin =
-      const PropDescriptor(_$key__g1___$SvgPropsMixin);
+      PropDescriptor(_$key__g1___$SvgPropsMixin);
   static const PropDescriptor _$prop__g2___$SvgPropsMixin =
-      const PropDescriptor(_$key__g2___$SvgPropsMixin);
+      PropDescriptor(_$key__g2___$SvgPropsMixin);
   static const PropDescriptor _$prop__glyphName___$SvgPropsMixin =
-      const PropDescriptor(_$key__glyphName___$SvgPropsMixin);
+      PropDescriptor(_$key__glyphName___$SvgPropsMixin);
   static const PropDescriptor
       _$prop__glyphOrientationHorizontal___$SvgPropsMixin =
-      const PropDescriptor(_$key__glyphOrientationHorizontal___$SvgPropsMixin);
+      PropDescriptor(_$key__glyphOrientationHorizontal___$SvgPropsMixin);
   static const PropDescriptor
       _$prop__glyphOrientationVertical___$SvgPropsMixin =
-      const PropDescriptor(_$key__glyphOrientationVertical___$SvgPropsMixin);
+      PropDescriptor(_$key__glyphOrientationVertical___$SvgPropsMixin);
   static const PropDescriptor _$prop__glyphRef___$SvgPropsMixin =
-      const PropDescriptor(_$key__glyphRef___$SvgPropsMixin);
+      PropDescriptor(_$key__glyphRef___$SvgPropsMixin);
   static const PropDescriptor _$prop__gradientTransform___$SvgPropsMixin =
-      const PropDescriptor(_$key__gradientTransform___$SvgPropsMixin);
+      PropDescriptor(_$key__gradientTransform___$SvgPropsMixin);
   static const PropDescriptor _$prop__gradientUnits___$SvgPropsMixin =
-      const PropDescriptor(_$key__gradientUnits___$SvgPropsMixin);
+      PropDescriptor(_$key__gradientUnits___$SvgPropsMixin);
   static const PropDescriptor _$prop__hanging___$SvgPropsMixin =
-      const PropDescriptor(_$key__hanging___$SvgPropsMixin);
+      PropDescriptor(_$key__hanging___$SvgPropsMixin);
   static const PropDescriptor _$prop__horizAdvX___$SvgPropsMixin =
-      const PropDescriptor(_$key__horizAdvX___$SvgPropsMixin);
+      PropDescriptor(_$key__horizAdvX___$SvgPropsMixin);
   static const PropDescriptor _$prop__horizOriginX___$SvgPropsMixin =
-      const PropDescriptor(_$key__horizOriginX___$SvgPropsMixin);
+      PropDescriptor(_$key__horizOriginX___$SvgPropsMixin);
   static const PropDescriptor _$prop__ideographic___$SvgPropsMixin =
-      const PropDescriptor(_$key__ideographic___$SvgPropsMixin);
+      PropDescriptor(_$key__ideographic___$SvgPropsMixin);
   static const PropDescriptor _$prop__imageRendering___$SvgPropsMixin =
-      const PropDescriptor(_$key__imageRendering___$SvgPropsMixin);
+      PropDescriptor(_$key__imageRendering___$SvgPropsMixin);
   static const PropDescriptor _$prop__in2___$SvgPropsMixin =
-      const PropDescriptor(_$key__in2___$SvgPropsMixin);
+      PropDescriptor(_$key__in2___$SvgPropsMixin);
   static const PropDescriptor _$prop__intercept___$SvgPropsMixin =
-      const PropDescriptor(_$key__intercept___$SvgPropsMixin);
+      PropDescriptor(_$key__intercept___$SvgPropsMixin);
   static const PropDescriptor _$prop__k___$SvgPropsMixin =
-      const PropDescriptor(_$key__k___$SvgPropsMixin);
+      PropDescriptor(_$key__k___$SvgPropsMixin);
   static const PropDescriptor _$prop__k1___$SvgPropsMixin =
-      const PropDescriptor(_$key__k1___$SvgPropsMixin);
+      PropDescriptor(_$key__k1___$SvgPropsMixin);
   static const PropDescriptor _$prop__k2___$SvgPropsMixin =
-      const PropDescriptor(_$key__k2___$SvgPropsMixin);
+      PropDescriptor(_$key__k2___$SvgPropsMixin);
   static const PropDescriptor _$prop__k3___$SvgPropsMixin =
-      const PropDescriptor(_$key__k3___$SvgPropsMixin);
+      PropDescriptor(_$key__k3___$SvgPropsMixin);
   static const PropDescriptor _$prop__k4___$SvgPropsMixin =
-      const PropDescriptor(_$key__k4___$SvgPropsMixin);
+      PropDescriptor(_$key__k4___$SvgPropsMixin);
   static const PropDescriptor _$prop__kernelMatrix___$SvgPropsMixin =
-      const PropDescriptor(_$key__kernelMatrix___$SvgPropsMixin);
+      PropDescriptor(_$key__kernelMatrix___$SvgPropsMixin);
   static const PropDescriptor _$prop__kernelUnitLength___$SvgPropsMixin =
-      const PropDescriptor(_$key__kernelUnitLength___$SvgPropsMixin);
+      PropDescriptor(_$key__kernelUnitLength___$SvgPropsMixin);
   static const PropDescriptor _$prop__kerning___$SvgPropsMixin =
-      const PropDescriptor(_$key__kerning___$SvgPropsMixin);
+      PropDescriptor(_$key__kerning___$SvgPropsMixin);
   static const PropDescriptor _$prop__keyPoints___$SvgPropsMixin =
-      const PropDescriptor(_$key__keyPoints___$SvgPropsMixin);
+      PropDescriptor(_$key__keyPoints___$SvgPropsMixin);
   static const PropDescriptor _$prop__keySplines___$SvgPropsMixin =
-      const PropDescriptor(_$key__keySplines___$SvgPropsMixin);
+      PropDescriptor(_$key__keySplines___$SvgPropsMixin);
   static const PropDescriptor _$prop__keyTimes___$SvgPropsMixin =
-      const PropDescriptor(_$key__keyTimes___$SvgPropsMixin);
+      PropDescriptor(_$key__keyTimes___$SvgPropsMixin);
   static const PropDescriptor _$prop__lengthAdjust___$SvgPropsMixin =
-      const PropDescriptor(_$key__lengthAdjust___$SvgPropsMixin);
+      PropDescriptor(_$key__lengthAdjust___$SvgPropsMixin);
   static const PropDescriptor _$prop__letterSpacing___$SvgPropsMixin =
-      const PropDescriptor(_$key__letterSpacing___$SvgPropsMixin);
+      PropDescriptor(_$key__letterSpacing___$SvgPropsMixin);
   static const PropDescriptor _$prop__lightingColor___$SvgPropsMixin =
-      const PropDescriptor(_$key__lightingColor___$SvgPropsMixin);
+      PropDescriptor(_$key__lightingColor___$SvgPropsMixin);
   static const PropDescriptor _$prop__limitingConeAngle___$SvgPropsMixin =
-      const PropDescriptor(_$key__limitingConeAngle___$SvgPropsMixin);
+      PropDescriptor(_$key__limitingConeAngle___$SvgPropsMixin);
   static const PropDescriptor _$prop__local___$SvgPropsMixin =
-      const PropDescriptor(_$key__local___$SvgPropsMixin);
+      PropDescriptor(_$key__local___$SvgPropsMixin);
   static const PropDescriptor _$prop__markerEnd___$SvgPropsMixin =
-      const PropDescriptor(_$key__markerEnd___$SvgPropsMixin);
+      PropDescriptor(_$key__markerEnd___$SvgPropsMixin);
   static const PropDescriptor _$prop__markerHeight___$SvgPropsMixin =
-      const PropDescriptor(_$key__markerHeight___$SvgPropsMixin);
+      PropDescriptor(_$key__markerHeight___$SvgPropsMixin);
   static const PropDescriptor _$prop__markerMid___$SvgPropsMixin =
-      const PropDescriptor(_$key__markerMid___$SvgPropsMixin);
+      PropDescriptor(_$key__markerMid___$SvgPropsMixin);
   static const PropDescriptor _$prop__markerStart___$SvgPropsMixin =
-      const PropDescriptor(_$key__markerStart___$SvgPropsMixin);
+      PropDescriptor(_$key__markerStart___$SvgPropsMixin);
   static const PropDescriptor _$prop__markerUnits___$SvgPropsMixin =
-      const PropDescriptor(_$key__markerUnits___$SvgPropsMixin);
+      PropDescriptor(_$key__markerUnits___$SvgPropsMixin);
   static const PropDescriptor _$prop__markerWidth___$SvgPropsMixin =
-      const PropDescriptor(_$key__markerWidth___$SvgPropsMixin);
+      PropDescriptor(_$key__markerWidth___$SvgPropsMixin);
   static const PropDescriptor _$prop__maskContentUnits___$SvgPropsMixin =
-      const PropDescriptor(_$key__maskContentUnits___$SvgPropsMixin);
+      PropDescriptor(_$key__maskContentUnits___$SvgPropsMixin);
   static const PropDescriptor _$prop__maskUnits___$SvgPropsMixin =
-      const PropDescriptor(_$key__maskUnits___$SvgPropsMixin);
+      PropDescriptor(_$key__maskUnits___$SvgPropsMixin);
   static const PropDescriptor _$prop__mathematical___$SvgPropsMixin =
-      const PropDescriptor(_$key__mathematical___$SvgPropsMixin);
+      PropDescriptor(_$key__mathematical___$SvgPropsMixin);
   static const PropDescriptor _$prop__mode___$SvgPropsMixin =
-      const PropDescriptor(_$key__mode___$SvgPropsMixin);
+      PropDescriptor(_$key__mode___$SvgPropsMixin);
   static const PropDescriptor _$prop__numOctaves___$SvgPropsMixin =
-      const PropDescriptor(_$key__numOctaves___$SvgPropsMixin);
+      PropDescriptor(_$key__numOctaves___$SvgPropsMixin);
   static const PropDescriptor _$prop__offset___$SvgPropsMixin =
-      const PropDescriptor(_$key__offset___$SvgPropsMixin);
+      PropDescriptor(_$key__offset___$SvgPropsMixin);
   static const PropDescriptor _$prop__opacity___$SvgPropsMixin =
-      const PropDescriptor(_$key__opacity___$SvgPropsMixin);
+      PropDescriptor(_$key__opacity___$SvgPropsMixin);
   static const PropDescriptor _$prop__operator___$SvgPropsMixin =
-      const PropDescriptor(_$key__operator___$SvgPropsMixin);
+      PropDescriptor(_$key__operator___$SvgPropsMixin);
   static const PropDescriptor _$prop__order___$SvgPropsMixin =
-      const PropDescriptor(_$key__order___$SvgPropsMixin);
+      PropDescriptor(_$key__order___$SvgPropsMixin);
   static const PropDescriptor _$prop__orient___$SvgPropsMixin =
-      const PropDescriptor(_$key__orient___$SvgPropsMixin);
+      PropDescriptor(_$key__orient___$SvgPropsMixin);
   static const PropDescriptor _$prop__orientation___$SvgPropsMixin =
-      const PropDescriptor(_$key__orientation___$SvgPropsMixin);
+      PropDescriptor(_$key__orientation___$SvgPropsMixin);
   static const PropDescriptor _$prop__origin___$SvgPropsMixin =
-      const PropDescriptor(_$key__origin___$SvgPropsMixin);
+      PropDescriptor(_$key__origin___$SvgPropsMixin);
   static const PropDescriptor _$prop__overflow___$SvgPropsMixin =
-      const PropDescriptor(_$key__overflow___$SvgPropsMixin);
+      PropDescriptor(_$key__overflow___$SvgPropsMixin);
   static const PropDescriptor _$prop__overlinePosition___$SvgPropsMixin =
-      const PropDescriptor(_$key__overlinePosition___$SvgPropsMixin);
+      PropDescriptor(_$key__overlinePosition___$SvgPropsMixin);
   static const PropDescriptor _$prop__overlineThickness___$SvgPropsMixin =
-      const PropDescriptor(_$key__overlineThickness___$SvgPropsMixin);
+      PropDescriptor(_$key__overlineThickness___$SvgPropsMixin);
   static const PropDescriptor _$prop__paintOrder___$SvgPropsMixin =
-      const PropDescriptor(_$key__paintOrder___$SvgPropsMixin);
+      PropDescriptor(_$key__paintOrder___$SvgPropsMixin);
   static const PropDescriptor _$prop__panose1___$SvgPropsMixin =
-      const PropDescriptor(_$key__panose1___$SvgPropsMixin);
+      PropDescriptor(_$key__panose1___$SvgPropsMixin);
   static const PropDescriptor _$prop__pathLength___$SvgPropsMixin =
-      const PropDescriptor(_$key__pathLength___$SvgPropsMixin);
+      PropDescriptor(_$key__pathLength___$SvgPropsMixin);
   static const PropDescriptor _$prop__patternContentUnits___$SvgPropsMixin =
-      const PropDescriptor(_$key__patternContentUnits___$SvgPropsMixin);
+      PropDescriptor(_$key__patternContentUnits___$SvgPropsMixin);
   static const PropDescriptor _$prop__patternTransform___$SvgPropsMixin =
-      const PropDescriptor(_$key__patternTransform___$SvgPropsMixin);
+      PropDescriptor(_$key__patternTransform___$SvgPropsMixin);
   static const PropDescriptor _$prop__patternUnits___$SvgPropsMixin =
-      const PropDescriptor(_$key__patternUnits___$SvgPropsMixin);
+      PropDescriptor(_$key__patternUnits___$SvgPropsMixin);
   static const PropDescriptor _$prop__pointerEvents___$SvgPropsMixin =
-      const PropDescriptor(_$key__pointerEvents___$SvgPropsMixin);
+      PropDescriptor(_$key__pointerEvents___$SvgPropsMixin);
   static const PropDescriptor _$prop__points___$SvgPropsMixin =
-      const PropDescriptor(_$key__points___$SvgPropsMixin);
+      PropDescriptor(_$key__points___$SvgPropsMixin);
   static const PropDescriptor _$prop__pointsAtX___$SvgPropsMixin =
-      const PropDescriptor(_$key__pointsAtX___$SvgPropsMixin);
+      PropDescriptor(_$key__pointsAtX___$SvgPropsMixin);
   static const PropDescriptor _$prop__pointsAtY___$SvgPropsMixin =
-      const PropDescriptor(_$key__pointsAtY___$SvgPropsMixin);
+      PropDescriptor(_$key__pointsAtY___$SvgPropsMixin);
   static const PropDescriptor _$prop__pointsAtZ___$SvgPropsMixin =
-      const PropDescriptor(_$key__pointsAtZ___$SvgPropsMixin);
+      PropDescriptor(_$key__pointsAtZ___$SvgPropsMixin);
   static const PropDescriptor _$prop__preserveAlpha___$SvgPropsMixin =
-      const PropDescriptor(_$key__preserveAlpha___$SvgPropsMixin);
+      PropDescriptor(_$key__preserveAlpha___$SvgPropsMixin);
   static const PropDescriptor _$prop__preserveAspectRatio___$SvgPropsMixin =
-      const PropDescriptor(_$key__preserveAspectRatio___$SvgPropsMixin);
+      PropDescriptor(_$key__preserveAspectRatio___$SvgPropsMixin);
   static const PropDescriptor _$prop__primitiveUnits___$SvgPropsMixin =
-      const PropDescriptor(_$key__primitiveUnits___$SvgPropsMixin);
+      PropDescriptor(_$key__primitiveUnits___$SvgPropsMixin);
   static const PropDescriptor _$prop__r___$SvgPropsMixin =
-      const PropDescriptor(_$key__r___$SvgPropsMixin);
+      PropDescriptor(_$key__r___$SvgPropsMixin);
   static const PropDescriptor _$prop__radius___$SvgPropsMixin =
-      const PropDescriptor(_$key__radius___$SvgPropsMixin);
+      PropDescriptor(_$key__radius___$SvgPropsMixin);
   static const PropDescriptor _$prop__refX___$SvgPropsMixin =
-      const PropDescriptor(_$key__refX___$SvgPropsMixin);
+      PropDescriptor(_$key__refX___$SvgPropsMixin);
   static const PropDescriptor _$prop__refY___$SvgPropsMixin =
-      const PropDescriptor(_$key__refY___$SvgPropsMixin);
+      PropDescriptor(_$key__refY___$SvgPropsMixin);
   static const PropDescriptor _$prop__renderingIntent___$SvgPropsMixin =
-      const PropDescriptor(_$key__renderingIntent___$SvgPropsMixin);
+      PropDescriptor(_$key__renderingIntent___$SvgPropsMixin);
   static const PropDescriptor _$prop__repeatCount___$SvgPropsMixin =
-      const PropDescriptor(_$key__repeatCount___$SvgPropsMixin);
+      PropDescriptor(_$key__repeatCount___$SvgPropsMixin);
   static const PropDescriptor _$prop__repeatDur___$SvgPropsMixin =
-      const PropDescriptor(_$key__repeatDur___$SvgPropsMixin);
+      PropDescriptor(_$key__repeatDur___$SvgPropsMixin);
   static const PropDescriptor _$prop__requiredExtensions___$SvgPropsMixin =
-      const PropDescriptor(_$key__requiredExtensions___$SvgPropsMixin);
+      PropDescriptor(_$key__requiredExtensions___$SvgPropsMixin);
   static const PropDescriptor _$prop__requiredFeatures___$SvgPropsMixin =
-      const PropDescriptor(_$key__requiredFeatures___$SvgPropsMixin);
+      PropDescriptor(_$key__requiredFeatures___$SvgPropsMixin);
   static const PropDescriptor _$prop__restart___$SvgPropsMixin =
-      const PropDescriptor(_$key__restart___$SvgPropsMixin);
+      PropDescriptor(_$key__restart___$SvgPropsMixin);
   static const PropDescriptor _$prop__rotate___$SvgPropsMixin =
-      const PropDescriptor(_$key__rotate___$SvgPropsMixin);
+      PropDescriptor(_$key__rotate___$SvgPropsMixin);
   static const PropDescriptor _$prop__rx___$SvgPropsMixin =
-      const PropDescriptor(_$key__rx___$SvgPropsMixin);
+      PropDescriptor(_$key__rx___$SvgPropsMixin);
   static const PropDescriptor _$prop__ry___$SvgPropsMixin =
-      const PropDescriptor(_$key__ry___$SvgPropsMixin);
+      PropDescriptor(_$key__ry___$SvgPropsMixin);
   static const PropDescriptor _$prop__scale___$SvgPropsMixin =
-      const PropDescriptor(_$key__scale___$SvgPropsMixin);
+      PropDescriptor(_$key__scale___$SvgPropsMixin);
   static const PropDescriptor _$prop__seed___$SvgPropsMixin =
-      const PropDescriptor(_$key__seed___$SvgPropsMixin);
+      PropDescriptor(_$key__seed___$SvgPropsMixin);
   static const PropDescriptor _$prop__shapeRendering___$SvgPropsMixin =
-      const PropDescriptor(_$key__shapeRendering___$SvgPropsMixin);
+      PropDescriptor(_$key__shapeRendering___$SvgPropsMixin);
   static const PropDescriptor _$prop__slope___$SvgPropsMixin =
-      const PropDescriptor(_$key__slope___$SvgPropsMixin);
+      PropDescriptor(_$key__slope___$SvgPropsMixin);
   static const PropDescriptor _$prop__spacing___$SvgPropsMixin =
-      const PropDescriptor(_$key__spacing___$SvgPropsMixin);
+      PropDescriptor(_$key__spacing___$SvgPropsMixin);
   static const PropDescriptor _$prop__specularConstant___$SvgPropsMixin =
-      const PropDescriptor(_$key__specularConstant___$SvgPropsMixin);
+      PropDescriptor(_$key__specularConstant___$SvgPropsMixin);
   static const PropDescriptor _$prop__specularExponent___$SvgPropsMixin =
-      const PropDescriptor(_$key__specularExponent___$SvgPropsMixin);
+      PropDescriptor(_$key__specularExponent___$SvgPropsMixin);
   static const PropDescriptor _$prop__speed___$SvgPropsMixin =
-      const PropDescriptor(_$key__speed___$SvgPropsMixin);
+      PropDescriptor(_$key__speed___$SvgPropsMixin);
   static const PropDescriptor _$prop__spreadMethod___$SvgPropsMixin =
-      const PropDescriptor(_$key__spreadMethod___$SvgPropsMixin);
+      PropDescriptor(_$key__spreadMethod___$SvgPropsMixin);
   static const PropDescriptor _$prop__startOffset___$SvgPropsMixin =
-      const PropDescriptor(_$key__startOffset___$SvgPropsMixin);
+      PropDescriptor(_$key__startOffset___$SvgPropsMixin);
   static const PropDescriptor _$prop__stdDeviation___$SvgPropsMixin =
-      const PropDescriptor(_$key__stdDeviation___$SvgPropsMixin);
+      PropDescriptor(_$key__stdDeviation___$SvgPropsMixin);
   static const PropDescriptor _$prop__stemh___$SvgPropsMixin =
-      const PropDescriptor(_$key__stemh___$SvgPropsMixin);
+      PropDescriptor(_$key__stemh___$SvgPropsMixin);
   static const PropDescriptor _$prop__stemv___$SvgPropsMixin =
-      const PropDescriptor(_$key__stemv___$SvgPropsMixin);
+      PropDescriptor(_$key__stemv___$SvgPropsMixin);
   static const PropDescriptor _$prop__stitchTiles___$SvgPropsMixin =
-      const PropDescriptor(_$key__stitchTiles___$SvgPropsMixin);
+      PropDescriptor(_$key__stitchTiles___$SvgPropsMixin);
   static const PropDescriptor _$prop__stopColor___$SvgPropsMixin =
-      const PropDescriptor(_$key__stopColor___$SvgPropsMixin);
+      PropDescriptor(_$key__stopColor___$SvgPropsMixin);
   static const PropDescriptor _$prop__stopOpacity___$SvgPropsMixin =
-      const PropDescriptor(_$key__stopOpacity___$SvgPropsMixin);
+      PropDescriptor(_$key__stopOpacity___$SvgPropsMixin);
   static const PropDescriptor _$prop__strikethroughPosition___$SvgPropsMixin =
-      const PropDescriptor(_$key__strikethroughPosition___$SvgPropsMixin);
+      PropDescriptor(_$key__strikethroughPosition___$SvgPropsMixin);
   static const PropDescriptor _$prop__strikethroughThickness___$SvgPropsMixin =
-      const PropDescriptor(_$key__strikethroughThickness___$SvgPropsMixin);
+      PropDescriptor(_$key__strikethroughThickness___$SvgPropsMixin);
   static const PropDescriptor _$prop__string___$SvgPropsMixin =
-      const PropDescriptor(_$key__string___$SvgPropsMixin);
+      PropDescriptor(_$key__string___$SvgPropsMixin);
   static const PropDescriptor _$prop__stroke___$SvgPropsMixin =
-      const PropDescriptor(_$key__stroke___$SvgPropsMixin);
+      PropDescriptor(_$key__stroke___$SvgPropsMixin);
   static const PropDescriptor _$prop__strokeDasharray___$SvgPropsMixin =
-      const PropDescriptor(_$key__strokeDasharray___$SvgPropsMixin);
+      PropDescriptor(_$key__strokeDasharray___$SvgPropsMixin);
   static const PropDescriptor _$prop__strokeDashoffset___$SvgPropsMixin =
-      const PropDescriptor(_$key__strokeDashoffset___$SvgPropsMixin);
+      PropDescriptor(_$key__strokeDashoffset___$SvgPropsMixin);
   static const PropDescriptor _$prop__strokeLinecap___$SvgPropsMixin =
-      const PropDescriptor(_$key__strokeLinecap___$SvgPropsMixin);
+      PropDescriptor(_$key__strokeLinecap___$SvgPropsMixin);
   static const PropDescriptor _$prop__strokeMiterlimit___$SvgPropsMixin =
-      const PropDescriptor(_$key__strokeMiterlimit___$SvgPropsMixin);
+      PropDescriptor(_$key__strokeMiterlimit___$SvgPropsMixin);
   static const PropDescriptor _$prop__strokeOpacity___$SvgPropsMixin =
-      const PropDescriptor(_$key__strokeOpacity___$SvgPropsMixin);
+      PropDescriptor(_$key__strokeOpacity___$SvgPropsMixin);
   static const PropDescriptor _$prop__strokeWidth___$SvgPropsMixin =
-      const PropDescriptor(_$key__strokeWidth___$SvgPropsMixin);
+      PropDescriptor(_$key__strokeWidth___$SvgPropsMixin);
   static const PropDescriptor _$prop__surfaceScale___$SvgPropsMixin =
-      const PropDescriptor(_$key__surfaceScale___$SvgPropsMixin);
+      PropDescriptor(_$key__surfaceScale___$SvgPropsMixin);
   static const PropDescriptor _$prop__systemLanguage___$SvgPropsMixin =
-      const PropDescriptor(_$key__systemLanguage___$SvgPropsMixin);
+      PropDescriptor(_$key__systemLanguage___$SvgPropsMixin);
   static const PropDescriptor _$prop__tableValues___$SvgPropsMixin =
-      const PropDescriptor(_$key__tableValues___$SvgPropsMixin);
+      PropDescriptor(_$key__tableValues___$SvgPropsMixin);
   static const PropDescriptor _$prop__targetX___$SvgPropsMixin =
-      const PropDescriptor(_$key__targetX___$SvgPropsMixin);
+      PropDescriptor(_$key__targetX___$SvgPropsMixin);
   static const PropDescriptor _$prop__targetY___$SvgPropsMixin =
-      const PropDescriptor(_$key__targetY___$SvgPropsMixin);
+      PropDescriptor(_$key__targetY___$SvgPropsMixin);
   static const PropDescriptor _$prop__textAnchor___$SvgPropsMixin =
-      const PropDescriptor(_$key__textAnchor___$SvgPropsMixin);
+      PropDescriptor(_$key__textAnchor___$SvgPropsMixin);
   static const PropDescriptor _$prop__textDecoration___$SvgPropsMixin =
-      const PropDescriptor(_$key__textDecoration___$SvgPropsMixin);
+      PropDescriptor(_$key__textDecoration___$SvgPropsMixin);
   static const PropDescriptor _$prop__textLength___$SvgPropsMixin =
-      const PropDescriptor(_$key__textLength___$SvgPropsMixin);
+      PropDescriptor(_$key__textLength___$SvgPropsMixin);
   static const PropDescriptor _$prop__textRendering___$SvgPropsMixin =
-      const PropDescriptor(_$key__textRendering___$SvgPropsMixin);
+      PropDescriptor(_$key__textRendering___$SvgPropsMixin);
   static const PropDescriptor _$prop__to___$SvgPropsMixin =
-      const PropDescriptor(_$key__to___$SvgPropsMixin);
+      PropDescriptor(_$key__to___$SvgPropsMixin);
   static const PropDescriptor _$prop__transform___$SvgPropsMixin =
-      const PropDescriptor(_$key__transform___$SvgPropsMixin);
+      PropDescriptor(_$key__transform___$SvgPropsMixin);
   static const PropDescriptor _$prop__u1___$SvgPropsMixin =
-      const PropDescriptor(_$key__u1___$SvgPropsMixin);
+      PropDescriptor(_$key__u1___$SvgPropsMixin);
   static const PropDescriptor _$prop__u2___$SvgPropsMixin =
-      const PropDescriptor(_$key__u2___$SvgPropsMixin);
+      PropDescriptor(_$key__u2___$SvgPropsMixin);
   static const PropDescriptor _$prop__underlinePosition___$SvgPropsMixin =
-      const PropDescriptor(_$key__underlinePosition___$SvgPropsMixin);
+      PropDescriptor(_$key__underlinePosition___$SvgPropsMixin);
   static const PropDescriptor _$prop__underlineThickness___$SvgPropsMixin =
-      const PropDescriptor(_$key__underlineThickness___$SvgPropsMixin);
+      PropDescriptor(_$key__underlineThickness___$SvgPropsMixin);
   static const PropDescriptor _$prop__unicode___$SvgPropsMixin =
-      const PropDescriptor(_$key__unicode___$SvgPropsMixin);
+      PropDescriptor(_$key__unicode___$SvgPropsMixin);
   static const PropDescriptor _$prop__unicodeBidi___$SvgPropsMixin =
-      const PropDescriptor(_$key__unicodeBidi___$SvgPropsMixin);
+      PropDescriptor(_$key__unicodeBidi___$SvgPropsMixin);
   static const PropDescriptor _$prop__unicodeRange___$SvgPropsMixin =
-      const PropDescriptor(_$key__unicodeRange___$SvgPropsMixin);
+      PropDescriptor(_$key__unicodeRange___$SvgPropsMixin);
   static const PropDescriptor _$prop__unitsPerEm___$SvgPropsMixin =
-      const PropDescriptor(_$key__unitsPerEm___$SvgPropsMixin);
+      PropDescriptor(_$key__unitsPerEm___$SvgPropsMixin);
   static const PropDescriptor _$prop__vAlphabetic___$SvgPropsMixin =
-      const PropDescriptor(_$key__vAlphabetic___$SvgPropsMixin);
+      PropDescriptor(_$key__vAlphabetic___$SvgPropsMixin);
   static const PropDescriptor _$prop__vHanging___$SvgPropsMixin =
-      const PropDescriptor(_$key__vHanging___$SvgPropsMixin);
+      PropDescriptor(_$key__vHanging___$SvgPropsMixin);
   static const PropDescriptor _$prop__vIdeographic___$SvgPropsMixin =
-      const PropDescriptor(_$key__vIdeographic___$SvgPropsMixin);
+      PropDescriptor(_$key__vIdeographic___$SvgPropsMixin);
   static const PropDescriptor _$prop__vMathematical___$SvgPropsMixin =
-      const PropDescriptor(_$key__vMathematical___$SvgPropsMixin);
+      PropDescriptor(_$key__vMathematical___$SvgPropsMixin);
   static const PropDescriptor _$prop__vectorEffect___$SvgPropsMixin =
-      const PropDescriptor(_$key__vectorEffect___$SvgPropsMixin);
+      PropDescriptor(_$key__vectorEffect___$SvgPropsMixin);
   static const PropDescriptor _$prop__version___$SvgPropsMixin =
-      const PropDescriptor(_$key__version___$SvgPropsMixin);
+      PropDescriptor(_$key__version___$SvgPropsMixin);
   static const PropDescriptor _$prop__vertAdvY___$SvgPropsMixin =
-      const PropDescriptor(_$key__vertAdvY___$SvgPropsMixin);
+      PropDescriptor(_$key__vertAdvY___$SvgPropsMixin);
   static const PropDescriptor _$prop__vertOriginX___$SvgPropsMixin =
-      const PropDescriptor(_$key__vertOriginX___$SvgPropsMixin);
+      PropDescriptor(_$key__vertOriginX___$SvgPropsMixin);
   static const PropDescriptor _$prop__vertOriginY___$SvgPropsMixin =
-      const PropDescriptor(_$key__vertOriginY___$SvgPropsMixin);
+      PropDescriptor(_$key__vertOriginY___$SvgPropsMixin);
   static const PropDescriptor _$prop__viewBox___$SvgPropsMixin =
-      const PropDescriptor(_$key__viewBox___$SvgPropsMixin);
+      PropDescriptor(_$key__viewBox___$SvgPropsMixin);
   static const PropDescriptor _$prop__viewTarget___$SvgPropsMixin =
-      const PropDescriptor(_$key__viewTarget___$SvgPropsMixin);
+      PropDescriptor(_$key__viewTarget___$SvgPropsMixin);
   static const PropDescriptor _$prop__visibility___$SvgPropsMixin =
-      const PropDescriptor(_$key__visibility___$SvgPropsMixin);
+      PropDescriptor(_$key__visibility___$SvgPropsMixin);
   static const PropDescriptor _$prop__widths___$SvgPropsMixin =
-      const PropDescriptor(_$key__widths___$SvgPropsMixin);
+      PropDescriptor(_$key__widths___$SvgPropsMixin);
   static const PropDescriptor _$prop__wordSpacing___$SvgPropsMixin =
-      const PropDescriptor(_$key__wordSpacing___$SvgPropsMixin);
+      PropDescriptor(_$key__wordSpacing___$SvgPropsMixin);
   static const PropDescriptor _$prop__writingMode___$SvgPropsMixin =
-      const PropDescriptor(_$key__writingMode___$SvgPropsMixin);
+      PropDescriptor(_$key__writingMode___$SvgPropsMixin);
   static const PropDescriptor _$prop__x___$SvgPropsMixin =
-      const PropDescriptor(_$key__x___$SvgPropsMixin);
+      PropDescriptor(_$key__x___$SvgPropsMixin);
   static const PropDescriptor _$prop__x1___$SvgPropsMixin =
-      const PropDescriptor(_$key__x1___$SvgPropsMixin);
+      PropDescriptor(_$key__x1___$SvgPropsMixin);
   static const PropDescriptor _$prop__x2___$SvgPropsMixin =
-      const PropDescriptor(_$key__x2___$SvgPropsMixin);
+      PropDescriptor(_$key__x2___$SvgPropsMixin);
   static const PropDescriptor _$prop__xHeight___$SvgPropsMixin =
-      const PropDescriptor(_$key__xHeight___$SvgPropsMixin);
+      PropDescriptor(_$key__xHeight___$SvgPropsMixin);
   static const PropDescriptor _$prop__xlinkActuate___$SvgPropsMixin =
-      const PropDescriptor(_$key__xlinkActuate___$SvgPropsMixin);
+      PropDescriptor(_$key__xlinkActuate___$SvgPropsMixin);
   static const PropDescriptor _$prop__xlinkArcrole___$SvgPropsMixin =
-      const PropDescriptor(_$key__xlinkArcrole___$SvgPropsMixin);
+      PropDescriptor(_$key__xlinkArcrole___$SvgPropsMixin);
   static const PropDescriptor _$prop__xlinkHref___$SvgPropsMixin =
-      const PropDescriptor(_$key__xlinkHref___$SvgPropsMixin);
+      PropDescriptor(_$key__xlinkHref___$SvgPropsMixin);
   static const PropDescriptor _$prop__xlinkRole___$SvgPropsMixin =
-      const PropDescriptor(_$key__xlinkRole___$SvgPropsMixin);
+      PropDescriptor(_$key__xlinkRole___$SvgPropsMixin);
   static const PropDescriptor _$prop__xlinkShow___$SvgPropsMixin =
-      const PropDescriptor(_$key__xlinkShow___$SvgPropsMixin);
+      PropDescriptor(_$key__xlinkShow___$SvgPropsMixin);
   static const PropDescriptor _$prop__xlinkTitle___$SvgPropsMixin =
-      const PropDescriptor(_$key__xlinkTitle___$SvgPropsMixin);
+      PropDescriptor(_$key__xlinkTitle___$SvgPropsMixin);
   static const PropDescriptor _$prop__xlinkType___$SvgPropsMixin =
-      const PropDescriptor(_$key__xlinkType___$SvgPropsMixin);
+      PropDescriptor(_$key__xlinkType___$SvgPropsMixin);
   static const PropDescriptor _$prop__xmlBase___$SvgPropsMixin =
-      const PropDescriptor(_$key__xmlBase___$SvgPropsMixin);
+      PropDescriptor(_$key__xmlBase___$SvgPropsMixin);
   static const String _$key__htmlIn___$SvgPropsMixin = 'in';
   static const String _$key__htmlValues___$SvgPropsMixin = 'values';
   static const String _$key__accumulate___$SvgPropsMixin = 'accumulate';
@@ -6210,7 +6213,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   static const String _$key__xlinkType___$SvgPropsMixin = 'xlinkType';
   static const String _$key__xmlBase___$SvgPropsMixin = 'xmlBase';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__htmlIn___$SvgPropsMixin,
     _$prop__htmlValues___$SvgPropsMixin,
     _$prop__accumulate___$SvgPropsMixin,
@@ -6445,7 +6448,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
     _$prop__xlinkType___$SvgPropsMixin,
     _$prop__xmlBase___$SvgPropsMixin
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__htmlIn___$SvgPropsMixin,
     _$key__htmlValues___$SvgPropsMixin,
     _$key__accumulate___$SvgPropsMixin,
@@ -6682,7 +6685,7 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   ];
 }
 
-const PropsMeta _$metaForSvgPropsMixin = const PropsMeta(
+const PropsMeta _$metaForSvgPropsMixin = PropsMeta(
   fields: SvgPropsMixin.$props,
   keys: SvgPropsMixin.$propKeys,
 );
@@ -6692,18 +6695,20 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   Map get props;
 
   static const PropsMeta meta = _$metaForUbiquitousDomPropsMixin;
+  @override
   @Accessor(doNotGenerate: true)
   AriaPropsMapView _aria;
+  @override
   @Accessor(doNotGenerate: true)
   DomProps _dom;
+  @override
   AriaPropsMixin get aria {
-    _aria ??= new AriaPropsMapView(props);
-    return _aria;
+    return _aria ??= AriaPropsMapView(props);
   }
 
+  @override
   DomPropsMixin get dom {
-    _dom ??= new DomProps(null, props);
-    return _dom;
+    return _dom ??= DomProps(null, props);
   }
 
   /// Whether the element if focusable.
@@ -7470,117 +7475,116 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
       props[_$key__onWheel___$UbiquitousDomPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__tabIndex___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__tabIndex___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__tabIndex___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__id___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__id___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__id___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__title___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__title___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__title___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__style___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__style___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__style___$UbiquitousDomPropsMixin);
   static const PropDescriptor
       _$prop__onAnimationEnd___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onAnimationEnd___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onAnimationEnd___$UbiquitousDomPropsMixin);
   static const PropDescriptor
       _$prop__onAnimationIteration___$UbiquitousDomPropsMixin =
-      const PropDescriptor(
-          _$key__onAnimationIteration___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onAnimationIteration___$UbiquitousDomPropsMixin);
   static const PropDescriptor
       _$prop__onAnimationStart___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onAnimationStart___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onAnimationStart___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onCopy___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onCopy___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onCopy___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onCut___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onCut___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onCut___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onPaste___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onPaste___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onPaste___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onKeyDown___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onKeyDown___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onKeyDown___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onKeyPress___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onKeyPress___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onKeyPress___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onKeyUp___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onKeyUp___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onKeyUp___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onFocus___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onFocus___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onFocus___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onBlur___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onBlur___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onBlur___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onChange___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onChange___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onChange___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onInput___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onInput___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onInput___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onSubmit___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onSubmit___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onSubmit___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onReset___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onReset___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onReset___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onClick___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onClick___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onClick___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onContextMenu___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onContextMenu___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onContextMenu___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onDoubleClick___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onDoubleClick___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onDoubleClick___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onDrag___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onDrag___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onDrag___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onDragEnd___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onDragEnd___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onDragEnd___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onDragEnter___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onDragEnter___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onDragEnter___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onDragExit___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onDragExit___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onDragExit___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onDragLeave___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onDragLeave___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onDragLeave___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onDragOver___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onDragOver___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onDragOver___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onDragStart___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onDragStart___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onDragStart___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onDrop___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onDrop___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onDrop___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onMouseDown___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onMouseDown___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onMouseDown___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onMouseEnter___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onMouseEnter___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onMouseEnter___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onMouseLeave___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onMouseLeave___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onMouseLeave___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onMouseMove___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onMouseMove___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onMouseMove___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onMouseOut___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onMouseOut___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onMouseOut___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onMouseOver___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onMouseOver___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onMouseOver___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onMouseUp___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onMouseUp___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onMouseUp___$UbiquitousDomPropsMixin);
   static const PropDescriptor
       _$prop__onPointerCancel___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onPointerCancel___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onPointerCancel___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onPointerDown___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onPointerDown___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onPointerDown___$UbiquitousDomPropsMixin);
   static const PropDescriptor
       _$prop__onPointerEnter___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onPointerEnter___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onPointerEnter___$UbiquitousDomPropsMixin);
   static const PropDescriptor
       _$prop__onPointerLeave___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onPointerLeave___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onPointerLeave___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onPointerMove___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onPointerMove___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onPointerMove___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onPointerOver___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onPointerOver___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onPointerOver___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onPointerOut___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onPointerOut___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onPointerOut___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onPointerUp___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onPointerUp___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onPointerUp___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onTouchCancel___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onTouchCancel___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onTouchCancel___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onTouchEnd___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onTouchEnd___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onTouchEnd___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onTouchMove___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onTouchMove___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onTouchMove___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onTouchStart___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onTouchStart___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onTouchStart___$UbiquitousDomPropsMixin);
   static const PropDescriptor
       _$prop__onTransitionEnd___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onTransitionEnd___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onTransitionEnd___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onScroll___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onScroll___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onScroll___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__onWheel___$UbiquitousDomPropsMixin =
-      const PropDescriptor(_$key__onWheel___$UbiquitousDomPropsMixin);
+      PropDescriptor(_$key__onWheel___$UbiquitousDomPropsMixin);
   static const String _$key__tabIndex___$UbiquitousDomPropsMixin = 'tabIndex';
   static const String _$key__id___$UbiquitousDomPropsMixin = 'id';
   static const String _$key__title___$UbiquitousDomPropsMixin = 'title';
@@ -7664,7 +7668,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   static const String _$key__onScroll___$UbiquitousDomPropsMixin = 'onScroll';
   static const String _$key__onWheel___$UbiquitousDomPropsMixin = 'onWheel';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__tabIndex___$UbiquitousDomPropsMixin,
     _$prop__id___$UbiquitousDomPropsMixin,
     _$prop__title___$UbiquitousDomPropsMixin,
@@ -7718,7 +7722,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
     _$prop__onScroll___$UbiquitousDomPropsMixin,
     _$prop__onWheel___$UbiquitousDomPropsMixin
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__tabIndex___$UbiquitousDomPropsMixin,
     _$key__id___$UbiquitousDomPropsMixin,
     _$key__title___$UbiquitousDomPropsMixin,
@@ -7774,7 +7778,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ];
 }
 
-const PropsMeta _$metaForUbiquitousDomPropsMixin = const PropsMeta(
+const PropsMeta _$metaForUbiquitousDomPropsMixin = PropsMeta(
   fields: UbiquitousDomPropsMixin.$props,
   keys: UbiquitousDomPropsMixin.$propKeys,
 );

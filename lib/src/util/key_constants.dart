@@ -41,7 +41,7 @@ abstract class KeyValue {
 
 
   /// All of the [KeyValue] values.
-  static const List<String> values = const <String>[
+  static const List<String> values = [
     BACKSPACE,
     TAB,
     ENTER,

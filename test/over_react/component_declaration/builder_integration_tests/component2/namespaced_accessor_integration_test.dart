@@ -109,38 +109,39 @@ UiFactory<NamespacedAccessorTestProps> NamespacedAccessorTest = _$NamespacedAcce
 class _$NamespacedAccessorTestProps extends UiProps {
   String stringProp;
   dynamic dynamicProp;
-  var untypedProp;
+  var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
   @Accessor(key: 'custom key!')
-  var customKeyProp;
+  dynamic customKeyProp;
 
   @Accessor(keyNamespace: 'custom namespace~~')
-  var customNamespaceProp;
+  dynamic customNamespaceProp;
 
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  var customKeyAndNamespaceProp;
+  dynamic customKeyAndNamespaceProp;
 }
 
 @State(keyNamespace: 'custom state class namespace**')
 class _$NamespacedAccessorTestState extends UiState {
   String stringState;
   dynamic dynamicState;
-  var untypedState;
+  var untypedState; // ignore: prefer_typing_uninitialized_variables
 
   @Accessor(key: 'custom key!')
-  var customKeyState;
+  dynamic customKeyState;
 
   @Accessor(keyNamespace: 'custom namespace~~')
-  var customNamespaceState;
+  dynamic customNamespaceState;
 
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  var customKeyAndNamespaceState;
+  dynamic customKeyAndNamespaceState;
 }
 
 @Component2()
 class NamespacedAccessorTestComponent extends UiStatefulComponent2<NamespacedAccessorTestProps, NamespacedAccessorTestState> {
   @override
   render() => (Dom.div()
+    // ignore: deprecated_member_use_from_same_package
     ..addProps(copyUnconsumedProps())
   )('rendered content');
 }

@@ -193,13 +193,13 @@ abstract class AbstractTransitionComponent2<T extends AbstractTransition2Props,
   /// Listens for the next `transitionend` event and invokes a callback after
   /// the event is dispatched.
   @mustCallSuper
-  void onNextTransitionEnd(complete()) {
+  void onNextTransitionEnd(Function() complete) {
     var transitionCount = isOrWillBeHidden ? transitionOutCount : transitionInCount;
 
     _cancelTransitionEventListener();
     _cancelTransitionEndTimer();
 
-    _transitionEndTimer = new Timer(transitionTimeout, () {
+    _transitionEndTimer = Timer(transitionTimeout, () {
       assert(ValidationUtil.warn(
           'The number of transitions expected to complete have not completed. Something is most likely wrong.',
           this
@@ -392,7 +392,7 @@ abstract class AbstractTransitionComponent2<T extends AbstractTransition2Props,
   Map<String, String> getTransitionTestAttributes() {
     if (!component_base.UiProps.testMode) return const {};
 
-    const enumToAttrValue = const <TransitionPhase, String>{
+    const enumToAttrValue = <TransitionPhase, String>{
       TransitionPhase.SHOWN: 'shown',
       TransitionPhase.HIDDEN: 'hidden',
       TransitionPhase.HIDING: 'hiding',

@@ -21,12 +21,12 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory builder) {
     dummyChild = null;
   });
 
-  group('catches component errors', () { 
+  group('catches component errors', () {
     List<Map<String, List>> calls;
     DivElement mountNode;
 
     void verifyReact16ErrorHandlingWithoutErrorBoundary() {
-      mountNode = new DivElement();
+      mountNode = DivElement();
       document.body.append(mountNode);
       var jacketOfFlawedComponentWithNoErrorBoundary = mount(Flawed()(), mountNode: mountNode);
       expect(mountNode.children, isNotEmpty, reason: 'test setup sanity check');
@@ -40,7 +40,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory builder) {
                   'should get unmounted when an error is thrown within child component lifecycle methods');
 
       mountNode.remove();
-      mountNode = new DivElement();
+      mountNode = DivElement();
       document.body.append(mountNode);
     }
 
@@ -209,8 +209,8 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory builder) {
 
   group('gracefully handles errors in its tree when `props.fallbackUIRenderer` is not set', () {
     List<Map<String, List>> calls;
-    var flawedRenderedInstance;
-    var nestedFlawedRenderedInstance;
+    dynamic flawedRenderedInstance;
+    dynamic nestedFlawedRenderedInstance;
     const identicalErrorFrequencyToleranceInMs = 500;
     dynamic errorSentToComponentDidCatchCallback;
     dynamic errorInfoSentToComponentDidCatchCallback;
@@ -295,7 +295,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory builder) {
         expect(calls.single.keys.single, isNot('onComponentIsUnrecoverable'), reason: 'test setup sanity check');
 
         calls.clear();
-        await new Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs ~/ 2));
+        await Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs ~/ 2));
 
         getFlawedButtonNode().click();
         _setCallbackVarValues();
@@ -438,7 +438,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory builder) {
             expect(calls.single.keys.single, isNot('onComponentIsUnrecoverable'), reason: 'test setup sanity check');
 
             calls.clear();
-            await new Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs + 50));
+            await Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs + 50));
 
             getFlawedButtonNode().click();
             _setCallbackVarValues();
@@ -464,7 +464,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory builder) {
           group('but are then followed by two more errors that are exactly the same, '
               'more frequent than the value of props.identicalErrorFrequencyTolerance', () {
             setUp(() async {
-              await new Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs + 50));
+              await Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs + 50));
               calls.clear();
               await triggerErrorsViaButtonClickThatSignifyAnUnrecoverableComponent();
             });
@@ -503,7 +503,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory builder) {
             final firstError = calls[0]['onComponentDidCatch'][0];
 
             calls.clear();
-            await new Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs ~/ 2));
+            await Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs ~/ 2));
 
             getFlawedButtonThatThrowsADifferentErrorNode().click();
             final secondError = calls[0]['onComponentDidCatch'][0];
@@ -536,7 +536,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory builder) {
             final firstError = calls[0]['onComponentDidCatch'][0];
 
             calls.clear();
-            await new Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs + 50));
+            await Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs + 50));
 
             getFlawedButtonThatThrowsADifferentErrorNode().click();
             final secondError = calls[0]['onComponentDidCatch'][0];
@@ -575,7 +575,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory builder) {
             final firstError = calls[0]['onComponentDidCatch'][0];
 
             calls.clear();
-            await new Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs ~/ 2));
+            await Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs ~/ 2));
 
             getNestedFlawedButtonNode().click();
             final secondError = calls[0]['onComponentDidCatch'][0];
@@ -608,7 +608,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory builder) {
             final firstError = calls[0]['onComponentDidCatch'][0];
 
             calls.clear();
-            await new Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs + 50));
+            await Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs + 50));
 
             getNestedFlawedButtonNode().click();
             final secondError = calls[0]['onComponentDidCatch'][0];
@@ -643,7 +643,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory builder) {
             final firstError = calls[0]['onComponentDidCatch'][0];
 
             calls.clear();
-            await new Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs ~/ 2));
+            await Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs ~/ 2));
 
             getNestedFlawedButtonThatThrowsADifferentErrorNode().click();
             final secondError = calls[0]['onComponentDidCatch'][0];
@@ -676,7 +676,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory builder) {
             final firstError = calls[0]['onComponentDidCatch'][0];
 
             calls.clear();
-            await new Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs + 50));
+            await Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs + 50));
 
             getNestedFlawedButtonThatThrowsADifferentErrorNode().click();
             final secondError = calls[0]['onComponentDidCatch'][0];

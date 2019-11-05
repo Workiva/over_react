@@ -8,6 +8,13 @@
 [![Test Coverage](https://codecov.io/github/Workiva/over_react/coverage.svg?branch=master)](https://codecov.io/github/Workiva/over_react?branch=master)
 
 > A library for building statically-typed React UI components using Dart.
+>
+> This library also exposes _OverReact Redux_, which has [its own documentation](doc/over_react_redux_documentation.md).
+
+---
+ __UiComponent2 Migration Guide__
+ 
+> For guidance on updating to `UiComponent2` from `UiComponent`, see the [UiComponent2 Transition Notes](doc/ui_component2_transition.md).
 
 ---
 
@@ -17,7 +24,7 @@
     * [UiFactory](#uifactory)
     * [UiProps](#uiprops)
     * [UiState](#uistate)
-    * [UiComponent](#uicomponent)
+    * [UiComponent2](#uicomponent2)
 * __[Fluent-style component consumption](#fluent-style-component-consumption)__
 * __[DOM components and props](#dom-components-and-props)__
 * __[Component Formatting](#component-formatting)__
@@ -282,9 +289,10 @@ use the generated version, `FooState`.
 
 &nbsp;
 
-### UiComponent
+### UiComponent2
+> For guidance on updating to `UiComponent2` from `UiComponent`, see [UiComponent2 Transition Notes](doc/ui_component2_transition.md).
 
-__`UiComponent2` is a subclass of [`react.Component2`][react.component2]__, containing lifecycle methods
+__`UiComponent2` is a subclass of [`react.Component2`]__, containing lifecycle methods
 and rendering logic for components.
 
 ```dart

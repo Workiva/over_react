@@ -14,24 +14,22 @@
 
 library abstract_transition_test;
 
-import 'dart:html';
-import 'dart:js';
-
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 import 'package:test/test.dart';
-import 'dart:js_util' as js_util;
 
 import '../test_util/test_util.dart';
 import './fixtures/counter.dart';
 import './fixtures/store.dart';
+
+// ignore_for_file: avoid_types_on_closure_parameters
 
 /// Main entry point for AbstractTransition testing
 main() {
   group('connect', () {
     UiFactory<CounterProps> ConnectedCounter;
     TestJacket<CounterComponent> jacket;
-    var counterRef;
+    dynamic counterRef;
 
     JsConnectOptions connectOptions;
     var originalConnect = mockableJsConnect;

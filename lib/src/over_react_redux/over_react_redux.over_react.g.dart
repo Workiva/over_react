@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'over_react_redux.dart';
 
 // **************************************************************************
@@ -23,18 +24,16 @@ abstract class ConnectPropsMixin implements _$ConnectPropsMixin {
       props[_$key__dispatch___$ConnectPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__dispatch___$ConnectPropsMixin =
-      const PropDescriptor(_$key__dispatch___$ConnectPropsMixin);
+      PropDescriptor(_$key__dispatch___$ConnectPropsMixin);
   static const String _$key__dispatch___$ConnectPropsMixin = 'dispatch';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__dispatch___$ConnectPropsMixin
   ];
-  static const List<String> $propKeys = const [
-    _$key__dispatch___$ConnectPropsMixin
-  ];
+  static const List<String> $propKeys = [_$key__dispatch___$ConnectPropsMixin];
 }
 
-const PropsMeta _$metaForConnectPropsMixin = const PropsMeta(
+const PropsMeta _$metaForConnectPropsMixin = PropsMeta(
   fields: ConnectPropsMixin.$props,
   keys: ConnectPropsMixin.$propKeys,
 );

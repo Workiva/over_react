@@ -16,7 +16,7 @@ class _$PropTypesTestProps extends UiProps {
   dynamic header;
 
   List initiallyExpandedKeys;
-  var targetKey;
+  dynamic targetKey;
 
   bool hideLabel;
   String label;
@@ -37,7 +37,7 @@ class PropTypesTestComponent extends UiComponent2<PropTypesTestProps> {
             (props, propName, componentName, location, propFullName) {
           final length = props.twoObjects?.length;
           if (length != 2) {
-            return new PropError.value(length, propName, 'must have a length of 2');
+            return PropError.value(length, propName, 'must have a length of 2');
           }
           return null;
         },

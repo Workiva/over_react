@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'test_b.dart';
 
 // **************************************************************************
@@ -9,7 +10,7 @@ part of 'test_b.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $TestBComponentFactory = registerComponent(() => new _$TestBComponent(),
+final $TestBComponentFactory = registerComponent(() => _$TestBComponent(),
     builderFactory: TestB,
     componentClass: TestBComponent,
     isWrapper: false,
@@ -22,11 +23,11 @@ abstract class _$TestBPropsAccessorsMixin implements _$TestBProps {
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForTestBProps = const PropsMeta(
+const PropsMeta _$metaForTestBProps = PropsMeta(
   fields: _$TestBPropsAccessorsMixin.$props,
   keys: _$TestBPropsAccessorsMixin.$propKeys,
 );
@@ -35,7 +36,7 @@ class TestBProps extends _$TestBProps with _$TestBPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestBProps;
 }
 
-_$$TestBProps _$TestB([Map backingProps]) => new _$$TestBProps(backingProps);
+_$$TestBProps _$TestB([Map backingProps]) => _$$TestBProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -54,11 +55,11 @@ class _$$TestBProps extends _$TestBProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestBComponentFactory;
@@ -74,15 +75,14 @@ class _$$TestBProps extends _$TestBProps
 // generated for the associated props class.
 class _$TestBComponent extends TestBComponent {
   @override
-  _$$TestBProps typedPropsFactory(Map backingMap) =>
-      new _$$TestBProps(backingMap);
+  _$$TestBProps typedPropsFactory(Map backingMap) => _$$TestBProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestBProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestBProps];
 }

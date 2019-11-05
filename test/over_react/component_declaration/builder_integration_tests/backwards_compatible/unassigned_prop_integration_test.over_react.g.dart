@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'unassigned_prop_integration_test.dart';
 
 // **************************************************************************
@@ -9,7 +10,7 @@ part of 'unassigned_prop_integration_test.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $FooComponentFactory = registerComponent(() => new _$FooComponent(),
+final $FooComponentFactory = registerComponent(() => _$FooComponent(),
     builderFactory: Foo,
     componentClass: FooComponent,
     isWrapper: false,
@@ -40,29 +41,29 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
       props[_$key__unassignedProp___$FooProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__stringProp___$FooProps =
-      const PropDescriptor(_$key__stringProp___$FooProps);
+      PropDescriptor(_$key__stringProp___$FooProps);
   static const PropDescriptor _$prop__unassignedProp___$FooProps =
-      const PropDescriptor(_$key__unassignedProp___$FooProps);
+      PropDescriptor(_$key__unassignedProp___$FooProps);
   static const String _$key__stringProp___$FooProps = 'FooProps.stringProp';
   static const String _$key__unassignedProp___$FooProps =
       'FooProps.unassignedProp';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__stringProp___$FooProps,
     _$prop__unassignedProp___$FooProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__stringProp___$FooProps,
     _$key__unassignedProp___$FooProps
   ];
 }
 
-const PropsMeta _$metaForFooProps = const PropsMeta(
+const PropsMeta _$metaForFooProps = PropsMeta(
   fields: _$FooPropsAccessorsMixin.$props,
   keys: _$FooPropsAccessorsMixin.$propKeys,
 );
 
-_$$FooProps _$Foo([Map backingProps]) => new _$$FooProps(backingProps);
+_$$FooProps _$Foo([Map backingProps]) => _$$FooProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -81,11 +82,11 @@ class _$$FooProps extends _$FooProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $FooComponentFactory;
@@ -101,14 +102,14 @@ class _$$FooProps extends _$FooProps
 // generated for the associated props class.
 class _$FooComponent extends FooComponent {
   @override
-  _$$FooProps typedPropsFactory(Map backingMap) => new _$$FooProps(backingMap);
+  _$$FooProps typedPropsFactory(Map backingMap) => _$$FooProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$FooProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForFooProps];
 }

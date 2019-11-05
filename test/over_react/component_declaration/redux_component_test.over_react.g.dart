@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'redux_component_test.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'redux_component_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestDefaultComponentFactory = registerComponent(
-    () => new _$TestDefaultComponent(),
+    () => _$TestDefaultComponent(),
     builderFactory: TestDefault,
     componentClass: TestDefaultComponent,
     isWrapper: false,
@@ -23,11 +24,11 @@ abstract class _$TestDefaultPropsAccessorsMixin implements _$TestDefaultProps {
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForTestDefaultProps = const PropsMeta(
+const PropsMeta _$metaForTestDefaultProps = PropsMeta(
   fields: _$TestDefaultPropsAccessorsMixin.$props,
   keys: _$TestDefaultPropsAccessorsMixin.$propKeys,
 );
@@ -38,7 +39,7 @@ class TestDefaultProps extends _$TestDefaultProps
 }
 
 _$$TestDefaultProps _$TestDefault([Map backingProps]) =>
-    new _$$TestDefaultProps(backingProps);
+    _$$TestDefaultProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -57,11 +58,11 @@ class _$$TestDefaultProps extends _$TestDefaultProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestDefaultComponentFactory;
@@ -78,14 +79,14 @@ class _$$TestDefaultProps extends _$TestDefaultProps
 class _$TestDefaultComponent extends TestDefaultComponent {
   @override
   _$$TestDefaultProps typedPropsFactory(Map backingMap) =>
-      new _$$TestDefaultProps(backingMap);
+      _$$TestDefaultProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestDefaultProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestDefaultProps
@@ -96,7 +97,7 @@ class _$TestDefaultComponent extends TestDefaultComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestConnectComponentFactory = registerComponent(
-    () => new _$TestConnectComponent(),
+    () => _$TestConnectComponent(),
     builderFactory: TestConnect,
     componentClass: TestConnectComponent,
     isWrapper: false,
@@ -109,11 +110,11 @@ abstract class _$TestConnectPropsAccessorsMixin implements _$TestConnectProps {
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForTestConnectProps = const PropsMeta(
+const PropsMeta _$metaForTestConnectProps = PropsMeta(
   fields: _$TestConnectPropsAccessorsMixin.$props,
   keys: _$TestConnectPropsAccessorsMixin.$propKeys,
 );
@@ -124,7 +125,7 @@ class TestConnectProps extends _$TestConnectProps
 }
 
 _$$TestConnectProps _$TestConnect([Map backingProps]) =>
-    new _$$TestConnectProps(backingProps);
+    _$$TestConnectProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -143,11 +144,11 @@ class _$$TestConnectProps extends _$TestConnectProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestConnectComponentFactory;
@@ -164,14 +165,14 @@ class _$$TestConnectProps extends _$TestConnectProps
 class _$TestConnectComponent extends TestConnectComponent {
   @override
   _$$TestConnectProps typedPropsFactory(Map backingMap) =>
-      new _$$TestConnectProps(backingMap);
+      _$$TestConnectProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestConnectProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestConnectProps
@@ -181,8 +182,7 @@ class _$TestConnectComponent extends TestConnectComponent {
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $TestPureComponentFactory = registerComponent(
-    () => new _$TestPureComponent(),
+final $TestPureComponentFactory = registerComponent(() => _$TestPureComponent(),
     builderFactory: TestPure,
     componentClass: TestPureComponent,
     isWrapper: false,
@@ -195,11 +195,11 @@ abstract class _$TestPurePropsAccessorsMixin implements _$TestPureProps {
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForTestPureProps = const PropsMeta(
+const PropsMeta _$metaForTestPureProps = PropsMeta(
   fields: _$TestPurePropsAccessorsMixin.$props,
   keys: _$TestPurePropsAccessorsMixin.$propKeys,
 );
@@ -209,7 +209,7 @@ class TestPureProps extends _$TestPureProps with _$TestPurePropsAccessorsMixin {
 }
 
 _$$TestPureProps _$TestPure([Map backingProps]) =>
-    new _$$TestPureProps(backingProps);
+    _$$TestPureProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -228,11 +228,11 @@ class _$$TestPureProps extends _$TestPureProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $TestPureComponentFactory;
@@ -249,14 +249,14 @@ class _$$TestPureProps extends _$TestPureProps
 class _$TestPureComponent extends TestPureComponent {
   @override
   _$$TestPureProps typedPropsFactory(Map backingMap) =>
-      new _$$TestPureProps(backingMap);
+      _$$TestPureProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestPureProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestPureProps

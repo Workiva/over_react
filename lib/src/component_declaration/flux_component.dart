@@ -40,7 +40,7 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
   /// There is no strict rule on the [ActionsT] type. Depending on application
   /// structure, there may be [Action]s available directly on this object, or
   /// this object may represent a hierarchy of actions.
-  ActionsT get actions => props[_actionsPropKey] as ActionsT; // ignore: avoid_as
+  ActionsT get actions => props[_actionsPropKey] as ActionsT;
   set actions(ActionsT value) => props[_actionsPropKey] = value;
 
   /// The prop defined by [StoresT].
@@ -53,13 +53,13 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
   ///
   /// If this component only needs data from a single [Store], then [StoresT]
   /// should be an instance of [Store]. This allows the default implementation
-  /// of [redrawOn] to automatically subscribe to the store.
+  /// of `redrawOn` to automatically subscribe to the store.
   ///
   /// If this component needs data from multiple [Store] instances, then
   /// [StoresT] should be a class that provides access to these multiple stores.
   /// Then, you can explicitly select the [Store] instances that should be
   /// listened to by overriding [_FluxComponentMixin.redrawOn].
-  StoresT get store => props[_storePropKey] as StoresT; // ignore: avoid_as
+  StoresT get store => props[_storePropKey] as StoresT;
   set store(StoresT value) => props[_storePropKey] = value;
 }
 
@@ -163,7 +163,7 @@ abstract class FluxUiStatefulComponent2<TProps extends FluxUiProps, TState exten
 ///
 /// Private so it will only get used in this file, since having lifecycle methods in a mixin is risky.
 mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiComponent<TProps>, BatchedRedraws {
-  static final Logger _logger = new Logger('over_react._FluxComponentMixin');
+  static final Logger _logger = Logger('over_react._FluxComponentMixin');
 
   /// List of store subscriptions created when the component mounts.
   ///
@@ -237,7 +237,7 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
     shouldBatchRedraw = false;
 
     // Cancel all store subscriptions.
-    _subscriptions.forEach((StreamSubscription subscription) {
+    _subscriptions.forEach((subscription) {
       if (subscription != null) {
         subscription.cancel();
       }
@@ -249,11 +249,11 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
   /// When any of the returned [Store]s update their state, this component will
   /// redraw.
   ///
-  /// If [store] is of type [Store] (in other words, if this component has a
+  /// If `props.store` is of type [Store] (in other words, if this component has a
   /// single Store passed in), this will return a list with said store as the
   /// only element by default. Otherwise, an empty list is returned.
   ///
-  /// If [store] is actually a composite object with multiple stores, this
+  /// If `props.store` is actually a composite object with multiple stores, this
   /// method should be overridden to return a list with the stores that should
   /// be listened to.
   ///
@@ -282,7 +282,7 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
 
   /// Register a [subscription] that should be canceled when the component unmounts.
   ///
-  /// Cancellation will be handled automatically by [componentWillUnmount].
+  /// Cancellation will be handled automatically by `componentWillUnmount`.
   void addSubscription(StreamSubscription subscription) {
     _subscriptions.add(subscription);
   }

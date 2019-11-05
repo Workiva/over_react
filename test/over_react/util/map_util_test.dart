@@ -14,8 +14,6 @@
 
 library map_util_test;
 
-import 'dart:collection';
-
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
@@ -313,8 +311,8 @@ void sharedGetBackingMapTests({
 }
 
 class TestProps extends component_base.UiProps {
-  TestProps(JsBackedMap backingMap) : this._props = new JsBackedMap() {
-    this._props = backingMap ?? new JsBackedMap();
+  TestProps(JsBackedMap backingMap) : this._props = JsBackedMap() {
+    this._props = backingMap ?? JsBackedMap();
   }
 
   @override

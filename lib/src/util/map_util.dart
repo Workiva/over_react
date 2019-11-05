@@ -30,12 +30,12 @@ import '../component_declaration/builder_helpers.dart';
 ///
 /// Useful for prop forwarding.
 Map getPropsToForward(Map props, {
-    bool omitReactProps: true,
-    bool onlyCopyDomProps: false,
+    bool omitReactProps = true,
+    bool onlyCopyDomProps = false,
     Iterable keysToOmit,
     Iterable<Iterable> keySetsToOmit
 }) {
-  Map propsToForward = new JsBackedMap.from(props);
+  Map propsToForward = JsBackedMap.from(props);
 
   if (omitReactProps) {
     propsToForward
@@ -51,7 +51,7 @@ Map getPropsToForward(Map props, {
   }
 
   if (keySetsToOmit != null) {
-    keySetsToOmit.forEach((Iterable keySet) {
+    keySetsToOmit.forEach((keySet) {
       keySet.forEach((key) {
         propsToForward.remove(key);
       });
@@ -59,7 +59,7 @@ Map getPropsToForward(Map props, {
   }
 
   if (onlyCopyDomProps) {
-    new List<String>.from(propsToForward.keys).forEach((String key) {
+    List<String>.from(propsToForward.keys).forEach((key) {
       if (key.startsWith('aria-')) return;
       if (key.startsWith('data-')) return;
       if (_validDomProps.contains(key)) return;
@@ -76,8 +76,8 @@ Map getPropsToForward(Map props, {
 /// Based upon configuration, the function will overlook [props] that are not
 /// meant to be passed on, such as non-DOM props or specified values.
 void forwardUnconsumedProps(Map props, {
-  bool omitReactProps: true,
-  bool onlyCopyDomProps: false,
+  bool omitReactProps = true,
+  bool onlyCopyDomProps = false,
   Iterable keysToOmit,
   Iterable<Iterable> keySetsToOmit,
   Map propsToUpdate,
@@ -131,7 +131,7 @@ Map<String, dynamic> newStyleFromProps(Map props) {
   if (props == null) return <String, dynamic>{};
 
   var existingStyle = domProps(props).style;
-  return existingStyle == null ? <String, dynamic>{} : new Map.from(existingStyle);
+  return existingStyle == null ? <String, dynamic>{} : Map.from(existingStyle);
 }
 
 /// Returns the underlying map object of either [UiProps] or [UiState].
@@ -144,6 +144,6 @@ Map getBackingMap(Map map) {
   return map;
 }
 
-HashSet _validDomProps = new HashSet()
+HashSet _validDomProps = HashSet()
   ..addAll(DomPropsMixin.meta.keys)
   ..addAll(SvgPropsMixin.meta.keys);

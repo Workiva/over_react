@@ -16,7 +16,7 @@ library over_react.prop_errors;
 
 import 'package:over_react/over_react.dart';
 
-/// Errors thrown due to a value within [UiComponent.props] being set incorrectly.
+/// Errors thrown due to a value within [UiComponent2.props] being set incorrectly.
 class PropError extends Error {
   static const String defaultPrefix = 'PropError: ';
   static const String requiredPrefix = 'RequiredPropError: ';
@@ -24,10 +24,10 @@ class PropError extends Error {
   static const String combinationPrefix = 'InvalidPropCombinationError: ';
 
   final String _messagePrefix;
-  final invalidValue;
+  final dynamic invalidValue;
   final String propName;
   final String prop2Name;
-  final message;
+  final String message;
 
   /// Create a new [PropError], with the given [propName] and optional [message].
   PropError(this.propName, [this.message = ''])

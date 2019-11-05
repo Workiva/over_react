@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'toggle_button.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'toggle_button.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ToggleButtonComponentFactory = registerComponent2(
-  () => new _$ToggleButtonComponent(),
+  () => _$ToggleButtonComponent(),
   builderFactory: ToggleButton,
   componentClass: ToggleButtonComponent,
   isWrapper: false,
@@ -122,29 +123,29 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   set checked(bool value) => props[_$key__checked___$ToggleButtonProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__autoFocus___$ToggleButtonProps =
-      const PropDescriptor(_$key__autoFocus___$ToggleButtonProps);
+      PropDescriptor(_$key__autoFocus___$ToggleButtonProps);
   static const PropDescriptor _$prop__defaultChecked___$ToggleButtonProps =
-      const PropDescriptor(_$key__defaultChecked___$ToggleButtonProps);
+      PropDescriptor(_$key__defaultChecked___$ToggleButtonProps);
   static const PropDescriptor _$prop__checked___$ToggleButtonProps =
-      const PropDescriptor(_$key__checked___$ToggleButtonProps);
+      PropDescriptor(_$key__checked___$ToggleButtonProps);
   static const String _$key__autoFocus___$ToggleButtonProps = 'autoFocus';
   static const String _$key__defaultChecked___$ToggleButtonProps =
       'defaultChecked';
   static const String _$key__checked___$ToggleButtonProps = 'checked';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__autoFocus___$ToggleButtonProps,
     _$prop__defaultChecked___$ToggleButtonProps,
     _$prop__checked___$ToggleButtonProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__autoFocus___$ToggleButtonProps,
     _$key__defaultChecked___$ToggleButtonProps,
     _$key__checked___$ToggleButtonProps
   ];
 }
 
-const PropsMeta _$metaForToggleButtonProps = const PropsMeta(
+const PropsMeta _$metaForToggleButtonProps = PropsMeta(
   fields: _$ToggleButtonPropsAccessorsMixin.$props,
   keys: _$ToggleButtonPropsAccessorsMixin.$propKeys,
 );
@@ -155,8 +156,8 @@ class ToggleButtonProps extends _$ToggleButtonProps
 }
 
 _$$ToggleButtonProps _$ToggleButton([Map backingProps]) => backingProps == null
-    ? new _$$ToggleButtonProps$JsMap(new JsBackedMap())
-    : new _$$ToggleButtonProps(backingProps);
+    ? _$$ToggleButtonProps$JsMap(JsBackedMap())
+    : _$$ToggleButtonProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -168,17 +169,17 @@ abstract class _$$ToggleButtonProps extends _$ToggleButtonProps
 
   factory _$$ToggleButtonProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ToggleButtonProps$JsMap(backingMap);
+      return _$$ToggleButtonProps$JsMap(backingMap);
     } else {
-      return new _$$ToggleButtonProps$PlainMap(backingMap);
+      return _$$ToggleButtonProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $ToggleButtonComponentFactory;
@@ -210,9 +211,9 @@ class _$$ToggleButtonProps$JsMap extends _$$ToggleButtonProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ToggleButtonProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -265,25 +266,25 @@ abstract class _$ToggleButtonStateAccessorsMixin
       state[_$key__isChecked___$ToggleButtonState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__isFocused___$ToggleButtonState =
-      const StateDescriptor(_$key__isFocused___$ToggleButtonState);
+      StateDescriptor(_$key__isFocused___$ToggleButtonState);
   static const StateDescriptor _$prop__isChecked___$ToggleButtonState =
-      const StateDescriptor(_$key__isChecked___$ToggleButtonState);
+      StateDescriptor(_$key__isChecked___$ToggleButtonState);
   static const String _$key__isFocused___$ToggleButtonState =
       'ToggleButtonState.isFocused';
   static const String _$key__isChecked___$ToggleButtonState =
       'ToggleButtonState.isChecked';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__isFocused___$ToggleButtonState,
     _$prop__isChecked___$ToggleButtonState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__isFocused___$ToggleButtonState,
     _$key__isChecked___$ToggleButtonState
   ];
 }
 
-const StateMeta _$metaForToggleButtonState = const StateMeta(
+const StateMeta _$metaForToggleButtonState = StateMeta(
   fields: _$ToggleButtonStateAccessorsMixin.$state,
   keys: _$ToggleButtonStateAccessorsMixin.$stateKeys,
 );
@@ -303,13 +304,13 @@ abstract class _$$ToggleButtonState extends _$ToggleButtonState
 
   factory _$$ToggleButtonState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ToggleButtonState$JsMap(backingMap);
+      return _$$ToggleButtonState$JsMap(backingMap);
     } else {
-      return new _$$ToggleButtonState$PlainMap(backingMap);
+      return _$$ToggleButtonState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -336,9 +337,9 @@ class _$$ToggleButtonState$JsMap extends _$$ToggleButtonState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ToggleButtonState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -372,11 +373,11 @@ class _$ToggleButtonComponent extends ToggleButtonComponent {
 
   @override
   _$$ToggleButtonProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$ToggleButtonProps$JsMap(backingMap);
+      _$$ToggleButtonProps$JsMap(backingMap);
 
   @override
   _$$ToggleButtonProps typedPropsFactory(Map backingMap) =>
-      new _$$ToggleButtonProps(backingMap);
+      _$$ToggleButtonProps(backingMap);
 
   _$$ToggleButtonState$JsMap _cachedTypedState;
   @override
@@ -394,18 +395,18 @@ class _$ToggleButtonComponent extends ToggleButtonComponent {
 
   @override
   _$$ToggleButtonState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      new _$$ToggleButtonState$JsMap(backingMap);
+      _$$ToggleButtonState$JsMap(backingMap);
 
   @override
   _$$ToggleButtonState typedStateFactory(Map backingMap) =>
-      new _$$ToggleButtonState(backingMap);
+      _$$ToggleButtonState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ToggleButtonProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForToggleButtonProps

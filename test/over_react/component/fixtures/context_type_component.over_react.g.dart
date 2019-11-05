@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'context_type_component.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'context_type_component.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ContextTypeComponentFactory = registerComponent2(
-  () => new _$ContextTypeComponent(),
+  () => _$ContextTypeComponent(),
   builderFactory: ContextType,
   componentClass: ContextTypeComponent,
   isWrapper: false,
@@ -24,11 +25,11 @@ abstract class _$ContextTypePropsAccessorsMixin implements _$ContextTypeProps {
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForContextTypeProps = const PropsMeta(
+const PropsMeta _$metaForContextTypeProps = PropsMeta(
   fields: _$ContextTypePropsAccessorsMixin.$props,
   keys: _$ContextTypePropsAccessorsMixin.$propKeys,
 );
@@ -39,8 +40,8 @@ class ContextTypeProps extends _$ContextTypeProps
 }
 
 _$$ContextTypeProps _$ContextType([Map backingProps]) => backingProps == null
-    ? new _$$ContextTypeProps$JsMap(new JsBackedMap())
-    : new _$$ContextTypeProps(backingProps);
+    ? _$$ContextTypeProps$JsMap(JsBackedMap())
+    : _$$ContextTypeProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -52,17 +53,17 @@ abstract class _$$ContextTypeProps extends _$ContextTypeProps
 
   factory _$$ContextTypeProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ContextTypeProps$JsMap(backingMap);
+      return _$$ContextTypeProps$JsMap(backingMap);
     } else {
-      return new _$$ContextTypeProps$PlainMap(backingMap);
+      return _$$ContextTypeProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $ContextTypeComponentFactory;
@@ -94,9 +95,9 @@ class _$$ContextTypeProps$JsMap extends _$$ContextTypeProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ContextTypeProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -130,18 +131,18 @@ class _$ContextTypeComponent extends ContextTypeComponent {
 
   @override
   _$$ContextTypeProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$ContextTypeProps$JsMap(backingMap);
+      _$$ContextTypeProps$JsMap(backingMap);
 
   @override
   _$$ContextTypeProps typedPropsFactory(Map backingMap) =>
-      new _$$ContextTypeProps(backingMap);
+      _$$ContextTypeProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ContextTypeProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForContextTypeProps
