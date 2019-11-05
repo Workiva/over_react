@@ -26,10 +26,10 @@ external ReduxDevToolsExtensionConnection reduxExtConnect([dynamic options]);
 class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   Store _store;
   ReduxDevToolsExtensionConnection devToolsExt;
-  final Logger log = new Logger('OverReactReduxDevToolsMiddleware');
+  final Logger log = Logger('OverReactReduxDevToolsMiddleware');
 
   OverReactReduxDevToolsMiddleware() {
-    log.onRecord.listen((LogRecord rec) {
+    log.onRecord.listen((rec) {
       if (rec.level == Level.WARNING) {
         window.console.warn('${log.name} [${rec.level.name}]: ${rec.message}');
       } else {
@@ -128,7 +128,7 @@ class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     switch (action['type'] as String) {
       case 'JUMP_TO_ACTION':
       case 'JUMP_TO_STATE':
-        this._store.dispatch(new DevToolsAction.jumpToState(action['actionId'] as int));
+        this._store.dispatch(DevToolsAction.jumpToState(action['actionId'] as int));
         break;
       default:
         log.warning("Unknown command: ${action['type']}. Ignoring");
@@ -140,7 +140,7 @@ class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
       log.warning('No store reference set, cannot dispatch remote action');
       return;
     }
-    this._store.dispatch(new DevToolsAction.perform(jsonDecode(action)));
+    this._store.dispatch(DevToolsAction.perform(jsonDecode(action)));
   }
 
   /// Middleware function called by redux, dispatches actions to devtools
