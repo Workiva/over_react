@@ -1,5 +1,14 @@
 # OverReact Changelog
 
+## 3.0.1
+
+- Lower the Dart SDK lower-bound to `2.4.0`. It was accidentally raised to `2.4.1` in the 3.0.0 release.
+
+> Complete `3.0.1` Changesets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0+dart2...3.0.1+dart2)
+> - Dart 1 (No Changes)
+
 ## 3.0.0
 
 __ReactJS 16.x Support__
