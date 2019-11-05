@@ -81,7 +81,7 @@ class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   }
 
   _relay(String type, [Object state, dynamic action, String nextActionId]) {
-    var message = JsBackedMap();
+    final message = JsBackedMap();
     message['type'] = type;
 
     if (state != null) {
