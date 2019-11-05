@@ -745,7 +745,6 @@ main() {
         group('and returns props for a', () {
           group('composite JS ReactElement', () {
             test('', () {
-              print(OneLevelWrapper);
               ReactElement instance = OneLevelWrapper()(
                 testJsComponentFactory({
                   'jsProp': 'js',
