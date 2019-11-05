@@ -754,7 +754,7 @@ main() {
         });
 
         test('should dispose managed Disposable returned by manageAndReturnTypedDisposable', () async {
-          var disposable = new Disposable();
+          var disposable = Disposable();
           expect(component.manageAndReturnTypedDisposable(disposable), same(disposable));
           expect(disposable.isDisposed, isFalse);
           await unmountAndDisposal();
