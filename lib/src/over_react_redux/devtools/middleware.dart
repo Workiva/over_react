@@ -37,6 +37,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     });
     try {
       devToolsExt = reduxExtConnect();
+      devToolsExt.subscribe(handleEventFromRemote);
     } catch(_) {
       log.warning(
         'Unable to connect to the redux dev tools browser extension.\n'
@@ -49,8 +50,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
 
   set store(Store v) {
     _store = v;
-    devToolsExt.init(_encodeForTransit(store.state));
-    devToolsExt.subscribe(handleEventFromRemote);
+    devToolsExt.init(_encodeForTransit(v.state));
   }
 
   Store get store => _store;
@@ -121,14 +121,14 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   }
 
   void _handleDispatch(dynamic action) {
-    if (_store == null) {
+    if (store == null) {
       log.warning('No store reference set, cannot dispatch remote action');
       return;
     }
     switch (action['type'] as String) {
       case 'JUMP_TO_ACTION':
       case 'JUMP_TO_STATE':
-        _store.dispatch(DevToolsAction.jumpToState(action['actionId'] as int));
+        store.dispatch(DevToolsAction.jumpToState(action['actionId'] as int));
         break;
       default:
         log.warning("Unknown command: ${action['type']}. Ignoring");
@@ -136,19 +136,19 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   }
 
   void _handleRemoteAction(String action) {
-    if (_store == null) {
+    if (store == null) {
       log.warning('No store reference set, cannot dispatch remote action');
       return;
     }
-    _store.dispatch(DevToolsAction.perform(jsonDecode(action)));
+    store.dispatch(DevToolsAction.perform(jsonDecode(action)));
   }
 
   /// Middleware function called by redux, dispatches actions to devtools
   @override
-  call(Store store, dynamic action, NextDispatcher next) {
+  call(Store storeArg, dynamic action, NextDispatcher next) {
     next(action);
     if (devToolsExt == null) return;
-    store ??= store;
+    store ??= storeArg;
     if (!(action is DevToolsAction)) {
       _relay('ACTION', store.state, action);
     }

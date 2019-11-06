@@ -18,7 +18,10 @@ class Action {
   /// facilitate that, a method such as [toJson] is necessary.
   /// > See: <https://github.com/MichaelMarner/dart-redux-remote-devtools#encoding-actions-and-state>
   toJson() {
-    return {'type': this.type, 'value': this.value};
+    return {
+      'type': this.type,
+      'value': this.value,
+    };
   }
 }
 
@@ -97,7 +100,7 @@ int bigCountReducer(CounterState oldState, dynamic action) {
   }
 }
 
-CounterState stateReducer([CounterState state, action]) => CounterState(
+CounterState stateReducer([CounterState state, dynamic action]) => CounterState(
     bigCount: bigCountReducer(state, action),
     smallCount: smallCountReducer(state, action),
 );
