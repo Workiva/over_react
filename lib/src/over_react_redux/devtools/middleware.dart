@@ -155,4 +155,14 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   }
 }
 
+/// A Middleware that can be added to a [DevToolsStore] in order to utilize the Redux DevTools browser extension.
+///
+/// Example:
+/// ```
+/// var store = new DevToolsStore<AppState>(
+///   /*YourReducer*/,
+///   initialState: /*YourInitialState*/,
+///   middleware: [overReactReduxDevToolsMiddleware],
+/// );
+/// ```
 final MiddlewareClass overReactReduxDevToolsMiddleware = _OverReactReduxDevToolsMiddleware();
