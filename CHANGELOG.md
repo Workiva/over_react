@@ -1,5 +1,16 @@
 # OverReact Changelog
 
+## 3.0.2
+
+Dependency updates:
+- Lower the dart_style constraint from ^1.3.1 to ^1.2.5 to help avoid version lock in downstream packages
+- Open up built_value range to include 8.0.0
+
+> Complete `3.0.2` Changesets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.1+dart2...3.0.2+dart2)
+> - Dart 1 (No Changes)
+
 ## 3.0.1
 
 - Lower the Dart SDK lower-bound to `2.4.0`. It was accidentally raised to `2.4.1` in the 3.0.0 release.
