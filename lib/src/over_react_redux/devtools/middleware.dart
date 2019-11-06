@@ -13,22 +13,21 @@ import 'package:js/js.dart';
 
 @JS()
 @anonymous
-class ReduxDevToolsExtensionConnection {
-  external factory ReduxDevToolsExtensionConnection();
-  external subscribe(dynamic Function(JsMap data) listener);
-  external send([dynamic action, dynamic state]);
-  external init([dynamic initialState]);
+class _ReduxDevToolsExtensionConnection {
+  external void subscribe(dynamic Function(JsMap data) listener);
+  external void send([dynamic action, dynamic state]);
+  external void init([dynamic initialState]);
 }
 
 @JS('__REDUX_DEVTOOLS_EXTENSION__.connect')
-external ReduxDevToolsExtensionConnection reduxExtConnect([dynamic options]);
+external _ReduxDevToolsExtensionConnection reduxExtConnect([dynamic options]);
 
-class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
+class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   Store _store;
-  ReduxDevToolsExtensionConnection devToolsExt;
+  _ReduxDevToolsExtensionConnection devToolsExt;
   final Logger log = Logger('OverReactReduxDevToolsMiddleware');
 
-  OverReactReduxDevToolsMiddleware() {
+  _OverReactReduxDevToolsMiddleware() {
     log.onRecord.listen((rec) {
       if (rec.level == Level.WARNING) {
         window.console.warn('${log.name} [${rec.level.name}]: ${rec.message}');
@@ -54,7 +53,7 @@ class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     devToolsExt.subscribe(handleEventFromRemote);
   }
 
-  get store => _store;
+  Store get store => _store;
 
   dynamic _encodeForTransit(dynamic content, {bool shouldRethrow = false}) {
     try {
@@ -68,19 +67,20 @@ class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   dynamic _encodeActionForTransit(dynamic action) {
     try {
       return _encodeForTransit({'type': _getActionType(action), 'payload': action}, shouldRethrow: true);
-    } on Error {
+    } catch (_) {
       return _encodeForTransit({'type': _getActionType(action)});
     }
   }
 
   String _getActionType(dynamic action) {
-    if (action.toString().contains('Instance of')) {
+    var actionString = action.toString();
+    if (actionString.startsWith('Instance of')) {
       return action.runtimeType.toString();
     }
-    return action.toString();
+    return actionString;
   }
 
-  _relay(String type, [Object state, dynamic action, String nextActionId]) {
+  void _relay(String type, [Object state, dynamic action, String nextActionId]) {
     final message = JsBackedMap();
     message['type'] = type;
 
@@ -121,14 +121,14 @@ class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   }
 
   void _handleDispatch(dynamic action) {
-    if (this._store == null) {
+    if (_store == null) {
       log.warning('No store reference set, cannot dispatch remote action');
       return;
     }
     switch (action['type'] as String) {
       case 'JUMP_TO_ACTION':
       case 'JUMP_TO_STATE':
-        this._store.dispatch(DevToolsAction.jumpToState(action['actionId'] as int));
+        _store.dispatch(DevToolsAction.jumpToState(action['actionId'] as int));
         break;
       default:
         log.warning("Unknown command: ${action['type']}. Ignoring");
@@ -136,11 +136,11 @@ class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   }
 
   void _handleRemoteAction(String action) {
-    if (this._store == null) {
+    if (_store == null) {
       log.warning('No store reference set, cannot dispatch remote action');
       return;
     }
-    this._store.dispatch(DevToolsAction.perform(jsonDecode(action)));
+    _store.dispatch(DevToolsAction.perform(jsonDecode(action)));
   }
 
   /// Middleware function called by redux, dispatches actions to devtools
@@ -148,11 +148,11 @@ class OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   call(Store store, dynamic action, NextDispatcher next) {
     next(action);
     if (devToolsExt == null) return;
-    this.store ??= store;
+    store ??= store;
     if (!(action is DevToolsAction)) {
-      this._relay('ACTION', store.state, action);
+      _relay('ACTION', store.state, action);
     }
   }
 }
 
-final overReactReduxDevToolsMiddleware = OverReactReduxDevToolsMiddleware();
+final MiddlewareClass overReactReduxDevToolsMiddleware = _OverReactReduxDevToolsMiddleware();

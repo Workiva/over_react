@@ -276,7 +276,7 @@ Redux DevTools can be set up easily by adding only a few lines of code.
 1. Add `redux_dev_tools` as a dev dependency in your `pubspec.yaml`.
     ```yaml
     dev_dependencies:
-      redux_dev_tools: 0.4.0
+      redux_dev_tools: ^0.4.0
     ```
 1. Import `redux_dev_tools` into your store file.
     ```dart
@@ -286,10 +286,10 @@ Redux DevTools can be set up easily by adding only a few lines of code.
     ```diff
     - var store = new Store<AppState>(
     + var store = new DevToolsStore<AppState>(
-      /*ReducerName*/,
-      initialState: /*Default App State Object*/,
-    +  middleware: [overReactReduxDevToolsMiddleware],
-    );
+        /*ReducerName*/,
+        initialState: /*Default App State Object*/,
+    +   middleware: [overReactReduxDevToolsMiddleware],
+      );
     ```
     > __NOTE:__ You should revert back to a normal `Store` without the `overReactReduxDevToolsMiddleware` prior to making your code public (via publishing a package or deploying to production) as it will be less performant and could be a security risk.
 1. Get the Redux Devtools extension:

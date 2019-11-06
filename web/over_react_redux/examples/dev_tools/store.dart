@@ -44,7 +44,11 @@ class BigDecrementAction extends Action {
 ///
 /// Note the use of the special class [DevToolsStore] and the middleware passed
 /// into the store.
-Store store = DevToolsStore<CounterState>(stateReducer, initialState: CounterState.defaultState(), middleware: [overReactReduxDevToolsMiddleware]);
+Store store = DevToolsStore<CounterState>(
+  stateReducer,
+  initialState: CounterState.defaultState(),
+  middleware: [overReactReduxDevToolsMiddleware],
+);
 
 class CounterState {
   final int smallCount;
