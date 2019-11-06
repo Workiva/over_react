@@ -5,11 +5,11 @@ import 'dart:convert';
 import 'dart:html';
 import 'dart:js_util';
 
+import 'package:js/js.dart';
 import 'package:logging/logging.dart';
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_dev_tools/redux_dev_tools.dart';
-import 'package:js/js.dart';
 
 @JS()
 @anonymous
