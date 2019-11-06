@@ -1,6 +1,4 @@
-import 'dart:html';
-
-import 'package:over_react/src/over_react_redux/devtools/middleware.dart';
+import 'package:over_react/over_react_redux.dart';
 import 'package:redux/redux.dart';
 
 // Imports for the DevTools
