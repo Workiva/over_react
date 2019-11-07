@@ -1220,11 +1220,15 @@ main() {
       TestStatefulComponent2Component statefulComponent;
 
       setUp(() {
-        statefulComponent = TestStatefulComponent2Component();
-        statefulComponent.state = JsBackedMap.from({'test': true});
+        statefulComponent = null;
       });
 
       group('`state`', () {
+        setUp(() {
+          statefulComponent = TestStatefulComponent2Component();
+          statefulComponent.state = JsBackedMap.from({'test': true});
+        });
+
         group('getter:', () {
           test('returns a UiState view into the component\'s state map', () {
             expect(statefulComponent.state, isA<TestStatefulComponent2State>());
@@ -1260,11 +1264,43 @@ main() {
       });
 
       test('newState() returns a new UiState instance backed by a new Map', () {
+        statefulComponent = renderAndGetComponent(TestStatefulComponent2()());
         var newState1 = statefulComponent.newState();
         var newState2 = statefulComponent.newState();
         expect(newState1, isA<TestStatefulComponent2State>());
         expect(newState2, isA<TestStatefulComponent2State>());
         expect(newState1, isNot(same(newState2)));
+      });
+
+      group('setStateWithUpdater', () {
+        setUp(() {
+          statefulComponent = renderAndGetComponent((TestStatefulComponent2()
+            ..id = 'test prop value'
+          )());
+          statefulComponent.setState({'test state key': 'test state value'});
+        });
+
+        test('setStateWithUpdater provides typed views into prevState/props args', () {
+          Map capturedPrevState;
+          Map capturedProps;
+          statefulComponent.setStateWithUpdater((prevState, props) {
+            capturedPrevState = prevState;
+            capturedProps = props;
+            return {};
+          });
+          expect(capturedPrevState, isA<TestStatefulComponent2State>());
+          expect(capturedProps, isA<TestStatefulComponent2Props>());
+          // Test that the maps don't get mixed up.
+          expect(capturedPrevState, containsPair('test state key', 'test state value'));
+          expect(capturedProps, containsPair('id', 'test prop value'));
+        });
+
+        test('updater arguments can be explicitly typed without static typing issues', () {
+          updaterTypedMap(TestStatefulComponent2State prevState, TestStatefulComponent2Props props) => {};
+          updaterPlainMap(Map prevState, Map props) => {};
+          statefulComponent.setStateWithUpdater(updaterTypedMap);
+          statefulComponent.setStateWithUpdater(updaterPlainMap);
+        });
       });
     });
 
