@@ -83,7 +83,7 @@ main() {
       if (expectedTagName == 'missingGlyph') expectedTagName = 'missing-glyph';
       if (expectedTagName.startsWith(RegExp('svg.'))) expectedTagName = expectedTagName.substring(3);
 
-      test('${method.toString()} generates the correct type', () {
+      test('Dom.$methodName() generates the correct type', () {
         DomProps builder = method();
         ReactElement component = builder();
         expect(component.type, equalsIgnoringCase(expectedTagName));

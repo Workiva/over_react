@@ -818,6 +818,15 @@ main() {
     group('UiComponent2', () {
       TestComponent2Component component2;
 
+      test('newProps() returns a new UiProps instance backed by a new Map', () {
+        component2 = TestComponent2Component();
+        var newProps1 = component2.newProps();
+        var newProps2 = component2.newProps();
+        expect(newProps1, isA<TestComponent2Props>());
+        expect(newProps2, isA<TestComponent2Props>());
+        expect(newProps1, isNot(same(newProps2)));
+      });
+
       group('copyUnconsumedProps()', () {
         test('copies props, omitting keys from `consumedProps`, as well as reserved react props', () {
           component2 = TestComponent2Component(testConsumedProps: [
@@ -985,6 +994,166 @@ main() {
           }));
         });
       });
+
+      group('on unmount', () {
+        TestComponent2Component component2;
+        ReactElement instance;
+        Duration longDuration = const Duration(milliseconds: 200);
+        Duration shortDuration = const Duration(milliseconds: 100);
+
+        setUp(() {
+          instance = render(TestComponent2()());
+          component2 = getDartComponent(instance);
+        });
+
+        Future<Null> unmountAndDisposal() async {
+          unmount(instance);
+          // Provide timers a window to fire
+          await Future.delayed(longDuration);
+        }
+
+        test('should await future before disposing', () async {
+          // ignore: close_sinks
+          var streamController = StreamController<String>.broadcast();
+          var completer = Completer<String>();
+
+          // Manage pending future
+          unawaited(component2.awaitBeforeDispose(completer.future));
+
+          // Add events to stream
+          component2.manageDisposer(() async => streamController.add('disposalFuture'));
+          unawaited(completer.future.then(streamController.add));
+
+          // Perform events out of order
+          await unmountAndDisposal();
+          completer.complete('awaitedFuture');
+
+          // Ensure events resolve in the correct order
+          expect(streamController.stream, emitsInOrder([
+            'awaitedFuture',
+            'disposalFuture',
+          ]));
+        });
+
+        test('should complete delayed Future with ObjectDisposedException', () async {
+          expect(component2.getManagedDelayedFuture(shortDuration,
+              expectAsync0(() {}, count: 0, reason: 'Did not expect callback to be invoked.')),
+              throwsA(isA<ObjectDisposedException>()));
+
+          await unmountAndDisposal();
+        });
+
+        test('should call managed disposer returned by getManagedDisposer', () async {
+          var disposerCalled = false;
+          var disposer = component2.getManagedDisposer(() async => disposerCalled = true);
+          expect(disposer, isA<ManagedDisposer>());
+
+          expect(disposerCalled, isFalse);
+          await unmountAndDisposal();
+          expect(disposerCalled, isTrue);
+          expect(disposer.isDisposed, isTrue);
+        });
+
+        test('should cancel periodic timer', () async {
+          var timer = component2.getManagedPeriodicTimer(shortDuration,
+              expectAsync1((_) {}, count: 0, reason: 'Did not expect callback to be invoked.'));
+
+          expect(timer.isActive, isTrue);
+          await unmountAndDisposal();
+          expect(timer.isActive, isFalse);
+        });
+
+        test('should cancel timer', () async {
+          var timer = component2.getManagedTimer(shortDuration,
+              expectAsync1((_){}, count: 0, reason: 'Did not expect callback to be invoked.'));
+
+          expect(timer.isActive, isTrue);
+          await unmountAndDisposal();
+          expect(timer.isActive, isFalse);
+        });
+
+        test('should cancel stream subscription returned by listenToStream', () async{
+          var streamController = StreamController<Null>.broadcast();
+          // ignore: cancel_subscriptions
+          var streamSubscription = component2.listenToStream(streamController.stream, expectAsync1((_) {},
+              count: 0,
+              reason: 'Did not expect event after cancelling subscription'));
+          expect(streamSubscription, isA<StreamSubscription>());
+
+          await unmountAndDisposal();
+
+          streamController.add(null);
+          await streamController.close();
+        });
+
+        test('should dispose managed Disposable returned by manageAndReturnDisposable', () async {
+          var disposable = Disposable();
+          expect(component2.manageAndReturnDisposable(disposable), same(disposable));
+          expect(disposable.isDisposed, isFalse);
+          await unmountAndDisposal();
+          expect(disposable.isDisposed, isTrue);
+        });
+
+        test('should dispose managed Disposable returned by manageAndReturnTypedDisposable', () async {
+          var disposable = Disposable();
+          expect(component2.manageAndReturnTypedDisposable(disposable), same(disposable));
+          expect(disposable.isDisposed, isFalse);
+          await unmountAndDisposal();
+          expect(disposable.isDisposed, isTrue);
+        });
+
+        test('should complete uncompleted managed Completer with ObjectDisposedException', () async {
+          var completer = Completer<Null>();
+          component2.manageCompleter(completer);
+          unawaited(completer.future.catchError(expectAsync1((err) {
+            expect(err, isA<ObjectDisposedException>());
+          })));
+
+          expect(completer.isCompleted, isFalse);
+          await unmountAndDisposal();
+          expect(completer.isCompleted, isTrue);
+        });
+
+        test('should dispose managed Disposable', () async {
+          var disposable = Disposable();
+          component2.manageDisposable(disposable);
+          expect(disposable.isDisposed, isFalse);
+          await unmountAndDisposal();
+          expect(disposable.isDisposed, isTrue);
+        });
+
+        test('should call managed disposers', () async {
+          var disposerCalled = false;
+          component2.manageDisposer(() async => disposerCalled = true); // ignore: deprecated_member_use
+          expect(disposerCalled, isFalse);
+          await unmountAndDisposal();
+          expect(disposerCalled, isTrue);
+        });
+
+        test('should close managed StreamController', () async {
+          //ignore: close_sinks
+          var streamController = StreamController<Null>.broadcast();
+          component2.manageStreamController(streamController);
+          expect(streamController.isClosed, isFalse);
+          await unmountAndDisposal();
+          expect(streamController.isClosed, isTrue);
+        });
+
+        test('should cancel managed StreamSubscription', () async{
+          var streamController = StreamController<Null>.broadcast();
+          // ignore: cancel_subscriptions
+          var streamSubscription = streamController.stream
+              .listen(expectAsync1((_) {},
+              count: 0,
+              reason: 'Did not expect event after cancelling subscription'));
+
+          component2.manageStreamSubscription(streamSubscription); // ignore: deprecated_member_use
+          await unmountAndDisposal();
+
+          streamController.add(null);
+          await streamController.close();
+        });
+      }, timeout: Timeout(const Duration(milliseconds: 250)));
     });
 
     group('UiStatefulComponent', () {
@@ -1051,11 +1220,15 @@ main() {
       TestStatefulComponent2Component statefulComponent;
 
       setUp(() {
-        statefulComponent = TestStatefulComponent2Component();
-        statefulComponent.state = JsBackedMap.from({'test': true});
+        statefulComponent = null;
       });
 
       group('`state`', () {
+        setUp(() {
+          statefulComponent = TestStatefulComponent2Component();
+          statefulComponent.state = JsBackedMap.from({'test': true});
+        });
+
         group('getter:', () {
           test('returns a UiState view into the component\'s state map', () {
             expect(statefulComponent.state, isA<TestStatefulComponent2State>());
@@ -1091,11 +1264,43 @@ main() {
       });
 
       test('newState() returns a new UiState instance backed by a new Map', () {
+        statefulComponent = renderAndGetComponent(TestStatefulComponent2()());
         var newState1 = statefulComponent.newState();
         var newState2 = statefulComponent.newState();
         expect(newState1, isA<TestStatefulComponent2State>());
         expect(newState2, isA<TestStatefulComponent2State>());
         expect(newState1, isNot(same(newState2)));
+      });
+
+      group('setStateWithUpdater', () {
+        setUp(() {
+          statefulComponent = renderAndGetComponent((TestStatefulComponent2()
+            ..id = 'test prop value'
+          )());
+          statefulComponent.setState({'test state key': 'test state value'});
+        });
+
+        test('setStateWithUpdater provides typed views into prevState/props args', () {
+          Map capturedPrevState;
+          Map capturedProps;
+          statefulComponent.setStateWithUpdater((prevState, props) {
+            capturedPrevState = prevState;
+            capturedProps = props;
+            return {};
+          });
+          expect(capturedPrevState, isA<TestStatefulComponent2State>());
+          expect(capturedProps, isA<TestStatefulComponent2Props>());
+          // Test that the maps don't get mixed up.
+          expect(capturedPrevState, containsPair('test state key', 'test state value'));
+          expect(capturedProps, containsPair('id', 'test prop value'));
+        });
+
+        test('updater arguments can be explicitly typed without static typing issues', () {
+          updaterTypedMap(TestStatefulComponent2State prevState, TestStatefulComponent2Props props) => {};
+          updaterPlainMap(Map prevState, Map props) => {};
+          statefulComponent.setStateWithUpdater(updaterTypedMap);
+          statefulComponent.setStateWithUpdater(updaterPlainMap);
+        });
       });
     });
 
@@ -1240,8 +1445,10 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
   }
 }
 
+UiFactory<TestComponent2Props> TestComponent2 = ([props]) => TestComponent2Props(props);
+
 class TestComponent2Props extends over_react.UiProps {
-  @override final ReactComponentFactoryProxy componentFactory = _TestComponentComponentFactory;
+  @override final ReactComponentFactoryProxy componentFactory = _TestComponent2ComponentFactory;
   TestComponent2Props(JsBackedMap backingMap)
       : this._props = JsBackedMap() {
     this._props = backingMap ?? JsBackedMap();
@@ -1258,6 +1465,7 @@ class TestComponent2Props extends over_react.UiProps {
   String get propKeyNamespace => null;
 }
 
+final _TestComponent2ComponentFactory = registerComponent2(() => TestComponent2Component());
 class TestComponent2Component extends UiComponent2<TestComponent2Props> {
   @override
   final List<ConsumedProps> consumedProps;
