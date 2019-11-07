@@ -21,6 +21,7 @@ import 'package:over_react/src/component/dummy_component2.dart';
 import 'package:over_react/src/util/class_names.dart';
 import 'package:over_react/src/util/map_util.dart';
 import 'package:over_react/src/util/prop_errors.dart';
+import 'package:over_react/src/util/prop_key_util.dart' as prop_key_util;
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/bridge.dart';
@@ -187,31 +188,96 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   @override
   TProps newProps() => typedPropsFactoryJs(JsBackedMap());
 
-  /// Allows usage of PropValidator functions to check the validity of a prop passed to it.
-  /// When an invalid value is provided for a prop, a warning will be shown in the JavaScript console.
-  /// For performance reasons, propTypes is only checked in development mode.
+  /// Allows usage of [react.PropValidator] functions to check the validity of a prop within the props passed to it.
   ///
   /// Override with a custom implementation to easily add validation.
   ///
-  ///     get propTypes => {
-  ///           getPropKey((props) => props.twoObjects, typedPropsFactory):
-  ///               (props, propName, componentName, location, propFullName) {
-  ///             final length = props.twoObjects?.length;
-  ///             if (length != 2) {
-  ///               return PropError.value(length, propName, 'must have a length of 2');
-  ///             }
-  ///             return null;
-  ///           },
-  ///         };
+  /// > For performance reasons, `propTypes` is only checked in development mode.
   ///
-  /// `getPropKey` is a statically typed helper to get the string key for a prop.
+  /// __Example of enforcing the length of a prop value:__
   ///
-  /// __Note:__ An improved version of `getPropKey` will be offered once
-  /// https://jira.atl.workiva.net/browse/CPLAT-6655 is completed.
+  /// ```
+  /// @Props()
+  /// class MyProps extends UiProps {
+  ///   Object foo;
+  /// }
   ///
-  /// For more info see: https://www.npmjs.com/package/prop-types
+  /// @Component2()
+  /// class MyComponent extends UiComponent2<MyProps> {
+  ///   @override
+  ///   get propTypes => {
+  ///     getPropKey((p) => p.foo): (props, info) {
+  ///       final length = props.foo?.length;
+  ///       if (length != 2) {
+  ///         return PropError.value(length, info.propName, 'must have a length of 2');
+  ///       }
+  ///       return null;
+  ///     },
+  ///   };
+  /// }
+  /// ```
+  ///
+  /// * [getPropKey] - as shown in the example above - is a statically typed helper to get the string key for a prop.
+  /// * The second argument (`info`) of the function used to return a value for the key contains metadata about
+  ///   the prop specified by the key.
+  ///     * `propName`, `componentName`, `location` and `propFullName` are available.
+  ///
+  /// __Example of enforcing the relationship between two prop values:__
+  ///
+  /// ```
+  /// @Props()
+  /// class MyProps extends UiProps {
+  ///   bool mustHaveAnotherPropValue;
+  ///   String anotherProp;
+  /// }
+  ///
+  /// @Component2()
+  /// class MyComponent extends UiComponent2<MyProps> {
+  ///   @override
+  ///   get defaultProps => newProps()..someProp = false;
+  ///
+  ///   @override
+  ///   get propTypes => {
+  ///     getPropKey((p) => p.mustHaveAnotherPropValue): (props, info) {
+  ///       if (props.mustHaveAnotherPropValue && props.anotherProp == null) {
+  ///         return PropError.combination(info.propName, 'anotherProp',
+  ///             'must have a non-null value when ${info.propName} is true.');
+  ///       }
+  ///       return null;
+  ///     },
+  ///   };
+  /// }
+  /// ```
+  ///
+  /// > See: <https://reactjs.org/docs/typechecking-with-proptypes.html#proptypes>
   @override
   Map<String, react.PropValidator<TProps>> get propTypes => {};
+
+  /// Returns the string key of the [factory] prop accessed in [accessProp], including the namespace if one exists.
+  ///
+  /// Intended for use within [propTypes].
+  ///
+  /// __Example:__
+  ///
+  /// ```
+  /// @Props()
+  /// class MyProps extends UiProps {
+  ///   bool somePropKey;
+  ///
+  ///   @Accessor(keyNamespace: '')
+  ///   @override
+  ///   String id;
+  /// }
+  ///
+  /// @Component2()
+  /// class MyComponent extends UiComponent2<MyProps> {
+  ///   void someInstanceMethod() {
+  ///     print(getPropKey((p) => p.somePropKey)); // Prints "MyProps.somePropKey"
+  ///     print(getPropKey((p) => p.id)); // Prints "id"
+  ///   }
+  /// }
+  /// ```
+  String getPropKey(void Function(TProps props) accessProp) => prop_key_util.getPropKey(accessProp, typedPropsFactory);
 
   // ***************************************************************************
   //
@@ -370,35 +436,69 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
 
   /// Throws a [PropError] if [appliedProps] are invalid.
   ///
-  /// This is called automatically with the latest props available during [componentWillReceiveProps] and
-  /// [componentWillMount], and can also be called manually for custom validation.
+  /// __Deprecated.__ Will be removed in the `4.0.0` release. Use [propTypes] instead.
   ///
-  /// Override with a custom implementation to easily add validation (and don't forget to call super!)
+  /// __Bad__
   ///
-  ///     @mustCallSuper
-  ///     void validateProps(Map appliedProps) {
-  ///       super.validateProps(appliedProps);
+  /// ```
+  /// @Props()
+  /// class MyProps extends UiProps {
+  ///   List listThatMustHaveAnEvenNumberOfItems;
+  /// }
   ///
-  ///       var tProps = typedPropsFactory(appliedProps);
-  ///       if (tProps.items.length.isOdd) {
-  ///         throw PropError.value(tProps.items, 'items', 'must have an even number of items, because reasons');
-  ///       }
+  /// @Component2()
+  /// class MyComponent extends UiComponent2<MyProps> {
+  ///   void validateProps(Map appliedProps) {
+  ///     super.validateProps(appliedProps);
+  ///
+  ///     var tProps = typedPropsFactory(appliedProps);
+  ///     if (tProps.items.length.isOdd) {
+  ///       throw PropError.value(tProps.items, 'items', 'must have an even number of items, because reasons');
   ///     }
-  /// __Deprecated.__ Use [propTypes] instead. Will be removed in the `4.0.0` release.
+  ///   }
+  /// }
+  /// ```
+  ///
+  /// __Good__
+  ///
+  /// ```
+  /// @Props()
+  /// class MyProps extends UiProps {
+  ///   List listThatMustHaveAnEvenNumberOfItems;
+  /// }
+  ///
+  /// @Component2()
+  /// class MyComponent extends UiComponent2<MyProps> {
+  ///   @override
+  ///   get propTypes => {
+  ///     getPropKey((p) => p.listThatMustHaveAnEvenNumberOfItems): (props, info) {
+  ///       if (props.listThatMustHaveAnEvenNumberOfItems?.length.isOdd) {
+  ///         return PropError.value(
+  ///             tProps.listThatMustHaveAnEvenNumberOfItems,
+  ///             'listThatMustHaveAnEvenNumberOfItems',
+  ///             'must have an even number of items, because reasons');
+  ///       }
+  ///       return null;
+  ///     },
+  ///   };
+  /// }
+  /// ```
   @Deprecated('4.0.0')
   @mustCallSuper
   @override
   void validateProps(Map appliedProps) {
-    throw UnsupportedError('[validateProps] is not supported in Component2, use [propTypes] instead.');
+    throw UnsupportedError('[validateProps] is not supported in UiComponent2, use [propTypes] instead.');
   }
 
   /// Validates that props with the `@requiredProp` annotation are present.
-  /// __Deprecated.__ Use [propTypes] instead. Will be removed in the `4.0.0` release.
+  /// __Deprecated.__ Will be removed in the `4.0.0` release.
+  ///
+  /// Props annotated with `@requiredProp` will automatically be validated in `UiComponent2` instances.
   @Deprecated('4.0.0')
   @mustCallSuper
   @override
   void validateRequiredProps(Map appliedProps) {
-    throw UnsupportedError('[validateRequiredProps] is not supported in Component2, use [propTypes] instead.');
+    throw UnsupportedError('[validateRequiredProps] is not supported in UiComponent2, use [propTypes] instead.');
   }
 }
 
@@ -544,43 +644,35 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
   }
 
   @override
-  JsMap jsifyPropTypes(covariant UiComponent2 component, Map propTypes) {
+  JsMap jsifyPropTypes(
+      covariant UiComponent2 component, covariant Map<String,
+      /*PropValidator<UiProps>*/Function> propTypes) {
     Error _getErrorFromConsumerValidator(
-      dynamic _validator,
+      /*PropValidator<UiProps>*/Function _validator,
       JsBackedMap _props,
-      String _propName,
-      String _componentName,
-      String _location,
-      String _propFullName
+      react.PropValidatorInfo _info,
     ) {
       var convertedProps = component.typedPropsFactoryJs(_props);
-      Error error = _validator(convertedProps, _propName, _componentName, _location, _propFullName);
-      return error;
+      return _validator(convertedProps, _info);
     }
 
     // Add [PropValidator]s for props annotated as required.
-    var newPropTypes = Map.from(propTypes);
+    final newPropTypes = Map.of(propTypes);
     component.consumedProps?.forEach((consumedProps) {
       consumedProps.props.forEach((prop) {
         if (!prop.isRequired) return;
 
         Error requiredPropValidator(
           Map _props,
-          String _propName,
-          String _componentName,
-          String _location,
-          String _propFullName,
+          react.PropValidatorInfo _info,
         ) {
           Error consumerError;
           // Check if the consumer has specified a propType for this key.
-          if(propTypes[prop.key] != null) {
+          if (propTypes[prop.key] != null) {
             consumerError = _getErrorFromConsumerValidator(
               propTypes[prop.key],
               JsBackedMap.from(_props),
-              _propName,
-              _componentName,
-              _location,
-              _propFullName
+              _info,
             );
           }
 
@@ -589,8 +681,8 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
           if (prop.isNullable && _props.containsKey(prop.key)) return null;
           if (!prop.isNullable && _props[prop.key] != null) return null;
 
-          if (_props[_propName] == null) {
-            return PropError.required(_propName, prop.errorMessage);
+          if (_props[_info.propName] == null) {
+            return PropError.required(_info.propName, prop.errorMessage);
           }
 
           return null;
@@ -612,13 +704,11 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
           // This is a required argument of PropTypes validators but is hidden from the JS consumer.
           String secret, // ignore: avoid_types_on_closure_parameters
         ) {
-          Error error = _getErrorFromConsumerValidator(
+          final error = _getErrorFromConsumerValidator(
             _validator,
             JsBackedMap.fromJs(_props),
-            _propName,
-            _componentName,
-            _location,
-            _propFullName
+            react.PropValidatorInfo(
+                propName: _propName, componentName: _componentName, location: _location, propFullName: _propFullName),
           );
           return error == null ? null : JsError(error.toString());
         };

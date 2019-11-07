@@ -252,11 +252,10 @@ class _$ComponentTestProps extends UiProps {
 class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
   @override
   get propTypes => {
-      getPropKey((props) => props.requiredAndLengthLimited, typedPropsFactory):
-          (props, propName, componentName, location, propFullName) {
+      getPropKey((p) => p.requiredAndLengthLimited): (props, info) {
         final length = props.requiredAndLengthLimited?.length;
         if (length != 2) {
-          return PropError.value(length, propName, 'must have a length of 2');
+          return PropError.value(length, info.propName, 'must have a length of 2');
         }
         return null;
       },
