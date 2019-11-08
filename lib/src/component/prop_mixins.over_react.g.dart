@@ -5474,6 +5474,52 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.xmlBase] -->
   @override
   set xmlBase(dynamic value) => props[_$key__xmlBase___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.xmlLang] -->
+  @override
+  dynamic get xmlLang =>
+      props[_$key__xmlLang___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.xmlLang] -->
+  @override
+  set xmlLang(dynamic value) => props[_$key__xmlLang___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.xmlSpace] -->
+  @override
+  dynamic get xmlSpace =>
+      props[_$key__xmlSpace___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.xmlSpace] -->
+  @override
+  set xmlSpace(dynamic value) =>
+      props[_$key__xmlSpace___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.y1] -->
+  @override
+  dynamic get y1 =>
+      props[_$key__y1___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.y1] -->
+  @override
+  set y1(dynamic value) => props[_$key__y1___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.y2] -->
+  @override
+  dynamic get y2 =>
+      props[_$key__y2___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.y2] -->
+  @override
+  set y2(dynamic value) => props[_$key__y2___$SvgPropsMixin] = value;
+
+  /// <!-- Generated from [_$SvgPropsMixin.y] -->
+  @override
+  dynamic get y =>
+      props[_$key__y___$SvgPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SvgPropsMixin.y] -->
+  @override
+  set y(dynamic value) => props[_$key__y___$SvgPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__htmlIn___$SvgPropsMixin =
       PropDescriptor(_$key__htmlIn___$SvgPropsMixin);
@@ -5945,6 +5991,16 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
       PropDescriptor(_$key__xlinkType___$SvgPropsMixin);
   static const PropDescriptor _$prop__xmlBase___$SvgPropsMixin =
       PropDescriptor(_$key__xmlBase___$SvgPropsMixin);
+  static const PropDescriptor _$prop__xmlLang___$SvgPropsMixin =
+      PropDescriptor(_$key__xmlLang___$SvgPropsMixin);
+  static const PropDescriptor _$prop__xmlSpace___$SvgPropsMixin =
+      PropDescriptor(_$key__xmlSpace___$SvgPropsMixin);
+  static const PropDescriptor _$prop__y1___$SvgPropsMixin =
+      PropDescriptor(_$key__y1___$SvgPropsMixin);
+  static const PropDescriptor _$prop__y2___$SvgPropsMixin =
+      PropDescriptor(_$key__y2___$SvgPropsMixin);
+  static const PropDescriptor _$prop__y___$SvgPropsMixin =
+      PropDescriptor(_$key__y___$SvgPropsMixin);
   static const String _$key__htmlIn___$SvgPropsMixin = 'in';
   static const String _$key__htmlValues___$SvgPropsMixin = 'values';
   static const String _$key__accumulate___$SvgPropsMixin = 'accumulate';
@@ -6212,6 +6268,11 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   static const String _$key__xlinkTitle___$SvgPropsMixin = 'xlinkTitle';
   static const String _$key__xlinkType___$SvgPropsMixin = 'xlinkType';
   static const String _$key__xmlBase___$SvgPropsMixin = 'xmlBase';
+  static const String _$key__xmlLang___$SvgPropsMixin = 'xmlLang';
+  static const String _$key__xmlSpace___$SvgPropsMixin = 'xmlSpace';
+  static const String _$key__y1___$SvgPropsMixin = 'y1';
+  static const String _$key__y2___$SvgPropsMixin = 'y2';
+  static const String _$key__y___$SvgPropsMixin = 'y';
 
   static const List<PropDescriptor> $props = [
     _$prop__htmlIn___$SvgPropsMixin,
@@ -6446,7 +6507,12 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
     _$prop__xlinkShow___$SvgPropsMixin,
     _$prop__xlinkTitle___$SvgPropsMixin,
     _$prop__xlinkType___$SvgPropsMixin,
-    _$prop__xmlBase___$SvgPropsMixin
+    _$prop__xmlBase___$SvgPropsMixin,
+    _$prop__xmlLang___$SvgPropsMixin,
+    _$prop__xmlSpace___$SvgPropsMixin,
+    _$prop__y1___$SvgPropsMixin,
+    _$prop__y2___$SvgPropsMixin,
+    _$prop__y___$SvgPropsMixin
   ];
   static const List<String> $propKeys = [
     _$key__htmlIn___$SvgPropsMixin,
@@ -6681,7 +6747,12 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
     _$key__xlinkShow___$SvgPropsMixin,
     _$key__xlinkTitle___$SvgPropsMixin,
     _$key__xlinkType___$SvgPropsMixin,
-    _$key__xmlBase___$SvgPropsMixin
+    _$key__xmlBase___$SvgPropsMixin,
+    _$key__xmlLang___$SvgPropsMixin,
+    _$key__xmlSpace___$SvgPropsMixin,
+    _$key__y1___$SvgPropsMixin,
+    _$key__y2___$SvgPropsMixin,
+    _$key__y___$SvgPropsMixin
   ];
 }
 
