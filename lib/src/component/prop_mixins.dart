@@ -170,7 +170,7 @@ abstract class _$SvgPropsMixin {
       tableValues, targetX, targetY, textAnchor, textDecoration, textLength, textRendering, to, transform, u1, u2, underlinePosition,
       underlineThickness, unicode, unicodeBidi, unicodeRange, unitsPerEm, vAlphabetic, vHanging, vIdeographic, vMathematical,
       vectorEffect, version, vertAdvY, vertOriginX, vertOriginY, viewBox, viewTarget, visibility, widths, wordSpacing, writingMode,
-      x, x1, x2, xHeight, xlinkActuate, xlinkArcrole, xlinkHref, xlinkRole, xlinkShow, xlinkTitle, xlinkType, xmlBase;
+      x, x1, x2, xHeight, xlinkActuate, xlinkArcrole, xlinkHref, xlinkRole, xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace, y1, y2, y;
 }
 /// This class is only present to allow for consumers which have used the
 /// --backwards-compat flag with over_react_codemod to statically analyze:
