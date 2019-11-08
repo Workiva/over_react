@@ -1,10 +1,8 @@
-import 'dart:html';
-
+import 'package:over_react/over_react_redux.dart';
 import 'package:redux/redux.dart';
 
 // Imports for the DevTools
 import 'package:redux_dev_tools/redux_dev_tools.dart';
-import 'package:redux_remote_devtools/redux_remote_devtools.dart';
 
 class Action {
   Action({this.type, this.value});
@@ -18,7 +16,10 @@ class Action {
   /// facilitate that, a method such as [toJson] is necessary.
   /// > See: <https://github.com/MichaelMarner/dart-redux-remote-devtools#encoding-actions-and-state>
   toJson() {
-    return {'type': this.type, 'value': this.value};
+    return {
+      'type': this.type,
+      'value': this.value,
+    };
   }
 }
 
@@ -44,17 +45,11 @@ class BigDecrementAction extends Action {
 ///
 /// Note the use of the special class [DevToolsStore] and the middleware passed
 /// into the store.
-Store store = DevToolsStore<CounterState>(stateReducer, initialState: CounterState.defaultState(), middleware: [remoteDevtools]);
-
-/// DevTools object configured with the server port.
-var remoteDevtools = RemoteDevToolsMiddleware('127.0.0.1:8000');
-
-/// Method used to assign the store and connect the DevTools.
-Future<void> initDevtools() async {
-  remoteDevtools.store = store;
-  window.console.log('Navigate to 127.0.0.1:8000 in order to see Redux DevTools.');
-  await remoteDevtools.connect();
-}
+Store store = DevToolsStore<CounterState>(
+  stateReducer,
+  initialState: CounterState.defaultState(),
+  middleware: [overReactReduxDevToolsMiddleware],
+);
 
 class CounterState {
   final int smallCount;
@@ -103,7 +98,7 @@ int bigCountReducer(CounterState oldState, dynamic action) {
   }
 }
 
-CounterState stateReducer([CounterState state, action]) => CounterState(
+CounterState stateReducer([CounterState state, dynamic action]) => CounterState(
     bigCount: bigCountReducer(state, action),
     smallCount: smallCountReducer(state, action),
 );
