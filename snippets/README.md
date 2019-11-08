@@ -1,20 +1,17 @@
 ## Available Code Snippets
 
-Below is a list of all available Dart 2 builder-compatible over_react snippets and their<br>
-triggers for Webstorm/IntelliJ and VS Code. 
+Below is a list of all available over_react snippets and their Triggers for Webstorm/IntelliJ and VS Code. 
 
-| Trigger - Dart 1/2 Compatible  | Trigger - Dart 2 Only | Content |
-| -------: | ------- | ------- |
-| `orStless`   | `ord2Stless`   | Dart 2 stateless component skeleton |
-| `orCStless`   | `ord2CStless`   | Dart 2 commented stateless component skeleton |
-| `orAbsStless`  | `ord2AbsStless`   |  Dart 2 abstract stateless component skeleton |
-| `orCAbsStless`  | `ord2CAbsStless`  | Dart 2 commented abstract stateless component skeleton |
-| `orStful`   |  `ord2Stful`   | Dart 2 stateful component skeleton |
-| `orCStful`   | `ord2CStful`   | Dart 2 commented stateful component skeleton |
-| `orAbsStful`  | `ord2AbsStful`  | Dart 2 abstract stateful component skeleton |
-| `orCAbsStful`  | `orCAbsStful`  | Dart 2 commented abstract stateful component skeleton |
-| `orPropsMixin`  | N/A  | Dart 2 prop mixin skeleton (unnecessary in Dart 2 only) |
-| `orStateMixin`  | N/A  | Dart 2 state mixin skeleton (unnecessary in Dart 2 only) |
+| Trigger | Content |
+| -------: | ------- |
+| `orStless`   | Stateless component skeleton |
+| `orCStless`   | Commented stateless component skeleton |
+| `orAbsStless`  |  Abstract stateless component skeleton |
+| `orCAbsStless`  | Commented abstract stateless component skeleton |
+| `orStful`   | Stateful component skeleton |
+| `orCStful`   | Commented stateful component skeleton |
+| `orAbsStful`  | Abstract stateful component skeleton |
+| `orCAbsStful`  | Commented abstract stateful component skeleton |
 
 ## WebStorm and IntelliJ Snippets
 
@@ -24,14 +21,8 @@ triggers for Webstorm/IntelliJ and VS Code.
 
 1. Copy the command below and run it in your terminal.
 
-   For Dart 1/2 compatible snippets:                                  
    ```bash
-   curl https://raw.githubusercontent.com/Workiva/over_react/master/snippets/dart1-2/snippets.xml | pbcopy
-   ``` 
-   
-   For Dart 2 only snippets:
-   ```bash
-   curl https://raw.githubusercontent.com/Workiva/over_react/master/snippets/dart2-only/snippets.xml | pbcopy
+   curl https://raw.githubusercontent.com/Workiva/over_react/master/snippets/snippets.xml | pbcopy
    ```
    
 2. Open preferences and select "Editor" > "Live Templates"
@@ -49,15 +40,9 @@ triggers for Webstorm/IntelliJ and VS Code.
 
 1. Copy the command below and run it in your terminal.
 
-    For Dart 1/2 compatible snippets: 
-   ```bash
-   curl https://raw.githubusercontent.com/Workiva/over_react/master/snippets/dart1-2/snippets.json | pbcopy
-   ```
-   
-   For Dart 2 only snippets:
-   ```bash
-   curl https://raw.githubusercontent.com/Workiva/over_react/master/snippets/dart2-only/snippets.json | pbcopy
-   ```
+    ```bash
+    curl https://raw.githubusercontent.com/Workiva/over_react/master/snippets/snippets.json | pbcopy
+    ```
 
 2. Click on "Code", select "Preferences" and select "User Snippets"
 3. Select "New Global Snippet file..."

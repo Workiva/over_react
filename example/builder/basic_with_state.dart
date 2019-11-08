@@ -22,14 +22,14 @@ class _$BasicState extends UiState with ExampleStateMixinClass {
   String basicState;
 }
 
-@Component()
-class BasicComponent extends UiStatefulComponent<BasicProps, BasicState> {
+@Component2()
+class BasicComponent extends UiStatefulComponent2<BasicProps, BasicState> {
   @override
-  Map getDefaultProps() => newProps()..id = 'basic component'
+  get defaultProps => newProps()..id = 'basic component'
       ..basicProp = 'defaultBasicProps';
 
   @override
-  Map getInitialState() => newState()..basicState = '<basic state>'
+  get initialState => newState()..basicState = '<basic state>'
       ..stateMixin1 = '<state mixin>';
 
   @override

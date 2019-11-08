@@ -20,7 +20,7 @@ library over_react.component_declaration.annotations;
 ///     @Factory()
 ///     UiFactory<FooProps> Foo = _$Foo;
 ///
-/// Must be accompanied by a [Props] and [Component] declaration.
+/// Must be accompanied by a [Props] and [Component2] declaration.
 class Factory {
   const Factory();
 }
@@ -34,7 +34,7 @@ class Factory {
 ///       String bar;
 ///     }
 ///
-/// Must be accompanied by a [Factory] and [Component] declaration.
+/// Must be accompanied by a [Factory] and [Component2] declaration.
 class Props implements TypedMap {
   /// A custom namespace for the keys of props defined in the annotated class,
   /// overriding the default of `'${propsClassName}.'`.
@@ -52,7 +52,7 @@ class Props implements TypedMap {
 ///       bool baz;
 ///     }
 ///
-/// Optional. Must be accompanied by a [Factory], [Props], and [Component] declaration.
+/// Optional. Must be accompanied by a [Factory], [Props], and [Component2] declaration.
 class State implements TypedMap {
   /// A custom namespace for the keys of state properties defined in the annotated class,
   /// overriding the default of `'${stateClassName}.'`.
@@ -69,6 +69,9 @@ class State implements TypedMap {
 ///     }
 ///
 /// Must be accompanied by a [Factory] and [Props] declaration.
+///
+/// __Deprecated.__ Use the [Component2] annotation alongside `UiComponent2` / `UiStatefulComponent2` instead.
+@Deprecated('4.0.0')
 class Component {
   /// Whether the component clones or passes through its children and needs to be
   /// treated as if it were the wrapped component when passed in to `isComponentOfType`.
@@ -101,6 +104,67 @@ class Component {
   const Component({
       this.isWrapper = false,
       this.subtypeOf
+  });
+}
+
+/// Annotation used with the `over_react` builder to declare a `UiComponent2` class for a component.
+///
+///     @Component2()
+///     class FooComponent extends UiComponent2<FooProps> {
+///       render() => Dom.div()(props.bar);
+///     }
+///
+/// Must be accompanied by a [Factory] and [Props] declaration.
+class Component2 implements Component { // ignore: deprecated_member_use_from_same_package
+  /// Whether the component clones or passes through its children and needs to be
+  /// treated as if it were the wrapped component when passed in to `isComponentOfType`.
+  @override
+  final bool isWrapper;
+
+  /// Whether the component serves as a React error boundary.
+  ///
+  /// When set to `true`, this component will be able to make use of
+  /// the `componentDidCatch` and `getDerivedStateFromError` component lifecycle
+  /// methods in order to "catch" ReactJS errors from within its child component tree.
+  ///
+  /// Check out the `ErrorBoundary` higher-order component for an example implementation.
+  ///
+  ///  > TODO (CPLAT-5037): Add an example of how to utilize the
+  ///   `ErrorBoundaryMixin`, `ErrorBoundaryPropsMixin` and `ErrorBoundaryStateMixin` classes
+  ///   in order to add default error boundary component behaviors to custom error boundaries.
+  ///
+  /// > See: <https://reactjs.org/docs/error-boundaries.html>
+  final bool isErrorBoundary;
+
+  /// The component class of this component's "parent type".
+  ///
+  /// Used to enable inheritance in component type-checking in `isComponentOfType`.
+  ///
+  /// E.g., if component `Bar` is a subtype of component `Foo`:
+  ///
+  ///     @Factory()
+  ///     UiFactory<...> Foo = _$Foo;
+  ///     ...
+  ///     @Component2()
+  ///     class FooComponent ... {...}
+  ///
+  ///     @Factory()
+  ///     UiFactory<...> Bar = _$Bar;
+  ///     ...
+  ///     @Component2(subtypeOf: FooComponent)
+  ///     class BarComponent ... {...}
+  ///
+  /// then:
+  ///
+  ///     isComponentOfType(Bar()(), Bar); // true (due to normal type-checking)
+  ///     isComponentOfType(Bar()(), Foo); // true (due to parent type-checking)
+  @override
+  final Type subtypeOf;
+
+  const Component2({
+      this.isWrapper = false,
+      this.subtypeOf,
+      this.isErrorBoundary = false,
   });
 }
 
@@ -140,8 +204,19 @@ class AbstractState implements TypedMap {
 ///
 ///     @AbstractComponent()
 ///     abstract class QuxComponent<TProps extends QuxProps> extends UiComponent<TProps> {}
+///
+/// __Deprecated.__ Use the [AbstractComponent2] annotation alongside `UiComponent2` / `UiStatefulComponent2` instead.
+@Deprecated('4.0.0')
 class AbstractComponent {
   const AbstractComponent();
+}
+
+/// Annotation used with the `over_react` builder to declare an abstract `UiComponent2` class for an abstract component.
+///
+///     @AbstractComponent2()
+///     abstract class FooComponent<TProps extends QuxProps> extends UiComponent2<TProps> {}
+class AbstractComponent2 implements AbstractComponent { // ignore: deprecated_member_use_from_same_package
+  const AbstractComponent2();
 }
 
 /// Annotation used with the `over_react` builder to declare a mixin for use in a `UiProps` class.
@@ -254,20 +329,6 @@ class Accessor {
     this.requiredErrorMessage,
     this.doNotGenerate = false,
   });
-}
-
-/// Deprecated.
-///
-/// Use [Accessor], [requiredProp], or [nullableRequiredProp] instead.
-@Deprecated('2.0.0')
-class Required {
-  /// Whether setting a prop to null is allowed.
-  final bool isNullable;
-
-  /// The message displayed when the prop is not set.
-  final String message;
-
-  const Required({this.isNullable = false, this.message});
 }
 
 abstract class TypedMap {

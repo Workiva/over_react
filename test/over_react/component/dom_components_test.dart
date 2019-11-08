@@ -83,7 +83,7 @@ main() {
       if (expectedTagName == 'missingGlyph') expectedTagName = 'missing-glyph';
       if (expectedTagName.startsWith(RegExp('svg.'))) expectedTagName = expectedTagName.substring(3);
 
-      test('${method.toString()} generates the correct type', () {
+      test('Dom.$methodName() generates the correct type', () {
         DomProps builder = method();
         ReactElement component = builder();
         expect(component.type, equalsIgnoringCase(expectedTagName));
@@ -95,15 +95,15 @@ main() {
       final SvgProps svg = Dom.circle();
 
       test('DomProps is a subtype of `UiProps` exported by over_react.dart', () {
-        expect(dom, const TypeMatcher<UiProps>());
+        expect(dom, isA<UiProps>());
       });
 
       test('SvgProps is a subtype of `UiProps` exported by over_react.dart', () {
-        expect(svg, const TypeMatcher<UiProps>());
+        expect(svg, isA<UiProps>());
       });
 
       test('SvgProps is a subtype of `DomProps`', () {
-        expect(svg, const TypeMatcher<DomProps>());
+        expect(svg, isA<DomProps>());
       });
     });
   });

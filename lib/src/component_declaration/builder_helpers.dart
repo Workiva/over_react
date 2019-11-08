@@ -14,8 +14,6 @@
 
 library over_react.component_declaration.builder_helpers;
 
-import 'package:react/react_client.dart';
-
 import './component_base.dart' as component_base;
 import './annotations.dart' as annotations;
 
@@ -44,15 +42,10 @@ class GeneratedClass {
   }
 }
 
-/// See: [component_base.UiComponent]
-///
-/// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
-abstract class UiComponent<TProps extends UiProps> extends component_base.UiComponent<TProps> with GeneratedClass {
-  /// This class should not be instantiated directly, and throws an error to indicate this.
-  UiComponent() {
-    _throwIfNotGenerated();
-  }
-
+/// Do not implement component_base.UiComponent via `implements` or `on`. This is
+/// to work around https://github.com/dart-lang/sdk/issues/38098.
+mixin _GeneratedUiComponentStubs<TProps extends UiProps>
+    implements GeneratedClass {
   /// The default consumed props, taken from the keys generated in the associated @[annotations.Props] class.
   @toBeGenerated
   Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw UngeneratedError(member: #$defaultConsumedProps);
@@ -61,54 +54,51 @@ abstract class UiComponent<TProps extends UiProps> extends component_base.UiComp
   ///
   /// For generated components, this defaults to the keys generated in the associated @[annotations.Props] class
   /// if this getter is not overridden.
-  @override
   Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
 
   /// Returns a typed props object backed by the specified [propsMap].
   /// Required to properly instantiate the generic [TProps] class.
-  @override
   @toBeGenerated
   TProps typedPropsFactory(Map propsMap) => throw UngeneratedError(member: #typedPropsFactory);
+}
+
+/// See: [component_base.UiComponent]
+///
+/// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
+///
+/// __Deprecated.__ Use `UiComponent2` instead. Will be removed in the `4.0.0` release.
+@Deprecated('4.0.0')
+abstract class UiComponent<TProps extends UiProps>
+    extends component_base.UiComponent<TProps>
+    with
+        GeneratedClass,
+        _GeneratedUiComponentStubs<TProps> {
+  /// This class should not be instantiated directly, and throws an error to indicate this.
+  UiComponent() {
+    _throwIfNotGenerated();
+  }
 }
 
 /// See: [component_base.UiStatefulComponent]
 ///
 /// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
+///
+/// __Deprecated.__ Use `UiStatefulComponent2` instead. Will be removed in the `4.0.0` release.
+@Deprecated('4.0.0')
 abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState>
-    extends component_base.UiStatefulComponent<TProps, TState> with GeneratedClass {
+    extends component_base.UiStatefulComponent<TProps, TState>
+    with
+        GeneratedClass,
+        _GeneratedUiComponentStubs<TProps> {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiStatefulComponent() {
     _throwIfNotGenerated();
   }
 
-  /// The default consumed prop keys, taken from the keys generated in the associated @[annotations.Props] class.
-  @toBeGenerated
-  Iterable<component_base.ConsumedProps> get $defaultConsumedProps => throw UngeneratedError(member: #$defaultConsumedProps);
-
-  /// The keys for the non-forwarding props defined in this component.
-  ///
-  /// For generated components, this defaults to the keys generated in the associated @[annotations.Props] class
-  /// if this getter is not overridden.
-  @override
-  Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
-
-  /// Returns a typed props object backed by the specified [propsMap].
-  ///
-  /// Required to properly instantiate the generic [TProps] class.
   @override
   @toBeGenerated
-  TProps typedPropsFactory(Map propsMap) => throw UngeneratedError(member: #typedPropsFactory);
-
-  /// Returns a typed state object backed by the specified [stateMap].
-  ///
-  /// Required to properly instantiate the generic [TState] class.
-  @override @toBeGenerated TState typedStateFactory(Map stateMap) => throw UngeneratedError(member: #typedStateFactory, message:
-      '${#typedStateFactory}` should be implemented by code generation.\n\n'
-      'This error may be due to your `UiState` class not being annotated with `@State()`,\n'
-      'or because you are extending a stateful component without redeclaring your own `@State()`, like so:\n\n'
-      '    @State()\n'
-      '    class MyState extends SuperState {}\n'
-  );
+  TState typedStateFactory(Map stateMap) => throw UngeneratedError(member: #typedStateFactory,
+      message: GeneratedErrorMessages.typedStateFactory);
 }
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React props that
@@ -124,9 +114,9 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
     _throwIfNotGenerated();
   }
 
-  @toBeGenerated String get propKeyNamespace                               => throw UngeneratedError(member: #propKeyNamespace);
-  @override @toBeGenerated Map get props                                   => throw UngeneratedError(member: #props);
-  @override @toBeGenerated ReactComponentFactoryProxy get componentFactory => throw UngeneratedError(member: #componentFactory);
+  @toBeGenerated String get propKeyNamespace => throw UngeneratedError(member: #propKeyNamespace);
+
+  @override @toBeGenerated Map get props => throw UngeneratedError(member: #props);
 }
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
@@ -162,11 +152,11 @@ class UngeneratedError extends Error implements UnimplementedError {
   @override
   final String message;
   UngeneratedError({String message, Symbol member}) :
-      this.message = message ?? '`$member` should be implemented by code generation';
+      this.message = '${member != null ? '' : '`$member` should be implemented by code generation.\n\n'}$message';
 
   @override
   String toString() =>
-      'UngeneratedError: $message.\n\n'
+      'UngeneratedError: ${message.trimRight()}.\n\n'
       'Ensure that you\'re running a build via build_runner.';
 }
 
@@ -186,3 +176,15 @@ class IllegalInstantiationError extends Error {
       '`package:over_react/src/component_declaration/component_base.dart` '
       'library directly. ';
 }
+
+
+abstract class GeneratedErrorMessages {
+  static const String typedStateFactory = '\n\n'
+        'This error may be due to your `UiState` class not being annotated with `@State()`,\n'
+        'or because you are extending a stateful component without redeclaring your own `@State()`, like so:\n\n'
+        '    @State()\n';
+
+  static const String component1AnnotationOnComponent2 = '\n\n'
+        'This error may be due to using @Component() instead of @Component2() on your component extending from UiComponent2.';
+}
+

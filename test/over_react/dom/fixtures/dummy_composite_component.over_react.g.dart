@@ -107,8 +107,7 @@ class _$$TestCompositeComponentProps extends _$TestCompositeComponentProps
     with _$TestCompositeComponentPropsAccessorsMixin
     implements TestCompositeComponentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestCompositeComponentProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
@@ -125,7 +124,7 @@ class _$$TestCompositeComponentProps extends _$TestCompositeComponentProps
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      $TestCompositeComponentComponentFactory;
+      super.componentFactory ?? $TestCompositeComponentComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

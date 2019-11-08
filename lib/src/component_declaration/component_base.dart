@@ -15,20 +15,27 @@
 // ignore_for_file: prefer_generic_function_type_aliases
 library over_react.component_declaration.component_base;
 
-import 'dart:async';
 import 'dart:collection';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
-
-import 'package:over_react/src/component_declaration/component_type_checking.dart';
-import 'package:over_react/src/component_declaration/util.dart';
+import 'package:over_react/src/component/dummy_component.dart';
+import 'package:over_react/src/component/prop_mixins.dart';
+import 'package:over_react/src/util/class_names.dart';
+import 'package:over_react/src/util/map_util.dart';
+import 'package:over_react/src/util/pretty_print.dart';
+import 'package:over_react/src/util/prop_errors.dart';
+import 'package:over_react/src/util/string_util.dart';
 import 'package:over_react/src/util/test_mode.dart';
+import 'package:over_react/src/util/validation_util.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
-import 'package:w_common/disposable.dart';
+import 'package:react/react_client/react_interop.dart';
 
-export 'package:over_react/src/component_declaration/component_type_checking.dart' show isComponentOfType, isValidElementOfType;
+import 'component_type_checking.dart';
+import 'disposable_manager_proxy.dart';
+import 'util.dart';
+
+export 'component_type_checking.dart' show isComponentOfType, isValidElementOfType;
 
 /// Helper function that wraps react.registerComponent, and allows attachment of additional
 /// component factory metadata.
@@ -40,13 +47,18 @@ export 'package:over_react/src/component_declaration/component_type_checking.dar
 /// used as types for [isComponentOfType]/`getComponentFactory`.
 ///
 /// * [displayName]: the name of the component for use when debugging.
-ReactDartComponentFactoryProxy registerComponent(
-    react.Component Function() dartComponentFactory,
-    {bool isWrapper = false,
+///
+/// __Deprecated.__ Use `registerComponent2` instead.
+@Deprecated('4.0.0')
+ReactDartComponentFactoryProxy registerComponent(react.Component Function() dartComponentFactory, {
+    bool isWrapper = false,
+    // ignore: deprecated_member_use
     ReactDartComponentFactoryProxy parentType,
     UiFactory builderFactory,
     Type componentClass,
-    String displayName}) {
+    String displayName,
+}) {
+  // ignore: deprecated_member_use
   ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
 
   if (displayName != null) {
@@ -67,6 +79,9 @@ ReactDartComponentFactoryProxy registerComponent(
 /// __The result must be stored in a variable that is named very specifically:__
 ///
 ///     var $`AbstractComponentClassName`Factory = registerAbstractComponent(`AbstractComponentClassName`);
+///
+/// __Deprecated.__ Use `registerAbstractComponent2` instead. Will be removed in the `4.0.0` release.
+@Deprecated('4.0.0')
 ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentClass, {ReactDartComponentFactoryProxy parentType}) =>
     registerComponent(() => DummyComponent(), componentClass: abstractComponentClass, parentType: parentType);
 
@@ -126,9 +141,10 @@ typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 ///     }
 ///
 /// > Related: [UiStatefulComponent]
-abstract class UiComponent<TProps extends UiProps> extends react.Component implements DisposableManagerV7 {
-  Disposable _disposableProxy;
-
+///
+/// __Deprecated.__ Use `UiComponent2` instead. Will be removed in the `4.0.0` release.
+@Deprecated('4.0.0')
+abstract class UiComponent<TProps extends UiProps> extends react.Component with DisposableManagerProxy {
   /// The props for the non-forwarding props defined in this component.
   Iterable<ConsumedProps> get consumedProps => null;
 
@@ -224,12 +240,6 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
     }
   }
 
-  @override
-  @mustCallSuper
-  void componentWillUnmount() {
-    _disposableProxy?.dispose();
-  }
-
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
   //   BEGIN Typed props helpers
@@ -273,104 +283,6 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
   //   END Typed props helpers
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
-
-  // ----------------------------------------------------------------------
-  // ----------------------------------------------------------------------
-  //   BEGIN DisposableManagerV7 interface implementation
-  //
-
-  @override
-  Future<T> awaitBeforeDispose<T>(Future<T> future) =>
-      _getDisposableProxy().awaitBeforeDispose<T>(future);
-
-  @override
-  Future<T> getManagedDelayedFuture<T>(Duration duration, T Function() callback) =>
-      _getDisposableProxy().getManagedDelayedFuture<T>(duration, callback);
-
-  @override
-  ManagedDisposer getManagedDisposer(Disposer disposer) =>
-      _getDisposableProxy().getManagedDisposer(disposer);
-
-  @override
-  Timer getManagedPeriodicTimer(Duration duration, void Function(Timer timer) callback) =>
-      _getDisposableProxy().getManagedPeriodicTimer(duration, callback);
-
-  @override
-  Timer getManagedTimer(Duration duration, void Function() callback) =>
-      _getDisposableProxy().getManagedTimer(duration, callback);
-
-  @override
-  StreamSubscription<T> listenToStream<T>(
-          Stream<T> stream, void Function(T event) onData,
-      {Function onError, void Function() onDone, bool cancelOnError}) =>
-      _getDisposableProxy().listenToStream(
-        stream, onData, onError: onError, onDone: onDone, cancelOnError: cancelOnError);
-
-  @override
-  Disposable manageAndReturnDisposable(Disposable disposable) =>
-      _getDisposableProxy().manageAndReturnDisposable(disposable);
-
-  @override
-  Completer<T> manageCompleter<T>(Completer<T> completer) =>
-      _getDisposableProxy().manageCompleter<T>(completer);
-
-  @override
-  void manageDisposable(Disposable disposable) =>
-      _getDisposableProxy().manageDisposable(disposable);
-
-  /// DEPRECATED. Use [getManagedDisposer] instead.
-  @Deprecated('2.0.0')
-  @override
-  void manageDisposer(Disposer disposer) =>
-      _getDisposableProxy().manageDisposer(disposer);
-
-  @override
-  void manageStreamController(StreamController controller) =>
-      _getDisposableProxy().manageStreamController(controller);
-
-  /// DEPRECATED. Use [listenToStream] instead.
-  @Deprecated('2.0.0')
-  @override
-  void manageStreamSubscription(StreamSubscription subscription) =>
-      _getDisposableProxy().manageStreamSubscription(subscription);
-
-  /// Instantiates a new [Disposable] instance on the first call to the
-  /// [DisposableManagerV7] method.
-  Disposable _getDisposableProxy() {
-    return _disposableProxy ??= Disposable();
-  }
-
-  /// Automatically dispose another object when this object is disposed.
-  ///
-  /// This method is an extension to `manageAndReturnDisposable` and returns the
-  /// passed in [Disposable] as its original type in addition to handling its
-  /// disposal. The method should be used when a variable is set and should
-  /// conditionally be managed for disposal. The most common case will be dealing
-  /// with optional parameters:
-  ///
-  ///      class MyDisposable extends Disposable {
-  ///        // This object also extends disposable
-  ///        MyObject _internal;
-  ///
-  ///        MyDisposable({MyObject optional}) {
-  ///          // If optional is injected, we should not manage it.
-  ///          // If we create our own internal reference we should manage it.
-  ///          _internal = optional ??
-  ///              manageAndReturnTypedDisposable(new MyObject());
-  ///        }
-  ///
-  ///        // ...
-  ///      }
-  ///
-  /// The parameter may not be `null`.
-  @override
-  T manageAndReturnTypedDisposable<T extends Disposable>(T disposable) =>
-      _getDisposableProxy().manageAndReturnTypedDisposable(disposable);
-
-  //
-  //   END DisposableManagerV7 interface implementation
-  // ----------------------------------------------------------------------
-  // ----------------------------------------------------------------------
 }
 
 /// The basis for a _stateful_ over_react component.
@@ -398,6 +310,9 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component imple
 ///         )(props.children);
 ///       }
 ///     }
+///
+/// __Deprecated.__ Use `UiStatefulComponent2` instead. Will be removed in the `4.0.0` release.
+@Deprecated('4.0.0')
 abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiState> extends UiComponent<TProps> {
   // ----------------------------------------------------------------------
   // ----------------------------------------------------------------------
@@ -457,7 +372,7 @@ class _WarnOnModify<K, V> extends MapView<K, V> {
     if (isProps) {
       message =
         '''
-          props["$key"] was updated incorrectly. Never mutate this.props directly, as it can cause unexpected behavior; 
+          props["$key"] was updated incorrectly. Never mutate this.props directly, as it can cause unexpected behavior;
           props must be updated only by passing in new values when re-rendering this component.
 
           This will throw in UiComponentV2 (to be released as part of the React 16 upgrade).
@@ -465,7 +380,7 @@ class _WarnOnModify<K, V> extends MapView<K, V> {
     } else {
       message =
         '''
-          state["$key"] was updated incorrectly. Never mutate this.state directly, as it can cause unexpected behavior; 
+          state["$key"] was updated incorrectly. Never mutate this.state directly, as it can cause unexpected behavior;
           state must be updated only via setState.
 
           This will throw in UiComponentV2 (to be released as part of the React 16 upgrade).
@@ -496,7 +411,7 @@ typedef PropsModifier(Map props);
 /// For use as a typed view into existing props [Map]s, or as a builder to create new component
 /// instances via a fluent-style interface.
 ///
-/// > Note: Implements [MapViewMixin] instead of extending it so that the abstract [Props] declarations
+/// > Note: Implements [MapViewMixin] instead of extending it so that the abstract `Props` declarations
 /// don't need a constructor. The generated implementations can mix that functionality in.
 abstract class UiProps extends MapBase
     with
@@ -671,11 +586,13 @@ abstract class UiProps extends MapBase
     return true;
   }
 
-  ReactComponentFactoryProxy get componentFactory;
+  ReactComponentFactoryProxy componentFactory;
 
   /// An unmodifiable map view of the default props for this component brought
   /// in from the [componentFactory].
+  // ignore: deprecated_member_use
   Map get componentDefaultProps => componentFactory is ReactDartComponentFactoryProxy
+      // ignore: deprecated_member_use
       ? (componentFactory as ReactDartComponentFactoryProxy).defaultProps
       : const {};
 }
@@ -818,13 +735,13 @@ abstract class AccessorMeta<T extends _Descriptor> {
 }
 
 /// Metadata for the prop fields declared in a specific props class--
-/// a class annotated with @[Props], @[PropsMixin], @[AbstractProps], etc.
+/// a class annotated with `@Props`, `@PropsMixin`, `@AbstractProps`, etc.
 /// for which prop accessors are generated.
 ///
 /// This metadata includes map key values corresponding to these fields, which
 /// is used in `consumedPropKeys`, as well as other prop
-/// configuration done via @[Accessor]/@[requiredProp]/etc., which is used to
-/// perform prop validation within [UiComponent] lifecycle methods.
+/// configuration done via `@Accessor`/`@requiredProp`/etc., which is used to
+/// perform prop validation within `UiComponent` lifecycle methods.
 ///
 /// This metadata is generated as part of the over_react builder, and should be
 /// exposed like so:
@@ -834,7 +751,7 @@ abstract class AccessorMeta<T extends _Descriptor> {
 ///
 ///       String foo;
 ///
-///       @Accessor(isRequired = true, key = 'custom_key', keyNamespace = 'custom_namespace')
+///       @Accessor(isRequired: true, key: 'custom_key', keyNamespace: 'custom_namespace')
 ///       int bar;
 ///     }
 ///
@@ -844,7 +761,7 @@ abstract class AccessorMeta<T extends _Descriptor> {
 ///       print(FooProps.meta.props.map((p) => p.isRequired); // (false, true))
 ///     }
 ///
-/// _See also: [getPropKey]_
+/// _See also: `getPropKey`_
 class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
   /// Rich views of prop field declarations.
   ///
@@ -863,11 +780,11 @@ class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
 }
 
 /// Metadata for the state fields declared in a specific state class--
-/// a class annotated with @[State], @[StateMixin], @[AbstractState], etc.
+/// a class annotated with `@State`, `@StateMixin`, `@AbstractState`, etc.
 /// for which state accessors are generated.
 ///
 /// This metadata includes map key values corresponding to these fields, which
-/// is used to perform state validation within [UiComponent] lifecycle methods.
+/// is used to perform state validation within `UiComponent` lifecycle methods.
 ///
 /// This metadata is generated as part of the over_react builder, and should be
 /// exposed like so:

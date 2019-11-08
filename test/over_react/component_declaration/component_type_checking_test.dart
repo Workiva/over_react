@@ -31,8 +31,68 @@ import 'component_type_checking_test/type_inheritance/parent.dart';
 import 'component_type_checking_test/type_inheritance/subsubtype.dart';
 import 'component_type_checking_test/type_inheritance/subtype.dart';
 
+import '../../test_util/component2/one_level_wrapper2.dart';
+import '../../test_util/component2/two_level_wrapper2.dart';
+import 'component2_type_checking_test/test_a2.dart';
+import 'component2_type_checking_test/test_b2.dart';
+import 'component2_type_checking_test/type_inheritance/abstract_inheritance/abstract2.dart';
+import 'component2_type_checking_test/type_inheritance/abstract_inheritance/extendedtype2.dart';
+import 'component2_type_checking_test/type_inheritance/parent2.dart';
+import 'component2_type_checking_test/type_inheritance/subsubtype2.dart';
+import 'component2_type_checking_test/type_inheritance/subtype2.dart';
+
 main() {
-  group('component type checking:', () {
+  group('Component1', () {
+    testComponentTypeChecking(
+      TestParent: TestParent,
+      TestSubtype: TestSubtype,
+      TestSubsubtype: TestSubsubtype,
+      TestExtendtype: TestExtendtype,
+      TestExtendtypeComponent: TestExtendtypeComponent,
+      TestAbstractComponent: TestAbstractComponent,
+      TestA: TestA,
+      TestAComponent: TestAComponent,
+      TestB: TestB,
+      TestBComponent: TestBComponent,
+      OneLevelWrapper: OneLevelWrapper,
+      TwoLevelWrapper: TwoLevelWrapper,
+    );
+  });
+  group('Component2', () {
+    testComponentTypeChecking(
+      isComponent2: true,
+      TestParent: TestParent2,
+      TestSubtype: TestSubtype2,
+      TestSubsubtype: TestSubsubtype2,
+      TestExtendtype: TestExtendtype2,
+      TestExtendtypeComponent: TestExtendtype2Component,
+      TestAbstractComponent: TestAbstract2Component,
+      TestA: TestA2,
+      TestAComponent: TestA2Component,
+      TestB: TestB2,
+      TestBComponent: TestB2Component,
+      OneLevelWrapper: OneLevelWrapper2,
+      TwoLevelWrapper: TwoLevelWrapper2,
+    );
+  });
+}
+
+testComponentTypeChecking({
+  bool isComponent2 = false,
+  UiFactory TestParent,
+  UiFactory TestSubtype,
+  UiFactory TestSubsubtype,
+  UiFactory TestExtendtype,
+  Type TestExtendtypeComponent,
+  Type TestAbstractComponent,
+  UiFactory TestA,
+  Type TestAComponent,
+  UiFactory TestB,
+  Type TestBComponent,
+  UiFactory OneLevelWrapper,
+  UiFactory TwoLevelWrapper,
+}) {
+  group('type checking:', () {
     group('getComponentTypeFromAlias', () {
       group('passes through valid component types:', () {
         test('String', () {
@@ -45,9 +105,10 @@ main() {
         });
       });
 
-      test('returns the ReactClass type for a ReactDartComponentFactoryProxy', () {
+      test('returns the ReactClass type for a ReactDartComponentFactoryProxy${isComponent2 ? '2' : ''}', () {
         var reactClass = createTestReactClass();
-        var factory = ReactDartComponentFactoryProxy(reactClass);
+        // ignore: deprecated_member_use
+        var factory = isComponent2 ? ReactDartComponentFactoryProxy2(reactClass) : ReactDartComponentFactoryProxy(reactClass);
         expect(getComponentTypeFromAlias(factory), same(reactClass));
       });
 
@@ -56,9 +117,10 @@ main() {
         expect(getComponentTypeFromAlias(factory), equals('div'));
       });
 
-      test('returns the ReactClass type for an aliased ReactDartComponentFactoryProxy', () {
+      test('returns the ReactClass type for an aliased ReactDartComponentFactoryProxy${isComponent2 ? '2' : ''}', () {
         var reactClass = createTestReactClass();
-        var factory = ReactDartComponentFactoryProxy(reactClass);
+        // ignore: deprecated_member_use
+        var factory = isComponent2 ? ReactDartComponentFactoryProxy2(reactClass) : ReactDartComponentFactoryProxy(reactClass);
 
         var typeAlias = Object();
         registerComponentTypeAlias(factory, typeAlias);
@@ -121,8 +183,7 @@ main() {
                 getParentTypes(getComponentTypeFromAlias(TestSubtype)),
                 orderedEquals([
                   getComponentTypeFromAlias(TestParent),
-                ])
-            );
+                ]));
           });
 
           test('that contains all of a component\'s parent types', () {
@@ -131,8 +192,7 @@ main() {
                 orderedEquals([
                   getComponentTypeFromAlias(TestSubtype),
                   getComponentTypeFromAlias(TestParent),
-                ])
-            );
+                ]));
           });
 
           test('that contains all of a component\'s parent abstract types', () {
@@ -140,8 +200,7 @@ main() {
                 getParentTypes(getComponentTypeFromAlias(TestExtendtypeComponent)),
                 orderedEquals([
                   getComponentTypeFromAlias(TestAbstractComponent),
-                ])
-            );
+                ]));
           });
         });
 
@@ -149,13 +208,13 @@ main() {
           expect(() {
             // Fully iterate the result by calling toList().
             getParentTypes(Object()).toList();
-          }, throwsA(const TypeMatcher<AssertionError>()));
+          }, throwsA(isA<AssertionError>()));
         }, testOn: '!js');
       });
     });
 
     group('isComponentOfType()', () {
-      group('returns expected result when given', (){
+      group('returns expected result when given', () {
         test('null', () {
           expect(isComponentOfType(null, TestA), isFalse);
         });
@@ -267,35 +326,22 @@ main() {
         group('a component that nests the component factory', () {
           group('one level deep and traverseWrappers is', () {
             test('true', () {
-              expect(isComponentOfType(
-                  OneLevelWrapper()(TestA()()),
-                  TestA
-              ), isTrue);
+              expect(isComponentOfType(OneLevelWrapper()(TestA()()), TestA), isTrue);
             });
 
             test('false', () {
-              expect(isComponentOfType(
-                  OneLevelWrapper()(TestA()()),
-                  TestA,
-                  traverseWrappers: false
-              ), isFalse);
+              expect(isComponentOfType(OneLevelWrapper()(TestA()()), TestA, traverseWrappers: false), isFalse);
             });
           });
 
           group('two levels deep and traverseWrappers is', () {
             test('true', () {
-              expect(isComponentOfType(
-                  TwoLevelWrapper()(OneLevelWrapper()(TestA()())),
-                  TestA
-              ), isTrue);
+              expect(isComponentOfType(TwoLevelWrapper()(OneLevelWrapper()(TestA()())), TestA), isTrue);
             });
 
             test('false', () {
-              expect(isComponentOfType(
-                  TwoLevelWrapper()(OneLevelWrapper()(TestA()())),
-                  TestA,
-                  traverseWrappers: false
-              ), isFalse);
+              expect(isComponentOfType(TwoLevelWrapper()(OneLevelWrapper()(TestA()())), TestA, traverseWrappers: false),
+                  isFalse);
             });
           });
 
@@ -307,7 +353,7 @@ main() {
     });
 
     group('isValidElementOfType()', () {
-      group('returns expected result when given', (){
+      group('returns expected result when given', () {
         test('null', () {
           expect(isValidElementOfType(null, TestA), isFalse);
         });
@@ -330,6 +376,5 @@ main() {
 
 ReactClass createTestReactClass() {
   // ignore: deprecated_member_use
-  return React.createClass(ReactClassConfig(render: allowInterop(() => false)))
-      ..dartDefaultProps = const {};
+  return React.createClass(ReactClassConfig(render: allowInterop(() => false)))..dartDefaultProps = const {};
 }

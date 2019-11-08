@@ -19,6 +19,7 @@ presets:
       - test/over_react_component_test.dart
       - test/over_react_dom_test.dart
       - test/over_react_util_test.dart
+      - test/over_react_redux_test.dart
 
   dart2js:
     exclude_tags: ddc
@@ -27,6 +28,7 @@ presets:
       - test/over_react_component_test.dart
       - test/over_react_dom_test.dart
       - test/over_react_util_test.dart
+      - test/over_react_redux_test.dart
 
   travis:
     reporter: expanded

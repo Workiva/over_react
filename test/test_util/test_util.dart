@@ -14,4 +14,15 @@
 
 library test_util;
 
+import 'dart:js_util';
+
+import 'package:over_react/over_react.dart';
+
 export 'package:over_react_test/over_react_test.dart';
+
+dynamic getJsChildren(instance) => getProperty(instance.props, 'children');
+
+dynamic getDartChildren(var renderedInstance) {
+  assert(isDartComponent(renderedInstance));
+  return getProps(renderedInstance)['children'];
+}

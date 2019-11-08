@@ -12,15 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
+
 library over_react.component_declaration.flux_component;
 
 import 'dart:async';
+
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
+import 'package:over_react/component_base.dart' as component_base;
 import 'package:w_flux/w_flux.dart';
 
-import './annotations.dart' as annotations;
-import './builder_helpers.dart';
+import 'annotations.dart' as annotations;
+import 'builder_helpers.dart';
+import 'component_base_2.dart';
 
 /// Builds on top of [UiProps], adding typed props for [Action]s and [Store]s in order to integrate with w_flux.
 ///
@@ -68,34 +73,25 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
 /// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
 ///
 /// > Related: [FluxUiStatefulComponent]
+///
+/// __Deprecated.__ Use [FluxUiComponent2] instead.
+@Deprecated('4.0.0')
 abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<TProps>
-    with _FluxComponentMixin<TProps>, BatchedRedraws {
-  // Redeclare these lifecycle methods with `mustCallSuper`, since `mustCallSuper` added to methods within
-  // mixins doesn't work. See https://github.com/dart-lang/sdk/issues/29861
-
+    with BatchedRedraws, _FluxComponentMixin<TProps> {
   @mustCallSuper
   @override
   void componentWillMount() {
     super.componentWillMount();
-    _componentWillMount();
+    _setUpStoreListeners();
   }
 
   @mustCallSuper
   @override
-  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
-  // ignore: must_call_super
   void componentWillReceiveProps(Map nextProps);
 
   @mustCallSuper
   @override
   void componentDidUpdate(Map prevProps, Map prevState);
-
-  @mustCallSuper
-  @override
-  void componentWillUnmount() {
-    super.componentWillUnmount();
-    _componentWillUnmount();
-  }
 }
 
 /// Builds on top of [UiStatefulComponent], adding `w_flux` integration, much like the [FluxComponent] in w_flux.
@@ -108,43 +104,66 @@ abstract class FluxUiComponent<TProps extends FluxUiProps> extends UiComponent<T
 /// Use with the over_react builder via the `@Component()` ([annotations.Component]) annotation.
 ///
 /// > Related: [FluxUiComponent]
+///
+///
+/// __Deprecated.__ Use [FluxUiStatefulComponent2] instead.
+@Deprecated('4.0.0')
 abstract class FluxUiStatefulComponent<TProps extends FluxUiProps, TState extends UiState>
     extends UiStatefulComponent<TProps, TState>
-    with _FluxComponentMixin<TProps>, BatchedRedraws {
-  // Redeclare these lifecycle methods with `mustCallSuper`, since `mustCallSuper` added to methods within
-  // mixins doesn't work. See https://github.com/dart-lang/sdk/issues/29861
-
+    with BatchedRedraws, _FluxComponentMixin<TProps> {
   @mustCallSuper
   @override
   void componentWillMount() {
     super.componentWillMount();
-    _componentWillMount();
+    _setUpStoreListeners();
   }
 
   @mustCallSuper
   @override
-  // Ignore this warning to work around https://github.com/dart-lang/sdk/issues/29860
-  // ignore: must_call_super
   void componentWillReceiveProps(Map nextProps);
 
   @mustCallSuper
   @override
   void componentDidUpdate(Map prevProps, Map prevState);
+}
 
+/// Builds on top of [UiComponent2], adding w_flux integration, much like the [FluxComponent] in w_flux.
+///
+/// * Flux components are responsible for rendering application views and turning
+///   user interactions and events into [Action]s.
+/// * Flux components can use data from one or many [Store] instances to define
+///   the resulting component.
+///
+/// Use with the over_react builder via the `@Component2()` ([annotations.Component2]) annotation.
+///
+/// > Related: [FluxUiStatefulComponent2]
+abstract class FluxUiComponent2<TProps extends FluxUiProps> extends UiComponent2<TProps>
+    with BatchedRedraws, _FluxComponentMixin<TProps> {
   @mustCallSuper
   @override
-  void componentWillUnmount() {
-    super.componentWillUnmount();
-    _componentWillUnmount();
+  void componentDidMount() {
+    _setUpStoreListeners();
   }
 }
+
+/// Builds on top of [UiStatefulComponent2], adding `w_flux` integration, much like the [FluxComponent] in w_flux.
+///
+/// * Flux components are responsible for rendering application views and turning
+///   user interactions and events into [Action]s.
+/// * Flux components can use data from one or many [Store] instances to define
+///   the resulting component.
+///
+/// Use with the over_react builder via the `@Component2()` ([annotations.Component2]) annotation.
+///
+/// > Related: [FluxUiComponent2]
+abstract class FluxUiStatefulComponent2<TProps extends FluxUiProps, TState extends UiState>
+    extends FluxUiComponent2<TProps> with UiStatefulMixin2<TProps, TState> {}
 
 /// Helper mixin to keep [FluxUiComponent] and [FluxUiStatefulComponent] clean/DRY.
 ///
 /// Private so it will only get used in this file, since having lifecycle methods in a mixin is risky.
-abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements BatchedRedraws {
+mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiComponent<TProps>, BatchedRedraws {
   static final Logger _logger = Logger('over_react._FluxComponentMixin');
-  TProps get props;
 
   /// List of store subscriptions created when the component mounts.
   ///
@@ -164,8 +183,7 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
     if (isDisposedOrDisposing) _logger.warning(message);
   }
 
-  // This is private and called by classes to work around super-calls not being supported in mixins
-  void _componentWillMount() {
+  void _setUpStoreListeners() {
     // Subscribe to all applicable stores.
     //
     // Stores returned by `redrawOn()` will have their triggers mapped directly
@@ -210,7 +228,11 @@ abstract class _FluxComponentMixin<TProps extends FluxUiProps> implements Batche
   }
 
   // This is private and called by classes to work around super-calls not being supported in mixins
-  void _componentWillUnmount() {
+  @override
+  @mustCallSuper
+  void componentWillUnmount() {
+    super.componentWillUnmount();
+
     // Ensure that unmounted components don't batch render
     shouldBatchRedraw = false;
 

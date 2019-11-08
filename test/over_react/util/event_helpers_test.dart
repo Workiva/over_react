@@ -149,7 +149,7 @@ main() {
     expect(fakeEvent.isTrusted, isFalse);
     expect(fakeEvent.nativeEvent, isNull);
     expect(fakeEvent.target, element);
-    expect(fakeEvent.timeStamp, const TypeMatcher<int>());
+    expect(fakeEvent.timeStamp, isA<int>());
     expect(fakeEvent.type, 'change');
   });
 }

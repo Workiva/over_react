@@ -3,7 +3,14 @@ import 'package:mockito/mockito.dart';
 
 const String factorySrc                  = '\n@Factory()\nUiFactory<FooProps> Foo = _\$Foo;\n';
 const String componentSrc                = '\n@Component()\nclass FooComponent {render() {return null;}}\n';
+const String component2Src               = '\n@Component2()\nclass FooComponent {render() {return null;}}\n';
+const String component2LegacySrc         = '\n@Component2()\nclass FooComponent {'
+                                                'componentWillMount() {return null;} '
+                                                'componentWillReceiveProps() {return null;} '
+                                                'componentWillUpdate() {return null;} '
+                                                'render() {return null;}}\n';
 const String abstractComponentSrc        = '\n@AbstractComponent()\nclass AbstractFooComponent {}\n';
+const String abstractComponent2Src       = '\n@AbstractComponent2()\nclass AbstractFooComponent {}\n';
 
 const String propsSrc                    = '\n@Props()\nclass _\$FooProps {}\n';
 const String privatePropsSrc             = '\n@Props()\nclass _\$_FooProps {}\n';
@@ -68,6 +75,7 @@ class OverReactSrc {
     this.componentBody = '',
     this.needsComponent = false,
     this.typeParameters = false,
+    this.componentVersion = 1,
     isPrivate = false})
       :
         this.annotation = AnnotationType.abstractProps,
@@ -101,6 +109,7 @@ class OverReactSrc {
     this.componentBody = '',
     this.needsComponent = false,
     this.typeParameters = false,
+    this.componentVersion = 1,
     isPrivate = false})
       :
         this.annotation = AnnotationType.abstractState,
@@ -129,6 +138,7 @@ class OverReactSrc {
     this.componentAnnotationArg = '',
     this.componentBody = '',
     this.typeParameters = false,
+    this.componentVersion = 1,
     isPrivate = false})
       :
         this.annotation = AnnotationType.props,
@@ -161,6 +171,7 @@ class OverReactSrc {
     this.componentBody = '',
     this.typeParameters = false,
     this.numMixins = 1,
+    this.componentVersion = 1,
     isPrivate = false})
       :
         this.annotation = AnnotationType.propsMixin,
@@ -190,6 +201,7 @@ class OverReactSrc {
     this.componentAnnotationArg = '',
     this.componentBody = '',
     this.typeParameters = false,
+    this.componentVersion = 1,
     isPrivate = false})
       :
         this.annotation = AnnotationType.state,
@@ -223,6 +235,7 @@ class OverReactSrc {
     this.componentBody = '',
     this.typeParameters = false,
     this.numMixins = 1,
+    this.componentVersion = 1,
     isPrivate = false})
       :
         this.annotation = AnnotationType.stateMixin,
@@ -237,6 +250,7 @@ class OverReactSrc {
   final String body;
   final String baseName;
   final bool needsComponent;
+  final int componentVersion;
   final int numMixins;
   final bool typeParameters;
 
@@ -261,10 +275,11 @@ class OverReactSrc {
     final buffer = StringBuffer();
 
     if (needsComponent) {
+      String componentStr = componentVersion == 2 ? 'Component2' : 'Component';
       if (!isAbstract(annotation)) {
         buffer.writeln('\n@Factory()\nUiFactory<$propsClassName> $baseName = _\$$baseName;\n');
       }
-      buffer.writeln('@${isAbstract(annotation) ? 'Abstract' : ''}Component($componentAnnotationArg) ${_classKeyword(annotation)} $componentName {$componentBody}');
+      buffer.writeln('@${isAbstract(annotation) ? 'Abstract' : ''}$componentStr($componentAnnotationArg) ${_classKeyword(annotation)} $componentName {$componentBody}');
 
       // If we need a component, but we're not a props class, then we need to write a props class
       if (!isProps(this.annotation)) {

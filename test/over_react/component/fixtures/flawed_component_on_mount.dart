@@ -17,8 +17,8 @@ class FlawedOnMountProps extends _$FlawedOnMountProps with _$FlawedOnMountPropsA
   static const PropsMeta meta = _$metaForFlawedOnMountProps;
 }
 
-@Component()
-class FlawedOnMountComponent extends UiComponent<FlawedOnMountProps> {
+@Component2()
+class FlawedOnMountComponent extends UiComponent2<FlawedOnMountProps> {
   @override
   void componentDidMount() {
     throw FlawedOnMountComponentException();
@@ -26,7 +26,7 @@ class FlawedOnMountComponent extends UiComponent<FlawedOnMountProps> {
 
   @override
   render() {
-    return (Dom.div()..addProps(copyUnconsumedDomProps()))(props.children);
+    return (Dom.div()..modifyProps(addUnconsumedDomProps))(props.children);
   }
 }
 

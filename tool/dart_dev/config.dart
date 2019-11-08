@@ -26,5 +26,8 @@ final config = {
     ..exclude = [
       Glob('**/*.dart'), // We don't format this repo with dartfmt at this time.
     ],
-  'test': TestTool(),
+  'test': TestTool()
+    ..buildArgs = [
+      '--delete-conflicting-outputs',
+    ],
 };

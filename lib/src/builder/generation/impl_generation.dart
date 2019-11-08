@@ -15,6 +15,7 @@
 // ignore_for_file: deprecated_member_use_from_same_package
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:logging/logging.dart';
+import 'package:meta/meta.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/builder/generation/declaration_parsing.dart';
 import 'package:over_react/src/builder/util.dart';
@@ -55,6 +56,8 @@ class ImplGenerator {
 
   generate(ParsedDeclarations declarations) {
     if (declarations.declaresComponent) {
+      final bool isComponent2 = declarations.component2 != null;
+      final componentDeclNode = isComponent2 ? declarations.component2 : declarations.component;
       final factoryName = declarations.factory.node.variables.variables.first.name.toString();
 
       final consumerPropsName = declarations.props.node.name.toString();
@@ -63,13 +66,13 @@ class ImplGenerator {
       final propsImplName = _propsImplClassNameFromConsumerClassName(consumerPropsName);
       final propsAccessorsMixinName = _accessorsMixinNameFromConsumerName(consumerPropsName);
 
-      final componentClassName = declarations.component.node.name.toString();
+      final componentClassName = componentDeclNode.node.name.toString();
       final componentClassImplMixinName = '$privateSourcePrefix$componentClassName';
 
       final generatedComponentFactoryName = _componentFactoryName(componentClassName);
 
-      String typedPropsFactoryImpl = '';
-      String typedStateFactoryImpl = '';
+      StringBuffer typedPropsFactoryImpl = StringBuffer();
+      StringBuffer typedStateFactoryImpl = StringBuffer();
 
       // ----------------------------------------------------------------------
       //   Factory implementation
@@ -78,7 +81,7 @@ class ImplGenerator {
       String parentTypeParam = 'null';
       String parentTypeParamComment = '';
 
-      Identifier parentType = declarations.component.subtypeOfValue;
+      Identifier parentType = componentDeclNode.subtypeOfValue;
       if (parentType != null) {
         parentTypeParamComment = ' /* from `subtypeOf: ${getSpan(sourceFile, parentType).text}` */';
 
@@ -99,22 +102,46 @@ class ImplGenerator {
         /// if a component's factory variable tries to reference itself during its initialization.
         /// Therefore, this is not allowed.
         logger.severe(messageWithSpan('A component cannot be a subtype of itself.',
-            span: getSpan(sourceFile, declarations.component.metaNode))
+            span: getSpan(sourceFile, componentDeclNode.metaNode))
         );
       }
 
-      outputContentsBuffer
-        ..writeln('// React component factory implementation.')
-        ..writeln('//')
-        ..writeln('// Registers component implementation and links type meta to builder factory.')
-        ..writeln('final $generatedComponentFactoryName = registerComponent(() => $componentClassImplMixinName(),')
-        ..writeln('    builderFactory: $factoryName,')
-        ..writeln('    componentClass: $componentClassName,')
-        ..writeln('    isWrapper: ${declarations.component.meta.isWrapper},')
-        ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
-        ..writeln('    displayName: ${stringLiteral(factoryName)}')
-        ..writeln(');')
-        ..writeln();
+      if (isComponent2) {
+        outputContentsBuffer
+          ..writeln('// React component factory implementation.')
+          ..writeln('//')
+          ..writeln('// Registers component implementation and links type meta to builder factory.')
+          ..writeln('final $generatedComponentFactoryName = registerComponent2(() => $componentClassImplMixinName(),')
+          ..writeln('    builderFactory: $factoryName,')
+          ..writeln('    componentClass: $componentClassName,')
+          ..writeln('    isWrapper: ${componentDeclNode.meta.isWrapper},')
+          ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
+          ..writeln('    displayName: ${stringLiteral(factoryName)},');
+
+        if (declarations.component2.meta.isErrorBoundary) {
+          // Override `skipMethods` as an empty list so that
+          // the `componentDidCatch` and `getDerivedStateFromError`
+          // lifecycle methods are included in the component's JS bindings.
+          outputContentsBuffer.writeln('    skipMethods: const [],');
+        }
+
+        outputContentsBuffer
+          ..writeln(');')
+          ..writeln();
+      } else {
+        outputContentsBuffer
+          ..writeln('// React component factory implementation.')
+          ..writeln('//')
+          ..writeln('// Registers component implementation and links type meta to builder factory.')
+          ..writeln('final $generatedComponentFactoryName = registerComponent(() => $componentClassImplMixinName(),')
+          ..writeln('    builderFactory: $factoryName,')
+          ..writeln('    componentClass: $componentClassName,')
+          ..writeln('    isWrapper: ${componentDeclNode.meta.isWrapper},')
+          ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
+          ..writeln('    displayName: ${stringLiteral(factoryName)}')
+          ..writeln(');')
+          ..writeln();
+      }
 
       // ----------------------------------------------------------------------
       //   Props implementation
@@ -129,18 +156,66 @@ class ImplGenerator {
           _generateMetaConstImpl(AccessorType.props, declarations.props));
       outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.props, declarations.props));
 
-      /// _$$FooProps _$Foo([Map backingProps]) => _$$FooProps(backingProps);
-      outputContentsBuffer.writeln('$propsImplName $privateSourcePrefix$factoryName([Map backingProps]) => $propsImplName(backingProps);');
+      outputContentsBuffer.write(
+          '$propsImplName $privateSourcePrefix$factoryName([Map backingProps]) => ');
 
-      final String propKeyNamespace = _getAccessorKeyNamespace(declarations.props);
+      if (!isComponent2) {
+        /// _$$FooProps _$Foo([Map backingProps]) => _$$FooProps(backingProps);
+        outputContentsBuffer.writeln('$propsImplName(backingProps);');
+      } else {
+        /// _$$FooProps _$Foo([Map backingProps]) => backingProps == null ? $jsMapImplName(JsBackedMap()) : _$$FooProps(backingProps);
+        final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(propsImplName);
+        // Optimize this case for when backingProps is null to promote inlining of `jsMapImplName` typing
+        outputContentsBuffer.writeln(
+              'backingProps == null ? $jsMapImplName(JsBackedMap()) : $propsImplName(backingProps);'
+        );
+      }
 
-      outputContentsBuffer.write(_generateConcretePropsImpl(
-        AccessorType.props, consumerPropsName, propsImplName, generatedComponentFactoryName,
-        propKeyNamespace, declarations.props, propsAccessorsMixinName, consumablePropsName));
+      outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
+        type: AccessorType.props,
+        consumerName: consumerPropsName,
+        implName: propsImplName,
+        componentFactoryName: generatedComponentFactoryName,
+        propKeyNamespace: _getAccessorKeyNamespace(declarations.props),
+        node: declarations.props,
+        accessorsMixinName: propsAccessorsMixinName,
+        consumableName: consumablePropsName,
+        isComponent2: isComponent2,
+      ));
 
-      typedPropsFactoryImpl =
-          '  @override\n'
-          '  $propsImplName typedPropsFactory(Map backingMap) => $propsImplName(backingMap);\n\n';
+      if (isComponent2) {
+        // See _generateConcretePropsOrStateImpl for more info on why these additional methods are
+        // implemented for Component2.
+        final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(propsImplName);
+        // This implementation here is necessary so that mixin accesses aren't compiled as index$ax
+        typedPropsFactoryImpl
+          ..writeln('  $jsMapImplName _cachedTypedProps;')
+          ..writeln()
+          ..writeln('  @override')
+          ..writeln('  $jsMapImplName get props => _cachedTypedProps;')
+          ..writeln()
+          ..writeln('  @override')
+          ..writeln('  set props(Map value) {')
+          ..writeln('    assert(getBackingMap(value) is JsBackedMap, ')
+          ..writeln('      \'Component2.props should never be set directly in \'')
+          ..writeln('      \'production. If this is required for testing, the \'')
+          ..writeln('      \'component should be rendered within the test. If \'')
+          ..writeln('      \'that does not have the necessary result, the last \'')
+          ..writeln('      \'resort is to use typedPropsFactoryJs.\');')
+          ..writeln('    super.props = value;')
+          // FIXME 3.0.0-wip: is this implementation still needed here to get good dart2js output, or can we do it in the superclass?
+          ..writeln('    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));')
+          ..writeln('  }')
+          ..writeln()
+          ..writeln('  @override ')
+          ..writeln('  $jsMapImplName typedPropsFactoryJs(JsBackedMap backingMap) => $jsMapImplName(backingMap);')
+          ..writeln();
+      }
+      typedPropsFactoryImpl
+        ..writeln('  @override')
+        ..writeln('  $propsImplName typedPropsFactory(Map backingMap) => $propsImplName(backingMap);')
+        ..writeln();
+
 
       // ----------------------------------------------------------------------
       //   State implementation
@@ -150,8 +225,6 @@ class ImplGenerator {
         final consumableStateName = _publicPropsOrStateClassNameFromConsumerClassName(stateName);
         final stateImplName = _propsImplClassNameFromConsumerClassName(stateName);
         final stateAccessorsMixinName = _accessorsMixinNameFromConsumerName(stateName);
-        final typeParamsOnClass = declarations.state.node.typeParameters?.toSource() ?? '';
-        final typeParamsOnSuper = removeBoundsFromTypeParameters(declarations.state.node.typeParameters);
 
         outputContentsBuffer.write(_generateAccessorsMixin(
             AccessorType.state, stateAccessorsMixinName, declarations.state,
@@ -160,32 +233,46 @@ class ImplGenerator {
             _generateMetaConstImpl(AccessorType.state, declarations.state));
         outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.state, declarations.state));
 
-        outputContentsBuffer
-          ..writeln('// Concrete state implementation.')
-          ..writeln('//')
-          ..writeln('// Implements constructor and backing map.')
-          ..writeln('class $stateImplName$typeParamsOnClass extends $stateName$typeParamsOnSuper with $stateAccessorsMixinName$typeParamsOnSuper implements $consumableStateName$typeParamsOnSuper {')
-          ..writeln('  // This initializer of `_state` to an empty map, as well as the reassignment')
-          ..writeln('  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.')
-          ..writeln('  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details')
-          ..writeln('  $stateImplName(Map backingMap) : this._state = {} {')
-          ..writeln('     this._state = backingMap ?? {};')
-          ..writeln('  }')
-          ..writeln()
-          ..writeln('  /// The backing state map proxied by this class.')
-          ..writeln('  @override')
-          ..writeln('  Map get state => _state;')
-          ..writeln('  Map _state;')
-          ..writeln()
-          ..writeln('  /// Let `UiState` internals know that this class has been generated.')
-          ..writeln('  @override')
-          ..writeln('  bool get \$isClassGenerated => true;')
-          ..writeln('}')
-          ..writeln();
+        outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
+          type: AccessorType.state,
+          consumerName: stateName,
+          implName: stateImplName,
+          componentFactoryName: generatedComponentFactoryName,
+          propKeyNamespace: null,
+          node: declarations.state,
+          accessorsMixinName: stateAccessorsMixinName,
+          consumableName: consumableStateName,
+          isComponent2: isComponent2,
+        ));
 
-        typedStateFactoryImpl =
-          '  @override\n'
-          '  $stateImplName typedStateFactory(Map backingMap) => $stateImplName(backingMap);\n\n';
+        if (isComponent2) {
+          // See _generateConcretePropsOrStateImpl for more info on why these additional methods are
+          // implemented for Component2.
+          final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(stateImplName);
+          // This implementation here is necessary so that mixin accesses aren't compiled as index$ax
+          typedStateFactoryImpl
+            ..writeln('  $jsMapImplName _cachedTypedState;')
+            ..writeln('  @override')
+            ..writeln('  $jsMapImplName get state => _cachedTypedState;')
+            ..writeln()
+            ..writeln('  @override')
+            ..writeln('  set state(Map value) {')
+            ..writeln('    assert(value is JsBackedMap, ')
+            ..writeln('      \'Component2.state should only be set via \'')
+            ..writeln('      \'initialState or setState.\');')
+            ..writeln('    super.state = value;')
+            ..writeln('    _cachedTypedState = typedStateFactoryJs(value);')
+            ..writeln('  }')
+            ..writeln()
+            ..writeln('  @override ')
+            // FIXME 3.0.0-wip: is this implementation still needed here to get good dart2js output, or can we do it in the superclass?
+            ..writeln('  $jsMapImplName typedStateFactoryJs(JsBackedMap backingMap) => $jsMapImplName(backingMap);')
+            ..writeln();
+        }
+        typedStateFactoryImpl
+          ..writeln('  @override')
+          ..writeln('  $stateImplName typedStateFactory(Map backingMap) => $stateImplName(backingMap);')
+          ..writeln();
       }
 
       // ----------------------------------------------------------------------
@@ -210,7 +297,7 @@ class ImplGenerator {
                         'const [${_metaConstantName(consumablePropsName)}];')
         ..writeln('}');
 
-      final implementsTypedPropsStateFactory = declarations.component.node.members.any((member) =>
+      final implementsTypedPropsStateFactory = componentDeclNode.node.members.any((member) =>
           member is MethodDeclaration &&
           !member.isStatic &&
           (member.name.name == 'typedPropsFactory' || member.name.name == 'typedStateFactory')
@@ -220,7 +307,7 @@ class ImplGenerator {
         // Can't be an error, because consumers may be implementing typedPropsFactory or typedStateFactory in their components.
         logger.warning(messageWithSpan(
             'Components should not add their own implementions of typedPropsFactory or typedStateFactory.',
-            span: getSpan(sourceFile, declarations.component.node))
+            span: getSpan(sourceFile, componentDeclNode.node))
         );
       }
     }
@@ -317,8 +404,6 @@ class ImplGenerator {
           annotations.Accessor accessorMeta = instantiateAnnotation(field, annotations.Accessor);
           annotations.Accessor requiredProp = getConstantAnnotation(field, 'requiredProp', annotations.requiredProp);
           annotations.Accessor nullableRequiredProp = getConstantAnnotation(field, 'nullableRequiredProp', annotations.nullableRequiredProp);
-          // ignore: deprecated_member_use
-          annotations.Required requiredMeta = instantiateAnnotation(field, annotations.Required);
 
 
           if (accessorMeta?.doNotGenerate == true) {
@@ -345,8 +430,8 @@ class ImplGenerator {
             String individualKey = accessorMeta?.key ?? accessorName;
 
             /// Necessary to work around issue where private static declarations in different classes
-            /// conflict with each other in strong mode: https://github.com/dart-lang/sdk/issues/29751
-            /// TODO remove once that issue is resolved
+            /// conflict with each other in strong mode.
+            /// TODO remove once https://github.com/dart-lang/sdk/issues/29751 is resolved
             String staticConstNamespace = typedMap.node.name.name;
 
             String keyConstantName = '${privateSourcePrefix}key__${accessorName}__$staticConstNamespace';
@@ -368,16 +453,6 @@ class ImplGenerator {
                 if (accessorMeta.requiredErrorMessage != null && accessorMeta.requiredErrorMessage.isNotEmpty) {
                   constantValue += ', errorMessage: ${stringLiteral(accessorMeta.requiredErrorMessage)}';
                 }
-              }
-            }
-
-            if (requiredMeta != null) {
-              constantValue += ', isRequired: true';
-
-              if (requiredMeta.isNullable) constantValue += ', isNullable: true';
-
-              if (requiredMeta.message != null && requiredMeta.message.isNotEmpty) {
-                constantValue += ', errorMessage: ${stringLiteral(requiredMeta.message)}';
               }
             }
 
@@ -438,10 +513,14 @@ class ImplGenerator {
 
             String generatedAccessor =
                 '  $docComment\n'
+                // TODO reinstate inlining once https://github.com/dart-lang/sdk/issues/36217 is fixed and all workarounds are removed
+                // inlining is necessary to get mixins to use $index/$indexSet instead of $index$asx
+                // '  @tryInline\n'
                 '  @override\n'
                 '${metadataSrc.toString()}'
                 '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName] ?? null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;\n'
                 '  $docComment\n'
+                // '  @tryInline\n'
                 '  @override\n'
                 '${metadataSrc.toString()}'
                 '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;\n';
@@ -525,6 +604,25 @@ class ImplGenerator {
     }
 
     return className.replaceFirst(privateSourcePrefix, '$privateSourcePrefix\$');
+  }
+
+  /// Converts the abstract generated props/state implementation's classname
+  /// into the name of its subclass that can be backed by any Map.
+  ///
+  /// Example:
+  ///   Input: '_$$FooProps'
+  ///   Output: '_$$FooProps$PlainMap'
+  static String _plainMapAccessorsImplClassNameFromImplClassName(String implName) {
+    return '$implName\$PlainMap';
+  }
+  /// Converts the abstract generated props/state implementation's classname
+  /// into the name of its subclass that can be backed by only JsMaps.
+  ///
+  /// Example:
+  ///   Input: '_$$FooProps'
+  ///   Output: '_$$FooProps$JsMap'
+  static String _jsMapAccessorImplClassNameFromImplClassName(String implName) {
+    return '$implName\$JsMap';
   }
 
   /// Converts the consumer's written props classname to the consumable props
@@ -704,43 +802,173 @@ class ImplGenerator {
     return buffer.toString();
   }
 
-  String _generateConcretePropsImpl(AccessorType type, String consumerName, String implName,
-      String componentFactoryName, String propKeyNamespace, NodeWithMeta<ClassDeclaration, annotations.Props> node, String accessorsMixinName, String consumableName) {
+  /// Generates a concrete props or state implementation class for a given component.
+  ///
+  /// ## For Component2
+  ///
+  /// Generates an additional UiProps class implementation for each component that can only be backed by JS maps,
+  /// and overrides the return type of `typedPropsFactoryJs`/`props` to match this.
+  ///
+  /// This allows dart2js to make some optimizations. For instance:
+  ///
+  /// For the access of `props.isOpen` within a component, if we try to inline things
+  /// (for the purposes of understanding what's going on under the hood), then it looks like this:
+  ///
+  ///     props.isOpen;           // inlining FooProps.isOpen typed getter, this becomes...
+  ///     props.props['isOpen'];  // inlining UiProps.operator[], this becomes...
+  ///     props.props.backingMap['isOpen'];
+  ///
+  /// So, we're eventually accessing a property on the `Map backingMap`.
+  ///
+  /// But if `backingMap` is a `JsBackedMap`, we can go one layer deeper:
+  ///
+  ///     props.props.backingMap['isOpen'];  // inlining JsBackedMap.operator[], this becomes...
+  ///     getProperty(props.props.backingMap.jsMap, 'isOpen');
+  ///
+  /// Now, onto dart2js, which performs actual inlining in certain cases (like prop accesses).
+  ///
+  /// When dart2js only knows that `backingMap` is a `Map`, it emits the following code, wherein
+  /// `$index$asx` performs type-checking on the map and key, and then performs an interceptor lookup on
+  /// the backing map before finally calling into the actual key lookup function.
+  ///
+  ///     J.$index$asx(this._cachedTypedProps.props.backingMap, 'isOpen');
+  ///
+  /// However, when dart2js knows that `backingMap` is a `JsMap`, it can skip that step and emit
+  /// code that directly accesses the JS property `index$ax` instead:
+  ///
+  ///     J.$index$ax(this._cachedTypedProps.props.backingMap, 'isOpen');
+  ///
+  /// Which in some cases can just become:
+  ///
+  ///     this._cachedTypedProps.props.backingMap.jsMap.isOpen;
+  ///     // or, minified:
+  ///     this.foo.bar.baz.qux.isOpen;
+  ///
+  String _generateConcretePropsOrStateImpl({
+    @required AccessorType type,
+    @required String consumerName,
+    @required String implName,
+    @required String componentFactoryName,
+    @required String propKeyNamespace,
+    @required NodeWithMeta<ClassDeclaration, annotations.TypedMap> node,
+    @required String accessorsMixinName,
+    @required String consumableName,
+    @required bool isComponent2,
+  }) {
     final typeParamsOnClass = node.node.typeParameters?.toSource() ?? '';
     final typeParamsOnSuper = removeBoundsFromTypeParameters(node.node.typeParameters);
-    final classDeclaration = StringBuffer()
-      ..write('class $implName$typeParamsOnClass extends $consumerName$typeParamsOnSuper with $accessorsMixinName$typeParamsOnSuper implements $consumableName$typeParamsOnSuper {\n');
-    return (StringBuffer()
-        ..writeln('// Concrete props implementation.')
-        ..writeln('//')
-        ..writeln('// Implements constructor and backing map, and links up to generated component factory.')
-        ..write(classDeclaration)
-        ..writeln('  // This initializer of `_props` to an empty map, as well as the reassignment')
-        ..writeln('  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.')
-        ..writeln('  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details')
-        ..writeln('  $implName(Map backingMap) : this._props = {} {')
-        ..writeln('     this._props = backingMap ?? {};')
-        ..writeln('  }')
+
+    final classDeclaration = StringBuffer();
+    if (isComponent2) {
+      // This class will only have a factory constructor that instantiates one
+      // of two subclasses.
+      classDeclaration.write('abstract ');
+    }
+    classDeclaration.write('class $implName$typeParamsOnClass '
+        'extends $consumerName$typeParamsOnSuper '
+        'with $accessorsMixinName$typeParamsOnSuper '
+        'implements $consumableName$typeParamsOnSuper { ');
+
+    final propsOrState = type.isProps ? 'props' : 'state';
+
+    // Class declaration
+    final buffer = StringBuffer()
+      ..writeln('// Concrete $propsOrState implementation.')
+      ..writeln('//')
+      ..writeln('// Implements constructor and backing map${type.isProps ? ', and links up to generated component factory' : ''}.')
+      ..writeln(classDeclaration);
+
+    // Constructors
+    if (isComponent2) {
+      final plainMapImplName = _plainMapAccessorsImplClassNameFromImplClassName(implName);
+      final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(implName);
+      buffer
+        ..writeln('  $implName._();')
         ..writeln()
-        ..writeln('  /// The backing props map proxied by this class.')
-        ..writeln('  @override')
-        ..writeln('  Map get props => _props;')
-        ..writeln('  Map _props;')
+        ..writeln('  factory $implName(Map backingMap) {')
+        ..writeln('    if (backingMap == null || backingMap is JsBackedMap) {')
+        ..writeln('      return $jsMapImplName(backingMap);')
+        ..writeln('    } else {')
+        ..writeln('      return $plainMapImplName(backingMap);')
+        ..writeln('    }')
+        ..writeln('  }');
+    } else {
+      buffer
+        ..writeln('  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
+        ..writeln('  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
+        // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
+        ..writeln('  $implName(Map backingMap) : this._$propsOrState = {} {')
+        ..writeln('     this._$propsOrState = backingMap ?? {};')
+        ..writeln('  }');
+    }
+
+    // Members
+    if (!isComponent2) {
+      buffer
         ..writeln()
-        ..writeln('  /// Let `UiProps` internals know that this class has been generated.')
+        ..writeln('  /// The backing $propsOrState map proxied by this class.')
         ..writeln('  @override')
-        ..writeln('  bool get \$isClassGenerated => true;')
+        ..writeln('  Map get $propsOrState => _$propsOrState;')
+        ..writeln('  Map _$propsOrState;');
+    }
+    buffer
+      ..writeln()
+      ..writeln('  /// Let `${type.isProps ? 'UiProps' : 'UiState'}` internals know that this class has been generated.')
+      ..writeln('  @override')
+      ..writeln('  bool get \$isClassGenerated => true;');
+    if (type.isProps) {
+      buffer
         ..writeln()
         ..writeln('  /// The `ReactComponentFactory` associated with the component built by this class.')
         ..writeln('  @override')
-        ..writeln('  ReactComponentFactoryProxy get componentFactory => $componentFactoryName;')
+        ..writeln('  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $componentFactoryName;')
         ..writeln()
         ..writeln('  /// The default namespace for the prop getters/setters generated for this class.')
         ..writeln('  @override')
-        ..writeln('  String get propKeyNamespace => ${stringLiteral(propKeyNamespace)};')
+        ..writeln('  String get propKeyNamespace => ${stringLiteral(propKeyNamespace)};');
+    }
+
+    // End of class body
+    buffer.writeln('}');
+
+    // Component2-specific classes
+    if (isComponent2) {
+      final plainMapImplName = _plainMapAccessorsImplClassNameFromImplClassName(implName);
+      final jsMapImplName = _jsMapAccessorImplClassNameFromImplClassName(implName);
+      buffer
+        ..writeln()
+        ..writeln('// Concrete $propsOrState implementation that can be backed by any [Map].')
+        ..writeln('class $plainMapImplName$typeParamsOnClass extends $implName$typeParamsOnSuper {')
+        ..writeln('  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
+        ..writeln('  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
+        // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
+        ..writeln('  $plainMapImplName(Map backingMap) : this._$propsOrState = {}, super._() {')
+        ..writeln('     this._$propsOrState = backingMap ?? {};')
+        ..writeln('  }')
+        ..writeln()
+        ..writeln('  /// The backing $propsOrState map proxied by this class.')
+        ..writeln('  @override')
+        ..writeln('  Map get $propsOrState => _$propsOrState;')
+        ..writeln('  Map _$propsOrState;')
         ..writeln('}')
-        ..writeln())
-        .toString();
+        ..writeln()
+        ..writeln('// Concrete $propsOrState implementation that can only be backed by [JsMap],')
+        ..writeln('// allowing dart2js to compile more optimal code for key-value pair reads/writes.')
+        ..writeln('class $jsMapImplName$typeParamsOnClass extends $implName$typeParamsOnSuper {')
+        ..writeln('  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
+        ..writeln('  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
+        // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
+        ..writeln('  $jsMapImplName(JsBackedMap backingMap) : this._$propsOrState = JsBackedMap(), super._() {')
+        ..writeln('     this._$propsOrState = backingMap ?? JsBackedMap();')
+        ..writeln('  }')
+        ..writeln()
+        ..writeln('  /// The backing $propsOrState map proxied by this class.')
+        ..writeln('  @override')
+        ..writeln('  JsBackedMap get $propsOrState => _$propsOrState;')
+        ..writeln('  JsBackedMap _$propsOrState;')
+        ..writeln('}');
+    }
+    return buffer.toString();
   }
 
   String _generateConsumablePropsOrStateClass(AccessorType type, NodeWithMeta<ClassDeclaration, annotations.TypedMap> node) {

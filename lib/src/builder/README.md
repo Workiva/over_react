@@ -39,8 +39,8 @@ own components by viewing the generated .over_react.g.dart file.
       // ...
     }
     
-    @Component()
-    class FooComponent extends UiComponent<FooProps> {
+    @Component2()
+    class FooComponent extends UiComponent2<FooProps> {
       @override
       render() { 
         // ...
@@ -48,7 +48,7 @@ own components by viewing the generated .over_react.g.dart file.
     }
     ```
 
-    Note that we've annotated our component pieces with `@Factory()`, `@Props()`, and `@Component()`. 
+    Note that we've annotated our component pieces with `@Factory()`, `@Props()`, and `@Component2()`. 
     These are what the builder uses as "hooks" to find your component.
 
     Okay, so we've defined our component. Let's look at what the builder does.

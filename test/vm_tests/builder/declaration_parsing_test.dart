@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
+
 @TestOn('vm')
 library declaration_parsing_test;
 
@@ -34,9 +36,11 @@ main() {
         test('"@Props"',             () => expect(mightContainDeclarations(propsSrc), isTrue));
         test('"@State"',             () => expect(mightContainDeclarations(stateSrc), isTrue));
         test('"@Component"',         () => expect(mightContainDeclarations(componentSrc), isTrue));
+        test('"@Component2"',        () => expect(mightContainDeclarations(component2Src), isTrue));
         test('"@AbstractProps"',     () => expect(mightContainDeclarations(abstractPropsSrc), isTrue));
         test('"@AbstractState"',     () => expect(mightContainDeclarations(abstractStateSrc), isTrue));
         test('"@AbstractComponent"', () => expect(mightContainDeclarations(abstractComponentSrc), isTrue));
+        test('"@AbstractComponent2"',() => expect(mightContainDeclarations(abstractComponent2Src), isTrue));
         test('"@PropsMixin"',        () => expect(mightContainDeclarations(propsMixinSrc), isTrue));
         test('"@StateMixin"',        () => expect(mightContainDeclarations(stateMixinSrc), isTrue));
       });
@@ -45,10 +49,16 @@ main() {
         expect(mightContainDeclarations('class FooComponent extends UiComponent<FooProps> {}'), isFalse,
             reason: 'should not return true for an unannotated class');
 
+        expect(mightContainDeclarations('class FooComponent extends UiComponent2<FooProps> {}'), isFalse,
+            reason: 'should not return true for an unannotated class');
+
         expect(mightContainDeclarations('@Bar\nclass Foo {}'), isFalse,
             reason: 'should not return true for a class with non-matching annotations');
 
         expect(mightContainDeclarations('/// Component that...\nclass Foo {}'), isFalse,
+            reason: 'should not return true when an annotation class name is not used as an annotation');
+
+        expect(mightContainDeclarations('/// Component2 that...\nclass Foo {}'), isFalse,
             reason: 'should not return true when an annotation class name is not used as an annotation');
       });
     });
@@ -86,6 +96,7 @@ main() {
         props = true,
         state = true,
         component = true,
+        component2 = true,
         abstractProps = true,
         abstractState = true,
         propsMixins = true,
@@ -96,6 +107,7 @@ main() {
         expect(declarations.props,         props         ? isNull  : isNotNull,  reason: reason);
         expect(declarations.state,         state         ? isNull  : isNotNull,  reason: reason);
         expect(declarations.component,     component     ? isNull  : isNotNull,  reason: reason);
+        expect(declarations.component2,    component2    ? isNull  : isNotNull,  reason: reason);
         expect(declarations.abstractProps, abstractProps ? isEmpty : isNotEmpty, reason: reason);
         expect(declarations.abstractState, abstractState ? isEmpty : isNotEmpty, reason: reason);
         expect(declarations.propsMixins,   propsMixins   ? isEmpty : isNotEmpty, reason: reason);
@@ -114,74 +126,131 @@ main() {
           expect(declarations.declaresComponent, isFalse);
         });
 
-        group('a component ', () {
-          void testPropsDualClassSetup({bool backwardsCompatible = true, bool isPrivate = false}) {
-            final ors = OverReactSrc.props(backwardsCompatible: backwardsCompatible, isPrivate: isPrivate);
+        group('a component', () {
+          void testDualClassSetup({
+            bool backwardsCompatible = true,
+            bool isPrivate = false,
+            bool isStatefulComponent = false,
+            int componentVersion = 1,
+          }) {
+            OverReactSrc ors;
+            if (isStatefulComponent) {
+              ors = OverReactSrc.state(
+                  backwardsCompatible: backwardsCompatible,
+                  isPrivate: isPrivate,
+                  componentVersion: componentVersion);
+            } else {
+              ors = OverReactSrc.props(
+                  backwardsCompatible: backwardsCompatible,
+                  isPrivate: isPrivate,
+                  componentVersion: componentVersion);
+            }
             setUpAndParse(ors.source);
 
+            expect(declarations.declaresComponent, isTrue);
             expect(declarations.factory.node?.variables?.variables?.single?.name
                 ?.name, ors.baseName);
             expect(declarations.props.node?.name?.name, '_\$${ors.baseName}Props');
-            expect(declarations.component.node?.name?.name, '${ors.baseName}Component');
 
-            expect(declarations.factory.meta,   const TypeMatcher<annotations.Factory>());
-            expect(declarations.props.meta,     const TypeMatcher<annotations.Props>());
-            expect(declarations.component.meta, const TypeMatcher<annotations.Component>());
+            expect(declarations.factory.meta, isA<annotations.Factory>());
+            expect(declarations.props.meta, isA<annotations.Props>());
 
-            expectEmptyDeclarations(
-                factory: false, props: false, component: false);
-            expect(declarations.declaresComponent, isTrue);
+            if (isStatefulComponent) {
+              expect(declarations.state.node?.name?.name, '_\$${ors.baseName}State');
+              expect(declarations.state.meta, isA<annotations.State>());
+            }
+
+            if (componentVersion == 1) {
+              expect(declarations.component.node?.name?.name, '${ors.baseName}Component');
+              expect(declarations.component.meta, isA<annotations.Component>());
+              expectEmptyDeclarations(factory: false, props: false, state: !isStatefulComponent, component: false);
+            } else if (componentVersion == 2) {
+              expect(declarations.component2.node?.name?.name, '${ors.baseName}Component');
+              expect(declarations.component2.meta, isA<annotations.Component2>());
+              expectEmptyDeclarations(factory: false, props: false, state: !isStatefulComponent, component2: false);
+            }
           }
 
-          group('with backwards compatible boilerplate', () {
-            test('with public consumable class', testPropsDualClassSetup);
-            test('with private consumable class', () {
-              testPropsDualClassSetup(isPrivate: true);
+          group('that is stateless', () {
+            group('(v1 - deprecated)', () {
+              group('with backwards compatible boilerplate', () {
+                test('with public consumable class', testDualClassSetup);
+                test('with private consumable class', () {
+                  testDualClassSetup(isPrivate: true);
+                });
+              });
+
+              group('with Dart 2 only boilerplate', () {
+                test('with public consumable class', () {
+                  testDualClassSetup(backwardsCompatible: false);
+                });
+                test('with private consumable class', () {
+                  testDualClassSetup(backwardsCompatible: false, isPrivate: true);
+                });
+              });
+            });
+
+            group('(v2)', () {
+              group('with backwards compatible boilerplate', () {
+                test('with public consumable class', () {
+                  testDualClassSetup(componentVersion: 2);
+                });
+                test('with private consumable class', () {
+                  testDualClassSetup(componentVersion: 2, isPrivate: true);
+                });
+              });
+
+              group('with Dart 2 only boilerplate', () {
+                test('with public consumable class', () {
+                  testDualClassSetup(componentVersion: 2, backwardsCompatible: false);
+                });
+                test('with private consumable class', () {
+                  testDualClassSetup(componentVersion: 2, backwardsCompatible: false, isPrivate: true);
+                });
+              });
             });
           });
 
-          group('with Dart 2 only boilerplate', () {
-            test('with public consumable class', () {
-              testPropsDualClassSetup(backwardsCompatible: false);
+          group('that is stateful', () {
+            group('and uses the @Component annotation (deprecated)', () {
+              group('with backwards compatible boilerplate', () {
+                test('with public consumable class', () {
+                  testDualClassSetup(isStatefulComponent: true);
+                });
+                test('with private consumable class', () {
+                  testDualClassSetup(isStatefulComponent: true, isPrivate: true);
+                });
+              });
+
+              group('with Dart 2 only boilerplate', () {
+                test('with public consumable class', () {
+                  testDualClassSetup(isStatefulComponent: true, backwardsCompatible: false);
+                });
+                test('with private consumable class', () {
+                  testDualClassSetup(isStatefulComponent: true, backwardsCompatible: false, isPrivate: true);
+                });
+              });
             });
-            test('with private consumable class', () {
-              testPropsDualClassSetup(backwardsCompatible: false, isPrivate: true);
-            });
-          });
-        });
 
-        group('a stateful component', () {
-          void testStateDualClassSetup({bool backwardsCompatible = true, bool isPrivate = false}) {
-            final ors = OverReactSrc.state(backwardsCompatible: backwardsCompatible, isPrivate: isPrivate);
-            setUpAndParse(ors.source);
+            group('and uses the @Component2 annotation', () {
+              group('with backwards compatible boilerplate', () {
+                test('with public consumable class', () {
+                  testDualClassSetup(isStatefulComponent: true, componentVersion: 2);
+                });
+                test('with private consumable class', () {
+                  testDualClassSetup(isStatefulComponent: true, isPrivate: true, componentVersion: 2);
+                });
+              });
 
-            expect(declarations.factory.node?.variables?.variables?.single?.name?.name, ors.baseName);
-            expect(declarations.props.node?.name?.name, '_\$${ors.baseName}Props');
-            expect(declarations.state.node?.name?.name, '_\$${ors.baseName}State');
-            expect(declarations.component.node?.name?.name, '${ors.baseName}Component');
-
-            expect(declarations.factory.meta,   const TypeMatcher<annotations.Factory>());
-            expect(declarations.props.meta,     const TypeMatcher<annotations.Props>());
-            expect(declarations.state.meta,     const TypeMatcher<annotations.State>());
-            expect(declarations.component.meta, const TypeMatcher<annotations.Component>());
-
-            expectEmptyDeclarations(factory: false, props: false, state: false, component: false);
-            expect(declarations.declaresComponent, isTrue);
-          }
-
-          group('with backwards compatible boilerplate', () {
-            test('with public consumable class', testStateDualClassSetup);
-            test('with private consumable class', () {
-              testStateDualClassSetup(isPrivate: true);
-            });
-          });
-
-          group('with Dart 2 only boilerplate', () {
-            test('with public consumable class', () {
-              testStateDualClassSetup(backwardsCompatible: false);
-            });
-            test('with private consumable class', () {
-              testStateDualClassSetup(backwardsCompatible: false, isPrivate: true);
+              group('with Dart 2 only boilerplate', () {
+                test('with public consumable class', () {
+                  testDualClassSetup(isStatefulComponent: true, backwardsCompatible: false, componentVersion: 2);
+                });
+                test('with private consumable class', () {
+                  testDualClassSetup(isStatefulComponent: true, backwardsCompatible: false, isPrivate: true,
+                      componentVersion: 2);
+                });
+              });
             });
           });
         });
@@ -193,7 +262,7 @@ main() {
 
             declarations.propsMixins.forEach((propsMixin) {
               expect(mixinNames, contains(propsMixin.node.name.name));
-              expect(propsMixin.meta, const TypeMatcher<annotations.PropsMixin>());
+              expect(propsMixin.meta, isA<annotations.PropsMixin>());
             });
 
             expectEmptyDeclarations(propsMixins: false);
@@ -218,7 +287,7 @@ main() {
 
             declarations.stateMixins.forEach((stateMixin) {
               expect(mixinNames, contains(stateMixin.node.name.name));
-              expect(stateMixin.meta, const TypeMatcher<annotations.StateMixin>());
+              expect(stateMixin.meta, isA<annotations.StateMixin>());
             });
 
             expectEmptyDeclarations(stateMixins: false);
@@ -299,12 +368,12 @@ main() {
 
                 @Props(keyNamespace: "bar")
                 class _\$FooProps {}
-                
+
                 class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
 
                 @State(keyNamespace: "baz")
                 class _\$FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
-                
+
                 class FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
 
                 @Component(isWrapper: true)
@@ -314,6 +383,30 @@ main() {
               expect(declarations.props.meta.keyNamespace, 'bar');
               expect(declarations.state.meta.keyNamespace, 'baz');
               expect(declarations.component.meta.isWrapper, isTrue);
+            });
+
+            test('a stateful Component2', () {
+              setUpAndParse('''
+                @Factory()
+                UiFactory<FooProps> Foo = _\$Foo;
+
+                @Props(keyNamespace: "bar")
+                class _\$FooProps {}
+
+                class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
+
+                @State(keyNamespace: "baz")
+                class _\$FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
+
+                class FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
+
+                @Component2(isWrapper: true)
+                class FooComponent {}
+              ''');
+
+              expect(declarations.props.meta.keyNamespace, 'bar');
+              expect(declarations.state.meta.keyNamespace, 'baz');
+              expect(declarations.component2.meta.isWrapper, isTrue);
             });
 
             test('a props mixin', () {
@@ -370,6 +463,26 @@ main() {
               expect(declarations.props.meta.keyNamespace, 'bar');
               expect(declarations.state.meta.keyNamespace, 'baz');
               expect(declarations.component.meta.isWrapper, isTrue);
+            });
+
+            test('a stateful Component2', () {
+              setUpAndParse('''
+                @Factory()
+                UiFactory<FooProps> Foo = _\$Foo;
+
+                @Props(keyNamespace: "bar")
+                class _\$FooProps {}
+
+                @State(keyNamespace: "baz")
+                class _\$FooState {}
+
+                @Component2(isWrapper: true)
+                class FooComponent {}
+              ''');
+
+              expect(declarations.props.meta.keyNamespace, 'bar');
+              expect(declarations.state.meta.keyNamespace, 'baz');
+              expect(declarations.component2.meta.isWrapper, isTrue);
             });
 
             test('a props mixin', () {
@@ -551,7 +664,7 @@ main() {
 
           test('a component class', () {
             setUpAndParse(factorySrc + propsSrc);
-            verify(logger.severe(contains('To define a component, there must also be a `@Component` within the same file, but none were found.')));
+            verify(logger.severe(contains('To define a component, there must also be a `@Component` or `@Component2` within the same file, but none were found.')));
           });
 
           test('a factory or a props class', () {
@@ -560,23 +673,34 @@ main() {
             verify(logger.severe(contains('To define a component, there must also be a `@Props` within the same file, but none were found.')));
           });
 
+          test('a factory or a props class (v2 component)', () {
+            setUpAndParse(component2Src);
+            verify(logger.severe(contains('To define a component, there must also be a `@Factory` within the same file, but none were found.')));
+            verify(logger.severe(contains('To define a component, there must also be a `@Props` within the same file, but none were found.')));
+          });
+
           test('a factory or a component class', () {
             setUpAndParse(propsSrc);
             verify(logger.severe(contains('To define a component, there must also be a `@Factory` within the same file, but none were found.')));
-            verify(logger.severe(contains('To define a component, there must also be a `@Component` within the same file, but none were found.')));
+            verify(logger.severe(contains('To define a component, there must also be a `@Component` or `@Component2` within the same file, but none were found.')));
           });
 
           test('a component or props class', () {
             setUpAndParse(factorySrc);
-            verify(logger.severe(contains('To define a component, there must also be a `@Component` within the same file, but none were found.')));
+            verify(logger.severe(contains('To define a component, there must also be a `@Component` or `@Component2` within the same file, but none were found.')));
             verify(logger.severe(contains('To define a component, there must also be a `@Props` within the same file, but none were found.')));
           });
+        });
+
+        test('both a component and component2 class', () {
+          setUpAndParse(factorySrc + propsSrc + componentSrc + component2Src);
+          verify(logger.severe(contains('To define a component, there must be a single `@Component` **OR** `@Component2` annotation, but never both.')));
         });
 
         group('a state class is declared without', () {
           test('any component pieces', () {
             setUpAndParse(stateSrc);
-            verify(logger.severe(contains('To define a component, a `@State` must be accompanied by the following annotations within the same file: @Factory, @Component, @Props.')));
+            verify(logger.severe(contains('To define a component, a `@State` must be accompanied by the following annotations within the same file: (@Component || @Component2), @Factory, @Props.')));
           });
 
           test('some component pieces', () {
@@ -585,32 +709,75 @@ main() {
             verify(logger.severe(contains('To define a component, there must also be a `@Factory` within the same file, but none were found.')));
             verify(logger.severe(contains('To define a component, there must also be a `@Props` within the same file, but none were found.')));
           });
+
+          test('some component2 pieces', () {
+            setUpAndParse(stateSrc + component2Src);
+            /// Should only log regarding the missing pieces, and not the state.
+            verify(logger.severe(contains('To define a component, there must also be a `@Factory` within the same file, but none were found.')));
+            verify(logger.severe(contains('To define a component, there must also be a `@Props` within the same file, but none were found.')));
+          });
+        });
+
+        test('a component v2 uses legacy lifecycle methods', () {
+          setUpAndParse(factorySrc + propsSrc + component2LegacySrc);
+          /// Should log for each legacy method, suggesting the alternative.
+          verify(logger.severe(contains('Use getDerivedStateFromProps instead.')));
+          verify(logger.severe(contains('Use init instead.')));
+          verify(logger.severe(contains('Use getSnapshotBeforeUpdate instead.')));
         });
 
         group('a component is declared with multiple', () {
-          test('factories', () {
+          test('factories (v1 component - deprecated)', () {
             setUpAndParse(factorySrc * 2 + propsSrc + componentSrc);
             verify(logger.severe(
                 argThat(startsWith('To define a component, there must be a single `@Factory` per file, but 2 were found.'))
             )).called(2);
           });
 
-          test('props classes', () {
+          test('factories (v2 component)', () {
+            setUpAndParse(factorySrc * 2 + propsSrc + component2Src);
+            verify(logger.severe(
+                argThat(startsWith('To define a component, there must be a single `@Factory` per file, but 2 were found.'))
+            )).called(2);
+          });
+
+          test('props classes (v1 component - deprecated)', () {
             setUpAndParse(factorySrc + propsSrc * 2 + componentSrc);
             verify(logger.severe(
                 argThat(startsWith('To define a component, there must be a single `@Props` per file, but 2 were found.'))
             )).called(2);
           });
 
-          test('component classes', () {
+          test('props classes (v2 component)', () {
+            setUpAndParse(factorySrc + propsSrc * 2 + component2Src);
+            verify(logger.severe(
+                argThat(startsWith('To define a component, there must be a single `@Props` per file, but 2 were found.'))
+            )).called(2);
+          });
+
+          test('component classes (v1 - deprecated)', () {
             setUpAndParse(factorySrc + propsSrc + componentSrc * 2);
             verify(logger.severe(
                 argThat(startsWith('To define a component, there must be a single `@Component` per file, but 2 were found.'))
             )).called(2);
           });
 
-          test('state classes', () {
+          test('component2 classes', () {
+            setUpAndParse(factorySrc + propsSrc + component2Src * 2);
+            verify(logger.severe(
+                argThat(startsWith('To define a component, there must be a single `@Component2` per file, but 2 were found.'))
+            )).called(2);
+          });
+
+          test('state classes (v1 component - deprecated)', () {
             setUpAndParse(factorySrc + propsSrc + componentSrc + stateSrc * 2);
+            verify(logger.severe(
+                argThat(startsWith('To define a component, there must not be more than one `@State` per file, but 2 were found.'))
+            )).called(2);
+          });
+
+          test('state classes (v2 component)', () {
+            setUpAndParse(factorySrc + propsSrc + component2Src + stateSrc * 2);
             verify(logger.severe(
                 argThat(startsWith('To define a component, there must not be more than one `@State` per file, but 2 were found.'))
             )).called(2);
@@ -631,6 +798,11 @@ main() {
           test('@Component on a non-class', () {
             setUpAndParse('@Component() var notAClass;');
             verify(logger.severe(contains('`@Component` can only be used on classes.')));
+          });
+
+          test('@Component2 on a non-class', () {
+            setUpAndParse('@Component2() var notAClass;');
+            verify(logger.severe(contains('`@Component2` can only be used on classes.')));
           });
 
           test('@State on a non-class', () {
@@ -717,7 +889,7 @@ main() {
         group('a static meta field with backwards compatible boilerplate', () {
           group('for a props class', () {
             test('has the wrong type', () {
-              setUpAndParse(factorySrc + propsSrc + componentSrc + '''
+              setUpAndParse(factorySrc + propsSrc + component2Src + '''
                 class FooProps {
                   static const StateMeta meta = _\$metaForFooProps;
                 }
@@ -726,7 +898,7 @@ main() {
             });
 
             test('is initialized incorrectly', () {
-              setUpAndParse(factorySrc + propsSrc + componentSrc + '''
+              setUpAndParse(factorySrc + propsSrc + component2Src + '''
                 class FooProps {
                   static const PropsMeta meta = \$metaForBarProps;
                 }
@@ -736,7 +908,7 @@ main() {
             });
 
             test('is private and initialized incorrectly', () {
-              setUpAndParse(factorySrc + privatePropsSrc + componentSrc + '''
+              setUpAndParse(factorySrc + privatePropsSrc + component2Src + '''
                 class _FooProps {
                   static const PropsMeta meta = \$metaForFooProps;
                 }
@@ -748,7 +920,7 @@ main() {
 
           group('for a state class', () {
             test('has the wrong type', () {
-              setUpAndParse(factorySrc + propsSrc + companionClassProps + stateSrc + componentSrc + '''
+              setUpAndParse(factorySrc + propsSrc + companionClassProps + stateSrc + component2Src + '''
                 class FooState {
                   static const PropsMeta meta = _\$metaForFooState;
                 }
@@ -757,7 +929,7 @@ main() {
             });
 
             test('is initialized incorrectly', () {
-              setUpAndParse(factorySrc + propsSrc + companionClassProps + stateSrc + componentSrc + '''
+              setUpAndParse(factorySrc + propsSrc + companionClassProps + stateSrc + component2Src + '''
                 class FooState {
                   static const StateMeta meta = \$metaForBarState;
                 }
@@ -767,7 +939,7 @@ main() {
             });
 
             test('is private and initialized incorrectly', () {
-              setUpAndParse(factorySrc + propsSrc + companionClassProps + componentSrc + privateStateSrc + '''
+              setUpAndParse(factorySrc + propsSrc + companionClassProps + component2Src + privateStateSrc + '''
                 class _FooState {
                   static const StateMeta meta = \$metaForBarState;
                 }
@@ -972,19 +1144,29 @@ main() {
       });
 
       group('and throws an error when', () {
-        test('`subtypeOf` is an unsupported expression that is not an identifier', () {
-          expect(() {
-            setUpAndParse('''
-              @Factory()
-              UiFactory<FooProps> Foo = _\$Foo;
+        group('`subtypeOf` is an unsupported expression that is not an identifier', () {
+          void sharedUnsupportedExpressionTest(String componentAnnotationName) {
+            expect(() {
+              setUpAndParse('''
+                @Factory()
+                UiFactory<FooProps> Foo = _\$Foo;
 
-              @Props()
-              class _\$FooProps {}
+                @Props()
+                class _\$FooProps {}
 
-              @Component(subtypeOf: const [])
-              class FooComponent {}
-            ''');
-          }, throwsA(startsWith('`subtypeOf` must be an identifier')));
+                @$componentAnnotationName(subtypeOf: const [])
+                class FooComponent {}
+              ''');
+            }, throwsA(startsWith('`subtypeOf` must be an identifier')));
+          }
+
+          test('within a @Component() annotation (deprecated)', () {
+            sharedUnsupportedExpressionTest('Component');
+          });
+
+          test('within a @Component2() annotation', () {
+            sharedUnsupportedExpressionTest('Component2');
+          });
         });
       });
     });

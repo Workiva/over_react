@@ -22,6 +22,7 @@ import 'package:over_react/src/component_declaration/builder_helpers.dart'
     as builder_helpers;
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
+import 'package:react/react_client/js_backed_map.dart';
 
 /// Returns a new [DomProps], optionally backed by a specified Map.
 ///
@@ -42,10 +43,15 @@ typedef DomProps DomPropsFactory();
 // Include pieces from builder_helpers so that consumers can type these instances
 // as the `UiProps` exposed in `over_react.dart` and not have to pull in `component_base`.
 class DomProps extends component_base.UiProps
-    with DomPropsMixin, builder_helpers.GeneratedClass
-    implements builder_helpers.UiProps {
-  // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
-  DomProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
+    with
+        DomPropsMixin,
+        builder_helpers.GeneratedClass
+    implements
+        builder_helpers.UiProps {
+  // Initialize to a JsBackedMap so that copying can be optimized
+  // when converting props during ReactElement creation.
+  // TODO 3.0.0-wip generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
+  DomProps(this.componentFactory, [Map props]) : this.props = props ?? JsBackedMap();
 
   @override
   ReactComponentFactoryProxy componentFactory;
@@ -60,10 +66,16 @@ class DomProps extends component_base.UiProps
 // Include pieces from builder_helpers so that consumers can type these instances
 // as the `UiProps` exposed in `over_react.dart` and not have to pull in `component_base`.
 class SvgProps extends component_base.UiProps
-    with DomPropsMixin, SvgPropsMixin, builder_helpers.GeneratedClass
-    implements DomProps {
-  // Wrap Map literal in parens to work around https://github.com/dart-lang/sdk/issues/24410
-  SvgProps(this.componentFactory, [Map props]) : this.props = props ?? ({});
+    with
+        DomPropsMixin,
+        SvgPropsMixin,
+        builder_helpers.GeneratedClass
+    implements
+        DomProps {
+  // Initialize to a JsBackedMap so that copying can be optimized
+  // when converting props during ReactElement creation.
+  // TODO 3.0.0-wip generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
+  SvgProps(this.componentFactory, [Map props]) : this.props = props ?? JsBackedMap();
 
   @override
   ReactComponentFactoryProxy componentFactory;
@@ -77,622 +89,829 @@ class SvgProps extends component_base.UiProps
 
 /// A class that provides namespacing for static DOM component factory methods, much like `React.DOM` in React JS.
 abstract class Dom {
-  /// Returns a new [DomPropsMixin] that renders an `<a>` tag with getters/setters for all DOM-related React props
-  static DomProps a() => DomProps(react.a);
+  /// Returns a new builder that renders an `<a>` tag with getters/setters for all DOM-related React props,
 
-  /// Returns a new [DomPropsMixin] that renders an `<abbr>` tag with getters/setters for all DOM-related React props
-  static DomProps abbr() => DomProps(react.abbr);
+  /// optionally backed by a specified map.
+  static DomProps a([Map backingMap]) => DomProps(react.a, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders an `<address>` tag with getters/setters for all DOM-related React props
-  static DomProps address() => DomProps(react.address);
+  /// Returns a new builder that renders an `<abbr>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps abbr([Map backingMap]) => DomProps(react.abbr, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders an `<area>` tag with getters/setters for all DOM-related React props
-  static DomProps area() => DomProps(react.area);
+  /// Returns a new builder that renders an `<address>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps address([Map backingMap]) => DomProps(react.address, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders an `<article>` tag with getters/setters for all DOM-related React props
-  static DomProps article() => DomProps(react.article);
+  /// Returns a new builder that renders an `<area>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps area([Map backingMap]) => DomProps(react.area, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders an `<aside>` tag with getters/setters for all DOM-related React props
-  static DomProps aside() => DomProps(react.aside);
+  /// Returns a new builder that renders an `<article>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps article([Map backingMap]) => DomProps(react.article, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders an `<audio>` tag with getters/setters for all DOM-related React props
-  static DomProps audio() => DomProps(react.audio);
+  /// Returns a new builder that renders an `<aside>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps aside([Map backingMap]) => DomProps(react.aside, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<b>` tag with getters/setters for all DOM-related React props
-  static DomProps b() => DomProps(react.b);
+  /// Returns a new builder that renders an `<audio>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps audio([Map backingMap]) => DomProps(react.audio, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<base>` tag with getters/setters for all DOM-related React props
-  static DomProps base() => DomProps(react.base);
+  /// Returns a new builder that renders a `<b>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps b([Map backingMap]) => DomProps(react.b, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<bdi>` tag with getters/setters for all DOM-related React props
-  static DomProps bdi() => DomProps(react.bdi);
+  /// Returns a new builder that renders a `<base>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps base([Map backingMap]) => DomProps(react.base, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<bdo>` tag with getters/setters for all DOM-related React props
-  static DomProps bdo() => DomProps(react.bdo);
+  /// Returns a new builder that renders a `<bdi>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps bdi([Map backingMap]) => DomProps(react.bdi, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<big>` tag with getters/setters for all DOM-related React props
-  static DomProps big() => DomProps(react.big);
+  /// Returns a new builder that renders a `<bdo>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps bdo([Map backingMap]) => DomProps(react.bdo, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<blockquote>` tag with getters/setters for all DOM-related React props
-  static DomProps blockquote() => DomProps(react.blockquote);
+  /// Returns a new builder that renders a `<big>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps big([Map backingMap]) => DomProps(react.big, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<body>` tag with getters/setters for all DOM-related React props
-  static DomProps body() => DomProps(react.body);
+  /// Returns a new builder that renders a `<blockquote>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps blockquote([Map backingMap]) => DomProps(react.blockquote, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<br>` tag with getters/setters for all DOM-related React props
-  static DomProps br() => DomProps(react.br);
+  /// Returns a new builder that renders a `<body>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps body([Map backingMap]) => DomProps(react.body, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<button>` tag with getters/setters for all DOM-related React props
-  static DomProps button() => DomProps(react.button);
+  /// Returns a new builder that renders a `<br>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps br([Map backingMap]) => DomProps(react.br, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<canvas>` tag with getters/setters for all DOM-related React props
-  static DomProps canvas() => DomProps(react.canvas);
+  /// Returns a new builder that renders a `<button>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps button([Map backingMap]) => DomProps(react.button, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<caption>` tag with getters/setters for all DOM-related React props
-  static DomProps caption() => DomProps(react.caption);
+  /// Returns a new builder that renders a `<canvas>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps canvas([Map backingMap]) => DomProps(react.canvas, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<cite>` tag with getters/setters for all DOM-related React props
-  static DomProps cite() => DomProps(react.cite);
+  /// Returns a new builder that renders a `<caption>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps caption([Map backingMap]) => DomProps(react.caption, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<code>` tag with getters/setters for all DOM-related React props
-  static DomProps code() => DomProps(react.code);
+  /// Returns a new builder that renders a `<cite>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps cite([Map backingMap]) => DomProps(react.cite, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<col>` tag with getters/setters for all DOM-related React props
-  static DomProps col() => DomProps(react.col);
+  /// Returns a new builder that renders a `<code>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps code([Map backingMap]) => DomProps(react.code, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<colgroup>` tag with getters/setters for all DOM-related React props
-  static DomProps colgroup() => DomProps(react.colgroup);
+  /// Returns a new builder that renders a `<col>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps col([Map backingMap]) => DomProps(react.col, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<data>` tag with getters/setters for all DOM-related React props
-  static DomProps data() => DomProps(react.data);
+  /// Returns a new builder that renders a `<colgroup>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps colgroup([Map backingMap]) => DomProps(react.colgroup, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<datalist>` tag with getters/setters for all DOM-related React props
-  static DomProps datalist() => DomProps(react.datalist);
+  /// Returns a new builder that renders a `<data>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps data([Map backingMap]) => DomProps(react.data, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<dd>` tag with getters/setters for all DOM-related React props
-  static DomProps dd() => DomProps(react.dd);
+  /// Returns a new builder that renders a `<datalist>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps datalist([Map backingMap]) => DomProps(react.datalist, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<del>` tag with getters/setters for all DOM-related React props
-  static DomProps del() => DomProps(react.del);
+  /// Returns a new builder that renders a `<dd>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps dd([Map backingMap]) => DomProps(react.dd, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<details>` tag with getters/setters for all DOM-related React props
-  static DomProps details() => DomProps(react.details);
+  /// Returns a new builder that renders a `<del>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps del([Map backingMap]) => DomProps(react.del, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<dfn>` tag with getters/setters for all DOM-related React props
-  static DomProps dfn() => DomProps(react.dfn);
+  /// Returns a new builder that renders a `<details>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps details([Map backingMap]) => DomProps(react.details, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<dialog>` tag with getters/setters for all DOM-related React props
-  static DomProps dialog() => DomProps(react.dialog);
+  /// Returns a new builder that renders a `<dfn>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps dfn([Map backingMap]) => DomProps(react.dfn, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<div>` tag with getters/setters for all DOM-related React props
-  static DomProps div() => DomProps(react.div);
+  /// Returns a new builder that renders a `<dialog>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps dialog([Map backingMap]) => DomProps(react.dialog, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<dl>` tag with getters/setters for all DOM-related React props
-  static DomProps dl() => DomProps(react.dl);
+  /// Returns a new builder that renders a `<div>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps div([Map backingMap]) => DomProps(react.div, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<dt>` tag with getters/setters for all DOM-related React props
-  static DomProps dt() => DomProps(react.dt);
+  /// Returns a new builder that renders a `<dl>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps dl([Map backingMap]) => DomProps(react.dl, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders an `<em>` tag with getters/setters for all DOM-related React props
-  static DomProps em() => DomProps(react.em);
+  /// Returns a new builder that renders a `<dt>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps dt([Map backingMap]) => DomProps(react.dt, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders an `<embed>` tag with getters/setters for all DOM-related React props
-  static DomProps embed() => DomProps(react.embed);
+  /// Returns a new builder that renders an `<em>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps em([Map backingMap]) => DomProps(react.em, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<fieldset>` tag with getters/setters for all DOM-related React props
-  static DomProps fieldset() => DomProps(react.fieldset);
+  /// Returns a new builder that renders an `<embed>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps embed([Map backingMap]) => DomProps(react.embed, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<figcaption>` tag with getters/setters for all DOM-related React props
-  static DomProps figcaption() => DomProps(react.figcaption);
+  /// Returns a new builder that renders a `<fieldset>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps fieldset([Map backingMap]) => DomProps(react.fieldset, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<figure>` tag with getters/setters for all DOM-related React props
-  static DomProps figure() => DomProps(react.figure);
+  /// Returns a new builder that renders a `<figcaption>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps figcaption([Map backingMap]) => DomProps(react.figcaption, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<footer>` tag with getters/setters for all DOM-related React props
-  static DomProps footer() => DomProps(react.footer);
+  /// Returns a new builder that renders a `<figure>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps figure([Map backingMap]) => DomProps(react.figure, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<form>` tag with getters/setters for all DOM-related React props
-  static DomProps form() => DomProps(react.form);
+  /// Returns a new builder that renders a `<footer>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps footer([Map backingMap]) => DomProps(react.footer, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<h1>` tag with getters/setters for all DOM-related React props
-  static DomProps h1() => DomProps(react.h1);
+  /// Returns a new builder that renders a `<form>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps form([Map backingMap]) => DomProps(react.form, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<h2>` tag with getters/setters for all DOM-related React props
-  static DomProps h2() => DomProps(react.h2);
+  /// Returns a new builder that renders a `<h1>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps h1([Map backingMap]) => DomProps(react.h1, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<h3>` tag with getters/setters for all DOM-related React props
-  static DomProps h3() => DomProps(react.h3);
+  /// Returns a new builder that renders a `<h2>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps h2([Map backingMap]) => DomProps(react.h2, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<h4>` tag with getters/setters for all DOM-related React props
-  static DomProps h4() => DomProps(react.h4);
+  /// Returns a new builder that renders a `<h3>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps h3([Map backingMap]) => DomProps(react.h3, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<h5>` tag with getters/setters for all DOM-related React props
-  static DomProps h5() => DomProps(react.h5);
+  /// Returns a new builder that renders a `<h4>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps h4([Map backingMap]) => DomProps(react.h4, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<h6>` tag with getters/setters for all DOM-related React props
-  static DomProps h6() => DomProps(react.h6);
+  /// Returns a new builder that renders a `<h5>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps h5([Map backingMap]) => DomProps(react.h5, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<head>` tag with getters/setters for all DOM-related React props
-  static DomProps head() => DomProps(react.head);
+  /// Returns a new builder that renders a `<h6>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps h6([Map backingMap]) => DomProps(react.h6, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<header>` tag with getters/setters for all DOM-related React props
-  static DomProps header() => DomProps(react.header);
+  /// Returns a new builder that renders a `<head>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps head([Map backingMap]) => DomProps(react.head, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<hr>` tag with getters/setters for all DOM-related React props
-  static DomProps hr() => DomProps(react.hr);
+  /// Returns a new builder that renders a `<header>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps header([Map backingMap]) => DomProps(react.header, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<html>` tag with getters/setters for all DOM-related React props
-  static DomProps html() => DomProps(react.html);
+  /// Returns a new builder that renders a `<hr>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps hr([Map backingMap]) => DomProps(react.hr, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders an `<i>` tag with getters/setters for all DOM-related React props
-  static DomProps i() => DomProps(react.i);
+  /// Returns a new builder that renders a `<html>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps html([Map backingMap]) => DomProps(react.html, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders an `<iframe>` tag with getters/setters for all DOM-related React props
-  static DomProps iframe() => DomProps(react.iframe);
+  /// Returns a new builder that renders an `<i>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps i([Map backingMap]) => DomProps(react.i, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders an `<img>` tag with getters/setters for all DOM-related React props
-  static DomProps img() => DomProps(react.img);
+  /// Returns a new builder that renders an `<iframe>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps iframe([Map backingMap]) => DomProps(react.iframe, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders an `<input>` tag with getters/setters for all DOM-related React props
-  static DomProps input() => DomProps(react.input);
+  /// Returns a new builder that renders an `<img>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps img([Map backingMap]) => DomProps(react.img, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders an `<ins>` tag with getters/setters for all DOM-related React props
-  static DomProps ins() => DomProps(react.ins);
+  /// Returns a new builder that renders an `<input>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps input([Map backingMap]) => DomProps(react.input, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<kbd>` tag with getters/setters for all DOM-related React props
-  static DomProps kbd() => DomProps(react.kbd);
+  /// Returns a new builder that renders an `<ins>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps ins([Map backingMap]) => DomProps(react.ins, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<keygen>` tag with getters/setters for all DOM-related React props
-  static DomProps keygen() => DomProps(react.keygen);
+  /// Returns a new builder that renders a `<kbd>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps kbd([Map backingMap]) => DomProps(react.kbd, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<label>` tag with getters/setters for all DOM-related React props
-  static DomProps label() => DomProps(react.label);
+  /// Returns a new builder that renders a `<keygen>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps keygen([Map backingMap]) => DomProps(react.keygen, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<legend>` tag with getters/setters for all DOM-related React props
-  static DomProps legend() => DomProps(react.legend);
+  /// Returns a new builder that renders a `<label>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps label([Map backingMap]) => DomProps(react.label, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<li>` tag with getters/setters for all DOM-related React props
-  static DomProps li() => DomProps(react.li);
+  /// Returns a new builder that renders a `<legend>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps legend([Map backingMap]) => DomProps(react.legend, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<link>` tag with getters/setters for all DOM-related React props
-  static DomProps link() => DomProps(react.link);
+  /// Returns a new builder that renders a `<li>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps li([Map backingMap]) => DomProps(react.li, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<main>` tag with getters/setters for all DOM-related React props
-  static DomProps main() => DomProps(react.main);
+  /// Returns a new builder that renders a `<link>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps link([Map backingMap]) => DomProps(react.link, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<map>` tag with getters/setters for all DOM-related React props
-  static DomProps map() => DomProps(react.map);
+  /// Returns a new builder that renders a `<main>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps main([Map backingMap]) => DomProps(react.main, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<mark>` tag with getters/setters for all DOM-related React props
-  static DomProps mark() => DomProps(react.mark);
+  /// Returns a new builder that renders a `<backingMap>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps map([Map backingMap]) => DomProps(react.map, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<menu>` tag with getters/setters for all DOM-related React props
-  static DomProps menu() => DomProps(react.menu);
+  /// Returns a new builder that renders a `<mark>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps mark([Map backingMap]) => DomProps(react.mark, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<menuitem>` tag with getters/setters for all DOM-related React props
-  static DomProps menuitem() => DomProps(react.menuitem);
+  /// Returns a new builder that renders a `<menu>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps menu([Map backingMap]) => DomProps(react.menu, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<meta>` tag with getters/setters for all DOM-related React props
-  static DomProps meta() => DomProps(react.meta);
+  /// Returns a new builder that renders a `<menuitem>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps menuitem([Map backingMap]) => DomProps(react.menuitem, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<meter>` tag with getters/setters for all DOM-related React props
-  static DomProps meter() => DomProps(react.meter);
+  /// Returns a new builder that renders a `<meta>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps meta([Map backingMap]) => DomProps(react.meta, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<nav>` tag with getters/setters for all DOM-related React props
-  static DomProps nav() => DomProps(react.nav);
+  /// Returns a new builder that renders a `<meter>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps meter([Map backingMap]) => DomProps(react.meter, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<noscript>` tag with getters/setters for all DOM-related React props
-  static DomProps noscript() => DomProps(react.noscript);
+  /// Returns a new builder that renders a `<nav>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps nav([Map backingMap]) => DomProps(react.nav, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders an `<object>` tag with getters/setters for all DOM-related React props
-  static DomProps object() => DomProps(react.object);
+  /// Returns a new builder that renders a `<noscript>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps noscript([Map backingMap]) => DomProps(react.noscript, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders an `<ol>` tag with getters/setters for all DOM-related React props
-  static DomProps ol() => DomProps(react.ol);
+  /// Returns a new builder that renders an `<object>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps object([Map backingMap]) => DomProps(react.object, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders an `<optgroup>` tag with getters/setters for all DOM-related React props
-  static DomProps optgroup() => DomProps(react.optgroup);
+  /// Returns a new builder that renders an `<ol>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps ol([Map backingMap]) => DomProps(react.ol, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders an `<option>` tag with getters/setters for all DOM-related React props
-  static DomProps option() => DomProps(react.option);
+  /// Returns a new builder that renders an `<optgroup>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps optgroup([Map backingMap]) => DomProps(react.optgroup, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders an `<output>` tag with getters/setters for all DOM-related React props
-  static DomProps output() => DomProps(react.output);
+  /// Returns a new builder that renders an `<option>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps option([Map backingMap]) => DomProps(react.option, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<p>` tag with getters/setters for all DOM-related React props
-  static DomProps p() => DomProps(react.p);
+  /// Returns a new builder that renders an `<output>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps output([Map backingMap]) => DomProps(react.output, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<param>` tag with getters/setters for all DOM-related React props
-  static DomProps param() => DomProps(react.param);
+  /// Returns a new builder that renders a `<p>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps p([Map backingMap]) => DomProps(react.p, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<picture>` tag with getters/setters for all DOM-related React props
-  static DomProps picture() => DomProps(react.picture);
+  /// Returns a new builder that renders a `<param>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps param([Map backingMap]) => DomProps(react.param, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<pre>` tag with getters/setters for all DOM-related React props
-  static DomProps pre() => DomProps(react.pre);
+  /// Returns a new builder that renders a `<picture>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps picture([Map backingMap]) => DomProps(react.picture, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<progress>` tag with getters/setters for all DOM-related React props
-  static DomProps progress() => DomProps(react.progress);
+  /// Returns a new builder that renders a `<pre>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps pre([Map backingMap]) => DomProps(react.pre, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<q>` tag with getters/setters for all DOM-related React props
-  static DomProps q() => DomProps(react.q);
+  /// Returns a new builder that renders a `<progress>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps progress([Map backingMap]) => DomProps(react.progress, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<rp>` tag with getters/setters for all DOM-related React props
-  static DomProps rp() => DomProps(react.rp);
+  /// Returns a new builder that renders a `<q>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps q([Map backingMap]) => DomProps(react.q, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<rt>` tag with getters/setters for all DOM-related React props
-  static DomProps rt() => DomProps(react.rt);
+  /// Returns a new builder that renders a `<rp>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps rp([Map backingMap]) => DomProps(react.rp, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<ruby>` tag with getters/setters for all DOM-related React props
-  static DomProps ruby() => DomProps(react.ruby);
+  /// Returns a new builder that renders a `<rt>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps rt([Map backingMap]) => DomProps(react.rt, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<s>` tag with getters/setters for all DOM-related React props
-  static DomProps s() => DomProps(react.s);
+  /// Returns a new builder that renders a `<ruby>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps ruby([Map backingMap]) => DomProps(react.ruby, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<samp>` tag with getters/setters for all DOM-related React props
-  static DomProps samp() => DomProps(react.samp);
+  /// Returns a new builder that renders a `<s>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps s([Map backingMap]) => DomProps(react.s, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<script>` tag with getters/setters for all DOM-related React props
-  static DomProps script() => DomProps(react.script);
+  /// Returns a new builder that renders a `<samp>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps samp([Map backingMap]) => DomProps(react.samp, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<section>` tag with getters/setters for all DOM-related React props
-  static DomProps section() => DomProps(react.section);
+  /// Returns a new builder that renders a `<script>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps script([Map backingMap]) => DomProps(react.script, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<select>` tag with getters/setters for all DOM-related React props
-  static DomProps select() => DomProps(react.select);
+  /// Returns a new builder that renders a `<section>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps section([Map backingMap]) => DomProps(react.section, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<small>` tag with getters/setters for all DOM-related React props
-  static DomProps small() => DomProps(react.small);
+  /// Returns a new builder that renders a `<select>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps select([Map backingMap]) => DomProps(react.select, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<source>` tag with getters/setters for all DOM-related React props
-  static DomProps source() => DomProps(react.source);
+  /// Returns a new builder that renders a `<small>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps small([Map backingMap]) => DomProps(react.small, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<span>` tag with getters/setters for all DOM-related React props
-  static DomProps span() => DomProps(react.span);
+  /// Returns a new builder that renders a `<source>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps source([Map backingMap]) => DomProps(react.source, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<strong>` tag with getters/setters for all DOM-related React props
-  static DomProps strong() => DomProps(react.strong);
+  /// Returns a new builder that renders a `<span>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps span([Map backingMap]) => DomProps(react.span, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<style>` tag with getters/setters for all DOM-related React props
-  static DomProps style() => DomProps(react.style);
+  /// Returns a new builder that renders a `<strong>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps strong([Map backingMap]) => DomProps(react.strong, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<sub>` tag with getters/setters for all DOM-related React props
-  static DomProps sub() => DomProps(react.sub);
+  /// Returns a new builder that renders a `<style>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps style([Map backingMap]) => DomProps(react.style, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<summary>` tag with getters/setters for all DOM-related React props
-  static DomProps summary() => DomProps(react.summary);
+  /// Returns a new builder that renders a `<sub>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps sub([Map backingMap]) => DomProps(react.sub, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<sup>` tag with getters/setters for all DOM-related React props
-  static DomProps sup() => DomProps(react.sup);
+  /// Returns a new builder that renders a `<summary>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps summary([Map backingMap]) => DomProps(react.summary, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<table>` tag with getters/setters for all DOM-related React props
-  static DomProps table() => DomProps(react.table);
+  /// Returns a new builder that renders a `<sup>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps sup([Map backingMap]) => DomProps(react.sup, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<tbody>` tag with getters/setters for all DOM-related React props
-  static DomProps tbody() => DomProps(react.tbody);
+  /// Returns a new builder that renders a `<table>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps table([Map backingMap]) => DomProps(react.table, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<td>` tag with getters/setters for all DOM-related React props
-  static DomProps td() => DomProps(react.td);
+  /// Returns a new builder that renders a `<tbody>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps tbody([Map backingMap]) => DomProps(react.tbody, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<textarea>` tag with getters/setters for all DOM-related React props
-  static DomProps textarea() => DomProps(react.textarea);
+  /// Returns a new builder that renders a `<td>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps td([Map backingMap]) => DomProps(react.td, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<tfoot>` tag with getters/setters for all DOM-related React props
-  static DomProps tfoot() => DomProps(react.tfoot);
+  /// Returns a new builder that renders a `<textarea>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps textarea([Map backingMap]) => DomProps(react.textarea, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<th>` tag with getters/setters for all DOM-related React props
-  static DomProps th() => DomProps(react.th);
+  /// Returns a new builder that renders a `<tfoot>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps tfoot([Map backingMap]) => DomProps(react.tfoot, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<thead>` tag with getters/setters for all DOM-related React props
-  static DomProps thead() => DomProps(react.thead);
+  /// Returns a new builder that renders a `<th>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps th([Map backingMap]) => DomProps(react.th, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<time>` tag with getters/setters for all DOM-related React props
-  static DomProps time() => DomProps(react.time);
+  /// Returns a new builder that renders a `<thead>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps thead([Map backingMap]) => DomProps(react.thead, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<title>` tag with getters/setters for all DOM-related React props
-  static DomProps title() => DomProps(react.title);
+  /// Returns a new builder that renders a `<time>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps time([Map backingMap]) => DomProps(react.time, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<tr>` tag with getters/setters for all DOM-related React props
-  static DomProps tr() => DomProps(react.tr);
+  /// Returns a new builder that renders a `<title>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps title([Map backingMap]) => DomProps(react.title, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<track>` tag with getters/setters for all DOM-related React props
-  static DomProps track() => DomProps(react.track);
+  /// Returns a new builder that renders a `<tr>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps tr([Map backingMap]) => DomProps(react.tr, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders an `<u>` tag with getters/setters for all DOM-related React props
-  static DomProps u() => DomProps(react.u);
+  /// Returns a new builder that renders a `<track>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps track([Map backingMap]) => DomProps(react.track, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders an `<ul>` tag with getters/setters for all DOM-related React props
-  static DomProps ul() => DomProps(react.ul);
+  /// Returns a new builder that renders an `<u>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps u([Map backingMap]) => DomProps(react.u, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<var>` tag with getters/setters for all DOM-related React props
-  static DomProps variable() => DomProps(react.variable);
+  /// Returns a new builder that renders an `<ul>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps ul([Map backingMap]) => DomProps(react.ul, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<video>` tag with getters/setters for all DOM-related React props
-  static DomProps video() => DomProps(react.video);
+  /// Returns a new builder that renders a `<var>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps variable([Map backingMap]) => DomProps(react.variable, backingMap);
 
-  /// Returns a new [DomPropsMixin] that renders a `<wbr>` tag with getters/setters for all DOM-related React props
-  static DomProps wbr() => DomProps(react.wbr);
+  /// Returns a new builder that renders a `<video>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps video([Map backingMap]) => DomProps(react.video, backingMap);
+
+  /// Returns a new builder that renders a `<wbr>` tag with getters/setters for all DOM-related React props,
+  /// optionally backed by a specified map.
+  static DomProps wbr([Map backingMap]) => DomProps(react.wbr, backingMap);
 
   // SVG Elements
-  /// Returns a new [SvgPropsMixin] that renders an `<a>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgA() => SvgProps(react.a);
-
-  /// Returns a new [SvgPropsMixin] that renders an `<altGlyph>` tag with getters/setters for all SVG-related React props
-  static SvgProps altGlyph() => SvgProps(react.altGlyph);
-
-  /// Returns a new [SvgPropsMixin] that renders an `<altGlyphDef>` tag with getters/setters for all SVG-related React props
-  static SvgProps altGlyphDef() => SvgProps(react.altGlyphDef);
-
-  /// Returns a new [SvgPropsMixin] that renders an `<altGlyphItem>` tag with getters/setters for all SVG-related React props
-  static SvgProps altGlyphItem() => SvgProps(react.altGlyphItem);
-
-  /// Returns a new [SvgPropsMixin] that renders an `<animate>` tag with getters/setters for all SVG-related React props
-  static SvgProps animate() => SvgProps(react.animate);
-
-  /// Returns a new [SvgPropsMixin] that renders an `<animateColor>` tag with getters/setters for all SVG-related React props
-  static SvgProps animateColor() => SvgProps(react.animateColor);
-
-  /// Returns a new [SvgPropsMixin] that renders an `<animateMotion>` tag with getters/setters for all SVG-related React props
-  static SvgProps animateMotion() => SvgProps(react.animateMotion);
-
-  /// Returns a new [SvgPropsMixin] that renders an `<animateTransform>` tag with getters/setters for all SVG-related React props
-  static SvgProps animateTransform() => SvgProps(react.animateTransform);
-
-  /// Returns a new [SvgPropsMixin] that renders an `<audio>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgAudio() => SvgProps(react.audio);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<canvas>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgCanvas() => SvgProps(react.canvas);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<circle>` tag with getters/setters for all SVG-related React props
-  static SvgProps circle() => SvgProps(react.circle);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<clipPath>` tag with getters/setters for all SVG-related React props
-  static SvgProps clipPath() => SvgProps(react.clipPath);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<color-profile>` tag with getters/setters for all SVG-related React props
-  static SvgProps colorProfile() => SvgProps(react.colorProfile);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<cursor>` tag with getters/setters for all SVG-related React props
-  static SvgProps cursor() => SvgProps(react.cursor);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<defs>` tag with getters/setters for all SVG-related React props
-  static SvgProps defs() => SvgProps(react.defs);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<desc>` tag with getters/setters for all SVG-related React props
-  static SvgProps desc() => SvgProps(react.desc);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<discard>` tag with getters/setters for all SVG-related React props
-  static SvgProps discard() => SvgProps(react.discard);
-
-  /// Returns a new [SvgPropsMixin] that renders an `<ellipse>` tag with getters/setters for all SVG-related React props
-  static SvgProps ellipse() => SvgProps(react.ellipse);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feBlend>` tag with getters/setters for all SVG-related React props
-  static SvgProps feBlend() => SvgProps(react.feBlend);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feColorMatrix>` tag with getters/setters for all SVG-related React props
-  static SvgProps feColorMatrix() => SvgProps(react.feColorMatrix);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feComponentTransfer>` tag with getters/setters for all SVG-related React props
-  static SvgProps feComponentTransfer() => SvgProps(react.feComponentTransfer);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feComposite>` tag with getters/setters for all SVG-related React props
-  static SvgProps feComposite() => SvgProps(react.feComposite);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feConvolveMatrix>` tag with getters/setters for all SVG-related React props
-  static SvgProps feConvolveMatrix() => SvgProps(react.feConvolveMatrix);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feDiffuseLighting>` tag with getters/setters for all SVG-related React props
-  static SvgProps feDiffuseLighting() => SvgProps(react.feDiffuseLighting);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feDisplacementMap>` tag with getters/setters for all SVG-related React props
-  static SvgProps feDisplacementMap() => SvgProps(react.feDisplacementMap);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feDistantLight>` tag with getters/setters for all SVG-related React props
-  static SvgProps feDistantLight() => SvgProps(react.feDistantLight);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feDropShadow>` tag with getters/setters for all SVG-related React props
-  static SvgProps feDropShadow() => SvgProps(react.feDropShadow);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feFlood>` tag with getters/setters for all SVG-related React props
-  static SvgProps feFlood() => SvgProps(react.feFlood);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feFuncA>` tag with getters/setters for all SVG-related React props
-  static SvgProps feFuncA() => SvgProps(react.feFuncA);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feFuncB>` tag with getters/setters for all SVG-related React props
-  static SvgProps feFuncB() => SvgProps(react.feFuncB);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feFuncG>` tag with getters/setters for all SVG-related React props
-  static SvgProps feFuncG() => SvgProps(react.feFuncG);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feFuncR>` tag with getters/setters for all SVG-related React props
-  static SvgProps feFuncR() => SvgProps(react.feFuncR);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feGaussianBlur>` tag with getters/setters for all SVG-related React props
-  static SvgProps feGaussianBlur() => SvgProps(react.feGaussianBlur);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feImage>` tag with getters/setters for all SVG-related React props
-  static SvgProps feImage() => SvgProps(react.feImage);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feMerge>` tag with getters/setters for all SVG-related React props
-  static SvgProps feMerge() => SvgProps(react.feMerge);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feMergeNode>` tag with getters/setters for all SVG-related React props
-  static SvgProps feMergeNode() => SvgProps(react.feMergeNode);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feMorphology>` tag with getters/setters for all SVG-related React props
-  static SvgProps feMorphology() => SvgProps(react.feMorphology);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feOffset>` tag with getters/setters for all SVG-related React props
-  static SvgProps feOffset() => SvgProps(react.feOffset);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<fePointLight>` tag with getters/setters for all SVG-related React props
-  static SvgProps fePointLight() => SvgProps(react.fePointLight);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feSpecularLighting>` tag with getters/setters for all SVG-related React props
-  static SvgProps feSpecularLighting() => SvgProps(react.feSpecularLighting);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feSpotLight>` tag with getters/setters for all SVG-related React props
-  static SvgProps feSpotLight() => SvgProps(react.feSpotLight);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feTile>` tag with getters/setters for all SVG-related React props
-  static SvgProps feTile() => SvgProps(react.feTile);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<feTurbulence>` tag with getters/setters for all SVG-related React props
-  static SvgProps feTurbulence() => SvgProps(react.feTurbulence);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<filter>` tag with getters/setters for all SVG-related React props
-  static SvgProps filter() => SvgProps(react.filter);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<font>` tag with getters/setters for all SVG-related React props
-  static SvgProps font() => SvgProps(react.font);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<font-face>` tag with getters/setters for all SVG-related React props
-  static SvgProps fontFace() => SvgProps(react.fontFace);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<font-face-format>` tag with getters/setters for all SVG-related React props
-  static SvgProps fontFaceFormat() => SvgProps(react.fontFaceFormat);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<font-face-name>` tag with getters/setters for all SVG-related React props
-  static SvgProps fontFaceName() => SvgProps(react.fontFaceName);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<font-face-src>` tag with getters/setters for all SVG-related React props
-  static SvgProps fontFaceSrc() => SvgProps(react.fontFaceSrc);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<font-face-uri>` tag with getters/setters for all SVG-related React props
-  static SvgProps fontFaceUri() => SvgProps(react.fontFaceUri);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<foreignObject>` tag with getters/setters for all SVG-related React props
-  static SvgProps foreignObject() => SvgProps(react.foreignObject);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<g>` tag with getters/setters for all SVG-related React props
-  static SvgProps g() => SvgProps(react.g);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<glyph>` tag with getters/setters for all SVG-related React props
-  static SvgProps glyph() => SvgProps(react.glyph);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<glyphRef>` tag with getters/setters for all SVG-related React props
-  static SvgProps glyphRef() => SvgProps(react.glyphRef);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<hatch>` tag with getters/setters for all SVG-related React props
-  static SvgProps hatch() => SvgProps(react.hatch);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<hatchpath>` tag with getters/setters for all SVG-related React props
-  static SvgProps hatchpath() => SvgProps(react.hatchpath);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<hkern>` tag with getters/setters for all SVG-related React props
-  static SvgProps hkern() => SvgProps(react.hkern);
-
-  /// Returns a new [SvgPropsMixin] that renders an `<iframe>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgIframe() => SvgProps(react.iframe);
-
-  /// Returns a new [SvgPropsMixin] that renders an `<image>` tag with getters/setters for all SVG-related React props
-  static SvgProps image() => SvgProps(react.image);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<line>` tag with getters/setters for all SVG-related React props
-  static SvgProps line() => SvgProps(react.line);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<linearGradient>` tag with getters/setters for all SVG-related React props
-  static SvgProps linearGradient() => SvgProps(react.linearGradient);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<marker>` tag with getters/setters for all SVG-related React props
-  static SvgProps marker() => SvgProps(react.marker);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<mask>` tag with getters/setters for all SVG-related React props
-  static SvgProps mask() => SvgProps(react.mask);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<mesh>` tag with getters/setters for all SVG-related React props
-  static SvgProps mesh() => SvgProps(react.mesh);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<meshgradient>` tag with getters/setters for all SVG-related React props
-  static SvgProps meshgradient() => SvgProps(react.meshgradient);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<meshpatch>` tag with getters/setters for all SVG-related React props
-  static SvgProps meshpatch() => SvgProps(react.meshpatch);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<meshrow>` tag with getters/setters for all SVG-related React props
-  static SvgProps meshrow() => SvgProps(react.meshrow);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<metadata>` tag with getters/setters for all SVG-related React props
-  static SvgProps metadata() => SvgProps(react.metadata);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<missing-glyph>` tag with getters/setters for all SVG-related React props
-  static SvgProps missingGlyph() => SvgProps(react.missingGlyph);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<mpath>` tag with getters/setters for all SVG-related React props
-  static SvgProps mpath() => SvgProps(react.mpath);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<path>` tag with getters/setters for all SVG-related React props
-  static SvgProps path() => SvgProps(react.path);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<pattern>` tag with getters/setters for all SVG-related React props
-  static SvgProps pattern() => SvgProps(react.pattern);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<polygon>` tag with getters/setters for all SVG-related React props
-  static SvgProps polygon() => SvgProps(react.polygon);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<polyline>` tag with getters/setters for all SVG-related React props
-  static SvgProps polyline() => SvgProps(react.polyline);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<radialGradient>` tag with getters/setters for all SVG-related React props
-  static SvgProps radialGradient() => SvgProps(react.radialGradient);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<rect>` tag with getters/setters for all SVG-related React props
-  static SvgProps rect() => SvgProps(react.rect);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<script>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgScript() => SvgProps(react.script);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<set>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgSet() => SvgProps(react.svgSet);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<solidcolor>` tag with getters/setters for all SVG-related React props
-  static SvgProps solidcolor() => SvgProps(react.solidcolor);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<stop>` tag with getters/setters for all SVG-related React props
-  static SvgProps stop() => SvgProps(react.stop);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<style>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgStyle() => SvgProps(react.style);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<svg>` tag with getters/setters for all SVG-related React props
-  static SvgProps svg() => SvgProps(react.svg);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<switch>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgSwitch() => SvgProps(react.svgSwitch);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<symbol>` tag with getters/setters for all SVG-related React props
-  static SvgProps symbol() => SvgProps(react.symbol);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<text>` tag with getters/setters for all SVG-related React props
-  static SvgProps text() => SvgProps(react.text);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<textPath>` tag with getters/setters for all SVG-related React props
-  static SvgProps textPath() => SvgProps(react.textPath);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<title>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgTitle() => SvgProps(react.title);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<tref>` tag with getters/setters for all SVG-related React props
-  static SvgProps tref() => SvgProps(react.tref);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<tspan>` tag with getters/setters for all SVG-related React props
-  static SvgProps tspan() => SvgProps(react.tspan);
-
-  /// Returns a new [SvgPropsMixin] that renders an `<unknown>` tag with getters/setters for all SVG-related React props
-  static SvgProps unknown() => SvgProps(react.unknown);
-
-  /// Returns a new [SvgPropsMixin] that renders an `<use>` tag with getters/setters for all SVG-related React props
-  static SvgProps use() => SvgProps(react.use);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<video>` tag with getters/setters for all SVG-related React props
-  static SvgProps svgVideo() => SvgProps(react.video);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<view>` tag with getters/setters for all SVG-related React props
-  static SvgProps view() => SvgProps(react.view);
-
-  /// Returns a new [SvgPropsMixin] that renders a `<vkern>` tag with getters/setters for all SVG-related React props
-  static SvgProps vkern() => SvgProps(react.vkern);
+  /// Returns a new builder that renders an `<a>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps svgA([Map backingMap]) => SvgProps(react.a, backingMap);
+
+  /// Returns a new builder that renders an `<altGlyph>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps altGlyph([Map backingMap]) => SvgProps(react.altGlyph, backingMap);
+
+  /// Returns a new builder that renders an `<altGlyphDef>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps altGlyphDef([Map backingMap]) => SvgProps(react.altGlyphDef, backingMap);
+
+  /// Returns a new builder that renders an `<altGlyphItem>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps altGlyphItem([Map backingMap]) => SvgProps(react.altGlyphItem, backingMap);
+
+  /// Returns a new builder that renders an `<animate>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps animate([Map backingMap]) => SvgProps(react.animate, backingMap);
+
+  /// Returns a new builder that renders an `<animateColor>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps animateColor([Map backingMap]) => SvgProps(react.animateColor, backingMap);
+
+  /// Returns a new builder that renders an `<animateMotion>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps animateMotion([Map backingMap]) => SvgProps(react.animateMotion, backingMap);
+
+  /// Returns a new builder that renders an `<animateTransform>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps animateTransform([Map backingMap]) => SvgProps(react.animateTransform, backingMap);
+
+  /// Returns a new builder that renders an `<audio>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps svgAudio([Map backingMap]) => SvgProps(react.audio, backingMap);
+
+  /// Returns a new builder that renders a `<canvas>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps svgCanvas([Map backingMap]) => SvgProps(react.canvas, backingMap);
+
+  /// Returns a new builder that renders a `<circle>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps circle([Map backingMap]) => SvgProps(react.circle, backingMap);
+
+  /// Returns a new builder that renders a `<clipPath>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps clipPath([Map backingMap]) => SvgProps(react.clipPath, backingMap);
+
+  /// Returns a new builder that renders a `<color-profile>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps colorProfile([Map backingMap]) => SvgProps(react.colorProfile, backingMap);
+
+  /// Returns a new builder that renders a `<cursor>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps cursor([Map backingMap]) => SvgProps(react.cursor, backingMap);
+
+  /// Returns a new builder that renders a `<defs>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps defs([Map backingMap]) => SvgProps(react.defs, backingMap);
+
+  /// Returns a new builder that renders a `<desc>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps desc([Map backingMap]) => SvgProps(react.desc, backingMap);
+
+  /// Returns a new builder that renders a `<discard>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps discard([Map backingMap]) => SvgProps(react.discard, backingMap);
+
+  /// Returns a new builder that renders an `<ellipse>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps ellipse([Map backingMap]) => SvgProps(react.ellipse, backingMap);
+
+  /// Returns a new builder that renders a `<feBlend>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feBlend([Map backingMap]) => SvgProps(react.feBlend, backingMap);
+
+  /// Returns a new builder that renders a `<feColorMatrix>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feColorMatrix([Map backingMap]) => SvgProps(react.feColorMatrix, backingMap);
+
+  /// Returns a new builder that renders a `<feComponentTransfer>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feComponentTransfer([Map backingMap]) => SvgProps(react.feComponentTransfer, backingMap);
+
+  /// Returns a new builder that renders a `<feComposite>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feComposite([Map backingMap]) => SvgProps(react.feComposite, backingMap);
+
+  /// Returns a new builder that renders a `<feConvolveMatrix>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feConvolveMatrix([Map backingMap]) => SvgProps(react.feConvolveMatrix, backingMap);
+
+  /// Returns a new builder that renders a `<feDiffuseLighting>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feDiffuseLighting([Map backingMap]) => SvgProps(react.feDiffuseLighting, backingMap);
+
+  /// Returns a new builder that renders a `<feDisplacementMap>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feDisplacementMap([Map backingMap]) => SvgProps(react.feDisplacementMap, backingMap);
+
+  /// Returns a new builder that renders a `<feDistantLight>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feDistantLight([Map backingMap]) => SvgProps(react.feDistantLight, backingMap);
+
+  /// Returns a new builder that renders a `<feDropShadow>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feDropShadow([Map backingMap]) => SvgProps(react.feDropShadow, backingMap);
+
+  /// Returns a new builder that renders a `<feFlood>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feFlood([Map backingMap]) => SvgProps(react.feFlood, backingMap);
+
+  /// Returns a new builder that renders a `<feFuncA>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feFuncA([Map backingMap]) => SvgProps(react.feFuncA, backingMap);
+
+  /// Returns a new builder that renders a `<feFuncB>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feFuncB([Map backingMap]) => SvgProps(react.feFuncB, backingMap);
+
+  /// Returns a new builder that renders a `<feFuncG>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feFuncG([Map backingMap]) => SvgProps(react.feFuncG, backingMap);
+
+  /// Returns a new builder that renders a `<feFuncR>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feFuncR([Map backingMap]) => SvgProps(react.feFuncR, backingMap);
+
+  /// Returns a new builder that renders a `<feGaussianBlur>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feGaussianBlur([Map backingMap]) => SvgProps(react.feGaussianBlur, backingMap);
+
+  /// Returns a new builder that renders a `<feImage>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feImage([Map backingMap]) => SvgProps(react.feImage, backingMap);
+
+  /// Returns a new builder that renders a `<feMerge>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feMerge([Map backingMap]) => SvgProps(react.feMerge, backingMap);
+
+  /// Returns a new builder that renders a `<feMergeNode>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feMergeNode([Map backingMap]) => SvgProps(react.feMergeNode, backingMap);
+
+  /// Returns a new builder that renders a `<feMorphology>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feMorphology([Map backingMap]) => SvgProps(react.feMorphology, backingMap);
+
+  /// Returns a new builder that renders a `<feOffset>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feOffset([Map backingMap]) => SvgProps(react.feOffset, backingMap);
+
+  /// Returns a new builder that renders a `<fePointLight>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps fePointLight([Map backingMap]) => SvgProps(react.fePointLight, backingMap);
+
+  /// Returns a new builder that renders a `<feSpecularLighting>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feSpecularLighting([Map backingMap]) => SvgProps(react.feSpecularLighting, backingMap);
+
+  /// Returns a new builder that renders a `<feSpotLight>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feSpotLight([Map backingMap]) => SvgProps(react.feSpotLight, backingMap);
+
+  /// Returns a new builder that renders a `<feTile>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feTile([Map backingMap]) => SvgProps(react.feTile, backingMap);
+
+  /// Returns a new builder that renders a `<feTurbulence>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps feTurbulence([Map backingMap]) => SvgProps(react.feTurbulence, backingMap);
+
+  /// Returns a new builder that renders a `<filter>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps filter([Map backingMap]) => SvgProps(react.filter, backingMap);
+
+  /// Returns a new builder that renders a `<font>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps font([Map backingMap]) => SvgProps(react.font, backingMap);
+
+  /// Returns a new builder that renders a `<font-face>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps fontFace([Map backingMap]) => SvgProps(react.fontFace, backingMap);
+
+  /// Returns a new builder that renders a `<font-face-format>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps fontFaceFormat([Map backingMap]) => SvgProps(react.fontFaceFormat, backingMap);
+
+  /// Returns a new builder that renders a `<font-face-name>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps fontFaceName([Map backingMap]) => SvgProps(react.fontFaceName, backingMap);
+
+  /// Returns a new builder that renders a `<font-face-src>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps fontFaceSrc([Map backingMap]) => SvgProps(react.fontFaceSrc, backingMap);
+
+  /// Returns a new builder that renders a `<font-face-uri>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps fontFaceUri([Map backingMap]) => SvgProps(react.fontFaceUri, backingMap);
+
+  /// Returns a new builder that renders a `<foreignObject>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps foreignObject([Map backingMap]) => SvgProps(react.foreignObject, backingMap);
+
+  /// Returns a new builder that renders a `<g>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps g([Map backingMap]) => SvgProps(react.g, backingMap);
+
+  /// Returns a new builder that renders a `<glyph>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps glyph([Map backingMap]) => SvgProps(react.glyph, backingMap);
+
+  /// Returns a new builder that renders a `<glyphRef>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps glyphRef([Map backingMap]) => SvgProps(react.glyphRef, backingMap);
+
+  /// Returns a new builder that renders a `<hatch>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps hatch([Map backingMap]) => SvgProps(react.hatch, backingMap);
+
+  /// Returns a new builder that renders a `<hatchpath>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps hatchpath([Map backingMap]) => SvgProps(react.hatchpath, backingMap);
+
+  /// Returns a new builder that renders a `<hkern>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps hkern([Map backingMap]) => SvgProps(react.hkern, backingMap);
+
+  /// Returns a new builder that renders an `<iframe>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps svgIframe([Map backingMap]) => SvgProps(react.iframe, backingMap);
+
+  /// Returns a new builder that renders an `<image>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps image([Map backingMap]) => SvgProps(react.image, backingMap);
+
+  /// Returns a new builder that renders a `<line>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps line([Map backingMap]) => SvgProps(react.line, backingMap);
+
+  /// Returns a new builder that renders a `<linearGradient>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps linearGradient([Map backingMap]) => SvgProps(react.linearGradient, backingMap);
+
+  /// Returns a new builder that renders a `<marker>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps marker([Map backingMap]) => SvgProps(react.marker, backingMap);
+
+  /// Returns a new builder that renders a `<mask>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps mask([Map backingMap]) => SvgProps(react.mask, backingMap);
+
+  /// Returns a new builder that renders a `<mesh>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps mesh([Map backingMap]) => SvgProps(react.mesh, backingMap);
+
+  /// Returns a new builder that renders a `<meshgradient>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps meshgradient([Map backingMap]) => SvgProps(react.meshgradient, backingMap);
+
+  /// Returns a new builder that renders a `<meshpatch>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps meshpatch([Map backingMap]) => SvgProps(react.meshpatch, backingMap);
+
+  /// Returns a new builder that renders a `<meshrow>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps meshrow([Map backingMap]) => SvgProps(react.meshrow, backingMap);
+
+  /// Returns a new builder that renders a `<metadata>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps metadata([Map backingMap]) => SvgProps(react.metadata, backingMap);
+
+  /// Returns a new builder that renders a `<missing-glyph>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps missingGlyph([Map backingMap]) => SvgProps(react.missingGlyph, backingMap);
+
+  /// Returns a new builder that renders a `<mpath>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps mpath([Map backingMap]) => SvgProps(react.mpath, backingMap);
+
+  /// Returns a new builder that renders a `<path>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps path([Map backingMap]) => SvgProps(react.path, backingMap);
+
+  /// Returns a new builder that renders a `<pattern>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps pattern([Map backingMap]) => SvgProps(react.pattern, backingMap);
+
+  /// Returns a new builder that renders a `<polygon>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps polygon([Map backingMap]) => SvgProps(react.polygon, backingMap);
+
+  /// Returns a new builder that renders a `<polyline>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps polyline([Map backingMap]) => SvgProps(react.polyline, backingMap);
+
+  /// Returns a new builder that renders a `<radialGradient>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps radialGradient([Map backingMap]) => SvgProps(react.radialGradient, backingMap);
+
+  /// Returns a new builder that renders a `<rect>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps rect([Map backingMap]) => SvgProps(react.rect, backingMap);
+
+  /// Returns a new builder that renders a `<script>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps svgScript([Map backingMap]) => SvgProps(react.script, backingMap);
+
+  /// Returns a new builder that renders a `<set>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps svgSet([Map backingMap]) => SvgProps(react.svgSet, backingMap);
+
+  /// Returns a new builder that renders a `<solidcolor>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps solidcolor([Map backingMap]) => SvgProps(react.solidcolor, backingMap);
+
+  /// Returns a new builder that renders a `<stop>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps stop([Map backingMap]) => SvgProps(react.stop, backingMap);
+
+  /// Returns a new builder that renders a `<style>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps svgStyle([Map backingMap]) => SvgProps(react.style, backingMap);
+
+  /// Returns a new builder that renders a `<svg>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps svg([Map backingMap]) => SvgProps(react.svg, backingMap);
+
+  /// Returns a new builder that renders a `<switch>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps svgSwitch([Map backingMap]) => SvgProps(react.svgSwitch, backingMap);
+
+  /// Returns a new builder that renders a `<symbol>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps symbol([Map backingMap]) => SvgProps(react.symbol, backingMap);
+
+  /// Returns a new builder that renders a `<text>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps text([Map backingMap]) => SvgProps(react.text, backingMap);
+
+  /// Returns a new builder that renders a `<textPath>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps textPath([Map backingMap]) => SvgProps(react.textPath, backingMap);
+
+  /// Returns a new builder that renders a `<title>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps svgTitle([Map backingMap]) => SvgProps(react.title, backingMap);
+
+  /// Returns a new builder that renders a `<tref>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps tref([Map backingMap]) => SvgProps(react.tref, backingMap);
+
+  /// Returns a new builder that renders a `<tspan>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps tspan([Map backingMap]) => SvgProps(react.tspan, backingMap);
+
+  /// Returns a new builder that renders an `<unknown>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps unknown([Map backingMap]) => SvgProps(react.unknown, backingMap);
+
+  /// Returns a new builder that renders an `<use>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps use([Map backingMap]) => SvgProps(react.use, backingMap);
+
+  /// Returns a new builder that renders a `<video>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps svgVideo([Map backingMap]) => SvgProps(react.video, backingMap);
+
+  /// Returns a new builder that renders a `<view>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps view([Map backingMap]) => SvgProps(react.view, backingMap);
+
+  /// Returns a new builder that renders a `<vkern>` tag with getters/setters for all SVG-related React props,
+  /// optionally backed by a specified map.
+  static SvgProps vkern([Map backingMap]) => SvgProps(react.vkern, backingMap);
 }

@@ -1,5 +1,66 @@
 # OverReact Changelog
 
+## [3.1.0](https://github.com/Workiva/over_react/compare/3.0.0+dart2...3.1.0)
+
+### Full React JS 16.x Component Lifecycle Support
+
+- The new `UiComponent2` classes<sup>＊</sup> replace the now deprecated `UiComponent` classes.
+  
+  <sup>＊</sup>_(`UiComponent2`, `UiStatefulComponent2`, `FluxUiComponent2`)_
+  - Faster
+    - Initial renders ~10% faster
+    - Re-renders ~7 - 30% faster
+  - Improved developer experience
+     - Props and state values now show up in the React DevTools just as they would if you were using React JS, and primitive values (strings, numbers, booleans) can be edited live, just like in React JS!
+    
+        ![React DevTools with Component2](https://user-images.githubusercontent.com/1750797/68478015-1259b500-01ec-11ea-92bf-0bd432cd4001.gif)
+  - Easier to maintain
+  - Easier integration with JS libs
+    - `ReactJsComponentFactoryProxy` makes it easy to use JS components with Dart!
+      - [Check out this example of MaterialUI components!](https://github.com/cleandart/react-dart/blob/5.1.0-wip/example/js_components/js_components.dart#L115-L145)
+  - Supports new lifecycle methods, allowing us to use Concurrent Mode in the future
+    - <s>`componentWillMount`</s> => `componentDidMount`
+    - <s>`componentWillReceiveProps`</s> => `getDerivedStateFromProps` _(new)_
+    - <s>`componentWillUpdate`</s> => `getSnapshotBeforeUpdate` _(new)_
+    - `componentDidCatch` / `getDerivedStateFromError` _(new)_
+      - Adds support for [error boundaries](https://reactjs.org/docs/error-boundaries.html).
+      - OverReact also provides an `ErrorBoundary` component out of the box that you can wrap around your components, and an `ErrorBoundaryMixin` that you can use as a starting point to build your own custom error boundary component!
+      
+> [__Learn more about upgrading to `UiComponent2`__](https://github.com/Workiva/over_react/blob/master/doc/ui_component2_transition.md#updating)
+
+### Improved, stable [Context](https://reactjs.org/docs/context.html) API
+
+- _"Context provides a way to pass data through the component tree without having to pass props down manually at every level. … Context is primarily used when some data needs to be accessible by many components at different nesting levels. Apply it sparingly because it makes component reuse more difficult."_
+
+### New `over_react_redux.dart` Library
+
+- To take full advantage of the new stable `Context` API, we have built atop 
+  the awesome [redux.dart library](https://github.com/johnpryan/redux.dart) to make it easy
+  to set up redux provider(s) / consumer(s) for OverReact components that enable granular, targeted updates!
+    - Check out [some examples](https://github.com/Workiva/over_react/tree/master/web/over_react_redux)
+      by cloning this project locally, running `webdev serve` from the root of the project, and navigating to <http://localhost:8080/over_react_redux/>.
+    - Use it in your project by [upgrading your `UiComponent`s to `UiComponent2`](https://github.com/Workiva/over_react/blob/master/doc/ui_component2_transition.md#updating) and importing `package:over_react/over_react_redux.dart`!
+- We've even got some sweet [redux dev tools you can use](https://github.com/Workiva/over_react/blob/master/doc/over_react_redux_documentation.md#using-redux-devtools) to make the inspection of connected state a breeze!
+  ![over_react_redux.dart developer tools](http://g.recordit.co/NLeAZQkCFm.gif)
+
+> [__Learn more about using over_react_redux.dart__](https://github.com/Workiva/over_react/blob/master/doc/over_react_redux_documentation.md) 
+
+### [Portals](https://reactjs.org/docs/portals.html)
+
+- _"Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component."_
+
+### [Fragments](https://reactjs.org/docs/fragments.html)
+
+- _"A common pattern in React is for a component to return multiple elements. Fragments let you group a list of children without adding extra nodes to the DOM."_
+- `UiComponent.render()` can now return a `ReactFragment` (multiple children) or other values like strings and lists instead of just a single `ReactElement`.
+
+### No more Dart 1 SDK support
+
+- With the release of `3.1.0` comes the end of our `+dart1` / `+dart2` dual releases that we have been 
+  maintaining for over a year.  Time to upgrade to Dart 2!
+
+> [Full list of 3.1.0 Changes](https://github.com/Workiva/over_react/milestone/3?closed=1)
+
 ## 3.0.2
 
 Dependency updates:
@@ -41,6 +102,15 @@ __ReactJS 16.x Support__
 > - [Dart 1](https://github.com/Workiva/over_react/compare/2.6.1+dart1...2.7.0+dart1)
 
 * This release brings in the `SafeRenderManager` utilities added to the 3.x alpha line-of-release via [#390]  
+
+## 2.7.0
+
+> Complete `2.7.0` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.6.1+dart2...2.7.0+dart2)
+> - [Dart 1](https://github.com/Workiva/over_react/compare/2.6.1+dart1...2.7.0+dart1)
+
+* This release brings in the `SafeRenderManager` utilities added to the 3.x alpha line-of-release via [#390]
 
 ## 2.6.1
 

@@ -11,6 +11,8 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
@@ -23,7 +25,7 @@ main() {
     test('state class cannot be instantiated directly', () {
       expect(() {
         StatefulComponentTestState();
-      }, throwsA(const TypeMatcher<IllegalInstantiationError>()));
+      }, throwsA(isA<IllegalInstantiationError>()));
     });
 
     test('renders a component from end to end, successfully reading state via typed getters', () {

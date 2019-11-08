@@ -18,7 +18,7 @@
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
-import './required_prop_integration_tests.dart' as r;
+import './constant_required_accessor_integration_test.dart' as r;
 import '../../../test_util/test_util.dart';
 
 part 'component_integration_test.over_react.g.dart';
@@ -49,8 +49,8 @@ main() {
     group('initializes the factory variable with a function', () {
       test('that returns a new props class implementation instance', () {
         var instance = ComponentTest();
-        expect(instance, const TypeMatcher<ComponentTestProps>());
-        expect(instance, const TypeMatcher<Map>());
+        expect(instance, isA<ComponentTestProps>());
+        expect(instance, isA<Map>());
       });
 
       test('that returns a new props class implementation instance backed by an existing map', () {
@@ -122,8 +122,6 @@ main() {
 
       expect(shallowPropKeys.where((key) => !key.startsWith('data-prop-')), unorderedEquals(['id', 'extraneous', 'children']));
     });
-
-    r.requiredPropsIntegrationTest();
   });
 }
 

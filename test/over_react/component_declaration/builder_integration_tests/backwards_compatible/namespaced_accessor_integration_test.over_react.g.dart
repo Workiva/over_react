@@ -157,8 +157,7 @@ class _$$NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
     with _$NamespacedAccessorTestPropsAccessorsMixin
     implements NamespacedAccessorTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$NamespacedAccessorTestProps(Map backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
@@ -175,7 +174,7 @@ class _$$NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      $NamespacedAccessorTestComponentFactory;
+      super.componentFactory ?? $NamespacedAccessorTestComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -319,8 +318,7 @@ class _$$NamespacedAccessorTestState extends _$NamespacedAccessorTestState
     with _$NamespacedAccessorTestStateAccessorsMixin
     implements NamespacedAccessorTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$NamespacedAccessorTestState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }

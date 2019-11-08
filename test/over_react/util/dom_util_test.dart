@@ -390,8 +390,8 @@ UiFactory<DomTestProps> DomTest = _$DomTest;
 @Props()
 class _$DomTestProps extends UiProps {}
 
-@Component()
-class DomTestComponent extends UiComponent<DomTestProps> {
+@Component2()
+class DomTestComponent extends UiComponent2<DomTestProps> {
   @override
   render() {
     return Dom.div()(

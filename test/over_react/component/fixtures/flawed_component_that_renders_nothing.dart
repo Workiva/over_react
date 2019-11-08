@@ -17,8 +17,8 @@ class FlawedWithNoChildProps extends _$FlawedWithNoChildProps with _$FlawedWithN
   static const PropsMeta meta = _$metaForFlawedWithNoChildProps;
 }
 
-@Component()
-class FlawedWithNoChildComponent extends UiComponent<FlawedWithNoChildProps> {
+@Component2()
+class FlawedWithNoChildComponent extends UiComponent2<FlawedWithNoChildProps> {
   @override
   void componentDidMount() {
     throw FlawedWithNoChildComponentException();

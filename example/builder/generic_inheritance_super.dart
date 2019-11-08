@@ -19,13 +19,13 @@ class _$GenericSuperState extends UiState {
 }
 
 
-@Component()
-class GenericSuperComponent<T extends GenericSuperProps, V extends GenericSuperState> extends UiStatefulComponent<T, V> {
+@Component2()
+class GenericSuperComponent<T extends GenericSuperProps, V extends GenericSuperState> extends UiStatefulComponent2<T, V> {
   @override
-  Map getDefaultProps() => newProps()..id = 'generic_super';
+  get defaultProps => newProps()..id = 'generic_super';
 
   @override
-  Map getInitialState() => newState()..superState = '<generic super state>';
+  get initialState => newState()..superState = '<generic super state>';
 
   @override
   render() {

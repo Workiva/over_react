@@ -18,7 +18,7 @@ library over_react.component_declaration.component_type_checking;
 import 'dart:js_util';
 
 import 'package:over_react/src/component_declaration/component_base.dart' show UiFactory;
-import 'package:over_react/src/component_declaration/annotations.dart' as annotations show Component;
+import 'package:over_react/src/component_declaration/annotations.dart' as annotations show Component2;
 import 'package:over_react/src/util/react_wrappers.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
@@ -27,10 +27,13 @@ import 'package:react/react_client/react_interop.dart';
 //   Component type registration and internal type metadata management
 // ----------------------------------------------------------------------
 
+
+// ignore: deprecated_member_use
 Expando<ReactDartComponentFactoryProxy> _typeAliasToFactory = Expando<ReactDartComponentFactoryProxy>();
 
 /// Registers a type alias for the specified factory, so that [getComponentTypeFromAlias] can be
 /// called with [typeAlias] to retrieve [factory]'s [ReactClass] type.
+// ignore: deprecated_member_use
 void registerComponentTypeAlias(ReactDartComponentFactoryProxy factory, dynamic typeAlias) {
   if (typeAlias != null) {
     _typeAliasToFactory[typeAlias] = factory;
@@ -45,8 +48,10 @@ const String _componentTypeMetaKey = '_componentTypeMeta';
 /// the component type of the specified [factory].
 ///
 /// This meta is retrievable via [getComponentTypeMeta].
+// ignore: deprecated_member_use
 void setComponentTypeMeta(ReactDartComponentFactoryProxy factory, {
     bool isWrapper,
+    // ignore: deprecated_member_use
     ReactDartComponentFactoryProxy parentType
 }) {
   // ignore: argument_type_not_assignable
@@ -84,8 +89,8 @@ class ComponentTypeMeta {
   ///     @Factory()
   ///     UiFactory<FooProps> Foo;
   ///
-  ///     @Component()
-  ///     class FooComponent extends UiComponent<FooProps> {
+  ///     @Component2()
+  ///     class FooComponent extends UiComponent2<FooProps> {
   ///       // ...
   ///     }
   ///
@@ -96,8 +101,8 @@ class ComponentTypeMeta {
   ///     @Factory()
   ///     UiFactory<FooProps> Foo;
   ///
-  ///     @Component(subtypeOf: FooComponent)
-  ///     class BarComponent extends UiComponent<BarProps> {
+  ///     @Component2(subtypeOf: FooComponent)
+  ///     class BarComponent extends UiComponent2<BarProps> {
   ///       // ...
   ///     }
   ///
@@ -108,7 +113,8 @@ class ComponentTypeMeta {
   ///     isComponentOfType(Bar()(), Bar); // true (due to normal type-checking)
   ///     isComponentOfType(Bar()(), Foo); // true (due to parent type-checking)
   ///
-  /// > See: `subtypeOf` (within [annotations.Component])
+  /// > See: `subtypeOf` (within [annotations.Component2])
+  // ignore: deprecated_member_use
   final ReactDartComponentFactoryProxy parentType;
 
   ComponentTypeMeta(this.isWrapper, this.parentType);
@@ -220,12 +226,19 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
     return false;
   }
 
+  var instanceType = instance.type;
+
   var type = getComponentTypeFromAlias(typeAlias);
   if (type == null) {
     return false;
   }
 
-  var instanceType = instance.type;
+  // When a component is wrapped in a react.memo, we can gain access to the
+  // original Dart component via the 'WrappedComponent` property.
+  if (instance.type != null && getProperty(instance.type, 'WrappedComponent') != null) {
+    instanceType = getProperty(instance.type, 'WrappedComponent');
+  }
+
   var instanceTypeMeta = getComponentTypeMeta(instanceType);
 
   // Type-check instance wrappers.

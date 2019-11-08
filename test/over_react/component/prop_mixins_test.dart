@@ -28,7 +28,7 @@ main() {
     test('uses unnamespaced keys', () {
       // Test two keys to reduce the possibility that the key we picked might have a custom @Accessor annotation on it
       expect(
-           ReactPropMixinsTest({})
+          ReactPropMixinsTest({})
             ..ref = null
             ..key = null,
           {'ref': null, 'key': null});

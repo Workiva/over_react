@@ -25,8 +25,10 @@ import 'package:test/test.dart';
 
 import 'over_react/component_declaration/component_base_test.dart' as component_base_test;
 import 'over_react/component_declaration/component_type_checking_test.dart' as component_type_checking_test;
-import 'over_react/component_declaration/flux_component_test.dart' as flux_component_test;
 import 'over_react/component_declaration/redux_component_test.dart' as redux_component_test;
+
+import 'over_react/component_declaration/flux_component_test/flux_component_test.dart' as flux_component_test;
+import 'over_react/component_declaration/flux_component_test/component2/flux_component_test.dart' as component2_flux_component_test;
 
 import 'over_react/component_declaration/builder_helpers_test.dart' as builder_helpers_test;
 import 'over_react/component_declaration/builder_integration_tests/abstract_accessor_integration_test.dart' as abstract_accessor_integration_test;
@@ -49,6 +51,17 @@ import 'over_react/component_declaration/builder_integration_tests/backwards_com
 import 'over_react/component_declaration/builder_integration_tests/backwards_compatible/required_accessor_integration_test.dart' as backwards_compat_required_accessor_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/backwards_compatible/stateful_component_integration_test.dart' as backwards_compat_stateful_component_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/backwards_compatible/unassigned_prop_integration_test.dart' as backwards_compat_unassigned_prop_integration_test;
+import 'over_react/component_declaration/builder_integration_tests/component2/abstract_accessor_integration_test.dart' as component2_abstract_accessor_integration_test;
+import 'over_react/component_declaration/builder_integration_tests/component2/accessor_mixin_integration_test.dart' as component2_accessor_mixin_integration_test;
+import 'over_react/component_declaration/builder_integration_tests/component2/annotation_error_integration_test.dart' as annotation_error_integration_test;
+import 'over_react/component_declaration/builder_integration_tests/component2/component_integration_test.dart' as component2_component_integration_test;
+import 'over_react/component_declaration/builder_integration_tests/component2/constant_required_accessor_integration_test.dart' as component2_constant_required_accessor_integration_test;
+import 'over_react/component_declaration/builder_integration_tests/component2/do_not_generate_accessor_integration_test.dart' as component2_do_not_generate_accessor_integration_test;
+import 'over_react/component_declaration/builder_integration_tests/component2/namespaced_accessor_integration_test.dart' as component2_namespaced_accessor_integration_test;
+import 'over_react/component_declaration/builder_integration_tests/component2/private_props_ddc_bug.dart' as component2_private_props_ddc_bug;
+import 'over_react/component_declaration/builder_integration_tests/component2/required_accessor_integration_test.dart' as component2_required_accessor_integration_test;
+import 'over_react/component_declaration/builder_integration_tests/component2/stateful_component_integration_test.dart' as component2_stateful_component_integration_test;
+import 'over_react/component_declaration/builder_integration_tests/component2/unassigned_prop_integration_test.dart' as component2_unassigned_prop_integration_test;
 
 main() {
   setClientConfiguration();
@@ -57,8 +70,10 @@ main() {
 
   component_base_test.main();
   component_type_checking_test.main();
-  flux_component_test.main();
   redux_component_test.main();
+
+  flux_component_test.main();
+  component2_flux_component_test.main();
 
   builder_helpers_test.main();
 
@@ -83,4 +98,16 @@ main() {
   backwards_compat_required_accessor_integration_test.main();
   backwards_compat_stateful_component_integration_test.main();
   backwards_compat_unassigned_prop_integration_test.main();
+
+  component2_abstract_accessor_integration_test.main();
+  component2_accessor_mixin_integration_test.main();
+  annotation_error_integration_test.main();
+  component2_component_integration_test.main();
+  component2_constant_required_accessor_integration_test.main();
+  component2_do_not_generate_accessor_integration_test.main();
+  component2_namespaced_accessor_integration_test.main();
+  component2_private_props_ddc_bug.main();
+  component2_required_accessor_integration_test.main();
+  component2_stateful_component_integration_test.main();
+  component2_unassigned_prop_integration_test.main();
 }

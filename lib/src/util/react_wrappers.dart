@@ -25,7 +25,7 @@ import 'package:over_react/src/component_declaration/component_type_checking.dar
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_interop_helpers.dart' show jsifyAndAllowInterop;
-import 'package:react/react_client/react_interop.dart';
+import 'package:react/react_client/react_interop.dart' hide createRef, forwardRef;
 import 'package:react/react_dom.dart' as react_dom;
 
 // Notes
@@ -45,8 +45,10 @@ import 'package:react/react_dom.dart' as react_dom;
 
 /// Returns internal data structure used by react-dart to maintain the native Dart component
 /// for a given react-dart [ReactElement] or [ReactComponent] [instance].
+// ignore: deprecated_member_use
 ReactDartComponentInternal _getInternal(/* ReactElement|ReactComponent */ instance) =>
-    (instance.props as InteropProps).internal; // ignore: avoid_as
+    // ignore: deprecated_member_use
+    (instance.props as InteropProps).internal;
 
 /// Returns the internal representation of a Dart component's props as maintained by react-dart.
 ///
@@ -61,14 +63,29 @@ dynamic getInstanceKey(ReactElement instance) => instance.key;
 /// Returns the [ReactElement.ref] associated with the specified [instance].
 dynamic getInstanceRef(ReactElement instance) => instance.ref;
 
-/// Returns whether an [instance] is a native Dart component (react-dart [ReactElement] or [ReactComponent]).
+/// Returns whether an [instance] is a native Dart component (a react-dart [ReactElement] or [ReactComponent]).
 bool isDartComponent(/* ReactElement|ReactComponent|Element */ instance) {
-  // Don't try to access internal on a DOM component
-  if (instance is Element) {
-    return false;
+  return _getDartComponentVersionFromInstance(instance) != null;
+}
+
+/// Returns [ReactClass.dartComponentVersion] if [instance] is a Dart component
+/// (react-dart [ReactElement] or [ReactComponent]), and null for other types of components.
+///
+/// [instance] may not be null.
+String _getDartComponentVersionFromInstance(/* ReactElement|ReactComponent|Element */ instance) {
+  if (instance == null) {
+    throw ArgumentError.notNull('instance');
   }
 
-  return _getInternal(instance) != null;
+  // Don't try to access these properties on a DOM component
+  if (instance is Element) {
+    return null;
+  }
+
+  // We need `type` if it's a ReactElement, or `constructor` if it's a `ReactComponent`.
+  final type = getProperty(instance, 'type') ?? getProperty(instance, 'constructor');
+  // ignore: invalid_use_of_protected_member
+  return ReactDartComponentVersion.fromType(type);
 }
 
 /// Whether [Expando]s can be used on [ReactElement]s.
@@ -94,8 +111,8 @@ final bool _canUseExpandoOnReactElement = (() {
 ///
 /// If caching isn't possible due to [_canUseExpandoOnReactElement] being false,
 /// then this will be initialized to `null`, and caching will be disabled.
-final Expando<UnmodifiableMapView> _elementPropsCache = _canUseExpandoOnReactElement
-    ? Expando<UnmodifiableMapView>('_elementPropsCache')
+final Expando<Map> _elementPropsCache = _canUseExpandoOnReactElement
+    ? Expando<Map>('_elementPropsCache')
     : null;
 
 /// Returns an unmodifiable Map view of props for a [ReactElement] or composite [ReactComponent] [instance].
@@ -140,30 +157,49 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers 
       if (cachedView != null) return cachedView;
     }
 
-    var propsMap = isDartComponent(instance) ? _getExtendedProps(instance) : unconvertJsProps(instance);
-    var view = UnmodifiableMapView(propsMap);
+    Map rawPropsOrCopy;
 
-    if (_elementPropsCache != null && !isCompositeComponent) {
-      _elementPropsCache[instance] = view;
+    final dartComponentVersion = _getDartComponentVersionFromInstance(instance);
+    if (dartComponentVersion == ReactDartComponentVersion.component) { // ignore: invalid_use_of_protected_member
+      rawPropsOrCopy = _getExtendedProps(instance);
+    } else if (dartComponentVersion == ReactDartComponentVersion.component2) { // ignore: invalid_use_of_protected_member
+      // TODO Since JS props are frozen don't wrap in UnmodifiableMapView once https://github.com/dart-lang/sdk/issues/15432 is fixed
+      rawPropsOrCopy = JsBackedMap.backedBy(instance.props);
+    } else {
+      rawPropsOrCopy = unconvertJsProps(instance);
     }
 
-    return view;
+    final unmodifiableProps = UnmodifiableMapView(rawPropsOrCopy);
+    if (_elementPropsCache != null && !isCompositeComponent) {
+      _elementPropsCache[instance] = unmodifiableProps;
+    }
+
+    return unmodifiableProps;
   }
 
   throw ArgumentError.value(instance, 'instance', 'must be a valid ReactElement or composite ReactComponent');
 }
 
 /// Returns the DOM node associated with a mounted React component [instance],
-/// which can be a [ReactComponent]/[Element] or [react.Component].
+/// which can be a [ReactComponent]/[Element] or [react.Component2].
 ///
 /// This method simply wraps react.findDOMNode with strong typing for the return value
 /// (and for the function itself, which is declared using `var` in react-dart).
 Element findDomNode(dynamic instance) => react_dom.findDOMNode(instance);
 
+/// Returns a portal that renders [children] into a [container].
+///
+/// Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component.
+///
+/// [children] can be any renderable React child, such as a [ReactElement], [String], or fragment.
+///
+/// See: <https://reactjs.org/docs/portals.html>
+ReactPortal createPortal(dynamic children, Element container) => ReactDom.createPortal(children, container);
+
 /// Dart wrapper for React.isValidElement.
 ///
 /// _From the JS docs:_
-/// > Verifies the object is a ReactElement
+/// > Verifies the [object] is a ReactElement
 bool isValidElement(dynamic object) {
   return React.isValidElement(object);
 }
@@ -174,11 +210,11 @@ bool isDomElement(dynamic instance) {
       (instance as ReactElement).type is String; // ignore: avoid_as
 }
 
-/// Returns whether [object] is a composite [ReactComponent].
+/// Returns whether [instance] is a composite [ReactComponent].
 ///
 /// __Not for external use.__
-bool _isCompositeComponent(dynamic object) {
-  return object != null && getProperty(object, 'isReactComponent') != null;
+bool _isCompositeComponent(dynamic instance) {
+  return instance != null && getProperty(instance, 'isReactComponent') != null;
 }
 
 /// Returns a new JS map with the specified props and children changes, properly prepared for consumption by
@@ -187,42 +223,53 @@ bool _isCompositeComponent(dynamic object) {
 ///
 /// Handles both Dart and JS React components, returning the appropriate props structure for each type:
 ///
-/// * For Dart components, existing props are read from [InteropProps.internal], which are then merged with
-///   the new [newProps] and saved in a new [InteropProps] with the expected [ReactDartComponentInternal] structure.
+/// * For non-[react.Component2] Dart components, existing props are read from `InteropProps.internal`, which are then merged with
+///   the new [newProps] and saved in a new [InteropProps] with the expected `ReactDartComponentInternal` structure.
+/// * For [react.Component2] Dart components, [newProps] is passed through [ReactDartComponentFactoryProxy2.generateExtendedJsProps]
+///   and then passed to React JS, which will merge the props normally.
 /// * Children are likewise copied and potentially overwritten with [newChildren] as expected.
-/// * For JS components, a copy of [newProps] is returned, since React will merge the props without any special handling.
+/// * For JS components, a JS copy of [newProps] is returned, since React will merge the props without any special handling.
+///   If these values might contain event handlers
 dynamic preparePropsChangeset(ReactElement element, Map newProps, [Iterable newChildren]) {
-  dynamic propsChangeset;
+  final type = element.type;
+  final dartComponentVersion = ReactDartComponentVersion.fromType(type); // ignore: invalid_use_of_protected_member
 
-  final internal = _getInternal(element);
-  if (internal == null) {
-    // Plain JS component
-    if (newProps == null) {
-      propsChangeset = null;
-    } else {
-      if (isDomElement(element)) {
-        // Convert props for DOM components so that style Maps and event handlers
-        // are properly converted.
-        Map convertedProps = Map.from(newProps);
-        ReactDomComponentFactoryProxy.convertProps(convertedProps);
-        propsChangeset = jsifyAndAllowInterop(convertedProps);
-      } else {
-        propsChangeset = jsifyAndAllowInterop(newProps);
-      }
-    }
-  } else {
-    // react-dart component
-    Map oldExtendedProps = internal.props;
+  // react.Component
+  if (dartComponentVersion == ReactDartComponentVersion.component) { // ignore: invalid_use_of_protected_member
+    Map oldExtendedProps = _getInternal(element).props;
 
     Map extendedProps = Map.from(oldExtendedProps);
     if (newProps != null) {
       extendedProps.addAll(newProps);
     }
 
-    propsChangeset = ReactDartComponentFactoryProxy.generateExtendedJsProps(extendedProps, newChildren ?? extendedProps['children']);
+    // ignore: deprecated_member_use
+    return ReactDartComponentFactoryProxy.generateExtendedJsProps(extendedProps, newChildren ?? extendedProps['children']);
   }
 
-  return propsChangeset;
+  if (newProps == null) {
+    // Only pre-Component2 Dart components need changesets if props aren't null,
+    // since the new children need to be stored on the props.internal.
+    // Otherwise, we can pass `null` straight through to React.
+    return null;
+  }
+
+  // react.Component2
+  if (dartComponentVersion == ReactDartComponentVersion.component2) { // ignore: invalid_use_of_protected_member
+    return ReactDartComponentFactoryProxy2.generateExtendedJsProps(newProps);
+  }
+
+  // DOM component
+  if (type is String) {
+    // Convert props for DOM components so that style Maps and event handlers
+    // originating from Dart are properly converted.
+    final convertedProps = Map.from(newProps);
+    ReactDomComponentFactoryProxy.convertProps(convertedProps);
+    return jsifyAndAllowInterop(convertedProps);
+  }
+
+  // JS Component
+  return jsifyAndAllowInterop(newProps);
 }
 
 @JS('React.cloneElement')
@@ -238,6 +285,8 @@ external ReactElement _cloneElement(element, [props, children]);
 /// > There is no special behavior for merging any props (unlike cloneWithProps).
 /// > See the [v0.13 RC2 blog post](https://facebook.github.io/react/blog/2015/03/03/react-v0.13-rc2.html) for additional details.
 ReactElement cloneElement(ReactElement element, [Map props, Iterable children]) {
+  if (element == null) throw ArgumentError.notNull('element');
+
   var propsChangeset = preparePropsChangeset(element, props, children);
 
   if (children != null) {
@@ -250,6 +299,7 @@ ReactElement cloneElement(ReactElement element, [Map props, Iterable children]) 
 /// Returns the native Dart component associated with a mounted component [instance].
 ///
 /// Returns `null` if the [instance] is not Dart-based _(an [Element] or a JS composite component)_.
+// ignore: deprecated_member_use
 T getDartComponent<T extends react.Component>(/* ReactElement|ReactComponent|Element */ instance) {
   if (instance is Element) {
     return null;
@@ -302,7 +352,7 @@ T getDartComponent<T extends react.Component>(/* ReactElement|ReactComponent|Ele
 ///
 /// The component instance will be of the type:
 ///
-///   * [react.Component] for Dart components
+///   * [react.Component2] for Dart components
 ///   * [ReactComponent] for JS composite components
 ///   * [Element] for DOM components
 ///
@@ -323,10 +373,12 @@ T getDartComponent<T extends react.Component>(/* ReactElement|ReactComponent|Ele
 /// See: <http://facebook.github.io/react/docs/more-about-refs.html#the-ref-callback-attribute>.
 typedef CallbackRef(ref); // ignore: prefer_generic_function_type_aliases
 
-/// Returns a function that chains the callback ref of the provided [element] _(if one exists)_
-/// using [newCallbackRef].
+/// Returns a function that chains the callback or [createRef]-based ref of the provided [element]
+/// with [newCallbackRef].
 ///
-/// > Throws an [ArgumentError] if [ReactElement.ref] is a `String` ref or otherwise not a [CallbackRef].
+/// If there is no existing ref, [newCallbackRef] is used.
+///
+/// Throws an [ArgumentError] if [ReactElement.ref] is a String ref.
 ///
 /// TODO: This method makes assumptions about how react-dart does callback refs for dart components, so this method should be moved there (UIP-1118).
 CallbackRef chainRef(ReactElement element, CallbackRef newCallbackRef) {
@@ -340,23 +392,35 @@ CallbackRef chainRef(ReactElement element, CallbackRef newCallbackRef) {
         'The existing ref is a String ref and cannot be chained');
   }
 
-  if (existingRef is! Function) {
-    throw ArgumentError.value(existingRef, 'element.ref',
-        'The existing ref is invalid and cannot be chained');
+  if (existingRef is Function) { // Callback refs
+    void chainedRef(ref) {
+      // For Dart components, the existing ref is a function passed to the JS that wraps the Dart
+      // callback ref and converts the JS instance to the Dart component.
+      // So, we need to undo the wrapping around this chained ref and pass in the JS instance.
+      existingRef(ref is react.Component ? ref.jsThis : ref); // ignore: deprecated_member_use
+
+      if (newCallbackRef != null) newCallbackRef(ref);
+    }
+
+    return chainedRef;
+  } else { // Assume it's a ref object created by createRef
+    assert(existingRef is! Ref,
+        'should be a JsRef; the factory that created `element` should never let a Dart ref get here');
+    void chainedRef(ref) {
+      // For Dart components, the existing ref is a Dart Ref object that converts
+      // the JS instance on the JS ref to the Dart component.
+      // So, we need to undo the wrapping around this chained ref and pass in the JS instance.
+      //
+      // Update `.current` manually on the ref object.
+      // As per https://github.com/facebook/react/issues/13029 it should be fine to set current this way.
+      // Use setProperty so we don't have to expose a `JsRef.current` setter, which could be misused.
+      setProperty(existingRef, 'current', ref is react.Component ? ref.jsThis : ref); // ignore: deprecated_member_use
+
+      if (newCallbackRef != null) newCallbackRef(ref);
+    }
+
+    return chainedRef;
   }
-
-  // Use a local function as opposed to a function expression so that its name shows up in any stack traces.
-  void chainedRef(ref) {
-    // For Dart components, the existing ref is a function passed to the JS that wraps the Dart
-    // callback ref and converts the JS instance to the Dart component.
-    //
-    // So, we need to undo the wrapping around this chained ref and pass in the JS instance.
-    existingRef(ref is react.Component ? ref.jsThis : ref);
-
-    if (newCallbackRef != null) newCallbackRef(ref);
-  }
-
-  return chainedRef;
 }
 
 // React Dev tools

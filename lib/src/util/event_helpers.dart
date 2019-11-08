@@ -36,7 +36,7 @@ SyntheticKeyboardEvent wrapNativeKeyboardEvent(KeyboardEvent nativeKeyboardEvent
     nativeKeyboardEvent.timeStamp,
     nativeKeyboardEvent.type,
     nativeKeyboardEvent.altKey,
-    nativeKeyboardEvent.charCode == null ? null :  String.fromCharCode(nativeKeyboardEvent.charCode),
+    nativeKeyboardEvent.charCode == null ? null : String.fromCharCode(nativeKeyboardEvent.charCode),
     nativeKeyboardEvent.charCode,
     nativeKeyboardEvent.ctrlKey,
     null, // locale

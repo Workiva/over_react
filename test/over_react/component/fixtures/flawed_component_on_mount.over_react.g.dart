@@ -10,13 +10,14 @@ part of 'flawed_component_on_mount.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $FlawedOnMountComponentFactory = registerComponent(
-    () => _$FlawedOnMountComponent(),
-    builderFactory: FlawedOnMount,
-    componentClass: FlawedOnMountComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'FlawedOnMount');
+final $FlawedOnMountComponentFactory = registerComponent2(
+  () => _$FlawedOnMountComponent(),
+  builderFactory: FlawedOnMount,
+  componentClass: FlawedOnMountComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'FlawedOnMount',
+);
 
 abstract class _$FlawedOnMountPropsAccessorsMixin
     implements _$FlawedOnMountProps {
@@ -35,25 +36,25 @@ const PropsMeta _$metaForFlawedOnMountProps = PropsMeta(
 );
 
 _$$FlawedOnMountProps _$FlawedOnMount([Map backingProps]) =>
-    _$$FlawedOnMountProps(backingProps);
+    backingProps == null
+        ? _$$FlawedOnMountProps$JsMap(JsBackedMap())
+        : _$$FlawedOnMountProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$FlawedOnMountProps extends _$FlawedOnMountProps
+abstract class _$$FlawedOnMountProps extends _$FlawedOnMountProps
     with _$FlawedOnMountPropsAccessorsMixin
     implements FlawedOnMountProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around an unknown ddc issue.
-  // See <https://jira.atl.workiva.net/browse/CPLAT-4673> for more details
-  _$$FlawedOnMountProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+  _$$FlawedOnMountProps._();
 
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
+  factory _$$FlawedOnMountProps(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$FlawedOnMountProps$JsMap(backingMap);
+    } else {
+      return _$$FlawedOnMountProps$PlainMap(backingMap);
+    }
+  }
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -62,11 +63,44 @@ class _$$FlawedOnMountProps extends _$FlawedOnMountProps
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      $FlawedOnMountComponentFactory;
+      super.componentFactory ?? $FlawedOnMountComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'FlawedOnMountProps.';
+}
+
+// Concrete props implementation that can be backed by any [Map].
+class _$$FlawedOnMountProps$PlainMap extends _$$FlawedOnMountProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$FlawedOnMountProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+class _$$FlawedOnMountProps$JsMap extends _$$FlawedOnMountProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$FlawedOnMountProps$JsMap(JsBackedMap backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 // Concrete component implementation mixin.
@@ -74,6 +108,28 @@ class _$$FlawedOnMountProps extends _$FlawedOnMountProps
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$FlawedOnMountComponent extends FlawedOnMountComponent {
+  _$$FlawedOnMountProps$JsMap _cachedTypedProps;
+
+  @override
+  _$$FlawedOnMountProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+  }
+
+  @override
+  _$$FlawedOnMountProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$FlawedOnMountProps$JsMap(backingMap);
+
   @override
   _$$FlawedOnMountProps typedPropsFactory(Map backingMap) =>
       _$$FlawedOnMountProps(backingMap);

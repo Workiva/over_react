@@ -8,16 +8,15 @@
 [![Test Coverage](https://codecov.io/github/Workiva/over_react/coverage.svg?branch=master)](https://codecov.io/github/Workiva/over_react?branch=master)
 
 > A library for building statically-typed React UI components using Dart.
-
----
-
-> **Dart 2 Migration Guide**
 >
-> If you have existing over_react code written on Dart 1 and want to upgrade to
-> Dart 2, please read the [**Dart 2 Migration Guide**](https://github.com/Workiva/over_react/blob/master/doc/dart2_migration.md)
+> This library also exposes _OverReact Redux_, which has [its own documentation](doc/over_react_redux_documentation.md).
 
 ---
+ __UiComponent2 Migration Guide__
+ 
+> For guidance on updating to `UiComponent2` from `UiComponent`, see the [UiComponent2 Transition Notes](doc/ui_component2_transition.md).
 
+---
 
 * __[Using it in your project](#using-it-in-your-project)__
     * [Running tests in your project](#running-tests-in-your-project)
@@ -25,7 +24,7 @@
     * [UiFactory](#uifactory)
     * [UiProps](#uiprops)
     * [UiState](#uistate)
-    * [UiComponent](#uicomponent)
+    * [UiComponent2](#uicomponent2)
 * __[Fluent-style component consumption](#fluent-style-component-consumption)__
 * __[DOM components and props](#dom-components-and-props)__
 * __[Component Formatting](#component-formatting)__
@@ -110,7 +109,7 @@ properly. Unfortunately, this is a known limitation in the analysis server at th
 When running tests on code that uses our [builder] _(or any code that imports `over_react`)_,
 __you must run your tests using build_runner__.
 >**Warning:** Do **_not_** run tests via `pub run build_runner test` in a package while another instance of `build_runner`
-(e.g. `pub run build_runner serve`)is running in that same package. [This workflow is unsupported by build_runner](https://github.com/dart-lang/build/issues/352#issuecomment-461554316)
+(e.g. `pub run build_runner serve`) is running in that same package. [This workflow is unsupported by build_runner](https://github.com/dart-lang/build/issues/352#issuecomment-461554316)
 
 1. Run tests through build_runner, and specify the platform to be a browser platform. Example:
 
@@ -200,8 +199,8 @@ class _$FooProps extends UiProps {
   String color;
 }
 
-@Component()
-class FooComponent extends UiComponent<FooProps> {
+@Component2()
+class FooComponent extends UiComponent2<FooProps> {
   // ...
 }
 
@@ -238,8 +237,8 @@ class _$FooProps extends UiProps {
   String color;
 }
 
-@Component()
-class FooComponent extends UiComponent<FooProps> {
+@Component2()
+class FooComponent extends UiComponent2<FooProps> {
   ReactElement bar() {
     // Create a UiProps instance to serve as a builder
     FooProps builder = Foo();
@@ -290,14 +289,15 @@ use the generated version, `FooState`.
 
 &nbsp;
 
-### UiComponent
+### UiComponent2
+> For guidance on updating to `UiComponent2` from `UiComponent`, see [UiComponent2 Transition Notes](doc/ui_component2_transition.md).
 
-__`UiComponent` is a subclass of [`react.Component`][react.component]__, containing lifecycle methods
+__`UiComponent2` is a subclass of [`react.Component2`]__, containing lifecycle methods
 and rendering logic for components.
 
 ```dart
-@Component()
-class FooComponent extends UiComponent<FooProps> {
+@Component2()
+class FooComponent extends UiComponent2<FooProps> {
   // ...
 }
 ```
@@ -311,27 +311,27 @@ prop forwarding and CSS class merging.
 
 #### Accessing and manipulating props / state within UiComponent
 
-* Within the `UiComponent` class, `props` and `state` are not just `Map`s.
+* Within the `UiComponent2` class, `props` and `state` are not just `Map`s.
 They are instances of `UiProps` and `UiState`, __which means you don’t need String keys to access them!__
 * `newProps()` and `newState()` are also exposed to conveniently create empty instances of `UiProps` and
 `UiState` as needed.
 * `typedPropsFactory()` and `typedStateFactory()` are also exposed to conveniently create typed `props` / `state` objects out of any provided backing map.
 
 ```dart
-@Component()
-class FooComponent extends UiStatefulComponent<FooProps, FooState> {
+@Component2()
+class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
   @override
-  getDefaultProps() => (newProps()
+  get defaultProps => (newProps()
     ..color = '#66cc00'
   );
 
   @override
-  getInitialState() => (newState()
+  get initialState => (newState()
     ..isActive = false
   );
 
   @override
-  componentWillUpdate(Map newProps, Map newState) {
+  componentWillUpdate(Map newProps, Map newState, [dynamic snapshot]) {
     var tNewState = typedStateFactory(newState);
     var tNewProps = typedPropsFactory(newProps);
 
@@ -685,7 +685,7 @@ that you get for free from OverReact, you're ready to start building your own cu
 
 ### Component Boilerplate Templates
 
-* #### [Dart 1 and Dart 2 Backwards Compatible VS Code and WebStorm/IntelliJ Snippets](https://github.com/Workiva/over_react/blob/master/snippets/README.md)
+* #### [VS Code and WebStorm/IntelliJ Snippets](https://github.com/Workiva/over_react/blob/master/snippets/README.md)
 
 * #### Component Boilerplate
 
@@ -703,10 +703,10 @@ that you get for free from OverReact, you're ready to start building your own cu
       Iterable<String> items;
     }
 
-    @Component()
-    class FooComponent extends UiComponent<FooProps> {
+    @Component2()
+    class FooComponent extends UiComponent2<FooProps> {
       @override
-      Map getDefaultProps() => (newProps()
+      get defaultProps => (newProps()
         // Cascade default props here
         ..isDisabled = false
         ..items = []
@@ -743,17 +743,17 @@ that you get for free from OverReact, you're ready to start building your own cu
       bool isShown;
     }
 
-    @Component()
-    class BarComponent extends UiStatefulComponent<BarProps, BarState> {
+    @Component2()
+    class BarComponent extends UiStatefulComponent2<BarProps, BarState> {
       @override
-      Map getDefaultProps() => (newProps()
+      get defaultProps => (newProps()
         // Cascade default props here
         ..isDisabled = false
         ..items = []
       );
 
       @override
-      Map getInitialState() => (newState()
+      get initialState => (newState()
         // Cascade initial state here
         ..isShown = true
       );
@@ -782,9 +782,10 @@ that you get for free from OverReact, you're ready to start building your own cu
       // `actions` and `store` are already defined for you!
     }
 
-    @Component()
-    class BazComponent extends FluxUiComponent<BazProps> {
-      getDefaultProps() => (newProps()
+    @Component2()
+    class BazComponent extends FluxUiComponent2<BazProps> {
+      @override
+      get defaultProps => (newProps()
         // Cascade default props here
       );
 
@@ -818,14 +819,15 @@ that you get for free from OverReact, you're ready to start building your own cu
       // State goes here, declared as fields.
     }
 
-    @Component()
-    class BazComponent extends FluxUiStatefulComponent<BazProps, BazState> {
-      getDefaultProps() => (newProps()
+    @Component2()
+    class BazComponent extends FluxUiStatefulComponent2<BazProps, BazState> {
+      @override
+      get defaultProps => (newProps()
         // Cascade default props here
       );
 
       @override
-      Map getInitialState() => (newState()
+      get initialState => (newState()
         // Cascade initial state here
       );
 
@@ -903,17 +905,17 @@ and document that value in a comment.
       bool isOpen;
     }
 
-    @Component()
+    @Component2()
     DropdownButtonComponent
-        extends UiStatefulComponent<DropdownButtonProps, DropdownButtonState> {
+        extends UiStatefulComponent2<DropdownButtonProps, DropdownButtonState> {
       @override
-      Map getDefaultProps() => (newProps()
+      get defaultProps => (newProps()
         ..isDisabled = false
         ..initiallyOpen = false
       );
 
       @override
-      Map getInitialState() => (newState()
+      get initialState => (newState()
         ..isOpen = props.initiallyOpen
       );
     }
@@ -932,9 +934,9 @@ and document that value in a comment.
       bool isOpen;
     }
 
-    @Component()
+    @Component2()
     DropdownButtonComponent
-        extends UiStatefulComponent<DropdownButtonProps, DropdownButtonState> {
+        extends UiStatefulComponent2<DropdownButtonProps, DropdownButtonState> {
       // Confusing stuff is gonna happen in here with
       // bool props that could be null.
     }
