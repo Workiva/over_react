@@ -1,5 +1,9 @@
 # OverReact Changelog
 
+## [3.1.1](https://github.com/Workiva/over_react/compare/3.1.0...3.1.1)
+
+- Restore the `xmlLang`, `xmlSpace`, `y1`, `y2`, `y` members that were accidentally removed from `SvgProps` in the 3.1.0 release.
+
 ## [3.1.0](https://github.com/Workiva/over_react/compare/3.0.0+dart2...3.1.0)
 
 ### Full React JS 16.x Component Lifecycle Support
