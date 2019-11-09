@@ -255,6 +255,13 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
 
   /// Returns the string key of the [factory] prop accessed in [accessProp], including the namespace if one exists.
   ///
+  /// __DEPRECATED__: This method had to be deprecated and replaced with [keyForProp] because of the way
+  /// that shadowing works in Dart when a top-level function name matches the name of an instance method.
+  @Deprecated('4.0.0')
+  String getPropKey(void Function(TProps props) accessProp) => keyForProp(accessProp);
+
+  /// Returns the string key of the [factory] prop accessed in [accessProp], including the namespace if one exists.
+  ///
   /// Intended for use within [propTypes].
   ///
   /// __Example:__
@@ -277,7 +284,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///   }
   /// }
   /// ```
-  String getPropKey(void Function(TProps props) accessProp) => prop_key_util.getPropKey(accessProp, typedPropsFactory);
+  String keyForProp(void Function(TProps props) accessProp) => prop_key_util.getPropKey(accessProp, typedPropsFactory);
 
   // ***************************************************************************
   //
