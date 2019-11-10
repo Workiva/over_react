@@ -28,7 +28,6 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
       final classFields = propsClass.declaredElement.fields;
       for (FieldElement field in classFields) {
         final propName = field.name;
-        if (field.type == null || field.type.isUndefined) continue;
         if (field.type != typeProvider.boolType) continue;
         if (propName == null) continue; // just in case
 

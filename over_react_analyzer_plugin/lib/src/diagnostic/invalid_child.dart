@@ -20,7 +20,7 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
 
     Future<void> _validateType(DartType type, {@required FutureOr<void> onInvalidType(DartType invalidType)}) async {
       // Couldn't be resolved
-      if (type == null || type.isUndefined) return;
+      if (type == null) return;
       // Couldn't be resolved to anything more specific; `Object` might be
       // problematic in some cases, but would have too many false positives.
       if (type.isDynamic || type.isObject) return;

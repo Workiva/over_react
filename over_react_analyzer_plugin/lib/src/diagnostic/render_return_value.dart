@@ -48,7 +48,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
       final returnExpression = returnStatement.expression;
       if (returnExpression == null) continue; // valueless returns
       final returnType = returnExpression.staticType;
-      if (returnType == null || returnType.isUndefined || returnType.isObject || returnType.isVoid) {
+      if (returnType == null || returnType.isDynamic || returnType.isObject || returnType.isVoid) {
         continue;
       }
 
