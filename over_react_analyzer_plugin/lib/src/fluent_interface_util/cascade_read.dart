@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
-import 'package:over_react_analyzer_plugin/src/util/optional.dart';
 
 void forEachCascadedProp(FluentComponentUsage usage, void f(PropertyAccess lhs, Expression rhs)) {
   if (usage.cascadeExpression == null) return;
