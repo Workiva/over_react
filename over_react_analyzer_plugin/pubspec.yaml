@@ -5,7 +5,7 @@ homepage: https://github.com/greglittlefield-wf/git_playground/tree/over_react_a
 authors:
   - Greg Littlefield <greg.littlefield@workiva.com>
 environment:
-  sdk: '>=2.1.0 <=3.0.0'
+  sdk: '>=2.6.0 <=3.0.0'
 dependencies:
   analyzer: '>=0.38.0 <0.40.0'
   analyzer_plugin: '^0.2.1'
