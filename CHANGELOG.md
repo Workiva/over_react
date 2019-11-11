@@ -1,5 +1,10 @@
 # OverReact Changelog
 
+## [3.1.3](https://github.com/Workiva/over_react/compare/3.1.2...3.1.3)
+
+- Fixes an issue that prevents `UiComponent` instances from being declared as sub-types of `UiComponent2` instances
+  via the `subtypeOf` argument in a `Component2()` annotation.
+
 ## [3.1.2](https://github.com/Workiva/over_react/compare/3.1.1...3.1.2)
 
 - Restore the public `getPropKey` function that was accidentally made private in the 3.1.0 release.
