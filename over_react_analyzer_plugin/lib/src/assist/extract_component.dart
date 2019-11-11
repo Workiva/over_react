@@ -21,6 +21,9 @@ abstract class _ExtractComponentAssistContributorBase extends AssistContributorB
 
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
+    // Only compute when there's a selection
+    if (request.length == 0) return;
+
     await super.computeAssists(request, collector);
     if (!setupCompute()) return;
 
