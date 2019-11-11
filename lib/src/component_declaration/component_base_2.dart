@@ -54,7 +54,8 @@ ReactDartComponentFactoryProxy2 registerAbstractComponent2(Type abstractComponen
 /// * [displayName]: the name of the component for use when debugging.
 ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 Function() dartComponentFactory, {
     bool isWrapper = false,
-    ReactDartComponentFactoryProxy2 parentType,
+    // This must remain typed in a way that both UiComponent and UiComponent2 classes can be passed as the `subtypeOf` value.
+    ReactDartComponentFactoryProxy parentType,
     UiFactory builderFactory,
     Type componentClass,
     String displayName,

@@ -40,6 +40,8 @@ import 'component2_type_checking_test/type_inheritance/abstract_inheritance/exte
 import 'component2_type_checking_test/type_inheritance/parent2.dart';
 import 'component2_type_checking_test/type_inheritance/subsubtype2.dart';
 import 'component2_type_checking_test/type_inheritance/subtype2.dart';
+import 'component2_type_checking_test/type_inheritance/subsubtype_of_component1.dart';
+import 'component2_type_checking_test/type_inheritance/subtype_of_component1.dart';
 
 main() {
   group('Component1', () {
@@ -64,6 +66,23 @@ main() {
       TestParent: TestParent2,
       TestSubtype: TestSubtype2,
       TestSubsubtype: TestSubsubtype2,
+      TestExtendtype: TestExtendtype2,
+      TestExtendtypeComponent: TestExtendtype2Component,
+      TestAbstractComponent: TestAbstract2Component,
+      TestA: TestA2,
+      TestAComponent: TestA2Component,
+      TestB: TestB2,
+      TestBComponent: TestB2Component,
+      OneLevelWrapper: OneLevelWrapper2,
+      TwoLevelWrapper: TwoLevelWrapper2,
+    );
+  });
+  group('Component2 (subtypeOf: Component1)', () {
+    testComponentTypeChecking(
+      isComponent2: true,
+      TestParent: TestParent,
+      TestSubtype: TestSubtypeOfComponent1,
+      TestSubsubtype: TestSubsubtypeOfComponent1,
       TestExtendtype: TestExtendtype2,
       TestExtendtypeComponent: TestExtendtype2Component,
       TestAbstractComponent: TestAbstract2Component,
