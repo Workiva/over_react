@@ -96,7 +96,7 @@ void forwardUnconsumedProps(Map props, {
   for (String key in props.keys) {
     if (keysToOmit != null && keysToOmit.contains(key)) continue;
 
-    if (keySetsToOmit != null) {
+    if (keySetsToOmit != null && keySetsToOmit.isNotEmpty) {
       /// If the passed in value of [keySetsToOmit] comes from
       /// [addUnconsumedProps], there should only be a single index.
       /// Consequently, this case exists to give the opportunity for the loop
