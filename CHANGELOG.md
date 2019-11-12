@@ -1,5 +1,11 @@
 # OverReact Changelog
 
+## [3.1.4](https://github.com/Workiva/over_react/compare/3.1.3...3.1.4)
+
+- Replace usage / mention of `UiComponent2.getPropKey` which had to be deprecated in [the 3.1.2 release](https://github.com/Workiva/over_react/pull/418).
+- Add a stub for `UiComponent2.redraw` with a deprecated annotation so that consumers would correctly see it as being deprecated.
+  - Previously, this method would not show up as deprecated because certain IDEs would default to the base implementation (`Component.redraw`) - instead of the newer, deprecated `Component2.redraw`.
+
 ## [3.1.3](https://github.com/Workiva/over_react/compare/3.1.2...3.1.3)
 
 - Fixes an issue that prevents `UiComponent` instances from being declared as sub-types of `UiComponent2` instances
