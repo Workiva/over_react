@@ -207,7 +207,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// class MyComponent extends UiComponent2<MyProps> {
   ///   @override
   ///   get propTypes => {
-  ///     getPropKey((p) => p.foo): (props, info) {
+  ///     keyForProp((p) => p.foo): (props, info) {
   ///       final length = props.foo?.length;
   ///       if (length != 2) {
   ///         return PropError.value(length, info.propName, 'must have a length of 2');
@@ -218,7 +218,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// }
   /// ```
   ///
-  /// * [getPropKey] - as shown in the example above - is a statically typed helper to get the string key for a prop.
+  /// * [keyForProp] - as shown in the example above - is a statically typed helper to get the string key for a prop.
   /// * The second argument (`info`) of the function used to return a value for the key contains metadata about
   ///   the prop specified by the key.
   ///     * `propName`, `componentName`, `location` and `propFullName` are available.
@@ -239,7 +239,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///
   ///   @override
   ///   get propTypes => {
-  ///     getPropKey((p) => p.mustHaveAnotherPropValue): (props, info) {
+  ///     keyForProp((p) => p.mustHaveAnotherPropValue): (props, info) {
   ///       if (props.mustHaveAnotherPropValue && props.anotherProp == null) {
   ///         return PropError.combination(info.propName, 'anotherProp',
   ///             'must have a non-null value when ${info.propName} is true.');
@@ -280,8 +280,8 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// @Component2()
   /// class MyComponent extends UiComponent2<MyProps> {
   ///   void someInstanceMethod() {
-  ///     print(getPropKey((p) => p.somePropKey)); // Prints "MyProps.somePropKey"
-  ///     print(getPropKey((p) => p.id)); // Prints "id"
+  ///     print(keyForProp((p) => p.somePropKey)); // Prints "MyProps.somePropKey"
+  ///     print(keyForProp((p) => p.id)); // Prints "id"
   ///   }
   /// }
   /// ```
@@ -436,6 +436,10 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
     return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
   }
 
+  @Deprecated('4.0.0')
+  @override
+  void redraw([Function() callback]) => super.redraw(callback);
+
   // ***************************************************************************
   //
   // Deprecated and unsupported members
@@ -479,7 +483,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// class MyComponent extends UiComponent2<MyProps> {
   ///   @override
   ///   get propTypes => {
-  ///     getPropKey((p) => p.listThatMustHaveAnEvenNumberOfItems): (props, info) {
+  ///     keyForProp((p) => p.listThatMustHaveAnEvenNumberOfItems): (props, info) {
   ///       if (props.listThatMustHaveAnEvenNumberOfItems?.length.isOdd) {
   ///         return PropError.value(
   ///             tProps.listThatMustHaveAnEvenNumberOfItems,
