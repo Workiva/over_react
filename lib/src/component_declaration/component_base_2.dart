@@ -436,6 +436,10 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
     return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
   }
 
+  @Deprecated('4.0.0')
+  @override
+  void redraw([Function() callback]) => super.redraw(callback);
+
   // ***************************************************************************
   //
   // Deprecated and unsupported members
