@@ -16,9 +16,10 @@ library test_util.prop_utils;
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
 
-void testInvalidKey(dynamic instanceBuilder()) {
+void testInvalidKey(dynamic Function() instanceBuilder) {
   test('cannot set / read values that are not its prop map', () {
     var instance = instanceBuilder();
+    // ignore: unnecessary_statements
     expect(() {instance['notThere'];},
         throwsA(hasToStringValue(contains('Map does not contain this key'))));
   });

@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
+
 import 'dart:js';
 
 import 'package:meta/meta.dart';
@@ -19,6 +21,7 @@ import 'package:over_react/src/component/dummy_component2.dart';
 import 'package:over_react/src/util/class_names.dart';
 import 'package:over_react/src/util/map_util.dart';
 import 'package:over_react/src/util/prop_errors.dart';
+import 'package:over_react/src/util/prop_key_util.dart' as prop_key_util;
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/bridge.dart';
@@ -37,7 +40,7 @@ import 'disposable_manager_proxy.dart';
 ///     var $`AbstractComponentClassName`Factory = registerAbstractComponent2(`AbstractComponentClassName`);
 ///
 ReactDartComponentFactoryProxy2 registerAbstractComponent2(Type abstractComponentClass, {ReactDartComponentFactoryProxy2 parentType}) =>
-    registerComponent2(() => new DummyComponent2(), componentClass: abstractComponentClass, parentType: parentType);
+    registerComponent2(() => DummyComponent2(), componentClass: abstractComponentClass, parentType: parentType);
 
 /// Helper function that wraps react.registerComponent2, and allows attachment of additional
 /// component factory metadata.
@@ -46,12 +49,13 @@ ReactDartComponentFactoryProxy2 registerAbstractComponent2(Type abstractComponen
 /// treated as if it were the wrapped component.
 ///
 /// * [builderFactory]/[componentClass]: the [UiFactory] and [UiComponent2] members to be potentially
-/// used as types for [isComponentOfType]/[getComponentFactory].
+/// used as types for [isComponentOfType]/`getComponentFactory`.
 ///
 /// * [displayName]: the name of the component for use when debugging.
-ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 dartComponentFactory(), {
-    bool isWrapper: false,
-    ReactDartComponentFactoryProxy2 parentType,
+ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 Function() dartComponentFactory, {
+    bool isWrapper = false,
+    // This must remain typed in a way that both UiComponent and UiComponent2 classes can be passed as the `subtypeOf` value.
+    ReactDartComponentFactoryProxy parentType,
     UiFactory builderFactory,
     Type componentClass,
     String displayName,
@@ -135,7 +139,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   TProps get props {
     // This needs to be a concrete implementation in Dart 2 for soundness;
     // without it, you get a confusing error. See: https://github.com/dart-lang/sdk/issues/36191
-    throw new UngeneratedError(member: #props,
+    throw UngeneratedError(member: #props,
         message: GeneratedErrorMessages.component1AnnotationOnComponent2);
   }
 
@@ -167,7 +171,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// Required to properly instantiate the generic [TProps] class.
   @override
   @toBeGenerated
-  TProps typedPropsFactory(Map propsMap)=> throw new UngeneratedError(member: #typedPropsFactory);
+  TProps typedPropsFactory(Map propsMap)=> throw UngeneratedError(member: #typedPropsFactory);
 
   /// Returns a typed props object backed by the specified [propsMap].
   ///
@@ -176,40 +180,112 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// This should be used where possible over [typedPropsFactory] to allow for
   /// more efficient dart2js output.
   @toBeGenerated
-  TProps typedPropsFactoryJs(JsBackedMap propsMap) => throw new UngeneratedError(member: #typedPropsFactoryJs,
+  TProps typedPropsFactoryJs(JsBackedMap propsMap) => throw UngeneratedError(member: #typedPropsFactoryJs,
       message: GeneratedErrorMessages.component1AnnotationOnComponent2);
 
-  /// Returns a typed props object backed by a new Map.
+  /// Returns a typed props object backed by a Map.
   ///
-  /// Convenient for use with [getDefaultProps].
+  /// Convenient for use with [defaultProps].
   @override
-  TProps newProps() => typedPropsFactoryJs(new JsBackedMap());
+  TProps newProps() => typedPropsFactoryJs(JsBackedMap());
 
-  /// Allows usage of PropValidator functions to check the validity of a prop passed to it.
-  /// When an invalid value is provided for a prop, a warning will be shown in the JavaScript console.
-  /// For performance reasons, propTypes is only checked in development mode.
+  /// Allows usage of [react.PropValidator] functions to check the validity of a prop within the props passed to it.
   ///
   /// Override with a custom implementation to easily add validation.
   ///
-  ///     get propTypes => {
-  ///           getPropKey((props) => props.twoObjects, typedPropsFactory):
-  ///               (props, propName, componentName, location, propFullName) {
-  ///             final length = props.twoObjects?.length;
-  ///             if (length != 2) {
-  ///               return new PropError.value(length, propName, 'must have a length of 2');
-  ///             }
-  ///             return null;
-  ///           },
-  ///         };
+  /// > For performance reasons, `propTypes` is only checked in development mode.
   ///
-  /// `getPropKey` is a statically typed helper to get the string key for a prop.
+  /// __Example of enforcing the length of a prop value:__
   ///
-  /// __Note:__ An improved version of `getPropKey` will be offered once
-  /// https://jira.atl.workiva.net/browse/CPLAT-6655 is completed.
+  /// ```
+  /// @Props()
+  /// class MyProps extends UiProps {
+  ///   Object foo;
+  /// }
   ///
-  /// For more info see: https://www.npmjs.com/package/prop-types
+  /// @Component2()
+  /// class MyComponent extends UiComponent2<MyProps> {
+  ///   @override
+  ///   get propTypes => {
+  ///     keyForProp((p) => p.foo): (props, info) {
+  ///       final length = props.foo?.length;
+  ///       if (length != 2) {
+  ///         return PropError.value(length, info.propName, 'must have a length of 2');
+  ///       }
+  ///       return null;
+  ///     },
+  ///   };
+  /// }
+  /// ```
+  ///
+  /// * [keyForProp] - as shown in the example above - is a statically typed helper to get the string key for a prop.
+  /// * The second argument (`info`) of the function used to return a value for the key contains metadata about
+  ///   the prop specified by the key.
+  ///     * `propName`, `componentName`, `location` and `propFullName` are available.
+  ///
+  /// __Example of enforcing the relationship between two prop values:__
+  ///
+  /// ```
+  /// @Props()
+  /// class MyProps extends UiProps {
+  ///   bool mustHaveAnotherPropValue;
+  ///   String anotherProp;
+  /// }
+  ///
+  /// @Component2()
+  /// class MyComponent extends UiComponent2<MyProps> {
+  ///   @override
+  ///   get defaultProps => newProps()..someProp = false;
+  ///
+  ///   @override
+  ///   get propTypes => {
+  ///     keyForProp((p) => p.mustHaveAnotherPropValue): (props, info) {
+  ///       if (props.mustHaveAnotherPropValue && props.anotherProp == null) {
+  ///         return PropError.combination(info.propName, 'anotherProp',
+  ///             'must have a non-null value when ${info.propName} is true.');
+  ///       }
+  ///       return null;
+  ///     },
+  ///   };
+  /// }
+  /// ```
+  ///
+  /// > See: <https://reactjs.org/docs/typechecking-with-proptypes.html#proptypes>
   @override
   Map<String, react.PropValidator<TProps>> get propTypes => {};
+
+  /// Returns the string key of the [factory] prop accessed in [accessProp], including the namespace if one exists.
+  ///
+  /// __DEPRECATED__: This method had to be deprecated and replaced with [keyForProp] because of the way
+  /// that shadowing works in Dart when a top-level function name matches the name of an instance method.
+  @Deprecated('4.0.0')
+  String getPropKey(void Function(TProps props) accessProp) => keyForProp(accessProp);
+
+  /// Returns the string key of the [factory] prop accessed in [accessProp], including the namespace if one exists.
+  ///
+  /// Intended for use within [propTypes].
+  ///
+  /// __Example:__
+  ///
+  /// ```
+  /// @Props()
+  /// class MyProps extends UiProps {
+  ///   bool somePropKey;
+  ///
+  ///   @Accessor(keyNamespace: '')
+  ///   @override
+  ///   String id;
+  /// }
+  ///
+  /// @Component2()
+  /// class MyComponent extends UiComponent2<MyProps> {
+  ///   void someInstanceMethod() {
+  ///     print(keyForProp((p) => p.somePropKey)); // Prints "MyProps.somePropKey"
+  ///     print(keyForProp((p) => p.id)); // Prints "id"
+  ///   }
+  /// }
+  /// ```
+  String keyForProp(void Function(TProps props) accessProp) => prop_key_util.getPropKey(accessProp, typedPropsFactory);
 
   // ***************************************************************************
   //
@@ -220,7 +296,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// The default consumed props, taken from the keys generated in the associated @[Props] class.
   @override
   @toBeGenerated
-  Iterable<ConsumedProps> get $defaultConsumedProps => throw new UngeneratedError(member: #$defaultConsumedProps);
+  Iterable<ConsumedProps> get $defaultConsumedProps => throw UngeneratedError(member: #$defaultConsumedProps);
 
   /// The non-forwarding props defined in this component.
   ///
@@ -245,7 +321,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Related [addUnconsumedDomProps]
   void addUnconsumedProps(Map props) {
     // TODO: cache this value to avoid unnecessary looping
-    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys);
+    var consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
 
     forwardUnconsumedProps(this.props, propsToUpdate: props,
         keySetsToOmit: consumedPropKeys);
@@ -265,7 +341,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///
   /// > Related [addUnconsumedProps]
   void addUnconsumedDomProps(Map props) {
-    var consumedPropKeys = consumedProps?.map((ConsumedProps consumedProps) => consumedProps.keys);
+    var consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
 
     forwardUnconsumedProps(this.props, propsToUpdate: props, keySetsToOmit:
         consumedPropKeys, onlyCopyDomProps: true);
@@ -275,8 +351,8 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
   @override
   Map copyProps(
-      {bool omitReservedReactProps: true,
-      bool onlyCopyDomProps: false,
+      {bool omitReservedReactProps = true,
+      bool onlyCopyDomProps = false,
       Iterable keysToOmit,
       Iterable<Iterable> keySetsToOmit}) {
     return getPropsToForward(this.props,
@@ -286,7 +362,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
         keySetsToOmit: keySetsToOmit);
   }
 
-  /// Returns a new ClassNameBuilder with className and blacklist values added from [CssClassPropsMixin.className] and
+  /// Returns a ClassNameBuilder with className and blacklist values added from [CssClassPropsMixin.className] and
   /// [CssClassPropsMixin.classNameBlacklist], if they are specified.
   ///
   /// This method should be used as the basis for the classNames of components receiving forwarded props.
@@ -294,7 +370,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Should be used alongside [copyUnconsumedProps] or [copyUnconsumedDomProps].
   @override
   ClassNameBuilder forwardingClassNameBuilder() {
-    return new ClassNameBuilder.fromProps(this.props);
+    return ClassNameBuilder.fromProps(this.props);
   }
 
   // ***************************************************************************
@@ -320,7 +396,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Related [copyUnconsumedDomProps]
   ///
   /// __Deprecated.__ Use [addUnconsumedProps] within
-  /// [modifyProps] (rather than [addProps]) instead.
+  /// `modifyProps` (rather than `addProps`) instead.
   ///
   /// Replace
   ///
@@ -335,7 +411,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   @Deprecated('4.0.0')
   Map copyUnconsumedProps() {
     var consumedPropKeys = consumedProps
-            ?.map((ConsumedProps consumedProps) => consumedProps.keys) ??
+            ?.map((consumedProps) => consumedProps.keys) ??
         const [];
 
     return copyProps(keySetsToOmit: consumedPropKeys);
@@ -348,17 +424,21 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Related [copyUnconsumedProps]
   ///
   /// __Deprecated.__ Use [addUnconsumedDomProps] within
-  /// [modifyProps] (rather than [addProps]) instead. Will be removed in the
+  /// `modifyProps` (rather than `addProps`) instead. Will be removed in the
   /// `4.0.0` release.
   @override
   @Deprecated('4.0.0')
   Map copyUnconsumedDomProps() {
     var consumedPropKeys = consumedProps
-            ?.map((ConsumedProps consumedProps) => consumedProps.keys) ??
+            ?.map((consumedProps) => consumedProps.keys) ??
         const [];
 
     return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
   }
+
+  @Deprecated('4.0.0')
+  @override
+  void redraw([Function() callback]) => super.redraw(callback);
 
   // ***************************************************************************
   //
@@ -368,35 +448,69 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
 
   /// Throws a [PropError] if [appliedProps] are invalid.
   ///
-  /// This is called automatically with the latest props available during [componentWillReceiveProps] and
-  /// [componentWillMount], and can also be called manually for custom validation.
+  /// __Deprecated.__ Will be removed in the `4.0.0` release. Use [propTypes] instead.
   ///
-  /// Override with a custom implementation to easily add validation (and don't forget to call super!)
+  /// __Bad__
   ///
-  ///     @mustCallSuper
-  ///     void validateProps(Map appliedProps) {
-  ///       super.validateProps(appliedProps);
+  /// ```
+  /// @Props()
+  /// class MyProps extends UiProps {
+  ///   List listThatMustHaveAnEvenNumberOfItems;
+  /// }
   ///
-  ///       var tProps = typedPropsFactory(appliedProps);
-  ///       if (tProps.items.length.isOdd) {
-  ///         throw new PropError.value(tProps.items, 'items', 'must have an even number of items, because reasons');
-  ///       }
+  /// @Component2()
+  /// class MyComponent extends UiComponent2<MyProps> {
+  ///   void validateProps(Map appliedProps) {
+  ///     super.validateProps(appliedProps);
+  ///
+  ///     var tProps = typedPropsFactory(appliedProps);
+  ///     if (tProps.items.length.isOdd) {
+  ///       throw PropError.value(tProps.items, 'items', 'must have an even number of items, because reasons');
   ///     }
-  /// __Deprecated.__ Use [propTypes] instead. Will be removed in the `4.0.0` release.
+  ///   }
+  /// }
+  /// ```
+  ///
+  /// __Good__
+  ///
+  /// ```
+  /// @Props()
+  /// class MyProps extends UiProps {
+  ///   List listThatMustHaveAnEvenNumberOfItems;
+  /// }
+  ///
+  /// @Component2()
+  /// class MyComponent extends UiComponent2<MyProps> {
+  ///   @override
+  ///   get propTypes => {
+  ///     keyForProp((p) => p.listThatMustHaveAnEvenNumberOfItems): (props, info) {
+  ///       if (props.listThatMustHaveAnEvenNumberOfItems?.length.isOdd) {
+  ///         return PropError.value(
+  ///             tProps.listThatMustHaveAnEvenNumberOfItems,
+  ///             'listThatMustHaveAnEvenNumberOfItems',
+  ///             'must have an even number of items, because reasons');
+  ///       }
+  ///       return null;
+  ///     },
+  ///   };
+  /// }
+  /// ```
   @Deprecated('4.0.0')
   @mustCallSuper
   @override
   void validateProps(Map appliedProps) {
-    throw UnsupportedError('[validateProps] is not supported in Component2, use [propTypes] instead.');
+    throw UnsupportedError('[validateProps] is not supported in UiComponent2, use [propTypes] instead.');
   }
 
   /// Validates that props with the `@requiredProp` annotation are present.
-  /// __Deprecated.__ Use [propTypes] instead. Will be removed in the `4.0.0` release.
+  /// __Deprecated.__ Will be removed in the `4.0.0` release.
+  ///
+  /// Props annotated with `@requiredProp` will automatically be validated in `UiComponent2` instances.
   @Deprecated('4.0.0')
   @mustCallSuper
   @override
   void validateRequiredProps(Map appliedProps) {
-    throw UnsupportedError('[validateRequiredProps] is not supported in Component2, use [propTypes] instead.');
+    throw UnsupportedError('[validateRequiredProps] is not supported in UiComponent2, use [propTypes] instead.');
   }
 }
 
@@ -480,7 +594,7 @@ mixin UiStatefulMixin2<TProps extends UiProps, TState extends UiState> on UiComp
   TState get state {
     // This needs to be a concrete implementation in Dart 2 for soundness;
     // without it, you get a confusing error. See: https://github.com/dart-lang/sdk/issues/36191
-    throw new UngeneratedError(member: #state,
+    throw UngeneratedError(member: #state,
         message: GeneratedErrorMessages.component1AnnotationOnComponent2);
   }
 
@@ -488,7 +602,7 @@ mixin UiStatefulMixin2<TProps extends UiProps, TState extends UiState> on UiComp
   ///
   /// Required to properly instantiate the generic [TState] class.
   @toBeGenerated
-  TState typedStateFactory(Map stateMap) => throw new UngeneratedError(member: #typedStateFactory,
+  TState typedStateFactory(Map stateMap) => throw UngeneratedError(member: #typedStateFactory,
       message: GeneratedErrorMessages.typedStateFactory);
 
   /// Returns a typed state object backed by the specified [stateMap].
@@ -497,13 +611,13 @@ mixin UiStatefulMixin2<TProps extends UiProps, TState extends UiState> on UiComp
   ///
   /// This should be used where possible over [typedStateFactory] to allow for
   /// more efficient dart2js output.
-  TState typedStateFactoryJs(JsBackedMap stateMap) => throw new UngeneratedError(member: #typedStateFactoryJs,
+  TState typedStateFactoryJs(JsBackedMap stateMap) => throw UngeneratedError(member: #typedStateFactoryJs,
       message: '${GeneratedErrorMessages.typedStateFactory}${GeneratedErrorMessages.component1AnnotationOnComponent2}');
 
-  /// Returns a typed state object backed by a new Map.
+  /// Returns a typed state object backed by a Map.
   ///
   /// Convenient for use with [getInitialState] and [setState].
-  TState newState() => typedStateFactoryJs(new JsBackedMap());
+  TState newState() => typedStateFactoryJs(JsBackedMap());
 
   @override
   void setStateWithUpdater(covariant Map Function(TState prevState, TProps props) updater, [Function() callback]) {
@@ -535,49 +649,42 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
   /// Returns a const bridge instance suitable for use with any [UiComponent2].
   ///
   /// See [Component2BridgeFactory] for more info.
+  // ignore: prefer_constructors_over_static_methods
   static UiComponent2BridgeImpl bridgeFactory(react.Component2 component) {
     assert(component is UiComponent2, 'should not be used with non-UiComponent2 components');
     return const UiComponent2BridgeImpl();
   }
 
   @override
-  JsMap jsifyPropTypes(covariant UiComponent2 component, Map propTypes) {
+  JsMap jsifyPropTypes(
+      covariant UiComponent2 component, covariant Map<String,
+      /*PropValidator<UiProps>*/Function> propTypes) {
     Error _getErrorFromConsumerValidator(
-      dynamic _validator,
+      /*PropValidator<UiProps>*/Function _validator,
       JsBackedMap _props,
-      String _propName,
-      String _componentName,
-      String _location,
-      String _propFullName
+      react.PropValidatorInfo _info,
     ) {
       var convertedProps = component.typedPropsFactoryJs(_props);
-      Error error = _validator(convertedProps, _propName, _componentName, _location, _propFullName);
-      return error;
+      return _validator(convertedProps, _info);
     }
 
     // Add [PropValidator]s for props annotated as required.
-    var newPropTypes = Map.from(propTypes);
-    component.consumedProps?.forEach((ConsumedProps consumedProps) {
-      consumedProps.props.forEach((PropDescriptor prop) {
+    final newPropTypes = Map.of(propTypes);
+    component.consumedProps?.forEach((consumedProps) {
+      consumedProps.props.forEach((prop) {
         if (!prop.isRequired) return;
 
         Error requiredPropValidator(
           Map _props,
-          String _propName,
-          String _componentName,
-          String _location,
-          String _propFullName,
+          react.PropValidatorInfo _info,
         ) {
           Error consumerError;
           // Check if the consumer has specified a propType for this key.
-          if(propTypes[prop.key] != null) {
+          if (propTypes[prop.key] != null) {
             consumerError = _getErrorFromConsumerValidator(
               propTypes[prop.key],
               JsBackedMap.from(_props),
-              _propName,
-              _componentName,
-              _location,
-              _propFullName
+              _info,
             );
           }
 
@@ -586,8 +693,8 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
           if (prop.isNullable && _props.containsKey(prop.key)) return null;
           if (!prop.isNullable && _props[prop.key] != null) return null;
 
-          if (_props[_propName] == null) {
-            return new PropError.required(_propName, prop.errorMessage);
+          if (_props[_info.propName] == null) {
+            return PropError.required(_info.propName, prop.errorMessage);
           }
 
           return null;
@@ -599,22 +706,21 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
 
     // Wrap consumer-provided and required validators with ones that convert plain props maps into typed ones.
     return JsBackedMap.from(newPropTypes.map((_propKey, _validator) {
+        // ignore: prefer_function_declarations_over_variables
         JsPropValidator handlePropValidator = (
-          JsMap _props,
-          String _propName,
-          String _componentName,
-          String _location,
-          String _propFullName,
+          JsMap _props, // ignore: avoid_types_on_closure_parameters
+          String _propName, // ignore: avoid_types_on_closure_parameters
+          String _componentName, // ignore: avoid_types_on_closure_parameters
+          String _location, // ignore: avoid_types_on_closure_parameters
+          String _propFullName, // ignore: avoid_types_on_closure_parameters
           // This is a required argument of PropTypes validators but is hidden from the JS consumer.
-          String secret,
+          String secret, // ignore: avoid_types_on_closure_parameters
         ) {
-          Error error = _getErrorFromConsumerValidator(
+          final error = _getErrorFromConsumerValidator(
             _validator,
             JsBackedMap.fromJs(_props),
-            _propName,
-            _componentName,
-            _location,
-            _propFullName
+            react.PropValidatorInfo(
+                propName: _propName, componentName: _componentName, location: _location, propFullName: _propFullName),
           );
           return error == null ? null : JsError(error.toString());
         };
@@ -625,7 +731,7 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
 
   /// A version of [setStateWithTypedUpdater] whose updater is passed typed views
   /// into the `prevState` and `props` arguments, allowing them to be typed automatically
-  /// within [UiStatefulComponent2.setStateWithTypedUpdater].
+  /// within [UiStatefulComponent2.setStateWithUpdater].
   void setStateWithTypedUpdater<TState extends UiState, TProps extends UiProps>(
     UiStatefulMixin2<TProps, TState> component,
     Map Function(TState prevState, TProps props) updater,

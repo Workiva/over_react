@@ -26,12 +26,12 @@ class _$TestCustomRendererFromAbstractComponentProps extends TestAbstractCustomR
 @State()
 class _$TestCustomRendererFromAbstractComponentState extends TestAbstractCustomRendererComponentState {}
 
-@Component()
+@Component2()
 class TestCustomRendererFromAbstractComponentComponent
     extends TestAbstractCustomRendererComponentComponent<TestCustomRendererFromAbstractComponentProps,
                                                          TestCustomRendererFromAbstractComponentState> {
   @override
-  Map getInitialState() => (newState()..someStateKey = props.someInitialStateKeyValue);
+  get initialState => (newState()..someStateKey = props.someInitialStateKeyValue);
 
   @override
   render() {

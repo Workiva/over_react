@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Various prop related mixins to be used with [UiComponent] descendants.
+/// Various prop related mixins to be used with `UiComponent` descendants.
 library over_react.prop_mixins;
 
 import 'package:over_react/over_react.dart' show AriaPropsMapView, AriaPropsMixin, DomProps, PropsMeta;
@@ -50,6 +50,7 @@ abstract class _$ReactPropsMixin {
   /// * <https://facebook.github.io/react/docs/multiple-components.html#children>
   /// * <https://facebook.github.io/react/docs/reconciliation.html>
   String get key        => props['key'];
+  /// ignore: prefer_null_aware_operators
   set key(Object value) => props['key'] = value == null ? null : value.toString();
 
   /// Either a String used to retrieve the element at a later time via [react.Component.ref],
@@ -70,20 +71,30 @@ abstract class $DomPropsMixin {}
 abstract class _$DomPropsMixin {
   Map get props;
 
-  int cols, rows, size, span, start;
+  int cols, minLength, rows, size, span, start;
+
+  num high, low, marginHeight, marginWidth, optimum;
+
+  @Accessor(key: 'default')
+  bool htmlDefault;
+
+  @Accessor(key: 'is')
+  String htmlIs;
 
   bool allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, hidden, loop, multiple,
-    muted, noValidate, open, readOnly, required, seamless, selected;
+      muted, noValidate, open, readOnly, required, reversed, scoped, seamless, selected;
 
   Map<String, dynamic> style;
 
-  String accept, acceptCharset, accessKey, action, alt, autoComplete, charSet, classID, className, content, contextMenu,
-    coords, crossOrigin, data, dateTime, dir, encType, form, href, hrefLang, htmlFor, httpEquiv, id, label, lang, list, manifest, media, mediaGroup,
-    method, name, pattern, placeholder, poster, preload, radioGroup, rel, role, sandbox, scope, scrolling, shape, sizes, src,
-    srcDoc, srcSet, target, title, type, useMap, wmode;
+  String challenge, cite, className, controlsList, formAction, formEncType, formMethod, formTarget, headers, id,
+      inputMode, integrity, keyParams, keyType, kind, nonce, srcLang, summary, title, wrap;
 
-  dynamic allowTransparency, cellPadding, cellSpacing, colSpan, contentEditable, download, draggable, frameBorder, height, icon,
-    max, maxLength, min, rowSpan, spellCheck, step, tabIndex, value, width;
+  dynamic accept, acceptCharset, accessKey, action, allowTransparency, alt, autoComplete, capture, cellPadding, cellSpacing,
+    charSet, classID, colSpan, content, contentEditable, contextMenu, coords, crossOrigin, data, dateTime,
+    dir, download, draggable, encType, form, frameBorder, height, href, hrefLang, htmlFor, httpEquiv, icon, label,
+    lang, list, manifest, max, maxLength, media, mediaGroup, method, min, name, pattern, placeholder,
+    poster, preload, radioGroup, rel, role, rowSpan, sandbox, scope, scrolling, shape, sizes, spellCheck, src, srcDoc,
+    srcSet, step, tabIndex, target, type, useMap, value, width, wmode;
 
   AnimationEventCallback onAnimationEnd, onAnimationIteration, onAnimationStart;
   ClipboardEventCallback onCopy, onCut, onPaste;
@@ -129,13 +140,37 @@ abstract class $SvgPropsMixin {}
 abstract class _$SvgPropsMixin {
   Map get props;
 
-  String clipPath, d, fill, fontFamily, gradientTransform, gradientUnits, markerEnd, markerMid, markerStart,
-    patternContentUnits, patternUnits, points, preserveAspectRatio, spreadMethod, stopColor, stroke,
-    strokeLinecap, textAnchor, transform, version, viewBox, xlinkActuate, xlinkArcrole, xlinkHref, xlinkRole,
-    xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace;
+  @Accessor(key: 'in')
+  String htmlIn;
 
-  dynamic cx, cy, dx, dy, fillOpacity, fontSize, fx, fy, offset, opacity, r, rx, ry, stopOpacity, strokeDasharray,
-    strokeOpacity, strokeWidth, x1, x2, x, y1, y2, y;
+  @Accessor(key: 'values')
+  String htmlValues;
+
+  String accumulate, additive, alignmentBaseline, allowReorder, arabicForm, attributeName, attributeType, colorInterpolationFilters,
+      fillRule, filter, mask, result, strokeLinejoin, xChannelSelector, xmlns, xmlnsXlink, yChannelSelector, zoomAndPan;
+
+  dynamic accentHeight, alphabetic, amplitude, ascent, autoReverse, azimuth, baseFrequency,
+      baseProfile, baselineShift, bbox, begin, bias, by, calcMode, capHeight, clip, clipPath, clipPathUnits,
+      clipRule, colorInterpolation, colorProfile, colorRendering, contentScriptType, contentStyleType,
+      cursor, cx, cy, d, decelerate, descent, diffuseConstant, direction, display, divisor, dominantBaseline,
+      dur, dx, dy, edgeMode, elevation, enableBackground, end, exponent, externalResourcesRequired,
+      fill, fillOpacity, filterRes, filterUnits, floodColor, floodOpacity, focusable, fontFamily, fontSize,
+      fontSizeAdjust, fontStretch, fontStyle, fontVariant, fontWeight, format, from, fx, fy, g1, g2, glyphName,
+      glyphOrientationHorizontal, glyphOrientationVertical, glyphRef, gradientTransform, gradientUnits, hanging,
+      horizAdvX, horizOriginX, ideographic, imageRendering, in2, intercept, k, k1, k2, k3, k4, kernelMatrix, kernelUnitLength,
+      kerning, keyPoints, keySplines, keyTimes, lengthAdjust, letterSpacing, lightingColor, limitingConeAngle,
+      local, markerEnd, markerHeight, markerMid, markerStart, markerUnits, markerWidth, maskContentUnits, maskUnits, mathematical,
+      mode, numOctaves, offset, opacity, operator, order, orient, orientation, origin, overflow, overlinePosition,
+      overlineThickness, paintOrder, panose1, pathLength, patternContentUnits, patternTransform, patternUnits, pointerEvents,
+      points, pointsAtX, pointsAtY, pointsAtZ, preserveAlpha, preserveAspectRatio, primitiveUnits, r, radius, refX, refY,
+      renderingIntent, repeatCount, repeatDur, requiredExtensions, requiredFeatures, restart, rotate, rx, ry, scale, seed,
+      shapeRendering, slope, spacing, specularConstant, specularExponent, speed, spreadMethod, startOffset, stdDeviation, stemh, stemv,
+      stitchTiles, stopColor, stopOpacity, strikethroughPosition, strikethroughThickness, string, stroke, strokeDasharray,
+      strokeDashoffset, strokeLinecap, strokeMiterlimit, strokeOpacity, strokeWidth, surfaceScale, systemLanguage,
+      tableValues, targetX, targetY, textAnchor, textDecoration, textLength, textRendering, to, transform, u1, u2, underlinePosition,
+      underlineThickness, unicode, unicodeBidi, unicodeRange, unitsPerEm, vAlphabetic, vHanging, vIdeographic, vMathematical,
+      vectorEffect, version, vertAdvY, vertOriginX, vertOriginY, viewBox, viewTarget, visibility, widths, wordSpacing, writingMode,
+      x, x1, x2, xHeight, xlinkActuate, xlinkArcrole, xlinkHref, xlinkRole, xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace, y1, y2, y;
 }
 /// This class is only present to allow for consumers which have used the
 /// --backwards-compat flag with over_react_codemod to statically analyze:
@@ -164,8 +199,7 @@ abstract class _$UbiquitousDomPropsMixin {
   ///       ..aria.controls = 'my_popover'
   ///     )('Open popover')
   AriaPropsMixin get aria {
-    _aria ??= new AriaPropsMapView(props);
-    return _aria;
+    return _aria ??= AriaPropsMapView(props);
   }
 
   /// A view into this map that can be used to access DOM props, for convenience.
@@ -176,8 +210,7 @@ abstract class _$UbiquitousDomPropsMixin {
   ///       ..dom.draggable = true
   ///     )('Untitled Document')
   DomPropsMixin get dom {
-    _dom ??= new DomProps(null, props);
-    return _dom;
+    return _dom ??= DomProps(null, props);
   }
 
   /// Whether the element if focusable.

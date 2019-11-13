@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:analyzer/analyzer.dart';
+// ignore_for_file: deprecated_member_use_from_same_package
+
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:logging/logging.dart';
 import 'package:over_react/src/builder/util.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
@@ -142,7 +144,7 @@ class ParsedDeclarations {
       return (annotation == 'State' || annotation == 'AbstractState');
     }
 
-    unit.declarations.forEach((CompilationUnitMember _member) {
+    unit.declarations.forEach((_member) {
       _member.metadata.forEach((_annotation) {
         final annotation = _annotation.name.toString();
 
@@ -205,7 +207,7 @@ class ParsedDeclarations {
       });
 
       return topLevelVarDeclarations;
-    };
+    }
 
     List<ClassDeclaration> classesOnly(String annotationName, Iterable<CompilationUnitMember> declarations) {
       final classDeclarations = <ClassDeclaration>[];
@@ -222,7 +224,7 @@ class ParsedDeclarations {
       });
 
       return classDeclarations;
-    };
+    }
 
     declarationMap[key_factory] = topLevelVarsOnly(key_factory, declarationMap[key_factory]);
 
@@ -254,11 +256,11 @@ class ParsedDeclarations {
 
     bool oneOfEachRequiredDecl2 = requiredDecls2.every((decls) => decls.length == 1);
     bool oneOfEachRequiredDecl = requiredDecls.every((decls) => decls.length == 1) || oneOfEachRequiredDecl2;
-    bool noneOfAnyRequiredDecl2 = requiredDecls2.every((decls) => decls.length == 0);
-    bool noneOfAnyRequiredDecl = requiredDecls.every((decls) => decls.length == 0) && noneOfAnyRequiredDecl2;
+    bool noneOfAnyRequiredDecl2 = requiredDecls2.every((decls) => decls.isEmpty);
+    bool noneOfAnyRequiredDecl = requiredDecls.every((decls) => decls.isEmpty) && noneOfAnyRequiredDecl2;
 
     bool atMostOneOfEachOptionalDecl = optionalDecls.every((decls) => decls.length <= 1);
-    bool noneOfAnyOptionalDecl       = optionalDecls.every((decls) => decls.length == 0);
+    bool noneOfAnyOptionalDecl       = optionalDecls.every((decls) => decls.isEmpty);
 
     bool areDeclarationsValid = (
         (oneOfEachRequiredDecl && atMostOneOfEachOptionalDecl) ||
@@ -336,7 +338,7 @@ class ParsedDeclarations {
 
         key_allComponentVersionsRequired.forEach((annotationName) {
           final declarations = declarationMap[annotationName];
-          if (declarations.length == 0) {
+          if (declarations.isEmpty) {
             error(
                 'To define a component, there must also be a `@$annotationName` within the same file, '
                 'but none were found.'
@@ -424,7 +426,7 @@ class ParsedDeclarations {
       }
     }
 
-    return new ParsedDeclarations._(
+    return ParsedDeclarations._(
         factory:       singleOrNull(declarationMap[key_factory]),
         component:     singleOrNull(declarationMap[key_component]),
         component2:    singleOrNull(declarationMap[key_component2]),
@@ -469,17 +471,17 @@ class ParsedDeclarations {
       bool hasStateCompanionClass,
       bool hasAbstractStateCompanionClass,
   }) :
-      this.factory       = (factory   == null)  ? null : new FactoryNode(factory),
-      this.component     = (component == null)  ? null : new ComponentNode(component),
-      this.component2    = (component2 == null) ? null : new Component2Node(component2),
-      this.props         = (props     == null)  ? null : new PropsNode(props, hasPropsCompanionClass),
-      this.state         = (state     == null)  ? null : new StateNode(state, hasStateCompanionClass),
+      this.factory       = (factory   == null)  ? null : FactoryNode(factory),
+      this.component     = (component == null)  ? null : ComponentNode(component),
+      this.component2    = (component2 == null) ? null : Component2Node(component2),
+      this.props         = (props     == null)  ? null : PropsNode(props, hasPropsCompanionClass),
+      this.state         = (state     == null)  ? null : StateNode(state, hasStateCompanionClass),
 
-      this.abstractProps = new List.unmodifiable(abstractProps.map((props) => new AbstractPropsNode(props, hasAbstractPropsCompanionClass))),
-      this.abstractState = new List.unmodifiable(abstractState.map((state) => new AbstractStateNode(state, hasAbstractStateCompanionClass))),
+      this.abstractProps = List.unmodifiable(abstractProps.map((props) => AbstractPropsNode(props, hasAbstractPropsCompanionClass))),
+      this.abstractState = List.unmodifiable(abstractState.map((state) => AbstractStateNode(state, hasAbstractStateCompanionClass))),
 
-      this.propsMixins   = new List.unmodifiable(propsMixins.map((propsMixin) => new PropsMixinNode(propsMixin))),
-      this.stateMixins   = new List.unmodifiable(stateMixins.map((stateMixin) => new StateMixinNode(stateMixin))),
+      this.propsMixins   = List.unmodifiable(propsMixins.map((propsMixin) => PropsMixinNode(propsMixin))),
+      this.stateMixins   = List.unmodifiable(stateMixins.map((stateMixin) => StateMixinNode(stateMixin))),
 
       this.declaresComponent = factory != null
   {
@@ -511,24 +513,24 @@ class ParsedDeclarations {
   static final String key_propsMixin        = getName(annotations.PropsMixin);
   static final String key_stateMixin        = getName(annotations.StateMixin);
 
-  static final List<String> key_allComponentVersionsRequired = new List.unmodifiable([
+  static final List<String> key_allComponentVersionsRequired = List.unmodifiable([
     key_factory,
     key_props,
   ]);
 
   // TODO: Remove when the `@Component` annotation is removed in the 4.0.0 release.
   @Deprecated('4.0.0')
-  static final List<String> key_allComponentRequired = new List.unmodifiable(
-      new List.from(key_allComponentVersionsRequired)..add(key_component));
+  static final List<String> key_allComponentRequired = List.unmodifiable(
+      List.from(key_allComponentVersionsRequired)..add(key_component));
 
-  static final List<String> key_allComponent2Required = new List.unmodifiable(
-      new List.from(key_allComponentVersionsRequired)..add(key_component2));
+  static final List<String> key_allComponent2Required = List.unmodifiable(
+      List.from(key_allComponentVersionsRequired)..add(key_component2));
 
-  static final List<String> key_allComponentOptional = new List.unmodifiable([
+  static final List<String> key_allComponentOptional = List.unmodifiable([
     key_state,
   ]);
 
-  static  final RegExp key_any_annotation = new RegExp(
+  static  final RegExp key_any_annotation = RegExp(
       r'@(?:' +
       [
         key_factory,

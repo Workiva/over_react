@@ -17,8 +17,9 @@ class _$CustomErrorBoundaryState extends UiState with ErrorBoundaryStateMixin {}
 class CustomErrorBoundaryComponent extends UiStatefulComponent2<CustomErrorBoundaryProps, CustomErrorBoundaryState>
     with ErrorBoundaryMixin<CustomErrorBoundaryProps, CustomErrorBoundaryState> {
   @override
-  Map getDefaultProps() => newProps()
-    ..fallbackUIRenderer = _renderFallbackUI;
+   get defaultProps => (newProps()
+    ..fallbackUIRenderer = _renderFallbackUI
+);
 
   ReactElement _renderFallbackUI(_, __) {
     return Dom.div()(

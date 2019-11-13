@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'constant_required_accessor_integration_test.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'constant_required_accessor_integration_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ComponentTestComponentFactory = registerComponent(
-    () => new _$ComponentTestComponent(),
+    () => _$ComponentTestComponent(),
     builderFactory: ComponentTest,
     componentClass: ComponentTestComponent,
     isWrapper: false,
@@ -25,47 +26,48 @@ abstract class _$ComponentTestPropsAccessorsMixin
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @requiredProp
-  get required =>
+  dynamic get required =>
       props[_$key__required___$ComponentTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ComponentTestProps.required] -->
   @override
   @requiredProp
-  set required(value) => props[_$key__required___$ComponentTestProps] = value;
+  set required(dynamic value) =>
+      props[_$key__required___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @nullableRequiredProp
-  get nullable =>
+  dynamic get nullable =>
       props[_$key__nullable___$ComponentTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ComponentTestProps.nullable] -->
   @override
   @nullableRequiredProp
-  set nullable(value) => props[_$key__nullable___$ComponentTestProps] = value;
+  set nullable(dynamic value) =>
+      props[_$key__nullable___$ComponentTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__required___$ComponentTestProps =
-      const PropDescriptor(_$key__required___$ComponentTestProps,
-          isRequired: true);
+      PropDescriptor(_$key__required___$ComponentTestProps, isRequired: true);
   static const PropDescriptor _$prop__nullable___$ComponentTestProps =
-      const PropDescriptor(_$key__nullable___$ComponentTestProps,
+      PropDescriptor(_$key__nullable___$ComponentTestProps,
           isRequired: true, isNullable: true);
   static const String _$key__required___$ComponentTestProps =
       'ComponentTestProps.required';
   static const String _$key__nullable___$ComponentTestProps =
       'ComponentTestProps.nullable';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__required___$ComponentTestProps,
     _$prop__nullable___$ComponentTestProps
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__required___$ComponentTestProps,
     _$key__nullable___$ComponentTestProps
   ];
 }
 
-const PropsMeta _$metaForComponentTestProps = const PropsMeta(
+const PropsMeta _$metaForComponentTestProps = PropsMeta(
   fields: _$ComponentTestPropsAccessorsMixin.$props,
   keys: _$ComponentTestPropsAccessorsMixin.$propKeys,
 );
@@ -76,7 +78,7 @@ class ComponentTestProps extends _$ComponentTestProps
 }
 
 _$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
-    new _$$ComponentTestProps(backingProps);
+    _$$ComponentTestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -95,11 +97,11 @@ class _$$ComponentTestProps extends _$ComponentTestProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $ComponentTestComponentFactory;
@@ -116,14 +118,14 @@ class _$$ComponentTestProps extends _$ComponentTestProps
 class _$ComponentTestComponent extends ComponentTestComponent {
   @override
   _$$ComponentTestProps typedPropsFactory(Map backingMap) =>
-      new _$$ComponentTestProps(backingMap);
+      _$$ComponentTestProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ComponentTestProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForComponentTestProps

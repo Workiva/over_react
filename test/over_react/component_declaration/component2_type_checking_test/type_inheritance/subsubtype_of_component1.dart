@@ -1,4 +1,4 @@
-// Copyright 2016 Workiva Inc.
+// Copyright 2019 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -13,18 +13,18 @@
 // limitations under the License.
 
 import 'package:over_react/over_react.dart';
+import './subtype_of_component1.dart';
 
-part 'one_level_wrapper.over_react.g.dart';
+part 'subsubtype_of_component1.over_react.g.dart';
 
 @Factory()
-UiFactory<OneLevelWrapper2Props> OneLevelWrapper2 = _$OneLevelWrapper2;
+UiFactory<TestSubsubtypeOfComponent1Props> TestSubsubtypeOfComponent1 = _$TestSubsubtypeOfComponent1;
 
 @Props()
-class _$OneLevelWrapper2Props extends UiProps {}
+class _$TestSubsubtypeOfComponent1Props extends UiProps {}
 
-@Component2(isWrapper: true)
-class OneLevelWrapper2Component extends UiComponent2<OneLevelWrapper2Props> {
+@Component2(subtypeOf: TestSubtypeOfComponent1Component)
+class TestSubsubtypeOfComponent1Component extends UiComponent2<TestSubsubtypeOfComponent1Props> {
   @override
-  render() => Dom.div()(props.children.single);
+  render() => Dom.div()();
 }
-

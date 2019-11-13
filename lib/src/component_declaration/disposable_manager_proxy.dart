@@ -19,8 +19,8 @@ import 'package:react/react.dart' as react;
 import 'package:w_common/disposable.dart';
 
 /// An implementation of [DisposableManagerV7] for use by
-/// [UiComponent] and [UiComponent2].
-mixin DisposableManagerProxy on react.Component implements DisposableManagerV7 {
+/// `UiComponent` and `UiComponent2`.
+mixin DisposableManagerProxy on react.Component implements DisposableManagerV7 { // ignore: deprecated_member_use
   Disposable _disposableProxy;
 
   @override
@@ -33,14 +33,14 @@ mixin DisposableManagerProxy on react.Component implements DisposableManagerV7 {
 
   /// Instantiates a new [Disposable] instance on the first call to the
   /// [DisposableManagerV7] method.
-  Disposable _getDisposableProxy() => _disposableProxy ??= new Disposable();
+  Disposable _getDisposableProxy() => _disposableProxy ??= Disposable();
 
   @override
   Future<T> awaitBeforeDispose<T>(Future<T> future) =>
       _getDisposableProxy().awaitBeforeDispose<T>(future);
 
   @override
-  Future<T> getManagedDelayedFuture<T>(Duration duration, T callback()) =>
+  Future<T> getManagedDelayedFuture<T>(Duration duration, T Function() callback) =>
       _getDisposableProxy().getManagedDelayedFuture<T>(duration, callback);
 
   @override
@@ -49,17 +49,17 @@ mixin DisposableManagerProxy on react.Component implements DisposableManagerV7 {
 
   @override
   Timer getManagedPeriodicTimer(
-          Duration duration, void callback(Timer timer)) =>
+          Duration duration, void Function(Timer timer) callback) =>
       _getDisposableProxy().getManagedPeriodicTimer(duration, callback);
 
   @override
-  Timer getManagedTimer(Duration duration, void callback()) =>
+  Timer getManagedTimer(Duration duration, void Function() callback) =>
       _getDisposableProxy().getManagedTimer(duration, callback);
 
   @override
   StreamSubscription<T> listenToStream<T>(
-          Stream<T> stream, void onData(T event),
-          {Function onError, void onDone(), bool cancelOnError,}) =>
+          Stream<T> stream, void Function(T event) onData,
+          {Function onError, void Function() onDone, bool cancelOnError,}) =>
       _getDisposableProxy().listenToStream(stream, onData,
           onError: onError, onDone: onDone, cancelOnError: cancelOnError);
 

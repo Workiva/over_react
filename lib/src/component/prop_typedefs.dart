@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: prefer_generic_function_type_aliases
 library over_react.prop_typedefs;
 
 import 'package:over_react/over_react.dart';
@@ -22,4 +23,5 @@ import 'package:react/react_client.dart';
 /// with the current [props] and [state] of the [component].
 typedef ReactElement CustomRenderFunction<T extends UiProps,
                                           S extends UiState,
+                                          // ignore: deprecated_member_use_from_same_package
                                           C extends component_base.UiComponent> (T props, S state, C component);

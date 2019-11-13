@@ -10,7 +10,7 @@ import 'package:source_span/source_span.dart';
 
 import './util.dart';
 
-Builder overReactBuilder(BuilderOptions options) => new OverReactBuilder();
+Builder overReactBuilder(BuilderOptions options) => OverReactBuilder();
 
 class OverReactBuilder extends Builder {
   @override
@@ -34,14 +34,14 @@ class OverReactBuilder extends Builder {
       if (!ParsedDeclarations.mightContainDeclarations(source)) {
         return;
       }
-      final sourceFile = new SourceFile.fromString(
+      final sourceFile = SourceFile.fromString(
         source, url: idToPackageUri(id));
-      final declarations = new ParsedDeclarations(unit, sourceFile, log);
+      final declarations = ParsedDeclarations(unit, sourceFile, log);
       if (declarations.hasErrors) {
         log.severe('There was an error parsing the file declarations for file: $id');
         return;
       }
-      final generator = new ImplGenerator(log, sourceFile)
+      final generator = ImplGenerator(log, sourceFile)
         ..generate(declarations);
       final generatedOutput = generator.outputContentsBuffer.toString().trim();
       if (generatedOutput.isNotEmpty) {
@@ -71,7 +71,7 @@ class OverReactBuilder extends Builder {
 
     // Generate over_react code for each part file of the input library.
     for (final part in parts) {
-      final partId = new AssetId.resolve(
+      final partId = AssetId.resolve(
         part.uri.stringValue,
         from: buildStep.inputId);
       if (!await buildStep.canRead(partId)) {
@@ -103,12 +103,13 @@ class OverReactBuilder extends Builder {
 
   static final _headerLine = '// '.padRight(77, '*');
 
-  static final _formatter = new DartFormatter();
+  static final _formatter = DartFormatter();
 
-  static final RegExp _overReactPartDirective = new RegExp(
+  static final RegExp _overReactPartDirective = RegExp(
     r'''['"].*\.over_react\.g\.dart['"]''',
   );
 
+  // ignore: unused_element
   static bool _mightContainDeclarations(String source) {
     return ParsedDeclarations.mightContainDeclarations(source) ||
       _overReactPartDirective.hasMatch(source);
@@ -122,9 +123,10 @@ class OverReactBuilder extends Builder {
         suppressErrors: false,
         parseFunctionBodies: true);
     } catch (error, stackTrace) {
-      log.fine('There was an error parsing the compilation unit for file: $id');
-      log.fine(error);
-      log.fine(stackTrace);
+      log
+        ..fine('There was an error parsing the compilation unit for file: $id')
+        ..fine(error)
+        ..fine(stackTrace);
       return null;
     }
   }
@@ -132,9 +134,10 @@ class OverReactBuilder extends Builder {
   static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs) async {
     final partOf = "'${p.basename(buildStep.inputId.uri.toString())}'";
 
-    final buffer = new StringBuffer()
+    final buffer = StringBuffer()
       ..writeln('// GENERATED CODE - DO NOT MODIFY BY HAND')
       ..writeln()
+      ..writeln('// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators')
       ..writeln('part of $partOf;')
       ..writeln()
       ..writeln(_headerLine)

@@ -1,62 +1,135 @@
 # OverReact Changelog
 
-## 3.0.0 (alpha)
+## [3.1.4](https://github.com/Workiva/over_react/compare/3.1.3...3.1.4)
 
-- __3.0.0-alpha.4__
+- Replace usage / mention of `UiComponent2.getPropKey` which had to be deprecated in [the 3.1.2 release](https://github.com/Workiva/over_react/pull/418).
+- Add a stub for `UiComponent2.redraw` with a deprecated annotation so that consumers would correctly see it as being deprecated.
+  - Previously, this method would not show up as deprecated because certain IDEs would default to the base implementation (`Component.redraw`) - instead of the newer, deprecated `Component2.redraw`.
 
-  * [#383] Update prop typedef to work around [Dart 2.6 compiler regression](https://github.com/dart-lang/sdk/issues/38880)
+## [3.1.3](https://github.com/Workiva/over_react/compare/3.1.2...3.1.3)
 
-  > Complete `3.0.0-alpha.4` Changesets:
-  >
-  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.3+dart2...3.0.0-alpha.4+dart2)
-  > - Dart 1 (no changes)
+- Fixes an issue that prevents `UiComponent` instances from being declared as sub-types of `UiComponent2` instances
+  via the `subtypeOf` argument in a `Component2()` annotation.
 
-- __3.0.0-alpha.3__
+## [3.1.2](https://github.com/Workiva/over_react/compare/3.1.1...3.1.2)
 
-  * [#370] Add error logging to ErrorBoundary
+- Restore the public `getPropKey` function that was accidentally made private in the 3.1.0 release.
 
-  > Complete `3.0.0-alpha.3` Changesets:
-  >
-  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.2+dart2...3.0.0-alpha.3+dart2)
-  > - [Dart 1](https://github.com/Workiva/over_react/compare/3.0.0-alpha.2+dart1...3.0.0-alpha.3+dart1)
+## [3.1.1](https://github.com/Workiva/over_react/compare/3.1.0...3.1.1)
 
-- __3.0.0-alpha.2__
+- Restore the `xmlLang`, `xmlSpace`, `y1`, `y2`, `y` members that were accidentally removed from `SvgProps` in the 3.1.0 release.
 
-  * [#363] Dart 2 Widen `analyzer` dependency range
+## [3.1.0](https://github.com/Workiva/over_react/compare/3.0.0+dart2...3.1.0)
 
-  > Complete `3.0.0-alpha.2` Changesets:
-  >
-  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.1+dart2...3.0.0-alpha.2+dart2)
-  > - Dart 1 (no changes)
+### Full React JS 16.x Component Lifecycle Support
 
-- __3.0.0-alpha.1__
+- The new `UiComponent2` classes<sup>＊</sup> replace the now deprecated `UiComponent` classes.
+  
+  <sup>＊</sup>_(`UiComponent2`, `UiStatefulComponent2`, `FluxUiComponent2`)_
+  - Faster
+    - Initial renders ~10% faster
+    - Re-renders ~7 - 30% faster
+  - Improved developer experience
+     - Props and state values now show up in the React DevTools just as they would if you were using React JS, and primitive values (strings, numbers, booleans) can be edited live, just like in React JS!
+    
+        ![React DevTools with Component2](https://user-images.githubusercontent.com/1750797/68478015-1259b500-01ec-11ea-92bf-0bd432cd4001.gif)
+  - Easier to maintain
+  - Easier integration with JS libs
+    - `ReactJsComponentFactoryProxy` makes it easy to use JS components with Dart!
+      - [Check out this example of MaterialUI components!](https://github.com/cleandart/react-dart/blob/5.1.0-wip/example/js_components/js_components.dart#L115-L145)
+  - Supports new lifecycle methods, allowing us to use Concurrent Mode in the future
+    - <s>`componentWillMount`</s> => `componentDidMount`
+    - <s>`componentWillReceiveProps`</s> => `getDerivedStateFromProps` _(new)_
+    - <s>`componentWillUpdate`</s> => `getSnapshotBeforeUpdate` _(new)_
+    - `componentDidCatch` / `getDerivedStateFromError` _(new)_
+      - Adds support for [error boundaries](https://reactjs.org/docs/error-boundaries.html).
+      - OverReact also provides an `ErrorBoundary` component out of the box that you can wrap around your components, and an `ErrorBoundaryMixin` that you can use as a starting point to build your own custom error boundary component!
+      
+> [__Learn more about upgrading to `UiComponent2`__](https://github.com/Workiva/over_react/blob/master/doc/ui_component2_transition.md#updating)
 
-  * [#350] Improve handling of “repeat” errors thrown from components wrapped by an `ErrorBoundary`.
+### Improved, stable [Context](https://reactjs.org/docs/context.html) API
 
-  > Complete `3.0.0-alpha.1` Changesets:
-  >
-  > - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0-alpha.0+dart2...3.0.0-alpha.1+dart2)
-  > - [Dart 1](https://github.com/Workiva/over_react/compare/3.0.0-alpha.0+dart1...3.0.0-alpha.1+dart1)
+- _"Context provides a way to pass data through the component tree without having to pass props down manually at every level. … Context is primarily used when some data needs to be accessible by many components at different nesting levels. Apply it sparingly because it makes component reuse more difficult."_
 
-- __3.0.0-alpha.0__
+### New `over_react_redux.dart` Library
 
-  __ReactJS 16.x Support__ _(and Dart 1 compatible)_
+- To take full advantage of the new stable `Context` API, we have built atop 
+  the awesome [redux.dart library](https://github.com/johnpryan/redux.dart) to make it easy
+  to set up redux provider(s) / consumer(s) for OverReact components that enable granular, targeted updates!
+    - Check out [some examples](https://github.com/Workiva/over_react/tree/master/web/over_react_redux)
+      by cloning this project locally, running `webdev serve` from the root of the project, and navigating to <http://localhost:8080/over_react_redux/>.
+    - Use it in your project by [upgrading your `UiComponent`s to `UiComponent2`](https://github.com/Workiva/over_react/blob/master/doc/ui_component2_transition.md#updating) and importing `package:over_react/over_react_redux.dart`!
+- We've even got some sweet [redux dev tools you can use](https://github.com/Workiva/over_react/blob/master/doc/over_react_redux_documentation.md#using-redux-devtools) to make the inspection of connected state a breeze!
+  ![over_react_redux.dart developer tools](http://g.recordit.co/NLeAZQkCFm.gif)
 
-  * The underlying `react` dependency ([version 5.0.0](https://github.com/cleandart/react-dart/pull/214)) now provides ReactJS version 16 `.js` source files.
-  * Support for the new / updated lifecycle methods from ReactJS 16 [will be released in version `3.1.0`](https://github.com/Workiva/over_react/milestone/3).
+> [__Learn more about using over_react_redux.dart__](https://github.com/Workiva/over_react/blob/master/doc/over_react_redux_documentation.md) 
 
-  __Breaking Changes__
+### [Portals](https://reactjs.org/docs/portals.html)
 
-  * [#314] The `.over_react.g.dart` part directive is required on Dart 2. The
-    builder now logs at the `SEVERE` level (which causes the build to fail) when
-    a missing part directive is detected. Previously, the builder only logged this
-    as a warning. In other words, the issue has been promoted from a runtime
-    exception to a build-time error.
+- _"Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component."_
 
-  > Complete `3.0.0-alpha.0` Changesets:
-  >
-  > - [Dart 2](https://github.com/Workiva/over_react/compare/2.5.2+dart2...3.0.0-alpha.0+dart2)
-  > - [Dart 1](https://github.com/Workiva/over_react/compare/2.5.0+dart1...3.0.0-alpha.0+dart1)
+### [Fragments](https://reactjs.org/docs/fragments.html)
+
+- _"A common pattern in React is for a component to return multiple elements. Fragments let you group a list of children without adding extra nodes to the DOM."_
+- `UiComponent.render()` can now return a `ReactFragment` (multiple children) or other values like strings and lists instead of just a single `ReactElement`.
+
+### No more Dart 1 SDK support
+
+- With the release of `3.1.0` comes the end of our `+dart1` / `+dart2` dual releases that we have been 
+  maintaining for over a year.  Time to upgrade to Dart 2!
+
+> [Full list of 3.1.0 Changes](https://github.com/Workiva/over_react/milestone/3?closed=1)
+
+## 3.0.2
+
+Dependency updates:
+- Lower the dart_style constraint from ^1.3.1 to ^1.2.5 to help avoid version lock in downstream packages
+- Open up built_value range to include 8.0.0
+
+> Complete `3.0.2` Changesets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.1+dart2...3.0.2+dart2)
+> - Dart 1 (No Changes)
+
+## 3.0.1
+
+- Lower the Dart SDK lower-bound to `2.4.0`. It was accidentally raised to `2.4.1` in the 3.0.0 release.
+
+> Complete `3.0.1` Changesets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/3.0.0+dart2...3.0.1+dart2)
+> - Dart 1 (No Changes)
+
+## 3.0.0
+
+__ReactJS 16.x Support__
+
+- Support for the new / updated lifecycle methods from ReactJS 16 [will be released in version `3.1.0`](https://github.com/Workiva/over_react/milestone/3).
+
+> Complete `3.0.0` Changesets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.7.0+dart2...3.0.0+dart2)
+> - [Dart 1](https://github.com/Workiva/over_react/compare/2.7.0+dart1...3.0.0+dart1)
+
+> __[Full List of Breaking Changes](https://github.com/Workiva/over_react/pull/408)__
+
+## 2.7.0
+
+> Complete `2.7.0` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.6.1+dart2...2.7.0+dart2)
+> - [Dart 1](https://github.com/Workiva/over_react/compare/2.6.1+dart1...2.7.0+dart1)
+
+* This release brings in the `SafeRenderManager` utilities added to the 3.x alpha line-of-release via [#390]  
+
+## 2.7.0
+
+> Complete `2.7.0` Changsets:
+>
+> - [Dart 2](https://github.com/Workiva/over_react/compare/2.6.1+dart2...2.7.0+dart2)
+> - [Dart 1](https://github.com/Workiva/over_react/compare/2.6.1+dart1...2.7.0+dart1)
+
+* This release brings in the `SafeRenderManager` utilities added to the 3.x alpha line-of-release via [#390]
 
 ## 2.6.1
 

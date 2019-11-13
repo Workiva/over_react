@@ -15,9 +15,9 @@
 library test_component2.type_inheritance.extendedtype;
 
 import 'package:over_react/over_react.dart';
-import './abstract.dart';
+import './abstract2.dart';
 
-part 'extendedtype.over_react.g.dart';
+part 'extendedtype2.over_react.g.dart';
 
 @Factory()
 UiFactory<TestExtendtype2Props> TestExtendtype2 = _$TestExtendtype2;

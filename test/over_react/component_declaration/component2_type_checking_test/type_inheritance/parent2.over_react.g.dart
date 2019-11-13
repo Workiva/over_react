@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'test_b.dart';
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+part of 'parent2.dart';
 
 // **************************************************************************
 // OverReactBuilder (package:over_react/src/builder.dart)
@@ -9,73 +10,74 @@ part of 'test_b.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $TestB2ComponentFactory = registerComponent2(
-  () => new _$TestB2Component(),
-  builderFactory: TestB2,
-  componentClass: TestB2Component,
+final $TestParent2ComponentFactory = registerComponent2(
+  () => _$TestParent2Component(),
+  builderFactory: TestParent2,
+  componentClass: TestParent2Component,
   isWrapper: false,
   parentType: null,
-  displayName: 'TestB2',
+  displayName: 'TestParent2',
 );
 
-abstract class _$TestB2PropsAccessorsMixin implements _$TestB2Props {
+abstract class _$TestParent2PropsAccessorsMixin implements _$TestParent2Props {
   @override
   Map get props;
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForTestB2Props = const PropsMeta(
-  fields: _$TestB2PropsAccessorsMixin.$props,
-  keys: _$TestB2PropsAccessorsMixin.$propKeys,
+const PropsMeta _$metaForTestParent2Props = PropsMeta(
+  fields: _$TestParent2PropsAccessorsMixin.$props,
+  keys: _$TestParent2PropsAccessorsMixin.$propKeys,
 );
 
-class TestB2Props extends _$TestB2Props with _$TestB2PropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForTestB2Props;
+class TestParent2Props extends _$TestParent2Props
+    with _$TestParent2PropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForTestParent2Props;
 }
 
-_$$TestB2Props _$TestB2([Map backingProps]) => backingProps == null
-    ? new _$$TestB2Props$JsMap(new JsBackedMap())
-    : new _$$TestB2Props(backingProps);
+_$$TestParent2Props _$TestParent2([Map backingProps]) => backingProps == null
+    ? _$$TestParent2Props$JsMap(JsBackedMap())
+    : _$$TestParent2Props(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$TestB2Props extends _$TestB2Props
-    with _$TestB2PropsAccessorsMixin
-    implements TestB2Props {
-  _$$TestB2Props._();
+abstract class _$$TestParent2Props extends _$TestParent2Props
+    with _$TestParent2PropsAccessorsMixin
+    implements TestParent2Props {
+  _$$TestParent2Props._();
 
-  factory _$$TestB2Props(Map backingMap) {
+  factory _$$TestParent2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$TestB2Props$JsMap(backingMap);
+      return _$$TestParent2Props$JsMap(backingMap);
     } else {
-      return new _$$TestB2Props$PlainMap(backingMap);
+      return _$$TestParent2Props$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $TestB2ComponentFactory;
+      super.componentFactory ?? $TestParent2ComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'TestB2Props.';
+  String get propKeyNamespace => 'TestParent2Props.';
 }
 
 // Concrete props implementation that can be backed by any [Map].
-class _$$TestB2Props$PlainMap extends _$$TestB2Props {
+class _$$TestParent2Props$PlainMap extends _$$TestParent2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestB2Props$PlainMap(Map backingMap)
+  _$$TestParent2Props$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -89,13 +91,13 @@ class _$$TestB2Props$PlainMap extends _$$TestB2Props {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestB2Props$JsMap extends _$$TestB2Props {
+class _$$TestParent2Props$JsMap extends _$$TestParent2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestB2Props$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+  _$$TestParent2Props$JsMap(JsBackedMap backingMap)
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -108,11 +110,11 @@ class _$$TestB2Props$JsMap extends _$$TestB2Props {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$TestB2Component extends TestB2Component {
-  _$$TestB2Props$JsMap _cachedTypedProps;
+class _$TestParent2Component extends TestParent2Component {
+  _$$TestParent2Props$JsMap _cachedTypedProps;
 
   @override
-  _$$TestB2Props$JsMap get props => _cachedTypedProps;
+  _$$TestParent2Props$JsMap get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -128,21 +130,21 @@ class _$TestB2Component extends TestB2Component {
   }
 
   @override
-  _$$TestB2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$TestB2Props$JsMap(backingMap);
+  _$$TestParent2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$TestParent2Props$JsMap(backingMap);
 
   @override
-  _$$TestB2Props typedPropsFactory(Map backingMap) =>
-      new _$$TestB2Props(backingMap);
+  _$$TestParent2Props typedPropsFactory(Map backingMap) =>
+      _$$TestParent2Props(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$TestB2Props.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// The default consumed props, taken from _$TestParent2Props.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestB2Props
+    _$metaForTestParent2Props
   ];
 }

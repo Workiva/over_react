@@ -29,7 +29,7 @@ class _$TagProps extends UiProps {
 @Component2()
 class TagComponent extends UiComponent2<TagProps> {
   @override
-  Map getDefaultProps() => (newProps()
+   get defaultProps => (newProps()
     ..skin = TagSkin.DEFAULT
     ..isPill = false
   );
@@ -42,7 +42,7 @@ class TagComponent extends UiComponent2<TagProps> {
       ..add(props.skin.className);
 
     return (Dom.span()
-      ..addProps(copyUnconsumedDomProps())
+      ..modifyProps(addUnconsumedDomProps)
       ..className = classes.toClassName()
     )(props.children);
   }
@@ -54,26 +54,26 @@ class TagSkin extends ClassNameConstant {
 
   /// [className] value: 'tag-default'
   static const TagSkin DEFAULT =
-      const TagSkin._('DEFAULT', 'tag-default');
+      TagSkin._('DEFAULT', 'tag-default');
 
   /// [className] value: 'tag-primary'
   static const TagSkin PRIMARY =
-      const TagSkin._('PRIMARY', 'tag-primary');
+      TagSkin._('PRIMARY', 'tag-primary');
 
   /// [className] value: 'tag-danger'
   static const TagSkin DANGER =
-      const TagSkin._('DANGER', 'tag-danger');
+      TagSkin._('DANGER', 'tag-danger');
 
   /// [className] value: 'tag-success'
   static const TagSkin SUCCESS =
-      const TagSkin._('SUCCESS', 'tag-success');
+      TagSkin._('SUCCESS', 'tag-success');
 
   /// [className] value: 'tag-warning'
   static const TagSkin WARNING =
-      const TagSkin._('WARNING', 'tag-warning');
+      TagSkin._('WARNING', 'tag-warning');
 
   /// [className] value: 'tag-info'
   static const TagSkin INFO =
-      const TagSkin._('INFO', 'tag-info');
+      TagSkin._('INFO', 'tag-info');
 }
 

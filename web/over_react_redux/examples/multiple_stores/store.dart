@@ -9,10 +9,6 @@ class Action {
 
   final String type;
   final dynamic value;
-
-  toJson() {
-    return {'type': this.type, 'value': this.value};
-  }
 }
 
 /// Actions to be passed into `dispatch`.
@@ -52,18 +48,11 @@ class CounterState {
     this.name,
   });
 
-  CounterState.defaultState({this.count = 1, this.name = "Counter"});
+  CounterState.defaultState({this.count = 1, this.name = 'Counter'});
 
   CounterState.updateState(CounterState oldState, {int count, String name})
       : this.count = count ?? oldState.count,
         this.name = name ?? oldState.name;
-
-  toJson() {
-    return {
-      'count': this.count,
-      'name': this.name
-    };
-  }
 }
 
 /////////////////////////////// STORE 2 "BigCounter" ///////////////////////////////

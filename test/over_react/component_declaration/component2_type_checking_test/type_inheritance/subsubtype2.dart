@@ -12,16 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library test_component2.type_inheritance.abstract;
+library test_component2.type_inheritance.subsubtype;
 
 import 'package:over_react/over_react.dart';
+import './subtype2.dart';
 
-part 'abstract.over_react.g.dart';
+part 'subsubtype2.over_react.g.dart';
 
-@AbstractProps()
-abstract class _$TestAbstract2Props extends UiProps {}
+@Factory()
+UiFactory<TestSubsubtype2Props> TestSubsubtype2 = _$TestSubsubtype2;
 
-var $TestAbstract2ComponentFactory = registerAbstractComponent2(TestAbstract2Component);
+@Props()
+class _$TestSubsubtype2Props extends UiProps {}
 
-@AbstractComponent2()
-abstract class TestAbstract2Component<T extends TestAbstract2Props> extends UiComponent2<T> {}
+@Component2(subtypeOf: TestSubtype2Component)
+class TestSubsubtype2Component extends UiComponent2<TestSubsubtype2Props> {
+  @override
+  render() => Dom.div()();
+}

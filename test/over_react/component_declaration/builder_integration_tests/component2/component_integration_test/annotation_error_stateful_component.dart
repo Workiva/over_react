@@ -10,6 +10,7 @@ class _$AnnotationErrorStatefulProps extends UiProps {}
 @State()
 class _$AnnotationErrorStatefulState extends UiState {}
 
+// ignore: deprecated_member_use_from_same_package
 @Component()
 class AnnotationErrorStatefulComponent extends UiStatefulComponent2<
     AnnotationErrorStatefulProps, AnnotationErrorStatefulState> {

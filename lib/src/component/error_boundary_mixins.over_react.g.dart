@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'error_boundary_mixins.dart';
 
 // **************************************************************************
@@ -191,23 +192,84 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   set identicalErrorFrequencyTolerance(Duration value) => props[
           _$key__identicalErrorFrequencyTolerance___$ErrorBoundaryPropsMixin] =
       value;
+
+  /// The name to use when the component's logger logs an error via [ErrorBoundaryComponent.componentDidCatch].
+  ///
+  /// Not used if a custom [logger] is specified.
+  ///
+  /// > Default: 'over_react.ErrorBoundary'
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryPropsMixin.loggerName] -->
+  @override
+  String get loggerName =>
+      props[_$key__loggerName___$ErrorBoundaryPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// The name to use when the component's logger logs an error via [ErrorBoundaryComponent.componentDidCatch].
+  ///
+  /// Not used if a custom [logger] is specified.
+  ///
+  /// > Default: 'over_react.ErrorBoundary'
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryPropsMixin.loggerName] -->
+  @override
+  set loggerName(String value) =>
+      props[_$key__loggerName___$ErrorBoundaryPropsMixin] = value;
+
+  /// Whether errors caught by this [ErrorBoundary] should be logged using a [Logger].
+  ///
+  /// > Default: `true`
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryPropsMixin.shouldLogErrors] -->
+  @override
+  bool get shouldLogErrors =>
+      props[_$key__shouldLogErrors___$ErrorBoundaryPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// Whether errors caught by this [ErrorBoundary] should be logged using a [Logger].
+  ///
+  /// > Default: `true`
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryPropsMixin.shouldLogErrors] -->
+  @override
+  set shouldLogErrors(bool value) =>
+      props[_$key__shouldLogErrors___$ErrorBoundaryPropsMixin] = value;
+
+  /// An optional custom logger instance that will be used to log errors caught by
+  /// this [ErrorBoundary] when [shouldLogErrors] is true.
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryPropsMixin.logger] -->
+  @override
+  Logger get logger =>
+      props[_$key__logger___$ErrorBoundaryPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// An optional custom logger instance that will be used to log errors caught by
+  /// this [ErrorBoundary] when [shouldLogErrors] is true.
+  ///
+  /// <!-- Generated from [_$ErrorBoundaryPropsMixin.logger] -->
+  @override
+  set logger(Logger value) =>
+      props[_$key__logger___$ErrorBoundaryPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__onComponentDidCatch___$ErrorBoundaryPropsMixin =
-      const PropDescriptor(
-          _$key__onComponentDidCatch___$ErrorBoundaryPropsMixin);
+      PropDescriptor(_$key__onComponentDidCatch___$ErrorBoundaryPropsMixin);
   static const PropDescriptor
       _$prop__onComponentIsUnrecoverable___$ErrorBoundaryPropsMixin =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__onComponentIsUnrecoverable___$ErrorBoundaryPropsMixin);
   static const PropDescriptor
       _$prop__fallbackUIRenderer___$ErrorBoundaryPropsMixin =
-      const PropDescriptor(
-          _$key__fallbackUIRenderer___$ErrorBoundaryPropsMixin);
+      PropDescriptor(_$key__fallbackUIRenderer___$ErrorBoundaryPropsMixin);
   static const PropDescriptor
       _$prop__identicalErrorFrequencyTolerance___$ErrorBoundaryPropsMixin =
-      const PropDescriptor(
+      PropDescriptor(
           _$key__identicalErrorFrequencyTolerance___$ErrorBoundaryPropsMixin);
+  static const PropDescriptor _$prop__loggerName___$ErrorBoundaryPropsMixin =
+      PropDescriptor(_$key__loggerName___$ErrorBoundaryPropsMixin);
+  static const PropDescriptor
+      _$prop__shouldLogErrors___$ErrorBoundaryPropsMixin =
+      PropDescriptor(_$key__shouldLogErrors___$ErrorBoundaryPropsMixin);
+  static const PropDescriptor _$prop__logger___$ErrorBoundaryPropsMixin =
+      PropDescriptor(_$key__logger___$ErrorBoundaryPropsMixin);
   static const String _$key__onComponentDidCatch___$ErrorBoundaryPropsMixin =
       'ErrorBoundaryPropsMixin.onComponentDidCatch';
   static const String
@@ -218,22 +280,34 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   static const String
       _$key__identicalErrorFrequencyTolerance___$ErrorBoundaryPropsMixin =
       'ErrorBoundaryPropsMixin.identicalErrorFrequencyTolerance';
+  static const String _$key__loggerName___$ErrorBoundaryPropsMixin =
+      'ErrorBoundaryPropsMixin.loggerName';
+  static const String _$key__shouldLogErrors___$ErrorBoundaryPropsMixin =
+      'ErrorBoundaryPropsMixin.shouldLogErrors';
+  static const String _$key__logger___$ErrorBoundaryPropsMixin =
+      'ErrorBoundaryPropsMixin.logger';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__onComponentDidCatch___$ErrorBoundaryPropsMixin,
     _$prop__onComponentIsUnrecoverable___$ErrorBoundaryPropsMixin,
     _$prop__fallbackUIRenderer___$ErrorBoundaryPropsMixin,
-    _$prop__identicalErrorFrequencyTolerance___$ErrorBoundaryPropsMixin
+    _$prop__identicalErrorFrequencyTolerance___$ErrorBoundaryPropsMixin,
+    _$prop__loggerName___$ErrorBoundaryPropsMixin,
+    _$prop__shouldLogErrors___$ErrorBoundaryPropsMixin,
+    _$prop__logger___$ErrorBoundaryPropsMixin
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__onComponentDidCatch___$ErrorBoundaryPropsMixin,
     _$key__onComponentIsUnrecoverable___$ErrorBoundaryPropsMixin,
     _$key__fallbackUIRenderer___$ErrorBoundaryPropsMixin,
-    _$key__identicalErrorFrequencyTolerance___$ErrorBoundaryPropsMixin
+    _$key__identicalErrorFrequencyTolerance___$ErrorBoundaryPropsMixin,
+    _$key__loggerName___$ErrorBoundaryPropsMixin,
+    _$key__shouldLogErrors___$ErrorBoundaryPropsMixin,
+    _$key__logger___$ErrorBoundaryPropsMixin
   ];
 }
 
-const PropsMeta _$metaForErrorBoundaryPropsMixin = const PropsMeta(
+const PropsMeta _$metaForErrorBoundaryPropsMixin = PropsMeta(
   fields: ErrorBoundaryPropsMixin.$props,
   keys: ErrorBoundaryPropsMixin.$propKeys,
 );
@@ -297,27 +371,26 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
       state[_$key__showFallbackUIOnError___$ErrorBoundaryStateMixin] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__hasError___$ErrorBoundaryStateMixin =
-      const StateDescriptor(_$key__hasError___$ErrorBoundaryStateMixin);
+      StateDescriptor(_$key__hasError___$ErrorBoundaryStateMixin);
   static const StateDescriptor
       _$prop__showFallbackUIOnError___$ErrorBoundaryStateMixin =
-      const StateDescriptor(
-          _$key__showFallbackUIOnError___$ErrorBoundaryStateMixin);
+      StateDescriptor(_$key__showFallbackUIOnError___$ErrorBoundaryStateMixin);
   static const String _$key__hasError___$ErrorBoundaryStateMixin =
       'ErrorBoundaryStateMixin.hasError';
   static const String _$key__showFallbackUIOnError___$ErrorBoundaryStateMixin =
       'ErrorBoundaryStateMixin.showFallbackUIOnError';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__hasError___$ErrorBoundaryStateMixin,
     _$prop__showFallbackUIOnError___$ErrorBoundaryStateMixin
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__hasError___$ErrorBoundaryStateMixin,
     _$key__showFallbackUIOnError___$ErrorBoundaryStateMixin
   ];
 }
 
-const StateMeta _$metaForErrorBoundaryStateMixin = const StateMeta(
+const StateMeta _$metaForErrorBoundaryStateMixin = StateMeta(
   fields: ErrorBoundaryStateMixin.$state,
   keys: ErrorBoundaryStateMixin.$stateKeys,
 );

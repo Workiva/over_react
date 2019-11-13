@@ -37,14 +37,14 @@ class CounterComponent extends UiComponent2<CounterProps> {
           if (props.increment != null) {
             props.increment();
           } else if (props.dispatch != null) {
-            props.dispatch(new IncrementAction());
+            props.dispatch(IncrementAction());
           }
         })('+'),
         (Dom.button()..onClick = (_) {
           if (props.decrement != null) {
             props.decrement();
           } else if (props.dispatch != null) {
-            props.dispatch(new DecrementAction());
+            props.dispatch(DecrementAction());
           }
         })('-'),
         props.children

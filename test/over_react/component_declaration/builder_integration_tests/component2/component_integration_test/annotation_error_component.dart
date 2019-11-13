@@ -6,6 +6,7 @@ UiFactory<AnnotationErrorProps> AnnotationError = _$AnnotationError;
 @Props()
 class _$AnnotationErrorProps extends UiProps {}
 
+// ignore: deprecated_member_use_from_same_package
 @Component()
 class AnnotationErrorComponent extends UiComponent2<AnnotationErrorProps> {
   @override

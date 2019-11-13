@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'class_names.dart';
 
 // **************************************************************************
@@ -53,24 +54,24 @@ abstract class CssClassPropsMixin implements _$CssClassPropsMixin {
       props[_$key__classNameBlacklist___$CssClassPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__className___$CssClassPropsMixin =
-      const PropDescriptor(_$key__className___$CssClassPropsMixin);
+      PropDescriptor(_$key__className___$CssClassPropsMixin);
   static const PropDescriptor _$prop__classNameBlacklist___$CssClassPropsMixin =
-      const PropDescriptor(_$key__classNameBlacklist___$CssClassPropsMixin);
+      PropDescriptor(_$key__classNameBlacklist___$CssClassPropsMixin);
   static const String _$key__className___$CssClassPropsMixin = 'className';
   static const String _$key__classNameBlacklist___$CssClassPropsMixin =
       'classNameBlacklist';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__className___$CssClassPropsMixin,
     _$prop__classNameBlacklist___$CssClassPropsMixin
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__className___$CssClassPropsMixin,
     _$key__classNameBlacklist___$CssClassPropsMixin
   ];
 }
 
-const PropsMeta _$metaForCssClassPropsMixin = const PropsMeta(
+const PropsMeta _$metaForCssClassPropsMixin = PropsMeta(
   fields: CssClassPropsMixin.$props,
   keys: CssClassPropsMixin.$propKeys,
 );

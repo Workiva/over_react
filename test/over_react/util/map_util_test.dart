@@ -14,8 +14,6 @@
 
 library map_util_test;
 
-import 'dart:collection';
-
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
@@ -211,6 +209,30 @@ main() {
 
         expect(actual, equals(expected));
       });
+      
+      test('when keySetsToOmit is empty', () {
+        var actual = {};
+
+        forwardUnconsumedProps({
+          'prop 1': 'my prop #1',
+          'prop 2': 'my prop #2',
+          'prop 3': 'my prop #3',
+          'prop 4': 'my prop #4',
+          'prop 5': 'my prop #5',
+          'prop 6': 'my prop #6',
+        }, keySetsToOmit: [], propsToUpdate: actual);
+
+        var expected = {
+          'prop 1': 'my prop #1',
+          'prop 2': 'my prop #2',
+          'prop 3': 'my prop #3',
+          'prop 4': 'my prop #4',
+          'prop 5': 'my prop #5',
+          'prop 6': 'my prop #6',
+        };
+
+        expect(actual, equals(expected));
+      });
 
       test('with only valid DOM/SVG props', () {
         var actual = {};
@@ -313,8 +335,8 @@ void sharedGetBackingMapTests({
 }
 
 class TestProps extends component_base.UiProps {
-  TestProps(JsBackedMap backingMap) : this._props = new JsBackedMap() {
-    this._props = backingMap ?? new JsBackedMap();
+  TestProps(JsBackedMap backingMap) : this._props = JsBackedMap() {
+    this._props = backingMap ?? JsBackedMap();
   }
 
   @override

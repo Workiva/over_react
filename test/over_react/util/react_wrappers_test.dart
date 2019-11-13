@@ -28,9 +28,8 @@ import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:react/react_test_utils.dart' as react_test_utils;
 import 'package:test/test.dart';
 
-import '../component_declaration/component_base_test.dart';
-import '../../test_util/component2/one_level_wrapper.dart';
-import '../../test_util/component2/two_level_wrapper.dart';
+import '../../test_util/component2/one_level_wrapper2.dart';
+import '../../test_util/component2/two_level_wrapper2.dart';
 import '../../test_util/one_level_wrapper.dart';
 import '../../test_util/test_util.dart';
 import '../../test_util/two_level_wrapper.dart';
@@ -39,9 +38,9 @@ import '../../test_util/two_level_wrapper.dart';
 main() {
   group('Dart wrappers for React:', () {
     group('cloneElement()', () {
-      const List testChildren = const ['child1', 'child2'];
+      const List testChildren = ['child1', 'child2'];
 
-      const Map testProps = const {
+      const Map testProps = {
         'originalProp': 'original',
         'originalPropToOverride': 'original'
       };
@@ -72,8 +71,8 @@ main() {
           Map cloneProps = JsBackedMap.backedBy(clone.props);
 
           // Verify all props (including children, excluding react-dart internals) are equal.
-          Map originalShallowProps = new Map.from(originalProps);
-          Map clonePropsShallowProps = new Map.from(cloneProps);
+          Map originalShallowProps = Map.from(originalProps);
+          Map clonePropsShallowProps = Map.from(cloneProps);
           originalShallowProps.remove('internal');
           clonePropsShallowProps.remove('internal');
           expect(originalShallowProps, clonePropsShallowProps);
@@ -101,8 +100,8 @@ main() {
           Map cloneProps = JsBackedMap.backedBy(clone.props);
 
           // Verify all props (including children, excluding react-dart internals) are equal.
-          Map originalShallowProps = new Map.from(originalProps);
-          Map clonePropsShallowProps = new Map.from(cloneProps);
+          Map originalShallowProps = Map.from(originalProps);
+          Map clonePropsShallowProps = Map.from(cloneProps);
           expect(originalShallowProps, clonePropsShallowProps);
 
           var dartRendered = getDartComponent(render(original));
@@ -114,12 +113,12 @@ main() {
       });
 
       group('returns a clone with added/overridden props', () {
-        const Map testPropsToAdd = const {
+        const Map testPropsToAdd = {
           'originalPropToOverride': 'clone',
           'propToAdd': 'clone'
         };
 
-        const Map expectedPropsMerge = const {
+        const Map expectedPropsMerge = {
           'originalProp': 'original',
           'originalPropToOverride': 'clone',
           'propToAdd': 'clone',
@@ -162,8 +161,8 @@ main() {
 
       group('properly converts props for', () {
         group('style Maps', () {
-          const Map testPropsToAdd = const {
-            'style': const {'width': '100rem'}
+          const Map testPropsToAdd = {
+            'style': {'width': '100rem'}
           };
 
           test('for DOM components', () {
@@ -292,6 +291,7 @@ main() {
       });
 
       group('updates the "key" and "ref" props properly', () {
+        // ignore: unused_local_variable
         var originalRefCalled = false;
         var cloneRefCalled = false;
         Map originalKeyRefProps = {
@@ -370,7 +370,7 @@ main() {
       });
 
       group('returns a clone with replaced children', () {
-        const List testOverrideChildren = const ['child3', 'child4'];
+        const List testOverrideChildren = ['child3', 'child4'];
 
         test('for a plain React JS component', () {
           var original = (Dom.div()..addProps(testProps))(testChildren);
@@ -414,11 +414,11 @@ main() {
 
       test('preserves callback refs correctly', () {
         var flag = false;
-        var runtimeType;
-        var callbackRef = (instance) {
+        dynamic runtimeType;
+        callbackRef(instance) {
           flag = true;
           runtimeType = instance.runtimeType;
-        };
+        }
 
         // The 'ref' property can only be used from within a render() method, so use RenderingContainerComponent
         // to clone and render the test component.
@@ -615,8 +615,8 @@ main() {
     });
 
     group('getProps', () {
-      const List testChildren = const ['child1', 'child2'];
-      const Map<String, dynamic> testStyle = const {'background': 'white'};
+      const List testChildren = ['child1', 'child2'];
+      const Map<String, dynamic> testStyle = {'background': 'white'};
 
       test('returns props for a composite JS component ReactElement', () {
         ReactElement instance = testJsComponentFactory({
@@ -645,7 +645,7 @@ main() {
       });
 
       test('returns props for a composite JS ReactComponent, even when the props change', () {
-        var mountNode = new DivElement();
+        var mountNode = DivElement();
         ReactComponent renderedInstance = react_dom.render(testJsComponentFactory({
           'jsProp': 'js',
           'style': testStyle,
@@ -835,7 +835,7 @@ main() {
             });
 
             test('even when props change', () {
-              var mountNode = new DivElement();
+              var mountNode = DivElement();
               ReactComponent renderedInstance = react_dom.render(OneLevelWrapper()(
                 testJsComponentFactory({
                   'jsProp': 'js',
@@ -1142,7 +1142,7 @@ main() {
           jacket = null;
         });
 
-        void sharedTests(void _runExpectations()) {
+        void sharedTests(void Function() _runExpectations) {
           // _runExpectations needs to be called before the test block, and not in a tearDown,
           // so that component isn't unmounted by the time the expectations are called.
 
@@ -1290,7 +1290,7 @@ main() {
 }
 
 /// Helper component for testing a Dart (react-dart) React component with cloneElement.
-final TestComponentFactory = react.registerComponent(() => new TestComponent()) as ReactDartComponentFactoryProxy; // ignore: deprecated_member_use
+final TestComponentFactory = react.registerComponent(() => TestComponent()) as ReactDartComponentFactoryProxy; // ignore: deprecated_member_use
 // ignore: deprecated_member_use
 class TestComponent extends react.Component {
   @override
@@ -1298,7 +1298,7 @@ class TestComponent extends react.Component {
 }
 
 /// Helper component for testing a Dart (react-dart) React component (version 2) with cloneElement.
-final TestComponent2Factory = react.registerComponent2(() => new TestComponent2());
+final TestComponent2Factory = react.registerComponent2(() => TestComponent2());
 
 class TestComponent2 extends react.Component2 {
   @override
@@ -1318,7 +1318,7 @@ class PlainObjectStyleMap {
 }
 
 /// Helper component that renders whatever you tell it to. Necessary for rendering components with the 'ref' prop.
-final RenderingContainerComponentFactory = react.registerComponent(() => new RenderingContainerComponent()) as ReactDartComponentFactoryProxy; // ignore: deprecated_member_use
+final RenderingContainerComponentFactory = react.registerComponent(() => RenderingContainerComponent()) as ReactDartComponentFactoryProxy; // ignore: deprecated_member_use
 
 // ignore: deprecated_member_use
 class RenderingContainerComponent extends react.Component {

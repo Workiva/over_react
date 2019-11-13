@@ -72,7 +72,7 @@ abstract class $ResizeSensorPropsMixin {}
 
 @PropsMixin()
 abstract class _$ResizeSensorPropsMixin {
-  static final ResizeSensorPropsMixinMapView defaultProps = new ResizeSensorPropsMixinMapView({})
+  static final ResizeSensorPropsMixinMapView defaultProps = ResizeSensorPropsMixinMapView({})
     ..isFlexChild = false
     ..isFlexContainer = false
     ..shrink = false
@@ -167,15 +167,15 @@ abstract class _$ResizeSensorPropsMixin {
 @Props()
 class _$ResizeSensorProps extends UiProps with ResizeSensorPropsMixin {}
 
-@Component()
-class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAnimationFrameMixin {
+@Component2()
+class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with _SafeAnimationFrameMixin {
   // Refs
 
   Element _expandSensorRef;
   Element _collapseSensorRef;
 
   @override
-  Map getDefaultProps() => (newProps()
+  get defaultProps => (newProps()
     ..addProps(ResizeSensorPropsMixin.defaultProps)
   );
 
@@ -214,7 +214,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
       _reset();
 
       if (props.onInitialize != null) {
-        var event = new ResizeSensorEvent(_lastWidth, _lastHeight, 0, 0);
+        var event = ResizeSensorEvent(_lastWidth, _lastHeight, 0, 0);
         props.onInitialize(event);
       }
     }
@@ -252,14 +252,14 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
     } else if (props.isFlexContainer) {
       wrapperStyles = _wrapperStylesFlexContainer;
     } else {
-      wrapperStyles = _wrapperStyles;;
+      wrapperStyles = _wrapperStyles;
     }
 
     var mergedStyle = newStyleFromProps(props);
     mergedStyle = {}..addAll(wrapperStyles)..addAll(mergedStyle);
 
     return (Dom.div()
-      ..addProps(copyUnconsumedDomProps())
+      ..modifyProps(addUnconsumedDomProps)
       ..className = forwardingClassNameBuilder().toClassName()
       ..style = mergedStyle
     )(
@@ -283,7 +283,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
 
     if (newWidth != _lastWidth || newHeight != _lastHeight) {
       if (props.onResize != null) {
-        var event = new ResizeSensorEvent(newWidth, newHeight, _lastWidth, _lastHeight);
+        var event = ResizeSensorEvent(newWidth, newHeight, _lastWidth, _lastHeight);
         props.onResize(event);
       }
 
@@ -297,7 +297,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
   /// Additionally update the state with the new [_lastWidth] and [_lastHeight] when [updateLastDimensions] is true.
   ///
   /// > Related: [forceResetDetachedSensor]
-  void _reset({bool updateLastDimensions: true}) {
+  void _reset({bool updateLastDimensions = true}) {
     if (updateLastDimensions) {
       var sensor = findDomNode(this);
       _lastWidth = sensor.offsetWidth;
@@ -393,7 +393,7 @@ class ResizeSensorComponent extends UiComponent<ResizeSensorProps> with _SafeAni
 /// We could use `rem` or `vh`/`vw`, but that opens us up to more edge cases.
 const int _maxSensorSize = 100 * 1000;
 
-final Map<String, dynamic> _baseStyle = const {
+const Map<String, dynamic> _baseStyle = {
   'position': 'absolute',
   // Have this element reach "outside" its containing element in such a way to ensure its width/height are always at
   // least 2x the scrollbar width (e.g., 32px on Chrome OS X).
@@ -408,7 +408,7 @@ final Map<String, dynamic> _baseStyle = const {
   'opacity': '0',
 };
 
-final Map<String, dynamic> _shrinkBaseStyle = const {
+const Map<String, dynamic> _shrinkBaseStyle = {
   'position': 'absolute',
   'top': '0',
   'right': '0',
@@ -421,7 +421,7 @@ final Map<String, dynamic> _shrinkBaseStyle = const {
   'opacity': '0',
 };
 
-final Map<String, dynamic> _expandSensorChildStyle = const {
+final Map<String, dynamic> _expandSensorChildStyle = {
   'position': 'absolute',
   'top': '0',
   'left': '0',
@@ -435,7 +435,7 @@ final Map<String, dynamic> _expandSensorChildStyle = const {
   'opacity': '0',
 };
 
-final Map<String, dynamic> _collapseSensorChildStyle = const {
+const Map<String, dynamic> _collapseSensorChildStyle = {
   'position': 'absolute',
   'top': '0',
   'left': '0',
@@ -447,13 +447,13 @@ final Map<String, dynamic> _collapseSensorChildStyle = const {
 };
 
 
-const Map<String, dynamic> _wrapperStyles = const {
+const Map<String, dynamic> _wrapperStyles = {
   'position': 'relative',
   'height': '100%',
   'width': '100%',
 };
 
-const Map<String, dynamic> _wrapperStylesFlexChild = const {
+const Map<String, dynamic> _wrapperStylesFlexChild = {
   'position': 'relative',
   'flex': '1 1 0%',
   'msFlex': '1 1 0%',
@@ -512,7 +512,7 @@ class _SafeAnimationFrameMixin {
 
   /// Calls [Window.requestAnimationFrame] with the specified [callback], and keeps track of the
   /// request ID so that it can be cancelled in [cancelAnimationFrames].
-  void requestAnimationFrame(callback()) {
+  void requestAnimationFrame(Function() callback) {
     int queuedId;
     queuedId = window.requestAnimationFrame((_) {
       callback();
