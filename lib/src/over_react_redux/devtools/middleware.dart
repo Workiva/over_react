@@ -63,7 +63,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
       log.warning(e);
       log.warning(
         'You must implement a `toJson` method in your state and actions in order to view state changes in the redux dev tools.\n'
-        'If you are not sure what is causing this issue in DevTools, you can use "pause on caught exceptions" to pinpoint which part of your state/action is no able to be converted to json.'
+        'If you are not sure what is causing this issue in DevTools, you can use "pause on caught exceptions" to pinpoint which part of your state/action is not able to be converted to json.'
       );
       if (shouldRethrow) rethrow;
     }
