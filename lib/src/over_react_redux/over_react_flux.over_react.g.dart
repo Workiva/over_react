@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'over_react_flux.dart';
 
 // **************************************************************************
@@ -24,18 +25,18 @@ abstract class ConnectFluxPropsMixin<TActions>
       props[_$key__actions___$ConnectFluxPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__actions___$ConnectFluxPropsMixin =
-      const PropDescriptor(_$key__actions___$ConnectFluxPropsMixin);
+      PropDescriptor(_$key__actions___$ConnectFluxPropsMixin);
   static const String _$key__actions___$ConnectFluxPropsMixin = 'actions';
 
-  static const List<PropDescriptor> $props = const [
+  static const List<PropDescriptor> $props = [
     _$prop__actions___$ConnectFluxPropsMixin
   ];
-  static const List<String> $propKeys = const [
+  static const List<String> $propKeys = [
     _$key__actions___$ConnectFluxPropsMixin
   ];
 }
 
-const PropsMeta _$metaForConnectFluxPropsMixin = const PropsMeta(
+const PropsMeta _$metaForConnectFluxPropsMixin = PropsMeta(
   fields: ConnectFluxPropsMixin.$props,
   keys: ConnectFluxPropsMixin.$propKeys,
 );
