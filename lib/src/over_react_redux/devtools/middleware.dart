@@ -38,12 +38,13 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     try {
       devToolsExt = reduxExtConnect();
       devToolsExt.subscribe(handleEventFromRemote);
-    } catch(_) {
+    } catch (e) {
+      log.warning(e);
       log.warning(
         'Unable to connect to the redux dev tools browser extension.\n'
         'Please install it...\n'
         'Chrome: https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en\n'
-        'Firefox: https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/\n'
+        'Firefox: https://addons.mozilla.org/en-US/firefox/addon/reduxdevtools/'
       );
     }
   }
@@ -58,8 +59,12 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   dynamic _encodeForTransit(dynamic content, {bool shouldRethrow = false}) {
     try {
       return jsify(jsonDecode(jsonEncode(content)));
-    } catch (_) {
-      log.warning('You must implement a `toJson` method in your state and actions in order to view state changes in the redux dev tools.');
+    } catch (e) {
+      log.warning(e);
+      log.warning(
+        'You must implement a `toJson` method in your state and actions in order to view state changes in the redux dev tools.\n'
+        'If you are not sure what is causing this issue in DevTools, you can use "pause on caught exceptions" to pinpoint which part of your state/action is not able to be converted to json.'
+      );
       if (shouldRethrow) rethrow;
     }
   }
