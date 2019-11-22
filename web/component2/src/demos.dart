@@ -14,7 +14,6 @@ export '../src/demo_components/prop_validation_wrap.dart';
 
 export '../../src/demos/faulty-component.dart';
 
-
 export 'demos/list-group/list-group-basic.dart';
 export 'demos/list-group/list-group-tags.dart';
 export 'demos/list-group/list-group-anchors-and-buttons.dart';

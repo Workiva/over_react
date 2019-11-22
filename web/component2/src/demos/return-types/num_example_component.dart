@@ -2,7 +2,6 @@ import 'package:over_react/over_react.dart';
 
 part 'num_example_component.over_react.g.dart';
 
-
 @Factory()
 // ignore: undefined_identifier
 UiFactory<NumExampleProps> NumExample = _$NumExample;
