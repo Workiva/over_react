@@ -48,4 +48,9 @@ void main() {
     Faulty()(), querySelector('$demoMountNodeSelectorPrefix--faulty-component-without-error-boundary'));
 
   react_dom.render(PropTypesWrap()(), querySelector('$demoMountNodeSelectorPrefix--proptypes-component'));
+
+  react_dom.render(FragmentExample()(), querySelector('$demoMountNodeSelectorPrefix--fragment-component'));
+  react_dom.render(ListExample()(), querySelector('$demoMountNodeSelectorPrefix--list-component'));
+  react_dom.render(NumExample()(), querySelector('$demoMountNodeSelectorPrefix--num-component'));
+  react_dom.render(StringExample()(), querySelector('$demoMountNodeSelectorPrefix--string-component'));
 }
