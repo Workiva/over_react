@@ -278,9 +278,13 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
     }
     // ----- [2] ----- //
     else {
-      bool sameErrorWasThrownTwiceConsecutively =
-          _errorLog.contains(error.toString()) &&
-              (_callStackLog.where((i) => i.componentStack == info.componentStack)).isNotEmpty;
+      bool sameErrorWasThrownTwiceConsecutively = false;
+
+      for (var i = 0; i < _errorLog.length; i++) {
+        if (_errorLog[i] == error.toString() && _callStackLog[i].componentStack == info.componentStack) {
+          sameErrorWasThrownTwiceConsecutively = true;
+        }
+      }
 
       if (sameErrorWasThrownTwiceConsecutively) { // [2.1]
         try { // [2.2.2]
