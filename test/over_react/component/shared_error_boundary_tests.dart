@@ -295,6 +295,8 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory builder) {
         expect(calls.length, 1, reason: 'test setup sanity check');
         expect(calls.single.keys.single, isNot('onComponentIsUnrecoverable'), reason: 'test setup sanity check');
 
+        getFlawedButtonThatThrowsADifferentErrorNode().click();
+
         calls.clear();
         await Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs ~/ 2));
 
