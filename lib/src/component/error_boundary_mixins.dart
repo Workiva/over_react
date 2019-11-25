@@ -279,10 +279,12 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
     // ----- [2] ----- //
     else {
       bool sameErrorWasThrownTwiceConsecutively = false;
+      final errorString = error.toString();
 
       for (var i = 0; i < _errorLog.length; i++) {
-        if (_errorLog[i] == error.toString() && _callStackLog[i].componentStack == info.componentStack) {
+        if (_errorLog[i] == errorString && _callStackLog[i].componentStack == info.componentStack) {
           sameErrorWasThrownTwiceConsecutively = true;
+          break;
         }
       }
 
