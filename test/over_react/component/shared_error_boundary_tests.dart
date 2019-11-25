@@ -290,12 +290,12 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory builder) {
     });
 
     group('and consecutive errors are thrown from the same component', () {
-      Future<Null> triggerErrorsViaButtonClickThatSignifyAnUnrecoverableComponent() async {
+      Future<Null> triggerErrorsViaButtonClickThatSignifyAnUnrecoverableComponent({throwExtraError = false}) async {
         getFlawedButtonNode().click();
         expect(calls.length, 1, reason: 'test setup sanity check');
         expect(calls.single.keys.single, isNot('onComponentIsUnrecoverable'), reason: 'test setup sanity check');
 
-        getFlawedButtonThatThrowsADifferentErrorNode().click();
+        if (throwExtraError) getFlawedButtonThatThrowsADifferentErrorNode().click();
 
         calls.clear();
         await Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs ~/ 2));
@@ -439,6 +439,114 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory builder) {
             getFlawedButtonNode().click();
             expect(calls.length, 1, reason: 'test setup sanity check');
             expect(calls.single.keys.single, isNot('onComponentIsUnrecoverable'), reason: 'test setup sanity check');
+
+            calls.clear();
+            await Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs + 50));
+
+            getFlawedButtonNode().click();
+            _setCallbackVarValues();
+          });
+
+          test('the components wrapped by the ErrorBoundary get remounted', () {
+            expect(getByTestId(jacket.getInstance(), 'flawedComponent'), isNotNull,
+                reason: 'The flawed component should have been remounted');
+            expect(jacket.getDartInstance().state.showFallbackUIOnError, isFalse,
+                reason: 'Fallback UI should be not be rendered');
+          });
+
+          test('the correct callbacks are called with the correct arguments', () {
+            expect(calls.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
+                reason: 'onComponentIsUnrecoverable should not have been called');
+
+            expect(errorSentToComponentDidCatchCallback, isA<FlawedComponentException>());
+            expect(errorInfoSentToComponentDidCatchCallback, isA<ReactErrorInfo>());
+          });
+
+          // Test that unrecoverable errors that come after recoverable ones produce the same behavior
+          // as unrecoverable errors that are the first caught by the ErrorBoundary after being mounted.
+          group('but are then followed by two more errors that are exactly the same, '
+              'more frequent than the value of props.identicalErrorFrequencyTolerance', () {
+            setUp(() async {
+              await Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs + 50));
+              calls.clear();
+              await triggerErrorsViaButtonClickThatSignifyAnUnrecoverableComponent();
+            });
+
+            test('the components wrapped by the ErrorBoundary get unmounted', () {
+              expect(getByTestId(jacket.getInstance(), 'flawedComponent'), isNull,
+                  reason: 'The flawed component should have been unmounted');
+              expect(jacket.getDartInstance().state.showFallbackUIOnError, isTrue,
+                  reason: 'Fallback UI should be rendered instead of the flawed component tree');
+            });
+
+            test('the correct callbacks are called with the correct arguments', () {
+              expect(calls.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isTrue,
+                  reason: 'onComponentIsUnrecoverable should have been called');
+
+              expect(errorSentToComponentDidCatchCallback, isA<FlawedComponentException>());
+              expect(errorSentToComponentIsUnrecoverableCallback, isA<FlawedComponentException>());
+              expect(errorSentToComponentDidCatchCallback, errorSentToComponentIsUnrecoverableCallback);
+
+              expect(errorInfoSentToComponentDidCatchCallback, isA<ReactErrorInfo>());
+              expect(errorInfoSentToComponentIsUnrecoverableCallback, isA<ReactErrorInfo>());
+              expect(errorInfoSentToComponentDidCatchCallback, errorInfoSentToComponentIsUnrecoverableCallback);
+            });
+          });
+        });
+      });
+
+      group('and there are two twin errors with a different one being caught in between them', () {
+          String errorBoundaryInnerHtmlBeforeUnrecoverableError;
+
+          tearDown(() {
+            errorBoundaryInnerHtmlBeforeUnrecoverableError = null;
+          });
+
+          group('and they occurred more frequently than the value of props.identicalErrorFrequencyTolerance '
+              'and `_domAtTimeOfError` is not null:', () {
+            setUp(() async {
+              sharedSetup();
+
+              expect(jacket.getNode(),
+                  isNot(hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode')),
+                  reason: 'test setup sanity check');
+              errorBoundaryInnerHtmlBeforeUnrecoverableError = jacket.getNode().innerHtml;
+              await triggerErrorsViaButtonClickThatSignifyAnUnrecoverableComponent(throwExtraError: true);
+            });
+
+            test('the components wrapped by the ErrorBoundary get unmounted', () {
+              expect(getByTestId(jacket.getInstance(), 'flawedComponent'), isNull,
+                  reason: 'The flawed component should have been unmounted');
+              expect(jacket.getDartInstance().state.showFallbackUIOnError, isTrue,
+                  reason: 'Fallback UI should be rendered instead of the flawed component tree');
+              expect(jacket.getNode(),
+                  hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode'));
+              expect(jacket.getNode().innerHtml, errorBoundaryInnerHtmlBeforeUnrecoverableError);
+            });
+
+            test('the correct callbacks are called with the correct arguments', () {
+              expect(calls.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isTrue,
+                  reason: 'onComponentIsUnrecoverable should have been called');
+
+              expect(errorSentToComponentDidCatchCallback, isA<FlawedComponentException>());
+              expect(errorSentToComponentIsUnrecoverableCallback, isA<FlawedComponentException>());
+              expect(errorSentToComponentDidCatchCallback, errorSentToComponentIsUnrecoverableCallback);
+
+              expect(errorInfoSentToComponentDidCatchCallback, isA<ReactErrorInfo>());
+              expect(errorInfoSentToComponentIsUnrecoverableCallback, isA<ReactErrorInfo>());
+              expect(errorInfoSentToComponentDidCatchCallback, errorInfoSentToComponentIsUnrecoverableCallback);
+          });
+        });
+
+        group('and they occurred less frequently than the value of props.identicalErrorFrequencyTolerance:', () {
+          setUp(() async {
+            sharedSetup();
+
+            getFlawedButtonNode().click();
+            expect(calls.length, 1, reason: 'test setup sanity check');
+            expect(calls.single.keys.single, isNot('onComponentIsUnrecoverable'), reason: 'test setup sanity check');
+
+            getFlawedButtonThatThrowsADifferentErrorNode().click();
 
             calls.clear();
             await Future.delayed(const Duration(milliseconds: identicalErrorFrequencyToleranceInMs + 50));
