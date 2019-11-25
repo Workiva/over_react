@@ -41,6 +41,6 @@ dev_dependencies:
   dependency_validator: ^1.4.0
   glob: ^1.2.0
   mockito: ^4.1.1
-  over_react_test: ^2.5.2
+  over_react_test: ^2.7.0
   pedantic: ^1.8.0
   test: ^1.9.1

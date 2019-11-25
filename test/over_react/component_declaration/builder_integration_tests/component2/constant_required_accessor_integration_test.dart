@@ -11,10 +11,9 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import 'dart:js';
 
 import 'package:over_react/over_react.dart';
-import 'package:react/react_client/react_interop.dart' show PropTypes;
+import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
 
 import '../../../../test_util/test_util.dart';
@@ -23,39 +22,17 @@ part 'constant_required_accessor_integration_test.over_react.g.dart';
 
 void main() {
   group('(Component2) propTypes properly identifies required props by', () {
-    List<String> consoleErrors;
-    JsFunction originalConsoleError;
-
-    setUp(() {
-      // PropTypes by default will only throw a specific error one time per Component Class.
-      // This resets the cache after each test so it throws again.
-      // See: https://www.npmjs.com/package/prop-types#proptypesresetwarningcache
-      PropTypes.resetWarningCache();
-
-      originalConsoleError = context['console']['error'];
-      consoleErrors = [];
-      context['console']['error'] = JsFunction.withThis((self, message) {
-        consoleErrors.add(message);
-        originalConsoleError.apply([message], thisArg: self);
-      });
-    });
-
-    tearDown(() {
-      context['console']['error'] = originalConsoleError;
-    });
     group('throwing when a prop is required and not set', () {
-
       test('on mount', () {
-        mount(
-          (ComponentTest()
-            ..nullable = true
-            ..requiredAndLengthLimited = [1,2]
-          )(),
-          attachedToDocument: true,
-        );
-
-        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
-        expect(consoleErrors, [contains('ComponentTestProps.required')]);
+        expect(() {
+          mount(
+            (ComponentTest()
+              ..nullable = true
+              ..requiredAndLengthLimited = [1,2]
+            )(),
+            attachedToDocument: true,
+          );
+        }, logsPropRequiredError('ComponentTestProps.required'));
       });
 
       test('on re-render', () {
@@ -67,62 +44,70 @@ void main() {
           attachedToDocument: true,
         );
 
-        expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
+        expect(() {
+          jacket.rerender((ComponentTest()
+            ..required = true
+            ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
+          )());
+        }, logsNoPropTypeWarnings);
 
-        jacket.rerender((ComponentTest()
+        expect(() {
+          jacket.rerender((ComponentTest()
             ..nullable = true
             ..requiredAndLengthLimited = [1,2]
           )()
-        );
-
-        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
-        expect(consoleErrors, [contains('ComponentTestProps.required')]);
+          );
+        }, logsPropRequiredError('ComponentTestProps.required'));
       });
-
     });
 
     group('throwing when a prop is required and set to null', () {
       test('on mount', () {
-        render((ComponentTest()
+        expect(() {
+          render((ComponentTest()
             ..required = null
             ..nullable = true
             ..requiredAndLengthLimited = [1,2]
           )());
-
-        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
-        expect(consoleErrors, [contains('ComponentTestProps.required')]);
+        }, logsPropRequiredError('ComponentTestProps.required'));
       });
 
       test('on re-render', () {
         var jacket = mount((ComponentTest()
-            ..required = true
-            ..nullable = true
-            ..requiredAndLengthLimited = [1,2]
-          )(),
+          ..required = true
+          ..nullable = true
+          ..requiredAndLengthLimited = [1,2]
+        )(),
           attachedToDocument: true,
         );
 
-        expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
+        expect(() {
+          jacket.rerender((ComponentTest()
+            ..required = true
+            ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
+          )());
+        }, logsNoPropTypeWarnings);
 
-        jacket.rerender((ComponentTest()
-              ..required = null
-              ..nullable = true
-              ..requiredAndLengthLimited = [1,2]
-            )());
-
-        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
-        expect(consoleErrors, [contains('ComponentTestProps.required')]);
+        expect(() {
+          jacket.rerender((ComponentTest()
+            ..required = null
+            ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
+          )());
+        }, logsPropRequiredError('ComponentTestProps.required'));
       });
     });
 
     group('throwing when a prop is nullable and not set', () {
       test('on mount', () {
-        render((ComponentTest()
-          ..required = true
-          ..requiredAndLengthLimited = [1,2]
-        )());
-        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
-        expect(consoleErrors, [contains('ComponentTestProps.nullable')]);
+        expect(() {
+          render((ComponentTest()
+            ..required = true
+            ..requiredAndLengthLimited = [1,2]
+          )());
+        }, logsPropError('ComponentTestProps.nullable'));
       });
 
       test('on re-render', () {
@@ -134,26 +119,32 @@ void main() {
           attachedToDocument: true,
         );
 
-        expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
+        expect(() {
+          jacket.rerender((ComponentTest()
+            ..required = true
+            ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
+          )());
+        }, logsNoPropTypeWarnings);
 
-        jacket.rerender((ComponentTest()
-          ..required = true
-          ..requiredAndLengthLimited = [1,2]
-        )());
-
-        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
-        expect(consoleErrors, [contains('ComponentTestProps.nullable')]);
+        expect(() {
+          jacket.rerender((ComponentTest()
+            ..required = true
+            ..requiredAndLengthLimited = [1,2]
+          )());
+        }, logsPropError('ComponentTestProps.nullable'));
       });
     });
 
     group('not throwing when a prop is required and set', () {
       test('on mount', () {
-        render((ComponentTest()
-          ..nullable = true
-          ..required = true
-          ..requiredAndLengthLimited = [1,2]
-        )());
-        expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
+        expect(() {
+          render((ComponentTest()
+            ..nullable = true
+            ..required = true
+            ..requiredAndLengthLimited = [1,2]
+          )());
+        }, logsNoPropTypeWarnings);
       });
 
       test('on re-render', () {
@@ -165,26 +156,25 @@ void main() {
           attachedToDocument: true,
         );
 
-        expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
-
-        jacket.rerender((ComponentTest()
-          ..required = true
-          ..nullable = true
-          ..requiredAndLengthLimited = [1,2]
-        )());
-
-        expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
+        expect(() {
+          jacket.rerender((ComponentTest()
+            ..required = true
+            ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
+          )());
+        }, logsNoPropTypeWarnings);
       });
     });
 
     group('not throwing when a prop is nullable and set to null', () {
       test('on mount', () {
-       render((ComponentTest()
-          ..nullable = null
-          ..requiredAndLengthLimited = [1,2]
-          ..required = true
-        )());
-        expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
+        expect(() {
+          render((ComponentTest()
+            ..nullable = null
+            ..requiredAndLengthLimited = [1,2]
+            ..required = true
+          )());
+        }, logsNoPropTypeWarnings);
       });
 
       test('on re-render', () {
@@ -196,38 +186,42 @@ void main() {
           attachedToDocument: true,
         );
 
-        expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
+        expect(() {
+          jacket.rerender((ComponentTest()
+            ..required = true
+            ..nullable = true
+            ..requiredAndLengthLimited = [1,2]
+          )());
+        }, logsNoPropTypeWarnings);
 
-        jacket.rerender((ComponentTest()
-          ..required = true
-          ..nullable = null
-          ..requiredAndLengthLimited = [1,2]
-        )());
-
-        expect(consoleErrors, isEmpty, reason: 'should not have outputted a warning but found: $consoleErrors');
+        expect(() {
+          jacket.rerender((ComponentTest()
+            ..required = true
+            ..nullable = null
+            ..requiredAndLengthLimited = [1,2]
+          )());
+        }, logsNoPropTypeWarnings);
       });
     });
 
     group('when a consumer propType function is also provided', () {
       test('required fires', () {
-       render((ComponentTest()
+        expect(() {
+          render((ComponentTest()
             ..nullable = null
             ..required = true
           )());
-
-        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
-        expect(consoleErrors, [contains('ComponentTestProps.requiredAndLengthLimited')]);
+        }, logsPropValueError('null', 'ComponentTestProps.requiredAndLengthLimited'));
       });
 
       test('consumer check fires', () {
-        render((ComponentTest()
+        expect(() {
+          render((ComponentTest()
             ..required = true
             ..nullable = true
             ..requiredAndLengthLimited = [1]
           )());
-
-        expect(consoleErrors, isNotEmpty, reason: 'should have outputted a warning');
-        expect(consoleErrors, [contains('must have a length of 2')]);
+        }, logsPropValueError('1', 'ComponentTestProps.requiredAndLengthLimited'));
       });
     });
   });
