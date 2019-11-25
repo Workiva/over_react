@@ -205,7 +205,10 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
   @override
   render() {
     if (state.hasError && state.showFallbackUIOnError) {
-      return (props.fallbackUIRenderer ?? _renderStringDomAfterUnrecoverableErrors)(_errorLog.last, _callStackLog.last);
+      return (props.fallbackUIRenderer ?? _renderStringDomAfterUnrecoverableErrors)(
+          _errorLog.isNotEmpty ? _errorLog.last : null,
+          _callStackLog.isNotEmpty ? _callStackLog.last : null,
+      );
     }
 
     return props.children;
