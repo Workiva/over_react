@@ -62,8 +62,6 @@ getters/setters (via the `_$FooPropsAccessorsMixin` class)
     ```
     
 3. The builder creates a concrete props implementation class
-    ```
-
     ```dart
     // Concrete props implementation.
     //
