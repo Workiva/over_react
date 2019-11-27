@@ -150,14 +150,14 @@ via our builder using an analogous [annotation].
 1. [UiFactory](#uifactory)
 2. [UiProps](#uiprops)
 3. _[UiState](#uistate) (optional)_
-4. [UiComponent](#uicomponent)
+4. [UiComponent](#uicomponent2)
 
 &nbsp;
 
 ### UiFactory
 
 __`UiFactory` is a function__ that returns a new instance of a
-[`UiComponent`](#uicomponent)’s [`UiProps`](#uiprops) class.
+[`UiComponent`](#uicomponent2)’s [`UiProps`](#uiprops) class.
 
 ```dart
 @Factory()
