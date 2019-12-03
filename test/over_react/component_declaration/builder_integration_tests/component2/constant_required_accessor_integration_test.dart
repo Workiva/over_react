@@ -43,7 +43,8 @@ void main() {
               (ComponentTest()
                 ..required = true
                 ..nullable = true
-                ..requiredAndLengthLimited = [1,2])(),
+                ..requiredAndLengthLimited = [1,2]
+              )(),
               attachedToDocument: true);
         }, logsNoPropTypeWarnings);
 
@@ -76,7 +77,8 @@ void main() {
               (ComponentTest()
                 ..required = true
                 ..nullable = true
-                ..requiredAndLengthLimited = [1,2])(),
+                ..requiredAndLengthLimited = [1,2]
+              )(),
               attachedToDocument: true);
         }, logsNoPropTypeWarnings);
 
@@ -108,7 +110,8 @@ void main() {
               (ComponentTest()
                 ..required = true
                 ..nullable = true
-                ..requiredAndLengthLimited = [1,2])(),
+                ..requiredAndLengthLimited = [1,2]
+              )(),
               attachedToDocument: true);
         }, logsNoPropTypeWarnings);
 
@@ -170,7 +173,8 @@ void main() {
               (ComponentTest()
                 ..required = true
                 ..nullable = true
-                ..requiredAndLengthLimited = [1,2])(),
+                ..requiredAndLengthLimited = [1,2]
+              )(),
               attachedToDocument: true);
         }, logsNoPropTypeWarnings);
 
@@ -238,4 +242,3 @@ class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
   @override
   render() => Dom.div()();
 }
-
