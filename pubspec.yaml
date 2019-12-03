@@ -39,6 +39,7 @@ dev_dependencies:
   dart2_constant: ^1.0.0
   dart_dev: ^3.0.0
   dependency_validator: ^1.4.0
+  front_end: ^0.1.27
   glob: ^1.2.0
   mockito: ^4.1.1
   over_react_test: ^2.7.0
