@@ -1,18 +1,9 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
-
 import 'package:over_react/over_react.dart';
 
 import 'basic_with_type_params.dart';
 
-// **************************************************************************
-// OverReactBuilder (package:over_react/src/builder.dart)
-// **************************************************************************
-
-// React component factory implementation.
-//
-// Registers component implementation and links type meta to builder factory.
 final $BasicComponentFactory = registerComponent2(
-  () => new _$BasicComponent(),
+  () => _$BasicComponent(),
   builderFactory: Basic,
   componentClass: BasicComponent,
   isWrapper: false,
@@ -24,128 +15,90 @@ mixin $BasicPropsMixin<T, U extends UiProps> implements BasicPropsMixin<T, U> {
   @override
   Map get props;
 
-  /// <!-- Generated from [_$BasicProps.someGenericListProp] -->
   @override
-  List<T> get someGenericListProp =>
-      props[_$key__someGenericListProp___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BasicProps.someGenericListProp] -->
-  @override
-  set someGenericListProp(List<T> value) =>
-      props[_$key__someGenericListProp___$BasicProps] = value;
+  List<T> get someGenericListProp => props[_$key__someGenericListProp___$BasicProps] ?? null;
 
-  /// <!-- Generated from [_$BasicProps.somePropsClass] -->
   @override
-  U get somePropsClass =>
-      props[_$key__somePropsClass___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BasicProps.somePropsClass] -->
-  @override
-  set somePropsClass(U value) =>
-      props[_$key__somePropsClass___$BasicProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__someGenericListProp___$BasicProps =
-      const PropDescriptor(_$key__someGenericListProp___$BasicProps);
-  static const PropDescriptor _$prop__somePropsClass___$BasicProps =
-      const PropDescriptor(_$key__somePropsClass___$BasicProps);
-  static const String _$key__someGenericListProp___$BasicProps =
-      'BasicProps.someGenericListProp';
-  static const String _$key__somePropsClass___$BasicProps =
-      'BasicProps.somePropsClass';
+  set someGenericListProp(List<T> value) => props[_$key__someGenericListProp___$BasicProps] = value;
 
-  static const List<PropDescriptor> $props = const [
+  @override
+  U get somePropsClass => props[_$key__somePropsClass___$BasicProps] ?? null;
+
+  @override
+  set somePropsClass(U value) => props[_$key__somePropsClass___$BasicProps] = value;
+
+  static const _$prop__someGenericListProp___$BasicProps = PropDescriptor(_$key__someGenericListProp___$BasicProps);
+  static const _$prop__somePropsClass___$BasicProps = PropDescriptor(_$key__somePropsClass___$BasicProps);
+  static const _$key__someGenericListProp___$BasicProps = 'BasicProps.someGenericListProp';
+  static const _$key__somePropsClass___$BasicProps = 'BasicProps.somePropsClass';
+
+  static const List<PropDescriptor> $props = [
     _$prop__someGenericListProp___$BasicProps,
     _$prop__somePropsClass___$BasicProps
   ];
-  static const List<String> $propKeys = const [
-    _$key__someGenericListProp___$BasicProps,
-    _$key__somePropsClass___$BasicProps
-  ];
+  static const List<String> $propKeys = [_$key__someGenericListProp___$BasicProps, _$key__somePropsClass___$BasicProps];
 }
 
-const PropsMeta _$metaForBasicProps = const PropsMeta(
+const PropsMeta _$metaForBasicProps = PropsMeta(
   fields: $BasicPropsMixin.$props,
   keys: $BasicPropsMixin.$propKeys,
 );
 
-$BasicProps $Basic([Map backingProps]) => backingProps == null
-    ? new _$$BasicProps$JsMap(new JsBackedMap())
-    : new $BasicProps(backingProps);
+$BasicProps $Basic([Map backingProps]) =>
+    backingProps == null ? _$$BasicProps$JsMap(JsBackedMap()) : $BasicProps(backingProps);
 
-// Concrete props implementation.
-//
-// Implements constructor and backing map, and links up to generated component factory.
-class $BasicProps<T, U extends UiProps> extends BasicProps<T, U>
-    with BasicPropsMixin<T, U>, $BasicPropsMixin<T, U> {
+class $BasicProps<T, U extends UiProps> extends BasicProps<T, U> with BasicPropsMixin<T, U>, $BasicPropsMixin<T, U> {
   $BasicProps._();
 
   static const PropsMeta meta = _$metaForBasicProps;
 
   factory $BasicProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$BasicProps$JsMap(backingMap);
+      return _$$BasicProps$JsMap(backingMap);
     } else {
-      return new _$$BasicProps$PlainMap(backingMap);
+      return _$$BasicProps$PlainMap(backingMap);
     }
   }
 
-  /// The backing props map proxied by this class.
   @override
   Map get props;
 
-  /// Let [UiProps] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $BasicComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $BasicComponentFactory;
 
-  /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => 'BasicProps.';
 }
 
-// Concrete props implementation that can be backed by any [Map].
 class _$$BasicProps$PlainMap<T, U extends UiProps> extends $BasicProps<T, U>
     with BasicPropsMixin<T, U>, $BasicPropsMixin<T, U> {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$BasicProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
   }
 
-  /// The backing props map proxied by this class.
   @override
   Map get props => _props;
   Map _props;
 }
 
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
 class _$$BasicProps$JsMap<T, U extends UiProps> extends $BasicProps<T, U>
     with BasicPropsMixin<T, U>, $BasicPropsMixin<T, U> {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$BasicProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
-  /// The backing props map proxied by this class.
   @override
   JsBackedMap get props => _props;
   JsBackedMap _props;
 }
 
-// Concrete component implementation mixin.
-//
-// Implements typed props/state factories, defaults `consumedPropKeys` to the keys
-// generated for the associated props class.
 class _$BasicComponent extends BasicComponent {
   _$$BasicProps$JsMap _cachedTypedProps;
 
@@ -166,19 +119,14 @@ class _$BasicComponent extends BasicComponent {
   }
 
   @override
-  _$$BasicProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      new _$$BasicProps$JsMap(backingMap);
+  _$$BasicProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) => _$$BasicProps$JsMap(backingMap);
 
   @override
-  $BasicProps typedPropsFactory(Map backingMap) =>
-      new $BasicProps(backingMap);
+  $BasicProps typedPropsFactory(Map backingMap) => $BasicProps(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$BasicProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForBasicProps];
 }
