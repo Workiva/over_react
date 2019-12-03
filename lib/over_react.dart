@@ -65,6 +65,7 @@ export 'src/util/css_value_util.dart';
 export 'src/util/dom_util.dart';
 export 'src/util/event_helpers.dart';
 export 'src/util/guid_util.dart';
+export 'src/util/hoc.dart';
 export 'src/util/handler_chain_util.dart';
 export 'src/util/key_constants.dart';
 export 'src/util/map_util.dart';
