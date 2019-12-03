@@ -7,11 +7,8 @@ mixin $ExampleStateMixinClass implements ExampleStateMixinClass {
 
   static const StateMeta meta = _$metaForExampleStateMixinClass;
 
-  @override
-  String get stateMixin1 => state[_$key__stateMixin1___$ExampleStateMixinClass] ?? null;
-
-  @override
-  set stateMixin1(String value) => state[_$key__stateMixin1___$ExampleStateMixinClass] = value;
+  @override String get stateMixin1 => state[_$key__stateMixin1___$ExampleStateMixinClass] ?? null;
+  @override set stateMixin1(String value) => state[_$key__stateMixin1___$ExampleStateMixinClass] = value;
 
   static const _$prop__stateMixin1___$ExampleStateMixinClass =
       StateDescriptor(_$key__stateMixin1___$ExampleStateMixinClass);

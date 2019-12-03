@@ -15,11 +15,8 @@ mixin $GenericSubPropsMixin implements GenericSubPropsMixin {
   @override
   Map get props;
 
-  @override
-  String get subProp => props[_$key__subProp___$GenericSubProps] ?? null;
-
-  @override
-  set subProp(String value) => props[_$key__subProp___$GenericSubProps] = value;
+  @override String get subProp => props[_$key__subProp___$GenericSubProps] ?? null;
+  @override set subProp(String value) => props[_$key__subProp___$GenericSubProps] = value;
 
   static const _$prop__subProp___$GenericSubProps = PropDescriptor(_$key__subProp___$GenericSubProps);
   static const _$key__subProp___$GenericSubProps = 'GenericSubProps.subProp';
@@ -87,11 +84,8 @@ mixin $GenericSubStateMixin implements GenericSubState {
   @override
   Map get state;
 
-  @override
-  String get subState => state[_$key__subState___$GenericSubState] ?? null;
-
-  @override
-  set subState(String value) => state[_$key__subState___$GenericSubState] = value;
+  @override String get subState => state[_$key__subState___$GenericSubState] ?? null;
+  @override set subState(String value) => state[_$key__subState___$GenericSubState] = value;
 
   static const _$prop__subState___$GenericSubState = StateDescriptor(_$key__subState___$GenericSubState);
   static const _$key__subState___$GenericSubState = 'GenericSubState.subState';

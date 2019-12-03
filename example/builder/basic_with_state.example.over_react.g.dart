@@ -15,41 +15,23 @@ mixin $BasicPropsMixin implements BasicPropsMixin {
   @override
   Map get props;
 
-  @override
-  String get basicProp => props[_$key__basicProp___$BasicProps] ?? null;
+  @override String get basicProp => props[_$key__basicProp___$BasicProps] ?? null;
+  @override set basicProp(String value) => props[_$key__basicProp___$BasicProps] = value;
 
-  @override
-  set basicProp(String value) => props[_$key__basicProp___$BasicProps] = value;
+  @override String get basic1 => props[_$key__basic1___$BasicProps] ?? null;
+  @override set basic1(String value) => props[_$key__basic1___$BasicProps] = value;
 
-  @override
-  String get basic1 => props[_$key__basic1___$BasicProps] ?? null;
+  @override String get basic2 => props[_$key__basic2___$BasicProps] ?? null;
+  @override set basic2(String value) => props[_$key__basic2___$BasicProps] = value;
 
-  @override
-  set basic1(String value) => props[_$key__basic1___$BasicProps] = value;
+  @override String get basic3 => props[_$key__basic3___$BasicProps] ?? null;
+  @override set basic3(String value) => props[_$key__basic3___$BasicProps] = value;
 
-  @override
-  String get basic2 => props[_$key__basic2___$BasicProps] ?? null;
+  @override String get basic4 => props[_$key__basic4___$BasicProps] ?? null;
+  @override set basic4(String value) => props[_$key__basic4___$BasicProps] = value;
 
-  @override
-  set basic2(String value) => props[_$key__basic2___$BasicProps] = value;
-
-  @override
-  String get basic3 => props[_$key__basic3___$BasicProps] ?? null;
-
-  @override
-  set basic3(String value) => props[_$key__basic3___$BasicProps] = value;
-
-  @override
-  String get basic4 => props[_$key__basic4___$BasicProps] ?? null;
-
-  @override
-  set basic4(String value) => props[_$key__basic4___$BasicProps] = value;
-
-  @override
-  String get basic5 => props[_$key__basic5___$BasicProps] ?? null;
-
-  @override
-  set basic5(String value) => props[_$key__basic5___$BasicProps] = value;
+  @override String get basic5 => props[_$key__basic5___$BasicProps] ?? null;
+  @override set basic5(String value) => props[_$key__basic5___$BasicProps] = value;
 
   static const _$prop__basicProp___$BasicProps = PropDescriptor(_$key__basicProp___$BasicProps);
   static const _$prop__basic1___$BasicProps = PropDescriptor(_$key__basic1___$BasicProps);
@@ -144,11 +126,8 @@ mixin $BasicStateMixin implements BasicStateMixin {
   @override
   Map get state;
 
-  @override
-  String get basicState => state[_$key__basicState___$BasicState] ?? null;
-
-  @override
-  set basicState(String value) => state[_$key__basicState___$BasicState] = value;
+  @override String get basicState => state[_$key__basicState___$BasicState] ?? null;
+  @override set basicState(String value) => state[_$key__basicState___$BasicState] = value;
 
   static const _$prop__basicState___$BasicState = StateDescriptor(_$key__basicState___$BasicState);
   static const _$key__basicState___$BasicState = 'BasicState.basicState';

@@ -15,23 +15,14 @@ mixin $GenericSuperPropsMixin implements GenericSuperProps {
   @override
   Map get props;
 
-  @override
-  String get otherSuperProp => props[_$key__otherSuperProp___$GenericSuperProps] ?? null;
+  @override String get otherSuperProp => props[_$key__otherSuperProp___$GenericSuperProps] ?? null;
+  @override set otherSuperProp(String value) => props[_$key__otherSuperProp___$GenericSuperProps] = value;
 
-  @override
-  set otherSuperProp(String value) => props[_$key__otherSuperProp___$GenericSuperProps] = value;
+  @override String get superProp => props[_$key__superProp___$GenericSuperProps] ?? null;
+  @override set superProp(String value) => props[_$key__superProp___$GenericSuperProps] = value;
 
-  @override
-  String get superProp => props[_$key__superProp___$GenericSuperProps] ?? null;
-
-  @override
-  set superProp(String value) => props[_$key__superProp___$GenericSuperProps] = value;
-
-  @override
-  String get superProp1 => props[_$key__superProp1___$GenericSuperProps] ?? null;
-
-  @override
-  set superProp1(String value) => props[_$key__superProp1___$GenericSuperProps] = value;
+  @override String get superProp1 => props[_$key__superProp1___$GenericSuperProps] ?? null;
+  @override set superProp1(String value) => props[_$key__superProp1___$GenericSuperProps] = value;
 
   static const _$prop__otherSuperProp___$GenericSuperProps = PropDescriptor(_$key__otherSuperProp___$GenericSuperProps);
   static const _$prop__superProp___$GenericSuperProps = PropDescriptor(_$key__superProp___$GenericSuperProps);
@@ -111,11 +102,8 @@ mixin $GenericSuperStateMixin implements GenericSuperStateMixin {
   @override
   Map get state;
 
-  @override
-  String get superState => state[_$key__superState___$GenericSuperState] ?? null;
-
-  @override
-  set superState(String value) => state[_$key__superState___$GenericSuperState] = value;
+  @override String get superState => state[_$key__superState___$GenericSuperState] ?? null;
+  @override set superState(String value) => state[_$key__superState___$GenericSuperState] = value;
 
   static const _$prop__superState___$GenericSuperState = StateDescriptor(_$key__superState___$GenericSuperState);
   static const _$key__superState___$GenericSuperState = 'GenericSuperState.superState';

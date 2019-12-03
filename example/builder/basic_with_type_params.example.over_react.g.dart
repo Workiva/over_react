@@ -21,11 +21,8 @@ mixin $BasicPropsMixin<T, U extends UiProps> implements BasicPropsMixin<T, U> {
   @override
   set someGenericListProp(List<T> value) => props[_$key__someGenericListProp___$BasicProps] = value;
 
-  @override
-  U get somePropsClass => props[_$key__somePropsClass___$BasicProps] ?? null;
-
-  @override
-  set somePropsClass(U value) => props[_$key__somePropsClass___$BasicProps] = value;
+  @override U get somePropsClass => props[_$key__somePropsClass___$BasicProps] ?? null;
+  @override set somePropsClass(U value) => props[_$key__somePropsClass___$BasicProps] = value;
 
   static const _$prop__someGenericListProp___$BasicProps = PropDescriptor(_$key__someGenericListProp___$BasicProps);
   static const _$prop__somePropsClass___$BasicProps = PropDescriptor(_$key__somePropsClass___$BasicProps);

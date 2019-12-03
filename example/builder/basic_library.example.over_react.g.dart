@@ -15,41 +15,23 @@ mixin $BasicPartOfLibPropsMixin implements BasicPartOfLibPropsMixin {
   @override
   Map get props;
 
-  @override
-  String get basicProp => props[_$key__basicProp___$BasicPartOfLibProps] ?? null;
+  @override String get basicProp => props[_$key__basicProp___$BasicPartOfLibProps] ?? null;
+  @override set basicProp(String value) => props[_$key__basicProp___$BasicPartOfLibProps] = value;
 
-  @override
-  set basicProp(String value) => props[_$key__basicProp___$BasicPartOfLibProps] = value;
+  @override String get basic1 => props[_$key__basic1___$BasicPartOfLibProps] ?? null;
+  @override set basic1(String value) => props[_$key__basic1___$BasicPartOfLibProps] = value;
 
-  @override
-  String get basic1 => props[_$key__basic1___$BasicPartOfLibProps] ?? null;
+  @override String get basic2 => props[_$key__basic2___$BasicPartOfLibProps] ?? null;
+  @override set basic2(String value) => props[_$key__basic2___$BasicPartOfLibProps] = value;
 
-  @override
-  set basic1(String value) => props[_$key__basic1___$BasicPartOfLibProps] = value;
+  @override String get basic3 => props[_$key__basic3___$BasicPartOfLibProps] ?? null;
+  @override set basic3(String value) => props[_$key__basic3___$BasicPartOfLibProps] = value;
 
-  @override
-  String get basic2 => props[_$key__basic2___$BasicPartOfLibProps] ?? null;
+  @override String get basic4 => props[_$key__basic4___$BasicPartOfLibProps] ?? null;
+  @override set basic4(String value) => props[_$key__basic4___$BasicPartOfLibProps] = value;
 
-  @override
-  set basic2(String value) => props[_$key__basic2___$BasicPartOfLibProps] = value;
-
-  @override
-  String get basic3 => props[_$key__basic3___$BasicPartOfLibProps] ?? null;
-
-  @override
-  set basic3(String value) => props[_$key__basic3___$BasicPartOfLibProps] = value;
-
-  @override
-  String get basic4 => props[_$key__basic4___$BasicPartOfLibProps] ?? null;
-
-  @override
-  set basic4(String value) => props[_$key__basic4___$BasicPartOfLibProps] = value;
-
-  @override
-  String get basic5 => props[_$key__basic5___$BasicPartOfLibProps] ?? null;
-
-  @override
-  set basic5(String value) => props[_$key__basic5___$BasicPartOfLibProps] = value;
+  @override String get basic5 => props[_$key__basic5___$BasicPartOfLibProps] ?? null;
+  @override set basic5(String value) => props[_$key__basic5___$BasicPartOfLibProps] = value;
 
   static const _$prop__basicProp___$BasicPartOfLibProps = PropDescriptor(_$key__basicProp___$BasicPartOfLibProps);
   static const _$prop__basic1___$BasicPartOfLibProps = PropDescriptor(_$key__basic1___$BasicPartOfLibProps);
@@ -141,11 +123,8 @@ mixin $BasicPartOfLibStateMixin implements BasicPartOfLibStateMixin {
   @override
   Map get state;
 
-  @override
-  String get basicState => state[_$key__basicState___$BasicPartOfLibState] ?? null;
-
-  @override
-  set basicState(String value) => state[_$key__basicState___$BasicPartOfLibState] = value;
+  @override String get basicState => state[_$key__basicState___$BasicPartOfLibState] ?? null;
+  @override set basicState(String value) => state[_$key__basicState___$BasicPartOfLibState] = value;
 
   static const _$prop__basicState___$BasicPartOfLibState = StateDescriptor(_$key__basicState___$BasicPartOfLibState);
   static const _$key__basicState___$BasicPartOfLibState = 'BasicPartOfLibState.basicState';
@@ -265,11 +244,8 @@ mixin $SubPartOfLibPropsMixin implements SubPartOfLibPropsMixin {
   @override
   Map get props;
 
-  @override
-  String get subProp => props[_$key__subProp___$SubPartOfLibProps] ?? null;
-
-  @override
-  set subProp(String value) => props[_$key__subProp___$SubPartOfLibProps] = value;
+  @override String get subProp => props[_$key__subProp___$SubPartOfLibProps] ?? null;
+  @override set subProp(String value) => props[_$key__subProp___$SubPartOfLibProps] = value;
 
   static const _$prop__subProp___$SubPartOfLibProps = PropDescriptor(_$key__subProp___$SubPartOfLibProps);
   static const _$key__subProp___$SubPartOfLibProps = 'SubPartOfLibProps.subProp';
@@ -374,11 +350,8 @@ mixin $SuperPartOfLibPropsMixin implements SuperPartOfLibPropsMixin {
   @override
   Map get props;
 
-  @override
-  String get superProp => props[_$key__superProp___$SuperPartOfLibProps] ?? null;
-
-  @override
-  set superProp(String value) => props[_$key__superProp___$SuperPartOfLibProps] = value;
+  @override String get superProp => props[_$key__superProp___$SuperPartOfLibProps] ?? null;
+  @override set superProp(String value) => props[_$key__superProp___$SuperPartOfLibProps] = value;
 
   static const _$prop__superProp___$SuperPartOfLibProps = PropDescriptor(_$key__superProp___$SuperPartOfLibProps);
   static const _$key__superProp___$SuperPartOfLibProps = 'SuperPartOfLibProps.superProp';

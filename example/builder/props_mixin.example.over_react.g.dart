@@ -8,11 +8,8 @@ mixin $ExamplePropsMixinClass implements ExamplePropsMixinClass {
 
   static const PropsMeta meta = _$metaForExamplePropsMixinClass;
 
-  @override
-  String get propMixin1 => props[_$key__propMixin1___$ExamplePropsMixinClass] ?? null;
-
-  @override
-  set propMixin1(String value) => props[_$key__propMixin1___$ExamplePropsMixinClass] = value;
+  @override String get propMixin1 => props[_$key__propMixin1___$ExamplePropsMixinClass] ?? null;
+  @override set propMixin1(String value) => props[_$key__propMixin1___$ExamplePropsMixinClass] = value;
 
   static const _$prop__propMixin1___$ExamplePropsMixinClass =
       PropDescriptor(_$key__propMixin1___$ExamplePropsMixinClass);
@@ -33,11 +30,8 @@ mixin $MixesInOtherMixinMixin<T extends Iterable, U> implements MixesInOtherMixi
 
   static const PropsMeta meta = _$metaForMixesInOtherMixinMixin;
 
-  @override
-  String get otherPropMixin => props[_$key__otherPropMixin___$MixesInOtherMixinMixin] ?? null;
-
-  @override
-  set otherPropMixin(String value) => props[_$key__otherPropMixin___$MixesInOtherMixinMixin] = value;
+  @override String get otherPropMixin => props[_$key__otherPropMixin___$MixesInOtherMixinMixin] ?? null;
+  @override set otherPropMixin(String value) => props[_$key__otherPropMixin___$MixesInOtherMixinMixin] = value;
 
   static const _$prop__otherPropMixin___$MixesInOtherMixinMixin =
       PropDescriptor(_$key__otherPropMixin___$MixesInOtherMixinMixin);

@@ -15,11 +15,8 @@ mixin $SubPropsMixin implements SubPropsMixin {
   @override
   Map get props;
 
-  @override
-  String get subProp => props[_$key__subProp___$SubProps] ?? null;
-
-  @override
-  set subProp(String value) => props[_$key__subProp___$SubProps] = value;
+  @override String get subProp => props[_$key__subProp___$SubProps] ?? null;
+  @override set subProp(String value) => props[_$key__subProp___$SubProps] = value;
 
   static const _$prop__subProp___$SubProps = PropDescriptor(_$key__subProp___$SubProps);
   static const _$key__subProp___$SubProps = 'SubProps.subProp';
@@ -86,11 +83,8 @@ mixin $SubStateMixin implements SubStateMixin {
   @override
   Map get state;
 
-  @override
-  String get subState => state[_$key__subState___$SubState] ?? null;
-
-  @override
-  set subState(String value) => state[_$key__subState___$SubState] = value;
+  @override String get subState => state[_$key__subState___$SubState] ?? null;
+  @override set subState(String value) => state[_$key__subState___$SubState] = value;
 
   static const _$prop__subState___$SubState = StateDescriptor(_$key__subState___$SubState);
   static const _$key__subState___$SubState = 'SubState.subState';
@@ -201,11 +195,8 @@ mixin $SuperPropsMixin implements SuperPropsMixin {
   @override
   Map get props;
 
-  @override
-  String get superProp => props[_$key__superProp___$SuperProps] ?? null;
-
-  @override
-  set superProp(String value) => props[_$key__superProp___$SuperProps] = value;
+  @override String get superProp => props[_$key__superProp___$SuperProps] ?? null;
+  @override set superProp(String value) => props[_$key__superProp___$SuperProps] = value;
 
   static const _$prop__superProp___$SuperProps = PropDescriptor(_$key__superProp___$SuperProps);
   static const _$key__superProp___$SuperProps = 'SuperProps.superProp';
@@ -229,11 +220,8 @@ mixin $SuperStateMixin implements SuperStateMixin {
   @override
   Map get state;
 
-  @override
-  String get superState => state[_$key__superState___$SuperState] ?? null;
-
-  @override
-  set superState(String value) => state[_$key__superState___$SuperState] = value;
+  @override String get superState => state[_$key__superState___$SuperState] ?? null;
+  @override set superState(String value) => state[_$key__superState___$SuperState] = value;
 
   static const _$prop__superState___$SuperState = StateDescriptor(_$key__superState___$SuperState);
   static const _$key__superState___$SuperState = 'SuperState.superState';
