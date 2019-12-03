@@ -40,7 +40,8 @@ void main() {
               (ComponentTest()
                 ..required = true
                 ..nullable = true
-                ..requiredAndLengthLimited = [1,2])(),
+                ..requiredAndLengthLimited = [1,2]
+              )(),
               attachedToDocument: true
           );
         }, logsNoPropTypeWarnings);
