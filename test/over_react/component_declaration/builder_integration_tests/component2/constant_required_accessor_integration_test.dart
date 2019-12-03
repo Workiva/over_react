@@ -36,20 +36,15 @@ void main() {
       });
 
       test('on re-render', () {
-        var jacket = mount((ComponentTest()
+        TestJacket jacket;
+
+        expect(() {
+          jacket = mount((ComponentTest()
             ..required = true
             ..nullable = true
             ..requiredAndLengthLimited = [1,2]
           )(),
-          attachedToDocument: true,
-        );
-
-        expect(() {
-          jacket.rerender((ComponentTest()
-            ..required = true
-            ..nullable = true
-            ..requiredAndLengthLimited = [1,2]
-          )());
+          attachedToDocument: true);
         }, logsNoPropTypeWarnings);
 
         expect(() {
@@ -65,7 +60,7 @@ void main() {
     group('throwing when a prop is required and set to null', () {
       test('on mount', () {
         expect(() {
-          render((ComponentTest()
+          mount((ComponentTest()
             ..required = null
             ..nullable = true
             ..requiredAndLengthLimited = [1,2]
@@ -74,20 +69,15 @@ void main() {
       });
 
       test('on re-render', () {
-        var jacket = mount((ComponentTest()
-          ..required = true
-          ..nullable = true
-          ..requiredAndLengthLimited = [1,2]
-        )(),
-          attachedToDocument: true,
-        );
+        TestJacket jacket;
 
         expect(() {
-          jacket.rerender((ComponentTest()
+          jacket = mount((ComponentTest()
             ..required = true
             ..nullable = true
             ..requiredAndLengthLimited = [1,2]
-          )());
+          )(),
+          attachedToDocument: true);
         }, logsNoPropTypeWarnings);
 
         expect(() {
@@ -103,7 +93,7 @@ void main() {
     group('throwing when a prop is nullable and not set', () {
       test('on mount', () {
         expect(() {
-          render((ComponentTest()
+          mount((ComponentTest()
             ..required = true
             ..requiredAndLengthLimited = [1,2]
           )());
@@ -111,16 +101,10 @@ void main() {
       });
 
       test('on re-render', () {
-        var jacket = mount((ComponentTest()
-            ..required = true
-            ..nullable = true
-            ..requiredAndLengthLimited = [1,2]
-          )(),
-          attachedToDocument: true,
-        );
+        TestJacket jacket;
 
         expect(() {
-          jacket.rerender((ComponentTest()
+          jacket = mount((ComponentTest()
             ..required = true
             ..nullable = true
             ..requiredAndLengthLimited = [1,2]
@@ -139,7 +123,7 @@ void main() {
     group('not throwing when a prop is required and set', () {
       test('on mount', () {
         expect(() {
-          render((ComponentTest()
+          mount((ComponentTest()
             ..nullable = true
             ..required = true
             ..requiredAndLengthLimited = [1,2]
@@ -169,7 +153,7 @@ void main() {
     group('not throwing when a prop is nullable and set to null', () {
       test('on mount', () {
         expect(() {
-          render((ComponentTest()
+          mount((ComponentTest()
             ..nullable = null
             ..requiredAndLengthLimited = [1,2]
             ..required = true
@@ -178,20 +162,15 @@ void main() {
       });
 
       test('on re-render', () {
-        var jacket = mount((ComponentTest()
+        TestJacket jacket;
+
+        expect(() {
+          jacket = mount((ComponentTest()
             ..required = true
             ..nullable = true
             ..requiredAndLengthLimited = [1,2]
           )(),
-          attachedToDocument: true,
-        );
-
-        expect(() {
-          jacket.rerender((ComponentTest()
-            ..required = true
-            ..nullable = true
-            ..requiredAndLengthLimited = [1,2]
-          )());
+          attachedToDocument: true);
         }, logsNoPropTypeWarnings);
 
         expect(() {
@@ -207,7 +186,7 @@ void main() {
     group('when a consumer propType function is also provided', () {
       test('required fires', () {
         expect(() {
-          render((ComponentTest()
+          mount((ComponentTest()
             ..nullable = null
             ..required = true
           )());
@@ -216,7 +195,7 @@ void main() {
 
       test('consumer check fires', () {
         expect(() {
-          render((ComponentTest()
+          mount((ComponentTest()
             ..required = true
             ..nullable = true
             ..requiredAndLengthLimited = [1]
