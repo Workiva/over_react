@@ -39,12 +39,12 @@ void main() {
         TestJacket jacket;
 
         expect(() {
-          jacket = mount((ComponentTest()
-            ..required = true
-            ..nullable = true
-            ..requiredAndLengthLimited = [1,2]
-          )(),
-          attachedToDocument: true);
+          jacket = mount(
+              (ComponentTest()
+                ..required = true
+                ..nullable = true
+                ..requiredAndLengthLimited = [1,2])(),
+              attachedToDocument: true);
         }, logsNoPropTypeWarnings);
 
         expect(() {
@@ -72,12 +72,12 @@ void main() {
         TestJacket jacket;
 
         expect(() {
-          jacket = mount((ComponentTest()
-            ..required = true
-            ..nullable = true
-            ..requiredAndLengthLimited = [1,2]
-          )(),
-          attachedToDocument: true);
+          jacket = mount(
+              (ComponentTest()
+                ..required = true
+                ..nullable = true
+                ..requiredAndLengthLimited = [1,2])(),
+              attachedToDocument: true);
         }, logsNoPropTypeWarnings);
 
         expect(() {
@@ -104,11 +104,12 @@ void main() {
         TestJacket jacket;
 
         expect(() {
-          jacket = mount((ComponentTest()
-            ..required = true
-            ..nullable = true
-            ..requiredAndLengthLimited = [1,2]
-          )());
+          jacket = mount(
+              (ComponentTest()
+                ..required = true
+                ..nullable = true
+                ..requiredAndLengthLimited = [1,2])(),
+              attachedToDocument: true);
         }, logsNoPropTypeWarnings);
 
         expect(() {
@@ -165,12 +166,12 @@ void main() {
         TestJacket jacket;
 
         expect(() {
-          jacket = mount((ComponentTest()
-            ..required = true
-            ..nullable = true
-            ..requiredAndLengthLimited = [1,2]
-          )(),
-          attachedToDocument: true);
+          jacket = mount(
+              (ComponentTest()
+                ..required = true
+                ..nullable = true
+                ..requiredAndLengthLimited = [1,2])(),
+              attachedToDocument: true);
         }, logsNoPropTypeWarnings);
 
         expect(() {
