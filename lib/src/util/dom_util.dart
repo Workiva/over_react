@@ -63,7 +63,7 @@ Element getActiveElement() {
 /// Necessary because of the circular inheritance hierarchy in Dart's [InputElement] class structure.
 ///
 /// See: <https://github.com/dart-lang/sdk/issues/22967>
-const List<String> inputTypesWithSelectionRangeSupport = const [
+const List<String> inputTypesWithSelectionRangeSupport = [
   'search',
   'text',
   'url',
@@ -145,7 +145,7 @@ void setSelectionRange(/* TextInputElement | TextAreaElement */Element input, in
 
     input.setSelectionRange(start, end, direction);
   } else {
-    throw new ArgumentError.value(input, 'input', 'must be an instance of `TextInputElementBase`, `NumberInputElement` or `TextAreaElement`');
+    throw ArgumentError.value(input, 'input', 'must be an instance of `TextInputElementBase`, `NumberInputElement` or `TextAreaElement`');
   }
 }
 
@@ -163,6 +163,7 @@ int getSelectionStart(Element input) {
 
     if (browser.isChrome || browser.isFirefox) {
       if (inputType == 'email' || inputType == 'number') {
+        // ignore: avoid_returning_null
         return null;
       }
     }
@@ -170,5 +171,6 @@ int getSelectionStart(Element input) {
     return input.selectionStart;
   }
 
+  // ignore: avoid_returning_null
   return null;
 }

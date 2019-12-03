@@ -10,11 +10,13 @@ class _$AnnotationErrorStatefulDefaultPropsProps extends UiProps {}
 @State()
 class _$AnnotationErrorStatefulDefaultPropsState extends UiState {}
 
+// ignore: deprecated_member_use_from_same_package
 @Component()
 class AnnotationErrorStatefulDefaultPropsComponent extends UiStatefulComponent2<
     AnnotationErrorStatefulDefaultPropsProps,
     AnnotationErrorStatefulDefaultPropsState> {
   @override
+  // ignore: must_call_super
   Map getDefaultProps() => newProps()..id = 'testId';
 
   @override

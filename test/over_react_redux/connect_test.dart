@@ -14,24 +14,22 @@
 
 library abstract_transition_test;
 
-import 'dart:html';
-import 'dart:js';
-
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 import 'package:test/test.dart';
-import 'dart:js_util' as js_util;
 
 import '../test_util/test_util.dart';
 import './fixtures/counter.dart';
 import './fixtures/store.dart';
+
+// ignore_for_file: avoid_types_on_closure_parameters
 
 /// Main entry point for AbstractTransition testing
 main() {
   group('connect', () {
     UiFactory<CounterProps> ConnectedCounter;
     TestJacket<CounterComponent> jacket;
-    var counterRef;
+    dynamic counterRef;
 
     JsConnectOptions connectOptions;
     var originalConnect = mockableJsConnect;
@@ -133,6 +131,47 @@ main() {
       });
     });
 
+    group('mapStateToPropsWithOwnProps properly maps the state to the components props', (){
+      test('on inital load', () {
+        ConnectedCounter = connect<CounterState, CounterProps>(mapStateToPropsWithOwnProps: (state, ownProps){
+          return Counter()..currentCount = state.count;
+        }, forwardRef: true)(Counter);
+
+        jacket = mount(
+          (ReduxProvider()..store = store1)(
+            (ConnectedCounter()..ref = (ref){ counterRef = ref; })('test'),
+          ),
+        );
+
+        expect(getDartComponent<CounterComponent>(counterRef).props.currentCount, 0);
+        expect(jacket.getNode().innerHtml, contains('Count: 0'));
+      });
+
+      test('after dispatch', () async {
+        ConnectedCounter = connect<CounterState, CounterProps>(mapStateToPropsWithOwnProps: (state, ownProps){
+          return Counter()..currentCount = state.count;
+        }, forwardRef: true)(Counter);
+
+        jacket = mount(
+          (ReduxProvider()..store = store1)(
+            (ConnectedCounter()..ref = (ref){ counterRef = ref; })('test'),
+          ),
+        );
+
+        expect(getDartComponent<CounterComponent>(counterRef).props.currentCount, 0);
+        expect(jacket.getNode().innerHtml, contains('Count: 0'));
+
+        var dispatchButton = getByTestId(jacket.getInstance(), 'button-increment');
+        click(dispatchButton);
+
+        // wait for the next tick for the async dispatch to propagate
+        await Future(() {});
+
+        expect(getDartComponent<CounterComponent>(counterRef).props.currentCount, 1);
+        expect(jacket.getNode().innerHtml, contains('Count: 1'));
+      });
+    });
+
     group('mapDispatchToProps', (){
       test('maps dispatcher to props correctly', () async {
         ConnectedCounter = connect<CounterState, CounterProps>(
@@ -141,6 +180,42 @@ main() {
             return Counter()..currentCount = state.count;
           },
           mapDispatchToProps: (dispatch){
+            return Counter()..decrement = () => dispatch(DecrementAction());
+          },
+          forwardRef: true,
+        )(Counter);
+
+        jacket = mount(
+          (ReduxProvider()..store = store1)(
+            (ConnectedCounter()..ref = (ref){ counterRef = ref; })('test'),
+          ),
+        );
+
+        expect(getDartComponent<CounterComponent>(counterRef).props.decrement, isA<Function>());
+
+        expect(getDartComponent<CounterComponent>(counterRef).props.currentCount, 0);
+        expect(jacket.getNode().innerHtml, contains('Count: 0'));
+
+        // Click button mapped to trigger `propFromDispatch` prop.
+        var dispatchButton = getByTestId(jacket.getInstance(), 'button-decrement');
+        click(dispatchButton);
+
+        // wait for the next tick for the async dispatch to propagate
+        await Future(() {});
+
+        expect(getDartComponent<CounterComponent>(counterRef).props.currentCount, -1);
+        expect(jacket.getNode().innerHtml, contains('Count: -1'));
+      });
+    });
+
+    group('mapDispatchToPropsWithOwnProps', (){
+      test('maps dispatcher to props correctly', () async {
+        ConnectedCounter = connect<CounterState, CounterProps>(
+          mapStateToProps: (state){
+            expect(state, isA<CounterState>());
+            return Counter()..currentCount = state.count;
+          },
+          mapDispatchToPropsWithOwnProps: (dispatch, ownProps){
             return Counter()..decrement = () => dispatch(DecrementAction());
           },
           forwardRef: true,

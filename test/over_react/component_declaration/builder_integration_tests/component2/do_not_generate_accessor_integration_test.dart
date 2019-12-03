@@ -58,7 +58,7 @@ main() {
       DoNotGenerateAccessorTestComponent component;
 
       setUp(() {
-        component = renderAndGetComponent(DoNotGenerateAccessorTest()());;
+        component = renderAndGetComponent(DoNotGenerateAccessorTest()());
       });
 
       test('for state fields listed before the field annotated with doNotGenerate', () {
@@ -88,34 +88,35 @@ UiFactory<DoNotGenerateAccessorTestProps> DoNotGenerateAccessorTest = _$DoNotGen
 
 @Props()
 class _$DoNotGenerateAccessorTestProps extends UiProps {
-  var generated1Prop;
+  dynamic generated1Prop;
 
   @Accessor(doNotGenerate: true)
-  var notGeneratedProp;
+  dynamic notGeneratedProp;
 
-  var generated2Prop;
+  dynamic generated2Prop;
 
   @Accessor(doNotGenerate: false)
-  var explicitlyGeneratedProp;
+  dynamic explicitlyGeneratedProp;
 }
 
 @State()
 class _$DoNotGenerateAccessorTestState extends UiState {
-  var generated1State;
+  dynamic generated1State;
 
   @Accessor(doNotGenerate: true)
-  var notGeneratedState;
+  dynamic notGeneratedState;
 
-  var generated2State;
+  dynamic generated2State;
 
   @Accessor(doNotGenerate: false)
-  var explicitlyGeneratedState;
+  dynamic explicitlyGeneratedState;
 }
 
 @Component2()
 class DoNotGenerateAccessorTestComponent extends UiStatefulComponent2<DoNotGenerateAccessorTestProps, DoNotGenerateAccessorTestState> {
   @override
   render() => (Dom.div()
+    // ignore: deprecated_member_use_from_same_package
     ..addProps(copyUnconsumedProps())
   )('rendered content');
 }

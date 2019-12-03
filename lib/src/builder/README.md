@@ -62,8 +62,6 @@ getters/setters (via the `_$FooPropsAccessorsMixin` class)
     ```
     
 3. The builder creates a concrete props implementation class
-    ```
-
     ```dart
     // Concrete props implementation.
     //
@@ -80,7 +78,7 @@ getters/setters (via the `_$FooPropsAccessorsMixin` class)
       @override
       bool get $isClassGenerated => true;
     
-      /// The [ReactComponentFactory] associated with the component built by this class.
+      /// The `ReactComponentFactory` associated with the component built by this class.
       @override
       ReactComponentFactoryProxy get componentFactory => $FooComponentFactory;
     
@@ -104,12 +102,12 @@ getters/setters (via the `_$FooPropsAccessorsMixin` class)
       @override
       typedPropsFactory(Map backingMap) => new _$$FooProps(backingMap);
     
-      /// Let [UiComponent] internals know that this class has been generated.
+      /// Let `UiComponent` internals know that this class has been generated.
       @override
       bool get $isClassGenerated => true;
     
       /// The default consumed props, taken from _$FooProps.
-      /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+      /// Used in `ConsumedProps` if [consumedProps] is not overridden.
       @override
       final List<ConsumedProps> $defaultConsumedProps = const [_$metaForFooProps];
     }

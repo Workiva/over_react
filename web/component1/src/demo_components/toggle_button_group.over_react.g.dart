@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'toggle_button_group.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'toggle_button_group.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ToggleButtonGroupComponentFactory =
-    registerComponent(() => new _$ToggleButtonGroupComponent(),
+    registerComponent(() => _$ToggleButtonGroupComponent(),
         builderFactory: ToggleButtonGroup,
         componentClass: ToggleButtonGroupComponent,
         isWrapper: false,
@@ -25,11 +26,11 @@ abstract class _$ToggleButtonGroupPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForToggleButtonGroupProps = const PropsMeta(
+const PropsMeta _$metaForToggleButtonGroupProps = PropsMeta(
   fields: _$ToggleButtonGroupPropsAccessorsMixin.$props,
   keys: _$ToggleButtonGroupPropsAccessorsMixin.$propKeys,
 );
@@ -40,7 +41,7 @@ class ToggleButtonGroupProps extends _$ToggleButtonGroupProps
 }
 
 _$$ToggleButtonGroupProps _$ToggleButtonGroup([Map backingProps]) =>
-    new _$$ToggleButtonGroupProps(backingProps);
+    _$$ToggleButtonGroupProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -59,11 +60,11 @@ class _$$ToggleButtonGroupProps extends _$ToggleButtonGroupProps
   Map get props => _props;
   Map _props;
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $ToggleButtonGroupComponentFactory;
@@ -80,11 +81,11 @@ abstract class _$ToggleButtonGroupStateAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<StateDescriptor> $state = const [];
-  static const List<String> $stateKeys = const [];
+  static const List<StateDescriptor> $state = [];
+  static const List<String> $stateKeys = [];
 }
 
-const StateMeta _$metaForToggleButtonGroupState = const StateMeta(
+const StateMeta _$metaForToggleButtonGroupState = StateMeta(
   fields: _$ToggleButtonGroupStateAccessorsMixin.$state,
   keys: _$ToggleButtonGroupStateAccessorsMixin.$stateKeys,
 );
@@ -111,7 +112,7 @@ class _$$ToggleButtonGroupState extends _$ToggleButtonGroupState
   Map get state => _state;
   Map _state;
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -123,18 +124,18 @@ class _$$ToggleButtonGroupState extends _$ToggleButtonGroupState
 class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
   @override
   _$$ToggleButtonGroupProps typedPropsFactory(Map backingMap) =>
-      new _$$ToggleButtonGroupProps(backingMap);
+      _$$ToggleButtonGroupProps(backingMap);
 
   @override
   _$$ToggleButtonGroupState typedStateFactory(Map backingMap) =>
-      new _$$ToggleButtonGroupState(backingMap);
+      _$$ToggleButtonGroupState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ToggleButtonGroupProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForToggleButtonGroupProps

@@ -24,49 +24,50 @@ class UiPropsMapView extends MapView
   Map get props => this;
 
   bool get $isClassGenerated =>
-      throw new UnimplementedError('@PropsMixin instances do not implement \$isClassGenerated');
+      throw UnimplementedError('@PropsMixin instances do not implement \$isClassGenerated');
 
-  String get propKeyNamespace => throw new UnimplementedError('@PropsMixin instances do not implement propKeyNamespace');
+  String get propKeyNamespace =>
+      throw UnimplementedError('@PropsMixin instances do not implement propKeyNamespace');
 
   // ----- component_base.UiProps ----- //
 
   @override
   void addProp(propKey, value, [bool shouldAdd = true]) =>
-      throw new UnimplementedError('@PropsMixin instances do not implement addProp');
+      throw UnimplementedError('@PropsMixin instances do not implement addProp');
 
   @override
   void addProps(Map propMap, [bool shouldAdd = true]) =>
-      throw new UnimplementedError('@PropsMixin instances do not implement addProps');
+      throw UnimplementedError('@PropsMixin instances do not implement addProps');
 
   @override
   void modifyProps(PropsModifier modifier, [bool shouldModify = true]) =>
-      throw new UnimplementedError('@PropsMixin instances do not implement modifyProps');
+      throw UnimplementedError('@PropsMixin instances do not implement modifyProps');
 
   @override
-  void addTestId(String value, {String key: defaultTestIdKey}) =>
-      throw new UnimplementedError('@PropsMixin instances do not implement addTestId');
+  void addTestId(String value, {String key = defaultTestIdKey}) =>
+      throw UnimplementedError('@PropsMixin instances do not implement addTestId');
 
   @override
-  String getTestId({String key: defaultTestIdKey}) =>
-      throw new UnimplementedError('@PropsMixin instances do not implement getTestId');
+  String getTestId({String key = defaultTestIdKey}) =>
+      throw UnimplementedError('@PropsMixin instances do not implement getTestId');
 
   @override
   String get testId => getTestId();
 
   @override
-  Map get componentDefaultProps => throw new UnimplementedError('@PropsMixin instances do not implement defaultProps');
+  Map get componentDefaultProps => throw UnimplementedError('@PropsMixin instances do not implement defaultProps');
 
   @override
   ReactElement build([dynamic children]) =>
-      throw new UnimplementedError('@PropsMixin instances do not implement build');
+      throw UnimplementedError('@PropsMixin instances do not implement build');
 
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      throw new UnimplementedError('@PropsMixin instances do not implement componentFactory');
+      throw UnimplementedError('@PropsMixin instances do not implement componentFactory');
 
   @override
-  set componentFactory(ReactComponentFactoryProxy v) => throw new UnimplementedError('@PropsMixin instances do not implement componentFactory');
+  set componentFactory(ReactComponentFactoryProxy v) => throw UnimplementedError('@PropsMixin instances do not implement componentFactory');
 
   @override
-  ReactElement call([c1 = notSpecified, c2 = notSpecified, c3 = notSpecified, c4 = notSpecified, c5 = notSpecified, c6 = notSpecified, c7 = notSpecified, c8 = notSpecified, c9 = notSpecified, c10 = notSpecified, c11 = notSpecified, c12 = notSpecified, c13 = notSpecified, c14 = notSpecified, c15 = notSpecified, c16 = notSpecified, c17 = notSpecified, c18 = notSpecified, c19 = notSpecified, c20 = notSpecified, c21 = notSpecified, c22 = notSpecified, c23 = notSpecified, c24 = notSpecified, c25 = notSpecified, c26 = notSpecified, c27 = notSpecified, c28 = notSpecified, c29 = notSpecified, c30 = notSpecified, c31 = notSpecified, c32 = notSpecified, c33 = notSpecified, c34 = notSpecified, c35 = notSpecified, c36 = notSpecified, c37 = notSpecified, c38 = notSpecified, c39 = notSpecified, c40 = notSpecified]) => throw new UnimplementedError('@PropsMixin instances do not implement call');
+  ReactElement call([c1 = notSpecified, c2 = notSpecified, c3 = notSpecified, c4 = notSpecified, c5 = notSpecified, c6 = notSpecified, c7 = notSpecified, c8 = notSpecified, c9 = notSpecified, c10 = notSpecified, c11 = notSpecified, c12 = notSpecified, c13 = notSpecified, c14 = notSpecified, c15 = notSpecified, c16 = notSpecified, c17 = notSpecified, c18 = notSpecified, c19 = notSpecified, c20 = notSpecified, c21 = notSpecified, c22 = notSpecified, c23 = notSpecified, c24 = notSpecified, c25 = notSpecified, c26 = notSpecified, c27 = notSpecified, c28 = notSpecified, c29 = notSpecified, c30 = notSpecified, c31 = notSpecified, c32 = notSpecified, c33 = notSpecified, c34 = notSpecified, c35 = notSpecified, c36 = notSpecified, c37 = notSpecified, c38 = notSpecified, c39 = notSpecified, c40 = notSpecified]) => throw UnimplementedError('@PropsMixin instances do not implement call');
 }

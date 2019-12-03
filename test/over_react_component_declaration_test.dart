@@ -102,11 +102,11 @@ main() {
   component2_abstract_accessor_integration_test.main();
   component2_accessor_mixin_integration_test.main();
   annotation_error_integration_test.main();
-  component2_do_not_generate_accessor_integration_test.main();
   component2_component_integration_test.main();
   component2_constant_required_accessor_integration_test.main();
-  component2_private_props_ddc_bug.main();
+  component2_do_not_generate_accessor_integration_test.main();
   component2_namespaced_accessor_integration_test.main();
+  component2_private_props_ddc_bug.main();
   component2_required_accessor_integration_test.main();
   component2_stateful_component_integration_test.main();
   component2_unassigned_prop_integration_test.main();

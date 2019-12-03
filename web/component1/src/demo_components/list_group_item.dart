@@ -1,3 +1,6 @@
+// ignore_for_file: deprecated_member_use_from_same_package
+import 'dart:html';
+
 import 'package:over_react/over_react.dart';
 
 import '../demo_components.dart';
@@ -127,7 +130,7 @@ class ListGroupItemComponent extends UiComponent<ListGroupItemProps> {
   ReactElement renderItemHeader() {
     if (props.header == null) return null;
 
-    var headerClasses = new ClassNameBuilder.fromProps(props.headerProps)
+    var headerClasses = ClassNameBuilder.fromProps(props.headerProps)
       ..add('list-group-item-heading');
 
     return (props.headerSize.componentBuilderFactory()
@@ -173,23 +176,23 @@ class ListGroupItemSkin extends ClassNameConstant {
 
   /// [className] value: null
   static const ListGroupItemSkin DEFAULT =
-      const ListGroupItemSkin._('DEFAULT', null);
+      ListGroupItemSkin._('DEFAULT', null);
 
   /// [className] value: 'list-group-item-danger'
   static const ListGroupItemSkin DANGER =
-      const ListGroupItemSkin._('DANGER', 'list-group-item-danger');
+      ListGroupItemSkin._('DANGER', 'list-group-item-danger');
 
   /// [className] value: 'list-group-item-success'
   static const ListGroupItemSkin SUCCESS =
-      const ListGroupItemSkin._('SUCCESS', 'list-group-item-success');
+      ListGroupItemSkin._('SUCCESS', 'list-group-item-success');
 
   /// [className] value: 'list-group-item-warning'
   static const ListGroupItemSkin WARNING =
-      const ListGroupItemSkin._('WARNING', 'list-group-item-warning');
+      ListGroupItemSkin._('WARNING', 'list-group-item-warning');
 
   /// [className] value: 'list-group-item-info'
   static const ListGroupItemSkin INFO =
-      const ListGroupItemSkin._('INFO', 'list-group-item-info');
+      ListGroupItemSkin._('INFO', 'list-group-item-info');
 }
 
 /// Options for the [Element] that will be used when rendering a [ListGroupItem] component.
@@ -205,14 +208,14 @@ class ListGroupItemElementType {
   /// Only use this when the parent [ListGroup] has
   /// [ListGroupProps.elementType] set to [ListGroupElementType.UL].
   static final ListGroupItemElementType LI =
-      new ListGroupItemElementType._internal(Dom.li);
+      ListGroupItemElementType._internal(Dom.li);
 
   /// A [Dom.span] (HTML `<span>` element)
   ///
   /// Will only be used if [ListGroupItemProps.href] and
   /// [ListGroupItemProps.onClick] are both `null`.
   static final ListGroupItemElementType SPAN =
-      new ListGroupItemElementType._internal(Dom.span);
+      ListGroupItemElementType._internal(Dom.span);
 }
 
 /// Options for the [Element] that will be used when rendering a [ListGroupItemProps.header].
@@ -222,26 +225,26 @@ class ListGroupItemHeaderElementSize {
 
   /// A [Dom.h1] (HTML `<h1>` element)
   static final ListGroupItemHeaderElementSize H1 =
-      new ListGroupItemHeaderElementSize._internal(Dom.h1);
+      ListGroupItemHeaderElementSize._internal(Dom.h1);
 
   /// A [Dom.h2] (HTML `<h2>` element)
   static final ListGroupItemHeaderElementSize H2 =
-      new ListGroupItemHeaderElementSize._internal(Dom.h2);
+      ListGroupItemHeaderElementSize._internal(Dom.h2);
 
   /// A [Dom.h3] (HTML `<h3>` element)
   static final ListGroupItemHeaderElementSize H3 =
-      new ListGroupItemHeaderElementSize._internal(Dom.h3);
+      ListGroupItemHeaderElementSize._internal(Dom.h3);
 
   /// A [Dom.h4] (HTML `<h4>` element)
   static final ListGroupItemHeaderElementSize H4 =
-      new ListGroupItemHeaderElementSize._internal(Dom.h4);
+      ListGroupItemHeaderElementSize._internal(Dom.h4);
 
   /// A [Dom.h5] (HTML `<h5>` element)
   static final ListGroupItemHeaderElementSize H5 =
-      new ListGroupItemHeaderElementSize._internal(Dom.h5);
+      ListGroupItemHeaderElementSize._internal(Dom.h5);
 
   /// A [Dom.h6] (HTML `<h6>` element)
   static final ListGroupItemHeaderElementSize H6 =
-      new ListGroupItemHeaderElementSize._internal(Dom.h6);
+      ListGroupItemHeaderElementSize._internal(Dom.h6);
 }
 

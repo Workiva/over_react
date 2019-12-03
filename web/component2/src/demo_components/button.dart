@@ -80,7 +80,7 @@ class _$ButtonState extends UiState {}
 @Component2()
 class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiStatefulComponent2<T, S> {
   @override
-  Map getDefaultProps() => (newProps()
+   get defaultProps => (newProps()
     ..skin = ButtonSkin.PRIMARY
     ..size = ButtonSize.DEFAULT
     ..isActive = false
@@ -100,7 +100,7 @@ class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiSt
     BuilderOnlyUiFactory<DomProps> factory = buttonDomNodeFactory;
 
     return (factory()
-      ..addProps(copyUnconsumedDomProps())
+      ..modifyProps(addUnconsumedDomProps)
       ..className = getButtonClasses().toClassName()
       ..href = props.href
       ..target = props.target
@@ -137,55 +137,55 @@ class ButtonSkin extends ClassNameConstant {
 
   /// [className] value: 'btn-primary'
   static const ButtonSkin PRIMARY =
-      const ButtonSkin._('PRIMARY', 'btn-primary');
+      ButtonSkin._('PRIMARY', 'btn-primary');
 
   /// [className] value: 'btn-secondary'
   static const ButtonSkin SECONDARY =
-      const ButtonSkin._('SECONDARY', 'btn-secondary');
+      ButtonSkin._('SECONDARY', 'btn-secondary');
 
   /// [className] value: 'btn-danger'
   static const ButtonSkin DANGER =
-      const ButtonSkin._('DANGER', 'btn-danger');
+      ButtonSkin._('DANGER', 'btn-danger');
 
   /// [className] value: 'btn-success'
   static const ButtonSkin SUCCESS =
-      const ButtonSkin._('SUCCESS', 'btn-success');
+      ButtonSkin._('SUCCESS', 'btn-success');
 
   /// [className] value: 'btn-warning'
   static const ButtonSkin WARNING =
-      const ButtonSkin._('WARNING', 'btn-warning');
+      ButtonSkin._('WARNING', 'btn-warning');
 
   /// [className] value: 'btn-info'
   static const ButtonSkin INFO =
-      const ButtonSkin._('INFO', 'btn-info');
+      ButtonSkin._('INFO', 'btn-info');
 
   /// [className] value: 'btn-link'
   static const ButtonSkin LINK =
-      const ButtonSkin._('LINK', 'btn-link');
+      ButtonSkin._('LINK', 'btn-link');
 
   /// [className] value: 'btn-outline-primary'
   static const ButtonSkin PRIMARY_OUTLINE =
-      const ButtonSkin._('PRIMARY_OUTLINE', 'btn-outline-primary');
+      ButtonSkin._('PRIMARY_OUTLINE', 'btn-outline-primary');
 
   /// [className] value: 'btn-outline-secondary'
   static const ButtonSkin SECONDARY_OUTLINE =
-      const ButtonSkin._('SECONDARY_OUTLINE', 'btn-outline-secondary');
+      ButtonSkin._('SECONDARY_OUTLINE', 'btn-outline-secondary');
 
   /// [className] value: 'btn-outline-danger'
   static const ButtonSkin DANGER_OUTLINE =
-      const ButtonSkin._('DANGER_OUTLINE', 'btn-outline-danger');
+      ButtonSkin._('DANGER_OUTLINE', 'btn-outline-danger');
 
   /// [className] value: 'btn-outline-success'
   static const ButtonSkin SUCCESS_OUTLINE =
-      const ButtonSkin._('SUCCESS_OUTLINE', 'btn-outline-success');
+      ButtonSkin._('SUCCESS_OUTLINE', 'btn-outline-success');
 
   /// [className] value: 'btn-outline-warning'
   static const ButtonSkin WARNING_OUTLINE =
-      const ButtonSkin._('WARNING_OUTLINE', 'btn-outline-warning');
+      ButtonSkin._('WARNING_OUTLINE', 'btn-outline-warning');
 
   /// [className] value: 'btn-outline-info'
   static const ButtonSkin INFO_OUTLINE =
-      const ButtonSkin._('INFO_OUTLINE', 'btn-outline-info');
+      ButtonSkin._('INFO_OUTLINE', 'btn-outline-info');
 }
 
 /// Size options for a [Button] component.
@@ -194,14 +194,14 @@ class ButtonSize extends ClassNameConstant {
 
   /// [className] value: ''
   static const ButtonSize DEFAULT =
-      const ButtonSize._('DEFAULT', '');
+      ButtonSize._('DEFAULT', '');
 
   /// [className] value: 'btn-lg'
   static const ButtonSize LARGE =
-      const ButtonSize._('LARGE', 'btn-lg');
+      ButtonSize._('LARGE', 'btn-lg');
 
   /// [className] value: 'btn-sm'
   static const ButtonSize SMALL =
-      const ButtonSize._('SMALL', 'btn-sm');
+      ButtonSize._('SMALL', 'btn-sm');
 }
 

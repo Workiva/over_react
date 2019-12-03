@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@Timeout(const Duration(seconds: 2))
+@TestOn('browser')
+@Timeout(Duration(seconds: 2))
 library resize_sensor_test;
 
 import 'dart:async';
@@ -49,8 +50,8 @@ void main() {
     void renderSensorIntoContainer({
         ResizeSensorHandler onInitialize,
         ResizeSensorHandler onResize,
-        int width: defaultContainerWidth,
-        int height: defaultContainerHeight,
+        int width = defaultContainerWidth,
+        int height = defaultContainerHeight,
         Map resizeSensorProps
     }) {
       // Create component hierarchy.
@@ -81,15 +82,15 @@ void main() {
     /// oddities in detecting callback invocations.
     ///
     /// The returned future will complete after [onResize] is called [resizeEventCount] times.
-    Future expectResizeAfter(void action(), {
+    Future expectResizeAfter(void Function() action, {
         ResizeSensorHandler onResize,
         ResizeSensorHandler onInitialize,
-        int width: defaultContainerWidth,
-        int height: defaultContainerHeight,
+        int width = defaultContainerWidth,
+        int height = defaultContainerHeight,
         Map resizeSensorProps,
-        int resizeEventCount: 1
+        int resizeEventCount = 1
     }) async {
-      var resizes = new StreamController();
+      var resizes = StreamController();
 
       var resizesDone = resizes.stream.take(resizeEventCount).drain();
 
@@ -114,9 +115,9 @@ void main() {
     /// Expect resize sensor invokes registered `onInitialize` callback.
     ///
     /// The caller must await this function. See above.
-    Future expectInitialize({ResizeSensorHandler onInitialize, int width: defaultContainerWidth,
-        int height: defaultContainerHeight}) async {
-      var initializeDetectedCompleter = new Completer();
+    Future expectInitialize({ResizeSensorHandler onInitialize, int width = defaultContainerWidth,
+        int height = defaultContainerHeight}) async {
+      var initializeDetectedCompleter = Completer();
 
       renderSensorIntoContainer(onInitialize: (event) {
         if (onInitialize != null) {
@@ -189,8 +190,8 @@ void main() {
         var descendants = renderedNode.querySelectorAll('*');
 
         descendants.forEach((descendant) {
-          expect(descendant.style.visibility, equals('hidden'));;
-          expect(descendant.style.opacity, equals('0'));;
+          expect(descendant.style.visibility, equals('hidden'));
+          expect(descendant.style.opacity, equals('0'));
         });
       });
 
@@ -199,15 +200,15 @@ void main() {
         var descendants = renderedNode.querySelectorAll('*');
 
         descendants.forEach((descendant) {
-          expect(descendant.style.visibility, equals('hidden'));;
-          expect(descendant.style.opacity, equals('0'));;
+          expect(descendant.style.visibility, equals('hidden'));
+          expect(descendant.style.opacity, equals('0'));
         });
       });
     });
 
     void sharedResizeDetectTests({bool quickMount}) {
       group('when props.quickMount is $quickMount: detects when the bounding rect', () {
-        const testResizeAmounts = const <String, int>{
+        const testResizeAmounts = <String, int>{
           'tiny': 1,
           'medium': 10,
           'large': 100,
@@ -223,7 +224,7 @@ void main() {
         });
 
         group('grows horizontally', () {
-          testResizeAmounts.forEach((String description, int amount) {
+          testResizeAmounts.forEach((description, amount) {
             test('by a $description amount (${amount}px)', () async {
               await expectResizeAfter(() {
                 containerRef.style.width = '${defaultContainerWidth + amount}px';
@@ -247,7 +248,7 @@ void main() {
         });
 
         group('grows vertically', () {
-          testResizeAmounts.forEach((String description, int amount) {
+          testResizeAmounts.forEach((description, amount) {
             test('by a $description amount (${amount}px)', () async{
               await expectResizeAfter(() {
                 containerRef.style.height = '${defaultContainerHeight + amount}px';
@@ -271,7 +272,7 @@ void main() {
         });
 
         group('shrinks horizontally', () {
-          testResizeAmounts.forEach((String description, int amount) {
+          testResizeAmounts.forEach((description, amount) {
             test('by a $description amount (${amount}px)', () async{
               await expectResizeAfter(() {
                 containerRef.style.width = '${defaultContainerWidth}px';
@@ -295,7 +296,7 @@ void main() {
         });
 
         group('shrinks vertically', () {
-          testResizeAmounts.forEach((String description, int amount) {
+          testResizeAmounts.forEach((description, amount) {
             test('by a $description amount (${amount}px)', () async{
               await expectResizeAfter(() {
                 containerRef.style.height = '${defaultContainerHeight}px';
@@ -329,7 +330,7 @@ void main() {
           await expectResizeAfter(() {
             containerRef.style.width = '${defaultContainerWidth * 2}px';
             containerRef.style.height = '${defaultContainerHeight * 2}px';
-          }, onResize: (ResizeSensorEvent event) {
+          }, onResize: (event) {
             zonedExpect(event.newWidth, equals(defaultContainerWidth * 2));
             zonedExpect(event.newHeight, equals(defaultContainerHeight * 2));
             zonedExpect(event.prevWidth, equals(defaultContainerWidth));
@@ -338,16 +339,12 @@ void main() {
         });
 
         group('passes the correct event args on initialize', () {
-          setUp(() {
-            startRecordingValidationWarnings();
-          });
+          setUp(startRecordingValidationWarnings);
 
-          tearDown(() {
-            stopRecordingValidationWarnings();
-          });
+          tearDown(stopRecordingValidationWarnings);
 
           test('when initial width and height are non-zero', () async {
-            await expectInitialize(onInitialize: (ResizeSensorEvent event) {
+            await expectInitialize(onInitialize: (event) {
               zonedExpect(event.newWidth, equals(100));
               zonedExpect(event.newHeight, equals(100));
               zonedExpect(event.prevWidth, equals(0));
@@ -359,7 +356,7 @@ void main() {
           });
 
           test('when initial width and height are zero', () async {
-            await expectInitialize(onInitialize: (ResizeSensorEvent event) {
+            await expectInitialize(onInitialize: (event) {
               zonedExpect(event.newWidth, equals(0));
               zonedExpect(event.newHeight, equals(0));
               zonedExpect(event.prevWidth, equals(0));
@@ -382,9 +379,7 @@ void main() {
             ..quickMount = true;
         });
 
-        tearDown(() {
-          stopRecordingValidationWarnings();
-        });
+        tearDown(stopRecordingValidationWarnings);
 
         test('warns when props.onInitialize is set and does not call it', () async {
           bool onInitializeCalled = false;
@@ -458,7 +453,7 @@ void main() {
         setUp(() {
           ValidationUtil.WARNINGS_ENABLED = true;
           startRecordingValidationWarnings();
-          detachedTarget = new DivElement();
+          detachedTarget = DivElement();
           detachedTarget.style.width = '200px';
           detachedTarget.style.height = '200px';
           mount((ResizeSensor()
@@ -484,7 +479,7 @@ void main() {
         setUp(() {
           ValidationUtil.WARNINGS_ENABLED = true;
           startRecordingValidationWarnings();
-          validTarget = new DivElement();
+          validTarget = DivElement();
           validTarget.style.width = '200px';
           validTarget.style.height = '200px';
           document.body.append(validTarget);

@@ -1,3 +1,4 @@
+@TestOn('browser')
 library react_util_test;
 
 import 'package:over_react/over_react.dart';
@@ -8,7 +9,7 @@ main() {
     UiPropsMapView mapView;
 
     setUp(() {
-      mapView = new UiPropsMapView({});
+      mapView = UiPropsMapView({});
     });
 
     tearDown(() {

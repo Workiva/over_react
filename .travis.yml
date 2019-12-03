@@ -1,17 +1,20 @@
 language: dart
+
 dart:
+  - '2.4.1' # TODO: Remove this and bump the lower SDK bound to 2.6.0 once released.
   - stable
   - dev
-script:
+
+before_script:
   - pub run build_runner build --delete-conflicting-outputs
   - git diff --exit-code
   - pub run dart_dev analyze
-  # TODO: Remove ignore on analyzer once the wdesk ecosystem is all on a Dart 2 compat major version and we no longer need a "pinned" dep
   - pub run dependency_validator --no-fatal-pins -i analyzer,build_runner,build_web_compilers,built_value_generator
-  # run tests on ddc output
-  - pub run build_runner test --delete-conflicting-outputs -- -P dartdevc
-  # run tests on dart2js output
-  - pub run build_runner test -r  --delete-conflicting-outputs -- -P dart2js
+
+script:
+  - pub run dart_dev test -P vm
+  - pub run dart_dev test -P dartdevc
+  - pub run dart_dev test --build-args="-r" -P dart2js
 
 cache:
   directories:

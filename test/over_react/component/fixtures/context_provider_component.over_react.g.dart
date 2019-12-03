@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
 part of 'context_provider_component.dart';
 
 // **************************************************************************
@@ -10,7 +11,7 @@ part of 'context_provider_component.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ContextProviderWrapperComponentFactory = registerComponent2(
-  () => new _$ContextProviderWrapperComponent(),
+  () => _$ContextProviderWrapperComponent(),
   builderFactory: ContextProviderWrapper,
   componentClass: ContextProviderWrapperComponent,
   isWrapper: false,
@@ -25,11 +26,11 @@ abstract class _$ContextProviderWrapperPropsAccessorsMixin
 
   /* GENERATED CONSTANTS */
 
-  static const List<PropDescriptor> $props = const [];
-  static const List<String> $propKeys = const [];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForContextProviderWrapperProps = const PropsMeta(
+const PropsMeta _$metaForContextProviderWrapperProps = PropsMeta(
   fields: _$ContextProviderWrapperPropsAccessorsMixin.$props,
   keys: _$ContextProviderWrapperPropsAccessorsMixin.$propKeys,
 );
@@ -41,8 +42,8 @@ class ContextProviderWrapperProps extends _$ContextProviderWrapperProps
 
 _$$ContextProviderWrapperProps _$ContextProviderWrapper([Map backingProps]) =>
     backingProps == null
-        ? new _$$ContextProviderWrapperProps$JsMap(new JsBackedMap())
-        : new _$$ContextProviderWrapperProps(backingProps);
+        ? _$$ContextProviderWrapperProps$JsMap(JsBackedMap())
+        : _$$ContextProviderWrapperProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -55,17 +56,17 @@ abstract class _$$ContextProviderWrapperProps
 
   factory _$$ContextProviderWrapperProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ContextProviderWrapperProps$JsMap(backingMap);
+      return _$$ContextProviderWrapperProps$JsMap(backingMap);
     } else {
-      return new _$$ContextProviderWrapperProps$PlainMap(backingMap);
+      return _$$ContextProviderWrapperProps$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiProps] internals know that this class has been generated.
+  /// Let `UiProps` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The [ReactComponentFactory] associated with the component built by this class.
+  /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
       super.componentFactory ?? $ContextProviderWrapperComponentFactory;
@@ -99,9 +100,9 @@ class _$$ContextProviderWrapperProps$JsMap
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ContextProviderWrapperProps$JsMap(JsBackedMap backingMap)
-      : this._props = new JsBackedMap(),
+      : this._props = JsBackedMap(),
         super._() {
-    this._props = backingMap ?? new JsBackedMap();
+    this._props = backingMap ?? JsBackedMap();
   }
 
   /// The backing props map proxied by this class.
@@ -127,19 +128,19 @@ abstract class _$ContextProviderWrapperStateAccessorsMixin
   /* GENERATED CONSTANTS */
   static const StateDescriptor
       _$prop__latestValue___$ContextProviderWrapperState =
-      const StateDescriptor(_$key__latestValue___$ContextProviderWrapperState);
+      StateDescriptor(_$key__latestValue___$ContextProviderWrapperState);
   static const String _$key__latestValue___$ContextProviderWrapperState =
       'ContextProviderWrapperState.latestValue';
 
-  static const List<StateDescriptor> $state = const [
+  static const List<StateDescriptor> $state = [
     _$prop__latestValue___$ContextProviderWrapperState
   ];
-  static const List<String> $stateKeys = const [
+  static const List<String> $stateKeys = [
     _$key__latestValue___$ContextProviderWrapperState
   ];
 }
 
-const StateMeta _$metaForContextProviderWrapperState = const StateMeta(
+const StateMeta _$metaForContextProviderWrapperState = StateMeta(
   fields: _$ContextProviderWrapperStateAccessorsMixin.$state,
   keys: _$ContextProviderWrapperStateAccessorsMixin.$stateKeys,
 );
@@ -160,13 +161,13 @@ abstract class _$$ContextProviderWrapperState
 
   factory _$$ContextProviderWrapperState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return new _$$ContextProviderWrapperState$JsMap(backingMap);
+      return _$$ContextProviderWrapperState$JsMap(backingMap);
     } else {
-      return new _$$ContextProviderWrapperState$PlainMap(backingMap);
+      return _$$ContextProviderWrapperState$PlainMap(backingMap);
     }
   }
 
-  /// Let [UiState] internals know that this class has been generated.
+  /// Let `UiState` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 }
@@ -195,9 +196,9 @@ class _$$ContextProviderWrapperState$JsMap
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$ContextProviderWrapperState$JsMap(JsBackedMap backingMap)
-      : this._state = new JsBackedMap(),
+      : this._state = JsBackedMap(),
         super._() {
-    this._state = backingMap ?? new JsBackedMap();
+    this._state = backingMap ?? JsBackedMap();
   }
 
   /// The backing state map proxied by this class.
@@ -233,11 +234,11 @@ class _$ContextProviderWrapperComponent
   @override
   _$$ContextProviderWrapperProps$JsMap typedPropsFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$ContextProviderWrapperProps$JsMap(backingMap);
+      _$$ContextProviderWrapperProps$JsMap(backingMap);
 
   @override
   _$$ContextProviderWrapperProps typedPropsFactory(Map backingMap) =>
-      new _$$ContextProviderWrapperProps(backingMap);
+      _$$ContextProviderWrapperProps(backingMap);
 
   _$$ContextProviderWrapperState$JsMap _cachedTypedState;
   @override
@@ -256,18 +257,18 @@ class _$ContextProviderWrapperComponent
   @override
   _$$ContextProviderWrapperState$JsMap typedStateFactoryJs(
           JsBackedMap backingMap) =>
-      new _$$ContextProviderWrapperState$JsMap(backingMap);
+      _$$ContextProviderWrapperState$JsMap(backingMap);
 
   @override
   _$$ContextProviderWrapperState typedStateFactory(Map backingMap) =>
-      new _$$ContextProviderWrapperState(backingMap);
+      _$$ContextProviderWrapperState(backingMap);
 
-  /// Let [UiComponent] internals know that this class has been generated.
+  /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ContextProviderWrapperProps.
-  /// Used in [UiProps.consumedProps] if [consumedProps] is not overridden.
+  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForContextProviderWrapperProps

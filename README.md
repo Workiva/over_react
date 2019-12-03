@@ -1,13 +1,20 @@
 # OverReact
 
 [![Pub](https://img.shields.io/pub/v/over_react.svg)](https://pub.dartlang.org/packages/over_react)
-[![Documentation](https://img.shields.io/badge/docs-over__react-blue.svg)](https://workiva.github.io/over_react)
+[![Documentation](https://img.shields.io/badge/docs-over_react-blue.svg)](https://pub.dev/documentation/over_react/latest/)
 [![Join the chat at https://gitter.im/over_react/Lobby](https://badges.gitter.im/over_react/Lobby.svg)](https://gitter.im/over_react/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [![Build Status](https://travis-ci.org/Workiva/over_react.svg?branch=master)](https://travis-ci.org/Workiva/over_react)
 [![Test Coverage](https://codecov.io/github/Workiva/over_react/coverage.svg?branch=master)](https://codecov.io/github/Workiva/over_react?branch=master)
 
 > A library for building statically-typed React UI components using Dart.
+>
+> This library also exposes _OverReact Redux_, which has [its own documentation](doc/over_react_redux_documentation.md).
+
+---
+ __UiComponent2 Migration Guide__
+ 
+> For guidance on updating to `UiComponent2` from `UiComponent`, see the [UiComponent2 Transition Notes](doc/ui_component2_transition.md).
 
 ---
 
@@ -17,7 +24,7 @@
     * [UiFactory](#uifactory)
     * [UiProps](#uiprops)
     * [UiState](#uistate)
-    * [UiComponent](#uicomponent)
+    * [UiComponent2](#uicomponent2)
 * __[Fluent-style component consumption](#fluent-style-component-consumption)__
 * __[DOM components and props](#dom-components-and-props)__
 * __[Component Formatting](#component-formatting)__
@@ -42,7 +49,7 @@
 
     ```yaml
     dependencies:
-      over_react: ^2.0.0
+      over_react: ^3.0.0
     ```
 
 2. Include the native JavaScript `react` and `react_dom` libraries in your app’s `index.html` file,
@@ -143,14 +150,14 @@ via our builder using an analogous [annotation].
 1. [UiFactory](#uifactory)
 2. [UiProps](#uiprops)
 3. _[UiState](#uistate) (optional)_
-4. [UiComponent](#uicomponent)
+4. [UiComponent](#uicomponent2)
 
 &nbsp;
 
 ### UiFactory
 
 __`UiFactory` is a function__ that returns a new instance of a
-[`UiComponent`](#uicomponent)’s [`UiProps`](#uiprops) class.
+[`UiComponent`](#uicomponent2)’s [`UiProps`](#uiprops) class.
 
 ```dart
 @Factory()
@@ -282,9 +289,10 @@ use the generated version, `FooState`.
 
 &nbsp;
 
-### UiComponent
+### UiComponent2
+> For guidance on updating to `UiComponent2` from `UiComponent`, see [UiComponent2 Transition Notes](doc/ui_component2_transition.md).
 
-__`UiComponent2` is a subclass of [`react.Component2`][react.component2]__, containing lifecycle methods
+__`UiComponent2` is a subclass of [`react.Component2`]__, containing lifecycle methods
 and rendering logic for components.
 
 ```dart
@@ -683,6 +691,7 @@ that you get for free from OverReact, you're ready to start building your own cu
 
     ```dart
     import 'package:over_react/over_react.dart';
+    part 'foo_component.over_react.g.dart';
 
     @Factory()
     UiFactory<FooProps> Foo = _$Foo;
@@ -716,6 +725,7 @@ that you get for free from OverReact, you're ready to start building your own cu
     ```dart
     import 'dart:html';
     import 'package:over_react/over_react.dart';
+    part 'foo_component.over_react.g.dart';
 
     @Factory()
     UiFactory<BarProps> Bar = _$Bar;
@@ -761,6 +771,7 @@ that you get for free from OverReact, you're ready to start building your own cu
     ```dart
     import 'dart:html';
     import 'package:over_react/over_react.dart';
+    part 'foo_component.over_react.g.dart';
 
     @Factory()
     UiFactory<BazProps> Baz = _$Baz;
@@ -792,6 +803,7 @@ that you get for free from OverReact, you're ready to start building your own cu
     ```dart
     import 'dart:html';
     import 'package:over_react/over_react.dart';
+    part 'foo_component.over_react.g.dart';
 
     @Factory()
     UiFactory<BazProps> Baz = _$Baz;

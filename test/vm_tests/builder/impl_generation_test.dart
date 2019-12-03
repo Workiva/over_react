@@ -38,19 +38,19 @@ main() {
     });
 
     void setUpAndParse(String source) {
-      logger = new MockLogger();
+      logger = MockLogger();
 
-      sourceFile = new SourceFile.fromString(source);
+      sourceFile = SourceFile.fromString(source);
 
       unit = parseCompilationUnit(source);
-      declarations = new ParsedDeclarations(unit, sourceFile, logger);
-      implGenerator = new ImplGenerator(logger, sourceFile);
+      declarations = ParsedDeclarations(unit, sourceFile, logger);
+      implGenerator = ImplGenerator(logger, sourceFile);
     }
 
     void setUpAndGenerate(String source) {
       setUpAndParse(source);
 
-      implGenerator = new ImplGenerator(logger, sourceFile);
+      implGenerator = ImplGenerator(logger, sourceFile);
       implGenerator.generate(declarations);
     }
 
@@ -81,7 +81,7 @@ main() {
         verifyImplGenerationIsValid();
       });
 
-      void testImplGeneration(String groupName, {backwardsCompatible: true}) {
+      void testImplGeneration(String groupName, {backwardsCompatible = true}) {
         group(groupName, () {
           test('stateful components', () {
             generateFromSource(OverReactSrc.state(backwardsCompatible: backwardsCompatible).source);
@@ -128,10 +128,10 @@ main() {
 
                 test('contains props or state descriptors for all fields', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
-                      '  static const $descriptorType _\$prop__someField___\$$className = const $descriptorType(_\$key__someField___\$$className);\n'
-                      '  static const $descriptorType _\$prop__foo___\$$className = const $descriptorType(_\$key__foo___\$$className);\n'
-                      '  static const $descriptorType _\$prop__bar___\$$className = const $descriptorType(_\$key__bar___\$$className);\n'
-                      '  static const $descriptorType _\$prop__baz___\$$className = const $descriptorType(_\$key__baz___\$$className);\n'));
+                      '  static const $descriptorType _\$prop__someField___\$$className = $descriptorType(_\$key__someField___\$$className);\n'
+                      '  static const $descriptorType _\$prop__foo___\$$className = $descriptorType(_\$key__foo___\$$className);\n'
+                      '  static const $descriptorType _\$prop__bar___\$$className = $descriptorType(_\$key__bar___\$$className);\n'
+                      '  static const $descriptorType _\$prop__baz___\$$className = $descriptorType(_\$key__baz___\$$className);\n'));
                 });
 
                 test('contains string keys', () {
@@ -145,7 +145,7 @@ main() {
                 test('contains list of descriptors', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
                       '  static const List<$descriptorType> ${ors.constantListName} = '
-                      'const [_\$prop__someField___\$$className, '
+                      '[_\$prop__someField___\$$className, '
                       '_\$prop__foo___\$$className, '
                       '_\$prop__bar___\$$className, '
                       '_\$prop__baz___\$$className];\n'));
@@ -154,7 +154,7 @@ main() {
                 test('contains list of keys', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
                       '  static const List<String> ${ors.keyListName} = '
-                      'const [_\$key__someField___\$$className, '
+                      '[_\$key__someField___\$$className, '
                       '_\$key__foo___\$$className, '
                       '_\$key__bar___\$$className, '
                       '_\$key__baz___\$$className];\n'));
@@ -261,7 +261,7 @@ main() {
               });
             }
 
-            final body = '\n/// Doc comments\n'
+            const body = '\n/// Doc comments\n'
                 '@deprecated()\n'
                 'String someField;\n'
                 'bool foo, bar, baz;\n'
@@ -305,7 +305,7 @@ main() {
                 setUpAndGenerate(ors.source);
                 final baseName = ors.baseName;
                 expect(implGenerator.outputContentsBuffer.toString(), contains(
-                    'final \$${baseName}ComponentFactory = registerComponent(() => new _\$${baseName}Component(),\n'
+                    'final \$${baseName}ComponentFactory = registerComponent(() => _\$${baseName}Component(),\n'
                     '    builderFactory: $baseName,\n'
                     '    componentClass: ${baseName}Component,\n'
                     '    isWrapper: false,\n'
@@ -327,7 +327,7 @@ main() {
                 setUpAndGenerate(ors.source);
                 final baseName = ors.baseName;
                 expect(implGenerator.outputContentsBuffer.toString(), contains(
-                    '_\$\$${baseName}Props ${ors.factoryInitializer}([Map backingProps]) => new _\$\$${baseName}Props(backingProps);\n'));
+                    '_\$\$${baseName}Props ${ors.factoryInitializer}([Map backingProps]) => _\$\$${baseName}Props(backingProps);\n'));
               });
             }
 
@@ -486,8 +486,8 @@ main() {
               '..item2 = \'some_prop\';'
             ];
 
-        final uselessMetaField = 'static const String meta = \'some_string\';';
-        final uselessMetaMethod = 'static String get meta => \'some_string\';';
+        const uselessMetaField = 'static const String meta = \'some_string\';';
+        const uselessMetaMethod = 'static String get meta => \'some_string\';';
 
         final fieldDeclarationsWithMetaField = List.from(fieldDeclarations)..add(uselessMetaField);
         final fieldDeclarationsWithMetaMethod = List.from(fieldDeclarations)..add(uselessMetaMethod);
@@ -632,8 +632,8 @@ main() {
             final annotatedPropsOrStateOrMixinClassName = testName.contains('mixin') ? propsOrStateOrMixinClassName : '_\$$propsOrStateOrMixinClassName';
             final expectedAccessorsMixinClass = 'abstract class $accessorsClassName implements $annotatedPropsOrStateOrMixinClassName';
             final metaStructName = ors.metaStructName(ors.annotation);
-            final expectedMetaForInstance = (new StringBuffer()
-              ..writeln('const $metaStructName _\$metaFor$propsOrStateOrMixinClassName = const $metaStructName(')
+            final expectedMetaForInstance = (StringBuffer()
+              ..writeln('const $metaStructName _\$metaFor$propsOrStateOrMixinClassName = $metaStructName(')
               ..writeln('  fields: $accessorsClassName.${ors.constantListName},')
               ..writeln('  keys: $accessorsClassName.${ors.keyListName},')
               ..writeln(');')
@@ -829,9 +829,7 @@ main() {
     });
 
     group('logs a warning when', () {
-      tearDown(() {
-        verifyImplGenerationIsValid();
-      });
+      tearDown(verifyImplGenerationIsValid);
 
       group('a Component', () {
         test('implements typedPropsFactory', () {

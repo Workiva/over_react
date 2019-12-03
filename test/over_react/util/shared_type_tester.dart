@@ -11,23 +11,23 @@ import 'package:test/test.dart';
 void sharedTypeTests(
   void Function(dynamic value) testTypeValue,
   {
-    bool skipNormalDartObjects: false,
-    bool skipDartMaps: false,
-    bool skipPrimitives: false,
-    bool skipNumTypes: false,
-    bool skipFunctions: false,
-    bool skipBrowserObjects: false,
-    bool skipLists: false,
-    bool skipDatetimes: false,
-    bool skipFutures: false,
-    bool skipJsAnonInteropTypes: false,
-    bool skipJsInteropTypes: true,
+    bool skipNormalDartObjects = false,
+    bool skipDartMaps = false,
+    bool skipPrimitives = false,
+    bool skipNumTypes = false,
+    bool skipFunctions = false,
+    bool skipBrowserObjects = false,
+    bool skipLists = false,
+    bool skipDatetimes = false,
+    bool skipFutures = false,
+    bool skipJsAnonInteropTypes = false,
+    bool skipJsInteropTypes = true,
   }
 ) {
   if (!skipNormalDartObjects) {
     test('normal Dart objects', () {
-      final object = new Foo('f');
-      final iterable = new Iterable.generate(2);
+      final object = Foo('f');
+      final iterable = Iterable.generate(2);
       testTypeValue(object);
       testTypeValue(iterable);
     });
@@ -43,9 +43,9 @@ void sharedTypeTests(
   if (!skipPrimitives) {
     group('primitives', () {
       test('', () {
-        final stringValue = 'test';
-        final boolValue = false;
-        final nullValue = null;
+        const stringValue = 'test';
+        const boolValue = false;
+        const nullValue = null;
 
         testTypeValue(stringValue);
         testTypeValue(boolValue);
@@ -54,7 +54,7 @@ void sharedTypeTests(
       if (!skipNumTypes) {
         test('num types', () {
           final intValue = (1 as int); // ignore: unnecessary_cast
-          final doubleValue = 1.1;
+          const doubleValue = 1.1;
           final numValue = (1 as num); // ignore: unnecessary_cast
 
           testTypeValue(intValue);
@@ -69,8 +69,9 @@ void sharedTypeTests(
     test('functions', () {
       _functionLocalMethod() {}
       final functionLocalMethod = _functionLocalMethod;
+      // ignore: prefer_function_declarations_over_variables
       final functionExpression = () {};
-      final functionTearOff = new Object().toString;
+      final functionTearOff = Object().toString;
       final functionAllowInterop = allowInterop(() {});
 
       testTypeValue(functionLocalMethod);
@@ -82,8 +83,8 @@ void sharedTypeTests(
 
   if (!skipBrowserObjects) {
     test('browser objects', () {
-      final element = new html.DivElement();
-      final customEvent = new html.CustomEvent('foo');
+      final element = html.DivElement();
+      final customEvent = html.CustomEvent('foo');
       final window = html.window;
 
       testTypeValue(element);
@@ -104,7 +105,7 @@ void sharedTypeTests(
 
   if (!skipDatetimes) {
     test('datetimes', () {
-      final dateTime = new DateTime.utc(2018);
+      final dateTime = DateTime.utc(2018);
 
       testTypeValue(dateTime);
     });
@@ -112,7 +113,7 @@ void sharedTypeTests(
 
   if (!skipFutures) {
     test('futures', () {
-      final future = new Future(() {});
+      final future = Future(() {});
 
       testTypeValue(future);
     });
@@ -120,7 +121,7 @@ void sharedTypeTests(
 
   if (!skipJsAnonInteropTypes) {
     test('JS anonymous interop types', () {
-      final jsAnonymous = new JsTypeAnonymous();
+      final jsAnonymous = JsTypeAnonymous();
 
       testTypeValue(jsAnonymous);
     });
@@ -128,7 +129,7 @@ void sharedTypeTests(
 
   if (!skipJsInteropTypes) {
     test('JS interop types', () {
-      final jsType = new JsType();
+      final jsType = JsType();
 
       testTypeValue(jsType);
     });
@@ -136,7 +137,7 @@ void sharedTypeTests(
 }
 
 class Foo {
-  final foo;
+  final dynamic foo;
   Foo(this.foo);
 }
 

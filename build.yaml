@@ -28,6 +28,11 @@ targets:
       over_react|overReactBuilder:
         enabled: false
 
+      build_vm_compilers|entrypoint:
+        generate_for:
+          include:
+            - "test/vm_tests/**"
+
       # builder uses mirrors and will cause a build to fail when using build web compilers
       # vm tests require the use of mirrors
       build_web_compilers|ddc:

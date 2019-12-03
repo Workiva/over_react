@@ -5,6 +5,7 @@ library over_react.component_declaration.component2.flux_component_test;
 import 'dart:async';
 import 'dart:html';
 
+import 'package:pedantic/pedantic.dart';
 import 'package:test/test.dart';
 import 'package:w_flux/w_flux.dart';
 import 'package:over_react/over_react.dart';
@@ -36,7 +37,7 @@ void main() {
     group('FluxUiProps', () {
       test('exposes an actions getter', () {
         var props = TestBasic();
-        var testActions = new TestActions();
+        var testActions = TestActions();
 
         props.actions = testActions;
 
@@ -47,7 +48,7 @@ void main() {
 
       test('exposes a store getter', () {
         var props = TestBasic();
-        var testStore = new TestStore();
+        var testStore = TestStore();
 
         props.store = testStore;
 
@@ -59,7 +60,7 @@ void main() {
 
     void sharedComponentTests(BaseTestComponents testComponents) {
       test('subscribes to a single store by default', () async {
-        var store = new TestStore();
+        var store = TestStore();
         var renderedInstance = render(testComponents.basic()..store = store);
         dynamic component = getDartComponent(renderedInstance);
 
@@ -77,7 +78,7 @@ void main() {
       });
 
       test('subscribes to any stores returned in redrawOn', () async {
-        var stores = new TestStores();
+        var stores = TestStores();
         var renderedInstance = render(testComponents.redrawOn()..store = stores);
         dynamic component = getDartComponent(renderedInstance);
 
@@ -96,7 +97,7 @@ void main() {
       });
 
       test('prefers a handler specified in getStoreHandlers over redrawOn', () async {
-        var stores = new TestStores();
+        var stores = TestStores();
         var renderedInstance = render(testComponents.handlerPrecedence()..store = stores);
         dynamic component = getDartComponent(renderedInstance);
 
@@ -112,7 +113,7 @@ void main() {
       });
 
       test('should not attempt subscription if store is a composite of stores', () async {
-        var stores = new TestStores();
+        var stores = TestStores();
         var renderedInstance = render(testComponents.basic()..store = stores);
         dynamic component = getDartComponent(renderedInstance);
 
@@ -126,7 +127,7 @@ void main() {
       });
 
       test('calls handlers specified in getStoreHandlers when each store triggers', () async {
-        var store = new TestStore();
+        var store = TestStore();
         var renderedInstance = render(testComponents.storeHandlers()..store = store);
         dynamic component = getDartComponent(renderedInstance);
 
@@ -144,7 +145,7 @@ void main() {
       });
 
       test('should call lifecycle methods related to store handlers', () async {
-        final store = new TestStore();
+        final store = TestStore();
         var renderedInstance = render(testComponents.handlerLifecycle()..store = store);
         dynamic component = getDartComponent(renderedInstance);
 
@@ -166,7 +167,7 @@ void main() {
       test('cancels any subscriptions added with addSubscription', () async {
         // Setup a new subscription on a component
         int numberOfCalls = 0;
-        StreamController controller = new StreamController();
+        StreamController controller = StreamController();
         var renderedInstance = render(testComponents.basic());
         dynamic component = getDartComponent(renderedInstance);
         component.addSubscription(controller.stream.listen((_) {
@@ -184,7 +185,7 @@ void main() {
         expect(numberOfCalls, 1,
             reason: 'the subscription to have been cancelled, and should not receive additional events');
 
-        controller.close();
+        unawaited(controller.close());
       });
 
       test('should not redraw after being unmounted', () async {
@@ -211,11 +212,11 @@ void main() {
     }
 
     group('FluxUiComponent', () {
-      sharedComponentTests(new TestComponents());
+      sharedComponentTests(TestComponents());
     });
 
     group('FluxUiStatefulComponent', () {
-      sharedComponentTests(new TestStatefulComponents());
+      sharedComponentTests(TestStatefulComponents());
     });
   });
 }
@@ -225,9 +226,9 @@ class TestActions {}
 class TestStore extends Store {}
 
 class TestStores {
-  TestStore store1 = new TestStore();
-  TestStore store2 = new TestStore();
-  TestStore store3 = new TestStore();
+  TestStore store1 = TestStore();
+  TestStore store2 = TestStore();
+  TestStore store3 = TestStore();
 }
 
 abstract class BaseTestComponents {

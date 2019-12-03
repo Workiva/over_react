@@ -30,7 +30,5 @@ void main() {
   setClientConfiguration();
 
   enableTestMode();
-  group('OverReactRedux', (){
-    connect_test.main();
-  });
+  group('OverReactRedux', connect_test.main);
 }
