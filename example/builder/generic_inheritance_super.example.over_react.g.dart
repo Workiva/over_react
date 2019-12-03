@@ -1,3 +1,4 @@
+// ignore_for_file: unnecessary_null_in_if_null_operators
 import 'package:over_react/over_react.dart';
 
 import 'generic_inheritance_super.dart';
