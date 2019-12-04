@@ -58,7 +58,7 @@ class $GenericSubProps extends GenericSubProps with $GenericSuperPropsMixin, $Ge
   String get propKeyNamespace => 'GenericSubProps.';
 }
 
-class _$$GenericSubProps$PlainMap extends $GenericSubProps with GenericSubPropsMixin, $GenericSubPropsMixin {
+class _$$GenericSubProps$PlainMap extends $GenericSubProps {
   _$$GenericSubProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {

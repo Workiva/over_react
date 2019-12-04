@@ -100,7 +100,7 @@ class $BasicProps extends UiProps with BasicPropsMixin, $BasicPropsMixin {
   String get propKeyNamespace => 'BasicProps.';
 }
 
-class _$$BasicProps$JsMap extends $BasicProps with BasicPropsMixin, $BasicPropsMixin {
+class _$$BasicProps$JsMap extends $BasicProps {
   _$$BasicProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
@@ -112,7 +112,7 @@ class _$$BasicProps$JsMap extends $BasicProps with BasicPropsMixin, $BasicPropsM
   JsBackedMap _props;
 }
 
-class _$$BasicProps$PlainMap extends $BasicProps with BasicPropsMixin, $BasicPropsMixin {
+class _$$BasicProps$PlainMap extends $BasicProps {
   _$$BasicProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {

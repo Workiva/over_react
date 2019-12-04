@@ -116,7 +116,7 @@ abstract class $SubState extends SubState with $SuperStateMixin, $SubStateMixin 
   bool get $isClassGenerated => true;
 }
 
-class _$$SubState$PlainMap extends $SubState with SubStateMixin, $SubStateMixin {
+class _$$SubState$PlainMap extends $SubState {
   _$$SubState$PlainMap(Map backingMap)
       : this._state = {},
         super._() {
@@ -128,7 +128,7 @@ class _$$SubState$PlainMap extends $SubState with SubStateMixin, $SubStateMixin 
   Map _state;
 }
 
-class _$$SubState$JsMap extends $SubState with SubStateMixin, $SubStateMixin {
+class _$$SubState$JsMap extends $SubState {
   _$$SubState$JsMap(JsBackedMap backingMap)
       : this._state = JsBackedMap(),
         super._() {

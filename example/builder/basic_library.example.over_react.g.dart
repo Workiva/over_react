@@ -96,8 +96,7 @@ class $BasicPartOfLibProps extends BasicPartOfLibProps with $ExamplePropsMixinCl
   String get propKeyNamespace => 'BasicPartOfLibProps.';
 }
 
-class _$$BasicPartOfLibProps$PlainMap extends $BasicPartOfLibProps
-    with BasicPartOfLibPropsMixin, $BasicPartOfLibPropsMixin {
+class _$$BasicPartOfLibProps$PlainMap extends $BasicPartOfLibProps {
   _$$BasicPartOfLibProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
@@ -109,8 +108,7 @@ class _$$BasicPartOfLibProps$PlainMap extends $BasicPartOfLibProps
   Map _props;
 }
 
-class _$$BasicPartOfLibProps$JsMap extends $BasicPartOfLibProps
-    with BasicPartOfLibPropsMixin, $BasicPartOfLibPropsMixin {
+class _$$BasicPartOfLibProps$JsMap extends $BasicPartOfLibProps {
   _$$BasicPartOfLibProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
@@ -158,8 +156,7 @@ class $BasicPartOfLibState extends BasicPartOfLibState with $ExampleStateMixinCl
   bool get $isClassGenerated => true;
 }
 
-class _$$BasicPartOfLibState$PlainMap extends $BasicPartOfLibState
-    with BasicPartOfLibStateMixin, $BasicPartOfLibStateMixin {
+class _$$BasicPartOfLibState$PlainMap extends $BasicPartOfLibState {
   _$$BasicPartOfLibState$PlainMap(Map backingMap)
       : this._state = {},
         super._() {
@@ -171,8 +168,7 @@ class _$$BasicPartOfLibState$PlainMap extends $BasicPartOfLibState
   Map _state;
 }
 
-class _$$BasicPartOfLibState$JsMap extends $BasicPartOfLibState
-    with BasicPartOfLibStateMixin, $BasicPartOfLibStateMixin {
+class _$$BasicPartOfLibState$JsMap extends $BasicPartOfLibState {
   _$$BasicPartOfLibState$JsMap(JsBackedMap backingMap)
       : this._state = JsBackedMap(),
         super._() {
@@ -291,7 +287,7 @@ class $SubPartOfLibProps extends SubPartOfLibProps with $SuperPartOfLibPropsMixi
   String get propKeyNamespace => 'SubPartOfLibProps.';
 }
 
-class _$$SubPartOfLibProps$JsMap extends $SubPartOfLibProps with SubPartOfLibPropsMixin, $SubPartOfLibPropsMixin {
+class _$$SubPartOfLibProps$JsMap extends $SubPartOfLibProps {
   _$$SubPartOfLibProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
@@ -303,7 +299,7 @@ class _$$SubPartOfLibProps$JsMap extends $SubPartOfLibProps with SubPartOfLibPro
   JsBackedMap _props;
 }
 
-class _$$SubPartOfLibProps$PlainMap extends $SubPartOfLibProps with SubPartOfLibPropsMixin, $SubPartOfLibPropsMixin {
+class _$$SubPartOfLibProps$PlainMap extends $SubPartOfLibProps {
   _$$SubPartOfLibProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
