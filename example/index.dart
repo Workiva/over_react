@@ -6,6 +6,8 @@ import 'package:react/react_dom.dart' as react_dom;
 import './builder/abstract_inheritance.dart';
 import './builder/basic.dart';
 import './builder/basic_library.dart';
+import './builder/basic_with_state.dart' as basic_with_state;
+import './builder/basic_with_type_params.dart' as basic_with_type_params;
 import './builder/generic_inheritance_sub.dart';
 import './builder/generic_inheritance_super.dart';
 
@@ -13,10 +15,18 @@ main() {
   setClientConfiguration();
 
   react_dom.render(
-      Dom.div()(
+      (Dom.div()..className = 'components-list')(
         Dom.h3()('Components'),
         (Basic()
           ..basic1 = '<basic prop>'
+          ..id = 'the id of this component'
+        )(null, null, ['this is another child']),
+        (basic_with_state.Basic()
+          ..basic1 = '<basic prop>'
+          ..id = 'the id of this component'
+        )(null, null, ['this is another child']),
+        (basic_with_type_params.Basic()
+          ..someGenericListProp = []
           ..id = 'the id of this component'
         )(null, null, ['this is another child']),
         (Sub()

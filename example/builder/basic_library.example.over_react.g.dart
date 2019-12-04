@@ -2,6 +2,8 @@
 import 'package:over_react/over_react.dart';
 
 import 'basic_library.dart';
+import 'props_mixin.dart';
+import 'state_mixin.dart';
 
 final $BasicPartOfLibComponentFactory = registerComponent2(
   () => _$BasicPartOfLibComponent(),
@@ -73,7 +75,7 @@ const PropsMeta _$metaForBasicPartOfLibProps = PropsMeta(
 $BasicPartOfLibProps $BasicPartOfLib([Map backingProps]) =>
     backingProps == null ? _$$BasicPartOfLibProps$JsMap(JsBackedMap()) : $BasicPartOfLibProps(backingProps);
 
-class $BasicPartOfLibProps extends BasicPartOfLibProps with BasicPartOfLibPropsMixin, $BasicPartOfLibPropsMixin {
+class $BasicPartOfLibProps extends BasicPartOfLibProps with $ExamplePropsMixinClass, $BasicPartOfLibPropsMixin {
   $BasicPartOfLibProps._();
 
   factory $BasicPartOfLibProps(Map backingMap) {
@@ -139,7 +141,7 @@ const StateMeta _$metaForBasicPartOfLibState = StateMeta(
   keys: $BasicPartOfLibStateMixin.$stateKeys,
 );
 
-class $BasicPartOfLibState extends BasicPartOfLibState with BasicPartOfLibStateMixin, $BasicPartOfLibStateMixin {
+class $BasicPartOfLibState extends BasicPartOfLibState with $ExampleStateMixinClass, $BasicPartOfLibStateMixin {
   $BasicPartOfLibState._();
 
   static const StateMeta meta = _$metaForBasicPartOfLibState;
@@ -263,7 +265,7 @@ const PropsMeta _$metaForSubPartOfLibProps = PropsMeta(
 $SubPartOfLibProps $SubPartOfLib([Map backingProps]) =>
     backingProps == null ? _$$SubPartOfLibProps$JsMap(JsBackedMap()) : $SubPartOfLibProps(backingProps);
 
-class $SubPartOfLibProps extends SubPartOfLibProps with SubPartOfLibPropsMixin, $SubPartOfLibPropsMixin {
+class $SubPartOfLibProps extends SubPartOfLibProps with $SuperPartOfLibPropsMixin, $SubPartOfLibPropsMixin {
   $SubPartOfLibProps._();
 
   static const PropsMeta meta = _$metaForSubPartOfLibProps;

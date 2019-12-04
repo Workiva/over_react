@@ -33,7 +33,7 @@ const PropsMeta _$metaForSubProps = PropsMeta(
 
 $SubProps $Sub([Map backingProps]) => backingProps == null ? _$$SubProps$JsMap(JsBackedMap()) : $SubProps(backingProps);
 
-class $SubProps extends SubProps with SubPropsMixin, $SubPropsMixin {
+class $SubProps extends SubProps with $SuperPropsMixin, $SubPropsMixin {
   $SubProps._();
 
   static const PropsMeta meta = _$metaForSubProps;
@@ -99,7 +99,7 @@ const StateMeta _$metaForSubState = StateMeta(
   keys: $SubStateMixin.$stateKeys,
 );
 
-abstract class $SubState extends SubState with SubStateMixin, $SubStateMixin {
+abstract class $SubState extends SubState with $SuperStateMixin, $SubStateMixin {
   $SubState._();
 
   static const StateMeta meta = _$metaForSubState;

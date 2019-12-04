@@ -52,7 +52,7 @@ const PropsMeta _$metaForGenericSuperProps = PropsMeta(
 $GenericSuperProps $GenericSuper([Map backingProps]) =>
     backingProps == null ? _$$GenericSuperProps$JsMap(JsBackedMap()) : $GenericSuperProps(backingProps);
 
-abstract class $GenericSuperProps extends GenericSuperProps with GenericSuperPropsMixin, $GenericSuperPropsMixin {
+abstract class $GenericSuperProps extends GenericSuperProps with $GenericSuperPropsMixin {
   $GenericSuperProps._();
 
   static const PropsMeta meta = _$metaForGenericSuperProps;

@@ -27,7 +27,8 @@ mixin BasicStateMixin on UiState, ExampleStateMixinClass {
 class BasicComponent extends UiStatefulComponent2<BasicProps, BasicState> {
   @override
   get defaultProps => newProps()..id = 'basic component'
-      ..basicProp = 'defaultBasicProps';
+      ..basicProp = 'defaultBasicProps'
+      ..propMixin1 = '<props mixin>';
 
   @override
   get initialState => newState()..basicState = '<basic state>'

@@ -2,6 +2,7 @@
 import 'package:over_react/over_react.dart';
 
 import 'generic_inheritance_sub.dart';
+import 'generic_inheritance_super.dart';
 
 final $GenericSubComponentFactory = registerComponent2(
   () => _$GenericSubComponent(),
@@ -34,7 +35,7 @@ const PropsMeta _$metaForGenericSubProps = PropsMeta(
 $GenericSubProps $GenericSub([Map backingProps]) =>
     backingProps == null ? _$$GenericSubProps$JsMap(JsBackedMap()) : $GenericSubProps(backingProps);
 
-class $GenericSubProps extends GenericSubProps with GenericSubPropsMixin, $GenericSubPropsMixin {
+class $GenericSubProps extends GenericSubProps with $GenericSuperPropsMixin, $GenericSubPropsMixin {
   $GenericSubProps._();
 
   static const PropsMeta meta = _$metaForGenericSubProps;
@@ -100,7 +101,7 @@ const StateMeta _$metaForGenericSubState = StateMeta(
   keys: $GenericSubStateMixin.$stateKeys,
 );
 
-class $GenericSubState extends GenericSubState with GenericSubStateMixin, $GenericSubStateMixin {
+class $GenericSubState extends GenericSubState with $GenericSuperStateMixin, $GenericSubStateMixin {
   $GenericSubState._();
 
   static const StateMeta meta = _$metaForGenericSubState;

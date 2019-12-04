@@ -2,6 +2,8 @@
 import 'package:over_react/over_react.dart';
 
 import 'basic_with_state.dart';
+import 'props_mixin.dart' as pm;
+import 'state_mixin.dart';
 
 final $BasicComponentFactory = registerComponent2(
   () => _$BasicComponent(),
@@ -73,7 +75,7 @@ const PropsMeta _$metaForBasicProps = PropsMeta(
 $BasicProps $Basic([Map backingProps]) =>
     backingProps == null ? _$$BasicProps$JsMap(JsBackedMap()) : $BasicProps(backingProps);
 
-class $BasicProps extends BasicProps with BasicPropsMixin, $BasicPropsMixin {
+class $BasicProps extends BasicProps with pm.$ExamplePropsMixinClass, $BasicPropsMixin {
   $BasicProps._();
 
   static const PropsMeta meta = _$metaForBasicProps;
@@ -142,7 +144,7 @@ const StateMeta _$metaForBasicState = StateMeta(
   keys: $BasicStateMixin.$stateKeys,
 );
 
-class $BasicState extends BasicState with BasicStateMixin, $BasicStateMixin {
+class $BasicState extends BasicState with $ExampleStateMixinClass, $BasicStateMixin {
   $BasicState._();
 
   factory $BasicState(Map backingMap) {
