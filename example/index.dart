@@ -11,6 +11,7 @@ import './builder/basic_with_type_params.dart' as basic_with_type_params;
 import './builder/generic_inheritance_sub.dart';
 import './builder/generic_inheritance_super.dart';
 import './builder/with_legacy_props_mixin.dart' as with_legacy_props_mixin;
+import 'builder/function_component.dart' as functions;
 
 main() {
   setClientConfiguration();
@@ -50,6 +51,7 @@ main() {
           ..superProp = 'super prop part of lib'
         )(),
         with_legacy_props_mixin.Basic()(),
+        functions.functionComponentContent(),
         Dom.h3()('getDefaultProps via component factories'),
         componentConstructorsByName.keys.map((name) => Dom.div()(
           'new $name()',
