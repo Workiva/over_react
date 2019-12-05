@@ -1,0 +1,13 @@
+body {
+  overflow: hidden;
+}
+
+.app-shell,
+#todo-container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.hide-using-aria[aria-hidden="true"] {
+  visibility: hidden;
+}

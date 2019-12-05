@@ -1,0 +1,258 @@
+import 'dart:html';
+
+import 'package:over_react/over_react.dart';
+import 'package:over_react/over_react_redux.dart';
+import 'package:todo_client/src/actions.dart';
+
+import 'package:todo_client/src/models/todo.dart';
+import 'package:todo_client/src/components/shared/list_item_expansion_panel_summary.dart';
+import 'package:todo_client/src/components/shared/list_item_mixin.dart';
+import 'package:todo_client/src/components/shared/material_ui.dart';
+import 'package:todo_client/src/components/shared/todo_item_text_field.dart';
+import 'package:todo_client/src/components/user_selector.dart';
+import 'package:todo_client/src/store.dart';
+
+// ignore: uri_has_not_been_generated
+part 'todo_list_item.over_react.g.dart';
+
+UiFactory<TodoListItemProps> ConnectedTodoListItem = connect<AppState, TodoListItemProps>(
+  mapDispatchToProps: (dispatch) {
+    return (TodoListItem()
+      ..onSelect = (id) { dispatch(SelectTodoAction(id)); }
+      ..onDeselect = (id) { dispatch(DeselectTodoAction(id)); }
+      ..onBeginEdit = (id) { dispatch(BeginEditTodoAction(id)); }
+      ..onFinishEdit = (id) { dispatch(FinishEditTodoAction(id)); }
+      ..onModelUpdate = (todo) { dispatch(UpdateTodoAction(todo)); }
+      ..onRemove = (id) { dispatch(RemoveTodoAction(id)); }
+    );
+  },
+  mapStateToPropsWithOwnProps: (state, ownProps) {
+    final isEditable = Set.of(state.editableTodoIds).contains(ownProps.model.id);
+    final isSelected = isEditable || Set.of(state.selectedTodoIds).contains(ownProps.model.id);
+    final isHighlighted = Set.of(state.highlightedTodoIds).contains(ownProps.model.id);
+
+    return (TodoListItem()
+      ..isSelected = isSelected
+      ..isEditable = isEditable
+      ..isHighlighted = isHighlighted
+    );
+  },
+)(TodoListItem);
+
+@Factory()
+UiFactory<TodoListItemProps> TodoListItem =
+    // ignore: undefined_identifier
+    _$TodoListItem;
+
+@Props()
+class _$TodoListItemProps extends UiProps
+    with ListItemPropsMixin,
+        // ignore: mixin_of_non_class, undefined_class
+        $ListItemPropsMixin {
+  @requiredProp
+  @override
+  Todo model;
+
+  String assignedUserId;
+}
+
+@State()
+class _$TodoListItemState extends UiState
+    with ListItemStateMixin,
+         // ignore: mixin_of_non_class, undefined_class
+         $ListItemStateMixin {
+  @override
+  Todo localModel;
+}
+
+@Component2()
+class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, TodoListItemState>
+    with ListItemMixin<Todo, TodoListItemProps, TodoListItemState> {
+  @override
+  bool get hasDetails => model.notes != null && model.notes.isNotEmpty;
+
+  @override
+  render() {
+    return ExpansionPanel({
+      ...sharedExpansionPanelProps,
+      'className': model.isCompleted ? 'Mui-disabled' : null,
+    }, [
+      (ListItemExpansionPanelSummary()
+        ..key = 'summary'
+        ..modelId = model.id
+        ..allowExpansion = allowExpansion
+        ..isEditable = props.isEditable
+        ..onToggleEditable = toggleEditable
+      )(
+        _renderTaskCheckbox(),
+        _renderTaskHeader(),
+        _renderUserSelector(),
+      ),
+      ExpansionPanelDetails({'key': 'details'},
+        _renderTaskNotes(),
+      ),
+      _renderEditableTaskActions(),
+    ]);
+  }
+
+  ReactElement _renderTaskCheckbox() {
+    return Box({...shrinkToFit,
+      'key': 'taskCheckbox',
+      'ml': -2,
+      'mr': 1,
+      'alignSelf': 'center',
+    },
+      Tooltip({
+        'enterDelay': 500,
+        'title': model.isCompleted ? 'Mark as not completed' : 'Mark as completed',
+      },
+        Checkbox({
+          'checked': model.isCompleted,
+          'inputProps': {
+            'aria-label': 'Complete Task',
+          },
+          'value': 'isCompleted',
+          'onChange': (_) { updateModel(Todo.from(model)..isCompleted = !model.isCompleted); },
+          'onClick': (SyntheticEvent e) { e.stopPropagation(); },
+          'onFocus': (SyntheticEvent e) { e.stopPropagation(); },
+        }),
+      ),
+    );
+  }
+
+  ReactElement _renderTaskHeader() {
+    return Box({...grow,
+      'key': 'taskHeader',
+      'mr': 1,
+      'alignSelf': 'center',
+    },
+      (TodoItemTextField()
+        ..readOnly = !props.isEditable
+        ..autoFocus = props.isEditable
+        ..label = 'Description'
+        ..onChange = _updateDescriptionValue
+        ..placeholder = 'Describe the task...'
+        ..value = model.description
+        ..onClickWhenEditable = (event) { event.stopPropagation(); }
+        ..['inputProps'] = {
+          'style': props.isEditable ? null : {
+            'cursor': allowExpansion ? 'pointer' : 'default',
+          },
+        }
+      )(),
+    );
+  }
+
+  void _updateDescriptionValue(SyntheticFormEvent event) {
+    InputElement target = event.target;
+    updateModel(Todo.from(model)..description = target.value);
+  }
+
+  ReactElement _renderUserSelector() {
+    return Box({...shrinkToFit,
+      'key': 'userSelector',
+      'alignSelf': 'center',
+    },
+      (ConnectedUserSelector()
+        ..selectedUserId = props.assignedUserId
+        ..onUserSelect = (userId) { updateModel(Todo.from(model)..assignedUserId = userId); }
+      )(),
+    );
+  }
+
+  ReactElement _renderTaskNotes() {
+    return (TodoItemTextField()
+      ..readOnly = !props.isEditable
+      ..label = 'Notes'
+      ..multiline = true
+      ..['rows'] = 3
+      ..onChange = _updateNoteValue
+      ..placeholder = 'Add some notes about the task'
+      ..value = model.notes
+    )();
+  }
+
+  void _updateNoteValue(SyntheticFormEvent event) {
+    TextAreaElement target = event.target;
+    updateModel(Todo.from(model)..notes = target.value);
+  }
+
+  ReactElement _renderEditableTaskActions() {
+    if (!props.isEditable) return null;
+
+    return (Fragment()..key = 'editableTaskActions')(
+      Divider({}),
+      ExpansionPanelActions({},
+        Grid({'container': true, 'direction': 'row'}, [
+          Box({'key': 'leftButtons', 'flexGrow': 1, 'display': 'flex'}, [
+            _renderEditableTaskDeleteButton(),
+            _renderEditableTaskPrivacyToggleButton(),
+          ]),
+          Box({'key': 'rightButtons', ...shrinkToFit}, [
+            _renderEditableTaskCancelButton(),
+            _renderEditableTaskSaveButton(),
+          ]),
+        ]),
+      ),
+    );
+  }
+
+  ReactElement _renderEditableTaskDeleteButton() {
+    return Tooltip({'key': 'deleteButton', 'enterDelay': 500, 'title': 'Delete Todo'},
+      Box({'color': 'error.main'},
+        IconButton({
+          'size': 'small',
+          'aria-label': 'delete todo',
+          'color': 'inherit',
+          'disabled': model.isCompleted,
+          'onClick': (_) { remove(); },
+        },
+          TrashIcon(),
+        ),
+      ),
+    );
+  }
+
+  ReactElement _renderEditableTaskPrivacyToggleButton() {
+    final tooltipTitle = model.isPublic ? 'Make Private' : 'Make Public';
+
+    return Tooltip({'key': 'privacyButton', 'enterDelay': 500, 'title': tooltipTitle},
+      IconButton({
+        'size': 'small',
+        'aria-label': model.isPublic ? 'Make Private' : 'Make Public',
+        'onClick': (_) { updateModel(Todo.from(model)..isPublic = !model.isPublic); },
+      },
+        model.isPublic ? VisibilityIcon() : VisibilityOffIcon(),
+      ),
+    );
+  }
+
+  ReactElement _renderEditableTaskCancelButton() {
+    return Button({
+      'key': 'cancel',
+      'size': 'small',
+      'onClick': (_) { exitEditable(saveChanges: false); },
+    }, 'Cancel');
+  }
+
+  ReactElement _renderEditableTaskSaveButton() {
+    return Button({
+      'key': 'save',
+      'size': 'small',
+      'color': 'primary',
+      'onClick': (_) { exitEditable(saveChanges: true); },
+    }, 'Save');
+  }
+}
+
+// ignore: mixin_of_non_class, undefined_class
+class TodoListItemProps extends _$TodoListItemProps with _$TodoListItemPropsAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = _$metaForTodoListItemProps;
+}
+
+// ignore: mixin_of_non_class, undefined_class
+class TodoListItemState extends _$TodoListItemState with _$TodoListItemStateAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const StateMeta meta = _$metaForTodoListItemState;
+}

@@ -1,0 +1,23 @@
+.packages
+.pub
+packages
+*.over_react.g.dart
+
+# Files created by dart2js
+*.dart.js
+*.part.js
+*.js.deps
+*.js.map
+*.info.json
+
+# Directory created by dartdoc
+doc/api/
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+.arcconfig
+.dart_tool
+.vscode
