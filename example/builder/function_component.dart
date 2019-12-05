@@ -101,11 +101,10 @@ UiFactory<BasicPropsMixin> Basic5 = uiFunctionComponent2($.$Basic, (props) {
     Dom.div()('default prop testing: ${props.basic1}'),
     Dom.div()(null, props.basic4, 'children: ${props.children}'),
   );
-}, initStatics: (newProps, _) {
-  return UiFunctionComponentStatics(
-    defaultProps: (newProps()
-      ..basicProp = 'basicProp'
-      ..basic1 = 'basic1'),
+}, initStatics: (statics) {
+  statics.defaultProps = (statics.newProps()
+    ..basicProp = 'basicProp'
+    ..basic1 = 'basic1'
   );
 });
 
@@ -117,20 +116,20 @@ UiFactory<BasicPropsMixin> Basic5WithPropTypes = uiFunctionComponent2($.$Basic, 
     Dom.div()('default prop testing: ${props.basic1}'),
     Dom.div()(null, props.basic4, 'children: ${props.children}'),
   );
-}, initStatics: (newProps, keyFor) {
-  return UiFunctionComponentStatics(
-    defaultProps: (newProps()
+}, initStatics: (statics) {
+  statics
+    ..defaultProps = (statics.newProps()
       ..basicProp = 'basicProp'
-      ..basic1 = 'basic1'),
-    propTypes: {
-      keyFor((p) => p.basicProp): (props, info) {
+      ..basic1 = 'basic1'
+    )
+    ..propTypes = {
+      statics.keyFor((p) => p.basicProp): (props, info) {
         if (props.basic1 == '1') {
           return PropError.value(props.basic1, info.propName);
         }
         return null;
       }
-    },
-  );
+    };
 });
 
 // ===========================================================================
@@ -150,14 +149,15 @@ UiFactory<T> uiFunctionComponent<T extends UiProps>(
 UiFactory<T> uiFunctionComponent2<T extends UiProps>(
   ReactComponentFactoryProxy factory,
   dynamic Function(T props) functionComponent, {
-  UiFunctionComponentStatics<T> Function(BuilderOnlyUiFactory<T> newProps,
-          String Function(void Function(T propsMap) accessProp) keyFor)
-      initStatics,
+  void Function(UiFunctionComponentStatics<T>) initStatics,
 }) {}
 
 class UiFunctionComponentStatics<T> {
-  final Map defaultProps;
-  final Map<String, PropValidator<T>> propTypes;
+  Map defaultProps;
+  Map<String, PropValidator<T>> propTypes;
 
-  UiFunctionComponentStatics({this.defaultProps, this.propTypes});
+  UiFunctionComponentStatics._();
+
+  T newProps() {}
+  String keyFor(void Function(T) accessProps) {}
 }
