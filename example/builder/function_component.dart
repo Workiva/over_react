@@ -27,71 +27,131 @@ UiFactory<BasicPropsMixin> Basic = uiFunctionComponent((props) {
     Dom.div()('default prop testing: ${props.basic1}'),
     Dom.div()(null, props.basic4, 'children: ${props.children}'),
   );
-}, $.$Basic, (statics) {
+}, $.$basicConfig, (statics) {
   statics.defaultProps = (statics.newProps()
     ..basicProp = 'basicProp'
     ..basic1 = 'basic1'
   );
 });
 
+
+
+final Simple = uiFunctionComponent<BasicPropsMixin>((props) {
+  return Dom.div()(props.basicProp);
+}, $.$basicConfig);
+
+//UiFactory<BasicPropsMixin> Basic2 = (BasicPropsMixin props) {
+//  return Dom.div()(
+//    Dom.div()('prop id: ${props.id}'),
+//    Dom.div()('default prop testing: ${props.basicProp}'),
+//    Dom.div()('default prop testing: ${props.basic1}'),
+//    Dom.div()(null, props.basic4, 'children: ${props.children}'),
+//  );
+//}.withTypedProps($.$Basic.factoryFactory);
+//
+//
+//
+//UiFactory<BasicPropsMixin> Basic5 = (BasicPropsMixin props) {
+//  return Dom.div()(
+//    Dom.div()('prop id: ${props.id}'),
+//    Dom.div()('default prop testing: ${props.basicProp}'),
+//    Dom.div()('default prop testing: ${props.basic1}'),
+//    Dom.div()(null, props.basic4, 'children: ${props.children}'),
+//  );
+//}.asFunctionComponent();
+//
+//
+//UiFactory<BasicPropsMixin> Basic3 = functionBuilder<BasicPropsMixin>().function((props) {
+//  return Dom.div()(
+//    Dom.div()('prop id: ${props.id}'),
+//    Dom.div()('default prop testing: ${props.basicProp}'),
+//    Dom.div()('default prop testing: ${props.basic1}'),
+//    Dom.div()(null, props.basic4, 'children: ${props.children}'),
+//  );
+//}.asFunctionComponent();
+//
+
+
+//extension on ReactDartFunctionComponentFactoryProxy {
+//  UiFactory<T> withTypedProps<T extends UiProps>(FunctionFactoryFactory<T> factoryFactory) {
+//    return factoryFactory(this);
+//  }
+//  UiFactory<T> withTypedPropsFromOtherFactory<T extends UiProps>(UiFactory<T> otherFactory) {
+//    T uiFactory([Map backingProps]) => otherFactory(backingProps)..componentFactory = this;
+//    return uiFactory;
+//  }
+//}
+
 ReactElement functionComponentContent() {
-  final genericFactory = uiFunctionComponent((props) {
+  final genericFactory = uiFunctionComponent<UiProps>((props) {
     return Dom.div()(
       Dom.div()('prop id: ${props.id}'),
     );
-  });
+  }, FunctionComponentConfig(displayName: 'genericFactory'));
 
-  final basicFactory = uiFunctionComponent<BasicPropsMixin>((props) {
+  final basicFactory = uiFunctionComponent((props) {
     return Dom.div()(
       Dom.div()('prop id: ${props.id}'),
       Dom.div()('prop basic1: ${props.basic1}'),
     );
-  }, $.$Basic);
+  }, $.$basicConfig);
+
+//  final basicFactory3 = uiFunctionComponent<BasicPropsMixin>((props) {
+//    return Dom.div()(
+//      Dom.div()('prop id: ${props.id}'),
+//      Dom.div()('prop basic1: ${props.basic1}'),
+//    );
+//  }, factoryFactory: $.$Basic.factoryFactory);
 
   return Fragment()(
     (genericFactory()..id = '1')(),
     (basicFactory()..id = '2'..basic1 = 'basic1 value')(),
     (Basic()..id = '3'..basicProp = 'basicProp')(),
+    (Simple()..basicProp = 'basicProp'),
   );
 }
+
 
 UiFactory<T> uiFunctionComponent<T extends UiProps>(
   dynamic Function(T props) functionComponent, [
   // FIXME allow passing in displayName for generic function components
-  GeneratedFunctionInfo<T> generatedInfo,
+  FunctionComponentConfig<T> config,
+//  PropsFactory<T> propsFactory,
+//  String displayName,
   void Function(UiFunctionComponentStatics<T>) initStatics,
 ]) {
-  UiFactory<T> uiFactory;
-  T Function(JsBackedMap) typedPropsFactoryJs;
+//  if (config != null) {
+//    if (propsFactory != null) throw ArgumentError('factoryFactory cannot be used along with fromGenerated');
+//    if (displayName != null) throw ArgumentError('displayName cannot be used along with fromGenerated');
+//  } else {
+//    propsFactory = config.propsFactory;
+//    displayName = config.displayName;
+//  }
+  final propsFactory = config.propsFactory;
+  final displayName = config.displayName;
 
   // todo attempt to set a JS name on this
   dynamic typedFunctionComponentWrapper(Map props) {
-    return functionComponent(typedPropsFactoryJs(props as JsBackedMap));
+    return functionComponent(propsFactory.jsMap(props as JsBackedMap));
   }
 
   /// FIXME DartFunctionComponent should be JsBackedMap?
   final factory = react.registerFunctionComponent(typedFunctionComponentWrapper,
-      displayName: generatedInfo?.displayName);
+      displayName: displayName);
 
-  if (generatedInfo != null) {
-    uiFactory = generatedInfo.factoryFactory(factory);
-  } else {
-    // todo allow passing in of custom uiFactory/typedPropsFactory
-    // TODO make it easier to pass in parts of generatedInfo
-    if (T != UiProps && T != GenericUiProps) {
-      throw ArgumentError('generatedInfo must be provided when using custom props classes');
-    }
-    GenericUiProps genericFactory([Map backingMap]) => GenericUiProps(factory, backingMap);
-    uiFactory = genericFactory as UiFactory<T>;
-  }
-
-  // todo optimize this so there isn't an extra null check
-  typedPropsFactoryJs = uiFactory;
+//  if (propsFactory == null) {
+//    // todo allow passing in of custom uiFactory/typedPropsFactory
+//    // TODO make it easier to pass in parts of generatedInfo
+//    if (T != UiProps && T != GenericUiProps) {
+//      throw ArgumentError('generatedInfo must be provided when using custom props classes');
+//    }
+//    propsFactory = PropsFactory.fromUiFactory(([backingMap]) => GenericUiProps(factory, backingMap)) as PropsFactory<T>;
+//  }
 
   if (initStatics != null) {
     final statics = UiFunctionComponentStatics<T>._(
-      newProps: () => uiFactory(),
-      keyFor: (accessProps) => getPropKey(accessProps, uiFactory)
+      newProps: () => propsFactory.jsMap(JsBackedMap()),
+      keyFor: (accessProps) => getPropKey(accessProps, propsFactory.map)
     );
     initStatics(statics);
 
@@ -103,7 +163,12 @@ UiFactory<T> uiFunctionComponent<T extends UiProps>(
 //    if (statics.propTypes != null) {}
   }
 
-  return uiFactory;
+  T _uiFactory([Map backingMap]) {
+    if (backingMap == null) return propsFactory.jsMap(JsBackedMap());
+    if (backingMap is JsBackedMap) return propsFactory.jsMap(backingMap);
+    return propsFactory.map(backingMap);
+  }
+  return _uiFactory;
 }
 
 class UiFunctionComponentStatics<T> {
@@ -141,11 +206,20 @@ typedef FunctionFactoryFactory<T extends UiProps> = UiFactory<T> Function(ReactD
 
 
 @protected
-class GeneratedFunctionInfo<T extends UiProps> {
+class FunctionComponentConfig<T extends UiProps> {
   @protected
-  final FunctionFactoryFactory<T> factoryFactory;
+  final PropsFactory<T> propsFactory;
   final String displayName;
 
   @protected
-  GeneratedFunctionInfo({this.factoryFactory, this.displayName});
+  FunctionComponentConfig({this.propsFactory, this.displayName});
+}
+
+class PropsFactory<T extends UiProps> {
+  final T Function(Map props) map;
+  final T Function(JsBackedMap props) jsMap;
+
+  PropsFactory(this.map, this.jsMap);
+
+  PropsFactory.fromUiFactory(UiFactory<T> factory) : this.map = factory, this.jsMap = factory;
 }

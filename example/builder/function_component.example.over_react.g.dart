@@ -3,15 +3,14 @@ import 'package:over_react/over_react.dart';
 
 import 'function_component.dart';
 
-final GeneratedFunctionInfo<$BasicProps> $Basic = GeneratedFunctionInfo(
-  factoryFactory: (factoryProxy) {
-    $BasicProps Basic([Map backingProps]) {
-      return (backingProps == null ? _$$BasicProps$JsMap(JsBackedMap()) : $BasicProps(backingProps))
-        ..componentFactory = factoryProxy;
-    }
-    return Basic;
-  },
+final FunctionComponentConfig<$BasicProps> $basicConfig = FunctionComponentConfig(
+  propsFactory: $BasicPropsFactory,
   displayName: 'Basic',
+);
+
+final PropsFactory<$BasicProps> $BasicPropsFactory = PropsFactory(
+  (map) => $BasicProps(map),
+  (jsBackedMap) => _$$BasicProps$JsMap(jsBackedMap),
 );
 
 mixin $BasicPropsMixin implements BasicPropsMixin {
