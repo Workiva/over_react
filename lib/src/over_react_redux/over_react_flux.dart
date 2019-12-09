@@ -28,9 +28,9 @@ class FluxToReduxAdapterStore<S extends flux.Store> extends redux.Store<S> {
 
   StreamSubscription _storeListener;
 
-  FluxToReduxAdapterStore(this.store, dynamic actions) : super(_noopReducer, initialState: store, distinct: false) {
+  FluxToReduxAdapterStore(this.store, dynamic actions, {Function reducer}) : super(reducer ?? _noopReducer, initialState: store, distinct: false) {
     _storeListener = store.listen((_) {
-      dispatch(new _FluxStoreUpdatedAction());
+      dispatch(_FluxStoreUpdatedAction());
     });
 
     _actionsForStore[store] = actions;
