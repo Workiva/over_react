@@ -552,11 +552,6 @@ abstract class UiProps extends MapBase
       // https://github.com/dart-lang/sdk/issues/29904
       // Should have the benefit of better performance;
       return factory.build(props, childArguments);
-    } else {
-      var parameters = []
-        ..add(props)
-        ..addAll(childArguments);
-      return Function.apply(factory, parameters);
     }
   }
 
