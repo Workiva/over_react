@@ -107,7 +107,7 @@ ReactElement functionComponentContent() {
     (genericFactory()..id = '1')(),
     (basicFactory()..id = '2'..basic1 = 'basic1 value')(),
     (Basic()..id = '3'..basicProp = 'basicProp')(),
-    (Simple()..basicProp = 'basicProp'),
+    (Simple()..basicProp = 'basicProp')(),
   );
 }
 
@@ -127,8 +127,8 @@ UiFactory<T> uiFunctionComponent<T extends UiProps>(
 //    propsFactory = config.propsFactory;
 //    displayName = config.displayName;
 //  }
-  final propsFactory = config.propsFactory;
-  final displayName = config.displayName;
+  var propsFactory = config.propsFactory;
+  var displayName = config.displayName;
 
   // todo attempt to set a JS name on this
   dynamic typedFunctionComponentWrapper(Map props) {
@@ -139,14 +139,14 @@ UiFactory<T> uiFunctionComponent<T extends UiProps>(
   final factory = react.registerFunctionComponent(typedFunctionComponentWrapper,
       displayName: displayName);
 
-//  if (propsFactory == null) {
-//    // todo allow passing in of custom uiFactory/typedPropsFactory
-//    // TODO make it easier to pass in parts of generatedInfo
-//    if (T != UiProps && T != GenericUiProps) {
-//      throw ArgumentError('generatedInfo must be provided when using custom props classes');
-//    }
-//    propsFactory = PropsFactory.fromUiFactory(([backingMap]) => GenericUiProps(factory, backingMap)) as PropsFactory<T>;
-//  }
+  if (propsFactory == null) {
+    // todo allow passing in of custom uiFactory/typedPropsFactory
+    // TODO make it easier to pass in parts of generatedInfo
+    if (T != UiProps && T != GenericUiProps) {
+      throw ArgumentError('config.propsFactory must be provided when using custom props classes');
+    }
+    propsFactory = PropsFactory.fromUiFactory(([backingMap]) => GenericUiProps(factory, backingMap)) as PropsFactory<T>;
+  }
 
   if (initStatics != null) {
     final statics = UiFunctionComponentStatics<T>._(
@@ -164,9 +164,16 @@ UiFactory<T> uiFunctionComponent<T extends UiProps>(
   }
 
   T _uiFactory([Map backingMap]) {
-    if (backingMap == null) return propsFactory.jsMap(JsBackedMap());
-    if (backingMap is JsBackedMap) return propsFactory.jsMap(backingMap);
-    return propsFactory.map(backingMap);
+    T builder;
+    if (backingMap == null) {
+      builder = propsFactory.jsMap(JsBackedMap());
+    } else if (backingMap is JsBackedMap) {
+      builder = propsFactory.jsMap(backingMap);
+    } else {
+      builder = propsFactory.map(backingMap);
+    }
+
+    return builder..componentFactory = factory;
   }
   return _uiFactory;
 }
