@@ -3,9 +3,9 @@ import 'package:over_react/over_react.dart';
 
 import 'function_component.dart';
 
-final FunctionComponentConfig<$BasicProps> $basicConfig = FunctionComponentConfig(
+final FunctionComponentConfig<$BasicProps> $BasicPropsConfig = FunctionComponentConfig(
   propsFactory: $BasicPropsFactory,
-  displayName: 'Basic',
+  componentName: 'Basic',
 );
 
 final PropsFactory<$BasicProps> $BasicPropsFactory = PropsFactory(
