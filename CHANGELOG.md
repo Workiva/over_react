@@ -1,5 +1,9 @@
 # OverReact Changelog
 
+## [3.1.6](https://github.com/Workiva/over_react/compare/3.1.5...3.1.6)
+- Remove dead code in `UiProps.build` that was unnecessarily slowing down dart2js compilation
+- Fix README typos
+
 ## [3.1.5](https://github.com/Workiva/over_react/compare/3.1.4...3.1.5)
 
 - Fix `ErrorBoundary` infinite loop when multiple errors are thrown at the same time during remount
