@@ -4,13 +4,11 @@ import 'package:over_react/over_react.dart';
 import 'function_component.dart';
 
 final FunctionComponentConfig<$BasicProps> $BasicPropsConfig = FunctionComponentConfig(
-  propsFactory: $BasicPropsFactory,
+  propsFactory: PropsFactory(
+    map: (map) => $BasicProps(map),
+    jsMap: (map) => _$$BasicProps$JsMap(map),
+  ),
   componentName: 'Basic',
-);
-
-final PropsFactory<$BasicProps> $BasicPropsFactory = PropsFactory(
-  (map) => $BasicProps(map),
-  (jsBackedMap) => _$$BasicProps$JsMap(jsBackedMap),
 );
 
 mixin $BasicPropsMixin implements BasicPropsMixin {

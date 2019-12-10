@@ -297,7 +297,10 @@ class PropsFactory<T extends UiProps> {
   final T Function(Map props) map;
   final T Function(JsBackedMap props) jsMap;
 
-  PropsFactory(this.map, this.jsMap);
+  PropsFactory({
+    @required this.map,
+    @required this.jsMap,
+  });
 
   PropsFactory.fromUiFactory(UiFactory<T> factory) : this.map = factory, this.jsMap = factory;
 }
