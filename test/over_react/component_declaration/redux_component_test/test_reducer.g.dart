@@ -8,15 +8,14 @@ part of over_react.component_declaration.redux_component.reducer;
 
 // ignore_for_file: avoid_classes_with_only_static_members
 // ignore_for_file: annotate_overrides
+// ignore_for_file: overridden_fields
 
 class _$BaseActions extends BaseActions {
   factory _$BaseActions() => new _$BaseActions._();
   _$BaseActions._() : super._();
 
-  final ActionDispatcher<Null> trigger1 =
-      new ActionDispatcher<Null>('BaseActions-trigger1');
-  final ActionDispatcher<Null> trigger2 =
-      new ActionDispatcher<Null>('BaseActions-trigger2');
+  final trigger1 = new ActionDispatcher<Null>('BaseActions-trigger1');
+  final trigger2 = new ActionDispatcher<Null>('BaseActions-trigger2');
 
   @override
   void setDispatcher(Dispatcher dispatcher) {
@@ -26,10 +25,8 @@ class _$BaseActions extends BaseActions {
 }
 
 class BaseActionsNames {
-  static final ActionName<Null> trigger1 =
-      new ActionName<Null>('BaseActions-trigger1');
-  static final ActionName<Null> trigger2 =
-      new ActionName<Null>('BaseActions-trigger2');
+  static final trigger1 = new ActionName<Null>('BaseActions-trigger1');
+  static final trigger2 = new ActionName<Null>('BaseActions-trigger2');
 }
 
 // **************************************************************************
