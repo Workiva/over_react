@@ -29,7 +29,7 @@ main() {
   group('connect', () {
     UiFactory<CounterProps> ConnectedCounter;
     TestJacket<CounterComponent> jacket;
-    Ref<CounterComponent> counterRef = createRef();
+    final counterRef = createRef<CounterComponent>();
 
     JsConnectOptions connectOptions;
     var originalConnect = mockableJsConnect;
@@ -299,13 +299,13 @@ main() {
       group('areOwnPropsEqual', () {
         test('', () {
           ConnectedCounter = connect<CounterState, CounterProps>(
-            areOwnPropsEqual: (next, prev) {
+            areOwnPropsEqual: expectAsync2((next, prev) {
               expect(next, isA<CounterProps>());
               expect(prev, isA<CounterProps>());
               expect(next.id, 'test');
               expect(prev.id, 'test2');
               return true;
-            },
+            }),
           )(Counter);
 
           var whatever = connectOptions.areOwnPropsEqual(
@@ -329,7 +329,7 @@ main() {
               expect(next, isA<CounterProps>());
               expect(prev, isA<CounterProps>());
               methodsCalled.add('areStatePropsEqual');
-              // Force it to always betrue, meaing it shouldnt re-render if they change.
+              // Force it to always be true, meaing it shouldnt re-render if they change.
               return true;
             },
             forwardRef: true,
@@ -359,13 +359,13 @@ main() {
       group('areMergedPropsEqual', () {
         test('', () {
           ConnectedCounter = connect<CounterState, CounterProps>(
-            areMergedPropsEqual: (next, prev) {
+            areMergedPropsEqual: expectAsync2((next, prev) {
               expect(next, isA<CounterProps>());
               expect(prev, isA<CounterProps>());
               expect(next.id, 'test');
               expect(prev.id, 'test2');
               return true;
-            },
+            }),
             pure: false,
           )(Counter);
 
@@ -401,7 +401,8 @@ main() {
             ),
           );
 
-          expect(methodsCalled, ['mapStateToProps', 'areStatesEqual']);
+          expect(methodsCalled, contains('mapStateToProps'));
+          expect(methodsCalled, contains('areStatesEqual'));
           methodsCalled.clear();
 
           var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
