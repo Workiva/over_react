@@ -22,29 +22,32 @@ class _$CounterProps extends UiProps with ConnectPropsMixin {
 class CounterComponent extends UiComponent2<CounterProps> {
   @override
   render() {
-    return (Dom.div()..style = props.wrapperStyles)(
-        Dom.div()('Count: ${props.currentCount}'),
-        (Dom.button()
-          ..addTestId('button-increment')
-          ..onClick = (_) {
-            if (props.increment != null) {
-              props.increment();
-            } else if (props.dispatch != null) {
-              props.dispatch(IncrementAction());
-            }
+    return (Dom.div()
+      ..modifyProps(addUnconsumedProps)
+      ..style = props.wrapperStyles
+    )(
+      Dom.div()('Count: ${props.currentCount}'),
+      (Dom.button()
+        ..addTestId('button-increment')
+        ..onClick = (_) {
+          if (props.increment != null) {
+            props.increment();
+          } else if (props.dispatch != null) {
+            props.dispatch(IncrementAction());
           }
-        )('+'),
-        (Dom.button()
-          ..addTestId('button-decrement')
-          ..onClick = (_) {
-            if (props.decrement != null) {
-              props.decrement();
-            } else if (props.dispatch != null) {
-              props.dispatch(DecrementAction());
-            }
+        }
+      )('+'),
+      (Dom.button()
+        ..addTestId('button-decrement')
+        ..onClick = (_) {
+          if (props.decrement != null) {
+            props.decrement();
+          } else if (props.dispatch != null) {
+            props.dispatch(DecrementAction());
           }
-        )('-'),
-        props.children
+        }
+      )('-'),
+      props.children
     );
   }
 }
