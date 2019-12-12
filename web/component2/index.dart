@@ -36,6 +36,18 @@ void main() {
   );
 
   react_dom.render(
+    (ErrorBoundary()
+      ..fallbackUIRenderer = (error, info) {
+        return Dom.div()('It totally crashed.');
+      }
+      ..onComponentDidCatch = (error, info) {
+        print('Consumer props.onComponentDidCatch($error, $info)');
+      }
+    )(FaultyOnMount()()),
+    querySelector('$demoMountNodeSelectorPrefix--faulty-on-mount-component'),
+  );
+
+  react_dom.render(
     (CustomErrorBoundary()
       ..onComponentDidCatch = (error, info) {
         print('Consumer props.onComponentDidCatch($error, $info)');

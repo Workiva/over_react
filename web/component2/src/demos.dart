@@ -13,6 +13,7 @@ export 'demos/custom_error_boundary.dart';
 export '../src/demo_components/prop_validation_wrap.dart';
 
 export '../../src/demos/faulty-component.dart';
+export '../../src/demos/faulty-on-mount-component.dart';
 
 export 'demos/list-group/list-group-basic.dart';
 export 'demos/list-group/list-group-tags.dart';

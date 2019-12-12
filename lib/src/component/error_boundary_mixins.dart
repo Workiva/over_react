@@ -158,6 +158,9 @@ abstract class _$ErrorBoundaryStateMixin implements UiState {
 ///         return Dom.h3()('Error!');
 ///       }
 ///     }
+///
+/// __Deprecated.__ Use `ErrorBoundary` component and its props to handle errors instead.
+@Deprecated('4.0.0')
 mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBoundaryStateMixin>
     on UiStatefulComponent2<T, S> {
   @override

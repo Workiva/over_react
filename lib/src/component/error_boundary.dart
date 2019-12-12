@@ -61,7 +61,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   // ---------------------------------------------- /\ ----------------------------------------------
 
   ReactErrorInfo _errorInfo;
-  String _error;
+  dynamic _error;
 
   @override
   Map get defaultProps => (newProps()
@@ -71,18 +71,16 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   );
 
   @override
-  get initialState => newState()
+  get initialState => (newState()
     ..hasError = false
-    ..showFallbackUIOnError = true;
+    ..showFallbackUIOnError = true
+  );
 
   @override
-  Map getDerivedStateFromError(error) {
-    _error = error;
-    return (newState()
-      ..hasError = true
-      ..showFallbackUIOnError = true
-    );
-  }
+  Map getDerivedStateFromError(error) => (newState()
+    ..hasError = true
+    ..showFallbackUIOnError = true
+  );
 
   @override
   void componentDidCatch(error, ReactErrorInfo info) {
@@ -104,7 +102,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   render() {
     if (state.hasError) { // [2]
       if (props.fallbackUIRenderer != null) {
-        return ErrorBoundary()(props.fallbackUIRenderer(_error, _errorInfo)); // [2.1]
+        return props.fallbackUIRenderer(_error, _errorInfo); // [2.1]
       } else {
         return (Dom.div()
           ..key = 'ohnoes'
@@ -118,7 +116,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   @override
   void componentDidUpdate(Map prevProps, Map prevState, [dynamic snapshot]) {
     // If the child is different, and the error boundary is currently in an error state,
-    // give the child a chance to remount itself and "recover" from the previous error.
+    // give the children a chance to mount.
     if (state.hasError) {
       final childThatCausedError = typedPropsFactory(prevProps).children.single;
       if (childThatCausedError != props.children.single) {
@@ -127,7 +125,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
     }
   }
 
-    /// Resets the [ErrorBoundary] to a non-error state.
+  /// Resets the [ErrorBoundary] to a non-error state.
   ///
   /// This can be called manually on the component instance using a `ref` -
   /// or by passing in a new child instance after a child has thrown an error.
