@@ -1,7 +1,6 @@
 language: dart
 
 dart:
-  - '2.4.1' # TODO: Remove this and bump the lower SDK bound to 2.6.0 once released.
   - stable
   - dev
 
