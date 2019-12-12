@@ -154,4 +154,9 @@ class _$BasicComponent extends BasicComponent {
 
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForBasicProps];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+    BasicPropsMixin: _$metaForBasicProps,
+  });
 }

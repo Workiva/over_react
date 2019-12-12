@@ -29,7 +29,10 @@ class BasicPartOfLibComponent extends UiStatefulComponent2<BasicPartOfLibProps, 
   @override
   render() {
     return Dom.div()(
-        'BasicPartOfLibComponentProps: ${props.basicProp}, ${props.propMixin1}',
-        'BasicPartOfLibComponentState: ${state.basicState}, ${state.stateMixin1}');
+      'BasicPartOfLibComponentProps: ${props.basicProp}, ${props.propMixin1}',
+      'BasicPartOfLibComponentState: ${state.basicState}, ${state.stateMixin1}',
+      Dom.div()('propsMeta: ${propsMeta.keys}'),
+      Dom.div()('propsMeta for just ExamplePropsMixinClass: ${propsMeta.forMixin(ExamplePropsMixinClass).keys}'),
+    );
   }
 }

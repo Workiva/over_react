@@ -1,4 +1,5 @@
 // ignore_for_file: unnecessary_null_in_if_null_operators
+import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 
 import 'basic_library.dart';
@@ -15,6 +16,9 @@ final $BasicPartOfLibComponentFactory = registerComponent2(
 );
 
 mixin $BasicPartOfLibPropsMixin implements BasicPartOfLibPropsMixin {
+  @protected
+  static const PropsMeta meta = _$metaForBasicPartOfLibProps;
+
   @override
   Map get props;
 
@@ -230,6 +234,12 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
 
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForBasicPartOfLibProps];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+    ExamplePropsMixinClass: $ExamplePropsMixinClass.meta,
+    BasicPartOfLibPropsMixin: $BasicPartOfLibPropsMixin.meta,
+  });
 }
 
 final $SubPartOfLibComponentFactory = registerComponent(() => _$SubPartOfLibComponent(),
