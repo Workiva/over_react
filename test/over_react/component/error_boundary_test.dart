@@ -23,9 +23,9 @@ import 'package:test/test.dart';
 import 'shared_error_boundary_tests.dart';
 
 void main() {
-  // group('RecoverableErrorBoundary', () {
-  //   sharedErrorBoundaryTests(() => RecoverableErrorBoundary());
-  // });
+  group('RecoverableErrorBoundary', () {
+    sharedErrorBoundaryTests(() => RecoverableErrorBoundary());
+  });
 
   group('ErrorBoundary', () {
     sharedErrorBoundaryTests(() => ErrorBoundary(), isWrapper: true);
