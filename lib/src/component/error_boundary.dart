@@ -57,14 +57,16 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   //
   //     [2.1] If we have `props.fallbackUIRenderer` we present that.
   //
-  //     [2.2] Present nothing instead of the broken children.
+  //     [2.2] Due to this ErrorBoundary only catching during "unrecoverable" render cycle errors
+  //           there is never any DOM created that can be used, and because `props.fallbackUIRenderer`
+  //           is not set we have no content to display, so we present an empty div instead.
   // ---------------------------------------------- /\ ----------------------------------------------
 
   ReactErrorInfo _errorInfo;
   dynamic _error;
 
   @override
-  Map get defaultProps => (newProps()
+  get defaultProps => (newProps()
     ..identicalErrorFrequencyTolerance = Duration(seconds: 5)
     ..loggerName = defaultErrorBoundaryLoggerName
     ..shouldLogErrors = true
@@ -110,7 +112,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
         )(); // [2.2]
       }
     }
-    return (RecoverableErrorBoundary()..addProps(props))(props.children); // [1]
+    return (RecoverableErrorBoundary()..modifyProps(addUnconsumedProps))(props.children); // [1]
   }
 
   @override
@@ -120,6 +122,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
     if (state.hasError) {
       final childThatCausedError = typedPropsFactory(prevProps).children.single;
       if (childThatCausedError != props.children.single) {
+        print('children are different!');
         reset();
       }
     }

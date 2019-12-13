@@ -2,15 +2,12 @@ import 'package:over_react/over_react.dart';
 
 part 'error_boundary_recoverable.over_react.g.dart';
 
-/// A higher-order component that will catch ReactJS errors anywhere within the child component tree and
-/// display a fallback UI instead of the component tree that crashed.
+/// A higher-order component that will catch "recoverable" ReactJS errors, errors outside of the render/mount cycle,
+/// anywhere within the child component tree and display a fallback UI instead of the component tree that crashed.
 ///
-/// Optionally, use the [ErrorBoundaryProps.onComponentDidCatch]
-/// to send error / stack trace information to a logging endpoint for your application.
-///
-/// To make your own custom error boundaries, you can utilize the [ErrorBoundaryPropsMixin],
-/// [ErrorBoundaryStateMixin] and [ErrorBoundaryMixin]s on any component that is annotated
-/// using `@Component2(isErrorBoundary: true)`. See the [ErrorBoundaryMixin] for an example implementation.
+/// __NOTE:__
+///   1. This component is not / should never be publicly exported.
+///   2. This component should never be used, except as a child of the outer (public) `ErrorBoundary` component.
 @Factory()
 UiFactory<RecoverableErrorBoundaryProps> RecoverableErrorBoundary = _$RecoverableErrorBoundary;
 

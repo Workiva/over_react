@@ -13,6 +13,8 @@ const String defaultErrorBoundaryLoggerName = 'over_react.ErrorBoundary';
 /// within a custom component.
 ///
 /// > See: [ErrorBoundaryMixin] for a usage example.
+@Deprecated('Building custom error boundaries with this mixin will no longer be supported in version 4.0.0.'
+    'Use ErrorBoundary and its prop API to customize error handling instead.')
 @PropsMixin()
 abstract class _$ErrorBoundaryPropsMixin implements UiProps {
   @override
@@ -109,6 +111,8 @@ abstract class _$ErrorBoundaryPropsMixin implements UiProps {
 /// within a custom component.
 ///
 /// > See: [ErrorBoundaryMixin] for a usage example.
+@Deprecated('Building custom error boundaries with this mixin will no longer be supported in version 4.0.0.'
+    'Use ErrorBoundary and its prop API to customize error handling instead.')
 @StateMixin()
 abstract class _$ErrorBoundaryStateMixin implements UiState {
   @override
@@ -158,9 +162,8 @@ abstract class _$ErrorBoundaryStateMixin implements UiState {
 ///         return Dom.h3()('Error!');
 ///       }
 ///     }
-///
-/// __Deprecated.__ Use `ErrorBoundary` component and its props to handle errors instead.
-@Deprecated('4.0.0')
+@Deprecated('Building custom error boundaries with this mixin will no longer be supported in version 4.0.0.'
+    'Use ErrorBoundary and its prop API to customize error handling instead.')
 mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBoundaryStateMixin>
     on UiStatefulComponent2<T, S> {
   @override

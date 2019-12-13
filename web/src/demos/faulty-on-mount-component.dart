@@ -21,6 +21,11 @@ class FaultyOnMountProps extends _$FaultyOnMountProps with _$FaultyOnMountPropsA
 class FaultyOnMountComponent extends UiComponent2<FaultyOnMountProps> {
   @override
   render() {
-    throw 'lol';
+    throw Shade();
   }
+}
+
+class Shade extends Error {
+  @override
+  toString() => 'lol';
 }
