@@ -122,7 +122,6 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
     if (state.hasError) {
       final childThatCausedError = typedPropsFactory(prevProps).children.single;
       if (childThatCausedError != props.children.single) {
-        print('children are different!');
         reset();
       }
     }
