@@ -1,4 +1,5 @@
 import 'package:logging/logging.dart';
+import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component/error_boundary_recoverable.dart';
 
@@ -53,17 +54,10 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   //
   // [2] If we catch an error in this Error Boundary that indicates that the child Error Boundary was
   //     unable to handle or recover from the error, so we know that it was "unrecoverable" and we
-  //     haven't had a successful render.
+  //     haven't had a successful render there is never any DOM created that can used to display,
+  //     so we present an empty div instead.
   //
-  //     [2.1] If we have `props.fallbackUIRenderer` we present that.
-  //
-  //     [2.2] Due to this ErrorBoundary only catching during "unrecoverable" render cycle errors
-  //           there is never any DOM created that can be used, and because `props.fallbackUIRenderer`
-  //           is not set we have no content to display, so we present an empty div instead.
   // ---------------------------------------------- /\ ----------------------------------------------
-
-  ReactErrorInfo _errorInfo;
-  dynamic _error;
 
   @override
   get defaultProps => (newProps()
@@ -86,9 +80,6 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
 
   @override
   void componentDidCatch(error, ReactErrorInfo info) {
-    _error = error;
-    _errorInfo = info;
-
     if (props.onComponentDidCatch != null) {
       props.onComponentDidCatch(error, info);
     }
@@ -103,16 +94,15 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   @override
   render() {
     if (state.hasError) { // [2]
-      if (props.fallbackUIRenderer != null) {
-        return props.fallbackUIRenderer(_error, _errorInfo); // [2.1]
-      } else {
-        return (Dom.div()
-          ..key = 'ohnoes'
-          ..addTestId('ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode')
-        )(); // [2.2]
-      }
+      return (Dom.div()
+        ..key = 'ohnoes'
+        ..addTestId('ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode')
+      )();
     }
-    return (RecoverableErrorBoundary()..modifyProps(addUnconsumedProps))(props.children); // [1]
+    return (RecoverableErrorBoundary()
+      ..addTestId('RecoverableErrorBoundary')
+      ..modifyProps(addUnconsumedProps)
+    )(props.children); // [1]
   }
 
   @override

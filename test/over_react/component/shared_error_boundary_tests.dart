@@ -159,18 +159,20 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
         expect(jacket.getNode(), hasAttr(defaultTestIdKey, 'ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode'));
       });
 
-      test('and props.fallbackUIRenderer is set', () {
-        ReactElement _fallbackUIRenderer(_, __) {
-          return Dom.h4()('Something super not awesome just happened.');
-        }
+      if (!isWrapper) {
+        test('and props.fallbackUIRenderer is set', () {
+          ReactElement _fallbackUIRenderer(_, __) {
+            return Dom.h4()('Something super not awesome just happened.');
+          }
 
-        jacket = mount((builder()..addProps(ErrorBoundaryPropsMapView({})..fallbackUIRenderer = _fallbackUIRenderer))(dummyChild));
-        final component = jacket.getDartInstance();
-        component.setState(component.newState()..hasError = true);
+          jacket = mount((builder()..addProps(ErrorBoundaryPropsMapView({})..fallbackUIRenderer = _fallbackUIRenderer))(dummyChild));
+          final component = jacket.getDartInstance();
+          component.setState(component.newState()..hasError = true);
 
-        expect(jacket.getNode(), hasNodeName('H4'), reason: '${ErrorBoundaryPropsMapView(jacket.getProps()).fallbackUIRenderer}');
-        expect(jacket.getNode().text, 'Something super not awesome just happened.');
-      });
+          expect(jacket.getNode(), hasNodeName('H4'), reason: '${ErrorBoundaryPropsMapView(jacket.getProps()).fallbackUIRenderer}');
+          expect(jacket.getNode().text, 'Something super not awesome just happened.');
+        });
+      }
 
       group('and then switches back to rendering the child', () {
         setUp(() {
@@ -182,21 +184,23 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
           final component = jacket.getDartInstance();
           component.setState(component.newState()
             ..hasError = true
-            ..showFallbackUIOnError = true
           );
           expect(getByTestId(jacket.getInstance(), 'dummyChild'), isNull);
-          expect(getByTestId(jacket.getInstance(), 'fallbackNode'), isNotNull);
+          if (!isWrapper) {
+            // wrapper ErrorBoundary doesn't use `props.fallbackUIRenderer` because `ResolvableErrorBoundary`
+            // will display it on first error. Meaning wrapper ErrorBoundary will never be reached if it is set.
+            expect(getByTestId(jacket.getInstance(), 'fallbackNode'), isNotNull);
+          }
         });
 
-        if (!isWrapper) {
-          test('when reset() is called', () {
-            (jacket.getDartInstance() as dynamic).reset();
-            expect(jacket.getDartInstance().state.hasError, isFalse);
-            expect(jacket.getDartInstance().state.showFallbackUIOnError, isTrue);
-            expect(getByTestId(jacket.getInstance(), 'dummyChild'), isNotNull);
-            expect(getByTestId(jacket.getInstance(), 'fallbackNode'), isNull);
-          });
-        }
+        test('when reset() is called', () {
+          dynamic component = jacket.getDartInstance();
+          (component as dynamic).reset();
+          expect(component.state.hasError, isFalse);
+          expect(component.state.showFallbackUIOnError, isTrue);
+          expect(getByTestId(jacket.getInstance(), 'dummyChild'), isNotNull);
+          expect(getByTestId(jacket.getInstance(), 'fallbackNode'), isNull);
+        });
 
         group('when a new child is passed in', () {
           test('', () {
@@ -272,7 +276,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
       }
     }
 
-    void sharedSetup({dynamic errorBoundaryChildren}) {
+    void sharedSetup({dynamic errorBoundaryChildren, Map errorBoundaryProps}) {
       final customChildrenUsed = errorBoundaryChildren != null;
       errorBoundaryChildren ??= (Flawed()..addTestId('flawedComponent'))(
         (Flawed()
@@ -293,6 +297,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             ..onComponentIsUnrecoverable = (err, info) {
               calls.add({'onComponentIsUnrecoverable': [err, info]});
             }
+            ..addAll(errorBoundaryProps ?? {})
           )
         )(errorBoundaryChildren),
         attachedToDocument: true);
@@ -361,6 +366,37 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
               expect(errorInfoSentToComponentDidCatchCallback, isA<ReactErrorInfo>());
               expect(errorInfoSentToComponentIsUnrecoverableCallback, isA<ReactErrorInfo>());
               expect(errorInfoSentToComponentDidCatchCallback, errorInfoSentToComponentIsUnrecoverableCallback);
+            });
+          });
+
+          group('and they occurred on every render and fallbackUIRenderer is set', () {
+            setUp(() async {
+              sharedSetup(
+                errorBoundaryChildren: FlawedOnMount()(),
+                errorBoundaryProps: (ErrorBoundaryPropsMapView({})
+                    ..fallbackUIRenderer = (_, __) => (Dom.div()..addTestId('fallbackUIRenderer'))()
+                  ),
+              );
+            });
+
+            test('the components wrapped by the ErrorBoundary get unmounted', () {
+              expect(getByTestId(jacket.getInstance(), 'flawedComponent'), isNull,
+                  reason: 'The flawed component should have been unmounted');
+              expect(jacket.getDartInstance().state.showFallbackUIOnError, isTrue,
+                  reason: 'Fallback UI should be rendered instead of the flawed component tree');
+              expect(jacket.getNode(),
+                  hasAttr(defaultTestIdKey, 'fallbackUIRenderer'));
+              calls.clear();
+            });
+
+            test('the correct callbacks are called with the correct arguments', () {
+              expect(calls.any((call) => call.keys.single == 'onComponentDidCatch'), isTrue,
+                  reason: 'onComponentDidCatch should have been called');
+
+              _setCallbackVarValues();
+
+              expect(errorSentToComponentDidCatchCallback, isA<FlawedOnMountComponentException>());
+              expect(errorInfoSentToComponentDidCatchCallback, isA<ReactErrorInfo>());
             });
           });
         });
