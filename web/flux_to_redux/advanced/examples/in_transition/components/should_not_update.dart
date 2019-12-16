@@ -1,8 +1,7 @@
 import 'package:over_react/over_react.dart';
-import 'package:over_react/over_react_flux.dart';
 import 'package:over_react/over_react_redux.dart';
 
-import 'stores.dart';
+import '../../../components/stores.dart';
 
 part 'should_not_update.over_react.g.dart';
 

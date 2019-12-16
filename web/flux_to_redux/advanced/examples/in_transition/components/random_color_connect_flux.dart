@@ -4,7 +4,7 @@ import 'package:over_react/over_react_redux.dart';
 import 'package:over_react/src/util/hoc.dart';
 
 import '../../../components/stores.dart';
-import '../../../components/color_block.dart';
+import '../../before_transition/components/color_block.dart';
 
 
 part 'random_color_connect_flux.over_react.g.dart';
@@ -20,19 +20,16 @@ UiFactory<RandomColorConnectFluxProps> ConnectedRandomColorConnectFlux = compose
       ..changeMainBackgroundColor = () { actions.changeMainBackgroundColor(); }
       ..changeBlockOneBackgroundColor = () { actions.changeBlockOneBackgroundColor(); }
     ),
-    pure: false,
   ),
   connectFlux<InTransitionLowLevelStore, RandomColorActions, RandomColorConnectFluxProps>(
     context: inTransitionLowLevelStoreContext,
     mapStateToProps: (state) => (RandomColorConnectFlux()..blockTwoBackgroundColor = state.backgroundColor),
     mapActionsToProps: (actions) => RandomColorConnectFlux()..changeBlockTwoBackgroundColor = () => actions.changeBlockTwoBackgroundColor(),
-    pure: false,
   ),
   connectFlux<InTransitionSecondStore, RandomColorActions, RandomColorConnectFluxProps>(
     context: inTransitionSecondStoreContext,
     mapStateToProps: (state) => (RandomColorConnectFlux()..blockThreeBackgroundColor = state.backgroundColor),
     mapActionsToProps: (actions) => RandomColorConnectFlux()..changeBlockThreeBackgroundColor = () => actions.changeBlockThreeBackgroundColor(),
-    pure: false,
   ),
 ])(RandomColorConnectFlux);
 

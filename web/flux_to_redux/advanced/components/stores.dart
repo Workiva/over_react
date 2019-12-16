@@ -98,12 +98,6 @@ RandomColorActions beforeTransitionActions = RandomColorActions();
 TopLevelStore beforeTransitionStore = TopLevelStore(beforeTransitionActions);
 SecondStore beforeTransitionStore2 = SecondStore(beforeTransitionActions);
 
-Context topLevelStoreContext = createContext();
-Context secondStoreContext = createContext();
-
-FluxToReduxAdapterStore beforeTransitionTopLevelAdapter = FluxToReduxAdapterStore(beforeTransitionStore, beforeTransitionActions);
-FluxToReduxAdapterStore beforeTransitionSecondStoreAdapter = FluxToReduxAdapterStore(beforeTransitionStore2, beforeTransitionActions);
-
 ///////////////////////////// IN TRANSITION STORES \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 class InTransitionTopLevelStore extends flux.Store {
   RandomColorActions _actions;
@@ -225,8 +219,6 @@ class AfterTransitionState {
         this.blockOneBackgroundColor = 'red',
         this.blockTwoBackgroundColor = 'orange',
         this.blockThreeBackgroundColor = 'blue';
-
-
 
   AfterTransitionState.update(AfterTransitionState oldState,
       {mainBackgroundColor, blockOneBackgroundColor, blockTwoBackgroundColor, blockThreeBackgroundColor}) :

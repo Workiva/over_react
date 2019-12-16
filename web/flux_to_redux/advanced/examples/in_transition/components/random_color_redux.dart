@@ -1,7 +1,7 @@
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 import '../../../components/stores.dart';
-import '../../../components/color_block.dart';
+import '../../before_transition/components/color_block.dart';
 
 part 'random_color_redux.over_react.g.dart';
 
