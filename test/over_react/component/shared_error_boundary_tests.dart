@@ -28,7 +28,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
     List<Map<String, List>> calls;
     DivElement mountNode;
 
-    void verifyReact16ErrorHandlingWithoutbuilder() {
+    void verifyReact16ErrorHandlingWithoutErrorBoundary() {
       mountNode = DivElement();
       document.body.append(mountNode);
       var jacketOfFlawedComponentWithNoErrorBoundary = mount(Flawed()(), mountNode: mountNode);
@@ -49,7 +49,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
 
     setUp(() {
       // Verify the behavior of a component that throws when it is not wrapped in an error boundary first
-      verifyReact16ErrorHandlingWithoutbuilder();
+      verifyReact16ErrorHandlingWithoutErrorBoundary();
 
       calls = [];
       jacket = mount(
