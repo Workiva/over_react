@@ -1,57 +1,36 @@
 import 'package:over_react/over_react.dart';
-import 'package:over_react/over_react_redux.dart';
-import 'package:redux/redux.dart';
 
-import '../../../components/color_block.dart';
 import '../../../components/stores.dart';
+import '../../../components/color_block.dart';
 
-part 'random_color_redux.over_react.g.dart';
-
-UiFactory<RandomColorReduxProps> ConnectedRandomColorRedux = connect<AfterTransitionState, RandomColorReduxProps>(
-  mapStateToProps: (state) => (RandomColorRedux()
-    ..backgroundColor = state.mainBackgroundColor
-    ..blockOneBackgroundColor = state.blockOneBackgroundColor
-    ..blockTwoBackgroundColor = state.blockTwoBackgroundColor
-    ..blockThreeBackgroundColor = state.blockThreeBackgroundColor
-  ),
-  mapDispatchToProps: (dispatch) => RandomColorRedux()
-    ..changeMainBackgroundColor = () { dispatch(UpdateBackgroundColorAction()); }
-    ..changeBlockOneBackgroundColor = () { dispatch(UpdateBlockOneBackgroundColorAction()); }
-    ..changeBlockTwoBackgroundColor = () { dispatch(UpdateBlockTwoBackgroundColorAction()); }
-    ..changeBlockThreeBackgroundColor = () { dispatch(UpdateBlockThreeBackgroundColorAction()); }
-)(RandomColorRedux);
+part 'random_color.over_react.g.dart';
 
 @Factory()
-UiFactory<RandomColorReduxProps> RandomColorRedux = _$RandomColorRedux;
+UiFactory<RandomColorProps> RandomColor = _$RandomColor;
 
 @Props()
-class _$RandomColorReduxProps extends UiProps with ConnectPropsMixin {
-  String backgroundColor;
+class _$RandomColorProps extends FluxUiProps<RandomColorActions, InTransitionTopLevelStore> {
+  InTransitionLowLevelStore lowLevelStore;
 
-  String blockTwoBackgroundColor;
-
-  String blockThreeBackgroundColor;
-
-  String blockOneBackgroundColor;
-
-  Function changeMainBackgroundColor;
-
-  Function changeBlockOneBackgroundColor;
-
-  Function changeBlockTwoBackgroundColor;
-
-  Function changeBlockThreeBackgroundColor;
+  InTransitionSecondStore secondStore;
 }
 
 @Component2()
-class RandomColorReduxComponent extends UiComponent2<RandomColorReduxProps> {
+class RandomColorComponent extends FluxUiComponent2<RandomColorProps> {
+  @override
+  redrawOn() => [
+    props.store,
+    props.lowLevelStore,
+    props.secondStore,
+  ];
+
   @override
   render() {
     return (
         Fragment()(
             (Dom.div()..style = {
               'padding': '50px',
-              'backgroundColor': props.backgroundColor,
+              'backgroundColor': props.store.mainBackgroundColor,
               'color': 'white',
               'display': 'flex',
               'alignItems': 'center',
@@ -64,7 +43,7 @@ class RandomColorReduxComponent extends UiComponent2<RandomColorReduxProps> {
                 )(
                     (Dom.button()
                       ..onClick = (_) {
-                        props.changeMainBackgroundColor();
+                        props.actions.changeMainBackgroundColor();
                       }
                       ..style = {
                         'padding': '10px',
@@ -74,7 +53,7 @@ class RandomColorReduxComponent extends UiComponent2<RandomColorReduxProps> {
                     )('Change Main Background Color'),
                     (Dom.button()
                       ..onClick = (_) {
-                        props.changeBlockOneBackgroundColor();
+                        props.actions.changeBlockOneBackgroundColor();
                       }
                       ..style = {
                         'padding': '10px',
@@ -84,7 +63,7 @@ class RandomColorReduxComponent extends UiComponent2<RandomColorReduxProps> {
                     )('Change Block 1 Background Color'),
                     (Dom.button()
                       ..onClick = (_) {
-                        props.changeBlockTwoBackgroundColor();
+                        props.actions.changeBlockTwoBackgroundColor();
                       }
                       ..style = {
                         'padding': '10px',
@@ -94,7 +73,7 @@ class RandomColorReduxComponent extends UiComponent2<RandomColorReduxProps> {
                     )('Change Block 2 Background Color'),
                     (Dom.button()
                       ..onClick = (_) {
-                        props.changeBlockThreeBackgroundColor();
+                        props.actions.changeBlockThreeBackgroundColor();
                       }
                       ..style = {
                         'padding': '10px',
@@ -109,20 +88,20 @@ class RandomColorReduxComponent extends UiComponent2<RandomColorReduxProps> {
                 )(
                   (ColorBlock()
                     ..blockTitle = 'Block 1'
-                    ..backgroundColor = this.props.blockOneBackgroundColor
-                    ..colorString = this.props.blockOneBackgroundColor
+                    ..backgroundColor = this.props.store.blockOneBackgroundColor
+                    ..colorString = this.props.store.blockOneBackgroundColor
                     ..key = 'b1'
                   )(),
                   (ColorBlock()
                     ..blockTitle = 'Block 2'
-                    ..backgroundColor = this.props.blockTwoBackgroundColor
-                    ..colorString = this.props.blockTwoBackgroundColor
+                    ..backgroundColor = this.props.lowLevelStore.backgroundColor
+                    ..colorString = this.props.lowLevelStore.backgroundColor
                     ..key = 'b2'
                   )(),
                   (ColorBlock()
                     ..blockTitle = 'Block 3'
-                    ..backgroundColor = this.props.blockThreeBackgroundColor
-                    ..colorString = this.props.blockThreeBackgroundColor
+                    ..backgroundColor = this.props.secondStore.backgroundColor
+                    ..colorString = this.props.secondStore.backgroundColor
                     ..key = 'b3'
                   )(),
                 )
@@ -130,4 +109,11 @@ class RandomColorReduxComponent extends UiComponent2<RandomColorReduxProps> {
         )
     );
   }
+}
+
+// AF-3369 This will be removed once the transition to Dart 2 is complete.
+// ignore: mixin_of_non_class, undefined_class
+class RandomColorProps extends _$RandomColorProps with _$RandomColorPropsAccessorsMixin {
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  static const PropsMeta meta = _$metaForRandomColorProps;
 }

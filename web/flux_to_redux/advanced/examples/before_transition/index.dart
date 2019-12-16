@@ -7,7 +7,7 @@ import 'package:react/react_dom.dart' as react_dom;
 import 'package:over_react/over_react_redux.dart';
 
 import '../../components/random_color.dart';
-import '../../components/random_color_redux.dart';
+import 'components/random_color_redux.dart';
 import '../../components/random_color_connect_flux.dart';
 import '../../components/stores.dart';
 
@@ -17,17 +17,15 @@ main() {
   react_dom.render(
       ErrorBoundary()(
           (ReduxMultiProvider()..storesByContext = {
-            topLevelStoreContext: topLevelStoreAdapter,
-            midLevelStoreContext: midLevelStoreAdapter,
-            lowLevelStoreContext: lowLevelStoreAdapter,
-            secondStoreContext: secondStoreAdapter,
+            topLevelStoreContext: beforeTransitionTopLevelAdapter,
+            secondStoreContext: beforeTransitionSecondStoreAdapter,
           })(
             (RandomColor()
-              ..store = topLevelStore
-              ..store2 = secondStore
+              ..store = beforeTransitionStore
+              ..store2 = beforeTransitionStore2
               ..actions = beforeTransitionActions)(),
             ConnectedRandomColorConnectFlux()(),
-//            ConnectedRandomColorRedux()(),
+            (ConnectedRandomColorRedux())(),
           )
       ), querySelector('#content')
   );

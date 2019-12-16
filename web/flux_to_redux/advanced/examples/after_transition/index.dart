@@ -15,16 +15,11 @@ main() {
 
   react_dom.render(
       ErrorBoundary()(
-          (ReduxMultiProvider()..storesByContext = {
-            topLevelStoreContext: topLevelStoreAdapter,
-            midLevelStoreContext: midLevelStoreAdapter,
-            lowLevelStoreContext: lowLevelStoreAdapter,
-            secondStoreContext: secondStoreAdapter,
-          })(
+          (ReduxProvider()..store = afterTransitionStore)(
             ConnectedRandomColorRedux()(),
-//            ConnectedRandomColorRedux()(),
-//            ConnectedRandomColorRedux()(),
-//            ConnectedShouldNotUpdate()(),
+            ConnectedRandomColorRedux()(),
+            ConnectedRandomColorRedux()(),
+            ConnectedShouldNotUpdate()(),
           )
       ), querySelector('#content')
   );

@@ -1,41 +1,52 @@
 import 'package:over_react/over_react.dart';
-import 'package:over_react/over_react_flux.dart';
 import 'package:over_react/over_react_redux.dart';
-import 'package:over_react/src/util/hoc.dart';
+import '../../../components/stores.dart';
+import '../../../components/color_block.dart';
 
-import './stores.dart';
-import './color_block.dart';
+part 'random_color_redux.over_react.g.dart';
 
-
-part 'random_color_connect_flux.over_react.g.dart';
-
-UiFactory<RandomColorConnectFluxProps> ConnectedRandomColorConnectFlux = composeHocs([
-  connectFlux<TopLevelStore, RandomColorActions, RandomColorConnectFluxProps>(
-      context: topLevelStoreContext,
-      mapStateToProps: (state) => (RandomColorConnectFlux()
-        ..backgroundColor = state.backgroundColor
-        ..blockOneBackgroundColor = state.midLevelStore.backgroundColor
-        ..blockTwoBackgroundColor = state.midLevelStore.lowLevelStore.backgroundColor
-      ),
-      mapActionsToProps: (actions) => (RandomColorConnectFlux()
-        ..changeMainBackgroundColor = () { actions.changeMainBackgroundColor(); }
-        ..changeBlockOneBackgroundColor = () { actions.changeBlockOneBackgroundColor(); }
-        ..changeBlockTwoBackgroundColor = () { actions.changeBlockTwoBackgroundColor(); }
-      ),
+UiFactory<RandomColorReduxProps> ConnectedRandomColorRedux = composeHocs([
+  connect<InTransitionTopLevelStore, RandomColorReduxProps>(
+    context: inTransitionTopLevelStoreContext,
+    mapStateToProps: (state) => (RandomColorRedux()
+      ..backgroundColor = state.mainBackgroundColor
+      ..blockOneBackgroundColor = state.blockOneBackgroundColor
+    ),
+    mapDispatchToProps: (dispatch) => (RandomColorRedux()
+      ..changeMainBackgroundColor = () { dispatch(UpdateBackgroundColorAction()); }
+      ..changeBlockOneBackgroundColor = () { dispatch(UpdateBlockOneBackgroundColorAction()); }
+      ..changeBlockTwoBackgroundColor = () { dispatch(UpdateBlockTwoBackgroundColorAction()); }
+      ..changeBlockThreeBackgroundColor = () { dispatch(UpdateBlockThreeBackgroundColorAction()); }
+    ),
     pure: false,
   ),
-  connectFlux<SecondStore, RandomColorActions, RandomColorConnectFluxProps>(
-    context: secondStoreContext,
-    mapStateToProps: (state) => (RandomColorConnectFlux()..blockThreeBackgroundColor = state.backgroundColor),
-    mapActionsToProps: (actions) => RandomColorConnectFlux()..changeBlockThreeBackgroundColor = () => actions.changeBlockThreeBackgroundColor(),
+  connect<InTransitionLowLevelStore, RandomColorReduxProps>(
+    context: inTransitionLowLevelStoreContext,
+    mapStateToProps: (state) => (RandomColorRedux()
+      ..blockTwoBackgroundColor = state.backgroundColor
+    ),
+    mapDispatchToProps: (dispatch) => (RandomColorRedux()
+      ..changeBlockTwoBackgroundColor = () { dispatch(UpdateBlockTwoBackgroundColorAction()); }
+    ),
+    pure: false,
   ),
-])(RandomColorConnectFlux);
+  connect<InTransitionSecondStore, RandomColorReduxProps>(
+    context: inTransitionSecondStoreContext,
+    mapStateToProps: (state) => (RandomColorRedux()
+      ..blockThreeBackgroundColor = state.backgroundColor
+    ),
+    mapDispatchToProps: (dispatch) => (RandomColorRedux()
+      ..changeBlockThreeBackgroundColor = () { dispatch(UpdateBlockThreeBackgroundColorAction()); }
+    ),
+    pure: false,
+  ),
+])(RandomColorRedux);
 
 @Factory()
-UiFactory<RandomColorConnectFluxProps> RandomColorConnectFlux = _$RandomColorConnectFlux;
+UiFactory<RandomColorReduxProps> RandomColorRedux = _$RandomColorRedux;
 
 @Props()
-class _$RandomColorConnectFluxProps extends UiProps with ConnectPropsMixin {
+class _$RandomColorReduxProps extends UiProps with ConnectPropsMixin {
   String backgroundColor;
 
   String blockTwoBackgroundColor;
@@ -54,7 +65,7 @@ class _$RandomColorConnectFluxProps extends UiProps with ConnectPropsMixin {
 }
 
 @Component2()
-class RandomColorConnectFluxComponent extends UiComponent2<RandomColorConnectFluxProps> {
+class RandomColorReduxComponent extends UiComponent2<RandomColorReduxProps> {
   @override
   render() {
     return (
@@ -67,7 +78,7 @@ class RandomColorConnectFluxComponent extends UiComponent2<RandomColorConnectFlu
               'alignItems': 'center',
               'justifyContent': 'space-evenly'
             })(
-                (Dom.div()..key='c1')('This module uses a flux pattern to change its background color.'),
+                (Dom.div()..key='c1')('This module uses a Redux pattern to change its background color.'),
                 (Dom.div()
                   ..style={'display': 'flex', 'flexDirection': 'column',}
                   ..key='c2'

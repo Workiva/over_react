@@ -3,31 +3,36 @@ import 'package:over_react/over_react_flux.dart';
 import 'package:over_react/over_react_redux.dart';
 import 'package:over_react/src/util/hoc.dart';
 
-import './stores.dart';
-import './color_block.dart';
+import '../../../components/stores.dart';
+import '../../../components/color_block.dart';
 
 
 part 'random_color_connect_flux.over_react.g.dart';
 
 UiFactory<RandomColorConnectFluxProps> ConnectedRandomColorConnectFlux = composeHocs([
-  connectFlux<TopLevelStore, RandomColorActions, RandomColorConnectFluxProps>(
-      context: topLevelStoreContext,
-      mapStateToProps: (state) => (RandomColorConnectFlux()
-        ..backgroundColor = state.backgroundColor
-        ..blockOneBackgroundColor = state.midLevelStore.backgroundColor
-        ..blockTwoBackgroundColor = state.midLevelStore.lowLevelStore.backgroundColor
-      ),
-      mapActionsToProps: (actions) => (RandomColorConnectFlux()
-        ..changeMainBackgroundColor = () { actions.changeMainBackgroundColor(); }
-        ..changeBlockOneBackgroundColor = () { actions.changeBlockOneBackgroundColor(); }
-        ..changeBlockTwoBackgroundColor = () { actions.changeBlockTwoBackgroundColor(); }
-      ),
+  connectFlux<InTransitionTopLevelStore, RandomColorActions, RandomColorConnectFluxProps>(
+    context: inTransitionTopLevelStoreContext,
+    mapStateToProps: (state) => (RandomColorConnectFlux()
+      ..backgroundColor = state.mainBackgroundColor
+      ..blockOneBackgroundColor = state.blockOneBackgroundColor
+    ),
+    mapActionsToProps: (actions) => (RandomColorConnectFlux()
+      ..changeMainBackgroundColor = () { actions.changeMainBackgroundColor(); }
+      ..changeBlockOneBackgroundColor = () { actions.changeBlockOneBackgroundColor(); }
+    ),
     pure: false,
   ),
-  connectFlux<SecondStore, RandomColorActions, RandomColorConnectFluxProps>(
-    context: secondStoreContext,
+  connectFlux<InTransitionLowLevelStore, RandomColorActions, RandomColorConnectFluxProps>(
+    context: inTransitionLowLevelStoreContext,
+    mapStateToProps: (state) => (RandomColorConnectFlux()..blockTwoBackgroundColor = state.backgroundColor),
+    mapActionsToProps: (actions) => RandomColorConnectFlux()..changeBlockTwoBackgroundColor = () => actions.changeBlockTwoBackgroundColor(),
+    pure: false,
+  ),
+  connectFlux<InTransitionSecondStore, RandomColorActions, RandomColorConnectFluxProps>(
+    context: inTransitionSecondStoreContext,
     mapStateToProps: (state) => (RandomColorConnectFlux()..blockThreeBackgroundColor = state.backgroundColor),
     mapActionsToProps: (actions) => RandomColorConnectFlux()..changeBlockThreeBackgroundColor = () => actions.changeBlockThreeBackgroundColor(),
+    pure: false,
   ),
 ])(RandomColorConnectFlux);
 
