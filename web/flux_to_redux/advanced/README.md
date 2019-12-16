@@ -12,7 +12,7 @@ If the library's state architecture is simplistic enough, the examples can illus
 - Stores: The store architecture is comprised of two top level store classes (`TopLevelStore` and `SecondStore`). Within `TopLevelStore` there are two nested stores: `MidLevelStore` and `LowLevelStore`, with `LowLevelStore` being nested within `MidLevelStore`. Naturally in the real world each store architecture would be different, but for the sake of simplicity (and keeping the focus on the big picture), each store is essentially the same.
 
 - Components: The only component rendered in the beginning is a Flux component. Each block in the UI has a background color derived from a different store, and there are a set of buttons to change each block background color.
-<img height=400 src="./StartingArchitecture.png" alt='Rerender Performance'>
+<img height=400 src="./StartingArchitecture.png" alt='Starting Architecture'>
 
 ## Influx Architecture (during transition)
 - Stores: In transition, the goal is to remove nesting from stores. Rather than having three stores nested one within another, they can be combined (flattened) or broken out into their own store. Additionally, they need to be wrapped by a class that can handle both Redux and Flux. General suggested steps to this step are:
@@ -31,12 +31,16 @@ If the library's state architecture is simplistic enough, the examples can illus
 
 - Components: After updating the store as described above, if you stopped at step 4 you can update to components to `ConnectFlux` components. If you completed all 7 steps, you will want to update to Redux components.
 
-    In both cases, you will need to:
     1. Wrap your component tree in a `ReduxProvider` or `ReduxMultiProvider`. If you only have a single store to pass down to the components, a `ReduxProvider` will do. If you have multiple stores, use a `ReduxMultiProvider` to makes things more concise.
     1. Refactor your (soon to be) connected components to regular `UiComponent2`, switching out `props.store.example` for just `props.example`.
+    1. Create a `Connected[ComponentNameGoesHere]` that wraps the component factory in a `ConnectFlux` or `Connect` call. Note that if this component still receives multiple stores, it will be helpful to wrap the factory in a `ComposeHocs` call. 
+        - In the case there are multiple stores, you'll also need to utilize the context instances created in the store file and used with `ReduxMultiProvider`. 
+        - This is also where you would connect `MapStateToProps` and `MapActionsToProps` / `MapDispatchToProps`.
 
-    To upgrade to `ConnectFlux` Components:
-    1. Create a `Connected[ComponentNameGoesHere]` that wraps the component factory in a `ConnectFlux` call. Note that if this component still receives multiple stores, it will be helpful to wrap the factory in a `ComposeHo
-        
-    - asdasddafad
-<img height=400 src="./StartingArchitecture.png" alt='Rerender Performance'>
+- Example Specific Explanations
+    - All of the variables had `InTranstion` appended as the root to names to differentiate them from the beginning phase variables.
+    - The store architecture was updated to get rid of `MidLevelStore` and combine its fields with `TopLevelStore`. Then `LowLevelStore` was broken out as its own top level store. This could have been compined with `TopLevelStore` as well, but just wanted to show different approaches.
+    - Added reducers, adapters, and context.
+    - Wrapped components being rendered in a `ReduxMultiProvider`, adding the respective contexts and stores (adapted stores).
+    - Refactored `RandomColorComponent` to be both a Flux and Redux connected component.
+<img height=400 src="./InfluxArchitecture.png" alt='Influx Architecture'>
