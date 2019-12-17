@@ -1,8 +1,7 @@
 import 'package:over_react/over_react.dart';
-import 'package:over_react/over_react_flux.dart';
 import 'package:over_react/over_react_redux.dart';
 
-import 'stores.dart';
+import '../stores.dart';
 
 part 'should_not_update.over_react.g.dart';
 
@@ -31,13 +30,5 @@ class ShouldNotUpdateComponent extends UiComponent2<ShouldNotUpdateProps> {
               'it will in a Reflux (Redux & Flux together) implementation it will.',
         )
     );
-  }
-
-  @override
-  void componentDidUpdate(Map prevProps, Map prevState, [snapshot]) {
-
-    print('updated!');
-
-    super.componentDidUpdate(prevProps, prevState, snapshot);
   }
 }

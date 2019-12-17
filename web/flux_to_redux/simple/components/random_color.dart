@@ -1,7 +1,6 @@
 import 'package:over_react/over_react.dart';
-import 'package:w_flux/w_flux.dart';
 
-import './stores.dart';
+import '../stores.dart';
 
 part 'random_color.over_react.g.dart';
 
@@ -25,7 +24,6 @@ class RandomColorComponent extends FluxUiComponent2<RandomColorProps> {
             'This module uses a flux pattern to change its background color.',
             (Dom.button()
               ..onClick = (_) {
-                print('hi');
                 props.actions.changeBackgroundColor();
               }
               ..style = {

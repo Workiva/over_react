@@ -5,8 +5,26 @@ import 'package:over_react/over_react_flux.dart';
 import 'package:redux/redux.dart' as redux;
 import 'package:w_flux/w_flux.dart' as flux;
 
-////////////////////////////////// SHARED \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+////////////////////////////////// Actions \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+class UpdateBackgroundColorAction {}
 
+class UpdateBlockOneBackgroundColorAction {}
+
+class UpdateBlockTwoBackgroundColorAction {}
+
+class UpdateBlockThreeBackgroundColorAction {}
+
+class RandomColorActions {
+  final flux.Action<String> changeMainBackgroundColor = flux.Action();
+
+  final flux.Action<String> changeBlockOneBackgroundColor = flux.Action();
+
+  final flux.Action<String> changeBlockTwoBackgroundColor = flux.Action();
+
+  final flux.Action<String> changeBlockThreeBackgroundColor = flux.Action();
+}
+
+/////////////////////////// BEFORE TRANSITION STORES \\\\\\\\\\\\\\\\\\\\\\\\\\
 class TopLevelStore extends flux.Store {
   RandomColorActions _actions;
   MidLevelStore midLevelStore = MidLevelStore(beforeTransitionActions);
@@ -38,7 +56,6 @@ class MidLevelStore extends flux.Store {
   }
 
   _changeBackgroundColor(String _) {
-    print('ayyy');
     _backgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
   }
 }
@@ -75,25 +92,6 @@ class SecondStore extends flux.Store {
   }
 }
 
-class UpdateBackgroundColorAction {}
-
-class UpdateBlockOneBackgroundColorAction {}
-
-class UpdateBlockTwoBackgroundColorAction {}
-
-class UpdateBlockThreeBackgroundColorAction {}
-
-class RandomColorActions {
-  final flux.Action<String> changeMainBackgroundColor = flux.Action();
-
-  final flux.Action<String> changeBlockOneBackgroundColor = flux.Action();
-
-  final flux.Action<String> changeBlockTwoBackgroundColor = flux.Action();
-
-  final flux.Action<String> changeBlockThreeBackgroundColor = flux.Action();
-}
-
-/////////////////////////// BEFORE TRANSITION STORES \\\\\\\\\\\\\\\\\\\\\\\\\\
 RandomColorActions beforeTransitionActions = RandomColorActions();
 TopLevelStore beforeTransitionStore = TopLevelStore(beforeTransitionActions);
 SecondStore beforeTransitionStore2 = SecondStore(beforeTransitionActions);
@@ -205,7 +203,6 @@ Context inTransitionSecondStoreContext = createContext();
 FluxToReduxAdapterStore inTransitionTopLevelAdapter = FluxToReduxAdapterStore(inTransitionTopLevelStore, inTransitionActions, reducer: inTransitionTopLevelReducer);
 FluxToReduxAdapterStore inTransitionLowLevelAdapter = FluxToReduxAdapterStore(inTransitionLowLevelStore, inTransitionActions, reducer: inTransitionLowLevelReducer);
 FluxToReduxAdapterStore inTransitionSecondStoreAdapter = FluxToReduxAdapterStore(inTransitionSecondStore, inTransitionActions, reducer: inTransitionSecondStoreReducer);
-
 
 /////////////////////////// AFTER TRANSITION STORES \\\\\\\\\\\\\\\\\\\\\\\\\\
 class AfterTransitionState {

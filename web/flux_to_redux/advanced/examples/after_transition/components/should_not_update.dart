@@ -1,11 +1,13 @@
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 
-import '../../../components/stores.dart';
+import '../../../stores.dart';
 
 part 'should_not_update.over_react.g.dart';
 
-UiFactory<ShouldNotUpdateProps> ConnectedShouldNotUpdate = connect<AfterTransitionState, ShouldNotUpdateProps>(mapStateToProps: (_) => {})(ShouldNotUpdate);
+UiFactory<ShouldNotUpdateProps> ConnectedShouldNotUpdate = connect<AfterTransitionState, ShouldNotUpdateProps>(
+  mapStateToProps: (_) => {},
+)(ShouldNotUpdate);
 
 @Factory()
 UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = _$ShouldNotUpdate;
@@ -23,7 +25,7 @@ class ShouldNotUpdateComponent extends UiComponent2<ShouldNotUpdateProps> {
           'backgroundColor': 'gray',
           'color': 'white'
         })(
-          'This component should not update when the others do.',
+          'This component should not redraw when the others do.',
         )
     );
   }

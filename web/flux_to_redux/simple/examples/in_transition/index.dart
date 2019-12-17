@@ -9,7 +9,7 @@ import '../../components/random_color.dart';
 import '../../components/random_color_redux.dart';
 import '../../components/random_color_connect_flux.dart';
 import '../../components/should_not_update.dart';
-import '../../components/stores.dart';
+import '../../stores.dart';
 
 main() {
   setClientConfiguration();

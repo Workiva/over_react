@@ -24,24 +24,10 @@ abstract class _$ShouldNotUpdatePropsAccessorsMixin
   @override
   Map get props;
 
-  /// <!-- Generated from [_$ShouldNotUpdateProps.text] -->
-  @override
-  String get text =>
-      props[_$key__text___$ShouldNotUpdateProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$ShouldNotUpdateProps.text] -->
-  @override
-  set text(String value) => props[_$key__text___$ShouldNotUpdateProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__text___$ShouldNotUpdateProps =
-      PropDescriptor(_$key__text___$ShouldNotUpdateProps);
-  static const String _$key__text___$ShouldNotUpdateProps =
-      'ShouldNotUpdateProps.text';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__text___$ShouldNotUpdateProps
-  ];
-  static const List<String> $propKeys = [_$key__text___$ShouldNotUpdateProps];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
 const PropsMeta _$metaForShouldNotUpdateProps = PropsMeta(

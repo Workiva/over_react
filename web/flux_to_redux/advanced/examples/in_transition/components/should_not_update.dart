@@ -1,20 +1,33 @@
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 
-import '../../../components/stores.dart';
+import '../../../stores.dart';
 
 part 'should_not_update.over_react.g.dart';
 
-UiFactory<ShouldNotUpdateProps> ConnectedShouldNotUpdate = connect<TopLevelStore, ShouldNotUpdateProps>(mapStateToProps: (_) => {}, pure: false,
-)(ShouldNotUpdate);
+UiFactory<ShouldNotUpdateProps> ConnectedShouldNotUpdate = composeHocs([
+  connect<InTransitionTopLevelStore, ShouldNotUpdateProps>(
+    context: inTransitionTopLevelStoreContext,
+    mapStateToProps: (_) => {},
+    pure: false,
+  ),
+  connect<InTransitionLowLevelStore, ShouldNotUpdateProps>(
+    context: inTransitionLowLevelStoreContext,
+    mapStateToProps: (_) => {},
+    pure: false,
+  ),
+  connect<InTransitionSecondStore, ShouldNotUpdateProps>(
+    context: inTransitionSecondStoreContext,
+    mapStateToProps: (_) => {},
+    pure: false,
+  )
+])(ShouldNotUpdate);
 
 @Factory()
 UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = _$ShouldNotUpdate;
 
 @Props()
-class _$ShouldNotUpdateProps extends UiProps {
-  String text;
-}
+class _$ShouldNotUpdateProps extends UiProps {}
 
 @Component2()
 class ShouldNotUpdateComponent extends UiComponent2<ShouldNotUpdateProps> {
@@ -26,17 +39,10 @@ class ShouldNotUpdateComponent extends UiComponent2<ShouldNotUpdateProps> {
           'backgroundColor': 'gray',
           'color': 'white'
         })(
-          'In a full Redux implementation, this component would not update. However,'
-              'it will in a Reflux (Redux & Flux together) implementation it will.',
+          'In a full Redux implementation, this component would not redraw when the'
+              'other components update. However, it will in an Influx (Redux & '
+              'Flux together) implementation.'
         )
     );
-  }
-
-  @override
-  void componentDidUpdate(Map prevProps, Map prevState, [snapshot]) {
-
-    print('updated!');
-
-    super.componentDidUpdate(prevProps, prevState, snapshot);
   }
 }

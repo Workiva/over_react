@@ -1,7 +1,8 @@
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_flux.dart';
 import 'package:over_react/over_react_redux.dart';
-import './stores.dart';
+
+import '../stores.dart';
 
 part 'random_color_connect_flux.over_react.g.dart';
 

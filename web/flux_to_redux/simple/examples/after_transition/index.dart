@@ -7,7 +7,7 @@ import 'package:over_react/over_react_redux.dart';
 
 import './components/should_not_update.dart';
 import './components/random_color_redux.dart';
-import '../../components/stores.dart';
+import '../../stores.dart';
 
 main() {
   setClientConfiguration();

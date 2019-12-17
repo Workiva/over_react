@@ -3,8 +3,8 @@ import 'package:over_react/over_react_flux.dart';
 import 'package:over_react/over_react_redux.dart';
 import 'package:over_react/src/util/hoc.dart';
 
-import '../../../components/stores.dart';
-import '../../before_transition/components/color_block.dart';
+import '../../../stores.dart';
+import '../../../components/color_block.dart';
 
 
 part 'random_color_connect_flux.over_react.g.dart';
@@ -69,7 +69,7 @@ class RandomColorConnectFluxComponent extends UiComponent2<RandomColorConnectFlu
               'alignItems': 'center',
               'justifyContent': 'space-evenly'
             })(
-                (Dom.div()..key='c1')('This module uses a flux pattern to change its background color.'),
+                (Dom.div()..key='c1')('This module uses a ConnectedFlux pattern to change its background color.'),
                 (Dom.div()
                   ..style={'display': 'flex', 'flexDirection': 'column',}
                   ..key='c2'
