@@ -19,7 +19,8 @@ final $RandomColorConnectFluxComponentFactory = registerComponent2(
   displayName: 'RandomColorConnectFlux',
 );
 
-abstract class _$RandomColorConnectFluxPropsAccessorsMixin implements _$RandomColorConnectFluxProps {
+abstract class _$RandomColorConnectFluxPropsAccessorsMixin
+    implements _$RandomColorConnectFluxProps {
   @override
   Map get props;
 
@@ -30,7 +31,8 @@ abstract class _$RandomColorConnectFluxPropsAccessorsMixin implements _$RandomCo
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$RandomColorConnectFluxProps.backgroundColor] -->
   @override
-  set backgroundColor(String value) => props[_$key__backgroundColor___$RandomColorConnectFluxProps] = value;
+  set backgroundColor(String value) =>
+      props[_$key__backgroundColor___$RandomColorConnectFluxProps] = value;
 
   /// <!-- Generated from [_$RandomColorConnectFluxProps.blockTwoBackgroundColor] -->
   @override
@@ -116,7 +118,8 @@ abstract class _$RandomColorConnectFluxPropsAccessorsMixin implements _$RandomCo
       PropDescriptor(_$key__changeBlockOneBackgroundColor___$RandomColorConnectFluxProps);
   static const PropDescriptor _$prop__changeBlockTwoBackgroundColor___$RandomColorConnectFluxProps =
       PropDescriptor(_$key__changeBlockTwoBackgroundColor___$RandomColorConnectFluxProps);
-  static const PropDescriptor _$prop__changeBlockThreeBackgroundColor___$RandomColorConnectFluxProps =
+  static const PropDescriptor
+      _$prop__changeBlockThreeBackgroundColor___$RandomColorConnectFluxProps =
       PropDescriptor(_$key__changeBlockThreeBackgroundColor___$RandomColorConnectFluxProps);
   static const String _$key__backgroundColor___$RandomColorConnectFluxProps =
       'RandomColorConnectFluxProps.backgroundColor';
@@ -193,7 +196,8 @@ abstract class _$$RandomColorConnectFluxProps extends _$RandomColorConnectFluxPr
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $RandomColorConnectFluxComponentFactory;
+  ReactComponentFactoryProxy get componentFactory =>
+      super.componentFactory ?? $RandomColorConnectFluxComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -261,7 +265,8 @@ class _$RandomColorConnectFluxComponent extends RandomColorConnectFluxComponent 
       _$$RandomColorConnectFluxProps$JsMap(backingMap);
 
   @override
-  _$$RandomColorConnectFluxProps typedPropsFactory(Map backingMap) => _$$RandomColorConnectFluxProps(backingMap);
+  _$$RandomColorConnectFluxProps typedPropsFactory(Map backingMap) =>
+      _$$RandomColorConnectFluxProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

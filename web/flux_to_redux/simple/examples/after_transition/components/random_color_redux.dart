@@ -5,10 +5,11 @@ import '../../../stores.dart';
 
 part 'random_color_redux.over_react.g.dart';
 
-UiFactory<RandomColorReduxProps> ConnectedRandomColorRedux = connect<AfterTransitionState, RandomColorReduxProps>(
+UiFactory<RandomColorReduxProps> ConnectedRandomColorRedux =
+    connect<AfterTransitionState, RandomColorReduxProps>(
   mapStateToProps: (state) => (RandomColorRedux()..backgroundColor = state.backgroundColor),
   mapDispatchToProps: (dispatch) =>
-      RandomColorRedux()..changeBackgroundColor = () => dispatch(UpdateBackgroundColorAction()),
+      (RandomColorRedux()..changeBackgroundColor = () => dispatch(UpdateBackgroundColorAction())),
 )(RandomColorRedux);
 
 @Factory()
@@ -25,12 +26,16 @@ class _$RandomColorReduxProps extends UiProps with ConnectPropsMixin {
 class RandomColorReduxComponent extends UiComponent2<RandomColorReduxProps> {
   @override
   render() {
-    return ((Dom.div()..style = {'padding': '50px', 'backgroundColor': props.backgroundColor, 'color': 'white'})(
-        'This module uses a redux pattern to change its background color.',
-        (Dom.button()
-          ..onClick = (_) {
-            props.changeBackgroundColor();
-          }
-          ..style = {'padding': '10px', 'margin': '10px'})('Change Background Color')));
+    return ((Dom.div()
+      ..style = {'padding': '50px', 'backgroundColor': props.backgroundColor, 'color': 'white'}
+    )(
+      'This module uses a redux pattern to change its background color.',
+      (Dom.button()
+        ..onClick = (_) {
+          props.changeBackgroundColor();
+        }
+        ..style = {'padding': '10px', 'margin': '10px'}
+      )('Change Background Color'),
+    ));
   }
 }

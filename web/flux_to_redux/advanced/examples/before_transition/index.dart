@@ -15,7 +15,8 @@ main() {
         (RandomColor()
           ..store = beforeTransitionStore
           ..store2 = beforeTransitionStore2
-          ..actions = beforeTransitionActions)(),
+          ..actions = beforeTransitionActions
+        )(),
       ),
       querySelector('#content'));
 }

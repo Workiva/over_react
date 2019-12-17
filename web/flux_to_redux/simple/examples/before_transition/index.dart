@@ -12,10 +12,13 @@ main() {
   setClientConfiguration();
 
   react_dom.render(
-      ErrorBoundary()((ReduxProvider()..store = beforeTransitionAdaptedStore)(
-        (RandomColor()
-          ..store = beforeTransitionStore
-          ..actions = beforeTransitionActions)(),
-      )),
+      ErrorBoundary()(
+        (ReduxProvider()..store = beforeTransitionAdaptedStore)(
+          (RandomColor()
+            ..store = beforeTransitionStore
+            ..actions = beforeTransitionActions
+          )(),
+        ),
+      ),
       querySelector('#content'));
 }

@@ -13,11 +13,13 @@ main() {
   setClientConfiguration();
 
   react_dom.render(
-      ErrorBoundary()((ReduxProvider()..store = afterTransitionStore)(
-        ConnectedRandomColorRedux()(),
-        ConnectedRandomColorRedux()(),
-        ConnectedRandomColorRedux()(),
-        ConnectedShouldNotUpdate()(),
-      )),
+      ErrorBoundary()(
+        (ReduxProvider()..store = afterTransitionStore)(
+          ConnectedRandomColorRedux()(),
+          ConnectedRandomColorRedux()(),
+          ConnectedRandomColorRedux()(),
+          ConnectedShouldNotUpdate()(),
+        ),
+      ),
       querySelector('#content'));
 }

@@ -78,5 +78,5 @@ AfterTransitionState afterTransitionReducer(AfterTransitionState oldState, dynam
   return oldState;
 }
 
-redux.Store afterTransitionStore =
-    redux.Store<AfterTransitionState>(afterTransitionReducer, initialState: AfterTransitionState.defaultState());
+redux.Store afterTransitionStore = redux.Store<AfterTransitionState>(afterTransitionReducer,
+    initialState: AfterTransitionState.defaultState());

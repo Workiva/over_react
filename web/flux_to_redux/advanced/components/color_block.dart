@@ -26,7 +26,8 @@ class ColorBlockComponent extends UiComponent2<ColorBlockProps> {
         'display': 'flex',
         'flexDirection': 'column',
         'justifyContent': 'space-evently'
-      })(
+      }
+    )(
       Dom.div()(props.blockTitle),
       Dom.div()('The color is ${props.colorString}'),
     ));

@@ -5,7 +5,8 @@ import '../stores.dart';
 
 part 'should_not_update.over_react.g.dart';
 
-UiFactory<ShouldNotUpdateProps> ConnectedShouldNotUpdate = connect<ExampleFluxStore, ShouldNotUpdateProps>(
+UiFactory<ShouldNotUpdateProps> ConnectedShouldNotUpdate =
+    connect<ExampleFluxStore, ShouldNotUpdateProps>(
   mapStateToProps: (_) => {},
   pure: false,
 )(ShouldNotUpdate);

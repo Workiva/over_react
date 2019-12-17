@@ -10,7 +10,7 @@ UiFactory<RandomColorConnectFluxProps> ConnectedRandomColorConnectFlux =
     connectFlux<ExampleFluxStore, RandomColorActions, RandomColorConnectFluxProps>(
   mapStateToProps: (state) => (RandomColorConnectFlux()..backgroundColor = state?.backgroundColor),
   mapActionsToProps: (actions) =>
-      RandomColorConnectFlux()..changeBackgroundColor = () => actions.changeBackgroundColor(),
+      (RandomColorConnectFlux()..changeBackgroundColor = () => actions.changeBackgroundColor()),
 )(RandomColorConnectFlux);
 
 @Factory()
@@ -27,12 +27,16 @@ class _$RandomColorConnectFluxProps extends UiProps with ConnectPropsMixin {
 class RandomColorConnectFluxComponent extends UiComponent2<RandomColorConnectFluxProps> {
   @override
   render() {
-    return ((Dom.div()..style = {'padding': '50px', 'backgroundColor': props?.backgroundColor, 'color': 'white'})(
-        'This module uses a connect flux pattern to change its background color.',
-        (Dom.button()
-          ..onClick = (_) {
-            props.changeBackgroundColor();
-          }
-          ..style = {'padding': '10px', 'margin': '10px'})('Change Background Color')));
+    return ((Dom.div()
+      ..style = {'padding': '50px', 'backgroundColor': props?.backgroundColor, 'color': 'white'}
+    )(
+      'This module uses a connect flux pattern to change its background color.',
+      (Dom.button()
+        ..onClick = (_) {
+          props.changeBackgroundColor();
+        }
+        ..style = {'padding': '10px', 'margin': '10px'}
+      )('Change Background Color'),
+    ));
   }
 }

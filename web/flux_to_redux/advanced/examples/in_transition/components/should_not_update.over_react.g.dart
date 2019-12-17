@@ -34,12 +34,14 @@ const PropsMeta _$metaForShouldNotUpdateProps = PropsMeta(
   keys: _$ShouldNotUpdatePropsAccessorsMixin.$propKeys,
 );
 
-class ShouldNotUpdateProps extends _$ShouldNotUpdateProps with _$ShouldNotUpdatePropsAccessorsMixin {
+class ShouldNotUpdateProps extends _$ShouldNotUpdateProps
+    with _$ShouldNotUpdatePropsAccessorsMixin {
   static const PropsMeta meta = _$metaForShouldNotUpdateProps;
 }
 
-_$$ShouldNotUpdateProps _$ShouldNotUpdate([Map backingProps]) =>
-    backingProps == null ? _$$ShouldNotUpdateProps$JsMap(JsBackedMap()) : _$$ShouldNotUpdateProps(backingProps);
+_$$ShouldNotUpdateProps _$ShouldNotUpdate([Map backingProps]) => backingProps == null
+    ? _$$ShouldNotUpdateProps$JsMap(JsBackedMap())
+    : _$$ShouldNotUpdateProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -63,7 +65,8 @@ abstract class _$$ShouldNotUpdateProps extends _$ShouldNotUpdateProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ShouldNotUpdateComponentFactory;
+  ReactComponentFactoryProxy get componentFactory =>
+      super.componentFactory ?? $ShouldNotUpdateComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override

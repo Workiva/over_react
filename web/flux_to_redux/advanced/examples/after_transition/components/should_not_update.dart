@@ -5,7 +5,8 @@ import '../../../stores.dart';
 
 part 'should_not_update.over_react.g.dart';
 
-UiFactory<ShouldNotUpdateProps> ConnectedShouldNotUpdate = connect<AfterTransitionState, ShouldNotUpdateProps>(
+UiFactory<ShouldNotUpdateProps> ConnectedShouldNotUpdate =
+    connect<AfterTransitionState, ShouldNotUpdateProps>(
   mapStateToProps: (_) => {},
 )(ShouldNotUpdate);
 

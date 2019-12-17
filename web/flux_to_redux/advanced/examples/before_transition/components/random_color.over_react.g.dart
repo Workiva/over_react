@@ -32,7 +32,8 @@ abstract class _$RandomColorPropsAccessorsMixin implements _$RandomColorProps {
   @override
   set store2(SecondStore value) => props[_$key__store2___$RandomColorProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__store2___$RandomColorProps = PropDescriptor(_$key__store2___$RandomColorProps);
+  static const PropDescriptor _$prop__store2___$RandomColorProps =
+      PropDescriptor(_$key__store2___$RandomColorProps);
   static const String _$key__store2___$RandomColorProps = 'RandomColorProps.store2';
 
   static const List<PropDescriptor> $props = [_$prop__store2___$RandomColorProps];
@@ -44,8 +45,9 @@ const PropsMeta _$metaForRandomColorProps = PropsMeta(
   keys: _$RandomColorPropsAccessorsMixin.$propKeys,
 );
 
-_$$RandomColorProps _$RandomColor([Map backingProps]) =>
-    backingProps == null ? _$$RandomColorProps$JsMap(JsBackedMap()) : _$$RandomColorProps(backingProps);
+_$$RandomColorProps _$RandomColor([Map backingProps]) => backingProps == null
+    ? _$$RandomColorProps$JsMap(JsBackedMap())
+    : _$$RandomColorProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -69,7 +71,8 @@ abstract class _$$RandomColorProps extends _$RandomColorProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $RandomColorComponentFactory;
+  ReactComponentFactoryProxy get componentFactory =>
+      super.componentFactory ?? $RandomColorComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -133,7 +136,8 @@ class _$RandomColorComponent extends RandomColorComponent {
   }
 
   @override
-  _$$RandomColorProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) => _$$RandomColorProps$JsMap(backingMap);
+  _$$RandomColorProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$RandomColorProps$JsMap(backingMap);
 
   @override
   _$$RandomColorProps typedPropsFactory(Map backingMap) => _$$RandomColorProps(backingMap);

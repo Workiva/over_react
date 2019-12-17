@@ -26,65 +26,79 @@ class RandomColorComponent extends FluxUiComponent2<RandomColorProps> {
 
   @override
   render() {
-    return (Fragment()((Dom.div()
-          ..style = {
-            'padding': '50px',
-            'backgroundColor': props.store.mainBackgroundColor,
-            'color': 'white',
-            'display': 'flex',
-            'alignItems': 'center',
-            'justifyContent': 'space-evenly'
-          })(
+    return (Fragment()(
+      (Dom.div()
+        ..style = {
+          'padding': '50px',
+          'backgroundColor': props.store.mainBackgroundColor,
+          'color': 'white',
+          'display': 'flex',
+          'alignItems': 'center',
+          'justifyContent': 'space-evenly'
+        }
+      )(
         (Dom.div()..key = 'c1')('This module uses a flux pattern to change its background color.'),
         (Dom.div()
-              ..style = {
-                'display': 'flex',
-                'flexDirection': 'column',
-              }
-              ..key = 'c2')(
-            (Dom.button()
-              ..onClick = (_) {
-                props.actions.changeMainBackgroundColor();
-              }
-              ..style = {'padding': '10px', 'margin': '10px'}
-              ..key = 'btn1')('Change Main Background Color'),
-            (Dom.button()
-              ..onClick = (_) {
-                props.actions.changeBlockOneBackgroundColor();
-              }
-              ..style = {'padding': '10px', 'margin': '10px'}
-              ..key = 'btn2')('Change Block 1 Background Color'),
-            (Dom.button()
-              ..onClick = (_) {
-                props.actions.changeBlockTwoBackgroundColor();
-              }
-              ..style = {'padding': '10px', 'margin': '10px'}
-              ..key = 'btn3')('Change Block 2 Background Color'),
-            (Dom.button()
-              ..onClick = (_) {
-                props.actions.changeBlockThreeBackgroundColor();
-              }
-              ..style = {'padding': '10px', 'margin': '10px'}
-              ..key = 'btn4')('Change Block 3 Background Color')),
+          ..style = {
+            'display': 'flex',
+            'flexDirection': 'column',
+          }
+          ..key = 'c2'
+        )(
+          (Dom.button()
+            ..onClick = (_) {
+              props.actions.changeMainBackgroundColor();
+            }
+            ..style = {'padding': '10px', 'margin': '10px'}
+            ..key = 'btn1'
+          )('Change Main Background Color'),
+          (Dom.button()
+            ..onClick = (_) {
+              props.actions.changeBlockOneBackgroundColor();
+            }
+            ..style = {'padding': '10px', 'margin': '10px'}
+            ..key = 'btn2'
+          )('Change Block 1 Background Color'),
+          (Dom.button()
+            ..onClick = (_) {
+              props.actions.changeBlockTwoBackgroundColor();
+            }
+            ..style = {'padding': '10px', 'margin': '10px'}
+            ..key = 'btn3'
+          )('Change Block 2 Background Color'),
+          (Dom.button()
+            ..onClick = (_) {
+              props.actions.changeBlockThreeBackgroundColor();
+            }
+            ..style = {'padding': '10px', 'margin': '10px'}
+            ..key = 'btn4'
+          )('Change Block 3 Background Color'),
+        ),
         (Dom.div()
           ..style = {'display': 'flex', 'flexDirection': 'column'}
-          ..key = 'c3')(
+          ..key = 'c3'
+        )(
           (ColorBlock()
             ..blockTitle = 'Block 1'
             ..backgroundColor = this.props.store.blockOneBackgroundColor
             ..colorString = this.props.store.blockOneBackgroundColor
-            ..key = 'b1')(),
+            ..key = 'b1'
+          )(),
           (ColorBlock()
             ..blockTitle = 'Block 2'
             ..backgroundColor = this.props.lowLevelStore.backgroundColor
             ..colorString = this.props.lowLevelStore.backgroundColor
-            ..key = 'b2')(),
+            ..key = 'b2'
+          )(),
           (ColorBlock()
             ..blockTitle = 'Block 3'
             ..backgroundColor = this.props.secondStore.backgroundColor
             ..colorString = this.props.secondStore.backgroundColor
-            ..key = 'b3')(),
-        ))));
+            ..key = 'b3'
+          )(),
+        ),
+      ),
+    ));
   }
 }
 

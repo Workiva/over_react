@@ -30,7 +30,8 @@ abstract class _$RandomColorReduxPropsAccessorsMixin implements _$RandomColorRed
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$RandomColorReduxProps.backgroundColor] -->
   @override
-  set backgroundColor(String value) => props[_$key__backgroundColor___$RandomColorReduxProps] = value;
+  set backgroundColor(String value) =>
+      props[_$key__backgroundColor___$RandomColorReduxProps] = value;
 
   /// <!-- Generated from [_$RandomColorReduxProps.blockTwoBackgroundColor] -->
   @override
@@ -39,7 +40,8 @@ abstract class _$RandomColorReduxPropsAccessorsMixin implements _$RandomColorRed
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$RandomColorReduxProps.blockTwoBackgroundColor] -->
   @override
-  set blockTwoBackgroundColor(String value) => props[_$key__blockTwoBackgroundColor___$RandomColorReduxProps] = value;
+  set blockTwoBackgroundColor(String value) =>
+      props[_$key__blockTwoBackgroundColor___$RandomColorReduxProps] = value;
 
   /// <!-- Generated from [_$RandomColorReduxProps.blockThreeBackgroundColor] -->
   @override
@@ -58,7 +60,8 @@ abstract class _$RandomColorReduxPropsAccessorsMixin implements _$RandomColorRed
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$RandomColorReduxProps.blockOneBackgroundColor] -->
   @override
-  set blockOneBackgroundColor(String value) => props[_$key__blockOneBackgroundColor___$RandomColorReduxProps] = value;
+  set blockOneBackgroundColor(String value) =>
+      props[_$key__blockOneBackgroundColor___$RandomColorReduxProps] = value;
 
   /// <!-- Generated from [_$RandomColorReduxProps.changeMainBackgroundColor] -->
   @override
@@ -116,7 +119,8 @@ abstract class _$RandomColorReduxPropsAccessorsMixin implements _$RandomColorRed
       PropDescriptor(_$key__changeBlockTwoBackgroundColor___$RandomColorReduxProps);
   static const PropDescriptor _$prop__changeBlockThreeBackgroundColor___$RandomColorReduxProps =
       PropDescriptor(_$key__changeBlockThreeBackgroundColor___$RandomColorReduxProps);
-  static const String _$key__backgroundColor___$RandomColorReduxProps = 'RandomColorReduxProps.backgroundColor';
+  static const String _$key__backgroundColor___$RandomColorReduxProps =
+      'RandomColorReduxProps.backgroundColor';
   static const String _$key__blockTwoBackgroundColor___$RandomColorReduxProps =
       'RandomColorReduxProps.blockTwoBackgroundColor';
   static const String _$key__blockThreeBackgroundColor___$RandomColorReduxProps =
@@ -159,12 +163,14 @@ const PropsMeta _$metaForRandomColorReduxProps = PropsMeta(
   keys: _$RandomColorReduxPropsAccessorsMixin.$propKeys,
 );
 
-class RandomColorReduxProps extends _$RandomColorReduxProps with _$RandomColorReduxPropsAccessorsMixin {
+class RandomColorReduxProps extends _$RandomColorReduxProps
+    with _$RandomColorReduxPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForRandomColorReduxProps;
 }
 
-_$$RandomColorReduxProps _$RandomColorRedux([Map backingProps]) =>
-    backingProps == null ? _$$RandomColorReduxProps$JsMap(JsBackedMap()) : _$$RandomColorReduxProps(backingProps);
+_$$RandomColorReduxProps _$RandomColorRedux([Map backingProps]) => backingProps == null
+    ? _$$RandomColorReduxProps$JsMap(JsBackedMap())
+    : _$$RandomColorReduxProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -188,7 +194,8 @@ abstract class _$$RandomColorReduxProps extends _$RandomColorReduxProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $RandomColorReduxComponentFactory;
+  ReactComponentFactoryProxy get componentFactory =>
+      super.componentFactory ?? $RandomColorReduxComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -256,7 +263,8 @@ class _$RandomColorReduxComponent extends RandomColorReduxComponent {
       _$$RandomColorReduxProps$JsMap(backingMap);
 
   @override
-  _$$RandomColorReduxProps typedPropsFactory(Map backingMap) => _$$RandomColorReduxProps(backingMap);
+  _$$RandomColorReduxProps typedPropsFactory(Map backingMap) =>
+      _$$RandomColorReduxProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

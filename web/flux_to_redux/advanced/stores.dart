@@ -192,20 +192,25 @@ class RandomColorFluxStore extends TopLevelStore {
 }
 
 RandomColorActions inTransitionActions = RandomColorActions();
-InTransitionTopLevelStore inTransitionTopLevelStore = InTransitionTopLevelStore(inTransitionActions);
-InTransitionLowLevelStore inTransitionLowLevelStore = InTransitionLowLevelStore(inTransitionActions);
+InTransitionTopLevelStore inTransitionTopLevelStore =
+    InTransitionTopLevelStore(inTransitionActions);
+InTransitionLowLevelStore inTransitionLowLevelStore =
+    InTransitionLowLevelStore(inTransitionActions);
 InTransitionSecondStore inTransitionSecondStore = InTransitionSecondStore(inTransitionActions);
 
 Context inTransitionTopLevelStoreContext = createContext();
 Context inTransitionLowLevelStoreContext = createContext();
 Context inTransitionSecondStoreContext = createContext();
 
-FluxToReduxAdapterStore inTransitionTopLevelAdapter =
-    FluxToReduxAdapterStore(inTransitionTopLevelStore, inTransitionActions, reducer: inTransitionTopLevelReducer);
-FluxToReduxAdapterStore inTransitionLowLevelAdapter =
-    FluxToReduxAdapterStore(inTransitionLowLevelStore, inTransitionActions, reducer: inTransitionLowLevelReducer);
-FluxToReduxAdapterStore inTransitionSecondStoreAdapter =
-    FluxToReduxAdapterStore(inTransitionSecondStore, inTransitionActions, reducer: inTransitionSecondStoreReducer);
+FluxToReduxAdapterStore inTransitionTopLevelAdapter = FluxToReduxAdapterStore(
+    inTransitionTopLevelStore, inTransitionActions,
+    reducer: inTransitionTopLevelReducer);
+FluxToReduxAdapterStore inTransitionLowLevelAdapter = FluxToReduxAdapterStore(
+    inTransitionLowLevelStore, inTransitionActions,
+    reducer: inTransitionLowLevelReducer);
+FluxToReduxAdapterStore inTransitionSecondStoreAdapter = FluxToReduxAdapterStore(
+    inTransitionSecondStore, inTransitionActions,
+    reducer: inTransitionSecondStoreReducer);
 
 /////////////////////////// AFTER TRANSITION STORES \\\\\\\\\\\\\\\\\\\\\\\\\\
 class AfterTransitionState {
@@ -221,11 +226,15 @@ class AfterTransitionState {
         this.blockThreeBackgroundColor = 'blue';
 
   AfterTransitionState.update(AfterTransitionState oldState,
-      {mainBackgroundColor, blockOneBackgroundColor, blockTwoBackgroundColor, blockThreeBackgroundColor})
+      {mainBackgroundColor,
+      blockOneBackgroundColor,
+      blockTwoBackgroundColor,
+      blockThreeBackgroundColor})
       : this.mainBackgroundColor = mainBackgroundColor ?? oldState.mainBackgroundColor,
         this.blockOneBackgroundColor = blockOneBackgroundColor ?? oldState.blockOneBackgroundColor,
         this.blockTwoBackgroundColor = blockTwoBackgroundColor ?? oldState.blockTwoBackgroundColor,
-        this.blockThreeBackgroundColor = blockThreeBackgroundColor ?? oldState.blockThreeBackgroundColor;
+        this.blockThreeBackgroundColor =
+            blockThreeBackgroundColor ?? oldState.blockThreeBackgroundColor;
 }
 
 AfterTransitionState afterTransitionReducer(AfterTransitionState oldState, dynamic action) {
@@ -250,5 +259,5 @@ AfterTransitionState afterTransitionReducer(AfterTransitionState oldState, dynam
   return oldState;
 }
 
-redux.Store afterTransitionStore =
-    redux.Store<AfterTransitionState>(afterTransitionReducer, initialState: AfterTransitionState.defaultState());
+redux.Store afterTransitionStore = redux.Store<AfterTransitionState>(afterTransitionReducer,
+    initialState: AfterTransitionState.defaultState());

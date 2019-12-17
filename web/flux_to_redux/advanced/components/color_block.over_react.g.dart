@@ -81,8 +81,9 @@ class ColorBlockProps extends _$ColorBlockProps with _$ColorBlockPropsAccessorsM
   static const PropsMeta meta = _$metaForColorBlockProps;
 }
 
-_$$ColorBlockProps _$ColorBlock([Map backingProps]) =>
-    backingProps == null ? _$$ColorBlockProps$JsMap(JsBackedMap()) : _$$ColorBlockProps(backingProps);
+_$$ColorBlockProps _$ColorBlock([Map backingProps]) => backingProps == null
+    ? _$$ColorBlockProps$JsMap(JsBackedMap())
+    : _$$ColorBlockProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -106,7 +107,8 @@ abstract class _$$ColorBlockProps extends _$ColorBlockProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ColorBlockComponentFactory;
+  ReactComponentFactoryProxy get componentFactory =>
+      super.componentFactory ?? $ColorBlockComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -170,7 +172,8 @@ class _$ColorBlockComponent extends ColorBlockComponent {
   }
 
   @override
-  _$$ColorBlockProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) => _$$ColorBlockProps$JsMap(backingMap);
+  _$$ColorBlockProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$ColorBlockProps$JsMap(backingMap);
 
   @override
   _$$ColorBlockProps typedPropsFactory(Map backingMap) => _$$ColorBlockProps(backingMap);
