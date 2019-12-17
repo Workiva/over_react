@@ -1,4 +1,5 @@
 import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component/error_boundary_mixins.dart';
 
 part 'error_boundary_recoverable.over_react.g.dart';
 
@@ -19,4 +20,4 @@ class _$RecoverableErrorBoundaryState extends UiState with ErrorBoundaryStateMix
 
 @Component2(isWrapper: true, isErrorBoundary: true)
 class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps, S extends RecoverableErrorBoundaryState>
-    extends UiStatefulComponent2<T, S> with ErrorBoundaryMixin<T, S> {}
+    extends UiStatefulComponent2<T, S> with ErrorBoundaryMixin<T, S>, ErrorBoundaryApi<T, S> {}

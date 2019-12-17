@@ -1,6 +1,7 @@
 import 'dart:html';
 import 'package:logging/logging.dart';
 import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component/error_boundary_mixins.dart';
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
 
@@ -12,7 +13,7 @@ import './fixtures/flawed_component_that_renders_nothing.dart';
 /// `isWrapper` identifies an ErrorBoundary that wraps another Error Boundary in order to handle
 /// render cycle "unrecoverable" errors.
 void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> builder, { bool isWrapper = false }) {
-  TestJacket<UiStatefulComponent2<ErrorBoundaryPropsMixin, ErrorBoundaryStateMixin>> jacket;
+  TestJacket<ErrorBoundaryApi> jacket;
   ReactElement dummyChild;
 
   setUp(() {
@@ -194,8 +195,8 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
         });
 
         test('when reset() is called', () {
-          dynamic component = jacket.getDartInstance();
-          (component as dynamic).reset();
+          var component = jacket.getDartInstance();
+          component.reset();
           expect(component.state.hasError, isFalse);
           expect(component.state.showFallbackUIOnError, isTrue);
           expect(getByTestId(jacket.getInstance(), 'dummyChild'), isNotNull);
