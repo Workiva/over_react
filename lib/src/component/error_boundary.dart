@@ -139,7 +139,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   }) {
     if (!props.shouldLogErrors) return;
 
-    String message = 'An unrecoverable error was caught by an ErrorBoundary (attempting to remount it was unsuccessful): \nInfo: ${info.componentStack}';
+    final message = 'An unrecoverable error was caught by an ErrorBoundary (attempting to remount it was unsuccessful): \nInfo: ${info.componentStack}';
 
     (props.logger ?? Logger(_loggerName)).severe(message, error, info.dartStackTrace);
   }

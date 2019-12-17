@@ -10,7 +10,7 @@ import './fixtures/flawed_component_on_mount.dart';
 import './fixtures/flawed_component_that_renders_a_string.dart';
 import './fixtures/flawed_component_that_renders_nothing.dart';
 
-/// `isWrapper` identifies an ErrorBoundary that wraps another Error Boundary in order to handle
+/// [isWrapper] identifies an ErrorBoundary that wraps another Error Boundary in order to handle
 /// render cycle "unrecoverable" errors.
 void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> builder, { bool isWrapper = false }) {
   TestJacket<ErrorBoundaryApi> jacket;
@@ -268,7 +268,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
 
       // At this point the component is "Unrecoverable"
       if (calls.length > 1) {
-        expect(calls[calls.length - 1].keys.single, 'onComponentIsUnrecoverable', reason: 'test setup sanity check');
+        expect(calls.last.keys.single, 'onComponentIsUnrecoverable', reason: 'test setup sanity check');
         final componentIsUnrecoverableCallbackArguments = calls[1]['onComponentIsUnrecoverable'];
         if (componentIsUnrecoverableCallbackArguments != null) {
           errorSentToComponentIsUnrecoverableCallback = componentIsUnrecoverableCallbackArguments[0];
