@@ -339,7 +339,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
       if (isWrapper) {
         group('and the errors are during the render cycle', () {
           group('and they occurred on every render', () {
-            setUp(() async {
+            setUp(() {
               sharedSetup(errorBoundaryChildren: FlawedOnMount()());
             });
 
@@ -370,7 +370,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
           });
 
           group('and they occurred on every render and fallbackUIRenderer is set', () {
-            setUp(() async {
+            setUp(() {
               sharedSetup(
                 errorBoundaryChildren: FlawedOnMount()(),
                 errorBoundaryProps: (ErrorBoundaryPropsMapView({})
