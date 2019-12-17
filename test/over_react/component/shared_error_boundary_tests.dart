@@ -392,6 +392,8 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             test('the correct callbacks are called with the correct arguments', () {
               expect(calls.any((call) => call.keys.single == 'onComponentDidCatch'), isTrue,
                   reason: 'onComponentDidCatch should have been called');
+              expect(calls.any((call) => call.keys.single == 'onComponentIsUnrecoverable'), isFalse,
+                  reason: 'onComponentIsUnrecoverable should not have been called');
 
               _setCallbackVarValues();
 
@@ -550,7 +552,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
                 reason: 'The flawed component should have been remounted');
             if (!isWrapper) {
               expect(jacket.getDartInstance().state.showFallbackUIOnError, isFalse,
-                  reason: 'Fallback UI should be not be rendered');
+                  reason: 'Fallback UI should not be rendered');
             }
           });
 
@@ -660,7 +662,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
                 reason: 'The flawed component should have been remounted');
             if (!isWrapper) {
               expect(jacket.getDartInstance().state.showFallbackUIOnError, isFalse,
-                  reason: 'Fallback UI should be not be rendered');
+                  reason: 'Fallback UI should not be rendered');
             }
           });
 
@@ -730,7 +732,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
                 reason: 'The flawed component should have been remounted');
             if (!isWrapper) {
               expect(jacket.getDartInstance().state.showFallbackUIOnError, isFalse,
-                  reason: 'Fallback UI should be not be rendered');
+                  reason: 'Fallback UI should not be rendered');
             }
           });
 
@@ -765,7 +767,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
                 reason: 'The flawed component should have been remounted');
             if (!isWrapper) {
               expect(jacket.getDartInstance().state.showFallbackUIOnError, isFalse,
-                  reason: 'Fallback UI should be not be rendered');
+                  reason: 'Fallback UI should not be rendered');
             }
           });
 
@@ -806,7 +808,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
                 reason: 'The flawed component should have been remounted');
             if (!isWrapper) {
               expect(jacket.getDartInstance().state.showFallbackUIOnError, isFalse,
-                  reason: 'Fallback UI should be not be rendered');
+                  reason: 'Fallback UI should not be rendered');
             }
           });
 
@@ -841,7 +843,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
                 reason: 'The flawed component should have been remounted');
             if (!isWrapper) {
               expect(jacket.getDartInstance().state.showFallbackUIOnError, isFalse,
-                  reason: 'Fallback UI should be not be rendered');
+                  reason: 'Fallback UI should not be rendered');
             }
           });
 
@@ -878,7 +880,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
                 reason: 'The flawed component should have been remounted');
             if (!isWrapper) {
               expect(jacket.getDartInstance().state.showFallbackUIOnError, isFalse,
-                  reason: 'Fallback UI should be not be rendered');
+                  reason: 'Fallback UI should not be rendered');
             }
           });
 
@@ -913,7 +915,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
                 reason: 'The flawed component should have been remounted');
             if (!isWrapper) {
               expect(jacket.getDartInstance().state.showFallbackUIOnError, isFalse,
-                  reason: 'Fallback UI should be not be rendered');
+                  reason: 'Fallback UI should not be rendered');
             }
           });
 
