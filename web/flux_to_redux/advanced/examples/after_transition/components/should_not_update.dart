@@ -19,14 +19,8 @@ class _$ShouldNotUpdateProps extends UiProps {}
 class ShouldNotUpdateComponent extends UiComponent2<ShouldNotUpdateProps> {
   @override
   render() {
-    return (
-        (Dom.div()..style = {
-          'padding': '50px',
-          'backgroundColor': 'gray',
-          'color': 'white'
-        })(
-          'This component should not redraw when the others do.',
-        )
-    );
+    return ((Dom.div()..style = {'padding': '50px', 'backgroundColor': 'gray', 'color': 'white'})(
+      'This component should not redraw when the others do.',
+    ));
   }
 }

@@ -30,8 +30,7 @@ abstract class _$ColorBlockPropsAccessorsMixin implements _$ColorBlockProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ColorBlockProps.backgroundColor] -->
   @override
-  set backgroundColor(String value) =>
-      props[_$key__backgroundColor___$ColorBlockProps] = value;
+  set backgroundColor(String value) => props[_$key__backgroundColor___$ColorBlockProps] = value;
 
   /// <!-- Generated from [_$ColorBlockProps.colorString] -->
   @override
@@ -40,8 +39,7 @@ abstract class _$ColorBlockPropsAccessorsMixin implements _$ColorBlockProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ColorBlockProps.colorString] -->
   @override
-  set colorString(String value) =>
-      props[_$key__colorString___$ColorBlockProps] = value;
+  set colorString(String value) => props[_$key__colorString___$ColorBlockProps] = value;
 
   /// <!-- Generated from [_$ColorBlockProps.blockTitle] -->
   @override
@@ -50,8 +48,7 @@ abstract class _$ColorBlockPropsAccessorsMixin implements _$ColorBlockProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ColorBlockProps.blockTitle] -->
   @override
-  set blockTitle(String value) =>
-      props[_$key__blockTitle___$ColorBlockProps] = value;
+  set blockTitle(String value) => props[_$key__blockTitle___$ColorBlockProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__backgroundColor___$ColorBlockProps =
       PropDescriptor(_$key__backgroundColor___$ColorBlockProps);
@@ -59,12 +56,9 @@ abstract class _$ColorBlockPropsAccessorsMixin implements _$ColorBlockProps {
       PropDescriptor(_$key__colorString___$ColorBlockProps);
   static const PropDescriptor _$prop__blockTitle___$ColorBlockProps =
       PropDescriptor(_$key__blockTitle___$ColorBlockProps);
-  static const String _$key__backgroundColor___$ColorBlockProps =
-      'ColorBlockProps.backgroundColor';
-  static const String _$key__colorString___$ColorBlockProps =
-      'ColorBlockProps.colorString';
-  static const String _$key__blockTitle___$ColorBlockProps =
-      'ColorBlockProps.blockTitle';
+  static const String _$key__backgroundColor___$ColorBlockProps = 'ColorBlockProps.backgroundColor';
+  static const String _$key__colorString___$ColorBlockProps = 'ColorBlockProps.colorString';
+  static const String _$key__blockTitle___$ColorBlockProps = 'ColorBlockProps.blockTitle';
 
   static const List<PropDescriptor> $props = [
     _$prop__backgroundColor___$ColorBlockProps,
@@ -83,14 +77,12 @@ const PropsMeta _$metaForColorBlockProps = PropsMeta(
   keys: _$ColorBlockPropsAccessorsMixin.$propKeys,
 );
 
-class ColorBlockProps extends _$ColorBlockProps
-    with _$ColorBlockPropsAccessorsMixin {
+class ColorBlockProps extends _$ColorBlockProps with _$ColorBlockPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForColorBlockProps;
 }
 
-_$$ColorBlockProps _$ColorBlock([Map backingProps]) => backingProps == null
-    ? _$$ColorBlockProps$JsMap(JsBackedMap())
-    : _$$ColorBlockProps(backingProps);
+_$$ColorBlockProps _$ColorBlock([Map backingProps]) =>
+    backingProps == null ? _$$ColorBlockProps$JsMap(JsBackedMap()) : _$$ColorBlockProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -114,8 +106,7 @@ abstract class _$$ColorBlockProps extends _$ColorBlockProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $ColorBlockComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ColorBlockComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -179,12 +170,10 @@ class _$ColorBlockComponent extends ColorBlockComponent {
   }
 
   @override
-  _$$ColorBlockProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$ColorBlockProps$JsMap(backingMap);
+  _$$ColorBlockProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) => _$$ColorBlockProps$JsMap(backingMap);
 
   @override
-  _$$ColorBlockProps typedPropsFactory(Map backingMap) =>
-      _$$ColorBlockProps(backingMap);
+  _$$ColorBlockProps typedPropsFactory(Map backingMap) => _$$ColorBlockProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -193,7 +182,5 @@ class _$ColorBlockComponent extends ColorBlockComponent {
   /// The default consumed props, taken from _$ColorBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForColorBlockProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForColorBlockProps];
 }

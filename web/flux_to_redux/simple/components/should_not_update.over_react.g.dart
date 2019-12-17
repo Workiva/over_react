@@ -19,8 +19,7 @@ final $ShouldNotUpdateComponentFactory = registerComponent2(
   displayName: 'ShouldNotUpdate',
 );
 
-abstract class _$ShouldNotUpdatePropsAccessorsMixin
-    implements _$ShouldNotUpdateProps {
+abstract class _$ShouldNotUpdatePropsAccessorsMixin implements _$ShouldNotUpdateProps {
   @override
   Map get props;
 
@@ -35,12 +34,9 @@ abstract class _$ShouldNotUpdatePropsAccessorsMixin
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__text___$ShouldNotUpdateProps =
       PropDescriptor(_$key__text___$ShouldNotUpdateProps);
-  static const String _$key__text___$ShouldNotUpdateProps =
-      'ShouldNotUpdateProps.text';
+  static const String _$key__text___$ShouldNotUpdateProps = 'ShouldNotUpdateProps.text';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__text___$ShouldNotUpdateProps
-  ];
+  static const List<PropDescriptor> $props = [_$prop__text___$ShouldNotUpdateProps];
   static const List<String> $propKeys = [_$key__text___$ShouldNotUpdateProps];
 }
 
@@ -49,15 +45,12 @@ const PropsMeta _$metaForShouldNotUpdateProps = PropsMeta(
   keys: _$ShouldNotUpdatePropsAccessorsMixin.$propKeys,
 );
 
-class ShouldNotUpdateProps extends _$ShouldNotUpdateProps
-    with _$ShouldNotUpdatePropsAccessorsMixin {
+class ShouldNotUpdateProps extends _$ShouldNotUpdateProps with _$ShouldNotUpdatePropsAccessorsMixin {
   static const PropsMeta meta = _$metaForShouldNotUpdateProps;
 }
 
 _$$ShouldNotUpdateProps _$ShouldNotUpdate([Map backingProps]) =>
-    backingProps == null
-        ? _$$ShouldNotUpdateProps$JsMap(JsBackedMap())
-        : _$$ShouldNotUpdateProps(backingProps);
+    backingProps == null ? _$$ShouldNotUpdateProps$JsMap(JsBackedMap()) : _$$ShouldNotUpdateProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -81,8 +74,7 @@ abstract class _$$ShouldNotUpdateProps extends _$ShouldNotUpdateProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $ShouldNotUpdateComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ShouldNotUpdateComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -150,8 +142,7 @@ class _$ShouldNotUpdateComponent extends ShouldNotUpdateComponent {
       _$$ShouldNotUpdateProps$JsMap(backingMap);
 
   @override
-  _$$ShouldNotUpdateProps typedPropsFactory(Map backingMap) =>
-      _$$ShouldNotUpdateProps(backingMap);
+  _$$ShouldNotUpdateProps typedPropsFactory(Map backingMap) => _$$ShouldNotUpdateProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -160,7 +151,5 @@ class _$ShouldNotUpdateComponent extends ShouldNotUpdateComponent {
   /// The default consumed props, taken from _$ShouldNotUpdateProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForShouldNotUpdateProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForShouldNotUpdateProps];
 }

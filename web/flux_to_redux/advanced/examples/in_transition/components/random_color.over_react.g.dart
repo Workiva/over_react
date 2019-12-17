@@ -30,8 +30,7 @@ abstract class _$RandomColorPropsAccessorsMixin implements _$RandomColorProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$RandomColorProps.lowLevelStore] -->
   @override
-  set lowLevelStore(InTransitionLowLevelStore value) =>
-      props[_$key__lowLevelStore___$RandomColorProps] = value;
+  set lowLevelStore(InTransitionLowLevelStore value) => props[_$key__lowLevelStore___$RandomColorProps] = value;
 
   /// <!-- Generated from [_$RandomColorProps.secondStore] -->
   @override
@@ -40,17 +39,14 @@ abstract class _$RandomColorPropsAccessorsMixin implements _$RandomColorProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$RandomColorProps.secondStore] -->
   @override
-  set secondStore(InTransitionSecondStore value) =>
-      props[_$key__secondStore___$RandomColorProps] = value;
+  set secondStore(InTransitionSecondStore value) => props[_$key__secondStore___$RandomColorProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__lowLevelStore___$RandomColorProps =
       PropDescriptor(_$key__lowLevelStore___$RandomColorProps);
   static const PropDescriptor _$prop__secondStore___$RandomColorProps =
       PropDescriptor(_$key__secondStore___$RandomColorProps);
-  static const String _$key__lowLevelStore___$RandomColorProps =
-      'RandomColorProps.lowLevelStore';
-  static const String _$key__secondStore___$RandomColorProps =
-      'RandomColorProps.secondStore';
+  static const String _$key__lowLevelStore___$RandomColorProps = 'RandomColorProps.lowLevelStore';
+  static const String _$key__secondStore___$RandomColorProps = 'RandomColorProps.secondStore';
 
   static const List<PropDescriptor> $props = [
     _$prop__lowLevelStore___$RandomColorProps,
@@ -67,9 +63,8 @@ const PropsMeta _$metaForRandomColorProps = PropsMeta(
   keys: _$RandomColorPropsAccessorsMixin.$propKeys,
 );
 
-_$$RandomColorProps _$RandomColor([Map backingProps]) => backingProps == null
-    ? _$$RandomColorProps$JsMap(JsBackedMap())
-    : _$$RandomColorProps(backingProps);
+_$$RandomColorProps _$RandomColor([Map backingProps]) =>
+    backingProps == null ? _$$RandomColorProps$JsMap(JsBackedMap()) : _$$RandomColorProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -93,8 +88,7 @@ abstract class _$$RandomColorProps extends _$RandomColorProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $RandomColorComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $RandomColorComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -158,12 +152,10 @@ class _$RandomColorComponent extends RandomColorComponent {
   }
 
   @override
-  _$$RandomColorProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$RandomColorProps$JsMap(backingMap);
+  _$$RandomColorProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) => _$$RandomColorProps$JsMap(backingMap);
 
   @override
-  _$$RandomColorProps typedPropsFactory(Map backingMap) =>
-      _$$RandomColorProps(backingMap);
+  _$$RandomColorProps typedPropsFactory(Map backingMap) => _$$RandomColorProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -172,7 +164,5 @@ class _$RandomColorComponent extends RandomColorComponent {
   /// The default consumed props, taken from _$RandomColorProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForRandomColorProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForRandomColorProps];
 }

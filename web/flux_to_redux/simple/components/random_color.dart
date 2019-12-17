@@ -14,26 +14,14 @@ class _$RandomColorProps extends FluxUiProps<RandomColorActions, ExampleFluxStor
 class RandomColorComponent extends FluxUiComponent2<RandomColorProps> {
   @override
   render() {
-    return (
-      Fragment()(
-          (Dom.div()..style = {
-            'padding': '50px',
-            'backgroundColor': props.store.backgroundColor,
-            'color': 'white'
-          })(
+    return (Fragment()(
+        (Dom.div()..style = {'padding': '50px', 'backgroundColor': props.store.backgroundColor, 'color': 'white'})(
             'This module uses a flux pattern to change its background color.',
             (Dom.button()
               ..onClick = (_) {
                 props.actions.changeBackgroundColor();
               }
-              ..style = {
-                'padding': '10px',
-                'margin': '10px'
-              }
-            )('Change Background Color')
-        )
-      )
-    );
+              ..style = {'padding': '10px', 'margin': '10px'})('Change Background Color'))));
   }
 }
 

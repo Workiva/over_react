@@ -15,21 +15,20 @@ main() {
   setClientConfiguration();
 
   react_dom.render(
-      ErrorBoundary()(
-          (ReduxMultiProvider()..storesByContext = {
-            inTransitionTopLevelStoreContext: inTransitionTopLevelAdapter,
-            inTransitionLowLevelStoreContext: inTransitionLowLevelAdapter,
-            inTransitionSecondStoreContext: inTransitionSecondStoreAdapter,
-          })(
-            (RandomColor()
-              ..store = inTransitionTopLevelStore
-              ..lowLevelStore = inTransitionLowLevelStore
-              ..secondStore = inTransitionSecondStore
-              ..actions = inTransitionActions)(),
-            ConnectedRandomColorConnectFlux()(),
-            (ConnectedRandomColorRedux())(),
-            ConnectedShouldNotUpdate()(),
-          )
-      ), querySelector('#content')
-  );
+      ErrorBoundary()((ReduxMultiProvider()
+        ..storesByContext = {
+          inTransitionTopLevelStoreContext: inTransitionTopLevelAdapter,
+          inTransitionLowLevelStoreContext: inTransitionLowLevelAdapter,
+          inTransitionSecondStoreContext: inTransitionSecondStoreAdapter,
+        })(
+        (RandomColor()
+          ..store = inTransitionTopLevelStore
+          ..lowLevelStore = inTransitionLowLevelStore
+          ..secondStore = inTransitionSecondStore
+          ..actions = inTransitionActions)(),
+        ConnectedRandomColorConnectFlux()(),
+        (ConnectedRandomColorRedux())(),
+        ConnectedShouldNotUpdate()(),
+      )),
+      querySelector('#content'));
 }

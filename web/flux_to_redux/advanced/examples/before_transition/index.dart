@@ -12,10 +12,10 @@ main() {
 
   react_dom.render(
       ErrorBoundary()(
-          (RandomColor()
-            ..store = beforeTransitionStore
-            ..store2 = beforeTransitionStore2
-            ..actions = beforeTransitionActions)(),
-      ), querySelector('#content')
-  );
+        (RandomColor()
+          ..store = beforeTransitionStore
+          ..store2 = beforeTransitionStore2
+          ..actions = beforeTransitionActions)(),
+      ),
+      querySelector('#content'));
 }

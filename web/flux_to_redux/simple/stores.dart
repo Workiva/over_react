@@ -30,7 +30,8 @@ class UpdateBackgroundColorAction {}
 /////////////////////////// BEFORE TRANSITION STORES \\\\\\\\\\\\\\\\\\\\\\\\\\
 RandomColorActions beforeTransitionActions = RandomColorActions();
 ExampleFluxStore beforeTransitionStore = ExampleFluxStore(beforeTransitionActions);
-FluxToReduxAdapterStore beforeTransitionAdaptedStore = FluxToReduxAdapterStore(beforeTransitionStore, beforeTransitionActions);
+FluxToReduxAdapterStore beforeTransitionAdaptedStore =
+    FluxToReduxAdapterStore(beforeTransitionStore, beforeTransitionActions);
 
 ///////////////////////////// IN TRANSITION STORES \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 RandomColorFluxStore reducer(flux.Store oldState, dynamic action) {
@@ -49,7 +50,7 @@ class RandomColorFluxStore extends ExampleFluxStore {
 
   @override
   _changeBackgroundColor(String color) {
-      _backgroundColor = color ?? '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
+    _backgroundColor = color ?? '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
   }
 }
 
@@ -63,7 +64,8 @@ class AfterTransitionState {
 
   AfterTransitionState.defaultState() : this.backgroundColor = 'gray';
 
-  AfterTransitionState.update(AfterTransitionState oldState, {backgroundColor}) : this.backgroundColor = backgroundColor ?? oldState.backgroundColor;
+  AfterTransitionState.update(AfterTransitionState oldState, {backgroundColor})
+      : this.backgroundColor = backgroundColor ?? oldState.backgroundColor;
 }
 
 AfterTransitionState afterTransitionReducer(AfterTransitionState oldState, dynamic action) {
@@ -76,4 +78,5 @@ AfterTransitionState afterTransitionReducer(AfterTransitionState oldState, dynam
   return oldState;
 }
 
-redux.Store afterTransitionStore = redux.Store<AfterTransitionState>(afterTransitionReducer, initialState: AfterTransitionState.defaultState());
+redux.Store afterTransitionStore =
+    redux.Store<AfterTransitionState>(afterTransitionReducer, initialState: AfterTransitionState.defaultState());

@@ -19,8 +19,7 @@ final $RandomColorConnectFluxComponentFactory = registerComponent2(
   displayName: 'RandomColorConnectFlux',
 );
 
-abstract class _$RandomColorConnectFluxPropsAccessorsMixin
-    implements _$RandomColorConnectFluxProps {
+abstract class _$RandomColorConnectFluxPropsAccessorsMixin implements _$RandomColorConnectFluxProps {
   @override
   Map get props;
 
@@ -31,8 +30,7 @@ abstract class _$RandomColorConnectFluxPropsAccessorsMixin
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$RandomColorConnectFluxProps.backgroundColor] -->
   @override
-  set backgroundColor(String value) =>
-      props[_$key__backgroundColor___$RandomColorConnectFluxProps] = value;
+  set backgroundColor(String value) => props[_$key__backgroundColor___$RandomColorConnectFluxProps] = value;
 
   /// <!-- Generated from [_$RandomColorConnectFluxProps.blockTwoBackgroundColor] -->
   @override
@@ -42,8 +40,7 @@ abstract class _$RandomColorConnectFluxPropsAccessorsMixin
   /// <!-- Generated from [_$RandomColorConnectFluxProps.blockTwoBackgroundColor] -->
   @override
   set blockTwoBackgroundColor(String value) =>
-      props[_$key__blockTwoBackgroundColor___$RandomColorConnectFluxProps] =
-          value;
+      props[_$key__blockTwoBackgroundColor___$RandomColorConnectFluxProps] = value;
 
   /// <!-- Generated from [_$RandomColorConnectFluxProps.blockThreeBackgroundColor] -->
   @override
@@ -53,8 +50,7 @@ abstract class _$RandomColorConnectFluxPropsAccessorsMixin
   /// <!-- Generated from [_$RandomColorConnectFluxProps.blockThreeBackgroundColor] -->
   @override
   set blockThreeBackgroundColor(String value) =>
-      props[_$key__blockThreeBackgroundColor___$RandomColorConnectFluxProps] =
-          value;
+      props[_$key__blockThreeBackgroundColor___$RandomColorConnectFluxProps] = value;
 
   /// <!-- Generated from [_$RandomColorConnectFluxProps.blockOneBackgroundColor] -->
   @override
@@ -64,8 +60,7 @@ abstract class _$RandomColorConnectFluxPropsAccessorsMixin
   /// <!-- Generated from [_$RandomColorConnectFluxProps.blockOneBackgroundColor] -->
   @override
   set blockOneBackgroundColor(String value) =>
-      props[_$key__blockOneBackgroundColor___$RandomColorConnectFluxProps] =
-          value;
+      props[_$key__blockOneBackgroundColor___$RandomColorConnectFluxProps] = value;
 
   /// <!-- Generated from [_$RandomColorConnectFluxProps.changeMainBackgroundColor] -->
   @override
@@ -75,98 +70,69 @@ abstract class _$RandomColorConnectFluxPropsAccessorsMixin
   /// <!-- Generated from [_$RandomColorConnectFluxProps.changeMainBackgroundColor] -->
   @override
   set changeMainBackgroundColor(Function value) =>
-      props[_$key__changeMainBackgroundColor___$RandomColorConnectFluxProps] =
-          value;
+      props[_$key__changeMainBackgroundColor___$RandomColorConnectFluxProps] = value;
 
   /// <!-- Generated from [_$RandomColorConnectFluxProps.changeBlockOneBackgroundColor] -->
   @override
   Function get changeBlockOneBackgroundColor =>
-      props[
-          _$key__changeBlockOneBackgroundColor___$RandomColorConnectFluxProps] ??
+      props[_$key__changeBlockOneBackgroundColor___$RandomColorConnectFluxProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$RandomColorConnectFluxProps.changeBlockOneBackgroundColor] -->
   @override
-  set changeBlockOneBackgroundColor(Function value) => props[
-          _$key__changeBlockOneBackgroundColor___$RandomColorConnectFluxProps] =
-      value;
+  set changeBlockOneBackgroundColor(Function value) =>
+      props[_$key__changeBlockOneBackgroundColor___$RandomColorConnectFluxProps] = value;
 
   /// <!-- Generated from [_$RandomColorConnectFluxProps.changeBlockTwoBackgroundColor] -->
   @override
   Function get changeBlockTwoBackgroundColor =>
-      props[
-          _$key__changeBlockTwoBackgroundColor___$RandomColorConnectFluxProps] ??
+      props[_$key__changeBlockTwoBackgroundColor___$RandomColorConnectFluxProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$RandomColorConnectFluxProps.changeBlockTwoBackgroundColor] -->
   @override
-  set changeBlockTwoBackgroundColor(Function value) => props[
-          _$key__changeBlockTwoBackgroundColor___$RandomColorConnectFluxProps] =
-      value;
+  set changeBlockTwoBackgroundColor(Function value) =>
+      props[_$key__changeBlockTwoBackgroundColor___$RandomColorConnectFluxProps] = value;
 
   /// <!-- Generated from [_$RandomColorConnectFluxProps.changeBlockThreeBackgroundColor] -->
   @override
   Function get changeBlockThreeBackgroundColor =>
-      props[
-          _$key__changeBlockThreeBackgroundColor___$RandomColorConnectFluxProps] ??
+      props[_$key__changeBlockThreeBackgroundColor___$RandomColorConnectFluxProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$RandomColorConnectFluxProps.changeBlockThreeBackgroundColor] -->
   @override
-  set changeBlockThreeBackgroundColor(Function value) => props[
-          _$key__changeBlockThreeBackgroundColor___$RandomColorConnectFluxProps] =
-      value;
+  set changeBlockThreeBackgroundColor(Function value) =>
+      props[_$key__changeBlockThreeBackgroundColor___$RandomColorConnectFluxProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor
-      _$prop__backgroundColor___$RandomColorConnectFluxProps =
+  static const PropDescriptor _$prop__backgroundColor___$RandomColorConnectFluxProps =
       PropDescriptor(_$key__backgroundColor___$RandomColorConnectFluxProps);
-  static const PropDescriptor
-      _$prop__blockTwoBackgroundColor___$RandomColorConnectFluxProps =
-      PropDescriptor(
-          _$key__blockTwoBackgroundColor___$RandomColorConnectFluxProps);
-  static const PropDescriptor
-      _$prop__blockThreeBackgroundColor___$RandomColorConnectFluxProps =
-      PropDescriptor(
-          _$key__blockThreeBackgroundColor___$RandomColorConnectFluxProps);
-  static const PropDescriptor
-      _$prop__blockOneBackgroundColor___$RandomColorConnectFluxProps =
-      PropDescriptor(
-          _$key__blockOneBackgroundColor___$RandomColorConnectFluxProps);
-  static const PropDescriptor
-      _$prop__changeMainBackgroundColor___$RandomColorConnectFluxProps =
-      PropDescriptor(
-          _$key__changeMainBackgroundColor___$RandomColorConnectFluxProps);
-  static const PropDescriptor
-      _$prop__changeBlockOneBackgroundColor___$RandomColorConnectFluxProps =
-      PropDescriptor(
-          _$key__changeBlockOneBackgroundColor___$RandomColorConnectFluxProps);
-  static const PropDescriptor
-      _$prop__changeBlockTwoBackgroundColor___$RandomColorConnectFluxProps =
-      PropDescriptor(
-          _$key__changeBlockTwoBackgroundColor___$RandomColorConnectFluxProps);
-  static const PropDescriptor
-      _$prop__changeBlockThreeBackgroundColor___$RandomColorConnectFluxProps =
-      PropDescriptor(
-          _$key__changeBlockThreeBackgroundColor___$RandomColorConnectFluxProps);
+  static const PropDescriptor _$prop__blockTwoBackgroundColor___$RandomColorConnectFluxProps =
+      PropDescriptor(_$key__blockTwoBackgroundColor___$RandomColorConnectFluxProps);
+  static const PropDescriptor _$prop__blockThreeBackgroundColor___$RandomColorConnectFluxProps =
+      PropDescriptor(_$key__blockThreeBackgroundColor___$RandomColorConnectFluxProps);
+  static const PropDescriptor _$prop__blockOneBackgroundColor___$RandomColorConnectFluxProps =
+      PropDescriptor(_$key__blockOneBackgroundColor___$RandomColorConnectFluxProps);
+  static const PropDescriptor _$prop__changeMainBackgroundColor___$RandomColorConnectFluxProps =
+      PropDescriptor(_$key__changeMainBackgroundColor___$RandomColorConnectFluxProps);
+  static const PropDescriptor _$prop__changeBlockOneBackgroundColor___$RandomColorConnectFluxProps =
+      PropDescriptor(_$key__changeBlockOneBackgroundColor___$RandomColorConnectFluxProps);
+  static const PropDescriptor _$prop__changeBlockTwoBackgroundColor___$RandomColorConnectFluxProps =
+      PropDescriptor(_$key__changeBlockTwoBackgroundColor___$RandomColorConnectFluxProps);
+  static const PropDescriptor _$prop__changeBlockThreeBackgroundColor___$RandomColorConnectFluxProps =
+      PropDescriptor(_$key__changeBlockThreeBackgroundColor___$RandomColorConnectFluxProps);
   static const String _$key__backgroundColor___$RandomColorConnectFluxProps =
       'RandomColorConnectFluxProps.backgroundColor';
-  static const String
-      _$key__blockTwoBackgroundColor___$RandomColorConnectFluxProps =
+  static const String _$key__blockTwoBackgroundColor___$RandomColorConnectFluxProps =
       'RandomColorConnectFluxProps.blockTwoBackgroundColor';
-  static const String
-      _$key__blockThreeBackgroundColor___$RandomColorConnectFluxProps =
+  static const String _$key__blockThreeBackgroundColor___$RandomColorConnectFluxProps =
       'RandomColorConnectFluxProps.blockThreeBackgroundColor';
-  static const String
-      _$key__blockOneBackgroundColor___$RandomColorConnectFluxProps =
+  static const String _$key__blockOneBackgroundColor___$RandomColorConnectFluxProps =
       'RandomColorConnectFluxProps.blockOneBackgroundColor';
-  static const String
-      _$key__changeMainBackgroundColor___$RandomColorConnectFluxProps =
+  static const String _$key__changeMainBackgroundColor___$RandomColorConnectFluxProps =
       'RandomColorConnectFluxProps.changeMainBackgroundColor';
-  static const String
-      _$key__changeBlockOneBackgroundColor___$RandomColorConnectFluxProps =
+  static const String _$key__changeBlockOneBackgroundColor___$RandomColorConnectFluxProps =
       'RandomColorConnectFluxProps.changeBlockOneBackgroundColor';
-  static const String
-      _$key__changeBlockTwoBackgroundColor___$RandomColorConnectFluxProps =
+  static const String _$key__changeBlockTwoBackgroundColor___$RandomColorConnectFluxProps =
       'RandomColorConnectFluxProps.changeBlockTwoBackgroundColor';
-  static const String
-      _$key__changeBlockThreeBackgroundColor___$RandomColorConnectFluxProps =
+  static const String _$key__changeBlockThreeBackgroundColor___$RandomColorConnectFluxProps =
       'RandomColorConnectFluxProps.changeBlockThreeBackgroundColor';
 
   static const List<PropDescriptor> $props = [
@@ -201,16 +167,14 @@ class RandomColorConnectFluxProps extends _$RandomColorConnectFluxProps
   static const PropsMeta meta = _$metaForRandomColorConnectFluxProps;
 }
 
-_$$RandomColorConnectFluxProps _$RandomColorConnectFlux([Map backingProps]) =>
-    backingProps == null
-        ? _$$RandomColorConnectFluxProps$JsMap(JsBackedMap())
-        : _$$RandomColorConnectFluxProps(backingProps);
+_$$RandomColorConnectFluxProps _$RandomColorConnectFlux([Map backingProps]) => backingProps == null
+    ? _$$RandomColorConnectFluxProps$JsMap(JsBackedMap())
+    : _$$RandomColorConnectFluxProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$RandomColorConnectFluxProps
-    extends _$RandomColorConnectFluxProps
+abstract class _$$RandomColorConnectFluxProps extends _$RandomColorConnectFluxProps
     with _$RandomColorConnectFluxPropsAccessorsMixin
     implements RandomColorConnectFluxProps {
   _$$RandomColorConnectFluxProps._();
@@ -229,8 +193,7 @@ abstract class _$$RandomColorConnectFluxProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $RandomColorConnectFluxComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $RandomColorConnectFluxComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -238,8 +201,7 @@ abstract class _$$RandomColorConnectFluxProps
 }
 
 // Concrete props implementation that can be backed by any [Map].
-class _$$RandomColorConnectFluxProps$PlainMap
-    extends _$$RandomColorConnectFluxProps {
+class _$$RandomColorConnectFluxProps$PlainMap extends _$$RandomColorConnectFluxProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$RandomColorConnectFluxProps$PlainMap(Map backingMap)
@@ -256,8 +218,7 @@ class _$$RandomColorConnectFluxProps$PlainMap
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$RandomColorConnectFluxProps$JsMap
-    extends _$$RandomColorConnectFluxProps {
+class _$$RandomColorConnectFluxProps$JsMap extends _$$RandomColorConnectFluxProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$RandomColorConnectFluxProps$JsMap(JsBackedMap backingMap)
@@ -276,8 +237,7 @@ class _$$RandomColorConnectFluxProps$JsMap
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$RandomColorConnectFluxComponent
-    extends RandomColorConnectFluxComponent {
+class _$RandomColorConnectFluxComponent extends RandomColorConnectFluxComponent {
   _$$RandomColorConnectFluxProps$JsMap _cachedTypedProps;
 
   @override
@@ -297,13 +257,11 @@ class _$RandomColorConnectFluxComponent
   }
 
   @override
-  _$$RandomColorConnectFluxProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+  _$$RandomColorConnectFluxProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
       _$$RandomColorConnectFluxProps$JsMap(backingMap);
 
   @override
-  _$$RandomColorConnectFluxProps typedPropsFactory(Map backingMap) =>
-      _$$RandomColorConnectFluxProps(backingMap);
+  _$$RandomColorConnectFluxProps typedPropsFactory(Map backingMap) => _$$RandomColorConnectFluxProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -312,7 +270,5 @@ class _$RandomColorConnectFluxComponent
   /// The default consumed props, taken from _$RandomColorConnectFluxProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForRandomColorConnectFluxProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForRandomColorConnectFluxProps];
 }
