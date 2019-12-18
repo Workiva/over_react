@@ -1,5 +1,15 @@
 # OverReact Changelog
 
+## [3.1.7](https://github.com/Workiva/over_react/compare/3.1.6...3.1.7)
+
+- [#435] Fix issue with `ErrorBoundary` that causes errors thrown within the `render` phase of the component lifecycle to bubble up to parent `ErrorBoundary` components, which resulted in entire consumer applications locking up / crashing / unmounting.
+  - __DEPRECATIONS:__ `ErrorBoundaryMixin`, `ErrorBoundaryPropsMixin` and `ErrorBoundaryStateMixin` are deprecated and will be removed in the 4.0.0 release.
+    - To create a custom error boundary moving forward, create an HOC that wraps around the `ErrorBoundary` component instead. 
+- [#433] Refactor `propTypes` tests
+- [#440] Make over_react_redux tests compatible with version `^7.1.1` of the redux JS library
+- [#442] Remove Dart 2.4.1 phase from the CI build
+- [#428] Add examples of components that have `render` methods that return  `Fragment`, `List`, `num` and `String` 
+
 ## [3.1.6](https://github.com/Workiva/over_react/compare/3.1.5...3.1.6)
 - Remove dead code in `UiProps.build` that was unnecessarily slowing down dart2js compilation
 - Fix README typos

@@ -1,5 +1,5 @@
 name: over_react
-version: 3.1.6
+version: 3.1.7
 description: A library for building statically-typed React UI components using Dart.
 homepage: https://github.com/Workiva/over_react/
 authors:
@@ -39,8 +39,11 @@ dev_dependencies:
   dart2_constant: ^1.0.0
   dart_dev: ^3.0.0
   dependency_validator: ^1.4.0
+  # front_end is necessary because of a change in build_vm_compilers starting with version 1.0.3, and it should be
+  # removed when build_vm_compilers no longer requires it to be specified
+  front_end: ^0.1.27
   glob: ^1.2.0
   mockito: ^4.1.1
-  over_react_test: ^2.5.2
+  over_react_test: ^2.7.0
   pedantic: ^1.8.0
   test: ^1.9.1

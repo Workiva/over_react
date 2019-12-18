@@ -1,7 +1,6 @@
 language: dart
 
 dart:
-  - '2.4.1' # TODO: Remove this and bump the lower SDK bound to 2.6.0 once released.
   - stable
   - dev
 
@@ -9,7 +8,7 @@ before_script:
   - pub run build_runner build --delete-conflicting-outputs
   - git diff --exit-code
   - pub run dart_dev analyze
-  - pub run dependency_validator --no-fatal-pins -i analyzer,build_runner,build_web_compilers,built_value_generator
+  - pub run dependency_validator --no-fatal-pins -i analyzer,build_runner,build_web_compilers,built_value_generator,front_end
 
 script:
   - pub run dart_dev test -P vm

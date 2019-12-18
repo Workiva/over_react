@@ -13,6 +13,7 @@ export 'demos/custom_error_boundary.dart';
 export '../src/demo_components/prop_validation_wrap.dart';
 
 export '../../src/demos/faulty-component.dart';
+export '../../src/demos/faulty-on-mount-component.dart';
 
 export 'demos/list-group/list-group-basic.dart';
 export 'demos/list-group/list-group-tags.dart';
@@ -24,6 +25,11 @@ export 'demos/progress/progress-basic.dart';
 export 'demos/progress/progress-contextual.dart';
 export 'demos/progress/progress-striped.dart';
 export 'demos/progress/progress-animated-stripes.dart';
+
+export 'demos/return-types/fragment_example_component.dart';
+export 'demos/return-types/list_example_component.dart';
+export 'demos/return-types/num_example_component.dart';
+export 'demos/return-types/string_example_component.dart';
 
 export 'demos/tag/tag-basic.dart';
 export 'demos/tag/tag-contextual.dart';
