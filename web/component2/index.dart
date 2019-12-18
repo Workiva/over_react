@@ -36,6 +36,27 @@ void main() {
   );
 
   react_dom.render(
+    (ErrorBoundary()
+      ..onComponentDidCatch = (error, info) {
+        print('Consumer props.onComponentDidCatch($error, $info)');
+      }
+    )(FaultyOnMount()()),
+    querySelector('$demoMountNodeSelectorPrefix--faulty-on-mount-component'),
+  );
+
+  react_dom.render(
+    (ErrorBoundary()
+      ..onComponentDidCatch = (error, info) {
+        print('Consumer props.onComponentDidCatch($error, $info)');
+      }
+      ..fallbackUIRenderer = (_, __) {
+        return (Dom.div()..id = 'FallbackUi')('I am a fallback.');
+      }
+    )(FaultyOnMount()()),
+    querySelector('$demoMountNodeSelectorPrefix--faulty-on-mount-fallback-component'),
+  );
+
+  react_dom.render(
     (CustomErrorBoundary()
       ..onComponentDidCatch = (error, info) {
         print('Consumer props.onComponentDidCatch($error, $info)');

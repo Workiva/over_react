@@ -17,12 +17,17 @@
 library error_boundary_test;
 
 import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component/error_boundary_recoverable.dart';
 import 'package:test/test.dart';
 
 import 'shared_error_boundary_tests.dart';
 
 void main() {
+  group('RecoverableErrorBoundary', () {
+    sharedErrorBoundaryTests(() => RecoverableErrorBoundary());
+  });
+
   group('ErrorBoundary', () {
-    sharedErrorBoundaryTests(() => ErrorBoundary());
+    sharedErrorBoundaryTests(() => ErrorBoundary(), isWrapper: true);
   });
 }
