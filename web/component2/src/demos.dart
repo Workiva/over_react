@@ -25,6 +25,11 @@ export 'demos/progress/progress-contextual.dart';
 export 'demos/progress/progress-striped.dart';
 export 'demos/progress/progress-animated-stripes.dart';
 
+export 'demos/return-types/fragment_example_component.dart';
+export 'demos/return-types/list_example_component.dart';
+export 'demos/return-types/num_example_component.dart';
+export 'demos/return-types/string_example_component.dart';
+
 export 'demos/tag/tag-basic.dart';
 export 'demos/tag/tag-contextual.dart';
 export 'demos/tag/tag-pills.dart';
