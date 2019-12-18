@@ -16,15 +16,16 @@ abstract class ListItemPropsMixin implements UiProps {
   Map get props;
 
   covariant BaseModel model;
-  bool isSelected;
-  bool isEditable;
-  bool isHighlighted;
-  Function(String id) onSelect;
-  Function(String id) onDeselect;
-  Function (String id) onBeginEdit;
-  Function (String id) onFinishEdit;
-  Function(BaseModel updatedModel) onModelUpdate;
-  Function(String id) onRemove;
+
+  @requiredProp bool isSelected;
+  @requiredProp bool isEditable;
+  @requiredProp bool isHighlighted;
+  @requiredProp Function(String id) onSelect;
+  @requiredProp Function(String id) onDeselect;
+  @requiredProp Function (String id) onBeginEdit;
+  @requiredProp Function (String id) onFinishEdit;
+  @requiredProp Function(BaseModel updatedModel) onModelUpdate;
+  @requiredProp Function(String id) onRemove;
 }
 
 @StateMixin()

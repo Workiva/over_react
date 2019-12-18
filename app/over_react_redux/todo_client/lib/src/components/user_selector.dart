@@ -34,8 +34,8 @@ UiFactory<UserSelectorProps> UserSelector =
 class _$UserSelectorProps extends UiProps {
   String selectedUserId;
   User selectedUser;
-  List<User> users;
-  Function(String userId) onUserSelect;
+  @requiredProp List<User> users;
+  @requiredProp Function(String userId) onUserSelect;
 }
 
 @Component2()
