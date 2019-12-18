@@ -38,7 +38,7 @@ mixin ListItemMixin<M extends BaseModel, T extends ListItemPropsMixin, S extends
 
   @protected
   Map<String, dynamic> get highlightedItemStyle => {
-    if (props.isHighlighted) 'backgroundColor': colors['yellow']['50'],
+    if (props.isHighlighted) 'backgroundColor': muiColors['yellow']['50'],
   };
 
   bool get hasDetails;

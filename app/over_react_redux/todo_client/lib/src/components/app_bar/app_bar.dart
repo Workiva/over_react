@@ -22,7 +22,7 @@ class TodoAppBarComponent extends UiComponent2<TodoAppBarProps> {
       AppBar(props,
         Toolbar({},
           Box({'flexGrow': 1},
-            Typography({'variant': 'h6', 'className': classes['title']}, 'OverReact Todo Demo App'),
+            Typography({'variant': 'h6', 'className': muiClasses['title']}, 'OverReact Todo Demo App'),
           ),
           ConnectedAppBarLocalStorageMenu()(),
         ),

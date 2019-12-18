@@ -110,8 +110,8 @@ class AvatarWithColorsComponent extends UiStatefulComponent2<AvatarWithColorsPro
   static String _getRandomColorBasedOnUserName(String fullName) {
     if (fullName == null) return 'transparent';
 
-    final randomColorPaletteKeyIndex = Random(fullName?.hashCode).nextInt(colors.keys.length - 1);
-    final JsBackedMap colorMap = colors[colors.keys.elementAt(randomColorPaletteKeyIndex)];
+    final randomColorPaletteKeyIndex = Random(fullName?.hashCode).nextInt(muiColors.keys.length - 1);
+    final JsBackedMap colorMap = muiColors[muiColors.keys.elementAt(randomColorPaletteKeyIndex)];
     final randomColorHueKeyIndex = Random(fullName?.hashCode).nextInt(colorMap.keys.length - 1);
     final String color = colorMap[colorMap.keys.elementAt(randomColorHueKeyIndex)];
 
