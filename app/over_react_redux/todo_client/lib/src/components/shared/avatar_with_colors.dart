@@ -37,10 +37,11 @@ class AvatarWithColorsComponent extends UiStatefulComponent2<AvatarWithColorsPro
   Map getDerivedStateFromProps(Map nextProps, Map prevState) {
     if (prevState == null) return null; // Initial mount is handled by initialState getter
     final tNextProps = typedPropsFactory(nextProps);
-    if (typedStateFactory(prevState).fullName == tNextProps.fullName) return null; // Nothing is going to change. Short-circuit a bunch of color calc logic
+    final tPrevState = typedStateFactory(prevState);
+    if (tPrevState.fullName == tNextProps.fullName) return null; // Nothing is going to change. Short-circuit a bunch of color calc logic
     return (newState()
       ..fullName = tNextProps.fullName
-      ..addAll(_getDerivedColorsFromName(tNextProps))
+      ..addAll(_getDerivedColorsFromName(tNextProps, tPrevState))
     );
   }
 
@@ -64,12 +65,12 @@ class AvatarWithColorsComponent extends UiStatefulComponent2<AvatarWithColorsPro
     return GroupIcon({'color': 'inherit'});
   }
 
-  Map _getDerivedColorsFromName([AvatarWithColorsProps propsMap]) {
+  Map _getDerivedColorsFromName([AvatarWithColorsProps propsMap, AvatarWithColorsState stateMap]) {
     propsMap ??= props;
     final stateToSet = newState();
 
     final newBackgroundColor = _getRandomColorBasedOnUserName(propsMap.fullName);
-    if (newBackgroundColor != state?.backgroundColor) {
+    if (newBackgroundColor != stateMap?.backgroundColor) {
       stateToSet.backgroundColor = newBackgroundColor;
 
       String newTextColor;
@@ -80,7 +81,7 @@ class AvatarWithColorsComponent extends UiStatefulComponent2<AvatarWithColorsPro
         newTextColor = lightness < 70 ? '#fff' : '#595959';
       }
 
-      if (newTextColor != state?.textColor) {
+      if (newTextColor != stateMap?.textColor) {
         stateToSet.textColor = newTextColor;
       }
     }
