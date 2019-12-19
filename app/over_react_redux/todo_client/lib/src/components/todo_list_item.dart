@@ -27,9 +27,9 @@ UiFactory<TodoListItemProps> ConnectedTodoListItem = connect<AppState, TodoListI
     );
   },
   mapStateToPropsWithOwnProps: (state, ownProps) {
-    final isEditable = Set.of(state.editableTodoIds).contains(ownProps.model.id);
-    final isSelected = isEditable || Set.of(state.selectedTodoIds).contains(ownProps.model.id);
-    final isHighlighted = Set.of(state.highlightedTodoIds).contains(ownProps.model.id);
+    final isEditable = state.editableTodoIds.contains(ownProps.model.id);
+    final isSelected = isEditable || state.selectedTodoIds.contains(ownProps.model.id);
+    final isHighlighted = state.highlightedTodoIds.contains(ownProps.model.id);
 
     return (TodoListItem()
       ..isSelected = isSelected

@@ -28,9 +28,9 @@ UiFactory<UserListItemProps> ConnectedUserListItem = connect<AppState, UserListI
     );
   },
   mapStateToPropsWithOwnProps: (state, ownProps) {
-    final isEditable = Set.of(state.editableUserIds).contains(ownProps.model.id);
-    final isSelected = isEditable || Set.of(state.selectedUserIds).contains(ownProps.model.id);
-    final isHighlighted = Set.of(state.highlightedUserIds).contains(ownProps.model.id);
+    final isEditable = state.editableUserIds.contains(ownProps.model.id);
+    final isSelected = isEditable || state.selectedUserIds.contains(ownProps.model.id);
+    final isHighlighted = state.highlightedUserIds.contains(ownProps.model.id);
 
     return (UserListItem()
       ..isSelected = isSelected
