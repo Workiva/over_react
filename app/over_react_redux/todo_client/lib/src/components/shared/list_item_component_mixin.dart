@@ -16,19 +16,9 @@ mixin ListItemMixin<M extends BaseModel, T extends ListItemPropsMixin, S extends
 
   @override
   @mustCallSuper
-  Map getDerivedStateFromProps(Map nextProps, Map prevState) {
-    final tNextProps = typedPropsFactory(nextProps);
-    final tPrevState = typedStateFactory(prevState);
-    final alreadyEditing = tPrevState?.localModel != null;
-
-    if (!alreadyEditing && tNextProps.isEditable) {
-      return (newState()..localModel = tNextProps.model);
-    } else if (alreadyEditing && !tNextProps.isEditable) {
-      return (newState()..localModel = null);
-    }
-
-    return null;
-  }
+  get initialState => (newState()
+    ..localModel = props.model
+  );
 
   Map<String, dynamic> get sharedExpansionPanelProps => {
     'onChange': handleExpansionPanelExpandedStateChange,
@@ -54,6 +44,10 @@ mixin ListItemMixin<M extends BaseModel, T extends ListItemPropsMixin, S extends
 
   M get model => props.isEditable ? state.localModel : props.model;
 
+  void _resetLocalModelToPersistedModel([Function() afterReset]) {
+    setState(newState()..localModel = props.model, afterReset);
+  }
+
   @protected
   void remove() {
     props.onRemove(model.id);
@@ -72,7 +66,9 @@ mixin ListItemMixin<M extends BaseModel, T extends ListItemPropsMixin, S extends
   @protected
   void enterEditable() {
     if (!props.isEditable) {
-      props.onBeginEdit(model.id);
+      _resetLocalModelToPersistedModel(() {
+        props.onBeginEdit(model.id);
+      });
     }
   }
 
@@ -80,6 +76,8 @@ mixin ListItemMixin<M extends BaseModel, T extends ListItemPropsMixin, S extends
   void exitEditable({bool saveChanges = true}) {
     if (saveChanges) {
       props.onModelUpdate(state.localModel);
+    } else {
+      _resetLocalModelToPersistedModel();
     }
 
     if (props.isEditable) {

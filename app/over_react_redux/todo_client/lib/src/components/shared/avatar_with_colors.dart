@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:color/color.dart';
+import 'package:memoize/memoize.dart';
 import 'package:over_react/over_react.dart';
 
 import 'package:todo_client/src/components/shared/material_ui.dart';
@@ -18,39 +19,14 @@ class _$AvatarWithColorsProps extends UiProps {
   String fullName;
 }
 
-@State()
-class _$AvatarWithColorsState extends UiState {
-  String fullName;
-  String backgroundColor;
-  String textColor;
-}
-
 @Component2()
-class AvatarWithColorsComponent extends UiStatefulComponent2<AvatarWithColorsProps, AvatarWithColorsState> {
-  @override
-  get initialState => (newState()
-    ..fullName = props.fullName
-    ..addAll(_getDerivedColorsFromName())
-  );
-
-  @override
-  Map getDerivedStateFromProps(Map nextProps, Map prevState) {
-    if (prevState == null) return null; // Initial mount is handled by initialState getter
-    final tNextProps = typedPropsFactory(nextProps);
-    final tPrevState = typedStateFactory(prevState);
-    if (tPrevState.fullName == tNextProps.fullName) return null; // Nothing is going to change. Short-circuit a bunch of color calc logic
-    return (newState()
-      ..fullName = tNextProps.fullName
-      ..addAll(_getDerivedColorsFromName(tNextProps, tPrevState))
-    );
-  }
-
+class AvatarWithColorsComponent extends UiComponent2<AvatarWithColorsProps> {
   @override
   render() {
     return Avatar({
       'style': {
-        'backgroundColor': state.backgroundColor,
-        'color': state.textColor,
+        'backgroundColor': _backgroundColorMemo(props.fullName),
+        'color': _textColorMemo(_backgroundColorMemo(props.fullName)),
       },
     },
       _renderAvatarContent(),
@@ -59,39 +35,19 @@ class AvatarWithColorsComponent extends UiStatefulComponent2<AvatarWithColorsPro
 
   dynamic _renderAvatarContent() {
     if (props.fullName != null) {
-      return _getUserInitials(state.fullName);
+      return _getUserInitials(props.fullName);
     }
 
     return GroupIcon({'color': 'inherit'});
   }
 
-  Map _getDerivedColorsFromName([AvatarWithColorsProps propsMap, AvatarWithColorsState stateMap]) {
-    propsMap ??= props;
-    final stateToSet = newState();
+  static final _backgroundColorMemo = memo1(_getRandomColorBasedOnUserName);
+  static final _textColorMemo = memo1<String, String>((backgroundColor) {
+    if (backgroundColor == 'transparent') return 'inherit';
 
-    final newBackgroundColor = _getRandomColorBasedOnUserName(propsMap.fullName);
-    if (newBackgroundColor != stateMap?.backgroundColor) {
-      stateToSet.backgroundColor = newBackgroundColor;
-
-      String newTextColor;
-      if (newBackgroundColor == 'transparent') {
-        newTextColor = 'inherit';
-      } else {
-        final lightness = Color.hex(newBackgroundColor).toHslColor().l;
-        newTextColor = lightness < 70 ? '#fff' : '#595959';
-      }
-
-      if (newTextColor != stateMap?.textColor) {
-        stateToSet.textColor = newTextColor;
-      }
-    }
-
-    if (stateToSet.isNotEmpty) {
-      return stateToSet;
-    }
-
-    return null;
-  }
+    final lightness = Color.hex(backgroundColor).toHslColor().l;
+    return lightness < 70 ? '#fff' : '#595959';
+  });
 
   static String _getUserInitials(String fullName) {
     if (fullName == null) return ' ';
@@ -131,10 +87,4 @@ class AvatarWithColorsComponent extends UiStatefulComponent2<AvatarWithColorsPro
 class AvatarWithColorsProps extends _$AvatarWithColorsProps with _$AvatarWithColorsPropsAccessorsMixin {
   // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
   static const PropsMeta meta = _$metaForAvatarWithColorsProps;
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class AvatarWithColorsState extends _$AvatarWithColorsState with _$AvatarWithColorsStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaForAvatarWithColorsState;
 }

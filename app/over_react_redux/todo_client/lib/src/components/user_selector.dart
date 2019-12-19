@@ -1,6 +1,5 @@
 library todo_client.src.components.user_selector;
 
-import 'package:collection/collection.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 
@@ -41,16 +40,6 @@ class _$UserSelectorProps extends UiProps {
 @Component2()
 class UserSelectorComponent extends UiComponent2<UserSelectorProps> {
   final _overlayRef = createRef<MenuOverlayComponent>();
-
-  @override
-  bool shouldComponentUpdate(Map nextProps, Map nextState) {
-    final tNextProps = typedPropsFactory(nextProps);
-    if (_overlayRef.current?.open != true) {
-      return tNextProps.selectedUserId != props.selectedUserId;
-    }
-
-    return !ListEquality().equals(tNextProps.users, props.users);
-  }
 
   @override
   render() {
