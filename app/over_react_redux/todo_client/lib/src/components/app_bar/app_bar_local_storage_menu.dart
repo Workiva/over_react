@@ -118,7 +118,7 @@ class AppBarLocalStorageMenuComponent extends UiComponent2<AppBarLocalStorageMen
           'Custom Data Sets',
         ),
       ),
-      ...localTodoAppStorage.mapOfCustomStatesJson.keys.map(_renderSavedStateMenuItem).toList(),
+      ...localTodoAppStorage.mapOfCustomStatesJson.keys.map(_renderSavedStateMenuItem),
     ];
   }
 
