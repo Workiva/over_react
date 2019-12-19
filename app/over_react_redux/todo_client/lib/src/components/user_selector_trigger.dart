@@ -28,7 +28,9 @@ class UserSelectorTriggerComponent extends UiComponent2<UserSelectorTriggerProps
     return IconButton({
       ...propsToForward,
       // Avatar height is 40px, so 4px on top and bottom will make it match the default height of adjacent IconButtons (48px)
-      'style': { 'padding': '4px' },
+      'style': {
+        'padding': '4px',
+      },
     },
       (AvatarWithColors()..fullName = props.selectedUserName)(),
     );

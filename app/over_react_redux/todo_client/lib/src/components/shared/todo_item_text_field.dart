@@ -55,7 +55,12 @@ class TodoItemTextFieldComponent extends UiStatefulComponent2<TodoItemTextFieldP
 
     return InputBase({
       ...propsToForward,
-      'inputProps': {'style': {'whiteSpace': 'nowrap', 'textOverflow': 'ellipsis'}},
+      'inputProps': {
+        'style': {
+          'whiteSpace': 'nowrap',
+          'textOverflow': 'ellipsis',
+        },
+      },
     });
   }
 

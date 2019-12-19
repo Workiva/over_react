@@ -44,65 +44,60 @@ class TodoAppComponent extends UiComponent2<TodoAppProps> {
   @override
   render() {
     return Fragment()(
-      (TodoAppBar()..key = 'appBar')(),
-      Box({
-        'key': 'appContent',
-        'className': 'app-content',
-      }, [
-        CssBaseline({'key': 'cssBaseline'}),
-        Container({'key': 'container', 'maxWidth': 'lg', 'className': 'app-content__container'},
-          Grid({'container': true, 'direction': 'row', 'spacing': 3, 'className': 'app-content__container-grid'}, [
+      TodoAppBar()(),
+      Box({'className': 'app-content'},
+        CssBaseline({}),
+        Container({
+          'maxWidth': 'lg',
+          'className': 'app-content__container'
+        },
+          Grid({
+            'container': true,
+            'direction': 'row',
+            'spacing': 3,
+            'className': 'app-content__container-grid'
+          },
             renderTodosColumn(),
             renderUsersColumn(),
-          ]),
+          ),
         ),
-      ])
+      ),
     );
   }
 
   ReactElement renderTodosColumn() {
-    return Grid(
-      {
-        'key': 'todos',
-        'container': true,
-        'item': true,
-        'sm': 8,
-        'direction': 'column',
-        'alignItems': 'stretch',
-        'style': {'height': '100%'},
-      },
-      [
-        (CreateInput()
-          ..key = 'todoInput'
-          ..autoFocus = true
-          ..label = 'New Todo'
-          ..placeholder = 'Create new Todo'
-          ..onCreate = props.createTodo
-        )(),
-        (ConnectedTodoList()..key = 'todoList')(),
-      ],
+    return Grid({
+      'container': true,
+      'item': true,
+      'sm': 8,
+      'direction': 'column',
+      'alignItems': 'stretch',
+      'style': {'height': '100%'},
+    },
+      (CreateInput()
+        ..autoFocus = true
+        ..label = 'New Todo'
+        ..placeholder = 'Create new Todo'
+        ..onCreate = props.createTodo
+      )(),
+      ConnectedTodoList()(),
     );
   }
 
   ReactElement renderUsersColumn() {
-    return Grid(
-      {
-        'key': 'users',
-        'container': true,
-        'item': true,
-        'sm': 4,
-        'direction': 'column',
-        'style': {'height': '100%'},
-      },
-      [
-        (CreateInput()
-          ..key = 'userInput'
-          ..label = 'New User'
-          ..placeholder = 'Create new user'
-          ..onCreate = props.createUser
-        )(),
-        (ConnectedUserList()..key = 'userList')(),
-      ],
+    return Grid({
+      'container': true,
+      'item': true,
+      'sm': 4,
+      'direction': 'column',
+      'style': {'height': '100%'},
+    },
+      (CreateInput()
+        ..label = 'New User'
+        ..placeholder = 'Create new user'
+        ..onCreate = props.createUser
+      )(),
+      ConnectedUserList()(),
     );
   }
 }

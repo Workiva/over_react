@@ -50,22 +50,28 @@ class ListItemExpansionPanelSummaryComponent
       'onFocus': handleChildFocus,
       'onBlur': handleChildBlur,
     },
-      Grid({'container': true, 'direction': 'row'}, [
-        ...props.children,
+      Grid({
+        'container': true,
+        'direction': 'row',
+      },
+        props.children,
         _renderEditButton(),
-      ]),
+      ),
     );
   }
 
   ReactElement _renderEditButton() {
-    return Box({...shrinkToFit,
-      'key': 'editButton',
+    return Box({
+      ...shrinkToFit,
       'mr': -1,
       'alignSelf': 'center',
       'aria-hidden': !isHovered,
       'className': 'hide-using-aria',
     },
-      Tooltip({'enterDelay': 500, 'title': props.isEditable ? 'Save Changes' : 'Make Changes'},
+      Tooltip({
+        'enterDelay': 500,
+        'title': props.isEditable ? 'Save Changes' : 'Make Changes',
+      },
         IconButton({
           'aria-label': props.isEditable ? 'Save Changes' : 'Make Changes',
           'className': 'todo-list__item__edit-btn',

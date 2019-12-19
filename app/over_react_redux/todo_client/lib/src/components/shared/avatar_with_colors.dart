@@ -50,8 +50,10 @@ class AvatarWithColorsComponent extends UiStatefulComponent2<AvatarWithColorsPro
       'style': {
         'backgroundColor': state.backgroundColor,
         'color': state.textColor,
-      }
-    }, _renderAvatarContent());
+      },
+    },
+      _renderAvatarContent(),
+    );
   }
 
   dynamic _renderAvatarContent() {

@@ -33,7 +33,7 @@ class UserListComponent extends UiComponent2<UserListProps> {
   @override
   render() {
     return (DisplayList()..listItemTypeDescription = 'users')(
-      props.users.map(_renderUser).toList()
+      props.users.map(_renderUser).toList(),
     );
   }
 

@@ -10,9 +10,10 @@ main() {
   setClientConfiguration();
 
   final container = querySelector('#todo-container');
-  react_dom.render(
-      (ReduxProvider()..store = store)(
-        ConnectedTodoApp()(),
-      ),
-      container);
+
+  final app = (ReduxProvider()..store = store)(
+    ConnectedTodoApp()(),
+  );
+
+  react_dom.render(app, container);
 }

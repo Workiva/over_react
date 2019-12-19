@@ -61,7 +61,9 @@ class TaskCountBadgeComponent extends UiComponent2<TaskCountBadgeProps> {
             'vertical': 'bottom',
             'horizontal': 'right',
           },
-        }, props.children),
+        },
+          props.children,
+        ),
       ),
     );
   }

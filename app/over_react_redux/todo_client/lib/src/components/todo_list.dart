@@ -33,7 +33,7 @@ class TodoListComponent extends UiComponent2<TodoListProps> {
   @override
   render() {
     return (DisplayList()..listItemTypeDescription = 'todos')(
-      props.todos.map(_renderItem).toList()
+      props.todos.map(_renderItem).toList(),
     );
   }
 

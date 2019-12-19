@@ -40,7 +40,9 @@ class DisplayListComponent extends UiComponent2<DisplayListProps> {
       'paddingTop': 2,
       'style': {...props.style ?? {}, 'overflowY': 'auto'},
       ...propsToForward
-    }, props.children);
+    },
+      props.children,
+    );
   }
 }
 

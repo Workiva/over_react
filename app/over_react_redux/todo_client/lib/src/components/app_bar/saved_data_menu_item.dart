@@ -64,17 +64,32 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
   }
 
   ReactElement _renderNameWithOptions() {
-    return Grid({'container': true, 'direction': 'row', 'style': {'flexWrap': false}},
-      Box({...grow, 'pr': 1, 'justifyContent': 'center', 'display': 'flex'},
-        Box({'pr': 1, 'display': 'flex', 'justifyContent': 'center'},
-          StorageIcon({'style': {'alignSelf': 'center'}}),
+    return Grid({
+      'container': true,
+      'direction': 'row',
+      'style': {'flexWrap': false},
+    },
+      Box({
+        ...grow,
+        'pr': 1,
+        'justifyContent': 'center',
+        'display': 'flex',
+      },
+        Box({
+          'pr': 1,
+          'display': 'flex',
+          'justifyContent': 'center',
+        },
+          StorageIcon({
+            'style': {'alignSelf': 'center'},
+          }),
         ),
         Typography({
           'noWrap': true,
           'style': {
             'alignSelf': 'center',
             'flexGrow': 1,
-          }
+          },
         },
           props.localStorageKey,
         ),
@@ -88,7 +103,7 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
         'onClick': (SyntheticMouseEvent event) {
           event.stopPropagation(); // Do not trigger the onClick handler of the parent MenuItem
           setState(newState()..isEditable = true);
-        }
+        },
       },
         EditPencilIcon(),
       ),
@@ -119,7 +134,7 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
           'onClick': (SyntheticMouseEvent event) {
             event.stopPropagation(); // Do not trigger the onClick handler of the parent MenuItem
             props.onDelete(props.localStorageKey);
-          }
+          },
         },
           TrashIcon(),
         ),

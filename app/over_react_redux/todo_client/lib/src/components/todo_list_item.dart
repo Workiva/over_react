@@ -76,9 +76,8 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
     return ExpansionPanel({
       ...sharedExpansionPanelProps,
       'className': model.isCompleted ? 'Mui-disabled' : null,
-    }, [
+    },
       (ListItemExpansionPanelSummary()
-        ..key = 'summary'
         ..modelId = model.id
         ..allowExpansion = allowExpansion
         ..isEditable = props.isEditable
@@ -88,16 +87,16 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
         _renderTaskHeader(),
         _renderUserSelector(),
       ),
-      ExpansionPanelDetails({'key': 'details'},
+      ExpansionPanelDetails({},
         _renderTaskNotes(),
       ),
       _renderEditableTaskActions(),
-    ]);
+    );
   }
 
   ReactElement _renderTaskCheckbox() {
-    return Box({...shrinkToFit,
-      'key': 'taskCheckbox',
+    return Box({
+      ...shrinkToFit,
       'ml': -2,
       'mr': 1,
       'alignSelf': 'center',
@@ -121,7 +120,8 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   }
 
   ReactElement _renderTaskHeader() {
-    return Box({...grow,
+    return Box({
+      ...grow,
       'key': 'taskHeader',
       'mr': 1,
       'alignSelf': 'center',
@@ -149,8 +149,8 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   }
 
   ReactElement _renderUserSelector() {
-    return Box({...shrinkToFit,
-      'key': 'userSelector',
+    return Box({
+      ...shrinkToFit,
       'alignSelf': 'center',
     },
       (ConnectedUserSelector()
@@ -180,25 +180,34 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   ReactElement _renderEditableTaskActions() {
     if (!props.isEditable) return null;
 
-    return (Fragment()..key = 'editableTaskActions')(
+    return Fragment()(
       Divider({}),
       ExpansionPanelActions({},
-        Grid({'container': true, 'direction': 'row'}, [
-          Box({'key': 'leftButtons', 'flexGrow': 1, 'display': 'flex'}, [
+        Grid({
+          'container': true,
+          'direction': 'row'
+        },
+          Box({
+            'flexGrow': 1,
+            'display': 'flex'
+          },
             _renderEditableTaskDeleteButton(),
             _renderEditableTaskPrivacyToggleButton(),
-          ]),
-          Box({'key': 'rightButtons', ...shrinkToFit}, [
+          ),
+          Box({...shrinkToFit},
             _renderEditableTaskCancelButton(),
             _renderEditableTaskSaveButton(),
-          ]),
-        ]),
+          ),
+        ),
       ),
     );
   }
 
   ReactElement _renderEditableTaskDeleteButton() {
-    return Tooltip({'key': 'deleteButton', 'enterDelay': 500, 'title': 'Delete Todo'},
+    return Tooltip({
+      'enterDelay': 500,
+      'title': 'Delete Todo',
+    },
       Box({'color': 'error.main'},
         IconButton({
           'size': 'small',
@@ -216,7 +225,10 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   ReactElement _renderEditableTaskPrivacyToggleButton() {
     final tooltipTitle = model.isPublic ? 'Make Private' : 'Make Public';
 
-    return Tooltip({'key': 'privacyButton', 'enterDelay': 500, 'title': tooltipTitle},
+    return Tooltip({
+      'enterDelay': 500,
+      'title': tooltipTitle,
+    },
       IconButton({
         'size': 'small',
         'aria-label': model.isPublic ? 'Make Private' : 'Make Public',
@@ -229,7 +241,6 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
 
   ReactElement _renderEditableTaskCancelButton() {
     return Button({
-      'key': 'cancel',
       'size': 'small',
       'onClick': (_) { exitEditable(saveChanges: false); },
     }, 'Cancel');
@@ -237,7 +248,6 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
 
   ReactElement _renderEditableTaskSaveButton() {
     return Button({
-      'key': 'save',
       'size': 'small',
       'color': 'primary',
       'onClick': (_) { exitEditable(saveChanges: true); },

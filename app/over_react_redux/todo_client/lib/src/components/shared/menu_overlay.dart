@@ -67,7 +67,9 @@ class MenuOverlayComponent extends UiStatefulComponent2<MenuOverlayProps, MenuOv
             setState(newState()..menuMaxWidth = currentMenuWidth ?? 'none');
           }
         },
-      }, props.children),
+      },
+        props.children,
+      ),
     );
   }
 

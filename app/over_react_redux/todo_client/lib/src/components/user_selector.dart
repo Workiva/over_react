@@ -78,12 +78,12 @@ class UserSelectorComponent extends UiComponent2<UserSelectorProps> {
         event.stopPropagation();
         _handleUserSelect(user);
       },
-    }, [
-      Box({'key': 'avatarBox', 'mr': 1},
+    },
+      Box({'mr': 1},
         (AvatarWithColors()..fullName = user.name)(),
       ),
       user.name,
-    ]);
+    );
   }
 
   void _handleUserSelect(User user) {

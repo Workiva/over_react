@@ -81,9 +81,7 @@ class EmptyViewComponent extends UiComponent2<EmptyViewProps> {
   ReactElement _renderInContainer(dynamic content) {
     if (props.type == EmptyViewType.DEFAULT) return content;
 
-    return (Dom.div()
-      ..className = props.type.className
-    )(content);
+    return (Dom.div()..className = props.type.className)(content);
   }
 
   ReactElement _renderHeader() {

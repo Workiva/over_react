@@ -72,9 +72,8 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
 
   @override
   render() {
-    return ExpansionPanel(sharedExpansionPanelProps, [
+    return ExpansionPanel(sharedExpansionPanelProps,
       (ListItemExpansionPanelSummary()
-        ..key = 'summary'
         ..modelId = model.id
         ..allowExpansion = allowExpansion
         ..isEditable = props.isEditable
@@ -83,16 +82,16 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
         _renderUserAvatar(),
         _renderUserNameHeader(),
       ),
-      ExpansionPanelDetails({'key': 'details'},
+      ExpansionPanelDetails({},
         _renderUserBio(),
       ),
       _renderEditableUserActions(),
-    ]);
+    );
   }
 
   ReactElement _renderUserAvatar() {
-    return Box({...shrinkToFit,
-      'key': 'userAvatar',
+    return Box({
+      ...shrinkToFit,
       'ml': -1,
       'mr': 2,
       'alignSelf': 'center',
@@ -107,8 +106,8 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
   }
 
   ReactElement _renderUserNameHeader() {
-    return Box({...grow,
-      'key': 'userNameHeader',
+    return Box({
+      ...grow,
       'mr': 1,
       'alignSelf': 'center',
     },
@@ -154,24 +153,33 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
   ReactElement _renderEditableUserActions() {
     if (!props.isEditable) return null;
 
-    return (Fragment()..key = 'editableUserActions')(
+    return Fragment()(
       Divider({}),
       ExpansionPanelActions({},
-        Grid({'container': true, 'direction': 'row'}, [
-          Box({'key': 'leftButtons', 'flexGrow': 1, 'display': 'flex'}, [
+        Grid({
+          'container': true,
+          'direction': 'row',
+        },
+          Box({
+            'flexGrow': 1,
+            'display': 'flex',
+          },
             _renderEditableUserDeleteButton(),
-          ]),
-          Box({'key': 'rightButtons', ...shrinkToFit}, [
+          ),
+          Box({...shrinkToFit},
             _renderEditableUserCancelButton(),
             _renderEditableUserSaveButton(),
-          ]),
-        ]),
+          ),
+        ),
       ),
     );
   }
 
   ReactElement _renderEditableUserDeleteButton() {
-    return Tooltip({'key': 'deleteButton', 'enterDelay': 500, 'title': 'Delete Todo'},
+    return Tooltip({
+      'enterDelay': 500,
+      'title': 'Delete Todo',
+    },
       Box({'color': 'error.main'},
         IconButton({
           'size': 'small',
@@ -187,18 +195,16 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
 
   ReactElement _renderEditableUserCancelButton() {
     return Button({
-      'key': 'cancel',
       'size': 'small',
-      'onClick': (_) { exitEditable(saveChanges: false); }
+      'onClick': (_) { exitEditable(saveChanges: false); },
     }, 'Cancel');
   }
 
   ReactElement _renderEditableUserSaveButton() {
     return Button({
-      'key': 'save',
       'size': 'small',
       'color': 'primary',
-      'onClick': (_) { exitEditable(saveChanges: true); }
+      'onClick': (_) { exitEditable(saveChanges: true); },
     }, 'Save');
   }
 }
