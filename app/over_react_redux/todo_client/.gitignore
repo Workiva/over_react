@@ -1,14 +1,9 @@
 .packages
 .pub
 packages
+build/
+.dart_tool
 *.over_react.g.dart
-
-# Files created by dart2js
-*.dart.js
-*.part.js
-*.js.deps
-*.js.map
-*.info.json
 
 # Directory created by dartdoc
 doc/api/
@@ -19,5 +14,4 @@ doc/api/
 *.ipr
 *.iws
 .arcconfig
-.dart_tool
 .vscode
