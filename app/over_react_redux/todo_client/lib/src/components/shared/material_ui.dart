@@ -49,8 +49,8 @@ class MaterialUI {
   external static ReactClass get Typography;
 }
 
-final muiColors = JsBackedMap().deepConvertFromJs(MaterialUI.colors);
-final muiClasses = JsBackedMap().deepConvertFromJs(MaterialUI.classes);
+final muiColors = jsBackedMapDeepFromJs(MaterialUI.colors);
+final muiClasses = jsBackedMapDeepFromJs(MaterialUI.classes);
 
 // -----------------------------------------------------------------------
 // Below, you'll find the top level JS component factories
