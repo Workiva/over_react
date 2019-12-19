@@ -22,8 +22,8 @@ abstract class ListItemPropsMixin implements UiProps {
   @requiredProp bool isHighlighted;
   @requiredProp Function(String id) onSelect;
   @requiredProp Function(String id) onDeselect;
-  @requiredProp Function (String id) onBeginEdit;
-  @requiredProp Function (String id) onFinishEdit;
+  @requiredProp Function(String id) onBeginEdit;
+  @requiredProp Function(String id) onFinishEdit;
   @requiredProp Function(BaseModel updatedModel) onModelUpdate;
   @requiredProp Function(String id) onRemove;
 }
