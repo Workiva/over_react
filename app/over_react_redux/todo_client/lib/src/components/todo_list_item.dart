@@ -96,7 +96,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
 
   ReactElement _renderTaskCheckbox() {
     return Box({
-      ...shrinkToFit,
+      ...shrinkToFitProps,
       'ml': -2,
       'mr': 1,
       'alignSelf': 'center',
@@ -121,7 +121,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
 
   ReactElement _renderTaskHeader() {
     return Box({
-      ...grow,
+      ...growProps,
       'key': 'taskHeader',
       'mr': 1,
       'alignSelf': 'center',
@@ -150,7 +150,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
 
   ReactElement _renderUserSelector() {
     return Box({
-      ...shrinkToFit,
+      ...shrinkToFitProps,
       'alignSelf': 'center',
     },
       (ConnectedUserSelector()
@@ -194,7 +194,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
             _renderEditableTaskDeleteButton(),
             _renderEditableTaskPrivacyToggleButton(),
           ),
-          Box({...shrinkToFit},
+          Box({...shrinkToFitProps},
             _renderEditableTaskCancelButton(),
             _renderEditableTaskSaveButton(),
           ),

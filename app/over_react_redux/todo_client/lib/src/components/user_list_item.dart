@@ -91,7 +91,7 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
 
   ReactElement _renderUserAvatar() {
     return Box({
-      ...shrinkToFit,
+      ...shrinkToFitProps,
       'ml': -1,
       'mr': 2,
       'alignSelf': 'center',
@@ -107,7 +107,7 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
 
   ReactElement _renderUserNameHeader() {
     return Box({
-      ...grow,
+      ...growProps,
       'mr': 1,
       'alignSelf': 'center',
     },
@@ -166,7 +166,7 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
           },
             _renderEditableUserDeleteButton(),
           ),
-          Box({...shrinkToFit},
+          Box({...shrinkToFitProps},
             _renderEditableUserCancelButton(),
             _renderEditableUserSaveButton(),
           ),

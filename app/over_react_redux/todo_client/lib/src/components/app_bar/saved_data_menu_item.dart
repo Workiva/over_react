@@ -70,7 +70,7 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
       'style': {'flexWrap': false},
     },
       Box({
-        ...grow,
+        ...growProps,
         'pr': 1,
         'justifyContent': 'center',
         'display': 'flex',
@@ -121,7 +121,7 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
       'enterDelay': 500,
     },
       Box({
-        ...shrinkToFit,
+        ...shrinkToFitProps,
         'color': 'error.main',
         'aria-hidden': !isHovered,
         'className': 'hide-using-aria',

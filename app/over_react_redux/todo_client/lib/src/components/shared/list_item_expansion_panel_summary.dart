@@ -62,7 +62,7 @@ class ListItemExpansionPanelSummaryComponent
 
   ReactElement _renderEditButton() {
     return Box({
-      ...shrinkToFit,
+      ...shrinkToFitProps,
       'mr': -1,
       'alignSelf': 'center',
       'aria-hidden': !isHovered,
