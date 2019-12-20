@@ -64,22 +64,24 @@ class AppState {
 
 @visibleForTesting
 AppState appStateReducer(AppState state, dynamic action) {
+  var stateName = localTodoAppStorage.currentStateJson['name'];
+
   if (action is SaveLocalStorageStateAsAction) {
-    Map previousValue;
-    if (action.value.previousName != null) {
-      previousValue = localTodoAppStorage.remove(action.value.previousName);
-    } else {
-      previousValue = localTodoAppStorage.currentStateJson;
+    if (action.value.previousName != null && action.value.previousName == action.value.name) {
+      // Overwrite
+      localTodoAppStorage.remove(action.value.previousName);
     }
 
-    localTodoAppStorage[action.value.name] = (AppState.fromJson(previousValue)..name = action.value.name).toJson();
+    stateName = action.value.name;
+    localTodoAppStorage[stateName] =
+        (AppState.fromJson(localTodoAppStorage.currentStateJson)..name = stateName).toJson();
   }
 
   if (action is LoadStateFromLocalStorageAction) {
     return AppState.fromJson(localTodoAppStorage[action.value]);
   }
 
-  return AppState(localTodoAppStorage.currentStateJson['name'],
+  return AppState(stateName,
     todos: todosReducer(state.todos, action),
     users: usersReducer(state.users, action),
     editableTodoIds: editableTodosReducer(state.editableTodoIds, action),

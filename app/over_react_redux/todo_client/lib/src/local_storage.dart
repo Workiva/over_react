@@ -2,7 +2,6 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:html';
 
-import 'package:meta/meta.dart';
 import 'package:todo_client/src/store.dart';
 
 /// The `window.localStorage` interface for our application.
