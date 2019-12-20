@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
-import 'package:redux/redux.dart';
 import 'package:test/test.dart';
 
 import 'package:todo_client/src/actions.dart';
@@ -13,18 +12,12 @@ import 'package:todo_client/src/models/todo.dart';
 import 'package:todo_client/src/models/user.dart';
 import 'package:todo_client/src/store.dart';
 
+import '../fixtures/utils.dart';
+
 main() {
   setClientConfiguration();
-  Store<AppState> testStore;
   const reasonCurrentSetShouldBePersisted =
         'The state update should be persisted as the "current" set in window.localStorage';
-
-  Store<AppState> initializeTestStore() {
-    return testStore = Store<AppState>(
-      appStateReducer,
-      initialState: initializeState(),
-    );
-  }
 
   String getLocalStorage() => window.localStorage[TodoAppLocalStorage.localStorageKey];
 
@@ -40,12 +33,6 @@ main() {
     setUp(() {
       expect(TodoAppLocalStorage.isInitialized(), isFalse, reason: 'test setup sanity check');
       initializeTestStore();
-    });
-
-    tearDown(() {
-      testStore = null;
-      localTodoAppStorage = null;
-      window.localStorage[TodoAppLocalStorage.localStorageKey] = '';
     });
 
     test('requires a name', () {
