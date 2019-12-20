@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:html';
 
+import 'package:meta/meta.dart';
 import 'package:todo_client/src/store.dart';
 
 /// The `window.localStorage` interface for our application.
@@ -13,29 +14,30 @@ class TodoAppLocalStorage extends MapBase<String, /*encodable*/Object> {
   final AppState initialState;
 
   TodoAppLocalStorage([this.initialState]) {
-    if (isInitialized) return;
-
-    final emptyState = AppState(TodoAppLocalStorage.emptyStateKey,
-      todos: [],
-      users: [],
-      selectedTodoIds: [],
-      editableTodoIds: [],
-      highlightedTodoIds: [],
-      selectedUserIds: [],
-      editableUserIds: [],
-      highlightedUserIds: [],
-    ).toJson();
+    if (isInitialized()) return;
 
     window.localStorage[localStorageKey] = json.encode({
       currentStateKey: this.initialState?.toJson() ?? {},
       defaultStateKey: this.initialState?.toJson() ?? {},
-      emptyStateKey: emptyState,
+      emptyStateKey: emptyState.toJson(),
     });
   }
 
   // --------------------  Utilities --------------------
 
-  static bool isInitialized = window.localStorage[localStorageKey] != null;
+  static AppState get emptyState => AppState(TodoAppLocalStorage.emptyStateKey,
+    todos: [],
+    users: [],
+    selectedTodoIds: [],
+    editableTodoIds: [],
+    highlightedTodoIds: [],
+    selectedUserIds: [],
+    editableUserIds: [],
+    highlightedUserIds: [],
+  );
+
+  static bool isInitialized() => window.localStorage[localStorageKey] != null
+      && window.localStorage[localStorageKey].isNotEmpty;
 
   Map<String, dynamic> get _proxiedMap => json.decode(window.localStorage[localStorageKey]);
 

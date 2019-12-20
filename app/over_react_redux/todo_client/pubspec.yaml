@@ -7,6 +7,7 @@ environment:
 dependencies:
   color: any
   memoize: ^2.0.0
+  meta: ^1.0.0
   over_react: ^3.1.5
   redux: ^3.0.0
   redux_dev_tools: 0.4.0

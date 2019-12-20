@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:meta/meta.dart';
 import 'package:over_react/over_react_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_dev_tools/redux_dev_tools.dart';
@@ -10,9 +11,10 @@ import 'package:todo_client/src/local_storage.dart';
 
 part 'store.g.dart';
 
-AppState _initializeState() {
+@visibleForTesting
+AppState initializeState() {
   AppState initialState;
-  if (!TodoAppLocalStorage.isInitialized) {
+  if (!TodoAppLocalStorage.isInitialized()) {
     // First load - give the user some data to work with, and set up our default / empty states.
     initialState = AppState.fromJson(defaultAppState);
     localTodoAppStorage = TodoAppLocalStorage(initialState);
@@ -24,9 +26,9 @@ AppState _initializeState() {
   return initialState;
 }
 
-var store = DevToolsStore<AppState>(
+DevToolsStore<AppState> getStore() => DevToolsStore<AppState>(
   appStateReducer,
-  initialState: _initializeState(),
+  initialState: initializeState(),
   middleware: [overReactReduxDevToolsMiddleware],
 );
 
@@ -52,7 +54,7 @@ class AppState {
     this.editableUserIds,
     this.highlightedUserIds,
   }) {
-    assert(name != null);
+    assert(name != null && name.isNotEmpty);
     localTodoAppStorage?.updateCurrentState(this);
   }
 
@@ -60,6 +62,7 @@ class AppState {
   Map<String, dynamic> toJson() => _$AppStateToJson(this);
 }
 
+@visibleForTesting
 AppState appStateReducer(AppState state, dynamic action) {
   if (action is SaveLocalStorageStateAsAction) {
     Map previousValue;
@@ -134,13 +137,6 @@ final highlightedTodosReducer = combineReducers<List<String>>([
     return List.of(highlightedTodoIds)..removeWhere((id) => action.value.contains(id));
   }),
 ]);
-
-List<String> highlightTodosReducer(List<String> highlightedTodoIds, dynamic action) {
-  if (action is HighlightTodosAction) {
-    return action.value;
-  }
-  return highlightedTodoIds;
-}
 
 // ------------ USER REDUCERS ------------------
 

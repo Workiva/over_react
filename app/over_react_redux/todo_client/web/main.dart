@@ -11,7 +11,7 @@ main() {
 
   final container = querySelector('#todo-container');
 
-  final app = (ReduxProvider()..store = store)(
+  final app = (ReduxProvider()..store = getStore())(
     ConnectedTodoApp()(),
   );
 
