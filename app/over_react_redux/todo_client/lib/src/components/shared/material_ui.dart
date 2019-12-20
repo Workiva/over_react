@@ -19,7 +19,6 @@ import 'package:todo_client/src/utils.dart';
 @JS()
 class MaterialUI {
   external static JsMap get colors;
-  external static JsMap get classes;
 
   external static ReactClass get AppBar;
   external static ReactClass get Avatar;
@@ -50,7 +49,6 @@ class MaterialUI {
 }
 
 final muiColors = jsBackedMapDeepFromJs(MaterialUI.colors);
-final muiClasses = jsBackedMapDeepFromJs(MaterialUI.classes);
 
 // -----------------------------------------------------------------------
 // Below, you'll find the top level JS component factories

@@ -24,7 +24,6 @@ class TodoAppBarComponent extends UiComponent2<TodoAppBarProps> {
           Box({'flexGrow': 1},
             Typography({
               'variant': 'h6',
-              'className': muiClasses['title']
             }, 'OverReact Redux Todo Demo App'),
           ),
           ConnectedAppBarLocalStorageMenu()(),
