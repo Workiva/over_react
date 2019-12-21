@@ -2,6 +2,7 @@ library todo_client.src.components.user_selector;
 
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
+import 'package:todo_client/src/components/shared/redraw_counter_component_mixin.dart';
 
 import 'package:todo_client/src/store.dart';
 import 'package:todo_client/src/models/user.dart';
@@ -17,11 +18,12 @@ UiFactory<UserSelectorProps> ConnectedUserSelector = connect<AppState, UserSelec
     mapStateToPropsWithOwnProps: (state, ownProps) {
       return (UserSelector()
         ..selectedUser = ownProps.selectedUserId.isNotEmpty
-            ? state.users.firstWhere((user) => user.id == ownProps.selectedUserId)
+            ? state.users.singleWhere((user) => user.id == ownProps.selectedUserId, orElse: () => null)
             : null
         ..users = state.users
       );
     },
+    forwardRef: true
 )(UserSelector);
 
 @Factory()
@@ -38,7 +40,7 @@ class _$UserSelectorProps extends UiProps {
 }
 
 @Component2()
-class UserSelectorComponent extends UiComponent2<UserSelectorProps> {
+class UserSelectorComponent extends UiComponent2<UserSelectorProps> with RedrawCounterMixin {
   final _overlayRef = createRef<MenuOverlayComponent>();
 
   @override

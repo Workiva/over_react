@@ -1,3 +1,4 @@
+import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 
 import 'package:todo_client/src/components/shared/material_ui.dart';
@@ -19,6 +20,9 @@ class _$DisplayListProps extends UiProps {
 
 @Component2()
 class DisplayListComponent extends UiComponent2<DisplayListProps> {
+  @visibleForTesting
+  final scrollingBoxRef = createRef().jsRef;
+
   @override
   render() {
     if (props.children.isEmpty) {
@@ -26,6 +30,7 @@ class DisplayListComponent extends UiComponent2<DisplayListProps> {
         ..type = EmptyViewType.VBLOCK
         ..header = 'No ${props.listItemTypeDescription} to show'
         ..glyph = InfoIcon({'color': 'disabled'})
+        ..addTestId('todo_client.DisplayList.EmptyView')
       )(
         'You should totally create one!',
       );
@@ -39,7 +44,8 @@ class DisplayListComponent extends UiComponent2<DisplayListProps> {
       'flexBasis': '0%',
       'paddingTop': 2,
       'style': {...props.style ?? {}, 'overflowY': 'auto'},
-      ...propsToForward
+      ...propsToForward,
+      'ref': scrollingBoxRef,
     },
       props.children,
     );

@@ -2,6 +2,7 @@ import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 
 import 'package:todo_client/src/actions.dart';
+import 'package:todo_client/src/components/shared/redraw_counter_component_mixin.dart';
 import 'package:todo_client/src/store.dart';
 import 'package:todo_client/src/models/todo.dart';
 import 'package:todo_client/src/models/user.dart';
@@ -25,6 +26,7 @@ UiFactory<TodoAppProps> ConnectedTodoApp = connect<AppState, TodoAppProps>(
         }
       );
     },
+    forwardRef: true,
 )(TodoApp);
 
 @Factory()
@@ -40,7 +42,7 @@ class _$TodoAppProps extends UiProps with ConnectPropsMixin {
 }
 
 @Component2()
-class TodoAppComponent extends UiComponent2<TodoAppProps> {
+class TodoAppComponent extends UiComponent2<TodoAppProps> with RedrawCounterMixin {
   @override
   render() {
     return Fragment()(
@@ -79,8 +81,9 @@ class TodoAppComponent extends UiComponent2<TodoAppProps> {
         ..label = 'New Todo'
         ..placeholder = 'Create new Todo'
         ..onCreate = props.createTodo
+        ..addTestId('todo_client.createTodoInput')
       )(),
-      ConnectedTodoList()(),
+      (ConnectedTodoList()..addTestId('todo_client.ConnectedTodoList'))(),
     );
   }
 
@@ -94,10 +97,11 @@ class TodoAppComponent extends UiComponent2<TodoAppProps> {
     },
       (CreateInput()
         ..label = 'New User'
-        ..placeholder = 'Create new user'
+        ..placeholder = 'Create new User'
         ..onCreate = props.createUser
+        ..addTestId('todo_client.createUserInput')
       )(),
-      ConnectedUserList()(),
+      (ConnectedUserList()..addTestId('todo_client.ConnectedUserList'))(),
     );
   }
 }

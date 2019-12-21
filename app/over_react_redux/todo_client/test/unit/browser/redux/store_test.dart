@@ -1,13 +1,11 @@
 @TestOn('browser')
 import 'dart:convert';
-import 'dart:html';
 
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
 import 'package:todo_client/src/actions.dart';
 import 'package:todo_client/src/local_storage.dart';
-import 'package:todo_client/src/models/base_model.dart';
 import 'package:todo_client/src/models/todo.dart';
 import 'package:todo_client/src/models/user.dart';
 import 'package:todo_client/src/store.dart';
@@ -18,16 +16,6 @@ main() {
   setClientConfiguration();
   const reasonCurrentSetShouldBePersisted =
         'The state update should be persisted as the "current" set in window.localStorage';
-
-  String getLocalStorage() => window.localStorage[TodoAppLocalStorage.localStorageKey];
-
-  Map<String, dynamic> getLocalStorageSetByKey(String key) => json.decode(getLocalStorage())[key];
-
-  Map<String, dynamic> getCurrentLocalStorageSet() => getLocalStorageSetByKey('current');
-
-  Iterable<Map<String, dynamic>> getSerializedListOfModels(List<BaseModel> models) {
-    return models.map((model) => model.toJson());
-  }
 
   group('AppState', () {
     setUp(() {
@@ -77,11 +65,7 @@ main() {
         setUp(() {
           expect(getCurrentLocalStorageSet(), defaultAppState, reason: 'test setup sanity check');
 
-          localTodoAppStorage = TodoAppLocalStorage(TodoAppLocalStorage.emptyState);
-          expect(getCurrentLocalStorageSet(), TodoAppLocalStorage.emptyState.toJson(),
-              reason: 'test setup sanity check');
-
-          initializeTestStore();
+          initializeTestStore(TodoAppLocalStorage.emptyState);
         });
 
         test('', () {

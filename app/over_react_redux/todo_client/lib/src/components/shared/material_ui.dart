@@ -3,7 +3,7 @@
 library material_ui;
 
 import 'package:js/js.dart';
-import 'package:over_react/over_react.dart';
+import 'package:over_react/over_react.dart' hide forwardRef;
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';

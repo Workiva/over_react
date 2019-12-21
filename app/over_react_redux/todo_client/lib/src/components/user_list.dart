@@ -1,5 +1,6 @@
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
+import 'package:todo_client/src/components/shared/redraw_counter_component_mixin.dart';
 
 import 'package:todo_client/src/store.dart';
 import 'package:todo_client/src/models/user.dart';
@@ -15,6 +16,7 @@ UiFactory<UserListProps> ConnectedUserList = connect<AppState, UserListProps>(
         ..users = state.users
       );
     },
+    forwardRef: true,
 )(UserList);
 
 @Factory()
@@ -29,10 +31,13 @@ class _$UserListProps extends UiProps with ConnectPropsMixin {
 }
 
 @Component2()
-class UserListComponent extends UiComponent2<UserListProps> {
+class UserListComponent extends UiComponent2<UserListProps> with RedrawCounterMixin {
   @override
   render() {
-    return (DisplayList()..listItemTypeDescription = 'users')(
+    return (DisplayList()
+      ..listItemTypeDescription = 'users'
+      ..addTestId('todo_client.UserList.DisplayList')
+    )(
       props.users.map(_renderUser).toList(),
     );
   }
@@ -41,6 +46,7 @@ class UserListComponent extends UiComponent2<UserListProps> {
     return (ConnectedUserListItem()
       ..key = user.id
       ..model = user
+      ..addTestId('todo_client.UserListItem.${user.id}')
     )();
   }
 }

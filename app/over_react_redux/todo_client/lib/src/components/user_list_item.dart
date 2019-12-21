@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 import 'package:todo_client/src/actions.dart';
+import 'package:todo_client/src/components/shared/redraw_counter_component_mixin.dart';
 
 import 'package:todo_client/src/models/user.dart';
 import 'package:todo_client/src/components/shared/avatar_with_colors.dart';
@@ -66,7 +67,7 @@ class _$UserListItemState extends UiState
 
 @Component2()
 class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, UserListItemState>
-    with ListItemMixin<User, UserListItemProps, UserListItemState> {
+    with ListItemMixin<User, UserListItemProps, UserListItemState>, RedrawCounterMixin {
   @override
   bool get hasDetails => model.bio != null && model.bio.isNotEmpty;
 

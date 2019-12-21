@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:over_react/over_react.dart';
 
 import 'package:todo_client/src/components/shared/material_ui.dart';
@@ -31,6 +33,8 @@ class _$TodoItemTextFieldState extends UiState {}
 
 @Component2()
 class TodoItemTextFieldComponent extends UiStatefulComponent2<TodoItemTextFieldProps, TodoItemTextFieldState> {
+  final textFieldRef = createRef<Element>();
+
   @override
   get defaultProps => (newProps()
     ..fullWidth = true
@@ -55,6 +59,7 @@ class TodoItemTextFieldComponent extends UiStatefulComponent2<TodoItemTextFieldP
 
     return InputBase({
       ...propsToForward,
+      'inputRef': textFieldRef.jsRef,
       'inputProps': {
         'style': {
           'whiteSpace': 'nowrap',
@@ -69,6 +74,7 @@ class TodoItemTextFieldComponent extends UiStatefulComponent2<TodoItemTextFieldP
 
     return TextField({
       ...propsToForward,
+      'inputRef': textFieldRef.jsRef,
       'onClick': props.onClickWhenEditable,
     });
   }

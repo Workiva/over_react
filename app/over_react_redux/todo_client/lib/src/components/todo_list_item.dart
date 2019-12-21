@@ -3,6 +3,7 @@ import 'dart:html';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 import 'package:todo_client/src/actions.dart';
+import 'package:todo_client/src/components/shared/redraw_counter_component_mixin.dart';
 
 import 'package:todo_client/src/models/todo.dart';
 import 'package:todo_client/src/components/shared/list_item_expansion_panel_summary.dart';
@@ -52,8 +53,6 @@ class _$TodoListItemProps extends UiProps
   @requiredProp
   @override
   Todo model;
-
-  String assignedUserId;
 }
 
 @State()
@@ -67,7 +66,7 @@ class _$TodoListItemState extends UiState
 
 @Component2()
 class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, TodoListItemState>
-    with ListItemMixin<Todo, TodoListItemProps, TodoListItemState> {
+    with ListItemMixin<Todo, TodoListItemProps, TodoListItemState>, RedrawCounterMixin {
   @override
   bool get hasDetails => model.notes != null && model.notes.isNotEmpty;
 
@@ -134,6 +133,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
         ..placeholder = 'Describe the task...'
         ..value = model.description
         ..onClickWhenEditable = (event) { event.stopPropagation(); }
+        ..addTestId('todo_client.TodoListItem.descriptionTextField')
         ..['inputProps'] = {
           'style': props.isEditable ? null : {
             'cursor': allowExpansion ? 'pointer' : 'default',
@@ -154,8 +154,9 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
       'alignSelf': 'center',
     },
       (ConnectedUserSelector()
-        ..selectedUserId = props.assignedUserId
+        ..selectedUserId = model.assignedUserId
         ..onUserSelect = (userId) { updateModel(Todo.from(model)..assignedUserId = userId); }
+        ..addTestId('todo_client.TodoListItem.ConnectedUserSelector')
       )(),
     );
   }
@@ -169,6 +170,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
       ..onChange = _updateNoteValue
       ..placeholder = 'Add some notes about the task'
       ..value = model.notes
+      ..addTestId('todo_client.TodoListItem.notesTextField')
     )();
   }
 

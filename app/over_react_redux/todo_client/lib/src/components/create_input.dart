@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 
 import 'package:todo_client/src/components/shared/material_ui.dart';
@@ -14,7 +15,7 @@ UiFactory<CreateInputProps> CreateInput =
 
 @Props(keyNamespace: '') // No namespace so prop forwarding works when passing to the JS TextField component.
 class _$CreateInputProps extends UiProps {
-  void Function(String s) onCreate;
+  @requiredProp void Function(String s) onCreate;
   bool autoFocus;
   String label;
   String placeholder;
@@ -22,6 +23,9 @@ class _$CreateInputProps extends UiProps {
 
 @Component2()
 class CreateInputComponent extends UiComponent2<CreateInputProps> {
+  @visibleForTesting
+  final textFieldRef = createRef().jsRef;
+
   @override
   get defaultProps => (newProps()..autoFocus = false);
 
@@ -34,6 +38,8 @@ class CreateInputComponent extends UiComponent2<CreateInputProps> {
         'fullWidth': true,
         'variant': 'outlined',
         ...propsToForward,
+        'inputRef': textFieldRef,
+        // TODO: How do we get this to play nice with something like forwardRef instead of storing a ref inside the parent component?
         'onKeyDown': (SyntheticKeyboardEvent event) {
           if (props.onKeyDown != null) props.onKeyDown(event);
           InputElement target = event.target;
