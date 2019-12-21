@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
-part of 'random_color.dart';
+part of 'big_block.dart';
 
 // **************************************************************************
 // OverReactBuilder (package:over_react/src/builder.dart)
@@ -10,16 +10,16 @@ part of 'random_color.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $RandomColorComponentFactory = registerComponent2(
-  () => _$RandomColorComponent(),
-  builderFactory: RandomColor,
-  componentClass: RandomColorComponent,
+final $BigBlockComponentFactory = registerComponent2(
+  () => _$BigBlockComponent(),
+  builderFactory: BigBlock,
+  componentClass: BigBlockComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'RandomColor',
+  displayName: 'BigBlock',
 );
 
-abstract class _$RandomColorPropsAccessorsMixin implements _$RandomColorProps {
+abstract class _$BigBlockPropsAccessorsMixin implements _$BigBlockProps {
   @override
   Map get props;
 
@@ -29,28 +29,28 @@ abstract class _$RandomColorPropsAccessorsMixin implements _$RandomColorProps {
   static const List<String> $propKeys = [];
 }
 
-const PropsMeta _$metaForRandomColorProps = PropsMeta(
-  fields: _$RandomColorPropsAccessorsMixin.$props,
-  keys: _$RandomColorPropsAccessorsMixin.$propKeys,
+const PropsMeta _$metaForBigBlockProps = PropsMeta(
+  fields: _$BigBlockPropsAccessorsMixin.$props,
+  keys: _$BigBlockPropsAccessorsMixin.$propKeys,
 );
 
-_$$RandomColorProps _$RandomColor([Map backingProps]) => backingProps == null
-    ? _$$RandomColorProps$JsMap(JsBackedMap())
-    : _$$RandomColorProps(backingProps);
+_$$BigBlockProps _$BigBlock([Map backingProps]) => backingProps == null
+    ? _$$BigBlockProps$JsMap(JsBackedMap())
+    : _$$BigBlockProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$RandomColorProps extends _$RandomColorProps
-    with _$RandomColorPropsAccessorsMixin
-    implements RandomColorProps {
-  _$$RandomColorProps._();
+abstract class _$$BigBlockProps extends _$BigBlockProps
+    with _$BigBlockPropsAccessorsMixin
+    implements BigBlockProps {
+  _$$BigBlockProps._();
 
-  factory _$$RandomColorProps(Map backingMap) {
+  factory _$$BigBlockProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$RandomColorProps$JsMap(backingMap);
+      return _$$BigBlockProps$JsMap(backingMap);
     } else {
-      return _$$RandomColorProps$PlainMap(backingMap);
+      return _$$BigBlockProps$PlainMap(backingMap);
     }
   }
 
@@ -61,18 +61,18 @@ abstract class _$$RandomColorProps extends _$RandomColorProps
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $RandomColorComponentFactory;
+      super.componentFactory ?? $BigBlockComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'RandomColorProps.';
+  String get propKeyNamespace => 'BigBlockProps.';
 }
 
 // Concrete props implementation that can be backed by any [Map].
-class _$$RandomColorProps$PlainMap extends _$$RandomColorProps {
+class _$$BigBlockProps$PlainMap extends _$$BigBlockProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$RandomColorProps$PlainMap(Map backingMap)
+  _$$BigBlockProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -86,10 +86,10 @@ class _$$RandomColorProps$PlainMap extends _$$RandomColorProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$RandomColorProps$JsMap extends _$$RandomColorProps {
+class _$$BigBlockProps$JsMap extends _$$BigBlockProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$RandomColorProps$JsMap(JsBackedMap backingMap)
+  _$$BigBlockProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -105,11 +105,11 @@ class _$$RandomColorProps$JsMap extends _$$RandomColorProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$RandomColorComponent extends RandomColorComponent {
-  _$$RandomColorProps$JsMap _cachedTypedProps;
+class _$BigBlockComponent extends BigBlockComponent {
+  _$$BigBlockProps$JsMap _cachedTypedProps;
 
   @override
-  _$$RandomColorProps$JsMap get props => _cachedTypedProps;
+  _$$BigBlockProps$JsMap get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -125,21 +125,21 @@ class _$RandomColorComponent extends RandomColorComponent {
   }
 
   @override
-  _$$RandomColorProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$RandomColorProps$JsMap(backingMap);
+  _$$BigBlockProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$BigBlockProps$JsMap(backingMap);
 
   @override
-  _$$RandomColorProps typedPropsFactory(Map backingMap) =>
-      _$$RandomColorProps(backingMap);
+  _$$BigBlockProps typedPropsFactory(Map backingMap) =>
+      _$$BigBlockProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$RandomColorProps.
+  /// The default consumed props, taken from _$BigBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForRandomColorProps
+    _$metaForBigBlockProps
   ];
 }

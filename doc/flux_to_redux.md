@@ -34,10 +34,7 @@ No. OverReact Redux is meant to help to provide a recommended state management m
 To evaluate if the refactor is worth it, the details of OverReact Redux can be found in the [OverReact Redux doc](./over_react_redux_documentation.md). That document paired with this guide will illustrate the full scope of costs and benefits.
 
 ## A Simple Example
-To illustrate the basic changes that will occur, this section will go through a basic Flux architecture and then show
- that same system with Redux instead. This section will also have a step by step list of instructions for an update 
- as straight forward as this one. An actual working example can be found in the [Flux to Redux Example](.
- ./web/flux_to_redux/simple/readme.me).
+To illustrate the basic changes that will occur, this section will go through a basic Flux architecture and then show that same system with Redux instead. This section will also have a step by step list of instructions for an update as straight forward as this one. An actual working example can be found in the [Flux to Redux Example](../web/flux_to_redux/simple/readme.md).
 
 > NOTE: This section does not cover the complexities of having multiple stores, which presents more challenges than a single store. For a more complex example [see the advanced example below](#an-advanced-example).
 
@@ -53,10 +50,10 @@ For our example, here are our different items of interest:
 
 ### The Redux Version
 For our example, here are our different items of interest:
-- __The State Class:__ we have a class (`RandomColorState`) that has `backgroundColor` property. It also has a couple different constructors that make instantiation in different contexts easier, like for the default state and when updating the state.
+- __The State Class:__ we have a class (`ReduxState`) that has `backgroundColor` property. It also has a couple different constructors that make instantiation in different contexts easier, like for the default state and when updating the state.
 - __Actions:__ we have a single action class called `UpdateBackgroundColorAction`. It has no content because all we need is the the `type` and an action (though actions can be implemented in a handful of ways).
-- __The Reducer:__ our reducer simply looks for an action of type `UpdateBackgroundColorAction`, and when it finds it, the reducer returns a new instance of `RandomColorState` with a new background color.
-- __The Store Object:__ we create a store object called `randomColorStore`, instantiating it with our reducer and the default state of `RandomColorState`.
+- __The Reducer:__ our reducer simply looks for an action of type `UpdateBackgroundColorAction`, and when it finds it, the reducer returns a new instance of `ReduxState` with a new background color.
+- __The Store Object:__ we create a store object called `randomColorStore`, instantiating it with our reducer and the default state of `ReduxState`.
 - __The UI:__ All of our UI componentry is wrapped in a `ReduxProvider`. The provider takes in a `store` prop, to which we pass `randomColorStore`. The only component is a `BigBlock` connected component. Updates are triggered by calling `props.dispatch(UpdateBackgroundColorAction())`, and since it's a connected component (using `mapStateToProps`) state is accessed via normal props usage.
 
 <img height=400 src="./ReduxArchitecture.png" alt='Redux Architecture'>
@@ -99,27 +96,24 @@ For our example, here are our different items of interest:
 1. __Refactor componentry to not longer be a `FluxUiComponent` and instead be a connected `UiComponent2`.__ In terms of moving away from Flux, the simplest case is that props and prop calls need to be updated. Props will need to be added to make room for the ones consumed by the Redux component, and any `props.actions` calls need to be updated to `props.dispatch` (unless you're using `mapDispatchToProps`). 
 
 ## An Advanced Example
-In the case a Flux app has a complex store architecture that involves multiple stores, whether they by nested under 
-one store or be completely separate, the transition process has a few additional catches. This section goes over 
-transitioning from an architecture with multiple stores, and the example code can be found in the [Advanced Example](
-../web/flux_to_redux/advanced/readme.md).
+In the case a Flux app has a complex store architecture that involves multiple stores, whether they by nested under one store or be completely separate, the transition process has a few additional catches. 
 
 This section builds on the [simple example](#a-simple-example), so ensure that section makes sense conceptually before looking at multiple stores.
 
 ### An Adanced Flux App
 For this app, here are the different elements:
-- __The Flux Store Classes:__ we have a Flux store called `RandomColorStore` that is responsible for diplaying a random background color. Unlike the simple example, this store has a few different levels. Within `RandomColorStore`, there's another store called `midLevelStore` (typed as the class `MidLevelStore`). The `MidLevelStore` class has a field called `lowLevelStore` (typed as the class `LowLevelStore`). So `RandomColorStore` is three different stores. Additionally, there is another store class called `AnotherRandomColorStore`. This class is entirely separate from `RandomColorStore`. 
+- __The Flux Store Classes:__ we have a Flux store called `RandomColorStore` that is responsible for diplaying a random background color. Unlike the simple example, this store has a few different levels. Within `RandomColorStore`, there's another store called `midLevelStore` (typed as the class `MidLevelStore`). The `MidLevelStore` class has a field called `lowLevelStore` (typed as the class `LowLevelStore`). So `RandomColorStore` is three different stores. Additionally, there is another store class called `AnotherColorStore`. This class is entirely separate from `RandomColorStore`. 
 
     Despite there being four stores, all of them have the same job: handle a single random color property. Therefore, they are all nearly identical objects. Naturally in the real world they would likely be drastically different, but for simplicity sake and keeping the focus on the big picture they are all left the same.
 
 - __The Actions Class:__ the action class (`RandomColorActions`) has a different action to trigger a background color update in every store. Consequently, there are four actions.
 - __The Action Object:__ we create an object `randomColorActions` that is an intantiated instance of `RandomColorActions`.
-- __The Store Objects:__ We'll instantiate two store objects: `bigStore` and `littleStore`. `bigStore` will be an instance of `RandomColorStore` and `littleStore` will be of `AnotherRandomColorStore`. Both objects take in the same instance of `randomColorActions`.
+- __The Store Objects:__ We'll instantiate two store objects: `bigStore` and `littleStore`. `bigStore` will be an instance of `RandomColorStore` and `littleStore` will be of `AnotherColorStore`. Both objects take in the same instance of `randomColorActions`.
 - __The UI:__ The only component is a `BigBlock` component that receives `randomColorActions`, `bigStore`, and `littleStore` as props. Updates are triggered by using the action prop. Naturally now state is accessed via:
     - props.bigStore.state
     - props.bigStore.midLevelStore.state
     - props.bigStore.midLevelStore.lowLevelStore.state
-    - props.littleStore.state
+    - props.littlebig_Store.state
 
     Our `BigBlock` component renders three `SmallBlock` components. Each one connects to a different store's state, with the remaining background color being tied to `BigBlock` itself. `BigBlock` also has four buttons - one connected to each action that changes the background color property of one of the stores (and thereby updating the component background color).
 
@@ -129,7 +123,7 @@ For this app, here are the different elements:
 
 ### Converted to Redux
 The Redux app doesn't really have any surprises, and at a high level is very similar to the simple example:
-- __The State Class:__ we have a class (`RandomColorState`) that has four properties: 
+- __The State Class:__ we have a class (`ReduxState`) that has four properties: 
     - mainBackgroundColor
     - blockOneBackgroundColor
     - blockTwoBackgroundColor
@@ -137,7 +131,7 @@ The Redux app doesn't really have any surprises, and at a high level is very sim
 - __Actions:__ we have four actions as their own classes; one class for each state class property.
 - __The Reducer:__ as probably expected, our reducer is also similar to the simple app but with a condition for each action. This reducer is especially contrived because the simplicity of the store data makes each case the same with the only difference being the property the update is pointed at.
 - __The Store Object:__ same as the simple example.
-- __The UI:__ like the simple example, our component tree is wrapped in a `ReduxProvider`. Otherwise the component architecture is the same as the Flux version, minus the Flux-y parts. We have a connected `UiComponent2` called `BigBlock` that maps the store state to props, which passes the props to its three `SmallBlock`s, with four buttons to trigger the background actions. Naturally all the Flux parts were removed, including the `redrawOn` override.
+- __The UI:__ like the simple example, our component tree is wrapped in a `ReduxProvider`. Otherwise the component architecture is the same as the Flux version, minus the Flux-y parts. We have a connected `UiComponent2` called `BigBlock` that maps the store state to props, which passes the props to its three `LittleBlock`s, with four buttons to trigger the background actions. Naturally all the Flux parts were removed, including the `redrawOn` override.
 
 <img height=400 src="./AdvancedReduxArchitecture.png" alt='Redux Architecture'>
 

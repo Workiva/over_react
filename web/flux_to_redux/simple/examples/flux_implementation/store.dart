@@ -2,14 +2,14 @@ import 'dart:math';
 
 import 'package:w_flux/w_flux.dart' as flux;
 
-class ExampleFluxStore extends flux.Store {
+class RandomColorStore extends flux.Store {
   RandomColorActions _actions;
 
   /// Public data
   String _backgroundColor = 'gray';
   String get backgroundColor => _backgroundColor;
 
-  ExampleFluxStore(this._actions) {
+  RandomColorStore(this._actions) {
     triggerOnActionV2(_actions.changeBackgroundColor, _changeBackgroundColor);
   }
 
@@ -23,4 +23,4 @@ class RandomColorActions {
 }
 
 RandomColorActions randomColorActions = RandomColorActions();
-ExampleFluxStore randomColorStore = ExampleFluxStore(randomColorActions);
+RandomColorStore randomColorStore = RandomColorStore(randomColorActions);

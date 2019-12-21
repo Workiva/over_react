@@ -5,9 +5,9 @@ import 'package:react/react_client.dart';
 import 'package:react/react_dom.dart' as react_dom;
 import 'package:over_react/over_react_redux.dart';
 
-import './components/random_color.dart';
-import './components/redux_random_color.dart';
-import './components/connect_flux_random_color.dart';
+import './components/big_block.dart';
+import './components/redux_big_block.dart';
+import './components/connect_flux_big_block.dart';
 import './components/should_not_update.dart';
 import './store.dart';
 
@@ -17,12 +17,12 @@ main() {
   react_dom.render(
       ErrorBoundary()(
         (ReduxProvider()..store = adaptedStore)(
-          (RandomColor()
+          (BigBlock()
             ..store = randomColorStore
             ..actions = randomColorActions
           )(),
-          ConnectedConnectFluxRandomColor()(),
-          ConnectedReduxRandomColor()(),
+          ConnectedConnectFluxBigBlock()(),
+          ConnectedReduxBigBlock()(),
           ConnectedShouldNotUpdate()(),
         ),
       ),

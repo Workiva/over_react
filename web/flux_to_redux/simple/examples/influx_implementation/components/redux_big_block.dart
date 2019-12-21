@@ -3,27 +3,28 @@ import 'package:over_react/over_react_redux.dart';
 
 import '../store.dart';
 
-part 'random_color_redux.over_react.g.dart';
+part 'redux_big_block.over_react.g.dart';
 
-UiFactory<RandomColorReduxProps> ConnectedRandomColorRedux =
-    connect<ReduxState, RandomColorReduxProps>(
-  mapStateToProps: (state) => (RandomColorRedux()..backgroundColor = state.backgroundColor),
+UiFactory<ReduxBigBlockProps> ConnectedReduxBigBlock =
+    connect<FluxStore, ReduxBigBlockProps>(
+  mapStateToProps: (state) => (ReduxBigBlock()..backgroundColor = state.backgroundColor),
   mapDispatchToProps: (dispatch) =>
-      (RandomColorRedux()..changeBackgroundColor = () => dispatch(UpdateBackgroundColorAction())),
-)(RandomColorRedux);
+      (ReduxBigBlock()..changeBackgroundColor = () => dispatch(UpdateBackgroundColorAction())),
+  pure: false,
+)(ReduxBigBlock);
 
 @Factory()
-UiFactory<RandomColorReduxProps> RandomColorRedux = _$RandomColorRedux;
+UiFactory<ReduxBigBlockProps> ReduxBigBlock = _$ReduxBigBlock;
 
 @Props()
-class _$RandomColorReduxProps extends UiProps with ConnectPropsMixin {
+class _$ReduxBigBlockProps extends UiProps with ConnectPropsMixin {
   String backgroundColor;
 
   Function changeBackgroundColor;
 }
 
 @Component2()
-class RandomColorReduxComponent extends UiComponent2<RandomColorReduxProps> {
+class ReduxBigBlockComponent extends UiComponent2<ReduxBigBlockProps> {
   @override
   render() {
     return ((Dom.div()

@@ -14,7 +14,7 @@ class FluxStore extends flux.Store {
     triggerOnActionV2(_actions.changeBackgroundColor, _changeBackgroundColor);
   }
 
-  _changeBackgroundColor(String _) {
+  _changeBackgroundColor(_) {
     _backgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
   }
 }

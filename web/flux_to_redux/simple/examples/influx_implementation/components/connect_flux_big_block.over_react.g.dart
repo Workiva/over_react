@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
-part of 'redux_random_color.dart';
+part of 'connect_flux_big_block.dart';
 
 // **************************************************************************
 // OverReactBuilder (package:over_react/src/builder.dart)
@@ -10,88 +10,89 @@ part of 'redux_random_color.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $ReduxRandomColorComponentFactory = registerComponent2(
-  () => _$ReduxRandomColorComponent(),
-  builderFactory: ReduxRandomColor,
-  componentClass: ReduxRandomColorComponent,
+final $ConnectFluxBigBlockComponentFactory = registerComponent2(
+  () => _$ConnectFluxBigBlockComponent(),
+  builderFactory: ConnectFluxBigBlock,
+  componentClass: ConnectFluxBigBlockComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'ReduxRandomColor',
+  displayName: 'ConnectFluxBigBlock',
 );
 
-abstract class _$ReduxRandomColorPropsAccessorsMixin
-    implements _$ReduxRandomColorProps {
+abstract class _$ConnectFluxBigBlockPropsAccessorsMixin
+    implements _$ConnectFluxBigBlockProps {
   @override
   Map get props;
 
-  /// <!-- Generated from [_$ReduxRandomColorProps.backgroundColor] -->
+  /// <!-- Generated from [_$ConnectFluxBigBlockProps.backgroundColor] -->
   @override
   String get backgroundColor =>
-      props[_$key__backgroundColor___$ReduxRandomColorProps] ??
+      props[_$key__backgroundColor___$ConnectFluxBigBlockProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$ReduxRandomColorProps.backgroundColor] -->
+  /// <!-- Generated from [_$ConnectFluxBigBlockProps.backgroundColor] -->
   @override
   set backgroundColor(String value) =>
-      props[_$key__backgroundColor___$ReduxRandomColorProps] = value;
+      props[_$key__backgroundColor___$ConnectFluxBigBlockProps] = value;
 
-  /// <!-- Generated from [_$ReduxRandomColorProps.changeBackgroundColor] -->
+  /// <!-- Generated from [_$ConnectFluxBigBlockProps.changeBackgroundColor] -->
   @override
   Function get changeBackgroundColor =>
-      props[_$key__changeBackgroundColor___$ReduxRandomColorProps] ??
+      props[_$key__changeBackgroundColor___$ConnectFluxBigBlockProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$ReduxRandomColorProps.changeBackgroundColor] -->
+  /// <!-- Generated from [_$ConnectFluxBigBlockProps.changeBackgroundColor] -->
   @override
   set changeBackgroundColor(Function value) =>
-      props[_$key__changeBackgroundColor___$ReduxRandomColorProps] = value;
+      props[_$key__changeBackgroundColor___$ConnectFluxBigBlockProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__backgroundColor___$ReduxRandomColorProps =
-      PropDescriptor(_$key__backgroundColor___$ReduxRandomColorProps);
   static const PropDescriptor
-      _$prop__changeBackgroundColor___$ReduxRandomColorProps =
-      PropDescriptor(_$key__changeBackgroundColor___$ReduxRandomColorProps);
-  static const String _$key__backgroundColor___$ReduxRandomColorProps =
-      'ReduxRandomColorProps.backgroundColor';
-  static const String _$key__changeBackgroundColor___$ReduxRandomColorProps =
-      'ReduxRandomColorProps.changeBackgroundColor';
+      _$prop__backgroundColor___$ConnectFluxBigBlockProps =
+      PropDescriptor(_$key__backgroundColor___$ConnectFluxBigBlockProps);
+  static const PropDescriptor
+      _$prop__changeBackgroundColor___$ConnectFluxBigBlockProps =
+      PropDescriptor(_$key__changeBackgroundColor___$ConnectFluxBigBlockProps);
+  static const String _$key__backgroundColor___$ConnectFluxBigBlockProps =
+      'ConnectFluxBigBlockProps.backgroundColor';
+  static const String _$key__changeBackgroundColor___$ConnectFluxBigBlockProps =
+      'ConnectFluxBigBlockProps.changeBackgroundColor';
 
   static const List<PropDescriptor> $props = [
-    _$prop__backgroundColor___$ReduxRandomColorProps,
-    _$prop__changeBackgroundColor___$ReduxRandomColorProps
+    _$prop__backgroundColor___$ConnectFluxBigBlockProps,
+    _$prop__changeBackgroundColor___$ConnectFluxBigBlockProps
   ];
   static const List<String> $propKeys = [
-    _$key__backgroundColor___$ReduxRandomColorProps,
-    _$key__changeBackgroundColor___$ReduxRandomColorProps
+    _$key__backgroundColor___$ConnectFluxBigBlockProps,
+    _$key__changeBackgroundColor___$ConnectFluxBigBlockProps
   ];
 }
 
-const PropsMeta _$metaForReduxRandomColorProps = PropsMeta(
-  fields: _$ReduxRandomColorPropsAccessorsMixin.$props,
-  keys: _$ReduxRandomColorPropsAccessorsMixin.$propKeys,
+const PropsMeta _$metaForConnectFluxBigBlockProps = PropsMeta(
+  fields: _$ConnectFluxBigBlockPropsAccessorsMixin.$props,
+  keys: _$ConnectFluxBigBlockPropsAccessorsMixin.$propKeys,
 );
 
-class ReduxRandomColorProps extends _$ReduxRandomColorProps
-    with _$ReduxRandomColorPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForReduxRandomColorProps;
+class ConnectFluxBigBlockProps extends _$ConnectFluxBigBlockProps
+    with _$ConnectFluxBigBlockPropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForConnectFluxBigBlockProps;
 }
 
-_$$ReduxRandomColorProps _$ReduxRandomColor([Map backingProps]) =>
+_$$ConnectFluxBigBlockProps _$ConnectFluxBigBlock([Map backingProps]) =>
     backingProps == null
-        ? _$$ReduxRandomColorProps$JsMap(JsBackedMap())
-        : _$$ReduxRandomColorProps(backingProps);
+        ? _$$ConnectFluxBigBlockProps$JsMap(JsBackedMap())
+        : _$$ConnectFluxBigBlockProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$ReduxRandomColorProps extends _$ReduxRandomColorProps
-    with _$ReduxRandomColorPropsAccessorsMixin
-    implements ReduxRandomColorProps {
-  _$$ReduxRandomColorProps._();
+abstract class _$$ConnectFluxBigBlockProps extends _$ConnectFluxBigBlockProps
+    with _$ConnectFluxBigBlockPropsAccessorsMixin
+    implements ConnectFluxBigBlockProps {
+  _$$ConnectFluxBigBlockProps._();
 
-  factory _$$ReduxRandomColorProps(Map backingMap) {
+  factory _$$ConnectFluxBigBlockProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ReduxRandomColorProps$JsMap(backingMap);
+      return _$$ConnectFluxBigBlockProps$JsMap(backingMap);
     } else {
-      return _$$ReduxRandomColorProps$PlainMap(backingMap);
+      return _$$ConnectFluxBigBlockProps$PlainMap(backingMap);
     }
   }
 
@@ -102,18 +103,18 @@ abstract class _$$ReduxRandomColorProps extends _$ReduxRandomColorProps
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $ReduxRandomColorComponentFactory;
+      super.componentFactory ?? $ConnectFluxBigBlockComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'ReduxRandomColorProps.';
+  String get propKeyNamespace => 'ConnectFluxBigBlockProps.';
 }
 
 // Concrete props implementation that can be backed by any [Map].
-class _$$ReduxRandomColorProps$PlainMap extends _$$ReduxRandomColorProps {
+class _$$ConnectFluxBigBlockProps$PlainMap extends _$$ConnectFluxBigBlockProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ReduxRandomColorProps$PlainMap(Map backingMap)
+  _$$ConnectFluxBigBlockProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -127,10 +128,10 @@ class _$$ReduxRandomColorProps$PlainMap extends _$$ReduxRandomColorProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$ReduxRandomColorProps$JsMap extends _$$ReduxRandomColorProps {
+class _$$ConnectFluxBigBlockProps$JsMap extends _$$ConnectFluxBigBlockProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ReduxRandomColorProps$JsMap(JsBackedMap backingMap)
+  _$$ConnectFluxBigBlockProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -146,11 +147,11 @@ class _$$ReduxRandomColorProps$JsMap extends _$$ReduxRandomColorProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$ReduxRandomColorComponent extends ReduxRandomColorComponent {
-  _$$ReduxRandomColorProps$JsMap _cachedTypedProps;
+class _$ConnectFluxBigBlockComponent extends ConnectFluxBigBlockComponent {
+  _$$ConnectFluxBigBlockProps$JsMap _cachedTypedProps;
 
   @override
-  _$$ReduxRandomColorProps$JsMap get props => _cachedTypedProps;
+  _$$ConnectFluxBigBlockProps$JsMap get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -166,21 +167,22 @@ class _$ReduxRandomColorComponent extends ReduxRandomColorComponent {
   }
 
   @override
-  _$$ReduxRandomColorProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$ReduxRandomColorProps$JsMap(backingMap);
+  _$$ConnectFluxBigBlockProps$JsMap typedPropsFactoryJs(
+          JsBackedMap backingMap) =>
+      _$$ConnectFluxBigBlockProps$JsMap(backingMap);
 
   @override
-  _$$ReduxRandomColorProps typedPropsFactory(Map backingMap) =>
-      _$$ReduxRandomColorProps(backingMap);
+  _$$ConnectFluxBigBlockProps typedPropsFactory(Map backingMap) =>
+      _$$ConnectFluxBigBlockProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$ReduxRandomColorProps.
+  /// The default consumed props, taken from _$ConnectFluxBigBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForReduxRandomColorProps
+    _$metaForConnectFluxBigBlockProps
   ];
 }
