@@ -19,8 +19,7 @@ final $ReduxBigBlockComponentFactory = registerComponent2(
   displayName: 'ReduxBigBlock',
 );
 
-abstract class _$ReduxBigBlockPropsAccessorsMixin
-    implements _$ReduxBigBlockProps {
+abstract class _$ReduxBigBlockPropsAccessorsMixin implements _$ReduxBigBlockProps {
   @override
   Map get props;
 
@@ -31,8 +30,7 @@ abstract class _$ReduxBigBlockPropsAccessorsMixin
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ReduxBigBlockProps.backgroundColor] -->
   @override
-  set backgroundColor(String value) =>
-      props[_$key__backgroundColor___$ReduxBigBlockProps] = value;
+  set backgroundColor(String value) => props[_$key__backgroundColor___$ReduxBigBlockProps] = value;
 
   /// <!-- Generated from [_$ReduxBigBlockProps.changeBackgroundColor] -->
   @override
@@ -41,18 +39,14 @@ abstract class _$ReduxBigBlockPropsAccessorsMixin
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ReduxBigBlockProps.changeBackgroundColor] -->
   @override
-  set changeBackgroundColor(Function value) =>
-      props[_$key__changeBackgroundColor___$ReduxBigBlockProps] = value;
+  set changeBackgroundColor(Function value) => props[_$key__changeBackgroundColor___$ReduxBigBlockProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__backgroundColor___$ReduxBigBlockProps =
       PropDescriptor(_$key__backgroundColor___$ReduxBigBlockProps);
-  static const PropDescriptor
-      _$prop__changeBackgroundColor___$ReduxBigBlockProps =
+  static const PropDescriptor _$prop__changeBackgroundColor___$ReduxBigBlockProps =
       PropDescriptor(_$key__changeBackgroundColor___$ReduxBigBlockProps);
-  static const String _$key__backgroundColor___$ReduxBigBlockProps =
-      'ReduxBigBlockProps.backgroundColor';
-  static const String _$key__changeBackgroundColor___$ReduxBigBlockProps =
-      'ReduxBigBlockProps.changeBackgroundColor';
+  static const String _$key__backgroundColor___$ReduxBigBlockProps = 'ReduxBigBlockProps.backgroundColor';
+  static const String _$key__changeBackgroundColor___$ReduxBigBlockProps = 'ReduxBigBlockProps.changeBackgroundColor';
 
   static const List<PropDescriptor> $props = [
     _$prop__backgroundColor___$ReduxBigBlockProps,
@@ -69,15 +63,12 @@ const PropsMeta _$metaForReduxBigBlockProps = PropsMeta(
   keys: _$ReduxBigBlockPropsAccessorsMixin.$propKeys,
 );
 
-class ReduxBigBlockProps extends _$ReduxBigBlockProps
-    with _$ReduxBigBlockPropsAccessorsMixin {
+class ReduxBigBlockProps extends _$ReduxBigBlockProps with _$ReduxBigBlockPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForReduxBigBlockProps;
 }
 
 _$$ReduxBigBlockProps _$ReduxBigBlock([Map backingProps]) =>
-    backingProps == null
-        ? _$$ReduxBigBlockProps$JsMap(JsBackedMap())
-        : _$$ReduxBigBlockProps(backingProps);
+    backingProps == null ? _$$ReduxBigBlockProps$JsMap(JsBackedMap()) : _$$ReduxBigBlockProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -101,8 +92,7 @@ abstract class _$$ReduxBigBlockProps extends _$ReduxBigBlockProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $ReduxBigBlockComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ReduxBigBlockComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -166,12 +156,10 @@ class _$ReduxBigBlockComponent extends ReduxBigBlockComponent {
   }
 
   @override
-  _$$ReduxBigBlockProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$ReduxBigBlockProps$JsMap(backingMap);
+  _$$ReduxBigBlockProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) => _$$ReduxBigBlockProps$JsMap(backingMap);
 
   @override
-  _$$ReduxBigBlockProps typedPropsFactory(Map backingMap) =>
-      _$$ReduxBigBlockProps(backingMap);
+  _$$ReduxBigBlockProps typedPropsFactory(Map backingMap) => _$$ReduxBigBlockProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -180,7 +168,5 @@ class _$ReduxBigBlockComponent extends ReduxBigBlockComponent {
   /// The default consumed props, taken from _$ReduxBigBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForReduxBigBlockProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForReduxBigBlockProps];
 }

@@ -19,8 +19,7 @@ final $RandomColorReduxComponentFactory = registerComponent2(
   displayName: 'RandomColorRedux',
 );
 
-abstract class _$RandomColorReduxPropsAccessorsMixin
-    implements _$RandomColorReduxProps {
+abstract class _$RandomColorReduxPropsAccessorsMixin implements _$RandomColorReduxProps {
   @override
   Map get props;
 
@@ -31,8 +30,7 @@ abstract class _$RandomColorReduxPropsAccessorsMixin
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$RandomColorReduxProps.backgroundColor] -->
   @override
-  set backgroundColor(String value) =>
-      props[_$key__backgroundColor___$RandomColorReduxProps] = value;
+  set backgroundColor(String value) => props[_$key__backgroundColor___$RandomColorReduxProps] = value;
 
   /// <!-- Generated from [_$RandomColorReduxProps.blockTwoBackgroundColor] -->
   @override
@@ -41,8 +39,7 @@ abstract class _$RandomColorReduxPropsAccessorsMixin
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$RandomColorReduxProps.blockTwoBackgroundColor] -->
   @override
-  set blockTwoBackgroundColor(String value) =>
-      props[_$key__blockTwoBackgroundColor___$RandomColorReduxProps] = value;
+  set blockTwoBackgroundColor(String value) => props[_$key__blockTwoBackgroundColor___$RandomColorReduxProps] = value;
 
   /// <!-- Generated from [_$RandomColorReduxProps.blockThreeBackgroundColor] -->
   @override
@@ -61,8 +58,7 @@ abstract class _$RandomColorReduxPropsAccessorsMixin
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$RandomColorReduxProps.blockOneBackgroundColor] -->
   @override
-  set blockOneBackgroundColor(String value) =>
-      props[_$key__blockOneBackgroundColor___$RandomColorReduxProps] = value;
+  set blockOneBackgroundColor(String value) => props[_$key__blockOneBackgroundColor___$RandomColorReduxProps] = value;
 
   /// <!-- Generated from [_$RandomColorReduxProps.changeMainBackgroundColor] -->
   @override
@@ -82,8 +78,7 @@ abstract class _$RandomColorReduxPropsAccessorsMixin
   /// <!-- Generated from [_$RandomColorReduxProps.changeBlockOneBackgroundColor] -->
   @override
   set changeBlockOneBackgroundColor(Function value) =>
-      props[_$key__changeBlockOneBackgroundColor___$RandomColorReduxProps] =
-          value;
+      props[_$key__changeBlockOneBackgroundColor___$RandomColorReduxProps] = value;
 
   /// <!-- Generated from [_$RandomColorReduxProps.changeBlockTwoBackgroundColor] -->
   @override
@@ -93,8 +88,7 @@ abstract class _$RandomColorReduxPropsAccessorsMixin
   /// <!-- Generated from [_$RandomColorReduxProps.changeBlockTwoBackgroundColor] -->
   @override
   set changeBlockTwoBackgroundColor(Function value) =>
-      props[_$key__changeBlockTwoBackgroundColor___$RandomColorReduxProps] =
-          value;
+      props[_$key__changeBlockTwoBackgroundColor___$RandomColorReduxProps] = value;
 
   /// <!-- Generated from [_$RandomColorReduxProps.changeBlockThreeBackgroundColor] -->
   @override
@@ -104,55 +98,38 @@ abstract class _$RandomColorReduxPropsAccessorsMixin
   /// <!-- Generated from [_$RandomColorReduxProps.changeBlockThreeBackgroundColor] -->
   @override
   set changeBlockThreeBackgroundColor(Function value) =>
-      props[_$key__changeBlockThreeBackgroundColor___$RandomColorReduxProps] =
-          value;
+      props[_$key__changeBlockThreeBackgroundColor___$RandomColorReduxProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__backgroundColor___$RandomColorReduxProps =
       PropDescriptor(_$key__backgroundColor___$RandomColorReduxProps);
-  static const PropDescriptor
-      _$prop__blockTwoBackgroundColor___$RandomColorReduxProps =
+  static const PropDescriptor _$prop__blockTwoBackgroundColor___$RandomColorReduxProps =
       PropDescriptor(_$key__blockTwoBackgroundColor___$RandomColorReduxProps);
-  static const PropDescriptor
-      _$prop__blockThreeBackgroundColor___$RandomColorReduxProps =
+  static const PropDescriptor _$prop__blockThreeBackgroundColor___$RandomColorReduxProps =
       PropDescriptor(_$key__blockThreeBackgroundColor___$RandomColorReduxProps);
-  static const PropDescriptor
-      _$prop__blockOneBackgroundColor___$RandomColorReduxProps =
+  static const PropDescriptor _$prop__blockOneBackgroundColor___$RandomColorReduxProps =
       PropDescriptor(_$key__blockOneBackgroundColor___$RandomColorReduxProps);
-  static const PropDescriptor
-      _$prop__changeMainBackgroundColor___$RandomColorReduxProps =
+  static const PropDescriptor _$prop__changeMainBackgroundColor___$RandomColorReduxProps =
       PropDescriptor(_$key__changeMainBackgroundColor___$RandomColorReduxProps);
-  static const PropDescriptor
-      _$prop__changeBlockOneBackgroundColor___$RandomColorReduxProps =
-      PropDescriptor(
-          _$key__changeBlockOneBackgroundColor___$RandomColorReduxProps);
-  static const PropDescriptor
-      _$prop__changeBlockTwoBackgroundColor___$RandomColorReduxProps =
-      PropDescriptor(
-          _$key__changeBlockTwoBackgroundColor___$RandomColorReduxProps);
-  static const PropDescriptor
-      _$prop__changeBlockThreeBackgroundColor___$RandomColorReduxProps =
-      PropDescriptor(
-          _$key__changeBlockThreeBackgroundColor___$RandomColorReduxProps);
-  static const String _$key__backgroundColor___$RandomColorReduxProps =
-      'RandomColorReduxProps.backgroundColor';
+  static const PropDescriptor _$prop__changeBlockOneBackgroundColor___$RandomColorReduxProps =
+      PropDescriptor(_$key__changeBlockOneBackgroundColor___$RandomColorReduxProps);
+  static const PropDescriptor _$prop__changeBlockTwoBackgroundColor___$RandomColorReduxProps =
+      PropDescriptor(_$key__changeBlockTwoBackgroundColor___$RandomColorReduxProps);
+  static const PropDescriptor _$prop__changeBlockThreeBackgroundColor___$RandomColorReduxProps =
+      PropDescriptor(_$key__changeBlockThreeBackgroundColor___$RandomColorReduxProps);
+  static const String _$key__backgroundColor___$RandomColorReduxProps = 'RandomColorReduxProps.backgroundColor';
   static const String _$key__blockTwoBackgroundColor___$RandomColorReduxProps =
       'RandomColorReduxProps.blockTwoBackgroundColor';
-  static const String
-      _$key__blockThreeBackgroundColor___$RandomColorReduxProps =
+  static const String _$key__blockThreeBackgroundColor___$RandomColorReduxProps =
       'RandomColorReduxProps.blockThreeBackgroundColor';
   static const String _$key__blockOneBackgroundColor___$RandomColorReduxProps =
       'RandomColorReduxProps.blockOneBackgroundColor';
-  static const String
-      _$key__changeMainBackgroundColor___$RandomColorReduxProps =
+  static const String _$key__changeMainBackgroundColor___$RandomColorReduxProps =
       'RandomColorReduxProps.changeMainBackgroundColor';
-  static const String
-      _$key__changeBlockOneBackgroundColor___$RandomColorReduxProps =
+  static const String _$key__changeBlockOneBackgroundColor___$RandomColorReduxProps =
       'RandomColorReduxProps.changeBlockOneBackgroundColor';
-  static const String
-      _$key__changeBlockTwoBackgroundColor___$RandomColorReduxProps =
+  static const String _$key__changeBlockTwoBackgroundColor___$RandomColorReduxProps =
       'RandomColorReduxProps.changeBlockTwoBackgroundColor';
-  static const String
-      _$key__changeBlockThreeBackgroundColor___$RandomColorReduxProps =
+  static const String _$key__changeBlockThreeBackgroundColor___$RandomColorReduxProps =
       'RandomColorReduxProps.changeBlockThreeBackgroundColor';
 
   static const List<PropDescriptor> $props = [
@@ -182,15 +159,12 @@ const PropsMeta _$metaForRandomColorReduxProps = PropsMeta(
   keys: _$RandomColorReduxPropsAccessorsMixin.$propKeys,
 );
 
-class RandomColorReduxProps extends _$RandomColorReduxProps
-    with _$RandomColorReduxPropsAccessorsMixin {
+class RandomColorReduxProps extends _$RandomColorReduxProps with _$RandomColorReduxPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForRandomColorReduxProps;
 }
 
 _$$RandomColorReduxProps _$RandomColorRedux([Map backingProps]) =>
-    backingProps == null
-        ? _$$RandomColorReduxProps$JsMap(JsBackedMap())
-        : _$$RandomColorReduxProps(backingProps);
+    backingProps == null ? _$$RandomColorReduxProps$JsMap(JsBackedMap()) : _$$RandomColorReduxProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -214,8 +188,7 @@ abstract class _$$RandomColorReduxProps extends _$RandomColorReduxProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $RandomColorReduxComponentFactory;
+  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $RandomColorReduxComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -283,8 +256,7 @@ class _$RandomColorReduxComponent extends RandomColorReduxComponent {
       _$$RandomColorReduxProps$JsMap(backingMap);
 
   @override
-  _$$RandomColorReduxProps typedPropsFactory(Map backingMap) =>
-      _$$RandomColorReduxProps(backingMap);
+  _$$RandomColorReduxProps typedPropsFactory(Map backingMap) => _$$RandomColorReduxProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -293,7 +265,5 @@ class _$RandomColorReduxComponent extends RandomColorReduxComponent {
   /// The default consumed props, taken from _$RandomColorReduxProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForRandomColorReduxProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForRandomColorReduxProps];
 }

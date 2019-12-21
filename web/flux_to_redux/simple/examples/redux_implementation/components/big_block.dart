@@ -5,11 +5,9 @@ import '../store.dart';
 
 part 'big_block.over_react.g.dart';
 
-UiFactory<BigBlockProps> ConnectedBigBlock =
-    connect<RandomColorState, BigBlockProps>(
+UiFactory<BigBlockProps> ConnectedBigBlock = connect<RandomColorState, BigBlockProps>(
   mapStateToProps: (state) => (BigBlock()..backgroundColor = state.backgroundColor),
-  mapDispatchToProps: (dispatch) =>
-      (BigBlock()..changeBackgroundColor = () => dispatch(UpdateBackgroundColorAction())),
+  mapDispatchToProps: (dispatch) => (BigBlock()..changeBackgroundColor = () => dispatch(UpdateBackgroundColorAction())),
 )(BigBlock);
 
 @Factory()
@@ -26,9 +24,7 @@ class _$BigBlockProps extends UiProps {
 class BigBlockComponent extends UiComponent2<BigBlockProps> {
   @override
   render() {
-    return ((Dom.div()
-      ..style = {'padding': '50px', 'backgroundColor': props.backgroundColor, 'color': 'white'}
-    )(
+    return ((Dom.div()..style = {'padding': '50px', 'backgroundColor': props.backgroundColor, 'color': 'white'})(
       'This module uses a redux pattern to change its background color.',
       (Dom.button()
         ..onClick = (_) {

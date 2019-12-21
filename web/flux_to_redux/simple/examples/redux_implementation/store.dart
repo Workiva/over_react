@@ -23,5 +23,4 @@ RandomColorState reducer(RandomColorState oldState, dynamic action) {
   return oldState;
 }
 
-redux.Store randomColorStore = redux.Store<RandomColorState>(reducer,
-    initialState: RandomColorState.defaultState());
+redux.Store randomColorStore = redux.Store<RandomColorState>(reducer, initialState: RandomColorState.defaultState());

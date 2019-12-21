@@ -5,8 +5,7 @@ import '../store.dart';
 
 part 'redux_big_block.over_react.g.dart';
 
-UiFactory<ReduxBigBlockProps> ConnectedReduxBigBlock =
-    connect<FluxStore, ReduxBigBlockProps>(
+UiFactory<ReduxBigBlockProps> ConnectedReduxBigBlock = connect<FluxStore, ReduxBigBlockProps>(
   mapStateToProps: (state) => (ReduxBigBlock()..backgroundColor = state.backgroundColor),
   mapDispatchToProps: (dispatch) =>
       (ReduxBigBlock()..changeBackgroundColor = () => dispatch(UpdateBackgroundColorAction())),
@@ -27,9 +26,7 @@ class _$ReduxBigBlockProps extends UiProps with ConnectPropsMixin {
 class ReduxBigBlockComponent extends UiComponent2<ReduxBigBlockProps> {
   @override
   render() {
-    return ((Dom.div()
-      ..style = {'padding': '50px', 'backgroundColor': props.backgroundColor, 'color': 'white'}
-    )(
+    return ((Dom.div()..style = {'padding': '50px', 'backgroundColor': props.backgroundColor, 'color': 'white'})(
       'This module uses a redux pattern to change its background color.',
       (Dom.button()
         ..onClick = (_) {

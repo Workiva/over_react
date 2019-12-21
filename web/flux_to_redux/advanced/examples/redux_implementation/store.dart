@@ -23,15 +23,11 @@ class ReduxState {
         this.blockThreeBackgroundColor = 'blue';
 
   ReduxState.update(ReduxState oldState,
-      {mainBackgroundColor,
-        blockOneBackgroundColor,
-        blockTwoBackgroundColor,
-        blockThreeBackgroundColor})
+      {mainBackgroundColor, blockOneBackgroundColor, blockTwoBackgroundColor, blockThreeBackgroundColor})
       : this.mainBackgroundColor = mainBackgroundColor ?? oldState.mainBackgroundColor,
         this.blockOneBackgroundColor = blockOneBackgroundColor ?? oldState.blockOneBackgroundColor,
         this.blockTwoBackgroundColor = blockTwoBackgroundColor ?? oldState.blockTwoBackgroundColor,
-        this.blockThreeBackgroundColor =
-            blockThreeBackgroundColor ?? oldState.blockThreeBackgroundColor;
+        this.blockThreeBackgroundColor = blockThreeBackgroundColor ?? oldState.blockThreeBackgroundColor;
 }
 
 ReduxState afterTransitionReducer(ReduxState oldState, dynamic action) {
@@ -56,5 +52,4 @@ ReduxState afterTransitionReducer(ReduxState oldState, dynamic action) {
   return oldState;
 }
 
-redux.Store reduxStore = redux.Store<ReduxState>(afterTransitionReducer,
-    initialState: ReduxState.defaultState());
+redux.Store reduxStore = redux.Store<ReduxState>(afterTransitionReducer, initialState: ReduxState.defaultState());

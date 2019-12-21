@@ -108,22 +108,17 @@ AnotherColorStore inTransitionSecondStoreReducer(flux.Store oldState, dynamic ac
 }
 
 RandomColorActions randomColorActions = RandomColorActions();
-RandomColorStore randomColorStore =
-RandomColorStore(randomColorActions);
-LowLevelStore lowLevelStore =
-LowLevelStore(randomColorActions);
+RandomColorStore randomColorStore = RandomColorStore(randomColorActions);
+LowLevelStore lowLevelStore = LowLevelStore(randomColorActions);
 AnotherColorStore anotherColorStore = AnotherColorStore(randomColorActions);
 
 Context randomColorStoreContext = createContext();
 Context lowLevelStoreContext = createContext();
 Context anotherColorStoreContext = createContext();
 
-FluxToReduxAdapterStore randomColorStoreAdapter = FluxToReduxAdapterStore(
-    randomColorStore, randomColorActions,
-    reducer: inTransitionTopLevelReducer);
-FluxToReduxAdapterStore lowLevelStoreAdapter = FluxToReduxAdapterStore(
-    lowLevelStore, randomColorActions,
-    reducer: inTransitionLowLevelReducer);
-FluxToReduxAdapterStore anotherColorStoreAdapter = FluxToReduxAdapterStore(
-    anotherColorStore, randomColorActions,
-    reducer: inTransitionSecondStoreReducer);
+FluxToReduxAdapterStore randomColorStoreAdapter =
+    FluxToReduxAdapterStore(randomColorStore, randomColorActions, reducer: inTransitionTopLevelReducer);
+FluxToReduxAdapterStore lowLevelStoreAdapter =
+    FluxToReduxAdapterStore(lowLevelStore, randomColorActions, reducer: inTransitionLowLevelReducer);
+FluxToReduxAdapterStore anotherColorStoreAdapter =
+    FluxToReduxAdapterStore(anotherColorStore, randomColorActions, reducer: inTransitionSecondStoreReducer);
