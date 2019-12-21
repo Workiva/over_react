@@ -59,14 +59,14 @@ For our example, here are our different items of interest:
 <img height=400 src="./ReduxArchitecture.png" alt='Redux Architecture'>
 
 ### Basic Example: The Main Differences
-- __We replace the Flux store with both a state class and a reducer.__ In Redux, we do not define a class that is responsible for handling state updates. Rather, we create the model and a function to describe updates and use them in the instantiation of a Redux `Store` object.
+- __We replace the Flux store with both a state class and a reducer.__ In Redux, we do not define a class that is responsible for handling state updates. Rather, we create the model to represent the state and a function to describe updates. Then, use them in the instantiation of a Redux `Store` object.
 - __Actions are not held in an overarching wrapper class.__ Typically in Redux, actions "stand alone" from each other. Our reducer should have cases for all the actions that exist, but unlike Flux there is no need to knit our store and actions together by actually providing an actions instance. Consequently, actions are broken away, pulled directly into the component, and triggered using `dispatch`.
 - __In Redux, actions and state are not passed directly as props from a parent component.__ In actuality, that statement is more nuanced and has some hidden complexity. On the surface though, Redux UI uses context and the `connect` function to associate state directly with props without needing to actively pass the store from parent to child all the way through a component tree. 
 
 ### Basic Conversion Step by Step
 > NOTE: This document does not attempt to teach _how_ to use Redux. If any of these steps cause confusion on the implementation details of Redux, see the [OverReact Redux Documentation](./over_react_redux_documentation.md).
 1. __Refactor the actions to stand alone.__ This should be a fairly direct 1 to 1 transition.
-1. __Pull state mutation logic out of the store and into a reducer.__ Typically within a Flux store you have a `triggerOnActionV2` call that identifies an action and a function used to respond to that action. 
+1. __Pull state mutation logic out of the store and into a reducer.__ Typically within a Flux store you have a `triggerOnActionV2` call that identifies an action and a function used to respond to that action. In many cases, that same logic should be perfect for a reducer.
     ```dart
     // Before transition, within a store class called ExampleFluxStore...
         // Constructor
@@ -75,11 +75,11 @@ For our example, here are our different items of interest:
         }
 
         // Function to update the _backgroundColor state field
-        _changeBackgroundColor(String _) {
+        _changeBackgroundColor(_) {
             _backgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
         }
 
-    // After being transitioned to a reducer..
+    // After being transitioned to a reducer...
     ExampleState reducer(ExampleState oldState, dynamic /*or an action type*/ action) {
         // Assumes an action called ChangeBackgroundColor was created in step 1
         if (action is ChangeBackgroundColor) {
