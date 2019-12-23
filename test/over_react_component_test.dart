@@ -33,6 +33,7 @@ import 'over_react/component/prop_mixins_test.dart' as prop_mixins_test;
 import 'over_react/component/prop_typedefs_test.dart' as prop_typedefs_test;
 import 'over_react/component/resize_sensor_test.dart' as resize_sensor_test;
 import 'over_react/component/fragment_component_test.dart' as fragment_component_test;
+import 'over_react/component/strictmode_component_test.dart' as strictmode_component_test;
 import 'over_react/component/context_test.dart' as context_test;
 import 'over_react/component/typed_factory_test.dart' as typed_factory_test;
 
@@ -51,6 +52,7 @@ void main() {
   prop_typedefs_test.main();
   resize_sensor_test.main();
   fragment_component_test.main();
+  strictmode_component_test.main();
   context_test.main();
   typed_factory_test.main();
 }
