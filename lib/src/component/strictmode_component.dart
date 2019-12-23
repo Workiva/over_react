@@ -41,4 +41,4 @@ class StrictModeProps extends component_base.UiProps
 /// an element that adds an additional layer to the DOM (div, span, etc).
 ///
 /// See: <https://reactjs.org/docs/fragments.html>
-StrictModeProps StrictMode() => StrictModeProps();
+StrictModeProps StrictMode([Map backingMap]) => StrictModeProps(backingMap);
