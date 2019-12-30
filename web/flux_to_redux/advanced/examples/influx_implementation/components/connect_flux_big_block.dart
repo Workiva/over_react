@@ -13,28 +13,28 @@ UiFactory<ConnectFluxBigBlockProps> ConnectedConnectFluxBigBlock = composeHocs([
     context: randomColorStoreContext,
     mapStateToProps: (state) => (ConnectFluxBigBlock()
       ..backgroundColor = state.mainBackgroundColor
-      ..blockOneBackgroundColor = state.blockOneBackgroundColor),
+      ..blockOneBackgroundColor = state.blockOneBackgroundColor
+    ),
     mapActionsToProps: (actions) => (ConnectFluxBigBlock()
       ..changeMainBackgroundColor = () {
         actions.changeMainBackgroundColor();
       }
       ..changeBlockOneBackgroundColor = () {
         actions.changeBlockOneBackgroundColor();
-      }),
+      }
+    ),
   ),
   connectFlux<LowLevelStore, RandomColorActions, ConnectFluxBigBlockProps>(
     context: lowLevelStoreContext,
-    mapStateToProps: (state) =>
-        (ConnectFluxBigBlock()..blockTwoBackgroundColor = state.backgroundColor),
-    mapActionsToProps: (actions) => (ConnectFluxBigBlock()
-      ..changeBlockTwoBackgroundColor = () => actions.changeBlockTwoBackgroundColor()),
+    mapStateToProps: (state) => (ConnectFluxBigBlock()..blockTwoBackgroundColor = state.backgroundColor),
+    mapActionsToProps: (actions) =>
+        (ConnectFluxBigBlock()..changeBlockTwoBackgroundColor = () => actions.changeBlockTwoBackgroundColor()),
   ),
   connectFlux<AnotherColorStore, RandomColorActions, ConnectFluxBigBlockProps>(
     context: anotherColorStoreContext,
-    mapStateToProps: (state) =>
-        (ConnectFluxBigBlock()..blockThreeBackgroundColor = state.backgroundColor),
-    mapActionsToProps: (actions) => (ConnectFluxBigBlock()
-      ..changeBlockThreeBackgroundColor = () => actions.changeBlockThreeBackgroundColor()),
+    mapStateToProps: (state) => (ConnectFluxBigBlock()..blockThreeBackgroundColor = state.backgroundColor),
+    mapActionsToProps: (actions) =>
+        (ConnectFluxBigBlock()..changeBlockThreeBackgroundColor = () => actions.changeBlockThreeBackgroundColor()),
   ),
 ])(ConnectFluxBigBlock);
 
@@ -75,9 +75,7 @@ class ConnectFluxBigBlockComponent extends UiComponent2<ConnectFluxBigBlockProps
           'justifyContent': 'space-evenly'
         }
       )(
-        (Dom.div()
-          ..key = 'c1'
-        )('This module uses a ConnectedFlux pattern to change its background color.'),
+        (Dom.div()..key = 'c1')('This module uses a ConnectedFlux pattern to change its background color.'),
         (Dom.div()
           ..style = {
             'display': 'flex',

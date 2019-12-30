@@ -15,13 +15,7 @@ class BigBlockComponent extends FluxUiComponent2<BigBlockProps> {
   @override
   render() {
     return (Fragment()(
-      (Dom.div()
-        ..style = {
-          'padding': '50px',
-          'backgroundColor': props.store.backgroundColor,
-          'color': 'white'
-        }
-      )(
+      (Dom.div()..style = {'padding': '50px', 'backgroundColor': props.store.backgroundColor, 'color': 'white'})(
         'This module uses a flux pattern to change its background color.',
         (Dom.button()
           ..onClick = (_) {

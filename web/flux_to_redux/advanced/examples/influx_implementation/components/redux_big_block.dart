@@ -11,7 +11,8 @@ UiFactory<ReduxBigBlockProps> ConnectedReduxBigBlock = composeHocs([
     context: randomColorStoreContext,
     mapStateToProps: (state) => (ReduxBigBlock()
       ..backgroundColor = state.mainBackgroundColor
-      ..blockOneBackgroundColor = state.blockOneBackgroundColor),
+      ..blockOneBackgroundColor = state.blockOneBackgroundColor
+    ),
     mapDispatchToProps: (dispatch) => (ReduxBigBlock()
       ..changeMainBackgroundColor = () {
         dispatch(UpdateBackgroundColorAction());
@@ -24,7 +25,8 @@ UiFactory<ReduxBigBlockProps> ConnectedReduxBigBlock = composeHocs([
       }
       ..changeBlockThreeBackgroundColor = () {
         dispatch(UpdateBlockThreeBackgroundColorAction());
-      }),
+      }
+    ),
     pure: false,
   ),
   connect<LowLevelStore, ReduxBigBlockProps>(
@@ -33,7 +35,8 @@ UiFactory<ReduxBigBlockProps> ConnectedReduxBigBlock = composeHocs([
     mapDispatchToProps: (dispatch) => (ReduxBigBlock()
       ..changeBlockTwoBackgroundColor = () {
         dispatch(UpdateBlockTwoBackgroundColorAction());
-      }),
+      }
+    ),
     pure: false,
   ),
   connect<AnotherColorStore, ReduxBigBlockProps>(
@@ -42,7 +45,8 @@ UiFactory<ReduxBigBlockProps> ConnectedReduxBigBlock = composeHocs([
     mapDispatchToProps: (dispatch) => (ReduxBigBlock()
       ..changeBlockThreeBackgroundColor = () {
         dispatch(UpdateBlockThreeBackgroundColorAction());
-      }),
+      }
+    ),
     pure: false,
   ),
 ])(ReduxBigBlock);

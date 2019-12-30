@@ -5,8 +5,7 @@ import '../store.dart';
 
 part 'should_not_update.over_react.g.dart';
 
-UiFactory<ShouldNotUpdateProps> ConnectedShouldNotUpdate =
-    connect<ReduxState, ShouldNotUpdateProps>(
+UiFactory<ShouldNotUpdateProps> ConnectedShouldNotUpdate = connect<ReduxState, ShouldNotUpdateProps>(
   mapStateToProps: (_) => {},
 )(ShouldNotUpdate);
 

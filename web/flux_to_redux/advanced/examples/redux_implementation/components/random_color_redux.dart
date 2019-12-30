@@ -6,26 +6,28 @@ import '../store.dart';
 
 part 'random_color_redux.over_react.g.dart';
 
-UiFactory<RandomColorReduxProps> ConnectedRandomColorRedux =
-    connect<ReduxState, RandomColorReduxProps>(
-        mapStateToProps: (state) => (RandomColorRedux()
-          ..backgroundColor = state.mainBackgroundColor
-          ..blockOneBackgroundColor = state.blockOneBackgroundColor
-          ..blockTwoBackgroundColor = state.blockTwoBackgroundColor
-          ..blockThreeBackgroundColor = state.blockThreeBackgroundColor),
-        mapDispatchToProps: (dispatch) => (RandomColorRedux()
-          ..changeMainBackgroundColor = () {
-            dispatch(UpdateBackgroundColorAction());
-          }
-          ..changeBlockOneBackgroundColor = () {
-            dispatch(UpdateBlockOneBackgroundColorAction());
-          }
-          ..changeBlockTwoBackgroundColor = () {
-            dispatch(UpdateBlockTwoBackgroundColorAction());
-          }
-          ..changeBlockThreeBackgroundColor = () {
-            dispatch(UpdateBlockThreeBackgroundColorAction());
-          }))(RandomColorRedux);
+UiFactory<RandomColorReduxProps> ConnectedRandomColorRedux = connect<ReduxState, RandomColorReduxProps>(
+  mapStateToProps: (state) => (RandomColorRedux()
+    ..backgroundColor = state.mainBackgroundColor
+    ..blockOneBackgroundColor = state.blockOneBackgroundColor
+    ..blockTwoBackgroundColor = state.blockTwoBackgroundColor
+    ..blockThreeBackgroundColor = state.blockThreeBackgroundColor
+  ),
+  mapDispatchToProps: (dispatch) => (RandomColorRedux()
+    ..changeMainBackgroundColor = () {
+      dispatch(UpdateBackgroundColorAction());
+    }
+    ..changeBlockOneBackgroundColor = () {
+      dispatch(UpdateBlockOneBackgroundColorAction());
+    }
+    ..changeBlockTwoBackgroundColor = () {
+      dispatch(UpdateBlockTwoBackgroundColorAction());
+    }
+    ..changeBlockThreeBackgroundColor = () {
+      dispatch(UpdateBlockThreeBackgroundColorAction());
+    }
+  ),
+)(RandomColorRedux);
 
 @Factory()
 UiFactory<RandomColorReduxProps> RandomColorRedux = _$RandomColorRedux;
