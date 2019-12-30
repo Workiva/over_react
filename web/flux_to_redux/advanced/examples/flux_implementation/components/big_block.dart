@@ -36,64 +36,53 @@ class BigBlockComponent extends FluxUiComponent2<BigBlockProps> {
           'justifyContent': 'space-evenly'
         }
       )(
-        (Dom.div()..key = 'c1')('This module uses a flux pattern to change its background color.'),
+        Dom.div()('This module uses a flux pattern to change its background color.'),
         (Dom.div()
           ..style = {
             'display': 'flex',
             'flexDirection': 'column',
           }
-          ..key = 'c2'
         )(
           (Dom.button()
             ..onClick = (_) {
               props.actions.changeMainBackgroundColor();
             }
             ..style = {'padding': '10px', 'margin': '10px'}
-            ..key = 'btn1'
           )('Change Main Background Color'),
           (Dom.button()
             ..onClick = (_) {
               props.actions.changeBlockOneBackgroundColor();
             }
             ..style = {'padding': '10px', 'margin': '10px'}
-            ..key = 'btn2'
           )('Change Block 1 Background Color'),
           (Dom.button()
             ..onClick = (_) {
               props.actions.changeBlockTwoBackgroundColor();
             }
             ..style = {'padding': '10px', 'margin': '10px'}
-            ..key = 'btn3'
           )('Change Block 2 Background Color'),
           (Dom.button()
             ..onClick = (_) {
               props.actions.changeBlockThreeBackgroundColor();
             }
             ..style = {'padding': '10px', 'margin': '10px'}
-            ..key = 'btn4'
           )('Change Block 3 Background Color'),
         ),
-        (Dom.div()
-          ..style = {'display': 'flex', 'flexDirection': 'column'}
-          ..key = 'c3'
-        )(
+        (Dom.div()..style = {'display': 'flex', 'flexDirection': 'column'})(
           (LittleBlock()
             ..blockTitle = 'Block 1'
             ..backgroundColor = this.props.store.midLevelStore.backgroundColor
             ..colorString = this.props.store.midLevelStore.backgroundColor
-            ..key = 'b1'
           )(),
           (LittleBlock()
             ..blockTitle = 'Block 2'
             ..backgroundColor = this.props.store.midLevelStore.lowLevelStore.backgroundColor
             ..colorString = this.props.store.midLevelStore.lowLevelStore.backgroundColor
-            ..key = 'b2'
           )(),
           (LittleBlock()
             ..blockTitle = 'Block 3'
             ..backgroundColor = this.props.store2.backgroundColor
             ..colorString = this.props.store2.backgroundColor
-            ..key = 'b3'
           )(),
         ),
       ),
