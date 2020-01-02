@@ -19,7 +19,8 @@ final $ConnectFluxBigBlockComponentFactory = registerComponent2(
   displayName: 'ConnectFluxBigBlock',
 );
 
-abstract class _$ConnectFluxBigBlockPropsAccessorsMixin implements _$ConnectFluxBigBlockProps {
+abstract class _$ConnectFluxBigBlockPropsAccessorsMixin
+    implements _$ConnectFluxBigBlockProps {
   @override
   Map get props;
 
@@ -30,22 +31,27 @@ abstract class _$ConnectFluxBigBlockPropsAccessorsMixin implements _$ConnectFlux
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ConnectFluxBigBlockProps.backgroundColor] -->
   @override
-  set backgroundColor(String value) => props[_$key__backgroundColor___$ConnectFluxBigBlockProps] = value;
+  set backgroundColor(String value) =>
+      props[_$key__backgroundColor___$ConnectFluxBigBlockProps] = value;
 
   /// <!-- Generated from [_$ConnectFluxBigBlockProps.changeBackgroundColor] -->
   @override
-  Function get changeBackgroundColor =>
+  void Function() get changeBackgroundColor =>
       props[_$key__changeBackgroundColor___$ConnectFluxBigBlockProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ConnectFluxBigBlockProps.changeBackgroundColor] -->
   @override
-  set changeBackgroundColor(Function value) => props[_$key__changeBackgroundColor___$ConnectFluxBigBlockProps] = value;
+  set changeBackgroundColor(void Function() value) =>
+      props[_$key__changeBackgroundColor___$ConnectFluxBigBlockProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__backgroundColor___$ConnectFluxBigBlockProps =
+  static const PropDescriptor
+      _$prop__backgroundColor___$ConnectFluxBigBlockProps =
       PropDescriptor(_$key__backgroundColor___$ConnectFluxBigBlockProps);
-  static const PropDescriptor _$prop__changeBackgroundColor___$ConnectFluxBigBlockProps =
+  static const PropDescriptor
+      _$prop__changeBackgroundColor___$ConnectFluxBigBlockProps =
       PropDescriptor(_$key__changeBackgroundColor___$ConnectFluxBigBlockProps);
-  static const String _$key__backgroundColor___$ConnectFluxBigBlockProps = 'ConnectFluxBigBlockProps.backgroundColor';
+  static const String _$key__backgroundColor___$ConnectFluxBigBlockProps =
+      'ConnectFluxBigBlockProps.backgroundColor';
   static const String _$key__changeBackgroundColor___$ConnectFluxBigBlockProps =
       'ConnectFluxBigBlockProps.changeBackgroundColor';
 
@@ -64,12 +70,15 @@ const PropsMeta _$metaForConnectFluxBigBlockProps = PropsMeta(
   keys: _$ConnectFluxBigBlockPropsAccessorsMixin.$propKeys,
 );
 
-class ConnectFluxBigBlockProps extends _$ConnectFluxBigBlockProps with _$ConnectFluxBigBlockPropsAccessorsMixin {
+class ConnectFluxBigBlockProps extends _$ConnectFluxBigBlockProps
+    with _$ConnectFluxBigBlockPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForConnectFluxBigBlockProps;
 }
 
 _$$ConnectFluxBigBlockProps _$ConnectFluxBigBlock([Map backingProps]) =>
-    backingProps == null ? _$$ConnectFluxBigBlockProps$JsMap(JsBackedMap()) : _$$ConnectFluxBigBlockProps(backingProps);
+    backingProps == null
+        ? _$$ConnectFluxBigBlockProps$JsMap(JsBackedMap())
+        : _$$ConnectFluxBigBlockProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -93,7 +102,8 @@ abstract class _$$ConnectFluxBigBlockProps extends _$ConnectFluxBigBlockProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ConnectFluxBigBlockComponentFactory;
+  ReactComponentFactoryProxy get componentFactory =>
+      super.componentFactory ?? $ConnectFluxBigBlockComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -157,11 +167,13 @@ class _$ConnectFluxBigBlockComponent extends ConnectFluxBigBlockComponent {
   }
 
   @override
-  _$$ConnectFluxBigBlockProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$ConnectFluxBigBlockProps$JsMap typedPropsFactoryJs(
+          JsBackedMap backingMap) =>
       _$$ConnectFluxBigBlockProps$JsMap(backingMap);
 
   @override
-  _$$ConnectFluxBigBlockProps typedPropsFactory(Map backingMap) => _$$ConnectFluxBigBlockProps(backingMap);
+  _$$ConnectFluxBigBlockProps typedPropsFactory(Map backingMap) =>
+      _$$ConnectFluxBigBlockProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -170,5 +182,7 @@ class _$ConnectFluxBigBlockComponent extends ConnectFluxBigBlockComponent {
   /// The default consumed props, taken from _$ConnectFluxBigBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForConnectFluxBigBlockProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForConnectFluxBigBlockProps
+  ];
 }

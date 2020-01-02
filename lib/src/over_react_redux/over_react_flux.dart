@@ -19,7 +19,6 @@ abstract class _$ConnectFluxPropsMixin<TActions> implements UiProps {
   TActions actions;
 }
 
-
 class _FluxStoreUpdatedAction {}
 
 /// Adapts a Flux store to the interface of a Redux store.
@@ -28,7 +27,7 @@ class FluxToReduxAdapterStore<S extends flux.Store> extends redux.Store<S> {
 
   StreamSubscription _storeListener;
 
-  FluxToReduxAdapterStore(this.store, dynamic actions, {Function reducer}) : super(reducer ?? _noopReducer, initialState: store, distinct: false) {
+  FluxToReduxAdapterStore(this.store, dynamic actions, {List<redux.Middleware<S>>middleware, redux.Reducer<S> reducer}) : super(reducer ?? _noopReducer, middleware: middleware ?? const [], initialState: store, distinct: false) {
     _storeListener = store.listen((_) {
       dispatch(_FluxStoreUpdatedAction());
     });

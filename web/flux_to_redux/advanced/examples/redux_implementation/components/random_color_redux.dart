@@ -40,13 +40,13 @@ class _$RandomColorReduxProps extends UiProps with ConnectPropsMixin {
 
   String blockOneBackgroundColor;
 
-  Function changeMainBackgroundColor;
+  void Function() changeMainBackgroundColor;
 
-  Function changeBlockOneBackgroundColor;
+  void Function() changeBlockOneBackgroundColor;
 
-  Function changeBlockTwoBackgroundColor;
+  void Function() changeBlockTwoBackgroundColor;
 
-  Function changeBlockThreeBackgroundColor;
+  void Function() changeBlockThreeBackgroundColor;
 }
 
 @Component2()

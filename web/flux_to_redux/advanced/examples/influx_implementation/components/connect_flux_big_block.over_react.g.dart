@@ -19,7 +19,8 @@ final $ConnectFluxBigBlockComponentFactory = registerComponent2(
   displayName: 'ConnectFluxBigBlock',
 );
 
-abstract class _$ConnectFluxBigBlockPropsAccessorsMixin implements _$ConnectFluxBigBlockProps {
+abstract class _$ConnectFluxBigBlockPropsAccessorsMixin
+    implements _$ConnectFluxBigBlockProps {
   @override
   Map get props;
 
@@ -30,7 +31,8 @@ abstract class _$ConnectFluxBigBlockPropsAccessorsMixin implements _$ConnectFlux
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ConnectFluxBigBlockProps.backgroundColor] -->
   @override
-  set backgroundColor(String value) => props[_$key__backgroundColor___$ConnectFluxBigBlockProps] = value;
+  set backgroundColor(String value) =>
+      props[_$key__backgroundColor___$ConnectFluxBigBlockProps] = value;
 
   /// <!-- Generated from [_$ConnectFluxBigBlockProps.blockTwoBackgroundColor] -->
   @override
@@ -50,7 +52,8 @@ abstract class _$ConnectFluxBigBlockPropsAccessorsMixin implements _$ConnectFlux
   /// <!-- Generated from [_$ConnectFluxBigBlockProps.blockThreeBackgroundColor] -->
   @override
   set blockThreeBackgroundColor(String value) =>
-      props[_$key__blockThreeBackgroundColor___$ConnectFluxBigBlockProps] = value;
+      props[_$key__blockThreeBackgroundColor___$ConnectFluxBigBlockProps] =
+          value;
 
   /// <!-- Generated from [_$ConnectFluxBigBlockProps.blockOneBackgroundColor] -->
   @override
@@ -64,74 +67,102 @@ abstract class _$ConnectFluxBigBlockPropsAccessorsMixin implements _$ConnectFlux
 
   /// <!-- Generated from [_$ConnectFluxBigBlockProps.changeMainBackgroundColor] -->
   @override
-  Function get changeMainBackgroundColor =>
+  void Function() get changeMainBackgroundColor =>
       props[_$key__changeMainBackgroundColor___$ConnectFluxBigBlockProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ConnectFluxBigBlockProps.changeMainBackgroundColor] -->
   @override
-  set changeMainBackgroundColor(Function value) =>
-      props[_$key__changeMainBackgroundColor___$ConnectFluxBigBlockProps] = value;
+  set changeMainBackgroundColor(void Function() value) =>
+      props[_$key__changeMainBackgroundColor___$ConnectFluxBigBlockProps] =
+          value;
 
   /// <!-- Generated from [_$ConnectFluxBigBlockProps.changeBlockOneBackgroundColor] -->
   @override
-  Function get changeBlockOneBackgroundColor =>
+  void Function() get changeBlockOneBackgroundColor =>
       props[_$key__changeBlockOneBackgroundColor___$ConnectFluxBigBlockProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ConnectFluxBigBlockProps.changeBlockOneBackgroundColor] -->
   @override
-  set changeBlockOneBackgroundColor(Function value) =>
-      props[_$key__changeBlockOneBackgroundColor___$ConnectFluxBigBlockProps] = value;
+  set changeBlockOneBackgroundColor(void Function() value) =>
+      props[_$key__changeBlockOneBackgroundColor___$ConnectFluxBigBlockProps] =
+          value;
 
   /// <!-- Generated from [_$ConnectFluxBigBlockProps.changeBlockTwoBackgroundColor] -->
   @override
-  Function get changeBlockTwoBackgroundColor =>
+  void Function() get changeBlockTwoBackgroundColor =>
       props[_$key__changeBlockTwoBackgroundColor___$ConnectFluxBigBlockProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ConnectFluxBigBlockProps.changeBlockTwoBackgroundColor] -->
   @override
-  set changeBlockTwoBackgroundColor(Function value) =>
-      props[_$key__changeBlockTwoBackgroundColor___$ConnectFluxBigBlockProps] = value;
+  set changeBlockTwoBackgroundColor(void Function() value) =>
+      props[_$key__changeBlockTwoBackgroundColor___$ConnectFluxBigBlockProps] =
+          value;
 
   /// <!-- Generated from [_$ConnectFluxBigBlockProps.changeBlockThreeBackgroundColor] -->
   @override
-  Function get changeBlockThreeBackgroundColor =>
-      props[_$key__changeBlockThreeBackgroundColor___$ConnectFluxBigBlockProps] ??
+  void Function() get changeBlockThreeBackgroundColor =>
+      props[
+          _$key__changeBlockThreeBackgroundColor___$ConnectFluxBigBlockProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$ConnectFluxBigBlockProps.changeBlockThreeBackgroundColor] -->
   @override
-  set changeBlockThreeBackgroundColor(Function value) =>
-      props[_$key__changeBlockThreeBackgroundColor___$ConnectFluxBigBlockProps] = value;
+  set changeBlockThreeBackgroundColor(void Function() value) => props[
+          _$key__changeBlockThreeBackgroundColor___$ConnectFluxBigBlockProps] =
+      value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__backgroundColor___$ConnectFluxBigBlockProps =
+  static const PropDescriptor
+      _$prop__backgroundColor___$ConnectFluxBigBlockProps =
       PropDescriptor(_$key__backgroundColor___$ConnectFluxBigBlockProps);
-  static const PropDescriptor _$prop__blockTwoBackgroundColor___$ConnectFluxBigBlockProps =
-      PropDescriptor(_$key__blockTwoBackgroundColor___$ConnectFluxBigBlockProps);
-  static const PropDescriptor _$prop__blockThreeBackgroundColor___$ConnectFluxBigBlockProps =
-      PropDescriptor(_$key__blockThreeBackgroundColor___$ConnectFluxBigBlockProps);
-  static const PropDescriptor _$prop__blockOneBackgroundColor___$ConnectFluxBigBlockProps =
-      PropDescriptor(_$key__blockOneBackgroundColor___$ConnectFluxBigBlockProps);
-  static const PropDescriptor _$prop__changeMainBackgroundColor___$ConnectFluxBigBlockProps =
-      PropDescriptor(_$key__changeMainBackgroundColor___$ConnectFluxBigBlockProps);
-  static const PropDescriptor _$prop__changeBlockOneBackgroundColor___$ConnectFluxBigBlockProps =
-      PropDescriptor(_$key__changeBlockOneBackgroundColor___$ConnectFluxBigBlockProps);
-  static const PropDescriptor _$prop__changeBlockTwoBackgroundColor___$ConnectFluxBigBlockProps =
-      PropDescriptor(_$key__changeBlockTwoBackgroundColor___$ConnectFluxBigBlockProps);
-  static const PropDescriptor _$prop__changeBlockThreeBackgroundColor___$ConnectFluxBigBlockProps =
-      PropDescriptor(_$key__changeBlockThreeBackgroundColor___$ConnectFluxBigBlockProps);
-  static const String _$key__backgroundColor___$ConnectFluxBigBlockProps = 'ConnectFluxBigBlockProps.backgroundColor';
-  static const String _$key__blockTwoBackgroundColor___$ConnectFluxBigBlockProps =
+  static const PropDescriptor
+      _$prop__blockTwoBackgroundColor___$ConnectFluxBigBlockProps =
+      PropDescriptor(
+          _$key__blockTwoBackgroundColor___$ConnectFluxBigBlockProps);
+  static const PropDescriptor
+      _$prop__blockThreeBackgroundColor___$ConnectFluxBigBlockProps =
+      PropDescriptor(
+          _$key__blockThreeBackgroundColor___$ConnectFluxBigBlockProps);
+  static const PropDescriptor
+      _$prop__blockOneBackgroundColor___$ConnectFluxBigBlockProps =
+      PropDescriptor(
+          _$key__blockOneBackgroundColor___$ConnectFluxBigBlockProps);
+  static const PropDescriptor
+      _$prop__changeMainBackgroundColor___$ConnectFluxBigBlockProps =
+      PropDescriptor(
+          _$key__changeMainBackgroundColor___$ConnectFluxBigBlockProps);
+  static const PropDescriptor
+      _$prop__changeBlockOneBackgroundColor___$ConnectFluxBigBlockProps =
+      PropDescriptor(
+          _$key__changeBlockOneBackgroundColor___$ConnectFluxBigBlockProps);
+  static const PropDescriptor
+      _$prop__changeBlockTwoBackgroundColor___$ConnectFluxBigBlockProps =
+      PropDescriptor(
+          _$key__changeBlockTwoBackgroundColor___$ConnectFluxBigBlockProps);
+  static const PropDescriptor
+      _$prop__changeBlockThreeBackgroundColor___$ConnectFluxBigBlockProps =
+      PropDescriptor(
+          _$key__changeBlockThreeBackgroundColor___$ConnectFluxBigBlockProps);
+  static const String _$key__backgroundColor___$ConnectFluxBigBlockProps =
+      'ConnectFluxBigBlockProps.backgroundColor';
+  static const String
+      _$key__blockTwoBackgroundColor___$ConnectFluxBigBlockProps =
       'ConnectFluxBigBlockProps.blockTwoBackgroundColor';
-  static const String _$key__blockThreeBackgroundColor___$ConnectFluxBigBlockProps =
+  static const String
+      _$key__blockThreeBackgroundColor___$ConnectFluxBigBlockProps =
       'ConnectFluxBigBlockProps.blockThreeBackgroundColor';
-  static const String _$key__blockOneBackgroundColor___$ConnectFluxBigBlockProps =
+  static const String
+      _$key__blockOneBackgroundColor___$ConnectFluxBigBlockProps =
       'ConnectFluxBigBlockProps.blockOneBackgroundColor';
-  static const String _$key__changeMainBackgroundColor___$ConnectFluxBigBlockProps =
+  static const String
+      _$key__changeMainBackgroundColor___$ConnectFluxBigBlockProps =
       'ConnectFluxBigBlockProps.changeMainBackgroundColor';
-  static const String _$key__changeBlockOneBackgroundColor___$ConnectFluxBigBlockProps =
+  static const String
+      _$key__changeBlockOneBackgroundColor___$ConnectFluxBigBlockProps =
       'ConnectFluxBigBlockProps.changeBlockOneBackgroundColor';
-  static const String _$key__changeBlockTwoBackgroundColor___$ConnectFluxBigBlockProps =
+  static const String
+      _$key__changeBlockTwoBackgroundColor___$ConnectFluxBigBlockProps =
       'ConnectFluxBigBlockProps.changeBlockTwoBackgroundColor';
-  static const String _$key__changeBlockThreeBackgroundColor___$ConnectFluxBigBlockProps =
+  static const String
+      _$key__changeBlockThreeBackgroundColor___$ConnectFluxBigBlockProps =
       'ConnectFluxBigBlockProps.changeBlockThreeBackgroundColor';
 
   static const List<PropDescriptor> $props = [
@@ -161,12 +192,15 @@ const PropsMeta _$metaForConnectFluxBigBlockProps = PropsMeta(
   keys: _$ConnectFluxBigBlockPropsAccessorsMixin.$propKeys,
 );
 
-class ConnectFluxBigBlockProps extends _$ConnectFluxBigBlockProps with _$ConnectFluxBigBlockPropsAccessorsMixin {
+class ConnectFluxBigBlockProps extends _$ConnectFluxBigBlockProps
+    with _$ConnectFluxBigBlockPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForConnectFluxBigBlockProps;
 }
 
 _$$ConnectFluxBigBlockProps _$ConnectFluxBigBlock([Map backingProps]) =>
-    backingProps == null ? _$$ConnectFluxBigBlockProps$JsMap(JsBackedMap()) : _$$ConnectFluxBigBlockProps(backingProps);
+    backingProps == null
+        ? _$$ConnectFluxBigBlockProps$JsMap(JsBackedMap())
+        : _$$ConnectFluxBigBlockProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -190,7 +224,8 @@ abstract class _$$ConnectFluxBigBlockProps extends _$ConnectFluxBigBlockProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $ConnectFluxBigBlockComponentFactory;
+  ReactComponentFactoryProxy get componentFactory =>
+      super.componentFactory ?? $ConnectFluxBigBlockComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -254,11 +289,13 @@ class _$ConnectFluxBigBlockComponent extends ConnectFluxBigBlockComponent {
   }
 
   @override
-  _$$ConnectFluxBigBlockProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$ConnectFluxBigBlockProps$JsMap typedPropsFactoryJs(
+          JsBackedMap backingMap) =>
       _$$ConnectFluxBigBlockProps$JsMap(backingMap);
 
   @override
-  _$$ConnectFluxBigBlockProps typedPropsFactory(Map backingMap) => _$$ConnectFluxBigBlockProps(backingMap);
+  _$$ConnectFluxBigBlockProps typedPropsFactory(Map backingMap) =>
+      _$$ConnectFluxBigBlockProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -267,5 +304,7 @@ class _$ConnectFluxBigBlockComponent extends ConnectFluxBigBlockComponent {
   /// The default consumed props, taken from _$ConnectFluxBigBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForConnectFluxBigBlockProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForConnectFluxBigBlockProps
+  ];
 }

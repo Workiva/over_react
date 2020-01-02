@@ -10,7 +10,7 @@ UiFactory<ConnectFluxBigBlockProps> ConnectedConnectFluxBigBlock =
     connectFlux<FluxStore, RandomColorActions, ConnectFluxBigBlockProps>(
   mapStateToProps: (state) => (ConnectFluxBigBlock()..backgroundColor = state?.backgroundColor),
   mapActionsToProps: (actions) =>
-      (ConnectFluxBigBlock()..changeBackgroundColor = () => actions.changeBackgroundColor()),
+      (ConnectFluxBigBlock()..changeBackgroundColor = actions.changeBackgroundColor),
 )(ConnectFluxBigBlock);
 
 @Factory()
@@ -20,7 +20,7 @@ UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock = _$ConnectFluxBigBlock;
 class _$ConnectFluxBigBlockProps extends UiProps with ConnectPropsMixin {
   String backgroundColor;
 
-  Function changeBackgroundColor;
+  void Function() changeBackgroundColor;
 }
 
 @Component2()

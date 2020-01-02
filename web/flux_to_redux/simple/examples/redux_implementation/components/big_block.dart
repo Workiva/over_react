@@ -17,7 +17,7 @@ UiFactory<BigBlockProps> BigBlock = _$BigBlock;
 class _$BigBlockProps extends UiProps {
   String backgroundColor;
 
-  Function changeBackgroundColor;
+  void Function() changeBackgroundColor;
 }
 
 @Component2()

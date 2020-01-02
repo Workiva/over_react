@@ -15,26 +15,23 @@ UiFactory<ConnectFluxBigBlockProps> ConnectedConnectFluxBigBlock = composeHocs([
       ..backgroundColor = state.mainBackgroundColor
       ..blockOneBackgroundColor = state.blockOneBackgroundColor),
     mapActionsToProps: (actions) => (ConnectFluxBigBlock()
-      ..changeMainBackgroundColor = () {
-        actions.changeMainBackgroundColor();
-      }
-      ..changeBlockOneBackgroundColor = () {
-        actions.changeBlockOneBackgroundColor();
-      }),
+      ..changeMainBackgroundColor = actions.changeMainBackgroundColor
+      ..changeBlockOneBackgroundColor = actions.changeBlockOneBackgroundColor
+    ),
   ),
   connectFlux<LowLevelStore, RandomColorActions, ConnectFluxBigBlockProps>(
     context: lowLevelStoreContext,
     mapStateToProps: (state) =>
         (ConnectFluxBigBlock()..blockTwoBackgroundColor = state.backgroundColor),
     mapActionsToProps: (actions) => (ConnectFluxBigBlock()
-      ..changeBlockTwoBackgroundColor = () => actions.changeBlockTwoBackgroundColor()),
+      ..changeBlockTwoBackgroundColor = actions.changeBlockTwoBackgroundColor),
   ),
   connectFlux<AnotherColorStore, RandomColorActions, ConnectFluxBigBlockProps>(
     context: anotherColorStoreContext,
     mapStateToProps: (state) =>
         (ConnectFluxBigBlock()..blockThreeBackgroundColor = state.backgroundColor),
     mapActionsToProps: (actions) => (ConnectFluxBigBlock()
-      ..changeBlockThreeBackgroundColor = () => actions.changeBlockThreeBackgroundColor()),
+      ..changeBlockThreeBackgroundColor = actions.changeBlockThreeBackgroundColor),
   ),
 ])(ConnectFluxBigBlock);
 
@@ -51,13 +48,13 @@ class _$ConnectFluxBigBlockProps extends UiProps with ConnectPropsMixin {
 
   String blockOneBackgroundColor;
 
-  Function changeMainBackgroundColor;
+  void Function() changeMainBackgroundColor;
 
-  Function changeBlockOneBackgroundColor;
+  void Function() changeBlockOneBackgroundColor;
 
-  Function changeBlockTwoBackgroundColor;
+  void Function() changeBlockTwoBackgroundColor;
 
-  Function changeBlockThreeBackgroundColor;
+  void Function() changeBlockThreeBackgroundColor;
 }
 
 @Component2()
