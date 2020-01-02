@@ -27,9 +27,7 @@ class _$ConnectFluxBigBlockProps extends UiProps with ConnectPropsMixin {
 class ConnectFluxBigBlockComponent extends UiComponent2<ConnectFluxBigBlockProps> {
   @override
   render() {
-    return ((Dom.div()
-      ..style = {'padding': '50px', 'backgroundColor': props?.backgroundColor, 'color': 'white'}
-    )(
+    return ((Dom.div()..style = {'padding': '50px', 'backgroundColor': props?.backgroundColor, 'color': 'white'})(
       'This module uses a connect flux pattern to change its background color.',
       (Dom.button()
         ..onClick = (_) {
