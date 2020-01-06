@@ -41,4 +41,4 @@ class FragmentProps extends component_base.UiProps
 /// an element that adds an additional layer to the DOM (div, span, etc).
 ///
 /// See: <https://reactjs.org/docs/fragments.html>
-FragmentProps Fragment() => FragmentProps();
+FragmentProps Fragment([Map backingMap]) => FragmentProps(backingMap);
