@@ -37,8 +37,39 @@ class StrictModeProps extends component_base.UiProps
   String get propKeyNamespace => '';
 }
 
-/// StrictMode component that allows the wrapping of children without the necessity of using
-/// an element that adds an additional layer to the DOM (div, span, etc).
+/// A tool for highlighting potential problems in an application.
 ///
-/// See: <https://reactjs.org/docs/fragments.html>
+/// > Note:
+/// > Strict mode checks are run in development mode only; they do not impact the production build.
+///
+/// Like [Fragment], [StrictMode] does not render any visible UI.
+/// It activates additional checks and warnings for its descendants.
+/// [StrictMode] currently helps with:
+/// - Identifying components with unsafe lifecycles
+/// - Warning about legacy string ref API usage
+/// - Warning about deprecated findDOMNode usage
+/// - Detecting unexpected side effects
+/// - Detecting legacy context API
+///
+/// Example Usage:
+/// ```
+///   render() {
+///     return Dom.div()(
+///       Header()(),
+///       StrictMode()(
+///         Dom.div()(
+///           ComponentOne()(),
+///           ComponentTwo()(),
+///         ),
+///       ),
+///       Footer()(),
+///     );
+///   }
+/// ```
+/// In the above example, strict mode checks will not be run against the Header and Footer components.
+/// However, ComponentOne and ComponentTwo, as well as all of their descendants, will have the checks.
+///
+/// StrictMode logs all warnings to the browser console.
+///
+/// See: <https://reactjs.org/docs/strict-mode.html>
 StrictModeProps StrictMode([Map backingMap]) => StrictModeProps(backingMap);
