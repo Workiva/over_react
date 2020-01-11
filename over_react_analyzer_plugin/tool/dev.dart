@@ -9,7 +9,9 @@ main(args) async {
   ];
 
   config.analyze.entryPoints = directories;
-  config.format..paths = directories;
+  config.format
+    ..lineLength = 120
+    ..paths = directories;
 
   config.coverage
     ..checkedMode = true

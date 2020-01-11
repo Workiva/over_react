@@ -56,7 +56,7 @@ abstract class _ExtractComponentAssistContributorBase extends AssistContributorB
               indent: indent,
               firstLineIndent: 0,
             );
-          }
+          },
         );
       });
 
