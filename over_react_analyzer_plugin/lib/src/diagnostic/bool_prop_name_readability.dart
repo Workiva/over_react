@@ -1,10 +1,7 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
-import 'package:analyzer/dart/element/type.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
-import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
   static const code = const ErrorCode(

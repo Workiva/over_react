@@ -6,7 +6,6 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/source/source_range.dart';
-import 'package:analyzer/src/generated/java_core.dart';
 import 'package:analyzer_plugin/channel/channel.dart';
 import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
@@ -219,7 +218,7 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
     PrioritizedSourceChange fix;
     if (fixChange != null) {
       if (fixChange.edits.isNotEmpty) {
-        fixChange.message = formatList(fixKind.message, fixMessageArgs);
+        fixChange.message = _formatList(fixKind.message, fixMessageArgs);
         fix = new PrioritizedSourceChange(fixKind.priority, fixChange);
       }
     }
@@ -229,7 +228,7 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
       code.errorSeverity,
       code.type,
       location,
-      formatList(code.message, errorMessageArgs),
+      _formatList(code.message, errorMessageArgs),
       code.name,
       correction: null,
       hasFix: hasFix,
@@ -342,4 +341,51 @@ class GeneratorResult<T> {
       channel.sendNotification(notification);
     }
   }
+}
+
+// From package:analyzer/src/generated/java_core.dart
+// Copyright 2013, the Dart project authors. All rights reserved.
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are
+// met:
+//
+//     * Redistributions of source code must retain the above copyright
+//       notice, this list of conditions and the following disclaimer.
+//     * Redistributions in binary form must reproduce the above
+//       copyright notice, this list of conditions and the following
+//       disclaimer in the documentation and/or other materials provided
+//       with the distribution.
+//     * Neither the name of Google Inc. nor the names of its
+//       contributors may be used to endorse or promote products derived
+//       from this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+/// Inserts the given [arguments] into [pattern].
+///
+///     format('Hello, {0}!', ['John']) = 'Hello, John!'
+///     format('{0} are you {1}ing?', ['How', 'do']) = 'How are you doing?'
+///     format('{0} are you {1}ing?', ['What', 'read']) = 'What are you reading?'
+String _formatList(String pattern, List<Object> arguments) {
+  if (arguments == null || arguments.isEmpty) {
+    assert(!pattern.contains(RegExp(r'\{(\d+)\}')),
+        'Message requires arguments, but none were provided.');
+    return pattern;
+  }
+  return pattern.replaceAllMapped(RegExp(r'\{(\d+)\}'), (match) {
+    String indexStr = match.group(1);
+    int index = int.parse(indexStr);
+    Object arg = arguments[index];
+    assert(arg != null);
+    return arg?.toString();
+  });
 }
