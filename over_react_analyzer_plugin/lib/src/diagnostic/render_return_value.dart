@@ -18,11 +18,10 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_TYPE_WARNING);
 
-  static final falseToNull = FixKind(
-      preferNullOverFalseErrorCode.name, 200, missingBuilderFixMessage);
+  static final falseToNull = FixKind(preferNullOverFalseErrorCode.name, 200, missingBuilderFixMessage);
 
   @override
-   computeErrors(result, collector) async {
+  computeErrors(result, collector) async {
     final typeSystem = result.unit.declaredElement.context.typeSystem;
 
     // This is the return type even if it's not explicitly declared.
@@ -40,7 +39,9 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
         final code = invalidTypeErrorCode;
         final location = this.location(result, range: range.node(returnStatement));
         if (couldBeMissingBuilderInvocation(returnExpression)) {
-          await collector.addErrorWithFix(code, location,
+          await collector.addErrorWithFix(
+            code,
+            location,
             errorMessageArgs: [returnType.name, missingBuilderMessageSuffix],
             fixKind: addBuilderInvocationFix,
             computeFix: () => buildFileEdit(result, (builder) {
@@ -67,8 +68,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
 }
 
 //
-bool hasComponentAnnotation(ClassDeclaration c) =>
-    c.declaredElement.allSupertypes.any((m) => m.name == 'Component');
+bool hasComponentAnnotation(ClassDeclaration c) => c.declaredElement.allSupertypes.any((m) => m.name == 'Component');
 
 class RenderVisitor extends SimpleAstVisitor<void> {
   RenderReturnVisitor returnVisitor = RenderReturnVisitor();

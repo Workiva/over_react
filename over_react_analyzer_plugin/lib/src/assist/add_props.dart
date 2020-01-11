@@ -43,4 +43,3 @@ class AddPropsAssistContributor extends AssistContributorBase {
     collector.addAssist(PrioritizedSourceChange(addPropsKind.priority, sourceChange));
   }
 }
-

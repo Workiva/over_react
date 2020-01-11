@@ -28,10 +28,8 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
       if (allowedElements == null) return;
 
       if (!allowedElements.contains(nodeName)) {
-        collector.addError(code,
-            location(result, range: range.node(lhs.propertyName)),
-            errorMessageArgs: [propName, nodeName, allowedElements.join(',')]
-        );
+        collector.addError(code, location(result, range: range.node(lhs.propertyName)),
+            errorMessageArgs: [propName, nodeName, allowedElements.join(',')]);
       }
     });
   }
@@ -39,22 +37,39 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
 
 List<String> getAttributeMeta(String propName) {
   return allowedHtmlElementsForAttribute[propName] ??
-         allowedHtmlElementsForAttribute[propName.toLowerCase()] ??
-         allowedHtmlElementsForAttribute[_camelToSpinalCase(propName)];
+      allowedHtmlElementsForAttribute[propName.toLowerCase()] ??
+      allowedHtmlElementsForAttribute[_camelToSpinalCase(propName)];
 }
 
 String _camelToSpinalCase(String camel) {
-  return camel.replaceAllMapped(
-    RegExp(r'([^A-Z])([A-Z])'),
-    (match) => '${match.group(1)}-${match.group(2)}',
-  ).toLowerCase();
+  return camel
+      .replaceAllMapped(
+        RegExp(r'([^A-Z])([A-Z])'),
+        (match) => '${match.group(1)}-${match.group(2)}',
+      )
+      .toLowerCase();
 }
 
 const allowedHtmlElementsForAttribute = {
   'accept': ['form', 'input'],
   'accept-charset': ['form'],
   'action': ['form'],
-  'align': ['applet', 'caption', 'col', 'colgroup', 'hr', 'iframe', 'img', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr'],
+  'align': [
+    'applet',
+    'caption',
+    'col',
+    'colgroup',
+    'hr',
+    'iframe',
+    'img',
+    'table',
+    'tbody',
+    'td',
+    'tfoot',
+    'th',
+    'thead',
+    'tr'
+  ],
   'allow': ['iframe'],
   'alt': ['applet', 'area', 'img', 'input'],
   'async': ['script'],
@@ -88,7 +103,19 @@ const allowedHtmlElementsForAttribute = {
   'download': ['a', 'area'],
   'enctype': ['form'],
   'for': ['label', 'output'],
-  'form': ['button', 'fieldset', 'input', 'keygen', 'label', 'meter', 'object', 'output', 'progress', 'select', 'textarea'],
+  'form': [
+    'button',
+    'fieldset',
+    'input',
+    'keygen',
+    'label',
+    'meter',
+    'object',
+    'output',
+    'progress',
+    'select',
+    'textarea'
+  ],
   'formaction': ['input', 'button'],
   'headers': ['td', 'th'],
   'height': ['canvas', 'embed', 'iframe', 'img', 'input', 'object', 'video'],
@@ -117,7 +144,21 @@ const allowedHtmlElementsForAttribute = {
   'min': ['input', 'meter'],
   'multiple': ['input', 'select'],
   'muted': ['audio', 'video'],
-  'name': ['button', 'form', 'fieldset', 'iframe', 'input', 'keygen', 'object', 'output', 'select', 'textarea', 'map', 'meta', 'param'],
+  'name': [
+    'button',
+    'form',
+    'fieldset',
+    'iframe',
+    'input',
+    'keygen',
+    'object',
+    'output',
+    'select',
+    'textarea',
+    'map',
+    'meta',
+    'param'
+  ],
   'novalidate': ['form'],
   'open': ['details'],
   'optimum': ['meter'],
@@ -156,4 +197,3 @@ const allowedHtmlElementsForAttribute = {
   'width': ['canvas', 'embed', 'iframe', 'img', 'input', 'object', 'video'],
   'wrap': ['textarea'],
 };
-

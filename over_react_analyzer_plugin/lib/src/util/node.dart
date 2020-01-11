@@ -2,7 +2,10 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 
-String getNodeSource(InvocationExpression node, String fileContent, LineInfo lineInfo, {
+String getNodeSource(
+  InvocationExpression node,
+  String fileContent,
+  LineInfo lineInfo, {
   int indent,
   int firstLineIndent,
 }) {

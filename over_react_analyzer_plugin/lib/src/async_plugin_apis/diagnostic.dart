@@ -43,7 +43,6 @@ import 'package:analyzer_plugin/src/utilities/fixes/fixes.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 
-
 mixin DiagnosticMixin on ServerPlugin {
   List<DiagnosticContributor> getDiagnosticContributors(String path);
 
@@ -51,33 +50,25 @@ mixin DiagnosticMixin on ServerPlugin {
   Future<void> processDiagnosticsForResult(ResolvedUnitResult analysisResult) async {
     try {
       // If there is no relevant analysis result, notify the analyzer of no errors.
-      if (analysisResult.unit == null ||
-          analysisResult.libraryElement == null) {
-        channel.sendNotification(
-            plugin.AnalysisErrorsParams(analysisResult.path, [])
-                .toNotification());
+      if (analysisResult.unit == null || analysisResult.libraryElement == null) {
+        channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path, []).toNotification());
       } else {
         // If there is something to analyze, do so and notify the analyzer.
         // Note that notifying with an empty set of errors is important as
         // this clears errors if they were fixed.
         final generator = DiagnosticGenerator(getDiagnosticContributors(analysisResult.path));
         final result = await generator.generateErrors(analysisResult);
-        channel.sendNotification(plugin.AnalysisErrorsParams(
-                analysisResult.path, result.result)
-            .toNotification());
+        channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path, result.result).toNotification());
         result.sendNotifications(channel);
       }
     } catch (e, stackTrace) {
       // Notify the analyzer that an exception happened.
-      channel.sendNotification(plugin.PluginErrorParams(
-              false, e.toString(), stackTrace.toString())
-          .toNotification());
+      channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
     }
   }
 
   @override
-  Future<plugin.EditGetFixesResult> handleEditGetFixes(
-      plugin.EditGetFixesParams parameters) async {
+  Future<plugin.EditGetFixesResult> handleEditGetFixes(plugin.EditGetFixesParams parameters) async {
     // We want request errors to propagate if they throw
     final request = await _getFixesRequest(parameters);
     try {
@@ -87,9 +78,7 @@ mixin DiagnosticMixin on ServerPlugin {
       return result.result;
     } catch (e, stackTrace) {
       // Notify the analyzer that an exception happened.
-      channel.sendNotification(plugin.PluginErrorParams(
-              false, e.toString(), stackTrace.toString())
-          .toNotification());
+      channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
       return plugin.EditGetFixesResult([]);
     }
   }
@@ -99,15 +88,14 @@ mixin DiagnosticMixin on ServerPlugin {
     String path = parameters.file;
     int offset = parameters.offset;
     ResolvedUnitResult result = await getResolvedUnitResult(path);
-    return DartFixesRequestImpl(
-        resourceProvider, offset, null, result);
+    return DartFixesRequestImpl(resourceProvider, offset, null, result);
   }
 
   // from DartFixesMixin
   List<AnalysisError> _getErrors(int offset, ResolvedUnitResult result) {
 //    LineInfo lineInfo = result.lineInfo;
 //    int offsetLine = lineInfo.getLocation(offset).lineNumber;
-  // these errors don't include ones from the plugin, which doesn't seem right...
+    // these errors don't include ones from the plugin, which doesn't seem right...
 //    return result.errors.where((AnalysisError error) {
 //      int errorLine = lineInfo.getLocation(error.offset).lineNumber;
 //      return errorLine == offsetLine;

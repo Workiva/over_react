@@ -13,12 +13,11 @@ const instanceMemberWhitelist = [
   'typedStateFactoryJs',
 ];
 
-class PseudoStaticLifecycleDiagnostic
-    extends DiagnosticContributor {
+class PseudoStaticLifecycleDiagnostic extends DiagnosticContributor {
   static final code = ErrorCode(
       'over_react_pseudo_static_lifecycle',
       '\'{0}\' must be treated as a static method; only super-calls '
-      'and props/state utility methods (like \'newProps\' and \'typedPropsFactory\') are allowed.',
+          'and props/state utility methods (like \'newProps\' and \'typedPropsFactory\') are allowed.',
       AnalysisErrorSeverity.ERROR,
       AnalysisErrorType.STATIC_WARNING);
 
@@ -30,16 +29,14 @@ class PseudoStaticLifecycleDiagnostic
 
     // FIXME account for super calls
     for (var reference in visitor.nonStaticReferences) {
-      if (reference is SimpleIdentifier &&
-          instanceMemberWhitelist.contains(reference.name)) {
+      if (reference is SimpleIdentifier && instanceMemberWhitelist.contains(reference.name)) {
         continue;
       }
 
       int offset;
       int end;
 
-      final enclosingMethodName =
-          reference.thisOrAncestorOfType<MethodDeclaration>().name;
+      final enclosingMethodName = reference.thisOrAncestorOfType<MethodDeclaration>().name;
       if (reference is SuperExpression || reference is ThisExpression) {
         final parent = reference.parent;
         if (parent is MethodInvocation) {
@@ -90,8 +87,7 @@ class LifecycleMethodVisitor extends GeneralizingAstVisitor<void> {
 
   void visitClassOrMixinDeclaration(ClassOrMixinDeclaration node) {
     for (var member in node.members) {
-      if (member is MethodDeclaration &&
-          staticMethodNames.contains(member.name.name)) {
+      if (member is MethodDeclaration && staticMethodNames.contains(member.name.name)) {
         final visitor = ReferenceVisitor();
         member.body?.accept(visitor);
         nonStaticReferences.addAll(visitor.nonStaticReferences);
@@ -182,8 +178,7 @@ bool referencesImplicitThis(SimpleIdentifier identifier) {
   }
   // qualified property access
   if (parent is PropertyAccess) {
-    if (identical(parent.propertyName, identifier) &&
-        parent.realTarget != null) {
+    if (identical(parent.propertyName, identifier) && parent.realTarget != null) {
       return false;
     }
   }

@@ -26,7 +26,8 @@ class WrapUnwrapAssistContributor extends AssistContributorBase {
 
     final widgetSrc = request.result.content.substring(usage.node.offset, usage.node.end);
     final widgetSrcIndentedOneLevel = widgetSrc.split('\n').map((line) => '  ' + line).join('\n');
-    final widgetIndent = getIndent(request.result.content, request.result.unit.declaredElement.lineInfo, usage.node.offset);
+    final widgetIndent =
+        getIndent(request.result.content, request.result.unit.declaredElement.lineInfo, usage.node.offset);
 
     final sourceChange = await buildFileEdit(request.result, (builder) {
       builder.addReplacement(range.node(usage.node), (builder) {

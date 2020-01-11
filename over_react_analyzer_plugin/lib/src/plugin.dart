@@ -65,33 +65,31 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/style_missing_unit.dar
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
 import 'package:over_react_analyzer_plugin/src/navigation/prop_navigation_contributor.dart';
 
-
-
 /// Analyzer plugin for over_react.
-class OverReactAnalyzerPlugin extends ServerPlugin with
+class OverReactAnalyzerPlugin extends ServerPlugin
+    with
 //    OutlineMixin, DartOutlineMixin,
-    DiagnosticMixin,
-    NavigationMixin, DartNavigationMixin,
-    AsyncAssistsMixin, AsyncDartAssistsMixin {
+        DiagnosticMixin,
+        NavigationMixin,
+        DartNavigationMixin,
+        AsyncAssistsMixin,
+        AsyncDartAssistsMixin {
   OverReactAnalyzerPlugin(ResourceProvider provider) : super(provider);
 
   @override
   AnalysisDriverGeneric createAnalysisDriver(plugin.ContextRoot contextRoot) {
-    final root = ContextRoot(contextRoot.root, contextRoot.exclude,
-        pathContext: resourceProvider.pathContext)
+    final root = ContextRoot(contextRoot.root, contextRoot.exclude, pathContext: resourceProvider.pathContext)
       ..optionsFilePath = contextRoot.optionsFile;
-    final contextBuilder =
-        ContextBuilder(resourceProvider, sdkManager, null)
-          ..analysisDriverScheduler = analysisDriverScheduler
-          ..byteStore = byteStore
-          ..performanceLog = performanceLog
-          ..fileContentOverlay = fileContentOverlay;
+    final contextBuilder = ContextBuilder(resourceProvider, sdkManager, null)
+      ..analysisDriverScheduler = analysisDriverScheduler
+      ..byteStore = byteStore
+      ..performanceLog = performanceLog
+      ..fileContentOverlay = fileContentOverlay;
     final result = contextBuilder.buildDriver(root);
     runZoned(() {
       result.results.listen(processDiagnosticsForResult);
     }, onError: (e, stackTrace) {
-      channel.sendNotification(plugin.PluginErrorParams(
-              false, e.toString(), stackTrace.toString()).toNotification());
+      channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
     });
     return result;
   }
@@ -118,7 +116,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
 //  @override
 //  List<OutlineContributor> getOutlineContributors(String path) {
 //    return [
-      // Disabled for now since it doesn't seem to work consistently
+  // Disabled for now since it doesn't seem to work consistently
 //      new ReactElementOutlineContributor(),
 //    ];
 //  }
@@ -164,4 +162,3 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
     ];
   }
 }
-

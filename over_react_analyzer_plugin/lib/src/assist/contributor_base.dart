@@ -5,9 +5,7 @@ import 'package:analyzer_plugin/utilities/assist/assist.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 
-abstract class AssistContributorBase extends Object
-    implements AsyncAssistContributor {
-
+abstract class AssistContributorBase extends Object implements AsyncAssistContributor {
   DartAssistRequest request;
 
   AssistCollector collector;

@@ -9,7 +9,7 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart';
 
 export 'package:analyzer/src/ignore_comments/ignore_info.dart' show IgnoreInfo; // ignore: implementation_imports
 
-List<AnalysisError> filterIgnores(List<AnalysisError> errors, LineInfo lineInfo,  IgnoreInfo lazyIgnoreInfo()) {
+List<AnalysisError> filterIgnores(List<AnalysisError> errors, LineInfo lineInfo, IgnoreInfo lazyIgnoreInfo()) {
   if (errors.isEmpty) {
     return errors;
   }
@@ -17,8 +17,7 @@ List<AnalysisError> filterIgnores(List<AnalysisError> errors, LineInfo lineInfo,
   return _filterIgnored(errors, lazyIgnoreInfo(), lineInfo);
 }
 
-List<AnalysisError> _filterIgnored(
-    List<AnalysisError> errors, IgnoreInfo ignoreInfo, LineInfo lineInfo) {
+List<AnalysisError> _filterIgnored(List<AnalysisError> errors, IgnoreInfo ignoreInfo, LineInfo lineInfo) {
   if (errors.isEmpty || !ignoreInfo.hasIgnores) {
     return errors;
   }

@@ -13,7 +13,6 @@ Future<SourceChange> buildFileEdit(
   return builder.sourceChange;
 }
 
-
 //Future<SourceChange> Function() getFixComputer(
 //  ResolvedUnitResult result,
 //  FutureOr<void> Function(DartFileEditBuilder builder) buildFileEdit,
@@ -26,4 +25,3 @@ Future<SourceChange> buildFileEdit(
 //
 //  return fixComputer;
 //}
-

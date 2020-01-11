@@ -6,8 +6,7 @@ import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 const missingBuilderMessageSuffix = ' Are you missing the builder invocation?';
 const missingBuilderFixMessage = 'Add builder invocation.';
 
-const addBuilderInvocationFix = FixKind(
-    'over_react_add_builder_invocation', 200, missingBuilderFixMessage);
+const addBuilderInvocationFix = FixKind('over_react_add_builder_invocation', 200, missingBuilderFixMessage);
 
 bool couldBeMissingBuilderInvocation(Expression expression) {
   // TODO actually check against UiProps, or at the very least against Map

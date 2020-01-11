@@ -10,17 +10,14 @@ class DuplicatePropCascadeDiagnostic extends ComponentUsageDiagnosticContributor
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_TYPE_WARNING);
 
-  static final fixKind = FixKind(code.name, 200,
-      'Remove duplicate prop key / value',
+  static final fixKind = FixKind(code.name, 200, 'Remove duplicate prop key / value',
       appliedTogetherMessage: 'Remove duplicate prop keys / values');
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
     final propUsagesByName = <String, List<Pair<PropertyAccess, Expression>>>{};
     forEachCascadedProp(usage, (lhs, rhs) {
-      propUsagesByName
-          .putIfAbsent(lhs.propertyName.name, () => [])
-          .add(Pair(lhs, rhs));
+      propUsagesByName.putIfAbsent(lhs.propertyName.name, () => []).add(Pair(lhs, rhs));
     });
 
     for (var usages in propUsagesByName.values) {
@@ -28,7 +25,8 @@ class DuplicatePropCascadeDiagnostic extends ComponentUsageDiagnosticContributor
         for (var i = 0; i < usages.length; i++) {
           final lhs = usages[i].first;
           final rhs = usages[i].last;
-          await collector.addErrorWithFix(code,
+          await collector.addErrorWithFix(
+            code,
             location(result, range: range.node(lhs)),
             errorMessageArgs: [lhs.propertyName.name, i + 1, usages.length],
             fixKind: fixKind,

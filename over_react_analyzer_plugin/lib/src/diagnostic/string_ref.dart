@@ -15,10 +15,7 @@ class StringRefDiagnostic extends ComponentUsageDiagnosticContributor {
     forEachCascadedProp(usage, (lhs, rhs) {
       if (lhs.propertyName.name == 'ref' && rhs.staticType.name == 'String') {
         // todo add fix to convert this and usages to callback ref
-        collector.addError(
-          code,
-          location(result, range: range.node(rhs))
-        );
+        collector.addError(code, location(result, range: range.node(rhs)));
       }
     });
   }

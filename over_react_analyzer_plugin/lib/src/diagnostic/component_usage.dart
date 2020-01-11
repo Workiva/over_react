@@ -51,7 +51,6 @@ class ErrorCode {
 
   @override
   String toString() => uniqueName;
-
 }
 
 /// An object used to produce errors.
@@ -62,7 +61,8 @@ abstract class DiagnosticContributor {
   /// [result] into the given [collector].
   Future<void> computeErrors(ResolvedUnitResult result, DiagnosticCollector collector);
 
-  Location location(ResolvedUnitResult result, {
+  Location location(
+    ResolvedUnitResult result, {
     int offset,
     int end,
     int length,
@@ -116,21 +116,18 @@ class DiagnosticGenerator {
       try {
         await contributor.computeErrors(unitResult, collector);
       } catch (exception, stackTrace) {
-        notifications.add(PluginErrorParams(
-                false, exception.toString(), stackTrace.toString())
-            .toNotification());
+        notifications.add(PluginErrorParams(false, exception.toString(), stackTrace.toString()).toNotification());
       }
     }
 
     // The analyzer normally filters out errors with "ignore" comments,
     // but it doesn't do it for plugin errors, so we need to do that here.
     final lineInfo = unitResult.unit.lineInfo;
-    final filteredErrors = filterIgnores(collector.errors, lineInfo,
-      () => IgnoreInfo.calculateIgnores(unitResult.content, lineInfo));
+    final filteredErrors =
+        filterIgnores(collector.errors, lineInfo, () => IgnoreInfo.calculateIgnores(unitResult.content, lineInfo));
 
     return GeneratorResult(filteredErrors, notifications);
   }
-
 
   Future<GeneratorResult<EditGetFixesResult>> generateFixesResponse(DartFixesRequest request) async {
     final notifications = <Notification>[];
@@ -140,9 +137,7 @@ class DiagnosticGenerator {
       try {
         await contributor.computeErrors(request.result, collector);
       } catch (exception, stackTrace) {
-        notifications.add(PluginErrorParams(
-                false, exception.toString(), stackTrace.toString())
-            .toNotification());
+        notifications.add(PluginErrorParams(false, exception.toString(), stackTrace.toString()).toNotification());
       }
     }
 
@@ -168,13 +163,13 @@ class DiagnosticGenerator {
   }
 }
 
-
 /// An object that [DiagnosticContributor]s use to record errors.
 ///
 /// Clients may not extend, implement or mix-in this class.
 abstract class DiagnosticCollector {
   void addRawError(AnalysisError error, {PrioritizedSourceChange fix});
   void addError(ErrorCode code, Location location, {bool hasFix, List<Object> errorMessageArgs});
+
   ///
   /// use of [buildFileEdit] is recommended:
   /// // todo link to range/location tools
@@ -195,7 +190,11 @@ abstract class DiagnosticCollector {
   ///       return builder.sourceChange;
   ///     }
   ///
-  Future<void> addErrorWithFix(ErrorCode code, Location location, {FixKind fixKind, FutureOr<SourceChange> Function() computeFix, List<Object> errorMessageArgs, List<Object> fixMessageArgs});
+  Future<void> addErrorWithFix(ErrorCode code, Location location,
+      {FixKind fixKind,
+      FutureOr<SourceChange> Function() computeFix,
+      List<Object> errorMessageArgs,
+      List<Object> fixMessageArgs});
 }
 
 class DiagnosticCollectorImpl implements DiagnosticCollector {
@@ -214,7 +213,12 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
   }
 
   @override
-  void addError(ErrorCode code, Location location, {bool hasFix = false, FixKind fixKind, SourceChange fixChange, List<Object> errorMessageArgs, List<Object> fixMessageArgs}) {
+  void addError(ErrorCode code, Location location,
+      {bool hasFix = false,
+      FixKind fixKind,
+      SourceChange fixChange,
+      List<Object> errorMessageArgs,
+      List<Object> fixMessageArgs}) {
     PrioritizedSourceChange fix;
     if (fixChange != null) {
       if (fixChange.edits.isNotEmpty) {
@@ -239,20 +243,26 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
 
   @override
   Future<void> addErrorWithFix(ErrorCode code, Location location,
-      {FixKind fixKind, FutureOr<SourceChange> computeFix(), List<
-          Object> errorMessageArgs, List<Object> fixMessageArgs}) async {
-    addError(code, location, hasFix: true,
+      {FixKind fixKind,
+      FutureOr<SourceChange> computeFix(),
+      List<Object> errorMessageArgs,
+      List<Object> fixMessageArgs}) async {
+    addError(
+      code,
+      location,
+      hasFix: true,
       fixKind: fixKind,
       fixChange: shouldComputeFixes ? await computeFix() : null,
       errorMessageArgs: errorMessageArgs,
-      fixMessageArgs: fixMessageArgs,);
+      fixMessageArgs: fixMessageArgs,
+    );
   }
 }
 
-
 abstract class ComponentUsageDiagnosticContributor extends DiagnosticContributor {
   // computeErrorsForUsage(result, collector, usage) async {
-  Future<void> computeErrorsForUsage(ResolvedUnitResult result, DiagnosticCollector collector, FluentComponentUsage usage);
+  Future<void> computeErrorsForUsage(
+      ResolvedUnitResult result, DiagnosticCollector collector, FluentComponentUsage usage);
 
   @override
   Future<void> computeErrors(ResolvedUnitResult result, DiagnosticCollector collector) async {
@@ -317,7 +327,6 @@ class ComponentUsageVisitor extends RecursiveAstVisitor<void> {
 //  }
 //}
 
-
 /// The result produced by a generator.
 ///
 /// Clients may not extend, implement or mix-in this class.
@@ -377,8 +386,7 @@ class GeneratorResult<T> {
 ///     format('{0} are you {1}ing?', ['What', 'read']) = 'What are you reading?'
 String _formatList(String pattern, List<Object> arguments) {
   if (arguments == null || arguments.isEmpty) {
-    assert(!pattern.contains(RegExp(r'\{(\d+)\}')),
-        'Message requires arguments, but none were provided.');
+    assert(!pattern.contains(RegExp(r'\{(\d+)\}')), 'Message requires arguments, but none were provided.');
     return pattern;
   }
   return pattern.replaceAllMapped(RegExp(r'\{(\d+)\}'), (match) {

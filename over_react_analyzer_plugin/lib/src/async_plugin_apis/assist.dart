@@ -23,8 +23,7 @@ class _AssistCollectorImpl implements AssistCollector {
 abstract class AsyncAssistContributor {
   /// Contribute assists for the location in the file specified by the given
   /// [request] into the given [collector].
-  Future<void> computeAssists(
-      covariant AssistRequest request, AssistCollector collector);
+  Future<void> computeAssists(covariant AssistRequest request, AssistCollector collector);
 }
 
 /// A generator that will generate an 'edit.getAssists' response.
@@ -41,17 +40,14 @@ class _AsyncAssistGenerator {
   /// Create an 'edit.getAssists' response for the location in the file specified
   /// by the given [request]. If any of the contributors throws an exception,
   /// also create a non-fatal 'plugin.error' notification.
-  Future<GeneratorResult<EditGetAssistsResult>> generateAssistsResponse(
-      AssistRequest request) async {
+  Future<GeneratorResult<EditGetAssistsResult>> generateAssistsResponse(AssistRequest request) async {
     final notifications = <Notification>[];
     final collector = _AssistCollectorImpl();
     for (var contributor in contributors) {
       try {
         await contributor.computeAssists(request, collector);
       } catch (exception, stackTrace) {
-        notifications.add(PluginErrorParams(
-                false, exception.toString(), stackTrace.toString())
-            .toNotification());
+        notifications.add(PluginErrorParams(false, exception.toString(), stackTrace.toString()).toNotification());
       }
     }
     final result = EditGetAssistsResult(collector.assists);
@@ -76,8 +72,7 @@ abstract class AsyncAssistsMixin implements ServerPlugin {
   Future<AssistRequest> getAssistRequest(EditGetAssistsParams parameters);
 
   @override
-  Future<EditGetAssistsResult> handleEditGetAssists(
-      EditGetAssistsParams parameters) async {
+  Future<EditGetAssistsResult> handleEditGetAssists(EditGetAssistsParams parameters) async {
     final path = parameters.file;
     final request = await getAssistRequest(parameters);
     final generator = _AsyncAssistGenerator(getAssistContributors(path));
@@ -96,20 +91,17 @@ abstract class AsyncAssistsMixin implements ServerPlugin {
 /// [AsyncAssistsMixin] as a mix-in.
 abstract class AsyncDartAssistsMixin implements AsyncAssistsMixin {
   @override
-  Future<AssistRequest> getAssistRequest(
-      EditGetAssistsParams parameters) async {
+  Future<AssistRequest> getAssistRequest(EditGetAssistsParams parameters) async {
     final path = parameters.file;
     final result = await getResolvedUnitResult(path);
-    return _DartAssistRequestImpl(
-        resourceProvider, parameters.offset, parameters.length, result);
+    return _DartAssistRequestImpl(resourceProvider, parameters.offset, parameters.length, result);
   }
 }
 
 /// A concrete implementation of [DartAssistRequest].
 class _DartAssistRequestImpl implements DartAssistRequest {
   /// Initialize a newly create request with the given data.
-  _DartAssistRequestImpl(
-      this.resourceProvider, this.offset, this.length, this.result);
+  _DartAssistRequestImpl(this.resourceProvider, this.offset, this.length, this.result);
 
   @override
   final ResourceProvider resourceProvider;

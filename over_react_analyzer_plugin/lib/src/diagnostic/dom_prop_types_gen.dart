@@ -13,11 +13,8 @@ main() {
     if (elementsColumn == 'Global attribute') {
       globalAttributes.add(attr);
     } else {
-      supportedElements[attr] = RegExp(r'<(\w+)>')
-          .allMatches(elementsColumn)
-          .map((match) => match.group(1))
-          .map(_elToReactEl)
-          .toList();
+      supportedElements[attr] =
+          RegExp(r'<(\w+)>').allMatches(elementsColumn).map((match) => match.group(1)).map(_elToReactEl).toList();
     }
   }
 

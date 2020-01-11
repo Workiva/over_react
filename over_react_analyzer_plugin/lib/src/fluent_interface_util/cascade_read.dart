@@ -16,7 +16,8 @@ void forEachCascadedProp(FluentComponentUsage usage, void f(PropertyAccess lhs, 
   }
 }
 
-Future<void> forEachCascadedPropAsync(FluentComponentUsage usage, FutureOr<void> f(PropertyAccess lhs, Expression rhs)) async {
+Future<void> forEachCascadedPropAsync(
+    FluentComponentUsage usage, FutureOr<void> f(PropertyAccess lhs, Expression rhs)) async {
   if (usage.cascadeExpression == null) return;
 
   for (var section in usage.cascadeExpression.cascadeSections) {
@@ -28,7 +29,6 @@ Future<void> forEachCascadedPropAsync(FluentComponentUsage usage, FutureOr<void>
     }
   }
 }
-
 
 Iterable<SimpleIdentifier> getSetPropNames(FluentComponentUsage usage) sync* {
   if (usage.cascadeExpression == null) return;

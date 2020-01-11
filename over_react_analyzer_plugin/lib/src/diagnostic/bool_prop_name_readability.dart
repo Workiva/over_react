@@ -11,7 +11,6 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
     AnalysisErrorType.LINT,
   );
 
-
   @override
   computeErrors(result, collector) async {
     final typeProvider = result.unit.declaredElement.context.typeProvider;
@@ -49,7 +48,7 @@ List checkBoolPropReadability(String propName) {
     'lowercase': isLowercase(propName),
   };
 
-  checklist.forEach((check, result){
+  checklist.forEach((check, result) {
     if (result) {
       isReadable = true;
       reasons.add(check);
@@ -71,8 +70,7 @@ bool hasBooleanContain(String propName) {
   return propName.toLowerCase().contains(RegExp('(${allowedContainsForBoolProp.join("|")})'));
 }
 
-bool isPropsClass(ClassDeclaration c) =>
-    c.declaredElement.allSupertypes.any((m) => m.name == 'UiProps');
+bool isPropsClass(ClassDeclaration c) => c.declaredElement.allSupertypes.any((m) => m.name == 'UiProps');
 
 class PropsVisitor extends SimpleAstVisitor<void> {
   List<ClassDeclaration> returnClasses = [];

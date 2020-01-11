@@ -5,13 +5,13 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class ArrowFunctionPropCascadeDiagnostic extends ComponentUsageDiagnosticContributor {
-  static final code = ErrorCode('over_react_cascaded_arrow_functions',
+  static final code = ErrorCode(
+      'over_react_cascaded_arrow_functions',
       'Unparenthesized arrow function values prevent subsequent cascades',
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_WARNING);
 
-  static final fixKind = FixKind(code.name, 200,
-      'Wrap arrow function in parentheses',
+  static final fixKind = FixKind(code.name, 200, 'Wrap arrow function in parentheses',
       appliedTogetherMessage: 'Wrap arrow functions in parentheses');
 
   @override

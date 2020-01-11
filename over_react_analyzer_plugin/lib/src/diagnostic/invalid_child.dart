@@ -20,11 +20,13 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
     final typeSystem = result.unit.declaredElement.context.typeSystem;
 
     for (var argument in usage.node.argumentList.arguments) {
-      await validateReactChildType(argument.staticType, typeSystem,  onInvalidType: (invalidType) async {
+      await validateReactChildType(argument.staticType, typeSystem, onInvalidType: (invalidType) async {
         final location = this.location(result, range: range.node(argument));
 
         if (couldBeMissingBuilderInvocation(argument)) {
-          await collector.addErrorWithFix(code, location,
+          await collector.addErrorWithFix(
+            code,
+            location,
             errorMessageArgs: [invalidType.displayName, missingBuilderMessageSuffix],
             fixKind: addBuilderInvocationFix,
             computeFix: () => buildFileEdit(result, (builder) {
@@ -39,7 +41,8 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
   }
 }
 
-Future<void> validateReactChildType(DartType type,TypeSystem typeSystem, {@required FutureOr<void> onInvalidType(DartType invalidType)}) async {
+Future<void> validateReactChildType(DartType type, TypeSystem typeSystem,
+    {@required FutureOr<void> onInvalidType(DartType invalidType)}) async {
   // Couldn't be resolved
   if (type == null) return;
   // Couldn't be resolved to anything more specific; `Object` might be

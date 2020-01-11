@@ -12,8 +12,7 @@ class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_WARNING);
 
-  static final fixKind = FixKind(code.name, 200,
-      "Convert to number (and treat as 'px')",
+  static final fixKind = FixKind(code.name, 200, "Convert to number (and treat as 'px')",
       appliedTogetherMessage: "Convert to numbers (and treat as 'px')");
 
   @override
@@ -126,4 +125,3 @@ const unitlessNumberStyles = {
   'strokeOpacity',
   'strokeWidth'
 };
-

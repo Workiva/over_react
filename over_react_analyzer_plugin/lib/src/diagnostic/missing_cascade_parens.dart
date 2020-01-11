@@ -1,10 +1,6 @@
 // ignore: deprecated_member_use
 import 'package:analyzer/analyzer.dart'
-    show
-        CompileTimeErrorCode,
-        NodeLocator,
-        StaticTypeWarningCode,
-        StaticWarningCode;
+    show CompileTimeErrorCode, NodeLocator, StaticTypeWarningCode, StaticWarningCode;
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
@@ -21,8 +17,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
   // Make smaller (higher priority) than
   // REMOVE_PARENTHESIS_IN_GETTER_INVOCATION
 
-  static final fixKind = FixKind(
-      code.name, 400, 'Add parentheses around cascade',
+  static final fixKind = FixKind(code.name, 400, 'Add parentheses around cascade',
       appliedTogetherMessage: 'Add parentheses around cascades');
 
   @override
@@ -42,16 +37,13 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
       }.contains(error.errorCode);
 
       if (isBadFunction || isBadArity || isVoidUsage) {
-        final node = NodeLocator(error.offset, error.offset + error.length)
-            .searchWithin(result.unit);
+        final node = NodeLocator(error.offset, error.offset + error.length).searchWithin(result.unit);
 
         final debug = AnalyzerDebugHelper(result, collector);
         debug.log('node.type: ${node.runtimeType}');
 
         InvocationExpression invocation;
-        if (isBadArity &&
-            node is ArgumentList &&
-            node.parent is InvocationExpression) {
+        if (isBadArity && node is ArgumentList && node.parent is InvocationExpression) {
           invocation = node.parent;
         } else if (isBadFunction && node.parent is InvocationExpression) {
           // FIXME we explain why we use the parent instead of node
@@ -63,10 +55,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
 
         if (invocation == null) return;
 
-        final cascade = invocation.parent
-            ?.tryCast<AssignmentExpression>()
-            ?.parent
-            ?.tryCast<CascadeExpression>();
+        final cascade = invocation.parent?.tryCast<AssignmentExpression>()?.parent?.tryCast<CascadeExpression>();
         if (cascade != null) {
           if (cascade?.target?.staticType?.isPropsClass ?? false) {
             await collector.addErrorWithFix(
@@ -84,13 +73,9 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
 
         debug.log('${invocation.function.staticType?.displayName}');
 
-        if (isBadFunction &&
-            (invocation.function.staticType?.isReactElement ?? false)) {
+        if (isBadFunction && (invocation.function.staticType?.isReactElement ?? false)) {
           InvocationExpression expr = invocation.function?.tryCast() ??
-              invocation.function
-                  ?.tryCast<ParenthesizedExpression>()
-                  ?.unParenthesized
-                  ?.tryCast();
+              invocation.function?.tryCast<ParenthesizedExpression>()?.unParenthesized?.tryCast();
 
           debug.log('expr: ${expr?.runtimeType} ${expr?.toSource()}');
           debug.log('expr.parent: ${expr?.parent?.runtimeType} ${expr?.parent?.toSource()}');

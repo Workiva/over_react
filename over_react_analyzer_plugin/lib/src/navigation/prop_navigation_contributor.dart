@@ -13,7 +13,6 @@ class PropNavigationContributor implements NavigationContributor {
   @override
   void computeNavigation(NavigationRequest request, NavigationCollector collector) {
     if (request is DartNavigationRequest) {
-
       final lineInfo = request.result.unit.lineInfo;
 
       // TODO also visit usages of props outside of fluent interface (e.g., within components, in MapViews, etc,)?
@@ -39,7 +38,8 @@ class PropNavigationContributor implements NavigationContributor {
                   // Getter
                   nonSyntheticTarget = target;
                   targetKind = protocol.ElementKind.GETTER;
-                } else if (!target.variable.isSynthetic) { // todo is this check needed?
+                } else if (!target.variable.isSynthetic) {
+                  // todo is this check needed?
                   // Getter declared synthetically via field
                   nonSyntheticTarget = target.variable;
                   targetKind = protocol.ElementKind.FIELD;
@@ -66,7 +66,8 @@ class PropNavigationContributor implements NavigationContributor {
               );
             }
           });
-        } {
+        }
+        {
           // TODO TypeParameterType
         }
       });

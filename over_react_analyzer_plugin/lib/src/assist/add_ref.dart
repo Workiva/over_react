@@ -55,9 +55,7 @@ class AddRefAssistContributor extends AssistContributorBase {
           : getIndent(request.result.content, lineInfo, insertionParent.parent.offset) + '  ';
 
       // TODO how to get the linked edit to show up on the ref declaration instead? Why does this afterwards messes up the offsets?
-      addProp(usage, builder, request.result.content, lineInfo,
-          name: 'ref',
-          buildValueEdit: (builder) {
+      addProp(usage, builder, request.result.content, lineInfo, name: 'ref', buildValueEdit: (builder) {
         builder.write('(ref) { ');
         builder.addSimpleLinkedEdit(nameGroup, refName);
         builder.write(' = ref; }');
@@ -142,6 +140,7 @@ Pair<int, AstNode> getRefInsertionLocation(AstNode node, LineInfo lineInfo) {
 int prevLine(int offset, LineInfo lineInfo) {
   return lineInfo.getOffsetOfLine(lineInfo.getLocation(offset).lineNumber - 1);
 }
+
 int nextLine(int offset, LineInfo lineInfo) {
   return lineInfo.getOffsetOfLineAfter(offset);
 }

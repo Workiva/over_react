@@ -4,20 +4,15 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor {
-  static final code = ErrorCode(
-      'over_react_required_prop',
-      'The prop {0} is required.',
-      AnalysisErrorSeverity.WARNING,
+  static final code = ErrorCode('over_react_required_prop', 'The prop {0} is required.', AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_WARNING);
 
-  static final fixKind = FixKind(
-      code.name, 200, 'Add required prop \'{0}\'');
+  static final fixKind = FixKind(code.name, 200, 'Add required prop \'{0}\'');
 
   ClassElement _cachedAccessorClass;
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-
     final requiredFields = <FieldElement>[];
 
     // FIXME this almost definitely needs optimization/caching
