@@ -13,7 +13,7 @@ main() {
     if (elementsColumn == 'Global attribute') {
       globalAttributes.add(attr);
     } else {
-      supportedElements[attr] = new RegExp(r'<(\w+)>')
+      supportedElements[attr] = RegExp(r'<(\w+)>')
           .allMatches(elementsColumn)
           .map((match) => match.group(1))
           .map(_elToReactEl)
@@ -21,7 +21,7 @@ main() {
     }
   }
 
-  final buffer = new StringBuffer();
+  final buffer = StringBuffer();
   buffer.writeln('const allowedHtmlElementsForAttribute = {');
   supportedElements.forEach((key, value) {
     buffer.writeln('  \'$key\': ['

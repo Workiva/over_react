@@ -9,7 +9,7 @@ class AnalyzerDebugHelper {
 
   ResolvedUnitResult result;
   DiagnosticCollector collector;
-  static const code = const ErrorCode(
+  static const code = ErrorCode(
       'over_react_debug_analyzer_plugin_helper',
       "{0}",
       AnalysisErrorSeverity.INFO,
@@ -23,7 +23,7 @@ class AnalyzerDebugHelper {
   log(String message, [ResolvedUnitResult new_result, DiagnosticCollector new_collector]) {
     this.result = new_result ?? result;
     this.collector = new_collector ?? collector;
-    collector.addError(code, new Location(result.path, 0, 0, 1, 0),
+    collector.addError(code, Location(result.path, 0, 0, 1, 0),
                 errorMessageArgs: [message]);
   }
 }

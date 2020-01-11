@@ -7,7 +7,7 @@ import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/fix.dart';
 
 class WrapUnwrapAssistContributor extends AssistContributorBase {
-  static AssistKind wrapInElement = new AssistKind('wrapInElement', 30, 'Wrap in another ReactElement');
+  static AssistKind wrapInElement = AssistKind('wrapInElement', 30, 'Wrap in another ReactElement');
 
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
@@ -44,6 +44,6 @@ class WrapUnwrapAssistContributor extends AssistContributorBase {
     sourceChange
       ..message = wrapInElement.message
       ..id = wrapInElement.id;
-    collector.addAssist(new PrioritizedSourceChange(wrapInElement.priority, sourceChange));
+    collector.addAssist(PrioritizedSourceChange(wrapInElement.priority, sourceChange));
   }
 }

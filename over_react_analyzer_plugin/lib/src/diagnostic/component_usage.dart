@@ -74,10 +74,10 @@ abstract class DiagnosticContributor {
       end = range.end;
     } else {
       if (offset == null) {
-        throw new ArgumentError.notNull('offset or range');
+        throw ArgumentError.notNull('offset or range');
       }
       if (end != null && length != null) {
-        throw new ArgumentError('Cannot specify both `end` and `length`.');
+        throw ArgumentError('Cannot specify both `end` and `length`.');
       } else if (length != null) {
         end = offset + length;
       } else if (end != null) {
@@ -89,7 +89,7 @@ abstract class DiagnosticContributor {
     }
 
     final info = result.lineInfo.getLocation(offset);
-    return new Location(result.path, offset, length, info.lineNumber, info.columnNumber);
+    return Location(result.path, offset, length, info.lineNumber, info.columnNumber);
   }
 }
 
@@ -111,12 +111,12 @@ class DiagnosticGenerator {
   /// also create a non-fatal 'plugin.error' notification.
   Future<GeneratorResult<List<AnalysisError>>> generateErrors(ResolvedUnitResult unitResult) async {
     final notifications = <Notification>[];
-    final collector = new DiagnosticCollectorImpl(false);
+    final collector = DiagnosticCollectorImpl(false);
     for (DiagnosticContributor contributor in contributors) {
       try {
         await contributor.computeErrors(unitResult, collector);
       } catch (exception, stackTrace) {
-        notifications.add(new PluginErrorParams(
+        notifications.add(PluginErrorParams(
                 false, exception.toString(), stackTrace.toString())
             .toNotification());
       }
@@ -134,13 +134,13 @@ class DiagnosticGenerator {
 
   Future<GeneratorResult<EditGetFixesResult>> generateFixesResponse(DartFixesRequest request) async {
     final notifications = <Notification>[];
-    final collector = new DiagnosticCollectorImpl(true);
+    final collector = DiagnosticCollectorImpl(true);
 
     for (var contributor in contributors) {
       try {
         await contributor.computeErrors(request.result, collector);
       } catch (exception, stackTrace) {
-        notifications.add(new PluginErrorParams(
+        notifications.add(PluginErrorParams(
                 false, exception.toString(), stackTrace.toString())
             .toNotification());
       }
@@ -164,7 +164,7 @@ class DiagnosticGenerator {
       }
     }
 
-    return GeneratorResult(new EditGetFixesResult(fixes), notifications);
+    return GeneratorResult(EditGetFixesResult(fixes), notifications);
   }
 }
 
@@ -219,7 +219,7 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
     if (fixChange != null) {
       if (fixChange.edits.isNotEmpty) {
         fixChange.message = _formatList(fixKind.message, fixMessageArgs);
-        fix = new PrioritizedSourceChange(fixKind.priority, fixChange);
+        fix = PrioritizedSourceChange(fixKind.priority, fixChange);
       }
     }
 

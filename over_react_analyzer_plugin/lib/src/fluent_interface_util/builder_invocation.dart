@@ -20,24 +20,24 @@ List<SourceEdit> getMissingInvocationBuilderEdits(Expression expression) {
   if (expression.unParenthesized != expression) {
     // Expression is already parenthesized
     return [
-      new SourceEdit(expression.end, 0, '()'),
+      SourceEdit(expression.end, 0, '()'),
     ];
   } else if (expression.parent is ParenthesizedExpression) {
     // Expression is the child of a parenthesized expression
     return [
-      new SourceEdit(expression.parent.end, 0, '()'),
+      SourceEdit(expression.parent.end, 0, '()'),
     ];
   } else {
     if (expression is CascadeExpression) {
       // Expression is unparenthesized cascade
       return [
-        new SourceEdit(expression.offset, 0, '('),
-        new SourceEdit(expression.end + '('.length, 0, ')()'),
+        SourceEdit(expression.offset, 0, '('),
+        SourceEdit(expression.end + '('.length, 0, ')()'),
       ];
     } else {
       // Expression is unparenthesized without cascade
       return [
-        new SourceEdit(expression.end, 0, '()'),
+        SourceEdit(expression.end, 0, '()'),
       ];
     }
   }

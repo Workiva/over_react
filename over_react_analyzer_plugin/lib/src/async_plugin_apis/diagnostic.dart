@@ -54,22 +54,22 @@ mixin DiagnosticMixin on ServerPlugin {
       if (analysisResult.unit == null ||
           analysisResult.libraryElement == null) {
         channel.sendNotification(
-            new plugin.AnalysisErrorsParams(analysisResult.path, [])
+            plugin.AnalysisErrorsParams(analysisResult.path, [])
                 .toNotification());
       } else {
         // If there is something to analyze, do so and notify the analyzer.
         // Note that notifying with an empty set of errors is important as
         // this clears errors if they were fixed.
-        final generator = new DiagnosticGenerator(getDiagnosticContributors(analysisResult.path));
+        final generator = DiagnosticGenerator(getDiagnosticContributors(analysisResult.path));
         final result = await generator.generateErrors(analysisResult);
-        channel.sendNotification(new plugin.AnalysisErrorsParams(
+        channel.sendNotification(plugin.AnalysisErrorsParams(
                 analysisResult.path, result.result)
             .toNotification());
         result.sendNotifications(channel);
       }
     } catch (e, stackTrace) {
       // Notify the analyzer that an exception happened.
-      channel.sendNotification(new plugin.PluginErrorParams(
+      channel.sendNotification(plugin.PluginErrorParams(
               false, e.toString(), stackTrace.toString())
           .toNotification());
     }
@@ -81,16 +81,16 @@ mixin DiagnosticMixin on ServerPlugin {
     // We want request errors to propagate if they throw
     final request = await _getFixesRequest(parameters);
     try {
-      final generator = new DiagnosticGenerator(getDiagnosticContributors(parameters.file));
+      final generator = DiagnosticGenerator(getDiagnosticContributors(parameters.file));
       final result = await generator.generateFixesResponse(request);
       result.sendNotifications(channel);
       return result.result;
     } catch (e, stackTrace) {
       // Notify the analyzer that an exception happened.
-      channel.sendNotification(new plugin.PluginErrorParams(
+      channel.sendNotification(plugin.PluginErrorParams(
               false, e.toString(), stackTrace.toString())
           .toNotification());
-      return new plugin.EditGetFixesResult([]);
+      return plugin.EditGetFixesResult([]);
     }
   }
 
@@ -99,7 +99,7 @@ mixin DiagnosticMixin on ServerPlugin {
     String path = parameters.file;
     int offset = parameters.offset;
     ResolvedUnitResult result = await getResolvedUnitResult(path);
-    return new DartFixesRequestImpl(
+    return DartFixesRequestImpl(
         resourceProvider, offset, null, result);
   }
 

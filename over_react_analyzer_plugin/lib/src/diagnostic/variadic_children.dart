@@ -4,14 +4,14 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 
 class VariadicChildrenDiagnostic extends ComponentUsageDiagnosticContributor {
-  static const code = const ErrorCode(
+  static const code = ErrorCode(
     'over_react_variadic_children',
     'Variadic children should be used instead of lists where possible',
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
   );
 
-  static final fixKind = new FixKind(code.name, 200,
+  static final fixKind = FixKind(code.name, 200,
       'Unwrap children from list literal',
       appliedTogetherMessage: 'Unwrap children from list literals');
 

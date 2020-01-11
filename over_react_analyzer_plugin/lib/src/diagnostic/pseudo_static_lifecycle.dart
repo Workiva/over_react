@@ -25,7 +25,7 @@ class PseudoStaticLifecycleDiagnostic
   @override
   computeErrors(result, collector) async {
     // This is the return type even if it's not explicitly declared.
-    final visitor = new LifecycleMethodVisitor();
+    final visitor = LifecycleMethodVisitor();
     result.unit.accept(visitor);
 
     // FIXME account for super calls
@@ -92,7 +92,7 @@ class LifecycleMethodVisitor extends GeneralizingAstVisitor<void> {
     for (var member in node.members) {
       if (member is MethodDeclaration &&
           staticMethodNames.contains(member.name.name)) {
-        final visitor = new ReferenceVisitor();
+        final visitor = ReferenceVisitor();
         member.body?.accept(visitor);
         nonStaticReferences.addAll(visitor.nonStaticReferences);
       }

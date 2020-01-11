@@ -17,7 +17,7 @@ abstract class AssistContributorBase extends Object
   AnalysisSession get session => request.result.session;
 
   bool setupCompute() {
-    var locator = new NodeLocator(request.offset, request.offset + request.length);
+    var locator = NodeLocator(request.offset, request.offset + request.length);
     node = locator.searchWithin(request.result.unit);
     return node != null;
   }

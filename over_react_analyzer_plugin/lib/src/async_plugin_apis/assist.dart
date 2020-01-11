@@ -44,18 +44,18 @@ class _AsyncAssistGenerator {
   Future<GeneratorResult<EditGetAssistsResult>> generateAssistsResponse(
       AssistRequest request) async {
     final notifications = <Notification>[];
-    final collector = new _AssistCollectorImpl();
+    final collector = _AssistCollectorImpl();
     for (var contributor in contributors) {
       try {
         await contributor.computeAssists(request, collector);
       } catch (exception, stackTrace) {
-        notifications.add(new PluginErrorParams(
+        notifications.add(PluginErrorParams(
                 false, exception.toString(), stackTrace.toString())
             .toNotification());
       }
     }
-    final result = new EditGetAssistsResult(collector.assists);
-    return new GeneratorResult(result, notifications);
+    final result = EditGetAssistsResult(collector.assists);
+    return GeneratorResult(result, notifications);
   }
 }
 
@@ -80,7 +80,7 @@ abstract class AsyncAssistsMixin implements ServerPlugin {
       EditGetAssistsParams parameters) async {
     final path = parameters.file;
     final request = await getAssistRequest(parameters);
-    final generator = new _AsyncAssistGenerator(getAssistContributors(path));
+    final generator = _AsyncAssistGenerator(getAssistContributors(path));
     final result = await generator.generateAssistsResponse(request);
     result.sendNotifications(channel);
     return result.result;
@@ -100,7 +100,7 @@ abstract class AsyncDartAssistsMixin implements AsyncAssistsMixin {
       EditGetAssistsParams parameters) async {
     final path = parameters.file;
     final result = await getResolvedUnitResult(path);
-    return new _DartAssistRequestImpl(
+    return _DartAssistRequestImpl(
         resourceProvider, parameters.offset, parameters.length, result);
   }
 }

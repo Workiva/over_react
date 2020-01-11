@@ -4,7 +4,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 
 class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
-  static const code = const ErrorCode(
+  static const code = ErrorCode(
     'over_react_bool_prop_name_readability',
     "'{0}.{1}' isn't an easily readable Boolean prop name. Try using a prefix like: {2}",
     AnalysisErrorSeverity.INFO,
@@ -15,7 +15,7 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
   @override
   computeErrors(result, collector) async {
     final typeProvider = result.unit.declaredElement.context.typeProvider;
-    final visitor = new PropsVisitor();
+    final visitor = PropsVisitor();
 
     result.unit.accept(visitor);
 
@@ -64,11 +64,11 @@ bool isLowercase(String str) {
 }
 
 bool hasBooleanPrefix(String propName) {
-  return propName.toLowerCase().startsWith(new RegExp('(${allowedPrefixesForBoolProp.join("|")})'));
+  return propName.toLowerCase().startsWith(RegExp('(${allowedPrefixesForBoolProp.join("|")})'));
 }
 
 bool hasBooleanContain(String propName) {
-  return propName.toLowerCase().contains(new RegExp('(${allowedContainsForBoolProp.join("|")})'));
+  return propName.toLowerCase().contains(RegExp('(${allowedContainsForBoolProp.join("|")})'));
 }
 
 bool isPropsClass(ClassDeclaration c) =>

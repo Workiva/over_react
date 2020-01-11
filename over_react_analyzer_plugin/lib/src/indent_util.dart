@@ -8,7 +8,7 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart';
 ///     setIndent('  foo', 2, ' ');    // ' foo'
 SourceEdit setIndent(String source, LineInfo info, int offset, String indent) {
   var column = info.getLocation(offset).columnNumber - 1;
-  return new SourceEdit(offset - column, column, indent);
+  return SourceEdit(offset - column, column, indent);
 }
 
 /// Returns the whitespace characters, or "indent" from the start of
@@ -22,7 +22,7 @@ SourceEdit setIndent(String source, LineInfo info, int offset, String indent) {
 String getIndent(String source, LineInfo info, int offset) {
   final beginningOfColumn = offset - (info.getLocation(offset).columnNumber - 1);
   final lineContentUpToOffset = source.substring(beginningOfColumn, offset);
-  return new RegExp(r'^ *')
+  return RegExp(r'^ *')
       .firstMatch(lineContentUpToOffset)[0];
 }
 

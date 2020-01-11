@@ -42,7 +42,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
       }.contains(error.errorCode);
 
       if (isBadFunction || isBadArity || isVoidUsage) {
-        final node = new NodeLocator(error.offset, error.offset + error.length)
+        final node = NodeLocator(error.offset, error.offset + error.length)
             .searchWithin(result.unit);
 
         final debug = AnalyzerDebugHelper(result, collector);

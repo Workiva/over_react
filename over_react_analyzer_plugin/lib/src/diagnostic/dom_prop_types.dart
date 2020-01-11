@@ -2,7 +2,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor {
-  static const code = const ErrorCode(
+  static const code = ErrorCode(
     'over_react_invalid_dom_attribute',
     "{}' isn't a valid HTML attribute prop for '{}'. It may only be used on: {}",
     AnalysisErrorSeverity.WARNING,
@@ -45,7 +45,7 @@ List<String> getAttributeMeta(String propName) {
 
 String _camelToSpinalCase(String camel) {
   return camel.replaceAllMapped(
-    new RegExp(r'([^A-Z])([A-Z])'),
+    RegExp(r'([^A-Z])([A-Z])'),
     (match) => '${match.group(1)}-${match.group(2)}',
   ).toLowerCase();
 }

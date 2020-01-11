@@ -26,7 +26,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
     final typeSystem = result.unit.declaredElement.context.typeSystem;
 
     // This is the return type even if it's not explicitly declared.
-    final visitor = new RenderVisitor();
+    final visitor = RenderVisitor();
     result.unit.accept(visitor);
     for (var returnStatement in visitor.returnVisitor.returnStatements) {
       final returnExpression = returnStatement.expression;
@@ -71,7 +71,7 @@ bool hasComponentAnnotation(ClassDeclaration c) =>
     c.declaredElement.allSupertypes.any((m) => m.name == 'Component');
 
 class RenderVisitor extends SimpleAstVisitor<void> {
-  RenderReturnVisitor returnVisitor = new RenderReturnVisitor();
+  RenderReturnVisitor returnVisitor = RenderReturnVisitor();
 
   @override
   void visitCompilationUnit(CompilationUnit node) {

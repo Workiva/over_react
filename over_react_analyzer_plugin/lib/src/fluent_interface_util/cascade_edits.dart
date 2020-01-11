@@ -16,11 +16,11 @@ void addProp(
   bool forceOwnLine = false,
 }) {
   if ((name == null) == (buildNameEdit == null)) {
-    throw new ArgumentError();
+    throw ArgumentError();
   }
 
   if ((value != null) && (buildValueEdit != null)) {
-    throw new ArgumentError();
+    throw ArgumentError();
   }
 
   final function = usage.node.function;

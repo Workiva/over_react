@@ -17,7 +17,7 @@ class PropNavigationContributor implements NavigationContributor {
       final lineInfo = request.result.unit.lineInfo;
 
       // TODO also visit usages of props outside of fluent interface (e.g., within components, in MapViews, etc,)?
-      var astVisitor = new ComponentUsageVisitor((usage) {
+      var astVisitor = ComponentUsageVisitor((usage) {
         // TODO potentially implement caching if this is slow
         final type = usage.builder.staticType;
         if (type is InterfaceType) {
@@ -56,7 +56,7 @@ class PropNavigationContributor implements NavigationContributor {
                 lhs.propertyName.offset,
                 lhs.propertyName.length,
                 targetKind,
-                new protocol.Location(
+                protocol.Location(
                   nonSyntheticTarget.source.fullName,
                   offset,
                   length,

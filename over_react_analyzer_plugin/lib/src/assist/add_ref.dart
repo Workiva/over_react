@@ -10,7 +10,7 @@ import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/fix.dart';
 
 class AddRefAssistContributor extends AssistContributorBase {
-  static AssistKind addRef = new AssistKind('addRef', 32, 'Add callback ref');
+  static AssistKind addRef = AssistKind('addRef', 32, 'Add callback ref');
 
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
@@ -79,7 +79,7 @@ class AddRefAssistContributor extends AssistContributorBase {
     sourceChange
       ..message = addRef.message
       ..id = addRef.id;
-    collector.addAssist(new PrioritizedSourceChange(addRef.priority, sourceChange));
+    collector.addAssist(PrioritizedSourceChange(addRef.priority, sourceChange));
   }
 }
 
@@ -115,7 +115,7 @@ Pair<int, AstNode> getRefInsertionLocation(AstNode node, LineInfo lineInfo) {
     offset = prevLine(node.thisOrAncestorMatching((node) => node is CompilationUnitMember).offset, lineInfo);
   } else {
     // Not sure how we got here... TODO throw error instead or handle this return value at call site
-    return new Pair(-1, null);
+    return Pair(-1, null);
   }
 
   for (var child in parent.childEntities.toList().reversed) {
@@ -136,7 +136,7 @@ Pair<int, AstNode> getRefInsertionLocation(AstNode node, LineInfo lineInfo) {
     }
   }
 
-  return new Pair(offset, parent);
+  return Pair(offset, parent);
 }
 
 int prevLine(int offset, LineInfo lineInfo) {

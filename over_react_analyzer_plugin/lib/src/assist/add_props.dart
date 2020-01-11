@@ -6,7 +6,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class AddPropsAssistContributor extends AssistContributorBase {
-  static AssistKind addPropsKind = new AssistKind('addProps', 31, 'Add props');
+  static AssistKind addPropsKind = AssistKind('addProps', 31, 'Add props');
 
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
@@ -40,7 +40,7 @@ class AddPropsAssistContributor extends AssistContributorBase {
     sourceChange
       ..message = addPropsKind.message
       ..id = addPropsKind.id;
-    collector.addAssist(new PrioritizedSourceChange(addPropsKind.priority, sourceChange));
+    collector.addAssist(PrioritizedSourceChange(addPropsKind.priority, sourceChange));
   }
 }
 

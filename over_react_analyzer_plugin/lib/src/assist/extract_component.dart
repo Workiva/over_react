@@ -54,7 +54,7 @@ abstract class _ExtractComponentAssistContributorBase extends AssistContributorB
         );
       });
 
-      builder.addReplacement(new SourceRange(usage.node.offset, usage.node.length), (builder) {
+      builder.addReplacement(SourceRange(usage.node.offset, usage.node.length), (builder) {
         builder.addSimpleLinkedEdit(linkedEditGroupName, 'Foo');
         builder.write('()()');
       });
@@ -63,13 +63,13 @@ abstract class _ExtractComponentAssistContributorBase extends AssistContributorB
     sourceChange
       ..message = extractComponent.message
       ..id = extractComponent.id;
-    collector.addAssist(new PrioritizedSourceChange(extractComponent.priority, sourceChange));
+    collector.addAssist(PrioritizedSourceChange(extractComponent.priority, sourceChange));
   }
 }
 
 class ExtractComponentAssistContributor extends _ExtractComponentAssistContributorBase {
   @override
-  AssistKind extractComponent = new AssistKind('extractComponent', 32,
+  AssistKind extractComponent = AssistKind('extractComponent', 32,
       'Extract selection as a new UiComponent');
 
   @override
@@ -81,7 +81,7 @@ class ExtractComponentAssistContributor extends _ExtractComponentAssistContribut
 
 class ExtractStatefulComponentAssistContributor extends _ExtractComponentAssistContributorBase {
   @override
-  AssistKind extractComponent = new AssistKind('extractStatefulComponent', 32,
+  AssistKind extractComponent = AssistKind('extractStatefulComponent', 32,
       'Extract selection as a new UiStatefulComponent');
 
   @override
@@ -93,7 +93,7 @@ class ExtractStatefulComponentAssistContributor extends _ExtractComponentAssistC
 
 class ExtractFluxComponentAssistContributor extends _ExtractComponentAssistContributorBase {
   @override
-  AssistKind extractComponent = new AssistKind('extractFluxComponent', 32,
+  AssistKind extractComponent = AssistKind('extractFluxComponent', 32,
       'Extract selection as a new FluxUiComponent');
 
   @override
@@ -105,7 +105,7 @@ class ExtractFluxComponentAssistContributor extends _ExtractComponentAssistContr
 
 class ExtractFluxStatefulComponentAssistContributor extends _ExtractComponentAssistContributorBase {
   @override
-  AssistKind extractComponent = new AssistKind('extractFluxStatefulComponent', 32,
+  AssistKind extractComponent = AssistKind('extractFluxStatefulComponent', 32,
       'Extract selection as a new FluxUiStatefulComponent');
 
   @override

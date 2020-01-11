@@ -77,11 +77,11 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
 
   @override
   AnalysisDriverGeneric createAnalysisDriver(plugin.ContextRoot contextRoot) {
-    final root = new ContextRoot(contextRoot.root, contextRoot.exclude,
+    final root = ContextRoot(contextRoot.root, contextRoot.exclude,
         pathContext: resourceProvider.pathContext)
       ..optionsFilePath = contextRoot.optionsFile;
     final contextBuilder =
-        new ContextBuilder(resourceProvider, sdkManager, null)
+        ContextBuilder(resourceProvider, sdkManager, null)
           ..analysisDriverScheduler = analysisDriverScheduler
           ..byteStore = byteStore
           ..performanceLog = performanceLog
@@ -90,7 +90,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
     runZoned(() {
       result.results.listen(processDiagnosticsForResult);
     }, onError: (e, stackTrace) {
-      channel.sendNotification(new plugin.PluginErrorParams(
+      channel.sendNotification(plugin.PluginErrorParams(
               false, e.toString(), stackTrace.toString()).toNotification());
     });
     return result;
@@ -126,13 +126,13 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
   @override
   List<AsyncAssistContributor> getAssistContributors(String path) {
     return [
-      new AddPropsAssistContributor(),
-      new AddRefAssistContributor(),
-      new ExtractComponentAssistContributor(),
-      new ExtractStatefulComponentAssistContributor(),
-      new ExtractFluxComponentAssistContributor(),
-      new ExtractFluxStatefulComponentAssistContributor(),
-      new WrapUnwrapAssistContributor(),
+      AddPropsAssistContributor(),
+      AddRefAssistContributor(),
+      ExtractComponentAssistContributor(),
+      ExtractStatefulComponentAssistContributor(),
+      ExtractFluxComponentAssistContributor(),
+      ExtractFluxStatefulComponentAssistContributor(),
+      WrapUnwrapAssistContributor(),
     ];
   }
 
@@ -141,26 +141,26 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
     return [
       /// NOTE: when developing in JetBrains IDEs, clear caches after reloading this
       /// plugin, or it may not request the latest navigation regions from this plugin.
-      new PropNavigationContributor(),
+      PropNavigationContributor(),
     ];
   }
 
   @override
   List<DiagnosticContributor> getDiagnosticContributors(String path) {
     return [
-      new DuplicatePropCascadeDiagnostic(),
-      new HashCodeAsKeyDiagnostic(),
-      new VariadicChildrenDiagnostic(),
-      new ArrowFunctionPropCascadeDiagnostic(),
-      new RenderReturnValueDiagnostic(),
-      new InvalidChildDiagnostic(),
-      new StringRefDiagnostic(),
-      new MissingCascadeParensDiagnostic(),
-      new MissingRequiredPropDiagnostic(),
-      new PseudoStaticLifecycleDiagnostic(),
-      new InvalidDomAttributeDiagnostic(),
-      new BoolPropNameReadabilityDiagnostic(),
-      new StyleMissingUnitDiagnostic(),
+      DuplicatePropCascadeDiagnostic(),
+      HashCodeAsKeyDiagnostic(),
+      VariadicChildrenDiagnostic(),
+      ArrowFunctionPropCascadeDiagnostic(),
+      RenderReturnValueDiagnostic(),
+      InvalidChildDiagnostic(),
+      StringRefDiagnostic(),
+      MissingCascadeParensDiagnostic(),
+      MissingRequiredPropDiagnostic(),
+      PseudoStaticLifecycleDiagnostic(),
+      InvalidDomAttributeDiagnostic(),
+      BoolPropNameReadabilityDiagnostic(),
+      StyleMissingUnitDiagnostic(),
     ];
   }
 }
