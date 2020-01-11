@@ -53,7 +53,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
           }
 
           _cachedAccessorClass ??= typeLibrary.getType('Accessor');
-          if (!type.isAssignableTo(_cachedAccessorClass.type)) {
+          if (!result.typeSystem.isAssignableTo(type, _cachedAccessorClass.type)) {
             return false;
           }
 
