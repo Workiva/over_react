@@ -8,7 +8,7 @@ import 'package:over_react_analyzer_plugin/src/util/fix.dart';
 import 'package:over_react_analyzer_plugin/src/util/linked_edits.dart';
 import 'package:over_react_analyzer_plugin/src/util/node.dart';
 
-typedef void BoilerplateLinkedEditFn(
+typedef BoilerplateLinkedEditFn = void Function(
   DartEditBuilder builder, {
   String groupName,
   String componentFactoryName,
