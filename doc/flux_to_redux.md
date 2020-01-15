@@ -93,18 +93,57 @@ final randomColorStore = RandomColorStore(randomColorActions);
 
 ### The Redux Version
 For our example, here are our different items of interest:
-- __The State Class:__ we have a class (`ReduxState`) that has `backgroundColor` property. It also has a couple different constructors that make instantiation in different contexts easier, like for the default state and when updating the state.
-- __Actions:__ we have a single action class called `UpdateBackgroundColorAction`. It has no content because all we need is the the `type` and an action (though actions can be implemented in a handful of ways).
-- __The Reducer:__ our reducer simply looks for an action of type `UpdateBackgroundColorAction`, and when it finds it, the reducer returns a new instance of `ReduxState` with a new background color.
-- __The Store Object:__ we create a store object called `randomColorStore`, instantiating it with our reducer and the default state of `ReduxState`.
+- __The State Class__, `ReduxState`
+- __Actions__, a single action class called `UpdateBackgroundColorAction`
+- __The Reducer__, `randomColorReducer`
+- __The Store Object__, `randomColorStore`
 - __The UI:__ All of our UI componentry is wrapped in a `ReduxProvider`. The provider takes in a `store` prop, to which we pass `randomColorStore`. The only component is a `BigBlock` connected component. Updates are triggered by calling `props.dispatch(UpdateBackgroundColorAction())`, and since it's a connected component (using `mapStateToProps`) state is accessed via normal props usage.
+
+```dart
+// A regular Dart class that represents the application data model
+class RandomColorState {
+    // The state values the app needs
+    String backgroundColor;
+
+    // A constructor used to establish the default state
+    RandomColorState.defaultState() : this.backgroundColor = 'gray';
+
+    // A convenience constructor used by the reducer to return new instances of the class
+    RandomColorState.update(RandomColorState oldState, {backgroundColor})
+        : this.backgroundColor = backgroundColor ?? oldState.backgroundColor;
+}
+```
+
+```dart
+// Our only action for our application
+class UpdateBackgroundColorAction {}
+```
+
+```dart
+// A simple reducer that has a case for every action (in this case, a single one)
+RandomColorState reducer(RandomColorState oldState, dynamic action) {
+  if (action is UpdateBackgroundColorAction) {
+    var color = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
+
+    // Return a new state class instance, changing the background color
+    return RandomColorState.update(oldState, backgroundColor: color);
+  }
+
+  return oldState;
+}
+```
+
+```dart
+// Instantiate a store using the reducer and state class
+redux.Store randomColorStore = redux.Store<RandomColorState>(reducer, initialState: RandomColorState.defaultState());
+```
 
 <img height=400 src="./ReduxArchitecture.png" alt='Redux Architecture'>
 
 ### Basic Example: The Main Differences
 - __We replace the Flux store with both a state class and a reducer.__ In Redux, we do not define a class that is responsible for handling state updates. Rather, we create the model to represent the state and a function to describe updates. Then, use them in the instantiation of a Redux `Store` object.
-- __Actions are not held in an overarching wrapper class.__ Typically in Redux, actions "stand alone" from each other. Our reducer should have cases for all the actions that exist, but unlike Flux there is no need to knit our store and actions together by actually providing an actions instance. Consequently, actions are broken away, pulled directly into the component, and triggered by passing an action instance into `dispatch` - the centralized dispatcher accessible via `props` or `mapDispatchToProps`.
-- __In Redux, the entire store is not passed to components via props.__ React Redux's `connect` function uses context to allow you to access the store's state without passing it through multiple layers of components, and also provides a mechanism to map the relevant parts of state directly to props (an optionally only rerender when those props change).
+- __Actions are not held in an overarching wrapper class.__ Typically in Redux, actions "stand alone" from each other. Our reducer should have cases for all the actions that exist, but unlike Flux there is no need to knit our store and actions together by actually providing an actions instance to the store. Consequently, actions are broken away, pulled directly into the component, and triggered by passing an action instance into `dispatch` - the centralized dispatcher accessible via `props` or `mapDispatchToProps`.
+- __In Redux, the entire store is not passed to components via props.__ React Redux's `connect` function uses context to allow you to access the store's state without passing it through multiple layers of components, and also provides a mechanism to map the relevant parts of state directly to props (an optionally only rerender when those props change). `connect` is paired with wrapping the component tree in a `ReduxProvider` component.
 
 ### Basic Conversion Step by Step
 > NOTE: This document does not attempt to teach _how_ to use Redux. If any of these steps cause confusion on the implementation details of Redux, see the [OverReact Redux Documentation](./over_react_redux_documentation.md).
@@ -127,26 +166,32 @@ For our example, here are our different items of interest:
     If your `Action` receives a custom class as typing for the action payload, that class could be a great starting point for the creation of your new Redux action.
 
     ```dart
-        // Before
-        class ExampleActions {
-            final Action<SetBackgroundColorPayload> randomizeBackgroundColor = Action();
-        }
+    // Before
+    class ExampleActions {
+        final Action<SetBackgroundColorPayload> randomizeBackgroundColor = Action();
+    }
 
-        class SetBackgroundColorPayload {
-            String backgroundColor;
-            SetBackgroundColorAction(this.backgroundColor);
-        }
-        
-        // After
-        class SetBackgroundColorAction {
-            final String backgroundColor;
-            SetBackgroundColorAction(this.backgroundColor);
-        }
+    class SetBackgroundColorPayload {
+        String backgroundColor;
+        SetBackgroundColorAction(this.backgroundColor);
+    }
+    
+    // After
+    class SetBackgroundColorAction {
+        final String backgroundColor;
+        SetBackgroundColorAction(this.backgroundColor);
+    }
     ```
 
 1. __Pull state mutation logic out of the store and into a reducer.__ Typically within a Flux store you have a `triggerOnActionV2` call that identifies an action and a function used to respond to that action. In many cases, that same logic should be perfect for a reducer.
     ```dart
-    // Before transition, within a store class called ExampleFluxStore...
+    // Before transition
+    class ExampleFluxStore extends flux.Store {
+        FluxActions _actions;
+
+        String _backgroundColor = 'Gray';
+        String get backgroundColor = _backgroundColor;
+
         // Constructor
         ExampleFluxStore(this._actions) {
             triggerOnActionV2(_actions.changeBackgroundColor, _changeBackgroundColor);
@@ -156,6 +201,7 @@ For our example, here are our different items of interest:
         _changeBackgroundColor(_) {
             _backgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
         }
+    }
 
     // After being transitioned to a reducer...
     ExampleState reducer(ExampleState oldState, dynamic /*or an action type*/ action) {
@@ -174,28 +220,89 @@ For our example, here are our different items of interest:
 1. __Refactor componentry to not longer be a `FluxUiComponent` and instead be a connected `UiComponent2`.__ In terms of moving away from Flux, the simplest case is that props and prop calls need to be updated. Props will need to be added to make room for the ones consumed by the Redux component, and any `props.actions` calls need to be updated to `props.dispatch` (unless you're using `mapDispatchToProps`). 
 
 ## An Advanced Example
-In the case a Flux app has a complex store architecture that involves multiple stores, whether they by nested under one store or be completely separate, the transition process has a few additional catches. 
+In the case a Flux app has a complex store architecture that involves multiple stores, whether they be nested under one store or be completely separate, the transition process has a few additional catches. 
 
 This section builds on the [simple example](#a-simple-example), so ensure that section makes sense conceptually before looking at multiple stores.
 
 ### An Adanced Flux App
-For this app, here are the different elements:
-- __The Flux Store Classes:__ we have a Flux store called `RandomColorStore` that is responsible for diplaying a random background color. Unlike the simple example, this store has a few different levels. Within `RandomColorStore`, there's another store called `midLevelStore` (typed as the class `MidLevelStore`). The `MidLevelStore` class has a field called `lowLevelStore` (typed as the class `LowLevelStore`). So `RandomColorStore` is three different stores. Additionally, there is another store class called `AnotherColorStore`. This class is entirely separate from `RandomColorStore`. 
+- __The Flux Store Classes:__ `RandomColorStore`, `MidLevelStore`, `LowLevelStore`, and `AnotherColorStore`. `RandomCOlorStore`, `MidLevelStore`, and `LowLevelStore` are nested within each other while `AnotherColorStore` is completely separate.
 
     Despite there being four stores, all of them have the same job: handle a single random color property. Therefore, they are all nearly identical objects. Naturally in the real world they would likely be drastically different, but for simplicity sake and keeping the focus on the big picture they are all left the same.
-
-- __The Actions Class:__ the action class (`RandomColorActions`) has a different action to trigger a background color update in every store. Consequently, there are four actions.
-- __The Actions Object:__ we initialize `randomColorActions` to a new instance of `RandomColorActions`.
-- __The Store Objects:__ We'll instantiate two store objects: `bigStore` and `littleStore`. `bigStore` will be an instance of `RandomColorStore` and `littleStore` will be of `AnotherColorStore`. Both objects take in the same instance of `randomColorActions`.
-- __The UI:__ The only component is a `BigBlock` component that receives `randomColorActions`, `bigStore`, and `littleStore` as props. Updates are triggered by using the action prop. Naturally now state is accessed via:
+- __The Store Objects:__ `bigStore` and `littleStore`
+- __The Actions Class__, `RandomColorActions`
+- __The Actions Object__, `randomColorActions`
+- __The UI:__ The only complex component is a `BigBlock` component that receives `randomColorActions`, `bigStore`, and `littleStore` as props. Updates are triggered by using the action prop. Naturally now state is accessed via:
     - props.bigStore.state
     - props.bigStore.midLevelStore.state
     - props.bigStore.midLevelStore.lowLevelStore.state
     - props.littlebig_Store.state
 
-    Our `BigBlock` component renders three `SmallBlock` components. Each one connects to a different store's state, with the remaining background color being tied to `BigBlock` itself. `BigBlock` also has four buttons - one connected to each action that changes the background color property of one of the stores (and thereby updating the component background color).
+    Our `BigBlock` component renders three `SmallBlock` components. Each one connects to a different store's state, with the remaining background color being tied to `BigBlock` itself. 
+    
+    `BigBlock` also has four buttons - one connected to each action that changes the background color property of one of the stores (and thereby updating the component background color).
 
     A Flux specific part of the `BigBlock` component is that we need to set the `redrawOne` to listen to the story at every level.
+
+```dart
+// A nested store
+class RandomColorStore extends flux.Store {
+    RandomColorActions _actions;
+    // MidLevelStore looks nearly identical to `RandomColorStore`, but has a different
+    // store object (`LowLevelStore`) nested within it.
+    MidLevelStore midLevelStore = MidLevelStore(randomColorActions);
+
+    /// Public data
+    String _backgroundColor = 'gray';
+    String get backgroundColor => _backgroundColor;
+
+    RandomColorStore(this._actions) {
+        triggerOnActionV2(_actions.changeMainBackgroundColor, _changeBackgroundColor);
+    }
+
+    _changeBackgroundColor(String _) {
+        _backgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
+    }
+}
+
+// A seperate store, making the total store count be equal to 4
+class AnotherColorStore extends flux.Store {
+    RandomColorActions _actions;
+
+    /// Public data
+    String _backgroundColor = 'Blue';
+    String get backgroundColor => _backgroundColor;
+
+    AnotherColorStore(this._actions) {
+        triggerOnActionV2(_actions.changeBlockThreeBackgroundColor, _changeBackgroundColor);
+    }
+
+    _changeBackgroundColor(String _) {
+        _backgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
+    }
+}
+```
+
+```dart
+// A shared action class for all the stores, with an action to update each background color
+class RandomColorActions {
+    final flux.Action<String> changeMainBackgroundColor = flux.Action();
+
+    final flux.Action<String> changeBlockOneBackgroundColor = flux.Action();
+
+    final flux.Action<String> changeBlockTwoBackgroundColor = flux.Action();
+
+    final flux.Action<String> changeBlockThreeBackgroundColor = flux.Action();
+}
+```
+
+```dart
+// Instatiate the actions
+RandomColorActions randomColorActions = RandomColorActions();
+
+// Instatiate the stores
+RandomColorStore bigStore = RandomColorStore(randomColorActions);
+AnotherColorStore littleStore = AnotherColorStore(randomColorActions);
+```
 
 <img height=400 src="./AdvancedFluxArchitecture.png" alt='Redux Architecture'>
 
@@ -211,12 +318,82 @@ The Redux app doesn't really have any surprises, and at a high level is very sim
 - __The Store Object:__ same as the simple example.
 - __The UI:__ like the simple example, our component tree is wrapped in a `ReduxProvider`. Otherwise the component architecture is the same as the Flux version, minus the Flux-y parts. We have a connected `UiComponent2` called `BigBlock` that maps the store state to props, which passes the props to its three `LittleBlock`s, with four buttons to trigger the background actions. Naturally all the Flux parts were removed, including the `redrawOn` override.
 
+```dart
+// A regular Dart class that represents the application data model
+class ReduxState {
+    // All of the state fields for the application
+    String mainBackgroundColor;
+    String blockOneBackgroundColor;
+    String blockTwoBackgroundColor;
+    String blockThreeBackgroundColor;
+
+    // A constructor for creating the default app state
+    ReduxState.defaultState()
+        : this.mainBackgroundColor = 'gray',
+        this.blockOneBackgroundColor = 'red',
+        this.blockTwoBackgroundColor = 'orange',
+        this.blockThreeBackgroundColor = 'blue';
+
+    // A convenience constructor for creating new instances of the state class
+    ReduxState.update(ReduxState oldState,
+        {mainBackgroundColor, blockOneBackgroundColor, blockTwoBackgroundColor,         blockThreeBackgroundColor})
+        : this.mainBackgroundColor = mainBackgroundColor ?? oldState.mainBackgroundColor,
+        this.blockOneBackgroundColor = blockOneBackgroundColor ?? oldState.blockOneBackgroundColor,
+        this.blockTwoBackgroundColor = blockTwoBackgroundColor ?? oldState.blockTwoBackgroundColor,
+        this.blockThreeBackgroundColor = blockThreeBackgroundColor ?? oldState.blockThreeBackgroundColor;
+}
+```
+
+```dart
+// An action for updating each state property
+class UpdateBackgroundColorAction {}
+
+class UpdateBlockOneBackgroundColorAction {}
+
+class UpdateBlockTwoBackgroundColorAction {}
+
+class UpdateBlockThreeBackgroundColorAction {}
+```
+
+```dart
+// A simple reducer that has a case for every action.
+// Because the example is relatively contrived to keep things simple, there are other
+// ways this could be done given that all the actions are pretty much the same,
+// but the reducer was written more verbosely to capture the core idea.
+ReduxState afterTransitionReducer(ReduxState oldState, dynamic action) {
+  if (action is UpdateBackgroundColorAction) {
+    var color = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
+
+    return ReduxState.update(oldState, mainBackgroundColor: color);
+  } else if (action is UpdateBlockOneBackgroundColorAction) {
+    var color = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
+
+    return ReduxState.update(oldState, blockOneBackgroundColor: color);
+  } else if (action is UpdateBlockTwoBackgroundColorAction) {
+    var color = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
+
+    return ReduxState.update(oldState, blockTwoBackgroundColor: color);
+  } else if (action is UpdateBlockThreeBackgroundColorAction) {
+    var color = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
+
+    return ReduxState.update(oldState, blockThreeBackgroundColor: color);
+  }
+
+  return oldState;
+}
+```
+
+```dart
+// Instantiate a store using the reducer and state class
+redux.Store reduxStore = redux.Store<ReduxState>(afterTransitionReducer, initialState: ReduxState.defaultState());
+```
+
 <img height=400 src="./AdvancedReduxArchitecture.png" alt='Redux Architecture'>
 
 ### How is the transition process different with more stores?
-__You should only have one Redux store.__ If that doesn't sound scary, you're in good shape and everything is great! Some libraries won't have an issue with that, and in that case it's as simple as following the steps in the next section.
+__You should still only have one Redux store.__ If that doesn't sound scary, you're in good shape and everything is great! Some libraries won't have an issue with that, and in that case it's as simple as following the steps in the next section.
 
-If having one store sounds unfeasible or raises a lot of concerns, there's more to talk about. The authors of Redux have said multiple times ([1](https://redux.js.org/api/store#a-note-for-flux-users), [2](https://stackoverflow.com/questions/33619775/redux-multiple-stores-why-not)) that more than one store is not needed, and the exceptions are related to performance and not architecture. The concession is that there are supported ways to have multiple stores, but those are to be used as a last resort and should not be part of an initial refactor attempt.
+If having one store sounds unfeasible or raises a lot of concerns, there's more to talk about. The authors of Redux have said ([1](https://redux.js.org/api/store#a-note-for-flux-users), [2](https://stackoverflow.com/questions/33619775/redux-multiple-stores-why-not)) that more than one store is not needed, and the exceptions are related to performance and not architecture. The concession is that there are supported ways to have multiple stores, but those are to be used as a last resort and should not be part of an initial refactor attempt.
 
 This leads to the difference in the transition process. Not only do the stores have to come together, but componentry needs to reflect that the data is coming from a single source. 
 
@@ -224,8 +401,10 @@ This leads to the difference in the transition process. Not only do the stores h
 > These steps are just a set that make sense for general situations and may not make sense for every library. If the path forward is unclear, they can be referred to for guidance but may need adjustment or supplemental steps.
 1. __Diagram store and component relationships.__ While perhaps challenging and time consuming, creating a diagram that illustrates generally which components care about which stores could prove invaluable to planning the update process.
 1. __Break the refactor into groups that includes the stateful layer and the UI layer.__ Are there small chunks of the system that can be updated without touching the messiest knots in the system? If so, identify them. If this step seems particularly challenging or reveals large roadblocks, consider an [Influx architecture](#influx-architecture)
-1. __Refactor all the stores and reducers in that group into one.__ By doing the stores and reducer at the same time, you can completely invalidate a single store at a time. If you have already created a state class and a reducer for an earlier store group, continue adding to the same reducer and state class. Worth noting is that these app examples use a very simplistic reducer approach, and understanding the options with reducers may be worthwhile. Because there are multiple ways to implement reducers, it is likely one will make more sense than others.
-1. __Create any new action classes that are necessary.__
+1. __For each group, refactor all the stores.__ By doing the stores and reducers at the same time, you can completely invalidate a single store at a time. In other words, you can move all the necessary state logic into the new state class and move the state mutation logic into the reducer. Then, the entire Flux store can be deleted.
+
+    If you have already created a state class and a reducer for an earlier store group, continue adding to the same reducer and state class. Worth noting is that these app examples use a very simplistic reducer approach, and understanding the options with reducers may be worthwhile. Because there are multiple ways to implement reducers, it is likely one will make more sense than others.
+1. __Create any new action classes that are necessary.__ After refactoring a Flux store, it should be clear which actions need to be converted to Redux actions.
 1. __Refactor components into connected components.__ Update the component to `UiComponent2`, removing all Flux boilerplate, and wrapping the already declared factory with the `connect` call.
 1. __Move on to the next group.__ If the refactor has multiple groups of stores and components, move on to the next one.
 1. __Add a `ReduxProvider` around the component tree.__ Once it makes sense, wrap the tree in the `ReduxProvider` component.
@@ -244,16 +423,16 @@ __tl;dr__
 
 __If you assess your architecture and are confident you can go straight from Flux to Redux, you should not use Influx. If you are not confident, you should consider it.__
 
-The Influx architecture is not a required part of the process, and may make your life more difficult by adding extra steps. There are both advantages and disadvantages, and assessing how large the refactor will likely provide the largest indication of whether or not it makes sense.
+The Influx architecture is not a required part of the process, and may make your life more difficult by adding extra steps. There are both advantages and disadvantages, and assessing how large the refactor is will likely provide the largest indication of whether or not it makes sense.
 
 ### Advantages
-- __You can split the effort into very tangible subtasks.__ The first is refactoring the state architecture (with a light component refactor), then each component can be its own task done over time. 
+- __You can split the effort into very tangible subtasks.__ Stores can be updated to Redux without necessarily updating the Flux components. Components reliant on multiple stores can talk to Flux stores and Redux stores at the same time. Ultimately, this means a library can pick and choose the areas that can be updated and do them one at a time.
 - __Inability to update entirely to `Component2` is not a blocker.__ Since `connected` components need to be `Component2`, the Redux refactor may be blocked by those efforts. This option allows the library to update the state system to a Redux friendly architecture while updating components to `UiComponent2` and `connect` at the same time.
-- __The workflow is much less complex.__ While heavily piggybacked off the two advantages, it's worth noting the workflow benefits of the incremental update. There shouldn't be as many massive merges or code reviews, and the granularity of tasks should make it clearer where manual testing is needed and when tests need to be written or updated. Ultimately this reduces the project complexity and the risk of regressions.
+- __The workflow is much less complex.__ While heavily piggybacked off the first two advantages, it's worth noting the workflow benefits of the incremental update. There shouldn't be as many massive merges or code reviews, and the granularity of tasks should make it clearer where manual testing is needed and when tests need to be written or updated. Ultimately this reduces the project complexity and the risk of regressions.
 - __The actual update process can be easier to reason about in complex scenarios.__ Influx merges Flux and Redux to provide a "halfway" point that is a fairly straightforward transition both from Flux and to Redux. For those complex scenarios, it may seem daunting to transition straight to Redux, and Influx can lower the barrier. 
 
 ### Disadvantages
-- __Takes extra time as there are ultimately two refactors instead of one (however minimal the second one will be).__ While ideally the second refactor (from Influx to Redux) should be an easy lift, it's still ultimately unnecessary.
+- __Takes extra time as there are ultimately two refactors instead of one (however minimal the second one will be).__ While ideally the second refactor (from Influx to Redux) should be an easy lift, the middle steps still add effort that could otherwise be avoided.
 - __Does not provide any performance gains until the transition is complete.__ The Redux `connected` components will update on every store update as long as Flux is in the mix. This mimics the behavior of Flux, but takes away the largest benefit of connecting to Redux.
 - __Can add complexity and code to a possibly already complex state architecture.__ There are additional boilerplate and utilities necessary to maintain an Influx architecture that are completely unnecessary to Redux, making Influx more verbose and a little more confusing.
 
