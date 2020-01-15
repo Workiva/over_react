@@ -44,6 +44,7 @@ export 'src/component/error_boundary_mixins.dart' hide ErrorBoundaryApi;
 export 'src/component/dom_components.dart';
 export 'src/component/ref_util.dart';
 export 'src/component/fragment_component.dart';
+export 'src/component/strictmode_component.dart';
 export 'src/component/dummy_component.dart';
 export 'src/component/prop_mixins.dart';
 export 'src/component/prop_typedefs.dart';
