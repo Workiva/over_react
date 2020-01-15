@@ -9,10 +9,19 @@ class CounterActions {
   final Action<Null> addItem = new Action();
 }
 
-class CounterStore extends Store {
+class ReduxSmallIncrement {}
+class ReduxSmallDecrement {}
+class ReduxBigIncrement {}
+class ReduxBigDecrement {}
+class ReduxAddItem {}
+
+class CounterStore extends Store with InfluxStoreMixin<ReduxStateClass> {
   int _smallCount = 0;
   int _bigCount = 0;
   List items = [];
+
+  @override
+  get reduxReducer => reducer;
 
   CounterStore(CounterActions actions) {
     triggerOnActionV2(actions.smallIncrement, (_) {
@@ -29,6 +38,21 @@ class CounterStore extends Store {
   int get bigCount => _bigCount;
 }
 
+class ReduxStateClass {
+  int smallCount;
+  int bigCount;
+
+  ReduxStateClass.defaultState() : this.smallCount = 0, this.bigCount = 0;
+
+  ReduxStateClass.from(ReduxStateClass oldState, {int smallCount, int bigCount})
+      : this.smallCount = smallCount ?? oldState.smallCount,
+      this.bigCount = bigCount ?? oldState.bigCount;
+}
+
+ReduxStateClass reducer(ReduxStateClass oldState, dynamic action) {
+  return oldState;
+}
+
 /////////////////////////////// STORE 1 "Counter" ///////////////////////////////
 
 /// The application flux actions.
@@ -38,4 +62,4 @@ final fluxActions = CounterActions();
 final fluxStore = CounterStore(fluxActions);
 
 /// The application store, adapted to be a Redux store.
-final adaptedStore = FluxToReduxAdapterStore(fluxStore, fluxActions);
+final adaptedStore = FluxToReduxAdapterStore<CounterStore, ReduxStateClass>(fluxStore, fluxActions);

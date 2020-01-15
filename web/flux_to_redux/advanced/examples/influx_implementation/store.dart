@@ -34,13 +34,15 @@ class TopLevelReduxState {
 
 }
 
+/// An Influx store
+///
+/// For a breakdown of specific changes, see the simple example
 class RandomColorStore extends flux.Store with InfluxStoreMixin<TopLevelReduxState> {
   @override
   get reduxReducer => topLevelReduxReducer;
 
   RandomColorActions _actions;
 
-  /// Public data
   String get mainBackgroundColor => state.mainBackgroundColor;
   String get blockOneBackgroundColor => state.blockOneBackgroundColor;
 
@@ -136,10 +138,12 @@ RandomColorStore randomColorStore = RandomColorStore(randomColorActions);
 LowLevelStore lowLevelStore = LowLevelStore(randomColorActions);
 AnotherColorStore anotherColorStore = AnotherColorStore(randomColorActions);
 
+// Create a context instance for each new store instance
 Context randomColorStoreContext = createContext();
 Context lowLevelStoreContext = createContext();
 Context anotherColorStoreContext = createContext();
 
+// Create an adapter store for each new store instance
 FluxToReduxAdapterStore randomColorStoreAdapter =
     FluxToReduxAdapterStore<RandomColorStore, TopLevelReduxState>(randomColorStore, randomColorActions);
 FluxToReduxAdapterStore lowLevelStoreAdapter =
