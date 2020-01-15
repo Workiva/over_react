@@ -32,10 +32,10 @@ class CounterStore extends Store {
 /////////////////////////////// STORE 1 "Counter" ///////////////////////////////
 
 /// The application flux actions.
-//final fluxActions = CounterActions();
+final fluxActions = CounterActions();
 
 /// The application flux store.
-//final fluxStore = CounterStore(fluxActions);
+final fluxStore = CounterStore(fluxActions);
 
 /// The application store, adapted to be a Redux store.
-//final adaptedStore = FluxToReduxAdapterStore(fluxStore, fluxActions);
+final adaptedStore = FluxToReduxAdapterStore(fluxStore, fluxActions);
