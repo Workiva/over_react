@@ -453,10 +453,10 @@ Influx has two steps to the refactor. The first is to go from Flux to Influx. Th
 
 #### Phase 1: Get Ready to Refactor
 
-__Goal:__ Make a game plan for the refactor process. The entirety of this phase should be completed at once.
+__Goal:__ Make a game plan for the refactor process. This phase can take as long as it needs to, but should be done in its entirety before attempting Phase 2.
 
 1. __Diagram store and component relationships.__ Similar to the Advanced conversion, it still makes sense to understand the current state of the architecture. For Influx in particular, the focus should be on revealing what stores the specific components are reliant on. In some cases, stores may also be reliant on other stores, which should also be noted. At the end of this step, the goal is to be able to point to any component and easily understand all the stores that component relies on.
-1. __Break the refactor into groups that includes the stateful layer and the UI layer.__ This will also be like Advanced conversion. The difference is that coming out of this step, stores and the UI should be broken into tangible groups to be refactored. Ideally, each group should be independent enough that it can be updated without touching any other group. The groups should also be as small as possible, while also making sense, to allow for the most incremental update possible. If diagraming the library architecture (during the previous step) went well, this should be as easy as looking at the diagram and noting the groups that emerge.
+1. __Break the refactor into groups that includes the stateful layer and the UI layer.__ This will also be like Advanced conversion. The difference is that coming out of this step, stores and the UI should be broken into tangible groups to be refactored. These groups will be the core of the refactor plan. Ideally, each group should be independent enough that it can be updated without touching any other group. The groups should also be as small as possible, while also making sense, to allow for the most incremental update possible. If diagraming the library architecture (during the previous step) went well, this should be as easy as looking at the diagram and noting the groups that emerge.
 
 #### Phase 2: Incrementally Update Stores
 
@@ -468,47 +468,52 @@ __Goal:__ Update all stores to be either Influx or Redux and update all componen
     - A Flux component can talk to an Influx store and a Flux store at the same time.
     - A `connectFlux` component can talk to an adapted Influx store.
 
-    The result of these rules is that a store can be converted directly to Redux [iff](https://en.wikipedia.org/wiki/If_and_only_if) it will only be used by Redux components, but a component can be converted to a Redux component if it will pull data from either an adapted Influx store 
+    The result of these rules is that a store can be converted directly to Redux [iff](https://en.wikipedia.org/wiki/If_and_only_if) it will be used exclusively by Redux components, but a component can be converted to a Redux component if it will pull data from either an adapted Influx store or a traditional Flux store.
 
-    If the stores are not overly complex and the related UI is limited and simple, updating straight to Redux may be possible. If all of the related UI can be updated to Redux connected components (extending from `UiComponent2`), then going straight to Redux may be a good option. The secondary consideration is if all of  
+    If the stores are not overly complex and all of the related UI can be updated to Redux connected components (extending from `UiComponent2`), then going straight to Redux may be a good option.
 
-    If, given the size of the store or number of components affected, this is not ideal, the store should be converted to Redux. 
+    If, given the size of the store or number of components affected, this is not ideal, the store should be converted to Influx. 
 1. __Refactor the store.__ 
-    - If the store is moving to Redux, follow the [simple store conversion](Basic Conversion Step by Step).
-    - If the store is moving to Influx:
-        1. __Create the Redux actions.__ Any actions that the connected UI components will need access to should be made into a Redux action.
-        1. __Create a Redux state class for the store.__ Any state that is mutated by the Redux actions should be present in the Redux state class.
-        1. __Create the Redux reducer for the store.__ This should just combine the actions and the Redux state class - any action should have a condition within the reducer, and ultimately all of those conditions should be able to update any field on the state class.
-        1. __Convert the Flux store to an Influx store:__
-            1. __Add the `InfluxStoreMixin` to the original Flux store.__ This is what makes it an "Influx" store, and adds the fields required by an Influx architecture. The model for `state` field is the Redux state class created earlier, and it should be passed into the mixin's typing.
-            1. __Override the `reduxReducer` getter on the class.__ The `reduxReducer` getter should point to the Redux reducer function created earlier.
-            1. __Update the store fields.__ The end result of this step is that the Influx store (previously the Flux store) should have a getter for every Redux state class field. The getters should point to corresponding values on the `state` field. This isn't necessary as those fields should be accessible via `influxStoreInstance.state.reduxProperty`, but refactoring the getters means that any Flux components pointing to this store do not need to be refactored. If it is preferable just to remove getters in favor of accessing the `state` fields directly, any original getters or fields that correspond to a value moved to the Redux state class should be removed.
-            1. __Refactor actions passed into `triggerOnActionV2`.__ Like a Flux store, the Influx store will watch for Flux actions to be triggered. Instead of triggering a function that mutates the inner state however, a callback should pass a corresponding Redux action instance into `this.influxReducer`.
+    If the store is moving to Redux, follow the [simple store conversion](#basic-conversion-step-by-step). If the store is moving to Influx:
+    1. __Create the Redux actions.__ Any actions that the connected UI components will need access to should be made into a Redux action.
+    1. __Create a Redux state class for the store.__ Any state that is mutated by the Redux actions should be present in the Redux state class.
+    1. __Create the Redux reducer for the store.__ This should just combine the actions and the Redux state class - any action should have a condition within the reducer, and ultimately all fields on the state store should have a way to be updated.
+    1. __Convert the Flux store to an Influx store:__
+        1. __Add the `InfluxStoreMixin` to the original Flux store.__ This is what makes it an "Influx" store, and adds the fields required by an Influx architecture. The model for `state` field is the Redux state class created earlier, and it should be passed into the mixin's typing.
+        1. __Initialize the default Redux state in the Influx contructor.__ 
+        1. __Refactor actions passed into `triggerOnActionV2`.__ Like a Flux store, the Influx store will watch for Flux actions to be triggered. Instead of triggering a function that mutates the inner state however, a callback should pass a corresponding Redux action instance into `this.influxReducer`.
+        1. __Override the `reduxReducer` getter on the class.__ The `reduxReducer` getter should point to the Redux reducer function created earlier.
+        1. __Update the store fields.__ The end result of this step is that the Influx store (previously the Flux store) should have a getter for every Redux state class field. The getters should point to corresponding values on the `state` field. 
+        
+        Updating getters isn't necessary as the correct fields should be accessible via `influxStoreInstance.state.reduxProperty`, but refactoring the getters means that any Flux components pointing to this store do not need to be refactored. If it is preferable just to remove getters in favor of accessing the `state` fields directly, any original getters or fields that correspond to a value moved to the Redux state class should be removed.
 
-            ```dart
-            class ExampleInfluxStore extends flux.Store with InfluxStoreMixin<ReduxStateClass> {
-                ExampleFluxActions _actions;
+        ```dart
+        // An Influx Store
+        // Add the `InfluxStoreMixin` and use the Redux state class for the generic typing.
+        class ExampleInfluxStore extends flux.Store with InfluxStoreMixin<ReduxStateClass> {
+            ExampleFluxActions _actions;
 
-                @override
-                get reduxReducer => lowLevelReduxReducer;
+            // Point the `reduxReducer` getter at the Redux stete's reducer.
+            @override
+            get reduxReducer => lowLevelReduxReducer;
 
-                /// Use getters to point to state properties.
-                String get backgroundColor => state.backgroundColor;
+            /// Use getters to point to state properties.
+            String get backgroundColor => state.backgroundColor;
 
-                ExampleInfluxStore(this._actions) {
-                    state = ReduxStateClass.defaultState();
-                    triggerOnActionV2(_actions.exampleFluxAction, 
-                        (_) => this.influxReducer(ExampleReduxAction()));
-                }
+            ExampleInfluxStore(this._actions) {
+                state = ReduxStateClass.defaultState();
+                triggerOnActionV2(_actions.exampleFluxAction, 
+                    (_) => this.influxReducer(ExampleReduxAction()));
             }
+        }
 
-            class ExampleReduxAction {}
+        class ExampleReduxAction {}
 
-            class ExampleFluxActions {
-                final flux.Action<String> exampleFluxAction = flux.Action();
-            }
-            ```
-1. __Add adapter stores where necessary.__ Each store that will be Influx should be wrapped with a `FluxToReduxAdapterStore` to give Redux and Connected Flux access as well. In other words, if the store was updated to Redux directly, this step can be skipped.
+        class ExampleFluxActions {
+            final flux.Action<String> exampleFluxAction = flux.Action();
+        }
+        ```
+1. __Add adapter stores where necessary.__ Each store that will be Influx should be wrapped with a `FluxToReduxAdapterStore` to give Flux and Connected Flux access as well. In other words, if the store was updated to Redux directly or will only talk to Redux components, this step can be skipped.
     
     `FluxToReduxAdapterStore` takes in an Influx store and an actions instance. It should also receive the Influx store class and the Redux state class as generics.
     ``` dart
