@@ -13,22 +13,22 @@ main() {
 
   react_dom.render(
     ErrorBoundary()(
-      (ReduxProvider()..store = adaptedStore)(
-        (Dom.div()..style={'display': 'flex', 'flexDirection': 'row', 'justifyContent': 'space-evenly'})(
-          (Dom.div())(
-            Dom.h2()('ConnectedBigCounter'),
-            ConnectedBigCounter()(),
-            Dom.h2()('ConnectedCounter'),
-            ConnectedCounter()(),
-          ),
-          (Dom.div())(
-            Dom.h2()('ConnectedBigCounter'),
-            ConnectedBigCounter()(),
-            Dom.h2()('ConnectedCounter'),
-            ConnectedCounter()(),
-          ),
-        ),
-      ),
+//      (ReduxProvider()..store = adaptedStore)(
+//        (Dom.div()..style={'display': 'flex', 'flexDirection': 'row', 'justifyContent': 'space-evenly'})(
+//          (Dom.div())(
+//            Dom.h2()('ConnectedBigCounter'),
+//            ConnectedBigCounter()(),
+//            Dom.h2()('ConnectedCounter'),
+//            ConnectedCounter()(),
+//          ),
+//          (Dom.div())(
+//            Dom.h2()('ConnectedBigCounter'),
+//            ConnectedBigCounter()(),
+//            Dom.h2()('ConnectedCounter'),
+//            ConnectedCounter()(),
+//          ),
+//        ),
+//      ),
     ), querySelector('#content')
   );
 }

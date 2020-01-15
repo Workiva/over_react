@@ -30,7 +30,7 @@ class BigBlockComponent extends FluxUiComponent2<BigBlockProps> {
       (Dom.div()
         ..style = {
           'padding': '50px',
-          'backgroundColor': props.store.mainBackgroundColor,
+          'backgroundColor': props.store.state.mainBackgroundColor,
           'color': 'white',
           'display': 'flex',
           'alignItems': 'center',
@@ -72,18 +72,18 @@ class BigBlockComponent extends FluxUiComponent2<BigBlockProps> {
         (Dom.div()..style = {'display': 'flex', 'flexDirection': 'column'})(
           (LittleBlock()
             ..blockTitle = 'Block 1'
-            ..backgroundColor = this.props.store.blockOneBackgroundColor
-            ..colorString = this.props.store.blockOneBackgroundColor
+            ..backgroundColor = this.props.store.state.blockOneBackgroundColor
+            ..colorString = this.props.store.state.blockOneBackgroundColor
           )(),
           (LittleBlock()
             ..blockTitle = 'Block 2'
-            ..backgroundColor = this.props.lowLevelStore.backgroundColor
-            ..colorString = this.props.lowLevelStore.backgroundColor
+            ..backgroundColor = this.props.lowLevelStore.state.backgroundColor
+            ..colorString = this.props.lowLevelStore.state.backgroundColor
           )(),
           (LittleBlock()
             ..blockTitle = 'Block 3'
-            ..backgroundColor = this.props.secondStore.backgroundColor
-            ..colorString = this.props.secondStore.backgroundColor
+            ..backgroundColor = this.props.secondStore.state.backgroundColor
+            ..colorString = this.props.secondStore.state.backgroundColor
           )(),
         ),
       ),

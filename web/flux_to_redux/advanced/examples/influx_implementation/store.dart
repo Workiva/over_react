@@ -22,86 +22,110 @@ class RandomColorActions {
   final flux.Action<String> changeBlockThreeBackgroundColor = flux.Action();
 }
 
-class RandomColorStore extends flux.Store {
+class TopLevelReduxState {
+  String mainBackgroundColor;
+  String blockOneBackgroundColor;
+
+  TopLevelReduxState.defaultState() : this.mainBackgroundColor = 'gray', this.blockOneBackgroundColor = 'red';
+
+  TopLevelReduxState.from(TopLevelReduxState oldState, {String mainBackgroundColor, String blockOneBackgroundColor})
+      : this.mainBackgroundColor = mainBackgroundColor ?? oldState.mainBackgroundColor,
+        this.blockOneBackgroundColor = blockOneBackgroundColor ?? oldState.blockOneBackgroundColor;
+
+}
+
+class RandomColorStore extends flux.Store with InfluxStoreMixin<TopLevelReduxState> {
+  @override
+  get reduxReducer => topLevelReduxReducer;
+
   RandomColorActions _actions;
 
   /// Public data
-  String mainBackgroundColor = 'gray';
-  String blockOneBackgroundColor = 'red';
+  String get mainBackgroundColor => state.mainBackgroundColor;
+  String get blockOneBackgroundColor => state.blockOneBackgroundColor;
 
   RandomColorStore(this._actions) {
-    triggerOnActionV2(_actions.changeMainBackgroundColor, _changeBackgroundColor);
-    triggerOnActionV2(_actions.changeBlockOneBackgroundColor, _changeBlockOneBackgroundColor);
-  }
-
-  _changeBackgroundColor(String _) {
-    mainBackgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
-  }
-
-  _changeBlockOneBackgroundColor(String _) {
-    blockOneBackgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
+    state = TopLevelReduxState.defaultState();
+    triggerOnActionV2(_actions.changeMainBackgroundColor, (_) => this.influxReducer(UpdateBackgroundColorAction()));
+    triggerOnActionV2(_actions.changeBlockOneBackgroundColor, (_) => this.influxReducer(UpdateBlockOneBackgroundColorAction()));
   }
 }
 
-class LowLevelStore extends flux.Store {
+class LowLevelReduxState {
+  String backgroundColor;
+
+  LowLevelReduxState.defaultState() : this.backgroundColor = 'Orange';
+
+  LowLevelReduxState.from(LowLevelReduxState oldState, {String backgroundColor})
+      : this.backgroundColor = backgroundColor ?? oldState.backgroundColor;
+
+}
+
+class LowLevelStore extends flux.Store with InfluxStoreMixin<LowLevelReduxState> {
+  @override
+  get reduxReducer => lowLevelReduxReducer;
+
   RandomColorActions _actions;
 
   /// Public data
-  String backgroundColor = 'Orange';
+  String get backgroundColor => state.backgroundColor;
 
   LowLevelStore(this._actions) {
-    triggerOnActionV2(_actions.changeBlockTwoBackgroundColor, _changeBackgroundColor);
-  }
-
-  _changeBackgroundColor(String _) {
-    backgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
+    state = LowLevelReduxState.defaultState();
+    triggerOnActionV2(_actions.changeBlockTwoBackgroundColor, (_) => this.influxReducer(UpdateBlockTwoBackgroundColorAction()));
   }
 }
 
-class AnotherColorStore extends flux.Store {
+class AnotherReduxState {
+  String backgroundColor;
+
+  AnotherReduxState.defaultState() : this.backgroundColor = 'Blue';
+
+  AnotherReduxState.from(AnotherReduxState oldState, {String backgroundColor})
+      : this.backgroundColor = backgroundColor ?? oldState.backgroundColor;
+
+}
+
+class AnotherColorStore extends flux.Store with InfluxStoreMixin<AnotherReduxState> {
+  @override
+  get reduxReducer => anotherReduxReducer;
+
   RandomColorActions _actions;
 
   /// Public data
-  String backgroundColor = 'Blue';
+  String get backgroundColor => state.backgroundColor;
 
   AnotherColorStore(this._actions) {
-    triggerOnActionV2(_actions.changeBlockThreeBackgroundColor, _changeBackgroundColor);
-  }
-
-  _changeBackgroundColor(String _) {
-    backgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
+    state = AnotherReduxState.defaultState();
+    triggerOnActionV2(_actions.changeBlockThreeBackgroundColor, (_) => this.influxReducer(UpdateBlockThreeBackgroundColorAction()));
   }
 }
 
-RandomColorStore inTransitionTopLevelReducer(flux.Store oldState, dynamic action) {
+TopLevelReduxState topLevelReduxReducer(TopLevelReduxState oldState, dynamic action) {
   if (action is UpdateBackgroundColorAction) {
     var color = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
-    randomColorStore.mainBackgroundColor = color;
-    randomColorStore.trigger();
+    return TopLevelReduxState.from(oldState, mainBackgroundColor: color);
   } else if (action is UpdateBlockOneBackgroundColorAction) {
     var color = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
-    randomColorStore.blockOneBackgroundColor = color;
-    randomColorStore.trigger();
+    return TopLevelReduxState.from(oldState, blockOneBackgroundColor: color);
   }
 
   return oldState;
 }
 
-LowLevelStore inTransitionLowLevelReducer(flux.Store oldState, dynamic action) {
+LowLevelReduxState lowLevelReduxReducer(LowLevelReduxState oldState, dynamic action) {
   if (action is UpdateBlockTwoBackgroundColorAction) {
     var color = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
-    lowLevelStore.backgroundColor = color;
-    lowLevelStore.trigger();
+    return LowLevelReduxState.from(oldState, backgroundColor: color);
   }
 
   return oldState;
 }
 
-AnotherColorStore inTransitionSecondStoreReducer(flux.Store oldState, dynamic action) {
+AnotherReduxState anotherReduxReducer(AnotherReduxState oldState, dynamic action) {
   if (action is UpdateBlockThreeBackgroundColorAction) {
     var color = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
-    anotherColorStore.backgroundColor = color;
-    anotherColorStore.trigger();
+    return AnotherReduxState.from(oldState, backgroundColor: color);
   }
 
   return oldState;
@@ -117,8 +141,8 @@ Context lowLevelStoreContext = createContext();
 Context anotherColorStoreContext = createContext();
 
 FluxToReduxAdapterStore randomColorStoreAdapter =
-    FluxToReduxAdapterStore(randomColorStore, randomColorActions, reducer: inTransitionTopLevelReducer);
+    FluxToReduxAdapterStore<RandomColorStore, TopLevelReduxState>(randomColorStore, randomColorActions);
 FluxToReduxAdapterStore lowLevelStoreAdapter =
-    FluxToReduxAdapterStore(lowLevelStore, randomColorActions, reducer: inTransitionLowLevelReducer);
+    FluxToReduxAdapterStore<LowLevelStore, LowLevelReduxState>(lowLevelStore, randomColorActions);
 FluxToReduxAdapterStore anotherColorStoreAdapter =
-    FluxToReduxAdapterStore(anotherColorStore, randomColorActions, reducer: inTransitionSecondStoreReducer);
+    FluxToReduxAdapterStore<AnotherColorStore, AnotherReduxState>(anotherColorStore, randomColorActions);

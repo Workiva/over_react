@@ -30,7 +30,8 @@ abstract class _$BigBlockPropsAccessorsMixin implements _$BigBlockProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$BigBlockProps.lowLevelStore] -->
   @override
-  set lowLevelStore(LowLevelStore value) => props[_$key__lowLevelStore___$BigBlockProps] = value;
+  set lowLevelStore(LowLevelStore value) =>
+      props[_$key__lowLevelStore___$BigBlockProps] = value;
 
   /// <!-- Generated from [_$BigBlockProps.secondStore] -->
   @override
@@ -39,20 +40,26 @@ abstract class _$BigBlockPropsAccessorsMixin implements _$BigBlockProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$BigBlockProps.secondStore] -->
   @override
-  set secondStore(AnotherColorStore value) => props[_$key__secondStore___$BigBlockProps] = value;
+  set secondStore(AnotherColorStore value) =>
+      props[_$key__secondStore___$BigBlockProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__lowLevelStore___$BigBlockProps =
       PropDescriptor(_$key__lowLevelStore___$BigBlockProps);
   static const PropDescriptor _$prop__secondStore___$BigBlockProps =
       PropDescriptor(_$key__secondStore___$BigBlockProps);
-  static const String _$key__lowLevelStore___$BigBlockProps = 'BigBlockProps.lowLevelStore';
-  static const String _$key__secondStore___$BigBlockProps = 'BigBlockProps.secondStore';
+  static const String _$key__lowLevelStore___$BigBlockProps =
+      'BigBlockProps.lowLevelStore';
+  static const String _$key__secondStore___$BigBlockProps =
+      'BigBlockProps.secondStore';
 
   static const List<PropDescriptor> $props = [
     _$prop__lowLevelStore___$BigBlockProps,
     _$prop__secondStore___$BigBlockProps
   ];
-  static const List<String> $propKeys = [_$key__lowLevelStore___$BigBlockProps, _$key__secondStore___$BigBlockProps];
+  static const List<String> $propKeys = [
+    _$key__lowLevelStore___$BigBlockProps,
+    _$key__secondStore___$BigBlockProps
+  ];
 }
 
 const PropsMeta _$metaForBigBlockProps = PropsMeta(
@@ -60,13 +67,16 @@ const PropsMeta _$metaForBigBlockProps = PropsMeta(
   keys: _$BigBlockPropsAccessorsMixin.$propKeys,
 );
 
-_$$BigBlockProps _$BigBlock([Map backingProps]) =>
-    backingProps == null ? _$$BigBlockProps$JsMap(JsBackedMap()) : _$$BigBlockProps(backingProps);
+_$$BigBlockProps _$BigBlock([Map backingProps]) => backingProps == null
+    ? _$$BigBlockProps$JsMap(JsBackedMap())
+    : _$$BigBlockProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$BigBlockProps extends _$BigBlockProps with _$BigBlockPropsAccessorsMixin implements BigBlockProps {
+abstract class _$$BigBlockProps extends _$BigBlockProps
+    with _$BigBlockPropsAccessorsMixin
+    implements BigBlockProps {
   _$$BigBlockProps._();
 
   factory _$$BigBlockProps(Map backingMap) {
@@ -83,7 +93,8 @@ abstract class _$$BigBlockProps extends _$BigBlockProps with _$BigBlockPropsAcce
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $BigBlockComponentFactory;
+  ReactComponentFactoryProxy get componentFactory =>
+      super.componentFactory ?? $BigBlockComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -147,10 +158,12 @@ class _$BigBlockComponent extends BigBlockComponent {
   }
 
   @override
-  _$$BigBlockProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) => _$$BigBlockProps$JsMap(backingMap);
+  _$$BigBlockProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$BigBlockProps$JsMap(backingMap);
 
   @override
-  _$$BigBlockProps typedPropsFactory(Map backingMap) => _$$BigBlockProps(backingMap);
+  _$$BigBlockProps typedPropsFactory(Map backingMap) =>
+      _$$BigBlockProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -159,5 +172,7 @@ class _$BigBlockComponent extends BigBlockComponent {
   /// The default consumed props, taken from _$BigBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForBigBlockProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForBigBlockProps
+  ];
 }

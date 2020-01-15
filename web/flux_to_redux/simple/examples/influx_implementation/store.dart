@@ -1,21 +1,20 @@
 import 'dart:math';
 
 import 'package:over_react/over_react_flux.dart';
+import 'package:over_react/over_react_redux.dart';
 import 'package:w_flux/w_flux.dart' as flux;
 
-class FluxStore extends flux.Store {
+class FluxStore extends flux.Store with InfluxStoreMixin<ReduxState> {
   RandomColorActions _actions;
 
-  /// Public data
-  String _backgroundColor = 'gray';
-  String get backgroundColor => _backgroundColor;
+  @override
+  get reduxReducer => reducer;
+
+  String get backgroundColor => state.backgroundColor;
 
   FluxStore(this._actions) {
-    triggerOnActionV2(_actions.changeBackgroundColor, _changeBackgroundColor);
-  }
-
-  _changeBackgroundColor(_) {
-    _backgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
+    state = ReduxState('gray');
+    triggerOnActionV2(_actions.changeBackgroundColor, (_) => this.influxReducer(UpdateBackgroundColorAction()));
   }
 }
 
@@ -23,19 +22,29 @@ class RandomColorActions {
   final flux.Action<String> changeBackgroundColor = flux.Action();
 }
 
-class UpdateBackgroundColorAction {}
+class UpdateBackgroundColorAction {
+  UpdateBackgroundColorAction();
+}
 
-FluxStore reducer(flux.Store oldState, dynamic action) {
+ReduxState reducer(ReduxState oldState, dynamic action) {
   if (action is UpdateBackgroundColorAction) {
     var color = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
-    randomColorStore._backgroundColor = color;
-    randomColorStore.trigger();
-    return oldState;
+    return ReduxState.from(oldState, backgroundColor: color);
   } else {
     return oldState;
   }
 }
 
+class ReduxState {
+  String backgroundColor;
+
+  ReduxState(this.backgroundColor);
+
+  ReduxState.from(ReduxState oldState, {backgroundColor}) : this.backgroundColor = backgroundColor ?? oldState.backgroundColor;
+}
+
+
 RandomColorActions randomColorActions = RandomColorActions();
 FluxStore randomColorStore = FluxStore(randomColorActions);
-FluxToReduxAdapterStore adaptedStore = FluxToReduxAdapterStore(randomColorStore, randomColorActions, reducer: reducer);
+FluxToReduxAdapterStore adaptedStore =
+    FluxToReduxAdapterStore<FluxStore, ReduxState>(randomColorStore, randomColorActions, middleware: [overReactReduxDevToolsMiddleware]);
