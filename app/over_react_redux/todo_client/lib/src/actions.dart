@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import 'package:todo_client/src/models/todo.dart';
 import 'package:todo_client/src/models/user.dart';
+import 'package:todo_client/src/store.dart';
 
 part 'actions.g.dart';
 
@@ -33,6 +34,10 @@ class SaveLocalStorageStateAsPayload {
 
 class SaveLocalStorageStateAsAction extends Action<SaveLocalStorageStateAsPayload> {
   SaveLocalStorageStateAsAction([SaveLocalStorageStateAsPayload value]) : super(type: 'SAVE_LOCAL_STORAGE_STATE_AS', value: value);
+}
+
+class LocalStorageStateLoadedAction extends Action<AppState> {
+  LocalStorageStateLoadedAction(AppState value) : super(type: 'LOCAL_STORAGE_STATE_LOADED', value: value);
 }
 
 // ------------ ITEM ACTIONS ------------------
