@@ -10,14 +10,12 @@ TodoAppLocalStorage localTodoAppStorage;
 /// A map interface for mutating `window.localStorage` values
 /// used to persist [AppState] values across browser refreshes.
 class TodoAppLocalStorage extends MapBase<String, /*encodable*/Object> {
-  final AppState initialState;
-
-  TodoAppLocalStorage([this.initialState]) {
+  TodoAppLocalStorage([AppState initialState]) {
     if (isInitialized()) return;
 
     window.localStorage[localStorageKey] = json.encode({
-      currentStateKey: this.initialState?.toJson() ?? {},
-      defaultStateKey: this.initialState?.toJson() ?? {},
+      currentStateKey: initialState?.toJson() ?? {},
+      defaultStateKey: initialState?.toJson() ?? {},
       emptyStateKey: emptyState.toJson(),
     });
   }

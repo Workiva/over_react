@@ -364,9 +364,8 @@ main() {
           // Update the "current" persisted data set so that it differs from the default
           testStore.dispatch(AddTodoAction(newTodo));
 
-          final addCustomPersistedSetPayload = SaveLocalStorageStateAsPayload(customPersistedDataSetName);
           // Save a custom set based on the "current" persisted data set
-          testStore.dispatch(SaveLocalStorageStateAsAction(addCustomPersistedSetPayload));
+          testStore.dispatch(SaveLocalStorageStateAsAction(customPersistedDataSetName));
 
           expect(getLocalStorageSetByKey(customPersistedDataSetName), testStore.state.toJson());
           expect(getCurrentLocalStorageSet(), getLocalStorageSetByKey(customPersistedDataSetName),
@@ -386,10 +385,9 @@ main() {
           // Update the "current" persisted data set so that it differs from the custom persisted set
           testStore.dispatch(AddTodoAction(newTodo));
 
-          final overwriteCustomPersistedSetPayload =
-              SaveLocalStorageStateAsPayload(customPersistedDataSetName, previousName: customPersistedDataSetName);
           // Save the existing custom set based on the "current" persisted data set
-          testStore.dispatch(SaveLocalStorageStateAsAction(overwriteCustomPersistedSetPayload));
+          testStore.dispatch(
+              SaveLocalStorageStateAsAction(customPersistedDataSetName, previousName: customPersistedDataSetName));
 
           expect(getLocalStorageSetByKey(customPersistedDataSetName), isNot(initialCustomPersistedDataSetValue));
           expect(getLocalStorageSetByKey(customPersistedDataSetName), testStore.state.toJson());
@@ -402,10 +400,9 @@ main() {
           const newCustomPersistedDataSetName = 'Copy of $customPersistedDataSetName';
           final initialCustomPersistedDataSetValue = getLocalStorageSetByKey(customPersistedDataSetName);
 
-          final overwriteCustomPersistedSetPayload =
-              SaveLocalStorageStateAsPayload(newCustomPersistedDataSetName, previousName: customPersistedDataSetName);
           // Save a copy of the existing custom set based on the "current" persisted data set
-          testStore.dispatch(SaveLocalStorageStateAsAction(overwriteCustomPersistedSetPayload));
+          testStore.dispatch(
+              SaveLocalStorageStateAsAction(newCustomPersistedDataSetName, previousName: customPersistedDataSetName));
 
           expect(getLocalStorageSetByKey(newCustomPersistedDataSetName), testStore.state.toJson());
           expect(getCurrentLocalStorageSet(), getLocalStorageSetByKey(newCustomPersistedDataSetName),
@@ -429,10 +426,9 @@ main() {
           // Update the "current" persisted data set so that it differs from the custom persisted set
           testStore.dispatch(AddTodoAction(newTodo));
 
-          final overwriteCustomPersistedSetPayload =
-              SaveLocalStorageStateAsPayload(newCustomPersistedDataSetName, previousName: customPersistedDataSetName);
           // Save a copy of the existing custom set based on the "current" persisted data set
-          testStore.dispatch(SaveLocalStorageStateAsAction(overwriteCustomPersistedSetPayload));
+          testStore.dispatch(
+              SaveLocalStorageStateAsAction(newCustomPersistedDataSetName, previousName: customPersistedDataSetName));
 
           expect(getLocalStorageSetByKey(newCustomPersistedDataSetName), testStore.state.toJson());
           expect(getCurrentLocalStorageSet(), getLocalStorageSetByKey(newCustomPersistedDataSetName),

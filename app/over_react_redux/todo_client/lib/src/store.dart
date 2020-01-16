@@ -13,23 +13,18 @@ part 'store.g.dart';
 
 @visibleForTesting
 AppState initializeState() {
-  AppState initialState;
-  if (!TodoAppLocalStorage.isInitialized()) {
-    // First load - give the user some data to work with, and set up our default / empty states.
-    initialState = AppState.fromJson(defaultAppState);
-    localTodoAppStorage = TodoAppLocalStorage(initialState);
-  } else {
-    localTodoAppStorage ??= TodoAppLocalStorage();
-    initialState = AppState.fromJson(localTodoAppStorage.currentStateJson);
-  }
-
-  return initialState;
+  // Initialize local storage with the default state, unless state is already saved in local storage.
+  localTodoAppStorage = TodoAppLocalStorage(AppState.fromJson(defaultAppState));
+  return AppState.fromJson(localTodoAppStorage.currentStateJson);
 }
 
 DevToolsStore<AppState> getStore() => DevToolsStore<AppState>(
   appStateReducer,
   initialState: initializeState(),
-  middleware: [overReactReduxDevToolsMiddleware],
+  middleware: [
+    overReactReduxDevToolsMiddleware,
+    localStorageMiddleware(),
+  ],
 );
 
 @JsonSerializable(explicitToJson: true)
@@ -53,10 +48,7 @@ class AppState {
     this.selectedUserIds,
     this.editableUserIds,
     this.highlightedUserIds,
-  }) {
-    assert(name != null && name.isNotEmpty);
-    localTodoAppStorage?.updateCurrentState(this);
-  }
+  }) : assert(name != null && name.isNotEmpty);
 
   factory AppState.fromJson(Map<String, dynamic> json) => _$AppStateFromJson(json);
   Map<String, dynamic> toJson() => _$AppStateToJson(this);
@@ -64,24 +56,11 @@ class AppState {
 
 @visibleForTesting
 AppState appStateReducer(AppState state, dynamic action) {
-  var stateName = localTodoAppStorage.currentStateJson['name'];
-
-  if (action is SaveLocalStorageStateAsAction) {
-    if (action.value.previousName != null && action.value.previousName == action.value.name) {
-      // Overwrite
-      localTodoAppStorage.remove(action.value.previousName);
-    }
-
-    stateName = action.value.name;
-    localTodoAppStorage[stateName] =
-        (AppState.fromJson(localTodoAppStorage.currentStateJson)..name = stateName).toJson();
+  if (action is LocalStorageStateLoadedAction) {
+    return action.value;
   }
 
-  if (action is LoadStateFromLocalStorageAction) {
-    return AppState.fromJson(localTodoAppStorage[action.value]);
-  }
-
-  return AppState(stateName,
+  return AppState(stateNameReducer(state.name, action),
     todos: todosReducer(state.todos, action),
     users: usersReducer(state.users, action),
     editableTodoIds: editableTodosReducer(state.editableTodoIds, action),
@@ -93,7 +72,38 @@ AppState appStateReducer(AppState state, dynamic action) {
   );
 }
 
+
+// todo inject localTodoAppStorage as an arg instead of using a global variable
+Middleware<AppState> localStorageMiddleware() {
+  return (store, action, next) {
+    next(action);
+
+    if (action is LoadStateFromLocalStorageAction) {
+      final localStorageState = AppState.fromJson(localTodoAppStorage[action.value]);
+      store.dispatch(LocalStorageStateLoadedAction(localStorageState));
+    } else if (action is SaveLocalStorageStateAsAction) {
+      if (action.previousName != null) {
+        // This is a rename; remove the old entry
+        localTodoAppStorage.remove(action.previousName);
+      }
+
+      final stateName = action.name;
+      // Run the reducer here so that the name is updated in response to the
+      // current action before saving.
+      // TODO use store.reducer once null DevToolsStore.reducer bug is fixed
+      final stateWithUpdatedName = appStateReducer(store.state, action);
+      localTodoAppStorage[stateName] = stateWithUpdatedName.toJson();
+    }
+
+    localTodoAppStorage?.updateCurrentState(store.state);
+  };
+}
+
 // ------------ ITEM REDUCERS ------------------
+
+final stateNameReducer = TypedReducer<String, SaveLocalStorageStateAsAction>((name, action) {
+  return action.name;
+});
 
 final todosReducer = combineReducers<List<Todo>>([
   TypedReducer<List<Todo>, AddTodoAction>((todos, action) {
