@@ -13,17 +13,9 @@ part 'store.g.dart';
 
 @visibleForTesting
 AppState initializeState() {
-  AppState initialState;
-  if (!TodoAppLocalStorage.isInitialized()) {
-    // First load - give the user some data to work with, and set up our default / empty states.
-    initialState = AppState.fromJson(defaultAppState);
-    localTodoAppStorage = TodoAppLocalStorage(initialState);
-  } else {
-    localTodoAppStorage ??= TodoAppLocalStorage();
-    initialState = AppState.fromJson(localTodoAppStorage.currentStateJson);
-  }
-
-  return initialState;
+  // Initialize local storage with the default state, unless state is already saved in local storage.
+  localTodoAppStorage = TodoAppLocalStorage(AppState.fromJson(defaultAppState));
+  return AppState.fromJson(localTodoAppStorage.currentStateJson);
 }
 
 DevToolsStore<AppState> getStore() => DevToolsStore<AppState>(
