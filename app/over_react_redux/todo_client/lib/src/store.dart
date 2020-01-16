@@ -101,9 +101,9 @@ Middleware<AppState> localStorageMiddleware() {
       // TODO use store.reducer once null DevToolsStore.reducer bug is fixed
       final stateWithUpdatedName = appStateReducer(store.state, action);
       localTodoAppStorage[stateName] = stateWithUpdatedName.toJson();
-    } else {
-      localTodoAppStorage?.updateCurrentState(store.state);
     }
+
+    localTodoAppStorage?.updateCurrentState(store.state);
   };
 }
 
