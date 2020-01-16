@@ -123,12 +123,11 @@ class AppBarLocalStorageMenuComponent extends UiComponent2<AppBarLocalStorageMen
   }
 
   void _handleLocalStorageStateRename(String newStateName, {String renamedFrom}) {
-    props.dispatch(SaveLocalStorageStateAsAction(
-        SaveLocalStorageStateAsPayload(newStateName, previousName: renamedFrom)));
+    props.dispatch(SaveLocalStorageStateAsAction(newStateName, previousName: renamedFrom));
   }
 
   void _handleCurrentLocalStorageStateSaveAs({String newStateName}) {
-    props.dispatch(SaveLocalStorageStateAsAction(SaveLocalStorageStateAsPayload(newStateName)));
+    props.dispatch(SaveLocalStorageStateAsAction(newStateName));
     _loadFromLocalStorage(newStateName);
     _overlayRef.current.close();
   }

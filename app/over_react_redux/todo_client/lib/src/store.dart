@@ -90,15 +90,16 @@ Middleware<AppState> localStorageMiddleware() {
       final localStorageState = AppState.fromJson(localTodoAppStorage[action.value]);
       store.dispatch(LocalStorageStateLoadedAction(localStorageState));
     } else if (action is SaveLocalStorageStateAsAction) {
-      if (action.value.previousName != null) {
+      if (action.previousName != null) {
         // This is a rename; remove the old entry
-        localTodoAppStorage.remove(action.value.previousName);
+        localTodoAppStorage.remove(action.previousName);
       }
 
-      final stateName = action.value.name;
+      final stateName = action.name;
       // Run the reducer here so that the name is updated in response to the
       // current action before saving.
-      final stateWithUpdatedName = store.reducer(store.state, action);
+      // TODO use store.reducer once null DevToolsStore.reducer bug is fixed
+      final stateWithUpdatedName = appStateReducer(store.state, action);
       localTodoAppStorage[stateName] = stateWithUpdatedName.toJson();
     } else {
       localTodoAppStorage?.updateCurrentState(store.state);
@@ -109,7 +110,7 @@ Middleware<AppState> localStorageMiddleware() {
 // ------------ ITEM REDUCERS ------------------
 
 final stateNameReducer = TypedReducer<String, SaveLocalStorageStateAsAction>((name, action) {
-  return action.value.name;
+  return action.name;
 });
 
 final todosReducer = combineReducers<List<Todo>>([

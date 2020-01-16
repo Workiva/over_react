@@ -6,16 +6,16 @@ part of 'actions.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SaveLocalStorageStateAsPayload _$SaveLocalStorageStateAsPayloadFromJson(
+SaveLocalStorageStateAsAction _$SaveLocalStorageStateAsActionFromJson(
     Map<String, dynamic> json) {
-  return SaveLocalStorageStateAsPayload(
+  return SaveLocalStorageStateAsAction(
     json['name'] as String,
     previousName: json['previousName'] as String,
   );
 }
 
-Map<String, dynamic> _$SaveLocalStorageStateAsPayloadToJson(
-        SaveLocalStorageStateAsPayload instance) =>
+Map<String, dynamic> _$SaveLocalStorageStateAsActionToJson(
+        SaveLocalStorageStateAsAction instance) =>
     <String, dynamic>{
       'name': instance.name,
       'previousName': instance.previousName,
