@@ -45,9 +45,7 @@ class SaveAsMenuItemComponent extends UiStatefulComponent2<SaveAsMenuItemProps, 
     return (LocalStorageMenuItemInput()
       ..initialValue = props.initialValue
       ..onSave = (newValue) {
-        if (newValue != props.initialValue) {
-          props.onSave(newValue);
-        }
+        props.onSave(newValue);
         setState(newState()..isEditable = false);
       }
     )();
