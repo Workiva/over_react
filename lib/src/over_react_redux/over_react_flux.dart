@@ -139,10 +139,10 @@ mixin InfluxStoreMixin<S> on flux.Store {
   /// the corresponding state class.
   ///
   /// This is used in [influxReducer] to update the [state] field before triggering
-  /// and update.
+  /// an update.
   redux.Reducer<S> get reduxReducer;
 
-  /// An instance of the Redux state model that the Flux component is migrating to.
+  /// An instance of the Redux state model that the Flux store is migrating to.
   S state;
 
   /// A wrapper around a pure Redux reducer that keeps the Flux UI up to date with
