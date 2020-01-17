@@ -17,8 +17,8 @@
         * [Reducer Refactor](#reducer-refactor)
     * [Store](#store)
     * [UI](#ui)
-* [Component Comparison](#component-comparison)
-* [UI Refactor](#ui-refactor)
+        * [Component Comparison](#component-comparison)
+        * [UI Refactor](#ui-refactor)
 * __[Reducer Builders and Combine Reducers](#reducer-builders-and-combine-reducers)__
 
 ## Goal
@@ -240,6 +240,7 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
 
 #### UI Refactor
 - Wrap your tree in a `ReduxProvider`. All of your connected components need to be wrapped by a `ReduxProvider`. Usually this means that in your `react_dom.render()`, one of your first HOCs will be a `ReduxProvider` that takes in your Redux `Store` instance for its `store` prop.
+- Remove instances where the `Store` gets passed down the component tree.
 - General Component Refactor (to be done to every component):
     1. Make sure the component is `UiComponent2`.
     1. Remove any stream stuff. No more streams! :)
