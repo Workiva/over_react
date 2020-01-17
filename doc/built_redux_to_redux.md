@@ -1,4 +1,4 @@
-# BuiltRedux to OverReact Redux
+# built_redux to OverReact Redux
 > A document explaining the fundamentals of transitioning a build_redux architecture to an OverReact Redux (aka just "Redux") architecture.
 >
 > NOTE: Before attempting to transition, make sure you understand the content from the general [Redux Documentation](https://github.com/johnpryan/redux.dart) and the [OverReact Redux Documentation](./over_react_redux_documentation.md). This guide covers differences between built_redux to Redux but does not try to comprehensively describe Redux.
@@ -32,7 +32,7 @@ No. Redux is meant to help to provide a recommended state management method for 
 To evaluate if the refactor is worth it, the details of Redux can be found in the [OverReact Redux doc](./over_react_redux_documentation.md). That document paired with this guide will illustrate the full scope of costs and benefits.
 
 ## Comparing the Two Systems
-Like built_redux, OverReact Redux is comprised of the same main entities. Moving from built_redux to Redux then is just a matter of refactoring each relevant entity, along with the related UI. Note again that this document does not attempt to explain _how_ Redux works, and if any of the Redux implementation details aren't quite clear, check out the [Redux Documentation](https://github.com/johnpryan/redux.dart) and the [OverReact Redux Documentation](./over_react_redux_documentation.md).
+built_redux and OverReact Redux are comprised of the same main entities. Moving from built_redux to Redux then is just a matter of refactoring each relevant entity, along with the related UI. Note again that this document does not attempt to explain _how_ Redux works, and if any of the Redux implementation details aren't quite clear, check out the [Redux Documentation](https://github.com/johnpryan/redux.dart) and the [OverReact Redux Documentation](./over_react_redux_documentation.md).
 
 ### Actions
 
