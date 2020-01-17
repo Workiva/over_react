@@ -8,7 +8,7 @@
 * __[A Simple Example](#a-simple-example)__
     * [A Basic Flux App](#a-basic-flux-app)
     * [The Redux Version](#the-redux-version)
-    * [Basic Example: The Main Differences](#basic-example:-the-main-differences)
+    * [Basic Example: The Main Differences](#basic-example-the-main-differences)
     * [Basic Conversion Step by Step](#basic-conversion-step-by-step)
 * __[An Advanced Example](#an-advanced-example)__
     * [An Advanced Flux App](#an-advanced-flux-app)
@@ -32,9 +32,9 @@ The goal of this document is explain major elements of transitioning from Flux t
 If, through this process, the document or examples miss any edge cases you encounter, please create an issue or reach out so it can be added.
 
 ## Do I have to transition to Redux?
-No. OverReact Redux is meant to help to provide a recommended state management method for OverReact components, as well as provide benefits over w_flux and built_redux. Those benefits may provide enough reason to make a refactor worthwhile. If, after evaluating the benefits and effort, the juice doesn't seem worth the squeeze, then no need to worry about it!
+No. OverReact Redux is meant to help to provide a recommended state management method for OverReact components, as well as provide benefits over [w_flux](https://github.com/workiva/w_flux) and [built_redux](https://github.com/davidmarne/built_redux). Those benefits may provide enough reason to make a refactor worthwhile. If, after evaluating the benefits and effort, the juice doesn't seem worth the squeeze, then no need to worry about it!
 
-To evaluate if the refactor is worth it, the details of OverReact Redux can be found in the [OverReact Redux doc](./over_react_redux_documentation.md). That document paired with this guide will illustrate the full scope of costs and benefits.
+To evaluate if the refactor is worth it, the details of OverReact Redux can be found in the [OverReact Redux documentation](./over_react_redux_documentation.md). That document paired with this guide will illustrate the full scope of costs and benefits.
 
 ## A Simple Example
 To illustrate the basic changes that will occur, this section will go through a basic Flux architecture and then show that same system with Redux instead. This section will also have a step by step list of instructions for an update as straightforward as this one. An actual working example can be found in the [Flux to Redux Example](../web/flux_to_redux/simple/readme.md).
@@ -50,6 +50,8 @@ For our example, here are our different items of interest:
 - __The UI:__ The only component is a BigBlock component that receives randomColorActions and randomColorStore as props. Updates are triggered by calling `props.actions.changeBackgroundColor` and state is accessed by using `props.store.state`. The actual UI itself is just the component, with its background color set to the state background color, and a button that triggers the action to update the state background color.
 
 ```dart
+import 'package:w_flux/w_flux.dart' as flux;
+
 // A flux store responsible for displaying a random background color.
 class RandomColorStore extends flux.Store {
     /// The collection of actions this store will be subscribing to.
@@ -74,10 +76,12 @@ class RandomColorStore extends flux.Store {
 ```
 
 ```dart
+import 'package:w_flux/w_flux.dart' as flux;
+
 /// A collection of actions.
 class RandomColorActions {
   /// An action instance that can be used to dispatch events to subscribers.
-  final flux.Action<String> changeBackgroundColor = flux.Action();
+  final changeBackgroundColor = flux.Action<String>();
 }
 ```
 
@@ -97,7 +101,7 @@ For our example, here are our different items of interest:
 - __Actions__, a single action class called `UpdateBackgroundColorAction`
 - __The Reducer__, `randomColorReducer`
 - __The Store Object__, `randomColorStore`
-- __The UI:__ All of our UI componentry is wrapped in a `ReduxProvider`. The provider takes in a `store` prop, to which we pass `randomColorStore`. The only component is a `BigBlock` connected component. Updates are triggered by calling `props.dispatch(UpdateBackgroundColorAction())`, and since it's a connected component (using `mapStateToProps`) state is accessed via normal props usage.
+- __The UI:__ All of our UI componentry is wrapped in a `ReduxProvider`. The provider takes in a `store` prop, to which we pass `randomColorStore`. The only component is a `BigBlock` connected component. Updates are triggered by calling `props.dispatch(UpdateBackgroundColorAction())`, and since it's a connected component (using [`mapStateToProps`](./over_react_redux_documentation.md#mapstatetoprops)) state is accessed via normal props usage.
 
 ```dart
 // A regular Dart class that represents the application data model
@@ -109,13 +113,13 @@ class RandomColorState {
     RandomColorState.defaultState() : this.backgroundColor = 'gray';
 
     // A convenience constructor used by the reducer to return new instances of the class
-    RandomColorState.update(RandomColorState oldState, {backgroundColor})
+    RandomColorState.update(RandomColorState oldState, {String backgroundColor})
         : this.backgroundColor = backgroundColor ?? oldState.backgroundColor;
 }
 ```
 
 ```dart
-// Our only action for our application
+// The only action for our application
 class UpdateBackgroundColorAction {}
 ```
 
@@ -134,6 +138,8 @@ RandomColorState reducer(RandomColorState oldState, dynamic action) {
 ```
 
 ```dart
+import 'package:redux/redux.dart' as redux;
+
 // Instantiate a store using the reducer and state class
 redux.Store randomColorStore = redux.Store<RandomColorState>(reducer, initialState: RandomColorState.defaultState());
 ```
@@ -142,8 +148,8 @@ redux.Store randomColorStore = redux.Store<RandomColorState>(reducer, initialSta
 
 ### Basic Example: The Main Differences
 - __We replace the Flux store with both a state class and a reducer.__ In Redux, we do not define a class that is responsible for handling state updates. Rather, we create the model to represent the state and a function to describe updates. Then, use them in the instantiation of a Redux `Store` object.
-- __Actions are not held in an overarching wrapper class.__ Typically in Redux, actions "stand alone" from each other. Our reducer should have cases for all the actions that exist, but unlike Flux there is no need to knit our store and actions together by actually providing an actions instance to the store. Consequently, actions are broken away, pulled directly into the component, and triggered by passing an action instance into `dispatch` - the centralized dispatcher accessible via `props` or `mapDispatchToProps`.
-- __In Redux, the entire store is not passed to components via props.__ React Redux's `connect` function uses context to allow you to access the store's state without passing it through multiple layers of components, and also provides a mechanism to map the relevant parts of state directly to props (an optionally only rerender when those props change). `connect` is paired with wrapping the component tree in a `ReduxProvider` component.
+- __Actions are not held in an overarching wrapper class.__ Typically in Redux, actions "stand alone" from each other. Our reducer should have cases for all the actions that exist, but unlike Flux there is no need to knit our store and actions together by actually providing an actions instance to the store. Consequently, actions are broken away, pulled directly into the component, and triggered by passing an action instance into `dispatch` - the centralized dispatcher accessible via `props` if mixing in `ConnectPropsMixin`, or [`mapDispatchToProps`](./over_react_redux_documentation.md#mapdispatchtoprops).
+- __In Redux, the entire store is not passed to components via props.__ OverReact Redux's [`connect` function](./over_react_redux_documentation.md#connect) uses context to allow you to access the store's state without passing it through multiple layers of components, and also provides a mechanism to map the relevant parts of state directly to props (and optionally only rerender when those props change). `connect` is paired with wrapping the component tree in a [`ReduxProvider` component](./over_react_redux_documentation.md#reduxprovider).
 
 ### Basic Conversion Step by Step
 > NOTE: This document does not attempt to teach _how_ to use Redux. If any of these steps cause confusion on the implementation details of Redux, see the [OverReact Redux Documentation](./over_react_redux_documentation.md).
@@ -185,6 +191,8 @@ redux.Store randomColorStore = redux.Store<RandomColorState>(reducer, initialSta
 
 1. __Pull state mutation logic out of the store and into a reducer.__ Typically within a Flux store you have a `triggerOnActionV2` call that identifies an action and a function used to respond to that action. In many cases, that same logic should be perfect for a reducer.
     ```dart
+    import 'package:w_flux/w_flux.dart' as flux;
+
     // Before transition
     class ExampleFluxStore extends flux.Store {
         FluxActions _actions;
@@ -244,6 +252,8 @@ This section builds on the [simple example](#a-simple-example), so ensure that s
     A Flux specific part of the `BigBlock` component is that we need to set the `redrawOne` to listen to the story at every level.
 
 ```dart
+import 'package:w_flux/w_flux.dart' as flux;
+    
 // A nested store
 class RandomColorStore extends flux.Store {
     RandomColorActions _actions;
@@ -283,6 +293,8 @@ class AnotherColorStore extends flux.Store {
 ```
 
 ```dart
+import 'package:w_flux/w_flux.dart' as flux;
+    
 // A shared action class for all the stores, with an action to update each background color
 class RandomColorActions {
     final flux.Action<String> changeMainBackgroundColor = flux.Action();
@@ -384,6 +396,8 @@ ReduxState afterTransitionReducer(ReduxState oldState, dynamic action) {
 ```
 
 ```dart
+import 'package:redux/redux.dart' as redux;
+    
 // Instantiate a store using the reducer and state class
 redux.Store reduxStore = redux.Store<ReduxState>(afterTransitionReducer, initialState: ReduxState.defaultState());
 ```
@@ -416,7 +430,7 @@ If Redux makes sense but the conversion project seems extremely challenging, we 
 
 ## Influx Architecture
 ### What is Influx?
-Influx is just the term we're giving to an architecture that is both Redux and Flux at the same time. To aid in the transition from Flux to Redux, tools have been built to allow Flux and Connected (Redux) components to all talk to the same store. It's a transitional architecture that allows the library to be non-commital to the state management system, ultimately allowing the transition from Flux to Redux to be a much more incremental process.
+Influx is just the term we're giving to an architecture that is both Redux and Flux at the same time. To aid in the transition from Flux to Redux, we have built some utilities to allow Flux and Connected (Redux) components to all talk to the same store. It's a transitional architecture that allows the library to be non-commital to the state management system, ultimately allowing the transition from Flux to Redux to be a much more incremental process.
 
 ### Should you implement an Influx architecture during the transition?
 __tl;dr__
@@ -427,7 +441,7 @@ The Influx architecture is not a required part of the process, and may make your
 
 ### Advantages
 - __You can split the effort into very tangible subtasks.__ Stores can be updated to Redux without necessarily updating the Flux components. Components reliant on multiple stores can talk to Flux stores and Redux stores at the same time. Ultimately, this means a library can pick and choose the areas that can be updated and do them one at a time.
-- __Inability to update entirely to `Component2` is not a blocker.__ Since `connected` components need to be `Component2`, the Redux refactor may be blocked by those efforts. This option allows the library to update the state system to a Redux friendly architecture while updating components to `UiComponent2` and `connect` at the same time.
+- __Inability to update entirely to `Component2` is not a blocker.__ Since `connected` components need to be `Component2`, the Redux refactor may be blocked by those efforts. This option allows the library to update the state system to a Redux friendly architecture while [updating components to `UiComponent2`](./ui_component2_transition.md) and `connect` at the same time.
 - __The workflow is much less complex.__ While heavily piggybacked off the first two advantages, it's worth noting the workflow benefits of the incremental update. There shouldn't be as many massive merges or code reviews, and the granularity of tasks should make it clearer where manual testing is needed and when tests need to be written or updated. Ultimately this reduces the project complexity and the risk of regressions.
 - __The actual update process can be easier to reason about in complex scenarios.__ Influx merges Flux and Redux to provide a "halfway" point that is a fairly straightforward transition both from Flux and to Redux. For those complex scenarios, it may seem daunting to transition straight to Redux, and Influx can lower the barrier. 
 
@@ -441,9 +455,9 @@ In summary, Influx adds steps to the transition process, but can make the work e
 ### Important Terms
 If this architecture is appealing, there are a few new classes and utilities it will be beneficial to be aware of.
 - __Adapted Influx Store:__ The instance returned from wrapping an Influx store with a `FluxToReduxAdapterStore`.
-- __`composeHocs`:__ If a component takes in multiple stores, it needs to be connected to all of them. This function that allows you to combine multiple `connect` or `connectFlux` calls using a flat list, as opposed to nesting them inside each other.
-- __`connectFlux`:__ Like [`connect`](https://github.com/Workiva/over_react/blob/master/doc/over_react_redux_documentation.md#connect), but for Flux stores instead of Redux stores. This is useful because it is one step closer to a Redux connected component without being Redux. If, for any reason, implementing the Redux side of Influx is presenting challenges, `connectFlux` provides a good middle ground.
-- __`FluxToReduxAdapterStore`:__ This is a class that wraps an Influx store and makes it look like a Redux store. It is the cornerstone of Influx because pure Flux components will stay connected to the original store instance, but Redux components and connected Flux components (using `connectFlux`) will connect to the instatiated `FluxToReduxAdapaterStore` object. This works by passing in an Influx store instance and a Flux actions instance.
+- __`composeHocs`:__ If a component takes in multiple stores, it needs to be connected to all of them. This function allows you to combine multiple `connect` or `connectFlux` calls using a flat list, as opposed to nesting them inside each other.
+- __`connectFlux`:__ Like [`connect`](./over_react_redux_documentation.md#connect), but for Flux stores instead of Redux stores. This is useful because it is one step closer to a Redux connected component without being Redux. If, for any reason, implementing the Redux side of Influx is presenting challenges, `connectFlux` provides a good middle ground.
+- __`FluxToReduxAdapterStore`:__ This is a class that wraps an Influx store and makes it look like a Redux store. It is the cornerstone of Influx because pure Flux components will stay connected to the original store instance, but Redux components and connected Flux components (using `connectFlux`) will connect to the instatiated `FluxToReduxAdapaterStore` object. This works by passing in an Influx store instance and a Flux `Actions` instance.
 - __Influx store:__ A Flux store that has implemented the `InfluxStoreMixin` and converted its internal logic (constructor, getters, overrides) to match the Influx pattern.
 - __`InfluxStoreMixin`:__ A mixin that attaches to a Flux store in order to add necessary Influx utilities. Namely, the method `influxReducer` must be accessible on the Flux store class, and `influxReducer` expects the class to have a `reduxReducer` method and a `state` field. The `state` field is essentially a proxy for a Redux state class, and makes it so that state class can be built slowly over time without any need to refactor it again.
 - __`ReduxMultiProvider`:__ This Component has a similar purpose as that of `composeHocs`, but for a `ReduxProvider` instead. This allows you to "provide" multiple stores via different contexts via one component invocation, as opposed to nesting multiple `ReduxProvider`s inside each other.
@@ -488,6 +502,9 @@ __Goal:__ Update all stores to be either Influx or Redux and update all componen
         Updating getters isn't necessary as the correct fields should be accessible via `influxStoreInstance.state.reduxProperty`, but refactoring the getters means that any Flux components pointing to this store do not need to be refactored. If it is preferable just to remove getters in favor of accessing the `state` fields directly, any original getters or fields that correspond to a value moved to the Redux state class should be removed.
 
         ```dart
+        import 'package:over_react/over_react_redux.dart';
+        import 'package:w_flux/w_flux.dart' as flux;
+
         // An Influx Store
         // Add the `InfluxStoreMixin` and use the Redux state class for the generic typing.
         class ExampleInfluxStore extends flux.Store with InfluxStoreMixin<ReduxStateClass> {
