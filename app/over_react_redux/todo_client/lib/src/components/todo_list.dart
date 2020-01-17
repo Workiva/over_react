@@ -1,10 +1,10 @@
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
-import 'package:todo_client/src/components/shared/redraw_counter_component_mixin.dart';
 
 import 'package:todo_client/src/store.dart';
 import 'package:todo_client/src/models/todo.dart';
 import 'package:todo_client/src/components/shared/display_list.dart';
+import 'package:todo_client/src/components/shared/redraw_counter_component_mixin.dart';
 import 'package:todo_client/src/components/todo_list_item.dart';
 
 // ignore: uri_has_not_been_generated

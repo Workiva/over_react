@@ -4,8 +4,8 @@ import 'package:over_react/over_react_redux.dart';
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
 import 'package:time/time.dart';
-import 'package:todo_client/src/actions.dart';
 
+import 'package:todo_client/src/actions.dart';
 import 'package:todo_client/src/components/app.dart';
 import 'package:todo_client/src/components/shared/display_list.dart';
 import 'package:todo_client/src/components/shared/empty_view.dart';

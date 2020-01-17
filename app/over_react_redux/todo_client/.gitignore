@@ -3,7 +3,6 @@
 packages
 build/
 .dart_tool
-*.over_react.g.dart
 
 # Directory created by dartdoc
 doc/api/

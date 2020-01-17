@@ -24,14 +24,6 @@ void initializeComponentTests() {
   if (!muiJsIsAvailable()) return;
 }
 
-JsBackedMap getJsProps(Ref ref) {
-  if (ref.jsRef == null) {
-    throw ArgumentError('There is no js component found within this Ref');
-  }
-
-  return JsBackedMap.fromJs(ref.jsRef.current.props);
-}
-
 Future<Null> expectNoRedraws(RedrawCounterMixin component) async {
   final redrawCount = await component.didRedraw().future.timeout(20.milliseconds, onTimeout: () => 0);
   expect(redrawCount, 0);

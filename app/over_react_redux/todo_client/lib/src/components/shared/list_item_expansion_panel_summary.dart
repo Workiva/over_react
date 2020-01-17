@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:over_react/over_react.dart';
 
 import 'package:todo_client/src/components/shared/hoverable_item_mixin.dart';
@@ -34,8 +36,12 @@ class ListItemExpansionPanelSummaryComponent
     extends UiStatefulComponent2<ListItemExpansionPanelSummaryProps, ListItemExpansionPanelSummaryState>
     with HoverableItemMixin<ListItemExpansionPanelSummaryProps, ListItemExpansionPanelSummaryState> {
   @override
+  get itemNodeRef => createRef<Element>();
+
+  @override
   render() {
     return ExpansionPanelSummary({
+      'ref': itemNodeRef,
       'aria-controls': 'details_${props.modelId}',
       'id': 'summary_${props.modelId}',
       'expandIcon': ExpandMoreIcon(),

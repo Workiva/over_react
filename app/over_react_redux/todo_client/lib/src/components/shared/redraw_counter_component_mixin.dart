@@ -19,6 +19,8 @@ mixin RedrawCounterMixin<T extends UiProps> on UiComponent2<T> {
   @override
   @mustCallSuper
   void componentDidUpdate(_, __, [___]) {
+    super.componentDidUpdate(_, __, ___);
+
     redrawCount++;
     if (redrawCount < _desiredRedrawCount) {
       return;

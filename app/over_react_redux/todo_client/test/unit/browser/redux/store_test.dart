@@ -139,7 +139,7 @@ main() {
             reason: reasonCurrentSetShouldBePersisted);
       }
 
-      test('when an BeginEditTodoAction is dispatched', beginEdits);
+      test('when a BeginEditTodoAction is dispatched', beginEdits);
 
       test('when a FinishEditTodoAction is dispatched', () {
         beginEdits();
@@ -174,7 +174,7 @@ main() {
             reason: reasonCurrentSetShouldBePersisted);
       }
 
-      test('when an SelectTodoAction is dispatched', select);
+      test('when a SelectTodoAction is dispatched', select);
 
       test('when a DeselectTodoAction is dispatched', () {
         select();
@@ -211,9 +211,9 @@ main() {
             reason: reasonCurrentSetShouldBePersisted);
       }
 
-      test('when an HighlightTodosAction is dispatched', highlight);
+      test('when a HighlightTodosAction is dispatched', highlight);
 
-      test('when a UnHighlightTodosAction is dispatched', () {
+      test('when an UnHighlightTodosAction is dispatched', () {
         highlight();
 
         final noLongerHighlightedTodoId = testStore.state.todos.first.id;
@@ -284,7 +284,7 @@ main() {
             reason: reasonCurrentSetShouldBePersisted);
       }
 
-      test('when an BeginEditUserAction is dispatched', beginEdits);
+      test('when a BeginEditUserAction is dispatched', beginEdits);
 
       test('when a FinishEditUserAction is dispatched', () {
         beginEdits();
@@ -319,7 +319,7 @@ main() {
             reason: reasonCurrentSetShouldBePersisted);
       }
 
-      test('when an SelectUserAction is dispatched', select);
+      test('when a SelectUserAction is dispatched', select);
 
       test('when a DeselectUserAction is dispatched', () {
         select();

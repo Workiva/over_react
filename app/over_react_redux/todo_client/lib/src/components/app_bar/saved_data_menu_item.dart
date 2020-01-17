@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:over_react/over_react.dart';
 
 import 'package:todo_client/src/local_storage.dart';
@@ -38,6 +40,9 @@ class _$SavedDataMenuItemState extends MenuOverlayState
 class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemProps, SavedDataMenuItemState>
     with HoverableItemMixin<SavedDataMenuItemProps, SavedDataMenuItemState> {
   @override
+  get itemNodeRef => createRef<Element>();
+
+  @override
   get initialState => (newState()
     ..addAll(super.initialState)
     ..isEditable = false
@@ -53,6 +58,7 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
 
     return MenuItem({
       ...propsToForward,
+      'ref': itemNodeRef,
       'onClick': _handleMenuItemClick,
       'onMouseEnter': handleItemMouseEnter,
       'onMouseLeave': handleItemMouseLeave,

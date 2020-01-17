@@ -6,6 +6,8 @@ import 'package:over_react/over_react.dart';
 import 'package:todo_client/src/components/shared/hoverable_item_mixin.dart';
 
 mixin HoverableItemMixin<T extends UiProps, S extends HoverableItemStateMixin> on UiStatefulComponent2<T, S> {
+  Ref<Element> get itemNodeRef;
+
   @mustCallSuper
   @override
   get initialState => (newState()
@@ -20,7 +22,7 @@ mixin HoverableItemMixin<T extends UiProps, S extends HoverableItemStateMixin> o
   void handleChildBlur(SyntheticFocusEvent event) {
     var newlyFocusedTarget = event.relatedTarget;
     // newlyFocusedTarget could be null or a window, so check if it's an Element first.
-    if (newlyFocusedTarget is Element && findDomNode(this).contains(newlyFocusedTarget)) {
+    if (newlyFocusedTarget is Element && itemNodeRef.current?.contains(newlyFocusedTarget) == true) {
       // Don't do anything if we're moving from one item to another
       return;
     }
