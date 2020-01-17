@@ -26,8 +26,19 @@ import 'package:over_react/src/util/css_value_util.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:platform_detect/platform_detect.dart';
 
+// The computed font size of the HTML node isn't reliable in Chrome when the page is refreshed while zoomed.
+// Instead, measure a container to determine how big 1rem is.
 double _computeRootFontSize() {
-  return CssValue.parse(document.documentElement.getComputedStyle().fontSize).number.toDouble();
+  final remMeasurer = DivElement();
+  remMeasurer.style
+    ..width = '1rem'
+    ..height = '0'
+    ..position = 'absolute'
+    ..zIndex = '-1';
+  document.body.append(remMeasurer);
+  final rem = CssValue.parse(remMeasurer.getComputedStyle().width).number.toDouble();
+  remMeasurer.remove();
+  return rem;
 }
 
 double _rootFontSize = _computeRootFontSize();
