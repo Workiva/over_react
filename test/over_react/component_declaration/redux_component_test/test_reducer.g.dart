@@ -9,6 +9,7 @@ part of over_react.component_declaration.redux_component.reducer;
 // ignore_for_file: avoid_classes_with_only_static_members
 // ignore_for_file: annotate_overrides
 // ignore_for_file: overridden_fields
+// ignore_for_file: type_annotate_public_apis
 
 class _$BaseActions extends BaseActions {
   factory _$BaseActions() => new _$BaseActions._();
