@@ -27,9 +27,9 @@ The goal of this document is explain major elements of transitioning from build_
 If, through this process, the document or examples miss any edge cases you encounter, please create an issue or reach out so it can be added.
 
 ## Do I have to transition to Redux?
-No. Redux is meant to help to provide a recommended state management method for OverReact components, as well as provide benefits over w_flux and built_redux. Those benefits may provide enough reason to make a refactor worthwhile. If, after evaluating the benefits and effort, the juice doesn't seem worth the squeeze, then no need to worry about it!
+No. OverReact Redux is meant to help to provide a recommended state management method for OverReact components, as well as provide benefits over [w_flux](https://github.com/workiva/w_flux) and [built_redux](https://github.com/davidmarne/built_redux). Those benefits may provide enough reason to make a refactor worthwhile. If, after evaluating the benefits and effort, the juice doesn't seem worth the squeeze, then no need to worry about it!
 
-To evaluate if the refactor is worth it, the details of Redux can be found in the [OverReact Redux doc](./over_react_redux_documentation.md). That document paired with this guide will illustrate the full scope of costs and benefits.
+To evaluate if the refactor is worth it, the details of OverReact Redux can be found in the [OverReact Redux documentation](./over_react_redux_documentation.md). That document paired with this guide will illustrate the full scope of costs and benefits.
 
 ## Comparing the Two Systems
 built_redux and OverReact Redux are comprised of the same main entities. Moving from built_redux to Redux then is just a matter of refactoring each relevant entity, along with the related UI. Note again that this document does not attempt to explain _how_ Redux works, and if any of the Redux implementation details aren't quite clear, check out the [Redux Documentation](https://github.com/johnpryan/redux.dart) and the [OverReact Redux Documentation](./over_react_redux_documentation.md).
@@ -240,6 +240,25 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
 
 #### UI Refactor
 - Wrap your tree in a `ReduxProvider`. All of your connected components need to be wrapped by a `ReduxProvider`. Usually this means that in your `react_dom.render()`, one of your first HOCs will be a `ReduxProvider` that takes in your Redux `Store` instance for its `store` prop.
+    ```dart
+        import 'dart:html';
+
+        import 'package:react/react_client.dart';
+        import 'package:react/react_dom.dart' as react_dom;
+        import 'package:over_react/over_react_redux.dart';
+
+        import './store.dart';
+        import './components/component.dart';
+        
+        main() {
+            setClientConfiguration();
+            react_dom.render(
+                (ReduxProvider()..store = randomColorStore)(
+                    ConnectedComponent()(),
+                ),
+                querySelector('#content'));
+        }
+    ```
 - Remove instances where the `Store` gets passed down the component tree.
 - General Component Refactor (to be done to every component):
     1. Make sure the component is `UiComponent2`.
