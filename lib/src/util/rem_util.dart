@@ -28,6 +28,8 @@ import 'package:platform_detect/platform_detect.dart';
 
 // The computed font size of the HTML node isn't reliable in Chrome when the page is refreshed while zoomed.
 // Instead, measure a container to determine how big 1rem is.
+//
+// See: https://bugs.chromium.org/p/chromium/issues/detail?id=1043349
 double _computeRootFontSize() {
   final remMeasurer = DivElement();
   remMeasurer.style
