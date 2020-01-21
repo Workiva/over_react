@@ -16,6 +16,9 @@ main() {
 
   react_dom.render(
       ErrorBoundary()(
+        // Note the use of the `ReduxMultiProvider` as opposed to a traditional
+        // `ReduxProvider`, and that the stores being passed in are the
+        // `FluxToReduxAdapterStore`s.
         (ReduxMultiProvider()
           ..storesByContext = {
             randomColorStoreContext: randomColorStoreAdapter,
@@ -29,6 +32,9 @@ main() {
             ..secondStore = anotherColorStore
             ..actions = randomColorActions
           )(),
+          // Note that the components being instantiated are the factories that
+          // are returned from the corresponding `composeHocs` calls, and not the
+          // original component factories.
           ConnectedConnectFluxBigBlock()(),
           ConnectedReduxBigBlock()(),
           ConnectedShouldNotUpdate()(),

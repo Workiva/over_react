@@ -5,11 +5,19 @@ import '../store.dart';
 
 part 'redux_big_block.over_react.g.dart';
 
-UiFactory<ReduxBigBlockProps> ConnectedReduxBigBlock = connect<FluxStore, ReduxBigBlockProps>(
-  mapStateToProps: (state) => (ReduxBigBlock()..backgroundColor = state.backgroundColor),
-  mapDispatchToProps: (dispatch) =>
+// When refactoring from a Flux component to a Redux component:
+// [1] Add props for the state values that are needed, and remove the store prop.
+// [2] Add props for the actions that are needed (if you intend to use mapActionsToProps).
+// [3] Refactor calls to the `store` prop to the new props added in [1] and [2].
+// [4] Wrap the existing factory in a `connect` call.
+// [5] Use `mapStateToProps` and `mapDispatchToProps` to point props to the correct state values.
+// [6] Set the `pure` constructor on `connect` to be `false`.
+
+/*[4]*/UiFactory<ReduxBigBlockProps> ConnectedReduxBigBlock = connect<FluxStore, ReduxBigBlockProps>(
+  /*[5]*/mapStateToProps: (state) => (ReduxBigBlock()..backgroundColor = state.backgroundColor),
+  /*[5]*/mapDispatchToProps: (dispatch) =>
       (ReduxBigBlock()..changeBackgroundColor = () => dispatch(UpdateBackgroundColorAction())),
-  pure: false,
+  /*[6]*/pure: false,
 )(ReduxBigBlock);
 
 @Factory()
@@ -17,20 +25,20 @@ UiFactory<ReduxBigBlockProps> ReduxBigBlock = _$ReduxBigBlock;
 
 @Props()
 class _$ReduxBigBlockProps extends UiProps with ConnectPropsMixin {
-  String backgroundColor;
+  /*[1]*/String backgroundColor;
 
-  void Function() changeBackgroundColor;
+  /*[2]*/void Function() changeBackgroundColor;
 }
 
 @Component2()
 class ReduxBigBlockComponent extends UiComponent2<ReduxBigBlockProps> {
   @override
   render() {
-    return ((Dom.div()..style = {'padding': '50px', 'backgroundColor': props.backgroundColor, 'color': 'white'})(
+    return ((Dom.div()..style = {'padding': '50px', 'backgroundColor': /*[3]*/props.backgroundColor, 'color': 'white'})(
       'This module uses a redux pattern to change its background color.',
       (Dom.button()
         ..onClick = (_) {
-          props.changeBackgroundColor();
+          /*[3]*/props.changeBackgroundColor();
         }
         ..style = {'padding': '10px', 'margin': '10px'}
       )('Change Background Color'),

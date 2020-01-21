@@ -225,6 +225,26 @@ redux.Store randomColorStore = redux.Store<RandomColorState>(reducer, initialSta
 1. __Create the state model.__ After pulling out state mutation logic, this should be as simple as renaming the class, not inheriting from the Flux store class, and cleaning up anything unrelated to the actual state fields. 
 1. __Instantiate the store class, using the state model and reducer.__
 1. __Add a `ReduxProvider` around the component tree.__ This will take in the store instantiated in step 4 as the component's `store` prop.
+    ```dart
+    import 'dart:html';
+
+    import 'package:react/react_client.dart';
+    import 'package:react/react_dom.dart' as react_dom;
+    import 'package:over_react/over_react_redux.dart';
+
+    import './store.dart';
+    import './components/component.dart';
+
+    main() {
+        setClientConfiguration();
+
+        react_dom.render(
+            (ReduxProvider()..store = randomColorStore)(
+                ConnectedComponent()(),
+            ),
+            querySelector('#content'));
+    }
+    ```
 1. __Refactor componentry to not longer be a `FluxUiComponent` and instead be a connected `UiComponent2`.__ In terms of moving away from Flux, the simplest case is that props and prop calls need to be updated. Props will need to be added to make room for the ones consumed by the Redux component, and any `props.actions` calls need to be updated to `props.dispatch` (unless you're using `mapDispatchToProps`). 
 
 ## An Advanced Example
@@ -243,7 +263,7 @@ This section builds on the [simple example](#a-simple-example), so ensure that s
     - props.bigStore.state
     - props.bigStore.midLevelStore.state
     - props.bigStore.midLevelStore.lowLevelStore.state
-    - props.littlebig_Store.state
+    - props.littleStore.state
 
     Our `BigBlock` component renders three `SmallBlock` components. Each one connects to a different store's state, with the remaining background color being tied to `BigBlock` itself. 
     
@@ -412,7 +432,7 @@ If having one store sounds unfeasible or raises a lot of concerns, there's more 
 This leads to the difference in the transition process. Not only do the stores have to come together, but componentry needs to reflect that the data is coming from a single source. 
 
 ### Advanced Conversion Step by Step
-> These steps are just a set that make sense for general situations and may not make sense for every library. If the path forward is unclear, they can be referred to for guidance but may need adjustment or supplemental steps.
+These steps build on those in the [simple example above](#basic-conversion-step-by-step), but code specific to this example can be found in the [advanced web example](../web/flux_to_redux/advanced/README.md). Additionally, these steps are just a set that make sense for general situations and may not make sense for every library. If the path forward is unclear, they can be referred to for guidance but may need adjustment or supplemental steps.
 1. __Diagram store and component relationships.__ While perhaps challenging and time consuming, creating a diagram that illustrates generally which components care about which stores could prove invaluable to planning the update process.
 1. __Break the refactor into groups that includes the stateful layer and the UI layer.__ Are there small chunks of the system that can be updated without touching the messiest knots in the system? If so, identify them. If this step seems particularly challenging or reveals large roadblocks, consider an [Influx architecture](#influx-architecture)
 1. __For each group, refactor all the stores.__ By doing the stores and reducers at the same time, you can completely invalidate a single store at a time. In other words, you can move all the necessary state logic into the new state class and move the state mutation logic into the reducer. Then, the entire Flux store can be deleted.
@@ -534,12 +554,37 @@ __Goal:__ Update all stores to be either Influx or Redux and update all componen
     
     `FluxToReduxAdapterStore` takes in an Influx store and an actions instance. It should also receive the Influx store class and the Redux state class as generics.
     ``` dart
-    FluxToReduxAdapterStore influxAdapterStore =
-        FluxToReduxAdapterStore<ExampleInfluxStore, ReduxStateClass>(exampleInfluxStoreInstance, exampleFluxActionsInstance);
+    final influxAdapterStore = FluxToReduxAdapterStore<ExampleInfluxStore, ReduxStateClass>(exampleInfluxStoreInstance, exampleFluxActionsInstance);
     ```
 1. __Create `Context` instances for the necessary stores.__ If a component will use multiple stores, a `Context` instance is required. The [OverReact Redux docs](./over_react_redux_documentation.md) have examples of having multiple stores, which describes the fundamentals of why this is necessary. In the end, it is most likely that the majority of `FluxToReduxAdapterStore` instances will need a `Context` instance. 
 1. __Wrap the component tree in a either a `ReduxProvider` or a `ReduxMultiProvider`.__ If there are multiple stores, a `ReduxMultiProvider` is more elegant and is encouraged. The store instances passed in should be the `FluxToReduxAdapterStore` instances, not the normal Flux store instances.
+    ```dart
+    import 'dart:html';
+
+    import 'package:over_react/over_react_flux.dart';
+    import 'package:react/react_client.dart';
+    import 'package:react/react_dom.dart' as react_dom;
+
+    import './store.dart';
+
+    main() {
+    setClientConfiguration();
+
+    react_dom.render(
+        (ReduxMultiProvider()
+        ..storesByContext = {
+            firstStoreContext: firstStoreAdapter,
+            secondStoreContext: secondStoreAdapter,
+            thirdStoreContext: thirdStoreAdapter,
+        })(
+            // Flux, connectFlux, or Redux connected compontents can now be used here
+        ),
+        querySelector('#content'));
+    }
+    ```
 1. __Refactor components.__ See the specific component type below for a reminder on which store instance is correct and any "gotchas" in the refactor. In general, remember that if a component talks to multiple stores, `composeHocs` can be used to simplify the connected factory declarations.
+
+    For code examples on what this could look like, compare the different components in the [advanced web example](../web/flux_to_redux/advanced/README.md).
     - __A Flux component__ will operate exactly the same way. 
         - Pass in the Influx store instance as a prop (which should already be done). Not the `FluxToReduxAdapterStore` instance, but _the same Influx store instance_ used to istantiate the `FluxToReduxAdapterStore` object. 
         - The actions prop should also be _the same action class instance_ passed into the `FluxToReduxAdapterStore` constructor. 
