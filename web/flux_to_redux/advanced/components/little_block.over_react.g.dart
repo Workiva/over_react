@@ -30,7 +30,8 @@ abstract class _$LittleBlockPropsAccessorsMixin implements _$LittleBlockProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$LittleBlockProps.backgroundColor] -->
   @override
-  set backgroundColor(String value) => props[_$key__backgroundColor___$LittleBlockProps] = value;
+  set backgroundColor(String value) =>
+      props[_$key__backgroundColor___$LittleBlockProps] = value;
 
   /// <!-- Generated from [_$LittleBlockProps.colorString] -->
   @override
@@ -39,7 +40,8 @@ abstract class _$LittleBlockPropsAccessorsMixin implements _$LittleBlockProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$LittleBlockProps.colorString] -->
   @override
-  set colorString(String value) => props[_$key__colorString___$LittleBlockProps] = value;
+  set colorString(String value) =>
+      props[_$key__colorString___$LittleBlockProps] = value;
 
   /// <!-- Generated from [_$LittleBlockProps.blockTitle] -->
   @override
@@ -48,7 +50,8 @@ abstract class _$LittleBlockPropsAccessorsMixin implements _$LittleBlockProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// <!-- Generated from [_$LittleBlockProps.blockTitle] -->
   @override
-  set blockTitle(String value) => props[_$key__blockTitle___$LittleBlockProps] = value;
+  set blockTitle(String value) =>
+      props[_$key__blockTitle___$LittleBlockProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__backgroundColor___$LittleBlockProps =
       PropDescriptor(_$key__backgroundColor___$LittleBlockProps);
@@ -56,9 +59,12 @@ abstract class _$LittleBlockPropsAccessorsMixin implements _$LittleBlockProps {
       PropDescriptor(_$key__colorString___$LittleBlockProps);
   static const PropDescriptor _$prop__blockTitle___$LittleBlockProps =
       PropDescriptor(_$key__blockTitle___$LittleBlockProps);
-  static const String _$key__backgroundColor___$LittleBlockProps = 'LittleBlockProps.backgroundColor';
-  static const String _$key__colorString___$LittleBlockProps = 'LittleBlockProps.colorString';
-  static const String _$key__blockTitle___$LittleBlockProps = 'LittleBlockProps.blockTitle';
+  static const String _$key__backgroundColor___$LittleBlockProps =
+      'LittleBlockProps.backgroundColor';
+  static const String _$key__colorString___$LittleBlockProps =
+      'LittleBlockProps.colorString';
+  static const String _$key__blockTitle___$LittleBlockProps =
+      'LittleBlockProps.blockTitle';
 
   static const List<PropDescriptor> $props = [
     _$prop__backgroundColor___$LittleBlockProps,
@@ -77,12 +83,14 @@ const PropsMeta _$metaForLittleBlockProps = PropsMeta(
   keys: _$LittleBlockPropsAccessorsMixin.$propKeys,
 );
 
-class LittleBlockProps extends _$LittleBlockProps with _$LittleBlockPropsAccessorsMixin {
+class LittleBlockProps extends _$LittleBlockProps
+    with _$LittleBlockPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForLittleBlockProps;
 }
 
-_$$LittleBlockProps _$LittleBlock([Map backingProps]) =>
-    backingProps == null ? _$$LittleBlockProps$JsMap(JsBackedMap()) : _$$LittleBlockProps(backingProps);
+_$$LittleBlockProps _$LittleBlock([Map backingProps]) => backingProps == null
+    ? _$$LittleBlockProps$JsMap(JsBackedMap())
+    : _$$LittleBlockProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -106,7 +114,8 @@ abstract class _$$LittleBlockProps extends _$LittleBlockProps
 
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
-  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $LittleBlockComponentFactory;
+  ReactComponentFactoryProxy get componentFactory =>
+      super.componentFactory ?? $LittleBlockComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -170,10 +179,12 @@ class _$LittleBlockComponent extends LittleBlockComponent {
   }
 
   @override
-  _$$LittleBlockProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) => _$$LittleBlockProps$JsMap(backingMap);
+  _$$LittleBlockProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$LittleBlockProps$JsMap(backingMap);
 
   @override
-  _$$LittleBlockProps typedPropsFactory(Map backingMap) => _$$LittleBlockProps(backingMap);
+  _$$LittleBlockProps typedPropsFactory(Map backingMap) =>
+      _$$LittleBlockProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
@@ -182,5 +193,7 @@ class _$LittleBlockComponent extends LittleBlockComponent {
   /// The default consumed props, taken from _$LittleBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForLittleBlockProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForLittleBlockProps
+  ];
 }
