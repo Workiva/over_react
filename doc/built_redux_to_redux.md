@@ -5,6 +5,8 @@
 ---
 * __[Goal](#goal)__
 * __[Do I have to transition?](#do-i-have-to-transition-to-redux)__
+* __[Reducer Builders and Combine Reducers](#reducer-builders-and-combine-reducers)__
+* __[Converting SubState to mapStateToProps](#converting-substate-to-mapStateToProps)__
 * __[Comparing the Two Systems](#comping-the-two-systems)__
     * [Actions](#actions)
         * [Actions Comparison](#actions-comparison)
@@ -19,7 +21,6 @@
     * [UI](#ui)
         * [Component Comparison](#component-comparison)
         * [UI Refactor](#ui-refactor)
-* __[Reducer Builders and Combine Reducers](#reducer-builders-and-combine-reducers)__
 
 ## Goal
 The goal of this document is explain major elements of transitioning from build_redux to Redux. This comparison is fairly direct, so the guide mainly focuses on the difference between specific entities of interest (actions, reducers, stores, components) with guidance on how to convert from one library to the other.
@@ -30,6 +31,45 @@ If, through this process, the document or examples miss any edge cases you encou
 No. OverReact Redux is meant to help to provide a recommended state management method for OverReact components, as well as provide benefits over [w_flux](https://github.com/workiva/w_flux) and [built_redux](https://github.com/davidmarne/built_redux). Those benefits may provide enough reason to make a refactor worthwhile. If, after evaluating the benefits and effort, the juice doesn't seem worth the squeeze, then no need to worry about it!
 
 To evaluate if the refactor is worth it, the details of OverReact Redux can be found in the [OverReact Redux documentation](./over_react_redux_documentation.md). That document paired with this guide will illustrate the full scope of costs and benefits.
+
+## Reducer Builders and Combine Reducers
+built_redux uses the concept of `ReducerBuilder` to compose small reducers into a larger more complex reducer, while hiding the complexity. Redux has a similar tool - `combineReducers`. The snippet below illustrates a possible conversion from `ReducerBuilder` to `combineReducers`.
+> For more  information, see the [combineReducers](https://github.com/johnpryan/redux.dart/blob/master/doc/combine_reducers.md) docs.
+
+```dart
+// Using `ReducerBuilder`
+var reducerBuilder = ReducerBuilder<Counter, CounterBuilder>()
+  ..add(CounterActionsNames.increment, increment)
+  ..add(CounterActionsNames.decrement, decrement);
+
+final store = Store<Counter, CounterBuilder, CounterActions>(
+    reducerBuilder.build(),
+    Counter(),
+    CounterActions(),
+);
+
+// Using `combineReducers`
+final incrementReducer = (ReduxState prevState, IncrementAction action) => 
+    ReduxState.from(count: prevState.count + action.incrementBy);
+final decrementReducer = (ReduxState prevState, DecrementAction action) => 
+    ReduxState.from(count: prevState.count - action.decrementBy);
+final customActionReducer = (ReduxState prevState, CustomAction action) => 
+    ReduxState.from(customActionValue: action.customActionValue, secondCustomActionValue: action.seconCusomActionValue);
+final simpleActionReducer = (ReduxState prevState, SimpleAction action) => 
+    ReduxState.from(simpleActionState: !prevState.simpleActionState);
+
+Reducer<ReduxState> countReducer = combineReducers([
+    TypedReducer<ReduxState, IncremementAction>(incrementReducer),
+    TypedReducer<ReduxState, DecrementAction>(decrementReducer),
+    TypedReducer<ReduxState, CustomAction>(customActionReducer),
+    TypedReducer<ReduxState, SimpleAction>(simpleActionReducer),
+]);
+
+Store store = Store<ReduxState>(countReducer, initialState: ReduxState.defaultState());
+```
+
+## Converting Substate to mapStateToProps
+
 
 ## Comparing the Two Systems
 built_redux and OverReact Redux are comprised of the same main entities. Moving from built_redux to Redux then is just a matter of refactoring each relevant entity, along with the related UI. Note again that this document does not attempt to explain _how_ Redux works, and if any of the Redux implementation details aren't quite clear, check out the [Redux Documentation](https://github.com/johnpryan/redux.dart) and the [OverReact Redux Documentation](./over_react_redux_documentation.md).
@@ -249,7 +289,7 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
 
         import './store.dart';
         import './components/component.dart';
-        
+
         main() {
             setClientConfiguration();
             react_dom.render(
@@ -261,127 +301,142 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
     ```
 - Remove instances where the `Store` gets passed down the component tree.
 - General Component Refactor (to be done to every component):
-    1. Make sure the component is `UiComponent2`.
-    1. Remove any stream stuff. No more streams! :)
-    1. Add a prop for all of the state values being used, and refactor the references to `store.stateValue` to `props.stateValue`.
-    1. (If you need actions) Decide if you're going to use `mapDispatchToProps` or `props.dispatch`.
-        - If you are going to use `mapDispatchToProps`, create a prop for all of the actions this component uses.
-        - If you are going to use `props.dispatch`, add the `ConnectPropsMixin` to the component's `props` class.
-    1. (If you need actions) Replace built_redux actions with Redux actions. 
-        - With `mapDispatchToProps`:
-            - before: `props.store.actions.specificAction` 
-            - after: `props.propCreatedInPreviousStep`
-        - With `props.dispatch`:
-            - before: `props.store.actions.specificAction`
-            - after: `props.dispatch(SpecificAction())`
-    1. Add `connect`.
-        1. Declare a new `UiFactory` variable and set it equal to the value of `connect`. Connect will wrap your original, already created component factory.
-        1. Using `mapStateToProps` to pass the state you need into the props you created earlier.
-        1. If using `mapDispatchToProps`, set the action props declared earlier equal to a callback that dispatches the corresponding event.
+    - Starting with a `BuiltReduxUiComponent`:
+        1. Upgrade the component to `UiComponent2`.
+            - Generally this also means removing the built_redux stuff, including ensuring that the component prop class extends from `UiProps`.
+            - Check out the `UiComponent2` [transition guide](./ui_component2_transition.md) for pointers on going from `UiComponent` (which is what `BuiltReduxUiComponent` is backed by) to `UiComponent2`. If a component has overridden lifecycle methods that are removed, this will likely be the hardest part of the upgrade.
+        1. Move your `SubState` class values into your component's props class. Using the `mapStateToProps` parameter of Redux's `connect` function is very similar to declaring a `SubState` class, and the properties from your `SubState` class can just be moved into props. Make sure at the end of this step that all references to the state in your component have a prop declared in the props class.
+        
+            > See the [Converting Substate to mapStateToProps](#converting-substate-to-mapStateToProps) section for more information.
+        1. Continue on to the __In Either Case__ bullet below.
+    - Starting with a standard `UiComponent` or `UiComponent2`:
+        1. Make sure the component is `UiComponent2`.
+        1. Remove any stream stuff. No more streams! :)
+        1. Add a prop for all of the state values being used.
+        1. Continue on to the __In Either Case__ bullet below.
+    - In Either Case:
+        1. Refactor the references to `store.stateValue` or `connectedState.stateValue` to `props.stateValue`. 
+        1. (If you need actions) Decide if you're going to use `mapDispatchToProps` or `props.dispatch`.
+            - If you are going to use `mapDispatchToProps`, create a prop for all of the actions this component uses.
+            - If you are going to use `props.dispatch`, add the `ConnectPropsMixin` to the component's `props` class.
+        1. (If you need actions) Replace built_redux actions with Redux actions. 
+            - With `mapDispatchToProps`:
+                - before: `props.store.actions.specificAction` 
+                - after: `props.propCreatedInPreviousStep`
+            - With `props.dispatch`:
+                - before: `props.store.actions.specificAction`
+                - after: `props.dispatch(SpecificAction())`
+        1. Add `connect`.
+            1. Declare a new `UiFactory` variable and set it equal to the value of `connect`. Connect will wrap your original, already created component factory.
+            1. Using `mapStateToProps` to pass the state you need into the props you created earlier.
+            1. If using `mapDispatchToProps`, set the action props declared earlier equal to a callback that dispatches the corresponding event.
 
-    ```dart
-    // Simple built_redux component
-    // Assume there is a store with a state field `text` and an action `updateText`.
-    @Factory()
-    UiFactory<SimpleProps> Simple = _$Simple;
+        ```dart
+        // Simple built_redux component
+        // Assume there is a store with a state field `text` and an action `updateText`.
+        @Factory()
+        UiFactory<SimpleProps> Simple = _$Simple;
 
-    @Props()
-    class _$SimpleProps extends UiProps {
-        Store<App, AppBuilder, AppActions> store;
-    }
-
-    @Component2()
-    class SimpleComponent extends UiComponent2<SimpleProps> {
-        StreamSubscription _storeSub;
-
-        @override
-        componentDidMount() {
-            _storeSub = props.store.stream.listen(_redraw);
+        @Props()
+        class _$SimpleProps extends UiProps {
+            Store<App, AppBuilder, AppActions> store;
         }
 
-        _redraw(_) => forceUpdate();
+        @Component2()
+        class SimpleComponent extends UiComponent2<SimpleProps> {
+            StreamSubscription _storeSub;
 
-        @override
-        componentWillUnmount() {
-            super.componentWillUnmount();
-            _storeSub.cancel();
+            @override
+            componentDidMount() {
+                _storeSub = props.store.stream.listen(_redraw);
+            }
+
+            _redraw(_) => forceUpdate();
+
+            @override
+            componentWillUnmount() {
+                super.componentWillUnmount();
+                _storeSub.cancel();
+            }
+
+            @override
+            render() {
+                return (
+                    Fragment()(
+                        // Assume there is a function `randomString` that generates random text
+                        (Dom.button()..onClick => props.store.actions.updateText(randomString()))('Change Text'),
+                        (Dom.div())(props.store.text)
+                    );   
+                );
+            }
         }
 
-        @override
-        render() {
-            return (
-                Fragment()(
-                    // Assume there is a function `randomString` that generates random text
-                    (Dom.button()..onClick => props.store.actions.updateText(randomString()))('Change Text'),
-                    (Dom.div())(props.store.text)
-                );   
-            );
+        // Simple BuiltReduxUiComponent
+        // Assume there is a store with a state field `text` and an action `updateText`.
+        @Factory()
+        UiFactory<SimpleProps> Simple = _$Simple;
+
+        @Props()
+        class _$SimpleProps extends BuiltReduxUiProps<SimpleState, SimpleStateBuilder, SimpleActions> {}
+
+        @Component()
+        class SimpleComponent extends BuiltReduxUiComponent<SimpleState, SimpleStateBuilder, SimpleActions,
+            SimpleProps, SimpleSubState> {
+            StreamSubscription _storeSub;
+
+            @override
+            SimpleSubState connect(SimpleState state) => SimpleSubState(text: state.text);
+
+            @override
+            bool get isPure => true;
+
+            @override
+            render() {
+                return (
+                    Fragment()(
+                        // Assume there is a function `randomString` that generates random text
+                        (Dom.button()..onClick => props.actions.updateText(randomString()))('Change Text'),
+                        (Dom.div())(props.store.text)
+                    );   
+                );
+            }
         }
-    }
 
-    // The same component converted to a connected Redux component
-    UiFactory<SimpleProps> ConnectedSimple = connect<ReduxState, SimpleProps>(
-        mapStateToProps: (state) => (Simple()..text = state.text),
-        mapDispatchToProps: (dispatch) => (Simple()..updateText = (Sring text) { dispatch(UpdateText()); }),
-    )(Simple);
+        abstract class SimpleSubstate implements Built<SimpleSubstate, SimpleSubstateBuilder> {
+            factory SimpleSubstate({String text}) => _$SimpleSubstate._(
+                    text: text,
+                );
+            SimpleSubstate._();
 
-    @Factory()
-    UiFactory<SimpleProps> Simple = _$Simple;
-
-    @Props()
-    class _$SimpleProps extends UiProps {
-        String text;
-        void Function(String newText) updateText;
-    }
-
-    @Component2()
-    class SimpleComponent extends UiComponent2<SimpleProps> {
-        @override
-        render() {
-            return (
-                Fragment()(
-                    // Assume there is a function `randomString` that generates random text
-                    (Dom.button()..onClick => props.updateText(randomString()))('Change Text'),
-                    (Dom.div())(props.text)
-                );   
-            );
+            String get text;
         }
-    }
-    ```
-    
 
-## Reducer Builders and Combine Reducers
-built_redux uses the concept of `ReducerBuilder` to compose small reducers into a larger more complex reducer, while hiding the complexity. Redux has a similar tool - `combineReducers`. The snippet below illustrates a possible conversion from `ReducerBuilder` to `combineReducers`.
-> For more  information, see the [combineReducers](https://github.com/johnpryan/redux.dart/blob/master/doc/combine_reducers.md) docs.
+        // The same component converted to a connected Redux component
+        UiFactory<SimpleProps> ConnectedSimple = connect<ReduxState, SimpleProps>(
+            mapStateToProps: (state) => (Simple()..text = state.text),
+            mapDispatchToProps: (dispatch) => (Simple()..updateText = (Sring text) { dispatch(UpdateText()); }),
+        )(Simple);
 
-```dart
-// Using `ReducerBuilder`
-var reducerBuilder = ReducerBuilder<Counter, CounterBuilder>()
-  ..add(CounterActionsNames.increment, increment)
-  ..add(CounterActionsNames.decrement, decrement);
+        @Factory()
+        UiFactory<SimpleProps> Simple = _$Simple;
 
-final store = Store<Counter, CounterBuilder, CounterActions>(
-    reducerBuilder.build(),
-    Counter(),
-    CounterActions(),
-);
+        @Props()
+        class _$SimpleProps extends UiProps {
+            String text;
+            void Function(String newText) updateText;
+        }
 
-// Using `combineReducers`
-final incrementReducer = (ReduxState prevState, IncrementAction action) => 
-    ReduxState.from(count: prevState.count + action.incrementBy);
-final decrementReducer = (ReduxState prevState, DecrementAction action) => 
-    ReduxState.from(count: prevState.count - action.decrementBy);
-final customActionReducer = (ReduxState prevState, CustomAction action) => 
-    ReduxState.from(customActionValue: action.customActionValue, secondCustomActionValue: action.seconCusomActionValue);
-final simpleActionReducer = (ReduxState prevState, SimpleAction action) => 
-    ReduxState.from(simpleActionState: !prevState.simpleActionState);
-
-Reducer<ReduxState> countReducer = combineReducers([
-    TypedReducer<ReduxState, IncremementAction>(incrementReducer),
-    TypedReducer<ReduxState, DecrementAction>(decrementReducer),
-    TypedReducer<ReduxState, CustomAction>(customActionReducer),
-    TypedReducer<ReduxState, SimpleAction>(simpleActionReducer),
-]);
-
-Store store = Store<ReduxState>(countReducer, initialState: ReduxState.defaultState());
-```
+        @Component2()
+        class SimpleComponent extends UiComponent2<SimpleProps> {
+            @override
+            render() {
+                return (
+                    Fragment()(
+                        // Assume there is a function `randomString` that generates random text
+                        (Dom.button()..onClick => props.updateText(randomString()))('Change Text'),
+                        (Dom.div())(props.text)
+                    );   
+                );
+            }
+        }
+        ```
