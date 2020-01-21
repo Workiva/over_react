@@ -215,7 +215,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
         areMergedPropsEqual(jsPropsToTProps(jsNext), jsPropsToTProps(jsPrev));
 
     final hoc = mockableJsConnect(
-      mapStateToProps != null ? allowInteropWithArgCount(handleMapStateToProps, 1) : mapDispatchToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapStateToPropsWithOwnProps, 2) : null,
+      mapStateToProps != null ? allowInteropWithArgCount(handleMapStateToProps, 1) : mapStateToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapStateToPropsWithOwnProps, 2) : null,
       mapDispatchToProps != null ? allowInteropWithArgCount(handleMapDispatchToProps, 1) : mapDispatchToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapDispatchToPropsWithOwnProps, 2) : null,
       mergeProps != null ? allowInterop(handleMergeProps) : null,
       JsConnectOptions(

@@ -29,7 +29,7 @@ main() {
   group('connect', () {
     UiFactory<CounterProps> ConnectedCounter;
     TestJacket<CounterComponent> jacket;
-    dynamic counterRef;
+    final counterRef = createRef<CounterComponent>();
 
     JsConnectOptions connectOptions;
     var originalConnect = mockableJsConnect;
@@ -83,10 +83,10 @@ main() {
 
         render(
           (ReduxProvider()..store = store1)(
-            (ConnectedCounter()..ref=(ref){counterRef = ref;})('test'),
+            (ConnectedCounter()..ref = counterRef)('test'),
           ),
         );
-        expect(getDartComponent(counterRef), isA<CounterComponent>());
+        expect(counterRef.current, isA<CounterComponent>());
       });
     });
 
@@ -98,12 +98,12 @@ main() {
 
         jacket = mount(
           (ReduxProvider()..store = store1)(
-            (ConnectedCounter()..ref = (ref){ counterRef = ref; })('test'),
+            (ConnectedCounter()..ref = counterRef)('test'),
           ),
         );
 
-        expect(getDartComponent<CounterComponent>(counterRef).props.currentCount, 0);
-        expect(jacket.getNode().innerHtml, contains('Count: 0'));
+        expect(counterRef.current.props.currentCount, 0);
+        expect(jacket.mountNode.innerHtml, contains('Count: 0'));
       });
 
       test('after dispatch', () async {
@@ -113,21 +113,62 @@ main() {
 
         jacket = mount(
           (ReduxProvider()..store = store1)(
-            (ConnectedCounter()..ref = (ref){ counterRef = ref; })('test'),
+            (ConnectedCounter()..ref = counterRef)('test'),
           ),
         );
 
-        expect(getDartComponent<CounterComponent>(counterRef).props.currentCount, 0);
-        expect(jacket.getNode().innerHtml, contains('Count: 0'));
+        expect(counterRef.current.props.currentCount, 0);
+        expect(jacket.mountNode.innerHtml, contains('Count: 0'));
 
-        var dispatchButton = getByTestId(jacket.getInstance(), 'button-increment');
+        var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
         click(dispatchButton);
 
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(getDartComponent<CounterComponent>(counterRef).props.currentCount, 1);
-        expect(jacket.getNode().innerHtml, contains('Count: 1'));
+        expect(counterRef.current.props.currentCount, 1);
+        expect(jacket.mountNode.innerHtml, contains('Count: 1'));
+      });
+    });
+
+    group('mapStateToPropsWithOwnProps properly maps the state to the components props', (){
+      test('on inital load', () {
+        ConnectedCounter = connect<CounterState, CounterProps>(mapStateToPropsWithOwnProps: (state, ownProps){
+          return Counter()..currentCount = state.count;
+        }, forwardRef: true)(Counter);
+
+        jacket = mount(
+          (ReduxProvider()..store = store1)(
+            (ConnectedCounter()..ref = counterRef)('test'),
+          ),
+        );
+
+        expect(counterRef.current.props.currentCount, 0);
+        expect(jacket.mountNode.innerHtml, contains('Count: 0'));
+      });
+
+      test('after dispatch', () async {
+        ConnectedCounter = connect<CounterState, CounterProps>(mapStateToPropsWithOwnProps: (state, ownProps){
+          return Counter()..currentCount = state.count;
+        }, forwardRef: true)(Counter);
+
+        jacket = mount(
+          (ReduxProvider()..store = store1)(
+            (ConnectedCounter()..ref = counterRef)('test'),
+          ),
+        );
+
+        expect(counterRef.current.props.currentCount, 0);
+        expect(jacket.mountNode.innerHtml, contains('Count: 0'));
+
+        var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
+        click(dispatchButton);
+
+        // wait for the next tick for the async dispatch to propagate
+        await Future(() {});
+
+        expect(counterRef.current.props.currentCount, 1);
+        expect(jacket.mountNode.innerHtml, contains('Count: 1'));
       });
     });
 
@@ -146,24 +187,60 @@ main() {
 
         jacket = mount(
           (ReduxProvider()..store = store1)(
-            (ConnectedCounter()..ref = (ref){ counterRef = ref; })('test'),
+            (ConnectedCounter()..ref = counterRef)('test'),
           ),
         );
 
-        expect(getDartComponent<CounterComponent>(counterRef).props.decrement, isA<Function>());
+        expect(counterRef.current.props.decrement, isA<Function>());
 
-        expect(getDartComponent<CounterComponent>(counterRef).props.currentCount, 0);
-        expect(jacket.getNode().innerHtml, contains('Count: 0'));
+        expect(counterRef.current.props.currentCount, 0);
+        expect(jacket.mountNode.innerHtml, contains('Count: 0'));
 
         // Click button mapped to trigger `propFromDispatch` prop.
-        var dispatchButton = getByTestId(jacket.getInstance(), 'button-decrement');
+        var dispatchButton = queryByTestId(jacket.mountNode, 'button-decrement');
         click(dispatchButton);
 
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(getDartComponent<CounterComponent>(counterRef).props.currentCount, -1);
-        expect(jacket.getNode().innerHtml, contains('Count: -1'));
+        expect(counterRef.current.props.currentCount, -1);
+        expect(jacket.mountNode.innerHtml, contains('Count: -1'));
+      });
+    });
+
+    group('mapDispatchToPropsWithOwnProps', (){
+      test('maps dispatcher to props correctly', () async {
+        ConnectedCounter = connect<CounterState, CounterProps>(
+          mapStateToProps: (state){
+            expect(state, isA<CounterState>());
+            return Counter()..currentCount = state.count;
+          },
+          mapDispatchToPropsWithOwnProps: (dispatch, ownProps){
+            return Counter()..decrement = () => dispatch(DecrementAction());
+          },
+          forwardRef: true,
+        )(Counter);
+
+        jacket = mount(
+          (ReduxProvider()..store = store1)(
+            (ConnectedCounter()..ref = counterRef)('test'),
+          ),
+        );
+
+        expect(counterRef.current.props.decrement, isA<Function>());
+
+        expect(counterRef.current.props.currentCount, 0);
+        expect(jacket.mountNode.innerHtml, contains('Count: 0'));
+
+        // Click button mapped to trigger `propFromDispatch` prop.
+        var dispatchButton = queryByTestId(jacket.mountNode, 'button-decrement');
+        click(dispatchButton);
+
+        // wait for the next tick for the async dispatch to propagate
+        await Future(() {});
+
+        expect(counterRef.current.props.currentCount, -1);
+        expect(jacket.mountNode.innerHtml, contains('Count: -1'));
       });
     });
 
@@ -191,7 +268,7 @@ main() {
         jacket = mount(
           (ReduxProvider()..store = store1)(
             (ConnectedCounter()
-                ..ref = (ref){ counterRef = ref; }
+                ..ref = counterRef
                 // make `decrement` increment
                 ..decrement = () {store1.dispatch(IncrementAction());}
                 ..currentCount = 900
@@ -199,13 +276,13 @@ main() {
           ),
         );
         // `button-decrement` will be incrementing now
-        var dispatchButton = getByTestId(jacket.getInstance(), 'button-decrement');
+        var dispatchButton = queryByTestId(jacket.mountNode, 'button-decrement');
 
-        expect(getDartComponent<CounterComponent>(counterRef).props.decrement, isA<Function>());
+        expect(counterRef.current.props.decrement, isA<Function>());
 
         // state.count is at 0
-        expect(getDartComponent<CounterComponent>(counterRef).props.currentCount, 900);
-        expect(jacket.getNode().innerHtml, contains('Count: 900'));
+        expect(counterRef.current.props.currentCount, 900);
+        expect(jacket.mountNode.innerHtml, contains('Count: 900'));
 
         // Click button mapped to trigger `propFromDispatch` prop.
         click(dispatchButton); // state.count is now equal to 1
@@ -213,8 +290,8 @@ main() {
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(getDartComponent<CounterComponent>(counterRef).props.currentCount, 1);
-        expect(jacket.getNode().innerHtml, contains('Count: 1'));
+        expect(counterRef.current.props.currentCount, 1);
+        expect(jacket.mountNode.innerHtml, contains('Count: 1'));
       });
     });
 
@@ -251,7 +328,6 @@ main() {
             areStatePropsEqual: (next, prev) {
               expect(next, isA<CounterProps>());
               expect(prev, isA<CounterProps>());
-              expect(next.currentCount, 1);
               methodsCalled.add('areStatePropsEqual');
               // Force it to always be true, meaing it shouldnt re-render if they change.
               return true;
@@ -261,13 +337,13 @@ main() {
 
           jacket = mount(
             (ReduxProvider()..store = store1)(
-              (ConnectedCounter()..ref = (ref){ counterRef = ref; }..currentCount = 0)('test'),
+              (ConnectedCounter()..ref = counterRef..currentCount = 0)('test'),
             ),
           );
           expect(methodsCalled, ['mapStateToProps']);
           methodsCalled.clear();
 
-          var dispatchButton = getByTestId(jacket.getInstance(), 'button-increment');
+          var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
           click(dispatchButton);
 
           // wait for the next tick for the async dispatch to propagate
@@ -276,7 +352,7 @@ main() {
           // store.state.count should be 1 but does not re-render due to override in `areStatePropsEqual`
 
           expect(methodsCalled, ['mapStateToProps', 'areStatePropsEqual']);
-          expect(jacket.getNode().innerHtml, contains('Count: 0'));
+          expect(jacket.mountNode.innerHtml, contains('Count: 0'));
         });
       });
 
@@ -321,24 +397,24 @@ main() {
 
           jacket = mount(
             (ReduxProvider()..store = store1)(
-              (ConnectedCounter()..ref = (ref){ counterRef = ref; }..currentCount = 0)('test'),
+              (ConnectedCounter()..ref = counterRef..currentCount = 0)('test'),
             ),
           );
 
-          // `mapStateToProps` is called once,
-          // then `areStatesEqual` shows up 2 times due to `initialState`.
-          expect(methodsCalled, ['mapStateToProps', 'areStatesEqual', 'areStatesEqual']);
+          expect(methodsCalled, contains('mapStateToProps'));
+          expect(methodsCalled, contains('areStatesEqual'));
           methodsCalled.clear();
 
-          var dispatchButton = getByTestId(jacket.getInstance(), 'button-increment');
+          var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
           click(dispatchButton);
 
           // wait for the next tick for the async dispatch to propagate
           await Future(() {});
 
-          // only checks `areStatesEqual` and does not call `mapStateToProps` since it returned `true`.
-          expect(methodsCalled, ['areStatesEqual']);
-          expect(jacket.getNode().innerHtml, contains('Count: 0'));
+          // only calls `areStatesEqual` and does not call `mapStateToProps` since it returned `true`.
+          expect(methodsCalled, isNot(contains('mapStateToProps')));
+          expect(methodsCalled, contains('areStatesEqual'));
+          expect(jacket.mountNode.innerHtml, contains('Count: 0'));
         });
       });
     });
@@ -372,13 +448,13 @@ main() {
           ),
         ));
 
-        var bigCounter = getDartComponent(getByTestId(jacket.getInstance(), 'big-counter'));
-        var dispatchButton = queryByTestId(findDomNode(bigCounter), 'button-increment');
+        var bigCounter = queryByTestId(jacket.mountNode, 'big-counter');
+        var dispatchButton = queryByTestId(bigCounter, 'button-increment');
         click(dispatchButton);
 
         await Future((){});
 
-        expect(findDomNode(bigCounter).innerHtml, contains('Count: 100'));
+        expect(bigCounter.innerHtml, contains('Count: 100'));
       });
 
       test('correctly renderes when contexts are nested', () async {
@@ -415,11 +491,11 @@ main() {
           )
         );
 
-        var bigCounter = getDartComponent(getByTestId(jacket.getInstance(), 'big-counter'));
-        var smallCounter = getDartComponent(getByTestId(jacket.getInstance(), 'small-counter'));
+        var bigCounter = queryByTestId(jacket.mountNode, 'big-counter');
+        var smallCounter = queryByTestId(jacket.mountNode, 'small-counter');
 
-        var smallDispatchButton = queryByTestId(findDomNode(smallCounter), 'button-increment');
-        var dispatchButton = queryByTestId(findDomNode(bigCounter), 'button-increment');
+        var smallDispatchButton = queryByTestId(smallCounter, 'button-increment');
+        var dispatchButton = queryByTestId(bigCounter, 'button-increment');
 
         click(dispatchButton);
         click(smallDispatchButton);
@@ -430,7 +506,7 @@ main() {
         expect(findDomNode(bigCounter).innerHtml, contains('Count: 100'), reason: 'Should have a count of 100');
 
         // Normal counter incremented only 1 at both instances
-        expect(findDomNode(getByTestId(jacket.getInstance(), 'outside')).innerHtml, contains('Count: 1</div>'));
+        expect(findDomNode(queryByTestId(jacket.mountNode, 'outside')).innerHtml, contains('Count: 1</div>'));
         expect(findDomNode(bigCounter).innerHtml, contains('Count: 1</div>'));
       });
     });

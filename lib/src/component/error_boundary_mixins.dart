@@ -9,10 +9,23 @@ part 'error_boundary_mixins.over_react.g.dart';
 @visibleForTesting
 const String defaultErrorBoundaryLoggerName = 'over_react.ErrorBoundary';
 
+/// An API mixin used for shared APIs in ErrorBoundary Components.
+mixin ErrorBoundaryApi<T extends ErrorBoundaryPropsMixin, S extends ErrorBoundaryStateMixin> on UiStatefulComponent2<T, S> {
+  /// Resets the [ErrorBoundary] to a non-error state.
+  ///
+  /// This can be called manually on the component instance using a `ref` -
+  /// or by passing in a new child instance after a child has thrown an error.
+  void reset() {
+    setState(initialState);
+  }
+}
+
 /// A props mixin you can use to implement / extend from the behaviors of an [ErrorBoundary]
 /// within a custom component.
 ///
 /// > See: [ErrorBoundaryMixin] for a usage example.
+@Deprecated('Building custom error boundaries with this mixin will no longer be supported in version 4.0.0.'
+    'Use ErrorBoundary and its prop API to customize error handling instead.')
 @PropsMixin()
 abstract class _$ErrorBoundaryPropsMixin implements UiProps {
   @override
@@ -109,6 +122,8 @@ abstract class _$ErrorBoundaryPropsMixin implements UiProps {
 /// within a custom component.
 ///
 /// > See: [ErrorBoundaryMixin] for a usage example.
+@Deprecated('Building custom error boundaries with this mixin will no longer be supported in version 4.0.0.'
+    'Use ErrorBoundary and its prop API to customize error handling instead.')
 @StateMixin()
 abstract class _$ErrorBoundaryStateMixin implements UiState {
   @override
@@ -158,6 +173,8 @@ abstract class _$ErrorBoundaryStateMixin implements UiState {
 ///         return Dom.h3()('Error!');
 ///       }
 ///     }
+@Deprecated('Building custom error boundaries with this mixin will no longer be supported in version 4.0.0.'
+    'Use ErrorBoundary and its prop API to customize error handling instead.')
 mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBoundaryStateMixin>
     on UiStatefulComponent2<T, S> {
   @override
@@ -205,7 +222,10 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
   @override
   render() {
     if (state.hasError && state.showFallbackUIOnError) {
-      return (props.fallbackUIRenderer ?? _renderStringDomAfterUnrecoverableErrors)(_lastError, _lastErrorInfo);
+      return (props.fallbackUIRenderer ?? _renderStringDomAfterUnrecoverableErrors)(
+          _errorLog.isNotEmpty ? _errorLog.last : null,
+          _callStackLog.isNotEmpty ? _callStackLog.last : null,
+      );
     }
 
     return props.children;
@@ -260,23 +280,30 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
   // ---------------------------------------------- /\ ----------------------------------------------
 
   String _domAtTimeOfError;
-  /*Error||Exception*/dynamic _lastError;
-  ReactErrorInfo _lastErrorInfo;
+  List<String> _errorLog = [];
+  List<ReactErrorInfo> _callStackLog = [];
   Timer _identicalErrorTimer;
 
   /// Called by [componentDidCatch].
   void _handleErrorInComponentTree(/*Error||Exception*/dynamic error, ReactErrorInfo info) {
     // ----- [1] ----- //
     if (props.fallbackUIRenderer != null) {
-      _lastError = error;
-      _lastErrorInfo = info;
+      _errorLog.add(error.toString());
+      _callStackLog.add(info);
       _logErrorCaughtByErrorBoundary(error, info); // [3]
       return;
     }
     // ----- [2] ----- //
     else {
-      bool sameErrorWasThrownTwiceConsecutively =
-          error.toString() == _lastError?.toString() && info.componentStack == _lastErrorInfo.componentStack;
+      bool sameErrorWasThrownTwiceConsecutively = false;
+      final errorString = error.toString();
+
+      for (var i = 0; i < _errorLog.length; i++) {
+        if (_errorLog[i] == errorString && _callStackLog[i].componentStack == info.componentStack) {
+          sameErrorWasThrownTwiceConsecutively = true;
+          break;
+        }
+      }
 
       if (sameErrorWasThrownTwiceConsecutively) { // [2.1]
         try { // [2.2.2]
@@ -289,8 +316,8 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
 
         _logErrorCaughtByErrorBoundary(error, info, isRecoverable: false); // [3]
       } else {
-        _lastError = error;
-        _lastErrorInfo = info;
+        _errorLog.add(error.toString());
+        _callStackLog.add(info);
         _logErrorCaughtByErrorBoundary(error, info); // [3]
       }
 
@@ -334,8 +361,8 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
   /// into an "unrecoverable" error state.
   void _resetInternalErrorTracking() {
     _domAtTimeOfError = null;
-    _lastError = null;
-    _lastErrorInfo = null;
+    _errorLog = [];
+    _callStackLog = [];
     _identicalErrorTimer?.cancel();
     _identicalErrorTimer = null;
   }
