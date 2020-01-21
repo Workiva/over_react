@@ -12,7 +12,7 @@ import 'package:w_flux/w_flux.dart' as flux;
 /// [4]: Point getters to the [state] field coming from the mixin
 /// [5]: Initialize the [state] field
 /// [6]: Update the [state] field using Redux actions instead of a function
-class FluxStore extends flux.Store with /*[1]*/ InfluxStoreMixin</*[2]*/ReduxState> {
+class FluxStore extends flux.Store with /*[1]*/ InfluxStoreMixin< /*[2]*/ ReduxState> {
   RandomColorActions _actions;
 
   @override
@@ -52,10 +52,12 @@ class ReduxState {
 
   ReduxState(this.backgroundColor);
 
-  ReduxState.from(ReduxState oldState, {backgroundColor}) : this.backgroundColor = backgroundColor ?? oldState.backgroundColor;
+  ReduxState.from(ReduxState oldState, {backgroundColor})
+      : this.backgroundColor = backgroundColor ?? oldState.backgroundColor;
 }
 
 RandomColorActions randomColorActions = RandomColorActions();
 FluxStore randomColorStore = FluxStore(randomColorActions);
-FluxToReduxAdapterStore adaptedStore =
-    FluxToReduxAdapterStore<FluxStore, ReduxState>(randomColorStore, randomColorActions, middleware: [overReactReduxDevToolsMiddleware]);
+FluxToReduxAdapterStore adaptedStore = FluxToReduxAdapterStore<FluxStore, ReduxState>(
+    randomColorStore, randomColorActions,
+    middleware: [overReactReduxDevToolsMiddleware]);

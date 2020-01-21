@@ -11,8 +11,7 @@ UiFactory<RandomColorReduxProps> ConnectedRandomColorRedux = connect<ReduxState,
     ..backgroundColor = state.mainBackgroundColor
     ..blockOneBackgroundColor = state.blockOneBackgroundColor
     ..blockTwoBackgroundColor = state.blockTwoBackgroundColor
-    ..blockThreeBackgroundColor = state.blockThreeBackgroundColor
-  ),
+    ..blockThreeBackgroundColor = state.blockThreeBackgroundColor),
   mapDispatchToProps: (dispatch) => (RandomColorRedux()
     ..changeMainBackgroundColor = () {
       dispatch(UpdateBackgroundColorAction());
@@ -25,8 +24,7 @@ UiFactory<RandomColorReduxProps> ConnectedRandomColorRedux = connect<ReduxState,
     }
     ..changeBlockThreeBackgroundColor = () {
       dispatch(UpdateBlockThreeBackgroundColorAction());
-    }
-  ),
+    }),
 )(RandomColorRedux);
 
 @Factory()
