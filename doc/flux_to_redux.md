@@ -432,7 +432,7 @@ If having one store sounds unfeasible or raises a lot of concerns, there's more 
 This leads to the difference in the transition process. Not only do the stores have to come together, but componentry needs to reflect that the data is coming from a single source. 
 
 ### Advanced Conversion Step by Step
-These steps build on those in the [simple example above](#basic-conversion-step-by-step), but code specific to this example can be found in the [advanced web example](../web/flux_to_redux/advanced/README.md). Additionally, these steps are just a set that make sense for general situations and may not make sense for every library. If the path forward is unclear, they can be referred to for guidance but may need adjustment or supplemental steps.
+These steps build on those in the [simple example above](#basic-conversion-step-by-step), but code specific to this example can be found in the [advanced web example](../web/flux_to_redux/advanced). Additionally, these steps are just a set that make sense for general situations and may not make sense for every library. If the path forward is unclear, they can be referred to for guidance but may need adjustment or supplemental steps.
 1. __Diagram store and component relationships.__ While perhaps challenging and time consuming, creating a diagram that illustrates generally which components care about which stores could prove invaluable to planning the update process.
 1. __Break the refactor into groups that includes the stateful layer and the UI layer.__ Are there small chunks of the system that can be updated without touching the messiest knots in the system? If so, identify them. If this step seems particularly challenging or reveals large roadblocks, consider an [Influx architecture](#influx-architecture)
 1. __For each group, refactor all the stores.__ By doing the stores and reducers at the same time, you can completely invalidate a single store at a time. In other words, you can move all the necessary state logic into the new state class and move the state mutation logic into the reducer. Then, the entire Flux store can be deleted.
@@ -584,7 +584,7 @@ __Goal:__ Update all stores to be either Influx or Redux and update all componen
     ```
 1. __Refactor components.__ See the specific component type below for a reminder on which store instance is correct and any "gotchas" in the refactor. In general, remember that if a component talks to multiple stores, `composeHocs` can be used to simplify the connected factory declarations.
 
-    For code examples on what this could look like, compare the different components in the [advanced web example](../web/flux_to_redux/advanced/README.md).
+    For code examples on what this could look like, compare the different components in the [advanced web example](../web/flux_to_redux/advanced).
     - __A Flux component__ will operate exactly the same way. 
         - Pass in the Influx store instance as a prop (which should already be done). Not the `FluxToReduxAdapterStore` instance, but _the same Influx store instance_ used to istantiate the `FluxToReduxAdapterStore` object. 
         - The actions prop should also be _the same action class instance_ passed into the `FluxToReduxAdapterStore` constructor. 
