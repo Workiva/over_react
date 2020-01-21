@@ -7,7 +7,7 @@
 * __[Do I have to transition?](#do-i-have-to-transition-to-redux)__
 * __[Reducer Builders and Combine Reducers](#reducer-builders-and-combine-reducers)__
 * __[Converting SubState to mapStateToProps](#converting-substate-to-mapStateToProps)__
-* __[Comparing the Two Systems](#comping-the-two-systems)__
+* __[Comparing the Two Systems](#comparing-the-two-systems)__
     * [Actions](#actions)
         * [Actions Comparison](#actions-comparison)
         * [Actions Refactor](#actions-refactor)
@@ -69,7 +69,38 @@ Store store = Store<ReduxState>(countReducer, initialState: ReduxState.defaultSt
 ```
 
 ## Converting Substate to mapStateToProps
+If you are using `BuiltReduxUiComponent` as your component's base class, you should have a `Substate` class that acts as the model for the data your component receives. This allows your component to only receive the pieces of state it needs to function.
 
+This model fits perfectly with Redux because the premise is that a component should only be receiving pieces of state that it will make use of. Instead of a `Substate` class however, this is done by utilizing the `mapStateToProps` parameter of `connect`. When converting from built_redux to Redux, the `Substate` class properties can just be transferred into regular props. Then, in `mapStateToProps`, the value of those props are tied to the app state and utilized within the component as traditional props.
+
+```dart
+// Starting Props Class
+// It's normal that the props class has few, if any, props because they values are coming from the substate
+class _$ExampleComponentProps extends BuiltReduxUiProps<AppState, AppStateBuilder, AppActions> {}
+
+// The starting substate
+abstract class ExampleComponentState implements Built<AppSubstate, AppSubstateBuilder> {
+    factory SimpleSubstate({String text}) => _$SimpleSubstate._(
+            text: text,
+        );
+    SimpleSubstate._();
+
+    // The state field being pulled from the store is `text`
+    String get text;
+}
+
+// After refactor
+// connect call
+UiFactory<ExampleComponentProps> ConnectedExampleComponent = connect<AppState, ExampleComponentProps>(
+    // The `text` prop points to the `text` state field
+    mapStateToProps: (state) => (ExampleComponent()..text = state.text);
+)(ExampleComponent);
+
+// Redux Props Class
+class _$ExampleComponentProps extends UiProps {
+    String text;
+}
+```
 
 ## Comparing the Two Systems
 built_redux and OverReact Redux are comprised of the same main entities. Moving from built_redux to Redux then is just a matter of refactoring each relevant entity, along with the related UI. Note again that this document does not attempt to explain _how_ Redux works, and if any of the Redux implementation details aren't quite clear, check out the [Redux Documentation](https://github.com/johnpryan/redux.dart) and the [OverReact Redux Documentation](./over_react_redux_documentation.md).
@@ -305,7 +336,7 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
         1. Upgrade the component to `UiComponent2`.
             - Generally this also means removing the built_redux stuff, including ensuring that the component prop class extends from `UiProps`.
             - Check out the `UiComponent2` [transition guide](./ui_component2_transition.md) for pointers on going from `UiComponent` (which is what `BuiltReduxUiComponent` is backed by) to `UiComponent2`. If a component has overridden lifecycle methods that are removed, this will likely be the hardest part of the upgrade.
-        1. Move your `SubState` class values into your component's props class. Using the `mapStateToProps` parameter of Redux's `connect` function is very similar to declaring a `SubState` class, and the properties from your `SubState` class can just be moved into props. Make sure at the end of this step that all references to the state in your component have a prop declared in the props class.
+        1. Move your `Substate` class values into your component's props class. Using the `mapStateToProps` parameter of Redux's `connect` function is very similar to declaring a `Substate` class, and the properties from your `Substate` class can just be moved into props. Make sure at the end of this step that all references to the state in your component have a prop declared in the props class.
         
             > See the [Converting Substate to mapStateToProps](#converting-substate-to-mapStateToProps) section for more information.
         1. Continue on to the __In Either Case__ bullet below.
