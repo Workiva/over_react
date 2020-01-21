@@ -36,6 +36,27 @@ void main() {
   );
 
   react_dom.render(
+    (ErrorBoundary()
+      ..onComponentDidCatch = (error, info) {
+        print('Consumer props.onComponentDidCatch($error, $info)');
+      }
+    )(FaultyOnMount()()),
+    querySelector('$demoMountNodeSelectorPrefix--faulty-on-mount-component'),
+  );
+
+  react_dom.render(
+    (ErrorBoundary()
+      ..onComponentDidCatch = (error, info) {
+        print('Consumer props.onComponentDidCatch($error, $info)');
+      }
+      ..fallbackUIRenderer = (_, __) {
+        return (Dom.div()..id = 'FallbackUi')('I am a fallback.');
+      }
+    )(FaultyOnMount()()),
+    querySelector('$demoMountNodeSelectorPrefix--faulty-on-mount-fallback-component'),
+  );
+
+  react_dom.render(
     (CustomErrorBoundary()
       ..onComponentDidCatch = (error, info) {
         print('Consumer props.onComponentDidCatch($error, $info)');
@@ -48,4 +69,9 @@ void main() {
     Faulty()(), querySelector('$demoMountNodeSelectorPrefix--faulty-component-without-error-boundary'));
 
   react_dom.render(PropTypesWrap()(), querySelector('$demoMountNodeSelectorPrefix--proptypes-component'));
+
+  react_dom.render(FragmentExample()(), querySelector('$demoMountNodeSelectorPrefix--fragment-component'));
+  react_dom.render(ListExample()(), querySelector('$demoMountNodeSelectorPrefix--list-component'));
+  react_dom.render(NumExample()(), querySelector('$demoMountNodeSelectorPrefix--num-component'));
+  react_dom.render(StringExample()(), querySelector('$demoMountNodeSelectorPrefix--string-component'));
 }

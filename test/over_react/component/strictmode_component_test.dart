@@ -12,22 +12,32 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@TestOn('browser')
-@Timeout(Duration(seconds: 2))
-library error_boundary_test;
+library strictmode_component_test;
+
+import 'dart:html';
 
 import 'package:over_react/over_react.dart';
-import 'package:over_react/src/component/error_boundary_recoverable.dart';
+import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
 
-import 'shared_error_boundary_tests.dart';
-
 void main() {
-  group('RecoverableErrorBoundary', () {
-    sharedErrorBoundaryTests(() => RecoverableErrorBoundary());
-  });
+  group('StrictMode', () {
+    test('renders only its children', () {
+      DivElement wrappingDivRef;
 
-  group('ErrorBoundary', () {
-    sharedErrorBoundaryTests(() => ErrorBoundary(), isWrapper: true);
+      renderAttachedToDocument(
+        (Dom.div()
+          ..ref = (ref) {
+            wrappingDivRef = ref;
+          })(StrictMode()(
+          Dom.div()(),
+          Dom.div()(),
+          Dom.div()(),
+          Dom.div()(),
+        )),
+      );
+
+      expect(wrappingDivRef.children, hasLength(4));
+    });
   });
 }

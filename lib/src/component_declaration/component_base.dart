@@ -546,18 +546,10 @@ abstract class UiProps extends MapBase
 
     assert(_validateChildren(childArguments.length == 1 ? childArguments.single : childArguments));
 
-    final factory = componentFactory;
-    if (factory is ReactComponentFactoryProxy) {
-      // Use `build` instead of using emulated function behavior to work around DDC issue
-      // https://github.com/dart-lang/sdk/issues/29904
-      // Should have the benefit of better performance;
-      return factory.build(props, childArguments);
-    } else {
-      var parameters = []
-        ..add(props)
-        ..addAll(childArguments);
-      return Function.apply(factory, parameters);
-    }
+    // Use `build` instead of using emulated function behavior to work around DDC issue
+    // https://github.com/dart-lang/sdk/issues/29904
+    // Should have the benefit of better performance;
+    return componentFactory.build(props, childArguments);
   }
 
   /// Validates that no [children] are instances of [UiProps], and prints a helpful message for a better debugging
