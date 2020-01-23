@@ -1,0 +1,16 @@
+.app-content {
+  overflow-y: auto;
+  padding-top: 32px;
+  height: calc(100% - 32px);
+}
+
+@media screen and (min-width: 600px) {
+  .app-content {
+    overflow-y: hidden;
+  }
+
+  .app-content__container,
+  .app-content__container-grid {
+    height: 100%;
+  }
+}

@@ -1,0 +1,10 @@
+targets:
+  $default:
+    builders:
+      test_html_builder:
+        options:
+          templates:
+            "test/unit/_templates/react_test_template.html":
+              - "test/unit/browser/redux/**_test.dart"
+            "test/unit/_templates/react_components_test_template.html":
+              - "test/unit/browser/components/**_test.dart"
