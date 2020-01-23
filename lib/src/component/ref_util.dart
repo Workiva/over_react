@@ -54,42 +54,127 @@ Ref<T> createRef<T>() {
 
 /// Automatically passes a [Ref] through a component to one of its children.
 ///
-/// __Example__:
+/// __Example 1:__ Forwarding refs to DOM components
 ///
-///     UiFactory<DomProps> DivForwarded = forwardRef<DomProps>((props, ref) {
-///       return (Dom.div()
+/// ```dart
+/// import 'dart:html';
+/// import 'package:over_react/over_react.dart';
+/// import 'package:over_react/react_dom.dart' as react_dom;
+///
+/// // ---------- Component Definition ----------
+///
+/// final FancyButton = forwardRef<DomProps>((props, ref) {
+///   final classes = ClassNameBuilder.fromProps(props)
+///     ..add('FancyButton');
+///
+///   return (Dom.button()
+///     ..addProps(getPropsToForward(props, onlyCopyDomProps: true))
+///     ..className = classes.toClassName()
+///     ..ref = ref
+///   )('Click me!');
+/// })(Dom.button);
+///
+/// // ---------- Component Consumption ----------
+///
+/// void main() {
+///   setClientConfiguration();
+///   final ref = createRef<Element>();
+///
+///   react_dom.render(
+///       (FancyButton()
 ///         ..ref = ref
-///         ..className = 'special-class'
-///       )(
-///         props.children
-///       );
-///     })(Dom.div);
+///         ..onClick = (_) {
+///           print(ref.current.outerHtml);
+///         }
+///       )(),
+///       querySelector('#idOfSomeNodeInTheDom')
+///   );
 ///
-/// ___ OR ___
+///   // You can still get a ref directly to the DOM button:
+///   final buttonNode = ref.current;
+/// }
+/// ```
 ///
-///     UiFactory<FooProps> FooForwarded = forwardRef<FooProps>((props, ref) {
-///       return (Foo()
-///         ..forwardedRef = ref
-///       )();
-///     })(Foo);
+/// __Example 2:__ Forwarding refs in higher-order components
 ///
-///     @Factory()
-///     UiFactory<FooProps> Foo = _$Foo;
+/// ```dart
+/// import 'dart:html';
+/// import 'package:over_react/over_react.dart';
+/// import 'package:over_react/react_dom.dart' as react_dom;
 ///
-///     @Props()
-///     class _$FooProps extends UiProps {
-///       Ref forwardedRef;
-///     }
+/// // ---------- Component Definitions ----------
 ///
-///     @Component2()
-///     class FooComponent extends UiComponent2<FooProps> {
-///       @override
-///       render() {
-///         return (Dom.button()
-///           ..ref = props.forwardedRef
-///         )('Click this button');
-///       }
-///     }
+/// final FancyButton = forwardRef<DomProps>((props, ref) {
+///   final classes = ClassNameBuilder.fromProps(props)
+///     ..add('FancyButton');
+///
+///   return (Dom.button()
+///     ..addProps(getPropsToForward(props, onlyCopyDomProps: true))
+///     ..className = classes.toClassName()
+///     ..ref = ref
+///   )('Click me!');
+/// })(Dom.button);
+///
+/// final LogProps = forwardRef<LogPropsProps>((props, ref) {
+///   return (_LogProps()
+///     ..addProps(props)
+///     .._forwardedRef = ref
+///   )('Click me!');
+/// })(_LogProps);
+///
+/// @Factory()
+/// UiFactory<LogPropsProps> _LogProps = _$_LogProps;
+///
+/// @Props()
+/// class _$LogPropsProps extends UiProps {
+///   BuilderOnlyUiFactory<DomProps> builder;
+///
+///   // Private since we only use this to pass along the value of `ref` to
+///   // the return value of forwardRef.
+///   //
+///   // Consumers can set this private field value using the public `ref` setter.
+///   Ref _forwardedRef;
+/// }
+///
+/// @Component2()
+/// class LogPropsComponent extends UiComponent2<LogPropsProps> {
+///   @override
+///   void componentDidUpdate(Map prevProps, _, [__]) {
+///     print('old props: $prevProps');
+///     print('new props: $props');
+///   }
+///
+///   @override
+///   render() {
+///     return (props.builder()
+///       ..modifyProps(addUnconsumedDomProps)
+///       ..ref = props._forwardedRef
+///     )(props.children);
+///   }
+/// }
+///
+/// // ---------- Component Consumption ----------
+///
+/// void main() {
+///   setClientConfiguration();
+///   final ref = createRef<Element>();
+///
+///   react_dom.render(
+///       (LogProps()
+///         ..builder = FancyButton
+///         ..className = 'btn btn-primary'
+///         ..ref = ref
+///         ..onClick = (_) {
+///           print(ref.current.outerHtml);
+///         }
+///       )(),
+///       querySelector('#idOfSomeNodeInTheDom')
+///   );
+///
+///   // You can still get a ref directly to the DOM button:
+///   final buttonNode = ref.current;
+/// }
+/// ```
 ///
 /// Learn more: <https://reactjs.org/docs/forwarding-refs.html>.
 UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>(
