@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:js_util';
+
 import 'package:react/react_client/react_interop.dart' as react_interop;
 import 'package:react/react_client.dart';
 import 'package:over_react/component_base.dart';
@@ -91,13 +93,29 @@ Ref<T> createRef<T>() {
 ///
 /// Learn more: <https://reactjs.org/docs/forwarding-refs.html>.
 UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>(
-    Function(TProps props, Ref ref) wrapperFunction) {
+    Function(TProps props, Ref ref) wrapperFunction, {String displayName}) {
 
   UiFactory<TProps> wrapWithForwardRef(UiFactory<TProps> factory) {
+    if (displayName == null) {
+      final componentFactoryType = factory().componentFactory.type;
+      if (componentFactoryType is String) {
+        // DomComponent
+        displayName = componentFactoryType;
+      } else if (componentFactoryType is Function) {
+        // JS component factories, Dart function components, Dart composite components
+        displayName = getProperty(componentFactoryType, 'displayName');
+
+        if (displayName == null) {
+          final ctor = getProperty(componentFactoryType, 'constructor');
+          displayName = (ctor == null ? null : getProperty(ctor, 'name')) ?? 'Anonymous';
+        }
+      }
+    }
+
     Object wrapProps(Map props, Ref ref) {
       return wrapperFunction(factory(props), ref);
     }
-    ReactComponentFactoryProxy hoc = react_interop.forwardRef(wrapProps);
+    ReactComponentFactoryProxy hoc = react_interop.forwardRef(wrapProps, displayName: displayName);
 
     TProps forwardedFactory([Map props]) {
       return factory(props)..componentFactory = hoc;

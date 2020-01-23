@@ -15,6 +15,7 @@
 library forward_ref_test;
 
 import 'dart:html';
+import 'dart:js_util';
 
 import 'package:test/test.dart';
 import 'package:over_react/over_react.dart';
@@ -47,11 +48,63 @@ main() {
 
         expect(refObject.current, TypeMatcher<DivElement>());
       });
+
+      group('- sets displayName on the rendered component as expected', () {
+        test('when displayName argument is not passed to forwardRef', () {
+          UiFactory<DomProps> DivForwarded = forwardRef<DomProps>((props, ref) {
+            return (Dom.div()
+              ..ref = ref
+            )();
+          })(Dom.div);
+
+          final refObject = createRef<DivElement>();
+          final vDomElement = (DivForwarded()..ref = refObject)();
+
+          expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), 'div');
+        });
+
+        test('when displayName argument is passed to forwardRef', () {
+          UiFactory<DomProps> DivForwarded = forwardRef<DomProps>((props, ref) {
+            return (Dom.div()
+              ..ref = ref
+            )();
+          }, displayName: 'SomethingCustom')(Dom.div);
+
+          final refObject = createRef<DivElement>();
+          final vDomElement = (DivForwarded()..ref = refObject)();
+
+          expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), 'SomethingCustom');
+        });
+      });
     });
 
     group('on a component with a dart component child', () {
       forwardRefTest(BasicChild, verifyRefValue: (ref) {
         expect(ref, TypeMatcher<BasicChildComponent>());
+      });
+
+      group('- sets displayName on the rendered component as expected', () {
+        test('when displayName argument is not passed to forwardRef', () {
+          UiFactory<BasicProps> BasicForwarded = forwardRef<BasicProps>((props, ref) {
+            return (BasicChild()..ref = ref)();
+          })(Basic);
+
+          final Ref refObject = createRef();
+          final vDomElement = (BasicForwarded()..ref = refObject)();
+
+          expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), 'Basic');
+        });
+
+        test('when displayName argument is passed to forwardRef', () {
+          UiFactory<BasicProps> BasicForwarded = forwardRef<BasicProps>((props, ref) {
+            return (BasicChild()..ref = ref)();
+          }, displayName: 'BasicForwarded')(Basic);
+
+          final Ref refObject = createRef();
+          final vDomElement = (BasicForwarded()..ref = refObject)();
+
+          expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), 'BasicForwarded');
+        });
       });
     });
   });
