@@ -1,0 +1,16 @@
+.packages
+.pub
+packages
+build/
+.dart_tool
+
+# Directory created by dartdoc
+doc/api/
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.ipr
+*.iws
+.arcconfig
+.vscode
