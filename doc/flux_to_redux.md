@@ -113,8 +113,7 @@ class RandomColorState {
     RandomColorState.defaultState() : this.backgroundColor = 'gray';
 
     // A convenience constructor used by the reducer to return new instances of the class
-    RandomColorState.update(RandomColorState oldState, {String backgroundColor})
-        : this.backgroundColor = backgroundColor ?? oldState.backgroundColor;
+    RandomColorState.withColor(this.backgroundColor);
 }
 ```
 
@@ -130,7 +129,7 @@ RandomColorState reducer(RandomColorState oldState, dynamic action) {
     var color = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
 
     // Return a new state class instance, changing the background color
-    return RandomColorState.update(oldState, backgroundColor: color);
+    return RandomColorState.withColor(color);
   }
 
   return oldState;
@@ -269,7 +268,7 @@ This section builds on the [simple example](#a-simple-example), so ensure that s
     
     `BigBlock` also has four buttons - one connected to each action that changes the background color property of one of the stores (and thereby updating the component background color).
 
-    A Flux specific part of the `BigBlock` component is that we need to set the `redrawOne` to listen to the story at every level.
+    A Flux specific part of the `BigBlock` component is that we need to set the `redrawOn` to listen to the store at every level.
 
 ```dart
 import 'package:w_flux/w_flux.dart' as flux;
@@ -388,30 +387,29 @@ class UpdateBlockThreeBackgroundColorAction {}
 ```
 
 ```dart
-// A simple reducer that has a case for every action.
-// Because the example is relatively contrived to keep things simple, there are other
-// ways this could be done given that all the actions are pretty much the same,
-// but the reducer was written more verbosely to capture the core idea.
+/// A simple reducer that has a case for every action.
+///
+/// Because the example is relatively contrived to keep things simple, the actions and reducer could be simplified.
+/// Ultimately because all the actions are so similar, a different approach could be to have a single action that has
+/// a field for every color and just passes those colors into the `ReduxState.update` constructor. However, to 
+/// illustrate the core idea of an action mapping directly to a state field, the reducer is left more verbose.
 ReduxState afterTransitionReducer(ReduxState oldState, dynamic action) {
   if (action is UpdateBackgroundColorAction) {
-    var color = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
-
-    return ReduxState.update(oldState, mainBackgroundColor: color);
+    return ReduxState.update(oldState, mainBackgroundColor: getRandomColor());
   } else if (action is UpdateBlockOneBackgroundColorAction) {
-    var color = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
-
-    return ReduxState.update(oldState, blockOneBackgroundColor: color);
+    return ReduxState.update(oldState, blockOneBackgroundColor: getRandomColor());
   } else if (action is UpdateBlockTwoBackgroundColorAction) {
-    var color = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
-
-    return ReduxState.update(oldState, blockTwoBackgroundColor: color);
+    return ReduxState.update(oldState, blockTwoBackgroundColor: getRandomColor());
   } else if (action is UpdateBlockThreeBackgroundColorAction) {
-    var color = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
-
-    return ReduxState.update(oldState, blockThreeBackgroundColor: color);
+    return ReduxState.update(oldState, blockThreeBackgroundColor: getRandomColor());
   }
 
   return oldState;
+}
+
+/// A utility method used to generate a random color.
+String getRandomColor() {
+    return '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
 }
 ```
 
@@ -501,12 +499,14 @@ __Goal:__ Update all stores to be either Influx or Redux and update all componen
     - A Redux component can talk to both a Redux store and an adapted Influx store at the same time.
     - A Flux component can talk to an Influx store and a Flux store at the same time.
     - A `connectFlux` component can talk to an adapted Influx store.
+    <img src='./component_store_relationships.png' alt='decision tree'> 
 
-    The result of these rules is that a store can be converted directly to Redux [iff](https://en.wikipedia.org/wiki/If_and_only_if) it will be used exclusively by Redux components, but a component can be converted to a Redux component if it will pull data from either an adapted Influx store or a traditional Flux store.
+    When deciding if a store should be converted to Redux or to Influx, the main questions are:
+    1. Can all of the related UI be converted to Redux?
+    1. Can all of the related stores (those that are dependent upon each other), be combined into a single store?
 
-    If the stores are not overly complex and all of the related UI can be updated to Redux connected components (extending from `UiComponent2`), then going straight to Redux may be a good option.
-
-    If, given the size of the store or number of components affected, this is not ideal, the store should be converted to Influx. 
+    If the answer to both of those is yes, go straight to Redux. If not, go to Influx. A more detailed decision tree can be seen below:
+    <img src='./flux_store_decision_tree.png' alt='decision tree'> 
 1. __Refactor the store.__ 
     If the store is moving to Redux, follow the [simple store conversion](#basic-conversion-step-by-step). If the store is moving to Influx:
     1. __Create the Redux actions.__ Any actions that the connected UI components will need access to should be made into a Redux action.
@@ -592,7 +592,7 @@ __Goal:__ Update all stores to be either Influx or Redux and update all componen
         - The `pure` parameter on `connect` should be set to `false`, or else it will not receive regular updates. 
         - If the component tree was wrapped in a `ReduxMultiProvider`, the `context` parameter should also be set to the relevant store context.
     - __A Connected Flux component__ is essentially the same as a Redux component.
-        - The only exception is thate `mapDispatchToProps` (Redux `connect` parameter) is `mapActionsToProps` for a Connected Flux component.
+        - The only exception is that `mapDispatchToProps` (Redux `connect` parameter) is `mapActionsToProps` for a Connected Flux component.
 1. __Continue this process of refactoring stores and components__ until most components are Redux components.
 
 #### Phase 3: Influx to Redux
