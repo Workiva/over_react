@@ -13,10 +13,12 @@ part 'connect_flux_big_block.over_react.g.dart';
 // [4] Wrap the existing factory in a `connectFlux` call.
 // [5] Use `mapStateToProps` and `mapActionsToProps` to point props to the correct state values.
 
-/*[4]*/ UiFactory<ConnectFluxBigBlockProps> ConnectedConnectFluxBigBlock =
+// [4]
+UiFactory<ConnectFluxBigBlockProps> ConnectedConnectFluxBigBlock =
     connectFlux<FluxStore, RandomColorActions, ConnectFluxBigBlockProps>(
-  /*[5]*/ mapStateToProps: (state) => (ConnectFluxBigBlock()..backgroundColor = state?.backgroundColor),
-  /*[5]*/ mapActionsToProps: (actions) =>
+  // [5]
+  mapStateToProps: (state) => (ConnectFluxBigBlock()..backgroundColor = state?.backgroundColor),
+  mapActionsToProps: (actions) =>
       (ConnectFluxBigBlock()..changeBackgroundColor = actions.changeBackgroundColor),
 )(ConnectFluxBigBlock);
 
@@ -25,25 +27,27 @@ UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock = _$ConnectFluxBigBlock;
 
 @Props()
 class _$ConnectFluxBigBlockProps extends UiProps with ConnectPropsMixin {
-  /*[1]*/ String backgroundColor;
+  String backgroundColor; // [1]
 
-  /*[2]*/ void Function() changeBackgroundColor;
+  void Function() changeBackgroundColor; // [2]
 }
 
 @Component2()
 class ConnectFluxBigBlockComponent extends UiComponent2<ConnectFluxBigBlockProps> {
   @override
   render() {
-    return ((Dom.div()
-      ..style = {'padding': '50px', 'backgroundColor': /*[3]*/ props?.backgroundColor, 'color': 'white'}
-    )(
+    return (Dom.div()..style = {
+      'padding': '50px',
+      'backgroundColor': props.backgroundColor, // [3]
+      'color': 'white'
+    })(
       'This module uses a connect flux pattern to change its background color.',
       (Dom.button()
         ..onClick = (_) {
-          /*[3]*/ props.changeBackgroundColor();
+          props.changeBackgroundColor(); // [3]
         }
         ..style = {'padding': '10px', 'margin': '10px'}
       )('Change Background Color'),
-    ));
+    );
   }
 }

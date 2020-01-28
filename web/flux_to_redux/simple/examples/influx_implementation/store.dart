@@ -16,13 +16,15 @@ class FluxStore extends flux.Store with /*[1]*/ InfluxStoreMixin< /*[2]*/ ReduxS
   RandomColorActions _actions;
 
   @override
-  /*[3]*/ get reduxReducer => reducer;
+  get reduxReducer => reducer; // [3]
 
-  /*[4]*/ String get backgroundColor => state.backgroundColor;
+  String get backgroundColor => state.backgroundColor; // [4]
 
   FluxStore(this._actions) {
-    /*[5]*/ state = ReduxState('gray');
-    /*[6]*/ triggerOnActionV2(_actions.changeBackgroundColor, (_) => this.influxReducer(UpdateBackgroundColorAction()));
+    // [5]
+    state = ReduxState('gray');
+    // [6]
+    triggerOnActionV2(_actions.changeBackgroundColor, (_) => this.influxReducer(UpdateBackgroundColorAction()));
   }
 }
 
