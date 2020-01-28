@@ -1,10 +1,5 @@
 include: package:pedantic/analysis_options.1.8.0.yaml
 
-analyzer:
-  exclude:
-    - _site/**
-    - test_fixtures/**
-    - app/**
 linter:
   rules:
     # -------------------
@@ -53,7 +48,7 @@ linter:
     avoid_setters_without_getters: true
     avoid_single_cascade_in_expression_statements: true
     avoid_slow_async_io: true
-    avoid_types_on_closure_parameters: true
+    avoid_types_on_closure_parameters: false
     avoid_unused_constructor_parameters: true
     avoid_void_async: true
     await_only_futures: true

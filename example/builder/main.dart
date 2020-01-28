@@ -3,11 +3,11 @@ import 'dart:html';
 import 'package:over_react/over_react.dart';
 import 'package:react/react_dom.dart' as react_dom;
 
-import './builder/abstract_inheritance.dart';
-import './builder/basic.dart';
-import './builder/basic_library.dart';
-import './builder/generic_inheritance_sub.dart';
-import './builder/generic_inheritance_super.dart';
+import './src/abstract_inheritance.dart';
+import './src/basic.dart';
+import './src/basic_library.dart';
+import './src/generic_inheritance_sub.dart';
+import './src/generic_inheritance_super.dart';
 
 main() {
   setClientConfiguration();
