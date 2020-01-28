@@ -54,24 +54,24 @@ import 'package:w_flux/w_flux.dart' as flux;
 
 // A flux store responsible for displaying a random background color.
 class RandomColorStore extends flux.Store {
-    /// The collection of actions this store will be subscribing to.
-    RandomColorActions _actions;
+  /// The collection of actions this store will be subscribing to.
+  RandomColorActions _actions;
 
-    /// Public data
-    String _backgroundColor = 'gray';
-    String get backgroundColor => _backgroundColor;
+  /// Public data
+  String _backgroundColor = 'gray';
+  String get backgroundColor => _backgroundColor;
 
-    RandomColorStore(this._actions) {
+  RandomColorStore(this._actions) {
     // Subscribe to an action. When the action fires:
     // 1. call _changeBackgroundColor
     // 2. trigger an update
-        triggerOnActionV2(_actions.changeBackgroundColor, _changeBackgroundColor);
-    }
+    triggerOnActionV2(_actions.changeBackgroundColor, _changeBackgroundColor);
+  }
 
-    _changeBackgroundColor(String _) {
-        // Update the state, which will be reflected in the public getter
-        _backgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
-    }
+  _changeBackgroundColor(String _) {
+    // Update the state, which will be reflected in the public getter
+    _backgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
+  }
 }
 ```
 
@@ -106,14 +106,14 @@ For our example, here are our different items of interest:
 ```dart
 // A regular Dart class that represents the application data model
 class RandomColorState {
-    // The state values the app needs
-    String backgroundColor;
+  // The state values the app needs
+  String backgroundColor;
 
-    // A constructor used to establish the default state
-    RandomColorState.defaultState() : this.backgroundColor = 'gray';
+  // A constructor used to establish the default state
+  RandomColorState.defaultState() : this.backgroundColor = 'gray';
 
-    // A convenience constructor used by the reducer to return new instances of the class
-    RandomColorState.withColor(this.backgroundColor);
+  // A convenience constructor used by the reducer to return new instances of the class
+  RandomColorState.withColor(this.backgroundColor);
 }
 ```
 
@@ -173,18 +173,18 @@ redux.Store randomColorStore = redux.Store<RandomColorState>(reducer, initialSta
     ```dart
     // Before
     class ExampleActions {
-        final Action<SetBackgroundColorPayload> randomizeBackgroundColor = Action();
+      final Action<SetBackgroundColorPayload> randomizeBackgroundColor = Action();
     }
 
     class SetBackgroundColorPayload {
-        String backgroundColor;
-        SetBackgroundColorAction(this.backgroundColor);
+      String backgroundColor;
+      SetBackgroundColorAction(this.backgroundColor);
     }
     
     // After
     class SetBackgroundColorAction {
-        final String backgroundColor;
-        SetBackgroundColorAction(this.backgroundColor);
+      final String backgroundColor;
+      SetBackgroundColorAction(this.backgroundColor);
     }
     ```
 
@@ -194,31 +194,31 @@ redux.Store randomColorStore = redux.Store<RandomColorState>(reducer, initialSta
 
     // Before transition
     class ExampleFluxStore extends flux.Store {
-        FluxActions _actions;
+      FluxActions _actions;
 
-        String _backgroundColor = 'Gray';
-        String get backgroundColor = _backgroundColor;
+      String _backgroundColor = 'Gray';
+      String get backgroundColor = _backgroundColor;
 
-        // Constructor
-        ExampleFluxStore(this._actions) {
-            triggerOnActionV2(_actions.changeBackgroundColor, _changeBackgroundColor);
-        }
+      // Constructor
+      ExampleFluxStore(this._actions) {
+        triggerOnActionV2(_actions.changeBackgroundColor, _changeBackgroundColor);
+      }
 
-        // Function to update the _backgroundColor state field
-        _changeBackgroundColor(_) {
-            _backgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
-        }
+      // Function to update the _backgroundColor state field
+      _changeBackgroundColor(_) {
+        _backgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
+      }
     }
 
     // After being transitioned to a reducer...
     ExampleState reducer(ExampleState oldState, dynamic /*or an action type*/ action) {
-        // Assumes an action called ChangeBackgroundColor was created in step 1
-        if (action is ChangeBackgroundColor) {
-            final color = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
-            return ExampleState.update(color: color);
-        }
+      // Assumes an action called ChangeBackgroundColor was created in step 1
+      if (action is ChangeBackgroundColor) {
+        final color = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
+        return ExampleState.update(color: color);
+      }
 
-        return oldState;
+      return oldState;
     }
     ```
 1. __Create the state model.__ After pulling out state mutation logic, this should be as simple as renaming the class, not inheriting from the Flux store class, and cleaning up anything unrelated to the actual state fields. 
@@ -235,13 +235,13 @@ redux.Store randomColorStore = redux.Store<RandomColorState>(reducer, initialSta
     import './components/component.dart';
 
     main() {
-        setClientConfiguration();
+      setClientConfiguration();
 
-        react_dom.render(
-            (ReduxProvider()..store = randomColorStore)(
-                ConnectedComponent()(),
-            ),
-            querySelector('#content'));
+      react_dom.render(
+          (ReduxProvider()..store = randomColorStore)(
+            ConnectedComponent()(),
+          ),
+          querySelector('#content'));
     }
     ```
 1. __Refactor componentry to not longer be a `FluxUiComponent` and instead be a connected `UiComponent2`.__ In terms of moving away from Flux, the simplest case is that props and prop calls need to be updated. Props will need to be added to make room for the ones consumed by the Redux component, and any `props.actions` calls need to be updated to `props.dispatch` (unless you're using `mapDispatchToProps`). 
@@ -275,39 +275,39 @@ import 'package:w_flux/w_flux.dart' as flux;
     
 // A nested store
 class RandomColorStore extends flux.Store {
-    RandomColorActions _actions;
-    // MidLevelStore looks nearly identical to `RandomColorStore`, but has a different
-    // store object (`LowLevelStore`) nested within it.
-    MidLevelStore midLevelStore = MidLevelStore(randomColorActions);
+  RandomColorActions _actions;
+  // MidLevelStore looks nearly identical to `RandomColorStore`, but has a different
+  // store object (`LowLevelStore`) nested within it.
+  MidLevelStore midLevelStore = MidLevelStore(randomColorActions);
 
-    /// Public data
-    String _backgroundColor = 'gray';
-    String get backgroundColor => _backgroundColor;
+  /// Public data
+  String _backgroundColor = 'gray';
+  String get backgroundColor => _backgroundColor;
 
-    RandomColorStore(this._actions) {
-        triggerOnActionV2(_actions.changeMainBackgroundColor, _changeBackgroundColor);
-    }
+  RandomColorStore(this._actions) {
+    triggerOnActionV2(_actions.changeMainBackgroundColor, _changeBackgroundColor);
+  }
 
-    _changeBackgroundColor(String _) {
-        _backgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
-    }
+  _changeBackgroundColor(String _) {
+    _backgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
+  }
 }
 
 // A separate store, making the total store count be equal to 4
 class AnotherColorStore extends flux.Store {
-    RandomColorActions _actions;
+  RandomColorActions _actions;
 
-    /// Public data
-    String _backgroundColor = 'Blue';
-    String get backgroundColor => _backgroundColor;
+  /// Public data
+  String _backgroundColor = 'Blue';
+  String get backgroundColor => _backgroundColor;
 
-    AnotherColorStore(this._actions) {
-        triggerOnActionV2(_actions.changeBlockThreeBackgroundColor, _changeBackgroundColor);
-    }
+  AnotherColorStore(this._actions) {
+    triggerOnActionV2(_actions.changeBlockThreeBackgroundColor, _changeBackgroundColor);
+  }
 
-    _changeBackgroundColor(String _) {
-        _backgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
-    }
+  _changeBackgroundColor(String _) {
+    _backgroundColor = '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
+  }
 }
 ```
 
@@ -316,13 +316,13 @@ import 'package:w_flux/w_flux.dart' as flux;
     
 // A shared action class for all the stores, with an action to update each background color
 class RandomColorActions {
-    final flux.Action<String> changeMainBackgroundColor = flux.Action();
+  final flux.Action<String> changeMainBackgroundColor = flux.Action();
 
-    final flux.Action<String> changeBlockOneBackgroundColor = flux.Action();
+  final flux.Action<String> changeBlockOneBackgroundColor = flux.Action();
 
-    final flux.Action<String> changeBlockTwoBackgroundColor = flux.Action();
+  final flux.Action<String> changeBlockTwoBackgroundColor = flux.Action();
 
-    final flux.Action<String> changeBlockThreeBackgroundColor = flux.Action();
+  final flux.Action<String> changeBlockThreeBackgroundColor = flux.Action();
 }
 ```
 
@@ -352,26 +352,26 @@ The Redux app doesn't really have any surprises, and at a high level is very sim
 ```dart
 // A regular Dart class that represents the application data model
 class ReduxState {
-    // All of the state fields for the application
-    String mainBackgroundColor;
-    String blockOneBackgroundColor;
-    String blockTwoBackgroundColor;
-    String blockThreeBackgroundColor;
+  // All of the state fields for the application
+  String mainBackgroundColor;
+  String blockOneBackgroundColor;
+  String blockTwoBackgroundColor;
+  String blockThreeBackgroundColor;
 
-    // A constructor for creating the default app state
-    ReduxState.defaultState()
-        : this.mainBackgroundColor = 'gray',
-        this.blockOneBackgroundColor = 'red',
-        this.blockTwoBackgroundColor = 'orange',
-        this.blockThreeBackgroundColor = 'blue';
+  // A constructor for creating the default app state
+  ReduxState.defaultState()
+      : this.mainBackgroundColor = 'gray',
+      this.blockOneBackgroundColor = 'red',
+      this.blockTwoBackgroundColor = 'orange',
+      this.blockThreeBackgroundColor = 'blue';
 
-    // A convenience constructor for creating new instances of the state class
-    ReduxState.update(ReduxState oldState,
-        {mainBackgroundColor, blockOneBackgroundColor, blockTwoBackgroundColor,         blockThreeBackgroundColor})
-        : this.mainBackgroundColor = mainBackgroundColor ?? oldState.mainBackgroundColor,
-        this.blockOneBackgroundColor = blockOneBackgroundColor ?? oldState.blockOneBackgroundColor,
-        this.blockTwoBackgroundColor = blockTwoBackgroundColor ?? oldState.blockTwoBackgroundColor,
-        this.blockThreeBackgroundColor = blockThreeBackgroundColor ?? oldState.blockThreeBackgroundColor;
+  // A convenience constructor for creating new instances of the state class
+  ReduxState.update(ReduxState oldState,
+      {mainBackgroundColor, blockOneBackgroundColor, blockTwoBackgroundColor, blockThreeBackgroundColor})
+      : this.mainBackgroundColor = mainBackgroundColor ?? oldState.mainBackgroundColor,
+      this.blockOneBackgroundColor = blockOneBackgroundColor ?? oldState.blockOneBackgroundColor,
+      this.blockTwoBackgroundColor = blockTwoBackgroundColor ?? oldState.blockTwoBackgroundColor,
+      this.blockThreeBackgroundColor = blockThreeBackgroundColor ?? oldState.blockThreeBackgroundColor;
 }
 ```
 
@@ -409,7 +409,7 @@ ReduxState afterTransitionReducer(ReduxState oldState, dynamic action) {
 
 /// A utility method used to generate a random color.
 String getRandomColor() {
-    return '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
+  return '#' + (Random().nextDouble() * 16777215).floor().toRadixString(16);
 }
 ```
 
@@ -528,26 +528,26 @@ __Goal:__ Update all stores to be either Influx or Redux and update all componen
         // An Influx Store
         // Add the `InfluxStoreMixin` and use the Redux state class for the generic typing.
         class ExampleInfluxStore extends flux.Store with InfluxStoreMixin<ReduxStateClass> {
-            ExampleFluxActions _actions;
+          ExampleFluxActions _actions;
 
-            // Point the `reduxReducer` getter at the Redux state's reducer.
-            @override
-            get reduxReducer => lowLevelReduxReducer;
+          // Point the `reduxReducer` getter at the Redux state's reducer.
+          @override
+          get reduxReducer => lowLevelReduxReducer;
 
-            /// Use getters to point to state properties.
-            String get backgroundColor => state.backgroundColor;
+          /// Use getters to point to state properties.
+          String get backgroundColor => state.backgroundColor;
 
-            ExampleInfluxStore(this._actions) {
-                state = ReduxStateClass.defaultState();
-                triggerOnActionV2(_actions.exampleFluxAction, 
-                    (_) => this.influxReducer(ExampleReduxAction()));
-            }
+          ExampleInfluxStore(this._actions) {
+            state = ReduxStateClass.defaultState();
+            triggerOnActionV2(_actions.exampleFluxAction,
+                (_) => this.influxReducer(ExampleReduxAction()));
+          }
         }
 
         class ExampleReduxAction {}
 
         class ExampleFluxActions {
-            final flux.Action<String> exampleFluxAction = flux.Action();
+          final flux.Action<String> exampleFluxAction = flux.Action();
         }
         ```
 1. __Add adapter stores where necessary.__ Each store that will be Influx should be wrapped with a `FluxToReduxAdapterStore` to give Flux and Connected Flux access as well. In other words, if the store was updated to Redux directly or will only talk to Redux components, this step can be skipped.
@@ -568,18 +568,17 @@ __Goal:__ Update all stores to be either Influx or Redux and update all componen
     import './store.dart';
 
     main() {
-    setClientConfiguration();
+      setClientConfiguration();
 
-    react_dom.render(
-        (ReduxMultiProvider()
-        ..storesByContext = {
+      react_dom.render(
+          (ReduxMultiProvider()..storesByContext = {
             firstStoreContext: firstStoreAdapter,
             secondStoreContext: secondStoreAdapter,
             thirdStoreContext: thirdStoreAdapter,
-        })(
+          })(
             // Flux, connectFlux, or Redux connected components can now be used here
-        ),
-        querySelector('#content'));
+          ),
+          querySelector('#content'));
     }
     ```
 1. __Refactor components.__ See the specific component type below for a reminder on which store instance is correct and any "gotchas" in the refactor. In general, remember that if a component talks to multiple stores, `composeHocs` can be used to simplify the connected factory declarations.
@@ -606,26 +605,26 @@ __Goal:__ Remove any Influx stores and combine the Redux stores.
     ```dart
     // Before combining
     class FirstStateClass {
-        var field1;
-        var field2;
+      var field1;
+      var field2;
     }
 
     class SecondStateClass {
-        var field3;
-        var field4;
+      var field3;
+      var field4;
     }
 
     // Possible refactor options
     class WrapperStateClass {
-        FirstStateClass firstState;
-        SecondStateClass secondState;
+      FirstStateClass firstState;
+      SecondStateClass secondState;
     }
 
     class FlattenedStateClass {
-        var field1;
-        var field2;
-        var field3;
-        var field4;
+      var field1;
+      var field2;
+      var field3;
+      var field4;
     }
     ```
 1. __Instantiate the Redux stores.__ `FluxToReduxAdapterStore` instances can be removed during this step and just switched out with Redux store instantiations.
