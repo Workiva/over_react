@@ -53,16 +53,10 @@ final incrementReducer = (ReduxState prevState, IncrementAction action) =>
     ReduxState.from(count: prevState.count + action.incrementBy);
 final decrementReducer = (ReduxState prevState, DecrementAction action) => 
     ReduxState.from(count: prevState.count - action.decrementBy);
-final customActionReducer = (ReduxState prevState, CustomAction action) => 
-    ReduxState.from(customActionValue: action.customActionValue, secondCustomActionValue: action.seconCusomActionValue);
-final simpleActionReducer = (ReduxState prevState, SimpleAction action) => 
-    ReduxState.from(simpleActionState: !prevState.simpleActionState);
 
 Reducer<ReduxState> countReducer = combineReducers([
   TypedReducer<ReduxState, IncremementAction>(incrementReducer),
   TypedReducer<ReduxState, DecrementAction>(decrementReducer),
-  TypedReducer<ReduxState, CustomAction>(customActionReducer),
-  TypedReducer<ReduxState, SimpleAction>(simpleActionReducer),
 ]);
 
 final store = Store<ReduxState>(countReducer, initialState: ReduxState.defaultState());
@@ -393,9 +387,9 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
             return (
               Fragment()(
                 // Assume there is a function `randomString` that generates random text
-                (Dom.button()..onClick => props.store.actions.updateText(randomString()))('Change Text'),
+                (Dom.button()..onClick = props.store.actions.updateText(randomString()))('Change Text'),
                 (Dom.div())(props.store.text)
-               );   
+               ) 
             );
           }
         }
@@ -424,9 +418,9 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
             return (
               Fragment()(
                 // Assume there is a function `randomString` that generates random text
-                (Dom.button()..onClick => props.actions.updateText(randomString()))('Change Text'),
+                (Dom.button()..onClick = props.actions.updateText(randomString()))('Change Text'),
                 (Dom.div())(props.store.text)
-              );   
+              )   
             );
           }
         }
