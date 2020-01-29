@@ -38,14 +38,14 @@ built_redux uses the concept of `ReducerBuilder` to compose small reducers into 
 
 ```dart
 // Using `ReducerBuilder`
-var reducerBuilder = ReducerBuilder<Counter, CounterBuilder>()
+final reducerBuilder = ReducerBuilder<Counter, CounterBuilder>()
   ..add(CounterActionsNames.increment, increment)
   ..add(CounterActionsNames.decrement, decrement);
 
 final store = Store<Counter, CounterBuilder, CounterActions>(
-    reducerBuilder.build(),
-    Counter(),
-    CounterActions(),
+  reducerBuilder.build(),
+  Counter(),
+  CounterActions(),
 );
 
 // Using `combineReducers`
@@ -59,13 +59,13 @@ final simpleActionReducer = (ReduxState prevState, SimpleAction action) =>
     ReduxState.from(simpleActionState: !prevState.simpleActionState);
 
 Reducer<ReduxState> countReducer = combineReducers([
-    TypedReducer<ReduxState, IncremementAction>(incrementReducer),
-    TypedReducer<ReduxState, DecrementAction>(decrementReducer),
-    TypedReducer<ReduxState, CustomAction>(customActionReducer),
-    TypedReducer<ReduxState, SimpleAction>(simpleActionReducer),
+  TypedReducer<ReduxState, IncremementAction>(incrementReducer),
+  TypedReducer<ReduxState, DecrementAction>(decrementReducer),
+  TypedReducer<ReduxState, CustomAction>(customActionReducer),
+  TypedReducer<ReduxState, SimpleAction>(simpleActionReducer),
 ]);
 
-Store store = Store<ReduxState>(countReducer, initialState: ReduxState.defaultState());
+final store = Store<ReduxState>(countReducer, initialState: ReduxState.defaultState());
 ```
 
 ## Converting Substate to mapStateToProps
@@ -80,20 +80,18 @@ class _$ExampleComponentProps extends BuiltReduxUiProps<AppState, AppStateBuilde
 
 // The starting substate
 abstract class ExampleComponentState implements Built<AppSubstate, AppSubstateBuilder> {
-    factory SimpleSubstate({String text}) => _$SimpleSubstate._(
-            text: text,
-        );
-    SimpleSubstate._();
+  factory SimpleSubstate({String text}) => _$SimpleSubstate._(text: text);
+  SimpleSubstate._();
 
-    // The state field being pulled from the store is `text`
-    String get text;
+  // The state field being pulled from the store is `text`
+  String get text;
 }
 
 // After refactor
 // connect call
 UiFactory<ExampleComponentProps> ConnectedExampleComponent = connect<AppState, ExampleComponentProps>(
     // The `text` prop points to the `text` state field
-    mapStateToProps: (state) => (ExampleComponent()..text = state.text);
+    mapStateToProps: (state) => (ExampleComponent()..text = state.text),
 )(ExampleComponent);
 
 // Redux Props Class
@@ -123,41 +121,41 @@ This refactor is really straightforward and should be close to a 1 to 1 transiti
 ```dart
 // built_redux actions
 abstract class CounterActions extends ReduxActions {
-    ActionDispatcher<int> get increment;
-    ActionDispatcher<int> get decrement;
-    ActionDispatcher<CustomData> get customAction;
-    ActionDispatcher<null> get simpleAction;
-
-    CounterActions._();
-    factory CounterActions() => new _$CounterActions();
+  ActionDispatcher<int> get increment;
+  ActionDispatcher<int> get decrement;
+  ActionDispatcher<CustomData> get customAction;
+  ActionDispatcher<null> get simpleAction;
+    
+  CounterActions._();
+  factory CounterActions() => new _$CounterActions();
 }
 
 class CustomData {
-    var property1;
-    var property2;
+  var property1;
+  var property2;
 
-    CustomData(this.property1, this.property2);
+  CustomData(this.property1, this.property2);
 }
 
 // Redux actions
 class IncrementAction {
-    int incrementBy;
+  int incrementBy;
 
-    IncrementAction(this.incrementBy);
+  IncrementAction(this.incrementBy);
 }
 
 class DecrementAction {
-    int decrementBy;
+  int decrementBy;
 
-    DecrementAction(this.incrementBy);
+  DecrementAction(this.incrementBy);
 }
 
 // Note that the `CustomData` class was just renamed and is now a Redux action class
 class CustomAction {
-    String property1;
-    String property2;
+  String property1;
+  String property2;
 
-    CustomData(this.property1, this.property2);
+  CustomData(this.property1, this.property2);
 }
 
 // Note that Redux actions without data don't need anything other than a simple declaration
@@ -185,40 +183,40 @@ Similar to Actions, this switch is extremely straight forward, and step by step 
 ```dart
 // built value class
 abstract class Counter implements Built<Counter, CounterBuilder> {
-    int get count;
-    String get customActionValue;
-    String get secondCustomActionValue;
-    bool get simpleActionState;
+  int get count;
+  String get customActionValue;
+  String get secondCustomActionValue;
+  bool get simpleActionState;
 
-    Counter._();
-    factory Counter() => 
-        new _$Counter._(count: 0, customActionValue: '', secondCustomActionValue: '', simpleActionState: false);
+  Counter._();
+  factory Counter() => 
+      _$Counter._(count: 0, customActionValue: '', secondCustomActionValue: '', simpleActionState: false);
 }
 
 // Redux state model
 class ReduxState {
-    // Declare the state fields as normal properties
-    int count;
-    String customActionValue;
-    String secondCustomActionValue;
-    bool simpleActionState;
-
-    // Optionally create constructors for different scenarios
-
-    // A constructor to grab the default state of the app
-    ReduxState.defaultState() 
-        : this.count = 0, this.customActionValue = '', this.secondCustomActionValue = '', this.simpleActionState = false;
-
-    // A constructor that makes it easier to create new state models, updating only specific fields
-    ReduxState.from(prevState, {
-        int count, 
-        String customActionValue,
-        String secondCustomActionValue, 
-        bool simpleActionState
-    }) : this.count = count ?? prevState.count, 
-        this.customActionValue = customActionValue ?? prevState.customActionValue,
-        this.secondCustomActionValue = secondCustomActionValue ?? prevState.customActionValue,
-        this.simpleActionState = simpleActionState ?? prevState.simpleActionState;
+  // Declare the state fields as normal properties
+  int count;
+  String customActionValue;
+  String secondCustomActionValue;
+  bool simpleActionState;
+  
+  // Optionally create constructors for different scenarios
+  
+  // A constructor to grab the default state of the app
+  ReduxState.defaultState() 
+      : this.count = 0, this.customActionValue = '', this.secondCustomActionValue = '', this.simpleActionState = false;
+  
+  // A constructor that makes it easier to create new state models, updating only specific fields
+  ReduxState.from(prevState, {
+      int count, 
+      String customActionValue,
+      String secondCustomActionValue, 
+      bool simpleActionState
+  }) : this.count = count ?? prevState.count, 
+      this.customActionValue = customActionValue ?? prevState.customActionValue,
+      this.secondCustomActionValue = secondCustomActionValue ?? prevState.customActionValue,
+      this.simpleActionState = simpleActionState ?? prevState.simpleActionState;
 }
 ```
 
@@ -252,31 +250,31 @@ Reducers can get fairly complex and have lots of variations based on the archite
 
 // built_redux reducer
 void counterReducer(App prevState, Action<dynamic> action, AppBuilder builder) {
-    if (action.name == AppActionsNames.increment.name)
-        builder.count += action.payload as int;
-    else if (action.name == AppActionsNames.decrement.name)
-        builder.count -= action.payload as int;
-    else if (action.name == AppActionsNames.customAction.name) {
-        builder.customActionValue = action.payload.property1 as String;
-        builder.secondCustomActionValue = action.payload.property2 as String;
-    } else if (action.name == AppActionsNames.simpleAction.name)
-        builder.simpleActionState = !prevState.simpleActionState;
+  if (action.name == AppActionsNames.increment.name)
+       builder.count += action.payload as int;
+  else if (action.name == AppActionsNames.decrement.name)
+       builder.count -= action.payload as int;
+  else if (action.name == AppActionsNames.customAction.name) {
+    builder.customActionValue = action.payload.property1 as String;
+    builder.secondCustomActionValue = action.payload.property2 as String;
+  } else if (action.name == AppActionsNames.simpleAction.name)
+    builder.simpleActionState = !prevState.simpleActionState;
 }
 
 // Redux reducer
 ReduxState counterReducer(ReduxState prevState, dynamic action) {
-    if (action is IncremementAction) {
-        // Note the use of one of the constructors created in the built value refactor section
-        return ReduxState.from(prevState, count: prevState.count + action.incrementBy);
-    } else if (action is DecrementAction) {
-        return ReduxState.from(prevState, count: prevState.count - action.decrementBy);
-    } else if (action is CustomAction) {
-        return ReduxState.from(prevState, customActionValue: action.property1, secondCustomActionValue: action.property2);
-    } else if (action is SimpleAction) {
-        return ReduxState.from(prevState, simpleActionState: !prevState.simpleActionState);
-    }
+  if (action is IncremementAction) {
+    // Note the use of one of the constructors created in the built value refactor section
+    return ReduxState.from(prevState, count: prevState.count + action.incrementBy);
+  } else if (action is DecrementAction) {
+    return ReduxState.from(prevState, count: prevState.count - action.decrementBy);
+  } else if (action is CustomAction) {
+    return ReduxState.from(prevState, customActionValue: action.property1, secondCustomActionValue: action.property2);
+  } else if (action is SimpleAction) {
+    return ReduxState.from(prevState, simpleActionState: !prevState.simpleActionState);
+  }
 
-    return prevState;
+  return prevState;
 }
 ```
 
@@ -285,9 +283,9 @@ All that needs to be done here is switch out a line of code:
 ```dart
 // built_redux store
 final store = Store<Counter, CounterBuilder, CounterActions>(
-    reducerBuilder.build(),
-    Counter(),
-    CounterActions(),
+  reducerBuilder.build(),
+  Counter(),
+  CounterActions(),
 );
 
 // Redux store
@@ -312,23 +310,23 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
 #### UI Refactor
 - Wrap your tree in a `ReduxProvider`. All of your connected components need to be wrapped by a `ReduxProvider`. Usually this means that in your `react_dom.render()`, one of your first HOCs will be a `ReduxProvider` that takes in your Redux `Store` instance for its `store` prop.
     ```dart
-        import 'dart:html';
+    import 'dart:html';
 
-        import 'package:react/react_client.dart';
-        import 'package:react/react_dom.dart' as react_dom;
-        import 'package:over_react/over_react_redux.dart';
+    import 'package:react/react_client.dart';
+    import 'package:react/react_dom.dart' as react_dom;
+    import 'package:over_react/over_react_redux.dart';
 
-        import './store.dart';
-        import './components/component.dart';
+    import './store.dart';
+    import './components/component.dart';
 
-        main() {
-            setClientConfiguration();
-            react_dom.render(
-                (ReduxProvider()..store = randomColorStore)(
-                    ConnectedComponent()(),
-                ),
-                querySelector('#content'));
-        }
+    main() {
+        setClientConfiguration();
+        react_dom.render(
+            (ReduxProvider()..store = randomColorStore)(
+                ConnectedComponent()(),
+            ),
+            querySelector('#content'));
+    }
     ```
 - Remove instances where the `Store` gets passed down the component tree.
 - General Component Refactor (to be done to every component):
@@ -375,31 +373,31 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
 
         @Component2()
         class SimpleComponent extends UiComponent2<SimpleProps> {
-            StreamSubscription _storeSub;
+          StreamSubscription _storeSub;
 
-            @override
-            componentDidMount() {
-                _storeSub = props.store.stream.listen(_redraw);
-            }
+          @override
+          componentDidMount() {
+            _storeSub = props.store.stream.listen(_redraw);
+          }
 
-            _redraw(_) => forceUpdate();
+          _redraw(_) => forceUpdate();
 
-            @override
-            componentWillUnmount() {
-                super.componentWillUnmount();
-                _storeSub.cancel();
-            }
+          @override
+          componentWillUnmount() {
+            super.componentWillUnmount();
+            _storeSub.cancel();
+          }
 
-            @override
-            render() {
-                return (
-                    Fragment()(
-                        // Assume there is a function `randomString` that generates random text
-                        (Dom.button()..onClick => props.store.actions.updateText(randomString()))('Change Text'),
-                        (Dom.div())(props.store.text)
-                    );   
-                );
-            }
+          @override
+          render() {
+            return (
+              Fragment()(
+                // Assume there is a function `randomString` that generates random text
+                (Dom.button()..onClick => props.store.actions.updateText(randomString()))('Change Text'),
+                (Dom.div())(props.store.text)
+               );   
+            );
+          }
         }
 
         // Simple BuiltReduxUiComponent
@@ -413,33 +411,32 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
         @Component()
         class SimpleComponent extends BuiltReduxUiComponent<SimpleState, SimpleStateBuilder, SimpleActions,
             SimpleProps, SimpleSubState> {
-            StreamSubscription _storeSub;
+          StreamSubscription _storeSub;
 
-            @override
-            SimpleSubState connect(SimpleState state) => SimpleSubState(text: state.text);
+          @override
+          SimpleSubState connect(SimpleState state) => SimpleSubState(text: state.text);
 
-            @override
-            bool get isPure => true;
+          @override
+          bool get isPure => true;
 
-            @override
-            render() {
-                return (
-                    Fragment()(
-                        // Assume there is a function `randomString` that generates random text
-                        (Dom.button()..onClick => props.actions.updateText(randomString()))('Change Text'),
-                        (Dom.div())(props.store.text)
-                    );   
-                );
-            }
+          @override
+          render() {
+            return (
+              Fragment()(
+                // Assume there is a function `randomString` that generates random text
+                (Dom.button()..onClick => props.actions.updateText(randomString()))('Change Text'),
+                (Dom.div())(props.store.text)
+              );   
+            );
+          }
         }
 
         abstract class SimpleSubstate implements Built<SimpleSubstate, SimpleSubstateBuilder> {
-            factory SimpleSubstate({String text}) => _$SimpleSubstate._(
-                    text: text,
-                );
-            SimpleSubstate._();
+          factory SimpleSubstate({String text}) => _$SimpleSubstate._(text: text);
+      
+          SimpleSubstate._();
 
-            String get text;
+          String get text;
         }
 
         // The same component converted to a connected Redux component
@@ -453,21 +450,21 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
 
         @Props()
         class _$SimpleProps extends UiProps {
-            String text;
-            void Function(String newText) updateText;
+          String text;
+          void Function(String newText) updateText;
         }
 
         @Component2()
         class SimpleComponent extends UiComponent2<SimpleProps> {
-            @override
-            render() {
-                return (
-                    Fragment()(
-                        // Assume there is a function `randomString` that generates random text
-                        (Dom.button()..onClick => props.updateText(randomString()))('Change Text'),
-                        (Dom.div())(props.text)
-                    );   
-                );
-            }
+          @override
+          render() {
+            return (
+              Fragment()(
+                // Assume there is a function `randomString` that generates random text
+                (Dom.button()..onClick = props.updateText(randomString()))('Change Text'),
+                (Dom.div())(props.text),
+              )   
+            );
+          }
         }
         ```
