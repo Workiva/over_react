@@ -1,7 +1,7 @@
 # built_redux to OverReact Redux
-> A document explaining the fundamentals of transitioning a build_redux architecture to an OverReact Redux (aka just "Redux") architecture.
+> A document explaining the fundamentals of transitioning a [built_redux](https://github.com/davidmarne/built_redux) architecture to an OverReact Redux (aka just "Redux") architecture.
 >
-> NOTE: Before attempting to transition, make sure you understand the content from the general [Redux Documentation](https://github.com/johnpryan/redux.dart) and the [OverReact Redux Documentation](./over_react_redux_documentation.md). This guide covers differences between built_redux to Redux but does not try to comprehensively describe Redux.
+> NOTE: Before attempting to transition, make sure you understand the content from the general [Redux Documentation](https://github.com/johnpryan/redux.dart) and the [OverReact Redux Documentation](./over_react_redux_documentation.md). This guide covers differences between built_redux and Redux but does not try to comprehensively describe Redux.
 ---
 * __[Goal](#goal)__
 * __[Do I have to transition?](#do-i-have-to-transition-to-redux)__
@@ -23,7 +23,7 @@
         * [UI Refactor](#ui-refactor)
 
 ## Goal
-The goal of this document is explain major elements of transitioning from build_redux to Redux. This comparison is fairly direct, so the guide mainly focuses on the difference between specific entities of interest (actions, reducers, stores, components) with guidance on how to convert from one library to the other.
+The goal of this document is explain major elements of transitioning from built_redux to Redux. This comparison is fairly direct, so the guide mainly focuses on the difference between specific entities of interest (actions, reducers, stores, components) with guidance on how to convert from one library to the other.
 
 If, through this process, the document or examples miss any edge cases you encounter, please create an issue or reach out so it can be added.
 
@@ -71,7 +71,7 @@ Store store = Store<ReduxState>(countReducer, initialState: ReduxState.defaultSt
 ## Converting Substate to mapStateToProps
 If you are using `BuiltReduxUiComponent` as your component's base class, you should have a `Substate` class that acts as the model for the data your component receives. This allows your component to only receive the pieces of state it needs to function.
 
-This model fits perfectly with Redux because the premise is that a component should only be receiving pieces of state that it will make use of. Instead of a `Substate` class however, this is done by utilizing the `mapStateToProps` parameter of `connect`. When converting from built_redux to Redux, the `Substate` class properties can just be transferred into regular props. Then, in `mapStateToProps`, the value of those props are tied to the app state and utilized within the component as traditional props.
+This model fits perfectly with Redux because the premise is that a component should only be receiving pieces of state that it will make use of. Instead of a `Substate` class however, this is done by utilizing the `mapStateToProps` parameter of `connect`. When converting from built_redux to Redux, the `Substate` class properties can just be converted to props. Then, in `mapStateToProps`, the value of those props are tied to the app state and utilized within the component as props.
 
 ```dart
 // Starting Props Class
@@ -98,7 +98,7 @@ UiFactory<ExampleComponentProps> ConnectedExampleComponent = connect<AppState, E
 
 // Redux Props Class
 class _$ExampleComponentProps extends UiProps {
-    String text;
+  String text;
 }
 ```
 
@@ -113,7 +113,7 @@ built_redux and OverReact Redux are comprised of the same main entities. Moving 
     - are dispatched directly via instantiation (e.g. `store.actions.increment()`).
     - have generated boilerplate.
 - Redux actions:
-    - typically "stand alone". In other words, they are not grouped under a `ReduxActions` class of sorts.
+    - typically "stand alone". In other words, they do not subclass a standard `ReduxActions` class.
     - are dispatched via passing an instatiated action instance into `store.dispatch`.
     - are typically very simple classes, sometimes carying data related to the action they are meant to trigger.
 
@@ -121,7 +121,7 @@ built_redux and OverReact Redux are comprised of the same main entities. Moving 
 This refactor is really straightforward and should be close to a 1 to 1 transition. Outside of just breaking actions out into their own class, the main opportunity to re-use code is if an action's payload is a custom class. In that case, the custom class may be able to become its own action by simply renaming it. See the snippet below for an example:
 
 ```dart
-// build_redux actions
+// built_redux actions
 abstract class CounterActions extends ReduxActions {
     ActionDispatcher<int> get increment;
     ActionDispatcher<int> get decrement;
@@ -225,12 +225,12 @@ class ReduxState {
 ### Reducers
 
 #### Reducers Comparison
-- build_redux reducers:
+- built_redux reducers:
     - are impure and mutate the `AppBuilder` instance.
     - take in the `AppBuilder` parameter.
     - are `void`.
     - look at the `action.name` property to determine the action type.
-- Reudx reducers:
+- Redux reducers:
     - are pure and should not mutate anything outside the scope of the reducer.
     - only have two parameters (the previous state and the action).
     - are not void - they return an instance of the store data model.
@@ -291,7 +291,7 @@ final store = Store<Counter, CounterBuilder, CounterActions>(
 );
 
 // Redux store
-Store store = Store<ReduxState>(counterReducer, initialState: ReduxState.defaultState());
+final store = Store<ReduxState>(counterReducer, initialState: ReduxState.defaultState());
 ```
 
 ### UI
@@ -370,7 +370,7 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
 
         @Props()
         class _$SimpleProps extends UiProps {
-            Store<App, AppBuilder, AppActions> store;
+          Store<App, AppBuilder, AppActions> store;
         }
 
         @Component2()
