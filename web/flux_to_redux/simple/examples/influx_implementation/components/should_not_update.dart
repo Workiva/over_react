@@ -24,7 +24,7 @@ class ShouldNotUpdateComponent extends UiComponent2<ShouldNotUpdateProps> {
   render() {
     return ((Dom.div()..style = {'padding': '50px', 'backgroundColor': 'gray', 'color': 'white'})(
       'In a full Redux implementation, this component would not update. However,'
-      'it will in a Reflux (Redux & Flux together) implementation it will.',
+      'in an Influx (Redux & Flux together) implementation it will.',
     ));
   }
 }
