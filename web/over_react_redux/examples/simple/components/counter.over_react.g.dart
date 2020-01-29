@@ -81,7 +81,7 @@ abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
   static const PropDescriptor _$prop__decrement___$CounterProps =
       PropDescriptor(_$key__decrement___$CounterProps);
   static const PropDescriptor _$prop__items___$CounterProps =
-      const PropDescriptor(_$key__items___$CounterProps);
+      PropDescriptor(_$key__items___$CounterProps);
   static const String _$key__currentCount___$CounterProps =
       'CounterProps.currentCount';
   static const String _$key__wrapperStyles___$CounterProps =

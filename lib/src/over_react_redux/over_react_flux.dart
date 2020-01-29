@@ -19,18 +19,25 @@ abstract class _$ConnectFluxPropsMixin<TActions> implements UiProps {
   TActions actions;
 }
 
-
 class _FluxStoreUpdatedAction {}
 
 /// Adapts a Flux store to the interface of a Redux store.
-class FluxToReduxAdapterStore<S extends flux.Store> extends redux.Store<S> {
+class FluxToReduxAdapterStore<S extends InfluxStoreMixin, V> extends redux.Store<S> {
   final S store;
 
   StreamSubscription _storeListener;
 
-  FluxToReduxAdapterStore(this.store, dynamic actions) : super(_noopReducer, initialState: store, distinct: false) {
+  FluxToReduxAdapterStore(this.store, dynamic actions, {List<redux.Middleware<S>> middleware}) : super(
+      (_, action) {
+        store.influxReducer(action);
+        return store;
+      },
+      middleware: middleware ?? const [],
+      initialState: store,
+      distinct: false
+  ) {
     _storeListener = store.listen((_) {
-      dispatch(new _FluxStoreUpdatedAction());
+      dispatch(_FluxStoreUpdatedAction());
     });
 
     _actionsForStore[store] = actions;
@@ -125,3 +132,26 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
 }
 
 bool _shallowMapEquality(Map a, Map b) => const MapEquality().equals(a, b);
+
+/// A mixin that adds the fields necessary to make a Flux store compatible with Influx.
+mixin InfluxStoreMixin<S> on flux.Store {
+  /// A traditional Redux reducer function that should return a new instance of
+  /// the corresponding state class.
+  ///
+  /// This is used in [influxReducer] to update the [state] field before triggering
+  /// an update.
+  redux.Reducer<S> get reduxReducer;
+
+  /// An instance of the Redux state model that the Flux store is migrating to.
+  S state;
+
+  /// A wrapper around a pure Redux reducer that keeps the Flux UI up to date with
+  /// store changes.
+  void influxReducer(dynamic action) {
+    final oldState = this.state;
+    this.state = reduxReducer(this.state, action);
+    if (oldState != this.state) {
+      this.trigger();
+    }
+  }
+}
