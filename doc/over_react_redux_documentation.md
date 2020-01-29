@@ -37,15 +37,31 @@ behavior with React). By utilizing the `connect()` function in conjunction with 
 only update when a piece of information it uses is updated.
 
 ## Examples
-Examples are available in the `web` directory. Each example illustrates a different variation or use case of OverReact
- Redux. Additionally, the store files contain comments that call out specifics pertaining to that example and
- provides further explanation.
 
-### Running the Examples
+### Individual component examples
+There are some individual component examples within the `web/over_react_redux` directory. 
+Each example illustrates a different variation or use case of OverReact Redux. Additionally, the store files contain 
+comments that call out specifics pertaining to that example and provides further explanation.
+
+#### Running the component examples
 To run and experiment with the demo:
 1. `pub get`
-1. `pub run build_runner serve web`
+1. `webdev serve`
 1. Navigate to `localhost:8080/over_react_redux/`
+1. If you have the [React DevTools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en),
+you can view the isolated state updates based on the `mapStateToProps` when you turn on
+["Highlight updates when components render."](https://github.com/facebook/react/pull/16989)
+
+### Application example
+There is a "Todo" example app built with OverReact Redux within the `app/over_react_redux` directory. 
+This app illustrates a full-scale implementation of an application that handles all of the data flow using redux.
+
+#### Running the application
+To run and experiment with the "Todo" app:
+1. `cd app/over_react_redux/todo_client`
+1. `pub get`
+1. `webdev serve`
+1. Navigate to `localhost:8080`
 1. If you have the [React DevTools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en),
 you can view the isolated state updates based on the `mapStateToProps` when you turn on
 ["Highlight updates when components render."](https://github.com/facebook/react/pull/16989)

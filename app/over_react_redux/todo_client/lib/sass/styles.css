@@ -1,0 +1,93 @@
+body {
+  overflow: hidden;
+}
+
+.app-shell,
+#todo-container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.hide-using-aria[aria-hidden=true] {
+  visibility: hidden;
+}
+
+.app-content {
+  overflow-y: auto;
+  padding-top: 32px;
+  height: calc(100% - 32px);
+}
+
+@media screen and (min-width: 600px) {
+  .app-content {
+    overflow-y: hidden;
+  }
+
+  .app-content__container,
+.app-content__container-grid {
+    height: 100%;
+  }
+}
+.empty-view {
+  margin-top: 10%;
+  padding: 1.5rem;
+  text-align: center;
+  color: #8a8a8a;
+}
+
+.empty-view p:last-child {
+  margin-bottom: 0;
+}
+
+.empty-view__message-heading {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 1.6rem;
+  font-size: 1.8rem;
+  font-weight: normal;
+  color: inherit;
+}
+
+.empty-view__icon {
+  width: 8rem;
+  height: 8rem;
+  font-size: 8rem;
+  margin-bottom: 2rem;
+  color: #cbcbcb;
+}
+
+.empty-view-vblock {
+  display: flex;
+  flex: 1 1 0%;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  justify-content: center;
+  height: 100%;
+}
+
+.empty-view-vblock .empty-view {
+  margin-top: 0;
+}
+
+.empty-view-page-frame {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.empty-view-page-frame > .MuiGrid-item {
+  max-width: none;
+  min-height: 0;
+}
+
+.empty-view-page-frame .empty-view {
+  margin-top: 0;
+}
+
+/*# sourceMappingURL=styles.css.map */
