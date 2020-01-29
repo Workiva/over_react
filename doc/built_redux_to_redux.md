@@ -245,9 +245,9 @@ Reducers can get fairly complex and have lots of variations based on the archite
 // built_redux reducer
 void counterReducer(App prevState, Action<dynamic> action, AppBuilder builder) {
   if (action.name == AppActionsNames.increment.name)
-       builder.count += action.payload as int;
+    builder.count += action.payload as int;
   else if (action.name == AppActionsNames.decrement.name)
-       builder.count -= action.payload as int;
+    builder.count -= action.payload as int;
   else if (action.name == AppActionsNames.customAction.name) {
     builder.customActionValue = action.payload.property1 as String;
     builder.secondCustomActionValue = action.payload.property2 as String;
