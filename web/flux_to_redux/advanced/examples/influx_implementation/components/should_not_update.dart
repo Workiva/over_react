@@ -34,9 +34,9 @@ class ShouldNotUpdateComponent extends UiComponent2<ShouldNotUpdateProps> {
   @override
   render() {
     return ((Dom.div()..style = {'padding': '50px', 'backgroundColor': 'gray', 'color': 'white'})(
-      'In a full Redux implementation, this component would not redraw when the'
-      'other components update. However, it will in an Influx (Redux & '
-      'Flux together) implementation.',
+      'In a full Redux implementation, this component would not redraw on '
+      'unrelated store updates (such as when the background color changes).'
+      'However, with an Influx implementation it will.'
     ));
   }
 }
