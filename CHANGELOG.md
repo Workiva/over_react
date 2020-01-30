@@ -1,14 +1,21 @@
 # OverReact Changelog
 
+## [3.2.0](https://github.com/Workiva/over_react/compare/3.1.7...3.2.0)
+
+- [#439] Add `over_react_redux` example app
+- [#447] Add `StrictMode` component
+- [#452] Add `built_redux` to Redux transition Docs
+- [#453] Fix rem measurement bug
+
 ## [3.1.7](https://github.com/Workiva/over_react/compare/3.1.6...3.1.7)
 
 - [#435] Fix issue with `ErrorBoundary` that causes errors thrown within the `render` phase of the component lifecycle to bubble up to parent `ErrorBoundary` components, which resulted in entire consumer applications locking up / crashing / unmounting.
   - __DEPRECATIONS:__ `ErrorBoundaryMixin`, `ErrorBoundaryPropsMixin` and `ErrorBoundaryStateMixin` are deprecated and will be removed in the 4.0.0 release.
-    - To create a custom error boundary moving forward, create an HOC that wraps around the `ErrorBoundary` component instead. 
+    - To create a custom error boundary moving forward, create an HOC that wraps around the `ErrorBoundary` component instead.
 - [#433] Refactor `propTypes` tests
 - [#440] Make over_react_redux tests compatible with version `^7.1.1` of the redux JS library
 - [#442] Remove Dart 2.4.1 phase from the CI build
-- [#428] Add examples of components that have `render` methods that return  `Fragment`, `List`, `num` and `String` 
+- [#428] Add examples of components that have `render` methods that return  `Fragment`, `List`, `num` and `String`
 
 ## [3.1.6](https://github.com/Workiva/over_react/compare/3.1.5...3.1.6)
 - Remove dead code in `UiProps.build` that was unnecessarily slowing down dart2js compilation
@@ -43,14 +50,14 @@
 ### Full React JS 16.x Component Lifecycle Support
 
 - The new `UiComponent2` classes<sup>＊</sup> replace the now deprecated `UiComponent` classes.
-  
+
   <sup>＊</sup>_(`UiComponent2`, `UiStatefulComponent2`, `FluxUiComponent2`)_
   - Faster
     - Initial renders ~10% faster
     - Re-renders ~7 - 30% faster
   - Improved developer experience
      - Props and state values now show up in the React DevTools just as they would if you were using React JS, and primitive values (strings, numbers, booleans) can be edited live, just like in React JS!
-    
+
         ![React DevTools with Component2](https://user-images.githubusercontent.com/1750797/68478015-1259b500-01ec-11ea-92bf-0bd432cd4001.gif)
   - Easier to maintain
   - Easier integration with JS libs
@@ -63,7 +70,7 @@
     - `componentDidCatch` / `getDerivedStateFromError` _(new)_
       - Adds support for [error boundaries](https://reactjs.org/docs/error-boundaries.html).
       - OverReact also provides an `ErrorBoundary` component out of the box that you can wrap around your components, and an `ErrorBoundaryMixin` that you can use as a starting point to build your own custom error boundary component!
-      
+
 > [__Learn more about upgrading to `UiComponent2`__](https://github.com/Workiva/over_react/blob/master/doc/ui_component2_transition.md#updating)
 
 ### Improved, stable [Context](https://reactjs.org/docs/context.html) API
@@ -72,7 +79,7 @@
 
 ### New `over_react_redux.dart` Library
 
-- To take full advantage of the new stable `Context` API, we have built atop 
+- To take full advantage of the new stable `Context` API, we have built atop
   the awesome [redux.dart library](https://github.com/johnpryan/redux.dart) to make it easy
   to set up redux provider(s) / consumer(s) for OverReact components that enable granular, targeted updates!
     - Check out [some examples](https://github.com/Workiva/over_react/tree/master/web/over_react_redux)
@@ -81,7 +88,7 @@
 - We've even got some sweet [redux dev tools you can use](https://github.com/Workiva/over_react/blob/master/doc/over_react_redux_documentation.md#using-redux-devtools) to make the inspection of connected state a breeze!
   ![over_react_redux.dart developer tools](http://g.recordit.co/NLeAZQkCFm.gif)
 
-> [__Learn more about using over_react_redux.dart__](https://github.com/Workiva/over_react/blob/master/doc/over_react_redux_documentation.md) 
+> [__Learn more about using over_react_redux.dart__](https://github.com/Workiva/over_react/blob/master/doc/over_react_redux_documentation.md)
 
 ### [Portals](https://reactjs.org/docs/portals.html)
 
@@ -94,7 +101,7 @@
 
 ### No more Dart 1 SDK support
 
-- With the release of `3.1.0` comes the end of our `+dart1` / `+dart2` dual releases that we have been 
+- With the release of `3.1.0` comes the end of our `+dart1` / `+dart2` dual releases that we have been
   maintaining for over a year.  Time to upgrade to Dart 2!
 
 > [Full list of 3.1.0 Changes](https://github.com/Workiva/over_react/milestone/3?closed=1)
@@ -139,7 +146,7 @@ __ReactJS 16.x Support__
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.6.1+dart2...2.7.0+dart2)
 > - [Dart 1](https://github.com/Workiva/over_react/compare/2.6.1+dart1...2.7.0+dart1)
 
-* This release brings in the `SafeRenderManager` utilities added to the 3.x alpha line-of-release via [#390]  
+* This release brings in the `SafeRenderManager` utilities added to the 3.x alpha line-of-release via [#390]
 
 ## 2.7.0
 
@@ -166,7 +173,7 @@ __ReactJS 16.x Support__
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.5.3+dart2...2.6.0+dart2)
 > - [Dart 1](https://github.com/Workiva/over_react/compare/2.5.3+dart1...2.6.0+dart1)
 
-* Adds a placeholder prop API to mirror the 3.x ErrorBoundary APIs ([#370]) added to configure logging. 
+* Adds a placeholder prop API to mirror the 3.x ErrorBoundary APIs ([#370]) added to configure logging.
   The API is not wired up in 2.x, but will make the transition for consumers to 3.x smoother.
 
 ## 2.5.3
@@ -275,7 +282,7 @@ __ReactJS 16.x Support__
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.2.0+dart2...2.3.0+dart2)
 > - [Dart 1](https://github.com/Workiva/over_react/compare/2.2.0+dart1...2.3.0+dart1)
 
-* [#266] Add `ErrorBoundary` Component 
+* [#266] Add `ErrorBoundary` Component
   > This component does not actually hook into any ReactJS 16 lifecycle yet. It won't until support for ReactJS 16 is added to react-dart in version 5.0.0, and to over_react in version 3.0.0.
 
 ## 2.2.0
@@ -285,7 +292,7 @@ __ReactJS 16.x Support__
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.1.0+dart2...2.2.0+dart2)
 > - [Dart 1](https://github.com/Workiva/over_react/compare/2.1.0+dart1...2.2.0+dart1)
 
-- [#249] Warn consumers about props / state mutation 
+- [#249] Warn consumers about props / state mutation
   - Directly mutating props and state is an antipattern and can cause unpredictable rendering.
       Avoiding this will be especially important for components to behave correctly in React 16's [concurrent mode](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-q2-2019-the-one-with-concurrent-mode).
 
@@ -298,7 +305,7 @@ __ReactJS 16.x Support__
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.0.0+dart2...2.1.0+dart2)
 > - Dart 1 (no changes)
 
-- [#249] Warn consumers about props / state mutation 
+- [#249] Warn consumers about props / state mutation
   - Directly mutating props and state is an antipattern and can cause unpredictable rendering.
       Avoiding this will be especially important for components to behave correctly in React 16's [concurrent mode](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-q2-2019-the-one-with-concurrent-mode).
 
@@ -383,7 +390,7 @@ __Breaking Changes__
 
 > [Complete `1.32.0` Changeset](https://github.com/Workiva/over_react/compare/1.31.0...1.32.0)
 
-* [#249] Warn consumers about props / state mutation 
+* [#249] Warn consumers about props / state mutation
   * Directly mutating props and state is an antipattern and can cause unpredictable rendering.
       Avoiding this will be especially important for components to behave correctly in React 16's [concurrent mode](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-q2-2019-the-one-with-concurrent-mode).
 
@@ -463,7 +470,7 @@ __Bug fixes__
 
 __New Features__
 
-* [#195]: Add hooks for Flux component redraws that occur in response to store updates: `listenToStoreForRedraw`/`handleRedrawOn` 
+* [#195]: Add hooks for Flux component redraws that occur in response to store updates: `listenToStoreForRedraw`/`handleRedrawOn`
     * Implements the stuff that was missed in [#193]
 
 
@@ -477,7 +484,7 @@ __Bug fixes__
 
 __New Features__
 
-* [#193]: ~~Add hooks for Flux component redraws that occur in response to store updates: `listenToStoreForRedraw`/`handleRedrawOn`~~ 
+* [#193]: ~~Add hooks for Flux component redraws that occur in response to store updates: `listenToStoreForRedraw`/`handleRedrawOn`~~
     * _Actually implemented via [#195] in `1.29.0`_
 
 __Improvements__
@@ -548,7 +555,7 @@ __Tech Debt__
 
 > [Complete `1.25.0` Changeset](https://github.com/Workiva/over_react/compare/1.24.1...1.25.0)
 
-__New Features__ 
+__New Features__
 
 * [#167]: New `ClassNameBuilder.merge` method and `ClassNameBuilder.merged` constructor.
 * [#168]: Expose `react_wrappers` library that was previously only available via a `src/` import.
@@ -561,21 +568,21 @@ __New Features__
 __Dependency Updates__
 
 * [#153] react `^4.3.0` (was `^3.7.0`)
-* [#151] 
+* [#151]
     * built_redux `^7.4.1` (was `>=6.1.0 <8.0.0`)
     * built_value `>=4.2.0 <5.2.0` (was `>=4.2.0 <6.0.0`)
-    
-__New Features__ 
+
+__New Features__
 
 * [#154]: Expose `react_dom.render`/`react_dom.unmountComponentAtNode` from the react library
-    
+
 __Tech Debt__
 
 * [#151] Prepare for Dart 2 SDK
     * Address Dart 2.x SDK lints / warnings that do not constitute breaking changes
     * Address `DisposableManagerV6` deprecation
     * `UiProps` and `UiState` now extend from `MapBase`
-    
+
 
 ## 1.24.1
 
@@ -598,21 +605,21 @@ __Tech Debt__
 __Dependency Updates__
 
 * [#153] react `^4.3.0` (was `^3.7.0`)
-* [#151] 
+* [#151]
     * built_redux `^7.4.1` (was `>=6.1.0 <8.0.0`)
     * built_value `>=4.2.0 <5.2.0` (was `>=4.2.0 <6.0.0`)
-    
-__New Features__ 
+
+__New Features__
 
 * [#154]: Expose `react_dom.render`/`react_dom.unmountComponentAtNode` from the react library
-    
+
 __Tech Debt__
 
 * [#151] Prepare for Dart 2 SDK
     * Address Dart 2.x SDK lints / warnings that do not constitute breaking changes
     * Address `DisposableManagerV6` deprecation
     * `UiProps` and `UiState` now extend from `MapBase`
-    
+
 
 ## 1.23.1
 
@@ -638,7 +645,7 @@ __Dependency Updates__
 __Dependency Updates__
 * [#145]: Widen built_value version constraint: now `>=4.2.0 <6.0.0`, was `^4.2.0`
 
-__New Features__ 
+__New Features__
 * [#144]: Move `BuiltReduxUiComponent`/`BuiltReduxUiProps` out of @experimental
     * __Warning:__ This will be deprecated in an upcoming release in favor of a different approach to creating a `built_redux` component.
 
