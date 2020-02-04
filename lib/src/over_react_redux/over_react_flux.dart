@@ -45,14 +45,12 @@ class FluxToReduxAdapterStore<S extends InfluxStoreMixin, V> extends redux.Store
 
   @override
   Future teardown() async {
-    _storeListener.cancel();
+    await _storeListener.cancel();
     await super.teardown();
   }
 }
 
-T _noopReducer<T>(T state, action) => state;
-
-final Expando<dynamic> _actionsForStore = new Expando();
+final Expando<dynamic> _actionsForStore = Expando();
 
 UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.Store, TActions, TProps extends UiProps>({
   Map Function(TStore state) mapStateToProps,

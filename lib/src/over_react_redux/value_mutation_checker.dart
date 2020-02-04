@@ -42,7 +42,6 @@ class CollectionLengthHasher extends InstanceHasher {
   }
 }
 
-
 class CollectionShallowHasher extends InstanceHasher {
   const CollectionShallowHasher();
 
