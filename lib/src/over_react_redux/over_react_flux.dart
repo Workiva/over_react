@@ -11,6 +11,8 @@ import 'value_mutation_checker.dart';
 
 part 'over_react_flux.over_react.g.dart';
 
+typedef mapStateToPropsTypedef<T> = Map Function(T state);
+
 @PropsMixin(keyNamespace: '')
 abstract class _$ConnectFluxPropsMixin<TActions> implements UiProps {
   @override
@@ -56,6 +58,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
   Map Function(TStore state) mapStateToProps,
   Map Function(TStore state, TProps ownProps) mapStateToPropsWithOwnProps,
   Map Function(TActions actions) mapActionsToProps,
+  Map Function(TActions actions, TProps ownProps) mapActionsToPropsWithOwnProps,
   Map Function(TProps stateProps, TProps dispatchProps, TProps ownProps) mergeProps,
   bool Function(TProps nextProps, TProps prevProps) areOwnPropsEqual,
   bool Function(TProps nextProps, TProps prevProps) areStatePropsEqual,
@@ -64,22 +67,128 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
   bool pure = true,
   bool forwardRef = false,
 }) {
-  mapActionsToProps ??= (actions) => {'actions': actions};
 
-  // Wrap mapStateToProps in order to implement mapActionsToProps.
-  // Use this instead of mapDispatchToProps since we can't get a reference back
-  // to the actions from the dispatcher.
-  if (mapStateToProps != null) {
-    final originalMapStateToProps = mapStateToProps;
-    Map wrappedMapStateToProps(TStore state) {
-      return {
+  // Because of the complex relationship between actions and state, it should be
+  // enforced that a consumer cannot set both `...toProps` and the `withOwnProps`
+  // variants.
+  //
+  // Down stream, `...toProps` is defaulted in this situation anyway, but at this level,
+  // allowing both can cause unnecessary complexity in decision logic.
+  assert((mapStateToProps == null || mapStateToPropsWithOwnProps == null) &&
+      (mapActionsToProps == null || mapActionsToPropsWithOwnProps == null));
+
+  /*--Boolean variables used for creating more complex logic statements--*/
+  final mapActionsToPropsNeedsToBeWrapped = mapActionsToProps != null;
+  final mapStateToPropsNeedsToBeWrapped = mapStateToProps != null;
+  final mapActionsWithOwnPropsNeedsToBeWrapped = mapActionsToPropsWithOwnProps != null;
+  final mapStateWithOwnPropsNeedsToBeWrapped = mapStateToPropsWithOwnProps != null;
+
+  final noActionsNeedToBeWrapped = !mapActionsToPropsNeedsToBeWrapped && !mapActionsWithOwnPropsNeedsToBeWrapped;
+  final noStateNeedsToBeWrapped = !mapStateToPropsNeedsToBeWrapped && !mapStateWithOwnPropsNeedsToBeWrapped;
+
+  /*--Boolean variables that represent the possible cases for wrapping parameter functions--*/
+
+  /// Wrap mapStateToProps only
+  final case1 = mapStateToPropsNeedsToBeWrapped && noActionsNeedToBeWrapped;
+
+  /// Wrap mapStateToPropsWithOwnProps only
+  final case2 = mapStateWithOwnPropsNeedsToBeWrapped && noActionsNeedToBeWrapped;
+
+  /// Wrap mapActionsToProps with mapStateToProps
+  final case3 = mapStateToPropsNeedsToBeWrapped && mapActionsToPropsNeedsToBeWrapped;
+
+  /// Wrap mapActionsToProps only
+  final case4 = mapActionsToPropsNeedsToBeWrapped && noStateNeedsToBeWrapped;
+
+  /// Wrap mapStateToPropsWithOwnProps and mapActionsToPropsWithOwnProps
+  final case5 = mapActionsWithOwnPropsNeedsToBeWrapped && mapStateWithOwnPropsNeedsToBeWrapped;
+
+  /// Wrap just mapActionsToPropsWithOwnProps
+  final case6 = mapActionsWithOwnPropsNeedsToBeWrapped && noStateNeedsToBeWrapped;
+
+  /// Wrap mapStateToProps in mapStateToPropsWithOwnProps
+  final case7 = mapStateToPropsNeedsToBeWrapped && mapActionsWithOwnPropsNeedsToBeWrapped;
+
+  /// Wrap mapActionToProps with mapStateToPropsWithOwnProps
+  final case8 = mapStateWithOwnPropsNeedsToBeWrapped && mapActionsToPropsNeedsToBeWrapped;
+
+  /*--Logic block to wrap passed in parameters using the cases from above--*/
+
+  // If only mapStateToProps or mapStateToPropsWithOwn props is set, nothing needs
+  // to be done.
+  if (!case1 && !case2) {
+    // Basic case: set mapStateToProps and mapActionsToProps
+    if (case3) {
+      final originalMapStateToProps = mapStateToProps;
+      Map wrappedMapStateToProps(TStore state) {
+        return {
         ...originalMapStateToProps(state),
         ...mapActionsToProps(_actionsForStore[state] as TActions),
+        };
+      }
+      mapStateToProps = wrappedMapStateToProps;
+    }
+
+    // Only set mapActionsToProps
+    if (case4) {
+      mapStateToProps = (state) {
+        return {
+          ...mapActionsToProps(_actionsForStore[state] as TActions),
+        };
       };
     }
-    mapStateToProps = wrappedMapStateToProps;
+
+    // Set both ...WithOwnProps functions
+    if (case5) {
+      final originalMapStateWithOwnProps = mapStateToPropsWithOwnProps;
+      Map wrappedMapStateWithOwnProps(TStore state, TProps ownProps) {
+        return {
+          ...originalMapStateWithOwnProps(state, ownProps),
+          ...mapActionsToPropsWithOwnProps(_actionsForStore[state] as TActions, ownProps),
+        };
+      }
+      mapStateToPropsWithOwnProps = wrappedMapStateWithOwnProps;
+    }
+
+    // Set only mapActionsToPropsWithOwnProps
+    if (case6) {
+      mapStateToPropsWithOwnProps = (state, ownProps) {
+        return {
+          ...mapActionsToPropsWithOwnProps(_actionsForStore[state] as TActions, ownProps),
+        };
+      };
+    }
+
+    // Special case: set both mapStateToProps and mapActionsToPropsWithOwnProps,
+    // but wrap mapStateToProps in mapStateToPropsWithOwnProps to make the props
+    // accessible to mapActionsToPropsWithOwnProps
+    if (case7) {
+      final newMapStateToProps = mapStateToProps;
+      mapStateToPropsWithOwnProps = (state, ownProps) {
+        return {
+          ...newMapStateToProps(state),
+          ...mapActionsToPropsWithOwnProps(_actionsForStore[state] as TActions, ownProps),
+        };
+      };
+
+      mapStateToProps = null;
+    }
+
+    // Special case: the converse of case7, set mapStateToPropsWithOwnProps and
+    // include mapActionsToProps because the actions still need to be set and
+    // cannot be set on mapStateToProps.
+    if (case8) {
+      final originalMapStateWithOwnProps = mapStateToPropsWithOwnProps;
+      Map wrappedMapStateToPropsWithOwnProps(TStore state, TProps ownProps) {
+        return {
+          ...originalMapStateWithOwnProps(state, ownProps),
+          ...mapActionsToProps(_actionsForStore[state] as TActions),
+        };
+      }
+      mapStateToPropsWithOwnProps = wrappedMapStateToPropsWithOwnProps;
+    }
   }
-  // todo mapStateToPropsWithOwnProps
+  /*--end usage of cases--*/
 
   if (areStatePropsEqual == null) {
     const defaultAreStatePropsEqual = _shallowMapEquality;
