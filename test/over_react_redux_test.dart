@@ -24,11 +24,15 @@ import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 
 import './over_react_redux/connect_test.dart' as connect_test;
+import './over_react_redux/connect_flux_test.dart' as connect_flux_test;
+import './over_react_redux/redux_multi_provider_test.dart' as multi_provider_test;
 
 
 void main() {
   setClientConfiguration();
 
   enableTestMode();
-  group('OverReactRedux', connect_test.main);
+//  connect_test.main();
+  connect_flux_test.main();
+//    multi_provider_test.main();
 }
