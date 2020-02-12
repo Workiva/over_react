@@ -2,28 +2,7 @@ import 'package:redux/redux.dart';
 import 'package:w_flux/w_flux.dart' as flux;
 import 'package:over_react/over_react_flux.dart';
 
-class Action {
-  Action({this.type, this.value});
-
-  final String type;
-  final dynamic value;
-
-  toJson() {
-    return {'value': this.value};
-  }
-}
-
-class IncrementAction extends Action {
-  IncrementAction([value]):super(type: 'INCREMENT', value:value);
-}
-
-class DecrementAction extends Action {
-  DecrementAction([value]):super(type: 'DECREMENT', value:value);
-}
-
-class ResetAction extends Action {
-  ResetAction():super(type: 'RESET');
-}
+import 'redux_actions.dart';
 
 int initialValue = 0;
 
@@ -49,8 +28,8 @@ class FluxStore extends flux.Store with InfluxStoreMixin<CounterState> {
   FluxStore(this._actions) {
     state = CounterState(count: initialValue);
 
-    triggerOnActionV2(_actions.incrementAction, (count) => this.influxReducer(IncrementAction(count)));
-    triggerOnActionV2(_actions.decrementAction, (count) => this.influxReducer(DecrementAction(count)));
+    triggerOnActionV2(_actions.incrementAction, (_) => this.influxReducer(IncrementAction()));
+    triggerOnActionV2(_actions.decrementAction, (_) => this.influxReducer(DecrementAction()));
     triggerOnActionV2(_actions.resetAction, (_) => this.influxReducer(ResetAction()));
   }
 }
@@ -82,6 +61,23 @@ Reducer<int> counterActionsReducer = combineReducers<int>([
 CounterState counterStateReducer(CounterState state, action) => CounterState(
   count: counterActionsReducer(state.count, action),
 );
+
+//CounterState counterStateReducer(CounterState state, Object action) {
+//  print(action.runtimeType);
+//  print(action is IncrementAction);
+//  if (action is IncrementAction) {
+//    print('incrementing');
+//    return CounterState(count: state.count + (action?.value ?? 1));
+//  } else if (action is DecrementAction) {
+//    return CounterState(count: state.count - (action?.value ?? 1));
+//  } else if (action is ResetAction) {
+//    print('resetting');
+//    return CounterState(count: initialValue);
+//  }
+//
+//  print('returning old state');
+//  return state;
+//}
 
 FluxActions fluxActions = FluxActions();
 FluxStore fluxStore = FluxStore(fluxActions);

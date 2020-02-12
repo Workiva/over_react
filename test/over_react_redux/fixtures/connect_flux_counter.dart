@@ -1,5 +1,7 @@
 import 'package:over_react/over_react.dart';
 
+import 'connect_flux_store.dart';
+
 part 'connect_flux_counter.over_react.g.dart';
 
 @Factory()
@@ -28,7 +30,11 @@ class ConnectFluxCounterComponent extends UiComponent2<ConnectFluxCounterProps> 
         (Dom.button()
           ..addTestId('button-increment')
           ..onClick = (_) {
-            props.increment();
+            if (props.increment != null) {
+              props.increment();
+            } else {
+              fluxActions.incrementAction();
+            }
           }
         )('+'),
         (Dom.button()

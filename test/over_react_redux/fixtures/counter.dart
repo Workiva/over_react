@@ -1,6 +1,7 @@
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
-import 'store.dart';
+
+import 'redux_actions.dart';
 
 part 'counter.over_react.g.dart';
 

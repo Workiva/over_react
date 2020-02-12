@@ -20,6 +20,7 @@ import 'package:test/test.dart';
 
 import '../test_util/test_util.dart';
 import './fixtures/counter.dart';
+import './fixtures/redux_actions.dart';
 import './fixtures/store.dart';
 
 // ignore_for_file: avoid_types_on_closure_parameters
