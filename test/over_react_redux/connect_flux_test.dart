@@ -20,47 +20,48 @@ import 'package:test/test.dart';
 import '../test_util/test_util.dart';
 import './fixtures/connect_flux_counter.dart';
 import './fixtures/connect_flux_store.dart';
+import 'fixtures/redux_actions.dart';
 
 // ignore_for_file: avoid_types_on_closure_parameters
 
 /// Main entry point for AbstractTransition testing
 main() {
   group('connectFlux', () {
+    UiFactory<ConnectFluxCounterProps> ConnectedCounter;
+    TestJacket<ConnectFluxCounterComponent> jacket;
+    final counterRef = createRef<ConnectFluxCounterComponent>();
+
+    JsConnectOptions connectOptions;
+    var originalConnect = mockableJsConnect;
+
+    mockableJsConnect = (
+        [
+          Function mapStateToProps,
+          dynamic mapDispatchToProps,
+          Function mergeProps,
+          JsConnectOptions options,
+        ]
+        ) {
+      connectOptions = options;
+      return originalConnect(mapStateToProps, mapDispatchToProps, mergeProps, options);
+    };
+
+    setUp(() async {
+      ConnectedCounter = null;
+      jacket = null;
+      // Reset stores state to initialState value
+      store1.dispatch(ResetAction());
+      store2.dispatch(ResetAction());
+
+      // wait for state to update
+      await Future(() {});
+    });
+
     group('behaves like redux with', () {
-      UiFactory<ConnectFluxCounterProps> ConnectedCounter;
-      TestJacket<ConnectFluxCounterComponent> jacket;
-      final counterRef = createRef<ConnectFluxCounterComponent>();
-
-      JsConnectOptions connectOptions;
-      var originalConnect = mockableJsConnect;
-
-      mockableJsConnect = (
-          [
-            Function mapStateToProps,
-            dynamic mapDispatchToProps,
-            Function mergeProps,
-            JsConnectOptions options,
-          ]
-          ) {
-        connectOptions = options;
-        return originalConnect(mapStateToProps, mapDispatchToProps, mergeProps, options);
-      };
-
-      setUp(() async {
-        ConnectedCounter = null;
-        jacket = null;
-        // Reset stores state to initialState value
-        store1.dispatch(ResetAction());
-        store2.dispatch(ResetAction());
-
-        // wait for state to update
-        await Future(() {});
-      });
-
       group('Provider Usage', (){
         test('throws without a provider', () {
           ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
-            mapStateToProps: (state) => ConnectFluxCounter()..currentCount = state.count,
+            mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) => (ConnectFluxCounter()
               ..increment = actions.incrementAction
               ..decrement = actions.decrementAction),
@@ -97,9 +98,10 @@ main() {
 
       group('mapStateToProps properly maps the state to the components props', (){
         test('on inital load', () {
-          ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(mapStateToProps: (state){
-            return ConnectFluxCounter()..currentCount = state.count;
-          }, forwardRef: true)(ConnectFluxCounter);
+          ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
+              mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
+              forwardRef: true
+          )(ConnectFluxCounter);
 
           jacket = mount(
             (ReduxProvider()..store = store1)(
@@ -115,14 +117,10 @@ main() {
 
           print('just enetered');
           ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
-              mapStateToProps: (state){
-                return ConnectFluxCounter()..currentCount = state.count;
-              },
-              mapActionsToProps: (actions) {
-                return ConnectFluxCounter()
-                  ..increment = actions.incrementAction
-                  ..decrement = actions.decrementAction;
-              },
+              mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
+              mapActionsToProps: (actions) => (ConnectFluxCounter()
+                ..increment = actions.incrementAction
+                ..decrement = actions.decrementAction),
               forwardRef: true)(ConnectFluxCounter);
 
           jacket = mount(
@@ -147,9 +145,10 @@ main() {
 
       group('mapStateToPropsWithOwnProps properly maps the state to the components props', (){
         test('on inital load', () {
-          ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(mapStateToPropsWithOwnProps: (state, ownProps){
-            return ConnectFluxCounter()..currentCount = state.count;
-          }, forwardRef: true)(ConnectFluxCounter);
+          ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
+              mapStateToPropsWithOwnProps: (state, ownProps) => (ConnectFluxCounter()..currentCount = state.count),
+              forwardRef: true
+          )(ConnectFluxCounter);
 
           jacket = mount(
             (ReduxProvider()..store = store1)(
@@ -163,14 +162,10 @@ main() {
 
         test('after dispatch', () async {
           ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
-            mapStateToPropsWithOwnProps: (state, ownProps){
-              return ConnectFluxCounter()..currentCount = state.count;
-            },
-            mapActionsToProps: (actions) {
-              return ConnectFluxCounter()
-                ..increment = actions.incrementAction
-                ..decrement = actions.decrementAction;
-            },
+            mapStateToPropsWithOwnProps: (state, ownProps) => (ConnectFluxCounter()..currentCount = state.count),
+            mapActionsToProps: (actions) => (ConnectFluxCounter()
+              ..increment = actions.incrementAction
+              ..decrement = actions.decrementAction),
             forwardRef: true,
           )(ConnectFluxCounter);
 
@@ -201,11 +196,9 @@ main() {
               expect(state, isA<FluxStore>());
               return ConnectFluxCounter()..currentCount = state.count;
             },
-            mapActionsToProps: (actions) {
-              return ConnectFluxCounter()
-                ..increment = actions.incrementAction
-                ..decrement = actions.decrementAction;
-            },
+            mapActionsToProps: (actions) => (ConnectFluxCounter()
+              ..increment = actions.incrementAction
+              ..decrement = actions.decrementAction),
             forwardRef: true,
           )(ConnectFluxCounter);
 
@@ -239,11 +232,9 @@ main() {
               expect(state, isA<FluxStore>());
               return ConnectFluxCounter()..currentCount = state.count;
             },
-            mapActionsToProps: (actions) {
-              return ConnectFluxCounter()
-                ..increment = actions.incrementAction
-                ..decrement = actions.decrementAction;
-            },
+            mapActionsToProps: (actions) => (ConnectFluxCounter()
+              ..increment = actions.incrementAction
+              ..decrement = actions.decrementAction),
             forwardRef: true,
           )(ConnectFluxCounter);
 
@@ -273,9 +264,7 @@ main() {
       group('mergeProps', (){
         test('properly merges props based on consumer map', () async {
           ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
-            mapStateToProps: (state){
-              return ConnectFluxCounter()..currentCount = state.count;
-            },
+            mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) {
               return ConnectFluxCounter()..decrement = actions.decrementAction;
             },
@@ -351,9 +340,7 @@ main() {
                 methodsCalled.add('mapStateToProps');
                 return ConnectFluxCounter()..currentCount = state.count;
               },
-              mapActionsToProps: (actions) {
-                return ConnectFluxCounter()..increment = actions.incrementAction;
-              },
+              mapActionsToProps: (actions) => (ConnectFluxCounter()..increment = actions.incrementAction),
               areStatePropsEqual: (next, prev) {
                 expect(next, isA<ConnectFluxCounterProps>());
                 expect(prev, isA<ConnectFluxCounterProps>());
@@ -458,9 +445,7 @@ main() {
         test('correctly renders with multiple contexts/stores', () async {
           var bigCounterContext = createContext();
           ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
-            mapStateToProps: (state){
-              return ConnectFluxCounter()..currentCount = state.count;
-            },
+            mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) {
               return ConnectFluxCounter()
                 ..increment = actions.incrementAction
@@ -469,14 +454,10 @@ main() {
             forwardRef: true,
           )(ConnectFluxCounter);
           var ConnectedBigCounter = connectFlux<FluxStore2, FluxActions, ConnectFluxCounterProps>(
-            mapStateToProps: (state){
-              return ConnectFluxCounter()..currentCount = state.count;
-            },
-            mapActionsToProps: (actions) {
-              return ConnectFluxCounter()
-                ..increment = actions.incrementAction
-                ..decrement = actions.decrementAction;
-            },
+            mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
+            mapActionsToProps: (actions) => (ConnectFluxCounter()
+              ..increment = actions.incrementAction
+              ..decrement = actions.decrementAction),
             context: bigCounterContext,
             forwardRef: true,
           )(ConnectFluxCounter);
@@ -506,26 +487,18 @@ main() {
           var bigCounterContext = createContext();
 
           ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
-            mapStateToProps: (state){
-              return ConnectFluxCounter()..currentCount = state.count;
-            },
-            mapActionsToProps: (actions) {
-              return ConnectFluxCounter()
-                ..increment = actions.incrementAction
-                ..decrement = actions.decrementAction;
-            },
+            mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
+            mapActionsToProps: (actions) => (ConnectFluxCounter()
+              ..increment = actions.incrementAction
+              ..decrement = actions.decrementAction),
             forwardRef: true,
           )(ConnectFluxCounter);
 
           var ConnectedBigCounter = connectFlux<FluxStore2, FluxActions, ConnectFluxCounterProps>(
-            mapStateToProps: (state){
-              return ConnectFluxCounter()..currentCount = state.count;
-            },
-            mapActionsToProps: (actions) {
-              return ConnectFluxCounter()
-                ..increment = actions.incrementAction
-                ..decrement = actions.decrementAction;
-            },
+            mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
+            mapActionsToProps: (actions) => (ConnectFluxCounter()
+              ..increment = actions.incrementAction
+              ..decrement = actions.decrementAction),
             context: bigCounterContext,
             forwardRef: true,
           )(ConnectFluxCounter);
