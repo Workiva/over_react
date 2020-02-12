@@ -38,11 +38,18 @@ class FluxToReduxAdapterStore<S extends InfluxStoreMixin, V> extends redux.Store
       initialState: store,
       distinct: false
   ) {
-    _storeListener = store.listen((_) {
+    _storeListener = store.listen((newStore) {
+      print('dispatching from stream listener');
       dispatch(_FluxStoreUpdatedAction());
     });
 
     _actionsForStore[store] = actions;
+  }
+
+  @override
+  void dispatch(action) {
+    print('dispatch');
+    super.dispatch(action);
   }
 
   @override
@@ -252,13 +259,22 @@ mixin InfluxStoreMixin<S> on flux.Store {
   /// An instance of the Redux state model that the Flux store is migrating to.
   S state;
 
+  bool _isOutdated = true;
+  bool get isOutdated => _isOutdated;
+
   /// A wrapper around a pure Redux reducer that keeps the Flux UI up to date with
   /// store changes.
   void influxReducer(dynamic action) {
+    print('pre-reducing');
+//    if (action is _FluxStoreUpdatedAction) return;
+    print('reducing');
     final oldState = this.state;
     this.state = reduxReducer(this.state, action);
-    if (oldState != this.state) {
-      this.trigger();
-    }
+    _isOutdated = false;
+
+//    if (oldState != this.state) {
+//      print('triggering');
+//      this.trigger();
+//    }
   }
 }

@@ -22,15 +22,12 @@ class DecrementAction extends Action {
 }
 
 class ResetAction extends Action {
-  ResetAction():super(type: 'RESET') {
-   print('initializing');
-  }
+  ResetAction():super(type: 'RESET');
 }
 
 int initialValue = 0;
 
 int _resetCounterReducer(int currentCount, ResetAction action){
-  print('resetting');
   return initialValue;
 }
 
@@ -139,5 +136,6 @@ BigCounterState bigCounterStateReducer(BigCounterState state, action) => BigCoun
   bigCount: bigCounterActionsReducer(state.bigCount, action),
 );
 
-FluxStore2 bigFluxCounter = FluxStore2(fluxActions);
-FluxToReduxAdapterStore store2 = FluxToReduxAdapterStore(bigFluxCounter, fluxActions);
+FluxActions bigFluxActions = FluxActions();
+FluxStore2 bigFluxCounter = FluxStore2(bigFluxActions);
+FluxToReduxAdapterStore store2 = FluxToReduxAdapterStore(bigFluxCounter, bigFluxActions);
