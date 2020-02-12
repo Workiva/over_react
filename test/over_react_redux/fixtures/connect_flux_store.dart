@@ -120,3 +120,7 @@ BigCounterState bigCounterStateReducer(BigCounterState state, action) => BigCoun
 FluxActions bigFluxActions = FluxActions();
 FluxStore2 bigFluxCounter = FluxStore2(bigFluxActions);
 FluxToReduxAdapterStore store2 = FluxToReduxAdapterStore(bigFluxCounter, bigFluxActions);
+
+FluxActions anotherFluxActionsInstance = FluxActions();
+FluxStore anotherFluxStore = FluxStore(anotherFluxActionsInstance);
+FluxToReduxAdapterStore store3 = FluxToReduxAdapterStore(anotherFluxStore, anotherFluxActionsInstance);
