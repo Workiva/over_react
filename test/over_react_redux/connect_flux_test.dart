@@ -541,5 +541,99 @@ main() {
         });
       });
     });
+
+    group('properly handles parameter combinations for', () {
+      final testCases = {
+        'just mapStateToProps (case1)': {
+          'mapStateToProps': testMapStateToProps,
+        },
+        'just mapStateToPropsWithOwnProps (case2)': {
+          'mapStateToPropsWithOwnProps': testMapStateToPropsWithOwnProps,
+        },
+        'both mapStateToProps and mapActionsToProps (case3)': {
+          'mapStateToProps': testMapStateToProps,
+          'mapActionsToProps': testMapActionsToProps,
+        },
+        'just mapActionsToProps (case4)': {
+          'mapActionsToProps': testMapActionsToProps,
+        },
+        'both withOwnProps parameters (case5)': {
+          'mapStateToPropsWithOwnProps': testMapStateToPropsWithOwnProps,
+          'mapActionsToPropsWithOwnProps': testMapActionsToPropsWithOwnProps,
+        },
+        'just mapActionsToPropsWithOwnProps (case6)': {
+          'mapActionsToPropsWithOwnProps': testMapActionsToPropsWithOwnProps,
+        },
+        'mapStateToProps and mapActionsToPropsWithOwnProps (case7)': {
+          'mapStateToProps': testMapStateToProps,
+          'mapActionsToPropsWithOwnProps': testMapActionsToPropsWithOwnProps,
+        },
+        'mapStateToPropsWithOwnProps and mapActionsToProps (case8)': {
+          'mapStateToPropsWithOwnProps': testMapStateToPropsWithOwnProps,
+          'mapActionsToProps': testMapActionsToProps,
+        },
+      };
+
+      testParameterCases(testCases);
+    });
   });
+}
+
+typedef mapStateToProps = Map Function(FluxStore);
+typedef mapActionsToProps = Map Function(FluxActions);
+typedef mapStateToPropsWithOwnProps = Map Function(FluxStore, ConnectFluxCounterProps);
+typedef mapActionsToPropsWithOwnProps = Map Function(FluxActions, ConnectFluxCounterProps);
+
+mapStateToProps get testMapStateToProps => (state) => (ConnectFluxCounter()..currentCount = state.count);
+mapActionsToProps get testMapActionsToProps => (actions) => (ConnectFluxCounter()..increment = actions.incrementAction);
+mapStateToPropsWithOwnProps get testMapStateToPropsWithOwnProps => (state, ownProps) => (ConnectFluxCounter()..currentCount = state.count);
+mapActionsToPropsWithOwnProps get testMapActionsToPropsWithOwnProps => (actions, ownProps) => (ConnectFluxCounter()..increment = actions.incrementAction);
+
+void testParameterCases(Map<String, Map> cases) {
+  for (final parameterCase in cases.keys) {
+    final parameters = cases[parameterCase];
+    bool shouldDomUpdate(Map parameters) =>
+        (parameters['mapStateToProps'] != null ||
+            parameters['mapStateToPropsWithOwnProps'] != null);
+
+    test(parameterCase, () async {
+      final ConnectedFluxComponent = connectFlux<FluxStore,
+          FluxActions,
+          ConnectFluxCounterProps>(
+        mapStateToProps: parameters['mapStateToProps'],
+        mapActionsToProps: parameters['mapActionsToProps'],
+        mapStateToPropsWithOwnProps: parameters['mapStateToPropsWithOwnProps'],
+        mapActionsToPropsWithOwnProps: parameters['mapActionsToPropsWithOwnProps'],
+      )(ConnectFluxCounter);
+
+      final jacket = mount(
+          (ReduxProvider()
+            ..store = store1)(
+            (ConnectedFluxComponent()..addTestId('flux-component'))(),
+          )
+      );
+
+      final fluxCounter = queryByTestId(jacket.mountNode, 'flux-component');
+      final fluxButton = queryByTestId(fluxCounter, 'button-increment');
+
+      expect(fluxStore.state.count, 0);
+
+      click(fluxButton);
+      await Future(() {});
+
+      expect(fluxStore.state.count, 1);
+
+      if (shouldDomUpdate(parameters)) {
+        expect(findDomNode(fluxCounter).innerHtml, contains('Count: 1'));
+      }
+
+      store1.dispatch(ResetAction());
+      await Future(() {});
+
+      expect(fluxStore.state.count, 0);
+      if (shouldDomUpdate(parameters)) {
+        expect(findDomNode(fluxCounter).innerHtml, contains('Count: 0'));
+      }
+    });
+  }
 }
