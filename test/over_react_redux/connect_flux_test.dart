@@ -399,46 +399,6 @@ main() {
             expect(whatever, isTrue);
           });
         });
-
-//      group('areStatesEqual', (){
-//        test('', () async {
-//          List<String> methodsCalled = [];
-//          ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
-//            areStatesEqual: (next, prev) {
-//              expect(next, isA<CounterState>());
-//              expect(prev, isA<CounterState>());
-//              methodsCalled.add('areStatesEqual');
-//              return true;
-//            },
-//            mapStateToProps: (state) {
-//              methodsCalled.add('mapStateToProps');
-//              return ConnectFluxCounter()..currentCount = state.count;
-//            },
-//            forwardRef: true,
-//          )(ConnectFluxCounter);
-//
-//          jacket = mount(
-//            (ReduxProvider()..store = store1)(
-//              (ConnectedCounter()..ref = counterRef..currentCount = 0)('test'),
-//            ),
-//          );
-//
-//          expect(methodsCalled, contains('mapStateToProps'));
-//          expect(methodsCalled, contains('areStatesEqual'));
-//          methodsCalled.clear();
-//
-//          var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
-//          click(dispatchButton);
-//
-//          // wait for the next tick for the async dispatch to propagate
-//          await Future(() {});
-//
-//          // only calls `areStatesEqual` and does not call `mapStateToProps` since it returned `true`.
-//          expect(methodsCalled, isNot(contains('mapStateToProps')));
-//          expect(methodsCalled, contains('areStatesEqual'));
-//          expect(jacket.mountNode.innerHtml, contains('Count: 0'));
-//        });
-//      });
       });
 
       group('context', (){
