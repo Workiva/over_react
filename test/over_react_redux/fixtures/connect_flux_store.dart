@@ -14,6 +14,7 @@ class FluxActions {
   final flux.Action<int> incrementAction = flux.Action();
   final flux.Action<int> decrementAction = flux.Action();
   final flux.Action resetAction = flux.Action();
+  final flux.Action mutateStoreDirectly = flux.Action();
 }
 
 class FluxStore extends flux.Store with InfluxStoreMixin<CounterState> {
@@ -24,6 +25,7 @@ class FluxStore extends flux.Store with InfluxStoreMixin<CounterState> {
 
   int get count => state.count;
   String get name => state.name;
+  List<String> get listYouDefShouldntMutate => state.listThatYouDefShouldntMutate;
 
   FluxStore(this._actions) {
     state = CounterState(count: initialValue);
@@ -31,6 +33,7 @@ class FluxStore extends flux.Store with InfluxStoreMixin<CounterState> {
     triggerOnActionV2(_actions.incrementAction, (_) => this.influxReducer(IncrementAction()));
     triggerOnActionV2(_actions.decrementAction, (_) => this.influxReducer(DecrementAction()));
     triggerOnActionV2(_actions.resetAction, (_) => this.influxReducer(ResetAction()));
+    triggerOnActionV2(_actions.mutateStoreDirectly, (_) => this.influxReducer(MutateStoreDirectlyAction()));
   }
 }
 
@@ -38,46 +41,28 @@ class FluxStore extends flux.Store with InfluxStoreMixin<CounterState> {
 class CounterState {
   final int count;
   final String name;
+  List<String> listThatYouDefShouldntMutate = [];
+
   CounterState({
     this.count,
     this.name = 'Counter',
   });
 }
 
-int _counterDecrementReducer(int currentCount, DecrementAction action) {
-  return currentCount - (action?.value != null ? action.value : 1);
+CounterState counterStateReducer(CounterState state, Object action) {
+
+  if (action is IncrementAction) {
+    return CounterState(count: state.count + (action?.value ?? 1));
+  } else if (action is DecrementAction) {
+    return CounterState(count: state.count - (action?.value ?? 1));
+  } else if (action is ResetAction) {
+    return CounterState(count: initialValue);
+  } else if (action is MutateStoreDirectlyAction) {
+    state.listThatYouDefShouldntMutate.add('woops');
+  }
+
+  return state;
 }
-
-int _counterIncrementReducer(int currentCount, IncrementAction action) {
-  return currentCount + (action?.value != null ? action.value : 1);
-}
-
-Reducer<int> counterActionsReducer = combineReducers<int>([
-  TypedReducer<int, IncrementAction>(_counterIncrementReducer),
-  TypedReducer<int, DecrementAction>(_counterDecrementReducer),
-  TypedReducer<int, ResetAction>(_resetCounterReducer),
-]);
-
-CounterState counterStateReducer(CounterState state, action) => CounterState(
-  count: counterActionsReducer(state.count, action),
-);
-
-//CounterState counterStateReducer(CounterState state, Object action) {
-//  print(action.runtimeType);
-//  print(action is IncrementAction);
-//  if (action is IncrementAction) {
-//    print('incrementing');
-//    return CounterState(count: state.count + (action?.value ?? 1));
-//  } else if (action is DecrementAction) {
-//    return CounterState(count: state.count - (action?.value ?? 1));
-//  } else if (action is ResetAction) {
-//    print('resetting');
-//    return CounterState(count: initialValue);
-//  }
-//
-//  print('returning old state');
-//  return state;
-//}
 
 FluxActions fluxActions = FluxActions();
 FluxStore fluxStore = FluxStore(fluxActions);

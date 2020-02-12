@@ -576,6 +576,34 @@ main() {
 
       testParameterCases(testCases);
     });
+
+    test('prints a warning when state is mutated directly', () async {
+      final ConnectedFluxComponent = connectFlux<FluxStore,
+          FluxActions,
+          ConnectFluxCounterProps>(
+        mapStateToProps: (state) =>
+            (ConnectFluxCounter()..mutatedList = state.listYouDefShouldntMutate),
+        mapActionsToProps: (actions) =>
+            (ConnectFluxCounter()..mutateStoreDirectly = actions.mutateStoreDirectly),
+      )(ConnectFluxCounter);
+
+      final jacket = mount(
+          (ReduxProvider()
+            ..store = store1)(
+            (ConnectedFluxComponent()..addTestId('flux-component'))(),
+          )
+      );
+
+      final fluxCounter = queryByTestId(jacket.mountNode, 'flux-component');
+      final fluxButton = queryByTestId(fluxCounter, 'button-increment');
+
+      final logs = await recordConsoleLogsAsync(() async {
+        click(fluxButton);
+        await Future((){});
+      });
+
+      expect(logs.first, contains('The instance of the value mapped from store "FluxStore" to prop "ConnectFluxCounterProps.mutatedList" was mutated directly,'));
+    });
   });
 }
 

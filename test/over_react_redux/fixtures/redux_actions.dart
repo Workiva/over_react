@@ -20,3 +20,7 @@ class DecrementAction extends Action {
 class ResetAction extends Action {
   ResetAction():super(type: 'RESET');
 }
+
+class MutateStoreDirectlyAction extends Action {
+  MutateStoreDirectlyAction():super(type: 'RESET_STORE_DIRECTLY');
+}

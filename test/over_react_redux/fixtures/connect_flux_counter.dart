@@ -13,9 +13,13 @@ class _$ConnectFluxCounterProps extends UiProps {
 
   Map<String, dynamic> wrapperStyles;
 
+  List<String> mutatedList;
+
   void Function() increment;
 
   void Function() decrement;
+
+  void Function() mutateStoreDirectly;
 }
 
 @Component2()
@@ -30,10 +34,12 @@ class ConnectFluxCounterComponent extends UiComponent2<ConnectFluxCounterProps> 
         (Dom.button()
           ..addTestId('button-increment')
           ..onClick = (_) {
-            if (props.increment != null) {
-              props.increment();
+            if (props.mutateStoreDirectly != null) {
+              props.mutateStoreDirectly();
+            } else if (props.increment != null) {
+                props.increment();
             } else {
-              fluxActions.incrementAction();
+                fluxActions.incrementAction();
             }
           }
         )('+'),

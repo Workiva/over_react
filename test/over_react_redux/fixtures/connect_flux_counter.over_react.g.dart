@@ -44,6 +44,16 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
   set wrapperStyles(Map<String, dynamic> value) =>
       props[_$key__wrapperStyles___$ConnectFluxCounterProps] = value;
 
+  /// <!-- Generated from [_$ConnectFluxCounterProps.mutatedList] -->
+  @override
+  List<String> get mutatedList =>
+      props[_$key__mutatedList___$ConnectFluxCounterProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$ConnectFluxCounterProps.mutatedList] -->
+  @override
+  set mutatedList(List<String> value) =>
+      props[_$key__mutatedList___$ConnectFluxCounterProps] = value;
+
   /// <!-- Generated from [_$ConnectFluxCounterProps.increment] -->
   @override
   void Function() get increment =>
@@ -63,35 +73,58 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
   @override
   set decrement(void Function() value) =>
       props[_$key__decrement___$ConnectFluxCounterProps] = value;
+
+  /// <!-- Generated from [_$ConnectFluxCounterProps.mutateStoreDirectly] -->
+  @override
+  void Function() get mutateStoreDirectly =>
+      props[_$key__mutateStoreDirectly___$ConnectFluxCounterProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$ConnectFluxCounterProps.mutateStoreDirectly] -->
+  @override
+  set mutateStoreDirectly(void Function() value) =>
+      props[_$key__mutateStoreDirectly___$ConnectFluxCounterProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__currentCount___$ConnectFluxCounterProps =
       PropDescriptor(_$key__currentCount___$ConnectFluxCounterProps);
   static const PropDescriptor _$prop__wrapperStyles___$ConnectFluxCounterProps =
       PropDescriptor(_$key__wrapperStyles___$ConnectFluxCounterProps);
+  static const PropDescriptor _$prop__mutatedList___$ConnectFluxCounterProps =
+      PropDescriptor(_$key__mutatedList___$ConnectFluxCounterProps);
   static const PropDescriptor _$prop__increment___$ConnectFluxCounterProps =
       PropDescriptor(_$key__increment___$ConnectFluxCounterProps);
   static const PropDescriptor _$prop__decrement___$ConnectFluxCounterProps =
       PropDescriptor(_$key__decrement___$ConnectFluxCounterProps);
+  static const PropDescriptor
+      _$prop__mutateStoreDirectly___$ConnectFluxCounterProps =
+      PropDescriptor(_$key__mutateStoreDirectly___$ConnectFluxCounterProps);
   static const String _$key__currentCount___$ConnectFluxCounterProps =
       'ConnectFluxCounterProps.currentCount';
   static const String _$key__wrapperStyles___$ConnectFluxCounterProps =
       'ConnectFluxCounterProps.wrapperStyles';
+  static const String _$key__mutatedList___$ConnectFluxCounterProps =
+      'ConnectFluxCounterProps.mutatedList';
   static const String _$key__increment___$ConnectFluxCounterProps =
       'ConnectFluxCounterProps.increment';
   static const String _$key__decrement___$ConnectFluxCounterProps =
       'ConnectFluxCounterProps.decrement';
+  static const String _$key__mutateStoreDirectly___$ConnectFluxCounterProps =
+      'ConnectFluxCounterProps.mutateStoreDirectly';
 
   static const List<PropDescriptor> $props = [
     _$prop__currentCount___$ConnectFluxCounterProps,
     _$prop__wrapperStyles___$ConnectFluxCounterProps,
+    _$prop__mutatedList___$ConnectFluxCounterProps,
     _$prop__increment___$ConnectFluxCounterProps,
-    _$prop__decrement___$ConnectFluxCounterProps
+    _$prop__decrement___$ConnectFluxCounterProps,
+    _$prop__mutateStoreDirectly___$ConnectFluxCounterProps
   ];
   static const List<String> $propKeys = [
     _$key__currentCount___$ConnectFluxCounterProps,
     _$key__wrapperStyles___$ConnectFluxCounterProps,
+    _$key__mutatedList___$ConnectFluxCounterProps,
     _$key__increment___$ConnectFluxCounterProps,
-    _$key__decrement___$ConnectFluxCounterProps
+    _$key__decrement___$ConnectFluxCounterProps,
+    _$key__mutateStoreDirectly___$ConnectFluxCounterProps
   ];
 }
 
