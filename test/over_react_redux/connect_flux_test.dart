@@ -561,7 +561,7 @@ main() {
       });
 
       expect(logs.first, contains('The instance of the value mapped from store "FluxStore" to prop "ConnectFluxCounterProps.mutatedList" was mutated directly,'));
-    });
+    }, testOn: '!js');
   });
 }
 
