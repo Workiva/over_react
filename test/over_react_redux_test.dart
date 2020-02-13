@@ -27,15 +27,16 @@ import './over_react_redux/connect_test.dart' as connect_test;
 import './over_react_redux/connect_flux_test.dart' as connect_flux_test;
 import './over_react_redux/connect_flux_integration_test.dart' as connect_flux_integration_test;
 import './over_react_redux/redux_multi_provider_test.dart' as multi_provider_test;
+import './over_react_redux/value_mutation_checker_test.dart' as value_mutation_checker_test;
 
 
 void main() {
   setClientConfiguration();
 
   enableTestMode();
-//  connect_test.main();
-//  connect_flux_test.main();
+  connect_test.main();
+  connect_flux_test.main();
   connect_flux_integration_test.main();
-
-//    multi_provider_test.main();
+  multi_provider_test.main();
+  value_mutation_checker_test.main();
 }

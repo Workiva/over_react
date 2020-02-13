@@ -30,6 +30,7 @@ import 'over_react/util/dom_util_test.dart' as dom_util_test;
 import 'over_react/util/event_helpers_test.dart' as event_helpers_test;
 import 'over_react/util/guid_util_test.dart' as guid_util_test;
 import 'over_react/util/handler_chain_util_test.dart' as handler_chain_util_test;
+import 'over_react/util/hoc_test.dart' as hoc_test;
 import 'over_react/util/map_util_test.dart' as map_util_test;
 import 'over_react/util/pretty_print_test.dart' as pretty_print_test;
 import 'over_react/util/prop_key_util_test_dart2.dart' as prop_key_util_test_dart2;
@@ -53,6 +54,7 @@ void main() {
   event_helpers_test.main();
   guid_util_test.main();
   handler_chain_util_test.main();
+  hoc_test.main();
   map_util_test.main();
   pretty_print_test.main();
   prop_key_util_test_dart2.main();
