@@ -26,6 +26,7 @@ class CounterComponent extends UiComponent2<CounterProps> {
     return (Dom.div()
       ..modifyProps(addUnconsumedProps)
       ..style = props.wrapperStyles
+      ..addTestId('counter-component')
     )(
       Dom.div()('Count: ${props.currentCount}'),
       (Dom.button()

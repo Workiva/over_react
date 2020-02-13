@@ -84,7 +84,7 @@ main() {
       await Future((){});
 
       expect(findDomNode(context1Counter).innerHtml, contains('Count: 1'));
-      expect(findDomNode(context2Counter).innerHtml, contains('Count: 200'), reason: 'Two clicks each icrementing 100 (since it is the "big counter").');
+      expect(findDomNode(context2Counter).innerHtml, contains('Count: 200'), reason: 'Two clicks each incrementing 100 (since it is the "big counter").');
       expect(findDomNode(context3Counter).innerHtml, contains('Count: 3'));
     });
   });
