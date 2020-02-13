@@ -191,6 +191,18 @@ main() {
         expect(findDomNode(fluxCounter).innerHtml, contains('Count: 1'));
         expect(findDomNode(reduxCounter).innerHtml, contains('Count: 0'));
       });
+
+      test('properly maps store instances to actions', () {
+        FluxActions tempActions = FluxActions();
+        final tempFluxStore = FluxStore(tempActions);
+        final tempFluxStore2 = FluxStore(tempActions);
+        final tempAdapterStore = FluxToReduxAdapterStore(tempFluxStore, tempActions);
+        final tempAdapterStore2 = FluxToReduxAdapterStore(tempFluxStore2, tempActions);
+
+        expect(actionsForStore[tempFluxStore], tempActions);
+        expect(actionsForStore[tempFluxStore2], tempActions);
+        expect(actionsForStore[tempFluxStore2], actionsForStore[tempFluxStore]);
+      });
     });
   });
 }

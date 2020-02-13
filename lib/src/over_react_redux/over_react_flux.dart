@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:collection/collection.dart';
+import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 import 'package:redux/redux.dart' as redux;
@@ -42,7 +43,7 @@ class FluxToReduxAdapterStore<S extends InfluxStoreMixin, V> extends redux.Store
       dispatch(_FluxStoreUpdatedAction());
     });
 
-    _actionsForStore[store] = actions;
+    actionsForStore[store] = actions;
   }
 
   @override
@@ -52,7 +53,8 @@ class FluxToReduxAdapterStore<S extends InfluxStoreMixin, V> extends redux.Store
   }
 }
 
-final Expando<dynamic> _actionsForStore = Expando();
+@visibleForTesting
+final Expando<dynamic> actionsForStore = Expando();
 
 UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.Store, TActions, TProps extends UiProps>({
   Map Function(TStore state) mapStateToProps,
@@ -123,7 +125,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
       Map wrappedMapStateToProps(TStore state) {
         return {
         ...originalMapStateToProps(state),
-        ...mapActionsToProps(_actionsForStore[state] as TActions),
+        ...mapActionsToProps(actionsForStore[state] as TActions),
         };
       }
       mapStateToProps = wrappedMapStateToProps;
@@ -133,7 +135,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
     if (case4) {
       mapStateToProps = (state) {
         return {
-          ...mapActionsToProps(_actionsForStore[state] as TActions),
+          ...mapActionsToProps(actionsForStore[state] as TActions),
         };
       };
     }
@@ -144,7 +146,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
       Map wrappedMapStateWithOwnProps(TStore state, TProps ownProps) {
         return {
           ...originalMapStateWithOwnProps(state, ownProps),
-          ...mapActionsToPropsWithOwnProps(_actionsForStore[state] as TActions, ownProps),
+          ...mapActionsToPropsWithOwnProps(actionsForStore[state] as TActions, ownProps),
         };
       }
       mapStateToPropsWithOwnProps = wrappedMapStateWithOwnProps;
@@ -154,7 +156,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
     if (case6) {
       mapStateToPropsWithOwnProps = (state, ownProps) {
         return {
-          ...mapActionsToPropsWithOwnProps(_actionsForStore[state] as TActions, ownProps),
+          ...mapActionsToPropsWithOwnProps(actionsForStore[state] as TActions, ownProps),
         };
       };
     }
@@ -167,7 +169,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
       mapStateToPropsWithOwnProps = (state, ownProps) {
         return {
           ...newMapStateToProps(state),
-          ...mapActionsToPropsWithOwnProps(_actionsForStore[state] as TActions, ownProps),
+          ...mapActionsToPropsWithOwnProps(actionsForStore[state] as TActions, ownProps),
         };
       };
 
@@ -182,7 +184,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
       Map wrappedMapStateToPropsWithOwnProps(TStore state, TProps ownProps) {
         return {
           ...originalMapStateWithOwnProps(state, ownProps),
-          ...mapActionsToProps(_actionsForStore[state] as TActions),
+          ...mapActionsToProps(actionsForStore[state] as TActions),
         };
       }
       mapStateToPropsWithOwnProps = wrappedMapStateToPropsWithOwnProps;
