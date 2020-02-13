@@ -257,11 +257,6 @@ mixin InfluxStoreMixin<S> on flux.Store {
   /// A wrapper around a pure Redux reducer that keeps the Flux UI up to date with
   /// store changes.
   void influxReducer(dynamic action) {
-    if (action is _FluxStoreUpdatedAction) return;
-
-    final oldState = this.state;
     this.state = reduxReducer(this.state, action);
-
-    if (oldState != this.state) this.trigger();
   }
 }

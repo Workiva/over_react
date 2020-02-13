@@ -50,7 +50,6 @@ class CounterState {
 }
 
 CounterState counterStateReducer(CounterState state, Object action) {
-
   if (action is IncrementAction) {
     return CounterState(count: state.count + (action?.value ?? 1));
   } else if (action is DecrementAction) {

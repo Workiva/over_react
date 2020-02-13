@@ -114,8 +114,6 @@ main() {
         });
 
         test('after triggered', () async {
-
-          print('just enetered');
           ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
               mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
               mapActionsToProps: (actions) => (ConnectFluxCounter()
@@ -360,7 +358,7 @@ main() {
             // Because `areStatesEqual` is false, we expect additional method calls
             expect(methodsCalled, ['mapStateToProps', 'mapStateToProps', 'areStatePropsEqual']);
             methodsCalled.clear();
-            print('cleared');
+
             var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
             click(dispatchButton);
 
