@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
 abstract class InstanceHasher {
-  static final Expando<Object> _hashForInstance = new Expando();
+  static final Expando<Object> _hashForInstance = Expando();
 
   const InstanceHasher();
 

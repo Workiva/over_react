@@ -1,12 +1,10 @@
 import 'package:over_react/over_react.dart';
-
-import 'package:test/test.dart';
-import '../../test_util/test_util.dart';
-
 import 'package:over_react/over_react_redux.dart';
+import 'package:test/test.dart';
 
 import '../../over_react_redux/fixtures/counter.dart';
 import '../../over_react_redux/fixtures/store.dart';
+import '../../test_util/test_util.dart';
 
 main() {
   group('composeHocs', () {
