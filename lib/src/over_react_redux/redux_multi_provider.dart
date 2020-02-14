@@ -31,23 +31,23 @@ class _$ReduxMultiProviderProps extends UiProps {
 /// import 'package:react/react_dom.dart' as react_dom;
 ///
 /// react_dom.render(
-//      // Note the use of the `ReduxMultiProvider` as opposed to a traditional
-//      // `ReduxProvider`, and that the stores being passed in are the
-//      // `FluxToReduxAdapterStore`s.
-//      (ReduxMultiProvider()
-//        ..storesByContext = {
-//          randomColorStoreContext: randomColorStoreAdapter,
-//          lowLevelStoreContext: lowLevelStoreAdapter,
-//          anotherColorStoreContext: anotherColorStoreAdapter,
-//        }
-//      )(
-//        // Note that when being wrapped with `connect`, these components can
-//        // each reference a context included in `storesByContext`.
-//        ConnectedConnectFluxBigBlock()(),
-//        ConnectedReduxBigBlock()(),
-//        ConnectedShouldNotUpdate()(),
-//      ),
-//      querySelector('#content'));
+///     // Note the use of the `ReduxMultiProvider` as opposed to a traditional
+///     // `ReduxProvider`, and that the stores being passed in are the
+///     // `FluxToReduxAdapterStore`s.
+///     (ReduxMultiProvider()
+///       ..storesByContext = {
+///         randomColorStoreContext: randomColorStoreAdapter,
+///         lowLevelStoreContext: lowLevelStoreAdapter,
+///         anotherColorStoreContext: anotherColorStoreAdapter,
+///       }
+///     )(
+///       // Note that when being wrapped with `connect`, these components can
+///       // each reference a context included in `storesByContext`.
+///       ConnectedConnectFluxBigBlock()(),
+///       ConnectedReduxBigBlock()(),
+///       ConnectedShouldNotUpdate()(),
+///     ),
+///     querySelector('#content'));
 /// ```
 @Component2()
 class ReduxMultiProviderComponent extends UiComponent2<ReduxMultiProviderProps> {
