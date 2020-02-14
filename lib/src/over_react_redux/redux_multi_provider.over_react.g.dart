@@ -24,11 +24,25 @@ abstract class _$ReduxMultiProviderPropsAccessorsMixin
   @override
   Map get props;
 
+  /// A `Map` of contexts that connected components within the component tree
+  /// can use to receive updates from specific stores.
+  ///
+  /// Each context and store instance should be unique. Referencing the context
+  /// in a connected component is exactly the same as it would with a standard
+  /// `ReduxProvider`.
+  ///
   /// <!-- Generated from [_$ReduxMultiProviderProps.storesByContext] -->
   @override
   Map<Context, Store> get storesByContext =>
       props[_$key__storesByContext___$ReduxMultiProviderProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// A `Map` of contexts that connected components within the component tree
+  /// can use to receive updates from specific stores.
+  ///
+  /// Each context and store instance should be unique. Referencing the context
+  /// in a connected component is exactly the same as it would with a standard
+  /// `ReduxProvider`.
+  ///
   /// <!-- Generated from [_$ReduxMultiProviderProps.storesByContext] -->
   @override
   set storesByContext(Map<Context, Store> value) =>

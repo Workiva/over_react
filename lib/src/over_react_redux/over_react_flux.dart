@@ -6,7 +6,7 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 import 'package:redux/redux.dart' as redux;
-import 'package:w_flux/w_flux_server.dart' as flux;
+import 'package:w_flux/w_flux.dart' as flux;
 
 import 'value_mutation_checker.dart';
 
@@ -47,7 +47,7 @@ class _FluxStoreUpdatedAction {}
 /// FluxToReduxAdapterStore adapterStore = FluxToReduxAdapterStore(fluxStoreWithInfluxMixin, exampleActions);
 /// ```
 ///
-/// > Related: [InfluxStoreMixin].
+/// > Related: [InfluxStoreMixin]
 class FluxToReduxAdapterStore<S extends InfluxStoreMixin, V> extends redux.Store<S> {
   final S store;
 
@@ -64,6 +64,7 @@ class FluxToReduxAdapterStore<S extends InfluxStoreMixin, V> extends redux.Store
   ) {
     _storeListener = store.listen((_) {
       store.triggerReduxUpdateFromFlux(dispatch);
+//      dispatch(_FluxStoreUpdatedAction());
     });
 
     actionsForStore[store] = actions;
@@ -409,7 +410,6 @@ bool _shallowMapEquality(Map a, Map b) => const MapEquality().equals(a, b);
 ///
 ///   return oldState;
 /// }
-///
 /// ```
 mixin InfluxStoreMixin<S> on flux.Store {
   /// A traditional Redux reducer function that should return a new instance of
@@ -431,7 +431,8 @@ mixin InfluxStoreMixin<S> on flux.Store {
   /// This is only to be used from within the [FluxToReduxAdapterStore] to control
   /// when Redux needs to receive an update to keep it in sync with Flux.
   void triggerReduxUpdateFromFlux(Dispatcher dispatcher) {
-    if (_isReduxInSync) {
+    // state can be null if `ConnectableFluxStore` is being used.
+    if (_isReduxInSync && state != null) {
       _isReduxInSync = false;
       return;
     }
@@ -450,6 +451,62 @@ mixin InfluxStoreMixin<S> on flux.Store {
     final oldState = this.state;
     this.state = reduxReducer(this.state, action);
 
+    // If Redux has mutated the store, we need to keep Flux in sync
     if (oldState != this.state) this.trigger();
   }
+}
+
+/// A class that can be used to make a [flux.Store] compatible with [connectFlux]
+/// without adding the Redux implementation.
+///
+/// The store should still be wrapped with an adapter store, with [Null] being
+/// the generic for the Redux state class. Then the usage is the same as [connectFlux]
+/// with a standard [FluxToReduxAdapterStore].
+///
+/// __Note:__ Naturally because this adapter store does not have a real Redux reducer,
+/// a `connected` component cannot trigger actions. If the library in the position to
+/// have Redux components, this class should not be used and the Redux boilerplate
+/// should be added. If needed, however, a `connect`ed component can receive updates from
+/// this implementation (just not trigger them).
+///
+/// __Example:__
+///
+/// ```dart
+/// import 'package:w_flux/w_flux.dart' as flux;
+///
+/// class ExampleFluxStore extends ConnectableFluxStore {
+///   FluxActions _actions
+///
+///   String _valueFromState = 'Default Value';
+///   String get valueFromState => _valueFromState;
+///
+///   ExampleFluxStore(this._actions) {
+///     state = ReduxState('default state');
+///
+///     triggerOnActionV2(_actions.fluxAction, _mutateValueFromState);
+///
+///     void _mutateValueFromState(String newValue) {
+///       _valueFromState = newValue;
+///     }
+///   }
+/// }
+///
+/// class FluxActions {
+///   final flux.Action<String> changeBackgroundColor = flux.Action();
+/// }
+///
+/// FluxActions actions = FluxActions();
+/// ExampleFluxStore store = ExampleFluxStore(actions);
+///
+/// FluxToReduxAdapterStore adapterStore = FluxToReduxAdapterStore<ExampleFluxStore, Null>(store, actions);
+/// ```
+///
+/// Related: [connectFlux], [FluxToReduxAdapterStore]
+abstract class ConnectableFluxStore extends flux.Store with InfluxStoreMixin<Null> {
+  @override
+  get reduxReducer => _noOpReducer;
+}
+
+Null _noOpReducer(Null oldState, dynamic action) {
+  return oldState;
 }
