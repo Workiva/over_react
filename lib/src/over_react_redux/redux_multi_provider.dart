@@ -12,9 +12,43 @@ UiFactory<ReduxMultiProviderProps> ReduxMultiProvider =
 
 @Props()
 class _$ReduxMultiProviderProps extends UiProps {
+
+  /// A `Map` of contexts that connected components within the component tree
+  /// can use to receive updates from specific stores.
+  ///
+  /// Each context and store instance should be unique. Referencing the context
+  /// in a connected component is exactly the same as it would with a standard
+  /// `ReduxProvider`.
   Map<Context, Store> storesByContext;
 }
 
+/// An HOC that can be used to wrap a component tree with multiple `ReduxProvider`s
+/// without manually nesting providers manually.
+///
+/// __Example:__
+///
+/// ```dart
+/// import 'package:react/react_dom.dart' as react_dom;
+///
+/// react_dom.render(
+//      // Note the use of the `ReduxMultiProvider` as opposed to a traditional
+//      // `ReduxProvider`, and that the stores being passed in are the
+//      // `FluxToReduxAdapterStore`s.
+//      (ReduxMultiProvider()
+//        ..storesByContext = {
+//          randomColorStoreContext: randomColorStoreAdapter,
+//          lowLevelStoreContext: lowLevelStoreAdapter,
+//          anotherColorStoreContext: anotherColorStoreAdapter,
+//        }
+//      )(
+//        // Note that when being wrapped with `connect`, these components can
+//        // each reference a context included in `storesByContext`.
+//        ConnectedConnectFluxBigBlock()(),
+//        ConnectedReduxBigBlock()(),
+//        ConnectedShouldNotUpdate()(),
+//      ),
+//      querySelector('#content'));
+/// ```
 @Component2()
 class ReduxMultiProviderComponent extends UiComponent2<ReduxMultiProviderProps> {
   @override
