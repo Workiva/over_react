@@ -22,9 +22,32 @@ abstract class _$ConnectFluxPropsMixin<TActions> implements UiProps {
   TActions actions;
 }
 
+/// The action used to keep Redux in sync with Flux when using a [FluxToReduxAdapterStore].
 class _FluxStoreUpdatedAction {}
 
 /// Adapts a Flux store to the interface of a Redux store.
+///
+/// When using an Influx architecture, this store allows Redux, Flux, and [connectFlux]
+/// components to stay in sync with each other.
+///
+/// __Example:__
+///
+/// ```dart
+/// // Declare Flux actions as normal.
+/// FluxActions exampleActions = FluxActions();
+///
+/// // Declare a Flux store as normal. Though, the Flux store should be implementing
+/// // an `InfluxStoreMixin`.
+/// FluxStore fluxStoreWithInfluxMixin = FluxStore();
+///
+/// // Wrap them in the adapter store.
+/// //
+/// // Redux and `connectFlux` components should reference this store directly,
+/// // whereas Flux components can reference the `fluxStoreWithInfluxMixin` instance.
+/// FluxToReduxAdapterStore adapterStore = FluxToReduxAdapterStore(fluxStoreWithInfluxMixin, exampleActions);
+/// ```
+///
+/// > Related: [InfluxStoreMixin].
 class FluxToReduxAdapterStore<S extends InfluxStoreMixin, V> extends redux.Store<S> {
   final S store;
 
@@ -53,9 +76,105 @@ class FluxToReduxAdapterStore<S extends InfluxStoreMixin, V> extends redux.Store
   }
 }
 
+/// A cache of the different Flux stores attached to [FluxToReduxAdapterStore]s
+/// and their corresponding actions.
 @visibleForTesting
 final Expando<dynamic> actionsForStore = Expando();
 
+/// A wrapper around the  `connect` function that provides an API similar
+/// to `connect`.
+///
+/// This is primarily for use while transitioning _to_ `connect` and OverReact Redux.
+///
+/// __NOTE:__ Unlike `connect`, there is no `areStatesEqual` parameter because the state
+/// update process is impure.
+///
+/// __Example:__
+/// ```dart
+///     UiFactory<CounterProps> ConnectedCounter = connectFlux<FluxStore, FluxActions, CounterProps>(
+///         mapStateToProps: (state) => (
+///           Counter()..count = state.count
+///         ),
+///         mapActionsToProps: (actions) => (
+///           Counter()..increment = actions.incrementAction)
+///         ),
+///     )(Counter);
+/// ```
+///
+/// - [mapStateToProps] is used for selecting the part of the data from the store that the connected
+///  component needs.
+///  - It is called every time the store state changes.
+///  - It receives the entire store state, and should return an object of data this component needs.
+/// If you need access to the props provided to the connected component you can use [mapStateToPropsWithOwnProps],
+/// the second argument will be `ownProps`.
+/// See: <https://react-redux.js.org/using-react-redux/connect-mapstate#defining-mapstatetoprops>
+///
+/// - [mapActionsToProps] is a way to connect local component props to actions that are part of the
+///  provided actions class.
+///
+/// Unlike `mapDispatchToProps` with `connect`, [mapActionsToProps] will be called whenever the store state
+/// changes.
+///
+/// In practice, the most common usage is to set the relevant component action props directly by setting
+/// them equal to the corresponding action within the action class. If you need access to the props provided
+/// to the connected component you can use [mapActionsToPropsWithOwnProps], the second argument will be `ownProps`.
+///
+/// - [mergeProps] if specified, defines how the final props for the wrapped component are determined.
+/// If you do not provide [mergeProps], the wrapped component receives {...ownProps, ...stateProps, ...dispatchProps}
+/// by default.
+///
+/// - [areOwnPropsEqual] does a shallow Map equality check by default.
+/// - [areStatePropsEqual] does a shallow Map equality check by default.
+/// - [areMergedPropsEqual] does a shallow Map equality check by default.
+///
+/// - [context] can be utilized to provide a custom context object created with `createContext`.
+/// [context] is how you can utilize multiple stores. While supported, this is not recommended. :P
+/// See: <https://redux.js.org/api/store#a-note-for-flux-users>
+/// See: <https://stackoverflow.com/questions/33619775/redux-multiple-stores-why-not>
+///
+/// __Example:__
+/// ```dart
+///     Store store1 = new Store<CounterState>(counterStateReducer, initialState: new CounterState(count: 0));
+///     Store store2 = new Store<BigCounterState>(bigCounterStateReducer, initialState: new BigCounterState(bigCount: 100));
+///
+///     UiFactory<CounterProps> ConnectedCounter = connectFlux<SmallCounterFluxStore, FluxActions, CounterProps>(
+///       mapStateToProps: (state) => (Counter()..count = state.count)
+///     )(Counter);
+///
+///     UiFactory<CounterProps> ConnectedBigCounter = connect<BigCounterFluxStore, FluxActions, CounterProps>(
+///       mapStateToProps: (state) => (Counter()..count = state.bigCount),
+///       context: bigCounterContext,
+///     )(Counter);
+///
+///     react_dom.render(
+///       Dom.div()(
+///         (ReduxProvider()..store = store1)(
+///           (ReduxProvider()
+///             ..store = store2
+///             ..context = bigCounterContext
+///           )(
+///             Dom.div()(
+///               Dom.h3()('ConnectedBigCounter Store2'),
+///               ConnectedBigCounter()(
+///                 Dom.h4()('ConnectedCounter Store1'),
+///                 ConnectedCounter()(),
+///               ),
+///             ),
+///           ),
+///         ),
+///       ), querySelector('#content')
+///     );
+/// ```
+///
+/// - [pure] if `true` (default), connect performs several equality checks that are used to avoid unnecessary
+/// calls to [mapStateToProps], [mapActionsToProps], [mergeProps], and ultimately to `render`. These include
+/// [areOwnPropsEqual], [areStatePropsEqual], and [areMergedPropsEqual].
+/// While the defaults are probably appropriate 99% of the time, you may wish to override them with custom
+/// implementations for performance or other reasons.
+///
+/// - [forwardRef] if `true`, the `ref` prop provided to the connected component will be return the wrapped component.
+///
+/// For more info see the <https://github.com/Workiva/over_react/blob/master/doc/flux_to_redux.md>.
 UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.Store, TActions, TProps extends UiProps>({
   Map Function(TStore state) mapStateToProps,
   Map Function(TStore state, TProps ownProps) mapStateToPropsWithOwnProps,
@@ -242,7 +361,56 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
 
 bool _shallowMapEquality(Map a, Map b) => const MapEquality().equals(a, b);
 
-/// A mixin that adds the fields necessary to make a Flux store compatible with Influx.
+/// A mixin that adds the fields necessary to make a Flux store compatible with the
+/// Influx architecture.
+///
+/// The mixin enforces the pattern necessary for an Influx architecture by adding
+/// the `influxReducer` and `triggerReduxUpdateFromFlux`, while also exposing the
+/// `state` field that backed by a Redux state class. To make the store compatible
+/// with Redux, the Flux store using the [InfluxStoreMixin] should be wrapped
+/// with a [FluxToReduxAdapterStore].
+///
+/// __Example:__
+///
+/// ```dart
+/// import 'package:w_flux/w_flux_server.dart' as flux;
+///
+/// class ExampleFluxStore extends flux.Store with InfluxStoreMixin<ReduxState> {
+///   FluxActions _actions
+///
+///   @override
+///   get reduxReducer => exampleReducer;
+///
+///   String get valueFromState => state.valueFromState;
+///
+///   ExampleFluxStore(this._actions) {
+///     state = ReduxState('default state');
+///
+///     triggerOnActionV2(_actions.fluxAction,
+///         () => this.influxReducer(ReduxAction('New Value')));
+///   }
+///
+/// }
+///
+/// class ReduxAction {
+///   String value;
+///
+///   ReduxAction(this.value);
+/// }
+///
+/// class ReduxState {
+///   String valueFromState;
+///
+///   ReduxState(this.valueFromState);
+/// }
+///
+/// ReduxState exampleReducer(ReduxState oldState, Object action) {
+///   if (action is ReduxAction) return ReduxState(action.value);
+///
+///   return oldState;
+/// }
+///
+/// ```
 mixin InfluxStoreMixin<S> on flux.Store {
   /// A traditional Redux reducer function that should return a new instance of
   /// the corresponding state class.
@@ -254,11 +422,17 @@ mixin InfluxStoreMixin<S> on flux.Store {
   /// An instance of the Redux state model that the Flux store is migrating to.
   S state;
 
-  bool _blockNextReduxDispatch = false;
+  /// A field to track if Flux has already tried to update Redux.
+  bool _isReduxInSync = false;
 
+  /// Checks to see if the Redux store needs to be updated and triggers an action
+  /// if so.
+  ///
+  /// This is only to be used from within the [FluxToReduxAdapterStore] to control
+  /// when Redux needs to receive an update to keep it in sync with Flux.
   void triggerReduxUpdateFromFlux(Dispatcher dispatcher) {
-    if (_blockNextReduxDispatch) {
-      _blockNextReduxDispatch = false;
+    if (_isReduxInSync) {
+      _isReduxInSync = false;
       return;
     }
 
@@ -269,7 +443,7 @@ mixin InfluxStoreMixin<S> on flux.Store {
   /// store changes.
   void influxReducer(dynamic action) {
     if (action is _FluxStoreUpdatedAction) {
-      _blockNextReduxDispatch = true;
+      _isReduxInSync = true;
       return;
     }
 
