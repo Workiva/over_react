@@ -20,7 +20,9 @@ import 'package:test/test.dart';
 import '../test_util/test_util.dart';
 import './fixtures/connect_flux_counter.dart';
 import './fixtures/connect_flux_store.dart';
+import 'fixtures/counter.dart';
 import 'fixtures/redux_actions.dart';
+import './fixtures/store.dart' as redux_store;
 
 // ignore_for_file: avoid_types_on_closure_parameters
 
@@ -331,27 +333,16 @@ main() {
         });
 
         group('areStatePropsEqual', (){
-          test('', () async {
-            List<String> methodsCalled = [];
-            ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
-              mapStateToProps: (state) {
-                methodsCalled.add('mapStateToProps');
-                return ConnectFluxCounter()..currentCount = state.count;
-              },
-              mapActionsToProps: (actions) => (ConnectFluxCounter()..increment = actions.incrementAction),
-              areStatePropsEqual: (next, prev) {
-                expect(next, isA<ConnectFluxCounterProps>());
-                expect(prev, isA<ConnectFluxCounterProps>());
-                methodsCalled.add('areStatePropsEqual');
-                // Force it to always be true, meaning it shouldn't re-render if they change.
-                return true;
-              },
-              forwardRef: true,
-            )(ConnectFluxCounter);
+          List<String> methodsCalled;
 
+          setUp(() {
+            methodsCalled = [];
+          });
+
+          Future testLifecyleCalls(UiFactory connectedFactory, {bool useReduxStore = false}) async {
             jacket = mount(
-              (ReduxProvider()..store = store1)(
-                (ConnectedCounter()..ref = counterRef..currentCount = 0)('test'),
+              (ReduxProvider()..store = useReduxStore ? redux_store.store1 : store1)(
+                (connectedFactory())('test'),
               ),
             );
 
@@ -372,7 +363,48 @@ main() {
               'mapStateToProps',
               'areStatePropsEqual'
             ]);
+
             expect(jacket.mountNode.innerHtml, contains('Count: 0'));
+          }
+
+          test('', () async {
+            ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
+              mapStateToProps: (state) {
+                methodsCalled.add('mapStateToProps');
+                return ConnectFluxCounter()..currentCount = state.count;
+              },
+              mapActionsToProps: (actions) => (ConnectFluxCounter()..increment = actions.incrementAction),
+              areStatePropsEqual: (next, prev) {
+                expect(next, isA<ConnectFluxCounterProps>());
+                expect(prev, isA<ConnectFluxCounterProps>());
+                methodsCalled.add('areStatePropsEqual');
+                // Force it to always be true, meaning it shouldn't re-render if they change.
+                return true;
+              },
+              forwardRef: true,
+            )(ConnectFluxCounter);
+
+            await testLifecyleCalls(ConnectedCounter);
+          });
+
+          test('matches a standard Redux component when `areStatesEqual` is false', () async {
+            final ReduxConnectedCounter = connect<redux_store.CounterState, CounterProps>(
+              mapStateToProps: (state) {
+                methodsCalled.add('mapStateToProps');
+                return ConnectFluxCounter()..currentCount = state.count;
+              },
+              areStatePropsEqual: (next, prev) {
+                expect(next, isA<CounterProps>());
+                expect(prev, isA<CounterProps>());
+                methodsCalled.add('areStatePropsEqual');
+                // Force it to always be true, meaning it shouldn't re-render if they change.
+                return true;
+              },
+              forwardRef: true,
+              areStatesEqual: (_, __) => false,
+            )(Counter);
+
+            await testLifecyleCalls(ReduxConnectedCounter, useReduxStore: true);
           });
         });
 
