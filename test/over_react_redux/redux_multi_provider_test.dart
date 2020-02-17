@@ -38,9 +38,8 @@ main() {
 
   group('ReduxMultiProvider', () {
     test('creates a provider for every store', () async {
-      final Context1ConnectedFluxComponent = connectFlux<FluxStore,
-          FluxActions,
-          ConnectFluxCounterProps>(
+      final Context1ConnectedFluxComponent =
+          connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
         mapStateToProps: (state) =>
             (ConnectFluxCounter()..currentCount = state.count),
         mapActionsToProps: (actions) =>
@@ -48,35 +47,39 @@ main() {
         context: context1,
       )(ConnectFluxCounter);
 
-      final Context2ConnectedFluxComponent = connectFlux<FluxStore2,
-          FluxActions,
-          ConnectFluxCounterProps>(
-        mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
-        mapActionsToProps: (actions) => (ConnectFluxCounter()..increment = actions.incrementAction),
+      final Context2ConnectedFluxComponent =
+          connectFlux<FluxStore2, FluxActions, ConnectFluxCounterProps>(
+        mapStateToProps: (state) =>
+            (ConnectFluxCounter()..currentCount = state.count),
+        mapActionsToProps: (actions) =>
+            (ConnectFluxCounter()..increment = actions.incrementAction),
         context: context2,
       )(ConnectFluxCounter);
 
-      final Context3ConnectedFluxComponent = connectFlux<FluxStore,
-          FluxActions,
-          ConnectFluxCounterProps>(
-        mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
-        mapActionsToProps: (actions) => (ConnectFluxCounter()..increment = actions.incrementAction),
+      final Context3ConnectedFluxComponent =
+          connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
+        mapStateToProps: (state) =>
+            (ConnectFluxCounter()..currentCount = state.count),
+        mapActionsToProps: (actions) =>
+            (ConnectFluxCounter()..increment = actions.incrementAction),
         context: context3,
       )(ConnectFluxCounter);
 
-      final jacket = mount(Dom.div()(
-        (ReduxMultiProvider()
-          ..storesByContext = {
-            context1: store1,
-            context2: store2,
-            context3: store3,
-          }
-        )(
-          (Context1ConnectedFluxComponent()..addTestId('context1'))(),
-          (Context2ConnectedFluxComponent()..addTestId('context2'))(),
-          (Context3ConnectedFluxComponent()..addTestId('context3'))(),
-        )
-      ), attachedToDocument: true);
+      final jacket = mount(
+          Dom.div()(
+            (ReduxMultiProvider()
+              ..storesByContext = {
+                context1: store1,
+                context2: store2,
+                context3: store3,
+              }
+            )(
+              (Context1ConnectedFluxComponent()..addTestId('context1'))(),
+              (Context2ConnectedFluxComponent()..addTestId('context2'))(),
+              (Context3ConnectedFluxComponent()..addTestId('context3'))(),
+            ),
+          ),
+          attachedToDocument: true);
 
       final context1Counter = queryByTestId(jacket.mountNode, 'context1');
       final context2Counter = queryByTestId(jacket.mountNode, 'context2');
@@ -94,10 +97,12 @@ main() {
       click(context3Button);
       click(context3Button);
       click(context3Button);
-      await Future((){});
+      await Future(() {});
 
       expect(findDomNode(context1Counter).innerHtml, contains('Count: 1'));
-      expect(findDomNode(context2Counter).innerHtml, contains('Count: 200'), reason: 'Two clicks each incrementing 100 (since it is the "big counter").');
+      expect(findDomNode(context2Counter).innerHtml, contains('Count: 200'),
+          reason:
+              'Two clicks each incrementing 100 (since it is the "big counter").');
       expect(findDomNode(context3Counter).innerHtml, contains('Count: 3'));
     });
   });
@@ -109,4 +114,5 @@ class ReduxState {
   ReduxState(this.field);
 }
 
-ReduxState reducer(ReduxState oldState, dynamic action) => ReduxState(action.field ?? oldState.field);
+ReduxState reducer(ReduxState oldState, dynamic action) =>
+    ReduxState(action.field ?? oldState.field);

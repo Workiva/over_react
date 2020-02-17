@@ -93,7 +93,8 @@ void sharedHashTests({bool useLengthHasher}) {
   InstanceHasher hasher;
 
   setUp(() {
-    hasher = useLengthHasher ? CollectionLengthHasher : CollectionShallowHasher();
+    hasher =
+        useLengthHasher ? CollectionLengthHasher : CollectionShallowHasher();
   });
 
   group('canHash returns', () {
@@ -115,8 +116,9 @@ void sharedHashTests({bool useLengthHasher}) {
     });
   });
 
-  test('hash throws an argument error if the value is not an iterable or a map', () {
-      expect(() => hasher.hash(0), throwsArgumentError);
+  test('hash throws an argument error if the value is not an iterable or a map',
+      () {
+    expect(() => hasher.hash(0), throwsArgumentError);
   });
 
   group('hashHasChanged', () {

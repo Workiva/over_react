@@ -10,17 +10,17 @@ class Action {
 }
 
 class IncrementAction extends Action {
-  IncrementAction([value]):super(type: 'INCREMENT', value:value);
+  IncrementAction([value]) : super(type: 'INCREMENT', value: value);
 }
 
 class DecrementAction extends Action {
-  DecrementAction([value]):super(type: 'DECREMENT', value:value);
+  DecrementAction([value]) : super(type: 'DECREMENT', value: value);
 }
 
 class ResetAction extends Action {
-  ResetAction():super(type: 'RESET');
+  ResetAction() : super(type: 'RESET');
 }
 
 class MutateStoreDirectlyAction extends Action {
-  MutateStoreDirectlyAction():super(type: 'RESET_STORE_DIRECTLY');
+  MutateStoreDirectlyAction() : super(type: 'RESET_STORE_DIRECTLY');
 }

@@ -40,34 +40,25 @@ main() {
     group('FluxToReduxAdapterStore', () {
       group('can receive both Flux and Redux updates', () {
         test('with the counter component using the `dispatch` prop', () async {
-          final ConnectedFluxComponent = connectFlux<FluxStore,
-              FluxActions,
-              ConnectFluxCounterProps>(
+          final ConnectedFluxComponent =
+              connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
             mapStateToProps: (state) =>
-            (ConnectFluxCounter()
-              ..currentCount = state.count),
+                (ConnectFluxCounter()..currentCount = state.count),
           )(ConnectFluxCounter);
 
           final ConnectedReduxComponent = connect<FluxStore, CounterProps>(
-            mapStateToProps: (state) =>
-            (Counter()
-              ..currentCount = state.count),
+            mapStateToProps: (state) => (Counter()..currentCount = state.count),
             pure: false,
           )(Counter);
 
-          final jacket = mount(
-              (ReduxProvider()
-                ..store = store1)(
-                (ConnectedFluxComponent()
-                  ..addTestId('flux-component'))(),
-                (ConnectedReduxComponent()
-                  ..addTestId('redux-component'))(),
-              )
-          );
+          final jacket = mount((ReduxProvider()..store = store1)(
+            (ConnectedFluxComponent()..addTestId('flux-component'))(),
+            (ConnectedReduxComponent()..addTestId('redux-component'))(),
+          ));
 
           final fluxCounter = queryByTestId(jacket.mountNode, 'flux-component');
-          final reduxCounter = queryByTestId(
-              jacket.mountNode, 'redux-component');
+          final reduxCounter =
+              queryByTestId(jacket.mountNode, 'redux-component');
 
           final fluxButton = queryByTestId(fluxCounter, 'button-increment');
           final reduxButton = queryByTestId(reduxCounter, 'button-increment');
@@ -92,42 +83,32 @@ main() {
         });
 
         test(
-            'with the components using `mapDispatchToProps` and `mapActionsToProps`', () async {
-          final ConnectedFluxComponent = connectFlux<FluxStore,
-              FluxActions,
-              ConnectFluxCounterProps>(
+            'with the components using `mapDispatchToProps` and `mapActionsToProps`',
+            () async {
+          final ConnectedFluxComponent =
+              connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
             mapStateToProps: (state) =>
-            (ConnectFluxCounter()
-              ..currentCount = state.count),
-            mapActionsToProps: (actions) =>
-            (ConnectFluxCounter()
+                (ConnectFluxCounter()..currentCount = state.count),
+            mapActionsToProps: (actions) => (ConnectFluxCounter()
               ..increment = actions.incrementAction
               ..decrement = actions.decrementAction),
           )(ConnectFluxCounter);
 
           final ConnectedReduxComponent = connect<FluxStore, CounterProps>(
-            mapStateToProps: (state) =>
-            (Counter()
-              ..currentCount = state.count),
+            mapStateToProps: (state) => (Counter()..currentCount = state.count),
             mapDispatchToProps: (dispatch) =>
-            (Counter()
-              ..increment = () => dispatch(IncrementAction())),
+                (Counter()..increment = () => dispatch(IncrementAction())),
             pure: false,
           )(Counter);
 
-          final jacket = mount(
-              (ReduxProvider()
-                ..store = store1)(
-                (ConnectedFluxComponent()
-                  ..addTestId('flux-component'))(),
-                (ConnectedReduxComponent()
-                  ..addTestId('redux-component'))(),
-              )
-          );
+          final jacket = mount((ReduxProvider()..store = store1)(
+            (ConnectedFluxComponent()..addTestId('flux-component'))(),
+            (ConnectedReduxComponent()..addTestId('redux-component'))(),
+          ));
 
           final fluxCounter = queryByTestId(jacket.mountNode, 'flux-component');
-          final reduxCounter = queryByTestId(
-              jacket.mountNode, 'redux-component');
+          final reduxCounter =
+              queryByTestId(jacket.mountNode, 'redux-component');
 
           final fluxButton = queryByTestId(fluxCounter, 'button-increment');
           final reduxButton = queryByTestId(reduxCounter, 'button-increment');
@@ -153,36 +134,25 @@ main() {
       });
 
       test('will not update Redux unless the component is impure', () async {
-        final ConnectedFluxComponent = connectFlux<FluxStore,
-            FluxActions,
-            ConnectFluxCounterProps>(
+        final ConnectedFluxComponent =
+            connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
           mapStateToProps: (state) =>
-          (ConnectFluxCounter()
-            ..currentCount = state.count),
-          mapActionsToProps: (actions) =>
-          (ConnectFluxCounter()
+              (ConnectFluxCounter()..currentCount = state.count),
+          mapActionsToProps: (actions) => (ConnectFluxCounter()
             ..increment = actions.incrementAction
             ..decrement = actions.decrementAction),
         )(ConnectFluxCounter);
 
         final ConnectedReduxComponent = connect<FluxStore, CounterProps>(
-          mapStateToProps: (state) =>
-          (Counter()
-            ..currentCount = state.count),
+          mapStateToProps: (state) => (Counter()..currentCount = state.count),
           mapDispatchToProps: (dispatch) =>
-          (Counter()
-            ..increment = () => dispatch(IncrementAction())),
+              (Counter()..increment = () => dispatch(IncrementAction())),
         )(Counter);
 
-        final jacket = mount(
-            (ReduxProvider()
-              ..store = store1)(
-              (ConnectedFluxComponent()
-                ..addTestId('flux-component'))(),
-              (ConnectedReduxComponent()
-                ..addTestId('redux-component'))(),
-            )
-        );
+        final jacket = mount((ReduxProvider()..store = store1)(
+          (ConnectedFluxComponent()..addTestId('flux-component'))(),
+          (ConnectedReduxComponent()..addTestId('redux-component'))(),
+        ));
 
         final fluxCounter = queryByTestId(jacket.mountNode, 'flux-component');
         final reduxCounter = queryByTestId(jacket.mountNode, 'redux-component');
@@ -216,9 +186,11 @@ main() {
 
         // Unused, but required to set up the actions
         // ignore: unused_local_variable
-        final tempAdapterStore = FluxToReduxAdapterStore(tempFluxStore, tempActions);
+        final tempAdapterStore =
+            FluxToReduxAdapterStore(tempFluxStore, tempActions);
         // ignore: unused_local_variable
-        final tempAdapterStore2 = FluxToReduxAdapterStore(tempFluxStore2, tempActions);
+        final tempAdapterStore2 =
+            FluxToReduxAdapterStore(tempFluxStore2, tempActions);
 
         expect(actionsForStore[tempFluxStore], tempActions);
         expect(actionsForStore[tempFluxStore2], tempActions);
@@ -247,43 +219,34 @@ main() {
 
       setUp(() {
         ConnectedFluxComponent = connectFlux<TestConnectableFluxStore,
-            FluxActions,
-            ConnectFluxCounterProps>(
+            FluxActions, ConnectFluxCounterProps>(
           mapStateToProps: (state) =>
-              (ConnectFluxCounter()
-                ..currentCount = state.count),
-          mapActionsToProps: (actions) =>
-              (ConnectFluxCounter()
-                ..increment = actions.incrementAction
-                ..decrement = actions.decrementAction),
+              (ConnectFluxCounter()..currentCount = state.count),
+          mapActionsToProps: (actions) => (ConnectFluxCounter()
+            ..increment = actions.incrementAction
+            ..decrement = actions.decrementAction),
         )(ConnectFluxCounter);
 
-        ConnectedReduxComponent = connect<TestConnectableFluxStore, CounterProps>(
-          mapStateToProps: (state) =>
-              (Counter()
-                ..currentCount = state.count),
+        ConnectedReduxComponent =
+            connect<TestConnectableFluxStore, CounterProps>(
+          mapStateToProps: (state) => (Counter()..currentCount = state.count),
           mapDispatchToProps: (dispatch) =>
-              (Counter()
-                ..increment = () => dispatch(IncrementAction())),
+              (Counter()..increment = () => dispatch(IncrementAction())),
           pure: false,
         )(Counter);
 
-        jacket = mount(
-            (ReduxProvider()
-              ..store = connectableFluxAdaptedStore)(
-              (ConnectedFluxComponent()
-                ..addTestId('connect-flux-component'))(),
-              (ConnectedReduxComponent()
-                ..addTestId('redux-component'))(),
-              (FluxCounter()
-                ..store = connectableFluxStore
-                ..actions = connectableStoreActions
-                ..addTestId('flux-component')
-              )(),
-            )
-        );
+        jacket = mount((ReduxProvider()..store = connectableFluxAdaptedStore)(
+          (ConnectedFluxComponent()..addTestId('connect-flux-component'))(),
+          (ConnectedReduxComponent()..addTestId('redux-component'))(),
+          (FluxCounter()
+            ..store = connectableFluxStore
+            ..actions = connectableStoreActions
+            ..addTestId('flux-component')
+          )(),
+        ));
 
-        connectFluxCounter = queryByTestId(jacket.mountNode, 'connect-flux-component');
+        connectFluxCounter =
+            queryByTestId(jacket.mountNode, 'connect-flux-component');
         reduxCounter = queryByTestId(jacket.mountNode, 'redux-component');
         fluxCounter = queryByTestId(jacket.mountNode, 'flux-component');
         containerList = [connectFluxCounter, fluxCounter, reduxCounter];
@@ -296,7 +259,8 @@ main() {
         connectableFluxStore.trigger();
       });
 
-      test('will keep Flux, Redux, and connectFlux components all in sync', () async {
+      test('will keep Flux, Redux, and connectFlux components all in sync',
+          () async {
         final fluxButton = queryByTestId(fluxCounter, 'button-increment');
 
         click(fluxButton);
@@ -307,7 +271,8 @@ main() {
 
       test('can be updated by connectFlux or Flux', () async {
         final fluxButton = queryByTestId(fluxCounter, 'button-increment');
-        final connectFluxButton = queryByTestId(connectFluxCounter, 'button-increment');
+        final connectFluxButton =
+            queryByTestId(connectFluxCounter, 'button-increment');
 
         click(fluxButton);
         await waitForUpdate();

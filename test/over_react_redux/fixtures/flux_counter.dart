@@ -8,29 +8,28 @@ part 'flux_counter.over_react.g.dart';
 UiFactory<FluxCounterProps> FluxCounter = _$FluxCounter;
 
 @Props()
-class _$FluxCounterProps extends FluxUiProps<FluxActions, TestConnectableFluxStore> {}
+class _$FluxCounterProps
+    extends FluxUiProps<FluxActions, TestConnectableFluxStore> {}
 
 @Component2()
 class FluxCounterComponent extends FluxUiComponent2<FluxCounterProps> {
   @override
   render() {
-    return (Dom.div()
-      ..modifyProps(addUnconsumedProps)
-    )(
-        Dom.div()('Count: ${props.store.count}'),
-        (Dom.button()
-          ..addTestId('button-increment')
-          ..onClick = (_) {
-            props.actions.incrementAction();
-          }
-        )('+'),
-        (Dom.button()
-          ..addTestId('button-decrement')
-          ..onClick = (_) {
-            props.actions.decrementAction();
-          }
-        )('-'),
-        props.children
+    return (Dom.div()..modifyProps(addUnconsumedProps))(
+      Dom.div()('Count: ${props.store.count}'),
+      (Dom.button()
+        ..addTestId('button-increment')
+        ..onClick = (_) {
+          props.actions.incrementAction();
+        }
+      )('+'),
+      (Dom.button()
+        ..addTestId('button-decrement')
+        ..onClick = (_) {
+          props.actions.decrementAction();
+        }
+      )('-'),
+      props.children,
     );
   }
 }
