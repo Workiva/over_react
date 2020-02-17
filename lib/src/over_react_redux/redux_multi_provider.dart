@@ -26,7 +26,6 @@ class _$ReduxMultiProviderProps extends UiProps {
 /// without manually nesting providers manually.
 ///
 /// __Example:__
-///
 /// ```dart
 /// import 'package:react/react_dom.dart' as react_dom;
 ///

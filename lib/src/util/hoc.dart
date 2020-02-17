@@ -1,7 +1,7 @@
 
 /// Returns a single HOC instance from multiple of the same instance.
 ///
-/// When it is necessary to wrap a since `UiComponentFactory` in multiple HOCs,
+/// When it is necessary to wrap a `UiComponentFactory` in multiple HOCs,
 /// this can be used to declare those HOCs in a flat list, rather than nested with
 /// excessive indentation.
 ///
@@ -10,7 +10,7 @@
 ///
 /// __EXAMPLE:__
 /// ```dart
-/// UiFactory<ReduxBigBlockProps> ConnectedReduxBigBlock = composeHocs([
+/// UiFactory<ComponentProps> ConnectedReduxBigBlock = composeHocs([
 ///   connect<RandomColorStore, ReduxBigBlockProps>(
 ///     // `connect` implementation
 ///   ),
@@ -19,9 +19,8 @@
 ///   ),
 ///   connect<AnotherColorStore, ReduxBigBlockProps>(
 ///     // `connect` implementation
-///     // `connect` implementation
 ///   ),
-/// ])(ReduxBigBlock);
+/// ])(Component);
 /// ```
 R Function(A) composeHocs<R, A extends R>(Iterable<R Function(A)> functions) {
   return functions.reduce((a, b) => (result) => a(b(result)));

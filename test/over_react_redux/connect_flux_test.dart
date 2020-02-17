@@ -1,4 +1,4 @@
-// Copyright 2016 Workiva Inc.
+// Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,15 +18,14 @@ import 'package:over_react/over_react_redux.dart';
 import 'package:test/test.dart';
 
 import '../test_util/test_util.dart';
-import './fixtures/connect_flux_counter.dart';
-import './fixtures/connect_flux_store.dart';
+import 'fixtures/connect_flux_counter.dart';
+import 'fixtures/connect_flux_store.dart';
 import 'fixtures/counter.dart';
 import 'fixtures/redux_actions.dart';
-import './fixtures/store.dart' as redux_store;
+import 'fixtures/store.dart' as redux_store;
 
 // ignore_for_file: avoid_types_on_closure_parameters
 
-/// Main entry point for AbstractTransition testing
 main() {
   group('connectFlux', () {
     UiFactory<ConnectFluxCounterProps> ConnectedCounter;

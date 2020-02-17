@@ -120,6 +120,8 @@ FluxActions bigFluxActions = FluxActions();
 FluxStore2 bigFluxCounter = FluxStore2(bigFluxActions);
 FluxToReduxAdapterStore store2 = FluxToReduxAdapterStore(bigFluxCounter, bigFluxActions);
 
+/////////////////////////////// STORE 3 "AnotherFluxStore" ///////////////////////////////
+// Just created for testing context
 FluxActions anotherFluxActionsInstance = FluxActions();
 FluxStore anotherFluxStore = FluxStore(anotherFluxActionsInstance);
 FluxToReduxAdapterStore store3 = FluxToReduxAdapterStore(anotherFluxStore, anotherFluxActionsInstance);
