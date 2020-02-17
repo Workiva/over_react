@@ -212,19 +212,30 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
     final dartComponentFactory = factory().componentFactory;
     final dartComponentClass = dartComponentFactory.type;
 
+    final connectOptions = JsConnectOptions(
+      forwardRef: forwardRef,
+      pure: pure,
+      context: context?.jsThis ?? JsReactRedux.ReactReduxContext,
+    );
+    // These can't be null, so we conditionally define them.
+    if (areStatesEqual != null) {
+      connectOptions.areStatesEqual = allowInterop(handleAreStatesEqual);
+    }
+    if (areOwnPropsEqual != null) {
+      connectOptions.areOwnPropsEqual = allowInterop(handleAreOwnPropsEqual);
+    }
+    if (areStatePropsEqual != null) {
+      connectOptions.areStatePropsEqual = allowInterop(handleAreStatePropsEqual);
+    }
+    if (areMergedPropsEqual != null) {
+      connectOptions.areMergedPropsEqual = allowInterop(handleAreMergedPropsEqual);
+    }
+
     final hoc = mockableJsConnect(
       mapStateToProps != null ? allowInteropWithArgCount(handleMapStateToProps, 1) : mapStateToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapStateToPropsWithOwnProps, 2) : null,
       mapDispatchToProps != null ? allowInteropWithArgCount(handleMapDispatchToProps, 1) : mapDispatchToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapDispatchToPropsWithOwnProps, 2) : null,
       mergeProps != null ? allowInterop(handleMergeProps) : null,
-      JsConnectOptions(
-        areStatesEqual: areStatesEqual != null ? allowInterop(handleAreStatesEqual) : null,
-        areOwnPropsEqual: areOwnPropsEqual != null ? allowInterop(handleAreOwnPropsEqual) : null,
-        areStatePropsEqual: areStatePropsEqual != null ? allowInterop(handleAreStatePropsEqual) : null,
-        areMergedPropsEqual: areMergedPropsEqual != null ? allowInterop(handleAreMergedPropsEqual) : null,
-        forwardRef: forwardRef,
-        pure: pure,
-        context: context?.jsThis ?? JsReactRedux.ReactReduxContext,
-      ),
+      connectOptions,
     )(dartComponentClass);
 
     /// Use a Dart proxy instead of a JS one since we're treating it like a Dart component:
