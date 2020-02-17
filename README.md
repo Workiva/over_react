@@ -38,7 +38,7 @@
 [](#__START_EMBEDDED_README__)
 
 ## Docs
-To further document APIs that can be found in OverReact, the [doc](doc) folder was created. The documentation found in that directory includes:
+To further document APIs that can be found in OverReact, the [doc](doc) directory was created. The documentation found in that directory includes:
 - [BuiltRedux to Redux](doc/built_redux_to_redux.md): A guide to transitioning to OverReact Redux from BuiltRedux.
 - [Dart2 Migration](doc/dart2_migration.md): Documentation on the Dart 2 builder updates and how to transition componentry to Dart 2.
 - [Flux to Redux](doc/flux_to_redux.md): A guide to how to transition from w_flux to OverReact Redux. This guide also introducers a new architecture, Influx, that can be used for incrementally refactoring.
