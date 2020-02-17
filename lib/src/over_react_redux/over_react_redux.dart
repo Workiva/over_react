@@ -229,7 +229,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       ),
     )(dartComponentClass);
 
-    final hocJsFactoryProxy = ReactJsComponentFactoryProxy(hoc, shouldConvertDomProps: false, alwaysReturnChildrenAsList: true);
+    final hocJsFactoryProxy = ReactDartComponentFactoryProxy2(hoc);
 
     TProps connectedFactory([Map props]) {
       return (factory(props)..componentFactory = hocJsFactoryProxy);
