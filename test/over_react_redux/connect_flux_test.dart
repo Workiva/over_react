@@ -380,13 +380,6 @@ main() {
             'areStatePropsEqual',
           ];
 
-          const updateMethodCalls = [
-            'mapStateToProps',
-            'areStatePropsEqual',
-            'mapStateToProps',
-            'areStatePropsEqual'
-          ];
-
           setUp(() {
             methodsCalled = [];
           });
@@ -441,8 +434,10 @@ main() {
             await Future(() {});
 
             // store.state.count should be 1 but does not re-render due to override in `areStatePropsEqual`
-            expect(methodsCalled.map((methodObj) => methodObj['called']),
-                updateMethodCalls);
+            expect(methodsCalled.map((methodObj) => methodObj['called']), [
+              'mapStateToProps',
+              'areStatePropsEqual',
+            ]);
             for (final methodCall in methodsCalled) {
               if (methodCall['called'] == 'areStatePropsEqual') {
                 expect(methodCall['prev'], isA<ConnectFluxCounterProps>());
@@ -505,8 +500,12 @@ main() {
             await Future(() {});
 
             // store.state.count should be 1 but does not re-render due to override in `areStatePropsEqual`
-            expect(methodsCalled.map((methodObj) => methodObj['called']),
-                updateMethodCalls);
+            expect(methodsCalled.map((methodObj) => methodObj['called']), [
+              'mapStateToProps',
+              'areStatePropsEqual',
+              'mapStateToProps',
+              'areStatePropsEqual'
+            ]);
             for (final methodCall in methodsCalled) {
               if (methodCall['called'] == 'areStatePropsEqual') {
                 expect(methodCall['prev'], isA<CounterProps>());
