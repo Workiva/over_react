@@ -16,6 +16,7 @@ library abstract_transition_test;
 
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
+import 'package:redux/redux.dart';
 import 'package:test/test.dart';
 
 import '../test_util/test_util.dart';
@@ -496,6 +497,42 @@ main() {
           expect(methodsCalled, isNot(contains('mapStateToProps')));
           expect(methodsCalled, contains('areStatesEqual'));
           expect(jacket.mountNode.innerHtml, contains('Count: 0'));
+        });
+
+        group('when not specified,', () {
+          // This indirectly tests the memoization of wrapInteropValue
+          test('does not rerender when the state object is identical', () async {
+            List<String> methodsCalled = [];
+            ConnectedCounter = connect<CounterState, CounterProps>(
+              mapStateToProps: (state) {
+                methodsCalled.add('mapStateToProps');
+                return Counter()..currentCount = state.count;
+              },
+              forwardRef: true,
+            )(Counter);
+
+            final noopStore = Store<CounterState>((state, action) => state, initialState: CounterState(count: 0));
+
+            jacket = mount(
+              (ReduxProvider()..store = noopStore)(
+                (ConnectedCounter()..ref = counterRef..currentCount = 0)('test'),
+              ),
+            );
+
+            expect(methodsCalled, contains('mapStateToProps'));
+            methodsCalled.clear();
+
+            final stateBefore = noopStore.state;
+            noopStore.dispatch('Dummy action that does not mutate state, but triggers connect');
+            // wait for the next tick for the async dispatch to propagate
+            await Future(() {});
+            final stateAfter = noopStore.state;
+            expect(stateAfter, same(stateBefore),
+                reason: 'test setup check; store should have the exact same state object');
+
+            expect(methodsCalled, isEmpty,
+                reason: 'mapStateToProps should not be called since states are equal according to connect');
+          });
         });
       });
     });
