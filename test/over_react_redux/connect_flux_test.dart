@@ -334,38 +334,22 @@ main() {
 
         group('areStatePropsEqual', (){
           List<String> methodsCalled;
+          const mountMethodCalls = [
+            'mapStateToProps',
+            'mapStateToProps',
+            'areStatePropsEqual',
+          ];
+
+          const updateMethodCalls = [
+            'mapStateToProps',
+            'areStatePropsEqual',
+            'mapStateToProps',
+            'areStatePropsEqual'
+          ];
 
           setUp(() {
             methodsCalled = [];
           });
-
-          Future testLifecyleCalls(UiFactory connectedFactory, {bool useReduxStore = false}) async {
-            jacket = mount(
-              (ReduxProvider()..store = useReduxStore ? redux_store.store1 : store1)(
-                (connectedFactory())('test'),
-              ),
-            );
-
-            // Because `areStatesEqual` is false, we expect additional method calls
-            expect(methodsCalled, ['mapStateToProps', 'mapStateToProps', 'areStatePropsEqual']);
-            methodsCalled.clear();
-
-            var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
-            click(dispatchButton);
-
-            // wait for the next tick for the async dispatch to propagate
-            await Future(() {});
-
-            // store.state.count should be 1 but does not re-render due to override in `areStatePropsEqual`
-            expect(methodsCalled, [
-              'mapStateToProps',
-              'areStatePropsEqual',
-              'mapStateToProps',
-              'areStatePropsEqual'
-            ]);
-
-            expect(jacket.mountNode.innerHtml, contains('Count: 0'));
-          }
 
           test('', () async {
             ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
@@ -384,10 +368,31 @@ main() {
               forwardRef: true,
             )(ConnectFluxCounter);
 
-            await testLifecyleCalls(ConnectedCounter);
+            jacket = mount(
+              (ReduxProvider()..store = store1)(
+                (ConnectedCounter()..ref = counterRef..currentCount = 0)('test'),
+              ),
+            );
+
+            // Because `areStatesEqual` is false, we expect additional method calls
+            expect(methodsCalled, mountMethodCalls);
+            methodsCalled.clear();
+
+            var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
+            click(dispatchButton);
+
+            // wait for the next tick for the async dispatch to propagate
+            await Future(() {});
+
+            // store.state.count should be 1 but does not re-render due to override in `areStatePropsEqual`
+            expect(methodsCalled, updateMethodCalls);
+
+            expect(jacket.mountNode.innerHtml, contains('Count: 0'));
           });
 
           test('matches a standard Redux component when `areStatesEqual` is false', () async {
+            final localReduxRef = createRef<CounterComponent>();
+
             final ReduxConnectedCounter = connect<redux_store.CounterState, CounterProps>(
               mapStateToProps: (state) {
                 methodsCalled.add('mapStateToProps');
@@ -404,7 +409,26 @@ main() {
               areStatesEqual: (_, __) => false,
             )(Counter);
 
-            await testLifecyleCalls(ReduxConnectedCounter, useReduxStore: true);
+            jacket = mount(
+              (ReduxProvider()..store = redux_store.store1)(
+                (ReduxConnectedCounter()..ref = localReduxRef..currentCount = 0)('test'),
+              ),
+            );
+
+            // Because `areStatesEqual` is false, we expect additional method calls
+            expect(methodsCalled, mountMethodCalls);
+            methodsCalled.clear();
+
+            var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
+            click(dispatchButton);
+
+            // wait for the next tick for the async dispatch to propagate
+            await Future(() {});
+
+            // store.state.count should be 1 but does not re-render due to override in `areStatePropsEqual`
+            expect(methodsCalled, updateMethodCalls);
+
+            expect(jacket.mountNode.innerHtml, contains('Count: 0'));
           });
         });
 
