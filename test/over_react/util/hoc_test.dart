@@ -15,11 +15,12 @@ main() {
       ])(Counter);
 
       final jacket = mount(
-          Dom.div()(
-              (ReduxProvider()..store = store1)(
-                components()(),
-              )
-          ), attachedToDocument: true,
+        Dom.div()(
+          (ReduxProvider()..store = store1)(
+            components()(),
+          ),
+        ),
+        attachedToDocument: true,
       );
 
       final component = queryByTestId(jacket.getNode(), 'counter-component');

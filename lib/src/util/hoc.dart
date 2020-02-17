@@ -1,4 +1,3 @@
-
 /// Returns a single HOC instance from multiple of the same instance.
 ///
 /// When it is necessary to wrap a `UiComponentFactory` in multiple HOCs,
