@@ -191,9 +191,11 @@ main() {
 
       group('mapActionsToProps', (){
         test('maps actions to props correctly', () async {
+          final stateReferences = <FluxStore>[];
+
           ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
             mapStateToProps: (state){
-              expect(state, isA<FluxStore>());
+
               return ConnectFluxCounter()..currentCount = state.count;
             },
             mapActionsToProps: (actions) => (ConnectFluxCounter()
@@ -222,14 +224,16 @@ main() {
 
           expect(counterRef.current.props.currentCount, -1);
           expect(jacket.mountNode.innerHtml, contains('Count: -1'));
+          stateReferences.forEach((store) => expect(store, isA<FluxStore>()));
         });
       });
 
       group('mapActionsToPropsWithOwnProps', (){
         test('maps actions to props correctly', () async {
+          final stateReferences = <FluxStore>[];
           ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
             mapStateToProps: (state){
-              expect(state, isA<FluxStore>());
+              stateReferences.add(state);
               return ConnectFluxCounter()..currentCount = state.count;
             },
             mapActionsToProps: (actions) => (ConnectFluxCounter()
@@ -258,20 +262,20 @@ main() {
 
           expect(counterRef.current.props.currentCount, -1);
           expect(jacket.mountNode.innerHtml, contains('Count: -1'));
+          stateReferences.forEach((store) => expect(store, isA<FluxStore>()));
         });
       });
 
       group('mergeProps', (){
         test('properly merges props based on consumer map', () async {
+          final propsReferences = <ConnectFluxCounterProps>[];
           ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
             mapStateToProps: (state) => (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) {
               return ConnectFluxCounter()..decrement = actions.decrementAction;
             },
             mergeProps: (stateProps, dispatchProps, ownProps) {
-              expect(stateProps, isA<ConnectFluxCounterProps>());
-              expect(dispatchProps, isA<ConnectFluxCounterProps>());
-              expect(ownProps, isA<ConnectFluxCounterProps>());
+              propsReferences.addAll([stateProps, dispatchProps, ownProps]);
               return ConnectFluxCounter()
               // Return whatever value is passed through ownProps until the state count is over 1
                 ..currentCount = stateProps.currentCount < 1 ? ownProps.currentCount : stateProps.currentCount
@@ -307,16 +311,17 @@ main() {
 
           expect(counterRef.current.props.currentCount, 1);
           expect(jacket.mountNode.innerHtml, contains('Count: 1'));
+          propsReferences.forEach((store) => expect(store, isA<ConnectFluxCounterProps>()));
         });
       });
 
       group('Options', () {
         group('areOwnPropsEqual', () {
           test('', () {
+            final propsReferences = <ConnectFluxCounterProps>[];
             ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
               areOwnPropsEqual: expectAsync2((next, prev) {
-                expect(next, isA<ConnectFluxCounterProps>());
-                expect(prev, isA<ConnectFluxCounterProps>());
+                propsReferences.addAll([prev, next]);
                 expect(next.id, 'test');
                 expect(prev.id, 'test2');
                 return true;
@@ -329,11 +334,12 @@ main() {
             );
 
             expect(whatever, isTrue);
+            propsReferences.forEach((store) => expect(store, isA<ConnectFluxCounterProps>()));
           });
         });
 
         group('areStatePropsEqual', (){
-          List<String> methodsCalled;
+          List<Map<String, dynamic>> methodsCalled;
           const mountMethodCalls = [
             'mapStateToProps',
             'mapStateToProps',
@@ -354,14 +360,16 @@ main() {
           test('', () async {
             ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
               mapStateToProps: (state) {
-                methodsCalled.add('mapStateToProps');
+                methodsCalled.add({'called': 'mapStateToProps'});
                 return ConnectFluxCounter()..currentCount = state.count;
               },
               mapActionsToProps: (actions) => (ConnectFluxCounter()..increment = actions.incrementAction),
               areStatePropsEqual: (next, prev) {
-                expect(next, isA<ConnectFluxCounterProps>());
-                expect(prev, isA<ConnectFluxCounterProps>());
-                methodsCalled.add('areStatePropsEqual');
+                methodsCalled.add({
+                  'called': 'areStatePropsEqual',
+                  'prev': prev,
+                  'next': next,
+                });
                 // Force it to always be true, meaning it shouldn't re-render if they change.
                 return true;
               },
@@ -375,7 +383,14 @@ main() {
             );
 
             // Because `areStatesEqual` is false, we expect additional method calls
-            expect(methodsCalled, mountMethodCalls);
+            expect(methodsCalled.map((methodObj) => methodObj['called']), mountMethodCalls);
+            for (final methodCall in methodsCalled) {
+              if (methodCall['called'] == 'areStatePropsEqual') {
+                expect(methodCall['prev'], isA<ConnectFluxCounterProps>());
+                expect(methodCall['next'], isA<ConnectFluxCounterProps>());
+              }
+            }
+
             methodsCalled.clear();
 
             var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
@@ -385,7 +400,13 @@ main() {
             await Future(() {});
 
             // store.state.count should be 1 but does not re-render due to override in `areStatePropsEqual`
-            expect(methodsCalled, updateMethodCalls);
+            expect(methodsCalled.map((methodObj) => methodObj['called']), updateMethodCalls);
+            for (final methodCall in methodsCalled) {
+              if (methodCall['called'] == 'areStatePropsEqual') {
+                expect(methodCall['prev'], isA<ConnectFluxCounterProps>());
+                expect(methodCall['next'], isA<ConnectFluxCounterProps>());
+              }
+            }
 
             expect(jacket.mountNode.innerHtml, contains('Count: 0'));
           });
@@ -395,13 +416,15 @@ main() {
 
             final ReduxConnectedCounter = connect<redux_store.CounterState, CounterProps>(
               mapStateToProps: (state) {
-                methodsCalled.add('mapStateToProps');
+                methodsCalled.add({'called': 'mapStateToProps'});
                 return ConnectFluxCounter()..currentCount = state.count;
               },
               areStatePropsEqual: (next, prev) {
-                expect(next, isA<CounterProps>());
-                expect(prev, isA<CounterProps>());
-                methodsCalled.add('areStatePropsEqual');
+                methodsCalled.add({
+                  'called': 'areStatePropsEqual',
+                  'prev': prev,
+                  'next': next,
+                });
                 // Force it to always be true, meaning it shouldn't re-render if they change.
                 return true;
               },
@@ -416,7 +439,13 @@ main() {
             );
 
             // Because `areStatesEqual` is false, we expect additional method calls
-            expect(methodsCalled, mountMethodCalls);
+            expect(methodsCalled.map((methodObj) => methodObj['called']), mountMethodCalls);
+            for (final methodCall in methodsCalled) {
+              if (methodCall['called'] == 'areStatePropsEqual') {
+                expect(methodCall['prev'], isA<CounterProps>());
+                expect(methodCall['next'], isA<CounterProps>());
+              }
+            }
             methodsCalled.clear();
 
             var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
@@ -426,7 +455,13 @@ main() {
             await Future(() {});
 
             // store.state.count should be 1 but does not re-render due to override in `areStatePropsEqual`
-            expect(methodsCalled, updateMethodCalls);
+            expect(methodsCalled.map((methodObj) => methodObj['called']), updateMethodCalls);
+            for (final methodCall in methodsCalled) {
+              if (methodCall['called'] == 'areStatePropsEqual') {
+                expect(methodCall['prev'], isA<CounterProps>());
+                expect(methodCall['next'], isA<CounterProps>());
+              }
+            }
 
             expect(jacket.mountNode.innerHtml, contains('Count: 0'));
           });
@@ -434,10 +469,10 @@ main() {
 
         group('areMergedPropsEqual', () {
           test('', () {
+            final propsReferences = <ConnectFluxCounterProps>[];
+
             ConnectedCounter = connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
               areMergedPropsEqual: expectAsync2((next, prev) {
-                expect(next, isA<ConnectFluxCounterProps>());
-                expect(prev, isA<ConnectFluxCounterProps>());
                 expect(next.id, 'test');
                 expect(prev.id, 'test2');
                 return true;
@@ -451,6 +486,7 @@ main() {
             );
 
             expect(whatever, isTrue);
+            propsReferences.forEach((store) => expect(store, isA<ConnectFluxCounterProps>()));
           });
         });
       });

@@ -12,8 +12,6 @@ import 'value_mutation_checker.dart';
 
 part 'over_react_flux.over_react.g.dart';
 
-typedef mapStateToPropsTypedef<T> = Map Function(T state);
-
 @PropsMixin(keyNamespace: '')
 abstract class _$ConnectFluxPropsMixin<TActions> implements UiProps {
   @override
