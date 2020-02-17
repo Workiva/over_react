@@ -123,3 +123,36 @@ FluxToReduxAdapterStore store2 = FluxToReduxAdapterStore(bigFluxCounter, bigFlux
 FluxActions anotherFluxActionsInstance = FluxActions();
 FluxStore anotherFluxStore = FluxStore(anotherFluxActionsInstance);
 FluxToReduxAdapterStore store3 = FluxToReduxAdapterStore(anotherFluxStore, anotherFluxActionsInstance);
+
+/////////////////////////////// STORE 4 "ConnectableFluxStore" ///////////////////////////////
+class TestConnectableFluxStore extends ConnectableFluxStore {
+  FluxActions _actions;
+
+  var _count = 0;
+  int get count => _count;
+
+  var _name = 'ConnectableFluxStore';
+  String get name => _name;
+
+  TestConnectableFluxStore(this._actions) {
+    triggerOnActionV2(_actions.incrementAction, _incrementAction);
+    triggerOnActionV2(_actions.decrementAction, _decrementAction);
+    triggerOnActionV2(_actions.resetAction, _resetAction);
+  }
+
+  void _incrementAction(int count) {
+    _count += count ?? 1;
+  }
+
+  void _decrementAction(int count) {
+    _count -= count ?? 1;
+  }
+
+  void _resetAction(_) {
+    _count = 0;
+  }
+}
+
+FluxActions connectableStoreActions = FluxActions();
+TestConnectableFluxStore connectableFluxStore = TestConnectableFluxStore(connectableStoreActions);
+FluxToReduxAdapterStore connectableFluxAdaptedStore = FluxToReduxAdapterStore(connectableFluxStore, connectableStoreActions);
