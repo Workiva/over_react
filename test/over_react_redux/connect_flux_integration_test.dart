@@ -201,7 +201,9 @@ main() {
         final tempFluxStore2 = FluxStore(tempActions);
 
         // Unused, but required to set up the actions
+        // ignore: unused_local_variable
         final tempAdapterStore = FluxToReduxAdapterStore(tempFluxStore, tempActions);
+        // ignore: unused_local_variable
         final tempAdapterStore2 = FluxToReduxAdapterStore(tempFluxStore2, tempActions);
 
         expect(actionsForStore[tempFluxStore], tempActions);

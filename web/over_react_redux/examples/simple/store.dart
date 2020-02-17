@@ -62,7 +62,7 @@ class CounterState {
   ///
   /// This is optional and is just useful for creating the initial state or
   /// resetting the state to default (if you ever need to).
-  CounterState.defaultState({this.smallCount = 1, this.bigCount = 100, this.name = "Counter"});
+  CounterState.defaultState({this.smallCount = 1, this.bigCount = 100, this.name = 'Counter'});
 
   /// Used for syntactically simple updates within the reducer.
   ///
