@@ -28,6 +28,7 @@ import 'package:over_react/over_react.dart';
 ///
 /// __Warning:__ This will be deprecated in an upcoming release in favor of a different approach to
 /// creating a `built_redux` component.
+@Deprecated('BuiltRedux usage is deprecated in favor of OverReact Redux. 4.0.0')
 abstract class BuiltReduxUiProps<V extends Built<V, B>, B extends Builder<V, B>,
     A extends ReduxActions> extends UiProps {
   String get _storePropKey => '${propKeyNamespace}store';
@@ -54,6 +55,7 @@ abstract class BuiltReduxUiProps<V extends Built<V, B>, B extends Builder<V, B>,
 ///
 /// __Warning:__ This will be deprecated in an upcoming release in favor of a different approach to
 /// creating a `built_redux` component.
+@Deprecated('BuiltRedux usage is deprecated in favor of OverReact Redux. 4.0.0')
 abstract class BuiltReduxUiComponent<
         V extends Built<V, B>,
         B extends Builder<V, B>,
