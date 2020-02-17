@@ -209,7 +209,7 @@ main() {
         expect(actionsForStore[tempFluxStore2], actionsForStore[tempFluxStore]);
       });
     });
-    
+
     group('ConnectableFluxStore', () {
       UiFactory<ConnectFluxCounterProps> ConnectedFluxComponent;
       UiFactory<CounterProps> ConnectedReduxComponent;
