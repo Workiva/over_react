@@ -25,6 +25,7 @@
         * [Phase 1: Get Ready to Refactor](#phase-1-get-ready-to-refactor)
         * [Phase 2: Update Stores](#phase-2:-incrementally-update-stores)
         * [Phase 3: Influx to Redux](#phase-3-influx-to-redux)
+    * [ConnectableFluxStore](#connectablefluxstore)
 
 ## Goal
 The goal of this document is explain major elements of transitioning from Flux to Redux. This includes explanation of both a simple and more advanced conversion, and the introduction of a new architecture as a last resort for the most extreme cases.
@@ -197,7 +198,7 @@ redux.Store randomColorStore = redux.Store<RandomColorState>(reducer, initialSta
       FluxActions _actions;
 
       String _backgroundColor = 'Gray';
-      String get backgroundColor = _backgroundColor;
+      String get backgroundColor => _backgroundColor;
 
       // Constructor
       ExampleFluxStore(this._actions) {
@@ -473,6 +474,8 @@ In summary, Influx adds steps to the transition process, but can make the work e
 ### Important Terms
 If this architecture is appealing, there are a few new classes and utilities it will be beneficial to be aware of.
 - __Adapted Influx Store:__ The instance returned from wrapping an Influx store with a `FluxToReduxAdapterStore`.
+- __`ConnectableFluxStore`:__ A class that can be used to enable `connectFlux` usage on a component without adding an
+ Redux boilerplate. See [ConnectableFluxStore](#connectablefluxstore) for more information.
 - __`composeHocs`:__ If a component takes in multiple stores, it needs to be connected to all of them. This function allows you to combine multiple `connect` or `connectFlux` calls using a flat list, as opposed to nesting them inside each other.
 - __`connectFlux`:__ Like [`connect`](./over_react_redux_documentation.md#connect), but for Flux stores instead of Redux stores. This is useful because it is one step closer to a Redux connected component without being Redux. If, for any reason, implementing the Redux side of Influx is presenting challenges, `connectFlux` provides a good middle ground.
 - __`FluxToReduxAdapterStore`:__ This is a class that wraps an Influx store and makes it look like a Redux store. It is the cornerstone of Influx because pure Flux components will stay connected to the original store instance, but Redux components and connected Flux components (using `connectFlux`) will connect to the instantiated `FluxToReduxAdapterStore` object. This works by passing in an Influx store instance and a Flux `Actions` instance.
@@ -638,3 +641,88 @@ __Goal:__ Remove any Influx stores and combine the Redux stores.
     - Update any `connectFlux` to `connect`. Up until Phase 3, `connectFlux` components would have functioned without an issue, but they now need to be moved over entirely to `connect`. 
 
 Woohoo! Your library should now be updated to Redux!!
+
+### ConnectableFluxStore
+
+If you would like to start the Influx refactor process but feel it is best to wait to build out the Redux side of Influx, the `FluxToReduxAdapterStore` can still be used to enable `connectFlux` usage. There is a verbose way to do this, but to minimize boilerplate the `ConnectableFluxStore` was created.
+
+__Note:__ `connectFlux` was always meant to be a stepping stone towards Redux. The utilities it is built upon expects there to be a Redux implementation, and thus is not an optimized solution. The goal of `ConnectableFluxStore` is to add an additional possible incrementation point and should not be treated as a final design pattern.
+
+To start, a simple Flux store may look something like:
+```dart
+import 'package:w_flux/w_flux.dart' as flux;
+import 'package:over_react/over_react_flux.dart';
+
+class ExampleStore extends flux.Store {
+  FluxActions _actions;
+
+  var _example = 0;
+  int get example => _example;
+
+  TestConnectableFluxStore(this._actions) {
+    triggerOnActionV2(_actions.updateExample, _updateExample);
+    triggerOnActionV2(_actions.resetAction, _resetAction);
+  }
+
+  void _incrementAction(int newNumber) {
+    _example = newNumber;
+  }
+}
+```
+
+Without the `ConnectableFluxStore`, to enable `connectFlux` usage without Redux, the store would look like:
+```dart
+import 'package:w_flux/w_flux.dart' as flux;
+import 'package:over_react/over_react_flux.dart';
+
+class ExampleStore extends flux.Store with InfluxStoreMixin<Null> {
+  FluxActions _actions;
+  
+  @override
+  get reduxReducer => noopReducer;
+
+  var _example = 0;
+  int get example => _example;
+
+  TestConnectableFluxStore(this._actions) {
+    triggerOnActionV2(_actions.updateExample, _updateExample);
+  }
+
+  void _incrementAction(int newNumber) {
+    _example = newNumber;
+  }
+}
+
+// Note the addition of a "reducer" that does nothing.
+Null noopReducer(Null oldState, dynamic actions) {
+  return oldState;
+}
+```
+
+With the `ConnectableFluxStore`, your original Flux store would look like:
+```dart
+import 'package:w_flux/w_flux.dart' as flux;
+import 'package:over_react/over_react_flux.dart';
+
+// Note that the only thing different than the original store is the parent of the store class.
+class ExampleStore extends ConnectableFluxStore {
+  FluxActions _actions;
+
+  var _example = 0;
+  int get example => _example;
+
+  TestConnectableFluxStore(this._actions) {
+    triggerOnActionV2(_actions.updateExample, _updateExample);
+    triggerOnActionV2(_actions.resetAction, _resetAction);
+  }
+
+  void _incrementAction(int newNumber) {
+    _example = newNumber;
+  }
+}
+```
+
+That's all `ConnectableFluxStore` is! Here's a breakdown of the the usage rules:
+- __The store instance must still be wrapped in a `FluxToReduxAdapaterStore`__, and the usage in the UI layer is the same from there.
+- __Redux cannot be used to update the store.__ Obviously since the reducer doesn't mutate state and the `state` field is `Null`, Redux cannot talk to the store.
+- __A `connected` component will still receive updates__, but that would be an anti-pattern. If special circumstances dictate that this saves a significant amount of effort, then it will work, but if Redux is being utilized then the `state` field should be backed by a Redux state model.
