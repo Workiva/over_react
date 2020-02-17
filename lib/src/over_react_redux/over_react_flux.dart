@@ -284,7 +284,7 @@ mixin InfluxStoreMixin<S> on flux.Store {
   }
 }
 
-bool _shallowMapEquality(Map a, Map b) => const MapEquality().equals(a, b);
+bool _shallowMapIdentityEquality(Map a, Map b) => const MapEquality(keys: IdentityEquality(), values: IdentityEquality()).equals(a, b);
 
 /// A wrapper around the `connect` function that provides a similar API into a Flux store.
 ///
@@ -543,7 +543,7 @@ UiFactory<TProps> Function(UiFactory<TProps>)
   /*--end usage of cases--*/
 
   if (areStatePropsEqual == null) {
-    const defaultAreStatePropsEqual = _shallowMapEquality;
+    const defaultAreStatePropsEqual = _shallowMapIdentityEquality;
     const propHasher = CollectionLengthHasher();
     bool areStatePropsEqualWrapper(TProps nextProps, TProps prevProps) {
       final result = defaultAreStatePropsEqual(nextProps, prevProps);
