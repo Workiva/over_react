@@ -50,15 +50,11 @@ class FluxToReduxAdapterStore<S extends InfluxStoreMixin, V> extends redux.Store
 
   StreamSubscription _storeListener;
 
-  FluxToReduxAdapterStore(this.store, dynamic actions, {List<redux.Middleware<S>> middleware}) : super(
-      (_, action) {
-        store.influxReducer(action);
-        return store;
-      },
-      middleware: middleware ?? const [],
-      initialState: store,
-      distinct: false
-  ) {
+  FluxToReduxAdapterStore(this.store, dynamic actions, {List<redux.Middleware<S>> middleware})
+      : super((_, action) {
+          store.influxReducer(action);
+          return store;
+        }, middleware: middleware ?? const [], initialState: store, distinct: false) {
     _storeListener = store.listen((_) {
       store.triggerReduxUpdateFromFlux(dispatch);
     });
@@ -188,7 +184,6 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
   bool pure = true,
   bool forwardRef = false,
 }) {
-
   // Because of the complex relationship between actions and state, it should be
   // enforced that a consumer cannot set both `...toProps` and the `withOwnProps`
   // variants.
@@ -241,10 +236,11 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
       final originalMapStateToProps = mapStateToProps;
       Map wrappedMapStateToProps(TStore state) {
         return {
-        ...originalMapStateToProps(state),
-        ...mapActionsToProps(actionsForStore[state] as TActions),
+          ...originalMapStateToProps(state),
+          ...mapActionsToProps(actionsForStore[state] as TActions),
         };
       }
+
       mapStateToProps = wrappedMapStateToProps;
     }
 
@@ -266,6 +262,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
           ...mapActionsToPropsWithOwnProps(actionsForStore[state] as TActions, ownProps),
         };
       }
+
       mapStateToPropsWithOwnProps = wrappedMapStateWithOwnProps;
     }
 
@@ -304,6 +301,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
           ...mapActionsToProps(actionsForStore[state] as TActions),
         };
       }
+
       mapStateToPropsWithOwnProps = wrappedMapStateToPropsWithOwnProps;
     }
   }
@@ -322,13 +320,12 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
           if (identical(value, nextProps[key]) && propHasher.hasHashChanged(value)) {
             window.console.warn(
                 'connect: The instance of the value mapped from store "$TStore" to prop "$key" was mutated directly, which will prevent updates from being detected.'
-                    ' Instead of mutating datastructure instances within the store, overwrite them with modified copies.\n'
-                    '\n  Good: `_items = [..._items, newItem]`'
-                    '\n  Bad:  `_items.add(newItem)`'
-                    '\n\nIf this is not possible, then either:'
-                    '\n - update `areStatePropsEqual` to reflect this behavior: `areStatePropsEqual: (_, __) => false`'
-                    '\n - set `pure: false`'
-            );
+                ' Instead of mutating datastructure instances within the store, overwrite them with modified copies.\n'
+                '\n  Good: `_items = [..._items, newItem]`'
+                '\n  Bad:  `_items.add(newItem)`'
+                '\n\nIf this is not possible, then either:'
+                '\n - update `areStatePropsEqual` to reflect this behavior: `areStatePropsEqual: (_, __) => false`'
+                '\n - set `pure: false`');
           }
         });
 
@@ -337,6 +334,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
 
       return result;
     }
+
     areStatePropsEqual = areStatePropsEqualWrapper;
   }
 

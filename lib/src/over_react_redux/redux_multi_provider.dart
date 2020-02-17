@@ -12,7 +12,6 @@ UiFactory<ReduxMultiProviderProps> ReduxMultiProvider =
 
 @Props()
 class _$ReduxMultiProviderProps extends UiProps {
-
   /// A `Map` of contexts that connected components within the component tree
   /// can use to receive updates from specific stores.
   ///
