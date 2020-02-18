@@ -69,8 +69,8 @@ class FluxToReduxAdapterStore<S extends InfluxStoreMixin, V> extends redux.Store
   }
 }
 
-/// A cache of the different Flux stores attached to [FluxToReduxAdapterStore]s
-/// and their corresponding actions.
+/// The actions that are associated with a given [InfluxStoreMixin] store
+/// during the construction of a [FluxToReduxAdapterStore].
 @visibleForTesting
 final Expando<dynamic> actionsForStore = Expando();
 
@@ -78,8 +78,9 @@ final Expando<dynamic> actionsForStore = Expando();
 ///
 /// This is primarily for use while transitioning _to_ `connect` and OverReact Redux.
 ///
-/// __NOTE:__ Unlike `connect`, there is no `areStatesEqual` parameter because the state
-/// update process is impure.
+/// __NOTE:__ Unlike `connect`, there is no `areStatesEqual` parameter due to the state
+/// update process being impure. It is impure because it involves modification of
+/// the store itself, as opposed to creating a new state object with each change.
 ///
 /// __Example:__
 /// ```dart

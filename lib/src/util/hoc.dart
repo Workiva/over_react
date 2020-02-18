@@ -9,6 +9,16 @@
 ///
 /// __EXAMPLE:__
 /// ```dart
+/// // Without composeHocs:
+/// UiFactory<ComponentProps> ConnectedReduxBigBlock = connect<RandomColorStore, ReduxBigBlockProps>(
+///   // `connect` implementation
+/// )(connect<LowLevelStore, ReduxBigBlockProps>(
+///   // `connect` implementation
+/// )(connect<AnotherColorStore, ReduxBigBlockProps>(
+///   // `connect` implementation
+/// )(Component))));
+///
+/// // With composeHocs:
 /// UiFactory<ComponentProps> ConnectedReduxBigBlock = composeHocs([
 ///   connect<RandomColorStore, ReduxBigBlockProps>(
 ///     // `connect` implementation
