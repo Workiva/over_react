@@ -1,7 +1,7 @@
 # OverReact Changelog
 
 ## [3.2.1](https://github.com/Workiva/over_react/compare/3.2.0...3.2.1)
-- #461 Fix accidental jsification of `Map`/`Function` Dart props in certain cases when using `connect`
+- [#461] Fix accidental jsification of `Map`/`Function` Dart props in certain cases when using `connect`
 
 ## [3.2.0](https://github.com/Workiva/over_react/compare/3.1.7...3.2.0)
 
