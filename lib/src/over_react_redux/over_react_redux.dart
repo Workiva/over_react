@@ -24,6 +24,7 @@ import 'package:over_react/src/component_declaration/builder_helpers.dart' as bu
 import 'package:collection/collection.dart';
 import 'package:js/js.dart';
 import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_client/js_backed_map.dart';
@@ -230,6 +231,8 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
     )(dartComponentClass);
 
     final hocJsFactoryProxy = ReactJsComponentFactoryProxy(hoc, shouldConvertDomProps: false, alwaysReturnChildrenAsList: true);
+
+    enforceMinimumComponentVersionFor(hocJsFactoryProxy);
 
     TProps connectedFactory([Map props]) {
       return (factory(props)..componentFactory = hocJsFactoryProxy);

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:react/react_client/react_interop.dart' as react_interop;
 import 'package:react/react_client.dart';
 import 'package:over_react/component_base.dart';
@@ -98,6 +99,8 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
       return wrapperFunction(factory(props), ref);
     }
     ReactComponentFactoryProxy hoc = react_interop.forwardRef(wrapProps);
+
+    enforceMinimumComponentVersionFor(hoc);
 
     TProps forwardedFactory([Map props]) {
       return factory(props)..componentFactory = hoc;
