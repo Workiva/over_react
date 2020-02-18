@@ -24,6 +24,8 @@ import 'package:over_react/src/util/react_wrappers.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
 
+import '../../over_react.dart';
+
 // ----------------------------------------------------------------------
 //   Component type registration and internal type metadata management
 // ----------------------------------------------------------------------
@@ -280,4 +282,18 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
 /// > Related: [isComponentOfType]
 bool isValidElementOfType(dynamic instance, dynamic typeAlias) {
   return isValidElement(instance) && isComponentOfType(instance, typeAlias);
+}
+
+/// Validates that a [ReactComponentFactoryProxy]'s component is not [Component]
+/// or [UiComponent].
+void enforceMinimumComponentVersionFor(ReactComponentFactoryProxy component) {
+  // ignore: invalid_use_of_protected_member
+  if (component.type.dartComponentVersion == '1') {
+    throw ArgumentError(unindent('''
+        The UiFactory provided to connect should not be for a UiComponent or Component.
+        
+        Instead, use a different factory (such as UiComponent2 or Component2).
+        '''
+    ));
+  }
 }

@@ -239,6 +239,8 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
     final hocFactoryProxy = ReactDartComponentFactoryProxy2(hoc);
     setComponentTypeMeta(hocFactoryProxy, isHoc: true, parentType: dartComponentFactory);
 
+    enforceMinimumComponentVersionFor(hocJsFactoryProxy);
+
     TProps connectedFactory([Map props]) {
       return (factory(props)..componentFactory = hocFactoryProxy);
     }
