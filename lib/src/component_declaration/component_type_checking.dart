@@ -245,6 +245,11 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
     return false;
   }
 
+  // When a component is wrapped in a react.memo, we can gain access to the
+  // original Dart component via the 'WrappedComponent` property.
+  if (instance.type != null && getProperty(instance.type, 'WrappedComponent') != null) {
+    instanceType = getProperty(instance.type, 'WrappedComponent');
+  }
 
   var instanceTypeMeta = getComponentTypeMeta(instanceType);
 
@@ -290,10 +295,9 @@ void enforceMinimumComponentVersionFor(ReactComponentFactoryProxy component) {
   // ignore: invalid_use_of_protected_member
   if (component.type.dartComponentVersion == '1') {
     throw ArgumentError(unindent('''
-        The UiFactory provided to connect should not be for a UiComponent or Component.
+        The UiFactory provided should not be for a UiComponent or Component.
         
         Instead, use a different factory (such as UiComponent2 or Component2).
-        '''
-    ));
+        '''));
   }
 }
