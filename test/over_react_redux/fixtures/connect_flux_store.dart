@@ -167,5 +167,7 @@ class TestConnectableFluxStore extends flux.Store {
 FluxActions connectableStoreActions = FluxActions();
 TestConnectableFluxStore connectableFluxStore =
     TestConnectableFluxStore(connectableStoreActions);
+TestConnectableFluxStore anotherConnectableFluxStore =
+    TestConnectableFluxStore(connectableStoreActions);
 ConnectFluxAdapterStore connectableFluxAdaptedStore =
     ConnectFluxAdapterStore(connectableFluxStore, connectableStoreActions);

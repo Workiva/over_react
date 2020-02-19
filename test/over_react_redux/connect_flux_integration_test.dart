@@ -311,6 +311,15 @@ main() {
           final store = fluxStore.asReduxStore(fluxActions);
           expect(store, isA<FluxToReduxAdapterStore>());
         });
+
+        test('is idempotent', () {
+          final store = fluxStore.asReduxStore(fluxActions);
+          final store2 = fluxStore.asReduxStore(fluxActions);
+          final differentStore = bigFluxCounter.asReduxStore(fluxActions);
+
+          expect(identical(store, store2), isTrue);
+          expect(identical(store2, differentStore), isFalse);
+        });
       });
 
       group('asConnectFluxStore', () {
@@ -322,6 +331,15 @@ main() {
         test('prevents the use with a store that uses InfluxStoreMixin', () {
           expect(() => fluxStore.asConnectFluxStore(fluxActions),
               throwsArgumentError);
+        });
+
+        test('is idempotent', () {
+          final store = connectableFluxStore.asConnectFluxStore(fluxActions);
+          final store2 = connectableFluxStore.asConnectFluxStore(fluxActions);
+          final differentStore = anotherConnectableFluxStore.asConnectFluxStore(fluxActions);
+
+          expect(identical(store, store2), isTrue);
+          expect(identical(store2, differentStore), isFalse);
         });
       });
     });

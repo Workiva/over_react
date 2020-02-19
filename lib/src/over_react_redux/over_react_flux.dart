@@ -25,6 +25,14 @@ abstract class _$ConnectFluxPropsMixin<TActions> implements UiProps {
 @visibleForTesting
 final Expando<dynamic> actionsForStore = Expando();
 
+/// The [ConnectFluxAdapterStore]'s that are associated with a given [flux.Store]
+/// when `FluxStoreExtension.asConnectFluxStore` is called.
+final Expando<ConnectFluxAdapterStore> _connectFluxAdapterFor = Expando();
+
+/// The [FluxToReduxAdapterStore]'s that are associated with a given [flux.Store]
+/// when `InfluxStoreExtension.asReduxStore` is called.
+final Expando<FluxToReduxAdapterStore> _storeAdapterFor = Expando();
+
 /// The action used to keep Redux in sync with Flux when using a [FluxToReduxAdapterStore].
 class _FluxStoreUpdatedAction {
   const _FluxStoreUpdatedAction();
@@ -568,7 +576,10 @@ extension InfluxStoreExtension<S extends InfluxStoreMixin> on S {
   /// This is meant to be a more succinct way to instantiate the adapter store.
   FluxToReduxAdapterStore asReduxStore(dynamic actions,
       {List<redux.Middleware> middleware}) {
-    return FluxToReduxAdapterStore(this, actions, middleware: middleware);
+    if (_storeAdapterFor[this] != null) return _storeAdapterFor[this];
+
+    _storeAdapterFor[this] = FluxToReduxAdapterStore(this, actions, middleware: middleware);
+    return _storeAdapterFor[this];
   }
 }
 
@@ -576,12 +587,16 @@ extension FluxStoreExtension<S extends flux.Store> on S {
   /// Returns a [ConnectFluxAdapterStore] instance from the Flux store instance.
   ///
   /// This is meant to be a more succinct way to instantiate the adapter store.
-  ConnectFluxAdapterStore<S> asConnectFluxStore(dynamic actions,
+  ConnectFluxAdapterStore asConnectFluxStore(dynamic actions,
       {List<redux.Middleware<S>> middleware}) {
     if (this is InfluxStoreMixin) {
       throw ArgumentError(
           'asConnectFluxStore should not be used when the store is implementing InfluxStoreMixin. Use `asReduxStore` instead.');
     }
-    return ConnectFluxAdapterStore(this, actions, middleware: middleware);
+
+    if (_connectFluxAdapterFor[this] != null) return _connectFluxAdapterFor[this];
+
+    _connectFluxAdapterFor[this] = ConnectFluxAdapterStore(this, actions, middleware: middleware);
+    return _connectFluxAdapterFor[this];
   }
 }
