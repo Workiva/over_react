@@ -320,7 +320,8 @@ main() {
         });
 
         test('prevents the use with a store that uses InfluxStoreMixin', () {
-          expect(() => fluxStore.asConnectFluxStore(fluxActions), throwsArgumentError);
+          expect(() => fluxStore.asConnectFluxStore(fluxActions),
+              throwsArgumentError);
         });
       });
     });

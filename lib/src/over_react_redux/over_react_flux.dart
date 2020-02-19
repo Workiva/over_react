@@ -47,7 +47,8 @@ class _FluxStoreUpdatedAction {
 /// ```
 ///
 /// > Related: [InfluxStoreMixin]
-class FluxToReduxAdapterStore<S extends InfluxStoreMixin> extends redux.Store<S> {
+class FluxToReduxAdapterStore<S extends InfluxStoreMixin>
+    extends redux.Store<S> {
   /// A reference to an instantiated Flux store object that backs the adapter store.
   ///
   /// This store instance is the actual container of all store data, with the
@@ -58,11 +59,15 @@ class FluxToReduxAdapterStore<S extends InfluxStoreMixin> extends redux.Store<S>
 
   StreamSubscription _storeListener;
 
-  FluxToReduxAdapterStore(this.store, dynamic actions, {List<redux.Middleware<S>> middleware})
+  FluxToReduxAdapterStore(this.store, dynamic actions,
+      {List<redux.Middleware<S>> middleware})
       : super((_, action) {
           store.influxReducer(action);
           return store;
-        }, middleware: middleware ?? const [], initialState: store, distinct: false) {
+        },
+            middleware: middleware ?? const [],
+            initialState: store,
+            distinct: false) {
     _storeListener = store.listen((_) {
       store._triggerReduxUpdateFromFlux(dispatch);
     });
@@ -180,12 +185,14 @@ final Expando<dynamic> actionsForStore = Expando();
 /// - [forwardRef] if `true`, the `ref` prop provided to the connected component will be return the wrapped component.
 ///
 /// For more info see the <https://github.com/Workiva/over_react/blob/master/doc/flux_to_redux.md>.
-UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.Store, TActions, TProps extends UiProps>({
+UiFactory<TProps> Function(UiFactory<TProps>)
+    connectFlux<TStore extends flux.Store, TActions, TProps extends UiProps>({
   Map Function(TStore state) mapStateToProps,
   Map Function(TStore state, TProps ownProps) mapStateToPropsWithOwnProps,
   Map Function(TActions actions) mapActionsToProps,
   Map Function(TActions actions, TProps ownProps) mapActionsToPropsWithOwnProps,
-  Map Function(TProps stateProps, TProps dispatchProps, TProps ownProps) mergeProps,
+  Map Function(TProps stateProps, TProps dispatchProps, TProps ownProps)
+      mergeProps,
   bool Function(TProps nextProps, TProps prevProps) areOwnPropsEqual,
   bool Function(TProps nextProps, TProps prevProps) areStatePropsEqual,
   bool Function(TProps nextProps, TProps prevProps) areMergedPropsEqual,
@@ -200,46 +207,58 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
   // Down stream, `...toProps` is defaulted to in this situation anyway, but at this level,
   // allowing both can cause unnecessary complexity in decision logic.
   if (mapStateToProps != null && mapStateToPropsWithOwnProps != null) {
-    throw ArgumentError('Both mapStateToProps and mapStateToPropsWithOwnProps cannot be set at the same time.');
+    throw ArgumentError(
+        'Both mapStateToProps and mapStateToPropsWithOwnProps cannot be set at the same time.');
   }
 
   if (mapActionsToProps != null && mapActionsToPropsWithOwnProps != null) {
-    throw ArgumentError('Both mapActionsToProps and mapActionsToPropsWithOwnProps cannot be set at the same time.');
+    throw ArgumentError(
+        'Both mapActionsToProps and mapActionsToPropsWithOwnProps cannot be set at the same time.');
   }
 
   /*--Boolean variables used for creating more complex logic statements--*/
   final mapActionsToPropsNeedsToBeWrapped = mapActionsToProps != null;
   final mapStateToPropsNeedsToBeWrapped = mapStateToProps != null;
-  final mapActionsWithOwnPropsNeedsToBeWrapped = mapActionsToPropsWithOwnProps != null;
-  final mapStateWithOwnPropsNeedsToBeWrapped = mapStateToPropsWithOwnProps != null;
+  final mapActionsWithOwnPropsNeedsToBeWrapped =
+      mapActionsToPropsWithOwnProps != null;
+  final mapStateWithOwnPropsNeedsToBeWrapped =
+      mapStateToPropsWithOwnProps != null;
 
-  final noActionsNeedToBeWrapped = !mapActionsToPropsNeedsToBeWrapped && !mapActionsWithOwnPropsNeedsToBeWrapped;
-  final noStateNeedsToBeWrapped = !mapStateToPropsNeedsToBeWrapped && !mapStateWithOwnPropsNeedsToBeWrapped;
+  final noActionsNeedToBeWrapped = !mapActionsToPropsNeedsToBeWrapped &&
+      !mapActionsWithOwnPropsNeedsToBeWrapped;
+  final noStateNeedsToBeWrapped =
+      !mapStateToPropsNeedsToBeWrapped && !mapStateWithOwnPropsNeedsToBeWrapped;
 
   /*--Boolean variables that represent the possible cases for wrapping parameter functions--*/
   /// Wrap mapStateToProps only
   final case1 = mapStateToPropsNeedsToBeWrapped && noActionsNeedToBeWrapped;
 
   /// Wrap mapStateToPropsWithOwnProps only
-  final case2 = mapStateWithOwnPropsNeedsToBeWrapped && noActionsNeedToBeWrapped;
+  final case2 =
+      mapStateWithOwnPropsNeedsToBeWrapped && noActionsNeedToBeWrapped;
 
   /// Wrap mapActionsToProps with mapStateToProps
-  final case3 = mapStateToPropsNeedsToBeWrapped && mapActionsToPropsNeedsToBeWrapped;
+  final case3 =
+      mapStateToPropsNeedsToBeWrapped && mapActionsToPropsNeedsToBeWrapped;
 
   /// Wrap mapActionsToProps only
   final case4 = mapActionsToPropsNeedsToBeWrapped && noStateNeedsToBeWrapped;
 
   /// Wrap mapStateToPropsWithOwnProps and mapActionsToPropsWithOwnProps
-  final case5 = mapActionsWithOwnPropsNeedsToBeWrapped && mapStateWithOwnPropsNeedsToBeWrapped;
+  final case5 = mapActionsWithOwnPropsNeedsToBeWrapped &&
+      mapStateWithOwnPropsNeedsToBeWrapped;
 
   /// Wrap just mapActionsToPropsWithOwnProps
-  final case6 = mapActionsWithOwnPropsNeedsToBeWrapped && noStateNeedsToBeWrapped;
+  final case6 =
+      mapActionsWithOwnPropsNeedsToBeWrapped && noStateNeedsToBeWrapped;
 
   /// Wrap mapStateToProps in mapStateToPropsWithOwnProps
-  final case7 = mapStateToPropsNeedsToBeWrapped && mapActionsWithOwnPropsNeedsToBeWrapped;
+  final case7 =
+      mapStateToPropsNeedsToBeWrapped && mapActionsWithOwnPropsNeedsToBeWrapped;
 
   /// Wrap mapActionToProps with mapStateToPropsWithOwnProps
-  final case8 = mapStateWithOwnPropsNeedsToBeWrapped && mapActionsToPropsNeedsToBeWrapped;
+  final case8 =
+      mapStateWithOwnPropsNeedsToBeWrapped && mapActionsToPropsNeedsToBeWrapped;
 
   /*--Logic block to wrap passed in parameters using the cases from above--*/
   // If only mapStateToProps or mapStateToPropsWithOwn props is set, nothing needs
@@ -273,7 +292,8 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
       Map wrappedMapStateWithOwnProps(TStore state, TProps ownProps) {
         return {
           ...originalMapStateWithOwnProps(state, ownProps),
-          ...mapActionsToPropsWithOwnProps(actionsForStore[state] as TActions, ownProps),
+          ...mapActionsToPropsWithOwnProps(
+              actionsForStore[state] as TActions, ownProps),
         };
       }
 
@@ -284,7 +304,8 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
     if (case6) {
       mapStateToPropsWithOwnProps = (state, ownProps) {
         return {
-          ...mapActionsToPropsWithOwnProps(actionsForStore[state] as TActions, ownProps),
+          ...mapActionsToPropsWithOwnProps(
+              actionsForStore[state] as TActions, ownProps),
         };
       };
     }
@@ -297,7 +318,8 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
       mapStateToPropsWithOwnProps = (state, ownProps) {
         return {
           ...newMapStateToProps(state),
-          ...mapActionsToPropsWithOwnProps(actionsForStore[state] as TActions, ownProps),
+          ...mapActionsToPropsWithOwnProps(
+              actionsForStore[state] as TActions, ownProps),
         };
       };
 
@@ -331,7 +353,8 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
         prevProps.forEach((key, value) {
           // If the value is the same instance, check if the instance has been mutated,
           // causing its hash to be updated
-          if (identical(value, nextProps[key]) && propHasher.hasHashChanged(value)) {
+          if (identical(value, nextProps[key]) &&
+              propHasher.hasHashChanged(value)) {
             window.console.warn(
                 'connect: The instance of the value mapped from store "$TStore" to prop "$key" was mutated directly, which will prevent updates from being detected.'
                 ' Instead of mutating datastructure instances within the store, overwrite them with modified copies.\n'
@@ -517,9 +540,14 @@ class ConnectFluxAdapterStore<S extends flux.Store> extends redux.Store<S> {
 
   StreamSubscription _storeListener;
 
-  ConnectFluxAdapterStore(this.store, dynamic actions, {List<redux.Middleware<S>> middleware})
-      : super((_, __) => store, middleware: middleware ?? const [], initialState: store, distinct: false) {
-    assert(store is! InfluxStoreMixin, 'Use FluxToReduxAdapterStore when your store implements InfluxStoreMixin');
+  ConnectFluxAdapterStore(this.store, dynamic actions,
+      {List<redux.Middleware<S>> middleware})
+      : super((_, __) => store,
+            middleware: middleware ?? const [],
+            initialState: store,
+            distinct: false) {
+    assert(store is! InfluxStoreMixin,
+        'Use FluxToReduxAdapterStore when your store implements InfluxStoreMixin');
 
     _storeListener = store.listen((_) {
       dispatch(_FluxStoreUpdatedAction());
@@ -539,7 +567,8 @@ extension InfluxStoreExtension<S extends InfluxStoreMixin> on S {
   /// Returns a [FluxToReduxAdapterStore] instance from the Flux store instance.
   ///
   /// This is meant to be a more succinct way to instantiate the adapter store.
-  FluxToReduxAdapterStore asReduxStore(dynamic actions, {List<redux.Middleware> middleware}) {
+  FluxToReduxAdapterStore asReduxStore(dynamic actions,
+      {List<redux.Middleware> middleware}) {
     return FluxToReduxAdapterStore(this, actions, middleware: middleware);
   }
 }
@@ -548,11 +577,12 @@ extension FluxStoreExtension<S extends flux.Store> on S {
   /// Returns a [ConnectFluxAdapterStore] instance from the Flux store instance.
   ///
   /// This is meant to be a more succinct way to instantiate the adapter store.
-  ConnectFluxAdapterStore<S> asConnectFluxStore(dynamic actions, {List<redux.Middleware<S>> middleware}) {
+  ConnectFluxAdapterStore<S> asConnectFluxStore(dynamic actions,
+      {List<redux.Middleware<S>> middleware}) {
     if (this is InfluxStoreMixin) {
-      throw ArgumentError('asConnectFluxStore should not be used when the store is implementing InfluxStoreMixin. Use `asReduxStore` instead.');
+      throw ArgumentError(
+          'asConnectFluxStore should not be used when the store is implementing InfluxStoreMixin. Use `asReduxStore` instead.');
     }
     return ConnectFluxAdapterStore(this, actions, middleware: middleware);
   }
 }
-
