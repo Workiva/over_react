@@ -313,12 +313,13 @@ main() {
         });
 
         test('is idempotent', () {
-          final store = fluxStore.asReduxStore(fluxActions);
-          final store2 = fluxStore.asReduxStore(fluxActions);
-          final differentStore = bigFluxCounter.asReduxStore(fluxActions);
+          final aTmpStore = fluxStore.asReduxStore(fluxActions);
+          final aSecondTmpStore = fluxStore.asReduxStore(fluxActions);
+          final aDifferentTempStore =
+              anotherFluxStore.asReduxStore(fluxActions);
 
-          expect(identical(store, store2), isTrue);
-          expect(identical(store2, differentStore), isFalse);
+          expect(identical(aTmpStore, aSecondTmpStore), isTrue);
+          expect(identical(aTmpStore, aDifferentTempStore), isFalse);
         });
       });
 
@@ -334,12 +335,15 @@ main() {
         });
 
         test('is idempotent', () {
-          final store = connectableFluxStore.asConnectFluxStore(fluxActions);
-          final store2 = connectableFluxStore.asConnectFluxStore(fluxActions);
-          final differentStore = anotherConnectableFluxStore.asConnectFluxStore(fluxActions);
+          final aTmpStore =
+              connectableFluxStore.asConnectFluxStore(fluxActions);
+          final aSecondTmpStore =
+              connectableFluxStore.asConnectFluxStore(fluxActions);
+          final aDifferentTempStore =
+              anotherConnectableFluxStore.asConnectFluxStore(fluxActions);
 
-          expect(identical(store, store2), isTrue);
-          expect(identical(store2, differentStore), isFalse);
+          expect(identical(aTmpStore, aSecondTmpStore), isTrue);
+          expect(identical(aSecondTmpStore, aDifferentTempStore), isFalse);
         });
       });
     });

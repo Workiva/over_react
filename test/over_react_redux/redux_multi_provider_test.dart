@@ -27,10 +27,6 @@ main() {
   Context context3;
 
   setUp(() {
-    store1.dispatch(ResetAction());
-    store2.dispatch(ResetAction());
-    store3.dispatch(ResetAction());
-
     context1 = createContext();
     context2 = createContext();
     context3 = createContext();
@@ -88,6 +84,10 @@ main() {
       final context1Button = queryByTestId(context1Counter, 'button-increment');
       final context2Button = queryByTestId(context2Counter, 'button-increment');
       final context3Button = queryByTestId(context3Counter, 'button-increment');
+
+      expect(findDomNode(context1Counter).innerHtml, contains('Count: 0'));
+      expect(findDomNode(context2Counter).innerHtml, contains('Count: 0'));
+      expect(findDomNode(context3Counter).innerHtml, contains('Count: 0'));
 
       click(context1Button);
 
