@@ -231,8 +231,7 @@ mixin InfluxStoreMixin<S> on flux.Store {
   /// This is only to be used from within the [FluxToReduxAdapterStore] to control
   /// when Redux needs to receive an update to keep it in sync with Flux.
   void _triggerReduxUpdateFromFlux(Dispatcher dispatcher) {
-    // `state` can be null if `ConnectableFluxStore` is being used.
-    if (_isReduxInSync && state != null) {
+    if (_isReduxInSync) {
       _isReduxInSync = false;
       return;
     }
