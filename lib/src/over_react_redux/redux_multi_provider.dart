@@ -17,11 +17,11 @@ class _$ReduxMultiProviderProps extends UiProps {
   ///
   /// Each context and store instance should be unique. Referencing the context
   /// in a connected component is exactly the same as it would with a standard
-  /// `ReduxProvider`.
+  /// [ReduxProvider].
   Map<Context, Store> storesByContext;
 }
 
-/// An HOC that can be used to wrap a component tree with multiple `ReduxProvider`s
+/// An HOC that can be used to wrap a component tree with multiple [ReduxProvider]s
 /// without manually nesting providers manually.
 ///
 /// __Example:__

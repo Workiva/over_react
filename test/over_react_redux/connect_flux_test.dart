@@ -583,7 +583,7 @@ main() {
           expect(bigCounter.innerHtml, contains('Count: 100'));
         });
 
-        test('correctly renderes when contexts are nested', () async {
+        test('correctly renders when contexts are nested', () async {
           var bigCounterContext = createContext();
 
           ConnectedCounter =
@@ -708,7 +708,7 @@ main() {
           logs.first,
           contains(
               'The instance of the value mapped from store "FluxStore" to prop "ConnectFluxCounterProps.mutatedList" was mutated directly,'));
-    }, testOn: '!js');
+    }, tags: 'ddc');
   });
 }
 

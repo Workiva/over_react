@@ -568,7 +568,9 @@ UiFactory<TProps> Function(UiFactory<TProps>)
 }
 
 extension InfluxStoreExtension<S extends InfluxStoreMixin> on S {
-  /// Returns a [FluxToReduxAdapterStore] instance from the Flux store instance.
+  /// Returns an adapter store backed by this store, which can be used with [connect].
+  /// 
+  /// Multiple calls to this method will always return the same instance.
   ///
   /// This is meant to be a more succinct way to instantiate the adapter store.
   FluxToReduxAdapterStore asReduxStore(dynamic actions,

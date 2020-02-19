@@ -16,7 +16,7 @@
 ///   // `connect` implementation
 /// )(connect<AnotherColorStore, ReduxBigBlockProps>(
 ///   // `connect` implementation
-/// )(Component))));
+/// )(Component)));
 ///
 /// // With composeHocs:
 /// UiFactory<ComponentProps> ConnectedReduxBigBlock = composeHocs([
