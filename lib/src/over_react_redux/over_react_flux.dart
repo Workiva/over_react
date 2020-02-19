@@ -255,11 +255,8 @@ mixin InfluxStoreMixin<S> on flux.Store {
       return;
     }
 
-    final oldState = this.state;
     this.state = reduxReducer(this.state, action);
-
-    // If Redux has mutated the store, we need to keep Flux in sync
-    if (oldState != this.state) this.trigger();
+    this.trigger();
   }
 }
 
