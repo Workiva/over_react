@@ -20,9 +20,90 @@ abstract class _$ConnectFluxPropsMixin<TActions> implements UiProps {
   TActions actions;
 }
 
+/// The actions that are associated with a given [InfluxStoreMixin] store
+/// during the construction of a [FluxToReduxAdapterStore].
+@visibleForTesting
+final Expando<dynamic> actionsForStore = Expando();
+
 /// The action used to keep Redux in sync with Flux when using a [FluxToReduxAdapterStore].
 class _FluxStoreUpdatedAction {
   const _FluxStoreUpdatedAction();
+}
+
+/// A class that can be used to make a [flux.Store] compatible with [connectFlux]
+/// without adding the Redux implementation.
+///
+/// The usage is the same as [connectFlux] with the [FluxToReduxAdapterStore],
+/// but does not have the infrastructure for Redux `dispatch`ing.
+///
+/// __Note:__ Because this adapter store does not have a real Redux reducer,
+/// a `connected` component cannot trigger actions. If the library in the position to
+/// have Redux components, this class should not be used (implementing
+/// [FluxToReduxAdapterStore] instead) and the Redux boilerplate should be added.
+/// If needed, however, a `connect`ed component can receive updates from
+/// this implementation (just not trigger them).
+///
+/// __Example:__
+/// ```dart
+/// import 'package:w_flux/w_flux.dart' as flux;
+///
+/// class ExampleFluxStore extends flux.Store {
+///   FluxActions _actions
+///
+///   String _valueFromState = 'Default Value';
+///   String get valueFromState => _valueFromState;
+///
+///   ExampleFluxStore(this._actions) {
+///     triggerOnActionV2(_actions.fluxAction, _mutateValueFromState);
+///   }
+///
+///   void _mutateValueFromState(String newValue) {
+///     _valueFromState = newValue;
+///   }
+/// }
+///
+/// class FluxActions {
+///   final flux.Action<String> changeBackgroundColor = flux.Action();
+/// }
+///
+/// FluxActions actions = FluxActions();
+/// ExampleFluxStore store = ExampleFluxStore(actions);
+///
+/// ConnectFluxAdapterStore adapterStore = ConnectFluxAdapterStore<ExampleFluxStore, Null>(store, actions);
+/// ```
+///
+/// Related: [connectFlux], [FluxToReduxAdapterStore]
+class ConnectFluxAdapterStore<S extends flux.Store> extends redux.Store<S> {
+  /// A reference to an instantiated Flux store object that backs the adapter store.
+  ///
+  /// This store instance is the actual container of all store data, with the
+  /// [ConnectFluxAdapterStore] acting as an interface to connect to the store.
+  /// Unlike a [FluxToReduxAdapterStore], updates to the store should come from Flux.
+  final S store;
+
+  StreamSubscription _storeListener;
+
+  ConnectFluxAdapterStore(this.store, dynamic actions,
+      {List<redux.Middleware<S>> middleware})
+      : super((_, __) => store,
+      middleware: middleware ?? const [],
+      initialState: store,
+      distinct: false) {
+    assert(store is! InfluxStoreMixin,
+    'Use FluxToReduxAdapterStore when your store implements InfluxStoreMixin');
+
+    _storeListener = store.listen((_) {
+      dispatch(_FluxStoreUpdatedAction());
+    });
+
+    actionsForStore[store] = actions;
+  }
+
+  @override
+  Future teardown() async {
+    await _storeListener.cancel();
+    await super.teardown();
+  }
 }
 
 /// Adapts a Flux store to the interface of a Redux store.
@@ -82,10 +163,100 @@ class FluxToReduxAdapterStore<S extends InfluxStoreMixin>
   }
 }
 
-/// The actions that are associated with a given [InfluxStoreMixin] store
-/// during the construction of a [FluxToReduxAdapterStore].
-@visibleForTesting
-final Expando<dynamic> actionsForStore = Expando();
+/// A mixin that adds the fields necessary to make a Flux store compatible with the
+/// Influx architecture.
+///
+/// The mixin enforces the pattern necessary for an Influx architecture by adding
+/// the `influxReducer` and `triggerReduxUpdateFromFlux`, while also exposing the
+/// `state` field that is backed by a Redux state class. To make the store compatible
+/// with Redux, the Flux store using the [InfluxStoreMixin] should be wrapped
+/// with a [FluxToReduxAdapterStore].
+///
+/// __Example:__
+/// ```dart
+/// import 'package:w_flux/w_flux_server.dart' as flux;
+///
+/// class ExampleFluxStore extends flux.Store with InfluxStoreMixin<ReduxState> {
+///   FluxActions _actions
+///
+///   @override
+///   get reduxReducer => exampleReducer;
+///
+///   String get valueFromState => state.valueFromState;
+///
+///   ExampleFluxStore(this._actions) {
+///     state = ReduxState('default state');
+///
+///     triggerOnActionV2(_actions.fluxAction,
+///         () => this.influxReducer(ReduxAction('New Value')));
+///   }
+///
+/// }
+///
+/// class ReduxAction {
+///   String value;
+///
+///   ReduxAction(this.value);
+/// }
+///
+/// class ReduxState {
+///   String valueFromState;
+///
+///   ReduxState(this.valueFromState);
+/// }
+///
+/// ReduxState exampleReducer(ReduxState oldState, Object action) {
+///   if (action is ReduxAction) return ReduxState(action.value);
+///
+///   return oldState;
+/// }
+/// ```
+mixin InfluxStoreMixin<S> on flux.Store {
+  /// A traditional Redux reducer function that should return a new instance of
+  /// the corresponding state class.
+  ///
+  /// This is used in [influxReducer] to update the [state] field before triggering
+  /// an update.
+  redux.Reducer<S> get reduxReducer;
+
+  /// An instance of the Redux state model that the Flux store is migrating to.
+  S state;
+
+  /// A field to track if Flux has already tried to update Redux.
+  bool _isReduxInSync = false;
+
+  /// Checks to see if the Redux store needs to be updated and triggers an action
+  /// if so.
+  ///
+  /// This is only to be used from within the [FluxToReduxAdapterStore] to control
+  /// when Redux needs to receive an update to keep it in sync with Flux.
+  void _triggerReduxUpdateFromFlux(Dispatcher dispatcher) {
+    // `state` can be null if `ConnectableFluxStore` is being used.
+    if (_isReduxInSync && state != null) {
+      _isReduxInSync = false;
+      return;
+    }
+
+    dispatcher(_FluxStoreUpdatedAction());
+  }
+
+  /// A wrapper around a pure Redux reducer that keeps the Flux UI up to date with
+  /// store changes.
+  void influxReducer(dynamic action) {
+    if (action is _FluxStoreUpdatedAction) {
+      _isReduxInSync = true;
+      return;
+    }
+
+    final oldState = this.state;
+    this.state = reduxReducer(this.state, action);
+
+    // If Redux has mutated the store, we need to keep Flux in sync
+    if (oldState != this.state) this.trigger();
+  }
+}
+
+bool _shallowMapEquality(Map a, Map b) => const MapEquality().equals(a, b);
 
 /// A wrapper around the `connect` function that provides a similar API into a Flux store.
 ///
@@ -390,177 +561,6 @@ UiFactory<TProps> Function(UiFactory<TProps>)
     // This will always be false, since both arguments will also be the same store
     areStatesEqual: (_, __) => false,
   );
-}
-
-bool _shallowMapEquality(Map a, Map b) => const MapEquality().equals(a, b);
-
-/// A mixin that adds the fields necessary to make a Flux store compatible with the
-/// Influx architecture.
-///
-/// The mixin enforces the pattern necessary for an Influx architecture by adding
-/// the `influxReducer` and `triggerReduxUpdateFromFlux`, while also exposing the
-/// `state` field that is backed by a Redux state class. To make the store compatible
-/// with Redux, the Flux store using the [InfluxStoreMixin] should be wrapped
-/// with a [FluxToReduxAdapterStore].
-///
-/// __Example:__
-/// ```dart
-/// import 'package:w_flux/w_flux_server.dart' as flux;
-///
-/// class ExampleFluxStore extends flux.Store with InfluxStoreMixin<ReduxState> {
-///   FluxActions _actions
-///
-///   @override
-///   get reduxReducer => exampleReducer;
-///
-///   String get valueFromState => state.valueFromState;
-///
-///   ExampleFluxStore(this._actions) {
-///     state = ReduxState('default state');
-///
-///     triggerOnActionV2(_actions.fluxAction,
-///         () => this.influxReducer(ReduxAction('New Value')));
-///   }
-///
-/// }
-///
-/// class ReduxAction {
-///   String value;
-///
-///   ReduxAction(this.value);
-/// }
-///
-/// class ReduxState {
-///   String valueFromState;
-///
-///   ReduxState(this.valueFromState);
-/// }
-///
-/// ReduxState exampleReducer(ReduxState oldState, Object action) {
-///   if (action is ReduxAction) return ReduxState(action.value);
-///
-///   return oldState;
-/// }
-/// ```
-mixin InfluxStoreMixin<S> on flux.Store {
-  /// A traditional Redux reducer function that should return a new instance of
-  /// the corresponding state class.
-  ///
-  /// This is used in [influxReducer] to update the [state] field before triggering
-  /// an update.
-  redux.Reducer<S> get reduxReducer;
-
-  /// An instance of the Redux state model that the Flux store is migrating to.
-  S state;
-
-  /// A field to track if Flux has already tried to update Redux.
-  bool _isReduxInSync = false;
-
-  /// Checks to see if the Redux store needs to be updated and triggers an action
-  /// if so.
-  ///
-  /// This is only to be used from within the [FluxToReduxAdapterStore] to control
-  /// when Redux needs to receive an update to keep it in sync with Flux.
-  void _triggerReduxUpdateFromFlux(Dispatcher dispatcher) {
-    // `state` can be null if `ConnectableFluxStore` is being used.
-    if (_isReduxInSync && state != null) {
-      _isReduxInSync = false;
-      return;
-    }
-
-    dispatcher(_FluxStoreUpdatedAction());
-  }
-
-  /// A wrapper around a pure Redux reducer that keeps the Flux UI up to date with
-  /// store changes.
-  void influxReducer(dynamic action) {
-    if (action is _FluxStoreUpdatedAction) {
-      _isReduxInSync = true;
-      return;
-    }
-
-    final oldState = this.state;
-    this.state = reduxReducer(this.state, action);
-
-    // If Redux has mutated the store, we need to keep Flux in sync
-    if (oldState != this.state) this.trigger();
-  }
-}
-
-/// A class that can be used to make a [flux.Store] compatible with [connectFlux]
-/// without adding the Redux implementation.
-///
-/// The usage is the same as [connectFlux] with the [FluxToReduxAdapterStore],
-/// but does not have the infrastructure for Redux `dispatch`ing.
-///
-/// __Note:__ Because this adapter store does not have a real Redux reducer,
-/// a `connected` component cannot trigger actions. If the library in the position to
-/// have Redux components, this class should not be used (implementing
-/// [FluxToReduxAdapterStore] instead) and the Redux boilerplate should be added.
-/// If needed, however, a `connect`ed component can receive updates from
-/// this implementation (just not trigger them).
-///
-/// __Example:__
-/// ```dart
-/// import 'package:w_flux/w_flux.dart' as flux;
-///
-/// class ExampleFluxStore extends flux.Store {
-///   FluxActions _actions
-///
-///   String _valueFromState = 'Default Value';
-///   String get valueFromState => _valueFromState;
-///
-///   ExampleFluxStore(this._actions) {
-///     triggerOnActionV2(_actions.fluxAction, _mutateValueFromState);
-///   }
-///
-///   void _mutateValueFromState(String newValue) {
-///     _valueFromState = newValue;
-///   }
-/// }
-///
-/// class FluxActions {
-///   final flux.Action<String> changeBackgroundColor = flux.Action();
-/// }
-///
-/// FluxActions actions = FluxActions();
-/// ExampleFluxStore store = ExampleFluxStore(actions);
-///
-/// ConnectFluxAdapterStore adapterStore = ConnectFluxAdapterStore<ExampleFluxStore, Null>(store, actions);
-/// ```
-///
-/// Related: [connectFlux], [FluxToReduxAdapterStore]
-class ConnectFluxAdapterStore<S extends flux.Store> extends redux.Store<S> {
-  /// A reference to an instantiated Flux store object that backs the adapter store.
-  ///
-  /// This store instance is the actual container of all store data, with the
-  /// [ConnectFluxAdapterStore] acting as an interface to connect to the store.
-  /// Unlike a [FluxToReduxAdapterStore], updates to the store should come from Flux.
-  final S store;
-
-  StreamSubscription _storeListener;
-
-  ConnectFluxAdapterStore(this.store, dynamic actions,
-      {List<redux.Middleware<S>> middleware})
-      : super((_, __) => store,
-            middleware: middleware ?? const [],
-            initialState: store,
-            distinct: false) {
-    assert(store is! InfluxStoreMixin,
-        'Use FluxToReduxAdapterStore when your store implements InfluxStoreMixin');
-
-    _storeListener = store.listen((_) {
-      dispatch(_FluxStoreUpdatedAction());
-    });
-
-    actionsForStore[store] = actions;
-  }
-
-  @override
-  Future teardown() async {
-    await _storeListener.cancel();
-    await super.teardown();
-  }
 }
 
 extension InfluxStoreExtension<S extends InfluxStoreMixin> on S {
