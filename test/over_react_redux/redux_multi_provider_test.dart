@@ -122,6 +122,13 @@ main() {
                 )),
             logsPropValueError('{}', 'ReduxMultiProviderProps.storesByContext',
                 'It must not be empty'));
+
+        final jacket = mount((ReduxMultiProvider()..storesByContext = {})(
+          (Dom.div()..addTestId('content'))('foo'),
+        ));
+
+        expect(queryByTestId(jacket.mountNode, 'content').innerHtml,
+            contains('foo'));
       });
     });
   });
