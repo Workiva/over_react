@@ -213,8 +213,11 @@ main() {
         }
       }
 
-      Future<Duration> waitForUpdate() async {
-        return Future.delayed(Duration(seconds: 1));
+      Future waitForUpdate() async {
+        await window.animationFrame;
+        await window.animationFrame;
+        await window.animationFrame;
+        return Future(() {});
       }
 
       setUp(() {

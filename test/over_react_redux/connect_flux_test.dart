@@ -33,18 +33,24 @@ main() {
     final counterRef = createRef<ConnectFluxCounterComponent>();
 
     JsConnectOptions connectOptions;
-    var originalConnect = mockableJsConnect;
+    final originalConnect = mockableJsConnect;
 
-    mockableJsConnect = ([
-      Function mapStateToProps,
-      dynamic mapDispatchToProps,
-      Function mergeProps,
-      JsConnectOptions options,
-    ]) {
-      connectOptions = options;
-      return originalConnect(
-          mapStateToProps, mapDispatchToProps, mergeProps, options);
-    };
+    setUpAll(() {
+      mockableJsConnect = ([
+        Function mapStateToProps,
+        dynamic mapDispatchToProps,
+        Function mergeProps,
+        JsConnectOptions options,
+      ]) {
+        connectOptions = options;
+        return originalConnect(
+            mapStateToProps, mapDispatchToProps, mergeProps, options);
+      };
+    });
+
+    tearDownAll(() {
+      mockableJsConnect = originalConnect;
+    });
 
     setUp(() async {
       ConnectedCounter = null;

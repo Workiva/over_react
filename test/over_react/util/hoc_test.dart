@@ -74,9 +74,9 @@ main() {
       final verboseHocNode = queryByTestId(jacket.getNode(), 'verbose-hoc');
 
       expect(composeHocNodeAttributes, containsPair('data-0', data0));
-      expect(composeHocNodeAttributes['data-1'], data1);
-      expect(composeHocNodeAttributes['data-both'],
-          verboseHocNode.attributes['data-both']);
+      expect(composeHocNodeAttributes, containsPair('data-1', data1));
+      expect(composeHocNodeAttributes, containsPair('data-both', data1));
+      expect(composeHocNodeAttributes['data-both'], verboseHocNode.attributes['data-both']);
     });
   });
 }

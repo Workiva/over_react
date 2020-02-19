@@ -5,22 +5,6 @@ import 'package:redux/redux.dart';
 // ignore: uri_has_not_been_generated
 part 'redux_multi_provider.over_react.g.dart';
 
-@Factory()
-UiFactory<ReduxMultiProviderProps> ReduxMultiProvider =
-    // ignore: undefined_identifier
-    _$ReduxMultiProvider;
-
-@Props()
-class _$ReduxMultiProviderProps extends UiProps {
-  /// A `Map` of contexts that connected components within the component tree
-  /// can use to receive updates from specific stores.
-  ///
-  /// Each context and store instance should be unique. Referencing the context
-  /// in a connected component is exactly the same as it would with a standard
-  /// [ReduxProvider].
-  Map<Context, Store> storesByContext;
-}
-
 /// An HOC that can be used to wrap a component tree with multiple [ReduxProvider]s
 /// without manually nesting providers manually.
 ///
@@ -47,8 +31,37 @@ class _$ReduxMultiProviderProps extends UiProps {
 ///     ),
 ///     querySelector('#content'));
 /// ```
+@Factory()
+UiFactory<ReduxMultiProviderProps> ReduxMultiProvider =
+    // ignore: undefined_identifier
+    _$ReduxMultiProvider;
+
+@Props()
+class _$ReduxMultiProviderProps extends UiProps {
+  /// A `Map` of contexts that connected components within the component tree
+  /// can use to receive updates from specific stores.
+  ///
+  /// Each context and store instance should be unique. Referencing the context
+  /// in a connected component is exactly the same as it would with a standard
+  /// [ReduxProvider].
+  @requiredProp
+  Map<Context, Store> storesByContext;
+}
+
 @Component2()
-class ReduxMultiProviderComponent extends UiComponent2<ReduxMultiProviderProps> {
+class ReduxMultiProviderComponent
+    extends UiComponent2<ReduxMultiProviderProps> {
+  @override
+  get propTypes => {
+        keyForProp((p) => p.storesByContext): (props, info) {
+          if (props.storesByContext != null && props.storesByContext.isEmpty) {
+            return PropError.value(
+                props.storesByContext, info.propName, 'It must not be empty');
+          }
+          return null;
+        }
+      };
+
   @override
   render() {
     dynamic content = props.children;

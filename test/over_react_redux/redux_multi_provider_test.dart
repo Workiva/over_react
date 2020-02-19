@@ -105,6 +105,25 @@ main() {
               'Two clicks each incrementing 100 (since it is the "big counter").');
       expect(findDomNode(context3Counter).innerHtml, contains('Count: 3'));
     });
+
+    group('works as expected when storesByContext is', () {
+      test('null', () {
+        expect(
+            () => mount(ReduxMultiProvider()(
+                  (Dom.div()..addTestId('content'))('foo'),
+                )),
+            logsPropRequiredError('ReduxMultiProviderProps.storesByContext'));
+      });
+
+      test('empty', () {
+        expect(
+            () => mount((ReduxMultiProvider()..storesByContext = {})(
+                  (Dom.div()..addTestId('content'))('foo'),
+                )),
+            logsPropValueError('{}', 'ReduxMultiProviderProps.storesByContext',
+                'It must not be empty'));
+      });
+    });
   });
 }
 

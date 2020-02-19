@@ -94,11 +94,11 @@ class ConnectFluxAdapterStore<S extends flux.Store> extends redux.Store<S> {
   ConnectFluxAdapterStore(this.store, dynamic actions,
       {List<redux.Middleware<S>> middleware})
       : super((_, __) => store,
-      middleware: middleware ?? const [],
-      initialState: store,
-      distinct: false) {
+            middleware: middleware ?? const [],
+            initialState: store,
+            distinct: false) {
     assert(store is! InfluxStoreMixin,
-    'Use FluxToReduxAdapterStore when your store implements InfluxStoreMixin');
+        'Use FluxToReduxAdapterStore when your store implements InfluxStoreMixin');
 
     _storeListener = store.listen((_) {
       dispatch(_FluxStoreUpdatedAction());
@@ -569,17 +569,14 @@ UiFactory<TProps> Function(UiFactory<TProps>)
 
 extension InfluxStoreExtension<S extends InfluxStoreMixin> on S {
   /// Returns an adapter store backed by this store, which can be used with [connect].
-  /// 
+  ///
   /// Multiple calls to this method will always return the same instance.
   ///
   /// This is meant to be a more succinct way to instantiate the adapter store.
   FluxToReduxAdapterStore asReduxStore(dynamic actions,
-      {List<redux.Middleware> middleware}) {
-    if (_storeAdapterFor[this] != null) return _storeAdapterFor[this];
-
-    _storeAdapterFor[this] = FluxToReduxAdapterStore(this, actions, middleware: middleware);
-    return _storeAdapterFor[this];
-  }
+          {List<redux.Middleware> middleware}) =>
+      _storeAdapterFor[this] ??=
+          FluxToReduxAdapterStore(this, actions, middleware: middleware);
 }
 
 extension FluxStoreExtension<S extends flux.Store> on S {
@@ -589,13 +586,13 @@ extension FluxStoreExtension<S extends flux.Store> on S {
   ConnectFluxAdapterStore asConnectFluxStore(dynamic actions,
       {List<redux.Middleware<S>> middleware}) {
     if (this is InfluxStoreMixin) {
-      throw ArgumentError(
-          'asConnectFluxStore should not be used when the store is implementing InfluxStoreMixin. Use `asReduxStore` instead.');
+      throw ArgumentError.value(
+          'instance of InfluxStoreMixin',
+          'object ancestor',
+          '`asConnectFluxStore` should not be used when the store is implementing InfluxStoreMixin. Use `asReduxStore` instead');
     }
 
-    if (_connectFluxAdapterFor[this] != null) return _connectFluxAdapterFor[this];
-
-    _connectFluxAdapterFor[this] = ConnectFluxAdapterStore(this, actions, middleware: middleware);
-    return _connectFluxAdapterFor[this];
+    return _connectFluxAdapterFor[this] ??=
+        ConnectFluxAdapterStore(this, actions, middleware: middleware);
   }
 }

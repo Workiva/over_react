@@ -767,7 +767,7 @@ To reduce the boilerplate and abstract some of the details a little more, two ex
   final fluxStore = ExampleFluxStore();
 
   // adapter without the extension method
-  final verboseAdapterStore = FluxToReduxAdapterStore<ExampleFluxStore>(fluxStore, actions);
+  final verboseAdapterStore = FluxToReduxAdapterStore(fluxStore, actions);
 
   // the same thing with `asReduxStore`
   final succinctAdapterStore = fluxStore.asReduxStore(actions);
@@ -791,7 +791,7 @@ To reduce the boilerplate and abstract some of the details a little more, two ex
   final fluxStore = ExampleFluxStore();
 
   // adapter without the extension method
-  final verboseAdapterStore = ConnectFluxAdapterStore<ExampleFluxStore>(fluxStore, actions);
+  final verboseAdapterStore = ConnectFluxAdapterStore(fluxStore, actions);
 
   // the same thing with `asConnectFluxStore`
   final succinctAdapterStore = fluxStore.asConnectFluxStore(actions);
