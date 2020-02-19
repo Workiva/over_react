@@ -475,8 +475,7 @@ In summary, Influx adds steps to the transition process, but can make the work e
 ### Important Terms
 If this architecture is appealing, there are a few new classes and utilities it will be beneficial to be aware of.
 - __Adapted Influx Store:__ The instance returned from wrapping an Influx store with a `FluxToReduxAdapterStore`.
-- __`ConnectableFluxStore`:__ A class that can be used to enable `connectFlux` usage on a component without adding an
- Redux boilerplate. See [ConnectableFluxStore](#connectablefluxstore) for more information.
+- __`ConnectFluxAdapterStore`:__ A class that can be used to enable `connectFlux` usage on a component without adding any Redux boilerplate. See [ConnectFluxAdapterStore](#connectfluxadapterstore) for more information.
 - __`composeHocs`:__ If a component takes in multiple stores, it needs to be connected to all of them. This function allows you to combine multiple `connect` or `connectFlux` calls using a flat list, as opposed to nesting them inside each other.
 - __`connectFlux`:__ Like [`connect`](./over_react_redux_documentation.md#connect), but for Flux stores instead of Redux stores. This is useful because it is one step closer to a Redux connected component without being Redux. If, for any reason, implementing the Redux side of Influx is presenting challenges, `connectFlux` provides a good middle ground.
 - __`FluxToReduxAdapterStore`:__ This is a class that wraps an Influx store and makes it look like a Redux store. It is the cornerstone of Influx because pure Flux components will stay connected to the original store instance, but Redux components and connected Flux components (using `connectFlux`) will connect to the instantiated `FluxToReduxAdapterStore` object. This works by passing in an Influx store instance and a Flux `Actions` instance.
