@@ -6,7 +6,7 @@ authors:
   - Workiva UI Platform Chapter <uip@workiva.com>
   - Workiva App Frameworks Team <appframeworks@workiva.com>
 environment:
-  sdk: '>=2.4.0 <3.0.0'
+  sdk: '>=2.7.0 <3.0.0'
 
 dependencies:
   collection: ^1.14.11

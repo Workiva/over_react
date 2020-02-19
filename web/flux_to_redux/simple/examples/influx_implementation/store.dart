@@ -60,6 +60,5 @@ class ReduxState {
 
 RandomColorActions randomColorActions = RandomColorActions();
 FluxStore randomColorStore = FluxStore(randomColorActions);
-FluxToReduxAdapterStore adaptedStore = FluxToReduxAdapterStore<FluxStore, ReduxState>(
-    randomColorStore, randomColorActions,
+FluxToReduxAdapterStore adaptedStore = randomColorStore.asReduxStore(randomColorActions,
     middleware: [overReactReduxDevToolsMiddleware]);

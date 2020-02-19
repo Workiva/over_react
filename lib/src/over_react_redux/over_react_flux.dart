@@ -21,7 +21,9 @@ abstract class _$ConnectFluxPropsMixin<TActions> implements UiProps {
 }
 
 /// The action used to keep Redux in sync with Flux when using a [FluxToReduxAdapterStore].
-class _FluxStoreUpdatedAction {}
+class _FluxStoreUpdatedAction {
+  const _FluxStoreUpdatedAction();
+}
 
 /// Adapts a Flux store to the interface of a Redux store.
 ///
@@ -30,22 +32,28 @@ class _FluxStoreUpdatedAction {}
 ///
 /// __Example:__
 /// ```dart
-/// // Declare Flux actions as normal.
-/// FluxActions exampleActions = FluxActions();
+/// // Declare a Flux store as normal, and mix in InfluxStoreMixin..
+/// class ExampleStore extends Store with InfluxStoreMixin { ... }
 ///
-/// // Declare a Flux store as normal. Though, the Flux store should be implementing
-/// // an `InfluxStoreMixin`.
-/// FluxStore fluxStoreWithInfluxMixin = FluxStore();
+/// // Instantiate your Flux actions and store as normal.
+/// var actions = ExampleActions();
+/// var store = ExampleStore(actions);
 ///
 /// // Wrap them in the adapter store.
 /// //
 /// // Redux and `connectFlux` components should reference this store directly,
-/// // whereas Flux components can reference the `fluxStoreWithInfluxMixin` instance.
-/// FluxToReduxAdapterStore adapterStore = FluxToReduxAdapterStore(fluxStoreWithInfluxMixin, exampleActions);
+/// // whereas Flux components can reference the `store` instance.
+/// var adapterStore = FluxToReduxAdapterStore(store, actions);
 /// ```
 ///
 /// > Related: [InfluxStoreMixin]
-class FluxToReduxAdapterStore<S extends InfluxStoreMixin, V> extends redux.Store<S> {
+class FluxToReduxAdapterStore<S extends InfluxStoreMixin> extends redux.Store<S> {
+  /// A reference to an instantiated Flux store object that backs the adapter store.
+  ///
+  /// This store instance is the actual container of all store data, with the
+  /// [FluxToReduxAdapterStore] acting as an interface to connect to and update
+  /// that store (though it can be updated directly using Flux outside the scope
+  /// of the adapter).
   final S store;
 
   StreamSubscription _storeListener;
@@ -56,7 +64,7 @@ class FluxToReduxAdapterStore<S extends InfluxStoreMixin, V> extends redux.Store
           return store;
         }, middleware: middleware ?? const [], initialState: store, distinct: false) {
     _storeListener = store.listen((_) {
-      store.triggerReduxUpdateFromFlux(dispatch);
+      store._triggerReduxUpdateFromFlux(dispatch);
     });
 
     actionsForStore[store] = actions;
@@ -191,8 +199,13 @@ UiFactory<TProps> Function(UiFactory<TProps>) connectFlux<TStore extends flux.St
   //
   // Down stream, `...toProps` is defaulted to in this situation anyway, but at this level,
   // allowing both can cause unnecessary complexity in decision logic.
-  assert((mapStateToProps == null || mapStateToPropsWithOwnProps == null) &&
-      (mapActionsToProps == null || mapActionsToPropsWithOwnProps == null));
+  if (mapStateToProps != null && mapStateToPropsWithOwnProps != null) {
+    throw ArgumentError('Both mapStateToProps and mapStateToPropsWithOwnProps cannot be set at the same time.');
+  }
+
+  if (mapActionsToProps != null && mapActionsToPropsWithOwnProps != null) {
+    throw ArgumentError('Both mapActionsToProps and mapActionsToPropsWithOwnProps cannot be set at the same time.');
+  }
 
   /*--Boolean variables used for creating more complex logic statements--*/
   final mapActionsToPropsNeedsToBeWrapped = mapActionsToProps != null;
@@ -425,7 +438,7 @@ mixin InfluxStoreMixin<S> on flux.Store {
   ///
   /// This is only to be used from within the [FluxToReduxAdapterStore] to control
   /// when Redux needs to receive an update to keep it in sync with Flux.
-  void triggerReduxUpdateFromFlux(Dispatcher dispatcher) {
+  void _triggerReduxUpdateFromFlux(Dispatcher dispatcher) {
     // `state` can be null if `ConnectableFluxStore` is being used.
     if (_isReduxInSync && state != null) {
       _isReduxInSync = false;
@@ -454,21 +467,21 @@ mixin InfluxStoreMixin<S> on flux.Store {
 /// A class that can be used to make a [flux.Store] compatible with [connectFlux]
 /// without adding the Redux implementation.
 ///
-/// The store should still be wrapped with an adapter store, with [Null] being
-/// the generic for the Redux state class. Then the usage is the same as [connectFlux]
-/// with a standard [FluxToReduxAdapterStore].
+/// The usage is the same as [connectFlux] with the [FluxToReduxAdapterStore],
+/// but does not have the infrastructure for Redux `dispatch`ing.
 ///
-/// __Note:__ Naturally because this adapter store does not have a real Redux reducer,
+/// __Note:__ Because this adapter store does not have a real Redux reducer,
 /// a `connected` component cannot trigger actions. If the library in the position to
-/// have Redux components, this class should not be used and the Redux boilerplate
-/// should be added. If needed, however, a `connect`ed component can receive updates from
+/// have Redux components, this class should not be used (implementing
+/// [FluxToReduxAdapterStore] instead) and the Redux boilerplate should be added.
+/// If needed, however, a `connect`ed component can receive updates from
 /// this implementation (just not trigger them).
 ///
 /// __Example:__
 /// ```dart
 /// import 'package:w_flux/w_flux.dart' as flux;
 ///
-/// class ExampleFluxStore extends ConnectableFluxStore {
+/// class ExampleFluxStore extends flux.Store {
 ///   FluxActions _actions
 ///
 ///   String _valueFromState = 'Default Value';
@@ -490,15 +503,56 @@ mixin InfluxStoreMixin<S> on flux.Store {
 /// FluxActions actions = FluxActions();
 /// ExampleFluxStore store = ExampleFluxStore(actions);
 ///
-/// FluxToReduxAdapterStore adapterStore = FluxToReduxAdapterStore<ExampleFluxStore, Null>(store, actions);
+/// ConnectFluxAdapterStore adapterStore = ConnectFluxAdapterStore<ExampleFluxStore, Null>(store, actions);
 /// ```
 ///
 /// Related: [connectFlux], [FluxToReduxAdapterStore]
-abstract class ConnectableFluxStore extends flux.Store with InfluxStoreMixin<Null> {
+class ConnectFluxAdapterStore<S extends flux.Store> extends redux.Store<S> {
+  /// A reference to an instantiated Flux store object that backs the adapter store.
+  ///
+  /// This store instance is the actual container of all store data, with the
+  /// [ConnectFluxAdapterStore] acting as an interface to connect to the store.
+  /// Unlike a [FluxToReduxAdapterStore], updates to the store should come from Flux.
+  final S store;
+
+  StreamSubscription _storeListener;
+
+  ConnectFluxAdapterStore(this.store, dynamic actions, {List<redux.Middleware<S>> middleware})
+      : super((_, __) => store, middleware: middleware ?? const [], initialState: store, distinct: false) {
+    assert(store is! InfluxStoreMixin, 'Use FluxToReduxAdapterStore when your store implements InfluxStoreMixin');
+
+    _storeListener = store.listen((_) {
+      dispatch(_FluxStoreUpdatedAction());
+    });
+
+    actionsForStore[store] = actions;
+  }
+
   @override
-  get reduxReducer => _noOpReducer;
+  Future teardown() async {
+    await _storeListener.cancel();
+    await super.teardown();
+  }
 }
 
-Null _noOpReducer(Null oldState, dynamic action) {
-  return oldState;
+extension InfluxStoreExtension<S extends InfluxStoreMixin> on S {
+  /// Returns a [FluxToReduxAdapterStore] instance from the Flux store instance.
+  ///
+  /// This is meant to be a more succinct way to instantiate the adapter store.
+  FluxToReduxAdapterStore asReduxStore(dynamic actions, {List<redux.Middleware> middleware}) {
+    return FluxToReduxAdapterStore(this, actions, middleware: middleware);
+  }
 }
+
+extension FluxStoreExtension<S extends flux.Store> on S {
+  /// Returns a [ConnectFluxAdapterStore] instance from the Flux store instance.
+  ///
+  /// This is meant to be a more succinct way to instantiate the adapter store.
+  ConnectFluxAdapterStore<S> asConnectFluxStore(dynamic actions, {List<redux.Middleware<S>> middleware}) {
+    if (this is InfluxStoreMixin) {
+      throw ArgumentError('asConnectFluxStore should not be used when the store is implementing InfluxStoreMixin. Use `asReduxStore` instead.');
+    }
+    return ConnectFluxAdapterStore(this, actions, middleware: middleware);
+  }
+}
+

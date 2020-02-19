@@ -136,7 +136,7 @@ FluxToReduxAdapterStore store3 =
     FluxToReduxAdapterStore(anotherFluxStore, anotherFluxActionsInstance);
 
 /////////////////////////////// STORE 4 "ConnectableFluxStore" ///////////////////////////////
-class TestConnectableFluxStore extends ConnectableFluxStore {
+class TestConnectableFluxStore extends flux.Store {
   FluxActions _actions;
 
   var _count = 0;
@@ -167,5 +167,5 @@ class TestConnectableFluxStore extends ConnectableFluxStore {
 FluxActions connectableStoreActions = FluxActions();
 TestConnectableFluxStore connectableFluxStore =
     TestConnectableFluxStore(connectableStoreActions);
-FluxToReduxAdapterStore connectableFluxAdaptedStore =
-    FluxToReduxAdapterStore(connectableFluxStore, connectableStoreActions);
+ConnectFluxAdapterStore connectableFluxAdaptedStore =
+    ConnectFluxAdapterStore(connectableFluxStore, connectableStoreActions);

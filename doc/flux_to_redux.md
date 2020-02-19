@@ -25,7 +25,8 @@
         * [Phase 1: Get Ready to Refactor](#phase-1-get-ready-to-refactor)
         * [Phase 2: Update Stores](#phase-2:-incrementally-update-stores)
         * [Phase 3: Influx to Redux](#phase-3-influx-to-redux)
-    * [ConnectableFluxStore](#connectablefluxstore)
+    * [ConnectFluxAdapterStore](#connectfluxadapterstore)
+    * [Extension Methods!](#extension-methods)
 
 ## Goal
 The goal of this document is explain major elements of transitioning from Flux to Redux. This includes explanation of both a simple and more advanced conversion, and the introduction of a new architecture as a last resort for the most extreme cases.
@@ -642,16 +643,20 @@ __Goal:__ Remove any Influx stores and combine the Redux stores.
 
 Woohoo! Your library should now be updated to Redux!!
 
-### ConnectableFluxStore
+### ConnectFluxAdapterStore
 
-If you would like to start the Influx refactor process but feel it is best to wait to build out the Redux side of Influx, the `FluxToReduxAdapterStore` can still be used to enable `connectFlux` usage. There is a verbose way to do this, but to minimize boilerplate the `ConnectableFluxStore` was created.
+If you would like to start the Influx refactor process but feel it is best to wait to build out the Redux side of Influx, the `ConnectFluxAdapterStore` be used to enable `connectFlux` usage. There is a verbose way to do this without this adapter (in other words, using `FluxToReduxAdapaterStore`), but to minimize boilerplate the `ConnectFluxAdapterStore` was created.
 
-__Note:__ `connectFlux` was always meant to be a stepping stone towards Redux. The utilities it is built upon expects there to be a Redux implementation, and thus is not an optimized solution. The goal of `ConnectableFluxStore` is to add an additional possible incrementation point and should not be treated as a final design pattern.
+__Note:__ `connectFlux` was always meant to be a stepping stone towards Redux. The utilities it is built upon expects there to be a Redux implementation, and thus is not an optimized solution. The goal of `ConnectFluxAdapterStore` is to add an additional possible incrementation point and should not be treated as a final design pattern.
 
 To start, a simple Flux store may look something like:
 ```dart
 import 'package:w_flux/w_flux.dart' as flux;
 import 'package:over_react/over_react_flux.dart';
+
+class FluxActions {
+  final flux.Action<int> updateExample = flux.Action();
+}
 
 class ExampleStore extends flux.Store {
   FluxActions _actions;
@@ -661,19 +666,25 @@ class ExampleStore extends flux.Store {
 
   TestConnectableFluxStore(this._actions) {
     triggerOnActionV2(_actions.updateExample, _updateExample);
-    triggerOnActionV2(_actions.resetAction, _resetAction);
   }
 
   void _incrementAction(int newNumber) {
     _example = newNumber;
   }
 }
+
+final actions = FluxActions();
+final store = ExampleStore(actions);
 ```
 
 Without the `ConnectableFluxStore`, to enable `connectFlux` usage without Redux, the store would look like:
 ```dart
 import 'package:w_flux/w_flux.dart' as flux;
 import 'package:over_react/over_react_flux.dart';
+
+class FluxActions {
+  final flux.Action<int> updateExample = flux.Action();
+}
 
 class ExampleStore extends flux.Store with InfluxStoreMixin<Null> {
   FluxActions _actions;
@@ -697,15 +708,18 @@ class ExampleStore extends flux.Store with InfluxStoreMixin<Null> {
 Null noopReducer(Null oldState, dynamic actions) {
   return oldState;
 }
+
+final actions = FluxActions();
+final store = ExampleStore(actions);
+final adapter = store.asReduxStore(actions);
 ```
 
-With the `ConnectableFluxStore`, your original Flux store would look like:
+With the `ConnectFluxAdapterStore`, your original Flux store would look like:
 ```dart
 import 'package:w_flux/w_flux.dart' as flux;
 import 'package:over_react/over_react_flux.dart';
 
-// Note that the only thing different than the original store is the parent of the store class.
-class ExampleStore extends ConnectableFluxStore {
+class ExampleStore extends flux.Store {
   FluxActions _actions;
 
   var _example = 0;
@@ -720,9 +734,66 @@ class ExampleStore extends ConnectableFluxStore {
     _example = newNumber;
   }
 }
+
+final actions = FluxActions();
+final store = ExampleStore(actions);
+// Note that the only difference is an extra instantiation step
+final adapter = store.asConnectFluxStore(actions);
 ```
 
 That's all `ConnectableFluxStore` is! Here's a breakdown of the the usage rules:
 - __The store instance must still be wrapped in a `FluxToReduxAdapaterStore`__, and the usage in the UI layer is the same from there.
 - __Redux cannot be used to update the store.__ Obviously since the reducer doesn't mutate state and the `state` field is `Null`, Redux cannot talk to the store.
 - __A `connected` component will still receive updates__, but that would be an anti-pattern. If special circumstances dictate that this saves a significant amount of effort, then it will work, but if Redux is being utilized then the `state` field should be backed by a Redux state model.
+
+### Extension Methods
+
+To reduce the boilerplate and abstract some of the details a little more, two extension methods have been added:
+- __`asReduxStore`:__ to be used on a Flux store using `InfluxStoreMixin`, `asReduxStore` returns a `FluxToReduxAdapter` store instance.
+
+  __Example:__
+  ```dart
+  import 'package:w_flux/w_flux.dart' as flux;
+  import 'package:over_react/over_react_flux.dart';
+
+  class ExampleFluxStore extends flux.Store with InfluxStoreMixin {
+    // ... store implementation
+  }
+
+  class FluxActionsExample {
+    // ... action declarations
+  }
+
+  final actions = FluxActionsExample();
+  final fluxStore = ExampleFluxStore();
+
+  // adapter without the extension method
+  final verboseAdapterStore = FluxToReduxAdapterStore<ExampleFluxStore>(fluxStore, actions);
+
+  // the same thing with `asReduxStore`
+  final succinctAdapterStore = fluxStore.asReduxStore(actions);
+  ```
+- __`asConnectFluxStore`:__ to be used on a Flux store not using `InfluxStoreMixin`, `asConnectFluxStore` returns a `ConnectFluxAdapaterStore` store instance.
+
+  __Example:__
+  ```dart
+  import 'package:w_flux/w_flux.dart' as flux;
+  import 'package:over_react/over_react_flux.dart';
+
+  class ExampleFluxStore extends flux.Store {
+    // ... store implementation
+  }
+
+  class FluxActionsExample {
+    // ... action declarations
+  }
+
+  final actions = FluxActionsExample();
+  final fluxStore = ExampleFluxStore();
+
+  // adapter without the extension method
+  final verboseAdapterStore = ConnectFluxAdapterStore<ExampleFluxStore>(fluxStore, actions);
+
+  // the same thing with `asConnectFluxStore`
+  final succinctAdapterStore = fluxStore.asConnectFluxStore(actions);
+  ```
