@@ -530,8 +530,10 @@ class ParsedDeclarations {
     key_state,
   ]);
 
-  static  final RegExp key_any_annotation = RegExp(
-      r'@(?:' +
+  static final RegExp maybeDeclarationPattern = RegExp(
+      // todo is this necessary?
+      r'\.over_react\.g\.dart'
+      r'|@(?:' +
       [
         key_factory,
         key_component,
@@ -545,12 +547,13 @@ class ParsedDeclarations {
         key_propsMixin,
         key_stateMixin,
       ].join('|').replaceAll(r'$', r'\$') +
-      r')',
+      r')'
+      r'|Ui(?:Factory|Props|Component|State)',
       caseSensitive: true
   );
 
   static bool mightContainDeclarations(String source) {
-    return key_any_annotation.hasMatch(source);
+    return maybeDeclarationPattern.hasMatch(source);
   }
 
   final FactoryNode factory;
