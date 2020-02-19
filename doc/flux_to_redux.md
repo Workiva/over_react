@@ -740,9 +740,9 @@ final store = ExampleStore(actions);
 final adapter = store.asConnectFluxStore(actions);
 ```
 
-That's all `ConnectableFluxStore` is! Here's a breakdown of the the usage rules:
-- __The store instance must still be wrapped in a `FluxToReduxAdapaterStore`__, and the usage in the UI layer is the same from there.
-- __Redux cannot be used to update the store.__ Obviously since the reducer doesn't mutate state and the `state` field is `Null`, Redux cannot talk to the store.
+That's all `ConnectFluxAdapterStore` is! Here's a breakdown of the the usage rules:
+- __The usage in the UI layer is the same as `FluxToReduxAdapterStore`.__
+- __Redux cannot be used to update the store.__ Obviously since there is no reducer, Redux cannot talk to the store without workarounds.
 - __A `connected` component will still receive updates__, but that would be an anti-pattern. If special circumstances dictate that this saves a significant amount of effort, then it will work, but if Redux is being utilized then the `state` field should be backed by a Redux state model.
 
 ### Extension Methods
