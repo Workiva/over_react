@@ -676,7 +676,7 @@ final actions = FluxActions();
 final store = ExampleStore(actions);
 ```
 
-Without the `ConnectableFluxStore`, to enable `connectFlux` usage without Redux, the store would look like:
+Without the `ConnectFluxAdapterStore`, to enable `connectFlux` usage without Redux, the store would look like:
 ```dart
 import 'package:w_flux/w_flux.dart' as flux;
 import 'package:over_react/over_react_flux.dart';
