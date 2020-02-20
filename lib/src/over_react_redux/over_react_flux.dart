@@ -231,6 +231,30 @@ mixin InfluxStoreMixin<S> on flux.Store {
   S state;
 
   /// A field to track if Flux has already tried to update Redux.
+  ///
+  /// This is needed when a Flux action is triggered. In that case, the propagation
+  /// of updates is:
+  ///
+  /// 1. [triggerOnActionV2] catches the action
+  /// 2. [influxReducer] is triggered
+  ///   - Flux store direct mutation: [reduxReducer] mutates the [state] field
+  ///   - [trigger] is called on the Flux store
+  /// 3. [FluxToReduxAdapterStore]'s '_storeListener' catches [trigger]
+  ///   - `_storeListener` calls [_triggerReduxUpdateFromFlux]
+  ///     - which calls `dispatch` (if no short circuiting occurs)
+  /// 4. The adapter store instance updates (from the `dispatch` call)
+  /// 5. [influxReducer] is called again
+  ///   - but short circuits because [_triggerReduxUpdateFromFlux] used the
+  ///   [_FluxStoreUpdatedAction] action.
+  ///
+  /// Then, [triggerOnActionV2] calls [trigger] again, and begins to repeat steps 3
+  /// through 5. But in this case (a Flux action being the original trigger),
+  /// the original step 5 `dispatch` has gotten the store up to date so the process
+  /// can be short-circuited to prevent an unnecessary `dispatch`.
+  ///
+  /// At the same time, we need the [trigger] in [influxReducer] for when `dispatch`
+  /// is called directly on the adapter store because otherwise the Flux store
+  /// will be out of sync.
   bool _isReduxInSync = false;
 
   /// Checks to see if the Redux store needs to be updated and triggers an action
