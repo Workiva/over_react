@@ -177,12 +177,10 @@ dynamic getComponentTypeFromAlias(dynamic typeAlias) {
 /// Valid types:
 ///
 /// * [String] tag name (DOM components)
-/// * [Function] ([ReactClass]) factory (Dart/JS composite components)
-///
-/// > __NOTE:__ It's impossible to determine know whether something is a [ReactClass] due to type-checking restrictions
-/// for JS-interop classes, so a Function type-check is the best we can do.
+/// * [Function] factory (Dart components)
+/// * [ReactClass] component type (JS composite component classes, JS function component functions, Dart component JS classes)
 bool isPotentiallyValidComponentType(dynamic type) {
-  return type is Function || type is String;
+  return type is Function || type is ReactClass || type is String;
 }
 
 /// Returns an [Iterable] of all component types that are ancestors of [type].
