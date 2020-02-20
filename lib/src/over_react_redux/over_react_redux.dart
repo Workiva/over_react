@@ -229,10 +229,15 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       ),
     )(dartComponentClass);
 
-    final hocJsFactoryProxy = ReactJsComponentFactoryProxy(hoc, shouldConvertDomProps: false, alwaysReturnChildrenAsList: true);
+    /// Use a Dart proxy instead of a JS one since we're treating it like a Dart component:
+    /// props values should be passed to the underlying component (e.g., those returned by mapStateToProps)
+    /// without any conversion needed by JS Components, and props are are fed directly
+    /// into Dart code (e.g., those passed into mapStateToPropsWithOwnProps/areOwnPropsEqual)
+    /// without needing unwrapping/conversion.
+    final hocFactoryProxy = ReactDartComponentFactoryProxy2(hoc);
 
     TProps connectedFactory([Map props]) {
-      return (factory(props)..componentFactory = hocJsFactoryProxy);
+      return (factory(props)..componentFactory = hocFactoryProxy);
     }
 
     return connectedFactory;

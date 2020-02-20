@@ -143,6 +143,53 @@ main() {
         expect(counterRef.current.props.currentCount, 1);
         expect(jacket.mountNode.innerHtml, contains('Count: 1'));
       });
+
+      test('without converting the props whatsoever', () {
+        // Test functions/Maps to ensure they're not allowInterop'd,
+        // test event handlers to ensure they're not oterwise converted
+        testFunction() => 'foo';
+        const testMap = {'foo': 'bar'};
+        testEventHandler(SyntheticMouseEvent e) {}
+
+        ConnectedCounter = connect<CounterState, CounterProps>(mapStateToProps: (state){
+          return (Counter()
+            ..currentCount = state.count
+            ..['functionPropSetInsideHoc'] = testFunction
+            ..['mapPropSetInsideHoc'] = testMap
+            // We need to set a real event prop key to properly test this
+            ..onMouseDown = testEventHandler
+          );
+        }, forwardRef: true)(Counter);
+
+        jacket = mount(
+          (ReduxProvider()..store = store1)(
+            (ConnectedCounter()
+              ..ref = counterRef
+              ..['functionPropSetOnHoc'] = testFunction
+              ..['mapPropSetOnHoc'] = testMap
+              // We need to set a real event prop key to properly test this
+              ..onMouseUp = testEventHandler
+            )('test'),
+          ),
+        );
+
+        final actualProps = counterRef.current.props;
+        final expectedProps = {
+          'functionPropSetInsideHoc': same(testFunction),
+          'mapPropSetInsideHoc': same(testMap),
+          'onMouseDown': same(testEventHandler),
+
+          'functionPropSetOnHoc': same(testFunction),
+          'mapPropSetOnHoc': same(testMap),
+          'onMouseUp': same(testEventHandler),
+        };
+        // Filter out unrelated props that prevent us from using the default Map matcher
+        final relevantPropKeys = {...actualProps}
+            ..removeWhere((key, value) => !expectedProps.containsKey(key));
+
+        expect(relevantPropKeys, expectedProps,
+            reason: 'functions/maps should not be jsified, and event handlers should not be converted');
+      });
     });
 
     group(
