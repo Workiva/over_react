@@ -34,6 +34,10 @@ void main() {
       await window.animationFrame;
     }
 
+    group('FluxUiPropsMixin', () {
+      // TODO: Add tests / fixtures once the new boilerplate is ready
+    });
+
     group('FluxUiProps', () {
       test('exposes an actions getter', () {
         var props = TestBasic();
