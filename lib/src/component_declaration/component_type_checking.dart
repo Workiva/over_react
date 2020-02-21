@@ -290,7 +290,7 @@ void enforceMinimumComponentVersionFor(ReactComponentFactoryProxy component) {
   if (component.type is String) return;
 
   // ignore: invalid_use_of_protected_member
-  if (component.type?.dartComponentVersion == '1') {
+  if (component.type.dartComponentVersion == '1') {
     throw ArgumentError(unindent('''
         The UiFactory provided should not be for a UiComponent or Component.
         
