@@ -95,13 +95,13 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
     Function(TProps props, Ref ref) wrapperFunction) {
 
   UiFactory<TProps> wrapWithForwardRef(UiFactory<TProps> factory) {
+    enforceMinimumComponentVersionFor(factory().componentFactory);
+
     Object wrapProps(Map props, Ref ref) {
       return wrapperFunction(factory(props), ref);
     }
     ReactComponentFactoryProxy hoc = react_interop.forwardRef(wrapProps);
     setComponentTypeMeta(hoc, isHoc: true, parentType: factory().componentFactory);
-
-    enforceMinimumComponentVersionFor(hoc);
 
     TProps forwardedFactory([Map props]) {
       return factory(props)..componentFactory = hoc;
