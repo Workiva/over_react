@@ -1,5 +1,10 @@
 # OverReact Changelog
 
+## [3.3.0](https://github.com/Workiva/over_react/compare/3.2.1...3.3.0)
+- connect/forwardRef HOC type checking:
+   - Fix error when passing ReactElements of these HOCs into `isComponentOfType`
+   - Treat HOC types as subtypes of the components they wrap, as expected.
+
 ## [3.2.1](https://github.com/Workiva/over_react/compare/3.2.0...3.2.1)
 - [#461] Fix accidental jsification of `Map`/`Function` Dart props in certain cases when using `connect`
 

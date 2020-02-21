@@ -17,6 +17,7 @@ library over_react.component_declaration.component_type_checking;
 
 import 'dart:js_util';
 
+import 'package:meta/meta.dart';
 import 'package:over_react/src/component_declaration/component_base.dart' show UiFactory;
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations show Component2;
 import 'package:over_react/src/util/react_wrappers.dart';
@@ -48,14 +49,17 @@ const String _componentTypeMetaKey = '_componentTypeMeta';
 /// the component type of the specified [factory].
 ///
 /// This meta is retrievable via [getComponentTypeMeta].
-// ignore: deprecated_member_use
-void setComponentTypeMeta(ReactDartComponentFactoryProxy factory, {
-    bool isWrapper,
-    // ignore: deprecated_member_use
-    ReactDartComponentFactoryProxy parentType
+void setComponentTypeMeta(ReactComponentFactoryProxy factory, {
+  @required ReactComponentFactoryProxy parentType,
+  bool isWrapper = false,
+  bool isHoc = false,
 }) {
   // ignore: argument_type_not_assignable
-  setProperty(factory.type, _componentTypeMetaKey, ComponentTypeMeta(isWrapper, parentType));
+  setProperty(factory.type, _componentTypeMetaKey, ComponentTypeMeta(
+    parentType: parentType,
+    isWrapper: isWrapper,
+    isHoc: isHoc,
+  ));
 }
 
 /// Returns the [ComponentTypeMeta] associated with the component type [type] in [setComponentTypeMeta],
@@ -75,6 +79,9 @@ class ComponentTypeMeta {
   /// Whether the component clones or passes through its children and needs to be
   /// treated as if it were the wrapped component when passed into [isComponentOfType].
   final bool isWrapper;
+
+  /// Whether the component is a higher-order component that wraps [parentType].
+  final bool isHoc;
 
   /// The factory of this component's "parent type".
   ///
@@ -115,12 +122,17 @@ class ComponentTypeMeta {
   ///
   /// > See: `subtypeOf` (within [annotations.Component2])
   // ignore: deprecated_member_use
-  final ReactDartComponentFactoryProxy parentType;
+  final ReactComponentFactoryProxy parentType;
 
-  ComponentTypeMeta(this.isWrapper, this.parentType);
+  ComponentTypeMeta({
+    @required this.parentType,
+    this.isWrapper = false,
+    this.isHoc = false
+  });
 
   const ComponentTypeMeta.none()
       : this.isWrapper = false,
+        this.isHoc = false,
         this.parentType = null;
 }
 
@@ -177,12 +189,10 @@ dynamic getComponentTypeFromAlias(dynamic typeAlias) {
 /// Valid types:
 ///
 /// * [String] tag name (DOM components)
-/// * [Function] ([ReactClass]) factory (Dart/JS composite components)
-///
-/// > __NOTE:__ It's impossible to determine know whether something is a [ReactClass] due to type-checking restrictions
-/// for JS-interop classes, so a Function type-check is the best we can do.
+/// * [Function] factory (Dart components)
+/// * [ReactClass] component type (JS composite component classes, JS function component functions, Dart component JS classes)
 bool isPotentiallyValidComponentType(dynamic type) {
-  return type is Function || type is String;
+  return type is Function || type is ReactClass || type is String;
 }
 
 /// Returns an [Iterable] of all component types that are ancestors of [type].
@@ -233,11 +243,6 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
     return false;
   }
 
-  // When a component is wrapped in a react.memo, we can gain access to the
-  // original Dart component via the 'WrappedComponent` property.
-  if (instance.type != null && getProperty(instance.type, 'WrappedComponent') != null) {
-    instanceType = getProperty(instance.type, 'WrappedComponent');
-  }
 
   var instanceTypeMeta = getComponentTypeMeta(instanceType);
 
