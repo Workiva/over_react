@@ -149,8 +149,6 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
   areMergedPropsEqual ??= _shallowMapEquality;
 
   UiFactory<TProps> wrapWithConnect(UiFactory<TProps> factory) {
-    final dartComponentClass = factory().componentFactory.type;
-
     JsMap jsMapFromProps(Map props) => jsBackingMapOrJsCopy(props is UiProps ? props.props : props);
 
     TProps jsPropsToTProps(JsMap jsProps) => factory(JsBackedMap.backedBy(jsProps));
@@ -215,6 +213,9 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
     bool handleAreMergedPropsEqual(JsMap jsNext, JsMap jsPrev) =>
         areMergedPropsEqual(jsPropsToTProps(jsNext), jsPropsToTProps(jsPrev));
 
+    final dartComponentFactory = factory().componentFactory;
+    final dartComponentClass = dartComponentFactory.type;
+
     final hoc = mockableJsConnect(
       mapStateToProps != null ? allowInteropWithArgCount(handleMapStateToProps, 1) : mapStateToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapStateToPropsWithOwnProps, 2) : null,
       mapDispatchToProps != null ? allowInteropWithArgCount(handleMapDispatchToProps, 1) : mapDispatchToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapDispatchToPropsWithOwnProps, 2) : null,
@@ -230,12 +231,18 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       ),
     )(dartComponentClass);
 
-    final hocJsFactoryProxy = ReactJsComponentFactoryProxy(hoc, shouldConvertDomProps: false, alwaysReturnChildrenAsList: true);
+    /// Use a Dart proxy instead of a JS one since we're treating it like a Dart component:
+    /// props values should be passed to the underlying component (e.g., those returned by mapStateToProps)
+    /// without any conversion needed by JS Components, and props are are fed directly
+    /// into Dart code (e.g., those passed into mapStateToPropsWithOwnProps/areOwnPropsEqual)
+    /// without needing unwrapping/conversion.
+    final hocFactoryProxy = ReactDartComponentFactoryProxy2(hoc);
+    setComponentTypeMeta(hocFactoryProxy, isHoc: true, parentType: dartComponentFactory);
 
-    enforceMinimumComponentVersionFor(hocJsFactoryProxy);
+    enforceMinimumComponentVersionFor(ReactJsComponentFactoryProxy(hoc));
 
     TProps connectedFactory([Map props]) {
-      return (factory(props)..componentFactory = hocJsFactoryProxy);
+      return (factory(props)..componentFactory = hocFactoryProxy);
     }
 
     return connectedFactory;

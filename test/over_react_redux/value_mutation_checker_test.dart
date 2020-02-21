@@ -132,20 +132,24 @@ void sharedHashTests({bool useLengthHasher}) {
         expect(hasher.hasHashChanged(props), isFalse);
       });
 
-      test('the object has changed', () {
-        Map map = {'test': true};
+      test('the object does not change', () {
+        final map = {'test': true};
         expect(hasher.hasHashChanged(map), isFalse);
+        map['update'] = true;
 
-        map = {'is a new map': true};
+        expect(hasher.hasHashChanged(map), isTrue);
         expect(hasher.hasHashChanged(map), isFalse);
       });
     });
 
-    test('returns true if the has has changed', () {
-      Map map = {'test': true};
+    test('returns true if the hash has changed', () {
+      final map = {'test': true};
       expect(hasher.hasHashChanged(map), isFalse);
 
       map['newField'] = true;
+      expect(hasher.hasHashChanged(map), isTrue);
+
+      map['test'] = false;
       expect(hasher.hasHashChanged(map), isTrue);
     });
   });

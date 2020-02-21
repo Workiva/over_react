@@ -99,6 +99,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
       return wrapperFunction(factory(props), ref);
     }
     ReactComponentFactoryProxy hoc = react_interop.forwardRef(wrapProps);
+    setComponentTypeMeta(hoc, isHoc: true, parentType: factory().componentFactory);
 
     enforceMinimumComponentVersionFor(hoc);
 

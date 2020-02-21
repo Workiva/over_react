@@ -34,18 +34,24 @@ main() {
     final counterRef = createRef<ConnectFluxCounterComponent>();
 
     JsConnectOptions connectOptions;
-    var originalConnect = mockableJsConnect;
+    final originalConnect = mockableJsConnect;
 
-    mockableJsConnect = ([
-      Function mapStateToProps,
-      dynamic mapDispatchToProps,
-      Function mergeProps,
-      JsConnectOptions options,
-    ]) {
-      connectOptions = options;
-      return originalConnect(
-          mapStateToProps, mapDispatchToProps, mergeProps, options);
-    };
+    setUpAll(() {
+      mockableJsConnect = ([
+        Function mapStateToProps,
+        dynamic mapDispatchToProps,
+        Function mergeProps,
+        JsConnectOptions options,
+      ]) {
+        connectOptions = options;
+        return originalConnect(
+            mapStateToProps, mapDispatchToProps, mergeProps, options);
+      };
+    });
+
+    tearDownAll(() {
+      mockableJsConnect = originalConnect;
+    });
 
     setUp(() async {
       ConnectedCounter = null;
@@ -588,7 +594,7 @@ main() {
           expect(bigCounter.innerHtml, contains('Count: 100'));
         });
 
-        test('correctly renderes when contexts are nested', () async {
+        test('correctly renders when contexts are nested', () async {
           var bigCounterContext = createContext();
 
           ConnectedCounter =
@@ -713,7 +719,7 @@ main() {
           logs.first,
           contains(
               'The instance of the value mapped from store "FluxStore" to prop "ConnectFluxCounterProps.mutatedList" was mutated directly,'));
-    }, testOn: '!js');
+    }, tags: 'ddc');
   });
 }
 

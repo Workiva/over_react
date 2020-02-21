@@ -198,7 +198,7 @@ main() {
       });
     });
 
-    group('ConnectableFluxStore', () {
+    group('ConnectFluxAdapterStore', () {
       UiFactory<ConnectFluxCounterProps> ConnectedFluxComponent;
       UiFactory<CounterProps> ConnectedReduxComponent;
       TestJacket jacket;
@@ -213,8 +213,11 @@ main() {
         }
       }
 
-      Future<Duration> waitForUpdate() async {
-        return Future.delayed(Duration(seconds: 1));
+      Future waitForUpdate() async {
+        await window.animationFrame;
+        await window.animationFrame;
+        await window.animationFrame;
+        return Future(() {});
       }
 
       setUp(() {
@@ -302,6 +305,49 @@ main() {
         await waitForUpdate();
 
         verifyCount(containerList, 1);
+      });
+    });
+
+    group('extension methods', () {
+      group('asReduxStore', () {
+        test('returns a FluxToReduxAdapterStore', () {
+          final store = fluxStore.asReduxStore(fluxActions);
+          expect(store, isA<FluxToReduxAdapterStore>());
+        });
+
+        test('is idempotent', () {
+          final aTmpStore = fluxStore.asReduxStore(fluxActions);
+          final aSecondTmpStore = fluxStore.asReduxStore(fluxActions);
+          final aDifferentTempStore =
+              anotherFluxStore.asReduxStore(fluxActions);
+
+          expect(identical(aTmpStore, aSecondTmpStore), isTrue);
+          expect(identical(aTmpStore, aDifferentTempStore), isFalse);
+        });
+      });
+
+      group('asConnectFluxStore', () {
+        test('returns a ConnectFluxAdapterStore', () {
+          final store = connectableFluxStore.asConnectFluxStore(fluxActions);
+          expect(store, isA<ConnectFluxAdapterStore>());
+        });
+
+        test('prevents the use with a store that uses InfluxStoreMixin', () {
+          expect(() => fluxStore.asConnectFluxStore(fluxActions),
+              throwsArgumentError);
+        });
+
+        test('is idempotent', () {
+          final aTmpStore =
+              connectableFluxStore.asConnectFluxStore(fluxActions);
+          final aSecondTmpStore =
+              connectableFluxStore.asConnectFluxStore(fluxActions);
+          final aDifferentTempStore =
+              anotherConnectableFluxStore.asConnectFluxStore(fluxActions);
+
+          expect(identical(aTmpStore, aSecondTmpStore), isTrue);
+          expect(identical(aSecondTmpStore, aDifferentTempStore), isFalse);
+        });
       });
     });
   });

@@ -27,10 +27,6 @@ main() {
   Context context3;
 
   setUp(() {
-    store1.dispatch(ResetAction());
-    store2.dispatch(ResetAction());
-    store3.dispatch(ResetAction());
-
     context1 = createContext();
     context2 = createContext();
     context3 = createContext();
@@ -89,6 +85,10 @@ main() {
       final context2Button = queryByTestId(context2Counter, 'button-increment');
       final context3Button = queryByTestId(context3Counter, 'button-increment');
 
+      expect(findDomNode(context1Counter).innerHtml, contains('Count: 0'));
+      expect(findDomNode(context2Counter).innerHtml, contains('Count: 0'));
+      expect(findDomNode(context3Counter).innerHtml, contains('Count: 0'));
+
       click(context1Button);
 
       click(context2Button);
@@ -104,6 +104,32 @@ main() {
           reason:
               'Two clicks each incrementing 100 (since it is the "big counter").');
       expect(findDomNode(context3Counter).innerHtml, contains('Count: 3'));
+    });
+
+    group('works as expected when storesByContext is', () {
+      test('null', () {
+        expect(
+            () => mount(ReduxMultiProvider()(
+                  (Dom.div()..addTestId('content'))('foo'),
+                )),
+            logsPropRequiredError('ReduxMultiProviderProps.storesByContext'));
+      });
+
+      test('empty', () {
+        expect(
+            () => mount((ReduxMultiProvider()..storesByContext = {})(
+                  (Dom.div()..addTestId('content'))('foo'),
+                )),
+            logsPropValueError('{}', 'ReduxMultiProviderProps.storesByContext',
+                'It must not be empty'));
+
+        final jacket = mount((ReduxMultiProvider()..storesByContext = {})(
+          (Dom.div()..addTestId('content'))('foo'),
+        ));
+
+        expect(queryByTestId(jacket.mountNode, 'content').innerHtml,
+            contains('foo'));
+      });
     });
   });
 }

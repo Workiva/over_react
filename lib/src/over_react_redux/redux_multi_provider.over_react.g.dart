@@ -29,10 +29,11 @@ abstract class _$ReduxMultiProviderPropsAccessorsMixin
   ///
   /// Each context and store instance should be unique. Referencing the context
   /// in a connected component is exactly the same as it would with a standard
-  /// `ReduxProvider`.
+  /// [ReduxProvider].
   ///
   /// <!-- Generated from [_$ReduxMultiProviderProps.storesByContext] -->
   @override
+  @requiredProp
   Map<Context, Store> get storesByContext =>
       props[_$key__storesByContext___$ReduxMultiProviderProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
@@ -41,16 +42,18 @@ abstract class _$ReduxMultiProviderPropsAccessorsMixin
   ///
   /// Each context and store instance should be unique. Referencing the context
   /// in a connected component is exactly the same as it would with a standard
-  /// `ReduxProvider`.
+  /// [ReduxProvider].
   ///
   /// <!-- Generated from [_$ReduxMultiProviderProps.storesByContext] -->
   @override
+  @requiredProp
   set storesByContext(Map<Context, Store> value) =>
       props[_$key__storesByContext___$ReduxMultiProviderProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
-      _$prop__storesByContext___$ReduxMultiProviderProps =
-      PropDescriptor(_$key__storesByContext___$ReduxMultiProviderProps);
+      _$prop__storesByContext___$ReduxMultiProviderProps = PropDescriptor(
+          _$key__storesByContext___$ReduxMultiProviderProps,
+          isRequired: true);
   static const String _$key__storesByContext___$ReduxMultiProviderProps =
       'ReduxMultiProviderProps.storesByContext';
 
