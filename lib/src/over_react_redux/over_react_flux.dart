@@ -290,9 +290,11 @@ bool _shallowMapEquality(Map a, Map b) => const MapEquality().equals(a, b);
 ///
 /// This is primarily for use while transitioning _to_ `connect` and OverReact Redux.
 ///
-/// __NOTE:__ Unlike `connect`, there is no `areStatesEqual` parameter due to the state
-/// update process being impure. It is impure because it involves modification of
-/// the store itself, as opposed to creating a new state object with each change.
+/// > __NOTE:__ This should only be used to wrap components that extend from [Component2].
+/// >
+/// > Additionally, unlike `connect`, there is no `areStatesEqual` parameter due to the state
+/// > update process being impure. It is impure because it involves modification of
+/// > the store itself, as opposed to creating a new state object with each change.
 ///
 /// __Example:__
 /// ```dart

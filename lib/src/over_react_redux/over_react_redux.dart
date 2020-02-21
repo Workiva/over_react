@@ -45,6 +45,8 @@ typedef dynamic Dispatcher(dynamic action);
 
 /// A wrapper around the JS react-redux `connect` function that supports OverReact components.
 ///
+/// > __NOTE:__ This should only be used to wrap components that extend from [Component2].
+///
 /// __Example:__
 /// ```dart
 ///     UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
