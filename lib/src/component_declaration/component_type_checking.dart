@@ -21,10 +21,9 @@ import 'package:meta/meta.dart';
 import 'package:over_react/src/component_declaration/component_base.dart' show UiFactory;
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations show Component2;
 import 'package:over_react/src/util/react_wrappers.dart';
+import 'package:over_react/src/util/string_util.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
-
-import '../../over_react.dart';
 
 // ----------------------------------------------------------------------
 //   Component type registration and internal type metadata management
@@ -284,8 +283,8 @@ bool isValidElementOfType(dynamic instance, dynamic typeAlias) {
   return isValidElement(instance) && isComponentOfType(instance, typeAlias);
 }
 
-/// Validates that a [ReactComponentFactoryProxy]'s component is not [Component]
-/// or [UiComponent].
+/// Validates that a [ReactComponentFactoryProxy]'s component is not `Component`
+/// or `UiComponent`.
 void enforceMinimumComponentVersionFor(ReactComponentFactoryProxy component) {
   if (component.type is String) return;
 
