@@ -21,6 +21,7 @@ import '../test_util/test_util.dart';
 import 'fixtures/connect_flux_counter.dart';
 import 'fixtures/connect_flux_store.dart';
 import 'fixtures/counter.dart';
+import 'fixtures/non_component_two_counter.dart';
 import 'fixtures/redux_actions.dart';
 import 'fixtures/store.dart' as redux_store;
 
@@ -58,6 +59,10 @@ main() {
     });
 
     group('behaves like redux with', () {
+      test('errors when wrapping a UiComponent', (){
+        expect(() => connectFlux<FluxStore, FluxActions, NonComponentTwoCounterProps>()(NonComponentTwoCounter), throwsArgumentError);
+      });
+
       group('Provider Usage', () {
         test('throws without a provider', () {
           ConnectedCounter =
