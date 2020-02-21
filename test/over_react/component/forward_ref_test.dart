@@ -29,13 +29,11 @@ part 'forward_ref_test.over_react.g.dart';
 main() {
   group('forward ref -', () {
     test('errors when wrapping a UiComponent', () {
-      final component = forwardRef<BasicUiComponentProps>((props, ref) {
+      expect(() => forwardRef<BasicUiComponentProps>((props, ref) {
         return (BasicUiComponent()
-        ..ref = ref
+          ..ref = ref
         )();
-      })(BasicUiComponent);
-
-      expect(() => mount(component()()), throwsArgumentError);
+      })(BasicUiComponent), throwsArgumentError);
     });
 
     group('on a component with a dom component child', () {
