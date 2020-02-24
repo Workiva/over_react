@@ -23,7 +23,7 @@
     * [Important Terms](#important-terms)
     * [Steps to an Influx Refactor](#steps-to-an-influx-refactor)
         * [Phase 1: Get Ready to Refactor](#phase-1-get-ready-to-refactor)
-        * [Phase 2: Update Stores](#phase-2:-incrementally-update-stores)
+        * [Phase 2: Update Stores](#phase-2-incrementally-update-stores)
         * [Phase 3: Influx to Redux](#phase-3-influx-to-redux)
     * [ConnectFluxAdapterStore](#connectfluxadapterstore)
     * [Extension Methods!](#extension-methods)
