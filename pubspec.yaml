@@ -49,6 +49,6 @@ dev_dependencies:
 dependency_overrides:
   react:
     git:
-      url: git@github.com:cleandart/react-dart.git
-      ref: 5.2.0-wip
+      url: https://github.com/cleandart/react-dart.git
+      ref: 5.4.0-wip
 
