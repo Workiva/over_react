@@ -1,6 +1,7 @@
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
-import 'store.dart';
+
+import 'redux_actions.dart';
 
 part 'counter.over_react.g.dart';
 
@@ -25,6 +26,7 @@ class CounterComponent extends UiComponent2<CounterProps> {
     return (Dom.div()
       ..modifyProps(addUnconsumedProps)
       ..style = props.wrapperStyles
+      ..addTestId('counter-component')
     )(
       Dom.div()('Count: ${props.currentCount}'),
       (Dom.button()
