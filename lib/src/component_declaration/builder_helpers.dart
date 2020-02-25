@@ -107,7 +107,8 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 /// For use as a typed view into existing props [Map]s, or as a builder to create new component
 /// instances via a fluent-style interface.
 ///
-/// Use with the over_react builder via the `@Props()` ([annotations.Props]) annotation.
+/// To be used with the over_react builder to generate concrete props implementations
+/// with a component's declared props mixin.
 abstract class UiProps extends component_base.UiProps with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiProps() {
@@ -121,7 +122,8 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
 ///
-/// Use with the over_react builder via the `@State()` ([annotations.State]) annotation.
+/// To be used with the over_react builder to generate concrete state implementations
+/// with a component's declared state mixin.
 abstract class UiState extends component_base.UiState with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiState() {

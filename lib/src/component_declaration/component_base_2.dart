@@ -85,7 +85,6 @@ ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 Function() d
 ///
 /// __Prop and CSS className forwarding when your component renders a composite component:__
 ///
-///     @Component2()
 ///     class YourComponent extends UiComponent2<YourProps> {
 ///       Map getDefaultProps() => (newProps()
 ///         ..aPropOnYourComponent = /* default value */
@@ -106,7 +105,6 @@ ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 Function() d
 ///
 /// __Prop and CSS className forwarding when your component renders a DOM component:__
 ///
-///     @Component2()
 ///     class YourComponent extends UiComponent2<YourProps> {
 ///       @override
 ///       render() {
@@ -198,12 +196,10 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// __Example of enforcing the length of a prop value:__
   ///
   /// ```
-  /// @Props()
-  /// class MyProps extends UiProps {
+  /// mixin MyProps on UiProps {
   ///   Object foo;
   /// }
   ///
-  /// @Component2()
   /// class MyComponent extends UiComponent2<MyProps> {
   ///   @override
   ///   get propTypes => {
@@ -226,13 +222,11 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// __Example of enforcing the relationship between two prop values:__
   ///
   /// ```
-  /// @Props()
-  /// class MyProps extends UiProps {
+  /// mixin MyProps on UiProps {
   ///   bool mustHaveAnotherPropValue;
   ///   String anotherProp;
   /// }
   ///
-  /// @Component2()
   /// class MyComponent extends UiComponent2<MyProps> {
   ///   @override
   ///   get defaultProps => newProps()..someProp = false;
@@ -268,8 +262,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// __Example:__
   ///
   /// ```
-  /// @Props()
-  /// class MyProps extends UiProps {
+  /// mixin MyProps on UiProps {
   ///   bool somePropKey;
   ///
   ///   @Accessor(keyNamespace: '')
@@ -277,7 +270,6 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///   String id;
   /// }
   ///
-  /// @Component2()
   /// class MyComponent extends UiComponent2<MyProps> {
   ///   void someInstanceMethod() {
   ///     print(keyForProp((p) => p.somePropKey)); // Prints "MyProps.somePropKey"
@@ -293,14 +285,14 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   //
   // ***************************************************************************
 
-  /// The default consumed props, taken from the keys generated in the associated @[Props] class.
+  /// The default consumed props, taken from the keys generated in the associated [Props] class.
   @override
   @toBeGenerated
   Iterable<ConsumedProps> get $defaultConsumedProps => throw UngeneratedError(member: #$defaultConsumedProps);
 
   /// The non-forwarding props defined in this component.
   ///
-  /// For generated components, this defaults to the keys generated in the associated @[Props] class
+  /// For generated components, this defaults to the keys generated in the associated [Props] class
   /// if this getter is not overridden.
   @override
   Iterable<ConsumedProps> get consumedProps => $defaultConsumedProps;
@@ -453,12 +445,10 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// __Bad__
   ///
   /// ```
-  /// @Props()
-  /// class MyProps extends UiProps {
+  /// mixin MyProps on UiProps {
   ///   List listThatMustHaveAnEvenNumberOfItems;
   /// }
   ///
-  /// @Component2()
   /// class MyComponent extends UiComponent2<MyProps> {
   ///   void validateProps(Map appliedProps) {
   ///     super.validateProps(appliedProps);
@@ -474,12 +464,10 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// __Good__
   ///
   /// ```
-  /// @Props()
-  /// class MyProps extends UiProps {
+  /// mixin MyProps on UiProps {
   ///   List listThatMustHaveAnEvenNumberOfItems;
   /// }
   ///
-  /// @Component2()
   /// class MyComponent extends UiComponent2<MyProps> {
   ///   @override
   ///   get propTypes => {
@@ -521,7 +509,6 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
 ///
 /// __Initializing state:__
 ///
-///     @Component2()
 ///     class YourComponent extends UiStatefulComponent2<YourProps, YourState> {
 ///       @override
 ///       void init() {
@@ -559,7 +546,6 @@ abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiSta
 ///
 /// __Initializing state:__
 ///
-///     @Component2()
 ///     class YourComponent extends UiComponent2<YourProps> with UiStatefulMixin2<YourProps, YourState> {
 ///       @override
 ///       void init() {

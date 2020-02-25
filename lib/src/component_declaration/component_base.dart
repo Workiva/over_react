@@ -104,7 +104,6 @@ typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 ///
 /// __Prop and CSS className forwarding when your component renders a composite component:__
 ///
-///     @Component()
 ///     class YourComponent extends UiComponent<YourProps> {
 ///       Map getDefaultProps() => (newProps()
 ///         ..aPropOnYourComponent = /* default value */
@@ -125,7 +124,6 @@ typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 ///
 /// __Prop and CSS className forwarding when your component renders a DOM component:__
 ///
-///     @Component()
 ///     class YourComponent extends UiComponent<YourProps> {
 ///       @override
 ///       render() {
@@ -292,7 +290,6 @@ abstract class UiComponent<TProps extends UiProps> extends react.Component with 
 ///
 /// __Initializing state:__
 ///
-///     @Component()
 ///     class YourComponent extends UiStatefulComponent<YourProps, YourState> {
 ///       Map getInitialState() => (newState()
 ///         ..aStateKeyWithinYourStateClass = /* default value */
