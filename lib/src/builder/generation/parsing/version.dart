@@ -34,7 +34,8 @@ List<BoilerplateVersion> resolveVersions(Iterable<BoilerplateMember> members) {
 
   final versions = totals.entries.where((entry) => entry.value != 0).toList()
     ..sort((a, b) {
-      final compareResult = a.value.compareTo(b.value);
+      // Sort highest to lowest for values
+      final compareResult = b.value.compareTo(a.value);
       // For ties, chose the preferred boilerplate.
       if (compareResult == 0) {
         return boilerplateVersionPriority.indexOf(a.key).compareTo(boilerplateVersionPriority.indexOf(b.key));
