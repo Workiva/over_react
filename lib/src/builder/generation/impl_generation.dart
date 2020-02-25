@@ -62,13 +62,13 @@ class ImplGenerator {
       } else if (declaration is LegacyAbstractClassComponentDeclaration) {
         generateAbstractComponent(declaration);
       } else if (declaration is PropsMixinDeclaration) {
-        if (declaration.bestVersion == BoilerplateVersion.v4_mixinBased) {
+        if (declaration.version == BoilerplateVersion.v4_mixinBased) {
           logger.severe('Codegen for new boilerplate (ClassComponentDeclaration) is not yet implemented');
         } else {
           generatePropsMixin(declaration);
         }
       } else if (declaration is StateMixinDeclaration) {
-        if (declaration.bestVersion == BoilerplateVersion.v4_mixinBased) {
+        if (declaration.version == BoilerplateVersion.v4_mixinBased) {
           logger.severe('Codegen for new boilerplate (ClassComponentDeclaration) is not yet implemented');
         } else {
           generateStateMixin(declaration);

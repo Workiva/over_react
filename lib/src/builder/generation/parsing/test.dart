@@ -45,4 +45,8 @@ class BasicComponent extends UiComponent2<BasicPropsMixin> {
 
   final declarations = getBoilerplateDeclarations(members, errorCollector);
   print(declarations);
+
+  for (var declaration in declarations) {
+    declaration.validate(errorCollector);
+  }
 }

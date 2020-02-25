@@ -50,6 +50,9 @@ class OverReactBuilder extends Builder {
 
       final members = BoilerplateMembers.detect(unit);
       final declarations = getBoilerplateDeclarations(members, errorCollector);
+      for (var declaration in declarations) {
+        declaration.validate(errorCollector);
+      }
 
       if (hasErrors) {
         log.severe('There was an error parsing the file declarations for file: $id');

@@ -2,6 +2,7 @@
 import 'package:meta/meta.dart';
 
 import 'members.dart';
+import 'util.dart';
 
 @sealed
 abstract class Confidence {
@@ -22,6 +23,10 @@ enum BoilerplateVersion {
   v2_legacyBackwardsCompat,
   v3_legacyDart2Only,
   v4_mixinBased,
+}
+
+BoilerplateVersion resolveVersion(Iterable<BoilerplateMember> members) {
+  return resolveVersions(members).firstOrNull;
 }
 
 List<BoilerplateVersion> resolveVersions(Iterable<BoilerplateMember> members) {

@@ -12,32 +12,33 @@ import 'version.dart';
 final RegExp _maybeDeclarationPattern = RegExp(
     // todo is this necessary?
     r'\.over_react\.g\.dart'
-    // Legacy components (annotation required)
-    r'|@(?:' + [
-      'Factory',
-      'Component',
-      'Component2',
-      'Props',
-      'State',
-      'AbstractComponent',
-      'AbstractComponent2',
-      'AbstractProps',
-      'AbstractState',
-      'PropsMixin',
-      'StateMixin',
-    ].join('|') +
-    r')'
-    // New components (references to props base classes required);
-    // find other base classes for validation purposes
-    r'|Ui(?:Factory|Props|Component|State)',
-    caseSensitive: true
-);
+            // Legacy components (annotation required)
+            r'|@(?:' +
+        [
+          'Factory',
+          'Component',
+          'Component2',
+          'Props',
+          'State',
+          'AbstractComponent',
+          'AbstractComponent2',
+          'AbstractProps',
+          'AbstractState',
+          'PropsMixin',
+          'StateMixin',
+        ].join('|') +
+        r')'
+            // New components (references to props base classes required);
+            // find other base classes for validation purposes
+            r'|Ui(?:Factory|Props|Component|State)',
+    caseSensitive: true);
 
 bool mightContainDeclarations(String source) {
   return _maybeDeclarationPattern.hasMatch(source);
 }
 
-Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(BoilerplateMembers members, ValidationErrorCollector errorCollector) sync* {
+Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
+    BoilerplateMembers members, ValidationErrorCollector errorCollector) sync* {
   if (members.isEmpty) return;
 
   final factories = members.factories;
@@ -48,10 +49,10 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(BoilerplateMembers m
   final stateMixins = members.stateMixins;
 
   for (var propsMixin in propsMixins) {
-    yield PropsMixinDeclaration(propsMixin: propsMixin);
+    yield PropsMixinDeclaration(version: resolveVersion([propsMixin]), propsMixin: propsMixin);
   }
   for (var stateMixin in stateMixins) {
-    yield StateMixinDeclaration(stateMixin: stateMixin);
+    yield StateMixinDeclaration(version: resolveVersion([stateMixin]), stateMixin: stateMixin);
   }
 
   final unusedFactories = <FactoryGroup>[];
@@ -59,7 +60,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(BoilerplateMembers m
   // todo assume one component per file here, group if the counts are correct
 
   // ...
-
 
   // todo getPropsForFactories getComponent utils - what if there are multiple candidates?
   //  Do we just go with the first one, or do we use confidence scores? It's possible something could look like a component or props class
@@ -91,20 +91,30 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(BoilerplateMembers m
     if (component != null) {
       components.remove(component);
 
-      final versions = resolveVersions([
+      final version = resolveVersion([
         factory,
         propsClassOrMixin.either,
         component,
         if (stateClassOrMixin != null) stateClassOrMixin.either,
       ]);
 
-      switch (versions.firstOrNull) {
+      switch (version) {
         case BoilerplateVersion.v2_legacyBackwardsCompat:
         case BoilerplateVersion.v3_legacyDart2Only:
-          yield LegacyClassComponentDeclaration(factory: factory, component: component, props: propsClassOrMixin.a, state: stateClassOrMixin?.a);
+          yield LegacyClassComponentDeclaration(
+              version: version,
+              factory: factory,
+              component: component,
+              props: propsClassOrMixin.a,
+              state: stateClassOrMixin?.a);
           break;
         case BoilerplateVersion.v4_mixinBased:
-          yield ClassComponentDeclaration(factory: factory, component: component, props: propsClassOrMixin, state: stateClassOrMixin);
+          yield ClassComponentDeclaration(
+              version: version,
+              factory: factory,
+              component: component,
+              props: propsClassOrMixin,
+              state: stateClassOrMixin);
           break;
         default:
           // This case (null) is unlikely, but it means that none of the declarations actually seem like boilerplate.
@@ -117,17 +127,29 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(BoilerplateMembers m
       }
 
       if (isFunctionComponent(factory)) {
-        yield FunctionComponentDeclaration(factory: factory, props: propsClassOrMixin);
+        yield FunctionComponentDeclaration(
+            version: BoilerplateVersion.v4_mixinBased,
+            factory: factory, props: propsClassOrMixin);
       } else {
-        yield PropsMapViewDeclaration(factory: factory, props: propsClassOrMixin);
+        final versions = resolveVersions([factory, propsClassOrMixin.either]);
+        if (versions.contains(BoilerplateVersion.v4_mixinBased)) {
+          yield PropsMapViewDeclaration(
+              version: BoilerplateVersion.v4_mixinBased,
+              factory: factory, props: propsClassOrMixin);
+        } else {
+          errorCollector.addError('Missing component for factory/props',
+              errorCollector.spanFor(factory.node));
+        }
       }
     }
   }
 
   for (var component in components) {
     final potentialFactory = fuzzyMatch(component, factories)?.name;
-    final potentialProps = fuzzyMatch(component, [...props, ...propsMixins])?.name;
-    errorCollector.addError('Component is missing factory/props: could it be referring to $potentialFactory/$potentialProps?',
+    final potentialProps =
+        fuzzyMatch(component, [...props, ...propsMixins])?.name;
+    errorCollector.addError(
+        'Component is missing factory/props: could it be referring to $potentialFactory/$potentialProps?',
         errorCollector.spanFor(component.node.name));
   }
 
@@ -143,13 +165,13 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(BoilerplateMembers m
   for (var propsClass in props) {
     final potentialFactory = fuzzyMatch(propsClass, factories);
     final potentialComponent = fuzzyMatch(propsClass, components);
-    errorCollector.addError('Props class is missing factory/component: $potentialFactory/$potentialComponent');
+    errorCollector.addError(
+        'Props class is missing factory/component: $potentialFactory/$potentialComponent');
   }
 
   // todo when to fail for above cases vs just warn? When they reference generated code? When their "is boilerplate" confidence score is sufficiently high?
 
   // todo outside of this function, Validate boilerplateDecls, which validates individual items as well
-
 
   // old version
 //  final factories, propsClasses, propsMixins, components;
@@ -175,19 +197,20 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(BoilerplateMembers m
   //  }
 }
 
-
 Union<BoilerplateProps, BoilerplatePropsMixin> getPropsForFactory(
   BoilerplateFactory factory,
   Iterable<BoilerplateProps> props,
   Iterable<BoilerplatePropsMixin> propsMixins,
 ) {
-  final name = factory.node.variables.variables.first.name.name.replaceAll(RegExp(r'^[_$]*'), '');
+  final name = factory.node.variables.variables.first.name.name
+      .replaceAll(RegExp(r'^[_$]*'), '');
   final expectedPropsName = '${name}Props';
   final expectedPropsMixinName = '${name}PropsMixin';
 
   final matchingProps = props.firstWhere(
-      (element) => element.node.name.name == expectedPropsName ||
-                  element.node.name.name == expectedPropsMixinName,
+      (element) =>
+          element.node.name.name == expectedPropsName ||
+          element.node.name.name == expectedPropsMixinName,
       orElse: () => null);
   if (matchingProps != null) return Union.a(matchingProps);
 
@@ -206,7 +229,8 @@ Union<BoilerplateState, BoilerplateStateMixin> getStateForFactory(
   Iterable<BoilerplateState> states,
   Iterable<BoilerplateStateMixin> stateMixins,
 ) {
-  final name = factory.node.firstVariable.name.name.replaceAll(RegExp(r'^[_$]*'), '');
+  final name =
+      factory.node.firstVariable.name.name.replaceAll(RegExp(r'^[_$]*'), '');
   final expectedPropsName = '${name}Props';
   final expectedPropsMixinName = '${name}PropsMixin';
 
@@ -230,10 +254,12 @@ BoilerplateComponent getComponent(
   Union<BoilerplateProps, BoilerplatePropsMixin> propsClassOrMixin,
   List<BoilerplateComponent> components,
 ) {
-  final name = factory.node.firstVariable.name.name.replaceAll(RegExp(r'^[_$]*'), '');
-  return components.firstWhere((component) => component.node.name.name == '${name}Component', orElse: () => null);
+  final name =
+      factory.node.firstVariable.name.name.replaceAll(RegExp(r'^[_$]*'), '');
+  return components.firstWhere(
+      (component) => component.node.name.name == '${name}Component',
+      orElse: () => null);
 }
-
 
 class FactoryGroup {
   final List<BoilerplateFactory> factories;
@@ -246,7 +272,9 @@ class FactoryGroup {
     final factoriesInitializedToIdentifier = factories
         .where((factory) => factory.node.firstInitializer is Identifier)
         .toList();
-    if (factoriesInitializedToIdentifier.length == 1) return factoriesInitializedToIdentifier.first;
+    if (factoriesInitializedToIdentifier.length == 1) {
+      return factoriesInitializedToIdentifier.first;
+    }
 
     // fixme other cases
     return factories[0];
@@ -274,31 +302,47 @@ List<FactoryGroup> groupFactories(Iterable<BoilerplateFactory> factories) {
 
 bool isStandaloneFactory(BoilerplateFactory factory) {
   final initializer = factory.node.firstInitializer;
-  return initializer != null && !(initializer?.tryCast<Identifier>()?.name?.startsWith(RegExp(r'[_\$]')) ?? false);
+  return initializer != null &&
+      !(initializer
+              ?.tryCast<Identifier>()
+              ?.name
+              ?.startsWith(RegExp(r'[_\$]')) ??
+          false);
 }
 
 bool isFunctionComponent(BoilerplateFactory factory) {
   //todo implement
 }
 
-NamedCompilationUnitMember fuzzyMatch(BoilerplateMember member, Iterable<BoilerplateMember> members) {
+NamedCompilationUnitMember fuzzyMatch(
+    BoilerplateMember member, Iterable<BoilerplateMember> members) {
   // todo implement
   return members.firstOrNull?.node;
 }
 
-
 class BoilerplateGenerator {}
 
 abstract class BoilerplateDeclaration {
-  void validate(BoilerplateVersion version, ValidationErrorCollector errorCollector) {
+  final BoilerplateVersion version;
+
+  BoilerplateDeclaration(this.version);
+
+  void validate(ValidationErrorCollector errorCollector) {
+    if (version == null) {
+      // This should almost never happen.
+      errorCollector.addError('Could not determine boilerplate version.',
+          errorCollector.spanFor(_members.first.node));
+      return;
+    }
+
     for (var member in _members) {
       member.validate(version, errorCollector);
     }
   }
+
   BoilerplateGenerator get generator => null;
 
   Iterable<BoilerplateMember> get _members;
-  BoilerplateVersion get bestVersion => resolveVersions(_members.whereNotNull()).firstOrNull;
 }
 
 class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
@@ -312,11 +356,13 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
   @override
   get _members => [factory, component, props, state];
 
-  LegacyClassComponentDeclaration(
-      {@required this.factory,
-      @required this.component,
-      @required this.props,
-      this.state});
+  LegacyClassComponentDeclaration({
+    @required BoilerplateVersion version,
+    @required this.factory,
+    @required this.component,
+    @required this.props,
+    this.state,
+  }) : super(version);
 }
 
 class LegacyAbstractClassComponentDeclaration extends BoilerplateDeclaration {
@@ -327,8 +373,12 @@ class LegacyAbstractClassComponentDeclaration extends BoilerplateDeclaration {
   @override
   get _members => [component, props, state];
 
-  LegacyAbstractClassComponentDeclaration(
-      {@required this.component, @required this.props, this.state});
+  LegacyAbstractClassComponentDeclaration({
+    @required BoilerplateVersion version,
+    @required this.component,
+    @required this.props,
+    this.state,
+  }) : super(version);
 }
 
 class ClassComponentDeclaration extends BoilerplateDeclaration {
@@ -340,11 +390,13 @@ class ClassComponentDeclaration extends BoilerplateDeclaration {
   @override
   get _members => [factory, component, props.either, state.either];
 
-  ClassComponentDeclaration(
-      {@required this.factory,
-      @required this.component,
-      @required this.props,
-      this.state});
+  ClassComponentDeclaration({
+    @required BoilerplateVersion version,
+    @required this.factory,
+    @required this.component,
+    @required this.props,
+    this.state,
+  }) : super(version);
 }
 
 // todo how to tell between these two?
@@ -357,7 +409,11 @@ class PropsMapViewDeclaration extends BoilerplateDeclaration {
   @override
   get _members => [factory, props.either];
 
-  PropsMapViewDeclaration({@required this.factory, @required this.props});
+  PropsMapViewDeclaration({
+    @required BoilerplateVersion version,
+    @required this.factory,
+    @required this.props,
+  }) : super(version);
 }
 
 class FunctionComponentDeclaration extends BoilerplateDeclaration {
@@ -370,7 +426,11 @@ class FunctionComponentDeclaration extends BoilerplateDeclaration {
   @override
   get _members => [factory, props.either];
 
-  FunctionComponentDeclaration({@required this.factory, @required this.props});
+  FunctionComponentDeclaration({
+    @required BoilerplateVersion version,
+    @required this.factory,
+    @required this.props,
+  }) : super(version);
 }
 
 class PropsMixinDeclaration extends BoilerplateDeclaration {
@@ -379,7 +439,10 @@ class PropsMixinDeclaration extends BoilerplateDeclaration {
   @override
   get _members => [propsMixin];
 
-  PropsMixinDeclaration({@required this.propsMixin});
+  PropsMixinDeclaration({
+    @required BoilerplateVersion version,
+    @required this.propsMixin,
+  }) : super(version);
 }
 
 class StateMixinDeclaration extends BoilerplateDeclaration {
@@ -388,5 +451,8 @@ class StateMixinDeclaration extends BoilerplateDeclaration {
   @override
   get _members => [stateMixin];
 
-  StateMixinDeclaration({@required this.stateMixin});
+  StateMixinDeclaration({
+    @required BoilerplateVersion version,
+    @required this.stateMixin,
+  }) : super(version);
 }
