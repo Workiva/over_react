@@ -1,7 +1,7 @@
 import 'dart:mirrors' as mirrors;
 
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:transformer_utils/transformer_utils.dart';
+
 import 'ast_util.dart';
 
 /// Returns the first annotation AST node on [member] of type [annotationType],

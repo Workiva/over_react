@@ -1,16 +1,16 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react/src/builder/generation/parsing/ast_util.dart';
-import 'package:over_react/src/builder/generation/parsing/util.dart';
-import 'package:over_react/src/builder/generation/parsing/validation.dart';
-import 'package:over_react/src/builder/generation/parsing/version.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/util/pretty_print.dart';
 import 'package:over_react/src/util/string_util.dart';
 import 'package:transformer_utils/transformer_utils.dart';
 
 import '../../util.dart';
+import 'ast_util.dart';
+import 'util.dart';
+import 'validation.dart';
+import 'version.dart';
 
 part 'members/component.dart';
 part 'members/factory.dart';

@@ -2,11 +2,12 @@ import 'dart:collection';
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react/src/builder/generation/parsing/ast_util.dart';
-import 'package:over_react/src/builder/generation/parsing/members.dart';
-import 'package:over_react/src/builder/generation/parsing/util.dart';
-import 'package:over_react/src/builder/generation/parsing/validation.dart';
-import 'package:over_react/src/builder/generation/parsing/version.dart';
+
+import 'ast_util.dart';
+import 'members.dart';
+import 'util.dart';
+import 'validation.dart';
+import 'version.dart';
 
 final RegExp _maybeDeclarationPattern = RegExp(
     // todo is this necessary?

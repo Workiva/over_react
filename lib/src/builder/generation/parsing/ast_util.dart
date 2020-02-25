@@ -1,9 +1,10 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/dart/ast/token.dart';
-import 'package:over_react/src/builder/generation/parsing/util.dart';
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart';
+
+import 'util.dart';
 
 extension InitializerHelper on VariableDeclarationList {
   Expression get firstInitializer => variables.first.initializer;

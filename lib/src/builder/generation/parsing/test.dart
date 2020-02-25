@@ -1,8 +1,7 @@
 import 'package:analyzer/dart/analysis/utilities.dart';
-import 'package:over_react/src/builder/generation/parsing/declarations.dart';
-import 'package:over_react/src/builder/generation/parsing/members.dart';
-import 'package:over_react/src/builder/generation/parsing/validation.dart';
 import 'package:source_span/source_span.dart';
+
+import '../parsing.dart';
 
 main() {
   final sourceFile = SourceFile.fromString(r'''

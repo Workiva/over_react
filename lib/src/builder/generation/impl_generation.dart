@@ -16,15 +16,12 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react/src/builder/generation/parsing/ast_util.dart';
-import 'package:over_react/src/builder/generation/parsing/declarations.dart';
-import 'package:over_react/src/builder/generation/parsing/members.dart';
-import 'package:over_react/src/builder/generation/parsing/util.dart';
-import 'package:over_react/src/builder/generation/parsing/version.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/builder/util.dart';
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart';
+
+import 'parsing.dart';
 
 /// A utility class that generates implementations for a set of [ParsedDeclarations] obtained from a [SourceFile].
 ///

@@ -1,7 +1,8 @@
 
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:source_span/source_span.dart';
-import 'package:over_react/src/builder/generation/parsing/ast_util.dart';
+
+import 'ast_util.dart';
 
 abstract class ValidationErrorCollector {
   SourceFile get _sourceFile;

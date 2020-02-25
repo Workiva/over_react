@@ -3,14 +3,12 @@ import 'dart:async';
 import 'package:analyzer/analyzer.dart';
 import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
-import 'package:over_react/src/builder/generation/impl_generation.dart';
-import 'package:over_react/src/builder/generation/parsing/declarations.dart';
-import 'package:over_react/src/builder/generation/parsing/members.dart';
-import 'package:over_react/src/builder/generation/parsing/validation.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 
 import './util.dart';
+import 'generation/impl_generation.dart';
+import 'generation/parsing.dart';
 
 Builder overReactBuilder(BuilderOptions options) => OverReactBuilder();
 
