@@ -20,6 +20,8 @@ import 'package:over_react/src/builder/generation/parsing/ast_util.dart';
 import 'package:over_react/src/builder/generation/parsing/declarations.dart';
 import 'package:over_react/src/builder/generation/parsing/members.dart';
 import 'package:over_react/src/builder/generation/parsing/util.dart';
+import 'package:over_react/src/builder/generation/parsing/version.dart';
+import 'package:over_react/src/builder/generation/parsing/version.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/builder/generation/declaration_parsing.dart';
 import 'package:over_react/src/builder/util.dart';
@@ -57,6 +59,34 @@ class ImplGenerator {
   StringBuffer outputContentsBuffer = StringBuffer();
 
   SourceFile sourceFile;
+
+  void generate(Iterable<BoilerplateDeclaration> declarations) {
+    for (var declaration in declarations) {
+      if (declaration is LegacyClassComponentDeclaration) {
+        generateComponent(declaration);
+      } else if (declaration is LegacyAbstractClassComponentDeclaration) {
+        generateAbstractComponent(declaration);
+      } else if (declaration is PropsMixinDeclaration) {
+        if (declaration.bestVersion == BoilerplateVersion.v4_mixinBased) {
+          logger.severe('Codegen for new boilerplate (ClassComponentDeclaration) is not yet implemented');
+        } else {
+          generatePropsMixin(declaration);
+        }
+      } else if (declaration is StateMixinDeclaration) {
+        if (declaration.bestVersion == BoilerplateVersion.v4_mixinBased) {
+          logger.severe('Codegen for new boilerplate (ClassComponentDeclaration) is not yet implemented');
+        } else {
+          generateStateMixin(declaration);
+        }
+      } else if (declaration is ClassComponentDeclaration) {
+        logger.severe('Codegen for new boilerplate (ClassComponentDeclaration) is not yet implemented');
+      } else if (declaration is PropsMapViewDeclaration) {
+        logger.severe('Codegen for new boilerplate (PropsMapViewDeclaration) is not yet implemented');
+      } else if (declaration is FunctionComponentDeclaration) {
+        logger.severe('Codegen for new boilerplate (FunctionComponentDeclaration) is not yet implemented');
+      }
+    }
+  }
 
   void generateComponent(LegacyClassComponentDeclaration declarations) {
     final bool isComponent2 = declarations.isComponent2;

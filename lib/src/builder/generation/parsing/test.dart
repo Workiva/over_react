@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:over_react/src/builder/generation/parsing/declarations.dart';
 import 'package:over_react/src/builder/generation/parsing/members.dart';
+import 'package:over_react/src/builder/generation/parsing/validation.dart';
 import 'package:source_span/source_span.dart';
 
 main() {
@@ -40,8 +41,7 @@ class BasicComponent extends UiComponent2<BasicPropsMixin> {
   final errorCollector = ConsoleValidationErrorCollector(sourceFile);
   final unit = parseString(content: sourceFile.getText(0)).unit;
 
-  final members = BoilerplateMemberDetector();
-  unit.accept(members);
+  final members = BoilerplateMembers.detect(unit);
   print(members);
 
   final declarations = getBoilerplateDeclarations(members, errorCollector);

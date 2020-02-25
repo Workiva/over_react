@@ -15,6 +15,9 @@ mixin PropsStateStringHelpers {
   String get propsOrStateMixinString => '${propsOrStateString.capitalize()} mixin';
   String get propsOrStateFieldsName => isProps ? 'props' : 'state fields';
   String get propsOrStateMetaStructName => isProps ? 'PropsMeta' : 'StateMeta';
+  String get propsOrStateAnnotationName => isProps ? 'Props' : 'State';
+  String get propsOrStateAbstractAnnotationName => isProps ? 'AbstractProps' : 'AbstractState';
+  String get propsOrStateMixinAnnotationName => isProps ? 'PropsMixin' : 'StateMixin';
 }
 
 abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsStateStringHelpers {
@@ -23,19 +26,32 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
 
   final ClassishDeclaration nodeHelper;
 
-  final bool hasCompanionClass;
+  ClassOrMixinDeclaration companionClass;
 
   NodeWithMeta<NamedCompilationUnitMember, annotations.TypedMap> get withMeta;
 
-  BoilerplatePropsOrState(this.nodeHelper, int declarationConfidence, {@required this.hasCompanionClass}) : node = nodeHelper.node, super(declarationConfidence);
+  BoilerplatePropsOrState(this.nodeHelper, int declarationConfidence, {@required this.companionClass}) : node = nodeHelper.node, super(declarationConfidence);
 
   @override
-  Map<BoilerplateVersion, int> get versionConfidence => {
-    // todo might need to rethink these, as well as in the mixin classes, to be able to provide better error messages when people make things mixins
-    BoilerplateVersion.v2_legacyBackwardsCompat: node is MixinDeclaration ? Confidence.none : Confidence.high,
-    BoilerplateVersion.v3_legacyDart2Only: node is MixinDeclaration ? Confidence.none : Confidence.high,
-    BoilerplateVersion.v4_mixinBased: node is MixinDeclaration ? Confidence.high : Confidence.veryLow,
-  };
+  Map<BoilerplateVersion, int> get versionConfidence {
+    final isMixin = node is MixinDeclaration;
+
+    return {
+      // todo might need to rethink these, as well as in the mixin classes, to be able to provide better error messages when people make things mixins
+      BoilerplateVersion.v2_legacyBackwardsCompat: isMixin
+          ? Confidence.none
+          : (hasCompanionClass ? Confidence.high : Confidence.veryLow),
+
+      BoilerplateVersion.v3_legacyDart2Only: isMixin
+          ? Confidence.none
+          : (hasCompanionClass ? Confidence.veryLow : Confidence.high),
+
+      BoilerplateVersion.v4_mixinBased:
+          isMixin ? Confidence.high : Confidence.veryLow,
+    };
+  }
+
+  bool get hasCompanionClass => companionClass != null;
 
   @override
   void validate(BoilerplateVersion version, ValidationErrorCollector errorCollector) {
@@ -48,8 +64,8 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
           errorCollector.addError('$propsOrStateClassString implementations must be concrete classes, not mixins',// TODO add versions to error messages
               errorCollector.spanFor(node.mixinKeyword));
         } else {
-          if (nodeHelper.superclass?.nameWithoutPrefix != 'UiProps') {
-            errorCollector.addError('$propsOrStateClassString implementations must extend directly from `on $propsOrStateBaseClassString`',
+          if (nodeHelper.superclass?.nameWithoutPrefix != propsOrStateBaseClassString) {
+            errorCollector.addError('$propsOrStateClassString implementations must extend directly from $propsOrStateBaseClassString',
                 errorCollector.spanFor(nodeHelper.superclass ?? node));
           }
 
@@ -66,11 +82,29 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
         }
         break;
       case BoilerplateVersion.v2_legacyBackwardsCompat:
-        // TODO: Handle this case.
+        _sharedLegacyValidation(errorCollector);
+        validateMetaField(companionClass, propsOrStateMetaStructName, errorCollector);
         break;
       case BoilerplateVersion.v3_legacyDart2Only:
-        // TODO: Handle this case.
+        _sharedLegacyValidation(errorCollector);
+        checkForMetaPresence(node, errorCollector);
         break;
+    }
+  }
+
+  void _sharedLegacyValidation(ValidationErrorCollector errorCollector) {
+    final annotations = {propsOrStateAnnotationName, propsOrStateAbstractAnnotationName};
+    if (!node.hasAnnotationWithNames(annotations)) {
+      errorCollector.addError('Legacy boilerplate ${propsOrStateClassString}es must be annotated with one of:'
+          ' ${annotations.map((a) => '`@$a()`').join(', ')}.',
+          errorCollector.spanFor(node));
+    }
+
+    // Check that class name starts with [privateSourcePrefix]
+    if (!node.name.name.startsWith(privateSourcePrefix)) {
+      errorCollector.addError('The class `${node.name.name}` does not start with `$privateSourcePrefix`. All Props, State, '
+          'AbstractProps, and AbstractState classes should begin with `$privateSourcePrefix` on Dart 2',
+          errorCollector.spanFor(node));
     }
   }
 }
@@ -124,6 +158,14 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
 
   @override
   void validate(BoilerplateVersion version, ValidationErrorCollector errorCollector) {
+    void _sharedLegacyValidation() {
+      if (!node.hasAnnotationWithName(propsOrStateMixinAnnotationName)) {
+        errorCollector.addError('Legacy boilerplate ${propsOrStateMixinString}s must be annotated with '
+            ' `@$propsOrStateMixinAnnotationName()`',
+            errorCollector.spanFor(node));
+      }
+    }
+
     switch (version) {
       case BoilerplateVersion.v4_mixinBased:
         final node = this.node;
@@ -143,9 +185,11 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
         }
         break;
       case BoilerplateVersion.v2_legacyBackwardsCompat:
+        _sharedLegacyValidation();
         validateMetaField(node, propsOrStateMetaStructName, errorCollector);
         break;
       case BoilerplateVersion.v3_legacyDart2Only:
+        _sharedLegacyValidation();
         checkForMetaPresence(node, errorCollector);
         break;
     }

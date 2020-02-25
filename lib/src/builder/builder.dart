@@ -5,6 +5,9 @@ import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:over_react/src/builder/generation/declaration_parsing.dart';
 import 'package:over_react/src/builder/generation/impl_generation.dart';
+import 'package:over_react/src/builder/generation/parsing/declarations.dart';
+import 'package:over_react/src/builder/generation/parsing/members.dart';
+import 'package:over_react/src/builder/generation/parsing/validation.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 
@@ -31,18 +34,33 @@ class OverReactBuilder extends Builder {
 
     final outputs = <String>[];
     void generateForFile(String source, AssetId id, CompilationUnit unit) {
-      if (!ParsedDeclarations.mightContainDeclarations(source)) {
+      if (!mightContainDeclarations(source)) {
         return;
       }
       final sourceFile = SourceFile.fromString(
         source, url: idToPackageUri(id));
-      final declarations = ParsedDeclarations(unit, sourceFile, log);
-      if (declarations.hasErrors) {
+
+      var hasErrors = false;
+      final errorCollector = CallbackValidationErrorCollector(sourceFile,
+        onError: (message, [span]) {
+          log.severe(span.message(message) ?? message);
+          hasErrors = true;
+        },
+        onWarning: (message, [span]) {
+          log.warning(span.message(message) ?? message);
+        },
+      );
+
+      final members = BoilerplateMembers.detect(unit);
+      final declarations = getBoilerplateDeclarations(members, errorCollector);
+
+      if (hasErrors) {
         log.severe('There was an error parsing the file declarations for file: $id');
         return;
       }
       final generator = ImplGenerator(log, sourceFile)
-        ..generate(declarations);
+          ..generate(declarations);
+
       final generatedOutput = generator.outputContentsBuffer.toString().trim();
       if (generatedOutput.isNotEmpty) {
         outputs.add(generatedOutput);
@@ -111,7 +129,7 @@ class OverReactBuilder extends Builder {
 
   // ignore: unused_element
   static bool _mightContainDeclarations(String source) {
-    return ParsedDeclarations.mightContainDeclarations(source) ||
+    return mightContainDeclarations(source) ||
       _overReactPartDirective.hasMatch(source);
   }
 

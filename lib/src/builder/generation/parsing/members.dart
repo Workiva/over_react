@@ -1,15 +1,14 @@
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/src/builder/generation/parsing/ast_util.dart';
 import 'package:over_react/src/builder/generation/parsing/util.dart';
+import 'package:over_react/src/builder/generation/parsing/validation.dart';
 import 'package:over_react/src/builder/generation/parsing/version.dart';
+import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/util/pretty_print.dart';
 import 'package:over_react/src/util/string_util.dart';
-import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart';
-import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 
 import '../../util.dart';
 
@@ -32,35 +31,18 @@ abstract class BoilerplateMember {
   toString() => '${super.toString()} ${prettyPrintMap(versionConfidence)}';
 }
 
-abstract class ValidationErrorCollector {
-  SourceFile get _sourceFile;
-
-  void addError(String message, [SourceSpan span]);
-  void addWarning(String message, [SourceSpan span]);
-
-  FileSpan spanFor(SyntacticEntity nodeOrToken) => _sourceFile.spanFor(nodeOrToken);
-  FileSpan span(int start, [int end]) => _sourceFile.span(start, end);
-}
-
-class ConsoleValidationErrorCollector extends ValidationErrorCollector {
-  @override
-  final _sourceFile;
-
-  ConsoleValidationErrorCollector(this._sourceFile);
-
-  @override
-  void addError(String message, [SourceSpan span]) => print(span?.message(message) ?? message);
-  @override
-  void addWarning(String message, [SourceSpan span]) => print(span?.message(message) ?? message);
-}
-
-mixin BoilerplateMembers {
+class BoilerplateMembers {
   final factories = <BoilerplateFactory>[];
   final props = <BoilerplateProps>[];
   final propsMixins = <BoilerplatePropsMixin>[];
   final components = <BoilerplateComponent>[];
   final states = <BoilerplateState>[];
   final stateMixins = <BoilerplateStateMixin>[];
+
+  BoilerplateMembers.detect(CompilationUnit unit) {
+    final visitor = BoilerplateMemberDetector()..members = this;
+    unit.accept(visitor);
+  }
 
   toString() => 'BoilerplateMembers:${prettyPrintMap({
     'factories': factories,
@@ -72,7 +54,9 @@ mixin BoilerplateMembers {
   }..removeWhere((_, value) => value.isEmpty))}';
 }
 
-class BoilerplateMemberDetector extends SimpleAstVisitor<void> with BoilerplateMembers {
+class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
+  BoilerplateMembers members;
+
   @override
   visitCompilationUnit(CompilationUnit node) {
     return node.visitChildren(this);
@@ -81,7 +65,7 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> with BoilerplateM
   @override
   visitTopLevelVariableDeclaration(TopLevelVariableDeclaration node) {
     if (node.hasAnnotationWithName('Factory')) {
-      factories.add(BoilerplateFactory(node, Confidence.high));
+      members.factories.add(BoilerplateFactory(node, Confidence.high));
       return;
     }
 
@@ -93,9 +77,9 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> with BoilerplateM
         final identifierInInitializer = firstVar.initializer?.tryCast<Identifier>()?.nameWithoutPrefix;
         // Check for `Foo = _$Foo` or `Foo = $Foo` (which could be a typo)
         if (identifierInInitializer != null && (identifierInInitializer == '_\$$name' || identifierInInitializer == '\$$name')) {
-          factories.add(BoilerplateFactory(node, Confidence.high));
+          members.factories.add(BoilerplateFactory(node, Confidence.high));
         } else {
-          factories.add(BoilerplateFactory(node, Confidence.medium));
+          members.factories.add(BoilerplateFactory(node, Confidence.medium));
         }
       }
     } else {
@@ -109,15 +93,15 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> with BoilerplateM
   void visitClassishDeclaration(NamedCompilationUnitMember node) {
     final annotationNames = node.metadata.map((m) => m.name.nameWithoutPrefix).toList();
     if (annotationNames.contains('Props')) {
-      props.add(BoilerplateProps(ClassishDeclaration(node), Confidence.high));
+      members.props.add(BoilerplateProps(ClassishDeclaration(node), Confidence.high));
       return;
     }
     if (annotationNames.contains('State')) {
-      props.add(BoilerplateProps(ClassishDeclaration(node), Confidence.high));
+      members.props.add(BoilerplateProps(ClassishDeclaration(node), Confidence.high));
       return;
     }
     if (annotationNames.contains('Component')) {
-      components.add(BoilerplateComponent(ClassishDeclaration(node), Confidence.high));
+      members.components.add(BoilerplateComponent(ClassishDeclaration(node), Confidence.high));
       return;
     }
 
@@ -126,27 +110,25 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> with BoilerplateM
     // todo start looking for other characteristics (superclasses, etc).
     // how to not get false positives for stuff that doesn't want codegen?
     if (name.endsWith('Props') || name.endsWith('PropsMapView')) {
-      props.add(BoilerplateProps(ClassishDeclaration(node), Confidence.medium));
+      members.props.add(BoilerplateProps(ClassishDeclaration(node), Confidence.medium));
       return;
     }
     if (name.endsWith('PropsMixin')) {
-      propsMixins.add(BoilerplatePropsMixin(node, Confidence.medium));
+      members.propsMixins.add(BoilerplatePropsMixin(node, Confidence.medium));
       return;
     }
     if (name.endsWith('State')) {
-      states.add(BoilerplateState(ClassishDeclaration(node), Confidence.medium));
+      members.states.add(BoilerplateState(ClassishDeclaration(node), Confidence.medium));
       return;
     }
     if (name.endsWith('StateMixin')) {
-      stateMixins.add(BoilerplateStateMixin(node, Confidence.medium));
+      members.stateMixins.add(BoilerplateStateMixin(node, Confidence.medium));
       return;
     }
     if (name.endsWith('Component')) {
-      components.add(BoilerplateComponent(ClassishDeclaration(node), Confidence.medium));
+      members.components.add(BoilerplateComponent(ClassishDeclaration(node), Confidence.medium));
       return;
     }
-
-
   }
 
   @override
