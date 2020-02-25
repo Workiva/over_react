@@ -147,8 +147,8 @@ Context anotherColorStoreContext = createContext();
 
 // Create an adapter store for each new store instance
 FluxToReduxAdapterStore randomColorStoreAdapter =
-    randomColorStore.asReduxStore(RandomColorActions);
+    randomColorStore.asReduxStore(randomColorActions);
 FluxToReduxAdapterStore lowLevelStoreAdapter =
-    lowLevelStore.asReduxStore(RandomColorActions);
+    lowLevelStore.asReduxStore(randomColorActions);
 FluxToReduxAdapterStore anotherColorStoreAdapter =
-    anotherColorStore.asReduxStore(RandomColorActions);
+    anotherColorStore.asReduxStore(randomColorActions);
