@@ -1,5 +1,8 @@
 # OverReact Changelog
 
+## [3.4.0](https://github.com/Workiva/over_react/compare/3.3.0...3.4.0)
+- [#459] Add support for `connect`ed components that use `w_flux` stores and actions.
+
 ## [3.3.0](https://github.com/Workiva/over_react/compare/3.2.1...3.3.0)
 - connect/forwardRef HOC type checking:
    - Fix error when passing ReactElements of these HOCs into `isComponentOfType`
