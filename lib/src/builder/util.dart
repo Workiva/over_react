@@ -50,7 +50,7 @@ String removeBoundsFromTypeParameters(TypeParameterList typeParameters) {
 
 /// Returns a [FieldDeclaration] for the meta field on a [ClassDeclaration] if
 /// it exists, otherwise returns null.
-FieldDeclaration getMetaField(ClassDeclaration cd) {
+FieldDeclaration getMetaField(Iterable<ClassMember> members) {
   bool isPropsOrStateMeta(ClassMember member) {
     if (member is! FieldDeclaration) return false;
     final FieldDeclaration fd = member;
@@ -59,7 +59,7 @@ FieldDeclaration getMetaField(ClassDeclaration cd) {
     if (fd.fields.variables.single.name.name != 'meta') return false;
     return true;
   }
-  return cd.members.firstWhere(isPropsOrStateMeta, orElse: () => null);
+  return members.firstWhere(isPropsOrStateMeta, orElse: () => null);
 }
 
 String messageWithSpan(String message, {SourceSpan span}) {

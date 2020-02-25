@@ -39,6 +39,18 @@ class BoilerplateMembers {
   final states = <BoilerplateState>[];
   final stateMixins = <BoilerplateStateMixin>[];
 
+  List<List<BoilerplateMember>> get _allMembersLists => [
+    factories,
+    props,
+    propsMixins,
+    components,
+    states,
+    stateMixins,
+  ];
+
+  bool get isEmpty => _allMembersLists.every((list) => list.isEmpty);
+  bool get isNotEmpty => !isEmpty;
+
   BoilerplateMembers.detect(CompilationUnit unit) {
     final visitor = BoilerplateMemberDetector()..members = this;
     unit.accept(visitor);
@@ -56,10 +68,12 @@ class BoilerplateMembers {
 
 class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
   BoilerplateMembers members;
+  Map<String, NamedCompilationUnitMember> classishDeclarationsByName = {};
 
   @override
   visitCompilationUnit(CompilationUnit node) {
-    return node.visitChildren(this);
+    node.visitChildren(this);
+    classishDeclarationsByName.values.forEach(processClassishDeclaration);
   }
 
   @override
@@ -90,18 +104,44 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
     }
   }
 
-  void visitClassishDeclaration(NamedCompilationUnitMember node) {
+  NamedCompilationUnitMember getSourceClassForPotentialCompanion(NamedCompilationUnitMember node) {
+    final name = node.name.name;
+    if (name.startsWith(privateSourcePrefix)) {
+      return null;
+    }
+    final sourceName = '$privateSourcePrefix$name';
+    return classishDeclarationsByName[sourceName];
+  }
+
+  NamedCompilationUnitMember getCompanionClass(NamedCompilationUnitMember node) {
+    final name = node.name.name;
+    if (!name.startsWith(privateSourcePrefix)) {
+      return null;
+    }
+    final sourceName = name.replaceFirst(privateSourcePrefix, '');
+    return classishDeclarationsByName[sourceName];
+  }
+
+  void processClassishDeclaration(NamedCompilationUnitMember node) {
+    // If this is a companion class, ignore it.
+    final sourceClass = getSourceClassForPotentialCompanion(node);
+    if (sourceClass != null) {
+      return;
+    }
+
+    final companion = getCompanionClass(node)?.asClassish();
+
     final annotationNames = node.metadata.map((m) => m.name.nameWithoutPrefix).toList();
     if (annotationNames.contains('Props')) {
-      members.props.add(BoilerplateProps(ClassishDeclaration(node), Confidence.high));
+      members.props.add(BoilerplateProps(node.asClassish(), Confidence.high, companionClass: companion));
       return;
     }
     if (annotationNames.contains('State')) {
-      members.props.add(BoilerplateProps(ClassishDeclaration(node), Confidence.high));
+      members.states.add(BoilerplateState(node.asClassish(), Confidence.high, companionClass: companion));
       return;
     }
     if (annotationNames.contains('Component')) {
-      members.components.add(BoilerplateComponent(ClassishDeclaration(node), Confidence.high));
+      members.components.add(BoilerplateComponent(node.asClassish(), Confidence.high));
       return;
     }
 
@@ -110,25 +150,29 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
     // todo start looking for other characteristics (superclasses, etc).
     // how to not get false positives for stuff that doesn't want codegen?
     if (name.endsWith('Props') || name.endsWith('PropsMapView')) {
-      members.props.add(BoilerplateProps(ClassishDeclaration(node), Confidence.medium));
+      members.props.add(BoilerplateProps(node.asClassish(), Confidence.medium, companionClass: companion));
       return;
     }
     if (name.endsWith('PropsMixin')) {
-      members.propsMixins.add(BoilerplatePropsMixin(node, Confidence.medium));
+      members.propsMixins.add(BoilerplatePropsMixin(node, Confidence.medium, companionClass: companion));
       return;
     }
     if (name.endsWith('State')) {
-      members.states.add(BoilerplateState(ClassishDeclaration(node), Confidence.medium));
+      members.states.add(BoilerplateState(node.asClassish(), Confidence.medium, companionClass: companion));
       return;
     }
     if (name.endsWith('StateMixin')) {
-      members.stateMixins.add(BoilerplateStateMixin(node, Confidence.medium));
+      members.stateMixins.add(BoilerplateStateMixin(node, Confidence.medium, companionClass: companion));
       return;
     }
     if (name.endsWith('Component')) {
-      members.components.add(BoilerplateComponent(ClassishDeclaration(node), Confidence.medium));
+      members.components.add(BoilerplateComponent(node.asClassish(), Confidence.medium));
       return;
     }
+  }
+
+  void visitClassishDeclaration(NamedCompilationUnitMember node) {
+    classishDeclarationsByName[node.name.name] = node;
   }
 
   @override

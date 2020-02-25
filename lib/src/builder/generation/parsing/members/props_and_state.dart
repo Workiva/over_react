@@ -26,7 +26,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
 
   final ClassishDeclaration nodeHelper;
 
-  ClassOrMixinDeclaration companionClass;
+  final ClassishDeclaration companionClass;
 
   NodeWithMeta<NamedCompilationUnitMember, annotations.TypedMap> get withMeta;
 
@@ -110,7 +110,11 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
 }
 
 class BoilerplateProps extends BoilerplatePropsOrState {
-  BoilerplateProps(ClassishDeclaration nodeHelper, int declarationConfidence) : withMeta = NodeWithMeta(nodeHelper.node), super(nodeHelper, declarationConfidence);
+  BoilerplateProps(ClassishDeclaration nodeHelper, int declarationConfidence,
+      {ClassishDeclaration companionClass})
+      : withMeta = NodeWithMeta(nodeHelper.node),
+        super(nodeHelper, declarationConfidence,
+            companionClass: companionClass);
 
   @override
   final NodeWithMeta<NamedCompilationUnitMember, annotations.Props> withMeta;
@@ -120,7 +124,11 @@ class BoilerplateProps extends BoilerplatePropsOrState {
 }
 
 class BoilerplateState extends BoilerplatePropsOrState {
-  BoilerplateState(ClassishDeclaration nodeHelper, int declarationConfidence) : withMeta = NodeWithMeta(nodeHelper.node), super(nodeHelper, declarationConfidence);
+  BoilerplateState(ClassishDeclaration nodeHelper, int declarationConfidence,
+      {ClassishDeclaration companionClass})
+      : withMeta = NodeWithMeta(nodeHelper.node),
+        super(nodeHelper, declarationConfidence,
+            companionClass: companionClass);
 
   @override
   final NodeWithMeta<NamedCompilationUnitMember, annotations.State> withMeta;
@@ -133,9 +141,11 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
   @override
   final ClassOrMixinDeclaration node;
 
+  final ClassishDeclaration companionClass;
+
   NodeWithMeta<ClassOrMixinDeclaration, annotations.TypedMap> get withMeta;
 
-  BoilerplatePropsOrStateMixin(this.node, int declarationConfidence) : super(declarationConfidence);
+  BoilerplatePropsOrStateMixin(this.node, int declarationConfidence, {@required this.companionClass}) : super(declarationConfidence);
 
   @override
   Map<BoilerplateVersion, int> get versionConfidence {
@@ -186,7 +196,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
         break;
       case BoilerplateVersion.v2_legacyBackwardsCompat:
         _sharedLegacyValidation();
-        validateMetaField(node, propsOrStateMetaStructName, errorCollector);
+        validateMetaField(node.asClassish(), propsOrStateMetaStructName, errorCollector);
         break;
       case BoilerplateVersion.v3_legacyDart2Only:
         _sharedLegacyValidation();
@@ -233,8 +243,8 @@ void checkForMetaPresence(ClassOrMixinDeclaration node, ValidationErrorCollector
 /// [cd] should be either a [ClassDeclaration] instance for the companion
 /// class of a props/state/abstract props/abstract state class, or the
 /// [ClassDeclaration] for a props or state mixin class.
-void validateMetaField(ClassOrMixinDeclaration cd, String expectedType, ValidationErrorCollector errorCollector) {
-  final metaField = getMetaField(cd);
+void validateMetaField(ClassishDeclaration cd, String expectedType, ValidationErrorCollector errorCollector) {
+  final metaField = getMetaField(cd.members);
   if (metaField == null) return;
 
   if (metaField.fields.type?.toSource() != expectedType) {
@@ -258,7 +268,10 @@ void validateMetaField(ClassOrMixinDeclaration cd, String expectedType, Validati
 }
 
 class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
-  BoilerplatePropsMixin(ClassOrMixinDeclaration node, int declarationConfidence) : withMeta = NodeWithMeta(node), super(node, declarationConfidence);
+  BoilerplatePropsMixin(ClassOrMixinDeclaration node, int declarationConfidence,
+      {ClassishDeclaration companionClass})
+      : withMeta = NodeWithMeta(node),
+        super(node, declarationConfidence, companionClass: companionClass);
 
   @override
   final NodeWithMeta<ClassOrMixinDeclaration, annotations.PropsMixin> withMeta;
@@ -267,9 +280,11 @@ class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
   bool get isProps => true;
 }
 
-
 class BoilerplateStateMixin extends BoilerplatePropsOrStateMixin {
-  BoilerplateStateMixin(ClassOrMixinDeclaration node, int declarationConfidence) : withMeta = NodeWithMeta(node), super(node, declarationConfidence);
+  BoilerplateStateMixin(ClassOrMixinDeclaration node, int declarationConfidence,
+      {ClassishDeclaration companionClass})
+      : withMeta = NodeWithMeta(node),
+        super(node, declarationConfidence, companionClass: companionClass);
 
   @override
   final NodeWithMeta<ClassOrMixinDeclaration, annotations.StateMixin> withMeta;

@@ -47,6 +47,10 @@ extension SourceFileSpanHelper on SourceFile {
   FileSpan _getSpanForEntity(SyntacticEntity node) => span(node.offset, node.end);
 }
 
+extension Classish on NamedCompilationUnitMember {
+  ClassishDeclaration asClassish() => ClassishDeclaration(this);
+}
+
 
 /// Provides a common interface for [ClassOrMixinDeclaration] and [ClassTypeAlias].
 abstract class ClassishDeclaration {

@@ -38,6 +38,8 @@ bool mightContainDeclarations(String source) {
 }
 
 Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(BoilerplateMembers members, ValidationErrorCollector errorCollector) sync* {
+  if (members.isEmpty) return;
+
   final factories = members.factories;
   final props = members.props;
   final propsMixins = members.propsMixins;
