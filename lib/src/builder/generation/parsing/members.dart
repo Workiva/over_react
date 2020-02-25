@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:over_react/src/builder/generation/parsing/ast_util.dart';
 import 'package:over_react/src/builder/generation/parsing/util.dart';
 import 'package:over_react/src/builder/generation/parsing/version.dart';
+import 'package:over_react/src/util/pretty_print.dart';
 import 'package:over_react/src/util/string_util.dart';
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart';
@@ -27,6 +28,8 @@ abstract class BoilerplateMember {
   /// it belongs to a boilerplate declaration of a given version.
   Map<BoilerplateVersion, int> get versionConfidence;
   void validate(BoilerplateVersion version, ValidationErrorCollector errorCollector);
+
+  toString() => '${super.toString()} ${prettyPrintMap(versionConfidence)}';
 }
 
 abstract class ValidationErrorCollector {
@@ -59,14 +62,14 @@ mixin BoilerplateMembers {
   final states = <BoilerplateState>[];
   final stateMixins = <BoilerplateStateMixin>[];
 
-  toString() => 'BoilerplateMembers:${{
+  toString() => 'BoilerplateMembers:${prettyPrintMap({
     'factories': factories,
     'props': props,
     'propsMixins': propsMixins,
     'components': components,
     'states': states,
     'stateMixins': stateMixins,
-  }..removeWhere((_, value) => value.isEmpty)}';
+  }..removeWhere((_, value) => value.isEmpty))}';
 }
 
 class BoilerplateMemberDetector extends SimpleAstVisitor<void> with BoilerplateMembers {
