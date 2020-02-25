@@ -14,21 +14,26 @@ mixin PropsStateStringHelpers {
   String get propsOrStateClassString => '${propsOrStateString.capitalize()} class';
   String get propsOrStateMixinString => '${propsOrStateString.capitalize()} mixin';
   String get propsOrStateFieldsName => isProps ? 'props' : 'state fields';
+  String get propsOrStateMetaStructName => isProps ? 'PropsMeta' : 'StateMeta';
 }
 
 abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsStateStringHelpers {
   @override
-  final CompilationUnitMember node;
+  final NamedCompilationUnitMember node;
 
   final ClassishDeclaration nodeHelper;
 
-  BoilerplatePropsOrState(this.nodeHelper, int declarationConfidence) : node = nodeHelper.node, super(declarationConfidence);
+  final bool hasCompanionClass;
+
+  NodeWithMeta<NamedCompilationUnitMember, annotations.TypedMap> get withMeta;
+
+  BoilerplatePropsOrState(this.nodeHelper, int declarationConfidence, {@required this.hasCompanionClass}) : node = nodeHelper.node, super(declarationConfidence);
 
   @override
   Map<BoilerplateVersion, int> get versionConfidence => {
     // todo might need to rethink these, as well as in the mixin classes, to be able to provide better error messages when people make things mixins
-    BoilerplateVersion.v2_legacyBackwardsCompat: node is MixinDeclaration ? Confidence.veryLow : Confidence.high,
-    BoilerplateVersion.v3_legacyDart2Only: node is MixinDeclaration ? Confidence.veryLow : Confidence.high,
+    BoilerplateVersion.v2_legacyBackwardsCompat: node is MixinDeclaration ? Confidence.none : Confidence.high,
+    BoilerplateVersion.v3_legacyDart2Only: node is MixinDeclaration ? Confidence.none : Confidence.high,
     BoilerplateVersion.v4_mixinBased: node is MixinDeclaration ? Confidence.high : Confidence.veryLow,
   };
 
@@ -71,14 +76,20 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
 }
 
 class BoilerplateProps extends BoilerplatePropsOrState {
-  BoilerplateProps(ClassishDeclaration nodeHelper, int declarationConfidence) : super(nodeHelper, declarationConfidence);
+  BoilerplateProps(ClassishDeclaration nodeHelper, int declarationConfidence) : withMeta = NodeWithMeta(nodeHelper.node), super(nodeHelper, declarationConfidence);
+
+  @override
+  final NodeWithMeta<NamedCompilationUnitMember, annotations.Props> withMeta;
 
   @override
   bool get isProps => true;
 }
 
 class BoilerplateState extends BoilerplatePropsOrState {
-  BoilerplateState(ClassishDeclaration nodeHelper, int declarationConfidence) : super(nodeHelper, declarationConfidence);
+  BoilerplateState(ClassishDeclaration nodeHelper, int declarationConfidence) : withMeta = NodeWithMeta(nodeHelper.node), super(nodeHelper, declarationConfidence);
+
+  @override
+  final NodeWithMeta<NamedCompilationUnitMember, annotations.State> withMeta;
 
   @override
   bool get isProps => false;
@@ -86,16 +97,30 @@ class BoilerplateState extends BoilerplatePropsOrState {
 
 abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with PropsStateStringHelpers {
   @override
-  final CompilationUnitMember node;
+  final ClassOrMixinDeclaration node;
+
+  NodeWithMeta<ClassOrMixinDeclaration, annotations.TypedMap> get withMeta;
 
   BoilerplatePropsOrStateMixin(this.node, int declarationConfidence) : super(declarationConfidence);
 
   @override
-  Map<BoilerplateVersion, int> get versionConfidence => {
-    BoilerplateVersion.v2_legacyBackwardsCompat: node is MixinDeclaration ? Confidence.veryLow : Confidence.high,
-    BoilerplateVersion.v3_legacyDart2Only: node is MixinDeclaration ? Confidence.veryLow : Confidence.high,
-    BoilerplateVersion.v4_mixinBased: node is MixinDeclaration ? Confidence.high : Confidence.veryLow,
-  };
+  Map<BoilerplateVersion, int> get versionConfidence {
+    final isMixin = node is MixinDeclaration;
+    final hasGeneratedPrefix = node.name.name.startsWith(r'_$');
+
+    return {
+      BoilerplateVersion.v2_legacyBackwardsCompat: isMixin
+          ? Confidence.none
+          : (hasGeneratedPrefix ? Confidence.veryLow : Confidence.high),
+
+      BoilerplateVersion.v3_legacyDart2Only: isMixin
+          ? Confidence.none
+          : (hasGeneratedPrefix ? Confidence.high : Confidence.veryLow),
+
+      BoilerplateVersion.v4_mixinBased:
+          isMixin ? Confidence.high : Confidence.veryLow,
+    };
+  }
 
   @override
   void validate(BoilerplateVersion version, ValidationErrorCollector errorCollector) {
@@ -118,17 +143,81 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
         }
         break;
       case BoilerplateVersion.v2_legacyBackwardsCompat:
-        // TODO: Handle this case.
+        validateMetaField(node, propsOrStateMetaStructName, errorCollector);
         break;
       case BoilerplateVersion.v3_legacyDart2Only:
-        // TODO: Handle this case.
+        checkForMetaPresence(node, errorCollector);
         break;
     }
   }
 }
 
+/// If a [ClassMember] exists in [node] with the name `meta`, this will
+/// throw an error if the member is not static and a warning if the member
+/// is static.
+void checkForMetaPresence(ClassOrMixinDeclaration node, ValidationErrorCollector errorCollector) {
+  final metaField = metaFieldOrNull(node);
+  final metaMethod = metaMethodOrNull(node);
+  final isNotNull = metaField != null || metaMethod != null;
+  final isStatic = (metaField?.isStatic ?? false) || (metaMethod?.isStatic ?? false);
+  if (isNotNull) {
+    // If a class declares a field or method with the name of `meta` which is
+    // not static, then we should error, since the static `meta` const in the
+    // generated implementation will have a naming collision.
+    if (!isStatic) {
+      errorCollector.addError('Non-static class member `meta` is declared in ${node.name.name}. '
+          '`meta` is a field declared by the over_react builder, and is therefore not '
+          'valid for use as a class member in any class annotated with  @Props(), @State(), '
+          '@AbstractProps(), @AbstractState(), @PropsMixin(), or @StateMixin()',
+          errorCollector.spanFor(metaField ?? metaMethod));
+    } else {
+      // warn that static `meta` definition will not be accessible by consumers.
+      errorCollector.addWarning(messageWithSpan('Static class member `meta` is declared in ${node.name.name}. '
+          '`meta` is a field declared by the over_react builder, and therefore this '
+          'class member will be unused and should be removed or renamed.',
+          span: errorCollector.spanFor(metaField ?? metaMethod)));
+    }
+  }
+}
+
+/// Validates that `meta` field in a companion class or props/state mixin
+/// is formatted as expected.
+///
+/// Meta fields should have the following format:
+///   `static const {Props|State}Meta meta = _$metaFor{className};`
+///
+/// [cd] should be either a [ClassDeclaration] instance for the companion
+/// class of a props/state/abstract props/abstract state class, or the
+/// [ClassDeclaration] for a props or state mixin class.
+void validateMetaField(ClassOrMixinDeclaration cd, String expectedType, ValidationErrorCollector errorCollector) {
+  final metaField = getMetaField(cd);
+  if (metaField == null) return;
+
+  if (metaField.fields.type?.toSource() != expectedType) {
+    errorCollector.addError(
+      'Static meta field in accessor class must be of type `$expectedType`',
+      errorCollector.spanFor(metaField),
+    );
+  }
+
+  final expectedInitializer = '${privateSourcePrefix}metaFor${cd.name.name}';
+
+  final initializer = metaField.fields.variables.single.initializer
+      ?.toSource();
+  if (!(expectedInitializer == initializer)) {
+    errorCollector.addError(
+      'Static $expectedType field in accessor class must be initialized to:'
+          '`$expectedInitializer`',
+      errorCollector.spanFor(metaField),
+    );
+  }
+}
+
 class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
-  BoilerplatePropsMixin(CompilationUnitMember node, int declarationConfidence) : super(node, declarationConfidence);
+  BoilerplatePropsMixin(ClassOrMixinDeclaration node, int declarationConfidence) : withMeta = NodeWithMeta(node), super(node, declarationConfidence);
+
+  @override
+  final NodeWithMeta<ClassOrMixinDeclaration, annotations.PropsMixin> withMeta;
 
   @override
   bool get isProps => true;
@@ -136,7 +225,10 @@ class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
 
 
 class BoilerplateStateMixin extends BoilerplatePropsOrStateMixin {
-  BoilerplateStateMixin(CompilationUnitMember node, int declarationConfidence) : super(node, declarationConfidence);
+  BoilerplateStateMixin(ClassOrMixinDeclaration node, int declarationConfidence) : withMeta = NodeWithMeta(node), super(node, declarationConfidence);
+
+  @override
+  final NodeWithMeta<ClassOrMixinDeclaration, annotations.StateMixin> withMeta;
 
   @override
   bool get isProps => false;

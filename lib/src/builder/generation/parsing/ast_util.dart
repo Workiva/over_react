@@ -7,6 +7,12 @@ import 'package:transformer_utils/transformer_utils.dart';
 
 extension InitializerHelper on VariableDeclarationList {
   Expression get firstInitializer => variables.first.initializer;
+  VariableDeclaration get firstVariable => variables.first;
+}
+
+extension InitializerHelper2 on TopLevelVariableDeclaration {
+  Expression get firstInitializer => variables.firstInitializer;
+  VariableDeclaration get firstVariable => variables.firstVariable;
 }
 
 extension TypeAnnotationNameHelper on TypeAnnotation {
@@ -41,8 +47,8 @@ extension SourceFileSpanHelper on SourceFile {
 
 
 /// Provides a common interface for [ClassOrMixinDeclaration] and [ClassTypeAlias].
-abstract class ClassishDeclaration<T extends NamedCompilationUnitMember> {
-  factory ClassishDeclaration(T node) {
+abstract class ClassishDeclaration {
+  factory ClassishDeclaration(NamedCompilationUnitMember node) {
     if (node is ClassDeclaration) {
       return _ClassishDeclaration_ClassDeclaration(node);
     } else if (node is ClassTypeAlias) {
@@ -54,10 +60,9 @@ abstract class ClassishDeclaration<T extends NamedCompilationUnitMember> {
     throw ArgumentError.value(node, 'node', 'must be one of: ClassDeclaration, ClassTypeAlias, MixinDeclaration');
   }
 
-  ClassishDeclaration._(this.node);
+  ClassishDeclaration._();
 
-  final T node;
-
+  NamedCompilationUnitMember get node;
 
   // Shared
   SimpleIdentifier get name => node.name;
@@ -79,7 +84,10 @@ abstract class ClassishDeclaration<T extends NamedCompilationUnitMember> {
 
 }
 
-mixin _ClassishDeclaration_ClassOrMixinDeclaration<T extends ClassOrMixinDeclaration> on ClassishDeclaration<T> {
+mixin _ClassishDeclaration_ClassOrMixinDeclaration on ClassishDeclaration {
+  @override
+  ClassOrMixinDeclaration get node;
+
   @override
   Token get leftBracket => node.leftBracket;
 
@@ -99,8 +107,11 @@ mixin _ClassishDeclaration_ClassOrMixinDeclaration<T extends ClassOrMixinDeclara
   WithClause get withClause => null;
 }
 
-class _ClassishDeclaration_ClassDeclaration<T extends ClassDeclaration> extends ClassishDeclaration<T> with _ClassishDeclaration_ClassOrMixinDeclaration {
-  _ClassishDeclaration_ClassDeclaration(T node) : super._(node);
+class _ClassishDeclaration_ClassDeclaration extends ClassishDeclaration with _ClassishDeclaration_ClassOrMixinDeclaration {
+  @override
+  final ClassDeclaration node;
+
+  _ClassishDeclaration_ClassDeclaration(this.node) : super._();
 
   @override
   Token get abstractKeyword => node.abstractKeyword;
@@ -112,8 +123,11 @@ class _ClassishDeclaration_ClassDeclaration<T extends ClassDeclaration> extends 
   ];
 }
 
-class _ClassishDeclaration_MixinDeclaration<T extends MixinDeclaration> extends ClassishDeclaration<T> with _ClassishDeclaration_ClassOrMixinDeclaration {
-  _ClassishDeclaration_MixinDeclaration(T node) : super._(node);
+class _ClassishDeclaration_MixinDeclaration extends ClassishDeclaration with _ClassishDeclaration_ClassOrMixinDeclaration {
+  @override
+  final MixinDeclaration node;
+
+  _ClassishDeclaration_MixinDeclaration(this.node) : super._();
 
   @override
   // TODO: implement abstractKeyword
@@ -126,8 +140,11 @@ class _ClassishDeclaration_MixinDeclaration<T extends MixinDeclaration> extends 
   ];
 }
 
-class _ClassishDeclaration_ClassTypeAlias<T extends ClassTypeAlias> extends ClassishDeclaration<T> {
-  _ClassishDeclaration_ClassTypeAlias(T node) : super._(node);
+class _ClassishDeclaration_ClassTypeAlias extends ClassishDeclaration {
+  @override
+  final ClassTypeAlias node;
+
+  _ClassishDeclaration_ClassTypeAlias(this.node) : super._();
 
   @override
   Token get abstractKeyword => node.abstractKeyword;

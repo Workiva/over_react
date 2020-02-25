@@ -1,10 +1,16 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:meta/meta.dart';
 import 'package:over_react/src/builder/generation/parsing/ast_util.dart';
 import 'package:over_react/src/builder/generation/parsing/util.dart';
 import 'package:over_react/src/builder/generation/parsing/version.dart';
+import 'package:over_react/src/util/string_util.dart';
 import 'package:source_span/source_span.dart';
+import 'package:transformer_utils/transformer_utils.dart';
+import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
+
+import '../../util.dart';
 
 part 'members/component.dart';
 part 'members/factory.dart';
@@ -27,9 +33,22 @@ abstract class ValidationErrorCollector {
   SourceFile get _sourceFile;
 
   void addError(String message, [SourceSpan span]);
+  void addWarning(String message, [SourceSpan span]);
 
   FileSpan spanFor(SyntacticEntity nodeOrToken) => _sourceFile.spanFor(nodeOrToken);
   FileSpan span(int start, [int end]) => _sourceFile.span(start, end);
+}
+
+class ConsoleValidationErrorCollector extends ValidationErrorCollector {
+  @override
+  final _sourceFile;
+
+  ConsoleValidationErrorCollector(this._sourceFile);
+
+  @override
+  void addError(String message, [SourceSpan span]) => print(span?.message(message) ?? message);
+  @override
+  void addWarning(String message, [SourceSpan span]) => print(span?.message(message) ?? message);
 }
 
 mixin BoilerplateMembers {
@@ -39,6 +58,15 @@ mixin BoilerplateMembers {
   final components = <BoilerplateComponent>[];
   final states = <BoilerplateState>[];
   final stateMixins = <BoilerplateStateMixin>[];
+
+  toString() => 'BoilerplateMembers:${{
+    'factories': factories,
+    'props': props,
+    'propsMixins': propsMixins,
+    'components': components,
+    'states': states,
+    'stateMixins': stateMixins,
+  }..removeWhere((_, value) => value.isEmpty)}';
 }
 
 class BoilerplateMemberDetector extends SimpleAstVisitor<void> with BoilerplateMembers {

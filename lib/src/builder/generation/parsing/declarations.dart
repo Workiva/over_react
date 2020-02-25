@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:meta/meta.dart';
+import 'package:over_react/src/builder/generation/parsing/ast_util.dart';
 import 'package:over_react/src/builder/generation/parsing/members.dart';
 import 'package:over_react/src/builder/generation/parsing/util.dart';
 import 'package:over_react/src/builder/generation/parsing/version.dart';
@@ -10,33 +11,111 @@ Union<BoilerplateProps, BoilerplatePropsMixin> getPropsForFactory(
   BoilerplateFactory factory,
   Iterable<BoilerplateProps> props,
   Iterable<BoilerplatePropsMixin> propsMixins,
-) => throw UnimplementedError();
+) {
+  final name = factory.node.variables.variables.first.name.name.replaceAll(RegExp(r'^[_$]*'), '');
+  final expectedPropsName = '${name}Props';
+  final expectedPropsMixinName = '${name}PropsMixin';
+
+  final matchingProps = props.firstWhere(
+      (element) => element.node.name.name == expectedPropsName ||
+                  element.node.name.name == expectedPropsMixinName,
+      orElse: () => null);
+  if (matchingProps != null) return Union.a(matchingProps);
+
+  final matchingPropsMixin = propsMixins.firstWhere(
+      (element) =>
+          element.node.name.name == expectedPropsName ||
+          element.node.name.name == expectedPropsMixinName,
+      orElse: () => null);
+  if (matchingPropsMixin != null) return Union.b(matchingPropsMixin);
+
+  return null;
+}
 
 Union<BoilerplateState, BoilerplateStateMixin> getStateForFactory(
   BoilerplateFactory factory,
   Iterable<BoilerplateState> states,
   Iterable<BoilerplateStateMixin> stateMixins,
-) => throw UnimplementedError();
+) {
+  final name = factory.node.firstVariable.name.name.replaceAll(RegExp(r'^[_$]*'), '');
+  final expectedPropsName = '${name}Props';
+  final expectedPropsMixinName = '${name}PropsMixin';
+
+  final matchingState = states.firstWhere(
+      (element) => element.node.name.name == expectedPropsName,
+      orElse: () => null);
+  if (matchingState != null) return Union.a(matchingState);
+
+  final matchingStateMixin = stateMixins.firstWhere(
+      (element) =>
+          element.node.name.name == expectedPropsName ||
+          element.node.name.name == expectedPropsMixinName,
+      orElse: () => null);
+  if (matchingStateMixin != null) return Union.b(matchingStateMixin);
+
+  return null;
+}
+
+BoilerplateComponent getComponent(
+  BoilerplateFactory factory,
+  Union<BoilerplateProps, BoilerplatePropsMixin> propsClassOrMixin,
+  List<BoilerplateComponent> components,
+) {
+  final name = factory.node.firstVariable.name.name.replaceAll(RegExp(r'^[_$]*'), '');
+  return components.firstWhere((component) => component.node.name.name == '${name}Component', orElse: () => null);
+}
+
 
 class FactoryGroup {
   final List<BoilerplateFactory> factories;
 
   FactoryGroup(this.factories);
 
-  BoilerplateFactory get bestFactory => throw UnimplementedError();
+  BoilerplateFactory get bestFactory {
+    if (factories.length == 1) return factories[0];
+
+    final factoriesInitializedToIdentifier = factories
+        .where((factory) => factory.node.firstInitializer is Identifier)
+        .toList();
+    if (factoriesInitializedToIdentifier.length == 1) return factoriesInitializedToIdentifier.first;
+
+    // fixme other cases
+    return factories[0];
+  }
 }
 
-List<FactoryGroup> groupFactories(Iterable<BoilerplateFactory> factories) => throw UnimplementedError();
+List<FactoryGroup> groupFactories(Iterable<BoilerplateFactory> factories) {
+  var factoriesByType = <String, List<BoilerplateFactory>>{};
 
-bool isStandaloneFactory(BoilerplateFactory factory) => throw UnimplementedError();
-bool isFunctionComponent(BoilerplateFactory factory) => throw UnimplementedError();
+  for (var factory in factories) {
+    final typeName = factory.node.variables.type?.typeNameWithoutPrefix;
+    factoriesByType.putIfAbsent(typeName, () => []).add(factory);
+  }
 
-NamedCompilationUnitMember fuzzyMatch(BoilerplateMember member, Iterable<BoilerplateMember> members) => throw UnimplementedError();
+  final groups = <FactoryGroup>[];
+  factoriesByType.forEach((key, value) {
+    if (key == null) {
+      groups.addAll(value.map((factory) => FactoryGroup([factory])));
+    } else {
+      groups.add(FactoryGroup(value));
+    }
+  });
+  return groups;
+}
 
-BoilerplateComponent getComponent(
-  BoilerplateFactory factory,
-  Union<BoilerplateProps, BoilerplatePropsMixin> propsClassOrMixin,
-) => throw UnimplementedError();
+bool isStandaloneFactory(BoilerplateFactory factory) {
+  final initializer = factory.node.firstInitializer;
+  return initializer != null && !(initializer?.tryCast<Identifier>()?.name?.startsWith(RegExp(r'[_\$]')) ?? false);
+}
+
+bool isFunctionComponent(BoilerplateFactory factory) {
+  //todo implement
+}
+
+NamedCompilationUnitMember fuzzyMatch(BoilerplateMember member, Iterable<BoilerplateMember> members) {
+  // todo implement
+  return members.firstOrNull?.node;
+}
 
 
 Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(BoilerplateMembers members, ValidationErrorCollector errorCollector) sync* {
@@ -69,6 +148,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(BoilerplateMembers m
     final factoryGroup = factoryGroupsQueue.removeFirst();
     final factory = factoryGroup.bestFactory;
 
+    // fixme what about companion classes?
     final propsClassOrMixin = getPropsForFactory(factory, props, propsMixins);
     final stateClassOrMixin = getStateForFactory(factory, states, stateMixins);
 
@@ -83,17 +163,21 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(BoilerplateMembers m
     props.remove(propsClassOrMixin.either);
     states.remove(stateClassOrMixin?.either);
 
-    final component = getComponent(factory, propsClassOrMixin);
+    final component = getComponent(factory, propsClassOrMixin, components);
     if (component != null) {
       components.remove(component);
 
-      final versions = resolveVersions([factory, propsClassOrMixin.either, component, stateClassOrMixin.either]);
+      final versions = resolveVersions([
+        factory,
+        propsClassOrMixin.either,
+        component,
+        if (stateClassOrMixin != null) stateClassOrMixin.either,
+      ]);
 
       switch (versions.firstOrNull) {
         case BoilerplateVersion.v2_legacyBackwardsCompat:
         case BoilerplateVersion.v3_legacyDart2Only:
-          // FIXME what if propsClassOrMixin is a mixin? It probably wouldn't have gotten filtered out in resolveVersions, and we'd currently expect Declaration.validate to handle it.
-          yield LegacyClassComponentDeclaration(factory: factory, component: component, props: propsClassOrMixin.a, state: stateClassOrMixin.a);
+          yield LegacyClassComponentDeclaration(factory: factory, component: component, props: propsClassOrMixin.a, state: stateClassOrMixin?.a);
           break;
         case BoilerplateVersion.v4_mixinBased:
           yield ClassComponentDeclaration(factory: factory, component: component, props: propsClassOrMixin, state: stateClassOrMixin);
@@ -216,6 +300,8 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
   final BoilerplateComponent component;
   final BoilerplateProps props;
   final BoilerplateState state;
+
+  bool get isComponent2 => component.hasComponent2Annotation;
 
   @override
   get _members => [factory, component, props, state];

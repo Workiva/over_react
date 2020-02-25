@@ -18,7 +18,8 @@ class BoilerplateFactory extends BoilerplateMember {
   @override
   void validate(BoilerplateVersion version, ValidationErrorCollector errorCollector) {
     if (node.variables.variables.length > 1) {
-      errorCollector.addError('Multiple factory variables per declaration are not supported.');
+      errorCollector.addError('Multiple factory variables per declaration are not supported.',
+          errorCollector.spanFor(node.variables));
     }
 
     switch (version) {
@@ -27,14 +28,20 @@ class BoilerplateFactory extends BoilerplateMember {
       case BoilerplateVersion.v2_legacyBackwardsCompat:
       case BoilerplateVersion.v3_legacyDart2Only:
         if (!hasFactoryAnnotation) {
-          errorCollector.addError('Legacy boilerplate factories must be annotated with `@Factory()`.');
+          errorCollector.addError('Legacy boilerplate factories must be annotated with `@Factory()`.',
+              errorCollector.spanFor(node));
         }
+
         break;
     }
 
-    if (generatedFactoryReferenceName == null) {
+    final variable = node.variables.variables.first;
+    final factoryName = variable.name.name;
+    final expectedInitializer = '$privateSourcePrefix$factoryName';
+
+    if (generatedFactoryReferenceName != expectedInitializer) {
       errorCollector.addError('Should be Should reference generated factory. For example, `UiFactory<...> Foo = _\$Foo;`',
-          errorCollector.spanFor(node.variables.variables.first));
+          errorCollector.spanFor(variable));
     } else {
       // When not null, this will be validated as part of the group since
     }

@@ -69,7 +69,7 @@ String messageWithSpan(String message, {SourceSpan span}) {
 
 /// Returns any [FieldDeclaration]s on [node] which have the name `meta`,
 /// otherwise `null`.
-FieldDeclaration metaFieldOrNull(ClassDeclaration node) {
+FieldDeclaration metaFieldOrNull(ClassOrMixinDeclaration node) {
   return node.members.firstWhere((member) => member is FieldDeclaration && fieldDeclarationHasMeta(member),
       orElse: () => null);
 }
@@ -89,7 +89,7 @@ bool fieldDeclarationHasName(FieldDeclaration field, String name) {
 
 /// Returns any [MethodDeclaration]s on [node] which have the name `meta`,
 /// otherwise `null`.
-MethodDeclaration metaMethodOrNull(ClassDeclaration node) {
+MethodDeclaration metaMethodOrNull(ClassOrMixinDeclaration node) {
   return node.members.firstWhere((member) =>
       member is MethodDeclaration && member.name.name == 'meta',
       orElse: () => null);
