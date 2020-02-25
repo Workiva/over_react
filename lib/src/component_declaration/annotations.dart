@@ -126,9 +126,9 @@ class Component {
 ///       render() => Dom.div()(props.bar);
 ///     }
 ///
-/// > __NOTE:__ This is only required for legacy boilerplate and can be omitted
-/// > for new implementations. However, it can still be used for custom configurations
-/// > (e.g. `subtypeOf`).
+/// __NOTE:__ This is only required for legacy boilerplate and can be omitted
+/// for new implementations. However, it can still be used for custom configurations
+/// (e.g. `subtypeOf`).
 ///
 /// If utilizing legacy boilerplate, must be accompanied by a [Factory] and [Props]
 /// declaration.

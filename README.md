@@ -186,13 +186,13 @@ mixin FooProps on UiProps {
   // ...
 }
 ```
-* Note: The [builder] will make the concrete getters and setters available in a generated class. The generated class uses the name of the mixin as a foundation, but removes the word mixin and adds the `$` symbol (e.g. `$FooProps` for the above example). To mix props classes together, the mixin class should be used rather than the generated props class. See [With other mixins](#with-other-mixins) below for more information.
+* Note: The [builder] will make the concrete getters and setters available in a generated class. To mix props classes together, the mixin class should be used rather than the generated props class. See [With other mixins](#with-other-mixins) below for more information.
 
 &nbsp;
 
 #### With other mixins
 
-__To compose props mixin classes__, create a class that extends `UiProps`. The generated props implementation will then use it as the base class and implement the generated version of the props mixins.
+__To compose props mixin classes__, create a class alias that uses `UiProps` as the base and mixes in props mixins. The generated props implementation will then use it as the base class and implement the generated version of those props mixins.
 ```dart
 UiFactory<FooProps> Foo = _$Foo;
 
@@ -297,7 +297,7 @@ mixin FooState on UiState {
 ```
 
 > UiState is optional, and won’t be used for every component.
-* Note: The [builder] will make the concrete getters and setters available in a generated class. The generated class uses the name of the mixin as a foundation, but removes the word mixin and adds the `$` symbol (e.g. `$FooState` for the above example). To mix state classes together, the mixin class should be used rather than the generated props class. See [With other mixins](#with-other-mixins) above for  more information.
+* Note: The [builder] will make the concrete getters and setters available in a generated class. To mix state classes together, the mixin class should be used rather than the generated state class. See [With other mixins](#with-other-mixins) above for  more information.
 
 &nbsp;
 
@@ -959,7 +959,6 @@ an informative comment.
       bool initiallyOpen;
     }
 
-  
     mixin DropdownButtonState on UiState {
       /// Whether the [DropdownButton]'s child [DropdownMenu] is open.
       ///
@@ -970,13 +969,11 @@ an informative comment.
 
   _Bad:_
     ```dart
-  
     mixin DropdownButtonProps on UiProps {
       bool isDisabled;
       bool initiallyOpen;
     }
 
-  
     mixin DropdownButtonState on UiState {
       bool isOpen;
     }
