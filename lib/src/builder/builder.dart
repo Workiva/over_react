@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:analyzer/analyzer.dart';
 import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
-import 'package:over_react/src/builder/generation/declaration_parsing.dart';
 import 'package:over_react/src/builder/generation/impl_generation.dart';
 import 'package:over_react/src/builder/generation/parsing/declarations.dart';
 import 'package:over_react/src/builder/generation/parsing/members.dart';
