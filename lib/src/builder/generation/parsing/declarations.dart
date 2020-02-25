@@ -145,9 +145,9 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   }
 
   for (var component in components) {
-    final potentialFactory = fuzzyMatch(component, factories)?.name;
+    final potentialFactory = fuzzyMatch(component, factories);
     final potentialProps =
-        fuzzyMatch(component, [...props, ...propsMixins])?.name;
+        fuzzyMatch(component, [...props, ...propsMixins]);
     errorCollector.addError(
         'Component is missing factory/props: could it be referring to $potentialFactory/$potentialProps?',
         errorCollector.spanFor(component.node.name));
@@ -314,7 +314,7 @@ bool isFunctionComponent(BoilerplateFactory factory) {
   //todo implement
 }
 
-NamedCompilationUnitMember fuzzyMatch(
+CompilationUnitMember fuzzyMatch(
     BoilerplateMember member, Iterable<BoilerplateMember> members) {
   // todo implement
   return members.firstOrNull?.node;

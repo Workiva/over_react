@@ -153,7 +153,8 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
       members.props.add(BoilerplateProps(node.asClassish(), Confidence.medium, companionClass: companion));
       return;
     }
-    if (name.endsWith('PropsMixin')) {
+    // todo try to clean up the typing so we don't need a type check here
+    if (name.endsWith('PropsMixin') && node is ClassOrMixinDeclaration) {
       members.propsMixins.add(BoilerplatePropsMixin(node, Confidence.medium, companionClass: companion));
       return;
     }
@@ -161,7 +162,8 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
       members.states.add(BoilerplateState(node.asClassish(), Confidence.medium, companionClass: companion));
       return;
     }
-    if (name.endsWith('StateMixin')) {
+    // todo try to clean up the typing so we don't need a type check here
+    if (name.endsWith('StateMixin') && node is ClassOrMixinDeclaration) {
       members.stateMixins.add(BoilerplateStateMixin(node, Confidence.medium, companionClass: companion));
       return;
     }

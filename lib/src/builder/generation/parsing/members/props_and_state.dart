@@ -87,12 +87,19 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
         break;
       case BoilerplateVersion.v3_legacyDart2Only:
         _sharedLegacyValidation(errorCollector);
-        checkForMetaPresence(node, errorCollector);
+        if (node is ClassOrMixinDeclaration) {
+          checkForMetaPresence(node as ClassOrMixinDeclaration, errorCollector);
+        }
         break;
     }
   }
 
   void _sharedLegacyValidation(ValidationErrorCollector errorCollector) {
+    if (node is! ClassOrMixinDeclaration) {
+      errorCollector.addError('Legacy boilerplate must use classes or mixins, and not shorthand class declaration',
+          errorCollector.spanFor(node));
+    }
+
     final annotations = {propsOrStateAnnotationName, propsOrStateAbstractAnnotationName};
     if (!node.hasAnnotationWithNames(annotations)) {
       errorCollector.addError('Legacy boilerplate ${propsOrStateClassString}es must be annotated with one of:'

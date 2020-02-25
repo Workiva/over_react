@@ -177,7 +177,7 @@ class ImplGenerator {
 
     // Generate accessors mixin and props metaFor constant
     outputContentsBuffer.write(_generateAccessorsMixin(
-        AccessorType.props, propsAccessorsMixinName, declarations.props.withMeta,
+        AccessorType.props, propsAccessorsMixinName, declarations.props.node as ClassOrMixinDeclaration, declarations.props.withMeta.meta,
         consumerPropsName,
         typeParameters: declarations.props.nodeHelper.typeParameters));
     outputContentsBuffer.write(
@@ -204,7 +204,7 @@ class ImplGenerator {
       consumerName: consumerPropsName,
       implName: propsImplName,
       componentFactoryName: generatedComponentFactoryName,
-      propKeyNamespace: _getAccessorKeyNamespace(declarations.props.withMeta),
+      propKeyNamespace: _getAccessorKeyNamespace(declarations.props.node, declarations.props.withMeta.meta),
       node: declarations.props.withMeta,
       accessorsMixinName: propsAccessorsMixinName,
       consumableName: consumablePropsName,
@@ -255,7 +255,7 @@ class ImplGenerator {
       final stateAccessorsMixinName = _accessorsMixinNameFromConsumerName(stateName);
 
       outputContentsBuffer.write(_generateAccessorsMixin(
-          AccessorType.state, stateAccessorsMixinName, declarations.state.withMeta,
+          AccessorType.state, stateAccessorsMixinName, declarations.state.node as ClassOrMixinDeclaration, declarations.state.withMeta.meta,
           stateName, typeParameters: declarations.state.nodeHelper.typeParameters));
       outputContentsBuffer.write(
           _generateMetaConstImpl(AccessorType.state, declarations.state.node));
@@ -341,11 +341,11 @@ class ImplGenerator {
   }
 
   void generatePropsMixin(PropsMixinDeclaration declaration) {
-    _generateAccessorsAndMetaConstantForMixin(AccessorType.propsMixin, declaration.propsMixin.withMeta);
+    _generateAccessorsAndMetaConstantForMixin(AccessorType.propsMixin, declaration.propsMixin.node, declaration.propsMixin.withMeta.meta);
   }
 
   void generateStateMixin(StateMixinDeclaration declaration) {
-    _generateAccessorsAndMetaConstantForMixin(AccessorType.stateMixin, declaration.stateMixin.withMeta);
+    _generateAccessorsAndMetaConstantForMixin(AccessorType.stateMixin, declaration.stateMixin.node, declaration.stateMixin.withMeta.meta);
   }
 
   void generateAbstractComponent(LegacyAbstractClassComponentDeclaration declaration) {
@@ -354,7 +354,7 @@ class ImplGenerator {
     // ----------------------------------------------------------------------
     final className = _classNameFromNode(declaration.props.node);
     outputContentsBuffer.write(_generateAccessorsMixin(
-        AccessorType.abstractProps, _accessorsMixinNameFromConsumerName(className), declaration.props.withMeta,
+        AccessorType.abstractProps, _accessorsMixinNameFromConsumerName(className), declaration.props.node as ClassOrMixinDeclaration, declaration.props.withMeta.meta,
         className, typeParameters: declaration.props.nodeHelper.typeParameters));
     outputContentsBuffer.write(_generateMetaConstImpl(
         AccessorType.abstractProps, declaration.props.node));
@@ -363,14 +363,14 @@ class ImplGenerator {
     if (declaration.state != null) {
       final className = _classNameFromNode(declaration.state.node);
       outputContentsBuffer.write(_generateAccessorsMixin(
-          AccessorType.abstractState, _accessorsMixinNameFromConsumerName(className), declaration.state.withMeta,
+          AccessorType.abstractState, _accessorsMixinNameFromConsumerName(className), declaration.state.node as ClassOrMixinDeclaration, declaration.state.withMeta.meta,
           className, typeParameters: declaration.state.nodeHelper.typeParameters));
       outputContentsBuffer.write(_generateMetaConstImpl(AccessorType.abstractState, declaration.state.node));
       outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.abstractState, declaration.state));
     }
   }
 
-  bool hasAbstractGetter(ClassDeclaration classDeclaration, String type, String name) {
+  bool hasAbstractGetter(ClassOrMixinDeclaration classDeclaration, String type, String name) {
       return classDeclaration.members.any((member) {
         return (
             member is MethodDeclaration &&
@@ -400,10 +400,11 @@ class ImplGenerator {
 
   AccessorOutput _generateAccessors(
       AccessorType type,
-      NodeWithMeta<ClassDeclaration, annotations.TypedMap> typedMap,
+      ClassOrMixinDeclaration typedMap,
+      annotations.TypedMap meta,
       String consumerClassName
   ) {
-    String keyNamespace = _getAccessorKeyNamespace(typedMap);
+    String keyNamespace = _getAccessorKeyNamespace(typedMap, meta);
 
     final String proxiedMapName = type.isProps ? proxiedPropsMapName : proxiedStateMapName;
     final String keyListName = type.isProps ? staticPropKeysName : staticStateKeysName;
@@ -415,18 +416,17 @@ class ImplGenerator {
 
     StringBuffer output = StringBuffer();
 
-    typedMap.node.members
-        .where((member) => member is FieldDeclaration && !member.isStatic)
-        .forEach((_field) {
-          final FieldDeclaration field = _field;
-
+    typedMap.members
+        .whereType<FieldDeclaration>()
+        .where((field) => !field.isStatic)
+        .forEach((field) {
           T getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
             return member.metadata.any((annotation) => annotation.name?.name == name) ? value : null;
           }
 
-          annotations.Accessor accessorMeta = instantiateAnnotation(field, annotations.Accessor);
-          annotations.Accessor requiredProp = getConstantAnnotation(field, 'requiredProp', annotations.requiredProp);
-          annotations.Accessor nullableRequiredProp = getConstantAnnotation(field, 'nullableRequiredProp', annotations.nullableRequiredProp);
+          final accessorMeta = instantiateAnnotationTyped<annotations.Accessor>(field);
+          final requiredProp = getConstantAnnotation(field, 'requiredProp', annotations.requiredProp);
+          final nullableRequiredProp = getConstantAnnotation(field, 'nullableRequiredProp', annotations.nullableRequiredProp);
 
 
           if (accessorMeta?.doNotGenerate == true) {
@@ -455,7 +455,7 @@ class ImplGenerator {
             /// Necessary to work around issue where private static declarations in different classes
             /// conflict with each other in strong mode.
             /// TODO remove once https://github.com/dart-lang/sdk/issues/29751 is resolved
-            String staticConstNamespace = typedMap.node.name.name;
+            String staticConstNamespace = typedMap.name.name;
 
             String keyConstantName = '${privateSourcePrefix}key__${accessorName}__$staticConstNamespace';
             String keyValue = stringLiteral(individualKeyNamespace + individualKey);
@@ -599,11 +599,11 @@ class ImplGenerator {
     return AccessorOutput(output.toString());
   }
 
-  static String _getAccessorKeyNamespace(NodeWithMeta<NamedCompilationUnitMember, annotations.TypedMap> typedMap) {
+  static String _getAccessorKeyNamespace(NamedCompilationUnitMember node, annotations.TypedMap meta) {
     // Default to the name of the class followed by a period.
-    final defaultNamespace = _publicPropsOrStateClassNameFromConsumerClassName(typedMap.node.name.name) + '.';
+    final defaultNamespace = _publicPropsOrStateClassNameFromConsumerClassName(node.name.name) + '.';
     // Allow the consumer to specify a custom namespace that trumps the default.
-    final specifiedKeyNamespace = typedMap.meta?.keyNamespace;
+    final specifiedKeyNamespace = meta?.keyNamespace;
 
     return specifiedKeyNamespace ?? defaultNamespace;
   }
@@ -708,30 +708,30 @@ class ImplGenerator {
     return '${privateSourcePrefix}metaFor$consumableClassName';
   }
 
-  void _generateAccessorsAndMetaConstantForMixin(AccessorType type, NodeWithMeta<ClassOrMixinDeclaration, annotations.TypedMap> node) {
-    if (!hasAbstractGetter(node.node, 'Map', type.isProps ? 'props' : 'state')) {
+  void _generateAccessorsAndMetaConstantForMixin(AccessorType type, ClassOrMixinDeclaration node, annotations.TypedMap meta) {
+    if (!hasAbstractGetter(node, 'Map', type.isProps ? 'props' : 'state')) {
       final propsOrState = type.isProps ? 'props': 'state';
       logger.severe(messageWithSpan(
         '${type.isProps
             ? 'Props'
             : 'State'} mixin classes must declare an abstract $propsOrState getter `Map get $propsOrState;` '
             'so that they can be statically analyzed properly.',
-            span: getSpan(sourceFile, node.node))
+            span: getSpan(sourceFile, node))
       );
     }
 
-    final consumerClassName = _classNameFromNode(node.node);
+    final consumerClassName = _classNameFromNode(node);
     final accessorsMixinName = consumerClassName.startsWith(privateSourcePrefix) ?
         _publicPropsOrStateClassNameFromConsumerClassName(consumerClassName) :
         '\$$consumerClassName';
-    final typeParameters = node.node.typeParameters;
+    final typeParameters = node.typeParameters;
     outputContentsBuffer.write(_generateAccessorsMixin(
-        type, accessorsMixinName, node,
+        type, accessorsMixinName, node, meta,
         consumerClassName, typeParameters: typeParameters));
-    outputContentsBuffer.write(_generateMetaConstImpl(type, node.node, accessorsMixinNameOverride: accessorsMixinName));
+    outputContentsBuffer.write(_generateMetaConstImpl(type, node, accessorsMixinNameOverride: accessorsMixinName));
   }
 
-  String _generateMetaConstImpl(AccessorType type, ClassOrMixinDeclaration node, {String accessorsMixinNameOverride}) {
+  String _generateMetaConstImpl(AccessorType type, NamedCompilationUnitMember node, {String accessorsMixinNameOverride}) {
     final className = _classNameFromNode(node);
     final accessorsMixinName = accessorsMixinNameOverride ?? _accessorsMixinNameFromConsumerName(className);
 
@@ -751,7 +751,7 @@ class ImplGenerator {
   }
 
   String _generateAccessorsMixin(AccessorType type, String accessorsMixinName,
-      NodeWithMeta<NamedCompilationUnitMember, annotations.TypedMap> node, String consumerClassName, {TypeParameterList typeParameters}) {
+      ClassOrMixinDeclaration node, annotations.TypedMap meta, String consumerClassName, {TypeParameterList typeParameters}) {
     final typeParamsOnClass = typeParameters?.toSource() ?? '';
     final typeParamsOnSuper = removeBoundsFromTypeParameters(typeParameters);
 
@@ -768,13 +768,13 @@ class ImplGenerator {
       generatedClass.write(_copyClassMembers(node));
     }
 
-    generatedClass.write(_generateAccessors(type, node, consumerClassName).implementations);
+    generatedClass.write(_generateAccessors(type, node, meta, consumerClassName).implementations);
     generatedClass.writeln('}');
     generatedClass.writeln();
     return generatedClass.toString();
   }
 
-  String _copyClassMembers(NodeWithMeta<ClassOrMixinDeclaration, annotations.TypedMap> node) {
+  String _copyClassMembers(ClassOrMixinDeclaration node) {
     bool isValidForCopying(ClassMember member) {
       // Static members should be copied over as needed by [_copyStaticMembers].
       // Otherwise, fields which are not synthetic have concrete getters/setters
@@ -791,7 +791,7 @@ class ImplGenerator {
       // copy over that field
       bool shouldNotBeGenerated = false;
       if (member is FieldDeclaration) {
-        final accessorMeta = instantiateAnnotation(member, annotations.Accessor);
+        final accessorMeta = instantiateAnnotationTyped<annotations.Accessor>(member);
         shouldNotBeGenerated = accessorMeta?.doNotGenerate ?? false;
       }
 
@@ -799,7 +799,7 @@ class ImplGenerator {
     }
 
     final buffer = StringBuffer();
-    node.node.members.where(isValidForCopying).forEach((member) => buffer.write('@override\n' + member.toSource()));
+    node.members.where(isValidForCopying).forEach((member) => buffer.write('@override\n' + member.toSource()));
     return buffer.toString();
   }
 
@@ -812,9 +812,9 @@ class ImplGenerator {
               (member is MethodDeclaration && member.name.name == name);
   }
 
-  String _copyStaticMembers(NodeWithMeta<ClassOrMixinDeclaration, annotations.TypedMap> node) {
+  String _copyStaticMembers(ClassOrMixinDeclaration node) {
     final buffer = StringBuffer();
-    node.node.members
+    node.members
         .where(_isStaticFieldOrMethod)
         .forEach((member) {
           // Don't copy over anything named `meta`, since the static meta field is already going to be generated.
@@ -999,10 +999,10 @@ class ImplGenerator {
       return '';
     }
 
-    final node = decl.withMeta;
+    final node = decl.node;
 
-    final className = _classNameFromNode(node.node);
-    final typeParameters = ClassishDeclaration(node.node).typeParameters;
+    final className = _classNameFromNode(node);
+    final typeParameters = ClassishDeclaration(node).typeParameters;
     final typeParamsOnClass = typeParameters?.toSource() ?? '';
     final typeParamsOnSuper = removeBoundsFromTypeParameters(typeParameters);
     final consumableClassName = _publicPropsOrStateClassNameFromConsumerClassName(className);
@@ -1011,7 +1011,7 @@ class ImplGenerator {
     final classKeywords = '${type.isAbstract ? 'abstract ' : ''}class';
     return (StringBuffer()
       ..writeln('$classKeywords $consumableClassName$typeParamsOnClass extends $className$typeParamsOnSuper with $accessorsMixinName$typeParamsOnSuper {')
-      ..write(_copyStaticMembers(node))
+      ..write(_copyStaticMembers(node as ClassOrMixinDeclaration))
       ..writeln(_generateStaticMetaDecl(consumableClassName, type.isProps))
       ..writeln('}'))
         .toString();

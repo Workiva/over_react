@@ -4,6 +4,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:path/path.dart' as p;
 import 'package:build/build.dart' show AssetId;
 import 'package:source_span/source_span.dart';
+import 'package:transformer_utils/transformer_utils.dart';
 
 const outputExtension = '.over_react.g.dart';
 
@@ -93,4 +94,11 @@ MethodDeclaration metaMethodOrNull(ClassOrMixinDeclaration node) {
   return node.members.firstWhere((member) =>
       member is MethodDeclaration && member.name.name == 'meta',
       orElse: () => null);
+}
+
+
+
+T instantiateAnnotationTyped<T>(AnnotatedNode member,
+    {dynamic Function(Expression argument) onUnsupportedArgument}) {
+  return instantiateAnnotation(member, T, onUnsupportedArgument: onUnsupportedArgument) as T;
 }
