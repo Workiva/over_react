@@ -23,8 +23,7 @@ class BoilerplateComponent extends BoilerplateMember {
     } else if (hasComponent2Annotation) {
       map[BoilerplateVersion.v2_legacyBackwardsCompat] = Confidence.medium;
       map[BoilerplateVersion.v3_legacyDart2Only] = Confidence.medium;
-      // todo maybe just make this possible
-      map[BoilerplateVersion.v4_mixinBased] = nodeHelper is ClassTypeAlias ? Confidence.high : Confidence.medium;
+      map[BoilerplateVersion.v3_legacyDart2Only] = Confidence.medium;
     } else {
       map[BoilerplateVersion.v2_legacyBackwardsCompat] = Confidence.veryLow;
       map[BoilerplateVersion.v3_legacyDart2Only] = Confidence.veryLow;
