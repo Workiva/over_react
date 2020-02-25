@@ -88,8 +88,8 @@ UiFactory<ExampleComponentProps> ConnectedExampleComponent = connect<AppState, E
     mapStateToProps: (state) => (ExampleComponent()..text = state.text),
 )(ExampleComponent);
 
-// Redux Props Class
-class _$ExampleComponentProps extends UiProps {
+// Redux Props Class (e.g. a normal props class)
+mixin ExampleComponentProps on UiProps {
   String text;
 }
 ```
@@ -314,7 +314,6 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
     import './components/component.dart';
 
     main() {
-        setClientConfiguration();
         react_dom.render(
             (ReduxProvider()..store = randomColorStore)(
                 ConnectedComponent()(),
@@ -326,7 +325,7 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
 - General Component Refactor (to be done to every component):
     - Starting with a `BuiltReduxUiComponent`:
         1. Upgrade the component to `UiComponent2`.
-            - Generally this also means removing the built_redux stuff, including ensuring that the component prop class extends from `UiProps`.
+            - Generally this also means removing the built_redux stuff, including ensuring that the component prop class is a mixin on `UiProps`.
             - Check out the `UiComponent2` [transition guide](./ui_component2_transition.md) for pointers on going from `UiComponent` (which is what `BuiltReduxUiComponent` is backed by) to `UiComponent2`. If a component has overridden lifecycle methods that are removed, this will likely be the hardest part of the upgrade.
         1. Move your `Substate` class values into your component's props class. Using the `mapStateToProps` parameter of Redux's `connect` function is very similar to declaring a `Substate` class, and the properties from your `Substate` class can just be moved into props. Make sure at the end of this step that all references to the state in your component have a prop declared in the props class.
         
@@ -439,11 +438,9 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
             mapDispatchToProps: (dispatch) => (Simple()..updateText = (Sring text) { dispatch(UpdateText()); }),
         )(Simple);
 
-        @Factory()
         UiFactory<SimpleProps> Simple = _$Simple;
 
-        @Props()
-        class _$SimpleProps extends UiProps {
+        mixin SimpleProps on UiProps {
           String text;
           void Function(String newText) updateText;
         }

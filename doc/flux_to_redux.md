@@ -229,7 +229,6 @@ redux.Store randomColorStore = redux.Store<RandomColorState>(reducer, initialSta
     ```dart
     import 'dart:html';
 
-    import 'package:react/react_client.dart';
     import 'package:react/react_dom.dart' as react_dom;
     import 'package:over_react/over_react_redux.dart';
 
@@ -237,8 +236,6 @@ redux.Store randomColorStore = redux.Store<RandomColorState>(reducer, initialSta
     import './components/component.dart';
 
     main() {
-      setClientConfiguration();
-
       react_dom.render(
           (ReduxProvider()..store = randomColorStore)(
             ConnectedComponent()(),
@@ -565,14 +562,11 @@ __Goal:__ Update all stores to be either Influx or Redux and update all componen
     import 'dart:html';
 
     import 'package:over_react/over_react_flux.dart';
-    import 'package:react/react_client.dart';
     import 'package:react/react_dom.dart' as react_dom;
 
     import './store.dart';
 
     main() {
-      setClientConfiguration();
-
       react_dom.render(
           (ReduxMultiProvider()..storesByContext = {
             firstStoreContext: firstStoreAdapter,
