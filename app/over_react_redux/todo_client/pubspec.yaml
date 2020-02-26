@@ -9,8 +9,8 @@ dependencies:
   memoize: ^2.0.0
   meta: ^1.0.0
   over_react: ^3.1.5
-  redux: ^3.0.0
-  redux_dev_tools: 0.4.0
+  redux: ">=3.0.0 <5.0.0"
+  redux_dev_tools: ">=0.4.0 <0.6.0"
   uuid: ^1.0.3
 
 dev_dependencies:
@@ -26,3 +26,7 @@ dev_dependencies:
   test_html_builder: ^1.0.0
   time: ^1.2.0
   w_common: ^1.20.0
+
+dependency_overrides:
+  over_react:
+    path: '../../../'
