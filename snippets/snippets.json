@@ -22,7 +22,7 @@
       "\trender() { }",
       "}"
     ],
-    "description": "Creates a stateless OverReact component compatible with Dart 2"
+    "description": "Creates a stateless OverReact component"
   },
   "statelessCommentedComponentsDart2": {
     "prefix": "orCStless",
@@ -51,9 +51,22 @@
       "",
       "\t@override",
       "\trender() { }",
+      "",
+      "\t// --------------------------------------------------------------------------",
+      "\t// Private Utility Methods",
+      "\t// --------------------------------------------------------------------------",
+      "",
+      "\t// --------------------------------------------------------------------------",
+      "\t// Public Utility Methods",
+      "\t// --------------------------------------------------------------------------",
+      "",
+      "\t// --------------------------------------------------------------------------",
+      "\t// Public API Methods",
+      "\t// --------------------------------------------------------------------------",
+      "",
       "}"
     ],
-    "description": "Creates a commented stateless OverReact component compatible with Dart 2"
+    "description": "Creates a commented stateless OverReact component"
   },
   "statefulComponentsDart2": {
     "prefix": "orStful",
@@ -87,7 +100,7 @@
       "\trender() { }",
       "}"
     ],
-    "description": "Creates a stateful OverReact component compatible with Dart 2"
+    "description": "Creates a stateful OverReact component"
   },
   "statefulCommentedComponentsDart2": {
     "prefix": "orCStful",
@@ -111,6 +124,12 @@
       "class ${2:MyComponent}State = UiState with ${2:MyComponent}StateMixin;",
       "",
       "class ${2:MyComponent}Component extends UiStatefulComponent2<${2:MyComponent}Props, ${2:MyComponent}State> {",
+      "\t// Refs",
+      "",
+      "\t// --------------------------------------------------------------------------",
+      "\t// React Component Specifications and Lifecycle Methods",
+      "\t// --------------------------------------------------------------------------",
+      "",
       "\t@override",
       "\tget defaultProps => (newProps());",
       "",
@@ -119,9 +138,22 @@
       "",
       "\t@override",
       "\trender() { }",
+      "",
+      "\t// --------------------------------------------------------------------------",
+      "\t// Private Utility Methods",
+      "\t// --------------------------------------------------------------------------",
+      "",
+      "\t// --------------------------------------------------------------------------",
+      "\t// Public Utility Methods",
+      "\t// --------------------------------------------------------------------------",
+      "",
+      "\t// --------------------------------------------------------------------------",
+      "\t// Public API Methods",
+      "\t// --------------------------------------------------------------------------",
+      "",
       "}"
     ],
-    "description": "Creates a commented stateful OverReact component compatible with Dart 2"
+    "description": "Creates a commented stateful OverReact component"
   },
   "abbreviatedStatelessComponentsDart2": {
     "prefix": "orAbStless",
@@ -144,7 +176,7 @@
       "\trender() { }",
       "}"
     ],
-    "description": "Creates a stateless OverReact component compatible with Dart 2"
+    "description": "Creates a stateless OverReact component with an abbreviated props declaration"
   },
   "abbreviatedStatelessCommentedComponentsDart2": {
     "prefix": "orAbCStless",
@@ -171,9 +203,22 @@
       "",
       "\t@override",
       "\trender() { }",
+      "",
+      "\t// --------------------------------------------------------------------------",
+      "\t// Private Utility Methods",
+      "\t// --------------------------------------------------------------------------",
+      "",
+      "\t// --------------------------------------------------------------------------",
+      "\t// Public Utility Methods",
+      "\t// --------------------------------------------------------------------------",
+      "",
+      "\t// --------------------------------------------------------------------------",
+      "\t// Public API Methods",
+      "\t// --------------------------------------------------------------------------",
+      "",
       "}"
     ],
-    "description": "Creates a commented stateless OverReact component compatible with Dart 2"
+    "description": "Creates a commented stateless OverReact component with an abbreviated props declaration"
   },
   "abbreviatedStatefulComponentsDart2": {
     "prefix": "orAbStful",
@@ -203,7 +248,7 @@
       "\trender() { }",
       "}"
     ],
-    "description": "Creates a stateful OverReact component compatible with Dart 2"
+    "description": "Creates a stateful OverReact component with abbreviated props and state declarations"
   },
   "abbreviatedStatefulCommentedComponentsDart2": {
     "prefix": "orAbCStful",
@@ -223,6 +268,12 @@
       "}",
       "",
       "class ${2:MyComponent}Component extends UiStatefulComponent2<${2:MyComponent}Props, ${2:MyComponent}State> {",
+      "\t// Refs",
+      "",
+      "\t// --------------------------------------------------------------------------",
+      "\t// React Component Specifications and Lifecycle Methods",
+      "\t// --------------------------------------------------------------------------",
+      "",
       "\t@override",
       "\tget defaultProps => (newProps());",
       "",
@@ -231,8 +282,21 @@
       "",
       "\t@override",
       "\trender() { }",
+      "",
+      "\t// --------------------------------------------------------------------------",
+      "\t// Private Utility Methods",
+      "\t// --------------------------------------------------------------------------",
+      "",
+      "\t// --------------------------------------------------------------------------",
+      "\t// Public Utility Methods",
+      "\t// --------------------------------------------------------------------------",
+      "",
+      "\t// --------------------------------------------------------------------------",
+      "\t// Public API Methods",
+      "\t// --------------------------------------------------------------------------",
+      "",
       "}"
     ],
-    "description": "Creates a commented stateful OverReact component compatible with Dart 2"
+    "description": "Creates a commented stateful OverReact component with abbreviated props and state declaration"
   }
 }
