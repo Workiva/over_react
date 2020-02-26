@@ -179,7 +179,7 @@
     "description": "Creates a stateless OverReact component with an abbreviated props declaration"
   },
   "abbreviatedStatelessCommentedComponentsDart2": {
-    "prefix": "orAbbCStless",
+    "prefix": "orCAbbStless",
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
@@ -251,7 +251,7 @@
     "description": "Creates a stateful OverReact component with abbreviated props and state declarations"
   },
   "abbreviatedStatefulCommentedComponentsDart2": {
-    "prefix": "orAbbCStful",
+    "prefix": "orCAbbStful",
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
