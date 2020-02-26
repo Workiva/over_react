@@ -63,22 +63,22 @@ class ImplGenerator {
         generateAbstractComponent(declaration);
       } else if (declaration is PropsMixinDeclaration) {
         if (declaration.version == BoilerplateVersion.v4_mixinBased) {
-          logger.severe('Codegen for new boilerplate (ClassComponentDeclaration) is not yet implemented');
+          logger.severe('Codegen for new boilerplate is not yet implemented $declaration');
         } else {
           generatePropsMixin(declaration);
         }
       } else if (declaration is StateMixinDeclaration) {
         if (declaration.version == BoilerplateVersion.v4_mixinBased) {
-          logger.severe('Codegen for new boilerplate (ClassComponentDeclaration) is not yet implemented');
+          logger.severe('Codegen for new boilerplate is not yet implemented $declaration');
         } else {
           generateStateMixin(declaration);
         }
       } else if (declaration is ClassComponentDeclaration) {
-        logger.severe('Codegen for new boilerplate (ClassComponentDeclaration) is not yet implemented');
+        logger.severe('Codegen for new boilerplate is not yet implemented $declaration');
       } else if (declaration is PropsMapViewDeclaration) {
         logger.severe('Codegen for new boilerplate (PropsMapViewDeclaration) is not yet implemented');
       } else if (declaration is FunctionComponentDeclaration) {
-        logger.severe('Codegen for new boilerplate (FunctionComponentDeclaration) is not yet implemented');
+        logger.severe('Codegen for new boilerplate is not yet implemented $declaration');
       } else {
         throw StateError('Unhandled declaration type: $declaration');
       }

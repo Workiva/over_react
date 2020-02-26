@@ -104,13 +104,7 @@ mixin _ClassishDeclaration_ClassOrMixinDeclaration on ClassishDeclaration {
   Token get rightBracket => node.rightBracket;
 
   @override
-  TypeName get superclass => null;
-
-  @override
   TypeParameterList get typeParameters => node.typeParameters;
-
-  @override
-  WithClause get withClause => null;
 }
 
 class _ClassishDeclaration_ClassDeclaration extends ClassishDeclaration with _ClassishDeclaration_ClassOrMixinDeclaration {
@@ -127,6 +121,12 @@ class _ClassishDeclaration_ClassDeclaration extends ClassishDeclaration with _Cl
   List<TypeName> get interfaces => [
     ...?node.implementsClause?.interfaces,
   ];
+
+  @override
+  TypeName get superclass => node.extendsClause?.superclass;
+
+  @override
+  WithClause get withClause => node.withClause;
 }
 
 class _ClassishDeclaration_MixinDeclaration extends ClassishDeclaration with _ClassishDeclaration_ClassOrMixinDeclaration {
@@ -144,6 +144,12 @@ class _ClassishDeclaration_MixinDeclaration extends ClassishDeclaration with _Cl
     ...?node.implementsClause?.interfaces,
     ...?node.onClause?.superclassConstraints,
   ];
+
+  @override
+  TypeName get superclass => null;
+
+  @override
+  WithClause get withClause => null;
 }
 
 class _ClassishDeclaration_ClassTypeAlias extends ClassishDeclaration {

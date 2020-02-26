@@ -48,19 +48,20 @@ class OverReactBuilder extends Builder {
         },
       );
 
-      final members = BoilerplateMembers.detect(unit);
-      final declarations = getBoilerplateDeclarations(members, errorCollector);
-      for (var declaration in declarations) {
+      final generator = ImplGenerator(log, sourceFile);
+      final declarations = getBoilerplateDeclarations(BoilerplateMembers.detect(unit), errorCollector);
+
+      for (final declaration in declarations) {
+        hasErrors = false;
         declaration.validate(errorCollector);
+        if (!hasErrors) {
+          generator.generate([declaration]);
+        } else {
+          log.info(declaration);
+          declaration.members.forEach(log.info);
+          hasErrors = false;
       }
-
-      if (hasErrors) {
-        // Errors would have been logged already at this point.
-        return;
       }
-
-      final generator = ImplGenerator(log, sourceFile)
-          ..generate(declarations);
 
       final generatedOutput = generator.outputContentsBuffer.toString().trim();
       if (generatedOutput.isNotEmpty) {

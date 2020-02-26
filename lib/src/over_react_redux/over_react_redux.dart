@@ -289,12 +289,7 @@ class JsReactRedux {
 /// [context] You may provide a context instance. If you do so, you will need to provide the same context instance to all of your connected components as well.
 ///
 /// See: <https://react-redux.js.org/api/provider>
-class ReduxProviderProps extends component_base.UiProps
-    with
-        builder_helpers.GeneratedClass
-    implements
-        builder_helpers.UiProps {
-
+class ReduxProviderProps extends builder_helpers.UiProps {
   ReduxProviderProps([Map props]) : this.props = props ?? JsBackedMap();
 
   @override
@@ -305,6 +300,9 @@ class ReduxProviderProps extends component_base.UiProps
 
   @override
   String get propKeyNamespace => '';
+
+  @override
+  bool get $isClassGenerated => true;
 
   /// The __single__ Redux store in your application.
   Store get store => props['store'];

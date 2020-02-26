@@ -26,9 +26,13 @@ abstract class BoilerplateMember {
   /// The confidence that, assuming that [node] has been correctly identified as this type of boilerplate member,
   /// it belongs to a boilerplate declaration of a given version.
   Map<BoilerplateVersion, int> get versionConfidence;
+
   void validate(BoilerplateVersion version, ValidationErrorCollector errorCollector);
 
-  toString() => '${super.toString()} ${prettyPrintMap(versionConfidence)}';
+  SimpleIdentifier get name;
+
+  @override
+  String toString() => '${super.toString()} (${name.name}) ${prettyPrintMap(versionConfidence)}';
 }
 
 class BoilerplateMembers {
@@ -132,6 +136,7 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
 
     final companion = getCompanionClass(node)?.asClassish();
 
+    // Categorize classes with matching annotations
     final annotationNames = node.metadata.map((m) => m.name.nameWithoutPrefix).toList();
     if (annotationNames.contains('Props')) {
       members.props.add(BoilerplateProps(node.asClassish(), Confidence.high, companionClass: companion));
@@ -141,11 +146,12 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
       members.states.add(BoilerplateState(node.asClassish(), Confidence.high, companionClass: companion));
       return;
     }
-    if (annotationNames.contains('Component')) {
+    if (annotationNames.contains('Component') || annotationNames.contains('Component2')) {
       members.components.add(BoilerplateComponent(node.asClassish(), Confidence.high));
       return;
     }
 
+    // Categorize classes with matching name patterns
     final name = node.name.name;
 
     // todo start looking for other characteristics (superclasses, etc).
@@ -168,8 +174,32 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
       members.stateMixins.add(BoilerplateStateMixin(node, Confidence.medium, companionClass: companion));
       return;
     }
-    if (name.endsWith('Component')) {
-      members.components.add(BoilerplateComponent(node.asClassish(), Confidence.medium));
+
+    final classish = node.asClassish();
+    // todo optimize
+    final allSuperTypes = [
+      ...classish.interfaces,
+      ...classish.mixins,
+      if (classish.superclass != null) classish.superclass,
+    ];
+
+    int confidence = 0;
+    if (classish.name.name.endsWith('Component')) {
+      confidence += Confidence.medium;
+    }
+    if (allSuperTypes.any((type) {
+      final name = type.nameWithoutPrefix;
+      return name == 'UiComponent' || name == 'UiComponent2';
+    })) {
+      confidence += Confidence.high;
+    }
+    // extending from an abstract component: `FooComponent extends BarComponent<FooProps, FooState>`
+    if (classish.superclass?.typeArguments?.arguments?.any((arg) => arg.typeNameWithoutPrefix.contains('Props')) ?? false) {
+      confidence += Confidence.medium;
+    }
+
+    if (confidence != 0) {
+      members.components.add(BoilerplateComponent(node.asClassish(), confidence));
       return;
     }
   }

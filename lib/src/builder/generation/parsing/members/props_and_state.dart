@@ -30,6 +30,9 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
 
   NodeWithMeta<NamedCompilationUnitMember, annotations.TypedMap> get withMeta;
 
+  @override
+  SimpleIdentifier get name => nodeHelper.name;
+
   BoilerplatePropsOrState(this.nodeHelper, int declarationConfidence, {@required this.companionClass}) : node = nodeHelper.node, super(declarationConfidence);
 
   @override
@@ -39,15 +42,23 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
     return {
       // todo might need to rethink these, as well as in the mixin classes, to be able to provide better error messages when people make things mixins
       BoilerplateVersion.v2_legacyBackwardsCompat: isMixin
+          // It has never been possible to declare a props class with a mixin
           ? Confidence.none
-          : (hasCompanionClass ? Confidence.high : Confidence.veryLow),
+          : (hasCompanionClass ? Confidence.medium : Confidence.veryLow),
 
       BoilerplateVersion.v3_legacyDart2Only: isMixin
+          // It has never been possible to declare a props class with a mixin
           ? Confidence.none
-          : (hasCompanionClass ? Confidence.veryLow : Confidence.high),
+          : (hasCompanionClass ? Confidence.veryLow : Confidence.medium),
 
       BoilerplateVersion.v4_mixinBased:
           isMixin ? Confidence.high : Confidence.veryLow,
+
+      BoilerplateVersion.noGenerate: nodeHelper.members
+              .whereType<MethodDeclaration>()
+              .any((member) => member.isGetter && member.name.name == r'$isClassGenerated')
+          ? Confidence.certain
+          : Confidence.veryLow
     };
   }
 
@@ -56,6 +67,8 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
   @override
   void validate(BoilerplateVersion version, ValidationErrorCollector errorCollector) {
     switch (version) {
+      case BoilerplateVersion.noGenerate:
+        return;
       case BoilerplateVersion.v4_mixinBased:
         final node = this.node;
         if (node is MixinDeclaration) {
@@ -152,6 +165,9 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
 
   NodeWithMeta<ClassOrMixinDeclaration, annotations.TypedMap> get withMeta;
 
+  @override
+  SimpleIdentifier get name => node.name;
+
   BoilerplatePropsOrStateMixin(this.node, int declarationConfidence, {@required this.companionClass}) : super(declarationConfidence);
 
   @override
@@ -184,6 +200,8 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
     }
 
     switch (version) {
+      case BoilerplateVersion.noGenerate:
+        return;
       case BoilerplateVersion.v4_mixinBased:
         final node = this.node;
         if (node is MixinDeclaration) {

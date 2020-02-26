@@ -22,7 +22,12 @@ targets:
         generate_for:
           exclude:
             # This tests un-built behavior, and therefore should not be built
+            - "lib/src/component_declaration/annotations.dart"
+            - "lib/src/component_declaration/builder_helpers.dart"
+            - "lib/src/component_declaration/component_base.dart"
+            - "lib/src/component_declaration/component_base_2.dart"
             - "test/over_react/component_declaration/builder_helpers_test.dart"
+            - "test/over_react/component_declaration/component_base_test.dart"
 
       over_react|overReactBuilder:
         enabled: false

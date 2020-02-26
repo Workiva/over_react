@@ -106,12 +106,7 @@ class Context<TValue> {
 /// * [value] The value that you want to provide to all consumers.
 ///
 /// See: <https://reactjs.org/docs/context.html#contextprovider>
-class ProviderProps<TValue> extends component_base.UiProps
-    with
-        builder_helpers.GeneratedClass
-    implements
-        builder_helpers.UiProps {
-
+class ProviderProps<TValue> extends builder_helpers.UiProps {
   ProviderProps(JsBackedMap backingMap)
       : this._props = JsBackedMap() {
     this._props = backingMap ?? JsBackedMap();
@@ -124,6 +119,9 @@ class ProviderProps<TValue> extends component_base.UiProps
   @override
   String get propKeyNamespace => '';
 
+  @override
+  bool get $isClassGenerated => true;
+
   TValue get value => props['value'];
   set value(TValue v) => props['value'] = v;
 }
@@ -131,11 +129,7 @@ class ProviderProps<TValue> extends component_base.UiProps
 /// [ConsumerProps] is a typed props class for the [Context.Consumer] from a [Context] object created with [createContext].
 ///
 /// See: <https://reactjs.org/docs/context.html#contextconsumer>
-class ConsumerProps<TValue> extends component_base.UiProps
-    with
-        builder_helpers.GeneratedClass
-    implements
-        builder_helpers.UiProps {
+class ConsumerProps<TValue> extends builder_helpers.UiProps {
   // Initialize to a JsBackedMap so that copying can be optimized
   // when converting props during ReactElement creation.
   // TODO 3.0.0-wip generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
@@ -160,6 +154,9 @@ class ConsumerProps<TValue> extends component_base.UiProps
 
   @override
   String get propKeyNamespace => '';
+
+  @override
+  bool get $isClassGenerated => true;
 
   /// Creates a new component with this builder's props and the specified [children].
   ///

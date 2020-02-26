@@ -4,7 +4,7 @@ class BoilerplateFactory extends BoilerplateMember {
   @override
   final TopLevelVariableDeclaration node;
 
-  Identifier get name => node.firstVariable.name;
+  SimpleIdentifier get name => node.firstVariable.name;
 
   BoilerplateFactory(this.node, int declarationConfidence) : super(declarationConfidence);
 
@@ -13,18 +13,16 @@ class BoilerplateFactory extends BoilerplateMember {
     BoilerplateVersion.v2_legacyBackwardsCompat: hasFactoryAnnotation ? Confidence.medium : Confidence.veryLow,
     BoilerplateVersion.v3_legacyDart2Only: hasFactoryAnnotation ? Confidence.medium : Confidence.veryLow,
     BoilerplateVersion.v4_mixinBased: hasFactoryAnnotation ? Confidence.medium : Confidence.high,
+    BoilerplateVersion.noGenerate: hasFactoryAnnotation ? Confidence.veryLow : Confidence.high,
   };
 
   bool get hasFactoryAnnotation => node.hasAnnotationWithName('Factory');
 
   @override
   void validate(BoilerplateVersion version, ValidationErrorCollector errorCollector) {
-    if (node.variables.variables.length > 1) {
-      errorCollector.addError('Multiple factory variables per declaration are not supported.',
-          errorCollector.spanFor(node.variables));
-    }
-
     switch (version) {
+      case BoilerplateVersion.noGenerate:
+        return;
       case BoilerplateVersion.v4_mixinBased:
         break;
       case BoilerplateVersion.v2_legacyBackwardsCompat:
@@ -35,6 +33,11 @@ class BoilerplateFactory extends BoilerplateMember {
         }
 
         break;
+    }
+
+    if (node.variables.variables.length > 1) {
+      errorCollector.addError('Multiple factory variables per declaration are not supported.',
+          errorCollector.spanFor(node.variables));
     }
 
     final variable = node.variables.variables.first;

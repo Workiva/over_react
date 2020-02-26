@@ -11,18 +11,21 @@ abstract class Confidence {
 //  static const low = 5;
   static const medium = 10;
   static const high = 20;
+  static const certain = 100000;
 }
 
 const boilerplateVersionPriority = [
   BoilerplateVersion.v4_mixinBased,
   BoilerplateVersion.v2_legacyBackwardsCompat,
   BoilerplateVersion.v3_legacyDart2Only,
+  BoilerplateVersion.noGenerate,
 ];
 
 enum BoilerplateVersion {
   v2_legacyBackwardsCompat,
   v3_legacyDart2Only,
   v4_mixinBased,
+  noGenerate,
 }
 
 BoilerplateVersion resolveVersion(Iterable<BoilerplateMember> members) {
