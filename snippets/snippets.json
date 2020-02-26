@@ -8,6 +8,130 @@
       "",
       "UiFactory<${2:MyComponent}Props> ${2:MyComponent} = $${2:MyComponent};",
       "",
+      "mixin ${2:MyComponent}PropsMixin on UiProps {",
+      "",
+      "}",
+      "",
+      "class ${2:MyComponent}Props = UiProps with ${2:MyComponent}PropsMixin;",
+      "",
+      "class ${2:MyComponent}Component extends UiComponent2<${2:MyComponent}Props> {",
+      "\t@override",
+      "\tget defaultProps => (newProps());",
+      "",
+      "\t@override",
+      "\trender() { }",
+      "}"
+    ],
+    "description": "Creates a stateless OverReact component compatible with Dart 2"
+  },
+  "statelessCommentedComponentsDart2": {
+    "prefix": "orCStless",
+    "body": [
+      "import 'package:over_react/over_react.dart';",
+      "",
+      "part '${1:FileName}.over_react.g.dart';",
+      "",
+      "UiFactory<${2:MyComponent}Props> ${2:MyComponent} = $${2:MyComponent};",
+      "",
+      "mixin ${2:MyComponent}PropsMixin on UiProps {",
+      "",
+      "}",
+      "",
+      "class ${2:MyComponent}Props = UiProps with ${2:MyComponent}PropsMixin;",
+      "",
+      "class ${2:MyComponent}Component extends UiComponent2<${2:MyComponent}Props> {",
+      "\t// Refs",
+      "",
+      "\t// --------------------------------------------------------------------------",
+      "\t// React Component Specifications and Lifecycle Methods",
+      "\t// --------------------------------------------------------------------------",
+      "",
+      "\t@override",
+      "\tget defaultProps => (newProps());",
+      "",
+      "\t@override",
+      "\trender() { }",
+      "}"
+    ],
+    "description": "Creates a commented stateless OverReact component compatible with Dart 2"
+  },
+  "statefulComponentsDart2": {
+    "prefix": "orStful",
+    "body": [
+      "import 'package:over_react/over_react.dart';",
+      "",
+      "part '${1:FileName}.over_react.g.dart';",
+      "",
+      "UiFactory<${2:MyComponent}Props> ${2:MyComponent} = $${2:MyComponent};",
+      "",
+      "mixin ${2:MyComponent}PropsMixin on UiProps {",
+      "",
+      "}",
+      "",
+      "class ${2:MyComponent}Props = UiProps with ${2:MyComponent}PropsMixin;",
+      "",
+      "mixin ${2:MyComponent}StateMixin on UiState {",
+      "",
+      "}",
+      "",
+      "class ${2:MyComponent}State = UiState with ${2:MyComponent}StateMixin;",
+      "",
+      "class ${2:MyComponent}Component extends UiStatefulComponent2<${2:MyComponent}Props, ${2:MyComponent}State> {",
+      "\t@override",
+      "\tget defaultProps => (newProps());",
+      "",
+      "\t@override",
+      "\tget initialState => (newState());",
+      "",
+      "\t@override",
+      "\trender() { }",
+      "}"
+    ],
+    "description": "Creates a stateful OverReact component compatible with Dart 2"
+  },
+  "statefulCommentedComponentsDart2": {
+    "prefix": "orCStful",
+    "body": [
+      "import 'package:over_react/over_react.dart';",
+      "",
+      "part '${1:FileName}.over_react.g.dart';",
+      "",
+      "UiFactory<${2:MyComponent}Props> ${2:MyComponent} = $${2:MyComponent};",
+      "",
+      "mixin ${2:MyComponent}PropsMixin on UiProps {",
+      "",
+      "}",
+      "",
+      "class ${2:MyComponent}Props = UiProps with ${2:MyComponent}PropsMixin;",
+      "",
+      "mixin ${2:MyComponent}StateMixin on UiState {",
+      "",
+      "}",
+      "",
+      "class ${2:MyComponent}State = UiState with ${2:MyComponent}StateMixin;",
+      "",
+      "class ${2:MyComponent}Component extends UiStatefulComponent2<${2:MyComponent}Props, ${2:MyComponent}State> {",
+      "\t@override",
+      "\tget defaultProps => (newProps());",
+      "",
+      "\t@override",
+      "\tget initialState => (newState());",
+      "",
+      "\t@override",
+      "\trender() { }",
+      "}"
+    ],
+    "description": "Creates a commented stateful OverReact component compatible with Dart 2"
+  },
+  "abbreviatedStatelessComponentsDart2": {
+    "prefix": "orAbStless",
+    "body": [
+      "import 'package:over_react/over_react.dart';",
+      "",
+      "part '${1:FileName}.over_react.g.dart';",
+      "",
+      "UiFactory<${2:MyComponent}Props> ${2:MyComponent} = $${2:MyComponent};",
+      "",
       "mixin ${2:MyComponent}Props on UiProps {",
       "",
       "}",
@@ -22,8 +146,8 @@
     ],
     "description": "Creates a stateless OverReact component compatible with Dart 2"
   },
-  "statelessCommentedComponentsDart2": {
-    "prefix": "orCStless",
+  "abbreviatedStatelessCommentedComponentsDart2": {
+    "prefix": "orAbCStless",
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
@@ -51,8 +175,8 @@
     ],
     "description": "Creates a commented stateless OverReact component compatible with Dart 2"
   },
-  "statefulComponentsDart2": {
-    "prefix": "orStful",
+  "abbreviatedStatefulComponentsDart2": {
+    "prefix": "orAbStful",
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
@@ -81,8 +205,8 @@
     ],
     "description": "Creates a stateful OverReact component compatible with Dart 2"
   },
-  "statefulCommentedComponentsDart2": {
-    "prefix": "orCStful",
+  "abbreviatedStatefulCommentedComponentsDart2": {
+    "prefix": "orAbCStful",
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
@@ -110,5 +234,5 @@
       "}"
     ],
     "description": "Creates a commented stateful OverReact component compatible with Dart 2"
-  },
+  }
 }
