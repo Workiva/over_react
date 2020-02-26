@@ -4,6 +4,8 @@ class BoilerplateFactory extends BoilerplateMember {
   @override
   final TopLevelVariableDeclaration node;
 
+  Identifier get name => node.firstVariable.name;
+
   BoilerplateFactory(this.node, int declarationConfidence) : super(declarationConfidence);
 
   @override

@@ -50,10 +50,10 @@ import 'parsing.dart';
 class ImplGenerator {
   ImplGenerator(this.logger, this.sourceFile);
 
-  Logger logger;
-  StringBuffer outputContentsBuffer = StringBuffer();
+  final Logger logger;
+  final StringBuffer outputContentsBuffer = StringBuffer();
 
-  SourceFile sourceFile;
+  final SourceFile sourceFile;
 
   void generate(Iterable<BoilerplateDeclaration> declarations) {
     for (var declaration in declarations) {
@@ -79,6 +79,8 @@ class ImplGenerator {
         logger.severe('Codegen for new boilerplate (PropsMapViewDeclaration) is not yet implemented');
       } else if (declaration is FunctionComponentDeclaration) {
         logger.severe('Codegen for new boilerplate (FunctionComponentDeclaration) is not yet implemented');
+      } else {
+        throw StateError('Unhandled declaration type: $declaration');
       }
     }
   }

@@ -197,27 +197,32 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   //  }
 }
 
+String normalizeName(String name) => name.replaceAll(RegExp(r'^[_$]+'), '');
+
 Union<BoilerplateProps, BoilerplatePropsMixin> getPropsForFactory(
   BoilerplateFactory factory,
   Iterable<BoilerplateProps> props,
   Iterable<BoilerplatePropsMixin> propsMixins,
 ) {
-  final name = factory.node.variables.variables.first.name.name
-      .replaceAll(RegExp(r'^[_$]*'), '');
+  final name = normalizeName(factory.name.name);;
   final expectedPropsName = '${name}Props';
   final expectedPropsMixinName = '${name}PropsMixin';
 
   final matchingProps = props.firstWhere(
-      (element) =>
-          element.node.name.name == expectedPropsName ||
-          element.node.name.name == expectedPropsMixinName,
+      (element) {
+        final propsName = normalizeName(element.node.name.name);
+        return propsName == expectedPropsName ||
+            propsName == expectedPropsMixinName;
+      },
       orElse: () => null);
   if (matchingProps != null) return Union.a(matchingProps);
 
   final matchingPropsMixin = propsMixins.firstWhere(
-      (element) =>
-          element.node.name.name == expectedPropsName ||
-          element.node.name.name == expectedPropsMixinName,
+      (element) {
+        final propsMixinName = normalizeName(element.node.name.name);
+        return propsMixinName == expectedPropsName ||
+          propsMixinName == expectedPropsMixinName;
+      },
       orElse: () => null);
   if (matchingPropsMixin != null) return Union.b(matchingPropsMixin);
 
@@ -229,20 +234,25 @@ Union<BoilerplateState, BoilerplateStateMixin> getStateForFactory(
   Iterable<BoilerplateState> states,
   Iterable<BoilerplateStateMixin> stateMixins,
 ) {
-  final name =
-      factory.node.firstVariable.name.name.replaceAll(RegExp(r'^[_$]*'), '');
-  final expectedPropsName = '${name}Props';
-  final expectedPropsMixinName = '${name}PropsMixin';
+  final name = normalizeName(factory.name.name);;
+  final expectedStateName = '${name}State';
+  final expectedStateMixinName = '${name}StateMixin';
 
   final matchingState = states.firstWhere(
-      (element) => element.node.name.name == expectedPropsName,
+      (element) {
+        final stateName = normalizeName(element.node.name.name);
+        return stateName == expectedStateName ||
+            stateName == expectedStateMixinName;
+      },
       orElse: () => null);
   if (matchingState != null) return Union.a(matchingState);
 
   final matchingStateMixin = stateMixins.firstWhere(
-      (element) =>
-          element.node.name.name == expectedPropsName ||
-          element.node.name.name == expectedPropsMixinName,
+      (element) {
+        final stateMixinName = normalizeName(element.node.name.name);
+        return stateMixinName == expectedStateName ||
+          stateMixinName == expectedStateMixinName;
+      },
       orElse: () => null);
   if (matchingStateMixin != null) return Union.b(matchingStateMixin);
 
@@ -254,10 +264,9 @@ BoilerplateComponent getComponent(
   Union<BoilerplateProps, BoilerplatePropsMixin> propsClassOrMixin,
   List<BoilerplateComponent> components,
 ) {
-  final name =
-      factory.node.firstVariable.name.name.replaceAll(RegExp(r'^[_$]*'), '');
+  final name = normalizeName(factory.name.name);
   return components.firstWhere(
-      (component) => component.node.name.name == '${name}Component',
+      (component) => normalizeName(component.node.name.name) == '${name}Component',
       orElse: () => null);
 }
 
@@ -285,8 +294,8 @@ List<FactoryGroup> groupFactories(Iterable<BoilerplateFactory> factories) {
   var factoriesByType = <String, List<BoilerplateFactory>>{};
 
   for (var factory in factories) {
-    final typeName = factory.node.variables.type?.typeNameWithoutPrefix;
-    factoriesByType.putIfAbsent(typeName, () => []).add(factory);
+    final typeString = factory.node.variables.type?.toSource();
+    factoriesByType.putIfAbsent(typeString, () => []).add(factory);
   }
 
   final groups = <FactoryGroup>[];
@@ -311,13 +320,19 @@ bool isStandaloneFactory(BoilerplateFactory factory) {
 }
 
 bool isFunctionComponent(BoilerplateFactory factory) {
-  //todo implement
+  return false;
 }
 
-CompilationUnitMember fuzzyMatch(
+AstNode fuzzyMatch(
     BoilerplateMember member, Iterable<BoilerplateMember> members) {
   // todo implement
-  return members.firstOrNull?.node;
+  var match = members.firstOrNull?.node;
+
+  if (match == null) return null;
+  if (match is NamedCompilationUnitMember) return match.name;
+  if (match is TopLevelVariableDeclaration) return match.firstVariable.name;
+
+  throw StateError('This codepath should never be hit');
 }
 
 class BoilerplateGenerator {}
@@ -354,7 +369,7 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
   bool get isComponent2 => component.hasComponent2Annotation;
 
   @override
-  get _members => [factory, component, props, state];
+  get _members => [factory, component, props, if (state != null) state];
 
   LegacyClassComponentDeclaration({
     @required BoilerplateVersion version,
@@ -371,7 +386,7 @@ class LegacyAbstractClassComponentDeclaration extends BoilerplateDeclaration {
   final BoilerplateState state;
 
   @override
-  get _members => [component, props, state];
+  get _members => [component, props, if (state != null) state];
 
   LegacyAbstractClassComponentDeclaration({
     @required BoilerplateVersion version,
@@ -388,7 +403,7 @@ class ClassComponentDeclaration extends BoilerplateDeclaration {
   final Union<BoilerplateState, BoilerplateStateMixin> state;
 
   @override
-  get _members => [factory, component, props.either, state.either];
+  get _members => [factory, component, props.either, if (state != null) state?.either];
 
   ClassComponentDeclaration({
     @required BoilerplateVersion version,

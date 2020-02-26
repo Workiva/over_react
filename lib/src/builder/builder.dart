@@ -40,11 +40,11 @@ class OverReactBuilder extends Builder {
       var hasErrors = false;
       final errorCollector = CallbackValidationErrorCollector(sourceFile,
         onError: (message, [span]) {
-          log.severe(span.message(message) ?? message);
+          log.severe(span?.message(message) ?? message);
           hasErrors = true;
         },
         onWarning: (message, [span]) {
-          log.warning(span.message(message) ?? message);
+          log.warning(span?.message(message) ?? message);
         },
       );
 
@@ -55,9 +55,10 @@ class OverReactBuilder extends Builder {
       }
 
       if (hasErrors) {
-        log.severe('There was an error parsing the file declarations for file: $id');
+        // Errors would have been logged already at this point.
         return;
       }
+
       final generator = ImplGenerator(log, sourceFile)
           ..generate(declarations);
 

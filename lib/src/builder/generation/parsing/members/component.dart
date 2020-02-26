@@ -27,7 +27,7 @@ class BoilerplateComponent extends BoilerplateMember {
     } else {
       map[BoilerplateVersion.v2_legacyBackwardsCompat] = Confidence.veryLow;
       map[BoilerplateVersion.v3_legacyDart2Only] = Confidence.veryLow;
-      map[BoilerplateVersion.v4_mixinBased] = Confidence.high;
+      map[BoilerplateVersion.v4_mixinBased] = Confidence.medium;
     }
     return map;
   }
@@ -40,19 +40,17 @@ class BoilerplateComponent extends BoilerplateMember {
   void validate(BoilerplateVersion version, ValidationErrorCollector errorCollector) {
     switch (version) {
       case BoilerplateVersion.v4_mixinBased:
+        final superclass = nodeHelper.superclass;
+        if (superclass?.nameWithoutPrefix == 'UiComponent') {
+          errorCollector.addError('Must extend UiComponent2, not UiComponent.',
+              errorCollector.spanFor(superclass));
+        }
         break;
       case BoilerplateVersion.v2_legacyBackwardsCompat:
       case BoilerplateVersion.v3_legacyDart2Only:
         if (!hasComponent1or2Annotation) {
           errorCollector.addError('Legacy boilerplate factories must be annotated with `@Component()` or `@Component2()`.',
               errorCollector.spanFor(node));
-        }
-        // Check that class name starts with [privateSourcePrefix]
-        if (!node.name.name.startsWith(privateSourcePrefix)) {
-          errorCollector.addError('The class `${node.name.name}` does not start with `$privateSourcePrefix`. All Props, State, '
-              'AbstractProps, and AbstractState classes should begin with `$privateSourcePrefix` on Dart 2',
-              errorCollector.spanFor(node));
-          return;
         }
         break;
     }
@@ -95,27 +93,30 @@ class ComponentNode<TMeta extends annotations.Component>
   /// The value of the `subtypeOf` parameter passed in to this node's annotation.
   Identifier subtypeOfValue;
 
-  ComponentNode(AnnotatedNode unit) : super(unit) {
+  ComponentNode(NamedCompilationUnitMember unit) : super(unit) {
     // Perform special handling for the `subtypeOf` parameter of this node's annotation.
     //
     // If valid, omit it from `unsupportedArguments` so that the `meta` can be accessed without it
     // (with the value available via `subtypeOfValue`), given that all other arguments are valid.
 
-    NamedExpression subtypeOfParam = this.unsupportedArguments.firstWhere((expression) {
-      return expression is NamedExpression && expression.name.label.name == _subtypeOfParamName;
-    }, orElse: () => null);
+    NamedExpression subtypeOfParam = unsupportedArguments
+        .whereType<NamedExpression>()
+        .firstWhere(
+            (expression) => expression.name.label.name == _subtypeOfParamName,
+            orElse: () => null);
 
     if (subtypeOfParam != null) {
-      if (subtypeOfParam.expression is! Identifier) {
+      final expression = subtypeOfParam.expression;
+      if (expression is Identifier) {
+        subtypeOfValue = expression;
+        unsupportedArguments.remove(subtypeOfParam);
+      } else {
         throw '`$_subtypeOfParamName` must be an identifier: $subtypeOfParam';
       }
-
-      this.subtypeOfValue = subtypeOfParam.expression;
-      this.unsupportedArguments.remove(subtypeOfParam);
     }
   }
 }
 
 class Component2Node extends ComponentNode<annotations.Component2> {
-  Component2Node(AnnotatedNode unit) : super(unit);
+  Component2Node(NamedCompilationUnitMember unit) : super(unit);
 }

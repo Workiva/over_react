@@ -39,7 +39,8 @@ class BoilerplateMembers {
   final states = <BoilerplateState>[];
   final stateMixins = <BoilerplateStateMixin>[];
 
-  List<List<BoilerplateMember>> get _allMembersLists => [
+  Iterable<BoilerplateMember> get allMembers => allMembersLists.expand((i) => i);
+  List<List<BoilerplateMember>> get allMembersLists => [
     factories,
     props,
     propsMixins,
@@ -48,7 +49,7 @@ class BoilerplateMembers {
     stateMixins,
   ];
 
-  bool get isEmpty => _allMembersLists.every((list) => list.isEmpty);
+  bool get isEmpty => allMembersLists.every((list) => list.isEmpty);
   bool get isNotEmpty => !isEmpty;
 
   BoilerplateMembers.detect(CompilationUnit unit) {
