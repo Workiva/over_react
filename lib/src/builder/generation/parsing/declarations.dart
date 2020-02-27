@@ -50,10 +50,33 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   final stateMixins = members.stateMixins;
 
   for (var propsMixin in propsMixins) {
-    yield PropsMixinDeclaration(version: resolveVersion([propsMixin]), propsMixin: propsMixin);
+    final version = resolveVersion([propsMixin]);
+    switch (version) {
+      case BoilerplateVersion.v2_legacyBackwardsCompat:
+      case BoilerplateVersion.v3_legacyDart2Only:
+      case BoilerplateVersion.v4_mixinBased:
+        yield PropsMixinDeclaration(version: version, propsMixin: propsMixin);
+        break;
+      case BoilerplateVersion.noGenerate:
+        break;
+      default:
+        // null. Why?
+    }
   }
+
   for (var stateMixin in stateMixins) {
-    yield StateMixinDeclaration(version: resolveVersion([stateMixin]), stateMixin: stateMixin);
+    final version = resolveVersion([stateMixin]);
+      switch (version) {
+        case BoilerplateVersion.v2_legacyBackwardsCompat:
+        case BoilerplateVersion.v3_legacyDart2Only:
+        case BoilerplateVersion.v4_mixinBased:
+          yield StateMixinDeclaration(version: version, stateMixin: stateMixin);
+          break;
+        case BoilerplateVersion.noGenerate:
+          break;
+        default:
+          // null. Why?
+      }
   }
 
   final unusedFactories = <FactoryGroup>[];
@@ -198,7 +221,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         break;
     }
   }
-  
+
   // Use a queue since we want to mutate props during iteration
   final propsQueue = Queue.of(props);
   while (propsQueue.isNotEmpty) {
@@ -250,7 +273,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     }
 
     final potentialProps = fuzzyMatch(factoryGroup.bestFactory, [...props, ...propsMixins]);
-    errorCollector.addError('Factory is missing props: $potentialProps',
+    errorCollector.addError('Factory is missing props; did you mean $potentialProps?',
         errorCollector.spanFor(factoryGroup.bestFactory.node));
   }
 
@@ -416,6 +439,16 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
       errorCollector.addError('Legacy boilerplate components must be annotated with `@Component()` or `@Component2()`.',
           errorCollector.spanFor(component.node));
     }
+    
+    if (!props.node.hasAnnotationWithNames({'Props'})) {
+      errorCollector.addError('Legacy boilerplate props classes must be annotated with `@Props()`.',
+          errorCollector.spanFor(props.node));
+    }
+    
+    if (state != null && !state.node.hasAnnotationWithNames({'State'})) {
+      errorCollector.addError('Legacy boilerplate state classes must be annotated with `@State()`.',
+          errorCollector.spanFor(state.node));
+    }
   }
 }
 
@@ -439,16 +472,18 @@ class LegacyAbstractClassComponentDeclaration extends BoilerplateDeclaration {
     super.validate(errorCollector);
 
     if (component != null && !component.node.hasAnnotationWithNames({'AbstractComponent', 'AbstractComponent2'})) {
-      errorCollector.addError('Legacy boilerplate abstract components must be annotated with `@AbstractComponent()` or `@AbstractComponent2()`.',
+      errorCollector.addWarning('Legacy boilerplate abstract components should be annotated with `@AbstractComponent()` or `@AbstractComponent2()`.',
           errorCollector.spanFor(component.node));
     }
 
-    if (!props.node.hasAnnotationWithName('AbstractProps')) {
+    // It's possible to declare an abstract class without any props/state fields that need to be generated.
+    if (props.nodeHelper.members.isNotEmpty && !props.node.hasAnnotationWithName('AbstractProps')) {
       errorCollector.addError('Legacy boilerplate abstract props must be annotated with `@AbstractProps()`.',
           errorCollector.spanFor(props.node));
     }
 
-    if (state != null && !state.node.hasAnnotationWithName('AbstractState')) {
+    // It's possible to declare an abstract class without any props/state fields that need to be generated.
+    if (state != null && state.nodeHelper.members.isNotEmpty && !state.node.hasAnnotationWithName('AbstractState')) {
       errorCollector.addError('Legacy boilerplate abstract state must be annotated with `@AbstractState()`.',
           errorCollector.spanFor(state.node));
     }
