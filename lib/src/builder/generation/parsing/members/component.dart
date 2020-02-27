@@ -41,7 +41,6 @@ class BoilerplateComponent extends BoilerplateMember {
     return map;
   }
 
-
   bool get hasAnnotation => hasComponent1OrAbstractAnnotation || hasComponent2OrAbstractAnnotation;
 
   bool get hasComponent1OrAbstractAnnotation => node.hasAnnotationWithNames({'Component', 'AbstractComponent'});

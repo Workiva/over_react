@@ -4,6 +4,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:meta/meta.dart';
 
 import 'ast_util.dart';
+import 'member_association.dart';
 import 'members.dart';
 import 'util.dart';
 import 'validation.dart';
@@ -73,8 +74,8 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     final factory = factoryGroup.bestFactory;
 
     // fixme what about companion classes?
-    final propsClassOrMixin = getPropsForFactory(factory, props, propsMixins);
-    final stateClassOrMixin = getStateForFactory(factory, states, stateMixins);
+    final propsClassOrMixin = getPropsFor(factory, props, propsMixins);
+    final stateClassOrMixin = getStateFor(factory, states, stateMixins);
 
     if (propsClassOrMixin == null) {
       // will be validated below the for-loop.
@@ -87,7 +88,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     props.remove(propsClassOrMixin.either);
     states.remove(stateClassOrMixin?.either);
 
-    final component = getComponentForFactory(factory, components);
+    final component = getComponentFor(factory, components);
     if (component != null) {
       components.remove(component);
 
@@ -155,8 +156,8 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   while (componentsQueue.isNotEmpty) {
     final component = componentsQueue.removeFirst();
 
-    final propsClassOrMixin = getPropsForComponent(component, props, propsMixins);
-    final stateClassOrMixin = getStateForComponent(component, states, stateMixins);
+    final propsClassOrMixin = getPropsFor(component, props, propsMixins);
+    final stateClassOrMixin = getStateFor(component, states, stateMixins);
 
     if (propsClassOrMixin == null) continue;
 
@@ -191,6 +192,35 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 //            component: component,
 //            props: propsClassOrMixin,
 //            state: stateClassOrMixin);
+        break;
+      default:
+        // This case (null) is unlikely, but it means that none of the declarations actually seem like boilerplate.
+        break;
+    }
+  }
+  
+  // Use a queue since we want to mutate props during iteration
+  final propsQueue = Queue.of(props);
+  while (propsQueue.isNotEmpty) {
+    final props = propsQueue.removeFirst();
+    final state = getStateFor(props, states, [])?.a;
+
+    final version = resolveVersion([props, if (state != null) state]);
+    switch (version) {
+      case BoilerplateVersion.noGenerate:
+        // Do nothing because no code generation is warranted.
+        break;
+      case BoilerplateVersion.v2_legacyBackwardsCompat:
+      case BoilerplateVersion.v3_legacyDart2Only:
+        if (props.node.hasAnnotationWithName('AbstractProps')) {
+          yield LegacyAbstractClassComponentDeclaration(
+              version: version,
+              props: props,
+              state: state);
+        }
+        break;
+      case BoilerplateVersion.v4_mixinBased:
+        // No need to do anything? Maybe perform validation that they're not doing something wrong?
         break;
       default:
         // This case (null) is unlikely, but it means that none of the declarations actually seem like boilerplate.
@@ -245,7 +275,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   //
   //  final deduplicatedFactories = findRelatedFactories();
   //  for (var factory in deuplicatedFactories) {
-  //    final propsClassOrMixin = getPropsForFactory(factory, propsClasses, propsMixins);
+  //    final propsClassOrMixin = getPropsFor(factory, propsClasses, propsMixins);
   //    propsClasses.remove(propsClassOrMixin);
   //    final propsImplInfo = generatePropsImpl(propsClassOrMixin);
   //
@@ -262,81 +292,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   //
   //  for (var factory in propsMixins) {
   //  }
-}
-
-String normalizeName(String name) => name.replaceAll(RegExp(r'^[_$]+'), '');
-
-T _getMemberWithMatchingName<T extends BoilerplateMember>(Iterable<T> members, Set<String> names) {
-  return members.firstWhere((member) => names.contains(normalizeName(member.name.name)), orElse: () => null);
-}
-
-Union<A, B> _getMemberUnionWithMatchingName<A extends BoilerplateMember, B extends BoilerplateMember>(
-    Iterable<A> membersA, Iterable<B> membersB, Set<String> names) {
-  final a = _getMemberWithMatchingName(membersA, names);
-  if (a != null) return Union.a(a);
-
-  final b = _getMemberWithMatchingName(membersB, names);
-  if (b != null) return Union.b(b);
-
-  return null;
-}
-
-Union<BoilerplateProps, BoilerplatePropsMixin> getPropsForFactory(
-  BoilerplateFactory factory,
-  Iterable<BoilerplateProps> props,
-  Iterable<BoilerplatePropsMixin> propsMixins
-) {
-  final name = normalizeName(factory.name.name);
-  return _getMemberUnionWithMatchingName(props, propsMixins, {
-    '${name}Props',
-    '${name}PropsMixin',
-  });
-}
-
-Union<BoilerplateState, BoilerplateStateMixin> getStateForFactory(
-  BoilerplateFactory factory,
-  Iterable<BoilerplateState> states,
-  Iterable<BoilerplateStateMixin> stateMixins
-) {
-  final name = normalizeName(factory.name.name);
-  return _getMemberUnionWithMatchingName(states, stateMixins, {
-    '${name}State',
-    '${name}StateMixin',
-  });
-}
-
-BoilerplateComponent getComponentForFactory(
-  BoilerplateFactory factory,
-  List<BoilerplateComponent> components
-) {
-  final name = normalizeName(factory.name.name);
-  return _getMemberWithMatchingName(components, {'${name}Component'});
-}
-
-Union<BoilerplateProps, BoilerplatePropsMixin> getPropsForComponent(
-  BoilerplateComponent component,
-  Iterable<BoilerplateProps> props,
-  Iterable<BoilerplatePropsMixin> propsMixins
-) {
-  // Don't assume component is in the name.
-  final name = normalizeName(component.name.name).replaceFirst(RegExp(r'Component$'), '');
-  return _getMemberUnionWithMatchingName(props, propsMixins, {
-    '${name}Props',
-    '${name}PropsMixin',
-  });
-}
-
-Union<BoilerplateState, BoilerplateStateMixin> getStateForComponent(
-  BoilerplateComponent component,
-  Iterable<BoilerplateState> states,
-  Iterable<BoilerplateStateMixin> stateMixins
-) {
-  // Don't assume component is in the name.
-  final name = normalizeName(component.name.name).replaceFirst(RegExp(r'Component$'), '');
-  return _getMemberUnionWithMatchingName(states, stateMixins, {
-    '${name}State',
-    '${name}StateMixin',
-  });
 }
 
 class FactoryGroup {
@@ -462,9 +417,6 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
           errorCollector.spanFor(component.node));
     }
   }
-
-  @override
-  SimpleIdentifier get name => null;
 }
 
 class LegacyAbstractClassComponentDeclaration extends BoilerplateDeclaration {
@@ -473,11 +425,11 @@ class LegacyAbstractClassComponentDeclaration extends BoilerplateDeclaration {
   final BoilerplateState state;
 
   @override
-  get _members => [component, props, if (state != null) state];
+  get _members => [component, props, state].whereNotNull();
 
   LegacyAbstractClassComponentDeclaration({
     @required BoilerplateVersion version,
-    @required this.component,
+    this.component,
     @required this.props,
     this.state,
   }) : super(version);
@@ -486,9 +438,19 @@ class LegacyAbstractClassComponentDeclaration extends BoilerplateDeclaration {
   void validate(ValidationErrorCollector errorCollector) {
     super.validate(errorCollector);
 
-    if (!component.node.hasAnnotationWithNames({'AbstractComponent', 'AbstractComponent2'})) {
+    if (component != null && !component.node.hasAnnotationWithNames({'AbstractComponent', 'AbstractComponent2'})) {
       errorCollector.addError('Legacy boilerplate abstract components must be annotated with `@AbstractComponent()` or `@AbstractComponent2()`.',
           errorCollector.spanFor(component.node));
+    }
+
+    if (!props.node.hasAnnotationWithName('AbstractProps')) {
+      errorCollector.addError('Legacy boilerplate abstract props must be annotated with `@AbstractProps()`.',
+          errorCollector.spanFor(props.node));
+    }
+
+    if (state != null && !state.node.hasAnnotationWithName('AbstractState')) {
+      errorCollector.addError('Legacy boilerplate abstract state must be annotated with `@AbstractState()`.',
+          errorCollector.spanFor(state.node));
     }
   }
 }
