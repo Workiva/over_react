@@ -109,6 +109,7 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
     }
   }
 
+  /// For `FooProps`, returns `_$FooProps`
   NamedCompilationUnitMember getSourceClassForPotentialCompanion(NamedCompilationUnitMember node) {
     final name = node.name.name;
     if (name.startsWith(privateSourcePrefix)) {
@@ -118,6 +119,7 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
     return classishDeclarationsByName[sourceName];
   }
 
+  /// For `_$FooProps`, returns `FooProps`
   NamedCompilationUnitMember getCompanionClass(NamedCompilationUnitMember node) {
     final name = node.name.name;
     if (!name.startsWith(privateSourcePrefix)) {
@@ -125,6 +127,12 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
     }
     final sourceName = name.replaceFirst(privateSourcePrefix, '');
     return classishDeclarationsByName[sourceName];
+  }
+
+  /// Returns whether it's the `$FooPropsMixin` to a `_$FooPropsMixin`
+  bool isMixinStub(NamedCompilationUnitMember node) {
+    final name = node.name.name;
+    return name.startsWith(r'$') && classishDeclarationsByName.containsKey('_$name');
   }
 
   void processClassishDeclaration(NamedCompilationUnitMember node) {
@@ -161,7 +169,7 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
       return;
     }
     // todo try to clean up the typing so we don't need a type check here
-    if (name.endsWith('PropsMixin') && node is ClassOrMixinDeclaration) {
+    if (name.endsWith('PropsMixin') && node is ClassOrMixinDeclaration && !isMixinStub(node)) {
       members.propsMixins.add(BoilerplatePropsMixin(node, Confidence.medium, companionClass: companion));
       return;
     }
@@ -170,7 +178,7 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
       return;
     }
     // todo try to clean up the typing so we don't need a type check here
-    if (name.endsWith('StateMixin') && node is ClassOrMixinDeclaration) {
+    if (name.endsWith('StateMixin') && node is ClassOrMixinDeclaration && !isMixinStub(node)) {
       members.stateMixins.add(BoilerplateStateMixin(node, Confidence.medium, companionClass: companion));
       return;
     }
