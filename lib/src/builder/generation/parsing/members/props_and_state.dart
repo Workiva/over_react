@@ -132,12 +132,14 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
 class BoilerplateProps extends BoilerplatePropsOrState {
   BoilerplateProps(ClassishDeclaration nodeHelper, int declarationConfidence,
       {ClassishDeclaration companionClass})
-      : withMeta = NodeWithMeta(nodeHelper.node),
+      : withMeta = nodeHelper.node.hasAnnotationWithName('AbstractProps')
+            ? NodeWithMeta<NamedCompilationUnitMember, annotations.AbstractProps>(nodeHelper.node)
+            : NodeWithMeta<NamedCompilationUnitMember, annotations.Props>(nodeHelper.node),
         super(nodeHelper, declarationConfidence,
             companionClass: companionClass);
 
   @override
-  final NodeWithMeta<NamedCompilationUnitMember, annotations.Props> withMeta;
+  final NodeWithMeta<NamedCompilationUnitMember, annotations.TypedMap> withMeta;
 
   @override
   bool get isProps => true;
@@ -146,12 +148,14 @@ class BoilerplateProps extends BoilerplatePropsOrState {
 class BoilerplateState extends BoilerplatePropsOrState {
   BoilerplateState(ClassishDeclaration nodeHelper, int declarationConfidence,
       {ClassishDeclaration companionClass})
-      : withMeta = NodeWithMeta(nodeHelper.node),
+      : withMeta = nodeHelper.node.hasAnnotationWithName('AbstractState')
+            ? NodeWithMeta<NamedCompilationUnitMember, annotations.AbstractState>(nodeHelper.node)
+            : NodeWithMeta<NamedCompilationUnitMember, annotations.State>(nodeHelper.node),
         super(nodeHelper, declarationConfidence,
             companionClass: companionClass);
 
   @override
-  final NodeWithMeta<NamedCompilationUnitMember, annotations.State> withMeta;
+  final NodeWithMeta<NamedCompilationUnitMember, annotations.TypedMap> withMeta;
 
   @override
   bool get isProps => false;
