@@ -288,8 +288,8 @@ Union<BoilerplateProps, BoilerplatePropsMixin> getPropsForFactory(
 ) {
   final name = normalizeName(factory.name.name);
   return _getMemberUnionWithMatchingName(props, propsMixins, {
-    '${name}State',
-    '${name}StateMixin',
+    '${name}Props',
+    '${name}PropsMixin',
   });
 }
 
