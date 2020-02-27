@@ -87,7 +87,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     props.remove(propsClassOrMixin.either);
     states.remove(stateClassOrMixin?.either);
 
-    final component = getComponentForFactory(factory, propsClassOrMixin, components);
+    final component = getComponentForFactory(factory, components);
     if (component != null) {
       components.remove(component);
 
@@ -266,137 +266,77 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
 String normalizeName(String name) => name.replaceAll(RegExp(r'^[_$]+'), '');
 
+T _getMemberWithMatchingName<T extends BoilerplateMember>(Iterable<T> members, Set<String> names) {
+  return members.firstWhere((member) => names.contains(normalizeName(member.name.name)), orElse: () => null);
+}
+
+Union<A, B> _getMemberUnionWithMatchingName<A extends BoilerplateMember, B extends BoilerplateMember>(
+    Iterable<A> membersA, Iterable<B> membersB, Set<String> names) {
+  final a = _getMemberWithMatchingName(membersA, names);
+  if (a != null) return Union.a(a);
+
+  final b = _getMemberWithMatchingName(membersB, names);
+  if (b != null) return Union.b(b);
+
+  return null;
+}
+
 Union<BoilerplateProps, BoilerplatePropsMixin> getPropsForFactory(
   BoilerplateFactory factory,
   Iterable<BoilerplateProps> props,
-  Iterable<BoilerplatePropsMixin> propsMixins,
+  Iterable<BoilerplatePropsMixin> propsMixins
 ) {
-  final name = normalizeName(factory.name.name);;
-  final expectedPropsName = '${name}Props';
-  final expectedPropsMixinName = '${name}PropsMixin';
-
-  final matchingProps = props.firstWhere(
-      (element) {
-        final propsName = normalizeName(element.node.name.name);
-        return propsName == expectedPropsName ||
-            propsName == expectedPropsMixinName;
-      },
-      orElse: () => null);
-  if (matchingProps != null) return Union.a(matchingProps);
-
-  final matchingPropsMixin = propsMixins.firstWhere(
-      (element) {
-        final propsMixinName = normalizeName(element.node.name.name);
-        return propsMixinName == expectedPropsName ||
-          propsMixinName == expectedPropsMixinName;
-      },
-      orElse: () => null);
-  if (matchingPropsMixin != null) return Union.b(matchingPropsMixin);
-
-  return null;
+  final name = normalizeName(factory.name.name);
+  return _getMemberUnionWithMatchingName(props, propsMixins, {
+    '${name}State',
+    '${name}StateMixin',
+  });
 }
 
 Union<BoilerplateState, BoilerplateStateMixin> getStateForFactory(
   BoilerplateFactory factory,
   Iterable<BoilerplateState> states,
-  Iterable<BoilerplateStateMixin> stateMixins,
+  Iterable<BoilerplateStateMixin> stateMixins
 ) {
-  final name = normalizeName(factory.name.name);;
-  final expectedStateName = '${name}State';
-  final expectedStateMixinName = '${name}StateMixin';
-
-  final matchingState = states.firstWhere(
-      (element) {
-        final stateName = normalizeName(element.node.name.name);
-        return stateName == expectedStateName ||
-            stateName == expectedStateMixinName;
-      },
-      orElse: () => null);
-  if (matchingState != null) return Union.a(matchingState);
-
-  final matchingStateMixin = stateMixins.firstWhere(
-      (element) {
-        final stateMixinName = normalizeName(element.node.name.name);
-        return stateMixinName == expectedStateName ||
-          stateMixinName == expectedStateMixinName;
-      },
-      orElse: () => null);
-  if (matchingStateMixin != null) return Union.b(matchingStateMixin);
-
-  return null;
+  final name = normalizeName(factory.name.name);
+  return _getMemberUnionWithMatchingName(states, stateMixins, {
+    '${name}State',
+    '${name}StateMixin',
+  });
 }
 
 BoilerplateComponent getComponentForFactory(
   BoilerplateFactory factory,
-  Union<BoilerplateProps, BoilerplatePropsMixin> propsClassOrMixin,
-  List<BoilerplateComponent> components,
+  List<BoilerplateComponent> components
 ) {
   final name = normalizeName(factory.name.name);
-  return components.firstWhere(
-      (component) => normalizeName(component.node.name.name) == '${name}Component',
-      orElse: () => null);
+  return _getMemberWithMatchingName(components, {'${name}Component'});
 }
 
-// TODO DRY up
 Union<BoilerplateProps, BoilerplatePropsMixin> getPropsForComponent(
   BoilerplateComponent component,
   Iterable<BoilerplateProps> props,
-  Iterable<BoilerplatePropsMixin> propsMixins,
+  Iterable<BoilerplatePropsMixin> propsMixins
 ) {
   // Don't assume component is in the name.
   final name = normalizeName(component.name.name).replaceFirst(RegExp(r'Component$'), '');
-  final expectedPropsName = '${name}Props';
-  final expectedPropsMixinName = '${name}PropsMixin';
-
-  final matchingProps = props.firstWhere(
-      (element) {
-        final propsName = normalizeName(element.node.name.name);
-        return propsName == expectedPropsName ||
-            propsName == expectedPropsMixinName;
-      },
-      orElse: () => null);
-  if (matchingProps != null) return Union.a(matchingProps);
-
-  final matchingPropsMixin = propsMixins.firstWhere(
-      (element) {
-        final propsMixinName = normalizeName(element.node.name.name);
-        return propsMixinName == expectedPropsName ||
-          propsMixinName == expectedPropsMixinName;
-      },
-      orElse: () => null);
-  if (matchingPropsMixin != null) return Union.b(matchingPropsMixin);
-
-  return null;
+  return _getMemberUnionWithMatchingName(props, propsMixins, {
+    '${name}Props',
+    '${name}PropsMixin',
+  });
 }
+
 Union<BoilerplateState, BoilerplateStateMixin> getStateForComponent(
   BoilerplateComponent component,
   Iterable<BoilerplateState> states,
-  Iterable<BoilerplateStateMixin> stateMixins,
+  Iterable<BoilerplateStateMixin> stateMixins
 ) {
   // Don't assume component is in the name.
   final name = normalizeName(component.name.name).replaceFirst(RegExp(r'Component$'), '');
-  final expectedStateName = '${name}State';
-  final expectedStateMixinName = '${name}StateMixin';
-
-  final matchingState = states.firstWhere(
-      (element) {
-        final stateName = normalizeName(element.node.name.name);
-        return stateName == expectedStateName ||
-            stateName == expectedStateMixinName;
-      },
-      orElse: () => null);
-  if (matchingState != null) return Union.a(matchingState);
-
-  final matchingStateMixin = stateMixins.firstWhere(
-      (element) {
-        final stateMixinName = normalizeName(element.node.name.name);
-        return stateMixinName == expectedStateName ||
-          stateMixinName == expectedStateMixinName;
-      },
-      orElse: () => null);
-  if (matchingStateMixin != null) return Union.b(matchingStateMixin);
-
-  return null;
+  return _getMemberUnionWithMatchingName(states, stateMixins, {
+    '${name}State',
+    '${name}StateMixin',
+  });
 }
 
 class FactoryGroup {
