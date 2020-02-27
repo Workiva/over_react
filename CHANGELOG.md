@@ -1,5 +1,8 @@
 # OverReact Changelog
 
+## [3.4.1](https://github.com/Workiva/over_react/compare/3.4.0...3.4.1)
+- [#468] Allow redux.dart version 4
+
 ## [3.4.0](https://github.com/Workiva/over_react/compare/3.3.0...3.4.0)
 - [#459] Add support for `connect`ed components that use `w_flux` stores and actions.
 
