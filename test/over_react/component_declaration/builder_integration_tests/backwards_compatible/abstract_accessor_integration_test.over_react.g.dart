@@ -127,6 +127,127 @@ const PropsMeta _$metaForTestAbstractProps = PropsMeta(
   keys: _$TestAbstractPropsAccessorsMixin.$propKeys,
 );
 
+abstract class _$TestAbstractStateAccessorsMixin
+    implements _$TestAbstractState {
+  @override
+  Map get state;
+
+  /// <!-- Generated from [_$TestAbstractState.stringState] -->
+  @override
+  String get stringState =>
+      state[_$key__stringState___$TestAbstractState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestAbstractState.stringState] -->
+  @override
+  set stringState(String value) =>
+      state[_$key__stringState___$TestAbstractState] = value;
+
+  /// <!-- Generated from [_$TestAbstractState.dynamicState] -->
+  @override
+  dynamic get dynamicState =>
+      state[_$key__dynamicState___$TestAbstractState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestAbstractState.dynamicState] -->
+  @override
+  set dynamicState(dynamic value) =>
+      state[_$key__dynamicState___$TestAbstractState] = value;
+
+  /// <!-- Generated from [_$TestAbstractState.untypedState] -->
+  @override
+  get untypedState =>
+      state[_$key__untypedState___$TestAbstractState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestAbstractState.untypedState] -->
+  @override
+  set untypedState(value) =>
+      state[_$key__untypedState___$TestAbstractState] = value;
+
+  /// <!-- Generated from [_$TestAbstractState.customKeyState] -->
+  @override
+  @Accessor(key: 'custom key!')
+  dynamic get customKeyState =>
+      state[_$key__customKeyState___$TestAbstractState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestAbstractState.customKeyState] -->
+  @override
+  @Accessor(key: 'custom key!')
+  set customKeyState(dynamic value) =>
+      state[_$key__customKeyState___$TestAbstractState] = value;
+
+  /// <!-- Generated from [_$TestAbstractState.customNamespaceState] -->
+  @override
+  @Accessor(keyNamespace: 'custom namespace~~')
+  dynamic get customNamespaceState =>
+      state[_$key__customNamespaceState___$TestAbstractState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestAbstractState.customNamespaceState] -->
+  @override
+  @Accessor(keyNamespace: 'custom namespace~~')
+  set customNamespaceState(dynamic value) =>
+      state[_$key__customNamespaceState___$TestAbstractState] = value;
+
+  /// <!-- Generated from [_$TestAbstractState.customKeyAndNamespaceState] -->
+  @override
+  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
+  dynamic get customKeyAndNamespaceState =>
+      state[_$key__customKeyAndNamespaceState___$TestAbstractState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$TestAbstractState.customKeyAndNamespaceState] -->
+  @override
+  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
+  set customKeyAndNamespaceState(dynamic value) =>
+      state[_$key__customKeyAndNamespaceState___$TestAbstractState] = value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor _$prop__stringState___$TestAbstractState =
+      StateDescriptor(_$key__stringState___$TestAbstractState);
+  static const StateDescriptor _$prop__dynamicState___$TestAbstractState =
+      StateDescriptor(_$key__dynamicState___$TestAbstractState);
+  static const StateDescriptor _$prop__untypedState___$TestAbstractState =
+      StateDescriptor(_$key__untypedState___$TestAbstractState);
+  static const StateDescriptor _$prop__customKeyState___$TestAbstractState =
+      StateDescriptor(_$key__customKeyState___$TestAbstractState);
+  static const StateDescriptor
+      _$prop__customNamespaceState___$TestAbstractState =
+      StateDescriptor(_$key__customNamespaceState___$TestAbstractState);
+  static const StateDescriptor
+      _$prop__customKeyAndNamespaceState___$TestAbstractState =
+      StateDescriptor(_$key__customKeyAndNamespaceState___$TestAbstractState);
+  static const String _$key__stringState___$TestAbstractState =
+      'TestAbstractState.stringState';
+  static const String _$key__dynamicState___$TestAbstractState =
+      'TestAbstractState.dynamicState';
+  static const String _$key__untypedState___$TestAbstractState =
+      'TestAbstractState.untypedState';
+  static const String _$key__customKeyState___$TestAbstractState =
+      'TestAbstractState.custom key!';
+  static const String _$key__customNamespaceState___$TestAbstractState =
+      'custom namespace~~customNamespaceState';
+  static const String _$key__customKeyAndNamespaceState___$TestAbstractState =
+      'custom namespace~~custom key!';
+
+  static const List<StateDescriptor> $state = [
+    _$prop__stringState___$TestAbstractState,
+    _$prop__dynamicState___$TestAbstractState,
+    _$prop__untypedState___$TestAbstractState,
+    _$prop__customKeyState___$TestAbstractState,
+    _$prop__customNamespaceState___$TestAbstractState,
+    _$prop__customKeyAndNamespaceState___$TestAbstractState
+  ];
+  static const List<String> $stateKeys = [
+    _$key__stringState___$TestAbstractState,
+    _$key__dynamicState___$TestAbstractState,
+    _$key__untypedState___$TestAbstractState,
+    _$key__customKeyState___$TestAbstractState,
+    _$key__customNamespaceState___$TestAbstractState,
+    _$key__customKeyAndNamespaceState___$TestAbstractState
+  ];
+}
+
+const StateMeta _$metaForTestAbstractState = StateMeta(
+  fields: _$TestAbstractStateAccessorsMixin.$state,
+  keys: _$TestAbstractStateAccessorsMixin.$stateKeys,
+);
+
 abstract class _$TestCustomNamespaceAbstractPropsAccessorsMixin
     implements _$TestCustomNamespaceAbstractProps {
   @override
@@ -257,127 +378,6 @@ abstract class _$TestCustomNamespaceAbstractPropsAccessorsMixin
 const PropsMeta _$metaForTestCustomNamespaceAbstractProps = PropsMeta(
   fields: _$TestCustomNamespaceAbstractPropsAccessorsMixin.$props,
   keys: _$TestCustomNamespaceAbstractPropsAccessorsMixin.$propKeys,
-);
-
-abstract class _$TestAbstractStateAccessorsMixin
-    implements _$TestAbstractState {
-  @override
-  Map get state;
-
-  /// <!-- Generated from [_$TestAbstractState.stringState] -->
-  @override
-  String get stringState =>
-      state[_$key__stringState___$TestAbstractState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$TestAbstractState.stringState] -->
-  @override
-  set stringState(String value) =>
-      state[_$key__stringState___$TestAbstractState] = value;
-
-  /// <!-- Generated from [_$TestAbstractState.dynamicState] -->
-  @override
-  dynamic get dynamicState =>
-      state[_$key__dynamicState___$TestAbstractState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$TestAbstractState.dynamicState] -->
-  @override
-  set dynamicState(dynamic value) =>
-      state[_$key__dynamicState___$TestAbstractState] = value;
-
-  /// <!-- Generated from [_$TestAbstractState.untypedState] -->
-  @override
-  get untypedState =>
-      state[_$key__untypedState___$TestAbstractState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$TestAbstractState.untypedState] -->
-  @override
-  set untypedState(value) =>
-      state[_$key__untypedState___$TestAbstractState] = value;
-
-  /// <!-- Generated from [_$TestAbstractState.customKeyState] -->
-  @override
-  @Accessor(key: 'custom key!')
-  dynamic get customKeyState =>
-      state[_$key__customKeyState___$TestAbstractState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$TestAbstractState.customKeyState] -->
-  @override
-  @Accessor(key: 'custom key!')
-  set customKeyState(dynamic value) =>
-      state[_$key__customKeyState___$TestAbstractState] = value;
-
-  /// <!-- Generated from [_$TestAbstractState.customNamespaceState] -->
-  @override
-  @Accessor(keyNamespace: 'custom namespace~~')
-  dynamic get customNamespaceState =>
-      state[_$key__customNamespaceState___$TestAbstractState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$TestAbstractState.customNamespaceState] -->
-  @override
-  @Accessor(keyNamespace: 'custom namespace~~')
-  set customNamespaceState(dynamic value) =>
-      state[_$key__customNamespaceState___$TestAbstractState] = value;
-
-  /// <!-- Generated from [_$TestAbstractState.customKeyAndNamespaceState] -->
-  @override
-  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  dynamic get customKeyAndNamespaceState =>
-      state[_$key__customKeyAndNamespaceState___$TestAbstractState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$TestAbstractState.customKeyAndNamespaceState] -->
-  @override
-  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  set customKeyAndNamespaceState(dynamic value) =>
-      state[_$key__customKeyAndNamespaceState___$TestAbstractState] = value;
-  /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__stringState___$TestAbstractState =
-      StateDescriptor(_$key__stringState___$TestAbstractState);
-  static const StateDescriptor _$prop__dynamicState___$TestAbstractState =
-      StateDescriptor(_$key__dynamicState___$TestAbstractState);
-  static const StateDescriptor _$prop__untypedState___$TestAbstractState =
-      StateDescriptor(_$key__untypedState___$TestAbstractState);
-  static const StateDescriptor _$prop__customKeyState___$TestAbstractState =
-      StateDescriptor(_$key__customKeyState___$TestAbstractState);
-  static const StateDescriptor
-      _$prop__customNamespaceState___$TestAbstractState =
-      StateDescriptor(_$key__customNamespaceState___$TestAbstractState);
-  static const StateDescriptor
-      _$prop__customKeyAndNamespaceState___$TestAbstractState =
-      StateDescriptor(_$key__customKeyAndNamespaceState___$TestAbstractState);
-  static const String _$key__stringState___$TestAbstractState =
-      'TestAbstractState.stringState';
-  static const String _$key__dynamicState___$TestAbstractState =
-      'TestAbstractState.dynamicState';
-  static const String _$key__untypedState___$TestAbstractState =
-      'TestAbstractState.untypedState';
-  static const String _$key__customKeyState___$TestAbstractState =
-      'TestAbstractState.custom key!';
-  static const String _$key__customNamespaceState___$TestAbstractState =
-      'custom namespace~~customNamespaceState';
-  static const String _$key__customKeyAndNamespaceState___$TestAbstractState =
-      'custom namespace~~custom key!';
-
-  static const List<StateDescriptor> $state = [
-    _$prop__stringState___$TestAbstractState,
-    _$prop__dynamicState___$TestAbstractState,
-    _$prop__untypedState___$TestAbstractState,
-    _$prop__customKeyState___$TestAbstractState,
-    _$prop__customNamespaceState___$TestAbstractState,
-    _$prop__customKeyAndNamespaceState___$TestAbstractState
-  ];
-  static const List<String> $stateKeys = [
-    _$key__stringState___$TestAbstractState,
-    _$key__dynamicState___$TestAbstractState,
-    _$key__untypedState___$TestAbstractState,
-    _$key__customKeyState___$TestAbstractState,
-    _$key__customNamespaceState___$TestAbstractState,
-    _$key__customKeyAndNamespaceState___$TestAbstractState
-  ];
-}
-
-const StateMeta _$metaForTestAbstractState = StateMeta(
-  fields: _$TestAbstractStateAccessorsMixin.$state,
-  keys: _$TestAbstractStateAccessorsMixin.$stateKeys,
 );
 
 abstract class _$TestCustomNamespaceAbstractStateAccessorsMixin
