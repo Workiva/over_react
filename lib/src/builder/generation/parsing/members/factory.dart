@@ -45,7 +45,7 @@ class BoilerplateFactory extends BoilerplateMember {
     final expectedInitializer = '$privateSourcePrefix$factoryName';
 
     if (generatedFactoryReferenceName != expectedInitializer) {
-      errorCollector.addError('Should be Should reference generated factory. For example, `UiFactory<...> Foo = _\$Foo;`',
+      errorCollector.addError('Should reference generated factory. For example, `UiFactory<...> Foo = _\$Foo;`',
           errorCollector.spanFor(variable));
     } else {
       // When not null, this will be validated as part of the group since

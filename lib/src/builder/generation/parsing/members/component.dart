@@ -47,7 +47,7 @@ class BoilerplateComponent extends BoilerplateMember {
   bool get hasComponent1OrAbstractAnnotation => node.hasAnnotationWithNames({'Component', 'AbstractComponent'});
   bool get hasComponent2OrAbstractAnnotation => node.hasAnnotationWithNames({'Component2', 'AbstractComponent2'});
   bool isComponent2(BoilerplateVersion version) =>
-      version == BoilerplateVersion.v4_mixinBased || hasComponent1OrAbstractAnnotation;
+      version == BoilerplateVersion.v4_mixinBased || hasComponent2OrAbstractAnnotation;
 
   @override
   void validate(BoilerplateVersion version, ValidationErrorCollector errorCollector) {

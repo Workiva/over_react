@@ -150,7 +150,11 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     }
   }
 
-  for (var component in components) {
+  // Use a queue since we want to mutate components during iteration
+  final componentsQueue = Queue.of(components);
+  while (componentsQueue.isNotEmpty) {
+    final component = componentsQueue.removeFirst();
+
     final propsClassOrMixin = getPropsForComponent(component, props, propsMixins);
     final stateClassOrMixin = getStateForComponent(component, states, stateMixins);
 

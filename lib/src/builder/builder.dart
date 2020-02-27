@@ -60,7 +60,7 @@ class OverReactBuilder extends Builder {
           log.info(declaration);
           declaration.members.forEach(log.info);
           hasErrors = false;
-      }
+        }
       }
 
       final generatedOutput = generator.outputContentsBuffer.toString().trim();
