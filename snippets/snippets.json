@@ -1,16 +1,17 @@
 {
   "statelessComponentsDart2": {
-    "prefix": "orStless",
+    "prefix": "orAdvStless",
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
+      "// ignore: uri_has_not_been_generated",
       "part '${1:FileName}.over_react.g.dart';",
       "",
-      "UiFactory<${2:MyComponent}Props> ${2:MyComponent} = $${2:MyComponent};",
+      "UiFactory<${2:MyComponent}Props> ${2:MyComponent} =",
+      "\t\t// ignore: undefined_identifier",
+      "\t\t$${2:MyComponent};",
       "",
-      "mixin ${2:MyComponent}PropsMixin on UiProps {",
-      "",
-      "}",
+      "mixin ${2:MyComponent}PropsMixin on UiProps {}",
       "",
       "class ${2:MyComponent}Props = UiProps with ${2:MyComponent}PropsMixin;",
       "",
@@ -22,7 +23,7 @@
       "\trender() { }",
       "}"
     ],
-    "description": "Creates a stateless OverReact component"
+    "description": "Creates a stateless OverReact component with a props class alias"
   },
   "statelessCommentedComponentsDart2": {
     "prefix": "orCStless",
@@ -69,23 +70,22 @@
     "description": "Creates a commented stateless OverReact component"
   },
   "statefulComponentsDart2": {
-    "prefix": "orStful",
+    "prefix": "orAdvStful",
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
+      "// ignore: uri_has_not_been_generated",
       "part '${1:FileName}.over_react.g.dart';",
       "",
-      "UiFactory<${2:MyComponent}Props> ${2:MyComponent} = $${2:MyComponent};",
+      "UiFactory<${2:MyComponent}Props> ${2:MyComponent} =",
+      "\t\t// ignore: undefined_identifier",
+      "\t\t$${2:MyComponent};",
       "",
-      "mixin ${2:MyComponent}PropsMixin on UiProps {",
-      "",
-      "}",
+      "mixin ${2:MyComponent}PropsMixin on UiProps {}",
       "",
       "class ${2:MyComponent}Props = UiProps with ${2:MyComponent}PropsMixin;",
       "",
-      "mixin ${2:MyComponent}StateMixin on UiState {",
-      "",
-      "}",
+      "mixin ${2:MyComponent}StateMixin on UiState {}",
       "",
       "class ${2:MyComponent}State = UiState with ${2:MyComponent}StateMixin;",
       "",
@@ -100,7 +100,7 @@
       "\trender() { }",
       "}"
     ],
-    "description": "Creates a stateful OverReact component"
+    "description": "Creates a stateful OverReact component with props and state class aliases"
   },
   "statefulCommentedComponentsDart2": {
     "prefix": "orCStful",
@@ -156,17 +156,18 @@
     "description": "Creates a commented stateful OverReact component"
   },
   "abbreviatedStatelessComponentsDart2": {
-    "prefix": "orAbbStless",
+    "prefix": "orStless",
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
+      "// ignore: uri_has_not_been_generated",
       "part '${1:FileName}.over_react.g.dart';",
       "",
-      "UiFactory<${2:MyComponent}Props> ${2:MyComponent} = $${2:MyComponent};",
+      "UiFactory<${2:MyComponent}Props> ${2:MyComponent} =",
+      "\t\t// ignore: undefined_identifier",
+      "\t\t$${2:MyComponent};",
       "",
-      "mixin ${2:MyComponent}Props on UiProps {",
-      "",
-      "}",
+      "mixin ${2:MyComponent}Props on UiProps {}",
       "",
       "class ${2:MyComponent}Component extends UiComponent2<${2:MyComponent}Props> {",
       "\t@override",
@@ -221,21 +222,20 @@
     "description": "Creates a commented stateless OverReact component with an abbreviated props declaration"
   },
   "abbreviatedStatefulComponentsDart2": {
-    "prefix": "orAbbStful",
+    "prefix": "orStful",
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
+      "// ignore: uri_has_not_been_generated",
       "part '${1:FileName}.over_react.g.dart';",
       "",
-      "UiFactory<${2:MyComponent}Props> ${2:MyComponent} = $${2:MyComponent};",
+      "UiFactory<${2:MyComponent}Props> ${2:MyComponent} =",
+      "\t\t// ignore: undefined_identifier",
+      "\t\t$${2:MyComponent};",
       "",
-      "mixin ${2:MyComponent}Props on UiProps {",
+      "mixin ${2:MyComponent}Props on UiProps {}",
       "",
-      "}",
-      "",
-      "mixin ${2:MyComponent}State on UiState {",
-      "",
-      "}",
+      "mixin ${2:MyComponent}State on UiState {}",
       "",
       "class ${2:MyComponent}Component extends UiStatefulComponent2<${2:MyComponent}Props, ${2:MyComponent}State> {",
       "\t@override",
