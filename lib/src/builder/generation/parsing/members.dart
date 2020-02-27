@@ -150,8 +150,16 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
       members.props.add(BoilerplateProps(node.asClassish(), Confidence.high, companionClass: companion));
       return;
     }
+    if (annotationNames.contains('PropsMixin')) {
+      members.propsMixins.add(BoilerplatePropsMixin(node, Confidence.high, companionClass: companion));
+      return;
+    }
     if (annotationNames.contains('State')) {
       members.states.add(BoilerplateState(node.asClassish(), Confidence.high, companionClass: companion));
+      return;
+    }
+    if (annotationNames.contains('StateMixin')) {
+      members.stateMixins.add(BoilerplateStateMixin(node, Confidence.high, companionClass: companion));
       return;
     }
     if (annotationNames.contains('Component') || annotationNames.contains('Component2')) {
@@ -191,24 +199,27 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
       if (classish.superclass != null) classish.superclass,
     ];
 
-    int confidence = 0;
-    if (classish.name.name.endsWith('Component')) {
-      confidence += Confidence.medium;
-    }
-    if (allSuperTypes.any((type) {
-      final name = type.nameWithoutPrefix;
-      return name == 'UiComponent' || name == 'UiComponent2';
-    })) {
-      confidence += Confidence.high;
-    }
-    // extending from an abstract component: `FooComponent extends BarComponent<FooProps, FooState>`
-    if (classish.superclass?.typeArguments?.arguments?.any((arg) => arg.typeNameWithoutPrefix.contains('Props')) ?? false) {
-      confidence += Confidence.medium;
-    }
+    // Don't detect react-dart components as boilerplate components, since they cause issues with grouping
+    // if they're in the same file as an OverReact component with non-matching names.
+    if (!const {'Component', 'Component2'}.contains(classish.superclass?.nameWithoutPrefix)) {
+      int confidence = 0;
+      if (classish.name.name.endsWith('Component')) {
+        confidence += Confidence.medium;
+      }
+      if (allSuperTypes.any((type) {
+        final name = type.nameWithoutPrefix;
+        return name == 'UiComponent' || name == 'UiComponent2';
+      })) {
+        confidence += Confidence.high;
+      }
+      // extending from an abstract component: `FooComponent extends BarComponent<FooProps, FooState>`
+      if (classish.superclass?.typeArguments?.arguments?.any((arg) => arg.typeNameWithoutPrefix.contains('Props')) ?? false) {
+        confidence += Confidence.medium;
+      }
 
-    if (confidence != 0) {
-      members.components.add(BoilerplateComponent(node.asClassish(), confidence));
-      return;
+      if (confidence != 0) {
+        members.components.add(BoilerplateComponent(node.asClassish(), confidence));
+      }
     }
   }
 

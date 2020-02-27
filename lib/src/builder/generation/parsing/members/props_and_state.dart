@@ -39,33 +39,38 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
   Map<BoilerplateVersion, int> get versionConfidence {
     final map = <BoilerplateVersion, int>{};
 
-    final isMixin = node is MixinDeclaration;
-    if (isMixin) {
-      // todo might need to rethink these, as well as in the mixin classes, to be able to provide better error messages when people make things mixins
-
-      // It has never been possible to declare a props class with a mixin
-      map[BoilerplateVersion.v2_legacyBackwardsCompat] = Confidence.none;
-      map[BoilerplateVersion.v3_legacyDart2Only] = Confidence.none;
-      map[BoilerplateVersion.v4_mixinBased] = Confidence.high;
+    if (isLegacyMapView) {
+      map[BoilerplateVersion.noGenerate] = Confidence.high;
     } else {
-      map[BoilerplateVersion.v2_legacyBackwardsCompat] = hasCompanionClass ? Confidence.medium : Confidence.veryLow;
-      map[BoilerplateVersion.v3_legacyDart2Only] = hasCompanionClass ? Confidence.veryLow : Confidence.medium;
-      map[BoilerplateVersion.v4_mixinBased] = Confidence.veryLow;
-    }
+      final isMixin = node is MixinDeclaration;
+      if (isMixin) {
+        // todo might need to rethink these, as well as in the mixin classes, to be able to provide better error messages when people make things mixins
 
-    final overridesIsClassGenerated = nodeHelper.members
-        .whereType<MethodDeclaration>()
-        .any((member) => member.isGetter && member.name.name == r'$isClassGenerated');
-    // Handle classes that look like props but are really just used as interfaces, and aren't extended from or directly used as a component's props
-    final onlyImplementsThings = nodeHelper.interfaces.isNotEmpty && nodeHelper.superclass == null && nodeHelper.mixins.isEmpty;
-    if (overridesIsClassGenerated || onlyImplementsThings) {
-      map[BoilerplateVersion.noGenerate] = Confidence.certain;
-    } else {
-      map[BoilerplateVersion.noGenerate] = Confidence.veryLow;
+        // It has never been possible to declare a props class with a mixin
+        map[BoilerplateVersion.v2_legacyBackwardsCompat] = Confidence.none;
+        map[BoilerplateVersion.v3_legacyDart2Only] = Confidence.none;
+        // fixme this ain't right
+        map[BoilerplateVersion.v4_mixinBased] = Confidence.high;
+      } else {
+        map[BoilerplateVersion.v2_legacyBackwardsCompat] = hasCompanionClass ? Confidence.medium : Confidence.veryLow;
+        map[BoilerplateVersion.v3_legacyDart2Only] = hasCompanionClass ? Confidence.veryLow : Confidence.medium;
+        map[BoilerplateVersion.v4_mixinBased] = Confidence.veryLow;
+      }
+
+      final overridesIsClassGenerated = nodeHelper.members
+          .whereType<MethodDeclaration>()
+          .any((member) => member.isGetter && member.name.name == r'$isClassGenerated');
+      // Handle classes that look like props but are really just used as interfaces, and aren't extended from or directly used as a component's props
+      final onlyImplementsThings = nodeHelper.interfaces.isNotEmpty && nodeHelper.superclass == null && nodeHelper.mixins.isEmpty;
+      if (overridesIsClassGenerated || onlyImplementsThings) {
+        map[BoilerplateVersion.noGenerate] = Confidence.certain;
+      }
     }
 
     return map;
   }
+
+  bool get isLegacyMapView => name.name.endsWith('MapView') && nodeHelper.members.whereType<ConstructorDeclaration>().isNotEmpty;
 
   bool get hasCompanionClass => companionClass != null;
 
@@ -103,7 +108,11 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
         // It's possible to declare an abstract class without any props/state fields that need to be generated.
         if (nodeHelper.members.isNotEmpty) {
           _sharedLegacyValidation(errorCollector);
-          validateMetaField(companionClass, propsOrStateMetaStructName, errorCollector);
+          if (companionClass == null) {
+            //todo log error
+          } else {
+            validateMetaField(companionClass, propsOrStateMetaStructName, errorCollector);
+          }
         }
         break;
       case BoilerplateVersion.v3_legacyDart2Only:
@@ -199,7 +208,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
         .whereType<MethodDeclaration>()
         .any((member) => member.isGetter && member.name.name == r'$isClassGenerated');
     // Handle classes that look like props but are really just used as interfaces, and aren't extended from or directly used as a component's props
-    final onlyImplementsThings = nodeHelper.interfaces.isNotEmpty && nodeHelper.superclass == null && nodeHelper.mixins.isEmpty;
+    final onlyImplementsThings = nodeHelper.interfaces.isNotEmpty && nodeHelper.superclass == null && nodeHelper.mixins.isEmpty && nodeHelper.members.isEmpty;
     if (overridesIsClassGenerated || onlyImplementsThings) {
       map[BoilerplateVersion.noGenerate] = Confidence.certain;
     } else {

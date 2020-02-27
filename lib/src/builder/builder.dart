@@ -49,7 +49,14 @@ class OverReactBuilder extends Builder {
       );
 
       final generator = ImplGenerator(log, sourceFile);
-      final declarations = getBoilerplateDeclarations(BoilerplateMembers.detect(unit), errorCollector);
+
+      final members = BoilerplateMembers.detect(unit);
+      final declarations = getBoilerplateDeclarations(members, errorCollector);
+      if (hasErrors) {
+        // Log the members that weren't grouped into declarations.
+        members.allMembers.forEach(log.info);
+        hasErrors = false;
+      }
 
       for (final declaration in declarations) {
         hasErrors = false;

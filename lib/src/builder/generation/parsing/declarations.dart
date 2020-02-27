@@ -49,6 +49,9 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   final states = members.states;
   final stateMixins = members.stateMixins;
 
+  // Remove legacy map views so they don't get grouped with anything else and throw things off.
+  props.removeWhere((p) => p.isLegacyMapView);
+
   for (var propsMixin in propsMixins) {
     final version = resolveVersion([propsMixin]);
     switch (version) {
@@ -79,11 +82,60 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
       }
   }
 
+  // Special-case handling: if there's only one component declared in the file,
+  // and it's a legacy component, group the members together even if their names don't match.
+  if (props.length == 1 && components.length == 1) {
+    if (factories.length == 1) {
+      final matchingFactory = factories.removeAt(0);
+      final matchingProps = props.removeAt(0);
+      final matchingState = states.length == 1 ? states.removeAt(0) : null;
+      final matchingComponent = components.removeAt(0);
+
+      final version = resolveVersion([
+        matchingFactory,
+        matchingProps,
+        if (matchingState != null) matchingState,
+        matchingComponent,
+      ]);
+      switch (version) {
+        case BoilerplateVersion.v2_legacyBackwardsCompat:
+        case BoilerplateVersion.v3_legacyDart2Only:
+          yield LegacyClassComponentDeclaration(
+            version: version,
+            factory: matchingFactory,
+            props: matchingProps,
+            state: matchingState,
+            component: matchingComponent,
+          );
+          break;
+        default:
+      }
+    } else if (factories.isEmpty) {
+      final matchingProps = props.removeAt(0);
+      final matchingState = states.length == 1 ? states.removeAt(0) : null;
+      final matchingComponent = components.removeAt(0);
+
+      final version = resolveVersion([
+        matchingProps,
+        if (matchingState != null) matchingState,
+        matchingComponent,
+      ]);
+      switch (version) {
+        case BoilerplateVersion.v2_legacyBackwardsCompat:
+        case BoilerplateVersion.v3_legacyDart2Only:
+          yield LegacyAbstractClassComponentDeclaration(
+            version: version,
+            props: matchingProps,
+            state: matchingState,
+            component: matchingComponent,
+          );
+          break;
+        default:
+      }
+    }
+  }
+
   final unusedFactories = <FactoryGroup>[];
-
-  // todo assume one component per file here, group if the counts are correct
-
-  // ...
 
   // todo getPropsForFactories getComponent utils - what if there are multiple candidates?
   //  Do we just go with the first one, or do we use confidence scores? It's possible something could look like a component or props class
@@ -179,21 +231,21 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   while (componentsQueue.isNotEmpty) {
     final component = componentsQueue.removeFirst();
 
-    final propsClassOrMixin = getPropsFor(component, props, propsMixins);
-    final stateClassOrMixin = getStateFor(component, states, stateMixins);
+    final propsClass = getPropsFor(component, props, propsMixins)?.a;
+    final stateClass = getStateFor(component, states, stateMixins)?.a;
 
-    if (propsClassOrMixin == null) continue;
+    if (propsClass == null) continue;
 
     // don't remove mixins, just classes, since mixins are generated/grouped the same as when standalone
-    props.remove(propsClassOrMixin.either);
-    states.remove(stateClassOrMixin?.either);
+    props.remove(propsClass);
+    states.remove(stateClass);
 
     components.remove(component);
 
     final version = resolveVersion([
-      propsClassOrMixin.either,
+      propsClass,
       component,
-      if (stateClassOrMixin != null) stateClassOrMixin.either,
+      if (stateClass != null) stateClass,
     ]);
 
     switch (version) {
@@ -205,8 +257,8 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         yield LegacyAbstractClassComponentDeclaration(
             version: version,
             component: component,
-            props: propsClassOrMixin.a,
-            state: stateClassOrMixin?.a);
+            props: propsClass,
+            state: stateClass);
         break;
       case BoilerplateVersion.v4_mixinBased:
         // FIXME create AbstractClassComponentDeclaration
@@ -276,6 +328,9 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     errorCollector.addError('Factory is missing props; did you mean $potentialProps?',
         errorCollector.spanFor(factoryGroup.bestFactory.node));
   }
+
+  // Put em back in boilerplateMembers so we can log them outside of this function
+  factories.addAll(unusedFactories.expand((group) => group.factories));
 
   // TODO make sure declarationConfidence isn't above a certain threshold?
 //  for (var propsClass in props) {

@@ -26,6 +26,7 @@ targets:
             - "lib/src/component_declaration/builder_helpers.dart"
             - "lib/src/component_declaration/component_base.dart"
             - "lib/src/component_declaration/component_base_2.dart"
+            - "lib/src/builder/**"
             - "test/over_react/component_declaration/builder_helpers_test.dart"
             - "test/over_react/component_declaration/component_base_test.dart"
 
