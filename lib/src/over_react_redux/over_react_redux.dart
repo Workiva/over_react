@@ -45,6 +45,8 @@ typedef dynamic Dispatcher(dynamic action);
 
 /// A wrapper around the JS react-redux `connect` function that supports OverReact components.
 ///
+/// > __NOTE:__ This should only be used to wrap components that extend from [Component2].
+///
 /// __Example:__
 /// ```dart
 ///     UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
@@ -149,6 +151,10 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
   areMergedPropsEqual ??= _shallowMapEquality;
 
   UiFactory<TProps> wrapWithConnect(UiFactory<TProps> factory) {
+    final dartComponentFactory = factory().componentFactory;
+    final dartComponentClass = dartComponentFactory.type;
+    enforceMinimumComponentVersionFor(dartComponentFactory);
+
     JsMap jsMapFromProps(Map props) => jsBackingMapOrJsCopy(props is UiProps ? props.props : props);
 
     TProps jsPropsToTProps(JsMap jsProps) => factory(JsBackedMap.backedBy(jsProps));
@@ -212,9 +218,6 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
 
     bool handleAreMergedPropsEqual(JsMap jsNext, JsMap jsPrev) =>
         areMergedPropsEqual(jsPropsToTProps(jsNext), jsPropsToTProps(jsPrev));
-
-    final dartComponentFactory = factory().componentFactory;
-    final dartComponentClass = dartComponentFactory.type;
 
     final hoc = mockableJsConnect(
       mapStateToProps != null ? allowInteropWithArgCount(handleMapStateToProps, 1) : mapStateToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapStateToPropsWithOwnProps, 2) : null,

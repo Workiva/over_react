@@ -53,6 +53,8 @@ Ref<T> createRef<T>() {
 
 /// Automatically passes a [Ref] through a component to one of its children.
 ///
+/// > __NOTE:__ This should only be used to wrap components that extend from `Component2`.
+///
 /// __Example__:
 ///
 ///     UiFactory<DomProps> DivForwarded = forwardRef<DomProps>((props, ref) {
@@ -95,6 +97,8 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
     Function(TProps props, Ref ref) wrapperFunction) {
 
   UiFactory<TProps> wrapWithForwardRef(UiFactory<TProps> factory) {
+    enforceMinimumComponentVersionFor(factory().componentFactory);
+
     Object wrapProps(Map props, Ref ref) {
       return wrapperFunction(factory(props), ref);
     }

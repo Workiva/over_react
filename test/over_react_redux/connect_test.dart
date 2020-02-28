@@ -19,9 +19,10 @@ import 'package:over_react/over_react_redux.dart';
 import 'package:test/test.dart';
 
 import '../test_util/test_util.dart';
-import './fixtures/counter.dart';
-import './fixtures/redux_actions.dart';
-import './fixtures/store.dart';
+import 'fixtures/counter.dart';
+import 'fixtures/non_component_two_counter.dart';
+import 'fixtures/redux_actions.dart';
+import 'fixtures/store.dart';
 
 // ignore_for_file: avoid_types_on_closure_parameters
 
@@ -61,6 +62,10 @@ main() {
 
       // wait for state to update
       await Future(() {});
+    });
+
+    test('throws when mounting a UiComponent', () {
+      expect(() => connect<CounterState, NonComponentTwoCounterProps>()(NonComponentTwoCounter), throwsArgumentError);
     });
 
     group('Provider Usage', () {
