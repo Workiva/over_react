@@ -64,8 +64,8 @@ main() {
       await Future(() {});
     });
 
-    test('throws when mounting a UiComponent', (){
-        expect(() => connect<CounterState, NonComponentTwoCounterProps>()(NonComponentTwoCounter), throwsArgumentError);
+    test('throws when mounting a UiComponent', () {
+      expect(() => connect<CounterState, NonComponentTwoCounterProps>()(NonComponentTwoCounter), throwsArgumentError);
     });
 
     group('Provider Usage', () {
