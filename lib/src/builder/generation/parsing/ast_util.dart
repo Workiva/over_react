@@ -51,6 +51,8 @@ extension Classish on NamedCompilationUnitMember {
   ClassishDeclaration asClassish() => ClassishDeclaration(this);
 }
 
+bool onlyImplementsThings(ClassishDeclaration classish) =>
+    classish.interfaces.isNotEmpty && classish.superclass == null && classish.mixins.isEmpty && classish.members.isEmpty;
 
 /// Provides a common interface for [ClassOrMixinDeclaration] and [ClassTypeAlias].
 abstract class ClassishDeclaration {
@@ -136,7 +138,6 @@ class _ClassishDeclaration_MixinDeclaration extends ClassishDeclaration with _Cl
   _ClassishDeclaration_MixinDeclaration(this.node) : super._();
 
   @override
-  // TODO: implement abstractKeyword
   Token get abstractKeyword => null;
 
   @override

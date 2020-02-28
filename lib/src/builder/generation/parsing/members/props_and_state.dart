@@ -39,6 +39,13 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
   Map<BoilerplateVersion, int> get versionConfidence {
     final map = <BoilerplateVersion, int>{};
 
+    final hasGeneratedPrefix = node.name.name.startsWith(r'_$');
+    if (!hasGeneratedPrefix && (node is! MixinDeclaration && nodeHelper.isAbstract)) {
+      map[BoilerplateVersion.noGenerate] = Confidence.high;
+      map[BoilerplateVersion.v4_mixinBased] = Confidence.veryLow;
+      return map;
+    }
+
     if (isLegacyMapView) {
       map[BoilerplateVersion.noGenerate] = Confidence.high;
     } else {
@@ -52,8 +59,8 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
         // fixme this ain't right
         map[BoilerplateVersion.v4_mixinBased] = Confidence.high;
       } else {
-        map[BoilerplateVersion.v2_legacyBackwardsCompat] = hasCompanionClass ? Confidence.medium : Confidence.veryLow;
-        map[BoilerplateVersion.v3_legacyDart2Only] = hasCompanionClass ? Confidence.veryLow : Confidence.medium;
+        map[BoilerplateVersion.v2_legacyBackwardsCompat] = (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.medium : Confidence.veryLow;
+        map[BoilerplateVersion.v3_legacyDart2Only] = (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.veryLow : Confidence.medium;
         map[BoilerplateVersion.v4_mixinBased] = Confidence.veryLow;
       }
 
@@ -61,8 +68,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
           .whereType<MethodDeclaration>()
           .any((member) => member.isGetter && member.name.name == r'$isClassGenerated');
       // Handle classes that look like props but are really just used as interfaces, and aren't extended from or directly used as a component's props
-      final onlyImplementsThings = nodeHelper.interfaces.isNotEmpty && nodeHelper.superclass == null && nodeHelper.mixins.isEmpty;
-      if (overridesIsClassGenerated || onlyImplementsThings) {
+      if (overridesIsClassGenerated || onlyImplementsThings(nodeHelper)) {
         map[BoilerplateVersion.noGenerate] = Confidence.certain;
       }
     }
@@ -208,8 +214,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
         .whereType<MethodDeclaration>()
         .any((member) => member.isGetter && member.name.name == r'$isClassGenerated');
     // Handle classes that look like props but are really just used as interfaces, and aren't extended from or directly used as a component's props
-    final onlyImplementsThings = nodeHelper.interfaces.isNotEmpty && nodeHelper.superclass == null && nodeHelper.mixins.isEmpty && nodeHelper.members.isEmpty;
-    if (overridesIsClassGenerated || onlyImplementsThings) {
+    if (overridesIsClassGenerated || onlyImplementsThings(nodeHelper)) {
       map[BoilerplateVersion.noGenerate] = Confidence.certain;
     } else {
       map[BoilerplateVersion.noGenerate] = Confidence.veryLow;

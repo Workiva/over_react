@@ -354,13 +354,15 @@ class ImplGenerator {
     // ----------------------------------------------------------------------
     //   Abstract Props/State implementations
     // ----------------------------------------------------------------------
-    final className = _classNameFromNode(declaration.props.node);
-    outputContentsBuffer.write(_generateAccessorsMixin(
-        AccessorType.abstractProps, _accessorsMixinNameFromConsumerName(className), declaration.props.node as ClassOrMixinDeclaration, declaration.props.withMeta.meta,
-        className, typeParameters: declaration.props.nodeHelper.typeParameters));
-    outputContentsBuffer.write(_generateMetaConstImpl(
-        AccessorType.abstractProps, declaration.props.node));
-    outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.abstractProps, declaration.props));
+    if (declaration.props != null) {
+      final className = _classNameFromNode(declaration.props.node);
+      outputContentsBuffer.write(_generateAccessorsMixin(
+          AccessorType.abstractProps, _accessorsMixinNameFromConsumerName(className), declaration.props.node as ClassOrMixinDeclaration, declaration.props.withMeta.meta,
+          className, typeParameters: declaration.props.nodeHelper.typeParameters));
+      outputContentsBuffer.write(_generateMetaConstImpl(
+          AccessorType.abstractProps, declaration.props.node));
+      outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.abstractProps, declaration.props));
+    }
 
     if (declaration.state != null) {
       final className = _classNameFromNode(declaration.state.node);

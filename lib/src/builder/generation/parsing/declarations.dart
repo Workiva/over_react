@@ -52,6 +52,40 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   // Remove legacy map views so they don't get grouped with anything else and throw things off.
   props.removeWhere((p) => p.isLegacyMapView);
 
+  {
+    final propsQueue = Queue.of(props);
+    while (propsQueue.isNotEmpty) {
+      final propsClass = propsQueue.removeFirst();
+      final version = resolveVersion([propsClass]);
+      switch (version) {
+        case BoilerplateVersion.v2_legacyBackwardsCompat:
+        case BoilerplateVersion.v3_legacyDart2Only:
+          if (propsClass.node.hasAnnotationWithName('AbstractProps')) {
+            props.remove(propsClass);
+            yield LegacyAbstractClassComponentDeclaration(version: version, props: propsClass);
+          }
+          break;
+        default:
+      }
+    }
+    
+    final stateQueue = Queue.of(states);
+    while (stateQueue.isNotEmpty) {
+      final stateClass = stateQueue.removeFirst();
+      final version = resolveVersion([stateClass]);
+      switch (version) {
+        case BoilerplateVersion.v2_legacyBackwardsCompat:
+        case BoilerplateVersion.v3_legacyDart2Only:
+          if (stateClass.node.hasAnnotationWithName('AbstractState')) {
+            states.remove(stateClass);
+            yield LegacyAbstractClassComponentDeclaration(version: version, state: stateClass);
+          }
+          break;
+        default:
+      }
+    }
+  }
+
   for (var propsMixin in propsMixins) {
     final version = resolveVersion([propsMixin]);
     switch (version) {
@@ -507,6 +541,7 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
   }
 }
 
+// TODO split this out into LegacyAbstractPropsDeclaration and LegacyAbstractStateDeclaration
 class LegacyAbstractClassComponentDeclaration extends BoilerplateDeclaration {
   final BoilerplateComponent component;
   final BoilerplateProps props;
@@ -518,9 +553,9 @@ class LegacyAbstractClassComponentDeclaration extends BoilerplateDeclaration {
   LegacyAbstractClassComponentDeclaration({
     @required BoilerplateVersion version,
     this.component,
-    @required this.props,
+    this.props,
     this.state,
-  }) : super(version);
+  }) : assert((component ?? props ?? state) != null, 'Must provide component, props, or state'), super(version);
 
   @override
   void validate(ValidationErrorCollector errorCollector) {
@@ -532,7 +567,7 @@ class LegacyAbstractClassComponentDeclaration extends BoilerplateDeclaration {
     }
 
     // It's possible to declare an abstract class without any props/state fields that need to be generated.
-    if (props.nodeHelper.members.isNotEmpty && !props.node.hasAnnotationWithName('AbstractProps')) {
+    if (props != null && props.nodeHelper.members.isNotEmpty && !props.node.hasAnnotationWithName('AbstractProps')) {
       errorCollector.addError('Legacy boilerplate abstract props must be annotated with `@AbstractProps()`.',
           errorCollector.spanFor(props.node));
     }
