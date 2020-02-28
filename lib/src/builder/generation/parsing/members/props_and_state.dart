@@ -36,6 +36,9 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
   BoilerplatePropsOrState(this.nodeHelper, int declarationConfidence, {@required this.companionClass}) : node = nodeHelper.node, super(declarationConfidence);
 
   @override
+  String get debugString => '${super.debugString}, companion: ${companionClass?.name}';
+
+  @override
   Map<BoilerplateVersion, int> get versionConfidence {
     final map = <BoilerplateVersion, int>{};
 
@@ -189,6 +192,9 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
   SimpleIdentifier get name => node.name;
 
   BoilerplatePropsOrStateMixin(this.node, int declarationConfidence, {@required this.companionClass}) : super(declarationConfidence);
+
+  @override
+  String get debugString => '${super.debugString}, companion: ${companionClass?.name}';
 
   @override
   Map<BoilerplateVersion, int> get versionConfidence {

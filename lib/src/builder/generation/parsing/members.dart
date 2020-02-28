@@ -33,6 +33,16 @@ abstract class BoilerplateMember {
 
   @override
   String toString() => '${super.toString()} (${name.name}) ${prettyPrintMap(versionConfidence)}';
+
+  String get debugString {
+    final confidence = versionConfidence;
+    final sortedKeys = BoilerplateVersion.values.where(confidence.containsKey);
+    final shorthandConfidence = {
+      for (var key in sortedKeys) '${key.toString().split('.').last}': confidence[key],
+    };
+
+    return '${runtimeType.toString()}; confidence:$shorthandConfidence';
+  }
 }
 
 class BoilerplateMembers {

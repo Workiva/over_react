@@ -478,7 +478,7 @@ abstract class BoilerplateDeclaration {
 
   BoilerplateDeclaration(this.version);
 
-  Iterable get members => _members;
+  Iterable<BoilerplateMember> get members => _members;
 
   void validate(ValidationErrorCollector errorCollector) {
     if (version == null) {
