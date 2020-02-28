@@ -1,8 +1,6 @@
-
 import 'package:meta/meta.dart';
 
 import 'members.dart';
-import 'util.dart';
 
 @sealed
 abstract class Confidence {
@@ -28,8 +26,12 @@ enum BoilerplateVersion {
   noGenerate,
 }
 
+extension BoilerplateVersionExtension on BoilerplateVersion {
+  bool get isLegacy => this == BoilerplateVersion.v2_legacyBackwardsCompat || this == BoilerplateVersion.v3_legacyDart2Only;
+}
+
 BoilerplateVersion resolveVersion(Iterable<BoilerplateMember> members) {
-  return resolveVersions(members).firstOrNull;
+  return resolveVersions(members).first;
 }
 
 List<BoilerplateVersion> resolveVersions(Iterable<BoilerplateMember> members) {
@@ -40,7 +42,7 @@ List<BoilerplateVersion> resolveVersions(Iterable<BoilerplateMember> members) {
     });
   }
 
-  final versions = totals.entries.where((entry) => entry.value != 0).toList()
+  final sortedVersionEntries = totals.entries.where((entry) => entry.value != 0).toList()
     ..sort((a, b) {
       // Sort highest to lowest for values
       final compareResult = b.value.compareTo(a.value);
@@ -51,5 +53,6 @@ List<BoilerplateVersion> resolveVersions(Iterable<BoilerplateMember> members) {
       return compareResult;
     });
 
-  return versions.map((entry) => entry.key).toList();
+  final versions = sortedVersionEntries.map((entry) => entry.key).toList();
+  return versions.isNotEmpty ? versions : [BoilerplateVersion.noGenerate];
 }
