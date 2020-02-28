@@ -822,7 +822,6 @@ that you get for free from OverReact, you're ready to start building your own cu
       // State goes here, declared as fields.
     }
 
-  
     class BazComponent extends FluxUiStatefulComponent2<BazProps, BazState> {
       @override
       get defaultProps => (newProps()

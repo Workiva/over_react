@@ -318,6 +318,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
     forwardUnconsumedProps(this.props, propsToUpdate: props,
         keySetsToOmit: consumedPropKeys);
   }
+
   /// A prop modifier that passes a reference of a component's `props` to be updated with any unconsumed `DomProps`.
   ///
   /// Call within `modifyProps` like so:
@@ -511,11 +512,9 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
 ///
 ///     class YourComponent extends UiStatefulComponent2<YourProps, YourState> {
 ///       @override
-///       void init() {
-///         this.state = (newState()
-///           ..aStateKeyWithinYourStateClass = /* default value */
-///         );
-///       }
+///       get initialState => (newState()
+///         ..aStateKeyWithinYourStateClass = /* default value */
+///       );
 ///
 ///       @override
 ///       render() {
@@ -548,11 +547,9 @@ abstract class UiStatefulComponent2<TProps extends UiProps, TState extends UiSta
 ///
 ///     class YourComponent extends UiComponent2<YourProps> with UiStatefulMixin2<YourProps, YourState> {
 ///       @override
-///       void init() {
-///         this.state = (newState()
-///           ..aStateKeyWithinYourStateClass = /* default value */
-///         );
-///       }
+///       get initialState => (newState()
+///         ..aStateKeyWithinYourStateClass = /* default value */
+///       );
 ///
 ///       @override
 ///       render() {

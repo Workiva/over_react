@@ -243,7 +243,8 @@ class AbstractComponent {
 ///     abstract class FooComponent<TProps extends QuxProps> extends UiComponent2<TProps> {}
 ///
 /// __NOTE:__ This is only required for legacy boilerplate and can be omitted
-/// for new implementations. However, it can still be used for custom configurations.
+/// for new implementations. However, it can still be used for custom configurations
+/// (e.g. `subtypeOf`).
 class AbstractComponent2 implements AbstractComponent { // ignore: deprecated_member_use_from_same_package
   const AbstractComponent2();
 }
