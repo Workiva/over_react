@@ -14,10 +14,13 @@
 
 library over_react.component_declaration.component_type_checking_test;
 
+import 'dart:html';
+
 import 'package:js/js.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart' show connect;
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
+import 'package:over_react_test/over_react_test.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart' as react_interop;
 import 'package:test/test.dart';
@@ -398,8 +401,24 @@ testComponentTypeChecking({
           expect(isValidElementOfType(['item1', 'item2'], TestA), isFalse);
         });
 
-        test('a ReactComponent', () {
+        test('an arbitrary Dart oject', () {
+          expect(isValidElementOfType(Object(), TestA), isFalse);
+        });
+
+        test('a ReactElement', () {
           expect(isValidElementOfType(Dom.div()(), Dom.div().componentFactory), isTrue);
+        });
+
+        test('a fragment ReactElement', () {
+          expect(isValidElementOfType(Fragment()(), TestA), isFalse);
+        });
+
+        test('a ReactPortal', () {
+          expect(isValidElementOfType(createPortal(Dom.div()(), DivElement()), TestA), isFalse);
+        });
+
+        test('a ReactComponent', () {
+          expect(isValidElementOfType(render(TestA()()), Dom.div().componentFactory), isFalse);
         });
       });
     });
