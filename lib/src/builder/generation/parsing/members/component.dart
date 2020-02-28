@@ -22,6 +22,12 @@ class BoilerplateComponent extends BoilerplateMember {
   Map<BoilerplateVersion, int> get versionConfidence {
     final map = <BoilerplateVersion, int>{};
 
+    // todo do we need this and should we include other confidences in the map in this case?
+    if (nodeHelper.hasAbstractKeyword) {
+      map[BoilerplateVersion.noGenerate] = Confidence.high;
+      return map;
+    }
+
     if (hasComponent1OrAbstractAnnotation) {
       map[BoilerplateVersion.v2_legacyBackwardsCompat] = Confidence.high;
       map[BoilerplateVersion.v3_legacyDart2Only] = Confidence.high;

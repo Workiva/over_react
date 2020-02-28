@@ -144,28 +144,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
           break;
         default:
       }
-    } else if (factories.isEmpty) {
-      final matchingProps = props.removeAt(0);
-      final matchingState = states.length == 1 ? states.removeAt(0) : null;
-      final matchingComponent = components.removeAt(0);
-
-      final version = resolveVersion([
-        matchingProps,
-        if (matchingState != null) matchingState,
-        matchingComponent,
-      ]);
-      switch (version) {
-        case BoilerplateVersion.v2_legacyBackwardsCompat:
-        case BoilerplateVersion.v3_legacyDart2Only:
-          yield LegacyAbstractClassComponentDeclaration(
-            version: version,
-            props: matchingProps,
-            state: matchingState,
-            component: matchingComponent,
-          );
-          break;
-        default:
-      }
     }
   }
 
@@ -257,83 +235,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
               break;
         }
       }
-    }
-  }
-
-  // Use a queue since we want to mutate components during iteration
-  final componentsQueue = Queue.of(components);
-  while (componentsQueue.isNotEmpty) {
-    final component = componentsQueue.removeFirst();
-
-    final propsClass = getPropsFor(component, props, propsMixins)?.a;
-    final stateClass = getStateFor(component, states, stateMixins)?.a;
-
-    if (propsClass == null) continue;
-
-    // don't remove mixins, just classes, since mixins are generated/grouped the same as when standalone
-    props.remove(propsClass);
-    states.remove(stateClass);
-
-    components.remove(component);
-
-    final version = resolveVersion([
-      propsClass,
-      component,
-      if (stateClass != null) stateClass,
-    ]);
-
-    switch (version) {
-      case BoilerplateVersion.noGenerate:
-        // Do nothing because no code generation is warranted.
-        break;
-      case BoilerplateVersion.v2_legacyBackwardsCompat:
-      case BoilerplateVersion.v3_legacyDart2Only:
-        yield LegacyAbstractClassComponentDeclaration(
-            version: version,
-            component: component,
-            props: propsClass,
-            state: stateClass);
-        break;
-      case BoilerplateVersion.v4_mixinBased:
-        // FIXME create AbstractClassComponentDeclaration
-//        yield AbstractClassComponentDeclaration(
-//            version: version,
-//            component: component,
-//            props: propsClassOrMixin,
-//            state: stateClassOrMixin);
-        break;
-      default:
-        // This case (null) is unlikely, but it means that none of the declarations actually seem like boilerplate.
-        break;
-    }
-  }
-
-  // Use a queue since we want to mutate props during iteration
-  final propsQueue = Queue.of(props);
-  while (propsQueue.isNotEmpty) {
-    final props = propsQueue.removeFirst();
-    final state = getStateFor(props, states, [])?.a;
-
-    final version = resolveVersion([props, if (state != null) state]);
-    switch (version) {
-      case BoilerplateVersion.noGenerate:
-        // Do nothing because no code generation is warranted.
-        break;
-      case BoilerplateVersion.v2_legacyBackwardsCompat:
-      case BoilerplateVersion.v3_legacyDart2Only:
-        if (props.node.hasAnnotationWithName('AbstractProps')) {
-          yield LegacyAbstractClassComponentDeclaration(
-              version: version,
-              props: props,
-              state: state);
-        }
-        break;
-      case BoilerplateVersion.v4_mixinBased:
-        // No need to do anything? Maybe perform validation that they're not doing something wrong?
-        break;
-      default:
-        // This case (null) is unlikely, but it means that none of the declarations actually seem like boilerplate.
-        break;
     }
   }
 

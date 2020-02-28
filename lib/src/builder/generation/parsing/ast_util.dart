@@ -86,7 +86,7 @@ abstract class ClassishDeclaration {
   List<ClassMember> get members;
 
   // Niceties
-  bool get isAbstract => abstractKeyword != null;
+  bool get hasAbstractKeyword => abstractKeyword != null;
   List<TypeName> get interfaces;
   List<TypeName> get mixins => withClause?.mixinTypes ?? const [];
 

@@ -43,7 +43,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
     final map = <BoilerplateVersion, int>{};
 
     final hasGeneratedPrefix = node.name.name.startsWith(r'_$');
-    if (!hasGeneratedPrefix && (node is! MixinDeclaration && nodeHelper.isAbstract)) {
+    if (!hasGeneratedPrefix && (node is! MixinDeclaration && nodeHelper.hasAbstractKeyword)) {
       map[BoilerplateVersion.noGenerate] = Confidence.high;
       map[BoilerplateVersion.v4_mixinBased] = Confidence.veryLow;
       return map;
@@ -106,7 +106,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
                 errorCollector.span(node.leftBracket.offset, node.rightBracket.end));
           }
 
-          if (nodeHelper.isAbstract) {
+          if (nodeHelper.hasAbstractKeyword) {
             // todo what about the abstract interface case? Do we special case the "Abstract" prefix?
             errorCollector.addError('$propsOrStateClassString implementations must not be abstract, as they cannot be extended.',
             errorCollector.spanFor(nodeHelper.abstractKeyword));
