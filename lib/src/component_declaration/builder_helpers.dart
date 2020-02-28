@@ -108,7 +108,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 /// instances via a fluent-style interface.
 ///
 /// To be used with the over_react builder to generate concrete props implementations
-/// with a component's declared props mixin.
+/// with a component's declared props mixin(s).
 abstract class UiProps extends component_base.UiProps with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiProps() {
@@ -123,7 +123,7 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
 ///
 /// To be used with the over_react builder to generate concrete state implementations
-/// with a component's declared state mixin.
+/// with a component's declared state mixin(s).
 abstract class UiState extends component_base.UiState with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiState() {
@@ -189,4 +189,3 @@ abstract class GeneratedErrorMessages {
   static const String component1AnnotationOnComponent2 = '\n\n'
         'This error may be due to using @Component() instead of @Component2() on your component extending from UiComponent2.';
 }
-

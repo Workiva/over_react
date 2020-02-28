@@ -39,7 +39,8 @@ class Factory {
 ///     }
 ///
 /// __NOTE:__ This is only required for legacy boilerplate and can be omitted
-/// for new implementations. However, it can still be used for custom configurations.
+/// for new implementations. However, it can still be used for custom configurations
+/// (e.g. `keyNamespace`).
 ///
 /// If utilizing legacy boilerplate, must be accompanied by a [Factory] and [Component2]
 /// declaration.
@@ -61,7 +62,8 @@ class Props implements TypedMap {
 ///     }
 ///
 /// __NOTE:__ This is only required for legacy boilerplate and can be omitted
-/// for new implementations. However, it can still be used for custom configurations.
+/// for new implementations. However, it can still be used for custom configurations
+/// (e.g. `keyNamespace`).
 ///
 /// Optional. If utilizing legacy boilerplate, be accompanied by a [Factory],
 /// [Props], and [Component2] declaration.
@@ -195,7 +197,8 @@ class Component2 implements Component { // ignore: deprecated_member_use_from_sa
 ///     }
 ///
 /// __NOTE:__ This is only required for legacy boilerplate and can be omitted
-/// for new implementations. However, it can still be used for custom configurations.
+/// for new implementations. However, it can still be used for custom configurations
+/// (e.g. `keyNamespace`).
 class AbstractProps implements TypedMap {
   /// A custom namespace for the keys of props defined in the annotated class,
   /// overriding the default of `'${propsClassName}.'`.
@@ -258,8 +261,9 @@ class AbstractComponent2 implements AbstractComponent { // ignore: deprecated_me
 ///
 /// Classes using this annotation must include the abstract `props` getter.
 ///
-/// __NOTE:__ This is only required for legacy boilerplate and can be omitted
-/// for new implementations. However, it can still be used for custom configurations.
+/// __Deprecated.__ Use the `@Props()` annotation instead if you need to make use of an annotation argument. 
+/// Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.
+@Deprecated('Use the @Props() annotation if you need to make use of an annotation argument. Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.')
 class PropsMixin implements TypedMap {
   /// A custom namespace for the keys of props defined in the annotated class,
   /// overriding the default of `'${propsClassName}.'`.
@@ -281,8 +285,9 @@ class PropsMixin implements TypedMap {
 ///
 /// Classes using this annotation must include the abstract `state` getter.
 ///
-/// __NOTE:__ This is only required for legacy boilerplate and can be omitted
-/// for new implementations. However, it can still be used for custom configurations.
+/// __Deprecated.__ Use the `@State()` annotation instead if you need to make use of an annotation argument. 
+/// Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.
+@Deprecated('Use the @State() annotation if you need to make use of an annotation argument. Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.')
 class StateMixin implements TypedMap {
   /// A custom namespace for the keys of state properties defined in the annotated class,
   /// overriding the default of `'${stateClassName}.'`.
@@ -318,7 +323,7 @@ const Accessor nullableRequiredProp = Accessor(isRequired: true, isNullable: tru
 /// Validation occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
 /// `componentWillReceiveProps`.
 ///
-///     mixin FooProps on UiProps{
+///     mixin FooProps on UiProps {
 ///       @Accessor(keyNamespace: '', key: 'custom_key')
 ///       String bar;
 ///

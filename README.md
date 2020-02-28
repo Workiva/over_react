@@ -192,7 +192,7 @@ mixin FooProps on UiProps {
 
 #### With other mixins
 
-__To compose props mixin classes__, create a class alias that uses `UiProps` as the base and mixes in props mixins. The generated props implementation will then use it as the base class and implement the generated version of those props mixins.
+__To compose props mixin classes__, create a class alias that uses `UiProps` as the base and mix in props mixins. The generated props implementation will then use it as the base class and implement the generated version of those props mixins.
 ```dart
 UiFactory<FooProps> Foo = _$Foo;
 
@@ -742,7 +742,7 @@ that you get for free from OverReact, you're ready to start building your own cu
       Iterable<String> items;
     }
 
-    class BarState on UiState {
+    mixin BarState on UiState {
       // State goes here, declared as fields:
       bool isShown;
     }
@@ -778,7 +778,7 @@ that you get for free from OverReact, you're ready to start building your own cu
 
     UiFactory<BazProps> Baz = _$Baz;
 
-    class BazPropsMixin on UiProps {
+    mixin BazPropsMixin on UiProps {
       // Props go here, declared as fields.
       // `actions` and `store` are already defined for you!
     }
@@ -810,7 +810,7 @@ that you get for free from OverReact, you're ready to start building your own cu
     UiFactory<BazProps> Baz = _$Baz;
 
   
-    class BazPropsMixin on UiProps {
+    mixin BazPropsMixin on UiProps {
       // Props go here, declared as fields.
       // `actions` and `store` are already defined for you!
     }
@@ -818,7 +818,7 @@ that you get for free from OverReact, you're ready to start building your own cu
     class BazProps = UiProps with FluxUiPropsMixin<BazActions, BazStore>, BazPropsMixin;
 
   
-    mixin BazStateMixin on UiState {
+    mixin BazState on UiState {
       // State goes here, declared as fields.
     }
 
