@@ -15,6 +15,8 @@ import 'version.dart';
 part 'members/component.dart';
 part 'members/factory.dart';
 part 'members/props_and_state.dart';
+part 'members/props_and_state_mixins.dart';
+part 'members/props_and_state_util.dart';
 
 abstract class BoilerplateMember {
   final int declarationConfidence;
