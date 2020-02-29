@@ -152,39 +152,46 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
 
     if (isMixinStub(node)) return;
 
-    final name = node.name.name;
     final classish = node.asClassish();
     final companion = getCompanionClass(node)?.asClassish();
 
-    //
-    // Categorize classes with matching annotations
+    if (_detectBasedOnAnnotations(classish, companion: companion)) return;
+    if (_detectPropsStateAndMixins(classish, companion: companion)) return;
+    if (_detectComponent(classish)) return;
+  }
 
-    final annotationNames = node.metadata.map((m) => m.name.nameWithoutPrefix).toSet();
-    bool hasAnnotation(String name) => annotationNames.contains(name);
+  bool _detectBasedOnAnnotations(ClassishDeclaration classish, {ClassishDeclaration companion}) {
+    for (final annotation in classish.metadata) {
+      switch (annotation.name.nameWithoutPrefix) {
+        case 'Props':
+        case 'AbstractProps':
+          members.props.add(BoilerplateProps(classish, Confidence.high, companion: companion));
+          return true;
+        case 'PropsMixin':
+          members.propsMixins.add(BoilerplatePropsMixin(classish.node, Confidence.high, companion: companion));
+          return true;
+        case 'State':
+        case 'AbstractState':
+          members.states.add(BoilerplateState(classish, Confidence.high, companion: companion));
+          return true;
+        case 'StateMixin':
+          members.stateMixins.add(BoilerplateStateMixin(classish.node, Confidence.high, companion: companion));
+          return true;
+        case 'Component':
+        case 'Component2':
+        case 'AbstractComponent':
+        case 'AbstractComponent2':
+          members.components.add(BoilerplateComponent(classish, Confidence.high));
+          return true;
+      }
+    }
 
-    if (hasAnnotation('Props') || hasAnnotation('AbstractProps')) {
-      members.props.add(BoilerplateProps(node.asClassish(), Confidence.high, companionClass: companion));
-      return;
-    }
-    if (annotationNames.contains('PropsMixin')) {
-      members.propsMixins.add(BoilerplatePropsMixin(node, Confidence.high, companionClass: companion));
-      return;
-    }
-    if (hasAnnotation('State') || hasAnnotation('AbstractState')) {
-      members.states.add(BoilerplateState(node.asClassish(), Confidence.high, companionClass: companion));
-      return;
-    }
-    if (hasAnnotation('StateMixin')) {
-      members.stateMixins.add(BoilerplateStateMixin(node, Confidence.high, companionClass: companion));
-      return;
-    }
-    if (const {'Component', 'Component2', 'AbstractComponent', 'AbstractComponent2'}.any(hasAnnotation)) {
-      members.components.add(BoilerplateComponent(node.asClassish(), Confidence.high));
-      return;
-    }
+    return false;
+  }
 
-    //
-    // Categorize classes with matching name patterns and other characteristics
+  bool _detectPropsStateAndMixins(ClassishDeclaration classish, {ClassishDeclaration companion}) {
+    final name = classish.name.name;
+    final node = classish.node;
 
     var looksLikeMixin = false;
     if (node is MixinDeclaration) {
@@ -199,26 +206,30 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
     // Prioritize categorize PropsMixins before Props // todo better comment
     if (looksLikeMixin) {
       if (name.endsWith('Props') || name.endsWith('PropsMixin')) {
-        members.propsMixins.add(BoilerplatePropsMixin(node, Confidence.medium, companionClass: companion));
-        return;
+        members.propsMixins.add(BoilerplatePropsMixin(node, Confidence.medium, companion: companion));
+        return true;
       }
       if (name.endsWith('State') || name.endsWith('StateMixin')) {
-        members.stateMixins.add(BoilerplateStateMixin(node, Confidence.medium, companionClass: companion));
-        return;
+        members.stateMixins.add(BoilerplateStateMixin(node, Confidence.medium, companion: companion));
+        return true;
       }
     } else {
       // todo start looking for other characteristics (superclasses, etc).
       // how to not get false positives for stuff that doesn't want codegen?
       if (name.endsWith('Props') || name.endsWith('PropsMapView')) {
-        members.props.add(BoilerplateProps(node.asClassish(), Confidence.medium, companionClass: companion));
-        return;
+        members.props.add(BoilerplateProps(classish, Confidence.medium, companion: companion));
+        return true;
       }
       if (name.endsWith('State')) {
-        members.states.add(BoilerplateState(node.asClassish(), Confidence.medium, companionClass: companion));
-        return;
+        members.states.add(BoilerplateState(classish, Confidence.medium, companion: companion));
+        return true;
       }
     }
 
+    return false;
+  }
+
+  bool _detectComponent(ClassishDeclaration classish) {
     // todo optimize
     final allSuperTypes = [
       ...classish.interfaces,
@@ -245,9 +256,12 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
       }
 
       if (confidence != 0) {
-        members.components.add(BoilerplateComponent(node.asClassish(), confidence));
+        members.components.add(BoilerplateComponent(classish, confidence));
+        return true;
       }
     }
+
+    return false;
   }
 
   void visitClassishDeclaration(NamedCompilationUnitMember node) {

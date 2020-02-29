@@ -26,17 +26,17 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
 
   final ClassishDeclaration nodeHelper;
 
-  final ClassishDeclaration companionClass;
+  final ClassishDeclaration companion;
 
   NodeWithMeta<NamedCompilationUnitMember, annotations.TypedMap> get withMeta;
 
   @override
   SimpleIdentifier get name => nodeHelper.name;
 
-  BoilerplatePropsOrState(this.nodeHelper, int declarationConfidence, {@required this.companionClass}) : node = nodeHelper.node, super(declarationConfidence);
+  BoilerplatePropsOrState(this.nodeHelper, int declarationConfidence, {@required this.companion}) : node = nodeHelper.node, super(declarationConfidence);
 
   @override
-  String get debugString => '${super.debugString}, companion: ${companionClass?.name}';
+  String get debugString => '${super.debugString}, companion: ${companion?.name}';
 
   @override
   Map<BoilerplateVersion, int> get versionConfidence {
@@ -81,7 +81,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
 
   bool get isLegacyMapView => name.name.endsWith('MapView') && nodeHelper.members.whereType<ConstructorDeclaration>().isNotEmpty;
 
-  bool get hasCompanionClass => companionClass != null;
+  bool get hasCompanionClass => companion != null;
 
   @override
   void validate(BoilerplateVersion version, ValidationErrorCollector errorCollector) {
@@ -117,10 +117,10 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
         // It's possible to declare an abstract class without any props/state fields that need to be generated.
         if (nodeHelper.members.isNotEmpty) {
           _sharedLegacyValidation(errorCollector);
-          if (companionClass == null) {
+          if (companion == null) {
             //todo log error
           } else {
-            validateMetaField(companionClass, propsOrStateMetaStructName, errorCollector);
+            validateMetaField(companion, propsOrStateMetaStructName, errorCollector);
           }
         }
         break;
@@ -150,12 +150,12 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
 
 class BoilerplateProps extends BoilerplatePropsOrState {
   BoilerplateProps(ClassishDeclaration nodeHelper, int declarationConfidence,
-      {ClassishDeclaration companionClass})
+      {ClassishDeclaration companion})
       : withMeta = nodeHelper.node.hasAnnotationWithName('AbstractProps')
             ? NodeWithMeta<NamedCompilationUnitMember, annotations.AbstractProps>(nodeHelper.node)
             : NodeWithMeta<NamedCompilationUnitMember, annotations.Props>(nodeHelper.node),
         super(nodeHelper, declarationConfidence,
-            companionClass: companionClass);
+            companion: companion);
 
   @override
   final NodeWithMeta<NamedCompilationUnitMember, annotations.TypedMap> withMeta;
@@ -166,12 +166,12 @@ class BoilerplateProps extends BoilerplatePropsOrState {
 
 class BoilerplateState extends BoilerplatePropsOrState {
   BoilerplateState(ClassishDeclaration nodeHelper, int declarationConfidence,
-      {ClassishDeclaration companionClass})
+      {ClassishDeclaration companion})
       : withMeta = nodeHelper.node.hasAnnotationWithName('AbstractState')
             ? NodeWithMeta<NamedCompilationUnitMember, annotations.AbstractState>(nodeHelper.node)
             : NodeWithMeta<NamedCompilationUnitMember, annotations.State>(nodeHelper.node),
         super(nodeHelper, declarationConfidence,
-            companionClass: companionClass);
+            companion: companion);
 
   @override
   final NodeWithMeta<NamedCompilationUnitMember, annotations.TypedMap> withMeta;
@@ -184,17 +184,17 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
   @override
   final ClassOrMixinDeclaration node;
 
-  final ClassishDeclaration companionClass;
+  final ClassishDeclaration companion;
 
   NodeWithMeta<ClassOrMixinDeclaration, annotations.TypedMap> get withMeta;
 
   @override
   SimpleIdentifier get name => node.name;
 
-  BoilerplatePropsOrStateMixin(this.node, int declarationConfidence, {@required this.companionClass}) : super(declarationConfidence);
+  BoilerplatePropsOrStateMixin(this.node, int declarationConfidence, {@required this.companion}) : super(declarationConfidence);
 
   @override
-  String get debugString => '${super.debugString}, companion: ${companionClass?.name}';
+  String get debugString => '${super.debugString}, companion: ${companion?.name}';
 
   @override
   Map<BoilerplateVersion, int> get versionConfidence {
@@ -334,9 +334,9 @@ void validateMetaField(ClassishDeclaration cd, String expectedType, ValidationEr
 
 class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
   BoilerplatePropsMixin(ClassOrMixinDeclaration node, int declarationConfidence,
-      {ClassishDeclaration companionClass})
+      {ClassishDeclaration companion})
       : withMeta = NodeWithMeta(node),
-        super(node, declarationConfidence, companionClass: companionClass);
+        super(node, declarationConfidence, companion: companion);
 
   @override
   final NodeWithMeta<ClassOrMixinDeclaration, annotations.PropsMixin> withMeta;
@@ -347,9 +347,9 @@ class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
 
 class BoilerplateStateMixin extends BoilerplatePropsOrStateMixin {
   BoilerplateStateMixin(ClassOrMixinDeclaration node, int declarationConfidence,
-      {ClassishDeclaration companionClass})
+      {ClassishDeclaration companion})
       : withMeta = NodeWithMeta(node),
-        super(node, declarationConfidence, companionClass: companionClass);
+        super(node, declarationConfidence, companion: companion);
 
   @override
   final NodeWithMeta<ClassOrMixinDeclaration, annotations.StateMixin> withMeta;
