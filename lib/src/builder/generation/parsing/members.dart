@@ -67,8 +67,9 @@ class BoilerplateMembers {
   bool get isNotEmpty => !isEmpty;
 
   BoilerplateMembers.detect(CompilationUnit unit) {
-    final visitor = BoilerplateMemberDetector()..members = this;
-    unit.accept(visitor);
+    _BoilerplateMemberDetector()
+      ..members = this
+      ..detect(unit);
   }
 
   toString() => 'BoilerplateMembers:${prettyPrintMap({
@@ -81,18 +82,45 @@ class BoilerplateMembers {
   }..removeWhere((_, value) => value.isEmpty))}';
 }
 
-class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
+class _BoilerplateMemberDetector {
   BoilerplateMembers members;
   Map<String, NamedCompilationUnitMember> classishDeclarationsByName = {};
 
-  @override
-  visitCompilationUnit(CompilationUnit node) {
-    node.visitChildren(this);
-    classishDeclarationsByName.values.forEach(processClassishDeclaration);
+  void detect(CompilationUnit unit) {
+    final visitor = _BoilerplateMemberDetectorVisitor(
+      onClassishDeclaration: (node) => classishDeclarationsByName[node.name.name] = node,
+      onTopLevelVariableDeclaration: _processTopLevelVariableDeclaration,
+    );
+
+    unit.accept(visitor);
+
+    classishDeclarationsByName.values.forEach(_processClassishDeclaration);
   }
 
-  @override
-  visitTopLevelVariableDeclaration(TopLevelVariableDeclaration node) {
+  void _processTopLevelVariableDeclaration(TopLevelVariableDeclaration node) {
+    _detectFactory(node);
+  }
+
+  void _processClassishDeclaration(NamedCompilationUnitMember node) {
+    // If this is a companion class, ignore it.
+    final sourceClass = _getSourceClassForPotentialCompanion(node);
+    if (sourceClass != null) return;
+
+    if (_isMixinStub(node)) return;
+
+    final classish = node.asClassish();
+    final companion = _getCompanionClass(node)?.asClassish();
+
+    if (_detectBasedOnAnnotations(classish, companion: companion)) return;
+    if (_detectPropsStateAndMixins(classish, companion: companion)) return;
+    if (_detectComponent(classish)) return;
+  }
+
+  //
+  // _processTopLevelVariableDeclaration helpers
+  //
+
+  void _detectFactory(TopLevelVariableDeclaration node) {
     if (node.hasAnnotationWithName('Factory')) {
       members.factories.add(BoilerplateFactory(node, Confidence.high));
       return;
@@ -107,8 +135,10 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
         // Check for `Foo = _$Foo` or `Foo = $Foo` (which could be a typo)
         if (identifierInInitializer != null && (identifierInInitializer == '_\$$name' || identifierInInitializer == '\$$name')) {
           members.factories.add(BoilerplateFactory(node, Confidence.high));
+          return;
         } else {
           members.factories.add(BoilerplateFactory(node, Confidence.medium));
+          return;
         }
       }
     } else {
@@ -117,10 +147,16 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
 //        factories.add(BoilerplateFactory(node));
 //      }
     }
+
+    return;
   }
 
+  //
+  // _processClassishDeclaration helpers
+  //
+
   /// For `FooProps`, returns `_$FooProps`
-  NamedCompilationUnitMember getSourceClassForPotentialCompanion(NamedCompilationUnitMember node) {
+  NamedCompilationUnitMember _getSourceClassForPotentialCompanion(NamedCompilationUnitMember node) {
     final name = node.name.name;
     if (name.startsWith(privateSourcePrefix)) {
       return null;
@@ -130,7 +166,7 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
   }
 
   /// For `_$FooProps`, returns `FooProps`
-  NamedCompilationUnitMember getCompanionClass(NamedCompilationUnitMember node) {
+  NamedCompilationUnitMember _getCompanionClass(NamedCompilationUnitMember node) {
     final name = node.name.name;
     if (!name.startsWith(privateSourcePrefix)) {
       return null;
@@ -140,24 +176,9 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
   }
 
   /// Returns whether it's the `$FooPropsMixin` to a `_$FooPropsMixin`
-  bool isMixinStub(NamedCompilationUnitMember node) {
+  bool _isMixinStub(NamedCompilationUnitMember node) {
     final name = node.name.name;
     return name.startsWith(r'$') && classishDeclarationsByName.containsKey('_$name');
-  }
-
-  void processClassishDeclaration(NamedCompilationUnitMember node) {
-    // If this is a companion class, ignore it.
-    final sourceClass = getSourceClassForPotentialCompanion(node);
-    if (sourceClass != null) return;
-
-    if (isMixinStub(node)) return;
-
-    final classish = node.asClassish();
-    final companion = getCompanionClass(node)?.asClassish();
-
-    if (_detectBasedOnAnnotations(classish, companion: companion)) return;
-    if (_detectPropsStateAndMixins(classish, companion: companion)) return;
-    if (_detectComponent(classish)) return;
   }
 
   bool _detectBasedOnAnnotations(ClassishDeclaration classish, {ClassishDeclaration companion}) {
@@ -263,9 +284,26 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
 
     return false;
   }
+}
+
+class _BoilerplateMemberDetectorVisitor extends SimpleAstVisitor<void> {
+  final void Function(NamedCompilationUnitMember) onClassishDeclaration;
+  final void Function(TopLevelVariableDeclaration) onTopLevelVariableDeclaration;
+
+  _BoilerplateMemberDetectorVisitor({this.onClassishDeclaration, this.onTopLevelVariableDeclaration});
+
+  @override
+  void visitCompilationUnit(CompilationUnit node) {
+    node.visitChildren(this);
+  }
+
+  @override
+  void visitTopLevelVariableDeclaration(TopLevelVariableDeclaration node) {
+    onTopLevelVariableDeclaration(node);
+  }
 
   void visitClassishDeclaration(NamedCompilationUnitMember node) {
-    classishDeclarationsByName[node.name.name] = node;
+    onClassishDeclaration(node);
   }
 
   @override
