@@ -148,15 +148,21 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
   void processClassishDeclaration(NamedCompilationUnitMember node) {
     // If this is a companion class, ignore it.
     final sourceClass = getSourceClassForPotentialCompanion(node);
-    if (sourceClass != null) {
-      return;
-    }
+    if (sourceClass != null) return;
 
+    if (isMixinStub(node)) return;
+
+    final name = node.name.name;
+    final classish = node.asClassish();
     final companion = getCompanionClass(node)?.asClassish();
 
+    //
     // Categorize classes with matching annotations
-    final annotationNames = node.metadata.map((m) => m.name.nameWithoutPrefix).toList();
-    if (annotationNames.contains('Props')) {
+
+    final annotationNames = node.metadata.map((m) => m.name.nameWithoutPrefix).toSet();
+    bool hasAnnotation(String name) => annotationNames.contains(name);
+
+    if (hasAnnotation('Props') || hasAnnotation('AbstractProps')) {
       members.props.add(BoilerplateProps(node.asClassish(), Confidence.high, companionClass: companion));
       return;
     }
@@ -164,44 +170,55 @@ class BoilerplateMemberDetector extends SimpleAstVisitor<void> {
       members.propsMixins.add(BoilerplatePropsMixin(node, Confidence.high, companionClass: companion));
       return;
     }
-    if (annotationNames.contains('State')) {
+    if (hasAnnotation('State') || hasAnnotation('AbstractState')) {
       members.states.add(BoilerplateState(node.asClassish(), Confidence.high, companionClass: companion));
       return;
     }
-    if (annotationNames.contains('StateMixin')) {
+    if (hasAnnotation('StateMixin')) {
       members.stateMixins.add(BoilerplateStateMixin(node, Confidence.high, companionClass: companion));
       return;
     }
-    if (annotationNames.contains('Component') || annotationNames.contains('Component2')) {
+    if (const {'Component', 'Component2', 'AbstractComponent', 'AbstractComponent2'}.any(hasAnnotation)) {
       members.components.add(BoilerplateComponent(node.asClassish(), Confidence.high));
       return;
     }
 
-    // Categorize classes with matching name patterns
-    final name = node.name.name;
+    //
+    // Categorize classes with matching name patterns and other characteristics
 
-    // todo start looking for other characteristics (superclasses, etc).
-    // how to not get false positives for stuff that doesn't want codegen?
-    if (name.endsWith('Props') || name.endsWith('PropsMapView')) {
-      members.props.add(BoilerplateProps(node.asClassish(), Confidence.medium, companionClass: companion));
-      return;
-    }
-    // todo try to clean up the typing so we don't need a type check here
-    if (name.endsWith('PropsMixin') && node is ClassOrMixinDeclaration && !isMixinStub(node)) {
-      members.propsMixins.add(BoilerplatePropsMixin(node, Confidence.medium, companionClass: companion));
-      return;
-    }
-    if (name.endsWith('State')) {
-      members.states.add(BoilerplateState(node.asClassish(), Confidence.medium, companionClass: companion));
-      return;
-    }
-    // todo try to clean up the typing so we don't need a type check here
-    if (name.endsWith('StateMixin') && node is ClassOrMixinDeclaration && !isMixinStub(node)) {
-      members.stateMixins.add(BoilerplateStateMixin(node, Confidence.medium, companionClass: companion));
-      return;
+    var looksLikeMixin = false;
+    if (node is MixinDeclaration) {
+      looksLikeMixin = true;
+    } else if (classish.hasAbstractKeyword && classish.mixins.isEmpty) {
+      final superclassName = classish.superclass?.nameWithoutPrefix;
+      if (superclassName == null || superclassName == 'Object') {
+        looksLikeMixin = true;
+      }
     }
 
-    final classish = node.asClassish();
+    // Prioritize categorize PropsMixins before Props // todo better comment
+    if (looksLikeMixin) {
+      if (name.endsWith('Props') || name.endsWith('PropsMixin')) {
+        members.propsMixins.add(BoilerplatePropsMixin(node, Confidence.medium, companionClass: companion));
+        return;
+      }
+      if (name.endsWith('State') || name.endsWith('StateMixin')) {
+        members.stateMixins.add(BoilerplateStateMixin(node, Confidence.medium, companionClass: companion));
+        return;
+      }
+    } else {
+      // todo start looking for other characteristics (superclasses, etc).
+      // how to not get false positives for stuff that doesn't want codegen?
+      if (name.endsWith('Props') || name.endsWith('PropsMapView')) {
+        members.props.add(BoilerplateProps(node.asClassish(), Confidence.medium, companionClass: companion));
+        return;
+      }
+      if (name.endsWith('State')) {
+        members.states.add(BoilerplateState(node.asClassish(), Confidence.medium, companionClass: companion));
+        return;
+      }
+    }
+
     // todo optimize
     final allSuperTypes = [
       ...classish.interfaces,
