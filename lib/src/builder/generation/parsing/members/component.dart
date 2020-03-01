@@ -16,7 +16,7 @@ class BoilerplateComponent extends BoilerplateMember {
         InstantiatedComponentMeta<annotations.Component2>(node) ??
         InstantiatedComponentMeta<annotations.Component>(node);
 
-    config = meta ?? annotations.Component2();
+    config = meta?.value ?? annotations.Component2();
     configSubtypeOf = meta?.subtypeOfValue;
   }
 

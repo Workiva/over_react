@@ -78,7 +78,7 @@ class InstantiatedComponentMeta<TMeta> extends InstantiatedMeta<TMeta> {
       : super._(metaNode, meta, unsupportedArguments);
 
   factory InstantiatedComponentMeta(AnnotatedNode node) {
-    final instantiated = InstantiatedMeta(node);
+    final instantiated = InstantiatedMeta<TMeta>(node);
 
     if (instantiated == null) return null;
 

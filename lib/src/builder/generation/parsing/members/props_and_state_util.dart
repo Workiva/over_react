@@ -29,7 +29,7 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
           InstantiatedMeta<annotations.AbstractState>(node) ??
           InstantiatedMeta<annotations.StateMixin>(node));
 
-  return meta.value ?? (isProps ? annotations.Props() : annotations.State());
+  return meta?.value ?? (isProps ? annotations.Props() : annotations.State());
 }
 
 
