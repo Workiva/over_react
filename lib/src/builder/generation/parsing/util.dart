@@ -1,11 +1,10 @@
 extension TryCast<T> on T {
   S tryCast<S extends T>() => this is S ? this : null;
-  S tryCastUnrelatedType<S>() => this is S ? (this as S) : null;
 }
 
 extension IterableUtil<E> on Iterable<E> {
-  E get firstOrNull => this.isEmpty ? null : this.first;
-  Iterable<E> whereNotNull() => this.where((element) => element != null);
+  E get firstOrNull => isEmpty ? null : first;
+  Iterable<E> whereNotNull() => where((element) => element != null);
 }
 
 // Subset of package:union functionality
