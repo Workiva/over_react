@@ -434,9 +434,6 @@ class ImplGenerator {
 
 
           if (accessorMeta?.doNotGenerate == true) {
-            logger.fine(messageWithSpan('Skipping generation of field `$field`.',
-                span: getSpan(sourceFile, field))
-            );
             return;
           }
 
@@ -553,9 +550,6 @@ class ImplGenerator {
                 '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;\n';
 
             output.write(generatedAccessor);
-
-            logger.fine(messageWithSpan('Generated accessor `$accessorName` with key $keyValue.',
-                span: getSpan(sourceFile, variable)));
           });
 
           if (field.fields.variables.length > 1 &&
