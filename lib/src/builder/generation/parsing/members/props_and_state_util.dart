@@ -20,6 +20,18 @@ mixin PropsStateStringHelpers {
   String get propsOrStateMixinAnnotationName => isProps ? 'PropsMixin' : 'StateMixin';
 }
 
+annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node) {
+  final meta = isProps
+      ? (InstantiatedMeta<annotations.Props>(node) ??
+          InstantiatedMeta<annotations.AbstractProps>(node) ??
+          InstantiatedMeta<annotations.PropsMixin>(node))
+      : (InstantiatedMeta<annotations.State>(node) ??
+          InstantiatedMeta<annotations.AbstractState>(node) ??
+          InstantiatedMeta<annotations.StateMixin>(node));
+
+  return meta.value ?? (isProps ? annotations.Props() : annotations.State());
+}
+
 
 /// If a [ClassMember] exists in [node] with the name `meta`, this will
 /// throw an error if the member is not static and a warning if the member

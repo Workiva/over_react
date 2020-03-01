@@ -33,9 +33,12 @@ extension NameHelper on Identifier {
   }
 }
 
-extension MetaDataHelper on AnnotatedNode {
-  bool hasAnnotationWithName(String name) => metadata.any((element) => element.name.nameWithoutPrefix == name);
-  bool hasAnnotationWithNames(Set<String> names) => metadata.any((element) => names.contains(element.name.nameWithoutPrefix));
+extension MetadataHelper on AnnotatedNode {
+  Annotation getAnnotationWithName(String name) => metadata.firstWhere((element) => element.name.nameWithoutPrefix == name, orElse: () => null);
+  Annotation getAnnotationWithNames(Set<String> names) => metadata.firstWhere((element) => names.contains(element.name.nameWithoutPrefix), orElse: () => null);
+
+  bool hasAnnotationWithName(String name) => getAnnotationWithName(name) != null;
+  bool hasAnnotationWithNames(Set<String> names) => getAnnotationWithNames(names) != null;
 }
 
 extension SourceFileSpanHelper on SourceFile {

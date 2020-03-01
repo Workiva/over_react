@@ -86,17 +86,22 @@ class ImplGenerator {
   }
 
   void generateComponent(LegacyClassComponentDeclaration declarations) {
-    final bool isComponent2 = declarations.isComponent2;
-    final componentDeclNode = declarations.component.withMeta;
-    final factoryName = declarations.factory.node.variables.variables.first.name.toString();
+    final factory = declarations.factory;
+    final component = declarations.component;
+    final props = declarations.props;
+    final state = declarations.state;
 
-    final consumerPropsName = declarations.props.node.name.toString();
+    final bool isComponent2 = declarations.isComponent2;
+
+    final factoryName = factory.name.name;
+
+    final consumerPropsName = props.name.name;
     final consumablePropsName = _publicPropsOrStateClassNameFromConsumerClassName(consumerPropsName);
 
     final propsImplName = _propsImplClassNameFromConsumerClassName(consumerPropsName);
     final propsAccessorsMixinName = _accessorsMixinNameFromConsumerName(consumerPropsName);
 
-    final componentClassName = componentDeclNode.node.name.toString();
+    final componentClassName = component.name.name;
     final componentClassImplMixinName = '$privateSourcePrefix$componentClassName';
 
     final generatedComponentFactoryName = _componentFactoryName(componentClassName);
@@ -111,7 +116,7 @@ class ImplGenerator {
     String parentTypeParam = 'null';
     String parentTypeParamComment = '';
 
-    Identifier parentType = componentDeclNode.subtypeOfValue;
+    Identifier parentType = component.configSubtypeOf;
     if (parentType != null) {
       parentTypeParamComment = ' /* from `subtypeOf: ${getSpan(sourceFile, parentType).text}` */';
 
@@ -132,7 +137,7 @@ class ImplGenerator {
       /// if a component's factory variable tries to reference itself during its initialization.
       /// Therefore, this is not allowed.
       logger.severe(messageWithSpan('A component cannot be a subtype of itself.',
-          span: getSpan(sourceFile, componentDeclNode.metaNode))
+          span: getSpan(sourceFile, parentType))
       );
     }
 
@@ -144,11 +149,11 @@ class ImplGenerator {
         ..writeln('final $generatedComponentFactoryName = registerComponent2(() => $componentClassImplMixinName(),')
         ..writeln('    builderFactory: $factoryName,')
         ..writeln('    componentClass: $componentClassName,')
-        ..writeln('    isWrapper: ${componentDeclNode.meta.isWrapper},')
+        ..writeln('    isWrapper: ${component.config.isWrapper},')
         ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
         ..writeln('    displayName: ${stringLiteral(factoryName)},');
 
-      if ((componentDeclNode.meta.tryCast<annotations.Component2>() ?? annotations.Component2()).isErrorBoundary) {
+      if ((component.config as annotations.Component2).isErrorBoundary) {
         // Override `skipMethods` as an empty list so that
         // the `componentDidCatch` and `getDerivedStateFromError`
         // lifecycle methods are included in the component's JS bindings.
@@ -166,7 +171,7 @@ class ImplGenerator {
         ..writeln('final $generatedComponentFactoryName = registerComponent(() => $componentClassImplMixinName(),')
         ..writeln('    builderFactory: $factoryName,')
         ..writeln('    componentClass: $componentClassName,')
-        ..writeln('    isWrapper: ${componentDeclNode.meta.isWrapper},')
+        ..writeln('    isWrapper: ${component.config.isWrapper},')
         ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
         ..writeln('    displayName: ${stringLiteral(factoryName)}')
         ..writeln(');')
@@ -179,12 +184,12 @@ class ImplGenerator {
 
     // Generate accessors mixin and props metaFor constant
     outputContentsBuffer.write(_generateAccessorsMixin(
-        AccessorType.props, propsAccessorsMixinName, declarations.props.node as ClassOrMixinDeclaration, declarations.props.withMeta.meta,
+        AccessorType.props, propsAccessorsMixinName, props.node as ClassOrMixinDeclaration, props.config,
         consumerPropsName,
-        typeParameters: declarations.props.nodeHelper.typeParameters));
+        typeParameters: props.nodeHelper.typeParameters));
     outputContentsBuffer.write(
-        _generateMetaConstImpl(AccessorType.props, declarations.props.node));
-    outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.props, declarations.props));
+        _generateMetaConstImpl(AccessorType.props, props.node));
+    outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.props, props));
 
     outputContentsBuffer.write(
         '$propsImplName $privateSourcePrefix$factoryName([Map backingProps]) => ');
@@ -206,8 +211,8 @@ class ImplGenerator {
       consumerName: consumerPropsName,
       implName: propsImplName,
       componentFactoryName: generatedComponentFactoryName,
-      propKeyNamespace: _getAccessorKeyNamespace(declarations.props.node, declarations.props.withMeta.meta),
-      node: declarations.props.withMeta,
+      propKeyNamespace: _getAccessorKeyNamespace(props.node, props.config),
+      node: props.node,
       accessorsMixinName: propsAccessorsMixinName,
       consumableName: consumablePropsName,
       isComponent2: isComponent2,
@@ -250,18 +255,18 @@ class ImplGenerator {
     // ----------------------------------------------------------------------
     //   State implementation
     // ----------------------------------------------------------------------
-    if (declarations.state != null) {
-      final stateName = _classNameFromNode(declarations.state.node);
+    if (state != null) {
+      final stateName = _classNameFromNode(state.node);
       final consumableStateName = _publicPropsOrStateClassNameFromConsumerClassName(stateName);
       final stateImplName = _propsImplClassNameFromConsumerClassName(stateName);
       final stateAccessorsMixinName = _accessorsMixinNameFromConsumerName(stateName);
 
       outputContentsBuffer.write(_generateAccessorsMixin(
-          AccessorType.state, stateAccessorsMixinName, declarations.state.node as ClassOrMixinDeclaration, declarations.state.withMeta.meta,
-          stateName, typeParameters: declarations.state.nodeHelper.typeParameters));
+          AccessorType.state, stateAccessorsMixinName, state.node as ClassOrMixinDeclaration, state.config,
+          stateName, typeParameters: state.nodeHelper.typeParameters));
       outputContentsBuffer.write(
-          _generateMetaConstImpl(AccessorType.state, declarations.state.node));
-      outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.state, declarations.state));
+          _generateMetaConstImpl(AccessorType.state, state.node));
+      outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.state, state));
 
       outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
         type: AccessorType.state,
@@ -269,7 +274,7 @@ class ImplGenerator {
         implName: stateImplName,
         componentFactoryName: generatedComponentFactoryName,
         propKeyNamespace: null,
-        node: declarations.state.withMeta,
+        node: state.node,
         accessorsMixinName: stateAccessorsMixinName,
         consumableName: consumableStateName,
         isComponent2: isComponent2,
@@ -327,7 +332,7 @@ class ImplGenerator {
                       'const [${_metaConstantName(consumablePropsName)}];')
       ..writeln('}');
 
-    final implementsTypedPropsStateFactory = declarations.component.nodeHelper.members.any((member) =>
+    final implementsTypedPropsStateFactory = component.nodeHelper.members.any((member) =>
         member is MethodDeclaration &&
         !member.isStatic &&
         (member.name.name == 'typedPropsFactory' || member.name.name == 'typedStateFactory')
@@ -337,17 +342,17 @@ class ImplGenerator {
       // Can't be an error, because consumers may be implementing typedPropsFactory or typedStateFactory in their components.
       logger.warning(messageWithSpan(
           'Components should not add their own implementions of typedPropsFactory or typedStateFactory.',
-          span: getSpan(sourceFile, componentDeclNode.node))
+          span: getSpan(sourceFile, component.node))
       );
     }
   }
 
   void generatePropsMixin(PropsMixinDeclaration declaration) {
-    _generateAccessorsAndMetaConstantForMixin(AccessorType.propsMixin, declaration.propsMixin.node, declaration.propsMixin.withMeta.meta);
+    _generateAccessorsAndMetaConstantForMixin(AccessorType.propsMixin, declaration.propsMixin.node, declaration.propsMixin.config);
   }
 
   void generateStateMixin(StateMixinDeclaration declaration) {
-    _generateAccessorsAndMetaConstantForMixin(AccessorType.stateMixin, declaration.stateMixin.node, declaration.stateMixin.withMeta.meta);
+    _generateAccessorsAndMetaConstantForMixin(AccessorType.stateMixin, declaration.stateMixin.node, declaration.stateMixin.config);
   }
 
   void generateAbstractComponent(LegacyAbstractClassComponentDeclaration declaration) {
@@ -357,7 +362,7 @@ class ImplGenerator {
     if (declaration.props != null) {
       final className = _classNameFromNode(declaration.props.node);
       outputContentsBuffer.write(_generateAccessorsMixin(
-          AccessorType.abstractProps, _accessorsMixinNameFromConsumerName(className), declaration.props.node as ClassOrMixinDeclaration, declaration.props.withMeta.meta,
+          AccessorType.abstractProps, _accessorsMixinNameFromConsumerName(className), declaration.props.node as ClassOrMixinDeclaration, declaration.props.config,
           className, typeParameters: declaration.props.nodeHelper.typeParameters));
       outputContentsBuffer.write(_generateMetaConstImpl(
           AccessorType.abstractProps, declaration.props.node));
@@ -367,7 +372,7 @@ class ImplGenerator {
     if (declaration.state != null) {
       final className = _classNameFromNode(declaration.state.node);
       outputContentsBuffer.write(_generateAccessorsMixin(
-          AccessorType.abstractState, _accessorsMixinNameFromConsumerName(className), declaration.state.node as ClassOrMixinDeclaration, declaration.state.withMeta.meta,
+          AccessorType.abstractState, _accessorsMixinNameFromConsumerName(className), declaration.state.node as ClassOrMixinDeclaration, declaration.state.config,
           className, typeParameters: declaration.state.nodeHelper.typeParameters));
       outputContentsBuffer.write(_generateMetaConstImpl(AccessorType.abstractState, declaration.state.node));
       outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.abstractState, declaration.state));
@@ -871,13 +876,13 @@ class ImplGenerator {
     @required String implName,
     @required String componentFactoryName,
     @required String propKeyNamespace,
-    @required NodeWithMeta<NamedCompilationUnitMember, annotations.TypedMap> node,
+    @required NamedCompilationUnitMember node,
     @required String accessorsMixinName,
     @required String consumableName,
     @required bool isComponent2,
   }) {
-    final typeParamsOnClass = ClassishDeclaration(node.node).typeParameters?.toSource() ?? '';
-    final typeParamsOnSuper = removeBoundsFromTypeParameters(ClassishDeclaration(node.node).typeParameters);
+    final typeParamsOnClass = node.asClassish().typeParameters?.toSource() ?? '';
+    final typeParamsOnSuper = removeBoundsFromTypeParameters(node.asClassish().typeParameters);
 
     final classDeclaration = StringBuffer();
     if (isComponent2) {

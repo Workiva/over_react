@@ -6,13 +6,18 @@ class BoilerplateComponent extends BoilerplateMember {
 
   final ClassishDeclaration nodeHelper;
 
-  ComponentNode withMeta;
+  annotations.Component config;
+  Identifier configSubtypeOf;
 
   BoilerplateComponent(this.nodeHelper, int declarationConfidence)
       : node = nodeHelper.node,
         super(declarationConfidence) {
-    // FIXME what about abstract components? For now, nothing generating an abstract component should be accessing withMeta
-    withMeta = hasComponent1OrAbstractAnnotation ? ComponentNode(nodeHelper.node) : Component2Node(nodeHelper.node);
+    final meta =
+        InstantiatedComponentMeta<annotations.Component2>(node) ??
+        InstantiatedComponentMeta<annotations.Component>(node);
+
+    config = meta ?? annotations.Component2();
+    configSubtypeOf = meta?.subtypeOfValue;
   }
 
   @override
@@ -96,42 +101,4 @@ class BoilerplateComponent extends BoilerplateMember {
        });
     }
   }
-}
-
-
-// TODO: Remove when `annotations.Component` is removed in the 4.0.0 release.
-@Deprecated('4.0.0')
-class ComponentNode<TMeta extends annotations.Component>
-    extends NodeWithMeta<NamedCompilationUnitMember, TMeta> {
-  static const String _subtypeOfParamName = 'subtypeOf';
-
-  /// The value of the `subtypeOf` parameter passed in to this node's annotation.
-  Identifier subtypeOfValue;
-
-  ComponentNode(NamedCompilationUnitMember unit) : super(unit) {
-    // Perform special handling for the `subtypeOf` parameter of this node's annotation.
-    //
-    // If valid, omit it from `unsupportedArguments` so that the `meta` can be accessed without it
-    // (with the value available via `subtypeOfValue`), given that all other arguments are valid.
-
-    NamedExpression subtypeOfParam = unsupportedArguments
-        .whereType<NamedExpression>()
-        .firstWhere(
-            (expression) => expression.name.label.name == _subtypeOfParamName,
-            orElse: () => null);
-
-    if (subtypeOfParam != null) {
-      final expression = subtypeOfParam.expression;
-      if (expression is Identifier) {
-        subtypeOfValue = expression;
-        unsupportedArguments.remove(subtypeOfParam);
-      } else {
-        throw '`$_subtypeOfParamName` must be an identifier: $subtypeOfParam';
-      }
-    }
-  }
-}
-
-class Component2Node extends ComponentNode<annotations.Component2> {
-  Component2Node(NamedCompilationUnitMember unit) : super(unit);
 }

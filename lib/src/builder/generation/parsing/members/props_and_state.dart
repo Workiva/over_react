@@ -8,12 +8,14 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
 
   final ClassishDeclaration companion;
 
-  NodeWithMeta<NamedCompilationUnitMember, annotations.TypedMap> get withMeta;
+  annotations.TypedMap config;
 
   @override
   SimpleIdentifier get name => nodeHelper.name;
 
-  BoilerplatePropsOrState(this.nodeHelper, int declarationConfidence, {@required this.companion}) : node = nodeHelper.node, super(declarationConfidence);
+  BoilerplatePropsOrState(this.nodeHelper, int declarationConfidence, {@required this.companion}) : node = nodeHelper.node, super(declarationConfidence) {
+    config = getPropsOrStateAnnotation(isProps, node);
+  }
 
   @override
   String get debugString => '${super.debugString}, companion: ${companion?.name}';
@@ -131,14 +133,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
 class BoilerplateProps extends BoilerplatePropsOrState {
   BoilerplateProps(ClassishDeclaration nodeHelper, int declarationConfidence,
       {ClassishDeclaration companion})
-      : withMeta = nodeHelper.node.hasAnnotationWithName('AbstractProps')
-            ? NodeWithMeta<NamedCompilationUnitMember, annotations.AbstractProps>(nodeHelper.node)
-            : NodeWithMeta<NamedCompilationUnitMember, annotations.Props>(nodeHelper.node),
-        super(nodeHelper, declarationConfidence,
-            companion: companion);
-
-  @override
-  final NodeWithMeta<NamedCompilationUnitMember, annotations.TypedMap> withMeta;
+      : super(nodeHelper, declarationConfidence, companion: companion);
 
   @override
   bool get isProps => true;
@@ -147,14 +142,7 @@ class BoilerplateProps extends BoilerplatePropsOrState {
 class BoilerplateState extends BoilerplatePropsOrState {
   BoilerplateState(ClassishDeclaration nodeHelper, int declarationConfidence,
       {ClassishDeclaration companion})
-      : withMeta = nodeHelper.node.hasAnnotationWithName('AbstractState')
-            ? NodeWithMeta<NamedCompilationUnitMember, annotations.AbstractState>(nodeHelper.node)
-            : NodeWithMeta<NamedCompilationUnitMember, annotations.State>(nodeHelper.node),
-        super(nodeHelper, declarationConfidence,
-            companion: companion);
-
-  @override
-  final NodeWithMeta<NamedCompilationUnitMember, annotations.TypedMap> withMeta;
+      : super(nodeHelper, declarationConfidence, companion: companion);
 
   @override
   bool get isProps => false;

@@ -6,12 +6,14 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
 
   final ClassishDeclaration companion;
 
-  NodeWithMeta<ClassOrMixinDeclaration, annotations.TypedMap> get withMeta;
+  annotations.TypedMap config;
 
   @override
   SimpleIdentifier get name => node.name;
 
-  BoilerplatePropsOrStateMixin(this.node, int declarationConfidence, {@required this.companion}) : super(declarationConfidence);
+  BoilerplatePropsOrStateMixin(this.node, int declarationConfidence, {@required this.companion}) : super(declarationConfidence) {
+    config = getPropsOrStateAnnotation(isProps, node);
+  }
 
   @override
   String get debugString => '${super.debugString}, companion: ${companion?.name}';
@@ -94,12 +96,8 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
 class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
   BoilerplatePropsMixin(ClassOrMixinDeclaration node, int declarationConfidence,
       {ClassishDeclaration companion})
-      : withMeta = NodeWithMeta(node),
-        super(node, declarationConfidence, companion: companion);
-
-  @override
-  final NodeWithMeta<ClassOrMixinDeclaration, annotations.PropsMixin> withMeta;
-
+      : super(node, declarationConfidence, companion: companion);
+  
   @override
   bool get isProps => true;
 }
@@ -107,11 +105,7 @@ class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
 class BoilerplateStateMixin extends BoilerplatePropsOrStateMixin {
   BoilerplateStateMixin(ClassOrMixinDeclaration node, int declarationConfidence,
       {ClassishDeclaration companion})
-      : withMeta = NodeWithMeta(node),
-        super(node, declarationConfidence, companion: companion);
-
-  @override
-  final NodeWithMeta<ClassOrMixinDeclaration, annotations.StateMixin> withMeta;
+      : super(node, declarationConfidence, companion: companion);
 
   @override
   bool get isProps => false;
