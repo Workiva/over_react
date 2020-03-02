@@ -49,57 +49,68 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   final states = members.states;
   final stateMixins = members.stateMixins;
 
-  // Remove legacy map views so they don't get grouped with anything else and throw things off.
+  // -----------------------------------------------------------------------------------------------
+  //
+  // Legacy map views
+  //
+  // Remove them so they don't get grouped with anything else and throw things off.
+  //
   props.removeWhere((p) => p.isLegacyMapView);
+
+  // -----------------------------------------------------------------------------------------------
+  //
+  // Legacy abstract props/state classes
+  //
+  // They be declared stand-alone without needing other abstract component members, so grouping
+  // them isn't helpful, and can actually cause issues for edge cases where there are other
+  // `noGenerate` members with similar names.
+  //
+  // So, we handle them individually, similarly to mixins.
+  //
 
   for (final propsClass in List.of(props)) {
     final version = resolveVersion([propsClass]);
-    if (version.isLegacy) {
-      if (propsClass.node.hasAnnotationWithName('AbstractProps')) {
-        props.remove(propsClass);
-        yield LegacyAbstractClassComponentDeclaration(version: version, props: propsClass);
-      }
+    if (version.isLegacy && propsClass.node.hasAnnotationWithName('AbstractProps')) {
+      props.remove(propsClass);
+      yield LegacyAbstractClassComponentDeclaration(version: version, props: propsClass);
     }
   }
 
   for (final stateClass in List.of(states)) {
     final version = resolveVersion([stateClass]);
-    if (version.isLegacy) {
-      if (stateClass.node.hasAnnotationWithName('AbstractState')) {
-        states.remove(stateClass);
-        yield LegacyAbstractClassComponentDeclaration(version: version, state: stateClass);
-      }
+    if (version.isLegacy && stateClass.node.hasAnnotationWithName('AbstractState')) {
+      states.remove(stateClass);
+      yield LegacyAbstractClassComponentDeclaration(version: version, state: stateClass);
     }
   }
 
+  // -----------------------------------------------------------------------------------------------
+  //
+  // Props/state mixins
+  //
+  // Don't remove them from the list so that they can be associated with any components
+  // that use them in the shorthand syntax.
+  //
+
   for (var propsMixin in propsMixins) {
     final version = resolveVersion([propsMixin]);
-    switch (version) {
-      case BoilerplateVersion.v2_legacyBackwardsCompat:
-      case BoilerplateVersion.v3_legacyDart2Only:
-      case BoilerplateVersion.v4_mixinBased:
-        yield PropsMixinDeclaration(version: version, propsMixin: propsMixin);
-        break;
-      case BoilerplateVersion.noGenerate:
-        break;
+    if (version != BoilerplateVersion.noGenerate) {
+      yield PropsMixinDeclaration(version: version, propsMixin: propsMixin);
     }
   }
 
   for (var stateMixin in stateMixins) {
     final version = resolveVersion([stateMixin]);
-    switch (version) {
-      case BoilerplateVersion.v2_legacyBackwardsCompat:
-      case BoilerplateVersion.v3_legacyDart2Only:
-      case BoilerplateVersion.v4_mixinBased:
-        yield StateMixinDeclaration(version: version, stateMixin: stateMixin);
-        break;
-      case BoilerplateVersion.noGenerate:
-        break;
+    if (version != BoilerplateVersion.noGenerate) {
+      yield StateMixinDeclaration(version: version, stateMixin: stateMixin);
     }
   }
 
+  // -----------------------------------------------------------------------------------------------
+  //
   // Special-case handling: if there's only one component declared in the file,
   // and it's a legacy component, group the members together even if their names don't match.
+  //
   if (props.length == 1 && components.length == 1 && factories.length == 1) {
     final version = resolveVersion([
       props.single,
@@ -117,6 +128,11 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
       );
     }
   }
+
+  // -----------------------------------------------------------------------------------------------
+  //
+  // Declarations with factories (components and non-legacy map views)
+  //
 
   final unusedFactories = <FactoryGroup>[];
 
@@ -207,6 +223,11 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
       }
     }
   }
+
+  // -----------------------------------------------------------------------------------------------
+  //
+  // Handle leftover members that didn't get grouped into a declaration
+  //
 
   // Ignore remaining components without matching factories and props classes or just props classes.
   // TODO should these warn if their declarationConfidence/versionConfidence is sufficiently high?
