@@ -111,6 +111,9 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   // Special-case handling: if there's only one component declared in the file,
   // and it's a legacy component, group the members together even if their names don't match.
   //
+  // This is to prevent regressing these cases when switching to the new parser, since the old one
+  // was name-agnostic and expected at most one non-abstract component per file.
+  // FIXME do we need to remove abstract components before this point, to support a single file with both an abstract component and component?
   if (props.length == 1 && components.length == 1 && factories.length == 1) {
     final version = resolveVersion([
       props.single,
