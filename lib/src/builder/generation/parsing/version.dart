@@ -27,7 +27,9 @@ enum BoilerplateVersion {
 }
 
 extension BoilerplateVersionExtension on BoilerplateVersion {
-  bool get isLegacy => this == BoilerplateVersion.v2_legacyBackwardsCompat || this == BoilerplateVersion.v3_legacyDart2Only;
+  bool get isLegacy =>
+      this == BoilerplateVersion.v2_legacyBackwardsCompat ||
+      this == BoilerplateVersion.v3_legacyDart2Only;
 }
 
 BoilerplateVersion resolveVersion(Iterable<BoilerplateMember> members) {
@@ -48,7 +50,9 @@ List<BoilerplateVersion> resolveVersions(Iterable<BoilerplateMember> members) {
       final compareResult = b.value.compareTo(a.value);
       // For ties, chose the preferred boilerplate.
       if (compareResult == 0) {
-        return boilerplateVersionPriority.indexOf(a.key).compareTo(boilerplateVersionPriority.indexOf(b.key));
+        return boilerplateVersionPriority
+            .indexOf(a.key)
+            .compareTo(boilerplateVersionPriority.indexOf(b.key));
       }
       return compareResult;
     });

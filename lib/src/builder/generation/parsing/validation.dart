@@ -1,4 +1,3 @@
-
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:source_span/source_span.dart';
 
@@ -20,7 +19,8 @@ class CallbackValidationErrorCollector extends ValidationErrorCollector {
   final void Function(String message, [SourceSpan span]) onError;
   final void Function(String message, [SourceSpan span]) onWarning;
 
-  CallbackValidationErrorCollector(this._sourceFile, {
+  CallbackValidationErrorCollector(
+    this._sourceFile, {
     this.onError,
     this.onWarning,
   });

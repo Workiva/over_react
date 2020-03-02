@@ -10,11 +10,14 @@ class BoilerplateFactory extends BoilerplateMember {
 
   @override
   Map<BoilerplateVersion, int> get versionConfidence => {
-    BoilerplateVersion.v2_legacyBackwardsCompat: hasFactoryAnnotation ? Confidence.medium : Confidence.veryLow,
-    BoilerplateVersion.v3_legacyDart2Only: hasFactoryAnnotation ? Confidence.medium : Confidence.veryLow,
-    BoilerplateVersion.v4_mixinBased: hasFactoryAnnotation ? Confidence.medium : Confidence.high,
-    BoilerplateVersion.noGenerate: hasFactoryAnnotation ? Confidence.veryLow : Confidence.high,
-  };
+        BoilerplateVersion.v2_legacyBackwardsCompat:
+            hasFactoryAnnotation ? Confidence.medium : Confidence.veryLow,
+        BoilerplateVersion.v3_legacyDart2Only:
+            hasFactoryAnnotation ? Confidence.medium : Confidence.veryLow,
+        BoilerplateVersion.v4_mixinBased:
+            hasFactoryAnnotation ? Confidence.medium : Confidence.high,
+        BoilerplateVersion.noGenerate: hasFactoryAnnotation ? Confidence.veryLow : Confidence.high,
+      };
 
   bool get hasFactoryAnnotation => node.hasAnnotationWithName('Factory');
 
@@ -28,7 +31,8 @@ class BoilerplateFactory extends BoilerplateMember {
       case BoilerplateVersion.v2_legacyBackwardsCompat:
       case BoilerplateVersion.v3_legacyDart2Only:
         if (!hasFactoryAnnotation) {
-          errorCollector.addError('Legacy boilerplate factories must be annotated with `@Factory()`.',
+          errorCollector.addError(
+              'Legacy boilerplate factories must be annotated with `@Factory()`.',
               errorCollector.spanFor(node));
         }
 
@@ -45,7 +49,8 @@ class BoilerplateFactory extends BoilerplateMember {
     final expectedInitializer = '$privateSourcePrefix$factoryName';
 
     if (generatedFactoryReferenceName != expectedInitializer) {
-      errorCollector.addError('Should reference generated factory. For example, `UiFactory<...> Foo = _\$Foo;`',
+      errorCollector.addError(
+          'Should reference generated factory. For example, `UiFactory<...> Foo = _\$Foo;`',
           errorCollector.spanFor(variable));
     } else {
       // When not null, this will be validated as part of the group since
@@ -53,9 +58,7 @@ class BoilerplateFactory extends BoilerplateMember {
   }
 
   String get generatedFactoryReferenceName {
-    return node.variables.variables.first.initializer
-        ?.tryCast<Identifier>()
-        ?.nameWithoutPrefix;
+    return node.variables.variables.first.initializer?.tryCast<Identifier>()?.nameWithoutPrefix;
   }
 
 //  static bool _isFunctionComponentOrHoc(Expression initializer) {
@@ -63,7 +66,6 @@ class BoilerplateFactory extends BoilerplateMember {
 //    return containsFunctionCall(initializer);
 //  }
 }
-
 
 //bool containsFunctionCall(AstNode node) {
 //  final visitor = _FunctionCallDetector();
@@ -78,4 +80,3 @@ class BoilerplateFactory extends BoilerplateMember {
 //    detected = true;
 //  }
 //}
-

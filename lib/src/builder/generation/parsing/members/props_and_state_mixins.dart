@@ -11,7 +11,8 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
   @override
   SimpleIdentifier get name => node.name;
 
-  BoilerplatePropsOrStateMixin(this.node, int declarationConfidence, {@required this.companion}) : super(declarationConfidence) {
+  BoilerplatePropsOrStateMixin(this.node, int declarationConfidence, {@required this.companion})
+      : super(declarationConfidence) {
     config = getPropsOrStateAnnotation(isProps, node);
   }
 
@@ -24,16 +25,11 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
     final hasGeneratedPrefix = node.name.name.startsWith(r'_$');
 
     final map = {
-      BoilerplateVersion.v2_legacyBackwardsCompat: isMixin
-          ? Confidence.none
-          : (hasGeneratedPrefix ? Confidence.veryLow : Confidence.high),
-
-      BoilerplateVersion.v3_legacyDart2Only: isMixin
-          ? Confidence.none
-          : (hasGeneratedPrefix ? Confidence.high : Confidence.veryLow),
-
-      BoilerplateVersion.v4_mixinBased:
-          isMixin ? Confidence.high : Confidence.veryLow,
+      BoilerplateVersion.v2_legacyBackwardsCompat:
+          isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.veryLow : Confidence.high),
+      BoilerplateVersion.v3_legacyDart2Only:
+          isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.high : Confidence.veryLow),
+      BoilerplateVersion.v4_mixinBased: isMixin ? Confidence.high : Confidence.veryLow,
     };
 
     final nodeHelper = node.asClassish();
@@ -55,7 +51,8 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
   void validate(BoilerplateVersion version, ValidationErrorCollector errorCollector) {
     void _sharedLegacyValidation() {
       if (!node.hasAnnotationWithName(propsOrStateMixinAnnotationName)) {
-        errorCollector.addError('Legacy boilerplate ${propsOrStateMixinString}s must be annotated with '
+        errorCollector.addError(
+            'Legacy boilerplate ${propsOrStateMixinString}s must be annotated with '
             ' `@$propsOrStateMixinAnnotationName()`',
             errorCollector.spanFor(node));
       }
@@ -68,17 +65,19 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
         final node = this.node;
         if (node is MixinDeclaration) {
           final isOnUiProps = node.onClause?.superclassConstraints
-              ?.any((type) => type.nameWithoutPrefix == propsOrStateBaseClassString) ?? false;
+                  ?.any((type) => type.nameWithoutPrefix == propsOrStateBaseClassString) ??
+              false;
           if (!isOnUiProps) {
-            errorCollector.addError('$propsOrStateString mixins must be `on $propsOrStateBaseClassString`',
+            errorCollector.addError(
+                '$propsOrStateString mixins must be `on $propsOrStateBaseClassString`',
                 errorCollector.spanFor(node.onClause ?? node.name));
           }
         } else {
           // It's possible in the future that this may not always
           // be a ClassDeclaration, so fall back to node if it's not one.
           final spanNode = node.tryCast<ClassDeclaration>()?.classKeyword ?? node;
-          errorCollector.addError('$propsOrStateString mixins must be mixins',
-              errorCollector.spanFor(spanNode));
+          errorCollector.addError(
+              '$propsOrStateString mixins must be mixins', errorCollector.spanFor(spanNode));
         }
         break;
       case BoilerplateVersion.v2_legacyBackwardsCompat:
@@ -97,7 +96,7 @@ class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
   BoilerplatePropsMixin(ClassOrMixinDeclaration node, int declarationConfidence,
       {ClassishDeclaration companion})
       : super(node, declarationConfidence, companion: companion);
-  
+
   @override
   bool get isProps => true;
 }

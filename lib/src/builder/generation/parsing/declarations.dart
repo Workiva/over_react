@@ -87,15 +87,15 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
   for (var stateMixin in stateMixins) {
     final version = resolveVersion([stateMixin]);
-      switch (version) {
-        case BoilerplateVersion.v2_legacyBackwardsCompat:
-        case BoilerplateVersion.v3_legacyDart2Only:
-        case BoilerplateVersion.v4_mixinBased:
-          yield StateMixinDeclaration(version: version, stateMixin: stateMixin);
-          break;
-        case BoilerplateVersion.noGenerate:
-          break;
-      }
+    switch (version) {
+      case BoilerplateVersion.v2_legacyBackwardsCompat:
+      case BoilerplateVersion.v3_legacyDart2Only:
+      case BoilerplateVersion.v4_mixinBased:
+        yield StateMixinDeclaration(version: version, stateMixin: stateMixin);
+        break;
+      case BoilerplateVersion.noGenerate:
+        break;
+    }
   }
 
   // Special-case handling: if there's only one component declared in the file,
@@ -182,23 +182,23 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
       if (isFunctionComponent(factory)) {
         yield FunctionComponentDeclaration(
-            version: BoilerplateVersion.v4_mixinBased,
-            factory: factory, props: propsClassOrMixin);
+            version: BoilerplateVersion.v4_mixinBased, factory: factory, props: propsClassOrMixin);
       } else {
         final version = resolveVersion([factory, propsClassOrMixin.either]);
         switch (version) {
-            case BoilerplateVersion.v2_legacyBackwardsCompat:
-            case BoilerplateVersion.v3_legacyDart2Only:
-              errorCollector.addError('Missing component for factory/props',
-                  errorCollector.spanFor(factory.node));
-              break;
-            case BoilerplateVersion.v4_mixinBased:
-              yield PropsMapViewDeclaration(
-                  version: BoilerplateVersion.v4_mixinBased,
-                  factory: factory, props: propsClassOrMixin);
-              break;
-            case BoilerplateVersion.noGenerate:
-              break;
+          case BoilerplateVersion.v2_legacyBackwardsCompat:
+          case BoilerplateVersion.v3_legacyDart2Only:
+            errorCollector.addError(
+                'Missing component for factory/props', errorCollector.spanFor(factory.node));
+            break;
+          case BoilerplateVersion.v4_mixinBased:
+            yield PropsMapViewDeclaration(
+                version: BoilerplateVersion.v4_mixinBased,
+                factory: factory,
+                props: propsClassOrMixin);
+            break;
+          case BoilerplateVersion.noGenerate:
+            break;
         }
       }
     }
@@ -232,9 +232,8 @@ class FactoryGroup {
   BoilerplateFactory get bestFactory {
     if (factories.length == 1) return factories[0];
 
-    final factoriesInitializedToIdentifier = factories
-        .where((factory) => factory.node.firstInitializer is Identifier)
-        .toList();
+    final factoriesInitializedToIdentifier =
+        factories.where((factory) => factory.node.firstInitializer is Identifier).toList();
     if (factoriesInitializedToIdentifier.length == 1) {
       return factoriesInitializedToIdentifier.first;
     }
@@ -266,19 +265,14 @@ List<FactoryGroup> groupFactories(Iterable<BoilerplateFactory> factories) {
 bool isStandaloneFactory(BoilerplateFactory factory) {
   final initializer = factory.node.firstInitializer;
   return initializer != null &&
-      !(initializer
-              ?.tryCast<Identifier>()
-              ?.name
-              ?.startsWith(RegExp(r'[_\$]')) ??
-          false);
+      !(initializer?.tryCast<Identifier>()?.name?.startsWith(RegExp(r'[_\$]')) ?? false);
 }
 
 bool isFunctionComponent(BoilerplateFactory factory) {
   return false;
 }
 
-AstNode fuzzyMatch(
-    BoilerplateMember member, Iterable<BoilerplateMember> members) {
+AstNode fuzzyMatch(BoilerplateMember member, Iterable<BoilerplateMember> members) {
   // todo implement
   var match = members.firstOrNull?.node;
 
@@ -301,8 +295,8 @@ abstract class BoilerplateDeclaration {
   void validate(ValidationErrorCollector errorCollector) {
     if (version == null) {
       // This should almost never happen.
-      errorCollector.addError('Could not determine boilerplate version.',
-          errorCollector.spanFor(_members.first.node));
+      errorCollector.addError(
+          'Could not determine boilerplate version.', errorCollector.spanFor(_members.first.node));
       return;
     }
 
@@ -343,15 +337,16 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
     super.validate(errorCollector);
 
     if (!component.node.hasAnnotationWithNames({'Component', 'Component2'})) {
-      errorCollector.addError('Legacy boilerplate components must be annotated with `@Component()` or `@Component2()`.',
+      errorCollector.addError(
+          'Legacy boilerplate components must be annotated with `@Component()` or `@Component2()`.',
           errorCollector.spanFor(component.node));
     }
-    
+
     if (!props.node.hasAnnotationWithNames({'Props'})) {
       errorCollector.addError('Legacy boilerplate props classes must be annotated with `@Props()`.',
           errorCollector.spanFor(props.node));
     }
-    
+
     if (state != null && !state.node.hasAnnotationWithNames({'State'})) {
       errorCollector.addError('Legacy boilerplate state classes must be annotated with `@State()`.',
           errorCollector.spanFor(state.node));
@@ -373,26 +368,35 @@ class LegacyAbstractClassComponentDeclaration extends BoilerplateDeclaration {
     this.component,
     this.props,
     this.state,
-  }) : assert((component ?? props ?? state) != null, 'Must provide component, props, or state'), super(version);
+  })  : assert((component ?? props ?? state) != null, 'Must provide component, props, or state'),
+        super(version);
 
   @override
   void validate(ValidationErrorCollector errorCollector) {
     super.validate(errorCollector);
 
-    if (component != null && !component.node.hasAnnotationWithNames({'AbstractComponent', 'AbstractComponent2'})) {
-      errorCollector.addWarning('Legacy boilerplate abstract components should be annotated with `@AbstractComponent()` or `@AbstractComponent2()`.',
+    if (component != null &&
+        !component.node.hasAnnotationWithNames({'AbstractComponent', 'AbstractComponent2'})) {
+      errorCollector.addWarning(
+          'Legacy boilerplate abstract components should be annotated with `@AbstractComponent()` or `@AbstractComponent2()`.',
           errorCollector.spanFor(component.node));
     }
 
     // It's possible to declare an abstract class without any props/state fields that need to be generated.
-    if (props != null && props.nodeHelper.members.isNotEmpty && !props.node.hasAnnotationWithName('AbstractProps')) {
-      errorCollector.addError('Legacy boilerplate abstract props must be annotated with `@AbstractProps()`.',
+    if (props != null &&
+        props.nodeHelper.members.isNotEmpty &&
+        !props.node.hasAnnotationWithName('AbstractProps')) {
+      errorCollector.addError(
+          'Legacy boilerplate abstract props must be annotated with `@AbstractProps()`.',
           errorCollector.spanFor(props.node));
     }
 
     // It's possible to declare an abstract class without any props/state fields that need to be generated.
-    if (state != null && state.nodeHelper.members.isNotEmpty && !state.node.hasAnnotationWithName('AbstractState')) {
-      errorCollector.addError('Legacy boilerplate abstract state must be annotated with `@AbstractState()`.',
+    if (state != null &&
+        state.nodeHelper.members.isNotEmpty &&
+        !state.node.hasAnnotationWithName('AbstractState')) {
+      errorCollector.addError(
+          'Legacy boilerplate abstract state must be annotated with `@AbstractState()`.',
           errorCollector.spanFor(state.node));
     }
   }

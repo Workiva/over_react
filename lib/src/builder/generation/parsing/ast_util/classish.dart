@@ -16,7 +16,8 @@ abstract class ClassishDeclaration {
       return _ClasssishMixin(node);
     }
 
-    throw ArgumentError.value(node, 'node', 'must be one of: ClassDeclaration, ClassTypeAlias, MixinDeclaration');
+    throw ArgumentError.value(
+        node, 'node', 'must be one of: ClassDeclaration, ClassTypeAlias, MixinDeclaration');
   }
 
   ClassishDeclaration._();
@@ -40,7 +41,6 @@ abstract class ClassishDeclaration {
   bool get hasAbstractKeyword => abstractKeyword != null;
   List<TypeName> get interfaces;
   List<TypeName> get mixins => withClause?.mixinTypes ?? const [];
-
 }
 
 abstract class _ClassishClassOrMixin extends ClassishDeclaration {
@@ -74,8 +74,8 @@ class _ClassishClass extends _ClassishClassOrMixin {
   @override
   // TODO: implement interfaces
   List<TypeName> get interfaces => [
-    ...?node.implementsClause?.interfaces,
-  ];
+        ...?node.implementsClause?.interfaces,
+      ];
 
   @override
   TypeName get superclass => node.extendsClause?.superclass;
@@ -95,9 +95,9 @@ class _ClasssishMixin extends _ClassishClassOrMixin {
 
   @override
   List<TypeName> get interfaces => [
-    ...?node.implementsClause?.interfaces,
-    ...?node.onClause?.superclassConstraints,
-  ];
+        ...?node.implementsClause?.interfaces,
+        ...?node.onClause?.superclassConstraints,
+      ];
 
   @override
   TypeName get superclass => null;
@@ -135,6 +135,6 @@ class _ClassishClassTypeAlias extends ClassishDeclaration {
 
   @override
   List<TypeName> get interfaces => [
-    ...?node.implementsClause?.interfaces,
-  ];
+        ...?node.implementsClause?.interfaces,
+      ];
 }

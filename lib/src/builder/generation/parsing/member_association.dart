@@ -19,10 +19,12 @@ String normalizeNameAndRemoveSuffix(BoilerplateMember member) {
 }
 
 T _getMemberWithMatchingName<T extends BoilerplateMember>(Iterable<T> members, String name) =>
-    members.firstWhere((member) => normalizeNameAndRemoveSuffix(member) == name, orElse: () => null);
+    members.firstWhere((member) => normalizeNameAndRemoveSuffix(member) == name,
+        orElse: () => null);
 
-Union<A, B> _getMemberUnionWithMatchingName<A extends BoilerplateMember, B extends BoilerplateMember>(
-    Iterable<A> membersA, Iterable<B> membersB, String name) {
+Union<A, B>
+    _getMemberUnionWithMatchingName<A extends BoilerplateMember, B extends BoilerplateMember>(
+        Iterable<A> membersA, Iterable<B> membersB, String name) {
   final a = _getMemberWithMatchingName(membersA, name);
   if (a != null) return Union.a(a);
 
@@ -33,18 +35,13 @@ Union<A, B> _getMemberUnionWithMatchingName<A extends BoilerplateMember, B exten
 }
 
 BoilerplateComponent getComponentFor(
-  BoilerplateMember member,
-  List<BoilerplateComponent> components
-) => _getMemberWithMatchingName(components, normalizeNameAndRemoveSuffix(member));
+        BoilerplateMember member, List<BoilerplateComponent> components) =>
+    _getMemberWithMatchingName(components, normalizeNameAndRemoveSuffix(member));
 
-Union<BoilerplateProps, BoilerplatePropsMixin> getPropsFor(
-  BoilerplateMember member,
-  Iterable<BoilerplateProps> props,
-  Iterable<BoilerplatePropsMixin> propsMixins
-) => _getMemberUnionWithMatchingName(props, propsMixins, normalizeNameAndRemoveSuffix(member));
+Union<BoilerplateProps, BoilerplatePropsMixin> getPropsFor(BoilerplateMember member,
+        Iterable<BoilerplateProps> props, Iterable<BoilerplatePropsMixin> propsMixins) =>
+    _getMemberUnionWithMatchingName(props, propsMixins, normalizeNameAndRemoveSuffix(member));
 
-Union<BoilerplateState, BoilerplateStateMixin> getStateFor(
-  BoilerplateMember member,
-  Iterable<BoilerplateState> states,
-  Iterable<BoilerplateStateMixin> stateMixins
-) => _getMemberUnionWithMatchingName(states, stateMixins, normalizeNameAndRemoveSuffix(member));
+Union<BoilerplateState, BoilerplateStateMixin> getStateFor(BoilerplateMember member,
+        Iterable<BoilerplateState> states, Iterable<BoilerplateStateMixin> stateMixins) =>
+    _getMemberUnionWithMatchingName(states, stateMixins, normalizeNameAndRemoveSuffix(member));

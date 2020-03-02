@@ -13,7 +13,9 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
   @override
   SimpleIdentifier get name => nodeHelper.name;
 
-  BoilerplatePropsOrState(this.nodeHelper, int declarationConfidence, {@required this.companion}) : node = nodeHelper.node, super(declarationConfidence) {
+  BoilerplatePropsOrState(this.nodeHelper, int declarationConfidence, {@required this.companion})
+      : node = nodeHelper.node,
+        super(declarationConfidence) {
     config = getPropsOrStateAnnotation(isProps, node);
   }
 
@@ -44,8 +46,10 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
         // fixme this ain't right
         map[BoilerplateVersion.v4_mixinBased] = Confidence.high;
       } else {
-        map[BoilerplateVersion.v2_legacyBackwardsCompat] = (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.medium : Confidence.veryLow;
-        map[BoilerplateVersion.v3_legacyDart2Only] = (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.veryLow : Confidence.medium;
+        map[BoilerplateVersion.v2_legacyBackwardsCompat] =
+            (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.medium : Confidence.veryLow;
+        map[BoilerplateVersion.v3_legacyDart2Only] =
+            (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.veryLow : Confidence.medium;
         map[BoilerplateVersion.v4_mixinBased] = Confidence.veryLow;
       }
 
@@ -61,7 +65,9 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
     return map;
   }
 
-  bool get isLegacyMapView => name.name.endsWith('MapView') && nodeHelper.members.whereType<ConstructorDeclaration>().isNotEmpty;
+  bool get isLegacyMapView =>
+      name.name.endsWith('MapView') &&
+      nodeHelper.members.whereType<ConstructorDeclaration>().isNotEmpty;
 
   bool get hasCompanionClass => companion != null;
 
@@ -75,23 +81,27 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
         if (node is MixinDeclaration) {
           // It's possible in the future that this may not always
           // be a ClassDeclaration, so fall back to node if it's not one.
-          errorCollector.addError('$propsOrStateClassString implementations must be concrete classes, not mixins',// TODO add versions to error messages
+          errorCollector.addError(
+              '$propsOrStateClassString implementations must be concrete classes, not mixins', // TODO add versions to error messages
               errorCollector.spanFor(node.mixinKeyword));
         } else {
           if (nodeHelper.superclass?.nameWithoutPrefix != propsOrStateBaseClassString) {
-            errorCollector.addError('$propsOrStateClassString implementations must extend directly from $propsOrStateBaseClassString',
+            errorCollector.addError(
+                '$propsOrStateClassString implementations must extend directly from $propsOrStateBaseClassString',
                 errorCollector.spanFor(nodeHelper.superclass ?? node));
           }
 
           if (node is ClassDeclaration && node.members.isNotEmpty) {
-            errorCollector.addError('$propsOrStateClassString implementations must not declare any $propsOrStateFieldsName or other memberss.',
+            errorCollector.addError(
+                '$propsOrStateClassString implementations must not declare any $propsOrStateFieldsName or other memberss.',
                 errorCollector.span(node.leftBracket.offset, node.rightBracket.end));
           }
 
           if (nodeHelper.hasAbstractKeyword) {
             // todo what about the abstract interface case? Do we special case the "Abstract" prefix?
-            errorCollector.addError('$propsOrStateClassString implementations must not be abstract, as they cannot be extended.',
-            errorCollector.spanFor(nodeHelper.abstractKeyword));
+            errorCollector.addError(
+                '$propsOrStateClassString implementations must not be abstract, as they cannot be extended.',
+                errorCollector.spanFor(nodeHelper.abstractKeyword));
           }
         }
         break;
@@ -117,13 +127,15 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
 
   void _sharedLegacyValidation(ValidationErrorCollector errorCollector) {
     if (node is! ClassOrMixinDeclaration) {
-      errorCollector.addError('Legacy boilerplate must use classes or mixins, and not shorthand class declaration',
+      errorCollector.addError(
+          'Legacy boilerplate must use classes or mixins, and not shorthand class declaration',
           errorCollector.spanFor(node));
     }
 
     // Check that class name starts with [privateSourcePrefix]
     if (!node.name.name.startsWith(privateSourcePrefix)) {
-      errorCollector.addError('The class `${node.name.name}` does not start with `$privateSourcePrefix`. All Props, State, '
+      errorCollector.addError(
+          'The class `${node.name.name}` does not start with `$privateSourcePrefix`. All Props, State, '
           'AbstractProps, and AbstractState classes should begin with `$privateSourcePrefix` on Dart 2',
           errorCollector.spanFor(node));
     }

@@ -35,8 +35,8 @@ class InstantiatedMeta<TMeta> {
   factory InstantiatedMeta(AnnotatedNode node) {
     final metaNode = _getMatchingAnnotation(node, TMeta);
     final unsupportedArguments = <Expression>[];
-    final value = instantiateAnnotationTyped<TMeta>(node,
-        onUnsupportedArgument: unsupportedArguments.add);
+    final value =
+        instantiateAnnotationTyped<TMeta>(node, onUnsupportedArgument: unsupportedArguments.add);
 
     if (value == null) return null;
 
@@ -52,8 +52,7 @@ class InstantiatedMeta<TMeta> {
   /// Throws a [StateError] if this node's metadata is incomplete.
   TMeta get value {
     if (isIncomplete) {
-      throw StateError(
-          'Metadata is incomplete; unsupported arguments $unsupportedArguments. '
+      throw StateError('Metadata is incomplete; unsupported arguments $unsupportedArguments. '
           'Use `potentiallyIncompleteMeta` instead.');
     }
     return _value;
@@ -73,8 +72,8 @@ class InstantiatedComponentMeta<TMeta> extends InstantiatedMeta<TMeta> {
   /// Construct a [NodeWithMeta] instance from an [AnnotatedNode].
   /// The original node will be available via [node].
   /// The instantiated annotation of type `TMeta` will be available via [meta].
-  InstantiatedComponentMeta._(Annotation metaNode, TMeta meta,
-      List<Expression> unsupportedArguments, this.subtypeOfValue)
+  InstantiatedComponentMeta._(
+      Annotation metaNode, TMeta meta, List<Expression> unsupportedArguments, this.subtypeOfValue)
       : super._(metaNode, meta, unsupportedArguments);
 
   factory InstantiatedComponentMeta(AnnotatedNode node) {
@@ -84,10 +83,8 @@ class InstantiatedComponentMeta<TMeta> extends InstantiatedMeta<TMeta> {
 
     Identifier subtypeOfValue;
 
-    NamedExpression subtypeOfParam =
-        instantiated.unsupportedArguments.firstWhere((expression) {
-      return expression is NamedExpression &&
-          expression.name.label.name == _subtypeOfParamName;
+    NamedExpression subtypeOfParam = instantiated.unsupportedArguments.firstWhere((expression) {
+      return expression is NamedExpression && expression.name.label.name == _subtypeOfParamName;
     }, orElse: () => null);
 
     if (subtypeOfParam != null) {
@@ -99,7 +96,7 @@ class InstantiatedComponentMeta<TMeta> extends InstantiatedMeta<TMeta> {
       }
     }
 
-    return InstantiatedComponentMeta._(
-        instantiated.metaNode, instantiated.value, instantiated.unsupportedArguments, subtypeOfValue);
+    return InstantiatedComponentMeta._(instantiated.metaNode, instantiated.value,
+        instantiated.unsupportedArguments, subtypeOfValue);
   }
 }

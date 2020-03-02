@@ -12,8 +12,7 @@ class BoilerplateComponent extends BoilerplateMember {
   BoilerplateComponent(this.nodeHelper, int declarationConfidence)
       : node = nodeHelper.node,
         super(declarationConfidence) {
-    final meta =
-        InstantiatedComponentMeta<annotations.Component2>(node) ??
+    final meta = InstantiatedComponentMeta<annotations.Component2>(node) ??
         InstantiatedComponentMeta<annotations.Component>(node);
 
     config = meta?.value ?? annotations.Component2();
@@ -54,8 +53,10 @@ class BoilerplateComponent extends BoilerplateMember {
 
   bool get hasAnnotation => hasComponent1OrAbstractAnnotation || hasComponent2OrAbstractAnnotation;
 
-  bool get hasComponent1OrAbstractAnnotation => node.hasAnnotationWithNames({'Component', 'AbstractComponent'});
-  bool get hasComponent2OrAbstractAnnotation => node.hasAnnotationWithNames({'Component2', 'AbstractComponent2'});
+  bool get hasComponent1OrAbstractAnnotation =>
+      node.hasAnnotationWithNames({'Component', 'AbstractComponent'});
+  bool get hasComponent2OrAbstractAnnotation =>
+      node.hasAnnotationWithNames({'Component2', 'AbstractComponent2'});
   bool isComponent2(BoilerplateVersion version) =>
       version == BoilerplateVersion.v4_mixinBased || hasComponent2OrAbstractAnnotation;
 
@@ -67,8 +68,8 @@ class BoilerplateComponent extends BoilerplateMember {
       case BoilerplateVersion.v4_mixinBased:
         final superclass = nodeHelper.superclass;
         if (superclass?.nameWithoutPrefix == 'UiComponent') {
-          errorCollector.addError('Must extend UiComponent2, not UiComponent.',
-              errorCollector.spanFor(superclass));
+          errorCollector.addError(
+              'Must extend UiComponent2, not UiComponent.', errorCollector.spanFor(superclass));
         }
         break;
       case BoilerplateVersion.v2_legacyBackwardsCompat:
@@ -78,27 +79,25 @@ class BoilerplateComponent extends BoilerplateMember {
 
     // Ensure that Component2 declarations do not use legacy lifecycle methods.
     if (isComponent2(version) && node is ClassOrMixinDeclaration) {
-       Map<String, String> legacyLifecycleMethodsMap = {
-         'componentWillReceiveProps': 'Use getDerivedStateFromProps instead.',
-         'componentWillMount': 'Use init instead.',
-         'componentWillUpdate': 'Use getSnapshotBeforeUpdate instead.',
-       };
+      Map<String, String> legacyLifecycleMethodsMap = {
+        'componentWillReceiveProps': 'Use getDerivedStateFromProps instead.',
+        'componentWillMount': 'Use init instead.',
+        'componentWillUpdate': 'Use getSnapshotBeforeUpdate instead.',
+      };
 
-       legacyLifecycleMethodsMap.forEach((methodName, helpMessage) {
-         final method = (node as ClassOrMixinDeclaration).getMethod(methodName);
-         if (method != null) {
-           errorCollector.addError(unindent(
-               '''
+      legacyLifecycleMethodsMap.forEach((methodName, helpMessage) {
+        final method = (node as ClassOrMixinDeclaration).getMethod(methodName);
+        if (method != null) {
+          errorCollector.addError(unindent('''
                When using Component2, a class cannot use ${method.name} because React 16 has removed ${method.name} 
                and renamed it UNSAFE_${method.name}.
                
                $helpMessage
                
                See https://reactjs.org/docs/react-component.html#legacy-lifecycle-methods for additional information.   
-               '''
-           ), errorCollector.spanFor(method));
-         }
-       });
+               '''), errorCollector.spanFor(method));
+        }
+      });
     }
   }
 }

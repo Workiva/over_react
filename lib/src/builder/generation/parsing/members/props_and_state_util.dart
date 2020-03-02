@@ -32,7 +32,6 @@ annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node)
   return meta?.value ?? (isProps ? annotations.Props() : annotations.State());
 }
 
-
 /// If a [ClassMember] exists in [node] with the name `meta`, this will
 /// throw an error if the member is not static and a warning if the member
 /// is static.
@@ -46,14 +45,16 @@ void checkForMetaPresence(ClassOrMixinDeclaration node, ValidationErrorCollector
     // not static, then we should error, since the static `meta` const in the
     // generated implementation will have a naming collision.
     if (!isStatic) {
-      errorCollector.addError('Non-static class member `meta` is declared in ${node.name.name}. '
+      errorCollector.addError(
+          'Non-static class member `meta` is declared in ${node.name.name}. '
           '`meta` is a field declared by the over_react builder, and is therefore not '
           'valid for use as a class member in any class annotated with  @Props(), @State(), '
           '@AbstractProps(), @AbstractState(), @PropsMixin(), or @StateMixin()',
           errorCollector.spanFor(metaField ?? metaMethod));
     } else {
       // warn that static `meta` definition will not be accessible by consumers.
-      errorCollector.addWarning(messageWithSpan('Static class member `meta` is declared in ${node.name.name}. '
+      errorCollector.addWarning(messageWithSpan(
+          'Static class member `meta` is declared in ${node.name.name}. '
           '`meta` is a field declared by the over_react builder, and therefore this '
           'class member will be unused and should be removed or renamed.',
           span: errorCollector.spanFor(metaField ?? metaMethod)));
@@ -70,7 +71,8 @@ void checkForMetaPresence(ClassOrMixinDeclaration node, ValidationErrorCollector
 /// [cd] should be either a [ClassDeclaration] instance for the companion
 /// class of a props/state/abstract props/abstract state class, or the
 /// [ClassDeclaration] for a props or state mixin class.
-void validateMetaField(ClassishDeclaration cd, String expectedType, ValidationErrorCollector errorCollector) {
+void validateMetaField(
+    ClassishDeclaration cd, String expectedType, ValidationErrorCollector errorCollector) {
   final metaField = getMetaField(cd.members);
   if (metaField == null) return;
 
@@ -83,12 +85,11 @@ void validateMetaField(ClassishDeclaration cd, String expectedType, ValidationEr
 
   final expectedInitializer = '${privateSourcePrefix}metaFor${cd.name.name}';
 
-  final initializer = metaField.fields.variables.single.initializer
-      ?.toSource();
+  final initializer = metaField.fields.variables.single.initializer?.toSource();
   if (!(expectedInitializer == initializer)) {
     errorCollector.addError(
       'Static $expectedType field in accessor class must be initialized to:'
-          '`$expectedInitializer`',
+      '`$expectedInitializer`',
       errorCollector.spanFor(metaField),
     );
   }

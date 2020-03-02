@@ -56,9 +56,11 @@ class BoilerplateMemberDetector {
       if (type?.typeNameWithoutPrefix == 'UiFactory') {
         final firstVar = node.variables.variables.first;
         final name = firstVar.name.name;
-        final identifierInInitializer = firstVar.initializer?.tryCast<Identifier>()?.nameWithoutPrefix;
+        final identifierInInitializer =
+            firstVar.initializer?.tryCast<Identifier>()?.nameWithoutPrefix;
         // Check for `Foo = _$Foo` or `Foo = $Foo` (which could be a typo)
-        if (identifierInInitializer != null && (identifierInInitializer == '_\$$name' || identifierInInitializer == '\$$name')) {
+        if (identifierInInitializer != null &&
+            (identifierInInitializer == '_\$$name' || identifierInInitializer == '\$$name')) {
           members.factories.add(BoilerplateFactory(node, Confidence.high));
           return;
         } else {
@@ -114,14 +116,16 @@ class BoilerplateMemberDetector {
           members.props.add(BoilerplateProps(classish, Confidence.high, companion: companion));
           return true;
         case 'PropsMixin':
-          members.propsMixins.add(BoilerplatePropsMixin(classish.node, Confidence.high, companion: companion));
+          members.propsMixins
+              .add(BoilerplatePropsMixin(classish.node, Confidence.high, companion: companion));
           return true;
         case 'State':
         case 'AbstractState':
           members.states.add(BoilerplateState(classish, Confidence.high, companion: companion));
           return true;
         case 'StateMixin':
-          members.stateMixins.add(BoilerplateStateMixin(classish.node, Confidence.high, companion: companion));
+          members.stateMixins
+              .add(BoilerplateStateMixin(classish.node, Confidence.high, companion: companion));
           return true;
         case 'Component':
         case 'Component2':
@@ -152,11 +156,13 @@ class BoilerplateMemberDetector {
     // Prioritize categorize PropsMixins before Props // todo better comment
     if (looksLikeMixin) {
       if (name.endsWith('Props') || name.endsWith('PropsMixin')) {
-        members.propsMixins.add(BoilerplatePropsMixin(node, Confidence.medium, companion: companion));
+        members.propsMixins
+            .add(BoilerplatePropsMixin(node, Confidence.medium, companion: companion));
         return true;
       }
       if (name.endsWith('State') || name.endsWith('StateMixin')) {
-        members.stateMixins.add(BoilerplateStateMixin(node, Confidence.medium, companion: companion));
+        members.stateMixins
+            .add(BoilerplateStateMixin(node, Confidence.medium, companion: companion));
         return true;
       }
     } else {
@@ -197,7 +203,9 @@ class BoilerplateMemberDetector {
         confidence += Confidence.high;
       }
       // extending from an abstract component: `FooComponent extends BarComponent<FooProps, FooState>`
-      if (classish.superclass?.typeArguments?.arguments?.any((arg) => arg.typeNameWithoutPrefix.contains('Props')) ?? false) {
+      if (classish.superclass?.typeArguments?.arguments
+              ?.any((arg) => arg.typeNameWithoutPrefix.contains('Props')) ??
+          false) {
         confidence += Confidence.medium;
       }
 
@@ -215,7 +223,8 @@ class _BoilerplateMemberDetectorVisitor extends SimpleAstVisitor<void> {
   final void Function(NamedCompilationUnitMember) onClassishDeclaration;
   final void Function(TopLevelVariableDeclaration) onTopLevelVariableDeclaration;
 
-  _BoilerplateMemberDetectorVisitor({this.onClassishDeclaration, this.onTopLevelVariableDeclaration});
+  _BoilerplateMemberDetectorVisitor(
+      {this.onClassishDeclaration, this.onTopLevelVariableDeclaration});
 
   @override
   void visitCompilationUnit(CompilationUnit node) {

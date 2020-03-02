@@ -58,13 +58,13 @@ class BoilerplateMembers {
 
   Iterable<BoilerplateMember> get allMembers => allMembersLists.expand((i) => i);
   List<List<BoilerplateMember>> get allMembersLists => [
-    factories,
-    props,
-    propsMixins,
-    components,
-    states,
-    stateMixins,
-  ];
+        factories,
+        props,
+        propsMixins,
+        components,
+        states,
+        stateMixins,
+      ];
 
   bool get isEmpty => allMembersLists.every((list) => list.isEmpty);
   bool get isNotEmpty => !isEmpty;
@@ -76,11 +76,11 @@ class BoilerplateMembers {
   }
 
   toString() => 'BoilerplateMembers:${prettyPrintMap({
-    'factories': factories,
-    'props': props,
-    'propsMixins': propsMixins,
-    'components': components,
-    'states': states,
-    'stateMixins': stateMixins,
-  }..removeWhere((_, value) => value.isEmpty))}';
+        'factories': factories,
+        'props': props,
+        'propsMixins': propsMixins,
+        'components': components,
+        'states': states,
+        'stateMixins': stateMixins,
+      }..removeWhere((_, value) => value.isEmpty))}';
 }

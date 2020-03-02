@@ -34,17 +34,18 @@ extension NameHelper on Identifier {
 }
 
 extension MetadataHelper on AnnotatedNode {
-  Annotation getAnnotationWithName(String name) => metadata.firstWhere((element) => element.name.nameWithoutPrefix == name, orElse: () => null);
-  Annotation getAnnotationWithNames(Set<String> names) => metadata.firstWhere((element) => names.contains(element.name.nameWithoutPrefix), orElse: () => null);
+  Annotation getAnnotationWithName(String name) =>
+      metadata.firstWhere((element) => element.name.nameWithoutPrefix == name, orElse: () => null);
+  Annotation getAnnotationWithNames(Set<String> names) => metadata
+      .firstWhere((element) => names.contains(element.name.nameWithoutPrefix), orElse: () => null);
 
   bool hasAnnotationWithName(String name) => getAnnotationWithName(name) != null;
   bool hasAnnotationWithNames(Set<String> names) => getAnnotationWithNames(names) != null;
 }
 
 extension SourceFileSpanHelper on SourceFile {
-  FileSpan spanFor(SyntacticEntity nodeOrToken) => nodeOrToken is AstNode
-        ? getSpanForNode(this, nodeOrToken)
-        : _getSpanForEntity(nodeOrToken);
+  FileSpan spanFor(SyntacticEntity nodeOrToken) =>
+      nodeOrToken is AstNode ? getSpanForNode(this, nodeOrToken) : _getSpanForEntity(nodeOrToken);
 
   /// Returns a [SourceSpan] spanning from the beginning to the end of the given
   /// [node]. The preceding comment and metadata will be excluded if
@@ -52,7 +53,8 @@ extension SourceFileSpanHelper on SourceFile {
   FileSpan _getSpanForEntity(SyntacticEntity node) => span(node.offset, node.end);
 }
 
-
 bool onlyImplementsThings(ClassishDeclaration classish) =>
-    classish.interfaces.isNotEmpty && classish.superclass == null && classish.mixins.isEmpty && classish.members.isEmpty;
-
+    classish.interfaces.isNotEmpty &&
+    classish.superclass == null &&
+    classish.mixins.isEmpty &&
+    classish.members.isEmpty;
