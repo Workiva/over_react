@@ -110,7 +110,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
         if (nodeHelper.members.isNotEmpty) {
           _sharedLegacyValidation(errorCollector);
           if (companion == null) {
-            //todo log error
+            errorCollector.addError('Should have companion class', errorCollector.spanFor(node));
           } else {
             validateMetaField(companion, propsOrStateMetaStructName, errorCollector);
           }

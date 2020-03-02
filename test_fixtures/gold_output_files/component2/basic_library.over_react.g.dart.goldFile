@@ -366,6 +366,44 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   ];
 }
 
+abstract class _$SuperPartOfLibPropsAccessorsMixin
+    implements _$SuperPartOfLibProps {
+  @override
+  Map get props;
+
+  /// <!-- Generated from [_$SuperPartOfLibProps.superProp] -->
+  @override
+  String get superProp =>
+      props[_$key__superProp___$SuperPartOfLibProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SuperPartOfLibProps.superProp] -->
+  @override
+  set superProp(String value) =>
+      props[_$key__superProp___$SuperPartOfLibProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__superProp___$SuperPartOfLibProps =
+      PropDescriptor(_$key__superProp___$SuperPartOfLibProps);
+  static const String _$key__superProp___$SuperPartOfLibProps =
+      'SuperPartOfLibProps.superProp';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__superProp___$SuperPartOfLibProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__superProp___$SuperPartOfLibProps
+  ];
+}
+
+const PropsMeta _$metaForSuperPartOfLibProps = PropsMeta(
+  fields: _$SuperPartOfLibPropsAccessorsMixin.$props,
+  keys: _$SuperPartOfLibPropsAccessorsMixin.$propKeys,
+);
+
+abstract class SuperPartOfLibProps extends _$SuperPartOfLibProps
+    with _$SuperPartOfLibPropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForSuperPartOfLibProps;
+}
+
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
@@ -522,42 +560,4 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForSubPartOfLibProps
   ];
-}
-
-abstract class _$SuperPartOfLibPropsAccessorsMixin
-    implements _$SuperPartOfLibProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$SuperPartOfLibProps.superProp] -->
-  @override
-  String get superProp =>
-      props[_$key__superProp___$SuperPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$SuperPartOfLibProps.superProp] -->
-  @override
-  set superProp(String value) =>
-      props[_$key__superProp___$SuperPartOfLibProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__superProp___$SuperPartOfLibProps =
-      PropDescriptor(_$key__superProp___$SuperPartOfLibProps);
-  static const String _$key__superProp___$SuperPartOfLibProps =
-      'SuperPartOfLibProps.superProp';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__superProp___$SuperPartOfLibProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__superProp___$SuperPartOfLibProps
-  ];
-}
-
-const PropsMeta _$metaForSuperPartOfLibProps = PropsMeta(
-  fields: _$SuperPartOfLibPropsAccessorsMixin.$props,
-  keys: _$SuperPartOfLibPropsAccessorsMixin.$propKeys,
-);
-
-abstract class SuperPartOfLibProps extends _$SuperPartOfLibProps
-    with _$SuperPartOfLibPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForSuperPartOfLibProps;
 }

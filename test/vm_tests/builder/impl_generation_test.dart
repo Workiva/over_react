@@ -15,9 +15,10 @@
 @TestOn('vm')
 library impl_generation_test;
 
-import 'package:analyzer/analyzer.dart' hide startsWith;
+import 'package:analyzer/dart/analysis/utilities.dart';
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:mockito/mockito.dart';
-import 'package:over_react/src/builder/generation/declaration_parsing.dart';
+import 'package:over_react/src/builder/generation/parsing.dart';
 import 'package:over_react/src/builder/generation/impl_generation.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
@@ -31,7 +32,7 @@ main() {
     MockLogger logger;
     SourceFile sourceFile;
     CompilationUnit unit;
-    ParsedDeclarations declarations;
+    List<BoilerplateDeclaration> declarations;
 
     tearDown(() {
       implGenerator = null;
@@ -42,8 +43,11 @@ main() {
 
       sourceFile = SourceFile.fromString(source);
 
-      unit = parseCompilationUnit(source);
-      declarations = ParsedDeclarations(unit, sourceFile, logger);
+      unit = parseString(content: source).unit;
+
+      final errorCollector = ValidationErrorCollector.log(sourceFile, logger);
+
+      declarations = parseAndValidateDeclarations(unit, errorCollector);
       implGenerator = ImplGenerator(logger, sourceFile);
     }
 
@@ -57,16 +61,13 @@ main() {
     void verifyNoErrorLogs() {
       verifyNever(logger.warning(any));
       verifyNever(logger.severe(any));
-
-      expect(declarations.hasErrors, isFalse);
     }
 
     void verifyImplGenerationIsValid() {
       var buildOutput = implGenerator.outputContentsBuffer.toString();
 
-      expect(() {
-        parseCompilationUnit(buildOutput);
-      }, returnsNormally, reason: 'transformed source should parse without errors:\n');
+      final result = parseString(content: buildOutput, throwIfDiagnostics: false);
+      expect(result.errors, isEmpty, reason: 'transformed source should parse without errors:\n');
     }
 
     void generateFromSource(String source) {
@@ -508,14 +509,14 @@ main() {
             testStaticFieldCopying(OverReactSrc.props(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.props(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
         });
 
@@ -528,14 +529,14 @@ main() {
             testStaticFieldCopying(OverReactSrc.state(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.state(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
         });
 
@@ -548,14 +549,14 @@ main() {
             testStaticFieldCopying(OverReactSrc.abstractProps(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.abstractProps(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
         });
 
@@ -568,14 +569,14 @@ main() {
             testStaticFieldCopying(OverReactSrc.abstractState(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.abstractState(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
         });
 
@@ -588,14 +589,14 @@ main() {
             testStaticFieldCopying(OverReactSrc.propsMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.propsMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
         });
 
@@ -608,14 +609,14 @@ main() {
             testStaticFieldCopying(OverReactSrc.stateMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.stateMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
         });
       });
