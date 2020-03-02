@@ -182,7 +182,10 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
       if (isFunctionComponent(factory)) {
         yield FunctionComponentDeclaration(
-            version: BoilerplateVersion.v4_mixinBased, factory: factory, props: propsClassOrMixin);
+          version: BoilerplateVersion.v4_mixinBased,
+          factory: factory,
+          props: propsClassOrMixin,
+        );
       } else {
         final version = resolveVersion([factory, propsClassOrMixin.either]);
         switch (version) {
@@ -193,9 +196,10 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
             break;
           case BoilerplateVersion.v4_mixinBased:
             yield PropsMapViewDeclaration(
-                version: BoilerplateVersion.v4_mixinBased,
-                factory: factory,
-                props: propsClassOrMixin);
+              version: BoilerplateVersion.v4_mixinBased,
+              factory: factory,
+              props: propsClassOrMixin,
+            );
             break;
           case BoilerplateVersion.noGenerate:
             break;

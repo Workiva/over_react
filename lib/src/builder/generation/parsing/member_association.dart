@@ -35,13 +35,21 @@ Union<A, B>
 }
 
 BoilerplateComponent getComponentFor(
-        BoilerplateMember member, List<BoilerplateComponent> components) =>
+  BoilerplateMember member,
+  List<BoilerplateComponent> components,
+) =>
     _getMemberWithMatchingName(components, normalizeNameAndRemoveSuffix(member));
 
-Union<BoilerplateProps, BoilerplatePropsMixin> getPropsFor(BoilerplateMember member,
-        Iterable<BoilerplateProps> props, Iterable<BoilerplatePropsMixin> propsMixins) =>
+Union<BoilerplateProps, BoilerplatePropsMixin> getPropsFor(
+  BoilerplateMember member,
+  Iterable<BoilerplateProps> props,
+  Iterable<BoilerplatePropsMixin> propsMixins,
+) =>
     _getMemberUnionWithMatchingName(props, propsMixins, normalizeNameAndRemoveSuffix(member));
 
-Union<BoilerplateState, BoilerplateStateMixin> getStateFor(BoilerplateMember member,
-        Iterable<BoilerplateState> states, Iterable<BoilerplateStateMixin> stateMixins) =>
+Union<BoilerplateState, BoilerplateStateMixin> getStateFor(
+  BoilerplateMember member,
+  Iterable<BoilerplateState> states,
+  Iterable<BoilerplateStateMixin> stateMixins,
+) =>
     _getMemberUnionWithMatchingName(states, stateMixins, normalizeNameAndRemoveSuffix(member));

@@ -36,6 +36,7 @@ extension NameHelper on Identifier {
 extension MetadataHelper on AnnotatedNode {
   Annotation getAnnotationWithName(String name) =>
       metadata.firstWhere((element) => element.name.nameWithoutPrefix == name, orElse: () => null);
+
   Annotation getAnnotationWithNames(Set<String> names) => metadata
       .firstWhere((element) => names.contains(element.name.nameWithoutPrefix), orElse: () => null);
 
