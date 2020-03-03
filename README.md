@@ -99,9 +99,6 @@ mount / render it into the HTML element you created in step 3.
     import 'package:over_react/over_react.dart';
 
     main() {
-      // Initialize React within our Dart app
-      setClientConfiguration();
-
       // Mount / render your component.
       react_dom.render(Foo()(), querySelector('#react_mount_point'));
     }
@@ -170,7 +167,6 @@ __`UiFactory` is a function__ that returns a new instance of a
 [`UiComponent`](#uicomponent2)’s [`UiProps`](#uiprops) class.
 
 ```dart
-@Factory()
 UiFactory<FooProps> Foo = _$Foo;
 ```
 
@@ -186,30 +182,42 @@ __`UiProps` is a Map class__ that adds statically-typed getters and setters for 
 It can also be invoked as a function, serving as a builder for its analogous component.
 
 ```dart
-@Props()
-class _$FooProps extends UiProps {
+mixin FooProps on UiProps {
   // ...
 }
 ```
-* Note: The [builder] will make the concrete getters and setters available in a generated class which has the same name
-as the class annotated with `@Props()`, but without the `_$` prefix (which would be `FooProps` in the above code).
-The generated class will also have the same API. So, consumers who wish to extend the functionality of `_$FooProps` should
-extend the generated version, `FooProps`.
+* Note: The [builder] will make the concrete getters and setters available in a generated class. To mix props classes together, the mixin class should be used rather than the generated props class. See [With other mixins](#with-other-mixins) below for more information.
+
+&nbsp;
+
+#### With other mixins
+
+__To compose props mixin classes__, create a class alias that uses `UiProps` as the base and mix in props mixins. The generated props implementation will then use it as the base class and implement the generated version of those props mixins.
+```dart
+UiFactory<FooProps> Foo = _$Foo;
+
+mixin FooPropsMixin on UiProps {
+  // ...
+}
+
+class FooProps = UiProps with FooPropsMixin, BarPropsMixin;
+
+class FooComponent extends UiComponent2<FooProps> {
+  // ...
+}
+```
 
 &nbsp;
 
 #### UiProps as a Map
 
 ```dart
-@Factory()
 UiFactory<FooProps> Foo = _$Foo;
 
-@Props()
-class _$FooProps extends UiProps {
+mixin FooProps on UiProps {
   String color;
 }
 
-@Component2()
 class FooComponent extends UiComponent2<FooProps> {
   // ...
 }
@@ -239,11 +247,9 @@ void baz() {
 #### UiProps as a builder
 
 ```dart
-@Factory()
 UiFactory<FooProps> Foo = _$Foo;
 
-@Props()
-class _$FooProps extends UiProps {
+mixin FooProps on UiProps {
   String color;
 }
 
@@ -285,17 +291,13 @@ __`UiState` is a Map class__ _(just like `UiProps`)_ that adds statically-typed 
 for each React component state property.
 
 ```dart
-@State()
-class _$FooState extends UiState {
+mixin FooState on UiState {
   // ...
 }
 ```
 
 > UiState is optional, and won’t be used for every component.
-* Note: The [builder] will make the concrete getters and setters available in a generated class which has the same name
-as the class annotated with `@State()`, but without the `_$` prefix (which would be `FooState` in the above code).
-The generated class will also have the same API. So, consumers who wish to extend the functionality of `_$FooState` should
-use the generated version, `FooState`.
+* Note: The [builder] will make the concrete getters and setters available in a generated class. To mix state classes together, the mixin class should be used rather than the generated state class. See [With other mixins](#with-other-mixins) above for  more information.
 
 &nbsp;
 
@@ -306,7 +308,6 @@ __`UiComponent2` is a subclass of [`react.Component2`]__, containing lifecycle m
 and rendering logic for components.
 
 ```dart
-@Component2()
 class FooComponent extends UiComponent2<FooProps> {
   // ...
 }
@@ -328,7 +329,6 @@ They are instances of `UiProps` and `UiState`, __which means you don’t need St
 * `typedPropsFactory()` and `typedStateFactory()` are also exposed to conveniently create typed `props` / `state` objects out of any provided backing map.
 
 ```dart
-@Component2()
 class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
   @override
   get defaultProps => (newProps()
@@ -703,17 +703,14 @@ that you get for free from OverReact, you're ready to start building your own cu
     import 'package:over_react/over_react.dart';
     part 'foo_component.over_react.g.dart';
 
-    @Factory()
     UiFactory<FooProps> Foo = _$Foo;
 
-    @Props()
-    class _$FooProps extends UiProps {
+    mixin FooProps on UiProps {
       // Props go here, declared as fields:
       bool isDisabled;
       Iterable<String> items;
     }
 
-    @Component2()
     class FooComponent extends UiComponent2<FooProps> {
       @override
       get defaultProps => (newProps()
@@ -737,23 +734,19 @@ that you get for free from OverReact, you're ready to start building your own cu
     import 'package:over_react/over_react.dart';
     part 'foo_component.over_react.g.dart';
 
-    @Factory()
     UiFactory<BarProps> Bar = _$Bar;
 
-    @Props()
-    class _$BarProps extends UiProps {
+    mixin BarProps on UiProps {
       // Props go here, declared as fields:
       bool isDisabled;
       Iterable<String> items;
     }
 
-    @State()
-    class _$BarState extends UiState {
+    mixin BarState on UiState {
       // State goes here, declared as fields:
       bool isShown;
     }
 
-    @Component2()
     class BarComponent extends UiStatefulComponent2<BarProps, BarState> {
       @override
       get defaultProps => (newProps()
@@ -783,16 +776,15 @@ that you get for free from OverReact, you're ready to start building your own cu
     import 'package:over_react/over_react.dart';
     part 'foo_component.over_react.g.dart';
 
-    @Factory()
     UiFactory<BazProps> Baz = _$Baz;
 
-    @Props()
-    class _$BazProps extends FluxUiProps<BazActions, BazStore> {
+    mixin BazPropsMixin on UiProps {
       // Props go here, declared as fields.
       // `actions` and `store` are already defined for you!
     }
 
-    @Component2()
+    class BazProps = UiProps with FluxUiPropsMixin<BazActions, BazStore>, BazPropsMixin;
+  
     class BazComponent extends FluxUiComponent2<BazProps> {
       @override
       get defaultProps => (newProps()
@@ -815,21 +807,21 @@ that you get for free from OverReact, you're ready to start building your own cu
     import 'package:over_react/over_react.dart';
     part 'foo_component.over_react.g.dart';
 
-    @Factory()
     UiFactory<BazProps> Baz = _$Baz;
 
-    @Props()
-    class _$BazProps extends FluxUiProps<BazActions, BazStore> {
+  
+    mixin BazPropsMixin on UiProps {
       // Props go here, declared as fields.
       // `actions` and `store` are already defined for you!
     }
 
-    @State()
-    class _$BazState extends UiState {
+    class BazProps = UiProps with FluxUiPropsMixin<BazActions, BazStore>, BazPropsMixin;
+
+  
+    mixin BazState on UiState {
       // State goes here, declared as fields.
     }
 
-    @Component2()
     class BazComponent extends FluxUiStatefulComponent2<BazProps, BazState> {
       @override
       get defaultProps => (newProps()
@@ -869,14 +861,12 @@ another component.
     /// * Similar to [SplitButton].
     ///
     /// See: <https://link-to-any-relevant-documentation>.
-    @Factory()
     UiFactory<DropdownButtonProps> DropdownButton = _$DropdownButton;
     ```
 
   _Bad:_
     ```dart
     /// Component Factory for a dropdown button component.
-    @Factory()
     UiFactory<DropdownButtonProps> DropdownButton = _$DropdownButton;
     ```
 
@@ -891,8 +881,7 @@ and document that value in a comment.
 
   _Good:_
     ```dart
-    @Props()
-    _$DropdownButtonProps extends UiProps {
+    mixin DropdownButtonProps on UiProps {
       /// Whether the [DropdownButton] appears disabled.
       ///
       /// Default: `false`
@@ -907,15 +896,13 @@ and document that value in a comment.
       bool initiallyOpen;
     }
 
-    @State()
-    _$DropdownButtonState extends UiState {
+    mixin DropdownButtonState on UiState {
       /// Whether the [DropdownButton]'s child [DropdownMenu] is open.
       ///
       /// Initial: [DropdownButtonProps.initiallyOpen]
       bool isOpen;
     }
 
-    @Component2()
     DropdownButtonComponent
         extends UiStatefulComponent2<DropdownButtonProps, DropdownButtonState> {
       @override
@@ -933,18 +920,15 @@ and document that value in a comment.
 
   _Bad:_
     ```dart
-    @Props()
-    _$DropdownButtonProps extends UiProps {
+    mixin DropdownButtonProps on UiProps {
       bool isDisabled;
       bool initiallyOpen;
     }
 
-    @State()
-    _$DropdownButtonState extends UiState {
+    mixin DropdownButtonState on UiState {
       bool isOpen;
     }
 
-    @Component2()
     DropdownButtonComponent
         extends UiStatefulComponent2<DropdownButtonProps, DropdownButtonState> {
       // Confusing stuff is gonna happen in here with
@@ -959,8 +943,7 @@ an informative comment.
 
   _Good:_
     ```dart
-    @Props()
-    _$DropdownButtonProps extends UiProps {
+    mixin DropdownButtonProps on UiProps {
       /// Whether the [DropdownButton] appears disabled.
       ///
       /// Default: `false`
@@ -975,8 +958,7 @@ an informative comment.
       bool initiallyOpen;
     }
 
-    @State()
-    _$DropdownButtonState extends UiState {
+    mixin DropdownButtonState on UiState {
       /// Whether the [DropdownButton]'s child [DropdownMenu] is open.
       ///
       /// Initial: [DropdownButtonProps.initiallyOpen]
@@ -986,14 +968,12 @@ an informative comment.
 
   _Bad:_
     ```dart
-    @Props()
-    _$DropdownButtonProps extends UiProps {
+    mixin DropdownButtonProps on UiProps {
       bool isDisabled;
       bool initiallyOpen;
     }
 
-    @State()
-    _$DropdownButtonState extends UiState {
+    mixin DropdownButtonState on UiState {
       bool isOpen;
     }
     ```

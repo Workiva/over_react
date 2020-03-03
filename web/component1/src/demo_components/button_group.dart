@@ -144,12 +144,10 @@ class ButtonGroupSize extends ClassNameConstant {
 ///
 /// __Example:__
 ///
-///     @Props()
-///     class MyProps extends UiProps {
+///     mixin MyProps on UiProps {
 ///       ButtonSize size;
 ///     }
 ///
-///     @Component()
 ///     class MyComponent extends UiComponent<MyProps> {
 ///       ButtonGroupSize matchingButtonGroupSize = buttonToButtonGroupSize[props.size];
 ///     }

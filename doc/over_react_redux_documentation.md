@@ -105,17 +105,16 @@ ways to do this.
     // AppState is a class that represents the application's state and can be defined in the same file as the store.
     UiFactory<FooProps> ConnectedFoo = connect<AppState, FooProps>()(Foo);
 
-    @Factory()
     UiFactory<FooProps> Foo = _$Foo;
 
     // Use the ConnectPropsMixin to gain access to React Redux's dispatch function, which can be accessed via
     // props.dispatch.
-    @Props()
-    class _$FooProps extends UiProps with ConnectPropsMixin {
+    mixin FooPropsMixin on UiProps {
         ...
     }
 
-    @Component2()
+    class FooProps = UiProps with ConnectPropsMixin, FooPropsMixin; 
+
     class FooComponent extends UiComponent2<FooProps> {
         ...
     }
