@@ -45,7 +45,7 @@ main() {
 
       unit = parseString(content: source).unit;
 
-      final errorCollector = ValidationErrorCollector.log(sourceFile, logger);
+      final errorCollector = ErrorCollector.log(sourceFile, logger);
 
       declarations = parseAndValidateDeclarations(unit, errorCollector);
       implGenerator = ImplGenerator(logger, sourceFile);

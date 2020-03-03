@@ -12,13 +12,13 @@ export 'parsing/validation.dart';
 export 'parsing/version.dart';
 
 Iterable<BoilerplateDeclaration> parseDeclarations(
-    CompilationUnit unit, ValidationErrorCollector errorCollector) {
+    CompilationUnit unit, ErrorCollector errorCollector) {
   final members = BoilerplateMembers.detect(unit);
   return getBoilerplateDeclarations(members, errorCollector);
 }
 
 List<BoilerplateDeclaration> parseAndValidateDeclarations(
-    CompilationUnit unit, ValidationErrorCollector errorCollector) {
+    CompilationUnit unit, ErrorCollector errorCollector) {
   final declarations = parseDeclarations(unit, errorCollector).toList();
   for (var declaration in declarations) {
     declaration.validate(errorCollector);

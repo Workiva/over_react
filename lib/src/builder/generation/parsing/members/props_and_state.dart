@@ -8,7 +8,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
 
   final ClassishDeclaration companion;
 
-  annotations.TypedMap config;
+  annotations.TypedMap meta;
 
   @override
   SimpleIdentifier get name => nodeHelper.name;
@@ -16,7 +16,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
   BoilerplatePropsOrState(this.nodeHelper, int declarationConfidence, {@required this.companion})
       : node = nodeHelper.node,
         super(declarationConfidence) {
-    config = getPropsOrStateAnnotation(isProps, node);
+    meta = getPropsOrStateAnnotation(isProps, node);
   }
 
   @override
@@ -72,7 +72,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
   bool get hasCompanionClass => companion != null;
 
   @override
-  void validate(BoilerplateVersion version, ValidationErrorCollector errorCollector) {
+  void validate(BoilerplateVersion version, ErrorCollector errorCollector) {
     switch (version) {
       case BoilerplateVersion.noGenerate:
         return;
@@ -125,7 +125,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
     }
   }
 
-  void _sharedLegacyValidation(ValidationErrorCollector errorCollector) {
+  void _sharedLegacyValidation(ErrorCollector errorCollector) {
     if (node is! ClassOrMixinDeclaration) {
       errorCollector.addError(
           'Legacy boilerplate must use classes or mixins, and not shorthand class declaration',

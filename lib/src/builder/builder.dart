@@ -38,7 +38,7 @@ class OverReactBuilder extends Builder {
         source, url: idToPackageUri(id));
 
       var hasErrors = false;
-      final errorCollector = ValidationErrorCollector.callback(sourceFile,
+      final errorCollector = ErrorCollector.callback(sourceFile,
         onError: (message, [span]) {
           log.severe(span?.message(message) ?? message);
           hasErrors = true;

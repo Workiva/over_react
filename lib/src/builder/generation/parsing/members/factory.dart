@@ -35,7 +35,7 @@ class BoilerplateFactory extends BoilerplateMember {
   bool get hasFactoryAnnotation => node.hasAnnotationWithName('Factory');
 
   @override
-  void validate(BoilerplateVersion version, ValidationErrorCollector errorCollector) {
+  void validate(BoilerplateVersion version, ErrorCollector errorCollector) {
     switch (version) {
       case BoilerplateVersion.noGenerate:
         return;

@@ -6,7 +6,7 @@ class BoilerplateComponent extends BoilerplateMember {
 
   final ClassishDeclaration nodeHelper;
 
-  annotations.Component config;
+  annotations.Component meta;
   Identifier configSubtypeOf;
 
   BoilerplateComponent(this.nodeHelper, int declarationConfidence)
@@ -15,7 +15,7 @@ class BoilerplateComponent extends BoilerplateMember {
     final meta = InstantiatedComponentMeta<annotations.Component2>(node) ??
         InstantiatedComponentMeta<annotations.Component>(node);
 
-    config = meta?.value ?? annotations.Component2();
+    this.meta = meta?.value ?? annotations.Component2();
     configSubtypeOf = meta?.subtypeOfValue;
   }
 
@@ -66,7 +66,7 @@ class BoilerplateComponent extends BoilerplateMember {
       version == BoilerplateVersion.v4_mixinBased || hasComponent2OrAbstractAnnotation;
 
   @override
-  void validate(BoilerplateVersion version, ValidationErrorCollector errorCollector) {
+  void validate(BoilerplateVersion version, ErrorCollector errorCollector) {
     switch (version) {
       case BoilerplateVersion.noGenerate:
         return;

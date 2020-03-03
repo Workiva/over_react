@@ -39,7 +39,7 @@ bool mightContainDeclarations(String source) {
 }
 
 Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
-    BoilerplateMembers members, ValidationErrorCollector errorCollector) sync* {
+    BoilerplateMembers members, ErrorCollector errorCollector) sync* {
   if (members.isEmpty) return;
 
   final factories = members.factories;
@@ -328,7 +328,7 @@ abstract class BoilerplateDeclaration {
 
   Iterable<BoilerplateMember> get members => _members;
 
-  void validate(ValidationErrorCollector errorCollector) {
+  void validate(ErrorCollector errorCollector) {
     if (version == null) {
       // This should almost never happen.
       errorCollector.addError(
@@ -369,7 +369,7 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
   }) : super(version);
 
   @override
-  void validate(ValidationErrorCollector errorCollector) {
+  void validate(ErrorCollector errorCollector) {
     super.validate(errorCollector);
 
     if (!component.node.hasAnnotationWithNames({'Component', 'Component2'})) {
@@ -408,7 +408,7 @@ class LegacyAbstractClassComponentDeclaration extends BoilerplateDeclaration {
         super(version);
 
   @override
-  void validate(ValidationErrorCollector errorCollector) {
+  void validate(ErrorCollector errorCollector) {
     super.validate(errorCollector);
 
     if (component != null &&

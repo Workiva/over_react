@@ -149,11 +149,11 @@ class ImplGenerator {
         ..writeln('final $generatedComponentFactoryName = registerComponent2(() => $componentClassImplMixinName(),')
         ..writeln('    builderFactory: $factoryName,')
         ..writeln('    componentClass: $componentClassName,')
-        ..writeln('    isWrapper: ${component.config.isWrapper},')
+        ..writeln('    isWrapper: ${component.meta.isWrapper},')
         ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
         ..writeln('    displayName: ${stringLiteral(factoryName)},');
 
-      if ((component.config as annotations.Component2).isErrorBoundary) {
+      if ((component.meta as annotations.Component2).isErrorBoundary) {
         // Override `skipMethods` as an empty list so that
         // the `componentDidCatch` and `getDerivedStateFromError`
         // lifecycle methods are included in the component's JS bindings.
@@ -171,7 +171,7 @@ class ImplGenerator {
         ..writeln('final $generatedComponentFactoryName = registerComponent(() => $componentClassImplMixinName(),')
         ..writeln('    builderFactory: $factoryName,')
         ..writeln('    componentClass: $componentClassName,')
-        ..writeln('    isWrapper: ${component.config.isWrapper},')
+        ..writeln('    isWrapper: ${component.meta.isWrapper},')
         ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
         ..writeln('    displayName: ${stringLiteral(factoryName)}')
         ..writeln(');')
@@ -184,7 +184,7 @@ class ImplGenerator {
 
     // Generate accessors mixin and props metaFor constant
     outputContentsBuffer.write(_generateAccessorsMixin(
-        AccessorType.props, propsAccessorsMixinName, props.node as ClassOrMixinDeclaration, props.config,
+        AccessorType.props, propsAccessorsMixinName, props.node as ClassOrMixinDeclaration, props.meta,
         consumerPropsName,
         typeParameters: props.nodeHelper.typeParameters));
     outputContentsBuffer.write(
@@ -211,7 +211,7 @@ class ImplGenerator {
       consumerName: consumerPropsName,
       implName: propsImplName,
       componentFactoryName: generatedComponentFactoryName,
-      propKeyNamespace: _getAccessorKeyNamespace(props.node, props.config),
+      propKeyNamespace: _getAccessorKeyNamespace(props.node, props.meta),
       node: props.node,
       accessorsMixinName: propsAccessorsMixinName,
       consumableName: consumablePropsName,
@@ -262,7 +262,7 @@ class ImplGenerator {
       final stateAccessorsMixinName = _accessorsMixinNameFromConsumerName(stateName);
 
       outputContentsBuffer.write(_generateAccessorsMixin(
-          AccessorType.state, stateAccessorsMixinName, state.node as ClassOrMixinDeclaration, state.config,
+          AccessorType.state, stateAccessorsMixinName, state.node as ClassOrMixinDeclaration, state.meta,
           stateName, typeParameters: state.nodeHelper.typeParameters));
       outputContentsBuffer.write(
           _generateMetaConstImpl(AccessorType.state, state.node));
@@ -348,11 +348,11 @@ class ImplGenerator {
   }
 
   void generatePropsMixin(PropsMixinDeclaration declaration) {
-    _generateAccessorsAndMetaConstantForMixin(AccessorType.propsMixin, declaration.propsMixin.node, declaration.propsMixin.config);
+    _generateAccessorsAndMetaConstantForMixin(AccessorType.propsMixin, declaration.propsMixin.node, declaration.propsMixin.meta);
   }
 
   void generateStateMixin(StateMixinDeclaration declaration) {
-    _generateAccessorsAndMetaConstantForMixin(AccessorType.stateMixin, declaration.stateMixin.node, declaration.stateMixin.config);
+    _generateAccessorsAndMetaConstantForMixin(AccessorType.stateMixin, declaration.stateMixin.node, declaration.stateMixin.meta);
   }
 
   void generateAbstractComponent(LegacyAbstractClassComponentDeclaration declaration) {
@@ -362,7 +362,7 @@ class ImplGenerator {
     if (declaration.props != null) {
       final className = _classNameFromNode(declaration.props.node);
       outputContentsBuffer.write(_generateAccessorsMixin(
-          AccessorType.abstractProps, _accessorsMixinNameFromConsumerName(className), declaration.props.node as ClassOrMixinDeclaration, declaration.props.config,
+          AccessorType.abstractProps, _accessorsMixinNameFromConsumerName(className), declaration.props.node as ClassOrMixinDeclaration, declaration.props.meta,
           className, typeParameters: declaration.props.nodeHelper.typeParameters));
       outputContentsBuffer.write(_generateMetaConstImpl(
           AccessorType.abstractProps, declaration.props.node));
@@ -372,7 +372,7 @@ class ImplGenerator {
     if (declaration.state != null) {
       final className = _classNameFromNode(declaration.state.node);
       outputContentsBuffer.write(_generateAccessorsMixin(
-          AccessorType.abstractState, _accessorsMixinNameFromConsumerName(className), declaration.state.node as ClassOrMixinDeclaration, declaration.state.config,
+          AccessorType.abstractState, _accessorsMixinNameFromConsumerName(className), declaration.state.node as ClassOrMixinDeclaration, declaration.state.meta,
           className, typeParameters: declaration.state.nodeHelper.typeParameters));
       outputContentsBuffer.write(_generateMetaConstImpl(AccessorType.abstractState, declaration.state.node));
       outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.abstractState, declaration.state));

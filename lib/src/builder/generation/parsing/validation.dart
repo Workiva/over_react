@@ -4,29 +4,29 @@ import 'package:source_span/source_span.dart';
 
 import 'ast_util.dart';
 
-abstract class ValidationErrorCollector {
-  static ValidationErrorCallback stringCallback(void Function(String) callback) {
+abstract class ErrorCollector {
+  static ErrorCollectorCallback stringCallback(void Function(String) callback) {
     return (message, [span]) => callback(span?.message(message) ?? message);
   }
 
-  ValidationErrorCollector();
+  ErrorCollector();
 
-  factory ValidationErrorCollector.callback(
+  factory ErrorCollector.callback(
     SourceFile sourceFile, {
-    ValidationErrorCallback onError,
-    ValidationErrorCallback onWarning,
-  }) = _CallbackValidationErrorCollector;
+    ErrorCollectorCallback onError,
+    ErrorCollectorCallback onWarning,
+  }) = _CallbackErrorCollector;
 
-  factory ValidationErrorCollector.print(SourceFile sourceFile) {
-    return _CallbackValidationErrorCollector(
+  factory ErrorCollector.print(SourceFile sourceFile) {
+    return _CallbackErrorCollector(
       sourceFile,
       onError: stringCallback(print),
       onWarning: stringCallback(print),
     );
   }
 
-  factory ValidationErrorCollector.log(SourceFile sourceFile, Logger logger) {
-    return _CallbackValidationErrorCollector(
+  factory ErrorCollector.log(SourceFile sourceFile, Logger logger) {
+    return _CallbackErrorCollector(
       sourceFile,
       onError: stringCallback(logger.severe),
       onWarning: stringCallback(logger.warning),
@@ -42,15 +42,15 @@ abstract class ValidationErrorCollector {
   FileSpan span(int start, [int end]) => _sourceFile.span(start, end);
 }
 
-typedef ValidationErrorCallback = void Function(String message, [SourceSpan span]);
+typedef ErrorCollectorCallback = void Function(String message, [SourceSpan span]);
 
-class _CallbackValidationErrorCollector extends ValidationErrorCollector {
+class _CallbackErrorCollector extends ErrorCollector {
   @override
   final SourceFile _sourceFile;
-  final ValidationErrorCallback onError;
-  final ValidationErrorCallback onWarning;
+  final ErrorCollectorCallback onError;
+  final ErrorCollectorCallback onWarning;
 
-  _CallbackValidationErrorCollector(
+  _CallbackErrorCollector(
     this._sourceFile, {
     this.onError,
     this.onWarning,

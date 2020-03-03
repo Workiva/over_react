@@ -6,14 +6,14 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
 
   final ClassishDeclaration companion;
 
-  annotations.TypedMap config;
+  annotations.TypedMap meta;
 
   @override
   SimpleIdentifier get name => node.name;
 
   BoilerplatePropsOrStateMixin(this.node, int declarationConfidence, {@required this.companion})
       : super(declarationConfidence) {
-    config = getPropsOrStateAnnotation(isProps, node);
+    meta = getPropsOrStateAnnotation(isProps, node);
   }
 
   @override
@@ -48,7 +48,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
   }
 
   @override
-  void validate(BoilerplateVersion version, ValidationErrorCollector errorCollector) {
+  void validate(BoilerplateVersion version, ErrorCollector errorCollector) {
     void _sharedLegacyValidation() {
       if (!node.hasAnnotationWithName(propsOrStateMixinAnnotationName)) {
         errorCollector.addError(

@@ -29,7 +29,7 @@ abstract class BoilerplateMember {
   /// it belongs to a boilerplate declaration of a given version.
   Map<BoilerplateVersion, int> get versionConfidence;
 
-  void validate(BoilerplateVersion version, ValidationErrorCollector errorCollector);
+  void validate(BoilerplateVersion version, ErrorCollector errorCollector);
 
   SimpleIdentifier get name;
 
