@@ -506,7 +506,7 @@ import 'package:over_react/over_react.dart';
 
 part 'foo.over_react.g.dart';
 
-UiFactory<FooProps> Foo = uiFunction(
+UiFactory<FooProps> Foo = uiFunctionComponent(
   (props) {
     return 'foo: ${props.foo}'; 
   },
@@ -524,10 +524,16 @@ from the LHS typing, allowing props to be statically typed as `FooProps`.
 The generated `$FooPropsConfig` is passed in as an argument, and serves 
 as the entrypoint to the generated code. 
 
-_With default props_:
+#### With Default Props
+
+`defaultProps` on function components is [already deprecated](https://github.com/facebook/react/pull/16210).
+
+Use null-aware operators to default null values. This provides almost the
+same behavior as `defaultProps`, but with the restriction that a given prop
+__must either be nullable or have a default value, but not both__.
 
 ```dart
-UiFactory<FooProps> Foo = uiFunction(
+UiFactory<FooProps> Foo = uiFunctionComponent(
   (props) {
     final foo = props.foo ?? 'default foo value';
 
@@ -537,7 +543,7 @@ UiFactory<FooProps> Foo = uiFunction(
 ); 
 ```
 
-_With propTypes_:
+#### With propTypes
 
 ```dart
 UiFactory<FooProps> Foo = uiFunctionComponent(
@@ -556,11 +562,9 @@ UiFactory<FooProps> Foo = uiFunctionComponent(
 ```
 
 `getPropTypes` provides a way to set up prop validation within the 
-same variable initializer, since it would be difficult to do, say, 
-`..propTypes = ` on the factory itself.
+same variable initializer.
 
-_Local function components using just a props mixin (no top-level 
-Factory necessary)_:
+#### Local function components using just a props mixin (no top-level Factory necessary)
 
 ```dart
 import 'package:over_react/over_react.dart';
