@@ -26,6 +26,7 @@ final config = {
     ..formatterArgs = ['--line-length=100']
     ..exclude = [
       // We don't format most of this repo with dartfmt, yet.
+      Glob('app/**'),
       Glob('example/**'),
       Glob('lib/*'),
       Glob('lib/src/builder/generation/impl_generation.dart'),
