@@ -106,11 +106,15 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
         }
         break;
       case BoilerplateVersion.v2_legacyBackwardsCompat:
-        // It's possible to declare an abstract class without any props/state fields that need to be generated.
-        if (nodeHelper.members.isNotEmpty) {
+        // It's possible to declare an abstract class without any props/state fields that need to be generated,
+        //  so long as it doesn't have the annotation.
+        if (nodeHelper.members.isNotEmpty || node.hasAnnotationWithNames({propsOrStateAnnotationName, propsOrStateAbstractAnnotationName})) {
           _sharedLegacyValidation(errorCollector);
           if (companion == null) {
-            errorCollector.addError('Should have companion class', errorCollector.spanFor(node));
+            // Don't emit this and the prefix error.
+            if (node.name.name.startsWith(privateSourcePrefix)) {
+              errorCollector.addError('Should have companion class', errorCollector.spanFor(node));
+            }
           } else {
             validateMetaField(companion, propsOrStateMetaStructName, errorCollector);
           }
