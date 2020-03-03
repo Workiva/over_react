@@ -356,15 +356,12 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
         ```dart
         // Simple built_redux component
         // Assume there is a store with a state field `text` and an action `updateText`.
-        @Factory()
         UiFactory<SimpleProps> Simple = _$Simple;
 
-        @Props()
-        class _$SimpleProps extends UiProps {
+        mixin SimpleProps on UiProps {
           Store<App, AppBuilder, AppActions> store;
         }
 
-        @Component2()
         class SimpleComponent extends UiComponent2<SimpleProps> {
           StreamSubscription _storeSub;
 
@@ -395,13 +392,12 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
 
         // Simple BuiltReduxUiComponent
         // Assume there is a store with a state field `text` and an action `updateText`.
-        @Factory()
         UiFactory<SimpleProps> Simple = _$Simple;
 
-        @Props()
-        class _$SimpleProps extends BuiltReduxUiProps<SimpleState, SimpleStateBuilder, SimpleActions> {}
+        mixin SimplePropsMixin on UiProps {}
+  
+        class SimpleProps = BuiltReduxUiProps<SimpleState, SimpleStateBuilder, SimpleActions> with SimplePropsMixin;
 
-        @Component()
         class SimpleComponent extends BuiltReduxUiComponent<SimpleState, SimpleStateBuilder, SimpleActions,
             SimpleProps, SimpleSubState> {
           StreamSubscription _storeSub;

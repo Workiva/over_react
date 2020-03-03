@@ -4,18 +4,15 @@ import 'package:over_react/src/component_declaration/component_base.dart';
 /// component associated with [factory].
 ///
 ///     // Component Declaration
-///     @Factory()
 ///     UiFactory<FooProps> Foo;
 ///
-///     @Props()
-///     class FooProps extends UiProps {
+///     mixin FooProps on UiProps {
 ///       String bar;
 ///     }
 ///
-///     @Component()
 ///     class FooComponent extends UiComponent<FooProps> {
 ///       @override
-///       getDefaultProps() => newProps()..bar = 'baz';
+///       get defaultProps => newProps()..bar = 'baz';
 ///     }
 ///
 ///     // Example Usage
