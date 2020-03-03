@@ -11,20 +11,23 @@ abstract class ValidationErrorCollector {
 
   ValidationErrorCollector();
 
-  factory ValidationErrorCollector.callback(SourceFile sourceFile, {
+  factory ValidationErrorCollector.callback(
+    SourceFile sourceFile, {
     ValidationErrorCallback onError,
     ValidationErrorCallback onWarning,
   }) = _CallbackValidationErrorCollector;
 
   factory ValidationErrorCollector.print(SourceFile sourceFile) {
-    return _CallbackValidationErrorCollector(sourceFile,
+    return _CallbackValidationErrorCollector(
+      sourceFile,
       onError: stringCallback(print),
       onWarning: stringCallback(print),
     );
   }
 
   factory ValidationErrorCollector.log(SourceFile sourceFile, Logger logger) {
-    return _CallbackValidationErrorCollector(sourceFile,
+    return _CallbackValidationErrorCollector(
+      sourceFile,
       onError: stringCallback(logger.severe),
       onWarning: stringCallback(logger.warning),
     );
