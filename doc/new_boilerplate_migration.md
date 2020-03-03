@@ -1,0 +1,583 @@
+# New OverReact Boilerplate Migration Guide
+
+- [Background](#background)
+- [New Boilerplate Changes](#new-boilerplate-changes)
+
+## Background
+
+### New Boilerplate
+
+While converting the boilerplate for OverReact component declaration from Dart 1 
+transformers to Dart 2 builders, we encountered several constraints that made us 
+choose between dropping backwards compatibility (mainly support for props class 
+inheritance), and a less-than-optimal boilerplate.
+
+To make the Dart 2 transition as smooth as possible, we chose to keep the new 
+boilerplate version as backwards-compatible as possible, while compromising the 
+cleanliness of the boilerplate. In time, we found that this wasn't great from a 
+user experience or from a tooling perspective.
+
+Knowing this, we now have the opportunity to implement an improved version of 
+OverReact boilerplate that fixes issues introduced in the latest version, as 
+well as other miscellaneous ones.
+
+### Function Component Boilerplate
+
+React function components, along with [hooks], are used heavily in modern React 
+component architecture, and we would like to take advantage of their benefits 
+within the Workiva ecosystem. However, to be truly valuable, we need strongly 
+typed prop APIs for these components, which means we must provide a way to 
+declare function components using OverReact boilerplate.
+
+### Problems with Previous Boilerplate
+
+#### Public API and Code Generation
+
+The current, Dart-2-only boilerplate generates public props classes:
+
+```dart
+// User-authored
+@Props()
+class _$FooProps extends BarProps {
+  String foo;
+}
+
+// Generated in .over_react.g.dart
+class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {   
+  static const PropsMeta meta = ...;
+  ... 
+}
+```
+
+In using the build packages's `build_to: cache` to generate public APIs, command-line 
+tools like dartanalyzer and dartdoc don't function properly for packages that do this. 
+
+This pattern can also degrade the dev experience, by requiring a build before code is 
+statically valid, and also requiring rebuilds in some cases to consume public API 
+updates during their development (e.g., writing new component props classes).
+
+The transitional boilerplate, currently used in almost all repos, does not have these 
+issues, as it requires users to stub in these public classes:
+
+```dart
+// User-authored
+@Props()
+class _$FooProps extends BarProps {
+  String foo;
+}
+
+// Also user-authored
+class FooProps
+    extends _$FooProps
+    with
+        // ignore: mixin_of_non_class, undefined_class
+        _$FooPropsAccessorsMixin {
+  // ignore: const_initialized_with_non_constant_value, undefined_class, undefined_identifier    
+  static const PropsMeta meta = _$metaForPanelTitleProps;
+ }
+```
+
+This is overly verbose, confusing, and error-prone. Authoring components should be 
+simple and easy.
+
+#### Inheritance
+
+Props are declared as fields, and we generate the accessor (AKA getters/setters) 
+implementations that are to be used when reading and writing props.
+
+If the consumer authors the public-facing class, we have to do this in new 
+generated subclasses to be able to override the field implementation.
+
+```dart
+// Source
+class FooProps {
+  int foo;
+}
+
+// Generated
+mixin $FooPropsAccessors on FooProps {
+  @override  int get foo => props['foo'];
+  @override  set foo(int value) => props['foo'] = value;
+}
+
+// This class is actually what's used under the hood, not FooProps.
+class $FooProps = FooProps with $FooPropsAccessors;
+```
+
+However, if consumers were to extend from the authored class, they wouldn't 
+inherit these generated fields.
+
+```dart
+class BarProps extends FooProps {
+  String bar;
+}
+
+test() {
+  // references `FooProps.foo`, not the `$FooProps.foo` getter as desired.
+  BarProps().foo;
+}
+```
+
+In order to get the correct behavior, we would have to either:
+1. Extend the generated class in the source
+
+    ```dart
+    // Source 
+    class BarProps extends $FooProps { 
+       String bar;
+     }
+    ```
+
+    However, this results in the public API BarProps not being statically 
+    analyzable without running a build.
+
+    To remedy this, we would need ignore comments as well as an extra implements 
+    clauses to make that inheritance static.
+
+    ```dart
+    class BarProps
+        // ignore: undefined_type
+        extends $FooProps
+        implements FooProps {
+      String bar;
+     }
+    ```
+
+2. Mix in the correct accessors from parent classes, either
+
+    a. In the source:
+
+        ```dart
+        // Source
+        class BarProps extends FooProps with $FooPropsAccessors {
+          String bar;
+        }
+        ```
+
+    b. In the generated code:
+
+        ```dart
+        // Source	
+         class BarProps extends FooProps { 
+          String bar; 
+        }
+        
+         // Generated 
+        class $BarProps = BarProps with $FooPropsAccessors, $BarPropsAccessors;
+        ```
+
+    For case "a.", we would need ignore comments to make it possible.
+    
+    For both cases, we would need to be sure to mix in generated accessor classes 
+    for each of the transitively-inherited accessor classes. For case "a.", this 
+    would be the responsibility of the consumer. For case "b.", we'd need resolved 
+    AST, which we can't use due to technical constraints.
+
+Both approaches make the boilerplate complex and prone to user error (it's 
+easy to miss mixing in a generated class).
+
+## New Boilerplate Changes
+
+### Constraints
+
+#### Technical Constraints:
+
+1. We cannot use resolved AST to generate components because it slows down 
+the build too much.
+
+    In other words, we have access to the structure of the code within a 
+    given file but not its full semantic meaning, and cannot resolve 
+    references it makes to code in other files.
+    
+    For instance, we can look at a class and see the name of the class it 
+    extends from and the methods it declares, but we won't be able to know 
+    where the parent class comes from, what type(s) the parent implements, 
+    or which member(s) the parent declares.
+
+2. User-authored code must reference generated code somehow to "wire it up"
+
+    Since generated code can be output only to new files, component 
+    registration / wiring of generated code requires either:
+    
+    1. a centralized, generated registry that maps components to generated 
+    component code, and that must be generated for and consumed in that 
+    main() method of all consuming apps' entrypoints
+    
+    2. a user-authored entrypoint (field initializer, method invocation, 
+    constructor, etc) that imports (or pulls in via a part) and references 
+    generated code (what we have now)
+
+#### Self-imposed Constraints:
+
+1. Keep component declarations as terse and user-friendly as possible.
+
+2. Use `build_to: cache` (see [pkg:build docs]).
+    
+    `build_to:cache` should be used when generated code is dependent on the 
+    library's underlying implementation. This may not be strictly the case 
+    today, but if we commit to `build_to: cache`, we will have more 
+    flexibility in the future to make improvements or fix bugs to OverReact 
+    code generation without requiring a (very expensive) breaking change. 
+    
+    It would also result in improvements to the builder being propagated 
+    immediately as soon as they're consumed by wdesk, as opposed to having 
+    to regenerate code and release within every consumer library.
+
+3. Make source code statically analyzable without running codegen.
+
+    The build docs instruct not to use build_to: cache to generate public 
+    APIs, and command-line tools like dartanalyzer and dartdoc don't 
+    function properly for packages that do this. 
+    
+    Generating public APIs can also degrade the dev experience, by requiring 
+    a build before code is statically valid, and also requiring rebuilds in 
+    some cases to consume public API updates during their development (e.g., 
+    writing new component props classes).
+    
+4. Provide some means of sharing props/state declarations between 
+components.
+
+    Being able to share props/state between multiple components is useful, 
+    especially when composing them together. We also have many legacy 
+    components that currently share props, and want to make it possible 
+    to upgrade them.
+    
+5. Provide a simple migration path for _most_ components in the Wdesk 
+ecosystem.
+
+    We can support new/old boilerplate at the same time, and slowly phase 
+    out the old as we migrate over to it using codemods.
+    
+    For cases that don't migrate cleanly, we can use the Wdesk versioning 
+    policy to replace them with APIs that use the new boilerplate in major 
+    versions or using versioned APIs. This applies to a small set of 
+    components within Wdesk whose props classes are public APIs, 
+    concentrated in web_skin_dart and to alesser extent graph_ui.
+    
+6. Only support Component2 components
+
+    The builder has different code paths for Component/Component2, and 
+    supporting an additional boilerplate for both would increase code 
+    complexity and effort needed to build/test it. 
+
+### Changes
+
+#### Remove Annotations
+
+`@Factory()`, `@Props()` and `@Component()` annotations add additional 
+visual clutter to the boilerplate, and are redundant since the factory/
+props/component declarations already have a consistent/restricted 
+structure and naming scheme that makes it clear to the builder parsing 
+logic that a component is being defined, and what each part is. 
+
+We could update the over_react builder parsing logic to identify and 
+group together these declarations based on their names, which we'll need 
+to do anyways if we want to support multiple components per file in the 
+future.
+
+```diff
+- @Factory()
+UiFactory<FooProps> Foo =
+    // ignore: undefined_identifier
+    $Foo;
+
+- @Props()
+class _$FooProps extends BarProps {
+  String foo;
+}
+
+- @Component2()
+class FooComponent extends UiComponent2<FooProps> {
+  @override
+  render() => 'foo: ${props.foo}';
+}
+```
+
+Annotations could still be used, opt-in, if custom configuration is needed.
+
+```dart
+@Props(keyNamespace: 'customNamespace.')
+class _$FooProps extends BarProps {
+  String foo;
+}
+```
+
+#### Ignore Ungenerated Warnings Project-Wide
+
+Right now, we have to add `// ignore: uri_has_not_been_generated` to each 
+component library on the part/import that references generated code.
+
+We recommend ignoring this hint globally within analysis_options.yaml:
+
+```yaml
+ analyzer:
+   errors:
+     uri_has_not_been_generated: ignore 
+```
+
+Which allows these ignores to be omitted, which could help reduce clutter in 
+the component boilerplate.
+
+```diff
+- // ignore: uri_has_not_been_generated
+part 'foo.over_react.g.dart';
+```
+
+AngularDart actually [recommends doing this][angular-dart], so this isn't 
+a novel idea. 
+
+#### Use Mixin-Based Props Declaration that Disallows Subclassing
+
+**Constraints**
+
+- Props classes must directly subclass UiProps, only inheriting other props 
+via mixins
+
+    - This requires consumers to include every single mixin within their `with` 
+    clause, allowing the builder to mix in the generated code corresponding 
+    to those mixins.
+    
+- Generated props mixin classes (`$FooPropsMixin`) must be exported along with 
+their source class `$FooProps`. These APIs are considered public, but should 
+only ever be referenced from other code generated by the over_react builder.
+
+**Current Boilerplate (Dart 2 only)**
+
+```dart
+import 'package:over_react/over_react.dart';
+
+part 'foo.over_react.g.dart';
+
+@Factory()
+UiFactory<FooProps> Foo =
+    // ignore: undefined_identifier
+    $Foo;
+
+@Props()
+class _$FooProps extends BarProps {
+  String foo;
+}
+
+@Component2()
+class FooComponent extends UiComponent2<FooProps> {
+  @override
+  render() => 'foo: ${props.foo}';
+}
+```
+
+**New Boilerplate**
+
+```dart
+import 'package:over_react/over_react.dart';
+
+part 'foo.over_react.g.dart';
+
+UiFactory<FooProps> Foo = $Foo; // ignore: undefined_identifier
+
+mixin FooPropsMixin on UiProps {
+  String foo;
+}
+
+class FooProps = UiProps with FooPropsMixin, BarPropsMixin;
+
+class FooComponent extends UiComponent2<FooProps> {
+  @override
+  render() => 'foo: ${props.foo}';
+}
+```
+
+_Generated code_:
+
+```dart
+part of 'foo.dart';
+
+//
+// (Component and factory code is pretty much the same.)
+//
+
+mixin $FooPropsMixin on FooPropsMixin {
+  @override
+  String get foo => props['foo'];
+  @override
+  set foo(String value) => props['foo'] = value;
+}
+
+class _$FooPropsImpl extends FooProps
+    // These mixins are derived from the list of mixins in the source
+    with $FooPropsMixin, $BarPropsMixin {}
+```
+
+**Abbreviated Version**
+
+When no other mixins are used, allow consumers to skip the props class 
+and just use the mixin. Most components at Workiva don't inherit props 
+from other components, so it would be nice to optimize for this case.
+
+```dart
+import 'package:over_react/over_react.dart';
+
+part 'foo.over_react.g.dart';
+
+UiFactory<FooProps> Foo = $Foo; // ignore: undefined_identifier
+
+mixin FooProps on UiProps {
+  String foo;
+}
+
+class FooComponent extends UiComponent2<FooProps> {
+  @override
+  render() => 'foo: ${props.foo}';
+}
+```
+
+**Props Meta Changes**
+
+Props meta would be generated as an overridden getter on the component 
+as opposed to the current static field, and would allow similar access 
+of prop keys as before.
+
+This eliminates the current `meta` portion of the boilerplate which has 
+to reference more generated code.
+
+Prop meta from all mixins can be accessed, allowing us to default 
+consumedProps to all props statically accessible from that component.
+
+Consumption: 
+
+```dart
+@Props()
+class FooProps extends UiProps with FooPropsMixin, BarPropsMixin {}
+
+@PropsMixin()
+mixin FooPropsMixin on UiProps {
+  @requiredProp
+  int foo;
+}
+
+@Component2()
+class FooComponent extends UiComponent2<FooProps> {
+  @override
+  render() => [props.foo];
+
+  @override
+  get consumedProps => [
+    propsMeta.forMixin(FooPropsMixin),
+  ];
+
+  test() {
+    print(propsMeta.keys); // ('foo', 'bar')
+    print(propsMeta.forMixin(FooPropsMixin).keys); // ('foo')
+    print(propsMeta.forMixin(BarPropsMixin).keys); // ('bar')
+  }
+}
+
+// Generated code
+class _FooCopmonentImpl extends FooComponent {
+  // ...
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+    FooPropsMixin: $FooPropsMixin.meta,
+    BarPropsMixin: $BarPropsMixin.meta,
+  });
+}
+```
+
+Over_react updates:
+
+```dart
+// A new field in component base class
+class UiComponent2 ... {
+  /// A collection of metadata for the prop fields in all prop mixins
+  /// used by the props class of this component.
+  PropsMetaCollection get propsMeta => null;
+}
+```
+
+A new class in over_react:
+
+```dart
+/// A collection of metadata for the prop fields in all prop mixins
+/// used by a given component.
+///
+/// See [PropsMeta] for more info.
+class PropsMetaCollection implements PropsMeta {
+  final Map<Type, PropsMeta> _metaByMixin;
+
+  const PropsMetaCollection(this._metaByMixin);
+
+  /// Returns the metadata for only the prop fields declared in [mixinType].
+  PropsMeta forMixin(Type mixinType) {
+    final meta = _metaByMixin[mixinType];
+    assert(meta != null, 
+        'No meta found for $mixinType;'
+        'it likely isn\'t mixed in by the props class.')
+    return meta ?? const PropsMeta(fields: [], keys: []);
+  }
+
+  // PropsMeta overrides
+
+  @override
+  List<String> get keys => 
+        _metaByMixin.values.expand((meta) => meta.keys).toList();
+
+  @override
+  List<PropDescriptor> get fields => 
+        _metaByMixin.values.expand((meta) => meta.fields).toList();
+
+  @override
+  List<PropDescriptor> get props => fields;
+}
+```
+
+**Props MapViews**
+
+Since props mixins can only be consumed by other generated code, the 
+existing props map view consumption pattern, whereby props mixins are 
+consumed in user-authored MapView subclasses, cannot be supported. 
+
+Old syntax:
+
+```dart
+import 'package:over_react/over_react.dart';
+
+class FooPropsMapView extends UiPropsMapView with SomeOtherPropsMixin {
+  FooPropsMapView(Map backingMap) : super(backingMap);
+}
+
+usage() {
+  final mapView = FooPropsMapView(someExistingMap);
+}
+```
+
+Instead, props map views will be declared similarly to a component, 
+with a factory and props mixin/class, but no component. 
+
+New syntax: 
+
+```dart
+import 'package:over_react/over_react.dart';
+
+part 'foo.over_react.g.dart';
+
+UiFactory<FooMapViewProps> FooMapView = $FooMapView; // ignore: undefined_identifier
+
+class FooMapViewProps = UiProps with SomeOtherPropsMixin;
+
+usage() {
+  final mapView = FooMapView(someExistingMap);
+}
+```
+
+
+
+
+
+
+
+
+
+[angular-dart]: https://github.com/dart-lang/angular/blob/d2e4c599ab5a3ee0544d8c639a4de4e011b14517/doc/migrating-to-v5.md#adjust-analysis_optionsyaml
+[hooks]: https://reactjs.org/docs/hooks-intro.html
+[orcm]: https://github.com/Workiva/over_react_codemod
+[pkg:build docs]: https://github.com/dart-lang/build/blob/master/docs/builder_author_faq.md#when-should-a-builder-build-to-cache-vs-source
