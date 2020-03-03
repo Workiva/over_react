@@ -143,36 +143,30 @@ class BoilerplateMemberDetector {
     final name = classish.name.name;
     final node = classish.node;
 
-    var looksLikeMixin = false;
-    if (node is MixinDeclaration) {
-      looksLikeMixin = true;
-    } else if (classish.hasAbstractKeyword && classish.mixins.isEmpty) {
-      final superclassName = classish.superclass?.nameWithoutPrefix;
-      if (superclassName == null || superclassName == 'Object') {
-        looksLikeMixin = true;
-      }
-    }
+    // By this point, this is a node that has no annotation.
+    // Thus, it's non-legacy boilerplate.
 
-    // Prioritize categorize PropsMixins before Props // todo better comment
-    if (looksLikeMixin) {
-      if (name.endsWith('Props') || name.endsWith('PropsMixin')) {
+    if (node is MixinDeclaration) {
+      if ((name.endsWith('Props') || name.endsWith('PropsMixin')) && node.hasSuperclassConstraint('UiProps')) {
         members.propsMixins
             .add(BoilerplatePropsMixin(node, Confidence.medium, companion: companion));
         return true;
       }
-      if (name.endsWith('State') || name.endsWith('StateMixin')) {
+      if ((name.endsWith('State') || name.endsWith('StateMixin')) && node.hasSuperclassConstraint('UiState')) {
         members.stateMixins
             .add(BoilerplateStateMixin(node, Confidence.medium, companion: companion));
         return true;
       }
     } else {
-      // todo start looking for other characteristics (superclasses, etc).
-      // how to not get false positives for stuff that doesn't want codegen?
-      if (name.endsWith('Props') || name.endsWith('PropsMapView')) {
+      // We never generate for abstract classes in the new boilerplate.
+      if (classish.abstractKeyword == null) return false;
+
+      final superclassName = classish.superclass?.typeNameWithoutPrefix;
+      if ((name.endsWith('Props') || name.endsWith('PropsMapView')) && superclassName == 'UiProps') {
         members.props.add(BoilerplateProps(classish, Confidence.medium, companion: companion));
         return true;
       }
-      if (name.endsWith('State')) {
+      if (name.endsWith('State') && superclassName == 'UiState') {
         members.states.add(BoilerplateState(classish, Confidence.medium, companion: companion));
         return true;
       }
