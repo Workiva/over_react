@@ -114,10 +114,17 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   // This is to prevent regressing these cases when switching to the new parser, since the old one
   // was name-agnostic and expected at most one non-abstract component per file.
   // FIXME do we need to remove abstract components before this point, to support a single file with both an abstract component and component?
-  if (props.length == 1 && components.length == 1 && factories.length == 1) {
+
+  // Prevent unrelated classes ending with "State" from being associated with the component.
+  final relevantStates =
+      states.where((state) => state.node.hasAnnotationWithName('State')).toList();
+  if (props.length == 1 &&
+      components.length == 1 &&
+      factories.length == 1 &&
+      relevantStates.length <= 1) {
     final version = resolveVersion([
       props.single,
-      if (states.length == 1) states.single,
+      if (relevantStates.isNotEmpty) relevantStates.single,
       components.single,
       factories.single,
     ]);
@@ -126,7 +133,8 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         version: version,
         factory: factories.removeAt(0),
         props: props.removeAt(0),
-        state: states.length == 1 ? states.removeAt(0) : null,
+        state:
+            relevantStates.isNotEmpty ? states.removeAt(states.indexOf(relevantStates[0])) : null,
         component: components.removeAt(0),
       );
     }

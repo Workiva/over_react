@@ -4,7 +4,20 @@ class BoilerplateFactory extends BoilerplateMember {
   @override
   final TopLevelVariableDeclaration node;
 
+  @override
   SimpleIdentifier get name => node.firstVariable.name;
+
+  TypeAnnotation get propsGenericArg {
+    final type = node.variables.type;
+    if (type is NamedType && type.typeNameWithoutPrefix == 'UiFactory') {
+      final typeArgs = type.typeArguments.arguments;
+      if (typeArgs.length == 1) {
+        return typeArgs[0];
+      }
+    }
+
+    return null;
+  }
 
   BoilerplateFactory(this.node, int declarationConfidence) : super(declarationConfidence);
 

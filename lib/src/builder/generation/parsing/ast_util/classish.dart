@@ -41,6 +41,12 @@ abstract class ClassishDeclaration {
   bool get hasAbstractKeyword => abstractKeyword != null;
   List<TypeName> get interfaces;
   List<TypeName> get mixins => withClause?.mixinTypes ?? const [];
+
+  List<TypeName> get allSuperTypes => [
+        ...interfaces,
+        ...mixins,
+        if (superclass != null) superclass,
+      ];
 }
 
 abstract class _ClassishClassOrMixin extends ClassishDeclaration {

@@ -22,12 +22,17 @@ class BoilerplateComponent extends BoilerplateMember {
   @override
   SimpleIdentifier get name => nodeHelper.name;
 
+  TypeAnnotation get propsGenericArg {
+    return nodeHelper.superclass.typeArguments?.arguments
+        ?.firstWhere((type) => type.typeNameWithoutPrefix.endsWith('Props'), orElse: () => null);
+  }
+
   @override
   Map<BoilerplateVersion, int> get versionConfidence {
     final map = <BoilerplateVersion, int>{};
 
     // todo do we need this and should we include other confidences in the map in this case?
-    if (nodeHelper.hasAbstractKeyword) {
+    if (nodeHelper.hasAbstractKeyword && !hasComponent1OrAbstractAnnotation) {
       map[BoilerplateVersion.noGenerate] = Confidence.high;
       return map;
     }
