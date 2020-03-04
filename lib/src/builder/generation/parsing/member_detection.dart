@@ -1,5 +1,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:meta/meta.dart';
 
 import '../../util.dart';
 import 'ast_util.dart';
@@ -8,10 +9,26 @@ import 'util.dart';
 import 'version.dart';
 
 class BoilerplateMemberDetector {
-  BoilerplateMembers members;
-  Map<String, NamedCompilationUnitMember> _classishDeclarationsByName = {};
+  Map<String, NamedCompilationUnitMember> _classishDeclarationsByName;
+
+  final void Function(BoilerplateFactory) onFactory;
+  final void Function(BoilerplateProps) onProps;
+  final void Function(BoilerplateState) onState;
+  final void Function(BoilerplatePropsMixin) onPropsMixin;
+  final void Function(BoilerplateStateMixin) onStateMixin;
+  final void Function(BoilerplateComponent) onComponent;
+
+  BoilerplateMemberDetector({
+    @required this.onFactory,
+    @required this.onProps,
+    @required this.onState,
+    @required this.onPropsMixin,
+    @required this.onStateMixin,
+    @required this.onComponent,
+  });
 
   void detect(CompilationUnit unit) {
+    _classishDeclarationsByName = {};
     final visitor = _BoilerplateMemberDetectorVisitor(
       onClassishDeclaration: (node) => _classishDeclarationsByName[node.name.name] = node,
       onTopLevelVariableDeclaration: _processTopLevelVariableDeclaration,
@@ -20,6 +37,7 @@ class BoilerplateMemberDetector {
     unit.accept(visitor);
 
     _classishDeclarationsByName.values.forEach(_processClassishDeclaration);
+    _classishDeclarationsByName = null;
   }
 
   void _processTopLevelVariableDeclaration(TopLevelVariableDeclaration node) {
@@ -38,6 +56,7 @@ class BoilerplateMemberDetector {
 
     if (_detectBasedOnAnnotations(classish, companion: companion)) return;
     if (_detectNonLegacyPropsStateAndMixins(classish, companion: companion)) return;
+    if (_detectPotentialComponent(classish)) return;
   }
 
   //
@@ -46,7 +65,7 @@ class BoilerplateMemberDetector {
 
   void _detectFactory(TopLevelVariableDeclaration node) {
     if (node.hasAnnotationWithName('Factory')) {
-      members.factories.add(BoilerplateFactory(node, {
+      onFactory(BoilerplateFactory(node, {
         BoilerplateVersion.v2_legacyBackwardsCompat: Confidence.high,
         BoilerplateVersion.v3_legacyDart2Only: Confidence.high,
         BoilerplateVersion.v4_mixinBased: Confidence.high,
@@ -64,12 +83,12 @@ class BoilerplateMemberDetector {
         // Check for `Foo = _$Foo` or `Foo = $Foo` (which could be a typo)
         if (identifierInInitializer != null &&
             (identifierInInitializer == '_\$$name' || identifierInInitializer == '\$$name')) {
-          members.factories.add(BoilerplateFactory(node, {
+          onFactory(BoilerplateFactory(node, {
             BoilerplateVersion.v4_mixinBased: Confidence.high,
           }));
           return;
         } else {
-          members.factories.add(BoilerplateFactory(node, {
+          onFactory(BoilerplateFactory(node, {
             BoilerplateVersion.v4_mixinBased: Confidence.medium,
             BoilerplateVersion.noGenerate: Confidence.medium,
           }));
@@ -142,8 +161,10 @@ class BoilerplateMemberDetector {
       // fixme this ain't right
       map[BoilerplateVersion.v4_mixinBased] = Confidence.high;
     } else {
-      map[BoilerplateVersion.v2_legacyBackwardsCompat] = (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.medium : Confidence.veryLow;
-      map[BoilerplateVersion.v3_legacyDart2Only] = (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.veryLow : Confidence.medium;
+      map[BoilerplateVersion.v2_legacyBackwardsCompat] =
+          (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.medium : Confidence.veryLow;
+      map[BoilerplateVersion.v3_legacyDart2Only] =
+          (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.veryLow : Confidence.medium;
       map[BoilerplateVersion.v4_mixinBased] = Confidence.veryLow;
     }
 
@@ -176,37 +197,38 @@ class BoilerplateMemberDetector {
         case 'Props':
         case 'AbstractProps':
           final confidence = _propsOrStateConfidence(classish, companion);
-          members.props.add(BoilerplateProps(classish, companion, confidence));
+          onProps(BoilerplateProps(classish, companion, confidence));
           return true;
 
         case 'PropsMixin':
           final confidence = _propsOrStateMixinConfidence(classish, companion);
-          members.propsMixins.add(BoilerplatePropsMixin(classish.node, companion, confidence));
+          onPropsMixin(BoilerplatePropsMixin(classish.node, companion, confidence));
           return true;
 
         case 'State':
         case 'AbstractState':
           final confidence = _propsOrStateConfidence(classish, companion);
-          members.states.add(BoilerplateState(classish, companion, confidence));
+          onState(BoilerplateState(classish, companion, confidence));
           return true;
 
         case 'StateMixin':
           final confidence = _propsOrStateMixinConfidence(classish, companion);
-          members.stateMixins.add(BoilerplateStateMixin(classish.node, companion, confidence));
+          onStateMixin(BoilerplateStateMixin(classish.node, companion, confidence));
           return true;
 
         case 'Component':
         case 'Component2':
           final confidence = {
-            for (final version in BoilerplateVersion.values) version: Confidence.medium
+            for (final version in BoilerplateVersion.values) version: Confidence.high
           };
-          members.components.add(BoilerplateComponent(classish, confidence));
+          onComponent(BoilerplateComponent(classish, confidence));
           return true;
 
+        // todo should we even use these?
         case 'AbstractComponent':
         case 'AbstractComponent2':
           final confidence = {BoilerplateVersion.noGenerate: Confidence.high};
-          members.components.add(BoilerplateComponent(classish, confidence));
+          onComponent(BoilerplateComponent(classish, confidence));
           return true;
       }
     }
@@ -214,7 +236,8 @@ class BoilerplateMemberDetector {
     return false;
   }
 
-  static final propsMixinNamePattern = RegExp(r'Props(?:Mixin)?$');
+  static final propsOrMixinNamePattern = RegExp(r'Props(?:Mixin)?$');
+  static final propsMixinNamePattern = propsOrMixinNamePattern;
   static final stateMixinNamePattern = RegExp(r'State(?:Mixin)?$');
   static final propsNamePattern = RegExp(r'Props(?:MapView)?$');
   static final stateNamePattern = RegExp(r'State$');
@@ -245,11 +268,11 @@ class BoilerplateMemberDetector {
 
     if (node is MixinDeclaration) {
       if (propsMixinNamePattern.hasMatch(name) && node.hasSuperclassConstraint('UiProps')) {
-        members.propsMixins.add(BoilerplatePropsMixin(node, companion, getConfidence()));
+        onPropsMixin(BoilerplatePropsMixin(node, companion, getConfidence()));
         return true;
       }
       if (stateMixinNamePattern.hasMatch(name) && node.hasSuperclassConstraint('UiState')) {
-        members.stateMixins.add(BoilerplateStateMixin(node, companion, getConfidence()));
+        onStateMixin(BoilerplateStateMixin(node, companion, getConfidence()));
         return true;
       }
     } else {
@@ -258,11 +281,34 @@ class BoilerplateMemberDetector {
 
       final superclassName = classish.superclass?.typeNameWithoutPrefix;
       if (propsNamePattern.hasMatch(name) && superclassName == 'UiProps') {
-        members.props.add(BoilerplateProps(classish, companion, getConfidence()));
+        onProps(BoilerplateProps(classish, companion, getConfidence()));
         return true;
       }
       if (stateNamePattern.hasMatch(name) && superclassName == 'UiState') {
-        members.states.add(BoilerplateState(classish, companion, getConfidence()));
+        onState(BoilerplateState(classish, companion, getConfidence()));
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  bool _detectPotentialComponent(ClassishDeclaration classish) {
+    // Don't detect react-dart components as boilerplate components, since they cause issues with grouping
+    // if they're in the same file as an OverReact component with non-matching names.
+    if (!const {'Component', 'Component2'}.contains(classish.superclass?.nameWithoutPrefix)) {
+      if (classish.name.name.endsWith('Component') ||
+          classish.allSuperTypes
+              .map((t) => t.typeNameWithoutPrefix)
+              .any(const {'UiComponent', 'UiComponent2'}.contains) ||
+          (classish.superclass?.typeArguments?.arguments
+                  ?.map((t) => t.typeNameWithoutPrefix)
+                  ?.any(propsOrMixinNamePattern.hasMatch) ??
+              false)) {
+        onComponent(BoilerplateComponent(classish, {
+          for (var value in BoilerplateVersion.values) value: Confidence.medium,
+        }));
+
         return true;
       }
     }

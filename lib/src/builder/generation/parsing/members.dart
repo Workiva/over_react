@@ -67,9 +67,14 @@ class BoilerplateMembers {
   bool get isNotEmpty => !isEmpty;
 
   BoilerplateMembers.detect(CompilationUnit unit) {
-    BoilerplateMemberDetector()
-      ..members = this
-      ..detect(unit);
+    BoilerplateMemberDetector(
+      onFactory: factories.add,
+      onProps: props.add,
+      onPropsMixin: propsMixins.add,
+      onComponent: components.add,
+      onState: states.add,
+      onStateMixin: stateMixins.add,
+    ).detect(unit);
   }
 
   toString() => 'BoilerplateMembers:${prettyPrintMap({

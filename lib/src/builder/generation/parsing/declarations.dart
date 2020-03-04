@@ -252,10 +252,12 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     if (resolveVersion([stateClass]) == BoilerplateVersion.noGenerate) continue;
     errorCollector.addError('State class is missing factory and/or component.', errorCollector.spanFor(stateClass.node));
   }
-  for (var componentClass in components) {
-    if (resolveVersion([componentClass]) == BoilerplateVersion.noGenerate) continue;
-    errorCollector.addError('componentClass class is missing factory and/or props.', errorCollector.spanFor(componentClass.node));
-  }
+  // ignore components since they don't require any generation if not accompanied by a props class and factory
+  // todo don't ignore components with a sufficiently high confidence
+//  for (var componentClass in components) {
+//    if (resolveVersion([componentClass]) == BoilerplateVersion.noGenerate) continue;
+//    errorCollector.addError('componentClass class is missing factory and/or props.', errorCollector.spanFor(componentClass.node));
+//  }
 }
 
 class FactoryGroup {
