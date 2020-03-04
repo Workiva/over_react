@@ -51,14 +51,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
   // -----------------------------------------------------------------------------------------------
   //
-  // Legacy map views
-  //
-  // Remove them so they don't get grouped with anything else and throw things off.
-  //
-  props.removeWhere((p) => p.isLegacyMapView);
-
-  // -----------------------------------------------------------------------------------------------
-  //
   // Legacy abstract props/state classes
   //
   // They be declared stand-alone without needing other abstract component members, so grouping
@@ -115,16 +107,10 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   // was name-agnostic and expected at most one non-abstract component per file.
   // FIXME do we need to remove abstract components before this point, to support a single file with both an abstract component and component?
 
-  // Prevent unrelated classes ending with "State" from being associated with the component.
-  final relevantStates =
-      states.where((state) => state.node.hasAnnotationWithName('State')).toList();
-  if (props.length == 1 &&
-      components.length == 1 &&
-      factories.length == 1 &&
-      relevantStates.length <= 1) {
+  if (props.length == 1 && components.length == 1 && factories.length == 1 && states.length <= 1) {
     final version = resolveVersion([
       props.single,
-      if (relevantStates.isNotEmpty) relevantStates.single,
+      if (states.isNotEmpty) states.single,
       components.single,
       factories.single,
     ]);
@@ -133,8 +119,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         version: version,
         factory: factories.removeAt(0),
         props: props.removeAt(0),
-        state:
-            relevantStates.isNotEmpty ? states.removeAt(states.indexOf(relevantStates[0])) : null,
+        state: states.isNotEmpty ? states.removeAt(0) : null,
         component: components.removeAt(0),
       );
     }
@@ -169,7 +154,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     props.remove(propsClassOrMixin.either);
     states.remove(stateClassOrMixin?.either);
 
-    final component = getComponentFor(factory, components);
+    final component = getComponentFor(factory, components, findOtherInCompilationUnit: true);
     if (component != null) {
       components.remove(component);
 
@@ -258,6 +243,19 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
   // Put em back in boilerplateMembers so we can log them outside of this function
   factories.addAll(unusedFactories.expand((group) => group.factories));
+
+  for (var propsClass in props) {
+    if (resolveVersion([propsClass]) == BoilerplateVersion.noGenerate) continue;
+    errorCollector.addError('Props class is missing factory.', errorCollector.spanFor(propsClass.node));
+  }
+  for (var stateClass in states) {
+    if (resolveVersion([stateClass]) == BoilerplateVersion.noGenerate) continue;
+    errorCollector.addError('State class is missing factory and/or component.', errorCollector.spanFor(stateClass.node));
+  }
+  for (var componentClass in components) {
+    if (resolveVersion([componentClass]) == BoilerplateVersion.noGenerate) continue;
+    errorCollector.addError('componentClass class is missing factory and/or props.', errorCollector.spanFor(componentClass.node));
+  }
 }
 
 class FactoryGroup {

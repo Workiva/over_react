@@ -19,15 +19,13 @@ part 'members/props_and_state_mixins.dart';
 part 'members/props_and_state_util.dart';
 
 abstract class BoilerplateMember {
-  final int declarationConfidence;
-
-  BoilerplateMember(this.declarationConfidence);
-
-  CompilationUnitMember get node;
-
   /// The confidence that, assuming that [node] has been correctly identified as this type of boilerplate member,
   /// it belongs to a boilerplate declaration of a given version.
-  Map<BoilerplateVersion, int> get versionConfidence;
+  final Map<BoilerplateVersion, int> versionConfidence;
+
+  BoilerplateMember(this.versionConfidence) : assert(versionConfidence != null && versionConfidence.isNotEmpty);
+
+  CompilationUnitMember get node;
 
   void validate(BoilerplateVersion version, ErrorCollector errorCollector);
 

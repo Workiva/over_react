@@ -11,41 +11,16 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
   @override
   SimpleIdentifier get name => node.name;
 
-  BoilerplatePropsOrStateMixin(this.node, int declarationConfidence, {@required this.companion})
-      : super(declarationConfidence) {
+  BoilerplatePropsOrStateMixin(
+    this.node, {
+    @required Map<BoilerplateVersion, int> confidence,
+    @required this.companion,
+  }) : super(confidence) {
     meta = getPropsOrStateAnnotation(isProps, node);
   }
 
   @override
   String get debugString => '${super.debugString}, companion: ${companion?.name}';
-
-  @override
-  Map<BoilerplateVersion, int> get versionConfidence {
-    final isMixin = node is MixinDeclaration;
-    final hasGeneratedPrefix = node.name.name.startsWith(r'_$');
-
-    final map = {
-      BoilerplateVersion.v2_legacyBackwardsCompat:
-          isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.veryLow : Confidence.high),
-      BoilerplateVersion.v3_legacyDart2Only:
-          isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.high : Confidence.veryLow),
-      BoilerplateVersion.v4_mixinBased: isMixin ? Confidence.high : Confidence.veryLow,
-    };
-
-    final nodeHelper = node.asClassish();
-
-    final overridesIsClassGenerated = nodeHelper.members
-        .whereType<MethodDeclaration>()
-        .any((member) => member.isGetter && member.name.name == r'$isClassGenerated');
-    // Handle classes that look like props but are really just used as interfaces, and aren't extended from or directly used as a component's props
-    if (overridesIsClassGenerated || onlyImplementsThings(nodeHelper)) {
-      map[BoilerplateVersion.noGenerate] = Confidence.certain;
-    } else {
-      map[BoilerplateVersion.noGenerate] = Confidence.veryLow;
-    }
-
-    return map;
-  }
 
   @override
   void validate(BoilerplateVersion version, ErrorCollector errorCollector) {
@@ -93,18 +68,30 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
 }
 
 class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
-  BoilerplatePropsMixin(ClassOrMixinDeclaration node, int declarationConfidence,
-      {ClassishDeclaration companion})
-      : super(node, declarationConfidence, companion: companion);
+  BoilerplatePropsMixin(
+    ClassOrMixinDeclaration node,
+    ClassishDeclaration companion,
+    Map<BoilerplateVersion, int> confidence,
+  ) : super(
+          node,
+          confidence: confidence,
+          companion: companion,
+        );
 
   @override
   bool get isProps => true;
 }
 
 class BoilerplateStateMixin extends BoilerplatePropsOrStateMixin {
-  BoilerplateStateMixin(ClassOrMixinDeclaration node, int declarationConfidence,
-      {ClassishDeclaration companion})
-      : super(node, declarationConfidence, companion: companion);
+  BoilerplateStateMixin(
+    ClassOrMixinDeclaration node,
+    ClassishDeclaration companion,
+    Map<BoilerplateVersion, int> confidence,
+  ) : super(
+          node,
+          confidence: confidence,
+          companion: companion,
+        );
 
   @override
   bool get isProps => false;

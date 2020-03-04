@@ -1,3 +1,6 @@
+import 'package:analyzer/dart/ast/ast.dart';
+import 'package:over_react/src/builder/generation/parsing/version.dart';
+
 import 'ast_util.dart';
 import 'members.dart';
 import 'util.dart';
@@ -54,10 +57,73 @@ Union<A, B> _getNameMatchUnion<A extends BoilerplateMember, B extends Boilerplat
 
 BoilerplateComponent getComponentFor(
   BoilerplateMember member,
-  List<BoilerplateComponent> components,
-) {
-  return _getNameMatch(components, normalizeNameAndRemoveSuffix(member)) ??
+  List<BoilerplateComponent> components, {
+  bool findOtherInCompilationUnit = false,
+}) {
+  final match = _getNameMatch(components, normalizeNameAndRemoveSuffix(member)) ??
       getRelatedName(member).mapIfNotNull((name) => _getNameMatch(components, name));
+  if (match != null) return match;
+
+  if (findOtherInCompilationUnit) {
+    final componentNode = member.node
+        .thisOrAncestorOfType<CompilationUnit>()
+        .declarations
+        .whereType<NamedCompilationUnitMember>()
+        .where((m) => m is ClassOrMixinDeclaration || m is ClassTypeAlias)
+        .map((m) => m.asClassish())
+        .where(_detectComponent)
+        .firstWhere((comp) {
+      final propsGenericArgName = comp.superclass?.typeArguments?.arguments
+          ?.firstWhere((arg) => arg.typeNameWithoutPrefix.contains('Props'), orElse: () => null)
+          ?.typeNameWithoutPrefix;
+      if (propsGenericArgName != null) {
+        if (_normalizeBoilerplatePropsOrPropsMixinName(propsGenericArgName) ==
+            normalizeNameAndRemoveSuffix(member)) {
+          return true;
+        }
+      }
+
+      return false;
+    }, orElse: () => null);
+
+    if (componentNode != null) {
+      return BoilerplateComponent(componentNode, {
+        for (final version in BoilerplateVersion.values) version: Confidence.medium,
+      });
+    }
+  }
+
+  return null;
+}
+
+bool _detectComponent(ClassishDeclaration classish) {
+  // Don't detect react-dart components as boilerplate components, since they cause issues with grouping
+  // if they're in the same file as an OverReact component with non-matching names.
+  if (!const {'Component', 'Component2'}.contains(classish.superclass?.nameWithoutPrefix)) {
+    int confidence = 0;
+    if (classish.name.name.endsWith('Component')) {
+      confidence += Confidence.medium;
+    }
+    if (classish.allSuperTypes.any((type) {
+      final name = type.nameWithoutPrefix;
+      return name == 'UiComponent' || name == 'UiComponent2';
+    })) {
+      confidence += Confidence.high;
+    }
+
+    // extending from an abstract component: `FooComponent extends BarComponent<FooProps, FooState>`
+    if (classish.superclass?.typeArguments?.arguments
+            ?.any((arg) => arg.typeNameWithoutPrefix.contains('Props')) ??
+        false) {
+      confidence += Confidence.medium;
+    }
+
+    if (confidence != 0) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 Union<BoilerplateProps, BoilerplatePropsMixin> getPropsFor(

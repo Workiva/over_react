@@ -19,18 +19,10 @@ class BoilerplateFactory extends BoilerplateMember {
     return null;
   }
 
-  BoilerplateFactory(this.node, int declarationConfidence) : super(declarationConfidence);
-
-  @override
-  Map<BoilerplateVersion, int> get versionConfidence => {
-        BoilerplateVersion.v2_legacyBackwardsCompat:
-            hasFactoryAnnotation ? Confidence.medium : Confidence.veryLow,
-        BoilerplateVersion.v3_legacyDart2Only:
-            hasFactoryAnnotation ? Confidence.medium : Confidence.veryLow,
-        BoilerplateVersion.v4_mixinBased:
-            hasFactoryAnnotation ? Confidence.medium : Confidence.high,
-        BoilerplateVersion.noGenerate: hasFactoryAnnotation ? Confidence.veryLow : Confidence.high,
-      };
+  BoilerplateFactory(
+    this.node,
+    Map<BoilerplateVersion, int> declarationConfidence,
+  ) : super(declarationConfidence);
 
   bool get hasFactoryAnnotation => node.hasAnnotationWithName('Factory');
 

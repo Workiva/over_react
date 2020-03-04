@@ -9,9 +9,9 @@ class BoilerplateComponent extends BoilerplateMember {
   annotations.Component meta;
   Identifier configSubtypeOf;
 
-  BoilerplateComponent(this.nodeHelper, int declarationConfidence)
+  BoilerplateComponent(this.nodeHelper, Map<BoilerplateVersion, int> confidence)
       : node = nodeHelper.node,
-        super(declarationConfidence) {
+        super(confidence) {
     final meta = InstantiatedComponentMeta<annotations.Component2>(node) ??
         InstantiatedComponentMeta<annotations.Component>(node);
 
@@ -25,35 +25,6 @@ class BoilerplateComponent extends BoilerplateMember {
   TypeAnnotation get propsGenericArg {
     return nodeHelper.superclass.typeArguments?.arguments
         ?.firstWhere((type) => type.typeNameWithoutPrefix.endsWith('Props'), orElse: () => null);
-  }
-
-  @override
-  Map<BoilerplateVersion, int> get versionConfidence {
-    final map = <BoilerplateVersion, int>{};
-
-    // todo do we need this and should we include other confidences in the map in this case?
-    if (nodeHelper.hasAbstractKeyword && !hasComponent1OrAbstractAnnotation) {
-      map[BoilerplateVersion.noGenerate] = Confidence.high;
-      return map;
-    }
-
-    if (hasComponent1OrAbstractAnnotation) {
-      map[BoilerplateVersion.v2_legacyBackwardsCompat] = Confidence.high;
-      map[BoilerplateVersion.v3_legacyDart2Only] = Confidence.high;
-      map[BoilerplateVersion.v4_mixinBased] = Confidence.veryLow;
-      map[BoilerplateVersion.noGenerate] = Confidence.veryLow;
-    } else if (hasComponent2OrAbstractAnnotation) {
-      map[BoilerplateVersion.v2_legacyBackwardsCompat] = Confidence.medium;
-      map[BoilerplateVersion.v3_legacyDart2Only] = Confidence.medium;
-      map[BoilerplateVersion.v3_legacyDart2Only] = Confidence.medium;
-      map[BoilerplateVersion.noGenerate] = Confidence.veryLow;
-    } else {
-      map[BoilerplateVersion.v2_legacyBackwardsCompat] = Confidence.veryLow;
-      map[BoilerplateVersion.v3_legacyDart2Only] = Confidence.veryLow;
-      map[BoilerplateVersion.v4_mixinBased] = Confidence.medium;
-      map[BoilerplateVersion.noGenerate] = Confidence.medium;
-    }
-    return map;
   }
 
   bool get hasAnnotation => hasComponent1OrAbstractAnnotation || hasComponent2OrAbstractAnnotation;
