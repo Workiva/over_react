@@ -32,11 +32,12 @@ well as other miscellaneous ones.
 
 ### Function Component Boilerplate
 
-React function components, along with [hooks], are used heavily in modern React 
-component architecture, and we would like to take advantage of their benefits 
-within the Workiva ecosystem. However, to be truly valuable, we need strongly 
-typed prop APIs for these components, which means we must provide a way to 
-declare function components using OverReact boilerplate.
+React function components, along with [hooks](https://reactjs.org/docs/hooks-intro.html), 
+are used heavily in modern React component architecture, and we would like to 
+take advantage of their benefits within the Workiva ecosystem. However, to be 
+truly valuable, we need strongly typed prop APIs for these components, which 
+means we must provide a way to declare function components using OverReact 
+boilerplate.
 
 ### Problems with Previous Boilerplate
 
@@ -162,7 +163,8 @@ the build too much.
 
 1. Keep component declarations as terse and user-friendly as possible.
 
-2. Use `build_to: cache` (for more information, see: [pkg:build docs]).
+2. Use `build_to: cache` (for more information, see: 
+[pkg:build docs](https://github.com/dart-lang/build/blob/master/docs/builder_author_faq.md#when-should-a-builder-build-to-cache-vs-source)).
     
     `build_to:cache` should be used when generated code is dependent on the 
     library's underlying implementation. This may not be strictly the case 
@@ -526,7 +528,8 @@ as the entrypoint to the generated code.
 
 #### With Default Props
 
-`defaultProps` on function components is [already deprecated](https://github.com/facebook/react/pull/16210).
+`defaultProps` on function components is 
+[already deprecated](https://github.com/facebook/react/pull/16210).
 
 Use null-aware operators to default null values. This provides almost the
 same behavior as `defaultProps`, but with the restriction that a given prop
@@ -598,11 +601,11 @@ UiFactory<FooProps> createFooHoc(UiFactory otherFactory) {
 ## Upgrading
 
 To update your repository to the new boilerplate, you can use 
-[over_react_codemod]'s `boilerplate_upgrade` executable to make it 
-easier. This codemod goes through the repository and updates the 
-boilerplate as necessary. While the codemod will handle many basic 
-updates, it will still need to be supplemented with some manual 
-checks and refactoring. 
+[over_react_codemod](https://github.com/Workiva/over_react_codemod)'s 
+`boilerplate_upgrade` executable to make it easier. This codemod goes 
+through the repository and updates the boilerplate as necessary. While 
+the codemod will handle many basic updates, it will still need to be 
+supplemented with some manual checks and refactoring. 
 
 Before running the codemod, run `semver_audit` inside your repository 
 and save the report using the following commands:
@@ -630,8 +633,3 @@ semver report) _will not_ be upgraded.
 * `--convert-classes-with-external-superclasses`: allows classes with external
 superclasses to be upgraded to the new boilerplate. Without this flag, all classes
 with external superclasses _will not_ be upgraded.
-
-[angular-dart]: https://github.com/dart-lang/angular/blob/d2e4c599ab5a3ee0544d8c639a4de4e011b14517/doc/migrating-to-v5.md#adjust-analysis_optionsyaml
-[hooks]: https://reactjs.org/docs/hooks-intro.html
-[over_react_codemod]: https://github.com/Workiva/over_react_codemod
-[pkg:build docs]: https://github.com/dart-lang/build/blob/master/docs/builder_author_faq.md#when-should-a-builder-build-to-cache-vs-source
