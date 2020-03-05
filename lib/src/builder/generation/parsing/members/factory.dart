@@ -21,18 +21,18 @@ class BoilerplateFactory extends BoilerplateMember {
 
   BoilerplateFactory(
     this.node,
-    Map<BoilerplateVersion, int> declarationConfidence,
+    VersionConfidence declarationConfidence,
   ) : super(declarationConfidence);
 
   bool get hasFactoryAnnotation => node.hasAnnotationWithName('Factory');
 
   @override
-  void validate(BoilerplateVersion version, ErrorCollector errorCollector) {
+  void validate(Version version, ErrorCollector errorCollector) {
     switch (version) {
-      case BoilerplateVersion.v4_mixinBased:
+      case Version.v4_mixinBased:
         break;
-      case BoilerplateVersion.v2_legacyBackwardsCompat:
-      case BoilerplateVersion.v3_legacyDart2Only:
+      case Version.v2_legacyBackwardsCompat:
+      case Version.v3_legacyDart2Only:
         if (!hasFactoryAnnotation) {
           errorCollector.addError(
               'Legacy boilerplate factories must be annotated with `@Factory()`.',

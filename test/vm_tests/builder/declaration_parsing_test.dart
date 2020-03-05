@@ -143,8 +143,8 @@ main() {
             expect(decl.component?.name?.name, '${ors.baseName}Component');
 
             final boilerplateVersion = backwardsCompatible
-                ? BoilerplateVersion.v2_legacyBackwardsCompat
-                : BoilerplateVersion.v3_legacyDart2Only;
+                ? Version.v2_legacyBackwardsCompat
+                : Version.v3_legacyDart2Only;
             if (componentVersion == 1) {
               expect(decl.component.meta, isA<annotations.Component>());
               expect(decl.component.isComponent2(boilerplateVersion), isFalse);

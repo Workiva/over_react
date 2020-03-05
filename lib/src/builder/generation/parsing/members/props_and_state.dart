@@ -15,7 +15,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
 
   BoilerplatePropsOrState(
     this.nodeHelper, {
-    @required Map<BoilerplateVersion, int> confidence,
+    @required VersionConfidence confidence,
     @required this.companion,
   })  : node = nodeHelper.node,
         super(confidence) {
@@ -32,9 +32,9 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
   bool get hasCompanionClass => companion != null;
 
   @override
-  void validate(BoilerplateVersion version, ErrorCollector errorCollector) {
+  void validate(Version version, ErrorCollector errorCollector) {
     switch (version) {
-      case BoilerplateVersion.v4_mixinBased:
+      case Version.v4_mixinBased:
         final node = this.node;
         if (node is MixinDeclaration) {
           // It's possible in the future that this may not always
@@ -64,7 +64,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
           }
         }
         break;
-      case BoilerplateVersion.v2_legacyBackwardsCompat:
+      case Version.v2_legacyBackwardsCompat:
         // It's possible to declare an abstract class without any props/state fields that need to be generated,
         //  so long as it doesn't have the annotation.
         if (nodeHelper.members.isNotEmpty ||
@@ -81,7 +81,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
           }
         }
         break;
-      case BoilerplateVersion.v3_legacyDart2Only:
+      case Version.v3_legacyDart2Only:
         _sharedLegacyValidation(errorCollector);
         if (node is ClassOrMixinDeclaration) {
           checkForMetaPresence(node as ClassOrMixinDeclaration, errorCollector);
@@ -111,7 +111,7 @@ class BoilerplateProps extends BoilerplatePropsOrState {
   BoilerplateProps(
     ClassishDeclaration nodeHelper,
       ClassishDeclaration companion,
-    Map<BoilerplateVersion, int> confidence,
+    VersionConfidence confidence,
   ) : super(
           nodeHelper,
           confidence: confidence,
@@ -126,7 +126,7 @@ class BoilerplateState extends BoilerplatePropsOrState {
   BoilerplateState(
     ClassishDeclaration nodeHelper,
     ClassishDeclaration companion,
-      Map<BoilerplateVersion, int> confidence,
+      VersionConfidence confidence,
   ) : super(
           nodeHelper,
           confidence: confidence,

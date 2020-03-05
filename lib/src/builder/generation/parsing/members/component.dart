@@ -9,7 +9,7 @@ class BoilerplateComponent extends BoilerplateMember {
   annotations.Component meta;
   Identifier configSubtypeOf;
 
-  BoilerplateComponent(this.nodeHelper, Map<BoilerplateVersion, int> confidence)
+  BoilerplateComponent(this.nodeHelper, VersionConfidence confidence)
       : node = nodeHelper.node,
         super(confidence) {
     final meta = InstantiatedComponentMeta<annotations.Component2>(node) ??
@@ -33,21 +33,21 @@ class BoilerplateComponent extends BoilerplateMember {
       node.hasAnnotationWithNames({'Component', 'AbstractComponent'});
   bool get hasComponent2OrAbstractAnnotation =>
       node.hasAnnotationWithNames({'Component2', 'AbstractComponent2'});
-  bool isComponent2(BoilerplateVersion version) =>
-      version == BoilerplateVersion.v4_mixinBased || hasComponent2OrAbstractAnnotation;
+  bool isComponent2(Version version) =>
+      version == Version.v4_mixinBased || hasComponent2OrAbstractAnnotation;
 
   @override
-  void validate(BoilerplateVersion version, ErrorCollector errorCollector) {
+  void validate(Version version, ErrorCollector errorCollector) {
     switch (version) {
-      case BoilerplateVersion.v4_mixinBased:
+      case Version.v4_mixinBased:
         final superclass = nodeHelper.superclass;
         if (superclass?.nameWithoutPrefix == 'UiComponent') {
           errorCollector.addError(
               'Must extend UiComponent2, not UiComponent.', errorCollector.spanFor(superclass));
         }
         break;
-      case BoilerplateVersion.v2_legacyBackwardsCompat:
-      case BoilerplateVersion.v3_legacyDart2Only:
+      case Version.v2_legacyBackwardsCompat:
+      case Version.v3_legacyDart2Only:
         break;
     }
 

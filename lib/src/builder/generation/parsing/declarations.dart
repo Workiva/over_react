@@ -167,8 +167,8 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
       if (version.shouldGenerate) {
         switch (version.version) {
-          case BoilerplateVersion.v2_legacyBackwardsCompat:
-          case BoilerplateVersion.v3_legacyDart2Only:
+          case Version.v2_legacyBackwardsCompat:
+          case Version.v3_legacyDart2Only:
             yield LegacyClassComponentDeclaration(
                 version: version.version,
                 factory: factory,
@@ -176,7 +176,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
                 props: propsClassOrMixin.a,
                 state: stateClassOrMixin?.a);
             break;
-          case BoilerplateVersion.v4_mixinBased:
+          case Version.v4_mixinBased:
             yield ClassComponentDeclaration(
                 version: version.version,
                 factory: factory,
@@ -194,7 +194,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
       if (isFunctionComponent(factory)) {
         yield FunctionComponentDeclaration(
-          version: BoilerplateVersion.v4_mixinBased,
+          version: Version.v4_mixinBased,
           factory: factory,
           props: propsClassOrMixin,
         );
@@ -202,14 +202,14 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         final version = resolveVersion([factory, propsClassOrMixin.either]);
         if (version.shouldGenerate) {
           switch (version.version) {
-            case BoilerplateVersion.v2_legacyBackwardsCompat:
-            case BoilerplateVersion.v3_legacyDart2Only:
+            case Version.v2_legacyBackwardsCompat:
+            case Version.v3_legacyDart2Only:
               errorCollector.addError(
                   'Missing component for factory/props', errorCollector.spanFor(factory.node));
               break;
-            case BoilerplateVersion.v4_mixinBased:
+            case Version.v4_mixinBased:
               yield PropsMapViewDeclaration(
-                version: BoilerplateVersion.v4_mixinBased,
+                version: Version.v4_mixinBased,
                 factory: factory,
                 props: propsClassOrMixin,
               );
@@ -322,7 +322,7 @@ AstNode fuzzyMatch(BoilerplateMember member, Iterable<BoilerplateMember> members
 class BoilerplateGenerator {}
 
 abstract class BoilerplateDeclaration {
-  final BoilerplateVersion version;
+  final Version version;
 
   BoilerplateDeclaration(this.version);
 
@@ -361,7 +361,7 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
   get _members => [factory, component, props, if (state != null) state];
 
   LegacyClassComponentDeclaration({
-    @required BoilerplateVersion version,
+    @required Version version,
     @required this.factory,
     @required this.component,
     @required this.props,
@@ -400,7 +400,7 @@ class LegacyAbstractClassComponentDeclaration extends BoilerplateDeclaration {
   get _members => [component, props, state].whereNotNull();
 
   LegacyAbstractClassComponentDeclaration({
-    @required BoilerplateVersion version,
+    @required Version version,
     this.component,
     this.props,
     this.state,
@@ -448,7 +448,7 @@ class ClassComponentDeclaration extends BoilerplateDeclaration {
   get _members => [factory, component, props.either, if (state != null) state?.either];
 
   ClassComponentDeclaration({
-    @required BoilerplateVersion version,
+    @required Version version,
     @required this.factory,
     @required this.component,
     @required this.props,
@@ -467,7 +467,7 @@ class PropsMapViewDeclaration extends BoilerplateDeclaration {
   get _members => [factory, props.either];
 
   PropsMapViewDeclaration({
-    @required BoilerplateVersion version,
+    @required Version version,
     @required this.factory,
     @required this.props,
   }) : super(version);
@@ -484,7 +484,7 @@ class FunctionComponentDeclaration extends BoilerplateDeclaration {
   get _members => [factory, props.either];
 
   FunctionComponentDeclaration({
-    @required BoilerplateVersion version,
+    @required Version version,
     @required this.factory,
     @required this.props,
   }) : super(version);
@@ -497,7 +497,7 @@ class PropsMixinDeclaration extends BoilerplateDeclaration {
   get _members => [propsMixin];
 
   PropsMixinDeclaration({
-    @required BoilerplateVersion version,
+    @required Version version,
     @required this.propsMixin,
   }) : super(version);
 }
@@ -509,7 +509,7 @@ class StateMixinDeclaration extends BoilerplateDeclaration {
   get _members => [stateMixin];
 
   StateMixinDeclaration({
-    @required BoilerplateVersion version,
+    @required Version version,
     @required this.stateMixin,
   }) : super(version);
 }

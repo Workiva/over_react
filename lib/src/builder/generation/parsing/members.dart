@@ -21,27 +21,21 @@ part 'members/props_and_state_util.dart';
 abstract class BoilerplateMember {
   /// The confidence that, assuming that [node] has been correctly identified as this type of boilerplate member,
   /// it belongs to a boilerplate declaration of a given version.
-  final Map<BoilerplateVersion, int> versionConfidence;
+  final VersionConfidence versionConfidence;
 
-  BoilerplateMember(this.versionConfidence) : assert(versionConfidence != null && versionConfidence.isNotEmpty);
+  BoilerplateMember(this.versionConfidence) : assert(versionConfidence != null);
 
   CompilationUnitMember get node;
 
-  void validate(BoilerplateVersion version, ErrorCollector errorCollector);
+  void validate(Version version, ErrorCollector errorCollector);
 
   SimpleIdentifier get name;
 
   @override
-  String toString() => '${super.toString()} (${name.name}) ${prettyPrintMap(versionConfidence)}';
+  String toString() => '${super.toString()} (${name.name}) ${versionConfidence}';
 
   String get debugString {
-    final confidence = versionConfidence;
-    final sortedKeys = BoilerplateVersion.values.where(confidence.containsKey);
-    final shorthandConfidence = {
-      for (var key in sortedKeys) '${key.toString().split('.').last}': confidence[key],
-    };
-
-    return '${runtimeType.toString()}; confidence:$shorthandConfidence';
+    return '${runtimeType.toString()}; confidence:$versionConfidence';
   }
 }
 

@@ -13,7 +13,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
 
   BoilerplatePropsOrStateMixin(
     this.node, {
-    @required Map<BoilerplateVersion, int> confidence,
+    @required VersionConfidence confidence,
     @required this.companion,
   }) : super(confidence) {
     meta = getPropsOrStateAnnotation(isProps, node);
@@ -23,7 +23,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
   String get debugString => '${super.debugString}, companion: ${companion?.name}';
 
   @override
-  void validate(BoilerplateVersion version, ErrorCollector errorCollector) {
+  void validate(Version version, ErrorCollector errorCollector) {
     void _sharedLegacyValidation() {
       if (!node.hasAnnotationWithName(propsOrStateMixinAnnotationName)) {
         errorCollector.addError(
@@ -34,7 +34,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
     }
 
     switch (version) {
-      case BoilerplateVersion.v4_mixinBased:
+      case Version.v4_mixinBased:
         final node = this.node;
         if (node is MixinDeclaration) {
           final isOnUiProps = node.onClause?.superclassConstraints
@@ -53,11 +53,11 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
               '$propsOrStateString mixins must be mixins', errorCollector.spanFor(spanNode));
         }
         break;
-      case BoilerplateVersion.v2_legacyBackwardsCompat:
+      case Version.v2_legacyBackwardsCompat:
         _sharedLegacyValidation();
         validateMetaField(node.asClassish(), propsOrStateMetaStructName, errorCollector);
         break;
-      case BoilerplateVersion.v3_legacyDart2Only:
+      case Version.v3_legacyDart2Only:
         _sharedLegacyValidation();
         checkForMetaPresence(node, errorCollector);
         break;
@@ -69,7 +69,7 @@ class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
   BoilerplatePropsMixin(
     ClassOrMixinDeclaration node,
     ClassishDeclaration companion,
-    Map<BoilerplateVersion, int> confidence,
+    VersionConfidence confidence,
   ) : super(
           node,
           confidence: confidence,
@@ -84,7 +84,7 @@ class BoilerplateStateMixin extends BoilerplatePropsOrStateMixin {
   BoilerplateStateMixin(
     ClassOrMixinDeclaration node,
     ClassishDeclaration companion,
-    Map<BoilerplateVersion, int> confidence,
+    VersionConfidence confidence,
   ) : super(
           node,
           confidence: confidence,
