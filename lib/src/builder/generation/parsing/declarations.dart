@@ -321,7 +321,7 @@ AstNode fuzzyMatch(BoilerplateMember member, Iterable<BoilerplateMember> members
 
 class BoilerplateGenerator {}
 
-enum DeclarationTypes {
+enum DeclarationType {
   functionComponentDeclaration,
   classComponentDeclaration,
   legacyClassComponentDeclaration,
@@ -333,7 +333,7 @@ enum DeclarationTypes {
 
 abstract class BoilerplateDeclaration {
   final BoilerplateVersion version;
-  DeclarationTypes type;
+  DeclarationType type;
 
   BoilerplateDeclaration(this.version);
 
@@ -372,7 +372,7 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
   get _members => [factory, component, props, if (state != null) state];
 
   @override
-  get type => DeclarationTypes.legacyClassComponentDeclaration;
+  get type => DeclarationType.legacyClassComponentDeclaration;
 
   LegacyClassComponentDeclaration({
     @required BoilerplateVersion version,
@@ -414,7 +414,7 @@ class LegacyAbstractClassComponentDeclaration extends BoilerplateDeclaration {
   get _members => [component, props, state].whereNotNull();
 
   @override
-  final type = DeclarationTypes.legacyAbstractClassComponentDeclaration;
+  final type = DeclarationType.legacyAbstractClassComponentDeclaration;
 
   LegacyAbstractClassComponentDeclaration({
     @required BoilerplateVersion version,
@@ -465,7 +465,7 @@ class ClassComponentDeclaration extends BoilerplateDeclaration {
   get _members => [factory, component, props.either, if (state != null) state?.either];
 
   @override
-  get type => DeclarationTypes.classComponentDeclaration;
+  get type => DeclarationType.classComponentDeclaration;
 
   ClassComponentDeclaration({
     @required BoilerplateVersion version,
@@ -487,7 +487,7 @@ class PropsMapViewDeclaration extends BoilerplateDeclaration {
   get _members => [factory, props.either];
 
   @override
-  get type => DeclarationTypes.propsMapViewDeclaration;
+  get type => DeclarationType.propsMapViewDeclaration;
 
   PropsMapViewDeclaration({
     @required BoilerplateVersion version,
@@ -507,7 +507,7 @@ class FunctionComponentDeclaration extends BoilerplateDeclaration {
   get _members => [factory, props.either];
 
   @override
-  get type => DeclarationTypes.functionComponentDeclaration;
+  get type => DeclarationType.functionComponentDeclaration;
 
   FunctionComponentDeclaration({
     @required BoilerplateVersion version,
@@ -523,7 +523,7 @@ class PropsMixinDeclaration extends BoilerplateDeclaration {
   get _members => [propsMixin];
 
   @override
-  get type => DeclarationTypes.propsMixinDeclaration;
+  get type => DeclarationType.propsMixinDeclaration;
 
   PropsMixinDeclaration({
     @required BoilerplateVersion version,
@@ -538,7 +538,7 @@ class StateMixinDeclaration extends BoilerplateDeclaration {
   get _members => [stateMixin];
 
   @override
-  get type => DeclarationTypes.stateMixinDeclaration;
+  get type => DeclarationType.stateMixinDeclaration;
 
   StateMixinDeclaration({
     @required BoilerplateVersion version,
