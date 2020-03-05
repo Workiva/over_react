@@ -34,8 +34,6 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
   @override
   void validate(BoilerplateVersion version, ErrorCollector errorCollector) {
     switch (version) {
-      case BoilerplateVersion.noGenerate:
-        return;
       case BoilerplateVersion.v4_mixinBased:
         final node = this.node;
         if (node is MixinDeclaration) {

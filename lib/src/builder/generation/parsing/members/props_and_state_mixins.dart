@@ -34,8 +34,6 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
     }
 
     switch (version) {
-      case BoilerplateVersion.noGenerate:
-        return;
       case BoilerplateVersion.v4_mixinBased:
         final node = this.node;
         if (node is MixinDeclaration) {

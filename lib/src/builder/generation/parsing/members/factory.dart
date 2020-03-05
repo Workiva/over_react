@@ -29,8 +29,6 @@ class BoilerplateFactory extends BoilerplateMember {
   @override
   void validate(BoilerplateVersion version, ErrorCollector errorCollector) {
     switch (version) {
-      case BoilerplateVersion.noGenerate:
-        return;
       case BoilerplateVersion.v4_mixinBased:
         break;
       case BoilerplateVersion.v2_legacyBackwardsCompat:

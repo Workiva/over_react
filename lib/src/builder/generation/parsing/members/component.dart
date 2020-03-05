@@ -39,8 +39,6 @@ class BoilerplateComponent extends BoilerplateMember {
   @override
   void validate(BoilerplateVersion version, ErrorCollector errorCollector) {
     switch (version) {
-      case BoilerplateVersion.noGenerate:
-        return;
       case BoilerplateVersion.v4_mixinBased:
         final superclass = nodeHelper.superclass;
         if (superclass?.nameWithoutPrefix == 'UiComponent') {

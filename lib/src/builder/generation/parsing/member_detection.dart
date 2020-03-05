@@ -90,7 +90,8 @@ class BoilerplateMemberDetector {
         } else {
           onFactory(BoilerplateFactory(node, {
             BoilerplateVersion.v4_mixinBased: Confidence.medium,
-            BoilerplateVersion.noGenerate: Confidence.medium,
+            BoilerplateVersion.v2_legacyBackwardsCompat: Confidence.none,
+            BoilerplateVersion.v3_legacyDart2Only: Confidence.none,
           }));
           return;
         }
@@ -148,7 +149,11 @@ class BoilerplateMemberDetector {
     final isAbstractNoGenerate = !hasGeneratedPrefix &&
         (node is! MixinDeclaration && nodeHelper.hasAbstractKeyword && nodeHelper.members.isEmpty);
     if (isAbstractNoGenerate) {
-      return {BoilerplateVersion.noGenerate: Confidence.high};
+      return {
+        BoilerplateVersion.v2_legacyBackwardsCompat: Confidence.none,
+        BoilerplateVersion.v3_legacyDart2Only: Confidence.none,
+        BoilerplateVersion.v4_mixinBased: Confidence.none,
+      };
     }
 
     final map = <BoilerplateVersion, int>{};
@@ -187,7 +192,6 @@ class BoilerplateMemberDetector {
       BoilerplateVersion.v3_legacyDart2Only:
           isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.high : Confidence.veryLow),
       BoilerplateVersion.v4_mixinBased: isMixin ? Confidence.high : Confidence.veryLow,
-      BoilerplateVersion.noGenerate: Confidence.veryLow,
     };
   }
 
@@ -219,7 +223,9 @@ class BoilerplateMemberDetector {
         case 'Component':
         case 'Component2':
           final confidence = {
-            for (final version in BoilerplateVersion.values) version: Confidence.high
+            BoilerplateVersion.v2_legacyBackwardsCompat: Confidence.high,
+            BoilerplateVersion.v3_legacyDart2Only: Confidence.high,
+            BoilerplateVersion.v4_mixinBased: Confidence.high,
           };
           onComponent(BoilerplateComponent(classish, confidence));
           return true;
@@ -227,7 +233,11 @@ class BoilerplateMemberDetector {
         // todo should we even use these?
         case 'AbstractComponent':
         case 'AbstractComponent2':
-          final confidence = {BoilerplateVersion.noGenerate: Confidence.high};
+          final confidence = {
+            BoilerplateVersion.v2_legacyBackwardsCompat: Confidence.none,
+            BoilerplateVersion.v3_legacyDart2Only: Confidence.none,
+            BoilerplateVersion.v4_mixinBased: Confidence.none,
+          };
           onComponent(BoilerplateComponent(classish, confidence));
           return true;
       }
@@ -251,19 +261,31 @@ class BoilerplateMemberDetector {
     // Thus, it's non-legacy boilerplate.
 
     Map<BoilerplateVersion, int> getConfidence() {
-      final confidence = {BoilerplateVersion.v4_mixinBased: Confidence.high};
+
       final overridesIsClassGenerated = classish.members
           .whereType<MethodDeclaration>()
           .any((member) => member.isGetter && member.name.name == r'$isClassGenerated');
       // Handle classes that look like props but are really just used as interfaces, and aren't extended from or directly used as a component's props
       if (overridesIsClassGenerated || onlyImplementsThings(classish)) {
-        confidence[BoilerplateVersion.noGenerate] = Confidence.certain;
+        return {
+          BoilerplateVersion.v2_legacyBackwardsCompat: Confidence.none,
+          BoilerplateVersion.v3_legacyDart2Only: Confidence.none,
+          BoilerplateVersion.v4_mixinBased: Confidence.none,
+        };
       } else if (classish.members.whereType<ConstructorDeclaration>().isNotEmpty) {
         //fixme fix these cases?
-        confidence[BoilerplateVersion.noGenerate] = Confidence.certain;
+        return {
+          BoilerplateVersion.v2_legacyBackwardsCompat: Confidence.none,
+          BoilerplateVersion.v3_legacyDart2Only: Confidence.none,
+          BoilerplateVersion.v4_mixinBased: Confidence.none,
+        };
       }
 
-      return confidence;
+      return {
+        BoilerplateVersion.v2_legacyBackwardsCompat: Confidence.none,
+        BoilerplateVersion.v3_legacyDart2Only: Confidence.none,
+        BoilerplateVersion.v4_mixinBased: Confidence.high,
+      };
     }
 
     if (node is MixinDeclaration) {
