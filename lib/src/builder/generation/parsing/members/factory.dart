@@ -19,10 +19,7 @@ class BoilerplateFactory extends BoilerplateMember {
     return null;
   }
 
-  BoilerplateFactory(
-    this.node,
-    VersionConfidence declarationConfidence,
-  ) : super(declarationConfidence);
+  BoilerplateFactory(this.node, VersionConfidence confidence) : super(confidence);
 
   bool get hasFactoryAnnotation => node.hasAnnotationWithName('Factory');
 

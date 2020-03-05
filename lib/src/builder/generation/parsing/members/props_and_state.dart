@@ -13,11 +13,8 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
   @override
   SimpleIdentifier get name => nodeHelper.name;
 
-  BoilerplatePropsOrState(
-    this.nodeHelper, {
-    @required VersionConfidence confidence,
-    @required this.companion,
-  })  : node = nodeHelper.node,
+  BoilerplatePropsOrState(this.nodeHelper, this.companion, VersionConfidence confidence)
+      : node = nodeHelper.node,
         super(confidence) {
     meta = getPropsOrStateAnnotation(isProps, node);
   }
@@ -109,14 +106,8 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
 
 class BoilerplateProps extends BoilerplatePropsOrState {
   BoilerplateProps(
-    ClassishDeclaration nodeHelper,
-      ClassishDeclaration companion,
-    VersionConfidence confidence,
-  ) : super(
-          nodeHelper,
-          confidence: confidence,
-          companion: companion,
-        );
+      ClassishDeclaration nodeHelper, ClassishDeclaration companion, VersionConfidence confidence)
+      : super(nodeHelper, companion, confidence);
 
   @override
   bool get isProps => true;
@@ -124,14 +115,8 @@ class BoilerplateProps extends BoilerplatePropsOrState {
 
 class BoilerplateState extends BoilerplatePropsOrState {
   BoilerplateState(
-    ClassishDeclaration nodeHelper,
-    ClassishDeclaration companion,
-      VersionConfidence confidence,
-  ) : super(
-          nodeHelper,
-          confidence: confidence,
-          companion: companion,
-        );
+      ClassishDeclaration nodeHelper, ClassishDeclaration companion, VersionConfidence confidence)
+      : super(nodeHelper, companion, confidence);
 
   @override
   bool get isProps => false;

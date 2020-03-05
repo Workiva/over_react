@@ -154,7 +154,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     props.remove(propsClassOrMixin.either);
     states.remove(stateClassOrMixin?.either);
 
-    final component = getComponentFor(factory, components, findOtherInCompilationUnit: true);
+    final component = getComponentFor(factory, components);
     if (component != null) {
       components.remove(component);
 
@@ -252,12 +252,10 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     if (!resolveVersion([stateClass]).shouldGenerate) continue;
     errorCollector.addError('State class is missing factory and/or component.', errorCollector.spanFor(stateClass.node));
   }
-  // ignore components since they don't require any generation if not accompanied by a props class and factory
-  // todo don't ignore components with a sufficiently high confidence
-//  for (var componentClass in components) {
-//    if (resolveVersion([componentClass]) == BoilerplateVersion.noGenerate) continue;
-//    errorCollector.addError('componentClass class is missing factory and/or props.', errorCollector.spanFor(componentClass.node));
-//  }
+  for (var componentClass in components) {
+    if (!resolveVersion([componentClass]).shouldGenerate) continue;
+    errorCollector.addError('componentClass class is missing factory and/or props.', errorCollector.spanFor(componentClass.node));
+  }
 }
 
 class FactoryGroup {

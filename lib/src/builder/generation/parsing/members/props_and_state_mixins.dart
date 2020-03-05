@@ -11,11 +11,8 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
   @override
   SimpleIdentifier get name => node.name;
 
-  BoilerplatePropsOrStateMixin(
-    this.node, {
-    @required VersionConfidence confidence,
-    @required this.companion,
-  }) : super(confidence) {
+  BoilerplatePropsOrStateMixin(this.node, this.companion, VersionConfidence confidence)
+      : super(confidence) {
     meta = getPropsOrStateAnnotation(isProps, node);
   }
 
@@ -67,14 +64,8 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
 
 class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
   BoilerplatePropsMixin(
-    ClassOrMixinDeclaration node,
-    ClassishDeclaration companion,
-    VersionConfidence confidence,
-  ) : super(
-          node,
-          confidence: confidence,
-          companion: companion,
-        );
+      ClassOrMixinDeclaration node, ClassishDeclaration companion, VersionConfidence confidence)
+      : super(node, companion, confidence);
 
   @override
   bool get isProps => true;
@@ -82,14 +73,8 @@ class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
 
 class BoilerplateStateMixin extends BoilerplatePropsOrStateMixin {
   BoilerplateStateMixin(
-    ClassOrMixinDeclaration node,
-    ClassishDeclaration companion,
-    VersionConfidence confidence,
-  ) : super(
-          node,
-          confidence: confidence,
-          companion: companion,
-        );
+      ClassOrMixinDeclaration node, ClassishDeclaration companion, VersionConfidence confidence)
+      : super(node, companion, confidence);
 
   @override
   bool get isProps => false;

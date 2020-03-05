@@ -52,15 +52,12 @@ Union<A, B> _getNameMatchUnion<A extends BoilerplateMember, B extends Boilerplat
   return null;
 }
 
-BoilerplateComponent getComponentFor(
-  BoilerplateMember member,
-  List<BoilerplateComponent> components, {
-  bool findOtherInCompilationUnit = false,
-}) {
+BoilerplateComponent getComponentFor(BoilerplateMember member, List<BoilerplateComponent> components) {
   final match = _getNameMatch(components, normalizeNameAndRemoveSuffix(member)) ??
       getRelatedName(member).mapIfNotNull((name) => _getNameMatch(components, name));
   if (match != null) return match;
 
+  // If there's no match by name, use the props generic parameter
   return components.firstWhere((comp) {
     final propsGenericArgName = comp.nodeHelper.superclass?.typeArguments?.arguments
         ?.firstWhere((arg) => arg.typeNameWithoutPrefix.contains('Props'), orElse: () => null)
