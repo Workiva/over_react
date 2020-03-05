@@ -54,9 +54,39 @@ class BoilerplateMemberDetector {
     final classish = node.asClassish();
     final companion = _getCompanionClass(node)?.asClassish();
 
-    if (_detectBasedOnAnnotations(classish, companion: companion)) return;
-    if (_detectNonLegacyPropsStateAndMixins(classish, companion: companion)) return;
+    if (_detectClassBasedOnAnnotations(classish, companion)) return;
+    if (_detectNonLegacyPropsStateOrMixin(classish, companion)) return;
     if (_detectPotentialComponent(classish)) return;
+  }
+
+  //
+  // _classishDeclarationsByName-related utilities
+  //
+
+  /// For `FooProps`, returns `_$FooProps`
+  NamedCompilationUnitMember _getSourceClassForPotentialCompanion(NamedCompilationUnitMember node) {
+    final name = node.name.name;
+    if (name.startsWith(privateSourcePrefix)) {
+      return null;
+    }
+    final sourceName = '$privateSourcePrefix$name';
+    return _classishDeclarationsByName[sourceName];
+  }
+
+  /// For `_$FooProps`, returns `FooProps`
+  NamedCompilationUnitMember _getCompanionClass(NamedCompilationUnitMember node) {
+    final name = node.name.name;
+    if (!name.startsWith(privateSourcePrefix)) {
+      return null;
+    }
+    final sourceName = name.replaceFirst(privateSourcePrefix, '');
+    return _classishDeclarationsByName[sourceName];
+  }
+
+  /// Returns whether it's the `$FooPropsMixin` to a `_$FooPropsMixin`
+  bool _isMixinStub(NamedCompilationUnitMember node) {
+    final name = node.name.name;
+    return name.startsWith(r'$') && _classishDeclarationsByName.containsKey('_$name');
   }
 
   //
@@ -112,44 +142,58 @@ class BoilerplateMemberDetector {
   // _processClassishDeclaration helpers
   //
 
-  /// For `FooProps`, returns `_$FooProps`
-  NamedCompilationUnitMember _getSourceClassForPotentialCompanion(NamedCompilationUnitMember node) {
-    final name = node.name.name;
-    if (name.startsWith(privateSourcePrefix)) {
-      return null;
+  bool _detectClassBasedOnAnnotations(ClassishDeclaration classish, ClassishDeclaration companion) {
+    for (final annotation in classish.metadata) {
+      switch (annotation.name.nameWithoutPrefix) {
+        case 'Props':
+        case 'AbstractProps':
+          onProps(BoilerplateProps(
+              classish, companion, _annotatedPropsOrStateConfidence(classish, companion)));
+          return true;
+
+        case 'PropsMixin':
+          onPropsMixin(BoilerplatePropsMixin(classish.node, companion,
+              _annotatedPropsOrStateMixinConfidence(classish, companion)));
+          return true;
+
+        case 'State':
+        case 'AbstractState':
+          onState(BoilerplateState(
+              classish, companion, _annotatedPropsOrStateConfidence(classish, companion)));
+          return true;
+
+        case 'StateMixin':
+          onStateMixin(BoilerplateStateMixin(classish.node, companion,
+              _annotatedPropsOrStateMixinConfidence(classish, companion)));
+          return true;
+
+        case 'Component':
+        case 'Component2':
+          onComponent(BoilerplateComponent(classish, VersionConfidence.all(Confidence.high)));
+          return true;
+
+        // todo should we even use these?
+        case 'AbstractComponent':
+        case 'AbstractComponent2':
+          onComponent(BoilerplateComponent(classish, VersionConfidence.none()));
+          return true;
+      }
     }
-    final sourceName = '$privateSourcePrefix$name';
-    return _classishDeclarationsByName[sourceName];
+
+    return false;
   }
 
-  /// For `_$FooProps`, returns `FooProps`
-  NamedCompilationUnitMember _getCompanionClass(NamedCompilationUnitMember node) {
-    final name = node.name.name;
-    if (!name.startsWith(privateSourcePrefix)) {
-      return null;
-    }
-    final sourceName = name.replaceFirst(privateSourcePrefix, '');
-    return _classishDeclarationsByName[sourceName];
-  }
-
-  /// Returns whether it's the `$FooPropsMixin` to a `_$FooPropsMixin`
-  bool _isMixinStub(NamedCompilationUnitMember node) {
-    final name = node.name.name;
-    return name.startsWith(r'$') && _classishDeclarationsByName.containsKey('_$name');
-  }
-
-  VersionConfidence _propsOrStateConfidence(
-      ClassishDeclaration nodeHelper, ClassishDeclaration companionClass) {
-    final node = nodeHelper.node;
-
+  VersionConfidence _annotatedPropsOrStateConfidence(
+      ClassishDeclaration classish, ClassishDeclaration companion) {
+    final node = classish.node;
     assert(node.hasAnnotationWithNames(const {'Props', 'State', 'AbstractProps', 'AbstractState'}),
         'this function assumes that all nodes passed to this function are annotated');
 
     final hasGeneratedPrefix = node.name.name.startsWith(r'_$');
-    final hasCompanionClass = companionClass != null;
+    final hasCompanionClass = companion != null;
 
     final isAbstractNoGenerate = !hasGeneratedPrefix &&
-        (node is! MixinDeclaration && nodeHelper.hasAbstractKeyword && nodeHelper.members.isEmpty);
+        (node is! MixinDeclaration && classish.hasAbstractKeyword && classish.members.isEmpty);
     if (isAbstractNoGenerate) {
       return VersionConfidence.none();
     }
@@ -175,10 +219,9 @@ class BoilerplateMemberDetector {
     }
   }
 
-  VersionConfidence _propsOrStateMixinConfidence(
-      ClassishDeclaration nodeHelper, ClassishDeclaration companionClass) {
-    final node = nodeHelper.node;
-
+  VersionConfidence _annotatedPropsOrStateMixinConfidence(
+      ClassishDeclaration classish, ClassishDeclaration companion) {
+    final node = classish.node;
     assert(node.hasAnnotationWithNames(const {'PropsMixin', 'StateMixin'}),
         'this function assumes that all nodes passed to this function are annotated');
 
@@ -194,55 +237,14 @@ class BoilerplateMemberDetector {
     );
   }
 
-  bool _detectBasedOnAnnotations(ClassishDeclaration classish, {ClassishDeclaration companion}) {
-    for (final annotation in classish.metadata) {
-      switch (annotation.name.nameWithoutPrefix) {
-        case 'Props':
-        case 'AbstractProps':
-          final confidence = _propsOrStateConfidence(classish, companion);
-          onProps(BoilerplateProps(classish, companion, confidence));
-          return true;
-
-        case 'PropsMixin':
-          final confidence = _propsOrStateMixinConfidence(classish, companion);
-          onPropsMixin(BoilerplatePropsMixin(classish.node, companion, confidence));
-          return true;
-
-        case 'State':
-        case 'AbstractState':
-          final confidence = _propsOrStateConfidence(classish, companion);
-          onState(BoilerplateState(classish, companion, confidence));
-          return true;
-
-        case 'StateMixin':
-          final confidence = _propsOrStateMixinConfidence(classish, companion);
-          onStateMixin(BoilerplateStateMixin(classish.node, companion, confidence));
-          return true;
-
-        case 'Component':
-        case 'Component2':
-          onComponent(BoilerplateComponent(classish, VersionConfidence.all(Confidence.high)));
-          return true;
-
-        // todo should we even use these?
-        case 'AbstractComponent':
-        case 'AbstractComponent2':
-          onComponent(BoilerplateComponent(classish, VersionConfidence.none()));
-          return true;
-      }
-    }
-
-    return false;
-  }
-
   static final propsOrMixinNamePattern = RegExp(r'Props(?:Mixin)?$');
   static final propsMixinNamePattern = propsOrMixinNamePattern;
   static final stateMixinNamePattern = RegExp(r'State(?:Mixin)?$');
   static final propsNamePattern = RegExp(r'Props(?:MapView)?$');
   static final stateNamePattern = RegExp(r'State$');
 
-  bool _detectNonLegacyPropsStateAndMixins(ClassishDeclaration classish,
-      {ClassishDeclaration companion}) {
+  bool _detectNonLegacyPropsStateOrMixin(
+      ClassishDeclaration classish, ClassishDeclaration companion) {
     final name = classish.name.name;
     final node = classish.node;
 
@@ -321,29 +323,24 @@ class _BoilerplateMemberDetectorVisitor extends SimpleAstVisitor<void> {
   final void Function(NamedCompilationUnitMember) onClassishDeclaration;
   final void Function(TopLevelVariableDeclaration) onTopLevelVariableDeclaration;
 
-  _BoilerplateMemberDetectorVisitor(
-      {this.onClassishDeclaration, this.onTopLevelVariableDeclaration});
+  _BoilerplateMemberDetectorVisitor({
+    this.onClassishDeclaration,
+    this.onTopLevelVariableDeclaration,
+  });
 
   @override
-  void visitCompilationUnit(CompilationUnit node) {
-    node.visitChildren(this);
-  }
+  void visitCompilationUnit(CompilationUnit node) => node.visitChildren(this);
 
   @override
-  void visitTopLevelVariableDeclaration(TopLevelVariableDeclaration node) {
-    onTopLevelVariableDeclaration(node);
-  }
-
-  void visitClassishDeclaration(NamedCompilationUnitMember node) {
-    onClassishDeclaration(node);
-  }
+  void visitTopLevelVariableDeclaration(TopLevelVariableDeclaration node) =>
+      onTopLevelVariableDeclaration(node);
 
   @override
-  void visitClassDeclaration(ClassDeclaration node) => visitClassishDeclaration(node);
+  void visitClassDeclaration(ClassDeclaration node) => onClassishDeclaration(node);
 
   @override
-  void visitClassTypeAlias(ClassTypeAlias node) => visitClassishDeclaration(node);
+  void visitClassTypeAlias(ClassTypeAlias node) => onClassishDeclaration(node);
 
   @override
-  void visitMixinDeclaration(MixinDeclaration node) => visitClassishDeclaration(node);
+  void visitMixinDeclaration(MixinDeclaration node) => onClassishDeclaration(node);
 }
