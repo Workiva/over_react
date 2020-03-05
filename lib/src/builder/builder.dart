@@ -18,6 +18,10 @@ class OverReactBuilder extends Builder {
     '.dart': [outputExtension],
   };
 
+  /// The generation order of boilerplate declarations.
+  ///
+  /// Changing the order of this iterable changes the order in which
+  /// the builder will write the generated code to the output file.
   static const generationOrder = [
     DeclarationType.classComponentDeclaration,
     DeclarationType.legacyClassComponentDeclaration,
