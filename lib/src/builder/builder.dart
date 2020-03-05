@@ -58,7 +58,22 @@ class OverReactBuilder extends Builder {
         hasErrors = false;
       }
 
-      for (final declaration in declarations) {
+      const generationOrder = [
+        DeclarationTypes.classComponentDeclaration,
+        DeclarationTypes.legacyClassComponentDeclaration,
+        DeclarationTypes.propsMixinDeclaration,
+        DeclarationTypes.stateMixinDeclaration,
+        DeclarationTypes.propsMapViewDeclaration,
+        DeclarationTypes.legacyAbstractClassComponentDeclaration,
+        DeclarationTypes.functionComponentDeclaration,
+      ];
+
+      final sortedDeclarations = declarations.toList()..sort((a, b) {
+        return generationOrder
+            .indexOf(a.type).compareTo(generationOrder.indexOf(b.type));
+      });
+
+      for (final declaration in sortedDeclarations) {
         hasErrors = false;
         declaration.validate(errorCollector);
         if (!hasErrors) {
