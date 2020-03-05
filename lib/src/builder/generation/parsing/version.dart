@@ -35,17 +35,20 @@ class VersionConfidencePair {
 
   VersionConfidencePair(this.version, this.confidence);
 
-  bool get shouldGenerate => confidence >= Confidence.medium;
+  bool get shouldGenerate => confidence > Confidence.medium;
 }
 
-
+/// Returns a confidence pair with
+/// - a [VersionConfidencePair.version] equal to the highest-confidence version among all [members]
+/// - a [VersionConfidencePair.confidence] equal to the average of all confidences for that version
 VersionConfidencePair resolveVersion(Iterable<BoilerplateMember> members) {
   var totals = VersionConfidence.none();
   for (var member in members) {
     totals += member.versionConfidence;
   }
+  final max = totals.maxConfidence;
 
-  return totals.maxConfidence;
+  return VersionConfidencePair(max.version, max.confidence / members.length);
 }
 
 class VersionConfidence {
@@ -66,7 +69,6 @@ class VersionConfidence {
   );
 
   VersionConfidence.none() : this.all(Confidence.none);
-
 
   List<VersionConfidencePair> toList() => [
     VersionConfidencePair(Version.v2_legacyBackwardsCompat, v2_legacyBackwardsCompat),

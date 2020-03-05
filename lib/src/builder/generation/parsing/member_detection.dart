@@ -211,9 +211,9 @@ class BoilerplateMemberDetector {
     } else {
       return VersionConfidence(
         v2_legacyBackwardsCompat:
-            (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.medium : Confidence.low,
+            (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.high : Confidence.low,
         v3_legacyDart2Only:
-            (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.low : Confidence.medium,
+            (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.low : Confidence.high,
         v4_mixinBased: Confidence.low,
       );
     }
