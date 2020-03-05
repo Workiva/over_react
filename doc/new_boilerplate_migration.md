@@ -1,7 +1,6 @@
 # New OverReact Boilerplate Migration Guide
 
 * __[Background](#background)__
-    * [Function Component Boilerplate](#function-component-boilerplate)
     * [Problems with Previous Boilerplate](#problems-with-previous-boilerplate)
 * __[New Boilerplate Updates](#new-boilerplate-updates)__
     * [Constraints](#constraints)
@@ -9,7 +8,7 @@
         * [Remove Annotations](#remove-annotations)
         * [Ignore Ungenerated Warnings Project-Wide](#ignore-ungenerated-warnings-project-wide)
         * [Use Mixin-Based Props Declaration that Disallows Subclassing](#use-mixin-based-props-declaration-that-disallows-subclassing)
-* __[Function Components](#function-components)__
+* __[Function Component Boilerplate](#function-component-boilerplate)__
     * [Constraints](#function-component-constraints)
     * [Design](#design)
 * __[Upgrading](#upgrading)__
@@ -26,18 +25,9 @@ boilerplate version as backwards-compatible as possible, while compromising the
 cleanliness of the boilerplate. In time, we found that this wasn't great from a 
 user experience or from a tooling perspective.
 
-Knowing this, we now have the opportunity to implement an improved version of 
-OverReact boilerplate that fixes issues introduced in the latest version, as 
-well as other miscellaneous ones.
-
-### Function Component Boilerplate
-
-React function components, along with [hooks](https://reactjs.org/docs/hooks-intro.html), 
-are used heavily in modern React component architecture, and we would like to 
-take advantage of their benefits within the Workiva ecosystem. However, to be 
-truly valuable, we need strongly typed prop APIs for these components, which 
-means we must provide a way to declare function components using OverReact 
-boilerplate.
+Knowing this, and having dropped support for Dart 1, we now have the opportunity 
+to implement an improved version of OverReact boilerplate that fixes issues 
+introduced in the latest version, as well as other miscellaneous ones.
 
 ### Problems with Previous Boilerplate
 
@@ -66,8 +56,9 @@ This pattern can also degrade the dev experience, by requiring a build before co
 statically valid, and also requiring rebuilds in some cases to consume public API 
 updates during their development (e.g., writing new component props classes).
 
-The transitional boilerplate, currently used in almost all repos, does not have these 
-issues, as it requires users to stub in these public classes:
+The transitional _(backwards-compatible with Dart 1)_ boilerplate, currently used in 
+almost all repos, does not have these issues, as it requires users to stub in these 
+public classes:
 
 ```dart
 // User-authored
@@ -176,7 +167,7 @@ the build too much.
     immediately as soon as they're consumed by wdesk, as opposed to having 
     to regenerate code and release within every consumer library.
 
-3. Make source code statically analyzable without running codegen.
+3. Make source code statically analyzable without running a build.
 
     The build docs instruct not to use build_to: cache to generate public 
     APIs, and command-line tools like `dartanalyzer` and `dartdoc` don't 
@@ -195,17 +186,16 @@ components.
     components that currently share props, and want to make it possible 
     to upgrade them.
     
-5. Provide a simple migration path for _most_ components in the Wdesk 
-ecosystem.
+5. Provide a simple migration path for _most_ components in our consumer 
+ecosystems.
 
     We can support new/old boilerplate at the same time, and slowly phase 
-    out the old as we migrate over to it using codemods.
+    out the old as we migrate over to it using 
+    [our `boilerplate_upgrade` codemod](#upgrading).
     
-    For cases that don't migrate cleanly, we can use the Wdesk versioning 
-    policy to replace them with APIs that use the new boilerplate in major 
-    versions or using versioned APIs. This applies to a small set of 
-    components within Wdesk whose props classes are public APIs, 
-    concentrated in web_skin_dart and to alesser extent graph_ui.
+    For cases that don't migrate cleanly within the Workiva ecosystem, 
+    we can use the Wdesk versioning policy to replace them with APIs that 
+    use the new boilerplate in major versions or using versioned APIs.
     
 6. Only support Component2 components.
 
@@ -241,7 +231,7 @@ class FooComponent extends UiComponent2<FooProps> {
 }
 ```
 
-Annotations could still be used, opt-in, if custom configuration is needed.
+Annotations can still be used, opt-in, if custom configuration is needed.
 
 ```dart
 @Props(keyNamespace: 'customNamespace.')
@@ -281,16 +271,11 @@ via mixins.
     * This requires consumers to include every single mixin within their `with` 
     clause, allowing the builder to mix in the generated code corresponding 
     to those mixins.
-    
-* Generated props mixin classes (`$FooPropsMixin`) must be exported along with 
-their source class `$FooProps`. These APIs are considered public, but should 
-only ever be referenced from other code generated by the over_react builder.
 
-##### New Boilerplate (from Dart 2 only boilerplate)
+##### New Boilerplate (from transitional boilerplate)
 
 ```diff
-import 'package:over_react/over_react.dart';
-
+- // ignore: uri_has_not_been_generated
 part 'foo.over_react.g.dart';
 
 - @Factory()
@@ -311,6 +296,12 @@ class FooComponent extends UiComponent2<FooProps> {
   @override
   render() => 'foo: ${props.foo}';
 }
+
+- // ignore: mixin_of_non_class, undefined_class
+- class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
+-   // ignore: undefined_identifier, const_initialized_with_non_constant_value
+-   static const PropsMeta meta = _$metaForFooProps;
+- }
 ```
 
 _Generated code_:
@@ -365,7 +356,7 @@ This eliminates the current `meta` portion of the boilerplate which has
 to reference more generated code.
 
 Prop meta from all mixins can be accessed, allowing us to default 
-consumedProps to all props statically accessible from that component.
+`consumedProps` to all props statically accessible from that component.
 
 Consumption: 
 
@@ -483,7 +474,7 @@ usage() {
 }
 ```
 
-## Function Components
+## Function Component Boilerplate
 
 ### Function Component Constraints 
 
@@ -531,7 +522,7 @@ as the entrypoint to the generated code.
 `defaultProps` on function components is 
 [already deprecated](https://github.com/facebook/react/pull/16210).
 
-Use null-aware operators to default null values. This provides almost the
+Instead, we use null-aware operators to default null values. This provides almost the
 same behavior as `defaultProps`, but with the restriction that a given prop
 __must either be nullable or have a default value, but not both__.
 
@@ -607,8 +598,9 @@ through the repository and updates the boilerplate as necessary. While
 the codemod will handle many basic updates, it will still need to be 
 supplemented with some manual checks and refactoring. 
 
-Before running the codemod, run `semver_audit` inside your repository 
-and save the report using the following commands:
+If you are migrating a Workiva library, before running the codemod, 
+run `semver_audit` inside your repository and save the report using the 
+following commands:
 
 1. `pub global activate semver_audit --hosted-url=https://pub.workiva.org`
 2. `pub global run semver_audit generate 2> semver_report.json`
@@ -616,9 +608,12 @@ and save the report using the following commands:
 This will allow the codemod to check whether or not components are
 public API.
 
+If you are migrating a library outside of the Workiva ecosystem, run the command 
+below with the `--treat-all-components-as-private` flag.
+
 Then, run the codemod by following the directions within 
 [the executable](https://github.com/Workiva/over_react_codemod/blob/master/lib/src/executables/boilerplate_upgrade.dart#L32)
-while inside your repository.
+from the root of your local copy of the repository.
 
 #### Flags
 
