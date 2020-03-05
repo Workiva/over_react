@@ -167,10 +167,10 @@ class BoilerplateMemberDetector {
     } else {
       return VersionConfidence(
         v2_legacyBackwardsCompat:
-            (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.medium : Confidence.veryLow,
+            (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.medium : Confidence.low,
         v3_legacyDart2Only:
-            (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.veryLow : Confidence.medium,
-        v4_mixinBased: Confidence.veryLow,
+            (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.low : Confidence.medium,
+        v4_mixinBased: Confidence.low,
       );
     }
   }
@@ -187,10 +187,10 @@ class BoilerplateMemberDetector {
 
     return VersionConfidence(
       v2_legacyBackwardsCompat:
-          isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.veryLow : Confidence.high),
+          isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.low : Confidence.high),
       v3_legacyDart2Only:
-          isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.high : Confidence.veryLow),
-      v4_mixinBased: isMixin ? Confidence.high : Confidence.veryLow,
+          isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.high : Confidence.low),
+      v4_mixinBased: isMixin ? Confidence.high : Confidence.low,
     );
   }
 

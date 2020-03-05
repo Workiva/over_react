@@ -5,7 +5,7 @@ import 'members.dart';
 @sealed
 abstract class Confidence {
   static const none = 0;
-  static const veryLow = 1;
+  static const low = 1;
   static const medium = 10;
   static const high = 100;
   static const certain = 100000;
@@ -29,17 +29,17 @@ extension VersionExtension on Version {
       this == Version.v3_legacyDart2Only;
 }
 
-class VersionWithConfidence {
+class VersionConfidencePair {
   final Version version;
   final num confidence;
 
-  VersionWithConfidence(this.version, this.confidence);
+  VersionConfidencePair(this.version, this.confidence);
 
   bool get shouldGenerate => confidence >= Confidence.medium;
 }
 
 
-VersionWithConfidence resolveVersion(Iterable<BoilerplateMember> members) {
+VersionConfidencePair resolveVersion(Iterable<BoilerplateMember> members) {
   var totals = VersionConfidence.none();
   for (var member in members) {
     totals += member.versionConfidence;
@@ -68,10 +68,10 @@ class VersionConfidence {
   VersionConfidence.none() : this.all(Confidence.none);
 
 
-  List<VersionWithConfidence> toList() => [
-    VersionWithConfidence(Version.v2_legacyBackwardsCompat, v2_legacyBackwardsCompat),
-    VersionWithConfidence(Version.v3_legacyDart2Only, v3_legacyDart2Only),
-    VersionWithConfidence(Version.v4_mixinBased, v4_mixinBased),
+  List<VersionConfidencePair> toList() => [
+    VersionConfidencePair(Version.v2_legacyBackwardsCompat, v2_legacyBackwardsCompat),
+    VersionConfidencePair(Version.v3_legacyDart2Only, v3_legacyDart2Only),
+    VersionConfidencePair(Version.v4_mixinBased, v4_mixinBased),
   ];
 
   VersionConfidence operator +(VersionConfidence other) {
@@ -82,12 +82,12 @@ class VersionConfidence {
     );
   }
 
-  List<VersionWithConfidence> get _sortedVersions {
+  List<VersionConfidencePair> get _sortedVersions {
     final sortedVersionEntries = toList()
       ..sort((a, b) {
         // Sort highest to lowest for values
         final compareResult = b.confidence.compareTo(a.confidence);
-        // For ties, chose the preferred boilerplate.
+        // For ties, choose the preferred boilerplate.
         if (compareResult == 0) {
           return _versionsInPriorityOrder
               .indexOf(a.version)
@@ -99,7 +99,7 @@ class VersionConfidence {
     return sortedVersionEntries;
   }
 
-  VersionWithConfidence get maxConfidence => _sortedVersions.first;
+  VersionConfidencePair get maxConfidence => _sortedVersions.first;
 
   @override
   String toString() {
