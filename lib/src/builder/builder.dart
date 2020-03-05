@@ -28,7 +28,6 @@ class OverReactBuilder extends Builder {
     DeclarationType.functionComponentDeclaration,
   ];
 
-
   @override
   FutureOr<void> build(BuildStep buildStep) async {
     final source = await buildStep.readAsString(buildStep.inputId);
