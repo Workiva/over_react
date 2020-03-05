@@ -1,5 +1,4 @@
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:meta/meta.dart';
 import 'package:over_react/src/builder/generation/parsing/meta.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/util/pretty_print.dart';
@@ -23,7 +22,7 @@ abstract class BoilerplateMember {
   /// it belongs to a boilerplate declaration of a given version.
   final VersionConfidence versionConfidence;
 
-  BoilerplateMember(this.versionConfidence) : assert(versionConfidence != null);
+  BoilerplateMember(this.versionConfidence);
 
   CompilationUnitMember get node;
 
@@ -32,7 +31,7 @@ abstract class BoilerplateMember {
   SimpleIdentifier get name;
 
   @override
-  String toString() => '${super.toString()} (${name.name}) ${versionConfidence}';
+  String toString() => '${super.toString()} (${name.name}) $versionConfidence';
 
   String get debugString {
     return '${runtimeType.toString()}; confidence:$versionConfidence';
