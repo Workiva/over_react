@@ -35,7 +35,8 @@ extension NameHelper on Identifier {
 
 extension SuperclassConstraint on MixinDeclaration {
   bool hasSuperclassConstraint(String superclassName) {
-    return onClause?.superclassConstraints?.any((s) => s.typeNameWithoutPrefix == superclassName) ?? false;
+    return onClause?.superclassConstraints?.any((s) => s.typeNameWithoutPrefix == superclassName) ??
+        false;
   }
 }
 

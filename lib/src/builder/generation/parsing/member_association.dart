@@ -52,7 +52,8 @@ Union<A, B> _getNameMatchUnion<A extends BoilerplateMember, B extends Boilerplat
   return null;
 }
 
-BoilerplateComponent getComponentFor(BoilerplateMember member, List<BoilerplateComponent> components) {
+BoilerplateComponent getComponentFor(
+    BoilerplateMember member, List<BoilerplateComponent> components) {
   final match = _getNameMatch(components, normalizeNameAndRemoveSuffix(member)) ??
       getRelatedName(member).mapIfNotNull((name) => _getNameMatch(components, name));
   if (match != null) return match;

@@ -71,7 +71,9 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
   for (final propsClass in List.of(props)) {
     final version = resolveVersion([propsClass]);
-    if (version.shouldGenerate && version.version.isLegacy && propsClass.node.hasAnnotationWithName('AbstractProps')) {
+    if (version.shouldGenerate &&
+        version.version.isLegacy &&
+        propsClass.node.hasAnnotationWithName('AbstractProps')) {
       props.remove(propsClass);
       yield LegacyAbstractClassComponentDeclaration(version: version.version, props: propsClass);
     }
@@ -79,7 +81,9 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
   for (final stateClass in List.of(states)) {
     final version = resolveVersion([stateClass]);
-    if (version.shouldGenerate && version.version.isLegacy && stateClass.node.hasAnnotationWithName('AbstractState')) {
+    if (version.shouldGenerate &&
+        version.version.isLegacy &&
+        stateClass.node.hasAnnotationWithName('AbstractState')) {
       states.remove(stateClass);
       yield LegacyAbstractClassComponentDeclaration(version: version.version, state: stateClass);
     }
@@ -255,15 +259,18 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
   for (var propsClass in props) {
     if (!resolveVersion([propsClass]).shouldGenerate) continue;
-    errorCollector.addError('Props class is missing factory.', errorCollector.spanFor(propsClass.node));
+    errorCollector.addError(
+        'Props class is missing factory.', errorCollector.spanFor(propsClass.node));
   }
   for (var stateClass in states) {
     if (!resolveVersion([stateClass]).shouldGenerate) continue;
-    errorCollector.addError('State class is missing factory and/or component.', errorCollector.spanFor(stateClass.node));
+    errorCollector.addError('State class is missing factory and/or component.',
+        errorCollector.spanFor(stateClass.node));
   }
   for (var componentClass in components) {
     if (!resolveVersion([componentClass]).shouldGenerate) continue;
-    errorCollector.addError('componentClass class is missing factory and/or props.', errorCollector.spanFor(componentClass.node));
+    errorCollector.addError('componentClass class is missing factory and/or props.',
+        errorCollector.spanFor(componentClass.node));
   }
 }
 
