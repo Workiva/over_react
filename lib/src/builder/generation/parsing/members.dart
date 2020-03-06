@@ -1,5 +1,4 @@
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:meta/meta.dart';
 import 'package:over_react/src/builder/generation/parsing/meta.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/util/pretty_print.dart';
@@ -19,31 +18,23 @@ part 'members/props_and_state_mixins.dart';
 part 'members/props_and_state_util.dart';
 
 abstract class BoilerplateMember {
-  final int declarationConfidence;
+  /// The confidence that, assuming that [node] has been correctly identified as this type of boilerplate member,
+  /// it belongs to a boilerplate declaration of a given version.
+  final VersionConfidence versionConfidence;
 
-  BoilerplateMember(this.declarationConfidence);
+  BoilerplateMember(this.versionConfidence);
 
   CompilationUnitMember get node;
 
-  /// The confidence that, assuming that [node] has been correctly identified as this type of boilerplate member,
-  /// it belongs to a boilerplate declaration of a given version.
-  Map<BoilerplateVersion, int> get versionConfidence;
-
-  void validate(BoilerplateVersion version, ErrorCollector errorCollector);
+  void validate(Version version, ErrorCollector errorCollector);
 
   SimpleIdentifier get name;
 
   @override
-  String toString() => '${super.toString()} (${name.name}) ${prettyPrintMap(versionConfidence)}';
+  String toString() => '${super.toString()} (${name.name}) $versionConfidence';
 
   String get debugString {
-    final confidence = versionConfidence;
-    final sortedKeys = BoilerplateVersion.values.where(confidence.containsKey);
-    final shorthandConfidence = {
-      for (var key in sortedKeys) '${key.toString().split('.').last}': confidence[key],
-    };
-
-    return '${runtimeType.toString()}; confidence:$shorthandConfidence';
+    return '${runtimeType.toString()}; confidence:$versionConfidence';
   }
 }
 
@@ -69,9 +60,14 @@ class BoilerplateMembers {
   bool get isNotEmpty => !isEmpty;
 
   BoilerplateMembers.detect(CompilationUnit unit) {
-    BoilerplateMemberDetector()
-      ..members = this
-      ..detect(unit);
+    BoilerplateMemberDetector(
+      onFactory: factories.add,
+      onProps: props.add,
+      onPropsMixin: propsMixins.add,
+      onComponent: components.add,
+      onState: states.add,
+      onStateMixin: stateMixins.add,
+    ).detect(unit);
   }
 
   toString() => 'BoilerplateMembers:${prettyPrintMap({

@@ -1,5 +1,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:meta/meta.dart';
 
 import '../../util.dart';
 import 'ast_util.dart';
@@ -8,10 +9,26 @@ import 'util.dart';
 import 'version.dart';
 
 class BoilerplateMemberDetector {
-  BoilerplateMembers members;
-  Map<String, NamedCompilationUnitMember> _classishDeclarationsByName = {};
+  Map<String, NamedCompilationUnitMember> _classishDeclarationsByName;
+
+  final void Function(BoilerplateFactory) onFactory;
+  final void Function(BoilerplateProps) onProps;
+  final void Function(BoilerplateState) onState;
+  final void Function(BoilerplatePropsMixin) onPropsMixin;
+  final void Function(BoilerplateStateMixin) onStateMixin;
+  final void Function(BoilerplateComponent) onComponent;
+
+  BoilerplateMemberDetector({
+    @required this.onFactory,
+    @required this.onProps,
+    @required this.onState,
+    @required this.onPropsMixin,
+    @required this.onStateMixin,
+    @required this.onComponent,
+  });
 
   void detect(CompilationUnit unit) {
+    _classishDeclarationsByName = {};
     final visitor = _BoilerplateMemberDetectorVisitor(
       onClassishDeclaration: (node) => _classishDeclarationsByName[node.name.name] = node,
       onTopLevelVariableDeclaration: _processTopLevelVariableDeclaration,
@@ -20,6 +37,7 @@ class BoilerplateMemberDetector {
     unit.accept(visitor);
 
     _classishDeclarationsByName.values.forEach(_processClassishDeclaration);
+    _classishDeclarationsByName = null;
   }
 
   void _processTopLevelVariableDeclaration(TopLevelVariableDeclaration node) {
@@ -36,50 +54,13 @@ class BoilerplateMemberDetector {
     final classish = node.asClassish();
     final companion = _getCompanionClass(node)?.asClassish();
 
-    if (_detectBasedOnAnnotations(classish, companion: companion)) return;
-    if (_detectPropsStateAndMixins(classish, companion: companion)) return;
-    if (_detectComponent(classish)) return;
+    if (_detectClassBasedOnAnnotations(classish, companion)) return;
+    if (_detectNonLegacyPropsStateOrMixin(classish, companion)) return;
+    if (_detectPotentialComponent(classish)) return;
   }
 
   //
-  // _processTopLevelVariableDeclaration helpers
-  //
-
-  void _detectFactory(TopLevelVariableDeclaration node) {
-    if (node.hasAnnotationWithName('Factory')) {
-      members.factories.add(BoilerplateFactory(node, Confidence.high));
-      return;
-    }
-
-    final type = node.variables.type;
-    if (type != null) {
-      if (type?.typeNameWithoutPrefix == 'UiFactory') {
-        final firstVar = node.variables.variables.first;
-        final name = firstVar.name.name;
-        final identifierInInitializer =
-            firstVar.initializer?.tryCast<Identifier>()?.nameWithoutPrefix;
-        // Check for `Foo = _$Foo` or `Foo = $Foo` (which could be a typo)
-        if (identifierInInitializer != null &&
-            (identifierInInitializer == '_\$$name' || identifierInInitializer == '\$$name')) {
-          members.factories.add(BoilerplateFactory(node, Confidence.high));
-          return;
-        } else {
-          members.factories.add(BoilerplateFactory(node, Confidence.medium));
-          return;
-        }
-      }
-    } else {
-      // todo do we need something with function components?
-//      if ((node.variables.firstInitializer?.tryCast<MethodInvocation>()?.methodName?.name == 'uiFunction') {
-//        factories.add(BoilerplateFactory(node));
-//      }
-    }
-
-    return;
-  }
-
-  //
-  // _processClassishDeclaration helpers
+  // _classishDeclarationsByName-related utilities
   //
 
   /// For `FooProps`, returns `_$FooProps`
@@ -108,30 +89,93 @@ class BoilerplateMemberDetector {
     return name.startsWith(r'$') && _classishDeclarationsByName.containsKey('_$name');
   }
 
-  bool _detectBasedOnAnnotations(ClassishDeclaration classish, {ClassishDeclaration companion}) {
+  //
+  // _processTopLevelVariableDeclaration helpers
+  //
+
+  void _detectFactory(TopLevelVariableDeclaration node) {
+    if (node.hasAnnotationWithName('Factory')) {
+      onFactory(BoilerplateFactory(node, VersionConfidence.all(Confidence.high)));
+      return;
+    }
+
+    final type = node.variables.type;
+    if (type != null) {
+      if (type?.typeNameWithoutPrefix == 'UiFactory') {
+        final firstVar = node.variables.variables.first;
+        final name = firstVar.name.name;
+        final identifierInInitializer =
+            firstVar.initializer?.tryCast<Identifier>()?.nameWithoutPrefix;
+        // Check for `Foo = _$Foo` or `Foo = $Foo` (which could be a typo)
+        if (identifierInInitializer != null &&
+            (identifierInInitializer == '_\$$name' || identifierInInitializer == '\$$name')) {
+          onFactory(BoilerplateFactory(
+              node,
+              VersionConfidence(
+                v4_mixinBased: Confidence.high,
+                v3_legacyDart2Only: Confidence.none,
+                v2_legacyBackwardsCompat: Confidence.none,
+              )));
+          return;
+        } else {
+          onFactory(BoilerplateFactory(
+              node,
+              VersionConfidence(
+                v4_mixinBased: Confidence.medium,
+                v2_legacyBackwardsCompat: Confidence.none,
+                v3_legacyDart2Only: Confidence.none,
+              )));
+          return;
+        }
+      }
+    } else {
+      // todo do we need something with function components?
+//      if ((node.variables.firstInitializer?.tryCast<MethodInvocation>()?.methodName?.name == 'uiFunction') {
+//        factories.add(BoilerplateFactory(node));
+//      }
+    }
+
+    return;
+  }
+
+  //
+  // _processClassishDeclaration helpers
+  //
+
+  bool _detectClassBasedOnAnnotations(ClassishDeclaration classish, ClassishDeclaration companion) {
     for (final annotation in classish.metadata) {
       switch (annotation.name.nameWithoutPrefix) {
         case 'Props':
         case 'AbstractProps':
-          members.props.add(BoilerplateProps(classish, Confidence.high, companion: companion));
+          onProps(BoilerplateProps(
+              classish, companion, _annotatedPropsOrStateConfidence(classish, companion)));
           return true;
+
         case 'PropsMixin':
-          members.propsMixins
-              .add(BoilerplatePropsMixin(classish.node, Confidence.high, companion: companion));
+          onPropsMixin(BoilerplatePropsMixin(classish.node, companion,
+              _annotatedPropsOrStateMixinConfidence(classish, companion)));
           return true;
+
         case 'State':
         case 'AbstractState':
-          members.states.add(BoilerplateState(classish, Confidence.high, companion: companion));
+          onState(BoilerplateState(
+              classish, companion, _annotatedPropsOrStateConfidence(classish, companion)));
           return true;
+
         case 'StateMixin':
-          members.stateMixins
-              .add(BoilerplateStateMixin(classish.node, Confidence.high, companion: companion));
+          onStateMixin(BoilerplateStateMixin(classish.node, companion,
+              _annotatedPropsOrStateMixinConfidence(classish, companion)));
           return true;
+
         case 'Component':
         case 'Component2':
+          onComponent(BoilerplateComponent(classish, VersionConfidence.all(Confidence.high)));
+          return true;
+
+        // todo should we even use these?
         case 'AbstractComponent':
         case 'AbstractComponent2':
-          members.components.add(BoilerplateComponent(classish, Confidence.high));
+          onComponent(BoilerplateComponent(classish, VersionConfidence.none()));
           return true;
       }
     }
@@ -139,35 +183,113 @@ class BoilerplateMemberDetector {
     return false;
   }
 
-  bool _detectPropsStateAndMixins(ClassishDeclaration classish, {ClassishDeclaration companion}) {
+  VersionConfidence _annotatedPropsOrStateConfidence(
+      ClassishDeclaration classish, ClassishDeclaration companion) {
+    final node = classish.node;
+    assert(node.hasAnnotationWithNames(const {'Props', 'State', 'AbstractProps', 'AbstractState'}),
+        'this function assumes that all nodes passed to this function are annotated');
+
+    final hasGeneratedPrefix = node.name.name.startsWith(r'_$');
+    final hasCompanionClass = companion != null;
+
+    final isAbstractNoGenerate = !hasGeneratedPrefix &&
+        (node is! MixinDeclaration && classish.hasAbstractKeyword && classish.members.isEmpty);
+    if (isAbstractNoGenerate) {
+      return VersionConfidence.none();
+    }
+
+    if (node is MixinDeclaration) {
+      // todo might need to rethink these, as well as in the mixin classes, to be able to provide better error messages when people make things mixins
+
+      // It has never been possible to declare a props class with a mixin
+      return VersionConfidence(
+        v2_legacyBackwardsCompat: Confidence.none,
+        v3_legacyDart2Only: Confidence.none,
+        // fixme this ain't right
+        v4_mixinBased: Confidence.high,
+      );
+    } else {
+      return VersionConfidence(
+        v2_legacyBackwardsCompat:
+            (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.high : Confidence.low,
+        v3_legacyDart2Only:
+            (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.low : Confidence.high,
+        v4_mixinBased: Confidence.low,
+      );
+    }
+  }
+
+  VersionConfidence _annotatedPropsOrStateMixinConfidence(
+      ClassishDeclaration classish, ClassishDeclaration companion) {
+    final node = classish.node;
+    assert(node.hasAnnotationWithNames(const {'PropsMixin', 'StateMixin'}),
+        'this function assumes that all nodes passed to this function are annotated');
+
+    final isMixin = node is MixinDeclaration;
+    final hasGeneratedPrefix = node.name.name.startsWith(r'_$');
+
+    return VersionConfidence(
+      v2_legacyBackwardsCompat:
+          isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.low : Confidence.high),
+      v3_legacyDart2Only:
+          isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.high : Confidence.low),
+      v4_mixinBased: isMixin ? Confidence.high : Confidence.low,
+    );
+  }
+
+  static final propsOrMixinNamePattern = RegExp(r'Props(?:Mixin)?$');
+  static final propsMixinNamePattern = propsOrMixinNamePattern;
+  static final stateMixinNamePattern = RegExp(r'State(?:Mixin)?$');
+  static final propsNamePattern = RegExp(r'Props(?:MapView)?$');
+  static final stateNamePattern = RegExp(r'State$');
+
+  bool _detectNonLegacyPropsStateOrMixin(
+      ClassishDeclaration classish, ClassishDeclaration companion) {
     final name = classish.name.name;
     final node = classish.node;
 
     // By this point, this is a node that has no annotation.
     // Thus, it's non-legacy boilerplate.
 
+    VersionConfidence getConfidence() {
+      final overridesIsClassGenerated = classish.members
+          .whereType<MethodDeclaration>()
+          .any((member) => member.isGetter && member.name.name == r'$isClassGenerated');
+      // Handle classes that look like props but are really just used as interfaces, and aren't extended from or directly used as a component's props
+      if (overridesIsClassGenerated || onlyImplementsThings(classish)) {
+        return VersionConfidence.none();
+      } else if (classish.members.whereType<ConstructorDeclaration>().isNotEmpty) {
+        //fixme fix these cases?
+        return VersionConfidence.none();
+      }
+
+      return VersionConfidence(
+        v2_legacyBackwardsCompat: Confidence.none,
+        v3_legacyDart2Only: Confidence.none,
+        v4_mixinBased: Confidence.high,
+      );
+    }
+
     if (node is MixinDeclaration) {
-      if ((name.endsWith('Props') || name.endsWith('PropsMixin')) && node.hasSuperclassConstraint('UiProps')) {
-        members.propsMixins
-            .add(BoilerplatePropsMixin(node, Confidence.medium, companion: companion));
+      if (propsMixinNamePattern.hasMatch(name) && node.hasSuperclassConstraint('UiProps')) {
+        onPropsMixin(BoilerplatePropsMixin(node, companion, getConfidence()));
         return true;
       }
-      if ((name.endsWith('State') || name.endsWith('StateMixin')) && node.hasSuperclassConstraint('UiState')) {
-        members.stateMixins
-            .add(BoilerplateStateMixin(node, Confidence.medium, companion: companion));
+      if (stateMixinNamePattern.hasMatch(name) && node.hasSuperclassConstraint('UiState')) {
+        onStateMixin(BoilerplateStateMixin(node, companion, getConfidence()));
         return true;
       }
     } else {
       // We never generate for abstract classes in the new boilerplate.
-      if (classish.abstractKeyword == null) return false;
+      if (classish.abstractKeyword != null) return false;
 
       final superclassName = classish.superclass?.typeNameWithoutPrefix;
-      if ((name.endsWith('Props') || name.endsWith('PropsMapView')) && superclassName == 'UiProps') {
-        members.props.add(BoilerplateProps(classish, Confidence.medium, companion: companion));
+      if (propsNamePattern.hasMatch(name) && superclassName == 'UiProps') {
+        onProps(BoilerplateProps(classish, companion, getConfidence()));
         return true;
       }
-      if (name.endsWith('State') && superclassName == 'UiState') {
-        members.states.add(BoilerplateState(classish, Confidence.medium, companion: companion));
+      if (stateNamePattern.hasMatch(name) && superclassName == 'UiState') {
+        onState(BoilerplateState(classish, companion, getConfidence()));
         return true;
       }
     }
@@ -175,36 +297,20 @@ class BoilerplateMemberDetector {
     return false;
   }
 
-  bool _detectComponent(ClassishDeclaration classish) {
-    // todo optimize
-    final allSuperTypes = [
-      ...classish.interfaces,
-      ...classish.mixins,
-      if (classish.superclass != null) classish.superclass,
-    ];
-
+  bool _detectPotentialComponent(ClassishDeclaration classish) {
     // Don't detect react-dart components as boilerplate components, since they cause issues with grouping
     // if they're in the same file as an OverReact component with non-matching names.
     if (!const {'Component', 'Component2'}.contains(classish.superclass?.nameWithoutPrefix)) {
-      int confidence = 0;
-      if (classish.name.name.endsWith('Component')) {
-        confidence += Confidence.medium;
-      }
-      if (allSuperTypes.any((type) {
-        final name = type.nameWithoutPrefix;
-        return name == 'UiComponent' || name == 'UiComponent2';
-      })) {
-        confidence += Confidence.high;
-      }
-      // extending from an abstract component: `FooComponent extends BarComponent<FooProps, FooState>`
-      if (classish.superclass?.typeArguments?.arguments
-              ?.any((arg) => arg.typeNameWithoutPrefix.contains('Props')) ??
-          false) {
-        confidence += Confidence.medium;
-      }
+      if (classish.name.name.endsWith('Component') ||
+          classish.allSuperTypes
+              .map((t) => t.typeNameWithoutPrefix)
+              .any(const {'UiComponent', 'UiComponent2'}.contains) ||
+          (classish.superclass?.typeArguments?.arguments
+                  ?.map((t) => t.typeNameWithoutPrefix)
+                  ?.any(propsOrMixinNamePattern.hasMatch) ??
+              false)) {
+        onComponent(BoilerplateComponent(classish, VersionConfidence.all(Confidence.medium)));
 
-      if (confidence != 0) {
-        members.components.add(BoilerplateComponent(classish, confidence));
         return true;
       }
     }
@@ -217,29 +323,24 @@ class _BoilerplateMemberDetectorVisitor extends SimpleAstVisitor<void> {
   final void Function(NamedCompilationUnitMember) onClassishDeclaration;
   final void Function(TopLevelVariableDeclaration) onTopLevelVariableDeclaration;
 
-  _BoilerplateMemberDetectorVisitor(
-      {this.onClassishDeclaration, this.onTopLevelVariableDeclaration});
+  _BoilerplateMemberDetectorVisitor({
+    this.onClassishDeclaration,
+    this.onTopLevelVariableDeclaration,
+  });
 
   @override
-  void visitCompilationUnit(CompilationUnit node) {
-    node.visitChildren(this);
-  }
+  void visitCompilationUnit(CompilationUnit node) => node.visitChildren(this);
 
   @override
-  void visitTopLevelVariableDeclaration(TopLevelVariableDeclaration node) {
-    onTopLevelVariableDeclaration(node);
-  }
-
-  void visitClassishDeclaration(NamedCompilationUnitMember node) {
-    onClassishDeclaration(node);
-  }
+  void visitTopLevelVariableDeclaration(TopLevelVariableDeclaration node) =>
+      onTopLevelVariableDeclaration(node);
 
   @override
-  void visitClassDeclaration(ClassDeclaration node) => visitClassishDeclaration(node);
+  void visitClassDeclaration(ClassDeclaration node) => onClassishDeclaration(node);
 
   @override
-  void visitClassTypeAlias(ClassTypeAlias node) => visitClassishDeclaration(node);
+  void visitClassTypeAlias(ClassTypeAlias node) => onClassishDeclaration(node);
 
   @override
-  void visitMixinDeclaration(MixinDeclaration node) => visitClassishDeclaration(node);
+  void visitMixinDeclaration(MixinDeclaration node) => onClassishDeclaration(node);
 }

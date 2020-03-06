@@ -9,9 +9,9 @@ class BoilerplateComponent extends BoilerplateMember {
   annotations.Component meta;
   Identifier configSubtypeOf;
 
-  BoilerplateComponent(this.nodeHelper, int declarationConfidence)
+  BoilerplateComponent(this.nodeHelper, VersionConfidence confidence)
       : node = nodeHelper.node,
-        super(declarationConfidence) {
+        super(confidence) {
     final meta = InstantiatedComponentMeta<annotations.Component2>(node) ??
         InstantiatedComponentMeta<annotations.Component>(node);
 
@@ -27,58 +27,27 @@ class BoilerplateComponent extends BoilerplateMember {
         ?.firstWhere((type) => type.typeNameWithoutPrefix.endsWith('Props'), orElse: () => null);
   }
 
-  @override
-  Map<BoilerplateVersion, int> get versionConfidence {
-    final map = <BoilerplateVersion, int>{};
-
-    // todo do we need this and should we include other confidences in the map in this case?
-    if (nodeHelper.hasAbstractKeyword && !hasComponent1OrAbstractAnnotation) {
-      map[BoilerplateVersion.noGenerate] = Confidence.high;
-      return map;
-    }
-
-    if (hasComponent1OrAbstractAnnotation) {
-      map[BoilerplateVersion.v2_legacyBackwardsCompat] = Confidence.high;
-      map[BoilerplateVersion.v3_legacyDart2Only] = Confidence.high;
-      map[BoilerplateVersion.v4_mixinBased] = Confidence.veryLow;
-      map[BoilerplateVersion.noGenerate] = Confidence.veryLow;
-    } else if (hasComponent2OrAbstractAnnotation) {
-      map[BoilerplateVersion.v2_legacyBackwardsCompat] = Confidence.medium;
-      map[BoilerplateVersion.v3_legacyDart2Only] = Confidence.medium;
-      map[BoilerplateVersion.v3_legacyDart2Only] = Confidence.medium;
-      map[BoilerplateVersion.noGenerate] = Confidence.veryLow;
-    } else {
-      map[BoilerplateVersion.v2_legacyBackwardsCompat] = Confidence.veryLow;
-      map[BoilerplateVersion.v3_legacyDart2Only] = Confidence.veryLow;
-      map[BoilerplateVersion.v4_mixinBased] = Confidence.medium;
-      map[BoilerplateVersion.noGenerate] = Confidence.medium;
-    }
-    return map;
-  }
-
   bool get hasAnnotation => hasComponent1OrAbstractAnnotation || hasComponent2OrAbstractAnnotation;
 
   bool get hasComponent1OrAbstractAnnotation =>
       node.hasAnnotationWithNames({'Component', 'AbstractComponent'});
   bool get hasComponent2OrAbstractAnnotation =>
       node.hasAnnotationWithNames({'Component2', 'AbstractComponent2'});
-  bool isComponent2(BoilerplateVersion version) =>
-      version == BoilerplateVersion.v4_mixinBased || hasComponent2OrAbstractAnnotation;
+  bool isComponent2(Version version) =>
+      version == Version.v4_mixinBased || hasComponent2OrAbstractAnnotation;
 
   @override
-  void validate(BoilerplateVersion version, ErrorCollector errorCollector) {
+  void validate(Version version, ErrorCollector errorCollector) {
     switch (version) {
-      case BoilerplateVersion.noGenerate:
-        return;
-      case BoilerplateVersion.v4_mixinBased:
+      case Version.v4_mixinBased:
         final superclass = nodeHelper.superclass;
         if (superclass?.nameWithoutPrefix == 'UiComponent') {
           errorCollector.addError(
               'Must extend UiComponent2, not UiComponent.', errorCollector.spanFor(superclass));
         }
         break;
-      case BoilerplateVersion.v2_legacyBackwardsCompat:
-      case BoilerplateVersion.v3_legacyDart2Only:
+      case Version.v2_legacyBackwardsCompat:
+      case Version.v3_legacyDart2Only:
         break;
     }
 
