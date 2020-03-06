@@ -25,8 +25,7 @@ const _versionsInPriorityOrder = [
 
 extension VersionExtension on Version {
   bool get isLegacy =>
-      this == Version.v2_legacyBackwardsCompat ||
-      this == Version.v3_legacyDart2Only;
+      this == Version.v2_legacyBackwardsCompat || this == Version.v3_legacyDart2Only;
 }
 
 class VersionConfidencePair {
@@ -62,19 +61,20 @@ class VersionConfidence {
     @required this.v4_mixinBased,
   });
 
-  VersionConfidence.all(int value) : this(
-    v2_legacyBackwardsCompat: value,
-    v3_legacyDart2Only: value,
-    v4_mixinBased: value,
-  );
+  VersionConfidence.all(int value)
+      : this(
+          v2_legacyBackwardsCompat: value,
+          v3_legacyDart2Only: value,
+          v4_mixinBased: value,
+        );
 
   VersionConfidence.none() : this.all(Confidence.none);
 
   List<VersionConfidencePair> toList() => [
-    VersionConfidencePair(Version.v2_legacyBackwardsCompat, v2_legacyBackwardsCompat),
-    VersionConfidencePair(Version.v3_legacyDart2Only, v3_legacyDart2Only),
-    VersionConfidencePair(Version.v4_mixinBased, v4_mixinBased),
-  ];
+        VersionConfidencePair(Version.v2_legacyBackwardsCompat, v2_legacyBackwardsCompat),
+        VersionConfidencePair(Version.v3_legacyDart2Only, v3_legacyDart2Only),
+        VersionConfidencePair(Version.v4_mixinBased, v4_mixinBased),
+      ];
 
   VersionConfidence operator +(VersionConfidence other) {
     return VersionConfidence(
@@ -114,5 +114,3 @@ class VersionConfidence {
     return '${runtimeType.toString()}; confidence:$confidenceMap';
   }
 }
-
-
