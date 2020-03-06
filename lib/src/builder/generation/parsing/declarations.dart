@@ -328,6 +328,7 @@ AstNode fuzzyMatch(BoilerplateMember member, Iterable<BoilerplateMember> members
 
 class BoilerplateGenerator {}
 
+/// The possible declaration types that the builder will look for.
 enum DeclarationType {
   functionComponentDeclaration,
   classComponentDeclaration,
@@ -340,6 +341,8 @@ enum DeclarationType {
 
 abstract class BoilerplateDeclaration {
   final Version version;
+
+  /// The explicit type of declaration this class is tied to.
   DeclarationType type;
 
   BoilerplateDeclaration(this.version);
