@@ -18,6 +18,20 @@ class OverReactBuilder extends Builder {
     '.dart': [outputExtension],
   };
 
+  /// The generation order of boilerplate declarations.
+  ///
+  /// Changing the order of this iterable changes the order in which
+  /// the builder will write the generated code to the output file.
+  static const generationOrder = [
+    DeclarationType.classComponentDeclaration,
+    DeclarationType.legacyClassComponentDeclaration,
+    DeclarationType.propsMixinDeclaration,
+    DeclarationType.stateMixinDeclaration,
+    DeclarationType.propsMapViewDeclaration,
+    DeclarationType.legacyAbstractClassComponentDeclaration,
+    DeclarationType.functionComponentDeclaration,
+  ];
+
   @override
   FutureOr<void> build(BuildStep buildStep) async {
     final source = await buildStep.readAsString(buildStep.inputId);
@@ -51,7 +65,11 @@ class OverReactBuilder extends Builder {
       final generator = ImplGenerator(log, sourceFile);
 
       final members = BoilerplateMembers.detect(unit);
-      final declarations = getBoilerplateDeclarations(members, errorCollector);
+      final declarations = getBoilerplateDeclarations(members, errorCollector).toList()
+        ..sort((a, b) {
+          return generationOrder.indexOf(a.type).compareTo(generationOrder.indexOf(b.type));
+        });
+
       if (hasErrors) {
         // Log the members that weren't grouped into declarations.
         members.allMembers.forEach(log.info);
