@@ -141,8 +141,8 @@ const boilerplateStrings = {
 
           class FooState extends _$FooState with _$FooStateAccessorsMixin {}
 
-          @Component()
-          class FooComponent extends UiStatefulComponent<FooProps, FooState>{}
+          @Component2()
+          class FooComponent extends UiStatefulComponent2<FooProps, FooState>{}
       ''',
   VersionOptions.v3: r'''
           @Factory()
@@ -154,8 +154,8 @@ const boilerplateStrings = {
           @State()
           class _$FooState extends _$FooState with _$FooStateAccessorsMixin {}
 
-          @Component()
-          class FooComponent extends UiStatefulComponent<FooProps, FooState>{}
+          @Component2()
+          class FooComponent extends UiStatefulComponent2<FooProps, FooState>{}
         ''',
   VersionOptions.v4: r'''
           UiFactory<FooProps> Foo = _$Foo;
@@ -167,6 +167,6 @@ const boilerplateStrings = {
           class FooComponent extends UiStatefulComponent<FooProps, FooState>{}
         ''',
   VersionOptions.v5: r'''    
-          class FooComponent extends react.Component {}
+          class FooComponent extends react.Component2 {}
         ''',
 };
