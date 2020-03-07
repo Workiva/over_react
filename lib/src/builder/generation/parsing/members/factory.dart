@@ -40,7 +40,7 @@ class BoilerplateFactory extends BoilerplateMember {
     }
 
     if (node.variables.variables.length > 1) {
-      errorCollector.addError('Multiple factory variables per declaration are not supported.',
+      errorCollector.addError('Factory declarations must be a single variable.',
           errorCollector.spanFor(node.variables));
     }
 
@@ -50,7 +50,8 @@ class BoilerplateFactory extends BoilerplateMember {
 
     if (generatedFactoryReferenceName != expectedInitializer) {
       errorCollector.addError(
-          'Should reference generated factory. For example, `UiFactory<...> Foo = _\$Foo;`',
+          'Factory variables are stubs for the generated factories, and should '
+          'be initialized with the valid variable name for builder compatibility. Should be: `${name.name} = _\$${name.name}`',
           errorCollector.spanFor(variable));
     } else {
       // When not null, this will be validated as part of the group since

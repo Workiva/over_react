@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:meta/meta.dart';
 
@@ -143,8 +141,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   // Declarations with factories (components and non-legacy map views)
   //
 
-  final unusedFactories = <FactoryGroup>[];
-
   // todo getPropsForFactories getComponent utils - what if there are multiple candidates?
   //  Do we just go with the first one, or do we use confidence scores? It's possible something could look like a component or props class
 
@@ -161,15 +157,23 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
       continue;
     }
 
-    factoryGroups.remove(factoryGroup);
-    factoryGroup.factories.forEach(factories.remove);
-    // don't remove mixins, just classes, since mixins are generated/grouped the same as when standalone
-    props.remove(propsClassOrMixin.either);
-    states.remove(stateClassOrMixin?.either);
-
     final component = getComponentFor(factory, components);
+
+    void consumeFactory() {
+      factoryGroups.remove(factoryGroup);
+      factoryGroup.factories.forEach(factories.remove);
+    }
+    void consumePropsAndState() {
+      // don't remove mixins, just classes, since mixins are generated/grouped the same as when standalone
+      props.remove(propsClassOrMixin.either);
+      states.remove(stateClassOrMixin?.either);
+    }
+    void consumeComponent() => components.remove(component);
+
     if (component != null) {
-      components.remove(component);
+      consumeFactory();
+      consumePropsAndState();
+      consumeComponent();
 
       final version = resolveVersion([
         factory,
@@ -200,12 +204,9 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         }
       }
     } else {
-      if (propsClassOrMixin == null) {
-        unusedFactories.add(factoryGroup);
-        continue;
-      }
-
       if (isFunctionComponent(factory)) {
+        consumeFactory();
+        consumePropsAndState();
         yield FunctionComponentDeclaration(
           version: Version.v4_mixinBased,
           factory: factory,
@@ -213,21 +214,15 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         );
       } else {
         final version = resolveVersion([factory, propsClassOrMixin.either]);
-        if (version.shouldGenerate) {
-          switch (version.version) {
-            case Version.v2_legacyBackwardsCompat:
-            case Version.v3_legacyDart2Only:
-              errorCollector.addError(
-                  'Missing component for factory/props', errorCollector.spanFor(factory.node));
-              break;
-            case Version.v4_mixinBased:
-              yield PropsMapViewDeclaration(
-                version: Version.v4_mixinBased,
-                factory: factory,
-                props: propsClassOrMixin,
-              );
-              break;
-          }
+        // The leftover logic below will handle legacy members
+        if (version.shouldGenerate && version.version == Version.v4_mixinBased) {
+          consumeFactory();
+          consumePropsAndState();
+          yield PropsMapViewDeclaration(
+            version: Version.v4_mixinBased,
+            factory: factory,
+            props: propsClassOrMixin,
+          );
         }
       }
     }
@@ -237,41 +232,77 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   //
   // Handle leftover members that didn't get grouped into a declaration
   //
+  // Where possible, attempt to provide helpful error messages.
+  //
 
-  // Ignore remaining components without matching factories and props classes or just props classes.
-  // TODO should these warn if their declarationConfidence/versionConfidence is sufficiently high?
-  // These are most likely classes that aren't really components.
-  for (var factoryGroup in factoryGroups) {
-    if (!resolveVersion([factoryGroup.bestFactory]).shouldGenerate) {
-      continue;
+  final allUnusedMembers = [
+    factoryGroups.map((group) => group.bestFactory),
+    props,
+    states,
+    components,
+  ].expand((i) => i);
+
+  final unusedMembersByName = <String, List<BoilerplateMember>>{};
+  for (var member in allUnusedMembers) {
+    final name = normalizeNameAndRemoveSuffix(member);
+    unusedMembersByName.putIfAbsent(name, () => []).add(member);
+  }
+
+  unusedMembersByName.forEach((name, group) {
+    final factory = group.firstWhereType<BoilerplateFactory>(orElse: () => null);
+    final propsClass = group.firstWhereType<BoilerplateProps>(orElse: () => null);
+    final stateClass = group.firstWhereType<BoilerplateState>(orElse: () => null);
+    final componentClass = group.firstWhereType<BoilerplateComponent>(orElse: () => null);
+
+    //
+    // General case
+
+    if ([factory, propsClass, stateClass, componentClass].whereNotNull().length != group.length) {
+      for (var member in group) {
+        errorCollector.addError(
+            'Mismatched boilerplate member found', errorCollector.spanFor(member.node));
+      }
+      return;
     }
-    if (isStandaloneFactory(factoryGroup.bestFactory)) {
-      continue;
+
+    //
+    // Special cases
+
+    final nonNullFactoryPropsOrComponents =
+        [factory, propsClass, componentClass].whereNotNull().toList();
+    if (nonNullFactoryPropsOrComponents.isEmpty) {
+      assert(stateClass != null);
+      if (resolveVersion([stateClass]).shouldGenerate) {
+        errorCollector.addError(errorStateOnly, errorCollector.spanFor(stateClass.node));
+      }
+      return;
     }
 
-    final potentialProps = fuzzyMatch(factoryGroup.bestFactory, [...props, ...propsMixins]);
-    errorCollector.addError('Factory is missing props; did you mean $potentialProps?',
-        errorCollector.spanFor(factoryGroup.bestFactory.node));
-  }
-
-  // Put em back in boilerplateMembers so we can log them outside of this function
-  factories.addAll(unusedFactories.expand((group) => group.factories));
-
-  for (var propsClass in props) {
-    if (!resolveVersion([propsClass]).shouldGenerate) continue;
-    errorCollector.addError(
-        'Props class is missing factory.', errorCollector.spanFor(propsClass.node));
-  }
-  for (var stateClass in states) {
-    if (!resolveVersion([stateClass]).shouldGenerate) continue;
-    errorCollector.addError('State class is missing factory and/or component.',
-        errorCollector.spanFor(stateClass.node));
-  }
-  for (var componentClass in components) {
-    if (!resolveVersion([componentClass]).shouldGenerate) continue;
-    errorCollector.addError('componentClass class is missing factory and/or props.',
-        errorCollector.spanFor(componentClass.node));
-  }
+    if (!resolveVersion(nonNullFactoryPropsOrComponents).shouldGenerate) return;
+    switch (nonNullFactoryPropsOrComponents.length) {
+      case 1:
+        final single = nonNullFactoryPropsOrComponents.single;
+        final span = errorCollector.spanFor(single.node);
+        if (single == factory) {
+          errorCollector.addError(errorFactoryOnly, span);
+        } else if (single == propsClass) {
+          errorCollector.addError(errorPropsClassOnly, span);
+        } else if (single == componentClass) {
+          errorCollector.addError(errorComponentClassOnly, span);
+        }
+        break;
+      case 2:
+        final span = errorCollector.spanFor((factory ?? propsClass).node);
+        if (factory == null) {
+          errorCollector.addError(errorNoFactory, span);
+        } else if (propsClass == null) {
+          errorCollector.addError(errorNoProps, span);
+        } else if (componentClass == null) {
+          errorCollector.addError(errorNoComponent, span);
+        }
+        break;
+    }
+  });
 }
 
 class FactoryGroup {
@@ -562,3 +593,25 @@ class StateMixinDeclaration extends BoilerplateDeclaration {
     @required this.stateMixin,
   }) : super(version);
 }
+
+const errorStateOnly =
+    'Could not find matching factory, props class, and component class in this file;'
+    ' these are required to use UiState';
+
+const errorFactoryOnly = 'Could not find matching component class and props class in this file;'
+    ' these are required to declare a class-based component.';
+
+const errorPropsClassOnly = 'Could not find matching factory and component class in this file;'
+    ' these are required to declare a class-based component.';
+
+const errorComponentClassOnly = 'Could not find matching factory and props class in this file;'
+    ' these are required to declare a class-based component.';
+
+const errorNoFactory = 'Could not find a matching factory in this file;'
+    ' this is required to declare a class-based component';
+
+const errorNoProps = 'Could not find a matching props class in this file;'
+    ' this is required to declare a class-based component';
+
+const errorNoComponent = 'Could not find a matching component class in this file;'
+    ' this is required to declare a class-based component';

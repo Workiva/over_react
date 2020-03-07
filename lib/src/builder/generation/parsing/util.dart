@@ -5,6 +5,8 @@ extension TryCast<T> on T {
 extension IterableUtil<E> on Iterable<E> {
   E get firstOrNull => isEmpty ? null : first;
   Iterable<E> whereNotNull() => where((element) => element != null);
+
+  T firstWhereType<T>({T Function() orElse}) => whereType<T>().firstWhere((_) => true, orElse: orElse);
 }
 
 // Subset of package:union functionality

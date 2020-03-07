@@ -664,67 +664,56 @@ main() {
         group('a component is declared without', () {
           test('a factory', () {
             setUpAndParse(propsSrc + companionClassProps + componentSrc);
-            verify(logger.severe(contains('To define a component, there must also be a `@Factory` within the same file, but none were found.')));
+            verify(logger.severe(contains(errorNoFactory)));
           });
 
           test('a props class', () {
             setUpAndParse(factorySrc + componentSrc);
-            verify(logger.severe(contains('To define a component, there must also be a `@Props` within the same file, but none were found.')));
+            verify(logger.severe(contains(errorNoProps)));
           });
 
           test('a component class', () {
             setUpAndParse(factorySrc + propsSrc);
-            verify(logger.severe(contains('To define a component, there must also be a `@Component` or `@Component2` within the same file, but none were found.')));
+            verify(logger.severe(contains(errorNoComponent)));
           });
 
           test('a factory or a props class', () {
             setUpAndParse(componentSrc);
-            verify(logger.severe(contains('To define a component, there must also be a `@Factory` within the same file, but none were found.')));
-            verify(logger.severe(contains('To define a component, there must also be a `@Props` within the same file, but none were found.')));
+            verify(logger.severe(contains(errorComponentClassOnly)));
           });
 
           test('a factory or a props class (v2 component)', () {
             setUpAndParse(component2Src);
-            verify(logger.severe(contains('To define a component, there must also be a `@Factory` within the same file, but none were found.')));
-            verify(logger.severe(contains('To define a component, there must also be a `@Props` within the same file, but none were found.')));
+            verify(logger.severe(contains(errorComponentClassOnly)));
           });
 
           test('a factory or a component class', () {
             setUpAndParse(propsSrc);
-            verify(logger.severe(contains('To define a component, there must also be a `@Factory` within the same file, but none were found.')));
-            verify(logger.severe(contains('To define a component, there must also be a `@Component` or `@Component2` within the same file, but none were found.')));
+            verify(logger.severe(contains(errorPropsClassOnly)));;
           });
 
           test('a component or props class', () {
             setUpAndParse(factorySrc);
-            verify(logger.severe(contains('To define a component, there must also be a `@Component` or `@Component2` within the same file, but none were found.')));
-            verify(logger.severe(contains('To define a component, there must also be a `@Props` within the same file, but none were found.')));
+            verify(logger.severe(contains(errorFactoryOnly)));
           });
-        });
-
-        test('both a component and component2 class', () {
-          setUpAndParse(factorySrc + propsSrc + componentSrc + component2Src);
-          verify(logger.severe(contains('To define a component, there must be a single `@Component` **OR** `@Component2` annotation, but never both.')));
         });
 
         group('a state class is declared without', () {
           test('any component pieces', () {
             setUpAndParse(stateSrc);
-            verify(logger.severe(contains('To define a component, a `@State` must be accompanied by the following annotations within the same file: (@Component || @Component2), @Factory, @Props.')));
+            verify(logger.severe(contains(errorStateOnly)));
           });
 
           test('some component pieces', () {
             setUpAndParse(stateSrc + componentSrc);
             /// Should only log regarding the missing pieces, and not the state.
-            verify(logger.severe(contains('To define a component, there must also be a `@Factory` within the same file, but none were found.')));
-            verify(logger.severe(contains('To define a component, there must also be a `@Props` within the same file, but none were found.')));
+            verify(logger.severe(contains(errorComponentClassOnly)));
           });
 
           test('some component2 pieces', () {
             setUpAndParse(stateSrc + component2Src);
             /// Should only log regarding the missing pieces, and not the state.
-            verify(logger.severe(contains('To define a component, there must also be a `@Factory` within the same file, but none were found.')));
-            verify(logger.severe(contains('To define a component, there must also be a `@Props` within the same file, but none were found.')));
+            verify(logger.severe(contains(errorComponentClassOnly)));
           });
         });
 
@@ -734,111 +723,6 @@ main() {
           verify(logger.severe(contains('Use getDerivedStateFromProps instead.')));
           verify(logger.severe(contains('Use init instead.')));
           verify(logger.severe(contains('Use getSnapshotBeforeUpdate instead.')));
-        });
-
-        group('a component is declared with multiple', () {
-          test('factories (v1 component - deprecated)', () {
-            setUpAndParse(factorySrc * 2 + propsSrc + componentSrc);
-            verify(logger.severe(
-                argThat(startsWith('To define a component, there must be a single `@Factory` per file, but 2 were found.'))
-            )).called(2);
-          });
-
-          test('factories (v2 component)', () {
-            setUpAndParse(factorySrc * 2 + propsSrc + component2Src);
-            verify(logger.severe(
-                argThat(startsWith('To define a component, there must be a single `@Factory` per file, but 2 were found.'))
-            )).called(2);
-          });
-
-          test('props classes (v1 component - deprecated)', () {
-            setUpAndParse(factorySrc + propsSrc * 2 + componentSrc);
-            verify(logger.severe(
-                argThat(startsWith('To define a component, there must be a single `@Props` per file, but 2 were found.'))
-            )).called(2);
-          });
-
-          test('props classes (v2 component)', () {
-            setUpAndParse(factorySrc + propsSrc * 2 + component2Src);
-            verify(logger.severe(
-                argThat(startsWith('To define a component, there must be a single `@Props` per file, but 2 were found.'))
-            )).called(2);
-          });
-
-          test('component classes (v1 - deprecated)', () {
-            setUpAndParse(factorySrc + propsSrc + componentSrc * 2);
-            verify(logger.severe(
-                argThat(startsWith('To define a component, there must be a single `@Component` per file, but 2 were found.'))
-            )).called(2);
-          });
-
-          test('component2 classes', () {
-            setUpAndParse(factorySrc + propsSrc + component2Src * 2);
-            verify(logger.severe(
-                argThat(startsWith('To define a component, there must be a single `@Component2` per file, but 2 were found.'))
-            )).called(2);
-          });
-
-          test('state classes (v1 component - deprecated)', () {
-            setUpAndParse(factorySrc + propsSrc + componentSrc + stateSrc * 2);
-            verify(logger.severe(
-                argThat(startsWith('To define a component, there must not be more than one `@State` per file, but 2 were found.'))
-            )).called(2);
-          });
-
-          test('state classes (v2 component)', () {
-            setUpAndParse(factorySrc + propsSrc + component2Src + stateSrc * 2);
-            verify(logger.severe(
-                argThat(startsWith('To define a component, there must not be more than one `@State` per file, but 2 were found.'))
-            )).called(2);
-          });
-        });
-
-        group('an annotation is used on the wrong kind of declaration:', () {
-          test('@Factory on a non-top-level-variable', () {
-            setUpAndParse('@Factory() class NotAVariable {}');
-            verify(logger.severe(contains('`@Factory` can only be used on top-level variable declarations.')));
-          });
-
-          test('@Props on a non-class', () {
-            setUpAndParse('@Props() var notAClass;');
-            verify(logger.severe(contains('`@Props` can only be used on classes.')));
-          });
-
-          test('@Component on a non-class', () {
-            setUpAndParse('@Component() var notAClass;');
-            verify(logger.severe(contains('`@Component` can only be used on classes.')));
-          });
-
-          test('@Component2 on a non-class', () {
-            setUpAndParse('@Component2() var notAClass;');
-            verify(logger.severe(contains('`@Component2` can only be used on classes.')));
-          });
-
-          test('@State on a non-class', () {
-            setUpAndParse('@Props() var notAClass;');
-            verify(logger.severe(contains('`@Props` can only be used on classes.')));
-          });
-
-          test('@AbstractProps on a non-class', () {
-            setUpAndParse('@AbstractProps() var notAClass;');
-            verify(logger.severe(contains('`@AbstractProps` can only be used on classes.')));
-          });
-
-          test('@AbstractState on a non-class', () {
-            setUpAndParse('@AbstractState() var notAClass;');
-            verify(logger.severe(contains('`@AbstractState` can only be used on classes.')));
-          });
-
-          test('@PropsMixin on a non-class', () {
-            setUpAndParse('@PropsMixin() var notAClass;');
-            verify(logger.severe(contains('`@PropsMixin` can only be used on classes.')));
-          });
-
-          test('@StateMixin on a non-class', () {
-            setUpAndParse('@StateMixin() var notAClass;');
-            verify(logger.severe(contains('`@StateMixin` can only be used on classes.')));
-          });
         });
 
         group('a factory is', () {
@@ -853,12 +737,12 @@ main() {
             verify(logger.severe(contains(
                 'Factory variables are stubs for the generated factories, and should '
                   'be initialized with the valid variable name for builder compatibility. '
-                  'Should be: _\$Foo',)));
+                  'Should be: `Foo = _\$Foo`')));
           });
           test('declared using multiple variables', () {
             setUpAndParse('''
               @Factory()
-              UiFactory<FooProps> Foo, Bar;
+              UiFactory<FooProps> Foo = _\$Foo, Bar = _\$Bar;
 
               $restOfComponent
             ''');
@@ -877,7 +761,7 @@ main() {
             verify(logger.severe(contains(
                 'Factory variables are stubs for the generated factories, and should '
                   'be initialized with the valid variable name for builder compatibility. '
-                  'Should be: _\$Foo')));
+                  'Should be: `Foo = _\$Foo`')));
 
           });
 
@@ -892,7 +776,7 @@ main() {
             verify(logger.severe(contains(
                 'Factory variables are stubs for the generated factories, and should '
                   'be initialized with the valid variable name for builder compatibility. '
-                  'Should be: _\$_Foo')));
+                  'Should be: `_Foo = _\$_Foo`')));
           });
         });
 
