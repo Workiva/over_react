@@ -7,69 +7,6 @@ part of 'abstract_inheritance.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
-abstract class _$SuperPropsAccessorsMixin implements _$SuperProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$SuperProps.superProp] -->
-  @override
-  String get superProp =>
-      props[_$key__superProp___$SuperProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$SuperProps.superProp] -->
-  @override
-  set superProp(String value) => props[_$key__superProp___$SuperProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__superProp___$SuperProps =
-      PropDescriptor(_$key__superProp___$SuperProps);
-  static const String _$key__superProp___$SuperProps = 'SuperProps.superProp';
-
-  static const List<PropDescriptor> $props = [_$prop__superProp___$SuperProps];
-  static const List<String> $propKeys = [_$key__superProp___$SuperProps];
-}
-
-const PropsMeta _$metaForSuperProps = PropsMeta(
-  fields: _$SuperPropsAccessorsMixin.$props,
-  keys: _$SuperPropsAccessorsMixin.$propKeys,
-);
-
-abstract class SuperProps extends _$SuperProps with _$SuperPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForSuperProps;
-}
-
-abstract class _$SuperStateAccessorsMixin implements _$SuperState {
-  @override
-  Map get state;
-
-  /// <!-- Generated from [_$SuperState.superState] -->
-  @override
-  String get superState =>
-      state[_$key__superState___$SuperState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$SuperState.superState] -->
-  @override
-  set superState(String value) =>
-      state[_$key__superState___$SuperState] = value;
-  /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__superState___$SuperState =
-      StateDescriptor(_$key__superState___$SuperState);
-  static const String _$key__superState___$SuperState = 'SuperState.superState';
-
-  static const List<StateDescriptor> $state = [
-    _$prop__superState___$SuperState
-  ];
-  static const List<String> $stateKeys = [_$key__superState___$SuperState];
-}
-
-const StateMeta _$metaForSuperState = StateMeta(
-  fields: _$SuperStateAccessorsMixin.$state,
-  keys: _$SuperStateAccessorsMixin.$stateKeys,
-);
-
-abstract class SuperState extends _$SuperState with _$SuperStateAccessorsMixin {
-  static const StateMeta meta = _$metaForSuperState;
-}
-
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
@@ -322,4 +259,67 @@ class _$SubComponent extends SubComponent {
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForSubProps];
+}
+
+abstract class _$SuperPropsAccessorsMixin implements _$SuperProps {
+  @override
+  Map get props;
+
+  /// <!-- Generated from [_$SuperProps.superProp] -->
+  @override
+  String get superProp =>
+      props[_$key__superProp___$SuperProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SuperProps.superProp] -->
+  @override
+  set superProp(String value) => props[_$key__superProp___$SuperProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__superProp___$SuperProps =
+      PropDescriptor(_$key__superProp___$SuperProps);
+  static const String _$key__superProp___$SuperProps = 'SuperProps.superProp';
+
+  static const List<PropDescriptor> $props = [_$prop__superProp___$SuperProps];
+  static const List<String> $propKeys = [_$key__superProp___$SuperProps];
+}
+
+const PropsMeta _$metaForSuperProps = PropsMeta(
+  fields: _$SuperPropsAccessorsMixin.$props,
+  keys: _$SuperPropsAccessorsMixin.$propKeys,
+);
+
+abstract class SuperProps extends _$SuperProps with _$SuperPropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForSuperProps;
+}
+
+abstract class _$SuperStateAccessorsMixin implements _$SuperState {
+  @override
+  Map get state;
+
+  /// <!-- Generated from [_$SuperState.superState] -->
+  @override
+  String get superState =>
+      state[_$key__superState___$SuperState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$SuperState.superState] -->
+  @override
+  set superState(String value) =>
+      state[_$key__superState___$SuperState] = value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor _$prop__superState___$SuperState =
+      StateDescriptor(_$key__superState___$SuperState);
+  static const String _$key__superState___$SuperState = 'SuperState.superState';
+
+  static const List<StateDescriptor> $state = [
+    _$prop__superState___$SuperState
+  ];
+  static const List<String> $stateKeys = [_$key__superState___$SuperState];
+}
+
+const StateMeta _$metaForSuperState = StateMeta(
+  fields: _$SuperStateAccessorsMixin.$state,
+  keys: _$SuperStateAccessorsMixin.$stateKeys,
+);
+
+abstract class SuperState extends _$SuperState with _$SuperStateAccessorsMixin {
+  static const StateMeta meta = _$metaForSuperState;
 }
