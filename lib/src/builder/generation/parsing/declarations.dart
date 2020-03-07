@@ -163,11 +163,13 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
       factoryGroups.remove(factoryGroup);
       factoryGroup.factories.forEach(factories.remove);
     }
+
     void consumePropsAndState() {
       // don't remove mixins, just classes, since mixins are generated/grouped the same as when standalone
       props.remove(propsClassOrMixin.either);
       states.remove(stateClassOrMixin?.either);
     }
+
     void consumeComponent() => components.remove(component);
 
     if (component != null) {
