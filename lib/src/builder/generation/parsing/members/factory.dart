@@ -7,6 +7,9 @@ class BoilerplateFactory extends BoilerplateMember {
   @override
   SimpleIdentifier get name => node.firstVariable.name;
 
+  @override
+  annotations.Factory get meta => const annotations.Factory();
+
   TypeAnnotation get propsGenericArg {
     final type = node.variables.type;
     if (type is NamedType && type.typeNameWithoutPrefix == 'UiFactory') {

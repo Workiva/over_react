@@ -26,6 +26,8 @@ abstract class BoilerplateMember {
 
   CompilationUnitMember get node;
 
+  Object get meta;
+
   void validate(Version version, ErrorCollector errorCollector);
 
   SimpleIdentifier get name;

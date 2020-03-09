@@ -630,6 +630,255 @@ main() {
           });
         });
 
+        group('edge cases', () {
+          test('empty props/state mixins', () {
+            setUpAndParse(r'''
+              mixin FooPropsMixin on UiProps {}
+              mixin FooStateMixin on UiState {}
+            ''');
+
+            expect(declarations, unorderedEquals([
+              isA<PropsMixinDeclaration>(),
+              isA<StateMixinDeclaration>(),
+            ]));
+          });
+
+          test('a class that kind of looks like state mixin but isn\'t', () {
+            setUpAndParse(r'''
+              mixin FooStateMixin<TState extends UiState> on react.Component {
+                foo() {}
+              }            
+            ''');
+
+            expect(declarations, isEmpty);
+          });
+
+          test('a class that kind of looks like state but isn\'t', () {
+            setUpAndParse(r'''            
+              class FooState {}            
+            
+              UiFactory<Foo> Foo = _$Foo;
+              
+              class FooProps extends UiProps { }
+              
+              class FooComponent extends UiComponent2<FooProps> {}
+            ''');
+
+            final decl = expectSingleOfType<ClassComponentDeclaration>(declarations);
+            expect(decl.state, isNull);
+          });
+
+          test('multiple factories with flip-flopped names', () {
+            setUpAndParse(r'''                                      
+              UiFactory<FooProps> Foo = connectFlux()(ConnectedFoo);
+              
+              UiFactory<FooProps> ConnectedFoo = _$ConnectedFoo;
+              
+              class _$FooProps extends UiProps { }
+              
+              class FooComponent extends UiComponent2<FooProps> {}
+            ''');
+
+            final decl = expectSingleOfType<ClassComponentDeclaration>(declarations);
+            expect(decl.factory.name.name, 'ConnectedFoo');
+          });
+        });
+
+        group('(new syntax)', () {
+          group('a component', () {
+            test('that is stateless', () {
+              setUpAndParse(r'''
+                  UiFactory<FooProps> Foo = _$Foo;
+                  
+                  mixin FooProps on UiProps {
+                    String foo;
+                  }
+                  
+                  class FooComponent extends UiComponent2<FooProps> {
+                    render() {}
+                  }
+              ''');
+
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<ClassComponentDeclaration>(),
+              ]));
+
+              final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
+              expect(propsMixinDecl.propsMixin?.name?.name, 'FooProps');
+
+              final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+
+              expect(decl.factory?.name?.name, 'Foo');
+              expect(decl.props?.b?.name?.name, 'FooProps');
+              expect(decl.component?.name?.name, 'FooComponent');
+              expect(decl.state?.either, isNull);
+
+              expect(decl.factory.meta, isA<annotations.Factory>());
+              expect(decl.props.b.meta, isA<annotations.Props>());
+              expect(decl.component.meta, isA<annotations.Component>());
+            });
+
+            test('that is stateful', () {
+              setUpAndParse(r'''
+                  UiFactory<FooProps> Foo = _$Foo;
+                  
+                  mixin FooProps on UiProps {
+                    String foo;
+                  }
+                  
+                  mixin FooState on UiState {
+                    String bar;
+                  }
+                  
+                  class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
+                    render() {}
+                  }
+              ''');
+
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<StateMixinDeclaration>(),
+                isA<ClassComponentDeclaration>(),
+              ]));
+
+              final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
+              expect(propsMixinDecl.propsMixin?.name?.name, 'FooProps');
+
+              final stateMixinDecl = declarations.firstWhereType<StateMixinDeclaration>();
+              expect(stateMixinDecl.stateMixin?.name?.name, 'FooState');
+
+              final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+
+              expect(decl.factory?.name?.name, 'Foo');
+              expect(decl.props?.b?.name?.name, 'FooProps');
+              expect(decl.component?.name?.name, 'FooComponent');
+              expect(decl.state?.b?.name?.name, 'FooState');
+
+              expect(decl.factory.meta, isA<annotations.Factory>());
+              expect(decl.props.b.meta, isA<annotations.Props>());
+              expect(decl.state.b.meta, isA<annotations.State>());
+              expect(decl.component.meta, isA<annotations.Component>());
+            });
+          });
+
+          test('props mixins', () {
+            setUpAndParse(r'''
+              mixin FooPropsMixin on UiProps {}
+              mixin BarPropsMixin on UiProps {}
+              mixin BazPropsMixin on UiProps {}
+            ''');
+
+            final mixins = expectLengthAndAllOfType<PropsMixinDeclaration>(declarations, 3);
+
+            expect(mixins.map((m) => m.propsMixin.name.name).toList(),
+                ['FooPropsMixin', 'BarPropsMixin', 'BazPropsMixin']);
+          });
+          
+          test('state mixins', () {
+            setUpAndParse(r'''
+              mixin FooStateMixin on UiState {}
+              mixin BarStateMixin on UiState {}
+              mixin BazStateMixin on UiState {}
+            ''');
+
+            final mixins = expectLengthAndAllOfType<StateMixinDeclaration>(declarations, 3);
+
+            expect(mixins.map((m) => m.stateMixin.name.name).toList(),
+                ['FooStateMixin', 'BarStateMixin', 'BazStateMixin']);
+          });
+
+          test('abstract props class', () {
+            setUpAndParse(r'''
+              abstract class FooProps implements UiProps, BarProps {}
+            ''');
+            expect(declarations, isEmpty);
+          });
+
+          test('abstract state class', () {
+            setUpAndParse(r'''
+              abstract class FooState implements UiState, BarState {}
+            ''');
+            expect(declarations, isEmpty);
+          });
+
+          group('and initializes annotations with the correct arguments', () {
+            group('a stateful component (using non-mixin annotations)', () {
+              // FIXME implement
+              test('(using non-mixin annotations)', () {
+                setUpAndParse(r'''
+                  @Factory()
+                  UiFactory<FooProps> Foo = _$Foo;
+
+                  @Props(keyNamespace: "bar")
+                  mixin FooProps on UiProps {}
+
+                  @State(keyNamespace: "baz")
+                  mixin FooState on UiState {}
+
+                  @Component2(isWrapper: true, subtypeOf: BarComponent)
+                  class FooComponent extends Component2 {
+                    render() {}
+                  }
+                ''');
+
+                expect(declarations, contains(isA<ClassComponentDeclaration>()));
+                final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+
+                expect(decl.props.b.meta.keyNamespace, 'bar');
+                expect(decl.state.b.meta.keyNamespace, 'baz');
+                expect(decl.component.meta.isWrapper, isTrue);
+                expect(decl.component.configSubtypeOf?.name, 'BarComponent');
+              }, skip: 'fixme: implement');
+
+              test('(using mixin annotations)', () {
+                setUpAndParse(r'''
+                  @Factory()
+                  UiFactory<FooProps> Foo = _$Foo;
+  
+                  @PropsMixin(keyNamespace: "bar")
+                  mixin FooProps on UiProps {}
+  
+                  @StateMixin(keyNamespace: "baz")
+                  mixin FooState on UiState {}
+  
+                  @Component2(isWrapper: true, subtypeOf: BarComponent)
+                  class FooComponent extends Component2 {
+                    render() {}
+                  }
+                ''');
+
+                expect(declarations, contains(isA<ClassComponentDeclaration>()));
+                final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+
+                expect(decl.props.b.meta.keyNamespace, 'bar');
+                expect(decl.state.b.meta.keyNamespace, 'baz');
+                expect(decl.component.meta.isWrapper, isTrue);
+                expect(decl.component.configSubtypeOf?.name, 'BarComponent');
+              });
+            });
+
+            test('a props mixin', () {
+              setUpAndParse('''
+                @PropsMixin(keyNamespace: "bar")
+                mixin FooPropsMixin on UiProps {}
+              ''');
+              final decl = expectSingleOfType<PropsMixinDeclaration>(declarations);
+              expect(decl.propsMixin.meta.keyNamespace, 'bar');
+            });
+
+            test('a state mixin', () {
+              setUpAndParse('''
+                @StateMixin(keyNamespace: "bar")
+                mixin FooStateMixin on UiState {}
+              ''');
+              final decl = expectSingleOfType<StateMixinDeclaration>(declarations);
+              expect(decl.stateMixin.meta.keyNamespace, 'bar');
+            });
+          });
+        });
+      });
+
       const String restOfComponent = '''
         @Props()
         class _\$FooProps {}

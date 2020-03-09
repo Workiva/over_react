@@ -404,6 +404,12 @@ class OverReactSrc {
 
 class MockLogger extends Mock implements Logger {}
 
+
+Iterable<T> expectLengthAndAllOfType<T>(Iterable<Object> items, int count) {
+  expect(items, List.generate(count, (i) => isA<T>()));
+  return items.cast<T>();
+}
+
 Iterable<T> expectAllOfType<T>(Iterable<Object> items) {
   expect(items, everyElement(isA<T>()));
   return items.cast<T>();

@@ -8,6 +8,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
 
   final ClassishDeclaration companion;
 
+  @override
   annotations.TypedMap meta;
 
   @override

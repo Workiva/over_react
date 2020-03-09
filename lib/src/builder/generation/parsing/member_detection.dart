@@ -255,8 +255,9 @@ class BoilerplateMemberDetector {
       final overridesIsClassGenerated = classish.members
           .whereType<MethodDeclaration>()
           .any((member) => member.isGetter && member.name.name == r'$isClassGenerated');
-      // Handle classes that look like props but are really just used as interfaces, and aren't extended from or directly used as a component's props
-      if (overridesIsClassGenerated || onlyImplementsThings(classish)) {
+      // Handle classes that look like props but are really just used as interfaces, and aren't extended from or directly used as a component's props.
+      // Watch out for empty mixins, though; those are valid props/state mixins.
+      if (overridesIsClassGenerated || (node is! MixinDeclaration && onlyImplementsThings(classish))) {
         return VersionConfidence.none();
       } else if (classish.members.whereType<ConstructorDeclaration>().isNotEmpty) {
         //fixme fix these cases?
