@@ -104,11 +104,18 @@ class BoilerplateMemberDetector {
       if (type?.typeNameWithoutPrefix == 'UiFactory') {
         final firstVar = node.variables.variables.first;
         final name = firstVar.name.name;
-        final identifierInInitializer =
-            firstVar.initializer?.tryCast<Identifier>()?.nameWithoutPrefix;
+        final initializer = firstVar.initializer;
+
         // Check for `Foo = _$Foo` or `Foo = $Foo` (which could be a typo)
-        if (identifierInInitializer != null &&
-            (identifierInInitializer == '_\$$name' || identifierInInitializer == '\$$name')) {
+        final generatedFactoryName = '_\$$name';
+        final typoGeneratedFactoryName= '\$$name';
+        final referencesGeneratedFactory = initializer != null &&
+            anyDescendantIdentifiers(initializer, (identifier) {
+              return identifier.name == generatedFactoryName ||
+                  identifier.name == typoGeneratedFactoryName;
+            });
+
+        if (referencesGeneratedFactory) {
           onFactory(BoilerplateFactory(
               node,
               VersionConfidence(

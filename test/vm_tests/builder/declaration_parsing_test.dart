@@ -250,6 +250,29 @@ main() {
               });
             });
 
+            test('with a factory that references the _\$ prefixed variable name', () {
+              setUpAndParse(r'''
+                @Factory()
+                UiFactory<FooProps> Foo = connect(
+                  mapStateToProps: (state) => _$Foo()..foo = state.foo,
+                )(_$Foo);
+                
+                @Props()
+                class _$FooProps extends UiProps {}
+                  
+                @Component()
+                class FooComponent extends UiComponent<FooProps> {
+                  render() {}
+                }
+              ''');
+
+              final component = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
+              expect(component.factory?.name?.name, 'Foo');
+              expect(component.props?.name?.name, endsWith('FooProps'));
+              expect(component.state, isNull);
+              expect(component.component?.name?.name, 'FooComponent');
+            });
+
             group('with mismatched names', () {
               test('', () {
                 setUpAndParse(r'''
@@ -841,6 +864,31 @@ main() {
               expect(decl.state.a.meta, isA<annotations.State>());
               expect(decl.component.meta, isA<annotations.Component>());
             });
+
+            test('with a factory that references the _\$ prefixed variable name', () {
+              setUpAndParse(r'''
+                UiFactory<FooProps> Foo = connect(
+                  mapStateToProps: (state) => _$Foo()..foo = state.foo,
+                )(_$Foo);
+                
+                mixin FooProps on UiProps {}
+                  
+                class FooComponent extends UiComponent2<FooProps> {
+                  render() {}
+                }
+              ''');
+
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<ClassComponentDeclaration>(),
+              ]));
+
+              final component = declarations.firstWhereType<ClassComponentDeclaration>();
+              expect(component.factory?.name?.name, 'Foo');
+              expect(component.props?.b?.name?.name, endsWith('FooProps'));
+              expect(component.state, isNull);
+              expect(component.component?.name?.name, 'FooComponent');
+            });
           });
 
           test('props mixins', () {
@@ -1159,8 +1207,8 @@ main() {
             ''');
 
             verify(logger.severe(contains(
-                'Factory variables are stubs for the generated factories, and should '
-                  'be initialized with the valid variable name for builder compatibility. '
+                'Factory variables are stubs for the generated factories, and must '
+                  'be initialized with or otherwise reference the generated factory. '
                   'Should be: `Foo = _\$Foo`')));
           });
           test('declared using multiple variables', () {
@@ -1183,8 +1231,8 @@ main() {
             ''');
 
             verify(logger.severe(contains(
-                'Factory variables are stubs for the generated factories, and should '
-                  'be initialized with the valid variable name for builder compatibility. '
+                'Factory variables are stubs for the generated factories, and must '
+                  'be initialized with or otherwise reference the generated factory. '
                   'Should be: `Foo = _\$Foo`')));
 
           });
@@ -1198,8 +1246,8 @@ main() {
             ''');
 
             verify(logger.severe(contains(
-                'Factory variables are stubs for the generated factories, and should '
-                  'be initialized with the valid variable name for builder compatibility. '
+                'Factory variables are stubs for the generated factories, and must '
+                  'be initialized with or otherwise reference the generated factory. '
                   'Should be: `_Foo = _\$_Foo`')));
           });
         });
