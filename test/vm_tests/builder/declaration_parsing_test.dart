@@ -328,7 +328,7 @@ main() {
                   }
                 ''');
 
-                expect(declarations, containsAll([
+                expect(declarations, unorderedEquals([
                   isA<LegacyClassComponentDeclaration>(),
                   isA<PropsMixinDeclaration>(),
                   isA<StateMixinDeclaration>(),
