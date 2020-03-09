@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:meta/meta.dart';
 
@@ -55,13 +53,14 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   //
   // Remove them so they don't get grouped with anything else and throw things off.
   //
+  // TODO do we still need to do this? Write regression test case for this and see if it can be removed
   props.removeWhere((p) => p.isLegacyMapView);
 
   // -----------------------------------------------------------------------------------------------
   //
   // Legacy abstract props/state classes
   //
-  // They be declared stand-alone without needing other abstract component members, so grouping
+  // They can be declared stand-alone without needing other abstract component members, so grouping
   // them isn't helpful, and can actually cause issues for edge cases where there are other
   // `noGenerate` members with similar names.
   //
@@ -70,17 +69,21 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
   for (final propsClass in List.of(props)) {
     final version = resolveVersion([propsClass]);
-    if (version.isLegacy && propsClass.node.hasAnnotationWithName('AbstractProps')) {
+    if (version.shouldGenerate &&
+        version.version.isLegacy &&
+        propsClass.node.hasAnnotationWithName('AbstractProps')) {
       props.remove(propsClass);
-      yield LegacyAbstractClassComponentDeclaration(version: version, props: propsClass);
+      yield LegacyAbstractClassComponentDeclaration(version: version.version, props: propsClass);
     }
   }
 
   for (final stateClass in List.of(states)) {
     final version = resolveVersion([stateClass]);
-    if (version.isLegacy && stateClass.node.hasAnnotationWithName('AbstractState')) {
+    if (version.shouldGenerate &&
+        version.version.isLegacy &&
+        stateClass.node.hasAnnotationWithName('AbstractState')) {
       states.remove(stateClass);
-      yield LegacyAbstractClassComponentDeclaration(version: version, state: stateClass);
+      yield LegacyAbstractClassComponentDeclaration(version: version.version, state: stateClass);
     }
   }
 
@@ -94,15 +97,15 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
   for (var propsMixin in propsMixins) {
     final version = resolveVersion([propsMixin]);
-    if (version != BoilerplateVersion.noGenerate) {
-      yield PropsMixinDeclaration(version: version, propsMixin: propsMixin);
+    if (version.shouldGenerate) {
+      yield PropsMixinDeclaration(version: version.version, propsMixin: propsMixin);
     }
   }
 
   for (var stateMixin in stateMixins) {
     final version = resolveVersion([stateMixin]);
-    if (version != BoilerplateVersion.noGenerate) {
-      yield StateMixinDeclaration(version: version, stateMixin: stateMixin);
+    if (version.shouldGenerate) {
+      yield StateMixinDeclaration(version: version.version, stateMixin: stateMixin);
     }
   }
 
@@ -115,26 +118,19 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   // was name-agnostic and expected at most one non-abstract component per file.
   // FIXME do we need to remove abstract components before this point, to support a single file with both an abstract component and component?
 
-  // Prevent unrelated classes ending with "State" from being associated with the component.
-  final relevantStates =
-      states.where((state) => state.node.hasAnnotationWithName('State')).toList();
-  if (props.length == 1 &&
-      components.length == 1 &&
-      factories.length == 1 &&
-      relevantStates.length <= 1) {
+  if (props.length == 1 && components.length == 1 && factories.length == 1 && states.length <= 1) {
     final version = resolveVersion([
       props.single,
-      if (relevantStates.isNotEmpty) relevantStates.single,
+      if (states.isNotEmpty) states.single,
       components.single,
       factories.single,
     ]);
-    if (version.isLegacy) {
+    if (version.shouldGenerate && version.version.isLegacy) {
       yield LegacyClassComponentDeclaration(
-        version: version,
+        version: version.version,
         factory: factories.removeAt(0),
         props: props.removeAt(0),
-        state:
-            relevantStates.isNotEmpty ? states.removeAt(states.indexOf(relevantStates[0])) : null,
+        state: states.isNotEmpty ? states.removeAt(0) : null,
         component: components.removeAt(0),
       );
     }
@@ -144,8 +140,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   //
   // Declarations with factories (components and non-legacy map views)
   //
-
-  final unusedFactories = <FactoryGroup>[];
 
   // todo getPropsForFactories getComponent utils - what if there are multiple candidates?
   //  Do we just go with the first one, or do we use confidence scores? It's possible something could look like a component or props class
@@ -163,15 +157,25 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
       continue;
     }
 
-    factoryGroups.remove(factoryGroup);
-    factoryGroup.factories.forEach(factories.remove);
-    // don't remove mixins, just classes, since mixins are generated/grouped the same as when standalone
-    props.remove(propsClassOrMixin.either);
-    states.remove(stateClassOrMixin?.either);
-
     final component = getComponentFor(factory, components);
+
+    void consumeFactory() {
+      factoryGroups.remove(factoryGroup);
+      factoryGroup.factories.forEach(factories.remove);
+    }
+
+    void consumePropsAndState() {
+      // don't remove mixins, just classes, since mixins are generated/grouped the same as when standalone
+      props.remove(propsClassOrMixin.either);
+      states.remove(stateClassOrMixin?.either);
+    }
+
+    void consumeComponent() => components.remove(component);
+
     if (component != null) {
-      components.remove(component);
+      consumeFactory();
+      consumePropsAndState();
+      consumeComponent();
 
       final version = resolveVersion([
         factory,
@@ -180,56 +184,47 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         if (stateClassOrMixin != null) stateClassOrMixin.either,
       ]);
 
-      switch (version) {
-        case BoilerplateVersion.v2_legacyBackwardsCompat:
-        case BoilerplateVersion.v3_legacyDart2Only:
-          yield LegacyClassComponentDeclaration(
-              version: version,
-              factory: factory,
-              component: component,
-              props: propsClassOrMixin.a,
-              state: stateClassOrMixin?.a);
-          break;
-        case BoilerplateVersion.v4_mixinBased:
-          yield ClassComponentDeclaration(
-              version: version,
-              factory: factory,
-              component: component,
-              props: propsClassOrMixin,
-              state: stateClassOrMixin);
-          break;
-        case BoilerplateVersion.noGenerate:
-          break;
+      if (version.shouldGenerate) {
+        switch (version.version) {
+          case Version.v2_legacyBackwardsCompat:
+          case Version.v3_legacyDart2Only:
+            yield LegacyClassComponentDeclaration(
+                version: version.version,
+                factory: factory,
+                component: component,
+                props: propsClassOrMixin.a,
+                state: stateClassOrMixin?.a);
+            break;
+          case Version.v4_mixinBased:
+            yield ClassComponentDeclaration(
+                version: version.version,
+                factory: factory,
+                component: component,
+                props: propsClassOrMixin,
+                state: stateClassOrMixin);
+            break;
+        }
       }
     } else {
-      if (propsClassOrMixin == null) {
-        unusedFactories.add(factoryGroup);
-        continue;
-      }
-
       if (isFunctionComponent(factory)) {
+        consumeFactory();
+        consumePropsAndState();
         yield FunctionComponentDeclaration(
-          version: BoilerplateVersion.v4_mixinBased,
+          version: Version.v4_mixinBased,
           factory: factory,
           props: propsClassOrMixin,
         );
       } else {
         final version = resolveVersion([factory, propsClassOrMixin.either]);
-        switch (version) {
-          case BoilerplateVersion.v2_legacyBackwardsCompat:
-          case BoilerplateVersion.v3_legacyDart2Only:
-            errorCollector.addError(
-                'Missing component for factory/props', errorCollector.spanFor(factory.node));
-            break;
-          case BoilerplateVersion.v4_mixinBased:
-            yield PropsMapViewDeclaration(
-              version: BoilerplateVersion.v4_mixinBased,
-              factory: factory,
-              props: propsClassOrMixin,
-            );
-            break;
-          case BoilerplateVersion.noGenerate:
-            break;
+        // The leftover logic below will handle legacy members
+        if (version.shouldGenerate && version.version == Version.v4_mixinBased) {
+          consumeFactory();
+          consumePropsAndState();
+          yield PropsMapViewDeclaration(
+            version: Version.v4_mixinBased,
+            factory: factory,
+            props: propsClassOrMixin,
+          );
         }
       }
     }
@@ -239,25 +234,77 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   //
   // Handle leftover members that didn't get grouped into a declaration
   //
+  // Where possible, attempt to provide helpful error messages.
+  //
 
-  // Ignore remaining components without matching factories and props classes or just props classes.
-  // TODO should these warn if their declarationConfidence/versionConfidence is sufficiently high?
-  // These are most likely classes that aren't really components.
-  for (var factoryGroup in factoryGroups) {
-    if (resolveVersion([factoryGroup.bestFactory]) == BoilerplateVersion.noGenerate) {
-      continue;
-    }
-    if (isStandaloneFactory(factoryGroup.bestFactory)) {
-      continue;
-    }
+  final allUnusedMembers = [
+    factoryGroups.map((group) => group.bestFactory),
+    props,
+    states,
+    components,
+  ].expand((i) => i);
 
-    final potentialProps = fuzzyMatch(factoryGroup.bestFactory, [...props, ...propsMixins]);
-    errorCollector.addError('Factory is missing props; did you mean $potentialProps?',
-        errorCollector.spanFor(factoryGroup.bestFactory.node));
+  final unusedMembersByName = <String, List<BoilerplateMember>>{};
+  for (var member in allUnusedMembers) {
+    final name = normalizeNameAndRemoveSuffix(member);
+    unusedMembersByName.putIfAbsent(name, () => []).add(member);
   }
 
-  // Put em back in boilerplateMembers so we can log them outside of this function
-  factories.addAll(unusedFactories.expand((group) => group.factories));
+  unusedMembersByName.forEach((name, group) {
+    final factory = group.firstWhereType<BoilerplateFactory>(orElse: () => null);
+    final propsClass = group.firstWhereType<BoilerplateProps>(orElse: () => null);
+    final stateClass = group.firstWhereType<BoilerplateState>(orElse: () => null);
+    final componentClass = group.firstWhereType<BoilerplateComponent>(orElse: () => null);
+
+    //
+    // General case
+
+    if ([factory, propsClass, stateClass, componentClass].whereNotNull().length != group.length) {
+      for (var member in group) {
+        errorCollector.addError(
+            'Mismatched boilerplate member found', errorCollector.spanFor(member.node));
+      }
+      return;
+    }
+
+    //
+    // Special cases
+
+    final nonNullFactoryPropsOrComponents =
+        [factory, propsClass, componentClass].whereNotNull().toList();
+    if (nonNullFactoryPropsOrComponents.isEmpty) {
+      assert(stateClass != null);
+      if (resolveVersion([stateClass]).shouldGenerate) {
+        errorCollector.addError(errorStateOnly, errorCollector.spanFor(stateClass.node));
+      }
+      return;
+    }
+
+    if (!resolveVersion(nonNullFactoryPropsOrComponents).shouldGenerate) return;
+    switch (nonNullFactoryPropsOrComponents.length) {
+      case 1:
+        final single = nonNullFactoryPropsOrComponents.single;
+        final span = errorCollector.spanFor(single.node);
+        if (single == factory) {
+          errorCollector.addError(errorFactoryOnly, span);
+        } else if (single == propsClass) {
+          errorCollector.addError(errorPropsClassOnly, span);
+        } else if (single == componentClass) {
+          errorCollector.addError(errorComponentClassOnly, span);
+        }
+        break;
+      case 2:
+        final span = errorCollector.spanFor((factory ?? propsClass).node);
+        if (factory == null) {
+          errorCollector.addError(errorNoFactory, span);
+        } else if (propsClass == null) {
+          errorCollector.addError(errorNoProps, span);
+        } else if (componentClass == null) {
+          errorCollector.addError(errorNoComponent, span);
+        }
+        break;
+    }
+  });
 }
 
 class FactoryGroup {
@@ -321,8 +368,22 @@ AstNode fuzzyMatch(BoilerplateMember member, Iterable<BoilerplateMember> members
 
 class BoilerplateGenerator {}
 
+/// The possible declaration types that the builder will look for.
+enum DeclarationType {
+  functionComponentDeclaration,
+  classComponentDeclaration,
+  legacyClassComponentDeclaration,
+  legacyAbstractClassComponentDeclaration,
+  propsMixinDeclaration,
+  stateMixinDeclaration,
+  propsMapViewDeclaration,
+}
+
 abstract class BoilerplateDeclaration {
-  final BoilerplateVersion version;
+  final Version version;
+
+  /// The explicit type of declaration this class is tied to.
+  DeclarationType type;
 
   BoilerplateDeclaration(this.version);
 
@@ -360,8 +421,11 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
   @override
   get _members => [factory, component, props, if (state != null) state];
 
+  @override
+  get type => DeclarationType.legacyClassComponentDeclaration;
+
   LegacyClassComponentDeclaration({
-    @required BoilerplateVersion version,
+    @required Version version,
     @required this.factory,
     @required this.component,
     @required this.props,
@@ -399,8 +463,11 @@ class LegacyAbstractClassComponentDeclaration extends BoilerplateDeclaration {
   @override
   get _members => [component, props, state].whereNotNull();
 
+  @override
+  final type = DeclarationType.legacyAbstractClassComponentDeclaration;
+
   LegacyAbstractClassComponentDeclaration({
-    @required BoilerplateVersion version,
+    @required Version version,
     this.component,
     this.props,
     this.state,
@@ -447,8 +514,11 @@ class ClassComponentDeclaration extends BoilerplateDeclaration {
   @override
   get _members => [factory, component, props.either, if (state != null) state?.either];
 
+  @override
+  get type => DeclarationType.classComponentDeclaration;
+
   ClassComponentDeclaration({
-    @required BoilerplateVersion version,
+    @required Version version,
     @required this.factory,
     @required this.component,
     @required this.props,
@@ -466,8 +536,11 @@ class PropsMapViewDeclaration extends BoilerplateDeclaration {
   @override
   get _members => [factory, props.either];
 
+  @override
+  get type => DeclarationType.propsMapViewDeclaration;
+
   PropsMapViewDeclaration({
-    @required BoilerplateVersion version,
+    @required Version version,
     @required this.factory,
     @required this.props,
   }) : super(version);
@@ -483,8 +556,11 @@ class FunctionComponentDeclaration extends BoilerplateDeclaration {
   @override
   get _members => [factory, props.either];
 
+  @override
+  get type => DeclarationType.functionComponentDeclaration;
+
   FunctionComponentDeclaration({
-    @required BoilerplateVersion version,
+    @required Version version,
     @required this.factory,
     @required this.props,
   }) : super(version);
@@ -496,8 +572,11 @@ class PropsMixinDeclaration extends BoilerplateDeclaration {
   @override
   get _members => [propsMixin];
 
+  @override
+  get type => DeclarationType.propsMixinDeclaration;
+
   PropsMixinDeclaration({
-    @required BoilerplateVersion version,
+    @required Version version,
     @required this.propsMixin,
   }) : super(version);
 }
@@ -508,8 +587,33 @@ class StateMixinDeclaration extends BoilerplateDeclaration {
   @override
   get _members => [stateMixin];
 
+  @override
+  get type => DeclarationType.stateMixinDeclaration;
+
   StateMixinDeclaration({
-    @required BoilerplateVersion version,
+    @required Version version,
     @required this.stateMixin,
   }) : super(version);
 }
+
+const errorStateOnly =
+    'Could not find matching factory, props class, and component class in this file;'
+    ' these are required to use UiState';
+
+const errorFactoryOnly = 'Could not find matching component class and props class in this file;'
+    ' these are required to declare a class-based component.';
+
+const errorPropsClassOnly = 'Could not find matching factory and component class in this file;'
+    ' these are required to declare a class-based component.';
+
+const errorComponentClassOnly = 'Could not find matching factory and props class in this file;'
+    ' these are required to declare a class-based component.';
+
+const errorNoFactory = 'Could not find a matching factory in this file;'
+    ' this is required to declare a class-based component';
+
+const errorNoProps = 'Could not find a matching props class in this file;'
+    ' this is required to declare a class-based component';
+
+const errorNoComponent = 'Could not find a matching component class in this file;'
+    ' this is required to declare a class-based component';

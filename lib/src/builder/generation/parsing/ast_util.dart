@@ -33,6 +33,13 @@ extension NameHelper on Identifier {
   }
 }
 
+extension SuperclassConstraint on MixinDeclaration {
+  bool hasSuperclassConstraint(String superclassName) {
+    return onClause?.superclassConstraints?.any((s) => s.typeNameWithoutPrefix == superclassName) ??
+        false;
+  }
+}
+
 extension MetadataHelper on AnnotatedNode {
   Annotation getAnnotationWithName(String name) =>
       metadata.firstWhere((element) => element.name.nameWithoutPrefix == name, orElse: () => null);

@@ -19,30 +19,17 @@ class BoilerplateFactory extends BoilerplateMember {
     return null;
   }
 
-  BoilerplateFactory(this.node, int declarationConfidence) : super(declarationConfidence);
-
-  @override
-  Map<BoilerplateVersion, int> get versionConfidence => {
-        BoilerplateVersion.v2_legacyBackwardsCompat:
-            hasFactoryAnnotation ? Confidence.medium : Confidence.veryLow,
-        BoilerplateVersion.v3_legacyDart2Only:
-            hasFactoryAnnotation ? Confidence.medium : Confidence.veryLow,
-        BoilerplateVersion.v4_mixinBased:
-            hasFactoryAnnotation ? Confidence.medium : Confidence.high,
-        BoilerplateVersion.noGenerate: hasFactoryAnnotation ? Confidence.veryLow : Confidence.high,
-      };
+  BoilerplateFactory(this.node, VersionConfidence confidence) : super(confidence);
 
   bool get hasFactoryAnnotation => node.hasAnnotationWithName('Factory');
 
   @override
-  void validate(BoilerplateVersion version, ErrorCollector errorCollector) {
+  void validate(Version version, ErrorCollector errorCollector) {
     switch (version) {
-      case BoilerplateVersion.noGenerate:
-        return;
-      case BoilerplateVersion.v4_mixinBased:
+      case Version.v4_mixinBased:
         break;
-      case BoilerplateVersion.v2_legacyBackwardsCompat:
-      case BoilerplateVersion.v3_legacyDart2Only:
+      case Version.v2_legacyBackwardsCompat:
+      case Version.v3_legacyDart2Only:
         if (!hasFactoryAnnotation) {
           errorCollector.addError(
               'Legacy boilerplate factories must be annotated with `@Factory()`.',
@@ -53,7 +40,7 @@ class BoilerplateFactory extends BoilerplateMember {
     }
 
     if (node.variables.variables.length > 1) {
-      errorCollector.addError('Multiple factory variables per declaration are not supported.',
+      errorCollector.addError('Factory declarations must be a single variable.',
           errorCollector.spanFor(node.variables));
     }
 
@@ -63,7 +50,8 @@ class BoilerplateFactory extends BoilerplateMember {
 
     if (generatedFactoryReferenceName != expectedInitializer) {
       errorCollector.addError(
-          'Should reference generated factory. For example, `UiFactory<...> Foo = _\$Foo;`',
+          'Factory variables are stubs for the generated factories, and should '
+          'be initialized with the valid variable name for builder compatibility. Should be: `${name.name} = _\$${name.name}`',
           errorCollector.spanFor(variable));
     } else {
       // When not null, this will be validated as part of the group since

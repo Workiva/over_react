@@ -71,8 +71,7 @@ void checkForMetaPresence(ClassOrMixinDeclaration node, ErrorCollector errorColl
 /// [cd] should be either a [ClassDeclaration] instance for the companion
 /// class of a props/state/abstract props/abstract state class, or the
 /// [ClassDeclaration] for a props or state mixin class.
-void validateMetaField(
-    ClassishDeclaration cd, String expectedType, ErrorCollector errorCollector) {
+void validateMetaField(ClassishDeclaration cd, String expectedType, ErrorCollector errorCollector) {
   final metaField = getMetaField(cd.members);
   if (metaField == null) return;
 

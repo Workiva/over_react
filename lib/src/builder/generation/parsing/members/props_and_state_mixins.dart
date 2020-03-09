@@ -11,8 +11,8 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
   @override
   SimpleIdentifier get name => node.name;
 
-  BoilerplatePropsOrStateMixin(this.node, int declarationConfidence, {@required this.companion})
-      : super(declarationConfidence) {
+  BoilerplatePropsOrStateMixin(this.node, this.companion, VersionConfidence confidence)
+      : super(confidence) {
     meta = getPropsOrStateAnnotation(isProps, node);
   }
 
@@ -20,35 +20,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
   String get debugString => '${super.debugString}, companion: ${companion?.name}';
 
   @override
-  Map<BoilerplateVersion, int> get versionConfidence {
-    final isMixin = node is MixinDeclaration;
-    final hasGeneratedPrefix = node.name.name.startsWith(r'_$');
-
-    final map = {
-      BoilerplateVersion.v2_legacyBackwardsCompat:
-          isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.veryLow : Confidence.high),
-      BoilerplateVersion.v3_legacyDart2Only:
-          isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.high : Confidence.veryLow),
-      BoilerplateVersion.v4_mixinBased: isMixin ? Confidence.high : Confidence.veryLow,
-    };
-
-    final nodeHelper = node.asClassish();
-
-    final overridesIsClassGenerated = nodeHelper.members
-        .whereType<MethodDeclaration>()
-        .any((member) => member.isGetter && member.name.name == r'$isClassGenerated');
-    // Handle classes that look like props but are really just used as interfaces, and aren't extended from or directly used as a component's props
-    if (overridesIsClassGenerated || onlyImplementsThings(nodeHelper)) {
-      map[BoilerplateVersion.noGenerate] = Confidence.certain;
-    } else {
-      map[BoilerplateVersion.noGenerate] = Confidence.veryLow;
-    }
-
-    return map;
-  }
-
-  @override
-  void validate(BoilerplateVersion version, ErrorCollector errorCollector) {
+  void validate(Version version, ErrorCollector errorCollector) {
     void _sharedLegacyValidation() {
       if (!node.hasAnnotationWithName(propsOrStateMixinAnnotationName)) {
         errorCollector.addError(
@@ -59,9 +31,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
     }
 
     switch (version) {
-      case BoilerplateVersion.noGenerate:
-        return;
-      case BoilerplateVersion.v4_mixinBased:
+      case Version.v4_mixinBased:
         final node = this.node;
         if (node is MixinDeclaration) {
           final isOnUiProps = node.onClause?.superclassConstraints
@@ -80,11 +50,11 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
               '$propsOrStateString mixins must be mixins', errorCollector.spanFor(spanNode));
         }
         break;
-      case BoilerplateVersion.v2_legacyBackwardsCompat:
+      case Version.v2_legacyBackwardsCompat:
         _sharedLegacyValidation();
         validateMetaField(node.asClassish(), propsOrStateMetaStructName, errorCollector);
         break;
-      case BoilerplateVersion.v3_legacyDart2Only:
+      case Version.v3_legacyDart2Only:
         _sharedLegacyValidation();
         checkForMetaPresence(node, errorCollector);
         break;
@@ -93,18 +63,18 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
 }
 
 class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
-  BoilerplatePropsMixin(ClassOrMixinDeclaration node, int declarationConfidence,
-      {ClassishDeclaration companion})
-      : super(node, declarationConfidence, companion: companion);
+  BoilerplatePropsMixin(
+      ClassOrMixinDeclaration node, ClassishDeclaration companion, VersionConfidence confidence)
+      : super(node, companion, confidence);
 
   @override
   bool get isProps => true;
 }
 
 class BoilerplateStateMixin extends BoilerplatePropsOrStateMixin {
-  BoilerplateStateMixin(ClassOrMixinDeclaration node, int declarationConfidence,
-      {ClassishDeclaration companion})
-      : super(node, declarationConfidence, companion: companion);
+  BoilerplateStateMixin(
+      ClassOrMixinDeclaration node, ClassishDeclaration companion, VersionConfidence confidence)
+      : super(node, companion, confidence);
 
   @override
   bool get isProps => false;
