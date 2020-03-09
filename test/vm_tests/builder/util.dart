@@ -1,5 +1,6 @@
 import 'package:logging/logging.dart';
 import 'package:mockito/mockito.dart';
+import 'package:test/test.dart';
 
 const String factorySrc                  = '\n@Factory()\nUiFactory<FooProps> Foo = _\$Foo;\n';
 const String componentSrc                = '\n@Component()\nclass FooComponent {render() {return null;}}\n';
@@ -402,3 +403,19 @@ class OverReactSrc {
 }
 
 class MockLogger extends Mock implements Logger {}
+
+
+Iterable<T> expectLengthAndAllOfType<T>(Iterable<Object> items, int count) {
+  expect(items, List.generate(count, (i) => isA<T>()));
+  return items.cast<T>();
+}
+
+Iterable<T> expectAllOfType<T>(Iterable<Object> items) {
+  expect(items, everyElement(isA<T>()));
+  return items.cast<T>();
+}
+
+T expectSingleOfType<T>(Iterable<Object> items) {
+  expect(items, [isA<T>()]);
+  return items.cast<T>().single;
+}

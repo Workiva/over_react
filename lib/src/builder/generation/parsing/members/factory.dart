@@ -7,6 +7,9 @@ class BoilerplateFactory extends BoilerplateMember {
   @override
   SimpleIdentifier get name => node.firstVariable.name;
 
+  @override
+  annotations.Factory get meta => const annotations.Factory();
+
   TypeAnnotation get propsGenericArg {
     final type = node.variables.type;
     if (type is NamedType && type.typeNameWithoutPrefix == 'UiFactory') {
@@ -46,15 +49,18 @@ class BoilerplateFactory extends BoilerplateMember {
 
     final variable = node.variables.variables.first;
     final factoryName = variable.name.name;
-    final expectedInitializer = '$privateSourcePrefix$factoryName';
+    final generatedFactoryName = '$privateSourcePrefix$factoryName';
 
-    if (generatedFactoryReferenceName != expectedInitializer) {
+    final initializer = variable.initializer;
+    final referencesGeneratedFactory = initializer != null &&
+        anyDescendantIdentifiers(
+            initializer, (identifier) => identifier.name == generatedFactoryName);
+
+    if (!referencesGeneratedFactory) {
       errorCollector.addError(
-          'Factory variables are stubs for the generated factories, and should '
-          'be initialized with the valid variable name for builder compatibility. Should be: `${name.name} = _\$${name.name}`',
+          'Factory variables are stubs for the generated factories, and must '
+          'be initialized with or otherwise reference the generated factory. Should be: `$factoryName = $generatedFactoryName`',
           errorCollector.spanFor(variable));
-    } else {
-      // When not null, this will be validated as part of the group since
     }
   }
 

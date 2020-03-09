@@ -31,7 +31,7 @@ import './util.dart';
 main() {
   group('ComponentDeclarations', () {
     group('mightContainDeclarations()', () {
-      group('returns true when the source contains', () {
+      group('returns true when the source contains an annotation', () {
         test('"@Factory"',           () => expect(mightContainDeclarations(factorySrc), isTrue));
         test('"@Props"',             () => expect(mightContainDeclarations(propsSrc), isTrue));
         test('"@State"',             () => expect(mightContainDeclarations(stateSrc), isTrue));
@@ -45,22 +45,34 @@ main() {
         test('"@StateMixin"',        () => expect(mightContainDeclarations(stateMixinSrc), isTrue));
       });
 
-      test('returns false when no matching annotations are found', () {
-        expect(mightContainDeclarations('class FooComponent extends UiComponent<FooProps> {}'), isFalse,
-            reason: 'should not return true for an unannotated class');
+      group('returns true when the source contains a reference to one of the base types', () {
+        const types = [
+          'UiFactory',
+          'UiProps',
+          'UiState',
+          'UiComponent',
+          'UiComponent2',
+          'UiStatefulComponent',
+          'UiStatefulComponent2',
+        ];
 
-        expect(mightContainDeclarations('class FooComponent extends UiComponent2<FooProps> {}'), isFalse,
-            reason: 'should not return true for an unannotated class');
+        for (var type in types) {
+          test(type, () => expect(mightContainDeclarations(type), isTrue));
+        };
+      });
 
-        expect(mightContainDeclarations('@Bar\nclass Foo {}'), isFalse,
-            reason: 'should not return true for a class with non-matching annotations');
+      test('returns true when there is an over_react part file', () {
+        expect(mightContainDeclarations('part "foo.over_react.g.dart";'), isTrue);
+      });
 
-        expect(mightContainDeclarations('/// Component that...\nclass Foo {}'), isFalse,
-            reason: 'should not return true when an annotation class name is not used as an annotation');
-
-        expect(mightContainDeclarations('/// Component2 that...\nclass Foo {}'), isFalse,
-            reason: 'should not return true when an annotation class name is not used as an annotation');
-      }, skip: ''); //FIXME update this test
+      test('returns false for other code', () {
+        expect(mightContainDeclarations(r'''
+          part 'something.g.dart';
+        
+          class NotAComponent {}
+          mixin SomethingProps on SomethingUnrelatedToOverReact {}
+        '''), isFalse);
+      });
     });
 
     group('parses', () {
@@ -105,319 +117,879 @@ main() {
           expect(declarations, isEmpty);
         });
 
-        group('a component', () {
-          void testDualClassSetup({
-            bool backwardsCompatible = true,
-            bool isPrivate = false,
-            bool isStatefulComponent = false,
-            int componentVersion = 1,
-          }) {
-            OverReactSrc ors;
-            if (isStatefulComponent) {
-              ors = OverReactSrc.state(
-                  backwardsCompatible: backwardsCompatible,
-                  isPrivate: isPrivate,
-                  componentVersion: componentVersion);
-            } else {
-              ors = OverReactSrc.props(
-                  backwardsCompatible: backwardsCompatible,
-                  isPrivate: isPrivate,
-                  componentVersion: componentVersion);
+        group('(legacy syntax)', () {
+          group('a component', () {
+            void testDualClassSetup({
+              bool backwardsCompatible = true,
+              bool isPrivate = false,
+              bool isStatefulComponent = false,
+              int componentVersion = 1,
+            }) {
+              OverReactSrc ors;
+              if (isStatefulComponent) {
+                ors = OverReactSrc.state(
+                    backwardsCompatible: backwardsCompatible,
+                    isPrivate: isPrivate,
+                    componentVersion: componentVersion);
+              } else {
+                ors = OverReactSrc.props(
+                    backwardsCompatible: backwardsCompatible,
+                    isPrivate: isPrivate,
+                    componentVersion: componentVersion);
+              }
+              setUpAndParse(ors.source);
+
+              expect(declarations, [isA<LegacyClassComponentDeclaration>()]);
+              final decl = declarations[0] as LegacyClassComponentDeclaration;
+
+              expect(decl.component, isNotNull);
+              expect(decl.factory?.name?.name, ors.baseName);
+              expect(decl.props?.name?.name, '_\$${ors.baseName}Props');
+
+              expect(decl.props.meta, isA<annotations.Props>());
+
+              if (isStatefulComponent) {
+                expect(decl.state?.name?.name, '_\$${ors.baseName}State');
+                expect(decl.state.meta, isA<annotations.State>());
+              }
+
+              expect(decl.component?.name?.name, '${ors.baseName}Component');
+
+              final boilerplateVersion = backwardsCompatible
+                  ? Version.v2_legacyBackwardsCompat
+                  : Version.v3_legacyDart2Only;
+              if (componentVersion == 1) {
+                expect(decl.component.meta, isA<annotations.Component>());
+                expect(decl.component.isComponent2(boilerplateVersion), isFalse);
+              } else if (componentVersion == 2) {
+                expect(decl.component.meta, isA<annotations.Component2>());
+                expect(decl.component.isComponent2(boilerplateVersion), isTrue);
+              }
             }
-            setUpAndParse(ors.source);
 
-            expect(declarations, [isA<LegacyClassComponentDeclaration>()]);
-            final decl = declarations[0] as LegacyClassComponentDeclaration;
+            group('that is stateless', () {
+              group('(v1 - deprecated)', () {
+                group('with backwards compatible boilerplate', () {
+                  test('with public consumable class', testDualClassSetup);
+                  test('with private consumable class', () {
+                    testDualClassSetup(isPrivate: true);
+                  });
+                });
 
-            expect(decl.component, isNotNull);
-            expect(decl.factory?.name?.name, ors.baseName);
-            expect(decl.props?.name?.name, '_\$${ors.baseName}Props');
-
-            expect(decl.props.meta, isA<annotations.Props>());
-
-            if (isStatefulComponent) {
-              expect(decl.state?.name?.name, '_\$${ors.baseName}State');
-              expect(decl.state.meta, isA<annotations.State>());
-            }
-
-            expect(decl.component?.name?.name, '${ors.baseName}Component');
-
-            final boilerplateVersion = backwardsCompatible
-                ? Version.v2_legacyBackwardsCompat
-                : Version.v3_legacyDart2Only;
-            if (componentVersion == 1) {
-              expect(decl.component.meta, isA<annotations.Component>());
-              expect(decl.component.isComponent2(boilerplateVersion), isFalse);
-            } else if (componentVersion == 2) {
-              expect(decl.component.meta, isA<annotations.Component2>());
-              expect(decl.component.isComponent2(boilerplateVersion), isTrue);
-            }
-          }
-
-          group('that is stateless', () {
-            group('(v1 - deprecated)', () {
-              group('with backwards compatible boilerplate', () {
-                test('with public consumable class', testDualClassSetup);
-                test('with private consumable class', () {
-                  testDualClassSetup(isPrivate: true);
+                group('with Dart 2 only boilerplate', () {
+                  test('with public consumable class', () {
+                    testDualClassSetup(backwardsCompatible: false);
+                  });
+                  test('with private consumable class', () {
+                    testDualClassSetup(backwardsCompatible: false, isPrivate: true);
+                  });
                 });
               });
 
-              group('with Dart 2 only boilerplate', () {
-                test('with public consumable class', () {
-                  testDualClassSetup(backwardsCompatible: false);
+              group('(v2)', () {
+                group('with backwards compatible boilerplate', () {
+                  test('with public consumable class', () {
+                    testDualClassSetup(componentVersion: 2);
+                  });
+                  test('with private consumable class', () {
+                    testDualClassSetup(componentVersion: 2, isPrivate: true);
+                  });
                 });
-                test('with private consumable class', () {
-                  testDualClassSetup(backwardsCompatible: false, isPrivate: true);
+
+                group('with Dart 2 only boilerplate', () {
+                  test('with public consumable class', () {
+                    testDualClassSetup(componentVersion: 2, backwardsCompatible: false);
+                  });
+                  test('with private consumable class', () {
+                    testDualClassSetup(componentVersion: 2, backwardsCompatible: false, isPrivate: true);
+                  });
                 });
               });
             });
 
-            group('(v2)', () {
-              group('with backwards compatible boilerplate', () {
-                test('with public consumable class', () {
-                  testDualClassSetup(componentVersion: 2);
+            group('that is stateful', () {
+              group('and uses the @Component annotation (deprecated)', () {
+                group('with backwards compatible boilerplate', () {
+                  test('with public consumable class', () {
+                    testDualClassSetup(isStatefulComponent: true);
+                  });
+                  test('with private consumable class', () {
+                    testDualClassSetup(isStatefulComponent: true, isPrivate: true);
+                  });
                 });
-                test('with private consumable class', () {
-                  testDualClassSetup(componentVersion: 2, isPrivate: true);
+
+                group('with Dart 2 only boilerplate', () {
+                  test('with public consumable class', () {
+                    testDualClassSetup(isStatefulComponent: true, backwardsCompatible: false);
+                  });
+                  test('with private consumable class', () {
+                    testDualClassSetup(isStatefulComponent: true, backwardsCompatible: false, isPrivate: true);
+                  });
                 });
               });
 
-              group('with Dart 2 only boilerplate', () {
-                test('with public consumable class', () {
-                  testDualClassSetup(componentVersion: 2, backwardsCompatible: false);
+              group('and uses the @Component2 annotation', () {
+                group('with backwards compatible boilerplate', () {
+                  test('with public consumable class', () {
+                    testDualClassSetup(isStatefulComponent: true, componentVersion: 2);
+                  });
+                  test('with private consumable class', () {
+                    testDualClassSetup(isStatefulComponent: true, isPrivate: true, componentVersion: 2);
+                  });
                 });
-                test('with private consumable class', () {
-                  testDualClassSetup(componentVersion: 2, backwardsCompatible: false, isPrivate: true);
+
+                group('with Dart 2 only boilerplate', () {
+                  test('with public consumable class', () {
+                    testDualClassSetup(isStatefulComponent: true, backwardsCompatible: false, componentVersion: 2);
+                  });
+                  test('with private consumable class', () {
+                    testDualClassSetup(isStatefulComponent: true, backwardsCompatible: false, isPrivate: true,
+                        componentVersion: 2);
+                  });
                 });
+              });
+            });
+
+            test('with a factory that references the _\$ prefixed variable name', () {
+              setUpAndParse(r'''
+                @Factory()
+                UiFactory<FooProps> Foo = connect(
+                  mapStateToProps: (state) => _$Foo()..foo = state.foo,
+                )(_$Foo);
+                
+                @Props()
+                class _$FooProps extends UiProps {}
+                  
+                @Component()
+                class FooComponent extends UiComponent<FooProps> {
+                  render() {}
+                }
+              ''');
+
+              final component = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
+              expect(component.factory?.name?.name, 'Foo');
+              expect(component.props?.name?.name, endsWith('FooProps'));
+              expect(component.state, isNull);
+              expect(component.component?.name?.name, 'FooComponent');
+            });
+
+            group('with mismatched names', () {
+              test('', () {
+                setUpAndParse(r'''
+                  @Factory()
+                  UiFactory<BarProps> Foo = _$Foo;
+                  
+                  @Props()
+                  class _$BarProps extends UiProps {}
+                  
+                  @Component()
+                  class BazComponent extends UiComponent<BarProps> {
+                    render() {}
+                  }
+                  
+                  class BarProps extends _$BarProps {}
+                ''');
+
+                final component = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
+                expect(component.factory?.name?.name, 'Foo');
+                expect(component.props?.name?.name, endsWith('BarProps'));
+                expect(component.state, isNull);
+                expect(component.component?.name?.name, 'BazComponent');
+              });
+
+              test('that is stateful', () {
+                setUpAndParse(r'''
+                  
+                  @Factory()
+                  UiFactory<BarProps> Foo = _$Foo;
+                  
+                  @Props()
+                  class _$BarProps extends UiProps {}
+                  
+                  @State()
+                  class _$QuxState extends UiState {}
+                  
+                  @Component()
+                  class BazComponent extends UiStatefulComponent<BarProps, QuxState> {
+                    render() {}
+                  }
+                  
+                  class BarProps extends _$BarProps {}
+                  class QuxState extends _$QuxState {}
+                ''');
+
+                final component = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
+                expect(component.factory?.name?.name, 'Foo');
+                expect(component.props?.name?.name, endsWith('BarProps'));
+                expect(component.state?.name?.name, endsWith('QuxState'));
+                expect(component.component?.name?.name, 'BazComponent');
+              });
+
+              test('and other non-component boilerplate declarations in the file', () {
+                setUpAndParse(r'''
+                  @Factory()
+                  UiFactory<BarProps> Foo = _$Foo;
+                  
+                  @Props()
+                  class _$BarProps extends UiProps {}
+                  
+                  @Component()
+                  class BazComponent extends UiComponent<BarProps> {
+                    render() {}
+                  }
+                  
+                  class BarProps extends _$BarProps {}                  
+                  
+                  @PropsMixin() 
+                  abstract class CorgePropsMixin {
+                    Map get props;
+                  }
+                  
+                  @StateMixin() 
+                  abstract class GarplyStateMixin {
+                    Map get state;
+                  }
+                ''');
+
+                expect(declarations, unorderedEquals([
+                  isA<LegacyClassComponentDeclaration>(),
+                  isA<PropsMixinDeclaration>(),
+                  isA<StateMixinDeclaration>(),
+                ]));
+
+                final component = declarations.firstWhereType<LegacyClassComponentDeclaration>();
+                expect(component.factory?.name?.name, 'Foo');
+                expect(component.props?.name?.name, endsWith('BarProps'));
+                expect(component.state, isNull);
+                expect(component.component?.name?.name, 'BazComponent');
               });
             });
           });
 
-          group('that is stateful', () {
-            group('and uses the @Component annotation (deprecated)', () {
-              group('with backwards compatible boilerplate', () {
-                test('with public consumable class', () {
-                  testDualClassSetup(isStatefulComponent: true);
-                });
-                test('with private consumable class', () {
-                  testDualClassSetup(isStatefulComponent: true, isPrivate: true);
-                });
-              });
+          group('props mixins', () {
+            void testPropsMixins(String source, List<String> mixinNames) {
+              setUpAndParse(source);
 
-              group('with Dart 2 only boilerplate', () {
-                test('with public consumable class', () {
-                  testDualClassSetup(isStatefulComponent: true, backwardsCompatible: false);
-                });
-                test('with private consumable class', () {
-                  testDualClassSetup(isStatefulComponent: true, backwardsCompatible: false, isPrivate: true);
-                });
+              expect(declarations, hasLength(mixinNames.length));
+              final mixins = expectAllOfType<PropsMixinDeclaration>(declarations);
+
+              for (var mixin in mixins) {
+                expect(mixinNames, contains(mixin.propsMixin.name.name));
+                expect(mixin.propsMixin.meta, isA<annotations.PropsMixin>());
+              }
+            }
+
+            test('with backwards compatible boilerplate', () {
+              testPropsMixins(OverReactSrc.propsMixin(numMixins: 3).source,
+                  ['FooPropsMixin1', 'FooPropsMixin2', 'FooPropsMixin3']);
+            });
+
+            test('with Dart 2 only boilerplate', () {
+              testPropsMixins(OverReactSrc.propsMixin(backwardsCompatible: false, numMixins: 3).source,
+                  ['_\$FooPropsMixin1', '_\$FooPropsMixin2', '_\$FooPropsMixin3']);
+            });
+          });
+
+          group('state mixins', () {
+            void testStateMixins(String source, List<String> mixinNames) {
+              setUpAndParse(source);
+
+              expect(declarations, hasLength(mixinNames.length));
+              final mixins = expectAllOfType<StateMixinDeclaration>(declarations);
+
+              for (var mixin in mixins) {
+                expect(mixinNames, contains(mixin.stateMixin.name.name));
+                expect(mixin.stateMixin.meta, isA<annotations.StateMixin>());
+              }
+            }
+
+             test('with backwards compatible boilerplate', () {
+               testStateMixins(OverReactSrc.stateMixin(numMixins: 3).source,
+                   ['FooStateMixin1', 'FooStateMixin2', 'FooStateMixin3']);
+             });
+
+             test('with Dart 2 only boilerplate', () {
+               testStateMixins(OverReactSrc.stateMixin(backwardsCompatible: false, numMixins: 3).source,
+                   ['_\$FooStateMixin1', '_\$FooStateMixin2', '_\$FooStateMixin3']);
+             });
+          });
+
+          group('abstract props class with builder-compatible dual-class setup', () {
+            void testAbstractPropsDualClassSetup({backwardsCompatible = true, isPrivate = false}) {
+              final ors = OverReactSrc.abstractProps(backwardsCompatible: backwardsCompatible, isPrivate: isPrivate);
+              setUpAndParse(ors.source);
+
+              final decl = expectSingleOfType<LegacyAbstractClassComponentDeclaration>(declarations);
+
+              expect(decl.props, isNotNull);
+              expect(decl.state, isNull);
+              expect(decl.component, isNull);
+
+              expect(decl.props.name.name, '_\$${ors.baseName}Props');
+              expect(decl.props.meta, TypeMatcher<annotations.TypedMap>());
+            }
+
+            group('with backwards compatible boilerplate', () {
+              test('with public consumable class', testAbstractPropsDualClassSetup);
+              test('with private consumable class', () {
+                testAbstractPropsDualClassSetup(isPrivate: true);
               });
             });
 
-            group('and uses the @Component2 annotation', () {
-              group('with backwards compatible boilerplate', () {
-                test('with public consumable class', () {
-                  testDualClassSetup(isStatefulComponent: true, componentVersion: 2);
-                });
-                test('with private consumable class', () {
-                  testDualClassSetup(isStatefulComponent: true, isPrivate: true, componentVersion: 2);
-                });
+            group('with Dart 2 only boilerplate', () {
+              test('with public consumable class', () {
+                testAbstractPropsDualClassSetup(backwardsCompatible: false);
+              });
+              test('with private consumable class', () {
+                testAbstractPropsDualClassSetup(backwardsCompatible: false, isPrivate: true);
+              });
+            });
+          });
+
+          group('abstract state class with builder-compatible dual-class setup', () {
+            void testAbstractStateDualClassSetup({backwardsCompatible = true, isPrivate = false}) {
+              final ors = OverReactSrc.abstractState(backwardsCompatible: true, isPrivate: isPrivate);
+              setUpAndParse(ors.source);
+
+              final decl = expectSingleOfType<LegacyAbstractClassComponentDeclaration>(declarations);
+
+              expect(decl.props, isNull);
+              expect(decl.state, isNotNull);
+              expect(decl.component, isNull);
+
+              expect(decl.state.name?.name, '_\$${ors.baseName}State');
+              expect(decl.state.meta, TypeMatcher<annotations.TypedMap>());
+            }
+
+            group('with backwards compatible boilerplate', () {
+              test('with public consumable class', testAbstractStateDualClassSetup);
+              test('with private consumable class', () {
+                testAbstractStateDualClassSetup(isPrivate: true);
+              });
+            });
+
+            group('with Dart 2 only boilerplate', () {
+              test('with public consumable class', () {
+                testAbstractStateDualClassSetup(backwardsCompatible: false);
+              });
+              test('with private consumable class', () {
+                testAbstractStateDualClassSetup(backwardsCompatible: false, isPrivate: true);
+              });
+            });
+          });
+
+          group('and initializes annotations with the correct arguments', () {
+            group('with backwards-compatible boilerplate for', () {
+              test('a stateful component', () {
+                setUpAndParse('''
+                  @Factory()
+                  UiFactory<FooProps> Foo = _\$Foo;
+  
+                  @Props(keyNamespace: "bar")
+                  class _\$FooProps {}
+  
+                  class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
+  
+                  @State(keyNamespace: "baz")
+                  class _\$FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
+  
+                  class FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
+  
+                  @Component(isWrapper: true)
+                  class FooComponent {}
+                ''');
+
+                final decl = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
+
+                expect(decl.props.meta.keyNamespace, 'bar');
+                expect(decl.state.meta.keyNamespace, 'baz');
+                expect(decl.component.meta.isWrapper, isTrue);
               });
 
-              group('with Dart 2 only boilerplate', () {
-                test('with public consumable class', () {
-                  testDualClassSetup(isStatefulComponent: true, backwardsCompatible: false, componentVersion: 2);
-                });
-                test('with private consumable class', () {
-                  testDualClassSetup(isStatefulComponent: true, backwardsCompatible: false, isPrivate: true,
-                      componentVersion: 2);
-                });
+              test('a stateful Component2', () {
+                setUpAndParse('''
+                  @Factory()
+                  UiFactory<FooProps> Foo = _\$Foo;
+  
+                  @Props(keyNamespace: "bar")
+                  class _\$FooProps {}
+  
+                  class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
+  
+                  @State(keyNamespace: "baz")
+                  class _\$FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
+  
+                  class FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
+  
+                  @Component2(isWrapper: true)
+                  class FooComponent {}
+                ''');
+
+                final decl = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
+
+                expect(decl.props.meta.keyNamespace, 'bar');
+                expect(decl.state.meta.keyNamespace, 'baz');
+                expect(decl.component.meta.isWrapper, isTrue);
+              });
+
+              test('a props mixin', () {
+                setUpAndParse('''
+                  @PropsMixin(keyNamespace: "bar")
+                  class FooPropsMixin {}
+                ''');
+                final decl = expectSingleOfType<PropsMixinDeclaration>(declarations);
+                expect(decl.propsMixin.meta.keyNamespace, 'bar');
+              });
+
+              test('a state mixin', () {
+                setUpAndParse('''
+                  @StateMixin(keyNamespace: "bar")
+                  class FooStateMixin {}
+                ''');
+                final decl = expectSingleOfType<StateMixinDeclaration>(declarations);
+                expect(decl.stateMixin.meta.keyNamespace, 'bar');
+              });
+
+              test('an abstract props class', () {
+                setUpAndParse('''
+                  @AbstractProps(keyNamespace: "bar")
+                  class _\$AbstractFooProps {}
+                  class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {}
+                ''');
+                final decl = expectSingleOfType<LegacyAbstractClassComponentDeclaration>(declarations);
+                expect(decl.props.meta.keyNamespace, 'bar');
+              });
+
+              test('an abstract state class', () {
+                setUpAndParse('''
+                  @AbstractState(keyNamespace: "bar")
+                  class _\$AbstractFooState {}
+                  class AbstractFooState extends _\$AbstractFooState with _\$AbstractFooStateAccessorsMixin {}
+                ''');
+                final decl = expectSingleOfType<LegacyAbstractClassComponentDeclaration>(declarations);
+                expect(decl.state.meta.keyNamespace, 'bar');
+              });
+            });
+
+            group('with Dart 2 only boilerplate for', () {
+              test('a stateful component', () {
+                setUpAndParse('''
+                  @Factory()
+                  UiFactory<FooProps> Foo = _\$Foo;
+  
+                  @Props(keyNamespace: "bar")
+                  class _\$FooProps {}
+  
+                  @State(keyNamespace: "baz")
+                  class _\$FooState {}
+  
+                  @Component(isWrapper: true)
+                  class FooComponent {}
+                ''');
+                final decl = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
+
+                expect(decl.props.meta.keyNamespace, 'bar');
+                expect(decl.state.meta.keyNamespace, 'baz');
+                expect(decl.component.meta.isWrapper, isTrue);
+              });
+
+              test('a stateful Component2', () {
+                setUpAndParse('''
+                  @Factory()
+                  UiFactory<FooProps> Foo = _\$Foo;
+  
+                  @Props(keyNamespace: "bar")
+                  class _\$FooProps {}
+  
+                  @State(keyNamespace: "baz")
+                  class _\$FooState {}
+  
+                  @Component2(isWrapper: true)
+                  class FooComponent {}
+                ''');
+                final decl = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
+
+                expect(decl.props.meta.keyNamespace, 'bar');
+                expect(decl.state.meta.keyNamespace, 'baz');
+                expect(decl.component.meta.isWrapper, isTrue);
+              });
+
+              test('a props mixin', () {
+                setUpAndParse('''
+                  @PropsMixin(keyNamespace: "bar")
+                  class _\$FooPropsMixin {}
+                ''');
+                final decl = expectSingleOfType<PropsMixinDeclaration>(declarations);
+                expect(decl.propsMixin.meta.keyNamespace, 'bar');
+              });
+
+              test('a state mixin', () {
+                setUpAndParse('''
+                  @StateMixin(keyNamespace: "bar")
+                  class _\$FooStateMixin {}
+                ''');
+                final decl = expectSingleOfType<StateMixinDeclaration>(declarations);
+                expect(decl.stateMixin.meta.keyNamespace, 'bar');
+              });
+
+              test('an abstract props class', () {
+                setUpAndParse('''
+                  @AbstractProps(keyNamespace: "bar")
+                  class _\$AbstractFooProps {}
+                ''');
+                final decl = expectSingleOfType<LegacyAbstractClassComponentDeclaration>(declarations);
+                expect(decl.props.meta.keyNamespace, 'bar');
+              });
+
+              test('an abstract state class', () {
+                setUpAndParse('''
+                  @AbstractState(keyNamespace: "bar")
+                  class _\$AbstractFooState {}
+                ''');
+                final decl = expectSingleOfType<LegacyAbstractClassComponentDeclaration>(declarations);
+                expect(decl.state.meta.keyNamespace, 'bar');
               });
             });
           });
         });
 
-        Iterable<T> expectAllOfType<T>(Iterable<Object> items) {
-          expect(items, everyElement(isA<T>()));
-          return items.cast<T>();
-        }
+        group('edge cases', () {
+          test('empty props/state mixins', () {
+            setUpAndParse(r'''
+              mixin FooPropsMixin on UiProps {}
+              mixin FooStateMixin on UiState {}
+            ''');
 
-        T expectSingleOfType<T>(Iterable<Object> items) {
-          expect(items, [isA<T>()]);
-          return items.cast<T>().single;
-        }
-
-        group('props mixins', () {
-          void testPropsMixins(String source, List<String> mixinNames) {
-            setUpAndParse(source);
-
-            expect(declarations, hasLength(mixinNames.length));
-            final mixins = expectAllOfType<PropsMixinDeclaration>(declarations);
-
-            for (var mixin in mixins) {
-              expect(mixinNames, contains(mixin.propsMixin.name.name));
-              expect(mixin.propsMixin.meta, isA<annotations.PropsMixin>());
-            }
-          }
-
-          test('with backwards compatible boilerplate', () {
-            testPropsMixins(OverReactSrc.propsMixin(numMixins: 3).source,
-                ['FooPropsMixin1', 'FooPropsMixin2', 'FooPropsMixin3']);
+            expect(declarations, unorderedEquals([
+              isA<PropsMixinDeclaration>(),
+              isA<StateMixinDeclaration>(),
+            ]));
           });
 
-          test('with Dart 2 only boilerplate', () {
-            testPropsMixins(OverReactSrc.propsMixin(backwardsCompatible: false, numMixins: 3).source,
-                ['_\$FooPropsMixin1', '_\$FooPropsMixin2', '_\$FooPropsMixin3']);
+          test('a class that kind of looks like state mixin but isn\'t', () {
+            setUpAndParse(r'''
+              mixin FooStateMixin<TState extends UiState> on react.Component {
+                foo() {}
+              }            
+            ''');
+
+            expect(declarations, isEmpty);
           });
-        });
 
-        group('state mixins', () {
-          void testStateMixins(String source, List<String> mixinNames) {
-            setUpAndParse(source);
+          test('a class that kind of looks like state but isn\'t', () {
+            setUpAndParse(r'''            
+              class FooState {}            
+            
+              UiFactory<Foo> Foo = _$Foo;
+              
+              class FooProps extends UiProps { }
+              
+              class FooComponent extends UiComponent2<FooProps> {}
+            ''');
 
-            expect(declarations, hasLength(mixinNames.length));
-            final mixins = expectAllOfType<StateMixinDeclaration>(declarations);
-
-            for (var mixin in mixins) {
-              expect(mixinNames, contains(mixin.stateMixin.name.name));
-              expect(mixin.stateMixin.meta, isA<annotations.StateMixin>());
-            }
-          }
-
-           test('with backwards compatible boilerplate', () {
-             testStateMixins(OverReactSrc.stateMixin(numMixins: 3).source,
-                 ['FooStateMixin1', 'FooStateMixin2', 'FooStateMixin3']);
-           });
-
-           test('with Dart 2 only boilerplate', () {
-             testStateMixins(OverReactSrc.stateMixin(backwardsCompatible: false, numMixins: 3).source,
-                 ['_\$FooStateMixin1', '_\$FooStateMixin2', '_\$FooStateMixin3']);
-           });
-        });
-
-        group('abstract props class with builder-compatible dual-class setup', () {
-          void testAbstractPropsDualClassSetup({backwardsCompatible = true, isPrivate = false}) {
-            final ors = OverReactSrc.abstractProps(backwardsCompatible: backwardsCompatible, isPrivate: isPrivate);
-            setUpAndParse(ors.source);
-
-            final decl = expectSingleOfType<LegacyAbstractClassComponentDeclaration>(declarations);
-
-            expect(decl.props, isNotNull);
+            final decl = expectSingleOfType<ClassComponentDeclaration>(declarations);
             expect(decl.state, isNull);
-            expect(decl.component, isNull);
-
-            expect(decl.props.name.name, '_\$${ors.baseName}Props');
-            expect(decl.props.meta, TypeMatcher<annotations.TypedMap>());
-          }
-
-          group('with backwards compatible boilerplate', () {
-            test('with public consumable class', testAbstractPropsDualClassSetup);
-            test('with private consumable class', () {
-              testAbstractPropsDualClassSetup(isPrivate: true);
-            });
           });
 
-          group('with Dart 2 only boilerplate', () {
-            test('with public consumable class', () {
-              testAbstractPropsDualClassSetup(backwardsCompatible: false);
-            });
-            test('with private consumable class', () {
-              testAbstractPropsDualClassSetup(backwardsCompatible: false, isPrivate: true);
-            });
+          test('multiple factories with flip-flopped names', () {
+            setUpAndParse(r'''                                      
+              UiFactory<FooProps> Foo = connectFlux()(ConnectedFoo);
+              
+              UiFactory<FooProps> ConnectedFoo = _$ConnectedFoo;
+              
+              class _$FooProps extends UiProps { }
+              
+              class FooComponent extends UiComponent2<FooProps> {}
+            ''');
+
+            final decl = expectSingleOfType<ClassComponentDeclaration>(declarations);
+            expect(decl.factory.name.name, 'ConnectedFoo');
           });
         });
 
-        group('abstract state class with builder-compatible dual-class setup', () {
-          void testAbstractStateDualClassSetup({backwardsCompatible = true, isPrivate = false}) {
-            final ors = OverReactSrc.abstractState(backwardsCompatible: true, isPrivate: isPrivate);
-            setUpAndParse(ors.source);
+        group('(new syntax)', () {
+          group('a component', () {
+            test('that is stateless (shorthand)', () {
+              setUpAndParse(r'''
+                  UiFactory<FooProps> Foo = _$Foo;
+                  
+                  mixin FooProps on UiProps {
+                    String foo;
+                  }
+                  
+                  class FooComponent extends UiComponent2<FooProps> {
+                    render() {}
+                  }
+              ''');
 
-            final decl = expectSingleOfType<LegacyAbstractClassComponentDeclaration>(declarations);
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<ClassComponentDeclaration>(),
+              ]));
 
-            expect(decl.props, isNull);
-            expect(decl.state, isNotNull);
-            expect(decl.component, isNull);
+              final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
+              expect(propsMixinDecl.propsMixin?.name?.name, 'FooProps');
 
-            expect(decl.state.name?.name, '_\$${ors.baseName}State');
-            expect(decl.state.meta, TypeMatcher<annotations.TypedMap>());
-          }
+              final decl = declarations.firstWhereType<ClassComponentDeclaration>();
 
-          group('with backwards compatible boilerplate', () {
-            test('with public consumable class', testAbstractStateDualClassSetup);
-            test('with private consumable class', () {
-              testAbstractStateDualClassSetup(isPrivate: true);
+              expect(decl.factory?.name?.name, 'Foo');
+              expect(decl.props?.b?.name?.name, 'FooProps');
+              expect(decl.component?.name?.name, 'FooComponent');
+              expect(decl.state?.either, isNull);
+
+              expect(decl.factory.meta, isA<annotations.Factory>());
+              expect(decl.props.b.meta, isA<annotations.Props>());
+              expect(decl.component.meta, isA<annotations.Component>());
+            });
+
+            test('that is stateless (verbose)', () {
+              setUpAndParse(r'''
+                  UiFactory<FooProps> Foo = _$Foo;
+                  
+                  mixin FooPropsMixin on UiProps {
+                    String foo;
+                  }
+                  
+                  class FooProps = UiProps with FooPropsMixin;
+                  
+                  class FooComponent extends UiComponent2<FooProps> {
+                    render() {}
+                  }
+              ''');
+
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<ClassComponentDeclaration>(),
+              ]));
+
+              final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
+              expect(propsMixinDecl.propsMixin?.name?.name, 'FooPropsMixin');
+
+              final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+
+              expect(decl.factory?.name?.name, 'Foo');
+              expect(decl.props?.a?.name?.name, 'FooProps');
+              expect(decl.component?.name?.name, 'FooComponent');
+              expect(decl.state?.either, isNull);
+
+              expect(decl.factory.meta, isA<annotations.Factory>());
+              expect(decl.props.a.meta, isA<annotations.Props>());
+              expect(decl.component.meta, isA<annotations.Component>());
+            });
+
+            test('that is stateful', () {
+              setUpAndParse(r'''
+                  UiFactory<FooProps> Foo = _$Foo;
+                  
+                  mixin FooProps on UiProps {
+                    String foo;
+                  }
+                  
+                  mixin FooState on UiState {
+                    String bar;
+                  }
+                  
+                  class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
+                    render() {}
+                  }
+              ''');
+
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<StateMixinDeclaration>(),
+                isA<ClassComponentDeclaration>(),
+              ]));
+
+              final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
+              expect(propsMixinDecl.propsMixin?.name?.name, 'FooProps');
+
+              final stateMixinDecl = declarations.firstWhereType<StateMixinDeclaration>();
+              expect(stateMixinDecl.stateMixin?.name?.name, 'FooState');
+
+              final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+
+              expect(decl.factory?.name?.name, 'Foo');
+              expect(decl.props?.b?.name?.name, 'FooProps');
+              expect(decl.component?.name?.name, 'FooComponent');
+              expect(decl.state?.b?.name?.name, 'FooState');
+
+              expect(decl.factory.meta, isA<annotations.Factory>());
+              expect(decl.props.b.meta, isA<annotations.Props>());
+              expect(decl.state.b.meta, isA<annotations.State>());
+              expect(decl.component.meta, isA<annotations.Component>());
+            });
+
+            test('that is stateful (verbose)', () {
+              setUpAndParse(r'''
+                  UiFactory<FooProps> Foo = _$Foo;
+                  
+                  mixin FooPropsMixin on UiProps {
+                    String foo;
+                  }
+                  
+                  class FooProps = UiProps with FooPropsMixin;
+                  
+                  mixin FooStateMixin on UiState {
+                    String bar;
+                  }
+                  
+                  class FooState = UiState with FooStateMixin;
+                  
+                  class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
+                    render() {}
+                  }
+              ''');
+
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<StateMixinDeclaration>(),
+                isA<ClassComponentDeclaration>(),
+              ]));
+
+              final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
+              expect(propsMixinDecl.propsMixin?.name?.name, 'FooPropsMixin');
+
+              final stateMixinDecl = declarations.firstWhereType<StateMixinDeclaration>();
+              expect(stateMixinDecl.stateMixin?.name?.name, 'FooStateMixin');
+
+              final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+
+              expect(decl.factory?.name?.name, 'Foo');
+              expect(decl.props?.a?.name?.name, 'FooProps');
+              expect(decl.component?.name?.name, 'FooComponent');
+              expect(decl.state?.a?.name?.name, 'FooState');
+
+              expect(decl.factory.meta, isA<annotations.Factory>());
+              expect(decl.props.a.meta, isA<annotations.Props>());
+              expect(decl.state.a.meta, isA<annotations.State>());
+              expect(decl.component.meta, isA<annotations.Component>());
+            });
+
+            test('with a factory that references the _\$ prefixed variable name', () {
+              setUpAndParse(r'''
+                UiFactory<FooProps> Foo = connect(
+                  mapStateToProps: (state) => _$Foo()..foo = state.foo,
+                )(_$Foo);
+                
+                mixin FooProps on UiProps {}
+                  
+                class FooComponent extends UiComponent2<FooProps> {
+                  render() {}
+                }
+              ''');
+
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<ClassComponentDeclaration>(),
+              ]));
+
+              final component = declarations.firstWhereType<ClassComponentDeclaration>();
+              expect(component.factory?.name?.name, 'Foo');
+              expect(component.props?.b?.name?.name, endsWith('FooProps'));
+              expect(component.state, isNull);
+              expect(component.component?.name?.name, 'FooComponent');
             });
           });
 
-          group('with Dart 2 only boilerplate', () {
-            test('with public consumable class', () {
-              testAbstractStateDualClassSetup(backwardsCompatible: false);
-            });
-            test('with private consumable class', () {
-              testAbstractStateDualClassSetup(backwardsCompatible: false, isPrivate: true);
-            });
+          test('props mixins', () {
+            setUpAndParse(r'''
+              mixin FooPropsMixin on UiProps {}
+              mixin BarPropsMixin on UiProps {}
+              mixin BazPropsMixin on UiProps {}
+            ''');
+
+            final mixins = expectLengthAndAllOfType<PropsMixinDeclaration>(declarations, 3);
+
+            expect(mixins.map((m) => m.propsMixin.name.name).toList(),
+                ['FooPropsMixin', 'BarPropsMixin', 'BazPropsMixin']);
           });
-        });
+          
+          test('state mixins', () {
+            setUpAndParse(r'''
+              mixin FooStateMixin on UiState {}
+              mixin BarStateMixin on UiState {}
+              mixin BazStateMixin on UiState {}
+            ''');
 
-        group('and initializes annotations with the correct arguments', () {
-          group('with backwards-compatible boilerplate for', () {
-            test('a stateful component', () {
-              setUpAndParse('''
-                @Factory()
-                UiFactory<FooProps> Foo = _\$Foo;
+            final mixins = expectLengthAndAllOfType<StateMixinDeclaration>(declarations, 3);
 
-                @Props(keyNamespace: "bar")
-                class _\$FooProps {}
+            expect(mixins.map((m) => m.stateMixin.name.name).toList(),
+                ['FooStateMixin', 'BarStateMixin', 'BazStateMixin']);
+          });
 
-                class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
+          test('abstract props class', () {
+            setUpAndParse(r'''
+              abstract class FooProps implements UiProps, BarProps {}
+            ''');
+            expect(declarations, isEmpty);
+          });
 
-                @State(keyNamespace: "baz")
-                class _\$FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
+          test('abstract state class', () {
+            setUpAndParse(r'''
+              abstract class FooState implements UiState, BarState {}
+            ''');
+            expect(declarations, isEmpty);
+          });
 
-                class FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
+          group('and initializes annotations with the correct arguments', () {
+            group('a stateful component (using non-mixin annotations)', () {
+              test('(using non-mixin annotations)', () {
+                setUpAndParse(r'''
+                  @Factory()
+                  UiFactory<FooProps> Foo = _$Foo;
 
-                @Component(isWrapper: true)
-                class FooComponent {}
-              ''');
+                  @Props(keyNamespace: "bar")
+                  mixin FooProps on UiProps {}
 
-              final decl = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
+                  @State(keyNamespace: "baz")
+                  mixin FooState on UiState {}
 
-              expect(decl.props.meta.keyNamespace, 'bar');
-              expect(decl.state.meta.keyNamespace, 'baz');
-              expect(decl.component.meta.isWrapper, isTrue);
-            });
+                  @Component2(isWrapper: true, subtypeOf: BarComponent)
+                  class FooComponent extends Component2 {
+                    render() {}
+                  }
+                ''');
 
-            test('a stateful Component2', () {
-              setUpAndParse('''
-                @Factory()
-                UiFactory<FooProps> Foo = _\$Foo;
+                expect(declarations, contains(isA<ClassComponentDeclaration>()));
+                final decl = declarations.firstWhereType<ClassComponentDeclaration>();
 
-                @Props(keyNamespace: "bar")
-                class _\$FooProps {}
+                expect(decl.props.b.meta.keyNamespace, 'bar');
+                expect(decl.state.b.meta.keyNamespace, 'baz');
+                expect(decl.component.meta.isWrapper, isTrue);
+                expect(decl.component.configSubtypeOf?.name, 'BarComponent');
+              });
 
-                class FooProps extends _\$FooProps with _\$FooPropsAccessorsMixin {}
+              test('(using mixin annotations)', () {
+                setUpAndParse(r'''
+                  @Factory()
+                  UiFactory<FooProps> Foo = _$Foo;
+  
+                  @PropsMixin(keyNamespace: "bar")
+                  mixin FooProps on UiProps {}
+  
+                  @StateMixin(keyNamespace: "baz")
+                  mixin FooState on UiState {}
+  
+                  @Component2(isWrapper: true, subtypeOf: BarComponent)
+                  class FooComponent extends Component2 {
+                    render() {}
+                  }
+                ''');
 
-                @State(keyNamespace: "baz")
-                class _\$FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
+                expect(declarations, contains(isA<ClassComponentDeclaration>()));
+                final decl = declarations.firstWhereType<ClassComponentDeclaration>();
 
-                class FooState extends _\$FooState with _\$FooStateAccessorsMixin {}
-
-                @Component2(isWrapper: true)
-                class FooComponent {}
-              ''');
-
-              final decl = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
-
-              expect(decl.props.meta.keyNamespace, 'bar');
-              expect(decl.state.meta.keyNamespace, 'baz');
-              expect(decl.component.meta.isWrapper, isTrue);
+                expect(decl.props.b.meta.keyNamespace, 'bar');
+                expect(decl.state.b.meta.keyNamespace, 'baz');
+                expect(decl.component.meta.isWrapper, isTrue);
+                expect(decl.component.configSubtypeOf?.name, 'BarComponent');
+              });
             });
 
             test('a props mixin', () {
               setUpAndParse('''
                 @PropsMixin(keyNamespace: "bar")
-                class FooPropsMixin {}
+                mixin FooPropsMixin on UiProps {}
               ''');
               final decl = expectSingleOfType<PropsMixinDeclaration>(declarations);
               expect(decl.propsMixin.meta.keyNamespace, 'bar');
@@ -426,110 +998,10 @@ main() {
             test('a state mixin', () {
               setUpAndParse('''
                 @StateMixin(keyNamespace: "bar")
-                class FooStateMixin {}
+                mixin FooStateMixin on UiState {}
               ''');
               final decl = expectSingleOfType<StateMixinDeclaration>(declarations);
               expect(decl.stateMixin.meta.keyNamespace, 'bar');
-            });
-
-            test('an abstract props class', () {
-              setUpAndParse('''
-                @AbstractProps(keyNamespace: "bar")
-                class _\$AbstractFooProps {}
-                class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {}
-              ''');
-              final decl = expectSingleOfType<LegacyAbstractClassComponentDeclaration>(declarations);
-              expect(decl.props.meta.keyNamespace, 'bar');
-            });
-
-            test('an abstract state class', () {
-              setUpAndParse('''
-                @AbstractState(keyNamespace: "bar")
-                class _\$AbstractFooState {}
-                class AbstractFooState extends _\$AbstractFooState with _\$AbstractFooStateAccessorsMixin {}
-              ''');
-              final decl = expectSingleOfType<LegacyAbstractClassComponentDeclaration>(declarations);
-              expect(decl.state.meta.keyNamespace, 'bar');
-            });
-          });
-
-          group('with Dart 2 only boilerplate for', () {
-            test('a stateful component', () {
-              setUpAndParse('''
-                @Factory()
-                UiFactory<FooProps> Foo = _\$Foo;
-
-                @Props(keyNamespace: "bar")
-                class _\$FooProps {}
-
-                @State(keyNamespace: "baz")
-                class _\$FooState {}
-
-                @Component(isWrapper: true)
-                class FooComponent {}
-              ''');
-              final decl = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
-
-              expect(decl.props.meta.keyNamespace, 'bar');
-              expect(decl.state.meta.keyNamespace, 'baz');
-              expect(decl.component.meta.isWrapper, isTrue);
-            });
-
-            test('a stateful Component2', () {
-              setUpAndParse('''
-                @Factory()
-                UiFactory<FooProps> Foo = _\$Foo;
-
-                @Props(keyNamespace: "bar")
-                class _\$FooProps {}
-
-                @State(keyNamespace: "baz")
-                class _\$FooState {}
-
-                @Component2(isWrapper: true)
-                class FooComponent {}
-              ''');
-              final decl = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
-
-              expect(decl.props.meta.keyNamespace, 'bar');
-              expect(decl.state.meta.keyNamespace, 'baz');
-              expect(decl.component.meta.isWrapper, isTrue);
-            });
-
-            test('a props mixin', () {
-              setUpAndParse('''
-                @PropsMixin(keyNamespace: "bar")
-                class _\$FooPropsMixin {}
-              ''');
-              final decl = expectSingleOfType<PropsMixinDeclaration>(declarations);
-              expect(decl.propsMixin.meta.keyNamespace, 'bar');
-            });
-
-            test('a state mixin', () {
-              setUpAndParse('''
-                @StateMixin(keyNamespace: "bar")
-                class _\$FooStateMixin {}
-              ''');
-              final decl = expectSingleOfType<StateMixinDeclaration>(declarations);
-              expect(decl.stateMixin.meta.keyNamespace, 'bar');
-            });
-
-            test('an abstract props class', () {
-              setUpAndParse('''
-                @AbstractProps(keyNamespace: "bar")
-                class _\$AbstractFooProps {}
-              ''');
-              final decl = expectSingleOfType<LegacyAbstractClassComponentDeclaration>(declarations);
-              expect(decl.props.meta.keyNamespace, 'bar');
-            });
-
-            test('an abstract state class', () {
-              setUpAndParse('''
-                @AbstractState(keyNamespace: "bar")
-                class _\$AbstractFooState {}
-              ''');
-              final decl = expectSingleOfType<LegacyAbstractClassComponentDeclaration>(declarations);
-              expect(decl.state.meta.keyNamespace, 'bar');
             });
           });
         });
@@ -735,8 +1207,8 @@ main() {
             ''');
 
             verify(logger.severe(contains(
-                'Factory variables are stubs for the generated factories, and should '
-                  'be initialized with the valid variable name for builder compatibility. '
+                'Factory variables are stubs for the generated factories, and must '
+                  'be initialized with or otherwise reference the generated factory. '
                   'Should be: `Foo = _\$Foo`')));
           });
           test('declared using multiple variables', () {
@@ -759,8 +1231,8 @@ main() {
             ''');
 
             verify(logger.severe(contains(
-                'Factory variables are stubs for the generated factories, and should '
-                  'be initialized with the valid variable name for builder compatibility. '
+                'Factory variables are stubs for the generated factories, and must '
+                  'be initialized with or otherwise reference the generated factory. '
                   'Should be: `Foo = _\$Foo`')));
 
           });
@@ -774,8 +1246,8 @@ main() {
             ''');
 
             verify(logger.severe(contains(
-                'Factory variables are stubs for the generated factories, and should '
-                  'be initialized with the valid variable name for builder compatibility. '
+                'Factory variables are stubs for the generated factories, and must '
+                  'be initialized with or otherwise reference the generated factory. '
                   'Should be: `_Foo = _\$_Foo`')));
           });
         });

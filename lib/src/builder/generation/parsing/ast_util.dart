@@ -1,5 +1,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
+import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart';
 
@@ -66,3 +67,34 @@ bool onlyImplementsThings(ClassishDeclaration classish) =>
     classish.superclass == null &&
     classish.mixins.isEmpty &&
     classish.members.isEmpty;
+
+bool anyDescendantIdentifiers(Expression expression, bool Function(Identifier) test) {
+  final visitor = _AnyDescendantIdentifiersVisitor(test);
+  expression.accept(visitor);
+  return visitor.hasMatch;
+}
+
+class _AnyDescendantIdentifiersVisitor extends UnifyingAstVisitor<void> {
+  final bool Function(Identifier) _test;
+
+  bool hasMatch = false;
+
+  _AnyDescendantIdentifiersVisitor(this._test);
+
+  @override
+  void visitNode(AstNode node) {
+    // Short-circuit and stop traversing recursively.
+    if (hasMatch) return;
+
+    super.visitNode(node);
+  }
+
+  @override
+  void visitSimpleIdentifier(SimpleIdentifier identifier) {
+    if (_test(identifier)) {
+      hasMatch = true;
+    }
+
+    super.visitSimpleIdentifier(identifier);
+  }
+}

@@ -9,7 +9,6 @@ import 'validation.dart';
 import 'version.dart';
 
 final RegExp _maybeDeclarationPattern = RegExp(
-    // todo is this necessary?
     r'\.over_react\.g\.dart'
             // Legacy components (annotation required)
             r'|@(?:' +

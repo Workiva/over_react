@@ -6,6 +6,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
 
   final ClassishDeclaration companion;
 
+  @override
   annotations.TypedMap meta;
 
   @override
