@@ -804,7 +804,6 @@ main() {
 
           group('and initializes annotations with the correct arguments', () {
             group('a stateful component (using non-mixin annotations)', () {
-              // FIXME implement
               test('(using non-mixin annotations)', () {
                 setUpAndParse(r'''
                   @Factory()
@@ -829,7 +828,7 @@ main() {
                 expect(decl.state.b.meta.keyNamespace, 'baz');
                 expect(decl.component.meta.isWrapper, isTrue);
                 expect(decl.component.configSubtypeOf?.name, 'BarComponent');
-              }, skip: 'fixme: implement');
+              });
 
               test('(using mixin annotations)', () {
                 setUpAndParse(r'''

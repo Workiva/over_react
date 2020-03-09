@@ -146,6 +146,19 @@ class BoilerplateMemberDetector {
     for (final annotation in classish.metadata) {
       switch (annotation.name.nameWithoutPrefix) {
         case 'Props':
+          if (classish.node is MixinDeclaration) {
+            // Special-case: `@Props()` is allowed on the new boilerplate mixins
+            onPropsMixin(BoilerplatePropsMixin(
+                classish.node,
+                companion,
+                _annotatedPropsOrStateMixinConfidence(classish, companion,
+                    disableAnnotationAssert: true)));
+          } else {
+            onProps(BoilerplateProps(
+                classish, companion, _annotatedPropsOrStateConfidence(classish, companion)));
+          }
+          return true;
+
         case 'AbstractProps':
           onProps(BoilerplateProps(
               classish, companion, _annotatedPropsOrStateConfidence(classish, companion)));
@@ -157,6 +170,19 @@ class BoilerplateMemberDetector {
           return true;
 
         case 'State':
+          if (classish.node is MixinDeclaration) {
+            // Special-case: `@State()` is allowed on the new boilerplate mixins
+            onStateMixin(BoilerplateStateMixin(
+                classish.node,
+                companion,
+                _annotatedPropsOrStateMixinConfidence(classish, companion,
+                    disableAnnotationAssert: true)));
+          } else {
+            onState(BoilerplateState(
+                classish, companion, _annotatedPropsOrStateConfidence(classish, companion)));
+          }
+          return true;
+
         case 'AbstractState':
           onState(BoilerplateState(
               classish, companion, _annotatedPropsOrStateConfidence(classish, companion)));
@@ -220,9 +246,9 @@ class BoilerplateMemberDetector {
   }
 
   VersionConfidence _annotatedPropsOrStateMixinConfidence(
-      ClassishDeclaration classish, ClassishDeclaration companion) {
+      ClassishDeclaration classish, ClassishDeclaration companion, {bool disableAnnotationAssert = false}) {
     final node = classish.node;
-    assert(node.hasAnnotationWithNames(const {'PropsMixin', 'StateMixin'}),
+    assert(disableAnnotationAssert || node.hasAnnotationWithNames(const {'PropsMixin', 'StateMixin'}),
         'this function assumes that all nodes passed to this function are annotated');
 
     final isMixin = node is MixinDeclaration;
