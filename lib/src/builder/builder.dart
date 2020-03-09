@@ -150,16 +150,6 @@ class OverReactBuilder extends Builder {
 
   static final _formatter = DartFormatter();
 
-  static final RegExp _overReactPartDirective = RegExp(
-    r'''['"].*\.over_react\.g\.dart['"]''',
-  );
-
-  // ignore: unused_element
-  static bool _mightContainDeclarations(String source) {
-    return mightContainDeclarations(source) ||
-      _overReactPartDirective.hasMatch(source);
-  }
-
   static CompilationUnit _tryParseCompilationUnit(String source, AssetId id) {
     try {
       return parseCompilationUnit(

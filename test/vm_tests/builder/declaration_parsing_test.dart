@@ -31,7 +31,7 @@ import './util.dart';
 main() {
   group('ComponentDeclarations', () {
     group('mightContainDeclarations()', () {
-      group('returns true when the source contains', () {
+      group('returns true when the source contains an annotation', () {
         test('"@Factory"',           () => expect(mightContainDeclarations(factorySrc), isTrue));
         test('"@Props"',             () => expect(mightContainDeclarations(propsSrc), isTrue));
         test('"@State"',             () => expect(mightContainDeclarations(stateSrc), isTrue));
@@ -45,22 +45,34 @@ main() {
         test('"@StateMixin"',        () => expect(mightContainDeclarations(stateMixinSrc), isTrue));
       });
 
-      test('returns false when no matching annotations are found', () {
-        expect(mightContainDeclarations('class FooComponent extends UiComponent<FooProps> {}'), isFalse,
-            reason: 'should not return true for an unannotated class');
+      group('returns true when the source contains a reference to one of the base types', () {
+        const types = [
+          'UiFactory',
+          'UiProps',
+          'UiState',
+          'UiComponent',
+          'UiComponent2',
+          'UiStatefulComponent',
+          'UiStatefulComponent2',
+        ];
 
-        expect(mightContainDeclarations('class FooComponent extends UiComponent2<FooProps> {}'), isFalse,
-            reason: 'should not return true for an unannotated class');
+        for (var type in types) {
+          test(type, () => expect(mightContainDeclarations(type), isTrue));
+        };
+      });
 
-        expect(mightContainDeclarations('@Bar\nclass Foo {}'), isFalse,
-            reason: 'should not return true for a class with non-matching annotations');
+      test('returns true when there is an over_react part file', () {
+        expect(mightContainDeclarations('part "foo.over_react.g.dart";'), isTrue);
+      });
 
-        expect(mightContainDeclarations('/// Component that...\nclass Foo {}'), isFalse,
-            reason: 'should not return true when an annotation class name is not used as an annotation');
-
-        expect(mightContainDeclarations('/// Component2 that...\nclass Foo {}'), isFalse,
-            reason: 'should not return true when an annotation class name is not used as an annotation');
-      }, skip: ''); //FIXME update this test
+      test('returns false for other code', () {
+        expect(mightContainDeclarations(r'''
+          part 'something.g.dart';
+        
+          class NotAComponent {}
+          mixin SomethingProps on SomethingUnrelatedToOverReact {}
+        '''), isFalse);
+      });
     });
 
     group('parses', () {
