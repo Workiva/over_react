@@ -686,7 +686,7 @@ main() {
 
         group('(new syntax)', () {
           group('a component', () {
-            test('that is stateless', () {
+            test('that is stateless (shorthand)', () {
               setUpAndParse(r'''
                   UiFactory<FooProps> Foo = _$Foo;
                   
@@ -716,6 +716,41 @@ main() {
 
               expect(decl.factory.meta, isA<annotations.Factory>());
               expect(decl.props.b.meta, isA<annotations.Props>());
+              expect(decl.component.meta, isA<annotations.Component>());
+            });
+
+            test('that is stateless (verbose)', () {
+              setUpAndParse(r'''
+                  UiFactory<FooProps> Foo = _$Foo;
+                  
+                  mixin FooPropsMixin on UiProps {
+                    String foo;
+                  }
+                  
+                  class FooProps = UiProps with FooPropsMixin;
+                  
+                  class FooComponent extends UiComponent2<FooProps> {
+                    render() {}
+                  }
+              ''');
+
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<ClassComponentDeclaration>(),
+              ]));
+
+              final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
+              expect(propsMixinDecl.propsMixin?.name?.name, 'FooPropsMixin');
+
+              final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+
+              expect(decl.factory?.name?.name, 'Foo');
+              expect(decl.props?.a?.name?.name, 'FooProps');
+              expect(decl.component?.name?.name, 'FooComponent');
+              expect(decl.state?.either, isNull);
+
+              expect(decl.factory.meta, isA<annotations.Factory>());
+              expect(decl.props.a.meta, isA<annotations.Props>());
               expect(decl.component.meta, isA<annotations.Component>());
             });
 
@@ -758,6 +793,52 @@ main() {
               expect(decl.factory.meta, isA<annotations.Factory>());
               expect(decl.props.b.meta, isA<annotations.Props>());
               expect(decl.state.b.meta, isA<annotations.State>());
+              expect(decl.component.meta, isA<annotations.Component>());
+            });
+
+            test('that is stateful (verbose)', () {
+              setUpAndParse(r'''
+                  UiFactory<FooProps> Foo = _$Foo;
+                  
+                  mixin FooPropsMixin on UiProps {
+                    String foo;
+                  }
+                  
+                  class FooProps = UiProps with FooPropsMixin;
+                  
+                  mixin FooStateMixin on UiState {
+                    String bar;
+                  }
+                  
+                  class FooState = UiState with FooStateMixin;
+                  
+                  class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
+                    render() {}
+                  }
+              ''');
+
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<StateMixinDeclaration>(),
+                isA<ClassComponentDeclaration>(),
+              ]));
+
+              final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
+              expect(propsMixinDecl.propsMixin?.name?.name, 'FooPropsMixin');
+
+              final stateMixinDecl = declarations.firstWhereType<StateMixinDeclaration>();
+              expect(stateMixinDecl.stateMixin?.name?.name, 'FooStateMixin');
+
+              final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+
+              expect(decl.factory?.name?.name, 'Foo');
+              expect(decl.props?.a?.name?.name, 'FooProps');
+              expect(decl.component?.name?.name, 'FooComponent');
+              expect(decl.state?.a?.name?.name, 'FooState');
+
+              expect(decl.factory.meta, isA<annotations.Factory>());
+              expect(decl.props.a.meta, isA<annotations.Props>());
+              expect(decl.state.a.meta, isA<annotations.State>());
               expect(decl.component.meta, isA<annotations.Component>());
             });
           });
