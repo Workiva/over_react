@@ -424,4 +424,3 @@ const mockComponentDeclarations = r'''
 
   class IsThisEvenAComponentNameComponent extends UiStatefulComponent<HowAboutARandomNameForProps, AVeryRandomNameForState>{}
 ''';
-
