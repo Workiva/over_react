@@ -48,15 +48,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
   // -----------------------------------------------------------------------------------------------
   //
-  // Legacy map views
-  //
-  // Remove them so they don't get grouped with anything else and throw things off.
-  //
-  // TODO do we still need to do this? Write regression test case for this and see if it can be removed
-  props.removeWhere((p) => p.isLegacyMapView);
-
-  // -----------------------------------------------------------------------------------------------
-  //
   // Legacy abstract props/state classes
   //
   // They can be declared stand-alone without needing other abstract component members, so grouping

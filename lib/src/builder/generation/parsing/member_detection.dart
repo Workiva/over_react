@@ -321,7 +321,7 @@ class BoilerplateMemberDetector {
       if (overridesIsClassGenerated || (node is! MixinDeclaration && onlyImplementsThings(classish))) {
         return VersionConfidence.none();
       } else if (classish.members.whereType<ConstructorDeclaration>().isNotEmpty) {
-        //fixme fix these cases?
+        // If there's a constructor, it's a no-generate class. For example, a props map view.
         return VersionConfidence.none();
       }
 

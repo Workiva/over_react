@@ -23,10 +23,6 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
   @override
   String get debugString => '${super.debugString}, companion: ${companion?.name}';
 
-  bool get isLegacyMapView =>
-      name.name.endsWith('MapView') &&
-      nodeHelper.members.whereType<ConstructorDeclaration>().isNotEmpty;
-
   bool get hasCompanionClass => companion != null;
 
   @override
@@ -55,7 +51,6 @@ abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsState
           }
 
           if (nodeHelper.hasAbstractKeyword) {
-            // todo what about the abstract interface case? Do we special case the "Abstract" prefix?
             errorCollector.addError(
                 '$propsOrStateClassString implementations must not be abstract, as they cannot be extended.',
                 errorCollector.spanFor(nodeHelper.abstractKeyword));
