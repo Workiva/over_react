@@ -63,7 +63,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         version.version.isLegacy &&
         propsClass.node.hasAnnotationWithName('AbstractProps')) {
       props.remove(propsClass);
-      yield LegacyAbstractClassComponentDeclaration(version: version.version, props: propsClass);
+      yield LegacyAbstractPropsDeclaration(version: version.version, props: propsClass);
     }
   }
 
@@ -73,7 +73,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         version.version.isLegacy &&
         stateClass.node.hasAnnotationWithName('AbstractState')) {
       states.remove(stateClass);
-      yield LegacyAbstractClassComponentDeclaration(version: version.version, state: stateClass);
+      yield LegacyAbstractStateDeclaration(version: version.version, state: stateClass);
     }
   }
 
@@ -363,7 +363,8 @@ enum DeclarationType {
   functionComponentDeclaration,
   classComponentDeclaration,
   legacyClassComponentDeclaration,
-  legacyAbstractClassComponentDeclaration,
+  legacyAbstractPropsDeclaration,
+  legacyAbstractStateDeclaration,
   propsMixinDeclaration,
   stateMixinDeclaration,
   propsMapViewDeclaration,
@@ -444,49 +445,54 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
   }
 }
 
-// TODO split this out into LegacyAbstractPropsDeclaration and LegacyAbstractStateDeclaration
-class LegacyAbstractClassComponentDeclaration extends BoilerplateDeclaration {
-  final BoilerplateComponent component;
+class LegacyAbstractPropsDeclaration extends BoilerplateDeclaration {
   final BoilerplateProps props;
-  final BoilerplateState state;
 
   @override
-  get _members => [component, props, state].whereNotNull();
+  get _members => [props];
 
   @override
-  final type = DeclarationType.legacyAbstractClassComponentDeclaration;
+  get type => DeclarationType.legacyAbstractPropsDeclaration;
 
-  LegacyAbstractClassComponentDeclaration({
+  LegacyAbstractPropsDeclaration({
     @required Version version,
-    this.component,
-    this.props,
-    this.state,
-  })  : assert((component ?? props ?? state) != null, 'Must provide component, props, or state'),
-        super(version);
+    @required this.props,
+  }) : super(version);
 
   @override
   void validate(ErrorCollector errorCollector) {
     super.validate(errorCollector);
 
-    if (component != null &&
-        !component.node.hasAnnotationWithNames({'AbstractComponent', 'AbstractComponent2'})) {
-      errorCollector.addWarning(
-          'Legacy boilerplate abstract components should be annotated with `@AbstractComponent()` or `@AbstractComponent2()`.',
-          errorCollector.spanFor(component.node));
-    }
-
     // It's possible to declare an abstract class without any props/state fields that need to be generated.
-    if (props != null &&
-        props.nodeHelper.members.isNotEmpty &&
+    if (props.nodeHelper.members.isNotEmpty &&
         !props.node.hasAnnotationWithName('AbstractProps')) {
       errorCollector.addError(
           'Legacy boilerplate abstract props must be annotated with `@AbstractProps()`.',
           errorCollector.spanFor(props.node));
     }
+  }
+}
+
+class LegacyAbstractStateDeclaration extends BoilerplateDeclaration {
+  final BoilerplateState state;
+
+  @override
+  get _members => [state];
+
+  @override
+  get type => DeclarationType.legacyAbstractStateDeclaration;
+
+  LegacyAbstractStateDeclaration({
+    @required Version version,
+    @required this.state,
+  }) : super(version);
+
+  @override
+  void validate(ErrorCollector errorCollector) {
+    super.validate(errorCollector);
 
     // It's possible to declare an abstract class without any props/state fields that need to be generated.
-    if (state != null &&
-        state.nodeHelper.members.isNotEmpty &&
+    if (state.nodeHelper.members.isNotEmpty &&
         !state.node.hasAnnotationWithName('AbstractState')) {
       errorCollector.addError(
           'Legacy boilerplate abstract state must be annotated with `@AbstractState()`.',

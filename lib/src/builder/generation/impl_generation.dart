@@ -59,8 +59,10 @@ class ImplGenerator {
     for (var declaration in declarations) {
       if (declaration is LegacyClassComponentDeclaration) {
         generateComponent(declaration);
-      } else if (declaration is LegacyAbstractClassComponentDeclaration) {
-        generateAbstractComponent(declaration);
+      } else if (declaration is LegacyAbstractPropsDeclaration) {
+        generateLegacyAbstractProps(declaration);
+      } else if (declaration is LegacyAbstractStateDeclaration) {
+        generateLegacyAbstractState(declaration);
       } else if (declaration is PropsMixinDeclaration) {
         if (declaration.version == Version.v4_mixinBased) {
           logger.severe('Codegen for new boilerplate is not yet implemented $declaration');
@@ -355,28 +357,23 @@ class ImplGenerator {
     _generateAccessorsAndMetaConstantForMixin(AccessorType.stateMixin, declaration.stateMixin.node, declaration.stateMixin.meta);
   }
 
-  void generateAbstractComponent(LegacyAbstractClassComponentDeclaration declaration) {
-    // ----------------------------------------------------------------------
-    //   Abstract Props/State implementations
-    // ----------------------------------------------------------------------
-    if (declaration.props != null) {
-      final className = _classNameFromNode(declaration.props.node);
-      outputContentsBuffer.write(_generateAccessorsMixin(
-          AccessorType.abstractProps, _accessorsMixinNameFromConsumerName(className), declaration.props.node as ClassOrMixinDeclaration, declaration.props.meta,
-          className, typeParameters: declaration.props.nodeHelper.typeParameters));
-      outputContentsBuffer.write(_generateMetaConstImpl(
-          AccessorType.abstractProps, declaration.props.node));
-      outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.abstractProps, declaration.props));
-    }
+  void generateLegacyAbstractProps(LegacyAbstractPropsDeclaration declaration) {
+    final className = _classNameFromNode(declaration.props.node);
+    outputContentsBuffer.write(_generateAccessorsMixin(
+        AccessorType.abstractProps, _accessorsMixinNameFromConsumerName(className), declaration.props.node as ClassOrMixinDeclaration, declaration.props.meta,
+        className, typeParameters: declaration.props.nodeHelper.typeParameters));
+    outputContentsBuffer.write(_generateMetaConstImpl(
+        AccessorType.abstractProps, declaration.props.node));
+    outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.abstractProps, declaration.props));
+  }
 
-    if (declaration.state != null) {
-      final className = _classNameFromNode(declaration.state.node);
-      outputContentsBuffer.write(_generateAccessorsMixin(
-          AccessorType.abstractState, _accessorsMixinNameFromConsumerName(className), declaration.state.node as ClassOrMixinDeclaration, declaration.state.meta,
-          className, typeParameters: declaration.state.nodeHelper.typeParameters));
-      outputContentsBuffer.write(_generateMetaConstImpl(AccessorType.abstractState, declaration.state.node));
-      outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.abstractState, declaration.state));
-    }
+  void generateLegacyAbstractState(LegacyAbstractStateDeclaration declaration) {
+    final className = _classNameFromNode(declaration.state.node);
+    outputContentsBuffer.write(_generateAccessorsMixin(
+        AccessorType.abstractState, _accessorsMixinNameFromConsumerName(className), declaration.state.node as ClassOrMixinDeclaration, declaration.state.meta,
+        className, typeParameters: declaration.state.nodeHelper.typeParameters));
+    outputContentsBuffer.write(_generateMetaConstImpl(AccessorType.abstractState, declaration.state.node));
+    outputContentsBuffer.write(_generateConsumablePropsOrStateClass(AccessorType.abstractState, declaration.state));
   }
 
   bool hasAbstractGetter(ClassOrMixinDeclaration classDeclaration, String type, String name) {

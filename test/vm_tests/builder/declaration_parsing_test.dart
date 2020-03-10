@@ -419,11 +419,9 @@ main() {
               final ors = OverReactSrc.abstractProps(backwardsCompatible: backwardsCompatible, isPrivate: isPrivate);
               setUpAndParse(ors.source);
 
-              final decl = expectSingleOfType<LegacyAbstractClassComponentDeclaration>(declarations);
+              final decl = expectSingleOfType<LegacyAbstractPropsDeclaration>(declarations);
 
               expect(decl.props, isNotNull);
-              expect(decl.state, isNull);
-              expect(decl.component, isNull);
 
               expect(decl.props.name.name, '_\$${ors.baseName}Props');
               expect(decl.props.meta, TypeMatcher<annotations.TypedMap>());
@@ -451,11 +449,9 @@ main() {
               final ors = OverReactSrc.abstractState(backwardsCompatible: true, isPrivate: isPrivate);
               setUpAndParse(ors.source);
 
-              final decl = expectSingleOfType<LegacyAbstractClassComponentDeclaration>(declarations);
+              final decl = expectSingleOfType<LegacyAbstractStateDeclaration>(declarations);
 
-              expect(decl.props, isNull);
               expect(decl.state, isNotNull);
-              expect(decl.component, isNull);
 
               expect(decl.state.name?.name, '_\$${ors.baseName}State');
               expect(decl.state.meta, TypeMatcher<annotations.TypedMap>());
@@ -556,7 +552,7 @@ main() {
                   class _\$AbstractFooProps {}
                   class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {}
                 ''');
-                final decl = expectSingleOfType<LegacyAbstractClassComponentDeclaration>(declarations);
+                final decl = expectSingleOfType<LegacyAbstractPropsDeclaration>(declarations);
                 expect(decl.props.meta.keyNamespace, 'bar');
               });
 
@@ -566,7 +562,7 @@ main() {
                   class _\$AbstractFooState {}
                   class AbstractFooState extends _\$AbstractFooState with _\$AbstractFooStateAccessorsMixin {}
                 ''');
-                final decl = expectSingleOfType<LegacyAbstractClassComponentDeclaration>(declarations);
+                final decl = expectSingleOfType<LegacyAbstractStateDeclaration>(declarations);
                 expect(decl.state.meta.keyNamespace, 'bar');
               });
             });
@@ -637,7 +633,7 @@ main() {
                   @AbstractProps(keyNamespace: "bar")
                   class _\$AbstractFooProps {}
                 ''');
-                final decl = expectSingleOfType<LegacyAbstractClassComponentDeclaration>(declarations);
+                final decl = expectSingleOfType<LegacyAbstractPropsDeclaration>(declarations);
                 expect(decl.props.meta.keyNamespace, 'bar');
               });
 
@@ -646,7 +642,7 @@ main() {
                   @AbstractState(keyNamespace: "bar")
                   class _\$AbstractFooState {}
                 ''');
-                final decl = expectSingleOfType<LegacyAbstractClassComponentDeclaration>(declarations);
+                final decl = expectSingleOfType<LegacyAbstractStateDeclaration>(declarations);
                 expect(decl.state.meta.keyNamespace, 'bar');
               });
             });
