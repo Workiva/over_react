@@ -1,8 +1,11 @@
 @TestOn('vm')
 import 'package:analyzer/dart/analysis/utilities.dart';
+import 'package:meta/meta.dart';
 import 'package:over_react/src/builder/generation/parsing.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
+
+import '../util.dart';
 
 main() {
   group('members -', () {
@@ -45,7 +48,7 @@ main() {
     }
 
     Iterable<BoilerplateMember> getBoilerplateMembersFor(VersionOptions version) {
-      final unit = parseString(content: boilerplateStrings[version]).unit;
+      final unit = parseString(content: getBoilerplateStrings(version: version)).unit;
 
       return BoilerplateMembers.detect(unit).allMembers;
     }
@@ -54,6 +57,18 @@ main() {
       final unit = parseString(content: content).unit;
 
       return BoilerplateMembers.detect(unit).allMembers;
+    }
+
+    void runCallbackOnAllComponentTypes(
+        Function(BoilerplateComponent component, Iterable<BoilerplateMember> members)
+            testableCallback) {
+      for (final version in VersionOptions.values) {
+        test(stringKey[version], () {
+          final members = parseAndReturnMembers(getBoilerplateStrings(version: version));
+
+          testableCallback(members.firstWhereType<BoilerplateComponent>(), members);
+        });
+      }
     }
 
     setUp(() {
@@ -142,12 +157,12 @@ main() {
 
         group('does not throw when', () {
           group('the component is a', () {
-            for (final version in boilerplateStrings.keys) {
+            for (final version in VersionOptions.values) {
               test('${stringKey[version]} component', () {
                 final members = getBoilerplateMembersFor(version);
                 final component = members.whereType<BoilerplateComponent>().first;
                 final componentVersion = resolveVersion(members).version;
-                file = SourceFile.fromString(boilerplateStrings[version]);
+                file = SourceFile.fromString(getBoilerplateStrings(version: version));
                 collector = ErrorCollector.callback(file,
                     onError: validateCallback, onWarning: validateCallback);
 
@@ -159,7 +174,7 @@ main() {
         });
 
         group('throws when', () {
-          test('throws when the component is mixin based but does not extend Component2', () {
+          test('the component is mixin based but does not extend Component2', () {
             final members = parseAndReturnMembers(r'''
             UiFactory<FooProps> Foo = _$Foo;
 
@@ -172,45 +187,84 @@ main() {
 
             final component = members.whereType<BoilerplateComponent>().first;
             final componentVersion = resolveVersion(members).version;
-            file = SourceFile.fromString(boilerplateStrings[VersionOptions.v4]);
+            file = SourceFile.fromString(r'''
+            UiFactory<FooProps> Foo = _$Foo;
+
+            mixin FooProps on UiProps {}
+  
+            mixin FooState on UiState {}
+  
+            class FooComponent extends UiStatefulComponent<FooProps, FooState>{}
+            ''');
             collector = ErrorCollector.callback(file,
                 onError: validateCallback, onWarning: validateCallback);
 
             component.validate(componentVersion, collector);
+            expect(validateResults.length, 1);
             expect(validateResults.first, contains('Must extend UiComponent2, not UiComponent.'));
           });
+        });
 
-          group('throws when the component is Component2 but uses deprecated lifecycle events', () {
-            Map<String, String> legacyLifecycleMethodsMap = {
-              'componentWillReceiveProps': 'Use getDerivedStateFromProps instead.',
-              'componentWillMount': 'Use init instead.',
-              'componentWillUpdate': 'Use getSnapshotBeforeUpdate instead.',
-            };
+        // Group that ensures that iterates over the deprecated lifecycles and all
+        // versions of the boilerplate, checking for errors where necessary.
+        group('detects deprecated lifecycles correctly', () {
+          Map<String, String> legacyLifecycleMethodsMap = {
+            'componentWillReceiveProps': 'Use getDerivedStateFromProps instead.',
+            'componentWillMount': 'Use init instead.',
+            'componentWillUpdate': 'Use getSnapshotBeforeUpdate instead.',
+          };
 
-            const [
-              'componentWillReceiveProps',
-              'componentWillMount',
-              'componentWillUpdate'
-            ].forEach((lifecycle) => {
-                  test(lifecycle, () {
-                    final string = getComponentWithDeprecatedLifecycle(lifecycle);
-                    final members = parseAndReturnMembers(string);
-                    final component = members.whereType<BoilerplateComponent>().first;
-                    final componentVersion = resolveVersion(members).version;
-                    file = SourceFile.fromString(string);
-                    collector = ErrorCollector.callback(file,
-                        onError: validateCallback, onWarning: validateCallback);
+          // Loop over the deprecated lifecycle methods
+          legacyLifecycleMethodsMap.keys.forEach((lifecycle) => {
+                // Loop through every version of the boilerplate
+                for (final version in VersionOptions.values)
+                  {
+                    test('$lifecycle with ${stringKey[version]}', () {
+                      // Grab the boilerplate with the deprecated lifecycle method
+                      final componentString = getBoilerplateStrings(
+                          deprecatedLifecycleMethod: lifecycle, version: version);
+                      final members = parseAndReturnMembers(componentString);
+                      final component = members.whereType<BoilerplateComponent>().first;
+                      final componentVersion = resolveVersion(members).version;
+                      file = SourceFile.fromString(componentString);
+                      collector = ErrorCollector.callback(file, onError: validateCallback);
 
-                    component.validate(componentVersion, collector);
-                    expect(validateResults.first, contains(legacyLifecycleMethodsMap[lifecycle]));
-                  })
-                });
-          });
+                      component.validate(componentVersion, collector);
+
+                      // Warnings should only be logged if the component is a Component2
+                      if (component.isComponent2(componentVersion)) {
+                        expect(validateResults.length, 1);
+                        expect(
+                            validateResults.first, contains(legacyLifecycleMethodsMap[lifecycle]));
+                      } else {
+                        expect(validateResults.length, 0);
+                      }
+                    })
+                  }
+              });
         });
       });
     });
 
-    group('factory', () {});
+    group('factory', () {
+      group('hasFactoryAnnotation correctly identifies when a factory', () {
+        test('has the annotation', () {});
+
+        test('does not have the annotation', () {});
+      });
+
+      group('validate', () {
+        group('does not throw when the factory is connect to', () {});
+
+        group('throws when', () {
+          test('a Dart 2 only component does not have an annotation', () {});
+
+          test('there is more than one variable', () {});
+
+          test('the factory is not set equal to the generated factory', () {});
+        });
+      });
+    });
 
     group('BoilerplatePropsOrState', () {});
 
@@ -222,74 +276,32 @@ main() {
   });
 }
 
-enum VersionOptions { v2, v3, v4, v5 }
+enum VersionOptions {
+  v2,
+  v3,
+  v4,
+  v5,
+  v6,
+  v7,
+  v8,
+  v9,
+}
 
 const stringKey = {
   VersionOptions.v2: 'legacy (backwords compat)',
   VersionOptions.v3: 'legacy (Dart2 only)',
   VersionOptions.v4: 'mixin based (abbreviated)',
   VersionOptions.v5: 'mixin based (with class alias)',
+  VersionOptions.v6: 'legacy (backwords compat - component2)',
+  VersionOptions.v7: 'legacy (Dart2 only - component 2)',
+  VersionOptions.v8: 'mixin based (abbreviated - with annotations)',
+  VersionOptions.v9: 'mixin based (with class alias - with annotations)',
 };
 
-const boilerplateStrings = {
-  VersionOptions.v2: r'''
-          @Factory()
-          UiFactory<FooProps> Foo = _$Foo;
+String getBoilerplateStrings({@required VersionOptions version, String deprecatedLifecycleMethod}) {
+  var deprecatedMethod = '';
 
-          @Props()
-          class _$FooProps extends UiProps {}
-
-          class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {}
-
-          @State()
-          class _$FooState extends UiState with _$FooStateAccessorsMixin {}
-
-          class FooState extends _$FooState with _$FooStateAccessorsMixin {}
-
-          @Component()
-          class FooComponent extends UiStatefulComponent<FooProps, FooState>{}
-      ''',
-  VersionOptions.v3: r'''
-          @Factory()
-          UiFactory<FooProps> Foo = _$Foo;
-
-          @Props()
-          class _$FooProps extends UiProps {}
-
-          @State()
-          class _$FooState extends _$FooState with _$FooStateAccessorsMixin {}
-
-          @Component()
-          class FooComponent extends UiStatefulComponent<FooProps, FooState>{}
-        ''',
-  VersionOptions.v4: r'''
-          UiFactory<FooProps> Foo = _$Foo;
-
-          mixin FooProps on UiProps {}
-
-          mixin FooState on UiState {}
-
-          class FooComponent extends UiStatefulComponent2<FooProps, FooState>{}
-        ''',
-  VersionOptions.v5: r'''
-          UiFactory<FooProps> Foo = _$Foo;
-
-          mixin FooPropsMixin on UiProps {}
-
-          class FooProps = UiProps with FooPropsMixin;
-
-          mixin FooStateMixin on UiState {}
-          
-          class FooState = UiState with FooStateMixin;
-
-          class FooComponent extends UiStatefulComponent2<FooProps, FooState>{}
-        ''',
-};
-
-String getComponentWithDeprecatedLifecycle(String lifeCycleMethod) {
-  String deprecatedMethod;
-
-  switch (lifeCycleMethod) {
+  switch (deprecatedLifecycleMethod) {
     case 'componentWillReceiveProps':
       deprecatedMethod = '''
       @override
@@ -312,21 +324,57 @@ String getComponentWithDeprecatedLifecycle(String lifeCycleMethod) {
       ''';
       break;
     default:
-      throw ArgumentError(
-          'lifecycleMethod should be componentWillReceiveProps, componentWillMount, or componentWillUpdate');
+      if (deprecatedLifecycleMethod != null) {
+        throw ArgumentError(
+            'lifecycleMethod should be componentWillReceiveProps, componentWillMount, or componentWillUpdate');
+      }
   }
 
-  return '''
-  UiFactory<ThirdFooProps> ThirdFoo = _\$ThirdFoo;
-
-  mixin ThirdFooProps on UiProps {}
-
-  mixin ThirdFooState on UiState {}
-
-  class ThirdFooComponent extends UiStatefulComponent2<ThirdFooProps, ThirdFooState>{
-    $deprecatedMethod
+  switch (version) {
+    case VersionOptions.v2:
+      return OverReactSrc.state(
+        componentBody: deprecatedMethod,
+      ).source;
+    case VersionOptions.v3:
+      return OverReactSrc.state(
+        backwardsCompatible: false,
+        componentBody: deprecatedMethod,
+      ).source;
+    case VersionOptions.v4:
+      return OverReactSrc.mixinBasedBoilerplateState(
+        componentBody: deprecatedMethod,
+      ).source;
+    case VersionOptions.v5:
+      return OverReactSrc.mixinBasedBoilerplateState(
+        componentBody: deprecatedMethod,
+        shouldIncludePropsAlias: true,
+      ).source;
+    case VersionOptions.v6:
+      return OverReactSrc.state(
+        componentBody: deprecatedMethod,
+        componentVersion: 2,
+      ).source;
+    case VersionOptions.v7:
+      return OverReactSrc.state(
+        componentBody: deprecatedMethod,
+        componentVersion: 2,
+        backwardsCompatible: false,
+      ).source;
+    case VersionOptions.v8:
+      return OverReactSrc.mixinBasedBoilerplateState(
+        componentBody: deprecatedMethod,
+        shouldIncludeAnnotations: true,
+      ).source;
+    case VersionOptions.v9:
+      return OverReactSrc.mixinBasedBoilerplateState(
+        componentBody: deprecatedMethod,
+        shouldIncludePropsAlias: true,
+        shouldIncludeAnnotations: true,
+      ).source;
+      break;
+    default:
+      return '';
   }
-  ''';
 }
 
 const mockComponentDeclarations = r'''
