@@ -247,21 +247,132 @@ main() {
     });
 
     group('factory', () {
-      group('hasFactoryAnnotation correctly identifies when a factory', () {
-        test('has the annotation', () {});
+      group(
+          'hasFactoryAnnotation correctly identifies when a factory whether or not an annotation is present',
+          () {
+        for (final version in VersionOptions.values) {
+          test('${stringKey[version]}', () {
+            final componentString = getBoilerplateStrings(version: version);
+            final members = parseAndReturnMembers(componentString);
+            final factory = members.whereType<BoilerplateFactory>().first;
 
-        test('does not have the annotation', () {});
+            if (![VersionOptions.v4, VersionOptions.v5].contains(version)) {
+              expect(factory.hasFactoryAnnotation, isTrue);
+            } else {
+              expect(factory.hasFactoryAnnotation, isFalse);
+            }
+          });
+        }
       });
 
       group('validate', () {
-        group('does not throw when the factory is connect to', () {});
+        ErrorCollector collector;
+        SourceFile file;
+        var validateResults = <String>[];
+
+        void validateCallback(String message, [SourceSpan span]) {
+          validateResults.add(message);
+        }
+
+        tearDown(() {
+          validateResults = <String>[];
+          file = null;
+          collector = null;
+        });
+
+        group('does not throw when the factory is connect to', () {
+          for (final version in VersionOptions.values) {
+            test(stringKey[version], () {
+              final componentString = getBoilerplateStrings(version: version);
+              final members = parseAndReturnMembers(componentString);
+              final factory = members.whereType<BoilerplateFactory>().first;
+              file = SourceFile.fromString(componentString);
+              collector = ErrorCollector.callback(file, onError: validateCallback);
+
+              factory.validate(resolveVersion(members).version, collector);
+
+              expect(validateResults.length, 0);
+            });
+          }
+        });
 
         group('throws when', () {
-          test('a Dart 2 only component does not have an annotation', () {});
+          test('a Dart 2 only component does not have an annotation', () {
+            const boilerplateString = r'''
+              UiFactory<FooProps> Foo = _$Foo;
+              
+              @Component() class FooComponent {}
+              
+              @Props()
+              class _$FooProps {}
+              
+              @State()
+              class _$FooState {}
+            ''';
 
-          test('there is more than one variable', () {});
+            file = SourceFile.fromString(boilerplateString);
+            collector = ErrorCollector.callback(file, onError: validateCallback);
 
-          test('the factory is not set equal to the generated factory', () {});
+            final members = parseAndReturnMembers(boilerplateString);
+            final factory = members.whereType<BoilerplateFactory>().first;
+
+            factory.validate(resolveVersion(members).version, collector);
+            expect(validateResults.length, 1);
+            expect(validateResults.first,
+                contains('Legacy boilerplate factories must be annotated with `@Factory()`'));
+          });
+
+          test('there is more than one variable', () {
+            const boilerplateString = r'''
+              @Factory()
+              UiFactory<FooProps> Foo = _$Foo, _$Bar;
+              
+              @Component() class FooComponent {}
+              
+              @Props()
+              class _$FooProps {}
+              
+              @State()
+              class _$FooState {}
+            ''';
+
+            file = SourceFile.fromString(boilerplateString);
+            collector = ErrorCollector.callback(file, onError: validateCallback);
+
+            final members = parseAndReturnMembers(boilerplateString);
+            final factory = members.whereType<BoilerplateFactory>().first;
+
+            factory.validate(resolveVersion(members).version, collector);
+            expect(validateResults.length, 1);
+            expect(
+                validateResults.first, contains('Factory declarations must be a single variable.'));
+          });
+
+          test('the factory is not set equal to the generated factory', () {
+            const boilerplateString = r'''
+              @Factory()
+              UiFactory<FooProps> Foo = Bar;
+              
+              @Component() class FooComponent {}
+              
+              @Props()
+              class _$FooProps {}
+              
+              @State()
+              class _$FooState {}
+            ''';
+
+            file = SourceFile.fromString(boilerplateString);
+            collector = ErrorCollector.callback(file, onError: validateCallback);
+
+            final members = parseAndReturnMembers(boilerplateString);
+            final factory = members.whereType<BoilerplateFactory>().first;
+
+            factory.validate(resolveVersion(members).version, collector);
+            expect(validateResults.length, 1);
+            expect(validateResults.first,
+                contains('Should be: `${factory.name.name} = _\$${factory.name.name}`'));
+          });
         });
       });
     });
