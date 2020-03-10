@@ -819,6 +819,48 @@ main() {
               expect(decl.component.meta, isA<annotations.Component>());
             });
 
+            test('that is stateful with "Mixin" name suffixes (shorthand)', () {
+              setUpAndParse(r'''
+                  UiFactory<FooProps> Foo = _$Foo;
+                  
+                  mixin FooPropsMixin on UiProps {
+                    String foo;
+                  }
+                  
+                  mixin FooStateMixin on UiState {
+                    String bar;
+                  }
+                  
+                  class FooComponent extends UiStatefulComponent2<FooPropsMixin, FooStateMixin> {
+                    render() {}
+                  }
+              ''');
+
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<StateMixinDeclaration>(),
+                isA<ClassComponentDeclaration>(),
+              ]));
+
+              final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
+              expect(propsMixinDecl.propsMixin?.name?.name, 'FooPropsMixin');
+
+              final stateMixinDecl = declarations.firstWhereType<StateMixinDeclaration>();
+              expect(stateMixinDecl.stateMixin?.name?.name, 'FooStateMixin');
+
+              final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+
+              expect(decl.factory?.name?.name, 'Foo');
+              expect(decl.props?.b?.name?.name, 'FooPropsMixin');
+              expect(decl.component?.name?.name, 'FooComponent');
+              expect(decl.state?.b?.name?.name, 'FooStateMixin');
+
+              expect(decl.factory.meta, isA<annotations.Factory>());
+              expect(decl.props.b.meta, isA<annotations.Props>());
+              expect(decl.state.b.meta, isA<annotations.State>());
+              expect(decl.component.meta, isA<annotations.Component>());
+            });
+
             test('that is stateful (verbose)', () {
               setUpAndParse(r'''
                   UiFactory<FooProps> Foo = _$Foo;
@@ -1004,6 +1046,49 @@ main() {
               expect(decl.stateMixin.meta.keyNamespace, 'bar');
             });
           });
+
+          group('props mapview', () {
+            void sharedMapViewTests({bool hasMapViewSuffix}) {
+              // These tests ensure that the 'Props' in the name don't throw things off.
+              final name = 'Foo${hasMapViewSuffix ? 'PropsMapView' : ''}';
+              final propsName = '${name}Props';
+
+              test('(shorthand)', () {
+                setUpAndParse('''
+                  UiFactory<$propsName> $name = _\$$name;
+                  mixin $propsName on UiProps {}
+                ''');
+
+                expect(declarations, unorderedEquals([
+                  isA<PropsMixinDeclaration>(),
+                  isA<PropsMapViewDeclaration>(),
+                ]));
+                final decl = declarations.firstWhereType<PropsMapViewDeclaration>();
+
+                expect(decl.factory?.name?.name, name);
+                expect(decl.props.b?.name?.name, propsName);
+                expect(decl.version, Version.v4_mixinBased);
+              });
+
+              test('(verbose)', () {
+                setUpAndParse('''
+                  UiFactory<$propsName> $name = _\$$name;
+                  class $propsName = UiProps with FooPropsMixin;
+                ''');
+                final decl = expectSingleOfType<PropsMapViewDeclaration>(declarations);
+
+                expect(decl.factory?.name?.name, name);
+                expect(decl.props.a?.name?.name, propsName);
+                expect(decl.version, Version.v4_mixinBased);
+              });
+            }
+
+            sharedMapViewTests(hasMapViewSuffix: false);
+
+            group('with a mapview name suffix', () {
+              sharedMapViewTests(hasMapViewSuffix: true);
+            });
+          });
         });
       });
 
@@ -1104,20 +1189,6 @@ main() {
         });
 
         group('there is not Dart-2 compatible naming on', () {
-          test('a class annotated with @Props()', () {
-            setUpAndParse(propsSrcDart1 + componentSrc + factorySrc);
-            verify(logger.severe(contains(
-                'The class `FooProps` does not start with `_\$`. All Props, State, '
-                    'AbstractProps, and AbstractState classes should begin with `_\$` on Dart 2')));
-          });
-
-          test('a class annotated with @State()', () {
-            setUpAndParse(stateSrcDart1 + componentSrc + propsSrc + companionClassProps + factorySrc);
-            verify(logger.severe(contains(
-                'The class `FooState` does not start with `_\$`. All Props, State, '
-                    'AbstractProps, and AbstractState classes should begin with `_\$` on Dart 2')));
-          });
-
           test('a class annotated with @AbstractProps()', () {
             setUpAndParse(abstractPropsSrcDart1 + abstractComponentSrc);
             verify(logger.severe(contains(

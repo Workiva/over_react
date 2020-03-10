@@ -153,8 +153,11 @@ class BoilerplateMemberDetector {
     for (final annotation in classish.metadata) {
       switch (annotation.name.nameWithoutPrefix) {
         case 'Props':
+          // It has never been possible to declare a props class with a mixin, so we can safely
+          // assume that Dart mixins are not concrete props classes.
+          //
+          // Special-case: `@Props()` is allowed on the new boilerplate mixins
           if (classish.node is MixinDeclaration) {
-            // Special-case: `@Props()` is allowed on the new boilerplate mixins
             onPropsMixin(BoilerplatePropsMixin(
                 classish.node,
                 companion,
@@ -166,19 +169,12 @@ class BoilerplateMemberDetector {
           }
           return true;
 
-        case 'AbstractProps':
-          onProps(BoilerplateProps(
-              classish, companion, _annotatedPropsOrStateConfidence(classish, companion)));
-          return true;
-
-        case 'PropsMixin':
-          onPropsMixin(BoilerplatePropsMixin(classish.node, companion,
-              _annotatedPropsOrStateMixinConfidence(classish, companion)));
-          return true;
-
         case 'State':
+          // It has never been possible to declare a state class with a mixin, so we can safely
+          // assume that Dart mixins are not concrete state classes.
+          //
+          // Special-case: `@State()` is allowed on the new boilerplate mixins
           if (classish.node is MixinDeclaration) {
-            // Special-case: `@State()` is allowed on the new boilerplate mixins
             onStateMixin(BoilerplateStateMixin(
                 classish.node,
                 companion,
@@ -190,9 +186,9 @@ class BoilerplateMemberDetector {
           }
           return true;
 
-        case 'AbstractState':
-          onState(BoilerplateState(
-              classish, companion, _annotatedPropsOrStateConfidence(classish, companion)));
+        case 'PropsMixin':
+          onPropsMixin(BoilerplatePropsMixin(classish.node, companion,
+              _annotatedPropsOrStateMixinConfidence(classish, companion)));
           return true;
 
         case 'StateMixin':
@@ -202,10 +198,22 @@ class BoilerplateMemberDetector {
 
         case 'Component':
         case 'Component2':
+          // Don't have lower confidence for mixin-based when `@Component`;
+          // we want it equal so that it can resolve to mixin-based based on the other parts, and
+          // warn for not having `@Component2`.
           onComponent(BoilerplateComponent(classish, VersionConfidence.all(Confidence.high)));
           return true;
 
-        // todo should we even use these?
+        case 'AbstractProps':
+          onProps(BoilerplateProps(
+              classish, companion, _annotatedAbstractPropsOrStateConfidence(classish, companion)));
+          return true;
+
+        case 'AbstractState':
+          onState(BoilerplateState(
+              classish, companion, _annotatedAbstractPropsOrStateConfidence(classish, companion)));
+          return true;
+
         case 'AbstractComponent':
         case 'AbstractComponent2':
           onComponent(BoilerplateComponent(classish, VersionConfidence.none()));
@@ -219,35 +227,56 @@ class BoilerplateMemberDetector {
   VersionConfidence _annotatedPropsOrStateConfidence(
       ClassishDeclaration classish, ClassishDeclaration companion) {
     final node = classish.node;
-    assert(node.hasAnnotationWithNames(const {'Props', 'State', 'AbstractProps', 'AbstractState'}),
+    assert(node.hasAnnotationWithNames(const {'Props', 'State'}),
         'this function assumes that all nodes passed to this function are annotated');
+
+    assert(node is! MixinDeclaration, 'Mixins should never make it in herel they should be classified as Props/State mixins');
 
     final hasGeneratedPrefix = node.name.name.startsWith(r'_$');
     final hasCompanionClass = companion != null;
 
-    final isAbstractNoGenerate = !hasGeneratedPrefix &&
-        (node is! MixinDeclaration && classish.hasAbstractKeyword && classish.members.isEmpty);
-    if (isAbstractNoGenerate) {
-      return VersionConfidence.none();
-    }
-
-    if (node is MixinDeclaration) {
-      // todo might need to rethink these, as well as in the mixin classes, to be able to provide better error messages when people make things mixins
-
-      // It has never been possible to declare a props class with a mixin
+    if (hasCompanionClass) {
       return VersionConfidence(
-        v2_legacyBackwardsCompat: Confidence.none,
-        v3_legacyDart2Only: Confidence.none,
-        // fixme this ain't right
-        v4_mixinBased: Confidence.high,
+        v2_legacyBackwardsCompat: Confidence.high,
+        v3_legacyDart2Only: Confidence.low,
+        v4_mixinBased: Confidence.low,
+      );
+    } else if (hasGeneratedPrefix) {
+      return VersionConfidence(
+        v2_legacyBackwardsCompat: Confidence.low,
+        v3_legacyDart2Only: Confidence.high,
+        v4_mixinBased: Confidence.low,
       );
     } else {
       return VersionConfidence(
-        v2_legacyBackwardsCompat:
-            (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.high : Confidence.low,
-        v3_legacyDart2Only:
-            (hasCompanionClass || !hasGeneratedPrefix) ? Confidence.low : Confidence.high,
-        v4_mixinBased: Confidence.low,
+        v2_legacyBackwardsCompat: Confidence.low,
+        v3_legacyDart2Only: Confidence.low,
+        v4_mixinBased: Confidence.high,
+      );
+    }
+  }
+
+  VersionConfidence _annotatedAbstractPropsOrStateConfidence(
+      ClassishDeclaration classish, ClassishDeclaration companion) {
+    final node = classish.node;
+    assert(node.hasAnnotationWithNames(const {'AbstractProps', 'AbstractState'}),
+        'this function assumes that all nodes passed to this function are annotated');
+
+    final hasCompanionClass = companion != null;
+
+    if (hasCompanionClass) {
+      return VersionConfidence(
+        v2_legacyBackwardsCompat: Confidence.high,
+        v3_legacyDart2Only: Confidence.low,
+        // Annotated abstract props/state don't exist to the new boilerplate
+        v4_mixinBased: Confidence.none,
+      );
+    } else {
+      return VersionConfidence(
+        v2_legacyBackwardsCompat: Confidence.low,
+        v3_legacyDart2Only: Confidence.high,
+        // Annotated abstract props/state don't exist to the new boilerplate
+        v4_mixinBased: Confidence.none,
       );
     }
   }
@@ -273,7 +302,7 @@ class BoilerplateMemberDetector {
   static final propsOrMixinNamePattern = RegExp(r'Props(?:Mixin)?$');
   static final propsMixinNamePattern = propsOrMixinNamePattern;
   static final stateMixinNamePattern = RegExp(r'State(?:Mixin)?$');
-  static final propsNamePattern = RegExp(r'Props(?:MapView)?$');
+  static final propsNamePattern = RegExp(r'Props$');
   static final stateNamePattern = RegExp(r'State$');
 
   bool _detectNonLegacyPropsStateOrMixin(
