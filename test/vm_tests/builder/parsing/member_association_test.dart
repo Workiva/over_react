@@ -44,7 +44,6 @@ main() {
       return stateMixins ??= (members ?? getAllExampleBoilerplateMembers()).stateMixins;
     }
 
-
     Iterable<BoilerplateMember> getBoilerplateMembersFor(VersionOptions version) {
       final unit = parseString(content: boilerplateStrings[version]).unit;
 
@@ -75,33 +74,40 @@ main() {
     group('normalizeNameAndRemoveSuffix', () {
       group('and the BoilerplateMember is a', () {
         test('BoilerplateComponent', () {
-          final component = getBoilerplateMembersFor(VersionOptions.v4).whereType<BoilerplateComponent>().first;
+          final component =
+              getBoilerplateMembersFor(VersionOptions.v4).whereType<BoilerplateComponent>().first;
           expect(normalizeNameAndRemoveSuffix(component), 'Foo');
         });
 
         test('BoilerplateProps', () {
-          final props = getBoilerplateMembersFor(VersionOptions.v3).whereType<BoilerplateProps>().first;
+          final props =
+              getBoilerplateMembersFor(VersionOptions.v3).whereType<BoilerplateProps>().first;
           expect(normalizeNameAndRemoveSuffix(props), 'Foo');
         });
 
         test('BoilerplatePropsMixin', () {
-          final propsMixin = getBoilerplateMembersFor(VersionOptions.v4).whereType<BoilerplatePropsMixin>().first;
+          final propsMixin =
+              getBoilerplateMembersFor(VersionOptions.v4).whereType<BoilerplatePropsMixin>().first;
           expect(normalizeNameAndRemoveSuffix(propsMixin), 'Foo');
 
-          final propsMixinWithMixinInName = getBoilerplateMembersFor(VersionOptions.v5).whereType<BoilerplatePropsMixin>().first;
+          final propsMixinWithMixinInName =
+              getBoilerplateMembersFor(VersionOptions.v5).whereType<BoilerplatePropsMixin>().first;
           expect(normalizeNameAndRemoveSuffix(propsMixinWithMixinInName), 'Foo');
         });
 
         test('BoilerplateState', () {
-          final state = getBoilerplateMembersFor(VersionOptions.v3).whereType<BoilerplateState>().first;
+          final state =
+              getBoilerplateMembersFor(VersionOptions.v3).whereType<BoilerplateState>().first;
           expect(normalizeNameAndRemoveSuffix(state), 'Foo');
         });
 
         test('BoilerplateStateMixin', () {
-          final stateMixin = getBoilerplateMembersFor(VersionOptions.v4).whereType<BoilerplateStateMixin>().first;
+          final stateMixin =
+              getBoilerplateMembersFor(VersionOptions.v4).whereType<BoilerplateStateMixin>().first;
           expect(normalizeNameAndRemoveSuffix(stateMixin), 'Foo');
 
-          final stateMixinWithMixinInName = getBoilerplateMembersFor(VersionOptions.v5).whereType<BoilerplateStateMixin>().first;
+          final stateMixinWithMixinInName =
+              getBoilerplateMembersFor(VersionOptions.v5).whereType<BoilerplateStateMixin>().first;
           expect(normalizeNameAndRemoveSuffix(stateMixinWithMixinInName), 'Foo');
         });
       });
@@ -130,12 +136,14 @@ main() {
           });
 
           test('props', () {
-            final propsClass = props.firstWhere((props) => normalizeName(props.name.name) == 'SecondFooProps');
+            final propsClass =
+                props.firstWhere((props) => normalizeName(props.name.name) == 'SecondFooProps');
             expect(getComponentFor(propsClass, components).name.name, 'SecondFooComponent');
           });
 
           test('state', () {
-            final state = states.firstWhere((state) => normalizeName(state.name.name) == 'SecondFooState');
+            final state =
+                states.firstWhere((state) => normalizeName(state.name.name) == 'SecondFooState');
             expect(getComponentFor(state, components).name.name, 'SecondFooComponent');
           });
 
@@ -162,29 +170,36 @@ main() {
       group('generics', () {
         group('when passed', () {
           test('props', () {
-            final propsClass = props.firstWhere((props) => normalizeName(props.name.name) == 'HowAboutARandomNameForLegacyProps');
-            expect(getComponentFor(propsClass, components).name.name, 'IsThisEvenAComponentNameLegacyComponent');
+            final propsClass = props.firstWhere(
+                (props) => normalizeName(props.name.name) == 'HowAboutARandomNameForLegacyProps');
+            expect(getComponentFor(propsClass, components).name.name,
+                'IsThisEvenAComponentNameLegacyComponent');
           });
 
           test('a props mixin', () {
-            final propsMixin = propsMixins.firstWhere((props) => props.name.name == 'HowAboutARandomNameForProps');
-            expect(getComponentFor(propsMixin, components).name.name, 'IsThisEvenAComponentNameComponent');
+            final propsMixin =
+                propsMixins.firstWhere((props) => props.name.name == 'HowAboutARandomNameForProps');
+            expect(getComponentFor(propsMixin, components).name.name,
+                'IsThisEvenAComponentNameComponent');
           });
         });
 
         group('unless the method is passed', () {
           test('a factory', () {
-            final factory = factories.firstWhere((props) => props.name.name == 'ThisIsABadFactoryName');
+            final factory =
+                factories.firstWhere((props) => props.name.name == 'ThisIsABadFactoryName');
             expect(getComponentFor(factory, components), isNull);
           });
 
           test('state', () {
-            final state = states.firstWhere((props) => normalizeName(props.name.name) == 'AVeryRandomNameForLegacyState');
+            final state = states.firstWhere(
+                (props) => normalizeName(props.name.name) == 'AVeryRandomNameForLegacyState');
             expect(getComponentFor(state, components), isNull);
           });
 
           test('a state mixin', () {
-            final stateMixin = stateMixins.firstWhere((props) => props.name.name == 'AVeryRandomNameForState');
+            final stateMixin =
+                stateMixins.firstWhere((props) => props.name.name == 'AVeryRandomNameForState');
             expect(getComponentFor(stateMixin, components), isNull);
           });
         });
@@ -195,17 +210,22 @@ main() {
       group('when passed', () {
         test('a factory', () {
           final factory = factories.firstWhere((factory) => factory.name.name == 'SecondFoo');
-          expect(normalizeName(getPropsFor(factory, props, propsMixins).a.name.name), 'SecondFooProps');
+          expect(normalizeName(getPropsFor(factory, props, propsMixins).a.name.name),
+              'SecondFooProps');
         });
 
         test('a component', () {
-          final component = components.firstWhere((component) => normalizeName(component.name.name) == 'SecondFooComponent');
-          expect(normalizeName(getPropsFor(component, props, propsMixins).a.name.name), 'SecondFooProps');
+          final component = components.firstWhere(
+              (component) => normalizeName(component.name.name) == 'SecondFooComponent');
+          expect(normalizeName(getPropsFor(component, props, propsMixins).a.name.name),
+              'SecondFooProps');
         });
 
         test('state', () {
-          final state = states.firstWhere((state) => normalizeName(state.name.name) == 'SecondFooState');
-          expect(normalizeName(getPropsFor(state, props, propsMixins).a.name.name), 'SecondFooProps');
+          final state =
+              states.firstWhere((state) => normalizeName(state.name.name) == 'SecondFooState');
+          expect(
+              normalizeName(getPropsFor(state, props, propsMixins).a.name.name), 'SecondFooProps');
         });
 
         test('a state mixin', () {
@@ -223,17 +243,22 @@ main() {
       group('when passed', () {
         test('a factory', () {
           final factory = factories.firstWhere((factory) => factory.name.name == 'SecondFoo');
-          expect(normalizeName(getStateFor(factory, states, stateMixins).a.name.name), 'SecondFooState');
+          expect(normalizeName(getStateFor(factory, states, stateMixins).a.name.name),
+              'SecondFooState');
         });
 
         test('a component', () {
-          final component = components.firstWhere((components) => components.name.name == 'SecondFooComponent');
-          expect(normalizeName(getStateFor(component, states, stateMixins).a.name.name), 'SecondFooState');
+          final component =
+              components.firstWhere((components) => components.name.name == 'SecondFooComponent');
+          expect(normalizeName(getStateFor(component, states, stateMixins).a.name.name),
+              'SecondFooState');
         });
 
         test('props', () {
-          final propsClass = props.firstWhere((prop) => normalizeName(prop.name.name) == 'SecondFooProps');
-          expect(normalizeName(getStateFor(propsClass, states, stateMixins).a.name.name), 'SecondFooState');
+          final propsClass =
+              props.firstWhere((prop) => normalizeName(prop.name.name) == 'SecondFooProps');
+          expect(normalizeName(getStateFor(propsClass, states, stateMixins).a.name.name),
+              'SecondFooState');
         });
 
         test('a props mixin', () {
@@ -242,7 +267,8 @@ main() {
           // Sanity check
           expect(propsClass.name.name, 'ThirdFooProps');
 
-          expect(normalizeName(getStateFor(propsClass, states, stateMixins).b.name.name), 'ThirdFooState');
+          expect(normalizeName(getStateFor(propsClass, states, stateMixins).b.name.name),
+              'ThirdFooState');
         });
       });
     });
@@ -255,14 +281,16 @@ main() {
         });
 
         test('for components', () {
-          final component = components.firstWhere((components) => components.name.name == 'SecondFooComponent');
+          final component =
+              components.firstWhere((components) => components.name.name == 'SecondFooComponent');
           expect(getRelatedName(component), 'SecondFoo');
         });
 
         group('unless the Boilerplate is a', () {
           group('props', () {
             test('class', () {
-              final propsClass = props.firstWhere((prop) => normalizeName(prop.name.name) == 'SecondFooProps');
+              final propsClass =
+                  props.firstWhere((prop) => normalizeName(prop.name.name) == 'SecondFooProps');
               expect(getRelatedName(propsClass), isNull);
             });
 
@@ -274,7 +302,8 @@ main() {
 
           group('state', () {
             test('class', () {
-              final state = states.firstWhere((state) => normalizeName(state.name.name) == 'SecondFooState');
+              final state =
+                  states.firstWhere((state) => normalizeName(state.name.name) == 'SecondFooState');
               expect(getRelatedName(state), isNull);
             });
 

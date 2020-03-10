@@ -147,7 +147,10 @@ main() {
 
       group('toString returns', () {
         test('all versions', () {
-          expect(versionConfidence.toString(), contains('{v2_legacyBackwardsCompat: ${Confidence.low}, v3_legacyDart2Only: ${Confidence.low}, v4_mixinBased: ${Confidence.high}}'));
+          expect(
+              versionConfidence.toString(),
+              contains(
+                  '{v2_legacyBackwardsCompat: ${Confidence.low}, v3_legacyDart2Only: ${Confidence.low}, v4_mixinBased: ${Confidence.high}}'));
         });
 
         test('runtime type', () {
@@ -159,9 +162,10 @@ main() {
     group('VersionPair', () {
       test('shouldGenerate will only return true if confidence is higher than medium', () {
         final confidentVersion = VersionConfidence(
-            v2_legacyBackwardsCompat: Confidence.low,
-            v3_legacyDart2Only: Confidence.low,
-            v4_mixinBased: Confidence.high).maxConfidence;
+                v2_legacyBackwardsCompat: Confidence.low,
+                v3_legacyDart2Only: Confidence.low,
+                v4_mixinBased: Confidence.high)
+            .maxConfidence;
         expect(confidentVersion.shouldGenerate, isTrue);
 
         final moderatelyConfidentVersion = VersionConfidence.all(Confidence.medium).maxConfidence;

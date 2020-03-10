@@ -44,7 +44,6 @@ main() {
       return stateMixins ??= (members ?? getAllExampleBoilerplateMembers()).stateMixins;
     }
 
-
     Iterable<BoilerplateMember> getBoilerplateMembersFor(VersionOptions version) {
       final unit = parseString(content: boilerplateStrings[version]).unit;
 
@@ -73,13 +72,17 @@ main() {
       BoilerplateComponent newBoilerplateComponent;
 
       setUp(() {
-        legacyBackwardCompatComponent = components.firstWhere((component) => component.name.name == 'FirstFooComponent');
-        legacyComponent = components.firstWhere((component) => component.name.name == 'SecondFooComponent');
-        newBoilerplateComponent = components.firstWhere((component) => component.name.name == 'ThirdFooComponent');
+        legacyBackwardCompatComponent =
+            components.firstWhere((component) => component.name.name == 'FirstFooComponent');
+        legacyComponent =
+            components.firstWhere((component) => component.name.name == 'SecondFooComponent');
+        newBoilerplateComponent =
+            components.firstWhere((component) => component.name.name == 'ThirdFooComponent');
       });
 
       test('propsGenericArg returns the correct props class', () {
-        expect(legacyBackwardCompatComponent.propsGenericArg.typeNameWithoutPrefix, 'FirstFooProps');
+        expect(
+            legacyBackwardCompatComponent.propsGenericArg.typeNameWithoutPrefix, 'FirstFooProps');
         expect(legacyComponent.propsGenericArg.typeNameWithoutPrefix, 'SecondFooProps');
         expect(newBoilerplateComponent.propsGenericArg.typeNameWithoutPrefix, 'ThirdFooProps');
       });
@@ -105,9 +108,21 @@ main() {
       });
 
       test('isComponent2 returns the correct value', () {
-        expect(getBoilerplateMembersFor(VersionOptions.v2).firstWhereType<BoilerplateComponent>().isComponent2(Version.v2_legacyBackwardsCompat), false);
-        expect(getBoilerplateMembersFor(VersionOptions.v3).firstWhereType<BoilerplateComponent>().isComponent2(Version.v3_legacyDart2Only), false);
-        expect(getBoilerplateMembersFor(VersionOptions.v4).firstWhereType<BoilerplateComponent>().isComponent2(Version.v4_mixinBased), true);
+        expect(
+            getBoilerplateMembersFor(VersionOptions.v2)
+                .firstWhereType<BoilerplateComponent>()
+                .isComponent2(Version.v2_legacyBackwardsCompat),
+            false);
+        expect(
+            getBoilerplateMembersFor(VersionOptions.v3)
+                .firstWhereType<BoilerplateComponent>()
+                .isComponent2(Version.v3_legacyDart2Only),
+            false);
+        expect(
+            getBoilerplateMembersFor(VersionOptions.v4)
+                .firstWhereType<BoilerplateComponent>()
+                .isComponent2(Version.v4_mixinBased),
+            true);
       });
 
       group('validate', () {
@@ -125,7 +140,6 @@ main() {
           collector = null;
         });
 
-
         group('does not throw when', () {
           group('the component is a', () {
             for (final version in boilerplateStrings.keys) {
@@ -134,7 +148,8 @@ main() {
                 final component = members.whereType<BoilerplateComponent>().first;
                 final componentVersion = resolveVersion(members).version;
                 file = SourceFile.fromString(boilerplateStrings[version]);
-                collector = ErrorCollector.callback(file, onError: validateCallback, onWarning: validateCallback);
+                collector = ErrorCollector.callback(file,
+                    onError: validateCallback, onWarning: validateCallback);
 
                 component.validate(componentVersion, collector);
                 expect(validateResults, isEmpty);
@@ -158,7 +173,8 @@ main() {
             final component = members.whereType<BoilerplateComponent>().first;
             final componentVersion = resolveVersion(members).version;
             file = SourceFile.fromString(boilerplateStrings[VersionOptions.v4]);
-            collector = ErrorCollector.callback(file, onError: validateCallback, onWarning: validateCallback);
+            collector = ErrorCollector.callback(file,
+                onError: validateCallback, onWarning: validateCallback);
 
             component.validate(componentVersion, collector);
             expect(validateResults.first, contains('Must extend UiComponent2, not UiComponent.'));
@@ -171,43 +187,38 @@ main() {
               'componentWillUpdate': 'Use getSnapshotBeforeUpdate instead.',
             };
 
-            const ['componentWillReceiveProps', 'componentWillMount', 'componentWillUpdate'].forEach((lifecycle) => {
-              test(lifecycle, () {
-                final string = getComponentWithDeprecatedLifecycle(lifecycle);
-                final members = parseAndReturnMembers(string);
-                final component = members.whereType<BoilerplateComponent>().first;
-                final componentVersion = resolveVersion(members).version;
-                file = SourceFile.fromString(string);
-                collector = ErrorCollector.callback(file, onError: validateCallback, onWarning: validateCallback);
+            const [
+              'componentWillReceiveProps',
+              'componentWillMount',
+              'componentWillUpdate'
+            ].forEach((lifecycle) => {
+                  test(lifecycle, () {
+                    final string = getComponentWithDeprecatedLifecycle(lifecycle);
+                    final members = parseAndReturnMembers(string);
+                    final component = members.whereType<BoilerplateComponent>().first;
+                    final componentVersion = resolveVersion(members).version;
+                    file = SourceFile.fromString(string);
+                    collector = ErrorCollector.callback(file,
+                        onError: validateCallback, onWarning: validateCallback);
 
-                component.validate(componentVersion, collector);
-                expect(validateResults.first, contains(legacyLifecycleMethodsMap[lifecycle]));
-              })
-            });
+                    component.validate(componentVersion, collector);
+                    expect(validateResults.first, contains(legacyLifecycleMethodsMap[lifecycle]));
+                  })
+                });
           });
         });
       });
     });
 
-    group('factory', () {
+    group('factory', () {});
 
-    });
+    group('BoilerplatePropsOrState', () {});
 
-    group('BoilerplatePropsOrState', () {
+    group('BoilerplatePropsOrStateMixin', () {});
 
-    });
+    group('BoilerplatePropsOrStateMixin', () {});
 
-    group('BoilerplatePropsOrStateMixin', () {
-
-    });
-
-    group('BoilerplatePropsOrStateMixin', () {
-
-    });
-
-    group('utils', () {
-
-    });
+    group('utils', () {});
   });
 }
 
@@ -278,7 +289,7 @@ const boilerplateStrings = {
 String getComponentWithDeprecatedLifecycle(String lifeCycleMethod) {
   String deprecatedMethod;
 
-  switch(lifeCycleMethod) {
+  switch (lifeCycleMethod) {
     case 'componentWillReceiveProps':
       deprecatedMethod = '''
       @override
@@ -301,7 +312,8 @@ String getComponentWithDeprecatedLifecycle(String lifeCycleMethod) {
       ''';
       break;
     default:
-      throw ArgumentError('lifecycleMethod should be componentWillReceiveProps, componentWillMount, or componentWillUpdate');
+      throw ArgumentError(
+          'lifecycleMethod should be componentWillReceiveProps, componentWillMount, or componentWillUpdate');
   }
 
   return '''
