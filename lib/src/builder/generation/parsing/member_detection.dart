@@ -5,7 +5,6 @@ import 'package:meta/meta.dart';
 import '../../util.dart';
 import 'ast_util.dart';
 import 'members.dart';
-import 'util.dart';
 import 'version.dart';
 
 class BoilerplateMemberDetector {
