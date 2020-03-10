@@ -1,13 +1,8 @@
 @TestOn('vm')
 import 'package:analyzer/dart/analysis/utilities.dart';
-import 'package:over_react/src/builder/generation/parsing/member_association.dart';
 import 'package:over_react/src/builder/generation/parsing.dart';
-import 'package:test/test.dart';
-import 'package:over_react/src/builder/generation/parsing.dart';
-import 'package:test/test.dart';
-import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:source_span/source_span.dart';
+import 'package:test/test.dart';
 
 main() {
   group('members -', () {
