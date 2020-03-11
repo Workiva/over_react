@@ -57,13 +57,14 @@ class ImplGenerator {
   void generate(Iterable<BoilerplateDeclaration> declarations) {
     for (var declaration in declarations) {
       if (declaration is LegacyClassComponentDeclaration) {
-        _generateUsing(LegacyComponentGenerator(declaration));
+        _generateUsing(ComponentFactoryGenerator.legacy(declaration));
         _generateUsing(LegacyPropsOrStateGenerator.props(declaration));
         _generateUsing(LegacyPropsOrStateImplGenerator.props(declaration));
         if (declaration.state != null) {
           _generateUsing(LegacyPropsOrStateGenerator.state(declaration));
           _generateUsing(LegacyPropsOrStateImplGenerator.state(declaration));
         }
+        _generateUsing(LegacyComponentGenerator(declaration));
       } else if (declaration is LegacyAbstractPropsDeclaration) {
         _generateUsing(LegacyPropsOrStateGenerator.abstractProps(declaration));
       } else if (declaration is LegacyAbstractStateDeclaration) {
@@ -73,11 +74,12 @@ class ImplGenerator {
       } else if (declaration is StateMixinDeclaration) {
         _generateUsing(MixinAccessorsGenerator.state(declaration));
       } else if (declaration is ClassComponentDeclaration) {
-        _generateUsing(ComponentGenerator(declaration));
+        _generateUsing(ComponentFactoryGenerator(declaration));
         _generateUsing(PropsOrStateImplGenerator.props(declaration));
         if (declaration.state != null) {
           _generateUsing(PropsOrStateImplGenerator.state(declaration));
         }
+        _generateUsing(ComponentGenerator(declaration));
       } else if (declaration is PropsMapViewDeclaration) {
         logger
             .severe('Codegen for new boilerplate (PropsMapViewDeclaration) is not yet implemented');

@@ -19,6 +19,7 @@ abstract class AccessorsImplGeneratorBase extends Generator {
   String get typeParamsOnClass => typeParameters?.toSource() ?? '';
   String get typeParamsOnSuper => removeBoundsFromTypeParameters(typeParameters);
 
+  @override
   void generate() {
     if (isProps) {
       _generateFactory();
@@ -137,7 +138,7 @@ abstract class AccessorsImplGeneratorBase extends Generator {
         ..writeln('    if (backingMap == null || backingMap is JsBackedMap) {')
         ..writeln('      return ${names.jsMapImplName}(backingMap);')
         ..writeln('    } else {')
-        ..writeln('      return ${names.jsMapImplName}(backingMap);')
+        ..writeln('      return ${names.plainMapImplName}(backingMap);')
         ..writeln('    }')
         ..writeln('  }');
     } else {
@@ -248,15 +249,15 @@ class LegacyPropsOrStateImplGenerator extends AccessorsImplGeneratorBase {
 
   @override
   void _generatePropsImpl() {
-    _generateConcretePropsOrStateImpl(
+    outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
       componentFactoryName: ComponentNames(component.component.name.name).componentFactoryName,
       propKeyNamespace: getAccessorKeyNamespace(names, member.meta),
-    );
+    ));
   }
 
   @override
   void _generateStateImpl() {
-    _generateConcretePropsOrStateImpl();
+    outputContentsBuffer.write(_generateConcretePropsOrStateImpl());
   }
 
   @override

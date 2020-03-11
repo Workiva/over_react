@@ -17,19 +17,13 @@ abstract class AccessorsClassGenerator extends Generator {
 
   AccessorNames get names;
 
+  String get accessorsMixinName;
+
   ClassOrMixinDeclaration get node => member.node as ClassOrMixinDeclaration;
 
   TypeParameterList get typeParameters => member.nodeHelper.typeParameters;
   String get typeParamsOnClass => typeParameters?.toSource() ?? '';
   String get typeParamsOnSuper => removeBoundsFromTypeParameters(typeParameters);
-
-  String get accessorsMixinName {
-    if (version.isLegacy) {
-      return names.consumerName.startsWith(privateSourcePrefix) ? names.publicName : names.legacyAccessorsMixinName;
-    } else {
-      return names.generatedMixinName;
-    }
-  }
 
   @override
   void generate();
@@ -318,6 +312,15 @@ class MixinAccessorsGenerator extends AccessorsClassGenerator {
         type = AccessorType.stateMixin;
 
   @override
+  String get accessorsMixinName {
+    if (version.isLegacy) {
+      return names.consumerName.startsWith(privateSourcePrefix) ? names.publicName : names.generatedMixinName;
+    } else {
+      return names.generatedMixinName;
+    }
+  }
+
+  @override
   void generate() {
      outputContentsBuffer
        ..write(_generateAccessorsMixin())
@@ -362,6 +365,14 @@ class LegacyPropsOrStateGenerator extends AccessorsClassGenerator {
         names = AccessorNames(consumerName: decl.state.name.name),
         version = decl.version,
         type = AccessorType.abstractState;
+
+  String get accessorsMixinName {
+    if (version.isLegacy) {
+      return names.legacyAccessorsMixinName;
+    } else {
+      return names.generatedMixinName;
+    }
+  }
 
   @override
   void generate() {
