@@ -280,7 +280,7 @@ main() {
           collector = null;
         });
 
-        group('does not throw when the factory is connect to', () {
+        group('does not throw for', () {
           for (final version in VersionOptions.values) {
             test(stringKey[version], () {
               final componentString = getBoilerplateStrings(version: version);
@@ -377,9 +377,297 @@ main() {
       });
     });
 
-    group('BoilerplatePropsOrState', () {});
+    group('BoilerplatePropsOrState', () {
+      ErrorCollector collector;
+      SourceFile file;
+      var validateResults = <String>[];
 
-    group('BoilerplatePropsOrStateMixin', () {});
+      void validateCallback(String message, [SourceSpan span]) {
+        validateResults.add(message);
+      }
+
+      tearDown(() {
+        validateResults = <String>[];
+        file = null;
+        collector = null;
+      });
+
+      group('validate', () {
+        group('does not throw for', () {
+          var classesDetected = 0;
+          // The number of classes in VersionOptions that would not have BoilerplatePropsOrState
+          // classes. This would be new boilerplate components that do not have have props or state
+          // class aliases.
+          const numberOfMixinBasedClasses = 2;
+
+          for (final version in VersionOptions.values) {
+            test(stringKey[version], () {
+              final boilerplateString = getBoilerplateStrings(version: version);
+              final members = parseAndReturnMembers(boilerplateString);
+              final propsOrStateClasses = members.whereType<BoilerplatePropsOrState>();
+
+              if (propsOrStateClasses.isNotEmpty) {
+                final propsOrStateClass = propsOrStateClasses.first;
+                file = SourceFile.fromString(boilerplateString);
+                collector = ErrorCollector.callback(file, onError: validateCallback);
+
+                propsOrStateClass.validate(resolveVersion(members).version, collector);
+
+                expect(validateResults.length, 0);
+                classesDetected++;
+              }
+            });
+          }
+
+          test('', () {
+            expect(classesDetected, VersionOptions.values.length - numberOfMixinBasedClasses);
+          });
+        });
+
+        group('throws when', () {
+          group('the props class is v4_mixinBased and', () {
+            test('the props name does not match the class name', () {
+              const boilerplateString = r'''
+                @Factory()
+                UiFactory<FooProps> Foo = _$Foo;
+
+                @Props()
+                class _$FooProps {}
+
+                @State()
+                class _$FooState {}
+
+                @Component2()
+                class FooComponent extends UiStatefulComponent2<FooProps, FooState>{}
+              ''';
+
+              file = SourceFile.fromString(boilerplateString);
+              collector = ErrorCollector.callback(file, onError: validateCallback);
+
+              final members = parseAndReturnMembers(boilerplateString);
+              final props = members.whereType<BoilerplateProps>().first;
+              final state = members.whereType<BoilerplateState>().first;
+
+              props.validate(Version.v4_mixinBased, collector);
+              expect(validateResults.length, 1);
+              expect(
+                  validateResults.first,
+                  contains(
+                      '${props.propsOrStateClassString} implementations must extend directly from ${props.propsOrStateBaseClassString}'));
+
+              validateResults = <String>[];
+              state.validate(Version.v4_mixinBased, collector);
+              expect(validateResults.length, 1);
+              expect(
+                  validateResults.first,
+                  contains(
+                      '${state.propsOrStateClassString} implementations must extend directly from ${state.propsOrStateBaseClassString}'));
+            });
+
+            test('is a class declaration with members', () {
+              const boilerplateString = r'''
+                @Factory()
+                UiFactory<FooProps> Foo = _$Foo;
+
+                @Props()
+                class _$FooProps extends UiProps {
+                  String barProps = 'baz';
+                }
+
+                @State()
+                class _$FooState extends UiState {
+                  String barState = 'baz';
+                }
+
+                @Component2()
+                class FooComponent extends UiStatefulComponent2<FooProps, FooState>{}
+              ''';
+
+              file = SourceFile.fromString(boilerplateString);
+              collector = ErrorCollector.callback(file, onError: validateCallback);
+
+              final members = parseAndReturnMembers(boilerplateString);
+              final props = members.whereType<BoilerplateProps>().first;
+              final state = members.whereType<BoilerplateState>().first;
+
+              props.validate(Version.v4_mixinBased, collector);
+              expect(validateResults.length, 1);
+              expect(
+                  validateResults.first,
+                  contains(
+                      '${props.propsOrStateClassString} implementations must not declare any ${props.propsOrStateFieldsName} or other members.'));
+
+              validateResults = <String>[];
+              state.validate(Version.v4_mixinBased, collector);
+              expect(validateResults.length, 1);
+              expect(
+                  validateResults.first,
+                  contains(
+                      '${state.propsOrStateClassString} implementations must not declare any ${state.propsOrStateFieldsName} or other members.'));
+            });
+
+            test('the class is abstract', () {
+              const boilerplateString = r'''
+                @AbstractProps()
+                abstract class _$AbstractFooProps extends UiProps {}
+                
+                @AbstractState()
+                abstract class _$AbstractFooState extends UiState {}
+                
+                @AbstractComponent() 
+                abstract class AbstractFooComponent {}
+              ''';
+
+              file = SourceFile.fromString(boilerplateString);
+              collector = ErrorCollector.callback(file, onError: validateCallback);
+
+              final members = parseAndReturnMembers(boilerplateString);
+              final props = members.whereType<BoilerplateProps>().first;
+              final state = members.whereType<BoilerplateState>().first;
+
+              props.validate(Version.v4_mixinBased, collector);
+              expect(validateResults.length, 1);
+              expect(
+                  validateResults.first,
+                  contains(
+                      '${props.propsOrStateClassString} implementations must not be abstract, as they cannot be extended.'));
+
+              validateResults = <String>[];
+              state.validate(Version.v4_mixinBased, collector);
+              expect(validateResults.length, 1);
+              expect(
+                  validateResults.first,
+                  contains(
+                      '${state.propsOrStateClassString} implementations must not be abstract, as they cannot be extended.'));
+            });
+          });
+
+          group('the props class is v2_legacyBackwordsCompat and', () {
+            test('the name is private source prefixed but has no companion', () {
+              const boilerplateString = r'''
+                @Factory()
+                UiFactory<FooProps> Foo = _$Foo;
+
+                @Props()
+                class _$FooProps {}
+
+                @State()
+                class _$FooState {}
+
+                @Component2()
+                class FooComponent extends UiStatefulComponent2<FooProps, FooState>{}
+              ''';
+
+              file = SourceFile.fromString(boilerplateString);
+              collector = ErrorCollector.callback(file, onError: validateCallback);
+
+              final members = parseAndReturnMembers(boilerplateString);
+              final props = members.whereType<BoilerplateProps>().first;
+              final state = members.whereType<BoilerplateState>().first;
+
+              props.validate(Version.v2_legacyBackwardsCompat, collector);
+              expect(validateResults.length, 1);
+              expect(validateResults.first, contains('Should have companion class'));
+
+              validateResults = <String>[];
+              state.validate(Version.v2_legacyBackwardsCompat, collector);
+              expect(validateResults.length, 1);
+              expect(validateResults.first, contains('Should have companion class'));
+            });
+          });
+
+          group('the props class is v2_legacyBackwordsCompat or v3_legacyDart2Only and', () {
+            test('the node is not a ClassOrMixinDeclaration', () {
+              const boilerplateString = r'''
+                @Factory()
+                UiFactory<FooProps> Foo = _$Foo;
+  
+                mixin FooPropsMixin on UiProps {}
+                
+                @Props()
+                class _$FooProps = UiProps with FooPropsMixin;
+      
+                mixin FooStateMixin on UiState {}
+                
+                @State()
+                class _$FooState = UiState with FooStateMixin;
+      
+                @Component2()
+                class FooComponent extends UiStatefulComponent2<FooProps, FooState>{}
+              ''';
+
+              file = SourceFile.fromString(boilerplateString);
+              collector = ErrorCollector.callback(file, onError: validateCallback);
+
+              final members = parseAndReturnMembers(boilerplateString);
+              final props = members.whereType<BoilerplateProps>().first;
+              final state = members.whereType<BoilerplateState>().first;
+              const errorMessage =
+                  'Legacy boilerplate must use classes or mixins, and not shorthand class declaration';
+
+              props.validate(Version.v2_legacyBackwardsCompat, collector);
+              expect(validateResults, contains(errorMessage));
+
+              validateResults = <String>[];
+              state.validate(Version.v2_legacyBackwardsCompat, collector);
+              expect(validateResults, contains(errorMessage));
+
+              validateResults = <String>[];
+              props.validate(Version.v3_legacyDart2Only, collector);
+              expect(validateResults, contains(errorMessage));
+
+              validateResults = <String>[];
+              state.validate(Version.v3_legacyDart2Only, collector);
+              expect(validateResults, contains(errorMessage));
+            });
+
+            test('the name does not start with a private prefix', () {
+              const boilerplateString = r'''
+                @Factory()
+                UiFactory<FooProps> Foo = _$Foo;
+  
+                mixin FooPropsMixin on UiProps {}
+                
+                @Props()
+                class FooProps = UiProps with FooPropsMixin;
+      
+                mixin FooStateMixin on UiState {}
+                
+                @State()
+                class FooState = UiState with FooStateMixin;
+      
+                @Component2()
+                class FooComponent extends UiStatefulComponent2<FooProps, FooState>{}
+              ''';
+
+              file = SourceFile.fromString(boilerplateString);
+              collector = ErrorCollector.callback(file, onError: validateCallback);
+
+              final members = parseAndReturnMembers(boilerplateString);
+              final props = members.whereType<BoilerplateProps>().first;
+              final state = members.whereType<BoilerplateState>().first;
+              final propsError = 'The class `${props.name.name}` does not start with `_\$`';
+              final stateError = 'The class `${state.name.name}` does not start with `_\$`';
+
+              props.validate(Version.v2_legacyBackwardsCompat, collector);
+              expect(validateResults, anyElement(contains(propsError)));
+
+              validateResults = <String>[];
+              state.validate(Version.v2_legacyBackwardsCompat, collector);
+              expect(validateResults, anyElement(contains(stateError)));
+
+              validateResults = <String>[];
+              props.validate(Version.v3_legacyDart2Only, collector);
+              expect(validateResults, anyElement(contains(propsError)));
+
+              validateResults = <String>[];
+              state.validate(Version.v3_legacyDart2Only, collector);
+              expect(validateResults, anyElement(contains(stateError)));
+            });
+          });
+        });
+      });
+    });
 
     group('BoilerplatePropsOrStateMixin', () {});
 
