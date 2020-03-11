@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-
 import '../../util.dart';
 
 class ComponentNames {
@@ -32,19 +30,19 @@ class ComponentNames {
   String get implName => '$_prefix$privateSourcePrefix$_componentName';
 }
 
-class AccessorNames {
+class TypedMapNames {
   final String _prefix;
   final String _consumerName;
 
-  AccessorNames._(this._prefix, this._consumerName);
+  TypedMapNames._(this._prefix, this._consumerName);
 
-  factory AccessorNames({@required String consumerName})  {
+  factory TypedMapNames(String consumerName)  {
     final parts = consumerName.split('.');
     if (parts.length == 1) {
-      return AccessorNames._('', consumerName);
+      return TypedMapNames._('', consumerName);
     }
 
-    return AccessorNames._('${parts[0]}.', parts.skip(1).join('.'));
+    return TypedMapNames._('${parts[0]}.', parts.skip(1).join('.'));
   }
 
   String get _normalizedName => _consumerName.replaceFirst(privateSourcePrefix, '');

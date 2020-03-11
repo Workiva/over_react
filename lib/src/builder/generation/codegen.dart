@@ -14,11 +14,12 @@
 
 // ignore_for_file: deprecated_member_use_from_same_package
 import 'package:logging/logging.dart';
-import 'package:over_react/src/builder/generation/codegen/accessors_class_generator.dart';
-import 'package:over_react/src/builder/generation/codegen/accessors_impl_generator.dart';
+import 'package:over_react/src/builder/generation/codegen/accessors_generator.dart';
+import 'package:over_react/src/builder/generation/codegen/typed_map_impl_generator.dart';
 import 'package:over_react/src/builder/generation/codegen/component_generator.dart';
 import 'package:source_span/source_span.dart';
 
+import 'codegen/component_factory_generator.dart';
 import 'codegen/util.dart';
 import 'parsing.dart';
 
@@ -56,41 +57,39 @@ class ImplGenerator {
 
   void generate(Iterable<BoilerplateDeclaration> declarations) {
     for (var declaration in declarations) {
-      if (declaration is LegacyClassComponentDeclaration) {
-        _generateUsing(ComponentFactoryGenerator.legacy(declaration));
-        _generateUsing(LegacyPropsOrStateGenerator.props(declaration));
-        _generateUsing(LegacyPropsOrStateImplGenerator.props(declaration));
-        if (declaration.state != null) {
-          _generateUsing(LegacyPropsOrStateGenerator.state(declaration));
-          _generateUsing(LegacyPropsOrStateImplGenerator.state(declaration));
-        }
-        _generateUsing(LegacyComponentGenerator(declaration));
-      } else if (declaration is LegacyAbstractPropsDeclaration) {
-        _generateUsing(LegacyPropsOrStateGenerator.abstractProps(declaration));
-      } else if (declaration is LegacyAbstractStateDeclaration) {
-        _generateUsing(LegacyPropsOrStateGenerator.abstractState(declaration));
-      } else if (declaration is PropsMixinDeclaration) {
-        _generateUsing(MixinAccessorsGenerator.props(declaration));
-      } else if (declaration is StateMixinDeclaration) {
-        _generateUsing(MixinAccessorsGenerator.state(declaration));
-      } else if (declaration is ClassComponentDeclaration) {
-        _generateUsing(ComponentFactoryGenerator(declaration));
-        _generateUsing(PropsOrStateImplGenerator.props(declaration));
-        if (declaration.state != null) {
-          _generateUsing(PropsOrStateImplGenerator.state(declaration));
-        }
-        _generateUsing(ComponentGenerator(declaration));
-      } else if (declaration is PropsMapViewDeclaration) {
-        logger
-            .severe('Codegen for new boilerplate (PropsMapViewDeclaration) is not yet implemented');
-      } else if (declaration is FunctionComponentDeclaration) {
-        logger.severe('Codegen for new boilerplate is not yet implemented $declaration');
-      } else {
-        throw StateError('Unhandled declaration type: $declaration');
+      switch (declaration.type) {
+        case DeclarationType.functionComponentDeclaration:
+          _generateFunctionComponent(declaration);
+          break;
+        case DeclarationType.classComponentDeclaration:
+          _generateClassComponent(declaration);
+          break;
+        case DeclarationType.legacyClassComponentDeclaration:
+          _generateLegacyClassComponent(declaration);
+          break;
+        case DeclarationType.legacyAbstractPropsDeclaration:
+          _generateLegacyAbstractProps(declaration);
+          break;
+        case DeclarationType.legacyAbstractStateDeclaration:
+          _generateLegacyAbstractState(declaration);
+          break;
+        case DeclarationType.propsMixinDeclaration:
+          _generatePropsMixin(declaration);
+          break;
+        case DeclarationType.stateMixinDeclaration:
+          _generateStateMixin(declaration);
+          break;
+        case DeclarationType.propsMapViewDeclaration:
+          _generatePropsMapView(declaration);
+          break;
+        default:
+          throw ArgumentError('Unhandled declaration type: $declaration');
       }
     }
   }
 
+  /// Injects context variables like the output buffer into [generator], generates code,
+  /// and then uninjects them.
   void _generateUsing(Generator generator) {
     generator
       ..sourceFile = sourceFile
@@ -100,5 +99,49 @@ class ImplGenerator {
       ..sourceFile = null
       ..outputContentsBuffer = null
       ..logger = null;
+  }
+
+  void _generateLegacyClassComponent(LegacyClassComponentDeclaration declaration) {
+    _generateUsing(ComponentFactoryGenerator.legacy(declaration));
+    _generateUsing(TypedMapAccessorsGenerator.legacyProps(declaration));
+    _generateUsing(TypedMapImplGenerator.legacyProps(declaration));
+    if (declaration.state != null) {
+      _generateUsing(TypedMapAccessorsGenerator.legacyState(declaration));
+      _generateUsing(TypedMapImplGenerator.legacyState(declaration));
+    }
+    _generateUsing(ComponentGenerator.legacy(declaration));
+  }
+
+  void _generateLegacyAbstractProps(LegacyAbstractPropsDeclaration declaration) {
+    _generateUsing(TypedMapAccessorsGenerator.legacyAbstractProps(declaration));
+  }
+
+  void _generateLegacyAbstractState(LegacyAbstractStateDeclaration declaration) {
+    _generateUsing(TypedMapAccessorsGenerator.legacyAbstractState(declaration));
+  }
+
+  void _generatePropsMixin(PropsMixinDeclaration declaration) {
+    _generateUsing(TypedMapAccessorsGenerator.propsMixin(declaration));
+  }
+
+  void _generateStateMixin(StateMixinDeclaration declaration) {
+    _generateUsing(TypedMapAccessorsGenerator.stateMixin(declaration));
+  }
+
+  void _generateClassComponent(ClassComponentDeclaration declaration) {
+    _generateUsing(ComponentFactoryGenerator(declaration));
+    _generateUsing(TypedMapImplGenerator.props(declaration));
+    if (declaration.state != null) {
+      _generateUsing(TypedMapImplGenerator.state(declaration));
+    }
+    _generateUsing(ComponentGenerator(declaration));
+  }
+
+  void _generatePropsMapView(PropsMapViewDeclaration declaration) {
+    logger.severe('Codegen for new boilerplate (PropsMapViewDeclaration) is not yet implemented');
+  }
+
+  void _generateFunctionComponent(FunctionComponentDeclaration declaration) {
+    logger.severe('Codegen for new boilerplate is not yet implemented $declaration');
   }
 }

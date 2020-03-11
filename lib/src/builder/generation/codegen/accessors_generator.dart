@@ -8,14 +8,37 @@ import '../parsing.dart';
 import 'names.dart';
 import 'util.dart';
 
-abstract class AccessorsClassGenerator extends Generator {
+abstract class TypedMapAccessorsGenerator extends Generator {
+  TypedMapAccessorsGenerator();
+
+  // Provide factory constructors since they make invocations easier to read and tell apart
+  // than all of the different subclasses.
+
+  factory TypedMapAccessorsGenerator.propsMixin(PropsMixinDeclaration decl) =
+      _TypedMapMixinAccessorsGenerator.props;
+
+  factory TypedMapAccessorsGenerator.stateMixin(StateMixinDeclaration decl) =
+      _TypedMapMixinAccessorsGenerator.state;
+
+  factory TypedMapAccessorsGenerator.legacyProps(LegacyClassComponentDeclaration decl) =
+      _LegacyTypedMapAccessorsGenerator.props;
+
+  factory TypedMapAccessorsGenerator.legacyState(LegacyClassComponentDeclaration decl) =
+      _LegacyTypedMapAccessorsGenerator.state;
+
+  factory TypedMapAccessorsGenerator.legacyAbstractProps(LegacyAbstractPropsDeclaration decl) =
+      _LegacyTypedMapAccessorsGenerator.abstractProps;
+
+  factory TypedMapAccessorsGenerator.legacyAbstractState(LegacyAbstractStateDeclaration decl) =
+      _LegacyTypedMapAccessorsGenerator.abstractState;
+
   AccessorType get type;
 
   Version get version;
 
   BoilerplateAccessorsMember get member;
 
-  AccessorNames get names;
+  TypedMapNames get names;
 
   String get accessorsMixinName;
 
@@ -286,14 +309,12 @@ abstract class AccessorsClassGenerator extends Generator {
   }
 }
 
-
-
-class MixinAccessorsGenerator extends AccessorsClassGenerator {
+class _TypedMapMixinAccessorsGenerator extends TypedMapAccessorsGenerator {
   @override
   final BoilerplatePropsOrStateMixin member;
 
   @override
-  final AccessorNames names;
+  final TypedMapNames names;
 
   @override
   final AccessorType type;
@@ -301,15 +322,15 @@ class MixinAccessorsGenerator extends AccessorsClassGenerator {
   @override
   final Version version;
 
-  MixinAccessorsGenerator.props(PropsMixinDeclaration decl)
+  _TypedMapMixinAccessorsGenerator.props(PropsMixinDeclaration decl)
       : member = decl.mixin,
-        names = AccessorNames(consumerName: decl.mixin.name.name),
+        names = TypedMapNames(decl.mixin.name.name),
         version = decl.version,
         type = AccessorType.propsMixin;
 
-  MixinAccessorsGenerator.state(StateMixinDeclaration decl)
+  _TypedMapMixinAccessorsGenerator.state(StateMixinDeclaration decl)
       : member = decl.mixin,
-        names = AccessorNames(consumerName: decl.mixin.name.name),
+        names = TypedMapNames(decl.mixin.name.name),
         version = decl.version,
         type = AccessorType.stateMixin;
 
@@ -330,12 +351,12 @@ class MixinAccessorsGenerator extends AccessorsClassGenerator {
   }
 }
 
-class LegacyPropsOrStateGenerator extends AccessorsClassGenerator {
+class _LegacyTypedMapAccessorsGenerator extends TypedMapAccessorsGenerator {
   @override
   final BoilerplatePropsOrState member;
 
   @override
-  final AccessorNames names;
+  final TypedMapNames names;
 
   @override
   final AccessorType type;
@@ -343,28 +364,27 @@ class LegacyPropsOrStateGenerator extends AccessorsClassGenerator {
   @override
   final Version version;
 
-  LegacyPropsOrStateGenerator.props(LegacyClassComponentDeclaration decl)
+  _LegacyTypedMapAccessorsGenerator.props(LegacyClassComponentDeclaration decl)
       : member = decl.props,
-        names = AccessorNames(consumerName: decl.props.name.name),
+        names = TypedMapNames(decl.props.name.name),
         version = decl.version,
         type = AccessorType.props;
 
-  LegacyPropsOrStateGenerator.state(LegacyClassComponentDeclaration decl)
+  _LegacyTypedMapAccessorsGenerator.state(LegacyClassComponentDeclaration decl)
       : member = decl.state,
-        names = AccessorNames(consumerName: decl.state.name.name),
+        names = TypedMapNames(decl.state.name.name),
         version = decl.version,
         type = AccessorType.state;
 
-
-  LegacyPropsOrStateGenerator.abstractProps(LegacyAbstractPropsDeclaration decl)
+  _LegacyTypedMapAccessorsGenerator.abstractProps(LegacyAbstractPropsDeclaration decl)
       : member = decl.props,
-        names = AccessorNames(consumerName: decl.props.name.name),
+        names = TypedMapNames(decl.props.name.name),
         version = decl.version,
         type = AccessorType.abstractProps;
 
-  LegacyPropsOrStateGenerator.abstractState(LegacyAbstractStateDeclaration decl)
+  _LegacyTypedMapAccessorsGenerator.abstractState(LegacyAbstractStateDeclaration decl)
       : member = decl.state,
-        names = AccessorNames(consumerName: decl.state.name.name),
+        names = TypedMapNames(decl.state.name.name),
         version = decl.version,
         type = AccessorType.abstractState;
 

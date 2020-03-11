@@ -1,7 +1,6 @@
-
 import 'package:logging/logging.dart';
-import 'package:source_span/source_span.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
+import 'package:source_span/source_span.dart';
 
 import 'names.dart';
 
@@ -30,7 +29,7 @@ abstract class Generator {
 }
 
 
-String getAccessorKeyNamespace(AccessorNames names, annotations.TypedMap meta) {
+String getAccessorKeyNamespace(TypedMapNames names, annotations.TypedMap meta) {
   // Default to the name of the class followed by a period.
   final defaultNamespace = '${names.publicName}.';
   // Allow the consumer to specify a custom namespace that trumps the default.

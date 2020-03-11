@@ -7,8 +7,25 @@ import '../parsing.dart';
 import 'names.dart';
 import 'util.dart';
 
-abstract class AccessorsImplGeneratorBase extends Generator {
-  AccessorNames get names;
+abstract class TypedMapImplGenerator extends Generator {
+  TypedMapImplGenerator();
+
+  // Provide factory constructors since they make invocations easier to read and tell apart
+  // than all of the different subclasses.
+
+  factory TypedMapImplGenerator.legacyProps(LegacyClassComponentDeclaration declaration) =
+      _LegacyTypedMapImplGenerator.props;
+
+  factory TypedMapImplGenerator.legacyState(LegacyClassComponentDeclaration declaration) =
+      _LegacyTypedMapImplGenerator.state;
+
+  factory TypedMapImplGenerator.props(ClassComponentDeclaration declaration) =
+      _TypedMapImplGenerator.props;
+
+  factory TypedMapImplGenerator.state(ClassComponentDeclaration declaration) =
+      _TypedMapImplGenerator.state;
+
+  TypedMapNames get names;
   bool get isComponent2;
   String get factoryName;
   bool get isProps;
@@ -219,38 +236,38 @@ abstract class AccessorsImplGeneratorBase extends Generator {
   }
 }
 
-class LegacyPropsOrStateImplGenerator extends AccessorsImplGeneratorBase {
+class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
   @override
-  final AccessorNames names;
+  final TypedMapNames names;
 
   @override
   final bool isProps;
 
-  final LegacyClassComponentDeclaration component;
+  final LegacyClassComponentDeclaration declaration;
 
   @override
   final BoilerplatePropsOrState member;
 
-  LegacyPropsOrStateImplGenerator.props(this.component)
-      : names = AccessorNames(consumerName: component.props.name.name),
-        member = component.props,
+  _LegacyTypedMapImplGenerator.props(this.declaration)
+      : names = TypedMapNames(declaration.props.name.name),
+        member = declaration.props,
         isProps = true;
 
-  LegacyPropsOrStateImplGenerator.state(this.component)
-      : names = AccessorNames(consumerName: component.state.name.name),
-        member = component.state,
+  _LegacyTypedMapImplGenerator.state(this.declaration)
+      : names = TypedMapNames(declaration.state.name.name),
+        member = declaration.state,
         isProps = false;
 
   @override
-  bool get isComponent2 => component.isComponent2;
+  bool get isComponent2 => declaration.isComponent2;
 
   @override
-  String get factoryName => component.factory.name.name;
+  String get factoryName => declaration.factory.name.name;
 
   @override
   void _generatePropsImpl() {
     outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
-      componentFactoryName: ComponentNames(component.component.name.name).componentFactoryName,
+      componentFactoryName: ComponentNames(declaration.component.name.name).componentFactoryName,
       propKeyNamespace: getAccessorKeyNamespace(names, member.meta),
     ));
   }
@@ -271,38 +288,38 @@ class LegacyPropsOrStateImplGenerator extends AccessorsImplGeneratorBase {
   }
 }
 
-class PropsOrStateImplGenerator extends AccessorsImplGeneratorBase {
+class _TypedMapImplGenerator extends TypedMapImplGenerator {
   @override
-  final AccessorNames names;
+  final TypedMapNames names;
 
   @override
   final bool isProps;
 
-  final ClassComponentDeclaration component;
+  final ClassComponentDeclaration declaration;
 
   @override
   final BoilerplateAccessorsMember member;
 
-  PropsOrStateImplGenerator.props(this.component)
-      : names = AccessorNames(consumerName: component.props.either.name.name),
-        member = component.props.either,
+  _TypedMapImplGenerator.props(this.declaration)
+      : names = TypedMapNames(declaration.props.either.name.name),
+        member = declaration.props.either,
         isProps = true;
 
-  PropsOrStateImplGenerator.state(this.component)
-      : names = AccessorNames(consumerName: component.state.either.name.name),
-        member = component.state.either,
+  _TypedMapImplGenerator.state(this.declaration)
+      : names = TypedMapNames(declaration.state.either.name.name),
+        member = declaration.state.either,
         isProps = false;
 
   @override
   bool get isComponent2 => true;
 
   @override
-  String get factoryName => component.factory.name.name;
+  String get factoryName => declaration.factory.name.name;
 
   @override
   void _generatePropsImpl() {
     outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
-      componentFactoryName: ComponentNames(component.component.name.name).componentFactoryName,
+      componentFactoryName: ComponentNames(declaration.component.name.name).componentFactoryName,
       // This doesn't really apply to the new boilerplate
       propKeyNamespace: '',
     ));
@@ -328,7 +345,7 @@ class PropsOrStateImplGenerator extends AccessorsImplGeneratorBase {
       if (mixins.isNotEmpty) {
         header.write(' with ');
         header.writeAll(
-            mixins.map((m) => AccessorNames(consumerName: m.name.name).generatedMixinName), ', ');
+            mixins.map((m) => TypedMapNames(m.name.name).generatedMixinName), ', ');
       }
 
       return header.toString();
