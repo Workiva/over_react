@@ -1,5 +1,6 @@
 @TestOn('vm')
 import 'package:analyzer/dart/analysis/utilities.dart';
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/src/builder/generation/parsing.dart';
 import 'package:source_span/source_span.dart';
@@ -834,9 +835,230 @@ main() {
     });
 
     group('utils', () {
-      group('checkForMetaPresence', () {});
+      ErrorCollector collector;
+      SourceFile file;
+      var errorList = <String>[];
+      var warnList = <String>[];
 
-      group('validateMetaField', () {});
+      void onErrorCallback(String message, [SourceSpan span]) {
+        errorList.add(message);
+      }
+
+      void onWarnCallback(String message, [SourceSpan span]) {
+        warnList.add(message);
+      }
+
+      tearDown(() {
+        errorList = <String>[];
+        warnList = <String>[];
+        file = null;
+        collector = null;
+      });
+
+      group('checkForMetaPresence', () {
+        group('does not throw an error when', () {
+          test('there is no meta field', () {
+            const boilerplateString = r'''
+                  @Factory()
+                  UiFactory<FooProps> Foo = _$Foo;
+  
+                  @Props()
+                  mixin FooProps on UiProps {}
+  
+                  @State()
+                  mixin FooState on UiState {}
+  
+                  @Component2()
+                  class FooComponent extends UiStatefulComponent2<FooProps, FooState>{}
+                ''';
+
+            file = SourceFile.fromString(boilerplateString);
+            collector =
+                ErrorCollector.callback(file, onError: onErrorCallback, onWarning: onWarnCallback);
+
+            final members = parseAndReturnMembers(boilerplateString);
+            final props = members.whereType<BoilerplatePropsMixin>().first;
+
+            checkForMetaPresence(props.node, collector);
+            expect(errorList.length, 0);
+            expect(warnList.length, 0);
+          });
+        });
+
+        group('warns when', () {
+          test('the meta field is static', () {
+            const boilerplateString = r'''
+                  @Factory()
+                  UiFactory<FooProps> Foo = _$Foo;
+  
+                  @Props()
+                  mixin FooProps on UiProps {
+                    static const String meta = 'string';
+                  }
+  
+                  @State()
+                  mixin FooState on UiState {}
+  
+                  @Component2()
+                  class FooComponent extends UiStatefulComponent2<FooProps, FooState>{}
+                ''';
+
+            file = SourceFile.fromString(boilerplateString);
+            collector =
+                ErrorCollector.callback(file, onError: onErrorCallback, onWarning: onWarnCallback);
+
+            final members = parseAndReturnMembers(boilerplateString);
+            final props = members.whereType<BoilerplatePropsMixin>().first;
+
+            checkForMetaPresence(props.node, collector);
+            expect(errorList.length, 0);
+            expect(warnList.length, 1);
+            expect(
+                warnList,
+                contains(
+                    stringContainsInOrder(['Static class member `meta` is declared in FooProps'])));
+          });
+        });
+
+        group('throws an errors when', () {
+          test('meta is present', () {
+            const boilerplateString = r'''
+                  @Factory()
+                  UiFactory<FooProps> Foo = _$Foo;
+  
+                  @Props()
+                  mixin FooProps on UiProps {
+                    String meta;
+                  }
+  
+                  @State()
+                  mixin FooState on UiState {}
+  
+                  @Component2()
+                  class FooComponent extends UiStatefulComponent2<FooProps, FooState>{}
+                ''';
+
+            file = SourceFile.fromString(boilerplateString);
+            collector =
+                ErrorCollector.callback(file, onError: onErrorCallback, onWarning: onWarnCallback);
+
+            final members = parseAndReturnMembers(boilerplateString);
+            final props = members.whereType<BoilerplatePropsMixin>().first;
+
+            checkForMetaPresence(props.node, collector);
+            expect(errorList.length, 1);
+            expect(warnList.length, 0);
+            expect(
+                errorList,
+                contains(stringContainsInOrder(
+                    ['Non-static class member `meta` is declared in FooProps'])));
+          });
+        });
+      });
+
+      group('validateMetaField', () {
+        group('throws an errors when', () {
+          test('the companion has the wrong meta type', () {
+            const boilerplateString = r'''
+                  @Factory()
+                  UiFactory<FooProps> Foo = _$Foo;
+                  
+                  @Component() 
+                  class FooComponent {}
+                  
+                  @Props()
+                  class _$FooProps {}
+                  
+                  class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
+                  
+                    static const StateMeta meta = _$metaForFooProps;
+                  }
+                  
+                  @State()
+                  class _$FooState {}
+                  
+                  class FooState extends _$FooState with _$FooStateAccessorsMixin {
+                  
+                    static const PropsMeta meta = _$metaForFooState;
+                  }
+                ''';
+
+            file = SourceFile.fromString(boilerplateString);
+            collector =
+                ErrorCollector.callback(file, onError: onErrorCallback, onWarning: onWarnCallback);
+
+            final members = parseAndReturnMembers(boilerplateString);
+            final props = members.whereType<BoilerplateProps>().first;
+            final state = members.whereType<BoilerplateState>().first;
+
+            validateMetaField(props.companion, 'PropsMeta', collector);
+            expect(errorList.length, 1);
+            expect(
+                errorList,
+                contains(stringContainsInOrder(
+                    ['Static meta field in accessor class must be of type `PropsMeta`'])));
+
+            errorList = <String>[];
+            validateMetaField(state.companion, 'StateMeta', collector);
+            expect(errorList.length, 1);
+            expect(
+                errorList,
+                contains(stringContainsInOrder(
+                    ['Static meta field in accessor class must be of type `StateMeta`'])));
+          });
+
+          test('the initializer is incorrect', () {
+            const boilerplateString = r'''
+                  @Factory()
+                  UiFactory<FooProps> Foo = _$Foo;
+                  
+                  @Component() 
+                  class FooComponent {}
+                  
+                  @Props()
+                  class _$FooProps {}
+                  
+                  class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
+                  
+                    static const PropsMeta meta = _$metaForAPizza;
+                  }
+                  
+                  @State()
+                  class _$FooState {}
+                  
+                  class FooState extends _$FooState with _$FooStateAccessorsMixin {
+                  
+                    static const StateMeta meta = _$metaForAFlatbread;
+                  }
+                ''';
+
+            file = SourceFile.fromString(boilerplateString);
+            collector =
+                ErrorCollector.callback(file, onError: onErrorCallback, onWarning: onWarnCallback);
+
+            final members = parseAndReturnMembers(boilerplateString);
+            final props = members.whereType<BoilerplateProps>().first;
+            final state = members.whereType<BoilerplateState>().first;
+
+            validateMetaField(props.companion, 'PropsMeta', collector);
+            expect(errorList.length, 1);
+            expect(
+                errorList,
+                contains(stringContainsInOrder([
+                  'Static PropsMeta field in accessor class must be initialized to:`_\$metaForFooProps`'
+                ])));
+
+            errorList = <String>[];
+            validateMetaField(state.companion, 'StateMeta', collector);
+            expect(errorList.length, 1);
+            expect(
+                errorList,
+                contains(stringContainsInOrder([
+                  'Static StateMeta field in accessor class must be initialized to:`_\$metaForFooState`'
+                ])));
+          });
+        });
+      });
     });
   });
 }
