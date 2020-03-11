@@ -669,9 +669,175 @@ main() {
       });
     });
 
-    group('BoilerplatePropsOrStateMixin', () {});
+    group('BoilerplatePropsOrStateMixin', () {
+      ErrorCollector collector;
+      SourceFile file;
+      var validateResults = <String>[];
 
-    group('utils', () {});
+      void validateCallback(String message, [SourceSpan span]) {
+        validateResults.add(message);
+      }
+
+      tearDown(() {
+        validateResults = <String>[];
+        file = null;
+        collector = null;
+      });
+
+      group('validate', () {
+        group('does not throw for', () {
+          var classesDetected = 0;
+          // The number of classes in VersionOptions that are mixin based. This
+          // includes those that have class aliases.
+          const numberOfMixinBasedClasses = 4;
+
+          for (final version in VersionOptions.values) {
+            test(stringKey[version], () {
+              final boilerplateString = getBoilerplateStrings(version: version);
+              final members = parseAndReturnMembers(boilerplateString);
+              final propsOrStateMixins = members.whereType<BoilerplatePropsOrStateMixin>();
+
+              if (propsOrStateMixins.isNotEmpty) {
+                final propsOrStateClass = propsOrStateMixins.first;
+                file = SourceFile.fromString(boilerplateString);
+                collector = ErrorCollector.callback(file, onError: validateCallback);
+
+                propsOrStateClass.validate(resolveVersion(members).version, collector);
+
+                expect(validateResults.length, 0);
+                classesDetected++;
+              }
+            });
+          }
+
+          test('', () {
+            expect(classesDetected, numberOfMixinBasedClasses);
+          });
+        });
+
+        group('throws when', () {
+          group('the version is v4_mixinBased', () {
+//              test('and the props classes are not `on` the corresponding superclass', () {
+//                const boilerplateString = r'''
+//                  UiFactory<FooProps> Foo = _$Foo;
+//
+//                  mixin FooPropsMixin on UiProps {}
+//
+//                  class FooProps = UiProps with FooPropsMixin;
+//
+//                  mixin FooStateMixin on UiState {}
+//
+//                  class FooState = UiState with FooStateMixin;
+//
+//                  class FooComponent extends UiStatefulComponent2<FooProps, FooState>{}
+//                ''';
+//
+//                file = SourceFile.fromString(boilerplateString);
+//                collector = ErrorCollector.callback(file, onError: validateCallback);
+//
+//                final members = parseAndReturnMembers(boilerplateString);
+//                final props = members.whereType<BoilerplatePropsMixin>().first;
+//                final state = members.whereType<BoilerplateStateMixin>().first;
+//
+//                props.validate(Version.v4_mixinBased, collector);
+//                expect(validateResults.length, 1);
+//                expect(validateResults, contains('UiProps mixins must be `on UiProps`'));
+//
+//                validateResults = <String>[];
+//                state.validate(Version.v4_mixinBased, collector);
+//                expect(validateResults.length, 1);
+//                expect(validateResults, contains('UiState mixins must be `on UiState`'));
+//              });
+
+            test('and the props or state classes are not mixins', () {
+              const boilerplateString = r'''
+                  @Factory()
+                  UiFactory<FooProps> Foo = _$Foo;
+  
+                  @PropsMixin()
+                  class _$FooPropsMixin extends UiProps {}
+  
+                  @StateMixin()
+                  class _$FooStateMixin extends UiState {}
+  
+                  @Component2()
+                  class FooComponent extends UiStatefulComponent2<FooProps, FooState>{}
+                ''';
+
+              file = SourceFile.fromString(boilerplateString);
+              collector = ErrorCollector.callback(file, onError: validateCallback);
+
+              final members = parseAndReturnMembers(boilerplateString);
+              final props = members.whereType<BoilerplatePropsMixin>().first;
+              final state = members.whereType<BoilerplateStateMixin>().first;
+
+              props.validate(Version.v4_mixinBased, collector);
+              expect(validateResults.length, 1);
+              expect(validateResults, contains('props mixins must be mixins'));
+
+              validateResults = <String>[];
+              state.validate(Version.v4_mixinBased, collector);
+              expect(validateResults.length, 1);
+              expect(validateResults, contains('state mixins must be mixins'));
+            });
+          });
+
+          group('the version is v2_legacyBackwardsCompat or v3_legacyDart2Only', () {
+            test('and the props or state classes have the mixin annotation', () {
+              const boilerplateString = r'''
+                  @Factory()
+                  UiFactory<FooProps> Foo = _$Foo;
+  
+                  @Props()
+                  mixin FooProps on UiProps {}
+  
+                  @State()
+                  mixin FooState on UiState {}
+  
+                  @Component2()
+                  class FooComponent extends UiStatefulComponent2<FooProps, FooState>{}
+                ''';
+
+              file = SourceFile.fromString(boilerplateString);
+              collector = ErrorCollector.callback(file, onError: validateCallback);
+
+              final members = parseAndReturnMembers(boilerplateString);
+              final props = members.whereType<BoilerplatePropsMixin>().first;
+              final state = members.whereType<BoilerplateStateMixin>().first;
+              const propsError =
+                  'Legacy boilerplate Props mixins must be annotated with `@PropsMixin()`';
+              const stateError =
+                  'Legacy boilerplate State mixins must be annotated with `@StateMixin()`';
+
+              props.validate(Version.v2_legacyBackwardsCompat, collector);
+              expect(validateResults.length, 1);
+              expect(validateResults, contains(propsError));
+
+              validateResults = <String>[];
+              state.validate(Version.v2_legacyBackwardsCompat, collector);
+              expect(validateResults.length, 1);
+              expect(validateResults, contains(stateError));
+
+              validateResults = <String>[];
+              props.validate(Version.v3_legacyDart2Only, collector);
+              expect(validateResults.length, 1);
+              expect(validateResults, contains(propsError));
+
+              validateResults = <String>[];
+              state.validate(Version.v3_legacyDart2Only, collector);
+              expect(validateResults.length, 1);
+              expect(validateResults, contains(stateError));
+            });
+          });
+        });
+      });
+    });
+
+    group('utils', () {
+      group('checkForMetaPresence', () {});
+
+      group('validateMetaField', () {});
+    });
   });
 }
 
