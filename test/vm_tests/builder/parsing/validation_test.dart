@@ -1,6 +1,6 @@
 @TestOn('vm')
-import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:mockito/mockito.dart';
 import 'package:over_react/src/builder/generation/parsing.dart';
 import 'package:source_span/source_span.dart';

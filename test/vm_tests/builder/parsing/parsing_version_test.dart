@@ -3,7 +3,7 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:over_react/src/builder/generation/parsing.dart';
 import 'package:test/test.dart';
 
-import '../util.dart';
+import 'parsing_helpers.dart';
 
 main() {
   group('Version (Parsing)', () {

@@ -4,7 +4,7 @@ import 'package:over_react/src/builder/generation/parsing/member_association.dar
 import 'package:over_react/src/builder/generation/parsing.dart';
 import 'package:test/test.dart';
 
-import '../util.dart';
+import 'parsing_helpers.dart';
 
 main() {
   group('Member Association', () {
