@@ -328,18 +328,7 @@ class PropsOrStateImplGenerator extends AccessorsImplGeneratorBase {
       if (mixins.isNotEmpty) {
         header.write(' with ');
         header.writeAll(
-            mixins.map((m) {
-              final fullName = m.name;
-              String name, prefix;
-              if (fullName is PrefixedIdentifier) {
-                prefix = '${fullName.prefix.name}.';
-                name = fullName.identifier.name;
-              } else {
-                prefix = '';
-                name = fullName.name;
-              }
-              return '$prefix${AccessorNames(consumerName: name).generatedMixinName}';
-            }), ', ');
+            mixins.map((m) => AccessorNames(consumerName: m.name.name).generatedMixinName), ', ');
       }
 
       return header.toString();

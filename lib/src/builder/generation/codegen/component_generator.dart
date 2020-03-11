@@ -42,16 +42,8 @@ class ComponentFactoryGenerator extends Generator {
     if (parentType != null) {
       parentTypeParamComment = ' /* from `subtypeOf: ${getSpan(sourceFile, parentType).text}` */';
 
-      if (parentType is PrefixedIdentifier) {
-        final prefix = parentType.prefix.name;
-        final parentNames = ComponentNames(parentType.identifier.name);
-
-        parentTypeParam = prefix + '.' + parentNames.componentFactoryName;
-      } else {
-        final parentNames = ComponentNames(parentType.name);
-
-        parentTypeParam = parentNames.componentFactoryName;
-      }
+      final parentNames = ComponentNames(parentType.name);
+      parentTypeParam = parentNames.componentFactoryName;
     }
 
     if (parentTypeParam == componentNames.componentFactoryName) {
