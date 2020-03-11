@@ -23,6 +23,3 @@ class BasicComponent extends UiComponent2<BasicProps> {
     );
   }
 }
-
-// fixme
-const _$metaForBasicProps = PropsMeta(fields: [], keys: []);

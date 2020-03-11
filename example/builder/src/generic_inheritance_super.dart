@@ -35,7 +35,3 @@ class GenericSuperComponent<T extends GenericSuperPropsMixin, V extends GenericS
     );
   }
 }
-
-
-//fixme
-const _$metaForGenericSuperProps = PropsMeta(fields: [], keys: []);

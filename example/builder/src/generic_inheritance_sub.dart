@@ -39,7 +39,3 @@ class GenericSubComponent extends GenericSuperComponent<GenericSubPropsMixin, Ge
     );
   }
 }
-
-
-//fixme
-const _$metaForGenericSubProps = PropsMeta(fields: [], keys: []);

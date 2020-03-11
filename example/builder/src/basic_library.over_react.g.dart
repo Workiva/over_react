@@ -199,9 +199,7 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   /// The default consumed props, taken from BasicPartOfLibProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForBasicPartOfLibProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [];
 }
 
 mixin $BasicPartOfLibPropsMixin on BasicPartOfLibPropsMixin {
@@ -441,9 +439,7 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   /// The default consumed props, taken from SubPartOfLibProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForSubPartOfLibProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [];
 }
 
 mixin $SuperPartOfLibPropsMixin on SuperPartOfLibPropsMixin {

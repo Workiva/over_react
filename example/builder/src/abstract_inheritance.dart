@@ -63,6 +63,3 @@ class SubComponent extends SuperComponent<SubProps, SubState> {
     );
   }
 }
-
-//fixme get this generating
-const _$metaForSubProps = PropsMeta(fields: [], keys: []);

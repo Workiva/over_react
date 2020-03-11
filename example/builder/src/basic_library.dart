@@ -11,7 +11,3 @@ part 'basic_library.over_react.g.dart';
 
 part 'part_of_basic_library.dart';
 part 'part_of_basic_library_2.dart';
-
-// fixme
-const _$metaForBasicPartOfLibProps = PropsMeta(fields: [], keys: []),
-  _$metaForSubPartOfLibProps = PropsMeta(fields: [], keys: []);

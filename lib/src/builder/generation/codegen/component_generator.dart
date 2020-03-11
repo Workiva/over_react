@@ -111,6 +111,7 @@ abstract class ComponentGeneratorBase extends Generator {
   BoilerplateComponent get component;
   bool get hasState;
   bool get isComponent2;
+  String get defaultConsumedProps;
 
   @override
   void generate() {
@@ -193,8 +194,7 @@ abstract class ComponentGeneratorBase extends Generator {
       ..writeln('  /// The default consumed props, taken from ${propsNames.consumerName}.')
       ..writeln('  /// Used in `ConsumedProps` if [consumedProps] is not overridden.')
       ..writeln('  @override')
-      ..writeln('  final List<ConsumedProps> \$defaultConsumedProps = '
-                      'const [${propsNames.metaConstantName}];')
+      ..writeln('  final List<ConsumedProps> \$defaultConsumedProps = $defaultConsumedProps;')
       ..writeln('}');
 
     final implementsTypedPropsStateFactory = component.nodeHelper.members.any((member) =>
@@ -239,6 +239,11 @@ class ComponentGenerator extends ComponentGeneratorBase {
 
   @override
   bool get hasState => declaration.state != null;
+
+  @override
+  String get defaultConsumedProps =>
+      // Concrete props classes do not have generated meta
+      declaration.props.b != null ? 'const [${propsNames.metaConstantName}]' : 'const []';
 }
 
 class LegacyComponentGenerator extends ComponentGeneratorBase {
@@ -267,4 +272,7 @@ class LegacyComponentGenerator extends ComponentGeneratorBase {
 
   @override
   bool get hasState => declaration.state != null;
+
+  @override
+  String get defaultConsumedProps => 'const [${propsNames.metaConstantName}]';
 }

@@ -43,6 +43,3 @@ class BasicComponent extends UiStatefulComponent2<BasicProps, BasicState> {
     );
   }
 }
-
-// fixme
-const _$metaForBasicProps = PropsMeta(fields: [], keys: []);
