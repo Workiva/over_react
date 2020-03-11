@@ -48,8 +48,8 @@ main() {
       return stateMixins ??= (members ?? getAllExampleBoilerplateMembers()).stateMixins;
     }
 
-    Iterable<BoilerplateMember> getBoilerplateMembersFor(VersionOptions version) {
-      final unit = parseString(content: getBoilerplateStrings(version: version)).unit;
+    Iterable<BoilerplateMember> getBoilerplateMembersFor(BoilerplateVersions version) {
+      final unit = parseString(content: getBoilerplateString(version: version)).unit;
 
       return BoilerplateMembers.detect(unit).allMembers;
     }
@@ -58,18 +58,6 @@ main() {
       final unit = parseString(content: content).unit;
 
       return BoilerplateMembers.detect(unit).allMembers;
-    }
-
-    void runCallbackOnAllComponentTypes(
-        Function(BoilerplateComponent component, Iterable<BoilerplateMember> members)
-            testableCallback) {
-      for (final version in VersionOptions.values) {
-        test(stringKey[version], () {
-          final members = parseAndReturnMembers(getBoilerplateStrings(version: version));
-
-          testableCallback(members.firstWhereType<BoilerplateComponent>(), members);
-        });
-      }
     }
 
     setUp(() {
@@ -125,17 +113,17 @@ main() {
 
       test('isComponent2 returns the correct value', () {
         expect(
-            getBoilerplateMembersFor(VersionOptions.v2)
+            getBoilerplateMembersFor(BoilerplateVersions.v2)
                 .firstWhereType<BoilerplateComponent>()
                 .isComponent2(Version.v2_legacyBackwardsCompat),
             false);
         expect(
-            getBoilerplateMembersFor(VersionOptions.v3)
+            getBoilerplateMembersFor(BoilerplateVersions.v3)
                 .firstWhereType<BoilerplateComponent>()
                 .isComponent2(Version.v3_legacyDart2Only),
             false);
         expect(
-            getBoilerplateMembersFor(VersionOptions.v4)
+            getBoilerplateMembersFor(BoilerplateVersions.v4)
                 .firstWhereType<BoilerplateComponent>()
                 .isComponent2(Version.v4_mixinBased),
             true);
@@ -158,12 +146,12 @@ main() {
 
         group('does not throw when', () {
           group('the component is a', () {
-            for (final version in VersionOptions.values) {
-              test('${stringKey[version]} component', () {
+            for (final version in BoilerplateVersions.values) {
+              test('${versionDescriptions[version]} component', () {
                 final members = getBoilerplateMembersFor(version);
                 final component = members.whereType<BoilerplateComponent>().first;
                 final componentVersion = resolveVersion(members).version;
-                file = SourceFile.fromString(getBoilerplateStrings(version: version));
+                file = SourceFile.fromString(getBoilerplateString(version: version));
                 collector = ErrorCollector.callback(file,
                     onError: validateCallback, onWarning: validateCallback);
 
@@ -218,11 +206,11 @@ main() {
           // Loop over the deprecated lifecycle methods
           legacyLifecycleMethodsMap.keys.forEach((lifecycle) => {
                 // Loop through every version of the boilerplate
-                for (final version in VersionOptions.values)
+                for (final version in BoilerplateVersions.values)
                   {
-                    test('$lifecycle with ${stringKey[version]}', () {
+                    test('$lifecycle with ${versionDescriptions[version]}', () {
                       // Grab the boilerplate with the deprecated lifecycle method
-                      final componentString = getBoilerplateStrings(
+                      final componentString = getBoilerplateString(
                           deprecatedLifecycleMethod: lifecycle, version: version);
                       final members = parseAndReturnMembers(componentString);
                       final component = members.whereType<BoilerplateComponent>().first;
@@ -251,13 +239,13 @@ main() {
       group(
           'hasFactoryAnnotation correctly identifies when a factory whether or not an annotation is present',
           () {
-        for (final version in VersionOptions.values) {
-          test('${stringKey[version]}', () {
-            final componentString = getBoilerplateStrings(version: version);
+        for (final version in BoilerplateVersions.values) {
+          test('${versionDescriptions[version]}', () {
+            final componentString = getBoilerplateString(version: version);
             final members = parseAndReturnMembers(componentString);
             final factory = members.whereType<BoilerplateFactory>().first;
 
-            if (![VersionOptions.v4, VersionOptions.v5].contains(version)) {
+            if (![BoilerplateVersions.v4, BoilerplateVersions.v5].contains(version)) {
               expect(factory.hasFactoryAnnotation, isTrue);
             } else {
               expect(factory.hasFactoryAnnotation, isFalse);
@@ -282,9 +270,9 @@ main() {
         });
 
         group('does not throw for', () {
-          for (final version in VersionOptions.values) {
-            test(stringKey[version], () {
-              final componentString = getBoilerplateStrings(version: version);
+          for (final version in BoilerplateVersions.values) {
+            test(versionDescriptions[version], () {
+              final componentString = getBoilerplateString(version: version);
               final members = parseAndReturnMembers(componentString);
               final factory = members.whereType<BoilerplateFactory>().first;
               file = SourceFile.fromString(componentString);
@@ -401,9 +389,9 @@ main() {
           // class aliases.
           const numberOfMixinBasedClasses = 2;
 
-          for (final version in VersionOptions.values) {
-            test(stringKey[version], () {
-              final boilerplateString = getBoilerplateStrings(version: version);
+          for (final version in BoilerplateVersions.values) {
+            test(versionDescriptions[version], () {
+              final boilerplateString = getBoilerplateString(version: version);
               final members = parseAndReturnMembers(boilerplateString);
               final propsOrStateClasses = members.whereType<BoilerplatePropsOrState>();
 
@@ -421,7 +409,7 @@ main() {
           }
 
           test('', () {
-            expect(classesDetected, VersionOptions.values.length - numberOfMixinBasedClasses);
+            expect(classesDetected, BoilerplateVersions.values.length - numberOfMixinBasedClasses);
           });
         });
 
@@ -692,9 +680,9 @@ main() {
           // includes those that have class aliases.
           const numberOfMixinBasedClasses = 4;
 
-          for (final version in VersionOptions.values) {
-            test(stringKey[version], () {
-              final boilerplateString = getBoilerplateStrings(version: version);
+          for (final version in BoilerplateVersions.values) {
+            test(versionDescriptions[version], () {
+              final boilerplateString = getBoilerplateString(version: version);
               final members = parseAndReturnMembers(boilerplateString);
               final propsOrStateMixins = members.whereType<BoilerplatePropsOrStateMixin>();
 
@@ -1061,107 +1049,6 @@ main() {
       });
     });
   });
-}
-
-enum VersionOptions {
-  v2,
-  v3,
-  v4,
-  v5,
-  v6,
-  v7,
-  v8,
-  v9,
-}
-
-const stringKey = {
-  VersionOptions.v2: 'legacy (backwords compat)',
-  VersionOptions.v3: 'legacy (Dart2 only)',
-  VersionOptions.v4: 'mixin based (abbreviated)',
-  VersionOptions.v5: 'mixin based (with class alias)',
-  VersionOptions.v6: 'legacy (backwords compat - component2)',
-  VersionOptions.v7: 'legacy (Dart2 only - component 2)',
-  VersionOptions.v8: 'mixin based (abbreviated - with annotations)',
-  VersionOptions.v9: 'mixin based (with class alias - with annotations)',
-};
-
-String getBoilerplateStrings({@required VersionOptions version, String deprecatedLifecycleMethod}) {
-  var deprecatedMethod = '';
-
-  switch (deprecatedLifecycleMethod) {
-    case 'componentWillReceiveProps':
-      deprecatedMethod = '''
-      @override
-      componentWillReceiveProps(_){}
-      
-      ''';
-      break;
-    case 'componentWillMount':
-      deprecatedMethod = '''
-      @override
-      componentWillMount(){}
-      
-      ''';
-      break;
-    case 'componentWillUpdate':
-      deprecatedMethod = '''
-      @override
-      componentWillUpdate(_, __){}
-      
-      ''';
-      break;
-    default:
-      if (deprecatedLifecycleMethod != null) {
-        throw ArgumentError(
-            'lifecycleMethod should be componentWillReceiveProps, componentWillMount, or componentWillUpdate');
-      }
-  }
-
-  switch (version) {
-    case VersionOptions.v2:
-      return OverReactSrc.state(
-        componentBody: deprecatedMethod,
-      ).source;
-    case VersionOptions.v3:
-      return OverReactSrc.state(
-        backwardsCompatible: false,
-        componentBody: deprecatedMethod,
-      ).source;
-    case VersionOptions.v4:
-      return OverReactSrc.mixinBasedBoilerplateState(
-        componentBody: deprecatedMethod,
-      ).source;
-    case VersionOptions.v5:
-      return OverReactSrc.mixinBasedBoilerplateState(
-        componentBody: deprecatedMethod,
-        shouldIncludePropsAlias: true,
-      ).source;
-    case VersionOptions.v6:
-      return OverReactSrc.state(
-        componentBody: deprecatedMethod,
-        componentVersion: 2,
-      ).source;
-    case VersionOptions.v7:
-      return OverReactSrc.state(
-        componentBody: deprecatedMethod,
-        componentVersion: 2,
-        backwardsCompatible: false,
-      ).source;
-    case VersionOptions.v8:
-      return OverReactSrc.mixinBasedBoilerplateState(
-        componentBody: deprecatedMethod,
-        shouldIncludeAnnotations: true,
-      ).source;
-    case VersionOptions.v9:
-      return OverReactSrc.mixinBasedBoilerplateState(
-        componentBody: deprecatedMethod,
-        shouldIncludePropsAlias: true,
-        shouldIncludeAnnotations: true,
-      ).source;
-      break;
-    default:
-      return '';
-  }
 }
 
 const mockComponentDeclarations = r'''

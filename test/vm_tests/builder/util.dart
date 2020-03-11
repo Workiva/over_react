@@ -1,4 +1,5 @@
 import 'package:logging/logging.dart';
+import 'package:meta/meta.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
@@ -534,4 +535,118 @@ Iterable<T> expectAllOfType<T>(Iterable<Object> items) {
 T expectSingleOfType<T>(Iterable<Object> items) {
   expect(items, [isA<T>()]);
   return items.cast<T>().single;
+}
+
+/// A grouping that represents different possible boilerplate versions
+/// 
+/// Versions v2, v3, v4 correlate to the parser versions, and the remaining
+/// cases are slight variations of the first three.
+///
+/// Related: [getBoilerplateString], [versionDescriptions]
+enum BoilerplateVersions {
+  v2,
+  v3,
+  v4,
+  v5,
+  v6,
+  v7,
+  v8,
+  v9,
+}
+
+/// String descriptions of [BoilerplateVersions] versions.
+///
+/// Related: [getBoilerplateString], [BoilerplateVersions]
+const versionDescriptions = {
+  BoilerplateVersions.v2: 'legacy (backwords compat)',
+  BoilerplateVersions.v3: 'legacy (Dart2 only)',
+  BoilerplateVersions.v4: 'mixin based (abbreviated)',
+  BoilerplateVersions.v5: 'mixin based (with class alias)',
+  BoilerplateVersions.v6: 'legacy (backwords compat - component2)',
+  BoilerplateVersions.v7: 'legacy (Dart2 only - component 2)',
+  BoilerplateVersions.v8: 'mixin based (abbreviated - with annotations)',
+  BoilerplateVersions.v9: 'mixin based (with class alias - with annotations)',
+};
+
+/// Generates a string representation of a provided boilerplate version.
+///
+/// Meant to be used in conjunction with [BoilerplateVersions] and [versionDescriptions]
+/// to allow for tests to iterate over component versions, generating the appropriate boilerplate.
+String getBoilerplateString({@required BoilerplateVersions version, String deprecatedLifecycleMethod}) {
+  var deprecatedMethod = '';
+
+  switch (deprecatedLifecycleMethod) {
+    case 'componentWillReceiveProps':
+      deprecatedMethod = '''
+      @override
+      componentWillReceiveProps(_){}
+      
+      ''';
+      break;
+    case 'componentWillMount':
+      deprecatedMethod = '''
+      @override
+      componentWillMount(){}
+      
+      ''';
+      break;
+    case 'componentWillUpdate':
+      deprecatedMethod = '''
+      @override
+      componentWillUpdate(_, __){}
+      
+      ''';
+      break;
+    default:
+      if (deprecatedLifecycleMethod != null) {
+        throw ArgumentError(
+            'lifecycleMethod should be componentWillReceiveProps, componentWillMount, or componentWillUpdate');
+      }
+  }
+
+  switch (version) {
+    case BoilerplateVersions.v2:
+      return OverReactSrc.state(
+        componentBody: deprecatedMethod,
+      ).source;
+    case BoilerplateVersions.v3:
+      return OverReactSrc.state(
+        backwardsCompatible: false,
+        componentBody: deprecatedMethod,
+      ).source;
+    case BoilerplateVersions.v4:
+      return OverReactSrc.mixinBasedBoilerplateState(
+        componentBody: deprecatedMethod,
+      ).source;
+    case BoilerplateVersions.v5:
+      return OverReactSrc.mixinBasedBoilerplateState(
+        componentBody: deprecatedMethod,
+        shouldIncludePropsAlias: true,
+      ).source;
+    case BoilerplateVersions.v6:
+      return OverReactSrc.state(
+        componentBody: deprecatedMethod,
+        componentVersion: 2,
+      ).source;
+    case BoilerplateVersions.v7:
+      return OverReactSrc.state(
+        componentBody: deprecatedMethod,
+        componentVersion: 2,
+        backwardsCompatible: false,
+      ).source;
+    case BoilerplateVersions.v8:
+      return OverReactSrc.mixinBasedBoilerplateState(
+        componentBody: deprecatedMethod,
+        shouldIncludeAnnotations: true,
+      ).source;
+    case BoilerplateVersions.v9:
+      return OverReactSrc.mixinBasedBoilerplateState(
+        componentBody: deprecatedMethod,
+        shouldIncludePropsAlias: true,
+        shouldIncludeAnnotations: true,
+      ).source;
+      break;
+    default:
+      return '';
+  }
 }
