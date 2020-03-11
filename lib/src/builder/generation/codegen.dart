@@ -22,7 +22,7 @@ import 'package:source_span/source_span.dart';
 import 'codegen/util.dart';
 import 'parsing.dart';
 
-/// A utility class that generates implementations for a set of [ParsedDeclarations] obtained from a [SourceFile].
+/// A utility class that generates implementations for a set of [BoilerplateDeclaration]s obtained from a [SourceFile].
 ///
 /// Generates implementations for:
 ///

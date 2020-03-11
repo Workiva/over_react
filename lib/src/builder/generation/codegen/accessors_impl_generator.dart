@@ -1,5 +1,4 @@
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:meta/meta.dart';
 import 'package:over_react/src/builder/util.dart';
 import 'package:transformer_utils/transformer_utils.dart';
 
