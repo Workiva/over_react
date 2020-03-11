@@ -154,7 +154,7 @@ main() {
                     onError: validateCallback, onWarning: validateCallback);
 
                 component.validate(componentVersion, collector);
-                expect(validateResults, isEmpty);
+                expect(validateResults, []);
               });
             }
           });
@@ -187,8 +187,7 @@ main() {
                 onError: validateCallback, onWarning: validateCallback);
 
             component.validate(componentVersion, collector);
-            expect(validateResults.length, 1);
-            expect(validateResults.first, contains('Must extend UiComponent2, not UiComponent.'));
+            expect(validateResults, [contains('Must extend UiComponent2, not UiComponent.')]);
           });
         });
 
@@ -220,11 +219,11 @@ main() {
 
                       // Warnings should only be logged if the component is a Component2
                       if (component.isComponent2(componentVersion)) {
-                        expect(validateResults.length, 1);
-                        expect(
-                            validateResults.first, contains(legacyLifecycleMethodsMap[lifecycle]));
+                        expect(validateResults, [
+                          contains(legacyLifecycleMethodsMap[lifecycle]),
+                        ]);
                       } else {
-                        expect(validateResults.length, 0);
+                        expect(validateResults, []);
                       }
                     })
                   }
@@ -278,7 +277,7 @@ main() {
 
               factory.validate(resolveVersion(members).version, collector);
 
-              expect(validateResults.length, 0);
+              expect(validateResults, []);
             });
           }
         });
@@ -304,9 +303,9 @@ main() {
             final factory = members.whereType<BoilerplateFactory>().first;
 
             factory.validate(resolveVersion(members).version, collector);
-            expect(validateResults.length, 1);
-            expect(validateResults.first,
-                contains('Legacy boilerplate factories must be annotated with `@Factory()`'));
+            expect(validateResults, [
+              contains('Legacy boilerplate factories must be annotated with `@Factory()`'),
+            ]);
           });
 
           test('there is more than one variable', () {
@@ -330,9 +329,9 @@ main() {
             final factory = members.whereType<BoilerplateFactory>().first;
 
             factory.validate(resolveVersion(members).version, collector);
-            expect(validateResults.length, 1);
-            expect(
-                validateResults.first, contains('Factory declarations must be a single variable.'));
+            expect(validateResults, [
+              contains('Factory declarations must be a single variable.'),
+            ]);
           });
 
           test('the factory is not set equal to the generated factory', () {
@@ -356,9 +355,9 @@ main() {
             final factory = members.whereType<BoilerplateFactory>().first;
 
             factory.validate(resolveVersion(members).version, collector);
-            expect(validateResults.length, 1);
-            expect(validateResults.first,
-                contains('Should be: `${factory.name.name} = _\$${factory.name.name}`'));
+            expect(validateResults, [
+              contains('Should be: `${factory.name.name} = _\$${factory.name.name}`'),
+            ]);
           });
         });
       });
@@ -400,7 +399,7 @@ main() {
 
                 propsOrStateClass.validate(resolveVersion(members).version, collector);
 
-                expect(validateResults.length, 0);
+                expect(validateResults, []);
                 classesDetected++;
               }
             });
@@ -478,19 +477,17 @@ main() {
               final state = members.whereType<BoilerplateState>().first;
 
               props.validate(Version.v4_mixinBased, collector);
-              expect(validateResults.length, 1);
-              expect(
-                  validateResults.first,
-                  contains(
-                      '${props.propsOrStateClassString} implementations must not declare any ${props.propsOrStateFieldsName} or other members.'));
+              expect(validateResults, [
+                contains(
+                    '${props.propsOrStateClassString} implementations must not declare any ${props.propsOrStateFieldsName} or other members.'),
+              ]);
 
               validateResults = <String>[];
               state.validate(Version.v4_mixinBased, collector);
-              expect(validateResults.length, 1);
-              expect(
-                  validateResults.first,
-                  contains(
-                      '${state.propsOrStateClassString} implementations must not declare any ${state.propsOrStateFieldsName} or other members.'));
+              expect(validateResults, [
+                contains(
+                    '${state.propsOrStateClassString} implementations must not declare any ${state.propsOrStateFieldsName} or other members.'),
+              ]);
             });
 
             test('the class is abstract', () {
@@ -513,19 +510,17 @@ main() {
               final state = members.whereType<BoilerplateState>().first;
 
               props.validate(Version.v4_mixinBased, collector);
-              expect(validateResults.length, 1);
-              expect(
-                  validateResults.first,
-                  contains(
-                      '${props.propsOrStateClassString} implementations must not be abstract, as they cannot be extended.'));
+              expect(validateResults, [
+                contains(
+                    '${props.propsOrStateClassString} implementations must not be abstract, as they cannot be extended.'),
+              ]);
 
               validateResults = <String>[];
               state.validate(Version.v4_mixinBased, collector);
-              expect(validateResults.length, 1);
-              expect(
-                  validateResults.first,
-                  contains(
-                      '${state.propsOrStateClassString} implementations must not be abstract, as they cannot be extended.'));
+              expect(validateResults, [
+                contains(
+                    '${state.propsOrStateClassString} implementations must not be abstract, as they cannot be extended.'),
+              ]);
             });
           });
 
@@ -553,13 +548,11 @@ main() {
               final state = members.whereType<BoilerplateState>().first;
 
               props.validate(Version.v2_legacyBackwardsCompat, collector);
-              expect(validateResults.length, 1);
-              expect(validateResults.first, contains('Should have companion class'));
+              expect(validateResults, [contains('Should have companion class')]);
 
               validateResults = <String>[];
               state.validate(Version.v2_legacyBackwardsCompat, collector);
-              expect(validateResults.length, 1);
-              expect(validateResults.first, contains('Should have companion class'));
+              expect(validateResults, [contains('Should have companion class')]);
             });
           });
 
@@ -691,7 +684,7 @@ main() {
 
                 propsOrStateClass.validate(resolveVersion(members).version, collector);
 
-                expect(validateResults.length, 0);
+                expect(validateResults, []);
                 classesDetected++;
               }
             });
@@ -759,13 +752,11 @@ main() {
               final state = members.whereType<BoilerplateStateMixin>().first;
 
               props.validate(Version.v4_mixinBased, collector);
-              expect(validateResults.length, 1);
-              expect(validateResults, contains('props mixins must be mixins'));
+              expect(validateResults, ['props mixins must be mixins']);
 
               validateResults = <String>[];
               state.validate(Version.v4_mixinBased, collector);
-              expect(validateResults.length, 1);
-              expect(validateResults, contains('state mixins must be mixins'));
+              expect(validateResults, ['state mixins must be mixins']);
             });
           });
 
@@ -801,23 +792,19 @@ main() {
                   'Legacy boilerplate State mixins must be annotated with `@StateMixin()`';
 
               props.validate(Version.v2_legacyBackwardsCompat, collector);
-              expect(validateResults.length, 1);
-              expect(validateResults, contains(propsError));
+              expect(validateResults, [propsError]);
 
               validateResults = <String>[];
               state.validate(Version.v2_legacyBackwardsCompat, collector);
-              expect(validateResults.length, 1);
-              expect(validateResults, contains(stateError));
+              expect(validateResults, [stateError]);
 
               validateResults = <String>[];
               props.validate(Version.v3_legacyDart2Only, collector);
-              expect(validateResults.length, 1);
-              expect(validateResults, contains(propsError));
+              expect(validateResults, [propsError]);
 
               validateResults = <String>[];
               state.validate(Version.v3_legacyDart2Only, collector);
-              expect(validateResults.length, 1);
-              expect(validateResults, contains(stateError));
+              expect(validateResults, [stateError]);
             });
           });
         });
@@ -870,8 +857,8 @@ main() {
             final props = members.whereType<BoilerplatePropsMixin>().first;
 
             checkForMetaPresence(props.node, collector);
-            expect(errorList.length, 0);
-            expect(warnList.length, 0);
+            expect(errorList, []);
+            expect(warnList, []);
           });
         });
 
@@ -901,12 +888,10 @@ main() {
             final props = members.whereType<BoilerplatePropsMixin>().first;
 
             checkForMetaPresence(props.node, collector);
-            expect(errorList.length, 0);
-            expect(warnList.length, 1);
-            expect(
-                warnList,
-                contains(
-                    stringContainsInOrder(['Static class member `meta` is declared in FooProps'])));
+            expect(errorList, []);
+            expect(warnList, [
+              stringContainsInOrder(['Static class member `meta` is declared in FooProps']),
+            ]);
           });
         });
 
@@ -936,12 +921,10 @@ main() {
             final props = members.whereType<BoilerplatePropsMixin>().first;
 
             checkForMetaPresence(props.node, collector);
-            expect(errorList.length, 1);
-            expect(warnList.length, 0);
-            expect(
-                errorList,
-                contains(stringContainsInOrder(
-                    ['Non-static class member `meta` is declared in FooProps'])));
+            expect(errorList, [
+              stringContainsInOrder(['Non-static class member `meta` is declared in FooProps']),
+            ]);
+            expect(warnList, []);
           });
         });
       });
@@ -982,19 +965,17 @@ main() {
             final state = members.whereType<BoilerplateState>().first;
 
             validateMetaField(props.companion, 'PropsMeta', collector);
-            expect(errorList.length, 1);
-            expect(
-                errorList,
-                contains(stringContainsInOrder(
-                    ['Static meta field in accessor class must be of type `PropsMeta`'])));
+            expect(errorList, [
+              stringContainsInOrder(
+                  ['Static meta field in accessor class must be of type `PropsMeta`']),
+            ]);
 
             errorList = <String>[];
             validateMetaField(state.companion, 'StateMeta', collector);
-            expect(errorList.length, 1);
-            expect(
-                errorList,
-                contains(stringContainsInOrder(
-                    ['Static meta field in accessor class must be of type `StateMeta`'])));
+            expect(errorList, [
+              stringContainsInOrder(
+                  ['Static meta field in accessor class must be of type `StateMeta`']),
+            ]);
           });
 
           test('the initializer is incorrect', () {
@@ -1031,21 +1012,19 @@ main() {
             final state = members.whereType<BoilerplateState>().first;
 
             validateMetaField(props.companion, 'PropsMeta', collector);
-            expect(errorList.length, 1);
-            expect(
-                errorList,
-                contains(stringContainsInOrder([
-                  'Static PropsMeta field in accessor class must be initialized to:`_\$metaForFooProps`'
-                ])));
+            expect(errorList, [
+              stringContainsInOrder([
+                'Static PropsMeta field in accessor class must be initialized to:`_\$metaForFooProps`'
+              ]),
+            ]);
 
             errorList = <String>[];
             validateMetaField(state.companion, 'StateMeta', collector);
-            expect(errorList.length, 1);
-            expect(
-                errorList,
-                contains(stringContainsInOrder([
-                  'Static StateMeta field in accessor class must be initialized to:`_\$metaForFooState`'
-                ])));
+            expect(errorList, [
+              stringContainsInOrder([
+                'Static StateMeta field in accessor class must be initialized to:`_\$metaForFooState`'
+              ]),
+            ]);
           });
         });
       });
