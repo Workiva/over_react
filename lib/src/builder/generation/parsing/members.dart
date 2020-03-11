@@ -41,6 +41,18 @@ abstract class BoilerplateMember {
   }
 }
 
+abstract class BoilerplateAccessorsMember extends BoilerplateMember {
+  BoilerplateAccessorsMember(VersionConfidence versionConfidence) : super(versionConfidence);
+
+  @override
+  NamedCompilationUnitMember get node;
+
+  ClassishDeclaration get nodeHelper;
+
+  @override
+  annotations.TypedMap get meta;
+}
+
 class BoilerplateMembers {
   final factories = <BoilerplateFactory>[];
   final props = <BoilerplateProps>[];

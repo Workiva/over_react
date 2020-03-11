@@ -88,14 +88,14 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   for (var propsMixin in propsMixins) {
     final version = resolveVersion([propsMixin]);
     if (version.shouldGenerate) {
-      yield PropsMixinDeclaration(version: version.version, propsMixin: propsMixin);
+      yield PropsMixinDeclaration(version: version.version, mixin: propsMixin);
     }
   }
 
   for (var stateMixin in stateMixins) {
     final version = resolveVersion([stateMixin]);
     if (version.shouldGenerate) {
-      yield StateMixinDeclaration(version: version.version, stateMixin: stateMixin);
+      yield StateMixinDeclaration(version: version.version, mixin: stateMixin);
     }
   }
 
@@ -562,33 +562,36 @@ class FunctionComponentDeclaration extends BoilerplateDeclaration {
   }) : super(version);
 }
 
-class PropsMixinDeclaration extends BoilerplateDeclaration {
-  final BoilerplatePropsMixin propsMixin;
+mixin PropsOrStateMixinDeclaration on BoilerplateDeclaration {
+  BoilerplatePropsOrStateMixin get mixin;
 
   @override
-  get _members => [propsMixin];
+  get _members => [mixin];
+}
+
+class PropsMixinDeclaration extends BoilerplateDeclaration with PropsOrStateMixinDeclaration {
+  @override
+  final BoilerplatePropsMixin mixin;
 
   @override
   get type => DeclarationType.propsMixinDeclaration;
 
   PropsMixinDeclaration({
     @required Version version,
-    @required this.propsMixin,
+    @required this.mixin,
   }) : super(version);
 }
 
-class StateMixinDeclaration extends BoilerplateDeclaration {
-  final BoilerplateStateMixin stateMixin;
-
+class StateMixinDeclaration extends BoilerplateDeclaration with PropsOrStateMixinDeclaration {
   @override
-  get _members => [stateMixin];
+  final BoilerplateStateMixin mixin;
 
   @override
   get type => DeclarationType.stateMixinDeclaration;
 
   StateMixinDeclaration({
     @required Version version,
-    @required this.stateMixin,
+    @required this.mixin,
   }) : super(version);
 }
 

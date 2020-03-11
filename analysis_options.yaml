@@ -5,6 +5,9 @@ analyzer:
     - _site/**
     - test_fixtures/**
     - app/**
+  errors:
+    missing_required_param: error
+    must_call_super: error
 linter:
   rules:
     # -------------------
