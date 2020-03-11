@@ -55,7 +55,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateAccessorsMember
                 errorCollector.spanFor(node.onClause ?? node.name));
           }
         } else {
-          errorCollector.addWarning('$propsOrStateString mixins must be mixins',
+          errorCollector.addError('$propsOrStateString mixins must be mixins',
               errorCollector.spanFor(nodeHelper.classOrMixinKeyword));
         }
         break;
