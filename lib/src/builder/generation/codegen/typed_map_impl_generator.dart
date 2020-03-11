@@ -204,47 +204,33 @@ abstract class TypedMapImplGenerator extends Generator {
 
     // Component2-specific classes
     if (isComponent2) {
-      buffer
-        ..writeln()
-        ..writeln('// Concrete $propsOrState implementation that can be backed by any [Map].')
-        ..writeln(
-            'class ${names.plainMapImplName}$typeParamsOnClass extends ${names.implName}$typeParamsOnSuper {')
-        ..writeln(
-            '  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
-        ..writeln(
-            '  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
-        // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
-        ..writeln(
-            '  ${names.plainMapImplName}(Map backingMap) : this._$propsOrState = {}, super._() {')
-        ..writeln('     this._$propsOrState = backingMap ?? {};')
-        ..writeln('  }')
-        ..writeln()
-        ..writeln('  /// The backing $propsOrState map proxied by this class.')
-        ..writeln('  @override')
-        ..writeln('  Map get $propsOrState => _$propsOrState;')
-        ..writeln('  Map _$propsOrState;')
-        ..writeln('}')
-        ..writeln()
-        ..writeln('// Concrete $propsOrState implementation that can only be backed by [JsMap],')
-        ..writeln(
-            '// allowing dart2js to compile more optimal code for key-value pair reads/writes.')
-        ..writeln(
-            'class ${names.jsMapImplName}$typeParamsOnClass extends ${names.implName}$typeParamsOnSuper {')
-        ..writeln(
-            '  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment')
-        ..writeln(
-            '  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
-        // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
-        ..writeln(
-            '  ${names.jsMapImplName}(JsBackedMap backingMap) : this._$propsOrState = JsBackedMap(), super._() {')
-        ..writeln('     this._$propsOrState = backingMap ?? JsBackedMap();')
-        ..writeln('  }')
-        ..writeln()
-        ..writeln('  /// The backing $propsOrState map proxied by this class.')
-        ..writeln('  @override')
-        ..writeln('  JsBackedMap get $propsOrState => _$propsOrState;')
-        ..writeln('  JsBackedMap _$propsOrState;')
-        ..writeln('}');
+      // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
+      buffer..writeln()..writeln('''
+// Concrete $propsOrState implementation that can be backed by any [Map].
+class ${names.plainMapImplName}$typeParamsOnClass extends ${names.implName}$typeParamsOnSuper {
+  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment
+  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  ${names.plainMapImplName}(Map backingMap) : this._$propsOrState = {}, super._() {
+     this._$propsOrState = backingMap ?? {};
+  }
+  /// The backing $propsOrState map proxied by this class.
+  @override
+  Map get $propsOrState => _$propsOrState;
+  Map _$propsOrState;
+}
+// Concrete $propsOrState implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+class ${names.jsMapImplName}$typeParamsOnClass extends ${names.implName}$typeParamsOnSuper {
+  // This initializer of `_$propsOrState` to an empty map, as well as the reassignment
+  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  ${names.jsMapImplName}(JsBackedMap backingMap) : this._$propsOrState = JsBackedMap(), super._() {
+     this._$propsOrState = backingMap ?? JsBackedMap();
+  }
+  /// The backing $propsOrState map proxied by this class.
+  @override
+  JsBackedMap get $propsOrState => _$propsOrState;
+  JsBackedMap _$propsOrState;
+}''');
     }
     return buffer.toString();
   }

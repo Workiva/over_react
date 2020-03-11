@@ -57,8 +57,8 @@ class ComponentFactoryGenerator extends Generator {
         ..writeln('// React component factory implementation.')
         ..writeln('//')
         ..writeln('// Registers component implementation and links type meta to builder factory.')
-        ..writeln(
-            'final ${componentNames.componentFactoryName} = registerComponent2(() => ${componentNames.implName}(),')
+        ..writeln('final ${componentNames.componentFactoryName}'
+            ' = registerComponent2(() => ${componentNames.implName}(),')
         ..writeln('    builderFactory: $factoryName,')
         ..writeln('    componentClass: ${componentNames.componentName},')
         ..writeln('    isWrapper: ${component.meta.isWrapper},')

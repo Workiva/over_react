@@ -64,8 +64,8 @@ abstract class ComponentGenerator extends Generator {
         ..writeln('  }')
         ..writeln()
         ..writeln('  @override ')
-        ..writeln(
-            '  ${propsNames.jsMapImplName} typedPropsFactoryJs(JsBackedMap backingMap) => ${propsNames.jsMapImplName}(backingMap);')
+        ..writeln('  ${propsNames.jsMapImplName} typedPropsFactoryJs(JsBackedMap backingMap)'
+            ' => ${propsNames.jsMapImplName}(backingMap);')
         ..writeln();
     }
 
@@ -91,16 +91,16 @@ abstract class ComponentGenerator extends Generator {
         ..writeln('  }')
         ..writeln()
         ..writeln('  @override ')
-        ..writeln(
-            '  ${stateNames.jsMapImplName} typedStateFactoryJs(JsBackedMap backingMap) => ${stateNames.jsMapImplName}(backingMap);')
+        ..writeln('  ${stateNames.jsMapImplName} typedStateFactoryJs(JsBackedMap backingMap)'
+            ' => ${stateNames.jsMapImplName}(backingMap);')
         ..writeln();
     }
 
     if (hasState) {
       outputContentsBuffer
         ..writeln('  @override')
-        ..writeln(
-            '  ${stateNames.implName} typedStateFactory(Map backingMap) => ${stateNames.implName}(backingMap);')
+        ..writeln('  ${stateNames.implName} typedStateFactory(Map backingMap)'
+            ' => ${stateNames.implName}(backingMap);')
         ..writeln();
     }
 

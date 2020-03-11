@@ -243,7 +243,8 @@ abstract class TypedMapAccessorsGenerator extends Generator {
             // '  @tryInline\n'
             '  @override\n'
             '$metadataSrc'
-            '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName] ?? null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;\n'
+            '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName] ?? null;'
+            ' // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;\n'
             '$docComment'
             // '  @tryInline\n'
             '  @override\n'
@@ -407,8 +408,9 @@ class _LegacyTypedMapAccessorsGenerator extends TypedMapAccessorsGenerator {
 
     final classKeywords = '${type.isAbstract ? 'abstract ' : ''}class';
     return (StringBuffer()
-          ..writeln(
-              '$classKeywords ${names.publicName}$typeParamsOnClass extends ${names.consumerName}$typeParamsOnSuper with $accessorsMixinName$typeParamsOnSuper {')
+          ..writeln('$classKeywords ${names.publicName}$typeParamsOnClass'
+              ' extends ${names.consumerName}$typeParamsOnSuper'
+              ' with $accessorsMixinName$typeParamsOnSuper {')
           ..write(_copyStaticMembers(node))
           ..writeln(_generateStaticMetaDecl(names.publicName, type.isProps))
           ..writeln('}'))
