@@ -31,6 +31,8 @@ abstract class BoilerplatePropsOrState extends BoilerplateAccessorsMember with P
     switch (version) {
       case Version.v4_mixinBased:
         final node = this.node;
+        // FIXME is this check still needed? The node should be assigned to
+        // a PropsOrStateMixinDeclaration if it's a MixinDeclaration
         if (node is MixinDeclaration) {
           // It's possible in the future that this may not always
           // be a ClassDeclaration, so fall back to node if it's not one.
@@ -47,7 +49,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateAccessorsMember with P
 
           if (node is ClassDeclaration && node.members.isNotEmpty) {
             errorCollector.addError(
-                '$propsOrStateClassString implementations must not declare any $propsOrStateFieldsName or other memberss.',
+                '$propsOrStateClassString implementations must not declare any $propsOrStateFieldsName or other members.',
                 errorCollector.span(node.leftBracket.offset, node.rightBracket.end));
           }
 

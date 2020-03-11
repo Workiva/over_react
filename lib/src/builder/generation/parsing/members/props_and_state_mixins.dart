@@ -29,7 +29,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateAccessorsMember w
       if (!node.hasAnnotationWithName(propsOrStateMixinAnnotationName)) {
         errorCollector.addError(
             'Legacy boilerplate ${propsOrStateMixinString}s must be annotated with '
-            ' `@$propsOrStateMixinAnnotationName()`',
+            '`@$propsOrStateMixinAnnotationName()`',
             errorCollector.spanFor(node));
       }
 
@@ -44,6 +44,8 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateAccessorsMember w
     switch (version) {
       case Version.v4_mixinBased:
         final node = this.node;
+        // FIXME is this possible? _detectNonLegacyPropsStateOrMixin uses the `on x` to
+        // detect, and non-v4 components won't have mixin declarations
         if (node is MixinDeclaration) {
           final isOnUiProps = node.onClause?.superclassConstraints
                   ?.any((type) => type.nameWithoutPrefix == propsOrStateBaseClassString) ??

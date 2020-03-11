@@ -91,7 +91,10 @@ class OverReactSrc {
       :
         this.annotation = AnnotationType.abstractProps,
         this.baseName = '${isPrivate ? '_' : ''}AbstractFoo',
-        this.numMixins = 0;
+        this.numMixins = 0,
+        this.isMixinBasedBoilerplate = false,
+        this.shouldIncludePropsAlias = false,
+        this.shouldIncludeAnnotations = true;
 
   /// Creates valid over_react [source] with an abstract state class included.
   ///
@@ -125,7 +128,10 @@ class OverReactSrc {
       :
         this.annotation = AnnotationType.abstractState,
         this.baseName = '${isPrivate ? '_' : ''}AbstractFoo',
-        this.numMixins = 0;
+        this.numMixins = 0,
+        this.isMixinBasedBoilerplate = false,
+        this.shouldIncludePropsAlias = false,
+        this.shouldIncludeAnnotations = true;
 
   /// Creates valid over_react [source] with a props class included.
   ///
@@ -155,7 +161,10 @@ class OverReactSrc {
         this.annotation = AnnotationType.props,
         this.baseName = '${isPrivate ? '_' : ''}Foo',
         this.needsComponent = true,
-        this.numMixins = 0;
+        this.numMixins = 0,
+        this.isMixinBasedBoilerplate = false,
+        this.shouldIncludePropsAlias = false,
+        this.shouldIncludeAnnotations = true;
 
   /// Creates valid over_react [source] with a props mixin class included.
   ///
@@ -187,7 +196,10 @@ class OverReactSrc {
       :
         this.annotation = AnnotationType.propsMixin,
         this.baseName = '${isPrivate ? '_' : ''}Foo',
-        this.needsComponent = false;
+        this.needsComponent = false,
+        this.isMixinBasedBoilerplate = false,
+        this.shouldIncludePropsAlias = false,
+        this.shouldIncludeAnnotations = true;
 
   /// Creates valid over_react [source] with a state class included.
   ///
@@ -218,10 +230,12 @@ class OverReactSrc {
         this.annotation = AnnotationType.state,
         this.baseName = '${isPrivate ? '_' : ''}Foo',
         this.needsComponent = true,
-        this.numMixins = 0;
+        this.numMixins = 0,
+        this.isMixinBasedBoilerplate = false,
+        this.shouldIncludePropsAlias = false,
+        this.shouldIncludeAnnotations = true;
 
   /// Creates valid over_react [source] with a props mixin class included.
-  ///
   ///
   /// This will not include a factory and component in the [source]. Set
   /// [typeParameters] to true to add type parameters to the state mixin class.
@@ -251,7 +265,85 @@ class OverReactSrc {
       :
         this.annotation = AnnotationType.stateMixin,
         this.baseName = '${isPrivate ? '_' : ''}Foo',
-        this.needsComponent = false;
+        this.needsComponent = false,
+        this.isMixinBasedBoilerplate = false,
+        this.shouldIncludePropsAlias = false,
+        this.shouldIncludeAnnotations = true;
+
+  /// Creates valid over_react [source] using the mixin based boilerplate for props.
+  ///
+  /// Will also include a factory and component in the [source].
+  ///
+  /// Set [isPrivate] to true to make the class private.
+  ///
+  /// Use [annotationArg] to add an argument to the `@Props()` annotation.
+  ///
+  /// Use [body] to specify a body for the `@Props()` annotated class.
+  ///
+  /// Use [componentBody] to specify a body for the `@Component()` annotated class.
+  ///
+  /// Use [componentAnnotationArg] to add an argument to the `@Component()`
+  ///
+  /// Use [shouldIncludePropsAlias] to create a props alias class (AKA the non-abbreviated
+  /// version of the boilerplate).
+  ///
+  /// Use [shouldIncludeAnnotations] to add the relevant annotation to the factory,
+  /// props, and component declarations.
+  const OverReactSrc.mixinBasedBoilerplateProps({
+    this.annotationArg = '',
+    this.body = '',
+    this.componentAnnotationArg = '',
+    this.componentBody = '',
+    this.shouldIncludePropsAlias = false,
+    this.shouldIncludeAnnotations = false,
+    isPrivate = false})
+      :
+        this.annotation = AnnotationType.props,
+        this.baseName = '${isPrivate ? '_' : ''}Foo',
+        this.needsComponent = true,
+        this.numMixins = 0,
+        this.typeParameters = false,
+        this.componentVersion = 2,
+        this.isMixinBasedBoilerplate = true,
+        this.backwardsCompatible = false;
+
+  /// Creates valid over_react [source] with a state class included.
+  ///
+  /// Will also include a factory, component, and props in the [source], since
+  /// these are required when a @State() class is present.
+  ///
+  /// Set [isPrivate] to true to make the class private.
+  ///
+  /// Use [annotationArg] to add an argument to the `@Props()` annotation.
+  ///
+  /// Use [body] to specify a body for the `@Props()` annotated class.
+  ///
+  /// Use [componentBody] to specify a body for the `@Component()` annotated class.
+  ///
+  /// Use [componentAnnotationArg] to add an argument to the `@Component()`
+  ///
+  /// Use [shouldIncludePropsAlias] to create a props alias class (AKA the non-abbreviated
+  /// version of the boilerplate).
+  ///
+  /// Use [shouldIncludeAnnotations] to add the relevant annotation to the factory,
+  /// props, and component declarations.
+  const OverReactSrc.mixinBasedBoilerplateState({
+    this.annotationArg = '',
+    this.body = '',
+    this.componentAnnotationArg = '',
+    this.componentBody = '',
+    this.typeParameters = false,
+    this.shouldIncludePropsAlias = false,
+    this.shouldIncludeAnnotations = false,
+    isPrivate = false})
+      :
+        this.annotation = AnnotationType.state,
+        this.baseName = '${isPrivate ? '_' : ''}Foo',
+        this.needsComponent = true,
+        this.numMixins = 0,
+        this.componentVersion = 2,
+        this.isMixinBasedBoilerplate = true,
+        this.backwardsCompatible = false;
 
   final AnnotationType annotation;
   final bool backwardsCompatible;
@@ -264,6 +356,9 @@ class OverReactSrc {
   final int componentVersion;
   final int numMixins;
   final bool typeParameters;
+  final bool isMixinBasedBoilerplate;
+  final bool shouldIncludePropsAlias;
+  final bool shouldIncludeAnnotations;
 
   String get componentName => '${baseName}Component';
   String get constantListName => isProps(annotation) ? '\$props' : '\$state';
@@ -288,9 +383,18 @@ class OverReactSrc {
     if (needsComponent) {
       String componentStr = componentVersion == 2 ? 'Component2' : 'Component';
       if (!isAbstract(annotation)) {
-        buffer.writeln('\n@Factory()\nUiFactory<$propsClassName> $baseName = _\$$baseName;\n');
+        if (shouldIncludeAnnotations) {
+          buffer.writeln('\n@Factory()\nUiFactory<$propsClassName> $baseName = _\$$baseName;\n');
+        } else {
+          buffer.writeln('\nUiFactory<$propsClassName> $baseName = _\$$baseName;\n');
+        }
       }
-      buffer.writeln('@${isAbstract(annotation) ? 'Abstract' : ''}$componentStr($componentAnnotationArg) ${_classKeyword(annotation)} $componentName {$componentBody}');
+
+      if (shouldIncludeAnnotations) {
+        buffer.writeln('@${isAbstract(annotation) ? 'Abstract' : ''}$componentStr($componentAnnotationArg) ${_classKeyword(annotation)} $componentName {$componentBody}');
+      } else {
+        buffer.writeln('${_classKeyword(annotation)} $componentName {$componentBody}');
+      }
 
       // If we need a component, but we're not a props class, then we need to write a props class
       if (!isProps(this.annotation)) {
@@ -377,8 +481,20 @@ class OverReactSrc {
     }
 
     final className = isProps(annotation) ? propsClassName : stateClassName;
+    final propsOrStateKeyword = isProps(annotation) ? 'Props' : 'State';
     var buffer = StringBuffer();
-    buffer.writeln('${_annotationSrc(annotation, annotationArg: annotationArg)}\n${_classKeyword(annotation)} _\$$className$typeParamSrc {$body\n}\n');
+    if (!isMixinBasedBoilerplate) {
+      buffer.writeln('${_annotationSrc(annotation, annotationArg: annotationArg)}\n${_classKeyword(annotation)} _\$$className$typeParamSrc {$body\n}\n');
+    } else {
+      if (shouldIncludeAnnotations) {
+        buffer.writeln('${_annotationSrc(annotation, annotationArg: annotationArg)}');
+      }
+      if (shouldIncludePropsAlias) {
+       buffer.writeln('mixin ${className}Mixin on Ui$propsOrStateKeyword {$body\n}\nclass $className = Ui$propsOrStateKeyword with ${className}Mixin;');
+      } else {
+        buffer.writeln('mixin $className on Ui$propsOrStateKeyword {$body\n}\n');
+      }
+    }
     if (backwardsCompatible) {
       buffer
         ..writeln('${_classKeyword(annotation)} $className$typeParamSrc')

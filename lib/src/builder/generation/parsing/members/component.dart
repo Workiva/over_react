@@ -44,7 +44,7 @@ class BoilerplateComponent extends BoilerplateMember {
     switch (version) {
       case Version.v4_mixinBased:
         final superclass = nodeHelper.superclass;
-        if (superclass?.nameWithoutPrefix == 'UiComponent') {
+        if (const ['UiComponent', 'UiStatefulComponent', 'FluxUiComponent'].contains(superclass?.nameWithoutPrefix)) {
           errorCollector.addError(
               'Must extend UiComponent2, not UiComponent.', errorCollector.spanFor(superclass));
         }
