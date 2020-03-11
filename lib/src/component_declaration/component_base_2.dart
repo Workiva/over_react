@@ -305,6 +305,12 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   @override
   Iterable<ConsumedProps> get consumedProps => $defaultConsumedProps;
 
+  /// A collection of metadata for the prop fields in all prop mixins
+  /// used by the props class of this component.
+  @protected
+  @toBeGenerated
+  PropsMetaCollection get propsMeta => throw UngeneratedError(member: #propsMeta);
+
   /// A prop modifier that passes a reference of a component's `props` to be updated with any unconsumed props.
   ///
   /// Call within `modifyProps` like so:

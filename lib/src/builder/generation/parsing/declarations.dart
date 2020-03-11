@@ -88,14 +88,14 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   for (var propsMixin in propsMixins) {
     final version = resolveVersion([propsMixin]);
     if (version.shouldGenerate) {
-      yield PropsMixinDeclaration(version: version.version, propsMixin: propsMixin);
+      yield PropsMixinDeclaration(version: version.version, mixin: propsMixin);
     }
   }
 
   for (var stateMixin in stateMixins) {
     final version = resolveVersion([stateMixin]);
     if (version.shouldGenerate) {
-      yield StateMixinDeclaration(version: version.version, stateMixin: stateMixin);
+      yield StateMixinDeclaration(version: version.version, mixin: stateMixin);
     }
   }
 
@@ -464,8 +464,7 @@ class LegacyAbstractPropsDeclaration extends BoilerplateDeclaration {
     super.validate(errorCollector);
 
     // It's possible to declare an abstract class without any props/state fields that need to be generated.
-    if (props.nodeHelper.members.isNotEmpty &&
-        !props.node.hasAnnotationWithName('AbstractProps')) {
+    if (props.nodeHelper.members.isNotEmpty && !props.node.hasAnnotationWithName('AbstractProps')) {
       errorCollector.addError(
           'Legacy boilerplate abstract props must be annotated with `@AbstractProps()`.',
           errorCollector.spanFor(props.node));
@@ -492,8 +491,7 @@ class LegacyAbstractStateDeclaration extends BoilerplateDeclaration {
     super.validate(errorCollector);
 
     // It's possible to declare an abstract class without any props/state fields that need to be generated.
-    if (state.nodeHelper.members.isNotEmpty &&
-        !state.node.hasAnnotationWithName('AbstractState')) {
+    if (state.nodeHelper.members.isNotEmpty && !state.node.hasAnnotationWithName('AbstractState')) {
       errorCollector.addError(
           'Legacy boilerplate abstract state must be annotated with `@AbstractState()`.',
           errorCollector.spanFor(state.node));
@@ -512,6 +510,11 @@ class ClassComponentDeclaration extends BoilerplateDeclaration {
 
   @override
   get type => DeclarationType.classComponentDeclaration;
+
+  List<Identifier> get allPropsMixins => props.switchCase(
+        (a) => a.nodeHelper.mixins.map((name) => name.name).toList(),
+        (b) => [b.name],
+      );
 
   ClassComponentDeclaration({
     @required Version version,
@@ -562,33 +565,36 @@ class FunctionComponentDeclaration extends BoilerplateDeclaration {
   }) : super(version);
 }
 
-class PropsMixinDeclaration extends BoilerplateDeclaration {
-  final BoilerplatePropsMixin propsMixin;
+mixin PropsOrStateMixinDeclaration on BoilerplateDeclaration {
+  BoilerplatePropsOrStateMixin get mixin;
 
   @override
-  get _members => [propsMixin];
+  get _members => [mixin];
+}
+
+class PropsMixinDeclaration extends BoilerplateDeclaration with PropsOrStateMixinDeclaration {
+  @override
+  final BoilerplatePropsMixin mixin;
 
   @override
   get type => DeclarationType.propsMixinDeclaration;
 
   PropsMixinDeclaration({
     @required Version version,
-    @required this.propsMixin,
+    @required this.mixin,
   }) : super(version);
 }
 
-class StateMixinDeclaration extends BoilerplateDeclaration {
-  final BoilerplateStateMixin stateMixin;
-
+class StateMixinDeclaration extends BoilerplateDeclaration with PropsOrStateMixinDeclaration {
   @override
-  get _members => [stateMixin];
+  final BoilerplateStateMixin mixin;
 
   @override
   get type => DeclarationType.stateMixinDeclaration;
 
   StateMixinDeclaration({
     @required Version version,
-    @required this.stateMixin,
+    @required this.mixin,
   }) : super(version);
 }
 

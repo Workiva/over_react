@@ -107,7 +107,7 @@ class BoilerplateMemberDetector {
 
         // Check for `Foo = _$Foo` or `Foo = $Foo` (which could be a typo)
         final generatedFactoryName = '_\$$name';
-        final typoGeneratedFactoryName= '\$$name';
+        final typoGeneratedFactoryName = '\$$name';
         final referencesGeneratedFactory = initializer != null &&
             anyDescendantIdentifiers(initializer, (identifier) {
               return identifier.name == generatedFactoryName ||
@@ -229,7 +229,8 @@ class BoilerplateMemberDetector {
     assert(node.hasAnnotationWithNames(const {'Props', 'State'}),
         'this function assumes that all nodes passed to this function are annotated');
 
-    assert(node is! MixinDeclaration, 'Mixins should never make it in herel they should be classified as Props/State mixins');
+    assert(node is! MixinDeclaration,
+        'Mixins should never make it in herel they should be classified as Props/State mixins');
 
     final hasGeneratedPrefix = node.name.name.startsWith(r'_$');
     final hasCompanionClass = companion != null;
@@ -281,9 +282,11 @@ class BoilerplateMemberDetector {
   }
 
   VersionConfidence _annotatedPropsOrStateMixinConfidence(
-      ClassishDeclaration classish, ClassishDeclaration companion, {bool disableAnnotationAssert = false}) {
+      ClassishDeclaration classish, ClassishDeclaration companion,
+      {bool disableAnnotationAssert = false}) {
     final node = classish.node;
-    assert(disableAnnotationAssert || node.hasAnnotationWithNames(const {'PropsMixin', 'StateMixin'}),
+    assert(
+        disableAnnotationAssert || node.hasAnnotationWithNames(const {'PropsMixin', 'StateMixin'}),
         'this function assumes that all nodes passed to this function are annotated');
 
     final isMixin = node is MixinDeclaration;
@@ -318,7 +321,8 @@ class BoilerplateMemberDetector {
           .any((member) => member.isGetter && member.name.name == r'$isClassGenerated');
       // Handle classes that look like props but are really just used as interfaces, and aren't extended from or directly used as a component's props.
       // Watch out for empty mixins, though; those are valid props/state mixins.
-      if (overridesIsClassGenerated || (node is! MixinDeclaration && onlyImplementsThings(classish))) {
+      if (overridesIsClassGenerated ||
+          (node is! MixinDeclaration && onlyImplementsThings(classish))) {
         return VersionConfidence.none();
       } else if (classish.members.whereType<ConstructorDeclaration>().isNotEmpty) {
         // If there's a constructor, it's a no-generate class. For example, a props map view.

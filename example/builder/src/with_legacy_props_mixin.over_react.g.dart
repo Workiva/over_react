@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
-part of 'basic.dart';
+part of 'with_legacy_props_mixin.dart';
 
 // **************************************************************************
 // OverReactBuilder (package:over_react/src/builder.dart)
@@ -26,7 +26,8 @@ _$$BasicProps _$Basic([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$BasicProps extends UiProps with BasicProps, $BasicProps {
+abstract class _$$BasicProps extends BasicProps
+    with $BasicPropsMixin, $TransitionPropsMixin {
   _$$BasicProps._();
 
   factory _$$BasicProps(Map backingMap) {
@@ -121,91 +122,37 @@ class _$BasicComponent extends BasicComponent {
   /// The default consumed props, taken from BasicProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForBasicProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        BasicProps: $BasicProps.meta,
+        BasicPropsMixin: $BasicPropsMixin.meta,
+        TransitionPropsMixin: $TransitionPropsMixin.meta,
       });
 }
 
-mixin $BasicProps on BasicProps {
-  static const PropsMeta meta = _$metaForBasicProps;
+mixin $BasicPropsMixin on BasicPropsMixin {
+  static const PropsMeta meta = _$metaForBasicPropsMixin;
   @override
   String get basicProp =>
-      props[_$key__basicProp__BasicProps] ??
+      props[_$key__basicProp__BasicPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set basicProp(String value) => props[_$key__basicProp__BasicProps] = value;
-  @override
-  String get basic1 =>
-      props[_$key__basic1__BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  @override
-  set basic1(String value) => props[_$key__basic1__BasicProps] = value;
-  @override
-  String get basic2 =>
-      props[_$key__basic2__BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  @override
-  set basic2(String value) => props[_$key__basic2__BasicProps] = value;
-  @override
-  String get basic3 =>
-      props[_$key__basic3__BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  @override
-  set basic3(String value) => props[_$key__basic3__BasicProps] = value;
-  @override
-  String get basic4 =>
-      props[_$key__basic4__BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  @override
-  set basic4(String value) => props[_$key__basic4__BasicProps] = value;
-  @override
-  String get basic5 =>
-      props[_$key__basic5__BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  @override
-  set basic5(String value) => props[_$key__basic5__BasicProps] = value;
+  set basicProp(String value) =>
+      props[_$key__basicProp__BasicPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__basicProp__BasicProps =
-      PropDescriptor(_$key__basicProp__BasicProps, isRequired: true);
-  static const PropDescriptor _$prop__basic1__BasicProps =
-      PropDescriptor(_$key__basic1__BasicProps);
-  static const PropDescriptor _$prop__basic2__BasicProps =
-      PropDescriptor(_$key__basic2__BasicProps);
-  static const PropDescriptor _$prop__basic3__BasicProps =
-      PropDescriptor(_$key__basic3__BasicProps);
-  static const PropDescriptor _$prop__basic4__BasicProps =
-      PropDescriptor(_$key__basic4__BasicProps);
-  static const PropDescriptor _$prop__basic5__BasicProps =
-      PropDescriptor(_$key__basic5__BasicProps);
-  static const String _$key__basicProp__BasicProps = 'BasicProps.basicProp';
-  static const String _$key__basic1__BasicProps = 'BasicProps.basic1';
-  static const String _$key__basic2__BasicProps = 'BasicProps.basic2';
-  static const String _$key__basic3__BasicProps = 'BasicProps.basic3';
-  static const String _$key__basic4__BasicProps = 'BasicProps.basic4';
-  static const String _$key__basic5__BasicProps = 'BasicProps.basic5';
+  static const PropDescriptor _$prop__basicProp__BasicPropsMixin =
+      PropDescriptor(_$key__basicProp__BasicPropsMixin);
+  static const String _$key__basicProp__BasicPropsMixin =
+      'BasicPropsMixin.basicProp';
 
   static const List<PropDescriptor> $props = [
-    _$prop__basicProp__BasicProps,
-    _$prop__basic1__BasicProps,
-    _$prop__basic2__BasicProps,
-    _$prop__basic3__BasicProps,
-    _$prop__basic4__BasicProps,
-    _$prop__basic5__BasicProps
+    _$prop__basicProp__BasicPropsMixin
   ];
-  static const List<String> $propKeys = [
-    _$key__basicProp__BasicProps,
-    _$key__basic1__BasicProps,
-    _$key__basic2__BasicProps,
-    _$key__basic3__BasicProps,
-    _$key__basic4__BasicProps,
-    _$key__basic5__BasicProps
-  ];
+  static const List<String> $propKeys = [_$key__basicProp__BasicPropsMixin];
 }
 
-const PropsMeta _$metaForBasicProps = PropsMeta(
-  fields: $BasicProps.$props,
-  keys: $BasicProps.$propKeys,
+const PropsMeta _$metaForBasicPropsMixin = PropsMeta(
+  fields: $BasicPropsMixin.$props,
+  keys: $BasicPropsMixin.$propKeys,
 );

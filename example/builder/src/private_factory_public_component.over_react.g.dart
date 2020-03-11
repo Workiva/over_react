@@ -19,42 +19,6 @@ final $FormActionInputComponentFactory = registerComponent2(
   displayName: '_FormActionInput',
 );
 
-abstract class _$FormActionInputPropsAccessorsMixin
-    implements _$FormActionInputProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$FormActionInputProps.prop1] -->
-  @override
-  String get prop1 =>
-      props[_$key__prop1___$FormActionInputProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$FormActionInputProps.prop1] -->
-  @override
-  set prop1(String value) =>
-      props[_$key__prop1___$FormActionInputProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__prop1___$FormActionInputProps =
-      PropDescriptor(_$key__prop1___$FormActionInputProps);
-  static const String _$key__prop1___$FormActionInputProps =
-      'FormActionInputProps.prop1';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__prop1___$FormActionInputProps
-  ];
-  static const List<String> $propKeys = [_$key__prop1___$FormActionInputProps];
-}
-
-const PropsMeta _$metaForFormActionInputProps = PropsMeta(
-  fields: _$FormActionInputPropsAccessorsMixin.$props,
-  keys: _$FormActionInputPropsAccessorsMixin.$propKeys,
-);
-
-class FormActionInputProps extends _$FormActionInputProps
-    with _$FormActionInputPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForFormActionInputProps;
-}
-
 _$$FormActionInputProps _$_FormActionInput([Map backingProps]) =>
     backingProps == null
         ? _$$FormActionInputProps$JsMap(JsBackedMap())
@@ -63,9 +27,8 @@ _$$FormActionInputProps _$_FormActionInput([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$FormActionInputProps extends _$FormActionInputProps
-    with _$FormActionInputPropsAccessorsMixin
-    implements FormActionInputProps {
+abstract class _$$FormActionInputProps extends UiProps
+    with FormActionInputProps, $FormActionInputProps {
   _$$FormActionInputProps._();
 
   factory _$$FormActionInputProps(Map backingMap) {
@@ -87,7 +50,7 @@ abstract class _$$FormActionInputProps extends _$FormActionInputProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'FormActionInputProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
@@ -158,10 +121,40 @@ class _$FormActionInputComponent extends FormActionInputComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$FormActionInputProps.
+  /// The default consumed props, taken from FormActionInputProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForFormActionInputProps
   ];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        FormActionInputProps: $FormActionInputProps.meta,
+      });
 }
+
+mixin $FormActionInputProps on FormActionInputProps {
+  static const PropsMeta meta = _$metaForFormActionInputProps;
+  @override
+  String get prop1 =>
+      props[_$key__prop1__FormActionInputProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set prop1(String value) => props[_$key__prop1__FormActionInputProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__prop1__FormActionInputProps =
+      PropDescriptor(_$key__prop1__FormActionInputProps);
+  static const String _$key__prop1__FormActionInputProps =
+      'FormActionInputProps.prop1';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__prop1__FormActionInputProps
+  ];
+  static const List<String> $propKeys = [_$key__prop1__FormActionInputProps];
+}
+
+const PropsMeta _$metaForFormActionInputProps = PropsMeta(
+  fields: $FormActionInputProps.$props,
+  keys: $FormActionInputProps.$propKeys,
+);

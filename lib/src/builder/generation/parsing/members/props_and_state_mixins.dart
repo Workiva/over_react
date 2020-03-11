@@ -1,8 +1,12 @@
 part of '../members.dart';
 
-abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with PropsStateStringHelpers {
+abstract class BoilerplatePropsOrStateMixin extends BoilerplateAccessorsMember
+    with PropsStateStringHelpers {
   @override
   final ClassOrMixinDeclaration node;
+
+  @override
+  ClassishDeclaration get nodeHelper => node.asClassish();
 
   final ClassishDeclaration companion;
 
@@ -27,6 +31,13 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateMember with Props
         errorCollector.addError(
             'Legacy boilerplate ${propsOrStateMixinString}s must be annotated with '
             '`@$propsOrStateMixinAnnotationName()`',
+            errorCollector.spanFor(node));
+      }
+
+      if (!node.hasAbstractGetter('Map', propsOrStateString)) {
+        errorCollector.addError(
+            '$propsOrStateMixinString classes must declare an abstract $propsOrStateString getter `Map get $propsOrStateString;` '
+            'so that they can be statically analyzed properly.',
             errorCollector.spanFor(node));
       }
     }

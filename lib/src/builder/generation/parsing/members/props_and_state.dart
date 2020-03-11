@@ -1,9 +1,11 @@
 part of '../members.dart';
 
-abstract class BoilerplatePropsOrState extends BoilerplateMember with PropsStateStringHelpers {
+abstract class BoilerplatePropsOrState extends BoilerplateAccessorsMember
+    with PropsStateStringHelpers {
   @override
   final NamedCompilationUnitMember node;
 
+  @override
   final ClassishDeclaration nodeHelper;
 
   final ClassishDeclaration companion;

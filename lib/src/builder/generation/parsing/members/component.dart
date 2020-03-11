@@ -6,6 +6,8 @@ class BoilerplateComponent extends BoilerplateMember {
 
   final ClassishDeclaration nodeHelper;
 
+  @override
+  // ignore: deprecated_member_use_from_same_package
   annotations.Component meta;
   Identifier configSubtypeOf;
 
@@ -13,6 +15,7 @@ class BoilerplateComponent extends BoilerplateMember {
       : node = nodeHelper.node,
         super(confidence) {
     final meta = InstantiatedComponentMeta<annotations.Component2>(node) ??
+        // ignore: deprecated_member_use_from_same_package
         InstantiatedComponentMeta<annotations.Component>(node);
 
     this.meta = meta?.value ?? annotations.Component2();
@@ -41,7 +44,8 @@ class BoilerplateComponent extends BoilerplateMember {
     switch (version) {
       case Version.v4_mixinBased:
         final superclass = nodeHelper.superclass;
-        if (const ['UiComponent', 'UiStatefulComponent', 'FluxUiComponent'].contains(superclass?.nameWithoutPrefix)) {
+        if (const ['UiComponent', 'UiStatefulComponent', 'FluxUiComponent']
+            .contains(superclass?.nameWithoutPrefix)) {
           errorCollector.addError(
               'Must extend UiComponent2, not UiComponent.', errorCollector.spanFor(superclass));
         }

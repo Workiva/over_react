@@ -27,7 +27,9 @@ part 'prop_mixins.over_react.g.dart';
 /// This class is only present to allow for consumers which have used the
 /// --backwards-compat flag with over_react_codemod to statically analyze:
 /// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
-abstract class $ReactPropsMixin {}
+abstract class $ReactPropsMixin {
+  static const PropsMeta meta = _$metaForReactPropsMixin;
+}
 
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.
@@ -63,7 +65,9 @@ abstract class _$ReactPropsMixin {
 /// This class is only present to allow for consumers which have used the
 /// --backwards-compat flag with over_react_codemod to statically analyze:
 /// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
-abstract class $DomPropsMixin {}
+abstract class $DomPropsMixin {
+  static const PropsMeta meta = _$metaForDomPropsMixin;
+}
 
 /// Typed getters/setters for reserved DOM-related props.
 /// To be used as a mixin for React components and builders.
@@ -134,7 +138,9 @@ abstract class _$DomPropsMixin {
 /// This class is only present to allow for consumers which have used the
 /// --backwards-compat flag with over_react_codemod to statically analyze:
 /// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
-abstract class $SvgPropsMixin {}
+abstract class $SvgPropsMixin {
+  static const PropsMeta meta = _$metaForSvgPropsMixin;
+}
 
 @PropsMixin(keyNamespace: '')
 abstract class _$SvgPropsMixin {
@@ -175,7 +181,9 @@ abstract class _$SvgPropsMixin {
 /// This class is only present to allow for consumers which have used the
 /// --backwards-compat flag with over_react_codemod to statically analyze:
 /// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
-abstract class $UbiquitousDomPropsMixin {}
+abstract class $UbiquitousDomPropsMixin {
+  static const PropsMeta meta = _$metaForUbiquitousDomPropsMixin;
+}
 
 /// Typed getters/setters for reserved DOM-related props that can be used by all UIP components.
 /// To be used as a mixin for React components and builders.

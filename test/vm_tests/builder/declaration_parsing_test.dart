@@ -374,8 +374,8 @@ main() {
               final mixins = expectAllOfType<PropsMixinDeclaration>(declarations);
 
               for (var mixin in mixins) {
-                expect(mixinNames, contains(mixin.propsMixin.name.name));
-                expect(mixin.propsMixin.meta, isA<annotations.PropsMixin>());
+                expect(mixinNames, contains(mixin.mixin.name.name));
+                expect(mixin.mixin.meta, isA<annotations.PropsMixin>());
               }
             }
 
@@ -398,8 +398,8 @@ main() {
               final mixins = expectAllOfType<StateMixinDeclaration>(declarations);
 
               for (var mixin in mixins) {
-                expect(mixinNames, contains(mixin.stateMixin.name.name));
-                expect(mixin.stateMixin.meta, isA<annotations.StateMixin>());
+                expect(mixinNames, contains(mixin.mixin.name.name));
+                expect(mixin.mixin.meta, isA<annotations.StateMixin>());
               }
             }
 
@@ -531,19 +531,23 @@ main() {
               test('a props mixin', () {
                 setUpAndParse('''
                   @PropsMixin(keyNamespace: "bar")
-                  class FooPropsMixin {}
+                  class FooPropsMixin {
+                    Map get props;
+                  }
                 ''');
                 final decl = expectSingleOfType<PropsMixinDeclaration>(declarations);
-                expect(decl.propsMixin.meta.keyNamespace, 'bar');
+                expect(decl.mixin.meta.keyNamespace, 'bar');
               });
 
               test('a state mixin', () {
                 setUpAndParse('''
                   @StateMixin(keyNamespace: "bar")
-                  class FooStateMixin {}
+                  class FooStateMixin {
+                    Map get state;
+                  }
                 ''');
                 final decl = expectSingleOfType<StateMixinDeclaration>(declarations);
-                expect(decl.stateMixin.meta.keyNamespace, 'bar');
+                expect(decl.mixin.meta.keyNamespace, 'bar');
               });
 
               test('an abstract props class', () {
@@ -613,19 +617,23 @@ main() {
               test('a props mixin', () {
                 setUpAndParse('''
                   @PropsMixin(keyNamespace: "bar")
-                  class _\$FooPropsMixin {}
+                  class _\$FooPropsMixin {
+                    Map get props;
+                  }
                 ''');
                 final decl = expectSingleOfType<PropsMixinDeclaration>(declarations);
-                expect(decl.propsMixin.meta.keyNamespace, 'bar');
+                expect(decl.mixin.meta.keyNamespace, 'bar');
               });
 
               test('a state mixin', () {
                 setUpAndParse('''
                   @StateMixin(keyNamespace: "bar")
-                  class _\$FooStateMixin {}
+                  class _\$FooStateMixin {
+                    Map get state;
+                  }
                 ''');
                 final decl = expectSingleOfType<StateMixinDeclaration>(declarations);
-                expect(decl.stateMixin.meta.keyNamespace, 'bar');
+                expect(decl.mixin.meta.keyNamespace, 'bar');
               });
 
               test('an abstract props class', () {
@@ -724,7 +732,7 @@ main() {
               ]));
 
               final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
-              expect(propsMixinDecl.propsMixin?.name?.name, 'FooProps');
+              expect(propsMixinDecl.mixin?.name?.name, 'FooProps');
 
               final decl = declarations.firstWhereType<ClassComponentDeclaration>();
 
@@ -759,7 +767,7 @@ main() {
               ]));
 
               final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
-              expect(propsMixinDecl.propsMixin?.name?.name, 'FooPropsMixin');
+              expect(propsMixinDecl.mixin?.name?.name, 'FooPropsMixin');
 
               final decl = declarations.firstWhereType<ClassComponentDeclaration>();
 
@@ -797,10 +805,10 @@ main() {
               ]));
 
               final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
-              expect(propsMixinDecl.propsMixin?.name?.name, 'FooProps');
+              expect(propsMixinDecl.mixin?.name?.name, 'FooProps');
 
               final stateMixinDecl = declarations.firstWhereType<StateMixinDeclaration>();
-              expect(stateMixinDecl.stateMixin?.name?.name, 'FooState');
+              expect(stateMixinDecl.mixin?.name?.name, 'FooState');
 
               final decl = declarations.firstWhereType<ClassComponentDeclaration>();
 
@@ -839,10 +847,10 @@ main() {
               ]));
 
               final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
-              expect(propsMixinDecl.propsMixin?.name?.name, 'FooPropsMixin');
+              expect(propsMixinDecl.mixin?.name?.name, 'FooPropsMixin');
 
               final stateMixinDecl = declarations.firstWhereType<StateMixinDeclaration>();
-              expect(stateMixinDecl.stateMixin?.name?.name, 'FooStateMixin');
+              expect(stateMixinDecl.mixin?.name?.name, 'FooStateMixin');
 
               final decl = declarations.firstWhereType<ClassComponentDeclaration>();
 
@@ -885,10 +893,10 @@ main() {
               ]));
 
               final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
-              expect(propsMixinDecl.propsMixin?.name?.name, 'FooPropsMixin');
+              expect(propsMixinDecl.mixin?.name?.name, 'FooPropsMixin');
 
               final stateMixinDecl = declarations.firstWhereType<StateMixinDeclaration>();
-              expect(stateMixinDecl.stateMixin?.name?.name, 'FooStateMixin');
+              expect(stateMixinDecl.mixin?.name?.name, 'FooStateMixin');
 
               final decl = declarations.firstWhereType<ClassComponentDeclaration>();
 
@@ -938,7 +946,7 @@ main() {
 
             final mixins = expectLengthAndAllOfType<PropsMixinDeclaration>(declarations, 3);
 
-            expect(mixins.map((m) => m.propsMixin.name.name).toList(),
+            expect(mixins.map((m) => m.mixin.name.name).toList(),
                 ['FooPropsMixin', 'BarPropsMixin', 'BazPropsMixin']);
           });
           
@@ -951,7 +959,7 @@ main() {
 
             final mixins = expectLengthAndAllOfType<StateMixinDeclaration>(declarations, 3);
 
-            expect(mixins.map((m) => m.stateMixin.name.name).toList(),
+            expect(mixins.map((m) => m.mixin.name.name).toList(),
                 ['FooStateMixin', 'BarStateMixin', 'BazStateMixin']);
           });
 
@@ -1030,7 +1038,7 @@ main() {
                 mixin FooPropsMixin on UiProps {}
               ''');
               final decl = expectSingleOfType<PropsMixinDeclaration>(declarations);
-              expect(decl.propsMixin.meta.keyNamespace, 'bar');
+              expect(decl.mixin.meta.keyNamespace, 'bar');
             });
 
             test('a state mixin', () {
@@ -1039,7 +1047,7 @@ main() {
                 mixin FooStateMixin on UiState {}
               ''');
               final decl = expectSingleOfType<StateMixinDeclaration>(declarations);
-              expect(decl.stateMixin.meta.keyNamespace, 'bar');
+              expect(decl.mixin.meta.keyNamespace, 'bar');
             });
           });
 
@@ -1455,6 +1463,7 @@ main() {
               setUpAndParse('''
                 @PropsMixin() abstract class FooPropsMixin {
                   static const StateMeta meta = _\$metaForFooPropsMixin;
+                  Map get props;
                 }
               ''');
               verify(logger.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
@@ -1464,6 +1473,7 @@ main() {
               setUpAndParse('''
                 @PropsMixin() abstract class FooPropsMixin {
                   static const PropsMeta meta = \$metaForBarPropsMixin;
+                  Map get props;
                 }
               ''');
               verify(logger.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
@@ -1474,6 +1484,7 @@ main() {
               setUpAndParse('''
                 @PropsMixin() abstract class _FooPropsMixin {
                   static const PropsMeta meta = \$metaForBarPropsMixin;
+                  Map get props;
                 }
               ''');
               verify(logger.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
@@ -1486,6 +1497,7 @@ main() {
               setUpAndParse('''
                 @StateMixin() abstract class FooStateMixin {
                   static const PropsMeta meta = _\$metaForFooStateMixin;
+                  Map get state;
                 }
               ''');
               verify(logger.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));
@@ -1495,6 +1507,7 @@ main() {
               setUpAndParse('''
                 @StateMixin() abstract class FooStateMixin {
                   static const StateMeta meta = \$metaForBarStateMixin;
+                  Map get state;
                 }
               ''');
               verify(logger.severe(contains('Static StateMeta field in accessor class must be initialized to:'
@@ -1505,6 +1518,7 @@ main() {
               setUpAndParse('''
                 @StateMixin() abstract class _FooStateMixin {
                   static const StateMeta meta = \$metaForBarStateMixin;
+                  Map get state;
                 }
               ''');
               verify(logger.severe(contains('Static StateMeta field in accessor class must be initialized to:'

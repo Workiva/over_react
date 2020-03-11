@@ -19,124 +19,6 @@ final $BasicPartOfLibComponentFactory = registerComponent2(
   displayName: 'BasicPartOfLib',
 );
 
-abstract class _$BasicPartOfLibPropsAccessorsMixin
-    implements _$BasicPartOfLibProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$BasicPartOfLibProps.basicProp] -->
-  @override
-  String get basicProp =>
-      props[_$key__basicProp___$BasicPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BasicPartOfLibProps.basicProp] -->
-  @override
-  set basicProp(String value) =>
-      props[_$key__basicProp___$BasicPartOfLibProps] = value;
-
-  /// <!-- Generated from [_$BasicPartOfLibProps.basic1] -->
-  @override
-  String get basic1 =>
-      props[_$key__basic1___$BasicPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BasicPartOfLibProps.basic1] -->
-  @override
-  set basic1(String value) =>
-      props[_$key__basic1___$BasicPartOfLibProps] = value;
-
-  /// <!-- Generated from [_$BasicPartOfLibProps.basic2] -->
-  @override
-  String get basic2 =>
-      props[_$key__basic2___$BasicPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BasicPartOfLibProps.basic2] -->
-  @override
-  set basic2(String value) =>
-      props[_$key__basic2___$BasicPartOfLibProps] = value;
-
-  /// <!-- Generated from [_$BasicPartOfLibProps.basic3] -->
-  @override
-  String get basic3 =>
-      props[_$key__basic3___$BasicPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BasicPartOfLibProps.basic3] -->
-  @override
-  set basic3(String value) =>
-      props[_$key__basic3___$BasicPartOfLibProps] = value;
-
-  /// <!-- Generated from [_$BasicPartOfLibProps.basic4] -->
-  @override
-  String get basic4 =>
-      props[_$key__basic4___$BasicPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BasicPartOfLibProps.basic4] -->
-  @override
-  set basic4(String value) =>
-      props[_$key__basic4___$BasicPartOfLibProps] = value;
-
-  /// <!-- Generated from [_$BasicPartOfLibProps.basic5] -->
-  @override
-  String get basic5 =>
-      props[_$key__basic5___$BasicPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BasicPartOfLibProps.basic5] -->
-  @override
-  set basic5(String value) =>
-      props[_$key__basic5___$BasicPartOfLibProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__basicProp___$BasicPartOfLibProps =
-      PropDescriptor(_$key__basicProp___$BasicPartOfLibProps);
-  static const PropDescriptor _$prop__basic1___$BasicPartOfLibProps =
-      PropDescriptor(_$key__basic1___$BasicPartOfLibProps);
-  static const PropDescriptor _$prop__basic2___$BasicPartOfLibProps =
-      PropDescriptor(_$key__basic2___$BasicPartOfLibProps);
-  static const PropDescriptor _$prop__basic3___$BasicPartOfLibProps =
-      PropDescriptor(_$key__basic3___$BasicPartOfLibProps);
-  static const PropDescriptor _$prop__basic4___$BasicPartOfLibProps =
-      PropDescriptor(_$key__basic4___$BasicPartOfLibProps);
-  static const PropDescriptor _$prop__basic5___$BasicPartOfLibProps =
-      PropDescriptor(_$key__basic5___$BasicPartOfLibProps);
-  static const String _$key__basicProp___$BasicPartOfLibProps =
-      'BasicPartOfLibProps.basicProp';
-  static const String _$key__basic1___$BasicPartOfLibProps =
-      'BasicPartOfLibProps.basic1';
-  static const String _$key__basic2___$BasicPartOfLibProps =
-      'BasicPartOfLibProps.basic2';
-  static const String _$key__basic3___$BasicPartOfLibProps =
-      'BasicPartOfLibProps.basic3';
-  static const String _$key__basic4___$BasicPartOfLibProps =
-      'BasicPartOfLibProps.basic4';
-  static const String _$key__basic5___$BasicPartOfLibProps =
-      'BasicPartOfLibProps.basic5';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__basicProp___$BasicPartOfLibProps,
-    _$prop__basic1___$BasicPartOfLibProps,
-    _$prop__basic2___$BasicPartOfLibProps,
-    _$prop__basic3___$BasicPartOfLibProps,
-    _$prop__basic4___$BasicPartOfLibProps,
-    _$prop__basic5___$BasicPartOfLibProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__basicProp___$BasicPartOfLibProps,
-    _$key__basic1___$BasicPartOfLibProps,
-    _$key__basic2___$BasicPartOfLibProps,
-    _$key__basic3___$BasicPartOfLibProps,
-    _$key__basic4___$BasicPartOfLibProps,
-    _$key__basic5___$BasicPartOfLibProps
-  ];
-}
-
-const PropsMeta _$metaForBasicPartOfLibProps = PropsMeta(
-  fields: _$BasicPartOfLibPropsAccessorsMixin.$props,
-  keys: _$BasicPartOfLibPropsAccessorsMixin.$propKeys,
-);
-
-class BasicPartOfLibProps extends _$BasicPartOfLibProps
-    with _$BasicPartOfLibPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForBasicPartOfLibProps;
-}
-
 _$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
     backingProps == null
         ? _$$BasicPartOfLibProps$JsMap(JsBackedMap())
@@ -145,9 +27,8 @@ _$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$BasicPartOfLibProps extends _$BasicPartOfLibProps
-    with _$BasicPartOfLibPropsAccessorsMixin
-    implements BasicPartOfLibProps {
+abstract class _$$BasicPartOfLibProps extends BasicPartOfLibProps
+    with $ExamplePropsMixin, $BasicPartOfLibPropsMixin {
   _$$BasicPartOfLibProps._();
 
   factory _$$BasicPartOfLibProps(Map backingMap) {
@@ -169,7 +50,7 @@ abstract class _$$BasicPartOfLibProps extends _$BasicPartOfLibProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'BasicPartOfLibProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
@@ -205,50 +86,11 @@ class _$$BasicPartOfLibProps$JsMap extends _$$BasicPartOfLibProps {
   JsBackedMap _props;
 }
 
-abstract class _$BasicPartOfLibStateAccessorsMixin
-    implements _$BasicPartOfLibState {
-  @override
-  Map get state;
-
-  /// <!-- Generated from [_$BasicPartOfLibState.basicState] -->
-  @override
-  String get basicState =>
-      state[_$key__basicState___$BasicPartOfLibState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BasicPartOfLibState.basicState] -->
-  @override
-  set basicState(String value) =>
-      state[_$key__basicState___$BasicPartOfLibState] = value;
-  /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__basicState___$BasicPartOfLibState =
-      StateDescriptor(_$key__basicState___$BasicPartOfLibState);
-  static const String _$key__basicState___$BasicPartOfLibState =
-      'BasicPartOfLibState.basicState';
-
-  static const List<StateDescriptor> $state = [
-    _$prop__basicState___$BasicPartOfLibState
-  ];
-  static const List<String> $stateKeys = [
-    _$key__basicState___$BasicPartOfLibState
-  ];
-}
-
-const StateMeta _$metaForBasicPartOfLibState = StateMeta(
-  fields: _$BasicPartOfLibStateAccessorsMixin.$state,
-  keys: _$BasicPartOfLibStateAccessorsMixin.$stateKeys,
-);
-
-class BasicPartOfLibState extends _$BasicPartOfLibState
-    with _$BasicPartOfLibStateAccessorsMixin {
-  static const StateMeta meta = _$metaForBasicPartOfLibState;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$BasicPartOfLibState extends _$BasicPartOfLibState
-    with _$BasicPartOfLibStateAccessorsMixin
-    implements BasicPartOfLibState {
+abstract class _$$BasicPartOfLibState extends BasicPartOfLibState
+    with $ExampleStateMixin, $BasicPartOfLibStateMixin {
   _$$BasicPartOfLibState._();
 
   factory _$$BasicPartOfLibState(Map backingMap) {
@@ -354,80 +196,169 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$BasicPartOfLibProps.
+  /// The default consumed props, taken from BasicPartOfLibProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForBasicPartOfLibProps
+  final List<ConsumedProps> $defaultConsumedProps = const [];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        ExamplePropsMixin: $ExamplePropsMixin.meta,
+        BasicPartOfLibPropsMixin: $BasicPartOfLibPropsMixin.meta,
+      });
+}
+
+mixin $BasicPartOfLibPropsMixin on BasicPartOfLibPropsMixin {
+  static const PropsMeta meta = _$metaForBasicPartOfLibPropsMixin;
+  @override
+  String get basicProp =>
+      props[_$key__basicProp__BasicPartOfLibPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set basicProp(String value) =>
+      props[_$key__basicProp__BasicPartOfLibPropsMixin] = value;
+  @override
+  String get basic1 =>
+      props[_$key__basic1__BasicPartOfLibPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set basic1(String value) =>
+      props[_$key__basic1__BasicPartOfLibPropsMixin] = value;
+  @override
+  String get basic2 =>
+      props[_$key__basic2__BasicPartOfLibPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set basic2(String value) =>
+      props[_$key__basic2__BasicPartOfLibPropsMixin] = value;
+  @override
+  String get basic3 =>
+      props[_$key__basic3__BasicPartOfLibPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set basic3(String value) =>
+      props[_$key__basic3__BasicPartOfLibPropsMixin] = value;
+  @override
+  String get basic4 =>
+      props[_$key__basic4__BasicPartOfLibPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set basic4(String value) =>
+      props[_$key__basic4__BasicPartOfLibPropsMixin] = value;
+  @override
+  String get basic5 =>
+      props[_$key__basic5__BasicPartOfLibPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set basic5(String value) =>
+      props[_$key__basic5__BasicPartOfLibPropsMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__basicProp__BasicPartOfLibPropsMixin =
+      PropDescriptor(_$key__basicProp__BasicPartOfLibPropsMixin);
+  static const PropDescriptor _$prop__basic1__BasicPartOfLibPropsMixin =
+      PropDescriptor(_$key__basic1__BasicPartOfLibPropsMixin);
+  static const PropDescriptor _$prop__basic2__BasicPartOfLibPropsMixin =
+      PropDescriptor(_$key__basic2__BasicPartOfLibPropsMixin);
+  static const PropDescriptor _$prop__basic3__BasicPartOfLibPropsMixin =
+      PropDescriptor(_$key__basic3__BasicPartOfLibPropsMixin);
+  static const PropDescriptor _$prop__basic4__BasicPartOfLibPropsMixin =
+      PropDescriptor(_$key__basic4__BasicPartOfLibPropsMixin);
+  static const PropDescriptor _$prop__basic5__BasicPartOfLibPropsMixin =
+      PropDescriptor(_$key__basic5__BasicPartOfLibPropsMixin);
+  static const String _$key__basicProp__BasicPartOfLibPropsMixin =
+      'BasicPartOfLibPropsMixin.basicProp';
+  static const String _$key__basic1__BasicPartOfLibPropsMixin =
+      'BasicPartOfLibPropsMixin.basic1';
+  static const String _$key__basic2__BasicPartOfLibPropsMixin =
+      'BasicPartOfLibPropsMixin.basic2';
+  static const String _$key__basic3__BasicPartOfLibPropsMixin =
+      'BasicPartOfLibPropsMixin.basic3';
+  static const String _$key__basic4__BasicPartOfLibPropsMixin =
+      'BasicPartOfLibPropsMixin.basic4';
+  static const String _$key__basic5__BasicPartOfLibPropsMixin =
+      'BasicPartOfLibPropsMixin.basic5';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__basicProp__BasicPartOfLibPropsMixin,
+    _$prop__basic1__BasicPartOfLibPropsMixin,
+    _$prop__basic2__BasicPartOfLibPropsMixin,
+    _$prop__basic3__BasicPartOfLibPropsMixin,
+    _$prop__basic4__BasicPartOfLibPropsMixin,
+    _$prop__basic5__BasicPartOfLibPropsMixin
+  ];
+  static const List<String> $propKeys = [
+    _$key__basicProp__BasicPartOfLibPropsMixin,
+    _$key__basic1__BasicPartOfLibPropsMixin,
+    _$key__basic2__BasicPartOfLibPropsMixin,
+    _$key__basic3__BasicPartOfLibPropsMixin,
+    _$key__basic4__BasicPartOfLibPropsMixin,
+    _$key__basic5__BasicPartOfLibPropsMixin
   ];
 }
+
+const PropsMeta _$metaForBasicPartOfLibPropsMixin = PropsMeta(
+  fields: $BasicPartOfLibPropsMixin.$props,
+  keys: $BasicPartOfLibPropsMixin.$propKeys,
+);
+
+mixin $BasicPartOfLibStateMixin on BasicPartOfLibStateMixin {
+  static const StateMeta meta = _$metaForBasicPartOfLibStateMixin;
+  @override
+  String get basicState =>
+      state[_$key__basicState__BasicPartOfLibStateMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set basicState(String value) =>
+      state[_$key__basicState__BasicPartOfLibStateMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor _$prop__basicState__BasicPartOfLibStateMixin =
+      StateDescriptor(_$key__basicState__BasicPartOfLibStateMixin);
+  static const String _$key__basicState__BasicPartOfLibStateMixin =
+      'BasicPartOfLibStateMixin.basicState';
+
+  static const List<StateDescriptor> $state = [
+    _$prop__basicState__BasicPartOfLibStateMixin
+  ];
+  static const List<String> $stateKeys = [
+    _$key__basicState__BasicPartOfLibStateMixin
+  ];
+}
+
+const StateMeta _$metaForBasicPartOfLibStateMixin = StateMeta(
+  fields: $BasicPartOfLibStateMixin.$state,
+  keys: $BasicPartOfLibStateMixin.$stateKeys,
+);
 
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $SubPartOfLibComponentFactory = registerComponent(
-    () => _$SubPartOfLibComponent(),
-    builderFactory: SubPartOfLib,
-    componentClass: SubPartOfLibComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'SubPartOfLib');
-
-abstract class _$SubPartOfLibPropsAccessorsMixin
-    implements _$SubPartOfLibProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$SubPartOfLibProps.subProp] -->
-  @override
-  String get subProp =>
-      props[_$key__subProp___$SubPartOfLibProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$SubPartOfLibProps.subProp] -->
-  @override
-  set subProp(String value) =>
-      props[_$key__subProp___$SubPartOfLibProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__subProp___$SubPartOfLibProps =
-      PropDescriptor(_$key__subProp___$SubPartOfLibProps);
-  static const String _$key__subProp___$SubPartOfLibProps =
-      'SubPartOfLibProps.subProp';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__subProp___$SubPartOfLibProps
-  ];
-  static const List<String> $propKeys = [_$key__subProp___$SubPartOfLibProps];
-}
-
-const PropsMeta _$metaForSubPartOfLibProps = PropsMeta(
-  fields: _$SubPartOfLibPropsAccessorsMixin.$props,
-  keys: _$SubPartOfLibPropsAccessorsMixin.$propKeys,
+final $SubPartOfLibComponentFactory = registerComponent2(
+  () => _$SubPartOfLibComponent(),
+  builderFactory: SubPartOfLib,
+  componentClass: SubPartOfLibComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'SubPartOfLib',
 );
 
-class SubPartOfLibProps extends _$SubPartOfLibProps
-    with _$SubPartOfLibPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForSubPartOfLibProps;
-}
-
-_$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) =>
-    _$$SubPartOfLibProps(backingProps);
+_$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) => backingProps == null
+    ? _$$SubPartOfLibProps$JsMap(JsBackedMap())
+    : _$$SubPartOfLibProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$SubPartOfLibProps extends _$SubPartOfLibProps
-    with _$SubPartOfLibPropsAccessorsMixin
-    implements SubPartOfLibProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SubPartOfLibProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+abstract class _$$SubPartOfLibProps extends SubPartOfLibProps
+    with $SuperPartOfLibPropsMixin, $SubPartOfLibPropsMixin {
+  _$$SubPartOfLibProps._();
 
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
+  factory _$$SubPartOfLibProps(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$SubPartOfLibProps$JsMap(backingMap);
+    } else {
+      return _$$SubPartOfLibProps$PlainMap(backingMap);
+    }
+  }
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -440,7 +371,40 @@ class _$$SubPartOfLibProps extends _$SubPartOfLibProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'SubPartOfLibProps.';
+  String get propKeyNamespace => '';
+}
+
+// Concrete props implementation that can be backed by any [Map].
+class _$$SubPartOfLibProps$PlainMap extends _$$SubPartOfLibProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$SubPartOfLibProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+class _$$SubPartOfLibProps$JsMap extends _$$SubPartOfLibProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$SubPartOfLibProps$JsMap(JsBackedMap backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 // Concrete component implementation mixin.
@@ -448,6 +412,28 @@ class _$$SubPartOfLibProps extends _$SubPartOfLibProps
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$SubPartOfLibComponent extends SubPartOfLibComponent {
+  _$$SubPartOfLibProps$JsMap _cachedTypedProps;
+
+  @override
+  _$$SubPartOfLibProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+  }
+
+  @override
+  _$$SubPartOfLibProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$SubPartOfLibProps$JsMap(backingMap);
+
   @override
   _$$SubPartOfLibProps typedPropsFactory(Map backingMap) =>
       _$$SubPartOfLibProps(backingMap);
@@ -456,48 +442,70 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$SubPartOfLibProps.
+  /// The default consumed props, taken from SubPartOfLibProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForSubPartOfLibProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        SuperPartOfLibPropsMixin: $SuperPartOfLibPropsMixin.meta,
+        SubPartOfLibPropsMixin: $SubPartOfLibPropsMixin.meta,
+      });
 }
 
-abstract class _$SuperPartOfLibPropsAccessorsMixin
-    implements _$SuperPartOfLibProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$SuperPartOfLibProps.superProp] -->
+mixin $SuperPartOfLibPropsMixin on SuperPartOfLibPropsMixin {
+  static const PropsMeta meta = _$metaForSuperPartOfLibPropsMixin;
   @override
   String get superProp =>
-      props[_$key__superProp___$SuperPartOfLibProps] ??
+      props[_$key__superProp__SuperPartOfLibPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$SuperPartOfLibProps.superProp] -->
   @override
   set superProp(String value) =>
-      props[_$key__superProp___$SuperPartOfLibProps] = value;
+      props[_$key__superProp__SuperPartOfLibPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__superProp___$SuperPartOfLibProps =
-      PropDescriptor(_$key__superProp___$SuperPartOfLibProps);
-  static const String _$key__superProp___$SuperPartOfLibProps =
-      'SuperPartOfLibProps.superProp';
+  static const PropDescriptor _$prop__superProp__SuperPartOfLibPropsMixin =
+      PropDescriptor(_$key__superProp__SuperPartOfLibPropsMixin);
+  static const String _$key__superProp__SuperPartOfLibPropsMixin =
+      'SuperPartOfLibPropsMixin.superProp';
 
   static const List<PropDescriptor> $props = [
-    _$prop__superProp___$SuperPartOfLibProps
+    _$prop__superProp__SuperPartOfLibPropsMixin
   ];
   static const List<String> $propKeys = [
-    _$key__superProp___$SuperPartOfLibProps
+    _$key__superProp__SuperPartOfLibPropsMixin
   ];
 }
 
-const PropsMeta _$metaForSuperPartOfLibProps = PropsMeta(
-  fields: _$SuperPartOfLibPropsAccessorsMixin.$props,
-  keys: _$SuperPartOfLibPropsAccessorsMixin.$propKeys,
+const PropsMeta _$metaForSuperPartOfLibPropsMixin = PropsMeta(
+  fields: $SuperPartOfLibPropsMixin.$props,
+  keys: $SuperPartOfLibPropsMixin.$propKeys,
 );
 
-abstract class SuperPartOfLibProps extends _$SuperPartOfLibProps
-    with _$SuperPartOfLibPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForSuperPartOfLibProps;
+mixin $SubPartOfLibPropsMixin on SubPartOfLibPropsMixin {
+  static const PropsMeta meta = _$metaForSubPartOfLibPropsMixin;
+  @override
+  String get subProp =>
+      props[_$key__subProp__SubPartOfLibPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set subProp(String value) =>
+      props[_$key__subProp__SubPartOfLibPropsMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__subProp__SubPartOfLibPropsMixin =
+      PropDescriptor(_$key__subProp__SubPartOfLibPropsMixin);
+  static const String _$key__subProp__SubPartOfLibPropsMixin =
+      'SubPartOfLibPropsMixin.subProp';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__subProp__SubPartOfLibPropsMixin
+  ];
+  static const List<String> $propKeys = [
+    _$key__subProp__SubPartOfLibPropsMixin
+  ];
 }
+
+const PropsMeta _$metaForSubPartOfLibPropsMixin = PropsMeta(
+  fields: $SubPartOfLibPropsMixin.$props,
+  keys: $SubPartOfLibPropsMixin.$propKeys,
+);

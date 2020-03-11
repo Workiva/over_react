@@ -19,36 +19,6 @@ final $PrivateComponentFactory = registerComponent2(
   displayName: '_Private',
 );
 
-abstract class _$_PrivatePropsAccessorsMixin implements _$_PrivateProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$_PrivateProps.prop1] -->
-  @override
-  bool get prop1 =>
-      props[_$key__prop1___$_PrivateProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$_PrivateProps.prop1] -->
-  @override
-  set prop1(bool value) => props[_$key__prop1___$_PrivateProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__prop1___$_PrivateProps =
-      PropDescriptor(_$key__prop1___$_PrivateProps);
-  static const String _$key__prop1___$_PrivateProps = '_PrivateProps.prop1';
-
-  static const List<PropDescriptor> $props = [_$prop__prop1___$_PrivateProps];
-  static const List<String> $propKeys = [_$key__prop1___$_PrivateProps];
-}
-
-const PropsMeta _$metaFor_PrivateProps = PropsMeta(
-  fields: _$_PrivatePropsAccessorsMixin.$props,
-  keys: _$_PrivatePropsAccessorsMixin.$propKeys,
-);
-
-class _PrivateProps extends _$_PrivateProps with _$_PrivatePropsAccessorsMixin {
-  static const PropsMeta meta = _$metaFor_PrivateProps;
-}
-
 _$$_PrivateProps _$_Private([Map backingProps]) => backingProps == null
     ? _$$_PrivateProps$JsMap(JsBackedMap())
     : _$$_PrivateProps(backingProps);
@@ -56,9 +26,8 @@ _$$_PrivateProps _$_Private([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$_PrivateProps extends _$_PrivateProps
-    with _$_PrivatePropsAccessorsMixin
-    implements _PrivateProps {
+abstract class _$$_PrivateProps extends UiProps
+    with _PrivateProps, $_PrivateProps {
   _$$_PrivateProps._();
 
   factory _$$_PrivateProps(Map backingMap) {
@@ -80,7 +49,7 @@ abstract class _$$_PrivateProps extends _$_PrivateProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => '_PrivateProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
@@ -116,42 +85,11 @@ class _$$_PrivateProps$JsMap extends _$$_PrivateProps {
   JsBackedMap _props;
 }
 
-abstract class _$_PrivateStateAccessorsMixin implements _$_PrivateState {
-  @override
-  Map get state;
-
-  /// <!-- Generated from [_$_PrivateState.state1] -->
-  @override
-  bool get state1 =>
-      state[_$key__state1___$_PrivateState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$_PrivateState.state1] -->
-  @override
-  set state1(bool value) => state[_$key__state1___$_PrivateState] = value;
-  /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__state1___$_PrivateState =
-      StateDescriptor(_$key__state1___$_PrivateState);
-  static const String _$key__state1___$_PrivateState = '_PrivateState.state1';
-
-  static const List<StateDescriptor> $state = [_$prop__state1___$_PrivateState];
-  static const List<String> $stateKeys = [_$key__state1___$_PrivateState];
-}
-
-const StateMeta _$metaFor_PrivateState = StateMeta(
-  fields: _$_PrivateStateAccessorsMixin.$state,
-  keys: _$_PrivateStateAccessorsMixin.$stateKeys,
-);
-
-class _PrivateState extends _$_PrivateState with _$_PrivateStateAccessorsMixin {
-  static const StateMeta meta = _$metaFor_PrivateState;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$_PrivateState extends _$_PrivateState
-    with _$_PrivateStateAccessorsMixin
-    implements _PrivateState {
+abstract class _$$_PrivateState extends UiState
+    with _PrivateState, $_PrivateState {
   _$$_PrivateState._();
 
   factory _$$_PrivateState(Map backingMap) {
@@ -257,10 +195,59 @@ class _$PrivateComponent extends PrivateComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$_PrivateProps.
+  /// The default consumed props, taken from _PrivateProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaFor_PrivateProps
   ];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        _PrivateProps: $_PrivateProps.meta,
+      });
 }
+
+mixin $_PrivateProps on _PrivateProps {
+  static const PropsMeta meta = _$metaFor_PrivateProps;
+  @override
+  bool get prop1 =>
+      props[_$key__prop1___PrivateProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set prop1(bool value) => props[_$key__prop1___PrivateProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__prop1___PrivateProps =
+      PropDescriptor(_$key__prop1___PrivateProps);
+  static const String _$key__prop1___PrivateProps = '_PrivateProps.prop1';
+
+  static const List<PropDescriptor> $props = [_$prop__prop1___PrivateProps];
+  static const List<String> $propKeys = [_$key__prop1___PrivateProps];
+}
+
+const PropsMeta _$metaFor_PrivateProps = PropsMeta(
+  fields: $_PrivateProps.$props,
+  keys: $_PrivateProps.$propKeys,
+);
+
+mixin $_PrivateState on _PrivateState {
+  static const StateMeta meta = _$metaFor_PrivateState;
+  @override
+  bool get state1 =>
+      state[_$key__state1___PrivateState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set state1(bool value) => state[_$key__state1___PrivateState] = value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor _$prop__state1___PrivateState =
+      StateDescriptor(_$key__state1___PrivateState);
+  static const String _$key__state1___PrivateState = '_PrivateState.state1';
+
+  static const List<StateDescriptor> $state = [_$prop__state1___PrivateState];
+  static const List<String> $stateKeys = [_$key__state1___PrivateState];
+}
+
+const StateMeta _$metaFor_PrivateState = StateMeta(
+  fields: $_PrivateState.$state,
+  keys: $_PrivateState.$stateKeys,
+);

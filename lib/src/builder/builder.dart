@@ -7,7 +7,7 @@ import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 
 import './util.dart';
-import 'generation/impl_generation.dart';
+import 'generation/codegen.dart';
 import 'generation/parsing.dart';
 
 Builder overReactBuilder(BuilderOptions options) => OverReactBuilder();
@@ -186,7 +186,13 @@ class OverReactBuilder extends Builder {
         ..writeln(item);
     }
 
-    final output = _formatter.format(buffer.toString());
+    var output = buffer.toString();
+    // Output the file even if formatting fails, so that it can be used to debug the issue.
+    try {
+      output = _formatter.format(buffer.toString());
+    } catch (e, st) {
+      log.severe('Error formatting generated code', e, st);
+    }
     await buildStep.writeAsString(outputId, output);
   }
 }

@@ -15,8 +15,18 @@ class Union<A, B> {
   final A a;
   final B b;
 
-  Union.a(this.a) : b = null;
-  Union.b(this.b) : a = null;
+  Union.a(this.a)
+      : b = null,
+        assert(a != null);
+  Union.b(this.b)
+      : a = null,
+        assert(b != null);
+
+  T switchCase<T>(T Function(A) onA, T Function(B) onB) {
+    if (a != null) return onA(a);
+    if (b != null) return onB(b);
+    return null;
+  }
 }
 
 // C resolves statically to the closest common ancestor type of A and B.

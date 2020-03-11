@@ -19,60 +19,6 @@ final $BasicComponentFactory = registerComponent2(
   displayName: 'Basic',
 );
 
-abstract class _$BasicPropsAccessorsMixin<T, U extends UiProps>
-    implements _$BasicProps<T, U> {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$BasicProps.someGenericListProp] -->
-  @override
-  List<T> get someGenericListProp =>
-      props[_$key__someGenericListProp___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BasicProps.someGenericListProp] -->
-  @override
-  set someGenericListProp(List<T> value) =>
-      props[_$key__someGenericListProp___$BasicProps] = value;
-
-  /// <!-- Generated from [_$BasicProps.somePropsClass] -->
-  @override
-  U get somePropsClass =>
-      props[_$key__somePropsClass___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BasicProps.somePropsClass] -->
-  @override
-  set somePropsClass(U value) =>
-      props[_$key__somePropsClass___$BasicProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__someGenericListProp___$BasicProps =
-      PropDescriptor(_$key__someGenericListProp___$BasicProps);
-  static const PropDescriptor _$prop__somePropsClass___$BasicProps =
-      PropDescriptor(_$key__somePropsClass___$BasicProps);
-  static const String _$key__someGenericListProp___$BasicProps =
-      'BasicProps.someGenericListProp';
-  static const String _$key__somePropsClass___$BasicProps =
-      'BasicProps.somePropsClass';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__someGenericListProp___$BasicProps,
-    _$prop__somePropsClass___$BasicProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__someGenericListProp___$BasicProps,
-    _$key__somePropsClass___$BasicProps
-  ];
-}
-
-const PropsMeta _$metaForBasicProps = PropsMeta(
-  fields: _$BasicPropsAccessorsMixin.$props,
-  keys: _$BasicPropsAccessorsMixin.$propKeys,
-);
-
-class BasicProps<T, U extends UiProps> extends _$BasicProps<T, U>
-    with _$BasicPropsAccessorsMixin<T, U> {
-  static const PropsMeta meta = _$metaForBasicProps;
-}
-
 _$$BasicProps _$Basic([Map backingProps]) => backingProps == null
     ? _$$BasicProps$JsMap(JsBackedMap())
     : _$$BasicProps(backingProps);
@@ -80,9 +26,8 @@ _$$BasicProps _$Basic([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$BasicProps<T, U extends UiProps> extends _$BasicProps<T, U>
-    with _$BasicPropsAccessorsMixin<T, U>
-    implements BasicProps<T, U> {
+abstract class _$$BasicProps<T, U extends UiProps> extends BasicProps<T, U>
+    with $BasicPropsMixin {
   _$$BasicProps._();
 
   factory _$$BasicProps(Map backingMap) {
@@ -104,7 +49,7 @@ abstract class _$$BasicProps<T, U extends UiProps> extends _$BasicProps<T, U>
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'BasicProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
@@ -174,8 +119,54 @@ class _$BasicComponent extends BasicComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$BasicProps.
+  /// The default consumed props, taken from BasicProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForBasicProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        BasicPropsMixin: $BasicPropsMixin.meta,
+      });
 }
+
+mixin $BasicPropsMixin<T, U extends UiProps> on BasicPropsMixin<T, U> {
+  static const PropsMeta meta = _$metaForBasicPropsMixin;
+  @override
+  List<T> get someGenericListProp =>
+      props[_$key__someGenericListProp__BasicPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set someGenericListProp(List<T> value) =>
+      props[_$key__someGenericListProp__BasicPropsMixin] = value;
+  @override
+  U get somePropsClass =>
+      props[_$key__somePropsClass__BasicPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set somePropsClass(U value) =>
+      props[_$key__somePropsClass__BasicPropsMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__someGenericListProp__BasicPropsMixin =
+      PropDescriptor(_$key__someGenericListProp__BasicPropsMixin);
+  static const PropDescriptor _$prop__somePropsClass__BasicPropsMixin =
+      PropDescriptor(_$key__somePropsClass__BasicPropsMixin);
+  static const String _$key__someGenericListProp__BasicPropsMixin =
+      'BasicPropsMixin.someGenericListProp';
+  static const String _$key__somePropsClass__BasicPropsMixin =
+      'BasicPropsMixin.somePropsClass';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__someGenericListProp__BasicPropsMixin,
+    _$prop__somePropsClass__BasicPropsMixin
+  ];
+  static const List<String> $propKeys = [
+    _$key__someGenericListProp__BasicPropsMixin,
+    _$key__somePropsClass__BasicPropsMixin
+  ];
+}
+
+const PropsMeta _$metaForBasicPropsMixin = PropsMeta(
+  fields: $BasicPropsMixin.$props,
+  keys: $BasicPropsMixin.$propKeys,
+);

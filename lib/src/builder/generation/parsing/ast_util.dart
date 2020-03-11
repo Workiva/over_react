@@ -41,6 +41,16 @@ extension SuperclassConstraint on MixinDeclaration {
   }
 }
 
+extension AbstractGetter on ClassOrMixinDeclaration {
+  bool hasAbstractGetter(String type, String name) =>
+      members.whereType<MethodDeclaration>().any((member) =>
+          member.isGetter &&
+          !member.isSynthetic &&
+          member.isAbstract &&
+          member.name.name == name &&
+          member.returnType?.toSource() == type);
+}
+
 extension MetadataHelper on AnnotatedNode {
   Annotation getAnnotationWithName(String name) =>
       metadata.firstWhere((element) => element.name.nameWithoutPrefix == name, orElse: () => null);
