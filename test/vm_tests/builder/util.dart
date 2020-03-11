@@ -28,8 +28,18 @@ const String abstractStateSrc            = '\n@AbstractState()\nclass _\$Abstrac
 const String abstractStateSrcDart1       = '\n@AbstractState()\nclass AbstractFooState {}\n';
 const String companionClassState         = 'class FooState {}';
 
-const String propsMixinSrc               = '@PropsMixin()\nabstract class FooPropsMixin {}\n';
-const String stateMixinSrc               = '@StateMixin()\nabstract class FooStateMixin {}\n';
+const String propsMixinSrc = r'''
+@PropsMixin()
+abstract class FooPropsMixin {
+  Map get props;
+  static const PropsMeta meta = _$metaForFooPropsMixin;
+}''';
+const String stateMixinSrc = r'''
+@StateMixin()
+abstract class FooStateMixin {
+  Map get state;
+  static const StateMeta meta = _$metaForFooStateMixin;
+}''';
 
 enum AnnotationType {
   props,

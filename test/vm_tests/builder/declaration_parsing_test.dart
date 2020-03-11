@@ -531,7 +531,9 @@ main() {
               test('a props mixin', () {
                 setUpAndParse('''
                   @PropsMixin(keyNamespace: "bar")
-                  class FooPropsMixin {}
+                  class FooPropsMixin {
+                    Map get props;
+                  }
                 ''');
                 final decl = expectSingleOfType<PropsMixinDeclaration>(declarations);
                 expect(decl.mixin.meta.keyNamespace, 'bar');
@@ -540,7 +542,9 @@ main() {
               test('a state mixin', () {
                 setUpAndParse('''
                   @StateMixin(keyNamespace: "bar")
-                  class FooStateMixin {}
+                  class FooStateMixin {
+                    Map get state;
+                  }
                 ''');
                 final decl = expectSingleOfType<StateMixinDeclaration>(declarations);
                 expect(decl.mixin.meta.keyNamespace, 'bar');
@@ -613,7 +617,9 @@ main() {
               test('a props mixin', () {
                 setUpAndParse('''
                   @PropsMixin(keyNamespace: "bar")
-                  class _\$FooPropsMixin {}
+                  class _\$FooPropsMixin {
+                    Map get props;
+                  }
                 ''');
                 final decl = expectSingleOfType<PropsMixinDeclaration>(declarations);
                 expect(decl.mixin.meta.keyNamespace, 'bar');
@@ -622,7 +628,9 @@ main() {
               test('a state mixin', () {
                 setUpAndParse('''
                   @StateMixin(keyNamespace: "bar")
-                  class _\$FooStateMixin {}
+                  class _\$FooStateMixin {
+                    Map get state;
+                  }
                 ''');
                 final decl = expectSingleOfType<StateMixinDeclaration>(declarations);
                 expect(decl.mixin.meta.keyNamespace, 'bar');
@@ -1455,6 +1463,7 @@ main() {
               setUpAndParse('''
                 @PropsMixin() abstract class FooPropsMixin {
                   static const StateMeta meta = _\$metaForFooPropsMixin;
+                  Map get props;
                 }
               ''');
               verify(logger.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
@@ -1464,6 +1473,7 @@ main() {
               setUpAndParse('''
                 @PropsMixin() abstract class FooPropsMixin {
                   static const PropsMeta meta = \$metaForBarPropsMixin;
+                  Map get props;
                 }
               ''');
               verify(logger.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
@@ -1474,6 +1484,7 @@ main() {
               setUpAndParse('''
                 @PropsMixin() abstract class _FooPropsMixin {
                   static const PropsMeta meta = \$metaForBarPropsMixin;
+                  Map get props;
                 }
               ''');
               verify(logger.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
@@ -1486,6 +1497,7 @@ main() {
               setUpAndParse('''
                 @StateMixin() abstract class FooStateMixin {
                   static const PropsMeta meta = _\$metaForFooStateMixin;
+                  Map get state;
                 }
               ''');
               verify(logger.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));
@@ -1495,6 +1507,7 @@ main() {
               setUpAndParse('''
                 @StateMixin() abstract class FooStateMixin {
                   static const StateMeta meta = \$metaForBarStateMixin;
+                  Map get state;
                 }
               ''');
               verify(logger.severe(contains('Static StateMeta field in accessor class must be initialized to:'
@@ -1505,6 +1518,7 @@ main() {
               setUpAndParse('''
                 @StateMixin() abstract class _FooStateMixin {
                   static const StateMeta meta = \$metaForBarStateMixin;
+                  Map get state;
                 }
               ''');
               verify(logger.severe(contains('Static StateMeta field in accessor class must be initialized to:'
