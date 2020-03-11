@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
-part of 'private_factory_public_component.dart';
+part of 'with_legacy_props_mixin.dart';
 
 // **************************************************************************
 // OverReactBuilder (package:over_react/src/builder.dart)
@@ -10,32 +10,31 @@ part of 'private_factory_public_component.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $FormActionInputComponentFactory = registerComponent2(
-  () => _$FormActionInputComponent(),
-  builderFactory: _FormActionInput,
-  componentClass: FormActionInputComponent,
+final $BasicComponentFactory = registerComponent2(
+  () => _$BasicComponent(),
+  builderFactory: Basic,
+  componentClass: BasicComponent,
   isWrapper: false,
   parentType: null,
-  displayName: '_FormActionInput',
+  displayName: 'Basic',
 );
 
-_$$FormActionInputProps _$_FormActionInput([Map backingProps]) =>
-    backingProps == null
-        ? _$$FormActionInputProps$JsMap(JsBackedMap())
-        : _$$FormActionInputProps(backingProps);
+_$$BasicProps _$Basic([Map backingProps]) => backingProps == null
+    ? _$$BasicProps$JsMap(JsBackedMap())
+    : _$$BasicProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$FormActionInputProps extends UiProps
-    with FormActionInputProps, $FormActionInputProps {
-  _$$FormActionInputProps._();
+abstract class _$$BasicProps extends BasicProps
+    with $BasicPropsMixin, $TransitionPropsMixin {
+  _$$BasicProps._();
 
-  factory _$$FormActionInputProps(Map backingMap) {
+  factory _$$BasicProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FormActionInputProps$JsMap(backingMap);
+      return _$$BasicProps$JsMap(backingMap);
     } else {
-      return _$$FormActionInputProps$PlainMap(backingMap);
+      return _$$BasicProps$PlainMap(backingMap);
     }
   }
 
@@ -46,7 +45,7 @@ abstract class _$$FormActionInputProps extends UiProps
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $FormActionInputComponentFactory;
+      super.componentFactory ?? $BasicComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -54,10 +53,10 @@ abstract class _$$FormActionInputProps extends UiProps
 }
 
 // Concrete props implementation that can be backed by any [Map].
-class _$$FormActionInputProps$PlainMap extends _$$FormActionInputProps {
+class _$$BasicProps$PlainMap extends _$$BasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FormActionInputProps$PlainMap(Map backingMap)
+  _$$BasicProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -71,10 +70,10 @@ class _$$FormActionInputProps$PlainMap extends _$$FormActionInputProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$FormActionInputProps$JsMap extends _$$FormActionInputProps {
+class _$$BasicProps$JsMap extends _$$BasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FormActionInputProps$JsMap(JsBackedMap backingMap)
+  _$$BasicProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -90,11 +89,11 @@ class _$$FormActionInputProps$JsMap extends _$$FormActionInputProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-class _$FormActionInputComponent extends FormActionInputComponent {
-  _$$FormActionInputProps$JsMap _cachedTypedProps;
+class _$BasicComponent extends BasicComponent {
+  _$$BasicProps$JsMap _cachedTypedProps;
 
   @override
-  _$$FormActionInputProps$JsMap get props => _cachedTypedProps;
+  _$$BasicProps$JsMap get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -110,46 +109,44 @@ class _$FormActionInputComponent extends FormActionInputComponent {
   }
 
   @override
-  _$$FormActionInputProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$FormActionInputProps$JsMap(backingMap);
+  _$$BasicProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$BasicProps$JsMap(backingMap);
 
   @override
-  _$$FormActionInputProps typedPropsFactory(Map backingMap) =>
-      _$$FormActionInputProps(backingMap);
+  _$$BasicProps typedPropsFactory(Map backingMap) => _$$BasicProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from FormActionInputProps.
+  /// The default consumed props, taken from BasicProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForFormActionInputProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForBasicProps];
 }
 
-mixin $FormActionInputProps on FormActionInputProps {
-  static const PropsMeta meta = _$metaForFormActionInputProps;
+mixin $BasicPropsMixin on BasicPropsMixin {
+  static const PropsMeta meta = _$metaForBasicPropsMixin;
   @override
-  String get prop1 =>
-      props[_$key__prop1__FormActionInputProps] ??
+  String get basicProp =>
+      props[_$key__basicProp__BasicPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set prop1(String value) => props[_$key__prop1__FormActionInputProps] = value;
+  set basicProp(String value) =>
+      props[_$key__basicProp__BasicPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__prop1__FormActionInputProps =
-      PropDescriptor(_$key__prop1__FormActionInputProps);
-  static const String _$key__prop1__FormActionInputProps =
-      'FormActionInputProps.prop1';
+  static const PropDescriptor _$prop__basicProp__BasicPropsMixin =
+      PropDescriptor(_$key__basicProp__BasicPropsMixin);
+  static const String _$key__basicProp__BasicPropsMixin =
+      'BasicPropsMixin.basicProp';
 
   static const List<PropDescriptor> $props = [
-    _$prop__prop1__FormActionInputProps
+    _$prop__basicProp__BasicPropsMixin
   ];
-  static const List<String> $propKeys = [_$key__prop1__FormActionInputProps];
+  static const List<String> $propKeys = [_$key__basicProp__BasicPropsMixin];
 }
 
-const PropsMeta _$metaForFormActionInputProps = PropsMeta(
-  fields: $FormActionInputProps.$props,
-  keys: $FormActionInputProps.$propKeys,
+const PropsMeta _$metaForBasicPropsMixin = PropsMeta(
+  fields: $BasicPropsMixin.$props,
+  keys: $BasicPropsMixin.$propKeys,
 );

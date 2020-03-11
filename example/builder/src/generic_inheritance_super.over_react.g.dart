@@ -19,76 +19,6 @@ final $GenericSuperComponentFactory = registerComponent2(
   displayName: 'GenericSuper',
 );
 
-abstract class _$GenericSuperPropsAccessorsMixin
-    implements _$GenericSuperProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$GenericSuperProps.otherSuperProp] -->
-  @override
-  String get otherSuperProp =>
-      props[_$key__otherSuperProp___$GenericSuperProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$GenericSuperProps.otherSuperProp] -->
-  @override
-  set otherSuperProp(String value) =>
-      props[_$key__otherSuperProp___$GenericSuperProps] = value;
-
-  /// <!-- Generated from [_$GenericSuperProps.superProp] -->
-  @override
-  String get superProp =>
-      props[_$key__superProp___$GenericSuperProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$GenericSuperProps.superProp] -->
-  @override
-  set superProp(String value) =>
-      props[_$key__superProp___$GenericSuperProps] = value;
-
-  /// <!-- Generated from [_$GenericSuperProps.superProp1] -->
-  @override
-  String get superProp1 =>
-      props[_$key__superProp1___$GenericSuperProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$GenericSuperProps.superProp1] -->
-  @override
-  set superProp1(String value) =>
-      props[_$key__superProp1___$GenericSuperProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__otherSuperProp___$GenericSuperProps =
-      PropDescriptor(_$key__otherSuperProp___$GenericSuperProps);
-  static const PropDescriptor _$prop__superProp___$GenericSuperProps =
-      PropDescriptor(_$key__superProp___$GenericSuperProps);
-  static const PropDescriptor _$prop__superProp1___$GenericSuperProps =
-      PropDescriptor(_$key__superProp1___$GenericSuperProps);
-  static const String _$key__otherSuperProp___$GenericSuperProps =
-      'GenericSuperProps.otherSuperProp';
-  static const String _$key__superProp___$GenericSuperProps =
-      'GenericSuperProps.superProp';
-  static const String _$key__superProp1___$GenericSuperProps =
-      'GenericSuperProps.superProp1';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__otherSuperProp___$GenericSuperProps,
-    _$prop__superProp___$GenericSuperProps,
-    _$prop__superProp1___$GenericSuperProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__otherSuperProp___$GenericSuperProps,
-    _$key__superProp___$GenericSuperProps,
-    _$key__superProp1___$GenericSuperProps
-  ];
-}
-
-const PropsMeta _$metaForGenericSuperProps = PropsMeta(
-  fields: _$GenericSuperPropsAccessorsMixin.$props,
-  keys: _$GenericSuperPropsAccessorsMixin.$propKeys,
-);
-
-class GenericSuperProps extends _$GenericSuperProps
-    with _$GenericSuperPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForGenericSuperProps;
-}
-
 _$$GenericSuperProps _$GenericSuper([Map backingProps]) => backingProps == null
     ? _$$GenericSuperProps$JsMap(JsBackedMap())
     : _$$GenericSuperProps(backingProps);
@@ -96,9 +26,8 @@ _$$GenericSuperProps _$GenericSuper([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$GenericSuperProps extends _$GenericSuperProps
-    with _$GenericSuperPropsAccessorsMixin
-    implements GenericSuperProps {
+abstract class _$$GenericSuperProps extends GenericSuperProps
+    with $GenericSuperPropsMixin {
   _$$GenericSuperProps._();
 
   factory _$$GenericSuperProps(Map backingMap) {
@@ -120,7 +49,7 @@ abstract class _$$GenericSuperProps extends _$GenericSuperProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'GenericSuperProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
@@ -156,57 +85,18 @@ class _$$GenericSuperProps$JsMap extends _$$GenericSuperProps {
   JsBackedMap _props;
 }
 
-abstract class _$GenericSuperStateAccessorsMixin
-    implements _$GenericSuperState {
-  @override
-  Map get state;
-
-  /// <!-- Generated from [_$GenericSuperState.superState] -->
-  @override
-  String get superState =>
-      state[_$key__superState___$GenericSuperState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$GenericSuperState.superState] -->
-  @override
-  set superState(String value) =>
-      state[_$key__superState___$GenericSuperState] = value;
-  /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__superState___$GenericSuperState =
-      StateDescriptor(_$key__superState___$GenericSuperState);
-  static const String _$key__superState___$GenericSuperState =
-      'GenericSuperState.superState';
-
-  static const List<StateDescriptor> $state = [
-    _$prop__superState___$GenericSuperState
-  ];
-  static const List<String> $stateKeys = [
-    _$key__superState___$GenericSuperState
-  ];
-}
-
-const StateMeta _$metaForGenericSuperState = StateMeta(
-  fields: _$GenericSuperStateAccessorsMixin.$state,
-  keys: _$GenericSuperStateAccessorsMixin.$stateKeys,
-);
-
-class GenericSuperState extends _$GenericSuperState
-    with _$GenericSuperStateAccessorsMixin {
-  static const StateMeta meta = _$metaForGenericSuperState;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$GenericSuperState extends _$GenericSuperState
-    with _$GenericSuperStateAccessorsMixin
-    implements GenericSuperState {
-  _$$GenericSuperState._();
+abstract class _$$GenericSuperStateMixin extends UiState
+    with GenericSuperStateMixin, $GenericSuperStateMixin {
+  _$$GenericSuperStateMixin._();
 
-  factory _$$GenericSuperState(Map backingMap) {
+  factory _$$GenericSuperStateMixin(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$GenericSuperState$JsMap(backingMap);
+      return _$$GenericSuperStateMixin$JsMap(backingMap);
     } else {
-      return _$$GenericSuperState$PlainMap(backingMap);
+      return _$$GenericSuperStateMixin$PlainMap(backingMap);
     }
   }
 
@@ -216,10 +106,10 @@ abstract class _$$GenericSuperState extends _$GenericSuperState
 }
 
 // Concrete state implementation that can be backed by any [Map].
-class _$$GenericSuperState$PlainMap extends _$$GenericSuperState {
+class _$$GenericSuperStateMixin$PlainMap extends _$$GenericSuperStateMixin {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$GenericSuperState$PlainMap(Map backingMap)
+  _$$GenericSuperStateMixin$PlainMap(Map backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -233,10 +123,10 @@ class _$$GenericSuperState$PlainMap extends _$$GenericSuperState {
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$GenericSuperState$JsMap extends _$$GenericSuperState {
+class _$$GenericSuperStateMixin$JsMap extends _$$GenericSuperStateMixin {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$GenericSuperState$JsMap(JsBackedMap backingMap)
+  _$$GenericSuperStateMixin$JsMap(JsBackedMap backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -279,9 +169,9 @@ class _$GenericSuperComponent extends GenericSuperComponent {
   _$$GenericSuperProps typedPropsFactory(Map backingMap) =>
       _$$GenericSuperProps(backingMap);
 
-  _$$GenericSuperState$JsMap _cachedTypedState;
+  _$$GenericSuperStateMixin$JsMap _cachedTypedState;
   @override
-  _$$GenericSuperState$JsMap get state => _cachedTypedState;
+  _$$GenericSuperStateMixin$JsMap get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -294,21 +184,103 @@ class _$GenericSuperComponent extends GenericSuperComponent {
   }
 
   @override
-  _$$GenericSuperState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      _$$GenericSuperState$JsMap(backingMap);
+  _$$GenericSuperStateMixin$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
+      _$$GenericSuperStateMixin$JsMap(backingMap);
 
   @override
-  _$$GenericSuperState typedStateFactory(Map backingMap) =>
-      _$$GenericSuperState(backingMap);
+  _$$GenericSuperStateMixin typedStateFactory(Map backingMap) =>
+      _$$GenericSuperStateMixin(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$GenericSuperProps.
+  /// The default consumed props, taken from GenericSuperProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForGenericSuperProps
   ];
 }
+
+mixin $GenericSuperPropsMixin on GenericSuperPropsMixin {
+  static const PropsMeta meta = _$metaForGenericSuperPropsMixin;
+  @override
+  String get otherSuperProp =>
+      props[_$key__otherSuperProp__GenericSuperPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set otherSuperProp(String value) =>
+      props[_$key__otherSuperProp__GenericSuperPropsMixin] = value;
+  @override
+  String get superProp =>
+      props[_$key__superProp__GenericSuperPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set superProp(String value) =>
+      props[_$key__superProp__GenericSuperPropsMixin] = value;
+  @override
+  String get superProp1 =>
+      props[_$key__superProp1__GenericSuperPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set superProp1(String value) =>
+      props[_$key__superProp1__GenericSuperPropsMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__otherSuperProp__GenericSuperPropsMixin =
+      PropDescriptor(_$key__otherSuperProp__GenericSuperPropsMixin);
+  static const PropDescriptor _$prop__superProp__GenericSuperPropsMixin =
+      PropDescriptor(_$key__superProp__GenericSuperPropsMixin);
+  static const PropDescriptor _$prop__superProp1__GenericSuperPropsMixin =
+      PropDescriptor(_$key__superProp1__GenericSuperPropsMixin);
+  static const String _$key__otherSuperProp__GenericSuperPropsMixin =
+      'GenericSuperPropsMixin.otherSuperProp';
+  static const String _$key__superProp__GenericSuperPropsMixin =
+      'GenericSuperPropsMixin.superProp';
+  static const String _$key__superProp1__GenericSuperPropsMixin =
+      'GenericSuperPropsMixin.superProp1';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__otherSuperProp__GenericSuperPropsMixin,
+    _$prop__superProp__GenericSuperPropsMixin,
+    _$prop__superProp1__GenericSuperPropsMixin
+  ];
+  static const List<String> $propKeys = [
+    _$key__otherSuperProp__GenericSuperPropsMixin,
+    _$key__superProp__GenericSuperPropsMixin,
+    _$key__superProp1__GenericSuperPropsMixin
+  ];
+}
+
+const PropsMeta _$metaForGenericSuperPropsMixin = PropsMeta(
+  fields: $GenericSuperPropsMixin.$props,
+  keys: $GenericSuperPropsMixin.$propKeys,
+);
+
+mixin $GenericSuperStateMixin on GenericSuperStateMixin {
+  static const StateMeta meta = _$metaForGenericSuperStateMixin;
+  @override
+  String get superState =>
+      state[_$key__superState__GenericSuperStateMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set superState(String value) =>
+      state[_$key__superState__GenericSuperStateMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor _$prop__superState__GenericSuperStateMixin =
+      StateDescriptor(_$key__superState__GenericSuperStateMixin);
+  static const String _$key__superState__GenericSuperStateMixin =
+      'GenericSuperStateMixin.superState';
+
+  static const List<StateDescriptor> $state = [
+    _$prop__superState__GenericSuperStateMixin
+  ];
+  static const List<String> $stateKeys = [
+    _$key__superState__GenericSuperStateMixin
+  ];
+}
+
+const StateMeta _$metaForGenericSuperStateMixin = StateMeta(
+  fields: $GenericSuperStateMixin.$state,
+  keys: $GenericSuperStateMixin.$stateKeys,
+);
