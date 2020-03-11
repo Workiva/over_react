@@ -14,8 +14,8 @@ abstract class ComponentGenerator extends Generator {
 
   factory ComponentGenerator(ClassComponentDeclaration declaration) = _ComponentGenerator;
 
-  factory ComponentGenerator.legacy(
-      LegacyClassComponentDeclaration declaration) = _LegacyComponentGenerator;
+  factory ComponentGenerator.legacy(LegacyClassComponentDeclaration declaration) =
+      _LegacyComponentGenerator;
 
   TypedMapNames propsNames;
   TypedMapNames stateNames;
@@ -35,7 +35,8 @@ abstract class ComponentGenerator extends Generator {
     outputContentsBuffer
       ..writeln('// Concrete component implementation mixin.')
       ..writeln('//')
-      ..writeln('// Implements typed props/state factories, defaults `consumedPropKeys` to the keys')
+      ..writeln(
+          '// Implements typed props/state factories, defaults `consumedPropKeys` to the keys')
       ..writeln('// generated for the associated props class.')
       ..writeln('class ${componentNames.implName} extends ${componentNames.componentName} {');
 
@@ -63,13 +64,15 @@ abstract class ComponentGenerator extends Generator {
         ..writeln('  }')
         ..writeln()
         ..writeln('  @override ')
-        ..writeln('  ${propsNames.jsMapImplName} typedPropsFactoryJs(JsBackedMap backingMap) => ${propsNames.jsMapImplName}(backingMap);')
+        ..writeln(
+            '  ${propsNames.jsMapImplName} typedPropsFactoryJs(JsBackedMap backingMap) => ${propsNames.jsMapImplName}(backingMap);')
         ..writeln();
     }
 
     outputContentsBuffer
       ..writeln('  @override')
-      ..writeln('  ${propsNames.implName} typedPropsFactory(Map backingMap) => ${propsNames.implName}(backingMap);')
+      ..writeln(
+          '  ${propsNames.implName} typedPropsFactory(Map backingMap) => ${propsNames.implName}(backingMap);')
       ..writeln();
 
     if (isComponent2 && hasState) {
@@ -88,14 +91,16 @@ abstract class ComponentGenerator extends Generator {
         ..writeln('  }')
         ..writeln()
         ..writeln('  @override ')
-        ..writeln('  ${stateNames.jsMapImplName} typedStateFactoryJs(JsBackedMap backingMap) => ${stateNames.jsMapImplName}(backingMap);')
+        ..writeln(
+            '  ${stateNames.jsMapImplName} typedStateFactoryJs(JsBackedMap backingMap) => ${stateNames.jsMapImplName}(backingMap);')
         ..writeln();
     }
 
     if (hasState) {
       outputContentsBuffer
         ..writeln('  @override')
-        ..writeln('  ${stateNames.implName} typedStateFactory(Map backingMap) => ${stateNames.implName}(backingMap);')
+        ..writeln(
+            '  ${stateNames.implName} typedStateFactory(Map backingMap) => ${stateNames.implName}(backingMap);')
         ..writeln();
     }
 
@@ -116,16 +121,14 @@ abstract class ComponentGenerator extends Generator {
     final implementsTypedPropsStateFactory = component.nodeHelper.members.any((member) =>
         member is MethodDeclaration &&
         !member.isStatic &&
-        (member.name.name == 'typedPropsFactory' || member.name.name == 'typedStateFactory')
-    );
+        (member.name.name == 'typedPropsFactory' || member.name.name == 'typedStateFactory'));
 
     // FIXME move to validation
     if (implementsTypedPropsStateFactory) {
       // Can't be an error, because consumers may be implementing typedPropsFactory or typedStateFactory in their components.
       logger.warning(messageWithSpan(
           'Components should not add their own implementions of typedPropsFactory or typedStateFactory.',
-          span: getSpan(sourceFile, component.node))
-      );
+          span: getSpan(sourceFile, component.node)));
     }
   }
 
@@ -144,9 +147,10 @@ class _ComponentGenerator extends ComponentGenerator {
   @override
   final ComponentNames componentNames;
 
-  _ComponentGenerator(this.declaration) :
-        this.propsNames = TypedMapNames(declaration.props.either.name.name),
-        this.stateNames = declaration.state == null ? null : TypedMapNames(declaration.state.either.name.name),
+  _ComponentGenerator(this.declaration)
+      : this.propsNames = TypedMapNames(declaration.props.either.name.name),
+        this.stateNames =
+            declaration.state == null ? null : TypedMapNames(declaration.state.either.name.name),
         this.componentNames = ComponentNames(declaration.component.name.name),
         super._();
 
@@ -168,14 +172,14 @@ class _ComponentGenerator extends ComponentGenerator {
   @override
   void _generateAdditionalComponentBody() {
     outputContentsBuffer
-        ..writeln()
-        ..writeln('  @override')
-        ..writeln('  PropsMetaCollection get propsMeta => const PropsMetaCollection({')
-        ..writeAll(declaration.allPropsMixins.map((name) {
-          final names = TypedMapNames(name.name);
-          return '    ${names.consumerName}: ${names.publicGeneratedMetaName},';
-        }), '\n')
-        ..writeln('  });');
+      ..writeln()
+      ..writeln('  @override')
+      ..writeln('  PropsMetaCollection get propsMeta => const PropsMetaCollection({')
+      ..writeAll(declaration.allPropsMixins.map((name) {
+        final names = TypedMapNames(name.name);
+        return '    ${names.consumerName}: ${names.publicGeneratedMetaName},';
+      }), '\n')
+      ..writeln('  });');
   }
 }
 
@@ -191,9 +195,10 @@ class _LegacyComponentGenerator extends ComponentGenerator {
   @override
   final ComponentNames componentNames;
 
-  _LegacyComponentGenerator(this.declaration) :
-        this.propsNames = TypedMapNames(declaration.props.name.name),
-        this.stateNames = declaration.state == null ? null : TypedMapNames(declaration.state.name.name),
+  _LegacyComponentGenerator(this.declaration)
+      : this.propsNames = TypedMapNames(declaration.props.name.name),
+        this.stateNames =
+            declaration.state == null ? null : TypedMapNames(declaration.state.name.name),
         this.componentNames = ComponentNames(declaration.component.name.name),
         super._();
 

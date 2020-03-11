@@ -14,19 +14,17 @@ class ComponentFactoryGenerator extends Generator {
   final BoilerplateComponent component;
   final bool isComponent2;
 
-  ComponentFactoryGenerator.legacy(LegacyClassComponentDeclaration declaration) :
-        factoryName = declaration.factory.name.name,
+  ComponentFactoryGenerator.legacy(LegacyClassComponentDeclaration declaration)
+      : factoryName = declaration.factory.name.name,
         componentNames = ComponentNames(declaration.component.name.name),
         component = declaration.component,
         isComponent2 = declaration.isComponent2;
 
-
-  ComponentFactoryGenerator(ClassComponentDeclaration declaration) :
-        factoryName = declaration.factory.name.name,
+  ComponentFactoryGenerator(ClassComponentDeclaration declaration)
+      : factoryName = declaration.factory.name.name,
         componentNames = ComponentNames(declaration.component.name.name),
         component = declaration.component,
         isComponent2 = true;
-
 
   @override
   void generate() {
@@ -51,8 +49,7 @@ class ComponentFactoryGenerator extends Generator {
       /// Therefore, this is not allowed.
       // todo move to validation
       logger.severe(messageWithSpan('A component cannot be a subtype of itself.',
-          span: getSpan(sourceFile, parentType))
-      );
+          span: getSpan(sourceFile, parentType)));
     }
 
     if (isComponent2) {
@@ -60,7 +57,8 @@ class ComponentFactoryGenerator extends Generator {
         ..writeln('// React component factory implementation.')
         ..writeln('//')
         ..writeln('// Registers component implementation and links type meta to builder factory.')
-        ..writeln('final ${componentNames.componentFactoryName} = registerComponent2(() => ${componentNames.implName}(),')
+        ..writeln(
+            'final ${componentNames.componentFactoryName} = registerComponent2(() => ${componentNames.implName}(),')
         ..writeln('    builderFactory: $factoryName,')
         ..writeln('    componentClass: ${componentNames.componentName},')
         ..writeln('    isWrapper: ${component.meta.isWrapper},')
@@ -74,15 +72,14 @@ class ComponentFactoryGenerator extends Generator {
         outputContentsBuffer.writeln('    skipMethods: const [],');
       }
 
-      outputContentsBuffer
-        ..writeln(');')
-        ..writeln();
+      outputContentsBuffer..writeln(');')..writeln();
     } else {
       outputContentsBuffer
         ..writeln('// React component factory implementation.')
         ..writeln('//')
         ..writeln('// Registers component implementation and links type meta to builder factory.')
-        ..writeln('final ${componentNames.componentFactoryName} = registerComponent(() => ${componentNames.implName}(),')
+        ..writeln(
+            'final ${componentNames.componentFactoryName} = registerComponent(() => ${componentNames.implName}(),')
         ..writeln('    builderFactory: $factoryName,')
         ..writeln('    componentClass: ${componentNames.componentName},')
         ..writeln('    isWrapper: ${component.meta.isWrapper},')

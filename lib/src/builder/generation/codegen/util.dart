@@ -19,7 +19,6 @@ class AccessorType {
   static const AccessorType stateMixin = AccessorType(false, false, true);
 }
 
-
 abstract class Generator {
   SourceFile sourceFile;
   StringBuffer outputContentsBuffer;
@@ -27,7 +26,6 @@ abstract class Generator {
 
   void generate();
 }
-
 
 String getAccessorKeyNamespace(TypedMapNames names, annotations.TypedMap meta) {
   // Default to the name of the class followed by a period.

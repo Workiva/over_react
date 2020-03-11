@@ -60,16 +60,16 @@ abstract class TypedMapAccessorsGenerator extends Generator {
       final implementsClause = 'implements ${names.consumerName}$typeParamsOnSuper';
       generatedClass.writeln(
           'abstract class $accessorsMixinName$typeParamsOnClass $implementsClause {\n' +
-          '  @override' +
-          '  Map get ${type.isProps ? 'props': 'state'};\n'
-      );
+              '  @override' +
+              '  Map get ${type.isProps ? 'props' : 'state'};\n');
       if (type.isMixin) {
         generatedClass.writeln(_generateStaticMetaDecl(names.publicName, type.isProps));
         generatedClass.write(_copyStaticMembers(node));
         generatedClass.write(_copyClassMembers(node));
       }
     } else {
-      generatedClass.writeln('mixin $accessorsMixinName$typeParamsOnClass on ${names.consumerName}$typeParamsOnSuper {');
+      generatedClass.writeln(
+          'mixin $accessorsMixinName$typeParamsOnClass on ${names.consumerName}$typeParamsOnSuper {');
       generatedClass.writeln(_generateStaticMetaDecl(names.publicName, type.isProps));
     }
 
@@ -78,7 +78,6 @@ abstract class TypedMapAccessorsGenerator extends Generator {
     generatedClass.writeln();
     return generatedClass.toString();
   }
-
 
   String _generateStaticMetaDecl(String consumableClassName, bool isProps) {
     return '  static const ${isProps ? 'Props' : 'State'}Meta meta = ${names.metaConstantName};';
@@ -124,153 +123,144 @@ abstract class TypedMapAccessorsGenerator extends Generator {
 
     StringBuffer output = StringBuffer();
 
-    node.members
-        .whereType<FieldDeclaration>()
-        .where((field) => !field.isStatic)
-        .forEach((field) {
-          T getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
-            return member.metadata.any((annotation) => annotation.name?.name == name) ? value : null;
+    node.members.whereType<FieldDeclaration>().where((field) => !field.isStatic).forEach((field) {
+      T getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
+        return member.metadata.any((annotation) => annotation.name?.name == name) ? value : null;
+      }
+
+      final accessorMeta = instantiateAnnotationTyped<annotations.Accessor>(field);
+      final requiredProp = getConstantAnnotation(field, 'requiredProp', annotations.requiredProp);
+      final nullableRequiredProp =
+          getConstantAnnotation(field, 'nullableRequiredProp', annotations.nullableRequiredProp);
+
+      if (accessorMeta?.doNotGenerate == true) {
+        return;
+      }
+
+      field.fields.variables.forEach((variable) {
+        if (variable.initializer != null) {
+          logger.severe(messageWithSpan(
+              'Fields are stubs for generated setters/getters and should not have initializers.\n'
+              'Instead, initialize ${type.isProps ? 'prop values within getDefaultProps()' : 'state values within getInitialState()'}.',
+              span: getSpan(sourceFile, variable)));
+        }
+
+        String accessorName = variable.name.name;
+
+        String individualKeyNamespace = accessorMeta?.keyNamespace ?? keyNamespace;
+        String individualKey = accessorMeta?.key ?? accessorName;
+
+        /// Necessary to work around issue where private static declarations in different classes
+        /// conflict with each other in strong mode.
+        /// TODO remove once https://github.com/dart-lang/sdk/issues/29751 is resolved
+        String staticConstNamespace = node.name.name;
+
+        String keyConstantName =
+            '${privateSourcePrefix}key__${accessorName}__$staticConstNamespace';
+        String keyValue = stringLiteral(individualKeyNamespace + individualKey);
+
+        String constantName = '${privateSourcePrefix}prop__${accessorName}__$staticConstNamespace';
+        String constantValue = '$constConstructorName($keyConstantName';
+
+        var annotationCount = 0;
+
+        if (accessorMeta != null) {
+          annotationCount++;
+
+          if (accessorMeta.isRequired) {
+            constantValue += ', isRequired: true';
+
+            if (accessorMeta.isNullable) constantValue += ', isNullable: true';
+
+            if (accessorMeta.requiredErrorMessage != null &&
+                accessorMeta.requiredErrorMessage.isNotEmpty) {
+              constantValue +=
+                  ', errorMessage: ${stringLiteral(accessorMeta.requiredErrorMessage)}';
+            }
           }
+        }
 
-          final accessorMeta = instantiateAnnotationTyped<annotations.Accessor>(field);
-          final requiredProp = getConstantAnnotation(field, 'requiredProp', annotations.requiredProp);
-          final nullableRequiredProp = getConstantAnnotation(field, 'nullableRequiredProp', annotations.nullableRequiredProp);
+        if (requiredProp != null) {
+          annotationCount++;
+          constantValue += ', isRequired: true';
+        }
 
+        if (nullableRequiredProp != null) {
+          annotationCount++;
+          constantValue += ', isRequired: true, isNullable: true';
+        }
 
-          if (accessorMeta?.doNotGenerate == true) {
-            return;
+        if (annotationCount > 1) {
+          logger.severe(messageWithSpan(
+              '@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
+              'You can use `@Accessor(required: true)` or `isNullable: true` instead of the shorthand versions.',
+              span: getSpan(sourceFile, field)));
+        }
+
+        constantValue += ')';
+
+        keyConstants[keyConstantName] = keyValue;
+        constants[constantName] = constantValue;
+
+        final typeSource = field.fields.type?.toSource();
+        final typeString = typeSource == null ? '' : '$typeSource ';
+        final metadataSrc = StringBuffer();
+        if (version.isLegacy) {
+          for (final annotation in field.metadata) {
+            metadataSrc.writeln('  ${annotation.toSource()}');
           }
+        }
 
-          field.fields.variables.forEach((variable) {
-            if (variable.initializer != null) {
-              logger.severe(messageWithSpan(
-                  'Fields are stubs for generated setters/getters and should not have initializers.\n'
-                      'Instead, initialize ${type.isProps
-                          ? 'prop values within getDefaultProps()'
-                          : 'state values within getInitialState()'}.',
-                  span: getSpan(sourceFile, variable))
-              );
-            }
+        String setterTypeString =
+            field.covariantKeyword == null ? typeString : '${field.covariantKeyword} $typeString';
 
-            String accessorName = variable.name.name;
-
-            String individualKeyNamespace = accessorMeta?.keyNamespace ?? keyNamespace;
-            String individualKey = accessorMeta?.key ?? accessorName;
-
-            /// Necessary to work around issue where private static declarations in different classes
-            /// conflict with each other in strong mode.
-            /// TODO remove once https://github.com/dart-lang/sdk/issues/29751 is resolved
-            String staticConstNamespace = node.name.name;
-
-            String keyConstantName = '${privateSourcePrefix}key__${accessorName}__$staticConstNamespace';
-            String keyValue = stringLiteral(individualKeyNamespace + individualKey);
-
-            String constantName = '${privateSourcePrefix}prop__${accessorName}__$staticConstNamespace';
-            String constantValue = '$constConstructorName($keyConstantName';
-
-            var annotationCount = 0;
-
-            if (accessorMeta != null) {
-              annotationCount++;
-
-              if (accessorMeta.isRequired) {
-                constantValue += ', isRequired: true';
-
-                if (accessorMeta.isNullable) constantValue += ', isNullable: true';
-
-                if (accessorMeta.requiredErrorMessage != null && accessorMeta.requiredErrorMessage.isNotEmpty) {
-                  constantValue += ', errorMessage: ${stringLiteral(accessorMeta.requiredErrorMessage)}';
-                }
-              }
-            }
-
-            if (requiredProp != null) {
-              annotationCount++;
-              constantValue += ', isRequired: true';
-            }
-
-            if (nullableRequiredProp != null) {
-              annotationCount++;
-              constantValue += ', isRequired: true, isNullable: true';
-            }
-
-            if (annotationCount > 1) {
-              logger.severe(messageWithSpan(
-                  '@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
-                  'You can use `@Accessor(required: true)` or `isNullable: true` instead of the shorthand versions.',
-                  span: getSpan(sourceFile, field))
-              );
-            }
-
-            constantValue += ')';
-
-            keyConstants[keyConstantName] = keyValue;
-            constants[constantName] = constantValue;
-
-            final typeSource = field.fields.type?.toSource();
-            final typeString = typeSource == null ? '' : '$typeSource ';
-            final metadataSrc = StringBuffer();
-            if (version.isLegacy) {
-              for (final annotation in field.metadata) {
-                metadataSrc.writeln('  ${annotation.toSource()}');
-              }
-            }
-
-            String setterTypeString = field.covariantKeyword == null
-                ? typeString
-                : '${field.covariantKeyword} $typeString';
-
-            // Carry over the existing doc comment since IDEs don't inherit
-            // doc comments for some reason.
-            String docComment;
-            if (version.isLegacy) {
-              if (variable.documentationComment == null) {
-                docComment = '';
-              } else {
-                final existingCommentSource = sourceFile.getText(
-                    variable.documentationComment.offset,
-                    variable.documentationComment.end);
-                docComment =
-                    '  $existingCommentSource\n'
-                    '  ///\n';
-              }
-              // Provide a link to the original declaration:
-              // - for better UX in VS Code, since the "Dart: Go to Super Class/Method" action isn't easily discoverable
-              // - to provide a reminder to the user that they probably want to look at the original declaration
-              //
-              // Use an HTML comment so it isn't rendered to the hover/quickdoc, which clutters up the comment.
-              // Even inside comments, this link will be clickable in IDEs!
-              docComment += '  /// <!-- Generated from [${names.consumerName}.$accessorName] -->\n';
-            } else {
-              docComment = '';
-            }
-
-            String generatedAccessor =
-                '$docComment'
-                // TODO reinstate inlining once https://github.com/dart-lang/sdk/issues/36217 is fixed and all workarounds are removed
-                // inlining is necessary to get mixins to use $index/$indexSet instead of $index$asx
-                // '  @tryInline\n'
-                '  @override\n'
-                '$metadataSrc'
-                '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName] ?? null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;\n'
-                '$docComment'
-                // '  @tryInline\n'
-                '  @override\n'
-                '$metadataSrc'
-                '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;\n';
-
-            output.write(generatedAccessor);
-          });
-
-          if (field.fields.variables.length > 1 &&
-              (field.documentationComment != null || field.metadata.isNotEmpty)) {
-            logger.warning(messageWithSpan(
-                'Note: accessors declared as comma-separated variables will not all be generated '
-                'with the original doc comments and annotations; only the first variable will.',
-                span: getSpan(sourceFile, field.fields))
-            );
+        // Carry over the existing doc comment since IDEs don't inherit
+        // doc comments for some reason.
+        String docComment;
+        if (version.isLegacy) {
+          if (variable.documentationComment == null) {
+            docComment = '';
+          } else {
+            final existingCommentSource = sourceFile.getText(
+                variable.documentationComment.offset, variable.documentationComment.end);
+            docComment = '  $existingCommentSource\n'
+                '  ///\n';
           }
-        });
+          // Provide a link to the original declaration:
+          // - for better UX in VS Code, since the "Dart: Go to Super Class/Method" action isn't easily discoverable
+          // - to provide a reminder to the user that they probably want to look at the original declaration
+          //
+          // Use an HTML comment so it isn't rendered to the hover/quickdoc, which clutters up the comment.
+          // Even inside comments, this link will be clickable in IDEs!
+          docComment += '  /// <!-- Generated from [${names.consumerName}.$accessorName] -->\n';
+        } else {
+          docComment = '';
+        }
+
+        String generatedAccessor = '$docComment'
+            // TODO reinstate inlining once https://github.com/dart-lang/sdk/issues/36217 is fixed and all workarounds are removed
+            // inlining is necessary to get mixins to use $index/$indexSet instead of $index$asx
+            // '  @tryInline\n'
+            '  @override\n'
+            '$metadataSrc'
+            '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName] ?? null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;\n'
+            '$docComment'
+            // '  @tryInline\n'
+            '  @override\n'
+            '$metadataSrc'
+            '  set $accessorName(${setterTypeString}value) => $proxiedMapName[$keyConstantName] = value;\n';
+
+        output.write(generatedAccessor);
+      });
+
+      if (field.fields.variables.length > 1 &&
+          (field.documentationComment != null || field.metadata.isNotEmpty)) {
+        logger.warning(messageWithSpan(
+            'Note: accessors declared as comma-separated variables will not all be generated '
+            'with the original doc comments and annotations; only the first variable will.',
+            span: getSpan(sourceFile, field.fields)));
+      }
+    });
 
     String keyConstantsImpl;
     String constantsImpl;
@@ -278,30 +268,31 @@ abstract class TypedMapAccessorsGenerator extends Generator {
     if (keyConstants.keys.isEmpty) {
       keyConstantsImpl = '';
     } else {
-      keyConstantsImpl =
-          keyConstants.keys.map((keyName) => '  static const String $keyName = ${keyConstants[keyName]}').join(';\n') +
+      keyConstantsImpl = keyConstants.keys
+              .map((keyName) => '  static const String $keyName = ${keyConstants[keyName]}')
+              .join(';\n') +
           ';\n';
     }
 
     if (constants.keys.isEmpty) {
       constantsImpl = '';
     } else {
-      constantsImpl =
-          constants.keys.map((constantName) => '  static const $constConstructorName $constantName = ${constants[constantName]}').join(';\n') +
+      constantsImpl = constants.keys
+              .map((constantName) =>
+                  '  static const $constConstructorName $constantName = ${constants[constantName]}')
+              .join(';\n') +
           ';\n';
     }
 
     String keyListImpl =
-        '  static const List<String> $keyListName = [' +
-        keyConstants.keys.join(', ') +
-        '];\n';
+        '  static const List<String> $keyListName = [' + keyConstants.keys.join(', ') + '];\n';
 
-    String listImpl =
-        '  static const List<$constConstructorName> $constantListName = [' +
+    String listImpl = '  static const List<$constConstructorName> $constantListName = [' +
         constants.keys.join(', ') +
         '];\n';
 
-    String staticVariablesImpl = '  /* GENERATED CONSTANTS */\n$constantsImpl$keyConstantsImpl\n$listImpl$keyListImpl';
+    String staticVariablesImpl =
+        '  /* GENERATED CONSTANTS */\n$constantsImpl$keyConstantsImpl\n$listImpl$keyListImpl';
 
     output.write(staticVariablesImpl);
 
@@ -337,7 +328,9 @@ class _TypedMapMixinAccessorsGenerator extends TypedMapAccessorsGenerator {
   @override
   String get accessorsMixinName {
     if (version.isLegacy) {
-      return names.consumerName.startsWith(privateSourcePrefix) ? names.publicName : names.generatedMixinName;
+      return names.consumerName.startsWith(privateSourcePrefix)
+          ? names.publicName
+          : names.generatedMixinName;
     } else {
       return names.generatedMixinName;
     }
@@ -345,9 +338,7 @@ class _TypedMapMixinAccessorsGenerator extends TypedMapAccessorsGenerator {
 
   @override
   void generate() {
-     outputContentsBuffer
-       ..write(_generateAccessorsMixin())
-       ..write(_generateMetaConstImpl());
+    outputContentsBuffer..write(_generateAccessorsMixin())..write(_generateMetaConstImpl());
   }
 }
 
@@ -398,10 +389,10 @@ class _LegacyTypedMapAccessorsGenerator extends TypedMapAccessorsGenerator {
 
   @override
   void generate() {
-     outputContentsBuffer
-       ..write(_generateAccessorsMixin())
-       ..write(_generateMetaConstImpl())
-       ..write(_generateConsumablePropsOrStateClass());
+    outputContentsBuffer
+      ..write(_generateAccessorsMixin())
+      ..write(_generateMetaConstImpl())
+      ..write(_generateConsumablePropsOrStateClass());
   }
 
   String _generateConsumablePropsOrStateClass() {
@@ -416,14 +407,14 @@ class _LegacyTypedMapAccessorsGenerator extends TypedMapAccessorsGenerator {
 
     final classKeywords = '${type.isAbstract ? 'abstract ' : ''}class';
     return (StringBuffer()
-      ..writeln('$classKeywords ${names.publicName}$typeParamsOnClass extends ${names.consumerName}$typeParamsOnSuper with $accessorsMixinName$typeParamsOnSuper {')
-      ..write(_copyStaticMembers(node))
-      ..writeln(_generateStaticMetaDecl(names.publicName, type.isProps))
-      ..writeln('}'))
+          ..writeln(
+              '$classKeywords ${names.publicName}$typeParamsOnClass extends ${names.consumerName}$typeParamsOnSuper with $accessorsMixinName$typeParamsOnSuper {')
+          ..write(_copyStaticMembers(node))
+          ..writeln(_generateStaticMetaDecl(names.publicName, type.isProps))
+          ..writeln('}'))
         .toString();
   }
 }
-
 
 String _copyClassMembers(ClassOrMixinDeclaration node) {
   bool isValidForCopying(ClassMember member) {
@@ -432,11 +423,11 @@ String _copyClassMembers(ClassOrMixinDeclaration node) {
     // generated for them, so don't copy those over either. We also don't want
     // to copy anything that would conflict with what the builder already may
     // generate, namely `props`, `state`, and `meta`
-    final isValid = !_isStaticFieldOrMethod(member)
-        && !(member is FieldDeclaration && !member.isSynthetic)
-        && !_memberHasName(member, 'props')
-        && !_memberHasName(member, 'state')
-        && !_memberHasName(member, 'meta');
+    final isValid = !_isStaticFieldOrMethod(member) &&
+        !(member is FieldDeclaration && !member.isSynthetic) &&
+        !_memberHasName(member, 'props') &&
+        !_memberHasName(member, 'state') &&
+        !_memberHasName(member, 'meta');
 
     // If a field is marked with `@Accessor(doNotGenerate: true)`, we should
     // copy over that field
@@ -450,28 +441,29 @@ String _copyClassMembers(ClassOrMixinDeclaration node) {
   }
 
   final buffer = StringBuffer();
-  node.members.where(isValidForCopying).forEach((member) => buffer.write('@override\n' + member.toSource()));
+  node.members
+      .where(isValidForCopying)
+      .forEach((member) => buffer.write('@override\n' + member.toSource()));
   return buffer.toString();
 }
 
 String _copyStaticMembers(ClassOrMixinDeclaration node) {
   final buffer = StringBuffer();
-  node.members
-      .where(_isStaticFieldOrMethod)
-      .forEach((member) {
-        // Don't copy over anything named `meta`, since the static meta field is already going to be generated.
-        if (!_memberHasName(member, 'meta')) {
-          buffer.writeln(member.toSource());
-        }
-      });
+  node.members.where(_isStaticFieldOrMethod).forEach((member) {
+    // Don't copy over anything named `meta`, since the static meta field is already going to be generated.
+    if (!_memberHasName(member, 'meta')) {
+      buffer.writeln(member.toSource());
+    }
+  });
   return buffer.toString();
 }
 
 bool _isStaticFieldOrMethod(ClassMember member) {
-  return (member is MethodDeclaration && member.isStatic) || (member is FieldDeclaration && member.isStatic);
+  return (member is MethodDeclaration && member.isStatic) ||
+      (member is FieldDeclaration && member.isStatic);
 }
 
 bool _memberHasName(ClassMember member, String name) {
   return (member is FieldDeclaration && fieldDeclarationHasName(member, name)) ||
-            (member is MethodDeclaration && member.name.name == name);
+      (member is MethodDeclaration && member.name.name == name);
 }

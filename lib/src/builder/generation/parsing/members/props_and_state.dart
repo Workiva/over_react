@@ -1,6 +1,7 @@
 part of '../members.dart';
 
-abstract class BoilerplatePropsOrState extends BoilerplateAccessorsMember with PropsStateStringHelpers {
+abstract class BoilerplatePropsOrState extends BoilerplateAccessorsMember
+    with PropsStateStringHelpers {
   @override
   final NamedCompilationUnitMember node;
 

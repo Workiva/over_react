@@ -4,7 +4,7 @@ class ComponentNames {
   final String _prefix;
   final String _componentName;
 
-  factory ComponentNames(String componentName)  {
+  factory ComponentNames(String componentName) {
     final parts = componentName.split('.');
     if (parts.length == 1) {
       return ComponentNames._('', componentName);
@@ -36,7 +36,7 @@ class TypedMapNames {
 
   TypedMapNames._(this._prefix, this._consumerName);
 
-  factory TypedMapNames(String consumerName)  {
+  factory TypedMapNames(String consumerName) {
     final parts = consumerName.split('.');
     if (parts.length == 1) {
       return TypedMapNames._('', consumerName);

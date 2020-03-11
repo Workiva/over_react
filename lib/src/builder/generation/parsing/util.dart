@@ -15,8 +15,12 @@ class Union<A, B> {
   final A a;
   final B b;
 
-  Union.a(this.a) : b = null, assert(a != null);
-  Union.b(this.b) : a = null, assert(b != null);
+  Union.a(this.a)
+      : b = null,
+        assert(a != null);
+  Union.b(this.b)
+      : a = null,
+        assert(b != null);
 
   T switchCase<T>(T Function(A) onA, T Function(B) onB) {
     if (a != null) return onA(a);

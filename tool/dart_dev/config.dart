@@ -29,7 +29,6 @@ final config = {
       Glob('app/**'),
       Glob('example/**'),
       Glob('lib/*'),
-      Glob('lib/src/builder/generation/impl_generation.dart'),
       Glob('lib/src/builder/builder.dart'),
       Glob('lib/src/builder/util.dart'),
       Glob('lib/src/component/**'),

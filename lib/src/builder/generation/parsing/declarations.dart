@@ -464,8 +464,7 @@ class LegacyAbstractPropsDeclaration extends BoilerplateDeclaration {
     super.validate(errorCollector);
 
     // It's possible to declare an abstract class without any props/state fields that need to be generated.
-    if (props.nodeHelper.members.isNotEmpty &&
-        !props.node.hasAnnotationWithName('AbstractProps')) {
+    if (props.nodeHelper.members.isNotEmpty && !props.node.hasAnnotationWithName('AbstractProps')) {
       errorCollector.addError(
           'Legacy boilerplate abstract props must be annotated with `@AbstractProps()`.',
           errorCollector.spanFor(props.node));
@@ -492,8 +491,7 @@ class LegacyAbstractStateDeclaration extends BoilerplateDeclaration {
     super.validate(errorCollector);
 
     // It's possible to declare an abstract class without any props/state fields that need to be generated.
-    if (state.nodeHelper.members.isNotEmpty &&
-        !state.node.hasAnnotationWithName('AbstractState')) {
+    if (state.nodeHelper.members.isNotEmpty && !state.node.hasAnnotationWithName('AbstractState')) {
       errorCollector.addError(
           'Legacy boilerplate abstract state must be annotated with `@AbstractState()`.',
           errorCollector.spanFor(state.node));
