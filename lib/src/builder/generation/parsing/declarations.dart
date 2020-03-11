@@ -48,13 +48,17 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
   // -----------------------------------------------------------------------------------------------
   //
-  // Legacy abstract props/state classes
+  // Legacy abstract props/state/component classes
   //
   // They can be declared stand-alone without needing other abstract component members, so grouping
   // them isn't helpful, and can actually cause issues for edge cases where there are other
   // `noGenerate` members with similar names.
   //
   // So, we handle them individually, similarly to mixins.
+  //
+  // We also want to process and remove them before the special-case one-component-per-file
+  // handling, since it's possible to declare a component with mismatched names as well as
+  // an abstract component in the same file.
   //
 
   for (final propsClass in List.of(props)) {
@@ -76,6 +80,11 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
       yield LegacyAbstractStateDeclaration(version: version.version, state: stateClass);
     }
   }
+
+  components.removeWhere((component) {
+    final version = resolveVersion([component]);
+    return version.version.isLegacy && component.node.hasAnnotationWithName('AbstractComponent');
+  });
 
   // -----------------------------------------------------------------------------------------------
   //
@@ -106,7 +115,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   //
   // This is to prevent regressing these cases when switching to the new parser, since the old one
   // was name-agnostic and expected at most one non-abstract component per file.
-  // FIXME do we need to remove abstract components before this point, to support a single file with both an abstract component and component?
 
   if (props.length == 1 && components.length == 1 && factories.length == 1 && states.length <= 1) {
     final version = resolveVersion([

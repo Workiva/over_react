@@ -31,6 +31,7 @@ abstract class ClassishDeclaration {
   TypeParameterList get typeParameters;
 
   // Unified
+  Token get classOrMixinKeyword;
   Token get abstractKeyword;
   TypeName get superclass;
   Token get leftBracket;
@@ -78,7 +79,6 @@ class _ClassishClass extends _ClassishClassOrMixin {
   Token get abstractKeyword => node.abstractKeyword;
 
   @override
-  // TODO: implement interfaces
   List<TypeName> get interfaces => [
         ...?node.implementsClause?.interfaces,
       ];
@@ -88,6 +88,9 @@ class _ClassishClass extends _ClassishClassOrMixin {
 
   @override
   WithClause get withClause => node.withClause;
+
+  @override
+  Token get classOrMixinKeyword => node.classKeyword;
 }
 
 class _ClasssishMixin extends _ClassishClassOrMixin {
@@ -98,6 +101,9 @@ class _ClasssishMixin extends _ClassishClassOrMixin {
 
   @override
   Token get abstractKeyword => null;
+
+  @override
+  Token get classOrMixinKeyword => node.mixinKeyword;
 
   @override
   List<TypeName> get interfaces => [
@@ -120,6 +126,9 @@ class _ClassishClassTypeAlias extends ClassishDeclaration {
 
   @override
   Token get abstractKeyword => node.abstractKeyword;
+
+  @override
+  Token get classOrMixinKeyword => node.typedefKeyword;
 
   @override
   Token get leftBracket => null;

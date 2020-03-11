@@ -32,11 +32,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateAccessorsMember
     switch (version) {
       case Version.v4_mixinBased:
         final node = this.node;
-        // FIXME is this check still needed? The node should be assigned to
-        // a PropsOrStateMixinDeclaration if it's a MixinDeclaration
         if (node is MixinDeclaration) {
-          // It's possible in the future that this may not always
-          // be a ClassDeclaration, so fall back to node if it's not one.
           errorCollector.addError(
               '$propsOrStateClassString implementations must be concrete classes, not mixins',
               // TODO add versions to error messages

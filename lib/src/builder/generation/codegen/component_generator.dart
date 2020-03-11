@@ -59,7 +59,7 @@ abstract class ComponentGenerator extends Generator {
         ..writeln('      \'that does not have the necessary result, the last \'')
         ..writeln('      \'resort is to use typedPropsFactoryJs.\');')
         ..writeln('    super.props = value;')
-        // FIXME 3.0.0-wip: is this implementation still needed here to get good dart2js output, or can we do it in the superclass?
+        // TODO is this implementation still needed here to get good dart2js output, or can we do it in the superclass?
         ..writeln('    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));')
         ..writeln('  }')
         ..writeln()
@@ -117,19 +117,6 @@ abstract class ComponentGenerator extends Generator {
     _generateAdditionalComponentBody();
 
     outputContentsBuffer.writeln('}');
-
-    final implementsTypedPropsStateFactory = component.nodeHelper.members.any((member) =>
-        member is MethodDeclaration &&
-        !member.isStatic &&
-        (member.name.name == 'typedPropsFactory' || member.name.name == 'typedStateFactory'));
-
-    // FIXME move to validation
-    if (implementsTypedPropsStateFactory) {
-      // Can't be an error, because consumers may be implementing typedPropsFactory or typedStateFactory in their components.
-      logger.warning(messageWithSpan(
-          'Components should not add their own implementions of typedPropsFactory or typedStateFactory.',
-          span: getSpan(sourceFile, component.node)));
-    }
   }
 
   void _generateAdditionalComponentBody() {}

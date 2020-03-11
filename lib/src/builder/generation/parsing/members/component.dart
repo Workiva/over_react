@@ -55,6 +55,22 @@ class BoilerplateComponent extends BoilerplateMember {
         break;
     }
 
+    const reservedMembers = {
+      'typedPropsFactory',
+      'typedPropsFactoryJs',
+      'typedStateFactory',
+      'typedStateFactoryJs',
+    };
+    nodeHelper.members
+        .whereType<MethodDeclaration>()
+        .where((member) => !member.isStatic && reservedMembers.contains(member.name.name))
+        .forEach((member) {
+      // This is a warning since emitting an error would break existing code that's doing this.
+      errorCollector.addWarning(
+          'Components should not add their own implementions of ${member.name.name}.',
+          errorCollector.spanFor(member));
+    });
+
     // Ensure that Component2 declarations do not use legacy lifecycle methods.
     if (isComponent2(version) && node is ClassOrMixinDeclaration) {
       Map<String, String> legacyLifecycleMethodsMap = {

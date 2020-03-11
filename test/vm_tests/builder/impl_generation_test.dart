@@ -832,18 +832,6 @@ main() {
     group('logs a warning when', () {
       tearDown(verifyImplGenerationIsValid);
 
-      group('a Component', () {
-        test('implements typedPropsFactory', () {
-          setUpAndGenerate(OverReactSrc.props(backwardsCompatible: false, componentBody: 'typedPropsFactory(Map backingMap) => {};').source);
-          verify(logger.warning(contains('Components should not add their own implementions of typedPropsFactory or typedStateFactory.')));
-        });
-
-        test('implements typedStateFactory', () {
-          setUpAndGenerate(OverReactSrc.props(backwardsCompatible: false, componentBody: 'typedStateFactory(Map backingMap) => {};').source);
-          verify(logger.warning(contains('Components should not add their own implementions of typedPropsFactory or typedStateFactory.')));
-        });
-      });
-
       group('comma-separated variables are declared', () {
         const String expectedCommaSeparatedWarning =
             'Note: accessors declared as comma-separated variables will not all be generated '

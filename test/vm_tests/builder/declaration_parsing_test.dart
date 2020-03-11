@@ -1526,6 +1526,44 @@ main() {
             });
           });
         });
+
+        group('a component implements', () {
+          test('typedPropsFactory', () {
+            setUpAndParse(OverReactSrc.props(
+              backwardsCompatible: false,
+              componentBody: 'typedPropsFactory(Map backingMap) => {};',
+            ).source);
+            verify(logger.warning(contains(
+                'Components should not add their own implementions of typedPropsFactory.')));
+          });
+
+          test('typedPropsFactoryJs', () {
+            setUpAndParse(OverReactSrc.props(
+              backwardsCompatible: false,
+              componentBody: 'typedPropsFactoryJs(JsBackedMap backingMap) => {};',
+            ).source);
+            verify(logger.warning(contains(
+                'Components should not add their own implementions of typedPropsFactoryJs.')));
+          });
+
+          test('typedStateFactory', () {
+            setUpAndParse(OverReactSrc.props(
+              backwardsCompatible: false,
+              componentBody: 'typedStateFactory(Map backingMap) => {};',
+            ).source);
+            verify(logger.warning(contains(
+                'Components should not add their own implementions of typedStateFactory.')));
+          });
+
+          test('typedStateFactoryJs', () {
+            setUpAndParse(OverReactSrc.props(
+              backwardsCompatible: false,
+              componentBody: 'typedStateFactoryJs(JsBackedMap backingMap) => {};',
+            ).source);
+            verify(logger.warning(contains(
+                'Components should not add their own implementions of typedStateFactoryJs.')));
+          });
+        });
       });
 
       group('and logs a warning when', () {

@@ -57,7 +57,7 @@ class _CallbackErrorCollector extends ErrorCollector {
   });
 
   @override
-  void addError(String message, [SourceSpan span]) => onError(message, span);
+  void addError(String message, [SourceSpan span]) => onError?.call(message, span);
   @override
-  void addWarning(String message, [SourceSpan span]) => onWarning(message, span);
+  void addWarning(String message, [SourceSpan span]) => onWarning?.call(message, span);
 }

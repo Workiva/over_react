@@ -45,8 +45,6 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateAccessorsMember
     switch (version) {
       case Version.v4_mixinBased:
         final node = this.node;
-        // FIXME is this possible? _detectNonLegacyPropsStateOrMixin uses the `on x` to
-        // detect, and non-v4 components won't have mixin declarations
         if (node is MixinDeclaration) {
           final isOnUiProps = node.onClause?.superclassConstraints
                   ?.any((type) => type.nameWithoutPrefix == propsOrStateBaseClassString) ??
@@ -57,11 +55,8 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateAccessorsMember
                 errorCollector.spanFor(node.onClause ?? node.name));
           }
         } else {
-          // It's possible in the future that this may not always
-          // be a ClassDeclaration, so fall back to node if it's not one.
-          final spanNode = node.tryCast<ClassDeclaration>()?.classKeyword ?? node;
-          errorCollector.addError(
-              '$propsOrStateString mixins must be mixins', errorCollector.spanFor(spanNode));
+          errorCollector.addWarning('$propsOrStateString mixins must be mixins',
+              errorCollector.spanFor(nodeHelper.classOrMixinKeyword));
         }
         break;
       case Version.v2_legacyBackwardsCompat:
