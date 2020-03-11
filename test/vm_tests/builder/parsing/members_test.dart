@@ -778,10 +778,14 @@ main() {
                   UiFactory<FooProps> Foo = _$Foo;
   
                   @Props()
-                  mixin FooProps on UiProps {}
+                  mixin FooProps on UiProps {
+                    Map get props;
+                  }
   
                   @State()
-                  mixin FooState on UiState {}
+                  mixin FooState on UiState {
+                    Map get state;
+                  }
   
                   @Component2()
                   class FooComponent extends UiStatefulComponent2<FooProps, FooState>{}
