@@ -808,3 +808,56 @@ class StateMeta implements AccessorMeta<StateDescriptor> {
 
   const StateMeta({this.fields, this.keys});
 }
+
+abstract class _AccessorMetaCollection<T extends _Descriptor, U extends AccessorMeta<T>> implements AccessorMeta<T> {
+  // todo probably make this public
+  final Map<Type, U> _metaByMixin;
+
+  const _AccessorMetaCollection(this._metaByMixin);
+
+  U get _emptyMeta;
+
+  /// Returns the metadata for only the prop fields declared in [mixinType].
+  U forMixin(Type mixinType) {
+    final meta = _metaByMixin[mixinType];
+    assert(meta != null,
+        'No meta found for $mixinType;'
+        'it likely isn\'t mixed in by the props/state class.');
+    return meta ?? _emptyMeta;
+  }
+
+  @override
+  List<String> get keys =>
+      _metaByMixin.values.expand((meta) => meta.keys).toList();
+
+  @override
+  List<T> get fields =>
+      _metaByMixin.values.expand((meta) => meta.fields).toList();
+}
+
+/// A collection of metadata for the prop fields in all prop mixins
+/// used by a given component.
+///
+/// See [PropsMeta] for more info.
+class PropsMetaCollection extends _AccessorMetaCollection<PropDescriptor, PropsMeta> implements PropsMeta {
+  const PropsMetaCollection(Map<Type, PropsMeta> metaByMixin) : super(metaByMixin);
+
+  @override
+  PropsMeta get _emptyMeta => const PropsMeta(fields: [], keys: []);
+
+  @override
+  List<PropDescriptor> get props => fields;
+}
+/// A collection of metadata for the state fields in all state mixins
+/// used by a given component.
+///
+/// See [StateMeta] for more info.
+class StateMetaCollection extends _AccessorMetaCollection<StateDescriptor, StateMeta> implements StateMeta {
+  const StateMetaCollection(Map<Type, StateMeta> metaByMixin) : super(metaByMixin);
+
+  @override
+  StateMeta get _emptyMeta => const StateMeta(fields: [], keys: []);
+
+  @override
+  List<StateDescriptor> get state => fields;
+}

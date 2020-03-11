@@ -186,8 +186,11 @@ abstract class ComponentGeneratorBase extends Generator {
       ..writeln('  /// The default consumed props, taken from ${propsNames.consumerName}.')
       ..writeln('  /// Used in `ConsumedProps` if [consumedProps] is not overridden.')
       ..writeln('  @override')
-      ..writeln('  final List<ConsumedProps> \$defaultConsumedProps = $defaultConsumedProps;')
-      ..writeln('}');
+      ..writeln('  final List<ConsumedProps> \$defaultConsumedProps = $defaultConsumedProps;');
+
+    _generateAdditionalComponentBody();
+
+    outputContentsBuffer.writeln('}');
 
     final implementsTypedPropsStateFactory = component.nodeHelper.members.any((member) =>
         member is MethodDeclaration &&
@@ -204,6 +207,8 @@ abstract class ComponentGeneratorBase extends Generator {
       );
     }
   }
+
+  void _generateAdditionalComponentBody() {}
 }
 
 class ComponentGenerator extends ComponentGeneratorBase {
@@ -233,9 +238,23 @@ class ComponentGenerator extends ComponentGeneratorBase {
   bool get hasState => declaration.state != null;
 
   @override
-  String get defaultConsumedProps =>
-      // Concrete props classes do not have generated meta
-      declaration.props.b != null ? 'const [${propsNames.metaConstantName}]' : 'const []';
+  String get defaultConsumedProps => declaration.props.switchCase(
+        (a) => 'const []', // Concrete props classes do not have generated meta
+        (b) => 'const [${propsNames.metaConstantName}]',
+      );
+
+  @override
+  void _generateAdditionalComponentBody() {
+    outputContentsBuffer
+        ..writeln()
+        ..writeln('  @override')
+        ..writeln('  PropsMetaCollection get propsMeta => const PropsMetaCollection({')
+        ..writeAll(declaration.allPropsMixins.map((name) {
+          final names = AccessorNames(consumerName: name.name);
+          return '    ${names.consumerName}: ${names.publicGeneratedMetaName},';
+        }), '\n')
+        ..writeln('  });');
+  }
 }
 
 class LegacyComponentGenerator extends ComponentGeneratorBase {

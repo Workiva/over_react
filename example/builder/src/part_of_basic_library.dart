@@ -31,9 +31,8 @@ class BasicPartOfLibComponent extends UiStatefulComponent2<BasicPartOfLibProps, 
     return Dom.div()(
       'BasicPartOfLibComponentProps: ${props.basicProp}, ${props.propMixin1}',
       'BasicPartOfLibComponentState: ${state.basicState}, ${state.stateMixin1}',
-// fixme implement propsMeta
-//      Dom.div()('propsMeta: ${propsMeta.keys}'),
-//      Dom.div()('propsMeta for just ExamplePropsMixinClass: ${propsMeta.forMixin(ExamplePropsMixinClass).keys}'),
+      Dom.div()('propsMeta: ${propsMeta.keys}'),
+      Dom.div()('propsMeta for just ExamplePropsMixinClass: ${propsMeta.forMixin(ExamplePropsMixin).keys}'),
     );
   }
 }

@@ -200,6 +200,12 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        ExamplePropsMixin: $ExamplePropsMixin.meta,
+        BasicPartOfLibPropsMixin: $BasicPartOfLibPropsMixin.meta,
+      });
 }
 
 mixin $BasicPartOfLibPropsMixin on BasicPartOfLibPropsMixin {
@@ -440,6 +446,12 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        SuperPartOfLibPropsMixin: $SuperPartOfLibPropsMixin.meta,
+        SubPartOfLibPropsMixin: $SubPartOfLibPropsMixin.meta,
+      });
 }
 
 mixin $SuperPartOfLibPropsMixin on SuperPartOfLibPropsMixin {

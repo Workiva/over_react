@@ -197,6 +197,12 @@ class _$SubComponent extends SubComponent {
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        SuperPropsMixin: $SuperPropsMixin.meta,
+        SubPropsMixin: $SubPropsMixin.meta,
+      });
 }
 
 mixin $SuperPropsMixin on SuperPropsMixin {

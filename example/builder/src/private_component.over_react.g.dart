@@ -201,6 +201,11 @@ class _$PrivateComponent extends PrivateComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaFor_PrivateProps
   ];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        _PrivateProps: $_PrivateProps.meta,
+      });
 }
 
 mixin $_PrivateProps on _PrivateProps {

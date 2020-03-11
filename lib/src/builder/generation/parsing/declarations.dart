@@ -513,6 +513,11 @@ class ClassComponentDeclaration extends BoilerplateDeclaration {
   @override
   get type => DeclarationType.classComponentDeclaration;
 
+  List<Identifier> get allPropsMixins => props.switchCase(
+        (a) => a.nodeHelper.mixins.map((name) => name.name).toList(),
+        (b) => [b.name],
+      );
+
   ClassComponentDeclaration({
     @required Version version,
     @required this.factory,

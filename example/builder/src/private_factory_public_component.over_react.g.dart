@@ -127,6 +127,11 @@ class _$FormActionInputComponent extends FormActionInputComponent {
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForFormActionInputProps
   ];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        FormActionInputProps: $FormActionInputProps.meta,
+      });
 }
 
 mixin $FormActionInputProps on FormActionInputProps {

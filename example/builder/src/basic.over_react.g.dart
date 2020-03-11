@@ -122,6 +122,11 @@ class _$BasicComponent extends BasicComponent {
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForBasicProps];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        BasicProps: $BasicProps.meta,
+      });
 }
 
 mixin $BasicProps on BasicProps {
