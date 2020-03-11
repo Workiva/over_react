@@ -301,23 +301,24 @@ class PropsOrStateImplGenerator extends AccessorsImplGeneratorBase {
 
   @override
   void _generatePropsImpl() {
-    _generateConcretePropsOrStateImpl(
+    outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
       componentFactoryName: ComponentNames(component.component.name.name).componentFactoryName,
       // This doesn't really apply to the new boilerplate
       propKeyNamespace: '',
-    );
+    ));
   }
 
   @override
   void _generateStateImpl() {
-    _generateConcretePropsOrStateImpl();
+    outputContentsBuffer.write(_generateConcretePropsOrStateImpl());
   }
 
   @override
   String _generateImplClassHeader() {
     if (member is BoilerplatePropsOrStateMixin) {
-      return 'class ${names.implName}$typeParamsOnClass '
-          'extends UiProps with ${names.implName}$typeParamsOnSuper, ${names.generatedMixinName}';
+      return 'class ${names.implName}$typeParamsOnClass'
+          ' extends ${isProps ? 'UiProps': 'UiState'}'
+          ' with ${names.consumerName}$typeParamsOnSuper, ${names.generatedMixinName}';
     } else if (member is BoilerplatePropsOrState) {
       final header = StringBuffer()
         ..write('class ${names.implName}$typeParamsOnClass '
@@ -325,9 +326,20 @@ class PropsOrStateImplGenerator extends AccessorsImplGeneratorBase {
 
       final mixins = member.nodeHelper.mixins;
       if (mixins.isNotEmpty) {
-        header.write(' with');
+        header.write(' with ');
         header.writeAll(
-            mixins.map((m) => AccessorNames(consumerName: m.name.name).generatedMixinName), ', ');
+            mixins.map((m) {
+              final fullName = m.name;
+              String name, prefix;
+              if (fullName is PrefixedIdentifier) {
+                prefix = '${fullName.prefix.name}.';
+                name = fullName.identifier.name;
+              } else {
+                prefix = '';
+                name = fullName.name;
+              }
+              return '$prefix${AccessorNames(consumerName: name).generatedMixinName}';
+            }), ', ');
       }
 
       return header.toString();

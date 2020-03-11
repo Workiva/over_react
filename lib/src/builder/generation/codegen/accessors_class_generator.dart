@@ -218,6 +218,8 @@ abstract class AccessorsClassGenerator extends Generator {
               // Use an HTML comment so it isn't rendered to the hover/quickdoc, which clutters up the comment.
               // Even inside comments, this link will be clickable in IDEs!
               docComment += '  /// <!-- Generated from [${names.consumerName}.$accessorName] -->\n';
+            } else {
+              docComment = '';
             }
 
             String generatedAccessor =

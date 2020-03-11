@@ -186,7 +186,13 @@ class OverReactBuilder extends Builder {
         ..writeln(item);
     }
 
-    final output = _formatter.format(buffer.toString());
+    var output = buffer.toString();
+    // Output the file even if formatting fails, so that it can be used to debug the issue.
+    try {
+      output = _formatter.format(buffer.toString());
+    } catch (e, st) {
+      log.severe('Error formatting generated code', e, st);
+    }
     await buildStep.writeAsString(outputId, output);
   }
 }
