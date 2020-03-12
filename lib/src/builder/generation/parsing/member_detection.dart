@@ -1,3 +1,17 @@
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:meta/meta.dart';
@@ -7,9 +21,12 @@ import 'ast_util.dart';
 import 'members.dart';
 import 'version.dart';
 
+/// The primarily class wrapper for detecting boilerplate entities for a given
+/// compilation unit.
 class BoilerplateMemberDetector {
   Map<String, NamedCompilationUnitMember> _classishDeclarationsByName;
 
+  // Callbacks that will be triggered when the detector finds the correlating entity.
   final void Function(BoilerplateFactory) onFactory;
   final void Function(BoilerplateProps) onProps;
   final void Function(BoilerplateState) onState;
@@ -26,6 +43,11 @@ class BoilerplateMemberDetector {
     @required this.onComponent,
   });
 
+  /// Process [unit] looking for boilerplate members, calling the appropriate 'on'
+  /// methods (e.g. [onFactory]) upon discovery.
+  ///
+  /// Uses [_BoilerplateMemberDetectorVisitor] to visit the relevant entity types,
+  /// looking for boilerplate members.
   void detect(CompilationUnit unit) {
     _classishDeclarationsByName = {};
     final visitor = _BoilerplateMemberDetectorVisitor(
@@ -301,10 +323,19 @@ class BoilerplateMemberDetector {
     );
   }
 
+  /// A pattern that can detect a props class or mixin (assuming it follows naming convention).
   static final propsOrMixinNamePattern = RegExp(r'Props(?:Mixin)?$');
+
+  /// A pattern that can detect a props mixin (assuming it follows naming convention).
   static final propsMixinNamePattern = propsOrMixinNamePattern;
+
+  /// A pattern that can detect a state class or mixin (assuming it follows naming convention).
   static final stateMixinNamePattern = RegExp(r'State(?:Mixin)?$');
+
+  /// A pattern that can detect a props class (assuming it follows naming convention).
   static final propsNamePattern = RegExp(r'Props$');
+
+  /// A pattern that can detect a state class (assuming it follows naming convention).
   static final stateNamePattern = RegExp(r'State$');
 
   bool _detectNonLegacyPropsStateOrMixin(
