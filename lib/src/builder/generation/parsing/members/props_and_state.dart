@@ -1,20 +1,22 @@
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 part of '../members.dart';
 
+// The class that backs both a boilerplate props and state class.
 abstract class BoilerplatePropsOrState extends BoilerplateAccessorsMember
     with PropsStateStringHelpers {
-  @override
-  final NamedCompilationUnitMember node;
-
-  @override
-  final ClassishDeclaration nodeHelper;
-
-  final ClassishDeclaration companion;
-
-  @override
-  annotations.TypedMap meta;
-
-  @override
-  SimpleIdentifier get name => nodeHelper.name;
 
   BoilerplatePropsOrState(this.nodeHelper, this.companion, VersionConfidence confidence)
       : node = nodeHelper.node,
@@ -22,11 +24,42 @@ abstract class BoilerplatePropsOrState extends BoilerplateAccessorsMember
     meta = getPropsOrStateAnnotation(isProps, node);
   }
 
+  /// The [ClassDeclaration] backing the member
+  @override
+  final NamedCompilationUnitMember node;
+
+  /// A metadata class that lifts helpful fields out of [node] to a top level,
+  /// in addition to providing additional getters relevant member parsing.
+  @override
+  final ClassishDeclaration nodeHelper;
+
+  /// The companion class for the props or state.
+  ///
+  /// This will only be present for [Version.v2_legacyBackwardsCompat] classes.
+  final ClassishDeclaration companion;
+
+  /// The corresponding annotation.
+  ///
+  /// This is determined at runtime by detecting the type of class (props, state, abstract)
+  /// based upon what annotation is present upon [node].
+  @override
+  annotations.TypedMap meta;
+
+  @override
+  SimpleIdentifier get name => nodeHelper.name;
+
   @override
   String get debugString => '${super.debugString}, companion: ${companion?.name}';
 
   bool get hasCompanionClass => companion != null;
 
+  /// Verifies the correct implementation of every boilerplate props and state version.
+  ///
+  /// Major checks included are:
+  /// - Preventing the class from being a mixin
+  /// - Checking for the correct super class (and not being abstract)
+  /// - Enforcing that no members are instantiated
+  /// - Verifying legacy prefixes and companions are present
   @override
   void validate(Version version, ErrorCollector errorCollector) {
     switch (version) {
@@ -100,6 +133,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateAccessorsMember
   }
 }
 
+/// The implementation class for boilerplate props
 class BoilerplateProps extends BoilerplatePropsOrState {
   BoilerplateProps(
       ClassishDeclaration nodeHelper, ClassishDeclaration companion, VersionConfidence confidence)
@@ -109,6 +143,7 @@ class BoilerplateProps extends BoilerplatePropsOrState {
   bool get isProps => true;
 }
 
+/// The implementation class for boilerplate state
 class BoilerplateState extends BoilerplatePropsOrState {
   BoilerplateState(
       ClassishDeclaration nodeHelper, ClassishDeclaration companion, VersionConfidence confidence)

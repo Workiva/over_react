@@ -1,6 +1,21 @@
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 part of '../members.dart';
 
 class BoilerplateFactory extends BoilerplateMember {
+  /// The entity that backs the boilerplate member.
   @override
   final TopLevelVariableDeclaration node;
 
@@ -10,6 +25,7 @@ class BoilerplateFactory extends BoilerplateMember {
   @override
   annotations.Factory get meta => const annotations.Factory();
 
+  /// The [TypeAnnotation] for the component's factory.
   TypeAnnotation get propsGenericArg {
     final type = node.variables.type;
     if (type is NamedType && type.typeNameWithoutPrefix == 'UiFactory') {
@@ -26,6 +42,18 @@ class BoilerplateFactory extends BoilerplateMember {
 
   bool get hasFactoryAnnotation => node.hasAnnotationWithName('Factory');
 
+  /// The name that by convention should be the shared name of the props class
+  /// and component. (e.g. "Foo" for "_$Foo" or "FooComponent")
+  String get generatedFactoryReferenceName {
+    return node.variables.variables.first.initializer?.tryCast<Identifier>()?.nameWithoutPrefix;
+  }
+
+  /// Verifies the correct implementation of a boilerplate factory
+  ///
+  /// Major checks included are:
+  /// - Enforcing annotation for [Version.v3_legacyDart2Only]
+  /// - Preventing the presence of multiple initializer variables
+  /// - Verifying the presence of a generated factory
   @override
   void validate(Version version, ErrorCollector errorCollector) {
     switch (version) {
@@ -64,16 +92,13 @@ class BoilerplateFactory extends BoilerplateMember {
     }
   }
 
-  String get generatedFactoryReferenceName {
-    return node.variables.variables.first.initializer?.tryCast<Identifier>()?.nameWithoutPrefix;
-  }
-
 //  static bool _isFunctionComponentOrHoc(Expression initializer) {
 //    // todo should this instead be
 //    return containsFunctionCall(initializer);
 //  }
 }
 
+// FIXME is this still needed?
 //bool containsFunctionCall(AstNode node) {
 //  final visitor = _FunctionCallDetector();
 //  node.accept(visitor);

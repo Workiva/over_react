@@ -7,6 +7,8 @@ extension on String {
   }
 }
 
+/// A mixin containing getters that can be used to facilitate runtime [String] checks
+/// for a props and state class.
 mixin PropsStateStringHelpers {
   bool get isProps;
   String get propsOrStateString => isProps ? 'props' : 'state';
@@ -20,6 +22,7 @@ mixin PropsStateStringHelpers {
   String get propsOrStateMixinAnnotationName => isProps ? 'PropsMixin' : 'StateMixin';
 }
 
+/// Uses [InstantiatedMeta] to analyze [node] and determine the proper annotation.
 annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node) {
   final meta = isProps
       ? (InstantiatedMeta<annotations.Props>(node) ??

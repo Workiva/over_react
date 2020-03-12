@@ -1,15 +1,21 @@
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 part of '../members.dart';
 
+/// The class that represents a boilerplate component.
 class BoilerplateComponent extends BoilerplateMember {
-  @override
-  final NamedCompilationUnitMember node;
-
-  final ClassishDeclaration nodeHelper;
-
-  @override
-  // ignore: deprecated_member_use_from_same_package
-  annotations.Component meta;
-  Identifier configSubtypeOf;
 
   BoilerplateComponent(this.nodeHelper, VersionConfidence confidence)
       : node = nodeHelper.node,
@@ -22,23 +28,53 @@ class BoilerplateComponent extends BoilerplateMember {
     configSubtypeOf = meta?.subtypeOfValue;
   }
 
+  /// The [ClassDeclaration] backing the member
+  @override
+  final NamedCompilationUnitMember node;
+
   @override
   SimpleIdentifier get name => nodeHelper.name;
 
+  /// A metadata class that lifts helpful fields out of [node] to a top level,
+  /// in addition to providing additional getters relevant member parsing.
+  final ClassishDeclaration nodeHelper;
+
+  /// Metadata around the member, which will most likely be [InstantiatedComponentMeta]
+  /// or [annotations.Component2].
+  @override
+  // ignore: deprecated_member_use_from_same_package
+  annotations.Component meta;
+
+  // The superclass that can be noted in the `@Component()` or `@Component2()` annotation.
+  Identifier configSubtypeOf;
+
+  /// The [TypeAnnotation] for the component's prop class.
   TypeAnnotation get propsGenericArg {
     return nodeHelper.superclass.typeArguments?.arguments
         ?.firstWhere((type) => type.typeNameWithoutPrefix.endsWith('Props'), orElse: () => null);
   }
 
+  /// Whether or not the component has any annotation, ignoring component version
+  /// and whether or not it is an abstract annotation.
+  ///
+  /// Related: [hasComponent1OrAbstractAnnotation], [hasComponent2OrAbstractAnnotation]
   bool get hasAnnotation => hasComponent1OrAbstractAnnotation || hasComponent2OrAbstractAnnotation;
 
   bool get hasComponent1OrAbstractAnnotation =>
       node.hasAnnotationWithNames({'Component', 'AbstractComponent'});
   bool get hasComponent2OrAbstractAnnotation =>
       node.hasAnnotationWithNames({'Component2', 'AbstractComponent2'});
+
+  /// Checks if the component is mixin based or has the Component2 annotation (including abstract).
   bool isComponent2(Version version) =>
       version == Version.v4_mixinBased || hasComponent2OrAbstractAnnotation;
 
+  /// Verifies the correct implementation of every boilerplate component version.
+  ///
+  /// Major checks included are:
+  /// - Enforcing Component2 superclasses for mixin based boilerplate
+  /// - Verifying no reserved static members are overridden
+  /// - Checking for deprecated lifecycle method usage in conjunction with `Component2`
   @override
   void validate(Version version, ErrorCollector errorCollector) {
     switch (version) {
