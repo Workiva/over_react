@@ -13,7 +13,6 @@
 // limitations under the License.
 
 @TestOn('vm')
-import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:over_react/src/builder/generation/parsing.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
@@ -22,64 +21,10 @@ import 'parsing_helpers.dart';
 
 main() {
   group('members -', () {
-    BoilerplateMembers members;
-    Iterable<BoilerplateFactory> factories;
-    Iterable<BoilerplateComponent> components;
-    Iterable<BoilerplateProps> props;
-    Iterable<BoilerplateState> states;
-    Iterable<BoilerplateStateMixin> stateMixins;
-    Iterable<BoilerplatePropsMixin> propsMixins;
-
-    BoilerplateMembers getAllExampleBoilerplateMembers() {
-      final unit = parseString(content: mockComponentDeclarations).unit;
-
-      return members ??= BoilerplateMembers.detect(unit);
-    }
-
-    Iterable<BoilerplateMember> getExampleBoilerplateFactories() {
-      return factories ??= (members ?? getAllExampleBoilerplateMembers()).factories;
-    }
-
-    Iterable<BoilerplateMember> getExampleBoilerplateComponents() {
-      return components ??= (members ?? getAllExampleBoilerplateMembers()).components;
-    }
-
-    Iterable<BoilerplateMember> getExampleBoilerplateProps() {
-      return props ??= (members ?? getAllExampleBoilerplateMembers()).props;
-    }
-
-    Iterable<BoilerplateMember> getExampleBoilerplateState() {
-      return states ??= (members ?? getAllExampleBoilerplateMembers()).states;
-    }
-
-    Iterable<BoilerplateMember> getExampleBoilerplatePropsMixins() {
-      return propsMixins ??= (members ?? getAllExampleBoilerplateMembers()).propsMixins;
-    }
-
-    Iterable<BoilerplateMember> getExampleBoilerplateStateMixins() {
-      return stateMixins ??= (members ?? getAllExampleBoilerplateMembers()).stateMixins;
-    }
-
-    Iterable<BoilerplateMember> getBoilerplateMembersFor(BoilerplateVersions version) {
-      final unit = parseString(content: getBoilerplateString(version: version)).unit;
-
-      return BoilerplateMembers.detect(unit).allMembers;
-    }
-
-    Iterable<BoilerplateMember> parseAndReturnMembers(String content) {
-      final unit = parseString(content: content).unit;
-
-      return BoilerplateMembers.detect(unit).allMembers;
-    }
+    BoilerplateMemberHelper memberHelper;
 
     setUp(() {
-      members = getAllExampleBoilerplateMembers();
-      components = getExampleBoilerplateComponents();
-      factories = getExampleBoilerplateFactories();
-      props = getExampleBoilerplateProps();
-      states = getExampleBoilerplateState();
-      propsMixins = getExampleBoilerplatePropsMixins();
-      stateMixins = getExampleBoilerplateStateMixins();
+      memberHelper = BoilerplateMemberHelper.withMockDeclarations();
     });
 
     group('component', () {
@@ -89,11 +34,11 @@ main() {
 
       setUp(() {
         legacyBackwardCompatComponent =
-            components.firstWhere((component) => component.name.name == 'FirstFooComponent');
+            memberHelper.components.firstWhere((component) => component.name.name == 'FirstFooComponent');
         legacyComponent =
-            components.firstWhere((component) => component.name.name == 'SecondFooComponent');
+            memberHelper.components.firstWhere((component) => component.name.name == 'SecondFooComponent');
         newBoilerplateComponent =
-            components.firstWhere((component) => component.name.name == 'ThirdFooComponent');
+            memberHelper.components.firstWhere((component) => component.name.name == 'ThirdFooComponent');
       });
 
       test('propsGenericArg returns the correct props class', () {
@@ -125,17 +70,17 @@ main() {
 
       test('isComponent2 returns the correct value', () {
         expect(
-            getBoilerplateMembersFor(BoilerplateVersions.v2)
+            BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v2)
                 .firstWhereType<BoilerplateComponent>()
                 .isComponent2(Version.v2_legacyBackwardsCompat),
             false);
         expect(
-            getBoilerplateMembersFor(BoilerplateVersions.v3)
+            BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v3)
                 .firstWhereType<BoilerplateComponent>()
                 .isComponent2(Version.v3_legacyDart2Only),
             false);
         expect(
-            getBoilerplateMembersFor(BoilerplateVersions.v4)
+            BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v4)
                 .firstWhereType<BoilerplateComponent>()
                 .isComponent2(Version.v4_mixinBased),
             true);
@@ -160,7 +105,7 @@ main() {
           group('the component is a', () {
             for (final version in BoilerplateVersions.values) {
               test('${versionDescriptions[version]} component', () {
-                final members = getBoilerplateMembersFor(version);
+                final members = BoilerplateMemberHelper.getBoilerplateMembersFor(version);
                 final component = members.whereType<BoilerplateComponent>().first;
                 final componentVersion = resolveVersion(members).version;
                 file = SourceFile.fromString(getBoilerplateString(version: version));
@@ -176,7 +121,7 @@ main() {
 
         group('throws when', () {
           test('the component is mixin based but does not extend Component2', () {
-            final members = parseAndReturnMembers(r'''
+            final members = BoilerplateMemberHelper.parseAndReturnMembers(r'''
             UiFactory<FooProps> Foo = _$Foo;
 
             mixin FooProps on UiProps {}
@@ -223,7 +168,7 @@ main() {
                       // Grab the boilerplate with the deprecated lifecycle method
                       final componentString = getBoilerplateString(
                           deprecatedLifecycleMethod: lifecycle, version: version);
-                      final members = parseAndReturnMembers(componentString);
+                      final members = BoilerplateMemberHelper.parseAndReturnMembers(componentString);
                       final component = members.whereType<BoilerplateComponent>().first;
                       final componentVersion = resolveVersion(members).version;
                       file = SourceFile.fromString(componentString);
@@ -253,7 +198,7 @@ main() {
         for (final version in BoilerplateVersions.values) {
           test('${versionDescriptions[version]}', () {
             final componentString = getBoilerplateString(version: version);
-            final members = parseAndReturnMembers(componentString);
+            final members = BoilerplateMemberHelper.parseAndReturnMembers(componentString);
             final factory = members.whereType<BoilerplateFactory>().first;
 
             if (![BoilerplateVersions.v4, BoilerplateVersions.v5].contains(version)) {
@@ -284,7 +229,7 @@ main() {
           for (final version in BoilerplateVersions.values) {
             test(versionDescriptions[version], () {
               final componentString = getBoilerplateString(version: version);
-              final members = parseAndReturnMembers(componentString);
+              final members = BoilerplateMemberHelper.parseAndReturnMembers(componentString);
               final factory = members.whereType<BoilerplateFactory>().first;
               file = SourceFile.fromString(componentString);
               collector = ErrorCollector.callback(file, onError: validateCallback);
@@ -313,7 +258,7 @@ main() {
             file = SourceFile.fromString(boilerplateString);
             collector = ErrorCollector.callback(file, onError: validateCallback);
 
-            final members = parseAndReturnMembers(boilerplateString);
+            final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
             final factory = members.whereType<BoilerplateFactory>().first;
 
             factory.validate(resolveVersion(members).version, collector);
@@ -339,7 +284,7 @@ main() {
             file = SourceFile.fromString(boilerplateString);
             collector = ErrorCollector.callback(file, onError: validateCallback);
 
-            final members = parseAndReturnMembers(boilerplateString);
+            final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
             final factory = members.whereType<BoilerplateFactory>().first;
 
             factory.validate(resolveVersion(members).version, collector);
@@ -365,7 +310,7 @@ main() {
             file = SourceFile.fromString(boilerplateString);
             collector = ErrorCollector.callback(file, onError: validateCallback);
 
-            final members = parseAndReturnMembers(boilerplateString);
+            final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
             final factory = members.whereType<BoilerplateFactory>().first;
 
             factory.validate(resolveVersion(members).version, collector);
@@ -403,7 +348,7 @@ main() {
           for (final version in BoilerplateVersions.values) {
             test(versionDescriptions[version], () {
               final boilerplateString = getBoilerplateString(version: version);
-              final members = parseAndReturnMembers(boilerplateString);
+              final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final propsOrStateClasses = members.whereType<BoilerplatePropsOrState>();
 
               if (propsOrStateClasses.isNotEmpty) {
@@ -444,7 +389,7 @@ main() {
               file = SourceFile.fromString(boilerplateString);
               collector = ErrorCollector.callback(file, onError: validateCallback);
 
-              final members = parseAndReturnMembers(boilerplateString);
+              final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final props = members.whereType<BoilerplateProps>().first;
               final state = members.whereType<BoilerplateState>().first;
 
@@ -486,7 +431,7 @@ main() {
               file = SourceFile.fromString(boilerplateString);
               collector = ErrorCollector.callback(file, onError: validateCallback);
 
-              final members = parseAndReturnMembers(boilerplateString);
+              final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final props = members.whereType<BoilerplateProps>().first;
               final state = members.whereType<BoilerplateState>().first;
 
@@ -519,7 +464,7 @@ main() {
               file = SourceFile.fromString(boilerplateString);
               collector = ErrorCollector.callback(file, onError: validateCallback);
 
-              final members = parseAndReturnMembers(boilerplateString);
+              final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final props = members.whereType<BoilerplateProps>().first;
               final state = members.whereType<BoilerplateState>().first;
 
@@ -557,7 +502,7 @@ main() {
               file = SourceFile.fromString(boilerplateString);
               collector = ErrorCollector.callback(file, onError: validateCallback);
 
-              final members = parseAndReturnMembers(boilerplateString);
+              final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final props = members.whereType<BoilerplateProps>().first;
               final state = members.whereType<BoilerplateState>().first;
 
@@ -593,7 +538,7 @@ main() {
               file = SourceFile.fromString(boilerplateString);
               collector = ErrorCollector.callback(file, onError: validateCallback);
 
-              final members = parseAndReturnMembers(boilerplateString);
+              final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final props = members.whereType<BoilerplateProps>().first;
               final state = members.whereType<BoilerplateState>().first;
               const errorMessage =
@@ -637,7 +582,7 @@ main() {
               file = SourceFile.fromString(boilerplateString);
               collector = ErrorCollector.callback(file, onError: validateCallback);
 
-              final members = parseAndReturnMembers(boilerplateString);
+              final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final props = members.whereType<BoilerplateProps>().first;
               final state = members.whereType<BoilerplateState>().first;
               final propsError = 'The class `${props.name.name}` does not start with `_\$`';
@@ -688,7 +633,7 @@ main() {
           for (final version in BoilerplateVersions.values) {
             test(versionDescriptions[version], () {
               final boilerplateString = getBoilerplateString(version: version);
-              final members = parseAndReturnMembers(boilerplateString);
+              final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final propsOrStateMixins = members.whereType<BoilerplatePropsOrStateMixin>();
 
               if (propsOrStateMixins.isNotEmpty) {
@@ -729,7 +674,7 @@ main() {
 //                file = SourceFile.fromString(boilerplateString);
 //                collector = ErrorCollector.callback(file, onError: validateCallback);
 //
-//                final members = parseAndReturnMembers(boilerplateString);
+//                final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
 //                final props = members.whereType<BoilerplatePropsMixin>().first;
 //                final state = members.whereType<BoilerplateStateMixin>().first;
 //
@@ -761,7 +706,7 @@ main() {
               file = SourceFile.fromString(boilerplateString);
               collector = ErrorCollector.callback(file, onError: validateCallback);
 
-              final members = parseAndReturnMembers(boilerplateString);
+              final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final props = members.whereType<BoilerplatePropsMixin>().first;
               final state = members.whereType<BoilerplateStateMixin>().first;
 
@@ -797,7 +742,7 @@ main() {
               file = SourceFile.fromString(boilerplateString);
               collector = ErrorCollector.callback(file, onError: validateCallback);
 
-              final members = parseAndReturnMembers(boilerplateString);
+              final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final props = members.whereType<BoilerplatePropsMixin>().first;
               final state = members.whereType<BoilerplateStateMixin>().first;
               const propsError =
@@ -867,7 +812,7 @@ main() {
             collector =
                 ErrorCollector.callback(file, onError: onErrorCallback, onWarning: onWarnCallback);
 
-            final members = parseAndReturnMembers(boilerplateString);
+            final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
             final props = members.whereType<BoilerplatePropsMixin>().first;
 
             checkForMetaPresence(props.node, collector);
@@ -898,7 +843,7 @@ main() {
             collector =
                 ErrorCollector.callback(file, onError: onErrorCallback, onWarning: onWarnCallback);
 
-            final members = parseAndReturnMembers(boilerplateString);
+            final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
             final props = members.whereType<BoilerplatePropsMixin>().first;
 
             checkForMetaPresence(props.node, collector);
@@ -931,7 +876,7 @@ main() {
             collector =
                 ErrorCollector.callback(file, onError: onErrorCallback, onWarning: onWarnCallback);
 
-            final members = parseAndReturnMembers(boilerplateString);
+            final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
             final props = members.whereType<BoilerplatePropsMixin>().first;
 
             checkForMetaPresence(props.node, collector);
@@ -974,7 +919,7 @@ main() {
             collector =
                 ErrorCollector.callback(file, onError: onErrorCallback, onWarning: onWarnCallback);
 
-            final members = parseAndReturnMembers(boilerplateString);
+            final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
             final props = members.whereType<BoilerplateProps>().first;
             final state = members.whereType<BoilerplateState>().first;
 
@@ -1021,7 +966,7 @@ main() {
             collector =
                 ErrorCollector.callback(file, onError: onErrorCallback, onWarning: onWarnCallback);
 
-            final members = parseAndReturnMembers(boilerplateString);
+            final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
             final props = members.whereType<BoilerplateProps>().first;
             final state = members.whereType<BoilerplateState>().first;
 

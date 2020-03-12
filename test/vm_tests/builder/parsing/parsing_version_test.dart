@@ -13,7 +13,6 @@
 // limitations under the License.
 
 @TestOn('vm')
-import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:over_react/src/builder/generation/parsing.dart';
 import 'package:test/test.dart';
 
@@ -23,12 +22,6 @@ main() {
   group('Version (Parsing)', () {
     Iterable<BoilerplateMember> members;
 
-    Iterable<BoilerplateMember> getBoilerplateMembers(BoilerplateVersions version) {
-      final unit = parseString(content: getBoilerplateString(version: version)).unit;
-
-      return BoilerplateMembers.detect(unit).allMembers;
-    }
-
     tearDown(() {
       members = null;
     });
@@ -36,18 +29,18 @@ main() {
     group('resolveVersion', () {
       group('returns the correct version -', () {
         test('v2_legacyBackwordsCompat', () {
-          members = getBoilerplateMembers(BoilerplateVersions.v2);
+          members = BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v2);
           expect(resolveVersion(members).version, Version.v2_legacyBackwardsCompat);
         });
 
         test('v3_legacyDart2Only', () {
-          members = getBoilerplateMembers(BoilerplateVersions.v3);
+          members = BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v3);
 
           expect(resolveVersion(members).version, Version.v3_legacyDart2Only);
         });
 
         test('v4_mixinBased', () {
-           members = getBoilerplateMembers(BoilerplateVersions.v4);
+           members = BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v4);
            expect(resolveVersion(members).version, Version.v4_mixinBased);
         });
       });
@@ -56,15 +49,15 @@ main() {
     group('Version', () {
       group('isLegacy', () {
         test('detects legacy instances correctly', () {
-          final legacy1Members = getBoilerplateMembers(BoilerplateVersions.v2);
-          final legacy2Members = getBoilerplateMembers(BoilerplateVersions.v3);
+          final legacy1Members = BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v2);
+          final legacy2Members = BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v3);
 
           expect(resolveVersion(legacy1Members).version.isLegacy, isTrue);
           expect(resolveVersion(legacy2Members).version.isLegacy, isTrue);
         });
 
         test('detects non-legacy instances correctly', () {
-           final newBoilerplateMembers = getBoilerplateMembers(BoilerplateVersions.v4);
+           final newBoilerplateMembers = BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v4);
            expect(resolveVersion(newBoilerplateMembers).version.isLegacy, isFalse);
         });
       });

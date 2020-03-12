@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:meta/meta.dart';
+import 'package:over_react/src/builder/generation/parsing.dart';
 
 import '../util.dart';
 
@@ -210,3 +212,54 @@ const mockComponentDeclarations = r'''
 
   class IsThisEvenAComponentNameComponent extends UiStatefulComponent<HowAboutARandomNameForProps, AVeryRandomNameForState>{}
 ''';
+
+/// Utility class that holds boilerplate members that can be accessed during testing.
+class BoilerplateMemberHelper {
+  BoilerplateMembers members;
+
+  Iterable<BoilerplateFactory> factories;
+  Iterable<BoilerplateComponent> components;
+  Iterable<BoilerplateProps> props;
+  Iterable<BoilerplateState> states;
+  Iterable<BoilerplateStateMixin> stateMixins;
+  Iterable<BoilerplatePropsMixin> propsMixins;
+
+  BoilerplateMemberHelper(String boilerplateString) {
+    final unit = parseString(content: boilerplateString).unit;
+
+     members ??= BoilerplateMembers.detect(unit);
+
+     _initializeMembers(members);
+  }
+
+  /// Constructs the object with all the components from [mockComponentDeclarations]
+  BoilerplateMemberHelper.withMockDeclarations() {
+    final unit = parseString(content: mockComponentDeclarations).unit;
+
+    members ??= BoilerplateMembers.detect(unit);
+    _initializeMembers(members);
+  }
+
+  static BoilerplateMembers getAllExampleBoilerplateMembers([String content]) {
+    final unit = parseString(content: content ?? mockComponentDeclarations).unit;
+
+    return BoilerplateMembers.detect(unit);
+  }
+
+  static Iterable<BoilerplateMember> getBoilerplateMembersFor(BoilerplateVersions version) {
+    final unit = parseString(content: getBoilerplateString(version: version)).unit;
+
+    return BoilerplateMembers.detect(unit).allMembers;
+  }
+
+  static Iterable<BoilerplateMember> parseAndReturnMembers(String content) => getAllExampleBoilerplateMembers(content).allMembers;
+
+  void _initializeMembers(BoilerplateMembers members) {
+    factories = members.factories;
+    components = members.components;
+    props = members.props;
+    states = members.states;
+    stateMixins = members.stateMixins;
+    propsMixins = members.propsMixins;
+  }
+}

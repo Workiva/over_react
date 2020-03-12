@@ -13,7 +13,6 @@
 // limitations under the License.
 
 @TestOn('vm')
-import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:over_react/src/builder/generation/parsing/member_association.dart';
 import 'package:over_react/src/builder/generation/parsing.dart';
 import 'package:test/test.dart';
@@ -22,49 +21,13 @@ import 'parsing_helpers.dart';
 
 main() {
   group('Member Association', () {
-    BoilerplateMembers members;
+    BoilerplateMemberHelper memberHelper;
     Iterable<BoilerplateFactory> factories;
     Iterable<BoilerplateComponent> components;
     Iterable<BoilerplateProps> props;
     Iterable<BoilerplateState> states;
     Iterable<BoilerplateStateMixin> stateMixins;
     Iterable<BoilerplatePropsMixin> propsMixins;
-
-    BoilerplateMembers getAllExampleBoilerplateMembers() {
-      final unit = parseString(content: mockComponentDeclarations).unit;
-
-      return members ??= BoilerplateMembers.detect(unit);
-    }
-
-    Iterable<BoilerplateMember> getExampleBoilerplateFactories() {
-      return factories ??= (members ?? getAllExampleBoilerplateMembers()).factories;
-    }
-
-    Iterable<BoilerplateMember> getExampleBoilerplateComponents() {
-      return components ??= (members ?? getAllExampleBoilerplateMembers()).components;
-    }
-
-    Iterable<BoilerplateMember> getExampleBoilerplateProps() {
-      return props ??= (members ?? getAllExampleBoilerplateMembers()).props;
-    }
-
-    Iterable<BoilerplateMember> getExampleBoilerplateState() {
-      return states ??= (members ?? getAllExampleBoilerplateMembers()).states;
-    }
-
-    Iterable<BoilerplateMember> getExampleBoilerplatePropsMixins() {
-      return propsMixins ??= (members ?? getAllExampleBoilerplateMembers()).propsMixins;
-    }
-
-    Iterable<BoilerplateMember> getExampleBoilerplateStateMixins() {
-      return stateMixins ??= (members ?? getAllExampleBoilerplateMembers()).stateMixins;
-    }
-
-    Iterable<BoilerplateMember> getBoilerplateMembersFor(BoilerplateVersions version) {
-      final unit = parseString(content: getBoilerplateString(version: version)).unit;
-
-      return BoilerplateMembers.detect(unit).allMembers;
-    }
 
     group('normalizeName', () {
       test('removes the legacy prefixes from a string', () {
@@ -91,39 +54,39 @@ main() {
       group('and the BoilerplateMember is a', () {
         test('BoilerplateComponent', () {
           final component =
-              getBoilerplateMembersFor(BoilerplateVersions.v4).whereType<BoilerplateComponent>().first;
+              BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v4).whereType<BoilerplateComponent>().first;
           expect(normalizeNameAndRemoveSuffix(component), 'Foo');
         });
 
         test('BoilerplateProps', () {
           final props =
-              getBoilerplateMembersFor(BoilerplateVersions.v3).whereType<BoilerplateProps>().first;
+              BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v3).whereType<BoilerplateProps>().first;
           expect(normalizeNameAndRemoveSuffix(props), 'Foo');
         });
 
         test('BoilerplatePropsMixin', () {
           final propsMixin =
-              getBoilerplateMembersFor(BoilerplateVersions.v4).whereType<BoilerplatePropsMixin>().first;
+              BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v4).whereType<BoilerplatePropsMixin>().first;
           expect(normalizeNameAndRemoveSuffix(propsMixin), 'Foo');
 
           final propsMixinWithMixinInName =
-              getBoilerplateMembersFor(BoilerplateVersions.v5).whereType<BoilerplatePropsMixin>().first;
+              BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v5).whereType<BoilerplatePropsMixin>().first;
           expect(normalizeNameAndRemoveSuffix(propsMixinWithMixinInName), 'Foo');
         });
 
         test('BoilerplateState', () {
           final state =
-              getBoilerplateMembersFor(BoilerplateVersions.v3).whereType<BoilerplateState>().first;
+              BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v3).whereType<BoilerplateState>().first;
           expect(normalizeNameAndRemoveSuffix(state), 'Foo');
         });
 
         test('BoilerplateStateMixin', () {
           final stateMixin =
-              getBoilerplateMembersFor(BoilerplateVersions.v4).whereType<BoilerplateStateMixin>().first;
+              BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v4).whereType<BoilerplateStateMixin>().first;
           expect(normalizeNameAndRemoveSuffix(stateMixin), 'Foo');
 
           final stateMixinWithMixinInName =
-              getBoilerplateMembersFor(BoilerplateVersions.v5).whereType<BoilerplateStateMixin>().first;
+              BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v5).whereType<BoilerplateStateMixin>().first;
           expect(normalizeNameAndRemoveSuffix(stateMixinWithMixinInName), 'Foo');
         });
       });
@@ -131,13 +94,13 @@ main() {
 
     group('getComponentFor retrieves the component by', () {
       setUpAll(() {
-        members = getAllExampleBoilerplateMembers();
-        components = getExampleBoilerplateComponents();
-        factories = getExampleBoilerplateFactories();
-        props = getExampleBoilerplateProps();
-        states = getExampleBoilerplateState();
-        propsMixins = getExampleBoilerplatePropsMixins();
-        stateMixins = getExampleBoilerplateStateMixins();
+        memberHelper = BoilerplateMemberHelper.withMockDeclarations();
+        components = memberHelper.components;
+        factories = memberHelper.factories;
+        props = memberHelper.props;
+        states = memberHelper.states;
+        propsMixins = memberHelper.propsMixins;
+        stateMixins = memberHelper.stateMixins;
 
         // Ensure there's more than a single option so when using `getComponentFor`
         // there's more than one option
