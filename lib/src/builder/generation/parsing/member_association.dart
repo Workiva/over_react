@@ -1,9 +1,32 @@
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'ast_util.dart';
 import 'members.dart';
 import 'util.dart';
 
+/// Removes the generated prefix from anywhere inside of [name].
 String normalizeName(String name) => name.replaceAll(RegExp(r'^[_$]+'), '');
 
+/// Strips the name of any prefix and suffix to return the actual name of the component.
+///
+/// Before          After
+/// ------------    -----
+/// _$FooProps      Foo
+/// FooComponent    Foo
+/// _$FooState      Foo
+/// FooStateMixin   Foo
 String normalizeNameAndRemoveSuffix(BoilerplateMember member) {
   var name = normalizeName(member.name.name);
   if (member is BoilerplateComponent) {
@@ -52,6 +75,10 @@ Union<A, B> _getNameMatchUnion<A extends BoilerplateMember, B extends Boilerplat
   return null;
 }
 
+/// Retrieves the component for a given [member] if it is found in [components].
+///
+/// This first tries to normalize the names of the entities to find a matching name,
+/// and if that fails it tries to look at the props class name to get a match.
 BoilerplateComponent getComponentFor(
     BoilerplateMember member, List<BoilerplateComponent> components) {
   final match = _getNameMatch(components, normalizeNameAndRemoveSuffix(member)) ??
@@ -74,6 +101,10 @@ BoilerplateComponent getComponentFor(
   }, orElse: () => null);
 }
 
+/// Retrieves the props for a given [member] if it is found in [props] or [propsMixins].
+///
+/// This is done purely off of matching the name of the member class against the props
+/// classes.
 Union<BoilerplateProps, BoilerplatePropsMixin> getPropsFor(
   BoilerplateMember member,
   Iterable<BoilerplateProps> props,
@@ -83,6 +114,10 @@ Union<BoilerplateProps, BoilerplatePropsMixin> getPropsFor(
       getRelatedName(member).mapIfNotNull((name) => _getNameMatchUnion(props, propsMixins, name));
 }
 
+/// Retrieves the props for a given [member] if it is found in [states] or [stateMixins].
+///
+/// This is done purely off of matching the name of the member class against the props
+/// classes.
 Union<BoilerplateState, BoilerplateStateMixin> getStateFor(
   BoilerplateMember member,
   Iterable<BoilerplateState> states,
@@ -92,6 +127,7 @@ Union<BoilerplateState, BoilerplateStateMixin> getStateFor(
       getRelatedName(member).mapIfNotNull((name) => _getNameMatchUnion(states, stateMixins, name));
 }
 
+/// Finds the name of the props class related to [member].
 String getRelatedName(BoilerplateMember member) {
   if (member is BoilerplateFactory) {
     return member.propsGenericArg?.typeNameWithoutPrefix
