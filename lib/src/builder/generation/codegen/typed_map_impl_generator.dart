@@ -25,6 +25,10 @@ abstract class TypedMapImplGenerator extends Generator {
   factory TypedMapImplGenerator.state(ClassComponentDeclaration declaration) =
       _TypedMapImplGenerator.state;
 
+  factory TypedMapImplGenerator.propsMapViewOrFunctionComponent(
+          PropsMapViewOrFunctionComponentDeclaration declaration) =
+      _TypedMapImplGenerator.propsMapViewOrFunctionComponent;
+
   TypedMapNames get names;
   bool get isComponent2;
   String get factoryName;
@@ -185,14 +189,18 @@ abstract class TypedMapImplGenerator extends Generator {
       ..writeln('  @override')
       ..writeln('  bool get \$isClassGenerated => true;');
     if (isProps) {
+      // No reason to override if it's null.
+      if (componentFactoryName != 'null') {
+        buffer
+          ..writeln()
+          ..writeln(
+              '  /// The `ReactComponentFactory` associated with the component built by this class.')
+          ..writeln('  @override')
+          ..writeln('  ReactComponentFactoryProxy get componentFactory =>'
+              ' super.componentFactory ?? $componentFactoryName;')
+          ..writeln();
+      }
       buffer
-        ..writeln()
-        ..writeln(
-            '  /// The `ReactComponentFactory` associated with the component built by this class.')
-        ..writeln('  @override')
-        ..writeln(
-            '  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? $componentFactoryName;')
-        ..writeln()
         ..writeln(
             '  /// The default namespace for the prop getters/setters generated for this class.')
         ..writeln('  @override')
@@ -295,31 +303,43 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   @override
   final bool isProps;
 
-  final ClassComponentDeclaration declaration;
-
   @override
   final BoilerplateAccessorsMember member;
 
-  _TypedMapImplGenerator.props(this.declaration)
+  @override
+  final String factoryName;
+
+  final String componentFactoryName;
+
+  _TypedMapImplGenerator.props(ClassComponentDeclaration declaration)
       : names = TypedMapNames(declaration.props.either.name.name),
         member = declaration.props.either,
-        isProps = true;
+        isProps = true,
+        factoryName = declaration.factory.name.name,
+        componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName;
 
-  _TypedMapImplGenerator.state(this.declaration)
+  _TypedMapImplGenerator.state(ClassComponentDeclaration declaration)
       : names = TypedMapNames(declaration.state.either.name.name),
         member = declaration.state.either,
-        isProps = false;
+        isProps = false,
+        factoryName = declaration.factory.name.name,
+        componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName;
+
+  _TypedMapImplGenerator.propsMapViewOrFunctionComponent(
+      PropsMapViewOrFunctionComponentDeclaration declaration)
+      : names = TypedMapNames(declaration.props.either.name.name),
+        member = declaration.props.either,
+        isProps = true,
+        factoryName = declaration.factory.name.name,
+        componentFactoryName = 'null';
 
   @override
   bool get isComponent2 => true;
 
   @override
-  String get factoryName => declaration.factory.name.name;
-
-  @override
   void _generatePropsImpl() {
     outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
-      componentFactoryName: ComponentNames(declaration.component.name.name).componentFactoryName,
+      componentFactoryName: componentFactoryName,
       // This doesn't really apply to the new boilerplate
       propKeyNamespace: '',
     ));

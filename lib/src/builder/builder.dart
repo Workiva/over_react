@@ -27,10 +27,9 @@ class OverReactBuilder extends Builder {
     DeclarationType.legacyClassComponentDeclaration,
     DeclarationType.propsMixinDeclaration,
     DeclarationType.stateMixinDeclaration,
-    DeclarationType.propsMapViewDeclaration,
+    DeclarationType.propsMapViewOrFunctionComponentDeclaration,
     DeclarationType.legacyAbstractPropsDeclaration,
     DeclarationType.legacyAbstractStateDeclaration,
-    DeclarationType.functionComponentDeclaration,
   ];
 
   @override

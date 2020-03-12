@@ -504,10 +504,23 @@ abstract class UiProps extends MapBase
     return getTestId();
   }
 
+  void _assertComponentFactoryIsNotNull() {
+    // This is an assert since we're in a performance-sensitive area of the code, and only need
+    // to provide this error message during development; in prod, a null exception will be triggered
+    // down the line instead.
+    assert(
+        componentFactory != null,
+        'componentFactory is null. Possible causes:\n'
+        '1. This is a props map view factory, and should not be invoked.'
+        '2. This is a function component factory that was set up improperly, not wrapping the generated function in `uiFunction`.'
+        '3. componentFactory was erroneously assigned to null on this UiProps instance, potentially in an HOC function.');
+  }
+
   /// Returns a new component with this builder's [props] and the specified [children].
   ReactElement build([dynamic children]) {
     assert(_validateChildren(children));
 
+    _assertComponentFactoryIsNotNull();
     return componentFactory(props, children);
   }
 
@@ -549,6 +562,7 @@ abstract class UiProps extends MapBase
     // Use `build` instead of using emulated function behavior to work around DDC issue
     // https://github.com/dart-lang/sdk/issues/29904
     // Should have the benefit of better performance;
+    _assertComponentFactoryIsNotNull();
     return componentFactory.build(props, childArguments);
   }
 

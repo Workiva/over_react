@@ -58,8 +58,8 @@ class ImplGenerator {
   void generate(Iterable<BoilerplateDeclaration> declarations) {
     for (var declaration in declarations) {
       switch (declaration.type) {
-        case DeclarationType.functionComponentDeclaration:
-          _generateFunctionComponent(declaration);
+        case DeclarationType.propsMapViewOrFunctionComponentDeclaration:
+          _generatePropsMapViewOrFunctionComponent(declaration);
           break;
         case DeclarationType.classComponentDeclaration:
           _generateClassComponent(declaration);
@@ -78,9 +78,6 @@ class ImplGenerator {
           break;
         case DeclarationType.stateMixinDeclaration:
           _generateStateMixin(declaration);
-          break;
-        case DeclarationType.propsMapViewDeclaration:
-          _generatePropsMapView(declaration);
           break;
         default:
           throw ArgumentError('Unhandled declaration type: $declaration');
@@ -137,11 +134,8 @@ class ImplGenerator {
     _generateUsing(ComponentGenerator(declaration));
   }
 
-  void _generatePropsMapView(PropsMapViewDeclaration declaration) {
-    logger.severe('Codegen for new boilerplate (PropsMapViewDeclaration) is not yet implemented');
-  }
-
-  void _generateFunctionComponent(FunctionComponentDeclaration declaration) {
-    logger.severe('Codegen for new boilerplate is not yet implemented $declaration');
+  void _generatePropsMapViewOrFunctionComponent(
+      PropsMapViewOrFunctionComponentDeclaration declaration) {
+    _generateUsing(TypedMapImplGenerator.propsMapViewOrFunctionComponent(declaration));
   }
 }

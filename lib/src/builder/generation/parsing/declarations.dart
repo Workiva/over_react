@@ -230,26 +230,16 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         }
       }
     } else {
-      if (isFunctionComponent(factory)) {
+      final version = resolveVersion([factory, propsClassOrMixin.either]);
+      // The leftover logic below will handle legacy members
+      if (version.shouldGenerate && version.version == Version.v4_mixinBased) {
         consumeFactory();
         consumePropsAndState();
-        yield FunctionComponentDeclaration(
+        yield PropsMapViewOrFunctionComponentDeclaration(
           version: Version.v4_mixinBased,
           factory: factory,
           props: propsClassOrMixin,
         );
-      } else {
-        final version = resolveVersion([factory, propsClassOrMixin.either]);
-        // The leftover logic below will handle legacy members
-        if (version.shouldGenerate && version.version == Version.v4_mixinBased) {
-          consumeFactory();
-          consumePropsAndState();
-          yield PropsMapViewDeclaration(
-            version: Version.v4_mixinBased,
-            factory: factory,
-            props: propsClassOrMixin,
-          );
-        }
       }
     }
   }
@@ -380,12 +370,6 @@ bool isStandaloneFactory(BoilerplateFactory factory) {
       !(initializer?.tryCast<Identifier>()?.name?.startsWith(RegExp(r'[_\$]')) ?? false);
 }
 
-/// Returns false :troll:
-/// FIXME add comment after this is implemented
-bool isFunctionComponent(BoilerplateFactory factory) {
-  return false;
-}
-
 /// TODO unused - did we want to implement this somewhere?
 /// Uses common variables of boilerplate implementation to detect if [member]
 /// may actually be related to a [BoilerplateMember] within [members].
@@ -404,14 +388,13 @@ class BoilerplateGenerator {}
 
 /// The possible declaration types that the builder will look for.
 enum DeclarationType {
-  functionComponentDeclaration,
+  propsMapViewOrFunctionComponentDeclaration,
   classComponentDeclaration,
   legacyClassComponentDeclaration,
   legacyAbstractPropsDeclaration,
   legacyAbstractStateDeclaration,
   propsMixinDeclaration,
   stateMixinDeclaration,
-  propsMapViewDeclaration,
 }
 
 /// Parent class to all boilerplate declaration members.
@@ -586,9 +569,9 @@ class ClassComponentDeclaration extends BoilerplateDeclaration {
   }) : super(version);
 }
 
-// todo how to tell between these two?
-/// The props declaration wrapper for declarations that are the mixin based boilerplate.
-class PropsMapViewDeclaration extends BoilerplateDeclaration {
+/// The declaration wrapper for either a props map view or function component,
+/// which have almost identical syntax and code generation.
+class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration {
   /// The related factory instance.
   final BoilerplateFactory factory;
 
@@ -601,32 +584,9 @@ class PropsMapViewDeclaration extends BoilerplateDeclaration {
   get _members => [factory, props.either];
 
   @override
-  get type => DeclarationType.propsMapViewDeclaration;
+  get type => DeclarationType.propsMapViewOrFunctionComponentDeclaration;
 
-  PropsMapViewDeclaration({
-    @required Version version,
-    @required this.factory,
-    @required this.props,
-  }) : super(version);
-}
-
-/// A component that is using the Function component syntax.
-class FunctionComponentDeclaration extends BoilerplateDeclaration {
-  // FIXME will it even have this?
-  final BoilerplateFactory factory;
-
-  /// The related props instance.
-  ///
-  /// Can be either [BoilerplateProps] or [BoilerplatePropsMixin], but not both.
-  final Union<BoilerplateProps, BoilerplatePropsMixin> props;
-
-  @override
-  get _members => [factory, props.either];
-
-  @override
-  get type => DeclarationType.functionComponentDeclaration;
-
-  FunctionComponentDeclaration({
+  PropsMapViewOrFunctionComponentDeclaration({
     @required Version version,
     @required this.factory,
     @required this.props,

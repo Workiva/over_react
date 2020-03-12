@@ -1065,9 +1065,9 @@ main() {
 
                 expect(declarations, unorderedEquals([
                   isA<PropsMixinDeclaration>(),
-                  isA<PropsMapViewDeclaration>(),
+                  isA<PropsMapViewOrFunctionComponentDeclaration>(),
                 ]));
-                final decl = declarations.firstWhereType<PropsMapViewDeclaration>();
+                final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
 
                 expect(decl.factory?.name?.name, name);
                 expect(decl.props.b?.name?.name, propsName);
@@ -1079,7 +1079,7 @@ main() {
                   UiFactory<$propsName> $name = _\$$name;
                   class $propsName = UiProps with FooPropsMixin;
                 ''');
-                final decl = expectSingleOfType<PropsMapViewDeclaration>(declarations);
+                final decl = expectSingleOfType<PropsMapViewOrFunctionComponentDeclaration>(declarations);
 
                 expect(decl.factory?.name?.name, name);
                 expect(decl.props.a?.name?.name, propsName);
