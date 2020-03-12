@@ -1,3 +1,17 @@
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:meta/meta.dart';
 
@@ -31,10 +45,22 @@ final RegExp _maybeDeclarationPattern = RegExp(
             r'|Ui(?:Factory|Props|Component|State)',
     caseSensitive: true);
 
+/// Detects if [source] contains any key words related to boilerplate declarations.
 bool mightContainDeclarations(String source) {
   return _maybeDeclarationPattern.hasMatch(source);
 }
 
+/// Iterates over all [members] provided a `yield`s [BoilerplateDeclaration]s for
+/// the members.
+///
+/// The order of evaluation is as follows:
+///   1. [LegacyAbstractPropsDeclaration]
+///   1. [LegacyAbstractStateDeclaration]
+///   1. [PropsMixinDeclaration]
+///   1. [StateMixinDeclaration]
+///   // None of the above include any component boilerplate entities, only props or state
+///   1. [LegacyClassComponentDeclaration] (special case for when there is only 1 of each entity in the file)
+///   1. Any of: [LegacyClassComponentDeclaration], [ClassComponentDeclaration], [FunctionComponentDeclaration], [PropsMapViewDeclaration]
 Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     BoilerplateMembers members, ErrorCollector errorCollector) sync* {
   if (members.isEmpty) return;
@@ -305,11 +331,13 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   });
 }
 
+/// Factories that are grouped together via their variable's type.
 class FactoryGroup {
   final List<BoilerplateFactory> factories;
 
   FactoryGroup(this.factories);
 
+  // TODO add doc comment when fixme is addrssed
   BoilerplateFactory get bestFactory {
     if (factories.length == 1) return factories[0];
 
@@ -324,6 +352,7 @@ class FactoryGroup {
   }
 }
 
+/// Inspects all the [factories]' type and uses it to group factories together.
 List<FactoryGroup> groupFactories(Iterable<BoilerplateFactory> factories) {
   var factoriesByType = <String, List<BoilerplateFactory>>{};
 
@@ -343,16 +372,23 @@ List<FactoryGroup> groupFactories(Iterable<BoilerplateFactory> factories) {
   return groups;
 }
 
+/// Uses the prefix of the [factory]'s initializer to detect if the factory
+/// is simple and stands alone.
 bool isStandaloneFactory(BoilerplateFactory factory) {
   final initializer = factory.node.firstInitializer;
   return initializer != null &&
       !(initializer?.tryCast<Identifier>()?.name?.startsWith(RegExp(r'[_\$]')) ?? false);
 }
 
+/// Returns false :troll:
+/// FIXME add comment after this is implemented
 bool isFunctionComponent(BoilerplateFactory factory) {
   return false;
 }
 
+/// TODO unused - did we want to implement this somewhere?
+/// Uses common variables of boilerplate implementation to detect if [member]
+/// may actually be related to a [BoilerplateMember] within [members].
 AstNode fuzzyMatch(BoilerplateMember member, Iterable<BoilerplateMember> members) {
   // todo implement
   var match = members.firstOrNull?.node;
@@ -378,7 +414,14 @@ enum DeclarationType {
   propsMapViewDeclaration,
 }
 
+/// Parent class to all boilerplate declaration members.
 abstract class BoilerplateDeclaration {
+  /// The individual member version.
+  ///
+  /// __Note:__ this is an instantaneous evaluation of this member's version,
+  /// and not the version of all related entities together. Consequently,
+  /// this field should not be relied upon as the final say of what version
+  /// the boilerplate is. Rather, [resolveVersion] should be used to detect that.
   final Version version;
 
   /// The explicit type of declaration this class is tied to.
@@ -409,12 +452,15 @@ abstract class BoilerplateDeclaration {
   String toString() => '${super.toString()} (${_members.map((m) => m.name.name)})';
 }
 
+/// The component declaration wrapper for declarations that are not the mixin based boilerplate.
 class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
   final BoilerplateFactory factory;
   final BoilerplateComponent component;
   final BoilerplateProps props;
   final BoilerplateState state;
 
+  /// Whether this is Component2 based on the annotation or if the version
+  /// is [Version.v4_mixinBased].
   bool get isComponent2 => component.isComponent2(version);
 
   @override
@@ -431,6 +477,7 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
     this.state,
   }) : super(version);
 
+  /// Validates that the proper annotations are present.
   @override
   void validate(ErrorCollector errorCollector) {
     super.validate(errorCollector);
@@ -453,6 +500,7 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
   }
 }
 
+/// The props declaration wrapper for abstract declarations that are not the mixin based boilerplate.
 class LegacyAbstractPropsDeclaration extends BoilerplateDeclaration {
   final BoilerplateProps props;
 
@@ -467,6 +515,7 @@ class LegacyAbstractPropsDeclaration extends BoilerplateDeclaration {
     @required this.props,
   }) : super(version);
 
+  /// Validates that if there are props that the props class has the correct annotation.
   @override
   void validate(ErrorCollector errorCollector) {
     super.validate(errorCollector);
@@ -480,6 +529,7 @@ class LegacyAbstractPropsDeclaration extends BoilerplateDeclaration {
   }
 }
 
+/// The state declaration wrapper for abstract declarations that are not the mixin based boilerplate.
 class LegacyAbstractStateDeclaration extends BoilerplateDeclaration {
   final BoilerplateState state;
 
@@ -494,6 +544,7 @@ class LegacyAbstractStateDeclaration extends BoilerplateDeclaration {
     @required this.state,
   }) : super(version);
 
+  /// Validates that if there are state fields that the class has the correct annotation.
   @override
   void validate(ErrorCollector errorCollector) {
     super.validate(errorCollector);
@@ -507,6 +558,7 @@ class LegacyAbstractStateDeclaration extends BoilerplateDeclaration {
   }
 }
 
+/// The component declaration wrapper for declarations that are the mixin based boilerplate.
 class ClassComponentDeclaration extends BoilerplateDeclaration {
   final BoilerplateFactory factory;
   final BoilerplateComponent component;
@@ -519,6 +571,7 @@ class ClassComponentDeclaration extends BoilerplateDeclaration {
   @override
   get type => DeclarationType.classComponentDeclaration;
 
+  /// All the props mixins related to this component declaration
   List<Identifier> get allPropsMixins => props.switchCase(
         (a) => a.nodeHelper.mixins.map((name) => name.name).toList(),
         (b) => [b.name],
@@ -534,10 +587,14 @@ class ClassComponentDeclaration extends BoilerplateDeclaration {
 }
 
 // todo how to tell between these two?
-
+/// The props declaration wrapper for declarations that are the mixin based boilerplate.
 class PropsMapViewDeclaration extends BoilerplateDeclaration {
+  /// The related factory instance.
   final BoilerplateFactory factory;
 
+  /// The related props instance.
+  ///
+  /// Can be either [BoilerplateProps] or [BoilerplatePropsMixin], but not both.
   final Union<BoilerplateProps, BoilerplatePropsMixin> props;
 
   @override
@@ -553,11 +610,14 @@ class PropsMapViewDeclaration extends BoilerplateDeclaration {
   }) : super(version);
 }
 
+/// A component that is using the Function component syntax.
 class FunctionComponentDeclaration extends BoilerplateDeclaration {
-  // will it even have this?
+  // FIXME will it even have this?
   final BoilerplateFactory factory;
 
-  // will have only one of these
+  /// The related props instance.
+  ///
+  /// Can be either [BoilerplateProps] or [BoilerplatePropsMixin], but not both.
   final Union<BoilerplateProps, BoilerplatePropsMixin> props;
 
   @override
@@ -573,8 +633,10 @@ class FunctionComponentDeclaration extends BoilerplateDeclaration {
   }) : super(version);
 }
 
+/// A wrapper for mixin based declarations.
 mixin PropsOrStateMixinDeclaration on BoilerplateDeclaration {
-  BoilerplatePropsOrStateMixin get mixin;
+  /// The corresponding mixin instance for the class.
+  BoilerplatePropsOrStateMixin mixin;
 
   @override
   get _members => [mixin];
