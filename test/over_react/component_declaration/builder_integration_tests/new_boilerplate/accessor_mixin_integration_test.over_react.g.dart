@@ -203,6 +203,42 @@ const PropsMeta _$metaForTestCustomNamespacePropsMixin = PropsMeta(
   keys: $TestCustomNamespacePropsMixin.$propKeys,
 );
 
+mixin $TestCustomNamespaceWithPropsAnnotationPropsMixin
+    on TestCustomNamespaceWithPropsAnnotationPropsMixin {
+  static const PropsMeta meta =
+      _$metaForTestCustomNamespaceWithPropsAnnotationPropsMixin;
+  @override
+  String get propsAnnotationProp =>
+      props[
+          _$key__propsAnnotationProp__TestCustomNamespaceWithPropsAnnotationPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set propsAnnotationProp(String value) => props[
+          _$key__propsAnnotationProp__TestCustomNamespaceWithPropsAnnotationPropsMixin] =
+      value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor
+      _$prop__propsAnnotationProp__TestCustomNamespaceWithPropsAnnotationPropsMixin =
+      PropDescriptor(
+          _$key__propsAnnotationProp__TestCustomNamespaceWithPropsAnnotationPropsMixin);
+  static const String
+      _$key__propsAnnotationProp__TestCustomNamespaceWithPropsAnnotationPropsMixin =
+      'custom mixin namespace from @Props**propsAnnotationProp';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__propsAnnotationProp__TestCustomNamespaceWithPropsAnnotationPropsMixin
+  ];
+  static const List<String> $propKeys = [
+    _$key__propsAnnotationProp__TestCustomNamespaceWithPropsAnnotationPropsMixin
+  ];
+}
+
+const PropsMeta _$metaForTestCustomNamespaceWithPropsAnnotationPropsMixin =
+    PropsMeta(
+  fields: $TestCustomNamespaceWithPropsAnnotationPropsMixin.$props,
+  keys: $TestCustomNamespaceWithPropsAnnotationPropsMixin.$propKeys,
+);
+
 mixin $TestStateMixin on TestStateMixin {
   static const StateMeta meta = _$metaForTestStateMixin;
   @override
@@ -399,3 +435,164 @@ const StateMeta _$metaForTestCustomNamespaceStateMixin = StateMeta(
   fields: $TestCustomNamespaceStateMixin.$state,
   keys: $TestCustomNamespaceStateMixin.$stateKeys,
 );
+
+mixin $TestCustomNamespaceWithStateAnnotationStateMixin
+    on TestCustomNamespaceWithStateAnnotationStateMixin {
+  static const StateMeta meta =
+      _$metaForTestCustomNamespaceWithStateAnnotationStateMixin;
+  @override
+  String get stateAnnotationState =>
+      state[
+          _$key__stateAnnotationState__TestCustomNamespaceWithStateAnnotationStateMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set stateAnnotationState(String value) => state[
+          _$key__stateAnnotationState__TestCustomNamespaceWithStateAnnotationStateMixin] =
+      value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor
+      _$prop__stateAnnotationState__TestCustomNamespaceWithStateAnnotationStateMixin =
+      StateDescriptor(
+          _$key__stateAnnotationState__TestCustomNamespaceWithStateAnnotationStateMixin);
+  static const String
+      _$key__stateAnnotationState__TestCustomNamespaceWithStateAnnotationStateMixin =
+      'custom mixin namespace from @State**stateAnnotationState';
+
+  static const List<StateDescriptor> $state = [
+    _$prop__stateAnnotationState__TestCustomNamespaceWithStateAnnotationStateMixin
+  ];
+  static const List<String> $stateKeys = [
+    _$key__stateAnnotationState__TestCustomNamespaceWithStateAnnotationStateMixin
+  ];
+}
+
+const StateMeta _$metaForTestCustomNamespaceWithStateAnnotationStateMixin =
+    StateMeta(
+  fields: $TestCustomNamespaceWithStateAnnotationStateMixin.$state,
+  keys: $TestCustomNamespaceWithStateAnnotationStateMixin.$stateKeys,
+);
+
+_$$TestPropsMixin _$Test([Map backingProps]) => backingProps == null
+    ? _$$TestPropsMixin$JsMap(JsBackedMap())
+    : _$$TestPropsMixin(backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+abstract class _$$TestPropsMixin extends UiProps
+    with TestPropsMixin, $TestPropsMixin {
+  _$$TestPropsMixin._();
+
+  factory _$$TestPropsMixin(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$TestPropsMixin$JsMap(backingMap);
+    } else {
+      return _$$TestPropsMixin$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '';
+}
+
+// Concrete props implementation that can be backed by any [Map].
+class _$$TestPropsMixin$PlainMap extends _$$TestPropsMixin {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TestPropsMixin$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+class _$$TestPropsMixin$JsMap extends _$$TestPropsMixin {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TestPropsMixin$JsMap(JsBackedMap backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+_$$TestCustomNamespaceProps _$TestCustomNamespace([Map backingProps]) =>
+    backingProps == null
+        ? _$$TestCustomNamespaceProps$JsMap(JsBackedMap())
+        : _$$TestCustomNamespaceProps(backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+abstract class _$$TestCustomNamespaceProps extends TestCustomNamespaceProps
+    with
+        $TestCustomNamespacePropsMixin,
+        $TestCustomNamespaceWithPropsAnnotationPropsMixin {
+  _$$TestCustomNamespaceProps._();
+
+  factory _$$TestCustomNamespaceProps(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$TestCustomNamespaceProps$JsMap(backingMap);
+    } else {
+      return _$$TestCustomNamespaceProps$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '';
+}
+
+// Concrete props implementation that can be backed by any [Map].
+class _$$TestCustomNamespaceProps$PlainMap extends _$$TestCustomNamespaceProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TestCustomNamespaceProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+class _$$TestCustomNamespaceProps$JsMap extends _$$TestCustomNamespaceProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TestCustomNamespaceProps$JsMap(JsBackedMap backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
