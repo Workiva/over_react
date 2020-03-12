@@ -14,13 +14,9 @@
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
-import '../../../component/fixtures/flawed_component.dart';
-import './constant_required_accessor_integration_test.dart' as r;
 import '../../../../test_util/test_util.dart';
 
-part 'component_integration_test.over_react.g.dart';
-part 'component_integration_test/is_error_boundary_component.dart';
-part 'component_integration_test/is_not_error_boundary_component.dart';
+part 'component_integration_verbose_syntax_test.over_react.g.dart';
 
 main() {
   group('(New boilerplate) component integration:', () {
@@ -45,26 +41,6 @@ main() {
       expect(node.dataset, containsPair('prop-custom-key-and-namespace-prop', '6'));
     });
 
-    group('isErrorBoundary annotation is set to', () {
-      test('true, allowing use of getDerivedStateFromError and componentDidCatch', () {
-        var jacket = mount(
-          (IsErrorBoundary())(Flawed()()),
-          attachedToDocument: true,
-        );
-        queryByTestId(jacket.getInstance(), 'flawedComponent_flawedButton').click();
-        expect(IsErrorBoundaryComponent.calls, unorderedEquals(['getDerivedStateFromError','componentDidCatch']));
-      });
-
-      test('false, restricting use of getDerivedStateFromError and componentDidCatch', () {
-        var jacket = mount(
-          (IsNotErrorBoundary())(Flawed()()),
-          attachedToDocument: true,
-        );
-        queryByTestId(jacket.getInstance(), 'flawedComponent_flawedButton').click();
-        expect(IsNotErrorBoundaryComponent.calls, []);
-      });
-    });
-
     group('initializes the factory variable with a function', () {
       test('that returns a new props class implementation instance', () {
         var instance = ComponentTest();
@@ -73,14 +49,14 @@ main() {
       });
 
       test('that returns a new props class implementation instance backed by an existing map', () {
-        Map existingMap = {'ComponentTestProps.stringProp': 'test'};
+        Map existingMap = {'ComponentTestPropsMixin.stringProp': 'test'};
         var props = ComponentTest(existingMap);
 
         expect(props.stringProp, equals('test'));
 
         props.stringProp = 'modified';
         expect(props.stringProp, equals('modified'));
-        expect(existingMap['ComponentTestProps.stringProp'], equals('modified'));
+        expect(existingMap['ComponentTestPropsMixin.stringProp'], equals('modified'));
       });
     });
 
@@ -100,68 +76,6 @@ main() {
             reason: 'Sanity check to ensure that setting props directly does '
                 'not throw.');
       });
-
-      group('with', () {
-        test('the props class name as a namespace and the prop name as the key by default', () {
-          expect(ComponentTest()..stringProp = 'test',
-              containsPair('ComponentTestProps.stringProp', 'test'));
-
-          expect(ComponentTest()..dynamicProp = 2,
-              containsPair('ComponentTestProps.dynamicProp', 2));
-
-          expect(ComponentTest()..untypedProp = false,
-              containsPair('ComponentTestProps.untypedProp', false));
-
-        });
-
-        test('custom prop keys', () {
-          expect(ComponentTest()..customKeyProp = 'test',
-              containsPair('ComponentTestProps.custom key!', 'test'));
-        });
-
-        test('custom prop key namespaces', () {
-          expect(ComponentTest()..customNamespaceProp = 'test',
-              containsPair('custom namespace~~customNamespaceProp', 'test'));
-        });
-
-        test('custom prop keys and namespaces', () {
-          expect(ComponentTest()..customKeyAndNamespaceProp = 'test',
-              containsPair('custom namespace~~custom key!', 'test'));
-        });
-
-        test('default props', () {
-          expect(ComponentTest().componentDefaultProps, equals
-            ({'id':'testId',
-            'ComponentTestProps.shouldSetPropsDirectly': false,
-            'ComponentTestProps.shouldUseJsFactory': false,
-            }));
-        });
-
-        test('empty map when no default props set', () {
-          expect(r.ComponentTest().componentDefaultProps, equals({}));
-        });
-
-        test('empty map when componentFactory is not ReactDartComponentFactoryProxy', () {
-          expect(Dom.div().componentDefaultProps, equals({}));
-        });
-      });
-
-      test('omits props declared in the @Props() class when forwarding by default', () {
-        var shallowInstance = renderShallow((ComponentTest()
-          ..addProp('extraneous', true)
-          ..stringProp = 'test'
-          ..dynamicProp = 'test'
-          ..untypedProp = 'test'
-          ..customKeyProp = 'test'
-          ..customNamespaceProp = 'test'
-          ..customKeyAndNamespaceProp = 'test'
-        )());
-
-        var shallowProps = getProps(shallowInstance);
-        Iterable<String> shallowPropKeys = shallowProps.keys.map((key) => key as String); // ignore: avoid_as
-
-        expect(shallowPropKeys.where((key) => !key.startsWith('data-prop-')), unorderedEquals(['id', 'extraneous', 'children']));
-      });
     });
   });
 }
@@ -169,7 +83,7 @@ main() {
 
 UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 
-mixin ComponentTestProps on UiProps {
+mixin ComponentTestPropsMixin on UiProps {
   String stringProp;
   bool shouldSetPropsDirectly;
   bool shouldUseJsFactory;
@@ -185,6 +99,8 @@ mixin ComponentTestProps on UiProps {
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   dynamic customKeyAndNamespaceProp;
 }
+
+class ComponentTestProps = UiProps with ComponentTestPropsMixin;
 
 class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
   @override
