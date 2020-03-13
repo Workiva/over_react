@@ -30,8 +30,13 @@ _$$BasicProps _$Basic([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$BasicProps extends BasicProps
-    with pm.$ExamplePropsMixin, $BasicPropsMixin {
+abstract class _$$BasicProps extends UiProps
+    with
+        pm.ExamplePropsMixin,
+        pm.$ExamplePropsMixin,
+        BasicPropsMixin,
+        $BasicPropsMixin
+    implements BasicProps {
   _$$BasicProps._();
 
   factory _$$BasicProps(Map backingMap) {
@@ -98,8 +103,13 @@ class _$$BasicProps$JsMap extends _$$BasicProps {
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$BasicState extends BasicState
-    with $ExampleStateMixin, $BasicStateMixin {
+abstract class _$$BasicState extends UiState
+    with
+        ExampleStateMixin,
+        $ExampleStateMixin,
+        BasicStateMixin,
+        $BasicStateMixin
+    implements BasicState {
   _$$BasicState._();
 
   factory _$$BasicState(Map backingMap) {

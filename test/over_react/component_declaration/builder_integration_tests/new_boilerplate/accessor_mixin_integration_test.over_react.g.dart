@@ -585,10 +585,13 @@ _$$TestCustomNamespaceProps _$TestCustomNamespace([Map backingProps]) =>
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$TestCustomNamespaceProps extends TestCustomNamespaceProps
+abstract class _$$TestCustomNamespaceProps extends UiProps
     with
+        TestCustomNamespacePropsMixin,
         $TestCustomNamespacePropsMixin,
-        $TestCustomNamespaceWithPropsAnnotationPropsMixin {
+        TestCustomNamespaceWithPropsAnnotationPropsMixin,
+        $TestCustomNamespaceWithPropsAnnotationPropsMixin
+    implements TestCustomNamespaceProps {
   _$$TestCustomNamespaceProps._();
 
   factory _$$TestCustomNamespaceProps(Map backingMap) {

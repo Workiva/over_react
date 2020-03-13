@@ -30,8 +30,9 @@ _$$SubProps _$Sub([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$SubProps extends SubProps
-    with $SuperPropsMixin, $SubPropsMixin {
+abstract class _$$SubProps extends UiProps
+    with SuperPropsMixin, $SuperPropsMixin, SubPropsMixin, $SubPropsMixin
+    implements SubProps {
   _$$SubProps._();
 
   factory _$$SubProps(Map backingMap) {
@@ -98,8 +99,9 @@ class _$$SubProps$JsMap extends _$$SubProps {
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$SubState extends SubState
-    with $SuperStateMixin, $SubStateMixin {
+abstract class _$$SubState extends UiState
+    with SuperStateMixin, $SuperStateMixin, SubStateMixin, $SubStateMixin
+    implements SubState {
   _$$SubState._();
 
   factory _$$SubState(Map backingMap) {

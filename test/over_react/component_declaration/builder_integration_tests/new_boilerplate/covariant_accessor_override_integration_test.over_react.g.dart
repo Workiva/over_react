@@ -73,8 +73,13 @@ _$$TestProps _$Test([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$TestProps extends TestProps
-    with $BasePropsMixin, $OverridePropsMixin {
+abstract class _$$TestProps extends UiProps
+    with
+        BasePropsMixin,
+        $BasePropsMixin,
+        OverridePropsMixin,
+        $OverridePropsMixin
+    implements TestProps {
   _$$TestProps._();
 
   factory _$$TestProps(Map backingMap) {
