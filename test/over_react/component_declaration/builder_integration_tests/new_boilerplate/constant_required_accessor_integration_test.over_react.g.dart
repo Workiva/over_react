@@ -10,6 +10,8 @@ part of 'constant_required_accessor_integration_test.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $ComponentTestComponentFactory = registerComponent2(
   () => _$ComponentTestComponent(),
   builderFactory: ComponentTest,
@@ -27,6 +29,8 @@ _$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$ComponentTestProps extends UiProps
     with ComponentTestProps, $ComponentTestProps {
   _$$ComponentTestProps._();
@@ -54,6 +58,8 @@ abstract class _$$ComponentTestProps extends UiProps
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ComponentTestProps$PlainMap extends _$$ComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -71,6 +77,8 @@ class _$$ComponentTestProps$PlainMap extends _$$ComponentTestProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ComponentTestProps$JsMap extends _$$ComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -90,6 +98,8 @@ class _$$ComponentTestProps$JsMap extends _$$ComponentTestProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$ComponentTestComponent extends ComponentTestComponent {
   _$$ComponentTestProps$JsMap _cachedTypedProps;
 
@@ -134,6 +144,10 @@ class _$ComponentTestComponent extends ComponentTestComponent {
       });
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $ComponentTestProps on ComponentTestProps {
   static const PropsMeta meta = _$metaForComponentTestProps;
   @override
@@ -186,6 +200,8 @@ mixin $ComponentTestProps on ComponentTestProps {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForComponentTestProps = PropsMeta(
   fields: $ComponentTestProps.$props,
   keys: $ComponentTestProps.$propKeys,

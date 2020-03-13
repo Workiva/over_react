@@ -10,6 +10,8 @@ part of 'component_integration_test.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $ComponentTestComponentFactory = registerComponent2(
   () => _$ComponentTestComponent(),
   builderFactory: ComponentTest,
@@ -27,6 +29,8 @@ _$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$ComponentTestProps extends UiProps
     with ComponentTestProps, $ComponentTestProps {
   _$$ComponentTestProps._();
@@ -54,6 +58,8 @@ abstract class _$$ComponentTestProps extends UiProps
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ComponentTestProps$PlainMap extends _$$ComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -71,6 +77,8 @@ class _$$ComponentTestProps$PlainMap extends _$$ComponentTestProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ComponentTestProps$JsMap extends _$$ComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -90,6 +98,8 @@ class _$$ComponentTestProps$JsMap extends _$$ComponentTestProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$ComponentTestComponent extends ComponentTestComponent {
   _$$ComponentTestProps$JsMap _cachedTypedProps;
 
@@ -134,6 +144,10 @@ class _$ComponentTestComponent extends ComponentTestComponent {
       });
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $ComponentTestProps on ComponentTestProps {
   static const PropsMeta meta = _$metaForComponentTestProps;
   @override
@@ -250,6 +264,8 @@ mixin $ComponentTestProps on ComponentTestProps {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForComponentTestProps = PropsMeta(
   fields: $ComponentTestProps.$props,
   keys: $ComponentTestProps.$propKeys,
@@ -258,6 +274,8 @@ const PropsMeta _$metaForComponentTestProps = PropsMeta(
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $IsErrorBoundaryComponentFactory = registerComponent2(
   () => _$IsErrorBoundaryComponent(),
   builderFactory: IsErrorBoundary,
@@ -276,6 +294,8 @@ _$$IsErrorBoundaryProps _$IsErrorBoundary([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$IsErrorBoundaryProps extends UiProps
     with IsErrorBoundaryProps, $IsErrorBoundaryProps {
   _$$IsErrorBoundaryProps._();
@@ -303,6 +323,8 @@ abstract class _$$IsErrorBoundaryProps extends UiProps
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$IsErrorBoundaryProps$PlainMap extends _$$IsErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -320,6 +342,8 @@ class _$$IsErrorBoundaryProps$PlainMap extends _$$IsErrorBoundaryProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$IsErrorBoundaryProps$JsMap extends _$$IsErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -339,6 +363,8 @@ class _$$IsErrorBoundaryProps$JsMap extends _$$IsErrorBoundaryProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
   _$$IsErrorBoundaryProps$JsMap _cachedTypedProps;
 
@@ -383,6 +409,10 @@ class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
       });
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $IsErrorBoundaryProps on IsErrorBoundaryProps {
   static const PropsMeta meta = _$metaForIsErrorBoundaryProps;
   /* GENERATED CONSTANTS */
@@ -391,6 +421,8 @@ mixin $IsErrorBoundaryProps on IsErrorBoundaryProps {
   static const List<String> $propKeys = [];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForIsErrorBoundaryProps = PropsMeta(
   fields: $IsErrorBoundaryProps.$props,
   keys: $IsErrorBoundaryProps.$propKeys,
@@ -399,6 +431,8 @@ const PropsMeta _$metaForIsErrorBoundaryProps = PropsMeta(
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $IsNotErrorBoundaryComponentFactory = registerComponent2(
   () => _$IsNotErrorBoundaryComponent(),
   builderFactory: IsNotErrorBoundary,
@@ -416,6 +450,8 @@ _$$IsNotErrorBoundaryProps _$IsNotErrorBoundary([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$IsNotErrorBoundaryProps extends UiProps
     with IsNotErrorBoundaryProps, $IsNotErrorBoundaryProps {
   _$$IsNotErrorBoundaryProps._();
@@ -443,6 +479,8 @@ abstract class _$$IsNotErrorBoundaryProps extends UiProps
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$IsNotErrorBoundaryProps$PlainMap extends _$$IsNotErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -460,6 +498,8 @@ class _$$IsNotErrorBoundaryProps$PlainMap extends _$$IsNotErrorBoundaryProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$IsNotErrorBoundaryProps$JsMap extends _$$IsNotErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -479,6 +519,8 @@ class _$$IsNotErrorBoundaryProps$JsMap extends _$$IsNotErrorBoundaryProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
   _$$IsNotErrorBoundaryProps$JsMap _cachedTypedProps;
 
@@ -524,6 +566,10 @@ class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
       });
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $IsNotErrorBoundaryProps on IsNotErrorBoundaryProps {
   static const PropsMeta meta = _$metaForIsNotErrorBoundaryProps;
   /* GENERATED CONSTANTS */
@@ -532,6 +578,8 @@ mixin $IsNotErrorBoundaryProps on IsNotErrorBoundaryProps {
   static const List<String> $propKeys = [];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForIsNotErrorBoundaryProps = PropsMeta(
   fields: $IsNotErrorBoundaryProps.$props,
   keys: $IsNotErrorBoundaryProps.$propKeys,

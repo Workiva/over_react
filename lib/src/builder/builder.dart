@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:analyzer/analyzer.dart';
+import 'package:analyzer/dart/analysis/utilities.dart';
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
 import 'package:path/path.dart' as p;
@@ -151,19 +152,15 @@ class OverReactBuilder extends Builder {
   static final _formatter = DartFormatter();
 
   static CompilationUnit _tryParseCompilationUnit(String source, AssetId id) {
-    try {
-      return parseCompilationUnit(
-        source,
-        name: id.path,
-        suppressErrors: false,
-        parseFunctionBodies: true);
-    } catch (error, stackTrace) {
-      log
-        ..fine('There was an error parsing the compilation unit for file: $id')
-        ..fine(error)
-        ..fine(stackTrace);
-      return null;
-    }
+    final result = parseString(content: source, path: id.path, throwIfDiagnostics: false);
+
+    if (result.errors.isEmpty) return result.unit;
+
+    // todo should these be log.severe?
+    log.fine('Analysis errors encountered when parsing compilation unit for file "$id":');
+    result.errors.forEach(log.fine);
+
+    return null;
   }
 
   static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs) async {

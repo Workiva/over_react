@@ -147,6 +147,7 @@ abstract class TypedMapImplGenerator extends Generator {
       ..writeln('//')
       ..writeln(
           '// Implements constructor and backing map${isProps ? ', and links up to generated component factory' : ''}.')
+      ..write(internalGeneratedMemberDeprecationLine())
       ..writeln(classDeclaration);
 
     // Constructors
@@ -215,7 +216,7 @@ abstract class TypedMapImplGenerator extends Generator {
       // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
       buffer..writeln()..writeln('''
 // Concrete $propsOrState implementation that can be backed by any [Map].
-class ${names.plainMapImplName}$typeParamsOnClass extends ${names.implName}$typeParamsOnSuper {
+${internalGeneratedMemberDeprecationLine()}class ${names.plainMapImplName}$typeParamsOnClass extends ${names.implName}$typeParamsOnSuper {
   // This initializer of `_$propsOrState` to an empty map, as well as the reassignment
   // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   ${names.plainMapImplName}(Map backingMap) : this._$propsOrState = {}, super._() {
@@ -228,7 +229,7 @@ class ${names.plainMapImplName}$typeParamsOnClass extends ${names.implName}$type
 }
 // Concrete $propsOrState implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class ${names.jsMapImplName}$typeParamsOnClass extends ${names.implName}$typeParamsOnSuper {
+${internalGeneratedMemberDeprecationLine()}class ${names.jsMapImplName}$typeParamsOnClass extends ${names.implName}$typeParamsOnSuper {
   // This initializer of `_$propsOrState` to an empty map, as well as the reassignment
   // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   ${names.jsMapImplName}(JsBackedMap backingMap) : this._$propsOrState = JsBackedMap(), super._() {
@@ -265,6 +266,9 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
       : names = TypedMapNames(declaration.state.name.name),
         member = declaration.state,
         isProps = false;
+
+  @override
+  Version get version => declaration.version;
 
   @override
   bool get isComponent2 => declaration.isComponent2;
@@ -311,19 +315,24 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
 
   final String componentFactoryName;
 
+  @override
+  final Version version;
+
   _TypedMapImplGenerator.props(ClassComponentDeclaration declaration)
       : names = TypedMapNames(declaration.props.either.name.name),
         member = declaration.props.either,
         isProps = true,
         factoryName = declaration.factory.name.name,
-        componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName;
+        componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName,
+        version = declaration.version;
 
   _TypedMapImplGenerator.state(ClassComponentDeclaration declaration)
       : names = TypedMapNames(declaration.state.either.name.name),
         member = declaration.state.either,
         isProps = false,
         factoryName = declaration.factory.name.name,
-        componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName;
+        componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName,
+        version = declaration.version;
 
   _TypedMapImplGenerator.propsMapViewOrFunctionComponent(
       PropsMapViewOrFunctionComponentDeclaration declaration)
@@ -331,7 +340,8 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         member = declaration.props.either,
         isProps = true,
         factoryName = declaration.factory.name.name,
-        componentFactoryName = 'null';
+        componentFactoryName = 'null',
+        version = declaration.version;
 
   @override
   bool get isComponent2 => true;

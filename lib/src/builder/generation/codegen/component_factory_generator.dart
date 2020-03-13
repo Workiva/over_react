@@ -14,17 +14,22 @@ class ComponentFactoryGenerator extends Generator {
   final BoilerplateComponent component;
   final bool isComponent2;
 
+  @override
+  final Version version;
+
   ComponentFactoryGenerator.legacy(LegacyClassComponentDeclaration declaration)
       : factoryName = declaration.factory.name.name,
         componentNames = ComponentNames(declaration.component.name.name),
         component = declaration.component,
-        isComponent2 = declaration.isComponent2;
+        isComponent2 = declaration.isComponent2,
+        version = declaration.version;
 
   ComponentFactoryGenerator(ClassComponentDeclaration declaration)
       : factoryName = declaration.factory.name.name,
         componentNames = ComponentNames(declaration.component.name.name),
         component = declaration.component,
-        isComponent2 = true;
+        isComponent2 = true,
+        version = declaration.version;
 
   @override
   void generate() {
@@ -57,6 +62,7 @@ class ComponentFactoryGenerator extends Generator {
         ..writeln('// React component factory implementation.')
         ..writeln('//')
         ..writeln('// Registers component implementation and links type meta to builder factory.')
+        ..write(internalGeneratedMemberDeprecationLine())
         ..writeln('final ${componentNames.componentFactoryName}'
             ' = registerComponent2(() => ${componentNames.implName}(),')
         ..writeln('    builderFactory: $factoryName,')
@@ -78,6 +84,7 @@ class ComponentFactoryGenerator extends Generator {
         ..writeln('// React component factory implementation.')
         ..writeln('//')
         ..writeln('// Registers component implementation and links type meta to builder factory.')
+        ..write(internalGeneratedMemberDeprecationLine())
         ..writeln(
             'final ${componentNames.componentFactoryName} = registerComponent(() => ${componentNames.implName}(),')
         ..writeln('    builderFactory: $factoryName,')

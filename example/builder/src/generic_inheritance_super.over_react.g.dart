@@ -10,6 +10,8 @@ part of 'generic_inheritance_super.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $GenericSuperComponentFactory = registerComponent2(
   () => _$GenericSuperComponent(),
   builderFactory: GenericSuper,
@@ -26,6 +28,8 @@ _$$GenericSuperProps _$GenericSuper([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$GenericSuperProps extends GenericSuperProps
     with $GenericSuperPropsMixin {
   _$$GenericSuperProps._();
@@ -53,6 +57,8 @@ abstract class _$$GenericSuperProps extends GenericSuperProps
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$GenericSuperProps$PlainMap extends _$$GenericSuperProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -70,6 +76,8 @@ class _$$GenericSuperProps$PlainMap extends _$$GenericSuperProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$GenericSuperProps$JsMap extends _$$GenericSuperProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -88,6 +96,8 @@ class _$$GenericSuperProps$JsMap extends _$$GenericSuperProps {
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$GenericSuperStateMixin extends UiState
     with GenericSuperStateMixin, $GenericSuperStateMixin {
   _$$GenericSuperStateMixin._();
@@ -106,6 +116,8 @@ abstract class _$$GenericSuperStateMixin extends UiState
 }
 
 // Concrete state implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$GenericSuperStateMixin$PlainMap extends _$$GenericSuperStateMixin {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -123,6 +135,8 @@ class _$$GenericSuperStateMixin$PlainMap extends _$$GenericSuperStateMixin {
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$GenericSuperStateMixin$JsMap extends _$$GenericSuperStateMixin {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -142,6 +156,8 @@ class _$$GenericSuperStateMixin$JsMap extends _$$GenericSuperStateMixin {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$GenericSuperComponent extends GenericSuperComponent {
   _$$GenericSuperProps$JsMap _cachedTypedProps;
 
@@ -206,6 +222,10 @@ class _$GenericSuperComponent extends GenericSuperComponent {
       });
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $GenericSuperPropsMixin on GenericSuperPropsMixin {
   static const PropsMeta meta = _$metaForGenericSuperPropsMixin;
   @override
@@ -255,11 +275,17 @@ mixin $GenericSuperPropsMixin on GenericSuperPropsMixin {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForGenericSuperPropsMixin = PropsMeta(
   fields: $GenericSuperPropsMixin.$props,
   keys: $GenericSuperPropsMixin.$propKeys,
 );
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $GenericSuperStateMixin on GenericSuperStateMixin {
   static const StateMeta meta = _$metaForGenericSuperStateMixin;
   @override
@@ -283,6 +309,8 @@ mixin $GenericSuperStateMixin on GenericSuperStateMixin {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const StateMeta _$metaForGenericSuperStateMixin = StateMeta(
   fields: $GenericSuperStateMixin.$state,
   keys: $GenericSuperStateMixin.$stateKeys,

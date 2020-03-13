@@ -10,6 +10,8 @@ part of 'private_component.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $PrivateComponentFactory = registerComponent2(
   () => _$PrivateComponent(),
   builderFactory: _Private,
@@ -26,6 +28,8 @@ _$$_PrivateProps _$_Private([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$_PrivateProps extends UiProps
     with _PrivateProps, $_PrivateProps {
   _$$_PrivateProps._();
@@ -53,6 +57,8 @@ abstract class _$$_PrivateProps extends UiProps
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$_PrivateProps$PlainMap extends _$$_PrivateProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -70,6 +76,8 @@ class _$$_PrivateProps$PlainMap extends _$$_PrivateProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$_PrivateProps$JsMap extends _$$_PrivateProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -88,6 +96,8 @@ class _$$_PrivateProps$JsMap extends _$$_PrivateProps {
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$_PrivateState extends UiState
     with _PrivateState, $_PrivateState {
   _$$_PrivateState._();
@@ -106,6 +116,8 @@ abstract class _$$_PrivateState extends UiState
 }
 
 // Concrete state implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$_PrivateState$PlainMap extends _$$_PrivateState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -123,6 +135,8 @@ class _$$_PrivateState$PlainMap extends _$$_PrivateState {
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$_PrivateState$JsMap extends _$$_PrivateState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -142,6 +156,8 @@ class _$$_PrivateState$JsMap extends _$$_PrivateState {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$PrivateComponent extends PrivateComponent {
   _$$_PrivateProps$JsMap _cachedTypedProps;
 
@@ -208,6 +224,10 @@ class _$PrivateComponent extends PrivateComponent {
       });
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $_PrivateProps on _PrivateProps {
   static const PropsMeta meta = _$metaFor_PrivateProps;
   @override
@@ -225,11 +245,17 @@ mixin $_PrivateProps on _PrivateProps {
   static const List<String> $propKeys = [_$key__prop1___PrivateProps];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaFor_PrivateProps = PropsMeta(
   fields: $_PrivateProps.$props,
   keys: $_PrivateProps.$propKeys,
 );
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $_PrivateState on _PrivateState {
   static const StateMeta meta = _$metaFor_PrivateState;
   @override
@@ -247,6 +273,8 @@ mixin $_PrivateState on _PrivateState {
   static const List<String> $stateKeys = [_$key__state1___PrivateState];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const StateMeta _$metaFor_PrivateState = StateMeta(
   fields: $_PrivateState.$state,
   keys: $_PrivateState.$stateKeys,

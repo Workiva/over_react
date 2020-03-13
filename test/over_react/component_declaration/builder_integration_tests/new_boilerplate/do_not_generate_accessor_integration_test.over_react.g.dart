@@ -10,6 +10,8 @@ part of 'do_not_generate_accessor_integration_test.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $DoNotGenerateAccessorTestComponentFactory = registerComponent2(
   () => _$DoNotGenerateAccessorTestComponent(),
   builderFactory: DoNotGenerateAccessorTest,
@@ -28,6 +30,8 @@ _$$DoNotGenerateAccessorTestProps _$DoNotGenerateAccessorTest(
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$DoNotGenerateAccessorTestProps extends UiProps
     with DoNotGenerateAccessorTestProps, $DoNotGenerateAccessorTestProps {
   _$$DoNotGenerateAccessorTestProps._();
@@ -55,6 +59,8 @@ abstract class _$$DoNotGenerateAccessorTestProps extends UiProps
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$DoNotGenerateAccessorTestProps$PlainMap
     extends _$$DoNotGenerateAccessorTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
@@ -73,6 +79,8 @@ class _$$DoNotGenerateAccessorTestProps$PlainMap
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$DoNotGenerateAccessorTestProps$JsMap
     extends _$$DoNotGenerateAccessorTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
@@ -92,6 +100,8 @@ class _$$DoNotGenerateAccessorTestProps$JsMap
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$DoNotGenerateAccessorTestState extends UiState
     with DoNotGenerateAccessorTestState, $DoNotGenerateAccessorTestState {
   _$$DoNotGenerateAccessorTestState._();
@@ -110,6 +120,8 @@ abstract class _$$DoNotGenerateAccessorTestState extends UiState
 }
 
 // Concrete state implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$DoNotGenerateAccessorTestState$PlainMap
     extends _$$DoNotGenerateAccessorTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
@@ -128,6 +140,8 @@ class _$$DoNotGenerateAccessorTestState$PlainMap
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$DoNotGenerateAccessorTestState$JsMap
     extends _$$DoNotGenerateAccessorTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
@@ -148,6 +162,8 @@ class _$$DoNotGenerateAccessorTestState$JsMap
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$DoNotGenerateAccessorTestComponent
     extends DoNotGenerateAccessorTestComponent {
   _$$DoNotGenerateAccessorTestProps$JsMap _cachedTypedProps;
@@ -217,6 +233,10 @@ class _$DoNotGenerateAccessorTestComponent
       });
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $DoNotGenerateAccessorTestProps on DoNotGenerateAccessorTestProps {
   static const PropsMeta meta = _$metaForDoNotGenerateAccessorTestProps;
   @override
@@ -272,11 +292,17 @@ mixin $DoNotGenerateAccessorTestProps on DoNotGenerateAccessorTestProps {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForDoNotGenerateAccessorTestProps = PropsMeta(
   fields: $DoNotGenerateAccessorTestProps.$props,
   keys: $DoNotGenerateAccessorTestProps.$propKeys,
 );
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $DoNotGenerateAccessorTestState on DoNotGenerateAccessorTestState {
   static const StateMeta meta = _$metaForDoNotGenerateAccessorTestState;
   @override
@@ -332,6 +358,8 @@ mixin $DoNotGenerateAccessorTestState on DoNotGenerateAccessorTestState {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const StateMeta _$metaForDoNotGenerateAccessorTestState = StateMeta(
   fields: $DoNotGenerateAccessorTestState.$state,
   keys: $DoNotGenerateAccessorTestState.$stateKeys,

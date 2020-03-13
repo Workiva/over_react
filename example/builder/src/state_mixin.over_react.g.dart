@@ -7,6 +7,10 @@ part of 'state_mixin.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $ExampleStateMixin on ExampleStateMixin {
   static const StateMeta meta = _$metaForExampleStateMixin;
   @override
@@ -30,6 +34,8 @@ mixin $ExampleStateMixin on ExampleStateMixin {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const StateMeta _$metaForExampleStateMixin = StateMeta(
   fields: $ExampleStateMixin.$state,
   keys: $ExampleStateMixin.$stateKeys,
