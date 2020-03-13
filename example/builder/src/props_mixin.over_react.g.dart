@@ -7,6 +7,10 @@ part of 'props_mixin.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $ExamplePropsMixin on ExamplePropsMixin {
   static const PropsMeta meta = _$metaForExamplePropsMixin;
   @override
@@ -28,6 +32,8 @@ mixin $ExamplePropsMixin on ExamplePropsMixin {
   static const List<String> $propKeys = [_$key__propMixin1__ExamplePropsMixin];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForExamplePropsMixin = PropsMeta(
   fields: $ExamplePropsMixin.$props,
   keys: $ExamplePropsMixin.$propKeys,

@@ -10,6 +10,8 @@ part of 'with_legacy_props_mixin.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $BasicComponentFactory = registerComponent2(
   () => _$BasicComponent(),
   builderFactory: Basic,
@@ -26,6 +28,8 @@ _$$BasicProps _$Basic([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$BasicProps extends BasicProps
     with $BasicPropsMixin, $TransitionPropsMixin {
   _$$BasicProps._();
@@ -53,6 +57,8 @@ abstract class _$$BasicProps extends BasicProps
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$BasicProps$PlainMap extends _$$BasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -70,6 +76,8 @@ class _$$BasicProps$PlainMap extends _$$BasicProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$BasicProps$JsMap extends _$$BasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -89,6 +97,8 @@ class _$$BasicProps$JsMap extends _$$BasicProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$BasicComponent extends BasicComponent {
   _$$BasicProps$JsMap _cachedTypedProps;
 
@@ -131,6 +141,10 @@ class _$BasicComponent extends BasicComponent {
       });
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $BasicPropsMixin on BasicPropsMixin {
   static const PropsMeta meta = _$metaForBasicPropsMixin;
   @override
@@ -152,6 +166,8 @@ mixin $BasicPropsMixin on BasicPropsMixin {
   static const List<String> $propKeys = [_$key__basicProp__BasicPropsMixin];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForBasicPropsMixin = PropsMeta(
   fields: $BasicPropsMixin.$props,
   keys: $BasicPropsMixin.$propKeys,

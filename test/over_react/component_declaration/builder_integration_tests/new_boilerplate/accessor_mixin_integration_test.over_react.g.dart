@@ -7,6 +7,10 @@ part of 'accessor_mixin_integration_test.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $TestPropsMixin on TestPropsMixin {
   static const PropsMeta meta = _$metaForTestPropsMixin;
   @override
@@ -95,11 +99,17 @@ mixin $TestPropsMixin on TestPropsMixin {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForTestPropsMixin = PropsMeta(
   fields: $TestPropsMixin.$props,
   keys: $TestPropsMixin.$propKeys,
 );
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $TestCustomNamespacePropsMixin on TestCustomNamespacePropsMixin {
   static const PropsMeta meta = _$metaForTestCustomNamespacePropsMixin;
   @override
@@ -198,11 +208,17 @@ mixin $TestCustomNamespacePropsMixin on TestCustomNamespacePropsMixin {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForTestCustomNamespacePropsMixin = PropsMeta(
   fields: $TestCustomNamespacePropsMixin.$props,
   keys: $TestCustomNamespacePropsMixin.$propKeys,
 );
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $TestCustomNamespaceWithPropsAnnotationPropsMixin
     on TestCustomNamespaceWithPropsAnnotationPropsMixin {
   static const PropsMeta meta =
@@ -233,12 +249,18 @@ mixin $TestCustomNamespaceWithPropsAnnotationPropsMixin
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForTestCustomNamespaceWithPropsAnnotationPropsMixin =
     PropsMeta(
   fields: $TestCustomNamespaceWithPropsAnnotationPropsMixin.$props,
   keys: $TestCustomNamespaceWithPropsAnnotationPropsMixin.$propKeys,
 );
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $TestStateMixin on TestStateMixin {
   static const StateMeta meta = _$metaForTestStateMixin;
   @override
@@ -327,11 +349,17 @@ mixin $TestStateMixin on TestStateMixin {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const StateMeta _$metaForTestStateMixin = StateMeta(
   fields: $TestStateMixin.$state,
   keys: $TestStateMixin.$stateKeys,
 );
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $TestCustomNamespaceStateMixin on TestCustomNamespaceStateMixin {
   static const StateMeta meta = _$metaForTestCustomNamespaceStateMixin;
   @override
@@ -431,11 +459,17 @@ mixin $TestCustomNamespaceStateMixin on TestCustomNamespaceStateMixin {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const StateMeta _$metaForTestCustomNamespaceStateMixin = StateMeta(
   fields: $TestCustomNamespaceStateMixin.$state,
   keys: $TestCustomNamespaceStateMixin.$stateKeys,
 );
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $TestCustomNamespaceWithStateAnnotationStateMixin
     on TestCustomNamespaceWithStateAnnotationStateMixin {
   static const StateMeta meta =
@@ -466,6 +500,8 @@ mixin $TestCustomNamespaceWithStateAnnotationStateMixin
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const StateMeta _$metaForTestCustomNamespaceWithStateAnnotationStateMixin =
     StateMeta(
   fields: $TestCustomNamespaceWithStateAnnotationStateMixin.$state,
@@ -479,6 +515,8 @@ _$$TestPropsMixin _$Test([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$TestPropsMixin extends UiProps
     with TestPropsMixin, $TestPropsMixin {
   _$$TestPropsMixin._();
@@ -501,6 +539,8 @@ abstract class _$$TestPropsMixin extends UiProps
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$TestPropsMixin$PlainMap extends _$$TestPropsMixin {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -518,6 +558,8 @@ class _$$TestPropsMixin$PlainMap extends _$$TestPropsMixin {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$TestPropsMixin$JsMap extends _$$TestPropsMixin {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -541,6 +583,8 @@ _$$TestCustomNamespaceProps _$TestCustomNamespace([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$TestCustomNamespaceProps extends TestCustomNamespaceProps
     with
         $TestCustomNamespacePropsMixin,
@@ -565,6 +609,8 @@ abstract class _$$TestCustomNamespaceProps extends TestCustomNamespaceProps
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$TestCustomNamespaceProps$PlainMap extends _$$TestCustomNamespaceProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -582,6 +628,8 @@ class _$$TestCustomNamespaceProps$PlainMap extends _$$TestCustomNamespaceProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$TestCustomNamespaceProps$JsMap extends _$$TestCustomNamespaceProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217

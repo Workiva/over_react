@@ -10,6 +10,8 @@ part of 'stateful_component_integration_test.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $StatefulComponentTestComponentFactory = registerComponent2(
   () => _$StatefulComponentTestComponent(),
   builderFactory: StatefulComponentTest,
@@ -27,6 +29,8 @@ _$$StatefulComponentTestProps _$StatefulComponentTest([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$StatefulComponentTestProps extends UiProps
     with StatefulComponentTestProps, $StatefulComponentTestProps {
   _$$StatefulComponentTestProps._();
@@ -54,6 +58,8 @@ abstract class _$$StatefulComponentTestProps extends UiProps
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$StatefulComponentTestProps$PlainMap
     extends _$$StatefulComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
@@ -72,6 +78,8 @@ class _$$StatefulComponentTestProps$PlainMap
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$StatefulComponentTestProps$JsMap
     extends _$$StatefulComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
@@ -91,6 +99,8 @@ class _$$StatefulComponentTestProps$JsMap
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$StatefulComponentTestState extends UiState
     with StatefulComponentTestState, $StatefulComponentTestState {
   _$$StatefulComponentTestState._();
@@ -109,6 +119,8 @@ abstract class _$$StatefulComponentTestState extends UiState
 }
 
 // Concrete state implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$StatefulComponentTestState$PlainMap
     extends _$$StatefulComponentTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
@@ -127,6 +139,8 @@ class _$$StatefulComponentTestState$PlainMap
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$StatefulComponentTestState$JsMap
     extends _$$StatefulComponentTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
@@ -147,6 +161,8 @@ class _$$StatefulComponentTestState$JsMap
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
   _$$StatefulComponentTestProps$JsMap _cachedTypedProps;
 
@@ -215,6 +231,10 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
       });
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $StatefulComponentTestProps on StatefulComponentTestProps {
   static const PropsMeta meta = _$metaForStatefulComponentTestProps;
   @override
@@ -239,11 +259,17 @@ mixin $StatefulComponentTestProps on StatefulComponentTestProps {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForStatefulComponentTestProps = PropsMeta(
   fields: $StatefulComponentTestProps.$props,
   keys: $StatefulComponentTestProps.$propKeys,
 );
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $StatefulComponentTestState on StatefulComponentTestState {
   static const StateMeta meta = _$metaForStatefulComponentTestState;
   @override
@@ -340,6 +366,8 @@ mixin $StatefulComponentTestState on StatefulComponentTestState {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const StateMeta _$metaForStatefulComponentTestState = StateMeta(
   fields: $StatefulComponentTestState.$state,
   keys: $StatefulComponentTestState.$stateKeys,

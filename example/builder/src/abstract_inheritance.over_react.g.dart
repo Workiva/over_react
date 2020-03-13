@@ -10,6 +10,8 @@ part of 'abstract_inheritance.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $SubComponentFactory = registerComponent2(
   () => _$SubComponent(),
   builderFactory: Sub,
@@ -26,6 +28,8 @@ _$$SubProps _$Sub([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$SubProps extends SubProps
     with $SuperPropsMixin, $SubPropsMixin {
   _$$SubProps._();
@@ -53,6 +57,8 @@ abstract class _$$SubProps extends SubProps
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$SubProps$PlainMap extends _$$SubProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -70,6 +76,8 @@ class _$$SubProps$PlainMap extends _$$SubProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$SubProps$JsMap extends _$$SubProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -88,6 +96,8 @@ class _$$SubProps$JsMap extends _$$SubProps {
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$SubState extends SubState
     with $SuperStateMixin, $SubStateMixin {
   _$$SubState._();
@@ -106,6 +116,8 @@ abstract class _$$SubState extends SubState
 }
 
 // Concrete state implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$SubState$PlainMap extends _$$SubState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -123,6 +135,8 @@ class _$$SubState$PlainMap extends _$$SubState {
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$SubState$JsMap extends _$$SubState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -142,6 +156,8 @@ class _$$SubState$JsMap extends _$$SubState {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$SubComponent extends SubComponent {
   _$$SubProps$JsMap _cachedTypedProps;
 
@@ -205,6 +221,10 @@ class _$SubComponent extends SubComponent {
       });
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $SuperPropsMixin on SuperPropsMixin {
   static const PropsMeta meta = _$metaForSuperPropsMixin;
   @override
@@ -226,11 +246,17 @@ mixin $SuperPropsMixin on SuperPropsMixin {
   static const List<String> $propKeys = [_$key__superProp__SuperPropsMixin];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForSuperPropsMixin = PropsMeta(
   fields: $SuperPropsMixin.$props,
   keys: $SuperPropsMixin.$propKeys,
 );
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $SubPropsMixin on SubPropsMixin {
   static const PropsMeta meta = _$metaForSubPropsMixin;
   @override
@@ -248,11 +274,17 @@ mixin $SubPropsMixin on SubPropsMixin {
   static const List<String> $propKeys = [_$key__subProp__SubPropsMixin];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForSubPropsMixin = PropsMeta(
   fields: $SubPropsMixin.$props,
   keys: $SubPropsMixin.$propKeys,
 );
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $SuperStateMixin on SuperStateMixin {
   static const StateMeta meta = _$metaForSuperStateMixin;
   @override
@@ -274,11 +306,17 @@ mixin $SuperStateMixin on SuperStateMixin {
   static const List<String> $stateKeys = [_$key__superState__SuperStateMixin];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const StateMeta _$metaForSuperStateMixin = StateMeta(
   fields: $SuperStateMixin.$state,
   keys: $SuperStateMixin.$stateKeys,
 );
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $SubStateMixin on SubStateMixin {
   static const StateMeta meta = _$metaForSubStateMixin;
   @override
@@ -296,6 +334,8 @@ mixin $SubStateMixin on SubStateMixin {
   static const List<String> $stateKeys = [_$key__subState__SubStateMixin];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const StateMeta _$metaForSubStateMixin = StateMeta(
   fields: $SubStateMixin.$state,
   keys: $SubStateMixin.$stateKeys,

@@ -10,6 +10,8 @@ part of 'basic_library.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $BasicPartOfLibComponentFactory = registerComponent2(
   () => _$BasicPartOfLibComponent(),
   builderFactory: BasicPartOfLib,
@@ -27,6 +29,8 @@ _$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$BasicPartOfLibProps extends BasicPartOfLibProps
     with $ExamplePropsMixin, $BasicPartOfLibPropsMixin {
   _$$BasicPartOfLibProps._();
@@ -54,6 +58,8 @@ abstract class _$$BasicPartOfLibProps extends BasicPartOfLibProps
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$BasicPartOfLibProps$PlainMap extends _$$BasicPartOfLibProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -71,6 +77,8 @@ class _$$BasicPartOfLibProps$PlainMap extends _$$BasicPartOfLibProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$BasicPartOfLibProps$JsMap extends _$$BasicPartOfLibProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -89,6 +97,8 @@ class _$$BasicPartOfLibProps$JsMap extends _$$BasicPartOfLibProps {
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$BasicPartOfLibState extends BasicPartOfLibState
     with $ExampleStateMixin, $BasicPartOfLibStateMixin {
   _$$BasicPartOfLibState._();
@@ -107,6 +117,8 @@ abstract class _$$BasicPartOfLibState extends BasicPartOfLibState
 }
 
 // Concrete state implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$BasicPartOfLibState$PlainMap extends _$$BasicPartOfLibState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -124,6 +136,8 @@ class _$$BasicPartOfLibState$PlainMap extends _$$BasicPartOfLibState {
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$BasicPartOfLibState$JsMap extends _$$BasicPartOfLibState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -143,6 +157,8 @@ class _$$BasicPartOfLibState$JsMap extends _$$BasicPartOfLibState {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   _$$BasicPartOfLibProps$JsMap _cachedTypedProps;
 
@@ -208,6 +224,10 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
       });
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $BasicPartOfLibPropsMixin on BasicPartOfLibPropsMixin {
   static const PropsMeta meta = _$metaForBasicPartOfLibPropsMixin;
   @override
@@ -296,11 +316,17 @@ mixin $BasicPartOfLibPropsMixin on BasicPartOfLibPropsMixin {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForBasicPartOfLibPropsMixin = PropsMeta(
   fields: $BasicPartOfLibPropsMixin.$props,
   keys: $BasicPartOfLibPropsMixin.$propKeys,
 );
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $BasicPartOfLibStateMixin on BasicPartOfLibStateMixin {
   static const StateMeta meta = _$metaForBasicPartOfLibStateMixin;
   @override
@@ -324,6 +350,8 @@ mixin $BasicPartOfLibStateMixin on BasicPartOfLibStateMixin {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const StateMeta _$metaForBasicPartOfLibStateMixin = StateMeta(
   fields: $BasicPartOfLibStateMixin.$state,
   keys: $BasicPartOfLibStateMixin.$stateKeys,
@@ -332,6 +360,8 @@ const StateMeta _$metaForBasicPartOfLibStateMixin = StateMeta(
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $SubPartOfLibComponentFactory = registerComponent2(
   () => _$SubPartOfLibComponent(),
   builderFactory: SubPartOfLib,
@@ -348,6 +378,8 @@ _$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$SubPartOfLibProps extends SubPartOfLibProps
     with $SuperPartOfLibPropsMixin, $SubPartOfLibPropsMixin {
   _$$SubPartOfLibProps._();
@@ -375,6 +407,8 @@ abstract class _$$SubPartOfLibProps extends SubPartOfLibProps
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$SubPartOfLibProps$PlainMap extends _$$SubPartOfLibProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -392,6 +426,8 @@ class _$$SubPartOfLibProps$PlainMap extends _$$SubPartOfLibProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$SubPartOfLibProps$JsMap extends _$$SubPartOfLibProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -411,6 +447,8 @@ class _$$SubPartOfLibProps$JsMap extends _$$SubPartOfLibProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   _$$SubPartOfLibProps$JsMap _cachedTypedProps;
 
@@ -454,6 +492,10 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
       });
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $SuperPartOfLibPropsMixin on SuperPartOfLibPropsMixin {
   static const PropsMeta meta = _$metaForSuperPartOfLibPropsMixin;
   @override
@@ -477,11 +519,17 @@ mixin $SuperPartOfLibPropsMixin on SuperPartOfLibPropsMixin {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForSuperPartOfLibPropsMixin = PropsMeta(
   fields: $SuperPartOfLibPropsMixin.$props,
   keys: $SuperPartOfLibPropsMixin.$propKeys,
 );
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $SubPartOfLibPropsMixin on SubPartOfLibPropsMixin {
   static const PropsMeta meta = _$metaForSubPartOfLibPropsMixin;
   @override
@@ -505,6 +553,8 @@ mixin $SubPartOfLibPropsMixin on SubPartOfLibPropsMixin {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForSubPartOfLibPropsMixin = PropsMeta(
   fields: $SubPartOfLibPropsMixin.$props,
   keys: $SubPartOfLibPropsMixin.$propKeys,

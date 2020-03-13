@@ -7,6 +7,10 @@ part of 'props_map_view_test.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $TestProps on TestProps {
   static const PropsMeta meta = _$metaForTestProps;
   @override
@@ -89,6 +93,8 @@ mixin $TestProps on TestProps {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForTestProps = PropsMeta(
   fields: $TestProps.$props,
   keys: $TestProps.$propKeys,
@@ -101,6 +107,8 @@ _$$TestProps _$Test([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$TestProps extends UiProps with TestProps, $TestProps {
   _$$TestProps._();
 
@@ -122,6 +130,8 @@ abstract class _$$TestProps extends UiProps with TestProps, $TestProps {
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$TestProps$PlainMap extends _$$TestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -139,6 +149,8 @@ class _$$TestProps$PlainMap extends _$$TestProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$TestProps$JsMap extends _$$TestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217

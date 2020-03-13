@@ -10,6 +10,8 @@ part of 'namespaced_accessor_integration_test.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $NamespacedAccessorTestComponentFactory = registerComponent2(
   () => _$NamespacedAccessorTestComponent(),
   builderFactory: NamespacedAccessorTest,
@@ -27,6 +29,8 @@ _$$NamespacedAccessorTestProps _$NamespacedAccessorTest([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$NamespacedAccessorTestProps extends UiProps
     with NamespacedAccessorTestProps, $NamespacedAccessorTestProps {
   _$$NamespacedAccessorTestProps._();
@@ -54,6 +58,8 @@ abstract class _$$NamespacedAccessorTestProps extends UiProps
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$NamespacedAccessorTestProps$PlainMap
     extends _$$NamespacedAccessorTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
@@ -72,6 +78,8 @@ class _$$NamespacedAccessorTestProps$PlainMap
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$NamespacedAccessorTestProps$JsMap
     extends _$$NamespacedAccessorTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
@@ -91,6 +99,8 @@ class _$$NamespacedAccessorTestProps$JsMap
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$NamespacedAccessorTestState extends UiState
     with NamespacedAccessorTestState, $NamespacedAccessorTestState {
   _$$NamespacedAccessorTestState._();
@@ -109,6 +119,8 @@ abstract class _$$NamespacedAccessorTestState extends UiState
 }
 
 // Concrete state implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$NamespacedAccessorTestState$PlainMap
     extends _$$NamespacedAccessorTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
@@ -127,6 +139,8 @@ class _$$NamespacedAccessorTestState$PlainMap
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$NamespacedAccessorTestState$JsMap
     extends _$$NamespacedAccessorTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
@@ -147,6 +161,8 @@ class _$$NamespacedAccessorTestState$JsMap
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$NamespacedAccessorTestComponent
     extends NamespacedAccessorTestComponent {
   _$$NamespacedAccessorTestProps$JsMap _cachedTypedProps;
@@ -216,6 +232,10 @@ class _$NamespacedAccessorTestComponent
       });
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $NamespacedAccessorTestProps on NamespacedAccessorTestProps {
   static const PropsMeta meta = _$metaForNamespacedAccessorTestProps;
   @override
@@ -310,11 +330,17 @@ mixin $NamespacedAccessorTestProps on NamespacedAccessorTestProps {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForNamespacedAccessorTestProps = PropsMeta(
   fields: $NamespacedAccessorTestProps.$props,
   keys: $NamespacedAccessorTestProps.$propKeys,
 );
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $NamespacedAccessorTestState on NamespacedAccessorTestState {
   static const StateMeta meta = _$metaForNamespacedAccessorTestState;
   @override
@@ -412,6 +438,8 @@ mixin $NamespacedAccessorTestState on NamespacedAccessorTestState {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const StateMeta _$metaForNamespacedAccessorTestState = StateMeta(
   fields: $NamespacedAccessorTestState.$state,
   keys: $NamespacedAccessorTestState.$stateKeys,

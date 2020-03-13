@@ -10,6 +10,8 @@ part of 'unassigned_prop_integration_test.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $FooComponentFactory = registerComponent2(
   () => _$FooComponent(),
   builderFactory: Foo,
@@ -26,6 +28,8 @@ _$$FooProps _$Foo([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$FooProps extends UiProps with FooProps, $FooProps {
   _$$FooProps._();
 
@@ -52,6 +56,8 @@ abstract class _$$FooProps extends UiProps with FooProps, $FooProps {
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$FooProps$PlainMap extends _$$FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -69,6 +75,8 @@ class _$$FooProps$PlainMap extends _$$FooProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$FooProps$JsMap extends _$$FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -88,6 +96,8 @@ class _$$FooProps$JsMap extends _$$FooProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$FooComponent extends FooComponent {
   _$$FooProps$JsMap _cachedTypedProps;
 
@@ -129,6 +139,10 @@ class _$FooComponent extends FooComponent {
       });
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $FooProps on FooProps {
   static const PropsMeta meta = _$metaForFooProps;
   @override
@@ -163,6 +177,8 @@ mixin $FooProps on FooProps {
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForFooProps = PropsMeta(
   fields: $FooProps.$props,
   keys: $FooProps.$propKeys,
