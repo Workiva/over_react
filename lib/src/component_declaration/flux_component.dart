@@ -27,9 +27,64 @@ import 'annotations.dart' as annotations;
 import 'builder_helpers.dart';
 import 'component_base_2.dart';
 
-/// Builds on top of [UiProps], adding typed props for [Action]s and [Store]s in order to integrate with w_flux.
+part 'flux_component.over_react.g.dart';
+
+/// Builds on top of [UiProps], adding typed [Action] and [Store] props for use with [FluxUiComponent2].
 ///
-/// Use with the over_react builder via the `@Props()` ([annotations.Props]) annotation.
+/// __Example:__
+///
+/// ```dart
+/// class YourComponentProps extends UiProps with FluxUiPropsMixin<YourFluxActionsClass, YourFluxStoreClass> {
+///   // Additional arbitrary props for your component can go here
+/// }
+/// ```
+mixin FluxUiPropsMixin<ActionsT, StoresT> on UiProps implements FluxUiProps<ActionsT, StoresT> {
+  @override
+  String get _actionsPropKey => '${propKeyNamespace}actions';
+  @override
+  String get _storePropKey => '${propKeyNamespace}store';
+
+  /// The prop defined by [ActionsT] that holds all [Action]s that
+  /// this component needs access to.
+  ///
+  /// There is no strict rule on the [ActionsT] type. Depending on application
+  /// structure, there may be [Action]s available directly on this object, or
+  /// this object may represent a hierarchy of actions.
+  @override
+  ActionsT get actions => props[_actionsPropKey] as ActionsT;
+  @override
+  set actions(ActionsT value) => props[_actionsPropKey] = value;
+
+  /// The flux [Store] instance(s) to be used by a [FluxUiComponent2] instance, or a reference to one.
+  ///
+  /// __Instead of storing state within this component via `setState`, it is recommended that data be
+  /// pulled directly from these stores.__ This ensures that the data being used is always up to date
+  /// and leaves the state management logic to the stores.
+  ///
+  /// If this component only needs data from a single [Store], then [StoresT]
+  /// should be an instance of [Store]. This allows the default implementation
+  /// of `redrawOn` to automatically subscribe to the store.
+  ///
+  /// If this component needs data from multiple [Store] instances, then
+  /// [StoresT] should be a class that provides access to these multiple stores.
+  /// Then, you can explicitly select the [Store] instances that should be
+  /// listened to by overriding [_FluxComponentMixin.redrawOn].
+  @override
+  StoresT get store => props[_storePropKey] as StoresT;
+  @override
+  set store(StoresT value) => props[_storePropKey] = value;
+}
+
+/// __Deprecated.__ Use [FluxUiPropsMixin] instead.
+///
+///  The latest over_react component boilerplate does not allow props classes to extend from anything except UiProps.
+///  You can upgrade your usage automatically by running:
+///
+///  ```
+///  pub global activate over_react_codemod
+///  pub global run over_react_codemod:boilerplate_upgrade
+///  ```
+@Deprecated('Use FluxUiPropsMixin instead. See the documentation for this class for detailed migration instructions.')
 abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
   String get _actionsPropKey => '${propKeyNamespace}actions';
   String get _storePropKey => '${propKeyNamespace}store';
