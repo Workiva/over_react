@@ -53,8 +53,10 @@ const versionDescriptions = {
 ///
 /// Meant to be used in conjunction with [BoilerplateVersions] and [versionDescriptions]
 /// to allow for tests to iterate over component versions, generating the appropriate boilerplate.
-String getBoilerplateString({@required BoilerplateVersions version, String deprecatedLifecycleMethod}) {
+String getBoilerplateString({@required BoilerplateVersions version, String deprecatedLifecycleMethod, String componentBaseName}) {
   var deprecatedMethod = '';
+
+  componentBaseName ??= 'Foo';
 
   switch (deprecatedLifecycleMethod) {
     case 'componentWillReceiveProps':
@@ -89,42 +91,50 @@ String getBoilerplateString({@required BoilerplateVersions version, String depre
     case BoilerplateVersions.v2:
       return OverReactSrc.state(
         componentBody: deprecatedMethod,
+        baseName: componentBaseName,
       ).source;
     case BoilerplateVersions.v3:
       return OverReactSrc.state(
         backwardsCompatible: false,
         componentBody: deprecatedMethod,
+        baseName: componentBaseName,
       ).source;
     case BoilerplateVersions.v4:
       return OverReactSrc.mixinBasedBoilerplateState(
         componentBody: deprecatedMethod,
+        baseName: componentBaseName,
       ).source;
     case BoilerplateVersions.v5:
       return OverReactSrc.mixinBasedBoilerplateState(
         componentBody: deprecatedMethod,
         shouldIncludePropsAlias: true,
+        baseName: componentBaseName,
       ).source;
     case BoilerplateVersions.v6:
       return OverReactSrc.state(
         componentBody: deprecatedMethod,
         componentVersion: 2,
+        baseName: componentBaseName,
       ).source;
     case BoilerplateVersions.v7:
       return OverReactSrc.state(
         componentBody: deprecatedMethod,
         componentVersion: 2,
         backwardsCompatible: false,
+        baseName: componentBaseName,
       ).source;
     case BoilerplateVersions.v8:
       return OverReactSrc.mixinBasedBoilerplateState(
         componentBody: deprecatedMethod,
         shouldIncludeAnnotations: true,
+        baseName: componentBaseName,
       ).source;
     case BoilerplateVersions.v9:
       return OverReactSrc.mixinBasedBoilerplateState(
         componentBody: deprecatedMethod,
         shouldIncludePropsAlias: true,
         shouldIncludeAnnotations: true,
+        baseName: componentBaseName,
       ).source;
       break;
     default:
@@ -246,8 +256,8 @@ class BoilerplateMemberHelper {
     return BoilerplateMembers.detect(unit);
   }
 
-  static Iterable<BoilerplateMember> getBoilerplateMembersFor(BoilerplateVersions version) {
-    final unit = parseString(content: getBoilerplateString(version: version)).unit;
+  static Iterable<BoilerplateMember> getBoilerplateMembersFor(BoilerplateVersions version, {String componentBaseName}) {
+    final unit = parseString(content: getBoilerplateString(version: version, componentBaseName: componentBaseName)).unit;
 
     return BoilerplateMembers.detect(unit).allMembers;
   }

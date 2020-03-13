@@ -86,6 +86,9 @@ class OverReactSrc {
   ///
   /// Use [annotationArg] to add an argument to the `@Props()` annotation.
   ///
+  /// Use [baseName] to set the shared identifier between a component's related
+  /// boilerplate pieces (e.g. FooComponent, FooProps, FooState).
+  ///
   /// Use [body] to specify a body for the `@Props()` annotated class.
   ///
   /// Use [componentBody] to specify a body for the `@Component()` annotated class.
@@ -101,10 +104,11 @@ class OverReactSrc {
     this.needsComponent = false,
     this.typeParameters = false,
     this.componentVersion = 1,
+    this.baseName = 'AbstractFoo',
     isPrivate = false})
       :
         this.annotation = AnnotationType.abstractProps,
-        this.baseName = '${isPrivate ? '_' : ''}AbstractFoo',
+        this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
         this.numMixins = 0,
         this.isMixinBasedBoilerplate = false,
         this.shouldIncludePropsAlias = false,
@@ -123,6 +127,9 @@ class OverReactSrc {
   ///
   /// Use [annotationArg] to add an argument to the `@Props()` annotation.
   ///
+  /// Use [baseName] to set the shared identifier between a component's related
+  /// boilerplate pieces (e.g. FooComponent, FooProps, FooState).
+  ///
   /// Use [body] to specify a body for the `@Props()` annotated class.
   ///
   /// Use [componentBody] to specify a body for the `@Component()` annotated class.
@@ -138,10 +145,11 @@ class OverReactSrc {
     this.needsComponent = false,
     this.typeParameters = false,
     this.componentVersion = 1,
+    this.baseName = 'AbstractFoo',
     isPrivate = false})
       :
         this.annotation = AnnotationType.abstractState,
-        this.baseName = '${isPrivate ? '_' : ''}AbstractFoo',
+        this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
         this.numMixins = 0,
         this.isMixinBasedBoilerplate = false,
         this.shouldIncludePropsAlias = false,
@@ -155,6 +163,9 @@ class OverReactSrc {
   /// Set [isPrivate] to true to make the class private.
   ///
   /// Use [annotationArg] to add an argument to the `@Props()` annotation.
+  ///
+  /// Use [baseName] to set the shared identifier between a component's related
+  /// boilerplate pieces (e.g. FooComponent, FooProps, FooState).
   ///
   /// Use [body] to specify a body for the `@Props()` annotated class.
   ///
@@ -170,10 +181,11 @@ class OverReactSrc {
     this.componentBody = '',
     this.typeParameters = false,
     this.componentVersion = 1,
+    this.baseName = 'Foo',
     isPrivate = false})
       :
         this.annotation = AnnotationType.props,
-        this.baseName = '${isPrivate ? '_' : ''}Foo',
+        this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
         this.needsComponent = true,
         this.numMixins = 0,
         this.isMixinBasedBoilerplate = false,
@@ -188,6 +200,9 @@ class OverReactSrc {
   /// Set [isPrivate] to true to make the class private.
   ///
   /// Use [annotationArg] to add an argument to the `@Props()` annotation.
+  ///
+  /// Use [baseName] to set the shared identifier between a component's related
+  /// boilerplate pieces (e.g. FooComponent, FooProps, FooState).
   ///
   /// Use [body] to specify a body for the `@Props()` annotated class.
   ///
@@ -206,10 +221,11 @@ class OverReactSrc {
     this.typeParameters = false,
     this.numMixins = 1,
     this.componentVersion = 1,
+    this.baseName = 'Foo',
     isPrivate = false})
       :
         this.annotation = AnnotationType.propsMixin,
-        this.baseName = '${isPrivate ? '_' : ''}Foo',
+        this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
         this.needsComponent = false,
         this.isMixinBasedBoilerplate = false,
         this.shouldIncludePropsAlias = false,
@@ -225,6 +241,9 @@ class OverReactSrc {
   ///
   /// Use [annotationArg] to add an argument to the `@Props()` annotation.
   ///
+  /// Use [baseName] to set the shared identifier between a component's related
+  /// boilerplate pieces (e.g. FooComponent, FooProps, FooState).
+  ///
   /// Use [body] to specify a body for the `@Props()` annotated class.
   ///
   /// Use [componentBody] to specify a body for the `@Component()` annotated class.
@@ -239,10 +258,11 @@ class OverReactSrc {
     this.componentBody = '',
     this.typeParameters = false,
     this.componentVersion = 1,
+    this.baseName = 'Foo',
     isPrivate = false})
       :
         this.annotation = AnnotationType.state,
-        this.baseName = '${isPrivate ? '_' : ''}Foo',
+        this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
         this.needsComponent = true,
         this.numMixins = 0,
         this.isMixinBasedBoilerplate = false,
@@ -257,6 +277,9 @@ class OverReactSrc {
   /// Set [isPrivate] to true to make the class private.
   ///
   /// Use [annotationArg] to add an argument to the `@Props()` annotation.
+  ///
+  /// Use [baseName] to set the shared identifier between a component's related
+  /// boilerplate pieces (e.g. FooComponent, FooProps, FooState).
   ///
   /// Use [body] to specify a body for the `@Props()` annotated class.
   ///
@@ -275,10 +298,11 @@ class OverReactSrc {
     this.typeParameters = false,
     this.numMixins = 1,
     this.componentVersion = 1,
+    this.baseName = 'Foo',
     isPrivate = false})
       :
         this.annotation = AnnotationType.stateMixin,
-        this.baseName = '${isPrivate ? '_' : ''}Foo',
+        this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
         this.needsComponent = false,
         this.isMixinBasedBoilerplate = false,
         this.shouldIncludePropsAlias = false,
@@ -291,6 +315,9 @@ class OverReactSrc {
   /// Set [isPrivate] to true to make the class private.
   ///
   /// Use [annotationArg] to add an argument to the `@Props()` annotation.
+  ///
+  /// Use [baseName] to set the shared identifier between a component's related
+  /// boilerplate pieces (e.g. FooComponent, FooProps, FooState).
   ///
   /// Use [body] to specify a body for the `@Props()` annotated class.
   ///
@@ -310,10 +337,11 @@ class OverReactSrc {
     this.componentBody = '',
     this.shouldIncludePropsAlias = false,
     this.shouldIncludeAnnotations = false,
+    this.baseName = 'Foo',
     isPrivate = false})
       :
         this.annotation = AnnotationType.props,
-        this.baseName = '${isPrivate ? '_' : ''}Foo',
+        this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
         this.needsComponent = true,
         this.numMixins = 0,
         this.typeParameters = false,
@@ -329,6 +357,9 @@ class OverReactSrc {
   /// Set [isPrivate] to true to make the class private.
   ///
   /// Use [annotationArg] to add an argument to the `@Props()` annotation.
+  ///
+  /// Use [baseName] to set the shared identifier between a component's related
+  /// boilerplate pieces (e.g. FooComponent, FooProps, FooState).
   ///
   /// Use [body] to specify a body for the `@Props()` annotated class.
   ///
@@ -349,10 +380,11 @@ class OverReactSrc {
     this.typeParameters = false,
     this.shouldIncludePropsAlias = false,
     this.shouldIncludeAnnotations = false,
+    this.baseName = 'Foo',
     isPrivate = false})
       :
         this.annotation = AnnotationType.state,
-        this.baseName = '${isPrivate ? '_' : ''}Foo',
+        this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
         this.needsComponent = true,
         this.numMixins = 0,
         this.componentVersion = 2,
@@ -366,6 +398,7 @@ class OverReactSrc {
   final String annotationArg;
   final String body;
   final String baseName;
+  final String prefixedBaseName;
   final bool needsComponent;
   final int componentVersion;
   final int numMixins;
@@ -374,15 +407,15 @@ class OverReactSrc {
   final bool shouldIncludePropsAlias;
   final bool shouldIncludeAnnotations;
 
-  String get componentName => '${baseName}Component';
+  String get componentName => '${prefixedBaseName}Component';
   String get constantListName => isProps(annotation) ? '\$props' : '\$state';
-  String get factoryInitializer => '_\$$baseName';
+  String get factoryInitializer => '_\$$prefixedBaseName';
   String get keyListName => isProps(annotation) ? '\$propKeys' : '\$stateKeys';
-  String get propsClassName => '${baseName}Props';
-  String get propsMixinClassName => '${baseName}PropsMixin';
+  String get propsClassName => '${prefixedBaseName}Props';
+  String get propsMixinClassName => '${prefixedBaseName}PropsMixin';
   String get propsOrStateOrMixinClassName => _propsOrStateOrMixinClassName(isProps(annotation) ? 'Props' : 'State');
-  String get stateClassName => '${baseName}State';
-  String get stateMixinClassName => '${baseName}StateMixin';
+  String get stateClassName => '${prefixedBaseName}State';
+  String get stateMixinClassName => '${prefixedBaseName}StateMixin';
   String get typeParamSrc => typeParameters ? '<T extends Iterable, U>' : '';
   String get typeParamSrcWithoutBounds => typeParameters ? '<T, U>' : '';
 
@@ -398,9 +431,9 @@ class OverReactSrc {
       String componentStr = componentVersion == 2 ? 'Component2' : 'Component';
       if (!isAbstract(annotation)) {
         if (shouldIncludeAnnotations) {
-          buffer.writeln('\n@Factory()\nUiFactory<$propsClassName> $baseName = _\$$baseName;\n');
+          buffer.writeln('\n@Factory()\nUiFactory<$propsClassName> $prefixedBaseName = _\$$prefixedBaseName;\n');
         } else {
-          buffer.writeln('\nUiFactory<$propsClassName> $baseName = _\$$baseName;\n');
+          buffer.writeln('\nUiFactory<$propsClassName> $prefixedBaseName = _\$$prefixedBaseName;\n');
         }
       }
 
@@ -447,9 +480,9 @@ class OverReactSrc {
 
   String _propsOrStateOrMixinClassName(String type) {
     if (isMixin(annotation)) {
-      return '$baseName${type}Mixin';
+      return '$prefixedBaseName${type}Mixin';
     } else {
-      return '$baseName$type';
+      return '$prefixedBaseName$type';
     }
   }
 

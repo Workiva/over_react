@@ -304,7 +304,7 @@ main() {
             void testReactComponentFactory(String testName, OverReactSrc ors) {
               test(testName, () {
                 setUpAndGenerate(ors.source);
-                final baseName = ors.baseName;
+                final baseName = ors.prefixedBaseName;
                 expect(implGenerator.outputContentsBuffer.toString(), contains(
                     'final \$${baseName}ComponentFactory = registerComponent(() => _\$${baseName}Component(),\n'
                     '    builderFactory: $baseName,\n'
@@ -326,7 +326,7 @@ main() {
             void testReactComponentFactory(String testName, OverReactSrc ors) {
               test(testName, () {
                 setUpAndGenerate(ors.source);
-                final baseName = ors.baseName;
+                final baseName = ors.prefixedBaseName;
                 expect(implGenerator.outputContentsBuffer.toString(), contains(
                     '_\$\$${baseName}Props ${ors.factoryInitializer}([Map backingProps]) => _\$\$${baseName}Props(backingProps);\n'));
               });
@@ -348,7 +348,7 @@ main() {
 
                 test('with the correct class declaration', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
-                      'class _\$\$${ors.baseName}Props${ors.typeParamSrc} '
+                      'class _\$\$${ors.prefixedBaseName}Props${ors.typeParamSrc} '
                       'extends _\$${ors.propsClassName}${ors.typeParamSrcWithoutBounds} '
                       'with _\$${ors.propsClassName}AccessorsMixin${ors.typeParamSrcWithoutBounds} '
                       'implements ${ors.propsClassName}${ors.typeParamSrcWithoutBounds} {'));
@@ -356,7 +356,7 @@ main() {
 
                 test('with the correct constructor', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
-                      '  _\$\$${ors.baseName}Props(Map backingMap) : this._props = {} {\n'
+                      '  _\$\$${ors.prefixedBaseName}Props(Map backingMap) : this._props = {} {\n'
                       '     this._props = backingMap ?? {};\n'
                       '  }'));
                 });
@@ -377,7 +377,7 @@ main() {
                 test('overrides `componentFactory` to return the correct component factory', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
                       '  @override\n'
-                      '  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? \$${ors.baseName}ComponentFactory;\n'));
+                      '  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? \$${ors.prefixedBaseName}ComponentFactory;\n'));
                 });
 
                 test('sets the default prop key namespace', () {
@@ -420,7 +420,7 @@ main() {
 
                 test('with the correct class declaration', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
-                      'class _\$\$${ors.baseName}State${ors.typeParamSrc} '
+                      'class _\$\$${ors.prefixedBaseName}State${ors.typeParamSrc} '
                       'extends _\$${ors.stateClassName}${ors.typeParamSrcWithoutBounds} '
                       'with _\$${ors.stateClassName}AccessorsMixin${ors.typeParamSrcWithoutBounds} '
                       'implements ${ors.stateClassName}${ors.typeParamSrcWithoutBounds} {'));
@@ -428,7 +428,7 @@ main() {
 
                 test('with the correct constructor', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
-                      '  _\$\$${ors.baseName}State(Map backingMap) : this._state = {} {\n'
+                      '  _\$\$${ors.prefixedBaseName}State(Map backingMap) : this._state = {} {\n'
                       '     this._state = backingMap ?? {};\n'
                       '  }'));
                 });

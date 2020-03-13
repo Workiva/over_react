@@ -143,17 +143,17 @@ main() {
               final decl = declarations[0] as LegacyClassComponentDeclaration;
 
               expect(decl.component, isNotNull);
-              expect(decl.factory?.name?.name, ors.baseName);
-              expect(decl.props?.name?.name, '_\$${ors.baseName}Props');
+              expect(decl.factory?.name?.name, ors.prefixedBaseName);
+              expect(decl.props?.name?.name, '_\$${ors.prefixedBaseName}Props');
 
               expect(decl.props.meta, isA<annotations.Props>());
 
               if (isStatefulComponent) {
-                expect(decl.state?.name?.name, '_\$${ors.baseName}State');
+                expect(decl.state?.name?.name, '_\$${ors.prefixedBaseName}State');
                 expect(decl.state.meta, isA<annotations.State>());
               }
 
-              expect(decl.component?.name?.name, '${ors.baseName}Component');
+              expect(decl.component?.name?.name, '${ors.prefixedBaseName}Component');
 
               final boilerplateVersion = backwardsCompatible
                   ? Version.v2_legacyBackwardsCompat
@@ -423,7 +423,7 @@ main() {
 
               expect(decl.props, isNotNull);
 
-              expect(decl.props.name.name, '_\$${ors.baseName}Props');
+              expect(decl.props.name.name, '_\$${ors.prefixedBaseName}Props');
               expect(decl.props.meta, TypeMatcher<annotations.TypedMap>());
             }
 
@@ -453,7 +453,7 @@ main() {
 
               expect(decl.state, isNotNull);
 
-              expect(decl.state.name?.name, '_\$${ors.baseName}State');
+              expect(decl.state.name?.name, '_\$${ors.prefixedBaseName}State');
               expect(decl.state.meta, TypeMatcher<annotations.TypedMap>());
             }
 
