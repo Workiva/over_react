@@ -33,10 +33,7 @@ import 'package:redux/redux.dart';
 part 'over_react_redux.over_react.g.dart';
 
 @PropsMixin(keyNamespace: '')
-abstract class _$ConnectPropsMixin implements UiProps {
-  @override
-  Map get props;
-
+mixin ConnectPropsMixin on UiProps {
   dynamic Function(dynamic action) dispatch;
 }
 

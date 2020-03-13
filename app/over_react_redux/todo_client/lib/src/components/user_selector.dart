@@ -26,20 +26,18 @@ UiFactory<UserSelectorProps> ConnectedUserSelector = connect<AppState, UserSelec
     forwardRef: true
 )(UserSelector);
 
-@Factory()
+
 UiFactory<UserSelectorProps> UserSelector =
     // ignore: undefined_identifier
     _$UserSelector;
 
-@Props()
-class _$UserSelectorProps extends UiProps {
+mixin UserSelectorProps on UiProps {
   String selectedUserId;
   User selectedUser;
   @requiredProp List<User> users;
   @requiredProp Function(String userId) onUserSelect;
 }
 
-@Component2()
 class UserSelectorComponent extends UiComponent2<UserSelectorProps> with RedrawCounterMixin {
   final _overlayRef = createRef<MenuOverlayComponent>();
 
@@ -81,10 +79,4 @@ class UserSelectorComponent extends UiComponent2<UserSelectorProps> with RedrawC
     props.onUserSelect(user.id);
     _overlayRef.current.close();
   }
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class UserSelectorProps extends _$UserSelectorProps with _$UserSelectorPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForUserSelectorProps;
 }

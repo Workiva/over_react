@@ -7,33 +7,27 @@ part of 'over_react_redux.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
-abstract class ConnectPropsMixin implements _$ConnectPropsMixin {
-  @override
-  Map get props;
-
+mixin $ConnectPropsMixin on ConnectPropsMixin {
   static const PropsMeta meta = _$metaForConnectPropsMixin;
-
-  /// <!-- Generated from [_$ConnectPropsMixin.dispatch] -->
   @override
   dynamic Function(dynamic action) get dispatch =>
-      props[_$key__dispatch___$ConnectPropsMixin] ??
+      props[_$key__dispatch__ConnectPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$ConnectPropsMixin.dispatch] -->
   @override
   set dispatch(dynamic Function(dynamic action) value) =>
-      props[_$key__dispatch___$ConnectPropsMixin] = value;
+      props[_$key__dispatch__ConnectPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__dispatch___$ConnectPropsMixin =
-      PropDescriptor(_$key__dispatch___$ConnectPropsMixin);
-  static const String _$key__dispatch___$ConnectPropsMixin = 'dispatch';
+  static const PropDescriptor _$prop__dispatch__ConnectPropsMixin =
+      PropDescriptor(_$key__dispatch__ConnectPropsMixin);
+  static const String _$key__dispatch__ConnectPropsMixin = 'dispatch';
 
   static const List<PropDescriptor> $props = [
-    _$prop__dispatch___$ConnectPropsMixin
+    _$prop__dispatch__ConnectPropsMixin
   ];
-  static const List<String> $propKeys = [_$key__dispatch___$ConnectPropsMixin];
+  static const List<String> $propKeys = [_$key__dispatch__ConnectPropsMixin];
 }
 
 const PropsMeta _$metaForConnectPropsMixin = PropsMeta(
-  fields: ConnectPropsMixin.$props,
-  keys: ConnectPropsMixin.$propKeys,
+  fields: $ConnectPropsMixin.$props,
+  keys: $ConnectPropsMixin.$propKeys,
 );

@@ -29,19 +29,18 @@ UiFactory<TodoAppProps> ConnectedTodoApp = connect<AppState, TodoAppProps>(
     forwardRef: true,
 )(TodoApp);
 
-@Factory()
 UiFactory<TodoAppProps> TodoApp =
     // ignore: undefined_identifier
     _$TodoApp;
 
-@Props()
-class _$TodoAppProps extends UiProps with ConnectPropsMixin {
+mixin TodoAppPropsMixin on UiProps {
   Function(String description) createTodo;
 
   Function(String name) createUser;
 }
 
-@Component2()
+class TodoAppProps = UiProps with TodoAppPropsMixin, ConnectPropsMixin;
+
 class TodoAppComponent extends UiComponent2<TodoAppProps> with RedrawCounterMixin {
   @override
   render() {
@@ -104,10 +103,4 @@ class TodoAppComponent extends UiComponent2<TodoAppProps> with RedrawCounterMixi
       (ConnectedUserList()..addTestId('todo_client.ConnectedUserList'))(),
     );
   }
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class TodoAppProps extends _$TodoAppProps with _$TodoAppPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForTodoAppProps;
 }
