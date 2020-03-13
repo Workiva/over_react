@@ -39,6 +39,32 @@ main() {
         expect(unionB.either, isA<int>());
         expect(unionB.either, 0);
       });
+
+      test(
+          'switchCase calls the corresponding function based on the value and returns the result', () {
+        final calls = [];
+
+        getResult(Union union) {
+          return union.switchCase((a) {
+            calls.add(['a', a]);
+            return 'a return';
+          }, (b) {
+            calls.add(['b', b]);
+            return 'b return';
+          });
+        }
+
+        expect(getResult(unionA), 'a return');
+        expect(calls, [
+          ['a', 'test'],
+        ]);
+
+        calls.clear();
+        expect(getResult(unionB), 'b return');
+        expect(calls, [
+          ['b', 0],
+        ]);
+      });
     });
 
     group('IterableUtil', () {
