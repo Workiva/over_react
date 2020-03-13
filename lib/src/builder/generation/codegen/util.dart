@@ -1,4 +1,6 @@
 import 'package:logging/logging.dart';
+import 'package:meta/meta.dart';
+import 'package:over_react/src/builder/generation/parsing.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:source_span/source_span.dart';
 
@@ -23,6 +25,24 @@ abstract class Generator {
   SourceFile sourceFile;
   StringBuffer outputContentsBuffer;
   Logger logger;
+
+  @protected
+  Version get version;
+
+  @protected
+  String internalGeneratedMemberDeprecationLine({String additionalMessageStringLiteral = ''}) {
+    final string = version.isLegacy
+        ? ''
+        : '@Deprecated('
+            "'This API is for use only within generated code.'"
+            "' Do not reference it in your code, as it may change at any time.'"
+            '$additionalMessageStringLiteral'
+            ')';
+
+    assert(string.isEmpty || string.endsWith('\n'),
+        'code that consumes this relies on there being a trailing newline if it is non-empty');
+    return string;
+  }
 
   void generate();
 }

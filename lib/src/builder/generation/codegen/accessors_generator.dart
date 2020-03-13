@@ -55,10 +55,16 @@ abstract class TypedMapAccessorsGenerator extends Generator {
     final typeParamsOnClass = typeParameters?.toSource() ?? '';
     final typeParamsOnSuper = removeBoundsFromTypeParameters(typeParameters);
 
+    final deprecationLine = internalGeneratedMemberDeprecationLine(
+        additionalMessageStringLiteral: "' EXCEPTION: this may be used in legacy boilerplate until'"
+            "' it is transitioned to the new mixin-based boilerplate.'");
+
     StringBuffer generatedClass = StringBuffer();
     if (version.isLegacy) {
       final implementsClause = 'implements ${names.consumerName}$typeParamsOnSuper';
-      generatedClass.writeln(
+      generatedClass
+          ..write(deprecationLine)
+          ..writeln(
           'abstract class $accessorsMixinName$typeParamsOnClass $implementsClause {\n' +
               '  @override' +
               '  Map get ${type.isProps ? 'props' : 'state'};\n');
@@ -68,7 +74,9 @@ abstract class TypedMapAccessorsGenerator extends Generator {
         generatedClass.write(_copyClassMembers(node));
       }
     } else {
-      generatedClass.writeln(
+      generatedClass
+          ..write(deprecationLine)
+          ..writeln(
           'mixin $accessorsMixinName$typeParamsOnClass on ${names.consumerName}$typeParamsOnSuper {');
       generatedClass.writeln(_generateStaticMetaDecl(names.publicName, type.isProps));
     }
@@ -91,6 +99,7 @@ abstract class TypedMapAccessorsGenerator extends Generator {
     final String metaInstanceName = names.metaConstantName;
 
     final output = StringBuffer();
+    output.write(internalGeneratedMemberDeprecationLine());
     output.writeln('const $metaStructName $metaInstanceName = $metaStructName(');
     output.writeln('  fields: $accessorsMixinName.$fieldListName,');
     output.writeln('  keys: $accessorsMixinName.$keyListName,');

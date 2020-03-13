@@ -38,6 +38,7 @@ abstract class ComponentGenerator extends Generator {
       ..writeln(
           '// Implements typed props/state factories, defaults `consumedPropKeys` to the keys')
       ..writeln('// generated for the associated props class.')
+      ..write(internalGeneratedMemberDeprecationLine())
       ..writeln('class ${componentNames.implName} extends ${componentNames.componentName} {');
 
     if (isComponent2) {
@@ -142,6 +143,9 @@ class _ComponentGenerator extends ComponentGenerator {
         super._();
 
   @override
+  Version get version => declaration.version;
+
+  @override
   bool get isComponent2 => true;
 
   @override
@@ -188,6 +192,9 @@ class _LegacyComponentGenerator extends ComponentGenerator {
             declaration.state == null ? null : TypedMapNames(declaration.state.name.name),
         this.componentNames = ComponentNames(declaration.component.name.name),
         super._();
+
+  @override
+  Version get version => declaration.version;
 
   @override
   bool get isComponent2 => declaration.isComponent2;
