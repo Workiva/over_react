@@ -60,7 +60,7 @@ bool mightContainDeclarations(String source) {
 ///   1. [StateMixinDeclaration]
 ///   // None of the above include any component boilerplate entities, only props or state
 ///   1. [LegacyClassComponentDeclaration] (special case for when there is only 1 of each entity in the file)
-///   1. Any of: [LegacyClassComponentDeclaration], [ClassComponentDeclaration], [FunctionComponentDeclaration], [PropsMapViewDeclaration]
+///   1. Any of: [LegacyClassComponentDeclaration], [ClassComponentDeclaration], [PropsMapViewOrFunctionComponentDeclaration]
 Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     BoilerplateMembers members, ErrorCollector errorCollector) sync* {
   if (members.isEmpty) return;
@@ -649,3 +649,27 @@ const errorNoProps = 'Could not find a matching props class in this file;'
 
 const errorNoComponent = 'Could not find a matching component class in this file;'
     ' this is required to declare a class-based component';
+
+extension BoilerplateDeclarationTestUtils on Iterable<BoilerplateDeclaration> {
+  BoilerplateDeclaration firstWhereNameEquals(String baseName) => this.firstWhere((declaration) {
+    BoilerplateMember member;
+
+    if (declaration is ClassComponentDeclaration) {
+      member = declaration.component;
+    } else if (declaration is LegacyClassComponentDeclaration) {
+      member = declaration.component;
+    } else if (declaration is PropsMixinDeclaration) {
+      member = declaration.mixin;
+    } else if (declaration is StateMixinDeclaration) {
+      member = declaration.mixin;
+    } else if (declaration is LegacyAbstractPropsDeclaration) {
+      member = declaration.props;
+    } else if (declaration is LegacyAbstractStateDeclaration) {
+      member = declaration.state;
+    } else {
+      return null;
+    }
+
+    return member.name.name == '${baseName}Component';
+  }, orElse: () => null);
+}

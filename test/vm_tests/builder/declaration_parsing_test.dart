@@ -27,6 +27,7 @@ import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
 import './util.dart';
+import 'parsing/parsing_helpers.dart';
 
 main() {
   group('ComponentDeclarations', () {
@@ -1091,6 +1092,136 @@ main() {
 
             group('with a mapview name suffix', () {
               sharedMapViewTests(hasMapViewSuffix: true);
+            });
+          });
+        });
+
+        group('multiple components in the same file', () {
+          void testTwoComponents(BoilerplateVersions nonMixinVersion) {
+
+            setUp(() {
+              setUpAndParse('''
+                ${getBoilerplateString(version: BoilerplateVersions.v4, componentBaseName: 'FirstFoo')}
+  
+                ${getBoilerplateString(version: nonMixinVersion, componentBaseName: 'SecondFoo')}
+              ''');
+            });
+
+            test('detects the correct number of components', () {
+              expect(declarations.whereType<ClassComponentDeclaration>().length, 1, reason: 'The mixin boilerplate should be the only thing found.');
+              expect(declarations.whereType<LegacyClassComponentDeclaration>().length, 1, reason: 'The legacy component string should be the only thing found');
+            });
+
+            test('with names that match expectations', () {
+              final mixinBasedMember = declarations.whereType<ClassComponentDeclaration>().firstWhereNameEquals('FirstFoo');
+              final legacyBasedName = declarations.whereType<LegacyClassComponentDeclaration>().firstWhereNameEquals('SecondFoo');
+              expect(mixinBasedMember, isNotNull);
+              expect(legacyBasedName, isNotNull);
+            });
+
+            test('that are the correct version', () {
+              final versionForMixin = resolveVersion(declarations.firstWhereType<ClassComponentDeclaration>().members);
+              final versionForLegacy = resolveVersion(declarations.firstWhereType<LegacyClassComponentDeclaration>().members);
+
+              expect(versionForMixin.version, Version.v4_mixinBased);
+              expect(versionForLegacy.version, nonMixinVersion == BoilerplateVersions.v2 ? Version.v2_legacyBackwardsCompat : Version.v3_legacyDart2Only);
+            });
+          }
+
+          group('and there is one legacy and one is v4_mixinBased', () {
+            group('and the legacy version is a v2_legacyBackwardsCompat component', () {
+              testTwoComponents(BoilerplateVersions.v2);
+            });
+
+            group('and the legacy version is a v3_legacyDart2Only', () {
+              testTwoComponents(BoilerplateVersions.v3);
+            });
+          });
+
+          group('and they are mixin based', () {
+            Iterable<ClassComponentDeclaration> componentDeclarations;
+
+            setUp(() {
+              setUpAndParse('''
+                ${getBoilerplateString(version: BoilerplateVersions.v4, componentBaseName: 'FirstFoo')}
+  
+                ${getBoilerplateString(version: BoilerplateVersions.v4, componentBaseName: 'SecondFoo')}
+              ''');
+
+              componentDeclarations = declarations.whereType<ClassComponentDeclaration>();
+            });
+
+            test('detects the correct number of components', () {
+              expect(componentDeclarations.length, 2, reason: 'There should be two different components.');
+            });
+
+            test('with names that match expectations', () {
+              final firstComponent = componentDeclarations.firstWhereNameEquals('FirstFoo');
+              final secondComponent = componentDeclarations.firstWhereNameEquals('SecondFoo');
+              expect(firstComponent, isNotNull);
+              expect(secondComponent, isNotNull);
+            });
+
+            test('that are the correct version', () {
+              final versionForFirstMixin = resolveVersion(componentDeclarations.firstWhereNameEquals('FirstFoo').members);
+              final versionForSecondMixin = resolveVersion(componentDeclarations.firstWhereNameEquals('SecondFoo').members);
+
+              expect(versionForFirstMixin.version, Version.v4_mixinBased);
+              expect(versionForSecondMixin.version, Version.v4_mixinBased);
+            });
+          });
+
+          group('and there is a mix of abstract and concrete', () {
+            Iterable<LegacyClassComponentDeclaration> componentDeclarations;
+
+            setUp(() {
+              setUpAndParse('''
+                ${OverReactSrc.abstractState(needsComponent: false, baseName: 'StateFoo').source}
+                
+                ${OverReactSrc.abstractProps(needsComponent: false, baseName: 'PropsFoo').source}
+  
+                ${getBoilerplateString(version: BoilerplateVersions.v2, componentBaseName: 'SecondFoo')}
+                
+                ${getBoilerplateString(version: BoilerplateVersions.v3, componentBaseName: 'ThirdFoo')}
+              ''');
+
+              componentDeclarations = declarations.whereType<LegacyClassComponentDeclaration>();
+            });
+
+            test('detects the correct number of components', () {
+              expect(componentDeclarations.length, 2, reason: 'There should be two different components.');
+            });
+
+            test('with names that match expectations', () {
+              final propsComponentDeclaration = componentDeclarations.firstWhereNameEquals('PropsFoo');
+              final stateComponentDeclaration = componentDeclarations.firstWhereNameEquals('StateFoo');
+              final secondComponent = componentDeclarations.firstWhereNameEquals('SecondFoo');
+              final thirdComponent = componentDeclarations.firstWhereNameEquals('ThirdFoo');
+
+              expect(propsComponentDeclaration , isNull);
+              expect(stateComponentDeclaration , isNull);
+              expect(secondComponent, isNotNull);
+              expect(thirdComponent, isNotNull);
+
+              final abstractProps = declarations.whereType<LegacyAbstractPropsDeclaration>();
+              expect(abstractProps.length, 1);
+              expect(abstractProps.first.props.name.name, r'_$PropsFooProps');
+
+              final abstractState = declarations.whereType<LegacyAbstractStateDeclaration>();
+              expect(abstractState.length, 1);
+              expect(abstractState.first.state.name.name, r'_$StateFooState');
+            });
+
+            test('that are the correct version', () {
+              final versionForFirstMixin = resolveVersion(componentDeclarations.firstWhereNameEquals('SecondFoo').members);
+              final versionForSecondMixin = resolveVersion(componentDeclarations.firstWhereNameEquals('ThirdFoo').members);
+              final abstractProps = resolveVersion(declarations.firstWhereType<LegacyAbstractPropsDeclaration>().members);
+              final abstractState = resolveVersion(declarations.firstWhereType<LegacyAbstractStateDeclaration>().members);
+
+              expect(versionForFirstMixin.version, Version.v2_legacyBackwardsCompat);
+              expect(versionForSecondMixin.version, Version.v3_legacyDart2Only);
+              expect(abstractProps.version, Version.v2_legacyBackwardsCompat);
+              expect(abstractState.version, Version.v2_legacyBackwardsCompat);
             });
           });
         });

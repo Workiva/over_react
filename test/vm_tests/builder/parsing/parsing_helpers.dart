@@ -237,7 +237,7 @@ class BoilerplateMemberHelper {
   BoilerplateMemberHelper(String boilerplateString) {
     final unit = parseString(content: boilerplateString).unit;
 
-     members ??= BoilerplateMembers.detect(unit);
+     members = BoilerplateMembers.detect(unit);
 
      _initializeMembers(members);
   }

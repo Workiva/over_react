@@ -21,10 +21,10 @@ import 'parsing_helpers.dart';
 
 main() {
   group('members -', () {
-    BoilerplateMemberHelper memberHelper;
+    BoilerplateMemberHelper mockDeclarationHelper;
 
     setUp(() {
-      memberHelper = BoilerplateMemberHelper.withMockDeclarations();
+      mockDeclarationHelper = BoilerplateMemberHelper.withMockDeclarations();
     });
 
     group('component', () {
@@ -34,11 +34,11 @@ main() {
 
       setUp(() {
         legacyBackwardCompatComponent =
-            memberHelper.components.firstWhere((component) => component.name.name == 'FirstFooComponent');
+            mockDeclarationHelper.components.firstWhere((component) => component.name.name == 'FirstFooComponent');
         legacyComponent =
-            memberHelper.components.firstWhere((component) => component.name.name == 'SecondFooComponent');
+            mockDeclarationHelper.components.firstWhere((component) => component.name.name == 'SecondFooComponent');
         newBoilerplateComponent =
-            memberHelper.components.firstWhere((component) => component.name.name == 'ThirdFooComponent');
+            mockDeclarationHelper.components.firstWhere((component) => component.name.name == 'ThirdFooComponent');
       });
 
       test('propsGenericArg returns the correct props class', () {
