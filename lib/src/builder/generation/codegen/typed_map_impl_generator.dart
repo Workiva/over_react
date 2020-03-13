@@ -365,17 +365,36 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
     if (member is BoilerplatePropsOrStateMixin) {
       return 'class ${names.implName}$typeParamsOnClass'
           ' extends ${isProps ? 'UiProps' : 'UiState'}'
-          ' with ${names.consumerName}$typeParamsOnSuper, ${names.generatedMixinName}';
+          ' with'
+          ' ${names.consumerName}$typeParamsOnSuper,'
+          ' ${names.generatedMixinName}$typeParamsOnSuper';
     } else if (member is BoilerplatePropsOrState) {
       final header = StringBuffer()
-        ..write('class ${names.implName}$typeParamsOnClass '
-            'extends ${names.consumerName}$typeParamsOnSuper');
-
+        ..write('class ${names.implName}$typeParamsOnClass'
+            ' extends ${isProps ? 'UiProps' : 'UiState'}');
       final mixins = member.nodeHelper.mixins;
+
+      // Group the mixins with their generated mixins to avoid issues with covariant overrides.
+      // For this reason, we can't subclass the user-authored class, and have to instead implement
+      // it in order to get the correct mixin order
+      //
+      // For example:
+      //     class FooProps = UiProps with AProps, BProps;
+      // ...becomes:
+      //     class _$FooProps = UiProps with AProps, $AProps, BProps, $BProps implements FooProps;
+      // ...and not:
+      //     class _$FooProps = FooProps with $AProps, $BProps;
+      // ...or its equivalent
+      //     class _$FooProps = UiProps with AProps, BProps, $AProps, $BProps implements FooProps;
       if (mixins.isNotEmpty) {
         header.write(' with ');
-        header.writeAll(mixins.map((m) => TypedMapNames(m.name.name).generatedMixinName), ', ');
+        header.writeAll(mixins.expand((m) {
+          final names = TypedMapNames(m.name.name);
+          return [names.consumerName, names.generatedMixinName];
+        }), ', ');
       }
+
+      header.write(' implements ${names.consumerName}$typeParamsOnSuper');
 
       return header.toString();
     } else {
