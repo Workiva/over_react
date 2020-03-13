@@ -41,31 +41,33 @@ UiFactory<UserListItemProps> ConnectedUserListItem = connect<AppState, UserListI
   },
 )(UserListItem);
 
-@Factory()
+
 UiFactory<UserListItemProps> UserListItem =
     // ignore: undefined_identifier
     _$UserListItem;
 
-@Props()
-class _$UserListItemProps extends UiProps
-    with ListItemPropsMixin,
-         // ignore: mixin_of_non_class, undefined_class
-         $ListItemPropsMixin {
+
+mixin UserListItemPropsMixin on UiProps
+     {
   @requiredProp
   @override
   User model;
 }
 
-@State()
-class _$UserListItemState extends UiState
-    with ListItemStateMixin,
-         // ignore: mixin_of_non_class, undefined_class
-         $ListItemStateMixin {
+
+class UserListItemProps = UiProps with UserListItemPropsMixin, ListItemPropsMixin;
+
+
+mixin UserListItemStateMixin on UiState
+     {
   @override
   User localModel;
 }
 
-@Component2()
+
+class UserListItemState = UiState with UserListItemStateMixin, ListItemStateMixin;
+
+
 class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, UserListItemState>
     with ListItemMixin<User, UserListItemProps, UserListItemState>, RedrawCounterMixin {
   @override
@@ -211,13 +213,7 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
 }
 
 // ignore: mixin_of_non_class, undefined_class
-class UserListItemProps extends _$UserListItemProps with _$UserListItemPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForUserListItemProps;
-}
+
 
 // ignore: mixin_of_non_class, undefined_class
-class UserListItemState extends _$UserListItemState with _$UserListItemStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaForUserListItemState;
-}
+

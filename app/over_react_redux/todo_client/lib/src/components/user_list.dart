@@ -19,18 +19,21 @@ UiFactory<UserListProps> ConnectedUserList = connect<AppState, UserListProps>(
     forwardRef: true,
 )(UserList);
 
-@Factory()
+
 UiFactory<UserListProps> UserList =
     // ignore: undefined_identifier
     _$UserList;
 
-@Props()
-class _$UserListProps extends UiProps with ConnectPropsMixin {
+
+mixin UserListPropsMixin on UiProps  {
   @requiredProp
   List<User> users;
 }
 
-@Component2()
+
+class UserListProps = UiProps with UserListPropsMixin, ConnectPropsMixin;
+
+
 class UserListComponent extends UiComponent2<UserListProps> with RedrawCounterMixin {
   @override
   render() {
@@ -52,7 +55,4 @@ class UserListComponent extends UiComponent2<UserListProps> with RedrawCounterMi
 }
 
 // ignore: mixin_of_non_class, undefined_class
-class UserListProps extends _$UserListProps with _$UserListPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForUserListProps;
-}
+

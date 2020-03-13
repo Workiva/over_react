@@ -23,19 +23,25 @@ UiFactory<AppBarLocalStorageMenuProps> ConnectedAppBarLocalStorageMenu = connect
     },
 )(AppBarLocalStorageMenu);
 
-@Factory()
+
 UiFactory<AppBarLocalStorageMenuProps> AppBarLocalStorageMenu =
     // ignore: undefined_identifier
     _$AppBarLocalStorageMenu;
 
-@Props()
-class _$AppBarLocalStorageMenuProps extends MenuOverlayProps with ConnectPropsMixin {
+
+mixin AppBarLocalStorageMenuPropsMixin on UiProps  {
   String currentDataSetName;
   List<String> savedLocalStorageStateNames;
   bool currentDataHasBeenModified;
 }
 
-@Component2()
+
+// FIXME:
+//   1. Ensure that all mixins used by MenuOverlayProps are also mixed into this class.
+//   2. Fix any analyzer warnings on this class about missing mixins.
+class AppBarLocalStorageMenuProps = UiProps with MenuOverlayProps,AppBarLocalStorageMenuPropsMixin, ConnectPropsMixin;
+
+
 class AppBarLocalStorageMenuComponent extends UiComponent2<AppBarLocalStorageMenuProps> {
   final _overlayRef = createRef<MenuOverlayComponent>();
   bool get _currentStateKeyIsReadOnly => TodoAppLocalStorage.reservedStateKeys.contains(props.currentDataSetName);
@@ -139,7 +145,4 @@ class AppBarLocalStorageMenuComponent extends UiComponent2<AppBarLocalStorageMen
 }
 
 // ignore: mixin_of_non_class, undefined_class
-class AppBarLocalStorageMenuProps extends _$AppBarLocalStorageMenuProps with _$AppBarLocalStorageMenuPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForAppBarLocalStorageMenuProps;
-}
+

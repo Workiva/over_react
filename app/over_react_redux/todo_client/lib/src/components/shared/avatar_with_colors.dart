@@ -9,17 +9,17 @@ import 'package:todo_client/src/components/shared/material_ui.dart';
 // ignore: uri_has_not_been_generated
 part 'avatar_with_colors.over_react.g.dart';
 
-@Factory()
+
 UiFactory<AvatarWithColorsProps> AvatarWithColors =
     // ignore: undefined_identifier
     _$AvatarWithColors;
 
-@Props()
-class _$AvatarWithColorsProps extends UiProps {
+
+mixin AvatarWithColorsProps on UiProps {
   String fullName;
 }
 
-@Component2()
+
 class AvatarWithColorsComponent extends UiComponent2<AvatarWithColorsProps> {
   @override
   render() {
@@ -84,7 +84,4 @@ class AvatarWithColorsComponent extends UiComponent2<AvatarWithColorsProps> {
 }
 
 // ignore: mixin_of_non_class, undefined_class
-class AvatarWithColorsProps extends _$AvatarWithColorsProps with _$AvatarWithColorsPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForAvatarWithColorsProps;
-}
+
