@@ -871,7 +871,4 @@ class StateMetaCollection extends _AccessorMetaCollection<StateDescriptor, State
 
   @override
   StateMeta get _emptyMeta => const StateMeta(fields: [], keys: []);
-
-  @override
-  List<StateDescriptor> get state => fields;
 }
