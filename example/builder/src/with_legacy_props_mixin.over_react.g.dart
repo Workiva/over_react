@@ -30,8 +30,13 @@ _$$BasicProps _$Basic([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$BasicProps extends BasicProps
-    with $BasicPropsMixin, $TransitionPropsMixin {
+abstract class _$$BasicProps extends UiProps
+    with
+        BasicPropsMixin,
+        $BasicPropsMixin,
+        TransitionPropsMixin,
+        $TransitionPropsMixin
+    implements BasicProps {
   _$$BasicProps._();
 
   factory _$$BasicProps(Map backingMap) {

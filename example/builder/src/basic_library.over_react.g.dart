@@ -31,8 +31,13 @@ _$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$BasicPartOfLibProps extends BasicPartOfLibProps
-    with $ExamplePropsMixin, $BasicPartOfLibPropsMixin {
+abstract class _$$BasicPartOfLibProps extends UiProps
+    with
+        ExamplePropsMixin,
+        $ExamplePropsMixin,
+        BasicPartOfLibPropsMixin,
+        $BasicPartOfLibPropsMixin
+    implements BasicPartOfLibProps {
   _$$BasicPartOfLibProps._();
 
   factory _$$BasicPartOfLibProps(Map backingMap) {
@@ -99,8 +104,13 @@ class _$$BasicPartOfLibProps$JsMap extends _$$BasicPartOfLibProps {
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$BasicPartOfLibState extends BasicPartOfLibState
-    with $ExampleStateMixin, $BasicPartOfLibStateMixin {
+abstract class _$$BasicPartOfLibState extends UiState
+    with
+        ExampleStateMixin,
+        $ExampleStateMixin,
+        BasicPartOfLibStateMixin,
+        $BasicPartOfLibStateMixin
+    implements BasicPartOfLibState {
   _$$BasicPartOfLibState._();
 
   factory _$$BasicPartOfLibState(Map backingMap) {
@@ -380,8 +390,13 @@ _$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$SubPartOfLibProps extends SubPartOfLibProps
-    with $SuperPartOfLibPropsMixin, $SubPartOfLibPropsMixin {
+abstract class _$$SubPartOfLibProps extends UiProps
+    with
+        SuperPartOfLibPropsMixin,
+        $SuperPartOfLibPropsMixin,
+        SubPartOfLibPropsMixin,
+        $SubPartOfLibPropsMixin
+    implements SubPartOfLibProps {
   _$$SubPartOfLibProps._();
 
   factory _$$SubPartOfLibProps(Map backingMap) {

@@ -30,8 +30,9 @@ _$$GenericSuperProps _$GenericSuper([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$GenericSuperProps extends GenericSuperProps
-    with $GenericSuperPropsMixin {
+abstract class _$$GenericSuperProps extends UiProps
+    with GenericSuperPropsMixin, $GenericSuperPropsMixin
+    implements GenericSuperProps {
   _$$GenericSuperProps._();
 
   factory _$$GenericSuperProps(Map backingMap) {

@@ -30,8 +30,13 @@ _$$GenericSubProps _$GenericSub([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$GenericSubProps extends GenericSubProps
-    with $GenericSuperPropsMixin, $GenericSubPropsMixin {
+abstract class _$$GenericSubProps extends UiProps
+    with
+        GenericSuperPropsMixin,
+        $GenericSuperPropsMixin,
+        GenericSubPropsMixin,
+        $GenericSubPropsMixin
+    implements GenericSubProps {
   _$$GenericSubProps._();
 
   factory _$$GenericSubProps(Map backingMap) {
@@ -98,8 +103,13 @@ class _$$GenericSubProps$JsMap extends _$$GenericSubProps {
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$GenericSubState extends GenericSubState
-    with $GenericSuperStateMixin, $GenericSubStateMixin {
+abstract class _$$GenericSubState extends UiState
+    with
+        GenericSuperStateMixin,
+        $GenericSuperStateMixin,
+        GenericSubStateMixin,
+        $GenericSubStateMixin
+    implements GenericSubState {
   _$$GenericSubState._();
 
   factory _$$GenericSubState(Map backingMap) {

@@ -31,8 +31,9 @@ _$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$ComponentTestProps extends ComponentTestProps
-    with $ComponentTestPropsMixin {
+abstract class _$$ComponentTestProps extends UiProps
+    with ComponentTestPropsMixin, $ComponentTestPropsMixin
+    implements ComponentTestProps {
   _$$ComponentTestProps._();
 
   factory _$$ComponentTestProps(Map backingMap) {
