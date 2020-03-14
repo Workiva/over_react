@@ -31,7 +31,7 @@ _$$BasicProps _$Basic([Map backingProps]) => backingProps == null
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$BasicProps<T, U extends UiProps> extends UiProps
-    with BasicPropsMixin, $BasicPropsMixin
+    with BasicPropsMixin<T, U>, $BasicPropsMixin<T, U>
     implements BasicProps<T, U> {
   _$$BasicProps._();
 
