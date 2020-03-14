@@ -9,13 +9,10 @@ UiFactory<ShouldNotUpdateProps> ConnectedShouldNotUpdate = connect<RandomColorSt
   mapStateToProps: (_) => {},
 )(ShouldNotUpdate);
 
-@Factory()
 UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = _$ShouldNotUpdate;
 
-@Props()
-class _$ShouldNotUpdateProps extends UiProps {}
+mixin ShouldNotUpdateProps on UiProps {}
 
-@Component2()
 class ShouldNotUpdateComponent extends UiComponent2<ShouldNotUpdateProps> {
   @override
   render() {

@@ -9,13 +9,10 @@ UiFactory<ShouldNotUpdateProps> ConnectedShouldNotUpdate = connect<ReduxState, S
   mapStateToProps: (_) => {},
 )(ShouldNotUpdate);
 
-@Factory()
 UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = _$ShouldNotUpdate;
 
-@Props()
-class _$ShouldNotUpdateProps extends UiProps {}
+mixin ShouldNotUpdateProps on UiProps {}
 
-@Component2()
 class ShouldNotUpdateComponent extends UiComponent2<ShouldNotUpdateProps> {
   @override
   render() {

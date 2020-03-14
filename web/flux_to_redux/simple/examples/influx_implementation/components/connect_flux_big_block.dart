@@ -22,17 +22,16 @@ UiFactory<ConnectFluxBigBlockProps> ConnectedConnectFluxBigBlock =
       (ConnectFluxBigBlock()..changeBackgroundColor = actions.changeBackgroundColor),
 )(ConnectFluxBigBlock);
 
-@Factory()
 UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock = _$ConnectFluxBigBlock;
 
-@Props()
-class _$ConnectFluxBigBlockProps extends UiProps with ConnectPropsMixin {
+mixin ConnectFluxBigBlockPropsMixin on UiProps {
   String backgroundColor; // [1]
 
   void Function() changeBackgroundColor; // [2]
 }
 
-@Component2()
+class ConnectFluxBigBlockProps = UiProps with ConnectFluxBigBlockPropsMixin, ConnectPropsMixin;
+
 class ConnectFluxBigBlockComponent extends UiComponent2<ConnectFluxBigBlockProps> {
   @override
   render() {

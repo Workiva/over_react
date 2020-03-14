@@ -6,11 +6,10 @@ part 'button_group.over_react.g.dart';
 /// Groups a series of [Button]s together on a single line.
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/button-group/>.
-@Factory()
+
 UiFactory<ButtonGroupProps> ButtonGroup = _$ButtonGroup;
 
-@Props()
-class _$ButtonGroupProps extends UiProps {
+mixin ButtonGroupProps on UiProps {
   /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#sizing>.
@@ -29,14 +28,12 @@ class _$ButtonGroupProps extends UiProps {
   bool isVertical;
 }
 
-@State()
-class _$ButtonGroupState extends UiState {}
+mixin ButtonGroupState on UiState {}
 
-@Component2()
 class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupState>
     extends UiStatefulComponent2<T, S> {
   @override
-   get defaultProps => (newProps()
+  get defaultProps => (newProps()
     ..size = ButtonGroupSize.DEFAULT
     ..isVertical = false
   );

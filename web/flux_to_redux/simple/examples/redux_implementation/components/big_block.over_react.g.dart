@@ -10,6 +10,8 @@ part of 'big_block.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $BigBlockComponentFactory = registerComponent2(
   () => _$BigBlockComponent(),
   builderFactory: BigBlock,
@@ -19,58 +21,6 @@ final $BigBlockComponentFactory = registerComponent2(
   displayName: 'BigBlock',
 );
 
-abstract class _$BigBlockPropsAccessorsMixin implements _$BigBlockProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$BigBlockProps.backgroundColor] -->
-  @override
-  String get backgroundColor =>
-      props[_$key__backgroundColor___$BigBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BigBlockProps.backgroundColor] -->
-  @override
-  set backgroundColor(String value) =>
-      props[_$key__backgroundColor___$BigBlockProps] = value;
-
-  /// <!-- Generated from [_$BigBlockProps.changeBackgroundColor] -->
-  @override
-  void Function() get changeBackgroundColor =>
-      props[_$key__changeBackgroundColor___$BigBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BigBlockProps.changeBackgroundColor] -->
-  @override
-  set changeBackgroundColor(void Function() value) =>
-      props[_$key__changeBackgroundColor___$BigBlockProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__backgroundColor___$BigBlockProps =
-      PropDescriptor(_$key__backgroundColor___$BigBlockProps);
-  static const PropDescriptor _$prop__changeBackgroundColor___$BigBlockProps =
-      PropDescriptor(_$key__changeBackgroundColor___$BigBlockProps);
-  static const String _$key__backgroundColor___$BigBlockProps =
-      'BigBlockProps.backgroundColor';
-  static const String _$key__changeBackgroundColor___$BigBlockProps =
-      'BigBlockProps.changeBackgroundColor';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__backgroundColor___$BigBlockProps,
-    _$prop__changeBackgroundColor___$BigBlockProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__backgroundColor___$BigBlockProps,
-    _$key__changeBackgroundColor___$BigBlockProps
-  ];
-}
-
-const PropsMeta _$metaForBigBlockProps = PropsMeta(
-  fields: _$BigBlockPropsAccessorsMixin.$props,
-  keys: _$BigBlockPropsAccessorsMixin.$propKeys,
-);
-
-class BigBlockProps extends _$BigBlockProps with _$BigBlockPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForBigBlockProps;
-}
-
 _$$BigBlockProps _$BigBlock([Map backingProps]) => backingProps == null
     ? _$$BigBlockProps$JsMap(JsBackedMap())
     : _$$BigBlockProps(backingProps);
@@ -78,9 +28,10 @@ _$$BigBlockProps _$BigBlock([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$BigBlockProps extends _$BigBlockProps
-    with _$BigBlockPropsAccessorsMixin
-    implements BigBlockProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$BigBlockProps extends UiProps
+    with BigBlockProps, $BigBlockProps {
   _$$BigBlockProps._();
 
   factory _$$BigBlockProps(Map backingMap) {
@@ -102,10 +53,12 @@ abstract class _$$BigBlockProps extends _$BigBlockProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'BigBlockProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$BigBlockProps$PlainMap extends _$$BigBlockProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -123,6 +76,8 @@ class _$$BigBlockProps$PlainMap extends _$$BigBlockProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$BigBlockProps$JsMap extends _$$BigBlockProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -142,6 +97,8 @@ class _$$BigBlockProps$JsMap extends _$$BigBlockProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$BigBlockComponent extends BigBlockComponent {
   _$$BigBlockProps$JsMap _cachedTypedProps;
 
@@ -173,10 +130,62 @@ class _$BigBlockComponent extends BigBlockComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$BigBlockProps.
+  /// The default consumed props, taken from BigBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForBigBlockProps
   ];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        BigBlockProps: $BigBlockProps.meta,
+      });
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $BigBlockProps on BigBlockProps {
+  static const PropsMeta meta = _$metaForBigBlockProps;
+  @override
+  String get backgroundColor =>
+      props[_$key__backgroundColor__BigBlockProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set backgroundColor(String value) =>
+      props[_$key__backgroundColor__BigBlockProps] = value;
+  @override
+  void Function() get changeBackgroundColor =>
+      props[_$key__changeBackgroundColor__BigBlockProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set changeBackgroundColor(void Function() value) =>
+      props[_$key__changeBackgroundColor__BigBlockProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__backgroundColor__BigBlockProps =
+      PropDescriptor(_$key__backgroundColor__BigBlockProps);
+  static const PropDescriptor _$prop__changeBackgroundColor__BigBlockProps =
+      PropDescriptor(_$key__changeBackgroundColor__BigBlockProps);
+  static const String _$key__backgroundColor__BigBlockProps =
+      'BigBlockProps.backgroundColor';
+  static const String _$key__changeBackgroundColor__BigBlockProps =
+      'BigBlockProps.changeBackgroundColor';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__backgroundColor__BigBlockProps,
+    _$prop__changeBackgroundColor__BigBlockProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__backgroundColor__BigBlockProps,
+    _$key__changeBackgroundColor__BigBlockProps
+  ];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForBigBlockProps = PropsMeta(
+  fields: $BigBlockProps.$props,
+  keys: $BigBlockProps.$propKeys,
+);

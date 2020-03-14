@@ -27,11 +27,9 @@ UiFactory<RandomColorReduxProps> ConnectedRandomColorRedux = connect<ReduxState,
     }),
 )(RandomColorRedux);
 
-@Factory()
 UiFactory<RandomColorReduxProps> RandomColorRedux = _$RandomColorRedux;
 
-@Props()
-class _$RandomColorReduxProps extends UiProps with ConnectPropsMixin {
+mixin RandomColorReduxPropsMixin on UiProps {
   String backgroundColor;
 
   String blockTwoBackgroundColor;
@@ -49,7 +47,8 @@ class _$RandomColorReduxProps extends UiProps with ConnectPropsMixin {
   void Function() changeBlockThreeBackgroundColor;
 }
 
-@Component2()
+class RandomColorReduxProps = UiProps with RandomColorReduxPropsMixin, ConnectPropsMixin;
+
 class RandomColorReduxComponent extends UiComponent2<RandomColorReduxProps> {
   @override
   render() {

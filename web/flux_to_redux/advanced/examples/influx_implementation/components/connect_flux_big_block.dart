@@ -50,11 +50,9 @@ UiFactory<ConnectFluxBigBlockProps> ConnectedConnectFluxBigBlock = composeHocs([
   ),
 ])(ConnectFluxBigBlock);
 
-@Factory()
 UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock = _$ConnectFluxBigBlock;
 
-@Props()
-class _$ConnectFluxBigBlockProps extends UiProps with ConnectPropsMixin {
+mixin ConnectFluxBigBlockPropsMixin on UiProps {
   String backgroundColor; // [1]
   String blockTwoBackgroundColor; // [1]
   String blockThreeBackgroundColor; // [1]
@@ -66,7 +64,8 @@ class _$ConnectFluxBigBlockProps extends UiProps with ConnectPropsMixin {
   void Function() changeBlockThreeBackgroundColor; // [2]
 }
 
-@Component2()
+class ConnectFluxBigBlockProps = UiProps with ConnectFluxBigBlockPropsMixin, ConnectPropsMixin;
+
 class ConnectFluxBigBlockComponent extends UiComponent2<ConnectFluxBigBlockProps> {
   @override
   render() {

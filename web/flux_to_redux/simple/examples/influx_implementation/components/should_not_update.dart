@@ -10,15 +10,12 @@ UiFactory<ShouldNotUpdateProps> ConnectedShouldNotUpdate = connect<FluxStore, Sh
   pure: false,
 )(ShouldNotUpdate);
 
-@Factory()
 UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = _$ShouldNotUpdate;
 
-@Props()
-class _$ShouldNotUpdateProps extends UiProps {
+mixin ShouldNotUpdateProps on UiProps {
   String text;
 }
 
-@Component2()
 class ShouldNotUpdateComponent extends UiComponent2<ShouldNotUpdateProps> {
   @override
   render() {

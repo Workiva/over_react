@@ -10,17 +10,14 @@ UiFactory<BigBlockProps> ConnectedBigBlock = connect<RandomColorState, BigBlockP
   mapDispatchToProps: (dispatch) => (BigBlock()..changeBackgroundColor = () => dispatch(UpdateBackgroundColorAction())),
 )(BigBlock);
 
-@Factory()
 UiFactory<BigBlockProps> BigBlock = _$BigBlock;
 
-@Props()
-class _$BigBlockProps extends UiProps {
+mixin BigBlockProps on UiProps {
   String backgroundColor;
 
   void Function() changeBackgroundColor;
 }
 
-@Component2()
 class BigBlockComponent extends UiComponent2<BigBlockProps> {
   @override
   render() {

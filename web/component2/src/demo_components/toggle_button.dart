@@ -9,12 +9,10 @@ part 'toggle_button.over_react.g.dart';
 /// or `<input type="radio">` elements that look like a [Button].
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#checkbox-and-radio-buttons>
-@Factory()
+
 UiFactory<ToggleButtonProps> ToggleButton = _$ToggleButton;
 
-@Props()
-class _$ToggleButtonProps extends ButtonProps with
-    AbstractInputPropsMixin {
+mixin ToggleButtonPropsMixin on UiProps {
   /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
   ///
   /// _Proxies [DomProps.autoFocus]._
@@ -53,9 +51,9 @@ class _$ToggleButtonProps extends ButtonProps with
   bool checked;
 }
 
-@State()
-class _$ToggleButtonState extends ButtonState with
-    AbstractInputStateMixin {
+class ToggleButtonProps = UiProps with ButtonProps, ToggleButtonPropsMixin, AbstractInputPropsMixin;
+
+mixin ToggleButtonStateMixin on UiState {
   /// Tracks if the [ToggleButton] is focused. Determines whether to render with the `js-focus` CSS
   /// class.
   ///
@@ -68,6 +66,8 @@ class _$ToggleButtonState extends ButtonState with
   bool isChecked;
 }
 
+class ToggleButtonState = UiState with ButtonState, ToggleButtonStateMixin, AbstractInputStateMixin;
+
 @Component2(subtypeOf: ButtonComponent)
 class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleButtonState> {
   // Refs
@@ -76,24 +76,24 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   InputElement inputRef;
 
   @override
-   get defaultProps => (newProps()
+  get defaultProps => (newProps()
     ..addProps(super.defaultProps)
     ..toggleType = ToggleBehaviorType.CHECKBOX
   );
 
   @override
-   get initialState => (newState()
+  get initialState => (newState()
     ..id = 'toggle_button_' + generateGuid()
     ..isFocused = props.autoFocus
     ..isChecked = props.checked ?? props.defaultChecked ?? false
   );
 
   @override
-  get consumedProps => const [
-    ToggleButtonProps.meta,
-    ButtonProps.meta,
-    AbstractInputPropsMixin.meta,
-  ];
+  get consumedProps => [
+        propsMeta.forMixin(ToggleButtonPropsMixin),
+        propsMeta.forMixin(ButtonProps),
+        propsMeta.forMixin(AbstractInputPropsMixin),
+      ];
 
   @override
   void componentDidMount() {
