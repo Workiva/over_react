@@ -7,6 +7,10 @@ part of 'flux_component.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $FluxUiPropsMixin<ActionsT, StoresT>
     on FluxUiPropsMixin<ActionsT, StoresT> {
   static const PropsMeta meta = _$metaForFluxUiPropsMixin;
@@ -16,6 +20,8 @@ mixin $FluxUiPropsMixin<ActionsT, StoresT>
   static const List<String> $propKeys = [];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForFluxUiPropsMixin = PropsMeta(
   fields: $FluxUiPropsMixin.$props,
   keys: $FluxUiPropsMixin.$propKeys,

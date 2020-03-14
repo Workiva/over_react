@@ -7,6 +7,10 @@ part of 'over_react_redux.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
 mixin $ConnectPropsMixin on ConnectPropsMixin {
   static const PropsMeta meta = _$metaForConnectPropsMixin;
   @override
@@ -27,6 +31,8 @@ mixin $ConnectPropsMixin on ConnectPropsMixin {
   static const List<String> $propKeys = [_$key__dispatch__ConnectPropsMixin];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForConnectPropsMixin = PropsMeta(
   fields: $ConnectPropsMixin.$props,
   keys: $ConnectPropsMixin.$propKeys,
