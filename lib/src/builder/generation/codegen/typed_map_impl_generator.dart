@@ -389,8 +389,12 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
       if (mixins.isNotEmpty) {
         header.write(' with ');
         header.writeAll(mixins.expand((m) {
+          final typeArguments = m.typeArguments?.toSource() ?? '';
           final names = TypedMapNames(m.name.name);
-          return [names.consumerName, names.generatedMixinName];
+          return [
+            '${names.consumerName}$typeArguments',
+            '${names.generatedMixinName}$typeArguments',
+          ];
         }), ', ');
       }
 
