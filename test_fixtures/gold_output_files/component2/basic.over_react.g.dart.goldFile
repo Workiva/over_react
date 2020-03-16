@@ -237,5 +237,5 @@ class _$Basic2Component extends Basic2Component {
   /// The default consumed props, taken from _$BasicProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForBasicProps];
+  List<ConsumedProps> get $defaultConsumedProps => const [_$metaForBasicProps];
 }
