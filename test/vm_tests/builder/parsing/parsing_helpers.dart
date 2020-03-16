@@ -250,19 +250,19 @@ class BoilerplateMemberHelper {
     _initializeMembers(members);
   }
 
-  static BoilerplateMembers getAllExampleBoilerplateMembers([String content]) {
+  static BoilerplateMembers getBoilerplateMembersFromString([String content]) {
     final unit = parseString(content: content ?? mockComponentDeclarations).unit;
 
     return BoilerplateMembers.detect(unit);
   }
 
-  static Iterable<BoilerplateMember> getBoilerplateMembersFor(BoilerplateVersions version, {String componentBaseName}) {
+  static Iterable<BoilerplateMember> getBoilerplateMembersForVersion(BoilerplateVersions version, {String componentBaseName}) {
     final unit = parseString(content: getBoilerplateString(version: version, componentBaseName: componentBaseName)).unit;
 
     return BoilerplateMembers.detect(unit).allMembers;
   }
 
-  static Iterable<BoilerplateMember> parseAndReturnMembers(String content) => getAllExampleBoilerplateMembers(content).allMembers;
+  static Iterable<BoilerplateMember> parseAndReturnMembers(String content) => getBoilerplateMembersFromString(content).allMembers;
 
   void _initializeMembers(BoilerplateMembers members) {
     factories = members.factories;

@@ -14,9 +14,12 @@
 
 @TestOn('vm')
 import 'package:over_react/src/builder/generation/parsing.dart';
+import 'package:over_react/src/component_declaration/annotations.dart';
+import 'package:meta/meta.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
+import '../util.dart';
 import 'parsing_helpers.dart';
 
 main() {
@@ -33,12 +36,12 @@ main() {
       BoilerplateComponent newBoilerplateComponent;
 
       setUp(() {
-        legacyBackwardCompatComponent =
-            mockDeclarationHelper.components.firstWhere((component) => component.name.name == 'FirstFooComponent');
-        legacyComponent =
-            mockDeclarationHelper.components.firstWhere((component) => component.name.name == 'SecondFooComponent');
-        newBoilerplateComponent =
-            mockDeclarationHelper.components.firstWhere((component) => component.name.name == 'ThirdFooComponent');
+        legacyBackwardCompatComponent = mockDeclarationHelper.components
+            .firstWhere((component) => component.name.name == 'FirstFooComponent');
+        legacyComponent = mockDeclarationHelper.components
+            .firstWhere((component) => component.name.name == 'SecondFooComponent');
+        newBoilerplateComponent = mockDeclarationHelper.components
+            .firstWhere((component) => component.name.name == 'ThirdFooComponent');
       });
 
       test('propsGenericArg returns the correct props class', () {
@@ -70,17 +73,17 @@ main() {
 
       test('isComponent2 returns the correct value', () {
         expect(
-            BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v2)
+            BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v2)
                 .firstWhereType<BoilerplateComponent>()
                 .isComponent2(Version.v2_legacyBackwardsCompat),
             false);
         expect(
-            BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v3)
+            BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v3)
                 .firstWhereType<BoilerplateComponent>()
                 .isComponent2(Version.v3_legacyDart2Only),
             false);
         expect(
-            BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v4)
+            BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v4)
                 .firstWhereType<BoilerplateComponent>()
                 .isComponent2(Version.v4_mixinBased),
             true);
@@ -105,7 +108,7 @@ main() {
           group('the component is a', () {
             for (final version in BoilerplateVersions.values) {
               test('${versionDescriptions[version]} component', () {
-                final members = BoilerplateMemberHelper.getBoilerplateMembersFor(version);
+                final members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(version);
                 final component = members.whereType<BoilerplateComponent>().first;
                 final componentVersion = resolveVersion(members).version;
                 file = SourceFile.fromString(getBoilerplateString(version: version));
@@ -168,7 +171,8 @@ main() {
                       // Grab the boilerplate with the deprecated lifecycle method
                       final componentString = getBoilerplateString(
                           deprecatedLifecycleMethod: lifecycle, version: version);
-                      final members = BoilerplateMemberHelper.parseAndReturnMembers(componentString);
+                      final members =
+                          BoilerplateMemberHelper.parseAndReturnMembers(componentString);
                       final component = members.whereType<BoilerplateComponent>().first;
                       final componentVersion = resolveVersion(members).version;
                       file = SourceFile.fromString(componentString);
@@ -789,6 +793,106 @@ main() {
         warnList = <String>[];
         file = null;
         collector = null;
+      });
+
+      group('getPropsOrStateAnnotation', () {
+        Iterable<BoilerplateMember> members;
+        String source;
+
+        tearDown(() {
+          members = null;
+          source = null;
+        });
+
+        setUpAndTestMeta(
+            {@required bool isProps,
+            @required isAbstract,
+            @required String source,
+            isMixin = false}) {
+          members = BoilerplateMemberHelper.getBoilerplateMembersFromString(source).allMembers;
+
+          BoilerplateMember memberClass = members.firstWhere((member) {
+            if (isMixin) {
+              return member is BoilerplatePropsOrStateMixin && member.isProps == isProps;
+            } else {
+              return member is BoilerplatePropsOrState && member.isProps == isProps;
+            }
+          });
+
+          expect(memberClass, isNotNull, reason: 'Sanity check');
+
+          final annotation = getPropsOrStateAnnotation(isProps, memberClass.node);
+
+          if (isAbstract) {
+            if (isProps) {
+              expect(annotation is AbstractProps, isTrue);
+            } else {
+              expect(annotation is AbstractState, isTrue);
+            }
+          } else {
+            if (isProps) {
+              expect(annotation is Props, isTrue);
+            } else {
+              expect(annotation is State, isTrue);
+            }
+          }
+
+          expect(memberClass.meta.runtimeType, annotation.runtimeType);
+        }
+
+        group('and the node is a props or state class -', () {
+          setUp(() {
+            source = OverReactSrc.state().source;
+          });
+
+          test('props', () {
+            setUpAndTestMeta(isProps: true, isAbstract: false, source: source);
+          });
+
+          test('state', () {
+            setUpAndTestMeta(isProps: false, isAbstract: false, source: source);
+          });
+
+          group('and the class is abstract -', () {
+            test('props', () {
+              setUpAndTestMeta(
+                  isProps: true, isAbstract: true, source: OverReactSrc.abstractProps().source);
+            });
+
+            test('state', () {
+              setUpAndTestMeta(
+                  isProps: false, isAbstract: true, source: OverReactSrc.abstractState().source);
+            });
+          });
+        });
+
+        group('and the node is a props or state mixin', () {
+          setUp(() {
+            source = OverReactSrc.mixinBasedBoilerplateState(shouldIncludeAnnotations: true).source;
+          });
+
+          test('props', () {
+            setUpAndTestMeta(isProps: true, isAbstract: false, isMixin: true, source: source);
+          });
+
+          test('state', () {
+            setUpAndTestMeta(isProps: false, isAbstract: false, isMixin: true, source: source);
+          });
+
+          group('and there are no annotations-', () {
+            setUp(() {
+              source = OverReactSrc.mixinBasedBoilerplateState().source;
+            });
+
+            test('props', () {
+              setUpAndTestMeta(isProps: true, isAbstract: false, isMixin: true, source: source);
+            });
+
+            test('state', () {
+              setUpAndTestMeta(isProps: false, isAbstract: false, isMixin: true, source: source);
+            });
+          });
+        });
       });
 
       group('checkForMetaPresence', () {
