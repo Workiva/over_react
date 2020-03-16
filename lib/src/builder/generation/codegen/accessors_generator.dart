@@ -410,13 +410,21 @@ class _LegacyTypedMapAccessorsGenerator extends TypedMapAccessorsGenerator {
       return '';
     }
 
-    final typeParameters = node.asClassish().typeParameters;
+    final classishNode = node.asClassish();
+    final metadata = classishNode.metadata;
+    final typeParameters = classishNode.typeParameters;
     final typeParamsOnClass = typeParameters?.toSource() ?? '';
     final typeParamsOnSuper = removeBoundsFromTypeParameters(typeParameters);
     final accessorsMixinName = names.legacyAccessorsMixinName;
 
     final classKeywords = '${type.isAbstract ? 'abstract ' : ''}class';
-    return (StringBuffer()
+    final buffer = StringBuffer();
+    for (final annotation in metadata) {
+      if (!overReactBoilerplateAnnotations.contains(annotation.name.name)) {
+        buffer.writeln(annotation.toSource());
+      }
+    }
+    return (buffer
           ..writeln('$classKeywords ${names.publicName}$typeParamsOnClass'
               ' extends ${names.consumerName}$typeParamsOnSuper'
               ' with $accessorsMixinName$typeParamsOnSuper {')
