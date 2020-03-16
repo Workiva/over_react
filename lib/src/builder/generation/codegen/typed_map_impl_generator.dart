@@ -365,9 +365,9 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
     if (member is BoilerplatePropsOrStateMixin) {
       return 'class ${names.implName}$typeParamsOnClass'
           ' extends ${isProps ? 'UiProps' : 'UiState'}'
-          ' with'
-          ' ${names.consumerName}$typeParamsOnSuper,'
-          ' ${names.generatedMixinName}$typeParamsOnSuper';
+          ' with\n'
+          ' ${names.consumerName}$typeParamsOnSuper\n,'
+          ' ${names.generatedMixinName}$typeParamsOnSuper${generatedMixinWarningCommentLine(names, isProps: isProps)}';
     } else if (member is BoilerplatePropsOrState) {
       final header = StringBuffer()
         ..write('class ${names.implName}$typeParamsOnClass'
@@ -388,14 +388,21 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
       //     class _$FooProps = UiProps with AProps, BProps, $AProps, $BProps implements FooProps;
       if (mixins.isNotEmpty) {
         header.write(' with ');
-        header.writeAll(mixins.expand((m) {
-          final typeArguments = m.typeArguments?.toSource() ?? '';
-          final names = TypedMapNames(m.name.name);
-          return [
-            '${names.consumerName}$typeArguments',
-            '${names.generatedMixinName}$typeArguments',
-          ];
-        }), ', ');
+        for (var i = 0; i < mixins.length; i++) {
+          final mixin = mixins[i];
+          final typeArguments = mixin.typeArguments?.toSource() ?? '';
+          final names = TypedMapNames(mixin.name.name);
+          header.write('${names.consumerName}$typeArguments');
+          header.write(',');
+          header.write('${names.generatedMixinName}$typeArguments');
+          // Don't write the comma if we're at the end of the list.
+          // Do this manually instead of using `.join` so that we can always have
+          // the warning comment be at the end of the line, regardless of whether the comma is there.
+          if (i != mixins.length - 1) {
+            header.write(',');
+          }
+          header.write(generatedMixinWarningCommentLine(names, isProps: isProps));
+        }
       }
 
       header.write(' implements ${names.consumerName}$typeParamsOnSuper');

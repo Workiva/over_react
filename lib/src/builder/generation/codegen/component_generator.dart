@@ -165,12 +165,13 @@ class _ComponentGenerator extends ComponentGenerator {
     outputContentsBuffer
       ..writeln()
       ..writeln('  @override')
-      ..writeln('  PropsMetaCollection get propsMeta => const PropsMetaCollection({')
-      ..writeAll(declaration.allPropsMixins.map((name) {
-        final names = TypedMapNames(name.name);
-        return '    ${names.consumerName}: ${names.publicGeneratedMetaName},';
-      }), '\n')
-      ..writeln('  });');
+      ..writeln('  PropsMetaCollection get propsMeta => const PropsMetaCollection({');
+    for (var name in declaration.allPropsMixins) {
+      final names = TypedMapNames(name.name);
+      outputContentsBuffer.write('    ${generatedMixinWarningCommentLine(names, isProps: true)}');
+      outputContentsBuffer.writeln('    ${names.consumerName}: ${names.publicGeneratedMetaName},');
+    }
+    outputContentsBuffer.writeln('  });');
   }
 }
 
