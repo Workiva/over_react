@@ -711,6 +711,74 @@ main() {
             expect(decl.factory.name.name, 'ConnectedFoo');
           });
 
+          group('mismatched members names for legacy component', () {
+            test('Version.v2_legacyBackwardsCompat', () {
+              setUpAndParse(r'''
+                @Factory()
+                UiFactory<FooProps> Foo = _$Foo;
+
+                @Props()
+                class _$SomeRandomProps {}
+                
+                @State()
+                class _$DifferentState {}
+                
+                @Component2() 
+                class FooComponent extends UiStatefulComponent2<SomeRandomProps, DifferentState> {}
+                
+                class SomeRandomProps
+                    extends _$SomeRandomProps with _$SomeRandomPropsAccessorsMixin {
+                
+                  static const PropsMeta meta = _$metaForSomeRandomProps;
+                }
+
+                class DifferentState
+                    extends _$DifferentState with _$DifferentStateAccessorsMixin {
+                
+                  static const StateMeta meta = _$metaForDifferentState;
+                }
+              ''');
+
+              final declaration = declarations.firstWhereType<LegacyClassComponentDeclaration>();
+              expect(declaration, isNotNull, reason: 'Sanity check to make sure a component is detected');
+
+              expect(declaration.state, isNotNull, reason: 'A state class should have been detected');
+              expect(declaration.state.name.name, r'_$DifferentState');
+              expect(declaration.state.companion, isNotNull);
+
+              expect(declaration.props, isNotNull, reason: 'A props class should have been detected');
+              expect(declaration.props.name.name, r'_$SomeRandomProps');
+              expect(declaration.props.companion, isNotNull);
+            });
+
+            test('Version.v3_legacyDart2Only', () {
+              setUpAndParse(r'''
+                @Factory()
+                UiFactory<FooProps> Foo = _$Foo;
+                
+                @Props()
+                class _$SomeRandomProps {}
+                
+                @State()
+                class _$DifferentState {}
+                
+                @Component2() 
+                class FooComponent extends UiStatefulComponent2<SomeRandomProps, DifferentState> {}
+              ''');
+
+              final declaration = declarations.firstWhereType<LegacyClassComponentDeclaration>();
+              expect(declaration, isNotNull, reason: 'Sanity check to make sure a component is detected');
+
+              expect(declaration.state, isNotNull, reason: 'A state class should have been detected');
+              expect(declaration.state.name.name, r'_$DifferentState');
+              expect(declaration.state.companion, isNull);
+
+              expect(declaration.props, isNotNull, reason: 'A props class should have been detected');
+              expect(declaration.props.name.name, r'_$SomeRandomProps');
+              expect(declaration.props.companion, isNull);
+            });
+          });
+
           group('multiple components in the same file', () {
             void testTwoComponents(BoilerplateVersions nonMixinVersion) {
               setUp(() {
