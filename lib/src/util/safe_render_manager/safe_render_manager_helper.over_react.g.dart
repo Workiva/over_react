@@ -297,6 +297,7 @@ class _$SafeRenderManagerHelperComponent
   /// The default consumed props, taken from _$SafeRenderManagerHelperProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForSafeRenderManagerHelperProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForSafeRenderManagerHelperProps
+  ];
 }

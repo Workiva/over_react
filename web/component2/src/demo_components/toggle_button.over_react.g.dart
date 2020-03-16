@@ -408,6 +408,7 @@ class _$ToggleButtonComponent extends ToggleButtonComponent {
   /// The default consumed props, taken from _$ToggleButtonProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForToggleButtonProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForToggleButtonProps
+  ];
 }

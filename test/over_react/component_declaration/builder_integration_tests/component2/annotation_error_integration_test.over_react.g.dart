@@ -93,8 +93,9 @@ class _$AnnotationErrorDefaultPropsComponent
   /// The default consumed props, taken from _$AnnotationErrorDefaultPropsProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForAnnotationErrorDefaultPropsProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForAnnotationErrorDefaultPropsProps
+  ];
 }
 
 // React component factory implementation.
@@ -179,8 +180,9 @@ class _$AnnotationErrorComponent extends AnnotationErrorComponent {
   /// The default consumed props, taken from _$AnnotationErrorProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForAnnotationErrorProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForAnnotationErrorProps
+  ];
 }
 
 // React component factory implementation.
@@ -313,8 +315,9 @@ class _$AnnotationErrorStatefulComponent
   /// The default consumed props, taken from _$AnnotationErrorStatefulProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForAnnotationErrorStatefulProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForAnnotationErrorStatefulProps
+  ];
 }
 
 // React component factory implementation.
@@ -459,6 +462,7 @@ class _$AnnotationErrorStatefulDefaultPropsComponent
   /// The default consumed props, taken from _$AnnotationErrorStatefulDefaultPropsProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForAnnotationErrorStatefulDefaultPropsProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForAnnotationErrorStatefulDefaultPropsProps
+  ];
 }

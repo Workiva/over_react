@@ -144,6 +144,7 @@ class _$BasicChildComponent extends BasicChildComponent {
   /// The default consumed props, taken from _$BasicChildProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForBasicChildProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForBasicChildProps
+  ];
 }

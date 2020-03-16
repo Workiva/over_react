@@ -193,6 +193,7 @@ class _$LittleBlockComponent extends LittleBlockComponent {
   /// The default consumed props, taken from _$LittleBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForLittleBlockProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForLittleBlockProps
+  ];
 }

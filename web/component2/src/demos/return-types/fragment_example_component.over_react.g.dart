@@ -141,6 +141,7 @@ class _$FragmentExampleComponent extends FragmentExampleComponent {
   /// The default consumed props, taken from _$FragmentExampleProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForFragmentExampleProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForFragmentExampleProps
+  ];
 }

@@ -262,6 +262,7 @@ class _$MyProviderComponentComponent extends MyProviderComponentComponent {
   /// The default consumed props, taken from _$MyProviderComponentProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForMyProviderComponentProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForMyProviderComponentProps
+  ];
 }

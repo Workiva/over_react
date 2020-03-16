@@ -89,6 +89,7 @@ class _$BasicUiComponentComponent extends BasicUiComponentComponent {
   /// The default consumed props, taken from _$BasicUiComponentProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForBasicUiComponentProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForBasicUiComponentProps
+  ];
 }

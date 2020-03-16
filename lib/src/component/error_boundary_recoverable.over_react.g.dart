@@ -254,6 +254,7 @@ class _$RecoverableErrorBoundaryComponent
   /// The default consumed props, taken from _$RecoverableErrorBoundaryProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForRecoverableErrorBoundaryProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForRecoverableErrorBoundaryProps
+  ];
 }

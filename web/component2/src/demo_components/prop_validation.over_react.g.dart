@@ -306,6 +306,7 @@ class _$PropTypesTestComponent extends PropTypesTestComponent {
   /// The default consumed props, taken from _$PropTypesTestProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForPropTypesTestProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForPropTypesTestProps
+  ];
 }

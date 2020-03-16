@@ -88,8 +88,9 @@ class _$TestDefaultComponent extends TestDefaultComponent {
   /// The default consumed props, taken from _$TestDefaultProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestDefaultProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestDefaultProps
+  ];
 }
 
 // React component factory implementation.
@@ -173,8 +174,9 @@ class _$TestConnectComponent extends TestConnectComponent {
   /// The default consumed props, taken from _$TestConnectProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestConnectProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestConnectProps
+  ];
 }
 
 // React component factory implementation.
@@ -256,6 +258,7 @@ class _$TestPureComponent extends TestPureComponent {
   /// The default consumed props, taken from _$TestPureProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestPureProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestPureProps
+  ];
 }

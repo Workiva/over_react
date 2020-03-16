@@ -416,6 +416,7 @@ class _$ProgressComponent extends ProgressComponent {
   /// The default consumed props, taken from _$ProgressProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForProgressProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForProgressProps
+  ];
 }

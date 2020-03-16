@@ -141,6 +141,7 @@ class _$FlawedWithNoChildComponent extends FlawedWithNoChildComponent {
   /// The default consumed props, taken from _$FlawedWithNoChildProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForFlawedWithNoChildProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForFlawedWithNoChildProps
+  ];
 }

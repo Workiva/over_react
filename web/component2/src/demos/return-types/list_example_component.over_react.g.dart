@@ -139,6 +139,7 @@ class _$ListExampleComponent extends ListExampleComponent {
   /// The default consumed props, taken from _$ListExampleProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForListExampleProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForListExampleProps
+  ];
 }

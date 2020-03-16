@@ -88,8 +88,9 @@ class _$TestBasicComponent extends TestBasicComponent {
   /// The default consumed props, taken from _$TestBasicProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestBasicProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestBasicProps
+  ];
 }
 
 // React component factory implementation.
@@ -174,8 +175,9 @@ class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
   /// The default consumed props, taken from _$TestHandlerLifecycleProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestHandlerLifecycleProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestHandlerLifecycleProps
+  ];
 }
 
 // React component factory implementation.
@@ -260,8 +262,9 @@ class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
   /// The default consumed props, taken from _$TestHandlerPrecedenceProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestHandlerPrecedenceProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestHandlerPrecedenceProps
+  ];
 }
 
 // React component factory implementation.
@@ -366,8 +369,9 @@ class _$TestPropValidationComponent extends TestPropValidationComponent {
   /// The default consumed props, taken from _$TestPropValidationProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestPropValidationProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestPropValidationProps
+  ];
 }
 
 // React component factory implementation.
@@ -452,8 +456,9 @@ class _$TestRedrawOnComponent extends TestRedrawOnComponent {
   /// The default consumed props, taken from _$TestRedrawOnProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestRedrawOnProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestRedrawOnProps
+  ];
 }
 
 // React component factory implementation.
@@ -538,8 +543,9 @@ class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
   /// The default consumed props, taken from _$TestStoreHandlersProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestStoreHandlersProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestStoreHandlersProps
+  ];
 }
 
 // React component factory implementation.
@@ -671,8 +677,9 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
   /// The default consumed props, taken from _$TestStatefulBasicProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestStatefulBasicProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestStatefulBasicProps
+  ];
 }
 
 // React component factory implementation.
@@ -810,8 +817,9 @@ class _$TestStatefulHandlerLifecycleComponent
   /// The default consumed props, taken from _$TestStatefulHandlerLifecycleProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestStatefulHandlerLifecycleProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestStatefulHandlerLifecycleProps
+  ];
 }
 
 // React component factory implementation.
@@ -949,8 +957,9 @@ class _$TestStatefulHandlerPrecedenceComponent
   /// The default consumed props, taken from _$TestStatefulHandlerPrecedenceProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestStatefulHandlerPrecedenceProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestStatefulHandlerPrecedenceProps
+  ];
 }
 
 // React component factory implementation.
@@ -1109,8 +1118,9 @@ class _$TestStatefulPropValidationComponent
   /// The default consumed props, taken from _$TestStatefulPropValidationProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestStatefulPropValidationProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestStatefulPropValidationProps
+  ];
 }
 
 // React component factory implementation.
@@ -1242,8 +1252,9 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
   /// The default consumed props, taken from _$TestStatefulRedrawOnProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestStatefulRedrawOnProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestStatefulRedrawOnProps
+  ];
 }
 
 // React component factory implementation.
@@ -1377,6 +1388,7 @@ class _$TestStatefulStoreHandlersComponent
   /// The default consumed props, taken from _$TestStatefulStoreHandlersProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestStatefulStoreHandlersProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestStatefulStoreHandlersProps
+  ];
 }

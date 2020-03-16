@@ -208,6 +208,7 @@ class _$CounterComponent extends CounterComponent {
   /// The default consumed props, taken from _$CounterProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForCounterProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForCounterProps
+  ];
 }

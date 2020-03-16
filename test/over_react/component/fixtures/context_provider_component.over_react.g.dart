@@ -270,6 +270,7 @@ class _$ContextProviderWrapperComponent
   /// The default consumed props, taken from _$ContextProviderWrapperProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForContextProviderWrapperProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForContextProviderWrapperProps
+  ];
 }
