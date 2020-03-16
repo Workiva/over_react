@@ -113,7 +113,7 @@ abstract class ComponentGenerator extends Generator {
       ..writeln('  /// The default consumed props, taken from ${propsNames.consumerName}.')
       ..writeln('  /// Used in `ConsumedProps` if [consumedProps] is not overridden.')
       ..writeln('  @override')
-      ..writeln('  final List<ConsumedProps> \$defaultConsumedProps = $defaultConsumedProps;');
+      ..writeln('  List<ConsumedProps> get \$defaultConsumedProps => $defaultConsumedProps;');
 
     _generateAdditionalComponentBody();
 
