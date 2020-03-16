@@ -660,38 +660,6 @@ main() {
 
         group('throws when', () {
           group('the version is v4_mixinBased', () {
-//              test('and the props classes are not `on` the corresponding superclass', () {
-//                const boilerplateString = r'''
-//                  UiFactory<FooProps> Foo = _$Foo;
-//
-//                  mixin FooPropsMixin on UiProps {}
-//
-//                  class FooProps = UiProps with FooPropsMixin;
-//
-//                  mixin FooStateMixin on UiState {}
-//
-//                  class FooState = UiState with FooStateMixin;
-//
-//                  class FooComponent extends UiStatefulComponent2<FooProps, FooState>{}
-//                ''';
-//
-//                file = SourceFile.fromString(boilerplateString);
-//                collector = ErrorCollector.callback(file, onError: validateCallback);
-//
-//                final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
-//                final props = members.whereType<BoilerplatePropsMixin>().first;
-//                final state = members.whereType<BoilerplateStateMixin>().first;
-//
-//                props.validate(Version.v4_mixinBased, collector);
-//                expect(validateResults.length, 1);
-//                expect(validateResults, contains('UiProps mixins must be `on UiProps`'));
-//
-//                validateResults = <String>[];
-//                state.validate(Version.v4_mixinBased, collector);
-//                expect(validateResults.length, 1);
-//                expect(validateResults, contains('UiState mixins must be `on UiState`'));
-//              });
-
             test('and the props or state classes are not mixins', () {
               const boilerplateString = r'''
                   @Factory()
