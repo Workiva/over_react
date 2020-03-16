@@ -31,8 +31,12 @@ _$$BasicProps _$Basic([Map backingProps]) => backingProps == null
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$BasicProps<T, U extends UiProps> extends UiProps
-    with BasicPropsMixin<T, U>, $BasicPropsMixin<T, U>
-    implements BasicProps<T, U> {
+    with
+        BasicPropsMixin<T, U>,
+        $BasicPropsMixin<T,
+            U> // If this generated mixin is undefined, it's likely because BasicPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicPropsMixin.
+    implements
+        BasicProps<T, U> {
   _$$BasicProps._();
 
   factory _$$BasicProps(Map backingMap) {
@@ -137,6 +141,7 @@ class _$BasicComponent extends BasicComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because BasicPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicPropsMixin.
         BasicPropsMixin: $BasicPropsMixin.meta,
       });
 }

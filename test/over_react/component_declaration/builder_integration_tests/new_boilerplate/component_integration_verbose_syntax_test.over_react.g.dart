@@ -32,8 +32,11 @@ _$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$ComponentTestProps extends UiProps
-    with ComponentTestPropsMixin, $ComponentTestPropsMixin
-    implements ComponentTestProps {
+    with
+        ComponentTestPropsMixin,
+        $ComponentTestPropsMixin // If this generated mixin is undefined, it's likely because ComponentTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ComponentTestPropsMixin.
+    implements
+        ComponentTestProps {
   _$$ComponentTestProps._();
 
   factory _$$ComponentTestProps(Map backingMap) {
@@ -139,6 +142,7 @@ class _$ComponentTestComponent extends ComponentTestComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ComponentTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ComponentTestPropsMixin.
         ComponentTestPropsMixin: $ComponentTestPropsMixin.meta,
       });
 }

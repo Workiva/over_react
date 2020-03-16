@@ -518,7 +518,10 @@ _$$TestPropsMixin _$Test([Map backingProps]) => backingProps == null
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$TestPropsMixin extends UiProps
-    with TestPropsMixin, $TestPropsMixin {
+    with
+        TestPropsMixin,
+        $TestPropsMixin // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TestPropsMixin.
+{
   _$$TestPropsMixin._();
 
   factory _$$TestPropsMixin(Map backingMap) {
@@ -588,10 +591,11 @@ _$$TestCustomNamespaceProps _$TestCustomNamespace([Map backingProps]) =>
 abstract class _$$TestCustomNamespaceProps extends UiProps
     with
         TestCustomNamespacePropsMixin,
-        $TestCustomNamespacePropsMixin,
+        $TestCustomNamespacePropsMixin, // If this generated mixin is undefined, it's likely because TestCustomNamespacePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TestCustomNamespacePropsMixin.
         TestCustomNamespaceWithPropsAnnotationPropsMixin,
-        $TestCustomNamespaceWithPropsAnnotationPropsMixin
-    implements TestCustomNamespaceProps {
+        $TestCustomNamespaceWithPropsAnnotationPropsMixin // If this generated mixin is undefined, it's likely because TestCustomNamespaceWithPropsAnnotationPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TestCustomNamespaceWithPropsAnnotationPropsMixin.
+    implements
+        TestCustomNamespaceProps {
   _$$TestCustomNamespaceProps._();
 
   factory _$$TestCustomNamespaceProps(Map backingMap) {

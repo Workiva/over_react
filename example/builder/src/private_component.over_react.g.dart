@@ -31,7 +31,10 @@ _$$_PrivateProps _$_Private([Map backingProps]) => backingProps == null
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$_PrivateProps extends UiProps
-    with _PrivateProps, $_PrivateProps {
+    with
+        _PrivateProps,
+        $_PrivateProps // If this generated mixin is undefined, it's likely because _PrivateProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of _PrivateProps.
+{
   _$$_PrivateProps._();
 
   factory _$$_PrivateProps(Map backingMap) {
@@ -99,7 +102,10 @@ class _$$_PrivateProps$JsMap extends _$$_PrivateProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$_PrivateState extends UiState
-    with _PrivateState, $_PrivateState {
+    with
+        _PrivateState,
+        $_PrivateState // If this generated mixin is undefined, it's likely because _PrivateState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of _PrivateState.
+{
   _$$_PrivateState._();
 
   factory _$$_PrivateState(Map backingMap) {
@@ -214,12 +220,13 @@ class _$PrivateComponent extends PrivateComponent {
   /// The default consumed props, taken from _PrivateProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaFor_PrivateProps
+  final List<ConsumedProps> $defaultConsumedProps = [
+    propsMeta.forMixin(_PrivateProps)
   ];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because _PrivateProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of _PrivateProps.
         _PrivateProps: $_PrivateProps.meta,
       });
 }

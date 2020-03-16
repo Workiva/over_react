@@ -32,7 +32,10 @@ _$$StatefulComponentTestProps _$StatefulComponentTest([Map backingProps]) =>
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$StatefulComponentTestProps extends UiProps
-    with StatefulComponentTestProps, $StatefulComponentTestProps {
+    with
+        StatefulComponentTestProps,
+        $StatefulComponentTestProps // If this generated mixin is undefined, it's likely because StatefulComponentTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of StatefulComponentTestProps.
+{
   _$$StatefulComponentTestProps._();
 
   factory _$$StatefulComponentTestProps(Map backingMap) {
@@ -102,7 +105,10 @@ class _$$StatefulComponentTestProps$JsMap
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$StatefulComponentTestState extends UiState
-    with StatefulComponentTestState, $StatefulComponentTestState {
+    with
+        StatefulComponentTestState,
+        $StatefulComponentTestState // If this generated mixin is undefined, it's likely because StatefulComponentTestState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of StatefulComponentTestState.
+{
   _$$StatefulComponentTestState._();
 
   factory _$$StatefulComponentTestState(Map backingMap) {
@@ -221,12 +227,13 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
   /// The default consumed props, taken from StatefulComponentTestProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForStatefulComponentTestProps
+  final List<ConsumedProps> $defaultConsumedProps = [
+    propsMeta.forMixin(StatefulComponentTestProps)
   ];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because StatefulComponentTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of StatefulComponentTestProps.
         StatefulComponentTestProps: $StatefulComponentTestProps.meta,
       });
 }

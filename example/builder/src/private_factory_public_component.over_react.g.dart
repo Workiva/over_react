@@ -32,7 +32,10 @@ _$$FormActionInputProps _$_FormActionInput([Map backingProps]) =>
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$FormActionInputProps extends UiProps
-    with FormActionInputProps, $FormActionInputProps {
+    with
+        FormActionInputProps,
+        $FormActionInputProps // If this generated mixin is undefined, it's likely because FormActionInputProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FormActionInputProps.
+{
   _$$FormActionInputProps._();
 
   factory _$$FormActionInputProps(Map backingMap) {
@@ -134,12 +137,13 @@ class _$FormActionInputComponent extends FormActionInputComponent {
   /// The default consumed props, taken from FormActionInputProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForFormActionInputProps
+  final List<ConsumedProps> $defaultConsumedProps = [
+    propsMeta.forMixin(FormActionInputProps)
   ];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because FormActionInputProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FormActionInputProps.
         FormActionInputProps: $FormActionInputProps.meta,
       });
 }

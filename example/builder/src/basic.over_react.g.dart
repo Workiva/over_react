@@ -30,7 +30,11 @@ _$$BasicProps _$Basic([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$BasicProps extends UiProps with BasicProps, $BasicProps {
+abstract class _$$BasicProps extends UiProps
+    with
+        BasicProps,
+        $BasicProps // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicProps.
+{
   _$$BasicProps._();
 
   factory _$$BasicProps(Map backingMap) {
@@ -131,10 +135,13 @@ class _$BasicComponent extends BasicComponent {
   /// The default consumed props, taken from BasicProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForBasicProps];
+  final List<ConsumedProps> $defaultConsumedProps = [
+    propsMeta.forMixin(BasicProps)
+  ];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicProps.
         BasicProps: $BasicProps.meta,
       });
 }
