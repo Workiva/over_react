@@ -7,33 +7,33 @@ part of 'over_react_redux.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.'
-    ' EXCEPTION: this may be used in legacy boilerplate until'
-    ' it is transitioned to the new mixin-based boilerplate.')
-mixin $ConnectPropsMixin on ConnectPropsMixin {
+abstract class ConnectPropsMixin implements _$ConnectPropsMixin {
+  @override
+  Map get props;
+
   static const PropsMeta meta = _$metaForConnectPropsMixin;
+
+  /// <!-- Generated from [_$ConnectPropsMixin.dispatch] -->
   @override
   dynamic Function(dynamic action) get dispatch =>
-      props[_$key__dispatch__ConnectPropsMixin] ??
+      props[_$key__dispatch___$ConnectPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$ConnectPropsMixin.dispatch] -->
   @override
   set dispatch(dynamic Function(dynamic action) value) =>
-      props[_$key__dispatch__ConnectPropsMixin] = value;
+      props[_$key__dispatch___$ConnectPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__dispatch__ConnectPropsMixin =
-      PropDescriptor(_$key__dispatch__ConnectPropsMixin);
-  static const String _$key__dispatch__ConnectPropsMixin = 'dispatch';
+  static const PropDescriptor _$prop__dispatch___$ConnectPropsMixin =
+      PropDescriptor(_$key__dispatch___$ConnectPropsMixin);
+  static const String _$key__dispatch___$ConnectPropsMixin = 'dispatch';
 
   static const List<PropDescriptor> $props = [
-    _$prop__dispatch__ConnectPropsMixin
+    _$prop__dispatch___$ConnectPropsMixin
   ];
-  static const List<String> $propKeys = [_$key__dispatch__ConnectPropsMixin];
+  static const List<String> $propKeys = [_$key__dispatch___$ConnectPropsMixin];
 }
 
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForConnectPropsMixin = PropsMeta(
-  fields: $ConnectPropsMixin.$props,
-  keys: $ConnectPropsMixin.$propKeys,
+  fields: ConnectPropsMixin.$props,
+  keys: ConnectPropsMixin.$propKeys,
 );
