@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
-import 'package:over_react/src/component/error_boundary.dart' as v2;
+import 'package:over_react/src/component/_deprecated/error_boundary_mixins.dart';
 import 'package:over_react/src/component/error_boundary_api.dart';
 
 part 'error_boundary_recoverable.over_react.g.dart';
@@ -14,15 +14,22 @@ part 'error_boundary_recoverable.over_react.g.dart';
 /// __NOTE:__
 ///   1. This component is not / should never be publicly exported.
 ///   2. This component should never be used, except as a child of the outer (public) `ErrorBoundary` component.
+@Deprecated('For internal use with deprecated ErrorBoundary components only. Remove in the 4.0.0 release.')
+@Factory()
 UiFactory<RecoverableErrorBoundaryProps> RecoverableErrorBoundary = _$RecoverableErrorBoundary;
 
-class RecoverableErrorBoundaryProps = UiProps with v2.ErrorBoundaryProps;
+@Deprecated('For internal use with deprecated ErrorBoundary components only. Remove in the 4.0.0 release.')
+@Props()
+class _$RecoverableErrorBoundaryProps extends UiProps with ErrorBoundaryPropsMixin {}
 
-class RecoverableErrorBoundaryState = UiState with v2.ErrorBoundaryState;
+@Deprecated('For internal use with deprecated ErrorBoundary components only. Remove in the 4.0.0 release.')
+@State()
+class _$RecoverableErrorBoundaryState extends UiState with ErrorBoundaryStateMixin {}
 
+@Deprecated('For internal use with deprecated ErrorBoundary components only. Remove in the 4.0.0 release.')
 @Component2(isWrapper: true, isErrorBoundary: true)
 class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps, S extends RecoverableErrorBoundaryState>
-    extends UiStatefulComponent2<T, S> with ErrorBoundaryApi<T, S> {
+    extends UiStatefulComponent2<T, S> with LegacyErrorBoundaryApi<T, S> {
   @override
   Map get defaultProps => (newProps()
     ..identicalErrorFrequencyTolerance = Duration(seconds: 5)
@@ -79,11 +86,10 @@ class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps,
 
   // TODO: Add PropTypes
 
-  /// Resets the [v2.ErrorBoundary] to a non-error state.
+  /// Resets the [ErrorBoundary] to a non-error state.
   ///
   /// This can be called manually on the component instance using a `ref` -
   /// or by passing in a new child instance after a child has thrown an error.
-  @override
   void reset() {
     _resetInternalErrorTracking();
 

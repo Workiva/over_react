@@ -53,11 +53,6 @@ class ToggleButtonGroupComponent
     ..name = 'toggle_button_group_' + generateGuid()
   );
 
-  @override
-  get consumedProps => [
-        propsMeta.forMixin(ToggleButtonGroupProps),
-      ];
-
   /// The props that should be added when we clone the given [child] using
   /// [cloneElement] via [renderButton].
   @override

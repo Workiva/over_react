@@ -10,8 +10,6 @@ part of 'error_boundary_recoverable.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
 final $RecoverableErrorBoundaryComponentFactory = registerComponent2(
   () => _$RecoverableErrorBoundaryComponent(),
   builderFactory: RecoverableErrorBoundary,
@@ -22,6 +20,29 @@ final $RecoverableErrorBoundaryComponentFactory = registerComponent2(
   skipMethods: const [],
 );
 
+abstract class _$RecoverableErrorBoundaryPropsAccessorsMixin
+    implements _$RecoverableErrorBoundaryProps {
+  @override
+  Map get props;
+
+  /* GENERATED CONSTANTS */
+
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
+}
+
+const PropsMeta _$metaForRecoverableErrorBoundaryProps = PropsMeta(
+  fields: _$RecoverableErrorBoundaryPropsAccessorsMixin.$props,
+  keys: _$RecoverableErrorBoundaryPropsAccessorsMixin.$propKeys,
+);
+
+@Deprecated(
+    'For internal use with deprecated ErrorBoundary components only. Remove in the 4.0.0 release.')
+class RecoverableErrorBoundaryProps extends _$RecoverableErrorBoundaryProps
+    with _$RecoverableErrorBoundaryPropsAccessorsMixin {
+  static const PropsMeta meta = _$metaForRecoverableErrorBoundaryProps;
+}
+
 _$$RecoverableErrorBoundaryProps _$RecoverableErrorBoundary(
         [Map backingProps]) =>
     backingProps == null
@@ -31,10 +52,9 @@ _$$RecoverableErrorBoundaryProps _$RecoverableErrorBoundary(
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$RecoverableErrorBoundaryProps extends UiProps
-    with v2.ErrorBoundaryProps, v2.$ErrorBoundaryProps
+abstract class _$$RecoverableErrorBoundaryProps
+    extends _$RecoverableErrorBoundaryProps
+    with _$RecoverableErrorBoundaryPropsAccessorsMixin
     implements RecoverableErrorBoundaryProps {
   _$$RecoverableErrorBoundaryProps._();
 
@@ -57,12 +77,10 @@ abstract class _$$RecoverableErrorBoundaryProps extends UiProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => '';
+  String get propKeyNamespace => 'RecoverableErrorBoundaryProps.';
 }
 
 // Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
 class _$$RecoverableErrorBoundaryProps$PlainMap
     extends _$$RecoverableErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
@@ -81,8 +99,6 @@ class _$$RecoverableErrorBoundaryProps$PlainMap
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
 class _$$RecoverableErrorBoundaryProps$JsMap
     extends _$$RecoverableErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
@@ -99,13 +115,35 @@ class _$$RecoverableErrorBoundaryProps$JsMap
   JsBackedMap _props;
 }
 
+abstract class _$RecoverableErrorBoundaryStateAccessorsMixin
+    implements _$RecoverableErrorBoundaryState {
+  @override
+  Map get state;
+
+  /* GENERATED CONSTANTS */
+
+  static const List<StateDescriptor> $state = [];
+  static const List<String> $stateKeys = [];
+}
+
+const StateMeta _$metaForRecoverableErrorBoundaryState = StateMeta(
+  fields: _$RecoverableErrorBoundaryStateAccessorsMixin.$state,
+  keys: _$RecoverableErrorBoundaryStateAccessorsMixin.$stateKeys,
+);
+
+@Deprecated(
+    'For internal use with deprecated ErrorBoundary components only. Remove in the 4.0.0 release.')
+class RecoverableErrorBoundaryState extends _$RecoverableErrorBoundaryState
+    with _$RecoverableErrorBoundaryStateAccessorsMixin {
+  static const StateMeta meta = _$metaForRecoverableErrorBoundaryState;
+}
+
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$RecoverableErrorBoundaryState extends UiState
-    with v2.ErrorBoundaryState, v2.$ErrorBoundaryState
+abstract class _$$RecoverableErrorBoundaryState
+    extends _$RecoverableErrorBoundaryState
+    with _$RecoverableErrorBoundaryStateAccessorsMixin
     implements RecoverableErrorBoundaryState {
   _$$RecoverableErrorBoundaryState._();
 
@@ -123,8 +161,6 @@ abstract class _$$RecoverableErrorBoundaryState extends UiState
 }
 
 // Concrete state implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
 class _$$RecoverableErrorBoundaryState$PlainMap
     extends _$$RecoverableErrorBoundaryState {
   // This initializer of `_state` to an empty map, as well as the reassignment
@@ -143,8 +179,6 @@ class _$$RecoverableErrorBoundaryState$PlainMap
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
 class _$$RecoverableErrorBoundaryState$JsMap
     extends _$$RecoverableErrorBoundaryState {
   // This initializer of `_state` to an empty map, as well as the reassignment
@@ -165,8 +199,6 @@ class _$$RecoverableErrorBoundaryState$JsMap
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
 class _$RecoverableErrorBoundaryComponent
     extends RecoverableErrorBoundaryComponent {
   _$$RecoverableErrorBoundaryProps$JsMap _cachedTypedProps;
@@ -223,13 +255,10 @@ class _$RecoverableErrorBoundaryComponent
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from RecoverableErrorBoundaryProps.
+  /// The default consumed props, taken from _$RecoverableErrorBoundaryProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [];
-
-  @override
-  PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        v2.ErrorBoundaryProps: v2.$ErrorBoundaryProps.meta,
-      });
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForRecoverableErrorBoundaryProps
+  ];
 }

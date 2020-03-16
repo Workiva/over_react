@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
+import 'package:over_react/components.dart' as v2;
 import 'package:over_react/react_dom.dart' as react_dom;
 
 import 'src/demos.dart';
@@ -27,7 +28,7 @@ void main() {
     radioToggleButtonDemo(), querySelector('$demoMountNodeSelectorPrefix--radio-toggle'));
 
   react_dom.render(
-    (ErrorBoundary()
+    (v2.ErrorBoundary()
       ..onComponentDidCatch = (error, info) {
         print('Consumer props.onComponentDidCatch($error, $info)');
       }
@@ -36,7 +37,7 @@ void main() {
   );
 
   react_dom.render(
-    (ErrorBoundary()
+    (v2.ErrorBoundary()
       ..onComponentDidCatch = (error, info) {
         print('Consumer props.onComponentDidCatch($error, $info)');
       }
@@ -45,7 +46,7 @@ void main() {
   );
 
   react_dom.render(
-    (ErrorBoundary()
+    (v2.ErrorBoundary()
       ..onComponentDidCatch = (error, info) {
         print('Consumer props.onComponentDidCatch($error, $info)');
       }

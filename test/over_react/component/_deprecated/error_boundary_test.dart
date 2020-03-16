@@ -12,22 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
 @TestOn('browser')
 @Timeout(Duration(seconds: 2))
-library error_boundary_test;
+library deprecated_error_boundary_test;
 
-import 'package:over_react/components.dart';
-import 'package:over_react/src/component/error_boundary_recoverable.dart';
+import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component/_deprecated/error_boundary_recoverable.dart';
 import 'package:test/test.dart';
 
 import 'shared_error_boundary_tests.dart';
 
 void main() {
-  group('RecoverableErrorBoundary', () {
+  group('RecoverableErrorBoundary (deprecated)', () {
     sharedErrorBoundaryTests(() => RecoverableErrorBoundary());
   });
 
-  group('ErrorBoundary', () {
+  group('ErrorBoundary (deprecated)', () {
     sharedErrorBoundaryTests(() => ErrorBoundary(), isWrapper: true);
   });
 }

@@ -14,13 +14,17 @@
 
 /// Thanks!
 /// https://github.com/marcj/css-element-queries/blob/master/src/ResizeSensor.js
-library over_react.resize_sensor;
+library over_react.deprecated_resize_sensor;
 
+import 'dart:collection';
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart' hide ResizeSensor, ResizeSensorComponent, ResizeSensorProps;
+import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component/resize_sensor.dart' show ResizeSensorEvent, SafeAnimationFrameMixin;
 import 'package:over_react/src/component/resize_sensor_constants.dart';
+
+export 'package:over_react/src/component/resize_sensor.dart' show ResizeSensorEvent;
 
 part 'resize_sensor.over_react.g.dart';
 
@@ -61,9 +65,29 @@ part 'resize_sensor.over_react.g.dart';
 ///     )
 ///
 /// > The component _must_ be put in a relative or absolutely positioned container.
+@Deprecated('Use the `ResizeSensor` component exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
+@Factory()
 UiFactory<ResizeSensorProps> ResizeSensor = _$ResizeSensor;
 
-mixin ResizeSensorProps on UiProps {
+/// This class is only present to allow for consumers which have used the
+/// --backwards-compat flag with over_react_codemod to statically analyze:
+/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+@Deprecated('Use the `ResizeSensorProps` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
+abstract class $ResizeSensorPropsMixin {
+  static const PropsMeta meta = _$metaForResizeSensorPropsMixin;
+}
+
+@Deprecated('Use the `ResizeSensorProps` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
+@PropsMixin()
+abstract class _$ResizeSensorPropsMixin {
+  static final ResizeSensorPropsMixinMapView defaultProps = ResizeSensorPropsMixinMapView({})
+    ..isFlexChild = false
+    ..isFlexContainer = false
+    ..shrink = false
+    ..quickMount = false;
+
+  Map get props;
+
   /// A function invoked with a `ResizeSensorEvent` argument when the resize sensor is initialized.
   ///
   /// > Will never be called if [quickMount] is `true`.
@@ -148,6 +172,12 @@ mixin ResizeSensorProps on UiProps {
   Callback onDidReset;
 }
 
+@Deprecated('Use the `ResizeSensorProps` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
+@Props()
+class _$ResizeSensorProps extends UiProps with ResizeSensorPropsMixin {}
+
+@Deprecated('Use the `ResizeSensorComponent` exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
+@Component2()
 class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAnimationFrameMixin {
   // Refs
 
@@ -156,10 +186,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
 
   @override
   get defaultProps => (newProps()
-    ..isFlexChild = false
-    ..isFlexContainer = false
-    ..shrink = false
-    ..quickMount = false
+    ..addProps(ResizeSensorPropsMixin.defaultProps)
   );
 
   @mustCallSuper
@@ -368,43 +395,15 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
   int _lastWidth = 0;
 }
 
-/// Used with [ResizeSensorHandler] to provide information about a resize.
-///
-/// > Emitted via [ResizeSensorPropsMixin.onResize] and [ResizeSensorPropsMixin.onInitialize].
-class ResizeSensorEvent {
-  /// The new width, in pixels.
-  final int newWidth;
-  /// The new height, in pixels.
-  final int newHeight;
-  /// The previous width, in pixels.
-  final int prevWidth;
-  /// The previous height, in pixels.
-  final int prevHeight;
+/// A MapView with the typed getters/setters for all HitArea display variation props.
+@Deprecated('Use the `ResizeSensorPropsMixinMapView` component exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
+class ResizeSensorPropsMixinMapView extends MapView with
+    ResizeSensorPropsMixin {
+  /// Create a new instance backed by the specified map.
+  ResizeSensorPropsMixinMapView(Map map) : super(map);
 
-  ResizeSensorEvent(this.newWidth, this.newHeight, this.prevWidth, this.prevHeight);
-}
-
-/// A mixin that makes it easier to manage animation frames within a React component lifecycle.
-class SafeAnimationFrameMixin {
-  /// The ids of the pending animation frames.
-  final _animationFrameIds = <int>[];
-
-  /// Calls [Window.requestAnimationFrame] with the specified [callback], and keeps track of the
-  /// request ID so that it can be cancelled in [cancelAnimationFrames].
-  void requestAnimationFrame(Function() callback) {
-    int queuedId;
-    queuedId = window.requestAnimationFrame((_) {
-      callback();
-      _animationFrameIds.remove(queuedId);
-    });
-
-    _animationFrameIds.add(queuedId);
-  }
-
-  /// Cancels all pending animation frames requested by [requestAnimationFrame].
-  ///
-  /// Should be called in [react.Component.componentWillUnmount].
-  void cancelAnimationFrames() {
-    _animationFrameIds.forEach(window.cancelAnimationFrame);
-  }
+  /// The props to be manipulated via the getters/setters.
+  /// In this case, it's the current MapView object.
+  @override
+  Map get props => this;
 }

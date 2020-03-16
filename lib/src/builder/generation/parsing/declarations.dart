@@ -22,23 +22,25 @@ import 'util.dart';
 import 'validation.dart';
 import 'version.dart';
 
+const overReactBoilerplateAnnotations = [
+  'Factory',
+  'Component',
+  'Component2',
+  'Props',
+  'State',
+  'AbstractComponent',
+  'AbstractComponent2',
+  'AbstractProps',
+  'AbstractState',
+  'PropsMixin',
+  'StateMixin',
+];
+
 final RegExp _maybeDeclarationPattern = RegExp(
     r'\.over_react\.g\.dart'
             // Legacy components (annotation required)
             r'|@(?:' +
-        [
-          'Factory',
-          'Component',
-          'Component2',
-          'Props',
-          'State',
-          'AbstractComponent',
-          'AbstractComponent2',
-          'AbstractProps',
-          'AbstractState',
-          'PropsMixin',
-          'StateMixin',
-        ].join('|') +
+        overReactBoilerplateAnnotations.join('|') +
         r')'
             // New components (references to props base classes required);
             // find other base classes for validation purposes

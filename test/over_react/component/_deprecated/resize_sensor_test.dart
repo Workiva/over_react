@@ -12,22 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
 @TestOn('browser')
 @Timeout(Duration(seconds: 2))
-library resize_sensor_test;
+library deprecated_resize_sensor_test;
 
 import 'dart:async';
 import 'dart:html';
 
 import 'package:platform_detect/platform_detect.dart';
-import 'package:over_react/over_react.dart' hide ResizeSensor, ResizeSensorComponent, ResizeSensorProps;
-import 'package:over_react/components.dart' show ResizeSensor, ResizeSensorComponent, ResizeSensorProps;
+import 'package:over_react/over_react.dart';
 import 'package:over_react_test/over_react_test.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:test/test.dart';
 
 void main() {
-  group('ResizeSensor', () {
+  group('ResizeSensor (deprecated)', () {
     const int defaultContainerWidth = 100;
     const int defaultContainerHeight = 100;
 

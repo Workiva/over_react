@@ -1,20 +1,22 @@
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'dart:html';
+
 import 'package:logging/logging.dart';
 import 'package:over_react/over_react.dart';
-import 'package:over_react/components.dart' as v2;
-import 'package:over_react/src/component/error_boundary_api.dart';
+import 'package:over_react/src/component/error_boundary_api.dart' hide ErrorBoundaryApi;
+import 'package:over_react/src/component/_deprecated/error_boundary_mixins.dart';
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
 
-import './fixtures/flawed_component.dart';
-import './fixtures/flawed_component_on_mount.dart';
-import './fixtures/flawed_component_that_renders_a_string.dart';
-import './fixtures/flawed_component_that_renders_nothing.dart';
+import '../fixtures/flawed_component.dart';
+import '../fixtures/flawed_component_on_mount.dart';
+import '../fixtures/flawed_component_that_renders_a_string.dart';
+import '../fixtures/flawed_component_that_renders_nothing.dart';
 
 /// [isWrapper] identifies an ErrorBoundary that wraps another Error Boundary in order to handle
 /// render cycle "unrecoverable" errors.
-void sharedErrorBoundaryTests(BuilderOnlyUiFactory<v2.ErrorBoundaryProps> builder, { bool isWrapper = false }) {
-  TestJacket<ErrorBoundaryApi> jacket;
+void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> builder, { bool isWrapper = false }) {
+  TestJacket<LegacyErrorBoundaryApi> jacket;
   ReactElement dummyChild;
 
   setUp(() {
@@ -56,9 +58,9 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<v2.ErrorBoundaryProps> builde
       calls = [];
       jacket = mount(
         (builder()
-          ..onComponentDidCatch = (err, info) {
+          ..addProps(ErrorBoundaryPropsMapView({})..onComponentDidCatch = (err, info) {
             calls.add({'onComponentDidCatch': [err, info]});
-          }
+          })
         )(Flawed()()),
         mountNode: mountNode,
       );
@@ -103,7 +105,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<v2.ErrorBoundaryProps> builde
 
   test('initializes with the expected default prop values', () {
     jacket = mount(builder()(dummyChild));
-    expect(v2.ErrorBoundary(jacket.getProps()).identicalErrorFrequencyTolerance.inSeconds, 5);
+    expect(ErrorBoundaryPropsMapView(jacket.getProps()).identicalErrorFrequencyTolerance.inSeconds, 5);
   });
 
   test('initializes with the expected initial state values', () {
@@ -167,11 +169,11 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<v2.ErrorBoundaryProps> builde
             return Dom.h4()('Something super not awesome just happened.');
           }
 
-          jacket = mount((builder()..fallbackUIRenderer = _fallbackUIRenderer)(dummyChild));
+          jacket = mount((builder()..addProps(ErrorBoundaryPropsMapView({})..fallbackUIRenderer = _fallbackUIRenderer))(dummyChild));
           final component = jacket.getDartInstance();
           component.setState(component.newState()..hasError = true);
 
-          expect(jacket.getNode(), hasNodeName('H4'), reason: '${v2.ErrorBoundary(jacket.getProps()).fallbackUIRenderer}');
+          expect(jacket.getNode(), hasNodeName('H4'), reason: '${ErrorBoundaryPropsMapView(jacket.getProps()).fallbackUIRenderer}');
           expect(jacket.getNode().text, 'Something super not awesome just happened.');
         });
       }
@@ -179,7 +181,9 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<v2.ErrorBoundaryProps> builde
       group('and then switches back to rendering the child', () {
         setUp(() {
           jacket = mount((builder()
-            ..fallbackUIRenderer = (_, __) => (Dom.div()..addTestId('fallbackNode'))('Something went wrong')
+            ..addProps(ErrorBoundaryPropsMapView({})
+              ..fallbackUIRenderer = (_, __) => (Dom.div()..addTestId('fallbackNode'))('Something went wrong')
+            )
           )(dummyChild));
           final component = jacket.getDartInstance();
           component.setState(component.newState()
@@ -206,7 +210,9 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<v2.ErrorBoundaryProps> builde
           test('', () {
             final newDummyChild = (Dom.div()..addTestId('newDummyChild'))('hi there');
             jacket.rerender((builder()
-              ..fallbackUIRenderer = (_, __) => (Dom.div()..addTestId('fallbackNode'))('Something went wrong')
+              ..addProps(ErrorBoundaryPropsMapView({})
+                ..fallbackUIRenderer = (_, __) => (Dom.div()..addTestId('fallbackNode'))('Something went wrong')
+              )
             )(newDummyChild));
             expect(jacket.getDartInstance().state.hasError, isFalse);
             expect(jacket.getDartInstance().state.showFallbackUIOnError, isTrue);
@@ -216,7 +222,9 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<v2.ErrorBoundaryProps> builde
 
           test('unless the new child also throws an error', () {
             jacket.rerender((builder()
-              ..fallbackUIRenderer = (_, __) => (Dom.div()..addTestId('fallbackNode'))('Something went wrong')
+              ..addProps(ErrorBoundaryPropsMapView({})
+                ..fallbackUIRenderer = (_, __) => (Dom.div()..addTestId('fallbackNode'))('Something went wrong')
+              )
             )((FlawedOnMount()..addTestId('flawed'))()));
             if (!isWrapper) {
               expect(jacket.getDartInstance().state.hasError, isTrue);
@@ -284,15 +292,17 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<v2.ErrorBoundaryProps> builde
 
       jacket = mount(
         (builder()
-          ..identicalErrorFrequencyTolerance = const Duration(
-              milliseconds: identicalErrorFrequencyToleranceInMs)
-          ..onComponentDidCatch = (err, info) {
-            calls.add({'onComponentDidCatch': [err, info]});
-          }
-          ..onComponentIsUnrecoverable = (err, info) {
-            calls.add({'onComponentIsUnrecoverable': [err, info]});
-          }
-          ..addAll(errorBoundaryProps ?? {})
+          ..addProps(ErrorBoundaryPropsMapView({})
+            ..identicalErrorFrequencyTolerance = const Duration(
+                milliseconds: identicalErrorFrequencyToleranceInMs)
+            ..onComponentDidCatch = (err, info) {
+              calls.add({'onComponentDidCatch': [err, info]});
+            }
+            ..onComponentIsUnrecoverable = (err, info) {
+              calls.add({'onComponentIsUnrecoverable': [err, info]});
+            }
+            ..addAll(errorBoundaryProps ?? {})
+          )
         )(errorBoundaryChildren),
         attachedToDocument: true);
 
@@ -367,7 +377,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<v2.ErrorBoundaryProps> builde
             setUp(() {
               sharedSetup(
                 errorBoundaryChildren: FlawedOnMount()(),
-                errorBoundaryProps: (v2.ErrorBoundary()
+                errorBoundaryProps: (ErrorBoundaryPropsMapView({})
                     ..fallbackUIRenderer = (_, __) => (Dom.div()..addTestId('fallbackUIRenderer'))()
                   ),
               );

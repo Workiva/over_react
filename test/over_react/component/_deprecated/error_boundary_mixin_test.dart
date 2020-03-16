@@ -12,22 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@TestOn('browser')
 @Timeout(Duration(seconds: 2))
-library error_boundary_test;
+library deprecated_error_boundary_mixin_test;
 
-import 'package:over_react/components.dart';
-import 'package:over_react/src/component/error_boundary_recoverable.dart';
 import 'package:test/test.dart';
 
+import 'fixtures/custom_error_boundary_component.dart';
 import 'shared_error_boundary_tests.dart';
 
 void main() {
-  group('RecoverableErrorBoundary', () {
-    sharedErrorBoundaryTests(() => RecoverableErrorBoundary());
-  });
-
-  group('ErrorBoundary', () {
-    sharedErrorBoundaryTests(() => ErrorBoundary(), isWrapper: true);
+  group('ErrorBoundaryMixin (deprecated)', () {
+    sharedErrorBoundaryTests(() => CustomErrorBoundary());
   });
 }
