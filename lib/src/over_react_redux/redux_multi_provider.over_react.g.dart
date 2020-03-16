@@ -182,7 +182,6 @@ class _$ReduxMultiProviderComponent extends ReduxMultiProviderComponent {
   /// The default consumed props, taken from _$ReduxMultiProviderProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForReduxMultiProviderProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      const [_$metaForReduxMultiProviderProps];
 }

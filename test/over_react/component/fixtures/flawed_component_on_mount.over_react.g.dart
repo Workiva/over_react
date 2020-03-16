@@ -141,7 +141,6 @@ class _$FlawedOnMountComponent extends FlawedOnMountComponent {
   /// The default consumed props, taken from _$FlawedOnMountProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForFlawedOnMountProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      const [_$metaForFlawedOnMountProps];
 }

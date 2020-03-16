@@ -137,9 +137,8 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   /// The default consumed props, taken from ComponentTestProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = [
-    propsMeta.forMixin(ComponentTestProps)
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(ComponentTestProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({

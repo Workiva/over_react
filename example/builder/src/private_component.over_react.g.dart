@@ -220,9 +220,8 @@ class _$PrivateComponent extends PrivateComponent {
   /// The default consumed props, taken from _PrivateProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = [
-    propsMeta.forMixin(_PrivateProps)
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(_PrivateProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({

@@ -284,9 +284,8 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   /// The default consumed props, taken from _$ComponentTestProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForComponentTestProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      const [_$metaForComponentTestProps];
 }
 
 // React component factory implementation.
@@ -429,9 +428,8 @@ class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
   /// The default consumed props, taken from _$IsErrorBoundaryProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForIsErrorBoundaryProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      const [_$metaForIsErrorBoundaryProps];
 }
 
 // React component factory implementation.
@@ -574,7 +572,6 @@ class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
   /// The default consumed props, taken from _$IsNotErrorBoundaryProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForIsNotErrorBoundaryProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      const [_$metaForIsNotErrorBoundaryProps];
 }

@@ -144,7 +144,6 @@ class _$FluxCounterComponent extends FluxCounterComponent {
   /// The default consumed props, taken from _$FluxCounterProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForFluxCounterProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      const [_$metaForFluxCounterProps];
 }

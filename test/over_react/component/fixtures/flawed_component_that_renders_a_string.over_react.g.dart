@@ -145,7 +145,6 @@ class _$FlawedWithStringChildComponent extends FlawedWithStringChildComponent {
   /// The default consumed props, taken from _$FlawedWithStringChildProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForFlawedWithStringChildProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      const [_$metaForFlawedWithStringChildProps];
 }

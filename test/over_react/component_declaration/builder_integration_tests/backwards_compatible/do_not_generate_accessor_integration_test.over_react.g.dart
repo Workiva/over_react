@@ -243,7 +243,6 @@ class _$DoNotGenerateAccessorTestComponent
   /// The default consumed props, taken from _$DoNotGenerateAccessorTestProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForDoNotGenerateAccessorTestProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      const [_$metaForDoNotGenerateAccessorTestProps];
 }

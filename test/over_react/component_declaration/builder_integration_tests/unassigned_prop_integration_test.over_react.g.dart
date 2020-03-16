@@ -115,5 +115,5 @@ class _$FooComponent extends FooComponent {
   /// The default consumed props, taken from _$FooProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForFooProps];
+  List<ConsumedProps> get $defaultConsumedProps => const [_$metaForFooProps];
 }

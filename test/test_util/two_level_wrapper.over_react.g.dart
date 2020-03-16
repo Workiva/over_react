@@ -89,7 +89,6 @@ class _$TwoLevelWrapperComponent extends TwoLevelWrapperComponent {
   /// The default consumed props, taken from _$TwoLevelWrapperProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTwoLevelWrapperProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      const [_$metaForTwoLevelWrapperProps];
 }

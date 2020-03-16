@@ -349,7 +349,5 @@ class _$ButtonComponent extends ButtonComponent {
   /// The default consumed props, taken from _$ButtonProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForButtonProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps => const [_$metaForButtonProps];
 }

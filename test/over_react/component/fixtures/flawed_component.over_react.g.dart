@@ -280,7 +280,5 @@ class _$FlawedComponent extends FlawedComponent {
   /// The default consumed props, taken from _$FlawedProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForFlawedProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps => const [_$metaForFlawedProps];
 }

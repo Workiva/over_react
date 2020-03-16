@@ -160,7 +160,6 @@ class _$ShouldNotUpdateComponent extends ShouldNotUpdateComponent {
   /// The default consumed props, taken from _$ShouldNotUpdateProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForShouldNotUpdateProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      const [_$metaForShouldNotUpdateProps];
 }

@@ -143,7 +143,5 @@ class _$TestA2Component extends TestA2Component {
   /// The default consumed props, taken from _$TestA2Props.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestA2Props
-  ];
+  List<ConsumedProps> get $defaultConsumedProps => const [_$metaForTestA2Props];
 }

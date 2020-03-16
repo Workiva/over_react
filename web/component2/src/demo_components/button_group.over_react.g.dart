@@ -314,7 +314,6 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
   /// The default consumed props, taken from _$ButtonGroupProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForButtonGroupProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      const [_$metaForButtonGroupProps];
 }

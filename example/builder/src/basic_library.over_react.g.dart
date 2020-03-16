@@ -227,7 +227,7 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   /// The default consumed props, taken from BasicPartOfLibProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [];
+  List<ConsumedProps> get $defaultConsumedProps => const [];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
@@ -503,7 +503,7 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   /// The default consumed props, taken from SubPartOfLibProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [];
+  List<ConsumedProps> get $defaultConsumedProps => const [];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({

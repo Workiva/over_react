@@ -135,9 +135,8 @@ class _$FooComponent extends FooComponent {
   /// The default consumed props, taken from FooProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = [
-    propsMeta.forMixin(FooProps)
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(FooProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({

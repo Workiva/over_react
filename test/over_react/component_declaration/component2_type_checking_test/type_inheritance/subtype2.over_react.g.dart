@@ -146,7 +146,6 @@ class _$TestSubtype2Component extends TestSubtype2Component {
   /// The default consumed props, taken from _$TestSubtype2Props.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestSubtype2Props
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      const [_$metaForTestSubtype2Props];
 }

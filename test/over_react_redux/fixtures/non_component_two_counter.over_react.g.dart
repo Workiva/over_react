@@ -90,7 +90,6 @@ class _$NonComponentTwoCounterComponent
   /// The default consumed props, taken from _$NonComponentTwoCounterProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForNonComponentTwoCounterProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      const [_$metaForNonComponentTwoCounterProps];
 }

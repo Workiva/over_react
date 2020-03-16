@@ -227,9 +227,8 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
   /// The default consumed props, taken from StatefulComponentTestProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = [
-    propsMeta.forMixin(StatefulComponentTestProps)
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(StatefulComponentTestProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({

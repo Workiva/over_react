@@ -144,7 +144,6 @@ class _$TestParent2Component extends TestParent2Component {
   /// The default consumed props, taken from _$TestParent2Props.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTestParent2Props
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      const [_$metaForTestParent2Props];
 }

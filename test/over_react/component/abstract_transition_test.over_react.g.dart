@@ -297,7 +297,6 @@ class _$TransitionerComponent extends TransitionerComponent {
   /// The default consumed props, taken from _$TransitionerProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTransitionerProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      const [_$metaForTransitionerProps];
 }

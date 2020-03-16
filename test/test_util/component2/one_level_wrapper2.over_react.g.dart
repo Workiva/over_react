@@ -146,7 +146,6 @@ class _$OneLevelWrapper2Component extends OneLevelWrapper2Component {
   /// The default consumed props, taken from _$OneLevelWrapper2Props.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForOneLevelWrapper2Props
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      const [_$metaForOneLevelWrapper2Props];
 }

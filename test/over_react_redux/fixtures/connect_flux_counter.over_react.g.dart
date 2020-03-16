@@ -245,7 +245,6 @@ class _$ConnectFluxCounterComponent extends ConnectFluxCounterComponent {
   /// The default consumed props, taken from _$ConnectFluxCounterProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForConnectFluxCounterProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      const [_$metaForConnectFluxCounterProps];
 }

@@ -176,7 +176,6 @@ class _$BigBlockComponent extends BigBlockComponent {
   /// The default consumed props, taken from _$BigBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForBigBlockProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      const [_$metaForBigBlockProps];
 }

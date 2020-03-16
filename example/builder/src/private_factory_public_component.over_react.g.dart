@@ -137,9 +137,8 @@ class _$FormActionInputComponent extends FormActionInputComponent {
   /// The default consumed props, taken from FormActionInputProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = [
-    propsMeta.forMixin(FormActionInputProps)
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(FormActionInputProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({

@@ -279,7 +279,6 @@ class _$TypedFactoryTesterComponent extends TypedFactoryTesterComponent {
   /// The default consumed props, taken from _$TypedFactoryTesterProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTypedFactoryTesterProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      const [_$metaForTypedFactoryTesterProps];
 }
