@@ -157,7 +157,9 @@ class _ComponentGenerator extends ComponentGenerator {
   @override
   String get defaultConsumedProps => declaration.props.switchCase(
         (a) => 'const []', // Concrete props classes do not have generated meta
-        (b) => 'const [${propsNames.metaConstantName}]',
+        // Use propsMeta.forMixin instead of directly accessing the props class so that
+        // we don't reference the generated mixin and have to emit another warning comment.
+        (b) => '[propsMeta.forMixin(${propsNames.consumerName})]',
       );
 
   @override
