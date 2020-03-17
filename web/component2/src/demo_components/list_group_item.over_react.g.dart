@@ -423,6 +423,7 @@ class _$ListGroupItemComponent extends ListGroupItemComponent {
   /// The default consumed props, taken from _$ListGroupItemProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForListGroupItemProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForListGroupItemProps
+  ];
 }

@@ -244,6 +244,7 @@ class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
   /// The default consumed props, taken from _$ToggleButtonGroupProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForToggleButtonGroupProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForToggleButtonGroupProps
+  ];
 }

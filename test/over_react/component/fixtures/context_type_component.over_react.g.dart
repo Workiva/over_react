@@ -144,6 +144,7 @@ class _$ContextTypeComponent extends ContextTypeComponent {
   /// The default consumed props, taken from _$ContextTypeProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForContextTypeProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForContextTypeProps
+  ];
 }

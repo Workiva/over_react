@@ -155,5 +155,5 @@ class _$DummyComponent extends DummyComponent {
   /// The default consumed props, taken from _$DummyProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps => const [_$metaForDummyProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForDummyProps];
 }

@@ -350,8 +350,9 @@ class _$TestConsumingAbstractCustomRendererComponentComponent
   /// The default consumed props, taken from _$TestConsumingAbstractCustomRendererComponentProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestConsumingAbstractCustomRendererComponentProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestConsumingAbstractCustomRendererComponentProps
+  ];
 }
 
 // React component factory implementation.
@@ -548,8 +549,9 @@ class _$TestConsumingCustomRendererComponentComponent
   /// The default consumed props, taken from _$TestConsumingCustomRendererComponentProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestConsumingCustomRendererComponentProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestConsumingCustomRendererComponentProps
+  ];
 }
 
 // React component factory implementation.
@@ -836,8 +838,9 @@ class _$TestCustomRendererFromAbstractComponentComponent
   /// The default consumed props, taken from _$TestCustomRendererFromAbstractComponentProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestCustomRendererFromAbstractComponentProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestCustomRendererFromAbstractComponentProps
+  ];
 }
 
 // React component factory implementation.
@@ -1193,6 +1196,7 @@ class _$TestCustomRendererComponentComponent
   /// The default consumed props, taken from _$TestCustomRendererComponentProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestCustomRendererComponentProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestCustomRendererComponentProps
+  ];
 }

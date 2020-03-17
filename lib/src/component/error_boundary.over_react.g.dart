@@ -244,6 +244,7 @@ class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
   /// The default consumed props, taken from _$ErrorBoundaryProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForErrorBoundaryProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForErrorBoundaryProps
+  ];
 }

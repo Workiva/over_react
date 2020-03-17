@@ -139,5 +139,5 @@ class _$TagComponent extends TagComponent {
   /// The default consumed props, taken from _$TagProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps => const [_$metaForTagProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTagProps];
 }

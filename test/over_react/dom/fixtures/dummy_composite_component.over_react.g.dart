@@ -148,6 +148,7 @@ class _$TestCompositeComponentComponent
   /// The default consumed props, taken from _$TestCompositeComponentProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      const [_$metaForTestCompositeComponentProps];
+  final List<ConsumedProps> $defaultConsumedProps = const [
+    _$metaForTestCompositeComponentProps
+  ];
 }
