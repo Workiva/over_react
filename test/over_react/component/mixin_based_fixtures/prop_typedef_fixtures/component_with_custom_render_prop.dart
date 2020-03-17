@@ -14,27 +14,23 @@
 
 part of prop_tyepdef_test_fixtures;
 
-@Factory()
-UiFactory<TestCustomRendererComponentProps> TestCustomRendererComponent = _$TestCustomRendererComponent;
+UiFactory<TestCustomRendererComponentProps> TestCustomRendererComponent =
+    _$TestCustomRendererComponent;
 
-@Props()
-class _$TestCustomRendererComponentProps extends UiProps {
+mixin TestCustomRendererComponentProps on UiProps {
   CustomRenderFunction customRenderer;
-  CustomRenderFunction<TestCustomRendererComponentProps,
-                       TestCustomRendererComponentState,
-                       TestCustomRendererComponentComponent> parameterizedCustomRenderer;
+  CustomRenderFunction<TestCustomRendererComponentProps, TestCustomRendererComponentState,
+      TestCustomRendererComponentComponent> parameterizedCustomRenderer;
   String somePropKey;
   String someInitialStateKeyValue;
 }
 
-@State()
-class _$TestCustomRendererComponentState extends UiState {
+mixin TestCustomRendererComponentState on UiState {
   String someStateKey;
 }
 
-@Component2()
-class TestCustomRendererComponentComponent
-    extends UiStatefulComponent2<TestCustomRendererComponentProps, TestCustomRendererComponentState> {
+class TestCustomRendererComponentComponent extends UiStatefulComponent2<
+    TestCustomRendererComponentProps, TestCustomRendererComponentState> {
   @override
   get initialState => (newState()..someStateKey = props.someInitialStateKeyValue);
 

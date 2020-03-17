@@ -10,6 +10,8 @@ part of 'flawed_component_on_mount.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $FlawedOnMountComponentFactory = registerComponent2(
   () => _$FlawedOnMountComponent(),
   builderFactory: FlawedOnMount,
@@ -17,22 +19,6 @@ final $FlawedOnMountComponentFactory = registerComponent2(
   isWrapper: false,
   parentType: null,
   displayName: 'FlawedOnMount',
-);
-
-abstract class _$FlawedOnMountPropsAccessorsMixin
-    implements _$FlawedOnMountProps {
-  @override
-  Map get props;
-
-  /* GENERATED CONSTANTS */
-
-  static const List<PropDescriptor> $props = [];
-  static const List<String> $propKeys = [];
-}
-
-const PropsMeta _$metaForFlawedOnMountProps = PropsMeta(
-  fields: _$FlawedOnMountPropsAccessorsMixin.$props,
-  keys: _$FlawedOnMountPropsAccessorsMixin.$propKeys,
 );
 
 _$$FlawedOnMountProps _$FlawedOnMount([Map backingProps]) =>
@@ -43,9 +29,13 @@ _$$FlawedOnMountProps _$FlawedOnMount([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$FlawedOnMountProps extends _$FlawedOnMountProps
-    with _$FlawedOnMountPropsAccessorsMixin
-    implements FlawedOnMountProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$FlawedOnMountProps extends UiProps
+    with
+        FlawedOnMountProps,
+        $FlawedOnMountProps // If this generated mixin is undefined, it's likely because FlawedOnMountProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FlawedOnMountProps.
+{
   _$$FlawedOnMountProps._();
 
   factory _$$FlawedOnMountProps(Map backingMap) {
@@ -67,10 +57,12 @@ abstract class _$$FlawedOnMountProps extends _$FlawedOnMountProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'FlawedOnMountProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$FlawedOnMountProps$PlainMap extends _$$FlawedOnMountProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -88,6 +80,8 @@ class _$$FlawedOnMountProps$PlainMap extends _$$FlawedOnMountProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$FlawedOnMountProps$JsMap extends _$$FlawedOnMountProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -107,6 +101,8 @@ class _$$FlawedOnMountProps$JsMap extends _$$FlawedOnMountProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$FlawedOnMountComponent extends FlawedOnMountComponent {
   _$$FlawedOnMountProps$JsMap _cachedTypedProps;
 
@@ -138,10 +134,34 @@ class _$FlawedOnMountComponent extends FlawedOnMountComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$FlawedOnMountProps.
+  /// The default consumed props, taken from FlawedOnMountProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForFlawedOnMountProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(FlawedOnMountProps)];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because FlawedOnMountProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FlawedOnMountProps.
+        FlawedOnMountProps: $FlawedOnMountProps.meta,
+      });
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $FlawedOnMountProps on FlawedOnMountProps {
+  static const PropsMeta meta = _$metaForFlawedOnMountProps;
+  /* GENERATED CONSTANTS */
+
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForFlawedOnMountProps = PropsMeta(
+  fields: $FlawedOnMountProps.$props,
+  keys: $FlawedOnMountProps.$propKeys,
+);

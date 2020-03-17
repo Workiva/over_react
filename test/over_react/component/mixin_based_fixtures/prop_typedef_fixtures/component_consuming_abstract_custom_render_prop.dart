@@ -14,17 +14,14 @@
 
 part of prop_tyepdef_test_fixtures;
 
-@Factory()
-UiFactory<TestConsumingAbstractCustomRendererComponentProps> TestConsumingAbstractCustomRendererComponent =
-    _$TestConsumingAbstractCustomRendererComponent;
+UiFactory<TestConsumingAbstractCustomRendererComponentProps>
+    TestConsumingAbstractCustomRendererComponent = _$TestConsumingAbstractCustomRendererComponent;
 
-@Props()
-class _$TestConsumingAbstractCustomRendererComponentProps extends UiProps {
+mixin TestConsumingAbstractCustomRendererComponentProps on UiProps {
   String propKeyValueToTest;
   String stateKeyValueToTest;
 }
 
-@Component2()
 class TestConsumingAbstractCustomRendererComponentComponent
     extends UiComponent2<TestConsumingAbstractCustomRendererComponentProps> {
   @override
@@ -33,19 +30,15 @@ class TestConsumingAbstractCustomRendererComponentComponent
       ..somePropKey = props.propKeyValueToTest
       ..someInitialStateKeyValue = props.stateKeyValueToTest
       ..customRenderer = (props, state, component) {
-        return (Dom.div()
-          ..addTestId('customRendererContainer')
-        )(
+        return (Dom.div()..addTestId('customRendererContainer'))(
           'props.somePropKey: ${(props as TestCustomRendererFromAbstractComponentProps).somePropKey} \n'
-          'props.someStateKey: ${(state as TestCustomRendererFromAbstractComponentState).someStateKey}'
+          'props.someStateKey: ${(state as TestCustomRendererFromAbstractComponentState).someStateKey}',
         );
       }
       ..parameterizedCustomRenderer = (props, state, component) {
-        return (Dom.div()
-          ..addTestId('parameterizedCustomRendererContainer')
-        )(
+        return (Dom.div()..addTestId('parameterizedCustomRendererContainer'))(
           'props.somePropKey: ${props.somePropKey} \n'
-          'props.someStateKey: ${state.someStateKey}'
+          'props.someStateKey: ${state.someStateKey}',
         );
       }
     )();

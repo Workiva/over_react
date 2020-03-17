@@ -10,6 +10,8 @@ part of 'context_provider_component.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $ContextProviderWrapperComponentFactory = registerComponent2(
   () => _$ContextProviderWrapperComponent(),
   builderFactory: ContextProviderWrapper,
@@ -19,27 +21,6 @@ final $ContextProviderWrapperComponentFactory = registerComponent2(
   displayName: 'ContextProviderWrapper',
 );
 
-abstract class _$ContextProviderWrapperPropsAccessorsMixin
-    implements _$ContextProviderWrapperProps {
-  @override
-  Map get props;
-
-  /* GENERATED CONSTANTS */
-
-  static const List<PropDescriptor> $props = [];
-  static const List<String> $propKeys = [];
-}
-
-const PropsMeta _$metaForContextProviderWrapperProps = PropsMeta(
-  fields: _$ContextProviderWrapperPropsAccessorsMixin.$props,
-  keys: _$ContextProviderWrapperPropsAccessorsMixin.$propKeys,
-);
-
-class ContextProviderWrapperProps extends _$ContextProviderWrapperProps
-    with _$ContextProviderWrapperPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForContextProviderWrapperProps;
-}
-
 _$$ContextProviderWrapperProps _$ContextProviderWrapper([Map backingProps]) =>
     backingProps == null
         ? _$$ContextProviderWrapperProps$JsMap(JsBackedMap())
@@ -48,10 +29,13 @@ _$$ContextProviderWrapperProps _$ContextProviderWrapper([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$ContextProviderWrapperProps
-    extends _$ContextProviderWrapperProps
-    with _$ContextProviderWrapperPropsAccessorsMixin
-    implements ContextProviderWrapperProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ContextProviderWrapperProps extends UiProps
+    with
+        ContextProviderWrapperProps,
+        $ContextProviderWrapperProps // If this generated mixin is undefined, it's likely because ContextProviderWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ContextProviderWrapperProps.
+{
   _$$ContextProviderWrapperProps._();
 
   factory _$$ContextProviderWrapperProps(Map backingMap) {
@@ -73,10 +57,12 @@ abstract class _$$ContextProviderWrapperProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'ContextProviderWrapperProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ContextProviderWrapperProps$PlainMap
     extends _$$ContextProviderWrapperProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
@@ -95,6 +81,8 @@ class _$$ContextProviderWrapperProps$PlainMap
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ContextProviderWrapperProps$JsMap
     extends _$$ContextProviderWrapperProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
@@ -111,52 +99,16 @@ class _$$ContextProviderWrapperProps$JsMap
   JsBackedMap _props;
 }
 
-abstract class _$ContextProviderWrapperStateAccessorsMixin
-    implements _$ContextProviderWrapperState {
-  @override
-  Map get state;
-
-  /// <!-- Generated from [_$ContextProviderWrapperState.latestValue] -->
-  @override
-  int get latestValue =>
-      state[_$key__latestValue___$ContextProviderWrapperState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$ContextProviderWrapperState.latestValue] -->
-  @override
-  set latestValue(int value) =>
-      state[_$key__latestValue___$ContextProviderWrapperState] = value;
-  /* GENERATED CONSTANTS */
-  static const StateDescriptor
-      _$prop__latestValue___$ContextProviderWrapperState =
-      StateDescriptor(_$key__latestValue___$ContextProviderWrapperState);
-  static const String _$key__latestValue___$ContextProviderWrapperState =
-      'ContextProviderWrapperState.latestValue';
-
-  static const List<StateDescriptor> $state = [
-    _$prop__latestValue___$ContextProviderWrapperState
-  ];
-  static const List<String> $stateKeys = [
-    _$key__latestValue___$ContextProviderWrapperState
-  ];
-}
-
-const StateMeta _$metaForContextProviderWrapperState = StateMeta(
-  fields: _$ContextProviderWrapperStateAccessorsMixin.$state,
-  keys: _$ContextProviderWrapperStateAccessorsMixin.$stateKeys,
-);
-
-class ContextProviderWrapperState extends _$ContextProviderWrapperState
-    with _$ContextProviderWrapperStateAccessorsMixin {
-  static const StateMeta meta = _$metaForContextProviderWrapperState;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$ContextProviderWrapperState
-    extends _$ContextProviderWrapperState
-    with _$ContextProviderWrapperStateAccessorsMixin
-    implements ContextProviderWrapperState {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ContextProviderWrapperState extends UiState
+    with
+        ContextProviderWrapperState,
+        $ContextProviderWrapperState // If this generated mixin is undefined, it's likely because ContextProviderWrapperState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ContextProviderWrapperState.
+{
   _$$ContextProviderWrapperState._();
 
   factory _$$ContextProviderWrapperState(Map backingMap) {
@@ -173,6 +125,8 @@ abstract class _$$ContextProviderWrapperState
 }
 
 // Concrete state implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ContextProviderWrapperState$PlainMap
     extends _$$ContextProviderWrapperState {
   // This initializer of `_state` to an empty map, as well as the reassignment
@@ -191,6 +145,8 @@ class _$$ContextProviderWrapperState$PlainMap
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ContextProviderWrapperState$JsMap
     extends _$$ContextProviderWrapperState {
   // This initializer of `_state` to an empty map, as well as the reassignment
@@ -211,6 +167,8 @@ class _$$ContextProviderWrapperState$JsMap
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$ContextProviderWrapperComponent
     extends ContextProviderWrapperComponent {
   _$$ContextProviderWrapperProps$JsMap _cachedTypedProps;
@@ -267,10 +225,69 @@ class _$ContextProviderWrapperComponent
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$ContextProviderWrapperProps.
+  /// The default consumed props, taken from ContextProviderWrapperProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForContextProviderWrapperProps
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(ContextProviderWrapperProps)];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ContextProviderWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ContextProviderWrapperProps.
+        ContextProviderWrapperProps: $ContextProviderWrapperProps.meta,
+      });
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $ContextProviderWrapperProps on ContextProviderWrapperProps {
+  static const PropsMeta meta = _$metaForContextProviderWrapperProps;
+  /* GENERATED CONSTANTS */
+
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForContextProviderWrapperProps = PropsMeta(
+  fields: $ContextProviderWrapperProps.$props,
+  keys: $ContextProviderWrapperProps.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $ContextProviderWrapperState on ContextProviderWrapperState {
+  static const StateMeta meta = _$metaForContextProviderWrapperState;
+  @override
+  int get latestValue =>
+      state[_$key__latestValue__ContextProviderWrapperState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set latestValue(int value) =>
+      state[_$key__latestValue__ContextProviderWrapperState] = value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor
+      _$prop__latestValue__ContextProviderWrapperState =
+      StateDescriptor(_$key__latestValue__ContextProviderWrapperState);
+  static const String _$key__latestValue__ContextProviderWrapperState =
+      'ContextProviderWrapperState.latestValue';
+
+  static const List<StateDescriptor> $state = [
+    _$prop__latestValue__ContextProviderWrapperState
+  ];
+  static const List<String> $stateKeys = [
+    _$key__latestValue__ContextProviderWrapperState
   ];
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const StateMeta _$metaForContextProviderWrapperState = StateMeta(
+  fields: $ContextProviderWrapperState.$state,
+  keys: $ContextProviderWrapperState.$stateKeys,
+);

@@ -14,22 +14,31 @@
 
 part of prop_tyepdef_test_fixtures;
 
-@Factory()
 UiFactory<TestCustomRendererFromAbstractComponentProps> TestCustomRendererFromAbstractComponent =
     _$TestCustomRendererFromAbstractComponent;
 
-@Props()
-class _$TestCustomRendererFromAbstractComponentProps extends TestAbstractCustomRendererComponentProps {
+mixin TestCustomRendererFromAbstractComponentPropsMixin on UiProps {
   String someInitialStateKeyValue;
 }
 
-@State()
-class _$TestCustomRendererFromAbstractComponentState extends TestAbstractCustomRendererComponentState {}
+// FIXME:
+//   1. Ensure that all mixins used by TestAbstractCustomRendererComponentProps are also mixed into this class.
+//   2. Fix any analyzer warnings on this class about missing mixins.
+class TestCustomRendererFromAbstractComponentProps = UiProps
+    with
+        TestAbstractCustomRendererComponentProps,
+        TestCustomRendererFromAbstractComponentPropsMixin;
 
-@Component2()
+// FIXME:
+//   1. Ensure that all mixins used by TestAbstractCustomRendererComponentState are also mixed into this class.
+//   2. Fix any analyzer warnings on this class about missing mixins.
+class TestCustomRendererFromAbstractComponentState = UiState
+    with TestAbstractCustomRendererComponentState;
+
 class TestCustomRendererFromAbstractComponentComponent
-    extends TestAbstractCustomRendererComponentComponent<TestCustomRendererFromAbstractComponentProps,
-                                                         TestCustomRendererFromAbstractComponentState> {
+    extends TestAbstractCustomRendererComponentComponent<
+        TestCustomRendererFromAbstractComponentProps,
+        TestCustomRendererFromAbstractComponentState> {
   @override
   get initialState => (newState()..someStateKey = props.someInitialStateKeyValue);
 

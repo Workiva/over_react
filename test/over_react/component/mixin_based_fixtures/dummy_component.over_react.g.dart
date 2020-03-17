@@ -10,6 +10,8 @@ part of 'dummy_component.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $DummyComponentFactory = registerComponent2(
   () => _$DummyComponent(),
   builderFactory: Dummy,
@@ -19,38 +21,6 @@ final $DummyComponentFactory = registerComponent2(
   displayName: 'Dummy',
 );
 
-abstract class _$DummyPropsAccessorsMixin implements _$DummyProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$DummyProps.onComponentDidMount] -->
-  @override
-  Function get onComponentDidMount =>
-      props[_$key__onComponentDidMount___$DummyProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$DummyProps.onComponentDidMount] -->
-  @override
-  set onComponentDidMount(Function value) =>
-      props[_$key__onComponentDidMount___$DummyProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__onComponentDidMount___$DummyProps =
-      PropDescriptor(_$key__onComponentDidMount___$DummyProps);
-  static const String _$key__onComponentDidMount___$DummyProps =
-      'DummyProps.onComponentDidMount';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__onComponentDidMount___$DummyProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__onComponentDidMount___$DummyProps
-  ];
-}
-
-const PropsMeta _$metaForDummyProps = PropsMeta(
-  fields: _$DummyPropsAccessorsMixin.$props,
-  keys: _$DummyPropsAccessorsMixin.$propKeys,
-);
-
 _$$DummyProps _$Dummy([Map backingProps]) => backingProps == null
     ? _$$DummyProps$JsMap(JsBackedMap())
     : _$$DummyProps(backingProps);
@@ -58,9 +28,13 @@ _$$DummyProps _$Dummy([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$DummyProps extends _$DummyProps
-    with _$DummyPropsAccessorsMixin
-    implements DummyProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$DummyProps extends UiProps
+    with
+        DummyProps,
+        $DummyProps // If this generated mixin is undefined, it's likely because DummyProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of DummyProps.
+{
   _$$DummyProps._();
 
   factory _$$DummyProps(Map backingMap) {
@@ -82,10 +56,12 @@ abstract class _$$DummyProps extends _$DummyProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'DummyProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$DummyProps$PlainMap extends _$$DummyProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -103,6 +79,8 @@ class _$$DummyProps$PlainMap extends _$$DummyProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$DummyProps$JsMap extends _$$DummyProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -122,6 +100,8 @@ class _$$DummyProps$JsMap extends _$$DummyProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$DummyComponent extends DummyComponent {
   _$$DummyProps$JsMap _cachedTypedProps;
 
@@ -152,8 +132,49 @@ class _$DummyComponent extends DummyComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$DummyProps.
+  /// The default consumed props, taken from DummyProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForDummyProps];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(DummyProps)];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because DummyProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of DummyProps.
+        DummyProps: $DummyProps.meta,
+      });
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $DummyProps on DummyProps {
+  static const PropsMeta meta = _$metaForDummyProps;
+  @override
+  Function get onComponentDidMount =>
+      props[_$key__onComponentDidMount__DummyProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set onComponentDidMount(Function value) =>
+      props[_$key__onComponentDidMount__DummyProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__onComponentDidMount__DummyProps =
+      PropDescriptor(_$key__onComponentDidMount__DummyProps);
+  static const String _$key__onComponentDidMount__DummyProps =
+      'DummyProps.onComponentDidMount';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__onComponentDidMount__DummyProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__onComponentDidMount__DummyProps
+  ];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForDummyProps = PropsMeta(
+  fields: $DummyProps.$props,
+  keys: $DummyProps.$propKeys,
+);

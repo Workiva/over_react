@@ -16,14 +16,12 @@ import 'package:over_react/over_react.dart';
 
 part 'basic_ui_component.over_react.g.dart';
 // ignore_for_file: deprecated_member_use_from_same_package
-@Factory()
+
 UiFactory<BasicUiComponentProps> BasicUiComponent = _$BasicUiComponent;
 
-@Props()
-class _$BasicUiComponentProps extends UiProps {}
+mixin BasicUiComponentProps on UiProps {}
 
-@Component()
-class BasicUiComponentComponent extends UiComponent<BasicUiComponentProps> {
+class BasicUiComponentComponent extends UiComponent2<BasicUiComponentProps> {
   @override
   render() => 'child component';
 }

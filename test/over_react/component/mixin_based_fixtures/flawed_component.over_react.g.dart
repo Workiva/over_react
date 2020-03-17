@@ -10,6 +10,8 @@ part of 'flawed_component.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $FlawedComponentFactory = registerComponent2(
   () => _$FlawedComponent(),
   builderFactory: Flawed,
@@ -19,38 +21,6 @@ final $FlawedComponentFactory = registerComponent2(
   displayName: 'Flawed',
 );
 
-abstract class _$FlawedPropsAccessorsMixin implements _$FlawedProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$FlawedProps.buttonTestIdPrefix] -->
-  @override
-  String get buttonTestIdPrefix =>
-      props[_$key__buttonTestIdPrefix___$FlawedProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$FlawedProps.buttonTestIdPrefix] -->
-  @override
-  set buttonTestIdPrefix(String value) =>
-      props[_$key__buttonTestIdPrefix___$FlawedProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__buttonTestIdPrefix___$FlawedProps =
-      PropDescriptor(_$key__buttonTestIdPrefix___$FlawedProps);
-  static const String _$key__buttonTestIdPrefix___$FlawedProps =
-      'FlawedProps.buttonTestIdPrefix';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__buttonTestIdPrefix___$FlawedProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__buttonTestIdPrefix___$FlawedProps
-  ];
-}
-
-const PropsMeta _$metaForFlawedProps = PropsMeta(
-  fields: _$FlawedPropsAccessorsMixin.$props,
-  keys: _$FlawedPropsAccessorsMixin.$propKeys,
-);
-
 _$$FlawedProps _$Flawed([Map backingProps]) => backingProps == null
     ? _$$FlawedProps$JsMap(JsBackedMap())
     : _$$FlawedProps(backingProps);
@@ -58,9 +28,13 @@ _$$FlawedProps _$Flawed([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$FlawedProps extends _$FlawedProps
-    with _$FlawedPropsAccessorsMixin
-    implements FlawedProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$FlawedProps extends UiProps
+    with
+        FlawedProps,
+        $FlawedProps // If this generated mixin is undefined, it's likely because FlawedProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FlawedProps.
+{
   _$$FlawedProps._();
 
   factory _$$FlawedProps(Map backingMap) {
@@ -82,10 +56,12 @@ abstract class _$$FlawedProps extends _$FlawedProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'FlawedProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$FlawedProps$PlainMap extends _$$FlawedProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -103,6 +79,8 @@ class _$$FlawedProps$PlainMap extends _$$FlawedProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$FlawedProps$JsMap extends _$$FlawedProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -118,60 +96,16 @@ class _$$FlawedProps$JsMap extends _$$FlawedProps {
   JsBackedMap _props;
 }
 
-abstract class _$FlawedStateAccessorsMixin implements _$FlawedState {
-  @override
-  Map get state;
-
-  /// <!-- Generated from [_$FlawedState.errorCount] -->
-  @override
-  int get errorCount =>
-      state[_$key__errorCount___$FlawedState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$FlawedState.errorCount] -->
-  @override
-  set errorCount(int value) => state[_$key__errorCount___$FlawedState] = value;
-
-  /// <!-- Generated from [_$FlawedState.differentTypeOfErrorCount] -->
-  @override
-  int get differentTypeOfErrorCount =>
-      state[_$key__differentTypeOfErrorCount___$FlawedState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$FlawedState.differentTypeOfErrorCount] -->
-  @override
-  set differentTypeOfErrorCount(int value) =>
-      state[_$key__differentTypeOfErrorCount___$FlawedState] = value;
-  /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__errorCount___$FlawedState =
-      StateDescriptor(_$key__errorCount___$FlawedState);
-  static const StateDescriptor
-      _$prop__differentTypeOfErrorCount___$FlawedState =
-      StateDescriptor(_$key__differentTypeOfErrorCount___$FlawedState);
-  static const String _$key__errorCount___$FlawedState =
-      'FlawedState.errorCount';
-  static const String _$key__differentTypeOfErrorCount___$FlawedState =
-      'FlawedState.differentTypeOfErrorCount';
-
-  static const List<StateDescriptor> $state = [
-    _$prop__errorCount___$FlawedState,
-    _$prop__differentTypeOfErrorCount___$FlawedState
-  ];
-  static const List<String> $stateKeys = [
-    _$key__errorCount___$FlawedState,
-    _$key__differentTypeOfErrorCount___$FlawedState
-  ];
-}
-
-const StateMeta _$metaForFlawedState = StateMeta(
-  fields: _$FlawedStateAccessorsMixin.$state,
-  keys: _$FlawedStateAccessorsMixin.$stateKeys,
-);
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$FlawedState extends _$FlawedState
-    with _$FlawedStateAccessorsMixin
-    implements FlawedState {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$FlawedState extends UiState
+    with
+        FlawedState,
+        $FlawedState // If this generated mixin is undefined, it's likely because FlawedState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of FlawedState.
+{
   _$$FlawedState._();
 
   factory _$$FlawedState(Map backingMap) {
@@ -188,6 +122,8 @@ abstract class _$$FlawedState extends _$FlawedState
 }
 
 // Concrete state implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$FlawedState$PlainMap extends _$$FlawedState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -205,6 +141,8 @@ class _$$FlawedState$PlainMap extends _$$FlawedState {
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$FlawedState$JsMap extends _$$FlawedState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -224,6 +162,8 @@ class _$$FlawedState$JsMap extends _$$FlawedState {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$FlawedComponent extends FlawedComponent {
   _$$FlawedProps$JsMap _cachedTypedProps;
 
@@ -277,10 +217,94 @@ class _$FlawedComponent extends FlawedComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$FlawedProps.
+  /// The default consumed props, taken from FlawedProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForFlawedProps
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(FlawedProps)];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because FlawedProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FlawedProps.
+        FlawedProps: $FlawedProps.meta,
+      });
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $FlawedProps on FlawedProps {
+  static const PropsMeta meta = _$metaForFlawedProps;
+  @override
+  String get buttonTestIdPrefix =>
+      props[_$key__buttonTestIdPrefix__FlawedProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set buttonTestIdPrefix(String value) =>
+      props[_$key__buttonTestIdPrefix__FlawedProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__buttonTestIdPrefix__FlawedProps =
+      PropDescriptor(_$key__buttonTestIdPrefix__FlawedProps);
+  static const String _$key__buttonTestIdPrefix__FlawedProps =
+      'FlawedProps.buttonTestIdPrefix';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__buttonTestIdPrefix__FlawedProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__buttonTestIdPrefix__FlawedProps
   ];
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForFlawedProps = PropsMeta(
+  fields: $FlawedProps.$props,
+  keys: $FlawedProps.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $FlawedState on FlawedState {
+  static const StateMeta meta = _$metaForFlawedState;
+  @override
+  int get errorCount =>
+      state[_$key__errorCount__FlawedState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set errorCount(int value) => state[_$key__errorCount__FlawedState] = value;
+  @override
+  int get differentTypeOfErrorCount =>
+      state[_$key__differentTypeOfErrorCount__FlawedState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set differentTypeOfErrorCount(int value) =>
+      state[_$key__differentTypeOfErrorCount__FlawedState] = value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor _$prop__errorCount__FlawedState =
+      StateDescriptor(_$key__errorCount__FlawedState);
+  static const StateDescriptor _$prop__differentTypeOfErrorCount__FlawedState =
+      StateDescriptor(_$key__differentTypeOfErrorCount__FlawedState);
+  static const String _$key__errorCount__FlawedState = 'FlawedState.errorCount';
+  static const String _$key__differentTypeOfErrorCount__FlawedState =
+      'FlawedState.differentTypeOfErrorCount';
+
+  static const List<StateDescriptor> $state = [
+    _$prop__errorCount__FlawedState,
+    _$prop__differentTypeOfErrorCount__FlawedState
+  ];
+  static const List<String> $stateKeys = [
+    _$key__errorCount__FlawedState,
+    _$key__differentTypeOfErrorCount__FlawedState
+  ];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const StateMeta _$metaForFlawedState = StateMeta(
+  fields: $FlawedState.$state,
+  keys: $FlawedState.$stateKeys,
+);

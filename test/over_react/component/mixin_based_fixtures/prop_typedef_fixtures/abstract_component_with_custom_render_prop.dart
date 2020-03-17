@@ -14,22 +14,20 @@
 
 part of prop_tyepdef_test_fixtures;
 
-@AbstractProps()
-abstract class _$TestAbstractCustomRendererComponentProps extends UiProps {
+mixin TestAbstractCustomRendererComponentProps on UiProps {
   CustomRenderFunction customRenderer;
-  CustomRenderFunction<TestAbstractCustomRendererComponentProps,
-                       TestAbstractCustomRendererComponentState,
-                       TestAbstractCustomRendererComponentComponent> parameterizedCustomRenderer;
+  CustomRenderFunction<
+      TestAbstractCustomRendererComponentProps,
+      TestAbstractCustomRendererComponentState,
+      TestAbstractCustomRendererComponentComponent> parameterizedCustomRenderer;
 
   String somePropKey;
 }
 
-@AbstractState()
-abstract class _$TestAbstractCustomRendererComponentState extends UiState {
+mixin TestAbstractCustomRendererComponentState on UiState {
   String someStateKey;
 }
 
-@AbstractComponent2()
-abstract class TestAbstractCustomRendererComponentComponent<T extends TestAbstractCustomRendererComponentProps,
-                                                            S extends TestAbstractCustomRendererComponentState>
-    extends UiStatefulComponent2<T, S> {}
+abstract class TestAbstractCustomRendererComponentComponent<
+    T extends TestAbstractCustomRendererComponentProps,
+    S extends TestAbstractCustomRendererComponentState> extends UiStatefulComponent2<T, S> {}

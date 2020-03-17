@@ -10,6 +10,8 @@ part of 'basic_child_component.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $BasicChildComponentFactory = registerComponent2(
   () => _$BasicChildComponent(),
   builderFactory: BasicChild,
@@ -19,26 +21,6 @@ final $BasicChildComponentFactory = registerComponent2(
   displayName: 'BasicChild',
 );
 
-abstract class _$BasicChildPropsAccessorsMixin implements _$BasicChildProps {
-  @override
-  Map get props;
-
-  /* GENERATED CONSTANTS */
-
-  static const List<PropDescriptor> $props = [];
-  static const List<String> $propKeys = [];
-}
-
-const PropsMeta _$metaForBasicChildProps = PropsMeta(
-  fields: _$BasicChildPropsAccessorsMixin.$props,
-  keys: _$BasicChildPropsAccessorsMixin.$propKeys,
-);
-
-class BasicChildProps extends _$BasicChildProps
-    with _$BasicChildPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForBasicChildProps;
-}
-
 _$$BasicChildProps _$BasicChild([Map backingProps]) => backingProps == null
     ? _$$BasicChildProps$JsMap(JsBackedMap())
     : _$$BasicChildProps(backingProps);
@@ -46,9 +28,13 @@ _$$BasicChildProps _$BasicChild([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$BasicChildProps extends _$BasicChildProps
-    with _$BasicChildPropsAccessorsMixin
-    implements BasicChildProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$BasicChildProps extends UiProps
+    with
+        BasicChildProps,
+        $BasicChildProps // If this generated mixin is undefined, it's likely because BasicChildProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicChildProps.
+{
   _$$BasicChildProps._();
 
   factory _$$BasicChildProps(Map backingMap) {
@@ -70,10 +56,12 @@ abstract class _$$BasicChildProps extends _$BasicChildProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'BasicChildProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$BasicChildProps$PlainMap extends _$$BasicChildProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -91,6 +79,8 @@ class _$$BasicChildProps$PlainMap extends _$$BasicChildProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$BasicChildProps$JsMap extends _$$BasicChildProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -110,6 +100,8 @@ class _$$BasicChildProps$JsMap extends _$$BasicChildProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$BasicChildComponent extends BasicChildComponent {
   _$$BasicChildProps$JsMap _cachedTypedProps;
 
@@ -141,10 +133,34 @@ class _$BasicChildComponent extends BasicChildComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$BasicChildProps.
+  /// The default consumed props, taken from BasicChildProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForBasicChildProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(BasicChildProps)];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because BasicChildProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicChildProps.
+        BasicChildProps: $BasicChildProps.meta,
+      });
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $BasicChildProps on BasicChildProps {
+  static const PropsMeta meta = _$metaForBasicChildProps;
+  /* GENERATED CONSTANTS */
+
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForBasicChildProps = PropsMeta(
+  fields: $BasicChildProps.$props,
+  keys: $BasicChildProps.$propKeys,
+);
