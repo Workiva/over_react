@@ -19,7 +19,7 @@ abstract class SuperPartOfLibComponent<T extends SuperPartOfLibProps> extends Ui
 }
 
 @Factory()
-UiFactory<SubPartOfLibProps> SubPartOfLib = _$SubPartOfLib;
+UiFactory<SubPartOfLibProps> SubPartOfLib = _$SubPartOfLib; // ignore: undefined_identifier
 
 @Props()
 class _$SubPartOfLibProps extends SuperPartOfLibProps {

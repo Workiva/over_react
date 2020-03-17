@@ -37,7 +37,7 @@ abstract class Generator {
             "'This API is for use only within generated code.'"
             "' Do not reference it in your code, as it may change at any time.'"
             '$additionalMessageStringLiteral'
-            ')';
+            ')\n';
 
     assert(string.isEmpty || string.endsWith('\n'),
         'code that consumes this relies on there being a trailing newline if it is non-empty');
