@@ -13,8 +13,9 @@
 // limitations under the License.
 
 /// `UiComponent`-based api with typed props for react-dart DOM components.
-// NOTE: Similarly to standard components, adding the ignore undefined_identifier
-// will be necessary.
+//
+// NOTE: Because of the generated config class, adding the "ignore: undefined_identifier"
+// comment will be a norm when following this pattern.
 // ignore_for_file: undefined_identifier
 library over_react.dom_components;
 
@@ -33,8 +34,9 @@ part 'dom_components.example.over_react.g.dart';
 // -----------------------------------------------------------------------------
 // ----------------------------- Handwritten Code ------------------------------
 // -----------------------------------------------------------------------------
-
-// Exactly the same class as is used for functional components
+//
+// All that should be needed is this class, which is the same as the one used
+// for Function components.
 class PropsFactory<T extends builder_helpers.UiProps> {
   final T Function(Map props) map;
   final T Function(JsBackedMap props) jsMap;

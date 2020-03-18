@@ -11,6 +11,8 @@ PropsFactory $domPropsConfig = PropsFactory(
 
 // NOTE: The builder should check what classes the Props class is already mixing in.
 // In this case, DomProps already mixed in DomPropsMixin, so it cannot be mixed in again.
+// But the builder could be flexible enough to check for that, and mix it in
+// here if it's not already.
 class $DomPropsImpl extends DomProps with $DomPropsMixin {
   // NOTE: typically the generated class has a private constructor with no parameters.
   // For these cases, the generated code will need to create parameters for the factory and props
@@ -26,7 +28,7 @@ class $DomPropsImpl extends DomProps with $DomPropsMixin {
 
   // NOTE: Normally we'd also need to override `isGenerated` and the props key fields.
   // However, if the consumer is creating a props class directly then we should instead
-  // check that those fields are present.
+  // verify that those fields are present on the parent class (DomProps).
 }
 
 
