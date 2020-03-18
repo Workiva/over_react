@@ -9,7 +9,11 @@ PropsFactory $domPropsConfig = PropsFactory(
   jsMap: (map) => _$$DomPropsImpl$JsMap(map),
 );
 
+// NOTE: The builder should check what classes the Props class is already mixing in.
+// In this case, DomProps already mixed in DomPropsMixin, so it cannot be mixed in again.
 class $DomPropsImpl extends DomProps with $DomPropsMixin {
+  // NOTE: typically the generated class has a private constructor with no parameters.
+  // For these cases, the generated code will need to create parameters for the factory and props
   $DomPropsImpl._(factory, props) : super(factory, props);
 
   factory $DomPropsImpl(Map backingMap) {
@@ -29,6 +33,7 @@ class $DomPropsImpl extends DomProps with $DomPropsMixin {
 class _$$DomPropsImpl$PlainMap extends $DomPropsImpl {
   _$$DomPropsImpl$PlainMap(Map backingMap)
       : this._props = {},
+        // Set the factory to null because it will be set after the instantiation
         super._(null, backingMap) {
     this._props = backingMap ?? {};
   }
@@ -42,6 +47,7 @@ class _$$DomPropsImpl$PlainMap extends $DomPropsImpl {
 class _$$DomPropsImpl$JsMap extends $DomPropsImpl {
   _$$DomPropsImpl$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
+        // Set the factory to null because it will be set after the instantiation
         super._(null, backingMap) {
     this._props = backingMap ?? JsBackedMap();
   }
