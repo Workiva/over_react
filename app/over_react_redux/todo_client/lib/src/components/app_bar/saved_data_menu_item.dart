@@ -31,9 +31,6 @@ mixin SavedDataMenuItemStateMixin on UiState {
   bool isEditable;
 }
 
-// FIXME:
-//   1. Ensure that all mixins used by MenuOverlayState are also mixed into this class.
-//   2. Fix any analyzer warnings on this class about missing mixins.
 class SavedDataMenuItemState = UiState with MenuOverlayState, SavedDataMenuItemStateMixin, HoverableItemStateMixin;
 
 class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemProps, SavedDataMenuItemState>

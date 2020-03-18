@@ -33,9 +33,6 @@ mixin AppBarLocalStorageMenuPropsMixin on UiProps {
   bool currentDataHasBeenModified;
 }
 
-// FIXME:
-//   1. Ensure that all mixins used by MenuOverlayProps are also mixed into this class.
-//   2. Fix any analyzer warnings on this class about missing mixins.
 class AppBarLocalStorageMenuProps = UiProps with MenuOverlayProps, AppBarLocalStorageMenuPropsMixin, ConnectPropsMixin;
 
 class AppBarLocalStorageMenuComponent extends UiComponent2<AppBarLocalStorageMenuProps> {
