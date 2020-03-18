@@ -711,6 +711,53 @@ main() {
             expect(decl.factory.name.name, 'ConnectedFoo');
           });
 
+          test('alias factories', () {
+            setUpAndParse(r'''                                      
+              UiFactory<FormActionInputProps> FormSubmitInput = ([backingMap]) =>
+                  _FormActionInput(backingMap)..type = 'submit';
+              
+              UiFactory<FormActionInputProps> FormResetInput = ([backingMap]) =>
+                  _FormActionInput(backingMap)..type = 'reset';
+                  
+              // Put this last so we know it's not getting picked just because it comes
+              // before the other factories.    
+              UiFactory<FormActionInputProps> _FormActionInput = _$_FormActionInput;
+              
+              mixin FormActionInputProps on UiProps {
+                String type;
+              }
+              
+              class FormActionInputComponent extends UiComponent2<FormActionInputProps> {}
+            ''');
+
+            expect(declarations, unorderedEquals([
+              isA<ClassComponentDeclaration>(),
+              isA<PropsMixinDeclaration>(),
+            ]));
+
+            final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+            expect(decl.factory.name.name, '_FormActionInput');
+          });
+
+          test('more than one factory using a props mixin as a shorthand declaration', () {
+            setUpAndParse(r'''                                      
+              UiFactory<FooProps> Foo1 = _$Foo1;
+              
+              UiFactory<FooProps> Foo2 = _$Foo2;
+              
+              mixin FooProps on UiProps {}
+              
+              class FooComponent extends UiComponent2<FooProps> {}
+            ''');
+
+            expect(declarations, unorderedEquals([
+              isA<ClassComponentDeclaration>(),
+              isA<PropsMixinDeclaration>(),
+            ]), reason: 'should parse the mixin and one of the factories properly');
+
+            verify(logger.severe(contains(errorFactoryOnly)));
+          });
+
           group('mismatched members names for legacy component', () {
             test('Version.v2_legacyBackwardsCompat', () {
               setUpAndParse(r'''

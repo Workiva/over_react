@@ -168,11 +168,12 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   // todo getPropsForFactories getComponent utils - what if there are multiple candidates?
   //  Do we just go with the first one, or do we use confidence scores? It's possible something could look like a component or props class
 
-  // todo maybe just ditch factory groups and instead strip out non-best factories.
-  final factoryGroups = groupFactories(factories);
-  for (final factoryGroup in List.of(factoryGroups)) {
-    final factory = factoryGroup.bestFactory;
-
+  // Give the more confident factories priority when grouping, so that medium-confidence related
+  // factories that don't require generation (like aliased factories) don't trump the real factory.
+  final factoriesMostToLeastConfidence = List.of(factories)
+    ..sort((a, b) => b.versionConfidence.maxConfidence.confidence
+        .compareTo(a.versionConfidence.maxConfidence.confidence));
+  for (final factory in factoriesMostToLeastConfidence) {
     final propsClassOrMixin = getPropsFor(factory, props, propsMixins);
     final stateClassOrMixin = getStateFor(factory, states, stateMixins);
 
@@ -183,15 +184,24 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
     final component = getComponentFor(factory, components);
 
-    void consumeFactory() {
-      factoryGroups.remove(factoryGroup);
-      factoryGroup.factories.forEach(factories.remove);
-    }
+    void consumeFactory() => factories.remove(factory);
 
     void consumePropsAndState() {
-      // don't remove mixins, just classes, since mixins are generated/grouped the same as when standalone
-      props.remove(propsClassOrMixin.either);
-      states.remove(stateClassOrMixin?.either);
+      // Even though mixins are generated regardless of whether they're part of a component,
+      // it's safe to remove them since they were generated above.
+      // We do this because two factories can't have the same impl class generated from a single mixin
+      // since they would collide (though, we could change that later if desired).
+
+      // Ignore this lint so we still get list_remove_unrelated_type checking. See https://github.com/dart-lang/linter/issues/2038
+      // ignore_for_file: unnecessary_lambdas
+      propsClassOrMixin.switchCase(
+        (a) => props.remove(a),
+        (b) => propsMixins.remove(b),
+      );
+      stateClassOrMixin?.switchCase(
+        (a) => states.remove(a),
+        (b) => stateMixins.remove(b),
+      );
     }
 
     void consumeComponent() => components.remove(component);
@@ -252,7 +262,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   //
 
   final allUnusedMembers = [
-    factoryGroups.map((group) => group.bestFactory),
+    factories,
     props,
     states,
     components,
@@ -319,47 +329,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         break;
     }
   });
-}
-
-/// Factories that are grouped together via their variable's type.
-class FactoryGroup {
-  final List<BoilerplateFactory> factories;
-
-  FactoryGroup(this.factories);
-
-  // TODO add doc comment when fixme is addrssed
-  BoilerplateFactory get bestFactory {
-    if (factories.length == 1) return factories[0];
-
-    final factoriesInitializedToIdentifier =
-        factories.where((factory) => factory.node.firstInitializer is Identifier).toList();
-    if (factoriesInitializedToIdentifier.length == 1) {
-      return factoriesInitializedToIdentifier.first;
-    }
-
-    // fixme other cases
-    return factories[0];
-  }
-}
-
-/// Inspects all the [factories]' type and uses it to group factories together.
-List<FactoryGroup> groupFactories(Iterable<BoilerplateFactory> factories) {
-  var factoriesByType = <String, List<BoilerplateFactory>>{};
-
-  for (var factory in factories) {
-    final typeString = factory.node.variables.type?.toSource();
-    factoriesByType.putIfAbsent(typeString, () => []).add(factory);
-  }
-
-  final groups = <FactoryGroup>[];
-  factoriesByType.forEach((key, value) {
-    if (key == null) {
-      groups.addAll(value.map((factory) => FactoryGroup([factory])));
-    } else {
-      groups.add(FactoryGroup(value));
-    }
-  });
-  return groups;
 }
 
 /// Uses the prefix of the [factory]'s initializer to detect if the factory
