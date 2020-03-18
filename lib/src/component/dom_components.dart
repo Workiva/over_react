@@ -87,451 +87,452 @@ abstract class Dom {
   /// Returns a new builder that renders an `<a>` tag with getters/setters for all DOM-related React props,
 
   /// optionally backed by a specified map.
-  static DomProps a([Map backingMap]) => DomProps(react.a, backingMap);
+//  static DomProps a([Map backingMap]) => DomProps(react.a, backingMap);
+  static DomProps a([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.a, backingMap);
 
   /// Returns a new builder that renders an `<abbr>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps abbr([Map backingMap]) => DomProps(react.abbr, backingMap);
+  static DomProps abbr([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.abbr, backingMap);
 
   /// Returns a new builder that renders an `<address>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps address([Map backingMap]) => DomProps(react.address, backingMap);
+  static DomProps address([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.address, backingMap);
 
   /// Returns a new builder that renders an `<area>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps area([Map backingMap]) => DomProps(react.area, backingMap);
+  static DomProps area([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.area, backingMap);
 
   /// Returns a new builder that renders an `<article>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps article([Map backingMap]) => DomProps(react.article, backingMap);
+  static DomProps article([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.article, backingMap);
 
   /// Returns a new builder that renders an `<aside>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps aside([Map backingMap]) => DomProps(react.aside, backingMap);
+  static DomProps aside([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.aside, backingMap);
 
   /// Returns a new builder that renders an `<audio>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps audio([Map backingMap]) => DomProps(react.audio, backingMap);
+  static DomProps audio([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.audio, backingMap);
 
   /// Returns a new builder that renders a `<b>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps b([Map backingMap]) => DomProps(react.b, backingMap);
+  static DomProps b([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.b, backingMap);
 
   /// Returns a new builder that renders a `<base>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps base([Map backingMap]) => DomProps(react.base, backingMap);
+  static DomProps base([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.base, backingMap);
 
   /// Returns a new builder that renders a `<bdi>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps bdi([Map backingMap]) => DomProps(react.bdi, backingMap);
+  static DomProps bdi([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.bdi, backingMap);
 
   /// Returns a new builder that renders a `<bdo>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps bdo([Map backingMap]) => DomProps(react.bdo, backingMap);
+  static DomProps bdo([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.bdo, backingMap);
 
   /// Returns a new builder that renders a `<big>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps big([Map backingMap]) => DomProps(react.big, backingMap);
+  static DomProps big([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.big, backingMap);
 
   /// Returns a new builder that renders a `<blockquote>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps blockquote([Map backingMap]) => DomProps(react.blockquote, backingMap);
+  static DomProps blockquote([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.blockquote, backingMap);
 
   /// Returns a new builder that renders a `<body>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps body([Map backingMap]) => DomProps(react.body, backingMap);
+  static DomProps body([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.body, backingMap);
 
   /// Returns a new builder that renders a `<br>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps br([Map backingMap]) => DomProps(react.br, backingMap);
+  static DomProps br([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.br, backingMap);
 
   /// Returns a new builder that renders a `<button>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps button([Map backingMap]) => DomProps(react.button, backingMap);
+  static DomProps button([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.button, backingMap);
 
   /// Returns a new builder that renders a `<canvas>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps canvas([Map backingMap]) => DomProps(react.canvas, backingMap);
+  static DomProps canvas([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.canvas, backingMap);
 
   /// Returns a new builder that renders a `<caption>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps caption([Map backingMap]) => DomProps(react.caption, backingMap);
+  static DomProps caption([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.caption, backingMap);
 
   /// Returns a new builder that renders a `<cite>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps cite([Map backingMap]) => DomProps(react.cite, backingMap);
+  static DomProps cite([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.cite, backingMap);
 
   /// Returns a new builder that renders a `<code>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps code([Map backingMap]) => DomProps(react.code, backingMap);
+  static DomProps code([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.code, backingMap);
 
   /// Returns a new builder that renders a `<col>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps col([Map backingMap]) => DomProps(react.col, backingMap);
+  static DomProps col([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.col, backingMap);
 
   /// Returns a new builder that renders a `<colgroup>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps colgroup([Map backingMap]) => DomProps(react.colgroup, backingMap);
+  static DomProps colgroup([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.colgroup, backingMap);
 
   /// Returns a new builder that renders a `<data>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps data([Map backingMap]) => DomProps(react.data, backingMap);
+  static DomProps data([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.data, backingMap);
 
   /// Returns a new builder that renders a `<datalist>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps datalist([Map backingMap]) => DomProps(react.datalist, backingMap);
+  static DomProps datalist([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.datalist, backingMap);
 
   /// Returns a new builder that renders a `<dd>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps dd([Map backingMap]) => DomProps(react.dd, backingMap);
+  static DomProps dd([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.dd, backingMap);
 
   /// Returns a new builder that renders a `<del>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps del([Map backingMap]) => DomProps(react.del, backingMap);
+  static DomProps del([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.del, backingMap);
 
   /// Returns a new builder that renders a `<details>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps details([Map backingMap]) => DomProps(react.details, backingMap);
+  static DomProps details([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.details, backingMap);
 
   /// Returns a new builder that renders a `<dfn>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps dfn([Map backingMap]) => DomProps(react.dfn, backingMap);
+  static DomProps dfn([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.dfn, backingMap);
 
   /// Returns a new builder that renders a `<dialog>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps dialog([Map backingMap]) => DomProps(react.dialog, backingMap);
+  static DomProps dialog([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.dialog, backingMap);
 
   /// Returns a new builder that renders a `<div>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps div([Map backingMap]) => DomProps(react.div, backingMap);
+  static $DomPropsImpl div([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.div, backingMap);
 
   /// Returns a new builder that renders a `<dl>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps dl([Map backingMap]) => DomProps(react.dl, backingMap);
+  static DomProps dl([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.dl, backingMap);
 
   /// Returns a new builder that renders a `<dt>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps dt([Map backingMap]) => DomProps(react.dt, backingMap);
+  static DomProps dt([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.dt, backingMap);
 
   /// Returns a new builder that renders an `<em>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps em([Map backingMap]) => DomProps(react.em, backingMap);
+  static DomProps em([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.em, backingMap);
 
   /// Returns a new builder that renders an `<embed>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps embed([Map backingMap]) => DomProps(react.embed, backingMap);
+  static DomProps embed([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.embed, backingMap);
 
   /// Returns a new builder that renders a `<fieldset>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps fieldset([Map backingMap]) => DomProps(react.fieldset, backingMap);
+  static DomProps fieldset([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.fieldset, backingMap);
 
   /// Returns a new builder that renders a `<figcaption>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps figcaption([Map backingMap]) => DomProps(react.figcaption, backingMap);
+  static DomProps figcaption([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.figcaption, backingMap);
 
   /// Returns a new builder that renders a `<figure>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps figure([Map backingMap]) => DomProps(react.figure, backingMap);
+  static DomProps figure([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.figure, backingMap);
 
   /// Returns a new builder that renders a `<footer>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps footer([Map backingMap]) => DomProps(react.footer, backingMap);
+  static DomProps footer([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.footer, backingMap);
 
   /// Returns a new builder that renders a `<form>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps form([Map backingMap]) => DomProps(react.form, backingMap);
+  static DomProps form([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.form, backingMap);
 
   /// Returns a new builder that renders a `<h1>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps h1([Map backingMap]) => DomProps(react.h1, backingMap);
+  static DomProps h1([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.h1, backingMap);
 
   /// Returns a new builder that renders a `<h2>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps h2([Map backingMap]) => DomProps(react.h2, backingMap);
+  static DomProps h2([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.h2, backingMap);
 
   /// Returns a new builder that renders a `<h3>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps h3([Map backingMap]) => DomProps(react.h3, backingMap);
+  static DomProps h3([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.h3, backingMap);
 
   /// Returns a new builder that renders a `<h4>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps h4([Map backingMap]) => DomProps(react.h4, backingMap);
+  static DomProps h4([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.h4, backingMap);
 
   /// Returns a new builder that renders a `<h5>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps h5([Map backingMap]) => DomProps(react.h5, backingMap);
+  static DomProps h5([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.h5, backingMap);
 
   /// Returns a new builder that renders a `<h6>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps h6([Map backingMap]) => DomProps(react.h6, backingMap);
+  static DomProps h6([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.h6, backingMap);
 
   /// Returns a new builder that renders a `<head>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps head([Map backingMap]) => DomProps(react.head, backingMap);
+  static DomProps head([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.head, backingMap);
 
   /// Returns a new builder that renders a `<header>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps header([Map backingMap]) => DomProps(react.header, backingMap);
+  static DomProps header([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.header, backingMap);
 
   /// Returns a new builder that renders a `<hr>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps hr([Map backingMap]) => DomProps(react.hr, backingMap);
+  static DomProps hr([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.hr, backingMap);
 
   /// Returns a new builder that renders a `<html>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps html([Map backingMap]) => DomProps(react.html, backingMap);
+  static DomProps html([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.html, backingMap);
 
   /// Returns a new builder that renders an `<i>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps i([Map backingMap]) => DomProps(react.i, backingMap);
+  static DomProps i([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.i, backingMap);
 
   /// Returns a new builder that renders an `<iframe>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps iframe([Map backingMap]) => DomProps(react.iframe, backingMap);
+  static DomProps iframe([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.iframe, backingMap);
 
   /// Returns a new builder that renders an `<img>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps img([Map backingMap]) => DomProps(react.img, backingMap);
+  static DomProps img([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.img, backingMap);
 
   /// Returns a new builder that renders an `<input>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps input([Map backingMap]) => DomProps(react.input, backingMap);
+  static DomProps input([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.input, backingMap);
 
   /// Returns a new builder that renders an `<ins>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps ins([Map backingMap]) => DomProps(react.ins, backingMap);
+  static DomProps ins([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.ins, backingMap);
 
   /// Returns a new builder that renders a `<kbd>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps kbd([Map backingMap]) => DomProps(react.kbd, backingMap);
+  static DomProps kbd([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.kbd, backingMap);
 
   /// Returns a new builder that renders a `<keygen>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps keygen([Map backingMap]) => DomProps(react.keygen, backingMap);
+  static DomProps keygen([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.keygen, backingMap);
 
   /// Returns a new builder that renders a `<label>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps label([Map backingMap]) => DomProps(react.label, backingMap);
+  static DomProps label([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.label, backingMap);
 
   /// Returns a new builder that renders a `<legend>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps legend([Map backingMap]) => DomProps(react.legend, backingMap);
+  static DomProps legend([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.legend, backingMap);
 
   /// Returns a new builder that renders a `<li>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps li([Map backingMap]) => DomProps(react.li, backingMap);
+  static DomProps li([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.li, backingMap);
 
   /// Returns a new builder that renders a `<link>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps link([Map backingMap]) => DomProps(react.link, backingMap);
+  static DomProps link([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.link, backingMap);
 
   /// Returns a new builder that renders a `<main>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps main([Map backingMap]) => DomProps(react.main, backingMap);
+  static DomProps main([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.main, backingMap);
 
   /// Returns a new builder that renders a `<backingMap>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps map([Map backingMap]) => DomProps(react.map, backingMap);
+  static DomProps map([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.map, backingMap);
 
   /// Returns a new builder that renders a `<mark>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps mark([Map backingMap]) => DomProps(react.mark, backingMap);
+  static DomProps mark([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.mark, backingMap);
 
   /// Returns a new builder that renders a `<menu>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps menu([Map backingMap]) => DomProps(react.menu, backingMap);
+  static DomProps menu([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.menu, backingMap);
 
   /// Returns a new builder that renders a `<menuitem>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps menuitem([Map backingMap]) => DomProps(react.menuitem, backingMap);
+  static DomProps menuitem([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.menuitem, backingMap);
 
   /// Returns a new builder that renders a `<meta>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps meta([Map backingMap]) => DomProps(react.meta, backingMap);
+  static DomProps meta([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.meta, backingMap);
 
   /// Returns a new builder that renders a `<meter>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps meter([Map backingMap]) => DomProps(react.meter, backingMap);
+  static DomProps meter([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.meter, backingMap);
 
   /// Returns a new builder that renders a `<nav>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps nav([Map backingMap]) => DomProps(react.nav, backingMap);
+  static DomProps nav([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.nav, backingMap);
 
   /// Returns a new builder that renders a `<noscript>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps noscript([Map backingMap]) => DomProps(react.noscript, backingMap);
+  static DomProps noscript([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.noscript, backingMap);
 
   /// Returns a new builder that renders an `<object>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps object([Map backingMap]) => DomProps(react.object, backingMap);
+  static DomProps object([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.object, backingMap);
 
   /// Returns a new builder that renders an `<ol>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps ol([Map backingMap]) => DomProps(react.ol, backingMap);
+  static DomProps ol([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.ol, backingMap);
 
   /// Returns a new builder that renders an `<optgroup>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps optgroup([Map backingMap]) => DomProps(react.optgroup, backingMap);
+  static DomProps optgroup([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.optgroup, backingMap);
 
   /// Returns a new builder that renders an `<option>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps option([Map backingMap]) => DomProps(react.option, backingMap);
+  static DomProps option([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.option, backingMap);
 
   /// Returns a new builder that renders an `<output>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps output([Map backingMap]) => DomProps(react.output, backingMap);
+  static DomProps output([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.output, backingMap);
 
   /// Returns a new builder that renders a `<p>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps p([Map backingMap]) => DomProps(react.p, backingMap);
+  static DomProps p([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.p, backingMap);
 
   /// Returns a new builder that renders a `<param>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps param([Map backingMap]) => DomProps(react.param, backingMap);
+  static DomProps param([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.param, backingMap);
 
   /// Returns a new builder that renders a `<picture>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps picture([Map backingMap]) => DomProps(react.picture, backingMap);
+  static DomProps picture([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.picture, backingMap);
 
   /// Returns a new builder that renders a `<pre>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps pre([Map backingMap]) => DomProps(react.pre, backingMap);
+  static DomProps pre([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.pre, backingMap);
 
   /// Returns a new builder that renders a `<progress>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps progress([Map backingMap]) => DomProps(react.progress, backingMap);
+  static DomProps progress([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.progress, backingMap);
 
   /// Returns a new builder that renders a `<q>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps q([Map backingMap]) => DomProps(react.q, backingMap);
+  static DomProps q([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.q, backingMap);
 
   /// Returns a new builder that renders a `<rp>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps rp([Map backingMap]) => DomProps(react.rp, backingMap);
+  static DomProps rp([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.rp, backingMap);
 
   /// Returns a new builder that renders a `<rt>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps rt([Map backingMap]) => DomProps(react.rt, backingMap);
+  static DomProps rt([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.rt, backingMap);
 
   /// Returns a new builder that renders a `<ruby>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps ruby([Map backingMap]) => DomProps(react.ruby, backingMap);
+  static DomProps ruby([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.ruby, backingMap);
 
   /// Returns a new builder that renders a `<s>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps s([Map backingMap]) => DomProps(react.s, backingMap);
+  static DomProps s([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.s, backingMap);
 
   /// Returns a new builder that renders a `<samp>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps samp([Map backingMap]) => DomProps(react.samp, backingMap);
+  static DomProps samp([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.samp, backingMap);
 
   /// Returns a new builder that renders a `<script>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps script([Map backingMap]) => DomProps(react.script, backingMap);
+  static DomProps script([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.script, backingMap);
 
   /// Returns a new builder that renders a `<section>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps section([Map backingMap]) => DomProps(react.section, backingMap);
+  static DomProps section([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.section, backingMap);
 
   /// Returns a new builder that renders a `<select>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps select([Map backingMap]) => DomProps(react.select, backingMap);
+  static DomProps select([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.select, backingMap);
 
   /// Returns a new builder that renders a `<small>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps small([Map backingMap]) => DomProps(react.small, backingMap);
+  static DomProps small([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.small, backingMap);
 
   /// Returns a new builder that renders a `<source>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps source([Map backingMap]) => DomProps(react.source, backingMap);
+  static DomProps source([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.source, backingMap);
 
   /// Returns a new builder that renders a `<span>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps span([Map backingMap]) => DomProps(react.span, backingMap);
+  static DomProps span([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.span, backingMap);
 
   /// Returns a new builder that renders a `<strong>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps strong([Map backingMap]) => DomProps(react.strong, backingMap);
+  static DomProps strong([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.strong, backingMap);
 
   /// Returns a new builder that renders a `<style>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps style([Map backingMap]) => DomProps(react.style, backingMap);
+  static DomProps style([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.style, backingMap);
 
   /// Returns a new builder that renders a `<sub>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps sub([Map backingMap]) => DomProps(react.sub, backingMap);
+  static DomProps sub([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.sub, backingMap);
 
   /// Returns a new builder that renders a `<summary>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps summary([Map backingMap]) => DomProps(react.summary, backingMap);
+  static DomProps summary([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.summary, backingMap);
 
   /// Returns a new builder that renders a `<sup>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps sup([Map backingMap]) => DomProps(react.sup, backingMap);
+  static DomProps sup([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.sup, backingMap);
 
   /// Returns a new builder that renders a `<table>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps table([Map backingMap]) => DomProps(react.table, backingMap);
+  static DomProps table([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.table, backingMap);
 
   /// Returns a new builder that renders a `<tbody>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps tbody([Map backingMap]) => DomProps(react.tbody, backingMap);
+  static DomProps tbody([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.tbody, backingMap);
 
   /// Returns a new builder that renders a `<td>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps td([Map backingMap]) => DomProps(react.td, backingMap);
+  static DomProps td([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.td, backingMap);
 
   /// Returns a new builder that renders a `<textarea>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps textarea([Map backingMap]) => DomProps(react.textarea, backingMap);
+  static DomProps textarea([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.textarea, backingMap);
 
   /// Returns a new builder that renders a `<tfoot>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps tfoot([Map backingMap]) => DomProps(react.tfoot, backingMap);
+  static DomProps tfoot([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.tfoot, backingMap);
 
   /// Returns a new builder that renders a `<th>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps th([Map backingMap]) => DomProps(react.th, backingMap);
+  static DomProps th([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.th, backingMap);
 
   /// Returns a new builder that renders a `<thead>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps thead([Map backingMap]) => DomProps(react.thead, backingMap);
+  static DomProps thead([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.thead, backingMap);
 
   /// Returns a new builder that renders a `<time>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps time([Map backingMap]) => DomProps(react.time, backingMap);
+  static DomProps time([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.time, backingMap);
 
   /// Returns a new builder that renders a `<title>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps title([Map backingMap]) => DomProps(react.title, backingMap);
+  static DomProps title([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.title, backingMap);
 
   /// Returns a new builder that renders a `<tr>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps tr([Map backingMap]) => DomProps(react.tr, backingMap);
+  static DomProps tr([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.tr, backingMap);
 
   /// Returns a new builder that renders a `<track>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps track([Map backingMap]) => DomProps(react.track, backingMap);
+  static DomProps track([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.track, backingMap);
 
   /// Returns a new builder that renders an `<u>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps u([Map backingMap]) => DomProps(react.u, backingMap);
+  static DomProps u([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.u, backingMap);
 
   /// Returns a new builder that renders an `<ul>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps ul([Map backingMap]) => DomProps(react.ul, backingMap);
+  static DomProps ul([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.ul, backingMap);
 
   /// Returns a new builder that renders a `<var>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps variable([Map backingMap]) => DomProps(react.variable, backingMap);
+  static DomProps variable([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.variable, backingMap);
 
   /// Returns a new builder that renders a `<video>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps video([Map backingMap]) => DomProps(react.video, backingMap);
+  static DomProps video([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.video, backingMap);
 
   /// Returns a new builder that renders a `<wbr>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps wbr([Map backingMap]) => DomProps(react.wbr, backingMap);
+  static DomProps wbr([Map backingMap]) => _$domPropsConfig.propsFactory.map(react.wbr, backingMap);
 
   // SVG Elements
   /// Returns a new builder that renders an `<a>` tag with getters/setters for all SVG-related React props,
@@ -909,4 +910,28 @@ abstract class Dom {
   /// Returns a new builder that renders a `<vkern>` tag with getters/setters for all SVG-related React props,
   /// optionally backed by a specified map.
   static SvgProps vkern([Map backingMap]) => SvgProps(react.vkern, backingMap);
+}
+
+class $DomPropsImpl extends DomProps with $DomPropsMixin {
+  $DomPropsImpl(componentFactory, [Map props]) : super(componentFactory, props);
+}
+
+DomPropsConfig _$domPropsConfig = DomPropsConfig(
+  propsFactory: PropsFactory(
+    map: (factory, props) => $DomPropsImpl(factory, props),
+  )
+);
+
+class DomPropsConfig<T extends builder_helpers.UiProps> {
+  PropsFactory propsFactory;
+
+  DomPropsConfig({this.propsFactory});
+}
+
+class PropsFactory<T extends DomProps> {
+  T Function(ReactComponentFactoryProxy factory, Map props) map;
+
+  PropsFactory({
+    this.map,
+  });
 }
