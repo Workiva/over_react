@@ -173,6 +173,12 @@ main() {
             '${p.absolute(p.current)}/test_fixtures/gold_output_files/mixin_based/basic_library.over_react.g.dart.goldFile');
       });
 
+      test('builds when props mixins and classes have type parameters', () async {
+        await checkBuildForFile(
+            'over_react|test_fixtures/source_files/mixin_based/type_parameters.dart',
+            'over_react|test_fixtures/source_files/mixin_based/type_parameters.over_react.g.dart',
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/mixin_based/type_parameters.over_react.g.dart.goldFile');
+      });
 
       test('does not produce a build output for just a part file', () async {
         var basicAsset = makeAssetId('over_react|test_fixtures/source_files/mixin_based/part_of_basic_library.dart');

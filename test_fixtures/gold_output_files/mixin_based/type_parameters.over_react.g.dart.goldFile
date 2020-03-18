@@ -1,0 +1,336 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
+part of 'type_parameters.dart';
+
+// **************************************************************************
+// OverReactBuilder (package:over_react/src/builder.dart)
+// **************************************************************************
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $NoneProps on NoneProps {
+  static const PropsMeta meta = _$metaForNoneProps;
+  /* GENERATED CONSTANTS */
+
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForNoneProps = PropsMeta(
+  fields: $NoneProps.$props,
+  keys: $NoneProps.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $SingleProps<T> on SingleProps<T> {
+  static const PropsMeta meta = _$metaForSingleProps;
+  @override
+  T get single =>
+      props[_$key__single__SingleProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set single(T value) => props[_$key__single__SingleProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__single__SingleProps =
+      PropDescriptor(_$key__single__SingleProps);
+  static const String _$key__single__SingleProps = 'SingleProps.single';
+
+  static const List<PropDescriptor> $props = [_$prop__single__SingleProps];
+  static const List<String> $propKeys = [_$key__single__SingleProps];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForSingleProps = PropsMeta(
+  fields: $SingleProps.$props,
+  keys: $SingleProps.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $SingleThatWontBeSpecifiedProps<T> on SingleThatWontBeSpecifiedProps<T> {
+  static const PropsMeta meta = _$metaForSingleThatWontBeSpecifiedProps;
+  @override
+  T get singleThatWontBeSpecified =>
+      props[_$key__singleThatWontBeSpecified__SingleThatWontBeSpecifiedProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set singleThatWontBeSpecified(T value) =>
+      props[_$key__singleThatWontBeSpecified__SingleThatWontBeSpecifiedProps] =
+          value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor
+      _$prop__singleThatWontBeSpecified__SingleThatWontBeSpecifiedProps =
+      PropDescriptor(
+          _$key__singleThatWontBeSpecified__SingleThatWontBeSpecifiedProps);
+  static const String
+      _$key__singleThatWontBeSpecified__SingleThatWontBeSpecifiedProps =
+      'SingleThatWontBeSpecifiedProps.singleThatWontBeSpecified';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__singleThatWontBeSpecified__SingleThatWontBeSpecifiedProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__singleThatWontBeSpecified__SingleThatWontBeSpecifiedProps
+  ];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForSingleThatWontBeSpecifiedProps = PropsMeta(
+  fields: $SingleThatWontBeSpecifiedProps.$props,
+  keys: $SingleThatWontBeSpecifiedProps.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $SingleWithBoundProps<S extends Pattern> on SingleWithBoundProps<S> {
+  static const PropsMeta meta = _$metaForSingleWithBoundProps;
+  @override
+  S get singleWithBound =>
+      props[_$key__singleWithBound__SingleWithBoundProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set singleWithBound(S value) =>
+      props[_$key__singleWithBound__SingleWithBoundProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__singleWithBound__SingleWithBoundProps =
+      PropDescriptor(_$key__singleWithBound__SingleWithBoundProps);
+  static const String _$key__singleWithBound__SingleWithBoundProps =
+      'SingleWithBoundProps.singleWithBound';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__singleWithBound__SingleWithBoundProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__singleWithBound__SingleWithBoundProps
+  ];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForSingleWithBoundProps = PropsMeta(
+  fields: $SingleWithBoundProps.$props,
+  keys: $SingleWithBoundProps.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $DoubleProps<A, B> on DoubleProps<A, B> {
+  static const PropsMeta meta = _$metaForDoubleProps;
+  @override
+  A get doubleA =>
+      props[_$key__doubleA__DoubleProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set doubleA(A value) => props[_$key__doubleA__DoubleProps] = value;
+  @override
+  B get doubleB =>
+      props[_$key__doubleB__DoubleProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set doubleB(B value) => props[_$key__doubleB__DoubleProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__doubleA__DoubleProps =
+      PropDescriptor(_$key__doubleA__DoubleProps);
+  static const PropDescriptor _$prop__doubleB__DoubleProps =
+      PropDescriptor(_$key__doubleB__DoubleProps);
+  static const String _$key__doubleA__DoubleProps = 'DoubleProps.doubleA';
+  static const String _$key__doubleB__DoubleProps = 'DoubleProps.doubleB';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__doubleA__DoubleProps,
+    _$prop__doubleB__DoubleProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__doubleA__DoubleProps,
+    _$key__doubleB__DoubleProps
+  ];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForDoubleProps = PropsMeta(
+  fields: $DoubleProps.$props,
+  keys: $DoubleProps.$propKeys,
+);
+
+_$$ConcreteNoneProps _$ConcreteNone([Map backingProps]) => backingProps == null
+    ? _$$ConcreteNoneProps$JsMap(JsBackedMap())
+    : _$$ConcreteNoneProps(backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ConcreteNoneProps extends UiProps
+    with
+        NoneProps,
+        $NoneProps, // If this generated mixin is undefined, it's likely because NoneProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of NoneProps.
+        SingleProps<String>,
+        $SingleProps<
+            String>, // If this generated mixin is undefined, it's likely because SingleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SingleProps.
+        SingleThatWontBeSpecifiedProps,
+        $SingleThatWontBeSpecifiedProps, // If this generated mixin is undefined, it's likely because SingleThatWontBeSpecifiedProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SingleThatWontBeSpecifiedProps.
+        SingleWithBoundProps<RegExp>,
+        $SingleWithBoundProps<
+            RegExp>, // If this generated mixin is undefined, it's likely because SingleWithBoundProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SingleWithBoundProps.
+        DoubleProps<double, int>,
+        $DoubleProps<double,
+            int> // If this generated mixin is undefined, it's likely because DoubleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of DoubleProps.
+    implements
+        ConcreteNoneProps {
+  _$$ConcreteNoneProps._();
+
+  factory _$$ConcreteNoneProps(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$ConcreteNoneProps$JsMap(backingMap);
+    } else {
+      return _$$ConcreteNoneProps$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '';
+}
+
+// Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$ConcreteNoneProps$PlainMap extends _$$ConcreteNoneProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ConcreteNoneProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$ConcreteNoneProps$JsMap extends _$$ConcreteNoneProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ConcreteNoneProps$JsMap(JsBackedMap backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+_$$ConcreteArgsProps _$ConcreteArgs([Map backingProps]) => backingProps == null
+    ? _$$ConcreteArgsProps$JsMap(JsBackedMap())
+    : _$$ConcreteArgsProps(backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ConcreteArgsProps<U, V extends Iterable> extends UiProps
+    with
+        NoneProps,
+        $NoneProps, // If this generated mixin is undefined, it's likely because NoneProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of NoneProps.
+        SingleProps<String>,
+        $SingleProps<
+            String>, // If this generated mixin is undefined, it's likely because SingleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SingleProps.
+        SingleThatWontBeSpecifiedProps,
+        $SingleThatWontBeSpecifiedProps, // If this generated mixin is undefined, it's likely because SingleThatWontBeSpecifiedProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SingleThatWontBeSpecifiedProps.
+        SingleWithBoundProps<RegExp>,
+        $SingleWithBoundProps<
+            RegExp>, // If this generated mixin is undefined, it's likely because SingleWithBoundProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SingleWithBoundProps.
+        DoubleProps<U, V>,
+        $DoubleProps<U,
+            V> // If this generated mixin is undefined, it's likely because DoubleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of DoubleProps.
+    implements
+        ConcreteArgsProps<U, V> {
+  _$$ConcreteArgsProps._();
+
+  factory _$$ConcreteArgsProps(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$ConcreteArgsProps$JsMap(backingMap);
+    } else {
+      return _$$ConcreteArgsProps$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '';
+}
+
+// Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$ConcreteArgsProps$PlainMap<U, V extends Iterable>
+    extends _$$ConcreteArgsProps<U, V> {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ConcreteArgsProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$ConcreteArgsProps$JsMap<U, V extends Iterable>
+    extends _$$ConcreteArgsProps<U, V> {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ConcreteArgsProps$JsMap(JsBackedMap backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
