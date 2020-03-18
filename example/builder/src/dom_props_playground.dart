@@ -12,8 +12,18 @@ class DomPropsPlaygroundComponent extends UiComponent2<DomPropsPlaygroundProps> 
   @override
   render() {
     return Dom.div()(
-        (Dom.a()..href='https://google.com')('Heres a link'),
-        (Dom.div()..style={'borderStyle': 'solid', 'borderColor': 'blue', 'borderWidth': 1})('Heres a some text')
+      (Dom.div()..style={'borderStyle': 'solid', 'borderColor': 'blue', 'borderWidth': 1})(
+          (Dom.a()..href = 'https://google.com')('No backing')
+      ),
+      (Dom.div()..style={'borderStyle': 'solid', 'borderColor': 'red', 'borderWidth': 1})(
+        (Dom.a(null)..href = 'https://google.com')('Null backing'),
+      ),
+      (Dom.div()..style={'borderStyle': 'solid', 'borderColor': 'orange', 'borderWidth': 1})(
+        (Dom.a({})..href = 'https://google.com')('Map backing'),
+      ),
+      (Dom.div()..style={'borderStyle': 'solid', 'borderColor': 'purple', 'borderWidth': 1})(
+        (Dom.a(JsBackedMap())..href = 'https://google.com')('JsBackedMap Backing'),
+      ),
     );
   }
 }
