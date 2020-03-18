@@ -862,13 +862,3 @@ class PropsMetaCollection extends _AccessorMetaCollection<PropDescriptor, PropsM
   @override
   List<PropDescriptor> get props => fields;
 }
-/// A collection of metadata for the state fields in all state mixins
-/// used by a given component.
-///
-/// See [StateMeta] for more info.
-class StateMetaCollection extends _AccessorMetaCollection<StateDescriptor, StateMeta> implements StateMeta {
-  const StateMetaCollection(Map<Type, StateMeta> metaByMixin) : super(metaByMixin);
-
-  @override
-  StateMeta get _emptyMeta => const StateMeta(fields: [], keys: []);
-}
