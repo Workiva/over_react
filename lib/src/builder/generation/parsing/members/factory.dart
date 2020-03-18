@@ -91,24 +91,4 @@ class BoilerplateFactory extends BoilerplateMember {
           errorCollector.spanFor(variable));
     }
   }
-
-//  static bool _isFunctionComponentOrHoc(Expression initializer) {
-//    // todo should this instead be
-//    return containsFunctionCall(initializer);
-//  }
 }
-
-// FIXME is this still needed?
-//bool containsFunctionCall(AstNode node) {
-//  final visitor = _FunctionCallDetector();
-//  node.accept(visitor);
-//  return visitor.detected;
-//}
-//class _FunctionCallDetector extends GeneralizingAstVisitor<void> {
-//  var detected = false;
-//
-//  @override
-//  void visitInvocationExpression(InvocationExpression node) {
-//    detected = true;
-//  }
-//}

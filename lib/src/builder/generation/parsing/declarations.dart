@@ -370,22 +370,6 @@ bool isStandaloneFactory(BoilerplateFactory factory) {
       !(initializer?.tryCast<Identifier>()?.name?.startsWith(RegExp(r'[_\$]')) ?? false);
 }
 
-/// TODO unused - did we want to implement this somewhere?
-/// Uses common variables of boilerplate implementation to detect if [member]
-/// may actually be related to a [BoilerplateMember] within [members].
-AstNode fuzzyMatch(BoilerplateMember member, Iterable<BoilerplateMember> members) {
-  // todo implement
-  var match = members.firstOrNull?.node;
-
-  if (match == null) return null;
-  if (match is NamedCompilationUnitMember) return match.name;
-  if (match is TopLevelVariableDeclaration) return match.firstVariable.name;
-
-  throw StateError('This codepath should never be hit');
-}
-
-class BoilerplateGenerator {}
-
 /// The possible declaration types that the builder will look for.
 enum DeclarationType {
   propsMapViewOrFunctionComponentDeclaration,
@@ -426,8 +410,6 @@ abstract class BoilerplateDeclaration {
       member.validate(version, errorCollector);
     }
   }
-
-  BoilerplateGenerator get generator => null;
 
   Iterable<BoilerplateMember> get _members;
 
