@@ -24,6 +24,12 @@ mixin DoubleProps<A, B> on UiProps {
   B doubleB;
 }
 
+// Test shorthand syntax
+
+UiFactory<SingleProps> Single = _$Single; // ignore: undefined_identifier
+UiFactory<SingleWithBoundProps> SingleWithBound = _$SingleWithBound; // ignore: undefined_identifier
+UiFactory<DoubleProps> Double = _$Double; // ignore: undefined_identifier
+
 // Test that the generated class impl has the correct generic params
 // and passes the specified generic params to uses the mixins correctly.
 
