@@ -47,6 +47,7 @@ To further document APIs that can be found in OverReact, the [doc](doc) director
 - Migration guides from older versions of over_react:
     - [Dart2 Migration](doc/dart2_migration.md): Documentation on the Dart 2 builder updates and how to transition componentry to Dart 2.
     - [UiComponent2 Transition](doc/ui_component2_transition.md): A document discussing the changes between `UiComponent` and `UiComponent2`, as well as how to migrate.
+    - [New Boilerplate Migration](doc/new_boilerplate_migration.md): Documentation on the changes to the component boilerplate, as well as how to migrate to the new boilerplate.
 
 ## Using it in your project
 
