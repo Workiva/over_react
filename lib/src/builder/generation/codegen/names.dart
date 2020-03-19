@@ -1,40 +1,57 @@
 import '../../util.dart';
 
+/// A set of names of the different generated members for a given component class.
+///
+/// Supports prefixed identifiers (e.g., `foo_library.FooComponent`).
 class ComponentNames {
   final String _prefix;
-  final String _componentName;
+  final String unprefixedConsumerName;
 
-  factory ComponentNames(String componentName) {
-    final parts = componentName.split('.');
+  factory ComponentNames(String consumerComponentName) {
+    final parts = consumerComponentName.split('.');
     if (parts.length == 1) {
-      return ComponentNames._('', componentName);
+      return ComponentNames._('', consumerComponentName);
     }
 
     return ComponentNames._('${parts[0]}.', parts.skip(1).join('.'));
   }
 
-  ComponentNames._(this._prefix, this._componentName);
+  ComponentNames._(this._prefix, this.unprefixedConsumerName);
 
-  String get componentName => '$_prefix$_componentName';
+  /// The name of the consumer-authored class.
+  ///
+  /// Example: `FooComponent`
+  String get consumerName => '$_prefix$unprefixedConsumerName';
 
-  /// Gets the generated component factory name from the component classname.
+  /// The name of the generated component factory.
   ///
   /// Example:
-  ///   Input: FooComponent
-  ///   Output: $FooComponentFactory
+  ///
+  /// - Input: `FooComponent`
+  /// - Output: `$FooComponentFactory`
   ///
   /// NOTE: The factory name must be public, since sub components will reference
   /// factories from super components.
-  String get componentFactoryName => '$_prefix$publicGeneratedPrefix${_componentName}Factory';
+  String get componentFactoryName => '$_prefix$publicGeneratedPrefix${unprefixedConsumerName}Factory';
 
-  String get implName => '$_prefix$privateSourcePrefix$_componentName';
+  /// The name of the generated component implementation class.
+  ///
+  /// Example:
+  ///
+  /// - Input: `FooComponent`
+  /// - Output: `_$FooComponent`
+  String get implName => '$_prefix$privateSourcePrefix$unprefixedConsumerName';
 }
 
+/// A set of names of the different generated members for a given typed map class
+/// (either a props, state, props mixin, or state mixin class).
+///
+/// Supports prefixed identifiers (e.g., `foo_library.FooProps`).
 class TypedMapNames {
   final String _prefix;
-  final String _consumerName;
+  final String _unprefixedConsumerName;
 
-  TypedMapNames._(this._prefix, this._consumerName);
+  TypedMapNames._(this._prefix, this._unprefixedConsumerName);
 
   factory TypedMapNames(String consumerName) {
     final parts = consumerName.split('.');
@@ -45,63 +62,111 @@ class TypedMapNames {
     return TypedMapNames._('${parts[0]}.', parts.skip(1).join('.'));
   }
 
-  String get _normalizedName => _consumerName.replaceFirst(privateSourcePrefix, '');
+  String get _normalizedName => _unprefixedConsumerName.replaceFirst(privateSourcePrefix, '');
 
-  String get consumerName => '$_prefix$_consumerName';
-
-  /// Converts the consumer's written props classname to the concrete props
-  /// implementation's classname by adding '$' to the [privateSourcePrefix].
+  /// The name of the consumer-authored class.
   ///
   /// Example:
-  ///   Input: '_$FooProps'
-  ///   Output: '_$$FooProps'
-  ///   Input: '_$_FooProps'
-  ///   Output: '_$$_FooProps'
+  ///
+  /// - `_$FooProps` (legacy boilerplate)
+  /// - `FooProps` (new boilerplate)
+  /// - foo_library.FooProps`
+  String get consumerName => '$_prefix$_unprefixedConsumerName';
+
+  /// The name of the generated concrete props/state implementation.
+  ///
+  /// Example:
+  ///
+  /// | Version     | [consumerName] | Value        |
+  /// |-------------|----------------|--------------|
+  /// | Legacy      | _$FooProps     | _$$FooProps  |
+  /// | Legacy      | _$_FooProps    | _$$_FooProps |
+  /// | Mixin-based | FooProps       | $FooProps    |
   String get implName => '$_prefix$privateSourcePrefix\$$_normalizedName';
 
-  /// Converts the abstract generated props/state implementation's classname
-  /// into the name of its subclass that can be backed by any Map.
+  /// The name of the generated concrete props/state implementation subclass
+  /// that can be backed by any Map.
   ///
   /// Example:
-  ///   Input: '_$$FooProps'
-  ///   Output: '_$$FooProps$PlainMap'
+  ///
+  /// | Version     | [consumerName] | Value                 |
+  /// |-------------|----------------|-----------------------|
+  /// | Legacy      | _$FooProps     | _$$FooProps$PlainMap  |
+  /// | Legacy      | _$_FooProps    | _$$_FooProps$PlainMap |
+  /// | Mixin-based | FooProps       | $FooProps$PlainMap    |
   String get plainMapImplName => '$implName\$PlainMap';
 
-  /// Converts the abstract generated props/state implementation's classname
-  /// into the name of its subclass that can be backed by only JsMaps.
+  /// The name of the generated concrete props/state implementation subclass
+  /// that can be backed only by JsBackedMaps.
   ///
   /// Example:
-  ///   Input: '_$$FooProps'
-  ///   Output: '_$$FooProps$JsMap'
+  ///
+  /// | Version     | [consumerName] | Value              |
+  /// |-------------|----------------|--------------------|
+  /// | Legacy      | _$FooProps     | _$$FooProps$JsMap  |
+  /// | Legacy      | _$_FooProps    | _$$_FooProps$JsMap |
+  /// | Mixin-based | FooProps       | $FooProps$JsMap    |
   String get jsMapImplName => '$implName\$JsMap';
 
-  /// Converts the consumer's written props classname to the consumable props
-  /// classname by stripping [privateSourcePrefix] from the classname.
+  /// The name of the consumable props/state class.
+  ///
+  /// - For legacy backwards compatible boilerplate, this is the companion class.
+  /// - For legacy Dart-2-only boilerplate, this is the generated public class.
+  /// - For new mixin-based boilerplate, this is the same as [consumerName].
   ///
   /// Example:
-  ///   Input: '_$FooProps'
-  ///   Output: 'FooProps'
-  ///   Input: '_$_FooProps'
-  ///   Output: '_FooProps'
+  ///
+  /// | Version     | [consumerName] | Value    |
+  /// |-------------|----------------|----------|
+  /// | Legacy      | _$FooProps     | FooProps |
+  /// | Mixin-based | FooProps       | FooProps |
   String get publicName => '$_prefix$_normalizedName';
 
-  /// Gets the accessors mixin class from the consumer className.
+  /// The name of the generated accessors mixin for a props/state class.
+  ///
+  /// This is only applicable for legacy boilerplate.
   ///
   /// Example:
-  ///   Input: _$FooProps
-  ///   Output: _$FooPropsAccessorsMixin
-  ///   Input: _$_FooProps
-  ///   Output: _$_FooPropsAccessorsMixin
-  String get legacyAccessorsMixinName => '$_prefix${_consumerName}AccessorsMixin';
+  ///
+  /// | Version | [consumerName] | Value                     |
+  /// |---------|----------------|---------------------------|
+  /// | Legacy  | _$FooProps     | _$FooPropsAccessorsMixin  |
+  /// | Legacy  | _$_FooProps    | _$_FooPropsAccessorsMixin |
+  String get legacyAccessorsMixinName => '$_prefix${_unprefixedConsumerName}AccessorsMixin';
 
-  String get generatedMixinName => '$_prefix\$$_consumerName';
+  /// The name of the generated mixin that contains accessors for a props/state mixin.
+  ///
+  /// Example:
+  ///
+  /// | Version                   | [consumerName]  | Value          |
+  /// |---------------------------|-----------------|----------------|
+  /// | Legacy (backwards-compat) | FooPropsMixin   | $FooPropsMixin |
+  /// | Legacy (Dart 2 only)      | _$FooPropsMixin | FooPropsMixin  |
+  /// | Mixin-based               | FooPropsMixin   | $FooPropsMixin |
+  String get generatedMixinName => _unprefixedConsumerName.startsWith(privateSourcePrefix)
+      ? publicName
+      : '$_prefix\$$_normalizedName';
 
+  /// A prefixed identifier that references the public generated props/state meta constant.
+  ///
+  /// Only applicable for mixin-based boilerplate.
+  ///
+  /// Example:
+  ///
+  /// | Version     | [consumerName]  | Value               |
+  /// |-------------|-----------------|---------------------|
+  /// | Mixin-based | FooPropsMixin   | $FooPropsMixin.meta |
   String get publicGeneratedMetaName => '$generatedMixinName.meta';
 
-  /// Gets the meta variable name from the public pros class name.
+  /// The name of the private generated meta variable.
   ///
-  /// Example:
-  ///   Input: FooProps
-  ///   Output: _$metaForFooProps
+  /// Not applicable to new boilerplate props/state classes.
+  ///
+  /// | Version                   | [consumerName]  | Value                  |
+  /// |---------------------------|-----------------|------------------------|
+  /// | Legacy (backwards-compat) | FooPropsMixin   | _$metaForFooPropsMixin |
+  /// | Legacy (Dart 2 only)      | _$FooPropsMixin | _$metaForFooPropsMixin |
+  /// | Mixin-based               | FooPropsMixin   | _$metaForFooPropsMixin |
+  /// | Legacy                    | _$FooProps      | _$metaForFooProps      |
   String get metaConstantName => '$_prefix${privateSourcePrefix}metaFor$_normalizedName';
 }

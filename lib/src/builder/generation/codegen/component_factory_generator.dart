@@ -66,7 +66,7 @@ class ComponentFactoryGenerator extends Generator {
         ..writeln('final ${componentNames.componentFactoryName}'
             ' = registerComponent2(() => ${componentNames.implName}(),')
         ..writeln('    builderFactory: $factoryName,')
-        ..writeln('    componentClass: ${componentNames.componentName},')
+        ..writeln('    componentClass: ${componentNames.consumerName},')
         ..writeln('    isWrapper: ${component.meta.isWrapper},')
         ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
         ..writeln('    displayName: ${stringLiteral(factoryName)},');
@@ -88,7 +88,7 @@ class ComponentFactoryGenerator extends Generator {
         ..writeln(
             'final ${componentNames.componentFactoryName} = registerComponent(() => ${componentNames.implName}(),')
         ..writeln('    builderFactory: $factoryName,')
-        ..writeln('    componentClass: ${componentNames.componentName},')
+        ..writeln('    componentClass: ${componentNames.consumerName},')
         ..writeln('    isWrapper: ${component.meta.isWrapper},')
         ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
         ..writeln('    displayName: ${stringLiteral(factoryName)}')

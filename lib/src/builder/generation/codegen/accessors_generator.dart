@@ -34,8 +34,6 @@ abstract class TypedMapAccessorsGenerator extends Generator {
 
   AccessorType get type;
 
-  Version get version;
-
   BoilerplateAccessorsMember get member;
 
   TypedMapNames get names;
@@ -334,15 +332,7 @@ class _TypedMapMixinAccessorsGenerator extends TypedMapAccessorsGenerator {
         type = AccessorType.stateMixin;
 
   @override
-  String get accessorsMixinName {
-    if (version.isLegacy) {
-      return names.consumerName.startsWith(privateSourcePrefix)
-          ? names.publicName
-          : names.generatedMixinName;
-    } else {
-      return names.generatedMixinName;
-    }
-  }
+  String get accessorsMixinName => names.generatedMixinName;
 
   @override
   void generate() {
@@ -387,6 +377,7 @@ class _LegacyTypedMapAccessorsGenerator extends TypedMapAccessorsGenerator {
         version = decl.version,
         type = AccessorType.abstractState;
 
+  @override
   String get accessorsMixinName => names.legacyAccessorsMixinName;
 
   @override

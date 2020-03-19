@@ -39,7 +39,7 @@ abstract class ComponentGenerator extends Generator {
           '// Implements typed props/state factories, defaults `consumedPropKeys` to the keys')
       ..writeln('// generated for the associated props class.')
       ..write(internalGeneratedMemberDeprecationLine())
-      ..writeln('class ${componentNames.implName} extends ${componentNames.componentName} {');
+      ..writeln('class ${componentNames.implName} extends ${componentNames.consumerName} {');
 
     if (isComponent2) {
       // See _generateConcretePropsOrStateImpl for more info on why these additional methods are
