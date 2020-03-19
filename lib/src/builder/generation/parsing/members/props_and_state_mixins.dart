@@ -17,9 +17,12 @@ part of '../members.dart';
 /// The class that represents a boilerplate props or state mixin.
 abstract class BoilerplatePropsOrStateMixin extends BoilerplateAccessorsMember
     with PropsStateStringHelpers {
-
-  BoilerplatePropsOrStateMixin(this.node, this.companion, VersionConfidence confidence)
-      : super(confidence) {
+  BoilerplatePropsOrStateMixin({
+    @required this.node,
+    @required this.companion,
+    @required this.mixinStub,
+    @required VersionConfidence confidence,
+  }) : super(confidence) {
     meta = getPropsOrStateAnnotation(isProps, node);
   }
 
@@ -36,6 +39,12 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateAccessorsMember
   ///
   /// This will only be present for [Version.v2_legacyBackwardsCompat] classes.
   final ClassishDeclaration companion;
+
+  /// The $-prefixed class stubbed in for this mixin, for [Version.v2_legacyBackwardsCompat]
+  /// compatibility
+  ///
+  /// This will only be present for [Version.v3_legacyDart2Only] classes.
+  final ClassishDeclaration mixinStub;
 
   /// The corresponding annotation.
   ///
@@ -98,16 +107,49 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateAccessorsMember
       case Version.v3_legacyDart2Only:
         _sharedLegacyValidation();
         checkForMetaPresence(node, errorCollector);
+
+        if (mixinStub == null || getMetaField(mixinStub.members) == null) {
+          final path = errorCollector.spanFor(node).file?.url?.toString() ?? '';
+          final shouldIgnore = path.startsWith('web/component1/') || path.startsWith('test/over_react/');
+          final isOverReactLib = path.startsWith('package:over_react');
+
+          if (!shouldIgnore) {
+            final stubName = name.name.replaceFirst(privateSourcePrefix, r'$');
+            assert(mixinStub == null || mixinStub.name.name == stubName);
+            (isOverReactLib ? errorCollector.addError : errorCollector.addWarning)(
+                'For compatibility with the new mixin-based boilerplate, this $propsOrStateMixinString'
+                    ' should stub in a "$stubName" class with valid meta field, which are both used by generated code:\n\n'
+                    'abstract class $stubName {\n'
+                    '  static const $propsOrStateMetaStructName meta = _\$metaFor${name.name};\n'
+                    '}',
+                errorCollector.spanFor(mixinStub?.node ?? node));
+          }
+        }
         break;
+    }
+
+    if (version != Version.v3_legacyDart2Only && mixinStub != null) {
+      errorCollector.addWarning(
+          'This class will be generated, and is only valid for the legacy Dart-2-only boilerplate.'
+              ' Is this left over from the boilerplate upgrade?',
+          errorCollector.spanFor(mixinStub.node));
     }
   }
 }
 
 /// The implementation class for boilerplate props mixins
 class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
-  BoilerplatePropsMixin(
-      ClassOrMixinDeclaration node, ClassishDeclaration companion, VersionConfidence confidence)
-      : super(node, companion, confidence);
+  BoilerplatePropsMixin({
+    @required ClassOrMixinDeclaration node,
+    @required ClassishDeclaration companion,
+    @required ClassishDeclaration mixinStub,
+    @required VersionConfidence confidence,
+  }) : super(
+          node: node,
+          companion: companion,
+          mixinStub: mixinStub,
+          confidence: confidence,
+        );
 
   @override
   bool get isProps => true;
@@ -115,9 +157,17 @@ class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
 
 /// The implementation class for boilerplate state mixins
 class BoilerplateStateMixin extends BoilerplatePropsOrStateMixin {
-  BoilerplateStateMixin(
-      ClassOrMixinDeclaration node, ClassishDeclaration companion, VersionConfidence confidence)
-      : super(node, companion, confidence);
+  BoilerplateStateMixin({
+    @required ClassOrMixinDeclaration node,
+    @required ClassishDeclaration companion,
+    @required ClassishDeclaration mixinStub,
+    @required VersionConfidence confidence,
+  }) : super(
+          node: node,
+          companion: companion,
+          mixinStub: mixinStub,
+          confidence: confidence,
+        );
 
   @override
   bool get isProps => false;

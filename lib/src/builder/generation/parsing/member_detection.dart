@@ -66,16 +66,13 @@ class BoilerplateMemberDetector {
   }
 
   void _processClassishDeclaration(NamedCompilationUnitMember node) {
-    // If this is a companion class, ignore it.
-    final sourceClass = _getSourceClassForPotentialCompanion(node);
-    if (sourceClass != null) return;
-
-    if (_isMixinStub(node)) return;
+    if (_isCompanion(node) || _isMixinStub(node)) return;
 
     final classish = node.asClassish();
     final companion = _getCompanionClass(node)?.asClassish();
+    final mixinStub = _getMixinStub(node)?.asClassish();
 
-    if (_detectClassBasedOnAnnotations(classish, companion)) return;
+    if (_detectClassBasedOnAnnotations(classish, companion, mixinStub)) return;
     if (_detectNonLegacyPropsStateOrMixin(classish, companion)) return;
     if (_detectPotentialComponent(classish)) return;
   }
@@ -85,13 +82,10 @@ class BoilerplateMemberDetector {
   //
 
   /// For `FooProps`, returns `_$FooProps`
-  NamedCompilationUnitMember _getSourceClassForPotentialCompanion(NamedCompilationUnitMember node) {
+  bool _isCompanion(NamedCompilationUnitMember node) {
     final name = node.name.name;
-    if (name.startsWith(privateSourcePrefix)) {
-      return null;
-    }
-    final sourceName = '$privateSourcePrefix$name';
-    return _classishDeclarationsByName[sourceName];
+    return !name.startsWith(privateSourcePrefix) &&
+        _classishDeclarationsByName.containsKey('$privateSourcePrefix$name');
   }
 
   /// For `_$FooProps`, returns `FooProps`
@@ -100,14 +94,24 @@ class BoilerplateMemberDetector {
     if (!name.startsWith(privateSourcePrefix)) {
       return null;
     }
-    final sourceName = name.replaceFirst(privateSourcePrefix, '');
-    return _classishDeclarationsByName[sourceName];
+    final companionName = name.replaceFirst(privateSourcePrefix, '');
+    return _classishDeclarationsByName[companionName];
   }
 
   /// Returns whether it's the `$FooPropsMixin` to a `_$FooPropsMixin`
   bool _isMixinStub(NamedCompilationUnitMember node) {
     final name = node.name.name;
     return name.startsWith(r'$') && _classishDeclarationsByName.containsKey('_$name');
+  }
+
+  /// Returns whether it's the `$FooPropsMixin` to a `_$FooPropsMixin`
+  NamedCompilationUnitMember _getMixinStub(NamedCompilationUnitMember node) {
+    final name = node.name.name;
+    if (!name.startsWith(privateSourcePrefix)) {
+      return null;
+    }
+    final stubName = name.replaceFirst(privateSourcePrefix, r'$');
+    return _classishDeclarationsByName[stubName];
   }
 
   //
@@ -170,7 +174,7 @@ class BoilerplateMemberDetector {
   // _processClassishDeclaration helpers
   //
 
-  bool _detectClassBasedOnAnnotations(ClassishDeclaration classish, ClassishDeclaration companion) {
+  bool _detectClassBasedOnAnnotations(ClassishDeclaration classish, ClassishDeclaration companion, ClassishDeclaration mixinStub) {
     for (final annotation in classish.metadata) {
       switch (annotation.name.nameWithoutPrefix) {
         case 'Props':
@@ -180,10 +184,12 @@ class BoilerplateMemberDetector {
           // Special-case: `@Props()` is allowed on the new boilerplate mixins
           if (classish.node is MixinDeclaration) {
             onPropsMixin(BoilerplatePropsMixin(
-                classish.node,
-                companion,
-                _annotatedPropsOrStateMixinConfidence(classish, companion,
-                    disableAnnotationAssert: true)));
+              node: classish.node,
+              companion: companion,
+              mixinStub: mixinStub,
+              confidence: _annotatedPropsOrStateMixinConfidence(classish, companion,
+                  disableAnnotationAssert: true),
+            ));
           } else {
             onProps(BoilerplateProps(
                 classish, companion, _annotatedPropsOrStateConfidence(classish, companion)));
@@ -197,10 +203,12 @@ class BoilerplateMemberDetector {
           // Special-case: `@State()` is allowed on the new boilerplate mixins
           if (classish.node is MixinDeclaration) {
             onStateMixin(BoilerplateStateMixin(
-                classish.node,
-                companion,
-                _annotatedPropsOrStateMixinConfidence(classish, companion,
-                    disableAnnotationAssert: true)));
+              node: classish.node,
+              companion: companion,
+              mixinStub: mixinStub,
+              confidence: _annotatedPropsOrStateMixinConfidence(classish, companion,
+                  disableAnnotationAssert: true),
+            ));
           } else {
             onState(BoilerplateState(
                 classish, companion, _annotatedPropsOrStateConfidence(classish, companion)));
@@ -208,13 +216,21 @@ class BoilerplateMemberDetector {
           return true;
 
         case 'PropsMixin':
-          onPropsMixin(BoilerplatePropsMixin(classish.node, companion,
-              _annotatedPropsOrStateMixinConfidence(classish, companion)));
+          onPropsMixin(BoilerplatePropsMixin(
+            node: classish.node,
+            companion: companion,
+            mixinStub: mixinStub,
+            confidence: _annotatedPropsOrStateMixinConfidence(classish, companion),
+          ));
           return true;
 
         case 'StateMixin':
-          onStateMixin(BoilerplateStateMixin(classish.node, companion,
-              _annotatedPropsOrStateMixinConfidence(classish, companion)));
+          onStateMixin(BoilerplateStateMixin(
+            node: classish.node,
+            companion: companion,
+            mixinStub: mixinStub,
+            confidence: _annotatedPropsOrStateMixinConfidence(classish, companion),
+          ));
           return true;
 
         case 'Component':
@@ -369,11 +385,21 @@ class BoilerplateMemberDetector {
 
     if (node is MixinDeclaration) {
       if (propsMixinNamePattern.hasMatch(name) && node.hasSuperclassConstraint('UiProps')) {
-        onPropsMixin(BoilerplatePropsMixin(node, companion, getConfidence()));
+        onPropsMixin(BoilerplatePropsMixin(
+          node: node,
+          companion: companion,
+          mixinStub: null,
+          confidence: getConfidence(),
+        ));
         return true;
       }
       if (stateMixinNamePattern.hasMatch(name) && node.hasSuperclassConstraint('UiState')) {
-        onStateMixin(BoilerplateStateMixin(node, companion, getConfidence()));
+        onStateMixin(BoilerplateStateMixin(
+          node: node,
+          companion: companion,
+          mixinStub: null,
+          confidence: getConfidence(),
+        ));
         return true;
       }
     } else {
