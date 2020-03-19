@@ -331,14 +331,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   });
 }
 
-/// Uses the prefix of the [factory]'s initializer to detect if the factory
-/// is simple and stands alone.
-bool isStandaloneFactory(BoilerplateFactory factory) {
-  final initializer = factory.node.firstInitializer;
-  return initializer != null &&
-      !(initializer?.tryCast<Identifier>()?.name?.startsWith(RegExp(r'[_\$]')) ?? false);
-}
-
 /// The possible declaration types that the builder will look for.
 enum DeclarationType {
   propsMapViewOrFunctionComponentDeclaration,
@@ -454,12 +446,8 @@ class LegacyAbstractPropsDeclaration extends BoilerplateDeclaration {
   void validate(ErrorCollector errorCollector) {
     super.validate(errorCollector);
 
-    // It's possible to declare an abstract class without any props/state fields that need to be generated.
-    if (props.nodeHelper.members.isNotEmpty && !props.node.hasAnnotationWithName('AbstractProps')) {
-      errorCollector.addError(
-          'Legacy boilerplate abstract props must be annotated with `@AbstractProps()`.',
-          errorCollector.spanFor(props.node));
-    }
+    // Only annotated nodes should make it in here.
+    assert(props.node.hasAnnotationWithName('AbstractProps'));
   }
 }
 
@@ -483,12 +471,8 @@ class LegacyAbstractStateDeclaration extends BoilerplateDeclaration {
   void validate(ErrorCollector errorCollector) {
     super.validate(errorCollector);
 
-    // It's possible to declare an abstract class without any props/state fields that need to be generated.
-    if (state.nodeHelper.members.isNotEmpty && !state.node.hasAnnotationWithName('AbstractState')) {
-      errorCollector.addError(
-          'Legacy boilerplate abstract state must be annotated with `@AbstractState()`.',
-          errorCollector.spanFor(state.node));
-    }
+    // Only annotated nodes should make it in here.
+    assert(state.node.hasAnnotationWithName('AbstractState'));
   }
 }
 
@@ -602,27 +586,3 @@ const errorNoProps = 'Could not find a matching props class in this file;'
 
 const errorNoComponent = 'Could not find a matching component class in this file;'
     ' this is required to declare a class-based component';
-
-extension BoilerplateDeclarationTestUtils on Iterable<BoilerplateDeclaration> {
-  BoilerplateDeclaration firstWhereNameEquals(String baseName) => this.firstWhere((declaration) {
-    BoilerplateMember member;
-
-    if (declaration is ClassComponentDeclaration) {
-      member = declaration.component;
-    } else if (declaration is LegacyClassComponentDeclaration) {
-      member = declaration.component;
-    } else if (declaration is PropsMixinDeclaration) {
-      member = declaration.mixin;
-    } else if (declaration is StateMixinDeclaration) {
-      member = declaration.mixin;
-    } else if (declaration is LegacyAbstractPropsDeclaration) {
-      member = declaration.props;
-    } else if (declaration is LegacyAbstractStateDeclaration) {
-      member = declaration.state;
-    } else {
-      return null;
-    }
-
-    return member.name.name == '${baseName}Component';
-  }, orElse: () => null);
-}

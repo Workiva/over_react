@@ -42,12 +42,6 @@ class BoilerplateFactory extends BoilerplateMember {
 
   bool get hasFactoryAnnotation => node.hasAnnotationWithName('Factory');
 
-  /// The name that by convention should be the shared name of the props class
-  /// and component. (e.g. "Foo" for "_$Foo" or "FooComponent")
-  String get generatedFactoryReferenceName {
-    return node.variables.variables.first.initializer?.tryCast<Identifier>()?.nameWithoutPrefix;
-  }
-
   /// Verifies the correct implementation of a boilerplate factory
   ///
   /// Major checks included are:

@@ -51,8 +51,6 @@ abstract class BoilerplatePropsOrState extends BoilerplateAccessorsMember
   @override
   String get debugString => '${super.debugString}, companion: ${companion?.name}';
 
-  bool get hasCompanionClass => companion != null;
-
   /// Verifies the correct implementation of every boilerplate props and state version.
   ///
   /// Major checks included are:

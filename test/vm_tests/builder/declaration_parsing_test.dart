@@ -21,6 +21,7 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:mockito/mockito.dart';
 import 'package:over_react/src/builder/generation/parsing.dart';
+import 'package:over_react/src/builder/generation/parsing/member_association.dart';
 import 'package:over_react/src/builder/generation/parsing/validation.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:source_span/source_span.dart';
@@ -1923,4 +1924,16 @@ main() {
       });
     });
   });
+}
+
+extension on Iterable<ClassComponentDeclaration> {
+  ClassComponentDeclaration firstWhereNameEquals(String baseName) =>
+      firstWhere((declaration) => normalizeNameAndRemoveSuffix(declaration.component) == baseName,
+          orElse: () => null);
+}
+
+extension on Iterable<LegacyClassComponentDeclaration> {
+  LegacyClassComponentDeclaration firstWhereNameEquals(String baseName) =>
+      firstWhere((declaration) => normalizeNameAndRemoveSuffix(declaration.component) == baseName,
+          orElse: () => null);
 }

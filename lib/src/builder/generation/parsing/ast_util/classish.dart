@@ -24,30 +24,32 @@ abstract class ClassishDeclaration {
 
   NamedCompilationUnitMember get node;
 
+  //
   // Shared
+
   SimpleIdentifier get name => node.name;
   NodeList<Annotation> get metadata => node.metadata;
-  WithClause get withClause;
+
   TypeParameterList get typeParameters;
-
-  // Unified
-  Token get classOrMixinKeyword;
-  Token get abstractKeyword;
-  TypeName get superclass;
-  Token get leftBracket;
-  Token get rightBracket;
   List<ClassMember> get members;
-
-  // Niceties
-  bool get hasAbstractKeyword => abstractKeyword != null;
+  Token get classOrMixinKeyword;
   List<TypeName> get interfaces;
-  List<TypeName> get mixins => withClause?.mixinTypes ?? const [];
 
   List<TypeName> get allSuperTypes => [
         ...interfaces,
         ...mixins,
         if (superclass != null) superclass,
       ];
+
+  //
+  // Applies only to some subtypes
+
+  WithClause get withClause;
+  Token get abstractKeyword;
+  bool get hasAbstractKeyword => abstractKeyword != null;
+  TypeName get superclass;
+
+  List<TypeName> get mixins => withClause?.mixinTypes ?? const [];
 }
 
 abstract class _ClassishClassOrMixin extends ClassishDeclaration {
@@ -57,13 +59,7 @@ abstract class _ClassishClassOrMixin extends ClassishDeclaration {
   ClassOrMixinDeclaration get node;
 
   @override
-  Token get leftBracket => node.leftBracket;
-
-  @override
   List<ClassMember> get members => node.members;
-
-  @override
-  Token get rightBracket => node.rightBracket;
 
   @override
   TypeParameterList get typeParameters => node.typeParameters;
@@ -131,13 +127,7 @@ class _ClassishClassTypeAlias extends ClassishDeclaration {
   Token get classOrMixinKeyword => node.typedefKeyword;
 
   @override
-  Token get leftBracket => null;
-
-  @override
   List<ClassMember> get members => const [];
-
-  @override
-  Token get rightBracket => null;
 
   @override
   TypeName get superclass => node.superclass;

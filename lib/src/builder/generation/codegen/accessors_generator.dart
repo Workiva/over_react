@@ -45,8 +45,6 @@ abstract class TypedMapAccessorsGenerator extends Generator {
   ClassOrMixinDeclaration get node => member.node as ClassOrMixinDeclaration;
 
   TypeParameterList get typeParameters => member.nodeHelper.typeParameters;
-  String get typeParamsOnClass => typeParameters?.toSource() ?? '';
-  String get typeParamsOnSuper => removeBoundsFromTypeParameters(typeParameters);
 
   @override
   void generate();
@@ -389,13 +387,7 @@ class _LegacyTypedMapAccessorsGenerator extends TypedMapAccessorsGenerator {
         version = decl.version,
         type = AccessorType.abstractState;
 
-  String get accessorsMixinName {
-    if (version.isLegacy) {
-      return names.legacyAccessorsMixinName;
-    } else {
-      return names.generatedMixinName;
-    }
-  }
+  String get accessorsMixinName => names.legacyAccessorsMixinName;
 
   @override
   void generate() {
