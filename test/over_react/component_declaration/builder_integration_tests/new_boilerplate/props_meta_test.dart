@@ -74,9 +74,21 @@ main() {
         expect(keys, containsAll(expectedKeys));
       });
 
-      test('does not provide access to props outside of the mixin', () {
-        expect(() => propsMeta.forMixin(WoopsMixin),
-            throwsA(hasToStringValue(contains('No meta found for WoopsMixin'))));
+      group('does not provide access to props outside of the mixin', () {
+        test('and throws an AssertionError in DDC', () {
+          expect(
+              () => propsMeta.forMixin(WoopsMixin),
+              throwsA(allOf(
+                isA<AssertionError>(),
+                hasToStringValue(contains('No meta found for WoopsMixin')),
+              )));
+        }, tags: 'ddc');
+
+        test('and returns an empty meta in dart2js', () {
+          final value = propsMeta.forMixin(WoopsMixin);
+          expect(value.keys, isEmpty);
+          expect(value.fields, isEmpty);
+        }, tags: 'no-ddc');
       });
     });
   });
