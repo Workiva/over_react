@@ -170,11 +170,12 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   // todo getPropsForFactories getComponent utils - what if there are multiple candidates?
   //  Do we just go with the first one, or do we use confidence scores? It's possible something could look like a component or props class
 
-  // todo maybe just ditch factory groups and instead strip out non-best factories.
-  final factoryGroups = groupFactories(factories);
-  for (final factoryGroup in List.of(factoryGroups)) {
-    final factory = factoryGroup.bestFactory;
-
+  // Give the more confident factories priority when grouping, so that medium-confidence related
+  // factories that don't require generation (like aliased factories) don't trump the real factory.
+  final factoriesMostToLeastConfidence = List.of(factories)
+    ..sort((a, b) => b.versionConfidence.maxConfidence.confidence
+        .compareTo(a.versionConfidence.maxConfidence.confidence));
+  for (final factory in factoriesMostToLeastConfidence) {
     final propsClassOrMixin = getPropsFor(factory, props, propsMixins);
     final stateClassOrMixin = getStateFor(factory, states, stateMixins);
 
@@ -185,15 +186,24 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
     final component = getComponentFor(factory, components);
 
-    void consumeFactory() {
-      factoryGroups.remove(factoryGroup);
-      factoryGroup.factories.forEach(factories.remove);
-    }
+    void consumeFactory() => factories.remove(factory);
 
     void consumePropsAndState() {
-      // don't remove mixins, just classes, since mixins are generated/grouped the same as when standalone
-      props.remove(propsClassOrMixin.either);
-      states.remove(stateClassOrMixin?.either);
+      // Even though mixins are generated regardless of whether they're part of a component,
+      // it's safe to remove them since they were generated above.
+      // We do this because two factories can't have the same impl class generated from a single mixin
+      // since they would collide (though, we could change that later if desired).
+
+      // Ignore this lint so we still get list_remove_unrelated_type checking. See https://github.com/dart-lang/linter/issues/2038
+      // ignore_for_file: unnecessary_lambdas
+      propsClassOrMixin.switchCase(
+        (a) => props.remove(a),
+        (b) => propsMixins.remove(b),
+      );
+      stateClassOrMixin?.switchCase(
+        (a) => states.remove(a),
+        (b) => stateMixins.remove(b),
+      );
     }
 
     void consumeComponent() => components.remove(component);
@@ -254,7 +264,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   //
 
   final allUnusedMembers = [
-    factoryGroups.map((group) => group.bestFactory),
+    factories,
     props,
     states,
     components,
@@ -323,71 +333,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   });
 }
 
-/// Factories that are grouped together via their variable's type.
-class FactoryGroup {
-  final List<BoilerplateFactory> factories;
-
-  FactoryGroup(this.factories);
-
-  // TODO add doc comment when fixme is addrssed
-  BoilerplateFactory get bestFactory {
-    if (factories.length == 1) return factories[0];
-
-    final factoriesInitializedToIdentifier =
-        factories.where((factory) => factory.node.firstInitializer is Identifier).toList();
-    if (factoriesInitializedToIdentifier.length == 1) {
-      return factoriesInitializedToIdentifier.first;
-    }
-
-    // fixme other cases
-    return factories[0];
-  }
-}
-
-/// Inspects all the [factories]' type and uses it to group factories together.
-List<FactoryGroup> groupFactories(Iterable<BoilerplateFactory> factories) {
-  var factoriesByType = <String, List<BoilerplateFactory>>{};
-
-  for (var factory in factories) {
-    final typeString = factory.node.variables.type?.toSource();
-    factoriesByType.putIfAbsent(typeString, () => []).add(factory);
-  }
-
-  final groups = <FactoryGroup>[];
-  factoriesByType.forEach((key, value) {
-    if (key == null) {
-      groups.addAll(value.map((factory) => FactoryGroup([factory])));
-    } else {
-      groups.add(FactoryGroup(value));
-    }
-  });
-  return groups;
-}
-
-/// Uses the prefix of the [factory]'s initializer to detect if the factory
-/// is simple and stands alone.
-bool isStandaloneFactory(BoilerplateFactory factory) {
-  final initializer = factory.node.firstInitializer;
-  return initializer != null &&
-      !(initializer?.tryCast<Identifier>()?.name?.startsWith(RegExp(r'[_\$]')) ?? false);
-}
-
-/// TODO unused - did we want to implement this somewhere?
-/// Uses common variables of boilerplate implementation to detect if [member]
-/// may actually be related to a [BoilerplateMember] within [members].
-AstNode fuzzyMatch(BoilerplateMember member, Iterable<BoilerplateMember> members) {
-  // todo implement
-  var match = members.firstOrNull?.node;
-
-  if (match == null) return null;
-  if (match is NamedCompilationUnitMember) return match.name;
-  if (match is TopLevelVariableDeclaration) return match.firstVariable.name;
-
-  throw StateError('This codepath should never be hit');
-}
-
-class BoilerplateGenerator {}
-
 /// The possible declaration types that the builder will look for.
 enum DeclarationType {
   propsMapViewOrFunctionComponentDeclaration,
@@ -428,8 +373,6 @@ abstract class BoilerplateDeclaration {
       member.validate(version, errorCollector);
     }
   }
-
-  BoilerplateGenerator get generator => null;
 
   Iterable<BoilerplateMember> get _members;
 
@@ -505,12 +448,8 @@ class LegacyAbstractPropsDeclaration extends BoilerplateDeclaration {
   void validate(ErrorCollector errorCollector) {
     super.validate(errorCollector);
 
-    // It's possible to declare an abstract class without any props/state fields that need to be generated.
-    if (props.nodeHelper.members.isNotEmpty && !props.node.hasAnnotationWithName('AbstractProps')) {
-      errorCollector.addError(
-          'Legacy boilerplate abstract props must be annotated with `@AbstractProps()`.',
-          errorCollector.spanFor(props.node));
-    }
+    // Only annotated nodes should make it in here.
+    assert(props.node.hasAnnotationWithName('AbstractProps'));
   }
 }
 
@@ -534,12 +473,8 @@ class LegacyAbstractStateDeclaration extends BoilerplateDeclaration {
   void validate(ErrorCollector errorCollector) {
     super.validate(errorCollector);
 
-    // It's possible to declare an abstract class without any props/state fields that need to be generated.
-    if (state.nodeHelper.members.isNotEmpty && !state.node.hasAnnotationWithName('AbstractState')) {
-      errorCollector.addError(
-          'Legacy boilerplate abstract state must be annotated with `@AbstractState()`.',
-          errorCollector.spanFor(state.node));
-    }
+    // Only annotated nodes should make it in here.
+    assert(state.node.hasAnnotationWithName('AbstractState'));
   }
 }
 
@@ -634,44 +569,22 @@ const errorStateOnly =
     'Could not find matching factory, props class, and component class in this file;'
     ' these are required to use UiState';
 
-const errorFactoryOnly = 'Could not find matching component class and props class in this file;'
-    ' these are required to declare a class-based component.';
+const errorFactoryOnly = 'Could not find matching props class in this file;'
+    ' this is required to declare a props map view or function component,'
+    ' and a component class is also required to declare a class-based component.';
 
-const errorPropsClassOnly = 'Could not find matching factory and component class in this file;'
-    ' these are required to declare a class-based component.';
+const errorPropsClassOnly = 'Could not find matching factory in this file;'
+    ' this is required to declare a props map view or function component,'
+    ' and a component class is also required to declare a class-based component.';
 
 const errorComponentClassOnly = 'Could not find matching factory and props class in this file;'
     ' these are required to declare a class-based component.';
 
 const errorNoFactory = 'Could not find a matching factory in this file;'
-    ' this is required to declare a class-based component';
+    ' this is required to declare a component or props map view';
 
 const errorNoProps = 'Could not find a matching props class in this file;'
-    ' this is required to declare a class-based component';
+    ' this is required to declare a component or props map view';
 
 const errorNoComponent = 'Could not find a matching component class in this file;'
     ' this is required to declare a class-based component';
-
-extension BoilerplateDeclarationTestUtils on Iterable<BoilerplateDeclaration> {
-  BoilerplateDeclaration firstWhereNameEquals(String baseName) => this.firstWhere((declaration) {
-    BoilerplateMember member;
-
-    if (declaration is ClassComponentDeclaration) {
-      member = declaration.component;
-    } else if (declaration is LegacyClassComponentDeclaration) {
-      member = declaration.component;
-    } else if (declaration is PropsMixinDeclaration) {
-      member = declaration.mixin;
-    } else if (declaration is StateMixinDeclaration) {
-      member = declaration.mixin;
-    } else if (declaration is LegacyAbstractPropsDeclaration) {
-      member = declaration.props;
-    } else if (declaration is LegacyAbstractStateDeclaration) {
-      member = declaration.state;
-    } else {
-      return null;
-    }
-
-    return member.name.name == '${baseName}Component';
-  }, orElse: () => null);
-}

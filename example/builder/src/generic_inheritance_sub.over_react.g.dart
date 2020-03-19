@@ -33,10 +33,11 @@ _$$GenericSubProps _$GenericSub([Map backingProps]) => backingProps == null
 abstract class _$$GenericSubProps extends UiProps
     with
         GenericSuperPropsMixin,
-        $GenericSuperPropsMixin,
+        $GenericSuperPropsMixin, // If this generated mixin is undefined, it's likely because GenericSuperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of GenericSuperPropsMixin.
         GenericSubPropsMixin,
-        $GenericSubPropsMixin
-    implements GenericSubProps {
+        $GenericSubPropsMixin // If this generated mixin is undefined, it's likely because GenericSubPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of GenericSubPropsMixin.
+    implements
+        GenericSubProps {
   _$$GenericSubProps._();
 
   factory _$$GenericSubProps(Map backingMap) {
@@ -106,10 +107,11 @@ class _$$GenericSubProps$JsMap extends _$$GenericSubProps {
 abstract class _$$GenericSubState extends UiState
     with
         GenericSuperStateMixin,
-        $GenericSuperStateMixin,
+        $GenericSuperStateMixin, // If this generated mixin is undefined, it's likely because GenericSuperStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of GenericSuperStateMixin.
         GenericSubStateMixin,
-        $GenericSubStateMixin
-    implements GenericSubState {
+        $GenericSubStateMixin // If this generated mixin is undefined, it's likely because GenericSubStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of GenericSubStateMixin.
+    implements
+        GenericSubState {
   _$$GenericSubState._();
 
   factory _$$GenericSubState(Map backingMap) {
@@ -224,11 +226,13 @@ class _$GenericSubComponent extends GenericSubComponent {
   /// The default consumed props, taken from GenericSubProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [];
+  List<ConsumedProps> get $defaultConsumedProps => const [];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because GenericSuperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of GenericSuperPropsMixin.
         GenericSuperPropsMixin: $GenericSuperPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because GenericSubPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of GenericSubPropsMixin.
         GenericSubPropsMixin: $GenericSubPropsMixin.meta,
       });
 }

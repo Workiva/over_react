@@ -31,8 +31,11 @@ _$$GenericSuperProps _$GenericSuper([Map backingProps]) => backingProps == null
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$GenericSuperProps extends UiProps
-    with GenericSuperPropsMixin, $GenericSuperPropsMixin
-    implements GenericSuperProps {
+    with
+        GenericSuperPropsMixin,
+        $GenericSuperPropsMixin // If this generated mixin is undefined, it's likely because GenericSuperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of GenericSuperPropsMixin.
+    implements
+        GenericSuperProps {
   _$$GenericSuperProps._();
 
   factory _$$GenericSuperProps(Map backingMap) {
@@ -100,7 +103,10 @@ class _$$GenericSuperProps$JsMap extends _$$GenericSuperProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$GenericSuperStateMixin extends UiState
-    with GenericSuperStateMixin, $GenericSuperStateMixin {
+    with
+        GenericSuperStateMixin,
+        $GenericSuperStateMixin // If this generated mixin is undefined, it's likely because GenericSuperStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of GenericSuperStateMixin.
+{
   _$$GenericSuperStateMixin._();
 
   factory _$$GenericSuperStateMixin(Map backingMap) {
@@ -215,10 +221,11 @@ class _$GenericSuperComponent extends GenericSuperComponent {
   /// The default consumed props, taken from GenericSuperProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [];
+  List<ConsumedProps> get $defaultConsumedProps => const [];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because GenericSuperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of GenericSuperPropsMixin.
         GenericSuperPropsMixin: $GenericSuperPropsMixin.meta,
       });
 }

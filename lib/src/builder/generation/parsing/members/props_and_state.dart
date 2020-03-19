@@ -51,8 +51,6 @@ abstract class BoilerplatePropsOrState extends BoilerplateAccessorsMember
   @override
   String get debugString => '${super.debugString}, companion: ${companion?.name}';
 
-  bool get hasCompanionClass => companion != null;
-
   /// Verifies the correct implementation of every boilerplate props and state version.
   ///
   /// Major checks included are:
@@ -66,6 +64,8 @@ abstract class BoilerplatePropsOrState extends BoilerplateAccessorsMember
       case Version.v4_mixinBased:
         final node = this.node;
         if (node is MixinDeclaration) {
+          // It is not expected that this case will ever occur. However, for
+          // completeness it is as a case that will error.
           errorCollector.addError(
               '$propsOrStateClassString implementations must be concrete classes, not mixins',
               // TODO add versions to error messages

@@ -37,7 +37,7 @@ abstract class Generator {
             "'This API is for use only within generated code.'"
             "' Do not reference it in your code, as it may change at any time.'"
             '$additionalMessageStringLiteral'
-            ')';
+            ')\n';
 
     assert(string.isEmpty || string.endsWith('\n'),
         'code that consumes this relies on there being a trailing newline if it is non-empty');
@@ -54,4 +54,15 @@ String getAccessorKeyNamespace(TypedMapNames names, annotations.TypedMap meta) {
   final specifiedKeyNamespace = meta?.keyNamespace;
 
   return specifiedKeyNamespace ?? defaultNamespace;
+}
+
+String generatedMixinWarningCommentLine(TypedMapNames mixinNames, {@required bool isProps}) {
+  final value = '// If this generated mixin is undefined, it\'s likely because'
+        ' ${mixinNames.consumerName} is not a valid `mixin`-based ${isProps ? 'props' : 'state'} mixin,'
+        ' or because it is but the generated mixin was not exported.'
+        ' Check the declaration of ${mixinNames.consumerName}.\n';
+
+  assert(value.endsWith('\n'));
+
+  return value;
 }

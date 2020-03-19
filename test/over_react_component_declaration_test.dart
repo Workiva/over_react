@@ -70,6 +70,7 @@ import 'over_react/component_declaration/builder_integration_tests/new_boilerpla
 import 'over_react/component_declaration/builder_integration_tests/new_boilerplate/namespaced_accessor_integration_test.dart' as new_boilerplate_namespaced_accessor_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/new_boilerplate/private_props_ddc_bug.dart' as new_boilerplate_private_props_ddc_bug;
 import 'over_react/component_declaration/builder_integration_tests/new_boilerplate/props_map_view_test.dart' as new_boilerplate_props_map_view_test;
+import 'over_react/component_declaration/builder_integration_tests/new_boilerplate/props_meta_test.dart' as new_boilerplate_props_meta_test;
 import 'over_react/component_declaration/builder_integration_tests/new_boilerplate/required_accessor_integration_test.dart' as new_boilerplate_required_accessor_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/new_boilerplate/stateful_component_integration_test.dart' as new_boilerplate_stateful_component_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/new_boilerplate/unassigned_prop_integration_test.dart' as new_boilerplate_unassigned_prop_integration_test;
@@ -129,6 +130,7 @@ main() {
   new_boilerplate_namespaced_accessor_integration_test.main();
   new_boilerplate_private_props_ddc_bug.main();
   new_boilerplate_props_map_view_test.main();
+  new_boilerplate_props_meta_test.main();
   new_boilerplate_required_accessor_integration_test.main();
   new_boilerplate_stateful_component_integration_test.main();
   new_boilerplate_unassigned_prop_integration_test.main();

@@ -54,39 +54,39 @@ main() {
       group('and the BoilerplateMember is a', () {
         test('BoilerplateComponent', () {
           final component =
-              BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v4).whereType<BoilerplateComponent>().first;
+              BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v4).whereType<BoilerplateComponent>().first;
           expect(normalizeNameAndRemoveSuffix(component), 'Foo');
         });
 
         test('BoilerplateProps', () {
           final props =
-              BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v3).whereType<BoilerplateProps>().first;
+              BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v3).whereType<BoilerplateProps>().first;
           expect(normalizeNameAndRemoveSuffix(props), 'Foo');
         });
 
         test('BoilerplatePropsMixin', () {
           final propsMixin =
-              BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v4).whereType<BoilerplatePropsMixin>().first;
+              BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v4).whereType<BoilerplatePropsMixin>().first;
           expect(normalizeNameAndRemoveSuffix(propsMixin), 'Foo');
 
           final propsMixinWithMixinInName =
-              BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v5).whereType<BoilerplatePropsMixin>().first;
+              BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v5).whereType<BoilerplatePropsMixin>().first;
           expect(normalizeNameAndRemoveSuffix(propsMixinWithMixinInName), 'Foo');
         });
 
         test('BoilerplateState', () {
           final state =
-              BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v3).whereType<BoilerplateState>().first;
+              BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v3).whereType<BoilerplateState>().first;
           expect(normalizeNameAndRemoveSuffix(state), 'Foo');
         });
 
         test('BoilerplateStateMixin', () {
           final stateMixin =
-              BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v4).whereType<BoilerplateStateMixin>().first;
+              BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v4).whereType<BoilerplateStateMixin>().first;
           expect(normalizeNameAndRemoveSuffix(stateMixin), 'Foo');
 
           final stateMixinWithMixinInName =
-              BoilerplateMemberHelper.getBoilerplateMembersFor(BoilerplateVersions.v5).whereType<BoilerplateStateMixin>().first;
+              BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v5).whereType<BoilerplateStateMixin>().first;
           expect(normalizeNameAndRemoveSuffix(stateMixinWithMixinInName), 'Foo');
         });
       });

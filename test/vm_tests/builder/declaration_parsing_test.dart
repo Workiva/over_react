@@ -21,6 +21,7 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:mockito/mockito.dart';
 import 'package:over_react/src/builder/generation/parsing.dart';
+import 'package:over_react/src/builder/generation/parsing/member_association.dart';
 import 'package:over_react/src/builder/generation/parsing/validation.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:source_span/source_span.dart';
@@ -709,6 +710,121 @@ main() {
 
             final decl = expectSingleOfType<ClassComponentDeclaration>(declarations);
             expect(decl.factory.name.name, 'ConnectedFoo');
+          });
+
+          test('alias factories', () {
+            setUpAndParse(r'''                                      
+              UiFactory<FormActionInputProps> FormSubmitInput = ([backingMap]) =>
+                  _FormActionInput(backingMap)..type = 'submit';
+              
+              UiFactory<FormActionInputProps> FormResetInput = ([backingMap]) =>
+                  _FormActionInput(backingMap)..type = 'reset';
+                  
+              // Put this last so we know it's not getting picked just because it comes
+              // before the other factories.    
+              UiFactory<FormActionInputProps> _FormActionInput = _$_FormActionInput;
+              
+              mixin FormActionInputProps on UiProps {
+                String type;
+              }
+              
+              class FormActionInputComponent extends UiComponent2<FormActionInputProps> {}
+            ''');
+
+            expect(declarations, unorderedEquals([
+              isA<ClassComponentDeclaration>(),
+              isA<PropsMixinDeclaration>(),
+            ]));
+
+            final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+            expect(decl.factory.name.name, '_FormActionInput');
+          });
+
+          test('more than one factory using a props mixin as a shorthand declaration', () {
+            setUpAndParse(r'''                                      
+              UiFactory<FooProps> Foo1 = _$Foo1;
+              
+              UiFactory<FooProps> Foo2 = _$Foo2;
+              
+              mixin FooProps on UiProps {}
+              
+              class FooComponent extends UiComponent2<FooProps> {}
+            ''');
+
+            expect(declarations, unorderedEquals([
+              isA<ClassComponentDeclaration>(),
+              isA<PropsMixinDeclaration>(),
+            ]), reason: 'should parse the mixin and one of the factories properly');
+
+            verify(logger.severe(contains(errorFactoryOnly)));
+          });
+
+          group('mismatched members names for legacy component', () {
+            test('Version.v2_legacyBackwardsCompat', () {
+              setUpAndParse(r'''
+                @Factory()
+                UiFactory<FooProps> Foo = _$Foo;
+
+                @Props()
+                class _$SomeRandomProps {}
+                
+                @State()
+                class _$DifferentState {}
+                
+                @Component2() 
+                class FooComponent extends UiStatefulComponent2<SomeRandomProps, DifferentState> {}
+                
+                class SomeRandomProps
+                    extends _$SomeRandomProps with _$SomeRandomPropsAccessorsMixin {
+                
+                  static const PropsMeta meta = _$metaForSomeRandomProps;
+                }
+
+                class DifferentState
+                    extends _$DifferentState with _$DifferentStateAccessorsMixin {
+                
+                  static const StateMeta meta = _$metaForDifferentState;
+                }
+              ''');
+
+              final declaration = declarations.firstWhereType<LegacyClassComponentDeclaration>();
+              expect(declaration, isNotNull, reason: 'Sanity check to make sure a component is detected');
+
+              expect(declaration.state, isNotNull, reason: 'A state class should have been detected');
+              expect(declaration.state.name.name, r'_$DifferentState');
+              expect(declaration.state.companion, isNotNull);
+
+              expect(declaration.props, isNotNull, reason: 'A props class should have been detected');
+              expect(declaration.props.name.name, r'_$SomeRandomProps');
+              expect(declaration.props.companion, isNotNull);
+            });
+
+            test('Version.v3_legacyDart2Only', () {
+              setUpAndParse(r'''
+                @Factory()
+                UiFactory<FooProps> Foo = _$Foo;
+                
+                @Props()
+                class _$SomeRandomProps {}
+                
+                @State()
+                class _$DifferentState {}
+                
+                @Component2() 
+                class FooComponent extends UiStatefulComponent2<SomeRandomProps, DifferentState> {}
+              ''');
+
+              final declaration = declarations.firstWhereType<LegacyClassComponentDeclaration>();
+              expect(declaration, isNotNull, reason: 'Sanity check to make sure a component is detected');
+
+              expect(declaration.state, isNotNull, reason: 'A state class should have been detected');
+              expect(declaration.state.name.name, r'_$DifferentState');
+              expect(declaration.state.companion, isNull);
+
+              expect(declaration.props, isNotNull, reason: 'A props class should have been detected');
+              expect(declaration.props.name.name, r'_$SomeRandomProps');
+              expect(declaration.props.companion, isNull);
+            });
           });
 
           group('multiple components in the same file', () {
@@ -1808,4 +1924,16 @@ main() {
       });
     });
   });
+}
+
+extension on Iterable<ClassComponentDeclaration> {
+  ClassComponentDeclaration firstWhereNameEquals(String baseName) =>
+      firstWhere((declaration) => normalizeNameAndRemoveSuffix(declaration.component) == baseName,
+          orElse: () => null);
+}
+
+extension on Iterable<LegacyClassComponentDeclaration> {
+  LegacyClassComponentDeclaration firstWhereNameEquals(String baseName) =>
+      firstWhere((declaration) => normalizeNameAndRemoveSuffix(declaration.component) == baseName,
+          orElse: () => null);
 }

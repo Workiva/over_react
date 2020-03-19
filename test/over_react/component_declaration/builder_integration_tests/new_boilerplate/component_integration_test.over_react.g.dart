@@ -32,7 +32,10 @@ _$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$ComponentTestProps extends UiProps
-    with ComponentTestProps, $ComponentTestProps {
+    with
+        ComponentTestProps,
+        $ComponentTestProps // If this generated mixin is undefined, it's likely because ComponentTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ComponentTestProps.
+{
   _$$ComponentTestProps._();
 
   factory _$$ComponentTestProps(Map backingMap) {
@@ -134,12 +137,12 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   /// The default consumed props, taken from ComponentTestProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForComponentTestProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(ComponentTestProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ComponentTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ComponentTestProps.
         ComponentTestProps: $ComponentTestProps.meta,
       });
 }
@@ -297,7 +300,10 @@ _$$IsErrorBoundaryProps _$IsErrorBoundary([Map backingProps]) =>
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$IsErrorBoundaryProps extends UiProps
-    with IsErrorBoundaryProps, $IsErrorBoundaryProps {
+    with
+        IsErrorBoundaryProps,
+        $IsErrorBoundaryProps // If this generated mixin is undefined, it's likely because IsErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of IsErrorBoundaryProps.
+{
   _$$IsErrorBoundaryProps._();
 
   factory _$$IsErrorBoundaryProps(Map backingMap) {
@@ -399,12 +405,12 @@ class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
   /// The default consumed props, taken from IsErrorBoundaryProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForIsErrorBoundaryProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(IsErrorBoundaryProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because IsErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of IsErrorBoundaryProps.
         IsErrorBoundaryProps: $IsErrorBoundaryProps.meta,
       });
 }
@@ -453,7 +459,10 @@ _$$IsNotErrorBoundaryProps _$IsNotErrorBoundary([Map backingProps]) =>
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$IsNotErrorBoundaryProps extends UiProps
-    with IsNotErrorBoundaryProps, $IsNotErrorBoundaryProps {
+    with
+        IsNotErrorBoundaryProps,
+        $IsNotErrorBoundaryProps // If this generated mixin is undefined, it's likely because IsNotErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of IsNotErrorBoundaryProps.
+{
   _$$IsNotErrorBoundaryProps._();
 
   factory _$$IsNotErrorBoundaryProps(Map backingMap) {
@@ -556,12 +565,12 @@ class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
   /// The default consumed props, taken from IsNotErrorBoundaryProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForIsNotErrorBoundaryProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(IsNotErrorBoundaryProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because IsNotErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of IsNotErrorBoundaryProps.
         IsNotErrorBoundaryProps: $IsNotErrorBoundaryProps.meta,
       });
 }

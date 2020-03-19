@@ -32,7 +32,10 @@ _$$NamespacedAccessorTestProps _$NamespacedAccessorTest([Map backingProps]) =>
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$NamespacedAccessorTestProps extends UiProps
-    with NamespacedAccessorTestProps, $NamespacedAccessorTestProps {
+    with
+        NamespacedAccessorTestProps,
+        $NamespacedAccessorTestProps // If this generated mixin is undefined, it's likely because NamespacedAccessorTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of NamespacedAccessorTestProps.
+{
   _$$NamespacedAccessorTestProps._();
 
   factory _$$NamespacedAccessorTestProps(Map backingMap) {
@@ -102,7 +105,10 @@ class _$$NamespacedAccessorTestProps$JsMap
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$NamespacedAccessorTestState extends UiState
-    with NamespacedAccessorTestState, $NamespacedAccessorTestState {
+    with
+        NamespacedAccessorTestState,
+        $NamespacedAccessorTestState // If this generated mixin is undefined, it's likely because NamespacedAccessorTestState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of NamespacedAccessorTestState.
+{
   _$$NamespacedAccessorTestState._();
 
   factory _$$NamespacedAccessorTestState(Map backingMap) {
@@ -222,12 +228,12 @@ class _$NamespacedAccessorTestComponent
   /// The default consumed props, taken from NamespacedAccessorTestProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForNamespacedAccessorTestProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(NamespacedAccessorTestProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because NamespacedAccessorTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of NamespacedAccessorTestProps.
         NamespacedAccessorTestProps: $NamespacedAccessorTestProps.meta,
       });
 }

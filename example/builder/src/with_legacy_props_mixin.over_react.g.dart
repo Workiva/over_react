@@ -33,10 +33,11 @@ _$$BasicProps _$Basic([Map backingProps]) => backingProps == null
 abstract class _$$BasicProps extends UiProps
     with
         BasicPropsMixin,
-        $BasicPropsMixin,
+        $BasicPropsMixin, // If this generated mixin is undefined, it's likely because BasicPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicPropsMixin.
         TransitionPropsMixin,
-        $TransitionPropsMixin
-    implements BasicProps {
+        $TransitionPropsMixin // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TransitionPropsMixin.
+    implements
+        BasicProps {
   _$$BasicProps._();
 
   factory _$$BasicProps(Map backingMap) {
@@ -137,11 +138,13 @@ class _$BasicComponent extends BasicComponent {
   /// The default consumed props, taken from BasicProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [];
+  List<ConsumedProps> get $defaultConsumedProps => const [];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because BasicPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicPropsMixin.
         BasicPropsMixin: $BasicPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TransitionPropsMixin.
         TransitionPropsMixin: $TransitionPropsMixin.meta,
       });
 }

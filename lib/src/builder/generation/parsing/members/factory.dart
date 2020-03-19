@@ -42,12 +42,6 @@ class BoilerplateFactory extends BoilerplateMember {
 
   bool get hasFactoryAnnotation => node.hasAnnotationWithName('Factory');
 
-  /// The name that by convention should be the shared name of the props class
-  /// and component. (e.g. "Foo" for "_$Foo" or "FooComponent")
-  String get generatedFactoryReferenceName {
-    return node.variables.variables.first.initializer?.tryCast<Identifier>()?.nameWithoutPrefix;
-  }
-
   /// Verifies the correct implementation of a boilerplate factory
   ///
   /// Major checks included are:
@@ -91,24 +85,4 @@ class BoilerplateFactory extends BoilerplateMember {
           errorCollector.spanFor(variable));
     }
   }
-
-//  static bool _isFunctionComponentOrHoc(Expression initializer) {
-//    // todo should this instead be
-//    return containsFunctionCall(initializer);
-//  }
 }
-
-// FIXME is this still needed?
-//bool containsFunctionCall(AstNode node) {
-//  final visitor = _FunctionCallDetector();
-//  node.accept(visitor);
-//  return visitor.detected;
-//}
-//class _FunctionCallDetector extends GeneralizingAstVisitor<void> {
-//  var detected = false;
-//
-//  @override
-//  void visitInvocationExpression(InvocationExpression node) {
-//    detected = true;
-//  }
-//}

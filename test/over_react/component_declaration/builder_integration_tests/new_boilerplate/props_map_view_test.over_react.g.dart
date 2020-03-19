@@ -109,7 +109,11 @@ _$$TestProps _$Test([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$TestProps extends UiProps with TestProps, $TestProps {
+abstract class _$$TestProps extends UiProps
+    with
+        TestProps,
+        $TestProps // If this generated mixin is undefined, it's likely because TestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TestProps.
+{
   _$$TestProps._();
 
   factory _$$TestProps(Map backingMap) {

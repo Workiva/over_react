@@ -157,7 +157,7 @@ class BoilerplateMemberDetector {
         }
       }
     } else {
-      // todo do we need something with function components?
+      // todo implement function components; should LHS typing not be required?
 //      if ((node.variables.firstInitializer?.tryCast<MethodInvocation>()?.methodName?.name == 'uiFunction') {
 //        factories.add(BoilerplateFactory(node));
 //      }

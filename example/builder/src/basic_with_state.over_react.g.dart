@@ -33,10 +33,11 @@ _$$BasicProps _$Basic([Map backingProps]) => backingProps == null
 abstract class _$$BasicProps extends UiProps
     with
         pm.ExamplePropsMixin,
-        pm.$ExamplePropsMixin,
+        pm.$ExamplePropsMixin, // If this generated mixin is undefined, it's likely because pm.ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of pm.ExamplePropsMixin.
         BasicPropsMixin,
-        $BasicPropsMixin
-    implements BasicProps {
+        $BasicPropsMixin // If this generated mixin is undefined, it's likely because BasicPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicPropsMixin.
+    implements
+        BasicProps {
   _$$BasicProps._();
 
   factory _$$BasicProps(Map backingMap) {
@@ -106,10 +107,11 @@ class _$$BasicProps$JsMap extends _$$BasicProps {
 abstract class _$$BasicState extends UiState
     with
         ExampleStateMixin,
-        $ExampleStateMixin,
+        $ExampleStateMixin, // If this generated mixin is undefined, it's likely because ExampleStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ExampleStateMixin.
         BasicStateMixin,
-        $BasicStateMixin
-    implements BasicState {
+        $BasicStateMixin // If this generated mixin is undefined, it's likely because BasicStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicStateMixin.
+    implements
+        BasicState {
   _$$BasicState._();
 
   factory _$$BasicState(Map backingMap) {
@@ -222,11 +224,13 @@ class _$BasicComponent extends BasicComponent {
   /// The default consumed props, taken from BasicProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [];
+  List<ConsumedProps> get $defaultConsumedProps => const [];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because pm.ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of pm.ExamplePropsMixin.
         pm.ExamplePropsMixin: pm.$ExamplePropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because BasicPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicPropsMixin.
         BasicPropsMixin: $BasicPropsMixin.meta,
       });
 }
