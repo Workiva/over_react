@@ -154,7 +154,9 @@ extension SourceFileSpanHelper on SourceFile {
 }
 
 /// Evaluates if a [ClassishDeclaration] implements a class but does not extend
-/// or mixin anything.
+/// or mix in anything.
+///
+/// This also considers superclass constraints on mixins as "interfaces".
 bool onlyImplementsThings(ClassishDeclaration classish) =>
     classish.interfaces.isNotEmpty &&
     classish.superclass == null &&

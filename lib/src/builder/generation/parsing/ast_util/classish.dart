@@ -33,6 +33,8 @@ abstract class ClassishDeclaration {
   TypeParameterList get typeParameters;
   List<ClassMember> get members;
   Token get classOrMixinKeyword;
+
+  /// All interfaces used by this class, including mixin superclass constraints.
   List<TypeName> get interfaces;
 
   List<TypeName> get allSuperTypes => [
