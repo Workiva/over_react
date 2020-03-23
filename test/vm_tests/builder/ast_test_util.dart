@@ -2,6 +2,9 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 
+CompilationUnitMember parseAndGetSingleMember(String source) =>
+    parseAndGetSingleWithType<CompilationUnitMember>(source);
+
 T parseAndGetSingleWithType<T extends AstNode>(String source) =>
     parseAndGetAllWithType<T>(source).single;
 

@@ -15,9 +15,18 @@
 import 'dart:mirrors' as mirrors;
 
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:transformer_utils/transformer_utils.dart';
 
-import '../../util.dart';
 import 'ast_util.dart';
+
+/// Uses reflection to instantiate and return the first annotation on [member] of type
+/// [T], or null if no matching annotations are found.
+///
+/// > See [instantiateAnnotation] for more information.
+T instantiateAnnotationTyped<T>(AnnotatedNode member,
+    {dynamic Function(Expression argument) onUnsupportedArgument}) {
+  return instantiateAnnotation(member, T, onUnsupportedArgument: onUnsupportedArgument) as T;
+}
 
 /// Returns the first annotation AST node on [member] of type [annotationType],
 /// or null if no matching annotations are found.
@@ -28,8 +37,10 @@ Annotation _getMatchingAnnotation(AnnotatedNode member, Type annotationType) {
   return member.getAnnotationWithName(className);
 }
 
-/// Utility class that allows for easy access to an annotated node's
-/// instantiated annotation.
+/// Utility class that allows partial instantiation of annotations, to support reading
+/// annotation data in a context without a resolved AST. See [isIncomplete] for more info.
+///
+/// Based off of [NodeWithMeta].
 class InstantiatedMeta<TMeta> {
   /// The node of the [TMeta] annotation, if it exists.
   final Annotation metaNode;
@@ -41,11 +52,13 @@ class InstantiatedMeta<TMeta> {
   /// (or by special handling in subclasses) and therefore not represented in the instantiation of [value].
   final List<Expression> unsupportedArguments;
 
-  /// Construct a [NodeWithMeta] instance from an [AnnotatedNode].
-  /// The original node will be available via [node].
-  /// The instantiated annotation of type `TMeta` will be available via [value].
   InstantiatedMeta._(this.metaNode, this._value, this.unsupportedArguments);
 
+  /// Returns an instance representing the first annotation of type [TMeta]
+  /// on [node], or null if there is no matching annotation.
+  /// The original node will be available via [node].
+  ///
+  /// The instantiated annotation will be available via [value].
   factory InstantiatedMeta(AnnotatedNode node) {
     final metaNode = _getMatchingAnnotation(node, TMeta);
     final unsupportedArguments = <Expression>[];
@@ -57,8 +70,10 @@ class InstantiatedMeta<TMeta> {
     return InstantiatedMeta._(metaNode, value, unsupportedArguments);
   }
 
-  /// Whether this node's metadata has arguments that could not be initialized using [getValue]
-  /// (or by special handling in subclasses), and therefore cannot represented in the instantiation of [value].
+  /// Whether this node's metadata has arguments that could not be used to instantiate it
+  /// reflectively (e.g., non-literal values), and therefore were omitted during instantiation.
+  ///
+  /// If this is true, the annotation must be accessed via [potentiallyIncompleteValue] and not [value].
   bool get isIncomplete => unsupportedArguments.isNotEmpty;
 
   /// A reflectively-instantiated version of [metaNode], if it exists.
@@ -73,7 +88,7 @@ class InstantiatedMeta<TMeta> {
   }
 
   /// A reflectively-instantiated version of [metaNode], if it exists.
-  TMeta get potentiallyIncompleteMeta => _value;
+  TMeta get potentiallyIncompleteValue => _value;
 }
 
 /// Utility class that allows for easy access to an annotated node's
