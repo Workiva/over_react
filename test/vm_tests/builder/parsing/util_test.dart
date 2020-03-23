@@ -33,6 +33,11 @@ main() {
         expect(unionB.b, isA<int>());
       });
 
+      test('asserts that args are non-null', () {
+        expect(() => Union.a(null), throwsA(isA<AssertionError>()));
+        expect(() => Union.b(null), throwsA(isA<AssertionError>()));
+      });
+
       test('either will return the non-null field', () {
         expect(unionA.either, isA<String>());
         expect(unionA.either, 'test');

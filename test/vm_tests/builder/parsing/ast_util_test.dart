@@ -1,10 +1,9 @@
-@TestOn('vm')
-import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react/src/builder/generation/parsing/ast_util.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
+
+import '../ast_test_util.dart';
 
 main() {
   group('AST utilities:', () {
@@ -305,41 +304,4 @@ main() {
       ''', (name) => name.name == 'foo'), isFalse);
     });
   });
-}
-
-T parseAndGetSingleWithType<T extends AstNode>(String source) =>
-    parseAndGetAllWithType<T>(source).single;
-
-T parseAndGetFirstWithType<T extends AstNode>(String source) =>
-    parseAndGetAllWithType<T>(source).first;
-
-List<T> parseAndGetAllWithType<T extends AstNode>(String source) {
-  final result = parseString(content: source, throwIfDiagnostics: false);
-  expect(result.errors, isEmpty, reason: 'error parsing source $source');
-
-  return getAllWithTypeWithin(result.unit);
-}
-
-List<T> getAllWithTypeWithin<T extends AstNode>(AstNode node) {
-  if (T == AstNode || T == dynamic || T == Object) {
-    throw ArgumentError(
-        'Generic parameter must not be AstNode; was it specified/inferred properly?');
-  }
-
-  final visitor = _GetAllWithTypeWithinVisitor<T>();
-  node.accept(visitor);
-  return visitor._matchingNodes;
-}
-
-class _GetAllWithTypeWithinVisitor<T extends AstNode> extends UnifyingAstVisitor<void> {
-  final _matchingNodes = <T>[];
-
-  @override
-  void visitNode(AstNode node) {
-    if (node is T) {
-      _matchingNodes.add(node);
-    }
-
-    super.visitNode(node);
-  }
 }
