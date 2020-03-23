@@ -26,13 +26,15 @@ export 'ast_util/classish.dart';
 /// Utils that allow for easier access into VariableDeclarationList
 extension InitializerHelper on VariableDeclarationList {
   Expression get firstInitializer => variables.first.initializer;
+
   VariableDeclaration get firstVariable => variables.first;
 }
 
 /// Utils built upon [InitializerHelper] that provide convenient getters into
 /// the variables within a [VariableDeclarationList].
-extension InitializerHelper2 on TopLevelVariableDeclaration {
+extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
   Expression get firstInitializer => variables.firstInitializer;
+
   VariableDeclaration get firstVariable => variables.firstVariable;
 }
 
@@ -90,13 +92,40 @@ extension AbstractGetter on ClassOrMixinDeclaration {
 
 /// Utilities that provide for easier access to [AnnotatedNode] metadata.
 extension MetadataHelper on AnnotatedNode {
-  /// Find the first annotation on a node that matches [name].
-  Annotation getAnnotationWithName(String name) =>
-      metadata.firstWhere((element) => element.name.nameWithoutPrefix == name, orElse: () => null);
+  // Annotations don't always parsed correctly, so `.name` can also include the constructor
+  // even though it's supposed to be just the class name.
+  static String _getAnnotationClassOrTopLevelVariableName(Annotation annotation) {
+    var fullName = annotation.name.name;
+    if (annotation.constructorName != null) {
+      fullName = '$fullName.${annotation.constructorName.name}';
+    }
 
-  /// Find the first annotation on a node that has a name included in [names].
-  Annotation getAnnotationWithNames(Set<String> names) => metadata
-      .firstWhere((element) => names.contains(element.name.nameWithoutPrefix), orElse: () => null);
+    final segments = fullName.split('.');
+    return segments.lastWhere((segment) {
+      final withoutSpecialPrefixes = segment.replaceFirst(RegExp(r'^[_$]+'), '');
+      if (withoutSpecialPrefixes.isEmpty) return false;
+      return withoutSpecialPrefixes[0] == withoutSpecialPrefixes[0].toUpperCase();
+    }, orElse: () => segments.last);
+  }
+
+  /// Find the first annotation on this node whose class or variable name is [name].
+  Annotation getAnnotationWithName(String name) {
+    assert(!name.contains('.'), 'must be a class or variable name, unprefixed');
+
+    return metadata.firstWhere(
+        (annotation) => _getAnnotationClassOrTopLevelVariableName(annotation) == name,
+        orElse: () => null);
+  }
+
+  /// Find the first annotation on this node whose class or variable name is  included in [names].
+  Annotation getAnnotationWithNames(Set<String> names) {
+    assert(
+        !names.any((name) => name.contains('.')), 'must be a class or variable name, unprefixed');
+
+    return metadata.firstWhere(
+        (annotation) => names.contains(_getAnnotationClassOrTopLevelVariableName(annotation)),
+        orElse: () => null);
+  }
 
   /// Detects if a node has an annotation with a name that matches [name].
   ///
