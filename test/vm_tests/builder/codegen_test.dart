@@ -17,6 +17,7 @@ library impl_generation_test;
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:meta/meta.dart';
 import 'package:mockito/mockito.dart';
 import 'package:over_react/src/builder/generation/parsing.dart';
 import 'package:over_react/src/builder/generation/codegen.dart';
@@ -461,6 +462,7 @@ main() {
       testImplGeneration(', with Dart 2 only boilerplate,', backwardsCompatible: false);
 
       group('and generated consumable companion class with Dart 2 only boilerplate', () {
+        @isTest
         void testConsumableCompanionGeneration(String testName, OverReactSrc ors) {
           test(testName, () {
             setUpAndGenerate(ors.source);

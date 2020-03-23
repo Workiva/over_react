@@ -78,10 +78,10 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateAccessorsMember
       case Version.v4_mixinBased:
         final node = this.node;
         if (node is MixinDeclaration) {
-          final isOnUiProps = node.onClause?.superclassConstraints
+          final isOnBaseClass = node.onClause?.superclassConstraints
                   ?.any((type) => type.nameWithoutPrefix == propsOrStateBaseClassString) ??
               false;
-          if (!isOnUiProps) {
+          if (!isOnBaseClass) {
             errorCollector.addError(
                 '$propsOrStateString mixins must be `on $propsOrStateBaseClassString`',
                 errorCollector.spanFor(node.onClause ?? node.name));

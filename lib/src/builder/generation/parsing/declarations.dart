@@ -109,7 +109,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
   components.removeWhere((component) {
     final version = resolveVersion([component]);
-    return version.version.isLegacy && component.node.hasAnnotationWithName('AbstractComponent');
+    return version.version.isLegacy && component.hasAbstractAnnotation;
   });
 
   // -----------------------------------------------------------------------------------------------
@@ -281,17 +281,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     final componentClass = group.firstWhereType<BoilerplateComponent>(orElse: () => null);
 
     //
-    // General case
-
-    if ([factory, propsClass, stateClass, componentClass].whereNotNull().length != group.length) {
-      for (var member in group) {
-        errorCollector.addError(
-            'Mismatched boilerplate member found', errorCollector.spanFor(member.node));
-      }
-      return;
-    }
-
-    //
     // Special cases
 
     final nonNullFactoryPropsOrComponents =
@@ -316,7 +305,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         } else if (single == componentClass) {
           errorCollector.addError(errorComponentClassOnly, span);
         }
-        break;
+        return;
       case 2:
         final span = errorCollector.spanFor((factory ?? propsClass).node);
         if (factory == null) {
@@ -326,7 +315,14 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         } else if (componentClass == null) {
           errorCollector.addError(errorNoComponent, span);
         }
-        break;
+        return;
+    }
+
+    //
+    // General case (should be rare if not impossible)
+    for (var member in group) {
+      errorCollector.addError(
+          'Mismatched boilerplate member found', errorCollector.spanFor(member.node));
     }
   });
 }

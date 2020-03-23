@@ -62,8 +62,12 @@ class BoilerplateComponent extends BoilerplateMember {
 
   bool get hasComponent1OrAbstractAnnotation =>
       node.hasAnnotationWithNames({'Component', 'AbstractComponent'});
+
   bool get hasComponent2OrAbstractAnnotation =>
       node.hasAnnotationWithNames({'Component2', 'AbstractComponent2'});
+
+  bool get hasAbstractAnnotation =>
+      node.hasAnnotationWithNames({'AbstractComponent', 'AbstractComponent2'});
 
   /// Checks if the component is mixin based or has the Component2 annotation (including abstract).
   bool isComponent2(Version version) =>

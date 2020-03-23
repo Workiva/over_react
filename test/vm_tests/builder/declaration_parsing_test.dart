@@ -660,7 +660,42 @@ main() {
         });
 
         group('edge cases', () {
-          test('empty props/state mixins', () {
+          test('a legacy props mapview class named like a normal props class', () {
+            setUpAndParse(r'''            
+              class FooProps extends UiProps with FooPropsMixin {
+                @override
+                final Map props;
+              
+                FooProps([Map backingMap]) : props = backingMap ?? {};
+              }
+            ''');
+
+            final props = expectAllOfType<BoilerplateProps>(declarations).firstOrNull;
+            expect(props?.versionConfidence?.maxConfidence?.confidence, anyOf(isNull, Confidence.none));
+          });
+
+          test('a props class that should not be generated', () {
+            setUpAndParse(r'''            
+              class ManualProps extends UiProps {
+                @override
+                bool get $isClassGenerated => true;
+              }
+            ''');
+
+            final props = expectAllOfType<BoilerplateProps>(declarations).firstOrNull;
+            expect(props?.versionConfidence?.maxConfidence?.confidence, anyOf(isNull, Confidence.none));
+          });
+
+          test('a props class that acts solely as an interface', () {
+            setUpAndParse(r'''            
+              abstract class FooProps implements UiProps, BarProps, BazProps {}
+            ''');
+
+            final props = expectAllOfType<BoilerplateProps>(declarations).firstOrNull;
+            expect(props?.versionConfidence?.maxConfidence?.confidence, anyOf(isNull, Confidence.none));
+          });
+
+          test('empty props/state mixins (regression test for these being skipped)', () {
             setUpAndParse(r'''
               mixin FooPropsMixin on UiProps {}
               mixin FooStateMixin on UiState {}
