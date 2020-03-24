@@ -28,7 +28,7 @@ main() {
       initializeTestStore();
       appRef = createRef();
       jacket = mount((ReduxProvider()..store = testStore)(
-        (ConnectedTodoApp()..ref = appRef)(),
+        (TodoApp()..ref = appRef)(),
       ));
       final appComponent = appRef.current;
       component = getComponentByTestId(appComponent, 'todo_client.ConnectedTodoList');
@@ -81,7 +81,7 @@ main() {
         test('unless props.todos is empty', () {
           initializeTestStore(TodoAppLocalStorage.emptyState);
           jacket.rerender((ReduxProvider()..store = testStore)(
-            (ConnectedTodoApp()..ref = appRef)(),
+            (TodoApp()..ref = appRef)(),
           ));
           expect(testStore.state.todos, isEmpty, reason: 'test setup sanity check');
 

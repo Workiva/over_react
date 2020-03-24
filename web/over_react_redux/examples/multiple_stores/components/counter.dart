@@ -4,16 +4,16 @@ import '../store.dart';
 
 part 'counter.over_react.g.dart';
 
-UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
-    mapStateToProps: (state) => (Counter()..currentCount = state.count)
-)(Counter);
+UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
+    mapStateToProps: (state) => (_Counter()..currentCount = state.count)
+)(_Counter);
 
-UiFactory<CounterProps> ConnectedCounterWithDifferentContext = connect<CounterState, CounterProps>(
-  mapStateToProps: (state) => (Counter()..currentCount = state.count),
+UiFactory<CounterProps> CounterWithDifferentContext = connect<CounterState, CounterProps>(
+  mapStateToProps: (state) => (_Counter()..currentCount = state.count),
   context: bigCounterContext,
-)(Counter);
+)(_Counter);
 
-UiFactory<CounterProps> Counter = _$Counter;
+UiFactory<CounterProps> _Counter = _$_Counter;
 
 mixin CounterPropsMixin on UiProps {
   int currentCount;

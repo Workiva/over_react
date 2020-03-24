@@ -17,7 +17,7 @@ import 'package:todo_client/src/store.dart';
 // ignore: uri_has_not_been_generated
 part 'user_list_item.over_react.g.dart';
 
-UiFactory<UserListItemProps> ConnectedUserListItem = connect<AppState, UserListItemProps>(
+UiFactory<UserListItemProps> UserListItem = connect<AppState, UserListItemProps>(
   mapDispatchToProps: (dispatch) {
     return (UserListItem()
       ..onSelect = (id) { dispatch(SelectUserAction(id)); }
@@ -39,11 +39,7 @@ UiFactory<UserListItemProps> ConnectedUserListItem = connect<AppState, UserListI
       ..isHighlighted = isHighlighted
     );
   },
-)(UserListItem);
-
-UiFactory<UserListItemProps> UserListItem =
-    // ignore: undefined_identifier
-    _$UserListItem;
+)(_$UserListItem); // ignore: undefined_identifier
 
 mixin UserListItemPropsMixin on UiProps, ListItemPropsMixin {
   @requiredProp
@@ -91,7 +87,7 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
       'mr': 2,
       'alignSelf': 'center',
     },
-      (ConnectedTaskCountBadge()..user = model)(
+      (TaskCountBadge()..user = model)(
         (AvatarWithColors()
           ..key = 'avatar'
           ..fullName = props.model.name

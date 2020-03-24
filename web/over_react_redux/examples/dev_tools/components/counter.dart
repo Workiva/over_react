@@ -4,20 +4,20 @@ import '../store.dart';
 
 part 'counter.over_react.g.dart';
 
-UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
-    mapStateToProps: (state) => (Counter()..currentCount = state.smallCount)
-)(Counter);
+UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
+    mapStateToProps: (state) => (_Counter()..currentCount = state.smallCount)
+)(_Counter);
 
-UiFactory<CounterProps> ConnectedBigCounter = connect<CounterState, CounterProps>(
-  mapStateToProps: (state) => (Counter()..currentCount = state.bigCount),
+UiFactory<CounterProps> BigCounter = connect<CounterState, CounterProps>(
+  mapStateToProps: (state) => (_Counter()..currentCount = state.bigCount),
   mapDispatchToProps: (dispatch) => (
-      Counter()
+      _Counter()
         ..increment = () { dispatch(BigIncrementAction()); }
         ..decrement = () { dispatch(BigDecrementAction()); }
   ),
-)(Counter);
+)(_Counter);
 
-UiFactory<CounterProps> Counter = _$Counter;
+UiFactory<CounterProps> _Counter = _$_Counter;
 
 mixin CounterPropsMixin on UiProps {
   int currentCount;

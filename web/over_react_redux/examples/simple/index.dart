@@ -17,16 +17,16 @@ main() {
       (ReduxProvider()..store = store)(
         (Dom.div()..style={'display': 'flex', 'flexDirection': 'row', 'justifyContent': 'space-evenly'})(
           (Dom.div())(
-            Dom.h2()('ConnectedBigCounter'),
-            ConnectedBigCounter()(),
-            Dom.h2()('ConnectedCounter'),
-            ConnectedCounter()(),
+            Dom.h2()('BigCounter'),
+            BigCounter()(),
+            Dom.h2()('Counter'),
+            Counter()(),
           ),
           (Dom.div())(
-            Dom.h2()('ConnectedBigCounter'),
-            ConnectedBigCounter()(),
-            Dom.h2()('ConnectedCounter'),
-            ConnectedCounter()(),
+            Dom.h2()('BigCounter'),
+            BigCounter()(),
+            Dom.h2()('Counter'),
+            Counter()(),
           ),
         ),
       ),

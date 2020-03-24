@@ -17,7 +17,7 @@ part 'redux_big_block.over_react.g.dart';
 // [8] Set the `pure` constructor on `connect` to be `false`.
 
 // [4]
-UiFactory<ReduxBigBlockProps> ConnectedReduxBigBlock = composeHocs([
+UiFactory<ReduxBigBlockProps> ReduxBigBlock = composeHocs([
   // [5]
   connect<RandomColorStore, ReduxBigBlockProps>(
     context: randomColorStoreContext, // [6]
@@ -66,9 +66,7 @@ UiFactory<ReduxBigBlockProps> ConnectedReduxBigBlock = composeHocs([
     ),
     pure: false, // [8]
   ),
-])(ReduxBigBlock);
-
-UiFactory<ReduxBigBlockProps> ReduxBigBlock = _$ReduxBigBlock;
+])(_$ReduxBigBlock); // ignore: undefined_identifier
 
 mixin ReduxBigBlockPropsMixin on UiProps {
   String backgroundColor; // [1]

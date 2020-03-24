@@ -10,7 +10,7 @@ import 'package:todo_client/src/components/shared/material_ui.dart';
 // ignore: uri_has_not_been_generated
 part 'task_count.over_react.g.dart';
 
-UiFactory<TaskCountBadgeProps> ConnectedTaskCountBadge = connect<AppState, TaskCountBadgeProps>(
+UiFactory<TaskCountBadgeProps> TaskCountBadge = connect<AppState, TaskCountBadgeProps>(
     mapStateToPropsWithOwnProps: (state, ownProps) {
       return (TaskCountBadge()
         ..assignedTodoIds = state.todos.where((todo) => todo.assignedUserId == ownProps.user.id)
@@ -20,11 +20,7 @@ UiFactory<TaskCountBadgeProps> ConnectedTaskCountBadge = connect<AppState, TaskC
     areStatePropsEqual: (nextProps, prevProps) {
       return ListEquality().equals(nextProps.assignedTodoIds, prevProps.assignedTodoIds);
     },
-)(TaskCountBadge);
-
-UiFactory<TaskCountBadgeProps> TaskCountBadge =
-    // ignore: undefined_identifier
-    _$TaskCountBadge;
+)(_$TaskCountBadge); // ignore: undefined_identifier
 
 mixin TaskCountBadgePropsMixin on UiProps {
   @requiredProp

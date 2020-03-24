@@ -14,14 +14,14 @@ part of 'counter.dart';
     ' Do not reference it in your code, as it may change at any time.')
 final $CounterComponentFactory = registerComponent2(
   () => _$CounterComponent(),
-  builderFactory: Counter,
+  builderFactory: _Counter,
   componentClass: CounterComponent,
   isWrapper: false,
   parentType: null,
-  displayName: 'Counter',
+  displayName: '_Counter',
 );
 
-_$$CounterProps _$Counter([Map backingProps]) => backingProps == null
+_$$CounterProps _$_Counter([Map backingProps]) => backingProps == null
     ? _$$CounterProps$JsMap(JsBackedMap())
     : _$$CounterProps(backingProps);
 

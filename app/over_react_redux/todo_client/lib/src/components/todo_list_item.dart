@@ -16,7 +16,7 @@ import 'package:todo_client/src/store.dart';
 // ignore: uri_has_not_been_generated
 part 'todo_list_item.over_react.g.dart';
 
-UiFactory<TodoListItemProps> ConnectedTodoListItem = connect<AppState, TodoListItemProps>(
+UiFactory<TodoListItemProps> TodoListItem = connect<AppState, TodoListItemProps>(
   mapDispatchToProps: (dispatch) {
     return (TodoListItem()
       ..onSelect = (id) { dispatch(SelectTodoAction(id)); }
@@ -38,11 +38,7 @@ UiFactory<TodoListItemProps> ConnectedTodoListItem = connect<AppState, TodoListI
       ..isHighlighted = isHighlighted
     );
   },
-)(TodoListItem);
-
-UiFactory<TodoListItemProps> TodoListItem =
-    // ignore: undefined_identifier
-    _$TodoListItem;
+)(_$TodoListItem); // ignore: undefined_identifier
 
 mixin TodoListItemPropsMixin on UiProps, ListItemPropsMixin {
   @requiredProp
@@ -148,7 +144,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
       ...shrinkToFitProps,
       'alignSelf': 'center',
     },
-      (ConnectedUserSelector()
+      (UserSelector()
         ..selectedUserId = model.assignedUserId
         ..onUserSelect = (userId) { updateModel(Todo.from(model)..assignedUserId = userId); }
         ..addTestId('todo_client.TodoListItem.ConnectedUserSelector')

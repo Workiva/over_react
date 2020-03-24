@@ -23,7 +23,7 @@ class TodoAppBarComponent extends UiComponent2<TodoAppBarProps> {
               'variant': 'h6',
             }, 'OverReact Redux Todo Demo App'),
           ),
-          ConnectedAppBarLocalStorageMenu()(),
+          AppBarLocalStorageMenu()(),
         ),
       ),
       Toolbar({}),

@@ -5,12 +5,10 @@ import '../store.dart';
 
 part 'should_not_update.over_react.g.dart';
 
-UiFactory<ShouldNotUpdateProps> ConnectedShouldNotUpdate = connect<FluxStore, ShouldNotUpdateProps>(
+UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = connect<FluxStore, ShouldNotUpdateProps>(
   mapStateToProps: (_) => {},
   pure: false,
-)(ShouldNotUpdate);
-
-UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = _$ShouldNotUpdate;
+)(_$ShouldNotUpdate); // ignore: undefined_identifier
 
 mixin ShouldNotUpdateProps on UiProps {
   String text;

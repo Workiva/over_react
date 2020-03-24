@@ -5,12 +5,10 @@ import '../store.dart';
 
 part 'big_block.over_react.g.dart';
 
-UiFactory<BigBlockProps> ConnectedBigBlock = connect<RandomColorState, BigBlockProps>(
+UiFactory<BigBlockProps> BigBlock = connect<RandomColorState, BigBlockProps>(
   mapStateToProps: (state) => (BigBlock()..backgroundColor = state.backgroundColor),
   mapDispatchToProps: (dispatch) => (BigBlock()..changeBackgroundColor = () => dispatch(UpdateBackgroundColorAction())),
-)(BigBlock);
-
-UiFactory<BigBlockProps> BigBlock = _$BigBlock;
+)(_$BigBlock); // ignore: undefined_identifier
 
 mixin BigBlockProps on UiProps {
   String backgroundColor;

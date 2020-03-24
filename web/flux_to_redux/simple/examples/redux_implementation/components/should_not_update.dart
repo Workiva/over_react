@@ -5,11 +5,9 @@ import '../store.dart';
 
 part 'should_not_update.over_react.g.dart';
 
-UiFactory<ShouldNotUpdateProps> ConnectedShouldNotUpdate = connect<RandomColorState, ShouldNotUpdateProps>(
+UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = connect<RandomColorState, ShouldNotUpdateProps>(
   mapStateToProps: (_) => {},
-)(ShouldNotUpdate);
-
-UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = _$ShouldNotUpdate;
+)(_$ShouldNotUpdate); // ignore: undefined_identifier
 
 mixin ShouldNotUpdateProps on UiProps {}
 

@@ -14,15 +14,13 @@ part 'connect_flux_big_block.over_react.g.dart';
 // [5] Use `mapStateToProps` and `mapActionsToProps` to point props to the correct state values.
 
 // [4]
-UiFactory<ConnectFluxBigBlockProps> ConnectedConnectFluxBigBlock =
+UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock =
     connectFlux<FluxStore, RandomColorActions, ConnectFluxBigBlockProps>(
   // [5]
   mapStateToProps: (state) => (ConnectFluxBigBlock()..backgroundColor = state?.backgroundColor),
   mapActionsToProps: (actions) =>
       (ConnectFluxBigBlock()..changeBackgroundColor = actions.changeBackgroundColor),
-)(ConnectFluxBigBlock);
-
-UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock = _$ConnectFluxBigBlock;
+)(_$ConnectFluxBigBlock); // ignore: undefined_identifier
 
 mixin ConnectFluxBigBlockPropsMixin on UiProps {
   String backgroundColor; // [1]

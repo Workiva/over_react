@@ -20,10 +20,10 @@ main() {
           ..context = bigCounterContext
         )(
           Dom.div()(
-            Dom.h2()('ConnectedCounter Store1'),
-            ConnectedCounter()(),
-            Dom.h2()('ConnectedCounter Store2'),
-            ConnectedCounterWithDifferentContext()(),
+            Dom.h2()('Counter Store1'),
+            Counter()(),
+            Dom.h2()('Counter Store2'),
+            CounterWithDifferentContext()(),
           ),
         ),
       ),

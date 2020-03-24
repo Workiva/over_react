@@ -36,9 +36,9 @@ main() {
           // Note that the components being instantiated are the factories that
           // are returned from the corresponding `composeHocs` calls, and not the
           // original component factories.
-          ConnectedConnectFluxBigBlock()(),
-          ConnectedReduxBigBlock()(),
-          ConnectedShouldNotUpdate()(),
+          ConnectFluxBigBlock()(),
+          ReduxBigBlock()(),
+          ShouldNotUpdate()(),
         ),
       ),
       querySelector('#content'));

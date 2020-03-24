@@ -6,7 +6,7 @@ import '../store.dart';
 
 part 'random_color_redux.over_react.g.dart';
 
-UiFactory<RandomColorReduxProps> ConnectedRandomColorRedux = connect<ReduxState, RandomColorReduxProps>(
+UiFactory<RandomColorReduxProps> RandomColorRedux = connect<ReduxState, RandomColorReduxProps>(
   mapStateToProps: (state) => (RandomColorRedux()
     ..backgroundColor = state.mainBackgroundColor
     ..blockOneBackgroundColor = state.blockOneBackgroundColor
@@ -25,9 +25,7 @@ UiFactory<RandomColorReduxProps> ConnectedRandomColorRedux = connect<ReduxState,
     ..changeBlockThreeBackgroundColor = () {
       dispatch(UpdateBlockThreeBackgroundColorAction());
     }),
-)(RandomColorRedux);
-
-UiFactory<RandomColorReduxProps> RandomColorRedux = _$RandomColorRedux;
+)(_$RandomColorRedux); // ignore: undefined_identifier
 
 mixin RandomColorReduxPropsMixin on UiProps {
   String backgroundColor;

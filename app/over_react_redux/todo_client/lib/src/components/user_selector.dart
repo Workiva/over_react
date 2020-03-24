@@ -14,7 +14,7 @@ part 'user_selector_trigger.dart';
 // ignore: uri_has_not_been_generated
 part 'user_selector.over_react.g.dart';
 
-UiFactory<UserSelectorProps> ConnectedUserSelector = connect<AppState, UserSelectorProps>(
+UiFactory<UserSelectorProps> UserSelector = connect<AppState, UserSelectorProps>(
     mapStateToPropsWithOwnProps: (state, ownProps) {
       return (UserSelector()
         ..selectedUser = ownProps.selectedUserId.isNotEmpty
@@ -24,12 +24,7 @@ UiFactory<UserSelectorProps> ConnectedUserSelector = connect<AppState, UserSelec
       );
     },
     forwardRef: true
-)(UserSelector);
-
-
-UiFactory<UserSelectorProps> UserSelector =
-    // ignore: undefined_identifier
-    _$UserSelector;
+)(_$UserSelector); // ignore: undefined_identifier
 
 mixin UserSelectorProps on UiProps {
   String selectedUserId;

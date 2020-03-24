@@ -16,10 +16,10 @@ main() {
     v2.ErrorBoundary()(
       (ReduxProvider()..store = store)(
         Dom.div()(
-          Dom.h2()('ConnectedBigCounter'),
-          ConnectedBigCounter()(),
-          Dom.h2()('ConnectedCounter'),
-          ConnectedCounter()(),
+          Dom.h2()('BigCounter'),
+          BigCounter()(),
+          Dom.h2()('Counter'),
+          Counter()(),
         ),
       ),
     ), querySelector('#content')

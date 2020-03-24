@@ -14,18 +14,14 @@ import 'package:todo_client/src/components/shared/menu_overlay.dart';
 // ignore: uri_has_not_been_generated
 part 'app_bar_local_storage_menu.over_react.g.dart';
 
-UiFactory<AppBarLocalStorageMenuProps> ConnectedAppBarLocalStorageMenu = connect<AppState, AppBarLocalStorageMenuProps>(
+UiFactory<AppBarLocalStorageMenuProps> AppBarLocalStorageMenu = connect<AppState, AppBarLocalStorageMenuProps>(
     mapStateToProps: (state) {
       return (AppBarLocalStorageMenu()
         ..currentDataSetName = state.name
         ..currentDataHasBeenModified = json.encode(localTodoAppStorage[state.name]) != json.encode(state.toJson())
       );
     },
-)(AppBarLocalStorageMenu);
-
-UiFactory<AppBarLocalStorageMenuProps> AppBarLocalStorageMenu =
-    // ignore: undefined_identifier
-    _$AppBarLocalStorageMenu;
+)(_$AppBarLocalStorageMenu); // ignore: undefined_identifier
 
 mixin AppBarLocalStorageMenuPropsMixin on UiProps {
   String currentDataSetName;

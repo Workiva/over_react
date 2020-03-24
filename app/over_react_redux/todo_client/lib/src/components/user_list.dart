@@ -10,18 +10,14 @@ import 'package:todo_client/src/components/user_list_item.dart';
 // ignore: uri_has_not_been_generated
 part 'user_list.over_react.g.dart';
 
-UiFactory<UserListProps> ConnectedUserList = connect<AppState, UserListProps>(
+UiFactory<UserListProps> UserList = connect<AppState, UserListProps>(
     mapStateToProps: (state) {
       return (UserList()
         ..users = state.users
       );
     },
     forwardRef: true,
-)(UserList);
-
-UiFactory<UserListProps> UserList =
-    // ignore: undefined_identifier
-    _$UserList;
+)(_$UserList); // ignore: undefined_identifier
 
 mixin UserListPropsMixin on UiProps {
   @requiredProp
@@ -42,7 +38,7 @@ class UserListComponent extends UiComponent2<UserListProps> with RedrawCounterMi
   }
 
   ReactElement _renderUser(User user) {
-    return (ConnectedUserListItem()
+    return (UserListItem()
       ..key = user.id
       ..model = user
       ..addTestId('todo_client.UserListItem.${user.id}')

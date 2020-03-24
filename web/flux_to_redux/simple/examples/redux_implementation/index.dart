@@ -16,8 +16,8 @@ main() {
   react_dom.render(
       v2.ErrorBoundary()(
         (ReduxProvider()..store = randomColorStore)(
-          ConnectedBigBlock()(),
-          ConnectedShouldNotUpdate()(),
+          BigBlock()(),
+          ShouldNotUpdate()(),
         ),
       ),
       querySelector('#content'));

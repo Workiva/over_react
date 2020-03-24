@@ -10,18 +10,14 @@ import 'package:todo_client/src/components/todo_list_item.dart';
 // ignore: uri_has_not_been_generated
 part 'todo_list.over_react.g.dart';
 
-UiFactory<TodoListProps> ConnectedTodoList = connect<AppState, TodoListProps>(
+UiFactory<TodoListProps> TodoList = connect<AppState, TodoListProps>(
     mapStateToProps: (state) {
       return (TodoList()
         ..todos = state.todos
       );
     },
     forwardRef: true,
-)(TodoList);
-
-UiFactory<TodoListProps> TodoList =
-    // ignore: undefined_identifier
-    _$TodoList;
+)(_$TodoList); // ignore: undefined_identifier
 
 mixin TodoListPropsMixin on UiProps {
   @requiredProp
@@ -42,7 +38,7 @@ class TodoListComponent extends UiComponent2<TodoListProps> with RedrawCounterMi
   }
 
   ReactElement _renderItem(Todo todo) {
-    return (ConnectedTodoListItem()
+    return (TodoListItem()
       ..key = todo.id
       ..model = todo
       ..addTestId('todo_client.TodoListItem.${todo.id}')
