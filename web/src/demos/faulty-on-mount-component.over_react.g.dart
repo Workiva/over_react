@@ -32,7 +32,10 @@ _$$FaultyOnMountProps _$FaultyOnMount([Map backingProps]) =>
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$FaultyOnMountProps extends UiProps
-    with FaultyOnMountProps, $FaultyOnMountProps {
+    with
+        FaultyOnMountProps,
+        $FaultyOnMountProps // If this generated mixin is undefined, it's likely because FaultyOnMountProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FaultyOnMountProps.
+{
   _$$FaultyOnMountProps._();
 
   factory _$$FaultyOnMountProps(Map backingMap) {
@@ -134,12 +137,12 @@ class _$FaultyOnMountComponent extends FaultyOnMountComponent {
   /// The default consumed props, taken from FaultyOnMountProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForFaultyOnMountProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(FaultyOnMountProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because FaultyOnMountProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FaultyOnMountProps.
         FaultyOnMountProps: $FaultyOnMountProps.meta,
       });
 }

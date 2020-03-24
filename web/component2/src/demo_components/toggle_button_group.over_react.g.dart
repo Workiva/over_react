@@ -35,10 +35,11 @@ _$$ToggleButtonGroupProps _$ToggleButtonGroup([Map backingProps]) =>
 abstract class _$$ToggleButtonGroupProps extends UiProps
     with
         ButtonGroupProps,
-        $ButtonGroupProps,
+        $ButtonGroupProps, // If this generated mixin is undefined, it's likely because ButtonGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonGroupProps.
         AbstractInputPropsMixin,
-        $AbstractInputPropsMixin
-    implements ToggleButtonGroupProps {
+        $AbstractInputPropsMixin // If this generated mixin is undefined, it's likely because AbstractInputPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of AbstractInputPropsMixin.
+    implements
+        ToggleButtonGroupProps {
   _$$ToggleButtonGroupProps._();
 
   factory _$$ToggleButtonGroupProps(Map backingMap) {
@@ -108,10 +109,11 @@ class _$$ToggleButtonGroupProps$JsMap extends _$$ToggleButtonGroupProps {
 abstract class _$$ToggleButtonGroupState extends UiState
     with
         ButtonGroupState,
-        $ButtonGroupState,
+        $ButtonGroupState, // If this generated mixin is undefined, it's likely because ButtonGroupState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonGroupState.
         AbstractInputStateMixin,
-        $AbstractInputStateMixin
-    implements ToggleButtonGroupState {
+        $AbstractInputStateMixin // If this generated mixin is undefined, it's likely because AbstractInputStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of AbstractInputStateMixin.
+    implements
+        ToggleButtonGroupState {
   _$$ToggleButtonGroupState._();
 
   factory _$$ToggleButtonGroupState(Map backingMap) {
@@ -226,11 +228,13 @@ class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
   /// The default consumed props, taken from ToggleButtonGroupProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [];
+  List<ConsumedProps> get $defaultConsumedProps => const [];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ButtonGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonGroupProps.
         ButtonGroupProps: $ButtonGroupProps.meta,
+        // If this generated mixin is undefined, it's likely because AbstractInputPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of AbstractInputPropsMixin.
         AbstractInputPropsMixin: $AbstractInputPropsMixin.meta,
       });
 }

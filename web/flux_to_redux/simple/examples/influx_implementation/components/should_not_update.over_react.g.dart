@@ -32,7 +32,10 @@ _$$ShouldNotUpdateProps _$ShouldNotUpdate([Map backingProps]) =>
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$ShouldNotUpdateProps extends UiProps
-    with ShouldNotUpdateProps, $ShouldNotUpdateProps {
+    with
+        ShouldNotUpdateProps,
+        $ShouldNotUpdateProps // If this generated mixin is undefined, it's likely because ShouldNotUpdateProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ShouldNotUpdateProps.
+{
   _$$ShouldNotUpdateProps._();
 
   factory _$$ShouldNotUpdateProps(Map backingMap) {
@@ -134,12 +137,12 @@ class _$ShouldNotUpdateComponent extends ShouldNotUpdateComponent {
   /// The default consumed props, taken from ShouldNotUpdateProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForShouldNotUpdateProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(ShouldNotUpdateProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ShouldNotUpdateProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ShouldNotUpdateProps.
         ShouldNotUpdateProps: $ShouldNotUpdateProps.meta,
       });
 }

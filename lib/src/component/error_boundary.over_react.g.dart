@@ -33,7 +33,10 @@ _$$ErrorBoundaryProps _$ErrorBoundary([Map backingProps]) =>
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$ErrorBoundaryProps extends UiProps
-    with ErrorBoundaryProps, $ErrorBoundaryProps {
+    with
+        ErrorBoundaryProps,
+        $ErrorBoundaryProps // If this generated mixin is undefined, it's likely because ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ErrorBoundaryProps.
+{
   _$$ErrorBoundaryProps._();
 
   factory _$$ErrorBoundaryProps(Map backingMap) {
@@ -101,7 +104,10 @@ class _$$ErrorBoundaryProps$JsMap extends _$$ErrorBoundaryProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$ErrorBoundaryState extends UiState
-    with ErrorBoundaryState, $ErrorBoundaryState {
+    with
+        ErrorBoundaryState,
+        $ErrorBoundaryState // If this generated mixin is undefined, it's likely because ErrorBoundaryState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ErrorBoundaryState.
+{
   _$$ErrorBoundaryState._();
 
   factory _$$ErrorBoundaryState(Map backingMap) {
@@ -216,12 +222,12 @@ class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
   /// The default consumed props, taken from ErrorBoundaryProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForErrorBoundaryProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(ErrorBoundaryProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ErrorBoundaryProps.
         ErrorBoundaryProps: $ErrorBoundaryProps.meta,
       });
 }

@@ -34,12 +34,13 @@ _$$ToggleButtonProps _$ToggleButton([Map backingProps]) => backingProps == null
 abstract class _$$ToggleButtonProps extends UiProps
     with
         ButtonProps,
-        $ButtonProps,
+        $ButtonProps, // If this generated mixin is undefined, it's likely because ButtonProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonProps.
         ToggleButtonPropsMixin,
-        $ToggleButtonPropsMixin,
+        $ToggleButtonPropsMixin, // If this generated mixin is undefined, it's likely because ToggleButtonPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ToggleButtonPropsMixin.
         AbstractInputPropsMixin,
-        $AbstractInputPropsMixin
-    implements ToggleButtonProps {
+        $AbstractInputPropsMixin // If this generated mixin is undefined, it's likely because AbstractInputPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of AbstractInputPropsMixin.
+    implements
+        ToggleButtonProps {
   _$$ToggleButtonProps._();
 
   factory _$$ToggleButtonProps(Map backingMap) {
@@ -109,12 +110,13 @@ class _$$ToggleButtonProps$JsMap extends _$$ToggleButtonProps {
 abstract class _$$ToggleButtonState extends UiState
     with
         ButtonState,
-        $ButtonState,
+        $ButtonState, // If this generated mixin is undefined, it's likely because ButtonState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonState.
         ToggleButtonStateMixin,
-        $ToggleButtonStateMixin,
+        $ToggleButtonStateMixin, // If this generated mixin is undefined, it's likely because ToggleButtonStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ToggleButtonStateMixin.
         AbstractInputStateMixin,
-        $AbstractInputStateMixin
-    implements ToggleButtonState {
+        $AbstractInputStateMixin // If this generated mixin is undefined, it's likely because AbstractInputStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of AbstractInputStateMixin.
+    implements
+        ToggleButtonState {
   _$$ToggleButtonState._();
 
   factory _$$ToggleButtonState(Map backingMap) {
@@ -229,12 +231,15 @@ class _$ToggleButtonComponent extends ToggleButtonComponent {
   /// The default consumed props, taken from ToggleButtonProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [];
+  List<ConsumedProps> get $defaultConsumedProps => const [];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ButtonProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonProps.
         ButtonProps: $ButtonProps.meta,
+        // If this generated mixin is undefined, it's likely because ToggleButtonPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ToggleButtonPropsMixin.
         ToggleButtonPropsMixin: $ToggleButtonPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because AbstractInputPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of AbstractInputPropsMixin.
         AbstractInputPropsMixin: $AbstractInputPropsMixin.meta,
       });
 }

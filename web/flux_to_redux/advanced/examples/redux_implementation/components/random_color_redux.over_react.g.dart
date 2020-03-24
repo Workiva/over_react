@@ -34,10 +34,11 @@ _$$RandomColorReduxProps _$RandomColorRedux([Map backingProps]) =>
 abstract class _$$RandomColorReduxProps extends UiProps
     with
         RandomColorReduxPropsMixin,
-        $RandomColorReduxPropsMixin,
+        $RandomColorReduxPropsMixin, // If this generated mixin is undefined, it's likely because RandomColorReduxPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of RandomColorReduxPropsMixin.
         ConnectPropsMixin,
-        $ConnectPropsMixin
-    implements RandomColorReduxProps {
+        $ConnectPropsMixin // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
+    implements
+        RandomColorReduxProps {
   _$$RandomColorReduxProps._();
 
   factory _$$RandomColorReduxProps(Map backingMap) {
@@ -139,11 +140,13 @@ class _$RandomColorReduxComponent extends RandomColorReduxComponent {
   /// The default consumed props, taken from RandomColorReduxProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [];
+  List<ConsumedProps> get $defaultConsumedProps => const [];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because RandomColorReduxPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of RandomColorReduxPropsMixin.
         RandomColorReduxPropsMixin: $RandomColorReduxPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
         ConnectPropsMixin: $ConnectPropsMixin.meta,
       });
 }

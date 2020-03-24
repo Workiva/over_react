@@ -30,7 +30,11 @@ _$$FaultyProps _$Faulty([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$FaultyProps extends UiProps with FaultyProps, $FaultyProps {
+abstract class _$$FaultyProps extends UiProps
+    with
+        FaultyProps,
+        $FaultyProps // If this generated mixin is undefined, it's likely because FaultyProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FaultyProps.
+{
   _$$FaultyProps._();
 
   factory _$$FaultyProps(Map backingMap) {
@@ -97,7 +101,11 @@ class _$$FaultyProps$JsMap extends _$$FaultyProps {
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$FaultyState extends UiState with FaultyState, $FaultyState {
+abstract class _$$FaultyState extends UiState
+    with
+        FaultyState,
+        $FaultyState // If this generated mixin is undefined, it's likely because FaultyState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of FaultyState.
+{
   _$$FaultyState._();
 
   factory _$$FaultyState(Map backingMap) {
@@ -212,12 +220,12 @@ class _$FaultyComponent extends FaultyComponent {
   /// The default consumed props, taken from FaultyProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForFaultyProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(FaultyProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because FaultyProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FaultyProps.
         FaultyProps: $FaultyProps.meta,
       });
 }

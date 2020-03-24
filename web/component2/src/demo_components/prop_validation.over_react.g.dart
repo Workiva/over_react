@@ -32,7 +32,10 @@ _$$PropTypesTestProps _$PropTypesTest([Map backingProps]) =>
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$PropTypesTestProps extends UiProps
-    with PropTypesTestProps, $PropTypesTestProps {
+    with
+        PropTypesTestProps,
+        $PropTypesTestProps // If this generated mixin is undefined, it's likely because PropTypesTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of PropTypesTestProps.
+{
   _$$PropTypesTestProps._();
 
   factory _$$PropTypesTestProps(Map backingMap) {
@@ -134,12 +137,12 @@ class _$PropTypesTestComponent extends PropTypesTestComponent {
   /// The default consumed props, taken from PropTypesTestProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForPropTypesTestProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(PropTypesTestProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because PropTypesTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of PropTypesTestProps.
         PropTypesTestProps: $PropTypesTestProps.meta,
       });
 }

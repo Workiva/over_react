@@ -34,10 +34,11 @@ _$$ReduxBigBlockProps _$ReduxBigBlock([Map backingProps]) =>
 abstract class _$$ReduxBigBlockProps extends UiProps
     with
         ReduxBigBlockPropsMixin,
-        $ReduxBigBlockPropsMixin,
+        $ReduxBigBlockPropsMixin, // If this generated mixin is undefined, it's likely because ReduxBigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ReduxBigBlockPropsMixin.
         ConnectPropsMixin,
-        $ConnectPropsMixin
-    implements ReduxBigBlockProps {
+        $ConnectPropsMixin // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
+    implements
+        ReduxBigBlockProps {
   _$$ReduxBigBlockProps._();
 
   factory _$$ReduxBigBlockProps(Map backingMap) {
@@ -139,11 +140,13 @@ class _$ReduxBigBlockComponent extends ReduxBigBlockComponent {
   /// The default consumed props, taken from ReduxBigBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [];
+  List<ConsumedProps> get $defaultConsumedProps => const [];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ReduxBigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ReduxBigBlockPropsMixin.
         ReduxBigBlockPropsMixin: $ReduxBigBlockPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
         ConnectPropsMixin: $ConnectPropsMixin.meta,
       });
 }

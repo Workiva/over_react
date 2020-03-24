@@ -130,7 +130,10 @@ _$$TransitionPropsMixin _$TransitionPropsMapView([Map backingProps]) =>
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$TransitionPropsMixin extends UiProps
-    with TransitionPropsMixin, $TransitionPropsMixin {
+    with
+        TransitionPropsMixin,
+        $TransitionPropsMixin // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TransitionPropsMixin.
+{
   _$$TransitionPropsMixin._();
 
   factory _$$TransitionPropsMixin(Map backingMap) {

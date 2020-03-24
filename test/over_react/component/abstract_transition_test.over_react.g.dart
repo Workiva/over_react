@@ -33,10 +33,11 @@ _$$TransitionerProps _$Transitioner([Map backingProps]) => backingProps == null
 abstract class _$$TransitionerProps extends UiProps
     with
         TransitionerPropsMixin,
-        $TransitionerPropsMixin,
+        $TransitionerPropsMixin, // If this generated mixin is undefined, it's likely because TransitionerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TransitionerPropsMixin.
         TransitionPropsMixin,
-        $TransitionPropsMixin
-    implements TransitionerProps {
+        $TransitionPropsMixin // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TransitionPropsMixin.
+    implements
+        TransitionerProps {
   _$$TransitionerProps._();
 
   factory _$$TransitionerProps(Map backingMap) {
@@ -104,8 +105,11 @@ class _$$TransitionerProps$JsMap extends _$$TransitionerProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$TransitionerState extends UiState
-    with AbstractTransitionState, $AbstractTransitionState
-    implements TransitionerState {
+    with
+        AbstractTransitionState,
+        $AbstractTransitionState // If this generated mixin is undefined, it's likely because AbstractTransitionState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of AbstractTransitionState.
+    implements
+        TransitionerState {
   _$$TransitionerState._();
 
   factory _$$TransitionerState(Map backingMap) {
@@ -220,11 +224,13 @@ class _$TransitionerComponent extends TransitionerComponent {
   /// The default consumed props, taken from TransitionerProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [];
+  List<ConsumedProps> get $defaultConsumedProps => const [];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because TransitionerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TransitionerPropsMixin.
         TransitionerPropsMixin: $TransitionerPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TransitionPropsMixin.
         TransitionPropsMixin: $TransitionPropsMixin.meta,
       });
 }

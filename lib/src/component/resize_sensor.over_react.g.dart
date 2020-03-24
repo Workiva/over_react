@@ -31,7 +31,10 @@ _$$ResizeSensorProps _$ResizeSensor([Map backingProps]) => backingProps == null
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$ResizeSensorProps extends UiProps
-    with ResizeSensorProps, $ResizeSensorProps {
+    with
+        ResizeSensorProps,
+        $ResizeSensorProps // If this generated mixin is undefined, it's likely because ResizeSensorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ResizeSensorProps.
+{
   _$$ResizeSensorProps._();
 
   factory _$$ResizeSensorProps(Map backingMap) {
@@ -133,12 +136,12 @@ class _$ResizeSensorComponent extends ResizeSensorComponent {
   /// The default consumed props, taken from ResizeSensorProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForResizeSensorProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(ResizeSensorProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ResizeSensorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ResizeSensorProps.
         ResizeSensorProps: $ResizeSensorProps.meta,
       });
 }

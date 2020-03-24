@@ -31,7 +31,10 @@ _$$ButtonGroupProps _$ButtonGroup([Map backingProps]) => backingProps == null
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$ButtonGroupProps extends UiProps
-    with ButtonGroupProps, $ButtonGroupProps {
+    with
+        ButtonGroupProps,
+        $ButtonGroupProps // If this generated mixin is undefined, it's likely because ButtonGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonGroupProps.
+{
   _$$ButtonGroupProps._();
 
   factory _$$ButtonGroupProps(Map backingMap) {
@@ -99,7 +102,10 @@ class _$$ButtonGroupProps$JsMap extends _$$ButtonGroupProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$ButtonGroupState extends UiState
-    with ButtonGroupState, $ButtonGroupState {
+    with
+        ButtonGroupState,
+        $ButtonGroupState // If this generated mixin is undefined, it's likely because ButtonGroupState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonGroupState.
+{
   _$$ButtonGroupState._();
 
   factory _$$ButtonGroupState(Map backingMap) {
@@ -214,12 +220,12 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
   /// The default consumed props, taken from ButtonGroupProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForButtonGroupProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(ButtonGroupProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ButtonGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonGroupProps.
         ButtonGroupProps: $ButtonGroupProps.meta,
       });
 }

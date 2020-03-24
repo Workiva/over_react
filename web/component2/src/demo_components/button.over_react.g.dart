@@ -30,7 +30,11 @@ _$$ButtonProps _$Button([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$ButtonProps extends UiProps with ButtonProps, $ButtonProps {
+abstract class _$$ButtonProps extends UiProps
+    with
+        ButtonProps,
+        $ButtonProps // If this generated mixin is undefined, it's likely because ButtonProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonProps.
+{
   _$$ButtonProps._();
 
   factory _$$ButtonProps(Map backingMap) {
@@ -97,7 +101,11 @@ class _$$ButtonProps$JsMap extends _$$ButtonProps {
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$ButtonState extends UiState with ButtonState, $ButtonState {
+abstract class _$$ButtonState extends UiState
+    with
+        ButtonState,
+        $ButtonState // If this generated mixin is undefined, it's likely because ButtonState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonState.
+{
   _$$ButtonState._();
 
   factory _$$ButtonState(Map backingMap) {
@@ -212,12 +220,12 @@ class _$ButtonComponent extends ButtonComponent {
   /// The default consumed props, taken from ButtonProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForButtonProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(ButtonProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ButtonProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonProps.
         ButtonProps: $ButtonProps.meta,
       });
 }

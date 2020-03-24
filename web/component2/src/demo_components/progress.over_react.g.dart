@@ -31,7 +31,10 @@ _$$ProgressProps _$Progress([Map backingProps]) => backingProps == null
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$ProgressProps extends UiProps
-    with ProgressProps, $ProgressProps {
+    with
+        ProgressProps,
+        $ProgressProps // If this generated mixin is undefined, it's likely because ProgressProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ProgressProps.
+{
   _$$ProgressProps._();
 
   factory _$$ProgressProps(Map backingMap) {
@@ -99,7 +102,10 @@ class _$$ProgressProps$JsMap extends _$$ProgressProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$ProgressState extends UiState
-    with ProgressState, $ProgressState {
+    with
+        ProgressState,
+        $ProgressState // If this generated mixin is undefined, it's likely because ProgressState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ProgressState.
+{
   _$$ProgressState._();
 
   factory _$$ProgressState(Map backingMap) {
@@ -214,12 +220,12 @@ class _$ProgressComponent extends ProgressComponent {
   /// The default consumed props, taken from ProgressProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForProgressProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(ProgressProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ProgressProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ProgressProps.
         ProgressProps: $ProgressProps.meta,
       });
 }

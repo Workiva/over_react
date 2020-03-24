@@ -33,10 +33,11 @@ _$$CounterProps _$Counter([Map backingProps]) => backingProps == null
 abstract class _$$CounterProps extends UiProps
     with
         CounterPropsMixin,
-        $CounterPropsMixin,
+        $CounterPropsMixin, // If this generated mixin is undefined, it's likely because CounterPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of CounterPropsMixin.
         ConnectPropsMixin,
-        $ConnectPropsMixin
-    implements CounterProps {
+        $ConnectPropsMixin // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
+    implements
+        CounterProps {
   _$$CounterProps._();
 
   factory _$$CounterProps(Map backingMap) {
@@ -138,11 +139,13 @@ class _$CounterComponent extends CounterComponent {
   /// The default consumed props, taken from CounterProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [];
+  List<ConsumedProps> get $defaultConsumedProps => const [];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because CounterPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of CounterPropsMixin.
         CounterPropsMixin: $CounterPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
         ConnectPropsMixin: $ConnectPropsMixin.meta,
       });
 }

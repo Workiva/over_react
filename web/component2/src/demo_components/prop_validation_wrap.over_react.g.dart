@@ -32,7 +32,10 @@ _$$PropTypesWrapProps _$PropTypesWrap([Map backingProps]) =>
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$PropTypesWrapProps extends UiProps
-    with PropTypesWrapProps, $PropTypesWrapProps {
+    with
+        PropTypesWrapProps,
+        $PropTypesWrapProps // If this generated mixin is undefined, it's likely because PropTypesWrapProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of PropTypesWrapProps.
+{
   _$$PropTypesWrapProps._();
 
   factory _$$PropTypesWrapProps(Map backingMap) {
@@ -100,7 +103,10 @@ class _$$PropTypesWrapProps$JsMap extends _$$PropTypesWrapProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$PropTypesWrapState extends UiState
-    with PropTypesWrapState, $PropTypesWrapState {
+    with
+        PropTypesWrapState,
+        $PropTypesWrapState // If this generated mixin is undefined, it's likely because PropTypesWrapState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of PropTypesWrapState.
+{
   _$$PropTypesWrapState._();
 
   factory _$$PropTypesWrapState(Map backingMap) {
@@ -215,12 +221,12 @@ class _$PropTypesWrapComponent extends PropTypesWrapComponent {
   /// The default consumed props, taken from PropTypesWrapProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForPropTypesWrapProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(PropTypesWrapProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because PropTypesWrapProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of PropTypesWrapProps.
         PropTypesWrapProps: $PropTypesWrapProps.meta,
       });
 }

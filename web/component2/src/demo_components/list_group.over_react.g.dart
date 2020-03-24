@@ -31,7 +31,10 @@ _$$ListGroupProps _$ListGroup([Map backingProps]) => backingProps == null
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$ListGroupProps extends UiProps
-    with ListGroupProps, $ListGroupProps {
+    with
+        ListGroupProps,
+        $ListGroupProps // If this generated mixin is undefined, it's likely because ListGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ListGroupProps.
+{
   _$$ListGroupProps._();
 
   factory _$$ListGroupProps(Map backingMap) {
@@ -133,12 +136,12 @@ class _$ListGroupComponent extends ListGroupComponent {
   /// The default consumed props, taken from ListGroupProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForListGroupProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(ListGroupProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ListGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ListGroupProps.
         ListGroupProps: $ListGroupProps.meta,
       });
 }

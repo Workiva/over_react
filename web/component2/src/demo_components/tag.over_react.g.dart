@@ -30,7 +30,11 @@ _$$TagProps _$Tag([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$TagProps extends UiProps with TagProps, $TagProps {
+abstract class _$$TagProps extends UiProps
+    with
+        TagProps,
+        $TagProps // If this generated mixin is undefined, it's likely because TagProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TagProps.
+{
   _$$TagProps._();
 
   factory _$$TagProps(Map backingMap) {
@@ -131,10 +135,12 @@ class _$TagComponent extends TagComponent {
   /// The default consumed props, taken from TagProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTagProps];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(TagProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because TagProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TagProps.
         TagProps: $TagProps.meta,
       });
 }

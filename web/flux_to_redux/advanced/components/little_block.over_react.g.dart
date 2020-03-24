@@ -31,7 +31,10 @@ _$$LittleBlockProps _$LittleBlock([Map backingProps]) => backingProps == null
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$LittleBlockProps extends UiProps
-    with LittleBlockProps, $LittleBlockProps {
+    with
+        LittleBlockProps,
+        $LittleBlockProps // If this generated mixin is undefined, it's likely because LittleBlockProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of LittleBlockProps.
+{
   _$$LittleBlockProps._();
 
   factory _$$LittleBlockProps(Map backingMap) {
@@ -133,12 +136,12 @@ class _$LittleBlockComponent extends LittleBlockComponent {
   /// The default consumed props, taken from LittleBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForLittleBlockProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(LittleBlockProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because LittleBlockProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of LittleBlockProps.
         LittleBlockProps: $LittleBlockProps.meta,
       });
 }

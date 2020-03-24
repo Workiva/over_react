@@ -34,10 +34,11 @@ _$$ConnectFluxBigBlockProps _$ConnectFluxBigBlock([Map backingProps]) =>
 abstract class _$$ConnectFluxBigBlockProps extends UiProps
     with
         ConnectFluxBigBlockPropsMixin,
-        $ConnectFluxBigBlockPropsMixin,
+        $ConnectFluxBigBlockPropsMixin, // If this generated mixin is undefined, it's likely because ConnectFluxBigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectFluxBigBlockPropsMixin.
         ConnectPropsMixin,
-        $ConnectPropsMixin
-    implements ConnectFluxBigBlockProps {
+        $ConnectPropsMixin // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
+    implements
+        ConnectFluxBigBlockProps {
   _$$ConnectFluxBigBlockProps._();
 
   factory _$$ConnectFluxBigBlockProps(Map backingMap) {
@@ -140,11 +141,13 @@ class _$ConnectFluxBigBlockComponent extends ConnectFluxBigBlockComponent {
   /// The default consumed props, taken from ConnectFluxBigBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [];
+  List<ConsumedProps> get $defaultConsumedProps => const [];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ConnectFluxBigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectFluxBigBlockPropsMixin.
         ConnectFluxBigBlockPropsMixin: $ConnectFluxBigBlockPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
         ConnectPropsMixin: $ConnectPropsMixin.meta,
       });
 }

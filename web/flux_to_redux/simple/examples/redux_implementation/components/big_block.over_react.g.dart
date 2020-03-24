@@ -31,7 +31,10 @@ _$$BigBlockProps _$BigBlock([Map backingProps]) => backingProps == null
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$BigBlockProps extends UiProps
-    with BigBlockProps, $BigBlockProps {
+    with
+        BigBlockProps,
+        $BigBlockProps // If this generated mixin is undefined, it's likely because BigBlockProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BigBlockProps.
+{
   _$$BigBlockProps._();
 
   factory _$$BigBlockProps(Map backingMap) {
@@ -133,12 +136,12 @@ class _$BigBlockComponent extends BigBlockComponent {
   /// The default consumed props, taken from BigBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForBigBlockProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(BigBlockProps)];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because BigBlockProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BigBlockProps.
         BigBlockProps: $BigBlockProps.meta,
       });
 }

@@ -34,8 +34,11 @@ _$$RecoverableErrorBoundaryProps _$RecoverableErrorBoundary(
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$RecoverableErrorBoundaryProps extends UiProps
-    with v2.ErrorBoundaryProps, v2.$ErrorBoundaryProps
-    implements RecoverableErrorBoundaryProps {
+    with
+        v2.ErrorBoundaryProps,
+        v2.$ErrorBoundaryProps // If this generated mixin is undefined, it's likely because v2.ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of v2.ErrorBoundaryProps.
+    implements
+        RecoverableErrorBoundaryProps {
   _$$RecoverableErrorBoundaryProps._();
 
   factory _$$RecoverableErrorBoundaryProps(Map backingMap) {
@@ -105,8 +108,11 @@ class _$$RecoverableErrorBoundaryProps$JsMap
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$RecoverableErrorBoundaryState extends UiState
-    with v2.ErrorBoundaryState, v2.$ErrorBoundaryState
-    implements RecoverableErrorBoundaryState {
+    with
+        v2.ErrorBoundaryState,
+        v2.$ErrorBoundaryState // If this generated mixin is undefined, it's likely because v2.ErrorBoundaryState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of v2.ErrorBoundaryState.
+    implements
+        RecoverableErrorBoundaryState {
   _$$RecoverableErrorBoundaryState._();
 
   factory _$$RecoverableErrorBoundaryState(Map backingMap) {
@@ -226,10 +232,11 @@ class _$RecoverableErrorBoundaryComponent
   /// The default consumed props, taken from RecoverableErrorBoundaryProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [];
+  List<ConsumedProps> get $defaultConsumedProps => const [];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because v2.ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of v2.ErrorBoundaryProps.
         v2.ErrorBoundaryProps: v2.$ErrorBoundaryProps.meta,
       });
 }

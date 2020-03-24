@@ -33,8 +33,10 @@ _$$BigBlockProps _$BigBlock([Map backingProps]) => backingProps == null
 abstract class _$$BigBlockProps extends UiProps
     with
         FluxUiPropsMixin<RandomColorActions, FluxStore>,
-        $FluxUiPropsMixin<RandomColorActions, FluxStore>
-    implements BigBlockProps {
+        $FluxUiPropsMixin<RandomColorActions,
+            FluxStore> // If this generated mixin is undefined, it's likely because FluxUiPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FluxUiPropsMixin.
+    implements
+        BigBlockProps {
   _$$BigBlockProps._();
 
   factory _$$BigBlockProps(Map backingMap) {
@@ -136,10 +138,11 @@ class _$BigBlockComponent extends BigBlockComponent {
   /// The default consumed props, taken from BigBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [];
+  List<ConsumedProps> get $defaultConsumedProps => const [];
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because FluxUiPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FluxUiPropsMixin.
         FluxUiPropsMixin: $FluxUiPropsMixin.meta,
       });
 }
