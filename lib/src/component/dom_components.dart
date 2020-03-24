@@ -16,8 +16,6 @@
 library over_react.dom_components;
 
 import 'package:over_react/src/component/prop_mixins.dart';
-import 'package:over_react/src/component_declaration/component_base.dart'
-    as component_base;
 import 'package:over_react/src/component_declaration/builder_helpers.dart'
     as builder_helpers;
 import 'package:react/react.dart' as react;

@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:over_react/src/builder/generation/parsing/meta.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/util/pretty_print.dart';
 import 'package:over_react/src/util/string_util.dart';
@@ -21,7 +20,7 @@ import 'package:over_react/src/util/string_util.dart';
 import '../../util.dart';
 import 'ast_util.dart';
 import 'member_detection.dart';
-import 'util.dart';
+import 'meta.dart';
 import 'validation.dart';
 import 'version.dart';
 
