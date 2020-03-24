@@ -88,7 +88,7 @@ class OverReactBuilder extends Builder {
       //
 
       hadErrors = false;
-      final members = BoilerplateMembers.detect(unit);
+      final members = detectBoilerplateMembers(unit);
       final declarations = getBoilerplateDeclarations(members, errorCollector).toList()
         ..sort((a, b) {
           return generationOrder.indexOf(a.type).compareTo(generationOrder.indexOf(b.type));

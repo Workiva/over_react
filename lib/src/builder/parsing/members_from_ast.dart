@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:collection';
+
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:meta/meta.dart';
@@ -21,8 +23,39 @@ import 'ast_util.dart';
 import 'members.dart';
 import 'version.dart';
 
-/// The primarily class wrapper for detecting boilerplate entities for a given
-/// compilation unit.
+/// Returns an unmodifiable collection of all potential boilerplate members
+/// detected within [unit], with appropriate confidence scores.
+BoilerplateMembers detectBoilerplateMembers(CompilationUnit unit) {
+  final factories = <BoilerplateFactory>[];
+  final props = <BoilerplateProps>[];
+  final propsMixins = <BoilerplatePropsMixin>[];
+  final components = <BoilerplateComponent>[];
+  final states = <BoilerplateState>[];
+  final stateMixins = <BoilerplateStateMixin>[];
+
+  BoilerplateMemberDetector(
+    onFactory: factories.add,
+    onProps: props.add,
+    onPropsMixin: propsMixins.add,
+    onComponent: components.add,
+    onState: states.add,
+    onStateMixin: stateMixins.add,
+  ).detect(unit);
+
+  return BoilerplateMembers(
+    factories: UnmodifiableListView(factories),
+    props: UnmodifiableListView(props),
+    propsMixins: UnmodifiableListView(propsMixins),
+    components: UnmodifiableListView(components),
+    states: UnmodifiableListView(states),
+    stateMixins: UnmodifiableListView(stateMixins),
+  );
+}
+
+/// Helper class that contains logic for detecting boilerplate entities for a given compilation unit
+/// and determining their version confidences.
+///
+/// See: [VersionConfidence], [BoilerplateMember].
 class BoilerplateMemberDetector {
   Map<String, NamedCompilationUnitMember> _classishDeclarationsByName;
 
@@ -116,7 +149,7 @@ class BoilerplateMemberDetector {
 
   void _detectFactory(TopLevelVariableDeclaration node) {
     if (node.hasAnnotationWithName('Factory')) {
-      onFactory(BoilerplateFactory(node, VersionConfidence.all(Confidence.high)));
+      onFactory(BoilerplateFactory(node, VersionConfidence.all(Confidence.likely)));
       return;
     }
 
@@ -140,7 +173,7 @@ class BoilerplateMemberDetector {
           onFactory(BoilerplateFactory(
               node,
               VersionConfidence(
-                v4_mixinBased: Confidence.high,
+                v4_mixinBased: Confidence.likely,
                 v3_legacyDart2Only: Confidence.none,
                 v2_legacyBackwardsCompat: Confidence.none,
               )));
@@ -149,7 +182,7 @@ class BoilerplateMemberDetector {
           onFactory(BoilerplateFactory(
               node,
               VersionConfidence(
-                v4_mixinBased: Confidence.medium,
+                v4_mixinBased: Confidence.neutral,
                 v2_legacyBackwardsCompat: Confidence.none,
                 v3_legacyDart2Only: Confidence.none,
               )));
@@ -222,7 +255,7 @@ class BoilerplateMemberDetector {
           // Don't have lower confidence for mixin-based when `@Component`;
           // we want it equal so that it can resolve to mixin-based based on the other parts, and
           // warn for not having `@Component2`.
-          onComponent(BoilerplateComponent(classish, VersionConfidence.all(Confidence.high)));
+          onComponent(BoilerplateComponent(classish, VersionConfidence.all(Confidence.likely)));
           return true;
 
         case 'AbstractProps':
@@ -259,21 +292,21 @@ class BoilerplateMemberDetector {
 
     if (hasCompanionClass) {
       return VersionConfidence(
-        v2_legacyBackwardsCompat: Confidence.high,
-        v3_legacyDart2Only: Confidence.low,
-        v4_mixinBased: Confidence.low,
+        v2_legacyBackwardsCompat: Confidence.likely,
+        v3_legacyDart2Only: Confidence.unlikely,
+        v4_mixinBased: Confidence.unlikely,
       );
     } else if (hasGeneratedPrefix) {
       return VersionConfidence(
-        v2_legacyBackwardsCompat: Confidence.low,
-        v3_legacyDart2Only: Confidence.high,
-        v4_mixinBased: Confidence.low,
+        v2_legacyBackwardsCompat: Confidence.unlikely,
+        v3_legacyDart2Only: Confidence.likely,
+        v4_mixinBased: Confidence.unlikely,
       );
     } else {
       return VersionConfidence(
-        v2_legacyBackwardsCompat: Confidence.low,
-        v3_legacyDart2Only: Confidence.low,
-        v4_mixinBased: Confidence.high,
+        v2_legacyBackwardsCompat: Confidence.unlikely,
+        v3_legacyDart2Only: Confidence.unlikely,
+        v4_mixinBased: Confidence.likely,
       );
     }
   }
@@ -288,15 +321,15 @@ class BoilerplateMemberDetector {
 
     if (hasCompanionClass) {
       return VersionConfidence(
-        v2_legacyBackwardsCompat: Confidence.high,
-        v3_legacyDart2Only: Confidence.low,
+        v2_legacyBackwardsCompat: Confidence.likely,
+        v3_legacyDart2Only: Confidence.unlikely,
         // Annotated abstract props/state don't exist to the new boilerplate
         v4_mixinBased: Confidence.none,
       );
     } else {
       return VersionConfidence(
-        v2_legacyBackwardsCompat: Confidence.low,
-        v3_legacyDart2Only: Confidence.high,
+        v2_legacyBackwardsCompat: Confidence.unlikely,
+        v3_legacyDart2Only: Confidence.likely,
         // Annotated abstract props/state don't exist to the new boilerplate
         v4_mixinBased: Confidence.none,
       );
@@ -316,10 +349,10 @@ class BoilerplateMemberDetector {
 
     return VersionConfidence(
       v2_legacyBackwardsCompat:
-          isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.low : Confidence.high),
+          isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.unlikely : Confidence.likely),
       v3_legacyDart2Only:
-          isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.high : Confidence.low),
-      v4_mixinBased: isMixin ? Confidence.high : Confidence.low,
+          isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.likely : Confidence.unlikely),
+      v4_mixinBased: isMixin ? Confidence.likely : Confidence.unlikely,
     );
   }
 
@@ -363,7 +396,7 @@ class BoilerplateMemberDetector {
       return VersionConfidence(
         v2_legacyBackwardsCompat: Confidence.none,
         v3_legacyDart2Only: Confidence.none,
-        v4_mixinBased: Confidence.high,
+        v4_mixinBased: Confidence.likely,
       );
     }
 
@@ -406,7 +439,7 @@ class BoilerplateMemberDetector {
                   ?.map((t) => t.typeNameWithoutPrefix)
                   ?.any(propsOrMixinNamePattern.hasMatch) ??
               false)) {
-        onComponent(BoilerplateComponent(classish, VersionConfidence.all(Confidence.medium)));
+        onComponent(BoilerplateComponent(classish, VersionConfidence.all(Confidence.neutral)));
 
         return true;
       }

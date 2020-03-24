@@ -90,7 +90,7 @@ main() {
 
         final errorCollector = ErrorCollector.log(sourceFile, logger);
 
-        final members = BoilerplateMembers.detect(unit);
+        final members = detectBoilerplateMembers(unit);
         declarations = getBoilerplateDeclarations(members, errorCollector).toList();
         for (var declaration in declarations) {
           declaration.validate(errorCollector);

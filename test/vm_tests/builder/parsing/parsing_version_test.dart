@@ -69,14 +69,14 @@ main() {
 
       setUp(() {
         versionConfidence = VersionConfidence(
-            v2_legacyBackwardsCompat: Confidence.low,
-            v3_legacyDart2Only: Confidence.low,
-            v4_mixinBased: Confidence.high);
+            v2_legacyBackwardsCompat: Confidence.unlikely,
+            v3_legacyDart2Only: Confidence.unlikely,
+            v4_mixinBased: Confidence.likely);
 
         otherVersionConfidence = VersionConfidence(
-            v2_legacyBackwardsCompat: Confidence.high,
-            v3_legacyDart2Only: Confidence.medium,
-            v4_mixinBased: Confidence.low);
+            v2_legacyBackwardsCompat: Confidence.likely,
+            v3_legacyDart2Only: Confidence.neutral,
+            v4_mixinBased: Confidence.unlikely);
       });
 
       test('toList returns a list of VersionConfidencePairs', () {
@@ -97,15 +97,15 @@ main() {
           switch (pair.version) {
             case Version.v2_legacyBackwardsCompat:
               testedVersions[Version.v2_legacyBackwardsCompat] = true;
-              expect(pair.confidence, Confidence.low);
+              expect(pair.confidence, Confidence.unlikely);
               break;
             case Version.v3_legacyDart2Only:
               testedVersions[Version.v3_legacyDart2Only] = true;
-              expect(pair.confidence, Confidence.low);
+              expect(pair.confidence, Confidence.unlikely);
               break;
             case Version.v4_mixinBased:
               testedVersions[Version.v4_mixinBased] = true;
-              expect(pair.confidence, Confidence.high);
+              expect(pair.confidence, Confidence.likely);
               break;
           }
         }
@@ -117,9 +117,9 @@ main() {
       test('+ (operator) adds together two VersionConfidence instances as expected', () {
         final addedVersionConfidence = versionConfidence + otherVersionConfidence;
 
-        expect(addedVersionConfidence.v2_legacyBackwardsCompat, Confidence.high + Confidence.low);
-        expect(addedVersionConfidence.v3_legacyDart2Only, Confidence.medium + Confidence.low);
-        expect(addedVersionConfidence.v4_mixinBased, Confidence.low + Confidence.high);
+        expect(addedVersionConfidence.v2_legacyBackwardsCompat, Confidence.likely + Confidence.unlikely);
+        expect(addedVersionConfidence.v3_legacyDart2Only, Confidence.neutral + Confidence.unlikely);
+        expect(addedVersionConfidence.v4_mixinBased, Confidence.unlikely + Confidence.likely);
       });
 
       group('maxConfidence returns the', () {
@@ -139,12 +139,12 @@ main() {
           });
 
           test('and the priority is as expected', () {
-            final ambiguousVersion = VersionConfidence.all(Confidence.medium);
+            final ambiguousVersion = VersionConfidence.all(Confidence.neutral);
             expect(ambiguousVersion.maxConfidence.version, Version.v4_mixinBased);
 
             final versionWithoutMixin = VersionConfidence(
-                v2_legacyBackwardsCompat: Confidence.medium,
-                v3_legacyDart2Only: Confidence.medium,
+                v2_legacyBackwardsCompat: Confidence.neutral,
+                v3_legacyDart2Only: Confidence.neutral,
                 v4_mixinBased: Confidence.none);
             expect(versionWithoutMixin.maxConfidence.version, Version.v2_legacyBackwardsCompat);
           });
@@ -156,7 +156,7 @@ main() {
           expect(
               versionConfidence.toString(),
               contains(
-                  '{v2_legacyBackwardsCompat: ${Confidence.low}, v3_legacyDart2Only: ${Confidence.low}, v4_mixinBased: ${Confidence.high}}'));
+                  '{v2_legacyBackwardsCompat: ${Confidence.unlikely}, v3_legacyDart2Only: ${Confidence.unlikely}, v4_mixinBased: ${Confidence.likely}}'));
         });
 
         test('runtime type', () {
@@ -168,13 +168,13 @@ main() {
     group('VersionPair', () {
       test('shouldGenerate will only return true if confidence is higher than medium', () {
         final confidentVersion = VersionConfidence(
-                v2_legacyBackwardsCompat: Confidence.low,
-                v3_legacyDart2Only: Confidence.low,
-                v4_mixinBased: Confidence.high)
+                v2_legacyBackwardsCompat: Confidence.unlikely,
+                v3_legacyDart2Only: Confidence.unlikely,
+                v4_mixinBased: Confidence.likely)
             .maxConfidence;
         expect(confidentVersion.shouldGenerate, isTrue);
 
-        final moderatelyConfidentVersion = VersionConfidence.all(Confidence.medium).maxConfidence;
+        final moderatelyConfidentVersion = VersionConfidence.all(Confidence.neutral).maxConfidence;
         expect(moderatelyConfidentVersion.shouldGenerate, isFalse);
 
         final notConfidentVersion = VersionConfidence.none().maxConfidence;

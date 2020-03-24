@@ -12,16 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'dart:collection';
-
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:meta/meta.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:over_react/src/util/pretty_print.dart';
 import 'package:over_react/src/util/string_util.dart';
 
 import '../util.dart';
 import 'ast_util.dart';
-import 'member_detection.dart';
+import 'members_from_ast.dart';
 import 'meta.dart';
 import 'validation.dart';
 import 'version.dart';
@@ -74,12 +73,9 @@ abstract class BoilerplateAccessorsMember extends BoilerplateMember {
   annotations.TypedMap get meta;
 }
 
-/// A class that wraps the primary member types in order to group detected members.
+/// A collection of all boilerplate members within a given file.
 ///
-/// Can be used to easily grab members from an input entity by using the
-/// [BoilerplateMembers.detect] constructor.
-///
-/// All list members are unmodifiable.
+/// See [detectBoilerplateMembers].
 class BoilerplateMembers {
   final List<BoilerplateFactory> factories;
   final List<BoilerplateProps> props;
@@ -108,9 +104,8 @@ class BoilerplateMembers {
   /// Whether or not at least a single list of members has a member.
   bool get isNotEmpty => !isEmpty;
 
-  /// Constructs this by visiting relevant entities in [unit] and adding
-  /// found members to the relevant local list.
-  BoilerplateMembers._({
+  @protected
+  BoilerplateMembers({
     this.factories,
     this.props,
     this.propsMixins,
@@ -118,33 +113,6 @@ class BoilerplateMembers {
     this.states,
     this.stateMixins,
   });
-
-  factory BoilerplateMembers.detect(CompilationUnit unit) {
-    final factories = <BoilerplateFactory>[];
-    final props = <BoilerplateProps>[];
-    final propsMixins = <BoilerplatePropsMixin>[];
-    final components = <BoilerplateComponent>[];
-    final states = <BoilerplateState>[];
-    final stateMixins = <BoilerplateStateMixin>[];
-
-    BoilerplateMemberDetector(
-      onFactory: factories.add,
-      onProps: props.add,
-      onPropsMixin: propsMixins.add,
-      onComponent: components.add,
-      onState: states.add,
-      onStateMixin: stateMixins.add,
-    ).detect(unit);
-
-    return BoilerplateMembers._(
-      factories: UnmodifiableListView(factories),
-      props: UnmodifiableListView(props),
-      propsMixins: UnmodifiableListView(propsMixins),
-      components: UnmodifiableListView(components),
-      states: UnmodifiableListView(states),
-      stateMixins: UnmodifiableListView(stateMixins),
-    );
-  }
 
   @override
   toString() => 'BoilerplateMembers:${prettyPrintMap({

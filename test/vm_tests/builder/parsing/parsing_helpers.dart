@@ -237,7 +237,7 @@ class BoilerplateMemberHelper {
   BoilerplateMemberHelper(String boilerplateString) {
     final unit = parseString(content: boilerplateString).unit;
 
-     members = BoilerplateMembers.detect(unit);
+     members = detectBoilerplateMembers(unit);
 
      _initializeMembers(members);
   }
@@ -246,20 +246,20 @@ class BoilerplateMemberHelper {
   BoilerplateMemberHelper.withMockDeclarations() {
     final unit = parseString(content: mockComponentDeclarations).unit;
 
-    members ??= BoilerplateMembers.detect(unit);
+    members ??= detectBoilerplateMembers(unit);
     _initializeMembers(members);
   }
 
   static BoilerplateMembers getBoilerplateMembersFromString([String content]) {
     final unit = parseString(content: content ?? mockComponentDeclarations).unit;
 
-    return BoilerplateMembers.detect(unit);
+    return detectBoilerplateMembers(unit);
   }
 
   static Iterable<BoilerplateMember> getBoilerplateMembersForVersion(BoilerplateVersions version, {String componentBaseName}) {
     final unit = parseString(content: getBoilerplateString(version: version, componentBaseName: componentBaseName)).unit;
 
-    return BoilerplateMembers.detect(unit).allMembers;
+    return detectBoilerplateMembers(unit).allMembers;
   }
 
   static Iterable<BoilerplateMember> parseAndReturnMembers(String content) => getBoilerplateMembersFromString(content).allMembers;

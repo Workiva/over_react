@@ -25,10 +25,25 @@ import 'members.dart';
 /// Related: [resolveVersion]
 @sealed
 abstract class Confidence {
+  /// Not possible to be considered a given version.
   static const none = 0;
-  static const low = 1;
-  static const medium = 10;
-  static const high = 100;
+
+  /// Unlikely to be considered a given version.
+  static const unlikely = 1;
+
+  /// Equally likely and unlikely to be considered a given version.
+  ///
+  /// Consuming code should only consider values strictly greater than this value
+  /// as confident enough to perform code generation:
+  ///
+  ///    - `condidence <= neutral`: do not perform code generation
+  ///    - `condidence > neutral`: perform code generation
+  static const neutral = 10;
+
+  /// Likely to be considered a given version.
+  static const likely = 100;
+
+  /// Certain to be considered a given version.
   static const certain = 100000;
 }
 
@@ -86,11 +101,11 @@ class VersionConfidencePair {
   ///
   /// Based on the boilerplate members cumulatively, there may not be enough data
   /// to signify that generation is necessary. This is the case when the [confidence]
-  /// (the average confidence score for all members) is not above [Confidence.medium].
+  /// (the average confidence score for all members) is not above [Confidence.neutral].
   ///
   /// __Note:__ Since the purpose of this getter is specific to the generator, it should
   /// not be trusted unless this is initialized as the return value for [resolveVersion].
-  bool get shouldGenerate => confidence > Confidence.medium;
+  bool get shouldGenerate => confidence > Confidence.neutral;
 }
 
 /// Returns a confidence pair with
@@ -106,8 +121,9 @@ VersionConfidencePair resolveVersion(Iterable<BoilerplateMember> members) {
   return VersionConfidencePair(max.version, max.confidence / members.length);
 }
 
-/// The class that monitors the different version possibilities and the confidence
-/// for each version.
+/// A collection of the confidence scores for each version of the boilerplate.
+///
+/// Instances are typically associated with one or more [BoilerplateMember].
 ///
 /// When resolving the version, this data is used to aggregate specific version
 /// confidence while keeping all the data in a single class.
