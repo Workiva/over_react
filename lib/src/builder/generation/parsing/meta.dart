@@ -48,8 +48,9 @@ class InstantiatedMeta<TMeta> {
   /// A reflectively-instantiated version of [metaNode], if it exists.
   final TMeta _value;
 
-  /// The arguments passed to the metadata that are not supported by [getValue],
-  /// (or by special handling in subclasses) and therefore not represented in the instantiation of [value].
+  /// The arguments passed to the metadata that are not supported by [value],
+  /// (or by special handling in subclasses) and therefore not represented in the instantiation of
+  /// [potentiallyIncompleteValue].
   final List<Expression> unsupportedArguments;
 
   InstantiatedMeta._(this.metaNode, this._value, this.unsupportedArguments);
@@ -91,16 +92,14 @@ class InstantiatedMeta<TMeta> {
   TMeta get potentiallyIncompleteValue => _value;
 }
 
-/// Utility class that allows for easy access to an annotated node's
-/// instantiated annotation.
+/// Utility that allows partial instantiation of a `Component`/`Component2` annotation.
+///
+/// See superclass for more information.
 class InstantiatedComponentMeta<TMeta> extends InstantiatedMeta<TMeta> {
   static const String _subtypeOfParamName = 'subtypeOf';
 
   final Identifier subtypeOfValue;
 
-  /// Construct a [NodeWithMeta] instance from an [AnnotatedNode].
-  /// The original node will be available via [node].
-  /// The instantiated annotation of type `TMeta` will be available via [meta].
   InstantiatedComponentMeta._(
       Annotation metaNode, TMeta meta, List<Expression> unsupportedArguments, this.subtypeOfValue)
       : super._(metaNode, meta, unsupportedArguments);
