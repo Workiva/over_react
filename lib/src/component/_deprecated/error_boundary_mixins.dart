@@ -19,6 +19,15 @@ mixin LegacyErrorBoundaryApi<T extends ErrorBoundaryPropsMixin, S extends ErrorB
   }
 }
 
+/// This class is present:
+///
+/// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
+///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
+abstract class $ErrorBoundaryPropsMixin {
+  static const PropsMeta meta = _$metaForErrorBoundaryPropsMixin;
+}
+
 /// A props mixin you can use to implement / extend from the behaviors of an [ErrorBoundary]
 /// within a custom component.
 ///
@@ -115,6 +124,15 @@ abstract class _$ErrorBoundaryPropsMixin implements UiProps {
   /// An optional custom logger instance that will be used to log errors caught by
   /// this [ErrorBoundary] when [shouldLogErrors] is true.
   Logger logger;
+}
+
+/// This class is present:
+///
+/// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
+///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
+abstract class $ErrorBoundaryStateMixin {
+  static const StateMeta meta = _$metaForErrorBoundaryStateMixin;
 }
 
 /// A state mixin you can use to implement / extend from the behaviors of an [ErrorBoundary]
