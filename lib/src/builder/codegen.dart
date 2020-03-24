@@ -23,30 +23,8 @@ import 'codegen/typed_map_impl_generator.dart';
 import 'codegen/util.dart';
 import 'parsing.dart';
 
-/// A utility class that generates implementations for a set of [BoilerplateDeclaration]s obtained from a [SourceFile].
-///
-/// Generates implementations for:
-///
-/// * A component comprised of a `@Factory()`, `@Component()`, `@Props()`, and optionally a `@State()`
-///
-///     * Generates:
-///
-///          * Private subclasses for the component, props, and state classes, implementing stubbed methods.
-///          * A private React component factory via a call to `registerComponent`.
-///          * Metadata containing fields and keys for all Props and State classes.
-///
-///     * Wires up all the generated component pieces and exposes them via a function assigned to
-///     the initializer of factory function variable.
-///
-/// * Any number of abstract component pieces: `@AbstractProps()`, `@AbstractState()`.
-///
-///     * Generate private subclasses which implement stubbed methods.
-///     * Metadata containing fields and keys for all Abstract Props and Abstract State classes.
-///
-/// * Any number of mixins: `@PropsMixin()`, `@StateMixin()`.
-///
-///     * Generates public subclasses which implement stubbed methods for any number of mixins in a library.
-///     * Metadata containing fields and keys for all Props and State mixins.
+/// A utility class that generates implementations for valid [BoilerplateDeclaration]s of any type
+/// and appends them to [outputContentsBuffer].
 class ImplGenerator {
   ImplGenerator(this.logger, this.sourceFile);
 
