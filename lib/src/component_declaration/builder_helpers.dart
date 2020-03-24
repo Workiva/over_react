@@ -114,6 +114,9 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
     _throwIfNotGenerated();
   }
 
+  @Deprecated(
+      'Use `UiComponent2.propsMeta` (only available for new mixin-based-boilerplate) instead.'
+      ' Will be removed in 4.0.0.')
   @toBeGenerated String get propKeyNamespace => throw UngeneratedError(member: #propKeyNamespace);
 
   @override @toBeGenerated Map get props => throw UngeneratedError(member: #props);
