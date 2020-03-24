@@ -21,6 +21,7 @@ import '../util.dart';
 import 'names.dart';
 import 'util.dart';
 
+/// Base class for generating concrete factory and props/state class implementations.
 abstract class TypedMapImplGenerator extends Generator {
   TypedMapImplGenerator();
 
@@ -259,6 +260,7 @@ ${internalGeneratedMemberDeprecationLine()}class ${names.jsMapImplName}$typePara
   }
 }
 
+/// Generates concrete factories and props/state class implementations for legacy props/state classes.
 class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
   @override
   final TypedMapNames names;
@@ -314,6 +316,12 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
   }
 }
 
+/// Generates concrete factories and props/state class implementations for mixin-based syntax:
+///
+/// - component props/state
+/// - function or props map view props
+///
+/// Handles both shorthand and verbose syntax.
 class _TypedMapImplGenerator extends TypedMapImplGenerator {
   @override
   final TypedMapNames names;

@@ -21,6 +21,7 @@ import '../util.dart';
 import 'names.dart';
 import 'util.dart';
 
+/// Base class for generating getters/setters for props/state fields, as well as meta constants.
 abstract class TypedMapAccessorsGenerator extends Generator {
   TypedMapAccessorsGenerator();
 
@@ -318,6 +319,8 @@ abstract class TypedMapAccessorsGenerator extends Generator {
   }
 }
 
+/// Generates mixin implementations (e.g., `$FooPropsMixin`) containing accessors for
+/// all boilerplate versions of props/state mixins.
 class _TypedMapMixinAccessorsGenerator extends TypedMapAccessorsGenerator {
   @override
   final BoilerplatePropsOrStateMixin member;
@@ -352,6 +355,8 @@ class _TypedMapMixinAccessorsGenerator extends TypedMapAccessorsGenerator {
   }
 }
 
+/// Generates accessor mixins (e.g., `_$FooPropsAccessorsMixin`) containing accessors for
+/// legacy props/state classes.
 class _LegacyTypedMapAccessorsGenerator extends TypedMapAccessorsGenerator {
   @override
   final BoilerplatePropsOrState member;

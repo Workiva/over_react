@@ -16,6 +16,7 @@ import '../parsing.dart';
 import 'names.dart';
 import 'util.dart';
 
+/// Base class for generating concrete and component class implementations.
 abstract class ComponentGenerator extends Generator {
   ComponentGenerator._();
 
@@ -133,6 +134,7 @@ abstract class ComponentGenerator extends Generator {
   void _generateAdditionalComponentBody() {}
 }
 
+/// Generates concrete and component class implementations for mixin-based boilerplate.
 class _ComponentGenerator extends ComponentGenerator {
   final ClassComponentDeclaration declaration;
 
@@ -189,6 +191,7 @@ class _ComponentGenerator extends ComponentGenerator {
   }
 }
 
+/// Generates concrete and component class implementations for legacy-based boilerplate.
 class _LegacyComponentGenerator extends ComponentGenerator {
   final LegacyClassComponentDeclaration declaration;
 

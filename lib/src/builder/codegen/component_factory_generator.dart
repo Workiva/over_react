@@ -21,6 +21,8 @@ import '../util.dart';
 import 'names.dart';
 import 'util.dart';
 
+/// Generates aReactComponentFactoryProxys for a component declarations,
+/// for all boilerplate versions.
 class ComponentFactoryGenerator extends Generator {
   final ComponentNames componentNames;
   final String factoryName;
