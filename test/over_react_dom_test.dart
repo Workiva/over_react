@@ -26,6 +26,8 @@ import 'over_react/dom/render_test.dart' as render_test;
 import 'over_react/dom/unmount_test.dart' as unmount_test;
 
 void main() {
+  setClientConfiguration();
+
   enableTestMode();
 
   render_test.main();

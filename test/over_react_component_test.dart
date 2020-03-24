@@ -20,6 +20,7 @@
 library over_react_component_test;
 
 import 'package:over_react/over_react.dart';
+import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 
 import 'over_react/component/_deprecated/abstract_transition_test.dart' as deprecated_abstract_transition_test;
@@ -39,6 +40,8 @@ import 'over_react/component/context_test.dart' as context_test;
 import 'over_react/component/typed_factory_test.dart' as typed_factory_test;
 
 void main() {
+  setClientConfiguration();
+
   enableTestMode();
 
   deprecated_abstract_transition_test.main();

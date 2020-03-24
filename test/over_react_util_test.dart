@@ -43,6 +43,8 @@ import 'over_react/util/string_util_test.dart' as string_util_test;
 import 'over_react/util/test_mode_test.dart' as test_mode_test;
 
 void main() {
+  setClientConfiguration();
+
   enableTestMode();
 
   class_names_test.main();

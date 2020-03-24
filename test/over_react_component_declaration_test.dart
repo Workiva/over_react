@@ -20,6 +20,7 @@
 library over_react_test;
 
 import 'package:over_react/over_react.dart';
+import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 
 import 'over_react/component_declaration/component_base_test.dart' as component_base_test;
@@ -76,6 +77,8 @@ import 'over_react/component_declaration/builder_integration_tests/new_boilerpla
 import 'over_react/component_declaration/builder_integration_tests/new_boilerplate/unassigned_prop_integration_test.dart' as new_boilerplate_unassigned_prop_integration_test;
 
 main() {
+  setClientConfiguration();
+
   enableTestMode();
 
   component_base_test.main();

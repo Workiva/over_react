@@ -10,6 +10,8 @@ import './src/generic_inheritance_sub.dart';
 import './src/generic_inheritance_super.dart';
 
 main() {
+  setClientConfiguration();
+
   react_dom.render(
       Dom.div()(
         Dom.h3()('Components'),
