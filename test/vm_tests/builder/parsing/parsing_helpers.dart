@@ -14,7 +14,7 @@
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react/src/builder/generation/parsing.dart';
+import 'package:over_react/src/builder/parsing.dart';
 
 import '../util.dart';
 

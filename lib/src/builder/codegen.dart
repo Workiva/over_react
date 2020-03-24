@@ -14,12 +14,12 @@
 
 // ignore_for_file: deprecated_member_use_from_same_package
 import 'package:logging/logging.dart';
-import 'package:over_react/src/builder/generation/codegen/accessors_generator.dart';
-import 'package:over_react/src/builder/generation/codegen/typed_map_impl_generator.dart';
-import 'package:over_react/src/builder/generation/codegen/component_generator.dart';
 import 'package:source_span/source_span.dart';
 
+import 'codegen/accessors_generator.dart';
 import 'codegen/component_factory_generator.dart';
+import 'codegen/component_generator.dart';
+import 'codegen/typed_map_impl_generator.dart';
 import 'codegen/util.dart';
 import 'parsing.dart';
 

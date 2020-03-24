@@ -1,9 +1,9 @@
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react/src/builder/generation/parsing.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:source_span/source_span.dart';
 
+import '../parsing.dart';
 import 'names.dart';
 
 class AccessorType {

@@ -8,8 +8,8 @@ import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 
 import './util.dart';
-import 'generation/codegen.dart';
-import 'generation/parsing.dart';
+import 'codegen.dart';
+import 'parsing.dart';
 
 Builder overReactBuilder(BuilderOptions options) => OverReactBuilder();
 

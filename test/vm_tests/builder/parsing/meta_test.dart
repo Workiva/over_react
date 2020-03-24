@@ -13,7 +13,7 @@
 // limitations under the License.
 
 @TestOn('vm')
-import 'package:over_react/src/builder/generation/parsing/meta.dart';
+import 'package:over_react/src/builder/parsing/meta.dart';
 import 'package:test/test.dart';
 
 import '../ast_test_util.dart';

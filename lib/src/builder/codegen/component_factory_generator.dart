@@ -1,9 +1,9 @@
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:over_react/src/builder/util.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:transformer_utils/transformer_utils.dart';
 
 import '../parsing.dart';
+import '../util.dart';
 import 'names.dart';
 import 'util.dart';
 

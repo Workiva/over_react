@@ -1,6 +1,6 @@
 @TestOn('vm')
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:over_react/src/builder/generation/parsing.dart';
+import 'package:over_react/src/builder/parsing.dart';
 import 'package:test/test.dart';
 
 import '../../ast_test_util.dart';

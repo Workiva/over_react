@@ -1,5 +1,5 @@
 @TestOn('vm')
-import 'package:over_react/src/builder/generation/codegen/names.dart';
+import 'package:over_react/src/builder/codegen/names.dart';
 import 'package:test/test.dart';
 
 main() {

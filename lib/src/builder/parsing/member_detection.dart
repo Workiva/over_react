@@ -16,7 +16,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:meta/meta.dart';
 
-import '../../util.dart';
+import '../util.dart';
 import 'ast_util.dart';
 import 'members.dart';
 import 'version.dart';

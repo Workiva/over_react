@@ -1,8 +1,8 @@
 import 'dart:mirrors';
 
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:path/path.dart' as p;
 import 'package:build/build.dart' show AssetId;
+import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 
 const outputExtension = '.over_react.g.dart';

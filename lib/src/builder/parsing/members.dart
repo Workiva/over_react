@@ -17,7 +17,7 @@ import 'package:over_react/src/component_declaration/annotations.dart' as annota
 import 'package:over_react/src/util/pretty_print.dart';
 import 'package:over_react/src/util/string_util.dart';
 
-import '../../util.dart';
+import '../util.dart';
 import 'ast_util.dart';
 import 'member_detection.dart';
 import 'meta.dart';

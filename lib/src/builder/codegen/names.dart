@@ -1,4 +1,4 @@
-import '../../util.dart';
+import '../util.dart';
 
 /// A set of names of the different generated members for a given component class.
 ///
