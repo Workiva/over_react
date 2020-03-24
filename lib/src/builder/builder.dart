@@ -66,40 +66,55 @@ class OverReactBuilder extends Builder {
       final sourceFile = SourceFile.fromString(
         source, url: idToPackageUri(id));
 
-      var hasErrors = false;
+      //
+      // Set up error collection, logging, and utilities to be used by parsing and codegen.
+      //
+
+      // A local flag to help determine if a specific call resulted in errors.
+      // Should be reset before using.
+      var hadErrors = false;
       final errorCollector = ErrorCollector.callback(sourceFile,
         onError: (message, [span]) {
           log.severe(span?.message(message) ?? message);
-          hasErrors = true;
+          hadErrors = true;
         },
         onWarning: (message, [span]) {
           log.warning(span?.message(message) ?? message);
         },
       );
 
-      final generator = ImplGenerator(log, sourceFile);
+      //
+      // Parse boilerplate members and group them into declarations.
+      //
 
+      hadErrors = false;
       final members = BoilerplateMembers.detect(unit);
       final declarations = getBoilerplateDeclarations(members, errorCollector).toList()
         ..sort((a, b) {
           return generationOrder.indexOf(a.type).compareTo(generationOrder.indexOf(b.type));
         });
 
-      if (hasErrors) {
+      // Log the members that weren't grouped into declarations for debugging purposes.
+      if (hadErrors) {
         // Log the members that weren't grouped into declarations.
         members.allMembers.forEach(log.info);
-        hasErrors = false;
       }
 
+      //
+      // Validate boilerplate declarations and generate if there aren't any errors.
+      //
+
+      final generator = ImplGenerator(log, sourceFile);
+
       for (final declaration in declarations) {
-        hasErrors = false;
+        hadErrors = false;
         declaration.validate(errorCollector);
-        if (!hasErrors) {
+        if (!hadErrors) {
           generator.generate([declaration]);
         } else {
+          // Log the declaration that had issues for debugging purposes.
           log.info(declaration);
           declaration.members.forEach(log.info);
-          hasErrors = false;
         }
       }
 
