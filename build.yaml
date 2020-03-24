@@ -21,12 +21,8 @@ targets:
         enabled: true
         generate_for:
           exclude:
-            # This tests un-built behavior, and therefore should not be built
-            - "lib/src/component_declaration/annotations.dart"
-            - "lib/src/component_declaration/builder_helpers.dart"
-            - "lib/src/component_declaration/component_base.dart"
-            - "lib/src/component_declaration/component_base_2.dart"
-            - "lib/src/builder/**"
+            # These test un-built base class behavior, and contain code that might look like declarations
+            # and should definitely not be built
             - "test/over_react/component_declaration/builder_helpers_test.dart"
             - "test/over_react/component_declaration/component_base_test.dart"
 
