@@ -24,9 +24,11 @@ import 'package:over_react/src/component_declaration/annotations.dart';
 
 part 'prop_mixins.over_react.g.dart';
 
-/// This class is only present to allow for consumers which have used the
-/// --backwards-compat flag with over_react_codemod to statically analyze:
-/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// This class is present:
+///
+/// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
+///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
 abstract class $ReactPropsMixin {
   static const PropsMeta meta = _$metaForReactPropsMixin;
 }
@@ -62,9 +64,11 @@ abstract class _$ReactPropsMixin {
   dynamic ref;
 }
 
-/// This class is only present to allow for consumers which have used the
-/// --backwards-compat flag with over_react_codemod to statically analyze:
-/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// This class is present:
+///
+/// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
+///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
 abstract class $DomPropsMixin {
   static const PropsMeta meta = _$metaForDomPropsMixin;
 }
@@ -135,9 +139,11 @@ abstract class _$DomPropsMixin {
   bool autoFocus;
 }
 
-/// This class is only present to allow for consumers which have used the
-/// --backwards-compat flag with over_react_codemod to statically analyze:
-/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// This class is present:
+///
+/// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
+///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
 abstract class $SvgPropsMixin {
   static const PropsMeta meta = _$metaForSvgPropsMixin;
 }
@@ -178,9 +184,11 @@ abstract class _$SvgPropsMixin {
       vectorEffect, version, vertAdvY, vertOriginX, vertOriginY, viewBox, viewTarget, visibility, widths, wordSpacing, writingMode,
       x, x1, x2, xHeight, xlinkActuate, xlinkArcrole, xlinkHref, xlinkRole, xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace, y1, y2, y;
 }
-/// This class is only present to allow for consumers which have used the
-/// --backwards-compat flag with over_react_codemod to statically analyze:
-/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// This class is present:
+///
+/// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
+///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
 abstract class $UbiquitousDomPropsMixin {
   static const PropsMeta meta = _$metaForUbiquitousDomPropsMixin;
 }
