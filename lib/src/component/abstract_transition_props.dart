@@ -14,28 +14,17 @@
 
 library over_react.abstract_transition_props;
 
-import 'dart:collection';
-
-import 'package:over_react/over_react.dart';
+import 'package:over_react/over_react.dart' hide AbstractTransitionComponent, AbstractTransitionProps;
+import 'package:over_react/components.dart' show AbstractTransitionComponent, AbstractTransitionProps;
 
 part 'abstract_transition_props.over_react.g.dart';
 
 
-/// This class is only present to allow for consumers which have used the
-/// --backwards-compat flag with over_react_codemod to statically analyze:
-/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
-abstract class $TransitionPropsMixin {
-  static const PropsMeta meta = _$metaForTransitionPropsMixin;
-}
-
 /// Props that mirror the implementation of [AbstractTransitionProps], made available as a mixin for components
 /// that cannot extend directly from [AbstractTransitionComponent].
-@PropsMixin()
-abstract class _$TransitionPropsMixin {
-  static final TransitionPropsMapView defaultProps = TransitionPropsMapView({})
+mixin TransitionPropsMixin on UiProps {
+  static final TransitionPropsMixin defaultProps = TransitionPropsMapView({})
     ..transitionCount = 1;
-
-  Map get props;
 
   /// The number of `transitionend` event that occur when the transition node is shown/hidden.
   ///
@@ -71,13 +60,4 @@ abstract class _$TransitionPropsMixin {
   Callback onDidShow;
 }
 
-class TransitionPropsMapView extends MapView with
-    TransitionPropsMixin {
-  /// Create a new instance backed by the specified map.
-  TransitionPropsMapView(Map map) : super(map);
-
-  /// The props to be manipulated via the getters/setters.
-  /// In this case, it's the current MapView object.
-  @override
-  Map get props => this;
-}
+UiFactory<TransitionPropsMixin> TransitionPropsMapView = _$TransitionPropsMapView;

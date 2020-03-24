@@ -40,31 +40,26 @@ UiFactory<TodoListItemProps> ConnectedTodoListItem = connect<AppState, TodoListI
   },
 )(TodoListItem);
 
-@Factory()
 UiFactory<TodoListItemProps> TodoListItem =
     // ignore: undefined_identifier
     _$TodoListItem;
 
-@Props()
-class _$TodoListItemProps extends UiProps
-    with ListItemPropsMixin,
-        // ignore: mixin_of_non_class, undefined_class
-        $ListItemPropsMixin {
+mixin TodoListItemPropsMixin on UiProps, ListItemPropsMixin {
   @requiredProp
   @override
   Todo model;
 }
 
-@State()
-class _$TodoListItemState extends UiState
-    with ListItemStateMixin,
-         // ignore: mixin_of_non_class, undefined_class
-         $ListItemStateMixin {
+class TodoListItemProps = UiProps with ListItemPropsMixin, TodoListItemPropsMixin;
+
+mixin TodoListItemStateMixin on UiState, ListItemStateMixin {
   @override
   Todo localModel;
 }
 
-@Component2()
+class TodoListItemState = UiState with ListItemStateMixin, TodoListItemStateMixin;
+
+
 class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, TodoListItemState>
     with ListItemMixin<Todo, TodoListItemProps, TodoListItemState>, RedrawCounterMixin {
   @override
@@ -255,16 +250,4 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
       'onClick': (_) { exitEditable(saveChanges: true); },
     }, 'Save');
   }
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class TodoListItemProps extends _$TodoListItemProps with _$TodoListItemPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForTodoListItemProps;
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class TodoListItemState extends _$TodoListItemState with _$TodoListItemStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaForTodoListItemState;
 }

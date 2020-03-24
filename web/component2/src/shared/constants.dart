@@ -41,10 +41,7 @@ class ToggleBehaviorType extends DebugFriendlyConstant {
   String get debugDescription => 'typeName: $typeName';
 }
 
-@PropsMixin()
-abstract class _$AbstractInputPropsMixin {
-  Map get props;
-
+mixin AbstractInputPropsMixin on UiProps {
   /// The id for the input.
   ///
   /// If unspecified, [AbstractInputStateMixin.id] will be generated.
@@ -78,10 +75,7 @@ abstract class _$AbstractInputPropsMixin {
   ToggleBehaviorType toggleType;
 }
 
-@StateMixin()
-abstract class _$AbstractInputStateMixin {
-  Map get state;
-
+mixin AbstractInputStateMixin on UiState {
   /// An auto-generated GUID, used as a fallback when the [AbstractInputPropsMixin.id] prop is unspecified,
   /// and saved on the state so it will persist across remounts.
   ///

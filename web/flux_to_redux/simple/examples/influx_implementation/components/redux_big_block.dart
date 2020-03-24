@@ -23,17 +23,16 @@ UiFactory<ReduxBigBlockProps> ConnectedReduxBigBlock = connect<FluxStore, ReduxB
   pure: false,
 )(ReduxBigBlock);
 
-@Factory()
 UiFactory<ReduxBigBlockProps> ReduxBigBlock = _$ReduxBigBlock;
 
-@Props()
-class _$ReduxBigBlockProps extends UiProps with ConnectPropsMixin {
+mixin ReduxBigBlockPropsMixin on UiProps {
   String backgroundColor; // [1]
 
   void Function() changeBackgroundColor; // [2]
 }
 
-@Component2()
+class ReduxBigBlockProps = UiProps with ReduxBigBlockPropsMixin, ConnectPropsMixin;
+
 class ReduxBigBlockComponent extends UiComponent2<ReduxBigBlockProps> {
   @override
   render() {

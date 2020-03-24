@@ -3,14 +3,13 @@ import 'dart:async';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component/error_boundary_api.dart';
 
 part 'error_boundary_mixins.over_react.g.dart';
 
-@visibleForTesting
-const String defaultErrorBoundaryLoggerName = 'over_react.ErrorBoundary';
-
 /// An API mixin used for shared APIs in ErrorBoundary Components.
-mixin ErrorBoundaryApi<T extends ErrorBoundaryPropsMixin, S extends ErrorBoundaryStateMixin> on UiStatefulComponent2<T, S> {
+@Deprecated('For internal use with deprecated ErrorBoundary components only. Remove in the 4.0.0 release.')
+mixin LegacyErrorBoundaryApi<T extends ErrorBoundaryPropsMixin, S extends ErrorBoundaryStateMixin> on UiStatefulComponent2<T, S> {
   /// Resets the [ErrorBoundary] to a non-error state.
   ///
   /// This can be called manually on the component instance using a `ref` -
@@ -131,20 +130,20 @@ abstract class _$ErrorBoundaryStateMixin implements UiState {
 
   /// Whether a component within the tree that the [ErrorBoundary] is wrapping around threw an error.
   ///
-  /// * When `true`, and [ErrorBoundaryProps.fallbackUIRenderer] is set, the return value of that callback
+  /// * When `true`, and [ErrorBoundaryPropsMixin.fallbackUIRenderer] is set, the return value of that callback
   ///   will be rendered instead.
-  /// * When `true`, and [ErrorBoundaryProps.fallbackUIRenderer] is not set, the [ErrorBoundary] will re-mount
+  /// * When `true`, and [ErrorBoundaryPropsMixin.fallbackUIRenderer] is not set, the [ErrorBoundary] will re-mount
   ///   the tree to attempt to automatically recover from the error.
   ///
   ///   If an identical error is thrown from an identical component within the tree consecutively
-  ///   more frequently than [ErrorBoundaryProps.identicalErrorFrequencyTolerance], a static copy of
+  ///   more frequently than [ErrorBoundaryPropsMixin.identicalErrorFrequencyTolerance], a static copy of
   ///   the render tree's HTML that was captured at the time of the error will be rendered.
-  ///   See: [ErrorBoundaryProps.onComponentIsUnrecoverable] for more information about this scenario.
+  ///   See: [ErrorBoundaryPropsMixin.onComponentIsUnrecoverable] for more information about this scenario.
   bool hasError;
 
   /// Whether to show "fallback" UI when [hasError] is true.
   ///
-  /// This value will always be true if [ErrorBoundaryProps.fallbackUIRenderer] is non-null.
+  /// This value will always be true if [ErrorBoundaryPropsMixin.fallbackUIRenderer] is non-null.
   bool showFallbackUIOnError;
 }
 
@@ -349,7 +348,7 @@ mixin ErrorBoundaryMixin<T extends ErrorBoundaryPropsMixin, S extends ErrorBound
   /// * __After the timer's callback fires__ - internal component logic will NOT treat the second error
   ///   as an unrecoverable one.
   ///
-  /// > Not used when [ErrorBoundaryProps.fallbackUIRenderer] is set.
+  /// > Not used when [ErrorBoundaryPropsMixin.fallbackUIRenderer] is set.
   void _startIdenticalErrorTimer() {
     if (_identicalErrorTimer != null) return;
 

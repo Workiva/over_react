@@ -6,24 +6,20 @@ import 'package:todo_client/src/components/shared/material_ui.dart';
 // ignore: uri_has_not_been_generated
 part 'save_as_menu_item.over_react.g.dart';
 
-@Factory()
 UiFactory<SaveAsMenuItemProps> SaveAsMenuItem =
     // ignore: undefined_identifier
     _$SaveAsMenuItem;
 
-@Props()
-class _$SaveAsMenuItemProps extends UiProps {
+mixin SaveAsMenuItemProps on UiProps {
   String initialValue;
   @requiredProp
   Function(String newName) onSave;
 }
 
-@State()
-class _$SaveAsMenuItemState extends UiState {
+mixin SaveAsMenuItemState on UiState {
   bool isEditable;
 }
 
-@Component2()
 class SaveAsMenuItemComponent extends UiStatefulComponent2<SaveAsMenuItemProps, SaveAsMenuItemState> {
   @override
   get defaultProps => (newProps()..initialValue = '');
@@ -56,16 +52,4 @@ class SaveAsMenuItemComponent extends UiStatefulComponent2<SaveAsMenuItemProps, 
       setState(newState()..isEditable = true);
     }
   }
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class SaveAsMenuItemProps extends _$SaveAsMenuItemProps with _$SaveAsMenuItemPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForSaveAsMenuItemProps;
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class SaveAsMenuItemState extends _$SaveAsMenuItemState with _$SaveAsMenuItemStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaForSaveAsMenuItemState;
 }

@@ -10,6 +10,8 @@ part of 'toggle_button_group.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $ToggleButtonGroupComponentFactory = registerComponent2(
   () => _$ToggleButtonGroupComponent(),
   builderFactory: ToggleButtonGroup,
@@ -20,27 +22,6 @@ final $ToggleButtonGroupComponentFactory = registerComponent2(
   displayName: 'ToggleButtonGroup',
 );
 
-abstract class _$ToggleButtonGroupPropsAccessorsMixin
-    implements _$ToggleButtonGroupProps {
-  @override
-  Map get props;
-
-  /* GENERATED CONSTANTS */
-
-  static const List<PropDescriptor> $props = [];
-  static const List<String> $propKeys = [];
-}
-
-const PropsMeta _$metaForToggleButtonGroupProps = PropsMeta(
-  fields: _$ToggleButtonGroupPropsAccessorsMixin.$props,
-  keys: _$ToggleButtonGroupPropsAccessorsMixin.$propKeys,
-);
-
-class ToggleButtonGroupProps extends _$ToggleButtonGroupProps
-    with _$ToggleButtonGroupPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForToggleButtonGroupProps;
-}
-
 _$$ToggleButtonGroupProps _$ToggleButtonGroup([Map backingProps]) =>
     backingProps == null
         ? _$$ToggleButtonGroupProps$JsMap(JsBackedMap())
@@ -49,8 +30,14 @@ _$$ToggleButtonGroupProps _$ToggleButtonGroup([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$ToggleButtonGroupProps extends _$ToggleButtonGroupProps
-    with _$ToggleButtonGroupPropsAccessorsMixin
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ToggleButtonGroupProps extends UiProps
+    with
+        ButtonGroupProps,
+        $ButtonGroupProps,
+        AbstractInputPropsMixin,
+        $AbstractInputPropsMixin
     implements ToggleButtonGroupProps {
   _$$ToggleButtonGroupProps._();
 
@@ -73,10 +60,12 @@ abstract class _$$ToggleButtonGroupProps extends _$ToggleButtonGroupProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'ToggleButtonGroupProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ToggleButtonGroupProps$PlainMap extends _$$ToggleButtonGroupProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -94,6 +83,8 @@ class _$$ToggleButtonGroupProps$PlainMap extends _$$ToggleButtonGroupProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ToggleButtonGroupProps$JsMap extends _$$ToggleButtonGroupProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -109,32 +100,17 @@ class _$$ToggleButtonGroupProps$JsMap extends _$$ToggleButtonGroupProps {
   JsBackedMap _props;
 }
 
-abstract class _$ToggleButtonGroupStateAccessorsMixin
-    implements _$ToggleButtonGroupState {
-  @override
-  Map get state;
-
-  /* GENERATED CONSTANTS */
-
-  static const List<StateDescriptor> $state = [];
-  static const List<String> $stateKeys = [];
-}
-
-const StateMeta _$metaForToggleButtonGroupState = StateMeta(
-  fields: _$ToggleButtonGroupStateAccessorsMixin.$state,
-  keys: _$ToggleButtonGroupStateAccessorsMixin.$stateKeys,
-);
-
-class ToggleButtonGroupState extends _$ToggleButtonGroupState
-    with _$ToggleButtonGroupStateAccessorsMixin {
-  static const StateMeta meta = _$metaForToggleButtonGroupState;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$ToggleButtonGroupState extends _$ToggleButtonGroupState
-    with _$ToggleButtonGroupStateAccessorsMixin
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ToggleButtonGroupState extends UiState
+    with
+        ButtonGroupState,
+        $ButtonGroupState,
+        AbstractInputStateMixin,
+        $AbstractInputStateMixin
     implements ToggleButtonGroupState {
   _$$ToggleButtonGroupState._();
 
@@ -152,6 +128,8 @@ abstract class _$$ToggleButtonGroupState extends _$ToggleButtonGroupState
 }
 
 // Concrete state implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ToggleButtonGroupState$PlainMap extends _$$ToggleButtonGroupState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -169,6 +147,8 @@ class _$$ToggleButtonGroupState$PlainMap extends _$$ToggleButtonGroupState {
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ToggleButtonGroupState$JsMap extends _$$ToggleButtonGroupState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -188,6 +168,8 @@ class _$$ToggleButtonGroupState$JsMap extends _$$ToggleButtonGroupState {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
   _$$ToggleButtonGroupProps$JsMap _cachedTypedProps;
 
@@ -241,10 +223,14 @@ class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$ToggleButtonGroupProps.
+  /// The default consumed props, taken from ToggleButtonGroupProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForToggleButtonGroupProps
-  ];
+  final List<ConsumedProps> $defaultConsumedProps = const [];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        ButtonGroupProps: $ButtonGroupProps.meta,
+        AbstractInputPropsMixin: $AbstractInputPropsMixin.meta,
+      });
 }

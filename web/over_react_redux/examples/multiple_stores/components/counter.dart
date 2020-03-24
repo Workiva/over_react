@@ -13,11 +13,9 @@ UiFactory<CounterProps> ConnectedCounterWithDifferentContext = connect<CounterSt
   context: bigCounterContext,
 )(Counter);
 
-@Factory()
 UiFactory<CounterProps> Counter = _$Counter;
 
-@Props()
-class _$CounterProps extends UiProps with ConnectPropsMixin {
+mixin CounterPropsMixin on UiProps {
   int currentCount;
 
   Map<String, dynamic> wrapperStyles;
@@ -27,7 +25,8 @@ class _$CounterProps extends UiProps with ConnectPropsMixin {
   void Function() decrement;
 }
 
-@Component2()
+class CounterProps = UiProps with CounterPropsMixin, ConnectPropsMixin;
+
 class CounterComponent extends UiComponent2<CounterProps> {
   @override
   render() {

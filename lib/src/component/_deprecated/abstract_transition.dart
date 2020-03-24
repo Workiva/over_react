@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library over_react.abstract_transition;
+// ignore_for_file: deprecated_member_use_from_same_package
+library over_react.deprecated.abstract_transition;
 
 import 'dart:async';
 import 'dart:html';
@@ -21,13 +22,18 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/component_base.dart' as component_base;
 
-part 'abstract_transition2.over_react.g.dart';
+import '../abstract_transition.dart' show TransitionPhase;
+export '../abstract_transition.dart' show TransitionPhase;
 
+part 'abstract_transition.over_react.g.dart';
+
+@Deprecated('Use the `AbstractTransitionProps` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release.')
 @AbstractProps()
-abstract class _$AbstractTransition2Props extends UiProps with TransitionPropsMixin {}
+abstract class _$AbstractTransitionProps extends UiProps with TransitionPropsMixin {}
 
+@Deprecated('Use the `AbstractTransitionState` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release.')
 @AbstractState()
-abstract class _$AbstractTransition2State extends UiState {
+abstract class _$AbstractTransitionState extends UiState {
   /// The current phase of transition the [AbstractTransitionComponent] is in.
   ///
   /// Default:  [AbstractTransitionComponent.initiallyShown] ? [TransitionPhase.SHOWN] : [TransitionPhase.HIDDEN]
@@ -80,10 +86,11 @@ abstract class _$AbstractTransition2State extends UiState {
 ///   * [show]
 ///   * [hide]
 ///   * [toggle]
-@AbstractComponent2()
-abstract class AbstractTransitionComponent2<T extends AbstractTransition2Props,
-                                           S extends AbstractTransition2State>
-  extends UiStatefulComponent2<T, S> {
+@Deprecated('Use the `AbstractTransitionComponent` exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release.')
+@AbstractComponent()
+abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
+                                           S extends AbstractTransitionState>
+  extends UiStatefulComponent<T, S> {
   /// The DOM attribute used to indicate the current transition phase,
   /// added in test mode in [getTransitionTestAttributes].
   ///
@@ -103,12 +110,12 @@ abstract class AbstractTransitionComponent2<T extends AbstractTransition2Props,
   ];
 
   @override
-  Map get defaultProps => (newProps()
+  Map getDefaultProps() => (newProps()
     ..addProps(TransitionPropsMixin.defaultProps)
   );
 
   @override
-  Map get initialState => (newState()
+  Map getInitialState() => (newState()
     ..transitionPhase = this.initiallyShown ? TransitionPhase.SHOWN : TransitionPhase.HIDDEN
   );
 
@@ -270,7 +277,7 @@ abstract class AbstractTransitionComponent2<T extends AbstractTransition2Props,
 
   @mustCallSuper
   @override
-  void componentDidUpdate(Map prevProps, Map prevState, [dynamic snapshot]) {
+  void componentDidUpdate(Map prevProps, Map prevState) {
     _transitionNotGuaranteed = false;
 
     var tPrevState = typedStateFactory(prevState);

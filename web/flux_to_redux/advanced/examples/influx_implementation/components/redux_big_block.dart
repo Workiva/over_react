@@ -68,11 +68,9 @@ UiFactory<ReduxBigBlockProps> ConnectedReduxBigBlock = composeHocs([
   ),
 ])(ReduxBigBlock);
 
-@Factory()
 UiFactory<ReduxBigBlockProps> ReduxBigBlock = _$ReduxBigBlock;
 
-@Props()
-class _$ReduxBigBlockProps extends UiProps with ConnectPropsMixin {
+mixin ReduxBigBlockPropsMixin on UiProps {
   String backgroundColor; // [1]
   String blockTwoBackgroundColor; // [1]
   String blockThreeBackgroundColor; // [1]
@@ -84,7 +82,8 @@ class _$ReduxBigBlockProps extends UiProps with ConnectPropsMixin {
   void Function() changeBlockThreeBackgroundColor; // [2]
 }
 
-@Component2()
+class ReduxBigBlockProps = UiProps with ReduxBigBlockPropsMixin, ConnectPropsMixin;
+
 class ReduxBigBlockComponent extends UiComponent2<ReduxBigBlockProps> {
   @override
   render() {

@@ -4,13 +4,10 @@ import '../store.dart';
 
 part 'big_block.over_react.g.dart';
 
-@Factory()
 UiFactory<BigBlockProps> BigBlock = _$BigBlock;
 
-@Props()
-class _$BigBlockProps extends FluxUiProps<RandomColorActions, RandomColorStore> {}
+class BigBlockProps = UiProps with FluxUiPropsMixin<RandomColorActions, RandomColorStore>;
 
-@Component2()
 class BigBlockComponent extends FluxUiComponent2<BigBlockProps> {
   @override
   render() {
@@ -26,11 +23,4 @@ class BigBlockComponent extends FluxUiComponent2<BigBlockProps> {
       ),
     ));
   }
-}
-
-// AF-3369 This will be removed once the transition to Dart 2 is complete.
-// ignore: mixin_of_non_class, undefined_class
-class BigBlockProps extends _$BigBlockProps with _$BigBlockPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForBigBlockProps;
 }

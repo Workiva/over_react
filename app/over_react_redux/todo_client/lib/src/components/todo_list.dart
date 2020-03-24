@@ -19,18 +19,17 @@ UiFactory<TodoListProps> ConnectedTodoList = connect<AppState, TodoListProps>(
     forwardRef: true,
 )(TodoList);
 
-@Factory()
 UiFactory<TodoListProps> TodoList =
     // ignore: undefined_identifier
     _$TodoList;
 
-@Props()
-class _$TodoListProps extends UiProps with ConnectPropsMixin {
+mixin TodoListPropsMixin on UiProps {
   @requiredProp
   List<Todo> todos;
 }
 
-@Component2()
+class TodoListProps = UiProps with TodoListPropsMixin, ConnectPropsMixin;
+
 class TodoListComponent extends UiComponent2<TodoListProps> with RedrawCounterMixin {
   @override
   render() {
@@ -49,10 +48,4 @@ class TodoListComponent extends UiComponent2<TodoListProps> with RedrawCounterMi
       ..addTestId('todo_client.TodoListItem.${todo.id}')
     )();
   }
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class TodoListProps extends _$TodoListProps with _$TodoListPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForTodoListProps;
 }

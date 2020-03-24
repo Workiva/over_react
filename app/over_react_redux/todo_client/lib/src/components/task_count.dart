@@ -22,13 +22,11 @@ UiFactory<TaskCountBadgeProps> ConnectedTaskCountBadge = connect<AppState, TaskC
     },
 )(TaskCountBadge);
 
-@Factory()
 UiFactory<TaskCountBadgeProps> TaskCountBadge =
     // ignore: undefined_identifier
     _$TaskCountBadge;
 
-@Props()
-class _$TaskCountBadgeProps extends UiProps with ConnectPropsMixin {
+mixin TaskCountBadgePropsMixin on UiProps {
   @requiredProp
   User user;
 
@@ -36,7 +34,8 @@ class _$TaskCountBadgeProps extends UiProps with ConnectPropsMixin {
   List<String> assignedTodoIds;
 }
 
-@Component2()
+class TaskCountBadgeProps = UiProps with TaskCountBadgePropsMixin, ConnectPropsMixin;
+
 class TaskCountBadgeComponent extends UiComponent2<TaskCountBadgeProps> {
   @override
   render() {
@@ -76,10 +75,4 @@ class TaskCountBadgeComponent extends UiComponent2<TaskCountBadgeProps> {
 
     return 'There are $taskCount tasks assigned to ${props.user.name}';
   }
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class TaskCountBadgeProps extends _$TaskCountBadgeProps with _$TaskCountBadgePropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForTaskCountBadgeProps;
 }

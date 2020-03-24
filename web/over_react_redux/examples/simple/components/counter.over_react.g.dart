@@ -10,6 +10,8 @@ part of 'counter.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $CounterComponentFactory = registerComponent2(
   () => _$CounterComponent(),
   builderFactory: Counter,
@@ -19,90 +21,6 @@ final $CounterComponentFactory = registerComponent2(
   displayName: 'Counter',
 );
 
-abstract class _$CounterPropsAccessorsMixin implements _$CounterProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$CounterProps.currentCount] -->
-  @override
-  int get currentCount =>
-      props[_$key__currentCount___$CounterProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$CounterProps.currentCount] -->
-  @override
-  set currentCount(int value) =>
-      props[_$key__currentCount___$CounterProps] = value;
-
-  /// <!-- Generated from [_$CounterProps.wrapperStyles] -->
-  @override
-  Map<String, dynamic> get wrapperStyles =>
-      props[_$key__wrapperStyles___$CounterProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$CounterProps.wrapperStyles] -->
-  @override
-  set wrapperStyles(Map<String, dynamic> value) =>
-      props[_$key__wrapperStyles___$CounterProps] = value;
-
-  /// <!-- Generated from [_$CounterProps.increment] -->
-  @override
-  void Function() get increment =>
-      props[_$key__increment___$CounterProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$CounterProps.increment] -->
-  @override
-  set increment(void Function() value) =>
-      props[_$key__increment___$CounterProps] = value;
-
-  /// <!-- Generated from [_$CounterProps.decrement] -->
-  @override
-  void Function() get decrement =>
-      props[_$key__decrement___$CounterProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$CounterProps.decrement] -->
-  @override
-  set decrement(void Function() value) =>
-      props[_$key__decrement___$CounterProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__currentCount___$CounterProps =
-      PropDescriptor(_$key__currentCount___$CounterProps);
-  static const PropDescriptor _$prop__wrapperStyles___$CounterProps =
-      PropDescriptor(_$key__wrapperStyles___$CounterProps);
-  static const PropDescriptor _$prop__increment___$CounterProps =
-      PropDescriptor(_$key__increment___$CounterProps);
-  static const PropDescriptor _$prop__decrement___$CounterProps =
-      PropDescriptor(_$key__decrement___$CounterProps);
-  static const String _$key__currentCount___$CounterProps =
-      'CounterProps.currentCount';
-  static const String _$key__wrapperStyles___$CounterProps =
-      'CounterProps.wrapperStyles';
-  static const String _$key__increment___$CounterProps =
-      'CounterProps.increment';
-  static const String _$key__decrement___$CounterProps =
-      'CounterProps.decrement';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__currentCount___$CounterProps,
-    _$prop__wrapperStyles___$CounterProps,
-    _$prop__increment___$CounterProps,
-    _$prop__decrement___$CounterProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__currentCount___$CounterProps,
-    _$key__wrapperStyles___$CounterProps,
-    _$key__increment___$CounterProps,
-    _$key__decrement___$CounterProps
-  ];
-}
-
-const PropsMeta _$metaForCounterProps = PropsMeta(
-  fields: _$CounterPropsAccessorsMixin.$props,
-  keys: _$CounterPropsAccessorsMixin.$propKeys,
-);
-
-class CounterProps extends _$CounterProps with _$CounterPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForCounterProps;
-}
-
 _$$CounterProps _$Counter([Map backingProps]) => backingProps == null
     ? _$$CounterProps$JsMap(JsBackedMap())
     : _$$CounterProps(backingProps);
@@ -110,8 +28,14 @@ _$$CounterProps _$Counter([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$CounterProps extends _$CounterProps
-    with _$CounterPropsAccessorsMixin
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$CounterProps extends UiProps
+    with
+        CounterPropsMixin,
+        $CounterPropsMixin,
+        ConnectPropsMixin,
+        $ConnectPropsMixin
     implements CounterProps {
   _$$CounterProps._();
 
@@ -134,10 +58,12 @@ abstract class _$$CounterProps extends _$CounterProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'CounterProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$CounterProps$PlainMap extends _$$CounterProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -155,6 +81,8 @@ class _$$CounterProps$PlainMap extends _$$CounterProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$CounterProps$JsMap extends _$$CounterProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -174,6 +102,8 @@ class _$$CounterProps$JsMap extends _$$CounterProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$CounterComponent extends CounterComponent {
   _$$CounterProps$JsMap _cachedTypedProps;
 
@@ -205,10 +135,87 @@ class _$CounterComponent extends CounterComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$CounterProps.
+  /// The default consumed props, taken from CounterProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForCounterProps
+  final List<ConsumedProps> $defaultConsumedProps = const [];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        CounterPropsMixin: $CounterPropsMixin.meta,
+        ConnectPropsMixin: $ConnectPropsMixin.meta,
+      });
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $CounterPropsMixin on CounterPropsMixin {
+  static const PropsMeta meta = _$metaForCounterPropsMixin;
+  @override
+  int get currentCount =>
+      props[_$key__currentCount__CounterPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set currentCount(int value) =>
+      props[_$key__currentCount__CounterPropsMixin] = value;
+  @override
+  Map<String, dynamic> get wrapperStyles =>
+      props[_$key__wrapperStyles__CounterPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set wrapperStyles(Map<String, dynamic> value) =>
+      props[_$key__wrapperStyles__CounterPropsMixin] = value;
+  @override
+  void Function() get increment =>
+      props[_$key__increment__CounterPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set increment(void Function() value) =>
+      props[_$key__increment__CounterPropsMixin] = value;
+  @override
+  void Function() get decrement =>
+      props[_$key__decrement__CounterPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set decrement(void Function() value) =>
+      props[_$key__decrement__CounterPropsMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__currentCount__CounterPropsMixin =
+      PropDescriptor(_$key__currentCount__CounterPropsMixin);
+  static const PropDescriptor _$prop__wrapperStyles__CounterPropsMixin =
+      PropDescriptor(_$key__wrapperStyles__CounterPropsMixin);
+  static const PropDescriptor _$prop__increment__CounterPropsMixin =
+      PropDescriptor(_$key__increment__CounterPropsMixin);
+  static const PropDescriptor _$prop__decrement__CounterPropsMixin =
+      PropDescriptor(_$key__decrement__CounterPropsMixin);
+  static const String _$key__currentCount__CounterPropsMixin =
+      'CounterPropsMixin.currentCount';
+  static const String _$key__wrapperStyles__CounterPropsMixin =
+      'CounterPropsMixin.wrapperStyles';
+  static const String _$key__increment__CounterPropsMixin =
+      'CounterPropsMixin.increment';
+  static const String _$key__decrement__CounterPropsMixin =
+      'CounterPropsMixin.decrement';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__currentCount__CounterPropsMixin,
+    _$prop__wrapperStyles__CounterPropsMixin,
+    _$prop__increment__CounterPropsMixin,
+    _$prop__decrement__CounterPropsMixin
+  ];
+  static const List<String> $propKeys = [
+    _$key__currentCount__CounterPropsMixin,
+    _$key__wrapperStyles__CounterPropsMixin,
+    _$key__increment__CounterPropsMixin,
+    _$key__decrement__CounterPropsMixin
   ];
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForCounterPropsMixin = PropsMeta(
+  fields: $CounterPropsMixin.$props,
+  keys: $CounterPropsMixin.$propKeys,
+);

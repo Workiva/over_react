@@ -1,13 +1,11 @@
 import 'dart:html';
 
-import 'package:over_react/over_react.dart';
+import 'package:over_react/components.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
 
 import 'src/demos.dart';
 
 void main() {
-  setClientConfiguration();
-
   react_dom.render(
     ErrorBoundary()(buttonExamplesDemo()), querySelector('$demoMountNodeSelectorPrefix--button'));
 

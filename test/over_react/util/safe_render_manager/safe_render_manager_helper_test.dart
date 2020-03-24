@@ -10,7 +10,6 @@ import 'package:test/test.dart';
 
 /// Main entry point for SafeRenderManagerHelper testing
 main() {
-  setClientConfiguration();
   enableTestMode();
 
   group('SafeRenderManagerHelper component', () {
