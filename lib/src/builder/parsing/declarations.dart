@@ -52,7 +52,7 @@ bool mightContainDeclarations(String source) {
   return _maybeDeclarationPattern.hasMatch(source);
 }
 
-/// Iterates over all [members] provided a `yield`s [BoilerplateDeclaration]s for
+/// Iterates over all [members] provided and `yield`s [BoilerplateDeclaration]s for
 /// the members.
 ///
 /// The order of evaluation is as follows:
@@ -67,12 +67,24 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     BoilerplateMembers members, ErrorCollector errorCollector) sync* {
   if (members.isEmpty) return;
 
-  final factories = members.factories;
-  final props = members.props;
-  final propsMixins = members.propsMixins;
-  final components = members.components;
-  final states = members.states;
-  final stateMixins = members.stateMixins;
+  final _consumedMembers = <BoilerplateMember>{};
+
+  /// Indicate that [member] has been grouped into a declaration,
+  /// so that it is not grouped into another declaration.
+  void consume(BoilerplateMember member) {
+    if (member == null) throw ArgumentError.notNull('member');
+
+    final wasAdded = _consumedMembers.add(member);
+
+    if (!wasAdded) throw StateError('Member should not have been consumed already: $member');
+  }
+
+  /// Returns whether [member] has already been grouped into a declaration.
+  bool hasBeenConsumed(BoilerplateMember member) {
+    if (member == null) throw ArgumentError.notNull('member');
+
+    return _consumedMembers.contains(member);
+  }
 
   // -----------------------------------------------------------------------------------------------
   //
@@ -84,52 +96,54 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   //
   // So, we handle them individually, similarly to mixins.
   //
-  // We also want to process and remove them before the special-case one-component-per-file
+  // We also want to process and consume them before the special-case one-component-per-file
   // handling, since it's possible to declare a component with mismatched names as well as
   // an abstract component in the same file.
   //
 
-  for (final propsClass in List.of(props)) {
+  for (final propsClass in members.props) {
     final version = resolveVersion([propsClass]);
     if (version.shouldGenerate &&
         version.version.isLegacy &&
         propsClass.node.hasAnnotationWithName('AbstractProps')) {
-      props.remove(propsClass);
+      consume(propsClass);
       yield LegacyAbstractPropsDeclaration(version: version.version, props: propsClass);
     }
   }
 
-  for (final stateClass in List.of(states)) {
+  for (final stateClass in members.states) {
     final version = resolveVersion([stateClass]);
     if (version.shouldGenerate &&
         version.version.isLegacy &&
         stateClass.node.hasAnnotationWithName('AbstractState')) {
-      states.remove(stateClass);
+      consume(stateClass);
       yield LegacyAbstractStateDeclaration(version: version.version, state: stateClass);
     }
   }
 
-  components.removeWhere((component) {
+  for (final component in members.components) {
     final version = resolveVersion([component]);
-    return version.version.isLegacy && component.hasAbstractAnnotation;
-  });
+    if (version.version.isLegacy && component.hasAbstractAnnotation) {
+      consume(component);
+    }
+  }
 
   // -----------------------------------------------------------------------------------------------
   //
   // Props/state mixins
   //
-  // Don't remove them from the list so that they can be associated with any components
+  // Don't consume them so that they can be associated with any components
   // that use them in the shorthand syntax.
   //
 
-  for (var propsMixin in propsMixins) {
+  for (var propsMixin in members.propsMixins) {
     final version = resolveVersion([propsMixin]);
     if (version.shouldGenerate) {
       yield PropsMixinDeclaration(version: version.version, mixin: propsMixin);
     }
   }
 
-  for (var stateMixin in stateMixins) {
+  for (var stateMixin in members.stateMixins) {
     final version = resolveVersion([stateMixin]);
     if (version.shouldGenerate) {
       yield StateMixinDeclaration(version: version.version, mixin: stateMixin);
@@ -144,21 +158,39 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   // This is to prevent regressing these cases when switching to the new parser, since the old one
   // was name-agnostic and expected at most one non-abstract component per file.
 
-  if (props.length == 1 && components.length == 1 && factories.length == 1 && states.length <= 1) {
-    final version = resolveVersion([
-      props.single,
-      if (states.isNotEmpty) states.single,
-      components.single,
-      factories.single,
-    ]);
-    if (version.shouldGenerate && version.version.isLegacy) {
-      yield LegacyClassComponentDeclaration(
-        version: version.version,
-        factory: factories.removeAt(0),
-        props: props.removeAt(0),
-        state: states.isNotEmpty ? states.removeAt(0) : null,
-        component: components.removeAt(0),
-      );
+  {
+    final props = members.props.whereNot(hasBeenConsumed).toList();
+    final components = members.components.whereNot(hasBeenConsumed).toList();
+    final states = members.states.whereNot(hasBeenConsumed).toList();
+    final factories = members.factories.whereNot(hasBeenConsumed).toList();
+
+    if (props.length == 1 &&
+        components.length == 1 &&
+        factories.length == 1 &&
+        states.length <= 1) {
+      final propsClass = props.single;
+      final state = states.isNotEmpty ? states.single : null;
+      final component = components.single;
+      final factory = factories.single;
+
+      final members = [
+        propsClass,
+        if (state != null) state,
+        component,
+        factory,
+      ];
+
+      final version = resolveVersion(members);
+      if (version.shouldGenerate && version.version.isLegacy) {
+        members.forEach(consume);
+        yield LegacyClassComponentDeclaration(
+          version: version.version,
+          factory: factory,
+          props: propsClass,
+          state: state,
+          component: component,
+        );
+      }
     }
   }
 
@@ -172,46 +204,46 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
   // Give the more confident factories priority when grouping, so that medium-confidence related
   // factories that don't require generation (like aliased factories) don't trump the real factory.
-  final factoriesMostToLeastConfidence = List.of(factories)
+  final factoriesMostToLeastConfidence = List.of(members.factories)
     ..sort((a, b) => b.versionConfidence.maxConfidence.confidence
         .compareTo(a.versionConfidence.maxConfidence.confidence));
   for (final factory in factoriesMostToLeastConfidence) {
-    final propsClassOrMixin = getPropsFor(factory, props, propsMixins);
-    final stateClassOrMixin = getStateFor(factory, states, stateMixins);
-
+    final propsClassOrMixin = getPropsFor(factory, members.props, members.propsMixins);
+    final stateClassOrMixin = getStateFor(factory, members.states, members.stateMixins);
     if (propsClassOrMixin == null) {
       // will be validated below the for-loop.
       continue;
     }
+    if (hasBeenConsumed(propsClassOrMixin.either) ||
+        (stateClassOrMixin != null && hasBeenConsumed(stateClassOrMixin?.either))) {
+      // Don't try to group if the matching class has already been consumed.
+      // We do this instead of trying to get the next best match, since that can result in
+      // unexpected behavior when a class has both a props class and props mixin with multiple
+      // factories.
+      continue;
+    }
 
-    final component = getComponentFor(factory, components);
-
-    void consumeFactory() => factories.remove(factory);
+    final component = getComponentFor(factory, members.components);
+    if (component != null && hasBeenConsumed(component)) {
+      // Don't try to group if the matching class has already been consumed.
+      continue;
+    }
 
     void consumePropsAndState() {
       // Even though mixins are generated regardless of whether they're part of a component,
       // it's safe to remove them since they were generated above.
       // We do this because two factories can't have the same impl class generated from a single mixin
       // since they would collide (though, we could change that later if desired).
-
-      // Ignore this lint so we still get list_remove_unrelated_type checking. See https://github.com/dart-lang/linter/issues/2038
-      // ignore_for_file: unnecessary_lambdas
-      propsClassOrMixin.switchCase(
-        (a) => props.remove(a),
-        (b) => propsMixins.remove(b),
-      );
-      stateClassOrMixin?.switchCase(
-        (a) => states.remove(a),
-        (b) => stateMixins.remove(b),
-      );
+      consume(propsClassOrMixin.either);
+      if (stateClassOrMixin != null) {
+        consume(stateClassOrMixin.either);
+      }
     }
 
-    void consumeComponent() => components.remove(component);
-
     if (component != null) {
-      consumeFactory();
+      consume(factory);
       consumePropsAndState();
-      consumeComponent();
+      consume(component);
 
       final version = resolveVersion([
         factory,
@@ -245,7 +277,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
       final version = resolveVersion([factory, propsClassOrMixin.either]);
       // The leftover logic below will handle legacy members
       if (version.shouldGenerate && version.version == Version.v4_mixinBased) {
-        consumeFactory();
+        consume(factory);
         consumePropsAndState();
         yield PropsMapViewOrFunctionComponentDeclaration(
           version: Version.v4_mixinBased,
@@ -264,11 +296,11 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   //
 
   final allUnusedMembers = [
-    factories,
-    props,
-    states,
-    components,
-  ].expand((i) => i);
+    members.factories,
+    members.props,
+    members.states,
+    members.components,
+  ].expand((i) => i).whereNot(hasBeenConsumed);
 
   final unusedMembersByName = <String, List<BoilerplateMember>>{};
   for (var member in allUnusedMembers) {

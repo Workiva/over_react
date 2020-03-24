@@ -794,6 +794,36 @@ main() {
             verify(logger.severe(contains(errorFactoryOnly)));
           });
 
+          test('multiple factories aliasing a private factory', () {
+            setUpAndParse(r'''                                      
+                UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
+                  mapStateToProps: (state) => _Counter(),
+                )(_Counter);
+                
+                UiFactory<CounterProps> CounterWithDifferentContext = connect<CounterState, CounterProps>(
+                  mapStateToProps: (state) => _Counter(),
+                  context: bigCounterContext,
+                )(_Counter);
+                
+                UiFactory<CounterProps> _Counter = _$_Counter;
+                
+                mixin CounterPropsMixin on UiProps {}
+                
+                class CounterProps = UiProps with CounterPropsMixin, ConnectPropsMixin;
+                
+                class CounterComponent extends UiComponent2<CounterProps> {}
+            ''');
+
+            expect(declarations, unorderedEquals([
+              isA<ClassComponentDeclaration>(),
+              isA<PropsMixinDeclaration>(),
+            ]));
+
+            final componentDecl = declarations.firstWhereType<ClassComponentDeclaration>();
+
+            expect(componentDecl.factory.name.name, '_Counter');
+          });
+
           group('mismatched members names for legacy component', () {
             test('Version.v2_legacyBackwardsCompat', () {
               setUpAndParse(r'''

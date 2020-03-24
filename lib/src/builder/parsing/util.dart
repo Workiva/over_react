@@ -23,6 +23,9 @@ extension IterableUtil<E> on Iterable<E> {
   /// Creates a new [Iterable] composed of elements from `this` that are not `null`.
   Iterable<E> whereNotNull() => where((element) => element != null);
 
+  /// Creates a new [Iterable] composed of elements from `this` that are not `null`.
+  Iterable<E> whereNot(bool Function(E) test) => where((element) => !test(element));
+
   /// Finds the first element of type [T] and triggers a callback if there is nothing.
   T firstWhereType<T>({T Function() orElse}) =>
       whereType<T>().firstWhere((_) => true, orElse: orElse);
