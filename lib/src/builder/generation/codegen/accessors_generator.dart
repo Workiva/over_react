@@ -60,11 +60,10 @@ abstract class TypedMapAccessorsGenerator extends Generator {
     if (version.isLegacy) {
       final implementsClause = 'implements ${names.consumerName}$typeParamsOnSuper';
       generatedClass
-          ..write(deprecationLine)
-          ..writeln(
-          'abstract class $accessorsMixinName$typeParamsOnClass $implementsClause {\n' +
-              '  @override' +
-              '  Map get ${type.isProps ? 'props' : 'state'};\n');
+        ..write(deprecationLine)
+        ..writeln('abstract class $accessorsMixinName$typeParamsOnClass $implementsClause {\n' +
+            '  @override' +
+            '  Map get ${type.isProps ? 'props' : 'state'};\n');
       if (type.isMixin) {
         generatedClass.writeln(_generateStaticMetaDecl(names.publicName, type.isProps));
         generatedClass.write(_copyStaticMembers(node));
@@ -72,9 +71,9 @@ abstract class TypedMapAccessorsGenerator extends Generator {
       }
     } else {
       generatedClass
-          ..write(deprecationLine)
-          ..writeln(
-          'mixin $accessorsMixinName$typeParamsOnClass on ${names.consumerName}$typeParamsOnSuper {');
+        ..write(deprecationLine)
+        ..writeln(
+            'mixin $accessorsMixinName$typeParamsOnClass on ${names.consumerName}$typeParamsOnSuper {');
       generatedClass.writeln(_generateStaticMetaDecl(names.publicName, type.isProps));
     }
 

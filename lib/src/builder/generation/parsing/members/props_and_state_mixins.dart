@@ -17,7 +17,6 @@ part of '../members.dart';
 /// The class that represents a boilerplate props or state mixin.
 abstract class BoilerplatePropsOrStateMixin extends BoilerplateAccessorsMember
     with PropsStateStringHelpers {
-
   BoilerplatePropsOrStateMixin(this.node, this.companion, VersionConfidence confidence)
       : super(confidence) {
     meta = getPropsOrStateAnnotation(isProps, node);

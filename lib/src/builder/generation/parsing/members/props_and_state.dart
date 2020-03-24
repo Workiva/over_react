@@ -17,7 +17,6 @@ part of '../members.dart';
 // The class that backs both a boilerplate props and state class.
 abstract class BoilerplatePropsOrState extends BoilerplateAccessorsMember
     with PropsStateStringHelpers {
-
   BoilerplatePropsOrState(this.nodeHelper, this.companion, VersionConfidence confidence)
       : node = nodeHelper.node,
         super(confidence) {

@@ -33,7 +33,6 @@ part 'members/props_and_state_util.dart';
 
 /// The parent class for all boilerplate members
 abstract class BoilerplateMember {
-
   BoilerplateMember(this.versionConfidence);
 
   /// The confidence that, assuming that [node] has been correctly identified as this type of boilerplate member,

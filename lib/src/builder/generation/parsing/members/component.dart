@@ -16,7 +16,6 @@ part of '../members.dart';
 
 /// The class that represents a boilerplate component.
 class BoilerplateComponent extends BoilerplateMember {
-
   BoilerplateComponent(this.nodeHelper, VersionConfidence confidence)
       : node = nodeHelper.node,
         super(confidence) {

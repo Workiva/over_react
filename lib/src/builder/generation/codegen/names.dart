@@ -32,7 +32,8 @@ class ComponentNames {
   ///
   /// NOTE: The factory name must be public, since sub components will reference
   /// factories from super components.
-  String get componentFactoryName => '$_prefix$publicGeneratedPrefix${unprefixedConsumerName}Factory';
+  String get componentFactoryName =>
+      '$_prefix$publicGeneratedPrefix${unprefixedConsumerName}Factory';
 
   /// The name of the generated component implementation class.
   ///
