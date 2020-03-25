@@ -14,26 +14,23 @@ part 'redux_big_block.over_react.g.dart';
 // [6] Set the `pure` constructor on `connect` to be `false`.
 
 // [4]
-UiFactory<ReduxBigBlockProps> ConnectedReduxBigBlock = connect<FluxStore, ReduxBigBlockProps>(
+UiFactory<ReduxBigBlockProps> ReduxBigBlock = connect<FluxStore, ReduxBigBlockProps>(
   // [5]
   mapStateToProps: (state) => (ReduxBigBlock()..backgroundColor = state.backgroundColor),
   mapDispatchToProps: (dispatch) =>
       (ReduxBigBlock()..changeBackgroundColor = () => dispatch(UpdateBackgroundColorAction())),
   // [6]
   pure: false,
-)(ReduxBigBlock);
+)(_$ReduxBigBlock); // ignore: undefined_identifier
 
-@Factory()
-UiFactory<ReduxBigBlockProps> ReduxBigBlock = _$ReduxBigBlock;
-
-@Props()
-class _$ReduxBigBlockProps extends UiProps with ConnectPropsMixin {
+mixin ReduxBigBlockPropsMixin on UiProps {
   String backgroundColor; // [1]
 
   void Function() changeBackgroundColor; // [2]
 }
 
-@Component2()
+class ReduxBigBlockProps = UiProps with ReduxBigBlockPropsMixin, ConnectPropsMixin;
+
 class ReduxBigBlockComponent extends UiComponent2<ReduxBigBlockProps> {
   @override
   render() {

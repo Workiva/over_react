@@ -10,6 +10,8 @@ part of 'list_group.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $ListGroupComponentFactory = registerComponent2(
   () => _$ListGroupComponent(),
   builderFactory: _$ListGroup,
@@ -19,51 +21,6 @@ final $ListGroupComponentFactory = registerComponent2(
   displayName: 'ListGroup',
 );
 
-abstract class _$ListGroupPropsAccessorsMixin implements _$ListGroupProps {
-  @override
-  Map get props;
-
-  /// The HTML element type for the [ListGroup], specifying its
-  /// DOM representation when rendered.
-  ///
-  /// Default: [ListGroupElementType.DIV]
-  ///
-  /// <!-- Generated from [_$ListGroupProps.elementType] -->
-  @override
-  ListGroupElementType get elementType =>
-      props[_$key__elementType___$ListGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// The HTML element type for the [ListGroup], specifying its
-  /// DOM representation when rendered.
-  ///
-  /// Default: [ListGroupElementType.DIV]
-  ///
-  /// <!-- Generated from [_$ListGroupProps.elementType] -->
-  @override
-  set elementType(ListGroupElementType value) =>
-      props[_$key__elementType___$ListGroupProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__elementType___$ListGroupProps =
-      PropDescriptor(_$key__elementType___$ListGroupProps);
-  static const String _$key__elementType___$ListGroupProps =
-      'ListGroupProps.elementType';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__elementType___$ListGroupProps
-  ];
-  static const List<String> $propKeys = [_$key__elementType___$ListGroupProps];
-}
-
-const PropsMeta _$metaForListGroupProps = PropsMeta(
-  fields: _$ListGroupPropsAccessorsMixin.$props,
-  keys: _$ListGroupPropsAccessorsMixin.$propKeys,
-);
-
-class ListGroupProps extends _$ListGroupProps
-    with _$ListGroupPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForListGroupProps;
-}
-
 _$$ListGroupProps _$ListGroup([Map backingProps]) => backingProps == null
     ? _$$ListGroupProps$JsMap(JsBackedMap())
     : _$$ListGroupProps(backingProps);
@@ -71,9 +28,13 @@ _$$ListGroupProps _$ListGroup([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$ListGroupProps extends _$ListGroupProps
-    with _$ListGroupPropsAccessorsMixin
-    implements ListGroupProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ListGroupProps extends UiProps
+    with
+        ListGroupProps,
+        $ListGroupProps // If this generated mixin is undefined, it's likely because ListGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ListGroupProps.
+{
   _$$ListGroupProps._();
 
   factory _$$ListGroupProps(Map backingMap) {
@@ -95,10 +56,12 @@ abstract class _$$ListGroupProps extends _$ListGroupProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'ListGroupProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ListGroupProps$PlainMap extends _$$ListGroupProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -116,6 +79,8 @@ class _$$ListGroupProps$PlainMap extends _$$ListGroupProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ListGroupProps$JsMap extends _$$ListGroupProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -135,6 +100,8 @@ class _$$ListGroupProps$JsMap extends _$$ListGroupProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$ListGroupComponent extends ListGroupComponent {
   _$$ListGroupProps$JsMap _cachedTypedProps;
 
@@ -166,10 +133,47 @@ class _$ListGroupComponent extends ListGroupComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$ListGroupProps.
+  /// The default consumed props, taken from ListGroupProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForListGroupProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(ListGroupProps)];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ListGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ListGroupProps.
+        ListGroupProps: $ListGroupProps.meta,
+      });
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $ListGroupProps on ListGroupProps {
+  static const PropsMeta meta = _$metaForListGroupProps;
+  @override
+  ListGroupElementType get elementType =>
+      props[_$key__elementType__ListGroupProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set elementType(ListGroupElementType value) =>
+      props[_$key__elementType__ListGroupProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__elementType__ListGroupProps =
+      PropDescriptor(_$key__elementType__ListGroupProps);
+  static const String _$key__elementType__ListGroupProps =
+      'ListGroupProps.elementType';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__elementType__ListGroupProps
+  ];
+  static const List<String> $propKeys = [_$key__elementType__ListGroupProps];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForListGroupProps = PropsMeta(
+  fields: $ListGroupProps.$props,
+  keys: $ListGroupProps.$propKeys,
+);

@@ -2,11 +2,9 @@ import 'package:over_react/over_react.dart';
 
 part 'little_block.over_react.g.dart';
 
-@Factory()
 UiFactory<LittleBlockProps> LittleBlock = _$LittleBlock;
 
-@Props()
-class _$LittleBlockProps extends UiProps {
+mixin LittleBlockProps on UiProps {
   String backgroundColor;
 
   String colorString;
@@ -14,7 +12,6 @@ class _$LittleBlockProps extends UiProps {
   String blockTitle;
 }
 
-@Component2()
 class LittleBlockComponent extends UiComponent2<LittleBlockProps> {
   @override
   render() {

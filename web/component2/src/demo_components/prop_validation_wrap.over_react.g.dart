@@ -10,6 +10,8 @@ part of 'prop_validation_wrap.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $PropTypesWrapComponentFactory = registerComponent2(
   () => _$PropTypesWrapComponent(),
   builderFactory: _$PropTypesWrap,
@@ -19,27 +21,6 @@ final $PropTypesWrapComponentFactory = registerComponent2(
   displayName: 'PropTypesWrap',
 );
 
-abstract class _$PropTypesWrapPropsAccessorsMixin
-    implements _$PropTypesWrapProps {
-  @override
-  Map get props;
-
-  /* GENERATED CONSTANTS */
-
-  static const List<PropDescriptor> $props = [];
-  static const List<String> $propKeys = [];
-}
-
-const PropsMeta _$metaForPropTypesWrapProps = PropsMeta(
-  fields: _$PropTypesWrapPropsAccessorsMixin.$props,
-  keys: _$PropTypesWrapPropsAccessorsMixin.$propKeys,
-);
-
-class PropTypesWrapProps extends _$PropTypesWrapProps
-    with _$PropTypesWrapPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForPropTypesWrapProps;
-}
-
 _$$PropTypesWrapProps _$PropTypesWrap([Map backingProps]) =>
     backingProps == null
         ? _$$PropTypesWrapProps$JsMap(JsBackedMap())
@@ -48,9 +29,13 @@ _$$PropTypesWrapProps _$PropTypesWrap([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$PropTypesWrapProps extends _$PropTypesWrapProps
-    with _$PropTypesWrapPropsAccessorsMixin
-    implements PropTypesWrapProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$PropTypesWrapProps extends UiProps
+    with
+        PropTypesWrapProps,
+        $PropTypesWrapProps // If this generated mixin is undefined, it's likely because PropTypesWrapProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of PropTypesWrapProps.
+{
   _$$PropTypesWrapProps._();
 
   factory _$$PropTypesWrapProps(Map backingMap) {
@@ -72,10 +57,12 @@ abstract class _$$PropTypesWrapProps extends _$PropTypesWrapProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'PropTypesWrapProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$PropTypesWrapProps$PlainMap extends _$$PropTypesWrapProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -93,6 +80,8 @@ class _$$PropTypesWrapProps$PlainMap extends _$$PropTypesWrapProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$PropTypesWrapProps$JsMap extends _$$PropTypesWrapProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -108,50 +97,16 @@ class _$$PropTypesWrapProps$JsMap extends _$$PropTypesWrapProps {
   JsBackedMap _props;
 }
 
-abstract class _$PropTypesWrapStateAccessorsMixin
-    implements _$PropTypesWrapState {
-  @override
-  Map get state;
-
-  /// <!-- Generated from [_$PropTypesWrapState.twoObjects] -->
-  @override
-  List get twoObjects =>
-      state[_$key__twoObjects___$PropTypesWrapState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$PropTypesWrapState.twoObjects] -->
-  @override
-  set twoObjects(List value) =>
-      state[_$key__twoObjects___$PropTypesWrapState] = value;
-  /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__twoObjects___$PropTypesWrapState =
-      StateDescriptor(_$key__twoObjects___$PropTypesWrapState);
-  static const String _$key__twoObjects___$PropTypesWrapState =
-      'PropTypesWrapState.twoObjects';
-
-  static const List<StateDescriptor> $state = [
-    _$prop__twoObjects___$PropTypesWrapState
-  ];
-  static const List<String> $stateKeys = [
-    _$key__twoObjects___$PropTypesWrapState
-  ];
-}
-
-const StateMeta _$metaForPropTypesWrapState = StateMeta(
-  fields: _$PropTypesWrapStateAccessorsMixin.$state,
-  keys: _$PropTypesWrapStateAccessorsMixin.$stateKeys,
-);
-
-class PropTypesWrapState extends _$PropTypesWrapState
-    with _$PropTypesWrapStateAccessorsMixin {
-  static const StateMeta meta = _$metaForPropTypesWrapState;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$PropTypesWrapState extends _$PropTypesWrapState
-    with _$PropTypesWrapStateAccessorsMixin
-    implements PropTypesWrapState {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$PropTypesWrapState extends UiState
+    with
+        PropTypesWrapState,
+        $PropTypesWrapState // If this generated mixin is undefined, it's likely because PropTypesWrapState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of PropTypesWrapState.
+{
   _$$PropTypesWrapState._();
 
   factory _$$PropTypesWrapState(Map backingMap) {
@@ -168,6 +123,8 @@ abstract class _$$PropTypesWrapState extends _$PropTypesWrapState
 }
 
 // Concrete state implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$PropTypesWrapState$PlainMap extends _$$PropTypesWrapState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -185,6 +142,8 @@ class _$$PropTypesWrapState$PlainMap extends _$$PropTypesWrapState {
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$PropTypesWrapState$JsMap extends _$$PropTypesWrapState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -204,6 +163,8 @@ class _$$PropTypesWrapState$JsMap extends _$$PropTypesWrapState {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$PropTypesWrapComponent extends PropTypesWrapComponent {
   _$$PropTypesWrapProps$JsMap _cachedTypedProps;
 
@@ -257,10 +218,68 @@ class _$PropTypesWrapComponent extends PropTypesWrapComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$PropTypesWrapProps.
+  /// The default consumed props, taken from PropTypesWrapProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForPropTypesWrapProps
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(PropTypesWrapProps)];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because PropTypesWrapProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of PropTypesWrapProps.
+        PropTypesWrapProps: $PropTypesWrapProps.meta,
+      });
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $PropTypesWrapProps on PropTypesWrapProps {
+  static const PropsMeta meta = _$metaForPropTypesWrapProps;
+  /* GENERATED CONSTANTS */
+
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForPropTypesWrapProps = PropsMeta(
+  fields: $PropTypesWrapProps.$props,
+  keys: $PropTypesWrapProps.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $PropTypesWrapState on PropTypesWrapState {
+  static const StateMeta meta = _$metaForPropTypesWrapState;
+  @override
+  List get twoObjects =>
+      state[_$key__twoObjects__PropTypesWrapState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set twoObjects(List value) =>
+      state[_$key__twoObjects__PropTypesWrapState] = value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor _$prop__twoObjects__PropTypesWrapState =
+      StateDescriptor(_$key__twoObjects__PropTypesWrapState);
+  static const String _$key__twoObjects__PropTypesWrapState =
+      'PropTypesWrapState.twoObjects';
+
+  static const List<StateDescriptor> $state = [
+    _$prop__twoObjects__PropTypesWrapState
+  ];
+  static const List<String> $stateKeys = [
+    _$key__twoObjects__PropTypesWrapState
   ];
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const StateMeta _$metaForPropTypesWrapState = StateMeta(
+  fields: $PropTypesWrapState.$state,
+  keys: $PropTypesWrapState.$stateKeys,
+);

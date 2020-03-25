@@ -10,6 +10,8 @@ part of 'connect_flux_big_block.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $ConnectFluxBigBlockComponentFactory = registerComponent2(
   () => _$ConnectFluxBigBlockComponent(),
   builderFactory: _$ConnectFluxBigBlock,
@@ -19,62 +21,6 @@ final $ConnectFluxBigBlockComponentFactory = registerComponent2(
   displayName: 'ConnectFluxBigBlock',
 );
 
-abstract class _$ConnectFluxBigBlockPropsAccessorsMixin
-    implements _$ConnectFluxBigBlockProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$ConnectFluxBigBlockProps.backgroundColor] -->
-  @override
-  String get backgroundColor =>
-      props[_$key__backgroundColor___$ConnectFluxBigBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$ConnectFluxBigBlockProps.backgroundColor] -->
-  @override
-  set backgroundColor(String value) =>
-      props[_$key__backgroundColor___$ConnectFluxBigBlockProps] = value;
-
-  /// <!-- Generated from [_$ConnectFluxBigBlockProps.changeBackgroundColor] -->
-  @override
-  void Function() get changeBackgroundColor =>
-      props[_$key__changeBackgroundColor___$ConnectFluxBigBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$ConnectFluxBigBlockProps.changeBackgroundColor] -->
-  @override
-  set changeBackgroundColor(void Function() value) =>
-      props[_$key__changeBackgroundColor___$ConnectFluxBigBlockProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor
-      _$prop__backgroundColor___$ConnectFluxBigBlockProps =
-      PropDescriptor(_$key__backgroundColor___$ConnectFluxBigBlockProps);
-  static const PropDescriptor
-      _$prop__changeBackgroundColor___$ConnectFluxBigBlockProps =
-      PropDescriptor(_$key__changeBackgroundColor___$ConnectFluxBigBlockProps);
-  static const String _$key__backgroundColor___$ConnectFluxBigBlockProps =
-      'ConnectFluxBigBlockProps.backgroundColor';
-  static const String _$key__changeBackgroundColor___$ConnectFluxBigBlockProps =
-      'ConnectFluxBigBlockProps.changeBackgroundColor';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__backgroundColor___$ConnectFluxBigBlockProps,
-    _$prop__changeBackgroundColor___$ConnectFluxBigBlockProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__backgroundColor___$ConnectFluxBigBlockProps,
-    _$key__changeBackgroundColor___$ConnectFluxBigBlockProps
-  ];
-}
-
-const PropsMeta _$metaForConnectFluxBigBlockProps = PropsMeta(
-  fields: _$ConnectFluxBigBlockPropsAccessorsMixin.$props,
-  keys: _$ConnectFluxBigBlockPropsAccessorsMixin.$propKeys,
-);
-
-class ConnectFluxBigBlockProps extends _$ConnectFluxBigBlockProps
-    with _$ConnectFluxBigBlockPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForConnectFluxBigBlockProps;
-}
-
 _$$ConnectFluxBigBlockProps _$ConnectFluxBigBlock([Map backingProps]) =>
     backingProps == null
         ? _$$ConnectFluxBigBlockProps$JsMap(JsBackedMap())
@@ -83,9 +29,16 @@ _$$ConnectFluxBigBlockProps _$ConnectFluxBigBlock([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$ConnectFluxBigBlockProps extends _$ConnectFluxBigBlockProps
-    with _$ConnectFluxBigBlockPropsAccessorsMixin
-    implements ConnectFluxBigBlockProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ConnectFluxBigBlockProps extends UiProps
+    with
+        ConnectFluxBigBlockPropsMixin,
+        $ConnectFluxBigBlockPropsMixin, // If this generated mixin is undefined, it's likely because ConnectFluxBigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectFluxBigBlockPropsMixin.
+        ConnectPropsMixin,
+        $ConnectPropsMixin // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
+    implements
+        ConnectFluxBigBlockProps {
   _$$ConnectFluxBigBlockProps._();
 
   factory _$$ConnectFluxBigBlockProps(Map backingMap) {
@@ -107,10 +60,12 @@ abstract class _$$ConnectFluxBigBlockProps extends _$ConnectFluxBigBlockProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'ConnectFluxBigBlockProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ConnectFluxBigBlockProps$PlainMap extends _$$ConnectFluxBigBlockProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -128,6 +83,8 @@ class _$$ConnectFluxBigBlockProps$PlainMap extends _$$ConnectFluxBigBlockProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ConnectFluxBigBlockProps$JsMap extends _$$ConnectFluxBigBlockProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -147,6 +104,8 @@ class _$$ConnectFluxBigBlockProps$JsMap extends _$$ConnectFluxBigBlockProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$ConnectFluxBigBlockComponent extends ConnectFluxBigBlockComponent {
   _$$ConnectFluxBigBlockProps$JsMap _cachedTypedProps;
 
@@ -179,10 +138,68 @@ class _$ConnectFluxBigBlockComponent extends ConnectFluxBigBlockComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$ConnectFluxBigBlockProps.
+  /// The default consumed props, taken from ConnectFluxBigBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForConnectFluxBigBlockProps
+  List<ConsumedProps> get $defaultConsumedProps => const [];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ConnectFluxBigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectFluxBigBlockPropsMixin.
+        ConnectFluxBigBlockPropsMixin: $ConnectFluxBigBlockPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
+        ConnectPropsMixin: $ConnectPropsMixin.meta,
+      });
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $ConnectFluxBigBlockPropsMixin on ConnectFluxBigBlockPropsMixin {
+  static const PropsMeta meta = _$metaForConnectFluxBigBlockPropsMixin;
+  @override
+  String get backgroundColor =>
+      props[_$key__backgroundColor__ConnectFluxBigBlockPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set backgroundColor(String value) =>
+      props[_$key__backgroundColor__ConnectFluxBigBlockPropsMixin] = value;
+  @override
+  void Function() get changeBackgroundColor =>
+      props[_$key__changeBackgroundColor__ConnectFluxBigBlockPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set changeBackgroundColor(void Function() value) =>
+      props[_$key__changeBackgroundColor__ConnectFluxBigBlockPropsMixin] =
+          value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor
+      _$prop__backgroundColor__ConnectFluxBigBlockPropsMixin =
+      PropDescriptor(_$key__backgroundColor__ConnectFluxBigBlockPropsMixin);
+  static const PropDescriptor
+      _$prop__changeBackgroundColor__ConnectFluxBigBlockPropsMixin =
+      PropDescriptor(
+          _$key__changeBackgroundColor__ConnectFluxBigBlockPropsMixin);
+  static const String _$key__backgroundColor__ConnectFluxBigBlockPropsMixin =
+      'ConnectFluxBigBlockPropsMixin.backgroundColor';
+  static const String
+      _$key__changeBackgroundColor__ConnectFluxBigBlockPropsMixin =
+      'ConnectFluxBigBlockPropsMixin.changeBackgroundColor';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__backgroundColor__ConnectFluxBigBlockPropsMixin,
+    _$prop__changeBackgroundColor__ConnectFluxBigBlockPropsMixin
+  ];
+  static const List<String> $propKeys = [
+    _$key__backgroundColor__ConnectFluxBigBlockPropsMixin,
+    _$key__changeBackgroundColor__ConnectFluxBigBlockPropsMixin
   ];
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForConnectFluxBigBlockPropsMixin = PropsMeta(
+  fields: $ConnectFluxBigBlockPropsMixin.$props,
+  keys: $ConnectFluxBigBlockPropsMixin.$propKeys,
+);

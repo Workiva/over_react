@@ -10,6 +10,8 @@ part of 'button.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $ButtonComponentFactory = registerComponent2(
   () => _$ButtonComponent(),
   builderFactory: _$Button,
@@ -19,244 +21,6 @@ final $ButtonComponentFactory = registerComponent2(
   displayName: 'Button',
 );
 
-abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
-  @override
-  Map get props;
-
-  /// The skin / "context" for the [Button].
-  ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#examples>.
-  ///
-  /// Default: [ButtonSkin.PRIMARY]
-  ///
-  /// <!-- Generated from [_$ButtonProps.skin] -->
-  @override
-  ButtonSkin get skin =>
-      props[_$key__skin___$ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// The skin / "context" for the [Button].
-  ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#examples>.
-  ///
-  /// Default: [ButtonSkin.PRIMARY]
-  ///
-  /// <!-- Generated from [_$ButtonProps.skin] -->
-  @override
-  set skin(ButtonSkin value) => props[_$key__skin___$ButtonProps] = value;
-
-  /// The size of the [Button].
-  ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#sizes>.
-  ///
-  /// Default: [ButtonSize.DEFAULT]
-  ///
-  /// <!-- Generated from [_$ButtonProps.size] -->
-  @override
-  ButtonSize get size =>
-      props[_$key__size___$ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// The size of the [Button].
-  ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#sizes>.
-  ///
-  /// Default: [ButtonSize.DEFAULT]
-  ///
-  /// <!-- Generated from [_$ButtonProps.size] -->
-  @override
-  set size(ButtonSize value) => props[_$key__size___$ButtonProps] = value;
-
-  /// Whether the [Button] should appear "active".
-  ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#active-state>
-  ///
-  /// Default: false
-  ///
-  /// <!-- Generated from [_$ButtonProps.isActive] -->
-  @override
-  bool get isActive =>
-      props[_$key__isActive___$ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Whether the [Button] should appear "active".
-  ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#active-state>
-  ///
-  /// Default: false
-  ///
-  /// <!-- Generated from [_$ButtonProps.isActive] -->
-  @override
-  set isActive(bool value) => props[_$key__isActive___$ButtonProps] = value;
-
-  /// Whether the [Button] is disabled.
-  ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#disabled-state>
-  ///
-  /// Default: false
-  ///
-  /// <!-- Generated from [_$ButtonProps.isDisabled] -->
-  @override
-  @Accessor(key: 'disabled', keyNamespace: '')
-  bool get isDisabled =>
-      props[_$key__isDisabled___$ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Whether the [Button] is disabled.
-  ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#disabled-state>
-  ///
-  /// Default: false
-  ///
-  /// <!-- Generated from [_$ButtonProps.isDisabled] -->
-  @override
-  @Accessor(key: 'disabled', keyNamespace: '')
-  set isDisabled(bool value) => props[_$key__isDisabled___$ButtonProps] = value;
-
-  /// Whether the [Button] is a block level button -- that which spans the full
-  /// width of its parent.
-  ///
-  /// Default: false
-  ///
-  /// <!-- Generated from [_$ButtonProps.isBlock] -->
-  @override
-  bool get isBlock =>
-      props[_$key__isBlock___$ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Whether the [Button] is a block level button -- that which spans the full
-  /// width of its parent.
-  ///
-  /// Default: false
-  ///
-  /// <!-- Generated from [_$ButtonProps.isBlock] -->
-  @override
-  set isBlock(bool value) => props[_$key__isBlock___$ButtonProps] = value;
-
-  /// The HTML `href` attribute value for the [Button].
-  ///
-  /// If set, the item will render via [Dom.a].
-  ///
-  /// _Proxies [DomProps.href]_
-  ///
-  /// <!-- Generated from [_$ButtonProps.href] -->
-  @override
-  @Accessor(keyNamespace: '')
-  String get href =>
-      props[_$key__href___$ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// The HTML `href` attribute value for the [Button].
-  ///
-  /// If set, the item will render via [Dom.a].
-  ///
-  /// _Proxies [DomProps.href]_
-  ///
-  /// <!-- Generated from [_$ButtonProps.href] -->
-  @override
-  @Accessor(keyNamespace: '')
-  set href(String value) => props[_$key__href___$ButtonProps] = value;
-
-  /// The HTML `target` attribute value for the [Button].
-  ///
-  /// If set, the item will render via [Dom.a].
-  ///
-  /// _Proxies [DomProps.target]_
-  ///
-  /// <!-- Generated from [_$ButtonProps.target] -->
-  @override
-  @Accessor(keyNamespace: '')
-  String get target =>
-      props[_$key__target___$ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// The HTML `target` attribute value for the [Button].
-  ///
-  /// If set, the item will render via [Dom.a].
-  ///
-  /// _Proxies [DomProps.target]_
-  ///
-  /// <!-- Generated from [_$ButtonProps.target] -->
-  @override
-  @Accessor(keyNamespace: '')
-  set target(String value) => props[_$key__target___$ButtonProps] = value;
-
-  /// The HTML `type` attribute value for the [Button] when
-  /// rendered via [Dom.button].
-  ///
-  /// This will only be applied if [href] is not set.
-  ///
-  /// _Proxies [DomProps.type]_
-  ///
-  /// Default: [ButtonType.BUTTON]
-  ///
-  /// <!-- Generated from [_$ButtonProps.type] -->
-  @override
-  ButtonType get type =>
-      props[_$key__type___$ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// The HTML `type` attribute value for the [Button] when
-  /// rendered via [Dom.button].
-  ///
-  /// This will only be applied if [href] is not set.
-  ///
-  /// _Proxies [DomProps.type]_
-  ///
-  /// Default: [ButtonType.BUTTON]
-  ///
-  /// <!-- Generated from [_$ButtonProps.type] -->
-  @override
-  set type(ButtonType value) => props[_$key__type___$ButtonProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__skin___$ButtonProps =
-      PropDescriptor(_$key__skin___$ButtonProps);
-  static const PropDescriptor _$prop__size___$ButtonProps =
-      PropDescriptor(_$key__size___$ButtonProps);
-  static const PropDescriptor _$prop__isActive___$ButtonProps =
-      PropDescriptor(_$key__isActive___$ButtonProps);
-  static const PropDescriptor _$prop__isDisabled___$ButtonProps =
-      PropDescriptor(_$key__isDisabled___$ButtonProps);
-  static const PropDescriptor _$prop__isBlock___$ButtonProps =
-      PropDescriptor(_$key__isBlock___$ButtonProps);
-  static const PropDescriptor _$prop__href___$ButtonProps =
-      PropDescriptor(_$key__href___$ButtonProps);
-  static const PropDescriptor _$prop__target___$ButtonProps =
-      PropDescriptor(_$key__target___$ButtonProps);
-  static const PropDescriptor _$prop__type___$ButtonProps =
-      PropDescriptor(_$key__type___$ButtonProps);
-  static const String _$key__skin___$ButtonProps = 'ButtonProps.skin';
-  static const String _$key__size___$ButtonProps = 'ButtonProps.size';
-  static const String _$key__isActive___$ButtonProps = 'ButtonProps.isActive';
-  static const String _$key__isDisabled___$ButtonProps = 'disabled';
-  static const String _$key__isBlock___$ButtonProps = 'ButtonProps.isBlock';
-  static const String _$key__href___$ButtonProps = 'href';
-  static const String _$key__target___$ButtonProps = 'target';
-  static const String _$key__type___$ButtonProps = 'ButtonProps.type';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__skin___$ButtonProps,
-    _$prop__size___$ButtonProps,
-    _$prop__isActive___$ButtonProps,
-    _$prop__isDisabled___$ButtonProps,
-    _$prop__isBlock___$ButtonProps,
-    _$prop__href___$ButtonProps,
-    _$prop__target___$ButtonProps,
-    _$prop__type___$ButtonProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__skin___$ButtonProps,
-    _$key__size___$ButtonProps,
-    _$key__isActive___$ButtonProps,
-    _$key__isDisabled___$ButtonProps,
-    _$key__isBlock___$ButtonProps,
-    _$key__href___$ButtonProps,
-    _$key__target___$ButtonProps,
-    _$key__type___$ButtonProps
-  ];
-}
-
-const PropsMeta _$metaForButtonProps = PropsMeta(
-  fields: _$ButtonPropsAccessorsMixin.$props,
-  keys: _$ButtonPropsAccessorsMixin.$propKeys,
-);
-
-class ButtonProps extends _$ButtonProps with _$ButtonPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForButtonProps;
-}
-
 _$$ButtonProps _$Button([Map backingProps]) => backingProps == null
     ? _$$ButtonProps$JsMap(JsBackedMap())
     : _$$ButtonProps(backingProps);
@@ -264,9 +28,13 @@ _$$ButtonProps _$Button([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$ButtonProps extends _$ButtonProps
-    with _$ButtonPropsAccessorsMixin
-    implements ButtonProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ButtonProps extends UiProps
+    with
+        ButtonProps,
+        $ButtonProps // If this generated mixin is undefined, it's likely because ButtonProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonProps.
+{
   _$$ButtonProps._();
 
   factory _$$ButtonProps(Map backingMap) {
@@ -288,10 +56,12 @@ abstract class _$$ButtonProps extends _$ButtonProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'ButtonProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ButtonProps$PlainMap extends _$$ButtonProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -309,6 +79,8 @@ class _$$ButtonProps$PlainMap extends _$$ButtonProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ButtonProps$JsMap extends _$$ButtonProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -324,31 +96,16 @@ class _$$ButtonProps$JsMap extends _$$ButtonProps {
   JsBackedMap _props;
 }
 
-abstract class _$ButtonStateAccessorsMixin implements _$ButtonState {
-  @override
-  Map get state;
-
-  /* GENERATED CONSTANTS */
-
-  static const List<StateDescriptor> $state = [];
-  static const List<String> $stateKeys = [];
-}
-
-const StateMeta _$metaForButtonState = StateMeta(
-  fields: _$ButtonStateAccessorsMixin.$state,
-  keys: _$ButtonStateAccessorsMixin.$stateKeys,
-);
-
-class ButtonState extends _$ButtonState with _$ButtonStateAccessorsMixin {
-  static const StateMeta meta = _$metaForButtonState;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$ButtonState extends _$ButtonState
-    with _$ButtonStateAccessorsMixin
-    implements ButtonState {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ButtonState extends UiState
+    with
+        ButtonState,
+        $ButtonState // If this generated mixin is undefined, it's likely because ButtonState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonState.
+{
   _$$ButtonState._();
 
   factory _$$ButtonState(Map backingMap) {
@@ -365,6 +122,8 @@ abstract class _$$ButtonState extends _$ButtonState
 }
 
 // Concrete state implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ButtonState$PlainMap extends _$$ButtonState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -382,6 +141,8 @@ class _$$ButtonState$PlainMap extends _$$ButtonState {
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ButtonState$JsMap extends _$$ButtonState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -401,6 +162,8 @@ class _$$ButtonState$JsMap extends _$$ButtonState {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$ButtonComponent extends ButtonComponent {
   _$$ButtonProps$JsMap _cachedTypedProps;
 
@@ -454,10 +217,149 @@ class _$ButtonComponent extends ButtonComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$ButtonProps.
+  /// The default consumed props, taken from ButtonProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForButtonProps
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(ButtonProps)];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ButtonProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonProps.
+        ButtonProps: $ButtonProps.meta,
+      });
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $ButtonProps on ButtonProps {
+  static const PropsMeta meta = _$metaForButtonProps;
+  @override
+  ButtonSkin get skin =>
+      props[_$key__skin__ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set skin(ButtonSkin value) => props[_$key__skin__ButtonProps] = value;
+  @override
+  ButtonSize get size =>
+      props[_$key__size__ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set size(ButtonSize value) => props[_$key__size__ButtonProps] = value;
+  @override
+  bool get isActive =>
+      props[_$key__isActive__ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set isActive(bool value) => props[_$key__isActive__ButtonProps] = value;
+  @override
+  @Accessor(key: 'disabled', keyNamespace: '')
+  bool get isDisabled =>
+      props[_$key__isDisabled__ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  @Accessor(key: 'disabled', keyNamespace: '')
+  set isDisabled(bool value) => props[_$key__isDisabled__ButtonProps] = value;
+  @override
+  bool get isBlock =>
+      props[_$key__isBlock__ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set isBlock(bool value) => props[_$key__isBlock__ButtonProps] = value;
+  @override
+  @Accessor(keyNamespace: '')
+  String get href =>
+      props[_$key__href__ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  @Accessor(keyNamespace: '')
+  set href(String value) => props[_$key__href__ButtonProps] = value;
+  @override
+  @Accessor(keyNamespace: '')
+  String get target =>
+      props[_$key__target__ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  @Accessor(keyNamespace: '')
+  set target(String value) => props[_$key__target__ButtonProps] = value;
+  @override
+  ButtonType get type =>
+      props[_$key__type__ButtonProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set type(ButtonType value) => props[_$key__type__ButtonProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__skin__ButtonProps =
+      PropDescriptor(_$key__skin__ButtonProps);
+  static const PropDescriptor _$prop__size__ButtonProps =
+      PropDescriptor(_$key__size__ButtonProps);
+  static const PropDescriptor _$prop__isActive__ButtonProps =
+      PropDescriptor(_$key__isActive__ButtonProps);
+  static const PropDescriptor _$prop__isDisabled__ButtonProps =
+      PropDescriptor(_$key__isDisabled__ButtonProps);
+  static const PropDescriptor _$prop__isBlock__ButtonProps =
+      PropDescriptor(_$key__isBlock__ButtonProps);
+  static const PropDescriptor _$prop__href__ButtonProps =
+      PropDescriptor(_$key__href__ButtonProps);
+  static const PropDescriptor _$prop__target__ButtonProps =
+      PropDescriptor(_$key__target__ButtonProps);
+  static const PropDescriptor _$prop__type__ButtonProps =
+      PropDescriptor(_$key__type__ButtonProps);
+  static const String _$key__skin__ButtonProps = 'ButtonProps.skin';
+  static const String _$key__size__ButtonProps = 'ButtonProps.size';
+  static const String _$key__isActive__ButtonProps = 'ButtonProps.isActive';
+  static const String _$key__isDisabled__ButtonProps = 'disabled';
+  static const String _$key__isBlock__ButtonProps = 'ButtonProps.isBlock';
+  static const String _$key__href__ButtonProps = 'href';
+  static const String _$key__target__ButtonProps = 'target';
+  static const String _$key__type__ButtonProps = 'ButtonProps.type';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__skin__ButtonProps,
+    _$prop__size__ButtonProps,
+    _$prop__isActive__ButtonProps,
+    _$prop__isDisabled__ButtonProps,
+    _$prop__isBlock__ButtonProps,
+    _$prop__href__ButtonProps,
+    _$prop__target__ButtonProps,
+    _$prop__type__ButtonProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__skin__ButtonProps,
+    _$key__size__ButtonProps,
+    _$key__isActive__ButtonProps,
+    _$key__isDisabled__ButtonProps,
+    _$key__isBlock__ButtonProps,
+    _$key__href__ButtonProps,
+    _$key__target__ButtonProps,
+    _$key__type__ButtonProps
   ];
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForButtonProps = PropsMeta(
+  fields: $ButtonProps.$props,
+  keys: $ButtonProps.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $ButtonState on ButtonState {
+  static const StateMeta meta = _$metaForButtonState;
+  /* GENERATED CONSTANTS */
+
+  static const List<StateDescriptor> $state = [];
+  static const List<String> $stateKeys = [];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const StateMeta _$metaForButtonState = StateMeta(
+  fields: $ButtonState.$state,
+  keys: $ButtonState.$stateKeys,
+);

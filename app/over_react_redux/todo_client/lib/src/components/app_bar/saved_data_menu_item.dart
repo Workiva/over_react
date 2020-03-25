@@ -11,13 +11,12 @@ import 'package:todo_client/src/components/shared/menu_overlay.dart';
 // ignore: uri_has_not_been_generated
 part 'saved_data_menu_item.over_react.g.dart';
 
-@Factory()
 UiFactory<SavedDataMenuItemProps> SavedDataMenuItem =
     // ignore: undefined_identifier
     _$SavedDataMenuItem;
 
 @Props(keyNamespace: '')
-class _$SavedDataMenuItemProps extends UiProps {
+mixin SavedDataMenuItemProps on UiProps {
   @requiredProp
   String localStorageKey;
   @requiredProp
@@ -28,15 +27,12 @@ class _$SavedDataMenuItemProps extends UiProps {
   Function(String localStorageKey) onRename;
 }
 
-@State()
-class _$SavedDataMenuItemState extends MenuOverlayState
-    with HoverableItemStateMixin,
-         // ignore: mixin_of_non_class, undefined_class
-         $HoverableItemStateMixin {
+mixin SavedDataMenuItemStateMixin on UiState {
   bool isEditable;
 }
 
-@Component2()
+class SavedDataMenuItemState = UiState with MenuOverlayState, SavedDataMenuItemStateMixin, HoverableItemStateMixin;
+
 class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemProps, SavedDataMenuItemState>
     with HoverableItemMixin<SavedDataMenuItemProps, SavedDataMenuItemState> {
   @override
@@ -169,16 +165,4 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
   void _handleMenuItemClick(_) {
     props.onSelect(props.localStorageKey);
   }
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class SavedDataMenuItemProps extends _$SavedDataMenuItemProps with _$SavedDataMenuItemPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForSavedDataMenuItemProps;
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class SavedDataMenuItemState extends _$SavedDataMenuItemState with _$SavedDataMenuItemStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaForSavedDataMenuItemState;
 }

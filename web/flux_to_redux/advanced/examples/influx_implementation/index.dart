@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
+import 'package:over_react/components.dart' as v2;
 import 'package:over_react/over_react_flux.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_dom.dart' as react_dom;
@@ -15,7 +16,7 @@ main() {
   setClientConfiguration();
 
   react_dom.render(
-      ErrorBoundary()(
+      v2.ErrorBoundary()(
         // Note the use of the `ReduxMultiProvider` as opposed to a traditional
         // `ReduxProvider`, and that the stores being passed in are the
         // `FluxToReduxAdapterStore`s.
@@ -35,9 +36,9 @@ main() {
           // Note that the components being instantiated are the factories that
           // are returned from the corresponding `composeHocs` calls, and not the
           // original component factories.
-          ConnectedConnectFluxBigBlock()(),
-          ConnectedReduxBigBlock()(),
-          ConnectedShouldNotUpdate()(),
+          ConnectFluxBigBlock()(),
+          ReduxBigBlock()(),
+          ShouldNotUpdate()(),
         ),
       ),
       querySelector('#content'));

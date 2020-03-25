@@ -10,6 +10,8 @@ part of 'big_block.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $BigBlockComponentFactory = registerComponent2(
   () => _$BigBlockComponent(),
   builderFactory: _$BigBlock,
@@ -19,54 +21,6 @@ final $BigBlockComponentFactory = registerComponent2(
   displayName: 'BigBlock',
 );
 
-abstract class _$BigBlockPropsAccessorsMixin implements _$BigBlockProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$BigBlockProps.lowLevelStore] -->
-  @override
-  LowLevelStore get lowLevelStore =>
-      props[_$key__lowLevelStore___$BigBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BigBlockProps.lowLevelStore] -->
-  @override
-  set lowLevelStore(LowLevelStore value) =>
-      props[_$key__lowLevelStore___$BigBlockProps] = value;
-
-  /// <!-- Generated from [_$BigBlockProps.secondStore] -->
-  @override
-  AnotherColorStore get secondStore =>
-      props[_$key__secondStore___$BigBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BigBlockProps.secondStore] -->
-  @override
-  set secondStore(AnotherColorStore value) =>
-      props[_$key__secondStore___$BigBlockProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__lowLevelStore___$BigBlockProps =
-      PropDescriptor(_$key__lowLevelStore___$BigBlockProps);
-  static const PropDescriptor _$prop__secondStore___$BigBlockProps =
-      PropDescriptor(_$key__secondStore___$BigBlockProps);
-  static const String _$key__lowLevelStore___$BigBlockProps =
-      'BigBlockProps.lowLevelStore';
-  static const String _$key__secondStore___$BigBlockProps =
-      'BigBlockProps.secondStore';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__lowLevelStore___$BigBlockProps,
-    _$prop__secondStore___$BigBlockProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__lowLevelStore___$BigBlockProps,
-    _$key__secondStore___$BigBlockProps
-  ];
-}
-
-const PropsMeta _$metaForBigBlockProps = PropsMeta(
-  fields: _$BigBlockPropsAccessorsMixin.$props,
-  keys: _$BigBlockPropsAccessorsMixin.$propKeys,
-);
-
 _$$BigBlockProps _$BigBlock([Map backingProps]) => backingProps == null
     ? _$$BigBlockProps$JsMap(JsBackedMap())
     : _$$BigBlockProps(backingProps);
@@ -74,9 +28,17 @@ _$$BigBlockProps _$BigBlock([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$BigBlockProps extends _$BigBlockProps
-    with _$BigBlockPropsAccessorsMixin
-    implements BigBlockProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$BigBlockProps extends UiProps
+    with
+        FluxUiPropsMixin<RandomColorActions, RandomColorStore>,
+        $FluxUiPropsMixin<RandomColorActions,
+            RandomColorStore>, // If this generated mixin is undefined, it's likely because FluxUiPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FluxUiPropsMixin.
+        BigBlockPropsMixin,
+        $BigBlockPropsMixin // If this generated mixin is undefined, it's likely because BigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BigBlockPropsMixin.
+    implements
+        BigBlockProps {
   _$$BigBlockProps._();
 
   factory _$$BigBlockProps(Map backingMap) {
@@ -98,10 +60,12 @@ abstract class _$$BigBlockProps extends _$BigBlockProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'BigBlockProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$BigBlockProps$PlainMap extends _$$BigBlockProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -119,6 +83,8 @@ class _$$BigBlockProps$PlainMap extends _$$BigBlockProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$BigBlockProps$JsMap extends _$$BigBlockProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -138,6 +104,8 @@ class _$$BigBlockProps$JsMap extends _$$BigBlockProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$BigBlockComponent extends BigBlockComponent {
   _$$BigBlockProps$JsMap _cachedTypedProps;
 
@@ -169,10 +137,63 @@ class _$BigBlockComponent extends BigBlockComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$BigBlockProps.
+  /// The default consumed props, taken from BigBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForBigBlockProps
+  List<ConsumedProps> get $defaultConsumedProps => const [];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because FluxUiPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FluxUiPropsMixin.
+        FluxUiPropsMixin: $FluxUiPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because BigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BigBlockPropsMixin.
+        BigBlockPropsMixin: $BigBlockPropsMixin.meta,
+      });
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $BigBlockPropsMixin on BigBlockPropsMixin {
+  static const PropsMeta meta = _$metaForBigBlockPropsMixin;
+  @override
+  LowLevelStore get lowLevelStore =>
+      props[_$key__lowLevelStore__BigBlockPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set lowLevelStore(LowLevelStore value) =>
+      props[_$key__lowLevelStore__BigBlockPropsMixin] = value;
+  @override
+  AnotherColorStore get secondStore =>
+      props[_$key__secondStore__BigBlockPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set secondStore(AnotherColorStore value) =>
+      props[_$key__secondStore__BigBlockPropsMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__lowLevelStore__BigBlockPropsMixin =
+      PropDescriptor(_$key__lowLevelStore__BigBlockPropsMixin);
+  static const PropDescriptor _$prop__secondStore__BigBlockPropsMixin =
+      PropDescriptor(_$key__secondStore__BigBlockPropsMixin);
+  static const String _$key__lowLevelStore__BigBlockPropsMixin =
+      'BigBlockPropsMixin.lowLevelStore';
+  static const String _$key__secondStore__BigBlockPropsMixin =
+      'BigBlockPropsMixin.secondStore';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__lowLevelStore__BigBlockPropsMixin,
+    _$prop__secondStore__BigBlockPropsMixin
+  ];
+  static const List<String> $propKeys = [
+    _$key__lowLevelStore__BigBlockPropsMixin,
+    _$key__secondStore__BigBlockPropsMixin
   ];
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForBigBlockPropsMixin = PropsMeta(
+  fields: $BigBlockPropsMixin.$props,
+  keys: $BigBlockPropsMixin.$propKeys,
+);

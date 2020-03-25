@@ -10,6 +10,8 @@ part of 'redux_big_block.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $ReduxBigBlockComponentFactory = registerComponent2(
   () => _$ReduxBigBlockComponent(),
   builderFactory: _$ReduxBigBlock,
@@ -19,170 +21,6 @@ final $ReduxBigBlockComponentFactory = registerComponent2(
   displayName: 'ReduxBigBlock',
 );
 
-abstract class _$ReduxBigBlockPropsAccessorsMixin
-    implements _$ReduxBigBlockProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$ReduxBigBlockProps.backgroundColor] -->
-  @override
-  String get backgroundColor =>
-      props[_$key__backgroundColor___$ReduxBigBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$ReduxBigBlockProps.backgroundColor] -->
-  @override
-  set backgroundColor(String value) =>
-      props[_$key__backgroundColor___$ReduxBigBlockProps] = value;
-
-  /// <!-- Generated from [_$ReduxBigBlockProps.blockTwoBackgroundColor] -->
-  @override
-  String get blockTwoBackgroundColor =>
-      props[_$key__blockTwoBackgroundColor___$ReduxBigBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$ReduxBigBlockProps.blockTwoBackgroundColor] -->
-  @override
-  set blockTwoBackgroundColor(String value) =>
-      props[_$key__blockTwoBackgroundColor___$ReduxBigBlockProps] = value;
-
-  /// <!-- Generated from [_$ReduxBigBlockProps.blockThreeBackgroundColor] -->
-  @override
-  String get blockThreeBackgroundColor =>
-      props[_$key__blockThreeBackgroundColor___$ReduxBigBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$ReduxBigBlockProps.blockThreeBackgroundColor] -->
-  @override
-  set blockThreeBackgroundColor(String value) =>
-      props[_$key__blockThreeBackgroundColor___$ReduxBigBlockProps] = value;
-
-  /// <!-- Generated from [_$ReduxBigBlockProps.blockOneBackgroundColor] -->
-  @override
-  String get blockOneBackgroundColor =>
-      props[_$key__blockOneBackgroundColor___$ReduxBigBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$ReduxBigBlockProps.blockOneBackgroundColor] -->
-  @override
-  set blockOneBackgroundColor(String value) =>
-      props[_$key__blockOneBackgroundColor___$ReduxBigBlockProps] = value;
-
-  /// <!-- Generated from [_$ReduxBigBlockProps.changeMainBackgroundColor] -->
-  @override
-  void Function() get changeMainBackgroundColor =>
-      props[_$key__changeMainBackgroundColor___$ReduxBigBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$ReduxBigBlockProps.changeMainBackgroundColor] -->
-  @override
-  set changeMainBackgroundColor(void Function() value) =>
-      props[_$key__changeMainBackgroundColor___$ReduxBigBlockProps] = value;
-
-  /// <!-- Generated from [_$ReduxBigBlockProps.changeBlockOneBackgroundColor] -->
-  @override
-  void Function() get changeBlockOneBackgroundColor =>
-      props[_$key__changeBlockOneBackgroundColor___$ReduxBigBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$ReduxBigBlockProps.changeBlockOneBackgroundColor] -->
-  @override
-  set changeBlockOneBackgroundColor(void Function() value) =>
-      props[_$key__changeBlockOneBackgroundColor___$ReduxBigBlockProps] = value;
-
-  /// <!-- Generated from [_$ReduxBigBlockProps.changeBlockTwoBackgroundColor] -->
-  @override
-  void Function() get changeBlockTwoBackgroundColor =>
-      props[_$key__changeBlockTwoBackgroundColor___$ReduxBigBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$ReduxBigBlockProps.changeBlockTwoBackgroundColor] -->
-  @override
-  set changeBlockTwoBackgroundColor(void Function() value) =>
-      props[_$key__changeBlockTwoBackgroundColor___$ReduxBigBlockProps] = value;
-
-  /// <!-- Generated from [_$ReduxBigBlockProps.changeBlockThreeBackgroundColor] -->
-  @override
-  void Function() get changeBlockThreeBackgroundColor =>
-      props[_$key__changeBlockThreeBackgroundColor___$ReduxBigBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$ReduxBigBlockProps.changeBlockThreeBackgroundColor] -->
-  @override
-  set changeBlockThreeBackgroundColor(void Function() value) =>
-      props[_$key__changeBlockThreeBackgroundColor___$ReduxBigBlockProps] =
-          value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__backgroundColor___$ReduxBigBlockProps =
-      PropDescriptor(_$key__backgroundColor___$ReduxBigBlockProps);
-  static const PropDescriptor
-      _$prop__blockTwoBackgroundColor___$ReduxBigBlockProps =
-      PropDescriptor(_$key__blockTwoBackgroundColor___$ReduxBigBlockProps);
-  static const PropDescriptor
-      _$prop__blockThreeBackgroundColor___$ReduxBigBlockProps =
-      PropDescriptor(_$key__blockThreeBackgroundColor___$ReduxBigBlockProps);
-  static const PropDescriptor
-      _$prop__blockOneBackgroundColor___$ReduxBigBlockProps =
-      PropDescriptor(_$key__blockOneBackgroundColor___$ReduxBigBlockProps);
-  static const PropDescriptor
-      _$prop__changeMainBackgroundColor___$ReduxBigBlockProps =
-      PropDescriptor(_$key__changeMainBackgroundColor___$ReduxBigBlockProps);
-  static const PropDescriptor
-      _$prop__changeBlockOneBackgroundColor___$ReduxBigBlockProps =
-      PropDescriptor(
-          _$key__changeBlockOneBackgroundColor___$ReduxBigBlockProps);
-  static const PropDescriptor
-      _$prop__changeBlockTwoBackgroundColor___$ReduxBigBlockProps =
-      PropDescriptor(
-          _$key__changeBlockTwoBackgroundColor___$ReduxBigBlockProps);
-  static const PropDescriptor
-      _$prop__changeBlockThreeBackgroundColor___$ReduxBigBlockProps =
-      PropDescriptor(
-          _$key__changeBlockThreeBackgroundColor___$ReduxBigBlockProps);
-  static const String _$key__backgroundColor___$ReduxBigBlockProps =
-      'ReduxBigBlockProps.backgroundColor';
-  static const String _$key__blockTwoBackgroundColor___$ReduxBigBlockProps =
-      'ReduxBigBlockProps.blockTwoBackgroundColor';
-  static const String _$key__blockThreeBackgroundColor___$ReduxBigBlockProps =
-      'ReduxBigBlockProps.blockThreeBackgroundColor';
-  static const String _$key__blockOneBackgroundColor___$ReduxBigBlockProps =
-      'ReduxBigBlockProps.blockOneBackgroundColor';
-  static const String _$key__changeMainBackgroundColor___$ReduxBigBlockProps =
-      'ReduxBigBlockProps.changeMainBackgroundColor';
-  static const String
-      _$key__changeBlockOneBackgroundColor___$ReduxBigBlockProps =
-      'ReduxBigBlockProps.changeBlockOneBackgroundColor';
-  static const String
-      _$key__changeBlockTwoBackgroundColor___$ReduxBigBlockProps =
-      'ReduxBigBlockProps.changeBlockTwoBackgroundColor';
-  static const String
-      _$key__changeBlockThreeBackgroundColor___$ReduxBigBlockProps =
-      'ReduxBigBlockProps.changeBlockThreeBackgroundColor';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__backgroundColor___$ReduxBigBlockProps,
-    _$prop__blockTwoBackgroundColor___$ReduxBigBlockProps,
-    _$prop__blockThreeBackgroundColor___$ReduxBigBlockProps,
-    _$prop__blockOneBackgroundColor___$ReduxBigBlockProps,
-    _$prop__changeMainBackgroundColor___$ReduxBigBlockProps,
-    _$prop__changeBlockOneBackgroundColor___$ReduxBigBlockProps,
-    _$prop__changeBlockTwoBackgroundColor___$ReduxBigBlockProps,
-    _$prop__changeBlockThreeBackgroundColor___$ReduxBigBlockProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__backgroundColor___$ReduxBigBlockProps,
-    _$key__blockTwoBackgroundColor___$ReduxBigBlockProps,
-    _$key__blockThreeBackgroundColor___$ReduxBigBlockProps,
-    _$key__blockOneBackgroundColor___$ReduxBigBlockProps,
-    _$key__changeMainBackgroundColor___$ReduxBigBlockProps,
-    _$key__changeBlockOneBackgroundColor___$ReduxBigBlockProps,
-    _$key__changeBlockTwoBackgroundColor___$ReduxBigBlockProps,
-    _$key__changeBlockThreeBackgroundColor___$ReduxBigBlockProps
-  ];
-}
-
-const PropsMeta _$metaForReduxBigBlockProps = PropsMeta(
-  fields: _$ReduxBigBlockPropsAccessorsMixin.$props,
-  keys: _$ReduxBigBlockPropsAccessorsMixin.$propKeys,
-);
-
-class ReduxBigBlockProps extends _$ReduxBigBlockProps
-    with _$ReduxBigBlockPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForReduxBigBlockProps;
-}
-
 _$$ReduxBigBlockProps _$ReduxBigBlock([Map backingProps]) =>
     backingProps == null
         ? _$$ReduxBigBlockProps$JsMap(JsBackedMap())
@@ -191,9 +29,16 @@ _$$ReduxBigBlockProps _$ReduxBigBlock([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$ReduxBigBlockProps extends _$ReduxBigBlockProps
-    with _$ReduxBigBlockPropsAccessorsMixin
-    implements ReduxBigBlockProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ReduxBigBlockProps extends UiProps
+    with
+        ReduxBigBlockPropsMixin,
+        $ReduxBigBlockPropsMixin, // If this generated mixin is undefined, it's likely because ReduxBigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ReduxBigBlockPropsMixin.
+        ConnectPropsMixin,
+        $ConnectPropsMixin // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
+    implements
+        ReduxBigBlockProps {
   _$$ReduxBigBlockProps._();
 
   factory _$$ReduxBigBlockProps(Map backingMap) {
@@ -215,10 +60,12 @@ abstract class _$$ReduxBigBlockProps extends _$ReduxBigBlockProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'ReduxBigBlockProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ReduxBigBlockProps$PlainMap extends _$$ReduxBigBlockProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -236,6 +83,8 @@ class _$$ReduxBigBlockProps$PlainMap extends _$$ReduxBigBlockProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ReduxBigBlockProps$JsMap extends _$$ReduxBigBlockProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -255,6 +104,8 @@ class _$$ReduxBigBlockProps$JsMap extends _$$ReduxBigBlockProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$ReduxBigBlockComponent extends ReduxBigBlockComponent {
   _$$ReduxBigBlockProps$JsMap _cachedTypedProps;
 
@@ -286,10 +137,159 @@ class _$ReduxBigBlockComponent extends ReduxBigBlockComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$ReduxBigBlockProps.
+  /// The default consumed props, taken from ReduxBigBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForReduxBigBlockProps
+  List<ConsumedProps> get $defaultConsumedProps => const [];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ReduxBigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ReduxBigBlockPropsMixin.
+        ReduxBigBlockPropsMixin: $ReduxBigBlockPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
+        ConnectPropsMixin: $ConnectPropsMixin.meta,
+      });
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $ReduxBigBlockPropsMixin on ReduxBigBlockPropsMixin {
+  static const PropsMeta meta = _$metaForReduxBigBlockPropsMixin;
+  @override
+  String get backgroundColor =>
+      props[_$key__backgroundColor__ReduxBigBlockPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set backgroundColor(String value) =>
+      props[_$key__backgroundColor__ReduxBigBlockPropsMixin] = value;
+  @override
+  String get blockTwoBackgroundColor =>
+      props[_$key__blockTwoBackgroundColor__ReduxBigBlockPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set blockTwoBackgroundColor(String value) =>
+      props[_$key__blockTwoBackgroundColor__ReduxBigBlockPropsMixin] = value;
+  @override
+  String get blockThreeBackgroundColor =>
+      props[_$key__blockThreeBackgroundColor__ReduxBigBlockPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set blockThreeBackgroundColor(String value) =>
+      props[_$key__blockThreeBackgroundColor__ReduxBigBlockPropsMixin] = value;
+  @override
+  String get blockOneBackgroundColor =>
+      props[_$key__blockOneBackgroundColor__ReduxBigBlockPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set blockOneBackgroundColor(String value) =>
+      props[_$key__blockOneBackgroundColor__ReduxBigBlockPropsMixin] = value;
+  @override
+  void Function() get changeMainBackgroundColor =>
+      props[_$key__changeMainBackgroundColor__ReduxBigBlockPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set changeMainBackgroundColor(void Function() value) =>
+      props[_$key__changeMainBackgroundColor__ReduxBigBlockPropsMixin] = value;
+  @override
+  void Function() get changeBlockOneBackgroundColor =>
+      props[_$key__changeBlockOneBackgroundColor__ReduxBigBlockPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set changeBlockOneBackgroundColor(void Function() value) =>
+      props[_$key__changeBlockOneBackgroundColor__ReduxBigBlockPropsMixin] =
+          value;
+  @override
+  void Function() get changeBlockTwoBackgroundColor =>
+      props[_$key__changeBlockTwoBackgroundColor__ReduxBigBlockPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set changeBlockTwoBackgroundColor(void Function() value) =>
+      props[_$key__changeBlockTwoBackgroundColor__ReduxBigBlockPropsMixin] =
+          value;
+  @override
+  void Function() get changeBlockThreeBackgroundColor =>
+      props[_$key__changeBlockThreeBackgroundColor__ReduxBigBlockPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set changeBlockThreeBackgroundColor(void Function() value) =>
+      props[_$key__changeBlockThreeBackgroundColor__ReduxBigBlockPropsMixin] =
+          value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__backgroundColor__ReduxBigBlockPropsMixin =
+      PropDescriptor(_$key__backgroundColor__ReduxBigBlockPropsMixin);
+  static const PropDescriptor
+      _$prop__blockTwoBackgroundColor__ReduxBigBlockPropsMixin =
+      PropDescriptor(_$key__blockTwoBackgroundColor__ReduxBigBlockPropsMixin);
+  static const PropDescriptor
+      _$prop__blockThreeBackgroundColor__ReduxBigBlockPropsMixin =
+      PropDescriptor(_$key__blockThreeBackgroundColor__ReduxBigBlockPropsMixin);
+  static const PropDescriptor
+      _$prop__blockOneBackgroundColor__ReduxBigBlockPropsMixin =
+      PropDescriptor(_$key__blockOneBackgroundColor__ReduxBigBlockPropsMixin);
+  static const PropDescriptor
+      _$prop__changeMainBackgroundColor__ReduxBigBlockPropsMixin =
+      PropDescriptor(_$key__changeMainBackgroundColor__ReduxBigBlockPropsMixin);
+  static const PropDescriptor
+      _$prop__changeBlockOneBackgroundColor__ReduxBigBlockPropsMixin =
+      PropDescriptor(
+          _$key__changeBlockOneBackgroundColor__ReduxBigBlockPropsMixin);
+  static const PropDescriptor
+      _$prop__changeBlockTwoBackgroundColor__ReduxBigBlockPropsMixin =
+      PropDescriptor(
+          _$key__changeBlockTwoBackgroundColor__ReduxBigBlockPropsMixin);
+  static const PropDescriptor
+      _$prop__changeBlockThreeBackgroundColor__ReduxBigBlockPropsMixin =
+      PropDescriptor(
+          _$key__changeBlockThreeBackgroundColor__ReduxBigBlockPropsMixin);
+  static const String _$key__backgroundColor__ReduxBigBlockPropsMixin =
+      'ReduxBigBlockPropsMixin.backgroundColor';
+  static const String _$key__blockTwoBackgroundColor__ReduxBigBlockPropsMixin =
+      'ReduxBigBlockPropsMixin.blockTwoBackgroundColor';
+  static const String
+      _$key__blockThreeBackgroundColor__ReduxBigBlockPropsMixin =
+      'ReduxBigBlockPropsMixin.blockThreeBackgroundColor';
+  static const String _$key__blockOneBackgroundColor__ReduxBigBlockPropsMixin =
+      'ReduxBigBlockPropsMixin.blockOneBackgroundColor';
+  static const String
+      _$key__changeMainBackgroundColor__ReduxBigBlockPropsMixin =
+      'ReduxBigBlockPropsMixin.changeMainBackgroundColor';
+  static const String
+      _$key__changeBlockOneBackgroundColor__ReduxBigBlockPropsMixin =
+      'ReduxBigBlockPropsMixin.changeBlockOneBackgroundColor';
+  static const String
+      _$key__changeBlockTwoBackgroundColor__ReduxBigBlockPropsMixin =
+      'ReduxBigBlockPropsMixin.changeBlockTwoBackgroundColor';
+  static const String
+      _$key__changeBlockThreeBackgroundColor__ReduxBigBlockPropsMixin =
+      'ReduxBigBlockPropsMixin.changeBlockThreeBackgroundColor';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__backgroundColor__ReduxBigBlockPropsMixin,
+    _$prop__blockTwoBackgroundColor__ReduxBigBlockPropsMixin,
+    _$prop__blockThreeBackgroundColor__ReduxBigBlockPropsMixin,
+    _$prop__blockOneBackgroundColor__ReduxBigBlockPropsMixin,
+    _$prop__changeMainBackgroundColor__ReduxBigBlockPropsMixin,
+    _$prop__changeBlockOneBackgroundColor__ReduxBigBlockPropsMixin,
+    _$prop__changeBlockTwoBackgroundColor__ReduxBigBlockPropsMixin,
+    _$prop__changeBlockThreeBackgroundColor__ReduxBigBlockPropsMixin
+  ];
+  static const List<String> $propKeys = [
+    _$key__backgroundColor__ReduxBigBlockPropsMixin,
+    _$key__blockTwoBackgroundColor__ReduxBigBlockPropsMixin,
+    _$key__blockThreeBackgroundColor__ReduxBigBlockPropsMixin,
+    _$key__blockOneBackgroundColor__ReduxBigBlockPropsMixin,
+    _$key__changeMainBackgroundColor__ReduxBigBlockPropsMixin,
+    _$key__changeBlockOneBackgroundColor__ReduxBigBlockPropsMixin,
+    _$key__changeBlockTwoBackgroundColor__ReduxBigBlockPropsMixin,
+    _$key__changeBlockThreeBackgroundColor__ReduxBigBlockPropsMixin
   ];
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForReduxBigBlockPropsMixin = PropsMeta(
+  fields: $ReduxBigBlockPropsMixin.$props,
+  keys: $ReduxBigBlockPropsMixin.$propKeys,
+);
