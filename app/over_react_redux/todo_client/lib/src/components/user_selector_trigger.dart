@@ -1,17 +1,15 @@
 part of todo_client.src.components.user_selector;
 
-@Factory()
 UiFactory<UserSelectorTriggerProps> UserSelectorTrigger =
     // ignore: undefined_identifier
     _$UserSelectorTrigger;
 
 @Props(keyNamespace: '')
-class _$UserSelectorTriggerProps extends UiProps {
+mixin UserSelectorTriggerProps on UiProps {
   String selectedUserName;
   bool disabled;
 }
 
-@Component2()
 class UserSelectorTriggerComponent extends UiComponent2<UserSelectorTriggerProps> {
   @override
   bool shouldComponentUpdate(Map nextProps, Map nextState) {
@@ -35,10 +33,4 @@ class UserSelectorTriggerComponent extends UiComponent2<UserSelectorTriggerProps
       (AvatarWithColors()..fullName = props.selectedUserName)(),
     );
   }
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class UserSelectorTriggerProps extends _$UserSelectorTriggerProps with _$UserSelectorTriggerPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForUserSelectorTriggerProps;
 }

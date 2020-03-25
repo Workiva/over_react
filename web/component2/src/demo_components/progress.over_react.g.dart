@@ -10,6 +10,8 @@ part of 'progress.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $ProgressComponentFactory = registerComponent2(
   () => _$ProgressComponent(),
   builderFactory: Progress,
@@ -19,287 +21,6 @@ final $ProgressComponentFactory = registerComponent2(
   displayName: 'Progress',
 );
 
-abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
-  @override
-  Map get props;
-
-  /// The current value of the [Progress] component.
-  ///
-  /// This value should be between the [min] and [max] values.
-  ///
-  /// Default: `0.0`
-  ///
-  /// <!-- Generated from [_$ProgressProps.value] -->
-  @override
-  double get value =>
-      props[_$key__value___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// The current value of the [Progress] component.
-  ///
-  /// This value should be between the [min] and [max] values.
-  ///
-  /// Default: `0.0`
-  ///
-  /// <!-- Generated from [_$ProgressProps.value] -->
-  @override
-  set value(double value) => props[_$key__value___$ProgressProps] = value;
-
-  /// The min value of the [Progress] component.
-  ///
-  /// Default: `0.0`
-  ///
-  /// <!-- Generated from [_$ProgressProps.min] -->
-  @override
-  double get min =>
-      props[_$key__min___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// The min value of the [Progress] component.
-  ///
-  /// Default: `0.0`
-  ///
-  /// <!-- Generated from [_$ProgressProps.min] -->
-  @override
-  set min(double value) => props[_$key__min___$ProgressProps] = value;
-
-  /// The max value of the [Progress] component.
-  ///
-  /// Default: `100.0`
-  ///
-  /// <!-- Generated from [_$ProgressProps.max] -->
-  @override
-  double get max =>
-      props[_$key__max___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// The max value of the [Progress] component.
-  ///
-  /// Default: `100.0`
-  ///
-  /// <!-- Generated from [_$ProgressProps.max] -->
-  @override
-  set max(double value) => props[_$key__max___$ProgressProps] = value;
-
-  /// The skin / "context" for the [Progress] component.
-  ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/progress/#contextual-alternatives>.
-  ///
-  /// Default: [ProgressSkin.DEFAULT]
-  ///
-  /// <!-- Generated from [_$ProgressProps.skin] -->
-  @override
-  ProgressSkin get skin =>
-      props[_$key__skin___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// The skin / "context" for the [Progress] component.
-  ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/progress/#contextual-alternatives>.
-  ///
-  /// Default: [ProgressSkin.DEFAULT]
-  ///
-  /// <!-- Generated from [_$ProgressProps.skin] -->
-  @override
-  set skin(ProgressSkin value) => props[_$key__skin___$ProgressProps] = value;
-
-  /// Whether to render a "Barber Pole" gradient stripe effect in the [Progress] component.
-  ///
-  /// Default: false
-  ///
-  /// <!-- Generated from [_$ProgressProps.isStriped] -->
-  @override
-  bool get isStriped =>
-      props[_$key__isStriped___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Whether to render a "Barber Pole" gradient stripe effect in the [Progress] component.
-  ///
-  /// Default: false
-  ///
-  /// <!-- Generated from [_$ProgressProps.isStriped] -->
-  @override
-  set isStriped(bool value) => props[_$key__isStriped___$ProgressProps] = value;
-
-  /// Whether to animate the "Barber Pole" gradient stripe effect in the [Progress] component.
-  ///
-  /// __Note:__ Has no effect if [isStriped] is `false`.
-  ///
-  /// Default: false
-  ///
-  /// <!-- Generated from [_$ProgressProps.isAnimated] -->
-  @override
-  bool get isAnimated =>
-      props[_$key__isAnimated___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Whether to animate the "Barber Pole" gradient stripe effect in the [Progress] component.
-  ///
-  /// __Note:__ Has no effect if [isStriped] is `false`.
-  ///
-  /// Default: false
-  ///
-  /// <!-- Generated from [_$ProgressProps.isAnimated] -->
-  @override
-  set isAnimated(bool value) =>
-      props[_$key__isAnimated___$ProgressProps] = value;
-
-  /// Optionally add a caption that describes the context of the [Progress] component.
-  ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/progress/#example>.
-  ///
-  /// Default: [ProgressComponent._getPercentComplete]%
-  ///
-  /// <!-- Generated from [_$ProgressProps.caption] -->
-  @override
-  String get caption =>
-      props[_$key__caption___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Optionally add a caption that describes the context of the [Progress] component.
-  ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/progress/#example>.
-  ///
-  /// Default: [ProgressComponent._getPercentComplete]%
-  ///
-  /// <!-- Generated from [_$ProgressProps.caption] -->
-  @override
-  set caption(String value) => props[_$key__caption___$ProgressProps] = value;
-
-  /// Additional props to be added to the [caption] element _(if specified)_.
-  ///
-  /// <!-- Generated from [_$ProgressProps.captionProps] -->
-  @override
-  Map get captionProps =>
-      props[_$key__captionProps___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Additional props to be added to the [caption] element _(if specified)_.
-  ///
-  /// <!-- Generated from [_$ProgressProps.captionProps] -->
-  @override
-  set captionProps(Map value) =>
-      props[_$key__captionProps___$ProgressProps] = value;
-
-  /// Whether the [caption] should be visible.
-  ///
-  /// Default: false
-  ///
-  /// <!-- Generated from [_$ProgressProps.showCaption] -->
-  @override
-  bool get showCaption =>
-      props[_$key__showCaption___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Whether the [caption] should be visible.
-  ///
-  /// Default: false
-  ///
-  /// <!-- Generated from [_$ProgressProps.showCaption] -->
-  @override
-  set showCaption(bool value) =>
-      props[_$key__showCaption___$ProgressProps] = value;
-
-  /// Whether the [caption] should be appended with the value of [value].
-  ///
-  /// Default: true
-  ///
-  /// <!-- Generated from [_$ProgressProps.showPercentComplete] -->
-  @override
-  bool get showPercentComplete =>
-      props[_$key__showPercentComplete___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Whether the [caption] should be appended with the value of [value].
-  ///
-  /// Default: true
-  ///
-  /// <!-- Generated from [_$ProgressProps.showPercentComplete] -->
-  @override
-  set showPercentComplete(bool value) =>
-      props[_$key__showPercentComplete___$ProgressProps] = value;
-
-  /// Additional props to be added to the [Dom.div] that wraps around the [caption] element and `<progress>` element.
-  ///
-  /// <!-- Generated from [_$ProgressProps.rootNodeProps] -->
-  @override
-  Map get rootNodeProps =>
-      props[_$key__rootNodeProps___$ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Additional props to be added to the [Dom.div] that wraps around the [caption] element and `<progress>` element.
-  ///
-  /// <!-- Generated from [_$ProgressProps.rootNodeProps] -->
-  @override
-  set rootNodeProps(Map value) =>
-      props[_$key__rootNodeProps___$ProgressProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__value___$ProgressProps =
-      PropDescriptor(_$key__value___$ProgressProps);
-  static const PropDescriptor _$prop__min___$ProgressProps =
-      PropDescriptor(_$key__min___$ProgressProps);
-  static const PropDescriptor _$prop__max___$ProgressProps =
-      PropDescriptor(_$key__max___$ProgressProps);
-  static const PropDescriptor _$prop__skin___$ProgressProps =
-      PropDescriptor(_$key__skin___$ProgressProps);
-  static const PropDescriptor _$prop__isStriped___$ProgressProps =
-      PropDescriptor(_$key__isStriped___$ProgressProps);
-  static const PropDescriptor _$prop__isAnimated___$ProgressProps =
-      PropDescriptor(_$key__isAnimated___$ProgressProps);
-  static const PropDescriptor _$prop__caption___$ProgressProps =
-      PropDescriptor(_$key__caption___$ProgressProps);
-  static const PropDescriptor _$prop__captionProps___$ProgressProps =
-      PropDescriptor(_$key__captionProps___$ProgressProps);
-  static const PropDescriptor _$prop__showCaption___$ProgressProps =
-      PropDescriptor(_$key__showCaption___$ProgressProps);
-  static const PropDescriptor _$prop__showPercentComplete___$ProgressProps =
-      PropDescriptor(_$key__showPercentComplete___$ProgressProps);
-  static const PropDescriptor _$prop__rootNodeProps___$ProgressProps =
-      PropDescriptor(_$key__rootNodeProps___$ProgressProps);
-  static const String _$key__value___$ProgressProps = 'ProgressProps.value';
-  static const String _$key__min___$ProgressProps = 'ProgressProps.min';
-  static const String _$key__max___$ProgressProps = 'ProgressProps.max';
-  static const String _$key__skin___$ProgressProps = 'ProgressProps.skin';
-  static const String _$key__isStriped___$ProgressProps =
-      'ProgressProps.isStriped';
-  static const String _$key__isAnimated___$ProgressProps =
-      'ProgressProps.isAnimated';
-  static const String _$key__caption___$ProgressProps = 'ProgressProps.caption';
-  static const String _$key__captionProps___$ProgressProps =
-      'ProgressProps.captionProps';
-  static const String _$key__showCaption___$ProgressProps =
-      'ProgressProps.showCaption';
-  static const String _$key__showPercentComplete___$ProgressProps =
-      'ProgressProps.showPercentComplete';
-  static const String _$key__rootNodeProps___$ProgressProps =
-      'ProgressProps.rootNodeProps';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__value___$ProgressProps,
-    _$prop__min___$ProgressProps,
-    _$prop__max___$ProgressProps,
-    _$prop__skin___$ProgressProps,
-    _$prop__isStriped___$ProgressProps,
-    _$prop__isAnimated___$ProgressProps,
-    _$prop__caption___$ProgressProps,
-    _$prop__captionProps___$ProgressProps,
-    _$prop__showCaption___$ProgressProps,
-    _$prop__showPercentComplete___$ProgressProps,
-    _$prop__rootNodeProps___$ProgressProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__value___$ProgressProps,
-    _$key__min___$ProgressProps,
-    _$key__max___$ProgressProps,
-    _$key__skin___$ProgressProps,
-    _$key__isStriped___$ProgressProps,
-    _$key__isAnimated___$ProgressProps,
-    _$key__caption___$ProgressProps,
-    _$key__captionProps___$ProgressProps,
-    _$key__showCaption___$ProgressProps,
-    _$key__showPercentComplete___$ProgressProps,
-    _$key__rootNodeProps___$ProgressProps
-  ];
-}
-
-const PropsMeta _$metaForProgressProps = PropsMeta(
-  fields: _$ProgressPropsAccessorsMixin.$props,
-  keys: _$ProgressPropsAccessorsMixin.$propKeys,
-);
-
-class ProgressProps extends _$ProgressProps with _$ProgressPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForProgressProps;
-}
-
 _$$ProgressProps _$Progress([Map backingProps]) => backingProps == null
     ? _$$ProgressProps$JsMap(JsBackedMap())
     : _$$ProgressProps(backingProps);
@@ -307,9 +28,13 @@ _$$ProgressProps _$Progress([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$ProgressProps extends _$ProgressProps
-    with _$ProgressPropsAccessorsMixin
-    implements ProgressProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ProgressProps extends UiProps
+    with
+        ProgressProps,
+        $ProgressProps // If this generated mixin is undefined, it's likely because ProgressProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ProgressProps.
+{
   _$$ProgressProps._();
 
   factory _$$ProgressProps(Map backingMap) {
@@ -331,10 +56,12 @@ abstract class _$$ProgressProps extends _$ProgressProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'ProgressProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ProgressProps$PlainMap extends _$$ProgressProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -352,6 +79,8 @@ class _$$ProgressProps$PlainMap extends _$$ProgressProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ProgressProps$JsMap extends _$$ProgressProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -367,54 +96,16 @@ class _$$ProgressProps$JsMap extends _$$ProgressProps {
   JsBackedMap _props;
 }
 
-abstract class _$ProgressStateAccessorsMixin implements _$ProgressState {
-  @override
-  Map get state;
-
-  /// An autogenerated GUID, used as a fallback when [ProgressProps.id] is unspecified, and
-  /// saved on the state so it will persist across remounts.
-  ///
-  /// HTML id attributes are needed on `<progress>` elements for proper accessibility support,
-  /// so this state value ensures there's always a valid ID value to use.
-  ///
-  /// <!-- Generated from [_$ProgressState.id] -->
-  @override
-  String get id =>
-      state[_$key__id___$ProgressState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// An autogenerated GUID, used as a fallback when [ProgressProps.id] is unspecified, and
-  /// saved on the state so it will persist across remounts.
-  ///
-  /// HTML id attributes are needed on `<progress>` elements for proper accessibility support,
-  /// so this state value ensures there's always a valid ID value to use.
-  ///
-  /// <!-- Generated from [_$ProgressState.id] -->
-  @override
-  set id(String value) => state[_$key__id___$ProgressState] = value;
-  /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__id___$ProgressState =
-      StateDescriptor(_$key__id___$ProgressState);
-  static const String _$key__id___$ProgressState = 'ProgressState.id';
-
-  static const List<StateDescriptor> $state = [_$prop__id___$ProgressState];
-  static const List<String> $stateKeys = [_$key__id___$ProgressState];
-}
-
-const StateMeta _$metaForProgressState = StateMeta(
-  fields: _$ProgressStateAccessorsMixin.$state,
-  keys: _$ProgressStateAccessorsMixin.$stateKeys,
-);
-
-class ProgressState extends _$ProgressState with _$ProgressStateAccessorsMixin {
-  static const StateMeta meta = _$metaForProgressState;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$ProgressState extends _$ProgressState
-    with _$ProgressStateAccessorsMixin
-    implements ProgressState {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ProgressState extends UiState
+    with
+        ProgressState,
+        $ProgressState // If this generated mixin is undefined, it's likely because ProgressState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ProgressState.
+{
   _$$ProgressState._();
 
   factory _$$ProgressState(Map backingMap) {
@@ -431,6 +122,8 @@ abstract class _$$ProgressState extends _$ProgressState
 }
 
 // Concrete state implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ProgressState$PlainMap extends _$$ProgressState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -448,6 +141,8 @@ class _$$ProgressState$PlainMap extends _$$ProgressState {
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ProgressState$JsMap extends _$$ProgressState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -467,6 +162,8 @@ class _$$ProgressState$JsMap extends _$$ProgressState {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$ProgressComponent extends ProgressComponent {
   _$$ProgressProps$JsMap _cachedTypedProps;
 
@@ -520,10 +217,195 @@ class _$ProgressComponent extends ProgressComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$ProgressProps.
+  /// The default consumed props, taken from ProgressProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForProgressProps
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(ProgressProps)];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ProgressProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ProgressProps.
+        ProgressProps: $ProgressProps.meta,
+      });
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $ProgressProps on ProgressProps {
+  static const PropsMeta meta = _$metaForProgressProps;
+  @override
+  double get value =>
+      props[_$key__value__ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set value(double value) => props[_$key__value__ProgressProps] = value;
+  @override
+  double get min =>
+      props[_$key__min__ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set min(double value) => props[_$key__min__ProgressProps] = value;
+  @override
+  double get max =>
+      props[_$key__max__ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set max(double value) => props[_$key__max__ProgressProps] = value;
+  @override
+  ProgressSkin get skin =>
+      props[_$key__skin__ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set skin(ProgressSkin value) => props[_$key__skin__ProgressProps] = value;
+  @override
+  bool get isStriped =>
+      props[_$key__isStriped__ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set isStriped(bool value) => props[_$key__isStriped__ProgressProps] = value;
+  @override
+  bool get isAnimated =>
+      props[_$key__isAnimated__ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set isAnimated(bool value) => props[_$key__isAnimated__ProgressProps] = value;
+  @override
+  String get caption =>
+      props[_$key__caption__ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set caption(String value) => props[_$key__caption__ProgressProps] = value;
+  @override
+  Map get captionProps =>
+      props[_$key__captionProps__ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set captionProps(Map value) =>
+      props[_$key__captionProps__ProgressProps] = value;
+  @override
+  bool get showCaption =>
+      props[_$key__showCaption__ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set showCaption(bool value) =>
+      props[_$key__showCaption__ProgressProps] = value;
+  @override
+  bool get showPercentComplete =>
+      props[_$key__showPercentComplete__ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set showPercentComplete(bool value) =>
+      props[_$key__showPercentComplete__ProgressProps] = value;
+  @override
+  Map get rootNodeProps =>
+      props[_$key__rootNodeProps__ProgressProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set rootNodeProps(Map value) =>
+      props[_$key__rootNodeProps__ProgressProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__value__ProgressProps =
+      PropDescriptor(_$key__value__ProgressProps);
+  static const PropDescriptor _$prop__min__ProgressProps =
+      PropDescriptor(_$key__min__ProgressProps);
+  static const PropDescriptor _$prop__max__ProgressProps =
+      PropDescriptor(_$key__max__ProgressProps);
+  static const PropDescriptor _$prop__skin__ProgressProps =
+      PropDescriptor(_$key__skin__ProgressProps);
+  static const PropDescriptor _$prop__isStriped__ProgressProps =
+      PropDescriptor(_$key__isStriped__ProgressProps);
+  static const PropDescriptor _$prop__isAnimated__ProgressProps =
+      PropDescriptor(_$key__isAnimated__ProgressProps);
+  static const PropDescriptor _$prop__caption__ProgressProps =
+      PropDescriptor(_$key__caption__ProgressProps);
+  static const PropDescriptor _$prop__captionProps__ProgressProps =
+      PropDescriptor(_$key__captionProps__ProgressProps);
+  static const PropDescriptor _$prop__showCaption__ProgressProps =
+      PropDescriptor(_$key__showCaption__ProgressProps);
+  static const PropDescriptor _$prop__showPercentComplete__ProgressProps =
+      PropDescriptor(_$key__showPercentComplete__ProgressProps);
+  static const PropDescriptor _$prop__rootNodeProps__ProgressProps =
+      PropDescriptor(_$key__rootNodeProps__ProgressProps);
+  static const String _$key__value__ProgressProps = 'ProgressProps.value';
+  static const String _$key__min__ProgressProps = 'ProgressProps.min';
+  static const String _$key__max__ProgressProps = 'ProgressProps.max';
+  static const String _$key__skin__ProgressProps = 'ProgressProps.skin';
+  static const String _$key__isStriped__ProgressProps =
+      'ProgressProps.isStriped';
+  static const String _$key__isAnimated__ProgressProps =
+      'ProgressProps.isAnimated';
+  static const String _$key__caption__ProgressProps = 'ProgressProps.caption';
+  static const String _$key__captionProps__ProgressProps =
+      'ProgressProps.captionProps';
+  static const String _$key__showCaption__ProgressProps =
+      'ProgressProps.showCaption';
+  static const String _$key__showPercentComplete__ProgressProps =
+      'ProgressProps.showPercentComplete';
+  static const String _$key__rootNodeProps__ProgressProps =
+      'ProgressProps.rootNodeProps';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__value__ProgressProps,
+    _$prop__min__ProgressProps,
+    _$prop__max__ProgressProps,
+    _$prop__skin__ProgressProps,
+    _$prop__isStriped__ProgressProps,
+    _$prop__isAnimated__ProgressProps,
+    _$prop__caption__ProgressProps,
+    _$prop__captionProps__ProgressProps,
+    _$prop__showCaption__ProgressProps,
+    _$prop__showPercentComplete__ProgressProps,
+    _$prop__rootNodeProps__ProgressProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__value__ProgressProps,
+    _$key__min__ProgressProps,
+    _$key__max__ProgressProps,
+    _$key__skin__ProgressProps,
+    _$key__isStriped__ProgressProps,
+    _$key__isAnimated__ProgressProps,
+    _$key__caption__ProgressProps,
+    _$key__captionProps__ProgressProps,
+    _$key__showCaption__ProgressProps,
+    _$key__showPercentComplete__ProgressProps,
+    _$key__rootNodeProps__ProgressProps
   ];
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForProgressProps = PropsMeta(
+  fields: $ProgressProps.$props,
+  keys: $ProgressProps.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $ProgressState on ProgressState {
+  static const StateMeta meta = _$metaForProgressState;
+  @override
+  String get id =>
+      state[_$key__id__ProgressState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set id(String value) => state[_$key__id__ProgressState] = value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor _$prop__id__ProgressState =
+      StateDescriptor(_$key__id__ProgressState);
+  static const String _$key__id__ProgressState = 'ProgressState.id';
+
+  static const List<StateDescriptor> $state = [_$prop__id__ProgressState];
+  static const List<String> $stateKeys = [_$key__id__ProgressState];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const StateMeta _$metaForProgressState = StateMeta(
+  fields: $ProgressState.$state,
+  keys: $ProgressState.$stateKeys,
+);

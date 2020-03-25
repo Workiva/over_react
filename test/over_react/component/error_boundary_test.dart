@@ -16,7 +16,7 @@
 @Timeout(Duration(seconds: 2))
 library error_boundary_test;
 
-import 'package:over_react/over_react.dart';
+import 'package:over_react/components.dart';
 import 'package:over_react/src/component/error_boundary_recoverable.dart';
 import 'package:test/test.dart';
 

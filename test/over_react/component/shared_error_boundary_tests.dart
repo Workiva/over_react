@@ -1,7 +1,8 @@
 import 'dart:html';
 import 'package:logging/logging.dart';
 import 'package:over_react/over_react.dart';
-import 'package:over_react/src/component/error_boundary_mixins.dart';
+import 'package:over_react/components.dart' as v2;
+import 'package:over_react/src/component/error_boundary_api.dart';
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
 
@@ -12,7 +13,7 @@ import './fixtures/flawed_component_that_renders_nothing.dart';
 
 /// [isWrapper] identifies an ErrorBoundary that wraps another Error Boundary in order to handle
 /// render cycle "unrecoverable" errors.
-void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> builder, { bool isWrapper = false }) {
+void sharedErrorBoundaryTests(BuilderOnlyUiFactory<v2.ErrorBoundaryProps> builder, { bool isWrapper = false }) {
   TestJacket<ErrorBoundaryApi> jacket;
   ReactElement dummyChild;
 
@@ -55,9 +56,9 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
       calls = [];
       jacket = mount(
         (builder()
-          ..addProps(ErrorBoundaryPropsMapView({})..onComponentDidCatch = (err, info) {
+          ..onComponentDidCatch = (err, info) {
             calls.add({'onComponentDidCatch': [err, info]});
-          })
+          }
         )(Flawed()()),
         mountNode: mountNode,
       );
@@ -102,7 +103,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
 
   test('initializes with the expected default prop values', () {
     jacket = mount(builder()(dummyChild));
-    expect(ErrorBoundaryPropsMapView(jacket.getProps()).identicalErrorFrequencyTolerance.inSeconds, 5);
+    expect(v2.ErrorBoundary(jacket.getProps()).identicalErrorFrequencyTolerance.inSeconds, 5);
   });
 
   test('initializes with the expected initial state values', () {
@@ -166,11 +167,11 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             return Dom.h4()('Something super not awesome just happened.');
           }
 
-          jacket = mount((builder()..addProps(ErrorBoundaryPropsMapView({})..fallbackUIRenderer = _fallbackUIRenderer))(dummyChild));
+          jacket = mount((builder()..fallbackUIRenderer = _fallbackUIRenderer)(dummyChild));
           final component = jacket.getDartInstance();
           component.setState(component.newState()..hasError = true);
 
-          expect(jacket.getNode(), hasNodeName('H4'), reason: '${ErrorBoundaryPropsMapView(jacket.getProps()).fallbackUIRenderer}');
+          expect(jacket.getNode(), hasNodeName('H4'), reason: '${v2.ErrorBoundary(jacket.getProps()).fallbackUIRenderer}');
           expect(jacket.getNode().text, 'Something super not awesome just happened.');
         });
       }
@@ -178,9 +179,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
       group('and then switches back to rendering the child', () {
         setUp(() {
           jacket = mount((builder()
-            ..addProps(ErrorBoundaryPropsMapView({})
-              ..fallbackUIRenderer = (_, __) => (Dom.div()..addTestId('fallbackNode'))('Something went wrong')
-            )
+            ..fallbackUIRenderer = (_, __) => (Dom.div()..addTestId('fallbackNode'))('Something went wrong')
           )(dummyChild));
           final component = jacket.getDartInstance();
           component.setState(component.newState()
@@ -207,9 +206,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
           test('', () {
             final newDummyChild = (Dom.div()..addTestId('newDummyChild'))('hi there');
             jacket.rerender((builder()
-              ..addProps(ErrorBoundaryPropsMapView({})
-                ..fallbackUIRenderer = (_, __) => (Dom.div()..addTestId('fallbackNode'))('Something went wrong')
-              )
+              ..fallbackUIRenderer = (_, __) => (Dom.div()..addTestId('fallbackNode'))('Something went wrong')
             )(newDummyChild));
             expect(jacket.getDartInstance().state.hasError, isFalse);
             expect(jacket.getDartInstance().state.showFallbackUIOnError, isTrue);
@@ -219,9 +216,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
 
           test('unless the new child also throws an error', () {
             jacket.rerender((builder()
-              ..addProps(ErrorBoundaryPropsMapView({})
-                ..fallbackUIRenderer = (_, __) => (Dom.div()..addTestId('fallbackNode'))('Something went wrong')
-              )
+              ..fallbackUIRenderer = (_, __) => (Dom.div()..addTestId('fallbackNode'))('Something went wrong')
             )((FlawedOnMount()..addTestId('flawed'))()));
             if (!isWrapper) {
               expect(jacket.getDartInstance().state.hasError, isTrue);
@@ -289,17 +284,15 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
 
       jacket = mount(
         (builder()
-          ..addProps(ErrorBoundaryPropsMapView({})
-            ..identicalErrorFrequencyTolerance = const Duration(
-                milliseconds: identicalErrorFrequencyToleranceInMs)
-            ..onComponentDidCatch = (err, info) {
-              calls.add({'onComponentDidCatch': [err, info]});
-            }
-            ..onComponentIsUnrecoverable = (err, info) {
-              calls.add({'onComponentIsUnrecoverable': [err, info]});
-            }
-            ..addAll(errorBoundaryProps ?? {})
-          )
+          ..identicalErrorFrequencyTolerance = const Duration(
+              milliseconds: identicalErrorFrequencyToleranceInMs)
+          ..onComponentDidCatch = (err, info) {
+            calls.add({'onComponentDidCatch': [err, info]});
+          }
+          ..onComponentIsUnrecoverable = (err, info) {
+            calls.add({'onComponentIsUnrecoverable': [err, info]});
+          }
+          ..addAll(errorBoundaryProps ?? {})
         )(errorBoundaryChildren),
         attachedToDocument: true);
 
@@ -374,7 +367,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
             setUp(() {
               sharedSetup(
                 errorBoundaryChildren: FlawedOnMount()(),
-                errorBoundaryProps: (ErrorBoundaryPropsMapView({})
+                errorBoundaryProps: (v2.ErrorBoundary()
                     ..fallbackUIRenderer = (_, __) => (Dom.div()..addTestId('fallbackUIRenderer'))()
                   ),
               );

@@ -10,6 +10,8 @@ part of 'little_block.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $LittleBlockComponentFactory = registerComponent2(
   () => _$LittleBlockComponent(),
   builderFactory: LittleBlock,
@@ -19,75 +21,6 @@ final $LittleBlockComponentFactory = registerComponent2(
   displayName: 'LittleBlock',
 );
 
-abstract class _$LittleBlockPropsAccessorsMixin implements _$LittleBlockProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$LittleBlockProps.backgroundColor] -->
-  @override
-  String get backgroundColor =>
-      props[_$key__backgroundColor___$LittleBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$LittleBlockProps.backgroundColor] -->
-  @override
-  set backgroundColor(String value) =>
-      props[_$key__backgroundColor___$LittleBlockProps] = value;
-
-  /// <!-- Generated from [_$LittleBlockProps.colorString] -->
-  @override
-  String get colorString =>
-      props[_$key__colorString___$LittleBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$LittleBlockProps.colorString] -->
-  @override
-  set colorString(String value) =>
-      props[_$key__colorString___$LittleBlockProps] = value;
-
-  /// <!-- Generated from [_$LittleBlockProps.blockTitle] -->
-  @override
-  String get blockTitle =>
-      props[_$key__blockTitle___$LittleBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$LittleBlockProps.blockTitle] -->
-  @override
-  set blockTitle(String value) =>
-      props[_$key__blockTitle___$LittleBlockProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__backgroundColor___$LittleBlockProps =
-      PropDescriptor(_$key__backgroundColor___$LittleBlockProps);
-  static const PropDescriptor _$prop__colorString___$LittleBlockProps =
-      PropDescriptor(_$key__colorString___$LittleBlockProps);
-  static const PropDescriptor _$prop__blockTitle___$LittleBlockProps =
-      PropDescriptor(_$key__blockTitle___$LittleBlockProps);
-  static const String _$key__backgroundColor___$LittleBlockProps =
-      'LittleBlockProps.backgroundColor';
-  static const String _$key__colorString___$LittleBlockProps =
-      'LittleBlockProps.colorString';
-  static const String _$key__blockTitle___$LittleBlockProps =
-      'LittleBlockProps.blockTitle';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__backgroundColor___$LittleBlockProps,
-    _$prop__colorString___$LittleBlockProps,
-    _$prop__blockTitle___$LittleBlockProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__backgroundColor___$LittleBlockProps,
-    _$key__colorString___$LittleBlockProps,
-    _$key__blockTitle___$LittleBlockProps
-  ];
-}
-
-const PropsMeta _$metaForLittleBlockProps = PropsMeta(
-  fields: _$LittleBlockPropsAccessorsMixin.$props,
-  keys: _$LittleBlockPropsAccessorsMixin.$propKeys,
-);
-
-class LittleBlockProps extends _$LittleBlockProps
-    with _$LittleBlockPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForLittleBlockProps;
-}
-
 _$$LittleBlockProps _$LittleBlock([Map backingProps]) => backingProps == null
     ? _$$LittleBlockProps$JsMap(JsBackedMap())
     : _$$LittleBlockProps(backingProps);
@@ -95,9 +28,13 @@ _$$LittleBlockProps _$LittleBlock([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$LittleBlockProps extends _$LittleBlockProps
-    with _$LittleBlockPropsAccessorsMixin
-    implements LittleBlockProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$LittleBlockProps extends UiProps
+    with
+        LittleBlockProps,
+        $LittleBlockProps // If this generated mixin is undefined, it's likely because LittleBlockProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of LittleBlockProps.
+{
   _$$LittleBlockProps._();
 
   factory _$$LittleBlockProps(Map backingMap) {
@@ -119,10 +56,12 @@ abstract class _$$LittleBlockProps extends _$LittleBlockProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'LittleBlockProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$LittleBlockProps$PlainMap extends _$$LittleBlockProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -140,6 +79,8 @@ class _$$LittleBlockProps$PlainMap extends _$$LittleBlockProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$LittleBlockProps$JsMap extends _$$LittleBlockProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -159,6 +100,8 @@ class _$$LittleBlockProps$JsMap extends _$$LittleBlockProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$LittleBlockComponent extends LittleBlockComponent {
   _$$LittleBlockProps$JsMap _cachedTypedProps;
 
@@ -190,10 +133,75 @@ class _$LittleBlockComponent extends LittleBlockComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$LittleBlockProps.
+  /// The default consumed props, taken from LittleBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForLittleBlockProps
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(LittleBlockProps)];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because LittleBlockProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of LittleBlockProps.
+        LittleBlockProps: $LittleBlockProps.meta,
+      });
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $LittleBlockProps on LittleBlockProps {
+  static const PropsMeta meta = _$metaForLittleBlockProps;
+  @override
+  String get backgroundColor =>
+      props[_$key__backgroundColor__LittleBlockProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set backgroundColor(String value) =>
+      props[_$key__backgroundColor__LittleBlockProps] = value;
+  @override
+  String get colorString =>
+      props[_$key__colorString__LittleBlockProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set colorString(String value) =>
+      props[_$key__colorString__LittleBlockProps] = value;
+  @override
+  String get blockTitle =>
+      props[_$key__blockTitle__LittleBlockProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set blockTitle(String value) =>
+      props[_$key__blockTitle__LittleBlockProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__backgroundColor__LittleBlockProps =
+      PropDescriptor(_$key__backgroundColor__LittleBlockProps);
+  static const PropDescriptor _$prop__colorString__LittleBlockProps =
+      PropDescriptor(_$key__colorString__LittleBlockProps);
+  static const PropDescriptor _$prop__blockTitle__LittleBlockProps =
+      PropDescriptor(_$key__blockTitle__LittleBlockProps);
+  static const String _$key__backgroundColor__LittleBlockProps =
+      'LittleBlockProps.backgroundColor';
+  static const String _$key__colorString__LittleBlockProps =
+      'LittleBlockProps.colorString';
+  static const String _$key__blockTitle__LittleBlockProps =
+      'LittleBlockProps.blockTitle';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__backgroundColor__LittleBlockProps,
+    _$prop__colorString__LittleBlockProps,
+    _$prop__blockTitle__LittleBlockProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__backgroundColor__LittleBlockProps,
+    _$key__colorString__LittleBlockProps,
+    _$key__blockTitle__LittleBlockProps
   ];
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForLittleBlockProps = PropsMeta(
+  fields: $LittleBlockProps.$props,
+  keys: $LittleBlockProps.$propKeys,
+);

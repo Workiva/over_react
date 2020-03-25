@@ -10,6 +10,8 @@ part of 'button_group.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $ButtonGroupComponentFactory = registerComponent2(
   () => _$ButtonGroupComponent(),
   builderFactory: ButtonGroup,
@@ -19,100 +21,6 @@ final $ButtonGroupComponentFactory = registerComponent2(
   displayName: 'ButtonGroup',
 );
 
-abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
-  @override
-  Map get props;
-
-  /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
-  ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#sizing>.
-  ///
-  /// Default: [ButtonGroupSize.DEFAULT]
-  ///
-  /// <!-- Generated from [_$ButtonGroupProps.size] -->
-  @override
-  ButtonGroupSize get size =>
-      props[_$key__size___$ButtonGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
-  ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#sizing>.
-  ///
-  /// Default: [ButtonGroupSize.DEFAULT]
-  ///
-  /// <!-- Generated from [_$ButtonGroupProps.size] -->
-  @override
-  set size(ButtonGroupSize value) =>
-      props[_$key__size___$ButtonGroupProps] = value;
-
-  /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
-  ///
-  /// <!-- Generated from [_$ButtonGroupProps.skin] -->
-  @override
-  ButtonSkin get skin =>
-      props[_$key__skin___$ButtonGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// The [ButtonSkin] variation applied to every [Button] within the [ButtonGroup].
-  ///
-  /// <!-- Generated from [_$ButtonGroupProps.skin] -->
-  @override
-  set skin(ButtonSkin value) => props[_$key__skin___$ButtonGroupProps] = value;
-
-  /// Make the [Button]s within a [ButtonGroup] stack vertically.
-  ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#vertical-variation>.
-  ///
-  /// Default: false
-  ///
-  /// <!-- Generated from [_$ButtonGroupProps.isVertical] -->
-  @override
-  bool get isVertical =>
-      props[_$key__isVertical___$ButtonGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Make the [Button]s within a [ButtonGroup] stack vertically.
-  ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#vertical-variation>.
-  ///
-  /// Default: false
-  ///
-  /// <!-- Generated from [_$ButtonGroupProps.isVertical] -->
-  @override
-  set isVertical(bool value) =>
-      props[_$key__isVertical___$ButtonGroupProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__size___$ButtonGroupProps =
-      PropDescriptor(_$key__size___$ButtonGroupProps);
-  static const PropDescriptor _$prop__skin___$ButtonGroupProps =
-      PropDescriptor(_$key__skin___$ButtonGroupProps);
-  static const PropDescriptor _$prop__isVertical___$ButtonGroupProps =
-      PropDescriptor(_$key__isVertical___$ButtonGroupProps);
-  static const String _$key__size___$ButtonGroupProps = 'ButtonGroupProps.size';
-  static const String _$key__skin___$ButtonGroupProps = 'ButtonGroupProps.skin';
-  static const String _$key__isVertical___$ButtonGroupProps =
-      'ButtonGroupProps.isVertical';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__size___$ButtonGroupProps,
-    _$prop__skin___$ButtonGroupProps,
-    _$prop__isVertical___$ButtonGroupProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__size___$ButtonGroupProps,
-    _$key__skin___$ButtonGroupProps,
-    _$key__isVertical___$ButtonGroupProps
-  ];
-}
-
-const PropsMeta _$metaForButtonGroupProps = PropsMeta(
-  fields: _$ButtonGroupPropsAccessorsMixin.$props,
-  keys: _$ButtonGroupPropsAccessorsMixin.$propKeys,
-);
-
-class ButtonGroupProps extends _$ButtonGroupProps
-    with _$ButtonGroupPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForButtonGroupProps;
-}
-
 _$$ButtonGroupProps _$ButtonGroup([Map backingProps]) => backingProps == null
     ? _$$ButtonGroupProps$JsMap(JsBackedMap())
     : _$$ButtonGroupProps(backingProps);
@@ -120,9 +28,13 @@ _$$ButtonGroupProps _$ButtonGroup([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$ButtonGroupProps extends _$ButtonGroupProps
-    with _$ButtonGroupPropsAccessorsMixin
-    implements ButtonGroupProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ButtonGroupProps extends UiProps
+    with
+        ButtonGroupProps,
+        $ButtonGroupProps // If this generated mixin is undefined, it's likely because ButtonGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonGroupProps.
+{
   _$$ButtonGroupProps._();
 
   factory _$$ButtonGroupProps(Map backingMap) {
@@ -144,10 +56,12 @@ abstract class _$$ButtonGroupProps extends _$ButtonGroupProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'ButtonGroupProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ButtonGroupProps$PlainMap extends _$$ButtonGroupProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -165,6 +79,8 @@ class _$$ButtonGroupProps$PlainMap extends _$$ButtonGroupProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ButtonGroupProps$JsMap extends _$$ButtonGroupProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -180,32 +96,16 @@ class _$$ButtonGroupProps$JsMap extends _$$ButtonGroupProps {
   JsBackedMap _props;
 }
 
-abstract class _$ButtonGroupStateAccessorsMixin implements _$ButtonGroupState {
-  @override
-  Map get state;
-
-  /* GENERATED CONSTANTS */
-
-  static const List<StateDescriptor> $state = [];
-  static const List<String> $stateKeys = [];
-}
-
-const StateMeta _$metaForButtonGroupState = StateMeta(
-  fields: _$ButtonGroupStateAccessorsMixin.$state,
-  keys: _$ButtonGroupStateAccessorsMixin.$stateKeys,
-);
-
-class ButtonGroupState extends _$ButtonGroupState
-    with _$ButtonGroupStateAccessorsMixin {
-  static const StateMeta meta = _$metaForButtonGroupState;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$ButtonGroupState extends _$ButtonGroupState
-    with _$ButtonGroupStateAccessorsMixin
-    implements ButtonGroupState {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ButtonGroupState extends UiState
+    with
+        ButtonGroupState,
+        $ButtonGroupState // If this generated mixin is undefined, it's likely because ButtonGroupState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonGroupState.
+{
   _$$ButtonGroupState._();
 
   factory _$$ButtonGroupState(Map backingMap) {
@@ -222,6 +122,8 @@ abstract class _$$ButtonGroupState extends _$ButtonGroupState
 }
 
 // Concrete state implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ButtonGroupState$PlainMap extends _$$ButtonGroupState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -239,6 +141,8 @@ class _$$ButtonGroupState$PlainMap extends _$$ButtonGroupState {
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ButtonGroupState$JsMap extends _$$ButtonGroupState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -258,6 +162,8 @@ class _$$ButtonGroupState$JsMap extends _$$ButtonGroupState {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$ButtonGroupComponent extends ButtonGroupComponent {
   _$$ButtonGroupProps$JsMap _cachedTypedProps;
 
@@ -311,10 +217,91 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$ButtonGroupProps.
+  /// The default consumed props, taken from ButtonGroupProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForButtonGroupProps
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(ButtonGroupProps)];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ButtonGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonGroupProps.
+        ButtonGroupProps: $ButtonGroupProps.meta,
+      });
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $ButtonGroupProps on ButtonGroupProps {
+  static const PropsMeta meta = _$metaForButtonGroupProps;
+  @override
+  ButtonGroupSize get size =>
+      props[_$key__size__ButtonGroupProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set size(ButtonGroupSize value) =>
+      props[_$key__size__ButtonGroupProps] = value;
+  @override
+  ButtonSkin get skin =>
+      props[_$key__skin__ButtonGroupProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set skin(ButtonSkin value) => props[_$key__skin__ButtonGroupProps] = value;
+  @override
+  bool get isVertical =>
+      props[_$key__isVertical__ButtonGroupProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set isVertical(bool value) =>
+      props[_$key__isVertical__ButtonGroupProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__size__ButtonGroupProps =
+      PropDescriptor(_$key__size__ButtonGroupProps);
+  static const PropDescriptor _$prop__skin__ButtonGroupProps =
+      PropDescriptor(_$key__skin__ButtonGroupProps);
+  static const PropDescriptor _$prop__isVertical__ButtonGroupProps =
+      PropDescriptor(_$key__isVertical__ButtonGroupProps);
+  static const String _$key__size__ButtonGroupProps = 'ButtonGroupProps.size';
+  static const String _$key__skin__ButtonGroupProps = 'ButtonGroupProps.skin';
+  static const String _$key__isVertical__ButtonGroupProps =
+      'ButtonGroupProps.isVertical';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__size__ButtonGroupProps,
+    _$prop__skin__ButtonGroupProps,
+    _$prop__isVertical__ButtonGroupProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__size__ButtonGroupProps,
+    _$key__skin__ButtonGroupProps,
+    _$key__isVertical__ButtonGroupProps
   ];
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForButtonGroupProps = PropsMeta(
+  fields: $ButtonGroupProps.$props,
+  keys: $ButtonGroupProps.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $ButtonGroupState on ButtonGroupState {
+  static const StateMeta meta = _$metaForButtonGroupState;
+  /* GENERATED CONSTANTS */
+
+  static const List<StateDescriptor> $state = [];
+  static const List<String> $stateKeys = [];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const StateMeta _$metaForButtonGroupState = StateMeta(
+  fields: $ButtonGroupState.$state,
+  keys: $ButtonGroupState.$stateKeys,
+);

@@ -5,7 +5,7 @@ import '../store.dart';
 
 part 'should_not_update.over_react.g.dart';
 
-UiFactory<ShouldNotUpdateProps> ConnectedShouldNotUpdate = composeHocs([
+UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = composeHocs([
   connect<RandomColorStore, ShouldNotUpdateProps>(
     context: randomColorStoreContext,
     mapStateToProps: (_) => {},
@@ -21,15 +21,10 @@ UiFactory<ShouldNotUpdateProps> ConnectedShouldNotUpdate = composeHocs([
     mapStateToProps: (_) => {},
     pure: false,
   )
-])(ShouldNotUpdate);
+])(_$ShouldNotUpdate); // ignore: undefined_identifier
 
-@Factory()
-UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = _$ShouldNotUpdate;
+mixin ShouldNotUpdateProps on UiProps {}
 
-@Props()
-class _$ShouldNotUpdateProps extends UiProps {}
-
-@Component2()
 class ShouldNotUpdateComponent extends UiComponent2<ShouldNotUpdateProps> {
   @override
   render() {

@@ -10,6 +10,8 @@ part of 'prop_validation.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $PropTypesTestComponentFactory = registerComponent2(
   () => _$PropTypesTestComponent(),
   builderFactory: PropTypesTest,
@@ -19,187 +21,6 @@ final $PropTypesTestComponentFactory = registerComponent2(
   displayName: 'PropTypesTest',
 );
 
-abstract class _$PropTypesTestPropsAccessorsMixin
-    implements _$PropTypesTestProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$PropTypesTestProps.count] -->
-  @override
-  int get count =>
-      props[_$key__count___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$PropTypesTestProps.count] -->
-  @override
-  set count(int value) => props[_$key__count___$PropTypesTestProps] = value;
-
-  /// <!-- Generated from [_$PropTypesTestProps.twoObjects] -->
-  @override
-  List get twoObjects =>
-      props[_$key__twoObjects___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$PropTypesTestProps.twoObjects] -->
-  @override
-  set twoObjects(List value) =>
-      props[_$key__twoObjects___$PropTypesTestProps] = value;
-
-  /// <!-- Generated from [_$PropTypesTestProps.defaultCount] -->
-  @override
-  int get defaultCount =>
-      props[_$key__defaultCount___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$PropTypesTestProps.defaultCount] -->
-  @override
-  set defaultCount(int value) =>
-      props[_$key__defaultCount___$PropTypesTestProps] = value;
-
-  /// <!-- Generated from [_$PropTypesTestProps.content] -->
-  @override
-  bool get content =>
-      props[_$key__content___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$PropTypesTestProps.content] -->
-  @override
-  set content(bool value) =>
-      props[_$key__content___$PropTypesTestProps] = value;
-
-  /// <!-- Generated from [_$PropTypesTestProps.hideHeader] -->
-  @override
-  bool get hideHeader =>
-      props[_$key__hideHeader___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$PropTypesTestProps.hideHeader] -->
-  @override
-  set hideHeader(bool value) =>
-      props[_$key__hideHeader___$PropTypesTestProps] = value;
-
-  /// <!-- Generated from [_$PropTypesTestProps.header] -->
-  @override
-  dynamic get header =>
-      props[_$key__header___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$PropTypesTestProps.header] -->
-  @override
-  set header(dynamic value) =>
-      props[_$key__header___$PropTypesTestProps] = value;
-
-  /// <!-- Generated from [_$PropTypesTestProps.initiallyExpandedKeys] -->
-  @override
-  List get initiallyExpandedKeys =>
-      props[_$key__initiallyExpandedKeys___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$PropTypesTestProps.initiallyExpandedKeys] -->
-  @override
-  set initiallyExpandedKeys(List value) =>
-      props[_$key__initiallyExpandedKeys___$PropTypesTestProps] = value;
-
-  /// <!-- Generated from [_$PropTypesTestProps.targetKey] -->
-  @override
-  dynamic get targetKey =>
-      props[_$key__targetKey___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$PropTypesTestProps.targetKey] -->
-  @override
-  set targetKey(dynamic value) =>
-      props[_$key__targetKey___$PropTypesTestProps] = value;
-
-  /// <!-- Generated from [_$PropTypesTestProps.hideLabel] -->
-  @override
-  bool get hideLabel =>
-      props[_$key__hideLabel___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$PropTypesTestProps.hideLabel] -->
-  @override
-  set hideLabel(bool value) =>
-      props[_$key__hideLabel___$PropTypesTestProps] = value;
-
-  /// <!-- Generated from [_$PropTypesTestProps.label] -->
-  @override
-  String get label =>
-      props[_$key__label___$PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$PropTypesTestProps.label] -->
-  @override
-  set label(String value) => props[_$key__label___$PropTypesTestProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__count___$PropTypesTestProps =
-      PropDescriptor(_$key__count___$PropTypesTestProps);
-  static const PropDescriptor _$prop__twoObjects___$PropTypesTestProps =
-      PropDescriptor(_$key__twoObjects___$PropTypesTestProps);
-  static const PropDescriptor _$prop__defaultCount___$PropTypesTestProps =
-      PropDescriptor(_$key__defaultCount___$PropTypesTestProps);
-  static const PropDescriptor _$prop__content___$PropTypesTestProps =
-      PropDescriptor(_$key__content___$PropTypesTestProps);
-  static const PropDescriptor _$prop__hideHeader___$PropTypesTestProps =
-      PropDescriptor(_$key__hideHeader___$PropTypesTestProps);
-  static const PropDescriptor _$prop__header___$PropTypesTestProps =
-      PropDescriptor(_$key__header___$PropTypesTestProps);
-  static const PropDescriptor
-      _$prop__initiallyExpandedKeys___$PropTypesTestProps =
-      PropDescriptor(_$key__initiallyExpandedKeys___$PropTypesTestProps);
-  static const PropDescriptor _$prop__targetKey___$PropTypesTestProps =
-      PropDescriptor(_$key__targetKey___$PropTypesTestProps);
-  static const PropDescriptor _$prop__hideLabel___$PropTypesTestProps =
-      PropDescriptor(_$key__hideLabel___$PropTypesTestProps);
-  static const PropDescriptor _$prop__label___$PropTypesTestProps =
-      PropDescriptor(_$key__label___$PropTypesTestProps);
-  static const String _$key__count___$PropTypesTestProps =
-      'PropTypesTestProps.count';
-  static const String _$key__twoObjects___$PropTypesTestProps =
-      'PropTypesTestProps.twoObjects';
-  static const String _$key__defaultCount___$PropTypesTestProps =
-      'PropTypesTestProps.defaultCount';
-  static const String _$key__content___$PropTypesTestProps =
-      'PropTypesTestProps.content';
-  static const String _$key__hideHeader___$PropTypesTestProps =
-      'PropTypesTestProps.hideHeader';
-  static const String _$key__header___$PropTypesTestProps =
-      'PropTypesTestProps.header';
-  static const String _$key__initiallyExpandedKeys___$PropTypesTestProps =
-      'PropTypesTestProps.initiallyExpandedKeys';
-  static const String _$key__targetKey___$PropTypesTestProps =
-      'PropTypesTestProps.targetKey';
-  static const String _$key__hideLabel___$PropTypesTestProps =
-      'PropTypesTestProps.hideLabel';
-  static const String _$key__label___$PropTypesTestProps =
-      'PropTypesTestProps.label';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__count___$PropTypesTestProps,
-    _$prop__twoObjects___$PropTypesTestProps,
-    _$prop__defaultCount___$PropTypesTestProps,
-    _$prop__content___$PropTypesTestProps,
-    _$prop__hideHeader___$PropTypesTestProps,
-    _$prop__header___$PropTypesTestProps,
-    _$prop__initiallyExpandedKeys___$PropTypesTestProps,
-    _$prop__targetKey___$PropTypesTestProps,
-    _$prop__hideLabel___$PropTypesTestProps,
-    _$prop__label___$PropTypesTestProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__count___$PropTypesTestProps,
-    _$key__twoObjects___$PropTypesTestProps,
-    _$key__defaultCount___$PropTypesTestProps,
-    _$key__content___$PropTypesTestProps,
-    _$key__hideHeader___$PropTypesTestProps,
-    _$key__header___$PropTypesTestProps,
-    _$key__initiallyExpandedKeys___$PropTypesTestProps,
-    _$key__targetKey___$PropTypesTestProps,
-    _$key__hideLabel___$PropTypesTestProps,
-    _$key__label___$PropTypesTestProps
-  ];
-}
-
-const PropsMeta _$metaForPropTypesTestProps = PropsMeta(
-  fields: _$PropTypesTestPropsAccessorsMixin.$props,
-  keys: _$PropTypesTestPropsAccessorsMixin.$propKeys,
-);
-
-class PropTypesTestProps extends _$PropTypesTestProps
-    with _$PropTypesTestPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForPropTypesTestProps;
-}
-
 _$$PropTypesTestProps _$PropTypesTest([Map backingProps]) =>
     backingProps == null
         ? _$$PropTypesTestProps$JsMap(JsBackedMap())
@@ -208,9 +29,13 @@ _$$PropTypesTestProps _$PropTypesTest([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$PropTypesTestProps extends _$PropTypesTestProps
-    with _$PropTypesTestPropsAccessorsMixin
-    implements PropTypesTestProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$PropTypesTestProps extends UiProps
+    with
+        PropTypesTestProps,
+        $PropTypesTestProps // If this generated mixin is undefined, it's likely because PropTypesTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of PropTypesTestProps.
+{
   _$$PropTypesTestProps._();
 
   factory _$$PropTypesTestProps(Map backingMap) {
@@ -232,10 +57,12 @@ abstract class _$$PropTypesTestProps extends _$PropTypesTestProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'PropTypesTestProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$PropTypesTestProps$PlainMap extends _$$PropTypesTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -253,6 +80,8 @@ class _$$PropTypesTestProps$PlainMap extends _$$PropTypesTestProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$PropTypesTestProps$JsMap extends _$$PropTypesTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -272,6 +101,8 @@ class _$$PropTypesTestProps$JsMap extends _$$PropTypesTestProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$PropTypesTestComponent extends PropTypesTestComponent {
   _$$PropTypesTestProps$JsMap _cachedTypedProps;
 
@@ -303,10 +134,163 @@ class _$PropTypesTestComponent extends PropTypesTestComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$PropTypesTestProps.
+  /// The default consumed props, taken from PropTypesTestProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForPropTypesTestProps
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(PropTypesTestProps)];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because PropTypesTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of PropTypesTestProps.
+        PropTypesTestProps: $PropTypesTestProps.meta,
+      });
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $PropTypesTestProps on PropTypesTestProps {
+  static const PropsMeta meta = _$metaForPropTypesTestProps;
+  @override
+  int get count =>
+      props[_$key__count__PropTypesTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set count(int value) => props[_$key__count__PropTypesTestProps] = value;
+  @override
+  List get twoObjects =>
+      props[_$key__twoObjects__PropTypesTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set twoObjects(List value) =>
+      props[_$key__twoObjects__PropTypesTestProps] = value;
+  @override
+  int get defaultCount =>
+      props[_$key__defaultCount__PropTypesTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set defaultCount(int value) =>
+      props[_$key__defaultCount__PropTypesTestProps] = value;
+  @override
+  bool get content =>
+      props[_$key__content__PropTypesTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set content(bool value) => props[_$key__content__PropTypesTestProps] = value;
+  @override
+  bool get hideHeader =>
+      props[_$key__hideHeader__PropTypesTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set hideHeader(bool value) =>
+      props[_$key__hideHeader__PropTypesTestProps] = value;
+  @override
+  dynamic get header =>
+      props[_$key__header__PropTypesTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set header(dynamic value) => props[_$key__header__PropTypesTestProps] = value;
+  @override
+  List get initiallyExpandedKeys =>
+      props[_$key__initiallyExpandedKeys__PropTypesTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set initiallyExpandedKeys(List value) =>
+      props[_$key__initiallyExpandedKeys__PropTypesTestProps] = value;
+  @override
+  dynamic get targetKey =>
+      props[_$key__targetKey__PropTypesTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set targetKey(dynamic value) =>
+      props[_$key__targetKey__PropTypesTestProps] = value;
+  @override
+  bool get hideLabel =>
+      props[_$key__hideLabel__PropTypesTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set hideLabel(bool value) =>
+      props[_$key__hideLabel__PropTypesTestProps] = value;
+  @override
+  String get label =>
+      props[_$key__label__PropTypesTestProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set label(String value) => props[_$key__label__PropTypesTestProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__count__PropTypesTestProps =
+      PropDescriptor(_$key__count__PropTypesTestProps);
+  static const PropDescriptor _$prop__twoObjects__PropTypesTestProps =
+      PropDescriptor(_$key__twoObjects__PropTypesTestProps);
+  static const PropDescriptor _$prop__defaultCount__PropTypesTestProps =
+      PropDescriptor(_$key__defaultCount__PropTypesTestProps);
+  static const PropDescriptor _$prop__content__PropTypesTestProps =
+      PropDescriptor(_$key__content__PropTypesTestProps);
+  static const PropDescriptor _$prop__hideHeader__PropTypesTestProps =
+      PropDescriptor(_$key__hideHeader__PropTypesTestProps);
+  static const PropDescriptor _$prop__header__PropTypesTestProps =
+      PropDescriptor(_$key__header__PropTypesTestProps);
+  static const PropDescriptor
+      _$prop__initiallyExpandedKeys__PropTypesTestProps =
+      PropDescriptor(_$key__initiallyExpandedKeys__PropTypesTestProps);
+  static const PropDescriptor _$prop__targetKey__PropTypesTestProps =
+      PropDescriptor(_$key__targetKey__PropTypesTestProps);
+  static const PropDescriptor _$prop__hideLabel__PropTypesTestProps =
+      PropDescriptor(_$key__hideLabel__PropTypesTestProps);
+  static const PropDescriptor _$prop__label__PropTypesTestProps =
+      PropDescriptor(_$key__label__PropTypesTestProps);
+  static const String _$key__count__PropTypesTestProps =
+      'PropTypesTestProps.count';
+  static const String _$key__twoObjects__PropTypesTestProps =
+      'PropTypesTestProps.twoObjects';
+  static const String _$key__defaultCount__PropTypesTestProps =
+      'PropTypesTestProps.defaultCount';
+  static const String _$key__content__PropTypesTestProps =
+      'PropTypesTestProps.content';
+  static const String _$key__hideHeader__PropTypesTestProps =
+      'PropTypesTestProps.hideHeader';
+  static const String _$key__header__PropTypesTestProps =
+      'PropTypesTestProps.header';
+  static const String _$key__initiallyExpandedKeys__PropTypesTestProps =
+      'PropTypesTestProps.initiallyExpandedKeys';
+  static const String _$key__targetKey__PropTypesTestProps =
+      'PropTypesTestProps.targetKey';
+  static const String _$key__hideLabel__PropTypesTestProps =
+      'PropTypesTestProps.hideLabel';
+  static const String _$key__label__PropTypesTestProps =
+      'PropTypesTestProps.label';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__count__PropTypesTestProps,
+    _$prop__twoObjects__PropTypesTestProps,
+    _$prop__defaultCount__PropTypesTestProps,
+    _$prop__content__PropTypesTestProps,
+    _$prop__hideHeader__PropTypesTestProps,
+    _$prop__header__PropTypesTestProps,
+    _$prop__initiallyExpandedKeys__PropTypesTestProps,
+    _$prop__targetKey__PropTypesTestProps,
+    _$prop__hideLabel__PropTypesTestProps,
+    _$prop__label__PropTypesTestProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__count__PropTypesTestProps,
+    _$key__twoObjects__PropTypesTestProps,
+    _$key__defaultCount__PropTypesTestProps,
+    _$key__content__PropTypesTestProps,
+    _$key__hideHeader__PropTypesTestProps,
+    _$key__header__PropTypesTestProps,
+    _$key__initiallyExpandedKeys__PropTypesTestProps,
+    _$key__targetKey__PropTypesTestProps,
+    _$key__hideLabel__PropTypesTestProps,
+    _$key__label__PropTypesTestProps
   ];
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForPropTypesTestProps = PropsMeta(
+  fields: $PropTypesTestProps.$props,
+  keys: $PropTypesTestProps.$propKeys,
+);

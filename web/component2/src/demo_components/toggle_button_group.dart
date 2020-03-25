@@ -21,19 +21,16 @@ part 'toggle_button_group.over_react.g.dart';
 ///     </div>
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#checkbox-and-radio-buttons>
-@Factory()
-UiFactory <ToggleButtonGroupProps> ToggleButtonGroup = _$ToggleButtonGroup;
 
-@Props()
-class _$ToggleButtonGroupProps extends ButtonGroupProps with
-    AbstractInputPropsMixin {}
+UiFactory<ToggleButtonGroupProps> ToggleButtonGroup = _$ToggleButtonGroup;
 
-@State()
-class _$ToggleButtonGroupState extends ButtonGroupState with
-    AbstractInputStateMixin {}
+class ToggleButtonGroupProps = UiProps with ButtonGroupProps, AbstractInputPropsMixin;
+
+class ToggleButtonGroupState = UiState with ButtonGroupState, AbstractInputStateMixin;
 
 @Component2(subtypeOf: ButtonGroupComponent)
-class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupProps, ToggleButtonGroupState> {
+class ToggleButtonGroupComponent
+    extends ButtonGroupComponent<ToggleButtonGroupProps, ToggleButtonGroupState> {
   // Refs
 
   Map<int, dynamic> _toggleButtonRefs = <int, dynamic>{};
@@ -45,21 +42,16 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
   String get name => props.name ?? state.name;
 
   @override
-   get defaultProps => (newProps()
+  get defaultProps => (newProps()
     ..addProps(super.defaultProps)
     ..toggleType = ToggleBehaviorType.CHECKBOX
   );
 
   @override
-   get initialState => (newState()
+  get initialState => (newState()
     ..addAll(super.initialState)
     ..name = 'toggle_button_group_' + generateGuid()
   );
-
-  @override
-  get consumedProps => const [
-    ToggleButtonGroupProps.meta,
-  ];
 
   /// The props that should be added when we clone the given [child] using
   /// [cloneElement] via [renderButton].

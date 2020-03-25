@@ -8,13 +8,12 @@ import 'package:todo_client/src/components/shared/material_ui.dart';
 // ignore: uri_has_not_been_generated
 part 'local_storage_menu_item_input.over_react.g.dart';
 
-@Factory()
 UiFactory<LocalStorageMenuItemInputProps> LocalStorageMenuItemInput =
     // ignore: undefined_identifier
     _$LocalStorageMenuItemInput;
 
 @Props(keyNamespace: '')
-class _$LocalStorageMenuItemInputProps extends UiProps {
+mixin LocalStorageMenuItemInputProps on UiProps {
   String initialValue;
   bool error;
   dynamic helperText;
@@ -23,12 +22,10 @@ class _$LocalStorageMenuItemInputProps extends UiProps {
   Function(SyntheticKeyboardEvent event) onCancel;
 }
 
-@State()
-class _$LocalStorageMenuItemInputState extends UiState {
+mixin LocalStorageMenuItemInputState on UiState {
   String currentValue;
 }
 
-@Component2()
 class LocalStorageMenuItemInputComponent
     extends UiStatefulComponent2<LocalStorageMenuItemInputProps, LocalStorageMenuItemInputState> {
   @override
@@ -89,16 +86,4 @@ class LocalStorageMenuItemInputComponent
       props.onCancel(event);
     }
   }
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class LocalStorageMenuItemInputProps extends _$LocalStorageMenuItemInputProps with _$LocalStorageMenuItemInputPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForLocalStorageMenuItemInputProps;
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class LocalStorageMenuItemInputState extends _$LocalStorageMenuItemInputState with _$LocalStorageMenuItemInputStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaForLocalStorageMenuItemInputState;
 }

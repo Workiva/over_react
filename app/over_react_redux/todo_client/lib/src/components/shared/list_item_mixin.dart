@@ -7,14 +7,7 @@ export 'package:todo_client/src/components/shared/list_item_component_mixin.dart
 // ignore: uri_has_not_been_generated
 part 'list_item_mixin.over_react.g.dart';
 
-@PropsMixin()
-abstract class ListItemPropsMixin implements UiProps {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForListItemPropsMixin;
-
-  @override
-  Map get props;
-
+mixin ListItemPropsMixin on UiProps {
   covariant BaseModel model;
 
   @requiredProp bool isSelected;
@@ -28,13 +21,6 @@ abstract class ListItemPropsMixin implements UiProps {
   @requiredProp Function(String id) onRemove;
 }
 
-@StateMixin()
-abstract class ListItemStateMixin implements UiState {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaForListItemStateMixin;
-
-  @override
-  Map get state;
-
+mixin ListItemStateMixin on UiState {
   covariant BaseModel localModel;
 }

@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library abstract_transition2_test;
+// ignore_for_file: deprecated_member_use_from_same_package
+@TestOn('browser')
+library deprecated_abstract_transition_test;
 
 import 'dart:async';
 import 'dart:html';
@@ -20,17 +22,16 @@ import 'dart:html';
 import 'package:dart2_constant/core.dart' as d2c;
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
-import 'package:over_react/src/component/abstract_transition2.dart';
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
 
-import '../../test_util/test_util.dart';
+import '../../../test_util/test_util.dart';
 
-part 'abstract_transition2_test.over_react.g.dart';
+part 'abstract_transition_test.over_react.g.dart';
 
 /// Main entry point for AbstractTransition testing
 main() {
-  group('AbstractTransition2', () {
+  group('AbstractTransition (deprecated)', () {
     group('renders with correct initial state when the `initiallyShown` getter returns', () {
       test('true', () {
         var renderedInstance = render(Transitioner()
@@ -639,7 +640,7 @@ main() {
 UiFactory<TransitionerProps> Transitioner = _$Transitioner;
 
 @Props()
-class _$TransitionerProps extends AbstractTransition2Props {
+class _$TransitionerProps extends AbstractTransitionProps {
   Callback onHandlePreShowing;
   Callback onHandleShowing;
   Callback onHandleShown;
@@ -656,17 +657,18 @@ class _$TransitionerProps extends AbstractTransition2Props {
 }
 
 @State()
-class _$TransitionerState extends AbstractTransition2State {}
+class _$TransitionerState extends AbstractTransitionState {}
 
-@Component2()
-class TransitionerComponent extends AbstractTransitionComponent2<TransitionerProps, TransitionerState> {
+@Component()
+class TransitionerComponent extends AbstractTransitionComponent<TransitionerProps, TransitionerState> {
   @override
-  Map get defaultProps => (newProps()
-    ..addProps(super.defaultProps)
+  Map getDefaultProps() => (newProps()
+    ..addProps(super.getDefaultProps())
     ..hasTransition = true
     ..initiallyShown = true
     ..transitionTimeout = const Duration(seconds: 1)
   );
+
 
   @override
   Element getTransitionDomNode() => findDomNode(this);

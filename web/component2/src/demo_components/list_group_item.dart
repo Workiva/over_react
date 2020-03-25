@@ -7,11 +7,10 @@ part 'list_group_item.over_react.g.dart';
 /// to render individual items within a list.
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
-@Factory()
+
 UiFactory<ListGroupItemProps> ListGroupItem = _$ListGroupItem;
 
-@Props()
-class _$ListGroupItemProps extends UiProps {
+mixin ListGroupItemProps on UiProps {
   /// The HTML element type for the [ListGroupItem], specifying its DOM
   /// representation when rendered.
   ///
@@ -83,10 +82,9 @@ class _$ListGroupItemProps extends UiProps {
   ButtonType type;
 }
 
-@Component2()
 class ListGroupItemComponent extends UiComponent2<ListGroupItemProps> {
   @override
-   get defaultProps => (newProps()
+  get defaultProps => (newProps()
     ..elementType = ListGroupItemElementType.SPAN
     ..skin = ListGroupItemSkin.DEFAULT
     ..isActive = false

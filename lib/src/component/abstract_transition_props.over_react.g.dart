@@ -7,188 +7,185 @@ part of 'abstract_transition_props.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
-abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
-  @override
-  Map get props;
-
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $TransitionPropsMixin on TransitionPropsMixin {
   static const PropsMeta meta = _$metaForTransitionPropsMixin;
-  static final TransitionPropsMapView defaultProps = TransitionPropsMapView({})
-    ..transitionCount = 1;
-
-  /// The number of `transitionend` event that occur when the transition node is shown/hidden.
-  ///
-  /// Serves as the default for [transitionInCount]/[transitionOutCount] when they are not specified.
-  ///
-  /// Default: `1`
-  ///
-  /// <!-- Generated from [_$TransitionPropsMixin.transitionCount] -->
   @override
   int get transitionCount =>
-      props[_$key__transitionCount___$TransitionPropsMixin] ??
+      props[_$key__transitionCount__TransitionPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// The number of `transitionend` event that occur when the transition node is shown/hidden.
-  ///
-  /// Serves as the default for [transitionInCount]/[transitionOutCount] when they are not specified.
-  ///
-  /// Default: `1`
-  ///
-  /// <!-- Generated from [_$TransitionPropsMixin.transitionCount] -->
   @override
   set transitionCount(int value) =>
-      props[_$key__transitionCount___$TransitionPropsMixin] = value;
-
-  /// The number of `transitionend` event that occur when the transition node is shown.
-  ///
-  /// Default: [transitionCount]
-  ///
-  /// <!-- Generated from [_$TransitionPropsMixin.transitionInCount] -->
+      props[_$key__transitionCount__TransitionPropsMixin] = value;
   @override
   int get transitionInCount =>
-      props[_$key__transitionInCount___$TransitionPropsMixin] ??
+      props[_$key__transitionInCount__TransitionPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// The number of `transitionend` event that occur when the transition node is shown.
-  ///
-  /// Default: [transitionCount]
-  ///
-  /// <!-- Generated from [_$TransitionPropsMixin.transitionInCount] -->
   @override
   set transitionInCount(int value) =>
-      props[_$key__transitionInCount___$TransitionPropsMixin] = value;
-
-  /// The number of `transitionend` event that occur when the transition node is hidden.
-  ///
-  /// Default: [transitionCount]
-  ///
-  /// <!-- Generated from [_$TransitionPropsMixin.transitionOutCount] -->
+      props[_$key__transitionInCount__TransitionPropsMixin] = value;
   @override
   int get transitionOutCount =>
-      props[_$key__transitionOutCount___$TransitionPropsMixin] ??
+      props[_$key__transitionOutCount__TransitionPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// The number of `transitionend` event that occur when the transition node is hidden.
-  ///
-  /// Default: [transitionCount]
-  ///
-  /// <!-- Generated from [_$TransitionPropsMixin.transitionOutCount] -->
   @override
   set transitionOutCount(int value) =>
-      props[_$key__transitionOutCount___$TransitionPropsMixin] = value;
-
-  /// Optional callback that fires before the [AbstractTransitionComponent] is hidden.
-  ///
-  /// Returning `false` will cancel default behavior, and the [AbstractTransitionComponent] will remain visible.
-  ///
-  /// <!-- Generated from [_$TransitionPropsMixin.onWillHide] -->
+      props[_$key__transitionOutCount__TransitionPropsMixin] = value;
   @override
   Callback get onWillHide =>
-      props[_$key__onWillHide___$TransitionPropsMixin] ??
+      props[_$key__onWillHide__TransitionPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Optional callback that fires before the [AbstractTransitionComponent] is hidden.
-  ///
-  /// Returning `false` will cancel default behavior, and the [AbstractTransitionComponent] will remain visible.
-  ///
-  /// <!-- Generated from [_$TransitionPropsMixin.onWillHide] -->
   @override
   set onWillHide(Callback value) =>
-      props[_$key__onWillHide___$TransitionPropsMixin] = value;
-
-  /// Optional callback that fires after the [AbstractTransitionComponent] is hidden.
-  ///
-  /// <!-- Generated from [_$TransitionPropsMixin.onDidHide] -->
+      props[_$key__onWillHide__TransitionPropsMixin] = value;
   @override
   Callback get onDidHide =>
-      props[_$key__onDidHide___$TransitionPropsMixin] ??
+      props[_$key__onDidHide__TransitionPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Optional callback that fires after the [AbstractTransitionComponent] is hidden.
-  ///
-  /// <!-- Generated from [_$TransitionPropsMixin.onDidHide] -->
   @override
   set onDidHide(Callback value) =>
-      props[_$key__onDidHide___$TransitionPropsMixin] = value;
-
-  /// Optional callback that fires before the [AbstractTransitionComponent] appears.
-  ///
-  /// Returning `false` will cancel default behavior, and the [AbstractTransitionComponent] will not appear.
-  ///
-  /// <!-- Generated from [_$TransitionPropsMixin.onWillShow] -->
+      props[_$key__onDidHide__TransitionPropsMixin] = value;
   @override
   Callback get onWillShow =>
-      props[_$key__onWillShow___$TransitionPropsMixin] ??
+      props[_$key__onWillShow__TransitionPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Optional callback that fires before the [AbstractTransitionComponent] appears.
-  ///
-  /// Returning `false` will cancel default behavior, and the [AbstractTransitionComponent] will not appear.
-  ///
-  /// <!-- Generated from [_$TransitionPropsMixin.onWillShow] -->
   @override
   set onWillShow(Callback value) =>
-      props[_$key__onWillShow___$TransitionPropsMixin] = value;
-
-  /// Optional callback that fires after the [AbstractTransitionComponent] appears.
-  ///
-  /// <!-- Generated from [_$TransitionPropsMixin.onDidShow] -->
+      props[_$key__onWillShow__TransitionPropsMixin] = value;
   @override
   Callback get onDidShow =>
-      props[_$key__onDidShow___$TransitionPropsMixin] ??
+      props[_$key__onDidShow__TransitionPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Optional callback that fires after the [AbstractTransitionComponent] appears.
-  ///
-  /// <!-- Generated from [_$TransitionPropsMixin.onDidShow] -->
   @override
   set onDidShow(Callback value) =>
-      props[_$key__onDidShow___$TransitionPropsMixin] = value;
+      props[_$key__onDidShow__TransitionPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__transitionCount___$TransitionPropsMixin =
-      PropDescriptor(_$key__transitionCount___$TransitionPropsMixin);
-  static const PropDescriptor
-      _$prop__transitionInCount___$TransitionPropsMixin =
-      PropDescriptor(_$key__transitionInCount___$TransitionPropsMixin);
-  static const PropDescriptor
-      _$prop__transitionOutCount___$TransitionPropsMixin =
-      PropDescriptor(_$key__transitionOutCount___$TransitionPropsMixin);
-  static const PropDescriptor _$prop__onWillHide___$TransitionPropsMixin =
-      PropDescriptor(_$key__onWillHide___$TransitionPropsMixin);
-  static const PropDescriptor _$prop__onDidHide___$TransitionPropsMixin =
-      PropDescriptor(_$key__onDidHide___$TransitionPropsMixin);
-  static const PropDescriptor _$prop__onWillShow___$TransitionPropsMixin =
-      PropDescriptor(_$key__onWillShow___$TransitionPropsMixin);
-  static const PropDescriptor _$prop__onDidShow___$TransitionPropsMixin =
-      PropDescriptor(_$key__onDidShow___$TransitionPropsMixin);
-  static const String _$key__transitionCount___$TransitionPropsMixin =
+  static const PropDescriptor _$prop__transitionCount__TransitionPropsMixin =
+      PropDescriptor(_$key__transitionCount__TransitionPropsMixin);
+  static const PropDescriptor _$prop__transitionInCount__TransitionPropsMixin =
+      PropDescriptor(_$key__transitionInCount__TransitionPropsMixin);
+  static const PropDescriptor _$prop__transitionOutCount__TransitionPropsMixin =
+      PropDescriptor(_$key__transitionOutCount__TransitionPropsMixin);
+  static const PropDescriptor _$prop__onWillHide__TransitionPropsMixin =
+      PropDescriptor(_$key__onWillHide__TransitionPropsMixin);
+  static const PropDescriptor _$prop__onDidHide__TransitionPropsMixin =
+      PropDescriptor(_$key__onDidHide__TransitionPropsMixin);
+  static const PropDescriptor _$prop__onWillShow__TransitionPropsMixin =
+      PropDescriptor(_$key__onWillShow__TransitionPropsMixin);
+  static const PropDescriptor _$prop__onDidShow__TransitionPropsMixin =
+      PropDescriptor(_$key__onDidShow__TransitionPropsMixin);
+  static const String _$key__transitionCount__TransitionPropsMixin =
       'TransitionPropsMixin.transitionCount';
-  static const String _$key__transitionInCount___$TransitionPropsMixin =
+  static const String _$key__transitionInCount__TransitionPropsMixin =
       'TransitionPropsMixin.transitionInCount';
-  static const String _$key__transitionOutCount___$TransitionPropsMixin =
+  static const String _$key__transitionOutCount__TransitionPropsMixin =
       'TransitionPropsMixin.transitionOutCount';
-  static const String _$key__onWillHide___$TransitionPropsMixin =
+  static const String _$key__onWillHide__TransitionPropsMixin =
       'TransitionPropsMixin.onWillHide';
-  static const String _$key__onDidHide___$TransitionPropsMixin =
+  static const String _$key__onDidHide__TransitionPropsMixin =
       'TransitionPropsMixin.onDidHide';
-  static const String _$key__onWillShow___$TransitionPropsMixin =
+  static const String _$key__onWillShow__TransitionPropsMixin =
       'TransitionPropsMixin.onWillShow';
-  static const String _$key__onDidShow___$TransitionPropsMixin =
+  static const String _$key__onDidShow__TransitionPropsMixin =
       'TransitionPropsMixin.onDidShow';
 
   static const List<PropDescriptor> $props = [
-    _$prop__transitionCount___$TransitionPropsMixin,
-    _$prop__transitionInCount___$TransitionPropsMixin,
-    _$prop__transitionOutCount___$TransitionPropsMixin,
-    _$prop__onWillHide___$TransitionPropsMixin,
-    _$prop__onDidHide___$TransitionPropsMixin,
-    _$prop__onWillShow___$TransitionPropsMixin,
-    _$prop__onDidShow___$TransitionPropsMixin
+    _$prop__transitionCount__TransitionPropsMixin,
+    _$prop__transitionInCount__TransitionPropsMixin,
+    _$prop__transitionOutCount__TransitionPropsMixin,
+    _$prop__onWillHide__TransitionPropsMixin,
+    _$prop__onDidHide__TransitionPropsMixin,
+    _$prop__onWillShow__TransitionPropsMixin,
+    _$prop__onDidShow__TransitionPropsMixin
   ];
   static const List<String> $propKeys = [
-    _$key__transitionCount___$TransitionPropsMixin,
-    _$key__transitionInCount___$TransitionPropsMixin,
-    _$key__transitionOutCount___$TransitionPropsMixin,
-    _$key__onWillHide___$TransitionPropsMixin,
-    _$key__onDidHide___$TransitionPropsMixin,
-    _$key__onWillShow___$TransitionPropsMixin,
-    _$key__onDidShow___$TransitionPropsMixin
+    _$key__transitionCount__TransitionPropsMixin,
+    _$key__transitionInCount__TransitionPropsMixin,
+    _$key__transitionOutCount__TransitionPropsMixin,
+    _$key__onWillHide__TransitionPropsMixin,
+    _$key__onDidHide__TransitionPropsMixin,
+    _$key__onWillShow__TransitionPropsMixin,
+    _$key__onDidShow__TransitionPropsMixin
   ];
 }
 
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 const PropsMeta _$metaForTransitionPropsMixin = PropsMeta(
-  fields: TransitionPropsMixin.$props,
-  keys: TransitionPropsMixin.$propKeys,
+  fields: $TransitionPropsMixin.$props,
+  keys: $TransitionPropsMixin.$propKeys,
 );
+
+_$$TransitionPropsMixin _$TransitionPropsMapView([Map backingProps]) =>
+    backingProps == null
+        ? _$$TransitionPropsMixin$JsMap(JsBackedMap())
+        : _$$TransitionPropsMixin(backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$TransitionPropsMixin extends UiProps
+    with
+        TransitionPropsMixin,
+        $TransitionPropsMixin // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TransitionPropsMixin.
+{
+  _$$TransitionPropsMixin._();
+
+  factory _$$TransitionPropsMixin(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$TransitionPropsMixin$JsMap(backingMap);
+    } else {
+      return _$$TransitionPropsMixin$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '';
+}
+
+// Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$TransitionPropsMixin$PlainMap extends _$$TransitionPropsMixin {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TransitionPropsMixin$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$TransitionPropsMixin$JsMap extends _$$TransitionPropsMixin {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TransitionPropsMixin$JsMap(JsBackedMap backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
