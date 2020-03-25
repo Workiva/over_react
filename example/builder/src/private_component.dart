@@ -1,21 +1,19 @@
 import 'package:over_react/over_react.dart';
 
+// ignore: uri_has_not_been_generated
 part 'private_component.over_react.g.dart';
 
-@Factory()
-UiFactory<_PrivateProps> _Private = _$_Private;
+UiFactory<_PrivateProps> _Private = _$_Private; // ignore: undefined_identifier
 
-@Props()
-class _$_PrivateProps extends UiProps {
+mixin _PrivateProps on UiProps {
   bool prop1;
 }
 
 @State()
-class _$_PrivateState extends UiState {
+mixin _PrivateState on UiState {
   bool state1;
 }
 
-@Component2()
 class PrivateComponent extends UiStatefulComponent2<_PrivateProps, _PrivateState> {
   @override
   get defaultProps => newProps()..prop1 = true;

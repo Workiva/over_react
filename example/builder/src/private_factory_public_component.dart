@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_function_declarations_over_variables
 import 'package:over_react/over_react.dart';
 
+// ignore_for_file: uri_has_not_been_generated
 part 'private_factory_public_component.over_react.g.dart';
 
-@Factory()
 UiFactory<FormActionInputProps> _FormActionInput =
-    _$_FormActionInput;
+    _$_FormActionInput; // ignore: undefined_identifier
 
 UiFactory<FormActionInputProps> FormSubmitInput = ([backingMap]) =>
     _FormActionInput(backingMap);
@@ -13,8 +13,7 @@ UiFactory<FormActionInputProps> FormSubmitInput = ([backingMap]) =>
 UiFactory<FormActionInputProps> FormResetInput = ([backingMap]) =>
     _FormActionInput(backingMap);
 
-@Props()
-class _$FormActionInputProps extends UiProps {
+mixin FormActionInputProps on UiProps {
   String prop1;
 }
 

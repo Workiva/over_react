@@ -32,6 +32,15 @@ import 'package:redux/redux.dart';
 
 part 'over_react_redux.over_react.g.dart';
 
+/// This class is present:
+///
+/// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
+///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
+abstract class $ConnectPropsMixin {
+  static const PropsMeta meta = _$metaForConnectPropsMixin;
+}
+
 @PropsMixin(keyNamespace: '')
 abstract class _$ConnectPropsMixin implements UiProps {
   @override
@@ -289,12 +298,7 @@ class JsReactRedux {
 /// [context] You may provide a context instance. If you do so, you will need to provide the same context instance to all of your connected components as well.
 ///
 /// See: <https://react-redux.js.org/api/provider>
-class ReduxProviderProps extends component_base.UiProps
-    with
-        builder_helpers.GeneratedClass
-    implements
-        builder_helpers.UiProps {
-
+class ReduxProviderProps extends builder_helpers.UiProps {
   ReduxProviderProps([Map props]) : this.props = props ?? JsBackedMap();
 
   @override
@@ -305,6 +309,9 @@ class ReduxProviderProps extends component_base.UiProps
 
   @override
   String get propKeyNamespace => '';
+
+  @override
+  bool get $isClassGenerated => true;
 
   /// The __single__ Redux store in your application.
   Store get store => props['store'];

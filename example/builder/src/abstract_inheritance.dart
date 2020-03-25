@@ -1,19 +1,17 @@
 import 'package:over_react/over_react.dart';
 
+// ignore_for_file: uri_has_not_been_generated
 part 'abstract_inheritance.over_react.g.dart';
 
-@AbstractProps()
-abstract class _$SuperProps extends UiProps {
+mixin SuperPropsMixin on UiProps {
   String superProp;
 }
 
-@AbstractState()
-abstract class _$SuperState extends UiState {
+mixin SuperStateMixin on UiState {
   String superState;
 }
 
-@AbstractComponent2()
-abstract class SuperComponent<T extends SuperProps, V extends SuperState> extends UiStatefulComponent2<T, V> {
+abstract class SuperComponent<T extends SuperPropsMixin, V extends SuperStateMixin> extends UiStatefulComponent2<T, V> {
   @override
   get defaultProps => newProps()..id = 'super';
 
@@ -26,20 +24,21 @@ abstract class SuperComponent<T extends SuperProps, V extends SuperState> extend
 }
 
 //---------------------------- Sub Component ----------------------------
-@Factory()
-UiFactory<SubProps> Sub = _$Sub;
 
-@Props()
-class _$SubProps extends SuperProps {
+UiFactory<SubProps> Sub = _$Sub; // ignore: undefined_identifier
+
+mixin SubPropsMixin on UiProps {
   String subProp;
 }
 
-@State()
-class _$SubState extends SuperState {
+class SubProps = UiProps with SuperPropsMixin, SubPropsMixin;
+
+mixin SubStateMixin on UiState {
   String subState;
 }
 
-@Component2()
+class SubState = UiState with SuperStateMixin, SubStateMixin;
+
 class SubComponent extends SuperComponent<SubProps, SubState> {
   @override
   get defaultProps => newProps()..id = 'sub';

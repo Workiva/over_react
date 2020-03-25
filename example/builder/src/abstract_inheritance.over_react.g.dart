@@ -10,6 +10,8 @@ part of 'abstract_inheritance.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $SubComponentFactory = registerComponent2(
   () => _$SubComponent(),
   builderFactory: Sub,
@@ -19,36 +21,6 @@ final $SubComponentFactory = registerComponent2(
   displayName: 'Sub',
 );
 
-abstract class _$SubPropsAccessorsMixin implements _$SubProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$SubProps.subProp] -->
-  @override
-  String get subProp =>
-      props[_$key__subProp___$SubProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$SubProps.subProp] -->
-  @override
-  set subProp(String value) => props[_$key__subProp___$SubProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__subProp___$SubProps =
-      PropDescriptor(_$key__subProp___$SubProps);
-  static const String _$key__subProp___$SubProps = 'SubProps.subProp';
-
-  static const List<PropDescriptor> $props = [_$prop__subProp___$SubProps];
-  static const List<String> $propKeys = [_$key__subProp___$SubProps];
-}
-
-const PropsMeta _$metaForSubProps = PropsMeta(
-  fields: _$SubPropsAccessorsMixin.$props,
-  keys: _$SubPropsAccessorsMixin.$propKeys,
-);
-
-class SubProps extends _$SubProps with _$SubPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForSubProps;
-}
-
 _$$SubProps _$Sub([Map backingProps]) => backingProps == null
     ? _$$SubProps$JsMap(JsBackedMap())
     : _$$SubProps(backingProps);
@@ -56,9 +28,16 @@ _$$SubProps _$Sub([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$SubProps extends _$SubProps
-    with _$SubPropsAccessorsMixin
-    implements SubProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$SubProps extends UiProps
+    with
+        SuperPropsMixin,
+        $SuperPropsMixin, // If this generated mixin is undefined, it's likely because SuperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SuperPropsMixin.
+        SubPropsMixin,
+        $SubPropsMixin // If this generated mixin is undefined, it's likely because SubPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SubPropsMixin.
+    implements
+        SubProps {
   _$$SubProps._();
 
   factory _$$SubProps(Map backingMap) {
@@ -80,10 +59,12 @@ abstract class _$$SubProps extends _$SubProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'SubProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$SubProps$PlainMap extends _$$SubProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -101,6 +82,8 @@ class _$$SubProps$PlainMap extends _$$SubProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$SubProps$JsMap extends _$$SubProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -116,42 +99,19 @@ class _$$SubProps$JsMap extends _$$SubProps {
   JsBackedMap _props;
 }
 
-abstract class _$SubStateAccessorsMixin implements _$SubState {
-  @override
-  Map get state;
-
-  /// <!-- Generated from [_$SubState.subState] -->
-  @override
-  String get subState =>
-      state[_$key__subState___$SubState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$SubState.subState] -->
-  @override
-  set subState(String value) => state[_$key__subState___$SubState] = value;
-  /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__subState___$SubState =
-      StateDescriptor(_$key__subState___$SubState);
-  static const String _$key__subState___$SubState = 'SubState.subState';
-
-  static const List<StateDescriptor> $state = [_$prop__subState___$SubState];
-  static const List<String> $stateKeys = [_$key__subState___$SubState];
-}
-
-const StateMeta _$metaForSubState = StateMeta(
-  fields: _$SubStateAccessorsMixin.$state,
-  keys: _$SubStateAccessorsMixin.$stateKeys,
-);
-
-class SubState extends _$SubState with _$SubStateAccessorsMixin {
-  static const StateMeta meta = _$metaForSubState;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$SubState extends _$SubState
-    with _$SubStateAccessorsMixin
-    implements SubState {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$SubState extends UiState
+    with
+        SuperStateMixin,
+        $SuperStateMixin, // If this generated mixin is undefined, it's likely because SuperStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of SuperStateMixin.
+        SubStateMixin,
+        $SubStateMixin // If this generated mixin is undefined, it's likely because SubStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of SubStateMixin.
+    implements
+        SubState {
   _$$SubState._();
 
   factory _$$SubState(Map backingMap) {
@@ -168,6 +128,8 @@ abstract class _$$SubState extends _$SubState
 }
 
 // Concrete state implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$SubState$PlainMap extends _$$SubState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -185,6 +147,8 @@ class _$$SubState$PlainMap extends _$$SubState {
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$SubState$JsMap extends _$$SubState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -204,6 +168,8 @@ class _$$SubState$JsMap extends _$$SubState {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$SubComponent extends SubComponent {
   _$$SubProps$JsMap _cachedTypedProps;
 
@@ -255,71 +221,136 @@ class _$SubComponent extends SubComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$SubProps.
+  /// The default consumed props, taken from SubProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForSubProps];
+  List<ConsumedProps> get $defaultConsumedProps => const [];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because SuperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SuperPropsMixin.
+        SuperPropsMixin: $SuperPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because SubPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SubPropsMixin.
+        SubPropsMixin: $SubPropsMixin.meta,
+      });
 }
 
-abstract class _$SuperPropsAccessorsMixin implements _$SuperProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$SuperProps.superProp] -->
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $SuperPropsMixin on SuperPropsMixin {
+  static const PropsMeta meta = _$metaForSuperPropsMixin;
   @override
   String get superProp =>
-      props[_$key__superProp___$SuperProps] ??
+      props[_$key__superProp__SuperPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$SuperProps.superProp] -->
   @override
-  set superProp(String value) => props[_$key__superProp___$SuperProps] = value;
+  set superProp(String value) =>
+      props[_$key__superProp__SuperPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__superProp___$SuperProps =
-      PropDescriptor(_$key__superProp___$SuperProps);
-  static const String _$key__superProp___$SuperProps = 'SuperProps.superProp';
+  static const PropDescriptor _$prop__superProp__SuperPropsMixin =
+      PropDescriptor(_$key__superProp__SuperPropsMixin);
+  static const String _$key__superProp__SuperPropsMixin =
+      'SuperPropsMixin.superProp';
 
-  static const List<PropDescriptor> $props = [_$prop__superProp___$SuperProps];
-  static const List<String> $propKeys = [_$key__superProp___$SuperProps];
+  static const List<PropDescriptor> $props = [
+    _$prop__superProp__SuperPropsMixin
+  ];
+  static const List<String> $propKeys = [_$key__superProp__SuperPropsMixin];
 }
 
-const PropsMeta _$metaForSuperProps = PropsMeta(
-  fields: _$SuperPropsAccessorsMixin.$props,
-  keys: _$SuperPropsAccessorsMixin.$propKeys,
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForSuperPropsMixin = PropsMeta(
+  fields: $SuperPropsMixin.$props,
+  keys: $SuperPropsMixin.$propKeys,
 );
 
-abstract class SuperProps extends _$SuperProps with _$SuperPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForSuperProps;
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $SubPropsMixin on SubPropsMixin {
+  static const PropsMeta meta = _$metaForSubPropsMixin;
+  @override
+  String get subProp =>
+      props[_$key__subProp__SubPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set subProp(String value) => props[_$key__subProp__SubPropsMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__subProp__SubPropsMixin =
+      PropDescriptor(_$key__subProp__SubPropsMixin);
+  static const String _$key__subProp__SubPropsMixin = 'SubPropsMixin.subProp';
+
+  static const List<PropDescriptor> $props = [_$prop__subProp__SubPropsMixin];
+  static const List<String> $propKeys = [_$key__subProp__SubPropsMixin];
 }
 
-abstract class _$SuperStateAccessorsMixin implements _$SuperState {
-  @override
-  Map get state;
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForSubPropsMixin = PropsMeta(
+  fields: $SubPropsMixin.$props,
+  keys: $SubPropsMixin.$propKeys,
+);
 
-  /// <!-- Generated from [_$SuperState.superState] -->
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $SuperStateMixin on SuperStateMixin {
+  static const StateMeta meta = _$metaForSuperStateMixin;
   @override
   String get superState =>
-      state[_$key__superState___$SuperState] ??
+      state[_$key__superState__SuperStateMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$SuperState.superState] -->
   @override
   set superState(String value) =>
-      state[_$key__superState___$SuperState] = value;
+      state[_$key__superState__SuperStateMixin] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__superState___$SuperState =
-      StateDescriptor(_$key__superState___$SuperState);
-  static const String _$key__superState___$SuperState = 'SuperState.superState';
+  static const StateDescriptor _$prop__superState__SuperStateMixin =
+      StateDescriptor(_$key__superState__SuperStateMixin);
+  static const String _$key__superState__SuperStateMixin =
+      'SuperStateMixin.superState';
 
   static const List<StateDescriptor> $state = [
-    _$prop__superState___$SuperState
+    _$prop__superState__SuperStateMixin
   ];
-  static const List<String> $stateKeys = [_$key__superState___$SuperState];
+  static const List<String> $stateKeys = [_$key__superState__SuperStateMixin];
 }
 
-const StateMeta _$metaForSuperState = StateMeta(
-  fields: _$SuperStateAccessorsMixin.$state,
-  keys: _$SuperStateAccessorsMixin.$stateKeys,
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const StateMeta _$metaForSuperStateMixin = StateMeta(
+  fields: $SuperStateMixin.$state,
+  keys: $SuperStateMixin.$stateKeys,
 );
 
-abstract class SuperState extends _$SuperState with _$SuperStateAccessorsMixin {
-  static const StateMeta meta = _$metaForSuperState;
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $SubStateMixin on SubStateMixin {
+  static const StateMeta meta = _$metaForSubStateMixin;
+  @override
+  String get subState =>
+      state[_$key__subState__SubStateMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set subState(String value) => state[_$key__subState__SubStateMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor _$prop__subState__SubStateMixin =
+      StateDescriptor(_$key__subState__SubStateMixin);
+  static const String _$key__subState__SubStateMixin = 'SubStateMixin.subState';
+
+  static const List<StateDescriptor> $state = [_$prop__subState__SubStateMixin];
+  static const List<String> $stateKeys = [_$key__subState__SubStateMixin];
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const StateMeta _$metaForSubStateMixin = StateMeta(
+  fields: $SubStateMixin.$state,
+  keys: $SubStateMixin.$stateKeys,
+);

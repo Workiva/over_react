@@ -7,36 +7,36 @@ part of 'state_mixin.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
-abstract class ExampleStateMixinClass implements _$ExampleStateMixinClass {
-  @override
-  Map get state;
-
-  static const StateMeta meta = _$metaForExampleStateMixinClass;
-
-  /// <!-- Generated from [_$ExampleStateMixinClass.stateMixin1] -->
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $ExampleStateMixin on ExampleStateMixin {
+  static const StateMeta meta = _$metaForExampleStateMixin;
   @override
   String get stateMixin1 =>
-      state[_$key__stateMixin1___$ExampleStateMixinClass] ??
+      state[_$key__stateMixin1__ExampleStateMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$ExampleStateMixinClass.stateMixin1] -->
   @override
   set stateMixin1(String value) =>
-      state[_$key__stateMixin1___$ExampleStateMixinClass] = value;
+      state[_$key__stateMixin1__ExampleStateMixin] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__stateMixin1___$ExampleStateMixinClass =
-      StateDescriptor(_$key__stateMixin1___$ExampleStateMixinClass);
-  static const String _$key__stateMixin1___$ExampleStateMixinClass =
-      'ExampleStateMixinClass.stateMixin1';
+  static const StateDescriptor _$prop__stateMixin1__ExampleStateMixin =
+      StateDescriptor(_$key__stateMixin1__ExampleStateMixin);
+  static const String _$key__stateMixin1__ExampleStateMixin =
+      'ExampleStateMixin.stateMixin1';
 
   static const List<StateDescriptor> $state = [
-    _$prop__stateMixin1___$ExampleStateMixinClass
+    _$prop__stateMixin1__ExampleStateMixin
   ];
   static const List<String> $stateKeys = [
-    _$key__stateMixin1___$ExampleStateMixinClass
+    _$key__stateMixin1__ExampleStateMixin
   ];
 }
 
-const StateMeta _$metaForExampleStateMixinClass = StateMeta(
-  fields: ExampleStateMixinClass.$state,
-  keys: ExampleStateMixinClass.$stateKeys,
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const StateMeta _$metaForExampleStateMixin = StateMeta(
+  fields: $ExampleStateMixin.$state,
+  keys: $ExampleStateMixin.$stateKeys,
 );

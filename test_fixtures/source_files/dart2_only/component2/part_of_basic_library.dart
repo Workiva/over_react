@@ -1,7 +1,7 @@
 part of basic.library;
 
 @Factory()
-UiFactory<BasicPartOfLibProps> BasicPartOfLib = _$BasicPartOfLib;
+UiFactory<BasicPartOfLibProps> BasicPartOfLib = _$BasicPartOfLib; // ignore: undefined_identifier
 
 @Props()
 class _$BasicPartOfLibProps extends UiProps

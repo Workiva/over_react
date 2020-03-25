@@ -15,10 +15,12 @@
 @TestOn('vm')
 library impl_generation_test;
 
-import 'package:analyzer/analyzer.dart' hide startsWith;
+import 'package:analyzer/dart/analysis/utilities.dart';
+import 'package:analyzer/dart/ast/ast.dart';
+import 'package:meta/meta.dart';
 import 'package:mockito/mockito.dart';
-import 'package:over_react/src/builder/generation/declaration_parsing.dart';
-import 'package:over_react/src/builder/generation/impl_generation.dart';
+import 'package:over_react/src/builder/parsing.dart';
+import 'package:over_react/src/builder/codegen.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
@@ -31,7 +33,7 @@ main() {
     MockLogger logger;
     SourceFile sourceFile;
     CompilationUnit unit;
-    ParsedDeclarations declarations;
+    List<BoilerplateDeclaration> declarations;
 
     tearDown(() {
       implGenerator = null;
@@ -42,8 +44,11 @@ main() {
 
       sourceFile = SourceFile.fromString(source);
 
-      unit = parseCompilationUnit(source);
-      declarations = ParsedDeclarations(unit, sourceFile, logger);
+      unit = parseString(content: source).unit;
+
+      final errorCollector = ErrorCollector.log(sourceFile, logger);
+
+      declarations = parseAndValidateDeclarations(unit, errorCollector);
       implGenerator = ImplGenerator(logger, sourceFile);
     }
 
@@ -57,16 +62,13 @@ main() {
     void verifyNoErrorLogs() {
       verifyNever(logger.warning(any));
       verifyNever(logger.severe(any));
-
-      expect(declarations.hasErrors, isFalse);
     }
 
     void verifyImplGenerationIsValid() {
       var buildOutput = implGenerator.outputContentsBuffer.toString();
 
-      expect(() {
-        parseCompilationUnit(buildOutput);
-      }, returnsNormally, reason: 'transformed source should parse without errors:\n');
+      final result = parseString(content: buildOutput, throwIfDiagnostics: false);
+      expect(result.errors, isEmpty, reason: 'transformed source should parse without errors:\n');
     }
 
     void generateFromSource(String source) {
@@ -303,7 +305,7 @@ main() {
             void testReactComponentFactory(String testName, OverReactSrc ors) {
               test(testName, () {
                 setUpAndGenerate(ors.source);
-                final baseName = ors.baseName;
+                final baseName = ors.prefixedBaseName;
                 expect(implGenerator.outputContentsBuffer.toString(), contains(
                     'final \$${baseName}ComponentFactory = registerComponent(() => _\$${baseName}Component(),\n'
                     '    builderFactory: $baseName,\n'
@@ -325,7 +327,7 @@ main() {
             void testReactComponentFactory(String testName, OverReactSrc ors) {
               test(testName, () {
                 setUpAndGenerate(ors.source);
-                final baseName = ors.baseName;
+                final baseName = ors.prefixedBaseName;
                 expect(implGenerator.outputContentsBuffer.toString(), contains(
                     '_\$\$${baseName}Props ${ors.factoryInitializer}([Map backingProps]) => _\$\$${baseName}Props(backingProps);\n'));
               });
@@ -347,7 +349,7 @@ main() {
 
                 test('with the correct class declaration', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
-                      'class _\$\$${ors.baseName}Props${ors.typeParamSrc} '
+                      'class _\$\$${ors.prefixedBaseName}Props${ors.typeParamSrc} '
                       'extends _\$${ors.propsClassName}${ors.typeParamSrcWithoutBounds} '
                       'with _\$${ors.propsClassName}AccessorsMixin${ors.typeParamSrcWithoutBounds} '
                       'implements ${ors.propsClassName}${ors.typeParamSrcWithoutBounds} {'));
@@ -355,7 +357,7 @@ main() {
 
                 test('with the correct constructor', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
-                      '  _\$\$${ors.baseName}Props(Map backingMap) : this._props = {} {\n'
+                      '  _\$\$${ors.prefixedBaseName}Props(Map backingMap) : this._props = {} {\n'
                       '     this._props = backingMap ?? {};\n'
                       '  }'));
                 });
@@ -376,7 +378,7 @@ main() {
                 test('overrides `componentFactory` to return the correct component factory', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
                       '  @override\n'
-                      '  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? \$${ors.baseName}ComponentFactory;\n'));
+                      '  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? \$${ors.prefixedBaseName}ComponentFactory;\n'));
                 });
 
                 test('sets the default prop key namespace', () {
@@ -419,7 +421,7 @@ main() {
 
                 test('with the correct class declaration', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
-                      'class _\$\$${ors.baseName}State${ors.typeParamSrc} '
+                      'class _\$\$${ors.prefixedBaseName}State${ors.typeParamSrc} '
                       'extends _\$${ors.stateClassName}${ors.typeParamSrcWithoutBounds} '
                       'with _\$${ors.stateClassName}AccessorsMixin${ors.typeParamSrcWithoutBounds} '
                       'implements ${ors.stateClassName}${ors.typeParamSrcWithoutBounds} {'));
@@ -427,7 +429,7 @@ main() {
 
                 test('with the correct constructor', () {
                   expect(implGenerator.outputContentsBuffer.toString(), contains(
-                      '  _\$\$${ors.baseName}State(Map backingMap) : this._state = {} {\n'
+                      '  _\$\$${ors.prefixedBaseName}State(Map backingMap) : this._state = {} {\n'
                       '     this._state = backingMap ?? {};\n'
                       '  }'));
                 });
@@ -460,6 +462,7 @@ main() {
       testImplGeneration(', with Dart 2 only boilerplate,', backwardsCompatible: false);
 
       group('and generated consumable companion class with Dart 2 only boilerplate', () {
+        @isTest
         void testConsumableCompanionGeneration(String testName, OverReactSrc ors) {
           test(testName, () {
             setUpAndGenerate(ors.source);
@@ -508,14 +511,14 @@ main() {
             testStaticFieldCopying(OverReactSrc.props(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.props(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
         });
 
@@ -528,14 +531,14 @@ main() {
             testStaticFieldCopying(OverReactSrc.state(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.state(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
         });
 
@@ -548,14 +551,14 @@ main() {
             testStaticFieldCopying(OverReactSrc.abstractProps(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.abstractProps(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
         });
 
@@ -568,14 +571,14 @@ main() {
             testStaticFieldCopying(OverReactSrc.abstractState(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.abstractState(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
         });
 
@@ -588,14 +591,14 @@ main() {
             testStaticFieldCopying(OverReactSrc.propsMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.propsMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
         });
 
@@ -608,14 +611,14 @@ main() {
             testStaticFieldCopying(OverReactSrc.stateMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.stateMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
             expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
-            verify(logger.warning(any));
+            verify(logger.warning(startsWith('Static class member `meta`')));
           });
         });
       });
@@ -830,18 +833,6 @@ main() {
 
     group('logs a warning when', () {
       tearDown(verifyImplGenerationIsValid);
-
-      group('a Component', () {
-        test('implements typedPropsFactory', () {
-          setUpAndGenerate(OverReactSrc.props(backwardsCompatible: false, componentBody: 'typedPropsFactory(Map backingMap) => {};').source);
-          verify(logger.warning(contains('Components should not add their own implementions of typedPropsFactory or typedStateFactory.')));
-        });
-
-        test('implements typedStateFactory', () {
-          setUpAndGenerate(OverReactSrc.props(backwardsCompatible: false, componentBody: 'typedStateFactory(Map backingMap) => {};').source);
-          verify(logger.warning(contains('Components should not add their own implementions of typedPropsFactory or typedStateFactory.')));
-        });
-      });
 
       group('comma-separated variables are declared', () {
         const String expectedCommaSeparatedWarning =

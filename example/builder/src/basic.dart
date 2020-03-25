@@ -1,14 +1,12 @@
-// ignore_for_file: deprecated_member_use_from_same_package
 import 'package:over_react/over_react.dart';
 
+// ignore_for_file: uri_has_not_been_generated
 part 'basic.over_react.g.dart';
 
-@Factory()
-UiFactory<BasicProps> Basic = _$Basic;
+UiFactory<BasicProps> Basic = _$Basic; // ignore: undefined_identifier
 
-@Props()
-class _$BasicProps extends UiProps {
-  @Deprecated('This is deprecated')
+mixin BasicProps on UiProps {
+  @deprecated
   @requiredProp
   String basicProp;
 
@@ -19,18 +17,16 @@ class _$BasicProps extends UiProps {
   String basic5;
 }
 
-@Component2()
 class BasicComponent extends UiComponent2<BasicProps> {
   @override
   get defaultProps => newProps()..id = 'basic component'
-      ..basicProp = 'defaultBasicProps';
-
+      ..basicProp = 'defaultBasicProps'; // ignore: deprecated_member_use_from_same_package
 
   @override
   render() {
     return Dom.div()(
         Dom.div()('prop id: ${props.id}'),
-        Dom.div()('default prop testing: ${props.basicProp}'), // ignore: deprecated_member_use
+        Dom.div()('default prop testing: ${props.basicProp}'), // ignore: deprecated_member_use_from_same_package
         Dom.div()('default prop testing: ${props.basic1}'),
         Dom.div()(null, props.basic4, 'children: ${props.children}' ),
     );

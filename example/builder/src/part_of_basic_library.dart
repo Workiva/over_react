@@ -1,11 +1,11 @@
 part of basic.library;
 
-@Factory()
-UiFactory<BasicPartOfLibProps> BasicPartOfLib = _$BasicPartOfLib;
+UiFactory<BasicPartOfLibProps> BasicPartOfLib = _$BasicPartOfLib; // ignore: undefined_identifier
 
-@Props()
-class _$BasicPartOfLibProps extends UiProps
-    with ExamplePropsMixinClass {
+class BasicPartOfLibProps = UiProps with ExamplePropsMixin, BasicPartOfLibPropsMixin;
+class BasicPartOfLibState = UiState with ExampleStateMixin, BasicPartOfLibStateMixin;
+
+mixin BasicPartOfLibPropsMixin on UiProps, ExamplePropsMixin {
   String basicProp;
   String basic1;
   String basic2;
@@ -14,13 +14,10 @@ class _$BasicPartOfLibProps extends UiProps
   String basic5;
 }
 
-@State()
-class _$BasicPartOfLibState extends UiState
-    with ExampleStateMixinClass {
+mixin BasicPartOfLibStateMixin on UiState, ExampleStateMixin {
   String basicState;
 }
 
-@Component2()
 class BasicPartOfLibComponent extends UiStatefulComponent2<BasicPartOfLibProps, BasicPartOfLibState> {
   @override
   get defaultProps => newProps()..id = 'BasicPartOfLib';
@@ -32,7 +29,10 @@ class BasicPartOfLibComponent extends UiStatefulComponent2<BasicPartOfLibProps, 
   @override
   render() {
     return Dom.div()(
-        'BasicPartOfLibComponentProps: ${props.basicProp}, ${props.propMixin1}',
-        'BasicPartOfLibComponentState: ${state.basicState}, ${state.stateMixin1}');
+      'BasicPartOfLibComponentProps: ${props.basicProp}, ${props.propMixin1}',
+      'BasicPartOfLibComponentState: ${state.basicState}, ${state.stateMixin1}',
+      Dom.div()('propsMeta: ${propsMeta.keys}'),
+      Dom.div()('propsMeta for just ExamplePropsMixinClass: ${propsMeta.forMixin(ExamplePropsMixin).keys}'),
+    );
   }
 }
