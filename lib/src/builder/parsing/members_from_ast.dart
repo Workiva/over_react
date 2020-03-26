@@ -348,10 +348,12 @@ class _BoilerplateMemberDetector {
     final hasGeneratedPrefix = node.name.name.startsWith(r'_$');
 
     return VersionConfidences(
-      v2_legacyBackwardsCompat:
-          isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.unlikely : Confidence.likely),
-      v3_legacyDart2Only:
-          isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.likely : Confidence.unlikely),
+      v2_legacyBackwardsCompat: isMixin
+          ? Confidence.none
+          : (hasGeneratedPrefix ? Confidence.unlikely : Confidence.likely),
+      v3_legacyDart2Only: isMixin
+          ? Confidence.none
+          : (hasGeneratedPrefix ? Confidence.likely : Confidence.unlikely),
       v4_mixinBased: isMixin ? Confidence.likely : Confidence.unlikely,
     );
   }
