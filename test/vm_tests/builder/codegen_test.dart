@@ -56,7 +56,7 @@ main() {
       setUpAndParse(source);
 
       implGenerator = ImplGenerator(logger, sourceFile);
-      implGenerator.generate(declarations);
+      declarations.forEach(implGenerator.generate);
     }
 
     void verifyNoErrorLogs() {
@@ -73,7 +73,7 @@ main() {
 
     void generateFromSource(String source) {
       setUpAndParse(source);
-      implGenerator.generate(declarations);
+      declarations.forEach(implGenerator.generate);
     }
 
     group('generates an implementation that parses correctly', () {
