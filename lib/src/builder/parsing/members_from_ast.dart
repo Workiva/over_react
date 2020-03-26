@@ -24,7 +24,7 @@ import 'members.dart';
 import 'version.dart';
 
 /// Returns an unmodifiable collection of all potential boilerplate members
-/// detected within [unit], with appropriate confidence scores.
+/// detected within [unit], with appropriate [BoilerplateMember.versionConfidences] scores.
 BoilerplateMembers detectBoilerplateMembers(CompilationUnit unit) {
   final factories = <BoilerplateFactory>[];
   final props = <BoilerplateProps>[];
@@ -33,7 +33,7 @@ BoilerplateMembers detectBoilerplateMembers(CompilationUnit unit) {
   final states = <BoilerplateState>[];
   final stateMixins = <BoilerplateStateMixin>[];
 
-  BoilerplateMemberDetector(
+  _BoilerplateMemberDetector(
     onFactory: factories.add,
     onProps: props.add,
     onPropsMixin: propsMixins.add,
@@ -55,8 +55,8 @@ BoilerplateMembers detectBoilerplateMembers(CompilationUnit unit) {
 /// Helper class that contains logic for detecting boilerplate entities for a given compilation unit
 /// and determining their version confidences.
 ///
-/// See: [VersionConfidence], [BoilerplateMember].
-class BoilerplateMemberDetector {
+/// See: [VersionConfidences], [BoilerplateMember].
+class _BoilerplateMemberDetector {
   Map<String, NamedCompilationUnitMember> _classishDeclarationsByName;
 
   // Callbacks that will be triggered when the detector finds the correlating entity.
@@ -67,7 +67,7 @@ class BoilerplateMemberDetector {
   final void Function(BoilerplateStateMixin) onStateMixin;
   final void Function(BoilerplateComponent) onComponent;
 
-  BoilerplateMemberDetector({
+  _BoilerplateMemberDetector({
     @required this.onFactory,
     @required this.onProps,
     @required this.onState,
@@ -149,7 +149,7 @@ class BoilerplateMemberDetector {
 
   void _detectFactory(TopLevelVariableDeclaration node) {
     if (node.hasAnnotationWithName('Factory')) {
-      onFactory(BoilerplateFactory(node, VersionConfidence.all(Confidence.likely)));
+      onFactory(BoilerplateFactory(node, VersionConfidences.all(Confidence.likely)));
       return;
     }
 
@@ -172,7 +172,7 @@ class BoilerplateMemberDetector {
         if (referencesGeneratedFactory) {
           onFactory(BoilerplateFactory(
               node,
-              VersionConfidence(
+              VersionConfidences(
                 v4_mixinBased: Confidence.likely,
                 v3_legacyDart2Only: Confidence.none,
                 v2_legacyBackwardsCompat: Confidence.none,
@@ -181,7 +181,7 @@ class BoilerplateMemberDetector {
         } else {
           onFactory(BoilerplateFactory(
               node,
-              VersionConfidence(
+              VersionConfidences(
                 v4_mixinBased: Confidence.neutral,
                 v2_legacyBackwardsCompat: Confidence.none,
                 v3_legacyDart2Only: Confidence.none,
@@ -255,7 +255,7 @@ class BoilerplateMemberDetector {
           // Don't have lower confidence for mixin-based when `@Component`;
           // we want it equal so that it can resolve to mixin-based based on the other parts, and
           // warn for not having `@Component2`.
-          onComponent(BoilerplateComponent(classish, VersionConfidence.all(Confidence.likely)));
+          onComponent(BoilerplateComponent(classish, VersionConfidences.all(Confidence.likely)));
           return true;
 
         case 'AbstractProps':
@@ -270,7 +270,7 @@ class BoilerplateMemberDetector {
 
         case 'AbstractComponent':
         case 'AbstractComponent2':
-          onComponent(BoilerplateComponent(classish, VersionConfidence.none()));
+          onComponent(BoilerplateComponent(classish, VersionConfidences.none()));
           return true;
       }
     }
@@ -278,7 +278,7 @@ class BoilerplateMemberDetector {
     return false;
   }
 
-  VersionConfidence _annotatedPropsOrStateConfidence(
+  VersionConfidences _annotatedPropsOrStateConfidence(
       ClassishDeclaration classish, ClassishDeclaration companion) {
     final node = classish.node;
     assert(node.hasAnnotationWithNames(const {'Props', 'State'}),
@@ -291,19 +291,19 @@ class BoilerplateMemberDetector {
     final hasCompanionClass = companion != null;
 
     if (hasCompanionClass) {
-      return VersionConfidence(
+      return VersionConfidences(
         v2_legacyBackwardsCompat: Confidence.likely,
         v3_legacyDart2Only: Confidence.unlikely,
         v4_mixinBased: Confidence.unlikely,
       );
     } else if (hasGeneratedPrefix) {
-      return VersionConfidence(
+      return VersionConfidences(
         v2_legacyBackwardsCompat: Confidence.unlikely,
         v3_legacyDart2Only: Confidence.likely,
         v4_mixinBased: Confidence.unlikely,
       );
     } else {
-      return VersionConfidence(
+      return VersionConfidences(
         v2_legacyBackwardsCompat: Confidence.unlikely,
         v3_legacyDart2Only: Confidence.unlikely,
         v4_mixinBased: Confidence.likely,
@@ -311,7 +311,7 @@ class BoilerplateMemberDetector {
     }
   }
 
-  VersionConfidence _annotatedAbstractPropsOrStateConfidence(
+  VersionConfidences _annotatedAbstractPropsOrStateConfidence(
       ClassishDeclaration classish, ClassishDeclaration companion) {
     final node = classish.node;
     assert(node.hasAnnotationWithNames(const {'AbstractProps', 'AbstractState'}),
@@ -320,14 +320,14 @@ class BoilerplateMemberDetector {
     final hasCompanionClass = companion != null;
 
     if (hasCompanionClass) {
-      return VersionConfidence(
+      return VersionConfidences(
         v2_legacyBackwardsCompat: Confidence.likely,
         v3_legacyDart2Only: Confidence.unlikely,
         // Annotated abstract props/state don't exist to the new boilerplate
         v4_mixinBased: Confidence.none,
       );
     } else {
-      return VersionConfidence(
+      return VersionConfidences(
         v2_legacyBackwardsCompat: Confidence.unlikely,
         v3_legacyDart2Only: Confidence.likely,
         // Annotated abstract props/state don't exist to the new boilerplate
@@ -336,7 +336,7 @@ class BoilerplateMemberDetector {
     }
   }
 
-  VersionConfidence _annotatedPropsOrStateMixinConfidence(
+  VersionConfidences _annotatedPropsOrStateMixinConfidence(
       ClassishDeclaration classish, ClassishDeclaration companion,
       {bool disableAnnotationAssert = false}) {
     final node = classish.node;
@@ -347,7 +347,7 @@ class BoilerplateMemberDetector {
     final isMixin = node is MixinDeclaration;
     final hasGeneratedPrefix = node.name.name.startsWith(r'_$');
 
-    return VersionConfidence(
+    return VersionConfidences(
       v2_legacyBackwardsCompat:
           isMixin ? Confidence.none : (hasGeneratedPrefix ? Confidence.unlikely : Confidence.likely),
       v3_legacyDart2Only:
@@ -379,7 +379,7 @@ class BoilerplateMemberDetector {
     // By this point, this is a node that has no annotation.
     // Thus, it's non-legacy boilerplate.
 
-    VersionConfidence getConfidence() {
+    VersionConfidences getConfidence() {
       final overridesIsClassGenerated = classish.members
           .whereType<MethodDeclaration>()
           .any((member) => member.isGetter && member.name.name == r'$isClassGenerated');
@@ -387,13 +387,13 @@ class BoilerplateMemberDetector {
       // Watch out for empty mixins, though; those are valid props/state mixins.
       if (overridesIsClassGenerated ||
           (node is! MixinDeclaration && onlyImplementsThings(classish))) {
-        return VersionConfidence.none();
+        return VersionConfidences.none();
       } else if (classish.members.whereType<ConstructorDeclaration>().isNotEmpty) {
         // If there's a constructor, it's a no-generate class. For example, a props map view.
-        return VersionConfidence.none();
+        return VersionConfidences.none();
       }
 
-      return VersionConfidence(
+      return VersionConfidences(
         v2_legacyBackwardsCompat: Confidence.none,
         v3_legacyDart2Only: Confidence.none,
         v4_mixinBased: Confidence.likely,
@@ -439,7 +439,7 @@ class BoilerplateMemberDetector {
                   ?.map((t) => t.typeNameWithoutPrefix)
                   ?.any(propsOrMixinNamePattern.hasMatch) ??
               false)) {
-        onComponent(BoilerplateComponent(classish, VersionConfidence.all(Confidence.neutral)));
+        onComponent(BoilerplateComponent(classish, VersionConfidences.all(Confidence.neutral)));
 
         return true;
       }

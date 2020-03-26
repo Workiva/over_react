@@ -20,9 +20,10 @@ import 'package:over_react/src/util/string_util.dart';
 
 import '../util.dart';
 import 'ast_util.dart';
+import 'declarations.dart';
 import 'members_from_ast.dart';
 import 'meta.dart';
-import 'validation.dart';
+import 'error_collection.dart';
 import 'version.dart';
 
 part 'members/component.dart';
@@ -31,13 +32,18 @@ part 'members/props_and_state.dart';
 part 'members/props_and_state_mixins.dart';
 part 'members/props_and_state_util.dart';
 
-/// The parent class for all boilerplate members
+/// Base class for a boilerplate "member"—a part of a [BoilerplateDeclaration]—that contains
+/// references to the member's node and instantiated annotation, boilerplate version confidence
+/// computed during detection, and validation logic for all potential versions.
+///
+/// For example: a component class, a factory variable, a props class, a props mixin, etc.
 abstract class BoilerplateMember {
-  BoilerplateMember(this.versionConfidence);
+  BoilerplateMember(this.versionConfidences);
 
-  /// The confidence that, assuming that [node] has been correctly identified as this type of boilerplate member,
-  /// it belongs to a boilerplate declaration of a given version.
-  final VersionConfidence versionConfidence;
+  /// For each boilerplate version, the confidence that, assuming that [node] has been correctly
+  /// identified as this type of boilerplate member, it belongs to a boilerplate declaration of
+  /// a given version.
+  final VersionConfidences versionConfidences;
 
   /// The node backing the boilerplate member.
   CompilationUnitMember get node;
@@ -53,16 +59,18 @@ abstract class BoilerplateMember {
   SimpleIdentifier get name;
 
   @override
-  String toString() => '${super.toString()} (${name.name}) $versionConfidence';
+  String toString() => '${super.toString()} (${name.name}) $versionConfidences';
 
   String get debugString {
-    return '${runtimeType.toString()}; confidence:$versionConfidence';
+    return '${runtimeType.toString()}; confidence:$versionConfidences';
   }
 }
 
-/// The member class that wraps data for legacy boilerplate's accessor class.
-abstract class BoilerplateAccessorsMember extends BoilerplateMember {
-  BoilerplateAccessorsMember(VersionConfidence versionConfidence) : super(versionConfidence);
+/// A member representing a typed map class: props/state classes and mixins.
+///
+/// See [BoilerplateMember] for more information.
+abstract class BoilerplateTypedMapMember extends BoilerplateMember {
+  BoilerplateTypedMapMember(VersionConfidences versionConfidence) : super(versionConfidence);
 
   @override
   NamedCompilationUnitMember get node;
@@ -73,7 +81,7 @@ abstract class BoilerplateAccessorsMember extends BoilerplateMember {
   annotations.TypedMap get meta;
 }
 
-/// A collection of all boilerplate members within a given file.
+/// A collection of all [BoilerplateMember]s within a given file.
 ///
 /// See [detectBoilerplateMembers].
 class BoilerplateMembers {

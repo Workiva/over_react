@@ -14,10 +14,12 @@
 
 part of '../members.dart';
 
-// The class that backs both a boilerplate props and state class.
-abstract class BoilerplatePropsOrState extends BoilerplateAccessorsMember
+/// A member representing a props or state class.
+///
+/// See [BoilerplateMember] for more information.
+abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
     with PropsStateStringHelpers {
-  BoilerplatePropsOrState(this.nodeHelper, this.companion, VersionConfidence confidence)
+  BoilerplatePropsOrState(this.nodeHelper, this.companion, VersionConfidences confidence)
       : node = nodeHelper.node,
         super(confidence) {
     meta = getPropsOrStateAnnotation(isProps, node);
@@ -132,20 +134,24 @@ abstract class BoilerplatePropsOrState extends BoilerplateAccessorsMember
   }
 }
 
-/// The implementation class for boilerplate props
+/// A member representing a props class.
+///
+/// See [BoilerplateMember] for more information.
 class BoilerplateProps extends BoilerplatePropsOrState {
   BoilerplateProps(
-      ClassishDeclaration nodeHelper, ClassishDeclaration companion, VersionConfidence confidence)
+      ClassishDeclaration nodeHelper, ClassishDeclaration companion, VersionConfidences confidence)
       : super(nodeHelper, companion, confidence);
 
   @override
   bool get isProps => true;
 }
 
-/// The implementation class for boilerplate state
+/// A member representing a state class.
+///
+/// See [BoilerplateMember] for more information.
 class BoilerplateState extends BoilerplatePropsOrState {
   BoilerplateState(
-      ClassishDeclaration nodeHelper, ClassishDeclaration companion, VersionConfidence confidence)
+      ClassishDeclaration nodeHelper, ClassishDeclaration companion, VersionConfidences confidence)
       : super(nodeHelper, companion, confidence);
 
   @override

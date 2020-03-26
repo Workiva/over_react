@@ -22,7 +22,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:mockito/mockito.dart';
 import 'package:over_react/src/builder/parsing.dart';
 import 'package:over_react/src/builder/parsing/member_association.dart';
-import 'package:over_react/src/builder/parsing/validation.dart';
+import 'package:over_react/src/builder/parsing/error_collection.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
@@ -671,7 +671,7 @@ main() {
             ''');
 
             final props = expectAllOfType<BoilerplateProps>(declarations).firstOrNull;
-            expect(props?.versionConfidence?.maxConfidence?.confidence, anyOf(isNull, Confidence.none));
+            expect(props?.versionConfidences?.maxConfidence?.confidence, anyOf(isNull, Confidence.none));
           });
 
           test('a props class that should not be generated', () {
@@ -683,7 +683,7 @@ main() {
             ''');
 
             final props = expectAllOfType<BoilerplateProps>(declarations).firstOrNull;
-            expect(props?.versionConfidence?.maxConfidence?.confidence, anyOf(isNull, Confidence.none));
+            expect(props?.versionConfidences?.maxConfidence?.confidence, anyOf(isNull, Confidence.none));
           });
 
           test('a props class that acts solely as an interface', () {
@@ -692,7 +692,7 @@ main() {
             ''');
 
             final props = expectAllOfType<BoilerplateProps>(declarations).firstOrNull;
-            expect(props?.versionConfidence?.maxConfidence?.confidence, anyOf(isNull, Confidence.none));
+            expect(props?.versionConfidences?.maxConfidence?.confidence, anyOf(isNull, Confidence.none));
           });
 
           test('empty props/state mixins (regression test for these being skipped)', () {

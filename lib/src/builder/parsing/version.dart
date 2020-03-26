@@ -112,9 +112,9 @@ class VersionConfidencePair {
 /// - a [VersionConfidencePair.version] equal to the highest-confidence version among all [members]
 /// - a [VersionConfidencePair.confidence] equal to the average of all confidences for that version
 VersionConfidencePair resolveVersion(Iterable<BoilerplateMember> members) {
-  var totals = VersionConfidence.none();
+  var totals = VersionConfidences.none();
   for (var member in members) {
-    totals += member.versionConfidence;
+    totals += member.versionConfidences;
   }
   final max = totals.maxConfidence;
 
@@ -127,7 +127,7 @@ VersionConfidencePair resolveVersion(Iterable<BoilerplateMember> members) {
 ///
 /// When resolving the version, this data is used to aggregate specific version
 /// confidence while keeping all the data in a single class.
-class VersionConfidence {
+class VersionConfidences {
   // The confidence for each specific version
   final int v2_legacyBackwardsCompat;
   final int v3_legacyDart2Only;
@@ -139,14 +139,14 @@ class VersionConfidence {
   /// determined by [_versionsInPriorityOrder]) wins out.
   VersionConfidencePair get maxConfidence => _sortedVersions.first;
 
-  VersionConfidence({
+  VersionConfidences({
     @required this.v2_legacyBackwardsCompat,
     @required this.v3_legacyDart2Only,
     @required this.v4_mixinBased,
   });
 
   /// Constructor to set all confidence values to the same thing
-  VersionConfidence.all(int value)
+  VersionConfidences.all(int value)
       : this(
           v2_legacyBackwardsCompat: value,
           v3_legacyDart2Only: value,
@@ -157,7 +157,7 @@ class VersionConfidence {
   ///
   /// This is useful to create a placeholder instance as the [+] operator
   /// returns a new instance.
-  VersionConfidence.none() : this.all(Confidence.none);
+  VersionConfidences.none() : this.all(Confidence.none);
 
   /// Creates a [List] that holds the versions and their corresponding confidence.
   List<VersionConfidencePair> toList() => [
@@ -166,10 +166,10 @@ class VersionConfidence {
         VersionConfidencePair(Version.v4_mixinBased, v4_mixinBased),
       ];
 
-  /// Adds all versions in the class to another set of versions from a different [VersionConfidence]
+  /// Adds all versions in the class to another set of versions from a different [VersionConfidences]
   /// object.
-  VersionConfidence operator +(VersionConfidence other) {
-    return VersionConfidence(
+  VersionConfidences operator +(VersionConfidences other) {
+    return VersionConfidences(
       v2_legacyBackwardsCompat: v2_legacyBackwardsCompat + other.v2_legacyBackwardsCompat,
       v3_legacyDart2Only: v3_legacyDart2Only + other.v3_legacyDart2Only,
       v4_mixinBased: v4_mixinBased + other.v4_mixinBased,

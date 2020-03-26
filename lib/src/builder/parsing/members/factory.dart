@@ -14,6 +14,9 @@
 
 part of '../members.dart';
 
+/// A member representing a UiFactory variable.
+///
+/// See [BoilerplateMember] for more information.
 class BoilerplateFactory extends BoilerplateMember {
   /// The entity that backs the boilerplate member.
   @override
@@ -38,7 +41,7 @@ class BoilerplateFactory extends BoilerplateMember {
     return null;
   }
 
-  BoilerplateFactory(this.node, VersionConfidence confidence) : super(confidence);
+  BoilerplateFactory(this.node, VersionConfidences confidence) : super(confidence);
 
   bool get hasFactoryAnnotation => node.hasAnnotationWithName('Factory');
 

@@ -17,7 +17,7 @@ import 'declarations.dart';
 import 'member_association.dart';
 import 'members.dart';
 import 'util.dart';
-import 'validation.dart';
+import 'error_collection.dart';
 import 'version.dart';
 
 const overReactBoilerplateAnnotations = [
@@ -50,8 +50,11 @@ bool mightContainDeclarations(String source) {
   return _maybeDeclarationPattern.hasMatch(source);
 }
 
-/// Iterates over all [members] provided and `yield`s [BoilerplateDeclaration]s for
-/// the members.
+/// Associates boilerplate [members] with each other, grouping them into declarations and returning
+/// only the ones that require code generation.
+///
+/// If some members cannot be grouped into a valid declaration, appropriate errors will be passed to
+/// [errorCollector].
 ///
 /// The order of evaluation is as follows:
 ///   1. [LegacyAbstractPropsDeclaration]
@@ -203,8 +206,8 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   // Give the more confident factories priority when grouping, so that medium-confidence related
   // factories that don't require generation (like aliased factories) don't trump the real factory.
   final factoriesMostToLeastConfidence = List.of(members.factories)
-    ..sort((a, b) => b.versionConfidence.maxConfidence.confidence
-        .compareTo(a.versionConfidence.maxConfidence.confidence));
+    ..sort((a, b) => b.versionConfidences.maxConfidence.confidence
+        .compareTo(a.versionConfidences.maxConfidence.confidence));
   for (final factory in factoriesMostToLeastConfidence) {
     final propsClassOrMixin = getPropsFor(factory, members.props, members.propsMixins);
     final stateClassOrMixin = getStateFor(factory, members.states, members.stateMixins);
@@ -263,7 +266,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
             break;
           case Version.v4_mixinBased:
             yield ClassComponentDeclaration(
-                version: version.version,
                 factory: factory,
                 component: component,
                 props: propsClassOrMixin,
@@ -278,7 +280,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         consume(factory);
         consumePropsAndState();
         yield PropsMapViewOrFunctionComponentDeclaration(
-          version: Version.v4_mixinBased,
           factory: factory,
           props: propsClassOrMixin,
         );

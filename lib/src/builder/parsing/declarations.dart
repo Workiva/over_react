@@ -18,7 +18,7 @@ import 'package:meta/meta.dart';
 import 'ast_util.dart';
 import 'members.dart';
 import 'util.dart';
-import 'validation.dart';
+import 'error_collection.dart';
 import 'version.dart';
 
 /// The possible declaration types that the builder will look for.
@@ -32,14 +32,17 @@ enum DeclarationType {
   stateMixinDeclaration,
 }
 
-/// Parent class to all boilerplate declaration members.
+/// Base class for a boilerplate declaration—a group boilerplate members that comprises a
+/// complete, standalone declaration of boilerplate that requires code generation.
+///
+/// For example: an entire class component declaration, a props mixin declaration.
+///
+/// Contains a set of boilerplate members, as well as a resolved boilerplate [version].
 abstract class BoilerplateDeclaration {
-  /// The individual member version.
+  /// The resolved boilerplate version for this declaration as a whole, derived from [resolveVersion].
   ///
-  /// __Note:__ this is an instantaneous evaluation of this member's version,
-  /// and not the version of all related entities together. Consequently,
-  /// this field should not be relied upon as the final say of what version
-  /// the boilerplate is. Rather, [resolveVersion] should be used to detect that.
+  /// This version is used in [validate] for validating individual members, and should also be
+  /// used in code generation.
   final Version version;
 
   /// The explicit type of declaration this class is tied to.
@@ -49,6 +52,8 @@ abstract class BoilerplateDeclaration {
 
   Iterable<BoilerplateMember> get members => _members;
 
+  /// Validates this declaration, including all members, against the provided [version].
+  @mustCallSuper
   void validate(ErrorCollector errorCollector) {
     if (version == null) {
       // This should almost never happen.
@@ -91,7 +96,8 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
     @required this.component,
     @required this.props,
     this.state,
-  }) : super(version);
+  })  : assert(version != Version.v4_mixinBased),
+        super(version);
 
   /// Validates that the proper annotations are present.
   @override
@@ -116,7 +122,9 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
   }
 }
 
-/// The props declaration wrapper for abstract declarations that are not the mixin based boilerplate.
+/// A boilerplate declaration for a legacy `@AbstractProps()` class.
+///
+/// See [BoilerplateDeclaration] for more info.
 class LegacyAbstractPropsDeclaration extends BoilerplateDeclaration {
   final BoilerplateProps props;
 
@@ -129,7 +137,8 @@ class LegacyAbstractPropsDeclaration extends BoilerplateDeclaration {
   LegacyAbstractPropsDeclaration({
     @required Version version,
     @required this.props,
-  }) : super(version);
+  })  : assert(version != Version.v4_mixinBased),
+        super(version);
 
   /// Validates that if there are props that the props class has the correct annotation.
   @override
@@ -141,7 +150,9 @@ class LegacyAbstractPropsDeclaration extends BoilerplateDeclaration {
   }
 }
 
-/// The state declaration wrapper for abstract declarations that are not the mixin based boilerplate.
+/// A boilerplate declaration for a legacy `@AbstractState()` class.
+///
+/// See [BoilerplateDeclaration] for more info.
 class LegacyAbstractStateDeclaration extends BoilerplateDeclaration {
   final BoilerplateState state;
 
@@ -154,7 +165,8 @@ class LegacyAbstractStateDeclaration extends BoilerplateDeclaration {
   LegacyAbstractStateDeclaration({
     @required Version version,
     @required this.state,
-  }) : super(version);
+  })  : assert(version != Version.v4_mixinBased),
+        super(version);
 
   /// Validates that if there are state fields that the class has the correct annotation.
   @override
@@ -166,7 +178,10 @@ class LegacyAbstractStateDeclaration extends BoilerplateDeclaration {
   }
 }
 
-/// The component declaration wrapper for declarations that are the mixin based boilerplate.
+/// A boilerplate declaration for a class-based component declarred using the new mixin-based
+/// boilerplate.
+///
+/// See [BoilerplateDeclaration] for more info.
 class ClassComponentDeclaration extends BoilerplateDeclaration {
   final BoilerplateFactory factory;
   final BoilerplateComponent component;
@@ -183,19 +198,20 @@ class ClassComponentDeclaration extends BoilerplateDeclaration {
   List<Identifier> get allPropsMixins => props.switchCase(
         (a) => a.nodeHelper.mixins.map((name) => name.name).toList(),
         (b) => [b.name],
-  );
+      );
 
   ClassComponentDeclaration({
-    @required Version version,
     @required this.factory,
     @required this.component,
     @required this.props,
     this.state,
-  }) : super(version);
+  }) : super(Version.v4_mixinBased);
 }
 
-/// The declaration wrapper for either a props map view or function component,
-/// which have almost identical syntax and code generation.
+/// A boilerplate declaration for either a props map view or function component declared using
+/// the new mixin-based boilerplate, which have almost identical syntax and code generation.
+///
+/// See [BoilerplateDeclaration] for more info.
 class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration {
   /// The related factory instance.
   final BoilerplateFactory factory;
@@ -212,13 +228,15 @@ class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration 
   get type => DeclarationType.propsMapViewOrFunctionComponentDeclaration;
 
   PropsMapViewOrFunctionComponentDeclaration({
-    @required Version version,
     @required this.factory,
     @required this.props,
-  }) : super(version);
+  }) : super(Version.v4_mixinBased);
 }
 
-/// A wrapper for mixin based declarations.
+/// Common interface for a boilerplate declaration for either a props or state mixin of any
+/// boilerplate version.
+///
+/// See [BoilerplateDeclaration] for more info.
 mixin PropsOrStateMixinDeclaration on BoilerplateDeclaration {
   /// The corresponding mixin instance for the class.
   BoilerplatePropsOrStateMixin mixin;
@@ -227,6 +245,9 @@ mixin PropsOrStateMixinDeclaration on BoilerplateDeclaration {
   get _members => [mixin];
 }
 
+/// A boilerplate declaration for a props mixin of any boilerplate version.
+///
+/// See [BoilerplateDeclaration] for more info.
 class PropsMixinDeclaration extends BoilerplateDeclaration with PropsOrStateMixinDeclaration {
   @override
   final BoilerplatePropsMixin mixin;
@@ -240,6 +261,9 @@ class PropsMixinDeclaration extends BoilerplateDeclaration with PropsOrStateMixi
   }) : super(version);
 }
 
+/// A boilerplate declaration for a state mixin of any boilerplate version.
+///
+/// See [BoilerplateDeclaration] for more info.
 class StateMixinDeclaration extends BoilerplateDeclaration with PropsOrStateMixinDeclaration {
   @override
   final BoilerplateStateMixin mixin;

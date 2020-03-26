@@ -49,7 +49,7 @@ abstract class TypedMapImplGenerator extends Generator {
   String get factoryName;
   bool get isProps;
 
-  BoilerplateAccessorsMember get member;
+  BoilerplateTypedMapMember get member;
 
   TypeParameterList get typeParameters => member.nodeHelper.typeParameters;
   String get typeParamsOnClass => typeParameters?.toSource() ?? '';
@@ -330,7 +330,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   final bool isProps;
 
   @override
-  final BoilerplateAccessorsMember member;
+  final BoilerplateTypedMapMember member;
 
   @override
   final String factoryName;

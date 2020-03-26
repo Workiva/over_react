@@ -23,7 +23,7 @@ import 'package:test/test.dart';
 import '../util.dart';
 
 main() {
-  group('parsing validation -', () {
+  group('errror collection -', () {
     group('ErrorCollector', () {
       ErrorCollector collector;
       SourceFile file;

@@ -14,10 +14,12 @@
 
 part of '../members.dart';
 
-/// The class that represents a boilerplate props or state mixin.
-abstract class BoilerplatePropsOrStateMixin extends BoilerplateAccessorsMember
+/// A member representing a props or state mixin.
+///
+/// See [BoilerplateMember] for more information.
+abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
     with PropsStateStringHelpers {
-  BoilerplatePropsOrStateMixin(this.node, this.companion, VersionConfidence confidence)
+  BoilerplatePropsOrStateMixin(this.node, this.companion, VersionConfidences confidence)
       : super(confidence) {
     meta = getPropsOrStateAnnotation(isProps, node);
   }
@@ -102,20 +104,24 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateAccessorsMember
   }
 }
 
-/// The implementation class for boilerplate props mixins
+/// A member representing a props mixin.
+///
+/// See [BoilerplateMember] for more information.
 class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
   BoilerplatePropsMixin(
-      ClassOrMixinDeclaration node, ClassishDeclaration companion, VersionConfidence confidence)
+      ClassOrMixinDeclaration node, ClassishDeclaration companion, VersionConfidences confidence)
       : super(node, companion, confidence);
 
   @override
   bool get isProps => true;
 }
 
-/// The implementation class for boilerplate state mixins
+/// A member representing a state mixin.
+///
+/// See [BoilerplateMember] for more information.
 class BoilerplateStateMixin extends BoilerplatePropsOrStateMixin {
   BoilerplateStateMixin(
-      ClassOrMixinDeclaration node, ClassishDeclaration companion, VersionConfidence confidence)
+      ClassOrMixinDeclaration node, ClassishDeclaration companion, VersionConfidences confidence)
       : super(node, companion, confidence);
 
   @override

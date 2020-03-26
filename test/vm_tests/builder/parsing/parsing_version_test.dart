@@ -64,16 +64,16 @@ main() {
     });
 
     group('VersionConfidence', () {
-      VersionConfidence versionConfidence;
-      VersionConfidence otherVersionConfidence;
+      VersionConfidences versionConfidence;
+      VersionConfidences otherVersionConfidence;
 
       setUp(() {
-        versionConfidence = VersionConfidence(
+        versionConfidence = VersionConfidences(
             v2_legacyBackwardsCompat: Confidence.unlikely,
             v3_legacyDart2Only: Confidence.unlikely,
             v4_mixinBased: Confidence.likely);
 
-        otherVersionConfidence = VersionConfidence(
+        otherVersionConfidence = VersionConfidences(
             v2_legacyBackwardsCompat: Confidence.likely,
             v3_legacyDart2Only: Confidence.neutral,
             v4_mixinBased: Confidence.unlikely);
@@ -139,10 +139,10 @@ main() {
           });
 
           test('and the priority is as expected', () {
-            final ambiguousVersion = VersionConfidence.all(Confidence.neutral);
+            final ambiguousVersion = VersionConfidences.all(Confidence.neutral);
             expect(ambiguousVersion.maxConfidence.version, Version.v4_mixinBased);
 
-            final versionWithoutMixin = VersionConfidence(
+            final versionWithoutMixin = VersionConfidences(
                 v2_legacyBackwardsCompat: Confidence.neutral,
                 v3_legacyDart2Only: Confidence.neutral,
                 v4_mixinBased: Confidence.none);
@@ -167,17 +167,17 @@ main() {
 
     group('VersionPair', () {
       test('shouldGenerate will only return true if confidence is higher than medium', () {
-        final confidentVersion = VersionConfidence(
+        final confidentVersion = VersionConfidences(
                 v2_legacyBackwardsCompat: Confidence.unlikely,
                 v3_legacyDart2Only: Confidence.unlikely,
                 v4_mixinBased: Confidence.likely)
             .maxConfidence;
         expect(confidentVersion.shouldGenerate, isTrue);
 
-        final moderatelyConfidentVersion = VersionConfidence.all(Confidence.neutral).maxConfidence;
+        final moderatelyConfidentVersion = VersionConfidences.all(Confidence.neutral).maxConfidence;
         expect(moderatelyConfidentVersion.shouldGenerate, isFalse);
 
-        final notConfidentVersion = VersionConfidence.none().maxConfidence;
+        final notConfidentVersion = VersionConfidences.none().maxConfidence;
         expect(notConfidentVersion.shouldGenerate, isFalse);
       });
     });

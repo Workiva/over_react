@@ -46,9 +46,9 @@ abstract class TypedMapAccessorsGenerator extends Generator {
   factory TypedMapAccessorsGenerator.legacyAbstractState(LegacyAbstractStateDeclaration decl) =
       _LegacyTypedMapAccessorsGenerator.abstractState;
 
-  AccessorType get type;
+  TypedMapType get type;
 
-  BoilerplateAccessorsMember get member;
+  BoilerplateTypedMapMember get member;
 
   TypedMapNames get names;
 
@@ -329,7 +329,7 @@ class _TypedMapMixinAccessorsGenerator extends TypedMapAccessorsGenerator {
   final TypedMapNames names;
 
   @override
-  final AccessorType type;
+  final TypedMapType type;
 
   @override
   final Version version;
@@ -338,13 +338,13 @@ class _TypedMapMixinAccessorsGenerator extends TypedMapAccessorsGenerator {
       : member = decl.mixin,
         names = TypedMapNames(decl.mixin.name.name),
         version = decl.version,
-        type = AccessorType.propsMixin;
+        type = TypedMapType.propsMixin;
 
   _TypedMapMixinAccessorsGenerator.state(StateMixinDeclaration decl)
       : member = decl.mixin,
         names = TypedMapNames(decl.mixin.name.name),
         version = decl.version,
-        type = AccessorType.stateMixin;
+        type = TypedMapType.stateMixin;
 
   @override
   String get accessorsMixinName => names.generatedMixinName;
@@ -365,7 +365,7 @@ class _LegacyTypedMapAccessorsGenerator extends TypedMapAccessorsGenerator {
   final TypedMapNames names;
 
   @override
-  final AccessorType type;
+  final TypedMapType type;
 
   @override
   final Version version;
@@ -374,25 +374,25 @@ class _LegacyTypedMapAccessorsGenerator extends TypedMapAccessorsGenerator {
       : member = decl.props,
         names = TypedMapNames(decl.props.name.name),
         version = decl.version,
-        type = AccessorType.props;
+        type = TypedMapType.props;
 
   _LegacyTypedMapAccessorsGenerator.state(LegacyClassComponentDeclaration decl)
       : member = decl.state,
         names = TypedMapNames(decl.state.name.name),
         version = decl.version,
-        type = AccessorType.state;
+        type = TypedMapType.state;
 
   _LegacyTypedMapAccessorsGenerator.abstractProps(LegacyAbstractPropsDeclaration decl)
       : member = decl.props,
         names = TypedMapNames(decl.props.name.name),
         version = decl.version,
-        type = AccessorType.abstractProps;
+        type = TypedMapType.abstractProps;
 
   _LegacyTypedMapAccessorsGenerator.abstractState(LegacyAbstractStateDeclaration decl)
       : member = decl.state,
         names = TypedMapNames(decl.state.name.name),
         version = decl.version,
-        type = AccessorType.abstractState;
+        type = TypedMapType.abstractState;
 
   @override
   String get accessorsMixinName => names.legacyAccessorsMixinName;
@@ -433,6 +433,21 @@ class _LegacyTypedMapAccessorsGenerator extends TypedMapAccessorsGenerator {
           ..writeln('}'))
         .toString();
   }
+}
+
+class TypedMapType {
+  final bool isProps;
+  final bool isAbstract;
+  final bool isMixin;
+  // ignore: avoid_positional_boolean_parameters
+  const TypedMapType(this.isProps, this.isAbstract, this.isMixin);
+
+  static const TypedMapType props = TypedMapType(true, false, false);
+  static const TypedMapType state = TypedMapType(false, false, false);
+  static const TypedMapType abstractProps = TypedMapType(true, true, false);
+  static const TypedMapType abstractState = TypedMapType(false, true, false);
+  static const TypedMapType propsMixin = TypedMapType(true, false, true);
+  static const TypedMapType stateMixin = TypedMapType(false, false, true);
 }
 
 String _copyClassMembers(ClassOrMixinDeclaration node) {
