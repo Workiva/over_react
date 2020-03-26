@@ -27,6 +27,8 @@ import 'annotations.dart' as annotations;
 import 'builder_helpers.dart';
 import 'component_base_2.dart';
 
+part 'flux_component.over_react.g.dart';
+
 /// Builds on top of [UiProps], adding typed [Action] and [Store] props for use with [FluxUiComponent2].
 ///
 /// __Example:__
