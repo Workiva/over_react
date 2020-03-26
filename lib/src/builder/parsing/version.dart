@@ -51,6 +51,7 @@ abstract class Confidence {
 ///
 /// Related: [resolveVersion]
 enum Version {
+  // "v1" is for the transformer-based syntax :)
   v2_legacyBackwardsCompat,
   v3_legacyDart2Only,
   v4_mixinBased,

@@ -110,7 +110,7 @@ class OverReactBuilder extends Builder {
         hadErrors = false;
         declaration.validate(errorCollector);
         if (!hadErrors) {
-          generator.generate([declaration]);
+          generator.generate(declaration);
         } else {
           // Log the declaration that had issues for debugging purposes.
           log.info(declaration);

@@ -33,33 +33,31 @@ class ImplGenerator {
 
   final SourceFile sourceFile;
 
-  void generate(Iterable<BoilerplateDeclaration> declarations) {
-    for (var declaration in declarations) {
-      switch (declaration.type) {
-        case DeclarationType.propsMapViewOrFunctionComponentDeclaration:
-          _generatePropsMapViewOrFunctionComponent(declaration);
-          break;
-        case DeclarationType.classComponentDeclaration:
-          _generateClassComponent(declaration);
-          break;
-        case DeclarationType.legacyClassComponentDeclaration:
-          _generateLegacyClassComponent(declaration);
-          break;
-        case DeclarationType.legacyAbstractPropsDeclaration:
-          _generateLegacyAbstractProps(declaration);
-          break;
-        case DeclarationType.legacyAbstractStateDeclaration:
-          _generateLegacyAbstractState(declaration);
-          break;
-        case DeclarationType.propsMixinDeclaration:
-          _generatePropsMixin(declaration);
-          break;
-        case DeclarationType.stateMixinDeclaration:
-          _generateStateMixin(declaration);
-          break;
-        default:
-          throw ArgumentError('Unhandled declaration type: $declaration');
-      }
+  void generate(BoilerplateDeclaration declaration) {
+    switch (declaration.type) {
+      case DeclarationType.propsMapViewOrFunctionComponentDeclaration:
+        _generatePropsMapViewOrFunctionComponent(declaration);
+        break;
+      case DeclarationType.classComponentDeclaration:
+        _generateClassComponent(declaration);
+        break;
+      case DeclarationType.legacyClassComponentDeclaration:
+        _generateLegacyClassComponent(declaration);
+        break;
+      case DeclarationType.legacyAbstractPropsDeclaration:
+        _generateLegacyAbstractProps(declaration);
+        break;
+      case DeclarationType.legacyAbstractStateDeclaration:
+        _generateLegacyAbstractState(declaration);
+        break;
+      case DeclarationType.propsMixinDeclaration:
+        _generatePropsMixin(declaration);
+        break;
+      case DeclarationType.stateMixinDeclaration:
+        _generateStateMixin(declaration);
+        break;
+      default:
+        throw ArgumentError('Unhandled declaration type: $declaration');
     }
   }
 
@@ -77,7 +75,7 @@ class ImplGenerator {
   }
 
   void _generateLegacyClassComponent(LegacyClassComponentDeclaration declaration) {
-    _generateUsing(ComponentFactoryGenerator.legacy(declaration));
+    _generateUsing(ComponentFactoryProxyGenerator.legacy(declaration));
     _generateUsing(TypedMapAccessorsGenerator.legacyProps(declaration));
     _generateUsing(TypedMapImplGenerator.legacyProps(declaration));
     if (declaration.state != null) {
@@ -104,7 +102,7 @@ class ImplGenerator {
   }
 
   void _generateClassComponent(ClassComponentDeclaration declaration) {
-    _generateUsing(ComponentFactoryGenerator(declaration));
+    _generateUsing(ComponentFactoryProxyGenerator(declaration));
     _generateUsing(TypedMapImplGenerator.props(declaration));
     if (declaration.state != null) {
       _generateUsing(TypedMapImplGenerator.state(declaration));

@@ -23,7 +23,7 @@ import 'util.dart';
 
 /// Generates aReactComponentFactoryProxys for a component declarations,
 /// for all boilerplate versions.
-class ComponentFactoryGenerator extends Generator {
+class ComponentFactoryProxyGenerator extends Generator {
   final ComponentNames componentNames;
   final String factoryName;
 
@@ -33,14 +33,14 @@ class ComponentFactoryGenerator extends Generator {
   @override
   final Version version;
 
-  ComponentFactoryGenerator.legacy(LegacyClassComponentDeclaration declaration)
+  ComponentFactoryProxyGenerator.legacy(LegacyClassComponentDeclaration declaration)
       : factoryName = declaration.factory.name.name,
         componentNames = ComponentNames(declaration.component.name.name),
         component = declaration.component,
         isComponent2 = declaration.isComponent2,
         version = declaration.version;
 
-  ComponentFactoryGenerator(ClassComponentDeclaration declaration)
+  ComponentFactoryProxyGenerator(ClassComponentDeclaration declaration)
       : factoryName = declaration.factory.name.name,
         componentNames = ComponentNames(declaration.component.name.name),
         component = declaration.component,
@@ -49,10 +49,10 @@ class ComponentFactoryGenerator extends Generator {
 
   @override
   void generate() {
-    _generateClassComponentFactory();
+    _generateClassComponentFactoryProxy();
   }
 
-  void _generateClassComponentFactory() {
+  void _generateClassComponentFactoryProxy() {
     String parentTypeParam = 'null';
     String parentTypeParamComment = '';
 
