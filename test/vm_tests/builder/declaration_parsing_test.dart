@@ -388,7 +388,7 @@ main() {
                 class _$FooProps extends UiProps {}
                 
                 @Component()
-                class BazComponent extends UiComponent<FooProps> {
+                class FooComponent extends UiComponent<FooProps> {
                   render() {}
                 }
                 
@@ -403,7 +403,7 @@ main() {
                 class _$FooProps extends UiProps {}
                 
                 @Component()
-                class BazComponent extends UiComponent {
+                class FooComponent extends UiComponent {
                   render() {}
                 }
                 
@@ -418,7 +418,7 @@ main() {
                 class _$FooProps extends UiProps {}
                 
                 @Component()
-                class BazComponent extends UiComponent {
+                class FooComponent extends UiComponent {
                   render() {}
                 }
                 
@@ -1333,7 +1333,12 @@ main() {
                 test(name, () {
                   setUpAndParse(source);
 
-                  final component = expectSingleOfType<ClassComponentDeclaration>(declarations);
+                  expect(declarations, unorderedEquals([
+                    isA<PropsMixinDeclaration>(),
+                    isA<ClassComponentDeclaration>(),
+                  ]));
+
+                  final component = declarations.firstWhereType<ClassComponentDeclaration>();
                   expect(component.factory?.name?.name, 'Foo');
                   expect(component.props?.either?.name?.name, endsWith('FooProps'));
                   expect(component.state, isNull);
@@ -1344,19 +1349,19 @@ main() {
               sharedGenericTest('on factory', r'''
                 UiFactory Foo = _$Foo;
                 mixin FooProps on UiProps {}
-                class BazComponent extends UiComponent2<FooProps> {}
+                class FooComponent extends UiComponent2<FooProps> {}
               ''');
 
               sharedGenericTest('on component', r'''
                 UiFactory<FooProps> Foo = _$Foo;
                 mixin FooProps on UiProps {}
-                class BazComponent extends UiComponent2 {}
+                class FooComponent extends UiComponent2 {}
               ''');
 
               sharedGenericTest('on both', r'''
                 UiFactory Foo = _$Foo;
                 mixin FooProps on UiProps {}
-                class BazComponent extends UiComponent2 {}
+                class FooComponent extends UiComponent2 {}
               ''');
             });
           });
