@@ -19,6 +19,7 @@ import 'package:meta/meta.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
+import '../ast_test_util.dart';
 import '../util.dart';
 import 'parsing_helpers.dart';
 
@@ -44,11 +45,20 @@ main() {
             .firstWhere((component) => component.name.name == 'ThirdFooComponent');
       });
 
-      test('propsGenericArg returns the correct props class', () {
-        expect(
-            legacyBackwardCompatComponent.propsGenericArg.typeNameWithoutPrefix, 'FirstFooProps');
-        expect(legacyComponent.propsGenericArg.typeNameWithoutPrefix, 'SecondFooProps');
-        expect(newBoilerplateComponent.propsGenericArg.typeNameWithoutPrefix, 'ThirdFooProps');
+      group('propsGenericArg', () {
+        test('returns the correct props class', () {
+          expect(
+              legacyBackwardCompatComponent.propsGenericArg.typeNameWithoutPrefix, 'FirstFooProps');
+          expect(legacyComponent.propsGenericArg.typeNameWithoutPrefix, 'SecondFooProps');
+          expect(newBoilerplateComponent.propsGenericArg.typeNameWithoutPrefix, 'ThirdFooProps');
+        });
+
+        test('returns null if there is no type arg', () {
+          final component = BoilerplateComponent(parseAndGetSingleClassish(r'''
+              class FooComponent extends UiComponent {}
+          '''), VersionConfidences.none());
+          expect(component.propsGenericArg, isNull);
+        });
       });
 
       group('annotation getters return the correct value -', () {
@@ -212,6 +222,22 @@ main() {
             }
           });
         }
+      });
+
+      group('propsGenericArg', () {
+        test('returns the correct props class', () {
+          final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
+              UiFactory<FooProps> Foo = _$Foo;
+          '''), VersionConfidences.none());
+          expect(factory.propsGenericArg?.typeNameWithoutPrefix, 'FooProps');
+        });
+
+        test('returns null if there is no type arg', () {
+          final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
+              UiFactory Foo = _$Foo;
+          '''), VersionConfidences.none());
+          expect(factory.propsGenericArg, isNull);
+        });
       });
 
       group('validate', () {

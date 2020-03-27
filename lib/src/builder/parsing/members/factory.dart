@@ -32,8 +32,8 @@ class BoilerplateFactory extends BoilerplateMember {
   TypeAnnotation get propsGenericArg {
     final type = node.variables.type;
     if (type is NamedType && type.typeNameWithoutPrefix == 'UiFactory') {
-      final typeArgs = type.typeArguments.arguments;
-      if (typeArgs.length == 1) {
+      final typeArgs = type.typeArguments?.arguments;
+      if (typeArgs?.length == 1) {
         return typeArgs[0];
       }
     }

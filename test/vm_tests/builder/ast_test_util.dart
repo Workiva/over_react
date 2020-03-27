@@ -1,9 +1,13 @@
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:over_react/src/builder/parsing/ast_util/classish.dart';
 
 CompilationUnitMember parseAndGetSingleMember(String source) =>
     parseAndGetSingleWithType<CompilationUnitMember>(source);
+
+ClassishDeclaration parseAndGetSingleClassish(String source) =>
+    ClassishDeclaration(parseAndGetSingleWithType(source));
 
 T parseAndGetSingleWithType<T extends AstNode>(String source) =>
     parseAndGetAllWithType<T>(source).single;

@@ -261,6 +261,3 @@ main() {
     });
   });
 }
-
-ClassishDeclaration parseAndGetSingleClassish(String source) =>
-    ClassishDeclaration(parseAndGetSingleWithType(source));

@@ -366,6 +366,65 @@ main() {
                 expect(component.component?.name?.name, 'BazComponent');
               });
             });
+
+            group('missing generic params referencing props class', () {
+              void sharedGenericTest(String name, String source) {
+                test(name, () {
+                  setUpAndParse(source);
+
+                  final component = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
+                  expect(component.factory?.name?.name, 'Foo');
+                  expect(component.props?.name?.name, endsWith('FooProps'));
+                  expect(component.state, isNull);
+                  expect(component.component?.name?.name, 'FooComponent');
+                });
+              }
+
+              sharedGenericTest('on factory', r'''
+                @Factory()
+                UiFactory Foo = _$Foo;
+                
+                @Props()
+                class _$FooProps extends UiProps {}
+                
+                @Component()
+                class BazComponent extends UiComponent<FooProps> {
+                  render() {}
+                }
+                
+                class FooProps extends _$BarProps {}
+              ''');
+
+              sharedGenericTest('on component', r'''
+                @Factory()
+                UiFactory<FooProps> Foo = _$Foo;
+                
+                @Props()
+                class _$FooProps extends UiProps {}
+                
+                @Component()
+                class BazComponent extends UiComponent {
+                  render() {}
+                }
+                
+                class FooProps extends _$BarProps {}
+              ''');
+
+              sharedGenericTest('on both', r'''
+                @Factory()
+                UiFactory Foo = _$Foo;
+                
+                @Props()
+                class _$FooProps extends UiProps {}
+                
+                @Component()
+                class BazComponent extends UiComponent {
+                  render() {}
+                }
+                
+                class FooProps extends _$BarProps {}
+              ''');
+            });
           });
 
           group('props mixins', () {
@@ -1267,6 +1326,38 @@ main() {
               expect(component.props?.b?.name?.name, endsWith('FooProps'));
               expect(component.state, isNull);
               expect(component.component?.name?.name, 'FooComponent');
+            });
+
+            group('missing generic params referencing props class', () {
+              void sharedGenericTest(String name, String source) {
+                test(name, () {
+                  setUpAndParse(source);
+
+                  final component = expectSingleOfType<ClassComponentDeclaration>(declarations);
+                  expect(component.factory?.name?.name, 'Foo');
+                  expect(component.props?.either?.name?.name, endsWith('FooProps'));
+                  expect(component.state, isNull);
+                  expect(component.component?.name?.name, 'FooComponent');
+                });
+              }
+
+              sharedGenericTest('on factory', r'''
+                UiFactory Foo = _$Foo;
+                mixin FooProps on UiProps {}
+                class BazComponent extends UiComponent2<FooProps> {}
+              ''');
+
+              sharedGenericTest('on component', r'''
+                UiFactory<FooProps> Foo = _$Foo;
+                mixin FooProps on UiProps {}
+                class BazComponent extends UiComponent2 {}
+              ''');
+
+              sharedGenericTest('on both', r'''
+                UiFactory Foo = _$Foo;
+                mixin FooProps on UiProps {}
+                class BazComponent extends UiComponent2 {}
+              ''');
             });
           });
 
