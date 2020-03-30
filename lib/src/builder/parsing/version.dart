@@ -36,8 +36,8 @@ abstract class Confidence {
   /// Consuming code should only consider values strictly greater than this value
   /// as confident enough to perform code generation:
   ///
-  ///    - `condidence <= neutral`: do not perform code generation
-  ///    - `condidence > neutral`: perform code generation
+  ///    - `confidence <= neutral`: do not perform code generation
+  ///    - `confidence > neutral`: perform code generation
   static const neutral = 10;
 
   /// Likely to be considered a given version.
@@ -57,7 +57,7 @@ enum Version {
   v4_mixinBased,
 }
 
-/// Priority of the possible boilerplates.
+/// Priority of the possible boilerplate versions.
 ///
 /// In the event that two different [Version]s have the same confidence score,
 /// version of high priority wins out.
