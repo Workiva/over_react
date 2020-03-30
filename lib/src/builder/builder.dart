@@ -106,8 +106,11 @@ class OverReactBuilder extends Builder {
           generator.generate(declaration);
         } else {
           // Log the declaration that had issues for debugging purposes.
-          log.info(declaration);
-          declaration.members.forEach(log.info);
+          log.severe('The above error(s) are associated with $declaration');
+          log.fine('Members:');
+          for (final member in declaration.members) {
+            log.fine(member.debugString);
+          }
         }
       }
 

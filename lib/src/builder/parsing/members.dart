@@ -59,11 +59,9 @@ abstract class BoilerplateMember {
   SimpleIdentifier get name;
 
   @override
-  String toString() => '${super.toString()} (${name.name}) $versionConfidences';
+  String toString() => '$runtimeType: ${name.name}';
 
-  String get debugString {
-    return '${runtimeType.toString()}; confidence:$versionConfidences';
-  }
+  String get debugString => '$this, confidence: $versionConfidences';
 }
 
 /// A member representing a typed map class: props/state classes and mixins.

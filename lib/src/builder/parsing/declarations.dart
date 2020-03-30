@@ -70,7 +70,7 @@ abstract class BoilerplateDeclaration {
   Iterable<BoilerplateMember> get _members;
 
   @override
-  String toString() => '${super.toString()} (${_members.map((m) => m.name.name)})';
+  String toString() => '$runtimeType: $version, members: $_members';
 }
 
 /// The component declaration wrapper for declarations that are not the mixin based boilerplate.

@@ -26,6 +26,19 @@ main() {
       members = null;
     });
 
+    group('`Confidence` constants', () {
+      test('description provides a textual description of a score, relative to one of the constants', () {
+        expect(Confidence.description(Confidence.none), 'none');
+        expect(Confidence.description(Confidence.unlikely), 'unlikely');
+        expect(Confidence.description(Confidence.neutral), 'neutral');
+        expect(Confidence.description(Confidence.likely), 'likely');
+        expect(Confidence.description(Confidence.certain), 'certain');
+
+        expect(Confidence.description(Confidence.likely + 1), 'likely + 1');
+        expect(Confidence.description(Confidence.likely - 1), startsWith('neutral + '));
+      });
+    });
+
     group('resolveVersion', () {
       group('returns the correct version -', () {
         test('v2_legacyBackwordsCompat', () {

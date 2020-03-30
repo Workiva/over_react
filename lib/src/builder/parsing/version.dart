@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:math';
+
 import 'package:meta/meta.dart';
 
 import 'members.dart';
@@ -45,6 +47,29 @@ abstract class Confidence {
 
   /// Certain to be considered a given version.
   static const certain = 100000;
+
+  static const _confidenceToString = {
+    none: 'none',
+    unlikely: 'unlikely',
+    neutral: 'neutral',
+    likely: 'likely',
+    certain: 'certain',
+  };
+
+  /// Returns a string description of a [confidence] score, relating it to the constants in this
+  /// class.
+  ///
+  /// Example:
+  ///
+  ///     - Confidence.description(Confidence.neutral)    // 'neutral'
+  ///     - Confidence.description(Confidence.likely)     // 'likely'
+  ///     - Confidence.description(Confidence.likely + 1) // 'likely + 1'
+  static String description(int confidence) {
+    final baseConfidence = _confidenceToString.keys.where((c) => confidence >= c).reduce(max);
+    final difference = confidence - baseConfidence;
+
+    return '${_confidenceToString[baseConfidence]}${difference == 0 ? '' : ' + $difference'}';
+  }
 }
 
 /// The current versions of the boilerplate that the builder detects.
@@ -197,11 +222,11 @@ class VersionConfidences {
   @override
   String toString() {
     final confidenceMap = {
-      'v2_legacyBackwardsCompat': v2_legacyBackwardsCompat,
-      'v3_legacyDart2Only': v3_legacyDart2Only,
-      'v4_mixinBased': v4_mixinBased,
+      'v2': Confidence.description(v2_legacyBackwardsCompat),
+      'v3': Confidence.description(v3_legacyDart2Only),
+      'v4': Confidence.description(v4_mixinBased),
     };
 
-    return '${runtimeType.toString()}; confidence:$confidenceMap';
+    return '$runtimeType $confidenceMap';
   }
 }

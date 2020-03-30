@@ -69,7 +69,6 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
           // completeness it is as a case that will error.
           errorCollector.addError(
               '$propsOrStateClassString implementations must be concrete classes, not mixins',
-              // TODO add versions to error messages
               errorCollector.spanFor(node.mixinKeyword));
         } else {
           if (nodeHelper.superclass?.nameWithoutPrefix != propsOrStateBaseClassString) {
