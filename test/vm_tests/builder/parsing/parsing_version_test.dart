@@ -167,9 +167,7 @@ main() {
       group('toString returns', () {
         test('all versions', () {
           expect(
-              versionConfidence.toString(),
-              contains(
-                  '{v2_legacyBackwardsCompat: ${Confidence.unlikely}, v3_legacyDart2Only: ${Confidence.unlikely}, v4_mixinBased: ${Confidence.likely}}'));
+              versionConfidence.toString(), contains('{v2: unlikely, v3: unlikely, v4: likely}'));
         });
 
         test('runtime type', () {
