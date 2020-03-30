@@ -31,6 +31,8 @@ abstract class Confidence {
   static const none = 0;
 
   /// Unlikely to be considered a given version.
+  ///
+  /// This value is an order of magnitude less than [neutral].
   static const unlikely = 1;
 
   /// Equally likely and unlikely to be considered a given version.
@@ -40,13 +42,19 @@ abstract class Confidence {
   ///
   ///    - `confidence <= neutral`: do not perform code generation
   ///    - `confidence > neutral`: perform code generation
+  ///
+  /// This value is an order of magnitude both greater than [unlikely] and less than [likely].
   static const neutral = 10;
 
   /// Likely to be considered a given version.
+  ///
+  /// This value is an order of magnitude both greater than [neutral] and less than [certain].
   static const likely = 100;
 
   /// Certain to be considered a given version.
-  static const certain = 100000;
+  ///
+  /// This value is an order of magnitude greater than [likely].
+  static const certain = 1000;
 
   static const _confidenceToString = {
     none: 'none',

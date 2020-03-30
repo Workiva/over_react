@@ -27,15 +27,45 @@ main() {
     });
 
     group('`Confidence` constants', () {
-      test('description provides a textual description of a score, relative to one of the constants', () {
-        expect(Confidence.description(Confidence.none), 'none');
-        expect(Confidence.description(Confidence.unlikely), 'unlikely');
-        expect(Confidence.description(Confidence.neutral), 'neutral');
-        expect(Confidence.description(Confidence.likely), 'likely');
-        expect(Confidence.description(Confidence.certain), 'certain');
+      const none = Confidence.none;
+      const unlikely = Confidence.unlikely;
+      const neutral = Confidence.neutral;
+      const likely = Confidence.likely;
+      const certain = Confidence.certain;
 
-        expect(Confidence.description(Confidence.likely + 1), 'likely + 1');
-        expect(Confidence.description(Confidence.likely - 1), startsWith('neutral + '));
+      test('values are greater/less than other constants as expected', () {
+        expect(none, lessThan(unlikely));
+        expect(unlikely, lessThan(neutral));
+        expect(neutral, lessThan(likely));
+        expect(likely, lessThan(certain));
+      });
+
+      test('"resolve" with averages between certain thresholds for plausible sets of confidences',
+          () {
+        double average<T extends num>(Iterable<T> values) =>
+            values.reduce((a, b) => a + b) / values.length;
+
+        // These cases represent potential real-world confidence scores and the resolved confidence
+        // we expect.
+        //
+        // Reminder: Greater than neutral: generate; less than or equal to neutral: no generate.
+        expect(average([likely, unlikely]), greaterThan(neutral));
+        expect(average([neutral, likely, unlikely]), greaterThan(neutral));
+        expect(average([neutral, neutral, neutral, neutral, likely]), greaterThan(neutral));
+        expect(average([neutral, neutral, neutral, neutral, unlikely]), lessThan(neutral));
+      });
+
+      test(
+          'description provides a textual description of a score, relative to one of the constants',
+          () {
+        expect(Confidence.description(none), 'none');
+        expect(Confidence.description(unlikely), 'unlikely');
+        expect(Confidence.description(neutral), 'neutral');
+        expect(Confidence.description(likely), 'likely');
+        expect(Confidence.description(certain), 'certain');
+
+        expect(Confidence.description(likely + 1), 'likely + 1');
+        expect(Confidence.description(likely - 1), startsWith('neutral + '));
       });
     });
 
@@ -53,8 +83,8 @@ main() {
         });
 
         test('v4_mixinBased', () {
-           members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v4);
-           expect(resolveVersion(members).version, Version.v4_mixinBased);
+          members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v4);
+          expect(resolveVersion(members).version, Version.v4_mixinBased);
         });
       });
     });
@@ -62,16 +92,19 @@ main() {
     group('Version', () {
       group('isLegacy', () {
         test('detects legacy instances correctly', () {
-          final legacy1Members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v2);
-          final legacy2Members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v3);
+          final legacy1Members =
+              BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v2);
+          final legacy2Members =
+              BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v3);
 
           expect(resolveVersion(legacy1Members).version.isLegacy, isTrue);
           expect(resolveVersion(legacy2Members).version.isLegacy, isTrue);
         });
 
         test('detects non-legacy instances correctly', () {
-           final newBoilerplateMembers = BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v4);
-           expect(resolveVersion(newBoilerplateMembers).version.isLegacy, isFalse);
+          final newBoilerplateMembers =
+              BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v4);
+          expect(resolveVersion(newBoilerplateMembers).version.isLegacy, isFalse);
         });
       });
     });
