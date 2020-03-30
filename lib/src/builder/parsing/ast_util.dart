@@ -92,7 +92,7 @@ extension AbstractGetter on ClassOrMixinDeclaration {
 
 /// Utilities that provide for easier access to [AnnotatedNode] metadata.
 extension MetadataHelper on AnnotatedNode {
-  // Annotations don't always parsed correctly, so `.name` can also include the constructor
+  // Annotations don't always parse as expected, so `.name` can also include the constructor
   // even though it's supposed to be just the class name.
   static String _getAnnotationClassOrTopLevelVariableName(Annotation annotation) {
     var fullName = annotation.name.name;

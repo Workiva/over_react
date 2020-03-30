@@ -62,7 +62,7 @@ class ImplGenerator {
 
   /// Injects context variables like the output buffer into [generator], generates code,
   /// and then uninjects them.
-  void _generateUsing(Generator generator) {
+  void _generateUsing(BoilerplateDeclarationGenerator generator) {
     generator
       ..sourceFile = sourceFile
       ..outputContentsBuffer = outputContentsBuffer

@@ -22,7 +22,7 @@ import 'names.dart';
 import 'util.dart';
 
 /// Base class for generating concrete factory and props/state class implementations.
-abstract class TypedMapImplGenerator extends Generator {
+abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
   TypedMapImplGenerator();
 
   // Provide factory constructors since they make invocations easier to read and tell apart

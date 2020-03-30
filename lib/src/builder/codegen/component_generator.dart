@@ -17,7 +17,7 @@ import 'names.dart';
 import 'util.dart';
 
 /// Base class for generating concrete and component class implementations.
-abstract class ComponentGenerator extends Generator {
+abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
   ComponentGenerator._();
 
   // Provide factory constructors since they make invocations easier to read and tell apart

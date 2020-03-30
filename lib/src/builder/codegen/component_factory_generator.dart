@@ -23,7 +23,7 @@ import 'util.dart';
 
 /// Generates `ReactComponentFactoryProxy`s for component declarations,
 /// for all boilerplate versions.
-class ComponentFactoryProxyGenerator extends Generator {
+class ComponentFactoryProxyGenerator extends BoilerplateDeclarationGenerator {
   final ComponentNames componentNames;
   final String factoryName;
 

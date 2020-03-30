@@ -20,7 +20,7 @@ import 'package:source_span/source_span.dart';
 import '../parsing.dart';
 import 'names.dart';
 
-abstract class Generator {
+abstract class BoilerplateDeclarationGenerator {
   SourceFile sourceFile;
   StringBuffer outputContentsBuffer;
   Logger logger;

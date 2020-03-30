@@ -22,7 +22,7 @@ import 'names.dart';
 import 'util.dart';
 
 /// Base class for generating getters/setters for props/state fields, as well as meta constants.
-abstract class TypedMapAccessorsGenerator extends Generator {
+abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerator {
   TypedMapAccessorsGenerator();
 
   // Provide factory constructors since they make invocations easier to read and tell apart
