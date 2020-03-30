@@ -87,18 +87,11 @@ class OverReactBuilder extends Builder {
       // Parse boilerplate members and group them into declarations.
       //
 
-      hadErrors = false;
       final members = detectBoilerplateMembers(unit);
       final declarations = getBoilerplateDeclarations(members, errorCollector).toList()
         ..sort((a, b) {
           return generationOrder.indexOf(a.type).compareTo(generationOrder.indexOf(b.type));
         });
-
-      // Log the members that weren't grouped into declarations for debugging purposes.
-      if (hadErrors) {
-        // Log the members that weren't grouped into declarations.
-        members.allMembers.forEach(log.info);
-      }
 
       //
       // Validate boilerplate declarations and generate if there aren't any errors.
@@ -185,9 +178,10 @@ class OverReactBuilder extends Builder {
 
     if (result.errors.isEmpty) return result.unit;
 
-    // todo should these be log.severe?
     log.fine('Analysis errors encountered when parsing compilation unit for file "$id":');
-    result.errors.forEach(log.fine);
+    // Warn and not severe in case parsing failed on an unrelated file due to an outdated
+    // analyzer version in this builder.
+    result.errors.forEach(log.warning);
 
     return null;
   }

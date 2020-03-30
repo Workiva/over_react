@@ -62,7 +62,7 @@ abstract class BoilerplateDeclaration {
       return;
     }
 
-    for (var member in _members) {
+    for (final member in _members) {
       member.validate(version, errorCollector);
     }
   }
@@ -178,7 +178,7 @@ class LegacyAbstractStateDeclaration extends BoilerplateDeclaration {
   }
 }
 
-/// A boilerplate declaration for a class-based component declarred using the new mixin-based
+/// A boilerplate declaration for a class-based component declared using the new mixin-based
 /// boilerplate.
 ///
 /// See [BoilerplateDeclaration] for more info.

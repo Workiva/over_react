@@ -39,7 +39,7 @@ Iterable<BoilerplateDeclaration> parseDeclarations(
 List<BoilerplateDeclaration> parseAndValidateDeclarations(
     CompilationUnit unit, ErrorCollector errorCollector) {
   final declarations = parseDeclarations(unit, errorCollector).toList();
-  for (var declaration in declarations) {
+  for (final declaration in declarations) {
     declaration.validate(errorCollector);
   }
   return declarations;

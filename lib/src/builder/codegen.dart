@@ -1,4 +1,4 @@
-// Copyright 2016 Workiva Inc.
+// Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,12 +26,11 @@ import 'parsing.dart';
 /// A utility class that generates implementations for valid [BoilerplateDeclaration]s of any type
 /// and appends them to [outputContentsBuffer].
 class ImplGenerator {
-  ImplGenerator(this.logger, this.sourceFile);
-
-  final Logger logger;
   final StringBuffer outputContentsBuffer = StringBuffer();
-
+  final Logger logger;
   final SourceFile sourceFile;
+
+  ImplGenerator(this.logger, this.sourceFile);
 
   void generate(BoilerplateDeclaration declaration) {
     switch (declaration.type) {
@@ -69,6 +68,8 @@ class ImplGenerator {
       ..outputContentsBuffer = outputContentsBuffer
       ..logger = logger
       ..generate()
+      // Clean these up so that `generator` can't use logger/outputContentsBuffer unexpectedly
+      // outside of _generateUsing.
       ..sourceFile = null
       ..outputContentsBuffer = null
       ..logger = null;

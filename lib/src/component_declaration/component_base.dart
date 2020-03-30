@@ -824,7 +824,6 @@ class StateMeta implements AccessorMeta<StateDescriptor> {
 }
 
 abstract class _AccessorMetaCollection<T extends _Descriptor, U extends AccessorMeta<T>> implements AccessorMeta<T> {
-  // todo probably make this public
   final Map<Type, U> _metaByMixin;
 
   const _AccessorMetaCollection(this._metaByMixin);

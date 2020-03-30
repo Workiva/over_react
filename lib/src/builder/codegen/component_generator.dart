@@ -182,7 +182,7 @@ class _ComponentGenerator extends ComponentGenerator {
       ..writeln()
       ..writeln('  @override')
       ..writeln('  PropsMetaCollection get propsMeta => const PropsMetaCollection({');
-    for (var name in declaration.allPropsMixins) {
+    for (final name in declaration.allPropsMixins) {
       final names = TypedMapNames(name.name);
       outputContentsBuffer.write('    ${generatedMixinWarningCommentLine(names, isProps: true)}');
       outputContentsBuffer.writeln('    ${names.consumerName}: ${names.publicGeneratedMetaName},');

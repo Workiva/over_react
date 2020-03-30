@@ -137,14 +137,14 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   // that use them in the shorthand syntax.
   //
 
-  for (var propsMixin in members.propsMixins) {
+  for (final propsMixin in members.propsMixins) {
     final version = resolveVersion([propsMixin]);
     if (version.shouldGenerate) {
       yield PropsMixinDeclaration(version: version.version, mixin: propsMixin);
     }
   }
 
-  for (var stateMixin in members.stateMixins) {
+  for (final stateMixin in members.stateMixins) {
     final version = resolveVersion([stateMixin]);
     if (version.shouldGenerate) {
       yield StateMixinDeclaration(version: version.version, mixin: stateMixin);
@@ -302,12 +302,12 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   ].expand((i) => i).whereNot(hasBeenConsumed);
 
   final unusedMembersByName = <String, List<BoilerplateMember>>{};
-  for (var member in allUnusedMembers) {
+  for (final member in allUnusedMembers) {
     final name = normalizeNameAndRemoveSuffix(member);
     unusedMembersByName.putIfAbsent(name, () => []).add(member);
   }
 
-  unusedMembersByName.forEach((name, group) {
+  for (final group in unusedMembersByName.values) {
     final factory = group.firstWhereType<BoilerplateFactory>(orElse: () => null);
     final propsClass = group.firstWhereType<BoilerplateProps>(orElse: () => null);
     final stateClass = group.firstWhereType<BoilerplateState>(orElse: () => null);
@@ -323,10 +323,10 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
       if (resolveVersion([stateClass]).shouldGenerate) {
         errorCollector.addError(errorStateOnly, errorCollector.spanFor(stateClass.node));
       }
-      return;
+      continue;
     }
 
-    if (!resolveVersion(nonNullFactoryPropsOrComponents).shouldGenerate) return;
+    if (!resolveVersion(nonNullFactoryPropsOrComponents).shouldGenerate) continue;
     switch (nonNullFactoryPropsOrComponents.length) {
       case 1:
         final single = nonNullFactoryPropsOrComponents.single;
@@ -338,7 +338,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         } else if (single == componentClass) {
           errorCollector.addError(errorComponentClassOnly, span);
         }
-        return;
+        continue;
       case 2:
         final span = errorCollector.spanFor((factory ?? propsClass).node);
         if (factory == null) {
@@ -348,16 +348,16 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         } else if (componentClass == null) {
           errorCollector.addError(errorNoComponent, span);
         }
-        return;
+        continue;
     }
 
     //
     // General case (should be rare if not impossible)
-    for (var member in group) {
+    for (final member in group) {
       errorCollector.addError(
           'Mismatched boilerplate member found', errorCollector.spanFor(member.node));
     }
-  });
+  }
 }
 
 const errorStateOnly =
