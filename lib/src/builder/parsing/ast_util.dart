@@ -14,6 +14,7 @@
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
+import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart';
@@ -25,36 +26,41 @@ export 'ast_util/classish.dart';
 
 /// Utils that allow for easier access into VariableDeclarationList
 extension InitializerHelper on VariableDeclarationList {
+  /// The initializer for the first variable in this list.
   Expression get firstInitializer => variables.first.initializer;
 
+  /// The first variable in this list.
   VariableDeclaration get firstVariable => variables.first;
 }
 
 /// Utils built upon [InitializerHelper] that provide convenient getters into
 /// the variables within a [VariableDeclarationList].
 extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
+  /// The initializer for the first variable in this list.
   Expression get firstInitializer => variables.firstInitializer;
 
+  /// The first variable in this list.
   VariableDeclaration get firstVariable => variables.firstVariable;
 }
 
 /// Extension built on both [TypeNameHelper] and [NameHelper] to allow
 /// for easy access to the `name` field of [Identifier]s.
 extension TypeAnnotationNameHelper on TypeAnnotation {
-  /// Get the name of the node if the node is a [NamedType], otherwise return
-  /// `null`.
+  /// The unprefixed name of the node if the node is a [NamedType], or `null`
+  /// if this type is not named.
   String get typeNameWithoutPrefix => tryCast<NamedType>()?.nameWithoutPrefix;
 }
 
 /// Extension built on [NameHelper] to allow for easy access to the `name`
 /// field of [Identifier]s.
 extension TypeNameHelper on NamedType {
+  /// The type name without any namespace prefixes.
   String get nameWithoutPrefix => name.nameWithoutPrefix;
 }
 
 /// Utilities related to simplifying access to node identifier fields.
 extension NameHelper on Identifier {
-  /// Ubiquitously access the name of a identifiers without concern about prefixes.
+  /// The identifier without any prefixes (e.g., namespaces, classes, etc).
   String get nameWithoutPrefix {
     final self = this;
     return self is PrefixedIdentifier ? self.identifier.name : self.name;
@@ -63,10 +69,9 @@ extension NameHelper on Identifier {
 
 /// Utilities related to detecting a super class on a [MixinDeclaration]
 extension SuperclassConstraint on MixinDeclaration {
-  /// Detects if a mixin is being limited to certain superclass (equal to [superclassName]).
+  /// Returns whether [superclassName] appears in this mixin's `on` clause.
   ///
-  /// Returns false if [superclassName] is not specified or the mixin's `onClause`
-  /// is `null`.
+  /// Any identifier prefixes in the `on` clause are removed before comparison.
   bool hasSuperclassConstraint(String superclassName) {
     return onClause?.superclassConstraints?.any((s) => s.typeNameWithoutPrefix == superclassName) ??
         false;
@@ -75,12 +80,8 @@ extension SuperclassConstraint on MixinDeclaration {
 
 /// Utilities for determining if a [ClassOrMixinDeclaration] has an abstract getter.
 extension AbstractGetter on ClassOrMixinDeclaration {
-  /// Verifies the provided [name] and return [type] are not connected to an abstract getter.
-  ///
-  /// Only returns true if [name] exists on the node and is the expected [type],
-  /// in addition to being an abstract getter.
-  ///
-  /// [name] should get the name of the getter and [type] should be its return type.
+  /// Returns whether this class/mixin contains an abstract getter with the provided [name]
+  /// and a return type exactly matching [type]
   bool hasAbstractGetter(String type, String name) =>
       members.whereType<MethodDeclaration>().any((member) =>
           member.isGetter &&
@@ -108,7 +109,7 @@ extension MetadataHelper on AnnotatedNode {
     }, orElse: () => segments.last);
   }
 
-  /// Find the first annotation on this node whose class or variable name is [name].
+  /// Returns the first annotation on this node whose class or variable name is [name].
   Annotation getAnnotationWithName(String name) {
     assert(!name.contains('.'), 'must be a class or variable name, unprefixed');
 
@@ -117,7 +118,7 @@ extension MetadataHelper on AnnotatedNode {
         orElse: () => null);
   }
 
-  /// Find the first annotation on this node whose class or variable name is  included in [names].
+  /// Returns the first annotation on this node whose class or variable name i  included in [names].
   Annotation getAnnotationWithNames(Set<String> names) {
     assert(
         !names.any((name) => name.contains('.')), 'must be a class or variable name, unprefixed');
@@ -127,13 +128,13 @@ extension MetadataHelper on AnnotatedNode {
         orElse: () => null);
   }
 
-  /// Detects if a node has an annotation with a name that matches [name].
+  /// Returns whether a node has an annotation whose class or variable name matches [name].
   ///
   /// Related: [getAnnotationWithName]
   bool hasAnnotationWithName(String name) => getAnnotationWithName(name) != null;
 
-  /// Detects if a node has an annotation with a name that matches a `String` included
-  /// in [names].
+  /// Returns whether a node has an annotation whose class or variable name matches
+  /// any of the values in [names].
   ///
   /// Related: [getAnnotationWithNames]
   bool hasAnnotationWithNames(Set<String> names) => getAnnotationWithNames(names) != null;
@@ -141,20 +142,17 @@ extension MetadataHelper on AnnotatedNode {
 
 /// Span utilities for [SourceFile]s.
 extension SourceFileSpanHelper on SourceFile {
-  /// Returns the [FileSpan] for a given node.
+  /// Returns a span for the given [AstNode] or [Token].
   ///
-  /// If the entity is an [AstNode], simply uses [getSpanForNode]. Otherwise, the
-  /// entity is a `Token` and will have its span evaluated with [span].
+  /// If it's an [AstNode], the span starts after the doc comment and metadata (see [getSpanForNode]).
   FileSpan spanFor(SyntacticEntity nodeOrToken) =>
       nodeOrToken is AstNode ? getSpanForNode(this, nodeOrToken) : _getSpanForEntity(nodeOrToken);
 
-  /// Returns a [FileSpan] spanning from the beginning to the end of the given
-  /// [node].
   FileSpan _getSpanForEntity(SyntacticEntity node) => span(node.offset, node.end);
 }
 
-/// Evaluates if a [ClassishDeclaration] implements a class but does not extend
-/// or mix in anything.
+/// Returns whether [classish] has one or more types it implements and does not
+/// extend or mix in anything.
 ///
 /// This also considers superclass constraints on mixins as "interfaces".
 bool onlyImplementsThings(ClassishDeclaration classish) =>
@@ -163,10 +161,7 @@ bool onlyImplementsThings(ClassishDeclaration classish) =>
     classish.mixins.isEmpty &&
     classish.members.isEmpty;
 
-/// Evaluates [test] on [expression] and returns `true` if [expression] has an
-/// [Identifier] that passes the test.
-///
-/// If [test] returns `true` on any [Identifier] then this will also.
+/// Returns whether any [Identifier] within [expression] matches the predicate [test].
 bool anyDescendantIdentifiers(Expression expression, bool Function(Identifier) test) {
   final visitor = _AnyDescendantIdentifiersVisitor(test);
   expression.accept(visitor);

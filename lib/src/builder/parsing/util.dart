@@ -13,26 +13,47 @@
 // limitations under the License.
 
 extension TryCast<T> on T {
-  /// Casts [T] to [S] and returns it.
+  /// Returns this casted as [S] if it is an instance of that type, or `null` otherwise.
+  ///
+  /// Useful for simplifying is-checks, especially on nested objects.
+  ///
+  /// Example:
+  ///
+  ///     // Without tryCast:
+  ///
+  ///     Block block;
+  ///     if (node.body is BlockFunctionBody) {
+  ///       // Cast necessary here since `.body` can't undergo type promotion.
+  ///       block = (node.body as BlockFunctionBody).block;
+  ///     }
+  ///
+  ///     // With tryCast
+  ///     final block = node.body?.tryCast<BlockFunctionBody>()?.block;
+  ///
   S tryCast<S extends T>() => this is S ? this : null;
 }
 
 extension IterableUtil<E> on Iterable<E> {
+  /// Returns the first element, or `null` if the element is empty.
   E get firstOrNull => isEmpty ? null : first;
 
-  /// Creates a new [Iterable] composed of elements from `this` that are not `null`.
+  /// Returns a new lazy iterable with all elements that are not `null`.
   Iterable<E> whereNotNull() => where((element) => element != null);
 
-  /// Creates a new [Iterable] composed of elements from `this` that are not `null`.
+  /// Returns a new lazy iterable with all the elements for which
+  /// the [test] predicate returns `false`.
   Iterable<E> whereNot(bool Function(E) test) => where((element) => !test(element));
 
-  /// Finds the first element of type [T] and triggers a callback if there is nothing.
+  /// Returns the first element of type [T], or the result of calling [orElse]
+  /// if no such element is found.
+  ///
+  /// Throws a [StateError] if there is no matching element and [orElse] is omitted.
   T firstWhereType<T>({T Function() orElse}) =>
       whereType<T>().firstWhere((_) => true, orElse: orElse);
 }
 
 /// A wrapper around two classes that can be used to pass data when the possible
-/// runtime type is not limited to a single class.
+/// type is not limited to a single class.
 ///
 /// Subset of package:union functionality
 class Union<A, B> {
