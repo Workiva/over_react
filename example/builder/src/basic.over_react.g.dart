@@ -152,10 +152,14 @@ class _$BasicComponent extends BasicComponent {
 mixin $BasicProps on BasicProps {
   static const PropsMeta meta = _$metaForBasicProps;
   @override
+  @Deprecated('This is deprecated')
+  @requiredProp
   String get basicProp =>
       props[_$key__basicProp__BasicProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Deprecated('This is deprecated')
+  @requiredProp
   set basicProp(String value) => props[_$key__basicProp__BasicProps] = value;
   @override
   String get basic1 =>

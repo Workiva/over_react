@@ -42,9 +42,11 @@ const PropsMeta _$metaForBasePropsMixin = PropsMeta(
 mixin $OverridePropsMixin on OverridePropsMixin {
   static const PropsMeta meta = _$metaForOverridePropsMixin;
   @override
+  @override
   String get foo =>
       props[_$key__foo__OverridePropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
   @override
   set foo(covariant String value) =>
       props[_$key__foo__OverridePropsMixin] = value;

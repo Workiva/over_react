@@ -154,24 +154,30 @@ class _$ComponentTestComponent extends ComponentTestComponent {
 mixin $ComponentTestProps on ComponentTestProps {
   static const PropsMeta meta = _$metaForComponentTestProps;
   @override
+  @requiredProp
   dynamic get required =>
       props[_$key__required__ComponentTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @requiredProp
   set required(dynamic value) =>
       props[_$key__required__ComponentTestProps] = value;
   @override
+  @nullableRequiredProp
   dynamic get nullable =>
       props[_$key__nullable__ComponentTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @nullableRequiredProp
   set nullable(dynamic value) =>
       props[_$key__nullable__ComponentTestProps] = value;
   @override
+  @requiredProp
   List get requiredAndLengthLimited =>
       props[_$key__requiredAndLengthLimited__ComponentTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @requiredProp
   set requiredAndLengthLimited(List value) =>
       props[_$key__requiredAndLengthLimited__ComponentTestProps] = value;
   /* GENERATED CONSTANTS */

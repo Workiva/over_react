@@ -34,24 +34,30 @@ mixin $TestPropsMixin on TestPropsMixin {
   @override
   set untypedProp(value) => props[_$key__untypedProp__TestPropsMixin] = value;
   @override
+  @Accessor(key: 'custom key!')
   dynamic get customKeyProp =>
       props[_$key__customKeyProp__TestPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(key: 'custom key!')
   set customKeyProp(dynamic value) =>
       props[_$key__customKeyProp__TestPropsMixin] = value;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~')
   dynamic get customNamespaceProp =>
       props[_$key__customNamespaceProp__TestPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceProp(dynamic value) =>
       props[_$key__customNamespaceProp__TestPropsMixin] = value;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   dynamic get customKeyAndNamespaceProp =>
       props[_$key__customKeyAndNamespaceProp__TestPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceProp(dynamic value) =>
       props[_$key__customKeyAndNamespaceProp__TestPropsMixin] = value;
   /* GENERATED CONSTANTS */
@@ -134,24 +140,30 @@ mixin $TestCustomNamespacePropsMixin on TestCustomNamespacePropsMixin {
   set untypedProp(value) =>
       props[_$key__untypedProp__TestCustomNamespacePropsMixin] = value;
   @override
+  @Accessor(key: 'custom key!')
   dynamic get customKeyProp =>
       props[_$key__customKeyProp__TestCustomNamespacePropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(key: 'custom key!')
   set customKeyProp(dynamic value) =>
       props[_$key__customKeyProp__TestCustomNamespacePropsMixin] = value;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~')
   dynamic get customNamespaceProp =>
       props[_$key__customNamespaceProp__TestCustomNamespacePropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceProp(dynamic value) =>
       props[_$key__customNamespaceProp__TestCustomNamespacePropsMixin] = value;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   dynamic get customKeyAndNamespaceProp =>
       props[_$key__customKeyAndNamespaceProp__TestCustomNamespacePropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceProp(dynamic value) =>
       props[_$key__customKeyAndNamespaceProp__TestCustomNamespacePropsMixin] =
           value;
@@ -284,24 +296,30 @@ mixin $TestStateMixin on TestStateMixin {
   @override
   set untypedState(value) => state[_$key__untypedState__TestStateMixin] = value;
   @override
+  @Accessor(key: 'custom key!')
   dynamic get customKeyState =>
       state[_$key__customKeyState__TestStateMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(key: 'custom key!')
   set customKeyState(dynamic value) =>
       state[_$key__customKeyState__TestStateMixin] = value;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~')
   dynamic get customNamespaceState =>
       state[_$key__customNamespaceState__TestStateMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceState(dynamic value) =>
       state[_$key__customNamespaceState__TestStateMixin] = value;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   dynamic get customKeyAndNamespaceState =>
       state[_$key__customKeyAndNamespaceState__TestStateMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceState(dynamic value) =>
       state[_$key__customKeyAndNamespaceState__TestStateMixin] = value;
   /* GENERATED CONSTANTS */
@@ -384,24 +402,30 @@ mixin $TestCustomNamespaceStateMixin on TestCustomNamespaceStateMixin {
   set untypedState(value) =>
       state[_$key__untypedState__TestCustomNamespaceStateMixin] = value;
   @override
+  @Accessor(key: 'custom key!')
   dynamic get customKeyState =>
       state[_$key__customKeyState__TestCustomNamespaceStateMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(key: 'custom key!')
   set customKeyState(dynamic value) =>
       state[_$key__customKeyState__TestCustomNamespaceStateMixin] = value;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~')
   dynamic get customNamespaceState =>
       state[_$key__customNamespaceState__TestCustomNamespaceStateMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceState(dynamic value) =>
       state[_$key__customNamespaceState__TestCustomNamespaceStateMixin] = value;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   dynamic get customKeyAndNamespaceState =>
       state[_$key__customKeyAndNamespaceState__TestCustomNamespaceStateMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceState(dynamic value) =>
       state[_$key__customKeyAndNamespaceState__TestCustomNamespaceStateMixin] =
           value;

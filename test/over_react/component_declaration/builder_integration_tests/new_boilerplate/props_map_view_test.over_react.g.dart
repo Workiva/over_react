@@ -33,24 +33,30 @@ mixin $TestProps on TestProps {
   @override
   set untypedProp(value) => props[_$key__untypedProp__TestProps] = value;
   @override
+  @Accessor(key: 'custom key!')
   dynamic get customKeyProp =>
       props[_$key__customKeyProp__TestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(key: 'custom key!')
   set customKeyProp(dynamic value) =>
       props[_$key__customKeyProp__TestProps] = value;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~')
   dynamic get customNamespaceProp =>
       props[_$key__customNamespaceProp__TestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceProp(dynamic value) =>
       props[_$key__customNamespaceProp__TestProps] = value;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   dynamic get customKeyAndNamespaceProp =>
       props[_$key__customKeyAndNamespaceProp__TestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceProp(dynamic value) =>
       props[_$key__customKeyAndNamespaceProp__TestProps] = value;
   /* GENERATED CONSTANTS */

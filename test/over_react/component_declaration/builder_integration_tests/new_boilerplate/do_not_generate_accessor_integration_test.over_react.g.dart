@@ -260,10 +260,12 @@ mixin $DoNotGenerateAccessorTestProps on DoNotGenerateAccessorTestProps {
   set generated2Prop(dynamic value) =>
       props[_$key__generated2Prop__DoNotGenerateAccessorTestProps] = value;
   @override
+  @Accessor(doNotGenerate: false)
   dynamic get explicitlyGeneratedProp =>
       props[_$key__explicitlyGeneratedProp__DoNotGenerateAccessorTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(doNotGenerate: false)
   set explicitlyGeneratedProp(dynamic value) =>
       props[_$key__explicitlyGeneratedProp__DoNotGenerateAccessorTestProps] =
           value;
@@ -326,10 +328,12 @@ mixin $DoNotGenerateAccessorTestState on DoNotGenerateAccessorTestState {
   set generated2State(dynamic value) =>
       state[_$key__generated2State__DoNotGenerateAccessorTestState] = value;
   @override
+  @Accessor(doNotGenerate: false)
   dynamic get explicitlyGeneratedState =>
       state[_$key__explicitlyGeneratedState__DoNotGenerateAccessorTestState] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(doNotGenerate: false)
   set explicitlyGeneratedState(dynamic value) =>
       state[_$key__explicitlyGeneratedState__DoNotGenerateAccessorTestState] =
           value;

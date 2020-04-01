@@ -154,24 +154,46 @@ class _$ComponentTestComponent extends ComponentTestComponent {
 mixin $ComponentTestProps on ComponentTestProps {
   static const PropsMeta meta = _$metaForComponentTestProps;
   @override
+  @Accessor(
+      isRequired: true,
+      requiredErrorMessage: 'This Prop is Required for testing purposes.')
   dynamic get required =>
       props[_$key__required__ComponentTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(
+      isRequired: true,
+      requiredErrorMessage: 'This Prop is Required for testing purposes.')
   set required(dynamic value) =>
       props[_$key__required__ComponentTestProps] = value;
   @override
+  @Accessor(
+      isRequired: true,
+      isNullable: true,
+      requiredErrorMessage: 'This prop can be set to null!')
   dynamic get nullable =>
       props[_$key__nullable__ComponentTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(
+      isRequired: true,
+      isNullable: true,
+      requiredErrorMessage: 'This prop can be set to null!')
   set nullable(dynamic value) =>
       props[_$key__nullable__ComponentTestProps] = value;
   @override
+  @Accessor(
+      isRequired: true,
+      isNullable: false,
+      requiredErrorMessage: 'This Prop Array is Required for testing purposes.')
   List get requiredAndLengthLimited =>
       props[_$key__requiredAndLengthLimited__ComponentTestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
+  @Accessor(
+      isRequired: true,
+      isNullable: false,
+      requiredErrorMessage: 'This Prop Array is Required for testing purposes.')
   set requiredAndLengthLimited(List value) =>
       props[_$key__requiredAndLengthLimited__ComponentTestProps] = value;
   /* GENERATED CONSTANTS */
