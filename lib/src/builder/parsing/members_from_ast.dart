@@ -23,6 +23,21 @@ import 'ast_util.dart';
 import 'members.dart';
 import 'version.dart';
 
+/// A pattern that can detect a props class or mixin (assuming it follows naming convention).
+final propsOrMixinNamePattern = RegExp(r'Props(?:Mixin)?$');
+
+/// A pattern that can detect a props mixin (assuming it follows naming convention).
+final propsMixinNamePattern = propsOrMixinNamePattern;
+
+/// A pattern that can detect a state class or mixin (assuming it follows naming convention).
+final stateMixinNamePattern = RegExp(r'State(?:Mixin)?$');
+
+/// A pattern that can detect a props class (assuming it follows naming convention).
+final propsNamePattern = RegExp(r'Props$');
+
+/// A pattern that can detect a state class (assuming it follows naming convention).
+final stateNamePattern = RegExp(r'State$');
+
 /// Returns an unmodifiable collection of all potential boilerplate members
 /// detected within [unit], with appropriate [BoilerplateMember.versionConfidences] scores.
 BoilerplateMembers detectBoilerplateMembers(CompilationUnit unit) {
@@ -357,21 +372,6 @@ class _BoilerplateMemberDetector {
       v4_mixinBased: isMixin ? Confidence.likely : Confidence.unlikely,
     );
   }
-
-  /// A pattern that can detect a props class or mixin (assuming it follows naming convention).
-  static final propsOrMixinNamePattern = RegExp(r'Props(?:Mixin)?$');
-
-  /// A pattern that can detect a props mixin (assuming it follows naming convention).
-  static final propsMixinNamePattern = propsOrMixinNamePattern;
-
-  /// A pattern that can detect a state class or mixin (assuming it follows naming convention).
-  static final stateMixinNamePattern = RegExp(r'State(?:Mixin)?$');
-
-  /// A pattern that can detect a props class (assuming it follows naming convention).
-  static final propsNamePattern = RegExp(r'Props$');
-
-  /// A pattern that can detect a state class (assuming it follows naming convention).
-  static final stateNamePattern = RegExp(r'State$');
 
   bool _detectNonLegacyPropsStateOrMixin(
       ClassishDeclaration classish, ClassishDeclaration companion) {

@@ -23,17 +23,31 @@ extension on String {
 
 /// A mixin containing getters that can be used to facilitate runtime [String] checks
 /// for a props and state class.
-mixin PropsStateStringHelpers {
+abstract class PropsStateStringHelpers {
   bool get isProps;
   String get propsOrStateString => isProps ? 'props' : 'state';
-  String get propsOrStateBaseClassString => 'Ui${propsOrStateString.capitalize()}';
-  String get propsOrStateClassString => '${propsOrStateString.capitalize()} class';
-  String get propsOrStateMixinString => '${propsOrStateString.capitalize()} mixin';
+  String get propsOrStateStringCapitalized => propsOrStateString.capitalize();
+  String get propsOrStateBaseClassString => 'Ui$propsOrStateStringCapitalized';
+  String get propsOrStateClassString => '$propsOrStateStringCapitalized class';
+  String get propsOrStateMixinString => '$propsOrStateStringCapitalized mixin';
   String get propsOrStateFieldsName => isProps ? 'props' : 'state fields';
   String get propsOrStateMetaStructName => isProps ? 'PropsMeta' : 'StateMeta';
   String get propsOrStateAnnotationName => isProps ? 'Props' : 'State';
   String get propsOrStateAbstractAnnotationName => isProps ? 'AbstractProps' : 'AbstractState';
   String get propsOrStateMixinAnnotationName => isProps ? 'PropsMixin' : 'StateMixin';
+
+  RegExp get propsOrStateMixinNamePattern =>
+      isProps ? propsMixinNamePattern : stateMixinNamePattern;
+
+  factory PropsStateStringHelpers.props() => _PropsStateStringHelpersImpl(isProps: true);
+  factory PropsStateStringHelpers.state() => _PropsStateStringHelpersImpl(isProps: false);
+}
+
+class _PropsStateStringHelpersImpl extends Object with PropsStateStringHelpers {
+  @override
+  final bool isProps;
+
+  _PropsStateStringHelpersImpl({@required this.isProps});
 }
 
 /// Uses [InstantiatedMeta] to analyze [node] and determine the proper annotation.

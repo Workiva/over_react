@@ -16,9 +16,9 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:meta/meta.dart';
 
 import 'ast_util.dart';
+import 'error_collection.dart';
 import 'members.dart';
 import 'util.dart';
-import 'error_collection.dart';
 import 'version.dart';
 
 /// The possible declaration types that the builder will look for.
@@ -178,11 +178,56 @@ class LegacyAbstractStateDeclaration extends BoilerplateDeclaration {
   }
 }
 
+mixin _TypedMapMixinShorthandDeclaration {
+  @mustCallSuper
+  void _validateShorthand(
+    ErrorCollector errorCollector,
+    PropsStateStringHelpers helpers, {
+    @required Union<BoilerplatePropsOrState, BoilerplatePropsOrStateMixin> propsOrState,
+    @required AstNode shorthandUsage,
+  }) {
+    final mixin = propsOrState.b;
+    if (mixin == null) return;
+
+    bool isBadConstraint(TypeName constraint) {
+      final name = constraint.nameWithoutPrefix;
+      return name != helpers.propsOrStateBaseClassString &&
+          helpers.propsOrStateMixinNamePattern.hasMatch(name);
+    }
+
+    final badConstraints = mixin.node
+        ?.tryCast<MixinDeclaration>()
+        ?.onClause
+        ?.superclassConstraints
+        ?.where(isBadConstraint)
+        ?.toList();
+
+    if (badConstraints?.isNotEmpty ?? false) {
+      final badConstraintsString = badConstraints.map((c) => c.name.name).join(', ');
+
+      final suggestedImplName = mixin.name.name.endsWith('Mixin')
+          ? mixin.name.name.replaceFirst(RegExp(r'Mixin$'), '')
+          : 'ConcreteImplName${helpers.propsOrStateStringCapitalized}';
+
+      errorCollector.addError(
+          '${mixin.name.name} can\'t be used in shorthand syntax since it has'
+          ' the following `on` constraints: `$badConstraintsString`,'
+          ' which cannot be automatically inherited from in the generated implementation.'
+          '\n\nUse the non-shorthand syntax instead:'
+          '\n    class $suggestedImplName'
+          ' = ${helpers.propsOrStateBaseClassString}'
+          ' with ${mixin.name.name}, $badConstraintsString;\n',
+          errorCollector.spanFor(shorthandUsage));
+    }
+  }
+}
+
 /// A boilerplate declaration for a class-based component declared using the new mixin-based
 /// boilerplate.
 ///
 /// See [BoilerplateDeclaration] for more info.
-class ClassComponentDeclaration extends BoilerplateDeclaration {
+class ClassComponentDeclaration extends BoilerplateDeclaration
+    with _TypedMapMixinShorthandDeclaration {
   final BoilerplateFactory factory;
   final BoilerplateComponent component;
   final Union<BoilerplateProps, BoilerplatePropsMixin> props;
@@ -200,6 +245,18 @@ class ClassComponentDeclaration extends BoilerplateDeclaration {
         (b) => [b.name],
       );
 
+  @override
+  void validate(ErrorCollector errorCollector) {
+    super.validate(errorCollector);
+
+    _validateShorthand(errorCollector, PropsStateStringHelpers.props(),
+        propsOrState: props, shorthandUsage: factory.propsGenericArg ?? factory.node);
+    if (state != null) {
+      _validateShorthand(errorCollector, PropsStateStringHelpers.state(),
+          propsOrState: state, shorthandUsage: component.node);
+    }
+  }
+
   ClassComponentDeclaration({
     @required this.factory,
     @required this.component,
@@ -212,7 +269,8 @@ class ClassComponentDeclaration extends BoilerplateDeclaration {
 /// the new mixin-based boilerplate, which have almost identical syntax and code generation.
 ///
 /// See [BoilerplateDeclaration] for more info.
-class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration {
+class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
+    with _TypedMapMixinShorthandDeclaration {
   /// The related factory instance.
   final BoilerplateFactory factory;
 
@@ -226,6 +284,14 @@ class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration 
 
   @override
   get type => DeclarationType.propsMapViewOrFunctionComponentDeclaration;
+
+  @override
+  void validate(ErrorCollector errorCollector) {
+    super.validate(errorCollector);
+
+    _validateShorthand(errorCollector, PropsStateStringHelpers.props(),
+        propsOrState: props, shorthandUsage: factory.propsGenericArg ?? factory.node);
+  }
 
   PropsMapViewOrFunctionComponentDeclaration({
     @required this.factory,
