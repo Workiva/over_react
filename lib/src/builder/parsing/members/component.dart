@@ -106,7 +106,7 @@ class BoilerplateComponent extends BoilerplateMember {
         .forEach((member) {
       // This is a warning since emitting an error would break existing code that's doing this.
       errorCollector.addWarning(
-          'Components should not add their own implementions of ${member.name.name}.',
+          'Components should not add their own implementations of ${member.name.name}.',
           errorCollector.spanFor(member));
     });
 

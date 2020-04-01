@@ -1378,7 +1378,7 @@ main() {
             expect(mixins.map((m) => m.mixin.name.name).toList(),
                 ['FooPropsMixin', 'BarPropsMixin', 'BazPropsMixin']);
           });
-          
+
           test('state mixins', () {
             setUpAndParse(r'''
               mixin FooStateMixin on UiState {}
@@ -1955,7 +1955,9 @@ main() {
             });
           });
         });
+      });
 
+      group('and logs a warning when', () {
         group('a component implements', () {
           test('typedPropsFactory', () {
             setUpAndParse(OverReactSrc.props(
@@ -1963,7 +1965,7 @@ main() {
               componentBody: 'typedPropsFactory(Map backingMap) => {};',
             ).source);
             verify(logger.warning(contains(
-                'Components should not add their own implementions of typedPropsFactory.')));
+                'Components should not add their own implementations of typedPropsFactory.')));
           });
 
           test('typedPropsFactoryJs', () {
@@ -1972,7 +1974,7 @@ main() {
               componentBody: 'typedPropsFactoryJs(JsBackedMap backingMap) => {};',
             ).source);
             verify(logger.warning(contains(
-                'Components should not add their own implementions of typedPropsFactoryJs.')));
+                'Components should not add their own implementations of typedPropsFactoryJs.')));
           });
 
           test('typedStateFactory', () {
@@ -1981,7 +1983,7 @@ main() {
               componentBody: 'typedStateFactory(Map backingMap) => {};',
             ).source);
             verify(logger.warning(contains(
-                'Components should not add their own implementions of typedStateFactory.')));
+                'Components should not add their own implementations of typedStateFactory.')));
           });
 
           test('typedStateFactoryJs', () {
@@ -1990,12 +1992,10 @@ main() {
               componentBody: 'typedStateFactoryJs(JsBackedMap backingMap) => {};',
             ).source);
             verify(logger.warning(contains(
-                'Components should not add their own implementions of typedStateFactoryJs.')));
+                'Components should not add their own implementations of typedStateFactoryJs.')));
           });
         });
-      });
 
-      group('and logs a warning when', () {
         group('on Dart 2 only boilerplate', () {
           group('a static `meta` field is declared in ', () {
             void verifyWarningLog(String publicClassName) {
