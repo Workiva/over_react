@@ -6,7 +6,7 @@ part 'basic.over_react.g.dart';
 UiFactory<BasicProps> Basic = _$Basic; // ignore: undefined_identifier
 
 mixin BasicProps on UiProps {
-  @deprecated
+  @Deprecated('This is deprecated')
   @requiredProp
   String basicProp;
 

@@ -38,3 +38,39 @@ const PropsMeta _$metaForExamplePropsMixin = PropsMeta(
   fields: $ExamplePropsMixin.$props,
   keys: $ExamplePropsMixin.$propKeys,
 );
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $RequiresOtherMixinPropsMixin<T extends Iterable, U>
+    on RequiresOtherMixinPropsMixin<T, U> {
+  static const PropsMeta meta = _$metaForRequiresOtherMixinPropsMixin;
+  @override
+  String get otherPropMixin =>
+      props[_$key__otherPropMixin__RequiresOtherMixinPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set otherPropMixin(String value) =>
+      props[_$key__otherPropMixin__RequiresOtherMixinPropsMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor
+      _$prop__otherPropMixin__RequiresOtherMixinPropsMixin =
+      PropDescriptor(_$key__otherPropMixin__RequiresOtherMixinPropsMixin);
+  static const String _$key__otherPropMixin__RequiresOtherMixinPropsMixin =
+      'RequiresOtherMixinPropsMixin.otherPropMixin';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__otherPropMixin__RequiresOtherMixinPropsMixin
+  ];
+  static const List<String> $propKeys = [
+    _$key__otherPropMixin__RequiresOtherMixinPropsMixin
+  ];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForRequiresOtherMixinPropsMixin = PropsMeta(
+  fields: $RequiresOtherMixinPropsMixin.$props,
+  keys: $RequiresOtherMixinPropsMixin.$propKeys,
+);

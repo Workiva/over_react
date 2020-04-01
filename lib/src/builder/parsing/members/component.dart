@@ -88,6 +88,13 @@ class BoilerplateComponent extends BoilerplateMember {
           errorCollector.addError(
               'Must extend UiComponent2, not UiComponent.', errorCollector.spanFor(superclass));
         }
+
+        final badAnnotation = node.getAnnotationWithNames({'Component', 'AbstractComponent'});
+        if (badAnnotation != null) {
+          errorCollector.addError(
+              'Only @Component2() is supported for this syntax. Remove or update this annotation.',
+              errorCollector.spanFor(badAnnotation));
+        }
         break;
       case Version.v2_legacyBackwardsCompat:
       case Version.v3_legacyDart2Only:

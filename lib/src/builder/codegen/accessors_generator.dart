@@ -211,7 +211,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         if (annotationCount > 1) {
           logger.severe(messageWithSpan(
               '@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
-              'You can use `@Accessor(required: true)` or `isNullable: true` instead of the shorthand versions.',
+              'You can use `@Accessor(isRequired: true)` or `isNullable: true` instead of the shorthand versions.',
               span: getSpan(sourceFile, field)));
         }
 
@@ -223,10 +223,8 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         final typeSource = field.fields.type?.toSource();
         final typeString = typeSource == null ? '' : '$typeSource ';
         final metadataSrc = StringBuffer();
-        if (version.isLegacy) {
-          for (final annotation in field.metadata) {
-            metadataSrc.writeln('  ${annotation.toSource()}');
-          }
+        for (final annotation in field.metadata) {
+          metadataSrc.writeln('  ${annotation.toSource()}');
         }
 
         String setterTypeString =
@@ -272,7 +270,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         output.write(generatedAccessor);
       });
 
-      if (field.fields.variables.length > 1 &&
+      if (version.isLegacy && field.fields.variables.length > 1 &&
           (field.documentationComment != null || field.metadata.isNotEmpty)) {
         logger.warning(messageWithSpan(
             'Note: accessors declared as comma-separated variables will not all be generated '

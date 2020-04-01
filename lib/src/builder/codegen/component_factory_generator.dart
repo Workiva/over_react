@@ -87,6 +87,8 @@ class ComponentFactoryProxyGenerator extends BoilerplateDeclarationGenerator {
         ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
         ..writeln('    displayName: ${stringLiteral(factoryName)},');
 
+      // If isComponent2 is true, we can safely assume the component class has a
+      // `@Component2()` (or no annotation), since other cases would fail validation.
       if ((component.meta as annotations.Component2).isErrorBoundary) {
         // Override `skipMethods` as an empty list so that
         // the `componentDidCatch` and `getDerivedStateFromError`

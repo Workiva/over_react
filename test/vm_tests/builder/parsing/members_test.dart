@@ -132,20 +132,8 @@ main() {
           });
         });
 
-        group('throws when', () {
-          test('the component is mixin based but does not extend Component2', () {
-            final members = BoilerplateMemberHelper.parseAndReturnMembers(r'''
-            UiFactory<FooProps> Foo = _$Foo;
-
-            mixin FooProps on UiProps {}
-  
-            mixin FooState on UiState {}
-  
-            class FooComponent extends UiStatefulComponent<FooProps, FooState>{}
-            ''');
-
-            final component = members.whereType<BoilerplateComponent>().first;
-            final componentVersion = resolveVersion(members).version;
+        group('throws when the component is mixin based but', () {
+          test('does not extend Component2', () {
             file = SourceFile.fromString(r'''
             UiFactory<FooProps> Foo = _$Foo;
 
@@ -158,8 +146,38 @@ main() {
             collector = ErrorCollector.callback(file,
                 onError: validateCallback, onWarning: validateCallback);
 
+            final members = BoilerplateMemberHelper.parseAndReturnMembers(file.getText(0));
+
+            final component = members.whereType<BoilerplateComponent>().first;
+            final componentVersion = resolveVersion(members).version;
+            expect(componentVersion, Version.v4_mixinBased, reason: 'test setup check');
+
             component.validate(componentVersion, collector);
             expect(validateResults, [contains('Must extend UiComponent2, not UiComponent.')]);
+          });
+
+          test('has a `@Component()` annotation', () {
+            file = SourceFile.fromString(r'''
+            UiFactory<FooProps> Foo = _$Foo;
+
+            mixin FooProps on UiProps {}
+  
+            mixin FooState on UiState {}
+  
+            @Component()
+            class FooComponent extends UiComponent2<FooProps, FooState>{}
+            ''');
+            collector = ErrorCollector.callback(file,
+                onError: validateCallback, onWarning: validateCallback);
+
+            final members = BoilerplateMemberHelper.parseAndReturnMembers(file.getText(0));
+
+            final component = members.whereType<BoilerplateComponent>().first;
+            final componentVersion = resolveVersion(members).version;
+            expect(componentVersion, Version.v4_mixinBased, reason: 'test setup check');
+
+            component.validate(componentVersion, collector);
+            expect(validateResults, [contains('Only @Component2() is supported for this syntax.')]);
           });
         });
 
