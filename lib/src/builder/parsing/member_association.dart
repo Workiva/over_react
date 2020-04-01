@@ -127,7 +127,10 @@ Union<BoilerplateState, BoilerplateStateMixin> getStateFor(
       getRelatedName(member).mapIfNotNull((name) => _getNameMatchUnion(states, stateMixins, name));
 }
 
-/// Finds the name of the props class related to [member].
+/// Attempts to find the member related to [member] and returns its name.
+///
+/// Currently, related names are only returned for factories/components
+/// based on their props generic parameter; in the future this could be expanded.
 String getRelatedName(BoilerplateMember member) {
   if (member is BoilerplateFactory) {
     return member.propsGenericArg?.typeNameWithoutPrefix

@@ -80,8 +80,7 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
   final BoilerplateProps props;
   final BoilerplateState state;
 
-  /// Whether this is Component2 based on the annotation or if the version
-  /// is [Version.v4_mixinBased].
+  /// Whether this is Component2 based.
   bool get isComponent2 => component.isComponent2(version);
 
   @override

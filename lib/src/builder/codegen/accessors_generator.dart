@@ -159,7 +159,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         if (variable.initializer != null) {
           logger.severe(messageWithSpan(
               'Fields are stubs for generated setters/getters and should not have initializers.\n'
-              'Instead, initialize ${type.isProps ? 'prop values within getDefaultProps()' : 'state values within getInitialState()'}.',
+              'Instead, initialize ${type.isProps ? 'prop values within defaultProps' : 'state values within initialState'}.',
               span: getSpan(sourceFile, variable)));
         }
 

@@ -50,7 +50,7 @@ class BoilerplateComponent extends BoilerplateMember {
   /// The [TypeAnnotation] for the component's prop class.
   TypeAnnotation get propsGenericArg {
     return nodeHelper.superclass.typeArguments?.arguments
-        ?.firstWhere((type) => type.typeNameWithoutPrefix.endsWith('Props'), orElse: () => null);
+        ?.firstWhere((type) => propsOrMixinNamePattern.hasMatch(type.typeNameWithoutPrefix), orElse: () => null);
   }
 
   /// Whether or not the component has any annotation, ignoring component version
@@ -83,7 +83,7 @@ class BoilerplateComponent extends BoilerplateMember {
     switch (version) {
       case Version.v4_mixinBased:
         final superclass = nodeHelper.superclass;
-        if (const ['UiComponent', 'UiStatefulComponent', 'FluxUiComponent']
+        if (const ['UiComponent', 'UiStatefulComponent', 'FluxUiComponent', 'BuiltReduxUiComponent']
             .contains(superclass?.nameWithoutPrefix)) {
           errorCollector.addError(
               'Must extend UiComponent2, not UiComponent.', errorCollector.spanFor(superclass));
@@ -121,8 +121,8 @@ class BoilerplateComponent extends BoilerplateMember {
     if (isComponent2(version) && node is ClassOrMixinDeclaration) {
       Map<String, String> legacyLifecycleMethodsMap = {
         'componentWillReceiveProps': 'Use getDerivedStateFromProps instead.',
-        'componentWillMount': 'Use init instead.',
-        'componentWillUpdate': 'Use getSnapshotBeforeUpdate instead.',
+        'componentWillMount': 'Use componentDidMount instead.',
+        'componentWillUpdate': 'Use getSnapshotBeforeUpdate and/or componentDidUpdate instead.',
       };
 
       legacyLifecycleMethodsMap.forEach((methodName, helpMessage) {

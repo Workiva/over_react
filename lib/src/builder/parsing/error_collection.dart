@@ -33,7 +33,7 @@ abstract class ErrorCollector {
   /// and [onWarning].
   ///
   /// The use of [stringCallback] may still be useful as it handles the [SourceSpan]
-  /// but provides the opportunity to have implement custom logic.
+  /// but provides the opportunity to implement custom logic.
   factory ErrorCollector.callback(
     SourceFile sourceFile, {
     ErrorCollectorCallback onError,

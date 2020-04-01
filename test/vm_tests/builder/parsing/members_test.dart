@@ -186,8 +186,8 @@ main() {
         group('detects deprecated lifecycles correctly', () {
           Map<String, String> legacyLifecycleMethodsMap = {
             'componentWillReceiveProps': 'Use getDerivedStateFromProps instead.',
-            'componentWillMount': 'Use init instead.',
-            'componentWillUpdate': 'Use getSnapshotBeforeUpdate instead.',
+            'componentWillMount': 'Use componentDidMount instead.',
+            'componentWillUpdate': 'Use getSnapshotBeforeUpdate and/or componentDidUpdate instead.',
           };
 
           // Loop over the deprecated lifecycle methods
