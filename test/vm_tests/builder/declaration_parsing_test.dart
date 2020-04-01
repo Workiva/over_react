@@ -1955,6 +1955,56 @@ main() {
             });
           });
         });
+
+        group(
+            'shorthand props syntax is used on mixins with extra superclass constraints'
+                ' when declared part of a', () {
+          test('props map view', () {
+            setUpAndParse(r'''
+              UiFactory<FooProps> Foo = _$Foo;
+              mixin FooProps on UiProps, BarProps {}
+            ''');
+            verify(logger.severe(allOf(
+              contains('FooProps can\'t be used in shorthand syntax since it has'
+                  ' the following `on` constraints: `BarProps`'),
+              // verify the factory is used for the span
+              contains('UiFactory<FooProps> Foo'),
+            )));
+          });
+
+          test('component', () {
+            setUpAndParse(r'''
+              UiFactory<FooProps> Foo = _$Foo;
+              mixin FooProps on UiProps, BarProps {}
+              class FooComponent extends UiComponent2<FooProps> {}
+            ''');
+            verify(logger.severe(allOf(
+              contains('FooProps can\'t be used in shorthand syntax since it has'
+                  ' the following `on` constraints: `BarProps`'),
+              // verify the factory is used for the span
+              contains('UiFactory<FooProps> Foo'),
+            )));
+          });
+        });
+
+        group(
+            'shorthand state syntax is used on mixins with extra superclass constraints'
+                ' when declared part of a', () {
+          test('component', () {
+            setUpAndParse(r'''
+              UiFactory<FooProps> Foo = _$Foo;
+              mixin FooProps on UiProps {}
+              mixin FooState on UiState, BarState {}
+              class FooComponent extends UiStatefulComponent2<FooProps, FooState> {}
+            ''');
+            verify(logger.severe(allOf(
+              contains('FooState can\'t be used in shorthand syntax since it has'
+                  ' the following `on` constraints: `BarState`'),
+              // verify the component is used for the span
+              contains('FooComponent'),
+            )));
+          });
+        });
       });
 
       group('and logs a warning when', () {
