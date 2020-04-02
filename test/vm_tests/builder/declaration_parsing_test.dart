@@ -19,6 +19,7 @@ library declaration_parsing_test;
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:meta/meta.dart';
 import 'package:mockito/mockito.dart';
 import 'package:over_react/src/builder/parsing.dart';
 import 'package:over_react/src/builder/parsing/member_association.dart';
@@ -368,6 +369,7 @@ main() {
             });
 
             group('missing generic params referencing props class', () {
+              @isTest
               void sharedGenericTest(String name, String source) {
                 test(name, () {
                   setUpAndParse(source);
@@ -955,10 +957,10 @@ main() {
             void testTwoComponents(BoilerplateVersions nonMixinVersion) {
               setUp(() {
                 setUpAndParse('''
-                ${getBoilerplateString(version: BoilerplateVersions.v4, componentBaseName: 'FirstFoo')}
-  
-                ${getBoilerplateString(version: nonMixinVersion, componentBaseName: 'SecondFoo')}
-              ''');
+                  ${getBoilerplateString(version: BoilerplateVersions.v4, componentBaseName: 'FirstFoo')}
+    
+                  ${getBoilerplateString(version: nonMixinVersion, componentBaseName: 'SecondFoo')}
+                ''');
               });
 
               test('detects the correct number of components', () {
@@ -1009,10 +1011,10 @@ main() {
 
               setUp(() {
                 setUpAndParse('''
-                ${getBoilerplateString(version: BoilerplateVersions.v4, componentBaseName: 'FirstFoo')}
-  
-                ${getBoilerplateString(version: BoilerplateVersions.v4, componentBaseName: 'SecondFoo')}
-              ''');
+                  ${getBoilerplateString(version: BoilerplateVersions.v4, componentBaseName: 'FirstFoo')}
+    
+                  ${getBoilerplateString(version: BoilerplateVersions.v4, componentBaseName: 'SecondFoo')}
+                ''');
 
                 componentDeclarations = declarations.whereType<ClassComponentDeclaration>();
               });
@@ -1031,9 +1033,9 @@ main() {
 
               test('that are the correct version', () {
                 final versionForFirstMixin =
-                resolveVersion(componentDeclarations.firstWhereNameEquals('FirstFoo').members);
+                    resolveVersion(componentDeclarations.firstWhereNameEquals('FirstFoo').members);
                 final versionForSecondMixin =
-                resolveVersion(componentDeclarations.firstWhereNameEquals('SecondFoo').members);
+                    resolveVersion(componentDeclarations.firstWhereNameEquals('SecondFoo').members);
 
                 expect(versionForFirstMixin.version, Version.v4_mixinBased);
                 expect(versionForSecondMixin.version, Version.v4_mixinBased);
@@ -1045,14 +1047,14 @@ main() {
 
               setUp(() {
                 setUpAndParse('''
-                ${OverReactSrc.abstractState(needsComponent: false, baseName: 'StateFoo').source}
-                
-                ${OverReactSrc.abstractProps(needsComponent: false, baseName: 'PropsFoo').source}
-  
-                ${getBoilerplateString(version: BoilerplateVersions.v2, componentBaseName: 'SecondFoo')}
-                
-                ${getBoilerplateString(version: BoilerplateVersions.v3, componentBaseName: 'ThirdFoo')}
-              ''');
+                  ${OverReactSrc.abstractState(needsComponent: false, baseName: 'StateFoo').source}
+                  
+                  ${OverReactSrc.abstractProps(needsComponent: false, baseName: 'PropsFoo').source}
+    
+                  ${getBoilerplateString(version: BoilerplateVersions.v2, componentBaseName: 'SecondFoo')}
+                  
+                  ${getBoilerplateString(version: BoilerplateVersions.v3, componentBaseName: 'ThirdFoo')}
+                ''');
 
                 componentDeclarations = declarations.whereType<LegacyClassComponentDeclaration>();
               });
@@ -1064,9 +1066,9 @@ main() {
 
               test('with names that match expectations', () {
                 final propsComponentDeclaration =
-                componentDeclarations.firstWhereNameEquals('PropsFoo');
+                    componentDeclarations.firstWhereNameEquals('PropsFoo');
                 final stateComponentDeclaration =
-                componentDeclarations.firstWhereNameEquals('StateFoo');
+                    componentDeclarations.firstWhereNameEquals('StateFoo');
                 final secondComponent = componentDeclarations.firstWhereNameEquals('SecondFoo');
                 final thirdComponent = componentDeclarations.firstWhereNameEquals('ThirdFoo');
 
@@ -1086,9 +1088,9 @@ main() {
 
               test('that are the correct version', () {
                 final versionForFirstMixin =
-                resolveVersion(componentDeclarations.firstWhereNameEquals('SecondFoo').members);
+                    resolveVersion(componentDeclarations.firstWhereNameEquals('SecondFoo').members);
                 final versionForSecondMixin =
-                resolveVersion(componentDeclarations.firstWhereNameEquals('ThirdFoo').members);
+                    resolveVersion(componentDeclarations.firstWhereNameEquals('ThirdFoo').members);
                 final abstractProps = resolveVersion(
                     declarations.firstWhereType<LegacyAbstractPropsDeclaration>().members);
                 final abstractState = resolveVersion(
