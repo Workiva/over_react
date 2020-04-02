@@ -4,7 +4,6 @@
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
-      "// ignore: uri_has_not_been_generated",
       "part '${1:FileName}.over_react.g.dart';",
       "",
       "UiFactory<${2:MyComponent}Props> ${2:MyComponent} =",
@@ -30,7 +29,6 @@
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
-      "// ignore: uri_has_not_been_generated",
       "part '${1:FileName}.over_react.g.dart';",
       "",
       "UiFactory<${2:MyComponent}Props> ${2:MyComponent} =",
@@ -63,7 +61,6 @@
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
-      "// ignore: uri_has_not_been_generated",
       "part '${1:FileName}.over_react.g.dart';",
       "",
       "UiFactory<${2:MyComponent}Props> ${2:MyComponent} =",
@@ -87,7 +84,6 @@
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
-      "// ignore: uri_has_not_been_generated",
       "part '${1:FileName}.over_react.g.dart';",
       "",
       "UiFactory<${2:MyComponent}Props> ${2:MyComponent} =",
