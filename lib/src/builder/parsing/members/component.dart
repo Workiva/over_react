@@ -49,8 +49,9 @@ class BoilerplateComponent extends BoilerplateMember {
 
   /// The [TypeAnnotation] for the component's prop class.
   TypeAnnotation get propsGenericArg {
-    return nodeHelper.superclass.typeArguments?.arguments
-        ?.firstWhere((type) => propsOrMixinNamePattern.hasMatch(type.typeNameWithoutPrefix), orElse: () => null);
+    return nodeHelper.superclass.typeArguments?.arguments?.firstWhere(
+        (type) => propsOrMixinNamePattern.hasMatch(type.typeNameWithoutPrefix),
+        orElse: () => null);
   }
 
   /// Whether or not the component has any annotation, ignoring component version

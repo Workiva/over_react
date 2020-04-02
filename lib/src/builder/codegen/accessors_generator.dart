@@ -270,7 +270,8 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         output.write(generatedAccessor);
       });
 
-      if (version.isLegacy && field.fields.variables.length > 1 &&
+      if (version.isLegacy &&
+          field.fields.variables.length > 1 &&
           (field.documentationComment != null || field.metadata.isNotEmpty)) {
         logger.warning(messageWithSpan(
             'Note: accessors declared as comma-separated variables will not all be generated '
