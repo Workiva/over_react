@@ -23,7 +23,7 @@ import 'package:test/test.dart';
 import '../util.dart';
 
 main() {
-  group('errror collection -', () {
+  group('error collection -', () {
     group('ErrorCollector', () {
       ErrorCollector collector;
       SourceFile file;

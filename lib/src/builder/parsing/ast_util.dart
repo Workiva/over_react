@@ -118,7 +118,7 @@ extension MetadataHelper on AnnotatedNode {
         orElse: () => null);
   }
 
-  /// Returns the first annotation on this node whose class or variable name i  included in [names].
+  /// Returns the first annotation on this node whose class or variable name is included in [names].
   Annotation getAnnotationWithNames(Set<String> names) {
     assert(
         !names.any((name) => name.contains('.')), 'must be a class or variable name, unprefixed');

@@ -1,4 +1,4 @@
-// Copyright 2016 Workiva Inc.
+// Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -144,7 +144,7 @@ main() {
   });
 }
 
-// fixme use props mapview or component instead of this
+// todo use props mapview or component instead of this
 class TestUiStateBaseClass extends UiState {
   @override
   final Map state = {};

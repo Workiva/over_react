@@ -121,7 +121,6 @@ main() {
             '${p.absolute(p.current)}/test_fixtures/gold_output_files/basic_library.over_react.g.dart.goldFile');
       });
 
-
       test('does not produce a build output for just a part file', () async {
         var basicAsset = makeAssetId('over_react|test_fixtures/source_files/dart2_only/part_of_basic_library.dart');
         await runBuilder(builder, [basicAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);

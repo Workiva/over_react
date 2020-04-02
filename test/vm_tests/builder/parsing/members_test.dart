@@ -181,7 +181,7 @@ main() {
           });
         });
 
-        // Group that ensures that iterates over the deprecated lifecycles and all
+        // Group that iterates over the deprecated lifecycles and all
         // versions of the boilerplate, checking for errors where necessary.
         group('detects deprecated lifecycles correctly', () {
           Map<String, String> legacyLifecycleMethodsMap = {
@@ -225,7 +225,7 @@ main() {
 
     group('factory', () {
       group(
-          'hasFactoryAnnotation correctly identifies when a factory whether or not an annotation is present',
+          'hasFactoryAnnotation correctly identifies whether or not an annotation is present on a factory',
           () {
         for (final version in BoilerplateVersions.values) {
           test('${versionDescriptions[version]}', () {

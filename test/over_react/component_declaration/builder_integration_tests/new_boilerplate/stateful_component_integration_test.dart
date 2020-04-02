@@ -21,7 +21,6 @@ part 'stateful_component_integration_test.over_react.g.dart';
 
 main() {
   group('(New boilerplate) stateful component integration:', () {
-
     test('component cannot set state directly in init', () {
       expect(() => render((StatefulComponentTest()..setStateDirectly = true)()),
           throwsA(hasToStringValue('Assertion failed: "Component2.state should '
@@ -134,4 +133,3 @@ class StatefulComponentTestComponent extends UiStatefulComponent2<StatefulCompon
     ..addProp('data-state-custom-key-and-namespace-state', state.customKeyAndNamespaceState)
   )('rendered content');
 }
-

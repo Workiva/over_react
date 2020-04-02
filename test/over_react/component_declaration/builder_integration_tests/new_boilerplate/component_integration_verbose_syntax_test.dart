@@ -19,7 +19,7 @@ import '../../../../test_util/test_util.dart';
 part 'component_integration_verbose_syntax_test.over_react.g.dart';
 
 main() {
-  group('(New boilerplate) component integration:', () {
+  group('(New boilerplate, verbose syntax) component integration:', () {
     test('renders a component from end to end, successfully reading props via typed getters', () {
       var instance = render((ComponentTest()
         ..stringProp = '1'
