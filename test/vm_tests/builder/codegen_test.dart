@@ -803,7 +803,7 @@ main() {
 
       group('accessors have', () {
         const expectedAccessorErrorMessage = '@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
-            'You can use `@Accessor(required: true)` or `isNullable: true` instead of the shorthand versions.';
+            'You can use `@Accessor(isRequired: true)` or `isNullable: true` instead of the shorthand versions.';
 
         test('the Accessor and requiredProp annotation', () {
           var body = '''@Accessor()

@@ -1697,8 +1697,8 @@ main() {
           setUpAndParse(factorySrc + propsSrc + component2LegacySrc);
           /// Should log for each legacy method, suggesting the alternative.
           verify(logger.severe(contains('Use getDerivedStateFromProps instead.')));
-          verify(logger.severe(contains('Use init instead.')));
-          verify(logger.severe(contains('Use getSnapshotBeforeUpdate instead.')));
+          verify(logger.severe(contains('Use componentDidMount instead.')));
+          verify(logger.severe(contains('Use getSnapshotBeforeUpdate and/or componentDidUpdate instead.')));
         });
 
         group('a factory is', () {
