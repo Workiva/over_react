@@ -261,6 +261,8 @@ the component boilerplate.
 part 'foo.over_react.g.dart';
 ```
 
+This warning is also ignored by default in [workiva_analysis_options](https://github.com/Workiva/workiva_analysis_options).
+
 #### Use Mixin-Based Props Declaration that Disallows Subclassing
 
 _Constraints_:
