@@ -32,7 +32,6 @@
 * __[Building custom components](#building-custom-components)__
     * __[Component Boilerplates](#component-boilerplate-templates)__
     * __[Component Best Practices](#component-best-practices)__
-    * __[Common Pitfalls](#common-pitfalls)__
 * __[Contributing](#contributing)__
 
 [](#__START_EMBEDDED_README__)
@@ -981,6 +980,22 @@ an informative comment.
 
 &nbsp;
 
+#### Ignore Ungenerated Warnings Project-Wide
+
+To avoid having to add `// ignore: uri_has_not_been_generated` to each 
+component library on the part/import that references generated code, 
+ignore this warning globally within analysis_options.yaml:
+
+```yaml
+ analyzer:
+   errors:
+     uri_has_not_been_generated: ignore 
+```
+
+Alternatively, `include` [workiva_analysis_options](https://github.com/Workiva/workiva_analysis_options).
+which ignores this warning by default.
+
+&nbsp;
 
 ## Contributing
 
