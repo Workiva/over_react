@@ -1,6 +1,5 @@
 import 'package:over_react/over_react.dart';
 
-// ignore_for_file: uri_has_not_been_generated
 part 'basic_with_type_params.over_react.g.dart';
 
 UiFactory<BasicPropsMixin> Basic = _$Basic; // ignore: undefined_identifier

@@ -2,7 +2,6 @@ import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_flux.dart';
 import 'package:redux/redux.dart';
 
-// ignore: uri_has_not_been_generated
 part 'redux_multi_provider.over_react.g.dart';
 
 /// An HOC that can be used to wrap a component tree with multiple [ReduxProvider]s

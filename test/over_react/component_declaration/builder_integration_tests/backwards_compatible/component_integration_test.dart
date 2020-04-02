@@ -21,7 +21,6 @@ import 'package:test/test.dart';
 import './constant_required_accessor_integration_test.dart' as r;
 import '../../../../test_util/test_util.dart';
 
-// ignore: uri_has_not_been_generated
 part 'component_integration_test.over_react.g.dart';
 
 main() {

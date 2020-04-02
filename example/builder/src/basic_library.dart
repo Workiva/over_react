@@ -1,5 +1,3 @@
-// ignore_for_file: uri_has_not_been_generated
-
 /// A very basic library to test generation on files which are part of a library
 library basic.library;
 

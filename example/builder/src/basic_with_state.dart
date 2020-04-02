@@ -2,7 +2,6 @@ import 'package:over_react/over_react.dart';
 import 'props_mixin.dart' as pm;
 import 'state_mixin.dart';
 
-// ignore_for_file: uri_has_not_been_generated
 part 'basic_with_state.over_react.g.dart';
 
 UiFactory<BasicProps> Basic = _$Basic; // ignore: undefined_identifier

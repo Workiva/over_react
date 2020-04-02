@@ -1,7 +1,6 @@
 import 'package:over_react/over_react.dart';
 import 'generic_inheritance_super.dart';
 
-// ignore_for_file: uri_has_not_been_generated
 part 'generic_inheritance_sub.over_react.g.dart';
 
 UiFactory<GenericSubProps> GenericSub = _$GenericSub; // ignore: undefined_identifier

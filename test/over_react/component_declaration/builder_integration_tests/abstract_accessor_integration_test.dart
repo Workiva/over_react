@@ -17,7 +17,6 @@
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
-// ignore: uri_has_not_been_generated
 part 'abstract_accessor_integration_test.over_react.g.dart';
 
 main() {

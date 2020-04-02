@@ -1,6 +1,5 @@
 import 'package:over_react/over_react.dart';
 
-// ignore_for_file: uri_has_not_been_generated
 part 'type_parameters.over_react.g.dart';
 
 // Test that the generated mixins have the correct generic params
