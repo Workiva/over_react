@@ -992,7 +992,7 @@ ignore this warning globally within analysis_options.yaml:
      uri_has_not_been_generated: ignore 
 ```
 
-Alternatively, `include` [workiva_analysis_options](https://github.com/Workiva/workiva_analysis_options).
+Alternatively, `include` [workiva_analysis_options](https://github.com/Workiva/workiva_analysis_options)
 which ignores this warning by default.
 
 &nbsp;
