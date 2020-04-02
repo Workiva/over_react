@@ -4,7 +4,6 @@ import 'package:todo_client/src/models/base_model.dart';
 
 export 'package:todo_client/src/components/shared/list_item_component_mixin.dart';
 
-// ignore: uri_has_not_been_generated
 part 'list_item_mixin.over_react.g.dart';
 
 mixin ListItemPropsMixin on UiProps {

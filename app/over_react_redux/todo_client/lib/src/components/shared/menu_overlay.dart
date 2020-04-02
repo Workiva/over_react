@@ -4,15 +4,13 @@ import 'package:over_react/over_react.dart';
 
 import 'package:todo_client/src/components/shared/material_ui.dart';
 
-// ignore: uri_has_not_been_generated
 part 'menu_overlay.over_react.g.dart';
 
 /// Use the `MenuOverlay` component to provide messaging to users about an empty set of results,
 /// or an empty view such as a 404 error page.
 
 UiFactory<MenuOverlayProps> MenuOverlay =
-    // ignore: undefined_identifier
-    _$MenuOverlay;
+    _$MenuOverlay; // ignore: undefined_identifier
 
 @Props(keyNamespace: '')
 mixin MenuOverlayProps on UiProps {

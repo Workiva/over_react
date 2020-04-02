@@ -8,12 +8,10 @@ import 'package:todo_client/src/components/shared/hoverable_item_mixin.dart';
 import 'package:todo_client/src/components/shared/material_ui.dart';
 import 'package:todo_client/src/components/shared/menu_overlay.dart';
 
-// ignore: uri_has_not_been_generated
 part 'saved_data_menu_item.over_react.g.dart';
 
 UiFactory<SavedDataMenuItemProps> SavedDataMenuItem =
-    // ignore: undefined_identifier
-    _$SavedDataMenuItem;
+    _$SavedDataMenuItem; // ignore: undefined_identifier
 
 @Props(keyNamespace: '')
 mixin SavedDataMenuItemProps on UiProps {

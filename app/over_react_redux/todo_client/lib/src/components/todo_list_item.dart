@@ -13,7 +13,6 @@ import 'package:todo_client/src/components/shared/todo_item_text_field.dart';
 import 'package:todo_client/src/components/user_selector.dart';
 import 'package:todo_client/src/store.dart';
 
-// ignore: uri_has_not_been_generated
 part 'todo_list_item.over_react.g.dart';
 
 UiFactory<TodoListItemProps> TodoListItem = connect<AppState, TodoListItemProps>(

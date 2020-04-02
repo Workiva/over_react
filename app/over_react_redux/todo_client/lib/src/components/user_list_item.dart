@@ -14,7 +14,6 @@ import 'package:todo_client/src/components/shared/todo_item_text_field.dart';
 import 'package:todo_client/src/components/task_count.dart';
 import 'package:todo_client/src/store.dart';
 
-// ignore: uri_has_not_been_generated
 part 'user_list_item.over_react.g.dart';
 
 UiFactory<UserListItemProps> UserListItem = connect<AppState, UserListItemProps>(

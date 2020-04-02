@@ -4,12 +4,10 @@ import 'package:over_react/over_react.dart';
 import 'package:todo_client/src/components/shared/material_ui.dart';
 import 'package:todo_client/src/components/shared/empty_view.dart';
 
-// ignore: uri_has_not_been_generated
 part 'display_list.over_react.g.dart';
 
 UiFactory<DisplayListProps> DisplayList =
-    // ignore: undefined_identifier
-    _$DisplayList;
+        _$DisplayList; // ignore: undefined_identifier
 
 @Props(keyNamespace: '') // No namespace so prop forwarding works when passing to the JS TextField component.
 mixin DisplayListProps on UiProps {

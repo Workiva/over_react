@@ -12,7 +12,6 @@ import 'package:todo_client/src/components/shared/material_ui.dart';
 import 'package:todo_client/src/components/todo_list.dart';
 import 'package:todo_client/src/components/user_list.dart';
 
-// ignore: uri_has_not_been_generated
 part 'app.over_react.g.dart';
 
 UiFactory<TodoAppProps> TodoApp = connect<AppState, TodoAppProps>(

@@ -7,7 +7,6 @@ import 'package:todo_client/src/store.dart';
 import 'package:todo_client/src/models/user.dart';
 import 'package:todo_client/src/components/shared/material_ui.dart';
 
-// ignore: uri_has_not_been_generated
 part 'task_count.over_react.g.dart';
 
 UiFactory<TaskCountBadgeProps> TaskCountBadge = connect<AppState, TaskCountBadgeProps>(

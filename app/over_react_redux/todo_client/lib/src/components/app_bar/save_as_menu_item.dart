@@ -3,12 +3,10 @@ import 'package:over_react/over_react.dart';
 import 'package:todo_client/src/components/app_bar/local_storage_menu_item_input.dart';
 import 'package:todo_client/src/components/shared/material_ui.dart';
 
-// ignore: uri_has_not_been_generated
 part 'save_as_menu_item.over_react.g.dart';
 
 UiFactory<SaveAsMenuItemProps> SaveAsMenuItem =
-    // ignore: undefined_identifier
-    _$SaveAsMenuItem;
+    _$SaveAsMenuItem; // ignore: undefined_identifier
 
 mixin SaveAsMenuItemProps on UiProps {
   String initialValue;

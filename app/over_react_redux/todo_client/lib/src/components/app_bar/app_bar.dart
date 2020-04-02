@@ -3,12 +3,10 @@ import 'package:over_react/over_react.dart';
 import 'package:todo_client/src/components/app_bar/app_bar_local_storage_menu.dart';
 import 'package:todo_client/src/components/shared/material_ui.dart';
 
-// ignore: uri_has_not_been_generated
 part 'app_bar.over_react.g.dart';
 
 UiFactory<TodoAppBarProps> TodoAppBar =
-    // ignore: undefined_identifier
-    _$TodoAppBar;
+    _$TodoAppBar; // ignore: undefined_identifier
 
 mixin TodoAppBarProps on UiProps {}
 

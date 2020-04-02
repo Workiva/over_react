@@ -7,7 +7,6 @@ import 'package:todo_client/src/components/shared/display_list.dart';
 import 'package:todo_client/src/components/shared/redraw_counter_component_mixin.dart';
 import 'package:todo_client/src/components/todo_list_item.dart';
 
-// ignore: uri_has_not_been_generated
 part 'todo_list.over_react.g.dart';
 
 UiFactory<TodoListProps> TodoList = connect<AppState, TodoListProps>(
