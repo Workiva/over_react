@@ -125,7 +125,7 @@ main() {
     group('UiProps', () {
       group('warns and throws when rendering a DOM component', () {
         _commonNonInvokedBuilderTests(Dom.div());
-      }, testOn: '!js');
+      }, tags: 'ddc');
 
       test('warns against setting props directly', () {
         startRecordingValidationWarnings();
@@ -198,7 +198,7 @@ main() {
 
       group('warns and throws when rendering a Dart composite component', () {
         _commonNonInvokedBuilderTests(Dom.div());
-      }, testOn: '!js');
+      }, tags: 'ddc');
 
       group('renders a composite Dart component with the correct children when', () {
         _commonVariadicChildrenTests(TestComponent());

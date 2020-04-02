@@ -65,7 +65,7 @@ main() {
         expect(() => render((ComponentTest()..shouldSetPropsDirectly = true)()),
             throwsA(hasToStringValue(contains('Component2.props should never be set directly '
                 'in production.'))));
-      }, testOn: '!js');
+      }, tags: 'ddc');
 
       test('and does not throw when set directly using a typedJsFactory', () {
         TestJacket jacket = mount((ComponentTest()

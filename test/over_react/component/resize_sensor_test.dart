@@ -393,7 +393,7 @@ void main() {
 
           expect(onInitializeCalled, isFalse);
           verifyValidationWarning(contains('props.onInitialize will not be called when props.quickMount is true'));
-        }, testOn: '!js');
+        }, tags: 'ddc');
 
         test('does not warn about props.onInitialize when it is not set', () async {
           await expectResizeAfter(() {
@@ -402,7 +402,7 @@ void main() {
           }, resizeSensorProps: props);
 
           rejectValidationWarning(contains('onInitialize'));
-        }, testOn: '!js');
+        }, tags: 'ddc');
 
         test('passes the correct event args on resize', () async {
           var resizeEvents = <ResizeSensorEvent>[];
