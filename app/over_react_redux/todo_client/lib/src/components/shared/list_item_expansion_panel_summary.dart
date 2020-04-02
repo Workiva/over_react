@@ -5,12 +5,10 @@ import 'package:over_react/over_react.dart';
 import 'package:todo_client/src/components/shared/hoverable_item_mixin.dart';
 import 'package:todo_client/src/components/shared/material_ui.dart';
 
-// ignore: uri_has_not_been_generated
 part 'list_item_expansion_panel_summary.over_react.g.dart';
 
 UiFactory<ListItemExpansionPanelSummaryProps> ListItemExpansionPanelSummary =
-    // ignore: undefined_identifier
-    _$ListItemExpansionPanelSummary;
+    _$ListItemExpansionPanelSummary; // ignore: undefined_identifier
 
 mixin ListItemExpansionPanelSummaryProps on UiProps {
   @requiredProp

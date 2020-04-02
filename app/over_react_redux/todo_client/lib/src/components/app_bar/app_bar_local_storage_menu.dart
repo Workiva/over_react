@@ -11,7 +11,6 @@ import 'package:todo_client/src/components/app_bar/saved_data_menu_item.dart';
 import 'package:todo_client/src/components/shared/material_ui.dart';
 import 'package:todo_client/src/components/shared/menu_overlay.dart';
 
-// ignore: uri_has_not_been_generated
 part 'app_bar_local_storage_menu.over_react.g.dart';
 
 UiFactory<AppBarLocalStorageMenuProps> AppBarLocalStorageMenu = connect<AppState, AppBarLocalStorageMenuProps>(

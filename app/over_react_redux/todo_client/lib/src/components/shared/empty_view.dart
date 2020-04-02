@@ -2,15 +2,13 @@ import 'package:over_react/over_react.dart';
 
 import 'package:todo_client/src/components/shared/material_ui.dart';
 
-// ignore: uri_has_not_been_generated
 part 'empty_view.over_react.g.dart';
 
 /// Use the `EmptyView` component to provide messaging to users about an empty set of results,
 /// or an empty view such as a 404 error page.
 
 UiFactory<EmptyViewProps> EmptyView =
-    // ignore: undefined_identifier
-    _$EmptyView;
+        _$EmptyView; // ignore: undefined_identifier
 
 mixin EmptyViewProps on UiProps {
   /// The layout of the [EmptyView].

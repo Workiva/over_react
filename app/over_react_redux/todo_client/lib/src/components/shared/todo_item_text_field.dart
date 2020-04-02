@@ -4,15 +4,13 @@ import 'package:over_react/over_react.dart';
 
 import 'package:todo_client/src/components/shared/material_ui.dart';
 
-// ignore: uri_has_not_been_generated
 part 'todo_item_text_field.over_react.g.dart';
 
 /// Use the `TodoItemTextField` component to provide messaging to users about an empty set of results,
 /// or an empty view such as a 404 error page.
 
 UiFactory<TodoItemTextFieldProps> TodoItemTextField =
-    // ignore: undefined_identifier
-    _$TodoItemTextField;
+    _$TodoItemTextField; // ignore: undefined_identifier
 
 @Props(keyNamespace: '') // No namespace so prop forwarding works when passing to the JS TextField / InputBase components.
 mixin TodoItemTextFieldProps on UiProps {

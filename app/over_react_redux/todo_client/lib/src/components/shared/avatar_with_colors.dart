@@ -6,12 +6,10 @@ import 'package:over_react/over_react.dart';
 
 import 'package:todo_client/src/components/shared/material_ui.dart';
 
-// ignore: uri_has_not_been_generated
 part 'avatar_with_colors.over_react.g.dart';
 
 UiFactory<AvatarWithColorsProps> AvatarWithColors =
-    // ignore: undefined_identifier
-    _$AvatarWithColors;
+        _$AvatarWithColors; // ignore: undefined_identifier
 
 mixin AvatarWithColorsProps on UiProps {
   String fullName;
