@@ -26,6 +26,8 @@ part 'abstract_transition_props.over_react.g.dart';
 ///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
 /// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
 abstract class $TransitionPropsMixin {
+  @Deprecated('This API is for use only within generated code.'
+      ' Do not reference it in your code, as it may change at any time.')
   static const PropsMeta meta = _$metaForTransitionPropsMixin;
 }
 
