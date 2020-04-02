@@ -21,13 +21,6 @@ part 'stateful_component_integration_test.over_react.g.dart';
 
 main() {
   group('(New boilerplate) stateful component integration:', () {
-    test('component cannot set state directly in init', () {
-      expect(() => render((StatefulComponentTest()..setStateDirectly = true)()),
-          throwsA(hasToStringValue('Assertion failed: "Component2.state should '
-              'only be set via initializeState (within the init lifecycle method) '
-              'or setState."')));
-    }, tags: 'ddc');
-
     test('renders a component from end to end, successfully reading state via typed getters', () {
       var renderedInstance = render(StatefulComponentTest()());
       expect(renderedInstance, isNotNull);
