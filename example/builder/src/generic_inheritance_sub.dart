@@ -3,21 +3,20 @@ import 'generic_inheritance_super.dart';
 
 part 'generic_inheritance_sub.over_react.g.dart';
 
-@Factory()
-UiFactory<GenericSubProps> GenericSub = _$GenericSub;
+UiFactory<GenericSubProps> GenericSub = _$GenericSub; // ignore: undefined_identifier
 
-@Props()
-class _$GenericSubProps extends GenericSuperProps {
+class GenericSubProps = UiProps with GenericSuperPropsMixin, GenericSubPropsMixin;
+class GenericSubState = UiState with GenericSuperStateMixin, GenericSubStateMixin;
+
+mixin GenericSubPropsMixin on UiProps, GenericSuperPropsMixin {
   String subProp;
 }
 
-@State()
-class _$GenericSubState extends GenericSuperState {
+mixin GenericSubStateMixin on UiState, GenericSuperStateMixin {
   String subState;
 }
 
-@Component2()
-class GenericSubComponent extends GenericSuperComponent<GenericSubProps, GenericSubState> {
+class GenericSubComponent extends GenericSuperComponent<GenericSubPropsMixin, GenericSubStateMixin> {
   @override
   get defaultProps => newProps()..id = 'generic_sub';
 
@@ -39,4 +38,3 @@ class GenericSubComponent extends GenericSuperComponent<GenericSubProps, Generic
     );
   }
 }
-

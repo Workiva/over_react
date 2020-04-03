@@ -3,9 +3,8 @@ import 'package:over_react/over_react.dart';
 
 part 'private_factory_public_component.over_react.g.dart';
 
-@Factory()
 UiFactory<FormActionInputProps> _FormActionInput =
-    _$_FormActionInput;
+    _$_FormActionInput; // ignore: undefined_identifier
 
 UiFactory<FormActionInputProps> FormSubmitInput = ([backingMap]) =>
     _FormActionInput(backingMap);
@@ -13,8 +12,7 @@ UiFactory<FormActionInputProps> FormSubmitInput = ([backingMap]) =>
 UiFactory<FormActionInputProps> FormResetInput = ([backingMap]) =>
     _FormActionInput(backingMap);
 
-@Props()
-class _$FormActionInputProps extends UiProps {
+mixin FormActionInputProps on UiProps {
   String prop1;
 }
 

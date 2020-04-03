@@ -1,14 +1,29 @@
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:async';
 
-import 'package:analyzer/analyzer.dart';
+import 'package:analyzer/dart/analysis/utilities.dart';
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:build/build.dart';
 import 'package:dart_style/dart_style.dart';
-import 'package:over_react/src/builder/generation/declaration_parsing.dart';
-import 'package:over_react/src/builder/generation/impl_generation.dart';
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 
 import './util.dart';
+import 'codegen.dart';
+import 'parsing.dart';
 
 Builder overReactBuilder(BuilderOptions options) => OverReactBuilder();
 
@@ -17,6 +32,20 @@ class OverReactBuilder extends Builder {
   Map<String, List<String>> get buildExtensions => {
     '.dart': [outputExtension],
   };
+
+  /// The generation order of boilerplate declarations.
+  ///
+  /// Changing the order of this iterable changes the order in which
+  /// the builder will write the generated code to the output file.
+  static const generationOrder = [
+    DeclarationType.classComponentDeclaration,
+    DeclarationType.legacyClassComponentDeclaration,
+    DeclarationType.propsMixinDeclaration,
+    DeclarationType.stateMixinDeclaration,
+    DeclarationType.propsMapViewOrFunctionComponentDeclaration,
+    DeclarationType.legacyAbstractPropsDeclaration,
+    DeclarationType.legacyAbstractStateDeclaration,
+  ];
 
   @override
   FutureOr<void> build(BuildStep buildStep) async {
@@ -31,18 +60,60 @@ class OverReactBuilder extends Builder {
 
     final outputs = <String>[];
     void generateForFile(String source, AssetId id, CompilationUnit unit) {
-      if (!ParsedDeclarations.mightContainDeclarations(source)) {
+      if (!mightContainDeclarations(source)) {
         return;
       }
       final sourceFile = SourceFile.fromString(
         source, url: idToPackageUri(id));
-      final declarations = ParsedDeclarations(unit, sourceFile, log);
-      if (declarations.hasErrors) {
-        log.severe('There was an error parsing the file declarations for file: $id');
-        return;
+
+      //
+      // Set up error collection, logging, and utilities to be used by parsing and codegen.
+      //
+
+      // A local flag to help determine if a specific call resulted in errors.
+      // Should be reset before using.
+      var hadErrors = false;
+      final errorCollector = ErrorCollector.callback(sourceFile,
+        onError: (message, [span]) {
+          log.severe(span?.message(message) ?? message);
+          hadErrors = true;
+        },
+        onWarning: (message, [span]) {
+          log.warning(span?.message(message) ?? message);
+        },
+      );
+
+      //
+      // Parse boilerplate members and group them into declarations.
+      //
+
+      final members = detectBoilerplateMembers(unit);
+      final declarations = getBoilerplateDeclarations(members, errorCollector).toList()
+        ..sort((a, b) {
+          return generationOrder.indexOf(a.type).compareTo(generationOrder.indexOf(b.type));
+        });
+
+      //
+      // Validate boilerplate declarations and generate if there aren't any errors.
+      //
+
+      final generator = ImplGenerator(log, sourceFile);
+
+      for (final declaration in declarations) {
+        hadErrors = false;
+        declaration.validate(errorCollector);
+        if (!hadErrors) {
+          generator.generate(declaration);
+        } else {
+          // Log the declaration that had issues for debugging purposes.
+          log.severe('The above error(s) are associated with $declaration');
+          log.fine('Members:');
+          for (final member in declaration.members) {
+            log.fine(member.debugString);
+          }
+        }
       }
-      final generator = ImplGenerator(log, sourceFile)
-        ..generate(declarations);
+
       final generatedOutput = generator.outputContentsBuffer.toString().trim();
       if (generatedOutput.isNotEmpty) {
         outputs.add(generatedOutput);
@@ -105,30 +176,17 @@ class OverReactBuilder extends Builder {
 
   static final _formatter = DartFormatter();
 
-  static final RegExp _overReactPartDirective = RegExp(
-    r'''['"].*\.over_react\.g\.dart['"]''',
-  );
-
-  // ignore: unused_element
-  static bool _mightContainDeclarations(String source) {
-    return ParsedDeclarations.mightContainDeclarations(source) ||
-      _overReactPartDirective.hasMatch(source);
-  }
-
   static CompilationUnit _tryParseCompilationUnit(String source, AssetId id) {
-    try {
-      return parseCompilationUnit(
-        source,
-        name: id.path,
-        suppressErrors: false,
-        parseFunctionBodies: true);
-    } catch (error, stackTrace) {
-      log
-        ..fine('There was an error parsing the compilation unit for file: $id')
-        ..fine(error)
-        ..fine(stackTrace);
-      return null;
-    }
+    final result = parseString(content: source, path: id.path, throwIfDiagnostics: false);
+
+    if (result.errors.isEmpty) return result.unit;
+
+    log.fine('Analysis errors encountered when parsing compilation unit for file "$id":');
+    // Warn and not severe in case parsing failed on an unrelated file due to an outdated
+    // analyzer version in this builder.
+    result.errors.forEach(log.warning);
+
+    return null;
   }
 
   static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs) async {
@@ -150,7 +208,13 @@ class OverReactBuilder extends Builder {
         ..writeln(item);
     }
 
-    final output = _formatter.format(buffer.toString());
+    var output = buffer.toString();
+    // Output the file even if formatting fails, so that it can be used to debug the issue.
+    try {
+      output = _formatter.format(buffer.toString());
+    } catch (e, st) {
+      log.severe('Error formatting generated code', e, st);
+    }
     await buildStep.writeAsString(outputId, output);
   }
 }

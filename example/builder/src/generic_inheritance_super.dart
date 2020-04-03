@@ -1,26 +1,22 @@
 import 'package:over_react/over_react.dart';
-import 'package:react/react_client.dart';
 
 part 'generic_inheritance_super.over_react.g.dart';
 
-@Factory()
-UiFactory<GenericSuperProps> GenericSuper = _$GenericSuper;
+UiFactory<GenericSuperProps> GenericSuper = _$GenericSuper; // ignore: undefined_identifier
 
-@Props()
-class _$GenericSuperProps extends UiProps {
+class GenericSuperProps = UiProps with GenericSuperPropsMixin;
+
+mixin GenericSuperPropsMixin on UiProps {
   String otherSuperProp;
   String superProp;
   String superProp1;
 }
 
-@State()
-class _$GenericSuperState extends UiState {
+mixin GenericSuperStateMixin on UiState {
   String superState;
 }
 
-
-@Component2()
-class GenericSuperComponent<T extends GenericSuperProps, V extends GenericSuperState> extends UiStatefulComponent2<T, V> {
+class GenericSuperComponent<T extends GenericSuperPropsMixin, V extends GenericSuperStateMixin> extends UiStatefulComponent2<T, V> {
   @override
   get defaultProps => newProps()..id = 'generic_super';
 

@@ -1,6 +1,5 @@
 import 'package:over_react/over_react.dart';
 
-// ignore: uri_has_not_been_generated
 part 'safe_render_manager_helper.over_react.g.dart';
 
 /// A component that allows for safe unmounting of its single child by waiting for state changes

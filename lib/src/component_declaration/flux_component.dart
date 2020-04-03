@@ -27,6 +27,8 @@ import 'annotations.dart' as annotations;
 import 'builder_helpers.dart';
 import 'component_base_2.dart';
 
+part 'flux_component.over_react.g.dart';
+
 /// Builds on top of [UiProps], adding typed [Action] and [Store] props for use with [FluxUiComponent2].
 ///
 /// __Example:__
@@ -37,11 +39,6 @@ import 'component_base_2.dart';
 /// }
 /// ```
 mixin FluxUiPropsMixin<ActionsT, StoresT> on UiProps implements FluxUiProps<ActionsT, StoresT> {
-  @override
-  String get _actionsPropKey => '${propKeyNamespace}actions';
-  @override
-  String get _storePropKey => '${propKeyNamespace}store';
-
   /// The prop defined by [ActionsT] that holds all [Action]s that
   /// this component needs access to.
   ///
@@ -49,9 +46,7 @@ mixin FluxUiPropsMixin<ActionsT, StoresT> on UiProps implements FluxUiProps<Acti
   /// structure, there may be [Action]s available directly on this object, or
   /// this object may represent a hierarchy of actions.
   @override
-  ActionsT get actions => props[_actionsPropKey] as ActionsT;
-  @override
-  set actions(ActionsT value) => props[_actionsPropKey] = value;
+  ActionsT actions;
 
   /// The flux [Store] instance(s) to be used by a [FluxUiComponent2] instance, or a reference to one.
   ///
@@ -68,9 +63,19 @@ mixin FluxUiPropsMixin<ActionsT, StoresT> on UiProps implements FluxUiProps<Acti
   /// Then, you can explicitly select the [Store] instances that should be
   /// listened to by overriding [_FluxComponentMixin.redrawOn].
   @override
-  StoresT get store => props[_storePropKey] as StoresT;
+  StoresT store;
+
   @override
-  set store(StoresT value) => props[_storePropKey] = value;
+  String get _actionsPropKey {
+    assert(false, 'this should never be used');
+    return '';
+  }
+
+  @override
+  String get _storePropKey {
+    assert(false, 'this should never be used');
+    return '';
+  }
 }
 
 /// __Deprecated.__ Use [FluxUiPropsMixin] instead.

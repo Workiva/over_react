@@ -1,6 +1,5 @@
 import 'package:over_react/over_react.dart';
 
-// ignore: uri_has_not_been_generated
 part 'flawed_component_that_renders_nothing.over_react.g.dart';
 
 @Factory()

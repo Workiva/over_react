@@ -70,24 +70,6 @@ main() {
       verifyNoErrorLogs();
     });
 
-    test('does not produce a build output for just a part file', () async {
-      var basicAsset = makeAssetId('over_react|test_fixtures/source_files/part_of_basic_library.dart');
-      await runBuilder(builder, [basicAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
-
-      expect(writerSpy.assetsWritten, isEmpty);
-      verifyNoErrorLogs();
-    });
-
-    test('fails if the .over_react.g.dart part directive is missing', () async {
-      var libraryAsset = makeAssetId('over_react|test_fixtures/source_files/missing_over_react_g_part/library.dart');
-      await runBuilder(builder, [libraryAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
-      final expectedLog = logs.firstWhere((log) {
-        return log.level == Level.SEVERE && log.message == 'Missing "part \'library.over_react.g.dart\';".';
-      }, orElse: () => null);
-      expect(expectedLog, isNotNull,
-        reason: 'Expected a SEVERE log for the missing over_react part.');
-    });
-
     test('warns if .over_react.g.dart part directive is present and no declarations are present, but no code is generated', () async {
       var libraryAsset = makeAssetId('over_react|test_fixtures/source_files/has_part_directive_missing_gen/no_declarations.dart');
       await runBuilder(builder, [libraryAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
@@ -127,32 +109,106 @@ main() {
     group('for Dart 2 only compatible boilerplate:', () {
       test('builds from basic component file', () async {
         await checkBuildForFile(
-            'over_react|test_fixtures/source_files/basic.dart',
-            'over_react|test_fixtures/source_files/basic.over_react.g.dart',
+            'over_react|test_fixtures/source_files/dart2_only/basic.dart',
+            'over_react|test_fixtures/source_files/dart2_only/basic.over_react.g.dart',
             '${p.absolute(p.current)}/test_fixtures/gold_output_files/basic.over_react.g.dart.goldFile');
       });
 
       test('builds from basic multi-part library', () async {
         await checkBuildForFile(
-            'over_react|test_fixtures/source_files/basic_library.dart',
-            'over_react|test_fixtures/source_files/basic_library.over_react.g.dart',
+            'over_react|test_fixtures/source_files/dart2_only/basic_library.dart',
+            'over_react|test_fixtures/source_files/dart2_only/basic_library.over_react.g.dart',
             '${p.absolute(p.current)}/test_fixtures/gold_output_files/basic_library.over_react.g.dart.goldFile');
+      });
+
+      test('does not produce a build output for just a part file', () async {
+        var basicAsset = makeAssetId('over_react|test_fixtures/source_files/dart2_only/part_of_basic_library.dart');
+        await runBuilder(builder, [basicAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
+
+        expect(writerSpy.assetsWritten, isEmpty);
+        verifyNoErrorLogs();
+      });
+
+      test('fails if the .over_react.g.dart part directive is missing', () async {
+        var libraryAsset = makeAssetId('over_react|test_fixtures/source_files/dart2_only/missing_over_react_g_part/library.dart');
+        await runBuilder(builder, [libraryAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
+        final expectedLog = logs.firstWhere((log) {
+          return log.level == Level.SEVERE && log.message == 'Missing "part \'library.over_react.g.dart\';".';
+        }, orElse: () => null);
+        expect(expectedLog, isNotNull,
+            reason: 'Expected a SEVERE log for the missing over_react part.');
+      });
+
+
+      group('for Component2:', () {
+        test('builds from basic component file', () async {
+          await checkBuildForFile(
+              'over_react|test_fixtures/source_files/dart2_only/component2/basic.dart',
+              'over_react|test_fixtures/source_files/dart2_only/component2/basic.over_react.g.dart',
+              '${p.absolute(p.current)}/test_fixtures/gold_output_files/component2/basic.over_react.g.dart.goldFile');
+        });
+
+        test('builds from basic multi-part library', () async {
+          await checkBuildForFile(
+              'over_react|test_fixtures/source_files/dart2_only/component2/basic_library.dart',
+              'over_react|test_fixtures/source_files/dart2_only/component2/basic_library.over_react.g.dart',
+              '${p.absolute(p.current)}/test_fixtures/gold_output_files/component2/basic_library.over_react.g.dart.goldFile');
+        });
       });
     });
 
-    group('for Component2:', () {
+    group('for mixin based boilerplate:', () {
       test('builds from basic component file', () async {
         await checkBuildForFile(
-            'over_react|test_fixtures/source_files/component2/basic.dart',
-            'over_react|test_fixtures/source_files/component2/basic.over_react.g.dart',
-            '${p.absolute(p.current)}/test_fixtures/gold_output_files/component2/basic.over_react.g.dart.goldFile');
+            'over_react|test_fixtures/source_files/mixin_based/basic.dart',
+            'over_react|test_fixtures/source_files/mixin_based/basic.over_react.g.dart',
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/mixin_based/basic.over_react.g.dart.goldFile');
       });
 
       test('builds from basic multi-part library', () async {
         await checkBuildForFile(
-            'over_react|test_fixtures/source_files/component2/basic_library.dart',
-            'over_react|test_fixtures/source_files/component2/basic_library.over_react.g.dart',
-            '${p.absolute(p.current)}/test_fixtures/gold_output_files/component2/basic_library.over_react.g.dart.goldFile');
+            'over_react|test_fixtures/source_files/mixin_based/basic_library.dart',
+            'over_react|test_fixtures/source_files/mixin_based/basic_library.over_react.g.dart',
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/mixin_based/basic_library.over_react.g.dart.goldFile');
+      });
+
+      test('builds when props mixins and classes have type parameters', () async {
+        await checkBuildForFile(
+            'over_react|test_fixtures/source_files/mixin_based/type_parameters.dart',
+            'over_react|test_fixtures/source_files/mixin_based/type_parameters.over_react.g.dart',
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/mixin_based/type_parameters.over_react.g.dart.goldFile');
+      });
+
+      test('builds for props mixins', () async {
+        await checkBuildForFile(
+            'over_react|test_fixtures/source_files/mixin_based/props_mixin.dart',
+            'over_react|test_fixtures/source_files/mixin_based/props_mixin.over_react.g.dart',
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/mixin_based/props_mixin.over_react.g.dart.goldFile');
+      });
+
+      test('builds for state mixins', () async {
+        await checkBuildForFile(
+            'over_react|test_fixtures/source_files/mixin_based/props_mixin.dart',
+            'over_react|test_fixtures/source_files/mixin_based/props_mixin.over_react.g.dart',
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/mixin_based/props_mixin.over_react.g.dart.goldFile');
+      });
+
+      test('does not produce a build output for just a part file', () async {
+        var basicAsset = makeAssetId('over_react|test_fixtures/source_files/mixin_based/part_of_basic_library.dart');
+        await runBuilder(builder, [basicAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
+
+        expect(writerSpy.assetsWritten, isEmpty);
+        verifyNoErrorLogs();
+      });
+
+      test('fails if the .over_react.g.dart part directive is missing', () async {
+        var libraryAsset = makeAssetId('over_react|test_fixtures/source_files/mixin_based/missing_over_react_g_part/library.dart');
+        await runBuilder(builder, [libraryAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
+        final expectedLog = logs.firstWhere((log) {
+          return log.level == Level.SEVERE && log.message == 'Missing "part \'library.over_react.g.dart\';".';
+        }, orElse: () => null);
+        expect(expectedLog, isNotNull,
+            reason: 'Expected a SEVERE log for the missing over_react part.');
       });
     });
   });

@@ -1,7 +1,6 @@
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component/error_boundary_mixins.dart';
 
-// ignore: uri_has_not_been_generated
 part 'custom_error_boundary_component.over_react.g.dart';
 
 @Factory()

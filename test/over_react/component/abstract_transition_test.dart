@@ -538,7 +538,7 @@ main() {
 
         rejectValidationWarning(anything);
       });
-    }, testOn: '!js');
+    }, tags: 'ddc');
 
     test('does not set hidden state when not mounted', () async {
       var renderedInstance = render(Transitioner());

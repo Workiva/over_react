@@ -20,9 +20,7 @@ import 'package:react/react_client.dart';
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react.dart' as react;
 
-class FragmentProps extends component_base.UiProps
-    with builder_helpers.GeneratedClass
-    implements builder_helpers.UiProps {
+class FragmentProps extends builder_helpers.UiProps {
   // Initialize to a JsBackedMap so that copying can be optimized
   // when converting props during ReactElement creation.
   FragmentProps([Map props]) : this.props = props ?? JsBackedMap();
@@ -35,6 +33,9 @@ class FragmentProps extends component_base.UiProps
 
   @override
   String get propKeyNamespace => '';
+
+  @override
+  bool get $isClassGenerated => true;
 }
 
 /// Fragment component that allows the wrapping of children without the necessity of using

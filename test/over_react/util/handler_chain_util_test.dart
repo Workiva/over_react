@@ -148,7 +148,7 @@ main() {
                 var chained = callbackUtil.chain(a, b);
 
                 expect(() => Function.apply(chained, generateBadTypeArgs()), throwsA(isA<TypeError>()));
-              }, testOn: 'dart-vm');
+              }, tags: 'ddc');
             }
           });
         });
@@ -246,7 +246,7 @@ main() {
               var chained = callbackUtil.chainFromList(functions);
 
               expect(() => Function.apply(chained, generateBadTypeArgs()), throwsA(isA<TypeError>()));
-            }, testOn: 'dart-vm');
+            }, tags: 'ddc');
           }
         });
 
@@ -259,7 +259,7 @@ main() {
             test('with arguments typed to the specified generic parameters', () {
               expect(() => Function.apply(callbackUtil.noop, generateBadTypeArgs()),
                   throwsA(isA<TypeError>()));
-            }, testOn: 'dart-vm');
+            }, tags: 'ddc');
           }
         });
       }

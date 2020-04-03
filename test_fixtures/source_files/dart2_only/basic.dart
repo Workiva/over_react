@@ -3,7 +3,7 @@ import 'package:over_react/over_react.dart';
 part 'basic.over_react.g.dart';
 
 @Factory()
-UiFactory<BasicProps> Basic = _$Basic;
+UiFactory<BasicProps> Basic = _$Basic; // ignore: undefined_identifier
 
 @Props()
 //// ignore: mixin_of_non_class,undefined_class
