@@ -25,10 +25,10 @@ class User implements BaseModel {
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   factory User.from(User user) => User(
-    name: user.name,
-    id: user.id,
-    bio: user.bio,
-  );
+        name: user.name,
+        id: user.id,
+        bio: user.bio,
+      );
 
   @override
   Map<String, dynamic> toJson() => _$UserToJson(this);

@@ -45,7 +45,6 @@ main() {
         final model = Todo(isPublic: true);
         expect(model.isPublic, isTrue);
       });
-
     });
 
     test('is constructed as expected using the fromJson() factory constructor', () {

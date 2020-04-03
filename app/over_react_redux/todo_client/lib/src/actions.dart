@@ -6,7 +6,7 @@ import 'package:todo_client/src/store.dart';
 
 part 'actions.g.dart';
 
-class _Action</*JsonSerializable*/T> {
+class _Action< /*JsonSerializable*/ T> {
   _Action(this.value);
 
   final T value;
@@ -39,7 +39,8 @@ class SaveLocalStorageStateAsAction {
 
   SaveLocalStorageStateAsAction(this.name, {this.previousName});
 
-  factory SaveLocalStorageStateAsAction.fromJson(Map<String, dynamic> json) => _$SaveLocalStorageStateAsActionFromJson(json);
+  factory SaveLocalStorageStateAsAction.fromJson(Map<String, dynamic> json) =>
+      _$SaveLocalStorageStateAsActionFromJson(json);
   Map<String, dynamic> toJson() => _$SaveLocalStorageStateAsActionToJson(this);
 }
 

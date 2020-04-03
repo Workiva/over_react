@@ -10,15 +10,13 @@ import 'package:todo_client/src/components/shared/material_ui.dart';
 part 'task_count.over_react.g.dart';
 
 UiFactory<TaskCountBadgeProps> TaskCountBadge = connect<AppState, TaskCountBadgeProps>(
-    mapStateToPropsWithOwnProps: (state, ownProps) {
-      return (TaskCountBadge()
-        ..assignedTodoIds = state.todos.where((todo) => todo.assignedUserId == ownProps.user.id)
-            .map((todo) => todo.id).toList()
-      );
-    },
-    areStatePropsEqual: (nextProps, prevProps) {
-      return ListEquality().equals(nextProps.assignedTodoIds, prevProps.assignedTodoIds);
-    },
+  mapStateToPropsWithOwnProps: (state, ownProps) => (TaskCountBadge()
+    ..assignedTodoIds =
+        state.todos.where((todo) => todo.assignedUserId == ownProps.user.id).map((todo) => todo.id).toList()
+  ),
+  areStatePropsEqual: (nextProps, prevProps) {
+    return ListEquality().equals(nextProps.assignedTodoIds, prevProps.assignedTodoIds);
+  },
 )(_$TaskCountBadge); // ignore: undefined_identifier
 
 mixin TaskCountBadgePropsMixin on UiProps {
@@ -34,28 +32,31 @@ class TaskCountBadgeProps = UiProps with TaskCountBadgePropsMixin, ConnectPropsM
 class TaskCountBadgeComponent extends UiComponent2<TaskCountBadgeProps> {
   @override
   render() {
-    return Box({
-      'onMouseEnter': (_) {
-        props.dispatch(HighlightTodosAction(props.assignedTodoIds));
-      },
-      'onMouseLeave': (_) {
-        props.dispatch(UnHighlightTodosAction(props.assignedTodoIds));
-      },
-    },
-      Tooltip({
-        'title': _tooltipContent,
-        'arrow': true,
-        'enterDelay': 500,
-      },
-        Badge({
-          'badgeContent': props.assignedTodoIds.length,
-          'color': 'secondary',
-          'overlap': 'circle',
-          'anchorOrigin': {
-            'vertical': 'bottom',
-            'horizontal': 'right',
-          },
+    return Box(
+      {
+        'onMouseEnter': (_) {
+          props.dispatch(HighlightTodosAction(props.assignedTodoIds));
         },
+        'onMouseLeave': (_) {
+          props.dispatch(UnHighlightTodosAction(props.assignedTodoIds));
+        },
+      },
+      Tooltip(
+        {
+          'title': _tooltipContent,
+          'arrow': true,
+          'enterDelay': 500,
+        },
+        Badge(
+          {
+            'badgeContent': props.assignedTodoIds.length,
+            'color': 'secondary',
+            'overlap': 'circle',
+            'anchorOrigin': {
+              'vertical': 'bottom',
+              'horizontal': 'right',
+            },
+          },
           props.children,
         ),
       ),

@@ -16,16 +16,14 @@ import 'package:todo_client/src/store.dart';
 part 'todo_list_item.over_react.g.dart';
 
 UiFactory<TodoListItemProps> TodoListItem = connect<AppState, TodoListItemProps>(
-  mapDispatchToProps: (dispatch) {
-    return (TodoListItem()
-      ..onSelect = (id) { dispatch(SelectTodoAction(id)); }
-      ..onDeselect = (id) { dispatch(DeselectTodoAction(id)); }
-      ..onBeginEdit = (id) { dispatch(BeginEditTodoAction(id)); }
-      ..onFinishEdit = (id) { dispatch(FinishEditTodoAction(id)); }
-      ..onModelUpdate = (todo) { dispatch(UpdateTodoAction(todo)); }
-      ..onRemove = (id) { dispatch(RemoveTodoAction(id)); }
-    );
-  },
+  mapDispatchToProps: (dispatch) => (TodoListItem()
+    ..onSelect = ((id) => dispatch(SelectTodoAction(id)))
+    ..onDeselect = ((id) => dispatch(DeselectTodoAction(id)))
+    ..onBeginEdit = ((id) => dispatch(BeginEditTodoAction(id)))
+    ..onFinishEdit = ((id) => dispatch(FinishEditTodoAction(id)))
+    ..onModelUpdate = ((todo) => dispatch(UpdateTodoAction(todo)))
+    ..onRemove = ((id) => dispatch(RemoveTodoAction(id)))
+  ),
   mapStateToPropsWithOwnProps: (state, ownProps) {
     final isEditable = state.editableTodoIds.contains(ownProps.model.id);
     final isSelected = isEditable || state.selectedTodoIds.contains(ownProps.model.id);
@@ -54,7 +52,6 @@ mixin TodoListItemStateMixin on UiState, ListItemStateMixin {
 
 class TodoListItemState = UiState with ListItemStateMixin, TodoListItemStateMixin;
 
-
 class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, TodoListItemState>
     with ListItemMixin<Todo, TodoListItemProps, TodoListItemState>, RedrawCounterMixin {
   @override
@@ -62,10 +59,11 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
 
   @override
   render() {
-    return ExpansionPanel({
-      ...sharedExpansionPanelProps,
-      'className': model.isCompleted ? 'Mui-disabled' : null,
-    },
+    return ExpansionPanel(
+      {
+        ...sharedExpansionPanelProps,
+        'className': model.isCompleted ? 'Mui-disabled' : null,
+      },
       (ListItemExpansionPanelSummary()
         ..modelId = model.id
         ..allowExpansion = allowExpansion
@@ -76,7 +74,8 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
         _renderTaskHeader(),
         _renderUserSelector(),
       ),
-      ExpansionPanelDetails({},
+      ExpansionPanelDetails(
+        {},
         _renderTaskNotes(),
       ),
       _renderEditableTaskActions(),
@@ -84,37 +83,46 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   }
 
   ReactElement _renderTaskCheckbox() {
-    return Box({
-      ...shrinkToFitProps,
-      'ml': -2,
-      'mr': 1,
-      'alignSelf': 'center',
-    },
-      Tooltip({
-        'enterDelay': 500,
-        'title': model.isCompleted ? 'Mark as not completed' : 'Mark as completed',
+    return Box(
+      {
+        ...shrinkToFitProps,
+        'ml': -2,
+        'mr': 1,
+        'alignSelf': 'center',
       },
+      Tooltip(
+        {
+          'enterDelay': 500,
+          'title': model.isCompleted ? 'Mark as not completed' : 'Mark as completed',
+        },
         Checkbox({
           'checked': model.isCompleted,
           'inputProps': {
             'aria-label': 'Complete Task',
           },
           'value': 'isCompleted',
-          'onChange': (_) { updateModel(Todo.from(model)..isCompleted = !model.isCompleted); },
-          'onClick': (SyntheticEvent e) { e.stopPropagation(); },
-          'onFocus': (SyntheticEvent e) { e.stopPropagation(); },
+          'onChange': (_) {
+            updateModel(Todo.from(model)..isCompleted = !model.isCompleted);
+          },
+          'onClick': (SyntheticEvent e) {
+            e.stopPropagation();
+          },
+          'onFocus': (SyntheticEvent e) {
+            e.stopPropagation();
+          },
         }),
       ),
     );
   }
 
   ReactElement _renderTaskHeader() {
-    return Box({
-      ...growProps,
-      'key': 'taskHeader',
-      'mr': 1,
-      'alignSelf': 'center',
-    },
+    return Box(
+      {
+        ...growProps,
+        'key': 'taskHeader',
+        'mr': 1,
+        'alignSelf': 'center',
+      },
       (TodoItemTextField()
         ..readOnly = !props.isEditable
         ..autoFocus = props.isEditable
@@ -122,12 +130,16 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
         ..onChange = _updateDescriptionValue
         ..placeholder = 'Describe the task...'
         ..value = model.description
-        ..onClickWhenEditable = (event) { event.stopPropagation(); }
+        ..onClickWhenEditable = (event) {
+          event.stopPropagation();
+        }
         ..addTestId('todo_client.TodoListItem.descriptionTextField')
         ..['inputProps'] = {
-          'style': props.isEditable ? null : {
-            'cursor': allowExpansion ? 'pointer' : 'default',
-          },
+          'style': props.isEditable
+              ? null
+              : {
+                  'cursor': allowExpansion ? 'pointer' : 'default',
+                },
         }
       )(),
     );
@@ -139,13 +151,16 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   }
 
   ReactElement _renderUserSelector() {
-    return Box({
-      ...shrinkToFitProps,
-      'alignSelf': 'center',
-    },
+    return Box(
+      {
+        ...shrinkToFitProps,
+        'alignSelf': 'center',
+      },
       (UserSelector()
         ..selectedUserId = model.assignedUserId
-        ..onUserSelect = (userId) { updateModel(Todo.from(model)..assignedUserId = userId); }
+        ..onUserSelect = (userId) {
+          updateModel(Todo.from(model)..assignedUserId = userId);
+        }
         ..addTestId('todo_client.TodoListItem.ConnectedUserSelector')
       )(),
     );
@@ -174,19 +189,17 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
 
     return Fragment()(
       Divider({}),
-      ExpansionPanelActions({},
-        Grid({
-          'container': true,
-          'direction': 'row'
-        },
-          Box({
-            'flexGrow': 1,
-            'display': 'flex'
-          },
+      ExpansionPanelActions(
+        {},
+        Grid(
+          {'container': true, 'direction': 'row'},
+          Box(
+            {'flexGrow': 1, 'display': 'flex'},
             _renderEditableTaskDeleteButton(),
             _renderEditableTaskPrivacyToggleButton(),
           ),
-          Box({...shrinkToFitProps},
+          Box(
+            {...shrinkToFitProps},
             _renderEditableTaskCancelButton(),
             _renderEditableTaskSaveButton(),
           ),
@@ -196,18 +209,23 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   }
 
   ReactElement _renderEditableTaskDeleteButton() {
-    return Tooltip({
-      'enterDelay': 500,
-      'title': 'Delete Todo',
-    },
-      Box({'color': 'error.main'},
-        IconButton({
-          'size': 'small',
-          'aria-label': 'delete todo',
-          'color': 'inherit',
-          'disabled': model.isCompleted,
-          'onClick': (_) { remove(); },
-        },
+    return Tooltip(
+      {
+        'enterDelay': 500,
+        'title': 'Delete Todo',
+      },
+      Box(
+        {'color': 'error.main'},
+        IconButton(
+          {
+            'size': 'small',
+            'aria-label': 'delete todo',
+            'color': 'inherit',
+            'disabled': model.isCompleted,
+            'onClick': (_) {
+              remove();
+            },
+          },
           TrashIcon(),
         ),
       ),
@@ -217,15 +235,19 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   ReactElement _renderEditableTaskPrivacyToggleButton() {
     final tooltipTitle = model.isPublic ? 'Make Private' : 'Make Public';
 
-    return Tooltip({
-      'enterDelay': 500,
-      'title': tooltipTitle,
-    },
-      IconButton({
-        'size': 'small',
-        'aria-label': model.isPublic ? 'Make Private' : 'Make Public',
-        'onClick': (_) { updateModel(Todo.from(model)..isPublic = !model.isPublic); },
+    return Tooltip(
+      {
+        'enterDelay': 500,
+        'title': tooltipTitle,
       },
+      IconButton(
+        {
+          'size': 'small',
+          'aria-label': model.isPublic ? 'Make Private' : 'Make Public',
+          'onClick': (_) {
+            updateModel(Todo.from(model)..isPublic = !model.isPublic);
+          },
+        },
         model.isPublic ? VisibilityIcon() : VisibilityOffIcon(),
       ),
     );
@@ -234,7 +256,9 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   ReactElement _renderEditableTaskCancelButton() {
     return Button({
       'size': 'small',
-      'onClick': (_) { exitEditable(saveChanges: false); },
+      'onClick': (_) {
+        exitEditable(saveChanges: false);
+      },
     }, 'Cancel');
   }
 
@@ -242,7 +266,9 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
     return Button({
       'size': 'small',
       'color': 'primary',
-      'onClick': (_) { exitEditable(saveChanges: true); },
+      'onClick': (_) {
+        exitEditable(saveChanges: true);
+      },
     }, 'Save');
   }
 }

@@ -31,26 +31,28 @@ class ListItemExpansionPanelSummaryComponent
 
   @override
   render() {
-    return ExpansionPanelSummary({
-      'ref': itemNodeRef,
-      'aria-controls': 'details_${props.modelId}',
-      'id': 'summary_${props.modelId}',
-      'expandIcon': ExpandMoreIcon(),
-      'IconButtonProps': {
-        'disabled': !props.allowExpansion,
-        'style': props.allowExpansion ? null : {'color': 'transparent'},
+    return ExpansionPanelSummary(
+      {
+        'ref': itemNodeRef,
+        'aria-controls': 'details_${props.modelId}',
+        'id': 'summary_${props.modelId}',
+        'expandIcon': ExpandMoreIcon(),
+        'IconButtonProps': {
+          'disabled': !props.allowExpansion,
+          'style': props.allowExpansion ? null : {'color': 'transparent'},
+        },
+        'style': props.allowExpansion ? null : {'cursor': 'default'},
+        'onMouseEnter': handleItemMouseEnter,
+        'onMouseLeave': handleItemMouseLeave,
+        'onMouseOver': handleItemMouseOver,
+        'onFocus': handleChildFocus,
+        'onBlur': handleChildBlur,
       },
-      'style': props.allowExpansion ? null : {'cursor': 'default'},
-      'onMouseEnter': handleItemMouseEnter,
-      'onMouseLeave': handleItemMouseLeave,
-      'onMouseOver': handleItemMouseOver,
-      'onFocus': handleChildFocus,
-      'onBlur': handleChildBlur,
-    },
-      Grid({
-        'container': true,
-        'direction': 'row',
-      },
+      Grid(
+        {
+          'container': true,
+          'direction': 'row',
+        },
         props.children,
         _renderEditButton(),
       ),
@@ -58,30 +60,32 @@ class ListItemExpansionPanelSummaryComponent
   }
 
   ReactElement _renderEditButton() {
-    return Box({
-      ...shrinkToFitProps,
-      'mr': -1,
-      'alignSelf': 'center',
-      'aria-hidden': !isHovered,
-      'className': 'hide-using-aria',
-    },
-      Tooltip({
-        'enterDelay': 500,
-        'title': props.isEditable ? 'Save Changes' : 'Make Changes',
+    return Box(
+      {
+        ...shrinkToFitProps,
+        'mr': -1,
+        'alignSelf': 'center',
+        'aria-hidden': !isHovered,
+        'className': 'hide-using-aria',
       },
-        IconButton({
-          'aria-label': props.isEditable ? 'Save Changes' : 'Make Changes',
-          'className': 'todo-list__item__edit-btn',
-          'onClick': (SyntheticMouseEvent event) {
-            event.stopPropagation();
-            props.onToggleEditable();
-          },
-          'color': props.isEditable ? 'primary' : 'default',
+      Tooltip(
+        {
+          'enterDelay': 500,
+          'title': props.isEditable ? 'Save Changes' : 'Make Changes',
         },
+        IconButton(
+          {
+            'aria-label': props.isEditable ? 'Save Changes' : 'Make Changes',
+            'className': 'todo-list__item__edit-btn',
+            'onClick': (SyntheticMouseEvent event) {
+              event.stopPropagation();
+              props.onToggleEditable();
+            },
+            'color': props.isEditable ? 'primary' : 'default',
+          },
           EditPencilIcon(),
         ),
       ),
     );
   }
 }
-

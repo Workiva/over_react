@@ -15,17 +15,15 @@ import 'package:todo_client/src/components/user_list.dart';
 part 'app.over_react.g.dart';
 
 UiFactory<TodoAppProps> TodoApp = connect<AppState, TodoAppProps>(
-    mapDispatchToProps: (dispatch) {
-      return (TodoApp()
-        ..createTodo = (description) {
-          dispatch(AddTodoAction(Todo(description: description)));
-        }
-        ..createUser = (name) {
-          dispatch(AddUserAction(User(name: name)));
-        }
-      );
-    },
-    forwardRef: true,
+  mapDispatchToProps: (dispatch) => (TodoApp()
+    ..createTodo = (description) {
+      dispatch(AddTodoAction(Todo(description: description)));
+    }
+    ..createUser = (name) {
+      dispatch(AddUserAction(User(name: name)));
+    }
+  ),
+  forwardRef: true,
 )(_$TodoApp); // ignore: undefined_identifier
 
 mixin TodoAppPropsMixin on UiProps {
@@ -41,18 +39,21 @@ class TodoAppComponent extends UiComponent2<TodoAppProps> with RedrawCounterMixi
   render() {
     return Fragment()(
       TodoAppBar()(),
-      Box({'className': 'app-content'},
+      Box(
+        {'className': 'app-content'},
         CssBaseline({}),
-        Container({
-          'maxWidth': 'lg',
-          'className': 'app-content__container'
-        },
-          Grid({
-            'container': true,
-            'direction': 'row',
-            'spacing': 3,
-            'className': 'app-content__container-grid'
+        Container(
+          {
+            'maxWidth': 'lg',
+            'className': 'app-content__container',
           },
+          Grid(
+            {
+              'container': true,
+              'direction': 'row',
+              'spacing': 3,
+              'className': 'app-content__container-grid',
+            },
             renderTodosColumn(),
             renderUsersColumn(),
           ),
@@ -62,14 +63,15 @@ class TodoAppComponent extends UiComponent2<TodoAppProps> with RedrawCounterMixi
   }
 
   ReactElement renderTodosColumn() {
-    return Grid({
-      'container': true,
-      'item': true,
-      'sm': 8,
-      'direction': 'column',
-      'alignItems': 'stretch',
-      'style': {'height': '100%'},
-    },
+    return Grid(
+      {
+        'container': true,
+        'item': true,
+        'sm': 8,
+        'direction': 'column',
+        'alignItems': 'stretch',
+        'style': {'height': '100%'},
+      },
       (CreateInput()
         ..autoFocus = true
         ..label = 'New Todo'
@@ -82,13 +84,14 @@ class TodoAppComponent extends UiComponent2<TodoAppProps> with RedrawCounterMixi
   }
 
   ReactElement renderUsersColumn() {
-    return Grid({
-      'container': true,
-      'item': true,
-      'sm': 4,
-      'direction': 'column',
-      'style': {'height': '100%'},
-    },
+    return Grid(
+      {
+        'container': true,
+        'item': true,
+        'sm': 4,
+        'direction': 'column',
+        'style': {'height': '100%'},
+      },
       (CreateInput()
         ..label = 'New User'
         ..placeholder = 'Create new User'

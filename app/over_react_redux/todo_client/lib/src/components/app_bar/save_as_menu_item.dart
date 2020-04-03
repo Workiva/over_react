@@ -5,8 +5,7 @@ import 'package:todo_client/src/components/shared/material_ui.dart';
 
 part 'save_as_menu_item.over_react.g.dart';
 
-UiFactory<SaveAsMenuItemProps> SaveAsMenuItem =
-    _$SaveAsMenuItem; // ignore: undefined_identifier
+UiFactory<SaveAsMenuItemProps> SaveAsMenuItem = _$SaveAsMenuItem; // ignore: undefined_identifier
 
 mixin SaveAsMenuItemProps on UiProps {
   String initialValue;
@@ -27,11 +26,12 @@ class SaveAsMenuItemComponent extends UiStatefulComponent2<SaveAsMenuItemProps, 
 
   @override
   render() {
-    return MenuItem({
-      'onClick': _handleMenuItemClick,
-      'style': {'minWidth': '300px'}
-    },
-      state.isEditable ? _renderSaveAsTextInput() : 'Save As...'
+    return MenuItem(
+      {
+        'onClick': _handleMenuItemClick,
+        'style': {'minWidth': '300px'}
+      },
+      state.isEditable ? _renderSaveAsTextInput() : 'Save As...',
     );
   }
 

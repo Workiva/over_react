@@ -14,22 +14,22 @@ part 'user_selector_trigger.dart';
 part 'user_selector.over_react.g.dart';
 
 UiFactory<UserSelectorProps> UserSelector = connect<AppState, UserSelectorProps>(
-    mapStateToPropsWithOwnProps: (state, ownProps) {
-      return (UserSelector()
-        ..selectedUser = ownProps.selectedUserId.isNotEmpty
-            ? state.users.singleWhere((user) => user.id == ownProps.selectedUserId, orElse: () => null)
-            : null
-        ..users = state.users
-      );
-    },
-    forwardRef: true
+  mapStateToPropsWithOwnProps: (state, ownProps) => (UserSelector()
+    ..selectedUser = ownProps.selectedUserId.isNotEmpty
+        ? state.users.singleWhere((user) => user.id == ownProps.selectedUserId, orElse: () => null)
+        : null
+    ..users = state.users
+  ),
+  forwardRef: true,
 )(_$UserSelector); // ignore: undefined_identifier
 
 mixin UserSelectorProps on UiProps {
   String selectedUserId;
   User selectedUser;
-  @requiredProp List<User> users;
-  @requiredProp Function(String userId) onUserSelect;
+  @requiredProp
+  List<User> users;
+  @requiredProp
+  Function(String userId) onUserSelect;
 }
 
 class UserSelectorComponent extends UiComponent2<UserSelectorProps> with RedrawCounterMixin {
@@ -54,15 +54,17 @@ class UserSelectorComponent extends UiComponent2<UserSelectorProps> with RedrawC
   }
 
   ReactElement _renderMenuItem(User user) {
-    return MenuItem({
-      'key': user.id,
-      'onClick': (SyntheticMouseEvent event) {
-        // Don't expand / collapse the user list item
-        event.stopPropagation();
-        _handleUserSelect(user);
+    return MenuItem(
+      {
+        'key': user.id,
+        'onClick': (SyntheticMouseEvent event) {
+          // Don't expand / collapse the user list item
+          event.stopPropagation();
+          _handleUserSelect(user);
+        },
       },
-    },
-      Box({'mr': 1},
+      Box(
+        {'mr': 1},
         (AvatarWithColors()..fullName = user.name)(),
       ),
       user.name,

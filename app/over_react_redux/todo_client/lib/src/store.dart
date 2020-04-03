@@ -19,13 +19,13 @@ AppState initializeState() {
 }
 
 DevToolsStore<AppState> getStore() => DevToolsStore<AppState>(
-  appStateReducer,
-  initialState: initializeState(),
-  middleware: [
-    overReactReduxDevToolsMiddleware,
-    localStorageMiddleware(),
-  ],
-);
+      appStateReducer,
+      initialState: initializeState(),
+      middleware: [
+        overReactReduxDevToolsMiddleware,
+        localStorageMiddleware(),
+      ],
+    );
 
 @JsonSerializable(explicitToJson: true)
 class AppState {
@@ -39,7 +39,8 @@ class AppState {
   List<String> editableUserIds;
   List<String> highlightedUserIds;
 
-  AppState(this.name, {
+  AppState(
+    this.name, {
     this.todos,
     this.users,
     this.selectedTodoIds,
@@ -60,7 +61,8 @@ AppState appStateReducer(AppState state, dynamic action) {
     return action.value;
   }
 
-  return AppState(stateNameReducer(state.name, action),
+  return AppState(
+    stateNameReducer(state.name, action),
     todos: todosReducer(state.todos, action),
     users: usersReducer(state.users, action),
     editableTodoIds: editableTodosReducer(state.editableTodoIds, action),
@@ -71,7 +73,6 @@ AppState appStateReducer(AppState state, dynamic action) {
     highlightedUserIds: highlightedUsersReducer(state.highlightedUserIds, action),
   );
 }
-
 
 // todo inject localTodoAppStorage as an arg instead of using a global variable
 Middleware<AppState> localStorageMiddleware() {

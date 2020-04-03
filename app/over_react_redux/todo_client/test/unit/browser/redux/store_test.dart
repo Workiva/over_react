@@ -15,7 +15,7 @@ import '../fixtures/utils.dart';
 main() {
   setClientConfiguration();
   const reasonCurrentSetShouldBePersisted =
-        'The state update should be persisted as the "current" set in window.localStorage';
+      'The state update should be persisted as the "current" set in window.localStorage';
 
   group('AppState', () {
     setUp(() {
@@ -39,10 +39,10 @@ main() {
         test('', () {
           final mockDefaultAppState = AppState.fromJson(defaultAppState);
 
-          expect(getSerializedListOfModels(testStore.state.todos),
-              getSerializedListOfModels(mockDefaultAppState.todos));
-          expect(getSerializedListOfModels(testStore.state.users),
-              getSerializedListOfModels(mockDefaultAppState.users));
+          expect(
+              getSerializedListOfModels(testStore.state.todos), getSerializedListOfModels(mockDefaultAppState.todos));
+          expect(
+              getSerializedListOfModels(testStore.state.users), getSerializedListOfModels(mockDefaultAppState.users));
           expect(testStore.state.selectedTodoIds, mockDefaultAppState.selectedTodoIds);
           expect(testStore.state.editableTodoIds, mockDefaultAppState.editableTodoIds);
           expect(testStore.state.highlightedTodoIds, mockDefaultAppState.highlightedTodoIds);
@@ -89,20 +89,18 @@ main() {
         testStore.dispatch(AddTodoAction(newTodo));
 
         expect(getSerializedListOfModels(testStore.state.todos), expectedNewState);
-        expect(getCurrentLocalStorageSet()['todos'], expectedNewState,
-            reason: reasonCurrentSetShouldBePersisted);
+        expect(getCurrentLocalStorageSet()['todos'], expectedNewState, reason: reasonCurrentSetShouldBePersisted);
       });
 
       test('when a RemoveTodoAction is dispatched', () {
         final initialTodos = testStore.state.todos;
         final idOfTodoToRemove = testStore.state.todos.first.id;
-        final expectedNewState = getSerializedListOfModels(
-            [...initialTodos]..removeWhere((todo) => todo.id == idOfTodoToRemove));
+        final expectedNewState =
+            getSerializedListOfModels([...initialTodos]..removeWhere((todo) => todo.id == idOfTodoToRemove));
         testStore.dispatch(RemoveTodoAction(idOfTodoToRemove));
 
         expect(getSerializedListOfModels(testStore.state.todos), expectedNewState);
-        expect(getCurrentLocalStorageSet()['todos'], expectedNewState,
-            reason: reasonCurrentSetShouldBePersisted);
+        expect(getCurrentLocalStorageSet()['todos'], expectedNewState, reason: reasonCurrentSetShouldBePersisted);
       });
 
       test('when an UpdateTodoAction is dispatched', () {
@@ -113,8 +111,7 @@ main() {
         testStore.dispatch(UpdateTodoAction(updatedTodo));
 
         expect(testStore.state.todos.first.toJson(), expectedNewState);
-        expect(getCurrentLocalStorageSet()['todos'][0], expectedNewState,
-            reason: reasonCurrentSetShouldBePersisted);
+        expect(getCurrentLocalStorageSet()['todos'][0], expectedNewState, reason: reasonCurrentSetShouldBePersisted);
       });
     });
 
@@ -220,8 +217,7 @@ main() {
         testStore.dispatch(UnHighlightTodosAction([noLongerHighlightedTodoId]));
 
         expect(testStore.state.highlightedTodoIds, isNot(contains(noLongerHighlightedTodoId)));
-        expect(getCurrentLocalStorageSet()['highlightedTodoIds'],
-            isNot(contains(noLongerHighlightedTodoId)),
+        expect(getCurrentLocalStorageSet()['highlightedTodoIds'], isNot(contains(noLongerHighlightedTodoId)),
             reason: reasonCurrentSetShouldBePersisted);
       });
     });
@@ -234,20 +230,18 @@ main() {
         testStore.dispatch(AddUserAction(newUser));
 
         expect(getSerializedListOfModels(testStore.state.users), expectedNewState);
-        expect(getCurrentLocalStorageSet()['users'], expectedNewState,
-            reason: reasonCurrentSetShouldBePersisted);
+        expect(getCurrentLocalStorageSet()['users'], expectedNewState, reason: reasonCurrentSetShouldBePersisted);
       });
 
       test('when a RemoveUserAction is dispatched', () {
         final initialUsers = testStore.state.users;
         final idOfUserToRemove = testStore.state.users.first.id;
-        final expectedNewState = getSerializedListOfModels(
-            [...initialUsers]..removeWhere((todo) => todo.id == idOfUserToRemove));
+        final expectedNewState =
+            getSerializedListOfModels([...initialUsers]..removeWhere((todo) => todo.id == idOfUserToRemove));
         testStore.dispatch(RemoveUserAction(idOfUserToRemove));
 
         expect(getSerializedListOfModels(testStore.state.users), expectedNewState);
-        expect(getCurrentLocalStorageSet()['users'], expectedNewState,
-            reason: reasonCurrentSetShouldBePersisted);
+        expect(getCurrentLocalStorageSet()['users'], expectedNewState, reason: reasonCurrentSetShouldBePersisted);
       });
 
       test('when an UpdateUserAction is dispatched', () {
@@ -258,8 +252,7 @@ main() {
         testStore.dispatch(UpdateUserAction(updatedUser));
 
         expect(testStore.state.users.first.toJson(), updatedUser.toJson());
-        expect(getCurrentLocalStorageSet()['users'][0], expectedNewState,
-            reason: reasonCurrentSetShouldBePersisted);
+        expect(getCurrentLocalStorageSet()['users'][0], expectedNewState, reason: reasonCurrentSetShouldBePersisted);
       });
     });
 

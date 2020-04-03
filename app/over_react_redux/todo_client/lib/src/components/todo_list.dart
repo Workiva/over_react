@@ -10,12 +10,8 @@ import 'package:todo_client/src/components/todo_list_item.dart';
 part 'todo_list.over_react.g.dart';
 
 UiFactory<TodoListProps> TodoList = connect<AppState, TodoListProps>(
-    mapStateToProps: (state) {
-      return (TodoList()
-        ..todos = state.todos
-      );
-    },
-    forwardRef: true,
+  mapStateToProps: (state) => (TodoList()..todos = state.todos),
+  forwardRef: true,
 )(_$TodoList); // ignore: undefined_identifier
 
 mixin TodoListPropsMixin on UiProps {

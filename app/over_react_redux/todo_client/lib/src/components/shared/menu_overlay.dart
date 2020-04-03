@@ -9,8 +9,7 @@ part 'menu_overlay.over_react.g.dart';
 /// Use the `MenuOverlay` component to provide messaging to users about an empty set of results,
 /// or an empty view such as a 404 error page.
 
-UiFactory<MenuOverlayProps> MenuOverlay =
-    _$MenuOverlay; // ignore: undefined_identifier
+UiFactory<MenuOverlayProps> MenuOverlay = _$MenuOverlay; // ignore: undefined_identifier
 
 @Props(keyNamespace: '')
 mixin MenuOverlayProps on UiProps {
@@ -35,7 +34,7 @@ class MenuOverlayComponent extends UiStatefulComponent2<MenuOverlayProps, MenuOv
 
   @override
   render() {
-    final propsToForward = Map.of(props)
+    final propsToForward = Map.of(props) //
       ..remove('trigger')
       ..remove('dispatch')
       ..remove('useDerivedMaxWidth');
@@ -45,25 +44,26 @@ class MenuOverlayComponent extends UiStatefulComponent2<MenuOverlayProps, MenuOv
         'onClick': _handleTriggerClick,
         'aria-describedby': id,
       }),
-      Menu({
-        ...propsToForward,
-        'MenuListProps': {
-          'id': id,
-          'style': {
-            'maxWidth': state.menuMaxWidth,
+      Menu(
+        {
+          ...propsToForward,
+          'MenuListProps': {
+            'id': id,
+            'style': {
+              'maxWidth': state.menuMaxWidth,
+            },
+          },
+          'open': open,
+          'anchorEl': state.anchorEl,
+          'onClose': close,
+          'onEntered': (_, __) {
+            if (!props.useDerivedMaxWidth) return;
+            final currentMenuWidth = querySelector('#$id')?.getBoundingClientRect()?.width?.ceil();
+            if (currentMenuWidth != state.menuMaxWidth) {
+              setState(newState()..menuMaxWidth = currentMenuWidth ?? 'none');
+            }
           },
         },
-        'open': open,
-        'anchorEl': state.anchorEl,
-        'onClose': close,
-        'onEntered': (_, __) {
-          if (!props.useDerivedMaxWidth) return;
-          final currentMenuWidth = querySelector('#$id')?.getBoundingClientRect()?.width?.ceil();
-          if (currentMenuWidth != state.menuMaxWidth) {
-            setState(newState()..menuMaxWidth = currentMenuWidth ?? 'none');
-          }
-        },
-      },
         props.children,
       ),
     );

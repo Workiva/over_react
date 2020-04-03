@@ -10,12 +10,8 @@ import 'package:todo_client/src/components/user_list_item.dart';
 part 'user_list.over_react.g.dart';
 
 UiFactory<UserListProps> UserList = connect<AppState, UserListProps>(
-    mapStateToProps: (state) {
-      return (UserList()
-        ..users = state.users
-      );
-    },
-    forwardRef: true,
+  mapStateToProps: (state) => (UserList()..users = state.users),
+  forwardRef: true,
 )(_$UserList); // ignore: undefined_identifier
 
 mixin UserListPropsMixin on UiProps {

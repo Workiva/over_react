@@ -21,9 +21,7 @@ main() {
     });
 
     test('renders an EmptyView when props.children is empty', () {
-      jacket = mount((DisplayList()
-        ..listItemTypeDescription = 'Foo'
-      )());
+      jacket = mount((DisplayList()..listItemTypeDescription = 'Foo')());
 
       final emptyListInstance = getByTestId(jacket.getInstance(), 'todo_client.DisplayList.EmptyView');
       expect(emptyListInstance, isNotNull);
@@ -37,9 +35,7 @@ main() {
     });
 
     test('renders a scrolling Box containing children when props.children is not empty', () {
-      jacket = mount((DisplayList()
-        ..listItemTypeDescription = 'Foo'
-      )('not empty!'));
+      jacket = mount((DisplayList()..listItemTypeDescription = 'Foo')('not empty!'));
 
       final emptyListInstance = getByTestId(jacket.getInstance(), 'todo_client.DisplayList.EmptyView');
       expect(emptyListInstance, isNull);

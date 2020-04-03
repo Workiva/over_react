@@ -1,7 +1,6 @@
 part of todo_client.src.components.user_selector;
 
-UiFactory<UserSelectorTriggerProps> UserSelectorTrigger =
-    _$UserSelectorTrigger; // ignore: undefined_identifier
+UiFactory<UserSelectorTriggerProps> UserSelectorTrigger = _$UserSelectorTrigger; // ignore: undefined_identifier
 
 @Props(keyNamespace: '')
 mixin UserSelectorTriggerProps on UiProps {
@@ -22,13 +21,14 @@ class UserSelectorTriggerComponent extends UiComponent2<UserSelectorTriggerProps
   @override
   render() {
     final propsToForward = Map.of(props)..remove('selectedUserName');
-    return IconButton({
-      ...propsToForward,
-      // Avatar height is 40px, so 4px on top and bottom will make it match the default height of adjacent IconButtons (48px)
-      'style': {
-        'padding': '4px',
+    return IconButton(
+      {
+        ...propsToForward,
+        // Avatar height is 40px, so 4px on top and bottom will make it match the default height of adjacent IconButtons (48px)
+        'style': {
+          'padding': '4px',
+        },
       },
-    },
       (AvatarWithColors()..fullName = props.selectedUserName)(),
     );
   }

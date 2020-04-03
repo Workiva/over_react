@@ -34,10 +34,7 @@ class LocalStorageMenuItemInputComponent
 
   @override
   render() {
-    final propsToForward = Map.of(props)
-      ..remove('initialValue')
-      ..remove('onSave')
-      ..remove('onCancel');
+    final propsToForward = Map.of(props)..remove('initialValue')..remove('onSave')..remove('onCancel');
 
     return TextField({
       'autoFocus': true,

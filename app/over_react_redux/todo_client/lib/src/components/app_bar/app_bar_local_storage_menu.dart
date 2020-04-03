@@ -14,12 +14,10 @@ import 'package:todo_client/src/components/shared/menu_overlay.dart';
 part 'app_bar_local_storage_menu.over_react.g.dart';
 
 UiFactory<AppBarLocalStorageMenuProps> AppBarLocalStorageMenu = connect<AppState, AppBarLocalStorageMenuProps>(
-    mapStateToProps: (state) {
-      return (AppBarLocalStorageMenu()
-        ..currentDataSetName = state.name
-        ..currentDataHasBeenModified = json.encode(localTodoAppStorage[state.name]) != json.encode(state.toJson())
-      );
-    },
+  mapStateToProps: (state) => (AppBarLocalStorageMenu()
+    ..currentDataSetName = state.name
+    ..currentDataHasBeenModified = json.encode(localTodoAppStorage[state.name]) != json.encode(state.toJson())
+  ),
 )(_$AppBarLocalStorageMenu); // ignore: undefined_identifier
 
 mixin AppBarLocalStorageMenuPropsMixin on UiProps {
@@ -61,12 +59,13 @@ class AppBarLocalStorageMenuComponent extends UiComponent2<AppBarLocalStorageMen
   ReactElement _renderSaveMenuItem() {
     if (!props.currentDataHasBeenModified || _currentStateKeyIsReadOnly) return null;
 
-    return MenuItem({
-      'onClick': (SyntheticMouseEvent event) {
-        event.stopPropagation(); // Don't close the menu
-        _handleCurrentLocalStorageStateSaveAs(newStateName: props.currentDataSetName);
-      }
-    },
+    return MenuItem(
+      {
+        'onClick': (SyntheticMouseEvent event) {
+          event.stopPropagation(); // Don't close the menu
+          _handleCurrentLocalStorageStateSaveAs(newStateName: props.currentDataSetName);
+        }
+      },
       'Save ${props.currentDataSetName}',
     );
   }
@@ -103,12 +102,13 @@ class AppBarLocalStorageMenuComponent extends UiComponent2<AppBarLocalStorageMen
     return [
       Divider({'key': 'divider'}),
       (Dom.li()..key = 'dividerLabel')(
-        Typography({
-          'color': 'textSecondary',
-          'display': 'block',
-          'variant': 'caption',
-          'style': {'margin': '5px 0 0 16px'},
-        },
+        Typography(
+          {
+            'color': 'textSecondary',
+            'display': 'block',
+            'variant': 'caption',
+            'style': {'margin': '5px 0 0 16px'},
+          },
           'Custom Data Sets',
         ),
       ),

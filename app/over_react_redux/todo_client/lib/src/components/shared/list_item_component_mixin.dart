@@ -16,20 +16,18 @@ mixin ListItemMixin<M extends BaseModel, T extends ListItemPropsMixin, S extends
 
   @override
   @mustCallSuper
-  get initialState => (newState()
-    ..localModel = props.model
-  );
+  get initialState => (newState()..localModel = props.model);
 
   Map<String, dynamic> get sharedExpansionPanelProps => {
-    'onChange': handleExpansionPanelExpandedStateChange,
-    'expanded': props.isSelected,
-    'style': highlightedItemStyle,
-  };
+        'onChange': handleExpansionPanelExpandedStateChange,
+        'expanded': props.isSelected,
+        'style': highlightedItemStyle,
+      };
 
   @protected
   Map<String, dynamic> get highlightedItemStyle => {
-    if (props.isHighlighted) 'backgroundColor': muiColors['yellow']['50'],
-  };
+        if (props.isHighlighted) 'backgroundColor': muiColors['yellow']['50'],
+      };
 
   bool get hasDetails;
 

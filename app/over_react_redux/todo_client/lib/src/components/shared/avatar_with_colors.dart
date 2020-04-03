@@ -8,8 +8,7 @@ import 'package:todo_client/src/components/shared/material_ui.dart';
 
 part 'avatar_with_colors.over_react.g.dart';
 
-UiFactory<AvatarWithColorsProps> AvatarWithColors =
-        _$AvatarWithColors; // ignore: undefined_identifier
+UiFactory<AvatarWithColorsProps> AvatarWithColors = _$AvatarWithColors; // ignore: undefined_identifier
 
 mixin AvatarWithColorsProps on UiProps {
   String fullName;
@@ -18,12 +17,13 @@ mixin AvatarWithColorsProps on UiProps {
 class AvatarWithColorsComponent extends UiComponent2<AvatarWithColorsProps> {
   @override
   render() {
-    return Avatar({
-      'style': {
-        'backgroundColor': _backgroundColorMemo(props.fullName),
-        'color': _textColorMemo(_backgroundColorMemo(props.fullName)),
+    return Avatar(
+      {
+        'style': {
+          'backgroundColor': _backgroundColorMemo(props.fullName),
+          'color': _textColorMemo(_backgroundColorMemo(props.fullName)),
+        },
       },
-    },
       _renderAvatarContent(),
     );
   }

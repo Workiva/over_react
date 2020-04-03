@@ -7,8 +7,7 @@ part 'empty_view.over_react.g.dart';
 /// Use the `EmptyView` component to provide messaging to users about an empty set of results,
 /// or an empty view such as a 404 error page.
 
-UiFactory<EmptyViewProps> EmptyView =
-        _$EmptyView; // ignore: undefined_identifier
+UiFactory<EmptyViewProps> EmptyView = _$EmptyView; // ignore: undefined_identifier
 
 mixin EmptyViewProps on UiProps {
   /// The layout of the [EmptyView].
@@ -45,15 +44,15 @@ class EmptyViewComponent extends UiComponent2<EmptyViewProps> {
 
   @override
   get propTypes => {
-    keyForProp((p) => p.glyph): (props, info) {
-      if (props.glyph != null && props.content != null) {
-        return PropError.combination(info.propName, 'EmptyViewProps.content',
-          'EmptyView does not support `props.glyph` and `props.content` being set simultaneously.');
-      }
+        keyForProp((p) => p.glyph): (props, info) {
+          if (props.glyph != null && props.content != null) {
+            return PropError.combination(info.propName, 'EmptyViewProps.content',
+                'EmptyView does not support `props.glyph` and `props.content` being set simultaneously.');
+          }
 
-      return null;
-    },
-  };
+          return null;
+        },
+      };
 
   @override
   render() {
@@ -64,9 +63,7 @@ class EmptyViewComponent extends UiComponent2<EmptyViewProps> {
     return (Dom.div()
       ..modifyProps(addUnconsumedDomProps)
       ..role = Role.status
-      ..className = (forwardingClassNameBuilder() //
-        ..add('empty-view'))
-        .toClassName()
+      ..className = (forwardingClassNameBuilder()..add('empty-view')).toClassName()
     )(
       _renderAboveHeaderContent(),
       _renderHeader(),

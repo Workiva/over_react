@@ -6,8 +6,7 @@ import 'package:todo_client/src/components/shared/empty_view.dart';
 
 part 'display_list.over_react.g.dart';
 
-UiFactory<DisplayListProps> DisplayList =
-        _$DisplayList; // ignore: undefined_identifier
+UiFactory<DisplayListProps> DisplayList = _$DisplayList; // ignore: undefined_identifier
 
 @Props(keyNamespace: '') // No namespace so prop forwarding works when passing to the JS TextField component.
 mixin DisplayListProps on UiProps {
@@ -33,16 +32,17 @@ class DisplayListComponent extends UiComponent2<DisplayListProps> {
     }
 
     final propsToForward = {...props}..remove('listItemTypeDescription');
-    return Box({
-      'key': 'scrollableList',
-      'flexGrow': 1,
-      'flexShrink': 1,
-      'flexBasis': '0%',
-      'paddingTop': 2,
-      'style': {...props.style ?? {}, 'overflowY': 'auto'},
-      ...propsToForward,
-      'ref': scrollingBoxRef,
-    },
+    return Box(
+      {
+        'key': 'scrollableList',
+        'flexGrow': 1,
+        'flexShrink': 1,
+        'flexBasis': '0%',
+        'paddingTop': 2,
+        'style': {...props.style ?? {}, 'overflowY': 'auto'},
+        ...propsToForward,
+        'ref': scrollingBoxRef,
+      },
       props.children,
     );
   }

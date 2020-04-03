@@ -10,8 +10,7 @@ import 'package:todo_client/src/components/shared/menu_overlay.dart';
 
 part 'saved_data_menu_item.over_react.g.dart';
 
-UiFactory<SavedDataMenuItemProps> SavedDataMenuItem =
-    _$SavedDataMenuItem; // ignore: undefined_identifier
+UiFactory<SavedDataMenuItemProps> SavedDataMenuItem = _$SavedDataMenuItem; // ignore: undefined_identifier
 
 @Props(keyNamespace: '')
 mixin SavedDataMenuItemProps on UiProps {
@@ -50,61 +49,67 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
       ..remove('onDelete')
       ..remove('onRename');
 
-    return MenuItem({
-      ...propsToForward,
-      'ref': itemNodeRef,
-      'onClick': _handleMenuItemClick,
-      'onMouseEnter': handleItemMouseEnter,
-      'onMouseLeave': handleItemMouseLeave,
-      'onFocus': handleChildFocus,
-      'onBlur': handleChildBlur,
-    },
+    return MenuItem(
+      {
+        ...propsToForward,
+        'ref': itemNodeRef,
+        'onClick': _handleMenuItemClick,
+        'onMouseEnter': handleItemMouseEnter,
+        'onMouseLeave': handleItemMouseLeave,
+        'onFocus': handleChildFocus,
+        'onBlur': handleChildBlur,
+      },
       state.isEditable ? _renderRenameTextInput() : _renderNameWithOptions(),
     );
   }
 
   ReactElement _renderNameWithOptions() {
-    return Grid({
-      'container': true,
-      'direction': 'row',
-      'style': {'flexWrap': false},
-    },
-      Box({
-        ...growProps,
-        'pr': 1,
-        'justifyContent': 'center',
-        'display': 'flex',
+    return Grid(
+      {
+        'container': true,
+        'direction': 'row',
+        'style': {'flexWrap': false},
       },
-        Box({
+      Box(
+        {
+          ...growProps,
           'pr': 1,
-          'display': 'flex',
           'justifyContent': 'center',
+          'display': 'flex',
         },
+        Box(
+          {
+            'pr': 1,
+            'display': 'flex',
+            'justifyContent': 'center',
+          },
           StorageIcon({
             'style': {'alignSelf': 'center'},
           }),
         ),
-        Typography({
-          'noWrap': true,
-          'style': {
-            'alignSelf': 'center',
-            'flexGrow': 1,
+        Typography(
+          {
+            'noWrap': true,
+            'style': {
+              'alignSelf': 'center',
+              'flexGrow': 1,
+            },
           },
-        },
           props.localStorageKey,
         ),
       ),
-      IconButton({
-        'size': 'small',
-        'color': 'inherit',
-        'aria-label': 'Rename',
-        'aria-hidden': !isHovered,
-        'className': 'hide-using-aria',
-        'onClick': (SyntheticMouseEvent event) {
-          event.stopPropagation(); // Do not trigger the onClick handler of the parent MenuItem
-          setState(newState()..isEditable = true);
+      IconButton(
+        {
+          'size': 'small',
+          'color': 'inherit',
+          'aria-label': 'Rename',
+          'aria-hidden': !isHovered,
+          'className': 'hide-using-aria',
+          'onClick': (SyntheticMouseEvent event) {
+            event.stopPropagation(); // Do not trigger the onClick handler of the parent MenuItem
+            setState(newState()..isEditable = true);
+          },
         },
-      },
         EditPencilIcon(),
       ),
       _renderDeleteButton(),
@@ -114,28 +119,31 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
   ReactElement _renderDeleteButton() {
     final isDisabled = localTodoAppStorage.currentStateJson['name'] == props.localStorageKey;
 
-    return Tooltip({
-      'title': isDisabled
-          ? 'Cannot delete the currently loaded data set.'
-          : 'Delete the ${props.localStorageKey} data set.',
-      'enterDelay': 500,
-    },
-      Box({
-        ...shrinkToFitProps,
-        'color': 'error.main',
-        'aria-hidden': !isHovered,
-        'className': 'hide-using-aria',
+    return Tooltip(
+      {
+        'title': isDisabled
+            ? 'Cannot delete the currently loaded data set.'
+            : 'Delete the ${props.localStorageKey} data set.',
+        'enterDelay': 500,
       },
-        IconButton({
-          'size': 'small',
-          'color': 'inherit',
-          'aria-label': 'Delete',
-          'disabled': isDisabled,
-          'onClick': (SyntheticMouseEvent event) {
-            event.stopPropagation(); // Do not trigger the onClick handler of the parent MenuItem
-            props.onDelete(props.localStorageKey);
-          },
+      Box(
+        {
+          ...shrinkToFitProps,
+          'color': 'error.main',
+          'aria-hidden': !isHovered,
+          'className': 'hide-using-aria',
         },
+        IconButton(
+          {
+            'size': 'small',
+            'color': 'inherit',
+            'aria-label': 'Delete',
+            'disabled': isDisabled,
+            'onClick': (SyntheticMouseEvent event) {
+              event.stopPropagation(); // Do not trigger the onClick handler of the parent MenuItem
+              props.onDelete(props.localStorageKey);
+            },
+          },
           TrashIcon(),
         ),
       ),

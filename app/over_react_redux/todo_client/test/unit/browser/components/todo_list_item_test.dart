@@ -25,8 +25,7 @@ main() {
     Ref<TodoAppComponent> appRef;
     TodoListItemComponent component;
     Todo model;
-    const localModelSynchronizationTimingReason =
-        'state.localModel should only be synchronized with persisted state '
+    const localModelSynchronizationTimingReason = 'state.localModel should only be synchronized with persisted state '
         'as a result of the component entering an editable state';
     const modelGetterReturnsPersistedStateReason =
         'When props.isEditable is false, the component\'s model getter should '
@@ -75,6 +74,7 @@ main() {
           expect(textFieldComponent, isA<TodoItemTextFieldComponent>(), reason: 'test setup sanity check');
           return textFieldComponent;
         }
+
         InputElement descriptionTextFieldNode() => descriptionTextFieldComponent().textFieldRef.current;
 
         group('with its props set as expected', () {
@@ -127,7 +127,8 @@ main() {
                   reason: 'The change should not have been persisted yet');
             });
 
-            test('- and then synchronizes props.model with state.localModel'
+            test(
+                '- and then synchronizes props.model with state.localModel'
                 'when exitEditable() is called', () async {
               await storeDescriptionUpdateLocally();
               await exitEditable();
@@ -144,6 +145,7 @@ main() {
           expect(textFieldComponent, isA<TodoItemTextFieldComponent>(), reason: 'test setup sanity check');
           return textFieldComponent;
         }
+
         TextAreaElement notesTextFieldNode() => notesTextFieldComponent().textFieldRef.current;
 
         group('with its props set as expected', () {
@@ -194,7 +196,8 @@ main() {
                   reason: 'The change should not have been persisted yet');
             });
 
-            test('- and then synchronizes props.model with state.localModel'
+            test(
+                '- and then synchronizes props.model with state.localModel'
                 'when exitEditable() is called', () async {
               await storeDescriptionUpdateLocally();
               await exitEditable();
@@ -249,7 +252,8 @@ main() {
                   reason: modelGetterReturnsPersistedStateReason);
             });
 
-            test('- and then synchronizes props.model with state.localModel'
+            test(
+                '- and then synchronizes props.model with state.localModel'
                 'when enterEditable() is called', () async {
               await persistSelectedUpdate();
               await enterEditable();
@@ -275,7 +279,8 @@ main() {
                   reason: 'The change should not have been persisted yet');
             });
 
-            test('- and then synchronizes props.model with state.localModel'
+            test(
+                '- and then synchronizes props.model with state.localModel'
                 'when exitEditable() is called', () async {
               await storeSelectedUpdateLocally();
               await exitEditable();

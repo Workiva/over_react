@@ -38,13 +38,13 @@ class Todo implements BaseModel {
 
   factory Todo.fromJson(Map<String, dynamic> json) => _$TodoFromJson(json);
   factory Todo.from(Todo todo) => Todo(
-    description: todo.description,
-    id: todo.id,
-    isCompleted: todo.isCompleted,
-    isPublic: todo.isPublic,
-    notes: todo.notes,
-    assignedUserId: todo.assignedUserId,
-  );
+        description: todo.description,
+        id: todo.id,
+        isCompleted: todo.isCompleted,
+        isPublic: todo.isPublic,
+        notes: todo.notes,
+        assignedUserId: todo.assignedUserId,
+      );
 
   @override
   Map<String, dynamic> toJson() => _$TodoToJson(this);
