@@ -46,8 +46,7 @@ class FactoryNames {
   ///
   /// NOTE: The factory name must be public, since sub components will reference
   /// factories from super components.
-  String get implName =>
-      '$_prefix$privateSourcePrefix${unprefixedConsumerName}';
+  String get implName => '$_prefix$privateSourcePrefix${unprefixedConsumerName}';
 }
 
 /// A set of names of the different generated members for a given component class.
