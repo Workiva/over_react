@@ -12,7 +12,7 @@ part of 'basic.dart';
 // Registers component implementation and links type meta to builder factory.
 final $Basic2ComponentFactory = registerComponent2(
   () => _$Basic2Component(),
-  builderFactory: Basic,
+  builderFactory: _$Basic,
   componentClass: Basic2Component,
   isWrapper: false,
   parentType: null,

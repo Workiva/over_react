@@ -11,12 +11,13 @@ part of 'basic_library.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $BasicPartOfLibComponentFactory = registerComponent(
-    () => _$BasicPartOfLibComponent(),
-    builderFactory: BasicPartOfLib,
-    componentClass: BasicPartOfLibComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'BasicPartOfLib');
+  () => _$BasicPartOfLibComponent(),
+  builderFactory: _$BasicPartOfLib,
+  componentClass: BasicPartOfLibComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'BasicPartOfLib',
+);
 
 abstract class _$BasicPartOfLibPropsAccessorsMixin
     implements _$BasicPartOfLibProps {
@@ -253,12 +254,13 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $SubPartOfLibComponentFactory = registerComponent(
-    () => _$SubPartOfLibComponent(),
-    builderFactory: SubPartOfLib,
-    componentClass: SubPartOfLibComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'SubPartOfLib');
+  () => _$SubPartOfLibComponent(),
+  builderFactory: _$SubPartOfLib,
+  componentClass: SubPartOfLibComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'SubPartOfLib',
+);
 
 abstract class _$SubPartOfLibPropsAccessorsMixin
     implements _$SubPartOfLibProps {

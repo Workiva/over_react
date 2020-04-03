@@ -12,7 +12,7 @@ part of 'basic_library.dart';
 // Registers component implementation and links type meta to builder factory.
 final $BasicPartOfLibComponentFactory = registerComponent2(
   () => _$BasicPartOfLibComponent(),
-  builderFactory: BasicPartOfLib,
+  builderFactory: _$BasicPartOfLib,
   componentClass: BasicPartOfLibComponent,
   isWrapper: false,
   parentType: null,
@@ -371,7 +371,7 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
 // Registers component implementation and links type meta to builder factory.
 final $SubPartOfLibComponentFactory = registerComponent2(
   () => _$SubPartOfLibComponent(),
-  builderFactory: SubPartOfLib,
+  builderFactory: _$SubPartOfLib,
   componentClass: SubPartOfLibComponent,
   isWrapper: false,
   parentType: null,

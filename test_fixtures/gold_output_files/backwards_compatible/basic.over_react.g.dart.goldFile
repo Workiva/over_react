@@ -10,12 +10,14 @@ part of 'basic.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $BasicComponentFactory = registerComponent(() => _$BasicComponent(),
-    builderFactory: Basic,
-    componentClass: BasicComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'Basic');
+final $BasicComponentFactory = registerComponent(
+  () => _$BasicComponent(),
+  builderFactory: _$Basic,
+  componentClass: BasicComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'Basic',
+);
 
 abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
   @override

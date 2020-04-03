@@ -14,7 +14,7 @@ part of 'basic_library.dart';
     ' Do not reference it in your code, as it may change at any time.')
 final $BasicPartOfLibComponentFactory = registerComponent2(
   () => _$BasicPartOfLibComponent(),
-  builderFactory: BasicPartOfLib,
+  builderFactory: _$BasicPartOfLib,
   componentClass: BasicPartOfLibComponent,
   isWrapper: false,
   parentType: null,
@@ -378,7 +378,7 @@ const StateMeta _$metaForBasicPartOfLibStateMixin = StateMeta(
     ' Do not reference it in your code, as it may change at any time.')
 final $SubPartOfLibComponentFactory = registerComponent2(
   () => _$SubPartOfLibComponent(),
-  builderFactory: SubPartOfLib,
+  builderFactory: _$SubPartOfLib,
   componentClass: SubPartOfLibComponent,
   isWrapper: false,
   parentType: null,

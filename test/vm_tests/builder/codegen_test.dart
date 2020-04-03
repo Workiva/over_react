@@ -307,12 +307,13 @@ main() {
                 setUpAndGenerate(ors.source);
                 final baseName = ors.prefixedBaseName;
                 expect(implGenerator.outputContentsBuffer.toString(), contains(
-                    'final \$${baseName}ComponentFactory = registerComponent(() => _\$${baseName}Component(),\n'
-                    '    builderFactory: $baseName,\n'
-                    '    componentClass: ${baseName}Component,\n'
-                    '    isWrapper: false,\n'
-                    '    parentType: null,\n'
-                    '    displayName: \'$baseName\'\n'
+                    'final \$${baseName}ComponentFactory = registerComponent(\n'
+                    '  () => _\$${baseName}Component(),\n'
+                    '  builderFactory: _\$$baseName,\n'
+                    '  componentClass: ${baseName}Component,\n'
+                    '  isWrapper: false,\n'
+                    '  parentType: null,\n'
+                    '  displayName: \'$baseName\',\n'
                   ');\n'));
               });
             }
