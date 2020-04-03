@@ -25,7 +25,7 @@ import 'util.dart';
 /// for all boilerplate versions.
 class ComponentFactoryProxyGenerator extends BoilerplateDeclarationGenerator {
   final ComponentNames componentNames;
-  final String factoryName;
+  final FactoryNames factoryNames;
 
   final BoilerplateComponent component;
   final bool isComponent2;
@@ -34,14 +34,14 @@ class ComponentFactoryProxyGenerator extends BoilerplateDeclarationGenerator {
   final Version version;
 
   ComponentFactoryProxyGenerator.legacy(LegacyClassComponentDeclaration declaration)
-      : factoryName = declaration.factory.name.name,
+      : factoryNames = FactoryNames(declaration.factory.name.name),
         componentNames = ComponentNames(declaration.component.name.name),
         component = declaration.component,
         isComponent2 = declaration.isComponent2,
         version = declaration.version;
 
   ComponentFactoryProxyGenerator(ClassComponentDeclaration declaration)
-      : factoryName = declaration.factory.name.name,
+      : factoryNames = FactoryNames(declaration.factory.name.name),
         componentNames = ComponentNames(declaration.component.name.name),
         component = declaration.component,
         isComponent2 = true,
@@ -81,11 +81,15 @@ class ComponentFactoryProxyGenerator extends BoilerplateDeclarationGenerator {
         ..write(internalGeneratedMemberDeprecationLine())
         ..writeln('final ${componentNames.componentFactoryName}'
             ' = registerComponent2(() => ${componentNames.implName}(),')
-        ..writeln('    builderFactory: $factoryName,')
+        // Use the generated factory instead of the user-authored one so we don't trigger
+        // a cyclic initialization error when referencing the component factory during the
+        // user's factory initialization (e.g., when passing the generated factory directly into
+        // HOCs like connect).
+        ..writeln('    builderFactory: ${factoryNames.implName},')
         ..writeln('    componentClass: ${componentNames.consumerName},')
         ..writeln('    isWrapper: ${component.meta.isWrapper},')
         ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
-        ..writeln('    displayName: ${stringLiteral(factoryName)},');
+        ..writeln('    displayName: ${stringLiteral(factoryNames.consumerName)},');
 
       // If isComponent2 is true, we can safely assume the component class has a
       // `@Component2()` (or no annotation), since other cases would fail validation.
@@ -105,11 +109,15 @@ class ComponentFactoryProxyGenerator extends BoilerplateDeclarationGenerator {
         ..write(internalGeneratedMemberDeprecationLine())
         ..writeln(
             'final ${componentNames.componentFactoryName} = registerComponent(() => ${componentNames.implName}(),')
-        ..writeln('    builderFactory: $factoryName,')
+        // Use the generated factory instead of the user-authored one so we don't trigger
+        // a cyclic initialization error when referencing the component factory during the
+        // user's factory initialization (e.g., when passing the generated factory directly into
+        // HOCs like connect).
+        ..writeln('    builderFactory: ${factoryNames.implName},')
         ..writeln('    componentClass: ${componentNames.consumerName},')
         ..writeln('    isWrapper: ${component.meta.isWrapper},')
         ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
-        ..writeln('    displayName: ${stringLiteral(factoryName)}')
+        ..writeln('    displayName: ${stringLiteral(factoryNames.consumerName)}')
         ..writeln(');')
         ..writeln();
     }

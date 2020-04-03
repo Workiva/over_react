@@ -46,7 +46,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
 
   TypedMapNames get names;
   bool get isComponent2;
-  String get factoryName;
+  FactoryNames get factoryNames;
   bool get isProps;
 
   BoilerplateTypedMapMember get member;
@@ -70,10 +70,10 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
   void _generateStateImpl();
 
   void _generateFactory() {
-    if (factoryName == null) throw StateError('factoryName must not be null');
+    if (factoryNames == null) throw StateError('factoryNames must not be null');
 
     outputContentsBuffer
-        .write('${names.implName} $privateSourcePrefix$factoryName([Map backingProps]) => ');
+        .write('${names.implName} ${factoryNames.implName}([Map backingProps]) => ');
 
     if (!isComponent2) {
       /// _$$FooProps _$Foo([Map backingProps]) => _$$FooProps(backingProps);
@@ -266,6 +266,9 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
   final TypedMapNames names;
 
   @override
+  final FactoryNames factoryNames;
+
+  @override
   final bool isProps;
 
   final LegacyClassComponentDeclaration declaration;
@@ -275,11 +278,13 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
 
   _LegacyTypedMapImplGenerator.props(this.declaration)
       : names = TypedMapNames(declaration.props.name.name),
+        factoryNames = FactoryNames(declaration.factory.name.name),
         member = declaration.props,
         isProps = true;
 
   _LegacyTypedMapImplGenerator.state(this.declaration)
       : names = TypedMapNames(declaration.state.name.name),
+        factoryNames = FactoryNames(declaration.factory.name.name),
         member = declaration.state,
         isProps = false;
 
@@ -288,9 +293,6 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
 
   @override
   bool get isComponent2 => declaration.isComponent2;
-
-  @override
-  String get factoryName => declaration.factory.name.name;
 
   @override
   void _generatePropsImpl() {
@@ -327,13 +329,13 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   final TypedMapNames names;
 
   @override
+  final FactoryNames factoryNames;
+
+  @override
   final bool isProps;
 
   @override
   final BoilerplateTypedMapMember member;
-
-  @override
-  final String factoryName;
 
   final String componentFactoryName;
 
@@ -342,26 +344,26 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
 
   _TypedMapImplGenerator.props(ClassComponentDeclaration declaration)
       : names = TypedMapNames(declaration.props.either.name.name),
+        factoryNames = FactoryNames(declaration.factory.name.name),
         member = declaration.props.either,
         isProps = true,
-        factoryName = declaration.factory.name.name,
         componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName,
         version = declaration.version;
 
   _TypedMapImplGenerator.state(ClassComponentDeclaration declaration)
       : names = TypedMapNames(declaration.state.either.name.name),
+        factoryNames = FactoryNames(declaration.factory.name.name),
         member = declaration.state.either,
         isProps = false,
-        factoryName = declaration.factory.name.name,
         componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName,
         version = declaration.version;
 
   _TypedMapImplGenerator.propsMapViewOrFunctionComponent(
       PropsMapViewOrFunctionComponentDeclaration declaration)
       : names = TypedMapNames(declaration.props.either.name.name),
+        factoryNames = FactoryNames(declaration.factory.name.name),
         member = declaration.props.either,
         isProps = true,
-        factoryName = declaration.factory.name.name,
         componentFactoryName = 'null',
         version = declaration.version;
 
