@@ -73,53 +73,34 @@ class ComponentFactoryProxyGenerator extends BoilerplateDeclarationGenerator {
           span: getSpan(sourceFile, parentType)));
     }
 
-    if (isComponent2) {
-      outputContentsBuffer
-        ..writeln('// React component factory implementation.')
-        ..writeln('//')
-        ..writeln('// Registers component implementation and links type meta to builder factory.')
-        ..write(internalGeneratedMemberDeprecationLine())
-        ..writeln('final ${componentNames.componentFactoryName}'
-            ' = registerComponent2(() => ${componentNames.implName}(),')
-        // Use the generated factory instead of the user-authored one so we don't trigger
-        // a cyclic initialization error when referencing the component factory during the
-        // user's factory initialization (e.g., when passing the generated factory directly into
-        // HOCs like connect).
-        ..writeln('    builderFactory: ${factoryNames.implName},')
-        ..writeln('    componentClass: ${componentNames.consumerName},')
-        ..writeln('    isWrapper: ${component.meta.isWrapper},')
-        ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
-        ..writeln('    displayName: ${stringLiteral(factoryNames.consumerName)},');
+    final registerComponent = isComponent2 ? 'registerComponent2' : 'registerComponent';
 
-      // If isComponent2 is true, we can safely assume the component class has a
-      // `@Component2()` (or no annotation), since other cases would fail validation.
-      if ((component.meta as annotations.Component2).isErrorBoundary) {
-        // Override `skipMethods` as an empty list so that
-        // the `componentDidCatch` and `getDerivedStateFromError`
-        // lifecycle methods are included in the component's JS bindings.
-        outputContentsBuffer.writeln('    skipMethods: const [],');
-      }
+    outputContentsBuffer
+      ..writeln('// React component factory implementation.')
+      ..writeln('//')
+      ..writeln('// Registers component implementation and links type meta to builder factory.')
+      ..write(internalGeneratedMemberDeprecationLine())
+      ..writeln('final ${componentNames.componentFactoryName} = $registerComponent(')
+      ..writeln('  () => ${componentNames.implName}(),')
+      // Use the generated factory instead of the user-authored one so we don't trigger
+      // a cyclic initialization error when referencing the component factory during the
+      // user's factory initialization (e.g., when passing the generated factory directly into
+      // HOCs like connect).
+      ..writeln('  builderFactory: ${factoryNames.implName},')
+      ..writeln('  componentClass: ${componentNames.consumerName},')
+      ..writeln('  isWrapper: ${component.meta.isWrapper},')
+      ..writeln('  parentType: $parentTypeParam,$parentTypeParamComment')
+      ..writeln('  displayName: ${stringLiteral(factoryNames.consumerName)},');
 
-      outputContentsBuffer..writeln(');')..writeln();
-    } else {
-      outputContentsBuffer
-        ..writeln('// React component factory implementation.')
-        ..writeln('//')
-        ..writeln('// Registers component implementation and links type meta to builder factory.')
-        ..write(internalGeneratedMemberDeprecationLine())
-        ..writeln(
-            'final ${componentNames.componentFactoryName} = registerComponent(() => ${componentNames.implName}(),')
-        // Use the generated factory instead of the user-authored one so we don't trigger
-        // a cyclic initialization error when referencing the component factory during the
-        // user's factory initialization (e.g., when passing the generated factory directly into
-        // HOCs like connect).
-        ..writeln('    builderFactory: ${factoryNames.implName},')
-        ..writeln('    componentClass: ${componentNames.consumerName},')
-        ..writeln('    isWrapper: ${component.meta.isWrapper},')
-        ..writeln('    parentType: $parentTypeParam,$parentTypeParamComment')
-        ..writeln('    displayName: ${stringLiteral(factoryNames.consumerName)}')
-        ..writeln(');')
-        ..writeln();
+    // If isComponent2 is true, we can safely assume the component class has a
+    // `@Component2()` (or no annotation), since other cases would fail validation.
+    if (isComponent2 && (component.meta as annotations.Component2).isErrorBoundary) {
+      // Override `skipMethods` as an empty list so that
+      // the `componentDidCatch` and `getDerivedStateFromError`
+      // lifecycle methods are included in the component's JS bindings.
+      outputContentsBuffer.writeln('    skipMethods: const [],');
     }
+
+    outputContentsBuffer..writeln(');')..writeln();
   }
 }
