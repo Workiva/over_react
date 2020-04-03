@@ -103,9 +103,11 @@ ways to do this.
         using `ConnectPropsToMixin`.
     ```dart
     // AppState is a class that represents the application's state and can be defined in the same file as the store.
-    UiFactory<FooProps> ConnectedFoo = connect<AppState, FooProps>()(Foo);
+    UiFactory<FooProps> Foo = connect<AppState, FooProps>(
+        ...
+    )(_$Foo);
 
-    UiFactory<FooProps> Foo = _$Foo;
+    UiFactory<FooProps> Foo = ;
 
     // Use the ConnectPropsMixin to gain access to React Redux's dispatch function, which can be accessed via
     // props.dispatch.
@@ -145,14 +147,14 @@ A wrapper around the JS react-redux `connect` function that supports OverReact c
 
 __Example:__
 ```dart
-UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
-  mapStateToProps: (state) => (
-    Counter()..count = state.count
+UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
+  mapStateToProps: (state) => (Counter()
+    ..count = state.count
   ),
-  mapDispatchToProps: (dispatch) => (
-    Counter()..increment = (() => dispatch(IncrementAction()))
+  mapDispatchToProps: (dispatch) => (Counter()
+    ..increment = (() => dispatch(IncrementAction()))
   ),
-)(Counter);
+)(_$Counter);
 ```
 
 ### `connect` Parameters
@@ -229,14 +231,14 @@ __Multiple Stores Example:__
 Store store1 = new Store<CounterState>(counterStateReducer, initialState: new CounterState(count: 0));
 Store store2 = new Store<BigCounterState>(bigCounterStateReducer, initialState: new BigCounterState(bigCount: 100));
 
-UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
+UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
   mapStateToProps: (state) => (Counter()..count = state.count)
-)(Counter);
+)(_$Counter);
 
-UiFactory<CounterProps> ConnectedBigCounter = connect<BigCounterState, CounterProps>(
-  mapStateToProps: (state) => (Counter()..count = state.bigCount),
+UiFactory<CounterProps> BigCounter = connect<BigCounterState, CounterProps>(
+  mapStateToProps: (state) => (BigCounter()..count = state.bigCount),
   context: bigCounterContext,
-)(Counter);
+)(_$Counter);
 
 react_dom.render(
   Dom.div()(
@@ -246,10 +248,10 @@ react_dom.render(
         ..context = bigCounterContext
       )(
         Dom.div()(
-          Dom.h3()('ConnectedBigCounter Store2'),
-          ConnectedBigCounter()(
-            Dom.h4()('ConnectedCounter Store1'),
-            ConnectedCounter()(),
+          Dom.h3()('BigCounter Store2'),
+          BigCounter()(
+            Dom.h4()('Counter Store1'),
+            Counter()(),
           ),
         ),
       ),
@@ -265,10 +267,10 @@ In the case that you need to have multiple stores, here are the steps to do so:
     ```
 1. In the `connect` function wrapping the component, pass in the context instance.
     ```dart
-    UiFactory<BarProps> ConnectedBar = connect<BarState, BarProps>(
+    UiFactory<BarProps> Bar = connect<BarState, BarProps>(
       // ... mapStateToProps
       context: fooContext,
-    )(Bar);
+    )(_$Bar);
     ```
 1. Add an additional `ReduxProvider`, with its `context` prop set to the next Context instance and the `store` prop
 set to your additional store.

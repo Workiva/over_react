@@ -24,9 +24,9 @@ part 'redux_multi_provider.over_react.g.dart';
 ///     )(
 ///       // Note that when being wrapped with `connect`, these components can
 ///       // each reference a context included in `storesByContext`.
-///       ConnectedConnectFluxBigBlock()(),
-///       ConnectedReduxBigBlock()(),
-///       ConnectedShouldNotUpdate()(),
+///       ConnectFluxBigBlock()(),
+///       ReduxBigBlock()(),
+///       ShouldNotUpdate()(),
 ///     ),
 ///     querySelector('#content'));
 /// ```

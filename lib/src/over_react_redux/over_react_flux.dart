@@ -309,16 +309,16 @@ bool _shallowMapEquality(Map a, Map b) => const MapEquality().equals(a, b);
 ///
 /// __Example:__
 /// ```dart
-/// UiFactory<CounterProps> ConnectedCounter = connectFlux<FluxStore, FluxActions, CounterProps>(
+/// UiFactory<CounterProps> Counter = connectFlux<FluxStore, FluxActions, CounterProps>(
 ///     mapStateToProps: (state) => (
 ///       Counter()..count = state.count
 ///     ),
 ///     mapActionsToProps: (actions) => (
 ///       Counter()..increment = actions.incrementAction
 ///     ),
-/// )(Counter);
+/// )(_$Counter);
 ///
-/// // A standard `Counter` component implementation would also be in this file.
+/// // The `Counter` component implementation would also be in this file.
 /// ```
 ///
 /// - [mapStateToProps] is used for selecting the part of the data from the store that the connected
@@ -359,14 +359,16 @@ bool _shallowMapEquality(Map a, Map b) => const MapEquality().equals(a, b);
 /// Store store1 = Store<CounterState>(counterStateReducer, initialState: CounterState(count: 0));
 /// Store store2 = Store<BigCounterState>(bigCounterStateReducer, initialState: BigCounterState(bigCount: 100));
 ///
-/// UiFactory<CounterProps> ConnectedCounter = connectFlux<SmallCounterFluxStore, FluxActions, CounterProps>(
+/// UiFactory<CounterProps> Counter = connectFlux<SmallCounterFluxStore, FluxActions, CounterProps>(
 ///   mapStateToProps: (state) => (Counter()..count = state.count)
-/// )(Counter);
+/// )(_$Counter);
 ///
-/// UiFactory<CounterProps> ConnectedBigCounter = connect<BigCounterFluxStore, FluxActions, CounterProps>(
+/// UiFactory<CounterProps> BigCounter = connect<BigCounterFluxStore, FluxActions, CounterProps>(
 ///   mapStateToProps: (state) => (Counter()..count = state.bigCount),
 ///   context: bigCounterContext,
-/// )(Counter);
+/// )(_$Counter);
+///
+///
 ///
 /// react_dom.render(
 ///   Dom.div()(
@@ -376,10 +378,10 @@ bool _shallowMapEquality(Map a, Map b) => const MapEquality().equals(a, b);
 ///         ..context = bigCounterContext
 ///       )(
 ///         Dom.div()(
-///           Dom.h3()('ConnectedBigCounter Store2'),
-///           ConnectedBigCounter()(
-///             Dom.h4()('ConnectedCounter Store1'),
-///             ConnectedCounter()(),
+///           Dom.h3()('BigCounter Store2'),
+///           BigCounter()(
+///             Dom.h4()('Counter Store1'),
+///             Counter()(),
 ///           ),
 ///         ),
 ///       ),
