@@ -12,7 +12,7 @@ part of 'random_color_redux.dart';
 // Registers component implementation and links type meta to builder factory.
 final $RandomColorReduxComponentFactory = registerComponent2(
   () => _$RandomColorReduxComponent(),
-  builderFactory: RandomColorRedux,
+  builderFactory: _$RandomColorRedux,
   componentClass: RandomColorReduxComponent,
   isWrapper: false,
   parentType: null,

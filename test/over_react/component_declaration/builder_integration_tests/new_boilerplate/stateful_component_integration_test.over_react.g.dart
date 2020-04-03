@@ -14,7 +14,7 @@ part of 'stateful_component_integration_test.dart';
     ' Do not reference it in your code, as it may change at any time.')
 final $StatefulComponentTestComponentFactory = registerComponent2(
   () => _$StatefulComponentTestComponent(),
-  builderFactory: StatefulComponentTest,
+  builderFactory: _$StatefulComponentTest,
   componentClass: StatefulComponentTestComponent,
   isWrapper: false,
   parentType: null,

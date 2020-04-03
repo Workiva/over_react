@@ -12,7 +12,7 @@ part of 'private_props_ddc_bug.dart';
 // Registers component implementation and links type meta to builder factory.
 final $FooComponentFactory = registerComponent2(
   () => _$FooComponent(),
-  builderFactory: Foo,
+  builderFactory: _$Foo,
   componentClass: FooComponent,
   isWrapper: false,
   parentType: null,

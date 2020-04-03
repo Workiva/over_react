@@ -11,12 +11,13 @@ part of 'one_level_wrapper.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $OneLevelWrapperComponentFactory = registerComponent(
-    () => _$OneLevelWrapperComponent(),
-    builderFactory: OneLevelWrapper,
-    componentClass: OneLevelWrapperComponent,
-    isWrapper: true,
-    parentType: null,
-    displayName: 'OneLevelWrapper');
+  () => _$OneLevelWrapperComponent(),
+  builderFactory: _$OneLevelWrapper,
+  componentClass: OneLevelWrapperComponent,
+  isWrapper: true,
+  parentType: null,
+  displayName: 'OneLevelWrapper',
+);
 
 abstract class _$OneLevelWrapperPropsAccessorsMixin
     implements _$OneLevelWrapperProps {

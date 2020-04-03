@@ -12,7 +12,7 @@ part of 'forward_ref_test.dart';
 // Registers component implementation and links type meta to builder factory.
 final $BasicComponentFactory = registerComponent2(
   () => _$BasicComponent(),
-  builderFactory: Basic,
+  builderFactory: _$Basic,
   componentClass: BasicComponent,
   isWrapper: false,
   parentType: null,

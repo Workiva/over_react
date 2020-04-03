@@ -12,7 +12,7 @@ part of 'flawed_component_that_renders_nothing.dart';
 // Registers component implementation and links type meta to builder factory.
 final $FlawedWithNoChildComponentFactory = registerComponent2(
   () => _$FlawedWithNoChildComponent(),
-  builderFactory: FlawedWithNoChild,
+  builderFactory: _$FlawedWithNoChild,
   componentClass: FlawedWithNoChildComponent,
   isWrapper: false,
   parentType: null,

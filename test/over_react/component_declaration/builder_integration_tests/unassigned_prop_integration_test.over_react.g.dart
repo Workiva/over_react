@@ -10,12 +10,14 @@ part of 'unassigned_prop_integration_test.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $FooComponentFactory = registerComponent(() => _$FooComponent(),
-    builderFactory: Foo,
-    componentClass: FooComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'Foo');
+final $FooComponentFactory = registerComponent(
+  () => _$FooComponent(),
+  builderFactory: _$Foo,
+  componentClass: FooComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'Foo',
+);
 
 abstract class _$FooPropsAccessorsMixin implements _$FooProps {
   @override

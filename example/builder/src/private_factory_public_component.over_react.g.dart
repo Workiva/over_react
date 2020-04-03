@@ -14,7 +14,7 @@ part of 'private_factory_public_component.dart';
     ' Do not reference it in your code, as it may change at any time.')
 final $FormActionInputComponentFactory = registerComponent2(
   () => _$FormActionInputComponent(),
-  builderFactory: _FormActionInput,
+  builderFactory: _$_FormActionInput,
   componentClass: FormActionInputComponent,
   isWrapper: false,
   parentType: null,

@@ -12,7 +12,7 @@ part of 'safe_render_manager_helper.dart';
 // Registers component implementation and links type meta to builder factory.
 final $SafeRenderManagerHelperComponentFactory = registerComponent2(
   () => _$SafeRenderManagerHelperComponent(),
-  builderFactory: SafeRenderManagerHelper,
+  builderFactory: _$SafeRenderManagerHelper,
   componentClass: SafeRenderManagerHelperComponent,
   isWrapper: false,
   parentType: null,

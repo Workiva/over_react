@@ -12,7 +12,7 @@ part of 'one_level_wrapper2.dart';
 // Registers component implementation and links type meta to builder factory.
 final $OneLevelWrapper2ComponentFactory = registerComponent2(
   () => _$OneLevelWrapper2Component(),
-  builderFactory: OneLevelWrapper2,
+  builderFactory: _$OneLevelWrapper2,
   componentClass: OneLevelWrapper2Component,
   isWrapper: true,
   parentType: null,

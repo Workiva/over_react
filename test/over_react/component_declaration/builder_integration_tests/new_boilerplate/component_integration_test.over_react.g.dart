@@ -14,7 +14,7 @@ part of 'component_integration_test.dart';
     ' Do not reference it in your code, as it may change at any time.')
 final $ComponentTestComponentFactory = registerComponent2(
   () => _$ComponentTestComponent(),
-  builderFactory: ComponentTest,
+  builderFactory: _$ComponentTest,
   componentClass: ComponentTestComponent,
   isWrapper: false,
   parentType: null,
@@ -287,7 +287,7 @@ const PropsMeta _$metaForComponentTestProps = PropsMeta(
     ' Do not reference it in your code, as it may change at any time.')
 final $IsErrorBoundaryComponentFactory = registerComponent2(
   () => _$IsErrorBoundaryComponent(),
-  builderFactory: IsErrorBoundary,
+  builderFactory: _$IsErrorBoundary,
   componentClass: IsErrorBoundaryComponent,
   isWrapper: false,
   parentType: null,
@@ -447,7 +447,7 @@ const PropsMeta _$metaForIsErrorBoundaryProps = PropsMeta(
     ' Do not reference it in your code, as it may change at any time.')
 final $IsNotErrorBoundaryComponentFactory = registerComponent2(
   () => _$IsNotErrorBoundaryComponent(),
-  builderFactory: IsNotErrorBoundary,
+  builderFactory: _$IsNotErrorBoundary,
   componentClass: IsNotErrorBoundaryComponent,
   isWrapper: false,
   parentType: null,

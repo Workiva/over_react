@@ -11,12 +11,13 @@ part of 'basic_ui_component.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $BasicUiComponentComponentFactory = registerComponent(
-    () => _$BasicUiComponentComponent(),
-    builderFactory: BasicUiComponent,
-    componentClass: BasicUiComponentComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'BasicUiComponent');
+  () => _$BasicUiComponentComponent(),
+  builderFactory: _$BasicUiComponent,
+  componentClass: BasicUiComponentComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'BasicUiComponent',
+);
 
 abstract class _$BasicUiComponentPropsAccessorsMixin
     implements _$BasicUiComponentProps {

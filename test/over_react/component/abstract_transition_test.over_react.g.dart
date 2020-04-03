@@ -11,12 +11,13 @@ part of 'abstract_transition_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TransitionerComponentFactory = registerComponent(
-    () => _$TransitionerComponent(),
-    builderFactory: Transitioner,
-    componentClass: TransitionerComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'Transitioner');
+  () => _$TransitionerComponent(),
+  builderFactory: _$Transitioner,
+  componentClass: TransitionerComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'Transitioner',
+);
 
 abstract class _$TransitionerPropsAccessorsMixin
     implements _$TransitionerProps {

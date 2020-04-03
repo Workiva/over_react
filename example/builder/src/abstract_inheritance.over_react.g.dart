@@ -14,7 +14,7 @@ part of 'abstract_inheritance.dart';
     ' Do not reference it in your code, as it may change at any time.')
 final $SubComponentFactory = registerComponent2(
   () => _$SubComponent(),
-  builderFactory: Sub,
+  builderFactory: _$Sub,
   componentClass: SubComponent,
   isWrapper: false,
   parentType: null,

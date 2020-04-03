@@ -12,7 +12,7 @@ part of 'little_block.dart';
 // Registers component implementation and links type meta to builder factory.
 final $LittleBlockComponentFactory = registerComponent2(
   () => _$LittleBlockComponent(),
-  builderFactory: LittleBlock,
+  builderFactory: _$LittleBlock,
   componentClass: LittleBlockComponent,
   isWrapper: false,
   parentType: null,

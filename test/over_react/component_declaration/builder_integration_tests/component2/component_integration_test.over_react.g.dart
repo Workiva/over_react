@@ -12,7 +12,7 @@ part of 'component_integration_test.dart';
 // Registers component implementation and links type meta to builder factory.
 final $ComponentTestComponentFactory = registerComponent2(
   () => _$ComponentTestComponent(),
-  builderFactory: ComponentTest,
+  builderFactory: _$ComponentTest,
   componentClass: ComponentTestComponent,
   isWrapper: false,
   parentType: null,
@@ -294,7 +294,7 @@ class _$ComponentTestComponent extends ComponentTestComponent {
 // Registers component implementation and links type meta to builder factory.
 final $IsErrorBoundaryComponentFactory = registerComponent2(
   () => _$IsErrorBoundaryComponent(),
-  builderFactory: IsErrorBoundary,
+  builderFactory: _$IsErrorBoundary,
   componentClass: IsErrorBoundaryComponent,
   isWrapper: false,
   parentType: null,
@@ -439,7 +439,7 @@ class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
 // Registers component implementation and links type meta to builder factory.
 final $IsNotErrorBoundaryComponentFactory = registerComponent2(
   () => _$IsNotErrorBoundaryComponent(),
-  builderFactory: IsNotErrorBoundary,
+  builderFactory: _$IsNotErrorBoundary,
   componentClass: IsNotErrorBoundaryComponent,
   isWrapper: false,
   parentType: null,

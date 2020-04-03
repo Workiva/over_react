@@ -14,7 +14,7 @@ part of 'generic_inheritance_super.dart';
     ' Do not reference it in your code, as it may change at any time.')
 final $GenericSuperComponentFactory = registerComponent2(
   () => _$GenericSuperComponent(),
-  builderFactory: GenericSuper,
+  builderFactory: _$GenericSuper,
   componentClass: GenericSuperComponent,
   isWrapper: false,
   parentType: null,

@@ -12,7 +12,7 @@ part of 'toggle_button.dart';
 // Registers component implementation and links type meta to builder factory.
 final $ToggleButtonComponentFactory = registerComponent2(
   () => _$ToggleButtonComponent(),
-  builderFactory: ToggleButton,
+  builderFactory: _$ToggleButton,
   componentClass: ToggleButtonComponent,
   isWrapper: false,
   parentType: $ButtonComponentFactory,

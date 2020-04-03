@@ -12,7 +12,7 @@ part of 'error_boundary.dart';
 // Registers component implementation and links type meta to builder factory.
 final $ErrorBoundaryComponentFactory = registerComponent2(
   () => _$ErrorBoundaryComponent(),
-  builderFactory: ErrorBoundary,
+  builderFactory: _$ErrorBoundary,
   componentClass: ErrorBoundaryComponent,
   isWrapper: true,
   parentType: null,

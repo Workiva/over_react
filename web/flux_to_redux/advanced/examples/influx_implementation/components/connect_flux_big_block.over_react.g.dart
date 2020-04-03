@@ -12,7 +12,7 @@ part of 'connect_flux_big_block.dart';
 // Registers component implementation and links type meta to builder factory.
 final $ConnectFluxBigBlockComponentFactory = registerComponent2(
   () => _$ConnectFluxBigBlockComponent(),
-  builderFactory: ConnectFluxBigBlock,
+  builderFactory: _$ConnectFluxBigBlock,
   componentClass: ConnectFluxBigBlockComponent,
   isWrapper: false,
   parentType: null,

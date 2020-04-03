@@ -12,7 +12,7 @@ part of 'error_boundary_recoverable.dart';
 // Registers component implementation and links type meta to builder factory.
 final $RecoverableErrorBoundaryComponentFactory = registerComponent2(
   () => _$RecoverableErrorBoundaryComponent(),
-  builderFactory: RecoverableErrorBoundary,
+  builderFactory: _$RecoverableErrorBoundary,
   componentClass: RecoverableErrorBoundaryComponent,
   isWrapper: true,
   parentType: null,

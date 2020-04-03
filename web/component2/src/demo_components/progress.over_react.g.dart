@@ -12,7 +12,7 @@ part of 'progress.dart';
 // Registers component implementation and links type meta to builder factory.
 final $ProgressComponentFactory = registerComponent2(
   () => _$ProgressComponent(),
-  builderFactory: Progress,
+  builderFactory: _$Progress,
   componentClass: ProgressComponent,
   isWrapper: false,
   parentType: null,

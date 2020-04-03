@@ -10,12 +10,14 @@ part of 'tag.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $TagComponentFactory = registerComponent(() => _$TagComponent(),
-    builderFactory: Tag,
-    componentClass: TagComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'Tag');
+final $TagComponentFactory = registerComponent(
+  () => _$TagComponent(),
+  builderFactory: _$Tag,
+  componentClass: TagComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'Tag',
+);
 
 abstract class _$TagPropsAccessorsMixin implements _$TagProps {
   @override

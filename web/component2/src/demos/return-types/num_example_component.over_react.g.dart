@@ -12,7 +12,7 @@ part of 'num_example_component.dart';
 // Registers component implementation and links type meta to builder factory.
 final $NumExampleComponentFactory = registerComponent2(
   () => _$NumExampleComponent(),
-  builderFactory: NumExample,
+  builderFactory: _$NumExample,
   componentClass: NumExampleComponent,
   isWrapper: false,
   parentType: null,

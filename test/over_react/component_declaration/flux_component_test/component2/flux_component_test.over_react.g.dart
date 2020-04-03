@@ -12,7 +12,7 @@ part of 'flux_component_test.dart';
 // Registers component implementation and links type meta to builder factory.
 final $TestBasicComponentFactory = registerComponent2(
   () => _$TestBasicComponent(),
-  builderFactory: TestBasic,
+  builderFactory: _$TestBasic,
   componentClass: TestBasicComponent,
   isWrapper: false,
   parentType: null,
@@ -154,7 +154,7 @@ class _$TestBasicComponent extends TestBasicComponent {
 // Registers component implementation and links type meta to builder factory.
 final $TestHandlerLifecycleComponentFactory = registerComponent2(
   () => _$TestHandlerLifecycleComponent(),
-  builderFactory: TestHandlerLifecycle,
+  builderFactory: _$TestHandlerLifecycle,
   componentClass: TestHandlerLifecycleComponent,
   isWrapper: false,
   parentType: null,
@@ -300,7 +300,7 @@ class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
 // Registers component implementation and links type meta to builder factory.
 final $TestHandlerPrecedenceComponentFactory = registerComponent2(
   () => _$TestHandlerPrecedenceComponent(),
-  builderFactory: TestHandlerPrecedence,
+  builderFactory: _$TestHandlerPrecedence,
   componentClass: TestHandlerPrecedenceComponent,
   isWrapper: false,
   parentType: null,
@@ -448,7 +448,7 @@ class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
 // Registers component implementation and links type meta to builder factory.
 final $TestPropValidationComponentFactory = registerComponent2(
   () => _$TestPropValidationComponent(),
-  builderFactory: TestPropValidation,
+  builderFactory: _$TestPropValidation,
   componentClass: TestPropValidationComponent,
   isWrapper: false,
   parentType: null,
@@ -613,7 +613,7 @@ class _$TestPropValidationComponent extends TestPropValidationComponent {
 // Registers component implementation and links type meta to builder factory.
 final $TestRedrawOnComponentFactory = registerComponent2(
   () => _$TestRedrawOnComponent(),
-  builderFactory: TestRedrawOn,
+  builderFactory: _$TestRedrawOn,
   componentClass: TestRedrawOnComponent,
   isWrapper: false,
   parentType: null,
@@ -756,7 +756,7 @@ class _$TestRedrawOnComponent extends TestRedrawOnComponent {
 // Registers component implementation and links type meta to builder factory.
 final $TestStoreHandlersComponentFactory = registerComponent2(
   () => _$TestStoreHandlersComponent(),
-  builderFactory: TestStoreHandlers,
+  builderFactory: _$TestStoreHandlers,
   componentClass: TestStoreHandlersComponent,
   isWrapper: false,
   parentType: null,
@@ -900,7 +900,7 @@ class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulBasicComponentFactory = registerComponent2(
   () => _$TestStatefulBasicComponent(),
-  builderFactory: TestStatefulBasic,
+  builderFactory: _$TestStatefulBasic,
   componentClass: TestStatefulBasicComponent,
   isWrapper: false,
   parentType: null,
@@ -1141,7 +1141,7 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulHandlerLifecycleComponentFactory = registerComponent2(
   () => _$TestStatefulHandlerLifecycleComponent(),
-  builderFactory: TestStatefulHandlerLifecycle,
+  builderFactory: _$TestStatefulHandlerLifecycle,
   componentClass: TestStatefulHandlerLifecycleComponent,
   isWrapper: false,
   parentType: null,
@@ -1394,7 +1394,7 @@ class _$TestStatefulHandlerLifecycleComponent
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulHandlerPrecedenceComponentFactory = registerComponent2(
   () => _$TestStatefulHandlerPrecedenceComponent(),
-  builderFactory: TestStatefulHandlerPrecedence,
+  builderFactory: _$TestStatefulHandlerPrecedence,
   componentClass: TestStatefulHandlerPrecedenceComponent,
   isWrapper: false,
   parentType: null,
@@ -1647,7 +1647,7 @@ class _$TestStatefulHandlerPrecedenceComponent
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulPropValidationComponentFactory = registerComponent2(
   () => _$TestStatefulPropValidationComponent(),
-  builderFactory: TestStatefulPropValidation,
+  builderFactory: _$TestStatefulPropValidation,
   componentClass: TestStatefulPropValidationComponent,
   isWrapper: false,
   parentType: null,
@@ -1921,7 +1921,7 @@ class _$TestStatefulPropValidationComponent
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulRedrawOnComponentFactory = registerComponent2(
   () => _$TestStatefulRedrawOnComponent(),
-  builderFactory: TestStatefulRedrawOn,
+  builderFactory: _$TestStatefulRedrawOn,
   componentClass: TestStatefulRedrawOnComponent,
   isWrapper: false,
   parentType: null,
@@ -2166,7 +2166,7 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulStoreHandlersComponentFactory = registerComponent2(
   () => _$TestStatefulStoreHandlersComponent(),
-  builderFactory: TestStatefulStoreHandlers,
+  builderFactory: _$TestStatefulStoreHandlers,
   componentClass: TestStatefulStoreHandlersComponent,
   isWrapper: false,
   parentType: null,

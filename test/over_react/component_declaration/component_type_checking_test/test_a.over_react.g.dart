@@ -10,12 +10,14 @@ part of 'test_a.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $TestAComponentFactory = registerComponent(() => _$TestAComponent(),
-    builderFactory: TestA,
-    componentClass: TestAComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestA');
+final $TestAComponentFactory = registerComponent(
+  () => _$TestAComponent(),
+  builderFactory: _$TestA,
+  componentClass: TestAComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestA',
+);
 
 abstract class _$TestAPropsAccessorsMixin implements _$TestAProps {
   @override

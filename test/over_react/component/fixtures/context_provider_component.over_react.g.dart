@@ -12,7 +12,7 @@ part of 'context_provider_component.dart';
 // Registers component implementation and links type meta to builder factory.
 final $ContextProviderWrapperComponentFactory = registerComponent2(
   () => _$ContextProviderWrapperComponent(),
-  builderFactory: ContextProviderWrapper,
+  builderFactory: _$ContextProviderWrapper,
   componentClass: ContextProviderWrapperComponent,
   isWrapper: false,
   parentType: null,

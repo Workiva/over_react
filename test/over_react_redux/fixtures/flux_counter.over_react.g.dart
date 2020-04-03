@@ -12,7 +12,7 @@ part of 'flux_counter.dart';
 // Registers component implementation and links type meta to builder factory.
 final $FluxCounterComponentFactory = registerComponent2(
   () => _$FluxCounterComponent(),
-  builderFactory: FluxCounter,
+  builderFactory: _$FluxCounter,
   componentClass: FluxCounterComponent,
   isWrapper: false,
   parentType: null,

@@ -12,7 +12,7 @@ part of 'string_example_component.dart';
 // Registers component implementation and links type meta to builder factory.
 final $StringExampleComponentFactory = registerComponent2(
   () => _$StringExampleComponent(),
-  builderFactory: StringExample,
+  builderFactory: _$StringExample,
   componentClass: StringExampleComponent,
   isWrapper: false,
   parentType: null,

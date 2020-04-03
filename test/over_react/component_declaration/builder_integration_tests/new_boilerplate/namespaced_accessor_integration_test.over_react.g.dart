@@ -14,7 +14,7 @@ part of 'namespaced_accessor_integration_test.dart';
     ' Do not reference it in your code, as it may change at any time.')
 final $NamespacedAccessorTestComponentFactory = registerComponent2(
   () => _$NamespacedAccessorTestComponent(),
-  builderFactory: NamespacedAccessorTest,
+  builderFactory: _$NamespacedAccessorTest,
   componentClass: NamespacedAccessorTestComponent,
   isWrapper: false,
   parentType: null,

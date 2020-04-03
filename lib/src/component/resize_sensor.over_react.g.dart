@@ -12,7 +12,7 @@ part of 'resize_sensor.dart';
 // Registers component implementation and links type meta to builder factory.
 final $ResizeSensorComponentFactory = registerComponent2(
   () => _$ResizeSensorComponent(),
-  builderFactory: ResizeSensor,
+  builderFactory: _$ResizeSensor,
   componentClass: ResizeSensorComponent,
   isWrapper: false,
   parentType: null,

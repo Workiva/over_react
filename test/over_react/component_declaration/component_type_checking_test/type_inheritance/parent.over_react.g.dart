@@ -11,12 +11,13 @@ part of 'parent.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestParentComponentFactory = registerComponent(
-    () => _$TestParentComponent(),
-    builderFactory: TestParent,
-    componentClass: TestParentComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestParent');
+  () => _$TestParentComponent(),
+  builderFactory: _$TestParent,
+  componentClass: TestParentComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestParent',
+);
 
 abstract class _$TestParentPropsAccessorsMixin implements _$TestParentProps {
   @override

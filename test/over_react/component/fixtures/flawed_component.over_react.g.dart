@@ -12,7 +12,7 @@ part of 'flawed_component.dart';
 // Registers component implementation and links type meta to builder factory.
 final $FlawedComponentFactory = registerComponent2(
   () => _$FlawedComponent(),
-  builderFactory: Flawed,
+  builderFactory: _$Flawed,
   componentClass: FlawedComponent,
   isWrapper: false,
   parentType: null,

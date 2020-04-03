@@ -11,12 +11,13 @@ part of 'dummy_composite_component.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestCompositeComponentComponentFactory = registerComponent(
-    () => _$TestCompositeComponentComponent(),
-    builderFactory: TestCompositeComponent,
-    componentClass: TestCompositeComponentComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestCompositeComponent');
+  () => _$TestCompositeComponentComponent(),
+  builderFactory: _$TestCompositeComponent,
+  componentClass: TestCompositeComponentComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestCompositeComponent',
+);
 
 abstract class _$TestCompositeComponentPropsAccessorsMixin
     implements _$TestCompositeComponentProps {

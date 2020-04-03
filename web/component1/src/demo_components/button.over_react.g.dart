@@ -10,12 +10,14 @@ part of 'button.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $ButtonComponentFactory = registerComponent(() => _$ButtonComponent(),
-    builderFactory: Button,
-    componentClass: ButtonComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'Button');
+final $ButtonComponentFactory = registerComponent(
+  () => _$ButtonComponent(),
+  builderFactory: _$Button,
+  componentClass: ButtonComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'Button',
+);
 
 abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   @override

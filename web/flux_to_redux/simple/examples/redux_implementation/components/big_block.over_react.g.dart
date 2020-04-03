@@ -12,7 +12,7 @@ part of 'big_block.dart';
 // Registers component implementation and links type meta to builder factory.
 final $BigBlockComponentFactory = registerComponent2(
   () => _$BigBlockComponent(),
-  builderFactory: BigBlock,
+  builderFactory: _$BigBlock,
   componentClass: BigBlockComponent,
   isWrapper: false,
   parentType: null,

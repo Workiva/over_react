@@ -12,7 +12,7 @@ part of 'flawed_component_that_renders_a_string.dart';
 // Registers component implementation and links type meta to builder factory.
 final $FlawedWithStringChildComponentFactory = registerComponent2(
   () => _$FlawedWithStringChildComponent(),
-  builderFactory: FlawedWithStringChild,
+  builderFactory: _$FlawedWithStringChild,
   componentClass: FlawedWithStringChildComponent,
   isWrapper: false,
   parentType: null,

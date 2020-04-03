@@ -12,7 +12,7 @@ part of 'extendedtype2.dart';
 // Registers component implementation and links type meta to builder factory.
 final $TestExtendtype2ComponentFactory = registerComponent2(
   () => _$TestExtendtype2Component(),
-  builderFactory: TestExtendtype2,
+  builderFactory: _$TestExtendtype2,
   componentClass: TestExtendtype2Component,
   isWrapper: false,
   parentType: $TestAbstract2ComponentFactory,

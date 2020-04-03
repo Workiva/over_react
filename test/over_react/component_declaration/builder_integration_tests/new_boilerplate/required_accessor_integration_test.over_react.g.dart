@@ -14,7 +14,7 @@ part of 'required_accessor_integration_test.dart';
     ' Do not reference it in your code, as it may change at any time.')
 final $ComponentTestComponentFactory = registerComponent2(
   () => _$ComponentTestComponent(),
-  builderFactory: ComponentTest,
+  builderFactory: _$ComponentTest,
   componentClass: ComponentTestComponent,
   isWrapper: false,
   parentType: null,

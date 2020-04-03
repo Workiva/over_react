@@ -14,7 +14,7 @@ part of 'props_meta_test.dart';
     ' Do not reference it in your code, as it may change at any time.')
 final $TestComponentFactory = registerComponent2(
   () => _$TestComponent(),
-  builderFactory: Test,
+  builderFactory: _$Test,
   componentClass: TestComponent,
   isWrapper: false,
   parentType: null,
