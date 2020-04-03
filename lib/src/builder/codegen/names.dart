@@ -43,9 +43,6 @@ class FactoryNames {
   ///
   /// - Input: `Foo`
   /// - Output: `_$Foo`
-  ///
-  /// NOTE: The factory name must be public, since sub components will reference
-  /// factories from super components.
   String get implName => '$_prefix$privateSourcePrefix${unprefixedConsumerName}';
 }
 
