@@ -368,8 +368,6 @@ bool _shallowMapEquality(Map a, Map b) => const MapEquality().equals(a, b);
 ///   context: bigCounterContext,
 /// )(_$Counter);
 ///
-///
-///
 /// react_dom.render(
 ///   Dom.div()(
 ///     (ReduxProvider()..store = store1)(

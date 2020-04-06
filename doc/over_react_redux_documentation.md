@@ -107,8 +107,6 @@ ways to do this.
         ...
     )(_$Foo);
 
-    UiFactory<FooProps> Foo = ;
-
     // Use the ConnectPropsMixin to gain access to React Redux's dispatch function, which can be accessed via
     // props.dispatch.
     mixin FooPropsMixin on UiProps {

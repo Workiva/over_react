@@ -60,14 +60,14 @@ typedef dynamic Dispatcher(dynamic action);
 ///
 /// __Example:__
 /// ```dart
-///     UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
-///       mapStateToProps: (state) => (Counter()
-///         ..count = state.count
-///       ),
-///       mapDispatchToProps: (dispatch) => (Counter()
-///         ..increment = (() => dispatch(INCREMENT_ACTION()))
-///       ),
-///     )(_$Counter);
+/// UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
+///   mapStateToProps: (state) => (Counter()
+///     ..count = state.count
+///   ),
+///   mapDispatchToProps: (dispatch) => (Counter()
+///     ..increment = (() => dispatch(INCREMENT_ACTION()))
+///   ),
+/// )(_$Counter);
 /// ```
 ///
 /// - [mapStateToProps] is used for selecting the part of the data from the store that the connected
@@ -101,8 +101,8 @@ typedef dynamic Dispatcher(dynamic action);
 ///
 /// __Example:__
 /// ```dart
-///     Store store1 = new Store<CounterState>(counterStateReducer, initialState: new CounterState(count: 0));
-///     Store store2 = new Store<BigCounterState>(bigCounterStateReducer, initialState: new BigCounterState(bigCount: 100));
+///     Store store1 = Store<CounterState>(counterStateReducer, initialState: new CounterState(count: 0));
+///     Store store2 = Store<BigCounterState>(bigCounterStateReducer, initialState: new BigCounterState(bigCount: 100));
 ///
 ///     UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
 ///       mapStateToProps: (state) => (Counter()..count = state.count)
