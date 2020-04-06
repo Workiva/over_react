@@ -12,7 +12,7 @@ part of 'button.dart';
 // Registers component implementation and links type meta to builder factory.
 final $ButtonComponentFactory = registerComponent2(
   () => _$ButtonComponent(),
-  builderFactory: Button,
+  builderFactory: _$Button,
   componentClass: ButtonComponent,
   isWrapper: false,
   parentType: null,

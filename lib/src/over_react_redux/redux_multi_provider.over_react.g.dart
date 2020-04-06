@@ -12,7 +12,7 @@ part of 'redux_multi_provider.dart';
 // Registers component implementation and links type meta to builder factory.
 final $ReduxMultiProviderComponentFactory = registerComponent2(
   () => _$ReduxMultiProviderComponent(),
-  builderFactory: ReduxMultiProvider,
+  builderFactory: _$ReduxMultiProvider,
   componentClass: ReduxMultiProviderComponent,
   isWrapper: false,
   parentType: null,

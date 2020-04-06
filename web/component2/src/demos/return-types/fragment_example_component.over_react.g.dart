@@ -12,7 +12,7 @@ part of 'fragment_example_component.dart';
 // Registers component implementation and links type meta to builder factory.
 final $FragmentExampleComponentFactory = registerComponent2(
   () => _$FragmentExampleComponent(),
-  builderFactory: FragmentExample,
+  builderFactory: _$FragmentExample,
   componentClass: FragmentExampleComponent,
   isWrapper: false,
   parentType: null,

@@ -12,7 +12,7 @@ part of 'redux_big_block.dart';
 // Registers component implementation and links type meta to builder factory.
 final $ReduxBigBlockComponentFactory = registerComponent2(
   () => _$ReduxBigBlockComponent(),
-  builderFactory: ReduxBigBlock,
+  builderFactory: _$ReduxBigBlock,
   componentClass: ReduxBigBlockComponent,
   isWrapper: false,
   parentType: null,

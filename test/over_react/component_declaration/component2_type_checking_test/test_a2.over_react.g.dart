@@ -12,7 +12,7 @@ part of 'test_a2.dart';
 // Registers component implementation and links type meta to builder factory.
 final $TestA2ComponentFactory = registerComponent2(
   () => _$TestA2Component(),
-  builderFactory: TestA2,
+  builderFactory: _$TestA2,
   componentClass: TestA2Component,
   isWrapper: false,
   parentType: null,

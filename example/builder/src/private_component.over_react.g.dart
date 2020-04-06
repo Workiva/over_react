@@ -14,7 +14,7 @@ part of 'private_component.dart';
     ' Do not reference it in your code, as it may change at any time.')
 final $PrivateComponentFactory = registerComponent2(
   () => _$PrivateComponent(),
-  builderFactory: _Private,
+  builderFactory: _$_Private,
   componentClass: PrivateComponent,
   isWrapper: false,
   parentType: null,

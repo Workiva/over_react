@@ -12,7 +12,7 @@ part of 'dummy_component2.dart';
 // Registers component implementation and links type meta to builder factory.
 final $_Dummy2ComponentFactory = registerComponent2(
   () => _$_Dummy2Component(),
-  builderFactory: _Dummy2,
+  builderFactory: _$_Dummy2,
   componentClass: _Dummy2Component,
   isWrapper: false,
   parentType: null,

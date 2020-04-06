@@ -14,7 +14,7 @@ part of 'do_not_generate_accessor_integration_test.dart';
     ' Do not reference it in your code, as it may change at any time.')
 final $DoNotGenerateAccessorTestComponentFactory = registerComponent2(
   () => _$DoNotGenerateAccessorTestComponent(),
-  builderFactory: DoNotGenerateAccessorTest,
+  builderFactory: _$DoNotGenerateAccessorTest,
   componentClass: DoNotGenerateAccessorTestComponent,
   isWrapper: false,
   parentType: null,

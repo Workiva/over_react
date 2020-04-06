@@ -152,7 +152,7 @@ abstract class TestAbstractCustomRendererComponentState
 final $TestConsumingAbstractCustomRendererComponentComponentFactory =
     registerComponent2(
   () => _$TestConsumingAbstractCustomRendererComponentComponent(),
-  builderFactory: TestConsumingAbstractCustomRendererComponent,
+  builderFactory: _$TestConsumingAbstractCustomRendererComponent,
   componentClass: TestConsumingAbstractCustomRendererComponentComponent,
   isWrapper: false,
   parentType: null,
@@ -361,7 +361,7 @@ class _$TestConsumingAbstractCustomRendererComponentComponent
 final $TestConsumingCustomRendererComponentComponentFactory =
     registerComponent2(
   () => _$TestConsumingCustomRendererComponentComponent(),
-  builderFactory: TestConsumingCustomRendererComponent,
+  builderFactory: _$TestConsumingCustomRendererComponent,
   componentClass: TestConsumingCustomRendererComponentComponent,
   isWrapper: false,
   parentType: null,
@@ -560,7 +560,7 @@ class _$TestConsumingCustomRendererComponentComponent
 final $TestCustomRendererFromAbstractComponentComponentFactory =
     registerComponent2(
   () => _$TestCustomRendererFromAbstractComponentComponent(),
-  builderFactory: TestCustomRendererFromAbstractComponent,
+  builderFactory: _$TestCustomRendererFromAbstractComponent,
   componentClass: TestCustomRendererFromAbstractComponentComponent,
   isWrapper: false,
   parentType: null,
@@ -848,7 +848,7 @@ class _$TestCustomRendererFromAbstractComponentComponent
 // Registers component implementation and links type meta to builder factory.
 final $TestCustomRendererComponentComponentFactory = registerComponent2(
   () => _$TestCustomRendererComponentComponent(),
-  builderFactory: TestCustomRendererComponent,
+  builderFactory: _$TestCustomRendererComponent,
   componentClass: TestCustomRendererComponentComponent,
   isWrapper: false,
   parentType: null,

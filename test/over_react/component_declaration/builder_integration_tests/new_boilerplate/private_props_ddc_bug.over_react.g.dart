@@ -14,7 +14,7 @@ part of 'private_props_ddc_bug.dart';
     ' Do not reference it in your code, as it may change at any time.')
 final $FooComponentFactory = registerComponent2(
   () => _$FooComponent(),
-  builderFactory: Foo,
+  builderFactory: _$Foo,
   componentClass: FooComponent,
   isWrapper: false,
   parentType: null,

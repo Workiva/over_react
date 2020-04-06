@@ -12,7 +12,7 @@ part of 'counter.dart';
 // Registers component implementation and links type meta to builder factory.
 final $CounterComponentFactory = registerComponent2(
   () => _$CounterComponent(),
-  builderFactory: Counter,
+  builderFactory: _$Counter,
   componentClass: CounterComponent,
   isWrapper: false,
   parentType: null,

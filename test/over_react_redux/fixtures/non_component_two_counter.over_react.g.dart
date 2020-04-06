@@ -11,12 +11,13 @@ part of 'non_component_two_counter.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $NonComponentTwoCounterComponentFactory = registerComponent(
-    () => _$NonComponentTwoCounterComponent(),
-    builderFactory: NonComponentTwoCounter,
-    componentClass: NonComponentTwoCounterComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'NonComponentTwoCounter');
+  () => _$NonComponentTwoCounterComponent(),
+  builderFactory: _$NonComponentTwoCounter,
+  componentClass: NonComponentTwoCounterComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'NonComponentTwoCounter',
+);
 
 abstract class _$NonComponentTwoCounterPropsAccessorsMixin
     implements _$NonComponentTwoCounterProps {

@@ -11,12 +11,13 @@ part of 'flux_component_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestBasicComponentFactory = registerComponent(
-    () => _$TestBasicComponent(),
-    builderFactory: TestBasic,
-    componentClass: TestBasicComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestBasic');
+  () => _$TestBasicComponent(),
+  builderFactory: _$TestBasic,
+  componentClass: TestBasicComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestBasic',
+);
 
 abstract class _$TestBasicPropsAccessorsMixin implements _$TestBasicProps {
   @override
@@ -97,12 +98,13 @@ class _$TestBasicComponent extends TestBasicComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestHandlerLifecycleComponentFactory = registerComponent(
-    () => _$TestHandlerLifecycleComponent(),
-    builderFactory: TestHandlerLifecycle,
-    componentClass: TestHandlerLifecycleComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestHandlerLifecycle');
+  () => _$TestHandlerLifecycleComponent(),
+  builderFactory: _$TestHandlerLifecycle,
+  componentClass: TestHandlerLifecycleComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestHandlerLifecycle',
+);
 
 abstract class _$TestHandlerLifecyclePropsAccessorsMixin
     implements _$TestHandlerLifecycleProps {
@@ -184,12 +186,13 @@ class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestHandlerPrecedenceComponentFactory = registerComponent(
-    () => _$TestHandlerPrecedenceComponent(),
-    builderFactory: TestHandlerPrecedence,
-    componentClass: TestHandlerPrecedenceComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestHandlerPrecedence');
+  () => _$TestHandlerPrecedenceComponent(),
+  builderFactory: _$TestHandlerPrecedence,
+  componentClass: TestHandlerPrecedenceComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestHandlerPrecedence',
+);
 
 abstract class _$TestHandlerPrecedencePropsAccessorsMixin
     implements _$TestHandlerPrecedenceProps {
@@ -271,12 +274,13 @@ class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestPropValidationComponentFactory = registerComponent(
-    () => _$TestPropValidationComponent(),
-    builderFactory: TestPropValidation,
-    componentClass: TestPropValidationComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestPropValidation');
+  () => _$TestPropValidationComponent(),
+  builderFactory: _$TestPropValidation,
+  componentClass: TestPropValidationComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestPropValidation',
+);
 
 abstract class _$TestPropValidationPropsAccessorsMixin
     implements _$TestPropValidationProps {
@@ -378,12 +382,13 @@ class _$TestPropValidationComponent extends TestPropValidationComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestRedrawOnComponentFactory = registerComponent(
-    () => _$TestRedrawOnComponent(),
-    builderFactory: TestRedrawOn,
-    componentClass: TestRedrawOnComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestRedrawOn');
+  () => _$TestRedrawOnComponent(),
+  builderFactory: _$TestRedrawOn,
+  componentClass: TestRedrawOnComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestRedrawOn',
+);
 
 abstract class _$TestRedrawOnPropsAccessorsMixin
     implements _$TestRedrawOnProps {
@@ -465,12 +470,13 @@ class _$TestRedrawOnComponent extends TestRedrawOnComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStoreHandlersComponentFactory = registerComponent(
-    () => _$TestStoreHandlersComponent(),
-    builderFactory: TestStoreHandlers,
-    componentClass: TestStoreHandlersComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestStoreHandlers');
+  () => _$TestStoreHandlersComponent(),
+  builderFactory: _$TestStoreHandlers,
+  componentClass: TestStoreHandlersComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestStoreHandlers',
+);
 
 abstract class _$TestStoreHandlersPropsAccessorsMixin
     implements _$TestStoreHandlersProps {
@@ -552,12 +558,13 @@ class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulBasicComponentFactory = registerComponent(
-    () => _$TestStatefulBasicComponent(),
-    builderFactory: TestStatefulBasic,
-    componentClass: TestStatefulBasicComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestStatefulBasic');
+  () => _$TestStatefulBasicComponent(),
+  builderFactory: _$TestStatefulBasic,
+  componentClass: TestStatefulBasicComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestStatefulBasic',
+);
 
 abstract class _$TestStatefulBasicPropsAccessorsMixin
     implements _$TestStatefulBasicProps {
@@ -686,12 +693,13 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulHandlerLifecycleComponentFactory = registerComponent(
-    () => _$TestStatefulHandlerLifecycleComponent(),
-    builderFactory: TestStatefulHandlerLifecycle,
-    componentClass: TestStatefulHandlerLifecycleComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestStatefulHandlerLifecycle');
+  () => _$TestStatefulHandlerLifecycleComponent(),
+  builderFactory: _$TestStatefulHandlerLifecycle,
+  componentClass: TestStatefulHandlerLifecycleComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestStatefulHandlerLifecycle',
+);
 
 abstract class _$TestStatefulHandlerLifecyclePropsAccessorsMixin
     implements _$TestStatefulHandlerLifecycleProps {
@@ -826,12 +834,13 @@ class _$TestStatefulHandlerLifecycleComponent
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulHandlerPrecedenceComponentFactory = registerComponent(
-    () => _$TestStatefulHandlerPrecedenceComponent(),
-    builderFactory: TestStatefulHandlerPrecedence,
-    componentClass: TestStatefulHandlerPrecedenceComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestStatefulHandlerPrecedence');
+  () => _$TestStatefulHandlerPrecedenceComponent(),
+  builderFactory: _$TestStatefulHandlerPrecedence,
+  componentClass: TestStatefulHandlerPrecedenceComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestStatefulHandlerPrecedence',
+);
 
 abstract class _$TestStatefulHandlerPrecedencePropsAccessorsMixin
     implements _$TestStatefulHandlerPrecedenceProps {
@@ -966,12 +975,13 @@ class _$TestStatefulHandlerPrecedenceComponent
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulPropValidationComponentFactory = registerComponent(
-    () => _$TestStatefulPropValidationComponent(),
-    builderFactory: TestStatefulPropValidation,
-    componentClass: TestStatefulPropValidationComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestStatefulPropValidation');
+  () => _$TestStatefulPropValidationComponent(),
+  builderFactory: _$TestStatefulPropValidation,
+  componentClass: TestStatefulPropValidationComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestStatefulPropValidation',
+);
 
 abstract class _$TestStatefulPropValidationPropsAccessorsMixin
     implements _$TestStatefulPropValidationProps {
@@ -1127,12 +1137,13 @@ class _$TestStatefulPropValidationComponent
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulRedrawOnComponentFactory = registerComponent(
-    () => _$TestStatefulRedrawOnComponent(),
-    builderFactory: TestStatefulRedrawOn,
-    componentClass: TestStatefulRedrawOnComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestStatefulRedrawOn');
+  () => _$TestStatefulRedrawOnComponent(),
+  builderFactory: _$TestStatefulRedrawOn,
+  componentClass: TestStatefulRedrawOnComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestStatefulRedrawOn',
+);
 
 abstract class _$TestStatefulRedrawOnPropsAccessorsMixin
     implements _$TestStatefulRedrawOnProps {
@@ -1261,12 +1272,13 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestStatefulStoreHandlersComponentFactory = registerComponent(
-    () => _$TestStatefulStoreHandlersComponent(),
-    builderFactory: TestStatefulStoreHandlers,
-    componentClass: TestStatefulStoreHandlersComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestStatefulStoreHandlers');
+  () => _$TestStatefulStoreHandlersComponent(),
+  builderFactory: _$TestStatefulStoreHandlers,
+  componentClass: TestStatefulStoreHandlersComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestStatefulStoreHandlers',
+);
 
 abstract class _$TestStatefulStoreHandlersPropsAccessorsMixin
     implements _$TestStatefulStoreHandlersProps {

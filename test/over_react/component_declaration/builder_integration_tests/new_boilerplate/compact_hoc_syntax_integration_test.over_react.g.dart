@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
-part of 'unassigned_prop_integration_test.dart';
+part of 'compact_hoc_syntax_integration_test.dart';
 
 // **************************************************************************
 // OverReactBuilder (package:over_react/src/builder.dart)
@@ -10,6 +10,8 @@ part of 'unassigned_prop_integration_test.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $FooComponentFactory = registerComponent2(
   () => _$FooComponent(),
   builderFactory: _$Foo,
@@ -19,56 +21,6 @@ final $FooComponentFactory = registerComponent2(
   displayName: 'Foo',
 );
 
-abstract class _$FooPropsAccessorsMixin implements _$FooProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$FooProps.stringProp] -->
-  @override
-  String get stringProp =>
-      props[_$key__stringProp___$FooProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$FooProps.stringProp] -->
-  @override
-  set stringProp(String value) => props[_$key__stringProp___$FooProps] = value;
-
-  /// <!-- Generated from [_$FooProps.unassignedProp] -->
-  @override
-  String get unassignedProp =>
-      props[_$key__unassignedProp___$FooProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$FooProps.unassignedProp] -->
-  @override
-  set unassignedProp(String value) =>
-      props[_$key__unassignedProp___$FooProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__stringProp___$FooProps =
-      PropDescriptor(_$key__stringProp___$FooProps);
-  static const PropDescriptor _$prop__unassignedProp___$FooProps =
-      PropDescriptor(_$key__unassignedProp___$FooProps);
-  static const String _$key__stringProp___$FooProps = 'FooProps.stringProp';
-  static const String _$key__unassignedProp___$FooProps =
-      'FooProps.unassignedProp';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__stringProp___$FooProps,
-    _$prop__unassignedProp___$FooProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__stringProp___$FooProps,
-    _$key__unassignedProp___$FooProps
-  ];
-}
-
-const PropsMeta _$metaForFooProps = PropsMeta(
-  fields: _$FooPropsAccessorsMixin.$props,
-  keys: _$FooPropsAccessorsMixin.$propKeys,
-);
-
-class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForFooProps;
-}
-
 _$$FooProps _$Foo([Map backingProps]) => backingProps == null
     ? _$$FooProps$JsMap(JsBackedMap())
     : _$$FooProps(backingProps);
@@ -76,9 +28,13 @@ _$$FooProps _$Foo([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$FooProps extends _$FooProps
-    with _$FooPropsAccessorsMixin
-    implements FooProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$FooProps extends UiProps
+    with
+        FooProps,
+        $FooProps // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FooProps.
+{
   _$$FooProps._();
 
   factory _$$FooProps(Map backingMap) {
@@ -100,10 +56,12 @@ abstract class _$$FooProps extends _$FooProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'FooProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$FooProps$PlainMap extends _$$FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -121,6 +79,8 @@ class _$$FooProps$PlainMap extends _$$FooProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$FooProps$JsMap extends _$$FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -140,6 +100,8 @@ class _$$FooProps$JsMap extends _$$FooProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$FooComponent extends FooComponent {
   _$$FooProps$JsMap _cachedTypedProps;
 
@@ -170,8 +132,43 @@ class _$FooComponent extends FooComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$FooProps.
+  /// The default consumed props, taken from FooProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForFooProps];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(FooProps)];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FooProps.
+        FooProps: $FooProps.meta,
+      });
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $FooProps on FooProps {
+  static const PropsMeta meta = _$metaForFooProps;
+  @override
+  String get foo =>
+      props[_$key__foo__FooProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set foo(String value) => props[_$key__foo__FooProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__foo__FooProps =
+      PropDescriptor(_$key__foo__FooProps);
+  static const String _$key__foo__FooProps = 'FooProps.foo';
+
+  static const List<PropDescriptor> $props = [_$prop__foo__FooProps];
+  static const List<String> $propKeys = [_$key__foo__FooProps];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForFooProps = PropsMeta(
+  fields: $FooProps.$props,
+  keys: $FooProps.$propKeys,
+);

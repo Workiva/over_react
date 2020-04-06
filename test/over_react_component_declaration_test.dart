@@ -63,6 +63,7 @@ import 'over_react/component_declaration/builder_integration_tests/component2/re
 import 'over_react/component_declaration/builder_integration_tests/component2/stateful_component_integration_test.dart' as component2_stateful_component_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/component2/unassigned_prop_integration_test.dart' as component2_unassigned_prop_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/new_boilerplate/accessor_mixin_integration_test.dart' as new_boilerplate_accessor_mixin_integration_test;
+import 'over_react/component_declaration/builder_integration_tests/new_boilerplate/compact_hoc_syntax_integration_test.dart' as new_boilerplate_compact_hoc_syntax_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/new_boilerplate/component_integration_test.dart' as new_boilerplate_component_integration_test;
 import 'over_react/component_declaration/builder_integration_tests/new_boilerplate/component_integration_verbose_syntax_test.dart' as new_boilerplate_component_integration_verbose_syntax_test;
 import 'over_react/component_declaration/builder_integration_tests/new_boilerplate/constant_required_accessor_integration_test.dart' as new_boilerplate_constant_required_accessor_integration_test;
@@ -125,6 +126,7 @@ main() {
   component2_unassigned_prop_integration_test.main();
 
   new_boilerplate_accessor_mixin_integration_test.main();
+  new_boilerplate_compact_hoc_syntax_integration_test.main();
   new_boilerplate_component_integration_test.main();
   new_boilerplate_component_integration_verbose_syntax_test.main();
   new_boilerplate_constant_required_accessor_integration_test.main();

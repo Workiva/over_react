@@ -12,7 +12,7 @@ part of 'stateful_component_integration_test.dart';
 // Registers component implementation and links type meta to builder factory.
 final $StatefulComponentTestComponentFactory = registerComponent2(
   () => _$StatefulComponentTestComponent(),
-  builderFactory: StatefulComponentTest,
+  builderFactory: _$StatefulComponentTest,
   componentClass: StatefulComponentTestComponent,
   isWrapper: false,
   parentType: null,

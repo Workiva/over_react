@@ -12,7 +12,7 @@ part of 'list_group.dart';
 // Registers component implementation and links type meta to builder factory.
 final $ListGroupComponentFactory = registerComponent2(
   () => _$ListGroupComponent(),
-  builderFactory: ListGroup,
+  builderFactory: _$ListGroup,
   componentClass: ListGroupComponent,
   isWrapper: false,
   parentType: null,

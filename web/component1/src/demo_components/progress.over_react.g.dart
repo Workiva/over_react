@@ -10,12 +10,14 @@ part of 'progress.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $ProgressComponentFactory = registerComponent(() => _$ProgressComponent(),
-    builderFactory: Progress,
-    componentClass: ProgressComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'Progress');
+final $ProgressComponentFactory = registerComponent(
+  () => _$ProgressComponent(),
+  builderFactory: _$Progress,
+  componentClass: ProgressComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'Progress',
+);
 
 abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   @override

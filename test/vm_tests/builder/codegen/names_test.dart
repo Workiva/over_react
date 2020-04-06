@@ -4,6 +4,28 @@ import 'package:test/test.dart';
 
 main() {
   group('boilerplate name utilities -', () {
+    group('FactoryNames -', () {
+      FactoryNames names;
+
+      group('unprefixed -', () {
+        setUp(() {
+          names = FactoryNames('Foo');
+        });
+
+        test('consumerName', () => expect(names.consumerName, r'Foo'));
+        test('implName', () => expect(names.implName, r'_$Foo'));
+      });
+
+      group('prefixed -', () {
+        setUp(() {
+          names = FactoryNames('foo.Foo');
+        });
+
+        test('consumerName', () => expect(names.consumerName, r'foo.Foo'));
+        test('implName', () => expect(names.implName, r'foo._$Foo'));
+      });
+    });
+
     group('ComponentNames -', () {
       ComponentNames names;
 

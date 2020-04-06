@@ -12,7 +12,7 @@ part of 'abstract_transition2_test.dart';
 // Registers component implementation and links type meta to builder factory.
 final $TransitionerComponentFactory = registerComponent2(
   () => _$TransitionerComponent(),
-  builderFactory: Transitioner,
+  builderFactory: _$Transitioner,
   componentClass: TransitionerComponent,
   isWrapper: false,
   parentType: null,

@@ -12,7 +12,7 @@ part of 'subsubtype_of_component1.dart';
 // Registers component implementation and links type meta to builder factory.
 final $TestSubsubtypeOfComponent1ComponentFactory = registerComponent2(
   () => _$TestSubsubtypeOfComponent1Component(),
-  builderFactory: TestSubsubtypeOfComponent1,
+  builderFactory: _$TestSubsubtypeOfComponent1,
   componentClass: TestSubsubtypeOfComponent1Component,
   isWrapper: false,
   parentType: $TestSubtypeOfComponent1ComponentFactory,

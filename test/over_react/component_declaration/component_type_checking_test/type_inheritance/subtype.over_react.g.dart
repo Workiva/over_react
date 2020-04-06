@@ -10,14 +10,15 @@ part of 'subtype.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $TestSubtypeComponentFactory =
-    registerComponent(() => _$TestSubtypeComponent(),
-        builderFactory: TestSubtype,
-        componentClass: TestSubtypeComponent,
-        isWrapper: false,
-        parentType: $TestParentComponentFactory,
-        /* from `subtypeOf: TestParentComponent` */
-        displayName: 'TestSubtype');
+final $TestSubtypeComponentFactory = registerComponent(
+  () => _$TestSubtypeComponent(),
+  builderFactory: _$TestSubtype,
+  componentClass: TestSubtypeComponent,
+  isWrapper: false,
+  parentType: $TestParentComponentFactory,
+  /* from `subtypeOf: TestParentComponent` */
+  displayName: 'TestSubtype',
+);
 
 abstract class _$TestSubtypePropsAccessorsMixin implements _$TestSubtypeProps {
   @override

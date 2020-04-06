@@ -14,7 +14,7 @@ part of 'generic_inheritance_sub.dart';
     ' Do not reference it in your code, as it may change at any time.')
 final $GenericSubComponentFactory = registerComponent2(
   () => _$GenericSubComponent(),
-  builderFactory: GenericSub,
+  builderFactory: _$GenericSub,
   componentClass: GenericSubComponent,
   isWrapper: false,
   parentType: null,

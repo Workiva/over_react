@@ -12,7 +12,7 @@ part of 'my_provider_component.dart';
 // Registers component implementation and links type meta to builder factory.
 final $MyProviderComponentComponentFactory = registerComponent2(
   () => _$MyProviderComponentComponent(),
-  builderFactory: MyProviderComponent,
+  builderFactory: _$MyProviderComponent,
   componentClass: MyProviderComponentComponent,
   isWrapper: false,
   parentType: null,

@@ -11,12 +11,13 @@ part of 'namespaced_accessor_integration_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $NamespacedAccessorTestComponentFactory = registerComponent(
-    () => _$NamespacedAccessorTestComponent(),
-    builderFactory: NamespacedAccessorTest,
-    componentClass: NamespacedAccessorTestComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'NamespacedAccessorTest');
+  () => _$NamespacedAccessorTestComponent(),
+  builderFactory: _$NamespacedAccessorTest,
+  componentClass: NamespacedAccessorTestComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'NamespacedAccessorTest',
+);
 
 abstract class _$NamespacedAccessorTestPropsAccessorsMixin
     implements _$NamespacedAccessorTestProps {

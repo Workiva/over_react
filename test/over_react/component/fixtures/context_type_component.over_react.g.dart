@@ -12,7 +12,7 @@ part of 'context_type_component.dart';
 // Registers component implementation and links type meta to builder factory.
 final $ContextTypeComponentFactory = registerComponent2(
   () => _$ContextTypeComponent(),
-  builderFactory: ContextType,
+  builderFactory: _$ContextType,
   componentClass: ContextTypeComponent,
   isWrapper: false,
   parentType: null,

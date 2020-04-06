@@ -12,7 +12,7 @@ part of 'do_not_generate_accessor_integration_test.dart';
 // Registers component implementation and links type meta to builder factory.
 final $DoNotGenerateAccessorTestComponentFactory = registerComponent2(
   () => _$DoNotGenerateAccessorTestComponent(),
-  builderFactory: DoNotGenerateAccessorTest,
+  builderFactory: _$DoNotGenerateAccessorTest,
   componentClass: DoNotGenerateAccessorTestComponent,
   isWrapper: false,
   parentType: null,

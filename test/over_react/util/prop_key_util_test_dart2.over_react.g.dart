@@ -12,7 +12,7 @@ part of 'prop_key_util_test_dart2.dart';
 // Registers component implementation and links type meta to builder factory.
 final $TestComponentFactory = registerComponent2(
   () => _$TestComponent(),
-  builderFactory: Test,
+  builderFactory: _$Test,
   componentClass: TestComponent,
   isWrapper: false,
   parentType: null,

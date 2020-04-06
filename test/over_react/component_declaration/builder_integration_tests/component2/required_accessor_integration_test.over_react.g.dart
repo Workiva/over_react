@@ -12,7 +12,7 @@ part of 'required_accessor_integration_test.dart';
 // Registers component implementation and links type meta to builder factory.
 final $ComponentTestComponentFactory = registerComponent2(
   () => _$ComponentTestComponent(),
-  builderFactory: ComponentTest,
+  builderFactory: _$ComponentTest,
   componentClass: ComponentTestComponent,
   isWrapper: false,
   parentType: null,

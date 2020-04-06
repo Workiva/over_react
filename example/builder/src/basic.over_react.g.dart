@@ -14,7 +14,7 @@ part of 'basic.dart';
     ' Do not reference it in your code, as it may change at any time.')
 final $BasicComponentFactory = registerComponent2(
   () => _$BasicComponent(),
-  builderFactory: Basic,
+  builderFactory: _$Basic,
   componentClass: BasicComponent,
   isWrapper: false,
   parentType: null,

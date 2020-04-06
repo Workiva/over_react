@@ -10,14 +10,15 @@ part of 'extendedtype.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $TestExtendtypeComponentFactory =
-    registerComponent(() => _$TestExtendtypeComponent(),
-        builderFactory: TestExtendtype,
-        componentClass: TestExtendtypeComponent,
-        isWrapper: false,
-        parentType: $TestAbstractComponentFactory,
-        /* from `subtypeOf: TestAbstractComponent` */
-        displayName: 'TestExtendtype');
+final $TestExtendtypeComponentFactory = registerComponent(
+  () => _$TestExtendtypeComponent(),
+  builderFactory: _$TestExtendtype,
+  componentClass: TestExtendtypeComponent,
+  isWrapper: false,
+  parentType: $TestAbstractComponentFactory,
+  /* from `subtypeOf: TestAbstractComponent` */
+  displayName: 'TestExtendtype',
+);
 
 abstract class _$TestExtendtypePropsAccessorsMixin
     implements _$TestExtendtypeProps {

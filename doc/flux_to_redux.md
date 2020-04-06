@@ -233,12 +233,12 @@ redux.Store randomColorStore = redux.Store<RandomColorState>(reducer, initialSta
     import 'package:over_react/over_react_redux.dart';
 
     import './store.dart';
-    import './components/component.dart';
+    import './components/example.dart';
 
     main() {
       react_dom.render(
           (ReduxProvider()..store = randomColorStore)(
-            ConnectedComponent()(),
+            Example()(),
           ),
           querySelector('#content'));
     }

@@ -12,7 +12,7 @@ part of 'prop_validation.dart';
 // Registers component implementation and links type meta to builder factory.
 final $PropTypesTestComponentFactory = registerComponent2(
   () => _$PropTypesTestComponent(),
-  builderFactory: PropTypesTest,
+  builderFactory: _$PropTypesTest,
   componentClass: PropTypesTestComponent,
   isWrapper: false,
   parentType: null,

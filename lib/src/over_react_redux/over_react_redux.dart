@@ -60,14 +60,14 @@ typedef dynamic Dispatcher(dynamic action);
 ///
 /// __Example:__
 /// ```dart
-///     UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
-///         mapStateToProps: (state) => (
-///           Counter()..count = state.count
-///         ),
-///         mapDispatchToProps: (dispatch) => (
-///           Counter()..increment = () => dispatch(INCREMENT_ACTION())
-///         ),
-///     )(Counter);
+/// UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
+///   mapStateToProps: (state) => (Counter()
+///     ..count = state.count
+///   ),
+///   mapDispatchToProps: (dispatch) => (Counter()
+///     ..increment = (() => dispatch(INCREMENT_ACTION()))
+///   ),
+/// )(_$Counter);
 /// ```
 ///
 /// - [mapStateToProps] is used for selecting the part of the data from the store that the connected
@@ -101,17 +101,17 @@ typedef dynamic Dispatcher(dynamic action);
 ///
 /// __Example:__
 /// ```dart
-///     Store store1 = new Store<CounterState>(counterStateReducer, initialState: new CounterState(count: 0));
-///     Store store2 = new Store<BigCounterState>(bigCounterStateReducer, initialState: new BigCounterState(bigCount: 100));
+///     Store store1 = Store<CounterState>(counterStateReducer, initialState: new CounterState(count: 0));
+///     Store store2 = Store<BigCounterState>(bigCounterStateReducer, initialState: new BigCounterState(bigCount: 100));
 ///
-///     UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
+///     UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
 ///       mapStateToProps: (state) => (Counter()..count = state.count)
-///     )(Counter);
+///     )(_$Counter);
 ///
-///     UiFactory<CounterProps> ConnectedBigCounter = connect<BigCounterState, CounterProps>(
-///       mapStateToProps: (state) => (Counter()..count = state.bigCount),
+///     UiFactory<CounterProps> BigCounter = connect<BigCounterState, CounterProps>(
+///       mapStateToProps: (state) => (BigCounter()..count = state.bigCount),
 ///       context: bigCounterContext,
-///     )(Counter);
+///     )(_$Counter);
 ///
 ///     react_dom.render(
 ///       Dom.div()(
@@ -121,10 +121,10 @@ typedef dynamic Dispatcher(dynamic action);
 ///             ..context = bigCounterContext
 ///           )(
 ///             Dom.div()(
-///               Dom.h3()('ConnectedBigCounter Store2'),
-///               ConnectedBigCounter()(
-///                 Dom.h4()('ConnectedCounter Store1'),
-///                 ConnectedCounter()(),
+///               Dom.h3()('BigCounter Store2'),
+///               BigCounter()(
+///                 Dom.h4()('Counter Store1'),
+///                 Counter()(),
 ///               ),
 ///             ),
 ///           ),

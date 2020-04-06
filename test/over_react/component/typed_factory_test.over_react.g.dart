@@ -12,7 +12,7 @@ part of 'typed_factory_test.dart';
 // Registers component implementation and links type meta to builder factory.
 final $TypedFactoryTesterComponentFactory = registerComponent2(
   () => _$TypedFactoryTesterComponent(),
-  builderFactory: TypedFactoryTester,
+  builderFactory: _$TypedFactoryTester,
   componentClass: TypedFactoryTesterComponent,
   isWrapper: false,
   parentType: null,

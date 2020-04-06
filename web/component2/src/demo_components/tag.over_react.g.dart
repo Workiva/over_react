@@ -12,7 +12,7 @@ part of 'tag.dart';
 // Registers component implementation and links type meta to builder factory.
 final $TagComponentFactory = registerComponent2(
   () => _$TagComponent(),
-  builderFactory: Tag,
+  builderFactory: _$Tag,
   componentClass: TagComponent,
   isWrapper: false,
   parentType: null,

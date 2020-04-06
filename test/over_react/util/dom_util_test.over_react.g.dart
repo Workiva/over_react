@@ -12,7 +12,7 @@ part of 'dom_util_test.dart';
 // Registers component implementation and links type meta to builder factory.
 final $DomTestComponentFactory = registerComponent2(
   () => _$DomTestComponent(),
-  builderFactory: DomTest,
+  builderFactory: _$DomTest,
   componentClass: DomTestComponent,
   isWrapper: false,
   parentType: null,

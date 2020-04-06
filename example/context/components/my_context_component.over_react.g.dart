@@ -12,7 +12,7 @@ part of 'my_context_component.dart';
 // Registers component implementation and links type meta to builder factory.
 final $MyContextComponentComponentFactory = registerComponent2(
   () => _$MyContextComponentComponent(),
-  builderFactory: MyContextComponent,
+  builderFactory: _$MyContextComponent,
   componentClass: MyContextComponentComponent,
   isWrapper: false,
   parentType: null,

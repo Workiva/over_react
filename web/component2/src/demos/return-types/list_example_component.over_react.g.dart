@@ -12,7 +12,7 @@ part of 'list_example_component.dart';
 // Registers component implementation and links type meta to builder factory.
 final $ListExampleComponentFactory = registerComponent2(
   () => _$ListExampleComponent(),
-  builderFactory: ListExample,
+  builderFactory: _$ListExample,
   componentClass: ListExampleComponent,
   isWrapper: false,
   parentType: null,

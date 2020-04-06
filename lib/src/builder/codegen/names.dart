@@ -14,6 +14,38 @@
 
 import '../util.dart';
 
+/// A set of names of the different generated members for a given factory variable.
+///
+/// Supports prefixed identifiers (e.g., `foo_library.Foo`).
+class FactoryNames {
+  final String _prefix;
+  final String unprefixedConsumerName;
+
+  factory FactoryNames(String consumerFactory) {
+    final parts = consumerFactory.split('.');
+    if (parts.length == 1) {
+      return FactoryNames._('', consumerFactory);
+    }
+
+    return FactoryNames._('${parts[0]}.', parts.skip(1).join('.'));
+  }
+
+  FactoryNames._(this._prefix, this.unprefixedConsumerName);
+
+  /// The name of the consumer-authored factory variable.
+  ///
+  /// Example: `Foo`
+  String get consumerName => '$_prefix$unprefixedConsumerName';
+
+  /// The name of the generated factory function implementation.
+  ///
+  /// Example:
+  ///
+  /// - Input: `Foo`
+  /// - Output: `_$Foo`
+  String get implName => '$_prefix$privateSourcePrefix${unprefixedConsumerName}';
+}
+
 /// A set of names of the different generated members for a given component class.
 ///
 /// Supports prefixed identifiers (e.g., `foo_library.FooComponent`).

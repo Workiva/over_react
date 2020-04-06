@@ -11,12 +11,13 @@ part of 'list_group_item.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ListGroupItemComponentFactory = registerComponent(
-    () => _$ListGroupItemComponent(),
-    builderFactory: ListGroupItem,
-    componentClass: ListGroupItemComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'ListGroupItem');
+  () => _$ListGroupItemComponent(),
+  builderFactory: _$ListGroupItem,
+  componentClass: ListGroupItemComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'ListGroupItem',
+);
 
 abstract class _$ListGroupItemPropsAccessorsMixin
     implements _$ListGroupItemProps {

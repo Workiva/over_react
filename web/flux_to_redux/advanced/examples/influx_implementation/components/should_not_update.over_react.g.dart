@@ -12,7 +12,7 @@ part of 'should_not_update.dart';
 // Registers component implementation and links type meta to builder factory.
 final $ShouldNotUpdateComponentFactory = registerComponent2(
   () => _$ShouldNotUpdateComponent(),
-  builderFactory: ShouldNotUpdate,
+  builderFactory: _$ShouldNotUpdate,
   componentClass: ShouldNotUpdateComponent,
   isWrapper: false,
   parentType: null,

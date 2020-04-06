@@ -70,7 +70,7 @@ This model fits perfectly with Redux because the premise is that a component sho
 ```dart
 // Starting Props Class
 // It's normal that the props class has few, if any, props because they values are coming from the substate
-class _$ExampleComponentProps extends BuiltReduxUiProps<AppState, AppStateBuilder, AppActions> {}
+class _$ExampleProps extends BuiltReduxUiProps<AppState, AppStateBuilder, AppActions> {}
 
 // The starting substate
 abstract class ExampleComponentState implements Built<AppSubstate, AppSubstateBuilder> {
@@ -83,13 +83,13 @@ abstract class ExampleComponentState implements Built<AppSubstate, AppSubstateBu
 
 // After refactor
 // connect call
-UiFactory<ExampleComponentProps> ConnectedExampleComponent = connect<AppState, ExampleComponentProps>(
+UiFactory<ExampleProps> Example = connect<AppState, ExampleProps>(
     // The `text` prop points to the `text` state field
-    mapStateToProps: (state) => (ExampleComponent()..text = state.text),
-)(ExampleComponent);
+    mapStateToProps: (state) => (Example()..text = state.text),
+)(_$Example);
 
 // Redux Props Class (e.g. a normal props class)
-mixin ExampleComponentProps on UiProps {
+mixin ExampleProps on UiProps {
   String text;
 }
 ```
@@ -311,12 +311,12 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
     import 'package:over_react/over_react_redux.dart';
 
     import './store.dart';
-    import './components/component.dart';
+    import './components/example.dart';
 
     main() {
         react_dom.render(
-            (ReduxProvider()..store = randomColorStore)(
-                ConnectedComponent()(),
+            (ReduxProvider()..store = counterStore)(
+              Example()(),
             ),
             querySelector('#content'));
     }
@@ -429,12 +429,10 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
         }
 
         // The same component converted to a connected Redux component
-        UiFactory<SimpleProps> ConnectedSimple = connect<ReduxState, SimpleProps>(
+        UiFactory<SimpleProps> Simple = connect<ReduxState, SimpleProps>(
             mapStateToProps: (state) => (Simple()..text = state.text),
             mapDispatchToProps: (dispatch) => (Simple()..updateText = (Sring text) { dispatch(UpdateText()); }),
-        )(Simple);
-
-        UiFactory<SimpleProps> Simple = _$Simple;
+        )(_$Simple);
 
         mixin SimpleProps on UiProps {
           String text;

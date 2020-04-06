@@ -11,12 +11,13 @@ part of 'stateful_component_integration_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $StatefulComponentTestComponentFactory = registerComponent(
-    () => _$StatefulComponentTestComponent(),
-    builderFactory: StatefulComponentTest,
-    componentClass: StatefulComponentTestComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'StatefulComponentTest');
+  () => _$StatefulComponentTestComponent(),
+  builderFactory: _$StatefulComponentTest,
+  componentClass: StatefulComponentTestComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'StatefulComponentTest',
+);
 
 abstract class _$StatefulComponentTestPropsAccessorsMixin
     implements _$StatefulComponentTestProps {
