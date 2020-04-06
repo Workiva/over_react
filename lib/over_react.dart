@@ -42,6 +42,7 @@ export 'src/component/callback_typedefs.dart';
 export 'src/component/_deprecated/error_boundary.dart';
 export 'src/component/_deprecated/error_boundary_mixins.dart' hide LegacyErrorBoundaryApi;
 export 'src/component/dom_components.dart';
+export 'src/component/error_boundary_api.dart' show defaultErrorBoundaryLoggerName;
 export 'src/component/ref_util.dart';
 export 'src/component/fragment_component.dart';
 export 'src/component/strictmode_component.dart';

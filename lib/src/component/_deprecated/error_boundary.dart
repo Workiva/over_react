@@ -2,7 +2,6 @@ import 'package:logging/logging.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/component/_deprecated/error_boundary_mixins.dart';
 import 'package:over_react/src/component/_deprecated/error_boundary_recoverable.dart';
-import 'package:over_react/src/component/error_boundary_api.dart';
 
 part 'error_boundary.over_react.g.dart';
 

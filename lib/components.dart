@@ -18,4 +18,5 @@ library over_react_components;
 export 'src/component/abstract_transition.dart';
 export 'src/component/abstract_transition_props.dart';
 export 'src/component/error_boundary.dart';
+export 'src/component/error_boundary_api.dart' show defaultErrorBoundaryLoggerName;
 export 'src/component/resize_sensor.dart' hide SafeAnimationFrameMixin;
