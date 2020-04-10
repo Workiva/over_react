@@ -7,11 +7,10 @@ part 'button.over_react.g.dart';
 /// to render individual items within a list.
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
-@Factory()
+
 UiFactory<ButtonProps> Button = _$Button;
 
-@Props()
-class _$ButtonProps extends UiProps {
+mixin ButtonProps on UiProps {
   /// The skin / "context" for the [Button].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#examples>.
@@ -74,13 +73,12 @@ class _$ButtonProps extends UiProps {
   ButtonType type;
 }
 
-@State()
-class _$ButtonState extends UiState {}
+mixin ButtonState on UiState {}
 
-@Component2()
-class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiStatefulComponent2<T, S> {
+class ButtonComponent<T extends ButtonProps, S extends ButtonState>
+    extends UiStatefulComponent2<T, S> {
   @override
-   get defaultProps => (newProps()
+  get defaultProps => (newProps()
     ..skin = ButtonSkin.PRIMARY
     ..size = ButtonSize.DEFAULT
     ..isActive = false

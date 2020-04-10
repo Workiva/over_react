@@ -5,20 +5,15 @@ import '../store.dart';
 
 part 'should_not_update.over_react.g.dart';
 
-UiFactory<ShouldNotUpdateProps> ConnectedShouldNotUpdate = connect<FluxStore, ShouldNotUpdateProps>(
+UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = connect<FluxStore, ShouldNotUpdateProps>(
   mapStateToProps: (_) => {},
   pure: false,
-)(ShouldNotUpdate);
+)(_$ShouldNotUpdate); // ignore: undefined_identifier
 
-@Factory()
-UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = _$ShouldNotUpdate;
-
-@Props()
-class _$ShouldNotUpdateProps extends UiProps {
+mixin ShouldNotUpdateProps on UiProps {
   String text;
 }
 
-@Component2()
 class ShouldNotUpdateComponent extends UiComponent2<ShouldNotUpdateProps> {
   @override
   render() {

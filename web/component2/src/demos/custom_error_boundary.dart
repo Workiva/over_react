@@ -1,3 +1,4 @@
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'package:over_react/over_react.dart';
 import 'package:react/react_client/react_interop.dart';
 
@@ -18,8 +19,9 @@ class CustomErrorBoundaryComponent extends UiStatefulComponent2<CustomErrorBound
     with ErrorBoundaryMixin<CustomErrorBoundaryProps, CustomErrorBoundaryState> {
   @override
    get defaultProps => (newProps()
+    ..addAll(super.defaultProps)
     ..fallbackUIRenderer = _renderFallbackUI
-);
+  );
 
   ReactElement _renderFallbackUI(_, __) {
     return Dom.div()(

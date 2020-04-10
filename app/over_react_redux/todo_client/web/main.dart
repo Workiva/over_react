@@ -12,7 +12,7 @@ main() {
   final container = querySelector('#todo-container');
 
   final app = (ReduxProvider()..store = getStore())(
-    ConnectedTodoApp()(),
+    TodoApp()(),
   );
 
   react_dom.render(app, container);

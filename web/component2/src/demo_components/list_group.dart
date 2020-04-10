@@ -7,11 +7,10 @@ part 'list_group.over_react.g.dart';
 /// displaying lists of [ListGroupItem] components.
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
-@Factory()
+
 UiFactory<ListGroupProps> ListGroup = _$ListGroup;
 
-@Props()
-class _$ListGroupProps extends UiProps {
+mixin ListGroupProps on UiProps {
   /// The HTML element type for the [ListGroup], specifying its
   /// DOM representation when rendered.
   ///
@@ -19,12 +18,9 @@ class _$ListGroupProps extends UiProps {
   ListGroupElementType elementType;
 }
 
-@Component2()
 class ListGroupComponent extends UiComponent2<ListGroupProps> {
   @override
-   get defaultProps => (newProps()
-    ..elementType = ListGroupElementType.DIV
-  );
+  get defaultProps => (newProps()..elementType = ListGroupElementType.DIV);
 
   @override
   render() {

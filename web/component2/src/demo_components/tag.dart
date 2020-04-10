@@ -5,11 +5,10 @@ part 'tag.over_react.g.dart';
 /// for adding context to just about any content.
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/tag/>
-@Factory()
+
 UiFactory<TagProps> Tag = _$Tag;
 
-@Props()
-class _$TagProps extends UiProps {
+mixin TagProps on UiProps {
   /// The skin / "context" for the [Tag].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/tag/#contextual-variations>.
@@ -26,10 +25,9 @@ class _$TagProps extends UiProps {
   bool isPill;
 }
 
-@Component2()
 class TagComponent extends UiComponent2<TagProps> {
   @override
-   get defaultProps => (newProps()
+  get defaultProps => (newProps()
     ..skin = TagSkin.DEFAULT
     ..isPill = false
   );

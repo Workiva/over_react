@@ -1,4 +1,4 @@
-// Copyright 2019 Workiva Inc.
+// Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,16 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@Timeout(Duration(seconds: 2))
-library error_boundary_mixin_test;
+/// Base classes for over_react utility UI components.
+library over_react_components;
 
-import 'package:test/test.dart';
-
-import 'fixtures/custom_error_boundary_component.dart';
-import 'shared_error_boundary_tests.dart';
-
-void main() {
-  group('ErrorBoundaryMixin', () {
-    sharedErrorBoundaryTests(() => CustomErrorBoundary());
-  });
-}
+export 'src/component/abstract_transition.dart';
+export 'src/component/abstract_transition_props.dart';
+export 'src/component/error_boundary.dart';
+export 'src/component/error_boundary_api.dart' show defaultErrorBoundaryLoggerName;
+export 'src/component/resize_sensor.dart' hide SafeAnimationFrameMixin;

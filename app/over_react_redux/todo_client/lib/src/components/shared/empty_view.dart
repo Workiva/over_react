@@ -2,18 +2,15 @@ import 'package:over_react/over_react.dart';
 
 import 'package:todo_client/src/components/shared/material_ui.dart';
 
-// ignore: uri_has_not_been_generated
 part 'empty_view.over_react.g.dart';
 
 /// Use the `EmptyView` component to provide messaging to users about an empty set of results,
 /// or an empty view such as a 404 error page.
-@Factory()
-UiFactory<EmptyViewProps> EmptyView =
-    // ignore: undefined_identifier
-    _$EmptyView;
 
-@Props()
-class _$EmptyViewProps extends UiProps {
+UiFactory<EmptyViewProps> EmptyView =
+        _$EmptyView; // ignore: undefined_identifier
+
+mixin EmptyViewProps on UiProps {
   /// The layout of the [EmptyView].
   ///
   /// Default: [EmptyViewType.DEFAULT]
@@ -37,15 +34,14 @@ class _$EmptyViewProps extends UiProps {
   dynamic header;
 }
 
-@Component2()
 class EmptyViewComponent extends UiComponent2<EmptyViewProps> {
   @override
   get defaultProps => (newProps()..type = EmptyViewType.DEFAULT);
 
   @override
-  get consumedProps => const [
-    EmptyViewProps.meta,
-  ];
+  get consumedProps => [
+        propsMeta.forMixin(EmptyViewProps),
+      ];
 
   @override
   get propTypes => {
@@ -136,10 +132,4 @@ class EmptyViewType extends ClassNameConstant {
   /// * [className] value: ''
   /// * [headerFactory] value: ['h4']
   static const EmptyViewType DEFAULT = EmptyViewType._('DEFAULT', null, 'h4');
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class EmptyViewProps extends _$EmptyViewProps with _$EmptyViewPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForEmptyViewProps;
 }

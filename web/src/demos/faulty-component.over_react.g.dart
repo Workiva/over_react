@@ -10,6 +10,8 @@ part of 'faulty-component.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $FaultyComponentFactory = registerComponent2(
   () => _$FaultyComponent(),
   builderFactory: _$Faulty,
@@ -19,21 +21,6 @@ final $FaultyComponentFactory = registerComponent2(
   displayName: 'Faulty',
 );
 
-abstract class _$FaultyPropsAccessorsMixin implements _$FaultyProps {
-  @override
-  Map get props;
-
-  /* GENERATED CONSTANTS */
-
-  static const List<PropDescriptor> $props = [];
-  static const List<String> $propKeys = [];
-}
-
-const PropsMeta _$metaForFaultyProps = PropsMeta(
-  fields: _$FaultyPropsAccessorsMixin.$props,
-  keys: _$FaultyPropsAccessorsMixin.$propKeys,
-);
-
 _$$FaultyProps _$Faulty([Map backingProps]) => backingProps == null
     ? _$$FaultyProps$JsMap(JsBackedMap())
     : _$$FaultyProps(backingProps);
@@ -41,9 +28,13 @@ _$$FaultyProps _$Faulty([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$FaultyProps extends _$FaultyProps
-    with _$FaultyPropsAccessorsMixin
-    implements FaultyProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$FaultyProps extends UiProps
+    with
+        FaultyProps,
+        $FaultyProps // If this generated mixin is undefined, it's likely because FaultyProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FaultyProps.
+{
   _$$FaultyProps._();
 
   factory _$$FaultyProps(Map backingMap) {
@@ -65,10 +56,12 @@ abstract class _$$FaultyProps extends _$FaultyProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'FaultyProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$FaultyProps$PlainMap extends _$$FaultyProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -86,6 +79,8 @@ class _$$FaultyProps$PlainMap extends _$$FaultyProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$FaultyProps$JsMap extends _$$FaultyProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -101,41 +96,16 @@ class _$$FaultyProps$JsMap extends _$$FaultyProps {
   JsBackedMap _props;
 }
 
-abstract class _$FaultyStateAccessorsMixin implements _$FaultyState {
-  @override
-  Map get state;
-
-  /// <!-- Generated from [_$FaultyState.hasErrored] -->
-  @override
-  bool get hasErrored =>
-      state[_$key__hasErrored___$FaultyState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$FaultyState.hasErrored] -->
-  @override
-  set hasErrored(bool value) => state[_$key__hasErrored___$FaultyState] = value;
-  /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__hasErrored___$FaultyState =
-      StateDescriptor(_$key__hasErrored___$FaultyState);
-  static const String _$key__hasErrored___$FaultyState =
-      'FaultyState.hasErrored';
-
-  static const List<StateDescriptor> $state = [
-    _$prop__hasErrored___$FaultyState
-  ];
-  static const List<String> $stateKeys = [_$key__hasErrored___$FaultyState];
-}
-
-const StateMeta _$metaForFaultyState = StateMeta(
-  fields: _$FaultyStateAccessorsMixin.$state,
-  keys: _$FaultyStateAccessorsMixin.$stateKeys,
-);
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$FaultyState extends _$FaultyState
-    with _$FaultyStateAccessorsMixin
-    implements FaultyState {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$FaultyState extends UiState
+    with
+        FaultyState,
+        $FaultyState // If this generated mixin is undefined, it's likely because FaultyState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of FaultyState.
+{
   _$$FaultyState._();
 
   factory _$$FaultyState(Map backingMap) {
@@ -152,6 +122,8 @@ abstract class _$$FaultyState extends _$FaultyState
 }
 
 // Concrete state implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$FaultyState$PlainMap extends _$$FaultyState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -169,6 +141,8 @@ class _$$FaultyState$PlainMap extends _$$FaultyState {
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$FaultyState$JsMap extends _$$FaultyState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -188,6 +162,8 @@ class _$$FaultyState$JsMap extends _$$FaultyState {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$FaultyComponent extends FaultyComponent {
   _$$FaultyProps$JsMap _cachedTypedProps;
 
@@ -241,10 +217,62 @@ class _$FaultyComponent extends FaultyComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$FaultyProps.
+  /// The default consumed props, taken from FaultyProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForFaultyProps
-  ];
+  List<ConsumedProps> get $defaultConsumedProps =>
+      [propsMeta.forMixin(FaultyProps)];
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because FaultyProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FaultyProps.
+        FaultyProps: $FaultyProps.meta,
+      });
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $FaultyProps on FaultyProps {
+  static const PropsMeta meta = _$metaForFaultyProps;
+  /* GENERATED CONSTANTS */
+
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForFaultyProps = PropsMeta(
+  fields: $FaultyProps.$props,
+  keys: $FaultyProps.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $FaultyState on FaultyState {
+  static const StateMeta meta = _$metaForFaultyState;
+  @override
+  bool get hasErrored =>
+      state[_$key__hasErrored__FaultyState] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set hasErrored(bool value) => state[_$key__hasErrored__FaultyState] = value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor _$prop__hasErrored__FaultyState =
+      StateDescriptor(_$key__hasErrored__FaultyState);
+  static const String _$key__hasErrored__FaultyState = 'FaultyState.hasErrored';
+
+  static const List<StateDescriptor> $state = [_$prop__hasErrored__FaultyState];
+  static const List<String> $stateKeys = [_$key__hasErrored__FaultyState];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const StateMeta _$metaForFaultyState = StateMeta(
+  fields: $FaultyState.$state,
+  keys: $FaultyState.$stateKeys,
+);

@@ -320,15 +320,15 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
 
   /// Whether a component within the tree that the [ErrorBoundary] is wrapping around threw an error.
   ///
-  /// * When `true`, and [ErrorBoundaryProps.fallbackUIRenderer] is set, the return value of that callback
+  /// * When `true`, and [ErrorBoundaryPropsMixin.fallbackUIRenderer] is set, the return value of that callback
   ///   will be rendered instead.
-  /// * When `true`, and [ErrorBoundaryProps.fallbackUIRenderer] is not set, the [ErrorBoundary] will re-mount
+  /// * When `true`, and [ErrorBoundaryPropsMixin.fallbackUIRenderer] is not set, the [ErrorBoundary] will re-mount
   ///   the tree to attempt to automatically recover from the error.
   ///
   ///   If an identical error is thrown from an identical component within the tree consecutively
-  ///   more frequently than [ErrorBoundaryProps.identicalErrorFrequencyTolerance], a static copy of
+  ///   more frequently than [ErrorBoundaryPropsMixin.identicalErrorFrequencyTolerance], a static copy of
   ///   the render tree's HTML that was captured at the time of the error will be rendered.
-  ///   See: [ErrorBoundaryProps.onComponentIsUnrecoverable] for more information about this scenario.
+  ///   See: [ErrorBoundaryPropsMixin.onComponentIsUnrecoverable] for more information about this scenario.
   ///
   /// <!-- Generated from [_$ErrorBoundaryStateMixin.hasError] -->
   @override
@@ -337,15 +337,15 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Whether a component within the tree that the [ErrorBoundary] is wrapping around threw an error.
   ///
-  /// * When `true`, and [ErrorBoundaryProps.fallbackUIRenderer] is set, the return value of that callback
+  /// * When `true`, and [ErrorBoundaryPropsMixin.fallbackUIRenderer] is set, the return value of that callback
   ///   will be rendered instead.
-  /// * When `true`, and [ErrorBoundaryProps.fallbackUIRenderer] is not set, the [ErrorBoundary] will re-mount
+  /// * When `true`, and [ErrorBoundaryPropsMixin.fallbackUIRenderer] is not set, the [ErrorBoundary] will re-mount
   ///   the tree to attempt to automatically recover from the error.
   ///
   ///   If an identical error is thrown from an identical component within the tree consecutively
-  ///   more frequently than [ErrorBoundaryProps.identicalErrorFrequencyTolerance], a static copy of
+  ///   more frequently than [ErrorBoundaryPropsMixin.identicalErrorFrequencyTolerance], a static copy of
   ///   the render tree's HTML that was captured at the time of the error will be rendered.
-  ///   See: [ErrorBoundaryProps.onComponentIsUnrecoverable] for more information about this scenario.
+  ///   See: [ErrorBoundaryPropsMixin.onComponentIsUnrecoverable] for more information about this scenario.
   ///
   /// <!-- Generated from [_$ErrorBoundaryStateMixin.hasError] -->
   @override
@@ -354,7 +354,7 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
 
   /// Whether to show "fallback" UI when [hasError] is true.
   ///
-  /// This value will always be true if [ErrorBoundaryProps.fallbackUIRenderer] is non-null.
+  /// This value will always be true if [ErrorBoundaryPropsMixin.fallbackUIRenderer] is non-null.
   ///
   /// <!-- Generated from [_$ErrorBoundaryStateMixin.showFallbackUIOnError] -->
   @override
@@ -363,7 +363,7 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Whether to show "fallback" UI when [hasError] is true.
   ///
-  /// This value will always be true if [ErrorBoundaryProps.fallbackUIRenderer] is non-null.
+  /// This value will always be true if [ErrorBoundaryPropsMixin.fallbackUIRenderer] is non-null.
   ///
   /// <!-- Generated from [_$ErrorBoundaryStateMixin.showFallbackUIOnError] -->
   @override

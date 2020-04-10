@@ -2,11 +2,9 @@ import 'package:over_react/over_react.dart';
 
 part 'prop_validation.over_react.g.dart';
 
-@Factory()
 UiFactory<PropTypesTestProps> PropTypesTest = _$PropTypesTest;
 
-@Props()
-class _$PropTypesTestProps extends UiProps {
+mixin PropTypesTestProps on UiProps {
   int count;
   List twoObjects;
   int defaultCount;
@@ -22,7 +20,6 @@ class _$PropTypesTestProps extends UiProps {
   String label;
 }
 
-@Component2()
 class PropTypesTestComponent extends UiComponent2<PropTypesTestProps> {
   @override
   render() =>

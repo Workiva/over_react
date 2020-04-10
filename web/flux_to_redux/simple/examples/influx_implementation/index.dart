@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
+import 'package:over_react/components.dart' as v2;
 import 'package:react/react_client.dart';
 import 'package:react/react_dom.dart' as react_dom;
 import 'package:over_react/over_react_redux.dart';
@@ -15,7 +16,7 @@ main() {
   setClientConfiguration();
 
   react_dom.render(
-      ErrorBoundary()(
+      v2.ErrorBoundary()(
         (ReduxProvider()..store = adaptedStore)(
           (BigBlock()
             ..store = randomColorStore
@@ -24,9 +25,9 @@ main() {
           // Note that the components being instantiated are the factories that
           // are returned from the corresponding `connect` calls, and not the
           // original component factories.
-          ConnectedConnectFluxBigBlock()(),
-          ConnectedReduxBigBlock()(),
-          ConnectedShouldNotUpdate()(),
+          ConnectFluxBigBlock()(),
+          ReduxBigBlock()(),
+          ShouldNotUpdate()(),
         ),
       ),
       querySelector('#content'));
