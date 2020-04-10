@@ -267,7 +267,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
 
   @mustCallSuper
   @override
-  void componentDidUpdate(Map prevProps, Map prevState, [dynamic snapshot]) {
+  void componentDidUpdate(Map prevProps, Map prevState, [_]) {
     _transitionNotGuaranteed = false;
 
     var tPrevState = typedStateFactory(prevState);
