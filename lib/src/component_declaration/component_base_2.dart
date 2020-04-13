@@ -290,10 +290,14 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   @toBeGenerated
   Iterable<ConsumedProps> get $defaultConsumedProps => throw UngeneratedError(member: #$defaultConsumedProps);
 
-  /// The non-forwarding props defined in this component.
+  /// The sets of props that should be considered "consumed" by this component, and thus
+  /// omitted when forwarding props and validated in propTypes.
   ///
-  /// For generated components, this defaults to the keys generated in the associated [UiProps] class
-  /// if this getter is not overridden.
+  /// For legacy syntax component declarations, this defaults to just the props declared within
+  /// the `@Props` class for this component, and not any inherited props.
+  ///
+  /// For the new mixin-based syntax component declarations, this defaults to all of the prop mixins
+  /// mixed into the props class (or just the single props mixin for the shorthand syntax).
   @override
   Iterable<ConsumedProps> get consumedProps => $defaultConsumedProps;
 
