@@ -228,8 +228,7 @@ class _$NamespacedAccessorTestComponent
   /// The default consumed props, taken from NamespacedAccessorTestProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      [propsMeta.forMixin(NamespacedAccessorTestProps)];
+  get $defaultConsumedProps => propsMeta.all;
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({

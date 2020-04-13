@@ -140,7 +140,7 @@ class _$ReduxBigBlockComponent extends ReduxBigBlockComponent {
   /// The default consumed props, taken from ReduxBigBlockProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps => const [];
+  get $defaultConsumedProps => propsMeta.all;
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({

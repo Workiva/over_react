@@ -220,8 +220,7 @@ class _$FaultyComponent extends FaultyComponent {
   /// The default consumed props, taken from FaultyProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      [propsMeta.forMixin(FaultyProps)];
+  get $defaultConsumedProps => propsMeta.all;
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({

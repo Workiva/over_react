@@ -136,8 +136,7 @@ class _$ResizeSensorComponent extends ResizeSensorComponent {
   /// The default consumed props, taken from ResizeSensorProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      [propsMeta.forMixin(ResizeSensorProps)];
+  get $defaultConsumedProps => propsMeta.all;
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({

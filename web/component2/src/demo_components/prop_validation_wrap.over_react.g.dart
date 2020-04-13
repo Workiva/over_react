@@ -221,8 +221,7 @@ class _$PropTypesWrapComponent extends PropTypesWrapComponent {
   /// The default consumed props, taken from PropTypesWrapProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      [propsMeta.forMixin(PropTypesWrapProps)];
+  get $defaultConsumedProps => propsMeta.all;
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({

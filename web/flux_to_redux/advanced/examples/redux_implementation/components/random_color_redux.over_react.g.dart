@@ -140,7 +140,7 @@ class _$RandomColorReduxComponent extends RandomColorReduxComponent {
   /// The default consumed props, taken from RandomColorReduxProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps => const [];
+  get $defaultConsumedProps => propsMeta.all;
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({

@@ -137,8 +137,7 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   /// The default consumed props, taken from ComponentTestProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      [propsMeta.forMixin(ComponentTestProps)];
+  get $defaultConsumedProps => propsMeta.all;
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
@@ -411,8 +410,7 @@ class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
   /// The default consumed props, taken from IsErrorBoundaryProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      [propsMeta.forMixin(IsErrorBoundaryProps)];
+  get $defaultConsumedProps => propsMeta.all;
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
@@ -571,8 +569,7 @@ class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
   /// The default consumed props, taken from IsNotErrorBoundaryProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      [propsMeta.forMixin(IsNotErrorBoundaryProps)];
+  get $defaultConsumedProps => propsMeta.all;
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({

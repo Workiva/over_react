@@ -222,8 +222,7 @@ class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
   /// The default consumed props, taken from ErrorBoundaryProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      [propsMeta.forMixin(ErrorBoundaryProps)];
+  get $defaultConsumedProps => propsMeta.all;
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({

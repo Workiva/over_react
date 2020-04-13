@@ -220,8 +220,7 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
   /// The default consumed props, taken from ButtonGroupProps.
   /// Used in `ConsumedProps` if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      [propsMeta.forMixin(ButtonGroupProps)];
+  get $defaultConsumedProps => propsMeta.all;
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
