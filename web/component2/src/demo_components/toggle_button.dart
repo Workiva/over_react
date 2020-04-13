@@ -89,13 +89,6 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   );
 
   @override
-  get consumedProps => [
-        propsMeta.forMixin(ToggleButtonPropsMixin),
-        propsMeta.forMixin(ButtonProps),
-        propsMeta.forMixin(AbstractInputPropsMixin),
-      ];
-
-  @override
   void componentDidMount() {
     _validateProps(props);
   }

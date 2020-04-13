@@ -39,11 +39,6 @@ class EmptyViewComponent extends UiComponent2<EmptyViewProps> {
   get defaultProps => (newProps()..type = EmptyViewType.DEFAULT);
 
   @override
-  get consumedProps => [
-        propsMeta.forMixin(EmptyViewProps),
-      ];
-
-  @override
   get propTypes => {
     keyForProp((p) => p.glyph): (props, info) {
       if (props.glyph != null && props.content != null) {

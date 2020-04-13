@@ -35,6 +35,9 @@ class AppBarLocalStorageMenuComponent extends UiComponent2<AppBarLocalStorageMen
   bool get _currentStateKeyIsReadOnly => TodoAppLocalStorage.reservedStateKeys.contains(props.currentDataSetName);
 
   @override
+  get consumedProps => propsMeta.allExceptForMixins({MenuOverlayProps});
+
+  @override
   render() {
     return (MenuOverlay()
       ..modifyProps(addUnconsumedProps)
