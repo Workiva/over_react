@@ -8,7 +8,7 @@
         * [Remove Annotations](#remove-annotations)
         * [Ignore Ungenerated Warnings Project-Wide](#ignore-ungenerated-warnings-project-wide)
         * [Use Mixin-Based Props Declaration that Disallows Subclassing](#use-mixin-based-props-declaration-that-disallows-subclassing)
-        * [Consume props from all props mixins props by default](#consume-props-from-all-props-mixins-props-by-default)
+        * [Consume props from all props mixins by default](#consume-props-from-all-props-mixins-by-default)
 * __[Function Component Boilerplate](#function-component-boilerplate)__
     * [Constraints](#function-component-constraints)
     * [Design](#design)
@@ -477,7 +477,7 @@ usage() {
 }
 ```
 
-### Consume props from all props mixins props by default
+### Consume props from all props mixins by default
 
 #### Background: consumed props defaults for legacy syntax
 
@@ -596,7 +596,7 @@ class FooComponent ... {
 ```
 
 To help optimize this use-case, as well as to make whether props are consumed or not more consistent across different 
-forms of the new syntax, we decided to __consume all props by default__, if consumedProps is not overridden.
+forms of the new syntax, we decided to __consume props from all props mixins by default__, if consumedProps is not overridden.
 
 So, taking the above example again, the new behavior would be:
 ```dart
