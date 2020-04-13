@@ -801,6 +801,9 @@ class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
 
   @override
   List<PropDescriptor> get props => fields;
+
+  @override
+  String toString() => 'PropsMeta:$keys';
 }
 
 /// Metadata for the state fields declared in a specific state class--
