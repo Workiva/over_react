@@ -224,8 +224,8 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from BasicPartOfLibProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// The default consumed props, comprising all props mixins used by BasicPartOfLibProps.
+  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   get $defaultConsumedProps => propsMeta.all;
 
@@ -500,8 +500,8 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from SubPartOfLibProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// The default consumed props, comprising all props mixins used by SubPartOfLibProps.
+  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   get $defaultConsumedProps => propsMeta.all;
 

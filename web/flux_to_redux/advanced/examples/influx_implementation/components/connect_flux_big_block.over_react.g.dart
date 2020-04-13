@@ -138,8 +138,8 @@ class _$ConnectFluxBigBlockComponent extends ConnectFluxBigBlockComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from ConnectFluxBigBlockProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// The default consumed props, comprising all props mixins used by ConnectFluxBigBlockProps.
+  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   get $defaultConsumedProps => propsMeta.all;
 

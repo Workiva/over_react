@@ -221,8 +221,8 @@ class _$TransitionerComponent extends TransitionerComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from TransitionerProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// The default consumed props, comprising all props mixins used by TransitionerProps.
+  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   get $defaultConsumedProps => propsMeta.all;
 

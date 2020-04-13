@@ -134,8 +134,8 @@ class _$FaultyOnMountComponent extends FaultyOnMountComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from FaultyOnMountProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// The default consumed props, comprising all props mixins used by FaultyOnMountProps.
+  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   get $defaultConsumedProps => propsMeta.all;
 

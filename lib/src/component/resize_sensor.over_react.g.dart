@@ -133,8 +133,8 @@ class _$ResizeSensorComponent extends ResizeSensorComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from ResizeSensorProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// The default consumed props, comprising all props mixins used by ResizeSensorProps.
+  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   get $defaultConsumedProps => propsMeta.all;
 

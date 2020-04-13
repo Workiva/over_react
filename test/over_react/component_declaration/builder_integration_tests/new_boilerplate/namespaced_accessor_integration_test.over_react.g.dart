@@ -225,8 +225,8 @@ class _$NamespacedAccessorTestComponent
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from NamespacedAccessorTestProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// The default consumed props, comprising all props mixins used by NamespacedAccessorTestProps.
+  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   get $defaultConsumedProps => propsMeta.all;
 

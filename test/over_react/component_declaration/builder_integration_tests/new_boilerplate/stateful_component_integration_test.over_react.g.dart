@@ -224,8 +224,8 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from StatefulComponentTestProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// The default consumed props, comprising all props mixins used by StatefulComponentTestProps.
+  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   get $defaultConsumedProps => propsMeta.all;
 
