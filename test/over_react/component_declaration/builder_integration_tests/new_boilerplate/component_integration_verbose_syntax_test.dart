@@ -77,9 +77,40 @@ main() {
                 'not throw.');
       });
     });
+
+    test('omits all props mixed into the props class when forwarding by default', () {
+      final builder = ComponentTest()
+        ..addProp('extraneous', true)
+        ..stringProp = 'test'
+        ..dynamicProp = 'test'
+        ..untypedProp = 'test'
+        ..customKeyProp = 'test'
+        ..customNamespaceProp = 'test'
+        ..customKeyAndNamespaceProp = 'test'
+        ..propsMixinProp = 'test';
+
+      final mixinPropKey = getPropKey<ComponentTestProps>((p) => p.propsMixinProp, ComponentTest);
+      expect(builder, containsPair(mixinPropKey, 'test'),
+          reason: 'test setup check: mixin prop accessors should write props as expected');
+
+      var shallowInstance = renderShallow(builder());
+      var shallowProps = getProps(shallowInstance);
+      Iterable<String> shallowPropKeys = shallowProps.keys.map((key) => key as String); // ignore: avoid_as
+
+      expect(
+          shallowPropKeys.where((key) => !key.startsWith('data-prop-')),
+          unorderedEquals({
+            'id',
+            'extraneous',
+            'children',
+          }));
+    });
   });
 }
 
+mixin TestPropsMixin on UiProps {
+  dynamic propsMixinProp;
+}
 
 UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 
@@ -100,7 +131,7 @@ mixin ComponentTestPropsMixin on UiProps {
   dynamic customKeyAndNamespaceProp;
 }
 
-class ComponentTestProps = UiProps with ComponentTestPropsMixin;
+class ComponentTestProps = UiProps with ComponentTestPropsMixin, TestPropsMixin;
 
 class ComponentTestComponent extends UiComponent2<ComponentTestProps> {
   @override

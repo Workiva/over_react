@@ -194,3 +194,35 @@ class _$ComponentTestComponent extends ComponentTestComponent {
     _$metaForComponentTestProps
   ];
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $TestPropsMixin on TestPropsMixin {
+  static const PropsMeta meta = _$metaForTestPropsMixin;
+  @override
+  dynamic get propsMixinProp =>
+      props[_$key__propsMixinProp__TestPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set propsMixinProp(dynamic value) =>
+      props[_$key__propsMixinProp__TestPropsMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__propsMixinProp__TestPropsMixin =
+      PropDescriptor(_$key__propsMixinProp__TestPropsMixin);
+  static const String _$key__propsMixinProp__TestPropsMixin =
+      'TestPropsMixin.propsMixinProp';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__propsMixinProp__TestPropsMixin
+  ];
+  static const List<String> $propKeys = [_$key__propsMixinProp__TestPropsMixin];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForTestPropsMixin = PropsMeta(
+  fields: $TestPropsMixin.$props,
+  keys: $TestPropsMixin.$propKeys,
+);
