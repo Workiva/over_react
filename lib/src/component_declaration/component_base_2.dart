@@ -325,7 +325,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///
   /// - Consume an arbitrary key as well as some prop mixins. __Note:__ this is not recommended in
   ///   general. If you need to do this, it's often easier implement and follow by explicitly
-  ///   nulling out single props you don't which to forward.
+  ///   nulling out single props you don't want to forward.
   ///
   ///     static final _onChangePropKey = getKeyFor((p) => p.onChange, domProps);
   ///
@@ -352,7 +352,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///
   /// Note: for legacy syntax component declarations, this defaults to just the props declared within
   /// the `@Props` class for this component, and not any inherited props. Also, [propsMeta] is not
-  /// available
+  /// available.
   @override
   Iterable<ConsumedProps> get consumedProps => $defaultConsumedProps;
 

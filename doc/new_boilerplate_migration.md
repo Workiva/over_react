@@ -505,7 +505,7 @@ class FooComponent extends UiComponent<FooProps> {
     print(props);
     
     // {
-    //   someArbitraryProp: 3,
+    //   data-a-dom-prop: 3,
     //   onClick: 4,
     //   someArbitraryProp: 5,
     // } 
@@ -536,7 +536,7 @@ class FooComponent extends UiComponent<FooProps> {
     print(props);
     
     // {
-    //   someArbitraryProp: 3,
+    //   data-a-dom-prop: 3,
     //   onClick: 4,
     //   someArbitraryProp: 5,
     //   OtherPropsMixin.other: 6,
@@ -620,7 +620,7 @@ class FooComponent extends UiComponent<FooProps> {
     print(props);
     
     // {
-    //   someArbitraryProp: 3,
+    //   data-a-dom-prop: 3,
     //   onClick: 4,
     //   someArbitraryProp: 5,
     // } 

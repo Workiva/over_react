@@ -863,7 +863,7 @@ abstract class _AccessorMetaCollection<T extends _Descriptor, U extends Accessor
   }
 
   /// Returns a set of all the metadata in this collection
-  /// (for `propsMeta`, this corresponds to  all props mixins mixed into the props class).
+  /// (for `propsMeta`, this corresponds to all props mixins mixed into the props class).
   ///
   /// See `UiComponent2.consumedProps` for usage examples.
   Iterable<U> get all => _metaByMixin.values;
@@ -875,7 +875,7 @@ abstract class _AccessorMetaCollection<T extends _Descriptor, U extends Accessor
       mixinTypes.map(forMixin);
 
   /// Returns a set of all the metadata in this collection
-  /// (for `propsMeta`, this corresponds to  all props mixins mixed into the props class),
+  /// (for `propsMeta`, this corresponds to all props mixins mixed into the props class),
   /// except for the metadata corresponding to [excludedMixinTypes].
   ///
   /// See `UiComponent2.consumedProps` for usage examples.
