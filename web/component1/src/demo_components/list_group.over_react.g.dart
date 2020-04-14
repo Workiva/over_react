@@ -112,7 +112,7 @@ class _$ListGroupComponent extends ListGroupComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ListGroupProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForListGroupProps

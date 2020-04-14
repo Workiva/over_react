@@ -166,7 +166,7 @@ class _ComponentGenerator extends ComponentGenerator {
   @override
   String get defaultConsumedPropsImpl =>
       '  /// The default consumed props, comprising all props mixins used by ${propsNames.consumerName}.\n'
-      '  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.\n'
+      '  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.\n'
       '  @override\n'
       '  get \$defaultConsumedProps => propsMeta.all;';
 
@@ -220,7 +220,7 @@ class _LegacyComponentGenerator extends ComponentGenerator {
   @override
   String get defaultConsumedPropsImpl =>
       '  /// The default consumed props, taken from ${propsNames.consumerName}.\n'
-      '  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.\n'
+      '  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.\n'
       '  @override\n'
       '  final List<ConsumedProps> \$defaultConsumedProps = const [${propsNames.metaConstantName}];';
 }

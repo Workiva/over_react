@@ -92,7 +92,7 @@ class _$AnnotationErrorDefaultPropsComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$AnnotationErrorDefaultPropsProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForAnnotationErrorDefaultPropsProps
@@ -180,7 +180,7 @@ class _$AnnotationErrorComponent extends AnnotationErrorComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$AnnotationErrorProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForAnnotationErrorProps
@@ -316,7 +316,7 @@ class _$AnnotationErrorStatefulComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$AnnotationErrorStatefulProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForAnnotationErrorStatefulProps
@@ -464,7 +464,7 @@ class _$AnnotationErrorStatefulDefaultPropsComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$AnnotationErrorStatefulDefaultPropsProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForAnnotationErrorStatefulDefaultPropsProps

@@ -142,7 +142,7 @@ class _$TestBasicComponent extends TestBasicComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestBasicProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestBasicProps
@@ -288,7 +288,7 @@ class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestHandlerLifecycleProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestHandlerLifecycleProps
@@ -436,7 +436,7 @@ class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestHandlerPrecedenceProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestHandlerPrecedenceProps
@@ -601,7 +601,7 @@ class _$TestPropValidationComponent extends TestPropValidationComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestPropValidationProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestPropValidationProps
@@ -744,7 +744,7 @@ class _$TestRedrawOnComponent extends TestRedrawOnComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestRedrawOnProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestRedrawOnProps
@@ -888,7 +888,7 @@ class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestStoreHandlersProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestStoreHandlersProps
@@ -1129,7 +1129,7 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestStatefulBasicProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestStatefulBasicProps
@@ -1382,7 +1382,7 @@ class _$TestStatefulHandlerLifecycleComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestStatefulHandlerLifecycleProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestStatefulHandlerLifecycleProps
@@ -1635,7 +1635,7 @@ class _$TestStatefulHandlerPrecedenceComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestStatefulHandlerPrecedenceProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestStatefulHandlerPrecedenceProps
@@ -1909,7 +1909,7 @@ class _$TestStatefulPropValidationComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestStatefulPropValidationProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestStatefulPropValidationProps
@@ -2154,7 +2154,7 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestStatefulRedrawOnProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestStatefulRedrawOnProps
@@ -2405,7 +2405,7 @@ class _$TestStatefulStoreHandlersComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestStatefulStoreHandlersProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestStatefulStoreHandlersProps

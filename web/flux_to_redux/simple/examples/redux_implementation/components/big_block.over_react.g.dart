@@ -134,7 +134,7 @@ class _$BigBlockComponent extends BigBlockComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, comprising all props mixins used by BigBlockProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   get $defaultConsumedProps => propsMeta.all;
 

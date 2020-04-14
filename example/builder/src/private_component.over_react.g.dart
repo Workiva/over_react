@@ -218,7 +218,7 @@ class _$PrivateComponent extends PrivateComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, comprising all props mixins used by _PrivateProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   get $defaultConsumedProps => propsMeta.all;
 

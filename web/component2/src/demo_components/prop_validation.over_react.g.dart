@@ -135,7 +135,7 @@ class _$PropTypesTestComponent extends PropTypesTestComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, comprising all props mixins used by PropTypesTestProps.
-  /// Used in -`ConsumedProps` methods if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   get $defaultConsumedProps => propsMeta.all;
 
