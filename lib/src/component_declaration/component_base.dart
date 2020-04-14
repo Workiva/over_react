@@ -852,6 +852,8 @@ abstract class _AccessorMetaCollection<T extends _Descriptor, U extends Accessor
   U get _emptyMeta;
 
   /// Returns the metadata for only the prop fields declared in [mixinType].
+  ///
+  /// See `UiComponent2.consumedProps` for usage examples.
   U forMixin(Type mixinType) {
     final meta = _metaByMixin[mixinType];
     assert(meta != null,
@@ -862,15 +864,21 @@ abstract class _AccessorMetaCollection<T extends _Descriptor, U extends Accessor
 
   /// Returns a set of all the metadata in this collection
   /// (for `propsMeta`, this corresponds to  all props mixins mixed into the props class).
+  ///
+  /// See `UiComponent2.consumedProps` for usage examples.
   Iterable<U> get all => _metaByMixin.values;
 
   /// Returns a set of the metadata corresponding to [mixinTypes].
+  ///
+  /// See `UiComponent2.consumedProps` for usage examples.
   Iterable<U> forMixins(Set<Type> mixinTypes) =>
       mixinTypes.map(forMixin);
 
   /// Returns a set of all the metadata in this collection
   /// (for `propsMeta`, this corresponds to  all props mixins mixed into the props class),
   /// except for the metadata corresponding to [excludedMixinTypes].
+  ///
+  /// See `UiComponent2.consumedProps` for usage examples.
   Iterable<U> allExceptForMixins(Set<Type> excludedMixinTypes) {
     final filtered = Map.of(_metaByMixin);
     for (final mixinType in excludedMixinTypes) {
