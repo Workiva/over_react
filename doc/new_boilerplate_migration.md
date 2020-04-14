@@ -681,7 +681,7 @@ We couldn't "consume" props from other classes by default, since we didn't have 
 props classes and mixins inherited by a given props class's superclass (due to not having a resolved AST in our builder,
 for performance reasons).
 
-However, in the new mixin-based syntax, props classes must explicitly mix in all propss mixins they inherit from,
+However, in the new mixin-based syntax, props classes must explicitly mix in all props mixins they inherit from,
 so we're able to easily tell at build time what they all are, and thus don't have that same restriction. 
 
 
