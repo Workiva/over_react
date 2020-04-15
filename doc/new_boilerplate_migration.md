@@ -3,16 +3,17 @@
 * __[Background](#background)__
     * [Problems with Previous Boilerplate](#problems-with-previous-boilerplate)
 * __[New Boilerplate Updates](#new-boilerplate-updates)__
-    * [Constraints](#constraints)
+    * [Design Constraints](#design-constraints)
     * [Updates](#updates)
         * [Remove Annotations](#remove-annotations)
         * [Ignore Ungenerated Warnings Project-Wide](#ignore-ungenerated-warnings-project-wide)
         * [Use Mixin-Based Props Declaration that Disallows Subclassing](#use-mixin-based-props-declaration-that-disallows-subclassing)
         * [Consume props from all props mixins by default](#consume-props-from-all-props-mixins-by-default)
-* __[Function Component Boilerplate](#function-component-boilerplate)__
+    * [Examples](#examples)
+* __[Function Component Boilerplate *(coming soon)*](#function-component-boilerplate-coming-soon)__
     * [Constraints](#function-component-constraints)
     * [Design](#design)
-* __[Upgrading](#upgrading)__
+* __[Upgrading Existing Code](#upgrading-existing-code)__
 
 ## Background
 
@@ -122,7 +123,7 @@ test() {
 
 ## New Boilerplate Updates
 
-### Constraints
+### Design Constraints
 
 #### Technical Constraints:
 
@@ -192,7 +193,7 @@ ecosystems.
 
     We can support new/old boilerplate at the same time, and slowly phase 
     out the old as we migrate over to it using 
-    [our `boilerplate_upgrade` codemod](#upgrading).
+    [our `boilerplate_upgrade` codemod](#upgrading-existing-code).
     
     For cases that don't migrate cleanly within the Workiva ecosystem, 
     we can use the Wdesk versioning policy to replace them with APIs that 
@@ -685,11 +686,18 @@ However, in the new mixin-based syntax, props classes must explicitly mix in all
 so we're able to easily tell at build time what they all are, and thus don't have that same restriction. 
 
 
-## Function Component Boilerplate
+### Examples
+Most code within over_react has been updated to use this new boilerplate, including:
+- Files under [`example/`](../example)
+- Files under [`web/`](../web)(except for `web/component1/`—the new boilerplate is UiComponent2-only)
+- The Redux sample todo app under [`app/over_react_redux/todo_client/`](../app/over_react_redux/todo_client)
+
+
+## Function Component Boilerplate _(coming soon)_
 
 ### Function Component Constraints 
 
-Includes all of [the constraints listed in the Boilerplate Updates section](#constraints), 
+Includes all of [the constraints listed in the Boilerplate Updates section](#design-constraints), 
 ignoring parts about backwards-compatibility.
 
 * Should be as visually uncluttered as possible.
@@ -800,7 +808,7 @@ UiFactory<FooProps> createFooHoc(UiFactory otherFactory) {
 } 
 ```
 
-## Upgrading
+## Upgrading Existing Code
 
 To update your repository to the new boilerplate, you can use 
 [over_react_codemod](https://github.com/Workiva/over_react_codemod)'s 
