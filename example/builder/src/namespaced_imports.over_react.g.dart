@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
-part of 'basic_with_state.dart';
+part of 'namespaced_imports.dart';
 
 // **************************************************************************
 // OverReactBuilder (package:over_react/src/builder.dart)
@@ -32,9 +32,12 @@ _$$BasicProps _$Basic([Map backingProps]) => backingProps == null
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$BasicProps extends UiProps
     with
-        BasicProps,
-        $BasicProps // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicProps.
-{
+        pm.ExamplePropsMixin,
+        pm.$ExamplePropsMixin, // If this generated mixin is undefined, it's likely because pm.ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of pm.ExamplePropsMixin.
+        BasicPropsMixin,
+        $BasicPropsMixin // If this generated mixin is undefined, it's likely because BasicPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicPropsMixin.
+    implements
+        BasicProps {
   _$$BasicProps._();
 
   factory _$$BasicProps(Map backingMap) {
@@ -103,9 +106,12 @@ class _$$BasicProps$JsMap extends _$$BasicProps {
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$BasicState extends UiState
     with
-        BasicState,
-        $BasicState // If this generated mixin is undefined, it's likely because BasicState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicState.
-{
+        sm.ExampleStateMixin,
+        sm.$ExampleStateMixin, // If this generated mixin is undefined, it's likely because sm.ExampleStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of sm.ExampleStateMixin.
+        BasicStateMixin,
+        $BasicStateMixin // If this generated mixin is undefined, it's likely because BasicStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicStateMixin.
+    implements
+        BasicState {
   _$$BasicState._();
 
   factory _$$BasicState(Map backingMap) {
@@ -222,8 +228,10 @@ class _$BasicComponent extends BasicComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicProps.
-        BasicProps: $BasicProps.meta,
+        // If this generated mixin is undefined, it's likely because pm.ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of pm.ExamplePropsMixin.
+        pm.ExamplePropsMixin: pm.$ExamplePropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because BasicPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicPropsMixin.
+        BasicPropsMixin: $BasicPropsMixin.meta,
       });
 }
 
@@ -231,113 +239,119 @@ class _$BasicComponent extends BasicComponent {
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
     ' it is transitioned to the new mixin-based boilerplate.')
-mixin $BasicProps on BasicProps {
-  static const PropsMeta meta = _$metaForBasicProps;
+mixin $BasicPropsMixin on BasicPropsMixin {
+  static const PropsMeta meta = _$metaForBasicPropsMixin;
   @override
   String get basicProp =>
-      props[_$key__basicProp__BasicProps] ??
+      props[_$key__basicProp__BasicPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set basicProp(String value) => props[_$key__basicProp__BasicProps] = value;
+  set basicProp(String value) =>
+      props[_$key__basicProp__BasicPropsMixin] = value;
   @override
   String get basic1 =>
-      props[_$key__basic1__BasicProps] ??
+      props[_$key__basic1__BasicPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set basic1(String value) => props[_$key__basic1__BasicProps] = value;
+  set basic1(String value) => props[_$key__basic1__BasicPropsMixin] = value;
   @override
   String get basic2 =>
-      props[_$key__basic2__BasicProps] ??
+      props[_$key__basic2__BasicPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set basic2(String value) => props[_$key__basic2__BasicProps] = value;
+  set basic2(String value) => props[_$key__basic2__BasicPropsMixin] = value;
   @override
   String get basic3 =>
-      props[_$key__basic3__BasicProps] ??
+      props[_$key__basic3__BasicPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set basic3(String value) => props[_$key__basic3__BasicProps] = value;
+  set basic3(String value) => props[_$key__basic3__BasicPropsMixin] = value;
   @override
   String get basic4 =>
-      props[_$key__basic4__BasicProps] ??
+      props[_$key__basic4__BasicPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set basic4(String value) => props[_$key__basic4__BasicProps] = value;
+  set basic4(String value) => props[_$key__basic4__BasicPropsMixin] = value;
   @override
   String get basic5 =>
-      props[_$key__basic5__BasicProps] ??
+      props[_$key__basic5__BasicPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set basic5(String value) => props[_$key__basic5__BasicProps] = value;
+  set basic5(String value) => props[_$key__basic5__BasicPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__basicProp__BasicProps =
-      PropDescriptor(_$key__basicProp__BasicProps);
-  static const PropDescriptor _$prop__basic1__BasicProps =
-      PropDescriptor(_$key__basic1__BasicProps);
-  static const PropDescriptor _$prop__basic2__BasicProps =
-      PropDescriptor(_$key__basic2__BasicProps);
-  static const PropDescriptor _$prop__basic3__BasicProps =
-      PropDescriptor(_$key__basic3__BasicProps);
-  static const PropDescriptor _$prop__basic4__BasicProps =
-      PropDescriptor(_$key__basic4__BasicProps);
-  static const PropDescriptor _$prop__basic5__BasicProps =
-      PropDescriptor(_$key__basic5__BasicProps);
-  static const String _$key__basicProp__BasicProps = 'BasicProps.basicProp';
-  static const String _$key__basic1__BasicProps = 'BasicProps.basic1';
-  static const String _$key__basic2__BasicProps = 'BasicProps.basic2';
-  static const String _$key__basic3__BasicProps = 'BasicProps.basic3';
-  static const String _$key__basic4__BasicProps = 'BasicProps.basic4';
-  static const String _$key__basic5__BasicProps = 'BasicProps.basic5';
+  static const PropDescriptor _$prop__basicProp__BasicPropsMixin =
+      PropDescriptor(_$key__basicProp__BasicPropsMixin);
+  static const PropDescriptor _$prop__basic1__BasicPropsMixin =
+      PropDescriptor(_$key__basic1__BasicPropsMixin);
+  static const PropDescriptor _$prop__basic2__BasicPropsMixin =
+      PropDescriptor(_$key__basic2__BasicPropsMixin);
+  static const PropDescriptor _$prop__basic3__BasicPropsMixin =
+      PropDescriptor(_$key__basic3__BasicPropsMixin);
+  static const PropDescriptor _$prop__basic4__BasicPropsMixin =
+      PropDescriptor(_$key__basic4__BasicPropsMixin);
+  static const PropDescriptor _$prop__basic5__BasicPropsMixin =
+      PropDescriptor(_$key__basic5__BasicPropsMixin);
+  static const String _$key__basicProp__BasicPropsMixin =
+      'BasicPropsMixin.basicProp';
+  static const String _$key__basic1__BasicPropsMixin = 'BasicPropsMixin.basic1';
+  static const String _$key__basic2__BasicPropsMixin = 'BasicPropsMixin.basic2';
+  static const String _$key__basic3__BasicPropsMixin = 'BasicPropsMixin.basic3';
+  static const String _$key__basic4__BasicPropsMixin = 'BasicPropsMixin.basic4';
+  static const String _$key__basic5__BasicPropsMixin = 'BasicPropsMixin.basic5';
 
   static const List<PropDescriptor> $props = [
-    _$prop__basicProp__BasicProps,
-    _$prop__basic1__BasicProps,
-    _$prop__basic2__BasicProps,
-    _$prop__basic3__BasicProps,
-    _$prop__basic4__BasicProps,
-    _$prop__basic5__BasicProps
+    _$prop__basicProp__BasicPropsMixin,
+    _$prop__basic1__BasicPropsMixin,
+    _$prop__basic2__BasicPropsMixin,
+    _$prop__basic3__BasicPropsMixin,
+    _$prop__basic4__BasicPropsMixin,
+    _$prop__basic5__BasicPropsMixin
   ];
   static const List<String> $propKeys = [
-    _$key__basicProp__BasicProps,
-    _$key__basic1__BasicProps,
-    _$key__basic2__BasicProps,
-    _$key__basic3__BasicProps,
-    _$key__basic4__BasicProps,
-    _$key__basic5__BasicProps
+    _$key__basicProp__BasicPropsMixin,
+    _$key__basic1__BasicPropsMixin,
+    _$key__basic2__BasicPropsMixin,
+    _$key__basic3__BasicPropsMixin,
+    _$key__basic4__BasicPropsMixin,
+    _$key__basic5__BasicPropsMixin
   ];
 }
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-const PropsMeta _$metaForBasicProps = PropsMeta(
-  fields: $BasicProps.$props,
-  keys: $BasicProps.$propKeys,
+const PropsMeta _$metaForBasicPropsMixin = PropsMeta(
+  fields: $BasicPropsMixin.$props,
+  keys: $BasicPropsMixin.$propKeys,
 );
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
     ' it is transitioned to the new mixin-based boilerplate.')
-mixin $BasicState on BasicState {
-  static const StateMeta meta = _$metaForBasicState;
+mixin $BasicStateMixin on BasicStateMixin {
+  static const StateMeta meta = _$metaForBasicStateMixin;
   @override
   String get basicState =>
-      state[_$key__basicState__BasicState] ??
+      state[_$key__basicState__BasicStateMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set basicState(String value) => state[_$key__basicState__BasicState] = value;
+  set basicState(String value) =>
+      state[_$key__basicState__BasicStateMixin] = value;
   /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__basicState__BasicState =
-      StateDescriptor(_$key__basicState__BasicState);
-  static const String _$key__basicState__BasicState = 'BasicState.basicState';
+  static const StateDescriptor _$prop__basicState__BasicStateMixin =
+      StateDescriptor(_$key__basicState__BasicStateMixin);
+  static const String _$key__basicState__BasicStateMixin =
+      'BasicStateMixin.basicState';
 
-  static const List<StateDescriptor> $state = [_$prop__basicState__BasicState];
-  static const List<String> $stateKeys = [_$key__basicState__BasicState];
+  static const List<StateDescriptor> $state = [
+    _$prop__basicState__BasicStateMixin
+  ];
+  static const List<String> $stateKeys = [_$key__basicState__BasicStateMixin];
 }
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-const StateMeta _$metaForBasicState = StateMeta(
-  fields: $BasicState.$state,
-  keys: $BasicState.$stateKeys,
+const StateMeta _$metaForBasicStateMixin = StateMeta(
+  fields: $BasicStateMixin.$state,
+  keys: $BasicStateMixin.$stateKeys,
 );

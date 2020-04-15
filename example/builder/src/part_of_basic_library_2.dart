@@ -19,11 +19,11 @@ abstract class SuperPartOfLibComponent<T extends SuperPartOfLibPropsMixin> exten
 
 UiFactory<SubPartOfLibProps> SubPartOfLib = _$SubPartOfLib; // ignore: undefined_identifier
 
-class SubPartOfLibProps = UiProps with SuperPartOfLibPropsMixin, SubPartOfLibPropsMixin;
-
 mixin SubPartOfLibPropsMixin on UiProps, SuperPartOfLibPropsMixin {
   String subProp;
 }
+
+class SubPartOfLibProps = UiProps with SuperPartOfLibPropsMixin, SubPartOfLibPropsMixin;
 
 class SubPartOfLibComponent extends SuperPartOfLibComponent<SubPartOfLibProps> {
   @override

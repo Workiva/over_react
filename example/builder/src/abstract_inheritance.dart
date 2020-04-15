@@ -30,12 +30,11 @@ mixin SubPropsMixin on UiProps {
   String subProp;
 }
 
-class SubProps = UiProps with SuperPropsMixin, SubPropsMixin;
-
 mixin SubStateMixin on UiState {
   String subState;
 }
 
+class SubProps = UiProps with SuperPropsMixin, SubPropsMixin;
 class SubState = UiState with SuperStateMixin, SubStateMixin;
 
 class SubComponent extends SuperComponent<SubProps, SubState> {

@@ -1,21 +1,18 @@
 import 'package:over_react/over_react.dart';
+
 import '../context.dart';
 
 part 'my_provider_component.over_react.g.dart';
 
-@Factory()
-UiFactory<MyProviderComponentProps> MyProviderComponent = _$MyProviderComponent;
+UiFactory<MyProviderProps> MyProvider = _$MyProvider; // ignore: undefined_identifier
 
-@Props()
-class _$MyProviderComponentProps extends UiProps {}
+mixin MyProviderProps on UiProps {}
 
-@State()
-class _$MyProviderComponentState extends UiState {
+mixin MyProviderState on UiState {
   String latestValue;
 }
 
-@Component2()
-class MyProviderComponentComponent extends UiStatefulComponent2<MyProviderComponentProps, MyProviderComponentState> {
+class MyProviderComponent extends UiStatefulComponent2<MyProviderProps, MyProviderState> {
   @override
   render() {
     return Dom.div()(

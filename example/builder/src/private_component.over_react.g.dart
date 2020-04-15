@@ -12,10 +12,10 @@ part of 'private_component.dart';
 // Registers component implementation and links type meta to builder factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-final $PrivateComponentFactory = registerComponent2(
-  () => _$PrivateComponent(),
+final $_PrivateComponentFactory = registerComponent2(
+  () => _$_PrivateComponent(),
   builderFactory: _$_Private,
-  componentClass: PrivateComponent,
+  componentClass: _PrivateComponent,
   isWrapper: false,
   parentType: null,
   displayName: '_Private',
@@ -52,7 +52,7 @@ abstract class _$$_PrivateProps extends UiProps
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $PrivateComponentFactory;
+      super.componentFactory ?? $_PrivateComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -164,7 +164,7 @@ class _$$_PrivateState$JsMap extends _$$_PrivateState {
 // generated for the associated props class.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$PrivateComponent extends PrivateComponent {
+class _$_PrivateComponent extends _PrivateComponent {
   _$$_PrivateProps$JsMap _cachedTypedProps;
 
   @override

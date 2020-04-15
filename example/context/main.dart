@@ -13,14 +13,14 @@ main() {
 
   react_dom.render(
     v2.ErrorBoundary()(
-      MyProviderComponent()(
+      MyProvider()(
         someContext.Consumer()(
           (value){
             return Dom.div()('$value');
           },
         ),
       ),
-      MyContextComponent()(),
+      MyContext()(),
     ), querySelector('#content')
   );
 }

@@ -8,12 +8,11 @@ mixin _PrivateProps on UiProps {
   bool prop1;
 }
 
-@State()
 mixin _PrivateState on UiState {
   bool state1;
 }
 
-class PrivateComponent extends UiStatefulComponent2<_PrivateProps, _PrivateState> {
+class _PrivateComponent extends UiStatefulComponent2<_PrivateProps, _PrivateState> {
   @override
   get defaultProps => newProps()..prop1 = true;
 

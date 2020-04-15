@@ -16,7 +16,6 @@ mixin FormActionInputProps on UiProps {
   String prop1;
 }
 
-@Component2()
 class FormActionInputComponent extends UiComponent2<FormActionInputProps> {
   @override
   render() {
