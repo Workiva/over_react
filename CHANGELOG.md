@@ -1,5 +1,16 @@
 # OverReact Changelog
 
+## [3.5.0](https://github.com/Workiva/over_react/compare/3.4.1...3.5.0)
+- Introduce new and improved component boilerplate syntax 🎉
+    
+    ![side-by-side comparison of old and new boilerplate for a simple component](doc/new-boilerplate-side-by-side.png)
+    
+    See our [migration guide](https://github.com/Workiva/over_react/blob/master/doc/new_boilerplate_migration.md) for more information around these changes, including why we made them and how to convert existing components to use thew new syntax.
+    
+    The existing boilerplate syntax will be deprecated in a future release. 
+    
+- [#469] Throw helpful error when `connect`, `connectFlux`, and `forwardRef` are passed an invalid component. 
+
 ## [3.4.1](https://github.com/Workiva/over_react/compare/3.4.0...3.4.1)
 - [#468] Allow redux.dart version 4
 

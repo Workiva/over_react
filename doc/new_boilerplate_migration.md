@@ -1,5 +1,8 @@
 # New OverReact Boilerplate Migration Guide
 
+_Preview of new boilerplate:_
+![side-by-side comparison of old and new boilerplate](new-boilerplate-side-by-side.png)
+
 * __[Background](#background)__
     * [Problems with Previous Boilerplate](#problems-with-previous-boilerplate)
 * __[New Boilerplate Updates](#new-boilerplate-updates)__
