@@ -88,7 +88,7 @@ class _$OneLevelWrapperComponent extends OneLevelWrapperComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$OneLevelWrapperProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForOneLevelWrapperProps

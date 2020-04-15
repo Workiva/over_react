@@ -141,7 +141,7 @@ class _$TestB2Component extends TestB2Component {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestB2Props.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestB2Props

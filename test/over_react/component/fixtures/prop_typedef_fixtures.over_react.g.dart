@@ -348,7 +348,7 @@ class _$TestConsumingAbstractCustomRendererComponentComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestConsumingAbstractCustomRendererComponentProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestConsumingAbstractCustomRendererComponentProps
@@ -547,7 +547,7 @@ class _$TestConsumingCustomRendererComponentComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestConsumingCustomRendererComponentProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestConsumingCustomRendererComponentProps
@@ -836,7 +836,7 @@ class _$TestCustomRendererFromAbstractComponentComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestCustomRendererFromAbstractComponentProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestCustomRendererFromAbstractComponentProps
@@ -1194,7 +1194,7 @@ class _$TestCustomRendererComponentComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestCustomRendererComponentProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestCustomRendererComponentProps

@@ -226,11 +226,10 @@ class _$DoNotGenerateAccessorTestComponent
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from DoNotGenerateAccessorTestProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// The default consumed props, comprising all props mixins used by DoNotGenerateAccessorTestProps.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      [propsMeta.forMixin(DoNotGenerateAccessorTestProps)];
+  get $defaultConsumedProps => propsMeta.all;
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({

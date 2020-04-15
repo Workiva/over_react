@@ -8,6 +8,7 @@
         * [Remove Annotations](#remove-annotations)
         * [Ignore Ungenerated Warnings Project-Wide](#ignore-ungenerated-warnings-project-wide)
         * [Use Mixin-Based Props Declaration that Disallows Subclassing](#use-mixin-based-props-declaration-that-disallows-subclassing)
+        * [Consume props from all props mixins by default](#consume-props-from-all-props-mixins-by-default)
 * __[Function Component Boilerplate](#function-component-boilerplate)__
     * [Constraints](#function-component-constraints)
     * [Design](#design)
@@ -475,6 +476,214 @@ usage() {
 +   final mapView = FooMapView(someExistingMap);
 }
 ```
+
+### Consume props from all props mixins by default
+
+#### Background: consumed props defaults for legacy syntax
+
+Each component has a `consumedProps` method, a list of props that are considered "consumed" by the component,
+and thus should not get forwarded on to other components via `addUnconsumedProps`/`copyUnconsumedProps`, and should
+be validated via `propTypes`.
+
+```dart
+@Props()
+class FooProps extends UiProps {
+  int foo;
+  int bar;
+}
+
+@Component()
+class FooComponent extends UiComponent<FooProps> {
+  render() {
+    // {
+    //   FooProps.foo: 1, 
+    //   FooProps.bar: 2, 
+    //   data-a-dom-prop: 3,
+    //   onClick: 4,
+    //   someArbitraryProp: 5,
+    // }
+    print(props);
+    
+    // {
+    //   data-a-dom-prop: 3,
+    //   onClick: 4,
+    //   someArbitraryProp: 5,
+    // } 
+    print(copyUnconsumedProps());
+  }
+}
+```
+
+In the legacy boilerplate, this only included props declared within the props class:
+```dart
+@Props()
+class FooProps extends OtherPropsMixin {
+  int foo;
+  int bar;
+}
+
+@Component()
+class FooComponent extends UiComponent<FooProps> {
+  render() {
+    // {
+    //   FooProps.foo: 1, 
+    //   FooProps.bar: 2, 
+    //   data-a-dom-prop: 3,
+    //   onClick: 4,
+    //   someArbitraryProp: 5,
+    //   OtherPropsMixin.other: 6, 
+    // }
+    print(props);
+    
+    // {
+    //   data-a-dom-prop: 3,
+    //   onClick: 4,
+    //   someArbitraryProp: 5,
+    //   OtherPropsMixin.other: 6,
+    // } 
+    print(copyUnconsumedProps());
+  }
+}
+```
+
+This was convenient most of the time, especially for simple components that didn't want to pass their props along.
+
+If needed, you could override `consumedProps`  to explicitly include other props:
+```dart
+@override
+get consumedProps => [
+      FooProps.meta,
+      OtherPropsMixin.meta,
+    ];
+```
+
+#### Updated default behavior in the mixin-based syntax
+
+With the new mixin-based syntax, props cannot be declared directly within props classes, so if we kept using the consumed
+props behavior from the legacy syntax, they wouldn't have any consumed props by default. (Unless we picked a mixin or something, 
+which could get confusing)
+
+This would mean that any props class that consumes the props of a single mixin would need to override consumedProps,
+whereas before they wouldn't have to.
+
+```dart
+// Before
+@Props()
+class FooProps extends UiProps with OtherPropsMixin {
+  int foo;
+  int bar;
+}
+
+@Component()
+class FooComponent ... {
+  // no consumedProps override necessary
+}
+```
+```dart
+// After
+mixin FooPropsMixin on UiProps {
+  int foo;
+  int bar;
+}
+
+class FooProps = UiProps with FooPropsMixin, OtherPropsMixin;
+
+class FooComponent ... {
+  // consumedProps override necessary
+  @override
+  get consumedProps => propsMeta.forMixins({FooPropsMixin});
+}
+```
+
+To help optimize this use-case, as well as to make whether props are consumed or not more consistent across different 
+forms of the new syntax, we decided to __consume props from all props mixins by default__, if consumedProps is not overridden.
+
+So, taking the above example again, the new behavior would be:
+```dart
+mixin FooPropsMixin on UiProps {
+  int foo;
+  int bar;
+}
+
+class FooProps = UiProps with FooPropsMixin, OtherPropsMixin;
+
+class FooComponent extends UiComponent<FooProps> {
+  render() {
+    // {
+    //   FooProps.foo: 1, 
+    //   FooProps.bar: 2, 
+    //   data-a-dom-prop: 3,
+    //   onClick: 4,
+    //   someArbitraryProp: 5,
+    //   OtherPropsMixin.other: 6, 
+    // }
+    print(props);
+    
+    // {
+    //   data-a-dom-prop: 3,
+    //   onClick: 4,
+    //   someArbitraryProp: 5,
+    // } 
+    print(copyUnconsumedProps());
+  }
+}
+```
+
+The old behavior is still achievable through overriding `consumedProps`, and some cases will be easier than before thanks to propsMeta.
+
+For example:
+
+- Consuming all props except for a few mixins:
+
+    Before:     
+    ```dart
+    @Props()  
+    class FooProps extends UiProps with 
+        AProps, 
+        BProps, 
+        CProps, 
+        NoConsumeProps { ... } 
+    
+    @Component()  
+    class FooComponent extends UiComponent<FooProps> {
+      @override
+      consumedProps => [
+            FooProps.meta,
+            AProps.meta,
+            BProps.meta,
+            CProps.meta,
+          ];
+    
+      ...
+    }
+    ```
+    After:
+    ```dart
+    class FooProps = UiProps with
+        FooPropsMixin 
+        AProps, 
+        BProps, 
+        CProps, 
+        NoConsumeProps; 
+    
+    class FooComponent extends UiComponent<FooProps> {
+      @override
+      consumedProps => 
+          propsMeta.allExceptForMixins({NoConsumeProps}),
+    
+      ...
+    }
+    ```
+
+#### Why didn't we do this earlier?
+
+We couldn't "consume" props from other classes by default, since we didn't have full knowledge of all the 
+props classes and mixins inherited by a given props class's superclass (due to not having a resolved AST in our builder,
+for performance reasons).
+
+However, in the new mixin-based syntax, props classes must explicitly mix in all props mixins they inherit from,
+so we're able to easily tell at build time what they all are, and thus don't have that same restriction. 
+
 
 ## Function Component Boilerplate
 

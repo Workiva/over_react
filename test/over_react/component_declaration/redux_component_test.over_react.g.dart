@@ -87,7 +87,7 @@ class _$TestDefaultComponent extends TestDefaultComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestDefaultProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestDefaultProps
@@ -174,7 +174,7 @@ class _$TestConnectComponent extends TestConnectComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestConnectProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestConnectProps
@@ -260,7 +260,7 @@ class _$TestPureComponent extends TestPureComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestPureProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestPureProps

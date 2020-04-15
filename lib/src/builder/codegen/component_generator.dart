@@ -121,10 +121,7 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
       ..writeln('  @override')
       ..writeln('  bool get \$isClassGenerated => true;')
       ..writeln()
-      ..writeln('  /// The default consumed props, taken from ${propsNames.consumerName}.')
-      ..writeln('  /// Used in `ConsumedProps` if [consumedProps] is not overridden.')
-      ..writeln('  @override')
-      ..writeln('  $defaultConsumedPropsImpl;');
+      ..writeln('  $defaultConsumedPropsImpl');
 
     _generateAdditionalComponentBody();
 
@@ -168,13 +165,10 @@ class _ComponentGenerator extends ComponentGenerator {
 
   @override
   String get defaultConsumedPropsImpl =>
-      r'List<ConsumedProps> get $defaultConsumedProps => ' +
-      declaration.props.switchCase(
-        (a) => 'const []', // Concrete props classes do not have generated meta
-        // Use propsMeta.forMixin instead of directly accessing the props class so that
-        // we don't reference the generated mixin and have to emit another warning comment.
-        (b) => '[propsMeta.forMixin(${propsNames.consumerName})]',
-      );
+      '  /// The default consumed props, comprising all props mixins used by ${propsNames.consumerName}.\n'
+      '  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.\n'
+      '  @override\n'
+      '  get \$defaultConsumedProps => propsMeta.all;';
 
   @override
   void _generateAdditionalComponentBody() {
@@ -225,5 +219,8 @@ class _LegacyComponentGenerator extends ComponentGenerator {
 
   @override
   String get defaultConsumedPropsImpl =>
-      'final List<ConsumedProps> \$defaultConsumedProps = const [${propsNames.metaConstantName}]';
+      '  /// The default consumed props, taken from ${propsNames.consumerName}.\n'
+      '  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.\n'
+      '  @override\n'
+      '  final List<ConsumedProps> \$defaultConsumedProps = const [${propsNames.metaConstantName}];';
 }

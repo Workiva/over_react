@@ -23,11 +23,11 @@ part 'props_meta_test.over_react.g.dart';
 main() {
   group('propsMeta', () {
     const expectedKeys = ['TestPropsMixin.test', 'FooPropsMixin.foo', 'BazPropsMixin.baz'];
+    const metas = [_$metaForTestPropsMixin, _$metaForFooPropsMixin, _$metaForBazPropsMixin];
+    const emptyPropsMeta = PropsMeta(fields: [], keys: []);
 
     group('(class)', () {
-      const metas = [_$metaForTestPropsMixin, _$metaForFooPropsMixin, _$metaForBazPropsMixin];
-
-      test('provides access to the expected props', () {
+      test('provides access to the expected  props', () {
         final keys = [];
         final props = [];
         for (final meta in metas) {
@@ -89,6 +89,63 @@ main() {
           expect(value.keys, isEmpty);
           expect(value.fields, isEmpty);
         }, tags: 'no-ddc');
+      });
+
+      test('`all` provides metas for all mixins', () {
+        expect(propsMeta.all, unorderedEquals(metas));
+      });
+
+      group('`forMixins`', () {
+        test('provides access to the given metas', () {
+          final mixins = {TestPropsMixin, FooPropsMixin};
+          expect(mixins, hasLength(lessThan(propsMeta.all.length)),
+              reason: 'test setup check: we need to pass in a subset of the mixins');
+
+          expect(propsMeta.forMixins(mixins), unorderedEquals(mixins.map(propsMeta.forMixin)));
+        });
+
+        group('does not provide access to props outside of the mixin', () {
+          test('and throws an AssertionError in DDC', () {
+            expect(
+                () => propsMeta.forMixins({WoopsMixin, TestPropsMixin}),
+                throwsA(allOf(
+                  isA<AssertionError>(),
+                  hasToStringValue(contains('No meta found for WoopsMixin')),
+                )));
+          }, tags: 'ddc');
+
+          test('and ignores those values in dart2js', () {
+            final value = propsMeta.forMixins({WoopsMixin, TestPropsMixin});
+            expect(value, unorderedEquals([emptyPropsMeta, propsMeta.forMixin(TestPropsMixin)]));
+          }, tags: 'no-ddc');
+        });
+      });
+
+      group('`allExceptForMixins`', () {
+        test('provides access to all metas except for blacklisted ones', () {
+          final mixins = {TestPropsMixin, FooPropsMixin};
+          expect(mixins, hasLength(lessThan(propsMeta.all.length)),
+              reason: 'test setup check: we need to pass in a subset of the mixins');
+
+          expect(propsMeta.allExceptForMixins(mixins),
+              unorderedEquals([propsMeta.forMixin(BazPropsMixin)]));
+        });
+
+        group('does not provide access to props outside of the mixin', () {
+          test('and throws an AssertionError in DDC', () {
+            expect(
+                () => propsMeta.allExceptForMixins({WoopsMixin, TestPropsMixin}),
+                throwsA(allOf(
+                  isA<AssertionError>(),
+                  hasToStringValue(contains('No meta found for WoopsMixin')),
+                )));
+          }, tags: 'ddc');
+
+          test('and ignores those values in dart2js', () {
+            final value = propsMeta.allExceptForMixins({WoopsMixin, TestPropsMixin});
+            expect(value, unorderedEquals([FooPropsMixin, BazPropsMixin].map(propsMeta.forMixin)));
+          }, tags: 'no-ddc');
+        });
       });
     });
   });

@@ -282,7 +282,7 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ComponentTestProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForComponentTestProps
@@ -427,7 +427,7 @@ class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$IsErrorBoundaryProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForIsErrorBoundaryProps
@@ -572,7 +572,7 @@ class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$IsNotErrorBoundaryProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForIsNotErrorBoundaryProps

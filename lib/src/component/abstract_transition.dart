@@ -95,11 +95,6 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   static const String transitionPhaseTestAttr = 'data-transition-phase';
 
   @override
-  get consumedProps => [
-    propsMeta.forMixin(TransitionPropsMixin),
-  ];
-
-  @override
   get defaultProps => (newProps()
     ..addProps(TransitionPropsMixin.defaultProps)
   );

@@ -141,7 +141,7 @@ class _$DomTestComponent extends DomTestComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$DomTestProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForDomTestProps

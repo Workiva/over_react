@@ -217,11 +217,10 @@ class _$FaultyComponent extends FaultyComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from FaultyProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// The default consumed props, comprising all props mixins used by FaultyProps.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      [propsMeta.forMixin(FaultyProps)];
+  get $defaultConsumedProps => propsMeta.all;
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({

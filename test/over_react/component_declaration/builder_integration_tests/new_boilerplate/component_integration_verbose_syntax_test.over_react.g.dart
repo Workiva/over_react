@@ -34,7 +34,9 @@ _$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
 abstract class _$$ComponentTestProps extends UiProps
     with
         ComponentTestPropsMixin,
-        $ComponentTestPropsMixin // If this generated mixin is undefined, it's likely because ComponentTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ComponentTestPropsMixin.
+        $ComponentTestPropsMixin, // If this generated mixin is undefined, it's likely because ComponentTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ComponentTestPropsMixin.
+        TestPropsMixin,
+        $TestPropsMixin // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TestPropsMixin.
     implements
         ComponentTestProps {
   _$$ComponentTestProps._();
@@ -135,17 +137,51 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from ComponentTestProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// The default consumed props, comprising all props mixins used by ComponentTestProps.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps => const [];
+  get $defaultConsumedProps => propsMeta.all;
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because ComponentTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ComponentTestPropsMixin.
         ComponentTestPropsMixin: $ComponentTestPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TestPropsMixin.
+        TestPropsMixin: $TestPropsMixin.meta,
       });
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $TestPropsMixin on TestPropsMixin {
+  static const PropsMeta meta = _$metaForTestPropsMixin;
+  @override
+  dynamic get propsMixinProp =>
+      props[_$key__propsMixinProp__TestPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set propsMixinProp(dynamic value) =>
+      props[_$key__propsMixinProp__TestPropsMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__propsMixinProp__TestPropsMixin =
+      PropDescriptor(_$key__propsMixinProp__TestPropsMixin);
+  static const String _$key__propsMixinProp__TestPropsMixin =
+      'TestPropsMixin.propsMixinProp';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__propsMixinProp__TestPropsMixin
+  ];
+  static const List<String> $propKeys = [_$key__propsMixinProp__TestPropsMixin];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForTestPropsMixin = PropsMeta(
+  fields: $TestPropsMixin.$props,
+  keys: $TestPropsMixin.$propKeys,
+);
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.'

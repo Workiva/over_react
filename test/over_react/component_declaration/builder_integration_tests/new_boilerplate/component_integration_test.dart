@@ -145,27 +145,26 @@ main() {
           expect(Dom.div().componentDefaultProps, equals({}));
         });
       });
+    });
 
-      test('omits props declared in the @Props() class when forwarding by default', () {
-        var shallowInstance = renderShallow((ComponentTest()
-          ..addProp('extraneous', true)
-          ..stringProp = 'test'
-          ..dynamicProp = 'test'
-          ..untypedProp = 'test'
-          ..customKeyProp = 'test'
-          ..customNamespaceProp = 'test'
-          ..customKeyAndNamespaceProp = 'test'
-        )());
+    test('omits props declared in the props class when forwarding by default', () {
+      var shallowInstance = renderShallow((ComponentTest()
+        ..addProp('extraneous', true)
+        ..stringProp = 'test'
+        ..dynamicProp = 'test'
+        ..untypedProp = 'test'
+        ..customKeyProp = 'test'
+        ..customNamespaceProp = 'test'
+        ..customKeyAndNamespaceProp = 'test'
+      )());
 
-        var shallowProps = getProps(shallowInstance);
-        Iterable<String> shallowPropKeys = shallowProps.keys.map((key) => key as String); // ignore: avoid_as
+      var shallowProps = getProps(shallowInstance);
+      Iterable<String> shallowPropKeys = shallowProps.keys.map((key) => key as String); // ignore: avoid_as
 
-        expect(shallowPropKeys.where((key) => !key.startsWith('data-prop-')), unorderedEquals(['id', 'extraneous', 'children']));
-      });
+      expect(shallowPropKeys.where((key) => !key.startsWith('data-prop-')), unorderedEquals(['id', 'extraneous', 'children']));
     });
   });
 }
-
 
 UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 

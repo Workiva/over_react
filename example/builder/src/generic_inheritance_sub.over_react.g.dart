@@ -223,10 +223,10 @@ class _$GenericSubComponent extends GenericSubComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from GenericSubProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// The default consumed props, comprising all props mixins used by GenericSubProps.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps => const [];
+  get $defaultConsumedProps => propsMeta.all;
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({

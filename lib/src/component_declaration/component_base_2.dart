@@ -290,15 +290,77 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   @toBeGenerated
   Iterable<ConsumedProps> get $defaultConsumedProps => throw UngeneratedError(member: #$defaultConsumedProps);
 
-  /// The non-forwarding props defined in this component.
+  /// The sets of props that should be considered "consumed" by this component, and thus
+  /// omitted when forwarding props and validated in [propTypes].
   ///
-  /// For generated components, this defaults to the keys generated in the associated [UiProps] class
-  /// if this getter is not overridden.
+  /// This defaults to all of the prop mixins mixed into the props class
+  /// (or just the single props mixin for the shorthand syntax), or [propsMeta]`.all`.
+  ///
+  /// ## Examples on how to override this to get certain behavior:
+  ///
+  /// - Consume all props - no override; this is the default behavior.
+  ///
+  /// - Consume no props - override with an empty list.
+  ///
+  ///     @override
+  ///     get consumedProps => const [];
+  ///
+  /// - Consume props from some of the props mixins - use `.forMixins`.
+  ///
+  ///     // Note: A set literal here is recommended to prevent accidental duplicates of mixins.
+  ///     @override
+  ///     get consumedProps => propsMeta.forMixins({
+  ///       FooPropsMixin,
+  ///       BarPropsMixin,
+  ///     });
+  ///
+  /// - Consume props from all props mixins except some of them
+  ///
+  ///     // Note: A set literal here is recommended to prevent accidental duplicates of mixins.
+  ///     @override
+  ///     get consumedProps => propsMeta.allExceptForMixins({
+  ///       NoConsume1PropsMixin,
+  ///       NoConsume2PropsMixin,
+  ///     });
+  ///
+  /// - Consume an arbitrary key as well as some prop mixins. __Note:__ this is not recommended in
+  ///   general. If you need to do this, it's often easier implement and follow by explicitly
+  ///   nulling out single props you don't want to forward.
+  ///
+  ///     static final _onChangePropKey = getKeyFor((p) => p.onChange, domProps);
+  ///
+  ///     @override
+  ///     get consumedProps => [
+  ///       ...propsMeta.forMixins({FooPropsMixin, BarPropsMixin}),
+  ///       PropsMeta.forSimpleKey(_onChangePropKey),
+  ///     ];
+  ///
+  ///     // Alternative:
+  ///
+  ///     @override
+  ///     get consumedProps => propsMeta.forMixins({FooPropsMixin, BarPropsMixin});
+  ///
+  ///     render() {
+  ///       return (ComponentPropsAreForwardedTo()
+  ///         ..modifyProps(addUnconsumedProps)
+  ///         // Don't forward onChange
+  ///         ..onChange = null
+  ///       )();
+  ///     }
+  ///
+  /// ----
+  ///
+  /// Note: for legacy syntax component declarations, this defaults to just the props declared within
+  /// the `@Props` class for this component, and not any inherited props. Also, [propsMeta] is not
+  /// available.
   @override
   Iterable<ConsumedProps> get consumedProps => $defaultConsumedProps;
 
-  /// A collection of metadata for the prop fields in all prop mixins
-  /// used by the props class of this component.
+  /// A collection of metadata for the prop fields in all prop mixins used by this component's
+  /// generated props class.
+  ///
+  /// This can be used to override [consumedProps] to customize forwarding behavior. See the doc
+  /// comment for [consumedProps] for examples on customizing.
   @protected
   @toBeGenerated
   PropsMetaCollection get propsMeta => throw UngeneratedError(member: #propsMeta);

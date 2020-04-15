@@ -217,11 +217,10 @@ class _$ProgressComponent extends ProgressComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from ProgressProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// The default consumed props, comprising all props mixins used by ProgressProps.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  List<ConsumedProps> get $defaultConsumedProps =>
-      [propsMeta.forMixin(ProgressProps)];
+  get $defaultConsumedProps => propsMeta.all;
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
