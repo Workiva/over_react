@@ -10,150 +10,17 @@ part of 'toggle_button.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $ToggleButtonComponentFactory = registerComponent2(
   () => _$ToggleButtonComponent(),
-  builderFactory: ToggleButton,
+  builderFactory: _$ToggleButton,
   componentClass: ToggleButtonComponent,
   isWrapper: false,
   parentType: $ButtonComponentFactory,
   /* from `subtypeOf: ButtonComponent` */
   displayName: 'ToggleButton',
 );
-
-abstract class _$ToggleButtonPropsAccessorsMixin
-    implements _$ToggleButtonProps {
-  @override
-  Map get props;
-
-  /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
-  ///
-  /// _Proxies [DomProps.autoFocus]._
-  ///
-  /// Default: `false`
-  ///
-  /// <!-- Generated from [_$ToggleButtonProps.autoFocus] -->
-  @override
-  @Accessor(keyNamespace: '')
-  bool get autoFocus =>
-      props[_$key__autoFocus___$ToggleButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
-  ///
-  /// _Proxies [DomProps.autoFocus]._
-  ///
-  /// Default: `false`
-  ///
-  /// <!-- Generated from [_$ToggleButtonProps.autoFocus] -->
-  @override
-  @Accessor(keyNamespace: '')
-  set autoFocus(bool value) =>
-      props[_$key__autoFocus___$ToggleButtonProps] = value;
-
-  /// Whether the [ToggleButton] is checked by default.
-  ///
-  /// Setting this without the setting the [checked] prop to will make the
-  /// [ToggleButton] _uncontrolled_; it will initially render checked or unchecked
-  /// depending on the value of this prop, and then update itself automatically
-  /// in response to user input, like a normal HTML input.
-  ///
-  /// Related: [checked]
-  ///
-  /// _Proxies [DomProps.defaultChecked]._
-  ///
-  /// See: <https://facebook.github.io/react/docs/forms.html#uncontrolled-components>.
-  ///
-  /// <!-- Generated from [_$ToggleButtonProps.defaultChecked] -->
-  @override
-  @Accessor(keyNamespace: '')
-  bool get defaultChecked =>
-      props[_$key__defaultChecked___$ToggleButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Whether the [ToggleButton] is checked by default.
-  ///
-  /// Setting this without the setting the [checked] prop to will make the
-  /// [ToggleButton] _uncontrolled_; it will initially render checked or unchecked
-  /// depending on the value of this prop, and then update itself automatically
-  /// in response to user input, like a normal HTML input.
-  ///
-  /// Related: [checked]
-  ///
-  /// _Proxies [DomProps.defaultChecked]._
-  ///
-  /// See: <https://facebook.github.io/react/docs/forms.html#uncontrolled-components>.
-  ///
-  /// <!-- Generated from [_$ToggleButtonProps.defaultChecked] -->
-  @override
-  @Accessor(keyNamespace: '')
-  set defaultChecked(bool value) =>
-      props[_$key__defaultChecked___$ToggleButtonProps] = value;
-
-  /// Whether the [ToggleButton] is checked.
-  ///
-  /// Setting this will make the [ToggleButton] _controlled_; it will not update
-  /// automatically in response to user input, but instead will always render
-  /// checked or unchecked depending on the value of this prop.
-  ///
-  /// Related: [defaultChecked]
-  ///
-  /// _Proxies [DomProps.checked]._
-  ///
-  /// See: <https://facebook.github.io/react/docs/forms.html#controlled-components>.
-  ///
-  /// <!-- Generated from [_$ToggleButtonProps.checked] -->
-  @override
-  @Accessor(keyNamespace: '')
-  bool get checked =>
-      props[_$key__checked___$ToggleButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Whether the [ToggleButton] is checked.
-  ///
-  /// Setting this will make the [ToggleButton] _controlled_; it will not update
-  /// automatically in response to user input, but instead will always render
-  /// checked or unchecked depending on the value of this prop.
-  ///
-  /// Related: [defaultChecked]
-  ///
-  /// _Proxies [DomProps.checked]._
-  ///
-  /// See: <https://facebook.github.io/react/docs/forms.html#controlled-components>.
-  ///
-  /// <!-- Generated from [_$ToggleButtonProps.checked] -->
-  @override
-  @Accessor(keyNamespace: '')
-  set checked(bool value) => props[_$key__checked___$ToggleButtonProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__autoFocus___$ToggleButtonProps =
-      PropDescriptor(_$key__autoFocus___$ToggleButtonProps);
-  static const PropDescriptor _$prop__defaultChecked___$ToggleButtonProps =
-      PropDescriptor(_$key__defaultChecked___$ToggleButtonProps);
-  static const PropDescriptor _$prop__checked___$ToggleButtonProps =
-      PropDescriptor(_$key__checked___$ToggleButtonProps);
-  static const String _$key__autoFocus___$ToggleButtonProps = 'autoFocus';
-  static const String _$key__defaultChecked___$ToggleButtonProps =
-      'defaultChecked';
-  static const String _$key__checked___$ToggleButtonProps = 'checked';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__autoFocus___$ToggleButtonProps,
-    _$prop__defaultChecked___$ToggleButtonProps,
-    _$prop__checked___$ToggleButtonProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__autoFocus___$ToggleButtonProps,
-    _$key__defaultChecked___$ToggleButtonProps,
-    _$key__checked___$ToggleButtonProps
-  ];
-}
-
-const PropsMeta _$metaForToggleButtonProps = PropsMeta(
-  fields: _$ToggleButtonPropsAccessorsMixin.$props,
-  keys: _$ToggleButtonPropsAccessorsMixin.$propKeys,
-);
-
-class ToggleButtonProps extends _$ToggleButtonProps
-    with _$ToggleButtonPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForToggleButtonProps;
-}
 
 _$$ToggleButtonProps _$ToggleButton([Map backingProps]) => backingProps == null
     ? _$$ToggleButtonProps$JsMap(JsBackedMap())
@@ -162,9 +29,18 @@ _$$ToggleButtonProps _$ToggleButton([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$ToggleButtonProps extends _$ToggleButtonProps
-    with _$ToggleButtonPropsAccessorsMixin
-    implements ToggleButtonProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ToggleButtonProps extends UiProps
+    with
+        ButtonProps,
+        $ButtonProps, // If this generated mixin is undefined, it's likely because ButtonProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonProps.
+        ToggleButtonPropsMixin,
+        $ToggleButtonPropsMixin, // If this generated mixin is undefined, it's likely because ToggleButtonPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ToggleButtonPropsMixin.
+        AbstractInputPropsMixin,
+        $AbstractInputPropsMixin // If this generated mixin is undefined, it's likely because AbstractInputPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of AbstractInputPropsMixin.
+    implements
+        ToggleButtonProps {
   _$$ToggleButtonProps._();
 
   factory _$$ToggleButtonProps(Map backingMap) {
@@ -186,10 +62,12 @@ abstract class _$$ToggleButtonProps extends _$ToggleButtonProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'ToggleButtonProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ToggleButtonProps$PlainMap extends _$$ToggleButtonProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -207,6 +85,8 @@ class _$$ToggleButtonProps$PlainMap extends _$$ToggleButtonProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ToggleButtonProps$JsMap extends _$$ToggleButtonProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -222,84 +102,21 @@ class _$$ToggleButtonProps$JsMap extends _$$ToggleButtonProps {
   JsBackedMap _props;
 }
 
-abstract class _$ToggleButtonStateAccessorsMixin
-    implements _$ToggleButtonState {
-  @override
-  Map get state;
-
-  /// Tracks if the [ToggleButton] is focused. Determines whether to render with the `js-focus` CSS
-  /// class.
-  ///
-  /// Initial: [ToggleButtonProps.autoFocus]
-  ///
-  /// <!-- Generated from [_$ToggleButtonState.isFocused] -->
-  @override
-  bool get isFocused =>
-      state[_$key__isFocused___$ToggleButtonState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Tracks if the [ToggleButton] is focused. Determines whether to render with the `js-focus` CSS
-  /// class.
-  ///
-  /// Initial: [ToggleButtonProps.autoFocus]
-  ///
-  /// <!-- Generated from [_$ToggleButtonState.isFocused] -->
-  @override
-  set isFocused(bool value) =>
-      state[_$key__isFocused___$ToggleButtonState] = value;
-
-  /// Tracks if the [ToggleButton] input is `checked`. Determines whether to render with the `active` CSS class.
-  ///
-  /// Initial: [ToggleButtonProps.checked] `??` [ToggleButtonProps.defaultChecked] `?? false`
-  ///
-  /// <!-- Generated from [_$ToggleButtonState.isChecked] -->
-  @override
-  bool get isChecked =>
-      state[_$key__isChecked___$ToggleButtonState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// Tracks if the [ToggleButton] input is `checked`. Determines whether to render with the `active` CSS class.
-  ///
-  /// Initial: [ToggleButtonProps.checked] `??` [ToggleButtonProps.defaultChecked] `?? false`
-  ///
-  /// <!-- Generated from [_$ToggleButtonState.isChecked] -->
-  @override
-  set isChecked(bool value) =>
-      state[_$key__isChecked___$ToggleButtonState] = value;
-  /* GENERATED CONSTANTS */
-  static const StateDescriptor _$prop__isFocused___$ToggleButtonState =
-      StateDescriptor(_$key__isFocused___$ToggleButtonState);
-  static const StateDescriptor _$prop__isChecked___$ToggleButtonState =
-      StateDescriptor(_$key__isChecked___$ToggleButtonState);
-  static const String _$key__isFocused___$ToggleButtonState =
-      'ToggleButtonState.isFocused';
-  static const String _$key__isChecked___$ToggleButtonState =
-      'ToggleButtonState.isChecked';
-
-  static const List<StateDescriptor> $state = [
-    _$prop__isFocused___$ToggleButtonState,
-    _$prop__isChecked___$ToggleButtonState
-  ];
-  static const List<String> $stateKeys = [
-    _$key__isFocused___$ToggleButtonState,
-    _$key__isChecked___$ToggleButtonState
-  ];
-}
-
-const StateMeta _$metaForToggleButtonState = StateMeta(
-  fields: _$ToggleButtonStateAccessorsMixin.$state,
-  keys: _$ToggleButtonStateAccessorsMixin.$stateKeys,
-);
-
-class ToggleButtonState extends _$ToggleButtonState
-    with _$ToggleButtonStateAccessorsMixin {
-  static const StateMeta meta = _$metaForToggleButtonState;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-abstract class _$$ToggleButtonState extends _$ToggleButtonState
-    with _$ToggleButtonStateAccessorsMixin
-    implements ToggleButtonState {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ToggleButtonState extends UiState
+    with
+        ButtonState,
+        $ButtonState, // If this generated mixin is undefined, it's likely because ButtonState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonState.
+        ToggleButtonStateMixin,
+        $ToggleButtonStateMixin, // If this generated mixin is undefined, it's likely because ToggleButtonStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ToggleButtonStateMixin.
+        AbstractInputStateMixin,
+        $AbstractInputStateMixin // If this generated mixin is undefined, it's likely because AbstractInputStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of AbstractInputStateMixin.
+    implements
+        ToggleButtonState {
   _$$ToggleButtonState._();
 
   factory _$$ToggleButtonState(Map backingMap) {
@@ -316,6 +133,8 @@ abstract class _$$ToggleButtonState extends _$ToggleButtonState
 }
 
 // Concrete state implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ToggleButtonState$PlainMap extends _$$ToggleButtonState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -333,6 +152,8 @@ class _$$ToggleButtonState$PlainMap extends _$$ToggleButtonState {
 
 // Concrete state implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ToggleButtonState$JsMap extends _$$ToggleButtonState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -352,6 +173,8 @@ class _$$ToggleButtonState$JsMap extends _$$ToggleButtonState {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$ToggleButtonComponent extends ToggleButtonComponent {
   _$$ToggleButtonProps$JsMap _cachedTypedProps;
 
@@ -405,10 +228,129 @@ class _$ToggleButtonComponent extends ToggleButtonComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$ToggleButtonProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// The default consumed props, comprising all props mixins used by ToggleButtonProps.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForToggleButtonProps
+  get $defaultConsumedProps => propsMeta.all;
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ButtonProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonProps.
+        ButtonProps: $ButtonProps.meta,
+        // If this generated mixin is undefined, it's likely because ToggleButtonPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ToggleButtonPropsMixin.
+        ToggleButtonPropsMixin: $ToggleButtonPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because AbstractInputPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of AbstractInputPropsMixin.
+        AbstractInputPropsMixin: $AbstractInputPropsMixin.meta,
+      });
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $ToggleButtonPropsMixin on ToggleButtonPropsMixin {
+  static const PropsMeta meta = _$metaForToggleButtonPropsMixin;
+  @override
+  @Accessor(keyNamespace: '')
+  bool get autoFocus =>
+      props[_$key__autoFocus__ToggleButtonPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  @Accessor(keyNamespace: '')
+  set autoFocus(bool value) =>
+      props[_$key__autoFocus__ToggleButtonPropsMixin] = value;
+  @override
+  @Accessor(keyNamespace: '')
+  bool get defaultChecked =>
+      props[_$key__defaultChecked__ToggleButtonPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  @Accessor(keyNamespace: '')
+  set defaultChecked(bool value) =>
+      props[_$key__defaultChecked__ToggleButtonPropsMixin] = value;
+  @override
+  @Accessor(keyNamespace: '')
+  bool get checked =>
+      props[_$key__checked__ToggleButtonPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  @Accessor(keyNamespace: '')
+  set checked(bool value) =>
+      props[_$key__checked__ToggleButtonPropsMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__autoFocus__ToggleButtonPropsMixin =
+      PropDescriptor(_$key__autoFocus__ToggleButtonPropsMixin);
+  static const PropDescriptor _$prop__defaultChecked__ToggleButtonPropsMixin =
+      PropDescriptor(_$key__defaultChecked__ToggleButtonPropsMixin);
+  static const PropDescriptor _$prop__checked__ToggleButtonPropsMixin =
+      PropDescriptor(_$key__checked__ToggleButtonPropsMixin);
+  static const String _$key__autoFocus__ToggleButtonPropsMixin = 'autoFocus';
+  static const String _$key__defaultChecked__ToggleButtonPropsMixin =
+      'defaultChecked';
+  static const String _$key__checked__ToggleButtonPropsMixin = 'checked';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__autoFocus__ToggleButtonPropsMixin,
+    _$prop__defaultChecked__ToggleButtonPropsMixin,
+    _$prop__checked__ToggleButtonPropsMixin
+  ];
+  static const List<String> $propKeys = [
+    _$key__autoFocus__ToggleButtonPropsMixin,
+    _$key__defaultChecked__ToggleButtonPropsMixin,
+    _$key__checked__ToggleButtonPropsMixin
   ];
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForToggleButtonPropsMixin = PropsMeta(
+  fields: $ToggleButtonPropsMixin.$props,
+  keys: $ToggleButtonPropsMixin.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $ToggleButtonStateMixin on ToggleButtonStateMixin {
+  static const StateMeta meta = _$metaForToggleButtonStateMixin;
+  @override
+  bool get isFocused =>
+      state[_$key__isFocused__ToggleButtonStateMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set isFocused(bool value) =>
+      state[_$key__isFocused__ToggleButtonStateMixin] = value;
+  @override
+  bool get isChecked =>
+      state[_$key__isChecked__ToggleButtonStateMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set isChecked(bool value) =>
+      state[_$key__isChecked__ToggleButtonStateMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const StateDescriptor _$prop__isFocused__ToggleButtonStateMixin =
+      StateDescriptor(_$key__isFocused__ToggleButtonStateMixin);
+  static const StateDescriptor _$prop__isChecked__ToggleButtonStateMixin =
+      StateDescriptor(_$key__isChecked__ToggleButtonStateMixin);
+  static const String _$key__isFocused__ToggleButtonStateMixin =
+      'ToggleButtonStateMixin.isFocused';
+  static const String _$key__isChecked__ToggleButtonStateMixin =
+      'ToggleButtonStateMixin.isChecked';
+
+  static const List<StateDescriptor> $state = [
+    _$prop__isFocused__ToggleButtonStateMixin,
+    _$prop__isChecked__ToggleButtonStateMixin
+  ];
+  static const List<String> $stateKeys = [
+    _$key__isFocused__ToggleButtonStateMixin,
+    _$key__isChecked__ToggleButtonStateMixin
+  ];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const StateMeta _$metaForToggleButtonStateMixin = StateMeta(
+  fields: $ToggleButtonStateMixin.$state,
+  keys: $ToggleButtonStateMixin.$stateKeys,
+);

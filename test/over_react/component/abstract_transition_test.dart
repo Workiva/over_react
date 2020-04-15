@@ -11,8 +11,6 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-// ignore_for_file: deprecated_member_use_from_same_package
 @TestOn('browser')
 library abstract_transition_test;
 
@@ -21,7 +19,8 @@ import 'dart:html';
 
 import 'package:dart2_constant/core.dart' as d2c;
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
+import 'package:over_react/over_react.dart' hide TransitionPropsMixin, $TransitionPropsMixin, AbstractTransitionProps, AbstractTransitionState, AbstractTransitionComponent;
+import 'package:over_react/components.dart';
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
 
@@ -538,7 +537,7 @@ main() {
 
         rejectValidationWarning(anything);
       });
-    }, testOn: '!js');
+    }, tags: 'ddc');
 
     test('does not set hidden state when not mounted', () async {
       var renderedInstance = render(Transitioner());
@@ -636,11 +635,9 @@ main() {
   });
 }
 
-@Factory()
 UiFactory<TransitionerProps> Transitioner = _$Transitioner;
 
-@Props()
-class _$TransitionerProps extends AbstractTransitionProps {
+mixin TransitionerPropsMixin on UiProps {
   Callback onHandlePreShowing;
   Callback onHandleShowing;
   Callback onHandleShown;
@@ -656,19 +653,18 @@ class _$TransitionerProps extends AbstractTransitionProps {
   Duration transitionTimeout;
 }
 
-@State()
-class _$TransitionerState extends AbstractTransitionState {}
+class TransitionerProps = UiProps with TransitionerPropsMixin, TransitionPropsMixin implements AbstractTransitionProps;
 
-@Component()
+class TransitionerState = UiState with AbstractTransitionState;
+
 class TransitionerComponent extends AbstractTransitionComponent<TransitionerProps, TransitionerState> {
   @override
-  Map getDefaultProps() => (newProps()
-    ..addProps(super.getDefaultProps())
+  Map get defaultProps => (newProps()
+    ..addProps(super.defaultProps)
     ..hasTransition = true
     ..initiallyShown = true
     ..transitionTimeout = const Duration(seconds: 1)
   );
-
 
   @override
   Element getTransitionDomNode() => findDomNode(this);

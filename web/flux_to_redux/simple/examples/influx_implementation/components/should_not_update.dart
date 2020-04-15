@@ -1,3 +1,17 @@
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 
@@ -5,20 +19,15 @@ import '../store.dart';
 
 part 'should_not_update.over_react.g.dart';
 
-UiFactory<ShouldNotUpdateProps> ConnectedShouldNotUpdate = connect<FluxStore, ShouldNotUpdateProps>(
+UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = connect<FluxStore, ShouldNotUpdateProps>(
   mapStateToProps: (_) => {},
   pure: false,
-)(ShouldNotUpdate);
+)(_$ShouldNotUpdate); // ignore: undefined_identifier
 
-@Factory()
-UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = _$ShouldNotUpdate;
-
-@Props()
-class _$ShouldNotUpdateProps extends UiProps {
+mixin ShouldNotUpdateProps on UiProps {
   String text;
 }
 
-@Component2()
 class ShouldNotUpdateComponent extends UiComponent2<ShouldNotUpdateProps> {
   @override
   render() {

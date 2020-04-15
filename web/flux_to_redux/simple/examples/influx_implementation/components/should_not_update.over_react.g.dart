@@ -10,49 +10,16 @@ part of 'should_not_update.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $ShouldNotUpdateComponentFactory = registerComponent2(
   () => _$ShouldNotUpdateComponent(),
-  builderFactory: ShouldNotUpdate,
+  builderFactory: _$ShouldNotUpdate,
   componentClass: ShouldNotUpdateComponent,
   isWrapper: false,
   parentType: null,
   displayName: 'ShouldNotUpdate',
 );
-
-abstract class _$ShouldNotUpdatePropsAccessorsMixin
-    implements _$ShouldNotUpdateProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$ShouldNotUpdateProps.text] -->
-  @override
-  String get text =>
-      props[_$key__text___$ShouldNotUpdateProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$ShouldNotUpdateProps.text] -->
-  @override
-  set text(String value) => props[_$key__text___$ShouldNotUpdateProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__text___$ShouldNotUpdateProps =
-      PropDescriptor(_$key__text___$ShouldNotUpdateProps);
-  static const String _$key__text___$ShouldNotUpdateProps =
-      'ShouldNotUpdateProps.text';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__text___$ShouldNotUpdateProps
-  ];
-  static const List<String> $propKeys = [_$key__text___$ShouldNotUpdateProps];
-}
-
-const PropsMeta _$metaForShouldNotUpdateProps = PropsMeta(
-  fields: _$ShouldNotUpdatePropsAccessorsMixin.$props,
-  keys: _$ShouldNotUpdatePropsAccessorsMixin.$propKeys,
-);
-
-class ShouldNotUpdateProps extends _$ShouldNotUpdateProps
-    with _$ShouldNotUpdatePropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForShouldNotUpdateProps;
-}
 
 _$$ShouldNotUpdateProps _$ShouldNotUpdate([Map backingProps]) =>
     backingProps == null
@@ -62,9 +29,13 @@ _$$ShouldNotUpdateProps _$ShouldNotUpdate([Map backingProps]) =>
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$ShouldNotUpdateProps extends _$ShouldNotUpdateProps
-    with _$ShouldNotUpdatePropsAccessorsMixin
-    implements ShouldNotUpdateProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ShouldNotUpdateProps extends UiProps
+    with
+        ShouldNotUpdateProps,
+        $ShouldNotUpdateProps // If this generated mixin is undefined, it's likely because ShouldNotUpdateProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ShouldNotUpdateProps.
+{
   _$$ShouldNotUpdateProps._();
 
   factory _$$ShouldNotUpdateProps(Map backingMap) {
@@ -86,10 +57,12 @@ abstract class _$$ShouldNotUpdateProps extends _$ShouldNotUpdateProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'ShouldNotUpdateProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ShouldNotUpdateProps$PlainMap extends _$$ShouldNotUpdateProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -107,6 +80,8 @@ class _$$ShouldNotUpdateProps$PlainMap extends _$$ShouldNotUpdateProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$ShouldNotUpdateProps$JsMap extends _$$ShouldNotUpdateProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -126,6 +101,8 @@ class _$$ShouldNotUpdateProps$JsMap extends _$$ShouldNotUpdateProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$ShouldNotUpdateComponent extends ShouldNotUpdateComponent {
   _$$ShouldNotUpdateProps$JsMap _cachedTypedProps;
 
@@ -157,10 +134,45 @@ class _$ShouldNotUpdateComponent extends ShouldNotUpdateComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$ShouldNotUpdateProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// The default consumed props, comprising all props mixins used by ShouldNotUpdateProps.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForShouldNotUpdateProps
-  ];
+  get $defaultConsumedProps => propsMeta.all;
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ShouldNotUpdateProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ShouldNotUpdateProps.
+        ShouldNotUpdateProps: $ShouldNotUpdateProps.meta,
+      });
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $ShouldNotUpdateProps on ShouldNotUpdateProps {
+  static const PropsMeta meta = _$metaForShouldNotUpdateProps;
+  @override
+  String get text =>
+      props[_$key__text__ShouldNotUpdateProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set text(String value) => props[_$key__text__ShouldNotUpdateProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__text__ShouldNotUpdateProps =
+      PropDescriptor(_$key__text__ShouldNotUpdateProps);
+  static const String _$key__text__ShouldNotUpdateProps =
+      'ShouldNotUpdateProps.text';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__text__ShouldNotUpdateProps
+  ];
+  static const List<String> $propKeys = [_$key__text__ShouldNotUpdateProps];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForShouldNotUpdateProps = PropsMeta(
+  fields: $ShouldNotUpdateProps.$props,
+  keys: $ShouldNotUpdateProps.$propKeys,
+);

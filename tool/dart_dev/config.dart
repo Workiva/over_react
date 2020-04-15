@@ -23,8 +23,21 @@ final config = {
       Glob('tool/**.dart'),
     ],
   'format': FormatTool()
+    ..formatterArgs = ['--line-length=100']
     ..exclude = [
-      Glob('**/*.dart'), // We don't format this repo with dartfmt at this time.
+      // We don't format most of this repo with dartfmt, yet.
+      Glob('app/**'),
+      Glob('example/**'),
+      Glob('lib/*'),
+      Glob('lib/src/builder/builder.dart'),
+      Glob('lib/src/builder/util.dart'),
+      Glob('lib/src/component/**'),
+      Glob('lib/src/component_declaration/**'),
+      Glob('lib/src/over_react_redux/**'),
+      Glob('lib/src/util/**'),
+      Glob('test/**'),
+      Glob('test_fixtures/**'),
+      Glob('web/**'),
     ],
   'test': TestTool()
     ..buildArgs = [

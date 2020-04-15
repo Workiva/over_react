@@ -12,7 +12,7 @@ part of 'num_example_component.dart';
 // Registers component implementation and links type meta to builder factory.
 final $NumExampleComponentFactory = registerComponent2(
   () => _$NumExampleComponent(),
-  builderFactory: NumExample,
+  builderFactory: _$NumExample,
   componentClass: NumExampleComponent,
   isWrapper: false,
   parentType: null,
@@ -137,7 +137,7 @@ class _$NumExampleComponent extends NumExampleComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$NumExampleProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForNumExampleProps

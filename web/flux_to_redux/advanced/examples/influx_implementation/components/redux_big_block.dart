@@ -1,3 +1,17 @@
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 
@@ -17,7 +31,7 @@ part 'redux_big_block.over_react.g.dart';
 // [8] Set the `pure` constructor on `connect` to be `false`.
 
 // [4]
-UiFactory<ReduxBigBlockProps> ConnectedReduxBigBlock = composeHocs([
+UiFactory<ReduxBigBlockProps> ReduxBigBlock = composeHocs([
   // [5]
   connect<RandomColorStore, ReduxBigBlockProps>(
     context: randomColorStoreContext, // [6]
@@ -66,13 +80,9 @@ UiFactory<ReduxBigBlockProps> ConnectedReduxBigBlock = composeHocs([
     ),
     pure: false, // [8]
   ),
-])(ReduxBigBlock);
+])(_$ReduxBigBlock); // ignore: undefined_identifier
 
-@Factory()
-UiFactory<ReduxBigBlockProps> ReduxBigBlock = _$ReduxBigBlock;
-
-@Props()
-class _$ReduxBigBlockProps extends UiProps with ConnectPropsMixin {
+mixin ReduxBigBlockPropsMixin on UiProps {
   String backgroundColor; // [1]
   String blockTwoBackgroundColor; // [1]
   String blockThreeBackgroundColor; // [1]
@@ -84,7 +94,8 @@ class _$ReduxBigBlockProps extends UiProps with ConnectPropsMixin {
   void Function() changeBlockThreeBackgroundColor; // [2]
 }
 
-@Component2()
+class ReduxBigBlockProps = UiProps with ReduxBigBlockPropsMixin, ConnectPropsMixin;
+
 class ReduxBigBlockComponent extends UiComponent2<ReduxBigBlockProps> {
   @override
   render() {

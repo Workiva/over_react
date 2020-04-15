@@ -27,7 +27,7 @@ main() {
       initializeTestStore();
       componentRef = createRef();
       mount((ReduxProvider()..store = testStore)(
-        (ConnectedTodoApp()..ref = componentRef)(),
+        (TodoApp()..ref = componentRef)(),
       ));
       component = componentRef.current;
       expect(component, isNotNull, reason: 'ConnectedTodoApp should forward refs to the child TodoApp');

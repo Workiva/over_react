@@ -229,7 +229,7 @@ testComponentTypeChecking({
             // Fully iterate the result by calling toList().
             getParentTypes(Object()).toList();
           }, throwsA(isA<AssertionError>()));
-        }, testOn: '!js');
+        }, tags: 'ddc');
       });
     });
 

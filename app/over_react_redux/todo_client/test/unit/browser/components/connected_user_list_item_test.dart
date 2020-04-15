@@ -26,7 +26,7 @@ main() {
       initializeTestStore();
       appRef = createRef();
       mount((ReduxProvider()..store = testStore)(
-        (ConnectedTodoApp()..ref = appRef)(),
+        (TodoApp()..ref = appRef)(),
       ));
       final appComponent = appRef.current;
       model = testStore.state.users.first;

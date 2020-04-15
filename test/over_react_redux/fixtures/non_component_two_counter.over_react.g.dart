@@ -11,12 +11,13 @@ part of 'non_component_two_counter.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $NonComponentTwoCounterComponentFactory = registerComponent(
-    () => _$NonComponentTwoCounterComponent(),
-    builderFactory: NonComponentTwoCounter,
-    componentClass: NonComponentTwoCounterComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'NonComponentTwoCounter');
+  () => _$NonComponentTwoCounterComponent(),
+  builderFactory: _$NonComponentTwoCounter,
+  componentClass: NonComponentTwoCounterComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'NonComponentTwoCounter',
+);
 
 abstract class _$NonComponentTwoCounterPropsAccessorsMixin
     implements _$NonComponentTwoCounterProps {
@@ -88,7 +89,7 @@ class _$NonComponentTwoCounterComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$NonComponentTwoCounterProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForNonComponentTwoCounterProps

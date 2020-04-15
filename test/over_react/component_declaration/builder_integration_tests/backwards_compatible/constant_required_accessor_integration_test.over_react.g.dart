@@ -11,12 +11,13 @@ part of 'constant_required_accessor_integration_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ComponentTestComponentFactory = registerComponent(
-    () => _$ComponentTestComponent(),
-    builderFactory: ComponentTest,
-    componentClass: ComponentTestComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'ComponentTest');
+  () => _$ComponentTestComponent(),
+  builderFactory: _$ComponentTest,
+  componentClass: ComponentTestComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'ComponentTest',
+);
 
 abstract class _$ComponentTestPropsAccessorsMixin
     implements _$ComponentTestProps {
@@ -120,7 +121,7 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ComponentTestProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForComponentTestProps

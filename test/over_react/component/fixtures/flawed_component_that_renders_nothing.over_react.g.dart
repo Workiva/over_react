@@ -12,7 +12,7 @@ part of 'flawed_component_that_renders_nothing.dart';
 // Registers component implementation and links type meta to builder factory.
 final $FlawedWithNoChildComponentFactory = registerComponent2(
   () => _$FlawedWithNoChildComponent(),
-  builderFactory: FlawedWithNoChild,
+  builderFactory: _$FlawedWithNoChild,
   componentClass: FlawedWithNoChildComponent,
   isWrapper: false,
   parentType: null,
@@ -139,7 +139,7 @@ class _$FlawedWithNoChildComponent extends FlawedWithNoChildComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$FlawedWithNoChildProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForFlawedWithNoChildProps

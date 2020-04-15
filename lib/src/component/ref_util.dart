@@ -21,13 +21,10 @@ import 'package:over_react/component_base.dart';
 ///
 /// __Example__:
 ///
-///     @Factory()
 ///     UiFactory<BasicProps> Basic = _$Basic;
 ///
-///     @Props()
-///     class _$BasicProps extends UiProps {}
+///     mixin BasicProps on UiProps {}
 ///
-///     @Component2()
 ///     class BasicComponent extends UiComponent2<BasicProps> {
 ///       final Ref<InputElement> inputRef = createRef();
 ///
@@ -74,11 +71,9 @@ Ref<T> createRef<T>() {
 ///       )();
 ///     })(Foo);
 ///
-///     @Factory()
 ///     UiFactory<FooProps> Foo = _$Foo;
 ///
-///     @Props()
-///     class _$FooProps extends UiProps {
+///     mixin FooProps on UiProps {
 ///       Ref forwardedRef;
 ///     }
 ///

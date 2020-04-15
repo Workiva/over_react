@@ -16,12 +16,11 @@
 /// https://github.com/marcj/css-element-queries/blob/master/src/ResizeSensor.js
 library over_react.resize_sensor;
 
-import 'dart:collection';
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:platform_detect/platform_detect.dart';
-import 'package:over_react/over_react.dart';
+import 'package:over_react/over_react.dart' hide ResizeSensor, ResizeSensorComponent, ResizeSensorProps;
+import 'package:over_react/src/component/resize_sensor_constants.dart';
 
 part 'resize_sensor.over_react.g.dart';
 
@@ -62,24 +61,9 @@ part 'resize_sensor.over_react.g.dart';
 ///     )
 ///
 /// > The component _must_ be put in a relative or absolutely positioned container.
-@Factory()
 UiFactory<ResizeSensorProps> ResizeSensor = _$ResizeSensor;
 
-/// This class is only present to allow for consumers which have used the
-/// --backwards-compat flag with over_react_codemod to statically analyze:
-/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
-abstract class $ResizeSensorPropsMixin {}
-
-@PropsMixin()
-abstract class _$ResizeSensorPropsMixin {
-  static final ResizeSensorPropsMixinMapView defaultProps = ResizeSensorPropsMixinMapView({})
-    ..isFlexChild = false
-    ..isFlexContainer = false
-    ..shrink = false
-    ..quickMount = false;
-
-  Map get props;
-
+mixin ResizeSensorProps on UiProps {
   /// A function invoked with a `ResizeSensorEvent` argument when the resize sensor is initialized.
   ///
   /// > Will never be called if [quickMount] is `true`.
@@ -164,11 +148,7 @@ abstract class _$ResizeSensorPropsMixin {
   Callback onDidReset;
 }
 
-@Props()
-class _$ResizeSensorProps extends UiProps with ResizeSensorPropsMixin {}
-
-@Component2()
-class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with _SafeAnimationFrameMixin {
+class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAnimationFrameMixin {
   // Refs
 
   Element _expandSensorRef;
@@ -176,7 +156,10 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with _SafeAn
 
   @override
   get defaultProps => (newProps()
-    ..addProps(ResizeSensorPropsMixin.defaultProps)
+    ..isFlexChild = false
+    ..isFlexContainer = false
+    ..shrink = false
+    ..quickMount = false
   );
 
   @mustCallSuper
@@ -225,34 +208,34 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with _SafeAn
     var expandSensor = (Dom.div()
       ..className = 'resize-sensor-expand'
       ..onScroll = _handleSensorScroll
-      ..style = props.shrink ? _shrinkBaseStyle : _baseStyle
+      ..style = props.shrink ? shrinkBaseStyle : baseStyle
       ..ref = (ref) { _expandSensorRef = ref; }
     )(
-      (Dom.div()..style = _expandSensorChildStyle)()
+      (Dom.div()..style = expandSensorChildStyle)()
     );
 
     var collapseSensor = (Dom.div()
       ..className = 'resize-sensor-collapse'
       ..onScroll = _handleSensorScroll
-      ..style = props.shrink ? _shrinkBaseStyle : _baseStyle
+      ..style = props.shrink ? shrinkBaseStyle : baseStyle
       ..ref = (ref) { _collapseSensorRef = ref; }
     )(
-      (Dom.div()..style = _collapseSensorChildStyle)()
+      (Dom.div()..style = collapseSensorChildStyle)()
     );
 
     var resizeSensor = (Dom.div()
       ..className = 'resize-sensor'
-      ..style = props.shrink ? _shrinkBaseStyle : _baseStyle
+      ..style = props.shrink ? shrinkBaseStyle : baseStyle
       ..key = 'resizeSensor'
     )(expandSensor, collapseSensor);
 
     Map<String, dynamic> wrapperStyles;
     if (props.isFlexChild) {
-      wrapperStyles = _wrapperStylesFlexChild;
+      wrapperStyles = wrapperStylesFlexChild;
     } else if (props.isFlexContainer) {
-      wrapperStyles = _wrapperStylesFlexContainer;
+      wrapperStyles = wrapperStylesFlexContainer;
     } else {
-      wrapperStyles = _wrapperStyles;
+      wrapperStyles = defaultWrapperStyles;
     }
 
     var mergedStyle = newStyleFromProps(props);
@@ -308,12 +291,12 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with _SafeAn
     // as opposed to scrollWidth/scrollHeight, which trigger reflows immediately.
 
     _expandSensorRef
-      ..scrollLeft = _maxSensorSize
-      ..scrollTop = _maxSensorSize;
+      ..scrollLeft = maxSensorSize
+      ..scrollTop = maxSensorSize;
 
     _collapseSensorRef
-      ..scrollLeft = _maxSensorSize
-      ..scrollTop = _maxSensorSize;
+      ..scrollLeft = maxSensorSize
+      ..scrollTop = maxSensorSize;
 
     if (props.onDidReset != null) {
       props.onDidReset();
@@ -385,98 +368,6 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with _SafeAn
   int _lastWidth = 0;
 }
 
-/// The maximum size, in `px`, the sensor can be: 100,000.
-///
-/// We want to use absolute values to avoid accessing element dimensions when possible,
-/// and relative units like `%` don't work since they don't cause scroll events when sensor size changes.
-///
-/// We could use `rem` or `vh`/`vw`, but that opens us up to more edge cases.
-const int _maxSensorSize = 100 * 1000;
-
-const Map<String, dynamic> _baseStyle = {
-  'position': 'absolute',
-  // Have this element reach "outside" its containing element in such a way to ensure its width/height are always at
-  // least 2x the scrollbar width (e.g., 32px on Chrome OS X).
-  'top': '-100px',
-  'right': '-100px',
-  'bottom': '-100px',
-  'left': '-100px',
-  'overflow': 'scroll',
-  'zIndex': '-1',
-  'visibility': 'hidden',
-  // Set opacity in addition to visibility to work around Safari scrollbar bug.
-  'opacity': '0',
-};
-
-const Map<String, dynamic> _shrinkBaseStyle = {
-  'position': 'absolute',
-  'top': '0',
-  'right': '0',
-  'bottom': '0',
-  'left': '0',
-  'overflow': 'scroll',
-  'zIndex': '-1',
-  'visibility': 'hidden',
-  // Set opacity in addition to visibility to work around Safari scrollbar bug.
-  'opacity': '0',
-};
-
-final Map<String, dynamic> _expandSensorChildStyle = {
-  'position': 'absolute',
-  'top': '0',
-  'left': '0',
-  'visibility': 'hidden',
-  // Use a width/height that will always be larger than the expandSensor.
-  // We'd ideally want to do something like calc(100% + 10px), but that doesn't
-  // trigger scroll events the same way a fixed dimension does.
-  'width': _maxSensorSize,
-  'height': _maxSensorSize,
-  // Set opacity in addition to visibility to work around Safari scrollbar bug.
-  'opacity': '0',
-};
-
-const Map<String, dynamic> _collapseSensorChildStyle = {
-  'position': 'absolute',
-  'top': '0',
-  'left': '0',
-  'width': '200%',
-  'height': '200%',
-  'visibility': 'hidden',
-  // Set opacity in addition to visibility to work around Safari scrollbar bug.
-  'opacity': '0',
-};
-
-
-const Map<String, dynamic> _wrapperStyles = {
-  'position': 'relative',
-  'height': '100%',
-  'width': '100%',
-};
-
-const Map<String, dynamic> _wrapperStylesFlexChild = {
-  'position': 'relative',
-  'flex': '1 1 0%',
-  'msFlex': '1 1 0%',
-  'display': 'block',
-  // Fix ResizeSensor not shrinking properly: https://www.chromestatus.com/feature/6736527476391936
-  'minHeight': '0',
-};
-
-final Map<String, dynamic> _wrapperStylesFlexContainer = {
-  'position': 'relative',
-  'flex': '1 1 0%',
-  'msFlex': '1 1 0%',
-  'display': _displayFlex,
-  // Fix ResizeSensor not shrinking properly: https://www.chromestatus.com/feature/6736527476391936
-  'minHeight': '0',
-};
-
-/// The browser-prefixed value for the CSS `display` property that enables flexbox.
-final String _displayFlex = (() {
-  if (browser.isInternetExplorer && browser.version.major <= 10) return '-ms-flexbox';
-  return 'flex';
-})();
-
 /// Used with [ResizeSensorHandler] to provide information about a resize.
 ///
 /// > Emitted via [ResizeSensorPropsMixin.onResize] and [ResizeSensorPropsMixin.onInitialize].
@@ -493,20 +384,8 @@ class ResizeSensorEvent {
   ResizeSensorEvent(this.newWidth, this.newHeight, this.prevWidth, this.prevHeight);
 }
 
-/// A MapView with the typed getters/setters for all HitArea display variation props.
-class ResizeSensorPropsMixinMapView extends MapView with
-    ResizeSensorPropsMixin {
-  /// Create a new instance backed by the specified map.
-  ResizeSensorPropsMixinMapView(Map map) : super(map);
-
-  /// The props to be manipulated via the getters/setters.
-  /// In this case, it's the current MapView object.
-  @override
-  Map get props => this;
-}
-
 /// A mixin that makes it easier to manage animation frames within a React component lifecycle.
-class _SafeAnimationFrameMixin {
+class SafeAnimationFrameMixin {
   /// The ids of the pending animation frames.
   final _animationFrameIds = <int>[];
 

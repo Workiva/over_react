@@ -12,7 +12,7 @@ part of 'basic_child_component.dart';
 // Registers component implementation and links type meta to builder factory.
 final $BasicChildComponentFactory = registerComponent2(
   () => _$BasicChildComponent(),
-  builderFactory: BasicChild,
+  builderFactory: _$BasicChild,
   componentClass: BasicChildComponent,
   isWrapper: false,
   parentType: null,
@@ -142,7 +142,7 @@ class _$BasicChildComponent extends BasicChildComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$BasicChildProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForBasicChildProps

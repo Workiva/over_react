@@ -107,13 +107,17 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 /// For use as a typed view into existing props [Map]s, or as a builder to create new component
 /// instances via a fluent-style interface.
 ///
-/// Use with the over_react builder via the `@Props()` ([annotations.Props]) annotation.
+/// To be used with the over_react builder to generate concrete props implementations
+/// with a component's declared props mixin(s).
 abstract class UiProps extends component_base.UiProps with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiProps() {
     _throwIfNotGenerated();
   }
 
+  @Deprecated(
+      'Use `UiComponent2.propsMeta` (only available for new mixin-based-boilerplate) instead.'
+      ' Will be removed in 4.0.0.')
   @toBeGenerated String get propKeyNamespace => throw UngeneratedError(member: #propKeyNamespace);
 
   @override @toBeGenerated Map get props => throw UngeneratedError(member: #props);
@@ -121,7 +125,8 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
 ///
-/// Use with the over_react builder via the `@State()` ([annotations.State]) annotation.
+/// To be used with the over_react builder to generate concrete state implementations
+/// with a component's declared state mixin(s).
 abstract class UiState extends component_base.UiState with GeneratedClass {
   /// This class should not be instantiated directly, and throws an error to indicate this.
   UiState() {
@@ -187,4 +192,3 @@ abstract class GeneratedErrorMessages {
   static const String component1AnnotationOnComponent2 = '\n\n'
         'This error may be due to using @Component() instead of @Component2() on your component extending from UiComponent2.';
 }
-

@@ -1,3 +1,17 @@
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 
@@ -6,7 +20,7 @@ import '../store.dart';
 
 part 'random_color_redux.over_react.g.dart';
 
-UiFactory<RandomColorReduxProps> ConnectedRandomColorRedux = connect<ReduxState, RandomColorReduxProps>(
+UiFactory<RandomColorReduxProps> RandomColorRedux = connect<ReduxState, RandomColorReduxProps>(
   mapStateToProps: (state) => (RandomColorRedux()
     ..backgroundColor = state.mainBackgroundColor
     ..blockOneBackgroundColor = state.blockOneBackgroundColor
@@ -25,13 +39,9 @@ UiFactory<RandomColorReduxProps> ConnectedRandomColorRedux = connect<ReduxState,
     ..changeBlockThreeBackgroundColor = () {
       dispatch(UpdateBlockThreeBackgroundColorAction());
     }),
-)(RandomColorRedux);
+)(_$RandomColorRedux); // ignore: undefined_identifier
 
-@Factory()
-UiFactory<RandomColorReduxProps> RandomColorRedux = _$RandomColorRedux;
-
-@Props()
-class _$RandomColorReduxProps extends UiProps with ConnectPropsMixin {
+mixin RandomColorReduxPropsMixin on UiProps {
   String backgroundColor;
 
   String blockTwoBackgroundColor;
@@ -49,7 +59,8 @@ class _$RandomColorReduxProps extends UiProps with ConnectPropsMixin {
   void Function() changeBlockThreeBackgroundColor;
 }
 
-@Component2()
+class RandomColorReduxProps = UiProps with RandomColorReduxPropsMixin, ConnectPropsMixin;
+
 class RandomColorReduxComponent extends UiComponent2<RandomColorReduxProps> {
   @override
   render() {

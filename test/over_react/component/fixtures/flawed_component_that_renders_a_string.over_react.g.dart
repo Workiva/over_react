@@ -12,7 +12,7 @@ part of 'flawed_component_that_renders_a_string.dart';
 // Registers component implementation and links type meta to builder factory.
 final $FlawedWithStringChildComponentFactory = registerComponent2(
   () => _$FlawedWithStringChildComponent(),
-  builderFactory: FlawedWithStringChild,
+  builderFactory: _$FlawedWithStringChild,
   componentClass: FlawedWithStringChildComponent,
   isWrapper: false,
   parentType: null,
@@ -143,7 +143,7 @@ class _$FlawedWithStringChildComponent extends FlawedWithStringChildComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$FlawedWithStringChildProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForFlawedWithStringChildProps

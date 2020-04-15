@@ -11,12 +11,13 @@ part of 'annotation_error_integration_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $AnnotationErrorDefaultPropsComponentFactory = registerComponent(
-    () => _$AnnotationErrorDefaultPropsComponent(),
-    builderFactory: AnnotationErrorDefaultProps,
-    componentClass: AnnotationErrorDefaultPropsComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'AnnotationErrorDefaultProps');
+  () => _$AnnotationErrorDefaultPropsComponent(),
+  builderFactory: _$AnnotationErrorDefaultProps,
+  componentClass: AnnotationErrorDefaultPropsComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'AnnotationErrorDefaultProps',
+);
 
 abstract class _$AnnotationErrorDefaultPropsPropsAccessorsMixin
     implements _$AnnotationErrorDefaultPropsProps {
@@ -91,7 +92,7 @@ class _$AnnotationErrorDefaultPropsComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$AnnotationErrorDefaultPropsProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForAnnotationErrorDefaultPropsProps
@@ -102,12 +103,13 @@ class _$AnnotationErrorDefaultPropsComponent
 //
 // Registers component implementation and links type meta to builder factory.
 final $AnnotationErrorComponentFactory = registerComponent(
-    () => _$AnnotationErrorComponent(),
-    builderFactory: AnnotationError,
-    componentClass: AnnotationErrorComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'AnnotationError');
+  () => _$AnnotationErrorComponent(),
+  builderFactory: _$AnnotationError,
+  componentClass: AnnotationErrorComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'AnnotationError',
+);
 
 abstract class _$AnnotationErrorPropsAccessorsMixin
     implements _$AnnotationErrorProps {
@@ -178,7 +180,7 @@ class _$AnnotationErrorComponent extends AnnotationErrorComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$AnnotationErrorProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForAnnotationErrorProps
@@ -189,12 +191,13 @@ class _$AnnotationErrorComponent extends AnnotationErrorComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $AnnotationErrorStatefulComponentFactory = registerComponent(
-    () => _$AnnotationErrorStatefulComponent(),
-    builderFactory: AnnotationErrorStateful,
-    componentClass: AnnotationErrorStatefulComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'AnnotationErrorStateful');
+  () => _$AnnotationErrorStatefulComponent(),
+  builderFactory: _$AnnotationErrorStateful,
+  componentClass: AnnotationErrorStatefulComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'AnnotationErrorStateful',
+);
 
 abstract class _$AnnotationErrorStatefulPropsAccessorsMixin
     implements _$AnnotationErrorStatefulProps {
@@ -313,7 +316,7 @@ class _$AnnotationErrorStatefulComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$AnnotationErrorStatefulProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForAnnotationErrorStatefulProps
@@ -324,12 +327,13 @@ class _$AnnotationErrorStatefulComponent
 //
 // Registers component implementation and links type meta to builder factory.
 final $AnnotationErrorStatefulDefaultPropsComponentFactory = registerComponent(
-    () => _$AnnotationErrorStatefulDefaultPropsComponent(),
-    builderFactory: AnnotationErrorStatefulDefaultProps,
-    componentClass: AnnotationErrorStatefulDefaultPropsComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'AnnotationErrorStatefulDefaultProps');
+  () => _$AnnotationErrorStatefulDefaultPropsComponent(),
+  builderFactory: _$AnnotationErrorStatefulDefaultProps,
+  componentClass: AnnotationErrorStatefulDefaultPropsComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'AnnotationErrorStatefulDefaultProps',
+);
 
 abstract class _$AnnotationErrorStatefulDefaultPropsPropsAccessorsMixin
     implements _$AnnotationErrorStatefulDefaultPropsProps {
@@ -460,7 +464,7 @@ class _$AnnotationErrorStatefulDefaultPropsComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$AnnotationErrorStatefulDefaultPropsProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForAnnotationErrorStatefulDefaultPropsProps

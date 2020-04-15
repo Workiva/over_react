@@ -1,19 +1,30 @@
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:over_react/over_react.dart';
 
 part 'abstract_inheritance.over_react.g.dart';
 
-@AbstractProps()
-abstract class _$SuperProps extends UiProps {
+mixin SuperPropsMixin on UiProps {
   String superProp;
 }
 
-@AbstractState()
-abstract class _$SuperState extends UiState {
+mixin SuperStateMixin on UiState {
   String superState;
 }
 
-@AbstractComponent2()
-abstract class SuperComponent<T extends SuperProps, V extends SuperState> extends UiStatefulComponent2<T, V> {
+abstract class SuperComponent<T extends SuperPropsMixin, V extends SuperStateMixin> extends UiStatefulComponent2<T, V> {
   @override
   get defaultProps => newProps()..id = 'super';
 
@@ -26,20 +37,20 @@ abstract class SuperComponent<T extends SuperProps, V extends SuperState> extend
 }
 
 //---------------------------- Sub Component ----------------------------
-@Factory()
-UiFactory<SubProps> Sub = _$Sub;
 
-@Props()
-class _$SubProps extends SuperProps {
+UiFactory<SubProps> Sub = _$Sub; // ignore: undefined_identifier
+
+mixin SubPropsMixin on UiProps {
   String subProp;
 }
 
-@State()
-class _$SubState extends SuperState {
+mixin SubStateMixin on UiState {
   String subState;
 }
 
-@Component2()
+class SubProps = UiProps with SuperPropsMixin, SubPropsMixin;
+class SubState = UiState with SuperStateMixin, SubStateMixin;
+
 class SubComponent extends SuperComponent<SubProps, SubState> {
   @override
   get defaultProps => newProps()..id = 'sub';

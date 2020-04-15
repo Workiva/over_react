@@ -1,3 +1,17 @@
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_flux.dart';
 import 'package:over_react/over_react_redux.dart';
@@ -18,7 +32,7 @@ part 'connect_flux_big_block.over_react.g.dart';
 // [7] Use `mapStateToProps` and `mapActionsToProps` to point props to the correct state values.
 
 // [4]
-UiFactory<ConnectFluxBigBlockProps> ConnectedConnectFluxBigBlock = composeHocs([
+UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock = composeHocs([
   // [5]
   connectFlux<RandomColorStore, RandomColorActions, ConnectFluxBigBlockProps>(
     context: randomColorStoreContext, // [6]
@@ -48,13 +62,9 @@ UiFactory<ConnectFluxBigBlockProps> ConnectedConnectFluxBigBlock = composeHocs([
     mapActionsToProps: (actions) =>
         (ConnectFluxBigBlock()..changeBlockThreeBackgroundColor = actions.changeBlockThreeBackgroundColor),
   ),
-])(ConnectFluxBigBlock);
+])(_$ConnectFluxBigBlock); // ignore: undefined_identifier
 
-@Factory()
-UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock = _$ConnectFluxBigBlock;
-
-@Props()
-class _$ConnectFluxBigBlockProps extends UiProps with ConnectPropsMixin {
+mixin ConnectFluxBigBlockPropsMixin on UiProps {
   String backgroundColor; // [1]
   String blockTwoBackgroundColor; // [1]
   String blockThreeBackgroundColor; // [1]
@@ -66,7 +76,8 @@ class _$ConnectFluxBigBlockProps extends UiProps with ConnectPropsMixin {
   void Function() changeBlockThreeBackgroundColor; // [2]
 }
 
-@Component2()
+class ConnectFluxBigBlockProps = UiProps with ConnectFluxBigBlockPropsMixin, ConnectPropsMixin;
+
 class ConnectFluxBigBlockComponent extends UiComponent2<ConnectFluxBigBlockProps> {
   @override
   render() {

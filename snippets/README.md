@@ -4,14 +4,10 @@ Below is a list of all available over_react snippets and their Triggers for Webs
 
 | Trigger | Content |
 | -------: | ------- |
-| `orStless`   | Stateless component skeleton |
-| `orCStless`   | Commented stateless component skeleton |
-| `orAbsStless`  |  Abstract stateless component skeleton |
-| `orCAbsStless`  | Commented abstract stateless component skeleton |
-| `orStful`   | Stateful component skeleton |
-| `orCStful`   | Commented stateful component skeleton |
-| `orAbsStful`  | Abstract stateful component skeleton |
-| `orCAbsStful`  | Commented abstract stateful component skeleton |
+| `orStless`  |  Stateless component skeleton with abbreviated props declaration |
+| `orStful`  | Stateful component skeleton with abbreviated props and state declarations |
+| `orAdvStless`   | Stateless component skeleton with a props class alias|
+| `orAdvStful`   | Stateful component skeleton with props and state class aliases|
 
 ## WebStorm and IntelliJ Snippets
 

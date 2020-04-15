@@ -12,7 +12,7 @@ part of 'do_not_generate_accessor_integration_test.dart';
 // Registers component implementation and links type meta to builder factory.
 final $DoNotGenerateAccessorTestComponentFactory = registerComponent2(
   () => _$DoNotGenerateAccessorTestComponent(),
-  builderFactory: DoNotGenerateAccessorTest,
+  builderFactory: _$DoNotGenerateAccessorTest,
   componentClass: DoNotGenerateAccessorTestComponent,
   isWrapper: false,
   parentType: null,
@@ -366,7 +366,7 @@ class _$DoNotGenerateAccessorTestComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$DoNotGenerateAccessorTestProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForDoNotGenerateAccessorTestProps

@@ -24,10 +24,16 @@ import 'package:over_react/src/component_declaration/annotations.dart';
 
 part 'prop_mixins.over_react.g.dart';
 
-/// This class is only present to allow for consumers which have used the
-/// --backwards-compat flag with over_react_codemod to statically analyze:
-/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
-abstract class $ReactPropsMixin {}
+/// This class is present:
+///
+/// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
+///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
+abstract class $ReactPropsMixin {
+  @Deprecated('This API is for use only within generated code.'
+      ' Do not reference it in your code, as it may change at any time.')
+  static const PropsMeta meta = _$metaForReactPropsMixin;
+}
 
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.
@@ -60,10 +66,16 @@ abstract class _$ReactPropsMixin {
   dynamic ref;
 }
 
-/// This class is only present to allow for consumers which have used the
-/// --backwards-compat flag with over_react_codemod to statically analyze:
-/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
-abstract class $DomPropsMixin {}
+/// This class is present:
+///
+/// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
+///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
+abstract class $DomPropsMixin {
+  @Deprecated('This API is for use only within generated code.'
+      ' Do not reference it in your code, as it may change at any time.')
+  static const PropsMeta meta = _$metaForDomPropsMixin;
+}
 
 /// Typed getters/setters for reserved DOM-related props.
 /// To be used as a mixin for React components and builders.
@@ -131,10 +143,16 @@ abstract class _$DomPropsMixin {
   bool autoFocus;
 }
 
-/// This class is only present to allow for consumers which have used the
-/// --backwards-compat flag with over_react_codemod to statically analyze:
-/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
-abstract class $SvgPropsMixin {}
+/// This class is present:
+///
+/// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
+///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
+abstract class $SvgPropsMixin {
+  @Deprecated('This API is for use only within generated code.'
+      ' Do not reference it in your code, as it may change at any time.')
+  static const PropsMeta meta = _$metaForSvgPropsMixin;
+}
 
 @PropsMixin(keyNamespace: '')
 abstract class _$SvgPropsMixin {
@@ -172,10 +190,16 @@ abstract class _$SvgPropsMixin {
       vectorEffect, version, vertAdvY, vertOriginX, vertOriginY, viewBox, viewTarget, visibility, widths, wordSpacing, writingMode,
       x, x1, x2, xHeight, xlinkActuate, xlinkArcrole, xlinkHref, xlinkRole, xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace, y1, y2, y;
 }
-/// This class is only present to allow for consumers which have used the
-/// --backwards-compat flag with over_react_codemod to statically analyze:
-/// <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
-abstract class $UbiquitousDomPropsMixin {}
+/// This class is present:
+///
+/// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
+///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
+abstract class $UbiquitousDomPropsMixin {
+  @Deprecated('This API is for use only within generated code.'
+      ' Do not reference it in your code, as it may change at any time.')
+  static const PropsMeta meta = _$metaForUbiquitousDomPropsMixin;
+}
 
 /// Typed getters/setters for reserved DOM-related props that can be used by all UIP components.
 /// To be used as a mixin for React components and builders.

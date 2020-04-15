@@ -1,3 +1,17 @@
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_flux.dart';
 import 'package:over_react/over_react_redux.dart';
@@ -14,25 +28,22 @@ part 'connect_flux_big_block.over_react.g.dart';
 // [5] Use `mapStateToProps` and `mapActionsToProps` to point props to the correct state values.
 
 // [4]
-UiFactory<ConnectFluxBigBlockProps> ConnectedConnectFluxBigBlock =
+UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock =
     connectFlux<FluxStore, RandomColorActions, ConnectFluxBigBlockProps>(
   // [5]
   mapStateToProps: (state) => (ConnectFluxBigBlock()..backgroundColor = state?.backgroundColor),
   mapActionsToProps: (actions) =>
       (ConnectFluxBigBlock()..changeBackgroundColor = actions.changeBackgroundColor),
-)(ConnectFluxBigBlock);
+)(_$ConnectFluxBigBlock); // ignore: undefined_identifier
 
-@Factory()
-UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock = _$ConnectFluxBigBlock;
-
-@Props()
-class _$ConnectFluxBigBlockProps extends UiProps with ConnectPropsMixin {
+mixin ConnectFluxBigBlockPropsMixin on UiProps {
   String backgroundColor; // [1]
 
   void Function() changeBackgroundColor; // [2]
 }
 
-@Component2()
+class ConnectFluxBigBlockProps = UiProps with ConnectFluxBigBlockPropsMixin, ConnectPropsMixin;
+
 class ConnectFluxBigBlockComponent extends UiComponent2<ConnectFluxBigBlockProps> {
   @override
   render() {

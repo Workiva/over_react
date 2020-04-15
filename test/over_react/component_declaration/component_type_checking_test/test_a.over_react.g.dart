@@ -10,12 +10,14 @@ part of 'test_a.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $TestAComponentFactory = registerComponent(() => _$TestAComponent(),
-    builderFactory: TestA,
-    componentClass: TestAComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestA');
+final $TestAComponentFactory = registerComponent(
+  () => _$TestAComponent(),
+  builderFactory: _$TestA,
+  componentClass: TestAComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestA',
+);
 
 abstract class _$TestAPropsAccessorsMixin implements _$TestAProps {
   @override
@@ -82,7 +84,7 @@ class _$TestAComponent extends TestAComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestAProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForTestAProps];
 }

@@ -4,29 +4,25 @@ import 'package:over_react/over_react.dart';
 
 import 'package:todo_client/src/components/shared/material_ui.dart';
 
-// ignore: uri_has_not_been_generated
 part 'menu_overlay.over_react.g.dart';
 
 /// Use the `MenuOverlay` component to provide messaging to users about an empty set of results,
 /// or an empty view such as a 404 error page.
-@Factory()
+
 UiFactory<MenuOverlayProps> MenuOverlay =
-    // ignore: undefined_identifier
-    _$MenuOverlay;
+    _$MenuOverlay; // ignore: undefined_identifier
 
 @Props(keyNamespace: '')
-class _$MenuOverlayProps extends UiProps {
+mixin MenuOverlayProps on UiProps {
   ReactElement trigger;
   bool useDerivedMaxWidth;
 }
 
-@State()
-class _$MenuOverlayState extends UiState {
+mixin MenuOverlayState on UiState {
   Element anchorEl;
   dynamic menuMaxWidth;
 }
 
-@Component2()
 class MenuOverlayComponent extends UiStatefulComponent2<MenuOverlayProps, MenuOverlayState> {
   bool get open => state.anchorEl != null;
   String get id => open ? props.id ?? 'popover' : null;
@@ -86,16 +82,4 @@ class MenuOverlayComponent extends UiStatefulComponent2<MenuOverlayProps, MenuOv
     }
     setState(newState()..anchorEl = null);
   }
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class MenuOverlayProps extends _$MenuOverlayProps with _$MenuOverlayPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForMenuOverlayProps;
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class MenuOverlayState extends _$MenuOverlayState with _$MenuOverlayStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const StateMeta meta = _$metaForMenuOverlayState;
 }

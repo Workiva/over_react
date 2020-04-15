@@ -11,12 +11,13 @@ part of 'basic_ui_component.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $BasicUiComponentComponentFactory = registerComponent(
-    () => _$BasicUiComponentComponent(),
-    builderFactory: BasicUiComponent,
-    componentClass: BasicUiComponentComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'BasicUiComponent');
+  () => _$BasicUiComponentComponent(),
+  builderFactory: _$BasicUiComponent,
+  componentClass: BasicUiComponentComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'BasicUiComponent',
+);
 
 abstract class _$BasicUiComponentPropsAccessorsMixin
     implements _$BasicUiComponentProps {
@@ -87,7 +88,7 @@ class _$BasicUiComponentComponent extends BasicUiComponentComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$BasicUiComponentProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForBasicUiComponentProps

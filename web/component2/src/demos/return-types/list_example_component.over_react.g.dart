@@ -12,7 +12,7 @@ part of 'list_example_component.dart';
 // Registers component implementation and links type meta to builder factory.
 final $ListExampleComponentFactory = registerComponent2(
   () => _$ListExampleComponent(),
-  builderFactory: ListExample,
+  builderFactory: _$ListExample,
   componentClass: ListExampleComponent,
   isWrapper: false,
   parentType: null,
@@ -137,7 +137,7 @@ class _$ListExampleComponent extends ListExampleComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ListExampleProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForListExampleProps
