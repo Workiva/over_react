@@ -45,6 +45,18 @@ thank you!)
    detail as necessary.
 1. See instructions in PR template for getting review on your changes.
 
+## Running Unit Tests Locally
+When running tests in `over_react`, our `dart_test.yaml` specifies some handy presets for running tests in DDC and dart2js:
+
+* To run tests in `over_react` compiled via __DDC__, run:
+    ```bash
+    $ pub run build_runner test -- -P dartdevc
+    ```
+  
+* To run tests in `over_react` compiled via __dart2js__, run:
+    ```bash
+    $ pub run build_runner test -r -- -P dart2js
+    ```
 
 ### Coding Standards
 A lot can be gained by writing code in a consistent way. Moreover, always

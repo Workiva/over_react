@@ -24,7 +24,8 @@ __Once you have migrated your components to `UiComponent2`__, you're ready to st
 
 * __[Migration Guides](#migration-guides)__
 * __[Using OverReact](#using-overreact)__
-    * [Running tests in your project](#running-tests-in-your-project)
+    * [Running tests in your project](#running-unit-tests-in-your-project)
+        * [OverReact Component Unit Test Examples](#overreact-component-unit-test-examples)
 * __[Anatomy of an OverReact component](#anatomy-of-an-overreact-component)__
     * [UiFactory](#uifactory)
     * [UiProps](#uiprops)
@@ -129,14 +130,15 @@ and add an HTML element with a unique identifier where you’ll mount your OverR
 
 &nbsp;
 
-### Running tests in your project
+### Running unit tests in your project
 
-When running tests on code that uses our [builder] _(or any code that imports `over_react`)_,
-__you must run your tests using build_runner__.
->**Warning:** Do **_not_** run tests via `pub run build_runner test` in a package while another instance of `build_runner`
+When running unit tests on code that uses the over_react [builder] _(or any code that imports `over_react`)_,
+__you must run your tests using the `build_runner` package__.
+
+> **Warning:** Do **_not_** run tests via `pub run build_runner test` in a package while another instance of `build_runner`
 (e.g. `pub run build_runner serve`) is running in that same package. [This workflow is unsupported by build_runner](https://github.com/dart-lang/build/issues/352#issuecomment-461554316)
 
-1. Run tests through build_runner, and specify the platform to be a browser platform. Example:
+1. Run tests using the `build_runner` package, and specify the platform to be a browser platform. Example:
 
     ```bash
     $ pub run build_runner test -- -p chrome test/your_test_file.dart
