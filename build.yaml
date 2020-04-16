@@ -35,9 +35,7 @@ targets:
             - test/over_react/component_declaration/redux_component_test/test_reducer.dart
 
       built_redux|built_redux:
-        generate_for:
-          include:
-            - test/over_react/component_declaration/redux_component_test/test_reducer.dart
+        enabled: false
 
       build_vm_compilers|entrypoint:
         generate_for:
@@ -49,15 +47,13 @@ targets:
       build_web_compilers|ddc:
         generate_for:
           include:
-            - "example/**"
             - "lib/**"
-            - "test/**"
             - "web/**"
           exclude:
             - "lib/src/builder/**"
 
       build_web_compilers|entrypoint:
         generate_for:
-          - "example/**.dart"
-          - "test/*.browser_test.dart"
-          - "web/**/index.dart"
+#          - "example/**.dart"
+#          - "test/*.browser_test.dart"
+          - "web/component2/src/demos/**/index.dart"

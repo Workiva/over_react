@@ -35,10 +35,33 @@ _site
 packages
 .packages
 .dart_tool
-# Do not ignore the __root__ packages/.dart_tool directory in the gh-pages branch.
+*.dill
+*.fbs
+*.sum
+test_package_config
+# Do not ignore the __root__ packages directory in the gh-pages branch.
 !/packages
-!/.packages
-#build/ # Do not ignore this in the gh-pages branch.
+!/build/web/packages
+!/build/packages
+/build/packages/**/*.html
+/build/packages/**/*.html.tpl
+/build/packages/**/*.md
+/build/packages/**/*.json
+/build/packages/**/*.txt
+/build/packages/**/*.yaml
+build/example
+build/test
+build/tool
+build/.build.manifest
+build/.packages
+build/pubspec.lock
+build/pubspec.yaml
+build/web/component1
+build/web/component2/index.html
+build/web/flux_to_redux
+build/web/over_react_redux
+
+test_reducer.g.dart
 
 
 # Since over_react is a library package, we shouldn't track pubspec.lock:

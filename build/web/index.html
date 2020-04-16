@@ -1,3 +1,19 @@
+<!--
+  ~ Copyright 2020 Workiva Inc.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,56 +25,17 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <!-- stylesheets -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.css">
-
-    <!-- javascript -->
-    <script src="packages/react/react.js"></script>
-    <script src="packages/react/react_dom.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
     <div class="container-fluid demo-container">
         <h1 class="display-4" style="margin: 2rem 0;">OverReact Component Demos</h1>
-        <div class="row demo-row">
-            <div class="col-xs-12 col-lg-6 p-3">
-                <h2>Button</h2>
-                <p>Modify the source of <code>/web/demos/button/button-examples.dart</code> to play
-                    around with the component rendered below.</p>
-                <div class="component-demo__mount--button"></div>
-            </div>
-            <div class="col-xs-12 col-lg-6 p-3">
-                <h2>ListGroup / ListGroupItem</h2>
-                <p>Modify the source of <code>/web/demos/list-group/list-group-basic.dart</code> to play
-                    around with the component rendered below.</p>
-                <div class="component-demo__mount--list-group"></div>
-            </div>
-            <div class="col-xs-12 col-lg-6 p-3">
-                <h2>Progress</h2>
-                <p>Modify the source of <code>/web/demos/progress/progress-basic.dart</code> to play
-                    around with the component rendered below.</p>
-                <div class="component-demo__mount--progress"></div>
-            </div>
-            <div class="col-xs-12 col-lg-6 p-3">
-                <h2>Tag</h2>
-                <p>Modify the source of <code>/web/demos/tag/tag-basic.dart</code> to play
-                    around with the component rendered below.</p>
-                <div class="component-demo__mount--tag"></div>
-            </div>
-            <div class="col-xs-12 col-lg-6 p-3">
-                <h2>ToggleButton (Checkbox)</h2>
-                <p>Modify the source of <code>/web/demos/toggle-button/toggle-button-checkbox.dart</code> to play
-                    around with the component rendered below.</p>
-                <div class="component-demo__mount--checkbox-toggle"></div>
-            </div>
-            <div class="col-xs-12 col-lg-6 p-3">
-                <h2>ToggleButton (Radio)</h2>
-                <p>Modify the source of <code>/web/demos/toggle-button/toggle-button-radio.dart</code> to play
-                    around with the component rendered below.</p>
-                <div class="component-demo__mount--radio-toggle"></div>
-            </div>
-        </div>
+        <ul>
+            <h3><li><a href="component1/">UiComponent <em>(deprecated)</em></a></li></h3>
+            <h3><li><a href="component2/">UiComponent2</a></li></h3>
+            <h3><li><a href="over_react_redux/">OverReact Redux</a></li></h3>
+            <h3><li><a href="flux_to_redux/">Flux to Redux</a></li></h3>
+        </ul>
     </div>
-
-    <script type="application/dart" src="index.dart"></script>
-    <script src="packages/browser/dart.js"></script>
 </body>
 </html>

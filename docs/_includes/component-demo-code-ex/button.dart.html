@@ -1,14 +1,30 @@
-part of over_react.web.demo_components;
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import 'package:over_react/over_react.dart';
+
+import '../demo_components.dart';
+part 'button.over_react.g.dart';
 
 /// Nest one or more `Button` components within a [ListGroup]
 /// to render individual items within a list.
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
-@Factory()
-UiFactory<ButtonProps> Button;
 
-@Props()
-class ButtonProps extends UiProps {
+UiFactory<ButtonProps> Button = _$Button;
+
+mixin ButtonProps on UiProps {
   /// The skin / "context" for the [Button].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#examples>.
@@ -71,13 +87,12 @@ class ButtonProps extends UiProps {
   ButtonType type;
 }
 
-@State()
-class ButtonState extends UiState {}
+mixin ButtonState on UiState {}
 
-@Component()
-class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiStatefulComponent<T, S> {
+class ButtonComponent<T extends ButtonProps, S extends ButtonState>
+    extends UiStatefulComponent2<T, S> {
   @override
-  Map getDefaultProps() => (newProps()
+  get defaultProps => (newProps()
     ..skin = ButtonSkin.PRIMARY
     ..size = ButtonSize.DEFAULT
     ..isActive = false
@@ -86,23 +101,25 @@ class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiSt
     ..type = ButtonType.BUTTON
   );
 
+//  T get props;
+//
   @override
   render() {
     return renderButton(props.children);
   }
 
   ReactElement renderButton(dynamic children) {
-    BuilderOnlyUiFactory<DomProps> factory = _buttonDomNodeFactory;
+    BuilderOnlyUiFactory<DomProps> factory = buttonDomNodeFactory;
 
     return (factory()
-      ..addProps(copyUnconsumedDomProps())
+      ..modifyProps(addUnconsumedDomProps)
       ..className = getButtonClasses().toClassName()
       ..href = props.href
       ..target = props.target
-      ..type = _type
-      ..disabled = _isAnchorLink ? null : props.isDisabled
+      ..type = type
+      ..disabled = isAnchorLink ? null : props.isDisabled
       ..addProps(ariaProps()
-        ..disabled = _isAnchorLink ? props.isDisabled : null
+        ..disabled = isAnchorLink ? props.isDisabled : null
       )
     )(children);
   }
@@ -111,19 +128,19 @@ class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiSt
     return forwardingClassNameBuilder()
       ..add('btn')
       ..add('btn-block', props.isBlock)
-      ..add('active', _isActive)
+      ..add('active', isActive)
       ..add('disabled', props.isDisabled)
       ..add(props.skin.className)
       ..add(props.size.className);
   }
 
-  BuilderOnlyUiFactory<DomProps> get _buttonDomNodeFactory => _isAnchorLink ? Dom.a : Dom.button;
+  BuilderOnlyUiFactory<DomProps> get buttonDomNodeFactory => isAnchorLink ? Dom.a : Dom.button;
 
-  bool get _isAnchorLink => props.href != null;
+  bool get isAnchorLink => props.href != null;
 
-  bool get _isActive => props.isActive;
+  bool get isActive => props.isActive;
 
-  String get _type => _isAnchorLink ? null : props.type.typeName;
+  String get type => isAnchorLink ? null : props.type.typeName;
 }
 
 /// Contextual skin options for a [Button] component.
@@ -132,55 +149,55 @@ class ButtonSkin extends ClassNameConstant {
 
   /// [className] value: 'btn-primary'
   static const ButtonSkin PRIMARY =
-      const ButtonSkin._('PRIMARY', 'btn-primary');
+      ButtonSkin._('PRIMARY', 'btn-primary');
 
   /// [className] value: 'btn-secondary'
   static const ButtonSkin SECONDARY =
-      const ButtonSkin._('SECONDARY', 'btn-secondary');
+      ButtonSkin._('SECONDARY', 'btn-secondary');
 
   /// [className] value: 'btn-danger'
   static const ButtonSkin DANGER =
-      const ButtonSkin._('DANGER', 'btn-danger');
+      ButtonSkin._('DANGER', 'btn-danger');
 
   /// [className] value: 'btn-success'
   static const ButtonSkin SUCCESS =
-      const ButtonSkin._('SUCCESS', 'btn-success');
+      ButtonSkin._('SUCCESS', 'btn-success');
 
   /// [className] value: 'btn-warning'
   static const ButtonSkin WARNING =
-      const ButtonSkin._('WARNING', 'btn-warning');
+      ButtonSkin._('WARNING', 'btn-warning');
 
   /// [className] value: 'btn-info'
   static const ButtonSkin INFO =
-      const ButtonSkin._('INFO', 'btn-info');
+      ButtonSkin._('INFO', 'btn-info');
 
   /// [className] value: 'btn-link'
   static const ButtonSkin LINK =
-      const ButtonSkin._('LINK', 'btn-link');
+      ButtonSkin._('LINK', 'btn-link');
 
   /// [className] value: 'btn-outline-primary'
   static const ButtonSkin PRIMARY_OUTLINE =
-      const ButtonSkin._('PRIMARY_OUTLINE', 'btn-outline-primary');
+      ButtonSkin._('PRIMARY_OUTLINE', 'btn-outline-primary');
 
   /// [className] value: 'btn-outline-secondary'
   static const ButtonSkin SECONDARY_OUTLINE =
-      const ButtonSkin._('SECONDARY_OUTLINE', 'btn-outline-secondary');
+      ButtonSkin._('SECONDARY_OUTLINE', 'btn-outline-secondary');
 
   /// [className] value: 'btn-outline-danger'
   static const ButtonSkin DANGER_OUTLINE =
-      const ButtonSkin._('DANGER_OUTLINE', 'btn-outline-danger');
+      ButtonSkin._('DANGER_OUTLINE', 'btn-outline-danger');
 
   /// [className] value: 'btn-outline-success'
   static const ButtonSkin SUCCESS_OUTLINE =
-      const ButtonSkin._('SUCCESS_OUTLINE', 'btn-outline-success');
+      ButtonSkin._('SUCCESS_OUTLINE', 'btn-outline-success');
 
   /// [className] value: 'btn-outline-warning'
   static const ButtonSkin WARNING_OUTLINE =
-      const ButtonSkin._('WARNING_OUTLINE', 'btn-outline-warning');
+      ButtonSkin._('WARNING_OUTLINE', 'btn-outline-warning');
 
   /// [className] value: 'btn-outline-info'
   static const ButtonSkin INFO_OUTLINE =
-      const ButtonSkin._('INFO_OUTLINE', 'btn-outline-info');
+      ButtonSkin._('INFO_OUTLINE', 'btn-outline-info');
 }
 
 /// Size options for a [Button] component.
@@ -189,13 +206,14 @@ class ButtonSize extends ClassNameConstant {
 
   /// [className] value: ''
   static const ButtonSize DEFAULT =
-      const ButtonSize._('DEFAULT', '');
+      ButtonSize._('DEFAULT', '');
 
   /// [className] value: 'btn-lg'
   static const ButtonSize LARGE =
-      const ButtonSize._('LARGE', 'btn-lg');
+      ButtonSize._('LARGE', 'btn-lg');
 
   /// [className] value: 'btn-sm'
   static const ButtonSize SMALL =
-      const ButtonSize._('SMALL', 'btn-sm');
+      ButtonSize._('SMALL', 'btn-sm');
 }
+

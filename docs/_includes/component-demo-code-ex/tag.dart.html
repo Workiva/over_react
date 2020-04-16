@@ -1,14 +1,28 @@
-part of over_react.web.demo_components;
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+import 'package:over_react/over_react.dart';
+part 'tag.over_react.g.dart';
 
 /// Bootstrap's `Tag` component renders a small and adaptive tag
 /// for adding context to just about any content.
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/tag/>
-@Factory()
-UiFactory<TagProps> Tag;
 
-@Props()
-class TagProps extends UiProps {
+UiFactory<TagProps> Tag = _$Tag;
+
+mixin TagProps on UiProps {
   /// The skin / "context" for the [Tag].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/tag/#contextual-variations>.
@@ -25,10 +39,9 @@ class TagProps extends UiProps {
   bool isPill;
 }
 
-@Component()
-class TagComponent extends UiComponent<TagProps> {
+class TagComponent extends UiComponent2<TagProps> {
   @override
-  Map getDefaultProps() => (newProps()
+  get defaultProps => (newProps()
     ..skin = TagSkin.DEFAULT
     ..isPill = false
   );
@@ -41,7 +54,7 @@ class TagComponent extends UiComponent<TagProps> {
       ..add(props.skin.className);
 
     return (Dom.span()
-      ..addProps(copyUnconsumedDomProps())
+      ..modifyProps(addUnconsumedDomProps)
       ..className = classes.toClassName()
     )(props.children);
   }
@@ -53,25 +66,26 @@ class TagSkin extends ClassNameConstant {
 
   /// [className] value: 'tag-default'
   static const TagSkin DEFAULT =
-      const TagSkin._('DEFAULT', 'tag-default');
+      TagSkin._('DEFAULT', 'tag-default');
 
   /// [className] value: 'tag-primary'
   static const TagSkin PRIMARY =
-      const TagSkin._('PRIMARY', 'tag-primary');
+      TagSkin._('PRIMARY', 'tag-primary');
 
   /// [className] value: 'tag-danger'
   static const TagSkin DANGER =
-      const TagSkin._('DANGER', 'tag-danger');
+      TagSkin._('DANGER', 'tag-danger');
 
   /// [className] value: 'tag-success'
   static const TagSkin SUCCESS =
-      const TagSkin._('SUCCESS', 'tag-success');
+      TagSkin._('SUCCESS', 'tag-success');
 
   /// [className] value: 'tag-warning'
   static const TagSkin WARNING =
-      const TagSkin._('WARNING', 'tag-warning');
+      TagSkin._('WARNING', 'tag-warning');
 
   /// [className] value: 'tag-info'
   static const TagSkin INFO =
-      const TagSkin._('INFO', 'tag-info');
+      TagSkin._('INFO', 'tag-info');
 }
+

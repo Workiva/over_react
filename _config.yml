@@ -21,9 +21,7 @@ exclude:
   - 'test'
   - 'tool'
   - 'docs/sass/bootstrap'
-
-#keep_files:
-#  - 'web'
+  - '.dart_tool'
 
 # Build settings
 markdown: kramdown
@@ -64,7 +62,7 @@ reactjs_target: reactjs
 dartlang_target: dartlang
 
 demo_component_src_branch: master
-demo_dart_src_path: build/web/demos/
+demo_dart_src_path: build/web/component2/src/demos/
 
 # Google Analytics Helpers
 repo_pageview_page: /over_react/github
