@@ -419,15 +419,12 @@ class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
 
 ## Fluent-style component consumption
 
-In OverReact, components are consumed by invoking a `UiFactory` to return a new `UiProps` builder, which is then
-modified and invoked to build a `ReactElement`.
+In OverReact, components are consumed by invoking a `UiFactory` to return a new `UiProps` builder, which is then modified and invoked to build a [`ReactElement`][ReactElement].
 
-This is done to make ["fluent-style"](#fluent-style-component-consumption) component consumption possible, so that
-the OverReact consumer experience is very similar to the [React JS][react-js] / "vanilla" [react-dart]
+This is done to make "fluent-style" component consumption possible, so that the OverReact consumer experience is very similar to the [React JS][react-js] / "vanilla" [react-dart]
 experience.
 
-To demonstrate the similarities, the example below shows a render method for JS, JSX, react-dart,
-and over_react that will have the exact same HTML markup result.
+To demonstrate the similarities, the example below shows a render method for JS, JSX, react-dart, and over_react that will have the exact same HTML markup result.
 
 * __React JS__:
 
@@ -1067,6 +1064,7 @@ The `over_react` library adheres to [Semantic Versioning](http://semver.org/):
 [react-js-tutorial]: https://reactjs.org/docs/getting-started.html
 
 [react.Component2]: https://pub.dev/documentation/react/latest/react/Component2-class.html
+[ReactElement]: https://pub.dev/documentation/react/latest/react_client.react_interop/ReactElement-class.html
 
 [new-issue]: https://github.com/Workiva/over_react/issues/new
 [gitter-chat]: https://gitter.im/over_react/Lobby
