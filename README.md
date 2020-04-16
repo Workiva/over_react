@@ -537,10 +537,16 @@ ReactElement renderResizeHandle() {
 * OverReact DOM components return a new `DomProps` builder, which can be used
 to render them via our [fluent interface](#fluent-style-component-consumption)
 as shown in the examples above.
-* `DomProps` has statically-typed getters and setters for all "ubiquitous" HTML attribute props.
-  * The `domProps()` function is also available to create a new typed Map or a typed view into an
-  existing Map. Useful for manipulating DOM props and adding DOM props to components that don’t
-  forward them directly.
+  * `DomProps` has statically-typed getters and setters for all "ubiquitous" HTML attribute props.
+  * The `domProps()` function is also available to create a new typed Map or a typed view into an existing Map. Useful for manipulating DOM props and adding DOM props to components that don’t forward them directly, or to access a dom prop from a plain map in a lifecycle method as shown below.
+  
+    ```dart
+    @override
+    void componentDidUpdate(Map prevProps, Map prevState, [dynamic snapshot]) {
+      // Say you want to compare the previous / current value of `DomProps.title` here...
+      final titleChanged = domProps(prevProps).title != props.title;
+    }
+    ```
 
 &nbsp;
 &nbsp;
