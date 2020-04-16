@@ -144,16 +144,14 @@ __you must run your tests using the `build_runner` package__.
     $ pub run build_runner test -- -p chrome test/your_test_file.dart
     ```
 
-1. When running tests in `over_react`, our `dart_test.yaml` specifies some handy presets for running tests in DDC and dart2js:
-    > **Note:** These presets exist only in `over_react`.
-    * To run tests in `over_react` compiled via DDC, run:
-    ```bash
-    $ pub run build_runner test -- -P dartdevc
-    ```
-    * To run tests in `over_react` compiled via dart2js, run:
-    ```bash
-    $ pub run build_runner test -r -- -P dart2js
-    ```
+#### OverReact Component Unit Test Examples
+
+Below are links to a UI component from our example ["Todo App"](https://github.com/Workiva/over_react/tree/master/app/over_react_redux/todo_client), and its analogous tests that we've written for components we use in . We utilize the utilities found in our [`over_react_test` library](https://github.com/Workiva/over_react_test).
+
+* __`TodoListItem`__
+    * [Component Definition](app/over_react_redux/todo_client/lib/src/components/todo_list_item.dart)
+    * [Component Unit Tests](app/over_react_redux/todo_client/test/unit/browser/components/todo_list_item_test.dart)
+    * ["Connected" OverReact Redux Unit Tests](app/over_react_redux/todo_client/test/unit/browser/components/connected_todo_list_item_test.dart)
 
 &nbsp;
 &nbsp;
