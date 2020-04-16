@@ -713,20 +713,18 @@ the [anatomy of a component](#anatomy-of-an-overreact-component) and the [DOM co
 that you get for free from OverReact, you're ready to start building your own custom React UI components.
 
 1. Start with one of the [component boilerplate templates](#component-boilerplate-templates) below
-(Or, use OverReact's [code snippets for Intellij and Vs Code](https://github.com/Workiva/over_react/blob/master/snippets/README.md)).
+(Or, use OverReact's [code snippets for WebStorm/IntelliJ and VsCode](snippets/README.md)).
   * [Component](#component-boilerplate) _(props only)_
   * [Stateful Component](#stateful-component-boilerplate) _(props + state)_
-  * [Flux Component](#flux-component-boilerplate) _(props + store + actions)_
-  * [Stateful Flux Component](#stateful-flux-component-boilerplate) _(props + state + store + actions)_
 2. Fill in your props and rendering/lifecycle logic.
 3. Consume your component with the fluent interface.
 4. Run [the app you’ve set up to consume `over_react`](#using-overreact)
 
     ```bash
-    $ pub run build_runner serve
+    $ webdev serve
     ```
 
-    _That’s it! Code will be automatically generated on the fly by the builder!_
+    _That’s it! Code will be automatically generated on the fly by the [builder]!_
 
 
 > __Check out some custom [component demos] to get a feel for what’s possible!__
@@ -735,7 +733,7 @@ that you get for free from OverReact, you're ready to start building your own cu
 
 ### Component Boilerplate Templates
 
-* #### [VS Code and WebStorm/IntelliJ Snippets](https://github.com/Workiva/over_react/blob/master/snippets/README.md)
+* #### [WebStorm/IntelliJ and VsCode Snippets](snippets/README.md)
 
 * #### Component Boilerplate
 
@@ -770,7 +768,6 @@ that you get for free from OverReact, you're ready to start building your own cu
 * #### Stateful Component Boilerplate
 
     ```dart
-    import 'dart:html';
     import 'package:over_react/over_react.dart';
     part 'foo_component.over_react.g.dart';
 
@@ -809,79 +806,6 @@ that you get for free from OverReact, you're ready to start building your own cu
     }
     ```
 
-* #### Flux Component Boilerplate
-
-    ```dart
-    import 'dart:html';
-    import 'package:over_react/over_react.dart';
-    part 'foo_component.over_react.g.dart';
-
-    UiFactory<BazProps> Baz = _$Baz;
-
-    mixin BazPropsMixin on UiProps {
-      // Props go here, declared as fields.
-      // `actions` and `store` are already defined for you!
-    }
-
-    class BazProps = UiProps with FluxUiPropsMixin<BazActions, BazStore>, BazPropsMixin;
-  
-    class BazComponent extends FluxUiComponent2<BazProps> {
-      @override
-      get defaultProps => (newProps()
-        // Cascade default props here
-      );
-
-      @override
-      render() {
-        // Return the rendered component contents here.
-        // The `props` variables is typed; no need for string keys!
-        // E.g., `props.actions`, `props.store`.
-      }
-    }
-    ```
-
-* #### Stateful Flux Component Boilerplate
-
-    ```dart
-    import 'dart:html';
-    import 'package:over_react/over_react.dart';
-    part 'foo_component.over_react.g.dart';
-
-    UiFactory<BazProps> Baz = _$Baz;
-
-  
-    mixin BazPropsMixin on UiProps {
-      // Props go here, declared as fields.
-      // `actions` and `store` are already defined for you!
-    }
-
-    class BazProps = UiProps with FluxUiPropsMixin<BazActions, BazStore>, BazPropsMixin;
-
-  
-    mixin BazState on UiState {
-      // State goes here, declared as fields.
-    }
-
-    class BazComponent extends FluxUiStatefulComponent2<BazProps, BazState> {
-      @override
-      get defaultProps => (newProps()
-        // Cascade default props here
-      );
-
-      @override
-      get initialState => (newState()
-        // Cascade initial state here
-      );
-
-      @override
-      render() {
-        // Return the rendered component contents here.
-        // The `props` variables is typed; no need for string keys!
-        // E.g., `props.actions`, `props.store`.
-      }
-    }
-    ```
-
 &nbsp;
 
 ### Component Best Practices
@@ -912,7 +836,7 @@ another component.
 
 &nbsp;
 
-* __ALWAYS__ set a default / initial value for `props` / `state` fields,
+* __ALWAYS__ set a default / initial value for boolean `props` / `state` fields,
 and document that value in a comment.
 
   _Why?_ Without default prop values for bool fields, they could be
@@ -1022,14 +946,14 @@ an informative comment.
 
 #### Ignore Ungenerated Warnings Project-Wide
 
-To avoid having to add `// ignore: uri_has_not_been_generated` to each 
-component library on the part/import that references generated code, 
+To avoid having to add `// ignore: uri_has_not_been_generated` to each
+component library on the part/import that references generated code,
 ignore this warning globally within analysis_options.yaml:
 
 ```yaml
  analyzer:
    errors:
-     uri_has_not_been_generated: ignore 
+     uri_has_not_been_generated: ignore
 ```
 
 Alternatively, `include` [workiva_analysis_options](https://github.com/Workiva/workiva_analysis_options)
