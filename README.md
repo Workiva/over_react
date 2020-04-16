@@ -210,12 +210,15 @@ mixin FooProps on UiProps {
 
 #### With other mixins
 
-__To compose props mixin classes__, create a class alias that uses `UiProps` as the base and mix in props mixins. The generated props implementation will then use it as the base class and implement the generated version of those props mixins.
+__To compose props mixin classes__, create a class alias that uses `UiProps` as the base and mix in multiple props mixins. The generated props implementation will then use it as the base class and implement the generated version of those props mixins.
+
 ```dart
 UiFactory<FooProps> Foo = _$Foo;
 
 mixin FooPropsMixin on UiProps {
-  // ...
+  String bar;
+  bool baz;
+  List<int> bizzles;
 }
 
 class FooProps = UiProps with FooPropsMixin, BarPropsMixin;
@@ -224,6 +227,11 @@ class FooComponent extends UiComponent2<FooProps> {
   // ...
 }
 ```
+
+##### Composition
+The use-case for composing multiple props mixins into a single component props class is typically a component that renders another component, and therefore needs to expose the prop interface of that child component which will get forwarded via [`addUnconsumedProps`](https://pub.dev/documentation/over_react/3.1.0/over_react/UiComponent2/addUnconsumedProps.html). 
+
+[__Check out an example of props mixin component composition here__](doc/props_mixin_component_composition.md) 
 
 &nbsp;
 
