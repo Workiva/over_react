@@ -23,7 +23,7 @@ __Once you have migrated your components to `UiComponent2`__, you're ready to st
 ---
 
 * __[Migration Guides](#migration-guides)__
-* __[Using it in your project](#using-it-in-your-project)__
+* __[Using OverReact](#using-overreact)__
     * [Running tests in your project](#running-tests-in-your-project)
 * __[Anatomy of an OverReact component](#anatomy-of-an-overreact-component)__
     * [UiFactory](#uifactory)
@@ -51,27 +51,35 @@ __Once you have migrated your components to `UiComponent2`__, you're ready to st
     - [New Boilerplate Migration](doc/new_boilerplate_migration.md): Documentation about changes to the component boilerplate, as well as how to migrate to the new boilerplate.
         > _This migration requires that you first perform the [`UiComponent2` migration](doc/ui_component2_transition.md)._
 
-## Using it in your project
+&nbsp;
+&nbsp;
 
-> __If you are not familiar with React JS__
+## Using OverReact
+
+> __Prerequisites__
 >
-> Since OverReact is built atop React JS, we strongly encourage you to gain
-> familiarity with it by reading this [React JS tutorial][react-js-tutorial] first.
+> - __Familiarize yourself with React JS__
+>
+>   Since OverReact is built atop React JS, we strongly encourage you to gain familiarity with it by reading some [React JS tutorials][react-js-tutorial] first.
+>
+> - __Familiarize yourself with Dart Web applications__
+>
+>   If you have never built a Web application in Dart, we strongly encourage you to gain familiarity with the core terminology, tools and boilerplate necessary to serve an application locally using Dart. [Dart has fantastic documentation and tutorials to get you started](https://dart.dev/tutorials/web/get-started).
 
 1. Add the `over_react` package as a dependency in your `pubspec.yaml`.
 
     ```yaml
     dependencies:
-      over_react: ^3.0.0
+      over_react: ^3.5.0
     ```
 
-2. Include the native JavaScript `react` and `react_dom` libraries in your app’s `index.html` file,
+1. Include the native JavaScript `react` and `react_dom` libraries in your app’s `index.html` file,
 and add an HTML element with a unique identifier where you’ll mount your OverReact UI component(s).
 
     ```html
     <html>
       <head>
-       <!-- ... -->
+        <!-- ... -->
       </head>
       <body>
         <div id="react_mount_point">
@@ -81,7 +89,9 @@ and add an HTML element with a unique identifier where you’ll mount your OverR
         <script src="packages/react/react.js"></script>
         <script src="packages/react/react_dom.js"></script>
 
-        <script type="application/javascript" defer src="your_app_entrypoint.dart.js"></script>
+        <!-- NOTE: "index" should correspond to the
+             name of the `.dart` file that contains your `main()` entrypoint. -->
+        <script type="application/javascript" defer src="index.dart.js"></script>
       </body>
     </html>
     ```
@@ -89,9 +99,7 @@ and add an HTML element with a unique identifier where you’ll mount your OverR
     > __Note:__ When serving your application in production, use `packages/react/react_with_react_dom_prod.js`
     file instead of the un-minified `react.js` / `react_dom.js` files shown in the example above.
 
-4. Import the `over_react` and `react_dom` libraries into `your_app_name.dart`, and initialize
-React within your Dart application. Then [build a custom component](#building-custom-components) and
-mount / render it into the HTML element you created in step 3.
+1. Import the `over_react` and `react_dom` libraries into `index.dart`. Then [build some components](#building-custom-components) and mount / render a React tree within the HTML element you created in the previous step by calling `react_dom.render()` within the `main()` entrypoint of your Dart application.
 
     > Be sure to namespace the `react_dom.dart` import as `react_dom` to avoid collisions with `UiComponent.render`
       when [creating custom components](#building-custom-components).
@@ -101,16 +109,23 @@ mount / render it into the HTML element you created in step 3.
     import 'package:over_react/react_dom.dart' as react_dom;
     import 'package:over_react/over_react.dart';
 
+    // Example of where the `Foo` component might be exported from
+    import 'package:your_package_name/foo.dart';
+
     main() {
-      // Mount / render your component.
-      react_dom.render(Foo()(), querySelector('#react_mount_point'));
+      // Mount / render your component/application.
+      react_dom.render(
+        Foo()(),
+        querySelector('#react_mount_point'),
+      );
     }
     ```
 
-5. Run `pub run build_runner serve` in the root of your Dart project.
+1. Run `webdev serve` in the root of your Dart project.
 
-> **Note:** After running a build, you'll have to restart your analysis server in your IDE for the built types to resolve
-properly. Unfortunately, this is a known limitation in the analysis server at this time. See: https://github.com/dart-lang/sdk/issues/34344
+> **Note:** If you're not using [the latest component boilerplate](doc/new_boilerplate_migration.md), you'll have to restart your analysis server in your IDE for the built types to resolve properly after the build completes. Unfortunately, this is a [known limitation in the analysis server at this time](https://github.com/dart-lang/sdk/issues/34344).
+>
+> [__Migrate your components to the latest component boilerplate to never worry about this again!__](doc/new_boilerplate_migration.md)
 
 &nbsp;
 
@@ -671,7 +686,7 @@ To help ensure your OverReact code is readable and consistent, we've arrived at 
 
 ## Building custom components
 
-Now that we’ve gone over how to [use the `over_react` package in your project](#using-it-in-your-project),
+Now that we’ve gone over how to [use the `over_react` package in your project](#using-overreact),
 the [anatomy of a component](#anatomy-of-an-overreact-component) and the [DOM components](#dom-components-and-props)
 that you get for free from OverReact, you're ready to start building your own custom React UI components.
 
@@ -683,7 +698,7 @@ that you get for free from OverReact, you're ready to start building your own cu
   * [Stateful Flux Component](#stateful-flux-component-boilerplate) _(props + state + store + actions)_
 2. Fill in your props and rendering/lifecycle logic.
 3. Consume your component with the fluent interface.
-4. Run [the app you’ve set up to consume `over_react`](#using-it-in-your-project)
+4. Run [the app you’ve set up to consume `over_react`](#using-overreact)
 
     ```bash
     $ pub run build_runner serve
