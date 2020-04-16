@@ -19,7 +19,7 @@ part 'tag.over_react.g.dart';
 /// Bootstrap's `Tag` component renders a small and adaptive tag
 /// for adding context to just about any content.
 ///
-/// See: <http://v4-alpha.getbootstrap.com/components/tag/>
+/// See: <https://getbootstrap.com/docs/4.4/components/tag/>
 @Factory()
 UiFactory<TagProps> Tag = _$Tag;
 
@@ -27,7 +27,7 @@ UiFactory<TagProps> Tag = _$Tag;
 class _$TagProps extends UiProps {
   /// The skin / "context" for the [Tag].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/tag/#contextual-variations>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/tag/#contextual-variations>.
   ///
   /// Default: [TagSkin.DEFAULT]
   TagSkin skin;
@@ -35,7 +35,7 @@ class _$TagProps extends UiProps {
   /// Whether to render the [Tag] with rounded corners that make it look
   /// more like a "pill" (a.k.a Bootstrap v3 "badge")
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/tag/#pill-tags>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/tag/#pill-tags>.
   ///
   /// Default: false
   bool isPill;

@@ -1,54 +1,36 @@
-// Copyright 2020 Workiva Inc.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
 
 import 'package:over_react/over_react.dart';
 
 import '../demo_components.dart';
 part 'button.over_react.g.dart';
 
-/// Nest one or more `Button` components within a [ListGroup]
-/// to render individual items within a list.
-///
-/// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
-
 UiFactory<ButtonProps> Button = _$Button;
 
 mixin ButtonProps on UiProps {
   /// The skin / "context" for the [Button].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#examples>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/buttons/#examples>.
   ///
   /// Default: [ButtonSkin.PRIMARY]
   ButtonSkin skin;
 
   /// The size of the [Button].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#sizes>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/buttons/#sizes>.
   ///
   /// Default: [ButtonSize.DEFAULT]
   ButtonSize size;
 
   /// Whether the [Button] should appear "active".
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#active-state>
+  /// See: <https://getbootstrap.com/docs/4.4/components/buttons/#active-state>
   ///
   /// Default: false
   bool isActive;
 
   /// Whether the [Button] is disabled.
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#disabled-state>
+  /// See: <https://getbootstrap.com/docs/4.4/components/buttons/#disabled-state>
   ///
   /// Default: false
   @Accessor(key: 'disabled', keyNamespace: '')
@@ -101,8 +83,6 @@ class ButtonComponent<T extends ButtonProps, S extends ButtonState>
     ..type = ButtonType.BUTTON
   );
 
-//  T get props;
-//
   @override
   render() {
     return renderButton(props.children);
@@ -118,9 +98,7 @@ class ButtonComponent<T extends ButtonProps, S extends ButtonState>
       ..target = props.target
       ..type = type
       ..disabled = isAnchorLink ? null : props.isDisabled
-      ..addProps(ariaProps()
-        ..disabled = isAnchorLink ? props.isDisabled : null
-      )
+      ..aria.disabled = isAnchorLink ? props.isDisabled : null
     )(children);
   }
 
@@ -143,7 +121,6 @@ class ButtonComponent<T extends ButtonProps, S extends ButtonState>
   String get type => isAnchorLink ? null : props.type.typeName;
 }
 
-/// Contextual skin options for a [Button] component.
 class ButtonSkin extends ClassNameConstant {
   const ButtonSkin._(String name, String className) : super(name, className);
 
@@ -200,7 +177,6 @@ class ButtonSkin extends ClassNameConstant {
       ButtonSkin._('INFO_OUTLINE', 'btn-outline-info');
 }
 
-/// Size options for a [Button] component.
 class ButtonSize extends ClassNameConstant {
   const ButtonSize._(String name, String className) : super(name, className);
 

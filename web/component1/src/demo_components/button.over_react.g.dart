@@ -25,7 +25,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
 
   /// The skin / "context" for the [Button].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#examples>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/buttons/#examples>.
   ///
   /// Default: [ButtonSkin.PRIMARY]
   ///
@@ -36,7 +36,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// The skin / "context" for the [Button].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#examples>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/buttons/#examples>.
   ///
   /// Default: [ButtonSkin.PRIMARY]
   ///
@@ -46,7 +46,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
 
   /// The size of the [Button].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#sizes>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/buttons/#sizes>.
   ///
   /// Default: [ButtonSize.DEFAULT]
   ///
@@ -57,7 +57,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// The size of the [Button].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#sizes>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/buttons/#sizes>.
   ///
   /// Default: [ButtonSize.DEFAULT]
   ///
@@ -67,7 +67,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
 
   /// Whether the [Button] should appear "active".
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#active-state>
+  /// See: <https://getbootstrap.com/docs/4.4/components/buttons/#active-state>
   ///
   /// Default: false
   ///
@@ -78,7 +78,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Whether the [Button] should appear "active".
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#active-state>
+  /// See: <https://getbootstrap.com/docs/4.4/components/buttons/#active-state>
   ///
   /// Default: false
   ///
@@ -88,7 +88,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
 
   /// Whether the [Button] is disabled.
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#disabled-state>
+  /// See: <https://getbootstrap.com/docs/4.4/components/buttons/#disabled-state>
   ///
   /// Default: false
   ///
@@ -100,7 +100,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Whether the [Button] is disabled.
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#disabled-state>
+  /// See: <https://getbootstrap.com/docs/4.4/components/buttons/#disabled-state>
   ///
   /// Default: false
   ///

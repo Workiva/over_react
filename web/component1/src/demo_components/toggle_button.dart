@@ -23,7 +23,7 @@ part 'toggle_button.over_react.g.dart';
 /// Use [ToggleButton]s in order to render functional `<input type="checkbox">`
 /// or `<input type="radio">` elements that look like a [Button].
 ///
-/// See: <http://v4-alpha.getbootstrap.com/components/buttons/#checkbox-and-radio-buttons>
+/// See: <https://getbootstrap.com/docs/4.4/components/buttons/#checkbox-and-radio-buttons>
 @Factory()
 UiFactory<ToggleButtonProps> ToggleButton = _$ToggleButton;
 

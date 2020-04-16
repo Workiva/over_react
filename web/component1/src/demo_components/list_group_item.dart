@@ -23,7 +23,7 @@ part 'list_group_item.over_react.g.dart';
 /// Nest one or more `ListGroupItem` components within a [ListGroup]
 /// to render individual items within a list.
 ///
-/// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
+/// See: <https://getbootstrap.com/docs/4.4/components/list-group/>
 @Factory()
 UiFactory<ListGroupItemProps> ListGroupItem = _$ListGroupItem;
 
@@ -40,7 +40,7 @@ class _$ListGroupItemProps extends UiProps {
   /// Optional header text to display within the [ListGroupItem] above
   /// the value of [children].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#custom-content>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/list-group/#custom-content>.
   dynamic header;
 
   /// The size of the [header] text you desire.
@@ -53,21 +53,21 @@ class _$ListGroupItemProps extends UiProps {
 
   /// The skin / "context" for the [ListGroupItem].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#contextual-classes>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/list-group/#contextual-classes>.
   ///
   /// Default: [ListGroupItemSkin.DEFAULT]
   ListGroupItemSkin skin;
 
   /// Whether the [ListGroupItem] should appear "active".
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#anchors-and-buttons>
+  /// See: <https://getbootstrap.com/docs/4.4/components/list-group/#anchors-and-buttons>
   ///
   /// Default: false
   bool isActive;
 
   /// Whether the [ListGroupItem] is disabled.
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#disabled-items>
+  /// See: <https://getbootstrap.com/docs/4.4/components/list-group/#disabled-items>
   ///
   /// Default: false
   @Accessor(key: 'disabled', keyNamespace: '')

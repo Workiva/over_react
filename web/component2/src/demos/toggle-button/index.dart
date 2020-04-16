@@ -23,8 +23,8 @@ main() {
   setClientConfiguration();
 
   react_dom.render(
-    checkboxToggleButtonDemo(), querySelector('$demoMountNodeSelectorPrefix--checkbox-toggle'));
+    checkboxToggleButtonDemo(), querySelector('$demoMountNodeSelectorPrefix--toggle-button-checkbox'));
 
   react_dom.render(
-    radioToggleButtonDemo(), querySelector('$demoMountNodeSelectorPrefix--radio-toggle'));
+    radioToggleButtonDemo(), querySelector('$demoMountNodeSelectorPrefix--toggle-button-radio'));
 }

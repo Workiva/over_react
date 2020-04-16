@@ -80,7 +80,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
 
   /// The skin / "context" for the [Progress] component.
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/progress/#contextual-alternatives>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/progress/#contextual-alternatives>.
   ///
   /// Default: [ProgressSkin.DEFAULT]
   ///
@@ -91,7 +91,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// The skin / "context" for the [Progress] component.
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/progress/#contextual-alternatives>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/progress/#contextual-alternatives>.
   ///
   /// Default: [ProgressSkin.DEFAULT]
   ///
@@ -140,7 +140,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
 
   /// Optionally add a caption that describes the context of the [Progress] component.
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/progress/#example>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/progress/#example>.
   ///
   /// Default: [ProgressComponent._getPercentComplete]%
   ///
@@ -151,7 +151,7 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Optionally add a caption that describes the context of the [Progress] component.
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/progress/#example>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/progress/#example>.
   ///
   /// Default: [ProgressComponent._getPercentComplete]%
   ///

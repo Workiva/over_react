@@ -34,8 +34,7 @@ part 'toggle_button_group.over_react.g.dart';
 ///       </div>
 ///     </div>
 ///
-/// See: <http://v4-alpha.getbootstrap.com/components/buttons/#checkbox-and-radio-buttons>
-
+/// See: <https://getbootstrap.com/docs/4.4/components/buttons/#checkbox-and-radio-buttons>
 UiFactory<ToggleButtonGroupProps> ToggleButtonGroup = _$ToggleButtonGroup;
 
 class ToggleButtonGroupProps = UiProps with ButtonGroupProps, AbstractInputPropsMixin;

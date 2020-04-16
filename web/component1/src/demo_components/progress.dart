@@ -21,7 +21,7 @@ part 'progress.over_react.g.dart';
 /// Bootstrap's `Progress` component stylizes the HTML5 `<progress>` element with a
 /// few extra CSS classes and some crafty browser-specific CSS.
 ///
-/// See: <http://v4-alpha.getbootstrap.com/components/progress/>
+/// See: <https://getbootstrap.com/docs/4.4/components/progress/>
 @Factory()
 UiFactory<ProgressProps> Progress = _$Progress;
 
@@ -46,7 +46,7 @@ class _$ProgressProps extends UiProps {
 
   /// The skin / "context" for the [Progress] component.
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/progress/#contextual-alternatives>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/progress/#contextual-alternatives>.
   ///
   /// Default: [ProgressSkin.DEFAULT]
   ProgressSkin skin;
@@ -65,7 +65,7 @@ class _$ProgressProps extends UiProps {
 
   /// Optionally add a caption that describes the context of the [Progress] component.
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/progress/#example>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/progress/#example>.
   ///
   /// Default: [ProgressComponent._getPercentComplete]%
   String caption;

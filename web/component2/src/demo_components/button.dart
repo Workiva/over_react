@@ -20,35 +20,34 @@ part 'button.over_react.g.dart';
 /// Nest one or more `Button` components within a [ListGroup]
 /// to render individual items within a list.
 ///
-/// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
-
+/// See: <https://getbootstrap.com/docs/4.4/components/button/>
 UiFactory<ButtonProps> Button = _$Button;
 
 mixin ButtonProps on UiProps {
   /// The skin / "context" for the [Button].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#examples>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/buttons/#examples>.
   ///
   /// Default: [ButtonSkin.PRIMARY]
   ButtonSkin skin;
 
   /// The size of the [Button].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#sizes>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/buttons/#sizes>.
   ///
   /// Default: [ButtonSize.DEFAULT]
   ButtonSize size;
 
   /// Whether the [Button] should appear "active".
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#active-state>
+  /// See: <https://getbootstrap.com/docs/4.4/components/buttons/#active-state>
   ///
   /// Default: false
   bool isActive;
 
   /// Whether the [Button] is disabled.
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#disabled-state>
+  /// See: <https://getbootstrap.com/docs/4.4/components/buttons/#disabled-state>
   ///
   /// Default: false
   @Accessor(key: 'disabled', keyNamespace: '')
@@ -101,8 +100,6 @@ class ButtonComponent<T extends ButtonProps, S extends ButtonState>
     ..type = ButtonType.BUTTON
   );
 
-//  T get props;
-//
   @override
   render() {
     return renderButton(props.children);
@@ -118,9 +115,7 @@ class ButtonComponent<T extends ButtonProps, S extends ButtonState>
       ..target = props.target
       ..type = type
       ..disabled = isAnchorLink ? null : props.isDisabled
-      ..addProps(ariaProps()
-        ..disabled = isAnchorLink ? props.isDisabled : null
-      )
+      ..aria.disabled = isAnchorLink ? props.isDisabled : null
     )(children);
   }
 

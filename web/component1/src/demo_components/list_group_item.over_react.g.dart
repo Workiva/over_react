@@ -51,7 +51,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// Optional header text to display within the [ListGroupItem] above
   /// the value of [children].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#custom-content>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/list-group/#custom-content>.
   ///
   /// <!-- Generated from [_$ListGroupItemProps.header] -->
   @override
@@ -61,7 +61,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   /// Optional header text to display within the [ListGroupItem] above
   /// the value of [children].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#custom-content>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/list-group/#custom-content>.
   ///
   /// <!-- Generated from [_$ListGroupItemProps.header] -->
   @override
@@ -102,7 +102,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
 
   /// The skin / "context" for the [ListGroupItem].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#contextual-classes>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/list-group/#contextual-classes>.
   ///
   /// Default: [ListGroupItemSkin.DEFAULT]
   ///
@@ -113,7 +113,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// The skin / "context" for the [ListGroupItem].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#contextual-classes>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/list-group/#contextual-classes>.
   ///
   /// Default: [ListGroupItemSkin.DEFAULT]
   ///
@@ -124,7 +124,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
 
   /// Whether the [ListGroupItem] should appear "active".
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#anchors-and-buttons>
+  /// See: <https://getbootstrap.com/docs/4.4/components/list-group/#anchors-and-buttons>
   ///
   /// Default: false
   ///
@@ -135,7 +135,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Whether the [ListGroupItem] should appear "active".
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#anchors-and-buttons>
+  /// See: <https://getbootstrap.com/docs/4.4/components/list-group/#anchors-and-buttons>
   ///
   /// Default: false
   ///
@@ -146,7 +146,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
 
   /// Whether the [ListGroupItem] is disabled.
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#disabled-items>
+  /// See: <https://getbootstrap.com/docs/4.4/components/list-group/#disabled-items>
   ///
   /// Default: false
   ///
@@ -158,7 +158,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Whether the [ListGroupItem] is disabled.
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#disabled-items>
+  /// See: <https://getbootstrap.com/docs/4.4/components/list-group/#disabled-items>
   ///
   /// Default: false
   ///

@@ -2540,7 +2540,7 @@ r=K.bi().$0()
 J.fi(r,"3")
 r=u.$3(t,s,r.$1("Checkbox 3"))
 s=document
-t=s.querySelector(".component-demo__mount--checkbox-toggle")
+t=s.querySelector(".component-demo__mount--toggle-button-checkbox")
 $.lX().$2(r,t)
 t=F.lP().$0()
 t.sa0(C.av)
@@ -2555,7 +2555,7 @@ u=u.$1("Radio 2")
 q=K.bi().$0()
 J.fi(q,"3")
 q=t.$3(r,u,q.$1("Radio 3"))
-s=s.querySelector(".component-demo__mount--radio-toggle")
+s=s.querySelector(".component-demo__mount--toggle-button-radio")
 $.lX().$2(q,s)}}
 var w=[C,H,J,P,W,K,A,Q,B,S,Z,M,X,F,V,L,R,U,T,E]
 hunkHelpers.setFunctionNamesIfNecessary(w)

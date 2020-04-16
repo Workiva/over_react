@@ -2,7 +2,7 @@
   slug: button
   component_class: Button
   title: Button Component Demo
-  lead: 'A component that renders a <a href="http://v4-alpha.getbootstrap.com/components/buttons/" target="bs" onclick="handleBsExternalClick();">Bootstrap Button</a> element using OverReact’s statically-typed React prop API.'
+  lead: 'A component that renders a <a href="https://getbootstrap.com/docs/4.4/components/buttons/" target="bs" onclick="handleBsExternalClick();">Bootstrap Button</a> element using OverReact’s statically-typed React prop API.'
   img: false
 
 - id: list_group
@@ -10,21 +10,21 @@
   component_class: ListGroup
   secondary_component_class: ListGroupItem
   title: ListGroup Component Demo
-  lead: 'A component that renders a <a href="http://v4-alpha.getbootstrap.com/components/list-group/" target="bs" onclick="handleBsExternalClick();">Bootstrap List Group</a> element using OverReact’s statically-typed React prop API.'
+  lead: 'A component that renders a <a href="https://getbootstrap.com/docs/4.4/components/list-group/" target="bs" onclick="handleBsExternalClick();">Bootstrap List Group</a> element using OverReact’s statically-typed React prop API.'
   img: false
 
 - id: progress
   slug: progress
   component_class: Progress
   title: Progress Component Demo
-  lead: 'A component that renders a <a href="http://v4-alpha.getbootstrap.com/components/progress/" target="bs" onclick="handleBsExternalClick();">Bootstrap Progress</a> element using OverReact’s statically-typed React prop API.'
+  lead: 'A component that renders a <a href="https://getbootstrap.com/docs/4.4/components/progress/" target="bs" onclick="handleBsExternalClick();">Bootstrap Progress</a> element using OverReact’s statically-typed React prop API.'
   img: false
 
 - id: tag
   slug: tag
   component_class: Tag
   title: Tag Component Demo
-  lead: 'A component that renders a <a href="http://v4-alpha.getbootstrap.com/components/tag/" target="bs" onclick="handleBsExternalClick();">Bootstrap Tag</a> element using OverReact’s statically-typed React prop API.'
+  lead: 'A component that renders a <a href="https://getbootstrap.com/docs/4.4/components/tag/" target="bs" onclick="handleBsExternalClick();">Bootstrap Tag</a> element using OverReact’s statically-typed React prop API.'
   img: false
 
 - id: toggle_button
@@ -32,5 +32,5 @@
   component_class: ToggleButton
   secondary_component_class: ToggleButtonGroup
   title: ToggleButton Component Demo
-  lead: 'A component that renders stateful <a href="http://v4-alpha.getbootstrap.com/components/buttons/#checkbox-and-radio-buttons" target="bs">Bootstrap Toggle Buttons</a> using OverReact’s statically-typed React prop and state API.'
+  lead: 'A component that renders stateful <a href="https://getbootstrap.com/docs/4.4/components/buttons/#checkbox-and-radio-buttons" target="bs">Bootstrap Toggle Buttons</a> using OverReact’s statically-typed React prop and state API.'
   img: false

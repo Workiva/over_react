@@ -20,7 +20,7 @@ part 'button_group.over_react.g.dart';
 
 /// Groups a series of [Button]s together on a single line.
 ///
-/// See: <http://v4-alpha.getbootstrap.com/components/button-group/>.
+/// See: <https://getbootstrap.com/docs/4.4/components/button-group/>.
 @Factory()
 UiFactory<ButtonGroupProps> ButtonGroup = _$ButtonGroup;
 
@@ -28,7 +28,7 @@ UiFactory<ButtonGroupProps> ButtonGroup = _$ButtonGroup;
 class _$ButtonGroupProps extends UiProps {
   /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#sizing>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/button-group/#sizing>.
   ///
   /// Default: [ButtonGroupSize.DEFAULT]
   ButtonGroupSize size;
@@ -38,7 +38,7 @@ class _$ButtonGroupProps extends UiProps {
 
   /// Make the [Button]s within a [ButtonGroup] stack vertically.
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#vertical-variation>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/button-group/#vertical-variation>.
   ///
   /// Default: false
   bool isVertical;

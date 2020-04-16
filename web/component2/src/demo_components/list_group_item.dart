@@ -20,8 +20,7 @@ part 'list_group_item.over_react.g.dart';
 /// Nest one or more `ListGroupItem` components within a [ListGroup]
 /// to render individual items within a list.
 ///
-/// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
-
+/// See: <https://getbootstrap.com/docs/4.4/components/list-group/>
 UiFactory<ListGroupItemProps> ListGroupItem = _$ListGroupItem;
 
 mixin ListGroupItemProps on UiProps {
@@ -36,7 +35,7 @@ mixin ListGroupItemProps on UiProps {
   /// Optional header text to display within the [ListGroupItem] above
   /// the value of [children].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#custom-content>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/list-group/#custom-content>.
   dynamic header;
 
   /// The size of the [header] text you desire.
@@ -49,21 +48,21 @@ mixin ListGroupItemProps on UiProps {
 
   /// The skin / "context" for the [ListGroupItem].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#contextual-classes>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/list-group/#contextual-classes>.
   ///
   /// Default: [ListGroupItemSkin.DEFAULT]
   ListGroupItemSkin skin;
 
   /// Whether the [ListGroupItem] should appear "active".
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#anchors-and-buttons>
+  /// See: <https://getbootstrap.com/docs/4.4/components/list-group/#anchors-and-buttons>
   ///
   /// Default: false
   bool isActive;
 
   /// Whether the [ListGroupItem] is disabled.
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/list-group/#disabled-items>
+  /// See: <https://getbootstrap.com/docs/4.4/components/list-group/#disabled-items>
   ///
   /// Default: false
   @Accessor(key: 'disabled', keyNamespace: '')
@@ -130,9 +129,7 @@ class ListGroupItemComponent extends UiComponent2<ListGroupItemProps> {
       ..target = props.target
       ..type = _isActionItem && !_isAnchorLink ? props.type.typeName : null
       ..disabled = _useDisabledAttr ? props.isDisabled : null
-      ..addProps(ariaProps()
-        ..disabled = !_useDisabledAttr ? props.isDisabled : null
-      )
+      .aria.disabled = !_useDisabledAttr ? props.isDisabled : null
     )(children);
   }
 

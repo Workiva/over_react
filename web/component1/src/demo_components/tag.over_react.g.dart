@@ -25,7 +25,7 @@ abstract class _$TagPropsAccessorsMixin implements _$TagProps {
 
   /// The skin / "context" for the [Tag].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/tag/#contextual-variations>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/tag/#contextual-variations>.
   ///
   /// Default: [TagSkin.DEFAULT]
   ///
@@ -36,7 +36,7 @@ abstract class _$TagPropsAccessorsMixin implements _$TagProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// The skin / "context" for the [Tag].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/tag/#contextual-variations>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/tag/#contextual-variations>.
   ///
   /// Default: [TagSkin.DEFAULT]
   ///
@@ -47,7 +47,7 @@ abstract class _$TagPropsAccessorsMixin implements _$TagProps {
   /// Whether to render the [Tag] with rounded corners that make it look
   /// more like a "pill" (a.k.a Bootstrap v3 "badge")
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/tag/#pill-tags>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/tag/#pill-tags>.
   ///
   /// Default: false
   ///
@@ -59,7 +59,7 @@ abstract class _$TagPropsAccessorsMixin implements _$TagProps {
   /// Whether to render the [Tag] with rounded corners that make it look
   /// more like a "pill" (a.k.a Bootstrap v3 "badge")
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/tag/#pill-tags>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/tag/#pill-tags>.
   ///
   /// Default: false
   ///

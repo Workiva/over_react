@@ -36,10 +36,10 @@ void main() {
     v2.ErrorBoundary()(tagBasicDemo()), querySelector('$demoMountNodeSelectorPrefix--tag'));
 
   react_dom.render(
-    v2.ErrorBoundary()(checkboxToggleButtonDemo()), querySelector('$demoMountNodeSelectorPrefix--checkbox-toggle'));
+    v2.ErrorBoundary()(checkboxToggleButtonDemo()), querySelector('$demoMountNodeSelectorPrefix--toggle-button-checkbox'));
 
   react_dom.render(
-    v2.ErrorBoundary()(radioToggleButtonDemo()), querySelector('$demoMountNodeSelectorPrefix--radio-toggle'));
+    v2.ErrorBoundary()(radioToggleButtonDemo()), querySelector('$demoMountNodeSelectorPrefix--toggle-button-radio'));
 
   react_dom.render(
     (v2.ErrorBoundary()

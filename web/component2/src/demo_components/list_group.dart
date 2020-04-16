@@ -20,8 +20,7 @@ part 'list_group.over_react.g.dart';
 /// Bootstrap's `ListGroup` component is flexible and powerful for
 /// displaying lists of [ListGroupItem] components.
 ///
-/// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
-
+/// See: <https://getbootstrap.com/docs/4.4/components/list-group/>
 UiFactory<ListGroupProps> ListGroup = _$ListGroup;
 
 mixin ListGroupProps on UiProps {

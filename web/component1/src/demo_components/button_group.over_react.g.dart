@@ -25,7 +25,7 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
 
   /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#sizing>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/button-group/#sizing>.
   ///
   /// Default: [ButtonGroupSize.DEFAULT]
   ///
@@ -36,7 +36,7 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#sizing>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/button-group/#sizing>.
   ///
   /// Default: [ButtonGroupSize.DEFAULT]
   ///
@@ -60,7 +60,7 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
 
   /// Make the [Button]s within a [ButtonGroup] stack vertically.
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#vertical-variation>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/button-group/#vertical-variation>.
   ///
   /// Default: false
   ///
@@ -71,7 +71,7 @@ abstract class _$ButtonGroupPropsAccessorsMixin implements _$ButtonGroupProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Make the [Button]s within a [ButtonGroup] stack vertically.
   ///
-  /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#vertical-variation>.
+  /// See: <https://getbootstrap.com/docs/4.4/components/button-group/#vertical-variation>.
   ///
   /// Default: false
   ///
