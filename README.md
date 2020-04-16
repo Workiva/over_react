@@ -170,25 +170,25 @@ which handles the underlying JS interop that wraps around [React JS][react-js].
 
 The library strives to maintain a 1:1 relationship with the React JS component class and API.
 To do that, an OverReact component is comprised of four core pieces that are each wired up
-via our builder using an analogous [annotation].
+via our [builder].
 
 1. [UiFactory](#uifactory)
 2. [UiProps](#uiprops)
 3. _[UiState](#uistate) (optional)_
-4. [UiComponent](#uicomponent2)
+4. [UiComponent2](#uicomponent2)
 
 &nbsp;
 
 ### UiFactory
 
 __`UiFactory` is a function__ that returns a new instance of a
-[`UiComponent`](#uicomponent2)’s [`UiProps`](#uiprops) class.
+[`UiComponent2`](#uicomponent2)’s [`UiProps`](#uiprops) class.
 
 ```dart
 UiFactory<FooProps> Foo = _$Foo;
 ```
 
-* This factory is __the entry-point__ to consuming every OverReact component.
+* This factory is __the entry-point__ to consuming any OverReact component.
 * The `UiProps` instance it returns can be used [as a component builder](#uiprops-as-a-builder),
 or [as a typed view into an existing props map](#uiprops-as-a-map).
 
@@ -196,15 +196,18 @@ or [as a typed view into an existing props map](#uiprops-as-a-map).
 
 ### UiProps
 
-__`UiProps` is a Map class__ that adds statically-typed getters and setters for each React component prop.
-It can also be invoked as a function, serving as a builder for its analogous component.
+__`UiProps` is a `Map` class__ that adds statically-typed getters and setters for each React component prop.
+It can also be invoked as a function, serving [as a builder](#uiprops-as-a-builder) for its analogous component.
 
 ```dart
 mixin FooProps on UiProps {
-  // ...
+  // ... the props for your component go here
+  String bar;
+  bool baz;
+  List<int> bizzles;
 }
 ```
-* Note: The [builder] will make the concrete getters and setters available in a generated class. To mix props classes together, the mixin class should be used rather than the generated props class. See [With other mixins](#with-other-mixins) below for more information.
+* **Note:** The [builder] will make the concrete getters and setters available from the mixin fields you author in a generated class. To mix props classes together, the mixin class should be used rather than the generated props class. See [_"With other mixins"_](#with-other-mixins) below for more information.
 
 &nbsp;
 
@@ -257,7 +260,7 @@ void bar() {
   print(props);       // {FooProps.color: #66cc00}
 }
 
-/// You can use the factory to create a UiProps instance
+/// You can also use the factory to create a UiProps instance
 /// backed by an existing Map.
 void baz() {
   Map existingMap = {'FooProps.color': '#0094ff'};
@@ -279,15 +282,15 @@ mixin FooProps on UiProps {
   String color;
 }
 
-@Component2()
 class FooComponent extends UiComponent2<FooProps> {
   ReactElement bar() {
     // Create a UiProps instance to serve as a builder
     FooProps builder = Foo();
 
-    // Add props
-    builder.id = 'the_best_foo';
-    builder.color = '#ee2724';
+    // Set some prop values
+    builder
+      ..id = 'the_best_foo'
+      ..color = '#ee2724';
 
     // Invoke as a function with the desired children
     // to return a new instance of the component.
@@ -313,7 +316,7 @@ class FooComponent extends UiComponent2<FooProps> {
 
 ### UiState
 
-__`UiState` is a Map class__ _(just like `UiProps`)_ that adds statically-typed getters and setters
+__`UiState` is a `Map` class__ _(just like `UiProps`)_ that adds statically-typed getters and setters
 for each React component state property.
 
 ```dart
@@ -322,16 +325,16 @@ mixin FooState on UiState {
 }
 ```
 
-> UiState is optional, and won’t be used for every component.
-* Note: The [builder] will make the concrete getters and setters available in a generated class. To mix state classes together, the mixin class should be used rather than the generated state class. See [With other mixins](#with-other-mixins) above for  more information.
+> `UiState` is optional, and won’t be used for every component. Check out the [`UiStatefulComponent` boilerplate](#stateful-component-boilerplate) for more information.
+
+* **Note:** The [builder] will make the concrete getters and setters available from the mixin fields you author in a generated class. To mix state classes together, the mixin class should be used rather than the generated props class. See [_"With other mixins"_](#with-other-mixins) above for more information.
 
 &nbsp;
 
 ### UiComponent2
-> For guidance on updating to `UiComponent2` from `UiComponent`, see [UiComponent2 Transition Notes](doc/ui_component2_transition.md).
+> For guidance on updating to `UiComponent2` from `UiComponent`, check out the [UiComponent2 Migration Guide](doc/ui_component2_transition.md).
 
-__`UiComponent2` is a subclass of [`react.Component2`]__, containing lifecycle methods
-and rendering logic for components.
+__`UiComponent2` is a subclass of [`react.Component2`][react.Component2]__, containing lifecycle methods and rendering logic for components.
 
 ```dart
 class FooComponent extends UiComponent2<FooProps> {
@@ -339,22 +342,30 @@ class FooComponent extends UiComponent2<FooProps> {
 }
 ```
 
-* This component provides statically-typed props via [`UiProps`](#uiprops), as well as utilities for
-prop forwarding and CSS class merging.
-* The `UiStatefulComponent` flavor augments `UiComponent` behavior with statically-typed state via
-[`UiState`](#uistate).
+* This class provides statically-typed props via [`UiProps`](#uiprops), as well as utilities for prop forwarding and CSS class merging.
+* The `UiStatefulComponent2` flavor augments `UiComponent2` behavior with statically-typed state via [`UiState`](#uistate).
 
 &nbsp;
 
-#### Accessing and manipulating props / state within UiComponent
+#### Accessing and manipulating props / state within UiComponent2
 
 * Within the `UiComponent2` class, `props` and `state` are not just `Map`s.
 They are instances of `UiProps` and `UiState`, __which means you don’t need String keys to access them!__
-* `newProps()` and `newState()` are also exposed to conveniently create empty instances of `UiProps` and
-`UiState` as needed.
+* `newProps()` and `newState()` are also exposed to conveniently create empty instances of `UiProps` and `UiState` as needed.
 * `typedPropsFactory()` and `typedStateFactory()` are also exposed to conveniently create typed `props` / `state` objects out of any provided backing map.
 
 ```dart
+UiFactory<FooProps> Foo = _$Foo;
+
+mixin FooProps on UiProps {
+  String color;
+  Function() onDidActivate;
+  Function() onDidDeactivate;
+}
+mixin FooState on UiState {
+  bool isActive;
+}
+
 class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
   @override
   get defaultProps => (newProps()
@@ -367,33 +378,33 @@ class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
   );
 
   @override
-  componentWillUpdate(Map newProps, Map newState, [dynamic snapshot]) {
-    var tNewState = typedStateFactory(newState);
-    var tNewProps = typedPropsFactory(newProps);
+  componentDidUpdate(Map prevProps, Map prevState, [dynamic snapshot]) {
+    var tPrevState = typedStateFactory(prevState);
+    var tPrevProps = typedPropsFactory(prevProps);
 
-    var becameActive = !state.isActive && tNewState.isActive;
-
-    // Do something here!
+    if (state.isActive && !tPrevState.isActive) {
+      props.onDidActivate?.call();
+    } else if (!state.isActive && tPrevState.isActive) {
+      props.onDidDeactivate?.call();
+    }
   }
 
   @override
   render() {
     return (Dom.div()
+      ..modifyProps(addUnconsumedDomProps)
       ..style = {
+        ...newStyleFromProps(props),
         'color': props.color,
-        'fontWeight': state.isActive ? 'bold' : 'normal'
+        'fontWeight': state.isActive ? 'bold' : 'normal', 
       }
     )(
       (Dom.button()..onClick = _handleButtonClick)('Toggle'),
-      props.children
+      props.children,
     );
   }
 
   void _handleButtonClick(SyntheticMouseEvent event) {
-    _toggleActive();
-  }
-
-  void _toggleActive() {
     setState(newState()
       ..isActive = !state.isActive
     );
@@ -1054,6 +1065,8 @@ The `over_react` library adheres to [Semantic Versioning](http://semver.org/):
 [react-dart]: https://github.com/cleandart/react-dart
 [react-js]: https://github.com/facebook/react
 [react-js-tutorial]: https://reactjs.org/docs/getting-started.html
+
+[react.Component2]: https://pub.dev/documentation/react/latest/react/Component2-class.html
 
 [new-issue]: https://github.com/Workiva/over_react/issues/new
 [gitter-chat]: https://gitter.im/over_react/Lobby
