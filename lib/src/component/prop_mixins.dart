@@ -12,19 +12,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Various prop related mixins to be used with [UiComponent] descendants.
+/// Various prop related mixins to be used with `UiComponent` descendants.
 library over_react.prop_mixins;
 
+import 'package:over_react/over_react.dart' show AriaPropsMapView, AriaPropsMixin, DomProps, PropsMeta;
 // Must import these consts because they are used in the transformed code.
-// ignore: unused_import
-import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps;
+// ignore: deprecated_member_use, unused_shown_name
+import 'package:over_react/over_react.dart' show PropDescriptor, ConsumedProps, PropsMeta;
 import 'package:over_react/src/component/callback_typedefs.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';
+
+part 'prop_mixins.over_react.g.dart';
+
+/// This class is present:
+///
+/// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
+///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
+abstract class $ReactPropsMixin {
+  @Deprecated('This API is for use only within generated code.'
+      ' Do not reference it in your code, as it may change at any time.')
+  static const PropsMeta meta = _$metaForReactPropsMixin;
+}
 
 /// Typed getters/setters for reserved React props.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
-abstract class ReactPropsMixin {
+abstract class _$ReactPropsMixin {
   Map get props;
 
   /// The children that were passed in to this component when it was built.
@@ -42,6 +56,7 @@ abstract class ReactPropsMixin {
   /// * <https://facebook.github.io/react/docs/multiple-components.html#children>
   /// * <https://facebook.github.io/react/docs/reconciliation.html>
   String get key        => props['key'];
+  /// ignore: prefer_null_aware_operators
   set key(Object value) => props['key'] = value == null ? null : value.toString();
 
   /// Either a String used to retrieve the element at a later time via [react.Component.ref],
@@ -51,28 +66,49 @@ abstract class ReactPropsMixin {
   dynamic ref;
 }
 
+/// This class is present:
+///
+/// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
+///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
+abstract class $DomPropsMixin {
+  @Deprecated('This API is for use only within generated code.'
+      ' Do not reference it in your code, as it may change at any time.')
+  static const PropsMeta meta = _$metaForDomPropsMixin;
+}
+
 /// Typed getters/setters for reserved DOM-related props.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
-abstract class DomPropsMixin {
+abstract class _$DomPropsMixin {
   Map get props;
 
-  int cols, rows, size, span, start;
+  int cols, minLength, rows, size, span, start;
+
+  num high, low, marginHeight, marginWidth, optimum;
+
+  @Accessor(key: 'default')
+  bool htmlDefault;
+
+  @Accessor(key: 'is')
+  String htmlIs;
 
   bool allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, hidden, loop, multiple,
-    muted, noValidate, readOnly, required, seamless, selected;
+      muted, noValidate, open, readOnly, required, reversed, scoped, seamless, selected;
 
   Map<String, dynamic> style;
 
-  String className, title, id;
+  String challenge, cite, className, controlsList, formAction, formEncType, formMethod, formTarget, headers, id,
+      inputMode, integrity, keyParams, keyType, kind, nonce, srcLang, summary, title, wrap;
 
-  dynamic accept, acceptCharset, accessKey, action, allowTransparency, alt, autoComplete, cellPadding, cellSpacing,
+  dynamic accept, acceptCharset, accessKey, action, allowTransparency, alt, autoComplete, capture, cellPadding, cellSpacing,
     charSet, classID, colSpan, content, contentEditable, contextMenu, coords, crossOrigin, data, dateTime,
     dir, download, draggable, encType, form, frameBorder, height, href, hrefLang, htmlFor, httpEquiv, icon, label,
-    lang, list, manifest, max, maxLength, media, mediaGroup, method, min, name, open, pattern, placeholder,
+    lang, list, manifest, max, maxLength, media, mediaGroup, method, min, name, pattern, placeholder,
     poster, preload, radioGroup, rel, role, rowSpan, sandbox, scope, scrolling, shape, sizes, spellCheck, src, srcDoc,
     srcSet, step, tabIndex, target, type, useMap, value, width, wmode;
 
+  AnimationEventCallback onAnimationEnd, onAnimationIteration, onAnimationStart;
   ClipboardEventCallback onCopy, onCut, onPaste;
   KeyboardEventCallback onKeyDown, onKeyPress, onKeyUp;
   FocusEventCallback onFocus, onBlur;
@@ -80,9 +116,23 @@ abstract class DomPropsMixin {
   MouseEventCallback
     onClick, onContextMenu, onDoubleClick, onDrag, onDragEnd, onDragEnter, onDragExit, onDragLeave, onDragOver,
     onDragStart, onDrop, onMouseDown, onMouseEnter, onMouseLeave, onMouseMove, onMouseOut, onMouseOver, onMouseUp;
+  PointerEventCallback onPointerCancel, onPointerDown, onPointerEnter, onPointerLeave, onPointerMove, onPointerOver, onPointerOut, onPointerUp;
   TouchEventCallback onTouchCancel, onTouchEnd, onTouchMove, onTouchStart;
+  TransitionEventCallback onTransitionEnd;
   UIEventCallback onScroll;
   WheelEventCallback onWheel;
+
+  ClipboardEventCallback onCopyCapture, onCutCapture, onPasteCapture;
+  KeyboardEventCallback onKeyDownCapture, onKeyPressCapture, onKeyUpCapture;
+  FocusEventCallback onFocusCapture, onBlurCapture;
+  FormEventCallback onChangeCapture, onInputCapture, onSubmitCapture, onResetCapture;
+  MouseEventCallback
+    onClickCapture, onContextMenuCapture, onDoubleClickCapture, onDragCapture, onDragEndCapture, onDragEnterCapture, onDragExitCapture, onDragLeaveCapture, onDragOverCapture,
+    onDragStartCapture, onDropCapture, onMouseDownCapture, onMouseEnterCapture, onMouseLeaveCapture, onMouseMoveCapture, onMouseOutCapture, onMouseOverCapture, onMouseUpCapture;
+  PointerEventCallback onGotPointerCapture, onLostPointerCapture;
+  TouchEventCallback onTouchCancelCapture, onTouchEndCapture, onTouchMoveCapture, onTouchStartCapture;
+  UIEventCallback onScrollCapture;
+  WheelEventCallback onWheelCapture;
 
   // props specific to React.INPUT
   bool defaultChecked;
@@ -93,22 +143,99 @@ abstract class DomPropsMixin {
   bool autoFocus;
 }
 
+/// This class is present:
+///
+/// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
+///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
+abstract class $SvgPropsMixin {
+  @Deprecated('This API is for use only within generated code.'
+      ' Do not reference it in your code, as it may change at any time.')
+  static const PropsMeta meta = _$metaForSvgPropsMixin;
+}
+
 @PropsMixin(keyNamespace: '')
-abstract class SvgPropsMixin {
+abstract class _$SvgPropsMixin {
   Map get props;
 
-  dynamic clipPath, cx, cy, d, dx, dy, fill, fillOpacity, fontFamily, fontSize, fx, fy, gradientTransform,
-    gradientUnits, markerEnd, markerMid, markerStart, offset, opacity, patternContentUnits, patternUnits, points,
-    preserveAspectRatio, r, rx, ry, spreadMethod, stopColor, stopOpacity, stroke, strokeDasharray, strokeLinecap,
-    strokeOpacity, strokeWidth, textAnchor, transform, version, viewBox, x1, x2, x, xlinkActuate, xlinkArcrole,
-    xlinkHref, xlinkRole, xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace, y1, y2, y;
+  @Accessor(key: 'in')
+  String htmlIn;
+
+  @Accessor(key: 'values')
+  String htmlValues;
+
+  String accumulate, additive, alignmentBaseline, allowReorder, arabicForm, attributeName, attributeType, colorInterpolationFilters,
+      fillRule, filter, mask, result, strokeLinejoin, xChannelSelector, xmlns, xmlnsXlink, yChannelSelector, zoomAndPan;
+
+  dynamic accentHeight, alphabetic, amplitude, ascent, autoReverse, azimuth, baseFrequency,
+      baseProfile, baselineShift, bbox, begin, bias, by, calcMode, capHeight, clip, clipPath, clipPathUnits,
+      clipRule, colorInterpolation, colorProfile, colorRendering, contentScriptType, contentStyleType,
+      cursor, cx, cy, d, decelerate, descent, diffuseConstant, direction, display, divisor, dominantBaseline,
+      dur, dx, dy, edgeMode, elevation, enableBackground, end, exponent, externalResourcesRequired,
+      fill, fillOpacity, filterRes, filterUnits, floodColor, floodOpacity, focusable, fontFamily, fontSize,
+      fontSizeAdjust, fontStretch, fontStyle, fontVariant, fontWeight, format, from, fx, fy, g1, g2, glyphName,
+      glyphOrientationHorizontal, glyphOrientationVertical, glyphRef, gradientTransform, gradientUnits, hanging,
+      horizAdvX, horizOriginX, ideographic, imageRendering, in2, intercept, k, k1, k2, k3, k4, kernelMatrix, kernelUnitLength,
+      kerning, keyPoints, keySplines, keyTimes, lengthAdjust, letterSpacing, lightingColor, limitingConeAngle,
+      local, markerEnd, markerHeight, markerMid, markerStart, markerUnits, markerWidth, maskContentUnits, maskUnits, mathematical,
+      mode, numOctaves, offset, opacity, operator, order, orient, orientation, origin, overflow, overlinePosition,
+      overlineThickness, paintOrder, panose1, pathLength, patternContentUnits, patternTransform, patternUnits, pointerEvents,
+      points, pointsAtX, pointsAtY, pointsAtZ, preserveAlpha, preserveAspectRatio, primitiveUnits, r, radius, refX, refY,
+      renderingIntent, repeatCount, repeatDur, requiredExtensions, requiredFeatures, restart, rotate, rx, ry, scale, seed,
+      shapeRendering, slope, spacing, specularConstant, specularExponent, speed, spreadMethod, startOffset, stdDeviation, stemh, stemv,
+      stitchTiles, stopColor, stopOpacity, strikethroughPosition, strikethroughThickness, string, stroke, strokeDasharray,
+      strokeDashoffset, strokeLinecap, strokeMiterlimit, strokeOpacity, strokeWidth, surfaceScale, systemLanguage,
+      tableValues, targetX, targetY, textAnchor, textDecoration, textLength, textRendering, to, transform, u1, u2, underlinePosition,
+      underlineThickness, unicode, unicodeBidi, unicodeRange, unitsPerEm, vAlphabetic, vHanging, vIdeographic, vMathematical,
+      vectorEffect, version, vertAdvY, vertOriginX, vertOriginY, viewBox, viewTarget, visibility, widths, wordSpacing, writingMode,
+      x, x1, x2, xHeight, xlinkActuate, xlinkArcrole, xlinkHref, xlinkRole, xlinkShow, xlinkTitle, xlinkType, xmlBase, xmlLang, xmlSpace, y1, y2, y;
+}
+/// This class is present:
+///
+/// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
+///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
+abstract class $UbiquitousDomPropsMixin {
+  @Deprecated('This API is for use only within generated code.'
+      ' Do not reference it in your code, as it may change at any time.')
+  static const PropsMeta meta = _$metaForUbiquitousDomPropsMixin;
 }
 
 /// Typed getters/setters for reserved DOM-related props that can be used by all UIP components.
 /// To be used as a mixin for React components and builders.
 @PropsMixin(keyNamespace: '')
-abstract class UbiquitousDomPropsMixin {
+abstract class _$UbiquitousDomPropsMixin {
   Map get props;
+
+  /// A cache for the MapView used for [aria].
+  @Accessor(doNotGenerate: true)
+  AriaPropsMapView _aria;
+
+  /// A cache for the MapView used for [dom].
+  @Accessor(doNotGenerate: true)
+  DomProps _dom;
+
+  /// A view into this map that can be used to access `aria-` props, for convenience.
+  ///
+  /// Example:
+  ///
+  ///     (Button()
+  ///       ..aria.controls = 'my_popover'
+  ///     )('Open popover')
+  AriaPropsMixin get aria {
+    return _aria ??= AriaPropsMapView(props);
+  }
+
+  /// A view into this map that can be used to access DOM props, for convenience.
+  ///
+  /// Example:
+  ///
+  ///     (Tab()
+  ///       ..dom.draggable = true
+  ///     )('Untitled Document')
+  DomPropsMixin get dom {
+    return _dom ??= DomProps(null, props);
+  }
 
   /// Whether the element if focusable.
   /// Must be a valid integer or String of valid integer.
@@ -130,6 +257,21 @@ abstract class UbiquitousDomPropsMixin {
   ///
   /// See: <https://facebook.github.io/react/tips/inline-styles.html>
   Map<String, dynamic> style;
+
+  /// Callback for when a CSS Animation has completed.
+  ///
+  /// > Related: [onAnimationIteration], [onAnimationStart], [onTransitionEnd]
+  AnimationEventCallback onAnimationEnd;
+
+  /// Callback for when an iteration of a CSS Animation ends, and another one begins.
+  ///
+  /// > Related: [onAnimationEnd], [onAnimationStart]
+  AnimationEventCallback onAnimationIteration;
+
+  /// Callback for when a CSS animation has started.
+  ///
+  /// > Related: [onAnimationEnd], [onAnimationIteration]
+  AnimationEventCallback onAnimationStart;
 
   /// Callback for when the user copies the content of an element
   ClipboardEventCallback onCopy;
@@ -222,6 +364,30 @@ abstract class UbiquitousDomPropsMixin {
   /// Callback for when a user releases a mouse button over an element
   MouseEventCallback onMouseUp;
 
+  /// Callback for when the pointing device is interrupted
+  PointerEventCallback onPointerCancel;
+
+  /// Callback for when the pointer becomes active over an element
+  PointerEventCallback onPointerDown;
+
+  /// Callback for when the pointer is moved onto an element
+  PointerEventCallback onPointerEnter;
+
+  /// Callback for when the pointer is moved out of an element
+  PointerEventCallback onPointerLeave;
+
+  /// Callback for when the pointer is moving while it is over an element
+  PointerEventCallback onPointerMove;
+
+  /// Callback for when the pointer is moved onto an element, or onto one of its children
+  PointerEventCallback onPointerOver;
+
+  /// Callback for when the pointer is moved out of an element, or out of one of its children
+  PointerEventCallback onPointerOut;
+
+  /// Callback for when the pointer becomes inactive over an element
+  PointerEventCallback onPointerUp;
+
   /// Callback for when the touch is interrupted
   TouchEventCallback onTouchCancel;
 
@@ -233,6 +399,11 @@ abstract class UbiquitousDomPropsMixin {
 
   /// Callback for when a finger is placed on a touch screen
   TouchEventCallback onTouchStart;
+
+  /// Callback for when a CSS transition has completed.
+  ///
+  /// > Related: [onAnimationEnd]
+  TransitionEventCallback onTransitionEnd;
 
   /// Callback for when an element's scrollbar is being scrolled
   UIEventCallback onScroll;

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library event_helpers_test;
 
 import 'dart:html';
@@ -23,16 +24,17 @@ import 'package:test/test.dart';
 /// Main entry point for Event Helpers testing
 main() {
   test('wrapNativeKeyboardEvent', () {
-    var nativeKeyboardEvent = new MockKeyboardEvent();
-    var currentTarget = new DivElement();
-    var target = new DivElement();
+    var nativeKeyboardEvent = MockKeyboardEvent();
+    var currentTarget = DivElement();
+    var target = DivElement();
+    var calls = <String>[];
 
     when(nativeKeyboardEvent.bubbles).thenReturn(true);
     when(nativeKeyboardEvent.cancelable).thenReturn(true);
     when(nativeKeyboardEvent.currentTarget).thenReturn(currentTarget);
     when(nativeKeyboardEvent.defaultPrevented).thenReturn(false);
-    when(nativeKeyboardEvent.preventDefault).thenReturn(() {});
-    when(nativeKeyboardEvent.stopPropagation).thenReturn(() {});
+    when(nativeKeyboardEvent.preventDefault()).thenAnswer((_) => calls.add('preventDefault'));
+    when(nativeKeyboardEvent.stopPropagation()).thenAnswer((_) => calls.add('stopPropagation'));
     when(nativeKeyboardEvent.eventPhase).thenReturn(0);
     when(nativeKeyboardEvent.target).thenReturn(target);
     when(nativeKeyboardEvent.timeStamp).thenReturn(0);
@@ -55,7 +57,9 @@ main() {
     expect(syntheticKeyboardEvent.currentTarget, currentTarget);
     expect(syntheticKeyboardEvent.defaultPrevented, isFalse);
     expect(() => syntheticKeyboardEvent.preventDefault(), returnsNormally);
+    expect(calls, contains('preventDefault'));
     expect(() => syntheticKeyboardEvent.stopPropagation(), returnsNormally);
+    expect(calls, contains('stopPropagation'));
     expect(syntheticKeyboardEvent.eventPhase, 0);
     expect(syntheticKeyboardEvent.isTrusted, isNull);
     expect(syntheticKeyboardEvent.nativeEvent, nativeKeyboardEvent);
@@ -63,7 +67,7 @@ main() {
     expect(syntheticKeyboardEvent.timeStamp, 0);
     expect(syntheticKeyboardEvent.type, 'type');
     expect(syntheticKeyboardEvent.altKey, isFalse);
-    expect(syntheticKeyboardEvent.char, new String.fromCharCode(0));
+    expect(syntheticKeyboardEvent.char, String.fromCharCode(0));
     expect(syntheticKeyboardEvent.charCode, 0);
     expect(syntheticKeyboardEvent.ctrlKey, isFalse);
     expect(syntheticKeyboardEvent.locale, isNull);
@@ -76,17 +80,18 @@ main() {
   });
 
   test('wrapNativeMouseEvent', () {
-    var nativeMouseEvent = new MockMouseEvent();
-    var currentTarget = new DivElement();
-    var target = new DivElement();
-    var relatedTarget = new DivElement();
+    var nativeMouseEvent = MockMouseEvent();
+    var currentTarget = DivElement();
+    var target = DivElement();
+    var relatedTarget = DivElement();
+    var calls = <String>[];
 
     when(nativeMouseEvent.bubbles).thenReturn(true);
     when(nativeMouseEvent.cancelable).thenReturn(true);
     when(nativeMouseEvent.currentTarget).thenReturn(currentTarget);
     when(nativeMouseEvent.defaultPrevented).thenReturn(false);
-    when(nativeMouseEvent.preventDefault).thenReturn(() {});
-    when(nativeMouseEvent.stopPropagation).thenReturn(() {});
+    when(nativeMouseEvent.preventDefault()).thenAnswer((_) => calls.add('preventDefault'));
+    when(nativeMouseEvent.stopPropagation()).thenAnswer((_) => calls.add('stopPropagation'));
     when(nativeMouseEvent.eventPhase).thenReturn(0);
     when(nativeMouseEvent.target).thenReturn(target);
     when(nativeMouseEvent.timeStamp).thenReturn(0);
@@ -105,7 +110,9 @@ main() {
     expect(syntheticMouseEvent.currentTarget, currentTarget);
     expect(syntheticMouseEvent.defaultPrevented, isFalse);
     expect(() => syntheticMouseEvent.preventDefault(), returnsNormally);
+    expect(calls, contains('preventDefault'));
     expect(() => syntheticMouseEvent.stopPropagation(), returnsNormally);
+    expect(calls, contains('stopPropagation'));
     expect(syntheticMouseEvent.eventPhase, 0);
     expect(syntheticMouseEvent.isTrusted, isNull);
     expect(syntheticMouseEvent.nativeEvent, nativeMouseEvent);
@@ -129,7 +136,7 @@ main() {
   });
 
   test('fakeSyntheticFormEvent', () {
-    var element = new DivElement();
+    var element = DivElement();
     var fakeEvent = fakeSyntheticFormEvent(element, 'change');
 
     expect(fakeEvent.bubbles, isFalse);
@@ -142,11 +149,13 @@ main() {
     expect(fakeEvent.isTrusted, isFalse);
     expect(fakeEvent.nativeEvent, isNull);
     expect(fakeEvent.target, element);
-    expect(fakeEvent.timeStamp, new isInstanceOf<int>());
+    expect(fakeEvent.timeStamp, isA<int>());
     expect(fakeEvent.type, 'change');
   });
 }
 
 
+// ignore: avoid_implementing_value_types
 class MockKeyboardEvent extends Mock implements KeyboardEvent {}
+// ignore: avoid_implementing_value_types
 class MockMouseEvent extends Mock implements MouseEvent {}

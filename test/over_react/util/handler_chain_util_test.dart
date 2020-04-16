@@ -12,17 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library handler_chain_util_test;
 
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
-
 /// Main entry point for HandlerChainUtil testing
 main() {
   group('HandlerChainUtil', () {
     group('generic chaining:', () {
-      Function createTestChainFunction({returnValue, onCall(List args)}) {
+      Function createTestChainFunction({returnValue, Function(List args) onCall}) {
         testChainFunction([
             arg1 = unspecified,
             arg2 = unspecified,
@@ -37,7 +37,7 @@ main() {
           }
 
           return returnValue;
-        };
+        }
 
         return testChainFunction;
       }
@@ -45,13 +45,13 @@ main() {
       /// Shared tests for [CallbackUtil] subclasses supporting different arities.
       ///
       /// Expects callback arguments to be typed to [TestGenericType].
-      void sharedTests(CallbackUtil callbackUtil, int arity) {
+      void sharedTests<S extends Function>(CallbackUtil callbackUtil, int arity) {
         List generateArgs() {
-          return new List.generate(arity, (_) => new TestGenericType());
+          return List.generate(arity, (_) => TestGenericType());
         }
 
         List generateBadTypeArgs() {
-          return new List.generate(arity, (_) => new Object());
+          return List.generate(arity, (_) => Object());
         }
 
         group('chain()', () {
@@ -68,7 +68,7 @@ main() {
           test('returns a noop function of arity $arity when both a and b are null', () {
             var chained = callbackUtil.chain(null, null);
 
-            expect(chained, const isInstanceOf<Function>());
+            expect(chained, isA<Function>());
             expect(() => Function.apply(chained, generateArgs()), returnsNormally);
           });
 
@@ -147,8 +147,8 @@ main() {
 
                 var chained = callbackUtil.chain(a, b);
 
-                expect(() => Function.apply(chained, generateBadTypeArgs()), throws);
-              }, testOn: 'dart-vm');
+                expect(() => Function.apply(chained, generateBadTypeArgs()), throwsA(isA<TypeError>()));
+              }, tags: 'ddc');
             }
           });
         });
@@ -158,7 +158,7 @@ main() {
             test('calls all functions in order', () {
               var calls = [];
 
-              List<Function> functions = new List.generate(5, (index) {
+              var functions = List<S>.generate(5, (index) {
                 return createTestChainFunction(onCall: (args) {
                   calls.add(['function_$index', args]);
                 });
@@ -180,7 +180,7 @@ main() {
             });
 
             test('returns false when any function returns false', () {
-              List<Function> functions = new List.generate(5, (_) => createTestChainFunction());
+              var functions = List<S>.generate(5, (_) => createTestChainFunction());
               functions.insert(2, createTestChainFunction(returnValue: false));
 
               var chained = callbackUtil.chainFromList(functions);
@@ -189,7 +189,7 @@ main() {
             });
 
             test('returns null when no function returns false', () {
-              List<Function> functions = new List.generate(5, (_) => createTestChainFunction());
+              var functions = List<S>.generate(5, (_) => createTestChainFunction());
 
               var chained = callbackUtil.chainFromList(functions);
 
@@ -201,7 +201,7 @@ main() {
             test('null functions', () {
               var calls = [];
 
-              List<Function> functions = new List.generate(5, (index) {
+              var functions = List<S>.generate(5, (index) {
                 return createTestChainFunction(onCall: (args) {
                   calls.add(['function_$index', args]);
                 });
@@ -227,16 +227,16 @@ main() {
             });
 
             test('an empty list of functions', () {
-              var chained = callbackUtil.chainFromList([]);
+              var chained = callbackUtil.chainFromList(<S>[]);
 
-              expect(chained, const isInstanceOf<Function>());
+              expect(chained, isA<Function>());
               expect(() => Function.apply(chained, generateArgs()), returnsNormally);
             });
           });
 
           if (arity != 0) {
             test('has arguments typed to the specified generic parameters', () {
-              List<Function> functions = new List.generate(5, (_) => createTestChainFunction());
+              var functions = List<S>.generate(5, (_) => createTestChainFunction());
 
               functions.forEach((function) {
                 expect(() => Function.apply(function, generateArgs()), returnsNormally,
@@ -245,8 +245,8 @@ main() {
 
               var chained = callbackUtil.chainFromList(functions);
 
-              expect(() => Function.apply(chained, generateBadTypeArgs()), throws);
-            }, testOn: 'dart-vm');
+              expect(() => Function.apply(chained, generateBadTypeArgs()), throwsA(isA<TypeError>()));
+            }, tags: 'ddc');
           }
         });
 
@@ -257,26 +257,31 @@ main() {
 
           if (arity != 0) {
             test('with arguments typed to the specified generic parameters', () {
-              expect(() => Function.apply(callbackUtil.noop, generateBadTypeArgs()), throws);
-            }, testOn: 'dart-vm');
+              expect(() => Function.apply(callbackUtil.noop, generateBadTypeArgs()),
+                  throwsA(isA<TypeError>()));
+            }, tags: 'ddc');
           }
         });
       }
 
       group('CallbackUtil0Arg', () {
-        sharedTests(const CallbackUtil0Arg(), 0);
+        sharedTests<Callback0Arg>(const CallbackUtil0Arg(), 0);
       });
 
       group('CallbackUtil1Arg', () {
-        sharedTests(const CallbackUtil1Arg<TestGenericType>(), 1);
+        sharedTests<Callback1Arg>(const CallbackUtil1Arg<TestGenericType>(), 1);
       });
 
       group('CallbackUtil2Arg', () {
-        sharedTests(const CallbackUtil2Arg<TestGenericType, TestGenericType>(), 2);
+        sharedTests<Callback2Arg>(const CallbackUtil2Arg<TestGenericType, TestGenericType>(), 2);
       });
 
       group('CallbackUtil3Arg', () {
-        sharedTests(const CallbackUtil3Arg<TestGenericType, TestGenericType, TestGenericType>(), 3);
+        sharedTests<Callback3Arg>(const CallbackUtil3Arg<TestGenericType, TestGenericType, TestGenericType>(), 3);
+      });
+
+      group('CallbackUtil4Arg', () {
+        sharedTests<Callback4Arg>(const CallbackUtil4Arg<TestGenericType, TestGenericType, TestGenericType, TestGenericType>(), 4);
       });
     });
   });
@@ -285,6 +290,6 @@ main() {
 class _Unspecified {
   const _Unspecified();
 }
-const _Unspecified unspecified = const _Unspecified();
+const _Unspecified unspecified = _Unspecified();
 
 class TestGenericType {}

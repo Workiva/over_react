@@ -12,20 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
 library test_component.type_inheritance.subtype;
 
 import 'package:over_react/over_react.dart';
 
 import './parent.dart';
 
+part 'subtype.over_react.g.dart';
+
 @Factory()
-UiFactory<TestSubtypeProps> TestSubtype;
+UiFactory<TestSubtypeProps> TestSubtype = _$TestSubtype;
 
 @Props()
-class TestSubtypeProps extends UiProps {}
+class _$TestSubtypeProps extends UiProps {}
 
 @Component(subtypeOf: TestParentComponent)
 class TestSubtypeComponent extends UiComponent<TestSubtypeProps> {
   @override
   render() => Dom.div()();
 }
+

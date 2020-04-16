@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-library guid_util;
+library over_react.guid_util;
 
 import 'dart:math' show Random;
 
-final Random _guidRandom = new Random();
+final Random _guidRandom = Random();
 
 /// Returns a random GUID with the given [length] consisting of numbers and uppercase/lowercase letters.
 String generateGuid([int length = 4]) {

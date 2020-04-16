@@ -12,20 +12,36 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: prefer_generic_function_type_aliases
 library over_react.callback_typedefs;
 
+import 'dart:html';
+
+import 'package:over_react/over_react.dart' show ResizeSensorEvent;
 import 'package:react/react.dart' as react;
 
 // Callbacks for React's DOM event system
 typedef DomEventCallback(react.SyntheticEvent event);
+typedef AnimationEventCallback(react.SyntheticAnimationEvent event);
 typedef ClipboardEventCallback(react.SyntheticClipboardEvent event);
 typedef KeyboardEventCallback(react.SyntheticKeyboardEvent event);
 typedef FocusEventCallback(react.SyntheticFocusEvent event);
 typedef FormEventCallback(react.SyntheticFormEvent event);
 typedef MouseEventCallback(react.SyntheticMouseEvent event);
+typedef PointerEventCallback(react.SyntheticPointerEvent event);
 typedef TouchEventCallback(react.SyntheticTouchEvent event);
+typedef TransitionEventCallback(react.SyntheticTransitionEvent event);
 typedef UIEventCallback(react.SyntheticUIEvent event);
 typedef WheelEventCallback(react.SyntheticWheelEvent event);
 
 /// A generic callback that takes no arguments.
 typedef Callback();
+
+/// A generic callback that takes a single `bool` [value].
+typedef BoolCallback(bool value);
+
+/// Callback for DOM elements
+typedef Element ElementCallback();
+
+/// Callback for [ResizeSensorEvent]s
+typedef void ResizeSensorHandler(ResizeSensorEvent event);

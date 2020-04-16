@@ -16,15 +16,26 @@ library over_react.map_util;
 
 import 'dart:collection';
 
+import 'package:over_react/src/component/dom_components.dart';
+import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 import 'package:over_react/src/component/prop_mixins.dart';
-import 'package:over_react/src/component_declaration/transformer_helpers.dart';
+import 'package:react/react_client/js_backed_map.dart';
 
-/// Returns a copy of the specified props map, omitting reserved React props by default,
-/// in addition to any specified keys.
+import '../component_declaration/builder_helpers.dart';
+
+/// Returns a copy of the specified [props] map, omitting reserved React props by default,
+/// in addition to any specified [keysToOmit] or [keySetsToOmit].
+///
+/// If [onlyCopyDomProps] is `true`, only the keys found within [DomPropsMixin] and [SvgPropsMixin] will be forwarded.
 ///
 /// Useful for prop forwarding.
-Map getPropsToForward(Map props, {bool omitReactProps: true, bool onlyCopyDomProps: false, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
-  Map propsToForward = new Map.from(props);
+Map getPropsToForward(Map props, {
+    bool omitReactProps = true,
+    bool onlyCopyDomProps = false,
+    Iterable keysToOmit,
+    Iterable<Iterable> keySetsToOmit
+}) {
+  Map propsToForward = JsBackedMap.from(props);
 
   if (omitReactProps) {
     propsToForward
@@ -40,7 +51,7 @@ Map getPropsToForward(Map props, {bool omitReactProps: true, bool onlyCopyDomPro
   }
 
   if (keySetsToOmit != null) {
-    keySetsToOmit.forEach((Iterable keySet) {
+    keySetsToOmit.forEach((keySet) {
       keySet.forEach((key) {
         propsToForward.remove(key);
       });
@@ -48,7 +59,7 @@ Map getPropsToForward(Map props, {bool omitReactProps: true, bool onlyCopyDomPro
   }
 
   if (onlyCopyDomProps) {
-    new List.from(propsToForward.keys).forEach((String key) {
+    List<String>.from(propsToForward.keys).forEach((key) {
       if (key.startsWith('aria-')) return;
       if (key.startsWith('data-')) return;
       if (_validDomProps.contains(key)) return;
@@ -60,6 +71,79 @@ Map getPropsToForward(Map props, {bool omitReactProps: true, bool onlyCopyDomPro
   return propsToForward;
 }
 
-SplayTreeSet _validDomProps = new SplayTreeSet()
-  ..addAll(const $PropKeys(DomPropsMixin))
-  ..addAll(const $PropKeys(SvgPropsMixin));
+/// Adds unconsumed props to a passed in [Map] reference ([propsToUpdate]).
+///
+/// Based upon configuration, the function will overlook [props] that are not
+/// meant to be passed on, such as non-DOM props or specified values.
+void forwardUnconsumedProps(Map props, {
+  bool omitReactProps = true,
+  bool onlyCopyDomProps = false,
+  Iterable keysToOmit,
+  Iterable<Iterable> keySetsToOmit,
+  Map propsToUpdate,
+}) {
+  if (onlyCopyDomProps) {
+    for (String key in props.keys) {
+      if (key.startsWith('aria-') ||
+          key.startsWith('data-') ||
+          _validDomProps.contains(key)) {
+        propsToUpdate[key] = props[key];
+      }
+    }
+    return;
+  }
+
+  for (String key in props.keys) {
+    if (keysToOmit != null && keysToOmit.contains(key)) continue;
+
+    if (keySetsToOmit != null && keySetsToOmit.isNotEmpty) {
+      /// If the passed in value of [keySetsToOmit] comes from
+      /// [addUnconsumedProps], there should only be a single index.
+      /// Consequently, this case exists to give the opportunity for the loop
+      /// to continue without initiating another loop (which is less
+      /// performant than `.first.contains()`).
+      /// TODO: further optimize this by identifying the best looping / data structure
+      if (keySetsToOmit.first.contains(key)) continue;
+
+      if (keySetsToOmit.length > 1) {
+        bool shouldContinue = false;
+        for (final keySet in keySetsToOmit) {
+          if (keySet.contains(key)) {
+            shouldContinue = true;
+            break;
+          }
+        }
+
+        if (shouldContinue) continue;
+      }
+    }
+
+    if (omitReactProps && const ['key', 'ref', 'children'].contains(key)) continue;
+
+    propsToUpdate[key] = props[key];
+  }
+}
+
+/// Returns a copy of the [DomPropsMixin.style] map found in [props].
+///
+/// Returns an empty map if [props] or its style map are `null`.
+Map<String, dynamic> newStyleFromProps(Map props) {
+  if (props == null) return <String, dynamic>{};
+
+  var existingStyle = domProps(props).style;
+  return existingStyle == null ? <String, dynamic>{} : Map.from(existingStyle);
+}
+
+/// Returns the underlying map object of either [UiProps] or [UiState].
+///
+/// Used to take a typed factory object and get the underlying backing map.
+Map getBackingMap(Map map) {
+  if (map is JsBackedMap) return map;
+  if (map is component_base.UiProps) return getBackingMap(map.props);
+  if (map is component_base.UiState) return getBackingMap(map.state);
+  return map;
+}
+
+HashSet _validDomProps = HashSet()
+  ..addAll(DomPropsMixin.meta.keys)
+  ..addAll(SvgPropsMixin.meta.keys);

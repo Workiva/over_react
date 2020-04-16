@@ -12,20 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
 library test_component.type_inheritance.extendedtype;
 
 import 'package:over_react/over_react.dart';
-
 import './abstract.dart';
 
+part 'extendedtype.over_react.g.dart';
+
 @Factory()
-UiFactory<TestExtendtypeProps> TestExtendtype;
+UiFactory<TestExtendtypeProps> TestExtendtype = _$TestExtendtype;
 
 @Props()
-class TestExtendtypeProps extends TestAbstractProps {}
+class _$TestExtendtypeProps extends TestAbstractProps {}
 
 @Component(subtypeOf: TestAbstractComponent)
 class TestExtendtypeComponent extends TestAbstractComponent<TestExtendtypeProps> {
   @override
   render() => Dom.div()();
 }
+

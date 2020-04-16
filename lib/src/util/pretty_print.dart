@@ -16,7 +16,7 @@ library over_react.pretty_print;
 
 /// Returns a pretty-printed version of [map], with namespaced keys grouped together.
 ///
-/// Useful for debugging props/state maps (and build in to [UiProps.toString]/[UiState.toString]).
+/// Useful for debugging props/state maps (and build in to `UiProps.toString`/`UiState.toString`).
 ///
 /// __Only for use when debugging.__
 ///
@@ -89,7 +89,7 @@ String _prettyObj(Object obj) {
 
     final pairs = <String>[];
 
-    pairs.addAll(namespacedKeys.keys.map((String namespace) {
+    pairs.addAll(namespacedKeys.keys.map((namespace) {
       String renderSubKey(String subkey) {
         var key = '$namespace$subkey';
         var value = obj[key];
@@ -106,7 +106,7 @@ String _prettyObj(Object obj) {
       return '$key: ' + _prettyObj(obj[key]) + ',';
     }));
 
-    final RegExp trailingComma = new RegExp(r'\s*,\s*$');
+    final RegExp trailingComma = RegExp(r'\s*,\s*$');
 
     if (pairs.length > _maxKeyValuePairsPerLine || pairs.any((pair) => pair.contains('\n'))) {
       var inner = _indentString(pairs.join('\n')).replaceFirst(trailingComma, '');

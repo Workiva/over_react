@@ -1,15 +1,22 @@
 language: dart
+
 dart:
-  - "1.19.1"
-with_content_shell: true
-before_install:
-  - export DISPLAY=:99.0
-  - ./tool/setup_dartium.sh
-  - export PATH=$PATH":$PWD"
-  - sh -e /etc/init.d/xvfb start
-  - sleep 3 # give xvfb some time to start
-script:
+  - stable
+  - dev
+
+before_script:
+  - pub run build_runner build --delete-conflicting-outputs
+  - git diff --exit-code
   - pub run dart_dev analyze
-  - pub run dart_dev test
-  - ./tool/generate_coverage.sh
-  - bash <(curl -s https://codecov.io/bash) -f coverage/coverage.lcov
+  - pub run dart_dev format --check
+  - pub run dependency_validator --no-fatal-pins -i analyzer,build_runner,build_web_compilers,built_value_generator,front_end
+
+script:
+  - pub run dart_dev test -P vm
+  - pub run dart_dev test -P dartdevc
+  - pub run dart_dev test --build-args="-r" -P dart2js
+
+cache:
+  directories:
+   - $HOME/.pub-cache
+   - $HOME/.dart_tool/build

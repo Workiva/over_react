@@ -15,16 +15,51 @@
 /// Base classes for UI components and related utilities.
 library over_react;
 
-export 'src/component/abstract_transition.dart';
+export 'package:react/react.dart' show
+    SyntheticEvent,
+    SyntheticAnimationEvent,
+    SyntheticClipboardEvent,
+    SyntheticKeyboardEvent,
+    SyntheticFocusEvent,
+    SyntheticFormEvent,
+    SyntheticDataTransfer,
+    SyntheticMouseEvent,
+    SyntheticTouchEvent,
+    SyntheticTransitionEvent,
+    SyntheticUIEvent,
+    SyntheticWheelEvent,
+    TypedSnapshot;
+
+export 'package:react/react_client/js_backed_map.dart' show JsBackedMap;
+
+export 'package:react/react_client.dart' show setClientConfiguration, ReactElement, ReactComponentFactoryProxy;
+export 'package:react/react_client/react_interop.dart' show ReactErrorInfo, Ref;
+
+export 'src/component/_deprecated/abstract_transition.dart';
+export 'src/component/_deprecated/abstract_transition_props.dart';
 export 'src/component/aria_mixin.dart';
 export 'src/component/callback_typedefs.dart';
+export 'src/component/_deprecated/error_boundary.dart';
+export 'src/component/_deprecated/error_boundary_mixins.dart' hide LegacyErrorBoundaryApi;
 export 'src/component/dom_components.dart';
+export 'src/component/error_boundary_api.dart' show defaultErrorBoundaryLoggerName;
+export 'src/component/ref_util.dart';
+export 'src/component/fragment_component.dart';
+export 'src/component/strictmode_component.dart';
 export 'src/component/dummy_component.dart';
 export 'src/component/prop_mixins.dart';
 export 'src/component/prop_typedefs.dart';
-export 'src/component/resize_sensor.dart';
+export 'src/component/_deprecated/resize_sensor.dart';
+export 'src/component_declaration/annotations.dart';
+export 'src/component_declaration/builder_helpers.dart' hide GeneratedErrorMessages;
+export 'src/component_declaration/component_base_2.dart' show
+    registerComponent2,
+    registerAbstractComponent2,
+    UiComponent2,
+    UiStatefulComponent2,
+    UiStatefulMixin2;
+export 'src/component_declaration/built_redux_component.dart';
 export 'src/component_declaration/flux_component.dart';
-export 'src/component_declaration/transformer_helpers.dart';
 export 'src/util/character_constants.dart';
 export 'src/util/class_names.dart';
 export 'src/util/constants_base.dart';
@@ -32,13 +67,19 @@ export 'src/util/css_value_util.dart';
 export 'src/util/dom_util.dart';
 export 'src/util/event_helpers.dart';
 export 'src/util/guid_util.dart';
+export 'src/util/hoc.dart';
 export 'src/util/handler_chain_util.dart';
 export 'src/util/key_constants.dart';
 export 'src/util/map_util.dart';
 export 'src/util/pretty_print.dart';
 export 'src/util/prop_errors.dart';
+export 'src/util/prop_key_util.dart';
+export 'src/util/react_util.dart';
 export 'src/util/react_wrappers.dart';
 export 'src/util/rem_util.dart';
 export 'src/util/string_util.dart';
+export 'src/util/safe_render_manager/safe_render_manager.dart';
 export 'src/util/test_mode.dart';
+export 'src/util/typed_default_props_for.dart';
 export 'src/util/validation_util.dart';
+export 'src/util/context.dart';

@@ -1,0 +1,63 @@
+builders:
+  overReactBuilder:
+    import: "package:over_react/builder.dart"
+    builder_factories: ["overReactBuilder"]
+    build_extensions: {".dart" : [".over_react.g.dart"]}
+    auto_apply: dependents
+    build_to: cache
+
+  # Builder just for this package.
+  _over_react_local_builder:
+    import: "package:over_react/builder.dart"
+    builder_factories: ["overReactBuilder"]
+    build_extensions: {".dart" : [".over_react.g.dart"]}
+    auto_apply: none
+    build_to: source
+
+targets:
+  $default:
+    builders:
+      over_react|_over_react_local_builder:
+        enabled: true
+        generate_for:
+          exclude:
+            # These test un-built base class behavior, and contain code that might look like declarations
+            # and should definitely not be built
+            - "test/over_react/component_declaration/builder_helpers_test.dart"
+            - "test/over_react/component_declaration/component_base_test.dart"
+
+      over_react|overReactBuilder:
+        enabled: false
+
+      built_value_generator|built_value:
+        generate_for:
+          include:
+            - test/over_react/component_declaration/redux_component_test/test_reducer.dart
+
+      built_redux|built_redux:
+        generate_for:
+          include:
+            - test/over_react/component_declaration/redux_component_test/test_reducer.dart
+
+      build_vm_compilers|entrypoint:
+        generate_for:
+          include:
+            - "test/vm_tests/**"
+
+      # builder uses mirrors and will cause a build to fail when using build web compilers
+      # vm tests require the use of mirrors
+      build_web_compilers|ddc:
+        generate_for:
+          include:
+            - "example/**"
+            - "lib/**"
+            - "test/**"
+            - "web/**"
+          exclude:
+            - "lib/src/builder/**"
+
+      build_web_compilers|entrypoint:
+        generate_for:
+          - "example/**.dart"
+          - "test/*.browser_test.dart"
+          - "web/**/index.dart"

@@ -14,7 +14,15 @@
 
 library test_util;
 
-export 'custom_matchers.dart';
-export 'dom_util.dart';
-export 'react_util.dart';
-export 'wrapper_component.dart';
+import 'dart:js_util';
+
+import 'package:over_react/over_react.dart';
+
+export 'package:over_react_test/over_react_test.dart';
+
+dynamic getJsChildren(instance) => getProperty(instance.props, 'children');
+
+dynamic getDartChildren(var renderedInstance) {
+  assert(isDartComponent(renderedInstance));
+  return getProps(renderedInstance)['children'];
+}

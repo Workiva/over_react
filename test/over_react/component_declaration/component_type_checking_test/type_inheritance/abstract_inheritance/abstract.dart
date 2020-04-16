@@ -12,12 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
 library test_component.type_inheritance.abstract;
 
 import 'package:over_react/over_react.dart';
 
+part 'abstract.over_react.g.dart';
+
 @AbstractProps()
-abstract class TestAbstractProps extends UiProps {}
+abstract class _$TestAbstractProps extends UiProps {}
 
 var $TestAbstractComponentFactory = registerAbstractComponent(TestAbstractComponent);
 

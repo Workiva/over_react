@@ -12,13 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: avoid_classes_with_only_static_members
 library over_react.validation_util;
 
 import 'dart:html';
 
+import 'package:over_react/over_react.dart';
+import 'package:react/react.dart' as react;
+
+// ignore: prefer_generic_function_type_aliases
 typedef void ValidationUtilWarningCallback(String message);
 
-/// Utility for logging validation errors or warning.
+/// Utility for logging validation errors or warnings.
 class ValidationUtil {
 
   static bool WARNINGS_ENABLED = true;
@@ -26,12 +31,43 @@ class ValidationUtil {
   static int WARNING_COUNT = 0;
 
   /// Use this to log warnings to the console in dev mode only.
-  /// This is to be used in assert calls for dev help only so that it gets
-  /// compiled out for production.
+  ///
+  /// Code that produces the warnings will not be included when you compile in production mode.
+  ///
   ///     assert(ValidationUtil.warn('Some warning message'));
   ///
-  /// The message will get print out to the console.
-  static bool warn(String message) {
+  /// Optionally, a component or element can be passed as [data]
+  /// to provide additional information in the console.
+  ///
+  ///     assert(ValidationUtil.warn('Some warning message', component));
+  ///
+  /// Assert that your component emits a warning using
+  /// the validation test utilities available within
+  /// `package:over_react_test/over_react_test.dart` like so:
+  ///
+  ///     group('emits a warning to the console', () {
+  ///       setUp(startRecordingValidationWarnings);
+  ///
+  ///       tearDown(stopRecordingValidationWarnings);
+  ///
+  ///       test('when <describe something that should trigger a warning>', () {
+  ///         // Do something that should trigger a warning
+  ///
+  ///         verifyValidationWarning(/* some Matcher or String */);
+  ///       });
+  ///
+  ///       test('unless <describe something that should NOT trigger a warning>', () {
+  ///         // Do something that should NOT trigger a warning
+  ///
+  ///         rejectValidationWarning(/* some Matcher or String */);
+  ///       });
+  ///     },
+  ///         // Be sure to not run these tests in dart2js the OverReact
+  ///         // ValidationUtil.warn() method will only produce a
+  ///         // console warning when asserts are enabled.
+  ///         tags: 'ddc');
+  ///     );
+  static bool warn(String message, [dynamic data]) {
     WARNING_COUNT += 1;
 
     if (onWarning != null) {
@@ -40,10 +76,24 @@ class ValidationUtil {
 
     if (WARNINGS_ENABLED) {
       if (THROW_ON_WARNING) {
-        throw new ValidationWarning(message);
+        throw ValidationWarning(message);
       }
 
       window.console.warn('VALIDATION WARNING: $message');
+
+      if (data != null) {
+          window.console.groupCollapsed('(Warning info)');
+          window.console.log(data);
+
+          if (isValidElement(data)) {
+            window.console.log('props: ${prettyPrintMap(getProps(data))}');
+          // ignore: deprecated_member_use
+          } else if (data is react.Component) {
+            window.console.log('props: ${data.props}');
+          }
+
+          window.console.groupEnd();
+      }
     }
 
     return true;
@@ -52,12 +102,14 @@ class ValidationUtil {
   /// Callback for when warnings are logged.
   ///
   /// Useful for verifying warnings in unit tests.
+  ///
+  /// > See: `startRecordingValidationWarnings`
   static ValidationUtilWarningCallback onWarning;
 }
 
 class ValidationWarning extends Error {
   /// Message describing the problem.
-  final message;
+  final String message;
 
   ValidationWarning([this.message]);
 }

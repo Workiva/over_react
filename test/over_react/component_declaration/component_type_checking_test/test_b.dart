@@ -12,18 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
 library test_component.test_b;
 
 import 'package:over_react/over_react.dart';
 
+part 'test_b.over_react.g.dart';
+
 @Factory()
-UiFactory<TestBProps> TestB;
+UiFactory<TestBProps> TestB = _$TestB;
 
 @Props()
-class TestBProps extends UiProps {}
+class _$TestBProps extends UiProps {}
 
 @Component()
 class TestBComponent extends UiComponent<TestBProps> {
   @override
   render() => Dom.div()();
 }
+

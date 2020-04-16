@@ -12,14 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library test_mode_test;
 
 import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 import 'package:over_react/src/util/test_mode.dart';
 import 'package:test/test.dart';
 
-
-/// Main entry point for enableTestMode and disabledTestMode testing
+/// Main entry point for [enableTestMode] and [disableTestMode] testing
 main() {
   test('enableTestMode and disableTestMode set UiProps.testMode as expected', () {
     disableTestMode();

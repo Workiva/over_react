@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+@TestOn('browser')
 library pretty_print_test;
 
 import 'package:over_react/src/util/pretty_print.dart';
