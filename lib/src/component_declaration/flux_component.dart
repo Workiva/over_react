@@ -34,6 +34,13 @@ part 'flux_component.over_react.g.dart';
 /// __Example:__
 ///
 /// ```dart
+/// class YourComponentProps = UiProps 
+///     with FluxUiPropsMixin<YourFluxActionsClass, YourFluxStoreClass>;
+/// ```
+///
+/// __Example (legacy boilerplate):__
+///
+/// ```dart
 /// class YourComponentProps extends UiProps with FluxUiPropsMixin<YourFluxActionsClass, YourFluxStoreClass>, $FluxUiPropsMixin {
 ///   // Additional arbitrary props for your component can go here
 /// }
