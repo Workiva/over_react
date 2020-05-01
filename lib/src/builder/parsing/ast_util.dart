@@ -151,6 +151,11 @@ extension SourceFileSpanHelper on SourceFile {
   FileSpan _getSpanForEntity(SyntacticEntity node) => span(node.offset, node.end);
 }
 
+/// Returns whether [member] is static.
+bool isStaticMember(ClassMember member) =>
+    (member is MethodDeclaration && member.isStatic) ||
+    (member is FieldDeclaration && member.isStatic);
+
 /// Returns whether [classish] has one or more types it implements and does not
 /// extend or mix in anything.
 ///
@@ -159,7 +164,7 @@ bool onlyImplementsThings(ClassishDeclaration classish) =>
     classish.interfaces.isNotEmpty &&
     classish.superclass == null &&
     classish.mixins.isEmpty &&
-    classish.members.isEmpty;
+    classish.members.whereNot(isStaticMember).isEmpty;
 
 /// Returns whether any [Identifier] within [expression] matches the predicate [test].
 bool anyDescendantIdentifiers(Expression expression, bool Function(Identifier) test) {

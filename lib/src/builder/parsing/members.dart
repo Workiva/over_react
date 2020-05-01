@@ -24,6 +24,7 @@ import 'declarations.dart';
 import 'members_from_ast.dart';
 import 'meta.dart';
 import 'error_collection.dart';
+import 'util.dart';
 import 'version.dart';
 
 part 'members/component.dart';
