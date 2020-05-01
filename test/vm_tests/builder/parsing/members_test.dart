@@ -486,14 +486,14 @@ main() {
               props.validate(Version.v4_mixinBased, collector);
               expect(validateResults, [
                 contains(
-                    '${props.propsOrStateClassString} implementations must not declare any ${props.propsOrStateFieldsName} or other members.'),
+                    '${props.propsOrStateClassString} implementations must not declare any ${props.propsOrStateFieldsName} or other non-static members.'),
               ]);
 
               validateResults = <String>[];
               state.validate(Version.v4_mixinBased, collector);
               expect(validateResults, [
                 contains(
-                    '${state.propsOrStateClassString} implementations must not declare any ${state.propsOrStateFieldsName} or other members.'),
+                    '${state.propsOrStateClassString} implementations must not declare any ${state.propsOrStateFieldsName} or other non-static members.'),
               ]);
             });
 

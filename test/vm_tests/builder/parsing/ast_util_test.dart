@@ -286,6 +286,11 @@ main() {
       expect(_onlyImplementsThings('class Foo implements Baz {}'), isTrue);
       expect(_onlyImplementsThings('class Foo implements Bar, Baz {}'), isTrue);
 
+      expect(_onlyImplementsThings('class Foo implements Bar { static var field; }'), isTrue);
+      expect(_onlyImplementsThings('class Foo implements Bar { static method() {} }'), isTrue);
+      expect(_onlyImplementsThings('class Foo implements Bar { var field; }'), isFalse);
+      expect(_onlyImplementsThings('class Foo implements Bar { method() {} }'), isFalse);
+
       expect(_onlyImplementsThings('mixin Foo implements Baz {}'), isTrue);
       expect(_onlyImplementsThings('mixin Foo implements Bar, Baz {}'), isTrue);
       expect(_onlyImplementsThings('mixin Foo on Bar {}'), isTrue);
