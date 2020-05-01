@@ -77,7 +77,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
                 errorCollector.spanFor(nodeHelper.superclass ?? node));
           }
 
-          if (node is ClassDeclaration && node.members.whereNot(isStaticMember).isNotEmpty) {
+          if (node is ClassDeclaration && !node.members.every(isStaticMember)) {
             errorCollector.addError(
                 '$propsOrStateClassString implementations must not declare any $propsOrStateFieldsName or other non-static members.',
                 errorCollector.span(node.leftBracket.offset, node.rightBracket.end));
@@ -93,7 +93,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
       case Version.v2_legacyBackwardsCompat:
         // It's possible to declare an abstract class without any props/state fields that need to be generated,
         //  so long as it doesn't have the annotation.
-        if (nodeHelper.members.whereNot(isStaticMember).isNotEmpty ||
+        if (!nodeHelper.members.every(isStaticMember) ||
             node.hasAnnotationWithNames(
                 {propsOrStateAnnotationName, propsOrStateAbstractAnnotationName})) {
           _sharedLegacyValidation(errorCollector);

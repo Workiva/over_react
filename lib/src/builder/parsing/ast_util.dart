@@ -164,7 +164,7 @@ bool onlyImplementsThings(ClassishDeclaration classish) =>
     classish.interfaces.isNotEmpty &&
     classish.superclass == null &&
     classish.mixins.isEmpty &&
-    classish.members.whereNot(isStaticMember).isEmpty;
+    !classish.members.every(isStaticMember);
 
 /// Returns whether any [Identifier] within [expression] matches the predicate [test].
 bool anyDescendantIdentifiers(Expression expression, bool Function(Identifier) test) {
