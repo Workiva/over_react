@@ -1,5 +1,9 @@
 # OverReact Changelog
 
+## [3.5.1](https://github.com/Workiva/over_react/compare/3.5.0...3.5.1)
+- [#488] Add missing _ to factory assignment in boilerplate snippets
+- [#490] Allow static members in concrete props/state classes in new, mixin-based boilerplate
+
 ## [3.5.0](https://github.com/Workiva/over_react/compare/3.4.1...3.5.0)
 - Introduce new and improved component boilerplate syntax 🎉
     
