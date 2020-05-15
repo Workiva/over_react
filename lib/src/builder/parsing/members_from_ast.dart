@@ -448,10 +448,12 @@ class _BoilerplateMemberDetector {
           'FluxUiStatefulComponent2'
         };
         final confidences = VersionConfidences(
-          // If the class extends from a base class known to be supported by the new boilerplate,
+          // If the component extends from a base class known to be supported by the new boilerplate,
           // has no annotation, is not abstract, and does not have $isClassGenerated, then it's
-          // most likely a valid component. Make this `likely` so that components that don't
-          // get associated with factory/props due to naming issues aren't silently ignored.
+          // most likely intended to be part of a new boilerplate class component declaration.
+          //
+          // Make this `likely` so that components that don't get associated with factory/props
+          // due to naming issues aren't silently ignored.
           v4_mixinBased: !classish.hasAbstractKeyword &&
                   !_overridesIsClassGenerated(classish) &&
                   mixinBoilerplateBaseClasses.contains(classish.superclass?.nameWithoutPrefix)
