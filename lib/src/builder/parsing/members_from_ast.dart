@@ -427,7 +427,7 @@ class _BoilerplateMemberDetector {
   }
 
   /// UiComponent, UiComponent2, UiStatefulComponent, FluxUiComponent, CustomUiComponent, ...
-  static final _componentBaseClassPattern = RegExp('Ui\w+Component');
+  static final _componentBaseClassPattern = RegExp(r'Ui\w*Component');
 
   bool _detectPotentialComponent(ClassishDeclaration classish) {
     // Don't detect react-dart components as boilerplate components, since they cause issues with grouping
