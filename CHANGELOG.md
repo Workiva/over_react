@@ -1,5 +1,11 @@
 # OverReact Changelog
 
+## [3.5.3](https://github.com/Workiva/over_react/compare/3.5.2...3.5.3)
+- [#496] Emit a build error for mismatched components in the new boilerplate
+
+## [3.5.2](https://github.com/Workiva/over_react/compare/3.5.1...3.5.2)
+- [#494] Widen analyzer range to include 0.39.x
+
 ## [3.5.1](https://github.com/Workiva/over_react/compare/3.5.0...3.5.1)
 - [#488] Add missing _ to factory assignment in boilerplate snippets
 - [#490] Allow static members in concrete props/state classes in new, mixin-based boilerplate
