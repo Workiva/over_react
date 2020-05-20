@@ -2045,6 +2045,72 @@ main() {
             )));
           });
         });
+
+        group('(new boilerplate)', () {
+          // Tests the same codepath as "a component is declared without matching factory/props",
+          // but using a different real-world scenario to ensure it behaves the same.
+          test('a component doesn\'t get grouped with a factory/props due to mismatched name', () {
+            setUpAndParse(r'''
+              UiFactory<FooProps> Foo = _$Foo;
+              mixin FooProps on UiProps {}
+              class BarComponent<FooProps> extends UiComponent2 {
+                render() {}
+              }
+            ''');
+
+            verify(logger.severe(contains(errorComponentClassOnly)));
+          });
+
+          group('a component is declared without matching factory/props', () {
+            group('with a base class of', () {
+              @isTest
+              void sharedTest(String baseClassName) {
+                test(baseClassName, () {
+                  setUpAndParse('''
+                    class FooComponent extends $baseClassName<FooProps> {
+                      render() {}
+                    }
+                  ''');
+
+                  verify(logger.severe(contains(errorComponentClassOnly)));
+                });
+              }
+
+              sharedTest('UiComponent2');
+              sharedTest('UiStatefulComponent2');
+              sharedTest('FluxUiComponent2');
+              sharedTest('FluxUiStatefulComponent2');
+            });
+
+            group('unless', () {
+              test('it has a nonstandard base class', () {
+                setUpAndParse(r'''
+                  class FooComponent extends SomeNonstandardBaseUiComponent<FooProps> {
+                    render() {} 
+                  }
+                ''');
+              });
+
+              test('it is abstract', () {
+                setUpAndParse(r'''
+                  abstract class FooComponent extends UiComponent2<FooProps> {
+                    render() {} 
+                  }
+                ''');
+              });
+
+              test('it overrides \$isClassGenerated', () {
+                setUpAndParse(r'''
+                  class FooComponent extends UiComponent2<FooProps> {
+                    render() {}
+                    
+                    bool get $isClassGenerated => true;
+                  }
+                ''');
+              });
+            });
+          });
+        });
       });
 
       group('and logs a warning when', () {
