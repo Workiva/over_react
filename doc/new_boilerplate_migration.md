@@ -278,6 +278,10 @@ via mixins.
     * This requires consumers to include every single mixin within their `with` 
     clause, allowing the builder to mix in the generated code corresponding 
     to those mixins.
+    
+* Props can only be declared in mixins. 
+
+    * This ensures they can be inherited by other props classes (by mixing them in, since you can no longer inherit them via subclassing) and provides consistency around how props are declared.
 
 ##### New Boilerplate (from transitional boilerplate)
 
@@ -311,6 +315,8 @@ class FooComponent extends UiComponent2<FooProps> {
 - }
 ```
 
+Note how props previously within `_$FooProps` were moved to `FooPropsMixin`, which is now mixed into the concrete `FooProps` class, along with another props mixi, `BarPropsMixin`.
+
 _Generated code_:
 
 ```dart
@@ -334,7 +340,7 @@ class _$FooPropsImpl extends FooProps
 
 ##### Abbreviated Version
 
-When no other mixins are used, skip the props class and just use the mixin.
+When no other mixins are used, you can omit the concrete props class and just use the mixin.
 
 ```dart
 import 'package:over_react/over_react.dart';
