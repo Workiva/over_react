@@ -61,7 +61,7 @@ class BoilerplateFactory extends BoilerplateMember {
         if (!hasFactoryAnnotation) {
           errorCollector.addError(
               'Legacy boilerplate factories must be annotated with `@Factory()`.',
-              errorCollector.spanFor(node));
+              errorCollector.spanFor(name));
         }
 
         break;

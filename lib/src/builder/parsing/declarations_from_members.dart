@@ -321,7 +321,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     if (nonNullFactoryPropsOrComponents.isEmpty) {
       assert(stateClass != null);
       if (resolveVersion([stateClass]).shouldGenerate) {
-        errorCollector.addError(errorStateOnly, errorCollector.spanFor(stateClass.node));
+        errorCollector.addError(errorStateOnly, errorCollector.spanFor(stateClass.name));
       }
       continue;
     }
@@ -330,7 +330,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     switch (nonNullFactoryPropsOrComponents.length) {
       case 1:
         final single = nonNullFactoryPropsOrComponents.single;
-        final span = errorCollector.spanFor(single.node);
+        final span = errorCollector.spanFor(single.name);
         if (single == factory) {
           errorCollector.addError(errorFactoryOnly, span);
         } else if (single == propsClass) {
@@ -340,7 +340,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         }
         continue;
       case 2:
-        final span = errorCollector.spanFor((factory ?? propsClass).node);
+        final span = errorCollector.spanFor((factory ?? propsClass).name);
         if (factory == null) {
           errorCollector.addError(errorNoFactory, span);
         } else if (propsClass == null) {
@@ -355,7 +355,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     // General case (should be rare if not impossible)
     for (final member in group) {
       errorCollector.addError(
-          'Mismatched boilerplate member found', errorCollector.spanFor(member.node));
+          'Mismatched boilerplate member found', errorCollector.spanFor(member.name));
     }
   }
 }

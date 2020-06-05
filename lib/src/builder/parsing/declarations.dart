@@ -58,7 +58,7 @@ abstract class BoilerplateDeclaration {
     if (version == null) {
       // This should almost never happen.
       errorCollector.addError(
-          'Could not determine boilerplate version.', errorCollector.spanFor(_members.first.node));
+          'Could not determine boilerplate version.', errorCollector.spanFor(_members.first.name));
       return;
     }
 
@@ -106,17 +106,17 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
     if (!component.node.hasAnnotationWithNames({'Component', 'Component2'})) {
       errorCollector.addError(
           'Legacy boilerplate components must be annotated with `@Component()` or `@Component2()`.',
-          errorCollector.spanFor(component.node));
+          errorCollector.spanFor(component.name));
     }
 
     if (!props.node.hasAnnotationWithNames({'Props'})) {
       errorCollector.addError('Legacy boilerplate props classes must be annotated with `@Props()`.',
-          errorCollector.spanFor(props.node));
+          errorCollector.spanFor(props.name));
     }
 
     if (state != null && !state.node.hasAnnotationWithNames({'State'})) {
       errorCollector.addError('Legacy boilerplate state classes must be annotated with `@State()`.',
-          errorCollector.spanFor(state.node));
+          errorCollector.spanFor(state.name));
     }
   }
 }

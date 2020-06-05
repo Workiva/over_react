@@ -74,7 +74,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
           if (nodeHelper.superclass?.nameWithoutPrefix != propsOrStateBaseClassString) {
             errorCollector.addError(
                 '$propsOrStateClassString implementations must extend directly from $propsOrStateBaseClassString',
-                errorCollector.spanFor(nodeHelper.superclass ?? node));
+                errorCollector.spanFor(nodeHelper.superclass ?? node.name));
           }
 
           if (node is ClassDeclaration && !node.members.every(isStaticMember)) {
@@ -100,7 +100,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
           if (companion == null) {
             // Don't emit this and the prefix error.
             if (node.name.name.startsWith(privateSourcePrefix)) {
-              errorCollector.addError('Should have companion class', errorCollector.spanFor(node));
+              errorCollector.addError('Should have companion class', errorCollector.spanFor(node.name));
             }
           } else {
             validateMetaField(companion, propsOrStateMetaStructName, errorCollector);
@@ -128,7 +128,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
       errorCollector.addError(
           'The class `${node.name.name}` does not start with `$privateSourcePrefix`. All Props, State, '
           'AbstractProps, and AbstractState classes should begin with `$privateSourcePrefix` on Dart 2',
-          errorCollector.spanFor(node));
+          errorCollector.spanFor(node.name));
     }
   }
 }
