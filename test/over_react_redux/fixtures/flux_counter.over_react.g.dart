@@ -12,7 +12,7 @@ part of 'flux_counter.dart';
 // Registers component implementation and links type meta to builder factory.
 final $FluxCounterComponentFactory = registerComponent2(
   () => _$FluxCounterComponent(),
-  builderFactory: FluxCounter,
+  builderFactory: _$FluxCounter,
   componentClass: FluxCounterComponent,
   isWrapper: false,
   parentType: null,
@@ -142,7 +142,7 @@ class _$FluxCounterComponent extends FluxCounterComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$FluxCounterProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForFluxCounterProps

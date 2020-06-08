@@ -12,7 +12,7 @@ part of 'safe_render_manager_helper.dart';
 // Registers component implementation and links type meta to builder factory.
 final $SafeRenderManagerHelperComponentFactory = registerComponent2(
   () => _$SafeRenderManagerHelperComponent(),
-  builderFactory: SafeRenderManagerHelper,
+  builderFactory: _$SafeRenderManagerHelper,
   componentClass: SafeRenderManagerHelperComponent,
   isWrapper: false,
   parentType: null,
@@ -295,7 +295,7 @@ class _$SafeRenderManagerHelperComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$SafeRenderManagerHelperProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForSafeRenderManagerHelperProps

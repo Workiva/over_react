@@ -1,3 +1,17 @@
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:over_react/over_react.dart';
 
 import '../demo_components.dart';
@@ -6,11 +20,10 @@ part 'button_group.over_react.g.dart';
 /// Groups a series of [Button]s together on a single line.
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/button-group/>.
-@Factory()
+
 UiFactory<ButtonGroupProps> ButtonGroup = _$ButtonGroup;
 
-@Props()
-class _$ButtonGroupProps extends UiProps {
+mixin ButtonGroupProps on UiProps {
   /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/button-group/#sizing>.
@@ -29,14 +42,12 @@ class _$ButtonGroupProps extends UiProps {
   bool isVertical;
 }
 
-@State()
-class _$ButtonGroupState extends UiState {}
+mixin ButtonGroupState on UiState {}
 
-@Component2()
 class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupState>
     extends UiStatefulComponent2<T, S> {
   @override
-   get defaultProps => (newProps()
+  get defaultProps => (newProps()
     ..size = ButtonGroupSize.DEFAULT
     ..isVertical = false
   );

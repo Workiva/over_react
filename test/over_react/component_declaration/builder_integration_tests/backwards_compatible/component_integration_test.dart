@@ -21,7 +21,6 @@ import 'package:test/test.dart';
 import './constant_required_accessor_integration_test.dart' as r;
 import '../../../../test_util/test_util.dart';
 
-// ignore: uri_has_not_been_generated
 part 'component_integration_test.over_react.g.dart';
 
 main() {
@@ -107,8 +106,8 @@ main() {
       });
     });
 
-    test('omits props declared in the @Props() class when forwarding by default', () {
-      var shallowInstance = renderShallow((ComponentTest()
+    test('omits only props declared in the @Props() class when forwarding by default', () {
+      final builder = ComponentTest()
         ..addProp('extraneous', true)
         ..stringProp = 'test'
         ..dynamicProp = 'test'
@@ -116,23 +115,38 @@ main() {
         ..customKeyProp = 'test'
         ..customNamespaceProp = 'test'
         ..customKeyAndNamespaceProp = 'test'
-      )());
+        ..propsMixinProp = 'test';
 
+      final mixinPropKey = getPropKey<ComponentTestProps>((p) => p.propsMixinProp, ComponentTest);
+      expect(builder, containsPair(mixinPropKey, 'test'),
+          reason: 'test setup check: mixin prop accessors should write props as expected');
+
+      var shallowInstance = renderShallow(builder());
       var shallowProps = getProps(shallowInstance);
       Iterable<String> shallowPropKeys = shallowProps.keys.map((key) => key as String); // ignore: avoid_as
 
-      expect(shallowPropKeys.where((key) => !key.startsWith('data-prop-')), unorderedEquals(['id', 'extraneous', 'children']));
+      expect(
+          shallowPropKeys.where((key) => !key.startsWith('data-prop-')),
+          unorderedEquals({
+            'id',
+            'extraneous',
+            'children',
+            mixinPropKey,
+          }));
     });
   });
 }
 
+mixin TestPropsMixin on UiProps {
+  dynamic propsMixinProp;
+}
 
 @Factory()
 // ignore: undefined_identifier
 UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 
 @Props()
-class _$ComponentTestProps extends UiProps {
+class _$ComponentTestProps extends UiProps with TestPropsMixin, $TestPropsMixin {
   String stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables

@@ -33,6 +33,17 @@ import 'package:redux/redux.dart';
 
 part 'over_react_redux.over_react.g.dart';
 
+/// This class is present:
+///
+/// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
+///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
+abstract class $ConnectPropsMixin {
+  @Deprecated('This API is for use only within generated code.'
+      ' Do not reference it in your code, as it may change at any time.')
+  static const PropsMeta meta = _$metaForConnectPropsMixin;
+}
+
 @PropsMixin(keyNamespace: '')
 abstract class _$ConnectPropsMixin implements UiProps {
   @override
@@ -46,16 +57,18 @@ typedef dynamic Dispatcher(dynamic action);
 
 /// A wrapper around the JS react-redux `connect` function that supports OverReact components.
 ///
+/// > __NOTE:__ This should only be used to wrap components that extend from [Component2].
+///
 /// __Example:__
 /// ```dart
-///     UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
-///         mapStateToProps: (state) => (
-///           Counter()..count = state.count
-///         ),
-///         mapDispatchToProps: (dispatch) => (
-///           Counter()..increment = () => dispatch(INCREMENT_ACTION())
-///         ),
-///     )(Counter);
+/// UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
+///   mapStateToProps: (state) => (Counter()
+///     ..count = state.count
+///   ),
+///   mapDispatchToProps: (dispatch) => (Counter()
+///     ..increment = (() => dispatch(INCREMENT_ACTION()))
+///   ),
+/// )(_$Counter);
 /// ```
 ///
 /// - [mapStateToProps] is used for selecting the part of the data from the store that the connected
@@ -89,17 +102,17 @@ typedef dynamic Dispatcher(dynamic action);
 ///
 /// __Example:__
 /// ```dart
-///     Store store1 = new Store<CounterState>(counterStateReducer, initialState: new CounterState(count: 0));
-///     Store store2 = new Store<BigCounterState>(bigCounterStateReducer, initialState: new BigCounterState(bigCount: 100));
+///     Store store1 = Store<CounterState>(counterStateReducer, initialState: new CounterState(count: 0));
+///     Store store2 = Store<BigCounterState>(bigCounterStateReducer, initialState: new BigCounterState(bigCount: 100));
 ///
-///     UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
+///     UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
 ///       mapStateToProps: (state) => (Counter()..count = state.count)
-///     )(Counter);
+///     )(_$Counter);
 ///
-///     UiFactory<CounterProps> ConnectedBigCounter = connect<BigCounterState, CounterProps>(
-///       mapStateToProps: (state) => (Counter()..count = state.bigCount),
+///     UiFactory<CounterProps> BigCounter = connect<BigCounterState, CounterProps>(
+///       mapStateToProps: (state) => (BigCounter()..count = state.bigCount),
 ///       context: bigCounterContext,
-///     )(Counter);
+///     )(_$Counter);
 ///
 ///     react_dom.render(
 ///       Dom.div()(
@@ -109,10 +122,10 @@ typedef dynamic Dispatcher(dynamic action);
 ///             ..context = bigCounterContext
 ///           )(
 ///             Dom.div()(
-///               Dom.h3()('ConnectedBigCounter Store2'),
-///               ConnectedBigCounter()(
-///                 Dom.h4()('ConnectedCounter Store1'),
-///                 ConnectedCounter()(),
+///               Dom.h3()('BigCounter Store2'),
+///               BigCounter()(
+///                 Dom.h4()('Counter Store1'),
+///                 Counter()(),
 ///               ),
 ///             ),
 ///           ),
@@ -145,6 +158,10 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
   bool forwardRef = false,
 }) {
   UiFactory<TProps> wrapWithConnect(UiFactory<TProps> factory) {
+    final dartComponentFactory = factory().componentFactory;
+    final dartComponentClass = dartComponentFactory.type;
+    enforceMinimumComponentVersionFor(dartComponentFactory);
+
     JsMap jsMapFromProps(Map props) => jsBackingMapOrJsCopy(props is UiProps ? props.props : props);
 
     TProps jsPropsToTProps(JsMap jsProps) => factory(JsBackedMap.backedBy(jsProps));
@@ -208,9 +225,6 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
 
     bool handleAreMergedPropsEqual(JsMap jsNext, JsMap jsPrev) =>
         areMergedPropsEqual(jsPropsToTProps(jsNext), jsPropsToTProps(jsPrev));
-
-    final dartComponentFactory = factory().componentFactory;
-    final dartComponentClass = dartComponentFactory.type;
 
     final connectOptions = JsConnectOptions(
       forwardRef: forwardRef,
@@ -290,12 +304,7 @@ class JsReactRedux {
 /// [context] You may provide a context instance. If you do so, you will need to provide the same context instance to all of your connected components as well.
 ///
 /// See: <https://react-redux.js.org/api/provider>
-class ReduxProviderProps extends component_base.UiProps
-    with
-        builder_helpers.GeneratedClass
-    implements
-        builder_helpers.UiProps {
-
+class ReduxProviderProps extends builder_helpers.UiProps {
   ReduxProviderProps([Map props]) : this.props = props ?? JsBackedMap();
 
   @override
@@ -306,6 +315,9 @@ class ReduxProviderProps extends component_base.UiProps
 
   @override
   String get propKeyNamespace => '';
+
+  @override
+  bool get $isClassGenerated => true;
 
   /// The __single__ Redux store in your application.
   Store get store => props['store'];

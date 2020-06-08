@@ -12,7 +12,7 @@ part of 'fragment_example_component.dart';
 // Registers component implementation and links type meta to builder factory.
 final $FragmentExampleComponentFactory = registerComponent2(
   () => _$FragmentExampleComponent(),
-  builderFactory: FragmentExample,
+  builderFactory: _$FragmentExample,
   componentClass: FragmentExampleComponent,
   isWrapper: false,
   parentType: null,
@@ -139,7 +139,7 @@ class _$FragmentExampleComponent extends FragmentExampleComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$FragmentExampleProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForFragmentExampleProps

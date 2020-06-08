@@ -12,7 +12,7 @@ part of 'forward_ref_test.dart';
 // Registers component implementation and links type meta to builder factory.
 final $BasicComponentFactory = registerComponent2(
   () => _$BasicComponent(),
-  builderFactory: Basic,
+  builderFactory: _$Basic,
   componentClass: BasicComponent,
   isWrapper: false,
   parentType: null,
@@ -151,7 +151,7 @@ class _$BasicComponent extends BasicComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$BasicProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [_$metaForBasicProps];
 }

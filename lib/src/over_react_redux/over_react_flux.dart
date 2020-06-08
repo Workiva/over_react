@@ -1,3 +1,17 @@
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'dart:async';
 import 'dart:html';
 
@@ -11,6 +25,17 @@ import 'package:w_flux/w_flux.dart' as flux;
 import 'value_mutation_checker.dart';
 
 part 'over_react_flux.over_react.g.dart';
+
+/// This class is present:
+///
+/// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
+///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
+abstract class $ConnectFluxPropsMixin {
+  @Deprecated('This API is for use only within generated code.'
+      ' Do not reference it in your code, as it may change at any time.')
+  static const PropsMeta meta = _$metaForConnectFluxPropsMixin;
+}
 
 @PropsMixin(keyNamespace: '')
 abstract class _$ConnectFluxPropsMixin<TActions> implements UiProps {
@@ -290,22 +315,24 @@ bool _shallowMapIdentityEquality(Map a, Map b) => const MapEquality(keys: Identi
 ///
 /// This is primarily for use while transitioning _to_ `connect` and OverReact Redux.
 ///
-/// __NOTE:__ Unlike `connect`, there is no `areStatesEqual` parameter due to the state
-/// update process being impure. It is impure because it involves modification of
-/// the store itself, as opposed to creating a new state object with each change.
+/// > __NOTE:__ This should only be used to wrap components that extend from [Component2].
+/// >
+/// > Additionally, unlike `connect`, there is no `areStatesEqual` parameter due to the state
+/// > update process being impure. It is impure because it involves modification of
+/// > the store itself, as opposed to creating a new state object with each change.
 ///
 /// __Example:__
 /// ```dart
-/// UiFactory<CounterProps> ConnectedCounter = connectFlux<FluxStore, FluxActions, CounterProps>(
+/// UiFactory<CounterProps> Counter = connectFlux<FluxStore, FluxActions, CounterProps>(
 ///     mapStateToProps: (state) => (
 ///       Counter()..count = state.count
 ///     ),
 ///     mapActionsToProps: (actions) => (
 ///       Counter()..increment = actions.incrementAction
 ///     ),
-/// )(Counter);
+/// )(_$Counter);
 ///
-/// // A standard `Counter` component implementation would also be in this file.
+/// // The `Counter` component implementation would also be in this file.
 /// ```
 ///
 /// - [mapStateToProps] is used for selecting the part of the data from the store that the connected
@@ -346,14 +373,14 @@ bool _shallowMapIdentityEquality(Map a, Map b) => const MapEquality(keys: Identi
 /// Store store1 = Store<CounterState>(counterStateReducer, initialState: CounterState(count: 0));
 /// Store store2 = Store<BigCounterState>(bigCounterStateReducer, initialState: BigCounterState(bigCount: 100));
 ///
-/// UiFactory<CounterProps> ConnectedCounter = connectFlux<SmallCounterFluxStore, FluxActions, CounterProps>(
+/// UiFactory<CounterProps> Counter = connectFlux<SmallCounterFluxStore, FluxActions, CounterProps>(
 ///   mapStateToProps: (state) => (Counter()..count = state.count)
-/// )(Counter);
+/// )(_$Counter);
 ///
-/// UiFactory<CounterProps> ConnectedBigCounter = connect<BigCounterFluxStore, FluxActions, CounterProps>(
+/// UiFactory<CounterProps> BigCounter = connect<BigCounterFluxStore, FluxActions, CounterProps>(
 ///   mapStateToProps: (state) => (Counter()..count = state.bigCount),
 ///   context: bigCounterContext,
-/// )(Counter);
+/// )(_$Counter);
 ///
 /// react_dom.render(
 ///   Dom.div()(
@@ -363,10 +390,10 @@ bool _shallowMapIdentityEquality(Map a, Map b) => const MapEquality(keys: Identi
 ///         ..context = bigCounterContext
 ///       )(
 ///         Dom.div()(
-///           Dom.h3()('ConnectedBigCounter Store2'),
-///           ConnectedBigCounter()(
-///             Dom.h4()('ConnectedCounter Store1'),
-///             ConnectedCounter()(),
+///           Dom.h3()('BigCounter Store2'),
+///           BigCounter()(
+///             Dom.h4()('Counter Store1'),
+///             Counter()(),
 ///           ),
 ///         ),
 ///       ),

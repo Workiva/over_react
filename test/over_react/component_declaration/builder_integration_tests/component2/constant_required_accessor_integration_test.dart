@@ -99,7 +99,7 @@ void main() {
             ..required = true
             ..requiredAndLengthLimited = [1,2]
           )());
-        }, logsPropError('ComponentTestProps.nullable'));
+        }, logsPropRequiredError('ComponentTestProps.nullable'));
       });
 
       test('on re-render', () {
@@ -120,7 +120,7 @@ void main() {
             ..required = true
             ..requiredAndLengthLimited = [1,2]
           )());
-        }, logsPropError('ComponentTestProps.nullable'));
+        }, logsPropRequiredError('ComponentTestProps.nullable'));
       });
     });
 

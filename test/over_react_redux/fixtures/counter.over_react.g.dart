@@ -12,7 +12,7 @@ part of 'counter.dart';
 // Registers component implementation and links type meta to builder factory.
 final $CounterComponentFactory = registerComponent2(
   () => _$CounterComponent(),
-  builderFactory: Counter,
+  builderFactory: _$Counter,
   componentClass: CounterComponent,
   isWrapper: false,
   parentType: null,
@@ -206,7 +206,7 @@ class _$CounterComponent extends CounterComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$CounterProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForCounterProps

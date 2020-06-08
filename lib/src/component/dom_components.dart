@@ -16,8 +16,6 @@
 library over_react.dom_components;
 
 import 'package:over_react/src/component/prop_mixins.dart';
-import 'package:over_react/src/component_declaration/component_base.dart'
-    as component_base;
 import 'package:over_react/src/component_declaration/builder_helpers.dart'
     as builder_helpers;
 import 'package:react/react.dart' as react;
@@ -42,12 +40,7 @@ typedef DomProps DomPropsFactory();
 
 // Include pieces from builder_helpers so that consumers can type these instances
 // as the `UiProps` exposed in `over_react.dart` and not have to pull in `component_base`.
-class DomProps extends component_base.UiProps
-    with
-        DomPropsMixin,
-        builder_helpers.GeneratedClass
-    implements
-        builder_helpers.UiProps {
+class DomProps extends builder_helpers.UiProps with DomPropsMixin {
   // Initialize to a JsBackedMap so that copying can be optimized
   // when converting props during ReactElement creation.
   // TODO 3.0.0-wip generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
@@ -61,17 +54,14 @@ class DomProps extends component_base.UiProps
 
   @override
   String get propKeyNamespace => '';
+
+  @override
+  bool get $isClassGenerated => true;
 }
 
 // Include pieces from builder_helpers so that consumers can type these instances
 // as the `UiProps` exposed in `over_react.dart` and not have to pull in `component_base`.
-class SvgProps extends component_base.UiProps
-    with
-        DomPropsMixin,
-        SvgPropsMixin,
-        builder_helpers.GeneratedClass
-    implements
-        DomProps {
+class SvgProps extends builder_helpers.UiProps with DomPropsMixin, SvgPropsMixin implements DomProps {
   // Initialize to a JsBackedMap so that copying can be optimized
   // when converting props during ReactElement creation.
   // TODO 3.0.0-wip generate JsBackedMap-based implementation used when no backing map is provided, like we do for Component2
@@ -85,6 +75,9 @@ class SvgProps extends component_base.UiProps
 
   @override
   String get propKeyNamespace => '';
+
+  @override
+  bool get $isClassGenerated => true;
 }
 
 /// A class that provides namespacing for static DOM component factory methods, much like `React.DOM` in React JS.

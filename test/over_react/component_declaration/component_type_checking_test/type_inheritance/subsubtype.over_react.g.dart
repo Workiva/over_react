@@ -10,14 +10,15 @@ part of 'subsubtype.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $TestSubsubtypeComponentFactory =
-    registerComponent(() => _$TestSubsubtypeComponent(),
-        builderFactory: TestSubsubtype,
-        componentClass: TestSubsubtypeComponent,
-        isWrapper: false,
-        parentType: $TestSubtypeComponentFactory,
-        /* from `subtypeOf: TestSubtypeComponent` */
-        displayName: 'TestSubsubtype');
+final $TestSubsubtypeComponentFactory = registerComponent(
+  () => _$TestSubsubtypeComponent(),
+  builderFactory: _$TestSubsubtype,
+  componentClass: TestSubsubtypeComponent,
+  isWrapper: false,
+  parentType: $TestSubtypeComponentFactory,
+  /* from `subtypeOf: TestSubtypeComponent` */
+  displayName: 'TestSubsubtype',
+);
 
 abstract class _$TestSubsubtypePropsAccessorsMixin
     implements _$TestSubsubtypeProps {
@@ -88,7 +89,7 @@ class _$TestSubsubtypeComponent extends TestSubsubtypeComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestSubsubtypeProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestSubsubtypeProps

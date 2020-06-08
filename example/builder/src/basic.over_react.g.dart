@@ -10,122 +10,16 @@ part of 'basic.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $BasicComponentFactory = registerComponent2(
   () => _$BasicComponent(),
-  builderFactory: Basic,
+  builderFactory: _$Basic,
   componentClass: BasicComponent,
   isWrapper: false,
   parentType: null,
   displayName: 'Basic',
 );
-
-abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$BasicProps.basicProp] -->
-  @override
-  @Deprecated('This is deprecated')
-  @requiredProp
-  String get basicProp =>
-      props[_$key__basicProp___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BasicProps.basicProp] -->
-  @override
-  @Deprecated('This is deprecated')
-  @requiredProp
-  set basicProp(String value) => props[_$key__basicProp___$BasicProps] = value;
-
-  /// <!-- Generated from [_$BasicProps.basic1] -->
-  @override
-  String get basic1 =>
-      props[_$key__basic1___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BasicProps.basic1] -->
-  @override
-  set basic1(String value) => props[_$key__basic1___$BasicProps] = value;
-
-  /// <!-- Generated from [_$BasicProps.basic2] -->
-  @override
-  String get basic2 =>
-      props[_$key__basic2___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BasicProps.basic2] -->
-  @override
-  set basic2(String value) => props[_$key__basic2___$BasicProps] = value;
-
-  /// <!-- Generated from [_$BasicProps.basic3] -->
-  @override
-  String get basic3 =>
-      props[_$key__basic3___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BasicProps.basic3] -->
-  @override
-  set basic3(String value) => props[_$key__basic3___$BasicProps] = value;
-
-  /// <!-- Generated from [_$BasicProps.basic4] -->
-  @override
-  String get basic4 =>
-      props[_$key__basic4___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BasicProps.basic4] -->
-  @override
-  set basic4(String value) => props[_$key__basic4___$BasicProps] = value;
-
-  /// <!-- Generated from [_$BasicProps.basic5] -->
-  @override
-  String get basic5 =>
-      props[_$key__basic5___$BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$BasicProps.basic5] -->
-  @override
-  set basic5(String value) => props[_$key__basic5___$BasicProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__basicProp___$BasicProps =
-      PropDescriptor(_$key__basicProp___$BasicProps, isRequired: true);
-  static const PropDescriptor _$prop__basic1___$BasicProps =
-      PropDescriptor(_$key__basic1___$BasicProps);
-  static const PropDescriptor _$prop__basic2___$BasicProps =
-      PropDescriptor(_$key__basic2___$BasicProps);
-  static const PropDescriptor _$prop__basic3___$BasicProps =
-      PropDescriptor(_$key__basic3___$BasicProps);
-  static const PropDescriptor _$prop__basic4___$BasicProps =
-      PropDescriptor(_$key__basic4___$BasicProps);
-  static const PropDescriptor _$prop__basic5___$BasicProps =
-      PropDescriptor(_$key__basic5___$BasicProps);
-  static const String _$key__basicProp___$BasicProps = 'BasicProps.basicProp';
-  static const String _$key__basic1___$BasicProps = 'BasicProps.basic1';
-  static const String _$key__basic2___$BasicProps = 'BasicProps.basic2';
-  static const String _$key__basic3___$BasicProps = 'BasicProps.basic3';
-  static const String _$key__basic4___$BasicProps = 'BasicProps.basic4';
-  static const String _$key__basic5___$BasicProps = 'BasicProps.basic5';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__basicProp___$BasicProps,
-    _$prop__basic1___$BasicProps,
-    _$prop__basic2___$BasicProps,
-    _$prop__basic3___$BasicProps,
-    _$prop__basic4___$BasicProps,
-    _$prop__basic5___$BasicProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__basicProp___$BasicProps,
-    _$key__basic1___$BasicProps,
-    _$key__basic2___$BasicProps,
-    _$key__basic3___$BasicProps,
-    _$key__basic4___$BasicProps,
-    _$key__basic5___$BasicProps
-  ];
-}
-
-const PropsMeta _$metaForBasicProps = PropsMeta(
-  fields: _$BasicPropsAccessorsMixin.$props,
-  keys: _$BasicPropsAccessorsMixin.$propKeys,
-);
-
-class BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForBasicProps;
-}
 
 _$$BasicProps _$Basic([Map backingProps]) => backingProps == null
     ? _$$BasicProps$JsMap(JsBackedMap())
@@ -134,9 +28,13 @@ _$$BasicProps _$Basic([Map backingProps]) => backingProps == null
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$BasicProps extends _$BasicProps
-    with _$BasicPropsAccessorsMixin
-    implements BasicProps {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$BasicProps extends UiProps
+    with
+        BasicProps,
+        $BasicProps // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicProps.
+{
   _$$BasicProps._();
 
   factory _$$BasicProps(Map backingMap) {
@@ -158,10 +56,12 @@ abstract class _$$BasicProps extends _$BasicProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'BasicProps.';
+  String get propKeyNamespace => '';
 }
 
 // Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$BasicProps$PlainMap extends _$$BasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -179,6 +79,8 @@ class _$$BasicProps$PlainMap extends _$$BasicProps {
 
 // Concrete props implementation that can only be backed by [JsMap],
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$$BasicProps$JsMap extends _$$BasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
@@ -198,6 +100,8 @@ class _$$BasicProps$JsMap extends _$$BasicProps {
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$BasicComponent extends BasicComponent {
   _$$BasicProps$JsMap _cachedTypedProps;
 
@@ -228,8 +132,105 @@ class _$BasicComponent extends BasicComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$BasicProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// The default consumed props, comprising all props mixins used by BasicProps.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [_$metaForBasicProps];
+  get $defaultConsumedProps => propsMeta.all;
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicProps.
+        BasicProps: $BasicProps.meta,
+      });
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $BasicProps on BasicProps {
+  static const PropsMeta meta = _$metaForBasicProps;
+  @override
+  @Deprecated('This is deprecated')
+  @requiredProp
+  String get basicProp =>
+      props[_$key__basicProp__BasicProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  @Deprecated('This is deprecated')
+  @requiredProp
+  set basicProp(String value) => props[_$key__basicProp__BasicProps] = value;
+  @override
+  String get basic1 =>
+      props[_$key__basic1__BasicProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set basic1(String value) => props[_$key__basic1__BasicProps] = value;
+  @override
+  String get basic2 =>
+      props[_$key__basic2__BasicProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set basic2(String value) => props[_$key__basic2__BasicProps] = value;
+  @override
+  String get basic3 =>
+      props[_$key__basic3__BasicProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set basic3(String value) => props[_$key__basic3__BasicProps] = value;
+  @override
+  String get basic4 =>
+      props[_$key__basic4__BasicProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set basic4(String value) => props[_$key__basic4__BasicProps] = value;
+  @override
+  String get basic5 =>
+      props[_$key__basic5__BasicProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set basic5(String value) => props[_$key__basic5__BasicProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__basicProp__BasicProps =
+      PropDescriptor(_$key__basicProp__BasicProps, isRequired: true);
+  static const PropDescriptor _$prop__basic1__BasicProps =
+      PropDescriptor(_$key__basic1__BasicProps);
+  static const PropDescriptor _$prop__basic2__BasicProps =
+      PropDescriptor(_$key__basic2__BasicProps);
+  static const PropDescriptor _$prop__basic3__BasicProps =
+      PropDescriptor(_$key__basic3__BasicProps);
+  static const PropDescriptor _$prop__basic4__BasicProps =
+      PropDescriptor(_$key__basic4__BasicProps);
+  static const PropDescriptor _$prop__basic5__BasicProps =
+      PropDescriptor(_$key__basic5__BasicProps);
+  static const String _$key__basicProp__BasicProps = 'BasicProps.basicProp';
+  static const String _$key__basic1__BasicProps = 'BasicProps.basic1';
+  static const String _$key__basic2__BasicProps = 'BasicProps.basic2';
+  static const String _$key__basic3__BasicProps = 'BasicProps.basic3';
+  static const String _$key__basic4__BasicProps = 'BasicProps.basic4';
+  static const String _$key__basic5__BasicProps = 'BasicProps.basic5';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__basicProp__BasicProps,
+    _$prop__basic1__BasicProps,
+    _$prop__basic2__BasicProps,
+    _$prop__basic3__BasicProps,
+    _$prop__basic4__BasicProps,
+    _$prop__basic5__BasicProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__basicProp__BasicProps,
+    _$key__basic1__BasicProps,
+    _$key__basic2__BasicProps,
+    _$key__basic3__BasicProps,
+    _$key__basic4__BasicProps,
+    _$key__basic5__BasicProps
+  ];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForBasicProps = PropsMeta(
+  fields: $BasicProps.$props,
+  keys: $BasicProps.$propKeys,
+);

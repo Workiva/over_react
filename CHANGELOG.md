@@ -1,5 +1,29 @@
 # OverReact Changelog
 
+## [3.5.3](https://github.com/Workiva/over_react/compare/3.5.2...3.5.3)
+- [#496] Emit a build error for mismatched components in the new boilerplate
+
+## [3.5.2](https://github.com/Workiva/over_react/compare/3.5.1...3.5.2)
+- [#494] Widen analyzer range to include 0.39.x
+
+## [3.5.1](https://github.com/Workiva/over_react/compare/3.5.0...3.5.1)
+- [#488] Add missing _ to factory assignment in boilerplate snippets
+- [#490] Allow static members in concrete props/state classes in new, mixin-based boilerplate
+
+## [3.5.0](https://github.com/Workiva/over_react/compare/3.4.1...3.5.0)
+- Introduce new and improved component boilerplate syntax 🎉
+    
+    ![side-by-side comparison of old and new boilerplate for a simple component](doc/new-boilerplate-side-by-side.png)
+    
+    See our [migration guide](https://github.com/Workiva/over_react/blob/master/doc/new_boilerplate_migration.md) for more information around these changes, including why we made them and how to convert existing components to use thew new syntax.
+    
+    The existing boilerplate syntax will be deprecated in a future release. 
+    
+- [#469] Throw helpful error when `connect`, `connectFlux`, and `forwardRef` are passed an invalid component. 
+
+## [3.4.1](https://github.com/Workiva/over_react/compare/3.4.0...3.4.1)
+- [#468] Allow redux.dart version 4
+
 ## [3.4.0](https://github.com/Workiva/over_react/compare/3.3.0...3.4.0)
 - [#459] Add support for `connect`ed components that use `w_flux` stores and actions.
 

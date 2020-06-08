@@ -229,7 +229,7 @@ testComponentTypeChecking({
             // Fully iterate the result by calling toList().
             getParentTypes(Object()).toList();
           }, throwsA(isA<AssertionError>()));
-        }, testOn: '!js');
+        }, tags: 'ddc');
       });
     });
 
@@ -371,15 +371,25 @@ testComponentTypeChecking({
         });
 
         group('a higher-order component created by', () {
-          test('forwardRef', () {
-            final hocFactory = forwardRef((props, ref) => null)(TestA);
-            expect(isComponentOfType(hocFactory()(), TestA), isTrue);
-          });
+          if (TestA().componentFactory.type.dartComponentVersion == '1') {
+            test('forwardRef', () {
+              expect(() => forwardRef((props, ref) => null)(TestA), throwsArgumentError);
+            });
 
-          test('connect', () {
-            final hocFactory = connect(mapStateToProps: (state) => {})(TestA);
-            expect(isComponentOfType(hocFactory()(), TestA), isTrue);
-          });
+            test('connect', () {
+              expect(() => connect(mapStateToProps: (state) => {})(TestA), throwsArgumentError);
+            });
+          } else {
+            test('forwardRef', () {
+              final hocFactory = forwardRef((props, ref) => null)(TestA);
+              expect(isComponentOfType(hocFactory()(), TestA), isTrue);
+            });
+
+            test('connect', () {
+              final hocFactory = connect(mapStateToProps: (state) => {})(TestA);
+              expect(isComponentOfType(hocFactory()(), TestA), isTrue);
+            });
+          }
         });
       });
     });

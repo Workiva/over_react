@@ -12,7 +12,7 @@ part of 'typed_factory_test.dart';
 // Registers component implementation and links type meta to builder factory.
 final $TypedFactoryTesterComponentFactory = registerComponent2(
   () => _$TypedFactoryTesterComponent(),
-  builderFactory: TypedFactoryTester,
+  builderFactory: _$TypedFactoryTester,
   componentClass: TypedFactoryTesterComponent,
   isWrapper: false,
   parentType: null,
@@ -277,7 +277,7 @@ class _$TypedFactoryTesterComponent extends TypedFactoryTesterComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TypedFactoryTesterProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTypedFactoryTesterProps

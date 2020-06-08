@@ -14,7 +14,6 @@
 
 import 'package:over_react/over_react.dart';
 
-// ignore: uri_has_not_been_generated
 part 'dummy_component.over_react.g.dart';
 
 @Factory()

@@ -12,7 +12,7 @@ part of 'parent2.dart';
 // Registers component implementation and links type meta to builder factory.
 final $TestParent2ComponentFactory = registerComponent2(
   () => _$TestParent2Component(),
-  builderFactory: TestParent2,
+  builderFactory: _$TestParent2,
   componentClass: TestParent2Component,
   isWrapper: false,
   parentType: null,
@@ -142,7 +142,7 @@ class _$TestParent2Component extends TestParent2Component {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestParent2Props.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestParent2Props

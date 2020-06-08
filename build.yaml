@@ -8,7 +8,7 @@ builders:
 
   # Builder just for this package.
   _over_react_local_builder:
-    import: "lib/builder.dart"
+    import: "package:over_react/builder.dart"
     builder_factories: ["overReactBuilder"]
     build_extensions: {".dart" : [".over_react.g.dart"]}
     auto_apply: none
@@ -21,11 +21,23 @@ targets:
         enabled: true
         generate_for:
           exclude:
-            # This tests un-built behavior, and therefore should not be built
+            # These test un-built base class behavior, and contain code that might look like declarations
+            # and should definitely not be built
             - "test/over_react/component_declaration/builder_helpers_test.dart"
+            - "test/over_react/component_declaration/component_base_test.dart"
 
       over_react|overReactBuilder:
         enabled: false
+
+      built_value_generator|built_value:
+        generate_for:
+          include:
+            - test/over_react/component_declaration/redux_component_test/test_reducer.dart
+
+      built_redux|built_redux:
+        generate_for:
+          include:
+            - test/over_react/component_declaration/redux_component_test/test_reducer.dart
 
       build_vm_compilers|entrypoint:
         generate_for:

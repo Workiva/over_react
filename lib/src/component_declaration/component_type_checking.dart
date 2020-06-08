@@ -21,6 +21,7 @@ import 'package:meta/meta.dart';
 import 'package:over_react/src/component_declaration/component_base.dart' show UiFactory;
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations show Component2;
 import 'package:over_react/src/util/react_wrappers.dart';
+import 'package:over_react/src/util/string_util.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart';
 
@@ -93,10 +94,8 @@ class ComponentTypeMeta {
   ///     // foo.dart
   ///     //
   ///
-  ///     @Factory()
-  ///     UiFactory<FooProps> Foo;
+  ///     UiFactory<FooProps> Foo = $Foo;
   ///
-  ///     @Component2()
   ///     class FooComponent extends UiComponent2<FooProps> {
   ///       // ...
   ///     }
@@ -105,8 +104,7 @@ class ComponentTypeMeta {
   ///     // bar.dart
   ///     //
   ///
-  ///     @Factory()
-  ///     UiFactory<FooProps> Foo;
+  ///     UiFactory<FooProps> Foo = $Foo;
   ///
   ///     @Component2(subtypeOf: FooComponent)
   ///     class BarComponent extends UiComponent2<BarProps> {
@@ -243,7 +241,6 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
     return false;
   }
 
-
   var instanceTypeMeta = getComponentTypeMeta(instanceType);
 
   // Type-check instance wrappers.
@@ -280,4 +277,19 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias, {
 /// > Related: [isComponentOfType]
 bool isValidElementOfType(dynamic instance, dynamic typeAlias) {
   return isValidElement(instance) && isComponentOfType(instance, typeAlias);
+}
+
+/// Validates that a [ReactComponentFactoryProxy]'s component is not `Component`
+/// or `UiComponent`.
+void enforceMinimumComponentVersionFor(ReactComponentFactoryProxy component) {
+  if (component.type is String) return;
+
+  // ignore: invalid_use_of_protected_member
+  if (component.type.dartComponentVersion == '1') {
+    throw ArgumentError(unindent('''
+        The UiFactory provided should not be for a UiComponent or Component.
+        
+        Instead, use a different factory (such as UiComponent2 or Component2).
+        '''));
+  }
 }

@@ -7,30 +7,24 @@ import 'package:todo_client/src/components/shared/display_list.dart';
 import 'package:todo_client/src/components/shared/redraw_counter_component_mixin.dart';
 import 'package:todo_client/src/components/user_list_item.dart';
 
-// ignore: uri_has_not_been_generated
 part 'user_list.over_react.g.dart';
 
-UiFactory<UserListProps> ConnectedUserList = connect<AppState, UserListProps>(
+UiFactory<UserListProps> UserList = connect<AppState, UserListProps>(
     mapStateToProps: (state) {
       return (UserList()
         ..users = state.users
       );
     },
     forwardRef: true,
-)(UserList);
+)(_$UserList); // ignore: undefined_identifier
 
-@Factory()
-UiFactory<UserListProps> UserList =
-    // ignore: undefined_identifier
-    _$UserList;
-
-@Props()
-class _$UserListProps extends UiProps with ConnectPropsMixin {
+mixin UserListPropsMixin on UiProps {
   @requiredProp
   List<User> users;
 }
 
-@Component2()
+class UserListProps = UiProps with UserListPropsMixin, ConnectPropsMixin;
+
 class UserListComponent extends UiComponent2<UserListProps> with RedrawCounterMixin {
   @override
   render() {
@@ -43,16 +37,10 @@ class UserListComponent extends UiComponent2<UserListProps> with RedrawCounterMi
   }
 
   ReactElement _renderUser(User user) {
-    return (ConnectedUserListItem()
+    return (UserListItem()
       ..key = user.id
       ..model = user
       ..addTestId('todo_client.UserListItem.${user.id}')
     )();
   }
-}
-
-// ignore: mixin_of_non_class, undefined_class
-class UserListProps extends _$UserListProps with _$UserListPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForUserListProps;
 }

@@ -12,7 +12,7 @@ part of 'dom_util_test.dart';
 // Registers component implementation and links type meta to builder factory.
 final $DomTestComponentFactory = registerComponent2(
   () => _$DomTestComponent(),
-  builderFactory: DomTest,
+  builderFactory: _$DomTest,
   componentClass: DomTestComponent,
   isWrapper: false,
   parentType: null,
@@ -141,7 +141,7 @@ class _$DomTestComponent extends DomTestComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$DomTestProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForDomTestProps

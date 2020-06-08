@@ -1,4 +1,4 @@
-// Copyright 2016 Workiva Inc.
+// Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -20,21 +20,30 @@ library over_react.component_declaration.annotations;
 ///     @Factory()
 ///     UiFactory<FooProps> Foo = _$Foo;
 ///
-/// Must be accompanied by a [Props] and [Component2] declaration.
+/// __NOTE:__ This is only required for legacy boilerplate and can be omitted
+/// for new implementations. However, it can still be used for custom configurations.
+///
+/// If utilizing legacy boilerplate, must be accompanied by a [Props] and [Component2]
+/// declaration.
 class Factory {
   const Factory();
 }
 
-/// Annotation used with the `over_react` builder to declare a `UiProps` class for a component.
+/// Annotation used with the `over_react` builder to declare a `UiProps` mixin for a component.
 ///
 /// Props are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
 ///     @Props()
-///     class _$FooProps extends UiProps {
+///     mixin FooProps on UiProps {
 ///       String bar;
 ///     }
 ///
-/// Must be accompanied by a [Factory] and [Component2] declaration.
+/// __NOTE:__ This is only required for legacy boilerplate and can be omitted
+/// for new implementations. However, it can still be used for custom configurations
+/// (e.g. `keyNamespace`).
+///
+/// If utilizing legacy boilerplate, must be accompanied by a [Factory] and [Component2]
+/// declaration.
 class Props implements TypedMap {
   /// A custom namespace for the keys of props defined in the annotated class,
   /// overriding the default of `'${propsClassName}.'`.
@@ -43,16 +52,21 @@ class Props implements TypedMap {
   const Props({this.keyNamespace});
 }
 
-/// Annotation used with the `over_react` builder to declare a `UiState` class for a component.
+/// Annotation used with the `over_react` builder to declare a `UiState` mixin for a component.
 ///
 /// State properties are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
 ///     @State()
-///     class _$FooState extends UiState {
+///     mixin FooState on UiState {
 ///       bool baz;
 ///     }
 ///
-/// Optional. Must be accompanied by a [Factory], [Props], and [Component2] declaration.
+/// __NOTE:__ This is only required for legacy boilerplate and can be omitted
+/// for new implementations. However, it can still be used for custom configurations
+/// (e.g. `keyNamespace`).
+///
+/// Optional. If utilizing legacy boilerplate, be accompanied by a [Factory],
+/// [Props], and [Component2] declaration.
 class State implements TypedMap {
   /// A custom namespace for the keys of state properties defined in the annotated class,
   /// overriding the default of `'${stateClassName}.'`.
@@ -114,7 +128,12 @@ class Component {
 ///       render() => Dom.div()(props.bar);
 ///     }
 ///
-/// Must be accompanied by a [Factory] and [Props] declaration.
+/// __NOTE:__ This is only required for legacy boilerplate and can be omitted
+/// for new implementations. However, it can still be used for custom configurations
+/// (e.g. `subtypeOf`).
+///
+/// If utilizing legacy boilerplate, must be accompanied by a [Factory] and [Props]
+/// declaration.
 class Component2 implements Component { // ignore: deprecated_member_use_from_same_package
   /// Whether the component clones or passes through its children and needs to be
   /// treated as if it were the wrapped component when passed in to `isComponentOfType`.
@@ -168,14 +187,18 @@ class Component2 implements Component { // ignore: deprecated_member_use_from_sa
   });
 }
 
-/// Annotation used with the `over_react` builder to declare an abstract `UiProps` class for an abstract component.
+/// Annotation used with the `over_react` builder to declare an abstract `UiProps` mixin for an abstract component.
 ///
 /// Props are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
 ///     @AbstractProps()
-///     abstract class _$QuxProps extends UiProps {
+///     mixin QuxProps on UiProps {
 ///       int quux;
 ///     }
+///
+/// __NOTE:__ This is only required for legacy boilerplate and can be omitted
+/// for new implementations. However, it can still be used for custom configurations
+/// (e.g. `keyNamespace`).
 class AbstractProps implements TypedMap {
   /// A custom namespace for the keys of props defined in the annotated class,
   /// overriding the default of `'${propsClassName}.'`.
@@ -189,9 +212,12 @@ class AbstractProps implements TypedMap {
 /// State properties are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
 ///     @AbstractState()
-///     abstract class _$QuxState extends UiState {
+///     mixin QuxState on UiState {
 ///       String corge;
 ///     }
+///
+/// __NOTE:__ This is only required for legacy boilerplate and can be omitted
+/// for new implementations. However, it can still be used for custom configurations.
 class AbstractState implements TypedMap {
   /// A custom namespace for the keys of state properties defined in the annotated class,
   /// overriding the default of `'${stateClassName}.'`.
@@ -215,6 +241,10 @@ class AbstractComponent {
 ///
 ///     @AbstractComponent2()
 ///     abstract class FooComponent<TProps extends QuxProps> extends UiComponent2<TProps> {}
+///
+/// __NOTE:__ This is only required for legacy boilerplate and can be omitted
+/// for new implementations. However, it can still be used for custom configurations
+/// (e.g. `subtypeOf`).
 class AbstractComponent2 implements AbstractComponent { // ignore: deprecated_member_use_from_same_package
   const AbstractComponent2();
 }
@@ -224,13 +254,17 @@ class AbstractComponent2 implements AbstractComponent { // ignore: deprecated_me
 /// Props are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
 ///     @PropsMixin()
-///     abstract class GraultPropsMixin {
+///     mixin GraultPropsMixin on UiProps {
 ///       Map get props;
 ///
 ///       Object garply;
 ///     }
 ///
 /// Classes using this annotation must include the abstract `props` getter.
+///
+/// __Deprecated.__ Use the `@Props()` annotation instead if you need to make use of an annotation argument. 
+/// Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.
+@Deprecated('Use the @Props() annotation if you need to make use of an annotation argument. Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.')
 class PropsMixin implements TypedMap {
   /// A custom namespace for the keys of props defined in the annotated class,
   /// overriding the default of `'${propsClassName}.'`.
@@ -244,13 +278,17 @@ class PropsMixin implements TypedMap {
 /// State properties are declared as fields, which act as stubs for generated getters/setters that proxy Map key-value pairs.
 ///
 ///     @StateMixin()
-///     abstract class WaldoStateMixin {
+///     mixin WaldoStateMixin on UiState {
 ///       Map get state;
 ///
 ///       dynamic fred;
 ///     }
 ///
 /// Classes using this annotation must include the abstract `state` getter.
+///
+/// __Deprecated.__ Use the `@State()` annotation instead if you need to make use of an annotation argument. 
+/// Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.
+@Deprecated('Use the @State() annotation if you need to make use of an annotation argument. Otherwise, this can be removed completely. Will be removed in the 4.0.0 release of over_react.')
 class StateMixin implements TypedMap {
   /// A custom namespace for the keys of state properties defined in the annotated class,
   /// overriding the default of `'${stateClassName}.'`.
@@ -264,8 +302,7 @@ class StateMixin implements TypedMap {
 /// Validation occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
 /// `componentWillReceiveProps`.
 ///
-///     @Props()
-///     abstract class _$FooProps {
+///     mixin FooProps on UiProps {
 ///       @requiredProp
 ///       String requiredProp;
 ///     }
@@ -276,8 +313,7 @@ const Accessor requiredProp = Accessor(isRequired: true);
 /// Validation occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
 /// `componentWillReceiveProps`.
 ///
-///     @Props()
-///     abstract class _$FooProps {
+///     mixin FooProps on UiProps {
 ///       @nullableRequiredProp
 ///       String nullableRequiredProp;
 ///     }
@@ -288,8 +324,7 @@ const Accessor nullableRequiredProp = Accessor(isRequired: true, isNullable: tru
 /// Validation occurs in `UiComponent.validateRequiredProps` which requires super calls into `componentWillMount` and
 /// `componentWillReceiveProps`.
 ///
-///     @Props()
-///     abstract class _$FooProps {
+///     mixin FooProps on UiProps {
 ///       @Accessor(keyNamespace: '', key: 'custom_key')
 ///       String bar;
 ///

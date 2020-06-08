@@ -62,11 +62,10 @@ class ValidationUtil {
   ///         rejectValidationWarning(/* some Matcher or String */);
   ///       });
   ///     },
-  ///         // Be sure to not run these tests in JS browsers
-  ///         // like Chrome, Firefox, etc. since  the OverReact
+  ///         // Be sure to not run these tests in dart2js the OverReact
   ///         // ValidationUtil.warn() method will only produce a
-  ///         // console warning when compiled in "dev" mode.
-  ///         testOn: '!js'
+  ///         // console warning when asserts are enabled.
+  ///         tags: 'ddc');
   ///     );
   static bool warn(String message, [dynamic data]) {
     WARNING_COUNT += 1;

@@ -12,7 +12,7 @@ part of 'connect_flux_counter.dart';
 // Registers component implementation and links type meta to builder factory.
 final $ConnectFluxCounterComponentFactory = registerComponent2(
   () => _$ConnectFluxCounterComponent(),
-  builderFactory: ConnectFluxCounter,
+  builderFactory: _$ConnectFluxCounter,
   componentClass: ConnectFluxCounterComponent,
   isWrapper: false,
   parentType: null,
@@ -243,7 +243,7 @@ class _$ConnectFluxCounterComponent extends ConnectFluxCounterComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ConnectFluxCounterProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForConnectFluxCounterProps

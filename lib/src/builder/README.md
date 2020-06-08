@@ -1,3 +1,7 @@
+# NOTE: This content is outdated, and will be updated soon to reflect changes made to the builder when implementing the new mixin-based boilerplate 
+
+---
+
 # OverReact Builder
 
 [](#__START_EMBEDDED_README__)

@@ -12,7 +12,7 @@ part of 'two_level_wrapper2.dart';
 // Registers component implementation and links type meta to builder factory.
 final $TwoLevelWrapper2ComponentFactory = registerComponent2(
   () => _$TwoLevelWrapper2Component(),
-  builderFactory: TwoLevelWrapper2,
+  builderFactory: _$TwoLevelWrapper2,
   componentClass: TwoLevelWrapper2Component,
   isWrapper: true,
   parentType: null,
@@ -144,7 +144,7 @@ class _$TwoLevelWrapper2Component extends TwoLevelWrapper2Component {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TwoLevelWrapper2Props.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTwoLevelWrapper2Props

@@ -12,7 +12,7 @@ part of 'redux_multi_provider.dart';
 // Registers component implementation and links type meta to builder factory.
 final $ReduxMultiProviderComponentFactory = registerComponent2(
   () => _$ReduxMultiProviderComponent(),
-  builderFactory: ReduxMultiProvider,
+  builderFactory: _$ReduxMultiProvider,
   componentClass: ReduxMultiProviderComponent,
   isWrapper: false,
   parentType: null,
@@ -180,7 +180,7 @@ class _$ReduxMultiProviderComponent extends ReduxMultiProviderComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ReduxMultiProviderProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForReduxMultiProviderProps

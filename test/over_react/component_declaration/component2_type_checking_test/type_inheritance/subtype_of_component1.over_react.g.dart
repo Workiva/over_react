@@ -12,7 +12,7 @@ part of 'subtype_of_component1.dart';
 // Registers component implementation and links type meta to builder factory.
 final $TestSubtypeOfComponent1ComponentFactory = registerComponent2(
   () => _$TestSubtypeOfComponent1Component(),
-  builderFactory: TestSubtypeOfComponent1,
+  builderFactory: _$TestSubtypeOfComponent1,
   componentClass: TestSubtypeOfComponent1Component,
   isWrapper: false,
   parentType: $TestParentComponentFactory,
@@ -150,7 +150,7 @@ class _$TestSubtypeOfComponent1Component
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestSubtypeOfComponent1Props.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestSubtypeOfComponent1Props

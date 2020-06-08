@@ -504,10 +504,26 @@ abstract class UiProps extends MapBase
     return getTestId();
   }
 
+  void _assertComponentFactoryIsNotNull() {
+    // This is an assert since we're in a performance-sensitive area of the code, and only need
+    // to provide this error message during development; in prod, a null exception will be triggered
+    // down the line instead.
+    assert(
+        componentFactory != null,
+        'componentFactory is null. Possible causes:\n'
+        '1. Something went wrong when initializing the `\$${runtimeType}Factory` variable in the generated code.\n'
+        '   It\'s possible React swallowed errors thrown during that initialization, so try pausing on caught exceptions to see it.\n'
+        '2. This is a props map view factory (declared as just a factory and props), and should not be invoked.\n'
+        '   This can also happen if your component didn\'t get grouped with your factory/props (e.g., if its name doesn\'t match).'
+        '3. This is a function component factory that was set up improperly, not wrapping the generated function in `uiFunction`.\n'
+        '4. componentFactory was erroneously assigned to null on this UiProps instance, potentially in an HOC function.');
+  }
+
   /// Returns a new component with this builder's [props] and the specified [children].
   ReactElement build([dynamic children]) {
     assert(_validateChildren(children));
 
+    _assertComponentFactoryIsNotNull();
     return componentFactory(props, children);
   }
 
@@ -552,6 +568,7 @@ abstract class UiProps extends MapBase
     // Use `build` instead of using emulated function behavior to work around DDC issue
     // https://github.com/dart-lang/sdk/issues/29904
     // Should have the benefit of better performance;
+    _assertComponentFactoryIsNotNull();
     return componentFactory.build(props, childArguments);
   }
 
@@ -770,8 +787,27 @@ class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
 
   const PropsMeta({this.fields, this.keys});
 
+  /// A convenience constructor to make a metadata object for a single key.
+  ///
+  /// Useful within [UiComponent.consumedProps].
+  ///
+  /// Example:
+  ///
+  ///     @override
+  ///     get consumedProps => [
+  ///       propsMeta.forMixin(InputWrapperProps),
+  ///       PropsMeta.forSimpleKey('onChange'),
+  ///     ];
+  factory PropsMeta.forSimpleKey(String key) => PropsMeta(
+    fields: [PropDescriptor(key)],
+    keys: [key],
+  );
+
   @override
   List<PropDescriptor> get props => fields;
+
+  @override
+  String toString() => 'PropsMeta:$keys';
 }
 
 /// Metadata for the state fields declared in a specific state class--
@@ -810,4 +846,73 @@ class StateMeta implements AccessorMeta<StateDescriptor> {
   final List<String> keys;
 
   const StateMeta({this.fields, this.keys});
+}
+
+abstract class _AccessorMetaCollection<T extends _Descriptor, U extends AccessorMeta<T>> implements AccessorMeta<T> {
+  final Map<Type, U> _metaByMixin;
+
+  const _AccessorMetaCollection(this._metaByMixin);
+
+  U get _emptyMeta;
+
+  /// Returns the metadata for only the prop fields declared in [mixinType].
+  ///
+  /// See `UiComponent2.consumedProps` for usage examples.
+  U forMixin(Type mixinType) {
+    final meta = _metaByMixin[mixinType];
+    assert(meta != null,
+        'No meta found for $mixinType;'
+        'it likely isn\'t mixed in by the props/state class.');
+    return meta ?? _emptyMeta;
+  }
+
+  /// Returns a set of all the metadata in this collection
+  /// (for `propsMeta`, this corresponds to all props mixins mixed into the props class).
+  ///
+  /// See `UiComponent2.consumedProps` for usage examples.
+  Iterable<U> get all => _metaByMixin.values;
+
+  /// Returns a set of the metadata corresponding to [mixinTypes].
+  ///
+  /// See `UiComponent2.consumedProps` for usage examples.
+  Iterable<U> forMixins(Set<Type> mixinTypes) =>
+      mixinTypes.map(forMixin);
+
+  /// Returns a set of all the metadata in this collection
+  /// (for `propsMeta`, this corresponds to all props mixins mixed into the props class),
+  /// except for the metadata corresponding to [excludedMixinTypes].
+  ///
+  /// See `UiComponent2.consumedProps` for usage examples.
+  Iterable<U> allExceptForMixins(Set<Type> excludedMixinTypes) {
+    final filtered = Map.of(_metaByMixin);
+    for (final mixinType in excludedMixinTypes) {
+      assert(_metaByMixin.containsKey(mixinType),
+      'No meta found for $mixinType;'
+          'it likely isn\'t mixed in by the props/state class.');
+      filtered.remove(mixinType);
+    }
+    return filtered.values;
+  }
+
+  @override
+  List<String> get keys =>
+      _metaByMixin.values.expand((meta) => meta.keys).toList();
+
+  @override
+  List<T> get fields =>
+      _metaByMixin.values.expand((meta) => meta.fields).toList();
+}
+
+/// A collection of metadata for the prop fields in all prop mixins
+/// used by a given component.
+///
+/// See [PropsMeta] for more info.
+class PropsMetaCollection extends _AccessorMetaCollection<PropDescriptor, PropsMeta> implements PropsMeta {
+  const PropsMetaCollection(Map<Type, PropsMeta> metaByMixin) : super(metaByMixin);
+
+  @override
+  PropsMeta get _emptyMeta => const PropsMeta(fields: [], keys: []);
+
+  @override
+  List<PropDescriptor> get props => fields;
 }

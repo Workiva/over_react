@@ -12,7 +12,7 @@ part of 'flawed_component.dart';
 // Registers component implementation and links type meta to builder factory.
 final $FlawedComponentFactory = registerComponent2(
   () => _$FlawedComponent(),
-  builderFactory: Flawed,
+  builderFactory: _$Flawed,
   componentClass: FlawedComponent,
   isWrapper: false,
   parentType: null,
@@ -278,7 +278,7 @@ class _$FlawedComponent extends FlawedComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$FlawedProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForFlawedProps

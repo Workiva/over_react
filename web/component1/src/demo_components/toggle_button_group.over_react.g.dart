@@ -10,14 +10,15 @@ part of 'toggle_button_group.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $ToggleButtonGroupComponentFactory =
-    registerComponent(() => _$ToggleButtonGroupComponent(),
-        builderFactory: ToggleButtonGroup,
-        componentClass: ToggleButtonGroupComponent,
-        isWrapper: false,
-        parentType: $ButtonGroupComponentFactory,
-        /* from `subtypeOf: ButtonGroupComponent` */
-        displayName: 'ToggleButtonGroup');
+final $ToggleButtonGroupComponentFactory = registerComponent(
+  () => _$ToggleButtonGroupComponent(),
+  builderFactory: _$ToggleButtonGroup,
+  componentClass: ToggleButtonGroupComponent,
+  isWrapper: false,
+  parentType: $ButtonGroupComponentFactory,
+  /* from `subtypeOf: ButtonGroupComponent` */
+  displayName: 'ToggleButtonGroup',
+);
 
 abstract class _$ToggleButtonGroupPropsAccessorsMixin
     implements _$ToggleButtonGroupProps {
@@ -135,7 +136,7 @@ class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ToggleButtonGroupProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForToggleButtonGroupProps

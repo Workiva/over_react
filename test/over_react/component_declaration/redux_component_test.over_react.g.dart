@@ -11,12 +11,13 @@ part of 'redux_component_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestDefaultComponentFactory = registerComponent(
-    () => _$TestDefaultComponent(),
-    builderFactory: TestDefault,
-    componentClass: TestDefaultComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestDefault');
+  () => _$TestDefaultComponent(),
+  builderFactory: _$TestDefault,
+  componentClass: TestDefaultComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestDefault',
+);
 
 abstract class _$TestDefaultPropsAccessorsMixin implements _$TestDefaultProps {
   @override
@@ -86,7 +87,7 @@ class _$TestDefaultComponent extends TestDefaultComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestDefaultProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestDefaultProps
@@ -97,12 +98,13 @@ class _$TestDefaultComponent extends TestDefaultComponent {
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestConnectComponentFactory = registerComponent(
-    () => _$TestConnectComponent(),
-    builderFactory: TestConnect,
-    componentClass: TestConnectComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestConnect');
+  () => _$TestConnectComponent(),
+  builderFactory: _$TestConnect,
+  componentClass: TestConnectComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestConnect',
+);
 
 abstract class _$TestConnectPropsAccessorsMixin implements _$TestConnectProps {
   @override
@@ -172,7 +174,7 @@ class _$TestConnectComponent extends TestConnectComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestConnectProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestConnectProps
@@ -182,12 +184,14 @@ class _$TestConnectComponent extends TestConnectComponent {
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $TestPureComponentFactory = registerComponent(() => _$TestPureComponent(),
-    builderFactory: TestPure,
-    componentClass: TestPureComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestPure');
+final $TestPureComponentFactory = registerComponent(
+  () => _$TestPureComponent(),
+  builderFactory: _$TestPure,
+  componentClass: TestPureComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestPure',
+);
 
 abstract class _$TestPurePropsAccessorsMixin implements _$TestPureProps {
   @override
@@ -256,7 +260,7 @@ class _$TestPureComponent extends TestPureComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestPureProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestPureProps

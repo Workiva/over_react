@@ -21,13 +21,10 @@ import 'package:over_react/component_base.dart';
 ///
 /// __Example__:
 ///
-///     @Factory()
 ///     UiFactory<BasicProps> Basic = _$Basic;
 ///
-///     @Props()
-///     class _$BasicProps extends UiProps {}
+///     mixin BasicProps on UiProps {}
 ///
-///     @Component2()
 ///     class BasicComponent extends UiComponent2<BasicProps> {
 ///       final Ref<InputElement> inputRef = createRef();
 ///
@@ -53,6 +50,8 @@ Ref<T> createRef<T>() {
 
 /// Automatically passes a [Ref] through a component to one of its children.
 ///
+/// > __NOTE:__ This should only be used to wrap components that extend from `Component2`.
+///
 /// __Example__:
 ///
 ///     UiFactory<DomProps> DivForwarded = forwardRef<DomProps>((props, ref) {
@@ -72,11 +71,9 @@ Ref<T> createRef<T>() {
 ///       )();
 ///     })(Foo);
 ///
-///     @Factory()
 ///     UiFactory<FooProps> Foo = _$Foo;
 ///
-///     @Props()
-///     class _$FooProps extends UiProps {
+///     mixin FooProps on UiProps {
 ///       Ref forwardedRef;
 ///     }
 ///
@@ -95,6 +92,8 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
     Function(TProps props, Ref ref) wrapperFunction) {
 
   UiFactory<TProps> wrapWithForwardRef(UiFactory<TProps> factory) {
+    enforceMinimumComponentVersionFor(factory().componentFactory);
+
     Object wrapProps(Map props, Ref ref) {
       return wrapperFunction(factory(props), ref);
     }

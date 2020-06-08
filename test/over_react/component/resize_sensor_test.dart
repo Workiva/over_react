@@ -20,7 +20,8 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:platform_detect/platform_detect.dart';
-import 'package:over_react/over_react.dart';
+import 'package:over_react/over_react.dart' hide ResizeSensor, ResizeSensorComponent, ResizeSensorProps;
+import 'package:over_react/components.dart' show ResizeSensor, ResizeSensorComponent, ResizeSensorProps;
 import 'package:over_react_test/over_react_test.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:test/test.dart';
@@ -393,7 +394,7 @@ void main() {
 
           expect(onInitializeCalled, isFalse);
           verifyValidationWarning(contains('props.onInitialize will not be called when props.quickMount is true'));
-        }, testOn: '!js');
+        }, tags: 'ddc');
 
         test('does not warn about props.onInitialize when it is not set', () async {
           await expectResizeAfter(() {
@@ -402,7 +403,7 @@ void main() {
           }, resizeSensorProps: props);
 
           rejectValidationWarning(contains('onInitialize'));
-        }, testOn: '!js');
+        }, tags: 'ddc');
 
         test('passes the correct event args on resize', () async {
           var resizeEvents = <ResizeSensorEvent>[];

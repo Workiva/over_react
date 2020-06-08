@@ -70,7 +70,7 @@ This model fits perfectly with Redux because the premise is that a component sho
 ```dart
 // Starting Props Class
 // It's normal that the props class has few, if any, props because they values are coming from the substate
-class _$ExampleComponentProps extends BuiltReduxUiProps<AppState, AppStateBuilder, AppActions> {}
+class _$ExampleProps extends BuiltReduxUiProps<AppState, AppStateBuilder, AppActions> {}
 
 // The starting substate
 abstract class ExampleComponentState implements Built<AppSubstate, AppSubstateBuilder> {
@@ -83,13 +83,13 @@ abstract class ExampleComponentState implements Built<AppSubstate, AppSubstateBu
 
 // After refactor
 // connect call
-UiFactory<ExampleComponentProps> ConnectedExampleComponent = connect<AppState, ExampleComponentProps>(
+UiFactory<ExampleProps> Example = connect<AppState, ExampleProps>(
     // The `text` prop points to the `text` state field
-    mapStateToProps: (state) => (ExampleComponent()..text = state.text),
-)(ExampleComponent);
+    mapStateToProps: (state) => (Example()..text = state.text),
+)(_$Example);
 
-// Redux Props Class
-class _$ExampleComponentProps extends UiProps {
+// Redux Props Class (e.g. a normal props class)
+mixin ExampleProps on UiProps {
   String text;
 }
 ```
@@ -311,13 +311,12 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
     import 'package:over_react/over_react_redux.dart';
 
     import './store.dart';
-    import './components/component.dart';
+    import './components/example.dart';
 
     main() {
-        setClientConfiguration();
         react_dom.render(
-            (ReduxProvider()..store = randomColorStore)(
-                ConnectedComponent()(),
+            (ReduxProvider()..store = counterStore)(
+              Example()(),
             ),
             querySelector('#content'));
     }
@@ -326,7 +325,7 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
 - General Component Refactor (to be done to every component):
     - Starting with a `BuiltReduxUiComponent`:
         1. Upgrade the component to `UiComponent2`.
-            - Generally this also means removing the built_redux stuff, including ensuring that the component prop class extends from `UiProps`.
+            - Generally this also means removing the built_redux stuff, including ensuring that the component prop class is a mixin on `UiProps`.
             - Check out the `UiComponent2` [transition guide](./ui_component2_transition.md) for pointers on going from `UiComponent` (which is what `BuiltReduxUiComponent` is backed by) to `UiComponent2`. If a component has overridden lifecycle methods that are removed, this will likely be the hardest part of the upgrade.
         1. Move your `Substate` class values into your component's props class. Using the `mapStateToProps` parameter of Redux's `connect` function is very similar to declaring a `Substate` class, and the properties from your `Substate` class can just be moved into props. Make sure at the end of this step that all references to the state in your component have a prop declared in the props class.
         
@@ -357,15 +356,12 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
         ```dart
         // Simple built_redux component
         // Assume there is a store with a state field `text` and an action `updateText`.
-        @Factory()
         UiFactory<SimpleProps> Simple = _$Simple;
 
-        @Props()
-        class _$SimpleProps extends UiProps {
+        mixin SimpleProps on UiProps {
           Store<App, AppBuilder, AppActions> store;
         }
 
-        @Component2()
         class SimpleComponent extends UiComponent2<SimpleProps> {
           StreamSubscription _storeSub;
 
@@ -396,13 +392,12 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
 
         // Simple BuiltReduxUiComponent
         // Assume there is a store with a state field `text` and an action `updateText`.
-        @Factory()
         UiFactory<SimpleProps> Simple = _$Simple;
 
-        @Props()
-        class _$SimpleProps extends BuiltReduxUiProps<SimpleState, SimpleStateBuilder, SimpleActions> {}
+        mixin SimplePropsMixin on UiProps {}
+  
+        class SimpleProps = BuiltReduxUiProps<SimpleState, SimpleStateBuilder, SimpleActions> with SimplePropsMixin;
 
-        @Component()
         class SimpleComponent extends BuiltReduxUiComponent<SimpleState, SimpleStateBuilder, SimpleActions,
             SimpleProps, SimpleSubState> {
           StreamSubscription _storeSub;
@@ -434,16 +429,12 @@ Once all of the state pieces have been updated, the UiComponents are ready to be
         }
 
         // The same component converted to a connected Redux component
-        UiFactory<SimpleProps> ConnectedSimple = connect<ReduxState, SimpleProps>(
+        UiFactory<SimpleProps> Simple = connect<ReduxState, SimpleProps>(
             mapStateToProps: (state) => (Simple()..text = state.text),
             mapDispatchToProps: (dispatch) => (Simple()..updateText = (Sring text) { dispatch(UpdateText()); }),
-        )(Simple);
+        )(_$Simple);
 
-        @Factory()
-        UiFactory<SimpleProps> Simple = _$Simple;
-
-        @Props()
-        class _$SimpleProps extends UiProps {
+        mixin SimpleProps on UiProps {
           String text;
           void Function(String newText) updateText;
         }
