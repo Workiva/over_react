@@ -357,9 +357,9 @@ bool _shallowMapIdentityEquality(Map a, Map b) => const MapEquality(keys: Identi
 /// If you do not provide [mergeProps], the wrapped component receives {...ownProps, ...stateProps, ...dispatchProps}
 /// by default.
 ///
-/// - [areOwnPropsEqual] does a shallow Map equality check by default.
-/// - [areStatePropsEqual] does a shallow Map equality check by default.
-/// - [areMergedPropsEqual] does a shallow Map equality check by default.
+/// - [areOwnPropsEqual] does an equality check using JS `===` (equivalent to [identical]) by default.
+/// - [areStatePropsEqual] does a shallow Map equality check using JS `===` (equivalent to [identical]) by default.
+/// - [areMergedPropsEqual] does a shallow Map equality check using JS `===` (equivalent to [identical]) by default.
 ///
 /// - [context] can be utilized to provide a custom context object created with `createContext`.
 /// [context] is how you can utilize multiple stores. While supported, this is not recommended.
