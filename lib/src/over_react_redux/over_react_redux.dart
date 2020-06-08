@@ -18,17 +18,16 @@ library over_react_redux;
 
 import 'dart:html';
 import 'dart:js_util' as js_util;
+
+import 'package:js/js.dart';
 import 'package:memoize/memoize.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
-import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
-import 'package:collection/collection.dart';
-import 'package:js/js.dart';
 import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:react/react_client.dart';
-import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_client/js_backed_map.dart';
+import 'package:react/react_client/react_interop.dart';
 import 'package:redux/redux.dart';
 
 part 'over_react_redux.over_react.g.dart';
