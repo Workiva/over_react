@@ -569,13 +569,13 @@ UiFactory<TProps> Function(UiFactory<TProps>)
   }
   /*--end usage of cases--*/
 
-  if (areStatePropsEqual == null) {
-    const defaultAreStatePropsEqual = _shallowMapIdentityEquality;
-    const propHasher = CollectionLengthHasher();
-    bool areStatePropsEqualWrapper(TProps nextProps, TProps prevProps) {
-      final result = defaultAreStatePropsEqual(nextProps, prevProps);
+  // In dev mode, if areStatePropsEqual is not specified, pass in a version
+  // that warns for common pitfall cases.
+  assert(() {
+    if (areStatePropsEqual == null) {
+      bool areStatePropsEqualWrapper(TProps nextProps, TProps prevProps) {
+        const propHasher = CollectionLengthHasher();
 
-      assert(() {
         prevProps.forEach((key, value) {
           // If the value is the same instance, check if the instance has been mutated,
           // causing its hash to be updated
@@ -592,14 +592,13 @@ UiFactory<TProps> Function(UiFactory<TProps>)
           }
         });
 
-        return true;
-      }());
-
-      return result;
+        return _shallowMapIdentityEquality(nextProps, prevProps);
+      }
+      areStatePropsEqual = areStatePropsEqualWrapper;
     }
 
-    areStatePropsEqual = areStatePropsEqualWrapper;
-  }
+    return true;
+  }());
 
   return connect(
     mapStateToProps: mapStateToProps,
