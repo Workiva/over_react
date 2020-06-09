@@ -32,6 +32,7 @@ import 'over_react/component/_deprecated/error_boundary_test.dart' as deprecated
 import 'over_react/component/forward_ref_test.dart' as forward_ref_test;
 import 'over_react/component/prop_mixins_test.dart' as prop_mixins_test;
 import 'over_react/component/prop_typedefs_test.dart' as prop_typedefs_test;
+import 'over_react/component/pure_ui_component_test.dart' as pure_ui_component_test;
 import 'over_react/component/_deprecated/resize_sensor_test.dart' as deprecated_resize_sensor_test;
 import 'over_react/component/resize_sensor_test.dart' as resize_sensor_test;
 import 'over_react/component/fragment_component_test.dart' as fragment_component_test;
@@ -44,6 +45,7 @@ void main() {
 
   enableTestMode();
 
+  pure_ui_component_test.main();
   deprecated_abstract_transition_test.main();
   abstract_transition_test.main();
   error_boundary_test.main();
