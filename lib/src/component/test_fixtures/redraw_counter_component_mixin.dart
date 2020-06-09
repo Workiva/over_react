@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
+import 'package:test/test.dart';
+import 'package:time/time.dart';
 
 mixin RedrawCounterMixin<T extends UiProps> on UiComponent2<T> {
   int _desiredRedrawCount = 1;
@@ -28,4 +30,9 @@ mixin RedrawCounterMixin<T extends UiProps> on UiComponent2<T> {
     _didRedraw.complete(redrawCount);
     _didRedraw = Completer<int>();
   }
+}
+
+Future<Null> expectNoRedraws(RedrawCounterMixin component) async {
+  final redrawCount = await component.didRedraw().future.timeout(20.milliseconds, onTimeout: () => 0);
+  expect(redrawCount, 0);
 }
