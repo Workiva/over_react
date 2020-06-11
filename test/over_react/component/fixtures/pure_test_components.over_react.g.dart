@@ -663,17 +663,30 @@ mixin $SharedPureTestPropsMixin on SharedPureTestPropsMixin {
   @override
   set sharedBoolProp(bool value) =>
       props[_$key__sharedBoolProp__SharedPureTestPropsMixin] = value;
+  @override
+  ReactElement get someVDomEl =>
+      props[_$key__someVDomEl__SharedPureTestPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set someVDomEl(ReactElement value) =>
+      props[_$key__someVDomEl__SharedPureTestPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__sharedBoolProp__SharedPureTestPropsMixin =
       PropDescriptor(_$key__sharedBoolProp__SharedPureTestPropsMixin);
+  static const PropDescriptor _$prop__someVDomEl__SharedPureTestPropsMixin =
+      PropDescriptor(_$key__someVDomEl__SharedPureTestPropsMixin);
   static const String _$key__sharedBoolProp__SharedPureTestPropsMixin =
       'SharedPureTestPropsMixin.sharedBoolProp';
+  static const String _$key__someVDomEl__SharedPureTestPropsMixin =
+      'SharedPureTestPropsMixin.someVDomEl';
 
   static const List<PropDescriptor> $props = [
-    _$prop__sharedBoolProp__SharedPureTestPropsMixin
+    _$prop__sharedBoolProp__SharedPureTestPropsMixin,
+    _$prop__someVDomEl__SharedPureTestPropsMixin
   ];
   static const List<String> $propKeys = [
-    _$key__sharedBoolProp__SharedPureTestPropsMixin
+    _$key__sharedBoolProp__SharedPureTestPropsMixin,
+    _$key__someVDomEl__SharedPureTestPropsMixin
   ];
 }
 

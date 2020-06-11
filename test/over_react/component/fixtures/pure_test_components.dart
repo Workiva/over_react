@@ -103,6 +103,7 @@ mixin SharedPureTestPropsMixin on UiProps {
   );
 
   bool sharedBoolProp;
+  ReactElement someVDomEl;
 }
 
 /// Props shared between [PureTest] and [PureTestWithoutChildrenSupport].
