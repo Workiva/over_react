@@ -27,7 +27,7 @@ class DuplicatePropCascadeDiagnostic extends ComponentUsageDiagnosticContributor
           final rhs = usages[i].last;
           await collector.addErrorWithFix(
             code,
-            location(result, range: range.node(lhs)),
+            result.locationFor(lhs),
             errorMessageArgs: [lhs.propertyName.name, i + 1, usages.length],
             fixKind: fixKind,
             computeFix: () => buildFileEdit(result, (builder) {

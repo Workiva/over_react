@@ -13,7 +13,7 @@ class HashCodeAsKeyDiagnostic extends ComponentUsageDiagnosticContributor {
     forEachCascadedProp(usage, (lhs, rhs) {
       if (lhs.propertyName.name == 'key') {
         if (rhs.toSource().contains('.hashCode')) {
-          collector.addError(code, location(result, range: range.node(rhs)));
+          collector.addError(code, result.locationFor(rhs));
         }
       }
     });

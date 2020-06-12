@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/source/source_range.dart';
 import 'package:analyzer_plugin/channel/channel.dart';
@@ -11,6 +12,7 @@ import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
+import 'package:analyzer_plugin/utilities/range_factory.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 
@@ -60,9 +62,10 @@ abstract class DiagnosticContributor {
   /// Contribute errors for the location in the file specified by the given
   /// [result] into the given [collector].
   Future<void> computeErrors(ResolvedUnitResult result, DiagnosticCollector collector);
+}
 
-  Location location(
-    ResolvedUnitResult result, {
+extension ResultLocation on ResolvedUnitResult {
+  Location location({
     int offset,
     int end,
     int length,
@@ -88,8 +91,12 @@ abstract class DiagnosticContributor {
       }
     }
 
-    final info = result.lineInfo.getLocation(offset);
-    return Location(result.path, offset, length, info.lineNumber, info.columnNumber);
+    final info = lineInfo.getLocation(offset);
+    return Location(path, offset, length, info.lineNumber, info.columnNumber);
+  }
+
+  Location locationFor(SyntacticEntity entity) {
+    return location(offset: entity.offset, length: entity.length);
   }
 }
 

@@ -37,7 +37,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
 
       await validateReactChildType(returnType, typeSystem, onInvalidType: (invalidType) async {
         final code = invalidTypeErrorCode;
-        final location = this.location(result, range: range.node(returnStatement));
+        final location = result.locationFor(returnStatement);
         if (couldBeMissingBuilderInvocation(returnExpression)) {
           await collector.addErrorWithFix(
             code,
@@ -56,7 +56,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
       if (returnType.isDartCoreBool && returnExpression is BooleanLiteral && returnExpression.value == false) {
         await collector.addErrorWithFix(
           preferNullOverFalseErrorCode,
-          location(result, range: range.node(returnExpression)),
+          result.locationFor(returnExpression),
           fixKind: falseToNull,
           computeFix: () => buildFileEdit(result, (builder) {
             builder.addSimpleReplacement(range.node(returnExpression), 'null');

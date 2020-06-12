@@ -60,7 +60,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
           if (cascade?.target?.staticType?.isPropsClass ?? false) {
             await collector.addErrorWithFix(
               code,
-              location(result, range: range.node(cascade)),
+              result.locationFor(cascade),
               fixKind: fixKind,
               computeFix: () => buildFileEdit(result, (builder) {
                 builder.addSimpleInsertion(cascade.offset, '(');
@@ -83,7 +83,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
           if (expr.argumentList.arguments.firstOrNull?.staticType?.isPropsClass ?? false) {
             await collector.addErrorWithFix(
               code,
-              location(result, range: range.node(node)),
+              result.locationFor(node),
               fixKind: fixKind,
               computeFix: () => buildFileEdit(result, (builder) {
                 builder.addSimpleInsertion(expr.function.end, ')(');

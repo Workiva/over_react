@@ -38,7 +38,7 @@ class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
       if (stringValue == null) continue;
 
       if (num.tryParse(stringValue) != null) {
-        final location = this.location(result, range: range.node(entry.value));
+        final location = result.locationFor(entry.value);
         final errorArgs = [propertyName, stringValue];
 
         // Don't suggest the change if this is an interpolated string,

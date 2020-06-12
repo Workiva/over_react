@@ -21,7 +21,7 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
 
     for (var argument in usage.node.argumentList.arguments) {
       await validateReactChildType(argument.staticType, typeSystem, onInvalidType: (invalidType) async {
-        final location = this.location(result, range: range.node(argument));
+        final location = result.locationFor(argument);
 
         if (couldBeMissingBuilderInvocation(argument)) {
           await collector.addErrorWithFix(

@@ -70,7 +70,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     for (var name in missingRequiredFieldNames) {
       collector.addError(
         code,
-        location(result, range: range.node(usage.builder)),
+        result.locationFor(usage.builder),
         errorMessageArgs: [name],
         // todo fix to add prop
       );

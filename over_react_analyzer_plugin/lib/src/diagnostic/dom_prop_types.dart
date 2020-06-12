@@ -28,7 +28,7 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
       if (allowedElements == null) return;
 
       if (!allowedElements.contains(nodeName)) {
-        collector.addError(code, location(result, range: range.node(lhs.propertyName)),
+        collector.addError(code, result.locationFor(lhs.propertyName),
             errorMessageArgs: [propName, nodeName, allowedElements.join(',')]);
       }
     });

@@ -31,7 +31,7 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
         bool isPropReadable = boolPropReadability[0];
 
         if (!isPropReadable) {
-          collector.addError(code, location(result, range: range.node(propsClass.getField(field.name))),
+          collector.addError(code, result.locationFor(propsClass.getField(field.name)),
               errorMessageArgs: [propsClass.name, propName, allowedPrefixesForBoolProp.join(', ')]);
         }
       }

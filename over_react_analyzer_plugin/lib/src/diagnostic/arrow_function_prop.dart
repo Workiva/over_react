@@ -30,7 +30,7 @@ class ArrowFunctionPropCascadeDiagnostic extends ComponentUsageDiagnosticContrib
 
         await collector.addErrorWithFix(
           code,
-          location(result, offset: wrapOffset, end: wrapEnd),
+          result.location(offset: wrapOffset, end: wrapEnd),
           fixKind: fixKind,
           computeFix: () => buildFileEdit(result, (builder) {
             builder.addSimpleInsertion(wrapOffset, '(');

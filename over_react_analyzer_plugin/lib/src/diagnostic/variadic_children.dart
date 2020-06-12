@@ -22,7 +22,7 @@ class VariadicChildrenDiagnostic extends ComponentUsageDiagnosticContributor {
 
       await collector.addErrorWithFix(
         code,
-        location(result, offset: list.offset, end: list.end),
+        result.locationFor(list),
         fixKind: fixKind,
         computeFix: () => buildFileEdit(result, (builder) {
           builder.addDeletion(range.token(list.leftBracket));

@@ -60,7 +60,7 @@ class PseudoStaticLifecycleDiagnostic extends DiagnosticContributor {
 
       collector.addError(
         code,
-        location(result, offset: offset, end: end),
+        result.location(offset: offset, end: end),
         errorMessageArgs: [enclosingMethodName.name],
       );
     }
