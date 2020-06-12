@@ -57,7 +57,7 @@ Future<void> validateReactChildType(DartType type, TypeSystem typeSystem,
   // If the children are in an iterable, validate its type argument.
   // To check for an iterable, type-check against `iterableDynamicType` and not
   // `iterableType` since the latter has an uninstantiated type argument of `E`.
-  if (type.isSubtypeOf(typeSystem.typeProvider.iterableDynamicType)) {
+  if (typeSystem.isSubtypeOf(type, typeSystem.typeProvider.iterableDynamicType)) {
     var typeArg = typeSystem.mostSpecificTypeArgument(type, typeSystem.typeProvider.iterableType);
     await validateReactChildType(typeArg, typeSystem, onInvalidType: onInvalidType);
     return;
