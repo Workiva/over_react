@@ -9,7 +9,7 @@ environment:
 dependencies:
   analyzer: '^0.39.10'
   analyzer_plugin: '^0.2.4'
-  dart_dev: ^2.0.0
+  dart_dev: ^3.0.0
   meta: ^1.1.6
   path: ^1.5.1
 dev_dependencies:
