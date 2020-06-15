@@ -22,7 +22,7 @@ class ReactElementOutlineContributor implements OutlineContributor {
 
     result.unit.declaredElement.lineInfo;
 
-    List<int> elementEndStack = [];
+    final elementEndStack = <int>[];
 
     final visitor = ComponentUsageVisitor((usage) {
       {

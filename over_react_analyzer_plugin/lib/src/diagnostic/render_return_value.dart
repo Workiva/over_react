@@ -27,7 +27,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
     // This is the return type even if it's not explicitly declared.
     final visitor = RenderVisitor();
     result.unit.accept(visitor);
-    for (var returnStatement in visitor.returnVisitor.returnStatements) {
+    for (final returnStatement in visitor.returnVisitor.returnStatements) {
       final returnExpression = returnStatement.expression;
       if (returnExpression == null) continue; // valueless returns
       final returnType = returnExpression.staticType;

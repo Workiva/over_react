@@ -13,6 +13,7 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:analyzer_plugin/utilities/range_factory.dart';
+import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 
@@ -114,12 +115,12 @@ class DiagnosticGenerator {
   // TODO dry up
   // todo use generatorResult
   /// Create an 'edit.getErrors' response for the location in the file specified
-  /// by the given [request]. If any of the contributors throws an exception,
+  /// by the given [unitResult]. If any of the contributors throws an exception,
   /// also create a non-fatal 'plugin.error' notification.
   Future<GeneratorResult<List<AnalysisError>>> generateErrors(ResolvedUnitResult unitResult) async {
     final notifications = <Notification>[];
-    final collector = DiagnosticCollectorImpl(false);
-    for (DiagnosticContributor contributor in contributors) {
+    final collector = DiagnosticCollectorImpl(shouldComputeFixes: false);
+    for (final contributor in contributors) {
       try {
         await contributor.computeErrors(unitResult, collector);
       } catch (exception, stackTrace) {
@@ -138,9 +139,9 @@ class DiagnosticGenerator {
 
   Future<GeneratorResult<EditGetFixesResult>> generateFixesResponse(DartFixesRequest request) async {
     final notifications = <Notification>[];
-    final collector = DiagnosticCollectorImpl(true);
+    final collector = DiagnosticCollectorImpl(shouldComputeFixes: true);
 
-    for (var contributor in contributors) {
+    for (final contributor in contributors) {
       try {
         await contributor.computeErrors(request.result, collector);
       } catch (exception, stackTrace) {
@@ -178,7 +179,7 @@ abstract class DiagnosticCollector {
   void addError(ErrorCode code, Location location, {bool hasFix, List<Object> errorMessageArgs});
 
   ///
-  /// use of [buildFileEdit] is recommended:
+  /// use of `buildFileEdit`]` is recommended:
   /// // todo link to range/location tools
   ///
   ///     computeFix: () => buildFileEdit(result, (builder) {
@@ -205,7 +206,7 @@ abstract class DiagnosticCollector {
 }
 
 class DiagnosticCollectorImpl implements DiagnosticCollector {
-  DiagnosticCollectorImpl(this.shouldComputeFixes);
+  DiagnosticCollectorImpl({@required this.shouldComputeFixes});
 
   final bool shouldComputeFixes;
 
@@ -251,7 +252,7 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
   @override
   Future<void> addErrorWithFix(ErrorCode code, Location location,
       {FixKind fixKind,
-      FutureOr<SourceChange> computeFix(),
+      FutureOr<SourceChange> Function() computeFix,
       List<Object> errorMessageArgs,
       List<Object> fixMessageArgs}) async {
     addError(
@@ -287,12 +288,12 @@ class ComponentUsageVisitor extends RecursiveAstVisitor<void> {
 
   @override
   void visitFunctionExpressionInvocation(FunctionExpressionInvocation node) {
-    return visitInvocationExpression(node);
+    visitInvocationExpression(node);
   }
 
   @override
   void visitMethodInvocation(MethodInvocation node) {
-    return visitInvocationExpression(node);
+    visitInvocationExpression(node);
   }
 
   void visitInvocationExpression(InvocationExpression node) {
@@ -302,7 +303,6 @@ class ComponentUsageVisitor extends RecursiveAstVisitor<void> {
     }
 
     node.visitChildren(this);
-    return null;
   }
 }
 
@@ -396,9 +396,9 @@ String _formatList(String pattern, List<Object> arguments) {
     return pattern;
   }
   return pattern.replaceAllMapped(RegExp(r'\{(\d+)\}'), (match) {
-    String indexStr = match.group(1);
-    int index = int.parse(indexStr);
-    Object arg = arguments[index];
+    final indexStr = match.group(1);
+    final index = int.parse(indexStr);
+    final arg = arguments[index];
     assert(arg != null);
     return arg?.toString();
   });

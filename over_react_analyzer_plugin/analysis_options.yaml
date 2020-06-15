@@ -1,4 +1,4 @@
-include: package:workiva_analysis_options/v1.yaml
+include: package:workiva_analysis_options/v1.recommended.yaml
 
 analyzer:
   errors:
@@ -8,6 +8,13 @@ analyzer:
     missing_return: warning
     # Override workiva_analysis_options upgrade to warning
     unused_import: info
+
+    # ignores from v1.recommened
+    prefer_interpolation_to_compose_strings: ignore
+    cascade_invocations: ignore
+    prefer_single_quotes: ignore
+    type_annotate_public_apis: ignore
+    prefer_final_locals: ignore
   exclude:
     - tools/analyzer_plugin
 

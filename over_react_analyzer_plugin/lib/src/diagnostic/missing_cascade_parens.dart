@@ -22,7 +22,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
 
   @override
   computeErrors(result, collector) async {
-    for (var error in result.errors) {
+    for (final error in result.errors) {
       final isBadFunction = const {
         StaticTypeWarningCode.INVOCATION_OF_NON_FUNCTION,
         StaticTypeWarningCode.INVOCATION_OF_NON_FUNCTION_EXPRESSION,
@@ -74,7 +74,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
         debug.log('${invocation.function.staticType?.displayName}');
 
         if (isBadFunction && (invocation.function.staticType?.isReactElement ?? false)) {
-          InvocationExpression expr = invocation.function?.tryCast() ??
+          final expr = invocation.function?.tryCast<InvocationExpression>() ??
               invocation.function?.tryCast<ParenthesizedExpression>()?.unParenthesized?.tryCast();
 
           debug.log('expr: ${expr?.runtimeType} ${expr?.toSource()}');

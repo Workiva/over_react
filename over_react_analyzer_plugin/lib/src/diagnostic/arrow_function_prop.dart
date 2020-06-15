@@ -18,8 +18,8 @@ class ArrowFunctionPropCascadeDiagnostic extends ComponentUsageDiagnosticContrib
   computeErrorsForUsage(result, collector, usage) async {
     await forEachCascadedPropAsync(usage, (lhs, rhs) async {
       if (rhs is FunctionExpression && rhs.body is ExpressionFunctionBody) {
-        int wrapOffset = rhs.offset;
-        int wrapEnd = rhs.end;
+        var wrapOffset = rhs.offset;
+        var wrapEnd = rhs.end;
 
         final ExpressionFunctionBody body = rhs.body;
         final expression = body.expression;

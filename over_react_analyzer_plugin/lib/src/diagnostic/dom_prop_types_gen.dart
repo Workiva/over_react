@@ -3,7 +3,7 @@ main() {
   final supportedElements = <String, List<String>>{};
   final globalAttributes = <String>[];
 
-  for (var line in _rawTable.trim().split('\n')) {
+  for (final line in _rawTable.trim().split('\n')) {
     final columns = line.split('\t');
     assert(columns.length == 2);
 

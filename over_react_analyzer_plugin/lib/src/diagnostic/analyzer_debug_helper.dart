@@ -19,9 +19,9 @@ class AnalyzerDebugHelper {
   /// Usage:
   ///     AnalyzerDebugHelper debug = new AnalyzerDebugHelper(result, collector);
   ///     debug.log('message');
-  log(String message, [ResolvedUnitResult new_result, DiagnosticCollector new_collector]) {
-    this.result = new_result ?? result;
-    this.collector = new_collector ?? collector;
+  void log(String message, [ResolvedUnitResult new_result, DiagnosticCollector new_collector]) {
+    result = new_result ?? result;
+    collector = new_collector ?? collector;
     collector.addError(code, Location(result.path, 0, 0, 1, 0), errorMessageArgs: [message]);
   }
 }

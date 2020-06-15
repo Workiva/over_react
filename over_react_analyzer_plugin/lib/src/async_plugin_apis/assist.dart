@@ -43,7 +43,7 @@ class _AsyncAssistGenerator {
   Future<GeneratorResult<EditGetAssistsResult>> generateAssistsResponse(AssistRequest request) async {
     final notifications = <Notification>[];
     final collector = _AssistCollectorImpl();
-    for (var contributor in contributors) {
+    for (final contributor in contributors) {
       try {
         await contributor.computeAssists(request, collector);
       } catch (exception, stackTrace) {
@@ -60,7 +60,7 @@ class _AsyncAssistGenerator {
 ///
 /// Clients may not extend or implement this class, but are allowed to use it as
 /// a mix-in when creating a subclass of [ServerPlugin].
-abstract class AsyncAssistsMixin implements ServerPlugin {
+mixin AsyncAssistsMixin on ServerPlugin {
   /// Return a list containing the assist contributors that should be used to
   /// create assists for the file with the given [path].
   List<AsyncAssistContributor> getAssistContributors(String path);
@@ -84,12 +84,12 @@ abstract class AsyncAssistsMixin implements ServerPlugin {
 
 /// A mixin that can be used when creating a subclass of [ServerPlugin] and
 /// mixing in [AsyncAssistsMixin]. This implements the creation of the assists request
-/// based on the assumption that the driver being created is an [AnalysisDriver].
+/// based on the assumption that the driver being created is an `AnalysisDriver`.
 ///
 /// Clients may not extend or implement this class, but are allowed to use it as
 /// a mix-in when creating a subclass of [ServerPlugin] that also uses
 /// [AsyncAssistsMixin] as a mix-in.
-abstract class AsyncDartAssistsMixin implements AsyncAssistsMixin {
+mixin AsyncDartAssistsMixin on AsyncAssistsMixin {
   @override
   Future<AssistRequest> getAssistRequest(EditGetAssistsParams parameters) async {
     final path = parameters.file;

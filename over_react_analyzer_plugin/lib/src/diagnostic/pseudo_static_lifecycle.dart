@@ -28,7 +28,7 @@ class PseudoStaticLifecycleDiagnostic extends DiagnosticContributor {
     result.unit.accept(visitor);
 
     // FIXME account for super calls
-    for (var reference in visitor.nonStaticReferences) {
+    for (final reference in visitor.nonStaticReferences) {
       if (reference is SimpleIdentifier && instanceMemberWhitelist.contains(reference.name)) {
         continue;
       }
@@ -86,7 +86,7 @@ class LifecycleMethodVisitor extends GeneralizingAstVisitor<void> {
   }
 
   void visitClassOrMixinDeclaration(ClassOrMixinDeclaration node) {
-    for (var member in node.members) {
+    for (final member in node.members) {
       if (member is MethodDeclaration && staticMethodNames.contains(member.name.name)) {
         final visitor = ReferenceVisitor();
         member.body?.accept(visitor);

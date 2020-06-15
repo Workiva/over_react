@@ -85,14 +85,14 @@ mixin DiagnosticMixin on ServerPlugin {
 
   // from DartFixesMixin
   Future<FixesRequest> _getFixesRequest(EditGetFixesParams parameters) async {
-    String path = parameters.file;
-    int offset = parameters.offset;
-    ResolvedUnitResult result = await getResolvedUnitResult(path);
+    final path = parameters.file;
+    final offset = parameters.offset;
+    final result = await getResolvedUnitResult(path);
     return DartFixesRequestImpl(resourceProvider, offset, null, result);
   }
 
   // from DartFixesMixin
-  List<AnalysisError> _getErrors(int offset, ResolvedUnitResult result) {
+//  List<AnalysisError> _getErrors(int offset, ResolvedUnitResult result) {
 //    LineInfo lineInfo = result.lineInfo;
 //    int offsetLine = lineInfo.getLocation(offset).lineNumber;
     // these errors don't include ones from the plugin, which doesn't seem right...
@@ -100,6 +100,6 @@ mixin DiagnosticMixin on ServerPlugin {
 //      int errorLine = lineInfo.getLocation(error.offset).lineNumber;
 //      return errorLine == offsetLine;
 //    }).toList();
-    return result.errors;
-  }
+//    return result.errors;
+//  }
 }

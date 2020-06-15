@@ -28,7 +28,7 @@ class PropNavigationContributor implements NavigationContributor {
             {
               PropertyAccessorElement target;
               // todo can we rely on this traversing types upwards?
-              for (var type in type.element.allSupertypes) {
+              for (final type in type.element.allSupertypes) {
                 if (!type.element.source.fullName.endsWith('.g.dart')) {
                   target = type.getGetter(propName);
                 }

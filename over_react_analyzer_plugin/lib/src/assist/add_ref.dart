@@ -116,7 +116,7 @@ Pair<int, AstNode> getRefInsertionLocation(AstNode node, LineInfo lineInfo) {
     return Pair(-1, null);
   }
 
-  for (var child in parent.childEntities.toList().reversed) {
+  for (final child in parent.childEntities.toList().reversed) {
     if (child is FieldDeclaration || child is VariableDeclarationStatement || child is TopLevelVariableDeclaration) {
       VariableDeclarationList variables;
       if (child is FieldDeclaration) {

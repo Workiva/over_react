@@ -25,10 +25,9 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
 
     // todo check if factory invocation
     if (builderType != null && builderType.name != 'UiProps' && builderType is InterfaceType) {
-      final classAndSuperclasses = [builderType.element]
-        ..addAll(builderType.element.allSupertypes.map((t) => t.element));
+      final classAndSuperclasses = [builderType.element, ...builderType.element.allSupertypes.map((t) => t.element)];
       final allFields = classAndSuperclasses.expand((c) => c.fields);
-      for (var field in allFields) {
+      for (final field in allFields) {
         if (requiredFields.any((requiredField) => requiredField.name == field.name)) {
           // Short-circuit if we've already identified this field as required.
           // There might be duplicates if props are overridden, and there will
@@ -67,7 +66,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
       missingRequiredFieldNames.remove(lhs.propertyName.name);
     });
 
-    for (var name in missingRequiredFieldNames) {
+    for (final name in missingRequiredFieldNames) {
       collector.addError(
         code,
         result.locationFor(usage.builder),

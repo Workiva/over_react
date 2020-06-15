@@ -20,7 +20,7 @@ String getNodeSource(
     if (firstLineIndent != indent) {
       final firstLine = (' ' * (firstLineIndent ?? 0)) + src.split('\n').first;
       final restOfTheLines = src.split('\n').skip(1).map((line) => (' ' * (indent - nodeIndent)) + line);
-      final allLines = [firstLine]..addAll(restOfTheLines);
+      final allLines = [firstLine, ...restOfTheLines];
       return allLines.join('\n');
     } else {
       return src.split('\n').map((line) => (' ' * (indent - nodeIndent)) + line).join('\n');
@@ -31,7 +31,7 @@ String getNodeSource(
     if (firstLineIndent != indent) {
       final firstLine = (' ' * (firstLineIndent ?? 0)) + src.split('\n').first;
       final restOfTheLines = src.split('\n').skip(1).map((line) => (' ' * (nodeIndent - indent)) + line);
-      final allLines = [firstLine]..addAll(restOfTheLines);
+      final allLines = [firstLine, ...restOfTheLines];
       return allLines.join('\n');
     } else {
       return src.split('\n').map((line) => line.replaceFirst(' ' * (nodeIndent - indent), '')).join('\n');

@@ -20,7 +20,7 @@ class DuplicatePropCascadeDiagnostic extends ComponentUsageDiagnosticContributor
       propUsagesByName.putIfAbsent(lhs.propertyName.name, () => []).add(Pair(lhs, rhs));
     });
 
-    for (var usages in propUsagesByName.values) {
+    for (final usages in propUsagesByName.values) {
       if (usages.length > 1) {
         for (var i = 0; i < usages.length; i++) {
           final lhs = usages[i].first;

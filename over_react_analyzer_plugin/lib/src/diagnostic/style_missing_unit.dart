@@ -25,7 +25,7 @@ class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
       }
     });
 
-    for (var entry in styleEntries) {
+    for (final entry in styleEntries) {
       final propertyName = _stringValueIfApplicable(entry.key);
       if (propertyName == null) continue;
 

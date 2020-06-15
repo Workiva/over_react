@@ -20,15 +20,15 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
 
     final returnClasses = visitor.returnClasses;
 
-    for (ClassDeclaration propsClass in returnClasses) {
+    for (final propsClass in returnClasses) {
       final classFields = propsClass.declaredElement.fields;
-      for (FieldElement field in classFields) {
+      for (final field in classFields) {
         final propName = field.name;
         if (field.type != typeProvider.boolType) continue;
         if (propName == null) continue; // just in case
 
-        List boolPropReadability = checkBoolPropReadability(propName);
-        bool isPropReadable = boolPropReadability[0];
+        final boolPropReadability = checkBoolPropReadability(propName);
+        final isPropReadable = boolPropReadability[0];
 
         if (!isPropReadable) {
           collector.addError(code, result.locationFor(propsClass.getField(field.name)),
@@ -40,9 +40,9 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
 }
 
 List checkBoolPropReadability(String propName) {
-  List reasons = [];
-  bool isReadable = false;
-  var checklist = {
+  final reasons = [];
+  var isReadable = false;
+  final checklist = {
     'prefix': hasBooleanPrefix(propName),
     'contains': hasBooleanContain(propName),
     'lowercase': isLowercase(propName),

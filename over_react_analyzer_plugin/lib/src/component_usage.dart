@@ -120,28 +120,24 @@ class ComponentDetector extends SimpleAstVisitor<void> {
 
   @override
   void visitFunctionExpressionInvocation(FunctionExpressionInvocation node) {
-    return visitInvocationExpression(node);
+    visitInvocationExpression(node);
   }
 
   @override
   void visitMethodInvocation(MethodInvocation node) {
-    return visitInvocationExpression(node);
+    visitInvocationExpression(node);
   }
 
   @override
   void visitParenthesizedExpression(ParenthesizedExpression node) {
     // Recursively traverse parentheses, in case there are extra parens on the component.
     node.visitChildren(this);
-
-    return null;
   }
 
   void visitInvocationExpression(InvocationExpression node) {
     if (getComponentUsage(node) != null) {
       detected = true;
     }
-
-    return null;
   }
 }
 

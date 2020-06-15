@@ -19,7 +19,7 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
   computeErrorsForUsage(result, collector, usage) async {
     final typeSystem = result.unit.declaredElement.context.typeSystem;
 
-    for (var argument in usage.node.argumentList.arguments) {
+    for (final argument in usage.node.argumentList.arguments) {
       await validateReactChildType(argument.staticType, typeSystem, onInvalidType: (invalidType) async {
         final location = result.locationFor(argument);
 
@@ -42,7 +42,7 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
 }
 
 Future<void> validateReactChildType(DartType type, TypeSystem typeSystem,
-    {@required FutureOr<void> onInvalidType(DartType invalidType)}) async {
+    {FutureOr<void> Function(DartType invalidType) onInvalidType}) async {
   // Couldn't be resolved
   if (type == null) return;
   // Couldn't be resolved to anything more specific; `Object` might be

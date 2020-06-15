@@ -14,7 +14,7 @@ bool couldBeMissingBuilderInvocation(Expression expression) {
 }
 
 /// Use [buildMissingInvocationEdits] instead.
-@deprecated
+@Deprecated('Use [buildMissingInvocationEdits] instead')
 List<SourceEdit> getMissingInvocationBuilderEdits(Expression expression) {
   if (expression.unParenthesized != expression) {
     // Expression is already parenthesized
