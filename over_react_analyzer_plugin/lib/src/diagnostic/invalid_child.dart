@@ -6,6 +6,7 @@ import 'package:analyzer/src/generated/type_system.dart' show TypeSystem;
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
@@ -48,7 +49,7 @@ Future<void> validateReactChildType(DartType type, TypeSystem typeSystem,
   // Couldn't be resolved to anything more specific; `Object` might be
   // problematic in some cases, but would have too many false positives.
   if (type.isDynamic || type.isDartCoreObject) return;
-  if (type?.element?.name == 'ReactElement') return;
+  if (type.isReactElement) return;
   if (type.isDartCoreString) return;
   // isAssignableTo to handle num, int, and double
   if (typeSystem.isAssignableTo(typeSystem.typeProvider.numType, type)) return;

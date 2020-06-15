@@ -2,6 +2,7 @@
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
 /// A usage of an OverReact component via its fluent interface.
 class FluentComponentUsage {
@@ -86,7 +87,7 @@ FluentComponentUsage getComponentUsage(InvocationExpression node) {
   bool isComponent;
   if (builder.staticType != null) {
     // Resolved AST
-    isComponent = builder.staticType?.element?.name?.endsWith('Props') ?? false;
+    isComponent = builder.staticType?.isPropsClass ?? false;
   } else {
     // Unresolved AST (or type wasn't available)
     isComponent = false;

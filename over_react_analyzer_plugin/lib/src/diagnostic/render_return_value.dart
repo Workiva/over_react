@@ -4,6 +4,7 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
 class RenderReturnValueDiagnostic extends DiagnosticContributor {
   static final invalidTypeErrorCode = DiagnosticCode(
@@ -67,10 +68,6 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
   }
 }
 
-//
-bool hasComponentAnnotation(ClassDeclaration c) =>
-    c.declaredElement.allSupertypes.any((m) => m?.element?.name == 'Component');
-
 class RenderVisitor extends SimpleAstVisitor<void> {
   RenderReturnVisitor returnVisitor = RenderReturnVisitor();
 
@@ -81,7 +78,7 @@ class RenderVisitor extends SimpleAstVisitor<void> {
 
   @override
   void visitClassDeclaration(ClassDeclaration node) {
-    if (hasComponentAnnotation(node)) {
+    if (node.declaredElement.isComponentClass) {
       node.visitChildren(this);
     }
   }

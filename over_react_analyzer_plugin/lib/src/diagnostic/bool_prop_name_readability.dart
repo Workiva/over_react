@@ -1,7 +1,7 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
-import 'package:analyzer/dart/element/element.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
 class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
   static const code = DiagnosticCode(
@@ -70,8 +70,6 @@ bool hasBooleanContain(String propName) {
   return propName.toLowerCase().contains(RegExp('(${allowedContainsForBoolProp.join("|")})'));
 }
 
-bool isPropsClass(ClassDeclaration c) => c.declaredElement.allSupertypes.any((m) => m?.element?.name == 'UiProps');
-
 class PropsVisitor extends SimpleAstVisitor<void> {
   List<ClassDeclaration> returnClasses = [];
   @override
@@ -81,7 +79,7 @@ class PropsVisitor extends SimpleAstVisitor<void> {
 
   @override
   void visitClassDeclaration(ClassDeclaration node) {
-    if (isPropsClass(node)) {
+    if (node.declaredElement.isPropsClass) {
       returnClasses.add(node);
     }
   }
