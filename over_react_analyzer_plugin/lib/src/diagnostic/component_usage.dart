@@ -12,7 +12,6 @@ import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
-import 'package:analyzer_plugin/utilities/range_factory.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
@@ -56,7 +55,7 @@ class ErrorCode {
   String toString() => uniqueName;
 }
 
-/// An object used to produce errors.
+/// An object used to produce errors and fixes.
 ///
 /// Clients may implement this class when implementing plugins.
 abstract class DiagnosticContributor {
@@ -101,9 +100,9 @@ extension ResultLocation on ResolvedUnitResult {
   }
 }
 
-/// A generator that will generate an 'edit.getErrors' response.
-///
-/// Clients may not extend, implement or mix-in this class.
+/// A class that generates errors and fixes for aa set of [contributors] for
+/// a given result unit or fixes request.
+@sealed
 class DiagnosticGenerator {
   /// Initialize a newly created errors generator to use the given
   /// [contributors].
@@ -112,44 +111,25 @@ class DiagnosticGenerator {
   /// The contributors to be used to generate the errors.
   final List<DiagnosticContributor> contributors;
 
-  // TODO dry up
-  // todo use generatorResult
-  /// Create an 'edit.getErrors' response for the location in the file specified
+  /// Creates a 'analysis.errors' response for the the file specified
   /// by the given [unitResult]. If any of the contributors throws an exception,
   /// also create a non-fatal 'plugin.error' notification.
   Future<GeneratorResult<List<AnalysisError>>> generateErrors(ResolvedUnitResult unitResult) async {
-    final notifications = <Notification>[];
-    final collector = DiagnosticCollectorImpl(shouldComputeFixes: false);
-    for (final contributor in contributors) {
-      try {
-        await contributor.computeErrors(unitResult, collector);
-      } catch (exception, stackTrace) {
-        notifications.add(PluginErrorParams(false, exception.toString(), stackTrace.toString()).toNotification());
-      }
-    }
-
-    // The analyzer normally filters out errors with "ignore" comments,
-    // but it doesn't do it for plugin errors, so we need to do that here.
-    final lineInfo = unitResult.unit.lineInfo;
-    final filteredErrors =
-        filterIgnores(collector.errors, lineInfo, () => IgnoreInfo.calculateIgnores(unitResult.content, lineInfo));
-
-    return GeneratorResult(filteredErrors, notifications);
+    return _generateErrors(unitResult, DiagnosticCollectorImpl(shouldComputeFixes: false));
   }
 
+  /// Creates an 'edit.getFixes' response for the location in the file specified
+  /// by the given [request]. If any of the contributors throws an exception,
+  /// also create a non-fatal 'plugin.error' notification.
   Future<GeneratorResult<EditGetFixesResult>> generateFixesResponse(DartFixesRequest request) async {
-    final notifications = <Notification>[];
-    final collector = DiagnosticCollectorImpl(shouldComputeFixes: true);
+    // Recompute the errors and then emit the matching fixes
 
-    for (final contributor in contributors) {
-      try {
-        await contributor.computeErrors(request.result, collector);
-      } catch (exception, stackTrace) {
-        notifications.add(PluginErrorParams(false, exception.toString(), stackTrace.toString()).toNotification());
-      }
-    }
+    final collector = DiagnosticCollectorImpl(shouldComputeFixes: true);
+    final errorsResult = await _generateErrors(request.result, collector);
+    final notifications = [...errorsResult.notifications];
 
     // Return any fixes that contain the given offset.
+    // TODO use request.errorsToFix instead?
     final fixes = <AnalysisErrorFixes>[];
     for (var i = 0; i < collector.errors.length; i++) {
       final error = collector.errors[i];
@@ -163,19 +143,38 @@ class DiagnosticGenerator {
           error,
           fixes: [collector.fixes[i]],
         ));
-        break;
       }
     }
 
     return GeneratorResult(EditGetFixesResult(fixes), notifications);
   }
+
+  Future<GeneratorResult<List<AnalysisError>>> _generateErrors(
+      ResolvedUnitResult unitResult, DiagnosticCollectorImpl collector) async {
+    final notifications = <Notification>[];
+    for (final contributor in contributors) {
+      try {
+        await contributor.computeErrors(unitResult, collector);
+      } catch (exception, stackTrace) {
+        notifications.add(PluginErrorParams(false, exception.toString(), stackTrace.toString()).toNotification());
+      }
+    }
+
+    // The analyzer normally filters out errors with "ignore" comments,
+    // but it doesn't do it for plugin errors, so we need to do that here.
+    final lineInfo = unitResult.unit.lineInfo;
+    final filteredErrors =
+    filterIgnores(collector.errors, lineInfo, () => IgnoreInfo.calculateIgnores(unitResult.content, lineInfo));
+
+    return GeneratorResult(filteredErrors, notifications);
+  }
 }
 
-/// An object that [DiagnosticContributor]s use to record errors.
-///
-/// Clients may not extend, implement or mix-in this class.
+/// An object that [DiagnosticContributor]s use to record errors and fixes.
+@sealed
 abstract class DiagnosticCollector {
   void addRawError(AnalysisError error, {PrioritizedSourceChange fix});
+
   void addError(ErrorCode code, Location location, {bool hasFix, List<Object> errorMessageArgs});
 
   ///
@@ -205,6 +204,7 @@ abstract class DiagnosticCollector {
       List<Object> fixMessageArgs});
 }
 
+@protected
 class DiagnosticCollectorImpl implements DiagnosticCollector {
   DiagnosticCollectorImpl({@required this.shouldComputeFixes});
 
