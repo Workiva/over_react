@@ -95,7 +95,7 @@ mixin DiagnosticMixin on ServerPlugin {
 //  List<AnalysisError> _getErrors(int offset, ResolvedUnitResult result) {
 //    LineInfo lineInfo = result.lineInfo;
 //    int offsetLine = lineInfo.getLocation(offset).lineNumber;
-    // these errors don't include ones from the plugin, which doesn't seem right...
+  // these errors don't include ones from the plugin, which doesn't seem right...
 //    return result.errors.where((AnalysisError error) {
 //      int errorLine = lineInfo.getLocation(error.offset).lineNumber;
 //      return errorLine == offsetLine;

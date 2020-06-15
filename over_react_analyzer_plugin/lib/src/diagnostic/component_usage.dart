@@ -280,7 +280,6 @@ abstract class ComponentUsageDiagnosticContributor extends DiagnosticContributor
   }
 }
 
-
 class ComponentUsageVisitor extends RecursiveAstVisitor<void> {
   ComponentUsageVisitor(this.onComponent);
 
