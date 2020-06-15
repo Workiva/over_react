@@ -7,8 +7,7 @@ extension ReactTypes$DartType on DartType {
   bool get isPropsClass => element.isPropsClass;
 }
 
-
-extension ReactTypes$Element on Element/*?*/ {
+extension ReactTypes$Element on Element /*?*/ {
   bool get isComponentClass => isOrIsSubtypeOfTypeFromPackage('Component', 'react');
   bool get isReactElement => isOrIsSubtypeOfTypeFromPackage('ReactElement', 'react');
   bool get isPropsClass => isOrIsSubtypeOfTypeFromPackage('UiProps', 'over_react');

@@ -97,7 +97,6 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
   }
 }
 
-
 extension _TryCast on dynamic {
   // Use Object as lower bound so that dynamic isn't inferred if args
   // aren't specified, forcing calls to be analyzed instead of treated as dynamic.
