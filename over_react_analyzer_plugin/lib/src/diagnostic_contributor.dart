@@ -62,7 +62,6 @@ abstract class DiagnosticContributor {
   Future<void> computeErrors(ResolvedUnitResult result, DiagnosticCollector collector);
 }
 
-
 abstract class ComponentUsageDiagnosticContributor extends DiagnosticContributor {
   // computeErrorsForUsage(result, collector, usage) async {
   Future<void> computeErrorsForUsage(
@@ -105,11 +104,10 @@ abstract class DiagnosticCollector {
   ///
   Future<void> addErrorWithFix(DiagnosticCode code, Location location,
       {FixKind fixKind,
-        FutureOr<SourceChange> Function() computeFix,
-        List<Object> errorMessageArgs,
-        List<Object> fixMessageArgs});
+      FutureOr<SourceChange> Function() computeFix,
+      List<Object> errorMessageArgs,
+      List<Object> fixMessageArgs});
 }
-
 
 @protected
 class DiagnosticCollectorImpl implements DiagnosticCollector {
@@ -130,10 +128,10 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
   @override
   void addError(DiagnosticCode code, Location location,
       {bool hasFix = false,
-        FixKind fixKind,
-        SourceChange fixChange,
-        List<Object> errorMessageArgs,
-        List<Object> fixMessageArgs}) {
+      FixKind fixKind,
+      SourceChange fixChange,
+      List<Object> errorMessageArgs,
+      List<Object> fixMessageArgs}) {
     PrioritizedSourceChange fix;
     if (fixChange != null) {
       if (fixChange.edits.isNotEmpty) {
@@ -159,9 +157,9 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
   @override
   Future<void> addErrorWithFix(DiagnosticCode code, Location location,
       {FixKind fixKind,
-        FutureOr<SourceChange> Function() computeFix,
-        List<Object> errorMessageArgs,
-        List<Object> fixMessageArgs}) async {
+      FutureOr<SourceChange> Function() computeFix,
+      List<Object> errorMessageArgs,
+      List<Object> fixMessageArgs}) async {
     addError(
       code,
       location,

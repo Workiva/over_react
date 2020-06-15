@@ -108,7 +108,6 @@ mixin DiagnosticMixin on ServerPlugin {
 //  }
 }
 
-
 /// A class that generates errors and fixes for a set of [contributors] for
 /// a given result unit or fixes request.
 @sealed
@@ -173,12 +172,11 @@ class _DiagnosticGenerator {
     // but it doesn't do it for plugin errors, so we need to do that here.
     final lineInfo = unitResult.unit.lineInfo;
     final filteredErrors =
-    filterIgnores(collector.errors, lineInfo, () => IgnoreInfo.calculateIgnores(unitResult.content, lineInfo));
+        filterIgnores(collector.errors, lineInfo, () => IgnoreInfo.calculateIgnores(unitResult.content, lineInfo));
 
     return _GeneratorResult(filteredErrors, notifications);
   }
 }
-
 
 /// The result produced by a generator.
 ///

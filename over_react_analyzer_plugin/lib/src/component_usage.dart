@@ -168,7 +168,6 @@ FluentComponentUsage identifyUsage(AstNode node) {
   return null;
 }
 
-
 class ComponentUsageVisitor extends RecursiveAstVisitor<void> {
   ComponentUsageVisitor(this.onComponent);
 
