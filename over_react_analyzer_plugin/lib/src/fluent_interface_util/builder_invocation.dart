@@ -10,7 +10,7 @@ const addBuilderInvocationFix = FixKind('over_react_add_builder_invocation', 200
 
 bool couldBeMissingBuilderInvocation(Expression expression) {
   // TODO actually check against UiProps, or at the very least against Map
-  return expression.staticType.name?.endsWith('Props') ?? false;
+  return expression.staticType?.element?.name?.endsWith('Props') ?? false;
 }
 
 /// Use [buildMissingInvocationEdits] instead.

@@ -22,7 +22,7 @@ class FluentComponentUsage {
   final Expression builder;
 
   String get componentName {
-    final typeName = builder.staticType?.name;
+    final typeName = builder.staticType?.element?.name;
     if (typeName == null) return null;
     if (const ['dynamic', 'UiProps'].contains(typeName)) return null;
     if (isDom) {
@@ -39,8 +39,8 @@ class FluentComponentUsage {
     return null;
   }
 
-  bool get isDom => const ['DomProps', 'SvgProps'].contains(builder.staticType?.name);
-  bool get isSvg => const ['SvgProps'].contains(builder.staticType?.name);
+  bool get isDom => const ['DomProps', 'SvgProps'].contains(builder.staticType?.element?.name);
+  bool get isSvg => const ['SvgProps'].contains(builder.staticType?.element?.name);
 
   /// Whether the invocation contains one or more children passed as arguments instead of a list.
   bool get hasVariadicChildren =>
@@ -86,7 +86,7 @@ FluentComponentUsage getComponentUsage(InvocationExpression node) {
   bool isComponent;
   if (builder.staticType != null) {
     // Resolved AST
-    isComponent = builder.staticType.name?.endsWith('Props') ?? false;
+    isComponent = builder.staticType?.element?.name?.endsWith('Props') ?? false;
   } else {
     // Unresolved AST (or type wasn't available)
     isComponent = false;

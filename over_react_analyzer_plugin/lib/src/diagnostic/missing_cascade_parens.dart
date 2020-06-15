@@ -71,7 +71,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
           continue;
         }
 
-        debug.log('${invocation.function.staticType?.displayName}');
+        debug.log('${invocation.function.staticType?.getDisplayString()}');
 
         if (isBadFunction && (invocation.function.staticType?.isReactElement ?? false)) {
           final expr = invocation.function?.tryCast<InvocationExpression>() ??
@@ -98,8 +98,8 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
 }
 
 extension _TypeHelper on DartType {
-  bool get isPropsClass => name.endsWith('Props');
-  bool get isReactElement => name == 'ReactElement';
+  bool get isPropsClass => element?.name?.endsWith('Props') ?? false;
+  bool get isReactElement => element?.name == 'ReactElement';
 }
 
 extension _TryCast on dynamic {

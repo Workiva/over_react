@@ -13,7 +13,7 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
 
   @override
   computeErrors(result, collector) async {
-    final typeProvider = result.unit.declaredElement.context.typeProvider;
+    final typeProvider = result.libraryElement.typeProvider;
     final visitor = PropsVisitor();
 
     result.unit.accept(visitor);
@@ -70,7 +70,7 @@ bool hasBooleanContain(String propName) {
   return propName.toLowerCase().contains(RegExp('(${allowedContainsForBoolProp.join("|")})'));
 }
 
-bool isPropsClass(ClassDeclaration c) => c.declaredElement.allSupertypes.any((m) => m.name == 'UiProps');
+bool isPropsClass(ClassDeclaration c) => c.declaredElement.allSupertypes.any((m) => m?.element?.name == 'UiProps');
 
 class PropsVisitor extends SimpleAstVisitor<void> {
   List<ClassDeclaration> returnClasses = [];

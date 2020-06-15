@@ -17,7 +17,7 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    final typeSystem = result.unit.declaredElement.context.typeSystem;
+    final typeSystem = result.libraryElement.typeSystem;
 
     for (final argument in usage.node.argumentList.arguments) {
       await validateReactChildType(argument.staticType, typeSystem, onInvalidType: (invalidType) async {
@@ -27,14 +27,14 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
           await collector.addErrorWithFix(
             code,
             location,
-            errorMessageArgs: [invalidType.displayName, missingBuilderMessageSuffix],
+            errorMessageArgs: [invalidType.getDisplayString(), missingBuilderMessageSuffix],
             fixKind: addBuilderInvocationFix,
             computeFix: () => buildFileEdit(result, (builder) {
               buildMissingInvocationEdits(argument, builder);
             }),
           );
         } else {
-          collector.addError(code, location, errorMessageArgs: [invalidType.displayName, '']);
+          collector.addError(code, location, errorMessageArgs: [invalidType.getDisplayString(), '']);
         }
       });
     }
@@ -47,8 +47,8 @@ Future<void> validateReactChildType(DartType type, TypeSystem typeSystem,
   if (type == null) return;
   // Couldn't be resolved to anything more specific; `Object` might be
   // problematic in some cases, but would have too many false positives.
-  if (type.isDynamic || type.isObject) return;
-  if (type.name == 'ReactElement') return;
+  if (type.isDynamic || type.isDartCoreObject) return;
+  if (type?.element?.name == 'ReactElement') return;
   if (type.isDartCoreString) return;
   // isAssignableTo to handle num, int, and double
   if (typeSystem.isAssignableTo(typeSystem.typeProvider.numType, type)) return;
@@ -58,7 +58,7 @@ Future<void> validateReactChildType(DartType type, TypeSystem typeSystem,
   // To check for an iterable, type-check against `iterableDynamicType` and not
   // `iterableType` since the latter has an uninstantiated type argument of `E`.
   if (typeSystem.isSubtypeOf(type, typeSystem.typeProvider.iterableDynamicType)) {
-    var typeArg = typeSystem.mostSpecificTypeArgument(type, typeSystem.typeProvider.iterableType);
+    var typeArg = typeSystem.mostSpecificTypeArgument(type, typeSystem.typeProvider.iterableDynamicType);
     await validateReactChildType(typeArg, typeSystem, onInvalidType: onInvalidType);
     return;
   }

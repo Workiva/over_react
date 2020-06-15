@@ -22,7 +22,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
 
   @override
   computeErrors(result, collector) async {
-    final typeSystem = result.unit.declaredElement.context.typeSystem;
+    final typeSystem = result.libraryElement.typeSystem;
 
     // This is the return type even if it's not explicitly declared.
     final visitor = RenderVisitor();
@@ -31,7 +31,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
       final returnExpression = returnStatement.expression;
       if (returnExpression == null) continue; // valueless returns
       final returnType = returnExpression.staticType;
-      if (returnType == null || returnType.isDynamic || returnType.isObject || returnType.isVoid) {
+      if (returnType == null || returnType.isDynamic || returnType.isDartCoreObject || returnType.isVoid) {
         continue;
       }
 
@@ -42,14 +42,14 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
           await collector.addErrorWithFix(
             code,
             location,
-            errorMessageArgs: [returnType.name, missingBuilderMessageSuffix],
+            errorMessageArgs: [returnType.getDisplayString(), missingBuilderMessageSuffix],
             fixKind: addBuilderInvocationFix,
             computeFix: () => buildFileEdit(result, (builder) {
               buildMissingInvocationEdits(returnExpression, builder);
             }),
           );
         } else {
-          collector.addError(code, location, errorMessageArgs: [returnType.name, '']);
+          collector.addError(code, location, errorMessageArgs: [returnType.getDisplayString(), '']);
         }
       });
 
@@ -68,7 +68,8 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
 }
 
 //
-bool hasComponentAnnotation(ClassDeclaration c) => c.declaredElement.allSupertypes.any((m) => m.name == 'Component');
+bool hasComponentAnnotation(ClassDeclaration c) =>
+    c.declaredElement.allSupertypes.any((m) => m?.element?.name == 'Component');
 
 class RenderVisitor extends SimpleAstVisitor<void> {
   RenderReturnVisitor returnVisitor = RenderReturnVisitor();
