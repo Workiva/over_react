@@ -69,9 +69,13 @@ bool hasBooleanContain(String propName) {
   return propName.toLowerCase().contains(RegExp('(${allowedContainsForBoolProp.join("|")})'));
 }
 
-isPropsClass(ClassDeclaration classDecl) => classDecl.declaredElement.allSupertypes.any((m) => m.getDisplayString() == 'UiProps');
+bool isPropsClass(ClassDeclaration classDecl) {
+  return classDecl.declaredElement.allSupertypes.any((m) => m.getDisplayString() == 'UiProps');
+}
 
-isPropsMixin(MixinDeclaration mixinDecl) => mixinDecl.onClause.superclassConstraints.any((m) => m.name.name == 'UiProps');
+bool isPropsMixin(MixinDeclaration mixinDecl) {
+  return mixinDecl.onClause.superclassConstraints.any((m) => m.name.name == 'UiProps');
+}
 
 class PropsVisitor extends SimpleAstVisitor<void> {
   List<ClassOrMixinDeclaration> returnMixins = [];
