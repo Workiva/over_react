@@ -279,12 +279,11 @@ abstract class ComponentUsageDiagnosticContributor extends DiagnosticContributor
   }
 }
 
-typedef _OnComponent = void Function(FluentComponentUsage usage);
 
 class ComponentUsageVisitor extends RecursiveAstVisitor<void> {
   ComponentUsageVisitor(this.onComponent);
 
-  final _OnComponent onComponent;
+  final void Function(FluentComponentUsage) onComponent;
 
   @override
   void visitFunctionExpressionInvocation(FunctionExpressionInvocation node) {
