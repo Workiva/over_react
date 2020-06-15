@@ -4,7 +4,7 @@ import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor {
   static const code = ErrorCode(
     'over_react_invalid_dom_attribute',
-    "{}' isn't a valid HTML attribute prop for '{}'. It may only be used on: {}",
+    "'{0}' isn't a valid HTML attribute prop for '{1}'. It may only be used on: {2}",
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
   );
@@ -29,7 +29,7 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
 
       if (!allowedElements.contains(nodeName)) {
         collector.addError(code, result.locationFor(lhs.propertyName),
-            errorMessageArgs: [propName, nodeName, allowedElements.join(',')]);
+            errorMessageArgs: [propName, 'Dom.$nodeName()', allowedElements.map((name) => 'Dom.$name()').join(',')]);
       }
     });
   }
