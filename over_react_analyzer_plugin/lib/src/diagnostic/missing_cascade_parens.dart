@@ -5,10 +5,10 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
 class MissingCascadeParensDiagnostic extends DiagnosticContributor {
-  static final code = ErrorCode(
+  static final code = DiagnosticCode(
       'over_react_missing_cascade_parens',
       'Are you missing parentheses around the builder cascade?',
       AnalysisErrorSeverity.WARNING,

@@ -5,11 +5,11 @@ import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/src/generated/type_system.dart' show TypeSystem;
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
-  static final code = ErrorCode(
+  static final code = DiagnosticCode(
       'over_react_invalid_child',
       "Invalid child type: '{0}'. Must be a ReactElement, Fragment, string, number, boolean, null, or an Iterable of those types.{1}",
       AnalysisErrorSeverity.WARNING,

@@ -51,7 +51,7 @@ import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/diagnostic.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/arrow_function_prop.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/bool_prop_name_readability.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/dom_prop_types.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/duplicate_prop_cascade.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/hashcode_as_key.dart';

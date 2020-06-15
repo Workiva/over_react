@@ -1,8 +1,8 @@
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor {
-  static const code = ErrorCode(
+  static const code = DiagnosticCode(
     'over_react_invalid_dom_attribute',
     "{}' isn't a valid HTML attribute prop for '{}'. It may only be used on: {}",
     AnalysisErrorSeverity.WARNING,
