@@ -9,13 +9,9 @@ main() {
   )();
 }
 
+UiFactory<BarProps> Bar = _$Bar; // ignore: undefined_identifier
 
-@Factory()
-// ignore: undefined_identifier
-UiFactory<BarProps> Bar = _$Bar;
-
-@Props()
-class _$BarProps extends UiProps {
+mixin BarProps on UiProps {
   @requiredProp
   String barRequired;
 
@@ -23,14 +19,7 @@ class _$BarProps extends UiProps {
   String bar;
 }
 
-// ignore: mixin_of_non_class, undefined_class
-class BarProps extends _$BarProps with _$BarPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForBarProps;
-}
-
-@Component()
-class BarComponent extends UiComponent<BarProps> {
+class BarComponent extends UiComponent2<BarProps> {
   @override
   render() => Dom.div()();
 }
