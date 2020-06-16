@@ -2,18 +2,18 @@ import 'package:analyzer/source/source_range.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 // ignore: implementation_imports
 import 'package:over_react/src/builder/parsing.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:source_span/source_span.dart';
 
 class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
-  static final errorCode = ErrorCode(
+  static final errorCode = DiagnosticCode(
       'over_react_boilerplate_error', '{0}', AnalysisErrorSeverity.ERROR, AnalysisErrorType.COMPILE_TIME_ERROR);
 
-  static final warningCode = ErrorCode(
+  static final warningCode = DiagnosticCode(
       'over_react_boilerplate_warning', '{0}', AnalysisErrorSeverity.WARNING, AnalysisErrorType.COMPILE_TIME_ERROR);
 
   static final debugCode =
-      ErrorCode('over_react_boilerplate_debug', '{0}', AnalysisErrorSeverity.INFO, AnalysisErrorType.HINT);
+      DiagnosticCode('over_react_boilerplate_debug', '{0}', AnalysisErrorSeverity.INFO, AnalysisErrorType.HINT);
 
   static final _debugFlagPattern = RegExp(r'debug:.*\bover_react_boilerplate\b');
 
