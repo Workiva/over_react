@@ -1,9 +1,9 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
 class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
-  static const code = ErrorCode(
+  static const code = DiagnosticCode(
     'over_react_bool_prop_name_readability',
     "'{0}.{1}' isn't an easily readable Boolean prop name. Try using a prefix like: {2}",
     AnalysisErrorSeverity.INFO,

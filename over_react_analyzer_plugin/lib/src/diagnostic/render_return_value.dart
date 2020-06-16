@@ -1,18 +1,18 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class RenderReturnValueDiagnostic extends DiagnosticContributor {
-  static final invalidTypeErrorCode = ErrorCode(
+  static final invalidTypeErrorCode = DiagnosticCode(
       'over_react_invalid_render_return_type',
       "Invalid render() return type: '{0}'. Must be a ReactElement, primitive value, or an Iterable of those types.{1}",
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_TYPE_WARNING);
 
-  static final preferNullOverFalseErrorCode = ErrorCode(
+  static final preferNullOverFalseErrorCode = DiagnosticCode(
       'over_react_prefer_null_over_false',
       'Prefer returning null over false in render. (The dart2js bug involving null has been fixed.)',
       AnalysisErrorSeverity.WARNING,

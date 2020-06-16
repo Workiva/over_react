@@ -167,3 +167,55 @@ FluentComponentUsage identifyUsage(AstNode node) {
   }
   return null;
 }
+
+class ComponentUsageVisitor extends RecursiveAstVisitor<void> {
+  ComponentUsageVisitor(this.onComponent);
+
+  final void Function(FluentComponentUsage) onComponent;
+
+  @override
+  void visitFunctionExpressionInvocation(FunctionExpressionInvocation node) {
+    visitInvocationExpression(node);
+  }
+
+  @override
+  void visitMethodInvocation(MethodInvocation node) {
+    visitInvocationExpression(node);
+  }
+
+  void visitInvocationExpression(InvocationExpression node) {
+    var usage = getComponentUsage(node);
+    if (usage != null) {
+      onComponent(usage);
+    }
+
+    node.visitChildren(this);
+  }
+}
+
+//
+//class ComponentUsageElementVisitor extends RecursiveElementVisitor<void> {
+//  final _OnComponent onComponent;
+//
+//  ComponentUsageElementVisitor(this.onComponent);
+//
+//  @override
+//  void visitFunctionExpressionInvocation(FunctionExpressionInvocation node) {
+//    return visitInvocationExpression(node);
+//  }
+//
+//  @override
+//  void visitMethodInvocation(MethodInvocation node) {
+//    return visitInvocationExpression(node);
+//  }
+//
+//  void visitInvocationExpression(InvocationExpression node) {
+//    var usage = getComponentUsage(node);
+//    if (usage != null) {
+//      onComponent(usage);
+//    }
+//
+//    node.visitChildren(this);
+//    return null;
+//  }
+//}
