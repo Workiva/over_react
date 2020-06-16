@@ -59,11 +59,6 @@ class IncorrectDocCommentLocationDiagnostic extends DiagnosticContributor {
   }
 }
 
-/// Returns the name of [factory].
-String getFactoryName(TopLevelVariableDeclaration factory) {
-  return factory.variables.variables.first.name.name;
-}
-
 /// Returns [className] with the `Component`, `Props`, `PropsMixin`, `State`,
 /// or `StateMixin` ending removed.
 ///
@@ -87,12 +82,7 @@ TopLevelVariableDeclaration getComponentFactory(
   } else if (factoryList.length == 1) {
     return factoryList.first;
   }
-  return factoryList.firstWhere((factory) => removeClassNameEnding(classDecl.name.name) == getFactoryName(factory));
-}
-
-/// Returns whether or not [decl] is a `UiFactory`.
-bool isComponentFactory(TopLevelVariableDeclaration decl) {
-  return decl.variables.type.beginToken.toString() == 'UiFactory';
+  return factoryList.firstWhere((factory) => removeClassNameEnding(classDecl.name.name) == factory.factoryName.name);
 }
 
 class CommentsVisitor extends SimpleAstVisitor<void> {
@@ -115,7 +105,7 @@ class CommentsVisitor extends SimpleAstVisitor<void> {
 
   @override
   void visitTopLevelVariableDeclaration(TopLevelVariableDeclaration node) {
-    if (isComponentFactory(node)) {
+    if (node.isComponentFactory) {
       factoryList.add(node);
     }
   }
