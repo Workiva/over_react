@@ -18,11 +18,11 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
 
     result.unit.accept(visitor);
 
-    final returnClasses = visitor.returnClasses;
+    final returnMixins = visitor.returnMixins;
 
-    for (final propsClass in returnClasses) {
-      final classFields = propsClass.declaredElement.fields;
-      for (final field in classFields) {
+    for (final propsClass in returnMixins) {
+      final mixinFields = propsClass.declaredElement.fields;
+      for (final field in mixinFields) {
         final propName = field.name;
         if (field.type != typeProvider.boolType) continue;
         if (propName == null) continue; // just in case
@@ -71,7 +71,7 @@ bool hasBooleanContain(String propName) {
 }
 
 class PropsVisitor extends SimpleAstVisitor<void> {
-  List<ClassDeclaration> returnClasses = [];
+  List<ClassOrMixinDeclaration> returnMixins = [];
   @override
   void visitCompilationUnit(CompilationUnit node) {
     node.visitChildren(this);
@@ -80,7 +80,14 @@ class PropsVisitor extends SimpleAstVisitor<void> {
   @override
   void visitClassDeclaration(ClassDeclaration node) {
     if (node.declaredElement.isPropsClass) {
-      returnClasses.add(node);
+      returnMixins.add(node);
+    }
+  }
+
+  @override
+  void visitMixinDeclaration(MixinDeclaration node) {
+    if (node.declaredElement.isPropsClass) {
+      returnMixins.add(node);
     }
   }
 }
