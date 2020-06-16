@@ -1,21 +1,25 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:analyzer_plugin/protocol/protocol_common.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
 class IncorrectDocCommentLocationDiagnostic extends DiagnosticContributor {
-  static const code = ErrorCode(
+  static const code = DiagnosticCode(
     'over_react_incorrect_doc_comment_location',
     "Doc comments should be above the factory declaration",
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.LINT,
   );
 
-  static final fixKind =
-      FixKind(code.name, 200, 'Remove comment', appliedTogetherMessage: 'Remove duplicate prop keys / values');
+  static final fixKind = FixKind(
+    code.name,
+    200,
+    'Move comment above factory',
+  );
 
   @override
   computeErrors(result, collector) async {
-    final visitor = PropsVisitor();
+    final visitor = ClassVisitor();
 
     result.unit.accept(visitor);
 
@@ -28,9 +32,9 @@ class IncorrectDocCommentLocationDiagnostic extends DiagnosticContributor {
         result.locationFor(comment),
         fixKind: fixKind,
         computeFix: () => buildFileEdit(result, (builder) {
-          builder.addDeletion(range.startEnd(comment.parent, comment));
+          builder.addDeletion(range.startOffsetEndOffset(comment.offset - 1, comment.end));
           builder.addInsertion(factoryList.first.offset, (builder) {
-            for(final line in comment.childEntities) {
+            for (final line in comment.childEntities) {
               builder.write('${line.toString()}\n');
             }
           });
@@ -75,7 +79,7 @@ bool isComponentClass(ClassDeclaration classDecl) {
   });
 }
 
-class PropsVisitor extends SimpleAstVisitor<void> {
+class ClassVisitor extends SimpleAstVisitor<void> {
   List<Comment> misplacedDocComments = [];
   List<TopLevelVariableDeclaration> factoryList = [];
   @override
