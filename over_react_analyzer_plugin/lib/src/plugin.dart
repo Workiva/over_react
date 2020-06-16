@@ -56,6 +56,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/dom_prop_types.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/duplicate_prop_cascade.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/hashcode_as_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/iterator_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/missing_cascade_parens.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/missing_required_prop.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/pseudo_static_lifecycle.dart';
@@ -159,6 +160,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin
       InvalidDomAttributeDiagnostic(),
       BoolPropNameReadabilityDiagnostic(),
       StyleMissingUnitDiagnostic(),
+      IteratorKey(),
     ];
   }
 }
