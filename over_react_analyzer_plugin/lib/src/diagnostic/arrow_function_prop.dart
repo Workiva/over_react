@@ -1,11 +1,11 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class ArrowFunctionPropCascadeDiagnostic extends ComponentUsageDiagnosticContributor {
-  static final code = ErrorCode(
+  static final code = DiagnosticCode(
       'over_react_cascaded_arrow_functions',
       'Unparenthesized arrow function values prevent subsequent cascades',
       AnalysisErrorSeverity.WARNING,

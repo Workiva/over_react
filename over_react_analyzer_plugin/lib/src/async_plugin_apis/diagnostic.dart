@@ -33,15 +33,19 @@
 import 'dart:async';
 
 import 'package:analyzer/dart/analysis/results.dart';
-import 'package:analyzer/error/error.dart';
+import 'package:analyzer_plugin/channel/channel.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
+import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart' as plugin;
+import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 // ignore: implementation_imports
 import 'package:analyzer_plugin/src/utilities/fixes/fixes.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:meta/meta.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 
 mixin DiagnosticMixin on ServerPlugin {
   List<DiagnosticContributor> getDiagnosticContributors(String path);
@@ -56,7 +60,7 @@ mixin DiagnosticMixin on ServerPlugin {
         // If there is something to analyze, do so and notify the analyzer.
         // Note that notifying with an empty set of errors is important as
         // this clears errors if they were fixed.
-        final generator = DiagnosticGenerator(getDiagnosticContributors(analysisResult.path));
+        final generator = _DiagnosticGenerator(getDiagnosticContributors(analysisResult.path));
         final result = await generator.generateErrors(analysisResult);
         channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path, result.result).toNotification());
         result.sendNotifications(channel);
@@ -72,7 +76,7 @@ mixin DiagnosticMixin on ServerPlugin {
     // We want request errors to propagate if they throw
     final request = await _getFixesRequest(parameters);
     try {
-      final generator = DiagnosticGenerator(getDiagnosticContributors(parameters.file));
+      final generator = _DiagnosticGenerator(getDiagnosticContributors(parameters.file));
       final result = await generator.generateFixesResponse(request);
       result.sendNotifications(channel);
       return result.result;
@@ -102,4 +106,100 @@ mixin DiagnosticMixin on ServerPlugin {
 //    }).toList();
 //    return result.errors;
 //  }
+}
+
+/// A class that generates errors and fixes for a set of [contributors] for
+/// a given result unit or fixes request.
+@sealed
+class _DiagnosticGenerator {
+  /// Initialize a newly created errors generator to use the given
+  /// [contributors].
+  _DiagnosticGenerator(this.contributors);
+
+  /// The contributors to be used to generate the errors.
+  final List<DiagnosticContributor> contributors;
+
+  /// Creates a 'analysis.errors' response for the the file specified
+  /// by the given [unitResult]. If any of the contributors throws an exception,
+  /// also create a non-fatal 'plugin.error' notification.
+  Future<_GeneratorResult<List<AnalysisError>>> generateErrors(ResolvedUnitResult unitResult) async {
+    return _generateErrors(unitResult, DiagnosticCollectorImpl(shouldComputeFixes: false));
+  }
+
+  /// Creates an 'edit.getFixes' response for the location in the file specified
+  /// by the given [request]. If any of the contributors throws an exception,
+  /// also create a non-fatal 'plugin.error' notification.
+  Future<_GeneratorResult<EditGetFixesResult>> generateFixesResponse(DartFixesRequest request) async {
+    // Recompute the errors and then emit the matching fixes
+
+    final collector = DiagnosticCollectorImpl(shouldComputeFixes: true);
+    final errorsResult = await _generateErrors(request.result, collector);
+    final notifications = [...errorsResult.notifications];
+
+    // Return any fixes that contain the given offset.
+    // TODO use request.errorsToFix instead?
+    final fixes = <AnalysisErrorFixes>[];
+    for (var i = 0; i < collector.errors.length; i++) {
+      final error = collector.errors[i];
+      final errorStart = error.location.offset;
+      final errorEnd = errorStart + error.location.length;
+
+      // `<=` because we do want the end to be inclusive (you should get
+      // the fix when your cursor is on the tail end of the error).
+      if (request.offset >= errorStart && request.offset <= errorEnd) {
+        fixes.add(AnalysisErrorFixes(
+          error,
+          fixes: [collector.fixes[i]],
+        ));
+      }
+    }
+
+    return _GeneratorResult(EditGetFixesResult(fixes), notifications);
+  }
+
+  Future<_GeneratorResult<List<AnalysisError>>> _generateErrors(
+      ResolvedUnitResult unitResult, DiagnosticCollectorImpl collector) async {
+    final notifications = <Notification>[];
+    for (final contributor in contributors) {
+      try {
+        await contributor.computeErrors(unitResult, collector);
+      } catch (exception, stackTrace) {
+        notifications.add(PluginErrorParams(false, exception.toString(), stackTrace.toString()).toNotification());
+      }
+    }
+
+    // The analyzer normally filters out errors with "ignore" comments,
+    // but it doesn't do it for plugin errors, so we need to do that here.
+    final lineInfo = unitResult.unit.lineInfo;
+    final filteredErrors =
+        filterIgnores(collector.errors, lineInfo, () => IgnoreInfo.calculateIgnores(unitResult.content, lineInfo));
+
+    return _GeneratorResult(filteredErrors, notifications);
+  }
+}
+
+/// The result produced by a generator.
+///
+/// Adapted from `GeneratorResult` in analyzer_plugin, but with less restrictive typing.
+@sealed
+class _GeneratorResult<T> {
+  /// The result to be sent to the server, or `null` if there is no response, as
+  /// when the generator is generating a notification.
+  final T result;
+
+  /// The notifications that should be sent to the server. The list will be empty
+  /// if there are no notifications.
+  final List<Notification> notifications;
+
+  /// Initialize a newly created generator result with the given [result] and
+  /// [notifications].
+  _GeneratorResult(this.result, this.notifications);
+
+  /// Use the given communications [channel] to send the notifications to the
+  /// server.
+  void sendNotifications(PluginCommunicationChannel channel) {
+    for (final notification in notifications) {
+      channel.sendNotification(notification);
+    }
+  }
 }

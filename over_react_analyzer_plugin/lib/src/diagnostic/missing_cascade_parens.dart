@@ -2,13 +2,13 @@
 import 'package:analyzer/analyzer.dart'
     show CompileTimeErrorCode, NodeLocator, StaticTypeWarningCode, StaticWarningCode;
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/element/type.dart';
+import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
 class MissingCascadeParensDiagnostic extends DiagnosticContributor {
-  static final code = ErrorCode(
+  static final code = DiagnosticCode(
       'over_react_missing_cascade_parens',
       'Are you missing parentheses around the builder cascade?',
       AnalysisErrorSeverity.WARNING,
@@ -71,7 +71,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
           continue;
         }
 
-        debug.log('${invocation.function.staticType?.displayName}');
+        debug.log('${invocation.function.staticType?.getDisplayString()}');
 
         if (isBadFunction && (invocation.function.staticType?.isReactElement ?? false)) {
           final expr = invocation.function?.tryCast<InvocationExpression>() ??
@@ -95,11 +95,6 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
       }
     }
   }
-}
-
-extension _TypeHelper on DartType {
-  bool get isPropsClass => name.endsWith('Props');
-  bool get isReactElement => name == 'ReactElement';
 }
 
 extension _TryCast on dynamic {
