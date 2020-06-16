@@ -66,6 +66,8 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/style_missing_unit.dar
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
 import 'package:over_react_analyzer_plugin/src/navigation/prop_navigation_contributor.dart';
 
+import 'assist/toggle_stateful.dart';
+
 /// Analyzer plugin for over_react.
 class OverReactAnalyzerPlugin extends ServerPlugin
     with
@@ -131,6 +133,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin
       ExtractStatefulComponentAssistContributor(),
       ExtractFluxComponentAssistContributor(),
       ExtractFluxStatefulComponentAssistContributor(),
+      ToggleComponentStatefulness(),
       WrapUnwrapAssistContributor(),
     ];
   }
