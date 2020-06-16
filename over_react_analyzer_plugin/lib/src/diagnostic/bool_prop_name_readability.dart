@@ -1,6 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
-import 'package:analyzer/dart/element/element.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
 class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
@@ -18,11 +17,11 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
 
     result.unit.accept(visitor);
 
-    final returnClasses = visitor.returnClasses;
+    final returnMixins = visitor.returnMixins;
 
-    for (final propsClass in returnClasses) {
-      final classFields = propsClass.declaredElement.fields;
-      for (final field in classFields) {
+    for (final propsClass in returnMixins) {
+      final mixinFields = propsClass.declaredElement.fields;
+      for (final field in mixinFields) {
         final propName = field.name;
         if (field.type != typeProvider.boolType) continue;
         if (propName == null) continue; // just in case
@@ -70,10 +69,16 @@ bool hasBooleanContain(String propName) {
   return propName.toLowerCase().contains(RegExp('(${allowedContainsForBoolProp.join("|")})'));
 }
 
-bool isPropsClass(ClassDeclaration c) => c.declaredElement.allSupertypes.any((m) => m.name == 'UiProps');
+bool isPropsClass(ClassDeclaration classDecl) {
+  return classDecl.declaredElement.allSupertypes.any((m) => m.getDisplayString() == 'UiProps');
+}
+
+bool isPropsMixin(MixinDeclaration mixinDecl) {
+  return mixinDecl.onClause.superclassConstraints.any((m) => m.name.name == 'UiProps');
+}
 
 class PropsVisitor extends SimpleAstVisitor<void> {
-  List<ClassDeclaration> returnClasses = [];
+  List<ClassOrMixinDeclaration> returnMixins = [];
   @override
   void visitCompilationUnit(CompilationUnit node) {
     node.visitChildren(this);
@@ -82,7 +87,14 @@ class PropsVisitor extends SimpleAstVisitor<void> {
   @override
   void visitClassDeclaration(ClassDeclaration node) {
     if (isPropsClass(node)) {
-      returnClasses.add(node);
+      returnMixins.add(node);
+    }
+  }
+
+  @override
+  void visitMixinDeclaration(MixinDeclaration node) {
+    if (isPropsMixin(node)) {
+      returnMixins.add(node);
     }
   }
 }
