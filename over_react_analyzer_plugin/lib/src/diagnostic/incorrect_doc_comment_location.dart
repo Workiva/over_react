@@ -2,6 +2,8 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/util/constants.dart';
+import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
 class IncorrectDocCommentLocationDiagnostic extends DiagnosticContributor {
   static const code = DiagnosticCode(
@@ -29,7 +31,7 @@ class IncorrectDocCommentLocationDiagnostic extends DiagnosticContributor {
     for (final classWithComment in classesWithMisplacedDocComments) {
       final docComment = classWithComment.documentationComment;
       final componentFactory = getComponentFactory(classWithComment, factoryList);
-      if(componentFactory != null) {
+      if (componentFactory != null) {
         await collector.addErrorWithFix(
           code,
           result.locationFor(docComment),
@@ -57,25 +59,6 @@ class IncorrectDocCommentLocationDiagnostic extends DiagnosticContributor {
   }
 }
 
-const overReactBaseComponentClasses = {
-  'UiComponent',
-  'UiComponent2',
-  'UiStatefulComponent',
-  'UiStatefulComponent2',
-  'FluxUiComponent',
-  'FluxUiComponent2',
-  'FluxUiStatefulComponent',
-  'FluxUiStatefulComponent2',
-};
-
-const overReactClassEndings = {
-  'Component',
-  'State',
-  'StateMixin',
-  'Props',
-  'PropsMixin',
-};
-
 /// Returns the name of [factory].
 String getFactoryName(TopLevelVariableDeclaration factory) {
   return factory.variables.variables.first.name.name;
@@ -86,7 +69,7 @@ String getFactoryName(TopLevelVariableDeclaration factory) {
 ///
 /// This should be the factory name (see [getComponentFactory]).
 String removeClassNameEnding(String className) {
-  if(overReactClassEndings.any((ending) => className.contains(ending))) {
+  if (overReactClassEndings.any((ending) => className.contains(ending))) {
     final ending = overReactClassEndings.firstWhere((ending) {
       return className.endsWith(ending);
     });
@@ -97,10 +80,11 @@ String removeClassNameEnding(String className) {
 
 /// Returns the component factory in [factoryList] that corresponds to the
 /// component class or props/state class or mixin [classDecl].
-TopLevelVariableDeclaration getComponentFactory(ClassOrMixinDeclaration classDecl, List<TopLevelVariableDeclaration> factoryList) {
-  if(factoryList.isEmpty) {
+TopLevelVariableDeclaration getComponentFactory(
+    ClassOrMixinDeclaration classDecl, List<TopLevelVariableDeclaration> factoryList) {
+  if (factoryList.isEmpty) {
     return null;
-  } else if(factoryList.length == 1) {
+  } else if (factoryList.length == 1) {
     return factoryList.first;
   }
   return factoryList.firstWhere((factory) => removeClassNameEnding(classDecl.name.name) == getFactoryName(factory));
@@ -111,32 +95,19 @@ bool isComponentFactory(TopLevelVariableDeclaration decl) {
   return decl.variables.type.beginToken.toString() == 'UiFactory';
 }
 
-/// Returns whether or not [classDecl] is a props or state class.
-bool isPropsOrStateClass(ClassDeclaration classDecl) {
-  return classDecl.declaredElement.allSupertypes.any((m) {
-    return m.getDisplayString() == 'UiProps' || m.getDisplayString() == 'UiState';
-  });
-}
-
-/// Returns whether or not [mixinDecl] is a props or state mixin.
-bool isPropsOrStateMixin(MixinDeclaration mixinDecl) {
-  return mixinDecl.onClause.superclassConstraints.any((m) {
-    return m.name.name == 'UiProps' || m.name.name == 'UiState';
-  });
-}
-
-/// Returns whether or not [classDecl] is a `UiComponent` class.
-bool isComponentClass(ClassDeclaration classDecl) {
-  return classDecl.declaredElement.allSupertypes.any((m) {
-    return overReactBaseComponentClasses.any((c) {
-      return m.getDisplayString().contains(c);
-    });
-  });
-}
-
 class CommentsVisitor extends SimpleAstVisitor<void> {
   List<ClassOrMixinDeclaration> classesWithMisplacedDocComments = [];
   List<TopLevelVariableDeclaration> factoryList = [];
+
+  void checkForDocComment(ClassOrMixinDeclaration node) {
+    if (node.documentationComment != null &&
+        (node.declaredElement.isComponentClass ||
+            node.declaredElement.isPropsClass ||
+            node.declaredElement.isStateClass)) {
+      classesWithMisplacedDocComments.add(node);
+    }
+  }
+
   @override
   void visitCompilationUnit(CompilationUnit node) {
     node.visitChildren(this);
@@ -151,15 +122,11 @@ class CommentsVisitor extends SimpleAstVisitor<void> {
 
   @override
   void visitClassDeclaration(ClassDeclaration node) {
-    if (node.documentationComment != null && (isComponentClass(node) || isPropsOrStateClass(node))) {
-      classesWithMisplacedDocComments.add(node);
-    }
+    checkForDocComment(node);
   }
 
   @override
   void visitMixinDeclaration(MixinDeclaration node) {
-    if (node.documentationComment != null && isPropsOrStateMixin(node)) {
-      classesWithMisplacedDocComments.add(node);
-    }
+    checkForDocComment(node);
   }
 }
