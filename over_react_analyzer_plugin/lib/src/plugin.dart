@@ -44,13 +44,14 @@ import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
 import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
-import 'package:over_react_analyzer_plugin/src/assist/add_ref.dart';
+import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref_assist.dart';
 import 'package:over_react_analyzer_plugin/src/assist/extract_component.dart';
 import 'package:over_react_analyzer_plugin/src/assist/wrap_unwrap.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/diagnostic.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/arrow_function_prop.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/bool_prop_name_readability.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/callback_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/dom_prop_types.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/duplicate_prop_cascade.dart';
@@ -125,7 +126,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin
   List<AsyncAssistContributor> getAssistContributors(String path) {
     return [
       AddPropsAssistContributor(),
-      AddRefAssistContributor(),
+      AddCreateRefAssistContributor(),
       ExtractComponentAssistContributor(),
       ExtractStatefulComponentAssistContributor(),
       ExtractFluxComponentAssistContributor(),
@@ -153,6 +154,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin
       RenderReturnValueDiagnostic(),
       InvalidChildDiagnostic(),
       StringRefDiagnostic(),
+      CallbackRefDiagnostic(),
       MissingCascadeParensDiagnostic(),
       MissingRequiredPropDiagnostic(),
       PseudoStaticLifecycleDiagnostic(),

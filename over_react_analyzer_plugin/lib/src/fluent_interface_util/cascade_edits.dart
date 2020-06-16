@@ -66,10 +66,6 @@ void addProp(
     }
   });
 
-  if (addOnOwnLine) {
-    fileBuilder.addSimpleInsertion(function.unParenthesized.end, '\n$widgetIndent');
-  }
-
   if (needsParens) {
     fileBuilder.addSimpleInsertion(function.end, ')');
   }
