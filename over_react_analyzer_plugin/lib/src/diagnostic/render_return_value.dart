@@ -4,6 +4,7 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
 class RenderReturnValueDiagnostic extends DiagnosticContributor {
   static final invalidTypeErrorCode = DiagnosticCode(
@@ -22,7 +23,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
 
   @override
   computeErrors(result, collector) async {
-    final typeSystem = result.unit.declaredElement.context.typeSystem;
+    final typeSystem = result.libraryElement.typeSystem;
 
     // This is the return type even if it's not explicitly declared.
     final visitor = RenderVisitor();
@@ -31,7 +32,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
       final returnExpression = returnStatement.expression;
       if (returnExpression == null) continue; // valueless returns
       final returnType = returnExpression.staticType;
-      if (returnType == null || returnType.isDynamic || returnType.isObject || returnType.isVoid) {
+      if (returnType == null || returnType.isDynamic || returnType.isDartCoreObject || returnType.isVoid) {
         continue;
       }
 
@@ -42,14 +43,14 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
           await collector.addErrorWithFix(
             code,
             location,
-            errorMessageArgs: [returnType.name, missingBuilderMessageSuffix],
+            errorMessageArgs: [returnType.getDisplayString(), missingBuilderMessageSuffix],
             fixKind: addBuilderInvocationFix,
             computeFix: () => buildFileEdit(result, (builder) {
               buildMissingInvocationEdits(returnExpression, builder);
             }),
           );
         } else {
-          collector.addError(code, location, errorMessageArgs: [returnType.name, '']);
+          collector.addError(code, location, errorMessageArgs: [returnType.getDisplayString(), '']);
         }
       });
 
@@ -67,9 +68,6 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
   }
 }
 
-//
-bool hasComponentAnnotation(ClassDeclaration c) => c.declaredElement.allSupertypes.any((m) => m.name == 'Component');
-
 class RenderVisitor extends SimpleAstVisitor<void> {
   RenderReturnVisitor returnVisitor = RenderReturnVisitor();
 
@@ -80,7 +78,7 @@ class RenderVisitor extends SimpleAstVisitor<void> {
 
   @override
   void visitClassDeclaration(ClassDeclaration node) {
-    if (hasComponentAnnotation(node)) {
+    if (node.declaredElement.isComponentClass) {
       node.visitChildren(this);
     }
   }

@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
 class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
   static const code = DiagnosticCode(
@@ -12,7 +13,7 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
 
   @override
   computeErrors(result, collector) async {
-    final typeProvider = result.unit.declaredElement.context.typeProvider;
+    final typeProvider = result.libraryElement.typeProvider;
     final visitor = PropsVisitor();
 
     result.unit.accept(visitor);
@@ -69,14 +70,6 @@ bool hasBooleanContain(String propName) {
   return propName.toLowerCase().contains(RegExp('(${allowedContainsForBoolProp.join("|")})'));
 }
 
-bool isPropsClass(ClassDeclaration classDecl) {
-  return classDecl.declaredElement.allSupertypes.any((m) => m.getDisplayString() == 'UiProps');
-}
-
-bool isPropsMixin(MixinDeclaration mixinDecl) {
-  return mixinDecl.onClause.superclassConstraints.any((m) => m.name.name == 'UiProps');
-}
-
 class PropsVisitor extends SimpleAstVisitor<void> {
   List<ClassOrMixinDeclaration> returnMixins = [];
   @override
@@ -86,14 +79,14 @@ class PropsVisitor extends SimpleAstVisitor<void> {
 
   @override
   void visitClassDeclaration(ClassDeclaration node) {
-    if (isPropsClass(node)) {
+    if (node.declaredElement.isPropsClass) {
       returnMixins.add(node);
     }
   }
 
   @override
   void visitMixinDeclaration(MixinDeclaration node) {
-    if (isPropsMixin(node)) {
+    if (node.declaredElement.isPropsClass) {
       returnMixins.add(node);
     }
   }
