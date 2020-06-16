@@ -1,6 +1,6 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
 /// Usage:
 ///     AnalyzerDebugHelper debug = new AnalyzerDebugHelper(result, collector);
@@ -9,7 +9,7 @@ class AnalyzerDebugHelper {
 
   ResolvedUnitResult result;
   DiagnosticCollector collector;
-  static const code = ErrorCode(
+  static const code = DiagnosticCode(
     'over_react_debug_analyzer_plugin_helper',
     "{0}",
     AnalysisErrorSeverity.INFO,

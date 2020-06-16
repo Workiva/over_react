@@ -1,10 +1,10 @@
 // Adapted from dart_medic `misc` branch containing over_react diagnostics
 
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
 class VariadicChildrenDiagnostic extends ComponentUsageDiagnosticContributor {
-  static const code = ErrorCode(
+  static const code = DiagnosticCode(
     'over_react_variadic_children',
     'Variadic children should be used instead of lists where possible',
     AnalysisErrorSeverity.WARNING,

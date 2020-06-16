@@ -1,7 +1,7 @@
 import 'package:analyzer_plugin/utilities/analyzer_converter.dart';
 import 'package:analyzer_plugin/utilities/outline/outline.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart' as plugin;
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
 // TODO can you only create outlines for existing elements??
 class ReactElementOutlineContributor implements OutlineContributor {

@@ -2,6 +2,7 @@
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
 /// A usage of an OverReact component via its fluent interface.
 class FluentComponentUsage {
@@ -22,7 +23,7 @@ class FluentComponentUsage {
   final Expression builder;
 
   String get componentName {
-    final typeName = builder.staticType?.name;
+    final typeName = builder.staticType?.element?.name;
     if (typeName == null) return null;
     if (const ['dynamic', 'UiProps'].contains(typeName)) return null;
     if (isDom) {
@@ -39,8 +40,8 @@ class FluentComponentUsage {
     return null;
   }
 
-  bool get isDom => const ['DomProps', 'SvgProps'].contains(builder.staticType?.name);
-  bool get isSvg => const ['SvgProps'].contains(builder.staticType?.name);
+  bool get isDom => const ['DomProps', 'SvgProps'].contains(builder.staticType?.element?.name);
+  bool get isSvg => const ['SvgProps'].contains(builder.staticType?.element?.name);
 
   /// Whether the invocation contains one or more children passed as arguments instead of a list.
   bool get hasVariadicChildren =>
@@ -86,7 +87,7 @@ FluentComponentUsage getComponentUsage(InvocationExpression node) {
   bool isComponent;
   if (builder.staticType != null) {
     // Resolved AST
-    isComponent = builder.staticType.name?.endsWith('Props') ?? false;
+    isComponent = builder.staticType?.isPropsClass ?? false;
   } else {
     // Unresolved AST (or type wasn't available)
     isComponent = false;
@@ -167,3 +168,55 @@ FluentComponentUsage identifyUsage(AstNode node) {
   }
   return null;
 }
+
+class ComponentUsageVisitor extends RecursiveAstVisitor<void> {
+  ComponentUsageVisitor(this.onComponent);
+
+  final void Function(FluentComponentUsage) onComponent;
+
+  @override
+  void visitFunctionExpressionInvocation(FunctionExpressionInvocation node) {
+    visitInvocationExpression(node);
+  }
+
+  @override
+  void visitMethodInvocation(MethodInvocation node) {
+    visitInvocationExpression(node);
+  }
+
+  void visitInvocationExpression(InvocationExpression node) {
+    var usage = getComponentUsage(node);
+    if (usage != null) {
+      onComponent(usage);
+    }
+
+    node.visitChildren(this);
+  }
+}
+
+//
+//class ComponentUsageElementVisitor extends RecursiveElementVisitor<void> {
+//  final _OnComponent onComponent;
+//
+//  ComponentUsageElementVisitor(this.onComponent);
+//
+//  @override
+//  void visitFunctionExpressionInvocation(FunctionExpressionInvocation node) {
+//    return visitInvocationExpression(node);
+//  }
+//
+//  @override
+//  void visitMethodInvocation(MethodInvocation node) {
+//    return visitInvocationExpression(node);
+//  }
+//
+//  void visitInvocationExpression(InvocationExpression node) {
+//    var usage = getComponentUsage(node);
+//    if (usage != null) {
+//      onComponent(usage);
+//    }
+//
+//    node.visitChildren(this);
+//    return null;
+//  }
+//}
