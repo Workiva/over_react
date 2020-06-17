@@ -16,14 +16,14 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
   );
 
   @override
-  computeErrorsForUsage(ResolvedUnitResult result, DiagnosticCollector collector, FluentComponentUsage usage) async {
+  computeErrorsForUsage(ResolvedUnitResult result,
+      DiagnosticCollector collector, FluentComponentUsage usage) async {
     final arguments = usage.node.argumentList.arguments;
 
     // Handle 1st case: list literal w/o key
     if (arguments.length == 1 && arguments.single is ListLiteral) {
       var hasKeyProp = false;
 
-      debugger();
       ListLiteral list = arguments.single;
       for (final e in list.elements) {
         final componentInList = identifyUsage(e);
@@ -42,7 +42,7 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
       }
     }
 
-    // Handle 2nd case: list literal w/o key
+    //  Handle 2nd case: list literal w/o key
     print('usage node: ${usage.node}');
 
     final isIterable = arguments.single.staticType is Iterable;
@@ -51,15 +51,30 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
     MethodInvocation mapStatement = arguments.single;
     print('map statement: $mapStatement');
 
-    // ignore: omit_local_variable_types
     final ArgumentList mapStatementArgs = mapStatement.argumentList;
     print('mapargs: $mapStatementArgs');
 
-    // todo: traverse the react elems in the map body and check for key prop;
-    final mapStatementElemArgs = mapStatementArgs.childEntities.whereType<ReactElement>();
+    // todo: traverse the react elems in the map body properly and check for key prop;
+    final mapStatementElemArgs = mapStatementArgs.childEntities.whereType<InvocationExpression>();
     print('mapStatementElemArgs: $mapStatementElemArgs');
 
+    var hasKeyProp = false;
 
-    print('');
+    for (final e in mapStatementElemArgs) {
+      final componentUsage = getComponentUsage(e);
+      forEachCascadedProp(componentUsage, (lhs, rhs) {
+        if (lhs.propertyName.name == 'key') {
+          hasKeyProp = true;
+        }
+      });
+    }
+
+    if (!hasKeyProp) {
+      collector.addError(
+        code,
+        result.locationFor(usage.node),
+      );
+    }
+
   }
 }
