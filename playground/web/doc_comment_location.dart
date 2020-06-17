@@ -40,6 +40,7 @@ class AnotherBarComponent extends AbstractBarComponent<AnotherBarPropsMixin, Ano
   render() {}
 }
 
+/// This doc comment is okay.
 abstract class AbstractBarComponent<P extends UiProps, S extends UiState> extends UiStatefulComponent2<P, S> {}
 
 /// This doc comment is okay.
