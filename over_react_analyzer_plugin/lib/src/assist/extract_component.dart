@@ -1,3 +1,4 @@
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/source_range.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
@@ -23,6 +24,8 @@ abstract class _ExtractComponentAssistContributorBase extends AssistContributorB
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
     // Only compute when there's a selection
+    //
+    // TODO: Its pretty annoying that if your selection includes the semi-colon at the end of a return statement, the length is zero.
     if (request.length == 0) return;
 
     await super.computeAssists(request, collector);
@@ -36,15 +39,12 @@ abstract class _ExtractComponentAssistContributorBase extends AssistContributorB
 
     if (usage == null) return;
 
-    // TODO: Why can't we create a new file within an Assist? (It works within fixes)
-    // TODO: Possibly create an analogous diagnostic + fix that prompts the user to move the component boilerplate that our assist puts at the end of the existing file to a new file that we generate (since we can do it in a fix)
-    // TODO: Is there a heuristic we could use to have a more sane default for the new file name?
-    // final newFileName = path.join(path.dirname(request.result.path), 'extracted_component.dart');
-
     final sourceChange = await buildFileEdit(request.result, (builder) {
+      // TODO: It would be nice to ensure that an OverReact generated part directive is added, but it doesn't seem possible without screwing up the offsets for all the edits that follow.
+
       final content = request.result.content;
       builder.addInsertion(content.length, (builder) {
-        builder.write('\n\n');
+        builder.write('\n');
         addBoilerplateLinkedEditFn(
           builder,
           groupName: linkedEditGroupName,
@@ -73,6 +73,17 @@ abstract class _ExtractComponentAssistContributorBase extends AssistContributorB
   }
 }
 
+/// An assist that extracts an [InvocationExpression] which returns a React VDom `ReactElement`
+/// into a new standalone OverReact `UiComponent2` component.
+///
+/// Caveats:
+///
+///   1. The user's selection must include the builder and the invocation of that builder for the assist to appear
+///   2. The user's selection cannot include any trailing semi-colons
+///
+/// > Related: [ExtractStatefulComponentAssistContributor], [ExtractFluxComponentAssistContributor]
+///
+/// {@category Assists}
 class ExtractComponentAssistContributor extends _ExtractComponentAssistContributorBase {
   @override
   AssistKind extractComponent = AssistKind('extractComponent', 32, 'Extract selection as a new UiComponent');
@@ -84,6 +95,17 @@ class ExtractComponentAssistContributor extends _ExtractComponentAssistContribut
   BoilerplateLinkedEditFn addBoilerplateLinkedEditFn = addUiComponentBoilerplateLinkedEdit;
 }
 
+/// An assist that extracts an [InvocationExpression] which returns a React VDom `ReactElement`
+/// into a new standalone OverReact `UiStatefulComponent2` component.
+///
+/// Caveats:
+///
+///   1. The user's selection must include the builder and the invocation of that builder for the assist to appear
+///   2. The user's selection cannot include any trailing semi-colons
+///
+/// > Related: [ExtractComponentAssistContributor], [ExtractFluxStatefulComponentAssistContributor]
+///
+/// {@category Assists}
 class ExtractStatefulComponentAssistContributor extends _ExtractComponentAssistContributorBase {
   @override
   AssistKind extractComponent =
@@ -96,6 +118,17 @@ class ExtractStatefulComponentAssistContributor extends _ExtractComponentAssistC
   BoilerplateLinkedEditFn addBoilerplateLinkedEditFn = addUiStatefulComponentBoilerplateLinkedEdit;
 }
 
+/// An assist that extracts an [InvocationExpression] which returns a React VDom `ReactElement`
+/// into a new standalone OverReact `UiComponent2` component.
+///
+/// Caveats:
+///
+///   1. The user's selection must include the builder and the invocation of that builder for the assist to appear
+///   2. The user's selection cannot include any trailing semi-colons
+///
+/// > Related: [ExtractFluxStatefulComponentAssistContributor]
+///
+/// {@category Assists}
 class ExtractFluxComponentAssistContributor extends _ExtractComponentAssistContributorBase {
   @override
   AssistKind extractComponent = AssistKind('extractFluxComponent', 32, 'Extract selection as a new FluxUiComponent');
@@ -107,6 +140,17 @@ class ExtractFluxComponentAssistContributor extends _ExtractComponentAssistContr
   BoilerplateLinkedEditFn addBoilerplateLinkedEditFn = addFluxUiComponentBoilerplateLinkedEdit;
 }
 
+/// An assist that extracts an [InvocationExpression] which returns a React VDom `ReactElement`
+/// into a new standalone OverReact `FluxUiStatefulComponent2` component.
+///
+/// Caveats:
+///
+///   1. The user's selection must include the builder and the invocation of that builder for the assist to appear
+///   2. The user's selection cannot include any trailing semi-colons
+///
+/// > Related: [ExtractFluxComponentAssistContributor], [ExtractStatefulComponentAssistContributor]
+///
+/// {@category Assists}
 class ExtractFluxStatefulComponentAssistContributor extends _ExtractComponentAssistContributorBase {
   @override
   AssistKind extractComponent =

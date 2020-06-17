@@ -6,23 +6,16 @@ void _addUiComponentBoilerplateFactory(
   String componentFactoryName = 'Foo',
 }) {
   builder
-    ..writeln('// UNCOMMENT THE PART DIRECTIVE WHEN MOVING TO ITS OWN FILE')
-    ..writeln('// ignore: uri_has_not_been_generated')
-    ..writeln("// part '<the_extracted_component_file_name>.over_react.g.dart';")
-    ..writeln('');
-
-  builder
     ..write('/// TODO: Provide a brief explanation of what the ')
     ..addSimpleLinkedEdit(groupName, componentFactoryName)
     ..write(' component does / renders.\n')
-    ..writeln('@Factory()')
     ..write('UiFactory<')
     ..addSimpleLinkedEdit(groupName, componentFactoryName)
     ..write('Props> ')
     ..addSimpleLinkedEdit(groupName, componentFactoryName)
     ..write(' = _\$')
     ..addSimpleLinkedEdit(groupName, componentFactoryName)
-    ..write(';')
+    ..write('; // ignore: undefined_identifier')
     ..writeln('')
     ..writeln('');
 }
@@ -33,10 +26,9 @@ void _addUiComponentBoilerplateProps(
   String componentFactoryName = 'Foo',
 }) {
   builder
-    ..writeln('@Props()')
-    ..write('class _\$')
+    ..write('mixin ')
     ..addSimpleLinkedEdit(groupName, componentFactoryName)
-    ..write('Props extends UiProps {}')
+    ..write('Props on UiProps {}')
     ..writeln('')
     ..writeln('');
 }
@@ -47,15 +39,21 @@ void _addUiComponentBoilerplateFluxProps(
   String componentFactoryName = 'Foo',
 }) {
   builder
-    ..writeln('@Props()')
-    ..write('class _\$')
+    ..write('mixin ')
     ..addSimpleLinkedEdit(groupName, componentFactoryName)
-    ..write('Props extends FluxUiProps<')
+    ..write('PropsMixin on UiProps {}')
+    ..writeln('')
+    ..writeln('')
+    ..write('class ')
     ..addSimpleLinkedEdit(groupName, componentFactoryName)
+    ..write('Props = UiProps with FluxUiPropsMixin<')
     ..write('Actions, ')
     ..addSimpleLinkedEdit(groupName, componentFactoryName)
     ..write('Store')
-    ..write('> {}')
+    ..write('>, ')
+    ..addSimpleLinkedEdit(groupName, componentFactoryName)
+    ..write('PropsMixin')
+    ..write(';')
     ..writeln('')
     ..writeln('');
 }
@@ -66,10 +64,9 @@ void _addUiComponentBoilerplateState(
   String componentFactoryName = 'Foo',
 }) {
   builder
-    ..writeln('@State()')
-    ..write('class _\$')
+    ..write('mixin ')
     ..addSimpleLinkedEdit(groupName, componentFactoryName)
-    ..write('State extends UiState {}')
+    ..write('State on UiState {}')
     ..writeln('')
     ..writeln('');
 }
@@ -78,7 +75,7 @@ void _addUiComponentBoilerplateComponent(
   DartEditBuilder builder, {
   String groupName = 'orStless',
   String componentFactoryName = 'Foo',
-  String baseComponentClassName = 'UiComponent',
+  String baseComponentClassName = 'UiComponent2',
   String Function({int indent}) getComponentRenderReturnValueSrc,
 }) {
   String componentRenderReturnValueSrc;
@@ -87,7 +84,6 @@ void _addUiComponentBoilerplateComponent(
   }
 
   builder
-    ..writeln('@Component()')
     ..write('class ')
     ..addSimpleLinkedEdit(groupName, componentFactoryName)
     ..write('Component extends $baseComponentClassName<')
@@ -105,11 +101,11 @@ void _addUiComponentBoilerplateComponent(
     ..write('> {')
     ..writeln('')
     ..writeln('  @override')
-    ..writeln('  Map getDefaultProps() => (newProps());')
+    ..writeln('  get defaultProps => (newProps());')
     ..writeln('');
 
   if (baseComponentClassName.contains('Stateful')) {
-    builder..writeln('  @override')..writeln('  Map getInitialState() => (newState());')..writeln('');
+    builder..writeln('  @override')..writeln('  get initialState => (newState());')..writeln('');
   }
 
   builder
@@ -146,7 +142,7 @@ void addUiStatefulComponentBoilerplateLinkedEdit(
   _addUiComponentBoilerplateState(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateComponent(builder,
       groupName: groupName,
-      baseComponentClassName: 'UiStatefulComponent',
+      baseComponentClassName: 'UiStatefulComponent2',
       componentFactoryName: componentFactoryName,
       getComponentRenderReturnValueSrc: getComponentRenderReturnValueSrc);
 }
@@ -161,7 +157,7 @@ void addFluxUiComponentBoilerplateLinkedEdit(
   _addUiComponentBoilerplateFluxProps(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateComponent(builder,
       groupName: groupName,
-      baseComponentClassName: 'FluxUiComponent',
+      baseComponentClassName: 'FluxUiComponent2',
       componentFactoryName: componentFactoryName,
       getComponentRenderReturnValueSrc: getComponentRenderReturnValueSrc);
 }
@@ -177,7 +173,7 @@ void addFluxUiStatefulComponentBoilerplateLinkedEdit(
   _addUiComponentBoilerplateState(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateComponent(builder,
       groupName: groupName,
-      baseComponentClassName: 'FluxUiStatefulComponent',
+      baseComponentClassName: 'FluxUiStatefulComponent2',
       componentFactoryName: componentFactoryName,
       getComponentRenderReturnValueSrc: getComponentRenderReturnValueSrc);
 }
