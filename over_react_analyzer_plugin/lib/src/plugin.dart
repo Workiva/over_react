@@ -51,10 +51,10 @@ import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/diagnostic.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/arrow_function_prop.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/bool_prop_name_readability.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/bad_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/dom_prop_types.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/duplicate_prop_cascade.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/hashcode_as_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/missing_cascade_parens.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/missing_required_prop.dart';
@@ -147,7 +147,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin
   List<DiagnosticContributor> getDiagnosticContributors(String path) {
     return [
       DuplicatePropCascadeDiagnostic(),
-      HashCodeAsKeyDiagnostic(),
+      BadKeyDiagnostic(),
       VariadicChildrenDiagnostic(),
       ArrowFunctionPropCascadeDiagnostic(),
       RenderReturnValueDiagnostic(),
