@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:over_react/over_react.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
@@ -17,10 +20,10 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
     final arguments = usage.node.argumentList.arguments;
 
     // Handle 1st case: list literal w/o key
-    // [Dom.div()(), Dom.div()(), Dom.div()()],
     if (arguments.length == 1 && arguments.single is ListLiteral) {
       var hasKeyProp = false;
 
+      debugger();
       ListLiteral list = arguments.single;
       for (final e in list.elements) {
         final componentInList = identifyUsage(e);
@@ -39,8 +42,24 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
       }
     }
 
-    // TODO: handle map case
-//     if (arguments.)
-//     coolStrings.map((s) => Dom.p()(s))
+    // Handle 2nd case: list literal w/o key
+    print('usage node: ${usage.node}');
+
+    final isIterable = arguments.single.staticType is Iterable;
+    print('argument is iterable $isIterable');
+
+    MethodInvocation mapStatement = arguments.single;
+    print('map statement: $mapStatement');
+
+    // ignore: omit_local_variable_types
+    final ArgumentList mapStatementArgs = mapStatement.argumentList;
+    print('mapargs: $mapStatementArgs');
+
+    // todo: traverse the react elems in the map body and check for key prop;
+    final mapStatementElemArgs = mapStatementArgs.childEntities.whereType<ReactElement>();
+    print('mapStatementElemArgs: $mapStatementElemArgs');
+
+
+    print('');
   }
 }
