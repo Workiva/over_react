@@ -17,21 +17,21 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
 
   static final toStringCode = DiagnosticCode(
       'over_react_object_to_string_as_key',
-      "Keys shouldn't be derived from '{0}.toString()' since the value is the same for all instances."
+      "Keys shouldn't be derived from '{0}.toString()'{1} since the value is the same for all instances."
           " Try using other information, such as an 'id' field on the object, or an index, to construct the key instead.",
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_WARNING);
 
   static final dynamicOrObjectCode = DiagnosticCode(
       'over_react_unknown_key_type',
-      "Keys derived from '{0}.toString()' may not be unique."
+      "Keys derived from '{0}.toString()'{1} may not be unique."
           " Try using more specific typing, or using other information to construct the key.",
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_WARNING);
 
   static final lowQualityCode = DiagnosticCode(
       'over_react_low_quality_key',
-      "Keys shouldn't be derived from '{0}.toString()' since they have a high chance of colliding.",
+      "Keys shouldn't be derived from '{0}.toString()'{1} since they have a high chance of colliding.",
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_WARNING);
 
@@ -83,20 +83,26 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
     };
 
     for (final type in keyTypesToProcess) {
+      // Provide context if this type was derived from a Map/Iterable type argument.
+      getTypeContextString() => type == topLevelKeyType ? '' : ' (from $topLevelKeyType)';
+
       if (type.isDartCoreInt || type.isDartCoreDouble || type.isDartCoreString || type.isDartCoreSymbol) {
         // Ignore core types that have good `Object.toString` implementations values.
       } else if (type.isDartCoreObject || type.isDynamic) {
-        collector.addError(dynamicOrObjectCode, errorLocation, errorMessageArgs: [type.getDisplayString()]);
+        collector.addError(dynamicOrObjectCode, errorLocation, errorMessageArgs: [
+          type.getDisplayString(),
+          getTypeContextString(),
+        ]);
       } else if (type.isDartCoreBool || type.isDartCoreNull) {
-        collector.addError(lowQualityCode, errorLocation, errorMessageArgs: [type.getDisplayString()]);
+        collector.addError(lowQualityCode, errorLocation, errorMessageArgs: [
+          type.getDisplayString(),
+          getTypeContextString(),
+        ]);
       } else if (inheritsToStringImplFromObject(type?.element)) {
-        var typesString = "'$type'";
-        // Provide context if this type was derived from a Map/Iterable type argument.
-        if (type != topLevelKeyType) {
-          typesString += ' (from $topLevelKeyType)';
-        }
-
-        collector.addError(toStringCode, errorLocation, errorMessageArgs: [typesString]);
+        collector.addError(toStringCode, errorLocation, errorMessageArgs: [
+          type.getDisplayString(),
+          getTypeContextString(),
+        ]);
       }
     }
   }
