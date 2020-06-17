@@ -14,27 +14,25 @@ class BarProps extends UiProps {}
 /// line
 /// doc comment.
 ///
-/// It also should not be here.
+/// It also should not be here (if there's no doc comment on the factory).
 @State()
 class BarState extends UiState {}
 
-/// This doc comment should not be here.
+/// This doc comment should not be here (if there's no doc comment on the factory).
 @Component2()
 class BarComponent extends UiStatefulComponent2<BarProps, BarState> {
   @override
   render() {}
 }
 
-/// This doc comment is okay.
+/// This doc comment is on the factory.
 UiFactory<AnotherBarPropsMixin> AnotherBar = _$AnotherBar; // ignore: undefined_identifier
 
-/// This doc comment should not be here.
+/// This doc comment is okay because the factory already has a doc comment.
 mixin AnotherBarPropsMixin on UiProps {}
 
-/// This doc comment should not be here.
 mixin AnotherBarStateMixin on UiState {}
 
-/// This doc comment should not be here.
 class AnotherBarComponent extends AbstractBarComponent<AnotherBarPropsMixin, AnotherBarStateMixin> {
   @override
   render() {}

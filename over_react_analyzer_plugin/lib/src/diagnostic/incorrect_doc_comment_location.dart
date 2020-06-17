@@ -7,7 +7,7 @@ import 'package:source_span/source_span.dart';
 class IncorrectDocCommentLocationDiagnostic extends DiagnosticContributor {
   static const code = DiagnosticCode(
     'over_react_incorrect_doc_comment_location',
-    "Doc comments should be above the factory declaration.",
+    "Doc comments should be on factory so that consumers can see them when using the component.",
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.LINT,
   );
@@ -28,21 +28,26 @@ class IncorrectDocCommentLocationDiagnostic extends DiagnosticContributor {
       final factories = decl.members.whereType<BoilerplateFactory>();
 
       if (factories.isNotEmpty) {
+        final factory = factories.first.node;
         for (final member in decl.members) {
           final docComment = member.node.documentationComment;
 
-          if (docComment != null && member is! BoilerplateFactory) {
+          if (docComment != null && member is! BoilerplateFactory && factory.documentationComment == null) {
             await collector.addErrorWithFix(
               code,
               result.locationFor(docComment),
               fixKind: fixKind,
               computeFix: () => buildFileEdit(result, (builder) {
+                // Remove the whole line if possible.
+                var end = docComment.end;
+                if (sourceFile.getText(end, end + 1) == '\n') {
+                  end = end + 1;
+                }
                 builder.addDeletion(range.startOffsetEndOffset(
-                  // [offset - 1] to remove the extra line.
-                  docComment.offset - 1,
-                  docComment.end,
+                  docComment.offset,
+                  end,
                 ));
-                builder.addInsertion(factories.first.node.offset, (builder) {
+                builder.addInsertion(factory.offset, (builder) {
                   for (final line in docComment.childEntities) {
                     builder.write('${line.toString()}\n');
                   }
