@@ -1,10 +1,12 @@
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
+/// A diagnostic that warns when an HTML attribute set on an OverReact `Dom` component builder is invalid
+/// based on the `<attribute>: [<allowed_html_elems>]` schema found within [allowedHtmlElementsForAttribute].
 class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor {
-  static const code = ErrorCode(
+  static const code = DiagnosticCode(
     'over_react_invalid_dom_attribute',
-    "{}' isn't a valid HTML attribute prop for '{}'. It may only be used on: {}",
+    "'{0}' isn't a valid HTML attribute prop for '{1}'. It may only be used on: {2}",
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
   );
@@ -29,7 +31,7 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
 
       if (!allowedElements.contains(nodeName)) {
         collector.addError(code, result.locationFor(lhs.propertyName),
-            errorMessageArgs: [propName, nodeName, allowedElements.join(',')]);
+            errorMessageArgs: [propName, 'Dom.$nodeName()', allowedElements.map((name) => 'Dom.$name()').join(',')]);
       }
     });
   }
@@ -50,6 +52,9 @@ String _camelToSpinalCase(String camel) {
       .toLowerCase();
 }
 
+/// A map keyed with HTML attributes and iterable values of the HTML element names they are allowed on.
+///
+/// > See: [InvalidDomAttributeDiagnostic]
 const allowedHtmlElementsForAttribute = {
   'accept': ['form', 'input'],
   'accept-charset': ['form'],

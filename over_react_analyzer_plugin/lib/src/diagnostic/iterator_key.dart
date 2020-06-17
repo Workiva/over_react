@@ -3,12 +3,12 @@ import 'dart:developer';
 import 'package:over_react/over_react.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 /// Warn when missing `key` props in iterators/collection literals
 class IteratorKey extends ComponentUsageDiagnosticContributor {
-  static const code = ErrorCode(
+  static const code = DiagnosticCode(
     'over_react_key',
     'Missing "key" prop for element in iterator',
     AnalysisErrorSeverity.WARNING,

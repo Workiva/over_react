@@ -2,7 +2,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart' as protocol;
 import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 /// Provides navigation regions from props to their non-generated definitions.
@@ -28,8 +28,8 @@ class PropNavigationContributor implements NavigationContributor {
             {
               PropertyAccessorElement target;
               // todo can we rely on this traversing types upwards?
-              for (final type in type.element.allSupertypes) {
-                if (!type.element.source.fullName.endsWith('.g.dart')) {
+              for (final type in type?.element?.allSupertypes ?? <InterfaceType>[]) {
+                if (!(type?.element?.source?.fullName?.endsWith('.g.dart') ?? false)) {
                   target = type.getGetter(propName);
                 }
               }

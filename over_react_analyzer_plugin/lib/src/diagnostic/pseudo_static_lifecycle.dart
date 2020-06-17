@@ -1,9 +1,9 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
-const staticMethodNames = ['getDefaultProps', 'getDerivedStateFromProps'];
+const staticMethodNames = ['getDefaultProps', 'defaultProps', 'getDerivedStateFromProps'];
 const instanceMemberWhitelist = [
   'newProps',
   'newState',
@@ -14,7 +14,7 @@ const instanceMemberWhitelist = [
 ];
 
 class PseudoStaticLifecycleDiagnostic extends DiagnosticContributor {
-  static final code = ErrorCode(
+  static final code = DiagnosticCode(
       'over_react_pseudo_static_lifecycle',
       '\'{0}\' must be treated as a static method; only super-calls '
           'and props/state utility methods (like \'newProps\' and \'typedPropsFactory\') are allowed.',

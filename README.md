@@ -116,6 +116,52 @@ Once you've depended on the over_react_analyzer_plugin_host host package, to sta
 After these steps, you can start using this plugin!
 
 
+
+### Debugging the Plugin
+The dev experience when working on this plugin isn't ideal (See the analyzer_plugin debugging docs [for more information](https://github.com/dart-lang/sdk/blob/master/pkg/analyzer_plugin/doc/tutorial/debugging.md) for more info), but it is possible to get set up to debug and see logs from the plugin.
+
+These instructions are currently for JetBrains IDEs (IntelliJ, WebStorm, etc.) only.
+
+1. Open the "Registry" using the command palette (<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd>
+
+    ![](doc/open-jetbrains-registry.png)
+    
+2. Edit the `dart.server.vm.options` configuration and set the value to `--disable-service-auth-codes --observe=8100`
+
+    ![](doc/edit-jetbrains-registry.png) 
+    
+    - `--observe=8100` - Allow access to the Observatory on port 8100 (can be any port of your choosing) so that our debugger can connect to it.
+    - `--disable-service-auth-codes` - Disable authentication on the Observatory, since the JetBrains plugin swallows the log that outputs the auth code.
+    
+            
+6. In the project you're running your plugin on, restart the Dart Analysis Server so that it launches with these flags. You may have to close other Dart projects first to ensure other analysis servers don't take the reserved port
+    _TODO we need more investigation around whether this is necessary; if it is, we may want to integrate `--write-service-info` into the instructions._
+
+4. In the over_react_analyzer_plugin project, create a new Run Configuration using the "Dart Remote Debug" template
+    
+    ![](doc/create-configuration-1.png) 
+    
+    ![](doc/create-configuration-2.png) 
+    
+5. Ensure the "Search sources in" section is pointing to the plugin package directory and save it.
+    
+    ![](doc/create-configuration-3.png) 
+    
+7. Run your newly created configuration by selecting it and clicking the "Debug" button
+    
+    ![](doc/run-configuration-1.png)
+    
+8. When prompted, enter in `http://127.0.0.1:8100`, removing any parts of the URL dealing with auth codes.
+    
+    ![](doc/run-configuration-2.png)
+
+8. In the debugger tab that was opened, verify that the debugger connected.
+    
+    ![](doc/verify-connected.png)
+    
+9. Start debugging! You can set breakpoints, view logs, and do everything else you'd normally use the debugger for.
+
+
 [analyzer_plugin]: https://github.com/dart-lang/sdk/tree/master/pkg/analyzer_plugin
 [analyzer_plugin_tutorial]: https://github.com/dart-lang/sdk/blob/master/pkg/analyzer_plugin/doc/tutorial/tutorial.md
 [analyzer_plugin_package_structure]: https://github.com/dart-lang/sdk/blob/master/pkg/analyzer_plugin/doc/tutorial/package_structure.md
