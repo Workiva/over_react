@@ -1,7 +1,7 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:analyzer_plugin/protocol/protocol_common.dart';
+import 'package:analyzer_plugin/protocol/protocol_common.dart' as plugin;
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
@@ -40,70 +40,59 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
         return;
       }
 
-      Location errorLocation;
-      DartType keyType;
+      plugin.Location errorLocation;
+      DartType topLevelKeyType;
       // Special case for calling toString() on an object explicitly
       if (rhs is MethodInvocation && rhs.methodName.name == 'toString') {
         errorLocation = result.locationFor(rhs.realTarget);
-        keyType = rhs.realTarget.staticType;
+        topLevelKeyType = rhs.realTarget.staticType;
       } else {
         errorLocation = result.locationFor(rhs);
-        keyType = rhs.staticType;
+        topLevelKeyType = rhs.staticType;
       }
 
-      if (keyType == null) return;
+      // Type can't be resolved; bail out.
+      if (topLevelKeyType == null) return;
 
       // Special-case for Iterables and Maps: check if their (keys and) values are allowed types.
-      // Need to make sure it's not null since null is a subtype of all nullable-types.
-      final isIterableOrMap = !keyType.isDartCoreNull && {
-        result.typeProvider.iterableObjectType,
-        result.typeProvider.mapObjectObjectType,
-      }.any((type) => result.typeSystem.isSubtypeOf(keyType, type));
+      final isIterableOrMap =
+          // Need to make sure it's not null since null is a subtype of all nullable-types.
+          !topLevelKeyType.isDartCoreNull &&
+              [
+                result.typeProvider.iterableObjectType,
+                result.typeProvider.mapObjectObjectType,
+              ].any((type) => result.typeSystem.isSubtypeOf(topLevelKeyType, type));
 
       final keyTypesToProcess = {
-        if (isIterableOrMap) ...(keyType as InterfaceType).typeArguments else keyType,
+        if (isIterableOrMap) ...(topLevelKeyType as InterfaceType).typeArguments else topLevelKeyType,
       };
 
-      final hasObjectKey = keyTypesToProcess.remove(result.typeProvider.objectType);
-      final hasDynamicKey = keyTypesToProcess.remove(result.typeProvider.dynamicType);
-      final hasBoolKey = keyTypesToProcess.remove(result.typeProvider.boolType);
-      final hasNullKey = keyTypesToProcess.remove(result.typeProvider.nullType);
-      final typesWithObjectToString = keyTypesToProcess.where((type) {
-        // Ignore core types that have good `Object.toString` implementations values.
+      for (final type in keyTypesToProcess) {
         if (type.isDartCoreInt || type.isDartCoreDouble || type.isDartCoreString || type.isDartCoreSymbol) {
-          return false;
+          // Ignore core types that have good `Object.toString` implementations values.
+        } else if (type.isDartCoreObject || type.isDynamic) {
+          collector.addError(dynamicOrObjectCode, errorLocation, errorMessageArgs: [type.getDisplayString()]);
+        } else if (type.isDartCoreBool || type.isDartCoreNull) {
+          collector.addError(lowQualityCode, errorLocation, errorMessageArgs: [type.getDisplayString()]);
+        } else if (inheritsToStringImplFromObject(type?.element)) {
+          var typesString = "'$type'";
+          // Provide context if this type was derived from a Map/Iterable type argument.
+          if (type != topLevelKeyType) {
+            typesString += ' (from $topLevelKeyType)';
+          }
+
+          collector.addError(toStringCode, errorLocation, errorMessageArgs: [typesString]);
         }
-
-        final concreteToString = rhs.staticType?.element //
-            ?.tryCast<ClassElement>()
-            ?.lookUpConcreteMethod('toString', result.libraryElement);
-
-        final toStringDeclaringClassType = concreteToString?.thisOrAncestorOfType<ClassElement>()?.thisType;
-        return toStringDeclaringClassType?.isDartCoreObject ?? false;
-      });
-
-      if (hasObjectKey) {
-        collector.addError(dynamicOrObjectCode, errorLocation, errorMessageArgs: ['Object']);
-      }
-      if (hasDynamicKey) {
-        collector.addError(dynamicOrObjectCode, errorLocation, errorMessageArgs: ['dynamic']);
-      }
-      if (hasBoolKey) {
-        collector.addError(lowQualityCode, errorLocation, errorMessageArgs: ['bool']);
-      }
-      if (hasNullKey) {
-        collector.addError(lowQualityCode, errorLocation, errorMessageArgs: ['Null']);
-      }
-      for (final type in typesWithObjectToString) {
-        var typesString = "'$type'";
-        if (type != keyType) {
-          typesString += ' (from $keyType)';
-        }
-
-        collector.addError(toStringCode, errorLocation, errorMessageArgs: [typesString]);
       }
     });
   }
+
+  static bool inheritsToStringImplFromObject(Element element) => element
+      ?.tryCast<ClassElement>()
+      ?.lookUpConcreteMethod('toString', element.library)
+      ?.thisOrAncestorOfType<ClassElement>()
+      ?.thisType
+      ?.isDartCoreObject;
 }
 
 extension _TryCast<T> on T {
