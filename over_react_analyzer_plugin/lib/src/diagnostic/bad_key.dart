@@ -42,7 +42,6 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
 
       if (rhs.toSource().contains('.hashCode')) {
         collector.addError(hashCodeCode, result.locationFor(rhs));
-        return;
       }
 
       // Handle the top-level key expression, which is toString-ed under the hood.
