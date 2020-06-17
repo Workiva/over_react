@@ -28,11 +28,8 @@ class IncorrectDocCommentLocationDiagnostic extends DiagnosticContributor {
       final factories = decl.members.whereType<BoilerplateFactory>();
 
       if (factories.isNotEmpty) {
-        final factory = factories.first.node;
-
         for (final member in decl.members) {
-          final node = member.node;
-          final docComment = node.documentationComment;
+          final docComment = member.node.documentationComment;
 
           if (docComment != null && member is! BoilerplateFactory) {
             await collector.addErrorWithFix(
@@ -41,11 +38,11 @@ class IncorrectDocCommentLocationDiagnostic extends DiagnosticContributor {
               fixKind: fixKind,
               computeFix: () => buildFileEdit(result, (builder) {
                 builder.addDeletion(range.startOffsetEndOffset(
-                  // [offset - 1] to remove the extra line
+                  // [offset - 1] to remove the extra line.
                   docComment.offset - 1,
                   docComment.end,
                 ));
-                builder.addInsertion(factory.offset, (builder) {
+                builder.addInsertion(factories.first.node.offset, (builder) {
                   for (final line in docComment.childEntities) {
                     builder.write('${line.toString()}\n');
                   }
