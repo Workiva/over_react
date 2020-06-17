@@ -4,13 +4,9 @@ part 'iterator_key.over_react.g.dart';
 
 ReactElement MissingKeyInList() {
   return (
-    Dom.div()(
-      [
-        Dom.div()(),
-        Dom.div()(),
-        Dom.div()(),
-      ],
-    ));
+      Dom.div()(
+        [Dom.div()(), Dom.div()(), Dom.div()()],
+      ));
 }
 
 ReactElement MissingKeyInMap() {

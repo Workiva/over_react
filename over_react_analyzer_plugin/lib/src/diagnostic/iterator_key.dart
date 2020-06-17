@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:over_react/over_react.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
@@ -20,61 +17,53 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
       DiagnosticCollector collector, FluentComponentUsage usage) async {
     final arguments = usage.node.argumentList.arguments;
 
-    // Handle 1st case: list literal w/o key
-    if (arguments.length == 1 && arguments.single is ListLiteral) {
-      var hasKeyProp = false;
+    if (arguments.length == 1) {
+      if (arguments.single is ListLiteral) {
+        // Handle 1st case: list literal w/o key
+        var hasKeyProp = false;
 
-      ListLiteral list = arguments.single;
-      for (final e in list.elements) {
-        final componentInList = identifyUsage(e);
-        forEachCascadedProp(componentInList, (lhs, rhs) {
-          if (lhs.propertyName.name == 'key') {
-            hasKeyProp = true;
-          }
-        });
-      }
-
-      if (!hasKeyProp) {
-        collector.addError(
-          code,
-          result.locationFor(list),
-        );
-      }
-    }
-
-    //  Handle 2nd case: list literal w/o key
-    print('usage node: ${usage.node}');
-
-    final isIterable = arguments.single.staticType is Iterable;
-    print('argument is iterable $isIterable');
-
-    MethodInvocation mapStatement = arguments.single;
-    print('map statement: $mapStatement');
-
-    final ArgumentList mapStatementArgs = mapStatement.argumentList;
-    print('mapargs: $mapStatementArgs');
-
-    // todo: traverse the react elems in the map body properly and check for key prop;
-    final mapStatementElemArgs = mapStatementArgs.childEntities.whereType<InvocationExpression>();
-    print('mapStatementElemArgs: $mapStatementElemArgs');
-
-    var hasKeyProp = false;
-
-    for (final e in mapStatementElemArgs) {
-      final componentUsage = getComponentUsage(e);
-      forEachCascadedProp(componentUsage, (lhs, rhs) {
-        if (lhs.propertyName.name == 'key') {
-          hasKeyProp = true;
+        ListLiteral list = arguments.single;
+        for (final e in list.elements) {
+          final componentInList = identifyUsage(e);
+          forEachCascadedProp(componentInList, (lhs, rhs) {
+            if (lhs.propertyName.name == 'key') {
+              hasKeyProp = true;
+            }
+          });
         }
-      });
-    }
 
-    if (!hasKeyProp) {
-      collector.addError(
-        code,
-        result.locationFor(usage.node),
-      );
-    }
+        if (!hasKeyProp) {
+          collector.addError(
+            code,
+            result.locationFor(list),
+          );
+        }
+      }
+      else if (arguments.single is MethodInvocation){
+        print('arguments length: ${arguments.length}');
+        //  Handle 2nd case: list literal w/o key
+        MethodInvocation mapStatement = arguments.single;
+        final mapStatementArgs = mapStatement.argumentList;
+        final mapStatementElemArgs = mapStatementArgs.childEntities.whereType<InvocationExpression>();
+        var hasKeyProp = false;
 
+        for (final e in mapStatementElemArgs) {
+          final componentUsage = getComponentUsage(e);
+          forEachCascadedProp(componentUsage, (lhs, rhs) {
+            if (lhs.propertyName.name == 'key') {
+              hasKeyProp = true;
+            }
+          });
+        }
+
+        if (!hasKeyProp) {
+          collector.addError(
+            code,
+            result.locationFor(mapStatement),
+          );
+        }
+
+      }
+    }
   }
 }
