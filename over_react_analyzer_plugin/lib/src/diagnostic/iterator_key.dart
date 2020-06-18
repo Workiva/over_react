@@ -41,6 +41,9 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         }
       } else if (argument is MethodInvocation) {
         //  2nd case: element mapping
+        final isIterable = argument.staticType.isDartCoreIterable;
+        if (!isIterable) return;
+
         final mapStatement = argument;
         final mapStatementArgs = mapStatement.argumentList;
         final mapStatementElemArgs = mapStatementArgs.childEntities.whereType<InvocationExpression>();
