@@ -5,11 +5,13 @@ homepage: https://github.com/greglittlefield-wf/git_playground/tree/over_react_a
 authors:
   - Greg Littlefield <greg.littlefield@workiva.com>
 environment:
-  sdk: '>=2.1.0 <=3.0.0'
+  sdk: '>=2.7.0 <3.0.0'
 dependencies:
-  analyzer: '>=0.33.3 <0.36.0'
-  analyzer_plugin: '>=0.0.1-alpha.5 <0.0.1-alpha.8'
+  analyzer: '^0.39.10'
+  analyzer_plugin: '^0.2.4'
+  dart_dev: ^3.0.0
+  over_react: ^3.5.3
   meta: ^1.1.6
   path: ^1.5.1
 dev_dependencies:
-  pedantic: ^1.5.0
+  workiva_analysis_options: ^1.1.0

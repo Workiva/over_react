@@ -2,7 +2,6 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
-import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
 import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
@@ -11,7 +10,7 @@ import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/fix.dart';
 
 class AddRefAssistContributor extends AssistContributorBase {
-  static AssistKind addRef = new AssistKind('addRef', 32, 'Add callback ref');
+  static AssistKind addRef = AssistKind('addRef', 32, 'Add callback ref');
 
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
@@ -56,9 +55,7 @@ class AddRefAssistContributor extends AssistContributorBase {
           : getIndent(request.result.content, lineInfo, insertionParent.parent.offset) + '  ';
 
       // TODO how to get the linked edit to show up on the ref declaration instead? Why does this afterwards messes up the offsets?
-      addProp(usage, builder, request.result.content, lineInfo,
-          name: 'ref',
-          buildValueEdit: (builder) {
+      addProp(usage, builder, request.result.content, lineInfo, name: 'ref', buildValueEdit: (builder) {
         builder.write('(ref) { ');
         builder.addSimpleLinkedEdit(nameGroup, refName);
         builder.write(' = ref; }');
@@ -80,7 +77,7 @@ class AddRefAssistContributor extends AssistContributorBase {
     sourceChange
       ..message = addRef.message
       ..id = addRef.id;
-    collector.addAssist(new PrioritizedSourceChange(addRef.priority, sourceChange));
+    collector.addAssist(PrioritizedSourceChange(addRef.priority, sourceChange));
   }
 }
 
@@ -116,10 +113,10 @@ Pair<int, AstNode> getRefInsertionLocation(AstNode node, LineInfo lineInfo) {
     offset = prevLine(node.thisOrAncestorMatching((node) => node is CompilationUnitMember).offset, lineInfo);
   } else {
     // Not sure how we got here... TODO throw error instead or handle this return value at call site
-    return new Pair(-1, null);
+    return Pair(-1, null);
   }
 
-  for (var child in parent.childEntities.toList().reversed) {
+  for (final child in parent.childEntities.toList().reversed) {
     if (child is FieldDeclaration || child is VariableDeclarationStatement || child is TopLevelVariableDeclaration) {
       VariableDeclarationList variables;
       if (child is FieldDeclaration) {
@@ -137,12 +134,13 @@ Pair<int, AstNode> getRefInsertionLocation(AstNode node, LineInfo lineInfo) {
     }
   }
 
-  return new Pair(offset, parent);
+  return Pair(offset, parent);
 }
 
 int prevLine(int offset, LineInfo lineInfo) {
   return lineInfo.getOffsetOfLine(lineInfo.getLocation(offset).lineNumber - 1);
 }
+
 int nextLine(int offset, LineInfo lineInfo) {
   return lineInfo.getOffsetOfLineAfter(offset);
 }

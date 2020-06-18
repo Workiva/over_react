@@ -20,6 +20,25 @@ missingParens() {
   // look for immediately-invoked function (literal?) with dynamic return value being set to function type prop
   Dom.div()..onClick = (_){}(1);
   Dom.div()..onClick = dynamicHandler(1); // equivalent to above
+
+moreMissingParens() {
+  (Foo()
+    (Foo()..id = '')()
+  );
+
+  (Dom.div()
+    (Dom.span()..id = '')()
+  );
+  (Dom.div()
+    (Dom.span())(),
+  );
+
+  (Dom.div())
+    (Dom.span())(),
+  );
+  (Dom.div()
+    Dom.span()(),
+  );
 }
 
 //

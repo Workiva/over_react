@@ -4,12 +4,12 @@
 
 // ignore: implementation_imports
 import 'package:analyzer/source/line_info.dart';
-import 'package:analyzer/src/task/dart.dart' show IgnoreInfo; // ignore: implementation_imports
+import 'package:analyzer/src/ignore_comments/ignore_info.dart' show IgnoreInfo; // ignore: implementation_imports
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 
-export 'package:analyzer/src/task/dart.dart' show IgnoreInfo; // ignore: implementation_imports
+export 'package:analyzer/src/ignore_comments/ignore_info.dart' show IgnoreInfo; // ignore: implementation_imports
 
-List<AnalysisError> filterIgnores(List<AnalysisError> errors, LineInfo lineInfo,  IgnoreInfo lazyIgnoreInfo()) {
+List<AnalysisError> filterIgnores(List<AnalysisError> errors, LineInfo lineInfo, IgnoreInfo Function() lazyIgnoreInfo) {
   if (errors.isEmpty) {
     return errors;
   }
@@ -17,17 +17,16 @@ List<AnalysisError> filterIgnores(List<AnalysisError> errors, LineInfo lineInfo,
   return _filterIgnored(errors, lazyIgnoreInfo(), lineInfo);
 }
 
-List<AnalysisError> _filterIgnored(
-    List<AnalysisError> errors, IgnoreInfo ignoreInfo, LineInfo lineInfo) {
+List<AnalysisError> _filterIgnored(List<AnalysisError> errors, IgnoreInfo ignoreInfo, LineInfo lineInfo) {
   if (errors.isEmpty || !ignoreInfo.hasIgnores) {
     return errors;
   }
 
   bool isIgnored(AnalysisError error) {
-    int errorLine = lineInfo.getLocation(error.location.offset).lineNumber;
-    String errorCode = error.code.toLowerCase();
+    final errorLine = lineInfo.getLocation(error.location.offset).lineNumber;
+    final errorCode = error.code.toLowerCase();
     return ignoreInfo.ignoredAt(errorCode, errorLine);
   }
 
-  return errors.where((AnalysisError e) => !isIgnored(e)).toList();
+  return errors.where((e) => !isIgnored(e)).toList();
 }

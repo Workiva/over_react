@@ -2,12 +2,9 @@ import 'package:over_react/over_react.dart';
 
 part 'bool_prop_readability.over_react.g.dart';
 
-@Factory()
-// ignore: undefined_identifier
-UiFactory<BarProps> Bar = _$Bar;
+UiFactory<BarProps> Bar = _$Bar; // ignore: undefined_identifier
 
-@Props()
-class _$BarProps extends UiProps {
+mixin BarProps on UiProps {
   // Prefix
   bool isGoodPrefix;
   bool wasGoodPrefix;
@@ -41,14 +38,7 @@ class _$BarProps extends UiProps {
   bool jumpAround; // Better Option: canJumpAround or enableJumpAround
 }
 
-// ignore: mixin_of_non_class, undefined_class
-class BarProps extends _$BarProps with _$BarPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
-  static const PropsMeta meta = _$metaForBarProps;
-}
-
-@Component()
-class BarComponent extends UiComponent<BarProps> {
+class BarComponent extends UiComponent2<BarProps> {
   @override
   render() => Dom.div()();
 }

@@ -3,7 +3,7 @@ main() {
   final supportedElements = <String, List<String>>{};
   final globalAttributes = <String>[];
 
-  for (var line in _rawTable.trim().split('\n')) {
+  for (final line in _rawTable.trim().split('\n')) {
     final columns = line.split('\t');
     assert(columns.length == 2);
 
@@ -13,15 +13,12 @@ main() {
     if (elementsColumn == 'Global attribute') {
       globalAttributes.add(attr);
     } else {
-      supportedElements[attr] = new RegExp(r'<(\w+)>')
-          .allMatches(elementsColumn)
-          .map((match) => match.group(1))
-          .map(_elToReactEl)
-          .toList();
+      supportedElements[attr] =
+          RegExp(r'<(\w+)>').allMatches(elementsColumn).map((match) => match.group(1)).map(_elToReactEl).toList();
     }
   }
 
-  final buffer = new StringBuffer();
+  final buffer = StringBuffer();
   buffer.writeln('const allowedHtmlElementsForAttribute = {');
   supportedElements.forEach((key, value) {
     buffer.writeln('  \'$key\': ['

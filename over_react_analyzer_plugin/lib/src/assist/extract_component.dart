@@ -8,7 +8,8 @@ import 'package:over_react_analyzer_plugin/src/util/fix.dart';
 import 'package:over_react_analyzer_plugin/src/util/linked_edits.dart';
 import 'package:over_react_analyzer_plugin/src/util/node.dart';
 
-typedef void BoilerplateLinkedEditFn(DartEditBuilder builder, {
+typedef BoilerplateLinkedEditFn = void Function(
+  DartEditBuilder builder, {
   String groupName,
   String componentFactoryName,
   String Function({int indent}) getComponentRenderReturnValueSrc,
@@ -21,6 +22,9 @@ abstract class _ExtractComponentAssistContributorBase extends AssistContributorB
 
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
+    // Only compute when there's a selection
+    if (request.length == 0) return;
+
     await super.computeAssists(request, collector);
     if (!setupCompute()) return;
 
@@ -41,17 +45,22 @@ abstract class _ExtractComponentAssistContributorBase extends AssistContributorB
       final content = request.result.content;
       builder.addInsertion(content.length, (builder) {
         builder.write('\n\n');
-        addBoilerplateLinkedEditFn(builder, groupName: linkedEditGroupName,
-            getComponentRenderReturnValueSrc: ({indent}) {
-              return getNodeSource(usage.node, content, request.result.lineInfo,
-                  indent: indent,
-                  firstLineIndent: 0,
-              );
-            },
+        addBoilerplateLinkedEditFn(
+          builder,
+          groupName: linkedEditGroupName,
+          getComponentRenderReturnValueSrc: ({indent}) {
+            return getNodeSource(
+              usage.node,
+              content,
+              request.result.lineInfo,
+              indent: indent,
+              firstLineIndent: 0,
+            );
+          },
         );
       });
 
-      builder.addReplacement(new SourceRange(usage.node.offset, usage.node.length), (builder) {
+      builder.addReplacement(SourceRange(usage.node.offset, usage.node.length), (builder) {
         builder.addSimpleLinkedEdit(linkedEditGroupName, 'Foo');
         builder.write('()()');
       });
@@ -60,14 +69,13 @@ abstract class _ExtractComponentAssistContributorBase extends AssistContributorB
     sourceChange
       ..message = extractComponent.message
       ..id = extractComponent.id;
-    collector.addAssist(new PrioritizedSourceChange(extractComponent.priority, sourceChange));
+    collector.addAssist(PrioritizedSourceChange(extractComponent.priority, sourceChange));
   }
 }
 
 class ExtractComponentAssistContributor extends _ExtractComponentAssistContributorBase {
   @override
-  AssistKind extractComponent = new AssistKind('extractComponent', 32,
-      'Extract selection as a new UiComponent');
+  AssistKind extractComponent = AssistKind('extractComponent', 32, 'Extract selection as a new UiComponent');
 
   @override
   String get linkedEditGroupName => 'orStless';
@@ -78,8 +86,8 @@ class ExtractComponentAssistContributor extends _ExtractComponentAssistContribut
 
 class ExtractStatefulComponentAssistContributor extends _ExtractComponentAssistContributorBase {
   @override
-  AssistKind extractComponent = new AssistKind('extractStatefulComponent', 32,
-      'Extract selection as a new UiStatefulComponent');
+  AssistKind extractComponent =
+      AssistKind('extractStatefulComponent', 32, 'Extract selection as a new UiStatefulComponent');
 
   @override
   String get linkedEditGroupName => 'orStful';
@@ -90,8 +98,7 @@ class ExtractStatefulComponentAssistContributor extends _ExtractComponentAssistC
 
 class ExtractFluxComponentAssistContributor extends _ExtractComponentAssistContributorBase {
   @override
-  AssistKind extractComponent = new AssistKind('extractFluxComponent', 32,
-      'Extract selection as a new FluxUiComponent');
+  AssistKind extractComponent = AssistKind('extractFluxComponent', 32, 'Extract selection as a new FluxUiComponent');
 
   @override
   String get linkedEditGroupName => 'orFlux';
@@ -102,8 +109,8 @@ class ExtractFluxComponentAssistContributor extends _ExtractComponentAssistContr
 
 class ExtractFluxStatefulComponentAssistContributor extends _ExtractComponentAssistContributorBase {
   @override
-  AssistKind extractComponent = new AssistKind('extractFluxStatefulComponent', 32,
-      'Extract selection as a new FluxUiStatefulComponent');
+  AssistKind extractComponent =
+      AssistKind('extractFluxStatefulComponent', 32, 'Extract selection as a new FluxUiStatefulComponent');
 
   @override
   String get linkedEditGroupName => 'orFluxStful';

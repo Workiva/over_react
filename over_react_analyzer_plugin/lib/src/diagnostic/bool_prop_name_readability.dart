@@ -1,42 +1,37 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
-import 'package:analyzer/dart/element/element.dart';
-import 'package:analyzer/dart/element/type.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
-import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
 class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
-  static const code = const ErrorCode(
+  static const code = DiagnosticCode(
     'over_react_bool_prop_name_readability',
     "'{0}.{1}' isn't an easily readable Boolean prop name. Try using a prefix like: {2}",
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.LINT,
   );
 
-
   @override
   computeErrors(result, collector) async {
-    final typeProvider = result.unit.declaredElement.context.typeProvider;
-    final visitor = new PropsVisitor();
+    final typeProvider = result.libraryElement.typeProvider;
+    final visitor = PropsVisitor();
 
     result.unit.accept(visitor);
 
-    final returnClasses = visitor.returnClasses;
+    final returnMixins = visitor.returnMixins;
 
-    for (ClassDeclaration propsClass in returnClasses) {
-      final classFields = propsClass.declaredElement.fields;
-      for (FieldElement field in classFields) {
+    for (final propsClass in returnMixins) {
+      final mixinFields = propsClass.declaredElement.fields;
+      for (final field in mixinFields) {
         final propName = field.name;
-        if (field.type == null || field.type.isUndefined) continue;
         if (field.type != typeProvider.boolType) continue;
         if (propName == null) continue; // just in case
 
-        List boolPropReadability = checkBoolPropReadability(propName);
-        bool isPropReadable = boolPropReadability[0];
+        final boolPropReadability = checkBoolPropReadability(propName);
+        final isPropReadable = boolPropReadability[0];
 
         if (!isPropReadable) {
-          collector.addError(code, location(result, range: range.node(propsClass.getField(field.name))),
+          collector.addError(code, result.locationFor(propsClass.getField(field.name)),
               errorMessageArgs: [propsClass.name, propName, allowedPrefixesForBoolProp.join(', ')]);
         }
       }
@@ -45,15 +40,15 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
 }
 
 List checkBoolPropReadability(String propName) {
-  List reasons = [];
-  bool isReadable = false;
-  var checklist = {
+  final reasons = [];
+  var isReadable = false;
+  final checklist = {
     'prefix': hasBooleanPrefix(propName),
     'contains': hasBooleanContain(propName),
     'lowercase': isLowercase(propName),
   };
 
-  checklist.forEach((check, result){
+  checklist.forEach((check, result) {
     if (result) {
       isReadable = true;
       reasons.add(check);
@@ -68,18 +63,15 @@ bool isLowercase(String str) {
 }
 
 bool hasBooleanPrefix(String propName) {
-  return propName.toLowerCase().startsWith(new RegExp('(${allowedPrefixesForBoolProp.join("|")})'));
+  return propName.toLowerCase().startsWith(RegExp('(${allowedPrefixesForBoolProp.join("|")})'));
 }
 
 bool hasBooleanContain(String propName) {
-  return propName.toLowerCase().contains(new RegExp('(${allowedContainsForBoolProp.join("|")})'));
+  return propName.toLowerCase().contains(RegExp('(${allowedContainsForBoolProp.join("|")})'));
 }
 
-bool isPropsClass(ClassDeclaration c) =>
-    c.declaredElement.allSupertypes.any((m) => m.name == 'UiProps');
-
 class PropsVisitor extends SimpleAstVisitor<void> {
-  List<ClassDeclaration> returnClasses = [];
+  List<ClassOrMixinDeclaration> returnMixins = [];
   @override
   void visitCompilationUnit(CompilationUnit node) {
     node.visitChildren(this);
@@ -87,8 +79,15 @@ class PropsVisitor extends SimpleAstVisitor<void> {
 
   @override
   void visitClassDeclaration(ClassDeclaration node) {
-    if (isPropsClass(node)) {
-      returnClasses.add(node);
+    if (node.declaredElement.isPropsClass) {
+      returnMixins.add(node);
+    }
+  }
+
+  @override
+  void visitMixinDeclaration(MixinDeclaration node) {
+    if (node.declaredElement.isPropsClass) {
+      returnMixins.add(node);
     }
   }
 }

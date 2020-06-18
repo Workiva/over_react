@@ -2,7 +2,10 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 
-String getNodeSource(InvocationExpression node, String fileContent, LineInfo lineInfo, {
+String getNodeSource(
+  InvocationExpression node,
+  String fileContent,
+  LineInfo lineInfo, {
   int indent,
   int firstLineIndent,
 }) {
@@ -17,7 +20,7 @@ String getNodeSource(InvocationExpression node, String fileContent, LineInfo lin
     if (firstLineIndent != indent) {
       final firstLine = (' ' * (firstLineIndent ?? 0)) + src.split('\n').first;
       final restOfTheLines = src.split('\n').skip(1).map((line) => (' ' * (indent - nodeIndent)) + line);
-      final allLines = [firstLine]..addAll(restOfTheLines);
+      final allLines = [firstLine, ...restOfTheLines];
       return allLines.join('\n');
     } else {
       return src.split('\n').map((line) => (' ' * (indent - nodeIndent)) + line).join('\n');
@@ -28,7 +31,7 @@ String getNodeSource(InvocationExpression node, String fileContent, LineInfo lin
     if (firstLineIndent != indent) {
       final firstLine = (' ' * (firstLineIndent ?? 0)) + src.split('\n').first;
       final restOfTheLines = src.split('\n').skip(1).map((line) => (' ' * (nodeIndent - indent)) + line);
-      final allLines = [firstLine]..addAll(restOfTheLines);
+      final allLines = [firstLine, ...restOfTheLines];
       return allLines.join('\n');
     } else {
       return src.split('\n').map((line) => line.replaceFirst(' ' * (nodeIndent - indent), '')).join('\n');

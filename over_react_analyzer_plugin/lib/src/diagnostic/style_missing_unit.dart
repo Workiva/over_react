@@ -1,19 +1,18 @@
 import 'package:analyzer/analyzer.dart' show ConstantEvaluator;
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
-  static final code = new ErrorCode(
+  static final code = DiagnosticCode(
       'over_react_style_missing_unit',
       // TODO upgrade to error in React 16
       "React CSS values must be strings with units, or numbers (in which case 'px' will be used). This will break in React 16.",
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_WARNING);
 
-  static final fixKind = FixKind(code.name, 200,
-      "Convert to number (and treat as 'px')",
+  static final fixKind = FixKind(code.name, 200, "Convert to number (and treat as 'px')",
       appliedTogetherMessage: "Convert to numbers (and treat as 'px')");
 
   @override
@@ -22,11 +21,11 @@ class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
     final styleEntries = <MapLiteralEntry>[];
     forEachCascadedProp(usage, (lhs, rhs) {
       if (lhs.propertyName.name == 'style') {
-        rhs.accept(new _RecursiveMapLiteralEntryVisitor(styleEntries.add));
+        rhs.accept(_RecursiveMapLiteralEntryVisitor(styleEntries.add));
       }
     });
 
-    for (var entry in styleEntries) {
+    for (final entry in styleEntries) {
       final propertyName = _stringValueIfApplicable(entry.key);
       if (propertyName == null) continue;
 
@@ -39,7 +38,7 @@ class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
       if (stringValue == null) continue;
 
       if (num.tryParse(stringValue) != null) {
-        final location = this.location(result, range: range.node(entry.value));
+        final location = result.locationFor(entry.value);
         final errorArgs = [propertyName, stringValue];
 
         // Don't suggest the change if this is an interpolated string,
@@ -126,4 +125,3 @@ const unitlessNumberStyles = {
   'strokeOpacity',
   'strokeWidth'
 };
-

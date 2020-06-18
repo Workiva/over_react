@@ -2,12 +2,11 @@ import 'dart:async';
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
-import 'package:over_react_analyzer_plugin/src/util/optional.dart';
 
-void forEachCascadedProp(FluentComponentUsage usage, void f(PropertyAccess lhs, Expression rhs)) {
+void forEachCascadedProp(FluentComponentUsage usage, void Function(PropertyAccess lhs, Expression rhs) f) {
   if (usage.cascadeExpression == null) return;
 
-  for (var section in usage.cascadeExpression.cascadeSections) {
+  for (final section in usage.cascadeExpression.cascadeSections) {
     if (section is AssignmentExpression) {
       final lhs = section.leftHandSide;
       if (lhs is PropertyAccess) {
@@ -17,10 +16,11 @@ void forEachCascadedProp(FluentComponentUsage usage, void f(PropertyAccess lhs, 
   }
 }
 
-Future<void> forEachCascadedPropAsync(FluentComponentUsage usage, FutureOr<void> f(PropertyAccess lhs, Expression rhs)) async {
+Future<void> forEachCascadedPropAsync(
+    FluentComponentUsage usage, FutureOr<void> Function(PropertyAccess lhs, Expression rhs) f) async {
   if (usage.cascadeExpression == null) return;
 
-  for (var section in usage.cascadeExpression.cascadeSections) {
+  for (final section in usage.cascadeExpression.cascadeSections) {
     if (section is AssignmentExpression) {
       final lhs = section.leftHandSide;
       if (lhs is PropertyAccess) {
@@ -30,11 +30,10 @@ Future<void> forEachCascadedPropAsync(FluentComponentUsage usage, FutureOr<void>
   }
 }
 
-
 Iterable<SimpleIdentifier> getSetPropNames(FluentComponentUsage usage) sync* {
   if (usage.cascadeExpression == null) return;
 
-  for (var section in usage.cascadeExpression.cascadeSections) {
+  for (final section in usage.cascadeExpression.cascadeSections) {
     if (section is AssignmentExpression) {
       final lhs = section.leftHandSide;
       if (lhs is PropertyAccess) {

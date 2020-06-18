@@ -1,8 +1,8 @@
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class HashCodeAsKeyDiagnostic extends ComponentUsageDiagnosticContributor {
-  static final code = new ErrorCode(
+  static final code = DiagnosticCode(
       'over_react_missing_casecade_parens',
       "React keys should not be derived from 'hashCode' since it is not unique",
       AnalysisErrorSeverity.WARNING,
@@ -13,7 +13,7 @@ class HashCodeAsKeyDiagnostic extends ComponentUsageDiagnosticContributor {
     forEachCascadedProp(usage, (lhs, rhs) {
       if (lhs.propertyName.name == 'key') {
         if (rhs.toSource().contains('.hashCode')) {
-          collector.addError(code, location(result, range: range.node(rhs)));
+          collector.addError(code, result.locationFor(rhs));
         }
       }
     });

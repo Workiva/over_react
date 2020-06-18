@@ -1,23 +1,18 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor {
-  static final code = new ErrorCode(
-      'over_react_required_prop',
-      'The prop {0} is required.',
-      AnalysisErrorSeverity.WARNING,
-      AnalysisErrorType.STATIC_WARNING);
+  static final code = DiagnosticCode('over_react_required_prop', 'The prop {0} is required.',
+      AnalysisErrorSeverity.WARNING, AnalysisErrorType.STATIC_WARNING);
 
-  static final fixKind = new FixKind(
-      code.name, 200, 'Add required prop \'{0}\'');
+  static final fixKind = FixKind(code.name, 200, 'Add required prop \'{0}\'');
 
   ClassElement _cachedAccessorClass;
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-
     final requiredFields = <FieldElement>[];
 
     // FIXME this almost definitely needs optimization/caching
@@ -29,11 +24,10 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
     }
 
     // todo check if factory invocation
-    if (builderType != null && builderType.name != 'UiProps' && builderType is InterfaceType) {
-      final classAndSuperclasses = [builderType.element]
-        ..addAll(builderType.element.allSupertypes.map((t) => t.element));
+    if (builderType is InterfaceType && builderType.element?.name != 'UiProps') {
+      final classAndSuperclasses = [builderType.element, ...builderType.element.allSupertypes.map((t) => t.element)];
       final allFields = classAndSuperclasses.expand((c) => c.fields);
-      for (var field in allFields) {
+      for (final field in allFields) {
         if (requiredFields.any((requiredField) => requiredField.name == field.name)) {
           // Short-circuit if we've already identified this field as required.
           // There might be duplicates if props are overridden, and there will
@@ -53,7 +47,7 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
           }
 
           _cachedAccessorClass ??= typeLibrary.getType('Accessor');
-          if (!type.isAssignableTo(_cachedAccessorClass.type)) {
+          if (!result.typeSystem.isAssignableTo(type, _cachedAccessorClass.thisType)) {
             return false;
           }
 
@@ -72,10 +66,10 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
       missingRequiredFieldNames.remove(lhs.propertyName.name);
     });
 
-    for (var name in missingRequiredFieldNames) {
+    for (final name in missingRequiredFieldNames) {
       collector.addError(
         code,
-        location(result, range: range.node(usage.builder)),
+        result.locationFor(usage.builder),
         errorMessageArgs: [name],
         // todo fix to add prop
       );

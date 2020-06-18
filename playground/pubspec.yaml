@@ -1,11 +1,12 @@
 name: plugin_playground
 version: 0.0.0
 environment:
-  sdk: '>=1.24.0 <3.0.0'
+  sdk: '>=2.7.0 <3.0.0'
 dependencies:
-  over_react: ^2.0.0
+  over_react: ^3.5.3
 dev_dependencies:
   over_react_analyzer_plugin_host:
     path: ../plugin_hosts/path
-  build_runner: '>=0.8.10 <2.0.0'
-  build_web_compilers: '>=0.3.6 <2.0.0'
+  build_runner: ^1.0.0
+  build_web_compilers: ^2.0.0
+  workiva_analysis_options: ^1.1.0

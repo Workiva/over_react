@@ -1,6 +1,7 @@
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
 
-void _addUiComponentBoilerplateFactory(DartEditBuilder builder, {
+void _addUiComponentBoilerplateFactory(
+  DartEditBuilder builder, {
   String groupName = 'orStless',
   String componentFactoryName = 'Foo',
 }) {
@@ -26,7 +27,8 @@ void _addUiComponentBoilerplateFactory(DartEditBuilder builder, {
     ..writeln('');
 }
 
-void _addUiComponentBoilerplateProps(DartEditBuilder builder, {
+void _addUiComponentBoilerplateProps(
+  DartEditBuilder builder, {
   String groupName = 'orStless',
   String componentFactoryName = 'Foo',
 }) {
@@ -39,7 +41,8 @@ void _addUiComponentBoilerplateProps(DartEditBuilder builder, {
     ..writeln('');
 }
 
-void _addUiComponentBoilerplateFluxProps(DartEditBuilder builder, {
+void _addUiComponentBoilerplateFluxProps(
+  DartEditBuilder builder, {
   String groupName = 'orFlux',
   String componentFactoryName = 'Foo',
 }) {
@@ -57,7 +60,8 @@ void _addUiComponentBoilerplateFluxProps(DartEditBuilder builder, {
     ..writeln('');
 }
 
-void _addUiComponentBoilerplateState(DartEditBuilder builder, {
+void _addUiComponentBoilerplateState(
+  DartEditBuilder builder, {
   String groupName = 'orStful',
   String componentFactoryName = 'Foo',
 }) {
@@ -70,7 +74,8 @@ void _addUiComponentBoilerplateState(DartEditBuilder builder, {
     ..writeln('');
 }
 
-void _addUiComponentBoilerplateComponent(DartEditBuilder builder, {
+void _addUiComponentBoilerplateComponent(
+  DartEditBuilder builder, {
   String groupName = 'orStless',
   String componentFactoryName = 'Foo',
   String baseComponentClassName = 'UiComponent',
@@ -104,33 +109,34 @@ void _addUiComponentBoilerplateComponent(DartEditBuilder builder, {
     ..writeln('');
 
   if (baseComponentClassName.contains('Stateful')) {
-    builder
-      ..writeln('  @override')
-      ..writeln('  Map getInitialState() => (newState());')
-      ..writeln('');
+    builder..writeln('  @override')..writeln('  Map getInitialState() => (newState());')..writeln('');
   }
 
   builder
     ..writeln('  @override')
     ..writeln('  render() {')
-    ..write(  '    return $componentRenderReturnValueSrc;')
+    ..write('    return $componentRenderReturnValueSrc;')
     ..writeln('')
     ..writeln('  }')
     ..writeln('}');
 }
 
-void addUiComponentBoilerplateLinkedEdit(DartEditBuilder builder, {
+void addUiComponentBoilerplateLinkedEdit(
+  DartEditBuilder builder, {
   String groupName = 'orStless',
   String componentFactoryName = 'Foo',
   String Function({int indent}) getComponentRenderReturnValueSrc,
 }) {
   _addUiComponentBoilerplateFactory(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateProps(builder, groupName: groupName, componentFactoryName: componentFactoryName);
-  _addUiComponentBoilerplateComponent(builder, groupName: groupName, componentFactoryName: componentFactoryName,
+  _addUiComponentBoilerplateComponent(builder,
+      groupName: groupName,
+      componentFactoryName: componentFactoryName,
       getComponentRenderReturnValueSrc: getComponentRenderReturnValueSrc);
 }
 
-void addUiStatefulComponentBoilerplateLinkedEdit(DartEditBuilder builder, {
+void addUiStatefulComponentBoilerplateLinkedEdit(
+  DartEditBuilder builder, {
   String groupName = 'orStful',
   String componentFactoryName = 'Foo',
   String Function({int indent}) getComponentRenderReturnValueSrc,
@@ -138,24 +144,30 @@ void addUiStatefulComponentBoilerplateLinkedEdit(DartEditBuilder builder, {
   _addUiComponentBoilerplateFactory(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateProps(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateState(builder, groupName: groupName, componentFactoryName: componentFactoryName);
-  _addUiComponentBoilerplateComponent(builder, groupName: groupName, baseComponentClassName: 'UiStatefulComponent',
+  _addUiComponentBoilerplateComponent(builder,
+      groupName: groupName,
+      baseComponentClassName: 'UiStatefulComponent',
       componentFactoryName: componentFactoryName,
       getComponentRenderReturnValueSrc: getComponentRenderReturnValueSrc);
 }
 
-void addFluxUiComponentBoilerplateLinkedEdit(DartEditBuilder builder, {
+void addFluxUiComponentBoilerplateLinkedEdit(
+  DartEditBuilder builder, {
   String groupName = 'orFlux',
   String componentFactoryName = 'Foo',
   String Function({int indent}) getComponentRenderReturnValueSrc,
 }) {
   _addUiComponentBoilerplateFactory(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateFluxProps(builder, groupName: groupName, componentFactoryName: componentFactoryName);
-  _addUiComponentBoilerplateComponent(builder, groupName: groupName, baseComponentClassName: 'FluxUiComponent',
+  _addUiComponentBoilerplateComponent(builder,
+      groupName: groupName,
+      baseComponentClassName: 'FluxUiComponent',
       componentFactoryName: componentFactoryName,
       getComponentRenderReturnValueSrc: getComponentRenderReturnValueSrc);
 }
 
-void addFluxUiStatefulComponentBoilerplateLinkedEdit(DartEditBuilder builder, {
+void addFluxUiStatefulComponentBoilerplateLinkedEdit(
+  DartEditBuilder builder, {
   String groupName = 'orFluxStful',
   String componentFactoryName = 'Foo',
   String Function({int indent}) getComponentRenderReturnValueSrc,
@@ -163,7 +175,9 @@ void addFluxUiStatefulComponentBoilerplateLinkedEdit(DartEditBuilder builder, {
   _addUiComponentBoilerplateFactory(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateFluxProps(builder, groupName: groupName, componentFactoryName: componentFactoryName);
   _addUiComponentBoilerplateState(builder, groupName: groupName, componentFactoryName: componentFactoryName);
-  _addUiComponentBoilerplateComponent(builder, groupName: groupName, baseComponentClassName: 'FluxUiStatefulComponent',
+  _addUiComponentBoilerplateComponent(builder,
+      groupName: groupName,
+      baseComponentClassName: 'FluxUiStatefulComponent',
       componentFactoryName: componentFactoryName,
       getComponentRenderReturnValueSrc: getComponentRenderReturnValueSrc);
 }

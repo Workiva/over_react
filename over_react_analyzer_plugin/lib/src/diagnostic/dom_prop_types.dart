@@ -1,10 +1,12 @@
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
+/// A diagnostic that warns when an HTML attribute set on an OverReact `Dom` component builder is invalid
+/// based on the `<attribute>: [<allowed_html_elems>]` schema found within [allowedHtmlElementsForAttribute].
 class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor {
-  static const code = const ErrorCode(
+  static const code = DiagnosticCode(
     'over_react_invalid_dom_attribute',
-    "{}' isn't a valid HTML attribute prop for '{}'. It may only be used on: {}",
+    "'{0}' isn't a valid HTML attribute prop for '{1}'. It may only be used on: {2}",
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
   );
@@ -28,10 +30,8 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
       if (allowedElements == null) return;
 
       if (!allowedElements.contains(nodeName)) {
-        collector.addError(code,
-            location(result, range: range.node(lhs.propertyName)),
-            errorMessageArgs: [propName, nodeName, allowedElements.join(',')]
-        );
+        collector.addError(code, result.locationFor(lhs.propertyName),
+            errorMessageArgs: [propName, 'Dom.$nodeName()', allowedElements.map((name) => 'Dom.$name()').join(',')]);
       }
     });
   }
@@ -39,22 +39,42 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
 
 List<String> getAttributeMeta(String propName) {
   return allowedHtmlElementsForAttribute[propName] ??
-         allowedHtmlElementsForAttribute[propName.toLowerCase()] ??
-         allowedHtmlElementsForAttribute[_camelToSpinalCase(propName)];
+      allowedHtmlElementsForAttribute[propName.toLowerCase()] ??
+      allowedHtmlElementsForAttribute[_camelToSpinalCase(propName)];
 }
 
 String _camelToSpinalCase(String camel) {
-  return camel.replaceAllMapped(
-    new RegExp(r'([^A-Z])([A-Z])'),
-    (match) => '${match.group(1)}-${match.group(2)}',
-  ).toLowerCase();
+  return camel
+      .replaceAllMapped(
+        RegExp(r'([^A-Z])([A-Z])'),
+        (match) => '${match.group(1)}-${match.group(2)}',
+      )
+      .toLowerCase();
 }
 
+/// A map keyed with HTML attributes and iterable values of the HTML element names they are allowed on.
+///
+/// > See: [InvalidDomAttributeDiagnostic]
 const allowedHtmlElementsForAttribute = {
   'accept': ['form', 'input'],
   'accept-charset': ['form'],
   'action': ['form'],
-  'align': ['applet', 'caption', 'col', 'colgroup', 'hr', 'iframe', 'img', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr'],
+  'align': [
+    'applet',
+    'caption',
+    'col',
+    'colgroup',
+    'hr',
+    'iframe',
+    'img',
+    'table',
+    'tbody',
+    'td',
+    'tfoot',
+    'th',
+    'thead',
+    'tr'
+  ],
   'allow': ['iframe'],
   'alt': ['applet', 'area', 'img', 'input'],
   'async': ['script'],
@@ -88,7 +108,19 @@ const allowedHtmlElementsForAttribute = {
   'download': ['a', 'area'],
   'enctype': ['form'],
   'for': ['label', 'output'],
-  'form': ['button', 'fieldset', 'input', 'keygen', 'label', 'meter', 'object', 'output', 'progress', 'select', 'textarea'],
+  'form': [
+    'button',
+    'fieldset',
+    'input',
+    'keygen',
+    'label',
+    'meter',
+    'object',
+    'output',
+    'progress',
+    'select',
+    'textarea'
+  ],
   'formaction': ['input', 'button'],
   'headers': ['td', 'th'],
   'height': ['canvas', 'embed', 'iframe', 'img', 'input', 'object', 'video'],
@@ -117,7 +149,21 @@ const allowedHtmlElementsForAttribute = {
   'min': ['input', 'meter'],
   'multiple': ['input', 'select'],
   'muted': ['audio', 'video'],
-  'name': ['button', 'form', 'fieldset', 'iframe', 'input', 'keygen', 'object', 'output', 'select', 'textarea', 'map', 'meta', 'param'],
+  'name': [
+    'button',
+    'form',
+    'fieldset',
+    'iframe',
+    'input',
+    'keygen',
+    'object',
+    'output',
+    'select',
+    'textarea',
+    'map',
+    'meta',
+    'param'
+  ],
   'novalidate': ['form'],
   'open': ['details'],
   'optimum': ['meter'],
@@ -156,4 +202,3 @@ const allowedHtmlElementsForAttribute = {
   'width': ['canvas', 'embed', 'iframe', 'img', 'input', 'object', 'video'],
   'wrap': ['textarea'],
 };
-

@@ -11,16 +11,16 @@ void addProp(
   LineInfo lineInfo, {
   String name,
   String value,
-  void buildNameEdit(DartEditBuilder builder),
-  void buildValueEdit(DartEditBuilder builder),
+  void Function(DartEditBuilder builder) buildNameEdit,
+  void Function(DartEditBuilder builder) buildValueEdit,
   bool forceOwnLine = false,
 }) {
   if ((name == null) == (buildNameEdit == null)) {
-    throw new ArgumentError();
+    throw ArgumentError();
   }
 
   if ((value != null) && (buildValueEdit != null)) {
-    throw new ArgumentError();
+    throw ArgumentError();
   }
 
   final function = usage.node.function;
@@ -39,7 +39,7 @@ void addProp(
     if (isSameLine(lineInfo, usage.node.function.offset, sections.first.offset)) {
       // todo handle some cascades being on separate lines
       // todo handle multiline cascades
-      for (var section in sections) {
+      for (final section in sections) {
         fileBuilder.addSimpleInsertion(section.offset, '\n$cascadeIndent');
       }
     }

@@ -50,8 +50,9 @@ import 'package:over_react_analyzer_plugin/src/assist/wrap_unwrap.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/diagnostic.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/arrow_function_prop.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/boilerplate_validator.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/bool_prop_name_readability.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/dom_prop_types.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/duplicate_prop_cascade.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/hashcode_as_key.dart';
@@ -67,33 +68,31 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/single_child_key'
     '.dart';
 import 'package:over_react_analyzer_plugin/src/navigation/prop_navigation_contributor.dart';
 
-
-
 /// Analyzer plugin for over_react.
-class OverReactAnalyzerPlugin extends ServerPlugin with
+class OverReactAnalyzerPlugin extends ServerPlugin
+    with
 //    OutlineMixin, DartOutlineMixin,
-    DiagnosticMixin,
-    NavigationMixin, DartNavigationMixin,
-    AsyncAssistsMixin, AsyncDartAssistsMixin {
+        DiagnosticMixin,
+        NavigationMixin,
+        DartNavigationMixin,
+        AsyncAssistsMixin,
+        AsyncDartAssistsMixin {
   OverReactAnalyzerPlugin(ResourceProvider provider) : super(provider);
 
   @override
   AnalysisDriverGeneric createAnalysisDriver(plugin.ContextRoot contextRoot) {
-    final root = new ContextRoot(contextRoot.root, contextRoot.exclude,
-        pathContext: resourceProvider.pathContext)
+    final root = ContextRoot(contextRoot.root, contextRoot.exclude, pathContext: resourceProvider.pathContext)
       ..optionsFilePath = contextRoot.optionsFile;
-    final contextBuilder =
-        new ContextBuilder(resourceProvider, sdkManager, null)
-          ..analysisDriverScheduler = analysisDriverScheduler
-          ..byteStore = byteStore
-          ..performanceLog = performanceLog
-          ..fileContentOverlay = fileContentOverlay;
+    final contextBuilder = ContextBuilder(resourceProvider, sdkManager, null)
+      ..analysisDriverScheduler = analysisDriverScheduler
+      ..byteStore = byteStore
+      ..performanceLog = performanceLog
+      ..fileContentOverlay = fileContentOverlay;
     final result = contextBuilder.buildDriver(root);
     runZoned(() {
       result.results.listen(processDiagnosticsForResult);
     }, onError: (e, stackTrace) {
-      channel.sendNotification(new plugin.PluginErrorParams(
-              false, e.toString(), stackTrace.toString()).toNotification());
+      channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
     });
     return result;
   }
@@ -120,7 +119,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
 //  @override
 //  List<OutlineContributor> getOutlineContributors(String path) {
 //    return [
-      // Disabled for now since it doesn't seem to work consistently
+  // Disabled for now since it doesn't seem to work consistently
 //      new ReactElementOutlineContributor(),
 //    ];
 //  }
@@ -128,13 +127,13 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
   @override
   List<AsyncAssistContributor> getAssistContributors(String path) {
     return [
-      new AddPropsAssistContributor(),
-      new AddRefAssistContributor(),
-      new ExtractComponentAssistContributor(),
-      new ExtractStatefulComponentAssistContributor(),
-      new ExtractFluxComponentAssistContributor(),
-      new ExtractFluxStatefulComponentAssistContributor(),
-      new WrapUnwrapAssistContributor(),
+      AddPropsAssistContributor(),
+      AddRefAssistContributor(),
+      ExtractComponentAssistContributor(),
+      ExtractStatefulComponentAssistContributor(),
+      ExtractFluxComponentAssistContributor(),
+      ExtractFluxStatefulComponentAssistContributor(),
+      WrapUnwrapAssistContributor(),
     ];
   }
 
@@ -143,28 +142,28 @@ class OverReactAnalyzerPlugin extends ServerPlugin with
     return [
       /// NOTE: when developing in JetBrains IDEs, clear caches after reloading this
       /// plugin, or it may not request the latest navigation regions from this plugin.
-      new PropNavigationContributor(),
+      PropNavigationContributor(),
     ];
   }
 
   @override
   List<DiagnosticContributor> getDiagnosticContributors(String path) {
     return [
-      new DuplicatePropCascadeDiagnostic(),
-      new HashCodeAsKeyDiagnostic(),
-      new VariadicChildrenDiagnostic(),
-      new ArrowFunctionPropCascadeDiagnostic(),
-      new RenderReturnValueDiagnostic(),
-      new InvalidChildDiagnostic(),
-      new StringRefDiagnostic(),
-      new MissingCascadeParensDiagnostic(),
-      new MissingRequiredPropDiagnostic(),
-      new PseudoStaticLifecycleDiagnostic(),
-      new InvalidDomAttributeDiagnostic(),
-      new SingleChildWithKey(),
-      new BoolPropNameReadabilityDiagnostic(),
-      new StyleMissingUnitDiagnostic(),
+      DuplicatePropCascadeDiagnostic(),
+      HashCodeAsKeyDiagnostic(),
+      VariadicChildrenDiagnostic(),
+      ArrowFunctionPropCascadeDiagnostic(),
+      RenderReturnValueDiagnostic(),
+      InvalidChildDiagnostic(),
+      StringRefDiagnostic(),
+      MissingCascadeParensDiagnostic(),
+      MissingRequiredPropDiagnostic(),
+      PseudoStaticLifecycleDiagnostic(),
+      InvalidDomAttributeDiagnostic(),
+      BoolPropNameReadabilityDiagnostic(),
+      StyleMissingUnitDiagnostic(),
+      BoilerplateValidatorDiagnostic(),
+      SingleChildWithKey(),
     ];
   }
 }
-

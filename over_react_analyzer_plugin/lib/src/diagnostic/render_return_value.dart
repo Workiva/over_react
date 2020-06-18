@@ -1,77 +1,64 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
 class RenderReturnValueDiagnostic extends DiagnosticContributor {
-  static final react15InvalidTypeErrorCode = ErrorCode(
+  static final invalidTypeErrorCode = DiagnosticCode(
       'over_react_invalid_render_return_type',
-      "Invalid render() return type: '{0}'. Must be a ReactElement, null, false.{1}",
+      "Invalid render() return type: '{0}'. Must be a ReactElement, primitive value, or an Iterable of those types.{1}",
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_TYPE_WARNING);
 
-  static final react16InvalidTypeErrorCode = ErrorCode(
-      'over_react_invalid_render_return_type',
-      "Invalid render() return type: '{0}'. Must be a ReactElement, Fragment, null, false, or an Iterable of those types.{1}",
-      AnalysisErrorSeverity.WARNING,
-      AnalysisErrorType.STATIC_TYPE_WARNING);
-
-  static final preferNullOverFalseErrorCode = ErrorCode(
+  static final preferNullOverFalseErrorCode = DiagnosticCode(
       'over_react_prefer_null_over_false',
       'Prefer returning null over false in render. (The dart2js bug involving null has been fixed.)',
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_TYPE_WARNING);
 
-  static final nullToFalseFix = FixKind(
-      preferNullOverFalseErrorCode.name, 200, missingBuilderFixMessage);
+  static final falseToNull = FixKind(preferNullOverFalseErrorCode.name, 200, missingBuilderFixMessage);
 
   @override
-   computeErrors(result, collector) async {
+  computeErrors(result, collector) async {
+    final typeSystem = result.libraryElement.typeSystem;
+
     // This is the return type even if it's not explicitly declared.
-    final visitor = new RenderVisitor();
+    final visitor = RenderVisitor();
     result.unit.accept(visitor);
-
-    final returnStatements = visitor.returnVisitor.returnStatements.toList();
-
-    const allowedTypes = [
-      'ReactElement',
-      // 'ReactFragment',
-      'Null',
-      'null',
-      'dynamic',
-      'void',
-      'bool', // support `return false;` to render nothing
-    ];
-
-    for (var returnStatement in returnStatements) {
+    for (final returnStatement in visitor.returnVisitor.returnStatements) {
       final returnExpression = returnStatement.expression;
       if (returnExpression == null) continue; // valueless returns
       final returnType = returnExpression.staticType;
-      if (returnType == null || returnType.isUndefined || returnType.isObject || returnType.isVoid) {
+      if (returnType == null || returnType.isDynamic || returnType.isDartCoreObject || returnType.isVoid) {
         continue;
       }
 
-      if (!allowedTypes.contains(returnType.name)) {
-        // todo check if React 16
-        final code = react15InvalidTypeErrorCode;
-        final location = this.location(result, range: range.node(returnStatement));
-
+      await validateReactChildType(returnType, typeSystem, onInvalidType: (invalidType) async {
+        final code = invalidTypeErrorCode;
+        final location = result.locationFor(returnStatement);
         if (couldBeMissingBuilderInvocation(returnExpression)) {
-          await collector.addErrorWithFix(code, location,
-            errorMessageArgs: [returnType.name, missingBuilderMessageSuffix],
+          await collector.addErrorWithFix(
+            code,
+            location,
+            errorMessageArgs: [returnType.getDisplayString(), missingBuilderMessageSuffix],
             fixKind: addBuilderInvocationFix,
             computeFix: () => buildFileEdit(result, (builder) {
               buildMissingInvocationEdits(returnExpression, builder);
             }),
           );
         } else {
-          collector.addError(code, location, errorMessageArgs: [returnType.name, '']);
+          collector.addError(code, location, errorMessageArgs: [returnType.getDisplayString(), '']);
         }
-      } else if (returnType.name == 'bool' && returnExpression is BooleanLiteral && returnExpression.value == false) {
+      });
+
+      if (returnType.isDartCoreBool && returnExpression is BooleanLiteral && returnExpression.value == false) {
         await collector.addErrorWithFix(
           preferNullOverFalseErrorCode,
-          location(result, range: range.node(returnExpression)),
+          result.locationFor(returnExpression),
+          fixKind: falseToNull,
           computeFix: () => buildFileEdit(result, (builder) {
             builder.addSimpleReplacement(range.node(returnExpression), 'null');
           }),
@@ -81,12 +68,8 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
   }
 }
 
-//
-bool hasComponentAnnotation(ClassDeclaration c) =>
-    c.declaredElement.allSupertypes.any((m) => m.name == 'Component');
-
 class RenderVisitor extends SimpleAstVisitor<void> {
-  RenderReturnVisitor returnVisitor = new RenderReturnVisitor();
+  RenderReturnVisitor returnVisitor = RenderReturnVisitor();
 
   @override
   void visitCompilationUnit(CompilationUnit node) {
@@ -95,7 +78,7 @@ class RenderVisitor extends SimpleAstVisitor<void> {
 
   @override
   void visitClassDeclaration(ClassDeclaration node) {
-    if (hasComponentAnnotation(node)) {
+    if (node.declaredElement.isComponentClass) {
       node.visitChildren(this);
     }
   }

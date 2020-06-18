@@ -8,11 +8,11 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart';
 ///     setIndent('  foo', 2, ' ');    // ' foo'
 SourceEdit setIndent(String source, LineInfo info, int offset, String indent) {
   var column = info.getLocation(offset).columnNumber - 1;
-  return new SourceEdit(offset - column, column, indent);
+  return SourceEdit(offset - column, column, indent);
 }
 
 /// Returns the whitespace characters, or "indent" from the start of
-/// the line in [sourceFile] containing [offset], up until [offset].
+/// the line in [source] containing [offset], up until [offset].
 ///
 /// Example:
 ///
@@ -22,12 +22,10 @@ SourceEdit setIndent(String source, LineInfo info, int offset, String indent) {
 String getIndent(String source, LineInfo info, int offset) {
   final beginningOfColumn = offset - (info.getLocation(offset).columnNumber - 1);
   final lineContentUpToOffset = source.substring(beginningOfColumn, offset);
-  return new RegExp(r'^ *')
-      .firstMatch(lineContentUpToOffset)[0];
+  return RegExp(r'^ *').firstMatch(lineContentUpToOffset)[0];
 }
 
-/// Returns whether [offsetA] and [offsetB] within [sourceFile] are on the same line.
+/// Returns whether [offsetA] and [offsetB] within are on the same line, according to [info[.
 bool isSameLine(LineInfo info, int offsetA, int offsetB) {
-  return info.getLocation(offsetA).lineNumber ==
-         info.getLocation(offsetB).lineNumber;
+  return info.getLocation(offsetA).lineNumber == info.getLocation(offsetB).lineNumber;
 }
