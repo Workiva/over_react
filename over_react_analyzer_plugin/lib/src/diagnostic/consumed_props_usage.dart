@@ -8,7 +8,7 @@ import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 class ConsumedPropsUsageDiagnostic extends DiagnosticContributor {
   static const code = DiagnosticCode(
     'over_react_bool_prop_name_readability',
-    "{0}    **     {1}",
+    "Return propsMeta.forMixins() instead of list literal.",
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.LINT,
   );
@@ -16,12 +16,12 @@ class ConsumedPropsUsageDiagnostic extends DiagnosticContributor {
   static final fixKind = FixKind(
     code.name,
     200,
-    'Move comment above factory',
+    'Convert to propsMeta.forMixins() syntax.',
   );
 
   @override
   computeErrors(result, collector) async {
-    final visitor = PropsVisitor();
+    final visitor = ConsumedPropsVisitor();
 
     result.unit.accept(visitor);
 
@@ -42,12 +42,21 @@ class ConsumedPropsUsageDiagnostic extends DiagnosticContributor {
                 code,
                 result.locationFor(expression),
                 errorMessageArgs: [
-                  '',
+                  (expression.elements.first as MethodInvocation).argumentList.arguments.first,
                   '',
                 ],
                 fixKind: fixKind,
                 computeFix: () => buildFileEdit(result, (builder) {
-
+                  builder.addReplacement(range.node(expression), (builder) {
+                    var mixinList = '';
+                    for (final element in elements) {
+                      mixinList += '${(element as MethodInvocation).argumentList.arguments.first}';
+                      if(element != elements.last) {
+                        mixinList += ', ';
+                      }
+                    }
+                    builder.write(' propsMeta.forMixins({$mixinList})');
+                  });
                 }),
               );
           }
@@ -57,7 +66,7 @@ class ConsumedPropsUsageDiagnostic extends DiagnosticContributor {
   }
 }
 
-class PropsVisitor extends SimpleAstVisitor<void> {
+class ConsumedPropsVisitor extends SimpleAstVisitor<void> {
   List<MethodDeclaration> returnMixins = [];
 
   @override
