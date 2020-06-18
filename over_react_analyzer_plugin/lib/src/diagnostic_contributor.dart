@@ -22,11 +22,19 @@ export 'package:over_react_analyzer_plugin/src/util/location.dart';
 ///
 /// adapted from ErrorCode in _fe_analyzer_shared
 class DiagnosticCode {
-  /// Initialize a newly created error code to have the given [name]. The message
-  /// associated with the error will be created from the given [message]
-  /// template. The correction associated with the error will be created from the
-  /// given [correction] template.
-  const DiagnosticCode(this.name, this.message, this.errorSeverity, this.type, [this.correction]);
+  /// Initialize a newly created error code to have the given [name].
+  ///
+  /// * The message associated with the error will be created from the given [message] template.
+  /// * The correction associated with the error will be created from the given [correction] template.
+  /// * The documentation url with the error will be created from the given [url] template.
+  const DiagnosticCode(
+    this.name,
+    this.message,
+    this.errorSeverity,
+    this.type, {
+    this.correction,
+    this.url,
+  });
 
   /// The name of the error code.
   final String name;
@@ -39,6 +47,9 @@ class DiagnosticCode {
   /// or `null` if there is no correction information for this error. The
   /// correction should indicate how the user can fix the error.
   final String correction;
+
+  /// The URL of a page containing documentation associated with this error.
+  final String url;
 
   /// The severity of the error.
   final AnalysisErrorSeverity errorSeverity;
@@ -147,7 +158,8 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
       location,
       _formatList(code.message, errorMessageArgs),
       code.name,
-      correction: null,
+      correction: code.correction,
+      url: code.url,
       hasFix: hasFix,
     );
 
