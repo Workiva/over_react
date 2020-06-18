@@ -53,6 +53,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/arrow_function_prop.da
 import 'package:over_react_analyzer_plugin/src/diagnostic/boilerplate_validator.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/bool_prop_name_readability.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/incorrect_doc_comment_location.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/dom_prop_types.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/duplicate_prop_cascade.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/hashcode_as_key.dart';
@@ -164,6 +165,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin
       StyleMissingUnitDiagnostic(),
       BoilerplateValidatorDiagnostic(),
       SingleChildWithKey(),
+      IncorrectDocCommentLocationDiagnostic(),
     ];
   }
 }

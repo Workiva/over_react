@@ -64,7 +64,6 @@ functionDeclarationTest() {
     ..key = 'top-layer'
   )(
     (Dom.div()
-      ..key = 'sibbling-1'
     )(
       (Dom.div()
         ..key = 'n-sibbling-1'
