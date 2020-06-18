@@ -10,6 +10,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 enum RefTypeToReplace {
   string,
@@ -96,7 +97,7 @@ void addCreateRef(
     });
 
     // Append all usages of the field the return value of createRef() is assigned to with `.current`
-    forEachMatchingDescendantIdentifier(
+    forEachDescendantOfType<Identifier>(
       enclosingClassOrMixin,
       (identifier) {
         final isMethodInvocation = identifier.thisOrAncestorOfType<MethodInvocation>() != null;
@@ -128,7 +129,7 @@ void addCreateRef(
 
     if (hasRefProp) {
       // Replace all usages of ref('oldStringRef') with the new ref field
-      forEachMatchingDescendantIdentifier(
+      forEachDescendantOfType<Identifier>(
         enclosingClassOrMixin,
         (identifier) {
           final parentFunctionInvocation = identifier.thisOrAncestorOfType<FunctionExpressionInvocation>();
@@ -148,60 +149,34 @@ void addCreateRef(
   }
 }
 
-/// Returns the name of the field that the single argument of a ref callback is assigned to.
 String _getRefCallbackAssignedFieldName(Expression refPropRhs) {
-  String nameOfFieldRefIsAssignedTo;
+  final function = refPropRhs?.tryCast<FunctionExpression>();
+  if (function == null) return null;
 
-  final refCallbackArgName = refPropRhs.childEntities
-      .whereType<FormalParameterList>()
-      .first
-      .childEntities
-      .whereType<SimpleFormalParameter>()
-      .single
-      .declaredElement
-      .name;
+  final refCallbackArg = function.parameters.parameters.firstOrNull;
+  if (refCallbackArg == null) return null;
 
-  final refCallbackFunctionBody = refPropRhs.childEntities.whereType<FunctionBody>().first;
-  final refCallbackFunctionBodyBlockOrExpression = refCallbackFunctionBody.childEntities
-      .whereType<Statement>()
-      .first
-      .childEntities
-      .whereType<ExpressionStatement>()
-      .single;
-  final assignmentsWithinRefCallback =
-      refCallbackFunctionBodyBlockOrExpression.childEntities.whereType<AssignmentExpression>();
+  final referencesToArg = getMatchingDescendantsOfType<Identifier>(
+      function.body, (identifier) => identifier.staticElement == refCallbackArg.declaredElement);
 
-  for (final assignment in assignmentsWithinRefCallback) {
-    final isAssignmentOfFunctionArgValue =
-        anyDescendantIdentifiers(assignment, (identifier) => identifier.name == refCallbackArgName);
-    if (!isAssignmentOfFunctionArgValue) continue;
-    nameOfFieldRefIsAssignedTo =
-        getMatchingDescendantIdentifier(assignment, (identifier) => identifier.staticElement.kind == ElementKind.SETTER)
-            ?.name;
-    if (nameOfFieldRefIsAssignedTo == null) continue;
-    break;
+  for (final reference in referencesToArg) {
+    final parent = reference.parent;
+    if (parent is AssignmentExpression && parent.rightHandSide == reference) {
+      final lhs = parent.leftHandSide;
+      if (lhs is Identifier && lhs.staticElement.kind == ElementKind.SETTER) {
+        return lhs.staticElement.displayName;
+      }
+    }
   }
 
-  return nameOfFieldRefIsAssignedTo;
+  return null;
 }
 
 Pair<int, AstNode> _getRefInsertionLocation(AstNode node, LineInfo lineInfo) {
-  CompilationUnit closestUnit;
+  final closestUnit = node.thisOrAncestorOfType<CompilationUnit>();
   // For now, don't support expression bodies since we can't easily insert a ref statement
-  BlockFunctionBody closestFunctionBody;
-  ClassDeclaration closestClass;
-
-  for (; node != null; node = node.parent) {
-    if (node is BlockFunctionBody) {
-      closestFunctionBody ??= node;
-    } else if (node is ClassDeclaration) {
-      closestClass = node;
-      break;
-    } else if (node is CompilationUnit) {
-      closestUnit = node;
-      break;
-    }
-  }
+  final closestFunctionBody = node.thisOrAncestorOfType<BlockFunctionBody>();
+  final closestClass = node.thisOrAncestorOfType<ClassDeclaration>();
 
   AstNode parent;
   int offset;
@@ -221,20 +196,13 @@ Pair<int, AstNode> _getRefInsertionLocation(AstNode node, LineInfo lineInfo) {
   }
 
   for (final child in parent.childEntities.toList().reversed) {
-    if (child is FieldDeclaration || child is VariableDeclarationStatement || child is TopLevelVariableDeclaration) {
-      VariableDeclarationList variables;
-      if (child is FieldDeclaration) {
-        variables = child.fields;
-      } else if (child is TopLevelVariableDeclaration) {
-        variables = child.variables;
-      } else {
-        variables = (child as VariableDeclarationStatement).variables;
-      }
-
-      if (variables.variables.any((decl) => decl.name.name != 'Ref' && decl.name.name.endsWith('Ref'))) {
-        offset = nextLine(child.end, lineInfo);
-        break;
-      }
+    final variables = child.tryCast<FieldDeclaration>()?.fields ??
+        child.tryCast<TopLevelVariableDeclaration>()?.variables ??
+        child.tryCast<VariableDeclarationStatement>()?.variables;
+    if (variables != null &&
+        variables.variables.any((decl) => decl.name.name != 'Ref' && decl.name.name.endsWith('Ref'))) {
+      offset = nextLine(child.end, lineInfo);
+      break;
     }
   }
 
