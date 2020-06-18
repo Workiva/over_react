@@ -25,8 +25,8 @@ class ConsumedPropsReturnValueDiagnostic extends DiagnosticContributor {
 
     final consumedPropsDeclarations = visitor.consumedPropsDeclarations;
 
-    for (final consumedProps in consumedPropsDeclarations) {
-      final body = consumedProps.body;
+    for (final consumedPropsDecl in consumedPropsDeclarations) {
+      final body = consumedPropsDecl.body;
       if (body is ExpressionFunctionBody) {
         final expression = body.expression;
         if (expression is ListLiteral && expression.elements.isNotEmpty) {
@@ -45,12 +45,13 @@ class ConsumedPropsReturnValueDiagnostic extends DiagnosticContributor {
                   var mixinList = '';
                   for (final element in elements) {
                     mixinList += '${(element as MethodInvocation).argumentList.arguments.first}';
-                    if (element != elements.last) {
+                    if (elements.length > 1) {
                       mixinList += ', ';
                     }
                   }
                   builder.write(' propsMeta.forMixins({$mixinList})');
                 });
+                builder.format(range.node(consumedPropsDecl));
               }),
             );
           }
