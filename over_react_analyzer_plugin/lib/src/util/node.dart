@@ -54,18 +54,3 @@ String getComponentName(AstNode node) {
   var fullName = RegExp('([A-Za-z]+)(Component)').firstMatch(node.toSource());
   return fullName?.group(1);
 }
-
-class ComponentClassDeclaration {
-  ClassDeclaration componentClass;
-
-
-  
-  List<MixinDeclaration> _mixins;
-  
-  MixinDeclaration get stateMixin => _mixins.firstWhere((e) => e.name.name.contains('State'));
-
-  MixinDeclaration get propsMixin => _mixins.firstWhere((e) => e.name.name.contains('Props'));
-
-  // Constructor around
-  ComponentClassDeclaration.fromIdentifierNode(AstNode node) {}
-}

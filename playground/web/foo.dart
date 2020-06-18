@@ -11,7 +11,7 @@ class FooComponent extends UiComponent2<FooProps> {
   render() {}
 }
 
-UiFactory<FooProps> Bar = _$Bar; // ignore: undefined_identifier
+UiFactory<BarProps> Bar = _$Bar; // ignore: undefined_identifier
 
 mixin BarProps on UiProps {}
 

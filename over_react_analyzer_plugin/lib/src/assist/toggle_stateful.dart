@@ -16,9 +16,7 @@ class ToggleComponentStatefulness extends AssistContributorBase {
 
   ComponentDeclarationAssistApi _componentApi;
 
-  var _componentName = '';
   ClassDeclaration parent;
-  List<MixinDeclaration> mixins;
 
   NamedType get componentType => parent?.extendsClause?.childEntities?.whereType<TypeName>()?.first;
 
@@ -31,12 +29,9 @@ class ToggleComponentStatefulness extends AssistContributorBase {
 
     if (!_componentApi.isAValidComponentDeclaration) return;
 
-    _componentName = getComponentName(node);
     parent = _getComponentClassDeclaration(node);
-    final file = node.thisOrAncestorOfType<CompilationUnit>();
-    mixins = file.childEntities.whereType<MixinDeclaration>().toList();
 
-    if (_isStateful(node)) {
+    if (_componentApi.stateMixin != null) {
       await _removeStatefulness();
     } else {
       await _addStatefulness();
@@ -48,16 +43,7 @@ class ToggleComponentStatefulness extends AssistContributorBase {
     return node.parent as ClassDeclaration;
   }
 
-  bool _isStateful(AstNode node) {
-    if (parent == null) return false;
-
-    return componentType.name.name.contains('UiStatefulComponent2');
-  }
-
-
   Future<void> _addStatefulness() async {
-    if (parent == null) return;
-
     final sourceChange = await buildFileEdit(request.result, (builder) {
       final renderMethod = parent.childEntities.firstWhere((e) {
         if (e is MethodDeclaration) {
@@ -69,7 +55,11 @@ class ToggleComponentStatefulness extends AssistContributorBase {
         return false;
       });
 
-      final indent = getIndent(request.result.content, request.result.unit.declaredElement.lineInfo, renderMethod.offset);
+      final indent = getIndent(
+          request.result.content,
+          request.result.unit.declaredElement.lineInfo,
+          renderMethod.offset
+      );
 
       builder.addInsertion(renderMethod.offset - 2, (builder) {
         builder.write('\n${indent}@override');
@@ -91,10 +81,6 @@ class ToggleComponentStatefulness extends AssistContributorBase {
   }
 
   Future<void> _removeStatefulness() async {
-    if (parent == null) return;
-
-    final stateNode = mixins.firstWhere((m) => m.name.name.contains('${_componentApi.normalizedComponentName}State'));
-
     final sourceChange = await buildFileEdit(request.result, (builder) {
       final initialState = parent.childEntities.firstWhere((e) {
         if (e is MethodDeclaration) {
@@ -105,7 +91,7 @@ class ToggleComponentStatefulness extends AssistContributorBase {
 
         return false;
       });
-      final r = range.node(stateNode);
+      final r = range.node(_componentApi.stateMixin.nodeHelper.node);
       final r2 = range.node(initialState);
 
       builder.addReplacement(SourceRange(r.offset - 2, r.length + 2), (builder) {
@@ -113,7 +99,7 @@ class ToggleComponentStatefulness extends AssistContributorBase {
       });
 
       builder.addReplacement(range.node(componentType), (builder) {
-        builder.write('UiComponent2<${_componentName}Props>');
+        builder.write('UiComponent2<${_componentApi.normalizedComponentName}Props>');
       });
 
       builder.addReplacement(SourceRange(r2.offset - 4, r2.length + 5), (builder) {

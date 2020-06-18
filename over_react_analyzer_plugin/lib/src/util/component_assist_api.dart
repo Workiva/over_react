@@ -25,6 +25,9 @@ class ComponentDeclarationAssistApi {
 
   String getMemberName(BoilerplateMember member) => normalizeNameAndRemoveSuffix(member);
 
+  BoilerplatePropsMixin get propsMixin => members.propsMixins.firstOrNull;
+  BoilerplateStateMixin get stateMixin => members.stateMixins.firstOrNull;
+
   bool isAValidComponentClass(CompilationUnit unit, AstNode selectedNode, String sourceFileContent) {
     if (selectedNode.parent is! ClassDeclaration) return false;
     ClassDeclaration parent = selectedNode.parent;
