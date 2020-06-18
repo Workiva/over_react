@@ -3,10 +3,12 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
+/// A lint for when `consumedProps` returns a list literal that could be
+/// converted to `propsMeta.forMixins(...)`.
 class ConsumedPropsReturnValueDiagnostic extends DiagnosticContributor {
   static const code = DiagnosticCode(
     'consumed_props_return_value',
-    "Return propsMeta.forMixins() instead of list literal.",
+    "Return propsMeta.forMixins(...) instead of list literal.",
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.LINT,
   );
@@ -14,7 +16,7 @@ class ConsumedPropsReturnValueDiagnostic extends DiagnosticContributor {
   static final fixKind = FixKind(
     code.name,
     200,
-    'Convert to propsMeta.forMixins() syntax.',
+    'Convert to propsMeta.forMixins(...) syntax.',
   );
 
   @override
