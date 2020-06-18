@@ -18,24 +18,26 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
 
     for (final argument in arguments) {
       if (argument is ListLiteral) {
-        // 1st case: list literal w/o key
-        var hasKeyProp = false;
-
+        // 1st case: Any element in a list literal w/o key
         final list = argument;
         for (final e in list.elements) {
-          final componentInList = identifyUsage(e);
-          forEachCascadedProp(componentInList, (lhs, rhs) {
+          var elementHasKeyProp = false;
+
+          final curElement = identifyUsage(e);
+          forEachCascadedProp(curElement, (lhs, rhs) {
             if (lhs.propertyName.name == 'key') {
-              hasKeyProp = true;
+              elementHasKeyProp = true;
             }
           });
-        }
 
-        if (!hasKeyProp) {
-          collector.addError(
-            code,
-            result.locationFor(list),
-          );
+          if (!elementHasKeyProp) {
+            // If current element in the list is missing a key prop, add warning & don't bother w/ remaining elements
+            collector.addError(
+              code,
+              result.locationFor(list),
+            );
+            break;
+          }
         }
       } else if (argument is MethodInvocation) {
         //  2nd case: element mapping

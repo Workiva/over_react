@@ -6,7 +6,7 @@ ReactElement MissingKeyInList() {
   return (
       Dom.div()(
         '🤔',
-        [Dom.div()(), Dom.div()(), Dom.div()()],
+        [(Dom.div()..key='')(), Dom.div()(), Dom.div()()],
       ));
 }
 
@@ -18,13 +18,3 @@ ReactElement MissingKeyInMap() {
       coolStrings.map((s) => Dom.div()(s)),
     ));
 }
-
-//ReactElement OuchThisOneHurts() {
-//  List bodyItems = [];
-//  bodyItems.add(Dom.div());
-//
-//  return (
-//      Dom.div()(
-//        bodyItems
-//      ));
-//}
