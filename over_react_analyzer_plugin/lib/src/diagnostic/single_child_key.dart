@@ -5,7 +5,7 @@ import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
   static final code = DiagnosticCode(
       'single_child_key',
-      'React keys are only needed for children within lists.',
+      'React keys are only needed for children rendered in lists with siblings.',
       AnalysisErrorSeverity.INFO,
       AnalysisErrorType.HINT);
 
@@ -15,21 +15,27 @@ class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
+    var isInAList = false;
+    var isVariadic = false;
     var isSingleChild = false;
 
-    if (usage.node.parent is ArgumentList) {
-      final one = usage.node.parent.parent;
-      if (one is InvocationExpression) {
-        var usageCheck = getComponentUsage(one);
-        if (usageCheck != null) {
-           isSingleChild = true;
-        }
+    if (usage.node.parent is ListLiteral) {
+      ListLiteral parent = usage.node.parent;
+      isInAList = true;
+
+      if (parent.elements.length == 1) {
+        isSingleChild = true;
       }
-    } else if (!(usage.node.parent?.parent is MethodDeclaration)) {
-      isSingleChild = true;
+    } else if (usage.node.parent is ArgumentList) {
+      var grandparent = usage.node.parent?.parent;
+      if (grandparent is FunctionExpressionInvocation) {
+        isVariadic = true;
+      }
+    } else if (usage.node.parent is ExpressionFunctionBody || usage.node.parent is ReturnStatement) {
+      isVariadic = true;
     }
 
-    if (isSingleChild) {
+    if ((isInAList && isSingleChild) || isVariadic) {
      await forEachCascadedPropAsync(usage, (lhs, rhs) async {
         if (lhs.propertyName.name == 'key') {
           await collector.addErrorWithFix(code,
