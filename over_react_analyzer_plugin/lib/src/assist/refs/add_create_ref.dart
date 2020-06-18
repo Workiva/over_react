@@ -104,7 +104,7 @@ void addCreateRef(
     allDescendantsOfType<Identifier>(enclosingClassOrMixin).where((identifier) {
       // Don't replace the field declaration or existing usages in the ref, since we do that elsewhere.
       if (identifier.thisOrAncestorOfType<VariableDeclaration>()?.declaredElement == createRefField ||
-          identifier.thisOrAncestorMatching((ancestor) => ancestor == callbackRefPropRhs)) {
+          identifier.thisOrAncestorMatching((ancestor) => ancestor == callbackRefPropRhs) != null) {
         return false;
       }
       return identifier.staticElement?.tryCast<PropertyAccessorElement>()?.variable == createRefField;
