@@ -31,7 +31,7 @@ class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
       }
     } else if (usage.node.parent is ArgumentList) {
       ArgumentList parent = usage.node.parent;
-      var enclosingUsage = identifyUsage(parent?.parent);
+      final enclosingUsage = identifyUsage(parent?.parent);
 
       if (enclosingUsage?.node?.argumentList == parent ?? false) {
         isVariadic = true;
