@@ -22,19 +22,9 @@ class PropTypesReturnValueDiagnostic extends DiagnosticContributor {
   computeErrors(result, collector) async {
     final visitor = PropTypesVisitor();
     result.unit.accept(visitor);
-    final throwExpressionsForPropKey = <List<ThrowExpression>>[];
-
-    for (final value in visitor.mapVisitor?.values) {
-      final blockVisitor = PropTypeFunctionBlockVisitor();
-      value.childEntities
-          .whereType<FunctionBody>()
-          .single
-          .childEntities
-          .whereType<Block>()
-          .single
-          .visitChildren(blockVisitor);
-      throwExpressionsForPropKey.add(blockVisitor.throwExpressions);
-    }
+    final throwExpressionsForPropKey = [
+       ...visitor.mapVisitor?.values?.map((value) => getDescendantsOfType<ThrowExpression>(value)).toList(),
+    ];
 
     for (final throwExpressions in throwExpressionsForPropKey) {
       for (final throwExpression in throwExpressions) {
@@ -54,7 +44,7 @@ class PropTypesReturnValueDiagnostic extends DiagnosticContributor {
 }
 
 class PropTypesVisitor extends SimpleAstVisitor<void> {
-  PropTypesMapVisitor mapVisitor = PropTypesMapVisitor();
+  final PropTypesMapVisitor mapVisitor = PropTypesMapVisitor();
 
   @override
   void visitCompilationUnit(CompilationUnit node) {
@@ -77,7 +67,7 @@ class PropTypesVisitor extends SimpleAstVisitor<void> {
 }
 
 class PropTypesMapVisitor extends RecursiveAstVisitor<void> {
-  List<FunctionExpression> values = [];
+  final List<FunctionExpression> values = [];
 
   @override
   void visitMapLiteralEntry(MapLiteralEntry node) {
@@ -86,7 +76,7 @@ class PropTypesMapVisitor extends RecursiveAstVisitor<void> {
 }
 
 class PropTypeFunctionBlockVisitor extends RecursiveAstVisitor<void> {
-  List<ThrowExpression> throwExpressions = [];
+  final List<ThrowExpression> throwExpressions = [];
 
   @override
   void visitExpressionStatement(ExpressionStatement node) {
