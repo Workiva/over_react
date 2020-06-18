@@ -50,6 +50,7 @@ import 'package:over_react_analyzer_plugin/src/assist/wrap_unwrap.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/diagnostic.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/arrow_function_prop.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/boilerplate_validator.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/bool_prop_name_readability.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/callback_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
@@ -161,6 +162,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin
       InvalidDomAttributeDiagnostic(),
       BoolPropNameReadabilityDiagnostic(),
       StyleMissingUnitDiagnostic(),
+      BoilerplateValidatorDiagnostic(),
     ];
   }
 }
