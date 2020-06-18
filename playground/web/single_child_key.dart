@@ -9,7 +9,7 @@ mixin TestProps on UiProps {}
 class TestComponent extends UiComponent2<TestProps> {
   @override
   render(){
-    final children = [_renderDivs()];
+    final children = [_renderDivs(), _renderDivs()];
     return (Dom.div()..key='unnecessary')(children);
   }
 
@@ -18,22 +18,24 @@ class TestComponent extends UiComponent2<TestProps> {
 
     if (arbitrary) {
       return [
-        (Dom.div()..key='unnecessary')(),
+        (Dom.div()..key='unknown')(),
       ];
     } else {
       return [
-        (Dom.div()..key='necessary')(),
-        (Dom.div()..key='necessary-1')(),
+        (Dom.div()..key='definitely-necessary')(),
+        (Dom.div()..key='definitely-necessary-1')(),
       ];
     }
   }
 
-  _renderDivs() => (Dom.div()..key = 'c-div')(
+  _keyGenerator() => 'a_key';
+
+  _renderDivs() => (Dom.div()..key = 'unknown')(
     (Dom.div()
-      ..key = 'c-n-sibbling-1'
+      ..key = 'unnecessary'
     )(
       (Dom.div()
-        ..key = 'c-n2-sibbling-1'
+        ..key = _keyGenerator()
       )(
         // ignore: over_react_variadic_children
         [
@@ -44,7 +46,7 @@ class TestComponent extends UiComponent2<TestProps> {
       )
     ),
     (Dom.div()
-      ..key = 'c-sibbling-2'
+      ..key = 'unnecessary-1'
     )(
       // ignore: over_react_variadic_children
         [
@@ -61,17 +63,18 @@ class TestComponent extends UiComponent2<TestProps> {
 
 functionDeclarationTest() {
   return (Dom.div()
-    ..key = 'top-layer'
+    ..key = 'unknown'
   )(
     (Dom.div()
+      ..key = 'unnecessary'
     )(
       (Dom.div()
-        ..key = 'n-sibbling-1'
+        ..key = 'unnecessary'
       )(
           //ignore: over_react_variadic_children
           [
             (Dom.div()
-              ..key = 'n2-sibbling-1'
+              ..key = 'unnecessary'
             )(
               "Hello",
             )
@@ -79,7 +82,7 @@ functionDeclarationTest() {
       ),
     ),
     (Dom.div()
-      ..key = 'sibbling-2'
+      ..key = 'unnecessary-1'
     )(
         "Child 2"
     ),
