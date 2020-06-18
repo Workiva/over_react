@@ -13,16 +13,15 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
   );
 
   @override
-  computeErrorsForUsage(ResolvedUnitResult result,
-      DiagnosticCollector collector, FluentComponentUsage usage) async {
+  computeErrorsForUsage(ResolvedUnitResult result, DiagnosticCollector collector, FluentComponentUsage usage) async {
     final arguments = usage.node.argumentList.arguments;
 
-    if (arguments.length == 1) {
-      if (arguments.single is ListLiteral) {
-        // Handle 1st case: list literal w/o key
+    for (final argument in arguments) {
+      if (argument is ListLiteral) {
+        // 1st case: list literal w/o key
         var hasKeyProp = false;
 
-        ListLiteral list = arguments.single;
+        final list = argument;
         for (final e in list.elements) {
           final componentInList = identifyUsage(e);
           forEachCascadedProp(componentInList, (lhs, rhs) {
@@ -38,11 +37,9 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
             result.locationFor(list),
           );
         }
-      }
-      else if (arguments.single is MethodInvocation){
-        print('arguments length: ${arguments.length}');
-        //  Handle 2nd case: list literal w/o key
-        MethodInvocation mapStatement = arguments.single;
+      } else if (argument is MethodInvocation) {
+        //  2nd case: element mapping
+        final mapStatement = argument;
         final mapStatementArgs = mapStatement.argumentList;
         final mapStatementElemArgs = mapStatementArgs.childEntities.whereType<InvocationExpression>();
         var hasKeyProp = false;
@@ -62,7 +59,6 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
             result.locationFor(mapStatement),
           );
         }
-
       }
     }
   }

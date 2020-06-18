@@ -5,6 +5,7 @@ part 'iterator_key.over_react.g.dart';
 ReactElement MissingKeyInList() {
   return (
       Dom.div()(
+        '🤔',
         [Dom.div()(), Dom.div()(), Dom.div()()],
       ));
 }
@@ -16,4 +17,14 @@ ReactElement MissingKeyInMap() {
     Dom.div()(
       coolStrings.map((s) => Dom.div()(s)),
     ));
+}
+
+ReactElement OuchThisOneHurts() {
+  List bodyItems = [];
+  bodyItems.add(Dom.div());
+
+  return (
+      Dom.div()(
+        bodyItems
+      ));
 }
