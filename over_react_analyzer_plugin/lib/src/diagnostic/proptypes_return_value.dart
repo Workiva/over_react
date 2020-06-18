@@ -3,6 +3,7 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/source/source_range.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
 /// A warning that appears when `throw`ing a `PropError` instead of returning it within `UiComponent2.propTypes`.
@@ -23,7 +24,7 @@ class PropTypesReturnValueDiagnostic extends DiagnosticContributor {
     final visitor = PropTypesVisitor();
     result.unit.accept(visitor);
     final throwExpressionsForPropKey = [
-       ...visitor.mapVisitor?.values?.map((value) => getDescendantsOfType<ThrowExpression>(value)).toList(),
+      ...?visitor.mapVisitor?.values?.map((value) => allDescendantsOfType<ThrowExpression>(value))?.toList(),
     ];
 
     for (final throwExpressions in throwExpressionsForPropKey) {
