@@ -10,9 +10,10 @@ import 'callback_ref.dart';
 class StringRefDiagnostic extends ComponentUsageDiagnosticContributor {
   static const code = DiagnosticCode(
     'over_react_string_ref',
-    'Support for String refs was removed in React 16. Use createRef instead.',
-    AnalysisErrorSeverity.ERROR,
-    AnalysisErrorType.STATIC_TYPE_WARNING,
+    'String refs are deprecated.',
+    AnalysisErrorSeverity.INFO,
+    AnalysisErrorType.HINT,
+    correction: 'Use createRef() instead.',
   );
 
   static final fixKind = FixKind(code.name, 200, 'Convert to createRef()');

@@ -35,11 +35,11 @@ void addCreateRef(
   const typeGroup = 'refType';
 
   final lineInfo = result.unit.lineInfo;
-  String oldStringRefName;
+  String oldStringRefSource;
   final componentName = usage.componentName;
   final lowerCaseComponentName =
       componentName == null ? 'component' : componentName.substring(0, 1).toLowerCase() + componentName.substring(1);
-  var nameOfFieldRefIsAssignedTo = '_${lowerCaseComponentName}Ref';
+  var createRefFieldName = '_${lowerCaseComponentName}Ref';
   RefTypeToReplace refTypeToReplace;
 
   final enclosingClassOrMixin = usage.node.thisOrAncestorOfType<ClassOrMixinDeclaration>();
@@ -51,65 +51,61 @@ void addCreateRef(
 
   var hasRefProp = false;
   forEachCascadedProp(usage, (lhs, rhs) {
-    if (lhs.propertyName.name != 'ref') return;
+    if (hasRefProp || lhs.propertyName.name != 'ref') return;
 
     // A fix is being used to replace a String / callback ref with a createRef reference.
     hasRefProp = true;
 
     if (rhs.staticType.isDartCoreString) {
       refTypeToReplace = RefTypeToReplace.string;
-      oldStringRefName = rhs.toSource();
+      oldStringRefSource = rhs.toSource();
     } else if (result.typeSystem.isSubtypeOf(rhs.staticType, result.typeProvider.functionType)) {
       refTypeToReplace = RefTypeToReplace.callback;
-      nameOfFieldRefIsAssignedTo = _getRefCallbackAssignedFieldName(rhs);
+      createRefFieldName = _getRefCallbackAssignedFieldName(rhs);
     }
 
     // Replace the string or callback ref with the field we'll be assigning the return value of createRef() to.
     builder.addReplacement(SourceRange(rhs.offset, rhs.length), (editBuilder) {
-      editBuilder.addSimpleLinkedEdit(nameGroup, nameOfFieldRefIsAssignedTo);
+      editBuilder.addSimpleLinkedEdit(nameGroup, createRefFieldName);
     });
   });
 
   if (!hasRefProp) {
     // An assist is being used to add a ref, so we have to add the ref prop as a cascaded setter
     addProp(usage, builder, result.content, lineInfo, name: 'ref', buildValueEdit: (builder) {
-      builder.addSimpleLinkedEdit(nameGroup, nameOfFieldRefIsAssignedTo);
+      builder.addSimpleLinkedEdit(nameGroup, createRefFieldName);
     });
   }
 
   void _addCreateRefFieldDeclaration(DartEditBuilder _builder) {
     _builder.write('final ');
-    _builder.addSimpleLinkedEdit(nameGroup, nameOfFieldRefIsAssignedTo);
+    _builder.addSimpleLinkedEdit(nameGroup, createRefFieldName);
     _builder.write(' = createRef<');
     _builder.addSimpleLinkedEdit(typeGroup, refTypeName);
     _builder.write('>();');
   }
 
-  if (refTypeToReplace == RefTypeToReplace.callback) {
+  if (enclosingClassOrMixin != null && refTypeToReplace == RefTypeToReplace.callback) {
     // Its a callback ref - meaning there is an existing field we need to update.
-    final declOfVarRefIsAssignedTo = enclosingClassOrMixin.getFieldDeclaration(nameOfFieldRefIsAssignedTo);
+    final declOfVarRefIsAssignedTo = enclosingClassOrMixin.getFieldDeclaration(createRefFieldName);
     builder.addReplacement(SourceRange(declOfVarRefIsAssignedTo.offset, declOfVarRefIsAssignedTo.length), (_builder) {
       _addCreateRefFieldDeclaration(_builder);
-      if (enclosingClassOrMixin.getField(nameOfFieldRefIsAssignedTo).declaredElement.isPublic) {
+      if (enclosingClassOrMixin.getField(createRefFieldName).declaredElement.isPublic) {
         _builder.write(
-            '// FIXME: All usages of `$nameOfFieldRefIsAssignedTo` outside of this class must be changed to `$nameOfFieldRefIsAssignedTo.current` to finalize the conversion to createRef().');
+            '// FIXME: All usages of `$createRefFieldName` outside of this class must be changed to `$createRefFieldName.current` to finalize the conversion to createRef().');
       }
     });
 
     // Append all usages of the field the return value of createRef() is assigned to with `.current`
-    forEachDescendantOfType<Identifier>(
-      enclosingClassOrMixin,
-      (identifier) {
-        final isMethodInvocation = identifier.thisOrAncestorOfType<MethodInvocation>() != null;
-        final isPrefixedIdentifier = identifier.thisOrAncestorOfType<PrefixedIdentifier>() != null;
-        return (isMethodInvocation || isPrefixedIdentifier) && identifier.name == nameOfFieldRefIsAssignedTo;
-      },
-      (identifier) {
-        builder.addInsertion(identifier.end, (_builder) {
-          _builder.write('.current');
-        });
-      },
-    );
+    allDescendantsOfType<Identifier>(enclosingClassOrMixin).where((identifier) {
+      final isMethodInvocation = identifier.thisOrAncestorOfType<MethodInvocation>() != null;
+      final isPrefixedIdentifier = identifier.thisOrAncestorOfType<PrefixedIdentifier>() != null;
+      return (isMethodInvocation || isPrefixedIdentifier) && identifier.name == createRefFieldName;
+    }).forEach((identifier) {
+      builder.addInsertion(identifier.end, (_builder) {
+        _builder.write('.current');
+      });
+    });
   } else {
     // Its a string ref replacement, or an assist to add a ref,
     // so create the field that stores the return value of createRef().
@@ -129,22 +125,18 @@ void addCreateRef(
 
     if (hasRefProp) {
       // Replace all usages of ref('oldStringRef') with the new ref field
-      forEachDescendantOfType<Identifier>(
-        enclosingClassOrMixin,
-        (identifier) {
-          final parentFunctionInvocation = identifier.thisOrAncestorOfType<FunctionExpressionInvocation>();
-          if (parentFunctionInvocation == null) return false;
+      allDescendantsOfType<Identifier>(enclosingClassOrMixin).where((identifier) {
+        final parentFunctionInvocation = identifier.thisOrAncestorOfType<FunctionExpressionInvocation>();
+        if (parentFunctionInvocation == null) return false;
 
-          return identifier.name == 'ref' && parentFunctionInvocation.argumentList.toSource() == '($oldStringRefName)';
-        },
-        (identifier) {
-          final parentFunctionInvocation = identifier.thisOrAncestorOfType<FunctionExpressionInvocation>();
-          builder.addReplacement(SourceRange(parentFunctionInvocation.offset, parentFunctionInvocation.length),
-              (_builder) {
-            _builder.write(nameOfFieldRefIsAssignedTo);
-          });
-        },
-      );
+        return identifier.name == 'ref' && parentFunctionInvocation.argumentList.toSource() == '($oldStringRefSource)';
+      }).forEach((identifier) {
+        final parentFunctionInvocation = identifier.thisOrAncestorOfType<FunctionExpressionInvocation>();
+        builder.addReplacement(SourceRange(parentFunctionInvocation.offset, parentFunctionInvocation.length),
+            (_builder) {
+          _builder.write(createRefFieldName);
+        });
+      });
     }
   }
 }
@@ -156,8 +148,8 @@ String _getRefCallbackAssignedFieldName(Expression refPropRhs) {
   final refCallbackArg = function.parameters.parameters.firstOrNull;
   if (refCallbackArg == null) return null;
 
-  final referencesToArg = getMatchingDescendantsOfType<Identifier>(
-      function.body, (identifier) => identifier.staticElement == refCallbackArg.declaredElement);
+  final referencesToArg = allDescendantsOfType<Identifier>(function.body)
+      .where((identifier) => identifier.staticElement == refCallbackArg.declaredElement);
 
   for (final reference in referencesToArg) {
     final parent = reference.parent;

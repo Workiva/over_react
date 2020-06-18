@@ -3,6 +3,7 @@ import 'package:analyzer_plugin/utilities/assist/assist.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 import 'add_create_ref.dart' as create_ref_util;
 
@@ -25,6 +26,16 @@ class AddCreateRefAssistContributor extends AssistContributorBase {
     final usage = identifyUsage(node);
 
     if (usage == null) return;
+
+    var hasRefProp = false;
+    forEachCascadedProp(usage, (lhs, rhs) {
+      if (hasRefProp || lhs.propertyName.name != 'ref') return;
+
+      // A fix is being used to replace a String / callback ref with a createRef reference.
+      hasRefProp = true;
+    });
+
+    if (hasRefProp) return;
 
     final changeBuilder = DartChangeBuilder(session);
     await changeBuilder.addFileEdit(request.result.path, (builder) {
