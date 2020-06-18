@@ -1,13 +1,11 @@
-import 'dart:math';
-
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
-class ConsumedPropsUsageDiagnostic extends DiagnosticContributor {
+class ConsumedPropsReturnValueDiagnostic extends DiagnosticContributor {
   static const code = DiagnosticCode(
-    'over_react_bool_prop_name_readability',
+    'consumed_props_return_value',
     "Return propsMeta.forMixins() instead of list literal.",
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.LINT,
@@ -25,10 +23,10 @@ class ConsumedPropsUsageDiagnostic extends DiagnosticContributor {
 
     result.unit.accept(visitor);
 
-    final returnMixins = visitor.returnMixins;
+    final consumedPropsDeclarations = visitor.consumedPropsDeclarations;
 
-    for (final r in returnMixins) {
-      final body = r.body;
+    for (final consumedProps in consumedPropsDeclarations) {
+      final body = consumedProps.body;
       if (body is ExpressionFunctionBody) {
         final expression = body.expression;
         if (expression is ListLiteral && expression.elements.isNotEmpty) {
@@ -37,28 +35,24 @@ class ConsumedPropsUsageDiagnostic extends DiagnosticContributor {
               element is MethodInvocation &&
               element.methodName.name == 'forMixin' &&
               element.realTarget.toSource() == 'propsMeta');
-          if(shouldAddError) {
-              await collector.addErrorWithFix(
-                code,
-                result.locationFor(expression),
-                errorMessageArgs: [
-                  (expression.elements.first as MethodInvocation).argumentList.arguments.first,
-                  '',
-                ],
-                fixKind: fixKind,
-                computeFix: () => buildFileEdit(result, (builder) {
-                  builder.addReplacement(range.node(expression), (builder) {
-                    var mixinList = '';
-                    for (final element in elements) {
-                      mixinList += '${(element as MethodInvocation).argumentList.arguments.first}';
-                      if(element != elements.last) {
-                        mixinList += ', ';
-                      }
+          if (shouldAddError) {
+            await collector.addErrorWithFix(
+              code,
+              result.locationFor(expression),
+              fixKind: fixKind,
+              computeFix: () => buildFileEdit(result, (builder) {
+                builder.addReplacement(range.node(expression), (builder) {
+                  var mixinList = '';
+                  for (final element in elements) {
+                    mixinList += '${(element as MethodInvocation).argumentList.arguments.first}';
+                    if (element != elements.last) {
+                      mixinList += ', ';
                     }
-                    builder.write(' propsMeta.forMixins({$mixinList})');
-                  });
-                }),
-              );
+                  }
+                  builder.write(' propsMeta.forMixins({$mixinList})');
+                });
+              }),
+            );
           }
         }
       }
@@ -67,7 +61,7 @@ class ConsumedPropsUsageDiagnostic extends DiagnosticContributor {
 }
 
 class ConsumedPropsVisitor extends SimpleAstVisitor<void> {
-  List<MethodDeclaration> returnMixins = [];
+  List<MethodDeclaration> consumedPropsDeclarations = [];
 
   @override
   void visitCompilationUnit(CompilationUnit node) {
@@ -83,7 +77,7 @@ class ConsumedPropsVisitor extends SimpleAstVisitor<void> {
   void visitMethodDeclaration(MethodDeclaration node) {
     final classNode = node.thisOrAncestorOfType<ClassDeclaration>();
     if (classNode.declaredElement.isComponentClass && node.name.name == 'consumedProps') {
-      returnMixins.add(node);
+      consumedPropsDeclarations.add(node);
     }
   }
 }
