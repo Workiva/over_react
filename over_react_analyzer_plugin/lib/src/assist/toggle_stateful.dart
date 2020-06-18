@@ -6,6 +6,7 @@ import 'package:analyzer_plugin/utilities/range_factory.dart';
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/component_assist_api.dart';
 import 'package:over_react_analyzer_plugin/src/util/fix.dart';
 import 'package:over_react_analyzer_plugin/src/util/node.dart';
 
@@ -13,7 +14,7 @@ class ToggleComponentStatefulness extends AssistContributorBase {
   static AssistKind makeStateful = AssistKind('makeStateful', 30, 'Make component stateful.');
   static AssistKind makeStateless = AssistKind('makeStateless', 30, 'Make component stateless.');
 
-  ComponentClassDeclaration _component;
+  ComponentDeclarationAssistApi _componentApi;
 
   var _componentName = '';
   ClassDeclaration parent;
@@ -25,9 +26,10 @@ class ToggleComponentStatefulness extends AssistContributorBase {
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
     await super.computeAssists(request, collector);
     if (!setupCompute()) return;
-    if (!ComponentClassDeclaration.isAValidComponentClass(node)) return;
 
-    _component = ComponentClassDeclaration.fromIdentifierNode(node);
+    _componentApi = ComponentDeclarationAssistApi(request.result.unit, node, request.result.content);
+
+    if (!_componentApi.isAValidComponentDeclaration) return;
 
     _componentName = getComponentName(node);
     parent = _getComponentClassDeclaration(node);
@@ -75,11 +77,11 @@ class ToggleComponentStatefulness extends AssistContributorBase {
       });
 
       builder.addInsertion(node.parent.offset - 1, (builder) {
-        builder.write('\nmixin ${_componentName}State on UiState {}\n');
+        builder.write('\nmixin ${_componentApi.normalizedComponentName}State on UiState {}\n');
       });
 
       builder.addReplacement(range.node(componentType), (builder) {
-        builder.write('UiStatefulComponent2<${_componentName}Props, ${_componentName}State>');
+        builder.write('UiStatefulComponent2<${_componentApi.normalizedComponentName}Props, ${_componentApi.normalizedComponentName}State>');
       });
     });
     sourceChange
@@ -91,7 +93,7 @@ class ToggleComponentStatefulness extends AssistContributorBase {
   Future<void> _removeStatefulness() async {
     if (parent == null) return;
 
-    final stateNode = mixins.firstWhere((m) => m.name.name.contains('${_componentName}State'));
+    final stateNode = mixins.firstWhere((m) => m.name.name.contains('${_componentApi.normalizedComponentName}State'));
 
     final sourceChange = await buildFileEdit(request.result, (builder) {
       final initialState = parent.childEntities.firstWhere((e) {

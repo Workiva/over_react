@@ -58,18 +58,7 @@ String getComponentName(AstNode node) {
 class ComponentClassDeclaration {
   ClassDeclaration componentClass;
 
-  static bool isAValidComponentClass(AstNode node) {
-    var result = false;
 
-    if (node.parent is ClassDeclaration) {
-      ClassDeclaration parent = node.parent;
-      if (parent.name.name.contains('Component')) {
-        result = true;
-      }
-    }
-
-    return result;
-  }
   
   List<MixinDeclaration> _mixins;
   
@@ -78,9 +67,5 @@ class ComponentClassDeclaration {
   MixinDeclaration get propsMixin => _mixins.firstWhere((e) => e.name.name.contains('Props'));
 
   // Constructor around
-  ComponentClassDeclaration.fromIdentifierNode(AstNode node) {
-    
-  }
-  
-  
+  ComponentClassDeclaration.fromIdentifierNode(AstNode node) {}
 }

@@ -10,3 +10,12 @@ class FooComponent extends UiComponent2<FooProps> {
   @override
   render() {}
 }
+
+UiFactory<FooProps> Bar = _$Bar; // ignore: undefined_identifier
+
+mixin BarProps on UiProps {}
+
+class BarComponent extends UiComponent2<BarProps> {
+  @override
+  render() {}
+}
