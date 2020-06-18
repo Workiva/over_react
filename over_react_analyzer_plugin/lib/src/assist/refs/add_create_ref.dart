@@ -40,7 +40,9 @@ void addCreateRef(
   final lowerCaseComponentName =
       componentName == null ? 'component' : componentName.substring(0, 1).toLowerCase() + componentName.substring(1);
   var createRefFieldName = '_${lowerCaseComponentName}Ref';
+  PropertyInducingElement createRefField;
   RefTypeToReplace refTypeToReplace;
+  Expression callbackRefPropRhs;
 
   final enclosingClassOrMixin = usage.node.thisOrAncestorOfType<ClassOrMixinDeclaration>();
 
@@ -60,8 +62,10 @@ void addCreateRef(
       refTypeToReplace = RefTypeToReplace.string;
       oldStringRefSource = rhs.toSource();
     } else if (result.typeSystem.isSubtypeOf(rhs.staticType, result.typeProvider.functionType)) {
+      callbackRefPropRhs = rhs;
       refTypeToReplace = RefTypeToReplace.callback;
-      createRefFieldName = _getRefCallbackAssignedFieldName(rhs);
+      createRefField = _getRefCallbackAssignedField(rhs);
+      createRefFieldName = createRefField.name;
     }
 
     // Replace the string or callback ref with the field we'll be assigning the return value of createRef() to.
@@ -98,9 +102,12 @@ void addCreateRef(
 
     // Append all usages of the field the return value of createRef() is assigned to with `.current`
     allDescendantsOfType<Identifier>(enclosingClassOrMixin).where((identifier) {
-      final isMethodInvocation = identifier.thisOrAncestorOfType<MethodInvocation>() != null;
-      final isPrefixedIdentifier = identifier.thisOrAncestorOfType<PrefixedIdentifier>() != null;
-      return (isMethodInvocation || isPrefixedIdentifier) && identifier.name == createRefFieldName;
+      // Don't replace the field declaration or existing usages in the ref, since we do that elsewhere.
+      if (identifier.thisOrAncestorOfType<VariableDeclaration>()?.declaredElement == createRefField ||
+          identifier.thisOrAncestorMatching((ancestor) => ancestor == callbackRefPropRhs)) {
+        return false;
+      }
+      return identifier.staticElement?.tryCast<PropertyAccessorElement>()?.variable == createRefField;
     }).forEach((identifier) {
       builder.addInsertion(identifier.end, (_builder) {
         _builder.write('.current');
@@ -141,7 +148,7 @@ void addCreateRef(
   }
 }
 
-String _getRefCallbackAssignedFieldName(Expression refPropRhs) {
+PropertyInducingElement _getRefCallbackAssignedField(Expression refPropRhs) {
   final function = refPropRhs?.tryCast<FunctionExpression>();
   if (function == null) return null;
 
@@ -155,8 +162,8 @@ String _getRefCallbackAssignedFieldName(Expression refPropRhs) {
     final parent = reference.parent;
     if (parent is AssignmentExpression && parent.rightHandSide == reference) {
       final lhs = parent.leftHandSide;
-      if (lhs is Identifier && lhs.staticElement.kind == ElementKind.SETTER) {
-        return lhs.staticElement.displayName;
+      if (lhs is Identifier) {
+        return lhs.staticElement.tryCast<PropertyAccessorElement>()?.variable;
       }
     }
   }
