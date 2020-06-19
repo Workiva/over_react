@@ -10,6 +10,7 @@ dependencies:
   analyzer: '^0.39.10'
   analyzer_plugin: '^0.2.4'
   dart_dev: ^3.0.0
+  over_react: ^3.5.3
   meta: ^1.1.6
   path: ^1.5.1
 dev_dependencies:

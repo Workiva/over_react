@@ -6,6 +6,7 @@ import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 class MissingCascadeParensDiagnostic extends DiagnosticContributor {
   static final code = DiagnosticCode(
@@ -95,14 +96,4 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
       }
     }
   }
-}
-
-extension _TryCast on dynamic {
-  // Use Object as lower bound so that dynamic isn't inferred if args
-  // aren't specified, forcing calls to be analyzed instead of treated as dynamic.
-  T tryCast<T extends Object>() => this is T ? this : null;
-}
-
-extension _NullAwareIterable<E> on Iterable<E> {
-  E get firstOrNull => isNotEmpty ? first : null;
 }
