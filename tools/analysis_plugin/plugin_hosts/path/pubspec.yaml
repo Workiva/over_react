@@ -1,0 +1,11 @@
+name: over_react_analyzer_plugin_host
+version: 0.1.0
+description: Host package for the OverReact analyzer plugin. Depend on this package and use it in your analysis_options.yaml.
+homepage: https://github.com/greglittlefield-wf/git_playground/tree/over_react_analyzer_plugin/master
+authors:
+  - Greg Littlefield <greg.littlefield@workiva.com>
+environment:
+  # Even though the analyzer plugin is only supported under Dart 2,
+  # allow this package to be resolved under Dart 1 so that Dart 1 packages
+  # can pull it in and use it with the Dart 2 analysis server.
+  sdk: '>=1.24.0 <3.0.0'

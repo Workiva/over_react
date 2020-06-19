@@ -1,0 +1,12 @@
+name: over_react_plugin_loader_git
+version: 0.0.0
+description: A loader for a version of the plugin hosted on Git.
+environment:
+  sdk: '>=2.1.0 <3.0.0'
+dependencies:
+  over_react_analyzer_plugin:
+    # If pulling in to another branch, update the ref here.
+    git:
+      url: git@github.com:greglittlefield-wf/git_playground.git
+      ref: over_react_analyzer_plugin/master
+      path: over_react_analyzer_plugin
