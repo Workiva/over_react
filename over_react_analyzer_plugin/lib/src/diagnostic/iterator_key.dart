@@ -13,7 +13,8 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
   );
 
   @override
-  computeErrorsForUsage(ResolvedUnitResult result, DiagnosticCollector collector, FluentComponentUsage usage) async {
+  computeErrorsForUsage(ResolvedUnitResult result,
+      DiagnosticCollector collector, FluentComponentUsage usage) async {
     final arguments = usage.node.argumentList.arguments;
 
     for (final argument in arguments) {
@@ -41,30 +42,62 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         }
       } else if (argument is MethodInvocation) {
         //  2nd case: element mapping
-        final isIterable = argument.staticType.isDartCoreIterable;
-        if (!isIterable) return;
-
-        final mapStatement = argument;
-        final mapStatementArgs = mapStatement.argumentList;
-        final mapStatementElemArgs = mapStatementArgs.childEntities.whereType<InvocationExpression>();
-        var hasKeyProp = false;
-
-        for (final e in mapStatementElemArgs) {
-          final componentUsage = getComponentUsage(e);
-          forEachCascadedProp(componentUsage, (lhs, rhs) {
-            if (lhs.propertyName.name == 'key') {
-              hasKeyProp = true;
-            }
-          });
+        // Build a list of all the nested method invocations
+        MethodInvocation mapStatement;
+        final invokedMeths = _buildTargetList(argument);
+        for (final meth in invokedMeths) {
+          if (meth.methodName.name == 'map') {
+            mapStatement = meth;
+          }
         }
 
-        if (!hasKeyProp) {
-          collector.addError(
-            code,
-            result.locationFor(mapStatement),
-          );
+        if (mapStatement == null) return; // if there was no map statement, nothing to lint
+
+        final FunctionExpression mapStatementFuncArg = mapStatement.argumentList.arguments[0];
+        final ExpressionFunctionBody mapFuncBody = mapStatementFuncArg.body;
+        final elementMapped = getComponentUsage(mapFuncBody.expression);
+        print('element mapped: $elementMapped');
+
+        var elementsToMapTo = [elementMapped];
+
+        for (final a in elementsToMapTo) {
+          // If arg is InvocationExpression (e.g. ReactElement invocation), get the component for it and check its props
+          var elemHasKeyProp = false;
+          forEachCascadedProp(a, (lhs, rhs) {
+            if (lhs.propertyName.name != 'key') {
+              elemHasKeyProp = true;
+            }
+          });
+
+          if (!elemHasKeyProp) {
+            collector.addError(
+              code,
+              result.locationFor(mapStatement),
+            );
+          }
+          else {
+            // Anything that's not an InvocationExpression (e.g. a string) doesn't need a key prop
+            break;
+          }
         }
       }
     }
+  }
+
+// TODO: extract this out to util
+  List<MethodInvocation> _buildTargetList(MethodInvocation method) {
+    // a list of all the methods that could possibly be chained to the input method
+    final methodsInvoked = <MethodInvocation>[method];
+    dynamic target = method.target;
+    while (target != null) {
+      if (target is MethodInvocation) {
+        methodsInvoked.add(method.target);
+        target = target?.target;
+      }
+      else {
+        return methodsInvoked;
+      }
+    }
+    return methodsInvoked;
   }
 }
