@@ -65,7 +65,6 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
     Expression expression,
   ) {
     final topLevelKeyType = expression.staticType;
-    final errorLocation = result.locationFor(expression);
 
     // Type can't be resolved; bail out.
     if (topLevelKeyType == null) return;
@@ -90,20 +89,23 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
       if (type.isDartCoreInt || type.isDartCoreDouble || type.isDartCoreString || type.isDartCoreSymbol) {
         // Ignore core types that have good `Object.toString` implementations values.
       } else if (type.isDartCoreObject || type.isDynamic) {
-        collector.addError(dynamicOrObjectCode, errorLocation, errorMessageArgs: [
-          type.getDisplayString(),
-          getTypeContextString(),
-        ]);
+        collector.addError(
+          dynamicOrObjectCode,
+          result.locationFor(expression),
+          errorMessageArgs: [type.getDisplayString(), getTypeContextString()],
+        );
       } else if (type.isDartCoreBool || type.isDartCoreNull) {
-        collector.addError(lowQualityCode, errorLocation, errorMessageArgs: [
-          type.getDisplayString(),
-          getTypeContextString(),
-        ]);
+        collector.addError(
+          lowQualityCode,
+          result.locationFor(expression),
+          errorMessageArgs: [type.getDisplayString(), getTypeContextString()],
+        );
       } else if (inheritsToStringImplFromObject(type?.element)) {
-        collector.addError(toStringCode, errorLocation, errorMessageArgs: [
-          type.getDisplayString(),
-          getTypeContextString(),
-        ]);
+        collector.addError(
+          toStringCode,
+          result.locationFor(expression),
+          errorMessageArgs: [type.getDisplayString(), getTypeContextString()],
+        );
       }
     }
   }
