@@ -23,6 +23,8 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         for (final e in list.elements) {
           var elementHasKeyProp = false;
 
+          if (e is! InvocationExpression ) continue; // Don't need to lint non-elements
+
           final curElement = identifyUsage(e);
           forEachCascadedProp(curElement, (lhs, rhs) {
             if (lhs.propertyName.name == 'key') {
@@ -40,7 +42,7 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
           }
         }
       } else if (argument is MethodInvocation) {
-        //  2nd case: element mapping
+        // 2nd case: Element mapping
         // Look through all method invocations (e.g. .map.toList()) until you find the mapping function
         MethodInvocation mapStatement;
         final invokedMeths = _buildInvocationList(argument);
@@ -75,8 +77,10 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
     }
   }
 
+//  bool doesElementContainKey()
+
   List<MethodInvocation> _buildInvocationList(MethodInvocation method) {
-    // a list of all the methods that could possibly be chained to the input method
+    // A list of all the methods that could possibly be chained to the input method
     final methodsInvoked = <MethodInvocation>[method];
     dynamic target = method.target;
     while (target != null) {
