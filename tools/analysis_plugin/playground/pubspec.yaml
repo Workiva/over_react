@@ -5,8 +5,11 @@ environment:
 dependencies:
   over_react: ^3.5.3
 dev_dependencies:
-  over_react_analyzer_plugin_host:
-    path: ../plugin_hosts/path
   build_runner: ^1.0.0
   build_web_compilers: ^2.0.0
   workiva_analysis_options: ^1.1.0
+
+dependency_overrides:
+  # Pull in the local copy of over_react so it pulls in the local copy of the plugin
+  over_react:
+      path: ../../..

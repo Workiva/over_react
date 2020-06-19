@@ -3,8 +3,4 @@ include: package:workiva_analysis_options/v1.yaml
 analyzer:
   strong-mode: true
   plugins:
-    over_react_analyzer_plugin_host
-
-plugins:
-  over_react_analyzer_plugin_host:
-    enabled: true
+    over_react
