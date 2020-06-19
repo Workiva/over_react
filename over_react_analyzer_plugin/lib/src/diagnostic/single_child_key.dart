@@ -10,9 +10,7 @@ class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
       AnalysisErrorSeverity.INFO,
       AnalysisErrorType.HINT);
 
-  static final fixKind = FixKind(
-      code.name, 200, 'Remove unnecessary key',
-      appliedTogetherMessage: 'Remove key prop');
+  static final fixKind = FixKind(code.name, 200, 'Remove unnecessary key', appliedTogetherMessage: 'Remove key prop');
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
@@ -37,19 +35,17 @@ class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
         isVariadic = true;
       }
     } else if (usage.node.parent is ReturnStatement && (parentMethodName == 'render' ?? false)) {
-        isVariadic = true;
+      isVariadic = true;
     }
 
     if ((isInAList && isSingleChild) || isVariadic) {
-     await forEachCascadedPropAsync(usage, (lhs, rhs) async {
+      await forEachCascadedPropAsync(usage, (lhs, rhs) async {
         if (lhs.propertyName.name == 'key' && rhs is SimpleStringLiteral) {
-          await collector.addErrorWithFix(code,
-              result.location(range: SourceRange(lhs.offset, rhs.end - lhs.offset)),
+          await collector.addErrorWithFix(code, result.location(range: SourceRange(lhs.offset, rhs.end - lhs.offset)),
               fixKind: fixKind,
               computeFix: () => buildFileEdit(result, (builder) {
-                builder.addDeletion(range.endEnd(lhs.beginToken.previous, rhs));
-             })
-          );
+                    builder.addDeletion(range.endEnd(lhs.beginToken.previous, rhs));
+                  }));
         }
       });
     }
