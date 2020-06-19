@@ -27,9 +27,13 @@ mixin ConsumedPropsExample2PropsMixin on UiProps {}
 
 class ConsumedPropsExample2Component
     extends UiComponent2<ConsumedPropsExample2PropsMixin> {
-  // This should not have a lint.
+  // This should have a lint.
   @override
-  get consumedProps => [];
+  get consumedProps {
+    return [
+      propsMeta.forMixin(ConsumedPropsExample2PropsMixin),
+    ];
+  }
 
   @override
   render() {}
@@ -49,6 +53,21 @@ class ConsumedPropsExample3Component
             {ConsumedPropsExample2PropsMixin, ConsumedPropsExample3PropsMixin}),
         PropsMeta.forSimpleKey('_onChangePropKey'),
       ];
+
+  @override
+  render() {}
+}
+
+UiFactory<ConsumedPropsExample4PropsMixin> ConsumedPropsExample4 =
+    _$ConsumedPropsExample4; // ignore: undefined_identifier
+
+mixin ConsumedPropsExample4PropsMixin on UiProps {}
+
+class ConsumedPropsExample4Component
+    extends UiComponent2<ConsumedPropsExample4PropsMixin> {
+  // This should not have a lint.
+  @override
+  get consumedProps => [];
 
   @override
   render() {}

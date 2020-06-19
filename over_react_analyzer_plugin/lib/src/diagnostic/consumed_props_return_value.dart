@@ -7,7 +7,7 @@ import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 /// converted to `propsMeta.forMixins(...)`.
 class ConsumedPropsReturnValueDiagnostic extends DiagnosticContributor {
   static const code = DiagnosticCode(
-    'consumed_props_return_value',
+    'over_react_consumed_props_return_value',
     "Return propsMeta.forMixins(...) instead of list literal.",
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.LINT,
@@ -26,37 +26,41 @@ class ConsumedPropsReturnValueDiagnostic extends DiagnosticContributor {
     result.unit.accept(visitor);
 
     final consumedPropsDeclarations = visitor.consumedPropsDeclarations;
+    Expression expression;
 
     for (final consumedPropsDecl in consumedPropsDeclarations) {
       final body = consumedPropsDecl.body;
       if (body is ExpressionFunctionBody) {
-        final expression = body.expression;
-        if (expression is ListLiteral && expression.elements.isNotEmpty) {
-          final elements = expression.elements;
-          final shouldAddError = elements.every((element) =>
-              element is MethodInvocation &&
-              element.methodName.name == 'forMixin' &&
-              element.realTarget.toSource() == 'propsMeta');
-          if (shouldAddError) {
-            await collector.addErrorWithFix(
-              code,
-              result.locationFor(expression),
-              fixKind: fixKind,
-              computeFix: () => buildFileEdit(result, (builder) {
-                builder.addReplacement(range.node(expression), (builder) {
-                  var mixinList = '';
-                  for (final element in elements) {
-                    mixinList += '${(element as MethodInvocation).argumentList.arguments.first}';
-                    if (elements.length > 1) {
-                      mixinList += ', ';
-                    }
+        expression = body.expression;
+      } else if (body is BlockFunctionBody) {
+        expression = body.block.statements.whereType<ReturnStatement>()?.first?.expression;
+      }
+
+      if (expression != null && expression is ListLiteral && expression.elements.isNotEmpty) {
+        final elements = (expression as ListLiteral).elements;
+        final shouldAddError = elements.every((element) =>
+            element is MethodInvocation &&
+            element.methodName.name == 'forMixin' &&
+            element.realTarget.toSource() == 'propsMeta');
+        if (shouldAddError) {
+          await collector.addErrorWithFix(
+            code,
+            result.locationFor(expression),
+            fixKind: fixKind,
+            computeFix: () => buildFileEdit(result, (builder) {
+              builder.addReplacement(range.node(expression), (builder) {
+                var mixinList = '';
+                for (final element in elements) {
+                  mixinList += '${(element as MethodInvocation).argumentList.arguments.first}';
+                  if (elements.length > 1) {
+                    mixinList += ', ';
                   }
-                  builder.write(' propsMeta.forMixins({$mixinList})');
-                });
-                builder.format(range.node(consumedPropsDecl));
-              }),
-            );
-          }
+                }
+                builder.write(' propsMeta.forMixins({$mixinList})');
+              });
+              builder.format(range.node(consumedPropsDecl));
+            }),
+          );
         }
       }
     }
