@@ -19,9 +19,11 @@ dependencies:
 dev_dependencies:
   workiva_analysis_options: ^1.1.0
 
-# For development, point to the local copy of over_react.
+# If you're developing on changes in over_react that the analyzer plugin needs to consume,
+# point to the local copy of over_react. This must be an absolute path.
 #
-# This should be removed before publishing
-dependency_overrides:
-  over_react:
-    path: ../..
+# In CI, this should also be the path to the over_react checkout
+#
+# dependency_overrides:
+#   over_react:
+#     path: /Users/me/workspaces/over_react
