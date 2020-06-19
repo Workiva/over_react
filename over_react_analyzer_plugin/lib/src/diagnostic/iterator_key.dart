@@ -13,8 +13,7 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
   );
 
   @override
-  computeErrorsForUsage(ResolvedUnitResult result,
-      DiagnosticCollector collector, FluentComponentUsage usage) async {
+  computeErrorsForUsage(ResolvedUnitResult result, DiagnosticCollector collector, FluentComponentUsage usage) async {
     final arguments = usage.node.argumentList.arguments;
 
     for (final argument in arguments) {
@@ -55,36 +54,29 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
 
         final FunctionExpression mapStatementFuncArg = mapStatement.argumentList.arguments[0];
         final ExpressionFunctionBody mapFuncBody = mapStatementFuncArg.body;
-        final elementMapped = getComponentUsage(mapFuncBody.expression);
-        print('element mapped: $elementMapped');
+        final mappedElement = getComponentUsage(mapFuncBody.expression);
 
-        var elementsToMapTo = [elementMapped];
-
-        for (final a in elementsToMapTo) {
-          // If arg is InvocationExpression (e.g. ReactElement invocation), get the component for it and check its props
-          var elemHasKeyProp = false;
-          forEachCascadedProp(a, (lhs, rhs) {
-            if (lhs.propertyName.name != 'key') {
-              elemHasKeyProp = true;
-            }
-          });
-
-          if (!elemHasKeyProp) {
-            collector.addError(
-              code,
-              result.locationFor(mapStatement),
-            );
+        // If arg is InvocationExpression (e.g. ReactElement invocation), get the component for it and check its props
+        var elemHasKeyProp = false;
+        forEachCascadedProp(mappedElement, (lhs, rhs) {
+          if (lhs.propertyName.name == 'key') {
+            elemHasKeyProp = true;
           }
-          else {
-            // Anything that's not an InvocationExpression (e.g. a string) doesn't need a key prop
-            break;
-          }
+        });
+
+        if (!elemHasKeyProp) {
+          collector.addError(
+            code,
+            result.locationFor(mapStatement),
+          );
+        } else {
+          // Anything that's not an InvocationExpression (e.g. a string) doesn't need a key prop
+          break;
         }
       }
     }
   }
 
-// TODO: extract this out to util
   List<MethodInvocation> _buildTargetList(MethodInvocation method) {
     // a list of all the methods that could possibly be chained to the input method
     final methodsInvoked = <MethodInvocation>[method];
@@ -93,8 +85,7 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
       if (target is MethodInvocation) {
         methodsInvoked.add(method.target);
         target = target?.target;
-      }
-      else {
+      } else {
         return methodsInvoked;
       }
     }
