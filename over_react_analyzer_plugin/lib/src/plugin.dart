@@ -66,7 +66,6 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/string_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/style_missing_unit.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/single_child_key.dart';
-import 'package:over_react_analyzer_plugin/src/navigation/prop_navigation_contributor.dart';
 
 /// Analyzer plugin for over_react.
 class OverReactAnalyzerPlugin extends ServerPlugin
@@ -139,11 +138,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin
 
   @override
   List<NavigationContributor> getNavigationContributors(String path) {
-    return [
-      /// NOTE: when developing in JetBrains IDEs, clear caches after reloading this
-      /// plugin, or it may not request the latest navigation regions from this plugin.
-      PropNavigationContributor(),
-    ];
+    return [];
   }
 
   @override
