@@ -41,22 +41,23 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         }
       } else if (argument is MethodInvocation) {
         //  2nd case: element mapping
-        // Build a list of all the nested method invocations
+        // Look through all method invocations (e.g. .map.toList()) until you find the mapping function
         MethodInvocation mapStatement;
-        final invokedMeths = _buildTargetList(argument);
+        final invokedMeths = _buildInvocationList(argument);
         for (final meth in invokedMeths) {
           if (meth.methodName.name == 'map') {
             mapStatement = meth;
           }
         }
+        // If there's no `.map`, there's no elements returned, so nothing to lint for this arg
+        if (mapStatement == null) continue;
 
-        if (mapStatement == null) return; // if there was no map statement, nothing to lint
-
+        // Get the top level element that's being returned from the map
         final FunctionExpression mapStatementFuncArg = mapStatement.argumentList.arguments[0];
         final ExpressionFunctionBody mapFuncBody = mapStatementFuncArg.body;
+        if (mapFuncBody.expression is! InvocationExpression ) continue; // Don't need to lint non-elements
         final mappedElement = getComponentUsage(mapFuncBody.expression);
 
-        // If arg is InvocationExpression (e.g. ReactElement invocation), get the component for it and check its props
         var elemHasKeyProp = false;
         forEachCascadedProp(mappedElement, (lhs, rhs) {
           if (lhs.propertyName.name == 'key') {
@@ -69,15 +70,12 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
             code,
             result.locationFor(mapStatement),
           );
-        } else {
-          // Anything that's not an InvocationExpression (e.g. a string) doesn't need a key prop
-          break;
         }
       }
     }
   }
 
-  List<MethodInvocation> _buildTargetList(MethodInvocation method) {
+  List<MethodInvocation> _buildInvocationList(MethodInvocation method) {
     // a list of all the methods that could possibly be chained to the input method
     final methodsInvoked = <MethodInvocation>[method];
     dynamic target = method.target;
