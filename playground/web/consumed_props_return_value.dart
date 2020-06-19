@@ -1,6 +1,6 @@
 import 'package:over_react/over_react.dart';
 
-part 'consumed_props_usage.over_react.g.dart';
+part 'consumed_props_return_value.over_react.g.dart';
 
 UiFactory<ConsumedPropsExample1PropsMixin> ConsumedPropsExample1 =
     _$ConsumedPropsExample1; // ignore: undefined_identifier
