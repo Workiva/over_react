@@ -5,6 +5,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
   static final hashCodeCode = DiagnosticCode(
@@ -17,17 +18,18 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
 
   static final toStringCode = DiagnosticCode(
       'over_react_object_to_string_as_key',
-      "Keys shouldn't be derived from '{0}.toString()'{1} since the value is the same for all instances."
-          " Try using other information, such as an 'id' field on the object, or an index, to construct the key instead.",
+      "Keys shouldn't be derived from '{0}.toString()'{1} since the value is the same for all instances.",
       AnalysisErrorSeverity.WARNING,
-      AnalysisErrorType.STATIC_WARNING);
+      AnalysisErrorType.STATIC_WARNING,
+      correction: "Try using other information, such as an 'id' field on the object, or an index,"
+          " to construct the key instead.");
 
   static final dynamicOrObjectCode = DiagnosticCode(
       'over_react_unknown_key_type',
-      "Keys derived from '{0}.toString()'{1} may not be unique."
-          " Try using more specific typing, or using other information to construct the key.",
+      "Keys derived from '{0}.toString()'{1} may not be unique.",
       AnalysisErrorSeverity.WARNING,
-      AnalysisErrorType.STATIC_WARNING);
+      AnalysisErrorType.STATIC_WARNING,
+      correction: "Try using more specific typing, or using other information to construct the key.");
 
   static final lowQualityCode = DiagnosticCode(
       'over_react_low_quality_key',
@@ -112,10 +114,6 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
       ?.thisOrAncestorOfType<ClassElement>()
       ?.thisType
       ?.isDartCoreObject;
-}
-
-extension _TryCast<T> on T {
-  S tryCast<S extends T>() => this is S ? this : null;
 }
 
 /// Recursively collects expressions that are used to effectively call `toString()`:
