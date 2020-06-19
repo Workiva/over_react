@@ -11,9 +11,8 @@ ReactElement MissingKeyInList() {
         // Raw strings don't need keys, no worries!
         'b',
 
-        ['', Dom.div()()],
-
         // Should throw key warning, all elements in list should have key
+        ['', Dom.div()()],
         [Dom.p()(), Dom.p()()],
         [(Dom.div()..key='')(), Dom.div()(), Dom.div()()],
       ));

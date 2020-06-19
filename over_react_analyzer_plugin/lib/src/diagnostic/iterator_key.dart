@@ -21,18 +21,11 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         // 1st case: Any element in a list literal w/o key
         final list = argument;
         for (final e in list.elements) {
-          var elementHasKeyProp = false;
-
           if (e is! InvocationExpression ) continue; // Don't need to lint non-elements
 
-          final curElement = identifyUsage(e);
-          forEachCascadedProp(curElement, (lhs, rhs) {
-            if (lhs.propertyName.name == 'key') {
-              elementHasKeyProp = true;
-            }
-          });
+          var elementIsMissingKeyProp = _isElementMissingKeyProp(identifyUsage(e));
 
-          if (!elementHasKeyProp) {
+          if (!elementIsMissingKeyProp) {
             // If current element in the list is missing a key prop, add warning & don't bother w/ remaining elements
             collector.addError(
               code,
@@ -58,16 +51,10 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         final FunctionExpression mapStatementFuncArg = mapStatement.argumentList.arguments[0];
         final ExpressionFunctionBody mapFuncBody = mapStatementFuncArg.body;
         if (mapFuncBody.expression is! InvocationExpression ) continue; // Don't need to lint non-elements
-        final mappedElement = getComponentUsage(mapFuncBody.expression);
 
-        var elemHasKeyProp = false;
-        forEachCascadedProp(mappedElement, (lhs, rhs) {
-          if (lhs.propertyName.name == 'key') {
-            elemHasKeyProp = true;
-          }
-        });
+        var elementIsMissingKeyProp = _isElementMissingKeyProp(getComponentUsage(mapFuncBody.expression));
 
-        if (!elemHasKeyProp) {
+        if (!elementIsMissingKeyProp) {
           collector.addError(
             code,
             result.locationFor(mapStatement),
@@ -77,7 +64,16 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
     }
   }
 
-//  bool doesElementContainKey()
+  bool _isElementMissingKeyProp(FluentComponentUsage element) {
+    var elementHasKeyProp = false;
+    forEachCascadedProp(element, (lhs, rhs) {
+      if (lhs.propertyName.name == 'key') {
+        elementHasKeyProp = true;
+      }
+    });
+
+    return elementHasKeyProp;
+  }
 
   List<MethodInvocation> _buildInvocationList(MethodInvocation method) {
     // A list of all the methods that could possibly be chained to the input method
