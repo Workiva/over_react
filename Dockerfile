@@ -17,6 +17,7 @@ WORKDIR /build/
 ADD . /build/
 
 RUN cd over_react_analyzer_plugin && pub get && \
+    pub run dart_dev format && \
     pub run dart_dev analyze
 
 ARG BUILD_ARTIFACTS_BUILD=/build/over_react_analyzer_plugin/pubspec.lock
