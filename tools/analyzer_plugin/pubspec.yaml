@@ -17,6 +17,9 @@ dependencies:
   meta: ^1.1.6
   path: ^1.5.1
 dev_dependencies:
+  convert: ^2.1.1
+  crypto: ^2.1.5
+  yaml: ^2.2.1
   workiva_analysis_options: ^1.1.0
 
 # If you're developing on changes in over_react that the analyzer plugin needs to consume,
