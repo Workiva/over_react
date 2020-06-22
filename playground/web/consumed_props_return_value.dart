@@ -11,10 +11,10 @@ class ConsumedPropsExample1Component
     extends UiComponent2<ConsumedPropsExample1PropsMixin> {
   // This should have a lint.
   @override
-  get consumedProps => propsMeta.forMixins({
-        ConsumedPropsExample1PropsMixin,
-        ConsumedPropsExample2PropsMixin,
-      });
+  get consumedProps => [
+        propsMeta.forMixin(ConsumedPropsExample1PropsMixin),
+        propsMeta.forMixin(ConsumedPropsExample2PropsMixin),
+      ];
 
   @override
   render() {}
@@ -30,7 +30,9 @@ class ConsumedPropsExample2Component
   // This should have a lint.
   @override
   get consumedProps {
-    return propsMeta.forMixins({ConsumedPropsExample2PropsMixin});
+    return [
+      propsMeta.forMixin(ConsumedPropsExample2PropsMixin),
+    ];
   }
 
   @override
