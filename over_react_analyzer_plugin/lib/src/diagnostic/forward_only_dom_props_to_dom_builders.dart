@@ -3,6 +3,7 @@ import 'package:analyzer/source/source_range.dart';
 import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 /// A warning that appears when `addUnconsumedProps` is used on an over_react `Dom.*` builder.
 ///
