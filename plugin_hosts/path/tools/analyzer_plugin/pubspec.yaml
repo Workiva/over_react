@@ -7,4 +7,4 @@ dependencies:
   over_react_analyzer_plugin:
     # This has to be absolute since this pubspec.yaml gets copied to a temp folder and then resolved
     # Update to your local checkout
-    path: /Users/joebingham/Documents/repos/over_react_analyzer_plugin/over_react_analyzer_plugin
+    path: /Users/greglittlefield/workspaces/over_react_analyzer_plugin/over_react_analyzer_plugin
