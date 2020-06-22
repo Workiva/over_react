@@ -4,6 +4,7 @@ import 'package:analyzer/file_system/file_system.dart' as file_system;
 import 'package:analyzer/file_system/physical_file_system.dart' show PhysicalResourceProvider;
 import 'package:convert/convert.dart' show hex;
 import 'package:crypto/crypto.dart' show md5;
+import 'package:io/ansi.dart' as ansi;
 import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
@@ -20,10 +21,8 @@ final pluginManagerStateFolder = resourceProvider.getStateLocation('.plugin_mana
 ///
 /// This script sets up a symlink to point to the original plugin directory (replacing any copy if it exists),
 /// so that changes are always reflected.
-main() {
-  Logger.root
-    ..level = Level.INFO
-    ..onRecord.listen(print);
+void main(List<String> args) {
+  initLogging(verbose: args.contains('--verbose'));
 
   // Get the package root from the script file location
   final packageRoot = p.canonicalize(p.join(Platform.script.toFilePath(), '..', '..'));
@@ -35,28 +34,30 @@ main() {
       .getChildAssumingFolder(_uniqueDirectoryName(originalPluginFolder.path))
       .getChildAssumingFolder(originalPluginFolder.shortName);
 
+  logger.info('Creating link to current plugin folder...');
   if (pluginCopyFolder.exists) {
     logger.info(pluginCopyFolder.isLink()
-        ? 'Deleting existing link to plugin folder, likely created by this script, at ${pluginCopyFolder.userFriendlyPath}'
-        : 'Deleting existing copy of plugin folder, created by analysis_server, at ${pluginCopyFolder.userFriendlyPath}');
+        ? 'Deleting existing link to plugin folder, likely created by this script, at ${pluginCopyFolder.formatPath()}'
+        : 'Deleting existing copy of plugin folder, created by analysis_server, at ${pluginCopyFolder.formatPath()}');
     pluginCopyFolder.delete();
   } else {
-    logger.info("No existing copy of of plugin folder found at ${pluginCopyFolder.userFriendlyPath}"
-        "\n\nThis should only happen if you've never run this plugin before, "
-        " or if you manually deleted or ${pluginManagerStateFolder.userFriendlyPath}."
-        "\n\nIf these situations don't apply, there may be an issue with this script.");
+    logger.warning("\nNo existing copy of of plugin folder found at ${pluginCopyFolder.formatPath()}."
+        "\n\nThis should only happen if:"
+        "\n  1. You've never run the plugin declared in this folder before"
+        "\n  2. You manually deleted ${pluginManagerStateFolder.formatPath()} or one of its ancestor directories at some point"
+        "\n\nIf these situations don't apply, there\'s likely an issue with this script. Please open an issue and tag greglittlefield-wf.\n");
   }
 
   {
-    logger.info('Creating link to current plugin folder');
     final linkTarget = originalPluginFolder;
     final linkLocation = pluginCopyFolder;
     linkLocation.asLink().createSync(linkTarget.path, recursive: true);
-    logger.info('Successfully linked: ${linkLocation.userFriendlyPath} -> ${linkTarget.userFriendlyPath}');
+    logger.info('Link created: ${linkLocation.formatPath()} -> ${linkTarget.formatPath()}\n');
   }
 
-  logger.info('Changes to plugin code will now be loaded upon analysis server restart'
-      ' without having to delete ${pluginManagerStateFolder.userFriendlyPath} every time.');
+  logger.info(ansi.green.wrap('Successfully linked!'
+      '\nChanges to plugin code will now be loaded upon analysis server restart'
+      ' without having to delete ${pluginManagerStateFolder.formatPath()} every time.'));
 }
 
 // From package:analysis_server/src/plugin/plugin_manager.dart
@@ -71,12 +72,25 @@ extension on file_system.Resource {
 
   Link asLink() => Link(path);
 
-  String get userFriendlyPath => _userFriendlyPath(path);
+  String formatPath() => path.formatPath();
+}
+
+extension on String {
+  static String _userFriendlyPath(String path) {
+    var home = Platform.environment['HOME'];
+    if (home != null && p.isWithin(home, path)) {
+      path = p.join('~', p.relative(path, from: home));
+    }
+
+    return path;
+  }
+
+  String formatPath() => '`${_userFriendlyPath(this)}`';
 }
 
 void validatePackageRoot(String pluginPath) {
-  logger.fine('Validating plugin package root ${_userFriendlyPath(pluginPath)}');
-  logger.fine('Checking pubspec.yaml');
+  logger.fine('Validating plugin package root ${pluginPath.formatPath()}...');
+  logger.fine('Checking pubspec.yaml...');
   final pluginPubspec = File(p.join(pluginPath, 'pubspec.yaml'));
   if (!pluginPubspec.existsSync()) {
     throw Exception('pubspec.yaml does not exist in package root');
@@ -100,14 +114,34 @@ void validatePackageRoot(String pluginPath) {
     throw Exception('Package name was $name; expected $expectedName');
   }
 
-  logger.fine('Plugin package root is valid.');
+  logger.fine('Plugin package root is valid.\n');
 }
 
-String _userFriendlyPath(String path) {
-  var home = Platform.environment['HOME'];
-  if (home != null && p.isWithin(home, path)) {
-    path = p.join('~', p.relative(path, from: home));
-  }
+void initLogging({bool verbose = true}) {
+  Logger.root.level = verbose ? Level.ALL : Level.INFO;
+  Logger.root.onRecord.listen((rec) {
+    String Function(String) colorizer;
+    IOSink output;
 
-  return path;
+    if (rec.level >= Level.SEVERE) {
+      colorizer = ansi.red.wrap;
+      output = stderr;
+    } else if (rec.level >= Level.WARNING) {
+      colorizer = ansi.yellow.wrap;
+      output = stderr;
+    } else {
+      colorizer = (string) => string;
+      output = stdout;
+    }
+
+    if (rec.message != '') {
+      output.writeln(colorizer(rec.message));
+    }
+    if (rec.error != null) {
+      output.writeln(colorizer(rec.error.toString()));
+    }
+    if (verbose && rec.stackTrace != null) {
+      output.writeln(colorizer(rec.stackTrace.toString()));
+    }
+  });
 }

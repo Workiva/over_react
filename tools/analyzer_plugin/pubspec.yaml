@@ -19,6 +19,7 @@ dependencies:
 dev_dependencies:
   convert: ^2.1.1
   crypto: ^2.1.5
+  io: ^0.3.2+1
   yaml: ^2.2.1
   workiva_analysis_options: ^1.1.0
 
