@@ -30,6 +30,7 @@ nbproject
 # Docs ignores
 _site
 .jekyll-metadata
+doc/analyzer_plugin
 
 # Pub ignores
 .pub

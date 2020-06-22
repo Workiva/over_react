@@ -6,14 +6,38 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
+// TODO
+const _invalidTypeDesc = r'TODO';
+// TODO
+// <editor-fold desc="Invalid Type Documentation Details">
+const _invalidTypeDetails = r'''
+
+TODO
+
+''';
+// </editor-fold>
+
+// TODO
+const _preferNullDesc = r'TODO';
+// TODO
+// <editor-fold desc="Prefer Null Documentation Details">
+const _preferNullDetails = r'''
+
+TODO
+
+''';
+// </editor-fold>
+
 class RenderReturnValueDiagnostic extends DiagnosticContributor {
-  static final invalidTypeErrorCode = DiagnosticCode(
+  @DocsMeta(_invalidTypeDesc, details: _invalidTypeDetails)
+  static const invalidTypeErrorCode = DiagnosticCode(
       'over_react_invalid_render_return_type',
       "Invalid render() return type: '{0}'. Must be a ReactElement, primitive value, or an Iterable of those types.{1}",
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_TYPE_WARNING);
 
-  static final preferNullOverFalseErrorCode = DiagnosticCode(
+  @DocsMeta(_preferNullDesc, details: _preferNullDetails)
+  static const preferNullOverFalseErrorCode = DiagnosticCode(
       'over_react_prefer_null_over_false',
       'Prefer returning null over false in render. (The dart2js bug involving null has been fixed.)',
       AnalysisErrorSeverity.WARNING,
@@ -37,7 +61,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
       }
 
       await validateReactChildType(returnType, typeSystem, onInvalidType: (invalidType) async {
-        final code = invalidTypeErrorCode;
+        const code = invalidTypeErrorCode;
         final location = result.locationFor(returnStatement);
         if (couldBeMissingBuilderInvocation(returnExpression)) {
           await collector.addErrorWithFix(

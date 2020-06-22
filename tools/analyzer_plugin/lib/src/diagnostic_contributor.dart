@@ -17,6 +17,7 @@ export 'package:analyzer_plugin/utilities/range_factory.dart' show range;
 export 'package:over_react_analyzer_plugin/src/component_usage.dart';
 export 'package:over_react_analyzer_plugin/src/util/fix.dart';
 export 'package:over_react_analyzer_plugin/src/util/location.dart';
+export 'package:over_react_analyzer_plugin/src/doc_utils/docs_meta_annotation.dart';
 
 /// An error code associated with an [AnalysisError].
 ///

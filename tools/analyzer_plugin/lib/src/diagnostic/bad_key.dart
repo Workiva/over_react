@@ -7,8 +7,53 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
+// TODO
+const _hashCodeDesc = 'TODO';
+// TODO
+// <editor-fold desc="Hash Code Documentation Details">
+const _hashCodeDetails = r'''
+
+TODO
+
+''';
+// </editor-fold>
+
+// TODO
+const _toStringDesc = 'TODO';
+// TODO
+// <editor-fold desc="toString Documentation Details">
+const _toStringDetails = r'''
+
+TODO
+
+''';
+// </editor-fold>
+
+// TODO
+const _dynamicOrObjDesc = 'TODO';
+// TODO
+// <editor-fold desc="dynamicOrObj Documentation Details">
+const _dynamicOrObjDetails = r'''
+
+TODO
+
+''';
+// </editor-fold>
+
+// TODO
+const _lowQualityDesc = 'TODO';
+// TODO
+// <editor-fold desc="lowQuality Documentation Details">
+const _lowQualityDetails = r'''
+
+TODO
+
+''';
+// </editor-fold>
+
 class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
-  static final hashCodeCode = DiagnosticCode(
+  @DocsMeta(_hashCodeDesc, details: _hashCodeDetails)
+  static const hashCodeCode = DiagnosticCode(
       'over_react_hash_code_as_key',
       "Keys shouldn't be derived from 'hashCode' since it is not unique."
           " While 'hashCode' may seem like it is 'unique enough', 'hashCode' values by design"
@@ -16,7 +61,8 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_WARNING);
 
-  static final toStringCode = DiagnosticCode(
+  @DocsMeta(_toStringDesc, details: _toStringDetails)
+  static const toStringCode = DiagnosticCode(
       'over_react_object_to_string_as_key',
       "Keys shouldn't be derived from '{0}.toString()'{1} since the value is the same for all instances.",
       AnalysisErrorSeverity.WARNING,
@@ -24,14 +70,16 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
       correction: "Try using other information, such as an 'id' field on the object, or an index,"
           " to construct the key instead.");
 
-  static final dynamicOrObjectCode = DiagnosticCode(
+  @DocsMeta(_dynamicOrObjDesc, details: _dynamicOrObjDetails)
+  static const dynamicOrObjectCode = DiagnosticCode(
       'over_react_unknown_key_type',
       "Keys derived from '{0}.toString()'{1} may not be unique.",
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_WARNING,
       correction: "Try using more specific typing, or using other information to construct the key.");
 
-  static final lowQualityCode = DiagnosticCode(
+  @DocsMeta(_lowQualityDesc, details: _lowQualityDetails)
+  static const lowQualityCode = DiagnosticCode(
       'over_react_low_quality_key',
       "Keys shouldn't be derived from '{0}.toString()'{1} since they have a high chance of colliding.",
       AnalysisErrorSeverity.WARNING,

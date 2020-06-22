@@ -6,8 +6,20 @@ import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/fix.dart';
 
+// TODO
+const _desc = r'TODO';
+// TODO
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+
+TODO
+
+''';
+// </editor-fold>
+
 class WrapUnwrapAssistContributor extends AssistContributorBase {
-  static AssistKind wrapInElement = AssistKind('wrapInElement', 30, 'Wrap in another ReactElement');
+  @DocsMeta(_desc, details: _details)
+  static const wrapInElement = AssistKind('wrapInElement', 30, 'Wrap in another ReactElement');
 
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
