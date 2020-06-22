@@ -6,7 +6,7 @@ import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 /// Warn when missing `key` props in iterators/collection literals
 class IteratorKey extends ComponentUsageDiagnosticContributor {
   static const code = DiagnosticCode(
-    'over_react_key',
+    'over_react_missing_key',
     'Missing "key" prop for element in iterator',
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
@@ -23,9 +23,9 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         for (final e in list.elements) {
           if (e is! InvocationExpression) continue; // Don't need to lint non-elements
 
-          var elementIsMissingKeyProp = _isElementMissingKeyProp(identifyUsage(e));
+          var elementHasKeyProp = _doesElementHaveKeyProp(identifyUsage(e));
 
-          if (!elementIsMissingKeyProp) {
+          if (!elementHasKeyProp) {
             // If current element in the list is missing a key prop, add warning & don't bother w/ remaining elements
             collector.addError(
               code,
@@ -38,10 +38,10 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         // 2nd case: Element mapping
         // Look through all method invocations (e.g. .map.toList()) until you find the mapping function
         MethodInvocation mapStatement;
-        final invokedMeths = _buildInvocationList(argument);
-        for (final meth in invokedMeths) {
-          if (meth.methodName.name == 'map') {
-            mapStatement = meth;
+        final invokedMethods = _buildInvocationList(argument);
+        for (final method in invokedMethods) {
+          if (method.methodName.name == 'map') {
+            mapStatement = method;
           }
         }
         // If there's no `.map`, there's no elements returned, so nothing to lint for this arg
@@ -52,9 +52,9 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         final ExpressionFunctionBody mapFuncBody = mapStatementFuncArg.body;
         if (mapFuncBody.expression is! InvocationExpression) continue; // Don't need to lint non-elements
 
-        var elementIsMissingKeyProp = _isElementMissingKeyProp(getComponentUsage(mapFuncBody.expression));
+        var elementHasKeyProp = _doesElementHaveKeyProp(getComponentUsage(mapFuncBody.expression));
 
-        if (!elementIsMissingKeyProp) {
+        if (!elementHasKeyProp) {
           collector.addError(
             code,
             result.locationFor(mapStatement),
@@ -64,7 +64,7 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
     }
   }
 
-  bool _isElementMissingKeyProp(FluentComponentUsage element) {
+  bool _doesElementHaveKeyProp(FluentComponentUsage element) {
     var elementHasKeyProp = false;
     forEachCascadedProp(element, (lhs, rhs) {
       if (lhs.propertyName.name == 'key') {
