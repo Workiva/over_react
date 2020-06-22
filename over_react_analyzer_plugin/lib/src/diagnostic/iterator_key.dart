@@ -1,5 +1,6 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
@@ -32,9 +33,8 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
             // If current element in the list is missing a key prop, add warning & don't bother w/ remaining elements
             collector.addError(
               code,
-              result.locationFor(list),
+              result.locationFor(e),
             );
-            break;
           }
         }
       } else if (argument is MethodInvocation) {
@@ -74,7 +74,7 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         if (!elementHasKeyProp) {
           collector.addError(
             code,
-            result.locationFor(mapStatement),
+            result.locationFor(returnExpression),
           );
         }
       }
