@@ -1,5 +1,4 @@
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/source/source_range.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
@@ -39,15 +38,18 @@ class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
     }
 
     if ((isInAList && isSingleChild) || isVariadic) {
-      await forEachCascadedPropAsync(usage, (lhs, rhs) async {
-        if (lhs.propertyName.name == 'key' && rhs is SimpleStringLiteral) {
-          await collector.addErrorWithFix(code, result.location(range: SourceRange(lhs.offset, rhs.end - lhs.offset)),
-              fixKind: fixKind,
-              computeFix: () => buildFileEdit(result, (builder) {
-                    builder.addDeletion(range.endEnd(lhs.beginToken.previous, rhs));
-                  }));
+      for (final prop in usage.cascadedProps) {
+        if (prop.name.name == 'key' && prop.rightHandSide is SimpleStringLiteral) {
+          await collector.addErrorWithFix(
+            code,
+            result.locationFor(prop.assignment),
+            fixKind: fixKind,
+            computeFix: () => buildFileEdit(result, (builder) {
+              builder.addDeletion(prop.rangeForRemoval);
+            }),
+          );
         }
-      });
+      }
     }
   }
 }

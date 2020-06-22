@@ -1,78 +1,75 @@
 import 'dart:async';
 
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/source/source_range.dart';
+import 'package:analyzer_plugin/utilities/range_factory.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 
-/// Finds things in the cascading setters within [usage] where the left side is a prop name,
-/// and the right side is an [Expression] that the [PropertyAccess] is assigned to, calling [f] for each prop found.
-///
-/// If you are needing to match method invocations like `modifyProps()` within the cascade,
-/// use [forEachCascadedMethod] instead.
-///
-/// > See also: [forEachCascadedPropAsync]
-void forEachCascadedProp(FluentComponentUsage usage, void Function(PropertyAccess lhs, Expression rhs) f) {
-  if (usage.cascadeExpression == null) return;
+extension PropAssignments on FluentComponentUsage {
+  Iterable<CascadeExpression> get _cascadeSections => cascadeExpression?.cascadeSections ?? const [];
 
-  for (final section in usage.cascadeExpression.cascadeSections) {
-    if (section is AssignmentExpression) {
-      final lhs = section.leftHandSide;
-      if (lhs is PropertyAccess) {
-        f(lhs, section.rightHandSide);
-      }
-    }
+  /// Returns an iterable of all cascaded prop assignments in this usage.
+  ///
+  /// See also: [cascadedMethodInvocations]
+  Iterable<PropAssignment> get cascadedProps => _cascadeSections
+      .whereType<AssignmentExpression>()
+      .where((assignment) => assignment.leftHandSide is PropertyAccess)
+      .map((assignment) => PropAssignment(assignment));
+
+  /// Returns an iterable of all cascaded method calls in this usage.
+  Iterable<MethodInvocation> get cascadedMethodInvocations => _cascadeSections.whereType<MethodInvocation>();
+}
+
+class PropAssignment {
+  /// The cascaded assignment expression that backs this assignment.
+  final AssignmentExpression assignment;
+
+  PropAssignment(this.assignment) : assert(assignment.leftHandSide is PropertyAccess);
+
+  /// The property access representing the left hand side of this assignment.
+  PropertyAccess get leftHandSide => assignment.leftHandSide;
+
+  /// The expression for the right hand side of this assignment.
+  Expression get rightHandSide => assignment.rightHandSide;
+
+  /// The name of the prop being assigned.
+  Identifier get name => leftHandSide.propertyName;
+
+  /// A range that can be used in a `builder.addDeletion` call to remove this prop.
+  ///
+  /// Includes the space between the previous token and the start of this assignment, so that
+  /// the entire prop line is removed.
+  SourceRange get rangeForRemoval => range.endEnd(assignment.beginToken.previous, assignment);
+}
+
+@Deprecated('Use FluentComponentUsage.cascadedProps instead')
+void forEachCascadedProp(FluentComponentUsage usage, void Function(PropertyAccess lhs, Expression rhs) f) {
+  for (final prop in usage.cascadedProps) {
+    f(prop.leftHandSide, prop.rightHandSide);
   }
 }
 
-/// A version of [forEachCascadedProp] where the [f] callback called on each prop is awaited.
+@Deprecated('Use FluentComponentUsage.cascadedProps instead')
 Future<void> forEachCascadedPropAsync(
     FluentComponentUsage usage, FutureOr<void> Function(PropertyAccess lhs, Expression rhs) f) async {
-  if (usage.cascadeExpression == null) return;
-
-  for (final section in usage.cascadeExpression.cascadeSections) {
-    if (section is AssignmentExpression) {
-      final lhs = section.leftHandSide;
-      if (lhs is PropertyAccess) {
-        await f(lhs, section.rightHandSide);
-      }
-    }
+  for (final prop in usage.cascadedProps) {
+    await f(prop.leftHandSide, prop.rightHandSide);
   }
 }
 
-/// Finds [MethodInvocation]s in the cascading setters within [usage], calling [f] for each method found.
-///
-/// > See also: [forEachCascadedMethodAsync]
+
+@Deprecated('Use FluentComponentUsage.cascadedMethods instead')
 void forEachCascadedMethod(
     FluentComponentUsage usage, void Function(SimpleIdentifier methodIdentifier, ArgumentList args) f) {
-  if (usage.cascadeExpression == null) return;
-
-  for (final section in usage.cascadeExpression.cascadeSections) {
-    if (section is MethodInvocation) {
-      f(section.methodName, section.argumentList);
-    }
+  for (final invocation in usage.cascadedMethodInvocations) {
+    f(invocation.methodName, invocation.argumentList);
   }
 }
 
-/// A version of [forEachCascadedProp] where the [f] callback called on each prop is awaited.
+@Deprecated('Use FluentComponentUsage.cascadedMethods instead')
 Future<void> forEachCascadedMethodAsync(
     FluentComponentUsage usage, FutureOr<void> Function(SimpleIdentifier methodIdentifier, ArgumentList args) f) async {
-  if (usage.cascadeExpression == null) return;
-
-  for (final section in usage.cascadeExpression.cascadeSections) {
-    if (section is MethodInvocation) {
-      await f(section.methodName, section.argumentList);
-    }
-  }
-}
-
-Iterable<SimpleIdentifier> getSetPropNames(FluentComponentUsage usage) sync* {
-  if (usage.cascadeExpression == null) return;
-
-  for (final section in usage.cascadeExpression.cascadeSections) {
-    if (section is AssignmentExpression) {
-      final lhs = section.leftHandSide;
-      if (lhs is PropertyAccess) {
-        yield lhs.propertyName;
-      }
-    }
+  for (final invocation in usage.cascadedMethodInvocations) {
+    await f(invocation.methodName, invocation.argumentList);
   }
 }

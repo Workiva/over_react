@@ -19,11 +19,11 @@ class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
   computeErrorsForUsage(result, collector, usage) async {
     // Collect these then iterate later to make keeping things async simpler
     final styleEntries = <MapLiteralEntry>[];
-    forEachCascadedProp(usage, (lhs, rhs) {
-      if (lhs.propertyName.name == 'style') {
-        rhs.accept(_RecursiveMapLiteralEntryVisitor(styleEntries.add));
+    for (final prop in usage.cascadedProps) {
+      if (prop.name.name == 'style') {
+        prop.rightHandSide.accept(_RecursiveMapLiteralEntryVisitor(styleEntries.add));
       }
-    });
+    }
 
     for (final entry in styleEntries) {
       final propertyName = _stringValueIfApplicable(entry.key);

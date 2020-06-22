@@ -52,12 +52,13 @@ void addCreateRef(
       : (componentName != null ? '${componentName}Component' : 'var');
 
   var hasRefProp = false;
-  forEachCascadedProp(usage, (lhs, rhs) {
-    if (hasRefProp || lhs.propertyName.name != 'ref') return;
+  for (final cascadedProp in usage.cascadedProps)  {
+    if (hasRefProp || cascadedProp.name.name == 'ref') break;
 
     // A fix is being used to replace a String / callback ref with a createRef reference.
     hasRefProp = true;
 
+    final rhs = cascadedProp.rightHandSide;
     if (rhs.staticType.isDartCoreString) {
       refTypeToReplace = RefTypeToReplace.string;
       oldStringRefSource = rhs.toSource();
@@ -72,7 +73,7 @@ void addCreateRef(
     builder.addReplacement(SourceRange(rhs.offset, rhs.length), (editBuilder) {
       editBuilder.addSimpleLinkedEdit(nameGroup, createRefFieldName);
     });
-  });
+  }
 
   if (!hasRefProp) {
     // An assist is being used to add a ref, so we have to add the ref prop as a cascaded setter
