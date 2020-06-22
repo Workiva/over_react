@@ -25,7 +25,7 @@ class ForwardOnlyDomPropsToDomBuildersDiagnostic extends ComponentUsageDiagnosti
 
     await forEachCascadedMethodAsync(usage, (methodIdentifier, args) async {
       if (methodIdentifier.name != 'modifyProps') return;
-      final propModifier = args.arguments.whereType<SimpleIdentifier>()?.first;
+      final propModifier = args.arguments.whereType<SimpleIdentifier>().firstOrNull;
       if (propModifier == null) return;
 
       if (propModifier.name == 'addUnconsumedProps') {
