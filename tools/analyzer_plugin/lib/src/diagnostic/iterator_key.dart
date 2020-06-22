@@ -1,17 +1,74 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
+const _desc = r'Avoid placing elements within iterators without setting props.key to a unique value.';
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+
+**PREFER** Setting a unique `props.key` value for each `ReactElement` within iterators.
+
+**GOOD:**
+```
+class NavComponent extends UiComponent<NavProps> {
+  @override
+  render() {
+    return (Dom.nav()
+      ..modifyProps(addUnconsumedDomProps)
+    )(
+      props.itemModels.map(_renderItem),
+    );
+  }
+  
+  List<ReactElement _renderItem(NavItemModel itemModel) {
+    return (NavItem()
+      ..model = itemModel
+      ..key = itemModel.key
+    )(itemModel.displayText);
+  }
+}
+```
+
+**BAD:**
+```
+class NavComponent extends UiComponent<NavProps> {
+  @override
+  render() {
+    return (Dom.nav()
+      ..modifyProps(addUnconsumedDomProps)
+    )(
+      props.itemModels.map(_renderItem),
+    );
+  }
+  
+  List<ReactElement _renderItem(NavItemModel itemModel) {
+    return (NavItem()
+      ..model = itemModel
+    )(itemModel.displayText);
+  }
+}
+```
+
+<blockquote>
+  <a href="https://reactjs.org/docs/glossary.html#keys" target="_blank" rel="noreferrer noopener">
+    Read more about <code>key</code>s
+  </a>
+</blockquote>
+
+''';
+// </editor-fold>
+
 /// Warn when missing `key` props in iterators/collection literals
 class IteratorKey extends ComponentUsageDiagnosticContributor {
+  @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_missing_key',
-    'Missing "key" prop for element in iterator',
+    _desc,
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
+    correction: 'Add a unique props.key value to the component builder.',
   );
 
   @override

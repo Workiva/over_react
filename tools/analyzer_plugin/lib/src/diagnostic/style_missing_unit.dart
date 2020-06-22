@@ -4,13 +4,43 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
-// TODO
-const _desc = r'TODO';
-// TODO
+const _correction =
+    r'Use CSS property values that are strings _with_ units, or numbers _(in which case `px` will be inferred)_.';
+const _desc = r'Do not use string CSS property values without specifying a unit.';
 // <editor-fold desc="Documentation Details">
-const _details = r'''
+const _details = '''
 
-TODO
+**ALWAYS** $_correction
+
+**GOOD:**
+```
+@override
+render() {
+  return (Dom.div()..style = {'width': 80})(
+    'I am eighty pixels wide!',
+  );
+}
+```
+
+**GOOD:**
+```
+@override
+render() {
+  return (Dom.div()..style = {'width': '80px'})(
+    'I am also eighty pixels wide!',
+  );
+}
+```
+
+**BAD:**
+```
+@override
+render() {
+  return (Dom.div()..style = {'width': '80'})(
+    'I never rendered because of a ReactJS runtime error :(',
+  );
+}
+```
 
 ''';
 // </editor-fold>
@@ -18,11 +48,12 @@ TODO
 class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
-      'over_react_style_missing_unit',
-      // TODO upgrade to error in React 16
-      "React CSS values must be strings with units, or numbers (in which case 'px' will be used). This will break in React 16.",
-      AnalysisErrorSeverity.WARNING,
-      AnalysisErrorType.STATIC_WARNING);
+    'over_react_style_missing_unit',
+    _desc,
+    AnalysisErrorSeverity.ERROR,
+    AnalysisErrorType.SYNTACTIC_ERROR,
+    correction: _correction,
+  );
 
   static final fixKind = FixKind(code.name, 200, "Convert to number (and treat as 'px')",
       appliedTogetherMessage: "Convert to numbers (and treat as 'px')");

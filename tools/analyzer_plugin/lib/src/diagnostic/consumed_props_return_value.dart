@@ -4,14 +4,55 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
+const _desc = r'Avoid using list literals to define consumed prop keys.';
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+
+**PREFER** to use the `propsMeta.forMixins()` instead.
+
+**GOOD:**
+```
+class NavItemWrapperComponent extends UiComponent<NavItemWrapperProps> {
+  @override
+  get consumedProps => propsMeta.forMixins({
+    NavItemWrapperProps,
+  });
+  
+  @override
+  render() {
+    return (NavItem()..modifyProps(addUnconsumedProps))(props.children);
+  }
+}
+```
+
+**BAD:**
+```
+class NavItemWrapperComponent extends UiComponent<NavItemWrapperProps> {
+  @override
+  get consumedProps => [
+    ...propsMeta.forMixin(NavItemWrapperProps).keys
+  ];
+  
+  @override
+  render() {
+    return (NavItem()..modifyProps(addUnconsumedProps))(props.children);
+  }
+}
+```
+
+''';
+// </editor-fold>
+
 /// A lint for when `consumedProps` returns a list literal that could be
 /// converted to `propsMeta.forMixins(...)`.
 class ConsumedPropsReturnValueDiagnostic extends DiagnosticContributor {
+  @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_consumed_props_return_value',
-    "Return propsMeta.forMixins(...) instead of list literal.",
+    _desc,
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.LINT,
+    correction: 'Use propsMeta.forMixins(...) instead.',
   );
 
   static final fixKind = FixKind(

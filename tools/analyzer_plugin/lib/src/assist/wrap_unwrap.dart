@@ -6,13 +6,27 @@ import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/fix.dart';
 
-// TODO
-const _desc = r'TODO';
-// TODO
+const _desc = r'Wrap the selection with another ReactElement';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
-TODO
+When a VDom element is selected by the user, the assist wraps the selection with another ReactElement:
+
+**EXAMPLE:**
+```
+final foo = Dom.div()(
+  'Hi there foo',
+);
+```
+
+**BECOMES:**
+```
+final foo = component()(
+  Dom.div()(
+    'Hi there foo',
+  ),
+);  
+```
 
 ''';
 // </editor-fold>

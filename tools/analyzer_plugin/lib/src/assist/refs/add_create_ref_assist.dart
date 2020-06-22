@@ -7,13 +7,13 @@ import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 import 'add_create_ref.dart' as create_ref_util;
 
-// TODO
-const _desc = r'TODO';
-// TODO
+const _desc = r'Add a React ref to the currently selected component builder.';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
-TODO
+When an over_react component builder is selected by the user, the assist adds a `ref` prop value
+on the builder, set equal to a field that is added within the class instance, assigned to the return
+value of a call to `createRef()`. 
 
 ''';
 // </editor-fold>

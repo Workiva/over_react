@@ -73,13 +73,48 @@ abstract class _ExtractComponentAssistContributorBase extends AssistContributorB
   }
 }
 
-// TODO
-const _extractComponentDesc = r'TODO';
-// TODO
+const _extractComponentDesc = r'Extract the selection as a new UiComponent.';
 // <editor-fold desc="Documentation Details">
 const _extractComponentDetails = r'''
 
-TODO
+When a VDom element is selected by the user, the assist extracts the selection into the return value of
+`render` within a new OverReact component declaration:
+
+**EXAMPLE:**
+```
+ReactElement renderTheFoo() {
+  return Dom.div()(
+    'oh hai',
+    Dom.span()('again'),
+    Dom.em()(' wow this is a lot we should extract it into a component!'),
+  );
+}
+```
+
+**BECOMES:**
+```
+ReactElement renderTheFoo() {
+  return Foo()();
+}
+
+UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier
+
+mixin FooProps on UiProps {}
+
+class FooComponent extends UiComponent2<FooProps> {
+  @override
+  get defaultProps => (newProps());
+
+  @override
+  render() {
+    return Dom.div()(
+      'oh hai',
+      Dom.span()('again'),
+      Dom.em()(' wow this is a lot we should extract it into a component!'),
+    );
+  }
+}
+```
 
 ''';
 // </editor-fold>
@@ -97,13 +132,53 @@ class ExtractComponentAssistContributor extends _ExtractComponentAssistContribut
   BoilerplateLinkedEditFn addBoilerplateLinkedEditFn = addUiComponentBoilerplateLinkedEdit;
 }
 
-// TODO
-const _extractStatefulComponentDesc = r'TODO';
-// TODO
-// <editor-fold desc="Documentation Details">
+const _extractStatefulComponentDesc = r'Extract the selection as a new UiStatefulComponent.';
+// <editor-fold desc="Stateful Documentation Details">
 const _extractStatefulComponentDetails = r'''
 
-TODO
+When a VDom element is selected by the user, the assist extracts the selection into the return value of
+`render` within a new OverReact stateful component declaration:
+
+**EXAMPLE:**
+```
+ReactElement renderTheFoo() {
+  return Dom.div()(
+    'oh hai',
+    Dom.span()('again'),
+    Dom.em()(' wow this is a lot we should extract it into a component!'),
+  );
+}
+```
+
+**BECOMES:**
+```
+ReactElement renderTheFoo() {
+  return Foo()();
+}
+
+UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier
+
+mixin FooProps on UiProps {}
+
+mixin FooState on UiState {}
+
+class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
+  @override
+  get defaultProps => (newProps());
+  
+  @override
+  get initialState => (newState());
+
+  @override
+  render() {
+    return Dom.div()(
+      'oh hai',
+      Dom.span()('again'),
+      Dom.em()(' wow this is a lot we should extract it into a component!'),
+    );
+  }
+}
+```
 
 ''';
 // </editor-fold>
@@ -120,53 +195,4 @@ class ExtractStatefulComponentAssistContributor extends _ExtractComponentAssistC
 
   @override
   BoilerplateLinkedEditFn addBoilerplateLinkedEditFn = addUiStatefulComponentBoilerplateLinkedEdit;
-}
-
-// TODO
-const _extractFluxComponentDesc = r'TODO';
-// TODO
-// <editor-fold desc="Documentation Details">
-const _extractFluxComponentDetails = r'''
-
-TODO
-
-''';
-// </editor-fold>
-
-class ExtractFluxComponentAssistContributor extends _ExtractComponentAssistContributorBase {
-  @DocsMeta(_extractFluxComponentDesc, details: _extractFluxComponentDetails)
-  static const extractComponent = AssistKind('extractFluxComponent', 32, 'Extract selection as a new FluxUiComponent');
-  @override
-  get _assistKind => extractComponent;
-
-  @override
-  String get linkedEditGroupName => 'orFlux';
-
-  @override
-  BoilerplateLinkedEditFn addBoilerplateLinkedEditFn = addFluxUiComponentBoilerplateLinkedEdit;
-}
-
-// TODO
-const _extractFluxStatefulComponentDesc = r'TODO';
-// TODO
-// <editor-fold desc="Documentation Details">
-const _extractFluxStatefulComponentDetails = r'''
-
-TODO
-
-''';
-// </editor-fold>
-
-class ExtractFluxStatefulComponentAssistContributor extends _ExtractComponentAssistContributorBase {
-  @DocsMeta(_extractFluxStatefulComponentDesc, details: _extractFluxStatefulComponentDetails)
-  static const extractComponent =
-      AssistKind('extractFluxStatefulComponent', 32, 'Extract selection as a new FluxUiStatefulComponent');
-  @override
-  get _assistKind => extractComponent;
-
-  @override
-  String get linkedEditGroupName => 'orFluxStful';
-
-  @override
-  BoilerplateLinkedEditFn addBoilerplateLinkedEditFn = addFluxUiStatefulComponentBoilerplateLinkedEdit;
 }

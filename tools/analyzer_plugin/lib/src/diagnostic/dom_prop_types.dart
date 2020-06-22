@@ -1,13 +1,24 @@
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
-// TODO
-const _desc = r'TODO';
-// TODO
+const _desc = r'Avoid setting props that map to invalid HTML element attributes.';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
-TODO
+**PREFER** to only set props on `Dom` components that produce valid HTML attributes.
+
+All OverReact `Dom` component builders show prop keys from `DomPropsMixin` in the autocompleted
+list of available prop setters. However, some of those props are only valid on certain types of elements. 
+
+**For example:**
+
+```
+// This will produce valid HTML.
+(Dom.textarea()..rows = 2)()
+
+// This will not.
+(Dom.div()..rows = 2)()
+```
 
 ''';
 // </editor-fold>

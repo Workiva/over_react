@@ -4,7 +4,7 @@ import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
-const _desc = 'Surround arrow functions in cascading setters with parentheses to allow subsequent cascades.';
+const _desc = 'Avoid arrow functions in cascading setters without parentheses.';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
@@ -39,7 +39,12 @@ EventTarget target;
 class ArrowFunctionPropCascadeDiagnostic extends ComponentUsageDiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
-      'over_react_cascaded_arrow_functions', _desc, AnalysisErrorSeverity.WARNING, AnalysisErrorType.STATIC_WARNING);
+    'over_react_cascaded_arrow_functions',
+    _desc,
+    AnalysisErrorSeverity.WARNING,
+    AnalysisErrorType.STATIC_WARNING,
+    correction: 'Always surround arrow functions within cascading setters with parentheses.',
+  );
 
   static final fixKind = FixKind(code.name, 200, 'Wrap arrow function in parentheses',
       appliedTogetherMessage: 'Wrap arrow functions in parentheses');

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:markdown/markdown.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/documented_contributor_meta.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
+import 'package:over_react_analyzer_plugin/src/util/constants.dart';
 
 import 'shared_html.dart';
 
@@ -46,7 +47,7 @@ abstract class ContributorDocPage<T extends DocumentedContributorMetaBase> {
             <p>Maturity: $maturityString</p>
             <p style="padding-bottom: 10px;">Since ${contributor.since}</p>
             <!--getBadges(name)-->
-            <p class="view"><a href="https://github.com/Workiva/over_react/blob/master/tools/analyzer_plugin/">View the Project on GitHub <small>workiva/over_react</small></a></p>
+            <p class="view"><a href="$analyzerPluginRepoSrcUrl">View the Project on GitHub <small>workiva/over_react</small></a></p>
          </header>
          <section>
 

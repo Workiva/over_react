@@ -1,6 +1,7 @@
 import 'package:markdown/markdown.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/documented_contributor_meta.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
+import 'package:over_react_analyzer_plugin/src/util/constants.dart';
 
 String getSharedHead(String title, {String relativePath = '../'}) => '''
 <meta charset="utf-8">
@@ -17,13 +18,13 @@ String getSharedHead(String title, {String relativePath = '../'}) => '''
 
 String getSharedIndexBodyHeader(String subTitle) => '''
 <header>
-  <a href="https://workiva.github.io/over_react/analyzer_plugin/">
+  <a href="$analyzerPluginDocsUrl">
      <h1>OverReact Analyzer Plugin</h1>
   </a>
   <p>$subTitle</p>
-  <p class="view"><a href="https://github.com/Workiva/over_react/blob/master/tools/analyzer_plugin/">View the Project on GitHub <small>workiva/over_react</small></a></p>
+  <p class="view"><a href="$analyzerPluginRepoSrcUrl">View the Project on GitHub <small>workiva/over_react</small></a></p>
   <ul>
-     <li><a href="https://github.com/Workiva/over_react/blob/master/tools/analyzer_plugin/">View On <strong>GitHub</strong></a></li>
+     <li><a href="$analyzerPluginRepoSrcUrl">View On <strong>GitHub</strong></a></li>
   </ul>
 </header>
 ''';
