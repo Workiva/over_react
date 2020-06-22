@@ -54,6 +54,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/boilerplate_validator.
 import 'package:over_react_analyzer_plugin/src/diagnostic/bool_prop_name_readability.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/bad_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/callback_ref.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/consumed_props_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/incorrect_doc_comment_location.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/dom_prop_types.dart';
@@ -162,6 +163,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin
       BoilerplateValidatorDiagnostic(),
       SingleChildWithKey(),
       IncorrectDocCommentLocationDiagnostic(),
+      ConsumedPropsReturnValueDiagnostic(),
     ];
   }
 }
