@@ -23,7 +23,8 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         for (final e in list.elements) {
           if (e is! InvocationExpression) continue; // Don't need to lint non-elements
 
-          var elementHasKeyProp = _doesElementHaveKeyProp(identifyUsage(e));
+          final componentUsage = identifyUsage(e);
+          var elementHasKeyProp = _doesElementHaveKeyProp(componentUsage);
 
           if (!elementHasKeyProp) {
             // If current element in the list is missing a key prop, add warning & don't bother w/ remaining elements
@@ -52,7 +53,10 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         final ExpressionFunctionBody mapFuncBody = mapStatementFuncArg.body;
         if (mapFuncBody.expression is! InvocationExpression) continue; // Don't need to lint non-elements
 
-        var elementHasKeyProp = _doesElementHaveKeyProp(getComponentUsage(mapFuncBody.expression));
+        final componentUsage = getComponentUsage(mapFuncBody.expression);
+        if (componentUsage == null) return;
+
+        var elementHasKeyProp = _doesElementHaveKeyProp(componentUsage);
 
         if (!elementHasKeyProp) {
           collector.addError(
@@ -81,8 +85,8 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
     dynamic target = method.target;
     while (target != null) {
       if (target is MethodInvocation) {
-        methodsInvoked.add(method.target);
-        target = target?.target;
+        methodsInvoked.add(target);
+        target = target.target;
       } else {
         return methodsInvoked;
       }
