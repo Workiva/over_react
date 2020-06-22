@@ -2,6 +2,7 @@ import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 /// Warn when missing `key` props in iterators/collection literals
 class IteratorKey extends ComponentUsageDiagnosticContributor {
@@ -51,10 +52,15 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
 
         // Get the top level element that's being returned from the map
         final FunctionExpression mapStatementFuncArg = mapStatement.argumentList.arguments[0];
-        final ExpressionFunctionBody mapFuncBody = mapStatementFuncArg.body;
-        if (mapFuncBody.expression is! InvocationExpression) continue; // Don't need to lint non-elements
 
-        final componentUsage = getComponentUsage(mapFuncBody.expression);
+        final body = mapStatementFuncArg.body;
+
+        final returnExpression =
+            body?.tryCast<ExpressionFunctionBody>()?.expression ??
+                body?.tryCast<BlockFunctionBody>()?.block?.statements?.whereType<ReturnStatement>()?.firstOrNull?.expression;
+        if (returnExpression is! InvocationExpression) continue; // Don't need to lint non-elements
+
+        final componentUsage = getComponentUsage(returnExpression);
         if (componentUsage == null) continue;
 
         var elementHasKeyProp = _doesElementHaveKeyProp(componentUsage);
