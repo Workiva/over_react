@@ -52,7 +52,9 @@ final configs = [
 Future<void> main([List<String> args]) async {
   var parser = ArgParser()
     ..addOption('out', abbr: 'o', help: 'Specifies output directory.', defaultsTo: 'doc/analyzer_plugin')
-    ..addFlag('gh-pages', help: 'Output the files to the directory expected in the gh-pages branch. Should only be run in the gh-pages branch. Overrides any value passed to the `--out` option.');
+    ..addFlag('gh-pages',
+        help:
+            'Output the files to the directory expected in the gh-pages branch. Should only be run in the gh-pages branch. Overrides any value passed to the `--out` option.');
 
   ArgResults options;
   try {
