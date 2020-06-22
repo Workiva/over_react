@@ -1,4 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/source/source_range.dart';
 import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
@@ -30,9 +31,7 @@ class LinkTargetUsageWithoutRelDiagnostic extends ComponentUsageDiagnosticContri
     forEachCascadedProp(usage, (lhs, rhs) {
       final propName = lhs.propertyName.name;
       if (propName == 'href') {
-        hrefValue = rhs.staticType.isDartCoreNull
-            ? null
-            : rhs.toString(); //rhs.staticType is StringLiteral ? (rhs.staticType as StringLiteral).stringValue;
+        hrefValue = rhs.staticType.isDartCoreNull ? null : rhs.toString();
       } else if (propName == 'target') {
         targetPropSection = Pair(lhs, rhs);
       } else if (propName == 'rel') {
@@ -42,39 +41,56 @@ class LinkTargetUsageWithoutRelDiagnostic extends ComponentUsageDiagnosticContri
 
     if (hrefValue == null || targetPropSection == null || targetPropSection.last.staticType.isDartCoreNull) return;
 
-    const requiredRelValues = [
+    const requiredRelValues = {
       'noopener',
       'noreferrer',
-    ];
-    var actualRelValues = <String>[];
-    var missingRequiredRelValues = List.of(requiredRelValues);
-    if (relPropSection != null && relPropSection.last.staticType.isDartCoreString) {
-      actualRelValues = (relPropSection.last as StringLiteral).stringValue.split(' ');
-    }
-    for (final value in actualRelValues) {
-      if (requiredRelValues.contains(value)) {
-        missingRequiredRelValues.remove(value);
+    };
+    var actualRelValues = <String>{};
+    var offerQuickFix = false;
+    if (relPropSection != null && !relPropSection.last.staticType.isDartCoreNull) {
+      if (relPropSection.last.staticType.isDartCoreString) {
+        if (relPropSection.last is StringLiteral) {
+          offerQuickFix = true;
+          actualRelValues = (relPropSection.last as StringLiteral).stringValue.split(' ').toSet();
+        } else if (relPropSection.last is SimpleIdentifier) {
+          final element = (relPropSection.last as SimpleIdentifier).staticElement;
+          if (element is PropertyAccessorElement) {
+            final declaredValues = element.variable.computeConstantValue()?.toStringValue()?.split(' ')?.toSet();
+            if (declaredValues != null) {
+              actualRelValues = declaredValues;
+            }
+          }
+        }
       }
     }
+    final missingRequiredRelValues = requiredRelValues.difference(actualRelValues);
 
     if (missingRequiredRelValues.isNotEmpty) {
-      await collector.addErrorWithFix(
-        code,
-        result.location(offset: targetPropSection.first.offset, end: targetPropSection.last.end),
-        errorMessageArgs: [hrefValue],
-        fixKind: fixKind,
-        computeFix: () => buildFileEdit(result, (builder) {
-          if (relPropSection == null) {
-            addProp(usage, builder, result.content, result.lineInfo,
-                name: 'rel', value: "'${requiredRelValues.join(' ')}'");
-          } else {
-            builder.addSimpleReplacement(
-              SourceRange(relPropSection.last.offset, relPropSection.last.length),
-              "'${[...actualRelValues, ...missingRequiredRelValues].join(' ')}'",
-            );
-          }
-        }),
-      );
+      if (offerQuickFix) {
+        await collector.addErrorWithFix(
+          code,
+          result.location(offset: targetPropSection.first.offset, end: targetPropSection.last.end),
+          errorMessageArgs: [hrefValue],
+          fixKind: fixKind,
+          computeFix: () => buildFileEdit(result, (builder) {
+            if (relPropSection == null) {
+              addProp(usage, builder, result.content, result.lineInfo,
+                  name: 'rel', value: "'${requiredRelValues.join(' ')}'");
+            } else {
+              builder.addSimpleReplacement(
+                SourceRange(relPropSection.last.offset, relPropSection.last.length),
+                "'${[...actualRelValues, ...missingRequiredRelValues].join(' ')}'",
+              );
+            }
+          }),
+        );
+      } else {
+        collector.addError(
+          code,
+          result.location(offset: targetPropSection.first.offset, end: targetPropSection.last.end),
+          errorMessageArgs: [hrefValue],
+        );
+      }
     }
   }
 }
