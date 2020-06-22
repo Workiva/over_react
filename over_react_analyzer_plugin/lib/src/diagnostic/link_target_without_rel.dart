@@ -47,18 +47,19 @@ class LinkTargetUsageWithoutRelDiagnostic extends ComponentUsageDiagnosticContri
     };
     var actualRelValues = <String>{};
     var offerQuickFix = false;
-    if (relPropSection != null && !relPropSection.last.staticType.isDartCoreNull) {
-      if (relPropSection.last.staticType.isDartCoreString) {
-        if (relPropSection.last is StringLiteral) {
-          offerQuickFix = true;
-          actualRelValues = (relPropSection.last as StringLiteral).stringValue.split(' ').toSet();
-        } else if (relPropSection.last is SimpleIdentifier) {
-          final element = (relPropSection.last as SimpleIdentifier).staticElement;
-          if (element is PropertyAccessorElement) {
-            final declaredValues = element.variable.computeConstantValue()?.toStringValue()?.split(' ')?.toSet();
-            if (declaredValues != null) {
-              actualRelValues = declaredValues;
-            }
+    if (relPropSection != null && relPropSection.last.staticType.isDartCoreString) {
+      if (relPropSection.last is StringLiteral) {
+        offerQuickFix = true;
+        final declaredValues = (relPropSection.last as StringLiteral).stringValue?.split(' ')?.toSet();
+        if (declaredValues != null) {
+          actualRelValues = declaredValues;
+        }
+      } else if (relPropSection.last is SimpleIdentifier) {
+        final element = (relPropSection.last as SimpleIdentifier).staticElement;
+        if (element is PropertyAccessorElement) {
+          final declaredValues = element.variable.computeConstantValue()?.toStringValue()?.split(' ')?.toSet();
+          if (declaredValues != null) {
+            actualRelValues = declaredValues;
           }
         }
       }
