@@ -56,9 +56,9 @@ class ConsumedPropsReturnValueDiagnostic extends DiagnosticContributor {
                 if (elements.length > 1) {
                   mixinList += ', ';
                 }
-                builder.write('propsMeta.forMixins({$mixinList});');
+                builder.write('propsMeta.forMixins({$mixinList})');
               });
-              builder.format(range.startLength(consumedPropsDecl, consumedPropsDecl.end + 1));
+              builder.format(range.node(consumedPropsDecl));
             }),
           );
         }
