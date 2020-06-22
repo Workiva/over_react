@@ -13,6 +13,13 @@ final logger = Logger('link_plugin');
 final resourceProvider = PhysicalResourceProvider.INSTANCE;
 final pluginManagerStateFolder = resourceProvider.getStateLocation('.plugin_manager');
 
+/// Normally, the Dart Analysis Server does a one-time copy of plugin code into the Dart Analysis Server state folder
+/// (usually `~/.dartServer/.plugin_manager`), and never updates for plugins derived from path dependencies (TODO make dart-lang issue for this).
+///
+/// This means, normally, ___any changes you make to the plugin will not be reflected___.
+///
+/// This script sets up a symlink to point to the original plugin directory (replacing any copy if it exists),
+/// so that changes are always reflected.
 main() {
   Logger.root
     ..level = Level.INFO
