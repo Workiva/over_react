@@ -21,7 +21,7 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         // 1st case: Any element in a list literal w/o key
         final list = argument;
         for (final e in list.elements) {
-          if (e is! InvocationExpression ) continue; // Don't need to lint non-elements
+          if (e is! InvocationExpression) continue; // Don't need to lint non-elements
 
           var elementIsMissingKeyProp = _isElementMissingKeyProp(identifyUsage(e));
 
@@ -50,7 +50,7 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         // Get the top level element that's being returned from the map
         final FunctionExpression mapStatementFuncArg = mapStatement.argumentList.arguments[0];
         final ExpressionFunctionBody mapFuncBody = mapStatementFuncArg.body;
-        if (mapFuncBody.expression is! InvocationExpression ) continue; // Don't need to lint non-elements
+        if (mapFuncBody.expression is! InvocationExpression) continue; // Don't need to lint non-elements
 
         var elementIsMissingKeyProp = _isElementMissingKeyProp(getComponentUsage(mapFuncBody.expression));
 
