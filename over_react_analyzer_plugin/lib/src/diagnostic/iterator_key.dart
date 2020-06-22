@@ -23,7 +23,8 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         for (final e in list.elements) {
           if (e is! InvocationExpression) continue; // Don't need to lint non-elements
 
-          final componentUsage = identifyUsage(e);
+          final componentUsage = getComponentUsage(e);
+          if (componentUsage == null) continue;
           var elementHasKeyProp = _doesElementHaveKeyProp(componentUsage);
 
           if (!elementHasKeyProp) {
@@ -54,7 +55,7 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         if (mapFuncBody.expression is! InvocationExpression) continue; // Don't need to lint non-elements
 
         final componentUsage = getComponentUsage(mapFuncBody.expression);
-        if (componentUsage == null) return;
+        if (componentUsage == null) continue;
 
         var elementHasKeyProp = _doesElementHaveKeyProp(componentUsage);
 
