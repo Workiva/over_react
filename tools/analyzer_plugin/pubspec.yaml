@@ -1,15 +1,13 @@
 name: over_react_analyzer_plugin
 version: 0.1.0
+publish_to: none
 description: Dart analyzer plugin for OverReact
-homepage: https://github.com/greglittlefield-wf/git_playground/tree/over_react_analyzer_plugin/master
-authors:
-  - Greg Littlefield <greg.littlefield@workiva.com>
+repository: https://github.com/Workiva/over_react/tree/master/tools/analyzer_plugin
 environment:
   sdk: '>=2.7.0 <3.0.0'
 dependencies:
   analyzer: '^0.39.10'
   analyzer_plugin: '^0.2.4'
-  dart_dev: ^3.0.0
   # Upon release, this should be pinned to the over_react version from ../../pubspec.yaml
   # so that it always resolves to the same version of over_react that the user has pulled in,
   # and thus has the same boilerplate parsing code that's running in the builder.
@@ -19,9 +17,10 @@ dependencies:
 dev_dependencies:
   convert: ^2.1.1
   crypto: ^2.1.5
+  dart_dev: ^3.0.0
   io: ^0.3.2+1
-  yaml: ^2.2.1
   workiva_analysis_options: ^1.1.0
+  yaml: ^2.2.1
 
 # If you're developing on changes in over_react that the analyzer plugin needs to consume,
 # point to the local copy of over_react. This must be an absolute path.
