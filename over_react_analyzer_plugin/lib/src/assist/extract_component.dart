@@ -81,7 +81,7 @@ abstract class _ExtractComponentAssistContributorBase extends AssistContributorB
 ///   1. The user's selection must include the builder and the invocation of that builder for the assist to appear
 ///   2. The user's selection cannot include any trailing semi-colons
 ///
-/// > Related: [ExtractStatefulComponentAssistContributor], [ExtractFluxComponentAssistContributor]
+/// > Related: [ExtractStatefulComponentAssistContributor]
 ///
 /// {@category Assists}
 class ExtractComponentAssistContributor extends _ExtractComponentAssistContributorBase {
@@ -103,7 +103,7 @@ class ExtractComponentAssistContributor extends _ExtractComponentAssistContribut
 ///   1. The user's selection must include the builder and the invocation of that builder for the assist to appear
 ///   2. The user's selection cannot include any trailing semi-colons
 ///
-/// > Related: [ExtractComponentAssistContributor], [ExtractFluxStatefulComponentAssistContributor]
+/// > Related: [ExtractComponentAssistContributor]
 ///
 /// {@category Assists}
 class ExtractStatefulComponentAssistContributor extends _ExtractComponentAssistContributorBase {
@@ -116,49 +116,4 @@ class ExtractStatefulComponentAssistContributor extends _ExtractComponentAssistC
 
   @override
   BoilerplateLinkedEditFn addBoilerplateLinkedEditFn = addUiStatefulComponentBoilerplateLinkedEdit;
-}
-
-/// An assist that extracts an [InvocationExpression] which returns a React VDom `ReactElement`
-/// into a new standalone OverReact `UiComponent2` component.
-///
-/// Caveats:
-///
-///   1. The user's selection must include the builder and the invocation of that builder for the assist to appear
-///   2. The user's selection cannot include any trailing semi-colons
-///
-/// > Related: [ExtractFluxStatefulComponentAssistContributor]
-///
-/// {@category Assists}
-class ExtractFluxComponentAssistContributor extends _ExtractComponentAssistContributorBase {
-  @override
-  AssistKind extractComponent = AssistKind('extractFluxComponent', 32, 'Extract selection as a new FluxUiComponent');
-
-  @override
-  String get linkedEditGroupName => 'orFlux';
-
-  @override
-  BoilerplateLinkedEditFn addBoilerplateLinkedEditFn = addFluxUiComponentBoilerplateLinkedEdit;
-}
-
-/// An assist that extracts an [InvocationExpression] which returns a React VDom `ReactElement`
-/// into a new standalone OverReact `FluxUiStatefulComponent2` component.
-///
-/// Caveats:
-///
-///   1. The user's selection must include the builder and the invocation of that builder for the assist to appear
-///   2. The user's selection cannot include any trailing semi-colons
-///
-/// > Related: [ExtractFluxComponentAssistContributor], [ExtractStatefulComponentAssistContributor]
-///
-/// {@category Assists}
-class ExtractFluxStatefulComponentAssistContributor extends _ExtractComponentAssistContributorBase {
-  @override
-  AssistKind extractComponent =
-      AssistKind('extractFluxStatefulComponent', 32, 'Extract selection as a new FluxUiStatefulComponent');
-
-  @override
-  String get linkedEditGroupName => 'orFluxStful';
-
-  @override
-  BoilerplateLinkedEditFn addBoilerplateLinkedEditFn = addFluxUiStatefulComponentBoilerplateLinkedEdit;
 }

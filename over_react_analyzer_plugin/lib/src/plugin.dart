@@ -129,8 +129,6 @@ class OverReactAnalyzerPlugin extends ServerPlugin
       AddRefAssistContributor(),
       ExtractComponentAssistContributor(),
       ExtractStatefulComponentAssistContributor(),
-      ExtractFluxComponentAssistContributor(),
-      ExtractFluxStatefulComponentAssistContributor(),
       WrapUnwrapAssistContributor(),
     ];
   }

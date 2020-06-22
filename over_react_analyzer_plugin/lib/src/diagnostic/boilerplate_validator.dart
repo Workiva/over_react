@@ -87,6 +87,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
             collector: collector,
             member: member,
             errorType: PartDirectiveErrorType.missing,
+            generatedPartErrorLocations: _generatedPartErrorLocations,
           );
         } else if (!_overReactGeneratedPartDirectiveIsValid) {
           await _addPartDirectiveErrorForMember(
@@ -94,6 +95,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
             collector: collector,
             member: member,
             errorType: PartDirectiveErrorType.invalid,
+            generatedPartErrorLocations: _generatedPartErrorLocations,
           );
         }
       }
@@ -104,7 +106,9 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
         errorCode,
         result.locationFor(_overReactGeneratedPartDirective),
         errorMessageArgs: [
-          'This part will not be generated because there are no OverReact component boilerplate declarations in this file. It can safely be removed.'
+          'This part will not be generated because there are no valid OverReact component boilerplate '
+              'declarations in this file. If you expect this file to contain OverReact component boilerplate declarations, '
+              'double check that they have no syntax errors / lints. Otherwise, the part can safely be removed.'
         ],
         fixKind: unnecessaryGeneratedPartFixKind,
         computeFix: () => buildFileEdit(result, (builder) {
@@ -129,6 +133,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
     @required DiagnosticCollector collector,
     @required BoilerplateMember member,
     @required PartDirectiveErrorType errorType,
+    @required Set<Location> generatedPartErrorLocations,
   }) {
     const memberMissingPartErrorMsg = 'A `.over_react.g.dart` part directive is required';
     const memberInvalidPartErrorMsg = 'A valid `.over_react.g.dart` part directive is required';
@@ -141,8 +146,8 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
         : fixOverReactGeneratedPartDirective;
     final location = result.locationFor(member.name);
 
-    if (_generatedPartErrorLocations.contains(location)) return Future(() {});
-    _generatedPartErrorLocations.add(location);
+    if (generatedPartErrorLocations.contains(location)) return Future(() {});
+    generatedPartErrorLocations.add(location);
 
     return collector.addErrorWithFix(
       errorCode,
