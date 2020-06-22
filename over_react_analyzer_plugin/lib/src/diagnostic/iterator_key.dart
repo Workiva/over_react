@@ -51,13 +51,19 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         if (mapStatement == null) continue;
 
         // Get the top level element that's being returned from the map
-        final FunctionExpression mapStatementFuncArg = mapStatement.argumentList.arguments[0];
+        final mapStatementFuncArg = mapStatement.argumentList.arguments.firstOrNull?.tryCast<FunctionExpression>();
+        if (mapStatementFuncArg == null) continue;
 
         final body = mapStatementFuncArg.body;
 
-        final returnExpression =
-            body?.tryCast<ExpressionFunctionBody>()?.expression ??
-                body?.tryCast<BlockFunctionBody>()?.block?.statements?.whereType<ReturnStatement>()?.firstOrNull?.expression;
+        final returnExpression = body?.tryCast<ExpressionFunctionBody>()?.expression ??
+            body
+                ?.tryCast<BlockFunctionBody>()
+                ?.block
+                ?.statements
+                ?.whereType<ReturnStatement>()
+                ?.firstOrNull
+                ?.expression;
         if (returnExpression is! InvocationExpression) continue; // Don't need to lint non-elements
 
         final componentUsage = getComponentUsage(returnExpression);
