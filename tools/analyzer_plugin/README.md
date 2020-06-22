@@ -35,7 +35,7 @@ See [analyzer_plugin's tutorial][analyzer_plugin_tutorial] on building a plugin 
 
 **Before you do anything:** run 
 ```sh
-dart tool/link_plugin.dart
+dart tool/init_local_dev.dart
 ```
 
 Normally, the Dart Analysis Server does a one-time copy of plugin code into the Dart Analysis Server state folder (usually `~/.dartServer/.plugin_manager`), and never updates for plugins derived from path dependencies (TODO make dart-lang issue for this). 

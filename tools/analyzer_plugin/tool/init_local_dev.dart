@@ -8,7 +8,7 @@ import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
-final logger = Logger('link_plugin');
+final logger = Logger('init_local_dev');
 
 final resourceProvider = PhysicalResourceProvider.INSTANCE;
 final pluginManagerStateFolder = resourceProvider.getStateLocation('.plugin_manager');
