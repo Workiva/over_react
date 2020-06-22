@@ -1,77 +1,78 @@
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/source/source_range.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
 import 'package:analyzer_plugin/utilities/range_factory.dart';
+
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
-import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/component_assist_api.dart';
 import 'package:over_react_analyzer_plugin/src/util/fix.dart';
-import 'package:over_react_analyzer_plugin/src/util/node.dart';
 
-class ToggleComponentStatefulness extends AssistContributorBase {
+class ToggleComponentStatefulness extends AssistContributorBase with ComponentDeclarationAssistApi {
   static AssistKind makeStateful = AssistKind('makeStateful', 30, 'Make component stateful.');
   static AssistKind makeStateless = AssistKind('makeStateless', 30, 'Make component stateless.');
-
-  ComponentDeclarationAssistApi _componentApi;
-
-  ClassDeclaration parent;
-
-  NamedType get componentType => parent?.extendsClause?.childEntities?.whereType<TypeName>()?.first;
 
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
     await super.computeAssists(request, collector);
     if (!setupCompute()) return;
 
-    _componentApi = ComponentDeclarationAssistApi(request.result.unit, node, request.result.content);
+    initializeAssistApi(request.result.unit, request.result.content);
 
-    if (!_componentApi.isAValidComponentDeclaration) return;
+    if (!isAValidComponentDeclaration) return;
 
-    parent = _getComponentClassDeclaration(node);
-
-    if (_componentApi.stateMixin != null) {
+    if (stateMixin != null) {
       await _removeStatefulness();
     } else {
       await _addStatefulness();
     }
   }
 
-  ClassDeclaration _getComponentClassDeclaration(AstNode node) {
-    if (node.parent == null) return null;
-    return node.parent as ClassDeclaration;
-  }
-
   Future<void> _addStatefulness() async {
     final sourceChange = await buildFileEdit(request.result, (builder) {
-      final renderMethod = parent.childEntities.firstWhere((e) {
-        if (e is MethodDeclaration) {
-          if (e.name.name == 'render') {
-            return true;
-          }
-        }
+      final defaultProps = component.component.nodeHelper.members.firstWhere((member) {
+        return member is MethodDeclaration && member.declaredElement.name == 'defaultProps';
+      }, orElse: () => null);
 
-        return false;
-      });
+      var indentOffset = 0;
+
+      if (defaultProps != null) {
+        indentOffset = defaultProps.offset;
+      } else {
+        final renderMethod = component.component.nodeHelper.members.firstWhere((e) {
+          if (e is MethodDeclaration) {
+            if (e.name.name == 'render') {
+              return true;
+            }
+          }
+
+          return false;
+        });
+
+        indentOffset = renderMethod.offset;
+      }
 
       final indent = getIndent(
-          request.result.content,
-          request.result.unit.declaredElement.lineInfo,
-          renderMethod.offset
+        request.result.content,
+        request.result.unit.declaredElement.lineInfo,
+        indentOffset,
       );
 
-      builder.addInsertion(renderMethod.offset - 2, (builder) {
-        builder.write('\n${indent}@override');
-        builder.write('\n${indent}get initialState => (newState());\n\n');
+      final insertionOffset = defaultProps != null
+          ? componentSourceFile.getOffsetForLineAfter(defaultProps.end)
+          : componentSourceFile.getOffsetForLineAfter(component.component.nodeHelper.node.offset);
+
+      builder.addInsertion(insertionOffset, (builder) {
+        builder.write('\n$indent@override');
+        builder.write('\n${indent}get initialState => (newState());\n');
       });
 
-      builder.addInsertion(node.parent.offset - 1, (builder) {
-        builder.write('\nmixin ${_componentApi.normalizedComponentName}State on UiState {}\n');
+      builder.addInsertion(componentSourceFile.getOffsetForLineAfter(propsMixin.nodeHelper.node.end), (builder) {
+        builder.write('\nmixin ${normalizedComponentName}State on UiState {}\n');
       });
 
       builder.addReplacement(range.node(componentType), (builder) {
-        builder.write('UiStatefulComponent2<${_componentApi.normalizedComponentName}Props, ${_componentApi.normalizedComponentName}State>');
+        builder.write('UiStatefulComponent2<${normalizedComponentName}Props, ${normalizedComponentName}State>');
       });
     });
     sourceChange
@@ -82,39 +83,27 @@ class ToggleComponentStatefulness extends AssistContributorBase {
 
   Future<void> _removeStatefulness() async {
     final sourceChange = await buildFileEdit(request.result, (builder) {
-      final initialState = parent.childEntities.firstWhere((e) {
-        if (e is MethodDeclaration) {
-          if (e.name.name == 'initialState') {
-            return true;
-          }
-        }
+      final initialState = component.component.nodeHelper.members.firstWhere((member) {
+        return member is MethodDeclaration && member.declaredElement.name == 'initialState';
+      }, orElse: () => null);
 
-        return false;
-      });
-      final r = range.node(_componentApi.stateMixin.nodeHelper.node);
-      final r2 = range.node(initialState);
-
-      builder.addReplacement(SourceRange(r.offset - 2, r.length + 2), (builder) {
+      builder.addReplacement(componentSourceFile.getEncompassingRangeFor(stateMixin.nodeHelper.node), (builder) {
         builder.write('');
       });
 
       builder.addReplacement(range.node(componentType), (builder) {
-        builder.write('UiComponent2<${_componentApi.normalizedComponentName}Props>');
+        builder.write('UiComponent2<${normalizedComponentName}Props>');
       });
 
-      builder.addReplacement(SourceRange(r2.offset - 4, r2.length + 5), (builder) {
-        builder.write('');
-      });
+      if (initialState != null) {
+        builder.addReplacement(componentSourceFile.getEncompassingRangeFor(initialState), (builder) {
+          builder.write('');
+        });
+      }
     });
     sourceChange
       ..message = makeStateless.message
       ..id = makeStateless.id;
     collector.addAssist(PrioritizedSourceChange(makeStateless.priority, sourceChange));
   }
-}
-
-class OverReactProps {
-  final String name;
-
-  OverReactProps(this.name);
 }

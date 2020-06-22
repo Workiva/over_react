@@ -1,5 +1,8 @@
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/line_info.dart';
+import 'package:analyzer/source/source_range.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
+import 'package:source_span/source_span.dart';
 
 /// Indents the content at [offset] with [indent].
 ///
@@ -28,4 +31,25 @@ String getIndent(String source, LineInfo info, int offset) {
 /// Returns whether [offsetA] and [offsetB] within are on the same line, according to [info[.
 bool isSameLine(LineInfo info, int offsetA, int offsetB) {
   return info.getLocation(offsetA).lineNumber == info.getLocation(offsetB).lineNumber;
+}
+
+extension SourceFileTools on SourceFile {
+  /// Returns the starting offset for the line after the provided offset.
+  int getOffsetForLineAfter(int offset) {
+    return getOffset(getLine(offset) + 1);
+  }
+
+  /// Returns the starting offset for the line before the provided offset.
+  int getOffsetForLineBefore(int offset) {
+    return getOffset(getLine(offset) - 1);
+  }
+
+  /// Grabs a range that is comprised of an entire AstNode plus the entire line
+  /// before and the start of the line after.
+  SourceRange getEncompassingRangeFor(AstNode node) {
+    final startingOffset = getOffsetForLineBefore(node.offset);
+    final endingOffset = getOffsetForLineAfter(node.end);
+
+    return SourceRange(startingOffset, endingOffset - startingOffset);
+  }
 }

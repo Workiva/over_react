@@ -1,16 +1,41 @@
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:source_span/source_span.dart';
 
 // ignore_for_file: implementation_imports
+import 'package:over_react/src/builder/parsing/declarations.dart';
+import 'package:over_react/src/builder/parsing/declarations_from_members.dart';
 import 'package:over_react/src/builder/parsing/error_collection.dart';
+import 'package:over_react/src/builder/parsing/member_association.dart';
 import 'package:over_react/src/builder/parsing/members.dart';
 import 'package:over_react/src/builder/parsing/members_from_ast.dart';
-import 'package:over_react/src/builder/parsing/declarations_from_members.dart';
-import 'package:over_react/src/builder/parsing/declarations.dart';
-import 'package:over_react/src/builder/parsing/util.dart';
-import 'package:over_react/src/builder/parsing/member_association.dart';
+import 'package:over_react/src/builder/parsing/version.dart';
 
-class ComponentDeclarationAssistApi {
+/// A mixin that allows easy access to common APIs needed when writing assists
+/// that manipulate component boilerplate.
+///
+/// Important Usage Guidelines:
+/// 1. Only to be used to identify new boilerplate components. Future work may be
+/// able to change this to be more version agnostic, but currently its usage is
+/// tailored to be for the new boilerplate syntax.
+/// 2. This mixin is only intended to be used when the assist trigger node is the
+/// component name.
+///
+/// Example:
+///     ```
+///     import 'package:over_react/over_react.dart';
+///
+///     part 'test.over_react.g.dart';
+///
+///     // The assist should trigger off of the `TestComponent` name node and nothing
+///     // else.
+///     class TestComponent extends UiComponent2<TestProps> {
+///       ...
+///     }
+///     ```
+/// 3. The assist declaration should call `initializeAssistApi` before any instance
+/// specific logic is implemented. See 'initializeAssistApi' below for an example.
+mixin ComponentDeclarationAssistApi on AssistContributorBase {
   SourceFile componentSourceFile;
   BoilerplateMembers members;
   List<BoilerplateDeclaration> declarations;
@@ -18,21 +43,28 @@ class ComponentDeclarationAssistApi {
 
   ErrorCollector errorCollector;
 
-  bool _isAValidComponentDeclaration;
+  bool _isAValidComponentDeclaration = false;
+
+  /// Checks the context of the assist node and returns if it is an appropriate
+  /// context to suggest a component level assist.
   bool get isAValidComponentDeclaration => _isAValidComponentDeclaration;
 
-  String get normalizedComponentName => getMemberName(members.components.first);
+  String get normalizedComponentName => normalizeNameAndRemoveSuffix(component.component);
 
-  String getMemberName(BoilerplateMember member) => normalizeNameAndRemoveSuffix(member);
+  NamedType get componentType {
+    final typedComponent = component?.component?.node as ClassDeclaration;
 
-  BoilerplatePropsMixin get propsMixin => members.propsMixins.firstOrNull;
-  BoilerplateStateMixin get stateMixin => members.stateMixins.firstOrNull;
+    return typedComponent?.extendsClause?.childEntities?.whereType<TypeName>()?.first;
+  }
 
-  bool isAValidComponentClass(CompilationUnit unit, AstNode selectedNode, String sourceFileContent) {
-    if (selectedNode.parent is! ClassDeclaration) return false;
-    ClassDeclaration parent = selectedNode.parent;
+  BoilerplatePropsMixin get propsMixin => component.props?.b;
 
-    componentSourceFile = SourceFile.fromString(sourceFileContent);
+  BoilerplateStateMixin get stateMixin => component.state?.b;
+
+  bool _isAValidComponentClass(CompilationUnit unit) {
+    if (node.parent is! ClassDeclaration) return false;
+    ClassDeclaration parent = node.parent;
+
     members = detectBoilerplateMembers(unit);
     declarations = getBoilerplateDeclarations(members, errorCollector).toList();
 
@@ -40,13 +72,45 @@ class ComponentDeclarationAssistApi {
       return c.component.name.name == parent.name.name;
     })?.first;
 
-    return component != null;
+    _isAValidComponentDeclaration = component != null && component.version == Version.v4_mixinBased;
+    return isAValidComponentDeclaration;
   }
 
-  ComponentDeclarationAssistApi(CompilationUnit unit, AstNode selectedNode, String sourceFileContent) {
-    // TODO This really does nothing and is just a placeholder to create a "valid"
-    // ErrorCollector
+  /// Returns whether the selected unit is in the correct context to show a component
+  /// assist after initializing important instance fields.
+  ///
+  /// Should be called right after finishing the assist setup.
+  ///
+  /// Example:
+  ///     ```
+  ///     import 'package:analyzer_plugin/utilities/assist/assist.dart';
+  ///
+  ///     import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
+  ///     import 'package:over_react_analyzer_plugin/src/util/component_assist_api.dart';
+  ///
+  ///     class ExampleAssist extends AssistContributorBase with ComponentDeclarationAssistApi {
+  ///       @override
+  ///       Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
+  ///         await super.computeAssists(request, collector);
+  ///         if (!setupCompute()) return;
+  ///
+  ///         initializeAssistApi(request.result.unit, request.result.content);
+  ///         // Then, `isAValidComponentDeclaration` getter can be used to check if this
+  ///         // assist abides by the API expectations.
+  ///         if (!isAValidComponentDeclaration) return;
+  ///
+  ///         // Or, because `initializeAssistApi` mutates the instance fields but
+  ///         // returns the validity of the `unit` context, it can be wrapped in
+  ///         // the if statement itself:
+  ///         // if (!initializeAssistApi(request.result.unit, request.result.content)) return;
+  ///
+  ///         ... // custom implementation details
+  ///       }
+  ///     }
+  ///     ```
+  bool initializeAssistApi(CompilationUnit unit, String sourceFileContent) {
+    componentSourceFile = SourceFile.fromString(sourceFileContent);
     errorCollector = ErrorCollector.print(componentSourceFile);
-    _isAValidComponentDeclaration = isAValidComponentClass(unit, selectedNode, sourceFileContent);
+    return _isAValidComponentClass(unit);
   }
 }

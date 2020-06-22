@@ -8,6 +8,9 @@ mixin FooProps on UiProps {}
 
 class FooComponent extends UiComponent2<FooProps> {
   @override
+  get defaultProps => (newProps());
+
+  @override
   render() {}
 }
 
