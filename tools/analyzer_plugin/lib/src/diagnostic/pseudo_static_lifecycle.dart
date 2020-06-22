@@ -13,8 +13,20 @@ const instanceMemberWhitelist = [
   'typedStateFactoryJs',
 ];
 
+// TODO
+const _desc = r'TODO';
+// TODO
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+
+TODO
+
+''';
+// </editor-fold>
+
 class PseudoStaticLifecycleDiagnostic extends DiagnosticContributor {
-  static final code = DiagnosticCode(
+  @DocsMeta(_desc, details: _details)
+  static const code = DiagnosticCode(
       'over_react_pseudo_static_lifecycle',
       '\'{0}\' must be treated as a static method; only super-calls '
           'and props/state utility methods (like \'newProps\' and \'typedPropsFactory\') are allowed.',

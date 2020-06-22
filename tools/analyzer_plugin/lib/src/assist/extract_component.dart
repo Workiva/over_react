@@ -16,7 +16,7 @@ typedef BoilerplateLinkedEditFn = void Function(
 });
 
 abstract class _ExtractComponentAssistContributorBase extends AssistContributorBase {
-  AssistKind get extractComponent;
+  AssistKind get _assistKind;
   String get linkedEditGroupName;
   BoilerplateLinkedEditFn get addBoilerplateLinkedEditFn;
 
@@ -67,15 +67,28 @@ abstract class _ExtractComponentAssistContributorBase extends AssistContributorB
     });
 
     sourceChange
-      ..message = extractComponent.message
-      ..id = extractComponent.id;
-    collector.addAssist(PrioritizedSourceChange(extractComponent.priority, sourceChange));
+      ..message = _assistKind.message
+      ..id = _assistKind.id;
+    collector.addAssist(PrioritizedSourceChange(_assistKind.priority, sourceChange));
   }
 }
 
+// TODO
+const _extractComponentDesc = r'TODO';
+// TODO
+// <editor-fold desc="Documentation Details">
+const _extractComponentDetails = r'''
+
+TODO
+
+''';
+// </editor-fold>
+
 class ExtractComponentAssistContributor extends _ExtractComponentAssistContributorBase {
+  @DocsMeta(_extractComponentDesc, details: _extractComponentDetails)
+  static const extractComponent = AssistKind('extractComponent', 32, 'Extract selection as a new UiComponent');
   @override
-  AssistKind extractComponent = AssistKind('extractComponent', 32, 'Extract selection as a new UiComponent');
+  get _assistKind => extractComponent;
 
   @override
   String get linkedEditGroupName => 'orStless';
@@ -84,10 +97,23 @@ class ExtractComponentAssistContributor extends _ExtractComponentAssistContribut
   BoilerplateLinkedEditFn addBoilerplateLinkedEditFn = addUiComponentBoilerplateLinkedEdit;
 }
 
+// TODO
+const _extractStatefulComponentDesc = r'TODO';
+// TODO
+// <editor-fold desc="Documentation Details">
+const _extractStatefulComponentDetails = r'''
+
+TODO
+
+''';
+// </editor-fold>
+
 class ExtractStatefulComponentAssistContributor extends _ExtractComponentAssistContributorBase {
-  @override
-  AssistKind extractComponent =
+  @DocsMeta(_extractStatefulComponentDesc, details: _extractStatefulComponentDetails)
+  static const extractComponent =
       AssistKind('extractStatefulComponent', 32, 'Extract selection as a new UiStatefulComponent');
+  @override
+  get _assistKind => extractComponent;
 
   @override
   String get linkedEditGroupName => 'orStful';
@@ -96,9 +122,22 @@ class ExtractStatefulComponentAssistContributor extends _ExtractComponentAssistC
   BoilerplateLinkedEditFn addBoilerplateLinkedEditFn = addUiStatefulComponentBoilerplateLinkedEdit;
 }
 
+// TODO
+const _extractFluxComponentDesc = r'TODO';
+// TODO
+// <editor-fold desc="Documentation Details">
+const _extractFluxComponentDetails = r'''
+
+TODO
+
+''';
+// </editor-fold>
+
 class ExtractFluxComponentAssistContributor extends _ExtractComponentAssistContributorBase {
+  @DocsMeta(_extractFluxComponentDesc, details: _extractFluxComponentDetails)
+  static const extractComponent = AssistKind('extractFluxComponent', 32, 'Extract selection as a new FluxUiComponent');
   @override
-  AssistKind extractComponent = AssistKind('extractFluxComponent', 32, 'Extract selection as a new FluxUiComponent');
+  get _assistKind => extractComponent;
 
   @override
   String get linkedEditGroupName => 'orFlux';
@@ -107,10 +146,23 @@ class ExtractFluxComponentAssistContributor extends _ExtractComponentAssistContr
   BoilerplateLinkedEditFn addBoilerplateLinkedEditFn = addFluxUiComponentBoilerplateLinkedEdit;
 }
 
+// TODO
+const _extractFluxStatefulComponentDesc = r'TODO';
+// TODO
+// <editor-fold desc="Documentation Details">
+const _extractFluxStatefulComponentDetails = r'''
+
+TODO
+
+''';
+// </editor-fold>
+
 class ExtractFluxStatefulComponentAssistContributor extends _ExtractComponentAssistContributorBase {
-  @override
-  AssistKind extractComponent =
+  @DocsMeta(_extractFluxStatefulComponentDesc, details: _extractFluxStatefulComponentDetails)
+  static const extractComponent =
       AssistKind('extractFluxStatefulComponent', 32, 'Extract selection as a new FluxUiStatefulComponent');
+  @override
+  get _assistKind => extractComponent;
 
   @override
   String get linkedEditGroupName => 'orFluxStful';

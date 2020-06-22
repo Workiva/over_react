@@ -2,11 +2,23 @@ import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/fix.dart';
+
+// TODO
+const _desc = r'TODO';
+// TODO
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+
+TODO
+
+''';
+// </editor-fold>
 
 class AddPropsAssistContributor extends AssistContributorBase {
-  static AssistKind addPropsKind = AssistKind('addProps', 31, 'Add props');
+  @DocsMeta(_desc, details: _details)
+  static const addPropsKind = AssistKind('addProps', 31, 'Add props');
 
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {

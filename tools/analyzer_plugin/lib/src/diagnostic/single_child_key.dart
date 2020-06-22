@@ -4,9 +4,21 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
+// TODO
+const _desc = r'TODO';
+// TODO
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+
+TODO
+
+''';
+// </editor-fold>
+
 class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
-  static final code = DiagnosticCode(
-      'single_child_key',
+  @DocsMeta(_desc, details: _details)
+  static const code = DiagnosticCode(
+      'over_react_single_child_key',
       'React keys are only needed for children rendered in lists with siblings.',
       AnalysisErrorSeverity.INFO,
       AnalysisErrorType.HINT);
