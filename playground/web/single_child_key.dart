@@ -10,7 +10,7 @@ class TestComponent extends UiComponent2<TestProps> {
   @override
   render(){
     final children = [_renderDivs(), _renderDivs()];
-    return (Dom.div()..key='unnecessary')(children);
+    return (Dom.div()..key = 'constant' + 'expression')(children);
   }
 
   _returnListTest() {
