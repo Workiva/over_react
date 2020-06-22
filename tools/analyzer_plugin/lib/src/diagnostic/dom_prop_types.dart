@@ -1,9 +1,21 @@
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
+// TODO
+const _desc = r'TODO';
+// TODO
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+
+TODO
+
+''';
+// </editor-fold>
+
 /// A diagnostic that warns when an HTML attribute set on an OverReact `Dom` component builder is invalid
 /// based on the `<attribute>: [<allowed_html_elems>]` schema found within [allowedHtmlElementsForAttribute].
 class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor {
+  @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_invalid_dom_attribute',
     "'{0}' isn't a valid HTML attribute prop for '{1}'. It may only be used on: {2}",

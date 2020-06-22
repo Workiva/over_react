@@ -4,8 +4,20 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
+// TODO
+const _desc = r'TODO';
+// TODO
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+
+TODO
+
+''';
+// </editor-fold>
+
 class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
-  static final code = DiagnosticCode(
+  @DocsMeta(_desc, details: _details)
+  static const code = DiagnosticCode(
       'over_react_style_missing_unit',
       // TODO upgrade to error in React 16
       "React CSS values must be strings with units, or numbers (in which case 'px' will be used). This will break in React 16.",

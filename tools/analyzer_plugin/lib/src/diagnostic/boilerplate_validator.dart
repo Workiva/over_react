@@ -3,20 +3,67 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart';
 // ignore: implementation_imports
 import 'package:over_react/src/builder/parsing.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
 import 'package:source_span/source_span.dart';
 
+const _errorDesc = 'Something is malformed in your component boilerplate';
+// <editor-fold desc="Error Documentation Details">
+const _errorDetails = r'''
+
+Anything caught by this rule will cause the over_react builder to fail when building your project.
+
+TODO: Write a description about the types of things our validator catches
+
+''';
+// </editor-fold>
+
+const _warningDesc = 'Something is not quite right in your component boilerplate';
+// <editor-fold desc="Warning Documentation Details">
+const _warningDetails = r'''
+
+Anything caught by this rule could cause unexpected behavior at build / run time.
+
+TODO: Write a description about the types of things our validator catches
+
+''';
+// </editor-fold>
+
+const _debugDesc = 'Internal tool for debugging boilerplate parsing / building';
+// <editor-fold desc="Debug Documentation Details">
+const _debugDetails = r'''
+
+TODO: Add some info here for contributors so they know how to use it
+
+''';
+// </editor-fold>
+
 class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
-  static final errorCode = DiagnosticCode(
+  @DocsMeta(_errorDesc, details: _errorDetails)
+  static const errorCode = DiagnosticCode(
       'over_react_boilerplate_error', '{0}', AnalysisErrorSeverity.ERROR, AnalysisErrorType.COMPILE_TIME_ERROR);
 
   // TODO should this be COMPILE_TIME_ERROR or STATIC_WARNING?
-  static final warningCode = DiagnosticCode(
+  @DocsMeta(_warningDesc, details: _warningDetails)
+  static const warningCode = DiagnosticCode(
       'over_react_boilerplate_warning', '{0}', AnalysisErrorSeverity.WARNING, AnalysisErrorType.COMPILE_TIME_ERROR);
 
-  static final debugCode =
+  @DocsMeta(_debugDesc, details: _debugDetails, maturity: Maturity.experimental)
+  static const debugCode =
       DiagnosticCode('over_react_boilerplate_debug', '{0}', AnalysisErrorSeverity.INFO, AnalysisErrorType.HINT);
 
   static final _debugFlagPattern = RegExp(r'debug:.*\bover_react_boilerplate\b');
+
+  // TODO: How do we define / document all the possible errors?
+//  BoilerplateValidatorDiagnostic()
+//      : super({
+//          errorCode.name: DocumentedDiagnosticContributorMeta(
+//            errorCode.name,
+//            '',
+//            details: null,
+//            severity: errorCode.errorSeverity,
+//            type: errorCode.type,
+//          )
+//        });
 
   @override
   Future<void> computeErrors(result, collector) async {

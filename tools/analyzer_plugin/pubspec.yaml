@@ -18,7 +18,10 @@ dev_dependencies:
   convert: ^2.1.1
   crypto: ^2.1.5
   dart_dev: ^3.0.0
+  glob: any
   io: ^0.3.2+1
+  linter: ^0.1.117
+  markdown: ^2.1.5
   workiva_analysis_options: ^1.1.0
   yaml: ^2.2.1
 
