@@ -27,8 +27,6 @@ PartDirective getOverReactGeneratedPartDirective(CompilationUnit unit) {
 ///
 /// > Related: [getOverReactGeneratedPartDirective], [fixOverReactGeneratedPartDirective]
 bool overReactGeneratedPartDirectiveIsValid(PartDirective directive, Uri fileUri) {
-  if (directive == null) return false;
-
   if (!directive.uri.stringValue.endsWith(overReactGeneratedPartPathSuffix)) return false;
 
   return p.setExtension(p.basename(fileUri.path), overReactGeneratedPartPathSuffix) == directive.uri.stringValue;
@@ -43,9 +41,12 @@ String _generateValidOverReactGeneratedPartDirective(CompilationUnit unit, Uri f
 ///
 /// Is a no-op if one already exists.
 void addOverReactGeneratedPartDirective(DartFileEditBuilder builder, CompilationUnit unit, Uri fileUri) {
-  if (getOverReactGeneratedPartDirective(unit) != null) return;
+  final directives = unit.directives;
+  Directive lastDirective;
+  if (directives?.isNotEmpty == true) {
+    lastDirective = unit.directives.last;
+  }
 
-  final lastDirective = unit.directives?.last;
   final insertionOffset = lastDirective == null
       ? 0
       : lastDirective is! PartDirective
