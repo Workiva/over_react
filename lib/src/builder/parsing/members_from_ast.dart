@@ -382,12 +382,9 @@ class _BoilerplateMemberDetector {
     // Thus, it's non-legacy boilerplate.
 
     VersionConfidences getConfidence() {
-      final overridesIsClassGenerated = classish.members
-          .whereType<MethodDeclaration>()
-          .any((member) => member.isGetter && member.name.name == r'$isClassGenerated');
       // Handle classes that look like props but are really just used as interfaces, and aren't extended from or directly used as a component's props.
       // Watch out for empty mixins, though; those are valid props/state mixins.
-      if (overridesIsClassGenerated ||
+      if (_overridesIsClassGenerated(classish) ||
           (node is! MixinDeclaration && onlyImplementsThings(classish))) {
         return VersionConfidences.none();
       } else if (classish.members.whereType<ConstructorDeclaration>().isNotEmpty) {
@@ -429,6 +426,9 @@ class _BoilerplateMemberDetector {
     return false;
   }
 
+  /// UiComponent, UiComponent2, UiStatefulComponent, FluxUiComponent, CustomUiComponent, ...
+  static final _componentBaseClassPattern = RegExp(r'Ui\w*Component');
+
   bool _detectPotentialComponent(ClassishDeclaration classish) {
     // Don't detect react-dart components as boilerplate components, since they cause issues with grouping
     // if they're in the same file as an OverReact component with non-matching names.
@@ -436,12 +436,33 @@ class _BoilerplateMemberDetector {
       if (classish.name.name.endsWith('Component') ||
           classish.allSuperTypes
               .map((t) => t.typeNameWithoutPrefix)
-              .any(const {'UiComponent', 'UiComponent2'}.contains) ||
+              .any(_componentBaseClassPattern.hasMatch) ||
           (classish.superclass?.typeArguments?.arguments
                   ?.map((t) => t.typeNameWithoutPrefix)
                   ?.any(propsOrMixinNamePattern.hasMatch) ??
               false)) {
-        onComponent(BoilerplateComponent(classish, VersionConfidences.all(Confidence.neutral)));
+        const mixinBoilerplateBaseClasses = {
+          'UiComponent2',
+          'UiStatefulComponent2',
+          'FluxUiComponent2',
+          'FluxUiStatefulComponent2'
+        };
+        final confidences = VersionConfidences(
+          // If the component extends from a base class known to be supported by the new boilerplate,
+          // has no annotation, is not abstract, and does not have $isClassGenerated, then it's
+          // most likely intended to be part of a new boilerplate class component declaration.
+          //
+          // Make this `likely` so that components that don't get associated with factory/props
+          // due to naming issues aren't silently ignored.
+          v4_mixinBased: !classish.hasAbstractKeyword &&
+                  !_overridesIsClassGenerated(classish) &&
+                  mixinBoilerplateBaseClasses.contains(classish.superclass?.nameWithoutPrefix)
+              ? Confidence.likely
+              : Confidence.neutral,
+          v2_legacyBackwardsCompat: Confidence.neutral,
+          v3_legacyDart2Only: Confidence.neutral,
+        );
+        onComponent(BoilerplateComponent(classish, confidences));
 
         return true;
       }
@@ -449,6 +470,10 @@ class _BoilerplateMemberDetector {
 
     return false;
   }
+
+  static bool _overridesIsClassGenerated(ClassishDeclaration classish) => classish.members
+      .whereType<MethodDeclaration>()
+      .any((member) => member.isGetter && member.name.name == r'$isClassGenerated');
 }
 
 class _BoilerplateMemberDetectorVisitor extends SimpleAstVisitor<void> {

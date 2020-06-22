@@ -1,0 +1,6 @@
+root = true
+
+[*.dart]
+# This setting is picked up by JetBrains IDEs so that you don't have to
+# configure dartfmt line length in project settings.
+max_line_length = 120

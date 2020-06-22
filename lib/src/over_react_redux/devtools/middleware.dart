@@ -51,7 +51,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     });
     try {
       devToolsExt = reduxExtConnect();
-      devToolsExt.subscribe(handleEventFromRemote);
+      devToolsExt.subscribe(allowInterop(handleEventFromRemote));
     } catch (e) {
       log.warning(e);
       log.warning(

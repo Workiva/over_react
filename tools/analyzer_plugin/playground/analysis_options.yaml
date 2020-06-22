@@ -1,0 +1,6 @@
+include: package:workiva_analysis_options/v1.yaml
+
+analyzer:
+  strong-mode: true
+  plugins:
+    over_react
