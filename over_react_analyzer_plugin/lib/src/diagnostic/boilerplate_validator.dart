@@ -9,6 +9,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   static final errorCode = DiagnosticCode(
       'over_react_boilerplate_error', '{0}', AnalysisErrorSeverity.ERROR, AnalysisErrorType.COMPILE_TIME_ERROR);
 
+  // TODO should this be COMPILE_TIME_ERROR or STATIC_WARNING?
   static final warningCode = DiagnosticCode(
       'over_react_boilerplate_warning', '{0}', AnalysisErrorSeverity.WARNING, AnalysisErrorType.COMPILE_TIME_ERROR);
 
