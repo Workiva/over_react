@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
 class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
   static final code = DiagnosticCode(
@@ -39,7 +40,7 @@ class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
 
     if ((isInAList && isSingleChild) || isVariadic) {
       for (final prop in usage.cascadedProps) {
-        if (prop.name.name == 'key' && prop.rightHandSide is SimpleStringLiteral) {
+        if (prop.name.name == 'key' && isAConstantValue(prop.rightHandSide)) {
           await collector.addErrorWithFix(
             code,
             result.locationFor(prop.assignment),
