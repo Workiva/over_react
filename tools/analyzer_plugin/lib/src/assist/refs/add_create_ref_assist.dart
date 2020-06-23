@@ -27,15 +27,10 @@ class AddCreateRefAssistContributor extends AssistContributorBase {
 
     if (usage == null) return;
 
-    var hasRefProp = false;
-    forEachCascadedProp(usage, (lhs, rhs) {
-      if (hasRefProp || lhs.propertyName.name != 'ref') return;
-
-      // A fix is being used to replace a String / callback ref with a createRef reference.
-      hasRefProp = true;
-    });
-
-    if (hasRefProp) return;
+    // A fix is being used to replace a String / callback ref with a createRef reference.
+    if (usage.cascadedProps.any((prop) => prop.name.name == 'ref')) {
+      return;
+    }
 
     final changeBuilder = DartChangeBuilder(session);
     await changeBuilder.addFileEdit(request.result.path, (builder) {

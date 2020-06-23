@@ -60,11 +60,8 @@ class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor 
       }
     }
 
-    final missingRequiredFieldNames = requiredFields.map((f) => f.name).toSet();
-
-    forEachCascadedProp(usage, (lhs, rhs) {
-      missingRequiredFieldNames.remove(lhs.propertyName.name);
-    });
+    final missingRequiredFieldNames = requiredFields.map((f) => f.name).toSet()
+      ..removeAll(usage.cascadedProps.map((prop) => prop.name.name));
 
     for (final name in missingRequiredFieldNames) {
       collector.addError(
