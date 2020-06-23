@@ -1,9 +1,6 @@
 # OverReact Analyzer Plugin
 
 > A [Dart analyzer plugin][analyzer_plugin] for OverReact
->
-> - [Notes/planning document](https://docs.google.com/document/d/1xHjC66eUvX_SSBRXw-sVOxRzvenWfOpu8m1BQI6GmqQ/edit#)
-> - Slack channel: [#react-analyzer-plugin](https://slack.com/app_redirect?channel=react-analyzer-plugin)
 
 
 ## Try it in your package!
@@ -26,7 +23,7 @@ See the [analyzer_plugin package structure documentation][analyzer_plugin_packag
 - _over_react_: the "host" package
 - _over_react_analyzer_plugin_ (`over_react/tools/analyzer_plugin`) - the "boostrap" and "plugin" packages, merged
         
-    We decided to merge these packages since it allows us to avoid creating a separate package for the plugin, which would have resulted in a more painful dev/release experience. (Since the plugin depends on over_react, we'd want to use monorepo to manage the packages, but we can't do that currently due to internal tooling restrictions.)
+    We decided to merge these packages since it allows us to avoid creating a separate package for the plugin, which would have resulted in a more painful dev/release experience. (Since the plugin depends on over_react, we'd want to use monorepo to manage the packages. However, we can't do that currently, due to internal tooling restrictions that prevent us from having multiple packages declared in a single repository.)
         
 - _playground_ - (`over_react/tools/analyzer_plugin/playground`) - a "target" package that consumes the plugin, useful for manually testing plugin during development 
         
@@ -57,7 +54,7 @@ The dev experience when working on this plugin isn't ideal (See the analyzer_plu
 
 These instructions are currently for JetBrains IDEs (IntelliJ, WebStorm, etc.) only.
 
-1. Open the "Registry" using the command palette (<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd>
+1. Open the "Registry" using the command palette (<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd>)
 
     ![](doc/open-jetbrains-registry.png)
     
@@ -69,7 +66,8 @@ These instructions are currently for JetBrains IDEs (IntelliJ, WebStorm, etc.) o
     - `--disable-service-auth-codes` - Disable authentication on the Observatory, since the JetBrains plugin swallows the log that outputs the auth code.
     
             
-6. In the project you're running your plugin on, restart the Dart Analysis Server so that it launches with these flags. You may have to close other Dart projects first to ensure other analysis servers don't take the reserved port
+6. In the project you're running your plugin on, restart the Dart Analysis Server so that it launches with these flags. You may have to close other Dart projects first to ensure other analysis servers don't take the reserved port.
+
     _TODO we need more investigation around whether this is necessary; if it is, we may want to integrate `--write-service-info` into the instructions._
 
 4. In the over_react_analyzer_plugin project, create a new Run Configuration using the "Dart Remote Debug" template

@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+   <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<title>OverReact Analyzer Plugin Lints</title>
+<link rel="stylesheet" href="../stylesheets/styles.css">
+<link rel="stylesheet" href="../stylesheets/pygment_trac.css">
+<script src="../javascripts/scale.fix.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+   </head>
+   <body>
+      <div class="wrapper">
+         <header>
+  <a href="https://workiva.github.io/over_react/analyzer_plugin/">
+     <h1>OverReact Analyzer Plugin</h1>
+  </a>
+  <p>Lint Rules</p>
+  <p class="view"><a href="https://github.com/Workiva/over_react/blob/master/tools/analyzer_plugin/">View the Project on GitHub <small>workiva/over_react</small></a></p>
+  <ul>
+     <li><a href="https://github.com/Workiva/over_react/blob/master/tools/analyzer_plugin/">View On <strong>GitHub</strong></a></li>
+  </ul>
+</header>
+
+         <section>
+
+            <h1 id="supported-lints">Supported Lint Rules</h1>
+<p>
+   This list is auto-generated from our sources.
+</p>
+<p>
+   <p>Rules are organized by severity.</p>
+
+</p>
+<p>
+  <ul> 
+    <li><strong>INFO</strong></li>
+<li><strong>WARNING</strong></li>
+<li><strong>ERROR</strong></li>
+  </ul>
+</p>
+<p>
+   <p>In addition, rules can be further distinguished by <em>maturity</em>.  Unqualified
+rules are considered stable, while others may be marked <strong>experimental</strong>
+to indicate that they are under review.  Lints that are marked as <strong>deprecated</strong>
+should not be used and are subject to removal in future Linter releases.</p>
+<p>Rules can be selectively enabled in the analyzer using
+<a href="https://pub.dev/packages/analyzer">analysis options</a>
+or through an
+<a href="https://dart.dev/guides/language/analysis-options#the-analysis-options-file">analysis options file</a>. </p>
+<ul>
+<li><strong>An auto-generated list enabling all options is provided <a href="options/">here</a>.</strong> </li>
+</ul>
+<p>These rules are under active development.  Feedback is
+<a href="https://github.com/Workiva/over_react/blob/master/tools/analyzer_plugin/issues">welcome</a>!</p>
+
+</p>
+
+<h2 id="error-rules">Errors</h2>
+
+   <!--suppress HtmlUnknownTarget --><strong><a href="over_react_boilerplate_error.html">over_react_boilerplate_error</a></strong><br/> <p>Something is malformed in your component boilerplate.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_invalid_child.html">over_react_invalid_child</a></strong><br/> <p>Do not use unsupported types as component children.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_invalid_render_return_type.html">over_react_invalid_render_return_type</a></strong><br/> <p>Do not return unsupported types from the render method.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_pseudo_static_lifecycle.html">over_react_pseudo_static_lifecycle</a></strong><br/> <p>Do not reference instance members within ReactJS "static" lifecycle methods.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_style_missing_unit.html">over_react_style_missing_unit</a></strong><br/> <p>Do not use string CSS property values without specifying a unit.</p>
+
+
+<h2 id="warning-rules">Warnings</h2>
+
+   <!--suppress HtmlUnknownTarget --><strong><a href="over_react_avoid_link_target_vulnerability.html">over_react_avoid_link_target_vulnerability</a></strong><br/> <p>Avoid setting a link target without rel="noopener noreferrer".</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_boilerplate_warning.html">over_react_boilerplate_warning</a></strong><br/> <p>Something is not quite right in your component boilerplate.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_cascaded_arrow_functions.html">over_react_cascaded_arrow_functions</a></strong><br/> <p>Avoid arrow functions in cascading setters without parentheses.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_duplicate_prop_cascade.html">over_react_duplicate_prop_cascade</a></strong><br/> <p>Avoid setting the same prop more than once on a component builder.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_forward_only_dom_props_to_dom_builders.html">over_react_forward_only_dom_props_to_dom_builders</a></strong><br/> <p>Avoid forwarding custom props to a Dom builder.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_hash_code_as_key.html">over_react_hash_code_as_key</a></strong><br/> <p>Avoid deriving React keys from hashCode since it is not unique.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_invalid_dom_attribute.html">over_react_invalid_dom_attribute</a></strong><br/> <p>Avoid setting props that map to invalid HTML element attributes.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_low_quality_key.html">over_react_low_quality_key</a></strong><br/> <p>Avoid deriving React keys from objects that have a high chance of colliding.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_missing_cascade_parens.html">over_react_missing_cascade_parens</a></strong><br/> <p>Always wrap the builder props cascade in parentheses.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_missing_key.html">over_react_missing_key</a></strong><br/> <p>Avoid placing elements within iterators without setting props.key to a unique value.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_object_to_string_as_key.html">over_react_object_to_string_as_key</a></strong><br/> <p>Avoid deriving React keys from toString() since it is not unique.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_required_prop.html">over_react_required_prop</a></strong><br/> <p>Avoid omitting props that are required.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_unknown_key_type.html">over_react_unknown_key_type</a></strong><br/> <p>Avoid deriving React keys from an object typed as dynamic/Object.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_variadic_children.html">over_react_variadic_children</a></strong><br/> <p>Avoid using iterable children when variadic children can be used.</p>
+
+                  
+<h2 id="hint-rules">Hints</h2>
+
+   <!--suppress HtmlUnknownTarget --><strong><a href="over_react_boilerplate_debug.html">over_react_boilerplate_debug (experimental)</a></strong><br/> <p>Internal tool for debugging boilerplate parsing / building.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_bool_prop_name_readability.html">over_react_bool_prop_name_readability</a></strong><br/> <p>Name boolean props in a way that makes them easy to read and infer their purpose.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_consumed_props_return_value.html">over_react_consumed_props_return_value</a></strong><br/> <p>Avoid using list literals to define consumed prop keys.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_incorrect_doc_comment_location.html">over_react_incorrect_doc_comment_location</a></strong><br/> <p>Place documentation comments above component factories.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_prefer_create_ref.html">over_react_prefer_create_ref</a></strong><br/> <p>Avoid using callback refs to assign ref field values.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_prefer_null_over_false.html">over_react_prefer_null_over_false</a></strong><br/> <p>Avoid returning false from the render method.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_single_child_key.html">over_react_single_child_key</a></strong><br/> <p>Avoid setting props.key when it is not necessary.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_string_ref.html">over_react_string_ref</a></strong><br/> <p>Avoid using deprecated string refs.</p>
+
+
+
+         </section>
+      </div>
+      <footer>
+   <p>Project maintained by <a href="https://workiva.github.io/" target="_blank" rel="noopener noreferrer">Workiva</a></p>
+   <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist" target="_blank" rel="noopener noreferrer">orderedlist</a></p>
+</footer>
+<!--[if !IE]><script>fixScale(document);</script><![endif]-->
+
+   </body>
+</html>

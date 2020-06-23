@@ -1,15 +1,33 @@
-// Adapted from dart_medic `misc` branch containing over_react diagnostics
-
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
-// TODO
-const _desc = r'TODO';
-// TODO
+const _desc = r'Avoid using iterable children when variadic children can be used.';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
-TODO
+**PREFER** using variadic children when possible.
+
+**GOOD:**
+```
+@override
+render() {
+  return Dom.ul()(
+    Dom.li()('Item 1'),
+    Dom.li()('Item 2'),
+  );
+}
+```
+
+**BAD:**
+```
+@override
+render() {
+  return Dom.ul()([
+    (Dom.li()..key = 1)('Item 1'),
+    (Dom.li()..key = 2)('Item 2'),
+  ]);
+}
+```
 
 ''';
 // </editor-fold>
@@ -18,7 +36,7 @@ class VariadicChildrenDiagnostic extends ComponentUsageDiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_variadic_children',
-    'Variadic children should be used instead of lists where possible',
+    _desc,
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
   );

@@ -6,35 +6,30 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
 import 'package:source_span/source_span.dart';
 
-const _errorDesc = 'Something is malformed in your component boilerplate';
+const _errorDesc = 'Something is malformed in your component boilerplate.';
+// TODO: Add a more detailed description about the types of things our validator catches
 // <editor-fold desc="Error Documentation Details">
 const _errorDetails = r'''
 
 Anything caught by this rule will cause the over_react builder to fail when building your project.
 
-TODO: Write a description about the types of things our validator catches
-
 ''';
 // </editor-fold>
 
-const _warningDesc = 'Something is not quite right in your component boilerplate';
+const _warningDesc = 'Something is not quite right in your component boilerplate.';
+// TODO: Add a more detailed description about the types of things our validator catches
 // <editor-fold desc="Warning Documentation Details">
 const _warningDetails = r'''
 
 Anything caught by this rule could cause unexpected behavior at build / run time.
 
-TODO: Write a description about the types of things our validator catches
-
 ''';
 // </editor-fold>
 
-const _debugDesc = 'Internal tool for debugging boilerplate parsing / building';
+const _debugDesc = 'Internal tool for debugging boilerplate parsing / building.';
+// TODO: Add some info here for contributors so they know how to use it
 // <editor-fold desc="Debug Documentation Details">
-const _debugDetails = r'''
-
-TODO: Add some info here for contributors so they know how to use it
-
-''';
+const _debugDetails = r'''''';
 // </editor-fold>
 
 class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
@@ -52,18 +47,6 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       DiagnosticCode('over_react_boilerplate_debug', '{0}', AnalysisErrorSeverity.INFO, AnalysisErrorType.HINT);
 
   static final _debugFlagPattern = RegExp(r'debug:.*\bover_react_boilerplate\b');
-
-  // TODO: How do we define / document all the possible errors?
-//  BoilerplateValidatorDiagnostic()
-//      : super({
-//          errorCode.name: DocumentedDiagnosticContributorMeta(
-//            errorCode.name,
-//            '',
-//            details: null,
-//            severity: errorCode.errorSeverity,
-//            type: errorCode.type,
-//          )
-//        });
 
   @override
   Future<void> computeErrors(result, collector) async {

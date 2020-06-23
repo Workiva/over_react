@@ -3,13 +3,27 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
-// TODO
-const _desc = r'TODO';
-// TODO
+const _desc = r'Name boolean props in a way that makes them easy to read and infer their purpose.';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
-TODO
+**PREFER** to name boolean props in a way that makes them easy to read.
+
+**GOOD:**
+```
+mixin NavItemProps on UiProps {
+  // Whether the item should appear active
+  bool isActive;
+}
+```
+
+**BAD:**
+```
+mixin NavItemProps on UiProps {
+  // Whether the item should appear active
+  bool active;
+}
+```
 
 ''';
 // </editor-fold>

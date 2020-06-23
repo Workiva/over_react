@@ -5,6 +5,7 @@ import 'package:markdown/markdown.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/contributor_meta_registry.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/documented_contributor_meta.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
+import 'package:over_react_analyzer_plugin/src/util/constants.dart';
 
 import 'generate_contributor_doc_page.dart';
 import 'generate_contributor_type_index.dart';
@@ -142,7 +143,7 @@ or through an
 * **An auto-generated list enabling all options is provided [here](options/).** 
 
 These rules are under active development.  Feedback is
-[welcome](https://github.com/Workiva/over_react/blob/master/tools/analyzer_plugin//issues)!
+[welcome](${analyzerPluginRepoSrcUrl}issues)!
 ''';
 
 const ruleLeadMatter = 'Rules are organized by severity.';

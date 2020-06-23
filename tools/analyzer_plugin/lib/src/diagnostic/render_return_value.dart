@@ -4,26 +4,88 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/constants.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
-// TODO
-const _invalidTypeDesc = r'TODO';
-// TODO
+const _invalidTypeDesc = r'Do not return unsupported types from the render method.';
 // <editor-fold desc="Invalid Type Documentation Details">
-const _invalidTypeDetails = r'''
+const _invalidTypeDetails = '''
 
-TODO
+The return value of a component `render()` method must be $supportedOverReactChildTypes
+
+**GOOD:**
+```
+@override
+render() {
+  return Dom.div()(
+    'Hi there',
+  );
+}
+```
+
+**GOOD:**
+```
+@override
+render() {
+  return Fragment()(
+    Dom.div()(
+      NavItem()('Nav\'in it, you know?'),
+    ),
+    (Dom.button()..type = 'button')('Click me'),
+  );
+}
+```
+
+**GOOD:**
+```
+@override
+render() {
+  return null;
+}
+```
+
+**BAD:**
+```
+@override
+render() {
+  return {
+    'foo': 'bar',
+  };
+}
+```
 
 ''';
 // </editor-fold>
 
-// TODO
-const _preferNullDesc = r'TODO';
-// TODO
+const _preferNullDesc = r'Avoid returning false from the render method.';
 // <editor-fold desc="Prefer Null Documentation Details">
 const _preferNullDetails = r'''
 
-TODO
+**PREFER** to use a return value of `null` when your intention is to have a component render nothing.
+
+**GOOD:**
+```
+@override
+render() {
+  if (props.models.isEmpty) return null;
+  
+  return Fragment()(
+    props.models.map(_renderItemFromModel),
+  );
+}
+```
+
+**BAD:**
+```
+@override
+render() {
+  if (props.models.isEmpty) return false;
+  
+  return Fragment()(
+    props.models.map(_renderItemFromModel),
+  );
+}
+```
 
 ''';
 // </editor-fold>
@@ -31,17 +93,21 @@ TODO
 class RenderReturnValueDiagnostic extends DiagnosticContributor {
   @DocsMeta(_invalidTypeDesc, details: _invalidTypeDetails)
   static const invalidTypeErrorCode = DiagnosticCode(
-      'over_react_invalid_render_return_type',
-      "Invalid render() return type: '{0}'. Must be a ReactElement, primitive value, or an Iterable of those types.{1}",
-      AnalysisErrorSeverity.WARNING,
-      AnalysisErrorType.STATIC_TYPE_WARNING);
+    'over_react_invalid_render_return_type',
+    "Invalid render() return type: '{0}'.",
+    AnalysisErrorSeverity.ERROR,
+    AnalysisErrorType.STATIC_TYPE_WARNING,
+    correction: 'Must be $supportedOverReactChildTypes',
+  );
 
   @DocsMeta(_preferNullDesc, details: _preferNullDetails)
   static const preferNullOverFalseErrorCode = DiagnosticCode(
-      'over_react_prefer_null_over_false',
-      'Prefer returning null over false in render. (The dart2js bug involving null has been fixed.)',
-      AnalysisErrorSeverity.WARNING,
-      AnalysisErrorType.STATIC_TYPE_WARNING);
+    'over_react_prefer_null_over_false',
+    _preferNullDesc,
+    AnalysisErrorSeverity.INFO,
+    AnalysisErrorType.LINT,
+    correction: 'Return null instead.',
+  );
 
   static final falseToNull = FixKind(preferNullOverFalseErrorCode.name, 200, missingBuilderFixMessage);
 
@@ -74,7 +140,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
             }),
           );
         } else {
-          collector.addError(code, location, errorMessageArgs: [returnType.getDisplayString(), '']);
+          collector.addError(code, location, errorMessageArgs: [returnType.getDisplayString()]);
         }
       });
 

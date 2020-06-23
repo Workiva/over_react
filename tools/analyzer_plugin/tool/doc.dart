@@ -8,6 +8,7 @@ import 'package:args/args.dart';
 import 'package:glob/glob.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/contributor_meta_registry.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/documented_contributor_meta.dart';
+import 'package:over_react_analyzer_plugin/src/util/constants.dart';
 
 import 'doc_generation_utils/config.dart';
 import 'doc_generation_utils/generate_assist_docs.dart';
@@ -17,7 +18,7 @@ import 'doc_generation_utils/visitor.dart';
 final configs = [
   DocsGenerationConfig(
     srcDir: 'diagnostic',
-    outputSubDir: 'lints',
+    outputSubDir: analyzerPluginLintDocsDir,
     registry: DiagnosticMetaRegistry.diagnosticRegistry,
     getSortedContributorMetas: () => RulesIndexer.rules,
     typeNameOfContributorClass: 'DiagnosticContributor',
@@ -29,7 +30,7 @@ final configs = [
   ),
   DocsGenerationConfig(
     srcDir: 'assist',
-    outputSubDir: 'assists',
+    outputSubDir: analyzerPluginAssistDocsDir,
     registry: AssistMetaRegistry.assistRegistry,
     getSortedContributorMetas: () => AssistsIndexer.assists,
     typeNameOfContributorClass: 'AssistContributorBase',

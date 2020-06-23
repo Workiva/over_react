@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+   <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<title>over_react_incorrect_doc_comment_location</title>
+<link rel="stylesheet" href="../stylesheets/styles.css">
+<link rel="stylesheet" href="../stylesheets/pygment_trac.css">
+<script src="../javascripts/scale.fix.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+   </head>
+   <body>
+      <div class="wrapper">
+         <header>
+            <h1>over_react_incorrect_doc_comment_location</h1>
+            <p>Severity: AnalysisErrorSeverity.INFO</p>
+  
+            <p>Maturity: stable</p>
+            <p style="padding-bottom: 10px;">Since 1.0.0</p>
+            <!--getBadges(name)-->
+            <p class="view"><a href="https://github.com/Workiva/over_react/blob/master/tools/analyzer_plugin/">View the Project on GitHub <small>workiva/over_react</small></a></p>
+         </header>
+         <section>
+
+            <p><strong>PREFER</strong> to place documentation comments on the <code>UiFactory</code> since that is what consumers use to build / render
+in their application.</p>
+<p>If the documentation comment that contains details such as usage instructions, documentation links, etc. is placed
+on the <code>UiComponent2</code> instance, the consumer will not be able to easily find it when consuming it. </p>
+<p><strong>GOOD:</strong></p>
+<pre><code>/// Use a `FooBar` to render a `Bar` wrapped with a `Foo` so that it brings more fooness to the bar. 
+///
+/// Example:
+///
+/// ```dart
+/// FooBar()('Bar with more foo!')
+/// ```
+UiFactory&lt;FooBarProps&gt; FooBar = _$FooBar; // ignore: undefined_identifier
+
+mixin FooBarPropsMixin on UiProps, FooProps {
+  Map barProps;
+}
+
+class FooBarProps = UiProps with FooProps, FooBarPropsMixin;
+
+class FooBarComponent extends UiComponent2&lt;FooBarProps&gt; {
+  @override
+  get consumedProps =&gt; propsMeta.forMixins({
+    FooBarPropsMixin,
+  });
+
+  @override
+  render() {
+    return (Foo()..modifyProps(addUnconsumedProps))(
+      (Bar()..addProps(props.barProps))(props.children)
+    );
+  }
+}
+</code></pre>
+<p><strong>BAD:</strong></p>
+<pre><code>UiFactory&lt;FooBarProps&gt; FooBar = _$FooBar; // ignore: undefined_identifier
+
+mixin FooBarPropsMixin on UiProps, FooProps {
+  Map barProps;
+}
+
+class FooBarProps = UiProps with FooProps, FooBarPropsMixin;
+
+/// Use a `FooBar` to render a `Bar` wrapped with a `Foo` so that it brings more fooness to the bar. 
+///
+/// Example:
+///
+/// ```dart
+/// FooBar()('Bar with more foo!')
+/// ```
+class FooBarComponent extends UiComponent2&lt;FooBarProps&gt; {
+  @override
+  get consumedProps =&gt; propsMeta.forMixins({
+    FooBarPropsMixin,
+  });
+
+  @override
+  render() {
+    return (Foo()..modifyProps(addUnconsumedProps))(
+      (Bar()..addProps(props.barProps))(props.children)
+    );
+  }
+}
+</code></pre>
+
+
+         </section>
+      </div>
+      <footer>
+   <p>Project maintained by <a href="https://workiva.github.io/" target="_blank" rel="noopener noreferrer">Workiva</a></p>
+   <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist" target="_blank" rel="noopener noreferrer">orderedlist</a></p>
+</footer>
+<!--[if !IE]><script>fixScale(document);</script><![endif]-->
+
+   </body>
+</html>

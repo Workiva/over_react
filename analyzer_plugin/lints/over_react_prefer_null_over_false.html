@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+   <head>
+      <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<title>over_react_prefer_null_over_false</title>
+<link rel="stylesheet" href="../stylesheets/styles.css">
+<link rel="stylesheet" href="../stylesheets/pygment_trac.css">
+<script src="../javascripts/scale.fix.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+   </head>
+   <body>
+      <div class="wrapper">
+         <header>
+            <h1>over_react_prefer_null_over_false</h1>
+            <p>Severity: AnalysisErrorSeverity.INFO</p>
+  
+            <p>Maturity: stable</p>
+            <p style="padding-bottom: 10px;">Since 1.0.0</p>
+            <!--getBadges(name)-->
+            <p class="view"><a href="https://github.com/Workiva/over_react/blob/master/tools/analyzer_plugin/">View the Project on GitHub <small>workiva/over_react</small></a></p>
+         </header>
+         <section>
+
+            <p><strong>PREFER</strong> to use a return value of <code>null</code> when your intention is to have a component render nothing.</p>
+<p><strong>GOOD:</strong></p>
+<pre><code>@override
+render() {
+  if (props.models.isEmpty) return null;
+  
+  return Fragment()(
+    props.models.map(_renderItemFromModel),
+  );
+}
+</code></pre>
+<p><strong>BAD:</strong></p>
+<pre><code>@override
+render() {
+  if (props.models.isEmpty) return false;
+  
+  return Fragment()(
+    props.models.map(_renderItemFromModel),
+  );
+}
+</code></pre>
+
+
+         </section>
+      </div>
+      <footer>
+   <p>Project maintained by <a href="https://workiva.github.io/" target="_blank" rel="noopener noreferrer">Workiva</a></p>
+   <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist" target="_blank" rel="noopener noreferrer">orderedlist</a></p>
+</footer>
+<!--[if !IE]><script>fixScale(document);</script><![endif]-->
+
+   </body>
+</html>

@@ -5,13 +5,12 @@ import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/fix.dart';
 
-// TODO
-const _desc = r'TODO';
-// TODO
+const _desc = r'Add props to a component builder.';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
-TODO
+When an over_react component builder is selected by the user, the assist adds a cascading setter 
+`..` operator - and the parenthetical closure around the builder if one does not already exist. 
 
 ''';
 // </editor-fold>

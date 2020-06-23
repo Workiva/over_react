@@ -3,13 +3,14 @@ import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
-// TODO
-const _desc = r'TODO';
-// TODO
+const _desc = r'Avoid setting the same prop more than once on a component builder.';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
-TODO
+When the same prop appears on a builder more than once, the last one set "wins" - so no runtime error will occur
+as a result of the duplicate setter. 
+
+However - the presence of duplicate setters is most likely a typo.
 
 ''';
 // </editor-fold>

@@ -7,6 +7,7 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:meta/meta.dart';
+import 'package:over_react_analyzer_plugin/src/util/constants.dart';
 
 import 'component_usage.dart';
 
@@ -34,8 +35,8 @@ class DiagnosticCode {
     this.errorSeverity,
     this.type, {
     this.correction,
-    this.url,
-  });
+    String url,
+  }) : url = url ?? '$analyzerPluginLintDocsUrl$name.html';
 
   /// The name of the error code.
   final String name;
