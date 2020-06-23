@@ -7,8 +7,7 @@ import '../../test_util.dart';
 main() {
   group('ast_util', () {
     test('allDescendants returns all descendants in breadth-first order', () {
-      // language=dart
-      final unit = parseAndGetUnit(r'''
+      final unit = parseAndGetUnit(/*language=dart*/ r'''
         class A {}
         class B {}
       ''');
@@ -22,8 +21,7 @@ main() {
 
     group('FunctionBody.returnExpressions', () {
       test('BlockFunctionBody', () {
-        // language=dart
-        final body = parseAndGetNode<BlockFunctionBody>(r'''
+        final body = parseAndGetNode<BlockFunctionBody>(/*language=dart*/ r'''
           blockBody() {
             if (condition1) return fromIfStatement;
             if (condition2) {
@@ -46,8 +44,7 @@ main() {
       });
 
       test('ExpressionFunctionBody', () {
-        // language=dart
-        final body = parseAndGetNode<ExpressionFunctionBody>(r'''
+        final body = parseAndGetNode<ExpressionFunctionBody>(/*language=dart*/ r'''
           expressionBody() => theExpression;
         ''');
 
@@ -57,8 +54,7 @@ main() {
       });
 
       test('EmptyFunctionBody', () {
-        // language=dart
-        final body = parseAndGetNode<EmptyFunctionBody>(r'''
+        final body = parseAndGetNode<EmptyFunctionBody>(/*language=dart*/ r'''
           abstract class Foo {
             emptyFunctionBody();
           }
