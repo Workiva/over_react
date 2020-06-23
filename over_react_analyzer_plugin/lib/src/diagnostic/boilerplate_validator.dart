@@ -30,12 +30,11 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
 
   PartDirective _overReactGeneratedPartDirective;
   bool _overReactGeneratedPartDirectiveIsValid;
-  final _generatedPartErrorLocations = <Location>{};
 
   @override
   Future<void> computeErrors(result, collector) async {
     _overReactGeneratedPartDirective = getOverReactGeneratedPartDirective(result.unit);
-    _overReactGeneratedPartDirectiveIsValid =
+    _overReactGeneratedPartDirectiveIsValid = _overReactGeneratedPartDirective != null &&
         overReactGeneratedPartDirectiveIsValid(_overReactGeneratedPartDirective, result.uri);
 
     final debugMatch = _debugFlagPattern.firstMatch(result.content);
@@ -60,9 +59,25 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
     );
 
     final members = detectBoilerplateMembers(result.unit);
-    if (debug) {
-      for (final member in members.allMembers) {
+    for (final member in members.allMembers) {
+      if (debug) {
         collector.addError(debugCode, result.locationFor(member.name), errorMessageArgs: [member.debugString]);
+      }
+
+      if (_overReactGeneratedPartDirective == null) {
+        await _addPartDirectiveErrorForMember(
+          result: result,
+          collector: collector,
+          member: member,
+          errorType: PartDirectiveErrorType.missing,
+        );
+      } else if (!_overReactGeneratedPartDirectiveIsValid) {
+        await _addPartDirectiveErrorForMember(
+          result: result,
+          collector: collector,
+          member: member,
+          errorType: PartDirectiveErrorType.invalid,
+        );
       }
     }
 
@@ -80,27 +95,11 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
           collector.addError(debugCode, result.locationFor(member.name),
               errorMessageArgs: ['Member ${i + 1}/${declMembers.length} of $declarationName']);
         }
-
-        if (_overReactGeneratedPartDirective == null) {
-          await _addPartDirectiveErrorForMember(
-            result: result,
-            collector: collector,
-            member: member,
-            errorType: PartDirectiveErrorType.missing,
-            generatedPartErrorLocations: _generatedPartErrorLocations,
-          );
-        } else if (!_overReactGeneratedPartDirectiveIsValid) {
-          await _addPartDirectiveErrorForMember(
-            result: result,
-            collector: collector,
-            member: member,
-            errorType: PartDirectiveErrorType.invalid,
-            generatedPartErrorLocations: _generatedPartErrorLocations,
-          );
-        }
       }
     }
 
+    // TODO: this logic does not handle when the component is already in a part file. We should refactor this to share logic that the builder uses to validate parts.
+    // <https://github.com/Workiva/over_react/issues/522>
     if (declarations.isEmpty && _overReactGeneratedPartDirective != null) {
       await collector.addErrorWithFix(
         errorCode,
@@ -115,7 +114,9 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
           removeOverReactGeneratedPartDirective(builder, result.unit);
         }),
       );
-    } else if (declarations.isNotEmpty && !_overReactGeneratedPartDirectiveIsValid) {
+    } else if (declarations.isNotEmpty &&
+        _overReactGeneratedPartDirective != null &&
+        !_overReactGeneratedPartDirectiveIsValid) {
       await collector.addErrorWithFix(
         errorCode,
         result.locationFor(_overReactGeneratedPartDirective),
@@ -133,7 +134,6 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
     @required DiagnosticCollector collector,
     @required BoilerplateMember member,
     @required PartDirectiveErrorType errorType,
-    @required Set<Location> generatedPartErrorLocations,
   }) {
     const memberMissingPartErrorMsg = 'A `.over_react.g.dart` part directive is required';
     const memberInvalidPartErrorMsg = 'A valid `.over_react.g.dart` part directive is required';
@@ -144,10 +144,6 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
     final fixFn = errorType == PartDirectiveErrorType.missing
         ? addOverReactGeneratedPartDirective
         : fixOverReactGeneratedPartDirective;
-    final location = result.locationFor(member.name);
-
-    if (generatedPartErrorLocations.contains(location)) return Future(() {});
-    generatedPartErrorLocations.add(location);
 
     return collector.addErrorWithFix(
       errorCode,
