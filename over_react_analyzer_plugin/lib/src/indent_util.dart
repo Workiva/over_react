@@ -44,6 +44,16 @@ extension SourceFileTools on SourceFile {
     return getOffset(getLine(offset) - 1);
   }
 
+  /// Checks to see if the line before a given offset is just white space.
+  bool hasEmptyLineBefore(int offset) {
+    return getText(getOffsetForLineBefore(offset), offset).trim().isEmpty;
+  }
+
+  /// Checks to see if the line after a given offset is just white space.
+  bool hasEmptyLineAfter(int offset) {
+    return getText(offset, getOffsetForLineAfter(offset)).trim().isEmpty;
+  }
+
   /// Grabs a range that is comprised of an entire AstNode plus the entire line
   /// before and the start of the line after.
   SourceRange getEncompassingRangeFor(AstNode node) {
@@ -51,5 +61,11 @@ extension SourceFileTools on SourceFile {
     final endingOffset = getOffsetForLineAfter(node.end);
 
     return SourceRange(startingOffset, endingOffset - startingOffset);
+  }
+
+  /// Creates a range for a node that includes the through the beginning of the next
+  /// line.
+  SourceRange getPreciseRangeFor(AstNode node) {
+    return SourceRange(node.offset, getOffsetForLineAfter(node.end) - node.offset);
   }
 }

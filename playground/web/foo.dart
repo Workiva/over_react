@@ -16,9 +16,16 @@ class FooComponent extends UiComponent2<FooProps> {
 
 UiFactory<BarProps> Bar = _$Bar; // ignore: undefined_identifier
 
-mixin BarProps on UiProps {}
+mixin BarPropsMixin on UiProps {}
 
-class BarComponent extends UiComponent2<BarProps> {
+class BarProps = UiProps with FluxUiPropsMixin, BarPropsMixin;
+
+mixin BarState on UiState {}
+
+class BarComponent extends FluxUiStatefulComponent2<BarProps, BarState> {
+  @override
+  get initialState => (newState());
+
   @override
   render() {}
 }

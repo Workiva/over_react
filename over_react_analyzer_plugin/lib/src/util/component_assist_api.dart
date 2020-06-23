@@ -9,6 +9,7 @@ import 'package:over_react/src/builder/parsing/error_collection.dart';
 import 'package:over_react/src/builder/parsing/member_association.dart';
 import 'package:over_react/src/builder/parsing/members.dart';
 import 'package:over_react/src/builder/parsing/members_from_ast.dart';
+import 'package:over_react/src/builder/parsing/util.dart';
 import 'package:over_react/src/builder/parsing/version.dart';
 
 /// A mixin that allows easy access to common APIs needed when writing assists
@@ -43,11 +44,12 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
 
   ErrorCollector errorCollector;
 
-  bool _isAValidComponentDeclaration = false;
+  bool _isAValidComponentDeclaration;
 
   /// Checks the context of the assist node and returns if it is an appropriate
   /// context to suggest a component level assist.
-  bool get isAValidComponentDeclaration => _isAValidComponentDeclaration;
+  bool get isAValidComponentDeclaration => _isAValidComponentDeclaration ??=
+      throw StateError('API not initialized. Call `initializeAssistApi` before accessible API members.');
 
   String get normalizedComponentName => normalizeNameAndRemoveSuffix(component.component);
 
@@ -57,20 +59,20 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
     return typedComponent?.extendsClause?.childEntities?.whereType<TypeName>()?.first;
   }
 
-  BoilerplatePropsMixin get propsMixin => component.props?.b;
+  Union<BoilerplateProps, BoilerplatePropsMixin> get props => component.props;
 
-  BoilerplateStateMixin get stateMixin => component.state?.b;
+  Union<BoilerplateState, BoilerplateStateMixin> get state => component.state;
 
-  bool _isAValidComponentClass(CompilationUnit unit) {
-    if (node.parent is! ClassDeclaration) return false;
+  bool _validateAndDetectBoilerplate() {
+    if (node is! SimpleIdentifier || node.parent is! ClassDeclaration) return false;
     ClassDeclaration parent = node.parent;
 
-    members = detectBoilerplateMembers(unit);
+    members = detectBoilerplateMembers(node.thisOrAncestorOfType<CompilationUnit>());
     declarations = getBoilerplateDeclarations(members, errorCollector).toList();
 
     component = declarations.whereType<ClassComponentDeclaration>()?.where((c) {
       return c.component.name.name == parent.name.name;
-    })?.first;
+    })?.firstOrNull;
 
     _isAValidComponentDeclaration = component != null && component.version == Version.v4_mixinBased;
     return isAValidComponentDeclaration;
@@ -101,16 +103,16 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
   ///
   ///         // Or, because `initializeAssistApi` mutates the instance fields but
   ///         // returns the validity of the `unit` context, it can be wrapped in
-  ///         // the if statement itself:
-  ///         // if (!initializeAssistApi(request.result.unit, request.result.content)) return;
+  ///         // the same if statement as `setupCompute`:
+  ///         // if (!setupCompute() || !initializeAssistApi(request.result.content)) return;
   ///
   ///         ... // custom implementation details
   ///       }
   ///     }
   ///     ```
-  bool initializeAssistApi(CompilationUnit unit, String sourceFileContent) {
+  bool initializeAssistApi(String sourceFileContent) {
     componentSourceFile = SourceFile.fromString(sourceFileContent);
     errorCollector = ErrorCollector.print(componentSourceFile);
-    return _isAValidComponentClass(unit);
+    return _validateAndDetectBoilerplate();
   }
 }

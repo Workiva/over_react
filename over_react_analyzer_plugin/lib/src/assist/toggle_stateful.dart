@@ -8,6 +8,9 @@ import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/component_assist_api.dart';
 import 'package:over_react_analyzer_plugin/src/util/fix.dart';
 
+// ignore_for_file: implementation_imports
+import 'package:over_react/src/builder/parsing/util.dart';
+
 class ToggleComponentStatefulness extends AssistContributorBase with ComponentDeclarationAssistApi {
   static AssistKind makeStateful = AssistKind('makeStateful', 30, 'Make component stateful.');
   static AssistKind makeStateless = AssistKind('makeStateless', 30, 'Make component stateless.');
@@ -15,13 +18,9 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
     await super.computeAssists(request, collector);
-    if (!setupCompute()) return;
+    if (!setupCompute() || !initializeAssistApi(request.result.content)) return;
 
-    initializeAssistApi(request.result.unit, request.result.content);
-
-    if (!isAValidComponentDeclaration) return;
-
-    if (stateMixin != null) {
+    if (state != null) {
       await _removeStatefulness();
     } else {
       await _addStatefulness();
@@ -34,45 +33,26 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
         return member is MethodDeclaration && member.declaredElement.name == 'defaultProps';
       }, orElse: () => null);
 
-      var indentOffset = 0;
-
-      if (defaultProps != null) {
-        indentOffset = defaultProps.offset;
-      } else {
-        final renderMethod = component.component.nodeHelper.members.firstWhere((e) {
-          if (e is MethodDeclaration) {
-            if (e.name.name == 'render') {
-              return true;
-            }
-          }
-
-          return false;
-        });
-
-        indentOffset = renderMethod.offset;
-      }
-
-      final indent = getIndent(
-        request.result.content,
-        request.result.unit.declaredElement.lineInfo,
-        indentOffset,
-      );
+      const indent = '  ';
 
       final insertionOffset = defaultProps != null
           ? componentSourceFile.getOffsetForLineAfter(defaultProps.end)
           : componentSourceFile.getOffsetForLineAfter(component.component.nodeHelper.node.offset);
 
       builder.addInsertion(insertionOffset, (builder) {
-        builder.write('\n$indent@override');
+        if (defaultProps != null) builder.write('\n');
+        builder.write('$indent@override');
         builder.write('\n${indent}get initialState => (newState());\n');
+        builder.write(!componentSourceFile.hasEmptyLineAfter(insertionOffset) ? '\n' : '');
       });
 
-      builder.addInsertion(componentSourceFile.getOffsetForLineAfter(propsMixin.nodeHelper.node.end), (builder) {
+      builder.addInsertion(componentSourceFile.getOffsetForLineAfter(props.either.nodeHelper.node.end), (builder) {
         builder.write('\nmixin ${normalizedComponentName}State on UiState {}\n');
       });
 
       builder.addReplacement(range.node(componentType), (builder) {
-        builder.write('UiStatefulComponent2<${normalizedComponentName}Props, ${normalizedComponentName}State>');
+        builder.write(
+            '${_getNewBase(component.component.nodeHelper.superclass.name.name)}<${props.either.name.name}, ${normalizedComponentName}State>');
       });
     });
     sourceChange
@@ -87,23 +67,46 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
         return member is MethodDeclaration && member.declaredElement.name == 'initialState';
       }, orElse: () => null);
 
-      builder.addReplacement(componentSourceFile.getEncompassingRangeFor(stateMixin.nodeHelper.node), (builder) {
+      builder.addReplacement(componentSourceFile.getEncompassingRangeFor(state.either.nodeHelper.node), (builder) {
         builder.write('');
       });
 
       builder.addReplacement(range.node(componentType), (builder) {
-        builder.write('UiComponent2<${normalizedComponentName}Props>');
+        builder.write(
+            '${_getNewBase(component.component.nodeHelper.superclass.name.name)}<${normalizedComponentName}Props>');
       });
 
       if (initialState != null) {
-        builder.addReplacement(componentSourceFile.getEncompassingRangeFor(initialState), (builder) {
-          builder.write('');
-        });
+        if (componentSourceFile.hasEmptyLineBefore(initialState.offset)) {
+          builder.addReplacement(componentSourceFile.getEncompassingRangeFor(initialState), (builder) {
+            builder.write('');
+          });
+        } else {
+          builder.addReplacement(componentSourceFile.getPreciseRangeFor(initialState), (builder) {
+            builder.write('');
+          });
+        }
       }
     });
     sourceChange
       ..message = makeStateless.message
       ..id = makeStateless.id;
     collector.addAssist(PrioritizedSourceChange(makeStateless.priority, sourceChange));
+  }
+
+  String _getNewBase(String oldBase) {
+    const baseMapping = {
+      'UiComponent2': 'UiStatefulComponent2',
+      'FluxUiComponent2': 'FluxUiStatefulComponent2',
+    };
+
+    final newBase = baseMapping[oldBase] ?? baseMapping.keys.where((key) => baseMapping[key] == oldBase).firstOrNull;
+
+    if (newBase == null) {
+      throw ArgumentError(
+          'Unknown component base. This assist only expects UiComponent2 or FluxUiComponent2 (and their stateful counterparts).');
+    }
+
+    return newBase;
   }
 }
