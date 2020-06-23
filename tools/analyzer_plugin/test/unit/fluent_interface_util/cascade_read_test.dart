@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 import '../../test_util.dart';
 
 main() {
-  group('ast_util', () {
+  group('cascade_read', () {
     group('FluentComponentUsage.cascadedProps', () {
       test('returns cascaded props', () {
         final usage = parseAndGetComponentUsage(/*language=dart*/ r'''
