@@ -87,8 +87,8 @@ This script sets up a symlink to point to the original plugin directory (replaci
     * Diagnostics will run on potentially every Dart file in the project, and can severely affect user experience if they're slow. This is one of the bigger reasons why the Dart team avoided exposing analyzer plugin APIs for a while.
 * __Use prior art when possible instead of reinventing the wheel.__
     * The [`analysis_server`][analysis_server] package in the Dart SDK is where the majority of the built-in hints, errors, assists, quick fixes, etc. are implemented. We have the opportunity to reuse parts of their architecture, testing strategies, etc.
-* __Avoid using `AstNode.toSource`__ since it's an approximation of the source; if you need to get the source for a replacement, use sourceFile.getText(node.offset, node.end)
-* __Avoid using `AstNode.childEntities`__ since it's an approximation of the source; if you need to get the source for a replacement, use sourceFile.getText(node.offset, node.end)
+* __Avoid using `AstNode.toSource` and `AstNode.childEntities`__ since they are approximations of the source. 
+    * If you need to get the source for a replacement, use `sourceFile.getText(node.offset, node.end)`.
 
 ### Debugging the Plugin
 The dev experience when working on this plugin isn't ideal (See the `analyzer_plugin` debugging docs [for more information](https://github.com/dart-lang/sdk/blob/master/pkg/analyzer_plugin/doc/tutorial/debugging.md)), but it's possible debug and see logs from the plugin.
