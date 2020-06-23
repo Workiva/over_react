@@ -42,6 +42,7 @@ class PropAssignment {
   SourceRange get rangeForRemoval => range.endEnd(assignment.beginToken.previous, assignment);
 }
 
+// TODO remove once all in-flight PRs that might be consuming this are merged
 @Deprecated('Use FluentComponentUsage.cascadedProps instead')
 void forEachCascadedProp(FluentComponentUsage usage, void Function(PropertyAccess lhs, Expression rhs) f) {
   for (final prop in usage.cascadedProps) {
@@ -49,6 +50,7 @@ void forEachCascadedProp(FluentComponentUsage usage, void Function(PropertyAcces
   }
 }
 
+// TODO remove once all in-flight PRs that might be consuming this are merged
 @Deprecated('Use FluentComponentUsage.cascadedProps instead')
 Future<void> forEachCascadedPropAsync(
     FluentComponentUsage usage, FutureOr<void> Function(PropertyAccess lhs, Expression rhs) f) async {
@@ -58,6 +60,7 @@ Future<void> forEachCascadedPropAsync(
 }
 
 
+// TODO remove once all in-flight PRs that might be consuming this are merged
 @Deprecated('Use FluentComponentUsage.cascadedMethods instead')
 void forEachCascadedMethod(
     FluentComponentUsage usage, void Function(SimpleIdentifier methodIdentifier, ArgumentList args) f) {
@@ -66,6 +69,7 @@ void forEachCascadedMethod(
   }
 }
 
+// TODO remove once all in-flight PRs that might be consuming this are merged
 @Deprecated('Use FluentComponentUsage.cascadedMethods instead')
 Future<void> forEachCascadedMethodAsync(
     FluentComponentUsage usage, FutureOr<void> Function(SimpleIdentifier methodIdentifier, ArgumentList args) f) async {
