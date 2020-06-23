@@ -51,14 +51,10 @@ void addCreateRef(
       // TODO split this out somewhere, make more robust
       : (componentName != null ? '${componentName}Component' : 'var');
 
-  var hasRefProp = false;
-  for (final cascadedProp in usage.cascadedProps)  {
-    if (hasRefProp || cascadedProp.name.name == 'ref') break;
-
+  final refProp = usage.cascadedProps.firstWhere((prop) => prop.name.name == 'ref', orElse: () => null);
+  if (refProp != null) {
     // A fix is being used to replace a String / callback ref with a createRef reference.
-    hasRefProp = true;
-
-    final rhs = cascadedProp.rightHandSide;
+    final rhs = refProp.rightHandSide;
     if (rhs.staticType.isDartCoreString) {
       refTypeToReplace = RefTypeToReplace.string;
       oldStringRefSource = rhs.toSource();
@@ -73,9 +69,7 @@ void addCreateRef(
     builder.addReplacement(SourceRange(rhs.offset, rhs.length), (editBuilder) {
       editBuilder.addSimpleLinkedEdit(nameGroup, createRefFieldName);
     });
-  }
-
-  if (!hasRefProp) {
+  } else {
     // An assist is being used to add a ref, so we have to add the ref prop as a cascaded setter
     addProp(usage, builder, result.content, lineInfo, name: 'ref', buildValueEdit: (builder) {
       builder.addSimpleLinkedEdit(nameGroup, createRefFieldName);
@@ -131,7 +125,7 @@ void addCreateRef(
       _builder.writeln('');
     });
 
-    if (hasRefProp) {
+    if (refProp != null) {
       // Replace all usages of ref('oldStringRef') with the new ref field
       allDescendantsOfType<Identifier>(enclosingClassOrMixin).where((identifier) {
         final parentFunctionInvocation = identifier.thisOrAncestorOfType<FunctionExpressionInvocation>();

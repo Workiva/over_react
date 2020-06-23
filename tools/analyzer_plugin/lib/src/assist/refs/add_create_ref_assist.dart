@@ -27,10 +27,9 @@ class AddCreateRefAssistContributor extends AssistContributorBase {
 
     if (usage == null) return;
 
-    // A fix is being used to replace a String / callback ref with a createRef reference.
-    if (usage.cascadedProps.any((prop) => prop.name.name == 'ref')) {
-      return;
-    }
+    // The StringRefDiagnostic/CallbackRefDiagnostic will handle adding suggestions to
+    // replace existing refs with createRef.
+    if (usage.cascadedProps.any((prop) => prop.name.name == 'ref')) return;
 
     final changeBuilder = DartChangeBuilder(session);
     await changeBuilder.addFileEdit(request.result.path, (builder) {
