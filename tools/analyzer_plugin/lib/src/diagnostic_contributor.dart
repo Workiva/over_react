@@ -148,10 +148,10 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
       if (fixChange.edits.isNotEmpty) {
         fixChange.message = _formatList(fixKind.message, fixMessageArgs);
         fix = PrioritizedSourceChange(fixKind.priority, fixChange);
+        hasFix = true;
       }
     }
 
-    // fixme add hasFix
     final error = AnalysisError(
       code.errorSeverity,
       code.type,
