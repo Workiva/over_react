@@ -56,6 +56,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/bad_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/callback_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/consumed_props_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/forward_only_dom_props_to_dom_builders.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/link_target_without_rel.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/incorrect_doc_comment_location.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/dom_prop_types.dart';
@@ -147,6 +148,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin
   List<DiagnosticContributor> getDiagnosticContributors(String path) {
     return [
       DuplicatePropCascadeDiagnostic(),
+      LinkTargetUsageWithoutRelDiagnostic(),
       BadKeyDiagnostic(),
       VariadicChildrenDiagnostic(),
       ArrowFunctionPropCascadeDiagnostic(),
