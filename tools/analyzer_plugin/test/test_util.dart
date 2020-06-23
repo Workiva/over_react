@@ -39,7 +39,6 @@ CompilationUnit parseAndGetUnit(String dartSource) {
 /// ```
 T parseAndGetNode<T extends AstNode>(String dartSource) => allDescendantsOfType<T>(parseAndGetUnit(dartSource)).first;
 
-
 /// Parses [dartSource] as an expression and returns the first component usage. Since we need a valid
 /// compilation unit to parse code, be sure to wrap the usage in a function body, variable, or other node.
 ///
@@ -76,20 +75,20 @@ Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource) async {
 ///
 /// Example:
 /// ```dart
-//  final results = await parseAndGetResolvedUnits({
-//    'foo.dart': r'''
-//      class Foo {}
-//    ''',
-//
-//    'bar.dart': r'''
-//      import 'foo.dart';
-//      class Bar extends Foo {}
-//    ''',
-//  });
-//
-//  final barResolveResult = results['bar.dart'];
-//  final barElement = barResolveResult.unit.declaredElement.getType('Bar');
-//  print(barElement.allSupertypes); // [Foo, Object]
+///  final results = await parseAndGetResolvedUnits({
+///    'foo.dart': r'''
+///      class Foo {}
+///    ''',
+///
+///    'bar.dart': r'''
+///      import 'foo.dart';
+///      class Bar extends Foo {}
+///    ''',
+///  });
+///
+///  final barResolveResult = results['bar.dart'];
+///  final barElement = barResolveResult.unit.declaredElement.getType('Bar');
+///  print(barElement.allSupertypes); // [Foo, Object]
 /// ```
 Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, String> dartSourcesByPath) async {
   // Must be absolute
