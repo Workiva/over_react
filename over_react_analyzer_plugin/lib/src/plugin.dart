@@ -46,6 +46,7 @@ import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
 import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref_assist.dart';
 import 'package:over_react_analyzer_plugin/src/assist/extract_component.dart';
+import 'package:over_react_analyzer_plugin/src/assist/toggle_stateful.dart';
 import 'package:over_react_analyzer_plugin/src/assist/wrap_unwrap.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/diagnostic.dart';
@@ -54,11 +55,16 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/boilerplate_validator.
 import 'package:over_react_analyzer_plugin/src/diagnostic/bool_prop_name_readability.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/bad_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/callback_ref.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/consumed_props_return_value.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/forward_only_dom_props_to_dom_builders.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/link_target_without_rel.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/proptypes_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/incorrect_doc_comment_location.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/dom_prop_types.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/duplicate_prop_cascade.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/iterator_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/missing_cascade_parens.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/missing_required_prop.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/pseudo_static_lifecycle.dart';
@@ -67,8 +73,6 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/string_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/style_missing_unit.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/single_child_key.dart';
-
-import 'assist/toggle_stateful.dart';
 
 /// Analyzer plugin for over_react.
 class OverReactAnalyzerPlugin extends ServerPlugin
@@ -133,8 +137,6 @@ class OverReactAnalyzerPlugin extends ServerPlugin
       AddCreateRefAssistContributor(),
       ExtractComponentAssistContributor(),
       ExtractStatefulComponentAssistContributor(),
-      ExtractFluxComponentAssistContributor(),
-      ExtractFluxStatefulComponentAssistContributor(),
       ToggleComponentStatefulness(),
       WrapUnwrapAssistContributor(),
     ];
@@ -148,7 +150,9 @@ class OverReactAnalyzerPlugin extends ServerPlugin
   @override
   List<DiagnosticContributor> getDiagnosticContributors(String path) {
     return [
+      PropTypesReturnValueDiagnostic(),
       DuplicatePropCascadeDiagnostic(),
+      LinkTargetUsageWithoutRelDiagnostic(),
       BadKeyDiagnostic(),
       VariadicChildrenDiagnostic(),
       ArrowFunctionPropCascadeDiagnostic(),
@@ -165,6 +169,9 @@ class OverReactAnalyzerPlugin extends ServerPlugin
       BoilerplateValidatorDiagnostic(),
       SingleChildWithKey(),
       IncorrectDocCommentLocationDiagnostic(),
+      ConsumedPropsReturnValueDiagnostic(),
+      ForwardOnlyDomPropsToDomBuildersDiagnostic(),
+      IteratorKey(),
     ];
   }
 }
