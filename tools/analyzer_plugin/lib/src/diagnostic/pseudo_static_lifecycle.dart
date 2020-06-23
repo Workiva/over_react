@@ -27,7 +27,6 @@ class PseudoStaticLifecycleDiagnostic extends DiagnosticContributor {
     final visitor = LifecycleMethodVisitor();
     result.unit.accept(visitor);
 
-    // FIXME account for super calls
     for (final reference in visitor.nonStaticReferences) {
       if (reference is SimpleIdentifier && instanceMemberWhitelist.contains(reference.name)) {
         continue;
@@ -49,9 +48,14 @@ class PseudoStaticLifecycleDiagnostic extends DiagnosticContributor {
             end = parent.methodName.end;
           }
         } else if (parent is PropertyAccess) {
-          // Include the `super.`/`this.` in the error region
-          offset = parent.offset;
-          end = parent.end;
+          if (parent.propertyName.name == enclosingMethodName.name) {
+            // Ignore super-calls to same getter
+            continue;
+          } else {
+            // Include the `super.`/`this.` in the error region
+            offset = parent.offset;
+            end = parent.end;
+          }
         }
       }
 
