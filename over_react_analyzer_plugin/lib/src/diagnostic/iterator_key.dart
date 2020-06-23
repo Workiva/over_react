@@ -73,16 +73,8 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
     }
   }
 
-  bool _doesElementHaveKeyProp(FluentComponentUsage element) {
-    var elementHasKeyProp = false;
-    forEachCascadedProp(element, (lhs, rhs) {
-      if (lhs.propertyName.name == 'key') {
-        elementHasKeyProp = true;
-      }
-    });
-
-    return elementHasKeyProp;
-  }
+  bool _doesElementHaveKeyProp(FluentComponentUsage element) =>
+      element.cascadedProps.any((prop) => prop.name.name == 'key');
 
   List<MethodInvocation> _buildInvocationList(MethodInvocation method) {
     // A list of all the methods that could possibly be chained to the input method
