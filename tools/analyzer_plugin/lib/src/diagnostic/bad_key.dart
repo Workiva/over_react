@@ -40,7 +40,7 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
   @override
   computeErrorsForUsage(result, collector, usage) async {
     for (final prop in usage.cascadedProps) {
-      if (prop.name.name != 'key') return;
+      if (prop.name.name != 'key') continue;
 
       if (prop.rightHandSide.toSource().contains('.hashCode')) {
         collector.addError(hashCodeCode, result.locationFor(prop.rightHandSide));

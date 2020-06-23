@@ -24,7 +24,7 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
 
     for (final prop in usage.cascadedProps) {
       final allowedElements = getAttributeMeta(prop.name.name);
-      if (allowedElements == null) return;
+      if (allowedElements == null) continue;
 
       if (!allowedElements.contains(nodeName)) {
         collector.addError(code, result.locationFor(prop.name), errorMessageArgs: [
