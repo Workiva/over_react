@@ -2,7 +2,10 @@
 library over_react_analyzer_plugin.src.ast_util;
 
 import 'dart:collection';
-
+// ignore: deprecated_member_use
+// This is necessary for `ConstantEvaluator`. If that API is removed, it can just
+// be copied and pasted into this analyzer package (if still needed).
+import 'package:analyzer/analyzer.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/line_info.dart';
 
@@ -37,3 +40,5 @@ int prevLine(int offset, LineInfo lineInfo) {
 int nextLine(int offset, LineInfo lineInfo) {
   return lineInfo.getOffsetOfLineAfter(offset);
 }
+
+bool isAConstantValue(Expression expr) => expr.accept(ConstantEvaluator()) != ConstantEvaluator.NOT_A_CONSTANT;
