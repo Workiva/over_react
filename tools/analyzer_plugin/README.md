@@ -4,7 +4,8 @@
 
 ---
 
-* __[Using it in your project](#try-it-in-your-package)__
+* __[Goal](#goal)__
+* __[Try it in your Package](#try-it-in-your-package)__
 * __[Repo Structure](#repo-structure)__
 * __[Local Development](#local-development)__
     * [Setup](#setup)
@@ -141,6 +142,15 @@ We drew inspiration from the following:
     * [ESLint Plugin](https://github.com/yannickcr/eslint-plugin-react)
     * [ReactEd](https://marketplace.visualstudio.com/items?itemName=ReactEd.reacted)
 * [AngularDart analyzer plugin](https://github.com/dart-lang/angular/tree/master/angular_analyzer_plugin)
+
+#### Abandoned Feature Ideas
+
+* Outline for similar behavior to closing tags.
+    * Outline implementation is barely supported in analyzer plugin.
+    * Need to suggest closing tags API for plugin, maybe this would be a good entry point.
+* Breadcrumbs: part of the IDE plugin, not the analyzer plugin.
+    * Greg has most of a JetBrains plugin done.
+* [Prop drilling](https://marketplace.visualstudio.com/items?itemName=ReactEd.reacted#prop-drilling): isn't supported by the plugin.
 
 ## Limitations
 
