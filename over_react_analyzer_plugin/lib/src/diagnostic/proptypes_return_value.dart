@@ -13,7 +13,7 @@ import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 class PropTypesReturnValueDiagnostic extends DiagnosticContributor {
   static final code = DiagnosticCode(
       'over_react_proptypes_do_not_throw',
-      "Throwing a {0} within propTypes is a no-op. Return the {0} instead.",
+      "propTypes errors are expected to be returned, not thrown. While any thrown errors/exceptions are caught by React and surfaced as prop warnings, throwing is not recommended.",
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_TYPE_WARNING);
 
@@ -33,7 +33,6 @@ class PropTypesReturnValueDiagnostic extends DiagnosticContributor {
         await collector.addErrorWithFix(
           code,
           result.locationFor(throwKw),
-          errorMessageArgs: [throwExpression.expression.staticType.getDisplayString()],
           fixKind: fixKind,
           computeFix: () => buildFileEdit(result, (builder) {
             builder.addSimpleReplacement(SourceRange(throwKw.offset, throwKw.length), 'return');
