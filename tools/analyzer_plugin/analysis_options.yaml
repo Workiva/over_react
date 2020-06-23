@@ -15,8 +15,9 @@ analyzer:
     prefer_single_quotes: ignore
     type_annotate_public_apis: ignore
     prefer_final_locals: ignore
+
   exclude:
-    - tools/analyzer_plugin
+    - playground
 
 linter:
   rules:
