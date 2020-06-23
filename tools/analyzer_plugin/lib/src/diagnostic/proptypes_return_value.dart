@@ -57,7 +57,7 @@ class FooComponent extends UiComponent2<FooProps> {
 /// {@subCategory Warnings}
 class PropTypesReturnValueDiagnostic extends DiagnosticContributor {
   @DocsMeta(_desc, details: _details)
-  static final code = DiagnosticCode(
+  static const code = DiagnosticCode(
     'over_react_proptypes_do_not_throw',
     "propTypes errors are expected to be returned, not thrown.",
     AnalysisErrorSeverity.WARNING,
