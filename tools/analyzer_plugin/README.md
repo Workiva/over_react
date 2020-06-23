@@ -54,7 +54,7 @@ The dev experience when working on this plugin isn't ideal (See the `analyzer_pl
 
 These instructions are currently for JetBrains IDEs (IntelliJ, WebStorm, etc.) only.
 
-Before starting, ensure you have the option `Scope analysis to the current package` turned on Dart Analysis Server Settings. You can make the development cycle even faster by opening `analyzer_plugin` as it's own project (rather than opening `over_react`) in your IDE.
+Before starting, ensure you have the `analyzer_plugin` open as it's own project (rather than opening `over_react`) in your IDE.
 
 1. Ensure your Dart version is at least `2.8.3`. (The protocol connection was made available somewhere around this version)
 
