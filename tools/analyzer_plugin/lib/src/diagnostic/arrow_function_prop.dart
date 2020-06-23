@@ -16,7 +16,8 @@ class ArrowFunctionPropCascadeDiagnostic extends ComponentUsageDiagnosticContrib
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    await forEachCascadedPropAsync(usage, (lhs, rhs) async {
+    for (final prop in usage.cascadedProps) {
+      final rhs = prop.rightHandSide;
       if (rhs is FunctionExpression && rhs.body is ExpressionFunctionBody) {
         var wrapOffset = rhs.offset;
         var wrapEnd = rhs.end;
@@ -38,6 +39,6 @@ class ArrowFunctionPropCascadeDiagnostic extends ComponentUsageDiagnosticContrib
           }),
         );
       }
-    });
+    }
   }
 }

@@ -5,6 +5,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
+import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
 class RenderReturnValueDiagnostic extends DiagnosticContributor {
   static final invalidTypeErrorCode = DiagnosticCode(
@@ -28,9 +29,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
     // This is the return type even if it's not explicitly declared.
     final visitor = RenderVisitor();
     result.unit.accept(visitor);
-    for (final returnStatement in visitor.returnVisitor.returnStatements) {
-      final returnExpression = returnStatement.expression;
-      if (returnExpression == null) continue; // valueless returns
+    for (final returnExpression in visitor.renderReturnExpressions) {
       final returnType = returnExpression.staticType;
       if (returnType == null || returnType.isDynamic || returnType.isDartCoreObject || returnType.isVoid) {
         continue;
@@ -38,7 +37,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
 
       await validateReactChildType(returnType, typeSystem, onInvalidType: (invalidType) async {
         final code = invalidTypeErrorCode;
-        final location = result.locationFor(returnStatement);
+        final location = result.locationFor(returnExpression);
         if (couldBeMissingBuilderInvocation(returnExpression)) {
           await collector.addErrorWithFix(
             code,
@@ -69,7 +68,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
 }
 
 class RenderVisitor extends SimpleAstVisitor<void> {
-  RenderReturnVisitor returnVisitor = RenderReturnVisitor();
+  final renderReturnExpressions = <Expression>[];
 
   @override
   void visitCompilationUnit(CompilationUnit node) {
@@ -86,26 +85,8 @@ class RenderVisitor extends SimpleAstVisitor<void> {
   @override
   void visitMethodDeclaration(MethodDeclaration node) {
     if (node.name.name == 'render') {
-      node.body.accept(returnVisitor);
+      renderReturnExpressions.addAll(node.body.returnExpressions);
     }
   }
 }
 
-class RenderReturnVisitor extends RecursiveAstVisitor<void> {
-  List<ReturnStatement> returnStatements = [];
-
-  @override
-  void visitReturnStatement(ReturnStatement node) {
-    returnStatements.add(node);
-  }
-
-  @override
-  void visitFunctionExpression(FunctionExpression node) {
-    // Don't look inside nested functions
-  }
-
-  @override
-  void visitFunctionDeclaration(FunctionDeclaration node) {
-    // Don't look inside nested functions
-  }
-}

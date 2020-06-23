@@ -22,18 +22,18 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
 //      nodeName = nodeName.replaceFirst(new RegExp(r'^svg'), '');
 //    }
 
-    forEachCascadedProp(usage, (lhs, rhs) {
-      final propName = lhs.propertyName.name;
-      if (propName == null) return; // just in case
-
-      final allowedElements = getAttributeMeta(propName);
-      if (allowedElements == null) return;
+    for (final prop in usage.cascadedProps) {
+      final allowedElements = getAttributeMeta(prop.name.name);
+      if (allowedElements == null) continue;
 
       if (!allowedElements.contains(nodeName)) {
-        collector.addError(code, result.locationFor(lhs.propertyName),
-            errorMessageArgs: [propName, 'Dom.$nodeName()', allowedElements.map((name) => 'Dom.$name()').join(',')]);
+        collector.addError(code, result.locationFor(prop.name), errorMessageArgs: [
+          prop.name.name,
+          'Dom.$nodeName()',
+          allowedElements.map((name) => 'Dom.$name()').join(','),
+        ]);
       }
-    });
+    }
   }
 }
 
