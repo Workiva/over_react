@@ -11,6 +11,19 @@
     * [Development Cycle](#development-cycle)
     * [Design Principles & Coding Strategies](#design-principles--coding-strategies)
     * [Debugging](#debugging-the-plugin)
+* __[Feature Ideas & Inspiration](#feature-ideas--inspiration)__
+* __[Limitations](#limitations)__
+
+## Goal
+
+We want to improve the developer experience for Workiva developers writing React in Dart (and bring it closer to the React JS dev experience).
+
+This plugin has the potential to help achieve that goal by:
+* Providing static analysis of common pitfalls, with useful error messages and automatic fix suggestions.
+* Making the fluent interface syntax easier to write and deal with.
+* Helping automate common changes that can't be achieved with snippets alone (AKA "assists").
+* Encouraging best practices via lints.
+* (Potentially) Making it easier to navigate component nesting and the flow of props.
 
 ## Try it in your package!
 1. Add over_react to your pubspec.yaml
@@ -85,41 +98,67 @@ These instructions are currently for JetBrains IDEs (IntelliJ, WebStorm, etc.) o
 
     ![](doc/open-jetbrains-registry.png)
     
-2. Edit the `dart.server.vm.options` configuration and set the value to `--disable-service-auth-codes --observe=8100`
+1. Edit the `dart.server.vm.options` configuration and set the value to `--disable-service-auth-codes --observe=8100`
 
     ![](doc/edit-jetbrains-registry.png) 
     
     - `--observe=8100` - Allow access to the Observatory on port 8100 (can be any port of your choosing) so that our debugger can connect to it.
     - `--disable-service-auth-codes` - Disable authentication on the Observatory, since the JetBrains plugin swallows the log that outputs the auth code.
     
-            
-6. In the project you're running your plugin on, restart the Dart Analysis Server so that it launches with these flags. You may have to close other Dart projects first to ensure other analysis servers don't take the reserved port.
+1. In the project you're running your plugin on, restart the Dart Analysis Server so that it launches with these flags. You may have to close other Dart projects first to ensure other analysis servers don't take the reserved port.
 
     _TODO we need more investigation around whether this is necessary; if it is, we may want to integrate `--write-service-info` into the instructions._
 
-4. In the over_react_analyzer_plugin project, create a new Run Configuration using the "Dart Remote Debug" template
+1. In the over_react_analyzer_plugin project, create a new Run Configuration using the "Dart Remote Debug" template
     
     ![](doc/create-configuration-1.png) 
     
     ![](doc/create-configuration-2.png) 
     
-5. Ensure the "Search sources in" section is pointing to the plugin package directory and save it.
+1. Ensure the "Search sources in" section is pointing to the plugin package directory and save it.
     
     ![](doc/create-configuration-3.png) 
     
-7. Run your newly created configuration by selecting it and clicking the "Debug" button
+1. Run your newly created configuration by selecting it and clicking the "Debug" button
     
     ![](doc/run-configuration-1.png)
     
-8. When prompted, enter in `http://127.0.0.1:8100`, removing any parts of the URL dealing with auth codes.
+1. When prompted, enter in `http://127.0.0.1:8100`, removing any parts of the URL dealing with auth codes.
     
     ![](doc/run-configuration-2.png)
 
-8. In the debugger tab that was opened, verify that the debugger connected.
+1. In the debugger tab that was opened, verify that the debugger connected.
     
     ![](doc/verify-connected.png)
     
-9. Start debugging! You can set breakpoints, view logs, and do everything else you'd normally use the debugger for.
+1. Start debugging! You can set breakpoints, view logs, and do everything else you'd normally use the debugger for.
+
+## Feature Ideas & Inspiration
+
+We drew inspiration from the following:
+* Flutter analysis functionality (actually built into the Dart SDK via [analysis_server][analysis_server]).
+* React JS IDE plugins
+    * [ESLint Plugin](https://github.com/yannickcr/eslint-plugin-react)
+    * [ReactEd](https://marketplace.visualstudio.com/items?itemName=ReactEd.reacted)
+* [AngularDart analyzer plugin](https://github.com/dart-lang/angular/tree/master/angular_analyzer_plugin)
+
+## Limitations
+
+### Dart `analyzer_plugin` Limitations
+
+* Not advertised for public use (but [public use isn't discouraged](https://github.com/dart-lang/sdk/issues/35516)).
+* API is pretty rough in some spots.
+* Outline can't be empty, seems to only work intermittently work (at least in IntelliJ).
+* Assist/Fix Mixin APIs not async, preventing usage of edit builders (which are recommended); we have our own local copies of these that fix this, and should probably be contributed back at some point.
+* Some features might not be supported by all IDEs.
+* Workflow involves restarting the analysis server every time you make a change.
+* At times, lints do not resolve in the IDE unless you restart the analysis server.
+
+### Analyzer Limitations
+
+* Can easily go from AST to Elements but not the other way around (`computeNode` is deprecated). Most of the time should not be problematic since if you have access to an Element, you usually have access to the corresponding AST.
+    * Might be able to work around this using `NodeLocator`.
+* `toSource` should be used with caution since it's an approximation of the source.
 
 
 [analyzer_plugin]: https://github.com/dart-lang/sdk/tree/master/pkg/analyzer_plugin
