@@ -1,6 +1,6 @@
 import 'package:over_react/over_react.dart';
 
-part 'incorrect_doc_comment_location.over_react.g.dart';
+part 'doc_comment_location.over_react.g.dart';
 
 @Factory()
 UiFactory<BarProps> Bar = _$Bar; // ignore: undefined_identifier
@@ -43,3 +43,11 @@ abstract class AbstractBarComponent<P extends UiProps, S extends UiState> extend
 
 /// This doc comment is okay.
 class RandomClass {}
+
+/// This doc comment is okay.
+mixin FooPropsMixin on UiProps {
+  bool isBar;
+}
+
+UiFactory<FooPropsMixin> FooPropsMixinMapView =
+    _$FooPropsMixinMapView; // ignore: undefined_identifier
