@@ -143,7 +143,7 @@ or through an
 * **An auto-generated list enabling all options is provided [here](options/).** 
 
 These rules are under active development.  Feedback is
-[welcome](${analyzerPluginRepoSrcUrl}issues)!
+[welcome](https://github.com/Workiva/over_react/issues/new?labels=area-analyzer-plugin)!
 ''';
 
 const ruleLeadMatter = 'Rules are organized by severity.';
