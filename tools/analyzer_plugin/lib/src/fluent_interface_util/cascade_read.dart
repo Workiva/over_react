@@ -5,8 +5,8 @@ import 'package:analyzer/source/source_range.dart';
 import 'package:analyzer_plugin/utilities/range_factory.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 
-extension PropAssignments on FluentComponentUsage {
-  Iterable<CascadeExpression> get _cascadeSections => cascadeExpression?.cascadeSections ?? const [];
+extension UsageCascades on FluentComponentUsage {
+  Iterable<Expression> get _cascadeSections => cascadeExpression?.cascadeSections ?? const [];
 
   /// Returns an iterable of all cascaded prop assignments in this usage.
   ///

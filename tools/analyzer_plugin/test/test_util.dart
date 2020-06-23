@@ -4,6 +4,7 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/file_system/overlay_file_system.dart';
 import 'package:analyzer/file_system/physical_file_system.dart';
+import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:path/path.dart' as p;
 
@@ -37,6 +38,30 @@ CompilationUnit parseAndGetUnit(String dartSource) {
 /// ''');
 /// ```
 T parseAndGetNode<T extends AstNode>(String dartSource) => allDescendantsOfType<T>(parseAndGetUnit(dartSource)).first;
+
+
+/// Parses [dartSource] as an expression and returns the first component usage. Since we need a valid
+/// compilation unit to parse code, be sure to wrap the usage in a function body, variable, or other node.
+///
+/// Useful for easily creating a component usage certain type for tests.
+///
+/// Throws if a usage is not found for the first invocationExpression.
+///
+/// Example:
+/// ```dart
+/// final usage1 = parseAndGetComponentUsage(r'''
+///   render() => Dom.div()();
+/// ''');
+///
+/// final usage2 = parseAndGetComponentUsage(r'''
+///   var foo = Dom.div()();
+/// ''');
+/// ```
+FluentComponentUsage parseAndGetComponentUsage(String dartSource) {
+  final usage = getComponentUsage(parseAndGetNode<InvocationExpression>(dartSource));
+  if (usage == null) throw ArgumentError('Source did not contain component usage');
+  return usage;
+}
 
 /// Parses [dartSource] and returns the resolved AST, throwing if there are any static analysis errors.
 Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource) async {
