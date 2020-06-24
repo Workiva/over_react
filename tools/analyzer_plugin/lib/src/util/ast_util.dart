@@ -81,7 +81,7 @@ extension BlockFunctionBodyUtils on BlockFunctionBody {
   }
 }
 
-class _ReturnStatementsForBodyVisitor extends RecursiveAstVisitor {
+class _ReturnStatementsForBodyVisitor extends RecursiveAstVisitor<void> {
   final returnStatementsForBody = <ReturnStatement>[];
 
   @override

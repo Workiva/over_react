@@ -94,9 +94,9 @@ class OverReactAnalyzerPlugin extends ServerPlugin
       ..performanceLog = performanceLog
       ..fileContentOverlay = fileContentOverlay;
     final result = contextBuilder.buildDriver(root);
-    runZoned(() {
+    runZonedGuarded(() {
       result.results.listen(processDiagnosticsForResult);
-    }, onError: (e, stackTrace) {
+    }, (e, stackTrace) {
       channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
     });
     return result;
