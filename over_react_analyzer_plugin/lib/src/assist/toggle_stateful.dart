@@ -15,10 +15,20 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
   static AssistKind makeStateful = AssistKind('makeStateful', 30, 'Make component stateful.');
   static AssistKind makeStateless = AssistKind('makeStateless', 30, 'Make component stateless.');
 
+  /// The counterpart base component class that will replace the current one.
+  ///
+  /// e.g "UiComponent2" / "UiStatefulComponent2", "FluxUiComponent2" / "FluxUiStatefulComponent2"
+  String newComponentBaseClass;
+
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {
     await super.computeAssists(request, collector);
     if (!setupCompute() || !initializeAssistApi(request.result.content)) return;
+
+    newComponentBaseClass = _getNewBase(componentSupertypeNode.name.name);
+
+    // If there is no known corresponding base class, short circuit.
+    if (newComponentBaseClass == null) return;
 
     if (state != null) {
       await _removeStatefulness();
@@ -51,8 +61,7 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
       });
 
       builder.addReplacement(range.node(componentSupertypeNode), (builder) {
-        builder.write(
-            '${_getNewBase(componentSupertypeNode.name.name)}<${props.either.name.name}, ${normalizedComponentName}State>');
+        builder.write('$newComponentBaseClass<${props.either.name.name}, ${normalizedComponentName}State>');
       });
     });
     sourceChange
@@ -67,12 +76,10 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
         return member is MethodDeclaration && member.declaredElement.name == 'initialState';
       }, orElse: () => null);
 
-      builder.addReplacement(componentSourceFile.getEncompassingRangeFor(state.either.nodeHelper.node), (builder) {
-        builder.write('');
-      });
+      builder.addDeletion(componentSourceFile.getEncompassingRangeFor(state.either.nodeHelper.node));
 
       builder.addReplacement(range.node(componentSupertypeNode), (builder) {
-        builder.write('${_getNewBase(componentSupertypeNode.name.name)}<${normalizedComponentName}Props>');
+        builder.write('$newComponentBaseClass<${normalizedComponentName}Props>');
       });
 
       if (initialState != null) {
@@ -95,13 +102,7 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
       'FluxUiComponent2': 'FluxUiStatefulComponent2',
     };
 
-    final newBase = baseMapping[oldBase] ?? baseMapping.keys.where((key) => baseMapping[key] == oldBase).firstOrNull;
-
-    if (newBase == null) {
-      throw ArgumentError.value(oldBase, 'oldBase',
-          'Unknown component base. This assist only expects UiComponent2 or FluxUiComponent2 (and their stateful counterparts).');
-    }
-
-    return newBase;
+    return baseMapping[oldBase] ??
+        baseMapping.keys.firstWhere((key) => baseMapping[key] == oldBase, orElse: () => null);
   }
 }

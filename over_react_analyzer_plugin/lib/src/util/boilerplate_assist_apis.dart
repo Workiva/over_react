@@ -38,6 +38,12 @@ import 'package:over_react/src/builder/parsing/version.dart';
 /// specific logic is implemented. See 'initializeAssistApi' below for an example.
 mixin ComponentDeclarationAssistApi on AssistContributorBase {
   SourceFile componentSourceFile;
+
+  /// A context variable representing the component being targeted by the assist.
+  ///
+  /// After triggering the assist off of the component class name, the mixin initialization
+  /// will detect the related boilerplate and set this as the entrypoint. This process
+  /// will occur for the relevant component every time the assist is triggered.
   ClassComponentDeclaration componentDeclaration;
 
   ErrorCollector errorCollector;
