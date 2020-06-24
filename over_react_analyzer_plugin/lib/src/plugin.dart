@@ -46,6 +46,7 @@ import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
 import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref_assist.dart';
 import 'package:over_react_analyzer_plugin/src/assist/extract_component.dart';
+import 'package:over_react_analyzer_plugin/src/assist/toggle_stateful.dart';
 import 'package:over_react_analyzer_plugin/src/assist/wrap_unwrap.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/diagnostic.dart';
@@ -136,6 +137,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin
       AddCreateRefAssistContributor(),
       ExtractComponentAssistContributor(),
       ExtractStatefulComponentAssistContributor(),
+      ToggleComponentStatefulness(),
       WrapUnwrapAssistContributor(),
     ];
   }
