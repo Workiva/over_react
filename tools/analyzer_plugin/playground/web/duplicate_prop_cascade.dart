@@ -14,3 +14,17 @@ duplicatePropCascade() {
     }
   )('foo');
 }
+
+duplicatePropCascadeWithMoreThanOneDupe() {
+  (Dom.div()
+    ..id = '1'
+    ..id = '2'
+    ..id = '3'
+    ..id = '4'
+    ..title = 'biz'
+    ..title = 'baz'
+    ..id = 'winner'
+    ..title = 'winner'
+    ..aria.label = 'chicken dinner'
+  )('foo');
+}
