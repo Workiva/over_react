@@ -122,6 +122,7 @@ abstract class DiagnosticCollector {
       List<Object> fixMessageArgs});
 }
 
+// ignore: subtype_of_sealed_class
 @protected
 class DiagnosticCollectorImpl implements DiagnosticCollector {
   DiagnosticCollectorImpl({@required this.shouldComputeFixes});
