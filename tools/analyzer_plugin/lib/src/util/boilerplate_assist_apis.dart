@@ -70,7 +70,7 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
 
   bool _validateAndDetectBoilerplate() {
     if (node is! SimpleIdentifier || node.parent is! ClassDeclaration) return false;
-    ClassDeclaration parent = node.parent;
+    final parent = node.parent as ClassDeclaration;
 
     final members = detectBoilerplateMembers(node.thisOrAncestorOfType<CompilationUnit>());
     final declarations = getBoilerplateDeclarations(members, errorCollector).toList();
