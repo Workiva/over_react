@@ -179,6 +179,50 @@ main() {
         });
       });
     });
+
+    group('removeOverReactGeneratedPartDirective', () {
+      group('does nothing if', () {
+        test('there is no part directive in file', () async {
+          final sourceFileEdits = await getSourceFileEdits(
+            sourceWithNoPart,
+            (builder, result) => removeOverReactGeneratedPartDirective(builder, result.unit),
+            path: 'foo.dart',
+            shouldThrowErrors: false,
+          );
+          expect(sourceFileEdits, isEmpty);
+        });
+
+        test('there is no valid over_react part directive in the file', () async {
+          final sourceFileEdits = await getSourceFileEdits(
+            sourceWithInvalidPart,
+                (builder, result) => removeOverReactGeneratedPartDirective(builder, result.unit),
+            path: 'foo.dart',
+            shouldThrowErrors: false,
+          );
+          expect(sourceFileEdits, isEmpty);
+        });
+      });
+
+      test('removes part directive if it exists', () async {
+        final result = await parseAndGetResolvedUnit(
+          sourceWithValidPart,
+          path: 'foo.dart',
+          shouldThrowErrors: false,
+        );
+        final sourceChange = await buildFileEdit(result, (builder) {
+          removeOverReactGeneratedPartDirective(builder, result.unit);
+        });
+        final editList = sourceChange.edits?.firstOrNull?.edits;
+
+        expect(editList, isNotNull);
+        expect(editList.length, 1, reason: 'there should be one edit in the file');
+
+        final part = getOverReactGeneratedPartDirective(result.unit);
+        expect(editList.first.offset, part.offset,);
+        expect(editList.first.length, part.length,);
+        expect(editList.first.replacement, '');
+      });
+    });
   });
 }
 
