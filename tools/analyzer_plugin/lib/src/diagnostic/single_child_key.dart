@@ -1,5 +1,4 @@
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/source/source_range.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
@@ -76,34 +75,36 @@ class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
 
     final parentMethodName = usage.node.thisOrAncestorOfType<MethodDeclaration>()?.name?.name;
 
-    if (usage.node.parent is ListLiteral && (usage.node.parent?.parent is! ReturnStatement)) {
-      ListLiteral parent = usage.node.parent;
+    final parent = usage.node.parent;
+    if (parent is ListLiteral && (parent?.parent is! ReturnStatement)) {
       isInAList = true;
 
       if (parent.elements.length == 1) {
         isSingleChild = true;
       }
-    } else if (usage.node.parent is ArgumentList) {
-      ArgumentList parent = usage.node.parent;
+    } else if (parent is ArgumentList) {
       final enclosingUsage = identifyUsage(parent?.parent);
 
       if (enclosingUsage?.node?.argumentList == parent ?? false) {
         isVariadic = true;
       }
-    } else if (usage.node.parent is ReturnStatement && (parentMethodName == 'render' ?? false)) {
+    } else if (parent is ReturnStatement && (parentMethodName == 'render' ?? false)) {
       isVariadic = true;
     }
 
     if ((isInAList && isSingleChild) || isVariadic) {
-      await forEachCascadedPropAsync(usage, (lhs, rhs) async {
-        if (lhs.propertyName.name == 'key' && isAConstantValue(rhs)) {
-          await collector.addErrorWithFix(code, result.location(range: SourceRange(lhs.offset, rhs.end - lhs.offset)),
-              fixKind: fixKind,
-              computeFix: () => buildFileEdit(result, (builder) {
-                    builder.addDeletion(range.endEnd(lhs.beginToken.previous, rhs));
-                  }));
+      for (final prop in usage.cascadedProps) {
+        if (prop.name.name == 'key' && isAConstantValue(prop.rightHandSide)) {
+          await collector.addErrorWithFix(
+            code,
+            result.locationFor(prop.assignment),
+            fixKind: fixKind,
+            computeFix: () => buildFileEdit(result, (builder) {
+              builder.addDeletion(prop.rangeForRemoval);
+            }),
+          );
         }
-      });
+      }
     }
   }
 }

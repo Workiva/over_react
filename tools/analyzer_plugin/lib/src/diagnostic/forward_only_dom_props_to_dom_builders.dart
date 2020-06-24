@@ -55,10 +55,10 @@ class ForwardOnlyDomPropsToDomBuildersDiagnostic extends ComponentUsageDiagnosti
   computeErrorsForUsage(result, collector, usage) async {
     if (!usage.isDom) return;
 
-    await forEachCascadedMethodAsync(usage, (methodIdentifier, args) async {
-      if (methodIdentifier.name != 'modifyProps') return;
-      final propModifier = args.arguments.whereType<SimpleIdentifier>().firstOrNull;
-      if (propModifier == null) return;
+    for (final invocation in usage.cascadedMethodInvocations) {
+      if (invocation.methodName.name != 'modifyProps') continue;
+      final propModifier = invocation.argumentList.arguments.whereType<SimpleIdentifier>().firstOrNull;
+      if (propModifier == null) continue;
 
       if (propModifier.name == 'addUnconsumedProps') {
         await collector.addErrorWithFix(
@@ -73,6 +73,6 @@ class ForwardOnlyDomPropsToDomBuildersDiagnostic extends ComponentUsageDiagnosti
           }),
         );
       }
-    });
+    }
   }
 }

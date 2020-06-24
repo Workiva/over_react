@@ -48,7 +48,7 @@ class VariadicChildrenDiagnostic extends ComponentUsageDiagnosticContributor {
   computeErrorsForUsage(result, collector, usage) async {
     final arguments = usage.node.argumentList.arguments;
     if (arguments.length == 1 && arguments.single is ListLiteral) {
-      ListLiteral list = arguments.single;
+      final list = arguments.single as ListLiteral;
 
       await collector.addErrorWithFix(
         code,
