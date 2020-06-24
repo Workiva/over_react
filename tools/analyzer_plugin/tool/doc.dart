@@ -30,6 +30,7 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
+import 'package:logging/logging.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/contributor_meta_registry.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/documented_contributor_meta.dart';
 import 'package:over_react_analyzer_plugin/src/util/constants.dart';
@@ -39,6 +40,8 @@ import 'doc_generation_utils/generate_assist_docs.dart';
 import 'doc_generation_utils/generate_rule_docs.dart';
 import 'doc_generation_utils/visitor.dart';
 
+final logger = Logger('doc');
+
 final configs = [
   DocsGenerationConfig(
     srcDir: 'diagnostic',
@@ -47,14 +50,8 @@ final configs = [
     getSortedContributorMetas: () => RulesIndexer.rules,
     typeNameOfContributorClass: 'DiagnosticContributor',
     typeNameOfAnnotatedField: 'DiagnosticCode',
-    getMeta: (el) => DocumentedDiagnosticContributorMeta.fromAnnotatedFieldAst(el),
-    // For now, we'll ignore the implicit cast issue here since attempts to parameterize the config result
-    // in runtime exceptions of the form:
-    //
-    //     type '(DocumentedDiagnosticContributorMeta) => RuleDocGenerator' is not a subtype of type '(DocumentedContributorMetaBase) => ContributorDocPage<DocumentedContributorMetaBase>'
-    //
-    // ignore: argument_type_not_assignable
-    getPageGenerator: (meta) => RuleDocGenerator(meta),
+    getMeta: (el) => DocumentedDiagnosticContributorMeta.fromAnnotatedField(el),
+    getPageGenerator: (meta) => RuleDocGenerator(meta as DocumentedDiagnosticContributorMeta),
     getIndexGenerator: () => RulesIndexer(),
     generateAdditionalDocs: (outDir) => OptionsSample(RulesIndexer.rules).generate(outDir),
   ),
@@ -67,13 +64,7 @@ final configs = [
     typeNameOfAnnotatedField: 'AssistKind',
     packageNameContainingAnnotatedFieldType: 'analyzer_plugin',
     getMeta: (el) => DocumentedAssistContributorMeta.fromAnnotatedFieldAst(el),
-    // For now, we'll ignore the implicit cast issue here since attempts to parameterize the config result
-    // in runtime exceptions of the form:
-    //
-    //     type '(DocumentedAssistContributorMeta) => AssistDocGenerator' is not a subtype of type '(DocumentedContributorMetaBase) => ContributorDocPage<DocumentedContributorMetaBase>'
-    //
-    // ignore: argument_type_not_assignable
-    getPageGenerator: (meta) => AssistDocGenerator(meta),
+    getPageGenerator: (meta) => AssistDocGenerator(meta as DocumentedAssistContributorMeta),
     getIndexGenerator: () => AssistsIndexer(),
   ),
 ];
@@ -130,9 +121,10 @@ Future<void> generateDocs(String baseDir, DocsGenerationConfig config) async {
   var outDir = '$baseDir/${config.outputSubDir}';
   if (outDir != null) {
     final d = Directory(outDir);
-    if (!d.existsSync()) {
-      d.createSync(recursive: true);
+    if (d.existsSync()) {
+      d.deleteSync(recursive: true);
     }
+    d.createSync(recursive: true);
   }
 
   // Generate the index ("landing") page for a certain type of contributor defined in the config

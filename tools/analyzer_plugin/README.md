@@ -113,7 +113,7 @@ This is accomplished by placing a `@DocsMeta` annotation on a `DiagnosticCode` f
 #### Examples
 
 __Error Example:__
-```dart
+````dart
 const _desc = r'Do not use string CSS property values without specifying a unit.';
 const _correction =
     r'Use CSS property values that are strings _with_ units, or numbers _(in which case `px` will be inferred)_.';
@@ -167,10 +167,10 @@ class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
 
   // ...
 }
-```
+````
 
 __Lint / Warning Example:__
-```dart
+````dart
 const _desc = r'Avoid forwarding custom props to a Dom builder.';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
@@ -214,7 +214,7 @@ class ForwardOnlyDomPropsToDomBuildersDiagnostic extends ComponentUsageDiagnosti
 
   // ...
 }
-```
+````
 
 
 #### Best Practices

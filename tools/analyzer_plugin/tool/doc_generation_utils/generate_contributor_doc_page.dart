@@ -5,6 +5,7 @@ import 'package:over_react_analyzer_plugin/src/doc_utils/documented_contributor_
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
 import 'package:over_react_analyzer_plugin/src/util/constants.dart';
 
+import '../doc.dart' show logger;
 import 'shared_html.dart';
 
 abstract class ContributorDocPage<T extends DocumentedContributorMetaBase> {
@@ -30,7 +31,7 @@ abstract class ContributorDocPage<T extends DocumentedContributorMetaBase> {
       logger.fine('Writing to $outPath');
       File(outPath).writeAsStringSync(generated);
     } else {
-      print(generated);
+      logger.fine(generated);
     }
   }
 
