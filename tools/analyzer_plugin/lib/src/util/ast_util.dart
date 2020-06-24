@@ -8,6 +8,7 @@ import 'dart:mirrors';
 // ignore: deprecated_member_use
 import 'package:analyzer/analyzer.dart' show ConstantEvaluator;
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/source/line_info.dart';
 
