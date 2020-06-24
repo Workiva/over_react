@@ -9,6 +9,7 @@
 # Fail any script if any unexpected errors occur in the subsequent commands
 set -e
 
+dart tool/add_over_react_override.dart
 pub get
 pub run dart_dev format --check
 pub run dart_dev analyze
