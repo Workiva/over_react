@@ -88,7 +88,7 @@ mixin DiagnosticMixin on ServerPlugin {
   }
 
   // from DartFixesMixin
-  Future<FixesRequest> _getFixesRequest(EditGetFixesParams parameters) async {
+  Future<DartFixesRequest> _getFixesRequest(EditGetFixesParams parameters) async {
     final path = parameters.file;
     final offset = parameters.offset;
     final result = await getResolvedUnitResult(path);

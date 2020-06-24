@@ -84,7 +84,9 @@ abstract class ComponentUsageDiagnosticContributor extends DiagnosticContributor
   Future<void> computeErrors(ResolvedUnitResult result, DiagnosticCollector collector) async {
     final usages = <FluentComponentUsage>[];
     result.unit.accept(ComponentUsageVisitor(usages.add));
-    await Future.forEach(usages, (usage) => computeErrorsForUsage(result, collector, usage));
+    for (final usage in usages) {
+      await computeErrorsForUsage(result, collector, usage);
+    }
   }
 }
 
@@ -122,6 +124,7 @@ abstract class DiagnosticCollector {
       List<Object> fixMessageArgs});
 }
 
+// ignore: subtype_of_sealed_class
 @protected
 class DiagnosticCollectorImpl implements DiagnosticCollector {
   DiagnosticCollectorImpl({@required this.shouldComputeFixes});
@@ -150,10 +153,10 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
       if (fixChange.edits.isNotEmpty) {
         fixChange.message = _formatList(fixKind.message, fixMessageArgs);
         fix = PrioritizedSourceChange(fixKind.priority, fixChange);
+        hasFix = true;
       }
     }
 
-    // fixme add hasFix
     final error = AnalysisError(
       code.errorSeverity,
       code.type,

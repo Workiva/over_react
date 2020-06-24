@@ -2,6 +2,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
+import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 const _desc = r'Avoid using list literals to define consumed prop keys.';
@@ -70,14 +71,7 @@ class ConsumedPropsReturnValueDiagnostic extends DiagnosticContributor {
     final consumedPropsDeclarations = visitor.consumedPropsDeclarations;
 
     for (final consumedPropsDecl in consumedPropsDeclarations) {
-      var expression;
-      final body = consumedPropsDecl.body;
-      if (body is ExpressionFunctionBody) {
-        expression = body.expression;
-      } else if (body is BlockFunctionBody) {
-        expression = body.block.statements.whereType<ReturnStatement>()?.firstOrNull?.expression;
-      }
-
+      final expression = consumedPropsDecl.body.returnExpressions.firstOrNull;
       if (expression is ListLiteral && expression.elements.isNotEmpty) {
         final elements = expression.elements;
         final shouldAddError = elements.every((element) =>

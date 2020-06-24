@@ -4,6 +4,8 @@ import 'package:glob/glob.dart';
 final config = {
   ...coreConfig,
   'format': FormatTool()
-    ..exclude = [Glob('playground/**')]
-    ..formatterArgs = ['--line-length=120'],
+    ..formatterArgs = ['--line-length=120']
+    ..exclude = [
+      Glob('playground/**'),
+    ],
 };

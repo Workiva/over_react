@@ -57,6 +57,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/callback_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/consumed_props_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/forward_only_dom_props_to_dom_builders.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/link_target_without_rel.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/proptypes_instance_members.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/proptypes_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/incorrect_doc_comment_location.dart';
@@ -94,9 +95,9 @@ class OverReactAnalyzerPlugin extends ServerPlugin
       ..performanceLog = performanceLog
       ..fileContentOverlay = fileContentOverlay;
     final result = contextBuilder.buildDriver(root);
-    runZoned(() {
+    runZonedGuarded(() {
       result.results.listen(processDiagnosticsForResult);
-    }, onError: (e, stackTrace) {
+    }, (e, stackTrace) {
       channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
     });
     return result;
@@ -121,7 +122,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin
     super.driverForPath(path).addFile(path);
   }
 
-//  @override
+  //  @override
 //  List<OutlineContributor> getOutlineContributors(String path) {
 //    return [
   // Disabled for now since it doesn't seem to work consistently
@@ -148,6 +149,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin
   @override
   List<DiagnosticContributor> getDiagnosticContributors(String path) {
     return [
+      PropTypesInstanceMembersDiagnostic(),
       PropTypesReturnValueDiagnostic(),
       DuplicatePropCascadeDiagnostic(),
       LinkTargetUsageWithoutRelDiagnostic(),
@@ -171,5 +173,58 @@ class OverReactAnalyzerPlugin extends ServerPlugin
       ForwardOnlyDomPropsToDomBuildersDiagnostic(),
       IteratorKey(),
     ];
+  }
+
+  @override
+  Future<plugin.AnalysisSetContextRootsResult> handleAnalysisSetContextRoots(
+      plugin.AnalysisSetContextRootsParams parameters) async {
+    final result = await super.handleAnalysisSetContextRoots(parameters);
+    // The super-call adds files to the driver, so we need to prioritize them so they get analyzed.
+    _updatePriorityFiles();
+    return result;
+  }
+
+  List<String> _filesFromSetPriorityFilesRequest = [];
+
+  @override
+  Future<plugin.AnalysisSetPriorityFilesResult> handleAnalysisSetPriorityFiles(
+      plugin.AnalysisSetPriorityFilesParams parameters) async {
+    _filesFromSetPriorityFilesRequest = parameters.files;
+    _updatePriorityFiles();
+    return plugin.AnalysisSetPriorityFilesResult();
+  }
+
+  /// AnalysisDriver doesn't fully resolve files that are added via `addFile`; they need to be either explicitly requested
+  /// via `getResult`/etc, or added to `priorityFiles`.
+  ///
+  /// This method updates `priorityFiles` on the driver to include:
+  ///
+  /// - Any files prioritized by the analysis server via [handleAnalysisSetPriorityFiles]
+  /// - All other files the driver has been told to analyze via addFile (in [ServerPlugin.handleAnalysisSetContextRoots])
+  ///
+  /// As a result, [processDiagnosticsForResult] will get called with resolved units, and thus all of our diagnostics
+  /// will get run on all files in the repo instead of only the currently open/edited ones!
+  void _updatePriorityFiles() {
+    final filesToFullyResolve = {
+      // Ensure these go first, since they're actually considered priority; ...
+      ..._filesFromSetPriorityFilesRequest,
+
+      /// ... all other files need to be analyzed, but don't trump priority/
+      for (var driver2 in driverMap.values) ...(driver2 as AnalysisDriver).addedFiles,
+    };
+
+    // From ServerPlugin.handleAnalysisSetPriorityFiles
+    final filesByDriver = <AnalysisDriverGeneric, List<String>>{};
+    for (final file in filesToFullyResolve) {
+      var contextRoot = contextRootContaining(file);
+      if (contextRoot != null) {
+        // TODO(brianwilkerson) Which driver should we use if there is no context root?
+        var driver = driverMap[contextRoot];
+        filesByDriver.putIfAbsent(driver, () => <String>[]).add(file);
+      }
+    }
+    filesByDriver.forEach((driver, files) {
+      driver.priorityFiles = files;
+    });
   }
 }

@@ -105,6 +105,8 @@ class IncorrectDocCommentLocationDiagnostic extends DiagnosticContributor {
     final declarations = parseDeclarations(result.unit, errorCollector);
 
     for (final decl in declarations) {
+      if (decl is PropsMapViewOrFunctionComponentDeclaration) continue;
+
       final factories = decl.members.whereType<BoilerplateFactory>();
 
       if (factories.isNotEmpty) {

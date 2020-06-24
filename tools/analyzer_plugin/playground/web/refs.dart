@@ -34,18 +34,30 @@ mixin UsesCallbackRefProps on UiProps {}
 
 class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
   ChildComponent _someCustomRefName;
+  ChildComponent _anotherCustomRefName;
 
   @override
   render() {
-    return (Child()
-      ..ref = (ref) { _someCustomRefName = ref; }
-    )(props.children);
+    return Fragment()(
+      (Child()
+        ..ref = (ref) {
+          _someCustomRefName = ref;
+        })(props.children),
+      (Child()
+        ..id = 'bar'
+        ..ref = ((ref) => _anotherCustomRefName = ref)
+      )('hi'),
+    );
   }
 
   void foo() {
     _someCustomRefName.someMethodName();
     _someCustomRefName?.anotherMethodName();
     final bar = _someCustomRefName.someGetter;
+
+    _anotherCustomRefName.someMethodName();
+    _anotherCustomRefName?.anotherMethodName();
+    final baz = _anotherCustomRefName.someGetter;
   }
 }
 
