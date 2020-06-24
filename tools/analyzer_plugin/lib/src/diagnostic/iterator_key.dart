@@ -23,10 +23,8 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
         // 1st case: Any element in a list literal w/o key
 
         // Don't need to lint non-elements
-        final componentUsagesInList = argument.elements
-            .whereType<InvocationExpression>()
-            .map(getComponentUsage)
-            .whereNotNull();
+        final componentUsagesInList =
+            argument.elements.whereType<InvocationExpression>().map(getComponentUsage).whereNotNull();
 
         for (final usage in componentUsagesInList) {
           var elementHasKeyProp = _doesElementHaveKeyProp(usage);

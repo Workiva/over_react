@@ -59,7 +59,6 @@ Future<void> forEachCascadedPropAsync(
   }
 }
 
-
 // TODO remove once all in-flight PRs that might be consuming this are merged
 @Deprecated('Use FluentComponentUsage.cascadedMethods instead')
 void forEachCascadedMethod(

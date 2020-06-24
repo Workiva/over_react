@@ -39,7 +39,6 @@ CompilationUnit parseAndGetUnit(String dartSource) {
 /// ```
 T parseAndGetNode<T extends AstNode>(String dartSource) => allDescendantsOfType<T>(parseAndGetUnit(dartSource)).first;
 
-
 /// Parses [dartSource] as an expression and returns the first component usage. Since we need a valid
 /// compilation unit to parse code, be sure to wrap the usage in a function body, variable, or other node.
 ///
