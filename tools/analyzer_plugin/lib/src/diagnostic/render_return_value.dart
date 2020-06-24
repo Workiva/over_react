@@ -103,7 +103,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
 
   @DocsMeta(_preferNullDesc, details: _preferNullDetails)
   static const preferNullOverFalseErrorCode = DiagnosticCode(
-    'over_react_prefer_null_over_false',
+    'over_react_prefer_null_over_false_render_return_type',
     _preferNullDesc,
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.LINT,
