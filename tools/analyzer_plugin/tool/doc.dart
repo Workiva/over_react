@@ -30,7 +30,6 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:glob/glob.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/contributor_meta_registry.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/documented_contributor_meta.dart';
 import 'package:over_react_analyzer_plugin/src/util/constants.dart';
