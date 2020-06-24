@@ -65,8 +65,6 @@ FluentComponentUsage parseAndGetComponentUsage(String dartSource) {
 }
 
 /// Parses [dartSource] and returns the resolved AST, throwing if there are any static analysis errors.
-///
-/// Prevent throwing static analysis errors by setting [shouldThrowErrors] to `false`.
 Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource, {String path = 'dartSource.dart'}) async {
   final results = await parseAndGetResolvedUnits({path: dartSource});
   return results.values.single;
@@ -94,8 +92,6 @@ Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource, {String pa
 ///  final barElement = barResolveResult.unit.declaredElement.getType('Bar');
 ///  print(barElement.allSupertypes); // [Foo, Object]
 /// ```
-///
-/// Prevent throwing static analysis errors by setting [shouldThrowErrors] to `false`.
 Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, String> dartSourcesByPath) async {
   // Must be absolute.
   // Hack: use a path inside this project directory so that we end up in the same context as the current package,
