@@ -9,7 +9,7 @@ import 'package:test/test.dart';
 
 import '../../test_util.dart';
 
-const sourceWithValidPart = /*language=dart*/ r'''
+const sourceWithOverReactPart = /*language=dart*/ r'''
   import 'package:over_react/over_react.dart';
 
   part 'foo.over_react.g.dart';
@@ -55,8 +55,8 @@ const sourceWithNoPart = /*language=dart*/ r'''
 main() {
   group('boilerplate_util', () {
     group('getOverReactGeneratedPartDirective', () {
-      test('returns correct PartDirective', () {
-        final unit = parseAndGetUnit(sourceWithValidPart);
+      test('returns correct over_react part directive', () {
+        final unit = parseAndGetUnit(sourceWithOverReactPart);
         final result = getOverReactGeneratedPartDirective(unit);
         expect(result, isA<PartDirective>());
         expect(result.uri?.stringValue, 'foo.over_react.g.dart');
@@ -68,7 +68,7 @@ main() {
           expect(getOverReactGeneratedPartDirective(unit), isNull);
         });
 
-        test('there is no PartDirective', () {
+        test('there is no part directive', () {
           final unit = parseAndGetUnit(sourceWithNoPart);
           expect(getOverReactGeneratedPartDirective(unit), isNull);
         });
@@ -85,7 +85,7 @@ main() {
       });
 
       group('returns false when', () {
-        test('invalid part directive matches the file uri', () async {
+        test('part directive is not over_react', () async {
           await overReactGeneratedPartDirectiveIsValidTestHelper(
             isPartOverReact: false,
             path: 'foo.dart',
@@ -93,7 +93,7 @@ main() {
           );
         });
 
-        test('valid part directive does not match the file uri', () async {
+        test('part directive does not match the file uri', () async {
           await overReactGeneratedPartDirectiveIsValidTestHelper(
             isPartOverReact: true,
             path: 'different_file_path.dart',
@@ -106,7 +106,7 @@ main() {
     group('addOverReactGeneratedPartDirective', () {
       test('does nothing if there is already a valid part directive', () async {
         final sourceFileEdits = await getSourceFileEdits(
-          sourceWithValidPart,
+          sourceWithOverReactPart,
           (builder, result) => addOverReactGeneratedPartDirective(builder, result.unit, result.uri),
           path: 'foo.dart',
           shouldThrowErrors: false,
@@ -135,7 +135,7 @@ main() {
 
           expect(editList, isNotNull);
           expect(editList.length, 1, reason: 'there should be one edit in the file');
-          expect(editList.first.offset, 0);
+          expect(editList.first.offset, 0, reason: 'new part should be at top of file');
           expect(editList.first.length, 0, reason: 'nothing is replaced');
           expect(editList.first.replacement, 'part \'foo.over_react.g.dart\';\n\n');
         });
@@ -163,8 +163,8 @@ main() {
 
         test('when there is an existing part directive in the file', () async {
           final result = await parseAndGetResolvedUnit(
-            sourceWithValidPart,
-            path: 'different_file_name.dart',
+            sourceWithNonOverReactPart,
+            path: 'foo.dart',
             shouldThrowErrors: false,
           );
           final sourceChange = await buildFileEdit(result, (builder) {
@@ -178,13 +178,13 @@ main() {
           final offset = result.unit.lineInfo.getOffsetOfLineAfter(result.unit.directives.last.end);
           expect(editList.first.offset, offset, reason: 'new part should be on the line after existing part');
           expect(editList.first.length, 0, reason: 'nothing is replaced');
-          expect(editList.first.replacement, 'part \'different_file_name.over_react.g.dart\';\n\n');
+          expect(editList.first.replacement, 'part \'foo.over_react.g.dart\';\n\n');
         });
       });
 
       test('replaces existing over_react part directive if it doesn\'t match file uri', () async {
         final result = await parseAndGetResolvedUnit(
-          sourceWithValidPart,
+          sourceWithOverReactPart,
           path: 'different_file_name.dart',
           shouldThrowErrors: false,
         );
@@ -196,10 +196,10 @@ main() {
         expect(editList, isNotNull);
         expect(editList.length, 1, reason: 'there should be one edit in the file');
 
-        final offset = result.unit.lineInfo.getOffsetOfLineAfter(result.unit.directives.last.end);
-        expect(editList.first.offset, offset, reason: 'new part should be on the line after existing part');
-        expect(editList.first.length, 0, reason: 'nothing is replaced');
-        expect(editList.first.replacement, 'part \'different_file_name.over_react.g.dart\';\n\n');
+        final part = getOverReactGeneratedPartDirective(result.unit);
+        expect(editList.first.offset, part.offset, reason: 'new part should be on the line after existing part');
+        expect(editList.first.length, part.length, reason: 'mismatched part is replaced');
+        expect(editList.first.replacement, 'part \'different_file_name.over_react.g.dart\';');
       });
     });
 
@@ -228,7 +228,7 @@ main() {
 
       test('removes over_react part directive if it exists', () async {
         final result = await parseAndGetResolvedUnit(
-          sourceWithValidPart,
+          sourceWithOverReactPart,
           path: 'foo.dart',
           shouldThrowErrors: false,
         );
@@ -261,7 +261,7 @@ main() {
 
         test('part directive in file is valid', () async {
           final sourceFileEdits = await getSourceFileEdits(
-            sourceWithValidPart,
+            sourceWithOverReactPart,
             (builder, result) => fixOverReactGeneratedPartDirective(builder, result.unit, result.uri),
             path: 'foo.dart',
             shouldThrowErrors: false,
@@ -282,7 +282,7 @@ main() {
 
       test('replaces over_react part directive that does not match file uri', () async {
         final result = await parseAndGetResolvedUnit(
-          sourceWithValidPart,
+          sourceWithOverReactPart,
           path: 'different_file_name.dart',
           shouldThrowErrors: false,
         );
@@ -309,7 +309,7 @@ Future<void> overReactGeneratedPartDirectiveIsValidTestHelper({
   bool expectedResult,
 }) async {
   final result = await parseAndGetResolvedUnit(
-    isPartOverReact ? sourceWithValidPart : sourceWithNonOverReactPart,
+    isPartOverReact ? sourceWithOverReactPart : sourceWithNonOverReactPart,
     path: path,
     shouldThrowErrors: false,
   );

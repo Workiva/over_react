@@ -49,6 +49,12 @@ void addOverReactGeneratedPartDirective(DartFileEditBuilder builder, Compilation
 
   if (lastDirective is PartDirective && overReactGeneratedPartDirectiveIsValid(lastDirective, fileUri)) return;
 
+  final overReactPartDirective = getOverReactGeneratedPartDirective(unit);
+  if(overReactPartDirective != null && !overReactGeneratedPartDirectiveIsValid(overReactPartDirective, fileUri)) {
+    fixOverReactGeneratedPartDirective(builder, unit, fileUri);
+    return;
+  }
+
   final insertionOffset = lastDirective == null
       ? 0
       : lastDirective is! PartDirective
