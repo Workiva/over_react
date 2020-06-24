@@ -241,14 +241,8 @@ main() {
         expect(editList.length, 1, reason: 'there should be one edit in the file');
 
         final part = getOverReactGeneratedPartDirective(result.unit);
-        expect(
-          editList.first.offset,
-          part.offset,
-        );
-        expect(
-          editList.first.length,
-          part.length,
-        );
+        expect(editList.first.offset, part.offset);
+        expect(editList.first.length, part.length);
         expect(editList.first.replacement, '');
       });
     });
@@ -301,14 +295,8 @@ main() {
         expect(editList.length, 1, reason: 'there should be one edit in the file');
 
         final part = getOverReactGeneratedPartDirective(result.unit);
-        expect(
-          editList.first.offset,
-          part.offset,
-        );
-        expect(
-          editList.first.length,
-          part.length,
-        );
+        expect(editList.first.offset, part.offset);
+        expect(editList.first.length, part.length);
         expect(editList.first.replacement, 'part \'different_file_name.over_react.g.dart\';');
       });
     });
