@@ -17,6 +17,7 @@ extension ReactTypes$Element on Element /*?*/ {
 extension on Element /*?*/ {
   bool isOrIsSubtypeOfTypeFromPackage(String typeName, String packageName) {
     final that = this;
+
     return that is ClassElement &&
         (that.isTypeFromPackage(typeName, packageName) ||
             that.allSupertypes.any((type) => type.element.isTypeFromPackage(typeName, packageName)));
