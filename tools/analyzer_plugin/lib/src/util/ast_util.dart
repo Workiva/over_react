@@ -5,7 +5,7 @@ import 'dart:collection';
 // This is necessary for `ConstantEvaluator`. If that API is removed, it can just
 // be copied and pasted into this analyzer package (if still needed).
 // ignore: deprecated_member_use
-import 'package:analyzer/analyzer.dart';
+import 'package:analyzer/analyzer.dart' show ConstantEvaluator;
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/source/line_info.dart';
