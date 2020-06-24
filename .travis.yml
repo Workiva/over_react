@@ -12,7 +12,7 @@ before_script:
   - pub run dart_dev format --check
   - pub run dependency_validator --no-fatal-pins -i analyzer,build_runner,build_web_compilers,built_value_generator
   # Run Analyzer Plugin checks
-  - cd tools/analyzer_plugin && pub get
+  - cd tools/analyzer_plugin && dart tool/add_over_react_override.dart && pub get
   - pub run dart_dev analyze
   - pub run dart_dev format --check
   - pub run dependency_validator --no-fatal-pins
