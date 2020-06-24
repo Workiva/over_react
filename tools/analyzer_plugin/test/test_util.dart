@@ -2,9 +2,11 @@ import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/error/error.dart';
 import 'package:analyzer/file_system/overlay_file_system.dart';
 import 'package:analyzer/file_system/physical_file_system.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:path/path.dart' as p;
 
@@ -65,12 +67,8 @@ FluentComponentUsage parseAndGetComponentUsage(String dartSource) {
 /// Parses [dartSource] and returns the resolved AST, throwing if there are any static analysis errors.
 ///
 /// Prevent throwing static analysis errors by setting [shouldThrowErrors] to `false`.
-Future<ResolvedUnitResult> parseAndGetResolvedUnit(
-  String dartSource, {
-  String path = 'dartSource.dart',
-  bool shouldThrowErrors = true,
-}) async {
-  final results = await parseAndGetResolvedUnits({path: dartSource}, shouldThrowErrors: shouldThrowErrors);
+Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource, {String path = 'dartSource.dart'}) async {
+  final results = await parseAndGetResolvedUnits({path: dartSource});
   return results.values.single;
 }
 
@@ -98,12 +96,11 @@ Future<ResolvedUnitResult> parseAndGetResolvedUnit(
 /// ```
 ///
 /// Prevent throwing static analysis errors by setting [shouldThrowErrors] to `false`.
-Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(
-  Map<String, String> dartSourcesByPath, {
-  bool shouldThrowErrors = true,
-}) async {
-  // Must be absolute
-  const pathPrefix = '/_fake_in_memory_path/';
+Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, String> dartSourcesByPath) async {
+  // Must be absolute.
+  // Hack: use a path inside this project directory so that we end up in the same context as the current package,
+  // and can resolve imports for all dependencies (including over_react, react, etc.)
+  final pathPrefix = p.absolute('_fake_in_memory_path');
 
   String transformPath(String path) => p.join(pathPrefix, path);
 
@@ -125,8 +122,15 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(
   for (final path in dartSourcesByPath.keys) {
     final context = collection.contextFor(transformPath(path));
     final result = await context.currentSession.getResolvedUnit(transformPath(path));
-    if (shouldThrowErrors && result.errors.isNotEmpty) {
-      throw ArgumentError('Parse errors in source "$path":\n${result.errors.join('\n')}');
+    var errorsToThrow = <AnalysisError>[];
+    for (final error in result.errors) {
+      final errorName = error.errorCode.name;
+      if (errorName != 'URI_HAS_NOT_BEEN_GENERATED' && errorName != 'UNDEFINED_IDENTIFIER') {
+        errorsToThrow.add(error);
+      }
+    }
+    if (errorsToThrow.isNotEmpty) {
+      throw ArgumentError('Parse errors in source "$path":\n${errorsToThrow.join('\n')}');
     }
     results[path] = result;
   }
