@@ -118,7 +118,7 @@ T getMatchingConst<T>(DartObject object, Iterable<T> values) {
     return fields.every((field) {
       // Need to use the field symbol and not it converted back from a string or it won't work
       // for private members.
-      final valueFieldValue = reflect(value).getField(field).reflectee;
+      final dynamic valueFieldValue = reflect(value).getField(field).reflectee;
       final objectFieldValue = object.getField(field.name).toWhateverValue();
       return valueFieldValue == objectFieldValue;
     });

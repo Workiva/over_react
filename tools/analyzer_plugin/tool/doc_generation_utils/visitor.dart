@@ -21,12 +21,12 @@ Future<void> registerContributorMetadata(List<DocsGenerationConfig> configs) asy
   }
 }
 
-class ContributorVisitor extends RecursiveElementVisitor {
+class ContributorVisitor extends RecursiveElementVisitor<void> {
   final List<DocsGenerationConfig> _configs;
   ContributorVisitor(this._configs);
 
   @override
-  visitClassElement(ClassElement element) {
+  void visitClassElement(ClassElement element) {
     for (final config in _configs) {
       if (!element.isOrIsSubtypeOfTypeFromPackage(
           config.typeNameOfContributorClass, config.packageNameContainingContributorClass)) continue;

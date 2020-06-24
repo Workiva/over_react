@@ -24,6 +24,12 @@ final configs = [
     typeNameOfContributorClass: 'DiagnosticContributor',
     typeNameOfAnnotatedField: 'DiagnosticCode',
     getMeta: (el) => DocumentedDiagnosticContributorMeta.fromAnnotatedFieldAst(el),
+    // For now, we'll ignore the implicit cast issue here since attempts to parameterize the config result
+    // in runtime exceptions of the form:
+    //
+    //     type '(DocumentedDiagnosticContributorMeta) => RuleDocGenerator' is not a subtype of type '(DocumentedContributorMetaBase) => ContributorDocPage<DocumentedContributorMetaBase>'
+    //
+    // ignore: argument_type_not_assignable
     getPageGenerator: (meta) => RuleDocGenerator(meta),
     getIndexGenerator: () => RulesIndexer(),
     generateAdditionalDocs: (outDir) => OptionsSample(RulesIndexer.rules).generate(outDir),
@@ -37,6 +43,12 @@ final configs = [
     typeNameOfAnnotatedField: 'AssistKind',
     packageNameContainingAnnotatedFieldType: 'analyzer_plugin',
     getMeta: (el) => DocumentedAssistContributorMeta.fromAnnotatedFieldAst(el),
+    // For now, we'll ignore the implicit cast issue here since attempts to parameterize the config result
+    // in runtime exceptions of the form:
+    //
+    //     type '(DocumentedAssistContributorMeta) => AssistDocGenerator' is not a subtype of type '(DocumentedContributorMetaBase) => ContributorDocPage<DocumentedContributorMetaBase>'
+    //
+    // ignore: argument_type_not_assignable
     getPageGenerator: (meta) => AssistDocGenerator(meta),
     getIndexGenerator: () => AssistsIndexer(),
   ),
@@ -94,7 +106,9 @@ ${parser.usage}
 
 void cleanOutputDirs(String outDir) {
   final htmlFilesToClean = Glob('$outDir/*/**.html').listSync();
-  htmlFilesToClean.forEach((f) => File(f.path).deleteSync());
+  for (final fileToDelete in htmlFilesToClean) {
+    fileToDelete.deleteSync();
+  }
 }
 
 Future<void> generateDocs(String baseDir, DocsGenerationConfig config) async {
