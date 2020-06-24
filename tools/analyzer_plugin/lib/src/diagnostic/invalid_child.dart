@@ -58,13 +58,13 @@ Future<void> validateReactChildType(DartType type, TypeSystem typeSystem, TypePr
   // To check for an iterable, type-check against `iterableDynamicType` and not
   // `iterableType` since the latter has an uninstantiated type argument of `E`.
   if (typeSystem.isSubtypeOf(type, typeProvider.iterableDynamicType)) {
-    final typeArg = typeSystem
-        .leastUpperBound(type, typeProvider.iterableDynamicType)
-        .tryCast<ParameterizedType>()
-        ?.typeArguments
-        ?.firstOrNull;
-    if (typeArg != null) {
-      await validateReactChildType(typeArg, typeSystem, typeProvider, onInvalidType: onInvalidType);
+    // Use the least-upper-bound to get the an instance of the Iterable type with matching type arguments.
+    // e.g., leastUpperBound(`List<String>`, `Iterable<bottom>`) should yield `Iterable<String>`
+    final lub = typeSystem.leastUpperBound(type, typeProvider.iterableType2(typeProvider.bottomType));
+    final iterableTypeArg =
+        lub.isDartCoreIterable ? lub.tryCast<ParameterizedType>()?.typeArguments?.firstOrNull : null;
+    if (iterableTypeArg != null) {
+      await validateReactChildType(iterableTypeArg, typeSystem, typeProvider, onInvalidType: onInvalidType);
     }
     return;
   }
