@@ -79,15 +79,9 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
 
   List<MethodInvocation> _buildInvocationList(MethodInvocation method) {
     // A list of all the methods that could possibly be chained to the input method
-    final methodsInvoked = <MethodInvocation>[method];
-    dynamic target = method.target;
-    while (target != null) {
-      if (target is MethodInvocation) {
-        methodsInvoked.add(target as MethodInvocation);
-        target = target.target;
-      } else {
-        return methodsInvoked;
-      }
+    final methodsInvoked = <MethodInvocation>[];
+    for (var current = method; current != null; current = current.target.tryCast<MethodInvocation>()) {
+      methodsInvoked.add(current);
     }
     return methodsInvoked;
   }
