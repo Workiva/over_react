@@ -6,12 +6,20 @@ import 'package:analyzer/file_system/physical_file_system.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:test/test.dart';
+import 'package:path/path.dart' as p;
 
 void main() {
   group('react_types', () {
     Future<ResolvedUnitResult> getResolvedAstForSource(String dartSource) {
       // Must be absolute
-      const filePath = '/_fake_in_memory_path/my_file.dart';
+      final pathPrefix = p.absolute('_fake_in_memory_path');
+
+      String transformPath(String path) => p.join(pathPrefix, path);
+      final filePath = transformPath('_fakeInMemoryPath');
+      // Must be absolute.
+      // Hack: use a path inside this project directory so that we end up in the same context as the current package,
+      // and can resolve imports for all dependencies (including over_react, react, etc.)
+
 
       final resourceProvider =
       OverlayResourceProvider(PhysicalResourceProvider.INSTANCE)
