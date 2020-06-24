@@ -14,7 +14,13 @@ class DuplicatePropCascadeDiagnostic extends ComponentUsageDiagnosticContributor
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    final propUsagesByName = groupBy<PropAssignment, String>(usage.cascadedProps, (prop) => prop.name.name);
+    final propUsagesByName = groupBy<PropAssignment, String>(usage.cascadedProps, (prop) {
+      if (prop.targetName != null && prop.targetName.name != 'dom') {
+        return '${prop.targetName.name}.${prop.name.name}';
+      }
+
+      return prop.name.name;
+    });
     final propUsagesWithDuplicates = propUsagesByName.values.where((usages) => usages.length > 1);
     for (final propUsages in propUsagesWithDuplicates) {
       // We iterate and apply the warning over all but the final instance of a duplicated prop, so that the last
