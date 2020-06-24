@@ -47,6 +47,8 @@ void addOverReactGeneratedPartDirective(DartFileEditBuilder builder, Compilation
     lastDirective = unit.directives.last;
   }
 
+  if (lastDirective is PartDirective && overReactGeneratedPartDirectiveIsValid(lastDirective, fileUri)) return;
+
   final insertionOffset = lastDirective == null
       ? 0
       : lastDirective is! PartDirective
@@ -61,6 +63,8 @@ void addOverReactGeneratedPartDirective(DartFileEditBuilder builder, Compilation
 void removeOverReactGeneratedPartDirective(DartFileEditBuilder builder, CompilationUnit unit) {
   final generatedPartDirective = getOverReactGeneratedPartDirective(unit);
 
+  if(generatedPartDirective == null) return;
+
   builder.addDeletion(SourceRange(generatedPartDirective.offset, generatedPartDirective.length));
 }
 
@@ -70,6 +74,8 @@ void removeOverReactGeneratedPartDirective(DartFileEditBuilder builder, Compilat
 /// > Related: [overReactGeneratedPartDirectiveIsValid]
 void fixOverReactGeneratedPartDirective(DartFileEditBuilder builder, CompilationUnit unit, Uri fileUri) {
   final partDirective = getOverReactGeneratedPartDirective(unit);
+
+  if(partDirective == null || overReactGeneratedPartDirectiveIsValid(partDirective, fileUri)) return;
 
   builder.addReplacement(SourceRange(partDirective.offset, partDirective.length), (editBuilder) {
     editBuilder.write(_generateValidOverReactGeneratedPartDirective(unit, fileUri));
