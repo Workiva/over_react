@@ -3,6 +3,7 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
 class ArrowFunctionPropCascadeDiagnostic extends ComponentUsageDiagnosticContributor {
   static final code = DiagnosticCode(
@@ -21,6 +22,10 @@ class ArrowFunctionPropCascadeDiagnostic extends ComponentUsageDiagnosticContrib
       final rhs = prop.rightHandSide;
       if (rhs is FunctionExpression && rhs.body is ExpressionFunctionBody) {
         final body = rhs.body as ExpressionFunctionBody;
+
+        // If a cascade expression is not found in the body, it is not an un-parenthesized
+        // function expression in the middle of another cascade... do not lint.
+        if (allDescendantsOfType<CascadeExpression>(body).isEmpty) continue;
 
         var wrapOffset = rhs.offset;
         var wrapEnd = rhs.end;
