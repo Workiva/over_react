@@ -17,7 +17,9 @@ abstract class ContributorIndexer {
     if (filePath != null) {
       var outPath = '$filePath/index.html';
       print('Writing to $outPath');
-      File(outPath).writeAsStringSync(generated);
+      File(outPath)
+        ..parent.createSync(recursive: true)
+        ..writeAsStringSync(generated);
     } else {
       print(generated);
     }

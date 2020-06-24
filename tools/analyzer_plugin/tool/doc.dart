@@ -108,8 +108,6 @@ Future<void> main([List<String> args]) async {
     outDir = '../../analyzer_plugin';
   }
 
-  cleanOutputDirs(outDir);
-
   await registerContributorMetadata(configs);
 
   for (final config in configs) {
@@ -129,20 +127,12 @@ ${parser.usage}
 ''');
 }
 
-void cleanOutputDirs(String outDir) {
-  final htmlFilesToClean = Glob('$outDir/*/**.html').listSync();
-  for (final fileToDelete in htmlFilesToClean) {
-    fileToDelete.deleteSync();
-  }
-}
-
 Future<void> generateDocs(String baseDir, DocsGenerationConfig config) async {
   var outDir = '$baseDir/${config.outputSubDir}';
   if (outDir != null) {
     final d = Directory(outDir);
     if (!d.existsSync()) {
-      print("Directory '${d.path}' does not exist");
-      return;
+      d.createSync(recursive: true);
     }
   }
 

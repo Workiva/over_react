@@ -77,7 +77,10 @@ class OptionsSample {
     if (filePath != null) {
       var outPath = '$filePath/options/index.html';
       print('Writing to $outPath');
-      File(outPath).writeAsStringSync(generated);
+      File(outPath)
+        ..parent.deleteSync(recursive: true)
+        ..parent.createSync(recursive: true)
+        ..writeAsStringSync(generated);
     } else {
       print(generated);
     }

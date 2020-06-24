@@ -27,7 +27,10 @@ abstract class ContributorDocPage<T extends DocumentedContributorMetaBase> {
     if (filePath != null) {
       var outPath = '$filePath/${contributor.name}.html';
       print('Writing to $outPath');
-      File(outPath).writeAsStringSync(generated);
+      File(outPath)
+        ..parent.deleteSync(recursive: true)
+        ..parent.createSync(recursive: true)
+        ..writeAsStringSync(generated);
     } else {
       print(generated);
     }
