@@ -63,8 +63,12 @@ FluentComponentUsage parseAndGetComponentUsage(String dartSource) {
 }
 
 /// Parses [dartSource] and returns the resolved AST, throwing if there are any static analysis errors.
-Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource) async {
-  final results = await parseAndGetResolvedUnits({'dartSource.dart': dartSource});
+Future<ResolvedUnitResult> parseAndGetResolvedUnit(
+  String dartSource, {
+  String path = 'dartSource.dart',
+  bool shouldThrowErrors = true,
+}) async {
+  final results = await parseAndGetResolvedUnits({path: dartSource}, shouldThrowErrors: shouldThrowErrors);
   return results.values.single;
 }
 
@@ -90,7 +94,10 @@ Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource) async {
 ///  final barElement = barResolveResult.unit.declaredElement.getType('Bar');
 ///  print(barElement.allSupertypes); // [Foo, Object]
 /// ```
-Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, String> dartSourcesByPath) async {
+Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(
+  Map<String, String> dartSourcesByPath, {
+  bool shouldThrowErrors = true,
+}) async {
   // Must be absolute
   const pathPrefix = '/_fake_in_memory_path/';
 
@@ -114,7 +121,7 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
   for (final path in dartSourcesByPath.keys) {
     final context = collection.contextFor(transformPath(path));
     final result = await context.currentSession.getResolvedUnit(transformPath(path));
-    if (result.errors.isNotEmpty) {
+    if (shouldThrowErrors && result.errors.isNotEmpty) {
       throw ArgumentError('Parse errors in source "$path":\n${result.errors.join('\n')}');
     }
     results[path] = result;
