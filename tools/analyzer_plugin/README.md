@@ -1,7 +1,17 @@
 # OverReact Analyzer Plugin
 
-> A [Dart analyzer plugin][analyzer_plugin] for OverReact
+> A [Dart analyzer plugin][analyzer_plugin] for OverReact.
 
+---
+
+* __[Try it in your Package](#try-it-in-your-package)__
+* __[Repo Structure](#repo-structure)__
+* __[Local Development](#local-development)__
+    * [Setup](#setup)
+    * [Development Cycle](#development-cycle)
+    * [Design Principles & Coding Strategies](#design-principles--coding-strategies)
+    * [Debugging](#debugging-the-plugin)
+* __[Feature Ideas & Inspiration](#feature-ideas--inspiration)__
 
 ## Try it in your package!
 1. Add over_react to your pubspec.yaml
@@ -48,6 +58,24 @@ This script sets up a symlink to point to the original plugin directory (replaci
 1. Make changes to the plugin within the _over_react_analyzer_plugin_ directory
 1. In the _playground_ directory or in [another package you've pulled the plugin into](#pulling-in-a-local-version-of-the-plugin), restart the Analysis Server
 1. Wait for the Analysis Server to boot up, analyze, and run your updated plugin code    
+
+### Design Principles & Coding Strategies
+
+* __Abide by [diagnostic message best practices][analyzer_plugin_diagnostic_message_guide].__
+* __Plugin code should be robust against invalid ASTs.__
+    * As the user types, they produce invalid code, and the plugin shouldn't crash/break when this is the case.
+    * Defensively null-check on AST members.
+* __Code dealing with ASTs should make as few assumptions as possible.__
+    * For example, code that used to assume a method declaration's parent was a class was likely broken with the introduction of extension methods.
+    * Use of `tryCast()` and `ancestorOfType()` makes this a lot easier.
+* __For hints/diagnostics, avoid producing false positives.__
+    * Often, you may not have enough information to determine with full confidence whether code is problematic. The plugin should not emit diagnostics in this case to avoid creating excessive noise, causing the plugin to become less valuable or frustrating for users.
+* __Keep performance in mind.__
+    * Diagnostics will run on potentially every Dart file in the project, and can severely affect user experience if they're slow. This is one of the bigger reasons why the Dart team avoided exposing analyzer plugin APIs for a while.
+* __Use prior art when possible instead of reinventing the wheel.__
+    * The [`analysis_server`][analysis_server] package in the Dart SDK is where the majority of the built-in hints, errors, assists, quick fixes, etc. are implemented. We have the opportunity to reuse parts of their architecture, testing strategies, etc.
+* __Avoid using `AstNode.toSource` and `AstNode.childEntities`__ since they are approximations of the source. 
+    * If you need to get the source for a replacement, use `sourceFile.getText(node.offset, node.end)`.
 
 ### Debugging the Plugin
 The dev experience when working on this plugin isn't ideal (See the `analyzer_plugin` debugging docs [for more information](https://github.com/dart-lang/sdk/blob/master/pkg/analyzer_plugin/doc/tutorial/debugging.md)), but it's possible debug and see logs from the plugin.
@@ -97,7 +125,18 @@ Congrats, you're debugging! 🎉
 
 You can now set breakpoints, view logs, and do everything else you'd normally do in the debugger for.
 
+## Feature Ideas & Inspiration
+
+We drew inspiration from the following:
+* Flutter analysis functionality (actually built into the Dart SDK via [analysis_server][analysis_server]).
+* React JS IDE plugins
+    * [ESLint Plugin](https://github.com/yannickcr/eslint-plugin-react)
+    * [ReactEd](https://marketplace.visualstudio.com/items?itemName=ReactEd.reacted)
+* [AngularDart analyzer plugin](https://github.com/dart-lang/angular/tree/master/angular_analyzer_plugin)
+
 
 [analyzer_plugin]: https://github.com/dart-lang/sdk/tree/master/pkg/analyzer_plugin
 [analyzer_plugin_tutorial]: https://github.com/dart-lang/sdk/blob/master/pkg/analyzer_plugin/doc/tutorial/tutorial.md
 [analyzer_plugin_package_structure]: https://github.com/dart-lang/sdk/blob/master/pkg/analyzer_plugin/doc/tutorial/package_structure.md
+[analyzer_plugin_diagnostic_message_guide]: https://github.com/dart-lang/sdk/blob/5bac4d9b0cdc12a21d0b9914a3c8c0d9716aa705/pkg/front_end/lib/src/fasta/diagnostics.md#guide-for-writing-diagnostics
+[analysis_server]: https://github.com/dart-lang/sdk/tree/master/pkg/analysis_server
