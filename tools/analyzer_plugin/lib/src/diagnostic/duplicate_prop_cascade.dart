@@ -1,5 +1,4 @@
-import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer_plugin/utilities/pair.dart';
+import 'package:collection/collection.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
@@ -15,26 +14,22 @@ class DuplicatePropCascadeDiagnostic extends ComponentUsageDiagnosticContributor
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    final propUsagesByName = <String, List<Pair<PropertyAccess, Expression>>>{};
-    forEachCascadedProp(usage, (lhs, rhs) {
-      propUsagesByName.putIfAbsent(lhs.propertyName.name, () => []).add(Pair(lhs, rhs));
-    });
-
-    for (final usages in propUsagesByName.values) {
-      if (usages.length > 1) {
-        for (var i = 0; i < usages.length; i++) {
-          final lhs = usages[i].first;
-          final rhs = usages[i].last;
-          await collector.addErrorWithFix(
-            code,
-            result.locationFor(lhs),
-            errorMessageArgs: [lhs.propertyName.name, i + 1, usages.length],
-            fixKind: fixKind,
-            computeFix: () => buildFileEdit(result, (builder) {
-              builder.addDeletion(range.endEnd(lhs.beginToken.previous, rhs));
-            }),
-          );
-        }
+    final propUsagesByName = groupBy<PropAssignment, String>(usage.cascadedProps, (prop) => prop.name.name);
+    final propUsagesWithDuplicates = propUsagesByName.values.where((usages) => usages.length > 1);
+    for (final propUsages in propUsagesWithDuplicates) {
+      // We iterate and apply the warning over all but the final instance of a duplicated prop, so that the last
+      // instance (the one that is actually used at run time) is retained.
+      for (var i = 0; i < propUsages.length - 1; i++) {
+        final prop = propUsages[i];
+        await collector.addErrorWithFix(
+          code,
+          result.locationFor(prop.leftHandSide),
+          errorMessageArgs: [prop.name.name, i + 1, propUsages.length],
+          fixKind: fixKind,
+          computeFix: () => buildFileEdit(result, (builder) {
+            builder.addDeletion(prop.rangeForRemoval);
+          }),
+        );
       }
     }
   }

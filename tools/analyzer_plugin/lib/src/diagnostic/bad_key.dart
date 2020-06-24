@@ -39,24 +39,24 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    forEachCascadedProp(usage, (lhs, rhs) {
-      if (lhs.propertyName.name != 'key') return;
+    for (final prop in usage.cascadedProps) {
+      if (prop.name.name != 'key') continue;
 
-      if (rhs.toSource().contains('.hashCode')) {
-        collector.addError(hashCodeCode, result.locationFor(rhs));
+      if (prop.rightHandSide.toSource().contains('.hashCode')) {
+        collector.addError(hashCodeCode, result.locationFor(prop.rightHandSide));
       }
 
       // Handle the top-level key expression, which is toString-ed under the hood.
-      processToStringedExpressionInKey(result, collector, rhs);
+      processToStringedExpressionInKey(result, collector, prop.rightHandSide);
 
       // Handle calling toString() on an object explicitly or interpolating it
       // anywhere nested inside the rhs.
       final visitor = ToStringedVisitor();
-      rhs.accept(visitor);
+      prop.rightHandSide.accept(visitor);
       for (final expression in visitor.toStringedExpressions) {
         processToStringedExpressionInKey(result, collector, expression);
       }
-    });
+    }
   }
 
   static void processToStringedExpressionInKey(

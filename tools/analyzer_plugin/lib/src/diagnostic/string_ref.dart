@@ -20,17 +20,17 @@ class StringRefDiagnostic extends ComponentUsageDiagnosticContributor {
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    forEachCascadedProp(usage, (lhs, rhs) {
-      if (lhs.propertyName.name == 'ref' && rhs.staticType.isDartCoreString) {
-        collector.addErrorWithFix(
+    for (final prop in usage.cascadedProps) {
+      if (prop.name.name == 'ref' && prop.rightHandSide.staticType.isDartCoreString) {
+        await collector.addErrorWithFix(
           code,
-          result.locationFor(rhs),
+          result.locationFor(prop.rightHandSide),
           fixKind: fixKind,
           computeFix: () => buildFileEdit(result, (builder) {
             addCreateRef(builder, usage, result);
           }),
         );
       }
-    });
+    }
   }
 }

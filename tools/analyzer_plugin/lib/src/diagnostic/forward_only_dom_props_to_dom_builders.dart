@@ -1,6 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/source_range.dart';
-import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
@@ -24,10 +23,10 @@ class ForwardOnlyDomPropsToDomBuildersDiagnostic extends ComponentUsageDiagnosti
   computeErrorsForUsage(result, collector, usage) async {
     if (!usage.isDom) return;
 
-    await forEachCascadedMethodAsync(usage, (methodIdentifier, args) async {
-      if (methodIdentifier.name != 'modifyProps') return;
-      final propModifier = args.arguments.whereType<SimpleIdentifier>().firstOrNull;
-      if (propModifier == null) return;
+    for (final invocation in usage.cascadedMethodInvocations) {
+      if (invocation.methodName.name != 'modifyProps') continue;
+      final propModifier = invocation.argumentList.arguments.whereType<SimpleIdentifier>().firstOrNull;
+      if (propModifier == null) continue;
 
       if (propModifier.name == 'addUnconsumedProps') {
         await collector.addErrorWithFix(
@@ -42,6 +41,6 @@ class ForwardOnlyDomPropsToDomBuildersDiagnostic extends ComponentUsageDiagnosti
           }),
         );
       }
-    });
+    }
   }
 }

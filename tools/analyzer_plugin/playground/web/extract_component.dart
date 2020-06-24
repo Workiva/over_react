@@ -1,7 +1,5 @@
 import 'package:over_react/over_react.dart';
 
-part 'extract_component.over_react.g.dart';
-
 ReactElement renderTheFoo() {
   return Dom.div()(
     'oh hai',

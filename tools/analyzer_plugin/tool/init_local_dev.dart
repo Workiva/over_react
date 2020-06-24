@@ -99,8 +99,8 @@ void validatePackageRoot(String pluginPath) {
   String name;
   try {
     final pubspecContents = pluginPubspec.readAsStringSync();
-    final pubspecYaml = loadYaml(pubspecContents);
-    name = pubspecYaml['name'];
+    final pubspecYaml = loadYaml(pubspecContents) as Map;
+    name = pubspecYaml['name'] as String;
   } on FileSystemException catch (_) {
     logger.severe('Error reading plugin pubspec.');
     rethrow;

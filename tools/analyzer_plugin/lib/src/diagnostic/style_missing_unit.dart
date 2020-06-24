@@ -1,3 +1,6 @@
+// This is necessary for `ConstantEvaluator`. If that API is removed, it can just
+// be copied and pasted into this analyzer package (if still needed).
+// ignore: deprecated_member_use
 import 'package:analyzer/analyzer.dart' show ConstantEvaluator;
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
@@ -19,11 +22,11 @@ class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
   computeErrorsForUsage(result, collector, usage) async {
     // Collect these then iterate later to make keeping things async simpler
     final styleEntries = <MapLiteralEntry>[];
-    forEachCascadedProp(usage, (lhs, rhs) {
-      if (lhs.propertyName.name == 'style') {
-        rhs.accept(_RecursiveMapLiteralEntryVisitor(styleEntries.add));
+    for (final prop in usage.cascadedProps) {
+      if (prop.name.name == 'style') {
+        prop.rightHandSide.accept(_RecursiveMapLiteralEntryVisitor(styleEntries.add));
       }
-    });
+    }
 
     for (final entry in styleEntries) {
       final propertyName = _stringValueIfApplicable(entry.key);
