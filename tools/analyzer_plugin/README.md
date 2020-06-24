@@ -4,7 +4,6 @@
 
 ---
 
-* __[Goal](#goal)__
 * __[Try it in your Package](#try-it-in-your-package)__
 * __[Repo Structure](#repo-structure)__
 * __[Local Development](#local-development)__
@@ -13,18 +12,6 @@
     * [Design Principles & Coding Strategies](#design-principles--coding-strategies)
     * [Debugging](#debugging-the-plugin)
 * __[Feature Ideas & Inspiration](#feature-ideas--inspiration)__
-* __[Limitations](#limitations)__
-
-## Goal
-
-We want to improve the developer experience for Workiva developers writing React in Dart (and bring it closer to the React JS dev experience).
-
-This plugin has the potential to help achieve that goal by:
-* Providing static analysis of common pitfalls, with useful error messages and automatic fix suggestions.
-* Making the fluent interface syntax easier to write and deal with.
-* Helping automate common changes that can't be achieved with snippets alone (AKA "assists").
-* Encouraging best practices via lints.
-* (Potentially) Making it easier to navigate component nesting and the flow of props.
 
 ## Try it in your package!
 1. Add over_react to your pubspec.yaml
@@ -146,33 +133,6 @@ We drew inspiration from the following:
     * [ESLint Plugin](https://github.com/yannickcr/eslint-plugin-react)
     * [ReactEd](https://marketplace.visualstudio.com/items?itemName=ReactEd.reacted)
 * [AngularDart analyzer plugin](https://github.com/dart-lang/angular/tree/master/angular_analyzer_plugin)
-
-#### Abandoned Feature Ideas
-
-* Outline for similar behavior to closing tags.
-    * Outline implementation is barely supported in analyzer plugin.
-    * Need to suggest closing tags API for plugin, maybe this would be a good entry point.
-* Breadcrumbs: part of the IDE plugin, not the analyzer plugin.
-    * Greg has most of a JetBrains plugin done.
-* [Prop drilling](https://marketplace.visualstudio.com/items?itemName=ReactEd.reacted#prop-drilling): isn't supported by the plugin.
-
-## Limitations
-
-### Dart `analyzer_plugin` Limitations
-
-* Not advertised for public use (but [public use isn't discouraged](https://github.com/dart-lang/sdk/issues/35516)).
-* API is pretty rough in some spots.
-* Outline can't be empty, seems to only work intermittently work (at least in IntelliJ).
-* Assist/Fix Mixin APIs not async, preventing usage of edit builders (which are recommended); we have our own local copies of these that fix this, and should probably be contributed back at some point.
-* Some features might not be supported by all IDEs.
-* Workflow involves restarting the analysis server every time you make a change.
-* At times, lints do not resolve in the IDE unless you restart the analysis server.
-
-### Analyzer Limitations
-
-* Can easily go from AST to Elements but not the other way around (`computeNode` is deprecated). Most of the time should not be problematic since if you have access to an Element, you usually have access to the corresponding AST.
-    * Might be able to work around this using `NodeLocator`.
-* `toSource` should be used with caution since it's an approximation of the source.
 
 
 [analyzer_plugin]: https://github.com/dart-lang/sdk/tree/master/pkg/analyzer_plugin
