@@ -17,7 +17,7 @@ class DuplicatePropCascadeDiagnostic extends ComponentUsageDiagnosticContributor
     final propUsagesByName = groupBy<PropAssignment, String>(usage.cascadedProps, (prop) => prop.name.name);
     final propUsagesWithDuplicates = propUsagesByName.values.where((usages) => usages.length > 1);
     for (final propUsages in propUsagesWithDuplicates) {
-      for (var i = 0; i < propUsages.length; i++) {
+      for (var i = 0; i < propUsages.length - 1; i++) {
         final prop = propUsages[i];
         await collector.addErrorWithFix(
           code,
