@@ -21,7 +21,9 @@ class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
     final parentMethodName = usage.node.thisOrAncestorOfType<MethodDeclaration>()?.name?.name;
 
     final parent = usage.node.parent;
-    if (parent is ListLiteral && (parent?.parent is! ReturnStatement)) {
+    // Being a list literal, the grandparent should be another component usage. Otherwise, the list may still
+    // easily be manipulated.
+    if (parent is ListLiteral && identifyUsage(parent?.parent?.parent) != null) {
       isInAList = true;
 
       if (parent.elements.length == 1) {

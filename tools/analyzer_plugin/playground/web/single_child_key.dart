@@ -8,7 +8,22 @@ mixin TestProps on UiProps {}
 
 class TestComponent extends UiComponent2<TestProps> {
   @override
-  render(){
+  render() {
+    var theParentList = [
+      (Dom.div()..key = 'necessary')(
+        // ignore: over_react_variadic_children
+        [
+          (Dom.div()..key = 'necessary')(),
+          [
+            (Dom.div()..key = 'necessary1')(),
+          ],
+          (Dom.div()..key = 'necessary2')(),
+        ],
+        (Dom.div()..key = 'unnecessary')(),
+      )
+    ];
+    theParentList.addAll([(Dom.div()..key = 'necessary')()]);
+
     final children = [_renderDivs(), _renderDivs()];
     return (Dom.div()..key = 'constant' + 'expression')(children);
   }
