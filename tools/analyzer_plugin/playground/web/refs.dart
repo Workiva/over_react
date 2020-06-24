@@ -1,4 +1,5 @@
 import 'package:over_react/over_react.dart';
+import 'foo.dart' as foo_ns;
 
 part 'refs.over_react.g.dart';
 
@@ -35,6 +36,7 @@ mixin UsesCallbackRefProps on UiProps {}
 class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
   ChildComponent _someCustomRefName;
   ChildComponent _anotherCustomRefName;
+  foo_ns.FooComponent _fooRef;
 
   @override
   render() {
@@ -47,6 +49,11 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
         ..id = 'bar'
         ..ref = ((ref) => _anotherCustomRefName = ref)
       )('hi'),
+      (foo_ns.Foo()
+        ..ref = (ref) {
+          _fooRef = ref;
+        }
+      )(),
     );
   }
 
@@ -58,6 +65,9 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
     _anotherCustomRefName.someMethodName();
     _anotherCustomRefName?.anotherMethodName();
     final baz = _anotherCustomRefName.someGetter;
+
+    _fooRef.someFooishMethod();
+    final isThisGettingCrazy = _fooRef.isBar;
   }
 }
 

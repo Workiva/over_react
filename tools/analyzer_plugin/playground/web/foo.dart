@@ -9,4 +9,7 @@ mixin FooProps on UiProps {}
 class FooComponent extends UiComponent2<FooProps> {
   @override
   render() {}
+
+  void someFooishMethod() {}
+  bool get isBar => false;
 }

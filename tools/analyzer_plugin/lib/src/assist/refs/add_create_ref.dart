@@ -46,10 +46,7 @@ void addCreateRef(
 
   final enclosingClassOrMixin = usage.node.thisOrAncestorOfType<ClassOrMixinDeclaration>();
 
-  final refTypeName = usage.isDom
-      ? 'Element'
-      // TODO split this out somewhere, make more robust
-      : (componentName != null ? '${componentName}Component' : 'var');
+  final refTypeName = usage.isDom ? 'Element' : usage.componentClassTypeName ?? 'var';
 
   final refProp = usage.cascadedProps.firstWhere((prop) => prop.name.name == 'ref', orElse: () => null);
   if (refProp != null) {

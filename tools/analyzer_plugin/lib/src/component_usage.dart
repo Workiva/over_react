@@ -3,6 +3,7 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
+import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 /// A usage of an OverReact component via its fluent interface.
 class FluentComponentUsage {
@@ -19,9 +20,10 @@ class FluentComponentUsage {
   ///
   /// E.g., `Dom.div()`, `Button()`, `builder`
   ///
-  /// Usually a [MethodInvocation] or [Identifier].
+  /// Usually a [MethodInvocation], [FunctionExpressionInvocation] or [Identifier].
   final Expression builder;
 
+  /// Returns the name of the component factory.
   String get componentName {
     final typeName = builder.staticType?.element?.name;
     if (typeName == null) return null;
@@ -39,6 +41,29 @@ class FluentComponentUsage {
 
     return null;
   }
+
+  /// Returns the name of the `UiComponent` class instance for the usage, complete with any
+  /// [namespaceName] if one exists.
+  String get componentClassTypeName {
+    if (componentName == null) return null;
+    if (namespaceName == null) return '${componentName}Component';
+
+    return '$namespaceName.${componentName}Component';
+  }
+
+  /// The name of the imported usage namespace.
+  String get namespaceName {
+    if (builder is MethodInvocation) {
+      return (builder as MethodInvocation).target.tryCast<Identifier>()?.name;
+    } else if (builder is FunctionExpressionInvocation) {
+      return (builder as FunctionExpressionInvocation).function.tryCast<PrefixedIdentifier>()?.prefix?.name;
+    }
+
+    return builder.tryCast<PrefixedIdentifier>()?.prefix?.name;
+  }
+
+  /// Whether the usage is consumed via a namespaced import.
+  bool get isNamespaced => namespaceName != null;
 
   bool get isDom => const ['DomProps', 'SvgProps'].contains(builder.staticType?.element?.name);
   bool get isSvg => const ['SvgProps'].contains(builder.staticType?.element?.name);
