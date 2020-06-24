@@ -3,11 +3,7 @@ import 'package:glob/glob.dart';
 
 final config = {
   ...coreConfig,
-  'analyze': AnalyzeTool()
-    ..include = [
-      Glob('lib/**.dart'),
-      Glob('tool/**.dart'),
-    ],
+  'analyze': AnalyzeTool(),
   'format': FormatTool()
     ..formatterArgs = ['--line-length=120']
     ..exclude = [
