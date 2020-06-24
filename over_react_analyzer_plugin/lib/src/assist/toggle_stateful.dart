@@ -5,7 +5,7 @@ import 'package:analyzer_plugin/utilities/range_factory.dart';
 
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
-import 'package:over_react_analyzer_plugin/src/util/component_assist_api.dart';
+import 'package:over_react_analyzer_plugin/src/util/boilerplate_assist_apis.dart';
 import 'package:over_react_analyzer_plugin/src/util/fix.dart';
 
 // ignore_for_file: implementation_imports
@@ -29,7 +29,7 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
 
   Future<void> _addStatefulness() async {
     final sourceChange = await buildFileEdit(request.result, (builder) {
-      final defaultProps = component.component.nodeHelper.members.firstWhere((member) {
+      final defaultProps = componentDeclaration.component.nodeHelper.members.firstWhere((member) {
         return member is MethodDeclaration && member.declaredElement.name == 'defaultProps';
       }, orElse: () => null);
 
@@ -37,7 +37,7 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
 
       final insertionOffset = defaultProps != null
           ? componentSourceFile.getOffsetForLineAfter(defaultProps.end)
-          : componentSourceFile.getOffsetForLineAfter(component.component.nodeHelper.node.offset);
+          : componentSourceFile.getOffsetForLineAfter(componentDeclaration.component.nodeHelper.node.offset);
 
       builder.addInsertion(insertionOffset, (builder) {
         if (defaultProps != null) builder.write('\n');
@@ -63,7 +63,7 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
 
   Future<void> _removeStatefulness() async {
     final sourceChange = await buildFileEdit(request.result, (builder) {
-      final initialState = component.component.nodeHelper.members.firstWhere((member) {
+      final initialState = componentDeclaration.component.nodeHelper.members.firstWhere((member) {
         return member is MethodDeclaration && member.declaredElement.name == 'initialState';
       }, orElse: () => null);
 
@@ -98,7 +98,7 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
     final newBase = baseMapping[oldBase] ?? baseMapping.keys.where((key) => baseMapping[key] == oldBase).firstOrNull;
 
     if (newBase == null) {
-      throw ArgumentError(
+      throw ArgumentError.value(oldBase, 'oldBase',
           'Unknown component base. This assist only expects UiComponent2 or FluxUiComponent2 (and their stateful counterparts).');
     }
 

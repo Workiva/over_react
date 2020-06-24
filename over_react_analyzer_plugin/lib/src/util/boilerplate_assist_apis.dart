@@ -38,7 +38,7 @@ import 'package:over_react/src/builder/parsing/version.dart';
 /// specific logic is implemented. See 'initializeAssistApi' below for an example.
 mixin ComponentDeclarationAssistApi on AssistContributorBase {
   SourceFile componentSourceFile;
-  ClassComponentDeclaration component;
+  ClassComponentDeclaration componentDeclaration;
 
   ErrorCollector errorCollector;
 
@@ -47,19 +47,20 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
   /// Checks the context of the assist node and returns if it is an appropriate
   /// context to suggest a component level assist.
   bool get isAValidComponentDeclaration {
-    if (_isAValidComponentDeclaration == null)
+    if (_isAValidComponentDeclaration == null) {
       throw StateError('API not initialized. Call `initializeAssistApi` before accessible API members.');
+    }
 
     return _isAValidComponentDeclaration;
   }
 
-  String get normalizedComponentName => normalizeNameAndRemoveSuffix(component.component);
+  String get normalizedComponentName => normalizeNameAndRemoveSuffix(componentDeclaration.component);
 
-  NamedType get componentSupertypeNode => component.component.nodeHelper.superclass;
+  NamedType get componentSupertypeNode => componentDeclaration.component.nodeHelper.superclass;
 
-  Union<BoilerplateProps, BoilerplatePropsMixin> get props => component.props;
+  Union<BoilerplateProps, BoilerplatePropsMixin> get props => componentDeclaration.props;
 
-  Union<BoilerplateState, BoilerplateStateMixin> get state => component.state;
+  Union<BoilerplateState, BoilerplateStateMixin> get state => componentDeclaration.state;
 
   bool _validateAndDetectBoilerplate() {
     if (node is! SimpleIdentifier || node.parent is! ClassDeclaration) return false;
@@ -68,11 +69,12 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
     final members = detectBoilerplateMembers(node.thisOrAncestorOfType<CompilationUnit>());
     final declarations = getBoilerplateDeclarations(members, errorCollector).toList();
 
-    component = declarations.whereType<ClassComponentDeclaration>().firstWhere((c) {
+    componentDeclaration = declarations.whereType<ClassComponentDeclaration>().firstWhere((c) {
       return c.component.node == parent;
     }, orElse: () => null);
 
-    _isAValidComponentDeclaration = component != null && component.version == Version.v4_mixinBased;
+    _isAValidComponentDeclaration =
+        componentDeclaration != null && componentDeclaration.version == Version.v4_mixinBased;
     return isAValidComponentDeclaration;
   }
 
@@ -86,7 +88,7 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
   ///     import 'package:analyzer_plugin/utilities/assist/assist.dart';
   ///
   ///     import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
-  ///     import 'package:over_react_analyzer_plugin/src/util/component_assist_api.dart';
+  ///     import 'package:over_react_analyzer_plugin/src/util/boilerplate_assist_apis.dart';
   ///
   ///     class ExampleAssist extends AssistContributorBase with ComponentDeclarationAssistApi {
   ///       @override
