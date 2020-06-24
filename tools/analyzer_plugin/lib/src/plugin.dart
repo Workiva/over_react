@@ -97,8 +97,8 @@ class OverReactAnalyzerPlugin extends ServerPlugin
     final result = contextBuilder.buildDriver(root);
     runZoned(() {
       result.results.listen(processDiagnosticsForResult);
-      // ignore: avoid_types_on_closure_parameters
       // TODO: Once we are ready to bump the SDK lower bound to 2.8.x, we should swap this out for `runZoneGuarded`.
+      // ignore: avoid_types_on_closure_parameters
     }, onError: (Object e, StackTrace stackTrace) {
       channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
     });
