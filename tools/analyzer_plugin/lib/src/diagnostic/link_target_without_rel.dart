@@ -28,16 +28,16 @@ class LinkTargetUsageWithoutRelDiagnostic extends ComponentUsageDiagnosticContri
     String hrefValue;
     Pair<PropertyAccess, Expression> targetPropSection;
     Pair<PropertyAccess, Expression> relPropSection;
-    forEachCascadedProp(usage, (lhs, rhs) {
-      final propName = lhs.propertyName.name;
+    for (final prop in usage.cascadedProps) {
+      final propName = prop.name.name;
       if (propName == 'href') {
-        hrefValue = rhs.staticType.isDartCoreNull ? null : rhs.toString();
+        hrefValue = prop.rightHandSide.staticType.isDartCoreNull ? null : prop.rightHandSide.toString();
       } else if (propName == 'target') {
-        targetPropSection = Pair(lhs, rhs);
+        targetPropSection = Pair(prop.leftHandSide, prop.rightHandSide);
       } else if (propName == 'rel') {
-        relPropSection = Pair(lhs, rhs);
+        relPropSection = Pair(prop.leftHandSide, prop.rightHandSide);
       }
-    });
+    }
 
     if (hrefValue == null || targetPropSection == null || targetPropSection.last.staticType.isDartCoreNull) return;
 
