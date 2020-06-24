@@ -105,6 +105,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
         errorCode,
         result.locationFor(_overReactGeneratedPartDirective),
         errorMessageArgs: [
+          // ignore: no_adjacent_strings_in_list
           'This part will not be generated because there are no valid OverReact component boilerplate '
               'declarations in this file. If you expect this file to contain OverReact component boilerplate declarations, '
               'double check that they have no syntax errors / lints. Otherwise, the part can safely be removed.'

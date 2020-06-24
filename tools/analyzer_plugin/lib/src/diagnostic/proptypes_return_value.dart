@@ -1,4 +1,5 @@
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/source/source_range.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/visitors/proptypes_visitors.dart';
@@ -39,5 +40,14 @@ class PropTypesReturnValueDiagnostic extends DiagnosticContributor {
         );
       }
     }
+  }
+}
+
+class PropTypeFunctionBlockVisitor extends RecursiveAstVisitor<void> {
+  final List<ThrowExpression> throwExpressions = [];
+
+  @override
+  void visitExpressionStatement(ExpressionStatement node) {
+    throwExpressions.addAll(node.childEntities?.whereType<ThrowExpression>() ?? []);
   }
 }

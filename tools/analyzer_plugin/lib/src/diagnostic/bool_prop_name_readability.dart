@@ -1,5 +1,6 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
@@ -27,10 +28,8 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
         if (field.type != typeProvider.boolType) continue;
         if (propName == null) continue; // just in case
 
-        final boolPropReadability = checkBoolPropReadability(propName);
-        final isPropReadable = boolPropReadability[0];
-
-        if (!isPropReadable) {
+        final readability = checkBoolPropReadability(propName);
+        if (!readability.isReadable) {
           collector.addError(code, result.locationFor(propsClass.getField(field.name)),
               errorMessageArgs: [propsClass.name, propName, allowedPrefixesForBoolProp.join(', ')]);
         }
@@ -39,8 +38,15 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
   }
 }
 
-List checkBoolPropReadability(String propName) {
-  final reasons = [];
+class _ReadabilityResult {
+  final bool isReadable;
+  final List<String> reasons;
+
+  _ReadabilityResult({@required this.isReadable, @required this.reasons});
+}
+
+_ReadabilityResult checkBoolPropReadability(String propName) {
+  final reasons = <String>[];
   var isReadable = false;
   final checklist = {
     'prefix': hasBooleanPrefix(propName),
@@ -55,7 +61,7 @@ List checkBoolPropReadability(String propName) {
     }
   });
 
-  return [isReadable, reasons];
+  return _ReadabilityResult(isReadable: isReadable, reasons: reasons);
 }
 
 bool isLowercase(String str) {

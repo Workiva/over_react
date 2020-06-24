@@ -4,7 +4,7 @@ import 'package:test/test.dart';
 
 import '../../test_util.dart';
 
-main() {
+void main() {
   group('ast_util', () {
     test('allDescendants returns all descendants in breadth-first order', () {
       final unit = parseAndGetUnit(/*language=dart*/ r'''

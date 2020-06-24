@@ -21,19 +21,21 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
     for (final argument in arguments) {
       if (argument is ListLiteral) {
         // 1st case: Any element in a list literal w/o key
-        final list = argument;
-        for (final e in list.elements) {
-          if (e is! InvocationExpression) continue; // Don't need to lint non-elements
 
-          final componentUsage = getComponentUsage(e);
-          if (componentUsage == null) continue;
-          var elementHasKeyProp = _doesElementHaveKeyProp(componentUsage);
+        // Don't need to lint non-elements
+        final componentUsagesInList = argument.elements
+            .whereType<InvocationExpression>()
+            .map(getComponentUsage)
+            .whereNotNull();
+
+        for (final usage in componentUsagesInList) {
+          var elementHasKeyProp = _doesElementHaveKeyProp(usage);
 
           if (!elementHasKeyProp) {
             // If current element in the list is missing a key prop, add warning & don't bother w/ remaining elements
             collector.addError(
               code,
-              result.locationFor(e),
+              result.locationFor(usage.node),
             );
           }
         }
@@ -77,15 +79,9 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
 
   List<MethodInvocation> _buildInvocationList(MethodInvocation method) {
     // A list of all the methods that could possibly be chained to the input method
-    final methodsInvoked = <MethodInvocation>[method];
-    dynamic target = method.target;
-    while (target != null) {
-      if (target is MethodInvocation) {
-        methodsInvoked.add(target);
-        target = target.target;
-      } else {
-        return methodsInvoked;
-      }
+    final methodsInvoked = <MethodInvocation>[];
+    for (var current = method; current != null; current = current.target.tryCast<MethodInvocation>()) {
+      methodsInvoked.add(current);
     }
     return methodsInvoked;
   }

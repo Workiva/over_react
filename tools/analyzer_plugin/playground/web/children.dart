@@ -16,7 +16,7 @@ validChildren() {
     functionThatReturnsDynamic(),
     [1, 2, 3],
     ['foo', 2, true],
-    [new MyObject(), new MyObject()].map((obj) => obj.id),
+    [MyObject(), MyObject()].map((obj) => obj.id),
   );
 }
 
@@ -34,18 +34,18 @@ invalidChildren() {
     functionThatReturnsDynamic(),
     [1, 2, 3],
     ['foo', 2, true],
-    [new MyObject(), new MyObject()].map((obj) => obj.id),
+    [MyObject(), MyObject()].map((obj) => obj.id),
 
     //
     // Unsupported types
     //
     {'just': 'a map'},
-    new MyObject(),
-    new Future(() {}),
+    MyObject(),
+    Future(() {}),
     // Iterable type parameters are checked
-    [new MyObject()],
-    [1, 2, 3].map((_) => new MyObject()),
-    [1, 2, 3].map((number) async => Dom.div()(number)),
+    [MyObject()],
+    [1, 2, 3].map((_) => MyObject()),
+    [1, 2, 3].map((number) async => (Dom.div()..key = number)(number)),
 
 
     // Unsupported types, uninvoked builders: has quick fix
