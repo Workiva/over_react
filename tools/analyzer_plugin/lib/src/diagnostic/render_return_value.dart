@@ -24,8 +24,6 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
 
   @override
   computeErrors(result, collector) async {
-    final typeSystem = result.libraryElement.typeSystem;
-
     // This is the return type even if it's not explicitly declared.
     final visitor = RenderVisitor();
     result.unit.accept(visitor);
@@ -35,7 +33,8 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
         continue;
       }
 
-      await validateReactChildType(returnType, typeSystem, onInvalidType: (invalidType) async {
+      await validateReactChildType(returnType, result.typeSystem, result.typeProvider,
+          onInvalidType: (invalidType) async {
         final code = invalidTypeErrorCode;
         final location = result.locationFor(returnExpression);
         if (couldBeMissingBuilderInvocation(returnExpression)) {
@@ -89,4 +88,3 @@ class RenderVisitor extends SimpleAstVisitor<void> {
     }
   }
 }
-

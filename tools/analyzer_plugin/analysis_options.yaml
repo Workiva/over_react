@@ -1,6 +1,8 @@
 include: package:workiva_analysis_options/v1.recommended.yaml
 
 analyzer:
+  strong-mode:
+    implicit-casts: false
   errors:
     # Treat missing required parameters as a warning (not a hint)
     missing_required_param: warning

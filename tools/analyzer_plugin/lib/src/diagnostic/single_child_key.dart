@@ -20,21 +20,20 @@ class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
 
     final parentMethodName = usage.node.thisOrAncestorOfType<MethodDeclaration>()?.name?.name;
 
-    if (usage.node.parent is ListLiteral && (usage.node.parent?.parent is! ReturnStatement)) {
-      ListLiteral parent = usage.node.parent;
+    final parent = usage.node.parent;
+    if (parent is ListLiteral && (parent?.parent is! ReturnStatement)) {
       isInAList = true;
 
       if (parent.elements.length == 1) {
         isSingleChild = true;
       }
-    } else if (usage.node.parent is ArgumentList) {
-      ArgumentList parent = usage.node.parent;
+    } else if (parent is ArgumentList) {
       final enclosingUsage = identifyUsage(parent?.parent);
 
       if (enclosingUsage?.node?.argumentList == parent ?? false) {
         isVariadic = true;
       }
-    } else if (usage.node.parent is ReturnStatement && (parentMethodName == 'render' ?? false)) {
+    } else if (parent is ReturnStatement && (parentMethodName == 'render' ?? false)) {
       isVariadic = true;
     }
 

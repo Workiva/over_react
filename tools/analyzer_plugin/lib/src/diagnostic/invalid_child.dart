@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:analyzer/dart/element/type.dart';
-// ignore: implementation_imports
-import 'package:analyzer/src/generated/type_system.dart' show TypeSystem;
+import 'package:analyzer/dart/element/type_provider.dart';
+import 'package:analyzer/dart/element/type_system.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
   static final code = DiagnosticCode(
@@ -18,10 +19,9 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    final typeSystem = result.libraryElement.typeSystem;
-
     for (final argument in usage.node.argumentList.arguments) {
-      await validateReactChildType(argument.staticType, typeSystem, onInvalidType: (invalidType) async {
+      await validateReactChildType(argument.staticType, result.typeSystem, result.typeProvider,
+          onInvalidType: (invalidType) async {
         final location = result.locationFor(argument);
 
         if (couldBeMissingBuilderInvocation(argument)) {
@@ -42,7 +42,7 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
   }
 }
 
-Future<void> validateReactChildType(DartType type, TypeSystem typeSystem,
+Future<void> validateReactChildType(DartType type, TypeSystem typeSystem, TypeProvider typeProvider,
     {FutureOr<void> Function(DartType invalidType) onInvalidType}) async {
   // Couldn't be resolved
   if (type == null) return;
@@ -52,15 +52,21 @@ Future<void> validateReactChildType(DartType type, TypeSystem typeSystem,
   if (type.isReactElement) return;
   if (type.isDartCoreString) return;
   // isAssignableTo to handle num, int, and double
-  if (typeSystem.isAssignableTo(typeSystem.typeProvider.numType, type)) return;
+  if (typeSystem.isAssignableTo(typeProvider.numType, type)) return;
   if (type.isDartCoreNull) return;
   if (type.isDartCoreBool) return;
   // If the children are in an iterable, validate its type argument.
   // To check for an iterable, type-check against `iterableDynamicType` and not
   // `iterableType` since the latter has an uninstantiated type argument of `E`.
-  if (typeSystem.isSubtypeOf(type, typeSystem.typeProvider.iterableDynamicType)) {
-    var typeArg = typeSystem.mostSpecificTypeArgument(type, typeSystem.typeProvider.iterableDynamicType);
-    await validateReactChildType(typeArg, typeSystem, onInvalidType: onInvalidType);
+  if (typeSystem.isSubtypeOf(type, typeProvider.iterableDynamicType)) {
+    final typeArg = typeSystem
+        .leastUpperBound(type, typeProvider.iterableDynamicType)
+        .tryCast<ParameterizedType>()
+        ?.typeArguments
+        ?.firstOrNull;
+    if (typeArg != null) {
+      await validateReactChildType(typeArg, typeSystem, typeProvider, onInvalidType: onInvalidType);
+    }
     return;
   }
 
