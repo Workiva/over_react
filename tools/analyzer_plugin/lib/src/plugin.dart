@@ -95,9 +95,11 @@ class OverReactAnalyzerPlugin extends ServerPlugin
       ..performanceLog = performanceLog
       ..fileContentOverlay = fileContentOverlay;
     final result = contextBuilder.buildDriver(root);
-    runZonedGuarded(() {
+    runZoned(() {
       result.results.listen(processDiagnosticsForResult);
-    }, (e, stackTrace) {
+      // ignore: avoid_types_on_closure_parameters
+      // TODO: Once we are ready to bump the SDK lower bound to 2.8.x, we should swap this out for `runZoneGuarded`.
+    }, onError: (Object e, StackTrace stackTrace) {
       channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
     });
     return result;
