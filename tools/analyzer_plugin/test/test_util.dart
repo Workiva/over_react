@@ -63,6 +63,8 @@ FluentComponentUsage parseAndGetComponentUsage(String dartSource) {
 }
 
 /// Parses [dartSource] and returns the resolved AST, throwing if there are any static analysis errors.
+///
+/// Prevent throwing static analysis errors by setting [shouldThrowErrors] to `false`.
 Future<ResolvedUnitResult> parseAndGetResolvedUnit(
   String dartSource, {
   String path = 'dartSource.dart',
@@ -94,6 +96,8 @@ Future<ResolvedUnitResult> parseAndGetResolvedUnit(
 ///  final barElement = barResolveResult.unit.declaredElement.getType('Bar');
 ///  print(barElement.allSupertypes); // [Foo, Object]
 /// ```
+///
+/// Prevent throwing static analysis errors by setting [shouldThrowErrors] to `false`.
 Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(
   Map<String, String> dartSourcesByPath, {
   bool shouldThrowErrors = true,

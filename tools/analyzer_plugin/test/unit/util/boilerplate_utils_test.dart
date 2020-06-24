@@ -218,7 +218,7 @@ main() {
         test('there is no over_react part directive in the file', () async {
           final sourceFileEdits = await getSourceFileEdits(
             sourceWithNonOverReactPart,
-                (builder, result) => removeOverReactGeneratedPartDirective(builder, result.unit),
+            (builder, result) => removeOverReactGeneratedPartDirective(builder, result.unit),
             path: 'foo.dart',
             shouldThrowErrors: false,
           );
@@ -241,8 +241,14 @@ main() {
         expect(editList.length, 1, reason: 'there should be one edit in the file');
 
         final part = getOverReactGeneratedPartDirective(result.unit);
-        expect(editList.first.offset, part.offset,);
-        expect(editList.first.length, part.length,);
+        expect(
+          editList.first.offset,
+          part.offset,
+        );
+        expect(
+          editList.first.length,
+          part.length,
+        );
         expect(editList.first.replacement, '');
       });
     });
@@ -272,7 +278,7 @@ main() {
         test('part directive in file is not over_react', () async {
           final sourceFileEdits = await getSourceFileEdits(
             sourceWithNonOverReactPart,
-                (builder, result) => fixOverReactGeneratedPartDirective(builder, result.unit, result.uri),
+            (builder, result) => fixOverReactGeneratedPartDirective(builder, result.unit, result.uri),
             path: 'foo.dart',
             shouldThrowErrors: false,
           );
@@ -295,8 +301,14 @@ main() {
         expect(editList.length, 1, reason: 'there should be one edit in the file');
 
         final part = getOverReactGeneratedPartDirective(result.unit);
-        expect(editList.first.offset, part.offset,);
-        expect(editList.first.length, part.length,);
+        expect(
+          editList.first.offset,
+          part.offset,
+        );
+        expect(
+          editList.first.length,
+          part.length,
+        );
         expect(editList.first.replacement, 'part \'different_file_name.over_react.g.dart\';');
       });
     });
