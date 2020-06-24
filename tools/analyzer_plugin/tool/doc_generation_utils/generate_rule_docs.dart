@@ -76,11 +76,14 @@ class OptionsSample {
     var generated = _generate();
     if (filePath != null) {
       var outPath = '$filePath/options/index.html';
-      print('Writing to $outPath');
-      File(outPath)
-        ..parent.deleteSync(recursive: true)
-        ..parent.createSync(recursive: true)
-        ..writeAsStringSync(generated);
+      final file = File(outPath);
+      if (file.parent.existsSync()) {
+        file.parent.deleteSync(recursive: true);
+      }
+      file.parent.createSync(recursive: true);
+
+      logger.fine('Writing to $outPath');
+      file.writeAsStringSync(generated);
     } else {
       print(generated);
     }
