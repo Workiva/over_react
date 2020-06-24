@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 import '../../test_util.dart';
 
-main() {
+void main() {
   group('cascade_read', () {
     group('FluentComponentUsage.cascadedProps', () {
       test('returns cascaded props', () {

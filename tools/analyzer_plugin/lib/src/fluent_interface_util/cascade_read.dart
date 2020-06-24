@@ -27,7 +27,7 @@ class PropAssignment {
   PropAssignment(this.assignment) : assert(assignment.leftHandSide is PropertyAccess);
 
   /// The property access representing the left hand side of this assignment.
-  PropertyAccess get leftHandSide => assignment.leftHandSide;
+  PropertyAccess get leftHandSide => assignment.leftHandSide as PropertyAccess;
 
   /// The expression for the right hand side of this assignment.
   Expression get rightHandSide => assignment.rightHandSide;

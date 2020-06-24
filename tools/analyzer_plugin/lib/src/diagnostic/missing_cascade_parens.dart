@@ -44,13 +44,14 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
         debug.log('node.type: ${node.runtimeType}');
 
         InvocationExpression invocation;
-        if (isBadArity && node is ArgumentList && node.parent is InvocationExpression) {
-          invocation = node.parent;
-        } else if (isBadFunction && node.parent is InvocationExpression) {
+        final parent = node.parent;
+        if (isBadArity && node is ArgumentList && parent is InvocationExpression) {
+          invocation = parent;
+        } else if (isBadFunction && parent is InvocationExpression) {
           // FIXME we explain why we use the parent instead of node
-          invocation = node.parent;
-        } else if (isVoidUsage && node.parent is InvocationExpression) {
-          invocation = node.parent;
+          invocation = parent;
+        } else if (isVoidUsage && parent is InvocationExpression) {
+          invocation = parent;
         }
         debug.log('invocation : ${invocation?.toSource()}');
 

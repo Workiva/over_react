@@ -71,7 +71,10 @@ class PropTypesMapVisitor extends RecursiveAstVisitor<void> {
 
   @override
   void visitMapLiteralEntry(MapLiteralEntry node) {
-    values.add(node.value);
+    final value = node.value;
+    if (value is FunctionExpression) {
+      values.add(value);
+    }
   }
 }
 

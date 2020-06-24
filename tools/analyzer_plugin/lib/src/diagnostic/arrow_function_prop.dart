@@ -19,10 +19,11 @@ class ArrowFunctionPropCascadeDiagnostic extends ComponentUsageDiagnosticContrib
     for (final prop in usage.cascadedProps) {
       final rhs = prop.rightHandSide;
       if (rhs is FunctionExpression && rhs.body is ExpressionFunctionBody) {
+        final body = rhs.body as ExpressionFunctionBody;
+
         var wrapOffset = rhs.offset;
         var wrapEnd = rhs.end;
 
-        final ExpressionFunctionBody body = rhs.body;
         final expression = body.expression;
         if (expression is CascadeExpression) {
           // todo do this intelligently based on indent
