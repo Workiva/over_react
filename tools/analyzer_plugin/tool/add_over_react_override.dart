@@ -24,7 +24,10 @@ void main(List<String> args) {
     if (dependencyOverrides.containsKey('over_react') && dependencyOverrides.length == 1) {
       logger.info('Skipping writing dependency override for over_react as it is already overridden');
     } else {
-      throw Exception('Only OverReact should be overridden directly in the Analyzer Plugin.');
+      pluginPubspec.writeAsStringSync(pluginPubspec.readAsStringSync().replaceFirst(
+            RegExp('^dependency_overrides:\n', multiLine: true),
+            'dependency_overrides:\n  over_react:\n    path: ../../\n',
+          ));
     }
   } else {
     pluginPubspec.openWrite(mode: FileMode.append)
