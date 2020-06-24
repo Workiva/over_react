@@ -50,9 +50,9 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
         builder.write('\nmixin ${normalizedComponentName}State on UiState {}\n');
       });
 
-      builder.addReplacement(range.node(componentType), (builder) {
+      builder.addReplacement(range.node(componentSupertypeNode), (builder) {
         builder.write(
-            '${_getNewBase(component.component.nodeHelper.superclass.name.name)}<${props.either.name.name}, ${normalizedComponentName}State>');
+            '${_getNewBase(componentSupertypeNode.name.name)}<${props.either.name.name}, ${normalizedComponentName}State>');
       });
     });
     sourceChange
@@ -71,20 +71,15 @@ class ToggleComponentStatefulness extends AssistContributorBase with ComponentDe
         builder.write('');
       });
 
-      builder.addReplacement(range.node(componentType), (builder) {
-        builder.write(
-            '${_getNewBase(component.component.nodeHelper.superclass.name.name)}<${normalizedComponentName}Props>');
+      builder.addReplacement(range.node(componentSupertypeNode), (builder) {
+        builder.write('${_getNewBase(componentSupertypeNode.name.name)}<${normalizedComponentName}Props>');
       });
 
       if (initialState != null) {
         if (componentSourceFile.hasEmptyLineBefore(initialState.offset)) {
-          builder.addReplacement(componentSourceFile.getEncompassingRangeFor(initialState), (builder) {
-            builder.write('');
-          });
+          builder.addDeletion(componentSourceFile.getEncompassingRangeFor(initialState));
         } else {
-          builder.addReplacement(componentSourceFile.getPreciseRangeFor(initialState), (builder) {
-            builder.write('');
-          });
+          builder.addDeletion(componentSourceFile.getPreciseRangeFor(initialState));
         }
       }
     });

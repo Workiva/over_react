@@ -38,8 +38,6 @@ import 'package:over_react/src/builder/parsing/version.dart';
 /// specific logic is implemented. See 'initializeAssistApi' below for an example.
 mixin ComponentDeclarationAssistApi on AssistContributorBase {
   SourceFile componentSourceFile;
-  BoilerplateMembers members;
-  List<BoilerplateDeclaration> declarations;
   ClassComponentDeclaration component;
 
   ErrorCollector errorCollector;
@@ -48,16 +46,16 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
 
   /// Checks the context of the assist node and returns if it is an appropriate
   /// context to suggest a component level assist.
-  bool get isAValidComponentDeclaration => _isAValidComponentDeclaration ??=
+  bool get isAValidComponentDeclaration {
+    if (_isAValidComponentDeclaration == null)
       throw StateError('API not initialized. Call `initializeAssistApi` before accessible API members.');
+
+    return _isAValidComponentDeclaration;
+  }
 
   String get normalizedComponentName => normalizeNameAndRemoveSuffix(component.component);
 
-  NamedType get componentType {
-    final typedComponent = component?.component?.node as ClassDeclaration;
-
-    return typedComponent?.extendsClause?.childEntities?.whereType<TypeName>()?.first;
-  }
+  NamedType get componentSupertypeNode => component.component.nodeHelper.superclass;
 
   Union<BoilerplateProps, BoilerplatePropsMixin> get props => component.props;
 
@@ -67,18 +65,18 @@ mixin ComponentDeclarationAssistApi on AssistContributorBase {
     if (node is! SimpleIdentifier || node.parent is! ClassDeclaration) return false;
     ClassDeclaration parent = node.parent;
 
-    members = detectBoilerplateMembers(node.thisOrAncestorOfType<CompilationUnit>());
-    declarations = getBoilerplateDeclarations(members, errorCollector).toList();
+    final members = detectBoilerplateMembers(node.thisOrAncestorOfType<CompilationUnit>());
+    final declarations = getBoilerplateDeclarations(members, errorCollector).toList();
 
-    component = declarations.whereType<ClassComponentDeclaration>()?.where((c) {
-      return c.component.name.name == parent.name.name;
-    })?.firstOrNull;
+    component = declarations.whereType<ClassComponentDeclaration>().firstWhere((c) {
+      return c.component.node == parent;
+    }, orElse: () => null);
 
     _isAValidComponentDeclaration = component != null && component.version == Version.v4_mixinBased;
     return isAValidComponentDeclaration;
   }
 
-  /// Returns whether the selected unit is in the correct context to show a component
+  /// Returns whether the node under the cursor is the correct context to show a component
   /// assist after initializing important instance fields.
   ///
   /// Should be called right after finishing the assist setup.
