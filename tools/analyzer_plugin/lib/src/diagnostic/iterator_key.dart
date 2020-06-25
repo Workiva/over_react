@@ -1,5 +1,6 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
@@ -14,6 +15,7 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
     AnalysisErrorType.STATIC_WARNING,
   );
 
+  static final listLiteralFixKind = convertUsageListLiteralToVariadicChildrenFixKind(code);
   @override
   computeErrorsForUsage(ResolvedUnitResult result, DiagnosticCollector collector, FluentComponentUsage usage) async {
     final arguments = usage.node.argumentList.arguments;
@@ -31,9 +33,13 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
 
           if (!elementHasKeyProp) {
             // If current element in the list is missing a key prop, add warning & don't bother w/ remaining elements
-            collector.addError(
+            await collector.addErrorWithFix(
               code,
               result.locationFor(usage.node),
+              fixKind: listLiteralFixKind,
+              computeFix: () => buildFileEdit(result, (builder) {
+                convertUsageListLiteralToVariadicChildren(builder, argument);
+              }),
             );
           }
         }
