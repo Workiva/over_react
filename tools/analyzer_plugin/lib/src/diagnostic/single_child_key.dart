@@ -3,14 +3,69 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
-class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
-  static final code = DiagnosticCode(
-      'single_child_key',
-      'React keys are only needed for children rendered in lists with siblings.',
-      AnalysisErrorSeverity.INFO,
-      AnalysisErrorType.HINT);
+const _desc = r'Avoid setting props.key when it is not necessary.';
+// <editor-fold desc="Documentation Details">
+const _details = r'''
 
-  static final fixKind = FixKind(code.name, 200, 'Remove unnecessary key', appliedTogetherMessage: 'Remove key prop');
+**PREFER** omitting `props.key` when an element is the only element in an iterable, or when it is not 
+placed within an iterable.
+
+**GOOD:**
+```
+@override
+render() {
+  return Dom.ul()(
+    Dom.li()(
+      'item 1',
+    ),
+    Dom.li()(
+      'item 2',
+    ),
+  );
+}
+```
+
+**BAD:**
+```
+@override
+render() {
+  return Dom.ul()(
+    (Dom.li()..key = 1)(
+      'item 1',
+    ),
+    (Dom.li()..key = 2)(
+      'item 2',
+    ),
+  );
+}
+```
+
+**BAD:**
+```
+@override
+render() {
+  return Dom.ul()([
+    (Dom.li()..key = 1)(
+      'the only item',
+    ),
+  ]);
+}
+```
+
+''';
+// </editor-fold>
+
+class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
+  @DocsMeta(_desc, details: _details)
+  static const code = DiagnosticCode(
+    'over_react_single_child_key',
+    _desc,
+    AnalysisErrorSeverity.INFO,
+    AnalysisErrorType.HINT,
+    correction: 'Only add a key when an element is within an iterable with one or more siblings elements.',
+  );
+
+  static final fixKind = FixKind(code.name, 200, 'Remove unnecessary key');
 
   @override
   computeErrorsForUsage(result, collector, usage) async {

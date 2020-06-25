@@ -1,5 +1,8 @@
 # OverReact Analyzer Plugin
 
+[![OverReact Analyzer Plugin](https://img.shields.io/badge/docs-lints-red.svg)](https://workiva.github.io/over_react/analyzer_plugin/lints/)
+[![OverReact Analyzer Plugin](https://img.shields.io/badge/docs-assists-blue.svg)](https://workiva.github.io/over_react/analyzer_plugin/assists/)
+
 > A [Dart analyzer plugin][analyzer_plugin] for OverReact.
 
 ---
@@ -134,6 +137,148 @@ We drew inspiration from the following:
     * [ReactEd](https://marketplace.visualstudio.com/items?itemName=ReactEd.reacted)
 * [AngularDart analyzer plugin](https://github.com/dart-lang/angular/tree/master/angular_analyzer_plugin)
 
+
+
+### Documenting Lints / Assists
+
+__All lints and assists should be documented!!!__
+
+Documentation for the lints / assists provided by the analyzer plugin are published to <https://workiva.github.io/over_react/analyzer_plugin/>.
+
+This is accomplished by placing a `@DocsMeta` annotation on a `DiagnosticCode` for lints, and an `AssistKind` for assists. In order for them to work properly, the property the `DiagnosticCode` or `AssistKind` is assigned to __must be a `const`__ as shown in the examples below.
+
+#### Examples
+
+__Error Example:__
+````dart
+const _desc = r'Do not use string CSS property values without specifying a unit.';
+const _correction =
+    r'Use CSS property values that are strings _with_ units, or numbers _(in which case `px` will be inferred)_.';
+// <editor-fold desc="Documentation Details">
+const _details = '''
+
+**ALWAYS** $_correction
+
+**GOOD:**
+```
+@override
+render() {
+  return (Dom.div()..style = {'width': 80})(
+    'I am eighty pixels wide!',
+  );
+}
+```
+
+**GOOD:**
+```
+@override
+render() {
+  return (Dom.div()..style = {'width': '80px'})(
+    'I am also eighty pixels wide!',
+  );
+}
+```
+
+**BAD:**
+```
+@override
+render() {
+  return (Dom.div()..style = {'width': '80'})(
+    'I never rendered because of a ReactJS runtime error :(',
+  );
+}
+```
+
+''';
+// </editor-fold>
+
+class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
+  @DocsMeta(_desc, details: _details)
+  static const code = DiagnosticCode(
+    'over_react_style_missing_unit',
+    _desc,
+    AnalysisErrorSeverity.ERROR,
+    AnalysisErrorType.SYNTACTIC_ERROR,
+    correction: _correction,
+  );
+
+  // ...
+}
+````
+
+__Lint / Warning Example:__
+````dart
+const _desc = r'Avoid forwarding custom props to a Dom builder.';
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+
+**PREFER** to use `addUnconsumedDomProps` instead of `addUnconsumedProps` on Dom builders.
+
+**GOOD:**
+```
+@override
+render() {
+  return (Dom.div()
+    ..modifyProps(addUnconsumedDomProps)
+    ..id = 'foo'
+  )(props.children);
+}
+```
+
+**BAD:**
+```
+@override
+render() {
+  return (Dom.div()
+    ..modifyProps(addUnconsumedProps)
+    ..id = 'foo'
+  )(props.children);
+}
+```
+
+''';
+// </editor-fold>
+
+class ForwardOnlyDomPropsToDomBuildersDiagnostic extends ComponentUsageDiagnosticContributor {
+  @DocsMeta(_desc, details: _details)
+  static const code = DiagnosticCode(
+    'over_react_forward_only_dom_props_to_dom_builders',
+    _desc,
+    AnalysisErrorSeverity.WARNING,
+    AnalysisErrorType.STATIC_WARNING,
+    correction: 'Use addUnconsumedDomProps instead of addUnconsumedProps.',
+  );
+
+  // ...
+}
+````
+
+
+#### Best Practices
+1. The value of `DiagnosticCode.name` should always start with `over_react_`.
+1. The value of `DiagnosticCode.message` and `DocsMeta.description` should use consistent terminology based on the severity of the lint.
+    * `AnalysisErrorSeverity.INFO`s and `AnalysisErrorSeverity.WARNING`s should start with _"Avoid"_ or _"Prefer"_.
+    * `AnalysisErrorSeverity.ERROR`s should start with _"Do not"_, _"Never"_ or _"Always"_.
+    
+    Check out the [examples](#examples) above for demonstrations of this.
+1. The value of `DiagnosticCode.message` should not include the steps that users should take to correct the lint.
+    * Use `DiagnosticCode.correction` for this as shown in the [examples](#examples) above.
+1. The value of `DiagnosticCode.message` and `DiagnosticCode.correction` should always end with a period.
+1. The value of `FixKind.message` and `AssistKind.message` should NOT end with a period.
+1. When possible, the value of `DocsMeta.description` _(first argument passed to the `@DocsMeta` annotation)_ should match the value of `DiagnosticCode.message`.
+    * Sometimes this isn't possible as a result of using `errorMessageArgs` to pass dynamic information into the message.
+1. The value of `DocsMeta.details` gets parsed as markdown, and should provide as much detail about the lint as possible - including a "GOOD" and "BAD" example when possible _(as shown in the [examples](#examples) above)_.
+
+ 
+
+#### Updating Published Documentation
+1. When a new/updated lint or assist merges to master, merge master into the `gh-pages` branch _(it should merge cleanly)_.
+1. From the `tools/analyzer_plugin/` directory, run:
+    ```shell script
+    dart ./tool/doc.dart --gh-pages
+    ```
+1. Commit the changes, and push them to the `gh-pages` branch.
+    This will deploy the updated documentation to <https://workiva.github.io/over_react/analyzer_plugin/> - typically within a matter of seconds. 
 
 [analyzer_plugin]: https://github.com/dart-lang/sdk/tree/master/pkg/analyzer_plugin
 [analyzer_plugin_tutorial]: https://github.com/dart-lang/sdk/blob/master/pkg/analyzer_plugin/doc/tutorial/tutorial.md
