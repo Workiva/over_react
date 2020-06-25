@@ -8,16 +8,40 @@ import 'dart:collection';
 import 'package:analyzer/analyzer.dart' show ConstantEvaluator;
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/source/line_info.dart';
 
 export 'package:over_react/src/builder/parsing/ast_util.dart';
 export 'package:over_react/src/builder/parsing/util.dart';
+
+/// Returns a String value when a literal or constant var/identifier is found within [expr].
+String getConstOrLiteralStringValueFrom(Expression expr) {
+  if (!expr.staticType.isDartCoreString) return null;
+
+  if (expr is StringInterpolation) {
+    final constantValue = expr.accept(ConstantEvaluator());
+    return constantValue is String ? constantValue : null;
+  } else if (expr is StringLiteral) {
+    return expr.stringValue;
+  } else if (expr is SimpleIdentifier) {
+    final element = expr.staticElement;
+    if (element is PropertyAccessorElement) {
+      return element.variable.computeConstantValue()?.toStringValue();
+    } else if (element is VariableElement) {
+      return element.computeConstantValue()?.toStringValue();
+    }
+  }
+
+  return null;
+}
 
 /// Returns a lazy iterable of all descendants of [node], in breadth-first order.
 Iterable<AstNode> allDescendants(AstNode node) sync* {
   final nodesQueue = Queue<AstNode>()..add(node);
   while (nodesQueue.isNotEmpty) {
     final current = nodesQueue.removeFirst();
+    if (current == null) return;
+
     for (final child in current.childEntities) {
       if (child is AstNode) {
         yield child;
@@ -32,7 +56,7 @@ Iterable<T> allDescendantsOfType<T extends AstNode>(AstNode node) => allDescenda
 
 extension ClassOrMixinDeclarationUtils on ClassOrMixinDeclaration {
   /// Similar to [getField], but returns the entire declaration instead.
-  FieldDeclaration getFieldDeclaration(String name) => getField(name).thisOrAncestorOfType<FieldDeclaration>();
+  FieldDeclaration getFieldDeclaration(String name) => getField(name)?.thisOrAncestorOfType<FieldDeclaration>();
 }
 
 int prevLine(int offset, LineInfo lineInfo) {

@@ -9,6 +9,7 @@ import 'package:analyzer/source/line_info.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
+
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
@@ -95,8 +96,8 @@ FluentComponentUsage parseAndGetComponentUsage(String dartSource) {
 }
 
 /// Parses [dartSource] and returns the resolved AST, throwing if there are any static analysis errors.
-Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource) async {
-  final results = await parseAndGetResolvedUnits({'dartSource.dart': dartSource});
+Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource, {String path = 'dartSource.dart'}) async {
+  final results = await parseAndGetResolvedUnits({path: dartSource});
   return results.values.single;
 }
 
@@ -107,23 +108,25 @@ Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource) async {
 ///
 /// Example:
 /// ```dart
-//  final results = await parseAndGetResolvedUnits({
-//    'foo.dart': r'''
-//      class Foo {}
-//    ''',
-//
-//    'bar.dart': r'''
-//      import 'foo.dart';
-//      class Bar extends Foo {}
-//    ''',
-//  });
-//
-//  final barResolveResult = results['bar.dart'];
-//  final barElement = barResolveResult.unit.declaredElement.getType('Bar');
-//  print(barElement.allSupertypes); // [Foo, Object]
+///  final results = await parseAndGetResolvedUnits({
+///    'foo.dart': r'''
+///      class Foo {}
+///    ''',
+///
+///    'bar.dart': r'''
+///      import 'foo.dart';
+///      class Bar extends Foo {}
+///    ''',
+///  });
+///
+///  final barResolveResult = results['bar.dart'];
+///  final barElement = barResolveResult.unit.declaredElement.getType('Bar');
+///  print(barElement.allSupertypes); // [Foo, Object]
 /// ```
 Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, String> dartSourcesByPath) async {
-  // Must be absolute
+  // Must be absolute.
+  // Hack: use a path inside this project directory so that we end up in the same context as the current package,
+  // and can resolve imports for all dependencies (including over_react, react, etc.)
   final pathPrefix = p.absolute('_fake_in_memory_path');
 
   String transformPath(String path) => p.join(pathPrefix, path);
@@ -147,7 +150,8 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
     final context = collection.contextFor(transformPath(path));
     final result = await context.currentSession.getResolvedUnit(transformPath(path));
     final lineInfo = result.unit.lineInfo;
-    final filteredErrors = filterIgnores(result.errors, lineInfo, () => IgnoreInfo.calculateIgnores(result.content, lineInfo));
+    final filteredErrors =
+        filterIgnores(result.errors, lineInfo, () => IgnoreInfo.calculateIgnores(result.content, lineInfo));
     if (filteredErrors.isNotEmpty) {
       throw ArgumentError('Parse errors in source "$path":\n${filteredErrors.join('\n')}');
     }

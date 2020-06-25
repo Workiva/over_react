@@ -29,10 +29,13 @@ class FooComponent extends UiComponent2<FooProps> {
         throw PropError.required(info.propName);
       } else if (props.prop1 > 0) {
         throw PropError.value(props.prop1, info.propName);
+      } else if (props.prop1 > 100) {
+        return super.propTypes[keyForProp((p) => p.prop1)](props, info); // Should not lint
       }
       return null;
     },
     keyForProp((p) => p.prop2): (props, info) {
+      final tProps = typedPropsFactory(props); // Should not lint
       _someField = 'foo';
       if (someGetter == 'foo') {
         print('woo');
