@@ -23,7 +23,7 @@ extension on Element /*?*/ {
   }
 
   bool isTypeFromPackage(String typeName, String packageName) =>
-      this?.name == typeName && isDeclaredInPackage(packageName);
+      this != null && name == typeName && isDeclaredInPackage(packageName);
 }
 
 extension on Element {

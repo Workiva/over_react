@@ -1,6 +1,6 @@
 import 'package:over_react/over_react.dart';
 
-part 'dom_prop_types.over_react.g.dart';
+part 'pseudo_static_lifecycle.over_react.g.dart';
 
 UiFactory<HammerTimeProps> HammerTime =
     // ignore: undefined_identifier
@@ -17,8 +17,9 @@ class HammerTimeComponent extends UiStatefulComponent2<HammerTimeProps, HammerTi
 
   @override
   get defaultProps {
-    return newProps()
-      ..somethingThatCanBeTouched = mcHammer;
+    return newProps() // This newProps() call should not lint
+      ..addProps(super.defaultProps) // This super.defaultProps access should not lint
+      ..somethingThatCanBeTouched = mcHammer; // This mcHammer access SHOULD lint
   }
 
   @override

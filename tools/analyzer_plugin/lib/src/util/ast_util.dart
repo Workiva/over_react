@@ -2,10 +2,10 @@
 library over_react_analyzer_plugin.src.ast_util;
 
 import 'dart:collection';
-// ignore: deprecated_member_use
 // This is necessary for `ConstantEvaluator`. If that API is removed, it can just
 // be copied and pasted into this analyzer package (if still needed).
-import 'package:analyzer/analyzer.dart';
+// ignore: deprecated_member_use
+import 'package:analyzer/analyzer.dart' show ConstantEvaluator;
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/source/line_info.dart';
@@ -81,7 +81,7 @@ extension BlockFunctionBodyUtils on BlockFunctionBody {
   }
 }
 
-class _ReturnStatementsForBodyVisitor extends RecursiveAstVisitor {
+class _ReturnStatementsForBodyVisitor extends RecursiveAstVisitor<void> {
   final returnStatementsForBody = <ReturnStatement>[];
 
   @override

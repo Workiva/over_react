@@ -1,5 +1,5 @@
 /// Generates allowedHtmlElementsForAttribute for use in dom_prop_types.dart
-main() {
+void main() {
   final supportedElements = <String, List<String>>{};
   final globalAttributes = <String>[];
 
