@@ -3,33 +3,20 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
-class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
-  static final code = DiagnosticCode(
-      'single_child_key',
-      'React keys are only needed for children rendered in lists with siblings.',
-      AnalysisErrorSeverity.INFO,
-      AnalysisErrorType.HINT);
+class VariadicChildrenWithKeys extends ComponentUsageDiagnosticContributor {
+  static final code = DiagnosticCode('variadic_children_with_keys',
+      'React keys are only needed for children rendered in lists.', AnalysisErrorSeverity.INFO, AnalysisErrorType.HINT);
 
   static final fixKind = FixKind(code.name, 200, 'Remove unnecessary key', appliedTogetherMessage: 'Remove key prop');
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    var isInAList = false;
     var isVariadic = false;
-    var isSingleChild = false;
-
     final parentMethodName = usage.node.thisOrAncestorOfType<MethodDeclaration>()?.name?.name;
 
     final parent = usage.node.parent;
-    // Being a list literal, the grandparent should be another component usage. Otherwise, the list may still
-    // easily be manipulated.
-    if (parent is ListLiteral && identifyUsage(parent?.parent?.parent) != null) {
-      isInAList = true;
 
-      if (parent.elements.length == 1) {
-        isSingleChild = true;
-      }
-    } else if (parent is ArgumentList) {
+    if (parent is ArgumentList) {
       final enclosingUsage = identifyUsage(parent?.parent);
 
       if (enclosingUsage?.node?.argumentList == parent ?? false) {
@@ -39,7 +26,7 @@ class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
       isVariadic = true;
     }
 
-    if ((isInAList && isSingleChild) || isVariadic) {
+    if (isVariadic) {
       for (final prop in usage.cascadedProps) {
         if (prop.name.name == 'key' && isAConstantValue(prop.rightHandSide)) {
           await collector.addErrorWithFix(

@@ -33,12 +33,12 @@ class TestComponent extends UiComponent2<TestProps> {
 
     if (arbitrary) {
       return [
-        (Dom.div()..key='unknown')(),
+        (Dom.div()..key='necessary')(),
       ];
     } else {
       return [
-        (Dom.div()..key='definitely-necessary')(),
-        (Dom.div()..key='definitely-necessary-1')(),
+        (Dom.div()..key='necessary')(),
+        (Dom.div()..key='necessary-1')(),
       ];
     }
   }
@@ -55,7 +55,7 @@ class TestComponent extends UiComponent2<TestProps> {
         // ignore: over_react_variadic_children
         [
           (Dom.div()
-          ..key = 'unnecessary'
+          ..key = 'necessary'
           )('Test'),
         ]
       )
