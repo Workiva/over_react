@@ -1,5 +1,7 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/fluent_interface_util/cascade_read.dart';
+import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
 const _desc = r'Avoid using iterable children when variadic children can be used.';
 // <editor-fold desc="Documentation Details">
@@ -37,11 +39,11 @@ class VariadicChildrenDiagnostic extends ComponentUsageDiagnosticContributor {
   static const code = DiagnosticCode(
     'over_react_variadic_children',
     _desc,
-    AnalysisErrorSeverity.WARNING,
-    AnalysisErrorType.STATIC_WARNING,
+    AnalysisErrorSeverity.INFO,
+    AnalysisErrorType.LINT,
   );
 
-  static final fixKind = FixKind(code.name, 200, 'Unwrap children from list literal');
+  static final fixKind = convertUsageListLiteralToVariadicChildrenFixKind(code);
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
@@ -54,11 +56,46 @@ class VariadicChildrenDiagnostic extends ComponentUsageDiagnosticContributor {
         result.locationFor(list),
         fixKind: fixKind,
         computeFix: () => buildFileEdit(result, (builder) {
-          builder.addDeletion(range.token(list.leftBracket));
-          builder.addDeletion(range.token(list.rightBracket));
-          // todo remove any keys from children as well
+          convertUsageListLiteralToVariadicChildren(builder, list);
         }),
       );
+    }
+  }
+}
+
+FixKind convertUsageListLiteralToVariadicChildrenFixKind(
+  DiagnosticCode code, {
+  int priority = 200,
+  String message = 'Unwrap children from unnecessary list literal',
+}) =>
+    FixKind(code.name, priority, message);
+
+/// Removes the left/right bracket from the provided [listLiteral], and removes the value of `props.key` from
+/// any child elements that have one set if [removeKeyFromChildren] is true.
+///
+/// Should only be used if the [listLiteral] is an argument within a [FluentComponentUsage]'s node invocation.
+///
+/// Can be shared in [convertUsageListLiteralToVariadicChildrenFixKind] quick fixes for lints
+/// involving the keying of children / use of list literals as element children.
+void convertUsageListLiteralToVariadicChildren(
+  DartFileEditBuilder builder,
+  ListLiteral listLiteral, {
+  bool removeKeyFromChildren = true,
+}) {
+  builder.addDeletion(range.token(listLiteral.leftBracket));
+  builder.addDeletion(range.token(listLiteral.rightBracket));
+
+  if (!removeKeyFromChildren) return;
+
+  for (final node in allDescendants(listLiteral)) {
+    final usages = <FluentComponentUsage>[];
+    node.accept(ComponentUsageVisitor(usages.add));
+    for (final usage in usages) {
+      for (final prop in usage.cascadedProps) {
+        if (prop.name.name == 'key') {
+          builder.addDeletion(prop.rangeForRemoval);
+        }
+      }
     }
   }
 }
