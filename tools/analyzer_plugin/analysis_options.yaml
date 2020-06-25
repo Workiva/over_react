@@ -1,6 +1,8 @@
 include: package:workiva_analysis_options/v1.recommended.yaml
 
 analyzer:
+  exclude:
+    - playground/**
   strong-mode:
     implicit-casts: false
     implicit-dynamic: false
@@ -18,8 +20,6 @@ analyzer:
     prefer_single_quotes: ignore
     type_annotate_public_apis: ignore
     prefer_final_locals: ignore
-  exclude:
-    - tools/analyzer_plugin
 
 linter:
   rules:
