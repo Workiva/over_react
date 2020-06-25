@@ -3,14 +3,16 @@ import 'package:over_react/over_react.dart';
 main() {
   final content = Fragment()(
     (Dom.a()
-      // This should have a lint.
+      // These should have a lint.
       ..size = 1
+      ..dom.label = 'foo'
       // These should have no lint
       ..href = null
       ..hrefLang = null
       ..download = null
       ..rel = null
       ..target = null
+      ..aria.label = 'foo'
     )(),
     (Dom.abbr()
       // This should have a lint.
