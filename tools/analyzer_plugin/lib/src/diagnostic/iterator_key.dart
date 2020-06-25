@@ -1,5 +1,6 @@
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
@@ -12,7 +13,11 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
     'Missing "key" prop for element in iterator',
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
+    correction: 'Add a unique props.key value to the component builder, or remove it from the list literal.',
   );
+
+  static final listLiteralFixKind = convertUsageListLiteralToVariadicChildrenFixKind(code);
+  static final mappedIterableFixKind = FixKind(code.name, 200, 'Add a key');
 
   @override
   computeErrorsForUsage(ResolvedUnitResult result, DiagnosticCollector collector, FluentComponentUsage usage) async {
@@ -31,9 +36,13 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
 
           if (!elementHasKeyProp) {
             // If current element in the list is missing a key prop, add warning & don't bother w/ remaining elements
-            collector.addError(
+            await collector.addErrorWithFix(
               code,
               result.locationFor(usage.node),
+              fixKind: listLiteralFixKind,
+              computeFix: () => buildFileEdit(result, (builder) {
+                convertUsageListLiteralToVariadicChildren(builder, argument);
+              }),
             );
           }
         }
@@ -62,9 +71,22 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
           var elementHasKeyProp = _doesElementHaveKeyProp(returnedUsage);
 
           if (!elementHasKeyProp) {
-            collector.addError(
+            await collector.addErrorWithFix(
               code,
               result.locationFor(returnedUsage.node),
+              fixKind: mappedIterableFixKind,
+              computeFix: () => buildFileEdit(result, (builder) {
+                addProp(
+                  returnedUsage,
+                  builder,
+                  result.content,
+                  result.lineInfo,
+                  name: 'key',
+                  buildValueEdit: (_builder) {
+                    _builder.addSimpleLinkedEdit('keyName', "'somethingUnique'");
+                  },
+                );
+              }),
             );
           }
         }

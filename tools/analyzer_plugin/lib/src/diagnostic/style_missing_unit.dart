@@ -1,11 +1,8 @@
-// This is necessary for `ConstantEvaluator`. If that API is removed, it can just
-// be copied and pasted into this analyzer package (if still needed).
-// ignore: deprecated_member_use
-import 'package:analyzer/analyzer.dart' show ConstantEvaluator;
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
 class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
   static final code = DiagnosticCode(
@@ -29,7 +26,7 @@ class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
     }
 
     for (final entry in styleEntries) {
-      final propertyName = _stringValueIfApplicable(entry.key);
+      final propertyName = getConstOrLiteralStringValueFrom(entry.key);
       if (propertyName == null) continue;
 
       if (unitlessNumberStyles.contains(propertyName) || _isCustomProperty(propertyName)) {
@@ -37,7 +34,7 @@ class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
       }
 
       // Only worry about strings, since numbers get values
-      final stringValue = _stringValueIfApplicable(entry.value);
+      final stringValue = getConstOrLiteralStringValueFrom(entry.value);
       if (stringValue == null) continue;
 
       if (num.tryParse(stringValue) != null) {
@@ -74,11 +71,6 @@ class _RecursiveMapLiteralEntryVisitor extends RecursiveAstVisitor<void> {
     onMapLiteralEntry(node);
     node.visitChildren(this);
   }
-}
-
-String _stringValueIfApplicable(Expression value) {
-  final constantValue = value.accept(ConstantEvaluator());
-  return constantValue is String ? constantValue : null;
 }
 
 bool _isCustomProperty(String propertyName) => propertyName.startsWith('--');

@@ -1,9 +1,9 @@
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/source/source_range.dart';
 import 'package:analyzer_plugin/utilities/pair.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
 /// A warning that appears when the `target` prop is set, but `rel = 'noreferrer noopener'` is not.
 ///
@@ -48,20 +48,11 @@ class LinkTargetUsageWithoutRelDiagnostic extends ComponentUsageDiagnosticContri
     var actualRelValues = <String>{};
     var offerQuickFix = relPropSection == null || relPropSection.last.staticType.isDartCoreNull;
     if (relPropSection != null && relPropSection.last.staticType.isDartCoreString) {
-      if (relPropSection.last is StringLiteral) {
-        offerQuickFix = true;
-        final declaredValues = (relPropSection.last as StringLiteral).stringValue?.split(' ')?.toSet();
-        if (declaredValues != null) {
-          actualRelValues = declaredValues;
-        }
-      } else if (relPropSection.last is SimpleIdentifier) {
-        final element = (relPropSection.last as SimpleIdentifier).staticElement;
-        if (element is PropertyAccessorElement) {
-          final declaredValues = element.variable.computeConstantValue()?.toStringValue()?.split(' ')?.toSet();
-          if (declaredValues != null) {
-            actualRelValues = declaredValues;
-          }
-        }
+      offerQuickFix = relPropSection.last is StringLiteral;
+
+      final declaredValues = getConstOrLiteralStringValueFrom(relPropSection.last)?.split(' ')?.toSet();
+      if (declaredValues != null) {
+        actualRelValues = declaredValues;
       }
     }
     final missingRequiredRelValues = requiredRelValues.difference(actualRelValues);
