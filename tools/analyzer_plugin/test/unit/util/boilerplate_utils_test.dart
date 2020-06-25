@@ -54,7 +54,7 @@ const sourceWithNoPart = /*language=dart*/ r'''
   }
 ''';
 
-main() {
+void main() {
   group('boilerplate_util', () {
     group('getOverReactGeneratedPartDirective', () {
       test('returns correct over_react part directive', () {
