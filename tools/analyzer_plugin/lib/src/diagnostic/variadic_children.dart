@@ -7,8 +7,8 @@ class VariadicChildrenDiagnostic extends ComponentUsageDiagnosticContributor {
   static const code = DiagnosticCode(
     'over_react_variadic_children',
     'Variadic children should be used instead of lists where possible',
-    AnalysisErrorSeverity.WARNING,
-    AnalysisErrorType.STATIC_WARNING,
+    AnalysisErrorSeverity.INFO,
+    AnalysisErrorType.LINT,
   );
 
   static final fixKind = FixKind(code.name, 200, 'Unwrap children from list literal',
