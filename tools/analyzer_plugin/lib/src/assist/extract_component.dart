@@ -73,7 +73,7 @@ abstract class _ExtractComponentAssistContributorBase extends AssistContributorB
   }
 }
 
-const _extractComponentDesc = r'Extract the selection as a new UiComponent.';
+const _extractComponentDesc = r'Extract selection as a new UiComponent';
 // <editor-fold desc="Documentation Details">
 const _extractComponentDetails = r'''
 
@@ -132,7 +132,7 @@ class FooComponent extends UiComponent2<FooProps> {
 /// {@category Assists}
 class ExtractComponentAssistContributor extends _ExtractComponentAssistContributorBase {
   @DocsMeta(_extractComponentDesc, details: _extractComponentDetails)
-  static const extractComponent = AssistKind('extractComponent', 32, 'Extract selection as a new UiComponent');
+  static const extractComponent = AssistKind('extractComponent', 32, _extractComponentDesc);
   @override
   get _assistKind => extractComponent;
 
@@ -143,7 +143,7 @@ class ExtractComponentAssistContributor extends _ExtractComponentAssistContribut
   BoilerplateLinkedEditFn addBoilerplateLinkedEditFn = addUiComponentBoilerplateLinkedEdit;
 }
 
-const _extractStatefulComponentDesc = r'Extract the selection as a new UiStatefulComponent.';
+const _extractStatefulComponentDesc = r'Extract selection as a new UiStatefulComponent';
 // <editor-fold desc="Stateful Documentation Details">
 const _extractStatefulComponentDetails = r'''
 
@@ -207,8 +207,7 @@ class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
 /// {@category Assists}
 class ExtractStatefulComponentAssistContributor extends _ExtractComponentAssistContributorBase {
   @DocsMeta(_extractStatefulComponentDesc, details: _extractStatefulComponentDetails)
-  static const extractComponent =
-      AssistKind('extractStatefulComponent', 32, 'Extract selection as a new UiStatefulComponent');
+  static const extractComponent = AssistKind('extractStatefulComponent', 32, _extractStatefulComponentDesc);
   @override
   get _assistKind => extractComponent;
 

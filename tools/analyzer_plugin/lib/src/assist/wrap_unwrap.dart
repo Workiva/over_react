@@ -6,7 +6,7 @@ import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/fix.dart';
 
-const _desc = r'Wrap the selection with another ReactElement';
+const _desc = r'Wrap selection with another ReactElement';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
@@ -33,7 +33,7 @@ final foo = component()(
 
 class WrapUnwrapAssistContributor extends AssistContributorBase {
   @DocsMeta(_desc, details: _details)
-  static const wrapInElement = AssistKind('wrapInElement', 30, 'Wrap in another ReactElement');
+  static const wrapInElement = AssistKind('wrapInElement', 30, _desc);
 
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {

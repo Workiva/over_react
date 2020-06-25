@@ -261,7 +261,7 @@ class ForwardOnlyDomPropsToDomBuildersDiagnostic extends ComponentUsageDiagnosti
 1. The value of `DiagnosticCode.message` should not include the steps that users should take to correct the lint.
     * Use `DiagnosticCode.correction` for this as shown in the [examples](#examples) above.
 1. The value of `DiagnosticCode.message` and `DiagnosticCode.correction` should always end with a period.
-    * Use `DiagnosticCode.correction` for this as shown in the [examples](#examples) above.
+1. The value of `FixKind.message` and `AssistKind.message` should NOT end with a period.
 1. When possible, the value of `DocsMeta.description` _(first argument passed to the `@DocsMeta` annotation)_ should match the value of `DiagnosticCode.message`.
     * Sometimes this isn't possible as a result of using `errorMessageArgs` to pass dynamic information into the message.
 1. The value of `DocsMeta.details` gets parsed as markdown, and should provide as much detail about the lint as possible - including a "GOOD" and "BAD" example when possible _(as shown in the [examples](#examples) above)_.
