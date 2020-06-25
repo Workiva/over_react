@@ -4,7 +4,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/pseudo_static_lifecycl
 import 'package:over_react_analyzer_plugin/src/diagnostic/visitors/non_static_reference_visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/visitors/proptypes_visitors.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
-import 'package:over_react_analyzer_plugin/src/utils/util.dart';
+import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 /// An error that appears when accessing instance members of a class in propTypes values
 ///
@@ -33,7 +33,7 @@ class PropTypesInstanceMembersDiagnostic extends DiagnosticContributor {
 
         if (reference is SuperExpression) {
           // Do not lint calls to super.propTypes
-          if (reference.parent.tryCast<PropertyAccess>()?.propertyName.name == 'propTypes') continue;
+          if (reference.parent.tryCast<PropertyAccess>()?.propertyName?.name == 'propTypes') continue;
         }
 
         collector.addError(
