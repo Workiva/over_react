@@ -8,12 +8,14 @@ environment:
 dependencies:
   analyzer: '^0.39.10'
   analyzer_plugin: '^0.2.4'
+  collection: ^1.14.0
   # Upon release, this should be pinned to the over_react version from ../../pubspec.yaml
   # so that it always resolves to the same version of over_react that the user has pulled in,
   # and thus has the same boilerplate parsing code that's running in the builder.
   over_react: 3.5.3
   meta: ^1.1.6
   path: ^1.5.1
+  source_span: ^1.7.0
 dev_dependencies:
   build_runner: ^1.0.0
   build_test: ^1.0.0
@@ -21,9 +23,11 @@ dev_dependencies:
   convert: ^2.1.1
   crypto: ^2.1.5
   dart_dev: ^3.0.0
+  dependency_validator: ^1.4.0
   glob: ^1.2.0
   io: ^0.3.2+1
   linter: ^0.1.117
+  logging: ">=0.11.3+2 <1.0.0"
   markdown: ^2.1.5
   test: ^1.0.0
   workiva_analysis_options: ^1.1.0
