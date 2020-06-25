@@ -107,7 +107,7 @@
       "",
       "part '${1:FileName}.over_react.g.dart';",
       "",
-      "UiFactory<${2:MyComponent}Props> ${2:MyComponent} = connect<${3:MyState}, ${2:MyComponent}Props>(",
+      "UiFactory<${2:MyComponent}Props> ${2:MyComponent} = connect<${3:SomeReduxStoreState}, ${2:MyComponent}Props>(",
       "\tmapStateToProps: (state) => (${2:MyComponent}()),",
       "\tmapDispatchToProps: (dispatch) => (${2:MyComponent}()),",
       ")(_$${2:MyComponent}); // ignore: undefined_identifier",
@@ -116,10 +116,10 @@
       "",
       "class ${2:MyComponent}Component extends UiComponent2<${2:MyComponent}Props> {",
       "\t@override",
-      "\tMap get defaultProps => (newProps());",
+      "\tget defaultProps => (newProps());",
       "",
       "\t@override",
-      "\tReactElement render() { }",
+      "\trender() { }",
       "}"
     ],
     "description": "Creates a stateless and connected OverReact component"
