@@ -1,5 +1,5 @@
 name: over_react_analyzer_plugin
-version: 0.1.0
+version: 3.5.4+link-test
 publish_to: none
 description: Dart analyzer plugin for OverReact
 repository: https://github.com/Workiva/over_react/tree/master/tools/analyzer_plugin
