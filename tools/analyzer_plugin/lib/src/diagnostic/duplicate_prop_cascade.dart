@@ -22,25 +22,33 @@ class DuplicatePropCascadeDiagnostic extends ComponentUsageDiagnosticContributor
       AnalysisErrorSeverity.WARNING,
       AnalysisErrorType.STATIC_TYPE_WARNING);
 
-  static final fixKind = FixKind(code.name, 200, 'Remove duplicate prop key / value',
-      appliedTogetherMessage: 'Remove duplicate prop keys / values');
+  static final fixKind = FixKind(code.name, 200, 'Remove duplicate prop keys / values');
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    final propUsagesByName = groupBy<PropAssignment, String>(usage.cascadedProps, (prop) => prop.name.name);
+    final propUsagesByName = groupBy<PropAssignment, String>(usage.cascadedProps, (prop) {
+      if (prop.targetName != null && prop.targetName.name != 'dom') {
+        return '${prop.targetName.name}.${prop.name.name}';
+      }
+
+      return prop.name.name;
+    });
     final propUsagesWithDuplicates = propUsagesByName.values.where((usages) => usages.length > 1);
     for (final propUsages in propUsagesWithDuplicates) {
-      // We iterate and apply the warning over all but the final instance of a duplicated prop, so that the last
-      // instance (the one that is actually used at run time) is retained.
-      for (var i = 0; i < propUsages.length - 1; i++) {
-        final prop = propUsages[i];
+      for (var i = 0; i < propUsages.length; i++) {
+        final propWithWarning = propUsages[i];
         await collector.addErrorWithFix(
           code,
-          result.locationFor(prop.leftHandSide),
-          errorMessageArgs: [prop.name.name, i + 1, propUsages.length],
+          result.locationFor(propWithWarning.leftHandSide),
+          errorMessageArgs: [propWithWarning.name.name, i + 1, propUsages.length],
           fixKind: fixKind,
           computeFix: () => buildFileEdit(result, (builder) {
-            builder.addDeletion(prop.rangeForRemoval);
+            for (var i = 0; i < propUsages.length - 1; i++) {
+              final propToRemove = propUsages[i];
+              // We iterate and remove all but the final instance of a duplicated prop, so that the last
+              // instance (the one that is actually used at run time) is retained.
+              builder.addDeletion(propToRemove.rangeForRemoval);
+            }
           }),
         );
       }
