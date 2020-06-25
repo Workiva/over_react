@@ -2,20 +2,39 @@ import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/error/error.dart';
 import 'package:analyzer/file_system/overlay_file_system.dart';
 import 'package:analyzer/file_system/physical_file_system.dart';
+import 'package:analyzer/source/line_info.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:path/path.dart' as p;
+import 'package:test/test.dart';
 
 /// Returns [expression] parsed as AST.
 ///
 /// This is accomplished it by including the [expression]  as a statement within a wrapper function.
 ///
 /// As a result, the offset of the returned expression will not be 0.
+Future<InvocationExpression> parseExpressionResolved(String expression, {String imports = ''}) async {
+  final result = await parseAndGetResolvedUnit('''
+    $imports
+    void wrapperFunction() {
+      $expression; // ignore: undefined_identifier, undefined_function
+    }
+  ''');
+//  final result = await parseAndGetResolvedUnit(expression);
+  final unit = result.unit;
+  final parsedFunction = unit.childEntities.whereType<FunctionDeclaration>().last;
+  final body = parsedFunction.functionExpression.body as BlockFunctionBody;
+  final statement = body.block.statements.single as ExpressionStatement;
+  return statement.expression as InvocationExpression;
+}
+
 InvocationExpression parseExpression(String expression) {
   final unit = parseString(content: 'wrapperFunction() {\n$expression;\n}').unit;
-  final parsedFunction = unit.childEntities.single as FunctionDeclaration;
+  final parsedFunction = unit.childEntities.whereType<FunctionDeclaration>().last;
   final body = parsedFunction.functionExpression.body as BlockFunctionBody;
   final statement = body.block.statements.single as ExpressionStatement;
   return statement.expression as InvocationExpression;
@@ -105,7 +124,7 @@ Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource) async {
 /// ```
 Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, String> dartSourcesByPath) async {
   // Must be absolute
-  const pathPrefix = '/_fake_in_memory_path/';
+  final pathPrefix = p.absolute('_fake_in_memory_path');
 
   String transformPath(String path) => p.join(pathPrefix, path);
 
@@ -127,10 +146,34 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
   for (final path in dartSourcesByPath.keys) {
     final context = collection.contextFor(transformPath(path));
     final result = await context.currentSession.getResolvedUnit(transformPath(path));
-    if (result.errors.isNotEmpty) {
-      throw ArgumentError('Parse errors in source "$path":\n${result.errors.join('\n')}');
+    final lineInfo = result.unit.lineInfo;
+    final filteredErrors = filterIgnores(result.errors, lineInfo, () => IgnoreInfo.calculateIgnores(result.content, lineInfo));
+    if (filteredErrors.isNotEmpty) {
+      throw ArgumentError('Parse errors in source "$path":\n${filteredErrors.join('\n')}');
     }
     results[path] = result;
   }
   return results;
+}
+
+List<AnalysisError> filterIgnores(List<AnalysisError> errors, LineInfo lineInfo, IgnoreInfo Function() lazyIgnoreInfo) {
+  if (errors.isEmpty) {
+    return errors;
+  }
+
+  return _filterIgnored(errors, lazyIgnoreInfo(), lineInfo);
+}
+
+List<AnalysisError> _filterIgnored(List<AnalysisError> errors, IgnoreInfo ignoreInfo, LineInfo lineInfo) {
+  if (errors.isEmpty || !ignoreInfo.hasIgnores) {
+    return errors;
+  }
+
+  bool isIgnored(AnalysisError error) {
+    final errorLine = lineInfo.getLocation(error.offset).lineNumber;
+    final errorCode = error.errorCode.name.toLowerCase();
+    return ignoreInfo.ignoredAt(errorCode, errorLine);
+  }
+
+  return errors.where((e) => !isIgnored(e)).toList();
 }
