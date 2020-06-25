@@ -39,12 +39,20 @@ String _generateValidOverReactGeneratedPartDirective(CompilationUnit unit, Uri f
 
 /// Adds a `.over_react.g.dart` [PartDirective] to the file being edited by the [builder].
 ///
-/// Is a no-op if one already exists.
+/// Corrects existing over_react part directives and is a no-op if a valid one already exists.
 void addOverReactGeneratedPartDirective(DartFileEditBuilder builder, CompilationUnit unit, Uri fileUri) {
   final directives = unit.directives;
   Directive lastDirective;
   if (directives?.isNotEmpty == true) {
     lastDirective = unit.directives.last;
+  }
+
+  if (lastDirective is PartDirective && overReactGeneratedPartDirectiveIsValid(lastDirective, fileUri)) return;
+
+  final overReactPartDirective = getOverReactGeneratedPartDirective(unit);
+  if (overReactPartDirective != null && !overReactGeneratedPartDirectiveIsValid(overReactPartDirective, fileUri)) {
+    fixOverReactGeneratedPartDirective(builder, unit, fileUri);
+    return;
   }
 
   final insertionOffset = lastDirective == null
@@ -61,6 +69,8 @@ void addOverReactGeneratedPartDirective(DartFileEditBuilder builder, Compilation
 void removeOverReactGeneratedPartDirective(DartFileEditBuilder builder, CompilationUnit unit) {
   final generatedPartDirective = getOverReactGeneratedPartDirective(unit);
 
+  if (generatedPartDirective == null) return;
+
   builder.addDeletion(SourceRange(generatedPartDirective.offset, generatedPartDirective.length));
 }
 
@@ -70,6 +80,8 @@ void removeOverReactGeneratedPartDirective(DartFileEditBuilder builder, Compilat
 /// > Related: [overReactGeneratedPartDirectiveIsValid]
 void fixOverReactGeneratedPartDirective(DartFileEditBuilder builder, CompilationUnit unit, Uri fileUri) {
   final partDirective = getOverReactGeneratedPartDirective(unit);
+
+  if (partDirective == null || overReactGeneratedPartDirectiveIsValid(partDirective, fileUri)) return;
 
   builder.addReplacement(SourceRange(partDirective.offset, partDirective.length), (editBuilder) {
     editBuilder.write(_generateValidOverReactGeneratedPartDirective(unit, fileUri));

@@ -62,7 +62,9 @@ void addCreateRef(
       callbackRefPropRhs = rhs;
       refTypeToReplace = RefTypeToReplace.callback;
       createRefField = _getRefCallbackAssignedField(rhs);
-      createRefFieldName = createRefField.name;
+      if (createRefField != null) {
+        createRefFieldName = createRefField.name;
+      }
     }
 
     // Replace the string or callback ref with the field we'll be assigning the return value of createRef() to.
@@ -87,6 +89,8 @@ void addCreateRef(
   if (enclosingClassOrMixin != null && refTypeToReplace == RefTypeToReplace.callback) {
     // Its a callback ref - meaning there is an existing field we need to update.
     final declOfVarRefIsAssignedTo = enclosingClassOrMixin.getFieldDeclaration(createRefFieldName);
+    if (declOfVarRefIsAssignedTo == null) return;
+
     builder.addReplacement(SourceRange(declOfVarRefIsAssignedTo.offset, declOfVarRefIsAssignedTo.length), (_builder) {
       _addCreateRefFieldDeclaration(_builder);
       if (enclosingClassOrMixin.getField(createRefFieldName).declaredElement.isPublic) {
@@ -127,18 +131,20 @@ void addCreateRef(
 
     if (refProp != null) {
       // Replace all usages of ref('oldStringRef') with the new ref field
-      allDescendantsOfType<Identifier>(enclosingClassOrMixin).where((identifier) {
+      final stringRefReferences = allDescendantsOfType<Identifier>(enclosingClassOrMixin).where((identifier) {
         final parentFunctionInvocation = identifier.thisOrAncestorOfType<FunctionExpressionInvocation>();
         if (parentFunctionInvocation == null) return false;
 
         return identifier.name == 'ref' && parentFunctionInvocation.argumentList.toSource() == '($oldStringRefSource)';
-      }).forEach((identifier) {
+      });
+
+      for (final identifier in stringRefReferences) {
         final parentFunctionInvocation = identifier.thisOrAncestorOfType<FunctionExpressionInvocation>();
         builder.addReplacement(SourceRange(parentFunctionInvocation.offset, parentFunctionInvocation.length),
             (_builder) {
           _builder.write(createRefFieldName);
         });
-      });
+      }
     }
   }
 }

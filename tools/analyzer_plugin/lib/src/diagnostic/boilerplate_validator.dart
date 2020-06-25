@@ -84,24 +84,25 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
         collector.addError(debugCode, result.locationFor(member.name), errorMessageArgs: [member.debugString]);
       }
 
-      if (!isPart(result.unit)) {
-        // TODO: In the future, it would be best/most consistent if we could apply errors/fixes for bad/missing
-        // generated part directives in the part files.
-        if (_overReactGeneratedPartDirective == null) {
-          await _addPartDirectiveErrorForMember(
-            result: result,
-            collector: collector,
-            member: member,
-            errorType: PartDirectiveErrorType.missing,
-          );
-        } else if (!_overReactGeneratedPartDirectiveIsValid) {
-          await _addPartDirectiveErrorForMember(
-            result: result,
-            collector: collector,
-            member: member,
-            errorType: PartDirectiveErrorType.invalid,
-          );
-        }
+      // Do not lint anything that is not a likely boilerplate member that will actually get generated.
+      if (member.versionConfidences.toList().every((vcp) => vcp.confidence <= Confidence.neutral)) continue;
+
+      if (isPart(result.unit)) continue;
+
+      if (_overReactGeneratedPartDirective == null) {
+        await _addPartDirectiveErrorForMember(
+          result: result,
+          collector: collector,
+          member: member,
+          errorType: PartDirectiveErrorType.missing,
+        );
+      } else if (!_overReactGeneratedPartDirectiveIsValid) {
+        await _addPartDirectiveErrorForMember(
+          result: result,
+          collector: collector,
+          member: member,
+          errorType: PartDirectiveErrorType.invalid,
+        );
       }
 
     }
