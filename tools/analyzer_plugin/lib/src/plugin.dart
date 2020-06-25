@@ -165,7 +165,8 @@ class OverReactAnalyzerPlugin extends ServerPlugin
       StringRefDiagnostic(),
       CallbackRefDiagnostic(),
       MissingCascadeParensDiagnostic(),
-      MissingRequiredPropDiagnostic(),
+      // TODO: Re-enable this once consumers can disable lints via analysis_options.yaml
+//      MissingRequiredPropDiagnostic(),
       PseudoStaticLifecycleDiagnostic(),
       InvalidDomAttributeDiagnostic(),
       BoolPropNameReadabilityDiagnostic(),
