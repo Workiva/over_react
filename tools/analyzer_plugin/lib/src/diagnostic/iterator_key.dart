@@ -13,9 +13,12 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
     'Missing "key" prop for element in iterator',
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
+    correction: 'Add a unique props.key value to the component builder, or remove it from the list literal.',
   );
 
   static final listLiteralFixKind = convertUsageListLiteralToVariadicChildrenFixKind(code);
+  static final mappedIterableFixKind = FixKind(code.name, 200, 'Add a key');
+
   @override
   computeErrorsForUsage(ResolvedUnitResult result, DiagnosticCollector collector, FluentComponentUsage usage) async {
     final arguments = usage.node.argumentList.arguments;
@@ -68,9 +71,22 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
           var elementHasKeyProp = _doesElementHaveKeyProp(returnedUsage);
 
           if (!elementHasKeyProp) {
-            collector.addError(
+            await collector.addErrorWithFix(
               code,
               result.locationFor(returnedUsage.node),
+              fixKind: mappedIterableFixKind,
+              computeFix: () => buildFileEdit(result, (builder) {
+                addProp(
+                  returnedUsage,
+                  builder,
+                  result.content,
+                  result.lineInfo,
+                  name: 'key',
+                  buildValueEdit: (_builder) {
+                    _builder.addSimpleLinkedEdit('keyName', "'somethingUnique'");
+                  },
+                );
+              }),
             );
           }
         }
