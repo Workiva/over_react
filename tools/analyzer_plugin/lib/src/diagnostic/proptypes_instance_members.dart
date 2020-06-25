@@ -1,4 +1,6 @@
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/pseudo_static_lifecycle.dart' show instanceMemberWhitelist;
 import 'package:over_react_analyzer_plugin/src/diagnostic/visitors/non_static_reference_visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/visitors/proptypes_visitors.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
@@ -24,6 +26,10 @@ class PropTypesInstanceMembersDiagnostic extends DiagnosticContributor {
 
       value.accept(blockVisitor);
       for (final reference in blockVisitor.nonStaticReferences) {
+        if (reference is SimpleIdentifier && instanceMemberWhitelist.contains(reference.name)) {
+          continue;
+        }
+
         collector.addError(
           code,
           result.locationFor(reference),
