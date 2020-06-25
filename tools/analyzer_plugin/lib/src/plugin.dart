@@ -46,6 +46,7 @@ import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
 import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref_assist.dart';
 import 'package:over_react_analyzer_plugin/src/assist/extract_component.dart';
+import 'package:over_react_analyzer_plugin/src/assist/toggle_stateful.dart';
 import 'package:over_react_analyzer_plugin/src/assist/wrap_unwrap.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/diagnostic.dart';
@@ -95,9 +96,11 @@ class OverReactAnalyzerPlugin extends ServerPlugin
       ..performanceLog = performanceLog
       ..fileContentOverlay = fileContentOverlay;
     final result = contextBuilder.buildDriver(root);
-    runZonedGuarded(() {
+    runZoned(() {
       result.results.listen(processDiagnosticsForResult);
-    }, (e, stackTrace) {
+      // TODO: Once we are ready to bump the SDK lower bound to 2.8.x, we should swap this out for `runZoneGuarded`.
+      // ignore: avoid_types_on_closure_parameters
+    }, onError: (Object e, StackTrace stackTrace) {
       channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
     });
     return result;
@@ -137,6 +140,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin
       AddCreateRefAssistContributor(),
       ExtractComponentAssistContributor(),
       ExtractStatefulComponentAssistContributor(),
+      ToggleComponentStatefulness(),
       WrapUnwrapAssistContributor(),
     ];
   }

@@ -6,6 +6,7 @@ import 'package:over_react_analyzer_plugin/src/doc_utils/contributor_meta_regist
 import 'package:over_react_analyzer_plugin/src/doc_utils/documented_contributor_meta.dart';
 import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
 
+import '../doc.dart' show logger;
 import 'generate_contributor_doc_page.dart';
 import 'generate_contributor_type_index.dart';
 import 'shared_html.dart';
@@ -76,10 +77,16 @@ class OptionsSample {
     var generated = _generate();
     if (filePath != null) {
       var outPath = '$filePath/options/index.html';
-      print('Writing to $outPath');
-      File(outPath).writeAsStringSync(generated);
+      final file = File(outPath);
+      if (file.parent.existsSync()) {
+        file.parent.deleteSync(recursive: true);
+      }
+      file.parent.createSync(recursive: true);
+
+      logger.fine('Writing to $outPath');
+      file.writeAsStringSync(generated);
     } else {
-      print(generated);
+      logger.fine(generated);
     }
   }
 
@@ -128,18 +135,19 @@ ${markdownToHtml(generateOptions())}
 ''';
 }
 
+// TODO: Once we figure out how to allow our plugin lints to be enabled/disabled via analysis_options.yaml, restore this:
+//
+//  Rules can be selectively enabled in the analyzer using
+//  [analysis options](https://pub.dev/packages/analyzer)
+//  or through an
+//  [analysis options file](https://dart.dev/guides/language/analysis-options#the-analysis-options-file).
+//
+//  * **An auto-generated list enabling all options is provided [here](options/).**
 const ruleFootMatter = '''
 In addition, rules can be further distinguished by *maturity*.  Unqualified
 rules are considered stable, while others may be marked **experimental**
 to indicate that they are under review.  Lints that are marked as **deprecated**
 should not be used and are subject to removal in future Linter releases.
-
-Rules can be selectively enabled in the analyzer using
-[analysis options](https://pub.dev/packages/analyzer)
-or through an
-[analysis options file](https://dart.dev/guides/language/analysis-options#the-analysis-options-file). 
-
-* **An auto-generated list enabling all options is provided [here](options/).** 
 
 These rules are under active development.  Feedback is
 [welcome](https://github.com/Workiva/over_react/issues/new?labels=area-analyzer-plugin)!

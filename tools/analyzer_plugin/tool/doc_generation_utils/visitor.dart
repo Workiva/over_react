@@ -21,12 +21,12 @@ Future<void> registerContributorMetadata(List<DocsGenerationConfig> configs) asy
   }
 }
 
-class ContributorVisitor extends RecursiveElementVisitor {
+class ContributorVisitor extends RecursiveElementVisitor<void> {
   final List<DocsGenerationConfig> _configs;
   ContributorVisitor(this._configs);
 
   @override
-  visitClassElement(ClassElement element) {
+  void visitClassElement(ClassElement element) {
     for (final config in _configs) {
       if (!element.isOrIsSubtypeOfTypeFromPackage(
           config.typeNameOfContributorClass, config.packageNameContainingContributorClass)) continue;
@@ -39,7 +39,7 @@ class ContributorVisitor extends RecursiveElementVisitor {
               'The DocsMeta() annotation should only be used to annotate constant values:\n    ${field.toString()}');
         }
 
-        if (field.declaration.type.element.isOrIsSubtypeOfTypeFromPackage(
+        if (field.type.element.isOrIsSubtypeOfTypeFromPackage(
             config.typeNameOfAnnotatedField, config.packageNameContainingAnnotatedFieldType)) {
           config.registry.register(config.getMeta(field));
         } else {

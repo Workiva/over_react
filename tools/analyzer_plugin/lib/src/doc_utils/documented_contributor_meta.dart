@@ -105,7 +105,7 @@ class DocumentedAssistContributorMeta extends DocumentedContributorMetaBase
 /// Documentation metadata for a "diagnostic" contributor _(e.g. lint / "rule")_.
 ///
 /// Must be constructed by parsing the AST of an element annotated with a [DocsMeta] annotation
-/// via the [DocumentedDiagnosticContributorMeta.fromAnnotatedFieldAst] factory constructor.
+/// via the [DocumentedDiagnosticContributorMeta..fromAnnotatedField] factory constructor.
 class DocumentedDiagnosticContributorMeta extends DocumentedContributorMetaBase
     implements Comparable<DocumentedDiagnosticContributorMeta> {
   @override
@@ -140,7 +140,7 @@ class DocumentedDiagnosticContributorMeta extends DocumentedContributorMetaBase
   });
 
   /// Creates a new instance from the field [element] annotated with a [DocsMeta] annotation.
-  factory DocumentedDiagnosticContributorMeta.fromAnnotatedFieldAst(FieldElement element) {
+  factory DocumentedDiagnosticContributorMeta.fromAnnotatedField(FieldElement element) {
     final metaFromAnnotation = DocumentedContributorMetaBase.getDocsMetaFromAnnotation(element);
 
     final diagnosticCodeObj = element.computeConstantValue();

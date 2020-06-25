@@ -41,8 +41,7 @@ class VariadicChildrenDiagnostic extends ComponentUsageDiagnosticContributor {
     AnalysisErrorType.STATIC_WARNING,
   );
 
-  static final fixKind = FixKind(code.name, 200, 'Unwrap children from list literal',
-      appliedTogetherMessage: 'Unwrap children from list literals');
+  static final fixKind = FixKind(code.name, 200, 'Unwrap children from list literal');
 
   @override
   computeErrorsForUsage(result, collector, usage) async {

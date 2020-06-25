@@ -5,7 +5,7 @@ import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/fix.dart';
 
-const _desc = r'Add props to a component builder.';
+const _desc = r'Add props to a component builder';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 

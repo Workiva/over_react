@@ -58,8 +58,7 @@ class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
     correction: _correction,
   );
 
-  static final fixKind = FixKind(code.name, 200, "Convert to number (and treat as 'px')",
-      appliedTogetherMessage: "Convert to numbers (and treat as 'px')");
+  static final fixKind = FixKind(code.name, 200, "Convert to number (and treat as 'px')");
 
   @override
   computeErrorsForUsage(result, collector, usage) async {

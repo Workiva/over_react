@@ -95,8 +95,8 @@ Future<void> validateReactChildType(DartType type, TypeSystem typeSystem, TypePr
   if (type.isDynamic || type.isDartCoreObject) return;
   if (type.isReactElement) return;
   if (type.isDartCoreString) return;
-  // isAssignableTo to handle num, int, and double
-  if (typeSystem.isAssignableTo(typeProvider.numType, type)) return;
+  // isSubtypeOf to handle num, int, and double
+  if (typeSystem.isSubtypeOf(type, typeProvider.numType)) return;
   if (type.isDartCoreNull) return;
   if (type.isDartCoreBool) return;
   // If the children are in an iterable, validate its type argument.

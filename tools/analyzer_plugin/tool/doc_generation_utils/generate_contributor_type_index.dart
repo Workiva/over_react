@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:meta/meta.dart';
 
+import '../doc.dart' show logger;
 import 'shared_html.dart';
 
 abstract class ContributorIndexer {
@@ -16,10 +17,12 @@ abstract class ContributorIndexer {
     var generated = _generate();
     if (filePath != null) {
       var outPath = '$filePath/index.html';
-      print('Writing to $outPath');
-      File(outPath).writeAsStringSync(generated);
+      logger.fine('Writing to $outPath');
+      File(outPath)
+        ..parent.createSync(recursive: true)
+        ..writeAsStringSync(generated);
     } else {
-      print(generated);
+      logger.fine(generated);
     }
   }
 

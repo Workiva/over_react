@@ -65,7 +65,7 @@ class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
     correction: 'Only add a key when an element is within an iterable with one or more siblings elements.',
   );
 
-  static final fixKind = FixKind(code.name, 200, 'Remove unnecessary key', appliedTogetherMessage: 'Remove key prop');
+  static final fixKind = FixKind(code.name, 200, 'Remove unnecessary key');
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
