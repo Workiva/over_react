@@ -11,6 +11,7 @@ const instanceMemberWhitelist = [
   'typedPropsFactoryJs',
   'typedStateFactory',
   'typedStateFactoryJs',
+  'keyForProp',
 ];
 
 class PseudoStaticLifecycleDiagnostic extends DiagnosticContributor {
