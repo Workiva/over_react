@@ -54,9 +54,12 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
         if (field.type != typeProvider.boolType) continue;
         if (propName == null) continue; // just in case
 
+        final fieldDecl = propsClass.getField(propName);
+        if (fieldDecl == null) continue;
+
         final readability = checkBoolPropReadability(propName);
         if (!readability.isReadable) {
-          collector.addError(code, result.locationFor(propsClass.getField(field.name)),
+          collector.addError(code, result.locationFor(fieldDecl),
               errorMessageArgs: [propsClass.name, propName, allowedPrefixesForBoolProp.join(', ')]);
         }
       }

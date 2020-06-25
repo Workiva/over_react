@@ -2,10 +2,14 @@ import 'package:analyzer/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/error/error.dart';
 import 'package:analyzer/file_system/overlay_file_system.dart';
 import 'package:analyzer/file_system/physical_file_system.dart';
+import 'package:analyzer/source/line_info.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
+
 import 'package:path/path.dart' as p;
 
 /// Parses [dartSource] and returns the unresolved AST, throwing if there are any syntax errors.
@@ -63,8 +67,8 @@ FluentComponentUsage parseAndGetComponentUsage(String dartSource) {
 }
 
 /// Parses [dartSource] and returns the resolved AST, throwing if there are any static analysis errors.
-Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource) async {
-  final results = await parseAndGetResolvedUnits({'dartSource.dart': dartSource});
+Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource, {String path = 'dartSource.dart'}) async {
+  final results = await parseAndGetResolvedUnits({path: dartSource});
   return results.values.single;
 }
 
@@ -75,24 +79,26 @@ Future<ResolvedUnitResult> parseAndGetResolvedUnit(String dartSource) async {
 ///
 /// Example:
 /// ```dart
-//  final results = await parseAndGetResolvedUnits({
-//    'foo.dart': r'''
-//      class Foo {}
-//    ''',
-//
-//    'bar.dart': r'''
-//      import 'foo.dart';
-//      class Bar extends Foo {}
-//    ''',
-//  });
-//
-//  final barResolveResult = results['bar.dart'];
-//  final barElement = barResolveResult.unit.declaredElement.getType('Bar');
-//  print(barElement.allSupertypes); // [Foo, Object]
+///  final results = await parseAndGetResolvedUnits({
+///    'foo.dart': r'''
+///      class Foo {}
+///    ''',
+///
+///    'bar.dart': r'''
+///      import 'foo.dart';
+///      class Bar extends Foo {}
+///    ''',
+///  });
+///
+///  final barResolveResult = results['bar.dart'];
+///  final barElement = barResolveResult.unit.declaredElement.getType('Bar');
+///  print(barElement.allSupertypes); // [Foo, Object]
 /// ```
 Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, String> dartSourcesByPath) async {
-  // Must be absolute
-  const pathPrefix = '/_fake_in_memory_path/';
+  // Must be absolute.
+  // Hack: use a path inside this project directory so that we end up in the same context as the current package,
+  // and can resolve imports for all dependencies (including over_react, react, etc.)
+  final pathPrefix = p.absolute('_fake_in_memory_path');
 
   String transformPath(String path) => p.join(pathPrefix, path);
 
@@ -114,10 +120,35 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
   for (final path in dartSourcesByPath.keys) {
     final context = collection.contextFor(transformPath(path));
     final result = await context.currentSession.getResolvedUnit(transformPath(path));
-    if (result.errors.isNotEmpty) {
-      throw ArgumentError('Parse errors in source "$path":\n${result.errors.join('\n')}');
+    final lineInfo = result.unit.lineInfo;
+    final filteredErrors =
+        filterIgnores(result.errors, lineInfo, () => IgnoreInfo.calculateIgnores(result.content, lineInfo));
+    if (filteredErrors.isNotEmpty) {
+      throw ArgumentError('Parse errors in source "$path":\n${filteredErrors.join('\n')}');
     }
     results[path] = result;
   }
   return results;
+}
+
+List<AnalysisError> filterIgnores(List<AnalysisError> errors, LineInfo lineInfo, IgnoreInfo Function() lazyIgnoreInfo) {
+  if (errors.isEmpty) {
+    return errors;
+  }
+
+  return _filterIgnored(errors, lazyIgnoreInfo(), lineInfo);
+}
+
+List<AnalysisError> _filterIgnored(List<AnalysisError> errors, IgnoreInfo ignoreInfo, LineInfo lineInfo) {
+  if (errors.isEmpty || !ignoreInfo.hasIgnores) {
+    return errors;
+  }
+
+  bool isIgnored(AnalysisError error) {
+    final errorLine = lineInfo.getLocation(error.offset).lineNumber;
+    final errorCode = error.errorCode.name.toLowerCase();
+    return ignoreInfo.ignoredAt(errorCode, errorLine);
+  }
+
+  return errors.where((e) => !isIgnored(e)).toList();
 }

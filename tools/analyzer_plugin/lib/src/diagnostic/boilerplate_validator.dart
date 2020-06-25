@@ -94,6 +94,9 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
         collector.addError(debugCode, result.locationFor(member.name), errorMessageArgs: [member.debugString]);
       }
 
+      // Do not lint anything that is not a likely boilerplate member that will actually get generated.
+      if (member.versionConfidences.toList().every((vcp) => vcp.confidence <= Confidence.neutral)) continue;
+
       if (_overReactGeneratedPartDirective == null) {
         await _addPartDirectiveErrorForMember(
           result: result,

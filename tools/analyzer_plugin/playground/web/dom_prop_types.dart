@@ -1,7 +1,5 @@
 import 'package:over_react/over_react.dart';
 
-part 'dom_prop_types.over_react.g.dart';
-
 main() {
   final content = Fragment()(
     (Dom.a()
