@@ -15,4 +15,5 @@ pub get
 pub run dart_dev format --check
 pub run dart_dev analyze
 pub run dependency_validator --no-fatal-pins
+dart tool/doc.dart
 pub run dart_dev test
