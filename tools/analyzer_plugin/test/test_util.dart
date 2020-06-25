@@ -11,34 +11,6 @@ import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:path/path.dart' as p;
 
-/// Returns [expression] parsed as AST.
-///
-/// This is accomplished it by including the [expression]  as a statement within a wrapper function.
-///
-/// As a result, the offset of the returned expression will not be 0.
-Future<InvocationExpression> parseExpressionResolved(String expression, {String imports = ''}) async {
-  final result = await parseAndGetResolvedUnit('''
-    $imports
-    void wrapperFunction() {
-      $expression; // ignore: undefined_identifier, undefined_function
-    }
-  ''');
-//  final result = await parseAndGetResolvedUnit(expression);
-  final unit = result.unit;
-  final parsedFunction = unit.childEntities.whereType<FunctionDeclaration>().last;
-  final body = parsedFunction.functionExpression.body as BlockFunctionBody;
-  final statement = body.block.statements.single as ExpressionStatement;
-  return statement.expression as InvocationExpression;
-}
-
-InvocationExpression parseExpression(String expression) {
-  final unit = parseString(content: 'wrapperFunction() {\n$expression;\n}').unit;
-  final parsedFunction = unit.childEntities.whereType<FunctionDeclaration>().last;
-  final body = parsedFunction.functionExpression.body as BlockFunctionBody;
-  final statement = body.block.statements.single as ExpressionStatement;
-  return statement.expression as InvocationExpression;
-}
-
 /// Parses [dartSource] and returns the unresolved AST, throwing if there are any syntax errors.
 CompilationUnit parseAndGetUnit(String dartSource) {
   final result = parseString(
@@ -178,4 +150,34 @@ List<AnalysisError> _filterIgnored(List<AnalysisError> errors, IgnoreInfo ignore
   }
 
   return errors.where((e) => !isIgnored(e)).toList();
+}
+
+/// Returns [expression] parsed as AST.
+///
+/// This is accomplished it by including the [expression]  as a statement within a wrapper function.
+///
+/// As a result, the offset of the returned expression will not be 0.
+InvocationExpression parseExpression(String expression) {
+  final unit = parseString(content: 'wrapperFunction() {\n$expression;\n}').unit;
+  final parsedFunction = unit.childEntities.whereType<FunctionDeclaration>().last;
+  final body = parsedFunction.functionExpression.body as BlockFunctionBody;
+  final statement = body.block.statements.single as ExpressionStatement;
+  return statement.expression as InvocationExpression;
+}
+
+/// Returns [expression] parsed as resolved AST.
+///
+/// Similar to [parseExpression].
+Future<InvocationExpression> parseExpressionResolved(String expression, {String imports = ''}) async {
+  final result = await parseAndGetResolvedUnit('''
+    $imports
+    void wrapperFunction() {
+      $expression; // ignore: undefined_identifier, undefined_function
+    }
+  ''');
+  final unit = result.unit;
+  final parsedFunction = unit.childEntities.whereType<FunctionDeclaration>().last;
+  final body = parsedFunction.functionExpression.body as BlockFunctionBody;
+  final statement = body.block.statements.single as ExpressionStatement;
+  return statement.expression as InvocationExpression;
 }
