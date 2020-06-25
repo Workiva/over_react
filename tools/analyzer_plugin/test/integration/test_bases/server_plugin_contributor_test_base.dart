@@ -10,12 +10,40 @@ import 'package:test/test.dart';
 
 import '../mocks.dart';
 import 'analysis_driver_test_base.dart';
+import 'assist_test_base.dart';
+import 'diagnostic_test_base.dart';
 
+/// Representation of a selected range on a [Source] file.
+///
+/// Useful when testing assist and diagnostic contributors that use the
+/// selection as an input and can also alter the resulting selection after their
+/// [SourceChange] is applied.
+///
+/// Use [ServerPluginContributorTestBase.createSelection] to easily create
+/// instances of this model from an existing [Source].
+class SourceSelection {
+  final Source source;
+  final int offset;
+  final int length;
+
+  SourceSelection(this.source, this.offset, this.length);
+}
+
+/// Test base that handles constructing an analysis server plugin designed for
+/// use in tests.
+///
+/// Also provides some utilities related to source files.
+///
+/// Tests should not use, extend, or implement this class directly. Instead,
+/// extend a test base for the specific type of contributor, like
+/// [AssistTestBase].
 abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
   PluginForTest get testPlugin => _plugin;
 
-  Source applySourceChange(SourceChange change, Source expectedSource) {
-    final path = p.normalize(expectedSource.uri.toFilePath());
+  /// Applies the given [change] to [source], writes it via [resourceProvider]
+  /// and returns the updated [Source].
+  Source applySourceChange(SourceChange change, Source source) {
+    final path = p.normalize(source.uri.toFilePath());
     final applicableFileEdits = change.edits.where((edit) => edit.file == path);
     expect(applicableFileEdits.map((edit) => edit.file), contains(path),
         reason: 'Expected SourceChange to include edits for "$path".');
@@ -27,23 +55,59 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
     return file.createSource();
   }
 
+  /// Returns a selection (offset & length) within the contents of [source] by
+  /// searching for [target] and selecting the portion between the two `#`
+  /// symbols.
+  ///
+  /// For example, if you have the following source:
+  ///
+  /// ```
+  /// import 'package:over_react/over_react.dart';
+  /// var foo = Dom.div()('hello');
+  /// ```
+  ///
+  /// Consider the following example [target] values and the selection they
+  /// would create:
+  ///
+  /// - `#var foo#` => `var foo`
+  /// - `var #fo#o` => `fo`
+  ///
+  /// It's also possible and valid to create a selection with no length by
+  /// placing the two `#` symbols next to each other. A target of `var ##foo`
+  /// will create a selection that starts right before `foo` but has no length.
+  ///
+  /// In summary, [target] should:
+  /// - be a unique substring of the full source so the correct area is targeted
+  /// - be at least as long as the selection you want to create
+  /// - be as short as possible, given the previous two are satisifed
+  /// - contain two `#` symbols that define the selection range in the target
   SourceSelection createSelection(Source source, String target, {int offset}) {
     final parts = target.split('#');
-    expect(parts, hasLength(3),
-        reason:
-            'Target must have two "#" symbols denoting the selection range.');
+    expect(parts, hasLength(3), reason: 'Target must have two "#" symbols denoting the selection range.');
     final before = parts[0];
     final selection = parts[1];
     final after = parts[2];
     final loc = source.contents.data.indexOf('$before$selection$after');
-    expect(loc, greaterThanOrEqualTo(0),
-        reason: 'Target was not found in source.');
+    expect(loc, greaterThanOrEqualTo(0), reason: 'Target was not found in source.');
     final offset = loc + before.length;
     final length = selection.length;
     return SourceSelection(source, offset, length);
   }
 
+  /// Returns the list of assist contributors that will be included when
+  /// constructing the test plugin.
+  ///
+  /// Tests should not consume or override this method directly. Instead, extend
+  /// from the [AssistTestBase] and override
+  /// [AssistTestBase.getContributorUnderTest].
   List<AsyncAssistContributor> getAssistContributors() => [];
+
+  /// Returns the list of diagnostic contributors that will be included when
+  /// constructing the test plugin.
+  ///
+  /// Tests should not consume or override this method directly. Instead, extend
+  /// from the [DiagnosticTestBase] and override
+  /// [DiagnosticTestBase.getContributorUnderTest].
   List<DiagnosticContributor> getDiagnosticContributors() => [];
 
   MockChannel _channel;
@@ -64,8 +128,7 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
 
     // ignore: missing_required_param
     final contextRoot = ContextRoot(testPath, []);
-    await testPlugin.handleAnalysisSetContextRoots(
-        AnalysisSetContextRootsParams([contextRoot]));
+    await testPlugin.handleAnalysisSetContextRoots(AnalysisSetContextRootsParams([contextRoot]));
   }
 
   @override

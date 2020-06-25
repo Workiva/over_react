@@ -16,12 +16,11 @@ void main() {
 
 @reflectiveTest
 class ArrowFunctionPropCascadeDiagnosticTest extends DiagnosticTestBase {
-  static DiagnosticCode get diagnosticCode =>
-      ArrowFunctionPropCascadeDiagnostic.code;
+  static DiagnosticCode get diagnosticCode => ArrowFunctionPropCascadeDiagnostic.code;
 
   static FixKind get fixKind => ArrowFunctionPropCascadeDiagnostic.fixKind;
 
-  static String simpleSource = r'''
+  static String simpleSource = '''
 import 'package:over_react/over_react.dart';
 var foo = (Dom.div()
   ..onClick = (_) => 'arrow fn'
@@ -29,20 +28,46 @@ var foo = (Dom.div()
 ''';
 
   @override
-  DiagnosticContributor getContributorUnderTest() =>
-      ArrowFunctionPropCascadeDiagnostic();
+  DiagnosticContributor getContributorUnderTest() => ArrowFunctionPropCascadeDiagnostic();
 
-  Future<void> test_producesError() async {
+  Future<void> test_noError() async {
+    final source = newSource('test.dart', 'var foo = true;');
+    final selection = createSelection(source, '#var foo#');
+    expect(await getErrorsWithFixes(selection), isEmpty);
+  }
+
+  Future<void> test_noErrorForSelection() async {
     final source = newSource('test.dart', simpleSource);
-    final selection = createSelection(source, "#(_) => 'arrow fn'#");
+    final selection = createSelection(source, '#var foo#');
     final errorsWithFixes = await getErrorsWithFixes(selection);
-    expect(errorsWithFixes, hasLength(1));
+    expect(errorsWithFixes, isEmpty);
+  }
 
+  Future<void> test_producesErrorForAllSelectionTypes() async {
+    final selectionTargets = [
+      "##(_) => 'arrow fn'", // empty selection at beginning
+      "(_) => 'arrow fn'##", // empty selection at end
+      "(_) =>## 'arrow fn'", // empty selection within
+      "#(_) => 'arrow fn'#", // range starting at beginning
+      "#(_) => 'arrow fn'\n)#", // range extending beyond end
+      "(_) #=> 'ar#row fn'", // range within
+    ];
+    for (final target in selectionTargets) {
+      await _verifySelectionProducesError(target);
+    }
+  }
+
+  Future<void> _verifySelectionProducesError(String selectionTarget) async {
+    final source = newSource('test.dart', simpleSource);
+    var selection = createSelection(source, selectionTarget);
+    final errorsWithFixes = await getErrorsWithFixes(selection);
+    expect(errorsWithFixes, hasLength(1),
+        reason: 'Expected selection to produce an error, but it did not: $selectionTarget');
+
+    // Update selection to the full range to which the error should refer.
+    selection = createSelection(source, "#(_) => 'arrow fn'#");
     final error = errorsWithFixes.first.error;
-    expect(
-        error,
-        isAnalysisErrorForDiagnostic(diagnosticCode,
-            atSelection: selection, hasFix: true));
+    expect(error, isAnalysisErrorForDiagnostic(diagnosticCode, atSelection: selection, hasFix: true));
   }
 
   Future<void> test_errorFixMeta() async {
