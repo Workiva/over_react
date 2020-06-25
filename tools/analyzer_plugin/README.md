@@ -1,5 +1,8 @@
 # OverReact Analyzer Plugin
 
+[![OverReact Analyzer Plugin](https://img.shields.io/badge/docs-lints-red.svg)](https://workiva.github.io/over_react/analyzer_plugin/lints/)
+[![OverReact Analyzer Plugin](https://img.shields.io/badge/docs-assists-blue.svg)](https://workiva.github.io/over_react/analyzer_plugin/assists/)
+
 > A [Dart analyzer plugin][analyzer_plugin] for OverReact.
 
 ---
