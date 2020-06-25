@@ -11,6 +11,7 @@ const instanceMemberWhitelist = [
   'typedPropsFactoryJs',
   'typedStateFactory',
   'typedStateFactoryJs',
+  'keyForProp',
 ];
 
 const _desc = r'Never reference instance members within ReactJS "static" lifecycle methods.';
