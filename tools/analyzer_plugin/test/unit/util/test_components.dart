@@ -11,6 +11,6 @@ class FooComponent extends UiComponent2<FooProps> {
   void render() {}
 }
 
-ReactElement fooFactory() => Foo()();
+FooProps getFooBuilder() => Foo();
 
-ReactElement getFactoryForFoo() => Foo()();
+FooProps getBuilderForFoo() => Foo();

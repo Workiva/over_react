@@ -9,9 +9,7 @@ import 'package:analyzer/source/line_info.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
-
 import 'package:path/path.dart' as p;
-import 'package:test/test.dart';
 
 /// Returns [expression] parsed as AST.
 ///
