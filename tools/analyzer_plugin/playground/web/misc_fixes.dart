@@ -12,6 +12,10 @@ fixes() {
   ]);
 }
 
+shouldNotLint() {
+  return (Dom.div()..onClick = (_) => Dom.div()..id = 'foo')();
+}
+
 class MyObject {
   String id;
 }
