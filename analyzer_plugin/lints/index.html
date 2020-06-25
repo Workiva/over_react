@@ -48,13 +48,6 @@
 rules are considered stable, while others may be marked <strong>experimental</strong>
 to indicate that they are under review.  Lints that are marked as <strong>deprecated</strong>
 should not be used and are subject to removal in future Linter releases.</p>
-<p>Rules can be selectively enabled in the analyzer using
-<a href="https://pub.dev/packages/analyzer">analysis options</a>
-or through an
-<a href="https://dart.dev/guides/language/analysis-options#the-analysis-options-file">analysis options file</a>. </p>
-<ul>
-<li><strong>An auto-generated list enabling all options is provided <a href="options/">here</a>.</strong> </li>
-</ul>
 <p>These rules are under active development.  Feedback is
 <a href="https://github.com/Workiva/over_react/issues/new?labels=area-analyzer-plugin">welcome</a>!</p>
 
@@ -74,7 +67,7 @@ or through an
 <!--suppress HtmlUnknownTarget --><strong><a href="over_react_proptypes_do_not_access_instance_members.html">over_react_proptypes_do_not_access_instance_members</a></strong><br/> <p>Never reference instance members within propTypes.</p>
 
 
-<!--suppress HtmlUnknownTarget --><strong><a href="over_react_pseudo_static_lifecycle.html">over_react_pseudo_static_lifecycle</a></strong><br/> <p>Do not reference instance members within ReactJS "static" lifecycle methods.</p>
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_pseudo_static_lifecycle.html">over_react_pseudo_static_lifecycle</a></strong><br/> <p>Never reference instance members within ReactJS "static" lifecycle methods.</p>
 
 
 <!--suppress HtmlUnknownTarget --><strong><a href="over_react_style_missing_unit.html">over_react_style_missing_unit</a></strong><br/> <p>Do not use string CSS property values without specifying a unit.</p>
@@ -118,9 +111,6 @@ or through an
 <!--suppress HtmlUnknownTarget --><strong><a href="over_react_proptypes_do_not_throw.html">over_react_proptypes_do_not_throw</a></strong><br/> <p>Avoid throwing errors within propTypes.</p>
 
 
-<!--suppress HtmlUnknownTarget --><strong><a href="over_react_required_prop.html">over_react_required_prop</a></strong><br/> <p>Avoid omitting props that are required.</p>
-
-
 <!--suppress HtmlUnknownTarget --><strong><a href="over_react_unknown_key_type.html">over_react_unknown_key_type</a></strong><br/> <p>Avoid deriving React keys from an object typed as dynamic/Object.</p>
 
 
@@ -145,6 +135,9 @@ or through an
 
 
 <!--suppress HtmlUnknownTarget --><strong><a href="over_react_prefer_null_over_false_render_return_type.html">over_react_prefer_null_over_false_render_return_type</a></strong><br/> <p>Avoid returning false from the render method.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_required_prop.html">over_react_required_prop (experimental)</a></strong><br/> <p>Avoid omitting props that are required.</p>
 
 
 <!--suppress HtmlUnknownTarget --><strong><a href="over_react_single_child_key.html">over_react_single_child_key</a></strong><br/> <p>Avoid setting props.key when it is not necessary.</p>
