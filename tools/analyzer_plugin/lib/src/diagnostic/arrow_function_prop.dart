@@ -5,10 +5,43 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
+const _desc = 'Never place un-parenthesized arrow functions in the middle of prop setter cascades.';
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+
+**ALWAYS** surround arrow functions in cascading setters with parentheses.
+
+Otherwise, subsequent cascades do not work properly.
+
+**GOOD:**
+```
+EventTarget target;
+
+(Dom.button()
+  ..onClick = ((event) => eventTarget = event.target)
+  ..id = 'foo'
+)()
+```
+
+**BAD:**
+```
+EventTarget target;
+
+(Dom.button()
+  ..onClick = (event) => eventTarget = event.target
+  // This id will not get set on the button
+  ..id = 'foo'
+)()
+```
+
+''';
+// </editor-fold>
+
 class ArrowFunctionPropCascadeDiagnostic extends ComponentUsageDiagnosticContributor {
-  static final code = DiagnosticCode(
+  @DocsMeta(_desc, details: _details)
+  static const code = DiagnosticCode(
     'over_react_cascaded_arrow_functions',
-    'Never place un-parenthesized arrow functions in the middle of prop setter cascades.',
+    _desc,
     AnalysisErrorSeverity.ERROR,
     AnalysisErrorType.SYNTACTIC_ERROR,
     correction: 'Wrap arrow functions in parentheses when placed in the middle of prop setter cascades.',
@@ -18,9 +51,6 @@ class ArrowFunctionPropCascadeDiagnostic extends ComponentUsageDiagnosticContrib
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    // If there is only one cascaded prop, do not lint
-    if (usage.cascadedProps.length == 1) return;
-
     for (final prop in usage.cascadedProps) {
       final rhs = prop.rightHandSide;
       if (rhs is FunctionExpression && rhs.body is ExpressionFunctionBody) {

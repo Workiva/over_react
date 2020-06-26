@@ -7,6 +7,7 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:meta/meta.dart';
+import 'package:over_react_analyzer_plugin/src/util/constants.dart';
 
 import 'component_usage.dart';
 
@@ -17,6 +18,7 @@ export 'package:analyzer_plugin/utilities/range_factory.dart' show range;
 export 'package:over_react_analyzer_plugin/src/component_usage.dart';
 export 'package:over_react_analyzer_plugin/src/util/fix.dart';
 export 'package:over_react_analyzer_plugin/src/util/location.dart';
+export 'package:over_react_analyzer_plugin/src/doc_utils/docs_meta_annotation.dart';
 
 /// An error code associated with an [AnalysisError].
 ///
@@ -33,8 +35,8 @@ class DiagnosticCode {
     this.errorSeverity,
     this.type, {
     this.correction,
-    this.url,
-  });
+    String url,
+  }) : url = url ?? '$analyzerPluginLintDocsUrl$name.html';
 
   /// The name of the error code.
   final String name;
@@ -149,7 +151,9 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
     PrioritizedSourceChange fix;
     if (fixChange != null) {
       if (fixChange.edits.isNotEmpty) {
-        fixChange.message = _formatList(fixKind.message, fixMessageArgs);
+        fixChange
+          ..id = fixKind.id
+          ..message = _formatList(fixKind.message, fixMessageArgs);
         fix = PrioritizedSourceChange(fixKind.priority, fixChange);
         hasFix = true;
       }

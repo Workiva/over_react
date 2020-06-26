@@ -17,7 +17,7 @@ typedef BoilerplateLinkedEditFn = void Function(
 });
 
 abstract class _ExtractComponentAssistContributorBase extends AssistContributorBase {
-  AssistKind get extractComponent;
+  AssistKind get _assistKind;
   String get linkedEditGroupName;
   BoilerplateLinkedEditFn get addBoilerplateLinkedEditFn;
 
@@ -67,11 +67,57 @@ abstract class _ExtractComponentAssistContributorBase extends AssistContributorB
     });
 
     sourceChange
-      ..message = extractComponent.message
-      ..id = extractComponent.id;
-    collector.addAssist(PrioritizedSourceChange(extractComponent.priority, sourceChange));
+      ..message = _assistKind.message
+      ..id = _assistKind.id;
+    collector.addAssist(PrioritizedSourceChange(_assistKind.priority, sourceChange));
   }
 }
+
+const _extractComponentDesc = r'Extract selection as a new UiComponent';
+// <editor-fold desc="Documentation Details">
+const _extractComponentDetails = r'''
+
+When a VDom element is selected by the user, the assist extracts the selection into the return value of
+`render` within a new OverReact component declaration:
+
+**EXAMPLE:**
+```
+ReactElement renderTheFoo() {
+  return Dom.div()(
+    'oh hai',
+    Dom.span()('again'),
+    Dom.em()(' wow this is a lot we should extract it into a component!'),
+  );
+}
+```
+
+**BECOMES:**
+```
+ReactElement renderTheFoo() {
+  return Foo()();
+}
+
+UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier
+
+mixin FooProps on UiProps {}
+
+class FooComponent extends UiComponent2<FooProps> {
+  @override
+  get defaultProps => (newProps());
+
+  @override
+  render() {
+    return Dom.div()(
+      'oh hai',
+      Dom.span()('again'),
+      Dom.em()(' wow this is a lot we should extract it into a component!'),
+    );
+  }
+}
+```
+
+''';
+// </editor-fold>
 
 /// An assist that extracts an [InvocationExpression] which returns a React VDom `ReactElement`
 /// into a new standalone OverReact `UiComponent2` component.
@@ -85,8 +131,10 @@ abstract class _ExtractComponentAssistContributorBase extends AssistContributorB
 ///
 /// {@category Assists}
 class ExtractComponentAssistContributor extends _ExtractComponentAssistContributorBase {
+  @DocsMeta(_extractComponentDesc, details: _extractComponentDetails)
+  static const extractComponent = AssistKind('extractComponent', 32, _extractComponentDesc);
   @override
-  AssistKind extractComponent = AssistKind('extractComponent', 32, 'Extract selection as a new UiComponent');
+  get _assistKind => extractComponent;
 
   @override
   String get linkedEditGroupName => 'orStless';
@@ -94,6 +142,57 @@ class ExtractComponentAssistContributor extends _ExtractComponentAssistContribut
   @override
   BoilerplateLinkedEditFn addBoilerplateLinkedEditFn = addUiComponentBoilerplateLinkedEdit;
 }
+
+const _extractStatefulComponentDesc = r'Extract selection as a new UiStatefulComponent';
+// <editor-fold desc="Stateful Documentation Details">
+const _extractStatefulComponentDetails = r'''
+
+When a VDom element is selected by the user, the assist extracts the selection into the return value of
+`render` within a new OverReact stateful component declaration:
+
+**EXAMPLE:**
+```
+ReactElement renderTheFoo() {
+  return Dom.div()(
+    'oh hai',
+    Dom.span()('again'),
+    Dom.em()(' wow this is a lot we should extract it into a component!'),
+  );
+}
+```
+
+**BECOMES:**
+```
+ReactElement renderTheFoo() {
+  return Foo()();
+}
+
+UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier
+
+mixin FooProps on UiProps {}
+
+mixin FooState on UiState {}
+
+class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
+  @override
+  get defaultProps => (newProps());
+  
+  @override
+  get initialState => (newState());
+
+  @override
+  render() {
+    return Dom.div()(
+      'oh hai',
+      Dom.span()('again'),
+      Dom.em()(' wow this is a lot we should extract it into a component!'),
+    );
+  }
+}
+```
+
+''';
+// </editor-fold>
 
 /// An assist that extracts an [InvocationExpression] which returns a React VDom `ReactElement`
 /// into a new standalone OverReact `UiStatefulComponent2` component.
@@ -107,9 +206,10 @@ class ExtractComponentAssistContributor extends _ExtractComponentAssistContribut
 ///
 /// {@category Assists}
 class ExtractStatefulComponentAssistContributor extends _ExtractComponentAssistContributorBase {
+  @DocsMeta(_extractStatefulComponentDesc, details: _extractStatefulComponentDetails)
+  static const extractComponent = AssistKind('extractStatefulComponent', 32, _extractStatefulComponentDesc);
   @override
-  AssistKind extractComponent =
-      AssistKind('extractStatefulComponent', 32, 'Extract selection as a new UiStatefulComponent');
+  get _assistKind => extractComponent;
 
   @override
   String get linkedEditGroupName => 'orStful';

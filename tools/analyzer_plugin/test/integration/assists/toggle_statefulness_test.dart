@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:analyzer_plugin/utilities/assist/assist.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
 import 'package:over_react_analyzer_plugin/src/assist/toggle_stateful.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
@@ -95,40 +96,27 @@ class BarComponent extends FluxUiStatefulComponent2<BarProps, BarState> {
   };
 
   @override
-  AsyncAssistContributor getContributorUnderTest() => ToggleComponentStatefulness();
-
+  AssistKind get assistKindUnderTest => ToggleComponentStatefulness.makeStateful;
 
   void testBothSources(void Function(String) callbackWithTests) => statelessSources.forEach(callbackWithTests);
 
   Future<void> test_noAssistOnFactory() async {
     var source = newSource('test.dart', simpleUiComponentSource);
     var selection = createSelection(source, r'UiFactory<FooProps> #Foo# = _$Foo;');
-    expect(await getAssists(selection), isEmpty);
+    await expectNoAssist(selection);
   }
 
   Future<void> test_noAssistOnProps() async {
     var source = newSource('test.dart', simpleUiComponentSource);
     var selection = createSelection(source, 'mixin #FooProps#');
-    expect(await getAssists(selection), isEmpty);
+    await expectNoAssist(selection);
   }
 
   Future<void> test_producesAssistForBothBoilerplate() async {
     testBothSources((source) async {
       var retrievedSource = newSource('test.dart', source);
       var selection = createSelection(retrievedSource, '#FooComponent#');
-      final assists = await getAssists(selection);
-      expect(assists, hasLength(1), reason: 'Expected selection to produce an assist, but it did not: $source');
-    });
-  }
-  Future<void> test_assistMeta() async {
-    testBothSources((source) async {
-      var retrievedSource = newSource('test.dart', source);
-      var selection = createSelection(retrievedSource, '#FooComponent#');
-      final assists = await getAssists(selection);
-      expect(assists, hasLength(1));
-
-      final assist = assists.first;
-      expect(assist.priority, expectedPriority);
+      await expectAndGetSingleAssist(selection);
     });
   }
 
@@ -136,102 +124,9 @@ class BarComponent extends FluxUiStatefulComponent2<BarProps, BarState> {
     testBothSources((source) async {
       var retrievedSource = newSource('test.dart', source);
       var selection = createSelection(retrievedSource, '#Dom.div#');
-      final assists = await getAssists(selection);
-      expect(assists, hasLength(1));
-
-      retrievedSource = applySourceChange(assists.first.change, retrievedSource);
+      final change = await expectAndGetSingleAssist(selection);
+      retrievedSource = applySourceChange(change, retrievedSource);
       expect(retrievedSource.contents.data, boilerplateAssociation[source]);
     });
-  }
-}
-
-@reflectiveTest
-class RemoveStatefulnessAssist extends AssistTestBase {
-  static int expectedPriority = AddPropsAssistContributor.addPropsKind.priority;
-
-  static String simpleSource = '''
-import 'package:over_react/over_react.dart';
-var foo = Dom.div()('hello');
-''';
-
-  @override
-  AsyncAssistContributor getContributorUnderTest() => AddPropsAssistContributor();
-
-  Future<void> test_noAssist() async {
-    var source = newSource('test.dart', 'var foo = true;');
-    var selection = createSelection(source, '#var foo#');
-    expect(await getAssists(selection), isEmpty);
-  }
-
-  Future<void> test_noAssistForSelection() async {
-    var source = newSource('test.dart', simpleSource);
-    var selection = createSelection(source, '#var foo#');
-    expect(await getAssists(selection), isEmpty);
-  }
-
-  Future<void> test_producesAssistForAllSelectionTypes() async {
-    final selectionTargets = [
-      '##Dom.div', // empty selection at beginning
-      'Dom.div##', // empty selection at end
-      'Dom.##div', // empty selection within
-      '#Dom.div#', // range starting at beginning
-      '#Dom.div()#', // range extending beyond end
-      'Do#m.d#iv', // range within
-    ];
-    for (final target in selectionTargets) {
-      await _verifySelectionProducesAssist(target);
-    }
-  }
-
-  Future<void> _verifySelectionProducesAssist(String selectionTarget) async {
-    var source = newSource('test.dart', simpleSource);
-    var selection = createSelection(source, selectionTarget);
-    final assists = await getAssists(selection);
-    expect(assists, hasLength(1), reason: 'Expected selection to produce an assist, but it did not: $selectionTarget');
-  }
-
-  Future<void> test_assistMeta() async {
-    var source = newSource('test.dart', simpleSource);
-    var selection = createSelection(source, '#Dom.div#');
-    final assists = await getAssists(selection);
-    expect(assists, hasLength(1));
-
-    final assist = assists.first;
-    expect(assist.priority, expectedPriority);
-  }
-
-  Future<void> test_addsParensAndPropsCascade() async {
-    var source = newSource('test.dart', simpleSource);
-    var selection = createSelection(source, '#Dom.div#');
-    final assists = await getAssists(selection);
-    expect(assists, hasLength(1));
-
-    source = applySourceChange(assists.first.change, source);
-    expect(source.contents.data, r'''
-import 'package:over_react/over_react.dart';
-var foo = (Dom.div()..)('hello');
-''');
-    selection = createSelection(source, '(Dom.div()..##)');
-    // TODO: this fails, but the test is correct. Seems like an issue with DartEditBuilder.selectHere()?
-    // expect(assist.change.selection.offset, selection.offset);
-  }
-
-  Future<void> test_alreadyHasParens() async {
-    var source = newSource('test.dart', '''
-import 'package:over_react/over_react.dart';
-var foo = (Dom.div())('hello');
-''');
-    var selection = createSelection(source, '#Dom.div#');
-    final assists = await getAssists(selection);
-    expect(assists, hasLength(1));
-
-    source = applySourceChange(assists.first.change, source);
-    expect(source.contents.data, r'''
-import 'package:over_react/over_react.dart';
-var foo = (Dom.div()..)('hello');
-''');
-    selection = createSelection(source, '(Dom.div()..##)');
-    // TODO: this fails, but the test is correct. Seems like an issue with DartEditBuilder.selectHere()?
-    // expect(assist.change.selection.offset, selection.offset);
   }
 }

@@ -1,3 +1,4 @@
+// ignore_for_file: implementation_imports
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
@@ -7,14 +8,34 @@ import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/boilerplate_assist_apis.dart';
 import 'package:over_react_analyzer_plugin/src/util/fix.dart';
-
-// ignore_for_file: implementation_imports
 import 'package:over_react/src/builder/parsing/util.dart';
+
+const _makeStatefulDesc = r'Make component stateful';
+// <editor-fold desc="Make Stateful Documentation Details">
+const _makeStatefulDetails = r'''
+
+When the user's cursor is within the name of a `UiComponent2` class declaration, the assist can be 
+used to convert it to a `UiStatefulComponent2`, complete with an analogous `UiState` mixin.
+
+''';
+// </editor-fold>
+
+const _makeStatelessDesc = r'Make component stateless';
+// <editor-fold desc="Make Stateless Documentation Details">
+const _makeStatelessDetails = r'''
+
+When the user's cursor is within the name of a `UiStatefulComponent2` class declaration, the assist can be 
+used to convert it to a `UiComponent2`, removing the analogous `UiState` mixin / class.
+
+''';
+// </editor-fold>
 
 class ToggleComponentStatefulness extends AssistContributorBase with ComponentDeclarationAssistApi {
   static int statefulAssistPriority = 30;
-  static AssistKind makeStateful = AssistKind('makeStateful', statefulAssistPriority, 'Make component stateful.');
-  static AssistKind makeStateless = AssistKind('makeStateless', statefulAssistPriority, 'Make component stateless.');
+  @DocsMeta(_makeStatefulDesc, details: _makeStatefulDetails)
+  static const makeStateful = AssistKind('makeStateful', statefulAssistPriority, _makeStatefulDesc);
+  @DocsMeta(_makeStatelessDesc, details: _makeStatelessDetails)
+  static const makeStateless = AssistKind('makeStateless', statefulAssistPriority, _makeStatelessDesc);
 
   /// The counterpart base component class that will replace the current one.
   ///

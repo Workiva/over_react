@@ -25,8 +25,9 @@ class SourceSelection {
   final Source source;
   final int offset;
   final int length;
+  final String target;
 
-  SourceSelection(this.source, this.offset, this.length);
+  SourceSelection(this.source, this.offset, this.length, {this.target});
 }
 
 /// Test base that handles constructing an analysis server plugin designed for
@@ -88,27 +89,19 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
     final selection = parts[1];
     final after = parts[2];
     final loc = source.contents.data.indexOf('$before$selection$after');
-    expect(loc, greaterThanOrEqualTo(0), reason: 'Target was not found in source.');
+    expect(loc, greaterThanOrEqualTo(0), reason: 'Target was not found in source: $target');
     final offset = loc + before.length;
     final length = selection.length;
-    return SourceSelection(source, offset, length);
+    return SourceSelection(source, offset, length, target: target);
   }
 
-  /// Returns the list of assist contributors that will be included when
-  /// constructing the test plugin.
-  ///
-  /// Tests should not consume or override this method directly. Instead, extend
-  /// from the [AssistTestBase] and override
-  /// [AssistTestBase.getContributorUnderTest].
-  List<AsyncAssistContributor> getAssistContributors() => [];
-
-  /// Returns the list of diagnostic contributors that will be included when
-  /// constructing the test plugin.
-  ///
-  /// Tests should not consume or override this method directly. Instead, extend
-  /// from the [DiagnosticTestBase] and override
-  /// [DiagnosticTestBase.getContributorUnderTest].
-  List<DiagnosticContributor> getDiagnosticContributors() => [];
+  /// Will fail the test if any unexpected plugin errors were sent on the plugin
+  /// communication channel.
+  void expectNoPluginErrors() {
+    final pluginErrors = _channel.sentNotifications.where((n) => n.event == 'plugin.error');
+    expect(pluginErrors, isEmpty,
+        reason: 'Unexpected plugin error(s):\n${pluginErrors.map((e) => e.toJson()).join('\n')}');
+  }
 
   MockChannel _channel;
   PluginForTest _plugin;
@@ -119,12 +112,7 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
     await super.setUp();
 
     _channel = MockChannel();
-    _plugin = PluginForTest(
-      analysisDriver,
-      resourceProvider,
-      assistContributors: getAssistContributors(),
-      diagnosticContributors: getDiagnosticContributors(),
-    )..start(_channel);
+    _plugin = PluginForTest(analysisDriver, resourceProvider)..start(_channel);
 
     // ignore: missing_required_param
     final contextRoot = ContextRoot(testPath, []);
@@ -134,6 +122,7 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
   @override
   @mustCallSuper
   Future<void> tearDown() async {
+    expectNoPluginErrors();
     await _plugin?.handlePluginShutdown(PluginShutdownParams());
     _channel = null;
     _plugin = null;

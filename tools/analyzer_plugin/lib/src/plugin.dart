@@ -44,39 +44,37 @@ import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart' as plugin;
 import 'package:analyzer_plugin/utilities/navigation/navigation.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
-import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref_assist.dart';
 import 'package:over_react_analyzer_plugin/src/assist/extract_component.dart';
+import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref_assist.dart';
 import 'package:over_react_analyzer_plugin/src/assist/toggle_stateful.dart';
 import 'package:over_react_analyzer_plugin/src/assist/wrap_unwrap.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/diagnostic.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/arrow_function_prop.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/bad_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/boilerplate_validator.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/bool_prop_name_readability.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/bad_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/callback_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/consumed_props_return_value.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/forward_only_dom_props_to_dom_builders.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/link_target_without_rel.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/proptypes_instance_members.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/proptypes_return_value.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/incorrect_doc_comment_location.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/dom_prop_types.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/duplicate_prop_cascade.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/forward_only_dom_props_to_dom_builders.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/incorrect_doc_comment_location.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/iterator_key.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/link_target_without_rel.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/missing_cascade_parens.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/missing_required_prop.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/proptypes_instance_members.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/proptypes_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/pseudo_static_lifecycle.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/render_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/string_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/style_missing_unit.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/single_child_key.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children_with_keys.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
-/// Analyzer plugin for over_react.
-class OverReactAnalyzerPlugin extends ServerPlugin
+abstract class OverReactAnalyzerPluginBase extends ServerPlugin
     with
 //    OutlineMixin, DartOutlineMixin,
         DiagnosticMixin,
@@ -84,7 +82,73 @@ class OverReactAnalyzerPlugin extends ServerPlugin
         DartNavigationMixin,
         AsyncAssistsMixin,
         AsyncDartAssistsMixin {
+  OverReactAnalyzerPluginBase(ResourceProvider provider) : super(provider);
+
+  @override
+  List<String> get fileGlobsToAnalyze => const ['*.dart'];
+
+  // This is the protocol version, not the plugin version. It must match the
+  // protocol version of the `analyzer_plugin` package.
+  @override
+  String get version => '1.0.0-alpha.0';
+
+  @override
+  List<AsyncAssistContributor> getAssistContributors(String path) => [
+        AddPropsAssistContributor(),
+        AddCreateRefAssistContributor(),
+        ExtractComponentAssistContributor(),
+        ExtractStatefulComponentAssistContributor(),
+        ToggleComponentStatefulness(),
+        WrapUnwrapAssistContributor(),
+      ];
+
+  @override
+  List<NavigationContributor> getNavigationContributors(String path) => [];
+
+  @override
+  List<DiagnosticContributor> getDiagnosticContributors(String path) => [
+        PropTypesInstanceMembersDiagnostic(),
+        PropTypesReturnValueDiagnostic(),
+        DuplicatePropCascadeDiagnostic(),
+        LinkTargetUsageWithoutRelDiagnostic(),
+        BadKeyDiagnostic(),
+        VariadicChildrenDiagnostic(),
+        ArrowFunctionPropCascadeDiagnostic(),
+        RenderReturnValueDiagnostic(),
+        InvalidChildDiagnostic(),
+        StringRefDiagnostic(),
+        CallbackRefDiagnostic(),
+        MissingCascadeParensDiagnostic(),
+        // TODO: Re-enable this once consumers can disable lints via analysis_options.yaml
+//      MissingRequiredPropDiagnostic(),
+        PseudoStaticLifecycleDiagnostic(),
+        InvalidDomAttributeDiagnostic(),
+        BoolPropNameReadabilityDiagnostic(),
+        StyleMissingUnitDiagnostic(),
+        BoilerplateValidatorDiagnostic(),
+        VariadicChildrenWithKeys(),
+        IncorrectDocCommentLocationDiagnostic(),
+        ConsumedPropsReturnValueDiagnostic(),
+        ForwardOnlyDomPropsToDomBuildersDiagnostic(),
+        IteratorKey(),
+      ];
+
+  // @override
+  // List<OutlineContributor> getOutlineContributors(String path) => [
+  //       // Disabled for now since it doesn't seem to work consistently
+  //       new ReactElementOutlineContributor(),
+  //     ];
+}
+
+/// Analyzer plugin for over_react.
+class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
   OverReactAnalyzerPlugin(ResourceProvider provider) : super(provider);
+
+  @override
+  String get name => 'over_react';
+
+  @override
+  String get contactInfo => 'Workiva Slack channel: #react-analyzer-plugin';
 
   @override
   AnalysisDriverGeneric createAnalysisDriver(plugin.ContextRoot contextRoot) {
@@ -107,77 +171,8 @@ class OverReactAnalyzerPlugin extends ServerPlugin
   }
 
   @override
-  List<String> get fileGlobsToAnalyze => const ['*.dart'];
-
-  @override
-  String get name => 'over_react';
-
-  // This is the protocol version, not the plugin version. It must match the
-  // protocol version of the `analyzer_plugin` package.
-  @override
-  String get version => '1.0.0-alpha.0';
-
-  @override
-  String get contactInfo => 'Workiva Slack channel: #react-analyzer-plugin';
-
-  @override
   void contentChanged(String path) {
     super.driverForPath(path).addFile(path);
-  }
-
-  //  @override
-//  List<OutlineContributor> getOutlineContributors(String path) {
-//    return [
-  // Disabled for now since it doesn't seem to work consistently
-//      new ReactElementOutlineContributor(),
-//    ];
-//  }
-
-  @override
-  List<AsyncAssistContributor> getAssistContributors(String path) {
-    return [
-      AddPropsAssistContributor(),
-      AddCreateRefAssistContributor(),
-      ExtractComponentAssistContributor(),
-      ExtractStatefulComponentAssistContributor(),
-      ToggleComponentStatefulness(),
-      WrapUnwrapAssistContributor(),
-    ];
-  }
-
-  @override
-  List<NavigationContributor> getNavigationContributors(String path) {
-    return [];
-  }
-
-  @override
-  List<DiagnosticContributor> getDiagnosticContributors(String path) {
-    return [
-      PropTypesInstanceMembersDiagnostic(),
-      PropTypesReturnValueDiagnostic(),
-      DuplicatePropCascadeDiagnostic(),
-      LinkTargetUsageWithoutRelDiagnostic(),
-      BadKeyDiagnostic(),
-      VariadicChildrenDiagnostic(),
-      ArrowFunctionPropCascadeDiagnostic(),
-      RenderReturnValueDiagnostic(),
-      InvalidChildDiagnostic(),
-      StringRefDiagnostic(),
-      CallbackRefDiagnostic(),
-      MissingCascadeParensDiagnostic(),
-      // TODO: Re-enable this once consumers can disable lints via analysis_options.yaml
-//      MissingRequiredPropDiagnostic(),
-      PseudoStaticLifecycleDiagnostic(),
-      InvalidDomAttributeDiagnostic(),
-      BoolPropNameReadabilityDiagnostic(),
-      StyleMissingUnitDiagnostic(),
-      BoilerplateValidatorDiagnostic(),
-      SingleChildWithKey(),
-      IncorrectDocCommentLocationDiagnostic(),
-      ConsumedPropsReturnValueDiagnostic(),
-      ForwardOnlyDomPropsToDomBuildersDiagnostic(),
-      IteratorKey(),
-    ];
   }
 
   @override
