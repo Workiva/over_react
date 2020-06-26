@@ -3,8 +3,7 @@ import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 import 'package:test/test.dart';
 
-import '../../../test_util.dart';
-import 'test_data.dart';
+import '../../test_util.dart';
 
 void main() {
   group('component_usage', () {
@@ -238,9 +237,9 @@ void main() {
               expressionNode = await parseExpression(
                 nestedSource,
                 imports: '''
-                import \'$pathToTestComponents\' show Bar;
-                ${builderSource.imports}
-              ''',
+                  ${builderSource.imports}
+                  $fooComponents
+                ''',
                 isResolved: true,
               );
 
@@ -290,49 +289,35 @@ void main() {
       });
 
       group('returns null when node has no parent component usage', () {
-        final unit = parseAndGetUnit(/*language=dart*/ r'''
+        var source = /*language=dart*/ r'''
           class Foo {
             void foo() {
               var a = 'abc';
             }
           }
-        ''');
-        ClassDeclaration classDecl;
-        MethodDeclaration methodDecl;
+        ''';
         InvocationExpression expressionNode;
 
         test('and node is a class declaration', () {
-          expect(unit.declarations.length, 1);
-          expect(unit.declarations.firstOrNull, isA<ClassDeclaration>());
-          classDecl = unit.declarations.firstOrNull as ClassDeclaration;
-
+          final classDecl = parseAndGetNode<ClassDeclaration>(source);
           final componentUsage = identifyUsage(classDecl);
           expect(componentUsage, isNull);
         });
 
         test('and node is a method declaration', () {
-          final classMembers = classDecl.members;
-          expect(classMembers.length, 1);
-          expect(classMembers.firstOrNull, isA<MethodDeclaration>());
-          methodDecl = classMembers.firstOrNull as MethodDeclaration;
-
+          final methodDecl = parseAndGetNode<MethodDeclaration>(source);
           final componentUsage = identifyUsage(methodDecl);
           expect(componentUsage, isNull);
         });
 
         test('and node is a variable declaration', () {
-          final methodStatements = (methodDecl.body as BlockFunctionBody).block.statements;
-          expect(methodStatements.length, 1);
-          final variableDeclaration = methodStatements.firstOrNull;
-          expect(variableDeclaration, isA<VariableDeclarationStatement>());
-
-          final componentUsage = identifyUsage(variableDeclaration);
+          final variableDecl = parseAndGetNode<VariableDeclaration>(source);
+          final componentUsage = identifyUsage(variableDecl);
           expect(componentUsage, isNull);
         });
 
         test('and node is an invocation expression', () async {
           expressionNode = await parseExpression('Foo.foo(() => \'abc\')');
-
           final componentUsage = identifyUsage(expressionNode);
           expect(componentUsage, isNull);
         });
@@ -340,7 +325,6 @@ void main() {
         test('and node is an argument of an invocation expression', () {
           final arg = expressionNode.argumentList.arguments.firstOrNull;
           expect(arg, isNotNull);
-
           final componentUsage = identifyUsage(arg);
           expect(componentUsage, isNull);
         });
@@ -359,3 +343,87 @@ void checkComponentUsage(FluentComponentUsage componentUsage, BuilderTestCase bu
   expect(componentUsage.isSvg, builderSource.isSvg);
   expect(componentUsage.cascadeExpression?.toSource(), cascadeSource ?? isNull);
 }
+
+class BuilderTestCase {
+  String source;
+  String imports;
+  String componentName;
+  bool isDom;
+  bool isSvg;
+  BuilderTestCase({this.source, this.imports, this.componentName, this.isDom, this.isSvg});
+}
+
+const fooComponents = /*language=dart*/ r'''
+import 'package:over_react/over_react.dart';
+
+UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier, invalid_assignment
+
+mixin FooProps on UiProps {}
+
+class FooComponent extends UiComponent2<FooProps> {
+  @override
+  void render() {}
+}
+
+UiFactory<BarProps> Bar = _$Bar; // ignore: undefined_identifier, invalid_assignment
+
+mixin BarProps on UiProps {}
+
+class BarComponent extends UiComponent2<BarProps> {
+  @override
+  void render() {}
+}
+
+FooProps getFooBuilder() => Foo();
+
+FooProps getBuilderForFoo() => Foo();
+''';
+
+/// An enumeration of all the supported OverReact component builders that can be detected
+/// using [FluentComponentUsage], and used to target code when formatting.
+///
+/// Keys are descriptions, and values are [BuilderTestCase]s.
+final buildersToTest = {
+  'DOM factory': BuilderTestCase(
+    source: 'Dom.h1()',
+    imports: 'import \'package:over_react/over_react.dart\';',
+    componentName: 'h1',
+    isDom: true,
+    isSvg: false,
+  ),
+  'DOM factory w/ SVG props': BuilderTestCase(
+    source: 'Dom.circle()',
+    imports: 'import \'package:over_react/over_react.dart\';',
+    componentName: 'circle',
+    isDom: true,
+    isSvg: true,
+  ),
+  'DOM factory w/ namespaced import': BuilderTestCase(
+    source: 'foo_bar.Dom.h1()',
+    imports: 'import \'package:over_react/over_react.dart\' as foo_bar;',
+    componentName: 'h1',
+    isDom: true,
+    isSvg: false,
+  ),
+  'component factory': BuilderTestCase(
+    source: 'Foo()',
+    imports: fooComponents,
+    componentName: 'Foo',
+    isDom: false,
+    isSvg: false,
+  ),
+  'custom builder function (ending in keyword)': BuilderTestCase(
+    source: 'getFooBuilder()',
+    imports: fooComponents,
+    componentName: 'Foo',
+    isDom: false,
+    isSvg: false,
+  ),
+  'custom builder function (not ending in keyword)': BuilderTestCase(
+    source: 'getBuilderForFoo()',
+    imports: fooComponents,
+    componentName: 'Foo',
+    isDom: false,
+    isSvg: false,
+  ),
+};
