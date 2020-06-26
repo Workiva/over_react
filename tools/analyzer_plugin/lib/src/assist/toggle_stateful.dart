@@ -12,8 +12,9 @@ import 'package:over_react_analyzer_plugin/src/util/fix.dart';
 import 'package:over_react/src/builder/parsing/util.dart';
 
 class ToggleComponentStatefulness extends AssistContributorBase with ComponentDeclarationAssistApi {
-  static AssistKind makeStateful = AssistKind('makeStateful', 30, 'Make component stateful.');
-  static AssistKind makeStateless = AssistKind('makeStateless', 30, 'Make component stateless.');
+  static int statefulAssistPriority = 30;
+  static AssistKind makeStateful = AssistKind('makeStateful', statefulAssistPriority, 'Make component stateful.');
+  static AssistKind makeStateless = AssistKind('makeStateless', statefulAssistPriority, 'Make component stateless.');
 
   /// The counterpart base component class that will replace the current one.
   ///

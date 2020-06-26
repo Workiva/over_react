@@ -6,9 +6,14 @@ UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier
 
 mixin FooProps on UiProps {}
 
-class FooComponent extends UiComponent2<FooProps> {
+mixin FooState on UiState {}
+
+class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
   @override
   get defaultProps => (newProps());
+
+  @override
+  get initialState => (newState());
 
   @override
   render() {}
