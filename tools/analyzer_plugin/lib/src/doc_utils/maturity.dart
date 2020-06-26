@@ -1,4 +1,4 @@
-// Taken from <https://github.com/dart-lang/sdk/blob/master/pkg/analyzer/lib/src/lint/linter.dart>
+// Taken from https://github.com/dart-lang/sdk/blob/2fe40ad6ed523d4c9bc6ccdc11c1818168c5dd37/pkg/analyzer/lib/src/lint/linter.dart
 //
 // Copyright 2013, the Dart project authors. All rights reserved.
 // Redistribution and use in source and binary forms, with or without
