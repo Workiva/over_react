@@ -218,11 +218,11 @@ void main() {
                 checkComponentUsage(componentUsage, builderSource, source, cascadeSource);
               });
 
-              test('is a child', () {
+              test('is a child should return null', () {
                 final child = expressionNode.argumentList.arguments.firstOrNull;
                 expect(child.toSource(), '\'stringChild\'');
                 final componentUsage = identifyUsage(child);
-                checkComponentUsage(componentUsage, builderSource, source, cascadeSource);
+                expect(componentUsage, isNull);
               });
             });
           });
@@ -278,11 +278,11 @@ void main() {
                 checkComponentUsage(componentUsage, builderSource, childSource, cascadeSource);
               });
 
-              test('is a child', () {
+              test('is a child should return null', () {
                 final child = childExpression.argumentList.arguments.firstOrNull;
                 expect(child.toSource(), '\'stringChild\'');
                 final componentUsage = identifyUsage(child);
-                checkComponentUsage(componentUsage, builderSource, childSource, cascadeSource);
+                expect(componentUsage, isNull);
               });
             });
           });
