@@ -3,15 +3,12 @@ import 'package:analyzer/src/generated/source_io.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
 import '../mocks.dart';
 import 'analysis_driver_test_base.dart';
 import 'assist_test_base.dart';
-import 'diagnostic_test_base.dart';
 
 /// Representation of a selected range on a [Source] file.
 ///
