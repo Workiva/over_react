@@ -153,7 +153,11 @@ bool hasChildComponent(ArgumentList arguments) {
 }
 
 /// Attempt to find and return the closest expression that encloses the [node]
-/// and is an independent Flutter `Widget`.  Return `null` if nothing found.
+/// and is an independent Flutter `Widget`.
+///
+/// If [node] is already a [InvocationExpression], return the [FluentComponentUsage] of [node].
+///
+/// Return `null` if nothing found.
 FluentComponentUsage identifyUsage(AstNode node) {
   for (; node != null; node = node.parent) {
     if (node is InvocationExpression) {

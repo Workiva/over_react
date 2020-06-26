@@ -154,30 +154,37 @@ List<AnalysisError> _filterIgnored(List<AnalysisError> errors, IgnoreInfo ignore
 
 /// Returns [expression] parsed as AST.
 ///
-/// This is accomplished it by including the [expression]  as a statement within a wrapper function.
+/// This is accomplished it by including the [expression] as a statement within a wrapper function
+/// with any necessary [imports] at the top of the source code. As a result, the offset of the
+/// returned expression will not be 0.
 ///
-/// As a result, the offset of the returned expression will not be 0.
-InvocationExpression parseExpression(String expression) {
-  final unit = parseString(content: 'wrapperFunction() {\n$expression;\n}').unit;
-  final parsedFunction = unit.childEntities.whereType<FunctionDeclaration>().last;
-  final body = parsedFunction.functionExpression.body as BlockFunctionBody;
-  final statement = body.block.statements.single as ExpressionStatement;
-  return statement.expression as InvocationExpression;
-}
-
-/// Returns [expression] parsed as resolved AST.
+/// To return resolved AST, set [isResolved] to true.
 ///
-/// Similar to [parseExpression].
-Future<InvocationExpression> parseExpressionResolved(String expression, {String imports = ''}) async {
-  final result = await parseAndGetResolvedUnit('''
+/// Returns null if [expression] is not an [InvocationExpression].
+Future<InvocationExpression> parseExpression(
+  String expression, {
+  String imports = '',
+  bool isResolved = false,
+}) async {
+  CompilationUnit unit;
+  final source = '''
     $imports
     void wrapperFunction() {
-      $expression; // ignore: undefined_identifier, undefined_function
+      $expression;
     }
-  ''');
-  final unit = result.unit;
+  ''';
+  if (isResolved) {
+    final result = await parseAndGetResolvedUnit(source);
+    unit = result.unit;
+  } else {
+    unit = parseString(content: source).unit;
+  }
   final parsedFunction = unit.childEntities.whereType<FunctionDeclaration>().last;
   final body = parsedFunction.functionExpression.body as BlockFunctionBody;
   final statement = body.block.statements.single as ExpressionStatement;
-  return statement.expression as InvocationExpression;
+  final invocationExpression = statement.expression;
+  if (invocationExpression is InvocationExpression) {
+    return invocationExpression;
+  }
+  return null;
 }
