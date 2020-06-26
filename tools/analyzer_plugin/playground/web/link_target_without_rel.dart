@@ -33,6 +33,23 @@ final relWithNonConstValue = (Dom.a()
   ..rel = myRelTarget3
 )();
 
+ReactElement relWithLocalConstValue() {
+  const invalidLocalRel = 'nofollow';
+  const validLocalRel = myRelTarget2;
+
+  final invalid = (Dom.a()
+    ..href = 'https://www.workiva.com'
+    ..target = '_blank' // Should lint
+    ..rel = invalidLocalRel
+  )();
+
+  final valid = (Dom.a()
+    ..href = 'https://www.workiva.com'
+    ..target = '_blank' // Should not lint
+    ..rel = validLocalRel
+  )();
+}
+
 final relIsNull = (Dom.a()
   ..href = 'https://www.workiva.com'
   ..target = '_blank'

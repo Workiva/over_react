@@ -4,14 +4,46 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
+const _desc = r'Avoid forwarding custom props to a Dom builder.';
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+
+**PREFER** to use `addUnconsumedDomProps` instead of `addUnconsumedProps` on Dom builders.
+
+**GOOD:**
+```
+@override
+render() {
+  return (Dom.div()
+    ..modifyProps(addUnconsumedDomProps)
+    ..id = 'foo'
+  )(props.children);
+}
+```
+
+**BAD:**
+```
+@override
+render() {
+  return (Dom.div()
+    ..modifyProps(addUnconsumedProps)
+    ..id = 'foo'
+  )(props.children);
+}
+```
+
+''';
+// </editor-fold>
+
 /// A warning that appears when `addUnconsumedProps` is used on an over_react `Dom.*` builder.
 ///
 /// {@category Diagnostics}
 /// {@subCategory Warnings}
 class ForwardOnlyDomPropsToDomBuildersDiagnostic extends ComponentUsageDiagnosticContributor {
-  static final code = DiagnosticCode(
+  @DocsMeta(_desc, details: _details)
+  static const code = DiagnosticCode(
     'over_react_forward_only_dom_props_to_dom_builders',
-    "Custom props should not be forwarded to a Dom builder.",
+    _desc,
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
     correction: 'Use addUnconsumedDomProps instead of addUnconsumedProps.',

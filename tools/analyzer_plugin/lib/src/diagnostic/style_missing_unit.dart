@@ -1,22 +1,61 @@
-// This is necessary for `ConstantEvaluator`. If that API is removed, it can just
-// be copied and pasted into this analyzer package (if still needed).
-// ignore: deprecated_member_use
-import 'package:analyzer/analyzer.dart' show ConstantEvaluator;
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
+
+const _correction =
+    r'Use CSS property values that are strings _with_ units, or numbers _(in which case `px` will be inferred)_.';
+const _desc = r'Do not use string CSS property values without specifying a unit.';
+// <editor-fold desc="Documentation Details">
+const _details = '''
+
+**ALWAYS** $_correction
+
+**GOOD:**
+```
+@override
+render() {
+  return (Dom.div()..style = {'width': 80})(
+    'I am eighty pixels wide!',
+  );
+}
+```
+
+**GOOD:**
+```
+@override
+render() {
+  return (Dom.div()..style = {'width': '80px'})(
+    'I am also eighty pixels wide!',
+  );
+}
+```
+
+**BAD:**
+```
+@override
+render() {
+  return (Dom.div()..style = {'width': '80'})(
+    'I never rendered because of a ReactJS runtime error :(',
+  );
+}
+```
+
+''';
+// </editor-fold>
 
 class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
-  static final code = DiagnosticCode(
-      'over_react_style_missing_unit',
-      // TODO upgrade to error in React 16
-      "React CSS values must be strings with units, or numbers (in which case 'px' will be used). This will break in React 16.",
-      AnalysisErrorSeverity.WARNING,
-      AnalysisErrorType.STATIC_WARNING);
+  @DocsMeta(_desc, details: _details)
+  static const code = DiagnosticCode(
+    'over_react_style_missing_unit',
+    _desc,
+    AnalysisErrorSeverity.ERROR,
+    AnalysisErrorType.SYNTACTIC_ERROR,
+    correction: _correction,
+  );
 
-  static final fixKind = FixKind(code.name, 200, "Convert to number (and treat as 'px')",
-      appliedTogetherMessage: "Convert to numbers (and treat as 'px')");
+  static final fixKind = FixKind(code.name, 200, "Convert to number (and treat as 'px')");
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
@@ -29,7 +68,7 @@ class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
     }
 
     for (final entry in styleEntries) {
-      final propertyName = _stringValueIfApplicable(entry.key);
+      final propertyName = getConstOrLiteralStringValueFrom(entry.key);
       if (propertyName == null) continue;
 
       if (unitlessNumberStyles.contains(propertyName) || _isCustomProperty(propertyName)) {
@@ -37,7 +76,7 @@ class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
       }
 
       // Only worry about strings, since numbers get values
-      final stringValue = _stringValueIfApplicable(entry.value);
+      final stringValue = getConstOrLiteralStringValueFrom(entry.value);
       if (stringValue == null) continue;
 
       if (num.tryParse(stringValue) != null) {
@@ -74,11 +113,6 @@ class _RecursiveMapLiteralEntryVisitor extends RecursiveAstVisitor<void> {
     onMapLiteralEntry(node);
     node.visitChildren(this);
   }
-}
-
-String _stringValueIfApplicable(Expression value) {
-  final constantValue = value.accept(ConstantEvaluator());
-  return constantValue is String ? constantValue : null;
 }
 
 bool _isCustomProperty(String propertyName) => propertyName.startsWith('--');

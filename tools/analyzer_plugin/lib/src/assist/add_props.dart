@@ -2,11 +2,22 @@ import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
 import 'package:over_react_analyzer_plugin/src/assist/contributor_base.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/fix.dart';
+
+const _desc = r'Add props to a component builder';
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+
+When an over_react component builder is selected by the user, the assist adds a cascading setter 
+`..` operator - and the parenthetical closure around the builder if one does not already exist. 
+
+''';
+// </editor-fold>
 
 class AddPropsAssistContributor extends AssistContributorBase {
-  static AssistKind addPropsKind = AssistKind('addProps', 31, 'Add props');
+  @DocsMeta(_desc, details: _details)
+  static const addPropsKind = AssistKind('addProps', 31, 'Add props');
 
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {

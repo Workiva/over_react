@@ -1,9 +1,32 @@
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
+const _desc = r'Avoid setting props that map to invalid HTML element attributes.';
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+
+**PREFER** to only set props on `Dom` components that produce valid HTML attributes.
+
+All OverReact `Dom` component builders show prop keys from `DomPropsMixin` in the autocompleted
+list of available prop setters. However, some of those props are only valid on certain types of elements. 
+
+**For example:**
+
+```
+// This will produce valid HTML.
+(Dom.textarea()..rows = 2)()
+
+// This will not.
+(Dom.div()..rows = 2)()
+```
+
+''';
+// </editor-fold>
+
 /// A diagnostic that warns when an HTML attribute set on an OverReact `Dom` component builder is invalid
 /// based on the `<attribute>: [<allowed_html_elems>]` schema found within [allowedHtmlElementsForAttribute].
 class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor {
+  @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_invalid_dom_attribute',
     "'{0}' isn't a valid HTML attribute prop for '{1}'. It may only be used on: {2}",
@@ -23,6 +46,8 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
 //    }
 
     for (final prop in usage.cascadedProps) {
+      // If the prop name is prefixed with anything other than `dom` (e.g. `aria`), ignore it.
+      if (prop.targetName != null && prop.targetName.name != 'dom') continue;
       final allowedElements = getAttributeMeta(prop.name.name);
       if (allowedElements == null) continue;
 

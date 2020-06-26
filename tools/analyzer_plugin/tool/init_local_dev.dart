@@ -9,6 +9,8 @@ import 'package:logging/logging.dart';
 import 'package:path/path.dart' as p;
 import 'package:yaml/yaml.dart';
 
+import 'logging.dart';
+
 final logger = Logger('init_local_dev');
 
 final resourceProvider = PhysicalResourceProvider.INSTANCE;
@@ -115,33 +117,4 @@ void validatePackageRoot(String pluginPath) {
   }
 
   logger.fine('Plugin package root is valid.\n');
-}
-
-void initLogging({bool verbose = true}) {
-  Logger.root.level = verbose ? Level.ALL : Level.INFO;
-  Logger.root.onRecord.listen((rec) {
-    String Function(String) colorizer;
-    IOSink output;
-
-    if (rec.level >= Level.SEVERE) {
-      colorizer = ansi.red.wrap;
-      output = stderr;
-    } else if (rec.level >= Level.WARNING) {
-      colorizer = ansi.yellow.wrap;
-      output = stderr;
-    } else {
-      colorizer = (string) => string;
-      output = stdout;
-    }
-
-    if (rec.message != '') {
-      output.writeln(colorizer(rec.message));
-    }
-    if (rec.error != null) {
-      output.writeln(colorizer(rec.error.toString()));
-    }
-    if (verbose && rec.stackTrace != null) {
-      output.writeln(colorizer(rec.stackTrace.toString()));
-    }
-  });
 }
