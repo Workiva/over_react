@@ -3,7 +3,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
-const _desc = r'Avoid setting props.key when it is not necessary.';
+const _desc = r'Avoid using keys when not necessary.';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
@@ -55,34 +55,26 @@ render() {
 ''';
 // </editor-fold>
 
-class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
+class VariadicChildrenWithKeys extends ComponentUsageDiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
-    'over_react_single_child_key',
+    'variadic_children_with_keys',
     _desc,
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.HINT,
-    correction: 'Only add a key when an element is within an iterable with one or more siblings elements.',
+    correction: 'Only add keys to children within iterables.',
   );
 
   static final fixKind = FixKind(code.name, 200, 'Remove unnecessary key');
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    var isInAList = false;
     var isVariadic = false;
-    var isSingleChild = false;
-
     final parentMethodName = usage.node.thisOrAncestorOfType<MethodDeclaration>()?.name?.name;
 
     final parent = usage.node.parent;
-    if (parent is ListLiteral && (parent?.parent is! ReturnStatement)) {
-      isInAList = true;
 
-      if (parent.elements.length == 1) {
-        isSingleChild = true;
-      }
-    } else if (parent is ArgumentList) {
+    if (parent is ArgumentList) {
       final enclosingUsage = identifyUsage(parent?.parent);
 
       if (enclosingUsage?.node?.argumentList == parent ?? false) {
@@ -92,7 +84,7 @@ class SingleChildWithKey extends ComponentUsageDiagnosticContributor {
       isVariadic = true;
     }
 
-    if ((isInAList && isSingleChild) || isVariadic) {
+    if (isVariadic) {
       for (final prop in usage.cascadedProps) {
         if (prop.name.name == 'key' && isAConstantValue(prop.rightHandSide)) {
           await collector.addErrorWithFix(

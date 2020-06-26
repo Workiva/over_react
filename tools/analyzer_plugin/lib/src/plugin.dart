@@ -73,7 +73,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/render_return_value.da
 import 'package:over_react_analyzer_plugin/src/diagnostic/string_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/style_missing_unit.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/single_child_key.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children_with_keys.dart';
 
 /// Analyzer plugin for over_react.
 class OverReactAnalyzerPlugin extends ServerPlugin
@@ -172,7 +172,7 @@ class OverReactAnalyzerPlugin extends ServerPlugin
       BoolPropNameReadabilityDiagnostic(),
       StyleMissingUnitDiagnostic(),
       BoilerplateValidatorDiagnostic(),
-      SingleChildWithKey(),
+      VariadicChildrenWithKeys(),
       IncorrectDocCommentLocationDiagnostic(),
       ConsumedPropsReturnValueDiagnostic(),
       ForwardOnlyDomPropsToDomBuildersDiagnostic(),
