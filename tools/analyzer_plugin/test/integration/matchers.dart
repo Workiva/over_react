@@ -9,33 +9,15 @@ import 'test_bases/server_plugin_contributor_test_base.dart';
 
 /// Returns a [Matcher] that verifies that the item is a source change with a
 /// priority and ID matching [assistKind].
-///
-/// If [locatedAt] is non-null, the analysis error's location (offset and
-/// length) matches it
-TypeMatcher<PrioritizedSourceChange> isAssist(AssistKind assistKind, {SourceSelection locatedAt}) {
-  var matcher = isA<PrioritizedSourceChange>()
-      .having((psc) => psc.priority, 'priority', assistKind.priority)
-      .having((psc) => psc.change.id, 'assist ID', assistKind.id);
-  if (locatedAt != null) {
-    matcher = matcher.havingLocation(locatedAt.offset);
-  }
-  return matcher;
-}
+TypeMatcher<PrioritizedSourceChange> isAssist(AssistKind assistKind) => isA<PrioritizedSourceChange>()
+    .having((psc) => psc.priority, 'priority', assistKind.priority)
+    .having((psc) => psc.change.id, 'assist ID', assistKind.id);
 
 /// Returns a [Matcher] that verifies that the item is a source change with a
 /// priority and ID matching [fixKind].
-///
-/// If [locatedAt] is non-null, the analysis error's location (offset and
-/// length) matches it
-TypeMatcher<PrioritizedSourceChange> isFix(FixKind fixKind, {SourceSelection locatedAt}) {
-  var matcher = isA<PrioritizedSourceChange>()
-      .having((psc) => psc.priority, 'priority', fixKind.priority)
-      .having((psc) => psc.change.id, 'fix ID', fixKind.id);
-  if (locatedAt != null) {
-    matcher = matcher.havingLocation(locatedAt.offset);
-  }
-  return matcher;
-}
+TypeMatcher<PrioritizedSourceChange> isFix(FixKind fixKind) => isA<PrioritizedSourceChange>()
+    .having((psc) => psc.priority, 'priority', fixKind.priority)
+    .having((psc) => psc.change.id, 'fix ID', fixKind.id);
 
 /// Returns a [Matcher] that verifies that the item is an analysis error that
 /// contains the expected information for the given [DiagnosticCode].
@@ -80,11 +62,6 @@ extension AnalysisErrorHavingUtils on TypeMatcher<AnalysisError> {
   TypeMatcher<AnalysisError> thatHasFix() => having((e) => e.hasFix, 'hasFix', isTrue);
 
   TypeMatcher<AnalysisError> thatHasNoFix() => having((e) => e.hasFix, 'hasFix', isFalse);
-}
-
-extension PrioritizedSourceChangeHavingUtils on TypeMatcher<PrioritizedSourceChange> {
-  TypeMatcher<PrioritizedSourceChange> havingLocation(int offset) =>
-      having((psc) => psc.change.selection.offset, 'location (offset)', offset);
 }
 
 Matcher matchesSelectionLocation(SourceSelection selection) =>
