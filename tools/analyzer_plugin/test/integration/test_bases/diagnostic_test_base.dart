@@ -17,6 +17,10 @@ import 'server_plugin_contributor_test_base.dart';
 /// [createSelection] to select a range within that source, and one of the
 /// `expect` utility methods. Should also use [getAllErrors] to test that
 /// multiple distinct errors can be produced over a whole source file.
+///
+/// Note: it is possible and valid for a diagnostic contributor to produce
+/// multiple kinds of errors and/or fixes, in which case a separate test suite
+/// for each combination should be created.
 abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   /// Tests should override this to return the [DiagnosticCode] for the
   /// diagnostic contributor that is being tested.
@@ -30,10 +34,6 @@ abstract class DiagnosticTestBase extends ServerPluginContributorTestBase {
   ///
   /// This will be used to filter the error fixes produced by the test plugin to
   /// only those originating from this diagnostic contributor.
-  ///
-  /// Note: it is possible a diagnostic contributor could produce multiple kinds
-  /// of fixes for the same error, in which case a separate test suite for each
-  /// combination should be created.
   FixKind get fixKindUnderTest;
 
   /// Applies the source change from [errorFix] to [source] and returns the
