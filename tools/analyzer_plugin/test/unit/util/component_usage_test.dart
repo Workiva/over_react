@@ -236,10 +236,7 @@ void main() {
             setUpAll(() async {
               expressionNode = await parseExpression(
                 nestedSource,
-                imports: '''
-                  ${builderSource.imports}
-                  $fooComponents
-                ''',
+                imports: builderSource.imports,
                 isResolved: true,
               );
 
@@ -386,21 +383,21 @@ FooProps getBuilderForFoo() => Foo();
 final buildersToTest = {
   'DOM factory': BuilderTestCase(
     source: 'Dom.h1()',
-    imports: 'import \'package:over_react/over_react.dart\';',
+    imports: fooComponents,
     componentName: 'h1',
     isDom: true,
     isSvg: false,
   ),
   'DOM factory w/ SVG props': BuilderTestCase(
     source: 'Dom.circle()',
-    imports: 'import \'package:over_react/over_react.dart\';',
+    imports: fooComponents,
     componentName: 'circle',
     isDom: true,
     isSvg: true,
   ),
   'DOM factory w/ namespaced import': BuilderTestCase(
     source: 'foo_bar.Dom.h1()',
-    imports: 'import \'package:over_react/over_react.dart\' as foo_bar;',
+    imports: 'import \'package:over_react/over_react.dart\' as foo_bar;$fooComponents',
     componentName: 'h1',
     isDom: true,
     isSvg: false,
