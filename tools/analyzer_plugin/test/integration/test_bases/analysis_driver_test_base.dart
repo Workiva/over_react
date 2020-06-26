@@ -73,6 +73,8 @@ abstract class AnalysisDriverTestBase {
 
   @mustCallSuper
   Future<void> setUp() async {
+    // Based on https://github.com/dart-lang/angular/blob/832c8df2c54415e8b6e68886cd3d8c293ef9874c/angular_analyzer_plugin/test/analyzer_base.dart#L62-L89
+
     _resourceProvider = MemoryResourceProvider();
 
     final sdk = MockSdk(resourceProvider: resourceProvider);
