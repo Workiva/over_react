@@ -151,7 +151,9 @@ class DiagnosticCollectorImpl implements DiagnosticCollector {
     PrioritizedSourceChange fix;
     if (fixChange != null) {
       if (fixChange.edits.isNotEmpty) {
-        fixChange.message = _formatList(fixKind.message, fixMessageArgs);
+        fixChange
+          ..id = fixKind.id
+          ..message = _formatList(fixKind.message, fixMessageArgs);
         fix = PrioritizedSourceChange(fixKind.priority, fixChange);
         hasFix = true;
       }

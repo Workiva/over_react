@@ -52,22 +52,31 @@ mixin DiagnosticMixin on ServerPlugin {
 
   /// Computes errors based on an analysis result and notifies the analyzer.
   Future<void> processDiagnosticsForResult(ResolvedUnitResult analysisResult) async {
+    await getAllErrors(analysisResult);
+  }
+
+  /// Computes errors based on an analysis result, notifies the analyzer, and
+  /// then returns the list of errors.
+  Future<List<AnalysisError>> getAllErrors(ResolvedUnitResult analysisResult) async {
     try {
       // If there is no relevant analysis result, notify the analyzer of no errors.
       if (analysisResult.unit == null || analysisResult.libraryElement == null) {
         channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path, []).toNotification());
-      } else {
-        // If there is something to analyze, do so and notify the analyzer.
-        // Note that notifying with an empty set of errors is important as
-        // this clears errors if they were fixed.
-        final generator = _DiagnosticGenerator(getDiagnosticContributors(analysisResult.path));
-        final result = await generator.generateErrors(analysisResult);
-        channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path, result.result).toNotification());
-        result.sendNotifications(channel);
+        return [];
       }
+
+      // If there is something to analyze, do so and notify the analyzer.
+      // Note that notifying with an empty set of errors is important as
+      // this clears errors if they were fixed.
+      final generator = _DiagnosticGenerator(getDiagnosticContributors(analysisResult.path));
+      final result = await generator.generateErrors(analysisResult);
+      channel.sendNotification(plugin.AnalysisErrorsParams(analysisResult.path, result.result).toNotification());
+      result.sendNotifications(channel);
+      return result.result;
     } catch (e, stackTrace) {
       // Notify the analyzer that an exception happened.
       channel.sendNotification(plugin.PluginErrorParams(false, e.toString(), stackTrace.toString()).toNotification());
+      return [];
     }
   }
 
