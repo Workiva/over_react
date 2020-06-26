@@ -162,7 +162,7 @@ FluentComponentUsage identifyUsage(AstNode node) {
         return usage;
       }
     }
-    if (node is ArgumentList || node is Statement || node is FunctionBody) {
+    if (node is Statement || node is FunctionBody) {
       return null;
     }
   }

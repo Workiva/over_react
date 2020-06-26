@@ -194,32 +194,93 @@ void main() {
 
     group('identifyUsage', () {
       group('returns correct FluentComponentUsage usage when', () {
-        group('node is already a FluentComponentUsage:', () {
-          buildersToTest.forEach((name, builderSource) {
-            test('$name', () async {
-              final source = '${builderSource.source}()';
+        buildersToTest.forEach((name, builderSource) {
+          group('node inside $name', () {
+            final cascadeSource = '${builderSource.source}..id = \'123\'';
+            final source = '($cascadeSource)(\'stringChild\')';
+            InvocationExpression expressionNode;
 
-              var expressionNode = await parseExpressionResolved(source, imports: builderSource.imports);
-              var componentUsage = identifyUsage(expressionNode);
-
-              checkComponentUsage(componentUsage, builderSource, source);
+            setUpAll(() async {
+              expressionNode = await parseExpressionResolved(source, imports: builderSource.imports);
             });
-          });
-        });
 
-        group('node is props cascade expression', () {
-          buildersToTest.forEach((name, builderSource) {
-            test('inside a $name', () async {
-              var cascadeSource = '${builderSource.source}..id = \'123\'';
-              var source = '($cascadeSource)()';
+            test('is already a component usage', () {
+              final componentUsage = identifyUsage(expressionNode);
+              checkComponentUsage(componentUsage, builderSource, source, cascadeSource);
+            });
 
-              var expressionNode = await parseExpressionResolved(source, imports: builderSource.imports);
-              final cascadeExpression = ((expressionNode.function as ParenthesizedExpression).expression as CascadeExpression).cascadeSections.firstOrNull;
-              var componentUsage = identifyUsage(cascadeExpression);
+            test('is props cascade expression', () {
+              final cascadeExpression = getComponentUsage(expressionNode).cascadeExpression.cascadeSections.firstOrNull;
+              expect(cascadeExpression.toSource(), '..id = \'123\'');
+              final componentUsage = identifyUsage(cascadeExpression);
+              checkComponentUsage(componentUsage, builderSource, source, cascadeSource);
+            });
 
+            test('is a child', () {
+              final child = expressionNode.argumentList.arguments.firstOrNull;
+              expect(child.toSource(), '\'stringChild\'');
+              final componentUsage = identifyUsage(child);
               checkComponentUsage(componentUsage, builderSource, source, cascadeSource);
             });
           });
+        });
+      });
+
+      group('returns null node has no parent component usage', () {
+        final unit = parseAndGetUnit(/*language=dart*/ r'''
+          class Foo {
+            void foo() {
+              var a = 'abc';
+            }
+          }
+        ''');
+        FluentComponentUsage componentUsage;
+        ClassDeclaration classDecl;
+        MethodDeclaration methodDecl;
+        InvocationExpression expressionNode;
+
+        test('and node is a class declaration', () {
+          expect(unit.declarations.length, 1);
+          expect(unit.declarations.firstOrNull, isA<ClassDeclaration>());
+          classDecl = unit.declarations.firstOrNull as ClassDeclaration;
+
+          componentUsage = identifyUsage(classDecl);
+          expect(componentUsage, isNull);
+        });
+
+        test('and node is a method declaration', () {
+          final classMembers = classDecl.members;
+          expect(classMembers.length, 1);
+          expect(classMembers.firstOrNull, isA<MethodDeclaration>());
+          methodDecl = classMembers.firstOrNull as MethodDeclaration;
+
+          componentUsage = identifyUsage(methodDecl);
+          expect(componentUsage, isNull);
+        });
+
+        test('and node is a variable declaration', () {
+          final methodStatements = (methodDecl.body as BlockFunctionBody).block.statements;
+          expect(methodStatements.length, 1);
+          final variableDeclaration = methodStatements.firstOrNull;
+          expect(variableDeclaration, isA<VariableDeclarationStatement>());
+
+          componentUsage = identifyUsage(variableDeclaration);
+          expect(componentUsage, isNull);
+        });
+
+        test('and node is an invocation expression', () async {
+          expressionNode = await parseExpressionResolved('Foo.foo(() => \'abc\')');
+
+          componentUsage = identifyUsage(expressionNode);
+          expect(componentUsage, isNull);
+        });
+
+        test('and node is an argument of an invocation expression', () {
+          final arg = expressionNode.argumentList.arguments.firstOrNull;
+          expect(arg, isNotNull);
+
+          componentUsage = identifyUsage(arg);
+          expect(componentUsage, isNull);
         });
       });
     });
