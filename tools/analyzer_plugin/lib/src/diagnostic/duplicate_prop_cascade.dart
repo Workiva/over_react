@@ -2,8 +2,21 @@ import 'package:collection/collection.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
+const _desc = r'Avoid setting the same prop more than once on a component builder.';
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+
+When the same prop appears on a builder more than once, the last one set "wins" - so no runtime error will occur
+as a result of the duplicate setter. 
+
+However - the presence of duplicate setters is most likely a typo.
+
+''';
+// </editor-fold>
+
 class DuplicatePropCascadeDiagnostic extends ComponentUsageDiagnosticContributor {
-  static final code = DiagnosticCode(
+  @DocsMeta(_desc, details: _details)
+  static const code = DiagnosticCode(
       'over_react_duplicate_prop_cascade',
       "Prop '{0}' is set more than once ({1} of {2}). This is most likely a typo.",
       AnalysisErrorSeverity.WARNING,

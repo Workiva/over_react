@@ -1,11 +1,62 @@
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/doc_utils/maturity.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
+const _desc = r'Avoid omitting props that are required.';
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+
+**PREFER** to always provide a value for props that are annotated a `@requiredProp`s.
+
+If a component has a props interface like this:
+
+```
+mixin NavItemProps on UiProps {
+  bool isActive;
+  @requiredProp
+  void Function() onDidActivate;
+}
+```
+
+then the prop that is marked as "required" should always be set by the consumer:
+
+**GOOD:**
+```
+@override
+render() {
+  return (NavItem()
+    ..onDidActivate = () {
+      // Do something
+    }
+  )(
+    'Activate me',
+  );
+}
+```
+
+**BAD:**
+```
+@override
+render() {
+  return NavItem()(
+    'You probably cannot activate me :(',
+  );
+}
+```
+
+''';
+// </editor-fold>
+
 class MissingRequiredPropDiagnostic extends ComponentUsageDiagnosticContributor {
-  static final code = DiagnosticCode('over_react_required_prop', 'The prop {0} is required.',
-      AnalysisErrorSeverity.WARNING, AnalysisErrorType.STATIC_WARNING);
+  @DocsMeta(_desc, details: _details, maturity: Maturity.experimental)
+  static const code = DiagnosticCode(
+    'over_react_required_prop',
+    'The prop {0} is required.',
+    AnalysisErrorSeverity.INFO,
+    AnalysisErrorType.STATIC_WARNING,
+  );
 
   static final fixKind = FixKind(code.name, 200, 'Add required prop \'{0}\'');
 

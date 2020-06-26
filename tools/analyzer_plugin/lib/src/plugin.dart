@@ -68,10 +68,10 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/proptypes_instance_mem
 import 'package:over_react_analyzer_plugin/src/diagnostic/proptypes_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/pseudo_static_lifecycle.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/render_return_value.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/single_child_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/string_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/style_missing_unit.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children_with_keys.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
 abstract class OverReactAnalyzerPluginBase extends ServerPlugin
@@ -126,7 +126,7 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
         BoolPropNameReadabilityDiagnostic(),
         StyleMissingUnitDiagnostic(),
         BoilerplateValidatorDiagnostic(),
-        SingleChildWithKey(),
+        VariadicChildrenWithKeys(),
         IncorrectDocCommentLocationDiagnostic(),
         ConsumedPropsReturnValueDiagnostic(),
         ForwardOnlyDomPropsToDomBuildersDiagnostic(),

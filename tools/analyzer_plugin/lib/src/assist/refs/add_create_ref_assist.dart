@@ -7,12 +7,24 @@ import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 
 import 'add_create_ref.dart' as create_ref_util;
 
+const _desc = r'Add a React ref to the currently selected component builder.';
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+
+When an over_react component builder is selected by the user, the assist adds a `ref` prop value
+on the builder, set equal to a field that is added within the class instance, assigned to the return
+value of a call to `createRef()`. 
+
+''';
+// </editor-fold>
+
 /// An assist that adds a `ref` prop value to a component builder and assigns it to a field that is
 /// added to a component class that gets assigned to the return value of a `createRef()` call.
 ///
 /// > See: [create_ref_util.addCreateRef]
 class AddCreateRefAssistContributor extends AssistContributorBase {
-  static AssistKind addRef = AssistKind('addRef', 32, 'Add ref');
+  @DocsMeta(_desc, details: _details)
+  static const addRef = AssistKind('addRef', 32, 'Add ref');
 
   @override
   Future<void> computeAssists(DartAssistRequest request, AssistCollector collector) async {

@@ -5,16 +5,61 @@ import 'package:analyzer/dart/element/type_provider.dart';
 import 'package:analyzer/dart/element/type_system.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/util/constants.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
+const _desc = r'Do not use unsupported types as component children.';
+// <editor-fold desc="Documentation Details">
+const _details = '''
+
+Children of an OverReact component must be $supportedOverReactChildTypes
+
+**GOOD:**
+```
+@override
+render() {
+  return Dom.div()(
+    'Hi there',
+  );
+}
+```
+
+**GOOD:**
+```
+@override
+render() {
+  return Dom.div()(
+    NavItem()('Nav\'in it, you know?'),
+  );
+}
+```
+
+**BAD:**
+```
+@override
+render() {
+  return Dom.div()(
+    NavItem()({
+      'foo': 'bar',
+    }),
+  );
+}
+```
+
+''';
+// </editor-fold>
+
 class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
-  static final code = DiagnosticCode(
-      'over_react_invalid_child',
-      "Invalid child type: '{0}'. Must be a ReactElement, Fragment, string, number, boolean, null, or an Iterable of those types.{1}",
-      AnalysisErrorSeverity.WARNING,
-      AnalysisErrorType.STATIC_TYPE_WARNING);
+  @DocsMeta(_desc, details: _details)
+  static const code = DiagnosticCode(
+    'over_react_invalid_child',
+    "Invalid child type: '{0}'.",
+    AnalysisErrorSeverity.ERROR,
+    AnalysisErrorType.STATIC_TYPE_WARNING,
+    correction: 'Must be $supportedOverReactChildTypes',
+  );
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
@@ -34,7 +79,7 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
             }),
           );
         } else {
-          collector.addError(code, location, errorMessageArgs: [invalidType.getDisplayString(), '']);
+          collector.addError(code, location, errorMessageArgs: [invalidType.getDisplayString()]);
         }
       });
     }

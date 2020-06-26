@@ -4,7 +4,33 @@ import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 
+const _desc = r'Name boolean props in a way that makes them easy to read and infer their purpose.';
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+
+**PREFER** to name boolean props in a way that makes them easy to read.
+
+**GOOD:**
+```
+mixin NavItemProps on UiProps {
+  // Whether the item should appear active
+  bool isActive;
+}
+```
+
+**BAD:**
+```
+mixin NavItemProps on UiProps {
+  // Whether the item should appear active
+  bool active;
+}
+```
+
+''';
+// </editor-fold>
+
 class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
+  @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_bool_prop_name_readability',
     "'{0}.{1}' isn't an easily readable Boolean prop name. Try using a prefix like: {2}",

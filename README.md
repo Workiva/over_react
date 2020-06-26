@@ -1,8 +1,9 @@
 # OverReact
 
 [![Pub](https://img.shields.io/pub/v/over_react.svg)](https://pub.dartlang.org/packages/over_react)
-[![Documentation](https://img.shields.io/badge/docs-over_react-blue.svg)](https://pub.dev/documentation/over_react/latest/)
 [![Join the chat at https://gitter.im/over_react/Lobby](https://badges.gitter.im/over_react/Lobby.svg)](https://gitter.im/over_react/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Documentation](https://img.shields.io/badge/docs-over_react-blue.svg)](https://pub.dev/documentation/over_react/latest/)
+[![OverReact Analyzer Plugin](https://img.shields.io/badge/docs-analyzer_plugin-ff69b4.svg)](https://workiva.github.io/over_react/analyzer_plugin/)
 
 [![Build Status](https://travis-ci.org/Workiva/over_react.svg?branch=master)](https://travis-ci.org/Workiva/over_react)
 [![Test Coverage](https://codecov.io/github/Workiva/over_react/coverage.svg?branch=master)](https://codecov.io/github/Workiva/over_react?branch=master)
@@ -381,6 +382,8 @@ class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
 
 
 ## Fluent-style component consumption
+
+> The **[OverReact analyzer plugin](tools/analyzer_plugin/)** has many lints and assists to make authoring OverReact components easier!
 
 In OverReact, components are consumed by invoking a `UiFactory` to return a new `UiProps` builder, which is then
 modified and invoked to build a `ReactElement`.

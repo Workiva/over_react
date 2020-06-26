@@ -8,12 +8,49 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
+const _desc = r'Always wrap the builder props cascade in parentheses.';
+// <editor-fold desc="Documentation Details">
+const _details = r'''
+
+When invoking a component builder, the builder - and all of the cascading prop setters - must be wrapped in parentheses.
+
+**GOOD:**
+```
+@override
+render() {
+  return (Dom.div()
+    ..id = 'foo'
+    ..className = 'foo--variant'
+  )(
+    'Hi there',
+  );
+}
+```
+
+**BAD:**
+```
+@override
+render() {
+  return Dom.div()
+    ..id = 'foo'
+    ..className = 'foo--variant'
+  (
+    'Hi there',
+  );
+}
+```
+
+''';
+// </editor-fold>
+
 class MissingCascadeParensDiagnostic extends DiagnosticContributor {
-  static final code = DiagnosticCode(
-      'over_react_missing_cascade_parens',
-      'Are you missing parentheses around the builder cascade?',
-      AnalysisErrorSeverity.WARNING,
-      AnalysisErrorType.STATIC_WARNING);
+  @DocsMeta(_desc, details: _details)
+  static const code = DiagnosticCode(
+    'over_react_missing_cascade_parens',
+    _desc,
+    AnalysisErrorSeverity.WARNING,
+    AnalysisErrorType.SYNTACTIC_ERROR,
+  );
 
   // Make smaller (higher priority) than
   // REMOVE_PARENTHESIS_IN_GETTER_INVOCATION
