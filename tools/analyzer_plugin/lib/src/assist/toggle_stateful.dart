@@ -31,8 +31,7 @@ used to convert it to a `UiComponent2`, removing the analogous `UiState` mixin /
 // </editor-fold>
 
 class ToggleComponentStatefulness extends AssistContributorBase with ComponentDeclarationAssistApi {
-  static int statefulAssistPriority = 30;
-
+  static const int statefulAssistPriority = 30;
   @DocsMeta(_makeStatefulDesc, details: _makeStatefulDetails)
   static const makeStateful = AssistKind('makeStateful', statefulAssistPriority, _makeStatefulDesc);
   @DocsMeta(_makeStatelessDesc, details: _makeStatelessDetails)

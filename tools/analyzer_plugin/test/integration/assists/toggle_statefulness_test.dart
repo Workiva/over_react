@@ -1,147 +1,152 @@
 import 'dart:async';
 
-import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
+import 'package:analyzer_plugin/utilities/assist/assist.dart';
 import 'package:over_react_analyzer_plugin/src/assist/toggle_stateful.dart';
-import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:test/test.dart';
 import 'package:test_reflective_loader/test_reflective_loader.dart';
 
 import '../test_bases/assist_test_base.dart';
+import 'boilerplate_assist_utils.dart';
 
 void main() {
   defineReflectiveSuite(() {
     defineReflectiveTests(AddStatefulnessAssist);
-//    defineReflectiveTests(RemoveStatefulnessAssist);
+    defineReflectiveTests(RemoveStatefulnessAssist);
   });
 }
 
 @reflectiveTest
-class AddStatefulnessAssist extends AssistTestBase {
+class AddStatefulnessAssist extends AssistTestBase with BoilerplateAssistTestStrings {
   static int expectedPriority = ToggleComponentStatefulness.statefulAssistPriority;
 
-  static String simpleUiComponentSource = r'''
-import 'package:over_react/over_react.dart';
-part 'foo.over_react.g.dart';
-
-UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier
-
-mixin FooProps on UiProps {}
-
-class FooComponent extends UiComponent2<FooProps> {
   @override
-  get defaultProps => (newProps());
-
-  @override
-  render() {}
-}
-''';
-
-  static String fluxUiComponentSource = r'''
-import 'package:over_react/over_react.dart';
-part 'foo.over_react.g.dart';
-
-UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier
-
-mixin FooPropsMixin on UiProps {}
-
-class FooProps = UiProps with FluxUiPropsMixin, FooPropsMixin;
-
-class FooComponent extends FluxUiComponent2<FooProps> {
-  @override
-  render() {}
-}
-''';
-
-  static String simpleUiStatefulComponentSource = r'''
-UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier
-mixin FooProps on UiProps {}
-
-mixin FooState on UiState {}
-
-class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
-  @override
-  get defaultProps => (newProps());
-
-  @override
-  get initialState => (newState());
-
-  @override
-  render() {}
-}
-''';
-
-  static String fluxUiStatefulComponentSource = r'''
-UiFactory<BarProps> Bar = _$Bar; // ignore: undefined_identifier
-mixin BarPropsMixin on UiProps {}
-
-class BarProps = UiProps with FluxUiPropsMixin, BarPropsMixin;
-
-mixin BarState on UiState {}
-
-class BarComponent extends FluxUiStatefulComponent2<BarProps, BarState> {
-  @override
-  get initialState => (newState());
-
-  @override
-  render() {}
-}
-''';
-
-  static List<String> statelessSources = [simpleUiComponentSource, fluxUiComponentSource];
-  static List<String> statefulSources = [simpleUiStatefulComponentSource, fluxUiStatefulComponentSource];
-  static Map<String, String> boilerplateAssociation = {
-    simpleUiComponentSource: simpleUiStatefulComponentSource,
-    fluxUiComponentSource: fluxUiStatefulComponentSource,
-  };
-
-  @override
-  AsyncAssistContributor getContributorUnderTest() => ToggleComponentStatefulness();
-
-
-  void testBothSources(void Function(String) callbackWithTests) => statelessSources.forEach(callbackWithTests);
+  AssistKind get assistKindUnderTest => ToggleComponentStatefulness.makeStateful;
 
   Future<void> test_noAssistOnFactory() async {
-    var source = newSource('test.dart', simpleUiComponentSource);
-    var selection = createSelection(source, r'UiFactory<FooProps> #Foo# = _$Foo;');
-    expect(await getAssists(selection), isEmpty);
+    final generatedSource = simpleUiComponentSource();
+
+    var source = newSource(BoilerplateAssistTestStrings.fileName, generatedSource);
+    var selection = createSelection(source,
+        generatedSource.replaceFirst(r'UiFactory<FooProps> Foo = _$Foo;', r'UiFactory<FooProps> #Foo# = _$Foo;'));
+    await expectNoAssist(selection);
   }
 
   Future<void> test_noAssistOnProps() async {
-    var source = newSource('test.dart', simpleUiComponentSource);
-    var selection = createSelection(source, 'mixin #FooProps#');
-    expect(await getAssists(selection), isEmpty);
+    final generatedSource = simpleUiComponentSource();
+
+    var source = newSource(BoilerplateAssistTestStrings.fileName, generatedSource);
+    var selection = createSelection(
+        source, generatedSource.replaceFirst('mixin FooProps on UiProps {}', 'mixin #FooProps# on UiProps {}'));
+    await expectNoAssist(selection);
   }
 
-  Future<void> test_producesAssistForBothBoilerplate() async {
-    testBothSources((source) async {
-      var retrievedSource = newSource('test.dart', source);
-      var selection = createSelection(retrievedSource, '#FooComponent#');
-      final assists = await getAssists(selection);
-      expect(assists, hasLength(1), reason: 'Expected selection to produce an assist, but it did not: $source');
-    });
-  }
-  Future<void> test_assistMeta() async {
-    testBothSources((source) async {
-      var retrievedSource = newSource('test.dart', source);
-      var selection = createSelection(retrievedSource, '#FooComponent#');
-      final assists = await getAssists(selection);
-      expect(assists, hasLength(1));
+  Future<void> test_noAssistOnOldBoilerplate() async {
+    String oldBoilerplate({bool withSelection = false}) => '''
+import 'package:over_react/over_react.dart';
+part 'test.over_react.g.dart';
 
-      final assist = assists.first;
-      expect(assist.priority, expectedPriority);
-    });
+@Factory()
+UiFactory<TestProps> Test = _\$Test;
+
+@Props()
+class _\$TestProps extends UiProps {}
+
+@Component()
+class ${withSelection ? '#TestComponent#' : 'TestComponent'} extends UiComponent<TestProps> {
+  @override
+  render() {}
+}
+''';
+
+    var source = newSource(BoilerplateAssistTestStrings.fileName, oldBoilerplate());
+    var selection = createSelection(source, oldBoilerplate(withSelection: true));
+    await expectNoAssist(selection);
   }
 
   Future<void> test_addsStatefulness() async {
-    testBothSources((source) async {
-      var retrievedSource = newSource('test.dart', source);
-      var selection = createSelection(retrievedSource, '#Dom.div#');
-      final assists = await getAssists(selection);
-      expect(assists, hasLength(1));
+    var retrievedSource = newSource(BoilerplateAssistTestStrings.fileName, simpleUiComponentSource());
+    var selection = createSelection(retrievedSource, simpleUiComponentSource(shouldIncludeSelection: true));
+    final change = await expectAndGetSingleAssist(selection);
+    retrievedSource = applySourceChange(change, retrievedSource);
+    expect(retrievedSource.contents.data, simpleUiComponentSource(isStateful: true));
+  }
 
-      retrievedSource = applySourceChange(assists.first.change, retrievedSource);
-      expect(retrievedSource.contents.data, boilerplateAssociation[source]);
-    });
+  Future<void> test_addsStatefulnessToFlux() async {
+    var retrievedSource = newSource(BoilerplateAssistTestStrings.fileName, fluxUiComponentSource());
+    var selection = createSelection(retrievedSource, fluxUiComponentSource(shouldIncludeSelection: true));
+    final change = await expectAndGetSingleAssist(selection);
+    retrievedSource = applySourceChange(change, retrievedSource);
+    expect(retrievedSource.contents.data, fluxUiComponentSource(isStateful: true));
+  }
+}
+
+@reflectiveTest
+class RemoveStatefulnessAssist extends AssistTestBase with BoilerplateAssistTestStrings {
+  static int expectedPriority = ToggleComponentStatefulness.statefulAssistPriority;
+
+  @override
+  AssistKind get assistKindUnderTest => ToggleComponentStatefulness.makeStateless;
+
+  Future<void> test_noAssistOnFactory() async {
+    final generatedSource = simpleUiComponentSource(isStateful: true);
+
+    var source = newSource(BoilerplateAssistTestStrings.fileName, generatedSource);
+    var selection = createSelection(source,
+        generatedSource.replaceFirst(r'UiFactory<FooProps> Foo = _$Foo;', r'UiFactory<FooProps> #Foo# = _$Foo;'));
+    await expectNoAssist(selection);
+  }
+
+  Future<void> test_noAssistOnProps() async {
+    final generatedSource = simpleUiComponentSource(isStateful: true);
+
+    var source = newSource(BoilerplateAssistTestStrings.fileName, generatedSource);
+    var selection = createSelection(
+        source, generatedSource.replaceFirst('mixin FooProps on UiProps {}', 'mixin #FooProps# on UiProps {}'));
+    await expectNoAssist(selection);
+  }
+
+  Future<void> test_noAssistOnOldBoilerplate() async {
+    String oldBoilerplate({bool withSelection = false}) => '''
+import 'package:over_react/over_react.dart';
+part 'test.over_react.g.dart';
+
+@Factory()
+UiFactory<TestProps> Test = _\$Test;
+
+@Props()
+class _\$TestProps extends UiProps {}
+
+@State()
+class _\$TestState extends UiState {}
+
+@Component()
+class ${withSelection ? '#TestComponent#' : 'TestComponent'} extends UiStatefulComponent<TestProps, TestState> {
+  @override
+  render() {}
+}
+''';
+
+    var source = newSource(BoilerplateAssistTestStrings.fileName, oldBoilerplate());
+    var selection = createSelection(source, oldBoilerplate(withSelection: true));
+    await expectNoAssist(selection);
+  }
+
+  Future<void> test_removesStatefulness() async {
+    var retrievedSource = newSource(BoilerplateAssistTestStrings.fileName, simpleUiComponentSource(isStateful: true));
+    var selection =
+        createSelection(retrievedSource, simpleUiComponentSource(shouldIncludeSelection: true, isStateful: true));
+    final change = await expectAndGetSingleAssist(selection);
+    retrievedSource = applySourceChange(change, retrievedSource);
+    expect(retrievedSource.contents.data, simpleUiComponentSource());
+  }
+
+  Future<void> test_removesStatefulnessToFlux() async {
+    var retrievedSource = newSource(BoilerplateAssistTestStrings.fileName, fluxUiComponentSource(isStateful: true));
+    var selection =
+        createSelection(retrievedSource, fluxUiComponentSource(shouldIncludeSelection: true, isStateful: true));
+    final change = await expectAndGetSingleAssist(selection);
+    retrievedSource = applySourceChange(change, retrievedSource);
+    expect(retrievedSource.contents.data, fluxUiComponentSource());
   }
 }
 
