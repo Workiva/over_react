@@ -211,7 +211,8 @@ void main() {
 
             group('node inside $name', () {
               test('is props cascade expression', () {
-                final cascadeExpression = getComponentUsage(expressionNode).cascadeExpression.cascadeSections.firstOrNull;
+                final cascadeExpression =
+                    getComponentUsage(expressionNode).cascadeExpression.cascadeSections.firstOrNull;
                 expect(cascadeExpression.toSource(), '..id = \'123\'');
                 final componentUsage = identifyUsage(cascadeExpression);
                 checkComponentUsage(componentUsage, builderSource, source, cascadeSource);
@@ -249,7 +250,7 @@ void main() {
               expect(childExpression.toSource(), childSource);
             });
 
-            test('node is the parent component', () {
+            test('and node is the parent component', () {
               final componentUsage = identifyUsage(expressionNode);
               checkComponentUsage(
                   componentUsage,
@@ -263,17 +264,15 @@ void main() {
                   nestedSource);
             });
 
-            test('node is the child component', () {
+            test('and node is the child component', () {
               final componentUsage = identifyUsage(childExpression);
               checkComponentUsage(componentUsage, builderSource, childSource, cascadeSource);
             });
 
-            group('node inside the child component', () {
+            group('and the node inside the child component', () {
               test('is props cascade expression', () {
-                final cascadeExpression = getComponentUsage(childExpression.tryCast<InvocationExpression>())
-                    .cascadeExpression
-                    .cascadeSections
-                    .firstOrNull;
+                final cascadeExpression =
+                    getComponentUsage(childExpression).cascadeExpression.cascadeSections.firstOrNull;
                 expect(cascadeExpression.toSource(), '..id = \'123\'');
                 final componentUsage = identifyUsage(cascadeExpression);
                 checkComponentUsage(componentUsage, builderSource, childSource, cascadeSource);
@@ -298,7 +297,6 @@ void main() {
             }
           }
         ''');
-        FluentComponentUsage componentUsage;
         ClassDeclaration classDecl;
         MethodDeclaration methodDecl;
         InvocationExpression expressionNode;
@@ -308,7 +306,7 @@ void main() {
           expect(unit.declarations.firstOrNull, isA<ClassDeclaration>());
           classDecl = unit.declarations.firstOrNull as ClassDeclaration;
 
-          componentUsage = identifyUsage(classDecl);
+          final componentUsage = identifyUsage(classDecl);
           expect(componentUsage, isNull);
         });
 
@@ -318,7 +316,7 @@ void main() {
           expect(classMembers.firstOrNull, isA<MethodDeclaration>());
           methodDecl = classMembers.firstOrNull as MethodDeclaration;
 
-          componentUsage = identifyUsage(methodDecl);
+          final componentUsage = identifyUsage(methodDecl);
           expect(componentUsage, isNull);
         });
 
@@ -328,14 +326,14 @@ void main() {
           final variableDeclaration = methodStatements.firstOrNull;
           expect(variableDeclaration, isA<VariableDeclarationStatement>());
 
-          componentUsage = identifyUsage(variableDeclaration);
+          final componentUsage = identifyUsage(variableDeclaration);
           expect(componentUsage, isNull);
         });
 
         test('and node is an invocation expression', () async {
           expressionNode = await parseExpression('Foo.foo(() => \'abc\')');
 
-          componentUsage = identifyUsage(expressionNode);
+          final componentUsage = identifyUsage(expressionNode);
           expect(componentUsage, isNull);
         });
 
@@ -343,7 +341,7 @@ void main() {
           final arg = expressionNode.argumentList.arguments.firstOrNull;
           expect(arg, isNotNull);
 
-          componentUsage = identifyUsage(arg);
+          final componentUsage = identifyUsage(arg);
           expect(componentUsage, isNull);
         });
       });

@@ -155,7 +155,7 @@ List<AnalysisError> _filterIgnored(List<AnalysisError> errors, IgnoreInfo ignore
 /// Returns [expression] parsed as AST.
 ///
 /// This is accomplished it by including the [expression] as a statement within a wrapper function
-/// with any necessary [imports] at the top of the source code. As a result, the offset of the
+/// with any necessary [imports] at the top of the source. As a result, the offset of the
 /// returned expression will not be 0.
 ///
 /// To return resolved AST, set [isResolved] to true.
