@@ -14,13 +14,37 @@ const instanceMemberWhitelist = [
   'keyForProp',
 ];
 
+const _desc = r'Never reference instance members within ReactJS "static" lifecycle methods.';
+// <editor-fold desc="Documentation Details">
+const _details = '''
+
+The ReactJS `defaultProps` getter and `getDerivedStateFromProps` lifecycle method are considered `static`.
+
+Accessing instance methods from within these is prohibited, and will cause runtime errors. The only exceptions
+are the following "whitelisted" instance members:
+
+```
+newProps
+newState
+typedPropsFactory
+typedPropsFactoryJs
+typedStateFactory
+typedStateFactoryJs
+```
+
+''';
+// </editor-fold>
+
 class PseudoStaticLifecycleDiagnostic extends DiagnosticContributor {
-  static final code = DiagnosticCode(
-      'over_react_pseudo_static_lifecycle',
-      '\'{0}\' must be treated as a static method; only super-calls '
-          'and props/state utility methods (like \'newProps\' and \'typedPropsFactory\') are allowed.',
-      AnalysisErrorSeverity.ERROR,
-      AnalysisErrorType.STATIC_WARNING);
+  @DocsMeta(_desc, details: _details)
+  static const code = DiagnosticCode(
+    'over_react_pseudo_static_lifecycle',
+    'Never reference instance members within \'{0}\'.',
+    AnalysisErrorSeverity.ERROR,
+    AnalysisErrorType.STATIC_WARNING,
+    correction: 'It must be treated as a static method. Only super-calls '
+        'and props/state utility methods (like \'newProps\' and \'typedPropsFactory\') are allowed.',
+  );
 
   @override
   computeErrors(result, collector) async {

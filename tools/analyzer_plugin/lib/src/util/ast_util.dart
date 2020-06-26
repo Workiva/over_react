@@ -2,12 +2,14 @@
 library over_react_analyzer_plugin.src.ast_util;
 
 import 'dart:collection';
+import 'dart:mirrors';
 // This is necessary for `ConstantEvaluator`. If that API is removed, it can just
 // be copied and pasted into this analyzer package (if still needed).
 // ignore: deprecated_member_use
 import 'package:analyzer/analyzer.dart' show ConstantEvaluator;
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/source/line_info.dart';
 
@@ -117,4 +119,50 @@ class _ReturnStatementsForBodyVisitor extends RecursiveAstVisitor<void> {
   void visitFunctionExpression(FunctionExpression node) {
     // Don't call super so we don't traverse inside other functions.
   }
+}
+
+/// Uses reflection to determine which value within [values] that [object] represents,
+/// and returns the matching value.
+///
+/// Currently only works when the fields within [T] only contain core types and not other constant classes.
+T getMatchingConst<T>(DartObject object, Iterable<T> values) {
+  final classMirror = reflectClass(T);
+  final objectTypeName = object.type.element.name;
+  final valueTypeName = classMirror.simpleName.name;
+
+  if (objectTypeName != valueTypeName) {
+    throw ArgumentError('Object type $objectTypeName must exactly match value type $valueTypeName');
+  }
+
+  final fields =
+      classMirror.instanceMembers.values.where((m) => m.isGetter && m.isSynthetic).map((m) => m.simpleName).toList();
+
+  // Find the value where all fields are equal:
+  return values.singleWhere((value) {
+    return fields.every((field) {
+      // Need to use the field symbol and not it converted back from a string or it won't work
+      // for private members.
+      final dynamic valueFieldValue = reflect(value).getField(field).reflectee;
+      final objectFieldValue = object.getField(field.name).toWhateverValue();
+      return valueFieldValue == objectFieldValue;
+    });
+  });
+}
+
+extension on DartObject {
+  Object toWhateverValue() =>
+      toBoolValue() ??
+      toDoubleValue() ??
+      toFunctionValue() ??
+      toIntValue() ??
+      toListValue() ??
+      toMapValue() ??
+      toSetValue() ??
+      toStringValue() ??
+      toSymbolValue() ??
+      toTypeValue();
+}
+
+extension on Symbol {
+  String get name => MirrorSystem.getName(this);
 }

@@ -14,7 +14,7 @@ extension ReactTypes$Element on Element /*?*/ {
 }
 
 /// Adapted from https://github.com/dart-lang/sdk/blob/279024d823707f1f4d5edc05c374ca813edbd73e/pkg/analysis_server/lib/src/utilities/flutter.dart#L279
-extension on Element /*?*/ {
+extension ElementSubtypeUtils on Element /*?*/ {
   bool isOrIsSubtypeOfTypeFromPackage(String typeName, String packageName) {
     final that = this;
     return that is ClassElement &&
