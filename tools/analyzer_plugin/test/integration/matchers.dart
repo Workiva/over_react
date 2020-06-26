@@ -1,3 +1,4 @@
+import 'package:analyzer/src/generated/source.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
 import 'package:analyzer_plugin/utilities/assist/assist.dart';
@@ -56,7 +57,7 @@ TypeMatcher<AnalysisError> isDiagnostic(DiagnosticCode diagnosticCode, {bool has
     matcher = matcher.havingCorrection(diagnosticCode.correction);
   }
   if (locatedAt != null) {
-    matcher = matcher.havingLocation(locatedAt.offset, locatedAt.length);
+    matcher = matcher.havingLocation(matchesSelectionLocation(locatedAt));
   }
   return hasFix ? matcher.thatHasFix() : matcher.thatHasNoFix();
 }
@@ -69,9 +70,7 @@ extension AnalysisErrorHavingUtils on TypeMatcher<AnalysisError> {
   TypeMatcher<AnalysisError> havingCorrection(String correction) =>
       having((e) => e.correction, 'correction', correction);
 
-  TypeMatcher<AnalysisError> havingLocation(int offset, int length) =>
-      having((e) => e.location.offset, 'location (offset)', offset)
-          .having((e) => e.location.length, 'location (length)', length);
+  TypeMatcher<AnalysisError> havingLocation(Matcher matcher) => having((e) => e.location, 'location', matcher);
 
   TypeMatcher<AnalysisError> havingSeverity(AnalysisErrorSeverity severity) =>
       having((e) => e.severity, 'severity', severity);
@@ -86,4 +85,65 @@ extension AnalysisErrorHavingUtils on TypeMatcher<AnalysisError> {
 extension PrioritizedSourceChangeHavingUtils on TypeMatcher<PrioritizedSourceChange> {
   TypeMatcher<PrioritizedSourceChange> havingLocation(int offset) =>
       having((psc) => psc.change.selection.offset, 'location (offset)', offset);
+}
+
+Matcher matchesSelectionLocation(SourceSelection selection) =>
+    _LocationMatcher(selection.source, selection.offset, selection.length, isFromSelection: true);
+
+Matcher matchesLocation(Source source, int offset, int length) => _LocationMatcher(source, offset, length);
+
+class _LocationMatcher extends Matcher {
+  final Source source;
+  final int expectedOffset;
+  final int expectedLength;
+  final bool isFromSelection;
+
+  _LocationMatcher(this.source, this.expectedOffset, this.expectedLength, {this.isFromSelection = false});
+
+  String getSelectionContents(int offset, int length) => source.contents.data.substring(offset, offset + length);
+
+  Description describeRange(Description description, int offset, int length) => description
+    ..add('has offset ')
+    ..addDescriptionOf(offset)
+    ..add(' and length ')
+    ..addDescriptionOf(length)
+    ..add(': "')
+    ..add(isFromSelection ? '#' : '')
+    ..add(getSelectionContents(offset, length))
+    ..add(isFromSelection ? '#' : '')
+    ..add('"');
+
+  @override
+  Description describe(Description description) => describeRange(description, expectedOffset, expectedLength);
+
+  @override
+  Description describeMismatch(dynamic item, Description mismatchDescription, Map matchState, bool verbose) {
+    if (matchState.isNotEmpty) {
+      describeRange(mismatchDescription, matchState['offset'] as int, matchState['length'] as int);
+      return mismatchDescription;
+    }
+
+    return super.describeMismatch(item, mismatchDescription, matchState, verbose)
+      ..add('is not a location type supported by this matcher');
+  }
+
+  @override
+  bool matches(dynamic item, Map matchState) {
+    int offset;
+    int length;
+    if (item is SourceSelection) {
+      offset = item.offset;
+      length = item.length;
+    } else if (item is Location) {
+      offset = item.offset;
+      length = item.length;
+    }
+
+    matchState.addAll(<dynamic, dynamic>{
+      if (offset != null) 'offset': offset,
+      if (length != null) 'length': length,
+    });
+
+    return offset == expectedOffset && length == expectedLength;
+  }
 }
