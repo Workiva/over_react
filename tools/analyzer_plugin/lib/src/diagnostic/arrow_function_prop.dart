@@ -18,9 +18,6 @@ class ArrowFunctionPropCascadeDiagnostic extends ComponentUsageDiagnosticContrib
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    // If there is only one cascaded prop, do not lint
-    if (usage.cascadedProps.length == 1) return;
-
     for (final prop in usage.cascadedProps) {
       final rhs = prop.rightHandSide;
       if (rhs is FunctionExpression && rhs.body is ExpressionFunctionBody) {

@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:analyzer_plugin/utilities/assist/assist.dart';
 import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
-import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:test/test.dart';
 import 'package:test_reflective_loader/test_reflective_loader.dart';
 
@@ -15,73 +15,47 @@ void main() {
 
 @reflectiveTest
 class AddPropsAssistTest extends AssistTestBase {
-  static int expectedPriority = AddPropsAssistContributor.addPropsKind.priority;
+  @override
+  AssistKind get assistKindUnderTest => AddPropsAssistContributor.addPropsKind;
 
   static String simpleSource = '''
 import 'package:over_react/over_react.dart';
 var foo = Dom.div()('hello');
 ''';
 
-  @override
-  AsyncAssistContributor getContributorUnderTest() => AddPropsAssistContributor();
-
   Future<void> test_noAssist() async {
-    var source = newSource('test.dart', 'var foo = true;');
-    var selection = createSelection(source, '#var foo#');
-    expect(await getAssists(selection), isEmpty);
+    final source = newSource('test.dart', 'var foo = true;');
+    final selection = createSelection(source, '#var foo = true;#');
+    await expectNoAssist(selection);
   }
 
   Future<void> test_noAssistForSelection() async {
-    var source = newSource('test.dart', simpleSource);
-    var selection = createSelection(source, '#var foo#');
-    expect(await getAssists(selection), isEmpty);
+    final source = newSource('test.dart', simpleSource);
+    final selection = createSelection(source, '#var foo#');
+    await expectNoAssist(selection);
   }
 
-  Future<void> test_producesAssistForAllSelectionTypes() async {
-    final selectionTargets = [
-      '##Dom.div', // empty selection at beginning
-      'Dom.div##', // empty selection at end
-      'Dom.##div', // empty selection within
-      '#Dom.div#', // range starting at beginning
-      '#Dom.div()#', // range extending beyond end
-      'Do#m.d#iv', // range within
-    ];
-    for (final target in selectionTargets) {
-      await _verifySelectionProducesAssist(target);
-    }
-  }
-
-  Future<void> _verifySelectionProducesAssist(String selectionTarget) async {
-    var source = newSource('test.dart', simpleSource);
-    var selection = createSelection(source, selectionTarget);
-    final assists = await getAssists(selection);
-    expect(assists, hasLength(1), reason: 'Expected selection to produce an assist, but it did not: $selectionTarget');
-  }
-
-  Future<void> test_assistMeta() async {
-    var source = newSource('test.dart', simpleSource);
-    var selection = createSelection(source, '#Dom.div#');
-    final assists = await getAssists(selection);
-    expect(assists, hasLength(1));
-
-    final assist = assists.first;
-    expect(assist.priority, expectedPriority);
-  }
+  Future<void> test_producesAssistForAllSelectionTypes() => expectAllSelectionsProduceSingleAssist(simpleSource, [
+        '##Dom.div', // empty selection at beginning
+        'Dom.div##', // empty selection at end
+        'Dom.##div', // empty selection within
+        '#Dom.div#', // range starting at beginning
+        '#Dom.div()#', // range extending beyond end
+        'Do#m.d#iv', // range within
+      ]);
 
   Future<void> test_addsParensAndPropsCascade() async {
     var source = newSource('test.dart', simpleSource);
     var selection = createSelection(source, '#Dom.div#');
-    final assists = await getAssists(selection);
-    expect(assists, hasLength(1));
-
-    source = applySourceChange(assists.first.change, source);
+    final change = await expectAndGetSingleAssist(selection);
+    source = applySourceChange(change, source);
     expect(source.contents.data, r'''
 import 'package:over_react/over_react.dart';
 var foo = (Dom.div()..)('hello');
 ''');
     selection = createSelection(source, '(Dom.div()..##)');
     // TODO: this fails, but the test is correct. Seems like an issue with DartEditBuilder.selectHere()?
-    // expect(assist.change.selection.offset, selection.offset);
+    // expect(change.selection.offset, selection.offset);
   }
 
   Future<void> test_alreadyHasParens() async {
@@ -90,10 +64,8 @@ import 'package:over_react/over_react.dart';
 var foo = (Dom.div())('hello');
 ''');
     var selection = createSelection(source, '#Dom.div#');
-    final assists = await getAssists(selection);
-    expect(assists, hasLength(1));
-
-    source = applySourceChange(assists.first.change, source);
+    final change = await expectAndGetSingleAssist(selection);
+    source = applySourceChange(change, source);
     expect(source.contents.data, r'''
 import 'package:over_react/over_react.dart';
 var foo = (Dom.div()..)('hello');

@@ -1,8 +1,40 @@
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
+import 'package:analyzer_plugin/protocol/protocol_generated.dart';
+import 'package:analyzer_plugin/utilities/assist/assist.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:test/test.dart';
 
 import 'test_bases/server_plugin_contributor_test_base.dart';
+
+/// Returns a [Matcher] that verifies that the item is a source change with a
+/// priority and ID matching [assistKind].
+///
+/// If [locatedAt] is non-null, the analysis error's location (offset and
+/// length) matches it
+TypeMatcher<PrioritizedSourceChange> isAssist(AssistKind assistKind, {SourceSelection locatedAt}) {
+  var matcher = isA<PrioritizedSourceChange>()
+      .having((psc) => psc.priority, 'priority', assistKind.priority)
+      .having((psc) => psc.change.id, 'assist ID', assistKind.id);
+  if (locatedAt != null) {
+    matcher = matcher.havingLocation(locatedAt.offset);
+  }
+  return matcher;
+}
+
+/// Returns a [Matcher] that verifies that the item is a source change with a
+/// priority and ID matching [fixKind].
+///
+/// If [locatedAt] is non-null, the analysis error's location (offset and
+/// length) matches it
+TypeMatcher<PrioritizedSourceChange> isFix(FixKind fixKind, {SourceSelection locatedAt}) {
+  var matcher = isA<PrioritizedSourceChange>()
+      .having((psc) => psc.priority, 'priority', fixKind.priority)
+      .having((psc) => psc.change.id, 'fix ID', fixKind.id);
+  if (locatedAt != null) {
+    matcher = matcher.havingLocation(locatedAt.offset);
+  }
+  return matcher;
+}
 
 /// Returns a [Matcher] that verifies that the item is an analysis error that
 /// contains the expected information for the given [DiagnosticCode].
@@ -12,10 +44,9 @@ import 'test_bases/server_plugin_contributor_test_base.dart';
 /// - The analysis error code, type, severity, and correction text all match the
 ///   corresponding values from [diagnosticCode]
 /// - The analysis error either has a fix or does not, based on [hasFix]
-/// - If [atSelection] is non-null, the analysis error's location (offset and
+/// - If [locatedAt] is non-null, the analysis error's location (offset and
 ///   length) matches it
-TypeMatcher<AnalysisError> isAnalysisErrorForDiagnostic(DiagnosticCode diagnosticCode,
-    {SourceSelection atSelection, bool hasFix}) {
+TypeMatcher<AnalysisError> isDiagnostic(DiagnosticCode diagnosticCode, {bool hasFix, SourceSelection locatedAt}) {
   hasFix ??= false;
   var matcher = isA<AnalysisError>()
       .havingCode(diagnosticCode.name)
@@ -24,8 +55,8 @@ TypeMatcher<AnalysisError> isAnalysisErrorForDiagnostic(DiagnosticCode diagnosti
   if (diagnosticCode.correction != null) {
     matcher = matcher.havingCorrection(diagnosticCode.correction);
   }
-  if (atSelection != null) {
-    matcher = matcher.havingLocation(atSelection.offset, atSelection.length);
+  if (locatedAt != null) {
+    matcher = matcher.havingLocation(locatedAt.offset, locatedAt.length);
   }
   return hasFix ? matcher.thatHasFix() : matcher.thatHasNoFix();
 }
@@ -50,4 +81,9 @@ extension AnalysisErrorHavingUtils on TypeMatcher<AnalysisError> {
   TypeMatcher<AnalysisError> thatHasFix() => having((e) => e.hasFix, 'hasFix', isTrue);
 
   TypeMatcher<AnalysisError> thatHasNoFix() => having((e) => e.hasFix, 'hasFix', isFalse);
+}
+
+extension PrioritizedSourceChangeHavingUtils on TypeMatcher<PrioritizedSourceChange> {
+  TypeMatcher<PrioritizedSourceChange> havingLocation(int offset) =>
+      having((psc) => psc.change.selection.offset, 'location (offset)', offset);
 }
