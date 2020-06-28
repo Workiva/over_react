@@ -36,7 +36,7 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
     "'{0}.{1}' isn't an easily readable Boolean prop name.",
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.LINT,
-    correction: "Try using a prefix like: {2}."
+    correction: "Try using a prefix like: {2}.",
   );
 
   @override

@@ -73,7 +73,7 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
         " can collide with each other, and may collide often based on how they're implemented.",
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
-      correction: _sharedBadKeyUseInstead,
+    correction: _sharedBadKeyUseInstead,
   );
 
   @DocsMeta(_toStringDesc, details: _toStringDetails)
