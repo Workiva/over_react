@@ -37,17 +37,19 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   ///
   /// Does not report any errors for the part file, as those are handled when the part file is analyzed
   bool _partHasDeclarations(CompilationUnit unit, ResolvedUnitResult parentResult) {
-     return getBoilerplateDeclarations(detectBoilerplateMembers(unit), ErrorCollector.callback(
-      SourceFile.fromString(parentResult.content, url: parentResult.path),
-      onError: (message, [span]) {
-        // no-op. It is assumed this method will run for parent files, and the part file will get analyzed in it's own
-        // context
-      },
-      onWarning: (message, [span]) {
-        // no-op. It is assumed this method will run for parent files, and the part file will get analyzed in it's own
-        // context
-      },
-    )).isNotEmpty;
+    return getBoilerplateDeclarations(
+        detectBoilerplateMembers(unit),
+        ErrorCollector.callback(
+          SourceFile.fromString(parentResult.content, url: parentResult.path),
+          onError: (message, [span]) {
+            // no-op. It is assumed this method will run for parent files, and the part file will get analyzed in it's own
+            // context
+          },
+          onWarning: (message, [span]) {
+            // no-op. It is assumed this method will run for parent files, and the part file will get analyzed in it's own
+            // context
+          },
+        )).isNotEmpty;
   }
 
   /// Computes errors for over_react boilerplate
@@ -102,7 +104,6 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
           errorType: PartDirectiveErrorType.invalid,
         );
       }
-
     }
 
     final declarations = getBoilerplateDeclarations(members, errorCollector).toList();
@@ -124,7 +125,8 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
     return declarations.isNotEmpty;
   }
 
-  Future<void> _computePartDirectiveErrors(ResolvedUnitResult result, DiagnosticCollector collector, bool hasDeclarations) async {
+  Future<void> _computePartDirectiveErrors(
+      ResolvedUnitResult result, DiagnosticCollector collector, bool hasDeclarations) async {
     if (!hasDeclarations && _overReactGeneratedPartDirective != null) {
       await collector.addErrorWithFix(
         errorCode,
@@ -146,7 +148,9 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       await collector.addErrorWithFix(
         errorCode,
         result.locationFor(_overReactGeneratedPartDirective),
-        errorMessageArgs: ['The generated part name must match the name of the file that contains it, but with `over_react.g.dart` for the file extension.'],
+        errorMessageArgs: [
+          'The generated part name must match the name of the file that contains it, but with `over_react.g.dart` for the file extension.'
+        ],
         fixKind: invalidGeneratedPartFixKind,
         computeFix: () => buildFileEdit(result, (builder) {
           fixOverReactGeneratedPartDirective(builder, result.unit, result.uri);
@@ -158,7 +162,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   @override
   Future<void> computeErrors(result, collector) async {
     _overReactGeneratedPartDirective = getOverReactGeneratedPartDirective(result.unit);
-    _overReactGeneratedPartDirectiveIsValid =_overReactGeneratedPartDirective != null &&
+    _overReactGeneratedPartDirectiveIsValid = _overReactGeneratedPartDirective != null &&
         overReactGeneratedPartDirectiveIsValid(_overReactGeneratedPartDirective, result.uri);
 
     final hasDeclarations = await _computeBoilerplateErrors(result, collector);
@@ -181,8 +185,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
       }
     }
 
-    await _computePartDirectiveErrors(
-        result, collector, hasDeclarations || anyPartHasDeclarations);
+    await _computePartDirectiveErrors(result, collector, hasDeclarations || anyPartHasDeclarations);
   }
 
   Future<void> _addPartDirectiveErrorForMember({
@@ -234,6 +237,6 @@ extension<E> on Iterable<E> {
 Iterable<PartDirective> getNonGeneratedParts(CompilationUnit libraryUnit) {
   return libraryUnit.directives
       .whereType<PartDirective>()
-  // Ignore all generated `.g.dart` parts.
+      // Ignore all generated `.g.dart` parts.
       .where((part) => !part.uri.stringValue.endsWith('.g.dart'));
 }
