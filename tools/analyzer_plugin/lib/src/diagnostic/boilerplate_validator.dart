@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:analyzer/dart/analysis/results.dart';
-import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/source_range.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
@@ -56,7 +54,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
   ///
   /// Also returns whether the component has valid over_react declarations, which is useful in determining whether to
   /// validate the generated part directive.
-  Future<bool> _computeBoilerPlateErrors(ResolvedUnitResult result, DiagnosticCollector collector) async {
+  Future<bool> _computeBoilerplateErrors(ResolvedUnitResult result, DiagnosticCollector collector) async {
     final debugMatch = _debugFlagPattern.firstMatch(result.content);
     final debug = debugMatch != null;
     if (debug) {
@@ -163,7 +161,7 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
     _overReactGeneratedPartDirectiveIsValid =_overReactGeneratedPartDirective != null &&
         overReactGeneratedPartDirectiveIsValid(_overReactGeneratedPartDirective, result.uri);
 
-    final hasDeclarations = await _computeBoilerPlateErrors(result, collector);
+    final hasDeclarations = await _computeBoilerplateErrors(result, collector);
     if (isPart(result.unit)) {
       return;
     }
@@ -173,17 +171,10 @@ class BoilerplateValidatorDiagnostic extends DiagnosticContributor {
     // compute errors for parts files
     var anyPartHasDeclarations = false;
     for (final part in parts) {
-      final uri = Uri.parse(part.uriElement.toString());
-      final fileContents = File.fromUri(uri).readAsStringSync();
-
-      final partResult = parseString(content: fileContents,
-          path: part.uriElement.toString(),
-          throwIfDiagnostics: false);
-
-      if (partResult.errors.isNotEmpty) {
-        // Error parsing file, skip.
-        continue;
-      }
+      final uri = part.uriSource?.uri;
+      // URI could not be resolved or source does not exist
+      if (uri == null) continue;
+      final partResult = result.session.getParsedUnit(result.session.uriConverter.uriToPath(uri));
 
       if (_partHasDeclarations(partResult.unit, result)) {
         anyPartHasDeclarations = true;
@@ -237,4 +228,12 @@ extension<E> on Iterable<E> {
       i++;
     });
   }
+}
+
+// TODO use the version from over_react instead after initial release
+Iterable<PartDirective> getNonGeneratedParts(CompilationUnit libraryUnit) {
+  return libraryUnit.directives
+      .whereType<PartDirective>()
+  // Ignore all generated `.g.dart` parts.
+      .where((part) => !part.uri.stringValue.endsWith('.g.dart'));
 }
