@@ -92,38 +92,41 @@ Before starting, ensure you have the `analyzer_plugin` open as its own project (
 
 1. In your project, create a new Run Configuration using the `Dart Remote Debug` template
     
-    ![](doc/create-configuration-1.png) 
+    <img src="doc/create-configuration-1.png" alt="doc/create-configuration-1.png" width="295">
     
-    ![](doc/create-configuration-2.png) 
+    <img src="doc/create-configuration-2.png" alt="doc/create-configuration-2.png" width="891">
     
 1. Ensure the "Search sources in" section is pointing to the plugin package directory. Save your new Configuration. We'll come back to it later.
     
-    ![](doc/create-configuration-3.png) 
+    <img src="doc/create-configuration-3.png" alt="doc/create-configuration-3.png" width="993">
 
 1. Open the "Registry" using the command palette (<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd>)
 
-    ![](doc/open-jetbrains-registry.png)
+    <img src="doc/open-jetbrains-registry.png" alt="doc/open-jetbrains-registry.png" width="687">
     
 1. Find the `dart.server.vm.options` key and set the value to `--observe=0` (allows access to the Observatory on a random, non-allocated port)
 
-    ![](doc/edit-jetbrains-registry.png) 
+    <img src="doc/edit-jetbrains-registry.png" alt="doc/edit-jetbrains-registry.png" width="965">
             
 1. Next, we need to open the analyzer diagnostics to find the URL for our debugger. Open the Dart Analysis Server Settings, and click `View analyzer diagnostics`. This will open your browser.
-    ![](doc/open-analyzer-diagnostics.gif) 
+
+    <img src="doc/open-analyzer-diagnostics.gif" alt="doc/open-analyzer-diagnostics.gif" width="444">
 
 1. In the Analysis Server Diagnostics page in your browser, click the `Memory and CPU Usage` tab. Copy the protocol connection URL.
-    ![](doc/find-the-port.png)
+
+    <img src="doc/find-the-port.png" alt="doc/find-the-port.png" width="969">
   
 1. Run your newly created configuration by selecting it and clicking the "Debug" button
     
-    ![](doc/run-configuration-1.png)
+    <img src="doc/run-configuration-1.png" alt="doc/run-configuration-1.png" width="245">
     
 1. Finally, when prompted, paste the URL you just copied and click `OK`.
-    ![](doc/run-configuration-2.png)
+
+    <img src="doc/run-configuration-2.png" alt=doc/run-configuration-2.png width="518">
 
 1. In the debugger tab that was opened, verify that the debugger connected.
     
-    ![](doc/verify-connected.png)
+    <img src="doc/verify-connected.png" alt="doc/verify-connected.png" width="938">
     
 Congrats, you're debugging! 🎉
 
