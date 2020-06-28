@@ -8,13 +8,13 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
-const _desc = r'Always wrap the builder props cascade in parentheses.';
+const _desc = r'Syntax errors around casccades';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
-When invoking a component builder, the builder - and all of the cascading prop setters - must be wrapped in parentheses.
+This diagnostic detects syntax errors related to the parentheses around over_react builder cascades.
 
-**GOOD:**
+**Well-formed:**
 ```
 @override
 render() {
@@ -27,7 +27,7 @@ render() {
 }
 ```
 
-**BAD:**
+**Syntax errors due to missing parentheses:**
 ```
 @override
 render() {
@@ -47,16 +47,17 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_missing_cascade_parens',
-    _desc,
+    "This component usage looks like it's missing parentheses.",
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.SYNTACTIC_ERROR,
+    correction: "Try adding parentheses around the cascaded props",
   );
 
   // Make smaller (higher priority) than
   // REMOVE_PARENTHESIS_IN_GETTER_INVOCATION
 
-  static final fixKind = FixKind(code.name, 400, 'Add parentheses around cascade',
-      appliedTogetherMessage: 'Add parentheses around cascades');
+  static final fixKind = FixKind(code.name, 400, 'Add parentheses around props cascade',
+      appliedTogetherMessage: 'Add parentheses around props cascades');
 
   @override
   computeErrors(result, collector) async {

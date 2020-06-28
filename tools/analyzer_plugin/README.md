@@ -14,6 +14,7 @@
     * [Development Cycle](#development-cycle)
     * [Design Principles & Coding Strategies](#design-principles--coding-strategies)
     * [Debugging](#debugging-the-plugin)
+    * [Documenting Diagnostics and Assists](#documenting-diagnostics-and-assists)
 * __[Feature Ideas & Inspiration](#feature-ideas--inspiration)__
 
 ## Try it in your package!
@@ -34,7 +35,7 @@
 See the [analyzer_plugin package structure documentation][analyzer_plugin_package_structure] for terminology and more info.
 
 - _over_react_: the "host" package
-- _over_react_analyzer_plugin_ (`over_react/tools/analyzer_plugin`) - the "boostrap" and "plugin" packages, merged
+- _over_react_analyzer_plugin_ (`over_react/tools/analyzer_plugin`) - the "bootstrap" and "plugin" packages, merged
         
     We decided to merge these packages since it allows us to avoid creating a separate package for the plugin, which would have resulted in a more painful dev/release experience. (Since the plugin depends on over_react, we'd want to use monorepo to manage the packages. However, we can't do that currently, due to internal tooling restrictions that prevent us from having multiple packages declared in a single repository.)
         
@@ -59,7 +60,7 @@ This script sets up a symlink to point to the original plugin directory (replaci
 
 ### Development cycle
 1. Make changes to the plugin within the _over_react_analyzer_plugin_ directory
-1. In the _playground_ directory or in [another package you've pulled the plugin into](#pulling-in-a-local-version-of-the-plugin), restart the Analysis Server
+1. In the _playground_ directory or in another package you've pulled the plugin into, restart the Analysis Server
 1. Wait for the Analysis Server to boot up, analyze, and run your updated plugin code    
 
 ### Design Principles & Coding Strategies
@@ -85,48 +86,93 @@ The dev experience when working on this plugin isn't ideal (See the `analyzer_pl
 
 These instructions are currently for JetBrains IDEs (IntelliJ, WebStorm, etc.) only.
 
-Before starting, ensure you have the `analyzer_plugin` open as it's own project (rather than opening `over_react`) in your IDE.
+Before starting, ensure you have the `analyzer_plugin` open as its own project (rather than opening `over_react`) in your IDE.
 
 1. Ensure your Dart version is at least `2.8.3`. (The protocol connection was made available somewhere around this version)
 
 1. In your project, create a new Run Configuration using the `Dart Remote Debug` template
     
-    ![](doc/create-configuration-1.png) 
+    <img src="doc/create-configuration-1.png" alt="doc/create-configuration-1.png" width="295">
     
-    ![](doc/create-configuration-2.png) 
+    <img src="doc/create-configuration-2.png" alt="doc/create-configuration-2.png" width="891">
     
 1. Ensure the "Search sources in" section is pointing to the plugin package directory. Save your new Configuration. We'll come back to it later.
     
-    ![](doc/create-configuration-3.png) 
+    <img src="doc/create-configuration-3.png" alt="doc/create-configuration-3.png" width="882">
 
 1. Open the "Registry" using the command palette (<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd>)
 
-    ![](doc/open-jetbrains-registry.png)
+    <img src="doc/open-jetbrains-registry.png" alt="doc/open-jetbrains-registry.png" width="687">
     
 1. Find the `dart.server.vm.options` key and set the value to `--observe=0` (allows access to the Observatory on a random, non-allocated port)
 
-    ![](doc/edit-jetbrains-registry.png) 
+    <img src="doc/edit-jetbrains-registry.png" alt="doc/edit-jetbrains-registry.png" width="854">
             
-1. Next, we need to open the analyzer diagnostics to find the URL for our debugger. Open the Dart Analaysis Server Settings, and click `View analyzer diagnostics`. This will open your browser.
-    ![](doc/open-analyzer-diagnostics.gif) 
+1. Next, we need to open the analyzer diagnostics to find the URL for our debugger. Open the Dart Analysis Server Settings, and click `View analyzer diagnostics`. This will open your browser.
+
+    <img src="doc/open-analyzer-diagnostics.gif" alt="doc/open-analyzer-diagnostics.gif" width="444">
 
 1. In the Analysis Server Diagnostics page in your browser, click the `Memory and CPU Usage` tab. Copy the protocol connection URL.
-    ![](doc/find-the-port.png)
+
+    <img src="doc/find-the-port.png" alt="doc/find-the-port.png" width="969">
   
 1. Run your newly created configuration by selecting it and clicking the "Debug" button
     
-    ![](doc/run-configuration-1.png)
+    <img src="doc/run-configuration-1.png" alt="doc/run-configuration-1.png" width="245">
     
 1. Finally, when prompted, paste the URL you just copied and click `OK`.
-    ![](doc/run-configuration-2.png)
+
+    <img src="doc/run-configuration-2.png" alt=doc/run-configuration-2.png width="407">
 
 1. In the debugger tab that was opened, verify that the debugger connected.
     
-    ![](doc/verify-connected.png)
+    <img src="doc/verify-connected.png" alt="doc/verify-connected.png" width="731">
     
 Congrats, you're debugging! 🎉
 
 You can now set breakpoints, view logs, and do everything else you'd normally do in the debugger for.
+
+### Documenting Diagnostics and Assists
+
+__All diagnostics and assists should be documented!!!__
+
+Documentation for the diagnostics ands assists provided by this analyzer plugin are published to <https://workiva.github.io/over_react/analyzer_plugin/>.
+
+This is accomplished by placing a `@DocsMeta` annotation on a `DiagnosticCode` for diagnostics, and an `AssistKind` for assists. In order for them to work properly, the property the `DiagnosticCode` or `AssistKind` is assigned to __must be a `const`__ as shown in the examples below.
+
+#### Examples
+
+- Error Example: [StyleMissingUnitDiagnostic](lib/src/diagnostic/style_missing_unit.dart)
+- Lint / Warning Example: [ForwardOnlyDomPropsToDomBuildersDiagnostic](lib/src/diagnostic/forward_only_dom_props_to_dom_builders.dart)
+
+#### Best Practices
+* The value of `DiagnosticCode.name` should always start with `over_react_`.
+* The value of `DiagnosticCode.message`/`DiagnosticCode.correction`/ should abide by the [diagnostic message best practices][analyzer_plugin_diagnostic_message_guide] used by official Dart analyzer diagnostics. [Examples of official diagnostics messages.][analyzer_plugin_diagnostic_message_examples]
+
+    Additionally:
+     
+    * The value of `DiagnosticCode.message` should not include the steps that users should take to correct the diagnostic. 
+        * Use `DiagnosticCode.correction` for this as shown in the [examples](#examples) above.
+        
+* The value of `DocsMeta.description` should use consistent terminology based on the severity of the diagnostic.
+    * `AnalysisErrorSeverity.INFO`s and `AnalysisErrorSeverity.WARNING`s should start with _"Avoid"_ or _"Prefer"_.
+    * `AnalysisErrorSeverity.ERROR`s should start with _"Do not"_, _"Never"_ or _"Always"_.
+    
+    Check out the [examples](#examples) above for demonstrations of this.
+
+* The value of `FixKind.message` and `AssistKind.message` should NOT end with a period.
+* When possible, the value of `DocsMeta.description` _(first argument passed to the `@DocsMeta` annotation)_ should match the value of `DiagnosticCode.message`.
+    * Sometimes this isn't possible as a result of using `errorMessageArgs` to pass dynamic information into the message.
+* The value of `DocsMeta.details` gets parsed as markdown, and should provide as much detail about the diagnostic as possible - including a "GOOD" and "BAD" example when possible _(as shown in the [examples](#examples) above)_.
+
+#### Updating Published Documentation
+1. When a new/updated diagnostic or assist merges to master, merge master into the `gh-pages` branch _(it should merge cleanly)_.
+1. From the `tools/analyzer_plugin/` directory, run:
+    ```shell script
+    dart ./tool/doc.dart --gh-pages
+    ```
+1. Commit the changes, and push them to the `gh-pages` branch.
+    This will deploy the updated documentation to <https://workiva.github.io/over_react/analyzer_plugin/> - typically within a matter of seconds. 
 
 ## Feature Ideas & Inspiration
 
@@ -138,150 +184,9 @@ We drew inspiration from the following:
 * [AngularDart analyzer plugin](https://github.com/dart-lang/angular/tree/master/angular_analyzer_plugin)
 
 
-
-### Documenting Lints / Assists
-
-__All lints and assists should be documented!!!__
-
-Documentation for the lints / assists provided by the analyzer plugin are published to <https://workiva.github.io/over_react/analyzer_plugin/>.
-
-This is accomplished by placing a `@DocsMeta` annotation on a `DiagnosticCode` for lints, and an `AssistKind` for assists. In order for them to work properly, the property the `DiagnosticCode` or `AssistKind` is assigned to __must be a `const`__ as shown in the examples below.
-
-#### Examples
-
-__Error Example:__
-````dart
-const _desc = r'Do not use string CSS property values without specifying a unit.';
-const _correction =
-    r'Use CSS property values that are strings _with_ units, or numbers _(in which case `px` will be inferred)_.';
-// <editor-fold desc="Documentation Details">
-const _details = '''
-
-**ALWAYS** $_correction
-
-**GOOD:**
-```
-@override
-render() {
-  return (Dom.div()..style = {'width': 80})(
-    'I am eighty pixels wide!',
-  );
-}
-```
-
-**GOOD:**
-```
-@override
-render() {
-  return (Dom.div()..style = {'width': '80px'})(
-    'I am also eighty pixels wide!',
-  );
-}
-```
-
-**BAD:**
-```
-@override
-render() {
-  return (Dom.div()..style = {'width': '80'})(
-    'I never rendered because of a ReactJS runtime error :(',
-  );
-}
-```
-
-''';
-// </editor-fold>
-
-class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
-  @DocsMeta(_desc, details: _details)
-  static const code = DiagnosticCode(
-    'over_react_style_missing_unit',
-    _desc,
-    AnalysisErrorSeverity.ERROR,
-    AnalysisErrorType.SYNTACTIC_ERROR,
-    correction: _correction,
-  );
-
-  // ...
-}
-````
-
-__Lint / Warning Example:__
-````dart
-const _desc = r'Avoid forwarding custom props to a Dom builder.';
-// <editor-fold desc="Documentation Details">
-const _details = r'''
-
-**PREFER** to use `addUnconsumedDomProps` instead of `addUnconsumedProps` on Dom builders.
-
-**GOOD:**
-```
-@override
-render() {
-  return (Dom.div()
-    ..modifyProps(addUnconsumedDomProps)
-    ..id = 'foo'
-  )(props.children);
-}
-```
-
-**BAD:**
-```
-@override
-render() {
-  return (Dom.div()
-    ..modifyProps(addUnconsumedProps)
-    ..id = 'foo'
-  )(props.children);
-}
-```
-
-''';
-// </editor-fold>
-
-class ForwardOnlyDomPropsToDomBuildersDiagnostic extends ComponentUsageDiagnosticContributor {
-  @DocsMeta(_desc, details: _details)
-  static const code = DiagnosticCode(
-    'over_react_forward_only_dom_props_to_dom_builders',
-    _desc,
-    AnalysisErrorSeverity.WARNING,
-    AnalysisErrorType.STATIC_WARNING,
-    correction: 'Use addUnconsumedDomProps instead of addUnconsumedProps.',
-  );
-
-  // ...
-}
-````
-
-
-#### Best Practices
-1. The value of `DiagnosticCode.name` should always start with `over_react_`.
-1. The value of `DiagnosticCode.message` and `DocsMeta.description` should use consistent terminology based on the severity of the lint.
-    * `AnalysisErrorSeverity.INFO`s and `AnalysisErrorSeverity.WARNING`s should start with _"Avoid"_ or _"Prefer"_.
-    * `AnalysisErrorSeverity.ERROR`s should start with _"Do not"_, _"Never"_ or _"Always"_.
-    
-    Check out the [examples](#examples) above for demonstrations of this.
-1. The value of `DiagnosticCode.message` should not include the steps that users should take to correct the lint.
-    * Use `DiagnosticCode.correction` for this as shown in the [examples](#examples) above.
-1. The value of `DiagnosticCode.message` and `DiagnosticCode.correction` should always end with a period.
-1. The value of `FixKind.message` and `AssistKind.message` should NOT end with a period.
-1. When possible, the value of `DocsMeta.description` _(first argument passed to the `@DocsMeta` annotation)_ should match the value of `DiagnosticCode.message`.
-    * Sometimes this isn't possible as a result of using `errorMessageArgs` to pass dynamic information into the message.
-1. The value of `DocsMeta.details` gets parsed as markdown, and should provide as much detail about the lint as possible - including a "GOOD" and "BAD" example when possible _(as shown in the [examples](#examples) above)_.
-
- 
-
-#### Updating Published Documentation
-1. When a new/updated lint or assist merges to master, merge master into the `gh-pages` branch _(it should merge cleanly)_.
-1. From the `tools/analyzer_plugin/` directory, run:
-    ```shell script
-    dart ./tool/doc.dart --gh-pages
-    ```
-1. Commit the changes, and push them to the `gh-pages` branch.
-    This will deploy the updated documentation to <https://workiva.github.io/over_react/analyzer_plugin/> - typically within a matter of seconds. 
-
 [analyzer_plugin]: https://github.com/dart-lang/sdk/tree/master/pkg/analyzer_plugin
 [analyzer_plugin_tutorial]: https://github.com/dart-lang/sdk/blob/master/pkg/analyzer_plugin/doc/tutorial/tutorial.md
 [analyzer_plugin_package_structure]: https://github.com/dart-lang/sdk/blob/master/pkg/analyzer_plugin/doc/tutorial/package_structure.md
 [analyzer_plugin_diagnostic_message_guide]: https://github.com/dart-lang/sdk/blob/5bac4d9b0cdc12a21d0b9914a3c8c0d9716aa705/pkg/front_end/lib/src/fasta/diagnostics.md#guide-for-writing-diagnostics
+[analyzer_plugin_diagnostic_message_examples]: https://github.com/dart-lang/sdk/blob/5bac4d9b0cdc12a21d0b9914a3c8c0d9716aa705/pkg/front_end/messages.yaml
 [analysis_server]: https://github.com/dart-lang/sdk/tree/master/pkg/analysis_server

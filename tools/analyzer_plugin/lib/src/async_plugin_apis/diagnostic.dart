@@ -1,4 +1,4 @@
-// Adapted from pacakge:built_value_generator's analyzer plugin:
+// Adapted from package:built_value_generator's analyzer plugin:
 // https://github.com/google/built_value.dart/blob/fc689b41f7a62ee7622a16123412c3b9310185a6/built_value_generator/lib/src/plugin/plugin.dart
 //
 // Copyright 2015, Google Inc. All rights reserved.
