@@ -14,7 +14,7 @@ const _details = r'''
 
 This diagnostic detects syntax errors related to the parentheses around over_react builder cascades.
 
-Well-formed:
+**Well-formed:**
 ```
 @override
 render() {
@@ -27,7 +27,7 @@ render() {
 }
 ```
 
-Syntax errors due to missing parentheses:
+**Syntax errors due to missing parentheses:**
 ```
 @override
 render() {

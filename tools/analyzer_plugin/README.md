@@ -139,8 +139,8 @@ This is accomplished by placing a `@DocsMeta` annotation on a `DiagnosticCode` f
 
 #### Examples
 
-- Error Example: [StyleMissingUnitDiagnostic](lib/src/diagnostic/style_missing_unit.dart)__
-- Lint / Warning Example: [ForwardOnlyDomPropsToDomBuildersDiagnostic](lib/src/diagnostic/forward_only_dom_props_to_dom_builders.dart)__
+- Error Example: [StyleMissingUnitDiagnostic](lib/src/diagnostic/style_missing_unit.dart)
+- Lint / Warning Example: [ForwardOnlyDomPropsToDomBuildersDiagnostic](lib/src/diagnostic/forward_only_dom_props_to_dom_builders.dart)
 
 #### Best Practices
 * The value of `DiagnosticCode.name` should always start with `over_react_`.
