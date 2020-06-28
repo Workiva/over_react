@@ -98,7 +98,7 @@ Before starting, ensure you have the `analyzer_plugin` open as its own project (
     
 1. Ensure the "Search sources in" section is pointing to the plugin package directory. Save your new Configuration. We'll come back to it later.
     
-    <img src="doc/create-configuration-3.png" alt="doc/create-configuration-3.png" width="993">
+    <img src="doc/create-configuration-3.png" alt="doc/create-configuration-3.png" width="882">
 
 1. Open the "Registry" using the command palette (<kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>A</kbd>)
 
@@ -106,7 +106,7 @@ Before starting, ensure you have the `analyzer_plugin` open as its own project (
     
 1. Find the `dart.server.vm.options` key and set the value to `--observe=0` (allows access to the Observatory on a random, non-allocated port)
 
-    <img src="doc/edit-jetbrains-registry.png" alt="doc/edit-jetbrains-registry.png" width="965">
+    <img src="doc/edit-jetbrains-registry.png" alt="doc/edit-jetbrains-registry.png" width="854">
             
 1. Next, we need to open the analyzer diagnostics to find the URL for our debugger. Open the Dart Analysis Server Settings, and click `View analyzer diagnostics`. This will open your browser.
 
@@ -122,11 +122,11 @@ Before starting, ensure you have the `analyzer_plugin` open as its own project (
     
 1. Finally, when prompted, paste the URL you just copied and click `OK`.
 
-    <img src="doc/run-configuration-2.png" alt=doc/run-configuration-2.png width="518">
+    <img src="doc/run-configuration-2.png" alt=doc/run-configuration-2.png width="407">
 
 1. In the debugger tab that was opened, verify that the debugger connected.
     
-    <img src="doc/verify-connected.png" alt="doc/verify-connected.png" width="938">
+    <img src="doc/verify-connected.png" alt="doc/verify-connected.png" width="731">
     
 Congrats, you're debugging! 🎉
 
