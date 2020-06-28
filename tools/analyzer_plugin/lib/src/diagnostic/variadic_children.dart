@@ -87,14 +87,11 @@ void convertUsageListLiteralToVariadicChildren(
 
   if (!removeKeyFromChildren) return;
 
-  for (final node in allDescendants(listLiteral)) {
-    final usages = <FluentComponentUsage>[];
-    node.accept(ComponentUsageVisitor(usages.add));
-    for (final usage in usages) {
-      for (final prop in usage.cascadedProps) {
-        if (prop.name.name == 'key') {
-          builder.addDeletion(prop.rangeForRemoval);
-        }
+  final usagesInList = listLiteral.elements.whereType<InvocationExpression>().map(getComponentUsage).whereNotNull();
+  for (final usage in usagesInList) {
+    for (final prop in usage.cascadedProps) {
+      if (prop.name.name == 'key') {
+        builder.addDeletion(prop.rangeForRemoval);
       }
     }
   }
