@@ -1,8 +1,11 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
+import 'package:analyzer_plugin/utilities/range_factory.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
+import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/indent_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 void addProp(
   FluentComponentUsage usage,
@@ -72,5 +75,22 @@ void addProp(
     }
 
     fileBuilder.addSimpleInsertion(function.end, ')');
+  }
+}
+
+/// Adds edits to [fileBuilder] that remove [prop] from [usage].
+///
+/// If [prop] is the last cascade on the parenthesized builder, this removes the parentheses for a better user experience.
+void removeProp(FluentComponentUsage usage, DartFileEditBuilder fileBuilder, PropAssignment prop) {
+  final cascade = usage.cascadeExpression;
+  // Defensively check that this is a ParenthesizedExpression in case there's some weird syntax issue.
+  final parenthesizedCascade = cascade.parent.tryCast<ParenthesizedExpression>();
+
+  if (parenthesizedCascade != null && cascade.cascadeSections.length == 1) {
+    fileBuilder.addDeletion(range.token(parenthesizedCascade.leftParenthesis));
+    // Remove from the first `..` through the closing paren, which also removes all whitespace/newlines as desired.
+    fileBuilder.addDeletion(range.endEnd(cascade.target, parenthesizedCascade.rightParenthesis));
+  } else {
+    fileBuilder.addDeletion(prop.rangeForRemoval); // ignore: invalid_use_of_protected_member
   }
 }

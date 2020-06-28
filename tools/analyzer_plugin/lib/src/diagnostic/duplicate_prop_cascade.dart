@@ -44,10 +44,9 @@ class DuplicatePropCascadeDiagnostic extends ComponentUsageDiagnosticContributor
           fixKind: fixKind,
           computeFix: () => buildFileEdit(result, (builder) {
             for (var i = 0; i < propUsages.length - 1; i++) {
-              final propToRemove = propUsages[i];
               // We iterate and remove all but the final instance of a duplicated prop, so that the last
               // instance (the one that is actually used at run time) is retained.
-              builder.addDeletion(propToRemove.rangeForRemoval);
+              removeProp(usage, builder, propUsages[i]);
             }
           }),
         );
