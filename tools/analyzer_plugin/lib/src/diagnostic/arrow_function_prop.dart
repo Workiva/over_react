@@ -5,7 +5,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
-const _desc = 'Never place un-parenthesized arrow functions in the middle of prop setter cascades.';
+const _desc = "Props can't be cascaded after unparenthesized arrow functions.";
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
@@ -44,7 +44,7 @@ class ArrowFunctionPropCascadeDiagnostic extends ComponentUsageDiagnosticContrib
     _desc,
     AnalysisErrorSeverity.ERROR,
     AnalysisErrorType.SYNTACTIC_ERROR,
-    correction: 'Wrap arrow functions in parentheses when placed in the middle of prop setter cascades.',
+    correction: 'Try wrapping the arrow functions in parentheses or using a block function.',
   );
 
   static final fixKind = FixKind(code.name, 200, 'Wrap arrow function in parentheses');

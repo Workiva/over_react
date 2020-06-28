@@ -59,10 +59,10 @@ class VariadicChildrenWithKeys extends ComponentUsageDiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'variadic_children_with_keys',
-    _desc,
+    "Keying this child is not necessary because it's passed as an argument as opposed to inside an Iterable.",
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.HINT,
-    correction: 'Only add keys to children within iterables.',
+    url: 'https://reactjs.org/docs/lists-and-keys.html',
   );
 
   static final fixKind = FixKind(code.name, 200, 'Remove unnecessary key');

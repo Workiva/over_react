@@ -4,13 +4,11 @@ import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
-const _correction =
-    r'Use CSS property values that are strings _with_ units, or numbers _(in which case `px` will be inferred)_.';
 const _desc = r'Do not use string CSS property values without specifying a unit.';
 // <editor-fold desc="Documentation Details">
 const _details = '''
 
-**ALWAYS** $_correction
+**ALWAYS** Use CSS property values that are strings _with_ units, or numbers _(in which case `px` will be inferred)_.
 
 **GOOD:**
 ```
@@ -49,10 +47,10 @@ class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_style_missing_unit',
-    _desc,
+    'CSS property value is missing a unit, and will be ignored by React.',
     AnalysisErrorSeverity.ERROR,
     AnalysisErrorType.SYNTACTIC_ERROR,
-    correction: _correction,
+    correction: "Try adding a unit, or using a 'num' instead of 'String' (in which case 'px' will be inferred).",
   );
 
   static final fixKind = FixKind(code.name, 200, "Convert to number (and treat as 'px')");

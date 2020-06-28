@@ -9,7 +9,7 @@ import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
 const _sharedBadKeyDetailsIntro = r'**PREFER** to use a value for `props.key` that is guaranteed to be unique.';
 const _sharedBadKeyUseInstead =
-    r'Try using other information, such as an `id` field on the object, or an index, to construct the `key` instead.';
+    r'Try using other information, such as a unique ID field on the object or an index, to construct the key instead.';
 
 const _hashCodeDesc = 'Avoid deriving React keys from hashCode since it is not unique.';
 // <editor-fold desc="Hash Code Documentation Details">
@@ -68,12 +68,12 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
   @DocsMeta(_hashCodeDesc, details: _hashCodeDetails)
   static const hashCodeCode = DiagnosticCode(
     'over_react_hash_code_as_key',
-    _hashCodeDesc,
+    "Keys shouldn't be derived from hashCode since it is not unique."
+        " While 'hashCode' may seem like it is 'unique enough', 'hashCode' values by design"
+        " can collide with each other, and may collide often based on how they're implemented.",
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
-    correction: "While 'hashCode' may seem like it is 'unique enough', 'hashCode' values by design"
-        " can collide with each other, and may collide often based on how they're implemented. "
-        "$_sharedBadKeyUseInstead",
+      correction: _sharedBadKeyUseInstead,
   );
 
   @DocsMeta(_toStringDesc, details: _toStringDetails)

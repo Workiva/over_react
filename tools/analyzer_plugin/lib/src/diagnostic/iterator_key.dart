@@ -67,7 +67,7 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_missing_key',
-    _desc,
+    "Mapped children need keys.",
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
     correction: 'Add a unique props.key value to the component builder, or remove it from the list literal.',

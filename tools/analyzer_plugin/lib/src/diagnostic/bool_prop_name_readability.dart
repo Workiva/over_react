@@ -33,9 +33,10 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_bool_prop_name_readability',
-    "'{0}.{1}' isn't an easily readable Boolean prop name. Try using a prefix like: {2}",
+    "'{0}.{1}' isn't an easily readable Boolean prop name.",
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.LINT,
+    correction: "Try using a prefix like: {2}."
   );
 
   @override

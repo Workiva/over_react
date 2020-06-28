@@ -85,7 +85,7 @@ class IncorrectDocCommentLocationDiagnostic extends DiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_incorrect_doc_comment_location',
-    _desc,
+    "This class is documented, but the more-commonly used component factory is not.",
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.LINT,
     correction:

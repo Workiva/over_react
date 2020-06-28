@@ -39,11 +39,12 @@ class PseudoStaticLifecycleDiagnostic extends DiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_pseudo_static_lifecycle',
-    'Never reference instance members within \'{0}\'.',
+    "Most members can't be used inside of '{0}', since it's treated as static by React and won't be called for each mounted component."
+        " Only super-calls and props/state utility methods (like 'newProps' and 'typedPropsFactory') are allowed.",
     AnalysisErrorSeverity.ERROR,
     AnalysisErrorType.STATIC_WARNING,
-    correction: 'It must be treated as a static method. Only super-calls '
-        'and props/state utility methods (like \'newProps\' and \'typedPropsFactory\') are allowed.',
+    correction: "Try using only information provided in arguments"
+        " and converting any custom prop/state helper methods in use to be 'static'.",
   );
 
   @override
