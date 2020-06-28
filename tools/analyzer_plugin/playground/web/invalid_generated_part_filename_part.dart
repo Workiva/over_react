@@ -1,6 +1,5 @@
-import 'package:over_react/over_react.dart';
-
-part 'invalid_generated_part_filename.over_react.g.dart';
+//part 'invaid_generated_part_filename_part.over_react.g.dart';
+part of invalid_generated_part_filename;
 
 UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier
 
