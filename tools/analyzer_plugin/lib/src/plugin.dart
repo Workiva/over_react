@@ -63,7 +63,6 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/iterator_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/link_target_without_rel.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/missing_cascade_parens.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/proptypes_instance_members.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/proptypes_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/pseudo_static_lifecycle.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/render_return_value.dart';
@@ -106,7 +105,6 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
 
   @override
   List<DiagnosticContributor> getDiagnosticContributors(String path) => [
-        PropTypesInstanceMembersDiagnostic(),
         PropTypesReturnValueDiagnostic(),
         DuplicatePropCascadeDiagnostic(),
         LinkTargetUsageWithoutRelDiagnostic(),

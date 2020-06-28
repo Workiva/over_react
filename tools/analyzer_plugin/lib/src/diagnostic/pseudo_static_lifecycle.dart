@@ -3,7 +3,7 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/visitors/non_static_reference_visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
-const staticMethodNames = ['getDefaultProps', 'defaultProps', 'getDerivedStateFromProps'];
+const staticMethodNames = ['getDefaultProps', 'defaultProps', 'getDerivedStateFromProps', 'propTypes'];
 const instanceMemberWhitelist = [
   'newProps',
   'newState',
