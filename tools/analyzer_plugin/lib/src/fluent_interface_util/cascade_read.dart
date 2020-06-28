@@ -3,8 +3,11 @@ import 'dart:async';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/source/source_range.dart';
 import 'package:analyzer_plugin/utilities/range_factory.dart';
+import 'package:meta/meta.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
+
+import 'cascade_edits.dart';
 
 extension UsageCascades on FluentComponentUsage {
   Iterable<Expression> get _cascadeSections => cascadeExpression?.cascadeSections ?? const [];
@@ -49,6 +52,9 @@ class PropAssignment {
   ///
   /// Includes the space between the previous token and the start of this assignment, so that
   /// the entire prop line is removed.
+  ///
+  /// __Note: prefer using [removeProp] instead of using this directly to perform removals__
+  @protected
   SourceRange get rangeForRemoval => range.endEnd(assignment.beginToken.previous, assignment);
 }
 

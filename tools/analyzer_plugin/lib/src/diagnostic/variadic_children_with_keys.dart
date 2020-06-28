@@ -92,7 +92,7 @@ class VariadicChildrenWithKeys extends ComponentUsageDiagnosticContributor {
             result.locationFor(prop.assignment),
             fixKind: fixKind,
             computeFix: () => buildFileEdit(result, (builder) {
-              builder.addDeletion(prop.rangeForRemoval);
+              removeProp(usage, builder, prop);
             }),
           );
         }

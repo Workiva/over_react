@@ -1,6 +1,7 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util/cascade_read.dart';
+import 'package:over_react_analyzer_plugin/src/fluent_interface_util/cascade_edits.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
 const _desc = r'Avoid using iterable children when variadic children can be used.';
@@ -91,7 +92,7 @@ void convertUsageListLiteralToVariadicChildren(
   for (final usage in usagesInList) {
     for (final prop in usage.cascadedProps) {
       if (prop.name.name == 'key') {
-        builder.addDeletion(prop.rangeForRemoval);
+        removeProp(usage, builder, prop);
       }
     }
   }
