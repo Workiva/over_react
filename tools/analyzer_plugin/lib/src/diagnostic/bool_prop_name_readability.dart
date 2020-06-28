@@ -148,6 +148,6 @@ const allowedContainsForBoolProp = [
   'suppress',
   'open',
   'close',
-  'renderas',
+  'renders',
   'initially',
 ];

@@ -35,7 +35,7 @@
 See the [analyzer_plugin package structure documentation][analyzer_plugin_package_structure] for terminology and more info.
 
 - _over_react_: the "host" package
-- _over_react_analyzer_plugin_ (`over_react/tools/analyzer_plugin`) - the "boostrap" and "plugin" packages, merged
+- _over_react_analyzer_plugin_ (`over_react/tools/analyzer_plugin`) - the "bootstrap" and "plugin" packages, merged
         
     We decided to merge these packages since it allows us to avoid creating a separate package for the plugin, which would have resulted in a more painful dev/release experience. (Since the plugin depends on over_react, we'd want to use monorepo to manage the packages. However, we can't do that currently, due to internal tooling restrictions that prevent us from having multiple packages declared in a single repository.)
         
@@ -60,7 +60,7 @@ This script sets up a symlink to point to the original plugin directory (replaci
 
 ### Development cycle
 1. Make changes to the plugin within the _over_react_analyzer_plugin_ directory
-1. In the _playground_ directory or in [another package you've pulled the plugin into](#pulling-in-a-local-version-of-the-plugin), restart the Analysis Server
+1. In the _playground_ directory or in another package you've pulled the plugin into, restart the Analysis Server
 1. Wait for the Analysis Server to boot up, analyze, and run your updated plugin code    
 
 ### Design Principles & Coding Strategies
@@ -86,7 +86,7 @@ The dev experience when working on this plugin isn't ideal (See the `analyzer_pl
 
 These instructions are currently for JetBrains IDEs (IntelliJ, WebStorm, etc.) only.
 
-Before starting, ensure you have the `analyzer_plugin` open as it's own project (rather than opening `over_react`) in your IDE.
+Before starting, ensure you have the `analyzer_plugin` open as its own project (rather than opening `over_react`) in your IDE.
 
 1. Ensure your Dart version is at least `2.8.3`. (The protocol connection was made available somewhere around this version)
 
@@ -108,7 +108,7 @@ Before starting, ensure you have the `analyzer_plugin` open as it's own project 
 
     ![](doc/edit-jetbrains-registry.png) 
             
-1. Next, we need to open the analyzer diagnostics to find the URL for our debugger. Open the Dart Analaysis Server Settings, and click `View analyzer diagnostics`. This will open your browser.
+1. Next, we need to open the analyzer diagnostics to find the URL for our debugger. Open the Dart Analysis Server Settings, and click `View analyzer diagnostics`. This will open your browser.
     ![](doc/open-analyzer-diagnostics.gif) 
 
 1. In the Analysis Server Diagnostics page in your browser, click the `Memory and CPU Usage` tab. Copy the protocol connection URL.
@@ -144,7 +144,7 @@ This is accomplished by placing a `@DocsMeta` annotation on a `DiagnosticCode` f
 
 #### Best Practices
 * The value of `DiagnosticCode.name` should always start with `over_react_`.
-* The value of `DiagnosticCode.message`/`DiagnosticCode.correction`/ should abide by the [diagnostic message best practices][analyzer_plugin_diagnostic_message_guide] used by official Dart analyzer diagnositics. [Examples of official diagnostics messages.][analyzer_plugin_diagnostic_message_examples]
+* The value of `DiagnosticCode.message`/`DiagnosticCode.correction`/ should abide by the [diagnostic message best practices][analyzer_plugin_diagnostic_message_guide] used by official Dart analyzer diagnostics. [Examples of official diagnostics messages.][analyzer_plugin_diagnostic_message_examples]
 
     Additionally:
      
