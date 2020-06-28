@@ -14,7 +14,7 @@ const _desc = r'Do not use unsupported types as component children.';
 // <editor-fold desc="Documentation Details">
 const _details = '''
 
-Children of an OverReact component must be $supportedOverReactChildTypes
+Children of an OverReact component must be a $supportedOverReactChildTypes
 
 **GOOD:**
 ```
@@ -55,10 +55,10 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_invalid_child',
-    "Invalid child type: '{0}'.",
+    "Objects of type '{0}' are not valid React children.",
     AnalysisErrorSeverity.ERROR,
     AnalysisErrorType.STATIC_TYPE_WARNING,
-    correction: 'Must be $supportedOverReactChildTypes',
+    correction: 'Try using one of the supported types: $supportedOverReactChildTypes.',
   );
 
   @override

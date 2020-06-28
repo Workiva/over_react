@@ -43,7 +43,7 @@ class ForwardOnlyDomPropsToDomBuildersDiagnostic extends ComponentUsageDiagnosti
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_forward_only_dom_props_to_dom_builders',
-    _desc,
+    'Forwarding all props to a DOM component can result in unsupported prop warnings at runtime.',
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
     correction: 'Use addUnconsumedDomProps instead of addUnconsumedProps.',
