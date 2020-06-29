@@ -10,8 +10,6 @@
 set -e
 
 pub get
-dart tool/add_over_react_override.dart
-pub get
 pub run dart_dev format --check
 pub run dart_dev analyze
 pub run dependency_validator --no-fatal-pins

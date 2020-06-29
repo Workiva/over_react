@@ -22,7 +22,8 @@ void main(List<String> args) {
   if (yamlContents['dependency_overrides'] != null) {
     final dependencyOverrides = yamlContents['dependency_overrides'] as YamlMap;
     if (dependencyOverrides.containsKey('over_react') && dependencyOverrides.length == 1) {
-      logger.info('Skipping writing dependency override for over_react as it is already overridden');
+      logger
+          .info('Skipping writing dependency override for over_react as it is already overridden');
     } else {
       pluginPubspec.writeAsStringSync(pluginPubspec.readAsStringSync().replaceFirst(
             RegExp('^dependency_overrides:\n', multiLine: true),
