@@ -1,5 +1,17 @@
 # OverReact Changelog
 
+## [3.6.0](https://github.com/Workiva/over_react/compare/3.5.3...3.6.0)
+
+- Add [OverReact Analyzer Plugin (beta)](https://github.com/Workiva/over_react/tree/link-2020-integration/tools/analyzer_plugin) ⚡️
+    > A Dart analyzer plugin for OverReact, bringing analysis-time checks and behavior to IDEs using the Dart Analysis Server (including JetBrains IDEs and VS Code).
+    > 
+    > Functionality includes checking for issues that cause React warnings/errors at runtime, linting for best practices, adding "assists" for common edits to component syntax and boilerplate, and more!
+
+- [#498] Fix missing `allowInterop` call in `OverReactReduxDevToolsMiddleware.handleEventFromRemote`
+- Documentation updates
+    - [#489] Docs: Update `FluxUiPropsMixin` example
+    - [#492] Docs: Note that props can only be declared in mixins
+
 ## [3.5.3](https://github.com/Workiva/over_react/compare/3.5.2...3.5.3)
 - [#496] Emit a build error for mismatched components in the new boilerplate
 
