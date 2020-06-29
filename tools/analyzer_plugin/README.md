@@ -1,9 +1,13 @@
-# OverReact Analyzer Plugin
+# OverReact Analyzer Plugin ![(beta)](https://img.shields.io/badge/-beta-blue?style=for-the-badge)
 
-[![OverReact Analyzer Plugin](https://img.shields.io/badge/docs-lints-red.svg)](https://workiva.github.io/over_react/analyzer_plugin/lints/)
+[![OverReact Analyzer Plugin](https://img.shields.io/badge/docs-diagnostics/lints-red.svg)](https://workiva.github.io/over_react/analyzer_plugin/lints/)
 [![OverReact Analyzer Plugin](https://img.shields.io/badge/docs-assists-blue.svg)](https://workiva.github.io/over_react/analyzer_plugin/assists/)
 
-> A [Dart analyzer plugin][analyzer_plugin] for OverReact.
+> A [Dart analyzer plugin][analyzer_plugin] for OverReact, bringing analysis-time checks and behavior to IDEs using the Dart Analysis Server (including JetBrains IDEs and VSCode).
+> 
+> Functionality includes checking for issues that cause React warnings/errors at runtime, linting for best practices, adding "assists" for common edits to component syntax and boilerplate, and more!
+> 
+> See the documentation links above for a full list of diagnostics/lints and assists.
 
 ---
 
@@ -19,16 +23,13 @@
 
 ## Try it in your package!
 1. Add over_react to your pubspec.yaml
-
-    __If you wish to develop the plugin locally, see [this section](#local-development).__
-    
 1. Enable the plugin in your analysis_options.yaml:
     ```yaml
     analyzer:
       plugins:
-        over_react
+        - over_react
     ```
-1. Restart the Dart Analysis Server in your IDE
+1. Restart the Dart Analysis Server in your IDE. The plugin may take a minute to load after built-in analysis completes.
    
 ## Repo Structure
 
