@@ -1,22 +1,31 @@
 language: dart
 
-dart:
-  - stable
-  - dev
-
-before_script:
-  - pub run build_runner build --delete-conflicting-outputs
-  - git diff --exit-code
-  - pub run dart_dev analyze
-  - pub run dart_dev format --check
-  - pub run dependency_validator --no-fatal-pins -i analyzer,build_runner,build_web_compilers,built_value_generator,front_end
-
-script:
-  - pub run dart_dev test -P vm
-  - pub run dart_dev test -P dartdevc
-  - pub run dart_dev test --build-args="-r" -P dart2js
+jobs:
+  include:
+    # OverReact Lib CI Jobs
+    - dart: stable
+      name: "OverReact Lib (SDK: stable)"
+      script:
+        - ./tool/travis_quality.sh
+        - ./tool/travis_tests.sh
+    - dart: dev
+      name: "OverReact Lib (SDK: dev)"
+      script:
+        - ./tool/travis_quality.sh
+        - ./tool/travis_tests.sh
+    # Analyzer Plugin CI Jobs
+    - dart: "2.7.2"
+      name: "Analyzer Plugin (SDK: 2.7)"
+      script: dart tool/travis_link_plugin_deps.dart && cd ./tools/analyzer_plugin && ./tool/travis.sh
+    - dart: stable
+      name: "Analyzer Plugin (SDK: stable)"
+      script: dart tool/travis_link_plugin_deps.dart && cd ./tools/analyzer_plugin && ./tool/travis.sh
+    - dart: dev
+      name: "Analyzer Plugin (SDK: dev)"
+      script: dart tool/travis_link_plugin_deps.dart && cd ./tools/analyzer_plugin && ./tool/travis.sh
 
 cache:
   directories:
    - $HOME/.pub-cache
    - $HOME/.dart_tool/build
+   - $HOME/ddc_precompiled

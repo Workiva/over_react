@@ -121,10 +121,7 @@ class OverReactBuilder extends Builder {
     }
 
     // Collect all of the part files for this library.
-    final parts = libraryUnit.directives
-      .whereType<PartDirective>()
-      // Ignore all generated `.g.dart` parts.
-      .where((part) => !part.uri.stringValue.endsWith('.g.dart'));
+    final parts = getNonGeneratedParts(libraryUnit);
 
     // Generate over_react code for the input library.
     generateForFile(source, buildStep.inputId, libraryUnit);

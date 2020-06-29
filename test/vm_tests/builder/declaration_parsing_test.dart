@@ -1175,6 +1175,44 @@ main() {
               expect(decl.component.meta, isA<annotations.Component>());
             });
 
+            test('whose props class has a body with static members', () {
+              setUpAndParse(r'''
+                  UiFactory<FooProps> Foo = _$Foo;
+                  
+                  mixin FooPropsMixin on UiProps {
+                    String foo;
+                  }
+                  
+                  class FooProps extends UiProps with FooPropsMixin {
+                    static PropsMeta meta;
+                    static someMethod() {} 
+                  }
+                  
+                  class FooComponent extends UiComponent2<FooProps> {
+                    render() {}
+                  }
+              ''');
+
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<ClassComponentDeclaration>(),
+              ]));
+
+              final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
+              expect(propsMixinDecl.mixin?.name?.name, 'FooPropsMixin');
+
+              final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+
+              expect(decl.factory?.name?.name, 'Foo');
+              expect(decl.props?.a?.name?.name, 'FooProps');
+              expect(decl.component?.name?.name, 'FooComponent');
+              expect(decl.state?.either, isNull);
+
+              expect(decl.factory.meta, isA<annotations.Factory>());
+              expect(decl.props.a.meta, isA<annotations.Props>());
+              expect(decl.component.meta, isA<annotations.Component>());
+            });
+
             test('that is stateful', () {
               setUpAndParse(r'''
                   UiFactory<FooProps> Foo = _$Foo;
@@ -2005,6 +2043,72 @@ main() {
               // verify the component is used for the span
               contains('FooComponent'),
             )));
+          });
+        });
+
+        group('(new boilerplate)', () {
+          // Tests the same codepath as "a component is declared without matching factory/props",
+          // but using a different real-world scenario to ensure it behaves the same.
+          test('a component doesn\'t get grouped with a factory/props due to mismatched name', () {
+            setUpAndParse(r'''
+              UiFactory<FooProps> Foo = _$Foo;
+              mixin FooProps on UiProps {}
+              class BarComponent<FooProps> extends UiComponent2 {
+                render() {}
+              }
+            ''');
+
+            verify(logger.severe(contains(errorComponentClassOnly)));
+          });
+
+          group('a component is declared without matching factory/props', () {
+            group('with a base class of', () {
+              @isTest
+              void sharedTest(String baseClassName) {
+                test(baseClassName, () {
+                  setUpAndParse('''
+                    class FooComponent extends $baseClassName<FooProps> {
+                      render() {}
+                    }
+                  ''');
+
+                  verify(logger.severe(contains(errorComponentClassOnly)));
+                });
+              }
+
+              sharedTest('UiComponent2');
+              sharedTest('UiStatefulComponent2');
+              sharedTest('FluxUiComponent2');
+              sharedTest('FluxUiStatefulComponent2');
+            });
+
+            group('unless', () {
+              test('it has a nonstandard base class', () {
+                setUpAndParse(r'''
+                  class FooComponent extends SomeNonstandardBaseUiComponent<FooProps> {
+                    render() {} 
+                  }
+                ''');
+              });
+
+              test('it is abstract', () {
+                setUpAndParse(r'''
+                  abstract class FooComponent extends UiComponent2<FooProps> {
+                    render() {} 
+                  }
+                ''');
+              });
+
+              test('it overrides \$isClassGenerated', () {
+                setUpAndParse(r'''
+                  class FooComponent extends UiComponent2<FooProps> {
+                    render() {}
+                    
+                    bool get $isClassGenerated => true;
+                  }
+                ''');
+              });
+            });
           });
         });
       });

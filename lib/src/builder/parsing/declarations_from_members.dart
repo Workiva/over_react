@@ -362,7 +362,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
 const errorStateOnly =
     'Could not find matching factory, props class, and component class in this file;'
-    ' these are required to use UiState';
+    ' these are required to use UiState.';
 
 const errorFactoryOnly = 'Could not find matching props class in this file;'
     ' this is required to declare a props map view or function component,'
@@ -376,10 +376,10 @@ const errorComponentClassOnly = 'Could not find matching factory and props class
     ' these are required to declare a class-based component.';
 
 const errorNoFactory = 'Could not find a matching factory in this file;'
-    ' this is required to declare a component or props map view';
+    ' this is required to declare a component or props map view.';
 
 const errorNoProps = 'Could not find a matching props class in this file;'
-    ' this is required to declare a component or props map view';
+    ' this is required to declare a component or props map view.';
 
 const errorNoComponent = 'Could not find a matching component class in this file;'
-    ' this is required to declare a class-based component';
+    ' this is required to declare a class-based component.';

@@ -6,6 +6,7 @@ This library also exposes _OverReact Redux_, which has [its own documentation](d
 
 [![Pub](https://img.shields.io/pub/v/over_react.svg)](https://pub.dev/packages/over_react)
 [![Documentation](https://img.shields.io/badge/docs-over_react-blue.svg)](https://pub.dev/documentation/over_react/latest/)
+[![OverReact Analyzer Plugin (beta)](https://img.shields.io/badge/docs-analyzer_plugin_(beta)-ff69b4.svg)](https://workiva.github.io/over_react/analyzer_plugin/)
 [![Join the gitter chat](https://badges.gitter.im/over_react/Lobby.svg)][gitter-chat]
 
 [![Build Status](https://travis-ci.org/Workiva/over_react.svg?branch=master)](https://travis-ci.org/Workiva/over_react)
@@ -73,6 +74,8 @@ __Once you have migrated your components to `UiComponent2`__, you're ready to st
     dependencies:
       over_react: ^3.5.0
     ```
+   
+1. Enable the **[OverReact Analyzer Plugin (beta)](tools/analyzer_plugin/)**, which has many lints and assists to make authoring OverReact components easier!
 
 1. Include the native JavaScript `react` and `react_dom` libraries in your app’s `index.html` file,
 and add an HTML element with a unique identifier where you’ll mount your OverReact UI component(s).
@@ -418,6 +421,8 @@ class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
 
 
 ## Fluent-style component consumption
+
+> The **[OverReact analyzer plugin](tools/analyzer_plugin/)** has many lints and assists to make authoring OverReact components easier!
 
 In OverReact, components are consumed by invoking a `UiFactory` to return a new `UiProps` builder, which is then modified and invoked to build a [`ReactElement`][ReactElement].
 

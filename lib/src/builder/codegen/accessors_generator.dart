@@ -456,7 +456,7 @@ String _copyClassMembers(ClassOrMixinDeclaration node) {
     // generated for them, so don't copy those over either. We also don't want
     // to copy anything that would conflict with what the builder already may
     // generate, namely `props`, `state`, and `meta`
-    final isValid = !_isStaticFieldOrMethod(member) &&
+    final isValid = !isStaticMember(member) &&
         !(member is FieldDeclaration && !member.isSynthetic) &&
         !_memberHasName(member, 'props') &&
         !_memberHasName(member, 'state') &&
@@ -482,18 +482,13 @@ String _copyClassMembers(ClassOrMixinDeclaration node) {
 
 String _copyStaticMembers(ClassOrMixinDeclaration node) {
   final buffer = StringBuffer();
-  node.members.where(_isStaticFieldOrMethod).forEach((member) {
+  node.members.where(isStaticMember).forEach((member) {
     // Don't copy over anything named `meta`, since the static meta field is already going to be generated.
     if (!_memberHasName(member, 'meta')) {
       buffer.writeln(member.toSource());
     }
   });
   return buffer.toString();
-}
-
-bool _isStaticFieldOrMethod(ClassMember member) {
-  return (member is MethodDeclaration && member.isStatic) ||
-      (member is FieldDeclaration && member.isStatic);
 }
 
 bool _memberHasName(ClassMember member, String name) {
