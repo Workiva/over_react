@@ -1,0 +1,27 @@
+include: package:workiva_analysis_options/v1.recommended.yaml
+
+analyzer:
+  exclude:
+    - playground/**
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
+  errors:
+    # Treat missing required parameters as a warning (not a hint)
+    missing_required_param: warning
+    # Treat missing returns as a warning (not a hint)
+    missing_return: warning
+    # Override workiva_analysis_options upgrade to warning
+    unused_import: info
+
+    # ignores from v1.recommended
+    prefer_interpolation_to_compose_strings: ignore
+    cascade_invocations: ignore
+    prefer_single_quotes: ignore
+    type_annotate_public_apis: ignore
+    prefer_final_locals: ignore
+
+linter:
+  rules:
+    - avoid_returning_null_for_future
+    - avoid_void_async

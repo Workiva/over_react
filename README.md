@@ -1,8 +1,9 @@
 # OverReact
 
 [![Pub](https://img.shields.io/pub/v/over_react.svg)](https://pub.dartlang.org/packages/over_react)
-[![Documentation](https://img.shields.io/badge/docs-over_react-blue.svg)](https://pub.dev/documentation/over_react/latest/)
 [![Join the chat at https://gitter.im/over_react/Lobby](https://badges.gitter.im/over_react/Lobby.svg)](https://gitter.im/over_react/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Documentation](https://img.shields.io/badge/docs-over_react-blue.svg)](https://pub.dev/documentation/over_react/latest/)
+[![OverReact Analyzer Plugin (beta)](https://img.shields.io/badge/docs-analyzer_plugin_(beta)-ff69b4.svg)](https://workiva.github.io/over_react/analyzer_plugin/)
 
 [![Build Status](https://travis-ci.org/Workiva/over_react.svg?branch=master)](https://travis-ci.org/Workiva/over_react)
 [![Test Coverage](https://codecov.io/github/Workiva/over_react/coverage.svg?branch=master)](https://codecov.io/github/Workiva/over_react?branch=master)
@@ -61,8 +62,10 @@ To further document APIs that can be found in OverReact, the [doc](doc) director
     dependencies:
       over_react: ^3.0.0
     ```
+   
+1. Enable the **[OverReact Analyzer Plugin (beta)](tools/analyzer_plugin/)**, which has many lints and assists to make authoring OverReact components easier!
 
-2. Include the native JavaScript `react` and `react_dom` libraries in your app’s `index.html` file,
+1. Include the native JavaScript `react` and `react_dom` libraries in your app’s `index.html` file,
 and add an HTML element with a unique identifier where you’ll mount your OverReact UI component(s).
 
     ```html
@@ -86,7 +89,7 @@ and add an HTML element with a unique identifier where you’ll mount your OverR
     > __Note:__ When serving your application in production, use `packages/react/react_with_react_dom_prod.js`
     file instead of the un-minified `react.js` / `react_dom.js` files shown in the example above.
 
-4. Import the `over_react` and `react_dom` libraries into `your_app_name.dart`, and initialize
+1. Import the `over_react` and `react_dom` libraries into `your_app_name.dart`, and initialize
 React within your Dart application. Then [build a custom component](#building-custom-components) and
 mount / render it into the HTML element you created in step 3.
 
@@ -104,7 +107,7 @@ mount / render it into the HTML element you created in step 3.
     }
     ```
 
-5. Run `pub run build_runner serve` in the root of your Dart project.
+1. Run `pub run build_runner serve` in the root of your Dart project.
 
 > **Note:** After running a build, you'll have to restart your analysis server in your IDE for the built types to resolve
 properly. Unfortunately, this is a known limitation in the analysis server at this time. See: https://github.com/dart-lang/sdk/issues/34344
@@ -381,6 +384,8 @@ class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
 
 
 ## Fluent-style component consumption
+
+> The **[OverReact analyzer plugin](tools/analyzer_plugin/)** has many lints and assists to make authoring OverReact components easier!
 
 In OverReact, components are consumed by invoking a `UiFactory` to return a new `UiProps` builder, which is then
 modified and invoked to build a `ReactElement`.
