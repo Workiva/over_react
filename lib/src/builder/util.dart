@@ -42,6 +42,12 @@ Uri idToPackageUri(AssetId id) {
       path: p.url.join(id.package, id.path.replaceFirst('lib/', '')));
 }
 
+Iterable<PartDirective> getNonGeneratedParts(CompilationUnit libraryUnit) {
+  return libraryUnit.directives
+      .whereType<PartDirective>()
+      // Ignore all generated `.g.dart` parts.
+      .where((part) => !part.uri.stringValue.endsWith('.g.dart'));
+}
 /// Returns true if the given compilation unit is a part file.
 bool isPart(CompilationUnit unit) =>
     unit.directives.any((directive) => directive is PartOfDirective);

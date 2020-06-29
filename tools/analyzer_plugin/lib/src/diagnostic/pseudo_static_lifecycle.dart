@@ -3,8 +3,8 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/visitors/non_static_reference_visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 
-const staticMethodNames = ['getDefaultProps', 'defaultProps', 'getDerivedStateFromProps'];
-const instanceMemberWhitelist = [
+const staticMethodNames = ['getDefaultProps', 'defaultProps', 'getDerivedStateFromProps', 'propTypes'];
+const allowedInstanceMembers = [
   'newProps',
   'newState',
   'typedPropsFactory',
@@ -18,10 +18,13 @@ const _desc = r'Never reference instance members within ReactJS "static" lifecyc
 // <editor-fold desc="Documentation Details">
 const _details = '''
 
-The ReactJS `defaultProps` getter and `getDerivedStateFromProps` lifecycle method are considered `static`.
+The ReactJS `defaultProps` and `propTypes` getters and `getDerivedStateFromProps` lifecycle methods are considered `static`.
 
-Accessing instance methods from within these is prohibited, and will cause runtime errors. The only exceptions
-are the following "whitelisted" instance members:
+As opposed to being called on each component instance, these lifecycle methods are called on a special, 
+unmounted singleton of the component.  As a result, it's impossible to access fields or other information specific to
+the "current" component instance, and doing so an cause unexpected behavior and runtime errors.
+
+The only exceptions are the following instance members:
 
 ```
 newProps
@@ -30,6 +33,7 @@ typedPropsFactory
 typedPropsFactoryJs
 typedStateFactory
 typedStateFactoryJs
+keyForProp
 ```
 
 ''';
@@ -39,11 +43,13 @@ class PseudoStaticLifecycleDiagnostic extends DiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_pseudo_static_lifecycle',
-    'Never reference instance members within \'{0}\'.',
+    "Unsupported instance member used inside of '{0}', which should be treated as if it were 'static'."
+        " Only super-calls and the following utility methods are allowed:"
+        " 'newProps', 'newState', 'typedPropsFactory', 'typedStateFactory', 'keyForProp'.",
     AnalysisErrorSeverity.ERROR,
     AnalysisErrorType.STATIC_WARNING,
-    correction: 'It must be treated as a static method. Only super-calls '
-        'and props/state utility methods (like \'newProps\' and \'typedPropsFactory\') are allowed.',
+    correction: "Try using only information provided in arguments"
+        " and converting any custom prop/state helper methods in use to be 'static'.",
   );
 
   @override
@@ -53,7 +59,7 @@ class PseudoStaticLifecycleDiagnostic extends DiagnosticContributor {
     result.unit.accept(visitor);
 
     for (final reference in visitor.nonStaticReferences) {
-      if (reference is SimpleIdentifier && instanceMemberWhitelist.contains(reference.name)) {
+      if (reference is SimpleIdentifier && allowedInstanceMembers.contains(reference.name)) {
         continue;
       }
 

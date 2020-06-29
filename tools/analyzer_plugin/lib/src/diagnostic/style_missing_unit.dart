@@ -1,19 +1,14 @@
-// This is necessary for `ConstantEvaluator`. If that API is removed, it can just
-// be copied and pasted into this analyzer package (if still needed).
-// ignore: deprecated_member_use
-import 'package:analyzer/analyzer.dart' show ConstantEvaluator;
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
+import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
-const _correction =
-    r'Use CSS property values that are strings _with_ units, or numbers _(in which case `px` will be inferred)_.';
 const _desc = r'Do not use string CSS property values without specifying a unit.';
 // <editor-fold desc="Documentation Details">
 const _details = '''
 
-**ALWAYS** $_correction
+**ALWAYS** Use CSS property values that are strings _with_ units, or numbers _(in which case `px` will be inferred)_.
 
 **GOOD:**
 ```
@@ -52,10 +47,10 @@ class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_style_missing_unit',
-    _desc,
+    'CSS property value is missing a unit, and will be ignored by React.',
     AnalysisErrorSeverity.ERROR,
     AnalysisErrorType.SYNTACTIC_ERROR,
-    correction: _correction,
+    correction: "Try adding a unit, or using a 'num' instead of 'String' (in which case 'px' will be inferred).",
   );
 
   static final fixKind = FixKind(code.name, 200, "Convert to number (and treat as 'px')");
@@ -71,7 +66,7 @@ class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
     }
 
     for (final entry in styleEntries) {
-      final propertyName = _stringValueIfApplicable(entry.key);
+      final propertyName = getConstOrLiteralStringValueFrom(entry.key);
       if (propertyName == null) continue;
 
       if (unitlessNumberStyles.contains(propertyName) || _isCustomProperty(propertyName)) {
@@ -79,7 +74,7 @@ class StyleMissingUnitDiagnostic extends ComponentUsageDiagnosticContributor {
       }
 
       // Only worry about strings, since numbers get values
-      final stringValue = _stringValueIfApplicable(entry.value);
+      final stringValue = getConstOrLiteralStringValueFrom(entry.value);
       if (stringValue == null) continue;
 
       if (num.tryParse(stringValue) != null) {
@@ -116,11 +111,6 @@ class _RecursiveMapLiteralEntryVisitor extends RecursiveAstVisitor<void> {
     onMapLiteralEntry(node);
     node.visitChildren(this);
   }
-}
-
-String _stringValueIfApplicable(Expression value) {
-  final constantValue = value.accept(ConstantEvaluator());
-  return constantValue is String ? constantValue : null;
 }
 
 bool _isCustomProperty(String propertyName) => propertyName.startsWith('--');

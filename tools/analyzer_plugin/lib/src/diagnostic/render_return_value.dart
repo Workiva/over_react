@@ -95,10 +95,10 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
   @DocsMeta(_invalidTypeDesc, details: _invalidTypeDetails)
   static const invalidTypeErrorCode = DiagnosticCode(
     'over_react_invalid_render_return_type',
-    "Invalid render() return type: '{0}'.",
+    "Invalid 'render()' return type: '{0}'.",
     AnalysisErrorSeverity.ERROR,
     AnalysisErrorType.STATIC_TYPE_WARNING,
-    correction: 'Must be $supportedOverReactChildTypes',
+    correction: 'Try returning one of the supported types: $supportedOverReactChildTypes.',
   );
 
   @DocsMeta(_preferNullDesc, details: _preferNullDetails)
@@ -110,7 +110,7 @@ class RenderReturnValueDiagnostic extends DiagnosticContributor {
     correction: 'Return null instead.',
   );
 
-  static final falseToNull = FixKind(preferNullOverFalseErrorCode.name, 200, missingBuilderFixMessage);
+  static final falseToNull = FixKind(preferNullOverFalseErrorCode.name, 200, 'Return null instead');
 
   @override
   computeErrors(result, collector) async {

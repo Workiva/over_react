@@ -29,7 +29,8 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_invalid_dom_attribute',
-    "'{0}' isn't a valid HTML attribute prop for '{1}'. It may only be used on: {2}",
+    "'{0}' isn't a valid HTML attribute prop for the '{1}' HTML tag."
+        " It may only be used on the following tags: {2}.",
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
   );
@@ -46,15 +47,17 @@ class InvalidDomAttributeDiagnostic extends ComponentUsageDiagnosticContributor 
 //    }
 
     for (final prop in usage.cascadedProps) {
+      // If the prop name is prefixed with anything other than `dom` (e.g. `aria`), ignore it.
+      if (prop.targetName != null && prop.targetName.name != 'dom') continue;
       final allowedElements = getAttributeMeta(prop.name.name);
       if (allowedElements == null) continue;
 
       if (!allowedElements.contains(nodeName)) {
-        collector.addError(code, result.locationFor(prop.name), errorMessageArgs: [
-          prop.name.name,
-          'Dom.$nodeName()',
-          allowedElements.map((name) => 'Dom.$name()').join(','),
-        ]);
+        collector.addError(
+          code,
+          result.locationFor(prop.name),
+          errorMessageArgs: [prop.name.name, nodeName, allowedElements],
+        );
       }
     }
   }

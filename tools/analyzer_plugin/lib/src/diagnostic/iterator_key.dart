@@ -67,10 +67,11 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_missing_key',
-    _desc,
+    "Missing key for child in {0}.",
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
-    correction: 'Add a unique props.key value to the component builder, or remove it from the list literal.',
+    correction: "Try adding a unique 'key' prop to the child, "
+        " or passing children as arguments as opposed to wrapping them in a list literal.",
   );
 
   static final listLiteralFixKind = convertUsageListLiteralToVariadicChildrenFixKind(code);
@@ -96,6 +97,7 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
             await collector.addErrorWithFix(
               code,
               result.locationFor(usage.node),
+              errorMessageArgs: ["list literal"],
               fixKind: listLiteralFixKind,
               computeFix: () => buildFileEdit(result, (builder) {
                 convertUsageListLiteralToVariadicChildren(builder, argument);
@@ -131,6 +133,7 @@ class IteratorKey extends ComponentUsageDiagnosticContributor {
             await collector.addErrorWithFix(
               code,
               result.locationFor(returnedUsage.node),
+              errorMessageArgs: ["'Iterable.map'"],
               fixKind: mappedIterableFixKind,
               computeFix: () => buildFileEdit(result, (builder) {
                 addProp(

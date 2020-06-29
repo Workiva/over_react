@@ -14,7 +14,7 @@ analyzer:
     # Override workiva_analysis_options upgrade to warning
     unused_import: info
 
-    # ignores from v1.recommened
+    # ignores from v1.recommended
     prefer_interpolation_to_compose_strings: ignore
     cascade_invocations: ignore
     prefer_single_quotes: ignore

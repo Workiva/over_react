@@ -78,7 +78,7 @@ class StringRefDiagnostic extends ComponentUsageDiagnosticContributor {
     'String refs are deprecated.',
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.HINT,
-    correction: 'Use createRef() instead.',
+    correction: 'Try using createRef() or a callback ref instead.',
   );
 
   static final fixKind = FixKind(code.name, 200, 'Convert to createRef()');

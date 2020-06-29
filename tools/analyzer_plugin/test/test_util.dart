@@ -9,7 +9,6 @@ import 'package:analyzer/source/line_info.dart';
 import 'package:over_react_analyzer_plugin/src/component_usage.dart';
 import 'package:over_react_analyzer_plugin/src/error_filtering.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
-
 import 'package:path/path.dart' as p;
 
 /// Parses [dartSource] and returns the unresolved AST, throwing if there are any syntax errors.
@@ -151,4 +150,41 @@ List<AnalysisError> _filterIgnored(List<AnalysisError> errors, IgnoreInfo ignore
   }
 
   return errors.where((e) => !isIgnored(e)).toList();
+}
+
+/// Returns [expression] parsed as AST.
+///
+/// This is accomplished it by including the [expression] as a statement within a wrapper function
+/// with any necessary [imports] at the top of the source. As a result, the offset of the
+/// returned expression will not be 0.
+///
+/// To return resolved AST, set [isResolved] to true.
+///
+/// Returns null if [expression] is not an [InvocationExpression].
+Future<InvocationExpression> parseExpression(
+  String expression, {
+  String imports = '',
+  bool isResolved = false,
+}) async {
+  CompilationUnit unit;
+  final source = '''
+    $imports
+    void wrapperFunction() {
+      $expression;
+    }
+  ''';
+  if (isResolved) {
+    final result = await parseAndGetResolvedUnit(source);
+    unit = result.unit;
+  } else {
+    unit = parseString(content: source).unit;
+  }
+  final parsedFunction = unit.childEntities.whereType<FunctionDeclaration>().last;
+  final body = parsedFunction.functionExpression.body as BlockFunctionBody;
+  final statement = body.block.statements.single as ExpressionStatement;
+  final invocationExpression = statement.expression;
+  if (invocationExpression is InvocationExpression) {
+    return invocationExpression;
+  }
+  return null;
 }

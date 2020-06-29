@@ -1,9 +1,11 @@
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
+import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util/cascade_read.dart';
+import 'package:over_react_analyzer_plugin/src/fluent_interface_util/cascade_edits.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
-const _desc = r'Avoid using iterable children when variadic children can be used.';
+const _desc = r'Prefer passing children as arguments instead of wrapping them in Iterables.';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
@@ -38,7 +40,7 @@ class VariadicChildrenDiagnostic extends ComponentUsageDiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_variadic_children',
-    _desc,
+    'Prefer passing children as arguments instead of as a keyed list.',
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.LINT,
   );
@@ -87,14 +89,11 @@ void convertUsageListLiteralToVariadicChildren(
 
   if (!removeKeyFromChildren) return;
 
-  for (final node in allDescendants(listLiteral)) {
-    final usages = <FluentComponentUsage>[];
-    node.accept(ComponentUsageVisitor(usages.add));
-    for (final usage in usages) {
-      for (final prop in usage.cascadedProps) {
-        if (prop.name.name == 'key') {
-          builder.addDeletion(prop.rangeForRemoval);
-        }
+  final usagesInList = listLiteral.elements.whereType<InvocationExpression>().map(getComponentUsage).whereNotNull();
+  for (final usage in usagesInList) {
+    for (final prop in usage.cascadedProps) {
+      if (prop.name.name == 'key') {
+        removeProp(usage, builder, prop);
       }
     }
   }
