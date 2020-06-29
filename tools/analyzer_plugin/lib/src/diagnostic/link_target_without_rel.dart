@@ -47,7 +47,7 @@ class LinkTargetUsageWithoutRelDiagnostic extends ComponentUsageDiagnosticContri
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
     'over_react_avoid_link_target_vulnerability',
-    "A target is set for links opening '{0}', which is a security vulnerability.",
+    "A target is set for links opening '{0}', which is a potential security vulnerability.",
     AnalysisErrorSeverity.WARNING,
     AnalysisErrorType.STATIC_WARNING,
     correction: 'Always add rel="noopener noreferrer" when using a target for a link.',

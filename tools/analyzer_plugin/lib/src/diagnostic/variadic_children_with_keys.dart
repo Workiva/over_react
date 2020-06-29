@@ -58,8 +58,8 @@ render() {
 class VariadicChildrenWithKeys extends ComponentUsageDiagnosticContributor {
   @DocsMeta(_desc, details: _details)
   static const code = DiagnosticCode(
-    'variadic_children_with_keys',
-    "Keying this child is not necessary because it's passed as an argument as opposed to inside an Iterable.",
+    'over_react_unnecessary_key',
+    "Keying this child is not necessary because {0}.",
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.HINT,
     url: 'https://reactjs.org/docs/lists-and-keys.html',
@@ -69,7 +69,7 @@ class VariadicChildrenWithKeys extends ComponentUsageDiagnosticContributor {
 
   @override
   computeErrorsForUsage(result, collector, usage) async {
-    var isVariadic = false;
+    String reasonWhyUnnecessary;
     final parentMethodName = usage.node.thisOrAncestorOfType<MethodDeclaration>()?.name?.name;
 
     final parent = usage.node.parent;
@@ -78,18 +78,19 @@ class VariadicChildrenWithKeys extends ComponentUsageDiagnosticContributor {
       final enclosingUsage = identifyUsage(parent?.parent);
 
       if (enclosingUsage?.node?.argumentList == parent ?? false) {
-        isVariadic = true;
+        reasonWhyUnnecessary = "it's passed as an argument as opposed to inside an Iterable";
       }
     } else if (parent is ReturnStatement && (parentMethodName == 'render' ?? false)) {
-      isVariadic = true;
+      reasonWhyUnnecessary = "it's returned directly from 'render'";
     }
 
-    if (isVariadic) {
+    if (reasonWhyUnnecessary != null) {
       for (final prop in usage.cascadedProps) {
         if (prop.name.name == 'key' && isAConstantValue(prop.rightHandSide)) {
           await collector.addErrorWithFix(
             code,
             result.locationFor(prop.assignment),
+            errorMessageArgs: [reasonWhyUnnecessary],
             fixKind: fixKind,
             computeFix: () => buildFileEdit(result, (builder) {
               removeProp(usage, builder, prop);
