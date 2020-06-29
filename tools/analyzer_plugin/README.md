@@ -137,7 +137,7 @@ You can now set breakpoints, view logs, and do everything else you'd normally do
 
 __All diagnostics and assists should be documented!!!__
 
-Documentation for the diagnostics ands assists provided by this analyzer plugin are published to <https://workiva.github.io/over_react/analyzer_plugin/>.
+Documentation for the diagnostics and assists provided by this analyzer plugin are published to <https://workiva.github.io/over_react/analyzer_plugin/>.
 
 This is accomplished by placing a `@DocsMeta` annotation on a `DiagnosticCode` for diagnostics, and an `AssistKind` for assists. In order for them to work properly, the property the `DiagnosticCode` or `AssistKind` is assigned to __must be a `const`__ as shown in the examples below.
 

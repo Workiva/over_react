@@ -8,7 +8,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/util.dart';
 
-const _desc = r'Syntax errors around casccades';
+const _desc = r'Syntax errors around cascades';
 // <editor-fold desc="Documentation Details">
 const _details = r'''
 
