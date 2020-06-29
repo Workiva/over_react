@@ -36,7 +36,7 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
     "'{0}.{1}' isn't an easily readable Boolean prop name.",
     AnalysisErrorSeverity.INFO,
     AnalysisErrorType.LINT,
-    correction: "Try using a prefix like: {2}.",
+    correction: "Try using a prefix like: $allowedPrefixesForBoolPropString.",
   );
 
   @override
@@ -60,8 +60,7 @@ class BoolPropNameReadabilityDiagnostic extends DiagnosticContributor {
 
         final readability = checkBoolPropReadability(propName);
         if (!readability.isReadable) {
-          collector.addError(code, result.locationFor(fieldDecl),
-              errorMessageArgs: [propsClass.name, propName, allowedPrefixesForBoolProp.join(', ')]);
+          collector.addError(code, result.locationFor(fieldDecl), errorMessageArgs: [propsClass.name, propName]);
         }
       }
     }
@@ -128,18 +127,8 @@ class PropsVisitor extends SimpleAstVisitor<void> {
   }
 }
 
-const allowedPrefixesForBoolProp = [
-  'is',
-  'was',
-  'has',
-  'can',
-  'should',
-  'use',
-  'check',
-  'show',
-  'hide',
-  'allow',
-];
+const allowedPrefixesForBoolPropString = 'is, was, has, can, should, use, check, show, hide, allow';
+final allowedPrefixesForBoolProp = allowedPrefixesForBoolPropString.split(', ');
 
 const allowedContainsForBoolProp = [
   'able',
