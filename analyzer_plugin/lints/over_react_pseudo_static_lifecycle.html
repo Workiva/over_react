@@ -26,15 +26,18 @@
          </header>
          <section>
 
-            <p>The ReactJS <code>defaultProps</code> getter and <code>getDerivedStateFromProps</code> lifecycle method are considered <code>static</code>.</p>
-<p>Accessing instance methods from within these is prohibited, and will cause runtime errors. The only exceptions
-are the following "whitelisted" instance members:</p>
+            <p>The ReactJS <code>defaultProps</code> and <code>propTypes</code> getters and <code>getDerivedStateFromProps</code> lifecycle methods are considered <code>static</code>.</p>
+<p>As opposed to being called on each component instance, these lifecycle methods are called on a special, 
+unmounted singleton of the component.  As a result, it's impossible to access fields or other information specific to
+the "current" component instance, and doing so an cause unexpected behavior and runtime errors.</p>
+<p>The only exceptions are the following instance members:</p>
 <pre><code>newProps
 newState
 typedPropsFactory
 typedPropsFactoryJs
 typedStateFactory
 typedStateFactoryJs
+keyForProp
 </code></pre>
 
 

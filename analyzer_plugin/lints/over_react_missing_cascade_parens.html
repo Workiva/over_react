@@ -26,8 +26,8 @@
          </header>
          <section>
 
-            <p>When invoking a component builder, the builder - and all of the cascading prop setters - must be wrapped in parentheses.</p>
-<p><strong>GOOD:</strong></p>
+            <p>This diagnostic detects syntax errors related to the parentheses around over_react builder cascades.</p>
+<p><strong>Well-formed:</strong></p>
 <pre><code>@override
 render() {
   return (Dom.div()
@@ -38,7 +38,7 @@ render() {
   );
 }
 </code></pre>
-<p><strong>BAD:</strong></p>
+<p><strong>Syntax errors due to missing parentheses:</strong></p>
 <pre><code>@override
 render() {
   return Dom.div()

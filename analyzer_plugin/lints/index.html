@@ -58,16 +58,13 @@ should not be used and are subject to removal in future Linter releases.</p>
    <!--suppress HtmlUnknownTarget --><strong><a href="over_react_boilerplate_error.html">over_react_boilerplate_error</a></strong><br/> <p>Something is malformed in your component boilerplate.</p>
 
 
-<!--suppress HtmlUnknownTarget --><strong><a href="over_react_cascaded_arrow_functions.html">over_react_cascaded_arrow_functions</a></strong><br/> <p>Never place un-parenthesized arrow functions in the middle of prop setter cascades.</p>
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_cascaded_arrow_functions.html">over_react_cascaded_arrow_functions</a></strong><br/> <p>Props can't be cascaded after unparenthesized arrow functions.</p>
 
 
 <!--suppress HtmlUnknownTarget --><strong><a href="over_react_invalid_child.html">over_react_invalid_child</a></strong><br/> <p>Do not use unsupported types as component children.</p>
 
 
 <!--suppress HtmlUnknownTarget --><strong><a href="over_react_invalid_render_return_type.html">over_react_invalid_render_return_type</a></strong><br/> <p>Do not return unsupported types from the render method.</p>
-
-
-<!--suppress HtmlUnknownTarget --><strong><a href="over_react_proptypes_do_not_access_instance_members.html">over_react_proptypes_do_not_access_instance_members</a></strong><br/> <p>Never reference instance members within propTypes.</p>
 
 
 <!--suppress HtmlUnknownTarget --><strong><a href="over_react_pseudo_static_lifecycle.html">over_react_pseudo_static_lifecycle</a></strong><br/> <p>Never reference instance members within ReactJS "static" lifecycle methods.</p>
@@ -99,7 +96,7 @@ should not be used and are subject to removal in future Linter releases.</p>
 <!--suppress HtmlUnknownTarget --><strong><a href="over_react_low_quality_key.html">over_react_low_quality_key</a></strong><br/> <p>Avoid deriving React keys from objects that have a high chance of colliding.</p>
 
 
-<!--suppress HtmlUnknownTarget --><strong><a href="over_react_missing_cascade_parens.html">over_react_missing_cascade_parens</a></strong><br/> <p>Always wrap the builder props cascade in parentheses.</p>
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_missing_cascade_parens.html">over_react_missing_cascade_parens</a></strong><br/> <p>Syntax errors around casccades</p>
 
 
 <!--suppress HtmlUnknownTarget --><strong><a href="over_react_missing_key.html">over_react_missing_key</a></strong><br/> <p>Avoid placing elements within iterators without setting props.key to a unique value.</p>
@@ -137,13 +134,13 @@ should not be used and are subject to removal in future Linter releases.</p>
 <!--suppress HtmlUnknownTarget --><strong><a href="over_react_required_prop.html">over_react_required_prop (experimental)</a></strong><br/> <p>Avoid omitting props that are required.</p>
 
 
-<!--suppress HtmlUnknownTarget --><strong><a href="over_react_single_child_key.html">over_react_single_child_key</a></strong><br/> <p>Avoid setting props.key when it is not necessary.</p>
-
-
 <!--suppress HtmlUnknownTarget --><strong><a href="over_react_string_ref.html">over_react_string_ref</a></strong><br/> <p>Avoid using deprecated string refs.</p>
 
 
-<!--suppress HtmlUnknownTarget --><strong><a href="over_react_variadic_children.html">over_react_variadic_children</a></strong><br/> <p>Avoid using iterable children when variadic children can be used.</p>
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_unnecessary_key.html">over_react_unnecessary_key</a></strong><br/> <p>Avoid using keys when not necessary.</p>
+
+
+<!--suppress HtmlUnknownTarget --><strong><a href="over_react_variadic_children.html">over_react_variadic_children</a></strong><br/> <p>Prefer passing children as arguments instead of wrapping them in Iterables.</p>
 
 
 
