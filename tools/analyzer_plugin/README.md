@@ -110,7 +110,7 @@ Before starting, ensure you have the `analyzer_plugin` open as its own project (
             
 1. Next, we need to open the analyzer diagnostics to find the URL for our debugger. Open the Dart Analysis Server Settings, and click `View analyzer diagnostics`. This will open your browser.
 
-    <img src="doc/open-analyzer-diagnostics.gif" alt="doc/open-analyzer-diagnostics.gif" width="444">
+    <img src="doc/open-analyzer-diagnostics.png" alt="doc/open-analyzer-diagnostics.png" width="365">
 
 1. In the Analysis Server Diagnostics page in your browser, click the `Memory and CPU Usage` tab. Copy the protocol connection URL.
 
