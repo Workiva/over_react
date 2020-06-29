@@ -46,13 +46,11 @@ import 'package:over_react_analyzer_plugin/src/assist/add_props.dart';
 import 'package:over_react_analyzer_plugin/src/assist/extract_component.dart';
 import 'package:over_react_analyzer_plugin/src/assist/refs/add_create_ref_assist.dart';
 import 'package:over_react_analyzer_plugin/src/assist/toggle_stateful.dart';
-import 'package:over_react_analyzer_plugin/src/assist/wrap_unwrap.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/assist.dart';
 import 'package:over_react_analyzer_plugin/src/async_plugin_apis/diagnostic.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/arrow_function_prop.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/bad_key.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/boilerplate_validator.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic/bool_prop_name_readability.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/callback_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/consumed_props_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/dom_prop_types.dart';
@@ -97,7 +95,8 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
         ExtractComponentAssistContributor(),
         ExtractStatefulComponentAssistContributor(),
         ToggleComponentStatefulness(),
-        WrapUnwrapAssistContributor(),
+        // TODO re-enable this when it's more polished
+//        WrapUnwrapAssistContributor(),
       ];
 
   @override
@@ -120,7 +119,8 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
 //      MissingRequiredPropDiagnostic(),
         PseudoStaticLifecycleDiagnostic(),
         InvalidDomAttributeDiagnostic(),
-        BoolPropNameReadabilityDiagnostic(),
+        // TODO: Re-enable this once consumers can disable lints via analysis_options.yaml
+//        BoolPropNameReadabilityDiagnostic(),
         StyleMissingUnitDiagnostic(),
         BoilerplateValidatorDiagnostic(),
         VariadicChildrenWithKeys(),
