@@ -2,7 +2,7 @@
 
 ## [3.6.0](https://github.com/Workiva/over_react/compare/3.5.3...3.6.0)
 
-- Add [OverReact Analyzer Plugin (beta)](https://github.com/Workiva/over_react/tree/link-2020-integration/tools/analyzer_plugin) ⚡️
+- Add [OverReact Analyzer Plugin (beta)](https://github.com/Workiva/over_react/tree/master/tools/analyzer_plugin) ⚡️
     > A Dart analyzer plugin for OverReact, bringing analysis-time checks and behavior to IDEs using the Dart Analysis Server (including JetBrains IDEs and VS Code).
     > 
     > Functionality includes checking for issues that cause React warnings/errors at runtime, linting for best practices, adding "assists" for common edits to component syntax and boilerplate, and more!
@@ -1714,6 +1714,5 @@ Initial public release of the library.
 [#497]: https://github.com/Workiva/over_react/pull/497
 [#498]: https://github.com/Workiva/over_react/pull/498
 [#499]: https://github.com/Workiva/over_react/pull/499
-
 
 
