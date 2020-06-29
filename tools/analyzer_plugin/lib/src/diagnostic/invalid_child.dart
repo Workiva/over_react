@@ -78,6 +78,8 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
               buildMissingInvocationEdits(argument, builder);
             }),
           );
+        } else if (invalidType is FunctionType || invalidType.isDartCoreFunction) {
+          // Functions can be used as children
         } else {
           collector.addError(code, location, errorMessageArgs: [invalidType.getDisplayString()]);
         }
