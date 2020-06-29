@@ -58,7 +58,7 @@ class ArrowFunctionPropCascadeDiagnostic extends ComponentUsageDiagnosticContrib
 
         // If a cascade expression is not found in the body, it is not an un-parenthesized
         // function expression in the middle of another cascade... do not lint.
-        if (allDescendantsOfType<CascadeExpression>(body).isEmpty) continue;
+        if (body.expression is! CascadeExpression) continue;
 
         var wrapOffset = rhs.offset;
         var wrapEnd = rhs.end;

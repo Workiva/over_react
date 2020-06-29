@@ -22,7 +22,7 @@ class ArrowFunctionPropCascadeDiagnosticTest extends DiagnosticTestBase {
   @override
   FixKind get fixKindUnderTest => ArrowFunctionPropCascadeDiagnostic.fixKind;
 
-  static String simpleSource = '''
+  static String simpleSource = /*language=dart*/ '''
 import 'package:over_react/over_react.dart';
 var foo = (Dom.div()
   ..onClick = (_) => 'click'
@@ -32,9 +32,29 @@ var foo = (Dom.div()
 
   Future<void> test_noError() async {
     final source = newSource('test.dart', 'var foo = true;');
-    // todo: use getAllErrors instead
-    final selection = createSelection(source, '#var foo#');
-    await expectNoErrorFix(selection);
+    expect(await getAllErrors(source), isEmpty);
+  }
+
+  Future<void> test_noErrorLastInCascade() async {
+    final source = newSource('test.dart', /*language=dart*/ r'''
+      import 'package:over_react/over_react.dart';
+      
+      var foo = (Dom.div()
+        ..onClick = (_) => 'click'
+      )('hello');
+    ''');
+    expect(await getAllErrors(source), isEmpty);
+  }
+
+  Future<void> test_noErrorLastInCascadeWithDescendantCascade() async {
+    final source = newSource('test.dart', /*language=dart*/ r'''
+      import 'package:over_react/over_react.dart';
+      
+      var foo = (Dom.div()
+        ..onClick = (_) => setState(newState()..foo = 'bar')
+      )('hello');
+    ''');
+    expect(await getAllErrors(source), isEmpty);
   }
 
   Future<void> test_noErrorForSelection() async {
