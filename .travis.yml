@@ -16,13 +16,13 @@ jobs:
     # Analyzer Plugin CI Jobs
     - dart: "2.7.2"
       name: "Analyzer Plugin (SDK: 2.7)"
-      script: cd ./tools/analyzer_plugin && ./tool/travis.sh
+      script: dart tool/travis_link_plugin_deps.dart && cd ./tools/analyzer_plugin && ./tool/travis.sh
     - dart: stable
       name: "Analyzer Plugin (SDK: stable)"
-      script: cd ./tools/analyzer_plugin && ./tool/travis.sh
+      script: dart tool/travis_link_plugin_deps.dart && cd ./tools/analyzer_plugin && ./tool/travis.sh
     - dart: dev
       name: "Analyzer Plugin (SDK: dev)"
-      script: cd ./tools/analyzer_plugin && ./tool/travis.sh
+      script: dart tool/travis_link_plugin_deps.dart && cd ./tools/analyzer_plugin && ./tool/travis.sh
 
 cache:
   directories:
