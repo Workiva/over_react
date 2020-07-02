@@ -72,7 +72,7 @@ class TestComponent extends UiComponent<TestProps> {
 import 'package:over_react/over_react.dart';
 part 'test.over_react.g.dart';
 
-UiFactory<TestProps> Test = _\$Test;
+UiFactory<TestProps> Test = _\$Test; // ignore: undefined_identifier
 
 mixin TestProps on UiProps {}
 
