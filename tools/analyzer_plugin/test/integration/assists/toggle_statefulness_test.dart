@@ -68,24 +68,21 @@ class TestComponent extends UiComponent<TestProps> {
   }
 
   Future<void> test_noAssistOnUnknownBase() async {
-    const oldBoilerplate = '''
+    const unknownBase = '''
 import 'package:over_react/over_react.dart';
 part 'test.over_react.g.dart';
 
-@Factory()
 UiFactory<TestProps> Test = _\$Test;
 
-@Props()
-class _\$TestProps extends UiProps {}
+mixin TestProps on UiProps {}
 
-@Component()
 class TestComponent extends AbstractBazComponent<TestProps> {
   @override
   render() {}
 }
 ''';
 
-    var source = newSource(fileName, oldBoilerplate);
+    var source = newSource(fileName, unknownBase);
     var selection = createSelection(source, 'class #TestComponent# extends');
     await expectNoAssist(selection);
   }
