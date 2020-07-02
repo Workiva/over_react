@@ -15,10 +15,10 @@
 import 'dart:async';
 import 'dart:html';
 
-import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
+import 'package:over_react/src/util/equality.dart';
 import 'package:redux/redux.dart' as redux;
 import 'package:w_flux/w_flux.dart' as flux;
 
@@ -309,8 +309,6 @@ mixin InfluxStoreMixin<S> on flux.Store {
   }
 }
 
-bool _shallowMapIdentityEquality(Map a, Map b) => const MapEquality(keys: IdentityEquality(), values: IdentityEquality()).equals(a, b);
-
 /// A wrapper around the `connect` function that provides a similar API into a Flux store.
 ///
 /// This is primarily for use while transitioning _to_ `connect` and OverReact Redux.
@@ -592,7 +590,7 @@ UiFactory<TProps> Function(UiFactory<TProps>)
           }
         });
 
-        return _shallowMapIdentityEquality(nextProps, prevProps);
+        return areMapsShallowIdentical(nextProps, prevProps);
       }
       areStatePropsEqual = areStatePropsEqualWrapper;
     }
