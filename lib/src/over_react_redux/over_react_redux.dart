@@ -230,7 +230,8 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       pure: pure,
       context: context?.jsThis ?? JsReactRedux.ReactReduxContext,
     );
-    // These can't be null, so we conditionally define them.
+    // These can't be `null` in the JS object, so we conditionally define them
+    // so they won't exist in the object if we don't want to specify them.
     if (areStatesEqual != null) {
       connectOptions.areStatesEqual = allowInterop(handleAreStatesEqual);
     }
