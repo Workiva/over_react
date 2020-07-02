@@ -42,3 +42,11 @@
     <option name="DART" value="true" />
   </context>
 </template>
+<template name="orStlessConnect" value="import 'package:over_react/over_react.dart';&#10;import 'package:over_react/over_react_redux.dart';&#10;&#10;part '$FileName$.over_react.g.dart';&#10;&#10;UiFactory&lt;$MyComponent$Props&gt; $MyComponent$ = connect&lt;$SomeReduxStoreState$, $MyComponent$Props&gt;(&#10;  mapStateToProps: (state) =&gt; ($MyComponent$()),&#10;  mapDispatchToProps: (dispatch) =&gt; ($MyComponent$()),&#10;)(_$$$MyComponent$); // ignore: undefined_identifier&#10;&#10;mixin $MyComponent$Props on UiProps {}&#10;&#10;class $MyComponent$Component extends UiComponent2&lt;$MyComponent$Props&gt; {&#10;  @override&#10;  get defaultProps =&gt; (newProps());&#10;&#10;  @override&#10;  render() { }&#10;}" description="Creates a stateless and connected over_react component" toReformat="false" toShortenFQNames="true">
+  <variable name="FileName" expression="" defaultValue="&quot;foo&quot;" alwaysStopAt="true" />
+  <variable name="MyComponent" expression="" defaultValue="&quot;Foo&quot;" alwaysStopAt="true" />
+  <variable name="SomeReduxStoreState" expression="" defaultValue="&quot;Foo&quot;" alwaysStopAt="true" />
+  <context>
+    <option name="DART" value="true" />
+  </context>
+</template>
