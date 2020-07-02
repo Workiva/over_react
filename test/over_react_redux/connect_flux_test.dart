@@ -720,7 +720,10 @@ main() {
           )(ConnectFluxCounter);
 
           final jacket2 = mount((ReduxProvider()..store = store1)(
-            (ConnectedFluxComponent()..addTestId('flux-component'))(),
+            (ConnectedFluxComponent()
+              ..actions = fluxActions
+              ..addTestId('flux-component')
+            )(),
           ));
 
           final fluxCounter =

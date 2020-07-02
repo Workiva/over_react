@@ -57,6 +57,8 @@ main() {
               connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
             mapStateToProps: (state) =>
                 (ConnectFluxCounter()..currentCount = state.count),
+            mapActionsToProps: (actions) =>
+                (ConnectFluxCounter()..actions = actions),
           )(ConnectFluxCounter);
 
           final ConnectedReduxComponent = connect<FluxStore, CounterProps>(
