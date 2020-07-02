@@ -18,7 +18,7 @@ import 'package:over_react/over_react_flux.dart';
 
 import 'redux_actions.dart';
 
-int initialValue = 0;
+const initialValue = 0;
 
 int _resetCounterReducer(int currentCount, ResetAction action) {
   return initialValue;
@@ -82,10 +82,10 @@ FluxCounterState counterStateReducer(FluxCounterState state, Object action) {
   return state;
 }
 
-FluxActions fluxActions = FluxActions();
-FluxStore fluxStore = FluxStore(fluxActions);
-FluxToReduxAdapterStore store1 =
-    FluxToReduxAdapterStore(fluxStore, fluxActions);
+// To use in tests, copy-paste:
+// var fluxActions = FluxActions();
+// var fluxStore = FluxStore(fluxActions);
+// var store1 = FluxToReduxAdapterStore(fluxStore, fluxActions);
 
 /////////////////////////////// STORE 2 "BigCounter" ///////////////////////////////
 class FluxStore2 extends flux.Store with InfluxStoreMixin<BigCounterState> {
@@ -137,10 +137,10 @@ BigCounterState bigCounterStateReducer(BigCounterState state, action) =>
       bigCount: bigCounterActionsReducer(state.bigCount, action),
     );
 
-FluxActions bigFluxActions = FluxActions();
-FluxStore2 bigFluxCounter = FluxStore2(bigFluxActions);
-FluxToReduxAdapterStore store2 =
-    FluxToReduxAdapterStore(bigFluxCounter, bigFluxActions);
+// To use in tests, copy-paste:
+// final bigFluxActions = FluxActions();
+// final bigFluxCounter = FluxStore2(bigFluxActions);
+// final store2 = FluxToReduxAdapterStore(bigFluxCounter, bigFluxActions);
 
 /////////////////////////////// STORE 3 "AnotherFluxStore" ///////////////////////////////
 // Just created for testing context
@@ -178,10 +178,8 @@ class TestConnectableFluxStore extends flux.Store {
   }
 }
 
-FluxActions connectableStoreActions = FluxActions();
-TestConnectableFluxStore connectableFluxStore =
-    TestConnectableFluxStore(connectableStoreActions);
-TestConnectableFluxStore anotherConnectableFluxStore =
-    TestConnectableFluxStore(connectableStoreActions);
-ConnectFluxAdapterStore connectableFluxAdaptedStore =
-    ConnectFluxAdapterStore(connectableFluxStore, connectableStoreActions);
+// To use in tests, copy-paste
+// final connectableStoreActions = FluxActions();
+// final connectableFluxStore = TestConnectableFluxStore(connectableStoreActions);
+// final anotherConnectableFluxStore = TestConnectableFluxStore(connectableStoreActions);
+// final connectableFluxAdaptedStore = ConnectFluxAdapterStore(connectableFluxStore, connectableStoreActions);

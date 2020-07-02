@@ -33,6 +33,14 @@ main() {
     TestJacket<ConnectFluxCounterComponent> jacket;
     final counterRef = createRef<ConnectFluxCounterComponent>();
 
+    FluxActions fluxActions;
+    FluxStore fluxStore;
+    FluxToReduxAdapterStore store1;
+
+    FluxActions bigFluxActions;
+    FluxStore2 bigFluxCounter;
+    FluxToReduxAdapterStore store2;
+
     JsConnectOptions connectOptions;
     final originalConnect = mockableJsConnect;
 
@@ -56,9 +64,14 @@ main() {
     setUp(() async {
       ConnectedCounter = null;
       jacket = null;
-      // Reset stores state to initialState value
-      store1.dispatch(ResetAction());
-      store2.dispatch(ResetAction());
+
+      fluxActions = FluxActions();
+      fluxStore = FluxStore(fluxActions);
+      store1 = FluxToReduxAdapterStore(fluxStore, fluxActions);
+
+      bigFluxActions = FluxActions();
+      bigFluxCounter = FluxStore2(bigFluxActions);
+      store2 = FluxToReduxAdapterStore(bigFluxCounter, bigFluxActions);
 
       // wait for state to update
       await Future(() {});
@@ -690,7 +703,50 @@ main() {
         },
       };
 
-      testParameterCases(testCases);
+      testCases.forEach((parameterCase, parameters) {
+        bool shouldDomUpdate(Map parameters) =>
+            (parameters['mapStateToProps'] != null ||
+                parameters['mapStateToPropsWithOwnProps'] != null);
+
+        test(parameterCase, () async {
+          final ConnectedFluxComponent =
+              connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
+            mapStateToProps: parameters['mapStateToProps'],
+            mapActionsToProps: parameters['mapActionsToProps'],
+            mapStateToPropsWithOwnProps:
+                parameters['mapStateToPropsWithOwnProps'],
+            mapActionsToPropsWithOwnProps:
+                parameters['mapActionsToPropsWithOwnProps'],
+          )(ConnectFluxCounter);
+
+          final jacket2 = mount((ReduxProvider()..store = store1)(
+            (ConnectedFluxComponent()..addTestId('flux-component'))(),
+          ));
+
+          final fluxCounter =
+              queryByTestId(jacket2.mountNode, 'flux-component');
+          final fluxButton = queryByTestId(fluxCounter, 'button-increment');
+
+          expect(fluxStore.state.count, 0);
+
+          click(fluxButton);
+          await Future(() {});
+
+          expect(fluxStore.state.count, 1);
+
+          if (shouldDomUpdate(parameters)) {
+            expect(findDomNode(fluxCounter).innerHtml, contains('Count: 1'));
+          }
+
+          store1.dispatch(ResetAction());
+          await Future(() {});
+
+          expect(fluxStore.state.count, 0);
+          if (shouldDomUpdate(parameters)) {
+            expect(findDomNode(fluxCounter).innerHtml, contains('Count: 0'));
+          }
+        });
+      });
     });
 
     test('prints a warning when state is mutated directly', () async {
@@ -738,49 +794,3 @@ mapStateToPropsWithOwnProps get testMapStateToPropsWithOwnProps =>
 mapActionsToPropsWithOwnProps get testMapActionsToPropsWithOwnProps =>
     (actions, ownProps) =>
         (ConnectFluxCounter()..increment = actions.incrementAction);
-
-void testParameterCases(Map<String, Map> cases) {
-  for (final parameterCase in cases.keys) {
-    final parameters = cases[parameterCase];
-    bool shouldDomUpdate(Map parameters) =>
-        (parameters['mapStateToProps'] != null ||
-            parameters['mapStateToPropsWithOwnProps'] != null);
-
-    test(parameterCase, () async {
-      final ConnectedFluxComponent =
-          connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
-        mapStateToProps: parameters['mapStateToProps'],
-        mapActionsToProps: parameters['mapActionsToProps'],
-        mapStateToPropsWithOwnProps: parameters['mapStateToPropsWithOwnProps'],
-        mapActionsToPropsWithOwnProps:
-            parameters['mapActionsToPropsWithOwnProps'],
-      )(ConnectFluxCounter);
-
-      final jacket = mount((ReduxProvider()..store = store1)(
-        (ConnectedFluxComponent()..addTestId('flux-component'))(),
-      ));
-
-      final fluxCounter = queryByTestId(jacket.mountNode, 'flux-component');
-      final fluxButton = queryByTestId(fluxCounter, 'button-increment');
-
-      expect(fluxStore.state.count, 0);
-
-      click(fluxButton);
-      await Future(() {});
-
-      expect(fluxStore.state.count, 1);
-
-      if (shouldDomUpdate(parameters)) {
-        expect(findDomNode(fluxCounter).innerHtml, contains('Count: 1'));
-      }
-
-      store1.dispatch(ResetAction());
-      await Future(() {});
-
-      expect(fluxStore.state.count, 0);
-      if (shouldDomUpdate(parameters)) {
-        expect(findDomNode(fluxCounter).innerHtml, contains('Count: 0'));
-      }
-    });
-  }
-}

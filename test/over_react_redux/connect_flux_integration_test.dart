@@ -28,13 +28,26 @@ import 'fixtures/flux_counter.dart';
 
 main() {
   group('connectFlux integration -', () {
-    setUp(() async {
-      // Reset stores state to initialState value
-      store1.dispatch(ResetAction());
-      store2.dispatch(ResetAction());
+    FluxActions fluxActions;
+    FluxStore fluxStore;
+    FluxToReduxAdapterStore store1;
 
-      // wait for state to update
-      await Future(() {});
+    FluxActions connectableStoreActions;
+    TestConnectableFluxStore connectableFluxStore;
+    TestConnectableFluxStore anotherConnectableFluxStore;
+    ConnectFluxAdapterStore connectableFluxAdaptedStore;
+
+    setUp(() {
+      fluxActions = FluxActions();
+      fluxStore = FluxStore(fluxActions);
+      store1 = FluxToReduxAdapterStore(fluxStore, fluxActions);
+
+      connectableStoreActions = FluxActions();
+      connectableFluxStore = TestConnectableFluxStore(connectableStoreActions);
+      anotherConnectableFluxStore =
+          TestConnectableFluxStore(connectableStoreActions);
+      connectableFluxAdaptedStore =
+          ConnectFluxAdapterStore(connectableFluxStore, connectableStoreActions);
     });
 
     group('FluxToReduxAdapterStore', () {
