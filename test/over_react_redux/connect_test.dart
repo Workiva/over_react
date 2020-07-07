@@ -248,10 +248,7 @@ main() {
     group('mapDispatchToProps', () {
       test('maps dispatcher to props correctly', () async {
         ConnectedCounter = connect<CounterState, CounterProps>(
-          mapStateToProps: (state) {
-            expect(state, isA<CounterState>());
-            return Counter()..currentCount = state.count;
-          },
+          mapStateToProps: (state) => (Counter()..currentCount = state.count),
           mapDispatchToProps: (dispatch) {
             return Counter()..decrement = () => dispatch(DecrementAction());
           },
@@ -285,10 +282,7 @@ main() {
     group('mapDispatchToPropsWithOwnProps', () {
       test('maps dispatcher to props correctly', () async {
         ConnectedCounter = connect<CounterState, CounterProps>(
-          mapStateToProps: (state) {
-            expect(state, isA<CounterState>());
-            return Counter()..currentCount = state.count;
-          },
+          mapStateToProps: (state) => (Counter()..currentCount = state.count),
           mapDispatchToPropsWithOwnProps: (dispatch, ownProps) {
             return Counter()..decrement = () => dispatch(DecrementAction());
           },
@@ -329,9 +323,6 @@ main() {
             return Counter()..decrement = () => dispatch(DecrementAction());
           },
           mergeProps: (stateProps, dispatchProps, ownProps) {
-            expect(stateProps, isA<CounterProps>());
-            expect(dispatchProps, isA<CounterProps>());
-            expect(ownProps, isA<CounterProps>());
             return Counter()
               // Return whatever value is passed through ownProps until the state count is over 1
               ..currentCount = stateProps.currentCount < 1
@@ -398,16 +389,14 @@ main() {
 
       group('areStatePropsEqual', () {
         test('', () async {
-          List<String> methodsCalled = [];
+          final calls = <Map<String, dynamic>>[];
           ConnectedCounter = connect<CounterState, CounterProps>(
             mapStateToProps: (state) {
-              methodsCalled.add('mapStateToProps');
+              calls.add({'name': 'mapStateToProps'});
               return Counter()..currentCount = state.count;
             },
             areStatePropsEqual: (next, prev) {
-              expect(next, isA<CounterProps>());
-              expect(prev, isA<CounterProps>());
-              methodsCalled.add('areStatePropsEqual');
+              calls.add({'name': 'areStatePropsEqual', 'next': next, 'prev': prev});
               // Force it to always be true, meaing it shouldnt re-render if they change.
               return true;
             },
@@ -422,8 +411,10 @@ main() {
               )('test'),
             ),
           );
-          expect(methodsCalled, ['mapStateToProps']);
-          methodsCalled.clear();
+          expect(calls, [
+            {'name': 'mapStateToProps'},
+          ]);
+          calls.clear();
 
           var dispatchButton =
               queryByTestId(jacket.mountNode, 'button-increment');
@@ -434,7 +425,14 @@ main() {
 
           // store.state.count should be 1 but does not re-render due to override in `areStatePropsEqual`
 
-          expect(methodsCalled, ['mapStateToProps', 'areStatePropsEqual']);
+          expect(calls, [
+            {'name': 'mapStateToProps'},
+            {
+              'name': 'areStatePropsEqual',
+              'next': isA<CounterProps>(),
+              'prev': isA<CounterProps>(),
+            }
+          ]);
           expect(jacket.mountNode.innerHtml, contains('Count: 0'));
         });
       });
