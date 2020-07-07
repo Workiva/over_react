@@ -15,16 +15,13 @@
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_flux.dart';
 import 'package:over_react/over_react_redux.dart';
-import 'package:redux/redux.dart' as redux;
 import 'package:test/test.dart';
 
 import '../test_util/test_util.dart';
 import 'fixtures/connect_flux_counter.dart';
 import 'fixtures/connect_flux_store.dart';
-import 'fixtures/counter.dart';
 import 'fixtures/non_component_two_counter.dart';
 import 'fixtures/redux_actions.dart';
-import 'fixtures/store.dart' as redux_store;
 
 // ignore_for_file: avoid_types_on_closure_parameters
 
@@ -461,70 +458,6 @@ main() {
               if (methodCall['called'] == 'areStatePropsEqual') {
                 expect(methodCall['prev'], isA<ConnectFluxCounterProps>());
                 expect(methodCall['next'], isA<ConnectFluxCounterProps>());
-              }
-            }
-
-            expect(jacket.mountNode.innerHtml, contains('Count: 0'));
-          });
-
-          test(
-              'matches a standard Redux component when `areStatesEqual` is false',
-              () async {
-            final localReduxRef = createRef<CounterComponent>();
-
-            final ReduxConnectedCounter =
-                connect<redux_store.CounterState, CounterProps>(
-              mapStateToProps: (state) {
-                methodsCalled.add({'called': 'mapStateToProps'});
-                return ConnectFluxCounter()..currentCount = state.count;
-              },
-              areStatePropsEqual: (next, prev) {
-                methodsCalled.add({
-                  'called': 'areStatePropsEqual',
-                  'prev': prev,
-                  'next': next,
-                });
-                // Force it to always be true, meaning it shouldn't re-render if they change.
-                return true;
-              },
-              forwardRef: true,
-              areStatesEqual: (_, __) => false,
-            )(Counter);
-
-            final reduxStore = redux.Store(redux_store.counterStateReducer,
-                initialState: redux_store.CounterState());
-
-            jacket = mount(
-              (ReduxProvider()..store = reduxStore)(
-                (ReduxConnectedCounter()..ref = localReduxRef)('test'),
-              ),
-            );
-
-            // Because `areStatesEqual` is false, we expect additional method calls
-            expect(methodsCalled.map((methodObj) => methodObj['called']),
-                expectedMountMethodCalls);
-            for (final methodCall in methodsCalled) {
-              if (methodCall['called'] == 'areStatePropsEqual') {
-                expect(methodCall['prev'], isA<CounterProps>());
-                expect(methodCall['next'], isA<CounterProps>());
-              }
-            }
-            methodsCalled.clear();
-
-            var dispatchButton =
-                queryByTestId(jacket.mountNode, 'button-increment');
-            click(dispatchButton);
-
-            // wait for the next tick for the async dispatch to propagate
-            await Future(() {});
-
-            // store.state.count should be 1 but does not re-render due to override in `areStatePropsEqual`
-            expect(expectedUpdateMethodCalls, methodsCalled.map((methodObj) => methodObj['called']).toList(),
-                reason: 'expectedUpdateMethodCalls should match connect\'s sequence of calls');
-            for (final methodCall in methodsCalled) {
-              if (methodCall['called'] == 'areStatePropsEqual') {
-                expect(methodCall['prev'], isA<CounterProps>());
-                expect(methodCall['next'], isA<CounterProps>());
               }
             }
 
