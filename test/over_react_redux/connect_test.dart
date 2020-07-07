@@ -462,16 +462,20 @@ main() {
 
       group('areStatesEqual', () {
         test('', () async {
-          List<String> methodsCalled = [];
+          final calls = <Map<String, dynamic>>[];
+          getCallNames() => calls.map((call) => call['name']).toList();
+
           ConnectedCounter = connect<CounterState, CounterProps>(
             areStatesEqual: (next, prev) {
-              expect(next, isA<CounterState>());
-              expect(prev, isA<CounterState>());
-              methodsCalled.add('areStatesEqual');
+              calls.add({
+                'name': 'areStatesEqual',
+                'prev': prev,
+                'next': next,
+              });
               return true;
             },
             mapStateToProps: (state) {
-              methodsCalled.add('mapStateToProps');
+              calls.add({'name': 'mapStateToProps'});
               return Counter()..currentCount = state.count;
             },
             forwardRef: true,
@@ -479,16 +483,21 @@ main() {
 
           jacket = mount(
             (ReduxProvider()..store = store1)(
-              (ConnectedCounter()
-                ..ref = counterRef
-                ..currentCount = 0
-              )('test'),
+              (ConnectedCounter()..ref = counterRef)('test'),
             ),
           );
 
-          expect(methodsCalled, contains('mapStateToProps'));
-          expect(methodsCalled, contains('areStatesEqual'));
-          methodsCalled.clear();
+          expect(getCallNames(),
+              containsAll({'areStatesEqual', 'mapStateToProps'}));
+          expect(
+              calls.firstWhere((call) => call['name'] == 'areStatesEqual'),
+              {
+                'name': 'areStatesEqual',
+                'prev': isA<CounterState>(),
+                'next': isA<CounterState>(),
+              },
+              reason: 'states should be passed in as arguments');
+          calls.clear();
 
           var dispatchButton =
               queryByTestId(jacket.mountNode, 'button-increment');
@@ -498,8 +507,8 @@ main() {
           await Future(() {});
 
           // only calls `areStatesEqual` and does not call `mapStateToProps` since it returned `true`.
-          expect(methodsCalled, isNot(contains('mapStateToProps')));
-          expect(methodsCalled, contains('areStatesEqual'));
+          expect(getCallNames(), isNot(contains('mapStateToProps')));
+          expect(getCallNames(), contains('areStatesEqual'));
           expect(jacket.mountNode.innerHtml, contains('Count: 0'));
         });
 
