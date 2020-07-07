@@ -88,6 +88,7 @@ enum Version {
   v2_legacyBackwardsCompat,
   v3_legacyDart2Only,
   v4_mixinBased,
+  v5_functionComponent,
 }
 
 /// Priority of the possible boilerplate versions.
@@ -166,6 +167,7 @@ class VersionConfidences {
   final int v2_legacyBackwardsCompat;
   final int v3_legacyDart2Only;
   final int v4_mixinBased;
+  final int v5_functionComponent;
 
   /// The highest confidence within the class.
   ///
@@ -177,6 +179,7 @@ class VersionConfidences {
     @required this.v2_legacyBackwardsCompat,
     @required this.v3_legacyDart2Only,
     @required this.v4_mixinBased,
+    @required this.v5_functionComponent,
   });
 
   /// Constructor to set all confidence values to the same thing
@@ -185,6 +188,7 @@ class VersionConfidences {
           v2_legacyBackwardsCompat: value,
           v3_legacyDart2Only: value,
           v4_mixinBased: value,
+          v5_functionComponent: value,
         );
 
   /// Constructor to initialize the class with no data.
@@ -198,6 +202,7 @@ class VersionConfidences {
         VersionConfidencePair(Version.v2_legacyBackwardsCompat, v2_legacyBackwardsCompat),
         VersionConfidencePair(Version.v3_legacyDart2Only, v3_legacyDart2Only),
         VersionConfidencePair(Version.v4_mixinBased, v4_mixinBased),
+        VersionConfidencePair(Version.v5_functionComponent, v5_functionComponent),
       ];
 
   /// Adds all versions in the class to another set of versions from a different [VersionConfidences]
@@ -207,6 +212,7 @@ class VersionConfidences {
       v2_legacyBackwardsCompat: v2_legacyBackwardsCompat + other.v2_legacyBackwardsCompat,
       v3_legacyDart2Only: v3_legacyDart2Only + other.v3_legacyDart2Only,
       v4_mixinBased: v4_mixinBased + other.v4_mixinBased,
+      v5_functionComponent: v5_functionComponent + other.v5_functionComponent,
     );
   }
 
@@ -233,6 +239,7 @@ class VersionConfidences {
       'v2': Confidence.description(v2_legacyBackwardsCompat),
       'v3': Confidence.description(v3_legacyDart2Only),
       'v4': Confidence.description(v4_mixinBased),
+      'v5': Confidence.description(v5_functionComponent),
     };
 
     return '$runtimeType $confidenceMap';

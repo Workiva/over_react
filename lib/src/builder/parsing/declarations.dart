@@ -96,6 +96,7 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
     @required this.props,
     this.state,
   })  : assert(version != Version.v4_mixinBased),
+        assert(version != Version.v5_functionComponent),
         super(version);
 
   /// Validates that the proper annotations are present.

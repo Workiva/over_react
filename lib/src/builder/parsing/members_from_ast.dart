@@ -168,6 +168,20 @@ class _BoilerplateMemberDetector {
       return;
     }
 
+    final rightHandSide = node.variables.firstInitializer;
+
+    if(rightHandSide is MethodInvocation && rightHandSide.methodName.name == 'uiFunctionComponent') {
+      onFactory(BoilerplateFactory(
+          node,
+          VersionConfidences(
+            v5_functionComponent: Confidence.likely,
+            v4_mixinBased: Confidence.none,
+            v3_legacyDart2Only: Confidence.none,
+            v2_legacyBackwardsCompat: Confidence.none,
+          )));
+      return;
+    }
+
     final type = node.variables.type;
     if (type != null) {
       if (type?.typeNameWithoutPrefix == 'UiFactory') {
@@ -188,6 +202,7 @@ class _BoilerplateMemberDetector {
           onFactory(BoilerplateFactory(
               node,
               VersionConfidences(
+                v5_functionComponent: Confidence.none,
                 v4_mixinBased: Confidence.likely,
                 v3_legacyDart2Only: Confidence.none,
                 v2_legacyBackwardsCompat: Confidence.none,
@@ -197,6 +212,7 @@ class _BoilerplateMemberDetector {
           onFactory(BoilerplateFactory(
               node,
               VersionConfidences(
+                v5_functionComponent: Confidence.none,
                 v4_mixinBased: Confidence.neutral,
                 v2_legacyBackwardsCompat: Confidence.none,
                 v3_legacyDart2Only: Confidence.none,
@@ -300,7 +316,7 @@ class _BoilerplateMemberDetector {
         'this function assumes that all nodes passed to this function are annotated');
 
     assert(node is! MixinDeclaration,
-        'Mixins should never make it in herel they should be classified as Props/State mixins');
+        'Mixins should never make it in here they should be classified as Props/State mixins');
 
     final hasGeneratedPrefix = node.name.name.startsWith(r'_$');
     final hasCompanionClass = companion != null;
@@ -310,18 +326,21 @@ class _BoilerplateMemberDetector {
         v2_legacyBackwardsCompat: Confidence.likely,
         v3_legacyDart2Only: Confidence.unlikely,
         v4_mixinBased: Confidence.unlikely,
+        v5_functionComponent: Confidence.none,
       );
     } else if (hasGeneratedPrefix) {
       return VersionConfidences(
         v2_legacyBackwardsCompat: Confidence.unlikely,
         v3_legacyDart2Only: Confidence.likely,
         v4_mixinBased: Confidence.unlikely,
+        v5_functionComponent: Confidence.none,
       );
     } else {
       return VersionConfidences(
         v2_legacyBackwardsCompat: Confidence.unlikely,
         v3_legacyDart2Only: Confidence.unlikely,
         v4_mixinBased: Confidence.likely,
+        v5_functionComponent: Confidence.none,
       );
     }
   }
@@ -340,6 +359,7 @@ class _BoilerplateMemberDetector {
         v3_legacyDart2Only: Confidence.unlikely,
         // Annotated abstract props/state don't exist to the new boilerplate
         v4_mixinBased: Confidence.none,
+        v5_functionComponent: Confidence.none,
       );
     } else {
       return VersionConfidences(
@@ -347,6 +367,7 @@ class _BoilerplateMemberDetector {
         v3_legacyDart2Only: Confidence.likely,
         // Annotated abstract props/state don't exist to the new boilerplate
         v4_mixinBased: Confidence.none,
+        v5_functionComponent: Confidence.none,
       );
     }
   }
@@ -370,6 +391,7 @@ class _BoilerplateMemberDetector {
           ? Confidence.none
           : (hasGeneratedPrefix ? Confidence.likely : Confidence.unlikely),
       v4_mixinBased: isMixin ? Confidence.likely : Confidence.unlikely,
+      v5_functionComponent: Confidence.none,
     );
   }
 
@@ -396,6 +418,7 @@ class _BoilerplateMemberDetector {
         v2_legacyBackwardsCompat: Confidence.none,
         v3_legacyDart2Only: Confidence.none,
         v4_mixinBased: Confidence.likely,
+        v5_functionComponent: Confidence.none,
       );
     }
 
@@ -448,6 +471,8 @@ class _BoilerplateMemberDetector {
           'FluxUiStatefulComponent2'
         };
         final confidences = VersionConfidences(
+          // Component classes don't exist in function components
+          v5_functionComponent: Confidence.none,
           // If the component extends from a base class known to be supported by the new boilerplate,
           // has no annotation, is not abstract, and does not have $isClassGenerated, then it's
           // most likely intended to be part of a new boilerplate class component declaration.

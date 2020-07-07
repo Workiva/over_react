@@ -54,6 +54,7 @@ class BoilerplateFactory extends BoilerplateMember {
   @override
   void validate(Version version, ErrorCollector errorCollector) {
     switch (version) {
+      case Version.v5_functionComponent:
       case Version.v4_mixinBased:
         break;
       case Version.v2_legacyBackwardsCompat:

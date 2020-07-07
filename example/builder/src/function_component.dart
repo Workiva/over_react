@@ -55,7 +55,7 @@ final Simple = uiFunctionComponent<BasicPropsMixin>((props) {
     Dom.div()('default prop testing: ${props.basic1}'),
     Dom.div()(null, props.basic4, 'children: ${props.children}'),
   );
-}, $.$BasicPropsConfig, initStatics: (statics) {
+}, $BasicPropsConfig, initStatics: (statics) {// ignore: undefined_identifier
   statics.defaultProps = (statics.newProps()
     ..basicProp = 'basicProp'
     ..basic1 = 'basic1'
@@ -71,7 +71,7 @@ final Simple2 = uiFunctionComponent<BasicPropsMixin>((props) {
     Dom.div()('default prop testing: ${props.basic1}'),
     Dom.div()(null, props.basic4, 'children: ${props.children}'),
   );
-}, $.$BasicPropsConfig, initStatics: (statics) {
+}, $BasicPropsConfig, initStatics: (statics) {
   statics
     ..defaultProps = (statics.newProps()
       ..basicProp = 'basicProp'
@@ -95,7 +95,7 @@ final Simple2 = uiFunctionComponent<BasicPropsMixin>((props) {
 //    Dom.div()('default prop testing: ${props.basic1}'),
 //    Dom.div()(null, props.basic4, 'children: ${props.children}'),
 //  );
-//}.withTypedProps($.$Basic.factoryFactory);
+//}.withTypedProps($Basic.factoryFactory);
 //
 //
 //
@@ -149,7 +149,7 @@ ReactElement functionComponentContent() {
 //      Dom.div()('closureVariable: ${closureVariable}'),
 //      Dom.div()('prop basic1: ${props.basic1}'),
 //    );
-//  }, $.$basicConfig);
+//  }, $basicConfig);
 
   final basicFactory = uiFunctionComponent<BasicPropsMixin>((props) {
     return Dom.div()(
@@ -157,7 +157,7 @@ ReactElement functionComponentContent() {
       Dom.div()('prop basic1: ${props.basic1}'),
     );
     // FIXME should displayName really default to "Basic" in this case?
-  }, $.$BasicPropsConfig, displayName: 'basicFactory');
+  }, $BasicPropsConfig, displayName: 'basicFactory');// ignore: undefined_identifier
 
   return Fragment()(
     (genericFactory()..id = '1')(),
