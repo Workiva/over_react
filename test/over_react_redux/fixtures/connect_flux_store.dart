@@ -18,10 +18,8 @@ import 'package:over_react/over_react_flux.dart';
 
 import 'redux_actions.dart';
 
-const initialValue = 0;
-
 int _resetCounterReducer(int currentCount, ResetAction action) {
-  return initialValue;
+  return 0;
 }
 
 class FluxActions {
@@ -43,7 +41,7 @@ class FluxStore extends flux.Store with InfluxStoreMixin<FluxCounterState> {
       state.listThatYouDefShouldntMutate;
 
   FluxStore(this._actions) {
-    state = FluxCounterState(count: initialValue);
+    state = FluxCounterState(count: 0);
 
     triggerOnActionV2(
         _actions.incrementAction, (_) => this.influxReducer(IncrementAction()));
@@ -74,7 +72,7 @@ FluxCounterState counterStateReducer(FluxCounterState state, Object action) {
   } else if (action is DecrementAction) {
     return FluxCounterState(count: state.count - (action?.value ?? 1));
   } else if (action is ResetAction) {
-    return FluxCounterState(count: initialValue);
+    return FluxCounterState(count: 0);
   } else if (action is MutateStoreDirectlyAction) {
     state.listThatYouDefShouldntMutate.add('woops');
   }
@@ -98,7 +96,7 @@ class FluxStore2 extends flux.Store with InfluxStoreMixin<BigCounterState> {
   String get name => state.name;
 
   FluxStore2(this._actions) {
-    state = BigCounterState(bigCount: initialValue);
+    state = BigCounterState(bigCount: 0);
 
     triggerOnActionV2(_actions.incrementAction,
         (count) => this.influxReducer(IncrementAction(count)));
