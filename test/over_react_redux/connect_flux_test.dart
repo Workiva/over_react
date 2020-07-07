@@ -521,8 +521,6 @@ main() {
             expect(methodsCalled.map((methodObj) => methodObj['called']), [
               'mapStateToProps',
               'areStatePropsEqual',
-              'mapStateToProps',
-              'areStatePropsEqual'
             ]);
             for (final methodCall in methodsCalled) {
               if (methodCall['called'] == 'areStatePropsEqual') {
