@@ -272,11 +272,6 @@ main() {
         verifyCount(containerList, 0);
       });
 
-      tearDown(() {
-        connectableStoreActions.resetAction();
-        connectableFluxStore.trigger();
-      });
-
       test('will keep Flux, Redux, and connectFlux components all in sync',
           () async {
         final fluxButton = queryByTestId(fluxCounter, 'button-increment');

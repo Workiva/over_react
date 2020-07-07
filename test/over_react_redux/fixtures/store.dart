@@ -16,20 +16,19 @@ import 'package:redux/redux.dart';
 
 import 'redux_actions.dart';
 
-int initialValue = 0;
-
 int _resetCounterReducer(int currentCount, ResetAction action){
-  return initialValue;
+  return 0;
 }
 
 /////////////////////////////// STORE 1 "Counter" ///////////////////////////////
-Store store1 = Store<CounterState>(counterStateReducer, initialState: CounterState(count: initialValue));
+// To use in tests, copy-paste:
+// Store store1 = Store<CounterState>(counterStateReducer, initialState: CounterState(count: initialValue));
 
 class CounterState {
   final int count;
   final String name;
   CounterState({
-    this.count,
+    this.count = 0,
     this.name = 'Counter',
   });
 }
@@ -53,13 +52,14 @@ CounterState counterStateReducer(CounterState state, action) => CounterState(
 );
 
 /////////////////////////////// STORE 2 "BigCounter" ///////////////////////////////
-Store store2 = Store<BigCounterState>(bigCounterStateReducer, initialState: BigCounterState(bigCount: initialValue));
+// To use in tests, copy-paste:
+// Store store2 = Store<BigCounterState>(bigCounterStateReducer, initialState: BigCounterState(bigCount: initialValue));
 
 class BigCounterState {
   final int bigCount;
   final String name;
   BigCounterState({
-    this.bigCount,
+    this.bigCount = 0,
     this.name = 'BigCounter',
   });
 }

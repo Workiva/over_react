@@ -15,6 +15,7 @@
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_flux.dart';
 import 'package:over_react/over_react_redux.dart';
+import 'package:redux/redux.dart' as redux;
 import 'package:test/test.dart';
 
 import '../test_util/test_util.dart';
@@ -61,7 +62,7 @@ main() {
       mockableJsConnect = originalConnect;
     });
 
-    setUp(() async {
+    setUp(() {
       ConnectedCounter = null;
       jacket = null;
 
@@ -72,9 +73,6 @@ main() {
       bigFluxActions = FluxActions();
       bigFluxCounter = FluxStore2(bigFluxActions);
       store2 = FluxToReduxAdapterStore(bigFluxCounter, bigFluxActions);
-
-      // wait for state to update
-      await Future(() {});
     });
 
     group('behaves like redux with', () {
@@ -493,8 +491,11 @@ main() {
               areStatesEqual: (_, __) => false,
             )(Counter);
 
+            final reduxStore = redux.Store(redux_store.counterStateReducer,
+                initialState: redux_store.CounterState());
+
             jacket = mount(
-              (ReduxProvider()..store = redux_store.store1)(
+              (ReduxProvider()..store = reduxStore)(
                 (ReduxConnectedCounter()
                   ..ref = localReduxRef
                   ..currentCount = 0

@@ -33,6 +33,8 @@ main() {
     UiFactory<CounterProps> ConnectedCounter;
     TestJacket<CounterComponent> jacket;
     final counterRef = createRef<CounterComponent>();
+    Store<CounterState> store1;
+    Store<BigCounterState> store2;
 
     JsConnectOptions connectOptions;
     final originalConnect = mockableJsConnect;
@@ -54,15 +56,12 @@ main() {
       mockableJsConnect = originalConnect;
     });
 
-    setUp(() async {
+    setUp(() {
       ConnectedCounter = null;
       jacket = null;
-      // Reset stores state to initalState value.
-      store1.dispatch(ResetAction());
-      store2.dispatch(ResetAction());
 
-      // wait for state to update
-      await Future(() {});
+      store1 = Store(counterStateReducer, initialState: CounterState());
+      store2 = Store(bigCounterStateReducer, initialState: BigCounterState());
     });
 
     test('throws when mounting a UiComponent', () {
