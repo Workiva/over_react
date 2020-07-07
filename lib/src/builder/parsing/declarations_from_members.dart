@@ -332,7 +332,9 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         final single = nonNullFactoryPropsOrComponents.single;
         final span = errorCollector.spanFor(single.node);
         if (single == factory) {
-          errorCollector.addError(errorFactoryOnly, span);
+          if(factory.versionConfidences.maxConfidence.version != Version.v5_functionComponent) {
+            errorCollector.addError(errorFactoryOnly, span);
+          }
         } else if (single == propsClass) {
           errorCollector.addError(errorPropsClassOnly, span);
         } else if (single == componentClass) {
@@ -346,7 +348,9 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         } else if (propsClass == null) {
           errorCollector.addError(errorNoProps, span);
         } else if (componentClass == null) {
-          errorCollector.addError(errorNoComponent, span);
+          if(factory.versionConfidences.maxConfidence.version != Version.v5_functionComponent) {
+            errorCollector.addError(errorNoComponent, span);
+          }
         }
         continue;
     }
@@ -365,7 +369,7 @@ const errorStateOnly =
     ' these are required to use UiState.';
 
 const errorFactoryOnly = 'Could not find matching props class in this file;'
-    ' this is required to declare a props map view or function component,'
+    ' this is required to declare a props map view,'
     ' and a component class is also required to declare a class-based component.';
 
 const errorPropsClassOnly = 'Could not find matching factory in this file;'
