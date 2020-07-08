@@ -166,3 +166,22 @@ extension on DartObject {
 extension on Symbol {
   String get name => MirrorSystem.getName(this);
 }
+
+extension EmptyIdentifier on Expression {
+  /// Whether this is an identifier with no name, usually stubbed in by the
+  /// parser in response to invalid syntax.
+  ///
+  /// Example:
+  ///
+  /// ```dart
+  /// // '..foo = '
+  /// print(assignmentExpressionWithNoRhs.toSource());
+  ///
+  /// // 'true'
+  /// print(assignmentExpressionWithNoRhs.rightHandSide.isEmdtyIdentifier);
+  /// ```
+  bool get isEmptyIdentifier {
+    final self = this;
+    return self is SimpleIdentifier && self.name == '';
+  }
+}

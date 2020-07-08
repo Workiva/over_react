@@ -156,9 +156,12 @@ class _DiagnosticGenerator {
       // `<=` because we do want the end to be inclusive (you should get
       // the fix when your cursor is on the tail end of the error).
       if (request.offset >= errorStart && request.offset <= errorEnd) {
+        final fix = collector.fixes[i];
         fixes.add(AnalysisErrorFixes(
           error,
-          fixes: [collector.fixes[i]],
+          fixes: [
+            if (fix != null) fix,
+          ],
         ));
       }
     }
