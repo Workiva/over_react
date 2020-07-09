@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:analyzer/dart/ast/ast.dart';
+
 import 'ast_util.dart';
 import 'members.dart';
 import 'util.dart';
@@ -75,6 +77,14 @@ Union<A, B> _getNameMatchUnion<A extends BoilerplateMember, B extends Boilerplat
   return null;
 }
 
+Union<A, B> getUnion<A extends BoilerplateMember, B extends BoilerplateMember>(BoilerplateMember member) {
+  if(member is A) return Union.a(member);
+
+  if (member is B) return Union.b(member);
+
+  return null;
+}
+
 /// Retrieves the component for a given [member] if it is found in [components].
 ///
 /// This first tries to normalize the names of the entities to find a matching name,
@@ -112,6 +122,18 @@ Union<BoilerplateProps, BoilerplatePropsMixin> getPropsFor(
 ) {
   return _getNameMatchUnion(props, propsMixins, normalizeNameAndRemoveSuffix(member)) ??
       getRelatedName(member).mapIfNotNull((name) => _getNameMatchUnion(props, propsMixins, name));
+}
+
+/// ADD DOC COMMENT IF KEPT
+String getPropsNameFromConfig(BoilerplateFactory factory) {
+  final rightHandSide = factory.node.variables.firstInitializer;
+  if(rightHandSide == null || rightHandSide is! MethodInvocation) return null;
+  final args = (rightHandSide as MethodInvocation).argumentList.arguments;
+  if(args.length < 2) return null;
+  final config = args[1].toSource();
+  final startIndex = config.indexOf(RegExp(r'\$')) + 1;
+  final configIndex = config.lastIndexOf(RegExp(r'Config'));
+  return config.substring(startIndex, configIndex == -1 ? config.length : configIndex);
 }
 
 /// Retrieves the props for a given [member] if it is found in [states] or [stateMixins].

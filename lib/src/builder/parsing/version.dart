@@ -98,6 +98,7 @@ enum Version {
 ///
 /// The length of this iterable should match the length of values in [Version].
 const _versionsInPriorityOrder = [
+  Version.v5_functionComponent,
   Version.v4_mixinBased,
   Version.v2_legacyBackwardsCompat,
   Version.v3_legacyDart2Only,

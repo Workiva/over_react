@@ -69,6 +69,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   if (members.isEmpty) return;
 
   final _consumedMembers = <BoilerplateMember>{};
+  final _functionComponentFactories = <BoilerplateFactory>{};
 
   /// Indicate that [member] has been grouped into a declaration,
   /// so that it is not grouped into another declaration.
@@ -209,6 +210,12 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     ..sort((a, b) => b.versionConfidences.maxConfidence.confidence
         .compareTo(a.versionConfidences.maxConfidence.confidence));
   for (final factory in factoriesMostToLeastConfidence) {
+    if(factory.versionConfidences.maxConfidence.version == Version.v5_functionComponent) {
+      _functionComponentFactories.add(factory);
+      // will be validated below the for-loop.
+      continue;
+    }
+
     final propsClassOrMixin = getPropsFor(factory, members.props, members.propsMixins);
     final stateClassOrMixin = getStateFor(factory, members.states, members.stateMixins);
     if (propsClassOrMixin == null) {
@@ -271,6 +278,8 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
                 props: propsClassOrMixin,
                 state: stateClassOrMixin);
             break;
+          case Version.v5_functionComponent:
+            break;
         }
       }
     } else {
@@ -282,6 +291,27 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         yield PropsMapViewOrFunctionComponentDeclaration(
           factory: factory,
           props: propsClassOrMixin,
+        );
+      }
+    }
+  }
+
+  if(_functionComponentFactories.isNotEmpty) {
+    final allUnusedProps = [
+      members.props,
+      members.propsMixins,
+    ].expand((i) => i).whereNot(hasBeenConsumed);
+
+    for (final propsClassOrMixin in allUnusedProps) {
+      final associatedFactories = _functionComponentFactories.where((factory) =>
+      getPropsNameFromConfig(factory) == propsClassOrMixin.name.name);
+      if (associatedFactories.isNotEmpty) {
+        associatedFactories.forEach(consume);
+        consume(propsClassOrMixin);
+        yield FunctionComponentDeclaration(
+          factories: associatedFactories.toList(),
+          props: getUnion<BoilerplateProps, BoilerplatePropsMixin>(
+              propsClassOrMixin),
         );
       }
     }
