@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:analyzer/dart/ast/ast.dart';
+
 import 'ast_util.dart';
 import 'declarations.dart';
 import 'member_association.dart';
@@ -210,7 +212,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     ..sort((a, b) => b.versionConfidences.maxConfidence.confidence
         .compareTo(a.versionConfidences.maxConfidence.confidence));
   for (final factory in factoriesMostToLeastConfidence) {
-    if(factory.versionConfidences.maxConfidence.version == Version.v5_functionComponent) {
+    if (factory.isFunctionComponentFactory) {
       _functionComponentFactories.add(factory);
       // will be validated below the for-loop.
       continue;
@@ -278,8 +280,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
                 props: propsClassOrMixin,
                 state: stateClassOrMixin);
             break;
-          case Version.v5_functionComponent:
-            break;
         }
       }
     } else {
@@ -289,29 +289,28 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         consume(factory);
         consumePropsAndState();
         yield PropsMapViewOrFunctionComponentDeclaration(
-          factory: factory,
+          factories: [factory],
           props: propsClassOrMixin,
         );
       }
     }
   }
 
-  if(_functionComponentFactories.isNotEmpty) {
+  if (_functionComponentFactories.isNotEmpty) {
     final allUnusedProps = [
       members.props,
       members.propsMixins,
     ].expand((i) => i).whereNot(hasBeenConsumed);
 
     for (final propsClassOrMixin in allUnusedProps) {
-      final associatedFactories = _functionComponentFactories.where((factory) =>
-      getPropsNameFromConfig(factory) == propsClassOrMixin.name.name);
+      final associatedFactories = _functionComponentFactories
+          .where((factory) => getPropsNameFromConfig(factory) == propsClassOrMixin.name.name);
       if (associatedFactories.isNotEmpty) {
         associatedFactories.forEach(consume);
         consume(propsClassOrMixin);
-        yield FunctionComponentDeclaration(
+        yield PropsMapViewOrFunctionComponentDeclaration(
           factories: associatedFactories.toList(),
-          props: getUnion<BoilerplateProps, BoilerplatePropsMixin>(
-              propsClassOrMixin),
+          props: getUnion<BoilerplateProps, BoilerplatePropsMixin>(propsClassOrMixin),
         );
       }
     }
@@ -362,9 +361,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         final single = nonNullFactoryPropsOrComponents.single;
         final span = errorCollector.spanFor(single.node);
         if (single == factory) {
-          if(factory.versionConfidences.maxConfidence.version != Version.v5_functionComponent) {
-            errorCollector.addError(errorFactoryOnly, span);
-          }
+          errorCollector.addError(errorFactoryOnly, span);
         } else if (single == propsClass) {
           errorCollector.addError(errorPropsClassOnly, span);
         } else if (single == componentClass) {
@@ -378,9 +375,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         } else if (propsClass == null) {
           errorCollector.addError(errorNoProps, span);
         } else if (componentClass == null) {
-          if(factory.versionConfidences.maxConfidence.version != Version.v5_functionComponent) {
-            errorCollector.addError(errorNoComponent, span);
-          }
+          errorCollector.addError(errorNoComponent, span);
         }
         continue;
     }
@@ -399,7 +394,7 @@ const errorStateOnly =
     ' these are required to use UiState.';
 
 const errorFactoryOnly = 'Could not find matching props class in this file;'
-    ' this is required to declare a props map view,'
+    ' this is required to declare a props map view or function component,'
     ' and a component class is also required to declare a class-based component.';
 
 const errorPropsClassOnly = 'Could not find matching factory in this file;'

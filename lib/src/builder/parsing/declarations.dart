@@ -97,7 +97,6 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
     @required this.props,
     this.state,
   })  : assert(version != Version.v4_mixinBased),
-        assert(version != Version.v5_functionComponent),
         super(version);
 
   /// Validates that the proper annotations are present.
@@ -139,7 +138,6 @@ class LegacyAbstractPropsDeclaration extends BoilerplateDeclaration {
     @required Version version,
     @required this.props,
   })  : assert(version != Version.v4_mixinBased),
-        assert(version != Version.v5_functionComponent),
         super(version);
 
   /// Validates that if there are props that the props class has the correct annotation.
@@ -168,7 +166,6 @@ class LegacyAbstractStateDeclaration extends BoilerplateDeclaration {
     @required Version version,
     @required this.state,
   })  : assert(version != Version.v4_mixinBased),
-        assert(version != Version.v5_functionComponent),
         super(version);
 
   /// Validates that if there are state fields that the class has the correct annotation.
@@ -275,41 +272,6 @@ class ClassComponentDeclaration extends BoilerplateDeclaration
 class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
     with _TypedMapMixinShorthandDeclaration {
   /// The related factory instance.
-  final BoilerplateFactory factory;
-
-  /// The related props instance.
-  ///
-  /// Can be either [BoilerplateProps] or [BoilerplatePropsMixin], but not both.
-  final Union<BoilerplateProps, BoilerplatePropsMixin> props;
-
-  @override
-  get _members => [factory, props.either];
-
-  @override
-  get type => DeclarationType.propsMapViewOrFunctionComponentDeclaration;
-
-  @override
-  void validate(ErrorCollector errorCollector) {
-    super.validate(errorCollector);
-
-    _validateShorthand(errorCollector, PropsStateStringHelpers.props(),
-        propsOrState: props, shorthandUsage: factory.propsGenericArg ?? factory.node);
-  }
-
-  PropsMapViewOrFunctionComponentDeclaration({
-    @required this.factory,
-    @required this.props,
-  }) : super(Version.v4_mixinBased);
-}
-
-/// UPDATE THIS DOC COMMENT
-/// A boilerplate declaration for either a props map view or function component declared using
-/// the new mixin-based boilerplate, which have almost identical syntax and code generation.
-///
-/// See [BoilerplateDeclaration] for more info.
-class FunctionComponentDeclaration extends BoilerplateDeclaration
-    with _TypedMapMixinShorthandDeclaration {
-  /// The related factory instance.
   final List<BoilerplateFactory> factories;
 
   /// The related props instance.
@@ -321,7 +283,7 @@ class FunctionComponentDeclaration extends BoilerplateDeclaration
   get _members => [...factories, props.either];
 
   @override
-  get type => DeclarationType.functionComponentDeclaration;
+  get type => DeclarationType.propsMapViewOrFunctionComponentDeclaration;
 
   @override
   void validate(ErrorCollector errorCollector) {
@@ -329,15 +291,14 @@ class FunctionComponentDeclaration extends BoilerplateDeclaration
 
     for (final factory in factories) {
       _validateShorthand(errorCollector, PropsStateStringHelpers.props(),
-          propsOrState: props,
-          shorthandUsage: factory.propsGenericArg ?? factory.node);
+          propsOrState: props, shorthandUsage: factory.propsGenericArg ?? factory.node);
     }
   }
 
-  FunctionComponentDeclaration({
+  PropsMapViewOrFunctionComponentDeclaration({
     @required this.factories,
     @required this.props,
-  }) : super(Version.v5_functionComponent);
+  }) : super(Version.v4_mixinBased);
 }
 
 /// Common interface for a boilerplate declaration for either a props or state mixin of any

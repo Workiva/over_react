@@ -77,8 +77,9 @@ Union<A, B> _getNameMatchUnion<A extends BoilerplateMember, B extends Boilerplat
   return null;
 }
 
-Union<A, B> getUnion<A extends BoilerplateMember, B extends BoilerplateMember>(BoilerplateMember member) {
-  if(member is A) return Union.a(member);
+Union<A, B> getUnion<A extends BoilerplateMember, B extends BoilerplateMember>(
+    BoilerplateMember member) {
+  if (member is A) return Union.a(member);
 
   if (member is B) return Union.b(member);
 
@@ -127,9 +128,9 @@ Union<BoilerplateProps, BoilerplatePropsMixin> getPropsFor(
 /// ADD DOC COMMENT IF KEPT
 String getPropsNameFromConfig(BoilerplateFactory factory) {
   final rightHandSide = factory.node.variables.firstInitializer;
-  if(rightHandSide == null || rightHandSide is! MethodInvocation) return null;
+  if (rightHandSide == null || rightHandSide is! MethodInvocation) return null;
   final args = (rightHandSide as MethodInvocation).argumentList.arguments;
-  if(args.length < 2) return null;
+  if (args.length < 2) return null;
   final config = args[1].toSource();
   final startIndex = config.indexOf(RegExp(r'\$')) + 1;
   final configIndex = config.lastIndexOf(RegExp(r'Config'));

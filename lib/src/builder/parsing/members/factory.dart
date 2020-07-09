@@ -45,6 +45,11 @@ class BoilerplateFactory extends BoilerplateMember {
 
   bool get hasFactoryAnnotation => node.hasAnnotationWithName('Factory');
 
+  bool get isFunctionComponentFactory =>
+      node.variables.firstInitializer is MethodInvocation &&
+      (node.variables.firstInitializer as MethodInvocation).methodName.name ==
+          'uiFunctionComponent';
+
   /// Verifies the correct implementation of a boilerplate factory
   ///
   /// Major checks included are:
@@ -54,7 +59,6 @@ class BoilerplateFactory extends BoilerplateMember {
   @override
   void validate(Version version, ErrorCollector errorCollector) {
     switch (version) {
-      case Version.v5_functionComponent:
       case Version.v4_mixinBased:
         break;
       case Version.v2_legacyBackwardsCompat:
@@ -82,7 +86,7 @@ class BoilerplateFactory extends BoilerplateMember {
         anyDescendantIdentifiers(
             initializer, (identifier) => identifier.name == generatedFactoryName);
 
-    if (!referencesGeneratedFactory) {
+    if (!referencesGeneratedFactory && !isFunctionComponentFactory) {
       errorCollector.addError(
           'Factory variables are stubs for the generated factories, and must '
           'be initialized with or otherwise reference the generated factory. Should be: `$factoryName = $generatedFactoryName`',

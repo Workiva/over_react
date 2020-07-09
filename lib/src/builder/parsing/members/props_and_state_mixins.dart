@@ -76,8 +76,6 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
     }
 
     switch (version) {
-      case Version.v5_functionComponent:
-        break;
       case Version.v4_mixinBased:
         final node = this.node;
         if (node is MixinDeclaration) {
