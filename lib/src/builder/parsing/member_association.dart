@@ -127,14 +127,13 @@ Union<BoilerplateProps, BoilerplatePropsMixin> getPropsFor(
 
 /// ADD DOC COMMENT IF KEPT
 String getPropsNameFromConfig(BoilerplateFactory factory) {
+  if(factory.propsGenericArg != null) {
+    return factory.propsGenericArg.typeNameWithoutPrefix;
+  }
   final rightHandSide = factory.node.variables.firstInitializer;
   if (rightHandSide == null || rightHandSide is! MethodInvocation) return null;
-  final args = (rightHandSide as MethodInvocation).argumentList.arguments;
-  if (args.length < 2) return null;
-  final config = args[1].toSource();
-  final startIndex = config.indexOf(RegExp(r'\$')) + 1;
-  final configIndex = config.lastIndexOf(RegExp(r'Config'));
-  return config.substring(startIndex, configIndex == -1 ? config.length : configIndex);
+  final args = (rightHandSide as MethodInvocation).typeArguments.arguments.firstOrNull;
+  return args?.typeNameWithoutPrefix;
 }
 
 /// Retrieves the props for a given [member] if it is found in [states] or [stateMixins].
