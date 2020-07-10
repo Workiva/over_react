@@ -1538,7 +1538,9 @@ main() {
                 ]));
                 final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
 
-                expect(decl.factory?.name?.name, name);
+                expect(decl.factories, isNotNull);
+                expect(decl.factories.length, 1);
+                expect(decl.factories.first.name.name, name);
                 expect(decl.props.b?.name?.name, propsName);
                 expect(decl.version, Version.v4_mixinBased);
               });
@@ -1550,7 +1552,9 @@ main() {
                 ''');
                 final decl = expectSingleOfType<PropsMapViewOrFunctionComponentDeclaration>(declarations);
 
-                expect(decl.factory?.name?.name, name);
+                expect(decl.factories, isNotNull);
+                expect(decl.factories.length, 1);
+                expect(decl.factories.first.name.name, name);
                 expect(decl.props.a?.name?.name, propsName);
                 expect(decl.version, Version.v4_mixinBased);
               });

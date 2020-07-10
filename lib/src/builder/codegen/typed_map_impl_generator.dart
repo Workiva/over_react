@@ -382,14 +382,13 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         'propsFactory: PropsFactory(\n'
         'map: (map) => ${names.implName}(map),\n'
         'jsMap: (map) => ${names.jsMapImplName}(map),),\n'
-    // TODO: figure out how to connect this with factory
+        // TODO: figure out how to connect this with factory
         'componentName: \'${factoryNames.consumerName}\');\n\n';
   }
 
-
   @override
   void _generateFactory() {
-    if(isFunctionComponentDeclaration) {
+    if (isFunctionComponentDeclaration) {
       outputContentsBuffer.write(_generateFunctionComponentConfig());
     } else {
       super._generateFactory();
