@@ -99,6 +99,7 @@ class BoilerplateComponent extends BoilerplateMember {
         break;
       case Version.v2_legacyBackwardsCompat:
       case Version.v3_legacyDart2Only:
+        break;
     }
 
     const reservedMembers = {

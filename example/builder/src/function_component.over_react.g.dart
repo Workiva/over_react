@@ -85,9 +85,13 @@ const PropsMeta _$metaForBasicPropsMixin = PropsMeta(
   keys: $BasicPropsMixin.$propKeys,
 );
 
-_$$BasicPropsMixin _$Basic([Map backingProps]) => backingProps == null
-    ? _$$BasicPropsMixin$JsMap(JsBackedMap())
-    : _$$BasicPropsMixin(backingProps);
+final FunctionComponentConfig<_$$BasicPropsMixin> $BasicPropsMixinConfig =
+    FunctionComponentConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$BasicPropsMixin(map),
+          jsMap: (map) => _$$BasicPropsMixin$JsMap(map),
+        ),
+        componentName: 'Basic');
 
 // Concrete props implementation.
 //

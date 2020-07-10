@@ -1,4 +1,4 @@
-// Copyright 2016 Workiva Inc.
+// Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,21 +15,15 @@
 // ignore_for_file: prefer_generic_function_type_aliases
 library over_react.component_declaration.function_component;
 
-import 'dart:developer';
-
 import 'package:js/js_util.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
-import 'package:over_react/src/util/prop_errors.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react_client/react_interop.dart';
 
 export 'component_type_checking.dart' show isComponentOfType, isValidElementOfType;
-
-
-
 
 UiFactory<T> uiFunctionComponent<T extends UiProps>(
     dynamic Function(T props) functionComponent,

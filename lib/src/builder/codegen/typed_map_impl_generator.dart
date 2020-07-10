@@ -339,6 +339,8 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
 
   final String componentFactoryName;
 
+  final bool isFunctionComponentDeclaration;
+
   @override
   final Version version;
 
@@ -348,6 +350,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         member = declaration.props.either,
         isProps = true,
         componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName,
+        isFunctionComponentDeclaration = false,
         version = declaration.version;
 
   _TypedMapImplGenerator.state(ClassComponentDeclaration declaration)
@@ -356,6 +359,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         member = declaration.state.either,
         isProps = false,
         componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName,
+        isFunctionComponentDeclaration = false,
         version = declaration.version;
 
   _TypedMapImplGenerator.propsMapViewOrFunctionComponent(
@@ -366,10 +370,31 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         member = declaration.props.either,
         isProps = true,
         componentFactoryName = 'null',
+        isFunctionComponentDeclaration = declaration.factories.first.isFunctionComponentFactory,
         version = declaration.version;
 
   @override
   bool get isComponent2 => true;
+
+  String _generateFunctionComponentConfig() {
+    return 'final FunctionComponentConfig<${names.implName}> '
+        '${names.generatedMixinName}Config = FunctionComponentConfig(\n'
+        'propsFactory: PropsFactory(\n'
+        'map: (map) => ${names.implName}(map),\n'
+        'jsMap: (map) => ${names.jsMapImplName}(map),),\n'
+    // TODO: figure out how to connect this with factory
+        'componentName: \'${factoryNames.consumerName}\');\n\n';
+  }
+
+
+  @override
+  void _generateFactory() {
+    if(isFunctionComponentDeclaration) {
+      outputContentsBuffer.write(_generateFunctionComponentConfig());
+    } else {
+      super._generateFactory();
+    }
+  }
 
   @override
   void _generatePropsImpl() {
