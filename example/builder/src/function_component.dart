@@ -147,7 +147,7 @@ ReactElement functionComponentContent() {
 //      Dom.div()('prop basic1: ${props.basic1}'),
 //    );
 //  }, $basicConfig);
-
+  // FIXME right now this only works because a top level factory declaration made the config generate
   final basicFactory = uiFunctionComponent<BasicPropsMixin>((props) {
     return Dom.div()(
       Dom.div()('prop id: ${props.id}'),

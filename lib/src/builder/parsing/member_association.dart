@@ -127,7 +127,7 @@ Union<BoilerplateProps, BoilerplatePropsMixin> getPropsFor(
 
 /// ADD DOC COMMENT IF KEPT
 String getPropsNameFromConfig(BoilerplateFactory factory) {
-  if(factory.propsGenericArg != null) {
+  if (factory.propsGenericArg != null) {
     return factory.propsGenericArg.typeNameWithoutPrefix;
   }
   final rightHandSide = factory.node.variables.firstInitializer;
