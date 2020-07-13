@@ -85,13 +85,37 @@ const PropsMeta _$metaForBasicPropsMixin = PropsMeta(
   keys: $BasicPropsMixin.$propKeys,
 );
 
-final FunctionComponentConfig<_$$BasicPropsMixin> $BasicPropsMixinConfig =
+final FunctionComponentConfig<_$$BasicPropsMixin> $BasicPropsConfig =
     FunctionComponentConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$BasicPropsMixin(map),
           jsMap: (map) => _$$BasicPropsMixin$JsMap(map),
         ),
         componentName: 'Basic');
+
+final FunctionComponentConfig<_$$BasicPropsMixin> $Basic2PropsConfig =
+    FunctionComponentConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$BasicPropsMixin(map),
+          jsMap: (map) => _$$BasicPropsMixin$JsMap(map),
+        ),
+        componentName: 'Basic2');
+
+final FunctionComponentConfig<_$$BasicPropsMixin> $SimplePropsConfig =
+    FunctionComponentConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$BasicPropsMixin(map),
+          jsMap: (map) => _$$BasicPropsMixin$JsMap(map),
+        ),
+        componentName: 'Simple');
+
+final FunctionComponentConfig<_$$BasicPropsMixin> $Simple2PropsConfig =
+    FunctionComponentConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$BasicPropsMixin(map),
+          jsMap: (map) => _$$BasicPropsMixin$JsMap(map),
+        ),
+        componentName: 'Simple2');
 
 // Concrete props implementation.
 //
