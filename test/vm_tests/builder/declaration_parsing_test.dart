@@ -1623,6 +1623,20 @@ main() {
                 expect(decl.version, Version.v4_mixinBased);
               });
 
+              test('generic UiProps', () {
+                final leftHandType = hasLeftHandType ? 'UiFactory<UiProps>' : 'final';
+                final typeParams = hasLeftHandType ? '' : '<UiProps>';
+                setUpAndParse('''
+                  $leftHandType Foo = uiFunctionComponent$typeParams((props) {
+                    return Dom.div()();
+                  }, null);
+                ''');
+                final decl = expectSingleOfType<GenericFunctionComponentDeclaration>(declarations);
+
+                expect(decl.factory.name.name, 'Foo');
+                expect(decl.version, Version.v4_mixinBased);
+              });
+
               test('with multiple mixins in the same file', () {
                 final leftHandType = hasLeftHandType ? 'UiFactory<FooPropsMixin>' : 'final';
                 final leftHandType2 = hasLeftHandType ? 'UiFactory<BarPropsMixin>' : 'final';

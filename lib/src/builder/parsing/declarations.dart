@@ -23,6 +23,7 @@ import 'version.dart';
 
 /// The possible declaration types that the builder will look for.
 enum DeclarationType {
+  genericFunctionComponentDeclaration,
   propsMapViewOrFunctionComponentDeclaration,
   functionComponentDeclaration,
   classComponentDeclaration,
@@ -298,6 +299,29 @@ class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
   PropsMapViewOrFunctionComponentDeclaration({
     @required this.factories,
     @required this.props,
+  }) : super(Version.v4_mixinBased);
+}
+
+/// A boilerplate declaration for a generic function component declared using
+/// the new mixin-based boilerplate.
+///
+/// This is similar to [PropsMapViewOrFunctionComponentDeclaration], but it does
+/// not need a corresponding props mixin because it uses UiProps and no
+/// code is generated.
+///
+/// See [BoilerplateDeclaration] for more info.
+class GenericFunctionComponentDeclaration extends BoilerplateDeclaration
+    with _TypedMapMixinShorthandDeclaration {
+  final BoilerplateFactory factory;
+
+  @override
+  get _members => [factory];
+
+  @override
+  get type => DeclarationType.genericFunctionComponentDeclaration;
+
+  GenericFunctionComponentDeclaration({
+    @required this.factory,
   }) : super(Version.v4_mixinBased);
 }
 

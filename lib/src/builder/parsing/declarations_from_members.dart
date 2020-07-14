@@ -302,6 +302,13 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
       members.propsMixins,
     ].expand((i) => i).whereNot(hasBeenConsumed);
 
+    final genericFactories = _functionComponentFactories
+        .where((factory) => getPropsNameFromConfig(factory) == 'UiProps');
+    for (final factory in genericFactories) {
+      consume(factory);
+      yield GenericFunctionComponentDeclaration(factory: factory);
+    }
+
     for (final propsClassOrMixin in allUnusedProps) {
       final associatedFactories = _functionComponentFactories
           .where((factory) => getPropsNameFromConfig(factory) == propsClassOrMixin.name.name);

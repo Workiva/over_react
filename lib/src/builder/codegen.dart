@@ -37,6 +37,8 @@ class ImplGenerator {
       case DeclarationType.propsMapViewOrFunctionComponentDeclaration:
         _generatePropsMapViewOrFunctionComponent(declaration);
         break;
+      case DeclarationType.genericFunctionComponentDeclaration:
+        break;
       case DeclarationType.classComponentDeclaration:
         _generateClassComponent(declaration);
         break;
