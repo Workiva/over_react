@@ -655,6 +655,78 @@ main() {
         testStaticMetaField('abstract props', OverReactSrc.abstractProps());
         testStaticMetaField('abstract state', OverReactSrc.abstractState());
       });
+
+      group('and generates props config for function components', () {
+        String generatedPropsConfig(String propsName, String factoryName) {
+          return 'final FunctionComponentConfig<_\$\$$propsName> '
+            '\$${factoryName}PropsConfig = FunctionComponentConfig(\n'
+            'propsFactory: PropsFactory(\n'
+            'map: (map) => _\$\$$propsName(map),\n'
+            'jsMap: (map) => _\$\$$propsName\$JsMap(map),),\n'
+            'componentName: \'$factoryName\');\n';
+        }
+
+        String generatedPropsMapsForConfig(String propsName) {
+          return '// Concrete props implementation that can be backed by any [Map].\n'
+              '@Deprecated(\'This API is for use only within generated code.\'\' Do not reference it in your code, as it may change at any time.\')\n'
+              'class _\$\$$propsName\$PlainMap extends _\$\$$propsName {\n'
+              '  // This initializer of `_props` to an empty map, as well as the reassignment\n'
+              '  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217\n'
+              '  _\$\$$propsName\$PlainMap(Map backingMap) : this._props = {}, super._() {\n'
+              '     this._props = backingMap ?? {};\n'
+              '  }\n'
+              '  /// The backing props map proxied by this class.\n'
+              '  @override\n'
+              '  Map get props => _props;\n'
+              '  Map _props;\n'
+              '}\n'
+              '// Concrete props implementation that can only be backed by [JsMap],\n'
+              '// allowing dart2js to compile more optimal code for key-value pair reads/writes.\n'
+              '@Deprecated(\'This API is for use only within generated code.\'\' Do not reference it in your code, as it may change at any time.\')\n'
+              'class _\$\$$propsName\$JsMap extends _\$\$$propsName {\n'
+              '  // This initializer of `_props` to an empty map, as well as the reassignment\n'
+              '  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217\n'
+              '  _\$\$$propsName\$JsMap(JsBackedMap backingMap) : this._props = JsBackedMap(), super._() {\n'
+              '     this._props = backingMap ?? JsBackedMap();\n'
+              '  }\n'
+              '  /// The backing props map proxied by this class.\n'
+              '  @override\n'
+              '  JsBackedMap get props => _props;\n'
+              '  JsBackedMap _props;\n'
+              '}\n';
+        }
+
+        test('with multiple props mixins and function components in file', () {
+          setUpAndGenerate(r'''
+            mixin FooPropsMixin on UiProps {}
+            class FooProps = UiProps with FooPropsMixin;
+            
+            mixin BarPropsMixin on UiProps {}
+            
+            final Bar = uiFunctionComponent<BarPropsMixin>((props) {
+              return Dom.div()();
+            }, $BarPropsMixinConfig);
+            
+            final Foo = uiFunctionComponent<BarPropsMixin>((props) {
+              return Dom.div()();
+            }, $FooPropsConfig);
+                        
+            final Baz = uiFunctionComponent<FooProps>((props) {
+              return Dom.div()();
+            }, $BazPropsConfig);
+            
+            mixin UnusedPropsMixin on UiProps {}
+          ''');
+
+          expect(implGenerator.outputContentsBuffer.toString().contains(generatedPropsMapsForConfig('UnusedPropsMixin')), isFalse);
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('BarPropsMixin')));
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooProps')));
+
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsConfig('BarPropsMixin', 'Bar')));
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsConfig('BarPropsMixin', 'Foo')));
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsConfig('FooProps', 'Baz')));
+        });
+      });
     });
 
     group('logs an error when', () {

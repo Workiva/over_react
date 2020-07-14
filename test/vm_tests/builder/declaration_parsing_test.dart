@@ -1612,9 +1612,15 @@ main() {
                   $leftHandType Foo = uiFunctionComponent$typeParams((props) {
                     return Dom.div()();
                   },  \$FooPropsConfig);
+                  mixin FooPropsMixin on UiProps {}
                   class FooProps = UiProps with FooPropsMixin;
                 ''');
-                final decl = expectSingleOfType<PropsMapViewOrFunctionComponentDeclaration>(declarations);
+
+                expect(declarations, unorderedEquals([
+                  isA<PropsMixinDeclaration>(),
+                  isA<PropsMapViewOrFunctionComponentDeclaration>(),
+                ]));
+                final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
 
                 expect(decl.factories, isNotNull);
                 expect(decl.factories.length, 1);
@@ -1834,11 +1840,45 @@ main() {
 
           test('a factory or a component class', () {
             setUpAndParse(propsSrc);
-            verify(logger.severe(contains(errorPropsClassOnly)));;
+            verify(logger.severe(contains(errorPropsClassOnly)));
           });
 
           test('a component or props class', () {
             setUpAndParse(factorySrc);
+            verify(logger.severe(contains(errorFactoryOnly)));
+          });
+        });
+
+        group('a function component is declared', () {
+          test('without a props mixin', () {
+            setUpAndParse(r'''
+              final Foo = uiFunctionComponent<FooProps>((props) {
+                return Dom.div()();
+              }, $FooPropsConfig);
+            ''');
+            verify(logger.severe(contains(errorFactoryOnly)));
+          });
+
+          test('without a matching props mixin', () {
+            setUpAndParse(r'''
+              mixin FooPropsMixin on UiProps {}
+              final Foo = uiFunctionComponent<FooProps>((props) {
+                return Dom.div()();
+              }, $FooPropsConfig);
+            ''');
+            verify(logger.severe(contains(errorFactoryOnly)));
+          });
+
+          test('with a props mixin that is used by a component class', () {
+            setUpAndParse(r'''
+              UiFactory<FooProps> Foo = _$Foo;
+              mixin FooProps on UiProps {}
+              class FooComponent extends UiComponent2<FooProps> {}
+              
+              final Foo = uiFunctionComponent<FooProps>((props) {
+                return Dom.div()();
+              }, $FooPropsConfig);
+            ''');
             verify(logger.severe(contains(errorFactoryOnly)));
           });
         });

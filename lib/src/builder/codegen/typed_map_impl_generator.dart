@@ -365,7 +365,6 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   _TypedMapImplGenerator.propsMapViewOrFunctionComponent(
       PropsMapViewOrFunctionComponentDeclaration declaration)
       : names = TypedMapNames(declaration.props.either.name.name),
-        assert(declaration.factories.length == 1),
         factoryNames =
             declaration.factories.map((factory) => FactoryNames(factory.name.name)).toList(),
         member = declaration.props.either,
