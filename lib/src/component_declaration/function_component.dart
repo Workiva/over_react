@@ -21,15 +21,12 @@ import 'package:over_react/over_react.dart';
 import 'package:react/react.dart' as react;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_backed_map.dart';
-import 'package:react/react_client/react_interop.dart';
 
 export 'component_type_checking.dart' show isComponentOfType, isValidElementOfType;
 
 UiFactory<T> uiFunctionComponent<T extends UiProps>(
     dynamic Function(T props) functionComponent,
-    // FIXME allow passing in displayName for generic function components
-    FunctionComponentConfig<T> config,
-    {
+    FunctionComponentConfig<T> config, {
       PropsFactory<T> propsFactory,
       String displayName,
       void Function(UiFunctionComponentStatics<T>) initStatics,
@@ -48,19 +45,7 @@ UiFactory<T> uiFunctionComponent<T extends UiProps>(
     return functionComponent(propsFactory.jsMap(props as JsBackedMap));
   }
 
-  /// FIXME DartFunctionComponent should be JsBackedMap?
-  final factory = react.registerFunctionComponent(_uiFunctionComponentWrapper,
-      displayName: displayName);
-
-  if (propsFactory == null) {
-    // todo allow passing in of custom uiFactory/typedPropsFactory
-    // TODO make it easier to pass in parts of generatedInfo
-    if (T != UiProps && T != GenericUiProps) {
-      throw ArgumentError('config.propsFactory must be provided when using custom props classes');
-    }
-    propsFactory = PropsFactory.fromUiFactory(([backingMap]) => GenericUiProps(factory, backingMap)) as PropsFactory<T>;
-  }
-
+  ReactDartFunctionComponentFactoryProxy factory;
   if (initStatics != null) {
     final statics = UiFunctionComponentStatics<T>._(
         newProps: () => propsFactory.jsMap(JsBackedMap()),
@@ -69,11 +54,26 @@ UiFactory<T> uiFunctionComponent<T extends UiProps>(
     initStatics(statics);
 
     if (statics.defaultProps != null) {
-      // fixme need to move to react-dart
-      (factory.reactFunction as ReactClass).defaultProps = JsBackedMap.from(statics.defaultProps).jsObject;
+      factory = react.registerFunctionComponent(_uiFunctionComponentWrapper,
+          displayName: displayName, defaultProps: statics.defaultProps);
     }
     // fixme need to implement in react-dart
-//    if (statics.propTypes != null) {}
+    if (statics.propTypes != null) {
+
+    }
+  } else {
+    // FIXME DartFunctionComponent should be JsBackedMap?
+    factory = react.registerFunctionComponent(_uiFunctionComponentWrapper,
+        displayName: displayName);
+  }
+
+  if (propsFactory == null) {
+    // todo allow passing in of custom uiFactory/typedPropsFactory
+    // TODO make it easier to pass in parts of generatedInfo
+    if (T != UiProps && T != GenericUiProps) {
+      throw ArgumentError('config.propsFactory must be provided when using custom props classes');
+    }
+    propsFactory = PropsFactory.fromUiFactory(([backingMap]) => GenericUiProps(factory, backingMap)) as PropsFactory<T>;
   }
 
   T _uiFactory([Map backingMap]) {
@@ -91,19 +91,13 @@ UiFactory<T> uiFunctionComponent<T extends UiProps>(
   return _uiFactory;
 }
 
-String getFunctionName(Function f) {
-  if (f == null) throw ArgumentError.notNull('f');
+String getFunctionName(Function function) {
+  if (function == null) throw ArgumentError.notNull('f');
 
-  // DDC
-  // todo
+  final functionName = getProperty(function, 'name');
+  if(functionName.toString().isNotEmpty && functionName != null) return functionName;
 
-  // Dart2js
-  final constructor = getProperty(f, 'constructor');
-  if (constructor != null) {
-    return getProperty(constructor, 'name');
-  }
-
-  return null;
+  return 'UiFunctionComponent';
 }
 
 class UiFunctionComponentStatics<T> {
@@ -114,11 +108,6 @@ class UiFunctionComponentStatics<T> {
   final T Function() newProps;
 
   UiFunctionComponentStatics._({this.keyFor, this.newProps});
-//
-//  T newProps() => this._newProps();
-//
-//  String keyFor(void Function(T) accessProps) => this._keyFor(accessProps);
-
 }
 
 class GenericUiProps extends UiProps {
