@@ -409,7 +409,7 @@ main() {
             ConnectedCounter =
                 connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
               mapStateToProps: (state) {
-                methodsCalled.add({'called': 'mapStateToProps'});
+                methodsCalled.add({'called': 'mapStateToProps', 'state': state});
                 return ConnectFluxCounter()..currentCount = state.count;
               },
               mapActionsToProps: (actions) =>
@@ -428,16 +428,16 @@ main() {
 
             jacket = mount(
               (ReduxProvider()..store = store1)(
-                (ConnectedCounter()
-                  ..ref = counterRef
-                  ..currentCount = 0
-                )('test'),
+                (ConnectedCounter()..ref = counterRef)('test'),
               ),
             );
 
             // Because `areStatesEqual` is false, we expect additional method calls
-            expect(methodsCalled.map((methodObj) => methodObj['called']),
-                expectedMountMethodCalls);
+            expect(
+                methodsCalled,
+                expectedMountMethodCalls
+                    .map((expected) => containsPair('called', expected))
+                    .toList());
             for (final methodCall in methodsCalled) {
               if (methodCall['called'] == 'areStatePropsEqual') {
                 expect(methodCall['prev'], isA<ConnectFluxCounterProps>());
@@ -455,8 +455,11 @@ main() {
             await Future(() {});
 
             // store.state.count should be 1 but does not re-render due to override in `areStatePropsEqual`
-            expect(methodsCalled.map((methodObj) => methodObj['called']),
-                expectedUpdateMethodCalls);
+            expect(
+                methodsCalled,
+                expectedUpdateMethodCalls
+                    .map((expected) => containsPair('called', expected))
+                    .toList());
             for (final methodCall in methodsCalled) {
               if (methodCall['called'] == 'areStatePropsEqual') {
                 expect(methodCall['prev'], isA<ConnectFluxCounterProps>());
@@ -475,8 +478,11 @@ main() {
             final ReduxConnectedCounter =
                 connect<redux_store.CounterState, CounterProps>(
               mapStateToProps: (state) {
-                methodsCalled.add({'called': 'mapStateToProps'});
-                return ConnectFluxCounter()..currentCount = state.count;
+                methodsCalled.add({
+                  'called': 'mapStateToProps',
+                  'state': state,
+                });
+                return Counter()..currentCount = state.count;
               },
               areStatePropsEqual: (next, prev) {
                 methodsCalled.add({
@@ -501,8 +507,11 @@ main() {
             );
 
             // Because `areStatesEqual` is false, we expect additional method calls
-            expect(methodsCalled.map((methodObj) => methodObj['called']),
-                expectedMountMethodCalls);
+            expect(
+                methodsCalled,
+                expectedMountMethodCalls
+                    .map((expected) => containsPair('called', expected))
+                    .toList());
             for (final methodCall in methodsCalled) {
               if (methodCall['called'] == 'areStatePropsEqual') {
                 expect(methodCall['prev'], isA<CounterProps>());
@@ -519,8 +528,14 @@ main() {
             await Future(() {});
 
             // store.state.count should be 1 but does not re-render due to override in `areStatePropsEqual`
-            expect(expectedUpdateMethodCalls, methodsCalled.map((methodObj) => methodObj['called']).toList(),
-                reason: 'expectedUpdateMethodCalls should match connect\'s sequence of calls');
+            expect(
+                methodsCalled,
+                expectedUpdateMethodCalls
+                    .map((expected) => containsPair('called', expected))
+                    .toList(),
+                reason:
+                    'connect\'s sequence of calls should match expectedUpdateMethodCalls');
+
             for (final methodCall in methodsCalled) {
               if (methodCall['called'] == 'areStatePropsEqual') {
                 expect(methodCall['prev'], isA<CounterProps>());

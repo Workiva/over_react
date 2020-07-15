@@ -31,6 +31,12 @@ class CounterState {
     this.count = 0,
     this.name = 'Counter',
   });
+
+  @override
+  toString() => 'CounterState:${{
+        'count': count,
+        'name': name,
+      }}';
 }
 
 int _counterDecrementReducer(int currentCount, DecrementAction action) {
