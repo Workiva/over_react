@@ -1,6 +1,12 @@
 import 'package:over_react/over_react.dart';
 
+part 'duplicate_prop_cascade.over_react.g.dart';
+
 duplicatePropCascade() {
+  (Compound()
+    ..size = 2
+    ..dom.size = 2 // Should not lint as dupe
+  )();
   (Dom.div()
     ..id = '1'
     ..dom.id = 'foo' // Should lint as dupe of `id`
@@ -34,4 +40,17 @@ duplicatePropCascadeWithMoreThanOneDupe() {
     ..title = 'winner'
     ..aria.label = 'chicken dinner'
   )('foo');
+}
+
+UiFactory<CompoundProps> Compound =
+    // ignore: undefined_identifier
+    _$Compound;
+
+mixin CompoundProps on UiProps {
+  int size;
+}
+
+class CompoundComponent extends UiComponent2<CompoundProps> {
+  @override
+  render() {}
 }

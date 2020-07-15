@@ -31,6 +31,10 @@ class DuplicatePropCascadeDiagnostic extends ComponentUsageDiagnosticContributor
         return '${prop.targetName.name}.${prop.name.name}';
       }
 
+      if (prop.namespace != 'DomPropsMixin') {
+        return '${prop.namespace}.${prop.name.name}';
+      }
+
       return prop.name.name;
     });
     final propUsagesWithDuplicates = propUsagesByName.values.where((usages) => usages.length > 1);
