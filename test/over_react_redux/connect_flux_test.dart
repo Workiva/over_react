@@ -497,7 +497,7 @@ main() {
               areStatesEqual: (_, __) => false,
             )(Counter);
 
-            // In this setup with an idiomatic redux store, w'd expect double the updates when the state is updated
+            // In this setup with an idiomatic redux store, we'd expect double the updates when the state is updated
             // since we're dealing with a new state object instance every time.
             //
             // However, in Flux, it's the same, identical state object (the Flux store) every time

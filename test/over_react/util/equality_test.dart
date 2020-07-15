@@ -50,7 +50,7 @@ main() {
       });
     });
 
-    group('returns false for', () {
+    group('returns true for', () {
       test('different maps that are equal', () {
         final a = {
           1: 'one',
@@ -88,7 +88,7 @@ main() {
         expectAreMapsShallowIdenticalCommutatively(a, b, isFalse);
       });
 
-      test('maps with different keys', () {
+      test('maps with some differing keys and a common set of equal pairs', () {
         final a = {
           1: 'one',
           2: 'two',
@@ -100,7 +100,19 @@ main() {
         expectAreMapsShallowIdenticalCommutatively(a, b, isFalse);
       });
 
-      test('maps with different values', () {
+      test('maps with different keys but equal values', () {
+        final a = {
+          1: 'foo',
+          2: 'bar',
+        };
+        final b = {
+          3: 'foo',
+          4: 'bar',
+        };
+        expectAreMapsShallowIdenticalCommutatively(a, b, isFalse);
+      });
+
+      test('maps with different values but equal keys', () {
         final a = {
           1: 'one',
           2: 'two',
