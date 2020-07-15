@@ -34,6 +34,8 @@ class _$ConnectFluxCounterProps extends UiProps {
   void Function() decrement;
 
   void Function() mutateStoreDirectly;
+
+  FluxActions actions;
 }
 
 @Component2()
@@ -54,7 +56,7 @@ class ConnectFluxCounterComponent
           } else if (props.increment != null) {
             props.increment();
           } else {
-            fluxActions.incrementAction();
+            props.actions.incrementAction();
           }
         }
       )('+'),

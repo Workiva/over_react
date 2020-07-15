@@ -86,19 +86,35 @@ main() {
     });
   }
 
-  void _commonVariadicChildrenTests(UiProps builder) {
+  void _commonVariadicChildrenTests(UiProps builder, {bool alwaysExpectList = false}) {
     // There are different code paths for 0, 1, 2, 3, 4, 5, 6, and 6+ arguments.
     // Test all of them.
     group('a number of variadic children:', () {
-      test('0', () {
-        final instance = builder();
-        expect(getJsChildren(instance), isNull);
-      });
+      if (alwaysExpectList) {
+        test('0', () {
+          final instance = builder();
+          expect(getJsChildren(instance), []);
 
-      test('1', () {
-        final instance = builder(1);
-        expect(getJsChildren(instance), equals(1));
-      });
+          final instance2 = builder();
+          expect(getJsChildren(instance2), same(getJsChildren(instance)),
+              reason: 'zero arg children should always be the same List instance for perf reasons');
+        });
+
+        test('1', () {
+          final instance = builder(1);
+          expect(getJsChildren(instance), [1]);
+        });
+      } else {
+        test('0', () {
+          final instance = builder();
+          expect(getJsChildren(instance), isNull);
+        });
+
+        test('1', () {
+          final instance = builder(1);
+          expect(getJsChildren(instance), equals(1));
+        });
+      }
 
       const firstGeneralCaseVariadicChildCount = 2;
       const maxSupportedVariadicChildCount = 40;
@@ -137,9 +153,22 @@ main() {
         stopRecordingValidationWarnings();
       });
 
-      group('renders a DOM component with the correct children when', () {
-        _commonVariadicChildrenTests(Dom.div());
+      group('creates a ReactElement with the correct children:', () {
+        group('DomProps:', () {
+          _commonVariadicChildrenTests(Dom.div());
+        });
 
+        // Need to test these separately because they have different JS factory proxies
+        group('Dart Component:', () {
+          _commonVariadicChildrenTests(TestComponent());
+        });
+
+        group('Dart Component2:', () {
+          _commonVariadicChildrenTests(TestComponent2(), alwaysExpectList: true);
+        });
+      });
+
+      group('renders a DOM component with the correct children when', () {
         test('no children are passed in', () {
           var renderedNode = renderAndGetDom(Dom.div()());
 
@@ -201,8 +230,6 @@ main() {
       }, tags: 'ddc');
 
       group('renders a composite Dart component with the correct children when', () {
-        _commonVariadicChildrenTests(TestComponent());
-
         test('no children are passed in', () {
 
           var renderedInstance = render(TestComponent()());

@@ -541,7 +541,10 @@ abstract class UiProps extends MapBase
     // Use `identical` since it compiles down to `===` in dart2js instead of calling equality helper functions,
     // and we don't want to allow any object overriding `operator==` to claim it's equal to `_notSpecified`.
     if (identical(c1, notSpecified)) {
-      childArguments = [];
+      // Use a const list so that empty children prop values are always identical
+      // in the JS props, resulting in JS libraries (e.g., react-redux) and Dart code alike
+      // not marking props as having changed as a result of rerendering the ReactElement with a new list.
+      childArguments = const [];
     } else if (identical(c2, notSpecified)) {
       childArguments = [c1];
     } else if (identical(c3, notSpecified)) {
