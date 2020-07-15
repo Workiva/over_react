@@ -471,12 +471,12 @@ main() {
           });
 
           test(
-              'matches a standard Redux component when `areStatesEqual` is false',
+              'matches a Redux component with impure state when `areStatesEqual` is false',
               () async {
             final localReduxRef = createRef<CounterComponent>();
 
             final ReduxConnectedCounter =
-                connect<redux_store.CounterState, CounterProps>(
+                connect<redux_store.ImpureCounterState, CounterProps>(
               mapStateToProps: (state) {
                 methodsCalled.add({
                   'called': 'mapStateToProps',
@@ -497,11 +497,18 @@ main() {
               areStatesEqual: (_, __) => false,
             )(Counter);
 
-            final reduxStore = redux.Store(redux_store.counterStateReducer,
-                initialState: redux_store.CounterState());
+            // In this setup with an idiomatic redux store, w'd expect double the updates when the state is updated
+            // since we're dealing with a new state object instance every time.
+            //
+            // However, in Flux, it's the same, identical state object (the Flux store) every time
+            // which allows react-redux's memoization to skip the extra calls after the component renders.
+            //
+            // Simulate this by using an Redux store that has the same impurity as Flux stores.
+            final impureReduxStore = redux.Store(redux_store.impureCounterStateReducer,
+                initialState: redux_store.ImpureCounterState());
 
             jacket = mount(
-              (ReduxProvider()..store = reduxStore)(
+              (ReduxProvider()..store = impureReduxStore)(
                 (ReduxConnectedCounter()..ref = localReduxRef)('test'),
               ),
             );

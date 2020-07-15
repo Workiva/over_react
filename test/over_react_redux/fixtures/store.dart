@@ -88,3 +88,25 @@ BigCounterState bigCounterStateReducer(BigCounterState state, action) => BigCoun
   bigCount: bigCounterActionsReducer(state.bigCount, action),
 );
 
+///////////////////////////////  "ImpureCounter" ///////////////////////////////
+
+class ImpureCounterState {
+  int count;
+  String name;
+
+  ImpureCounterState({
+    this.count = 0,
+    this.name = 'Counter',
+  });
+
+  @override
+  toString() => 'CounterState:${{
+    'count': count,
+    'name': name,
+  }}';
+}
+
+ImpureCounterState impureCounterStateReducer(
+        ImpureCounterState state, action) =>
+    // This is the impure part: modify the state directly
+    state..count = counterActionsReducer(state.count, action);
