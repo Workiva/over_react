@@ -6,6 +6,9 @@ duplicatePropCascade() {
   (Compound()
     ..size = 2
     ..dom.size = 2 // Should not lint as dupe
+    ..dom.hidden = false
+    ..aria.hidden = false
+    ..hidden = false // None of these "hidden" props should be linted as dupes
   )();
   (Dom.div()
     ..id = '1'
@@ -48,6 +51,7 @@ UiFactory<CompoundProps> Compound =
 
 mixin CompoundProps on UiProps {
   int size;
+  bool hidden;
 }
 
 class CompoundComponent extends UiComponent2<CompoundProps> {

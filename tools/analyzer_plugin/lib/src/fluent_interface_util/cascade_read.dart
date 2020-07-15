@@ -48,9 +48,6 @@ class PropAssignment {
   /// ```
   Identifier get targetName => leftHandSide.target?.tryCast<PropertyAccess>()?.propertyName;
 
-  /// Returns the name of the mixin the prop lives within that serves as its "namespace".
-  String get namespace => leftHandSide.propertyName.staticElement.enclosingElement.name;
-
   /// A range that can be used in a `builder.addDeletion` call to remove this prop.
   ///
   /// Includes the space between the previous token and the start of this assignment, so that
