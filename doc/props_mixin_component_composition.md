@@ -7,13 +7,15 @@ This example builds on that, showing a lightweight example a common use-case for
 We'll show two components 
 
 1. A `Bar` component that has its own props API - and default rendering behavior when rendered standalone.
-2. A `FooBar` component that has its own props API in addition to the `Bar` props API that it will use to allow consumers to compose `Bar` with `FooBar` by forwarding props from `BarPropsMixin` to the `Bar` component it renders.
+2. A `FooBar` component that has its own props API, in addition to the `Bar` props API. This allows consumers to set props declared in `BarPropsMixin`, which will be forwarded to the `Bar` component it renders.
 
 ### Bar Component
 ```dart
 import 'package:over_react/over_react.dart';
 
-UiFactory<BarPropsMixin> Bar = _$Bar;
+part 'bar.over_react.g.dart';
+
+UiFactory<BarPropsMixin> Bar = _$Bar; // ignore: undefined_identifier
 
 mixin BarPropsMixin on UiProps {
   Set<int> qux;
@@ -52,7 +54,9 @@ To compose the `Bar` component using `FooBar`, we'll expose the prop API for bot
 import 'package:over_react/over_react.dart';
 import 'bar.dart';
 
-UiFactory<FooBarProps> FooBar = _$FooBar;
+part 'foo_bar.over_react.g.dart';
+
+UiFactory<FooBarProps> FooBar = _$FooBar; // ignore: undefined_identifier
 
 mixin FooPropsMixin on UiProps {
   bool baz;

@@ -206,7 +206,7 @@ mixin FooProps on UiProps {
   List<int> bizzles;
 }
 ```
-* **Note:** The [builder] will make the concrete getters and setters available from the mixin fields you author in a generated class. To mix props classes together, the mixin class should be used rather than the generated props class. See [_"With other mixins"_](#with-other-mixins) below for more information.
+* * **Note:** The [builder] generates a class with getters and setters overriding the fields you declare in your mixin, but you don't need to worry about that generated class. To use props from another mixin, simply mix it in! See [_"With other mixins"_](#with-other-mixins) below for more information.
 
 &nbsp;
 
@@ -538,8 +538,8 @@ ReactElement renderResizeHandle() {
 * OverReact DOM components return a new `DomProps` builder, which can be used
 to render them via our [fluent interface](#fluent-style-component-consumption)
 as shown in the examples above.
-  * `DomProps` has statically-typed getters and setters for all "ubiquitous" HTML attribute props.
-  * The `domProps()` function is also available to create a new typed Map or a typed view into an existing Map. Useful for manipulating DOM props and adding DOM props to components that don’t forward them directly, or to access a dom prop from a plain map in a lifecycle method as shown below.
+  * `DomProps` has statically-typed getters and setters for all HTML attribute props.
+  * The `domProps()` function is also available to create a new typed Map or a typed view into an existing Map. Useful for manipulating DOM props and adding DOM props to components that don’t forward them directly, or to access a DOM prop from a plain map in a lifecycle method as shown below.
   
     ```dart
     @override
@@ -742,7 +742,7 @@ that you get for free from OverReact, you're ready to start building your own cu
     import 'package:over_react/over_react.dart';
     part 'foo_component.over_react.g.dart';
 
-    UiFactory<FooProps> Foo = _$Foo;
+    UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier
 
     mixin FooProps on UiProps {
       // Props go here, declared as fields:
@@ -772,7 +772,7 @@ that you get for free from OverReact, you're ready to start building your own cu
     import 'package:over_react/over_react.dart';
     part 'foo_component.over_react.g.dart';
 
-    UiFactory<BarProps> Bar = _$Bar;
+    UiFactory<BarProps> Bar = _$Bar; // ignore: undefined_identifier
 
     mixin BarProps on UiProps {
       // Props go here, declared as fields:
@@ -826,13 +826,13 @@ another component.
     /// * Similar to [SplitButton].
     ///
     /// See: <https://link-to-any-relevant-documentation>.
-    UiFactory<DropdownButtonProps> DropdownButton = _$DropdownButton;
+    UiFactory<DropdownButtonProps> DropdownButton = _$DropdownButton; // ignore: undefined_identifier
     ```
 
   _Bad:_
     ```dart
     /// Component Factory for a dropdown button component.
-    UiFactory<DropdownButtonProps> DropdownButton = _$DropdownButton;
+    UiFactory<DropdownButtonProps> DropdownButton = _$DropdownButton; // ignore: undefined_identifier
     ```
 
 &nbsp;
