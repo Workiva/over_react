@@ -1,3 +1,5 @@
+import 'package:over_react/over_react.dart';
+
 /// Returns whether maps [a] and [b] have [identical] sets of values for the same keys.
 //
 // Ported from https://github.com/reduxjs/react-redux/blob/573db0bfc8d1d50fdb6e2a98bd8a7d4675fecf11/src/utils/shallowEqual.js
@@ -29,7 +31,16 @@ bool areMapsShallowIdentical(Map a, Map b) {
   if (a.length != b.length) return false;
   for (final key in a.keys) {
     if (!b.containsKey(key)) return false;
-    if (!identical(b[key], a[key])) return false;
+    final bVal = b[key];
+    final aVal = a[key];
+    // Functions tear-offs are not canonicalized so we have to do a simple
+    // equality check on them instead of checking identity.
+    // See: <https://github.com/dart-lang/sdk/issues/31665#issuecomment-352678783>
+    if (bVal is Function && aVal is Function) {
+      if (bVal != aVal) return false;
+    } else {
+      if (!identical(bVal, aVal)) return false;
+    }
   }
   return true;
 }
