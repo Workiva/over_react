@@ -24,47 +24,15 @@ import '../../test_util/test_util.dart';
 
 /// Main entry point for `PureUiComponent` testing
 main() {
-  test('_ReactElementSafeEquality()', () {
-    ReactElement vDomElementAsPropValue = PureTest()();
-    ReactElement updatedVDomElementAsPropValue = (PureTest()..id = 'updated')();
-
-    final _jacket = mount((PureTest()..someVDomEl = vDomElementAsPropValue)());
-
-    // We're not particularly concerned with the equality here; we sort of
-    // expect it to be wrong since it doesn't no real comparison of the
-    // elements. We're mostly just concerned that it doesn't error when
-    // passed a ReactElement.
-    expect(() => _jacket.rerender((PureTest()..someVDomEl = updatedVDomElementAsPropValue)()), returnsNormally);
-  });
-
   group('PureUiComponent', () {
     const initialChildren = ['initial'];
     const nextChildren = ['next'];
     TestJacket<PureTestWrapperComponent> jacket;
-    UiFactory<SharedPureTestChildPropsMixin> childFactory;
 
-    PureTestComponentMixin getChildPureComponent() => jacket.getDartInstance().pureComponentRef.current;
-
-    PureTestWrapperProps wrapperBuilderWithInitialProps({
-      UiFactory<SharedPureTestChildPropsMixin> customChildFactory,
-      bool addVDomElToProps = false,
-    }) {
-      customChildFactory ??= childFactory;
-
-      final builder = PureTestWrapper()..childFactory = customChildFactory;
-
-      if (addVDomElToProps) {
-        builder.someVDomEl = PureTest()();
-      }
-
-      return builder;
-    }
+    PureTestComponent getChildPureComponent() => jacket.getDartInstance().pureComponentRef.current;
 
     void doInitialRender({bool supportsPropChildren = true, bool addVDomElToProps = false}) {
-      childFactory = supportsPropChildren
-          ? PureTest
-          : PureTestWithoutChildrenSupport;
-      jacket = mount(wrapperBuilderWithInitialProps(addVDomElToProps: addVDomElToProps)(
+      jacket = mount(PureTestWrapper()(
         initialChildren,
       ));
       final pureDartComponent = getChildPureComponent();
@@ -80,7 +48,6 @@ main() {
     }
 
     tearDown(() {
-      childFactory = null;
       jacket = null;
     });
 
@@ -97,7 +64,7 @@ main() {
         test('unless the redraw results in new props being received', () {
           doInitialRender();
           final currentSharedBoolPropValue = jacket.getDartInstance().props.sharedBoolProp;
-          jacket.rerender((wrapperBuilderWithInitialProps()..sharedBoolProp = !currentSharedBoolPropValue)(
+          jacket.rerender((PureTestWrapper()..sharedBoolProp = !currentSharedBoolPropValue)(
             initialChildren,
           ));
 
@@ -107,7 +74,7 @@ main() {
 
         test('unless the redraw results in a new prop with a ReactElement value being received', () {
           doInitialRender(addVDomElToProps: true);
-          jacket.rerender((wrapperBuilderWithInitialProps()..someVDomEl = (PureTest()..id = 'updated')())(
+          jacket.rerender((PureTestWrapper()..someVDomEl = (PureTest()..id = 'updated')())(
             initialChildren,
           ));
 
@@ -117,24 +84,12 @@ main() {
 
         test('unless the redraw results in new children being received', () {
           doInitialRender();
-          jacket.rerender(wrapperBuilderWithInitialProps()(
+          jacket.rerender(PureTestWrapper()(
             nextChildren,
           ));
 
           expect(jacket.getDartInstance().redrawCount, 1);
           expect(getChildPureComponent().redrawCount, 1);
-        });
-
-        test('even if the redraw results in new children being received when supportsPropChildren is false', () {
-          doInitialRender(supportsPropChildren: false);
-          jacket.rerender(wrapperBuilderWithInitialProps(customChildFactory: PureTestWithoutChildrenSupport)(
-            nextChildren,
-          ));
-
-          expect(jacket.getDartInstance().redrawCount, 1);
-          expect(getChildPureComponent().redrawCount, 0,
-              reason: 'Components with supportsPropChildren overridden to false '
-                  'should not redraw when the value of props.children updates');
         });
       });
     });

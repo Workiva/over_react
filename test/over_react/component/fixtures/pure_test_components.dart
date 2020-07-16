@@ -20,30 +20,23 @@ part 'pure_test_components.over_react.g.dart';
 
 UiFactory<PureTestWrapperProps> PureTestWrapper = _$PureTestWrapper; // ignore: undefined_identifier
 
-mixin PureTestWrapperPropsMixin on UiProps {
-  UiFactory<SharedPureTestChildPropsMixin> childFactory;
-}
-
-class PureTestWrapperProps = UiProps with SharedPureTestPropsMixin, PureTestWrapperPropsMixin;
+class PureTestWrapperProps = UiProps with SharedPureTestPropsMixin;
 
 class PureTestWrapperComponent extends UiComponent2<PureTestWrapperProps>
     with RedrawCounterMixin<PureTestWrapperProps> {
-  final pureComponentRef = createRef<PureTestComponentMixin>();
+  final pureComponentRef = createRef<PureTestComponent>();
 
   @override
-  get consumedProps => propsMeta.forMixins({
-    PureTestWrapperPropsMixin,
-  });
+  get consumedProps => [];
 
   @override
   get defaultProps => (newProps()
     ..addProps(SharedPureTestPropsMixin.defaultProps)
-    ..childFactory = PureTest
   );
 
   @override
   render() {
-    return (props.childFactory()
+    return (PureTest()
       ..modifyProps(addUnconsumedProps)
       ..childFuncProp = handleChildFunc
       ..ref = pureComponentRef
@@ -57,15 +50,30 @@ class PureTestWrapperComponent extends UiComponent2<PureTestWrapperProps>
 
 UiFactory<PureTestProps> PureTest = _$PureTest; // ignore: undefined_identifier
 
-class PureTestProps = UiProps with SharedPureTestPropsMixin, SharedPureTestChildPropsMixin;
+mixin PureTestPropsMixin on UiProps {
+  bool childBoolProp;
+  void Function() childFuncProp;
+}
 
-class PureTestState = UiState with SharedPureTestChildStateMixin;
+class PureTestProps = UiProps with SharedPureTestPropsMixin, PureTestPropsMixin;
+
+mixin PureTestState on UiState {
+  bool childBoolState;
+}
 
 class PureTestComponent extends UiStatefulComponent2<PureTestProps, PureTestState>
     with
         PureUiComponent<PureTestProps>,
-        RedrawCounterMixin<PureTestProps>,
-        PureTestComponentMixin<PureTestProps, PureTestState> {
+        RedrawCounterMixin<PureTestProps> {
+  @override
+  get defaultProps => (newProps()
+    ..addProps(SharedPureTestPropsMixin.defaultProps)
+    ..childBoolProp = false
+  );
+
+  @override
+  get initialState => (newState()..childBoolState = false);
+
   @override
   render() {
     return (Dom.div()..modifyProps(addUnconsumedDomProps))(
@@ -74,29 +82,7 @@ class PureTestComponent extends UiStatefulComponent2<PureTestProps, PureTestStat
   }
 }
 
-UiFactory<PureTestWithoutChildrenSupportProps> PureTestWithoutChildrenSupport =
-    _$PureTestWithoutChildrenSupport; // ignore: undefined_identifier
-
-class PureTestWithoutChildrenSupportProps = UiProps with SharedPureTestPropsMixin, SharedPureTestChildPropsMixin;
-
-class PureTestWithoutChildrenSupportState = UiState with SharedPureTestChildStateMixin;
-
-class PureTestWithoutChildrenSupportComponent
-    extends UiStatefulComponent2<PureTestWithoutChildrenSupportProps, PureTestWithoutChildrenSupportState>
-    with
-        PureUiComponent<PureTestWithoutChildrenSupportProps>,
-        RedrawCounterMixin<PureTestWithoutChildrenSupportProps>,
-        PureTestComponentMixin<PureTestWithoutChildrenSupportProps, PureTestWithoutChildrenSupportState> {
-  @override
-  bool get supportsPropChildren => false;
-
-  @override
-  render() {
-    return (Dom.hr()..modifyProps(addUnconsumedDomProps))();
-  }
-}
-
-/// Props shared between [PureTestWrapper], [PureTest] and [PureTestWithoutChildrenSupport].
+/// Props shared between [PureTestWrapper] and [PureTest].
 mixin SharedPureTestPropsMixin on UiProps {
   static final Map defaultProps = Map.unmodifiable(PureTest()
     ..sharedBoolProp = false
@@ -104,35 +90,4 @@ mixin SharedPureTestPropsMixin on UiProps {
 
   bool sharedBoolProp;
   ReactElement someVDomEl;
-}
-
-/// Props shared between [PureTest] and [PureTestWithoutChildrenSupport].
-mixin SharedPureTestChildPropsMixin on UiProps {
-  static final Map defaultProps = Map.unmodifiable(PureTest()
-    ..addProps(SharedPureTestPropsMixin.defaultProps)
-    ..childBoolProp = false
-  );
-
-  bool childBoolProp;
-  void Function() childFuncProp;
-}
-
-/// State shared between [PureTest] and [PureTestWithoutChildrenSupport].
-mixin SharedPureTestChildStateMixin on UiState {
-  bool childBoolState;
-}
-
-/// Behavior shared between [PureTest] and [PureTestWithoutChildrenSupport].
-mixin PureTestComponentMixin<T extends SharedPureTestChildPropsMixin, S extends SharedPureTestChildStateMixin>
-    on
-        UiStatefulComponent2<T, S>,
-        PureUiComponent<T>,
-        RedrawCounterMixin<T> {
-  @override
-  get defaultProps => (newProps()
-    ..addProps(SharedPureTestChildPropsMixin.defaultProps)
-  );
-
-  @override
-  get initialState => (newState()..childBoolState = false);
 }

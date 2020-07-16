@@ -12,57 +12,37 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:collection/collection.dart';
-import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 
 /// A mixin to make a [UiComponent2] instance behave
 /// like a [ReactJS `PureComponent`](https://reactjs.org/docs/react-api.html#reactpurecomponent).
 ///
-/// If your component does not support `props.children`, you can override [supportsPropChildren]
-/// to `false` for further optimizations.
+/// The value of `props.children` is not compared deeply by default, and any `ReactElement`s found within
+/// `props.children` are compared using [identical] _(analogous to `===` in JS)_ via [areMapsShallowIdentical].
+///
+/// If you want to optimize updates that are being caused by children, you can override [shouldComponentUpdate]
+/// with some custom logic _(see example below)_, or use memoization to prevent new `ReactElement` creation at
+/// your component's consumption-site - which will allow them to be seen as [identical] in the
+/// default [shouldComponentUpdate] implementation.
+///
+/// __Custom children equality check example:__
+///
+/// ```dart
+/// class YourComponent extends UiComponent2<YourProps> with PureUiComponent<YourProps> {
+///   @override
+///   bool shouldComponentUpdate(Map nextProps, Map nextState) {
+///     final currentPropsWithoutChildren = Map.of(this.props)..remove('children');
+///     final nextPropsWithoutChildren = Map.of(nextProps)..remove('children');
+///
+///     return !areMapsShallowIdentical(currentPropsWithoutChildren, nextPropsWithoutChildren)
+///         || !areMapsShallowIdentical(state, nextState)
+///         || !const ListEquality().equals(this.props['children'], nextProps['children']);
+///   }
+/// }
+/// ```
 mixin PureUiComponent<T extends UiProps> on UiComponent2<T> {
-  @mustCallSuper
   @override
   bool shouldComponentUpdate(Map nextProps, Map nextState) {
-    final currentPropsWithoutChildren = Map.of(this.props)..remove('children');
-    final nextPropsWithoutChildren = Map.of(nextProps)..remove('children');
-
-    bool shouldUpdate = true;
-
-    try {
-      shouldUpdate = !_deepCollectionEquality.equals(currentPropsWithoutChildren, nextPropsWithoutChildren) ||
-          !_deepCollectionEquality.equals(this.state, nextState) ||
-          (supportsPropChildren && !const ListEquality().equals(this.props['children'], nextProps['children']));
-    } catch (_) {
-      // Catch any errors if un-extensible objects are present within props / state,
-      // and simply update the component if/when this happens.
-    }
-
-    return shouldUpdate;
+    return !areMapsShallowIdentical(props, nextProps) || !areMapsShallowIdentical(state, nextState);
   }
-
-  /// Whether the component supports `props.children`.
-  ///
-  /// Set to false to skip an equality check of `props.children` within [shouldComponentUpdate].
-  bool get supportsPropChildren => true;
 }
-
-class _ReactElementSafeEquality<E> implements Equality<E> {
-  const _ReactElementSafeEquality();
-
-  @override
-  bool equals(Object e1, Object e2) => e1 == e2;
-
-  @override
-  // This returns 0 when the object is a ReactElement to work around
-  // https://github.com/dart-lang/sdk/issues/36354. The behavior of `hashCode`
-  // under dart2js is to return 0, so we do the same here. Under content-shell,
-  // if `e` is a function, it will likewise throw an error.
-  int hash(Object e) => e is! Function && isValidElement(e) ? 0 : e.hashCode;
-
-  @override
-  bool isValidKey(Object o) => true;
-}
-
-const _deepCollectionEquality = DeepCollectionEquality(_ReactElementSafeEquality());
