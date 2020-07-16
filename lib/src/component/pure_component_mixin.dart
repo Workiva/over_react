@@ -12,8 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:react/react.dart' as react show Component2;
-import 'package:over_react/src/util/equality.dart';
+import 'package:over_react/over_react.dart';
 
 /// A mixin to make a [react.Component2] instance behave
 /// like a [ReactJS `PureComponent`](https://reactjs.org/docs/react-api.html#reactpurecomponent).
@@ -43,7 +42,7 @@ import 'package:over_react/src/util/equality.dart';
 ///   )
 /// }
 /// ```
-mixin PureComponentMixin on react.Component2 {
+mixin PureComponentMixin<T extends UiProps> on UiComponent2<T> {
   @override
   bool shouldComponentUpdate(Map nextProps, Map nextState) {
     return !propsOrStateMapsEqual(props, nextProps) || !propsOrStateMapsEqual(state, nextState);
