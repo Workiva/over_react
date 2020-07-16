@@ -973,7 +973,7 @@ Yes please! ([__Please read our contributor guidelines first__][contributing-doc
 
 ## Versioning
 
-The `over_react` library adheres to [Semantic Versioning](http://semver.org/):
+The `over_react` library adheres to [Semantic Versioning](https://semver.org/):
 
 * Any API changes that are not backwards compatible will __bump the major version__ _(and reset the minor / patch)_.
 * Any new functionality that is added in a backwards-compatible manner will __bump the minor version__
