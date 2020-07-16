@@ -15,10 +15,10 @@
 import 'dart:async';
 import 'dart:html';
 
-import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
+import 'package:over_react/src/util/equality.dart';
 import 'package:redux/redux.dart' as redux;
 import 'package:w_flux/w_flux.dart' as flux;
 
@@ -309,8 +309,6 @@ mixin InfluxStoreMixin<S> on flux.Store {
   }
 }
 
-bool _shallowMapEquality(Map a, Map b) => const MapEquality().equals(a, b);
-
 /// A wrapper around the `connect` function that provides a similar API into a Flux store.
 ///
 /// This is primarily for use while transitioning _to_ `connect` and OverReact Redux.
@@ -357,9 +355,9 @@ bool _shallowMapEquality(Map a, Map b) => const MapEquality().equals(a, b);
 /// If you do not provide [mergeProps], the wrapped component receives {...ownProps, ...stateProps, ...dispatchProps}
 /// by default.
 ///
-/// - [areOwnPropsEqual] does a shallow Map equality check by default.
-/// - [areStatePropsEqual] does a shallow Map equality check by default.
-/// - [areMergedPropsEqual] does a shallow Map equality check by default.
+/// - [areOwnPropsEqual] does an equality check using JS `===` (equivalent to [identical]) by default.
+/// - [areStatePropsEqual] does a shallow Map equality check using JS `===` (equivalent to [identical]) by default.
+/// - [areMergedPropsEqual] does a shallow Map equality check using JS `===` (equivalent to [identical]) by default.
 ///
 /// - [context] can be utilized to provide a custom context object created with `createContext`.
 /// [context] is how you can utilize multiple stores. While supported, this is not recommended.
@@ -569,13 +567,13 @@ UiFactory<TProps> Function(UiFactory<TProps>)
   }
   /*--end usage of cases--*/
 
-  if (areStatePropsEqual == null) {
-    const defaultAreStatePropsEqual = _shallowMapEquality;
-    const propHasher = CollectionLengthHasher();
-    bool areStatePropsEqualWrapper(TProps nextProps, TProps prevProps) {
-      final result = defaultAreStatePropsEqual(nextProps, prevProps);
+  // In dev mode, if areStatePropsEqual is not specified, pass in a version
+  // that warns for common pitfall cases.
+  assert(() {
+    if (areStatePropsEqual == null) {
+      bool areStatePropsEqualWrapper(TProps nextProps, TProps prevProps) {
+        const propHasher = CollectionLengthHasher();
 
-      assert(() {
         prevProps.forEach((key, value) {
           // If the value is the same instance, check if the instance has been mutated,
           // causing its hash to be updated
@@ -592,14 +590,13 @@ UiFactory<TProps> Function(UiFactory<TProps>)
           }
         });
 
-        return true;
-      }());
-
-      return result;
+        return propsOrStateMapsEqual(nextProps, prevProps);
+      }
+      areStatePropsEqual = areStatePropsEqualWrapper;
     }
 
-    areStatePropsEqual = areStatePropsEqualWrapper;
-  }
+    return true;
+  }());
 
   return connect(
     mapStateToProps: mapStateToProps,
