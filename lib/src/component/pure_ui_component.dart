@@ -12,35 +12,38 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:over_react/over_react.dart';
+import 'package:react/react.dart' as react show Component2;
+import 'package:over_react/src/util/equality.dart';
 
-/// A mixin to make a [UiComponent2] instance behave
+/// A mixin to make a [react.Component2] instance behave
 /// like a [ReactJS `PureComponent`](https://reactjs.org/docs/react-api.html#reactpurecomponent).
 ///
-/// The value of `props.children` is not compared deeply by default, and any `ReactElement`s found within
-/// `props.children` are compared using [identical] _(analogous to `===` in JS)_ via [propsOrStateMapsEqual].
+/// The value of `props.children` is not compared deeply by default. Any time a new `ReactElement`
+/// for this component is created, a new `props.children` list is created, unless `props.children` is empty.
 ///
-/// If you want to optimize updates that are being caused by children, you can override [shouldComponentUpdate]
-/// with some custom logic _(see example below)_, or use memoization to prevent new `ReactElement` creation at
-/// your component's consumption-site - which will allow them to be seen as [identical] in the
-/// default [shouldComponentUpdate] implementation.
+/// If you want to optimize updates caused by `props.children`, you can:
 ///
-/// __Custom children equality check example:__
+/// 1. Update your component to not accept `props.children`.
+/// 2. Recommend that consumers of your component memoize the creation of their
+///   list of children and pass that in as shown in the example below:
 ///
 /// ```dart
-/// class YourComponent extends UiComponent2<YourProps> with PureUiComponent<YourProps> {
-///   @override
-///   bool shouldComponentUpdate(Map nextProps, Map nextState) {
-///     final currentPropsWithoutChildren = Map.of(this.props)..remove('children');
-///     final nextPropsWithoutChildren = Map.of(nextProps)..remove('children');
+/// import 'package:memoize/memoize.dart';
 ///
-///     return !propsOrStateMapsEqual(currentPropsWithoutChildren, nextPropsWithoutChildren)
-///         || !propsOrStateMapsEqual(state, nextState)
-///         || !const ListEquality().equals(this.props['children'], nextProps['children']);
-///   }
+/// final getMemoizedChildren = imemo1((items) => items.map((item) {
+///   return (Child()
+///     ..key = item.id
+///     ..item = item
+///   )();
+/// }).toList());
+///
+/// render() {
+///   return YourPureComponentFactory()(
+///     getMemoizedChildren(props.items),
+///   )
 /// }
 /// ```
-mixin PureUiComponent<T extends UiProps> on UiComponent2<T> {
+mixin PureUiComponent on react.Component2 {
   @override
   bool shouldComponentUpdate(Map nextProps, Map nextState) {
     return !propsOrStateMapsEqual(props, nextProps) || !propsOrStateMapsEqual(state, nextState);
