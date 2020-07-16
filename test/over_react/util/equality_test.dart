@@ -2,13 +2,15 @@
 import 'package:over_react/src/util/equality.dart';
 import 'package:test/test.dart';
 
+import '../../test_util/test_util.dart';
+
 main() {
-  group('areMapsShallowIdentical', () {
-    /// Expect that `areMapsShallowIdentical(a, b)` and `areMapsShallowIdentical(b, a)`
+  group('propsOrStateMapsEqual', () {
+    /// Expect that `propsOrStateMapsEqual(a, b)` and `propsOrStateMapsEqual(b, a)`
     /// have the same result (represented by [matcher]).
     void expectAreMapsShallowIdenticalCommutatively(Map a, Map b, matcher) {
-      final abResult = areMapsShallowIdentical(a, b);
-      final baResult = areMapsShallowIdentical(b, a);
+      final abResult = propsOrStateMapsEqual(a, b);
+      final baResult = propsOrStateMapsEqual(b, a);
       expect([abResult, baResult], everyElement(matcher));
     }
 
@@ -48,30 +50,15 @@ main() {
         final b = a;
         expectAreMapsShallowIdenticalCommutatively(a, b, isTrue);
       });
-    });
 
-    group('returns true for', () {
-      test('different maps that are equal', () {
-        final a = {
-          1: 'one',
-          2: 'two',
-        };
-        final b = {
-          2: 'two',
-          1: 'one',
-        };
-        expectAreMapsShallowIdenticalCommutatively(a, b, isTrue);
-      });
+      test('maps with the same function tear-off values', () {
+        final object = DummyObject();
 
-      test('different empty maps', () {
-        final a = {};
-        final b = {};
-        expectAreMapsShallowIdenticalCommutatively(a, b, isTrue);
-      });
-
-      test('the same map instance', () {
-        final a = {1: 'one', 2: 'two'};
-        final b = a;
+        final a = {1: object.funcOne};
+        final b = {1: object.funcOne};
+        if (isDDC()) {
+          expect(identical(a[1], b[1]), isFalse, reason: 'DDC only test setup sanity check');
+        }
         expectAreMapsShallowIdenticalCommutatively(a, b, isTrue);
       });
     });
@@ -134,6 +121,14 @@ main() {
         final b = {1: valueB};
         expectAreMapsShallowIdenticalCommutatively(a, b, isFalse);
       });
+
+      test('maps with different function tear-off values', () {
+        final object = DummyObject();
+
+        final a = {1: object.funcOne};
+        final b = {1: object.funcTwo};
+        expectAreMapsShallowIdenticalCommutatively(a, b, isFalse);
+      });
     });
 
     test('gracefully handles maps of different types', () {
@@ -143,7 +138,7 @@ main() {
           reason: 'test setup check; we want the to get further than'
               ' the length short circuit in the function');
 
-      expect(() => areMapsShallowIdentical(a, b), returnsNormally);
+      expect(() => propsOrStateMapsEqual(a, b), returnsNormally);
       expectAreMapsShallowIdenticalCommutatively(a, b, isFalse);
     });
   });
@@ -160,4 +155,9 @@ class EqualHelper {
   @override
   bool operator ==(Object other) =>
       other is EqualHelper && other.value == value;
+}
+
+class DummyObject {
+  void funcOne() {}
+  void funcTwo() {}
 }

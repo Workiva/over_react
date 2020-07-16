@@ -590,7 +590,7 @@ UiFactory<TProps> Function(UiFactory<TProps>)
           }
         });
 
-        return areMapsShallowIdentical(nextProps, prevProps);
+        return propsOrStateMapsEqual(nextProps, prevProps);
       }
       areStatePropsEqual = areStatePropsEqualWrapper;
     }

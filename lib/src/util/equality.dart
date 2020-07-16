@@ -1,4 +1,6 @@
 /// Returns whether maps [a] and [b] have [identical] sets of values for the same keys.
+///
+/// Identity is not used for `Function`s found within the maps since tear-offs are not canonicalized.
 //
 // Ported from https://github.com/reduxjs/react-redux/blob/573db0bfc8d1d50fdb6e2a98bd8a7d4675fecf11/src/utils/shallowEqual.js
 //
@@ -24,12 +26,21 @@
 // LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-bool areMapsShallowIdentical(Map a, Map b) {
+bool propsOrStateMapsEqual(Map a, Map b) {
   if (identical(a, b)) return true;
   if (a.length != b.length) return false;
   for (final key in a.keys) {
     if (!b.containsKey(key)) return false;
-    if (!identical(b[key], a[key])) return false;
+    final bVal = b[key];
+    final aVal = a[key];
+    // Function tear-offs are not canonicalized so we have to do a simple
+    // equality check on them instead of checking identity.
+    // See: <https://github.com/dart-lang/sdk/issues/31665#issuecomment-352678783>
+    if (!identical(bVal, aVal)) {
+      if (!(bVal is Function && aVal is Function && bVal == aVal)) {
+        return false;
+      }
+    }
   }
   return true;
 }
