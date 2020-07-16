@@ -50,32 +50,6 @@ main() {
       });
     });
 
-    group('returns true for', () {
-      test('different maps that are equal', () {
-        final a = {
-          1: 'one',
-          2: 'two',
-        };
-        final b = {
-          2: 'two',
-          1: 'one',
-        };
-        expectAreMapsShallowIdenticalCommutatively(a, b, isTrue);
-      });
-
-      test('different empty maps', () {
-        final a = {};
-        final b = {};
-        expectAreMapsShallowIdenticalCommutatively(a, b, isTrue);
-      });
-
-      test('the same map instance', () {
-        final a = {1: 'one', 2: 'two'};
-        final b = a;
-        expectAreMapsShallowIdenticalCommutatively(a, b, isTrue);
-      });
-    });
-
     group('returns false for', () {
       test('maps of different length', () {
         final a = {
