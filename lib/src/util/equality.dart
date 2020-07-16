@@ -33,7 +33,7 @@ bool propsOrStateMapsEqual(Map a, Map b) {
     if (!b.containsKey(key)) return false;
     final bVal = b[key];
     final aVal = a[key];
-    // Functions tear-offs are not canonicalized so we have to do a simple
+    // Function tear-offs are not canonicalized so we have to do a simple
     // equality check on them instead of checking identity.
     // See: <https://github.com/dart-lang/sdk/issues/31665#issuecomment-352678783>
     if (!identical(bVal, aVal)) {
