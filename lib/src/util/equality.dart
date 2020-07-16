@@ -1,6 +1,8 @@
 import 'package:over_react/over_react.dart';
 
 /// Returns whether maps [a] and [b] have [identical] sets of values for the same keys.
+///
+/// Identity is not used for `Function`s found within the maps since tear-offs are not canonicalized.
 //
 // Ported from https://github.com/reduxjs/react-redux/blob/573db0bfc8d1d50fdb6e2a98bd8a7d4675fecf11/src/utils/shallowEqual.js
 //
@@ -26,7 +28,7 @@ import 'package:over_react/over_react.dart';
 // LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-bool areMapsShallowIdentical(Map a, Map b) {
+bool propsOrStateMapsEqual(Map a, Map b) {
   if (identical(a, b)) return true;
   if (a.length != b.length) return false;
   for (final key in a.keys) {

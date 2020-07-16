@@ -3,12 +3,12 @@ import 'package:over_react/src/util/equality.dart';
 import 'package:test/test.dart';
 
 main() {
-  group('areMapsShallowIdentical', () {
-    /// Expect that `areMapsShallowIdentical(a, b)` and `areMapsShallowIdentical(b, a)`
+  group('propsOrStateMapsEqual', () {
+    /// Expect that `propsOrStateMapsEqual(a, b)` and `propsOrStateMapsEqual(b, a)`
     /// have the same result (represented by [matcher]).
     void expectAreMapsShallowIdenticalCommutatively(Map a, Map b, matcher) {
-      final abResult = areMapsShallowIdentical(a, b);
-      final baResult = areMapsShallowIdentical(b, a);
+      final abResult = propsOrStateMapsEqual(a, b);
+      final baResult = propsOrStateMapsEqual(b, a);
       expect([abResult, baResult], everyElement(matcher));
     }
 
@@ -117,7 +117,7 @@ main() {
           reason: 'test setup check; we want the to get further than'
               ' the length short circuit in the function');
 
-      expect(() => areMapsShallowIdentical(a, b), returnsNormally);
+      expect(() => propsOrStateMapsEqual(a, b), returnsNormally);
       expectAreMapsShallowIdenticalCommutatively(a, b, isFalse);
     });
   });

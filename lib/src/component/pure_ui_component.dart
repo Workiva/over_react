@@ -18,7 +18,7 @@ import 'package:over_react/over_react.dart';
 /// like a [ReactJS `PureComponent`](https://reactjs.org/docs/react-api.html#reactpurecomponent).
 ///
 /// The value of `props.children` is not compared deeply by default, and any `ReactElement`s found within
-/// `props.children` are compared using [identical] _(analogous to `===` in JS)_ via [areMapsShallowIdentical].
+/// `props.children` are compared using [identical] _(analogous to `===` in JS)_ via [propsOrStateMapsEqual].
 ///
 /// If you want to optimize updates that are being caused by children, you can override [shouldComponentUpdate]
 /// with some custom logic _(see example below)_, or use memoization to prevent new `ReactElement` creation at
@@ -43,6 +43,6 @@ import 'package:over_react/over_react.dart';
 mixin PureUiComponent<T extends UiProps> on UiComponent2<T> {
   @override
   bool shouldComponentUpdate(Map nextProps, Map nextState) {
-    return !areMapsShallowIdentical(props, nextProps) || !areMapsShallowIdentical(state, nextState);
+    return !propsOrStateMapsEqual(props, nextProps) || !propsOrStateMapsEqual(state, nextState);
   }
 }
