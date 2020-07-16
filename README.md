@@ -12,15 +12,6 @@ This library also exposes _OverReact Redux_, which has [its own documentation](d
 [![Build Status](https://travis-ci.org/Workiva/over_react.svg?branch=master)](https://travis-ci.org/Workiva/over_react)
 [![Test Coverage](https://codecov.io/github/Workiva/over_react/coverage.svg?branch=master)](https://codecov.io/github/Workiva/over_react?branch=master)
 
-
-## UiComponent2 / Component Boilerplate Migration Guides
-
-__There have been a lot of fantastic [improvements in this library recently](https://pub.dev/packages/over_react#-changelog-tab-)__, all of which require some action on your part if you have existing components built prior to the `3.1.0` release of OverReact.  __We've done everything we can to make the migrations as painless as possible__ - with the vast majority of changes being handled by some codemod scripts you can run in your libraries locally. As always, if you encounter issues while working through the migration, you can reach out to us in [our gitter chat](https://gitter.im/over_react/Lobby), or [open a new issue][new-issue].
-
-__First, you should upgrade your components to `UiComponent2`__. Check out the [`UiComponent2` Migration Guide](doc/ui_component2_transition.md) to learn about the benefits of `UiComponent2`, the codemod script you can run, and other updates you may need to make manually.
-
-__Once you have migrated your components to `UiComponent2`__, you're ready to start using the "v3" component boilerplate - which is a _massive_ quality of life improvement for component authors! Check out the [Component Boilerplate Migration Guide](doc/new_boilerplate_migration.md) to learn about the benefits of the new boilerplate, the codemod script you can run, and other updates you may need to make manually.
-
 ---
 
 * __[Migration Guides](#migration-guides)__
@@ -44,14 +35,19 @@ __Once you have migrated your components to `UiComponent2`__, you're ready to st
 
 ## Migration Guides
 
-- __Migration guides from other state management libs:__
-    - [BuiltRedux to Redux](doc/built_redux_to_redux.md): A guide to transitioning to OverReact Redux from BuiltRedux.
-    - [Flux to Redux](doc/flux_to_redux.md): A guide to how to transition from w_flux to OverReact Redux. This guide also introduces a new architecture, Influx, that can be used for incremental refactors.
-- __Migration guides from older versions of over_react:__
-    - [Dart2 Migration](doc/dart2_migration.md): Documentation on the Dart 2 builder updates and how to transition componentry to Dart 2.
-    - [UiComponent2 Migration](doc/ui_component2_transition.md): Documentation about differences between `UiComponent` and `UiComponent2`, as well as how to migrate to `UiComponent2`.
-    - [New Boilerplate Migration](doc/new_boilerplate_migration.md): Documentation about changes to the component boilerplate, as well as how to migrate to the new boilerplate.
-        > _This migration requires that you first perform the [`UiComponent2` migration](doc/ui_component2_transition.md)._
+### UiComponent2 / Component Boilerplate Migration
+
+__There have been a lot of fantastic [improvements in this library recently](https://pub.dev/packages/over_react#-changelog-tab-)__, all of which require some action on your part if you have existing components built prior to the `3.1.0` release of OverReact.  __We've done everything we can to make the migrations as painless as possible__ - with the vast majority of changes being handled by some codemod scripts you can run in your libraries locally. As always, if you encounter issues while working through the migration, you can reach out to us in [our gitter chat](https://gitter.im/over_react/Lobby), or [open a new issue][new-issue].
+
+__First, you should upgrade your components to `UiComponent2`__. Check out the [`UiComponent2` Migration Guide](doc/ui_component2_transition.md) to learn about the benefits of `UiComponent2`, the codemod script you can run, and other updates you may need to make manually.
+
+__Once you have migrated your components to `UiComponent2`__, you're ready to start using the "v3" component boilerplate - which is a _massive_ quality of life improvement for component authors! Check out the [Component Boilerplate Migration Guide](doc/new_boilerplate_migration.md) to learn about the benefits of the new boilerplate, the codemod script you can run, and other updates you may need to make manually.
+
+### More Migration Guides
+
+- [__BuiltRedux to Redux__](doc/built_redux_to_redux.md): A guide to transitioning to OverReact Redux from BuiltRedux.
+- [__Flux to Redux__](doc/flux_to_redux.md): A guide to how to transition from w_flux to OverReact Redux. This guide also introduces a new architecture, Influx, that can be used for incremental refactors.
+- [__Dart2 Migration__](doc/dart2_migration.md): Documentation on the Dart 2 builder updates and how to transition componentry to Dart 2.
 
 &nbsp;
 &nbsp;
