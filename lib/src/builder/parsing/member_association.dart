@@ -126,14 +126,22 @@ Union<BoilerplateProps, BoilerplatePropsMixin> getPropsFor(
 }
 
 /// ADD DOC COMMENT IF KEPT
-String getPropsNameFromConfig(BoilerplateFactory factory) {
+String getPropsNameFromFunctionComponent(BoilerplateFactory factory) {
   if (factory.propsGenericArg != null) {
     return factory.propsGenericArg.typeNameWithoutPrefix;
   }
   final rightHandSide = factory.node.variables.firstInitializer;
-  if (rightHandSide == null || rightHandSide is! MethodInvocation) return null;
-  final args = (rightHandSide as MethodInvocation).typeArguments.arguments.firstOrNull;
-  return args?.typeNameWithoutPrefix;
+  assert(rightHandSide != null && rightHandSide is MethodInvocation);
+  final typeArgs = (rightHandSide as MethodInvocation).typeArguments?.arguments?.firstOrNull;
+  return typeArgs?.typeNameWithoutPrefix;
+}
+
+/// ADD DOC COMMENT IF KEPT
+bool hasConfigArg(BoilerplateFactory factory) {
+  final rightHandSide = factory.node.variables.firstInitializer;
+  final args = (rightHandSide as MethodInvocation).argumentList.arguments;
+  if(args == null || args.length < 2) return false;
+  return args[1] is! NullLiteral;
 }
 
 /// Retrieves the props for a given [member] if it is found in [states] or [stateMixins].

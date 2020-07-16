@@ -711,7 +711,7 @@ main() {
               return Dom.div()();
             }, $FooPropsConfig);
                         
-            final Baz = uiFunctionComponent<FooProps>((props) {
+            UiFactory<FooProps> Baz = uiFunctionComponent((props) {
               return Dom.div()();
             }, $BazPropsConfig);
             
@@ -725,6 +725,30 @@ main() {
           expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsConfig('BarPropsMixin', 'Bar')));
           expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsConfig('BarPropsMixin', 'Foo')));
           expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsConfig('FooProps', 'Baz')));
+        });
+
+        test('unless function component is generic or does not have a props config', () {
+          setUpAndGenerate(r'''
+            mixin FooPropsMixin on UiProps {}
+            
+            final Bar = uiFunctionComponent<UiProps>((props) {
+              return Dom.div()();
+            }, null);
+            
+            final Foo = uiFunctionComponent<FooPropsMixin>((props) {
+              return Dom.div()();
+            }, $FooPropsConfig);
+            
+            final Baz = uiFunctionComponent<FooPropsMixin>((props) {
+              return Dom.div()();
+            }, null, propsFactory: PropsFactory.fromUiFactory(Foo));
+          ''');
+
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooPropsMixin')));
+
+          expect(implGenerator.outputContentsBuffer.toString().contains(generatedPropsConfig('UiProps', 'Bar')), isFalse, reason: '2');
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsConfig('FooPropsMixin', 'Foo')), reason: '1');
+          expect(implGenerator.outputContentsBuffer.toString().contains(generatedPropsConfig('FooPropsMixin', 'Baz')), isFalse, reason: '3');
         });
       });
     });

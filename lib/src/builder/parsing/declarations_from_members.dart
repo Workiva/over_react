@@ -303,7 +303,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     ].expand((i) => i).whereNot(hasBeenConsumed);
 
     final genericFactories = _functionComponentFactories
-        .where((factory) => getPropsNameFromConfig(factory) == 'UiProps');
+        .where((factory) => getPropsNameFromFunctionComponent(factory) == 'UiProps' || !hasConfigArg(factory));
     for (final factory in genericFactories) {
       consume(factory);
       yield GenericFunctionComponentDeclaration(factory: factory);
@@ -311,14 +311,14 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
     for (final propsClassOrMixin in allUnusedProps) {
       final associatedFactories = _functionComponentFactories
-          .where((factory) => getPropsNameFromConfig(factory) == propsClassOrMixin.name.name);
+          .where((factory) => !hasBeenConsumed(factory) && getPropsNameFromFunctionComponent(factory) == propsClassOrMixin.name.name);
       if (associatedFactories.isNotEmpty) {
-        associatedFactories.forEach(consume);
-        consume(propsClassOrMixin);
         yield PropsMapViewOrFunctionComponentDeclaration(
           factories: associatedFactories.toList(),
           props: getUnion<BoilerplateProps, BoilerplatePropsMixin>(propsClassOrMixin),
         );
+        associatedFactories.forEach(consume);
+        consume(propsClassOrMixin);
       }
     }
   }

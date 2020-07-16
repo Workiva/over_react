@@ -1575,15 +1575,15 @@ main() {
                 setUpAndParse('''
                   $leftHandType Foo = uiFunctionComponent$typeParams((props) {
                     return Dom.div()();
-                  },  \$FooPropsMixinConfig);
+                  },  \$FooPropsConfig);
                   
                   $leftHandType Bar = uiFunctionComponent$typeParams((props) {
                     return Dom.div()();
-                  },  \$FooPropsMixinConfig);
+                  },  \$BarPropsConfig);
                   
                   $leftHandType Baz = uiFunctionComponent$typeParams((props) {
                     return Dom.div()();
-                  },  \$FooPropsMixinConfig);
+                  }, null, propsFactory: PropsFactory.fromUiFactory(Foo));
                   
                   mixin FooPropsMixin on UiProps {}
                 ''');
@@ -1591,18 +1591,22 @@ main() {
                 expect(declarations, unorderedEquals([
                   isA<PropsMixinDeclaration>(),
                   isA<PropsMapViewOrFunctionComponentDeclaration>(),
+                  isA<GenericFunctionComponentDeclaration>(),
                 ]));
                 final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
+                final genericDecl = declarations.firstWhereType<GenericFunctionComponentDeclaration>();
 
                 expect(decl.factories, isNotNull);
-                expect(decl.factories.length, 3);
+                expect(decl.factories.length, 2);
                 expect(decl.factories.map((factory) => factory.name.name), unorderedEquals([
                   'Foo',
                   'Bar',
-                  'Baz',
                 ]));
                 expect(decl.props.b?.name?.name, 'FooPropsMixin');
                 expect(decl.version, Version.v4_mixinBased);
+
+                expect(genericDecl.factory.name.name, 'Baz');
+                expect(genericDecl.version, Version.v4_mixinBased);
               });
 
               test('(verbose)', () {
@@ -1651,15 +1655,15 @@ main() {
                 setUpAndParse('''
                   $leftHandType Foo = uiFunctionComponent$typeParams((props) {
                     return Dom.div()();
-                  },  \$FooPropsMixinConfig);
+                  },  \$FooPropsConfig);
                   
                   $leftHandType Bar = uiFunctionComponent$typeParams((props) {
                     return Dom.div()();
-                  },  \$FooPropsMixinConfig);
+                  },  \$BarPropsConfig);
                   
                   $leftHandType2 Baz = uiFunctionComponent$typeParams2((props) {
                     return Dom.div()();
-                  },  \$BarPropsMixinConfig);
+                  },  \$BazPropsConfig);
                   
                   mixin FooPropsMixin on UiProps {}
                   mixin BarPropsMixin on UiProps {}
@@ -1859,10 +1863,19 @@ main() {
             verify(logger.severe(contains(errorFactoryOnly)));
           });
 
+          test('without props typing arguments or left hand typing', () {
+            setUpAndParse(r'''
+              final Foo = uiFunctionComponent((props) {
+                return Dom.div()();
+              }, $FooPropsConfig);
+            ''');
+            verify(logger.severe(contains(errorFactoryOnly)));
+          });
+
           test('without a matching props mixin', () {
             setUpAndParse(r'''
               mixin FooPropsMixin on UiProps {}
-              final Foo = uiFunctionComponent<FooProps>((props) {
+              UiFactory<FooProps> Foo = uiFunctionComponent((props) {
                 return Dom.div()();
               }, $FooPropsConfig);
             ''');

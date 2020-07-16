@@ -128,7 +128,6 @@ class GenericUiProps extends UiProps {
 
 typedef FunctionFactoryFactory<T extends UiProps> = UiFactory<T> Function(ReactDartFunctionComponentFactoryProxy);
 
-
 @protected
 class FunctionComponentConfig<T extends UiProps> {
   @protected
