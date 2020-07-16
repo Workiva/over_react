@@ -34,8 +34,8 @@ import 'package:over_react/over_react.dart';
 ///     final currentPropsWithoutChildren = Map.of(this.props)..remove('children');
 ///     final nextPropsWithoutChildren = Map.of(nextProps)..remove('children');
 ///
-///     return !areMapsShallowIdentical(currentPropsWithoutChildren, nextPropsWithoutChildren)
-///         || !areMapsShallowIdentical(state, nextState)
+///     return !propsOrStateMapsEqual(currentPropsWithoutChildren, nextPropsWithoutChildren)
+///         || !propsOrStateMapsEqual(state, nextState)
 ///         || !const ListEquality().equals(this.props['children'], nextProps['children']);
 ///   }
 /// }
