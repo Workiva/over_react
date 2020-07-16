@@ -36,10 +36,10 @@ bool areMapsShallowIdentical(Map a, Map b) {
     // Functions tear-offs are not canonicalized so we have to do a simple
     // equality check on them instead of checking identity.
     // See: <https://github.com/dart-lang/sdk/issues/31665#issuecomment-352678783>
-    if (bVal is Function && aVal is Function) {
-      if (bVal != aVal) return false;
-    } else {
-      if (!identical(bVal, aVal)) return false;
+    if (!identical(bVal, aVal)) {
+      if (!(bVal is Function && aVal is Function && bVal == aVal)) {
+        return false;
+      }
     }
   }
   return true;
