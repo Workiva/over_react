@@ -65,6 +65,7 @@ export 'src/util/class_names.dart';
 export 'src/util/constants_base.dart';
 export 'src/util/css_value_util.dart';
 export 'src/util/dom_util.dart';
+export 'src/util/equality.dart' show areMapsShallowIdentical;
 export 'src/util/event_helpers.dart';
 export 'src/util/guid_util.dart';
 export 'src/util/hoc.dart';

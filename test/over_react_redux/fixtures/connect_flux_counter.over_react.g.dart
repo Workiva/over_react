@@ -83,6 +83,16 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
   @override
   set mutateStoreDirectly(void Function() value) =>
       props[_$key__mutateStoreDirectly___$ConnectFluxCounterProps] = value;
+
+  /// <!-- Generated from [_$ConnectFluxCounterProps.actions] -->
+  @override
+  FluxActions get actions =>
+      props[_$key__actions___$ConnectFluxCounterProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$ConnectFluxCounterProps.actions] -->
+  @override
+  set actions(FluxActions value) =>
+      props[_$key__actions___$ConnectFluxCounterProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__currentCount___$ConnectFluxCounterProps =
       PropDescriptor(_$key__currentCount___$ConnectFluxCounterProps);
@@ -97,6 +107,8 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
   static const PropDescriptor
       _$prop__mutateStoreDirectly___$ConnectFluxCounterProps =
       PropDescriptor(_$key__mutateStoreDirectly___$ConnectFluxCounterProps);
+  static const PropDescriptor _$prop__actions___$ConnectFluxCounterProps =
+      PropDescriptor(_$key__actions___$ConnectFluxCounterProps);
   static const String _$key__currentCount___$ConnectFluxCounterProps =
       'ConnectFluxCounterProps.currentCount';
   static const String _$key__wrapperStyles___$ConnectFluxCounterProps =
@@ -109,6 +121,8 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
       'ConnectFluxCounterProps.decrement';
   static const String _$key__mutateStoreDirectly___$ConnectFluxCounterProps =
       'ConnectFluxCounterProps.mutateStoreDirectly';
+  static const String _$key__actions___$ConnectFluxCounterProps =
+      'ConnectFluxCounterProps.actions';
 
   static const List<PropDescriptor> $props = [
     _$prop__currentCount___$ConnectFluxCounterProps,
@@ -116,7 +130,8 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
     _$prop__mutatedList___$ConnectFluxCounterProps,
     _$prop__increment___$ConnectFluxCounterProps,
     _$prop__decrement___$ConnectFluxCounterProps,
-    _$prop__mutateStoreDirectly___$ConnectFluxCounterProps
+    _$prop__mutateStoreDirectly___$ConnectFluxCounterProps,
+    _$prop__actions___$ConnectFluxCounterProps
   ];
   static const List<String> $propKeys = [
     _$key__currentCount___$ConnectFluxCounterProps,
@@ -124,7 +139,8 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
     _$key__mutatedList___$ConnectFluxCounterProps,
     _$key__increment___$ConnectFluxCounterProps,
     _$key__decrement___$ConnectFluxCounterProps,
-    _$key__mutateStoreDirectly___$ConnectFluxCounterProps
+    _$key__mutateStoreDirectly___$ConnectFluxCounterProps,
+    _$key__actions___$ConnectFluxCounterProps
   ];
 }
 
