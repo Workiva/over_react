@@ -48,6 +48,15 @@ main() {
         final b = a;
         expectAreMapsShallowIdenticalCommutatively(a, b, isTrue);
       });
+
+      test('maps with the same function tear-off values', () {
+        final object = DummyObject();
+
+        final a = {1: object.funcOne};
+        final b = {1: object.funcOne};
+        expect(identical(a[1], b[1]), isFalse, reason: 'test setup sanity check');
+        expectAreMapsShallowIdenticalCommutatively(a, b, isTrue);
+      });
     });
 
     group('returns false for', () {
@@ -108,6 +117,14 @@ main() {
         final b = {1: valueB};
         expectAreMapsShallowIdenticalCommutatively(a, b, isFalse);
       });
+
+      test('maps with different function tear-off values', () {
+        final object = DummyObject();
+
+        final a = {1: object.funcOne};
+        final b = {1: object.funcTwo};
+        expectAreMapsShallowIdenticalCommutatively(a, b, isFalse);
+      });
     });
 
     test('gracefully handles maps of different types', () {
@@ -134,4 +151,9 @@ class EqualHelper {
   @override
   bool operator ==(Object other) =>
       other is EqualHelper && other.value == value;
+}
+
+class DummyObject {
+  void funcOne() {}
+  void funcTwo() {}
 }
