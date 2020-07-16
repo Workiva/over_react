@@ -2,6 +2,8 @@
 import 'package:over_react/src/util/equality.dart';
 import 'package:test/test.dart';
 
+import '../../test_util/test_util.dart';
+
 main() {
   group('propsOrStateMapsEqual', () {
     /// Expect that `propsOrStateMapsEqual(a, b)` and `propsOrStateMapsEqual(b, a)`
@@ -54,7 +56,9 @@ main() {
 
         final a = {1: object.funcOne};
         final b = {1: object.funcOne};
-        expect(identical(a[1], b[1]), isFalse, reason: 'test setup sanity check');
+        if (isDDC()) {
+          expect(identical(a[1], b[1]), isFalse, reason: 'DDC only test setup sanity check');
+        }
         expectAreMapsShallowIdenticalCommutatively(a, b, isTrue);
       });
     });
