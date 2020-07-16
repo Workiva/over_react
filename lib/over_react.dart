@@ -49,6 +49,7 @@ export 'src/component/strictmode_component.dart';
 export 'src/component/dummy_component.dart';
 export 'src/component/prop_mixins.dart';
 export 'src/component/prop_typedefs.dart';
+export 'src/component/pure_component_mixin.dart';
 export 'src/component/_deprecated/resize_sensor.dart';
 export 'src/component_declaration/annotations.dart';
 export 'src/component_declaration/builder_helpers.dart' hide GeneratedErrorMessages;

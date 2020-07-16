@@ -14,17 +14,15 @@
 @TestOn('browser')
 library pure_ui_component_test;
 
-import 'package:over_react/over_react.dart';
-
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';
 
 import './fixtures/pure_test_components.dart';
 import '../../test_util/test_util.dart';
 
-/// Main entry point for `PureUiComponent` testing
+/// Main entry point for `PureComponentMixin` testing
 main() {
-  group('PureUiComponent', () {
+  group('PureComponentMixin', () {
     const initialChildren = ['initial'];
     const nextChildren = ['next'];
     TestJacket<PureTestWrapperComponent> jacket;

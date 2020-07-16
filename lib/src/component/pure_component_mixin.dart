@@ -43,7 +43,7 @@ import 'package:over_react/src/util/equality.dart';
 ///   )
 /// }
 /// ```
-mixin PureUiComponent on react.Component2 {
+mixin PureComponentMixin on react.Component2 {
   @override
   bool shouldComponentUpdate(Map nextProps, Map nextState) {
     return !propsOrStateMapsEqual(props, nextProps) || !propsOrStateMapsEqual(state, nextState);

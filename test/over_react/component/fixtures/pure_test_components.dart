@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:over_react/over_react.dart';
-import 'package:over_react/components.dart';
 import 'package:over_react/src/component/test_fixtures/redraw_counter_component_mixin.dart';
 
 part 'pure_test_components.over_react.g.dart';
@@ -63,7 +62,7 @@ mixin PureTestState on UiState {
 
 class PureTestComponent extends UiStatefulComponent2<PureTestProps, PureTestState>
     with
-        PureUiComponent<PureTestProps>,
+        PureComponentMixin,
         RedrawCounterMixin<PureTestProps> {
   @override
   get defaultProps => (newProps()
