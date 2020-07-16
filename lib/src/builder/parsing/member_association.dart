@@ -140,7 +140,7 @@ String getPropsNameFromFunctionComponent(BoilerplateFactory factory) {
 bool hasConfigArg(BoilerplateFactory factory) {
   final rightHandSide = factory.node.variables.firstInitializer;
   final args = (rightHandSide as MethodInvocation).argumentList.arguments;
-  if(args == null || args.length < 2) return false;
+  if (args == null || args.length < 2) return false;
   return args[1] is! NullLiteral;
 }
 
