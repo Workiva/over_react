@@ -1591,10 +1591,10 @@ main() {
                 expect(declarations, unorderedEquals([
                   isA<PropsMixinDeclaration>(),
                   isA<PropsMapViewOrFunctionComponentDeclaration>(),
-                  isA<FunctionComponentDeclaration>(),
+                  isA<GenericFunctionComponentDeclaration>(),
                 ]));
                 final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
-                final genericDecl = declarations.firstWhereType<FunctionComponentDeclaration>();
+                final genericDecl = declarations.firstWhereType<GenericFunctionComponentDeclaration>();
 
                 expect(decl.factories, isNotNull);
                 expect(decl.factories.length, 2);
@@ -1641,7 +1641,7 @@ main() {
                     return Dom.div()();
                   }, null);
                 ''');
-                final decl = expectSingleOfType<FunctionComponentDeclaration>(declarations);
+                final decl = expectSingleOfType<GenericFunctionComponentDeclaration>(declarations);
 
                 expect(decl.factory.name.name, 'Foo');
                 expect(decl.version, Version.v4_mixinBased);

@@ -846,33 +846,6 @@ that you get for free from OverReact, you're ready to start building your own cu
       }
     }
     ```
-  
-* #### Function Component Boilerplate
-
-  ```dart
-  import 'package:over_react/over_react.dart';
-  part 'foo_component.over_react.g.dart';
-
-  UiFactory<FooProps> Foo = uiFunctionComponent((props) {
-    // Return the rendered component contents here.
-    // The `props` variable is typed; no need for string keys!
-  },
-  // The generated props config will match the factory name.
-  $FooPropsConfig,
-  initStatics: (statics) {
-    statics.defaultProps = (statics.newProps()
-      // Cascade default props here.
-      ..isDisabled = false
-      ..items = []
-    );
-  });
-
-  mixin FooProps on UiProps {
-    // Props go here, declared as fields:
-    bool isDisabled;
-    Iterable<String> items;
-  }
-  ```
 
 &nbsp;
 

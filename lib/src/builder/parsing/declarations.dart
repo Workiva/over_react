@@ -14,7 +14,6 @@
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
 
 import 'ast_util.dart';
 import 'error_collection.dart';
@@ -303,13 +302,15 @@ class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
   }) : super(Version.v4_mixinBased);
 }
 
-/// A boilerplate declaration for a function component declared using
-/// the new mixin-based boilerplate that does not need a generated props config.
+/// A boilerplate declaration for a generic function component declared using
+/// the new mixin-based boilerplate.
 ///
-/// This means it was declared using UiProps or a custom [PropsFactory].
+/// This is similar to [PropsMapViewOrFunctionComponentDeclaration], but it does
+/// not need a corresponding props mixin because it uses UiProps and no
+/// code is generated.
 ///
 /// See [BoilerplateDeclaration] for more info.
-class FunctionComponentDeclaration extends BoilerplateDeclaration
+class GenericFunctionComponentDeclaration extends BoilerplateDeclaration
     with _TypedMapMixinShorthandDeclaration {
   final BoilerplateFactory factory;
 
@@ -319,7 +320,7 @@ class FunctionComponentDeclaration extends BoilerplateDeclaration
   @override
   get type => DeclarationType.genericFunctionComponentDeclaration;
 
-  FunctionComponentDeclaration({
+  GenericFunctionComponentDeclaration({
     @required this.factory,
   }) : super(Version.v4_mixinBased);
 }
