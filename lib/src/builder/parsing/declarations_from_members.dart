@@ -306,7 +306,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         getPropsNameFromFunctionComponent(factory) == 'UiProps' || !hasConfigArg(factory));
     for (final factory in genericFactories) {
       consume(factory);
-      yield GenericFunctionComponentDeclaration(factory: factory);
+      yield FunctionComponentDeclaration(factory: factory);
     }
 
     for (final propsClassOrMixin in allUnusedProps) {
