@@ -1,5 +1,17 @@
 # OverReact Changelog
 
+## [3.7.0](https://github.com/Workiva/over_react/compare/3.6.0...3.7.0)
+
+__Library Changes:__
+- [#499] Add PureComponentMixin
+    - Allows you to build components similar to [React.PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent)!
+- [#462], [#608] Redux connect performance optimizations
+- [#501] Add code snippet for Redux connected components
+
+__Analyzer Plugin Changes:__
+- [#603] Add tests for _"toggle stateful"_ assist
+- [#604] Restore analyzer plugin Git history
+
 ## [3.6.0](https://github.com/Workiva/over_react/compare/3.5.3...3.6.0)
 
 - Add [OverReact Analyzer Plugin (beta)](https://github.com/Workiva/over_react/tree/master/tools/analyzer_plugin) ⚡️
