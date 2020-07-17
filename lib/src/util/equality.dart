@@ -1,6 +1,8 @@
 /// Returns whether maps [a] and [b] have [identical] sets of values for the same keys.
 ///
 /// Identity is not used for `Function`s found within the maps since tear-offs are not canonicalized.
+///
+/// Behavior is similar to JS shallow equality.
 //
 // Ported from https://github.com/reduxjs/react-redux/blob/573db0bfc8d1d50fdb6e2a98bd8a7d4675fecf11/src/utils/shallowEqual.js
 //

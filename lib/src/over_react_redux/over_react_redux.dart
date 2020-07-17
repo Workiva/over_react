@@ -90,9 +90,9 @@ typedef dynamic Dispatcher(dynamic action);
 /// by default.
 ///
 /// - [areStatesEqual] does an equality check using JS `===` (equivalent to [identical]) by default.
-/// - [areOwnPropsEqual] does a shallow Map equality check using JS `===` (equivalent to [identical]) by default.
-/// - [areStatePropsEqual] does a shallow Map equality check using JS `===` (equivalent to [identical]) by default.
-/// - [areMergedPropsEqual] does a shallow Map equality check using JS `===` (equivalent to [identical]) by default.
+/// - [areOwnPropsEqual] does a shallow Map equality check using [propsOrStateMapsEqual] by default.
+/// - [areStatePropsEqual] does a shallow Map equality check using [propsOrStateMapsEqual] by default.
+/// - [areMergedPropsEqual] does a shallow Map equality check using [propsOrStateMapsEqual] by default.
 ///
 /// - [context] can be utilized to provide a custom context object created with `createContext`.
 /// [context] is how you can utilize multiple stores. While supported, this is not recommended. :P
@@ -149,9 +149,11 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
   Map Function(dynamic Function(dynamic) dispatch, TProps ownProps) mapDispatchToPropsWithOwnProps,
   Map Function(TProps stateProps, TProps dispatchProps, TProps ownProps) mergeProps,
   bool Function(TReduxState nextState, TReduxState prevState) areStatesEqual,
-  bool Function(TProps nextProps, TProps prevProps) areOwnPropsEqual,
-  bool Function(TProps nextProps, TProps prevProps) areStatePropsEqual,
-  bool Function(TProps nextProps, TProps prevProps) areMergedPropsEqual,
+  // Use default parameter values instead of ??= in the function body to allow consumers
+  // to specify `null` and fall back to the JS default.
+  bool Function(TProps nextProps, TProps prevProps) areOwnPropsEqual = propsOrStateMapsEqual,
+  bool Function(TProps nextProps, TProps prevProps) areStatePropsEqual = propsOrStateMapsEqual,
+  bool Function(TProps nextProps, TProps prevProps) areMergedPropsEqual = propsOrStateMapsEqual,
   Context context,
   bool pure = true,
   bool forwardRef = false,
