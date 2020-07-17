@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:analyzer/dart/ast/ast.dart';
-
 import 'ast_util.dart';
 import 'declarations.dart';
 import 'member_association.dart';

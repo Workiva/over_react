@@ -14,7 +14,6 @@
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
 
 import 'ast_util.dart';
 import 'error_collection.dart';
