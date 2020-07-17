@@ -106,25 +106,6 @@ const PropsMeta _$metaForTestProps = PropsMeta(
   keys: $TestProps.$propKeys,
 );
 
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.'
-    ' EXCEPTION: this may be used in legacy boilerplate until'
-    ' it is transitioned to the new mixin-based boilerplate.')
-mixin $Test2Props on Test2Props {
-  static const PropsMeta meta = _$metaForTest2Props;
-  /* GENERATED CONSTANTS */
-
-  static const List<PropDescriptor> $props = [];
-  static const List<String> $propKeys = [];
-}
-
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-const PropsMeta _$metaForTest2Props = PropsMeta(
-  fields: $Test2Props.$props,
-  keys: $Test2Props.$propKeys,
-);
-
 final FunctionComponentConfig<_$$TestProps> $TestPropsConfig =
     FunctionComponentConfig(
         propsFactory: PropsFactory(
@@ -133,13 +114,13 @@ final FunctionComponentConfig<_$$TestProps> $TestPropsConfig =
         ),
         componentName: 'Test');
 
-final FunctionComponentConfig<_$$TestProps> $ArgumentErrorTestPropsConfig =
+final FunctionComponentConfig<_$$TestProps> $Test2PropsConfig =
     FunctionComponentConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$TestProps(map),
           jsMap: (map) => _$$TestProps$JsMap(map),
         ),
-        componentName: 'ArgumentErrorTest');
+        componentName: 'Test2');
 
 // Concrete props implementation.
 //

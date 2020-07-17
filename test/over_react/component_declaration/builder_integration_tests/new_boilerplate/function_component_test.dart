@@ -17,11 +17,35 @@
 // ignore_for_file: deprecated_member_use_from_same_package
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
+import '../../../../test_util/test_util.dart';
 
 part 'function_component_test.over_react.g.dart';
 
 main() {
   group('function component integration:', () {
+    test(
+        'renders a component from end to end, successfully reading props via typed getters',
+        () {
+      var instance = render((Test()
+        ..stringProp = '1'
+        ..dynamicProp = '2'
+        ..untypedProp = '3'
+        ..customKeyProp = '4'
+        ..customNamespaceProp = '5'
+        ..customKeyAndNamespaceProp = '6')());
+      expect(instance, isNotNull);
+
+      var node = findDomNode(instance);
+      expect(node.text, 'rendered content');
+      expect(node.dataset, containsPair('prop-string-prop', '1'));
+      expect(node.dataset, containsPair('prop-dynamic-prop', '2'));
+      expect(node.dataset, containsPair('prop-untyped-prop', '3'));
+      expect(node.dataset, containsPair('prop-custom-key-prop', '4'));
+      expect(node.dataset, containsPair('prop-custom-namespace-prop', '5'));
+      expect(node.dataset,
+          containsPair('prop-custom-key-and-namespace-prop', '6'));
+    });
+
     group('initializes the factory variable with a function', () {
       test('that returns a new props class implementation instance', () {
         var instance = Test();
@@ -72,9 +96,38 @@ main() {
             containsPair('custom namespace~~custom key!', 'test'));
       });
 
-      test('returns an empty map for componentDefaultProps', () {
-        expect(Test().componentDefaultProps, equals({}));
+      test('default props', () {
+        expect(Test().componentDefaultProps, equals({'id': 'testId'}));
       });
+
+      test('empty map when no default props set', () {
+        expect(Test2().componentDefaultProps, equals({}));
+      });
+
+      test(
+          'empty map when componentFactory is not ReactDartComponentFactoryProxy',
+          () {
+        expect(Dom.div().componentDefaultProps, equals({}));
+      });
+    });
+
+    test('omits props declared in the props class when forwarding by default',
+        () {
+      var shallowInstance = renderShallow((Test()
+        ..addProp('extraneous', true)
+        ..stringProp = 'test'
+        ..dynamicProp = 'test'
+        ..untypedProp = 'test'
+        ..customKeyProp = 'test'
+        ..customNamespaceProp = 'test'
+        ..customKeyAndNamespaceProp = 'test')());
+
+      var shallowProps = getProps(shallowInstance);
+      Iterable<String> shallowPropKeys =
+          shallowProps.keys.map((key) => key as String); // ignore: avoid_as
+
+      expect(shallowPropKeys.where((key) => !key.startsWith('data-prop-')),
+          unorderedEquals(['id', 'extraneous', 'children']));
     });
 
     group('throws an error when', () {
@@ -97,17 +150,28 @@ main() {
             throwsArgumentError);
       });
     });
-
-//    test('throws a null error when invoked via call/build, since it has no componentFactory', () {
-//      expect(() => Test()(), throwsNoSuchMethodError);
-//      expect(() => Test().build(), throwsNoSuchMethodError);
-//    }, tags: 'no-ddc');
   });
 }
 
-UiFactory<TestProps> Test = uiFunctionComponent((props) {
+UiFactory<TestProps> Test = uiFunctionComponent(
+    (props) {
+      return (Dom.div()
+        ..addProp('data-prop-string-prop', props.stringProp)
+        ..addProp('data-prop-dynamic-prop', props.dynamicProp)
+        ..addProp('data-prop-untyped-prop', props.untypedProp)
+        ..addProp('data-prop-custom-key-prop', props.customKeyProp)
+        ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
+        ..addProp('data-prop-custom-key-and-namespace-prop',
+            props.customKeyAndNamespaceProp))('rendered content');
+    },
+    $TestPropsConfig,
+    initStatics: (statics) {
+      statics.defaultProps = (statics.newProps()..id = 'testId');
+    });
+
+UiFactory<TestProps> Test2 = uiFunctionComponent((props) {
   return Dom.div()();
-}, $TestPropsConfig);
+}, $Test2PropsConfig);
 
 mixin TestProps on UiProps {
   String stringProp;
@@ -124,14 +188,14 @@ mixin TestProps on UiProps {
   dynamic customKeyAndNamespaceProp;
 }
 
-mixin Test2Props on UiProps {}
-
-UiFactory<TestProps> Test2 = uiFunctionComponent((props) => Dom.div()(), null,
-    propsFactory: PropsFactory.fromUiFactory(Test));
-
-final ArgumentErrorTest = uiFunctionComponent<TestProps>(
-    (props) => Dom.div()(), $ArgumentErrorTestPropsConfig,
-    propsFactory: PropsFactory.fromUiFactory(Test));
+//mixin Test2Props on UiProps {}
+//
+//UiFactory<TestProps> Test2 = uiFunctionComponent((props) => Dom.div()(), null,
+//    propsFactory: PropsFactory.fromUiFactory(Test));
+//
+//final ArgumentErrorTest = uiFunctionComponent<TestProps>(
+//    (props) => Dom.div()(), $ArgumentErrorTestPropsConfig,
+//    propsFactory: PropsFactory.fromUiFactory(Test));
 
 //
 //UiFactory<TestProps> Test2 = uiFunctionComponent((props) {
