@@ -603,14 +603,10 @@ abstract class UiProps extends MapBase
   /// An unmodifiable map view of the default props for this component brought
   /// in from the [componentFactory].
   // ignore: deprecated_member_use
-  Map get componentDefaultProps {
-    if(componentFactory is ReactDartComponentFactoryProxy) {
-      return (componentFactory as ReactDartComponentFactoryProxy).defaultProps;
-    } else if (componentFactory is ReactDartFunctionComponentFactoryProxy) {
-      return (componentFactory as ReactDartFunctionComponentFactoryProxy).defaultProps;
-    }
-    return const {};
-  }
+  Map get componentDefaultProps => componentFactory is ReactDartComponentFactoryProxy
+      // ignore: deprecated_member_use
+      ? (componentFactory as ReactDartComponentFactoryProxy).defaultProps
+      : const {};
 }
 
 /// A class that declares the `_map` getter shared by [PropsMapViewMixin]/[StateMapViewMixin] and [MapViewMixin].

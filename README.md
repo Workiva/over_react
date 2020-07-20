@@ -854,18 +854,15 @@ that you get for free from OverReact, you're ready to start building your own cu
   part 'foo_component.over_react.g.dart';
 
   UiFactory<FooProps> Foo = uiFunctionComponent((props) {
+    // Set default props using null-aware operators.
+    final isDisabled = props.isDisabled ?? false;
+    final items = props.items ?? [];
+  
     // Return the rendered component contents here.
     // The `props` variable is typed; no need for string keys!
   },
   // The generated props config will match the factory name.
-  $FooPropsConfig,
-  initStatics: (statics) {
-    statics.defaultProps = (statics.newProps()
-      // Cascade default props here.
-      ..isDisabled = false
-      ..items = []
-    );
-  });
+  $FooPropsConfig);
 
   mixin FooProps on UiProps {
     // Props go here, declared as fields:

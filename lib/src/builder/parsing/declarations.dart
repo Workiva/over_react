@@ -23,7 +23,6 @@ import 'version.dart';
 
 /// The possible declaration types that the builder will look for.
 enum DeclarationType {
-  genericFunctionComponentDeclaration,
   propsMapViewOrFunctionComponentDeclaration,
   functionComponentDeclaration,
   classComponentDeclaration,
@@ -281,7 +280,7 @@ class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
   final Union<BoilerplateProps, BoilerplatePropsMixin> props;
 
   @override
-  get _members => [...factories, props.either];
+  get _members => props == null ? factories : [...factories, props.either];
 
   @override
   get type => DeclarationType.propsMapViewOrFunctionComponentDeclaration;
@@ -289,6 +288,8 @@ class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
   @override
   void validate(ErrorCollector errorCollector) {
     super.validate(errorCollector);
+
+    if (props == null) return;
 
     for (final factory in factories) {
       _validateShorthand(errorCollector, PropsStateStringHelpers.props(),
@@ -299,27 +300,6 @@ class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
   PropsMapViewOrFunctionComponentDeclaration({
     @required this.factories,
     @required this.props,
-  }) : super(Version.v4_mixinBased);
-}
-
-/// A boilerplate declaration for a function component declared using
-/// the new mixin-based boilerplate that does not need a generated props config.
-///
-/// This means it was declared using UiProps or a custom [PropsFactory].
-///
-/// See [BoilerplateDeclaration] for more info.
-class FunctionComponentDeclaration extends BoilerplateDeclaration
-    with _TypedMapMixinShorthandDeclaration {
-  final BoilerplateFactory factory;
-
-  @override
-  get _members => [factory];
-
-  @override
-  get type => DeclarationType.genericFunctionComponentDeclaration;
-
-  FunctionComponentDeclaration({
-    @required this.factory,
   }) : super(Version.v4_mixinBased);
 }
 

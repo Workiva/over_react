@@ -25,18 +25,16 @@ part 'function_component_test.over_react.g.dart';
 main() {
   group('uiFunctionComponent', () {
     group('with generated props config', () {
-      functionComponentTestHelper(Test, testId: 'testId');
+      functionComponentTestHelper(Test);
     });
 
     group('with custom PropsFactory', () {
-      functionComponentTestHelper(TestCustom, testId: 'testId2');
+      functionComponentTestHelper(TestCustom);
     });
 
     group('with UiProps', () {
-      UiFactory<UiProps> TestUiProps = uiFunctionComponent(
-          (props) => Dom.div()(), null, initStatics: (statics) {
-        statics.defaultProps = (statics.newProps()..id = 'testId');
-      });
+      UiFactory<UiProps> TestUiProps =
+          uiFunctionComponent((props) => Dom.div()(), null);
 
       test(
           'renders a component from end to end, successfully reading props via typed getters',
@@ -81,27 +79,7 @@ main() {
 
           expect(TestUiProps()..id = '2', containsPair('id', '2'));
         });
-
-        test('default props', () {
-          expect(TestUiProps().componentDefaultProps, equals({'id': 'testId'}));
-        });
-
-        test('empty map if no default props', () {
-          UiFactory<UiProps> TestUiProps2 =
-              uiFunctionComponent((props) => Dom.div()(), null);
-          expect(TestUiProps2().componentDefaultProps, isEmpty);
-        });
       });
-    });
-
-    test(
-        'empty map when componentFactory is not ReactDartComponentFactoryProxy',
-        () {
-      expect(Dom.div().componentDefaultProps, isEmpty);
-    });
-
-    test('empty map when no default props set', () {
-      expect(TestNoDefaults().componentDefaultProps, isEmpty);
     });
 
     group('throws an error when', () {
@@ -127,8 +105,7 @@ main() {
   });
 }
 
-void functionComponentTestHelper(UiFactory<TestProps> factory,
-    {String testId = ''}) {
+void functionComponentTestHelper(UiFactory<TestProps> factory) {
   test(
       'renders a component from end to end, successfully reading props via typed getters',
       () {
@@ -202,47 +179,32 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
       expect(factory()..customKeyAndNamespaceProp = 'test',
           containsPair('custom namespace~~custom key!', 'test'));
     });
-
-    test('default props', () {
-      expect(factory().componentDefaultProps, equals({'id': testId}));
-    });
   });
 }
 
-UiFactory<TestProps> Test = uiFunctionComponent(
-    (props) {
-      return (Dom.div()
-        ..ref = props.forwardedRef
-        ..addProp('data-prop-string-prop', props.stringProp)
-        ..addProp('data-prop-dynamic-prop', props.dynamicProp)
-        ..addProp('data-prop-untyped-prop', props.untypedProp)
-        ..addProp('data-prop-custom-key-prop', props.customKeyProp)
-        ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
-        ..addProp('data-prop-custom-key-and-namespace-prop',
-            props.customKeyAndNamespaceProp))('rendered content');
-    },
-    $TestPropsConfig,
-    initStatics: (statics) {
-      statics.defaultProps = (statics.newProps()..id = 'testId');
-    });
+UiFactory<TestProps> Test = uiFunctionComponent((props) {
+  return (Dom.div()
+    ..ref = props.forwardedRef
+    ..addProp('data-prop-string-prop', props.stringProp)
+    ..addProp('data-prop-dynamic-prop', props.dynamicProp)
+    ..addProp('data-prop-untyped-prop', props.untypedProp)
+    ..addProp('data-prop-custom-key-prop', props.customKeyProp)
+    ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
+    ..addProp('data-prop-custom-key-and-namespace-prop',
+        props.customKeyAndNamespaceProp))('rendered content');
+}, $TestPropsConfig);
 
-UiFactory<TestProps> TestCustom = uiFunctionComponent(
-    (props) {
-      return (Dom.div()
-        ..ref = props.forwardedRef
-        ..addProp('data-prop-string-prop', props.stringProp)
-        ..addProp('data-prop-dynamic-prop', props.dynamicProp)
-        ..addProp('data-prop-untyped-prop', props.untypedProp)
-        ..addProp('data-prop-custom-key-prop', props.customKeyProp)
-        ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
-        ..addProp('data-prop-custom-key-and-namespace-prop',
-            props.customKeyAndNamespaceProp))('rendered content');
-    },
-    null,
-    propsFactory: PropsFactory.fromUiFactory(Test),
-    initStatics: (statics) {
-      statics.defaultProps = (statics.newProps()..id = 'testId2');
-    });
+UiFactory<TestProps> TestCustom = uiFunctionComponent((props) {
+  return (Dom.div()
+    ..ref = props.forwardedRef
+    ..addProp('data-prop-string-prop', props.stringProp)
+    ..addProp('data-prop-dynamic-prop', props.dynamicProp)
+    ..addProp('data-prop-untyped-prop', props.untypedProp)
+    ..addProp('data-prop-custom-key-prop', props.customKeyProp)
+    ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
+    ..addProp('data-prop-custom-key-and-namespace-prop',
+        props.customKeyAndNamespaceProp))('rendered content');
+}, null, propsFactory: PropsFactory.fromUiFactory(Test));
 
 UiFactory<TestProps> TestNoDefaults = uiFunctionComponent((props) {
   return Dom.div()();

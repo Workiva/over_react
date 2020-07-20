@@ -1591,22 +1591,25 @@ main() {
                 expect(declarations, unorderedEquals([
                   isA<PropsMixinDeclaration>(),
                   isA<PropsMapViewOrFunctionComponentDeclaration>(),
-                  isA<FunctionComponentDeclaration>(),
+                  isA<PropsMapViewOrFunctionComponentDeclaration>(),
                 ]));
-                final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
-                final genericDecl = declarations.firstWhereType<FunctionComponentDeclaration>();
+                final decls = declarations.whereType<PropsMapViewOrFunctionComponentDeclaration>().toList();
 
-                expect(decl.factories, isNotNull);
-                expect(decl.factories.length, 2);
-                expect(decl.factories.map((factory) => factory.name.name), unorderedEquals([
-                  'Foo',
-                  'Bar',
-                ]));
-                expect(decl.props.b?.name?.name, 'FooPropsMixin');
-                expect(decl.version, Version.v4_mixinBased);
-
-                expect(genericDecl.factory.name.name, 'Baz');
-                expect(genericDecl.version, Version.v4_mixinBased);
+                for (final decl in decls) {
+                  if(decl.props == null) {
+                    expect(decl.factories.length, 1);
+                    expect(decl.factories.first.name.name, 'Baz');
+                    expect(decl.version, Version.v4_mixinBased);
+                  } else {
+                    expect(decl.factories.length, 2);
+                    expect(decl.factories.map((factory) => factory.name.name), unorderedEquals([
+                      'Foo',
+                      'Bar',
+                    ]));
+                    expect(decl.props.b?.name?.name, 'FooPropsMixin');
+                    expect(decl.version, Version.v4_mixinBased);
+                  }
+                }
               });
 
               test('(verbose)', () {
@@ -1641,9 +1644,11 @@ main() {
                     return Dom.div()();
                   }, null);
                 ''');
-                final decl = expectSingleOfType<FunctionComponentDeclaration>(declarations);
+                final decl = expectSingleOfType<PropsMapViewOrFunctionComponentDeclaration>(declarations);
 
-                expect(decl.factory.name.name, 'Foo');
+                expect(decl.factories.length, 1);
+                expect(decl.factories.first.name.name, 'Foo');
+                expect(decl.props, isNull);
                 expect(decl.version, Version.v4_mixinBased);
               });
 

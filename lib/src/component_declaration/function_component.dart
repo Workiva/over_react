@@ -25,12 +25,61 @@ import 'package:react/react_client/js_backed_map.dart';
 export 'component_type_checking.dart'
     show isComponentOfType, isValidElementOfType;
 
+/// Returns a `UiFactory<T>` for [functionComponent].
+///
+/// The return value of [functionComponent] should be the contents of the rendered component.
+///
+/// __Example__:
+/// ```
+/// UiFactory<FooProps> Foo = uiFunctionComponent((props) {
+///     // Set default props using null-aware operators.
+///     final isDisabled = props.isDisabled ?? false;
+///     final items = props.items ?? [];
+///
+///     // Return the rendered component contents here.
+///     return Dom.div()(items);
+///   },
+///   // The generated props config will match the factory name.
+///   $FooPropsConfig,
+/// );
+///
+/// mixin FooProps on UiProps {
+///   // Props go here, declared as fields:
+///   bool isDisabled;
+///   Iterable<String> items;
+/// }
+/// ```
+///
+/// __OR__ Optionally pass in an existing [PropsFactory] in place of a props [config].
+///
+/// ```
+/// UiFactory<FooProps> Bar = uiFunctionComponent((props) {
+///     return Dom.div()(props.items);
+///   },
+///   null,
+///   propsFactory: PropsFactory.fromUiFactory(Foo),
+///   displayName: 'Bar',
+/// );
+/// ```
+///
+/// __OR__ Set [config] to `null` when using `UiProps`.
+///
+/// ```
+/// UiFactory<UiProps> Baz = uiFunctionComponent((props) {
+///     return Dom.div()('prop id: ${props.id}');
+///   },
+///   null,
+///   displayName: 'Baz',
+/// );
+/// ```
+///
+/// Learn more: <https://reactjs.org/docs/components-and-props.html#function-and-class-components>.
+// FIXME right now only top level factory declarations will generate props configs.
 UiFactory<T> uiFunctionComponent<T extends UiProps>(
   FunctionComponent<T> functionComponent,
   FunctionComponentConfig<T> config, {
   PropsFactory<T> propsFactory,
   String displayName,
-  void Function(UiFunctionComponentStatics<T>) initStatics,
 }) {
   if (config != null) {
     if (propsFactory != null) {
@@ -67,20 +116,6 @@ UiFactory<T> uiFunctionComponent<T extends UiProps>(
         as PropsFactory<T>;
   }
 
-  if (initStatics != null) {
-    final statics = UiFunctionComponentStatics<T>._(
-      newProps: () => propsFactory.jsMap(JsBackedMap()),
-      keyFor: (accessProps) => getPropKey(accessProps, propsFactory.map),
-    );
-    initStatics(statics);
-
-    if (statics.defaultProps != null) {
-      factory.defaultProps = statics.defaultProps;
-    }
-    // fixme need to implement in react-dart
-    if (statics.propTypes != null) {}
-  }
-
   T _uiFactory([Map backingMap]) {
     T builder;
     if (backingMap == null) {
@@ -106,16 +141,6 @@ String getFunctionName(Function function) {
   }
 
   return 'UiFunctionComponent';
-}
-
-class UiFunctionComponentStatics<T> {
-  Map defaultProps;
-  Map<String, react.PropValidator<T>> propTypes;
-
-  final String Function(void Function(T) accessProps) keyFor;
-  final T Function() newProps;
-
-  UiFunctionComponentStatics._({this.keyFor, this.newProps});
 }
 
 class GenericUiProps extends UiProps {

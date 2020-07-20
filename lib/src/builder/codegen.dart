@@ -35,9 +35,10 @@ class ImplGenerator {
   void generate(BoilerplateDeclaration declaration) {
     switch (declaration.type) {
       case DeclarationType.propsMapViewOrFunctionComponentDeclaration:
-        _generatePropsMapViewOrFunctionComponent(declaration);
-        break;
-      case DeclarationType.genericFunctionComponentDeclaration:
+        // Generated code only needed for props config.
+        if ((declaration as PropsMapViewOrFunctionComponentDeclaration).props != null) {
+          _generatePropsMapViewOrFunctionComponent(declaration);
+        }
         break;
       case DeclarationType.classComponentDeclaration:
         _generateClassComponent(declaration);

@@ -52,4 +52,4 @@ dependency_overrides:
   react:
     git:
       url: https://github.com/cleandart/react-dart.git
-      ref: function-component-updates
+      ref: 5.4.0-wip
