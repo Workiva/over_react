@@ -319,7 +319,9 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
       if (associatedFactories.isNotEmpty) {
         yield PropsMapViewOrFunctionComponentDeclaration(
           factories: associatedFactories.toList(),
-          props: propsClassOrMixin is BoilerplateProps ? Union.a(propsClassOrMixin) : Union.b(propsClassOrMixin),
+          props: propsClassOrMixin is BoilerplateProps
+              ? Union.a(propsClassOrMixin)
+              : Union.b(propsClassOrMixin),
         );
         associatedFactories.forEach(consume);
         consume(propsClassOrMixin);

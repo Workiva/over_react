@@ -69,14 +69,11 @@ main() {
         });
       });
 
-      group('generates prop getters/setters with', () {
-        test(
-            'the props class name as a namespace and the prop name as the key by default',
-            () {
-          expect(TestUiProps()..key = 'test', containsPair('key', 'test'));
-
-          expect(TestUiProps()..id = '2', containsPair('id', '2'));
-        });
+      test(
+          'generates prop getters/setters with the prop name as the key by default',
+          () {
+        expect(TestUiProps()..key = 'test', containsPair('key', 'test'));
+        expect(TestUiProps()..id = '2', containsPair('id', '2'));
       });
     });
 
