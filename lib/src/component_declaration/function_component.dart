@@ -48,24 +48,12 @@ UiFactory<T> uiFunctionComponent<T extends UiProps>(
     return functionComponent(propsFactory.jsMap(props as JsBackedMap));
   }
 
-  ReactDartFunctionComponentFactoryProxy factory;
-  if (initStatics != null) {
-    final statics = UiFunctionComponentStatics<T>._(
-        newProps: () => propsFactory.jsMap(JsBackedMap()),
-        keyFor: (accessProps) => getPropKey(accessProps, propsFactory.map),);
-    initStatics(statics);
-
-    if (statics.defaultProps != null) {
-      factory = react.registerFunctionComponent(_uiFunctionComponentWrapper,
-          displayName: displayName, defaultProps: statics.defaultProps);
-    }
-    // fixme need to implement in react-dart
-    if (statics.propTypes != null) {}
-  } else {
-    // FIXME DartFunctionComponent should be JsBackedMap?
-    factory = react.registerFunctionComponent(_uiFunctionComponentWrapper,
-        displayName: displayName);
-  }
+  // FIXME DartFunctionComponent should be JsBackedMap?
+  ReactDartFunctionComponentFactoryProxy factory =
+      react.registerFunctionComponent(
+    _uiFunctionComponentWrapper,
+    displayName: displayName,
+  );
 
   if (propsFactory == null) {
     // todo allow passing in of custom uiFactory/typedPropsFactory
@@ -77,6 +65,20 @@ UiFactory<T> uiFunctionComponent<T extends UiProps>(
     propsFactory = PropsFactory.fromUiFactory(
             ([backingMap]) => GenericUiProps(factory, backingMap))
         as PropsFactory<T>;
+  }
+
+  if (initStatics != null) {
+    final statics = UiFunctionComponentStatics<T>._(
+      newProps: () => propsFactory.jsMap(JsBackedMap()),
+      keyFor: (accessProps) => getPropKey(accessProps, propsFactory.map),
+    );
+    initStatics(statics);
+
+    if (statics.defaultProps != null) {
+      factory.defaultProps = statics.defaultProps;
+    }
+    // fixme need to implement in react-dart
+    if (statics.propTypes != null) {}
   }
 
   T _uiFactory([Map backingMap]) {

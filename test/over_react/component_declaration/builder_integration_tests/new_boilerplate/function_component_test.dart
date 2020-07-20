@@ -18,6 +18,8 @@
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
+import '../../../../test_util/test_util.dart';
+
 part 'function_component_test.over_react.g.dart';
 
 main() {
@@ -30,14 +32,76 @@ main() {
       functionComponentTestHelper(TestCustom, testId: 'testId2');
     });
 
+    group('with UiProps', () {
+      UiFactory<UiProps> TestUiProps = uiFunctionComponent(
+          (props) => Dom.div()(), null, initStatics: (statics) {
+        statics.defaultProps = (statics.newProps()..id = 'testId');
+      });
+
+      test(
+          'renders a component from end to end, successfully reading props via typed getters',
+          () {
+        // TODO: figure out how to test rendering of function component
+//        final instance = render((TestUiProps()
+//          ..key = '1'
+//        )());
+//        expect(instance, isNotNull);
+//
+//        final node = findDomNode(instance);
+//        expect(node.text, 'rendered content');
+//        expect(node.dataset, containsPair('key', '1'));
+      });
+
+      group('initializes the factory variable with a function', () {
+        test('that returns a new props class implementation instance', () {
+          final instance = TestUiProps();
+          expect(instance, isA<UiProps>());
+          expect(instance, isA<Map>());
+        });
+
+        test(
+            'that returns a new props class implementation instance backed by an existing map',
+            () {
+          Map existingMap = {'key': 'test'};
+          final props = TestUiProps(existingMap);
+
+          expect(props.key, equals('test'));
+
+          props.key = 'modified';
+          expect(props.key, equals('modified'));
+          expect(existingMap['key'], equals('modified'));
+        });
+      });
+
+      group('generates prop getters/setters with', () {
+        test(
+            'the props class name as a namespace and the prop name as the key by default',
+            () {
+          expect(TestUiProps()..key = 'test', containsPair('key', 'test'));
+
+          expect(TestUiProps()..id = '2', containsPair('id', '2'));
+        });
+
+        test('default props', () {
+          expect(TestUiProps().componentDefaultProps, equals({'id': 'testId'}));
+        });
+
+        test('empty map if no default props', () {
+          UiFactory<UiProps> TestUiProps2 =
+              uiFunctionComponent((props) => Dom.div()(), null);
+          expect(TestUiProps2().componentDefaultProps, isEmpty);
+        });
+      });
+    });
+
     test(
         'empty map when componentFactory is not ReactDartComponentFactoryProxy',
         () {
-      expect(Dom.div().componentDefaultProps, equals({}));
+      expect(Dom.div().componentDefaultProps, isEmpty);
     });
 
     test('empty map when no default props set', () {
-      expect(TestNoDefaults().componentDefaultProps, equals({}));
+      expect(TestNoDefaults().componentDefaultProps, isEmpty);
     });
 
     group('throws an error when', () {
@@ -69,7 +133,7 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
       'renders a component from end to end, successfully reading props via typed getters',
       () {
     // TODO: figure out how to test rendering of function component
-//    var instance = render((factory()
+//    final instance = render((factory()
 //      ..stringProp = '1'
 //      ..dynamicProp = '2'
 //      ..untypedProp = '3'
@@ -78,7 +142,7 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
 //      ..customKeyAndNamespaceProp = '6')());
 //    expect(instance, isNotNull);
 //
-//    var node = findDomNode(instance);
+//    final node = findDomNode(instance);
 //    expect(node.text, 'rendered content');
 //    expect(node.dataset, containsPair('prop-string-prop', '1'));
 //    expect(node.dataset, containsPair('prop-dynamic-prop', '2'));
@@ -91,7 +155,7 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
 
   group('initializes the factory variable with a function', () {
     test('that returns a new props class implementation instance', () {
-      var instance = factory();
+      final instance = factory();
       expect(instance, isA<TestProps>());
       expect(instance, isA<Map>());
     });
@@ -100,7 +164,7 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
         'that returns a new props class implementation instance backed by an existing map',
         () {
       Map existingMap = {'TestProps.stringProp': 'test'};
-      var props = factory(existingMap);
+      final props = factory(existingMap);
 
       expect(props.stringProp, equals('test'));
 
@@ -146,7 +210,7 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
 }
 
 UiFactory<TestProps> Test = uiFunctionComponent(
-        (props) {
+    (props) {
       return (Dom.div()
         ..ref = props.forwardedRef
         ..addProp('data-prop-string-prop', props.stringProp)
@@ -163,7 +227,7 @@ UiFactory<TestProps> Test = uiFunctionComponent(
     });
 
 UiFactory<TestProps> TestCustom = uiFunctionComponent(
-        (props) {
+    (props) {
       return (Dom.div()
         ..ref = props.forwardedRef
         ..addProp('data-prop-string-prop', props.stringProp)
