@@ -77,15 +77,6 @@ Union<A, B> _getNameMatchUnion<A extends BoilerplateMember, B extends Boilerplat
   return null;
 }
 
-Union<A, B> getUnion<A extends BoilerplateMember, B extends BoilerplateMember>(
-    BoilerplateMember member) {
-  if (member is A) return Union.a(member);
-
-  if (member is B) return Union.b(member);
-
-  return null;
-}
-
 /// Retrieves the component for a given [member] if it is found in [components].
 ///
 /// This first tries to normalize the names of the entities to find a matching name,
@@ -123,25 +114,6 @@ Union<BoilerplateProps, BoilerplatePropsMixin> getPropsFor(
 ) {
   return _getNameMatchUnion(props, propsMixins, normalizeNameAndRemoveSuffix(member)) ??
       getRelatedName(member).mapIfNotNull((name) => _getNameMatchUnion(props, propsMixins, name));
-}
-
-/// ADD DOC COMMENT IF KEPT
-String getPropsNameFromFunctionComponent(BoilerplateFactory factory) {
-  if (factory.propsGenericArg != null) {
-    return factory.propsGenericArg.typeNameWithoutPrefix;
-  }
-  final rightHandSide = factory.node.variables.firstInitializer;
-  assert(rightHandSide != null && rightHandSide is MethodInvocation);
-  final typeArgs = (rightHandSide as MethodInvocation).typeArguments?.arguments?.firstOrNull;
-  return typeArgs?.typeNameWithoutPrefix;
-}
-
-/// ADD DOC COMMENT IF KEPT
-bool hasConfigArg(BoilerplateFactory factory) {
-  final rightHandSide = factory.node.variables.firstInitializer;
-  final args = (rightHandSide as MethodInvocation).argumentList.arguments;
-  if (args == null || args.length < 2) return false;
-  return args[1] is! NullLiteral;
 }
 
 /// Retrieves the props for a given [member] if it is found in [states] or [stateMixins].

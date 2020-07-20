@@ -30,7 +30,7 @@ export 'component_type_checking.dart'
 /// The return value of [functionComponent] should be the contents of the rendered component.
 ///
 /// __Example__:
-/// ```
+/// ```dart
 /// UiFactory<FooProps> Foo = uiFunctionComponent((props) {
 ///     // Set default props using null-aware operators.
 ///     final isDisabled = props.isDisabled ?? false;
@@ -44,7 +44,6 @@ export 'component_type_checking.dart'
 /// );
 ///
 /// mixin FooProps on UiProps {
-///   // Props go here, declared as fields:
 ///   bool isDisabled;
 ///   Iterable<String> items;
 /// }
@@ -52,7 +51,7 @@ export 'component_type_checking.dart'
 ///
 /// __OR__ Optionally pass in an existing [PropsFactory] in place of a props [config].
 ///
-/// ```
+/// ```dart
 /// UiFactory<FooProps> Bar = uiFunctionComponent((props) {
 ///     return Dom.div()(props.items);
 ///   },
@@ -64,7 +63,7 @@ export 'component_type_checking.dart'
 ///
 /// __OR__ Set [config] to `null` when using `UiProps`.
 ///
-/// ```
+/// ```dart
 /// UiFactory<UiProps> Baz = uiFunctionComponent((props) {
 ///     return Dom.div()('prop id: ${props.id}');
 ///   },

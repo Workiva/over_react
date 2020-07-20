@@ -14,7 +14,8 @@
 
 @TestOn('browser')
 
-// ignore_for_file: deprecated_member_use_from_same_package
+import 'dart:html';
+
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
@@ -29,25 +30,22 @@ main() {
     });
 
     group('with custom PropsFactory', () {
-      functionComponentTestHelper(TestCustom);
+      functionComponentTestHelper(TestCustom, testId: 'testIdCustom');
     });
 
     group('with UiProps', () {
-      UiFactory<UiProps> TestUiProps =
-          uiFunctionComponent((props) => Dom.div()(), null);
+      UiFactory<UiProps> TestUiProps = uiFunctionComponent(
+          (props) => (Dom.div()..addTestId('testId3'))('id: ${props.id}'),
+          null);
 
       test(
           'renders a component from end to end, successfully reading props via typed getters',
           () {
-        // TODO: figure out how to test rendering of function component
-//        final instance = render((TestUiProps()
-//          ..key = '1'
-//        )());
-//        expect(instance, isNotNull);
-//
-//        final node = findDomNode(instance);
-//        expect(node.text, 'rendered content');
-//        expect(node.dataset, containsPair('key', '1'));
+        final jacket = mount((TestUiProps()..id = '1')());
+        final node = queryAllByTestId(jacket.mountNode, 'testId3').first;
+
+        expect(node, isA<DivElement>());
+        expect(node.text, 'id: 1');
       });
 
       group('initializes the factory variable with a function', () {
@@ -105,29 +103,30 @@ main() {
   });
 }
 
-void functionComponentTestHelper(UiFactory<TestProps> factory) {
+void functionComponentTestHelper(UiFactory<TestProps> factory,
+    {String testId = 'testId'}) {
   test(
       'renders a component from end to end, successfully reading props via typed getters',
       () {
-    // TODO: figure out how to test rendering of function component
-//    final instance = render((factory()
-//      ..stringProp = '1'
-//      ..dynamicProp = '2'
-//      ..untypedProp = '3'
-//      ..customKeyProp = '4'
-//      ..customNamespaceProp = '5'
-//      ..customKeyAndNamespaceProp = '6')());
-//    expect(instance, isNotNull);
-//
-//    final node = findDomNode(instance);
-//    expect(node.text, 'rendered content');
-//    expect(node.dataset, containsPair('prop-string-prop', '1'));
-//    expect(node.dataset, containsPair('prop-dynamic-prop', '2'));
-//    expect(node.dataset, containsPair('prop-untyped-prop', '3'));
-//    expect(node.dataset, containsPair('prop-custom-key-prop', '4'));
-//    expect(node.dataset, containsPair('prop-custom-namespace-prop', '5'));
-//    expect(
-//        node.dataset, containsPair('prop-custom-key-and-namespace-prop', '6'));
+    final jacket = mount((factory()
+      ..stringProp = '1'
+      ..dynamicProp = '2'
+      ..untypedProp = '3'
+      ..customKeyProp = '4'
+      ..customNamespaceProp = '5'
+      ..customKeyAndNamespaceProp = '6')());
+    final node = queryAllByTestId(jacket.mountNode, testId).first;
+
+    expect(node, isA<DivElement>());
+
+    expect(node.text, 'rendered content');
+    expect(node.dataset, containsPair('prop-string-prop', '1'));
+    expect(node.dataset, containsPair('prop-dynamic-prop', '2'));
+    expect(node.dataset, containsPair('prop-untyped-prop', '3'));
+    expect(node.dataset, containsPair('prop-custom-key-prop', '4'));
+    expect(node.dataset, containsPair('prop-custom-namespace-prop', '5'));
+    expect(
+        node.dataset, containsPair('prop-custom-key-and-namespace-prop', '6'));
   });
 
   group('initializes the factory variable with a function', () {
@@ -185,6 +184,7 @@ void functionComponentTestHelper(UiFactory<TestProps> factory) {
 UiFactory<TestProps> Test = uiFunctionComponent((props) {
   return (Dom.div()
     ..ref = props.forwardedRef
+    ..addTestId('testId')
     ..addProp('data-prop-string-prop', props.stringProp)
     ..addProp('data-prop-dynamic-prop', props.dynamicProp)
     ..addProp('data-prop-untyped-prop', props.untypedProp)
@@ -197,6 +197,7 @@ UiFactory<TestProps> Test = uiFunctionComponent((props) {
 UiFactory<TestProps> TestCustom = uiFunctionComponent((props) {
   return (Dom.div()
     ..ref = props.forwardedRef
+    ..addTestId('testIdCustom')
     ..addProp('data-prop-string-prop', props.stringProp)
     ..addProp('data-prop-dynamic-prop', props.dynamicProp)
     ..addProp('data-prop-untyped-prop', props.untypedProp)
@@ -205,10 +206,6 @@ UiFactory<TestProps> TestCustom = uiFunctionComponent((props) {
     ..addProp('data-prop-custom-key-and-namespace-prop',
         props.customKeyAndNamespaceProp))('rendered content');
 }, null, propsFactory: PropsFactory.fromUiFactory(Test));
-
-UiFactory<TestProps> TestNoDefaults = uiFunctionComponent((props) {
-  return Dom.div()();
-}, $TestNoDefaultsPropsConfig);
 
 mixin TestProps on UiProps {
   Ref forwardedRef;

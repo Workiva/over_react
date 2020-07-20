@@ -1538,7 +1538,6 @@ main() {
                 ]));
                 final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
 
-                expect(decl.factories, isNotNull);
                 expect(decl.factories.length, 1);
                 expect(decl.factories.first.name.name, name);
                 expect(decl.props.b?.name?.name, propsName);
@@ -1552,7 +1551,6 @@ main() {
                 ''');
                 final decl = expectSingleOfType<PropsMapViewOrFunctionComponentDeclaration>(declarations);
 
-                expect(decl.factories, isNotNull);
                 expect(decl.factories.length, 1);
                 expect(decl.factories.first.name.name, name);
                 expect(decl.props.a?.name?.name, propsName);
@@ -1568,142 +1566,121 @@ main() {
           });
 
           group('function component', () {
-            void sharedFunctionComponentTests({bool hasLeftHandType}) {
-              test('(shorthand)', () {
-                final leftHandType = hasLeftHandType ? 'UiFactory<FooPropsMixin>' : 'final';
-                final typeParams = hasLeftHandType ? '' : '<FooPropsMixin>';
-                setUpAndParse('''
-                  $leftHandType Foo = uiFunctionComponent$typeParams((props) {
-                    return Dom.div()();
-                  },  \$FooPropsConfig);
-                  
-                  $leftHandType Bar = uiFunctionComponent$typeParams((props) {
-                    return Dom.div()();
-                  },  \$BarPropsConfig);
-                  
-                  $leftHandType Baz = uiFunctionComponent$typeParams((props) {
-                    return Dom.div()();
-                  }, null, propsFactory: PropsFactory.fromUiFactory(Foo));
-                  
-                  mixin FooPropsMixin on UiProps {}
-                ''');
+            test('(shorthand)', () {
+              setUpAndParse('''
+                UiFactory<FooPropsMixin> Foo = uiFunctionComponent((props) {
+                  return Dom.div()();
+                },  \$FooPropsConfig);
+                
+                final Bar = uiFunctionComponent<FooPropsMixin>((props) {
+                  return Dom.div()();
+                },  \$BarPropsConfig);
+                
+                UiFactory<FooPropsMixin> Baz = uiFunctionComponent<FooPropsMixin>((props) {
+                  return Dom.div()();
+                }, null, propsFactory: PropsFactory.fromUiFactory(Foo));
+                
+                mixin FooPropsMixin on UiProps {}
+              ''');
 
-                expect(declarations, unorderedEquals([
-                  isA<PropsMixinDeclaration>(),
-                  isA<PropsMapViewOrFunctionComponentDeclaration>(),
-                  isA<PropsMapViewOrFunctionComponentDeclaration>(),
-                ]));
-                final decls = declarations.whereType<PropsMapViewOrFunctionComponentDeclaration>().toList();
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<PropsMapViewOrFunctionComponentDeclaration>(),
+                isA<PropsMapViewOrFunctionComponentDeclaration>(),
+              ]));
+              final decls = declarations.whereType<PropsMapViewOrFunctionComponentDeclaration>().toList();
 
-                for (final decl in decls) {
-                  if(decl.props == null) {
-                    expect(decl.factories.length, 1);
-                    expect(decl.factories.first.name.name, 'Baz');
-                    expect(decl.version, Version.v4_mixinBased);
-                  } else {
-                    expect(decl.factories.length, 2);
-                    expect(decl.factories.map((factory) => factory.name.name), unorderedEquals([
-                      'Foo',
-                      'Bar',
-                    ]));
-                    expect(decl.props.b?.name?.name, 'FooPropsMixin');
-                    expect(decl.version, Version.v4_mixinBased);
-                  }
+              for (final decl in decls) {
+                if(decl.props == null) {
+                  expect(decl.factories.length, 1);
+                  expect(decl.factories.first.name.name, 'Baz');
+                  expect(decl.version, Version.v4_mixinBased);
+                } else {
+                  expect(decl.factories.length, 2);
+                  expect(decl.factories.map((factory) => factory.name.name), unorderedEquals([
+                    'Foo',
+                    'Bar',
+                  ]));
+                  expect(decl.props.b?.name?.name, 'FooPropsMixin');
+                  expect(decl.version, Version.v4_mixinBased);
                 }
-              });
+              }
+            });
 
-              test('(verbose)', () {
-                final leftHandType = hasLeftHandType ? 'UiFactory<FooProps>' : 'final';
-                final typeParams = hasLeftHandType ? '' : '<FooProps>';
-                setUpAndParse('''
-                  $leftHandType Foo = uiFunctionComponent$typeParams((props) {
-                    return Dom.div()();
-                  },  \$FooPropsConfig);
-                  mixin FooPropsMixin on UiProps {}
-                  class FooProps = UiProps with FooPropsMixin;
-                ''');
+            test('(verbose)', () {
+              setUpAndParse('''
+                final Foo = uiFunctionComponent<FooProps>((props) {
+                  return Dom.div()();
+                },  \$FooPropsConfig);
+                mixin FooPropsMixin on UiProps {}
+                class FooProps = UiProps with FooPropsMixin;
+              ''');
 
-                expect(declarations, unorderedEquals([
-                  isA<PropsMixinDeclaration>(),
-                  isA<PropsMapViewOrFunctionComponentDeclaration>(),
-                ]));
-                final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<PropsMapViewOrFunctionComponentDeclaration>(),
+              ]));
+              final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
 
-                expect(decl.factories, isNotNull);
-                expect(decl.factories.length, 1);
-                expect(decl.factories.first.name.name, 'Foo');
-                expect(decl.props.a?.name?.name, 'FooProps');
-                expect(decl.version, Version.v4_mixinBased);
-              });
+              expect(decl.factories.length, 1);
+              expect(decl.factories.first.name.name, 'Foo');
+              expect(decl.props.a?.name?.name, 'FooProps');
+              expect(decl.version, Version.v4_mixinBased);
+            });
 
-              test('generic UiProps', () {
-                final leftHandType = hasLeftHandType ? 'UiFactory<UiProps>' : 'final';
-                final typeParams = hasLeftHandType ? '' : '<UiProps>';
-                setUpAndParse('''
-                  $leftHandType Foo = uiFunctionComponent$typeParams((props) {
-                    return Dom.div()();
-                  }, null);
-                ''');
-                final decl = expectSingleOfType<PropsMapViewOrFunctionComponentDeclaration>(declarations);
+            test('generic UiProps', () {
+              setUpAndParse('''
+                final Foo = uiFunctionComponent<UiProps>((props) {
+                  return Dom.div()();
+                }, null);
+              ''');
+              final decl = expectSingleOfType<PropsMapViewOrFunctionComponentDeclaration>(declarations);
 
-                expect(decl.factories.length, 1);
-                expect(decl.factories.first.name.name, 'Foo');
-                expect(decl.props, isNull);
-                expect(decl.version, Version.v4_mixinBased);
-              });
+              expect(decl.factories.length, 1);
+              expect(decl.factories.first.name.name, 'Foo');
+              expect(decl.props, isNull);
+              expect(decl.version, Version.v4_mixinBased);
+            });
 
-              test('with multiple mixins in the same file', () {
-                final leftHandType = hasLeftHandType ? 'UiFactory<FooPropsMixin>' : 'final';
-                final leftHandType2 = hasLeftHandType ? 'UiFactory<BarPropsMixin>' : 'final';
-                final typeParams = hasLeftHandType ? '' : '<FooPropsMixin>';
-                final typeParams2 = hasLeftHandType ? '' : '<BarPropsMixin>';
-                setUpAndParse('''
-                  $leftHandType Foo = uiFunctionComponent$typeParams((props) {
-                    return Dom.div()();
-                  },  \$FooPropsConfig);
-                  
-                  $leftHandType Bar = uiFunctionComponent$typeParams((props) {
-                    return Dom.div()();
-                  },  \$BarPropsConfig);
-                  
-                  $leftHandType2 Baz = uiFunctionComponent$typeParams2((props) {
-                    return Dom.div()();
-                  },  \$BazPropsConfig);
-                  
-                  mixin FooPropsMixin on UiProps {}
-                  mixin BarPropsMixin on UiProps {}
-                ''');
+            test('with multiple mixins in the same file', () {
+              setUpAndParse('''
+                UiFactory<FooPropsMixin> Foo = uiFunctionComponent((props) {
+                  return Dom.div()();
+                },  \$FooPropsConfig);
+                
+                final Bar = uiFunctionComponent<FooPropsMixin>((props) {
+                  return Dom.div()();
+                },  \$BarPropsConfig);
+                
+                UiFactory<BarPropsMixin> Baz = uiFunctionComponent((props) {
+                  return Dom.div()();
+                },  \$BazPropsConfig);
+                
+                mixin FooPropsMixin on UiProps {}
+                mixin BarPropsMixin on UiProps {}
+              ''');
 
-                expect(declarations, unorderedEquals([
-                  isA<PropsMixinDeclaration>(),
-                  isA<PropsMixinDeclaration>(),
-                  isA<PropsMapViewOrFunctionComponentDeclaration>(),
-                  isA<PropsMapViewOrFunctionComponentDeclaration>(),
-                ]));
-                final decl = declarations.whereType<PropsMapViewOrFunctionComponentDeclaration>().toList();
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<PropsMixinDeclaration>(),
+                isA<PropsMapViewOrFunctionComponentDeclaration>(),
+                isA<PropsMapViewOrFunctionComponentDeclaration>(),
+              ]));
+              final decl = declarations.whereType<PropsMapViewOrFunctionComponentDeclaration>().toList();
+              expect(decl.length, 2);
 
-                expect(decl.length, 2);
-                expect(decl.first.factories, isNotNull);
-                expect(decl.first.factories.length, 2);
-                expect(decl.first.factories.map((factory) => factory.name.name), unorderedEquals([
-                  'Foo',
-                  'Bar',
-                ]));
-                expect(decl.first.props.b?.name?.name, 'FooPropsMixin');
-                expect(decl.first.version, Version.v4_mixinBased);
+              expect(decl.first.factories.length, 2);
+              expect(decl.first.factories.map((factory) => factory.name.name), unorderedEquals([
+                'Foo',
+                'Bar',
+              ]));
+              expect(decl.first.props.b?.name?.name, 'FooPropsMixin');
+              expect(decl.first.version, Version.v4_mixinBased);
 
-                expect(decl[1].factories, isNotNull);
-                expect(decl[1].factories.length, 1);
-                expect(decl[1].factories.first.name.name, 'Baz');
-                expect(decl[1].props.b?.name?.name, 'BarPropsMixin');
-                expect(decl[1].version, Version.v4_mixinBased);
-              });
-            }
-
-            sharedFunctionComponentTests(hasLeftHandType: true);
-
-            group('without left hand typing', () {
-              sharedFunctionComponentTests(hasLeftHandType: false);
+              expect(decl[1].factories.length, 1);
+              expect(decl[1].factories.first.name.name, 'Baz');
+              expect(decl[1].props.b?.name?.name, 'BarPropsMixin');
+              expect(decl[1].version, Version.v4_mixinBased);
             });
           });
         });
@@ -1870,6 +1847,7 @@ main() {
 
           test('without props typing arguments or left hand typing', () {
             setUpAndParse(r'''
+              mixin FooProps on UiProps {}
               final Foo = uiFunctionComponent((props) {
                 return Dom.div()();
               }, $FooPropsConfig);

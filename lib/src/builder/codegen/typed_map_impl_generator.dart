@@ -376,7 +376,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   @override
   bool get isComponent2 => true;
 
-  String _generateFunctionComponentConfig(FactoryNames factoryName) {
+  String _generateFunctionComponentPropsConfig(FactoryNames factoryName) {
     return 'final FunctionComponentConfig<${names.implName}> '
         '\$${factoryName.consumerName}PropsConfig = FunctionComponentConfig(\n'
         'propsFactory: PropsFactory(\n'
@@ -389,7 +389,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   void _generateFactory() {
     if (isFunctionComponentDeclaration) {
       factoryNames.forEach(
-          (factory) => outputContentsBuffer.write(_generateFunctionComponentConfig(factory)));
+          (factory) => outputContentsBuffer.write(_generateFunctionComponentPropsConfig(factory)));
     } else {
       super._generateFactory();
     }

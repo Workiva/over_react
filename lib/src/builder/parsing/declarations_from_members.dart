@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:analyzer/dart/ast/ast.dart';
+
 import 'ast_util.dart';
 import 'declarations.dart';
 import 'member_association.dart';
@@ -301,7 +303,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     ].expand((i) => i).whereNot(hasBeenConsumed);
 
     final standAloneFactories = _functionComponentFactories.where((factory) =>
-        getPropsNameFromFunctionComponent(factory) == 'UiProps' || !hasConfigArg(factory));
+        _getPropsNameFromFunctionComponent(factory) == 'UiProps' || !_hasConfigArg(factory));
     for (final factory in standAloneFactories) {
       consume(factory);
       yield PropsMapViewOrFunctionComponentDeclaration(
@@ -313,11 +315,11 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     for (final propsClassOrMixin in allUnusedProps) {
       final associatedFactories = _functionComponentFactories.where((factory) =>
           !hasBeenConsumed(factory) &&
-          getPropsNameFromFunctionComponent(factory) == propsClassOrMixin.name.name);
+          _getPropsNameFromFunctionComponent(factory) == propsClassOrMixin.name.name);
       if (associatedFactories.isNotEmpty) {
         yield PropsMapViewOrFunctionComponentDeclaration(
           factories: associatedFactories.toList(),
-          props: getUnion<BoilerplateProps, BoilerplatePropsMixin>(propsClassOrMixin),
+          props: propsClassOrMixin is BoilerplateProps ? Union.a(propsClassOrMixin) : Union.b(propsClassOrMixin),
         );
         associatedFactories.forEach(consume);
         consume(propsClassOrMixin);
@@ -396,6 +398,25 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
           'Mismatched boilerplate member found', errorCollector.spanFor(member.node));
     }
   }
+}
+
+// Returns whether or not the props config argument of `uiFunctionComponent` is `null`.
+bool _hasConfigArg(BoilerplateFactory factory) {
+  final rightHandSide = factory.node.variables.firstInitializer;
+  final args = (rightHandSide as MethodInvocation).argumentList.arguments;
+  if (args == null || args.length < 2) return false;
+  return args[1] is! NullLiteral;
+}
+
+// Returns the name of the props for [factory] based on typing arguments in the `uiFunctionComponent` declaration.
+String _getPropsNameFromFunctionComponent(BoilerplateFactory factory) {
+  if (factory.propsGenericArg != null) {
+    return factory.propsGenericArg.typeNameWithoutPrefix;
+  }
+  final rightHandSide = factory.node.variables.firstInitializer;
+  assert(rightHandSide != null && rightHandSide is MethodInvocation);
+  final typeArgs = (rightHandSide as MethodInvocation).typeArguments?.arguments?.firstOrNull;
+  return typeArgs?.typeNameWithoutPrefix;
 }
 
 const errorStateOnly =

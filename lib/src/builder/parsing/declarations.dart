@@ -24,7 +24,6 @@ import 'version.dart';
 /// The possible declaration types that the builder will look for.
 enum DeclarationType {
   propsMapViewOrFunctionComponentDeclaration,
-  functionComponentDeclaration,
   classComponentDeclaration,
   legacyClassComponentDeclaration,
   legacyAbstractPropsDeclaration,
