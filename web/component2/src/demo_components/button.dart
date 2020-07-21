@@ -1,3 +1,17 @@
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:over_react/over_react.dart';
 
 import '../demo_components.dart';
@@ -7,11 +21,10 @@ part 'button.over_react.g.dart';
 /// to render individual items within a list.
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
-@Factory()
+
 UiFactory<ButtonProps> Button = _$Button;
 
-@Props()
-class _$ButtonProps extends UiProps {
+mixin ButtonProps on UiProps {
   /// The skin / "context" for the [Button].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#examples>.
@@ -74,13 +87,12 @@ class _$ButtonProps extends UiProps {
   ButtonType type;
 }
 
-@State()
-class _$ButtonState extends UiState {}
+mixin ButtonState on UiState {}
 
-@Component2()
-class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiStatefulComponent2<T, S> {
+class ButtonComponent<T extends ButtonProps, S extends ButtonState>
+    extends UiStatefulComponent2<T, S> {
   @override
-   get defaultProps => (newProps()
+  get defaultProps => (newProps()
     ..skin = ButtonSkin.PRIMARY
     ..size = ButtonSize.DEFAULT
     ..isActive = false

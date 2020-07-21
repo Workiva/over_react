@@ -4,6 +4,11 @@ analyzer:
   exclude:
     - _site/**
     - test_fixtures/**
+    - app/**
+    - tools/analyzer_plugin/**
+  errors:
+    missing_required_param: error
+    must_call_super: error
 linter:
   rules:
     # -------------------

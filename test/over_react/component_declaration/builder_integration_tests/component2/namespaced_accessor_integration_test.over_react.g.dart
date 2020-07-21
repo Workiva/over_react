@@ -12,7 +12,7 @@ part of 'namespaced_accessor_integration_test.dart';
 // Registers component implementation and links type meta to builder factory.
 final $NamespacedAccessorTestComponentFactory = registerComponent2(
   () => _$NamespacedAccessorTestComponent(),
-  builderFactory: NamespacedAccessorTest,
+  builderFactory: _$NamespacedAccessorTest,
   componentClass: NamespacedAccessorTestComponent,
   isWrapper: false,
   parentType: null,
@@ -477,7 +477,7 @@ class _$NamespacedAccessorTestComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$NamespacedAccessorTestProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForNamespacedAccessorTestProps

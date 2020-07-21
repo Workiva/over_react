@@ -23,11 +23,20 @@ import 'package:over_react/src/component/dom_components.dart';
 
 import '../../test_util/test_util.dart';
 import '../component/fixtures/basic_child_component.dart';
+import 'fixtures/basic_ui_component.dart';
 
 part 'forward_ref_test.over_react.g.dart';
 
 main() {
   group('forward ref -', () {
+    test('errors when wrapping a UiComponent', () {
+      expect(() => forwardRef<BasicUiComponentProps>((props, ref) {
+        return (BasicUiComponent()
+          ..ref = ref
+        )();
+      })(BasicUiComponent), throwsArgumentError);
+    });
+
     group('on a component with a dom component child', () {
       forwardRefTest(Dom.span, verifyRefValue: (ref) {
         expect(ref, TypeMatcher<SpanElement>());

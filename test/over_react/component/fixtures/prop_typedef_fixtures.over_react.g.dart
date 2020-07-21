@@ -152,7 +152,7 @@ abstract class TestAbstractCustomRendererComponentState
 final $TestConsumingAbstractCustomRendererComponentComponentFactory =
     registerComponent2(
   () => _$TestConsumingAbstractCustomRendererComponentComponent(),
-  builderFactory: TestConsumingAbstractCustomRendererComponent,
+  builderFactory: _$TestConsumingAbstractCustomRendererComponent,
   componentClass: TestConsumingAbstractCustomRendererComponentComponent,
   isWrapper: false,
   parentType: null,
@@ -348,7 +348,7 @@ class _$TestConsumingAbstractCustomRendererComponentComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestConsumingAbstractCustomRendererComponentProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestConsumingAbstractCustomRendererComponentProps
@@ -361,7 +361,7 @@ class _$TestConsumingAbstractCustomRendererComponentComponent
 final $TestConsumingCustomRendererComponentComponentFactory =
     registerComponent2(
   () => _$TestConsumingCustomRendererComponentComponent(),
-  builderFactory: TestConsumingCustomRendererComponent,
+  builderFactory: _$TestConsumingCustomRendererComponent,
   componentClass: TestConsumingCustomRendererComponentComponent,
   isWrapper: false,
   parentType: null,
@@ -547,7 +547,7 @@ class _$TestConsumingCustomRendererComponentComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestConsumingCustomRendererComponentProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestConsumingCustomRendererComponentProps
@@ -560,7 +560,7 @@ class _$TestConsumingCustomRendererComponentComponent
 final $TestCustomRendererFromAbstractComponentComponentFactory =
     registerComponent2(
   () => _$TestCustomRendererFromAbstractComponentComponent(),
-  builderFactory: TestCustomRendererFromAbstractComponent,
+  builderFactory: _$TestCustomRendererFromAbstractComponent,
   componentClass: TestCustomRendererFromAbstractComponentComponent,
   isWrapper: false,
   parentType: null,
@@ -836,7 +836,7 @@ class _$TestCustomRendererFromAbstractComponentComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestCustomRendererFromAbstractComponentProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestCustomRendererFromAbstractComponentProps
@@ -848,7 +848,7 @@ class _$TestCustomRendererFromAbstractComponentComponent
 // Registers component implementation and links type meta to builder factory.
 final $TestCustomRendererComponentComponentFactory = registerComponent2(
   () => _$TestCustomRendererComponentComponent(),
-  builderFactory: TestCustomRendererComponent,
+  builderFactory: _$TestCustomRendererComponent,
   componentClass: TestCustomRendererComponentComponent,
   isWrapper: false,
   parentType: null,
@@ -1194,7 +1194,7 @@ class _$TestCustomRendererComponentComponent
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestCustomRendererComponentProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestCustomRendererComponentProps

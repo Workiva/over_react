@@ -21,13 +21,27 @@ import 'dart:html';
 
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
+import 'package:over_react/components.dart' as v2;
 import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 import 'package:over_react/src/util/css_value_util.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:platform_detect/platform_detect.dart';
 
+// The computed font size of the HTML node isn't reliable in Chrome when the page is refreshed while zoomed.
+// Instead, measure a container to determine how big 1rem is.
+//
+// See: https://bugs.chromium.org/p/chromium/issues/detail?id=1043349
 double _computeRootFontSize() {
-  return CssValue.parse(document.documentElement.getComputedStyle().fontSize).number.toDouble();
+  final remMeasurer = DivElement();
+  remMeasurer.style
+    ..width = '1rem'
+    ..height = '0'
+    ..position = 'absolute'
+    ..zIndex = '-1';
+  document.body.append(remMeasurer);
+  final rem = CssValue.parse(remMeasurer.getComputedStyle().width).number.toDouble();
+  remMeasurer.remove();
+  return rem;
 }
 
 double _rootFontSize = _computeRootFontSize();
@@ -87,7 +101,7 @@ Future<Null> initRemChangeSensor() {
         'height': '100rem',
       }
     )(
-      (ResizeSensor()..onResize = (_) {
+      (v2.ResizeSensor()..onResize = (_) {
         recomputeRootFontSize();
       })()
     ), _changeSensorMountNode);

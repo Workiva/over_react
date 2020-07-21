@@ -12,7 +12,7 @@ part of 'dummy_component2.dart';
 // Registers component implementation and links type meta to builder factory.
 final $_Dummy2ComponentFactory = registerComponent2(
   () => _$_Dummy2Component(),
-  builderFactory: _Dummy2,
+  builderFactory: _$_Dummy2,
   componentClass: _Dummy2Component,
   isWrapper: false,
   parentType: null,
@@ -141,7 +141,7 @@ class _$_Dummy2Component extends _Dummy2Component {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$_Dummy2Props.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaFor_Dummy2Props

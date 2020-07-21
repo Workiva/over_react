@@ -11,12 +11,13 @@ part of 'one_level_wrapper.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $OneLevelWrapperComponentFactory = registerComponent(
-    () => _$OneLevelWrapperComponent(),
-    builderFactory: OneLevelWrapper,
-    componentClass: OneLevelWrapperComponent,
-    isWrapper: true,
-    parentType: null,
-    displayName: 'OneLevelWrapper');
+  () => _$OneLevelWrapperComponent(),
+  builderFactory: _$OneLevelWrapper,
+  componentClass: OneLevelWrapperComponent,
+  isWrapper: true,
+  parentType: null,
+  displayName: 'OneLevelWrapper',
+);
 
 abstract class _$OneLevelWrapperPropsAccessorsMixin
     implements _$OneLevelWrapperProps {
@@ -87,7 +88,7 @@ class _$OneLevelWrapperComponent extends OneLevelWrapperComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$OneLevelWrapperProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForOneLevelWrapperProps

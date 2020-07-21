@@ -11,12 +11,13 @@ part of 'list_group_item.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ListGroupItemComponentFactory = registerComponent(
-    () => _$ListGroupItemComponent(),
-    builderFactory: ListGroupItem,
-    componentClass: ListGroupItemComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'ListGroupItem');
+  () => _$ListGroupItemComponent(),
+  builderFactory: _$ListGroupItem,
+  componentClass: ListGroupItemComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'ListGroupItem',
+);
 
 abstract class _$ListGroupItemPropsAccessorsMixin
     implements _$ListGroupItemProps {
@@ -364,7 +365,7 @@ class _$ListGroupItemComponent extends ListGroupItemComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ListGroupItemProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForListGroupItemProps

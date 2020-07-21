@@ -1,21 +1,32 @@
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:over_react/over_react.dart';
+
 import '../context.dart';
 
 part 'my_provider_component.over_react.g.dart';
 
-@Factory()
-UiFactory<MyProviderComponentProps> MyProviderComponent = _$MyProviderComponent;
+UiFactory<MyProviderProps> MyProvider = _$MyProvider; // ignore: undefined_identifier
 
-@Props()
-class _$MyProviderComponentProps extends UiProps {}
+mixin MyProviderProps on UiProps {}
 
-@State()
-class _$MyProviderComponentState extends UiState {
+mixin MyProviderState on UiState {
   String latestValue;
 }
 
-@Component2()
-class MyProviderComponentComponent extends UiStatefulComponent2<MyProviderComponentProps, MyProviderComponentState> {
+class MyProviderComponent extends UiStatefulComponent2<MyProviderProps, MyProviderState> {
   @override
   render() {
     return Dom.div()(

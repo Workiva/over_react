@@ -18,18 +18,30 @@ library over_react_redux;
 
 import 'dart:html';
 import 'dart:js_util' as js_util;
-import 'package:meta/meta.dart';
-import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
-import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
-import 'package:collection/collection.dart';
+
 import 'package:js/js.dart';
+import 'package:memoize/memoize.dart';
+import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
+import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:react/react_client.dart';
-import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_client/js_backed_map.dart';
+import 'package:react/react_client/react_interop.dart';
 import 'package:redux/redux.dart';
 
 part 'over_react_redux.over_react.g.dart';
+
+/// This class is present:
+///
+/// 1. to allow for consumers which have used the --backwards-compat flag with over_react_codemod to statically analyze:
+///     <https://github.com/Workiva/over_react_codemod/blob/71e5713ec6c256ddaf7c616ff9d6d26d77bb8f25/README.md#dart-1-to-dart-2-codemod>
+/// 2. to provide forwards-compatibility and allow this to be mixed into mixin-based component props
+abstract class $ConnectPropsMixin {
+  @Deprecated('This API is for use only within generated code.'
+      ' Do not reference it in your code, as it may change at any time.')
+  static const PropsMeta meta = _$metaForConnectPropsMixin;
+}
 
 @PropsMixin(keyNamespace: '')
 abstract class _$ConnectPropsMixin implements UiProps {
@@ -44,16 +56,18 @@ typedef dynamic Dispatcher(dynamic action);
 
 /// A wrapper around the JS react-redux `connect` function that supports OverReact components.
 ///
+/// > __NOTE:__ This should only be used to wrap components that extend from [Component2].
+///
 /// __Example:__
 /// ```dart
-///     UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
-///         mapStateToProps: (state) => (
-///           Counter()..count = state.count
-///         ),
-///         mapDispatchToProps: (dispatch) => (
-///           Counter()..increment = () => dispatch(INCREMENT_ACTION())
-///         ),
-///     )(Counter);
+/// UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
+///   mapStateToProps: (state) => (Counter()
+///     ..count = state.count
+///   ),
+///   mapDispatchToProps: (dispatch) => (Counter()
+///     ..increment = (() => dispatch(INCREMENT_ACTION()))
+///   ),
+/// )(_$Counter);
 /// ```
 ///
 /// - [mapStateToProps] is used for selecting the part of the data from the store that the connected
@@ -75,10 +89,10 @@ typedef dynamic Dispatcher(dynamic action);
 /// If you do not provide [mergeProps], the wrapped component receives {...ownProps, ...stateProps, ...dispatchProps}
 /// by default.
 ///
-/// - [areStatesEqual] does a simple `==` check by default.
-/// - [areOwnPropsEqual] does a shallow Map equality check by default.
-/// - [areStatePropsEqual] does a shallow Map equality check by default.
-/// - [areMergedPropsEqual] does a shallow Map equality check by default.
+/// - [areStatesEqual] does an equality check using JS `===` (equivalent to [identical]) by default.
+/// - [areOwnPropsEqual] does a shallow Map equality check using [propsOrStateMapsEqual] by default.
+/// - [areStatePropsEqual] does a shallow Map equality check using [propsOrStateMapsEqual] by default.
+/// - [areMergedPropsEqual] does a shallow Map equality check using [propsOrStateMapsEqual] by default.
 ///
 /// - [context] can be utilized to provide a custom context object created with `createContext`.
 /// [context] is how you can utilize multiple stores. While supported, this is not recommended. :P
@@ -87,17 +101,17 @@ typedef dynamic Dispatcher(dynamic action);
 ///
 /// __Example:__
 /// ```dart
-///     Store store1 = new Store<CounterState>(counterStateReducer, initialState: new CounterState(count: 0));
-///     Store store2 = new Store<BigCounterState>(bigCounterStateReducer, initialState: new BigCounterState(bigCount: 100));
+///     Store store1 = Store<CounterState>(counterStateReducer, initialState: new CounterState(count: 0));
+///     Store store2 = Store<BigCounterState>(bigCounterStateReducer, initialState: new BigCounterState(bigCount: 100));
 ///
-///     UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
+///     UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
 ///       mapStateToProps: (state) => (Counter()..count = state.count)
-///     )(Counter);
+///     )(_$Counter);
 ///
-///     UiFactory<CounterProps> ConnectedBigCounter = connect<BigCounterState, CounterProps>(
-///       mapStateToProps: (state) => (Counter()..count = state.bigCount),
+///     UiFactory<CounterProps> BigCounter = connect<BigCounterState, CounterProps>(
+///       mapStateToProps: (state) => (BigCounter()..count = state.bigCount),
 ///       context: bigCounterContext,
-///     )(Counter);
+///     )(_$Counter);
 ///
 ///     react_dom.render(
 ///       Dom.div()(
@@ -107,10 +121,10 @@ typedef dynamic Dispatcher(dynamic action);
 ///             ..context = bigCounterContext
 ///           )(
 ///             Dom.div()(
-///               Dom.h3()('ConnectedBigCounter Store2'),
-///               ConnectedBigCounter()(
-///                 Dom.h4()('ConnectedCounter Store1'),
-///                 ConnectedCounter()(),
+///               Dom.h3()('BigCounter Store2'),
+///               BigCounter()(
+///                 Dom.h4()('Counter Store1'),
+///                 Counter()(),
 ///               ),
 ///             ),
 ///           ),
@@ -135,20 +149,19 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
   Map Function(dynamic Function(dynamic) dispatch, TProps ownProps) mapDispatchToPropsWithOwnProps,
   Map Function(TProps stateProps, TProps dispatchProps, TProps ownProps) mergeProps,
   bool Function(TReduxState nextState, TReduxState prevState) areStatesEqual,
-  bool Function(TProps nextProps, TProps prevProps) areOwnPropsEqual,
-  bool Function(TProps nextProps, TProps prevProps) areStatePropsEqual,
-  bool Function(TProps nextProps, TProps prevProps) areMergedPropsEqual,
+  // Use default parameter values instead of ??= in the function body to allow consumers
+  // to specify `null` and fall back to the JS default.
+  bool Function(TProps nextProps, TProps prevProps) areOwnPropsEqual = propsOrStateMapsEqual,
+  bool Function(TProps nextProps, TProps prevProps) areStatePropsEqual = propsOrStateMapsEqual,
+  bool Function(TProps nextProps, TProps prevProps) areMergedPropsEqual = propsOrStateMapsEqual,
   Context context,
   bool pure = true,
   bool forwardRef = false,
 }) {
-  areStatesEqual ??= _defaultEquality;
-  areOwnPropsEqual ??= _shallowMapEquality;
-  areStatePropsEqual ??= _shallowMapEquality;
-  areMergedPropsEqual ??= _shallowMapEquality;
-
   UiFactory<TProps> wrapWithConnect(UiFactory<TProps> factory) {
-    final dartComponentClass = factory().componentFactory.type;
+    final dartComponentFactory = factory().componentFactory;
+    final dartComponentClass = dartComponentFactory.type;
+    enforceMinimumComponentVersionFor(dartComponentFactory);
 
     JsMap jsMapFromProps(Map props) => jsBackingMapOrJsCopy(props is UiProps ? props.props : props);
 
@@ -214,25 +227,43 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
     bool handleAreMergedPropsEqual(JsMap jsNext, JsMap jsPrev) =>
         areMergedPropsEqual(jsPropsToTProps(jsNext), jsPropsToTProps(jsPrev));
 
+    final connectOptions = JsConnectOptions(
+      forwardRef: forwardRef,
+      pure: pure,
+      context: context?.jsThis ?? JsReactRedux.ReactReduxContext,
+    );
+    // These can't be `null` in the JS object, so we conditionally define them
+    // so they won't exist in the object if we don't want to specify them.
+    if (areStatesEqual != null) {
+      connectOptions.areStatesEqual = allowInterop(handleAreStatesEqual);
+    }
+    if (areOwnPropsEqual != null) {
+      connectOptions.areOwnPropsEqual = allowInterop(handleAreOwnPropsEqual);
+    }
+    if (areStatePropsEqual != null) {
+      connectOptions.areStatePropsEqual = allowInterop(handleAreStatePropsEqual);
+    }
+    if (areMergedPropsEqual != null) {
+      connectOptions.areMergedPropsEqual = allowInterop(handleAreMergedPropsEqual);
+    }
+
     final hoc = mockableJsConnect(
       mapStateToProps != null ? allowInteropWithArgCount(handleMapStateToProps, 1) : mapStateToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapStateToPropsWithOwnProps, 2) : null,
       mapDispatchToProps != null ? allowInteropWithArgCount(handleMapDispatchToProps, 1) : mapDispatchToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapDispatchToPropsWithOwnProps, 2) : null,
       mergeProps != null ? allowInterop(handleMergeProps) : null,
-      JsConnectOptions(
-        areStatesEqual: allowInterop(handleAreStatesEqual),
-        areOwnPropsEqual: allowInterop(handleAreOwnPropsEqual),
-        areStatePropsEqual: allowInterop(handleAreStatePropsEqual),
-        areMergedPropsEqual: allowInterop(handleAreMergedPropsEqual),
-        forwardRef: forwardRef,
-        pure: pure,
-        context: context?.jsThis ?? JsReactRedux.ReactReduxContext,
-      ),
+      connectOptions,
     )(dartComponentClass);
 
-    final hocJsFactoryProxy = ReactJsComponentFactoryProxy(hoc, shouldConvertDomProps: false, alwaysReturnChildrenAsList: true);
+    /// Use a Dart proxy instead of a JS one since we're treating it like a Dart component:
+    /// props values should be passed to the underlying component (e.g., those returned by mapStateToProps)
+    /// without any conversion needed by JS Components, and props are are fed directly
+    /// into Dart code (e.g., those passed into mapStateToPropsWithOwnProps/areOwnPropsEqual)
+    /// without needing unwrapping/conversion.
+    final hocFactoryProxy = ReactDartComponentFactoryProxy2(hoc);
+    setComponentTypeMeta(hocFactoryProxy, isHoc: true, parentType: dartComponentFactory);
 
     TProps connectedFactory([Map props]) {
-      return (factory(props)..componentFactory = hocJsFactoryProxy);
+      return (factory(props)..componentFactory = hocFactoryProxy);
     }
 
     return connectedFactory;
@@ -240,9 +271,6 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
 
   return wrapWithConnect;
 }
-
-bool _defaultEquality(Object a, Object b) => a == b;
-bool _shallowMapEquality(Map a, Map b) => const MapEquality().equals(a, b);
 
 @JS('ReactRedux.connect')
 external ReactClass Function(ReactClass) _jsConnect(
@@ -278,12 +306,7 @@ class JsReactRedux {
 /// [context] You may provide a context instance. If you do so, you will need to provide the same context instance to all of your connected components as well.
 ///
 /// See: <https://react-redux.js.org/api/provider>
-class ReduxProviderProps extends component_base.UiProps
-    with
-        builder_helpers.GeneratedClass
-    implements
-        builder_helpers.UiProps {
-
+class ReduxProviderProps extends builder_helpers.UiProps {
   ReduxProviderProps([Map props]) : this.props = props ?? JsBackedMap();
 
   @override
@@ -294,6 +317,9 @@ class ReduxProviderProps extends component_base.UiProps
 
   @override
   String get propKeyNamespace => '';
+
+  @override
+  bool get $isClassGenerated => true;
 
   /// The __single__ Redux store in your application.
   Store get store => props['store'];
@@ -347,10 +373,15 @@ class ReactJsReactReduxComponentFactoryProxy extends ReactJsContextComponentFact
 }
 
 /// Converts a Redux.dart [Store] into a Javascript object formatted for consumption by react-redux.
-JsReactReduxStore _reduxifyStore(Store store){
+JsReactReduxStore _reduxifyStore(Store store) {
+  // Memoize this so that the same ReactInteropValue instances will be used
+  // for a given state, allowing JS `===` checks to not fail when the same
+  // state object is passed.
+  final memoizedWrapInteropValue = imemo1(wrapInteropValue);
+
   return JsReactReduxStore(
     getState: allowInterop(() {
-      return wrapInteropValue(store.state);
+      return memoizedWrapInteropValue(store.state);
     }),
     subscribe: allowInterop((cb) {
       return allowInterop(store.onChange.listen((_){cb();}).cancel);

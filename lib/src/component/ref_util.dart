@@ -14,6 +14,7 @@
 
 import 'dart:js_util';
 
+import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:react/react_client/react_interop.dart' as react_interop;
 import 'package:react/react_client.dart';
 import 'package:over_react/component_base.dart';
@@ -22,13 +23,10 @@ import 'package:over_react/component_base.dart';
 ///
 /// __Example__:
 ///
-///     @Factory()
 ///     UiFactory<BasicProps> Basic = _$Basic;
 ///
-///     @Props()
-///     class _$BasicProps extends UiProps {}
+///     mixin BasicProps on UiProps {}
 ///
-///     @Component2()
 ///     class BasicComponent extends UiComponent2<BasicProps> {
 ///       final Ref<InputElement> inputRef = createRef();
 ///
@@ -53,6 +51,8 @@ Ref<T> createRef<T>() {
 }
 
 /// Automatically passes a [Ref] through a component to one of its children.
+///
+/// > __NOTE:__ This should only be used to wrap components that extend from `Component2`.
 ///
 /// __Example 1:__ Forwarding refs to DOM components
 ///
@@ -122,11 +122,9 @@ Ref<T> createRef<T>() {
 ///   )('Click me!');
 /// })(_LogProps);
 ///
-/// @Factory()
 /// UiFactory<LogPropsProps> _LogProps = _$_LogProps;
 ///
-/// @Props()
-/// class _$LogPropsProps extends UiProps {
+/// mixin LogPropsProps on UiProps {
 ///   BuilderOnlyUiFactory<DomProps> builder;
 ///
 ///   // Private since we only use this to pass along the value of `ref` to
@@ -181,6 +179,8 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
     Function(TProps props, Ref ref) wrapperFunction, {String displayName}) {
 
   UiFactory<TProps> wrapWithForwardRef(UiFactory<TProps> factory) {
+    enforceMinimumComponentVersionFor(factory().componentFactory);
+    
     if (displayName == null) {
       final componentFactoryType = factory().componentFactory.type;
       if (componentFactoryType is String) {
@@ -196,11 +196,12 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
         }
       }
     }
-
+    
     Object wrapProps(Map props, Ref ref) {
       return wrapperFunction(factory(props), ref);
     }
     ReactComponentFactoryProxy hoc = react_interop.forwardRef(wrapProps, displayName: displayName);
+    setComponentTypeMeta(hoc, isHoc: true, parentType: factory().componentFactory);
 
     TProps forwardedFactory([Map props]) {
       return factory(props)..componentFactory = hoc;

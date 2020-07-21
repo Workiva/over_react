@@ -20,7 +20,6 @@ import 'package:test/test.dart';
 
 import '../../../../test_util/test_util.dart';
 
-// ignore: uri_has_not_been_generated
 part 'namespaced_accessor_integration_test.over_react.g.dart';
 
 main() {

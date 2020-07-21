@@ -11,12 +11,13 @@ part of 'component_integration_test.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $ComponentTestComponentFactory = registerComponent(
-    () => _$ComponentTestComponent(),
-    builderFactory: ComponentTest,
-    componentClass: ComponentTestComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'ComponentTest');
+  () => _$ComponentTestComponent(),
+  builderFactory: _$ComponentTest,
+  componentClass: ComponentTestComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'ComponentTest',
+);
 
 abstract class _$ComponentTestPropsAccessorsMixin
     implements _$ComponentTestProps {
@@ -187,9 +188,41 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$ComponentTestProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForComponentTestProps
   ];
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $TestPropsMixin on TestPropsMixin {
+  static const PropsMeta meta = _$metaForTestPropsMixin;
+  @override
+  dynamic get propsMixinProp =>
+      props[_$key__propsMixinProp__TestPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set propsMixinProp(dynamic value) =>
+      props[_$key__propsMixinProp__TestPropsMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__propsMixinProp__TestPropsMixin =
+      PropDescriptor(_$key__propsMixinProp__TestPropsMixin);
+  static const String _$key__propsMixinProp__TestPropsMixin =
+      'TestPropsMixin.propsMixinProp';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__propsMixinProp__TestPropsMixin
+  ];
+  static const List<String> $propKeys = [_$key__propsMixinProp__TestPropsMixin];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForTestPropsMixin = PropsMeta(
+  fields: $TestPropsMixin.$props,
+  keys: $TestPropsMixin.$propKeys,
+);

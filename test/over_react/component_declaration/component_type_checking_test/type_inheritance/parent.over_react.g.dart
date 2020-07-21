@@ -11,12 +11,13 @@ part of 'parent.dart';
 //
 // Registers component implementation and links type meta to builder factory.
 final $TestParentComponentFactory = registerComponent(
-    () => _$TestParentComponent(),
-    builderFactory: TestParent,
-    componentClass: TestParentComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'TestParent');
+  () => _$TestParentComponent(),
+  builderFactory: _$TestParent,
+  componentClass: TestParentComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'TestParent',
+);
 
 abstract class _$TestParentPropsAccessorsMixin implements _$TestParentProps {
   @override
@@ -86,7 +87,7 @@ class _$TestParentComponent extends TestParentComponent {
   bool get $isClassGenerated => true;
 
   /// The default consumed props, taken from _$TestParentProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   final List<ConsumedProps> $defaultConsumedProps = const [
     _$metaForTestParentProps

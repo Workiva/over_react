@@ -1,27 +1,39 @@
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 import '../store.dart';
 
 part 'counter.over_react.g.dart';
 
-UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
-    mapStateToProps: (state) => (Counter()..currentCount = state.smallCount)
-)(Counter);
+UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
+    mapStateToProps: (state) => (_Counter()..currentCount = state.smallCount)
+)(_Counter);
 
-UiFactory<CounterProps> ConnectedBigCounter = connect<CounterState, CounterProps>(
-  mapStateToProps: (state) => (Counter()..currentCount = state.bigCount),
+UiFactory<CounterProps> BigCounter = connect<CounterState, CounterProps>(
+  mapStateToProps: (state) => (_Counter()..currentCount = state.bigCount),
   mapDispatchToProps: (dispatch) => (
-      Counter()
+      _Counter()
         ..increment = () { dispatch(BigIncrementAction()); }
         ..decrement = () { dispatch(BigDecrementAction()); }
   ),
-)(Counter);
+)(_Counter);
 
-@Factory()
-UiFactory<CounterProps> Counter = _$Counter;
+UiFactory<CounterProps> _Counter = _$_Counter;
 
-@Props()
-class _$CounterProps extends UiProps with ConnectPropsMixin {
+mixin CounterPropsMixin on UiProps {
   int currentCount;
 
   Map<String, dynamic> wrapperStyles;
@@ -31,7 +43,8 @@ class _$CounterProps extends UiProps with ConnectPropsMixin {
   void Function() decrement;
 }
 
-@Component2()
+class CounterProps = UiProps with CounterPropsMixin, ConnectPropsMixin;
+
 class CounterComponent extends UiComponent2<CounterProps> {
   @override
   render() {

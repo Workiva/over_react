@@ -1,8 +1,9 @@
 # OverReact
 
 [![Pub](https://img.shields.io/pub/v/over_react.svg)](https://pub.dartlang.org/packages/over_react)
-[![Documentation](https://img.shields.io/badge/docs-over_react-blue.svg)](https://pub.dev/documentation/over_react/latest/)
 [![Join the chat at https://gitter.im/over_react/Lobby](https://badges.gitter.im/over_react/Lobby.svg)](https://gitter.im/over_react/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Documentation](https://img.shields.io/badge/docs-over_react-blue.svg)](https://pub.dev/documentation/over_react/latest/)
+[![OverReact Analyzer Plugin (beta)](https://img.shields.io/badge/docs-analyzer_plugin_(beta)-ff69b4.svg)](https://workiva.github.io/over_react/analyzer_plugin/)
 
 [![Build Status](https://travis-ci.org/Workiva/over_react.svg?branch=master)](https://travis-ci.org/Workiva/over_react)
 [![Test Coverage](https://codecov.io/github/Workiva/over_react/coverage.svg?branch=master)](https://codecov.io/github/Workiva/over_react?branch=master)
@@ -18,6 +19,7 @@
 
 ---
 
+* __[Additional docs](#additional-docs)__
 * __[Using it in your project](#using-it-in-your-project)__
     * [Running tests in your project](#running-tests-in-your-project)
 * __[Anatomy of an OverReact component](#anatomy-of-an-overreact-component)__
@@ -31,12 +33,21 @@
 * __[Building custom components](#building-custom-components)__
     * __[Component Boilerplates](#component-boilerplate-templates)__
     * __[Component Best Practices](#component-best-practices)__
-    * __[Common Pitfalls](#common-pitfalls)__
 * __[Contributing](#contributing)__
 
 [](#__START_EMBEDDED_README__)
 
-
+## Additional docs
+To further document APIs that can be found in OverReact, the [doc](doc) directory was created. The documentation found in that directory includes:
+ - [OverReact Redux Documentation](doc/over_react_redux_documentation.md): The official documentation source for OverReact Redux, with an indepth description of `connect` and usage with `UiComponent2`.
+    
+    Migration guides from other state management libs:
+    - [BuiltRedux to Redux](doc/built_redux_to_redux.md): A guide to transitioning to OverReact Redux from BuiltRedux.
+    - [Flux to Redux](doc/flux_to_redux.md): A guide to how to transition from w_flux to OverReact Redux. This guide also introducers a new architecture, Influx, that can be used for incrementally refactoring.
+- Migration guides from older versions of over_react:
+    - [Dart2 Migration](doc/dart2_migration.md): Documentation on the Dart 2 builder updates and how to transition componentry to Dart 2.
+    - [UiComponent2 Transition](doc/ui_component2_transition.md): A document discussing the changes between `UiComponent` and `UiComponent2`, as well as how to migrate.
+    - [New Boilerplate Migration](doc/new_boilerplate_migration.md): Documentation on the changes to the component boilerplate, as well as how to migrate to the new boilerplate.
 
 ## Using it in your project
 
@@ -51,8 +62,10 @@
     dependencies:
       over_react: ^3.0.0
     ```
+   
+1. Enable the **[OverReact Analyzer Plugin (beta)](tools/analyzer_plugin/)**, which has many lints and assists to make authoring OverReact components easier!
 
-2. Include the native JavaScript `react` and `react_dom` libraries in your app’s `index.html` file,
+1. Include the native JavaScript `react` and `react_dom` libraries in your app’s `index.html` file,
 and add an HTML element with a unique identifier where you’ll mount your OverReact UI component(s).
 
     ```html
@@ -76,7 +89,7 @@ and add an HTML element with a unique identifier where you’ll mount your OverR
     > __Note:__ When serving your application in production, use `packages/react/react_with_react_dom_prod.js`
     file instead of the un-minified `react.js` / `react_dom.js` files shown in the example above.
 
-4. Import the `over_react` and `react_dom` libraries into `your_app_name.dart`, and initialize
+1. Import the `over_react` and `react_dom` libraries into `your_app_name.dart`, and initialize
 React within your Dart application. Then [build a custom component](#building-custom-components) and
 mount / render it into the HTML element you created in step 3.
 
@@ -89,15 +102,12 @@ mount / render it into the HTML element you created in step 3.
     import 'package:over_react/over_react.dart';
 
     main() {
-      // Initialize React within our Dart app
-      setClientConfiguration();
-
       // Mount / render your component.
       react_dom.render(Foo()(), querySelector('#react_mount_point'));
     }
     ```
 
-5. Run `pub run build_runner serve` in the root of your Dart project.
+1. Run `pub run build_runner serve` in the root of your Dart project.
 
 > **Note:** After running a build, you'll have to restart your analysis server in your IDE for the built types to resolve
 properly. Unfortunately, this is a known limitation in the analysis server at this time. See: https://github.com/dart-lang/sdk/issues/34344
@@ -160,7 +170,6 @@ __`UiFactory` is a function__ that returns a new instance of a
 [`UiComponent`](#uicomponent2)’s [`UiProps`](#uiprops) class.
 
 ```dart
-@Factory()
 UiFactory<FooProps> Foo = _$Foo;
 ```
 
@@ -176,30 +185,42 @@ __`UiProps` is a Map class__ that adds statically-typed getters and setters for 
 It can also be invoked as a function, serving as a builder for its analogous component.
 
 ```dart
-@Props()
-class _$FooProps extends UiProps {
+mixin FooProps on UiProps {
   // ...
 }
 ```
-* Note: The [builder] will make the concrete getters and setters available in a generated class which has the same name
-as the class annotated with `@Props()`, but without the `_$` prefix (which would be `FooProps` in the above code).
-The generated class will also have the same API. So, consumers who wish to extend the functionality of `_$FooProps` should
-extend the generated version, `FooProps`.
+* Note: The [builder] will make the concrete getters and setters available in a generated class. To mix props classes together, the mixin class should be used rather than the generated props class. See [With other mixins](#with-other-mixins) below for more information.
+
+&nbsp;
+
+#### With other mixins
+
+__To compose props mixin classes__, create a class alias that uses `UiProps` as the base and mix in props mixins. The generated props implementation will then use it as the base class and implement the generated version of those props mixins.
+```dart
+UiFactory<FooProps> Foo = _$Foo;
+
+mixin FooPropsMixin on UiProps {
+  // ...
+}
+
+class FooProps = UiProps with FooPropsMixin, BarPropsMixin;
+
+class FooComponent extends UiComponent2<FooProps> {
+  // ...
+}
+```
 
 &nbsp;
 
 #### UiProps as a Map
 
 ```dart
-@Factory()
 UiFactory<FooProps> Foo = _$Foo;
 
-@Props()
-class _$FooProps extends UiProps {
+mixin FooProps on UiProps {
   String color;
 }
 
-@Component2()
 class FooComponent extends UiComponent2<FooProps> {
   // ...
 }
@@ -229,11 +250,9 @@ void baz() {
 #### UiProps as a builder
 
 ```dart
-@Factory()
 UiFactory<FooProps> Foo = _$Foo;
 
-@Props()
-class _$FooProps extends UiProps {
+mixin FooProps on UiProps {
   String color;
 }
 
@@ -275,17 +294,13 @@ __`UiState` is a Map class__ _(just like `UiProps`)_ that adds statically-typed 
 for each React component state property.
 
 ```dart
-@State()
-class _$FooState extends UiState {
+mixin FooState on UiState {
   // ...
 }
 ```
 
 > UiState is optional, and won’t be used for every component.
-* Note: The [builder] will make the concrete getters and setters available in a generated class which has the same name
-as the class annotated with `@State()`, but without the `_$` prefix (which would be `FooState` in the above code).
-The generated class will also have the same API. So, consumers who wish to extend the functionality of `_$FooState` should
-use the generated version, `FooState`.
+* Note: The [builder] will make the concrete getters and setters available in a generated class. To mix state classes together, the mixin class should be used rather than the generated state class. See [With other mixins](#with-other-mixins) above for  more information.
 
 &nbsp;
 
@@ -296,7 +311,6 @@ __`UiComponent2` is a subclass of [`react.Component2`]__, containing lifecycle m
 and rendering logic for components.
 
 ```dart
-@Component2()
 class FooComponent extends UiComponent2<FooProps> {
   // ...
 }
@@ -318,7 +332,6 @@ They are instances of `UiProps` and `UiState`, __which means you don’t need St
 * `typedPropsFactory()` and `typedStateFactory()` are also exposed to conveniently create typed `props` / `state` objects out of any provided backing map.
 
 ```dart
-@Component2()
 class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
   @override
   get defaultProps => (newProps()
@@ -371,6 +384,8 @@ class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
 
 
 ## Fluent-style component consumption
+
+> The **[OverReact analyzer plugin](tools/analyzer_plugin/)** has many lints and assists to make authoring OverReact components easier!
 
 In OverReact, components are consumed by invoking a `UiFactory` to return a new `UiProps` builder, which is then
 modified and invoked to build a `ReactElement`.
@@ -693,17 +708,14 @@ that you get for free from OverReact, you're ready to start building your own cu
     import 'package:over_react/over_react.dart';
     part 'foo_component.over_react.g.dart';
 
-    @Factory()
     UiFactory<FooProps> Foo = _$Foo;
 
-    @Props()
-    class _$FooProps extends UiProps {
+    mixin FooProps on UiProps {
       // Props go here, declared as fields:
       bool isDisabled;
       Iterable<String> items;
     }
 
-    @Component2()
     class FooComponent extends UiComponent2<FooProps> {
       @override
       get defaultProps => (newProps()
@@ -727,23 +739,19 @@ that you get for free from OverReact, you're ready to start building your own cu
     import 'package:over_react/over_react.dart';
     part 'foo_component.over_react.g.dart';
 
-    @Factory()
     UiFactory<BarProps> Bar = _$Bar;
 
-    @Props()
-    class _$BarProps extends UiProps {
+    mixin BarProps on UiProps {
       // Props go here, declared as fields:
       bool isDisabled;
       Iterable<String> items;
     }
 
-    @State()
-    class _$BarState extends UiState {
+    mixin BarState on UiState {
       // State goes here, declared as fields:
       bool isShown;
     }
 
-    @Component2()
     class BarComponent extends UiStatefulComponent2<BarProps, BarState> {
       @override
       get defaultProps => (newProps()
@@ -773,16 +781,15 @@ that you get for free from OverReact, you're ready to start building your own cu
     import 'package:over_react/over_react.dart';
     part 'foo_component.over_react.g.dart';
 
-    @Factory()
     UiFactory<BazProps> Baz = _$Baz;
 
-    @Props()
-    class _$BazProps extends FluxUiProps<BazActions, BazStore> {
+    mixin BazPropsMixin on UiProps {
       // Props go here, declared as fields.
       // `actions` and `store` are already defined for you!
     }
 
-    @Component2()
+    class BazProps = UiProps with FluxUiPropsMixin<BazActions, BazStore>, BazPropsMixin;
+  
     class BazComponent extends FluxUiComponent2<BazProps> {
       @override
       get defaultProps => (newProps()
@@ -805,21 +812,21 @@ that you get for free from OverReact, you're ready to start building your own cu
     import 'package:over_react/over_react.dart';
     part 'foo_component.over_react.g.dart';
 
-    @Factory()
     UiFactory<BazProps> Baz = _$Baz;
 
-    @Props()
-    class _$BazProps extends FluxUiProps<BazActions, BazStore> {
+  
+    mixin BazPropsMixin on UiProps {
       // Props go here, declared as fields.
       // `actions` and `store` are already defined for you!
     }
 
-    @State()
-    class _$BazState extends UiState {
+    class BazProps = UiProps with FluxUiPropsMixin<BazActions, BazStore>, BazPropsMixin;
+
+  
+    mixin BazState on UiState {
       // State goes here, declared as fields.
     }
 
-    @Component2()
     class BazComponent extends FluxUiStatefulComponent2<BazProps, BazState> {
       @override
       get defaultProps => (newProps()
@@ -859,14 +866,12 @@ another component.
     /// * Similar to [SplitButton].
     ///
     /// See: <https://link-to-any-relevant-documentation>.
-    @Factory()
     UiFactory<DropdownButtonProps> DropdownButton = _$DropdownButton;
     ```
 
   _Bad:_
     ```dart
     /// Component Factory for a dropdown button component.
-    @Factory()
     UiFactory<DropdownButtonProps> DropdownButton = _$DropdownButton;
     ```
 
@@ -881,8 +886,7 @@ and document that value in a comment.
 
   _Good:_
     ```dart
-    @Props()
-    _$DropdownButtonProps extends UiProps {
+    mixin DropdownButtonProps on UiProps {
       /// Whether the [DropdownButton] appears disabled.
       ///
       /// Default: `false`
@@ -897,15 +901,13 @@ and document that value in a comment.
       bool initiallyOpen;
     }
 
-    @State()
-    _$DropdownButtonState extends UiState {
+    mixin DropdownButtonState on UiState {
       /// Whether the [DropdownButton]'s child [DropdownMenu] is open.
       ///
       /// Initial: [DropdownButtonProps.initiallyOpen]
       bool isOpen;
     }
 
-    @Component2()
     DropdownButtonComponent
         extends UiStatefulComponent2<DropdownButtonProps, DropdownButtonState> {
       @override
@@ -923,18 +925,15 @@ and document that value in a comment.
 
   _Bad:_
     ```dart
-    @Props()
-    _$DropdownButtonProps extends UiProps {
+    mixin DropdownButtonProps on UiProps {
       bool isDisabled;
       bool initiallyOpen;
     }
 
-    @State()
-    _$DropdownButtonState extends UiState {
+    mixin DropdownButtonState on UiState {
       bool isOpen;
     }
 
-    @Component2()
     DropdownButtonComponent
         extends UiStatefulComponent2<DropdownButtonProps, DropdownButtonState> {
       // Confusing stuff is gonna happen in here with
@@ -949,8 +948,7 @@ an informative comment.
 
   _Good:_
     ```dart
-    @Props()
-    _$DropdownButtonProps extends UiProps {
+    mixin DropdownButtonProps on UiProps {
       /// Whether the [DropdownButton] appears disabled.
       ///
       /// Default: `false`
@@ -965,8 +963,7 @@ an informative comment.
       bool initiallyOpen;
     }
 
-    @State()
-    _$DropdownButtonState extends UiState {
+    mixin DropdownButtonState on UiState {
       /// Whether the [DropdownButton]'s child [DropdownMenu] is open.
       ///
       /// Initial: [DropdownButtonProps.initiallyOpen]
@@ -976,20 +973,34 @@ an informative comment.
 
   _Bad:_
     ```dart
-    @Props()
-    _$DropdownButtonProps extends UiProps {
+    mixin DropdownButtonProps on UiProps {
       bool isDisabled;
       bool initiallyOpen;
     }
 
-    @State()
-    _$DropdownButtonState extends UiState {
+    mixin DropdownButtonState on UiState {
       bool isOpen;
     }
     ```
 
 &nbsp;
 
+#### Ignore Ungenerated Warnings Project-Wide
+
+To avoid having to add `// ignore: uri_has_not_been_generated` to each 
+component library on the part/import that references generated code, 
+ignore this warning globally within analysis_options.yaml:
+
+```yaml
+ analyzer:
+   errors:
+     uri_has_not_been_generated: ignore 
+```
+
+Alternatively, `include` [workiva_analysis_options](https://github.com/Workiva/workiva_analysis_options)
+which ignores this warning by default.
+
+&nbsp;
 
 ## Contributing
 

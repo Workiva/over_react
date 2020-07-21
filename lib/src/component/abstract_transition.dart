@@ -12,23 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ignore_for_file: deprecated_member_use_from_same_package
 library over_react.abstract_transition;
 
 import 'dart:async';
 import 'dart:html';
 
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
+import 'package:over_react/over_react.dart' hide TransitionPropsMixin;
+import 'package:over_react/components.dart' show TransitionPropsMixin;
 import 'package:over_react/component_base.dart' as component_base;
 
 part 'abstract_transition.over_react.g.dart';
 
-@AbstractProps()
-abstract class _$AbstractTransitionProps extends UiProps with TransitionPropsMixin {}
+abstract class AbstractTransitionProps implements TransitionPropsMixin {}
 
-@AbstractState()
-abstract class _$AbstractTransitionState extends UiState {
+mixin AbstractTransitionState on UiState {
   /// The current phase of transition the [AbstractTransitionComponent] is in.
   ///
   /// Default:  [AbstractTransitionComponent.initiallyShown] ? [TransitionPhase.SHOWN] : [TransitionPhase.HIDDEN]
@@ -81,10 +79,9 @@ abstract class _$AbstractTransitionState extends UiState {
 ///   * [show]
 ///   * [hide]
 ///   * [toggle]
-@AbstractComponent()
 abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
                                            S extends AbstractTransitionState>
-  extends UiStatefulComponent<T, S> {
+  extends UiStatefulComponent2<T, S> {
   /// The DOM attribute used to indicate the current transition phase,
   /// added in test mode in [getTransitionTestAttributes].
   ///
@@ -98,18 +95,12 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   static const String transitionPhaseTestAttr = 'data-transition-phase';
 
   @override
-  get consumedProps => const [
-    AbstractTransitionProps.meta,
-    TransitionPropsMixin.meta,
-  ];
-
-  @override
-  Map getDefaultProps() => (newProps()
+  get defaultProps => (newProps()
     ..addProps(TransitionPropsMixin.defaultProps)
   );
 
   @override
-  Map getInitialState() => (newState()
+  get initialState => (newState()
     ..transitionPhase = this.initiallyShown ? TransitionPhase.SHOWN : TransitionPhase.HIDDEN
   );
 
@@ -153,7 +144,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
 
   /// Begin showing the [AbstractTransitionComponent], unless:
   ///   * The [AbstractTransitionComponent] is already shown or is in the process of showing.
-  ///   * The [AbstractTransitionProps.onWillShow] callback returns `false`.
+  ///   * The [TransitionPropsMixin.onWillShow] callback returns `false`.
   void _handleShow() {
     if (isOrWillBeShown) {
       return;
@@ -173,7 +164,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
 
   /// Begin hiding the [AbstractTransitionComponent], unless:
   ///   * The [AbstractTransitionComponent] is already hidden or is in the process of being hidden.
-  ///   * The [AbstractTransitionProps.onWillHide] callback returns `false`.
+  ///   * The [TransitionPropsMixin.onWillHide] callback returns `false`.
   void _handleHide() {
     if (isOrWillBeHidden) {
       return;
@@ -271,7 +262,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
 
   @mustCallSuper
   @override
-  void componentDidUpdate(Map prevProps, Map prevState) {
+  void componentDidUpdate(Map prevProps, Map prevState, [_]) {
     _transitionNotGuaranteed = false;
 
     var tPrevState = typedStateFactory(prevState);

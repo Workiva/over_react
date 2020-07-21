@@ -1,14 +1,80 @@
 # OverReact Changelog
 
+## [3.7.0](https://github.com/Workiva/over_react/compare/3.6.0...3.7.0)
+
+__Library Changes:__
+- [#499] Add PureComponentMixin
+    - Allows you to build components similar to [React.PureComponent](https://reactjs.org/docs/react-api.html#reactpurecomponent)!
+- [#462], [#608] Redux connect performance optimizations
+- [#501] Add code snippet for Redux connected components
+
+__Analyzer Plugin Changes:__
+- [#603] Add tests for _"toggle stateful"_ assist
+- [#604] Restore analyzer plugin Git history
+
+## [3.6.0](https://github.com/Workiva/over_react/compare/3.5.3...3.6.0)
+
+- Add [OverReact Analyzer Plugin (beta)](https://github.com/Workiva/over_react/tree/master/tools/analyzer_plugin) ⚡️
+    > A Dart analyzer plugin for OverReact, bringing analysis-time checks and behavior to IDEs using the Dart Analysis Server (including JetBrains IDEs and VS Code).
+    > 
+    > Functionality includes checking for issues that cause React warnings/errors at runtime, linting for best practices, adding "assists" for common edits to component syntax and boilerplate, and more!
+
+- [#498] Fix missing `allowInterop` call in `OverReactReduxDevToolsMiddleware.handleEventFromRemote`
+- Documentation updates
+    - [#489] Docs: Update `FluxUiPropsMixin` example
+    - [#492] Docs: Note that props can only be declared in mixins
+
+## [3.5.3](https://github.com/Workiva/over_react/compare/3.5.2...3.5.3)
+- [#496] Emit a build error for mismatched components in the new boilerplate
+
+## [3.5.2](https://github.com/Workiva/over_react/compare/3.5.1...3.5.2)
+- [#494] Widen analyzer range to include 0.39.x
+
+## [3.5.1](https://github.com/Workiva/over_react/compare/3.5.0...3.5.1)
+- [#488] Add missing _ to factory assignment in boilerplate snippets
+- [#490] Allow static members in concrete props/state classes in new, mixin-based boilerplate
+
+## [3.5.0](https://github.com/Workiva/over_react/compare/3.4.1...3.5.0)
+- Introduce new and improved component boilerplate syntax 🎉
+    
+    ![side-by-side comparison of old and new boilerplate for a simple component](doc/new-boilerplate-side-by-side.png)
+    
+    See our [migration guide](https://github.com/Workiva/over_react/blob/master/doc/new_boilerplate_migration.md) for more information around these changes, including why we made them and how to convert existing components to use thew new syntax.
+    
+    The existing boilerplate syntax will be deprecated in a future release. 
+    
+- [#469] Throw helpful error when `connect`, `connectFlux`, and `forwardRef` are passed an invalid component. 
+
+## [3.4.1](https://github.com/Workiva/over_react/compare/3.4.0...3.4.1)
+- [#468] Allow redux.dart version 4
+
+## [3.4.0](https://github.com/Workiva/over_react/compare/3.3.0...3.4.0)
+- [#459] Add support for `connect`ed components that use `w_flux` stores and actions.
+
+## [3.3.0](https://github.com/Workiva/over_react/compare/3.2.1...3.3.0)
+- connect/forwardRef HOC type checking:
+   - Fix error when passing ReactElements of these HOCs into `isComponentOfType`
+   - Treat HOC types as subtypes of the components they wrap, as expected.
+
+## [3.2.1](https://github.com/Workiva/over_react/compare/3.2.0...3.2.1)
+- [#461] Fix accidental jsification of `Map`/`Function` Dart props in certain cases when using `connect`
+
+## [3.2.0](https://github.com/Workiva/over_react/compare/3.1.7...3.2.0)
+
+- [#439] Add `over_react_redux` example app
+- [#447] Add `StrictMode` component
+- [#452] Add `built_redux` to Redux transition Docs
+- [#453] Fix rem measurement bug
+
 ## [3.1.7](https://github.com/Workiva/over_react/compare/3.1.6...3.1.7)
 
 - [#435] Fix issue with `ErrorBoundary` that causes errors thrown within the `render` phase of the component lifecycle to bubble up to parent `ErrorBoundary` components, which resulted in entire consumer applications locking up / crashing / unmounting.
   - __DEPRECATIONS:__ `ErrorBoundaryMixin`, `ErrorBoundaryPropsMixin` and `ErrorBoundaryStateMixin` are deprecated and will be removed in the 4.0.0 release.
-    - To create a custom error boundary moving forward, create an HOC that wraps around the `ErrorBoundary` component instead. 
+    - To create a custom error boundary moving forward, create an HOC that wraps around the `ErrorBoundary` component instead.
 - [#433] Refactor `propTypes` tests
 - [#440] Make over_react_redux tests compatible with version `^7.1.1` of the redux JS library
 - [#442] Remove Dart 2.4.1 phase from the CI build
-- [#428] Add examples of components that have `render` methods that return  `Fragment`, `List`, `num` and `String` 
+- [#428] Add examples of components that have `render` methods that return  `Fragment`, `List`, `num` and `String`
 
 ## [3.1.6](https://github.com/Workiva/over_react/compare/3.1.5...3.1.6)
 - Remove dead code in `UiProps.build` that was unnecessarily slowing down dart2js compilation
@@ -43,14 +109,14 @@
 ### Full React JS 16.x Component Lifecycle Support
 
 - The new `UiComponent2` classes<sup>＊</sup> replace the now deprecated `UiComponent` classes.
-  
+
   <sup>＊</sup>_(`UiComponent2`, `UiStatefulComponent2`, `FluxUiComponent2`)_
   - Faster
     - Initial renders ~10% faster
     - Re-renders ~7 - 30% faster
   - Improved developer experience
      - Props and state values now show up in the React DevTools just as they would if you were using React JS, and primitive values (strings, numbers, booleans) can be edited live, just like in React JS!
-    
+
         ![React DevTools with Component2](https://user-images.githubusercontent.com/1750797/68478015-1259b500-01ec-11ea-92bf-0bd432cd4001.gif)
   - Easier to maintain
   - Easier integration with JS libs
@@ -63,7 +129,7 @@
     - `componentDidCatch` / `getDerivedStateFromError` _(new)_
       - Adds support for [error boundaries](https://reactjs.org/docs/error-boundaries.html).
       - OverReact also provides an `ErrorBoundary` component out of the box that you can wrap around your components, and an `ErrorBoundaryMixin` that you can use as a starting point to build your own custom error boundary component!
-      
+
 > [__Learn more about upgrading to `UiComponent2`__](https://github.com/Workiva/over_react/blob/master/doc/ui_component2_transition.md#updating)
 
 ### Improved, stable [Context](https://reactjs.org/docs/context.html) API
@@ -72,7 +138,7 @@
 
 ### New `over_react_redux.dart` Library
 
-- To take full advantage of the new stable `Context` API, we have built atop 
+- To take full advantage of the new stable `Context` API, we have built atop
   the awesome [redux.dart library](https://github.com/johnpryan/redux.dart) to make it easy
   to set up redux provider(s) / consumer(s) for OverReact components that enable granular, targeted updates!
     - Check out [some examples](https://github.com/Workiva/over_react/tree/master/web/over_react_redux)
@@ -81,7 +147,7 @@
 - We've even got some sweet [redux dev tools you can use](https://github.com/Workiva/over_react/blob/master/doc/over_react_redux_documentation.md#using-redux-devtools) to make the inspection of connected state a breeze!
   ![over_react_redux.dart developer tools](http://g.recordit.co/NLeAZQkCFm.gif)
 
-> [__Learn more about using over_react_redux.dart__](https://github.com/Workiva/over_react/blob/master/doc/over_react_redux_documentation.md) 
+> [__Learn more about using over_react_redux.dart__](https://github.com/Workiva/over_react/blob/master/doc/over_react_redux_documentation.md)
 
 ### [Portals](https://reactjs.org/docs/portals.html)
 
@@ -94,7 +160,7 @@
 
 ### No more Dart 1 SDK support
 
-- With the release of `3.1.0` comes the end of our `+dart1` / `+dart2` dual releases that we have been 
+- With the release of `3.1.0` comes the end of our `+dart1` / `+dart2` dual releases that we have been
   maintaining for over a year.  Time to upgrade to Dart 2!
 
 > [Full list of 3.1.0 Changes](https://github.com/Workiva/over_react/milestone/3?closed=1)
@@ -139,7 +205,7 @@ __ReactJS 16.x Support__
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.6.1+dart2...2.7.0+dart2)
 > - [Dart 1](https://github.com/Workiva/over_react/compare/2.6.1+dart1...2.7.0+dart1)
 
-* This release brings in the `SafeRenderManager` utilities added to the 3.x alpha line-of-release via [#390]  
+* This release brings in the `SafeRenderManager` utilities added to the 3.x alpha line-of-release via [#390]
 
 ## 2.7.0
 
@@ -166,7 +232,7 @@ __ReactJS 16.x Support__
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.5.3+dart2...2.6.0+dart2)
 > - [Dart 1](https://github.com/Workiva/over_react/compare/2.5.3+dart1...2.6.0+dart1)
 
-* Adds a placeholder prop API to mirror the 3.x ErrorBoundary APIs ([#370]) added to configure logging. 
+* Adds a placeholder prop API to mirror the 3.x ErrorBoundary APIs ([#370]) added to configure logging.
   The API is not wired up in 2.x, but will make the transition for consumers to 3.x smoother.
 
 ## 2.5.3
@@ -275,7 +341,7 @@ __ReactJS 16.x Support__
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.2.0+dart2...2.3.0+dart2)
 > - [Dart 1](https://github.com/Workiva/over_react/compare/2.2.0+dart1...2.3.0+dart1)
 
-* [#266] Add `ErrorBoundary` Component 
+* [#266] Add `ErrorBoundary` Component
   > This component does not actually hook into any ReactJS 16 lifecycle yet. It won't until support for ReactJS 16 is added to react-dart in version 5.0.0, and to over_react in version 3.0.0.
 
 ## 2.2.0
@@ -285,7 +351,7 @@ __ReactJS 16.x Support__
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.1.0+dart2...2.2.0+dart2)
 > - [Dart 1](https://github.com/Workiva/over_react/compare/2.1.0+dart1...2.2.0+dart1)
 
-- [#249] Warn consumers about props / state mutation 
+- [#249] Warn consumers about props / state mutation
   - Directly mutating props and state is an antipattern and can cause unpredictable rendering.
       Avoiding this will be especially important for components to behave correctly in React 16's [concurrent mode](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-q2-2019-the-one-with-concurrent-mode).
 
@@ -298,7 +364,7 @@ __ReactJS 16.x Support__
 > - [Dart 2](https://github.com/Workiva/over_react/compare/2.0.0+dart2...2.1.0+dart2)
 > - Dart 1 (no changes)
 
-- [#249] Warn consumers about props / state mutation 
+- [#249] Warn consumers about props / state mutation
   - Directly mutating props and state is an antipattern and can cause unpredictable rendering.
       Avoiding this will be especially important for components to behave correctly in React 16's [concurrent mode](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-q2-2019-the-one-with-concurrent-mode).
 
@@ -383,7 +449,7 @@ __Breaking Changes__
 
 > [Complete `1.32.0` Changeset](https://github.com/Workiva/over_react/compare/1.31.0...1.32.0)
 
-* [#249] Warn consumers about props / state mutation 
+* [#249] Warn consumers about props / state mutation
   * Directly mutating props and state is an antipattern and can cause unpredictable rendering.
       Avoiding this will be especially important for components to behave correctly in React 16's [concurrent mode](https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-q2-2019-the-one-with-concurrent-mode).
 
@@ -463,7 +529,7 @@ __Bug fixes__
 
 __New Features__
 
-* [#195]: Add hooks for Flux component redraws that occur in response to store updates: `listenToStoreForRedraw`/`handleRedrawOn` 
+* [#195]: Add hooks for Flux component redraws that occur in response to store updates: `listenToStoreForRedraw`/`handleRedrawOn`
     * Implements the stuff that was missed in [#193]
 
 
@@ -477,7 +543,7 @@ __Bug fixes__
 
 __New Features__
 
-* [#193]: ~~Add hooks for Flux component redraws that occur in response to store updates: `listenToStoreForRedraw`/`handleRedrawOn`~~ 
+* [#193]: ~~Add hooks for Flux component redraws that occur in response to store updates: `listenToStoreForRedraw`/`handleRedrawOn`~~
     * _Actually implemented via [#195] in `1.29.0`_
 
 __Improvements__
@@ -548,7 +614,7 @@ __Tech Debt__
 
 > [Complete `1.25.0` Changeset](https://github.com/Workiva/over_react/compare/1.24.1...1.25.0)
 
-__New Features__ 
+__New Features__
 
 * [#167]: New `ClassNameBuilder.merge` method and `ClassNameBuilder.merged` constructor.
 * [#168]: Expose `react_wrappers` library that was previously only available via a `src/` import.
@@ -561,21 +627,21 @@ __New Features__
 __Dependency Updates__
 
 * [#153] react `^4.3.0` (was `^3.7.0`)
-* [#151] 
+* [#151]
     * built_redux `^7.4.1` (was `>=6.1.0 <8.0.0`)
     * built_value `>=4.2.0 <5.2.0` (was `>=4.2.0 <6.0.0`)
-    
-__New Features__ 
+
+__New Features__
 
 * [#154]: Expose `react_dom.render`/`react_dom.unmountComponentAtNode` from the react library
-    
+
 __Tech Debt__
 
 * [#151] Prepare for Dart 2 SDK
     * Address Dart 2.x SDK lints / warnings that do not constitute breaking changes
     * Address `DisposableManagerV6` deprecation
     * `UiProps` and `UiState` now extend from `MapBase`
-    
+
 
 ## 1.24.1
 
@@ -598,21 +664,21 @@ __Tech Debt__
 __Dependency Updates__
 
 * [#153] react `^4.3.0` (was `^3.7.0`)
-* [#151] 
+* [#151]
     * built_redux `^7.4.1` (was `>=6.1.0 <8.0.0`)
     * built_value `>=4.2.0 <5.2.0` (was `>=4.2.0 <6.0.0`)
-    
-__New Features__ 
+
+__New Features__
 
 * [#154]: Expose `react_dom.render`/`react_dom.unmountComponentAtNode` from the react library
-    
+
 __Tech Debt__
 
 * [#151] Prepare for Dart 2 SDK
     * Address Dart 2.x SDK lints / warnings that do not constitute breaking changes
     * Address `DisposableManagerV6` deprecation
     * `UiProps` and `UiState` now extend from `MapBase`
-    
+
 
 ## 1.23.1
 
@@ -638,7 +704,7 @@ __Dependency Updates__
 __Dependency Updates__
 * [#145]: Widen built_value version constraint: now `>=4.2.0 <6.0.0`, was `^4.2.0`
 
-__New Features__ 
+__New Features__
 * [#144]: Move `BuiltReduxUiComponent`/`BuiltReduxUiProps` out of @experimental
     * __Warning:__ This will be deprecated in an upcoming release in favor of a different approach to creating a `built_redux` component.
 
@@ -1660,6 +1726,505 @@ Initial public release of the library.
 [#497]: https://github.com/Workiva/over_react/pull/497
 [#498]: https://github.com/Workiva/over_react/pull/498
 [#499]: https://github.com/Workiva/over_react/pull/499
-
+[#500]: https://github.com/Workiva/over_react/pull/500
+[#501]: https://github.com/Workiva/over_react/pull/501
+[#502]: https://github.com/Workiva/over_react/pull/502
+[#503]: https://github.com/Workiva/over_react/pull/503
+[#504]: https://github.com/Workiva/over_react/pull/504
+[#505]: https://github.com/Workiva/over_react/pull/505
+[#506]: https://github.com/Workiva/over_react/pull/506
+[#507]: https://github.com/Workiva/over_react/pull/507
+[#508]: https://github.com/Workiva/over_react/pull/508
+[#509]: https://github.com/Workiva/over_react/pull/509
+[#510]: https://github.com/Workiva/over_react/pull/510
+[#511]: https://github.com/Workiva/over_react/pull/511
+[#512]: https://github.com/Workiva/over_react/pull/512
+[#513]: https://github.com/Workiva/over_react/pull/513
+[#514]: https://github.com/Workiva/over_react/pull/514
+[#515]: https://github.com/Workiva/over_react/pull/515
+[#516]: https://github.com/Workiva/over_react/pull/516
+[#517]: https://github.com/Workiva/over_react/pull/517
+[#518]: https://github.com/Workiva/over_react/pull/518
+[#519]: https://github.com/Workiva/over_react/pull/519
+[#520]: https://github.com/Workiva/over_react/pull/520
+[#521]: https://github.com/Workiva/over_react/pull/521
+[#522]: https://github.com/Workiva/over_react/pull/522
+[#523]: https://github.com/Workiva/over_react/pull/523
+[#524]: https://github.com/Workiva/over_react/pull/524
+[#525]: https://github.com/Workiva/over_react/pull/525
+[#526]: https://github.com/Workiva/over_react/pull/526
+[#527]: https://github.com/Workiva/over_react/pull/527
+[#528]: https://github.com/Workiva/over_react/pull/528
+[#529]: https://github.com/Workiva/over_react/pull/529
+[#530]: https://github.com/Workiva/over_react/pull/530
+[#531]: https://github.com/Workiva/over_react/pull/531
+[#532]: https://github.com/Workiva/over_react/pull/532
+[#533]: https://github.com/Workiva/over_react/pull/533
+[#534]: https://github.com/Workiva/over_react/pull/534
+[#535]: https://github.com/Workiva/over_react/pull/535
+[#536]: https://github.com/Workiva/over_react/pull/536
+[#537]: https://github.com/Workiva/over_react/pull/537
+[#538]: https://github.com/Workiva/over_react/pull/538
+[#539]: https://github.com/Workiva/over_react/pull/539
+[#540]: https://github.com/Workiva/over_react/pull/540
+[#541]: https://github.com/Workiva/over_react/pull/541
+[#542]: https://github.com/Workiva/over_react/pull/542
+[#543]: https://github.com/Workiva/over_react/pull/543
+[#544]: https://github.com/Workiva/over_react/pull/544
+[#545]: https://github.com/Workiva/over_react/pull/545
+[#546]: https://github.com/Workiva/over_react/pull/546
+[#547]: https://github.com/Workiva/over_react/pull/547
+[#548]: https://github.com/Workiva/over_react/pull/548
+[#549]: https://github.com/Workiva/over_react/pull/549
+[#550]: https://github.com/Workiva/over_react/pull/550
+[#551]: https://github.com/Workiva/over_react/pull/551
+[#552]: https://github.com/Workiva/over_react/pull/552
+[#553]: https://github.com/Workiva/over_react/pull/553
+[#554]: https://github.com/Workiva/over_react/pull/554
+[#555]: https://github.com/Workiva/over_react/pull/555
+[#556]: https://github.com/Workiva/over_react/pull/556
+[#557]: https://github.com/Workiva/over_react/pull/557
+[#558]: https://github.com/Workiva/over_react/pull/558
+[#559]: https://github.com/Workiva/over_react/pull/559
+[#560]: https://github.com/Workiva/over_react/pull/560
+[#561]: https://github.com/Workiva/over_react/pull/561
+[#562]: https://github.com/Workiva/over_react/pull/562
+[#563]: https://github.com/Workiva/over_react/pull/563
+[#564]: https://github.com/Workiva/over_react/pull/564
+[#565]: https://github.com/Workiva/over_react/pull/565
+[#566]: https://github.com/Workiva/over_react/pull/566
+[#567]: https://github.com/Workiva/over_react/pull/567
+[#568]: https://github.com/Workiva/over_react/pull/568
+[#569]: https://github.com/Workiva/over_react/pull/569
+[#570]: https://github.com/Workiva/over_react/pull/570
+[#571]: https://github.com/Workiva/over_react/pull/571
+[#572]: https://github.com/Workiva/over_react/pull/572
+[#573]: https://github.com/Workiva/over_react/pull/573
+[#574]: https://github.com/Workiva/over_react/pull/574
+[#575]: https://github.com/Workiva/over_react/pull/575
+[#576]: https://github.com/Workiva/over_react/pull/576
+[#577]: https://github.com/Workiva/over_react/pull/577
+[#578]: https://github.com/Workiva/over_react/pull/578
+[#579]: https://github.com/Workiva/over_react/pull/579
+[#580]: https://github.com/Workiva/over_react/pull/580
+[#581]: https://github.com/Workiva/over_react/pull/581
+[#582]: https://github.com/Workiva/over_react/pull/582
+[#583]: https://github.com/Workiva/over_react/pull/583
+[#584]: https://github.com/Workiva/over_react/pull/584
+[#585]: https://github.com/Workiva/over_react/pull/585
+[#586]: https://github.com/Workiva/over_react/pull/586
+[#587]: https://github.com/Workiva/over_react/pull/587
+[#588]: https://github.com/Workiva/over_react/pull/588
+[#589]: https://github.com/Workiva/over_react/pull/589
+[#590]: https://github.com/Workiva/over_react/pull/590
+[#591]: https://github.com/Workiva/over_react/pull/591
+[#592]: https://github.com/Workiva/over_react/pull/592
+[#593]: https://github.com/Workiva/over_react/pull/593
+[#594]: https://github.com/Workiva/over_react/pull/594
+[#595]: https://github.com/Workiva/over_react/pull/595
+[#596]: https://github.com/Workiva/over_react/pull/596
+[#597]: https://github.com/Workiva/over_react/pull/597
+[#598]: https://github.com/Workiva/over_react/pull/598
+[#599]: https://github.com/Workiva/over_react/pull/599
+[#600]: https://github.com/Workiva/over_react/pull/600
+[#601]: https://github.com/Workiva/over_react/pull/601
+[#602]: https://github.com/Workiva/over_react/pull/602
+[#603]: https://github.com/Workiva/over_react/pull/603
+[#604]: https://github.com/Workiva/over_react/pull/604
+[#605]: https://github.com/Workiva/over_react/pull/605
+[#606]: https://github.com/Workiva/over_react/pull/606
+[#607]: https://github.com/Workiva/over_react/pull/607
+[#608]: https://github.com/Workiva/over_react/pull/608
+[#609]: https://github.com/Workiva/over_react/pull/609
+[#610]: https://github.com/Workiva/over_react/pull/610
+[#611]: https://github.com/Workiva/over_react/pull/611
+[#612]: https://github.com/Workiva/over_react/pull/612
+[#613]: https://github.com/Workiva/over_react/pull/613
+[#614]: https://github.com/Workiva/over_react/pull/614
+[#615]: https://github.com/Workiva/over_react/pull/615
+[#616]: https://github.com/Workiva/over_react/pull/616
+[#617]: https://github.com/Workiva/over_react/pull/617
+[#618]: https://github.com/Workiva/over_react/pull/618
+[#619]: https://github.com/Workiva/over_react/pull/619
+[#620]: https://github.com/Workiva/over_react/pull/620
+[#621]: https://github.com/Workiva/over_react/pull/621
+[#622]: https://github.com/Workiva/over_react/pull/622
+[#623]: https://github.com/Workiva/over_react/pull/623
+[#624]: https://github.com/Workiva/over_react/pull/624
+[#625]: https://github.com/Workiva/over_react/pull/625
+[#626]: https://github.com/Workiva/over_react/pull/626
+[#627]: https://github.com/Workiva/over_react/pull/627
+[#628]: https://github.com/Workiva/over_react/pull/628
+[#629]: https://github.com/Workiva/over_react/pull/629
+[#630]: https://github.com/Workiva/over_react/pull/630
+[#631]: https://github.com/Workiva/over_react/pull/631
+[#632]: https://github.com/Workiva/over_react/pull/632
+[#633]: https://github.com/Workiva/over_react/pull/633
+[#634]: https://github.com/Workiva/over_react/pull/634
+[#635]: https://github.com/Workiva/over_react/pull/635
+[#636]: https://github.com/Workiva/over_react/pull/636
+[#637]: https://github.com/Workiva/over_react/pull/637
+[#638]: https://github.com/Workiva/over_react/pull/638
+[#639]: https://github.com/Workiva/over_react/pull/639
+[#640]: https://github.com/Workiva/over_react/pull/640
+[#641]: https://github.com/Workiva/over_react/pull/641
+[#642]: https://github.com/Workiva/over_react/pull/642
+[#643]: https://github.com/Workiva/over_react/pull/643
+[#644]: https://github.com/Workiva/over_react/pull/644
+[#645]: https://github.com/Workiva/over_react/pull/645
+[#646]: https://github.com/Workiva/over_react/pull/646
+[#647]: https://github.com/Workiva/over_react/pull/647
+[#648]: https://github.com/Workiva/over_react/pull/648
+[#649]: https://github.com/Workiva/over_react/pull/649
+[#650]: https://github.com/Workiva/over_react/pull/650
+[#651]: https://github.com/Workiva/over_react/pull/651
+[#652]: https://github.com/Workiva/over_react/pull/652
+[#653]: https://github.com/Workiva/over_react/pull/653
+[#654]: https://github.com/Workiva/over_react/pull/654
+[#655]: https://github.com/Workiva/over_react/pull/655
+[#656]: https://github.com/Workiva/over_react/pull/656
+[#657]: https://github.com/Workiva/over_react/pull/657
+[#658]: https://github.com/Workiva/over_react/pull/658
+[#659]: https://github.com/Workiva/over_react/pull/659
+[#660]: https://github.com/Workiva/over_react/pull/660
+[#661]: https://github.com/Workiva/over_react/pull/661
+[#662]: https://github.com/Workiva/over_react/pull/662
+[#663]: https://github.com/Workiva/over_react/pull/663
+[#664]: https://github.com/Workiva/over_react/pull/664
+[#665]: https://github.com/Workiva/over_react/pull/665
+[#666]: https://github.com/Workiva/over_react/pull/666
+[#667]: https://github.com/Workiva/over_react/pull/667
+[#668]: https://github.com/Workiva/over_react/pull/668
+[#669]: https://github.com/Workiva/over_react/pull/669
+[#670]: https://github.com/Workiva/over_react/pull/670
+[#671]: https://github.com/Workiva/over_react/pull/671
+[#672]: https://github.com/Workiva/over_react/pull/672
+[#673]: https://github.com/Workiva/over_react/pull/673
+[#674]: https://github.com/Workiva/over_react/pull/674
+[#675]: https://github.com/Workiva/over_react/pull/675
+[#676]: https://github.com/Workiva/over_react/pull/676
+[#677]: https://github.com/Workiva/over_react/pull/677
+[#678]: https://github.com/Workiva/over_react/pull/678
+[#679]: https://github.com/Workiva/over_react/pull/679
+[#680]: https://github.com/Workiva/over_react/pull/680
+[#681]: https://github.com/Workiva/over_react/pull/681
+[#682]: https://github.com/Workiva/over_react/pull/682
+[#683]: https://github.com/Workiva/over_react/pull/683
+[#684]: https://github.com/Workiva/over_react/pull/684
+[#685]: https://github.com/Workiva/over_react/pull/685
+[#686]: https://github.com/Workiva/over_react/pull/686
+[#687]: https://github.com/Workiva/over_react/pull/687
+[#688]: https://github.com/Workiva/over_react/pull/688
+[#689]: https://github.com/Workiva/over_react/pull/689
+[#690]: https://github.com/Workiva/over_react/pull/690
+[#691]: https://github.com/Workiva/over_react/pull/691
+[#692]: https://github.com/Workiva/over_react/pull/692
+[#693]: https://github.com/Workiva/over_react/pull/693
+[#694]: https://github.com/Workiva/over_react/pull/694
+[#695]: https://github.com/Workiva/over_react/pull/695
+[#696]: https://github.com/Workiva/over_react/pull/696
+[#697]: https://github.com/Workiva/over_react/pull/697
+[#698]: https://github.com/Workiva/over_react/pull/698
+[#699]: https://github.com/Workiva/over_react/pull/699
+[#700]: https://github.com/Workiva/over_react/pull/700
+[#701]: https://github.com/Workiva/over_react/pull/701
+[#702]: https://github.com/Workiva/over_react/pull/702
+[#703]: https://github.com/Workiva/over_react/pull/703
+[#704]: https://github.com/Workiva/over_react/pull/704
+[#705]: https://github.com/Workiva/over_react/pull/705
+[#706]: https://github.com/Workiva/over_react/pull/706
+[#707]: https://github.com/Workiva/over_react/pull/707
+[#708]: https://github.com/Workiva/over_react/pull/708
+[#709]: https://github.com/Workiva/over_react/pull/709
+[#710]: https://github.com/Workiva/over_react/pull/710
+[#711]: https://github.com/Workiva/over_react/pull/711
+[#712]: https://github.com/Workiva/over_react/pull/712
+[#713]: https://github.com/Workiva/over_react/pull/713
+[#714]: https://github.com/Workiva/over_react/pull/714
+[#715]: https://github.com/Workiva/over_react/pull/715
+[#716]: https://github.com/Workiva/over_react/pull/716
+[#717]: https://github.com/Workiva/over_react/pull/717
+[#718]: https://github.com/Workiva/over_react/pull/718
+[#719]: https://github.com/Workiva/over_react/pull/719
+[#720]: https://github.com/Workiva/over_react/pull/720
+[#721]: https://github.com/Workiva/over_react/pull/721
+[#722]: https://github.com/Workiva/over_react/pull/722
+[#723]: https://github.com/Workiva/over_react/pull/723
+[#724]: https://github.com/Workiva/over_react/pull/724
+[#725]: https://github.com/Workiva/over_react/pull/725
+[#726]: https://github.com/Workiva/over_react/pull/726
+[#727]: https://github.com/Workiva/over_react/pull/727
+[#728]: https://github.com/Workiva/over_react/pull/728
+[#729]: https://github.com/Workiva/over_react/pull/729
+[#730]: https://github.com/Workiva/over_react/pull/730
+[#731]: https://github.com/Workiva/over_react/pull/731
+[#732]: https://github.com/Workiva/over_react/pull/732
+[#733]: https://github.com/Workiva/over_react/pull/733
+[#734]: https://github.com/Workiva/over_react/pull/734
+[#735]: https://github.com/Workiva/over_react/pull/735
+[#736]: https://github.com/Workiva/over_react/pull/736
+[#737]: https://github.com/Workiva/over_react/pull/737
+[#738]: https://github.com/Workiva/over_react/pull/738
+[#739]: https://github.com/Workiva/over_react/pull/739
+[#740]: https://github.com/Workiva/over_react/pull/740
+[#741]: https://github.com/Workiva/over_react/pull/741
+[#742]: https://github.com/Workiva/over_react/pull/742
+[#743]: https://github.com/Workiva/over_react/pull/743
+[#744]: https://github.com/Workiva/over_react/pull/744
+[#745]: https://github.com/Workiva/over_react/pull/745
+[#746]: https://github.com/Workiva/over_react/pull/746
+[#747]: https://github.com/Workiva/over_react/pull/747
+[#748]: https://github.com/Workiva/over_react/pull/748
+[#749]: https://github.com/Workiva/over_react/pull/749
+[#750]: https://github.com/Workiva/over_react/pull/750
+[#751]: https://github.com/Workiva/over_react/pull/751
+[#752]: https://github.com/Workiva/over_react/pull/752
+[#753]: https://github.com/Workiva/over_react/pull/753
+[#754]: https://github.com/Workiva/over_react/pull/754
+[#755]: https://github.com/Workiva/over_react/pull/755
+[#756]: https://github.com/Workiva/over_react/pull/756
+[#757]: https://github.com/Workiva/over_react/pull/757
+[#758]: https://github.com/Workiva/over_react/pull/758
+[#759]: https://github.com/Workiva/over_react/pull/759
+[#760]: https://github.com/Workiva/over_react/pull/760
+[#761]: https://github.com/Workiva/over_react/pull/761
+[#762]: https://github.com/Workiva/over_react/pull/762
+[#763]: https://github.com/Workiva/over_react/pull/763
+[#764]: https://github.com/Workiva/over_react/pull/764
+[#765]: https://github.com/Workiva/over_react/pull/765
+[#766]: https://github.com/Workiva/over_react/pull/766
+[#767]: https://github.com/Workiva/over_react/pull/767
+[#768]: https://github.com/Workiva/over_react/pull/768
+[#769]: https://github.com/Workiva/over_react/pull/769
+[#770]: https://github.com/Workiva/over_react/pull/770
+[#771]: https://github.com/Workiva/over_react/pull/771
+[#772]: https://github.com/Workiva/over_react/pull/772
+[#773]: https://github.com/Workiva/over_react/pull/773
+[#774]: https://github.com/Workiva/over_react/pull/774
+[#775]: https://github.com/Workiva/over_react/pull/775
+[#776]: https://github.com/Workiva/over_react/pull/776
+[#777]: https://github.com/Workiva/over_react/pull/777
+[#778]: https://github.com/Workiva/over_react/pull/778
+[#779]: https://github.com/Workiva/over_react/pull/779
+[#780]: https://github.com/Workiva/over_react/pull/780
+[#781]: https://github.com/Workiva/over_react/pull/781
+[#782]: https://github.com/Workiva/over_react/pull/782
+[#783]: https://github.com/Workiva/over_react/pull/783
+[#784]: https://github.com/Workiva/over_react/pull/784
+[#785]: https://github.com/Workiva/over_react/pull/785
+[#786]: https://github.com/Workiva/over_react/pull/786
+[#787]: https://github.com/Workiva/over_react/pull/787
+[#788]: https://github.com/Workiva/over_react/pull/788
+[#789]: https://github.com/Workiva/over_react/pull/789
+[#790]: https://github.com/Workiva/over_react/pull/790
+[#791]: https://github.com/Workiva/over_react/pull/791
+[#792]: https://github.com/Workiva/over_react/pull/792
+[#793]: https://github.com/Workiva/over_react/pull/793
+[#794]: https://github.com/Workiva/over_react/pull/794
+[#795]: https://github.com/Workiva/over_react/pull/795
+[#796]: https://github.com/Workiva/over_react/pull/796
+[#797]: https://github.com/Workiva/over_react/pull/797
+[#798]: https://github.com/Workiva/over_react/pull/798
+[#799]: https://github.com/Workiva/over_react/pull/799
+[#800]: https://github.com/Workiva/over_react/pull/800
+[#801]: https://github.com/Workiva/over_react/pull/801
+[#802]: https://github.com/Workiva/over_react/pull/802
+[#803]: https://github.com/Workiva/over_react/pull/803
+[#804]: https://github.com/Workiva/over_react/pull/804
+[#805]: https://github.com/Workiva/over_react/pull/805
+[#806]: https://github.com/Workiva/over_react/pull/806
+[#807]: https://github.com/Workiva/over_react/pull/807
+[#808]: https://github.com/Workiva/over_react/pull/808
+[#809]: https://github.com/Workiva/over_react/pull/809
+[#810]: https://github.com/Workiva/over_react/pull/810
+[#811]: https://github.com/Workiva/over_react/pull/811
+[#812]: https://github.com/Workiva/over_react/pull/812
+[#813]: https://github.com/Workiva/over_react/pull/813
+[#814]: https://github.com/Workiva/over_react/pull/814
+[#815]: https://github.com/Workiva/over_react/pull/815
+[#816]: https://github.com/Workiva/over_react/pull/816
+[#817]: https://github.com/Workiva/over_react/pull/817
+[#818]: https://github.com/Workiva/over_react/pull/818
+[#819]: https://github.com/Workiva/over_react/pull/819
+[#820]: https://github.com/Workiva/over_react/pull/820
+[#821]: https://github.com/Workiva/over_react/pull/821
+[#822]: https://github.com/Workiva/over_react/pull/822
+[#823]: https://github.com/Workiva/over_react/pull/823
+[#824]: https://github.com/Workiva/over_react/pull/824
+[#825]: https://github.com/Workiva/over_react/pull/825
+[#826]: https://github.com/Workiva/over_react/pull/826
+[#827]: https://github.com/Workiva/over_react/pull/827
+[#828]: https://github.com/Workiva/over_react/pull/828
+[#829]: https://github.com/Workiva/over_react/pull/829
+[#830]: https://github.com/Workiva/over_react/pull/830
+[#831]: https://github.com/Workiva/over_react/pull/831
+[#832]: https://github.com/Workiva/over_react/pull/832
+[#833]: https://github.com/Workiva/over_react/pull/833
+[#834]: https://github.com/Workiva/over_react/pull/834
+[#835]: https://github.com/Workiva/over_react/pull/835
+[#836]: https://github.com/Workiva/over_react/pull/836
+[#837]: https://github.com/Workiva/over_react/pull/837
+[#838]: https://github.com/Workiva/over_react/pull/838
+[#839]: https://github.com/Workiva/over_react/pull/839
+[#840]: https://github.com/Workiva/over_react/pull/840
+[#841]: https://github.com/Workiva/over_react/pull/841
+[#842]: https://github.com/Workiva/over_react/pull/842
+[#843]: https://github.com/Workiva/over_react/pull/843
+[#844]: https://github.com/Workiva/over_react/pull/844
+[#845]: https://github.com/Workiva/over_react/pull/845
+[#846]: https://github.com/Workiva/over_react/pull/846
+[#847]: https://github.com/Workiva/over_react/pull/847
+[#848]: https://github.com/Workiva/over_react/pull/848
+[#849]: https://github.com/Workiva/over_react/pull/849
+[#850]: https://github.com/Workiva/over_react/pull/850
+[#851]: https://github.com/Workiva/over_react/pull/851
+[#852]: https://github.com/Workiva/over_react/pull/852
+[#853]: https://github.com/Workiva/over_react/pull/853
+[#854]: https://github.com/Workiva/over_react/pull/854
+[#855]: https://github.com/Workiva/over_react/pull/855
+[#856]: https://github.com/Workiva/over_react/pull/856
+[#857]: https://github.com/Workiva/over_react/pull/857
+[#858]: https://github.com/Workiva/over_react/pull/858
+[#859]: https://github.com/Workiva/over_react/pull/859
+[#860]: https://github.com/Workiva/over_react/pull/860
+[#861]: https://github.com/Workiva/over_react/pull/861
+[#862]: https://github.com/Workiva/over_react/pull/862
+[#863]: https://github.com/Workiva/over_react/pull/863
+[#864]: https://github.com/Workiva/over_react/pull/864
+[#865]: https://github.com/Workiva/over_react/pull/865
+[#866]: https://github.com/Workiva/over_react/pull/866
+[#867]: https://github.com/Workiva/over_react/pull/867
+[#868]: https://github.com/Workiva/over_react/pull/868
+[#869]: https://github.com/Workiva/over_react/pull/869
+[#870]: https://github.com/Workiva/over_react/pull/870
+[#871]: https://github.com/Workiva/over_react/pull/871
+[#872]: https://github.com/Workiva/over_react/pull/872
+[#873]: https://github.com/Workiva/over_react/pull/873
+[#874]: https://github.com/Workiva/over_react/pull/874
+[#875]: https://github.com/Workiva/over_react/pull/875
+[#876]: https://github.com/Workiva/over_react/pull/876
+[#877]: https://github.com/Workiva/over_react/pull/877
+[#878]: https://github.com/Workiva/over_react/pull/878
+[#879]: https://github.com/Workiva/over_react/pull/879
+[#880]: https://github.com/Workiva/over_react/pull/880
+[#881]: https://github.com/Workiva/over_react/pull/881
+[#882]: https://github.com/Workiva/over_react/pull/882
+[#883]: https://github.com/Workiva/over_react/pull/883
+[#884]: https://github.com/Workiva/over_react/pull/884
+[#885]: https://github.com/Workiva/over_react/pull/885
+[#886]: https://github.com/Workiva/over_react/pull/886
+[#887]: https://github.com/Workiva/over_react/pull/887
+[#888]: https://github.com/Workiva/over_react/pull/888
+[#889]: https://github.com/Workiva/over_react/pull/889
+[#890]: https://github.com/Workiva/over_react/pull/890
+[#891]: https://github.com/Workiva/over_react/pull/891
+[#892]: https://github.com/Workiva/over_react/pull/892
+[#893]: https://github.com/Workiva/over_react/pull/893
+[#894]: https://github.com/Workiva/over_react/pull/894
+[#895]: https://github.com/Workiva/over_react/pull/895
+[#896]: https://github.com/Workiva/over_react/pull/896
+[#897]: https://github.com/Workiva/over_react/pull/897
+[#898]: https://github.com/Workiva/over_react/pull/898
+[#899]: https://github.com/Workiva/over_react/pull/899
+[#900]: https://github.com/Workiva/over_react/pull/900
+[#901]: https://github.com/Workiva/over_react/pull/901
+[#902]: https://github.com/Workiva/over_react/pull/902
+[#903]: https://github.com/Workiva/over_react/pull/903
+[#904]: https://github.com/Workiva/over_react/pull/904
+[#905]: https://github.com/Workiva/over_react/pull/905
+[#906]: https://github.com/Workiva/over_react/pull/906
+[#907]: https://github.com/Workiva/over_react/pull/907
+[#908]: https://github.com/Workiva/over_react/pull/908
+[#909]: https://github.com/Workiva/over_react/pull/909
+[#910]: https://github.com/Workiva/over_react/pull/910
+[#911]: https://github.com/Workiva/over_react/pull/911
+[#912]: https://github.com/Workiva/over_react/pull/912
+[#913]: https://github.com/Workiva/over_react/pull/913
+[#914]: https://github.com/Workiva/over_react/pull/914
+[#915]: https://github.com/Workiva/over_react/pull/915
+[#916]: https://github.com/Workiva/over_react/pull/916
+[#917]: https://github.com/Workiva/over_react/pull/917
+[#918]: https://github.com/Workiva/over_react/pull/918
+[#919]: https://github.com/Workiva/over_react/pull/919
+[#920]: https://github.com/Workiva/over_react/pull/920
+[#921]: https://github.com/Workiva/over_react/pull/921
+[#922]: https://github.com/Workiva/over_react/pull/922
+[#923]: https://github.com/Workiva/over_react/pull/923
+[#924]: https://github.com/Workiva/over_react/pull/924
+[#925]: https://github.com/Workiva/over_react/pull/925
+[#926]: https://github.com/Workiva/over_react/pull/926
+[#927]: https://github.com/Workiva/over_react/pull/927
+[#928]: https://github.com/Workiva/over_react/pull/928
+[#929]: https://github.com/Workiva/over_react/pull/929
+[#930]: https://github.com/Workiva/over_react/pull/930
+[#931]: https://github.com/Workiva/over_react/pull/931
+[#932]: https://github.com/Workiva/over_react/pull/932
+[#933]: https://github.com/Workiva/over_react/pull/933
+[#934]: https://github.com/Workiva/over_react/pull/934
+[#935]: https://github.com/Workiva/over_react/pull/935
+[#936]: https://github.com/Workiva/over_react/pull/936
+[#937]: https://github.com/Workiva/over_react/pull/937
+[#938]: https://github.com/Workiva/over_react/pull/938
+[#939]: https://github.com/Workiva/over_react/pull/939
+[#940]: https://github.com/Workiva/over_react/pull/940
+[#941]: https://github.com/Workiva/over_react/pull/941
+[#942]: https://github.com/Workiva/over_react/pull/942
+[#943]: https://github.com/Workiva/over_react/pull/943
+[#944]: https://github.com/Workiva/over_react/pull/944
+[#945]: https://github.com/Workiva/over_react/pull/945
+[#946]: https://github.com/Workiva/over_react/pull/946
+[#947]: https://github.com/Workiva/over_react/pull/947
+[#948]: https://github.com/Workiva/over_react/pull/948
+[#949]: https://github.com/Workiva/over_react/pull/949
+[#950]: https://github.com/Workiva/over_react/pull/950
+[#951]: https://github.com/Workiva/over_react/pull/951
+[#952]: https://github.com/Workiva/over_react/pull/952
+[#953]: https://github.com/Workiva/over_react/pull/953
+[#954]: https://github.com/Workiva/over_react/pull/954
+[#955]: https://github.com/Workiva/over_react/pull/955
+[#956]: https://github.com/Workiva/over_react/pull/956
+[#957]: https://github.com/Workiva/over_react/pull/957
+[#958]: https://github.com/Workiva/over_react/pull/958
+[#959]: https://github.com/Workiva/over_react/pull/959
+[#960]: https://github.com/Workiva/over_react/pull/960
+[#961]: https://github.com/Workiva/over_react/pull/961
+[#962]: https://github.com/Workiva/over_react/pull/962
+[#963]: https://github.com/Workiva/over_react/pull/963
+[#964]: https://github.com/Workiva/over_react/pull/964
+[#965]: https://github.com/Workiva/over_react/pull/965
+[#966]: https://github.com/Workiva/over_react/pull/966
+[#967]: https://github.com/Workiva/over_react/pull/967
+[#968]: https://github.com/Workiva/over_react/pull/968
+[#969]: https://github.com/Workiva/over_react/pull/969
+[#970]: https://github.com/Workiva/over_react/pull/970
+[#971]: https://github.com/Workiva/over_react/pull/971
+[#972]: https://github.com/Workiva/over_react/pull/972
+[#973]: https://github.com/Workiva/over_react/pull/973
+[#974]: https://github.com/Workiva/over_react/pull/974
+[#975]: https://github.com/Workiva/over_react/pull/975
+[#976]: https://github.com/Workiva/over_react/pull/976
+[#977]: https://github.com/Workiva/over_react/pull/977
+[#978]: https://github.com/Workiva/over_react/pull/978
+[#979]: https://github.com/Workiva/over_react/pull/979
+[#980]: https://github.com/Workiva/over_react/pull/980
+[#981]: https://github.com/Workiva/over_react/pull/981
+[#982]: https://github.com/Workiva/over_react/pull/982
+[#983]: https://github.com/Workiva/over_react/pull/983
+[#984]: https://github.com/Workiva/over_react/pull/984
+[#985]: https://github.com/Workiva/over_react/pull/985
+[#986]: https://github.com/Workiva/over_react/pull/986
+[#987]: https://github.com/Workiva/over_react/pull/987
+[#988]: https://github.com/Workiva/over_react/pull/988
+[#989]: https://github.com/Workiva/over_react/pull/989
+[#990]: https://github.com/Workiva/over_react/pull/990
+[#991]: https://github.com/Workiva/over_react/pull/991
+[#992]: https://github.com/Workiva/over_react/pull/992
+[#993]: https://github.com/Workiva/over_react/pull/993
+[#994]: https://github.com/Workiva/over_react/pull/994
+[#995]: https://github.com/Workiva/over_react/pull/995
+[#996]: https://github.com/Workiva/over_react/pull/996
+[#997]: https://github.com/Workiva/over_react/pull/997
+[#998]: https://github.com/Workiva/over_react/pull/998
+[#999]: https://github.com/Workiva/over_react/pull/999
 
 

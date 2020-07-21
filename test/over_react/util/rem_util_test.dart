@@ -374,7 +374,7 @@ main() {
         await Future.delayed(const Duration(milliseconds: 100));
         expect(querySelector('#rem_change_sensor'), isNull, reason: 'test setup sanity check');
       }, testOn: '!chrome');
-    }, testOn: 'browser');
+    });
 
     group('interleaved asynchonous intialization/destruction of change sensors works without race conditions:', () {
       setUp(() async {

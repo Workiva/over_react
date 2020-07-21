@@ -37,15 +37,31 @@ behavior with React). By utilizing the `connect()` function in conjunction with 
 only update when a piece of information it uses is updated.
 
 ## Examples
-Examples are available in the `web` directory. Each example illustrates a different variation or use case of OverReact
- Redux. Additionally, the store files contain comments that call out specifics pertaining to that example and
- provides further explanation.
 
-### Running the Examples
+### Individual component examples
+There are some individual component examples within the `web/over_react_redux` directory. 
+Each example illustrates a different variation or use case of OverReact Redux. Additionally, the store files contain 
+comments that call out specifics pertaining to that example and provides further explanation.
+
+#### Running the component examples
 To run and experiment with the demo:
 1. `pub get`
-1. `pub run build_runner serve web`
+1. `webdev serve`
 1. Navigate to `localhost:8080/over_react_redux/`
+1. If you have the [React DevTools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en),
+you can view the isolated state updates based on the `mapStateToProps` when you turn on
+["Highlight updates when components render."](https://github.com/facebook/react/pull/16989)
+
+### Application example
+There is a "Todo" example app built with OverReact Redux within the `app/over_react_redux` directory. 
+This app illustrates a full-scale implementation of an application that handles all of the data flow using redux.
+
+#### Running the application
+To run and experiment with the "Todo" app:
+1. `cd app/over_react_redux/todo_client`
+1. `pub get`
+1. `webdev serve`
+1. Navigate to `localhost:8080`
 1. If you have the [React DevTools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en),
 you can view the isolated state updates based on the `mapStateToProps` when you turn on
 ["Highlight updates when components render."](https://github.com/facebook/react/pull/16989)
@@ -87,19 +103,18 @@ ways to do this.
         using `ConnectPropsToMixin`.
     ```dart
     // AppState is a class that represents the application's state and can be defined in the same file as the store.
-    UiFactory<FooProps> ConnectedFoo = connect<AppState, FooProps>()(Foo);
-
-    @Factory()
-    UiFactory<FooProps> Foo = _$Foo;
+    UiFactory<FooProps> Foo = connect<AppState, FooProps>(
+        ...
+    )(_$Foo);
 
     // Use the ConnectPropsMixin to gain access to React Redux's dispatch function, which can be accessed via
     // props.dispatch.
-    @Props()
-    class _$FooProps extends UiProps with ConnectPropsMixin {
+    mixin FooPropsMixin on UiProps {
         ...
     }
 
-    @Component2()
+    class FooProps = UiProps with ConnectPropsMixin, FooPropsMixin; 
+
     class FooComponent extends UiComponent2<FooProps> {
         ...
     }
@@ -130,14 +145,14 @@ A wrapper around the JS react-redux `connect` function that supports OverReact c
 
 __Example:__
 ```dart
-UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
-  mapStateToProps: (state) => (
-    Counter()..count = state.count
+UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
+  mapStateToProps: (state) => (Counter()
+    ..count = state.count
   ),
-  mapDispatchToProps: (dispatch) => (
-    Counter()..increment = (() => dispatch(IncrementAction()))
+  mapDispatchToProps: (dispatch) => (Counter()
+    ..increment = (() => dispatch(IncrementAction()))
   ),
-)(Counter);
+)(_$Counter);
 ```
 
 ### `connect` Parameters
@@ -214,14 +229,14 @@ __Multiple Stores Example:__
 Store store1 = new Store<CounterState>(counterStateReducer, initialState: new CounterState(count: 0));
 Store store2 = new Store<BigCounterState>(bigCounterStateReducer, initialState: new BigCounterState(bigCount: 100));
 
-UiFactory<CounterProps> ConnectedCounter = connect<CounterState, CounterProps>(
+UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
   mapStateToProps: (state) => (Counter()..count = state.count)
-)(Counter);
+)(_$Counter);
 
-UiFactory<CounterProps> ConnectedBigCounter = connect<BigCounterState, CounterProps>(
-  mapStateToProps: (state) => (Counter()..count = state.bigCount),
+UiFactory<CounterProps> BigCounter = connect<BigCounterState, CounterProps>(
+  mapStateToProps: (state) => (BigCounter()..count = state.bigCount),
   context: bigCounterContext,
-)(Counter);
+)(_$Counter);
 
 react_dom.render(
   Dom.div()(
@@ -231,10 +246,10 @@ react_dom.render(
         ..context = bigCounterContext
       )(
         Dom.div()(
-          Dom.h3()('ConnectedBigCounter Store2'),
-          ConnectedBigCounter()(
-            Dom.h4()('ConnectedCounter Store1'),
-            ConnectedCounter()(),
+          Dom.h3()('BigCounter Store2'),
+          BigCounter()(
+            Dom.h4()('Counter Store1'),
+            Counter()(),
           ),
         ),
       ),
@@ -250,10 +265,10 @@ In the case that you need to have multiple stores, here are the steps to do so:
     ```
 1. In the `connect` function wrapping the component, pass in the context instance.
     ```dart
-    UiFactory<BarProps> ConnectedBar = connect<BarState, BarProps>(
+    UiFactory<BarProps> Bar = connect<BarState, BarProps>(
       // ... mapStateToProps
       context: fooContext,
-    )(Bar);
+    )(_$Bar);
     ```
 1. Add an additional `ReduxProvider`, with its `context` prop set to the next Context instance and the `store` prop
 set to your additional store.

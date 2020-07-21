@@ -10,215 +10,43 @@ part of 'abstract_transition_test.dart';
 // React component factory implementation.
 //
 // Registers component implementation and links type meta to builder factory.
-final $TransitionerComponentFactory = registerComponent(
-    () => _$TransitionerComponent(),
-    builderFactory: Transitioner,
-    componentClass: TransitionerComponent,
-    isWrapper: false,
-    parentType: null,
-    displayName: 'Transitioner');
-
-abstract class _$TransitionerPropsAccessorsMixin
-    implements _$TransitionerProps {
-  @override
-  Map get props;
-
-  /// <!-- Generated from [_$TransitionerProps.onHandlePreShowing] -->
-  @override
-  Callback get onHandlePreShowing =>
-      props[_$key__onHandlePreShowing___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$TransitionerProps.onHandlePreShowing] -->
-  @override
-  set onHandlePreShowing(Callback value) =>
-      props[_$key__onHandlePreShowing___$TransitionerProps] = value;
-
-  /// <!-- Generated from [_$TransitionerProps.onHandleShowing] -->
-  @override
-  Callback get onHandleShowing =>
-      props[_$key__onHandleShowing___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$TransitionerProps.onHandleShowing] -->
-  @override
-  set onHandleShowing(Callback value) =>
-      props[_$key__onHandleShowing___$TransitionerProps] = value;
-
-  /// <!-- Generated from [_$TransitionerProps.onHandleShown] -->
-  @override
-  Callback get onHandleShown =>
-      props[_$key__onHandleShown___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$TransitionerProps.onHandleShown] -->
-  @override
-  set onHandleShown(Callback value) =>
-      props[_$key__onHandleShown___$TransitionerProps] = value;
-
-  /// <!-- Generated from [_$TransitionerProps.onHandleHiding] -->
-  @override
-  Callback get onHandleHiding =>
-      props[_$key__onHandleHiding___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$TransitionerProps.onHandleHiding] -->
-  @override
-  set onHandleHiding(Callback value) =>
-      props[_$key__onHandleHiding___$TransitionerProps] = value;
-
-  /// <!-- Generated from [_$TransitionerProps.onHandleHidden] -->
-  @override
-  Callback get onHandleHidden =>
-      props[_$key__onHandleHidden___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$TransitionerProps.onHandleHidden] -->
-  @override
-  set onHandleHidden(Callback value) =>
-      props[_$key__onHandleHidden___$TransitionerProps] = value;
-
-  /// <!-- Generated from [_$TransitionerProps.onPrepareShow] -->
-  @override
-  Callback get onPrepareShow =>
-      props[_$key__onPrepareShow___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$TransitionerProps.onPrepareShow] -->
-  @override
-  set onPrepareShow(Callback value) =>
-      props[_$key__onPrepareShow___$TransitionerProps] = value;
-
-  /// <!-- Generated from [_$TransitionerProps.onPrepareHide] -->
-  @override
-  Callback get onPrepareHide =>
-      props[_$key__onPrepareHide___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$TransitionerProps.onPrepareHide] -->
-  @override
-  set onPrepareHide(Callback value) =>
-      props[_$key__onPrepareHide___$TransitionerProps] = value;
-
-  /// <!-- Generated from [_$TransitionerProps.hasTransition] -->
-  @override
-  bool get hasTransition =>
-      props[_$key__hasTransition___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$TransitionerProps.hasTransition] -->
-  @override
-  set hasTransition(bool value) =>
-      props[_$key__hasTransition___$TransitionerProps] = value;
-
-  /// <!-- Generated from [_$TransitionerProps.initiallyShown] -->
-  @override
-  bool get initiallyShown =>
-      props[_$key__initiallyShown___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$TransitionerProps.initiallyShown] -->
-  @override
-  set initiallyShown(bool value) =>
-      props[_$key__initiallyShown___$TransitionerProps] = value;
-
-  /// <!-- Generated from [_$TransitionerProps.transitionTimeout] -->
-  @override
-  Duration get transitionTimeout =>
-      props[_$key__transitionTimeout___$TransitionerProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  /// <!-- Generated from [_$TransitionerProps.transitionTimeout] -->
-  @override
-  set transitionTimeout(Duration value) =>
-      props[_$key__transitionTimeout___$TransitionerProps] = value;
-  /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__onHandlePreShowing___$TransitionerProps =
-      PropDescriptor(_$key__onHandlePreShowing___$TransitionerProps);
-  static const PropDescriptor _$prop__onHandleShowing___$TransitionerProps =
-      PropDescriptor(_$key__onHandleShowing___$TransitionerProps);
-  static const PropDescriptor _$prop__onHandleShown___$TransitionerProps =
-      PropDescriptor(_$key__onHandleShown___$TransitionerProps);
-  static const PropDescriptor _$prop__onHandleHiding___$TransitionerProps =
-      PropDescriptor(_$key__onHandleHiding___$TransitionerProps);
-  static const PropDescriptor _$prop__onHandleHidden___$TransitionerProps =
-      PropDescriptor(_$key__onHandleHidden___$TransitionerProps);
-  static const PropDescriptor _$prop__onPrepareShow___$TransitionerProps =
-      PropDescriptor(_$key__onPrepareShow___$TransitionerProps);
-  static const PropDescriptor _$prop__onPrepareHide___$TransitionerProps =
-      PropDescriptor(_$key__onPrepareHide___$TransitionerProps);
-  static const PropDescriptor _$prop__hasTransition___$TransitionerProps =
-      PropDescriptor(_$key__hasTransition___$TransitionerProps);
-  static const PropDescriptor _$prop__initiallyShown___$TransitionerProps =
-      PropDescriptor(_$key__initiallyShown___$TransitionerProps);
-  static const PropDescriptor _$prop__transitionTimeout___$TransitionerProps =
-      PropDescriptor(_$key__transitionTimeout___$TransitionerProps);
-  static const String _$key__onHandlePreShowing___$TransitionerProps =
-      'TransitionerProps.onHandlePreShowing';
-  static const String _$key__onHandleShowing___$TransitionerProps =
-      'TransitionerProps.onHandleShowing';
-  static const String _$key__onHandleShown___$TransitionerProps =
-      'TransitionerProps.onHandleShown';
-  static const String _$key__onHandleHiding___$TransitionerProps =
-      'TransitionerProps.onHandleHiding';
-  static const String _$key__onHandleHidden___$TransitionerProps =
-      'TransitionerProps.onHandleHidden';
-  static const String _$key__onPrepareShow___$TransitionerProps =
-      'TransitionerProps.onPrepareShow';
-  static const String _$key__onPrepareHide___$TransitionerProps =
-      'TransitionerProps.onPrepareHide';
-  static const String _$key__hasTransition___$TransitionerProps =
-      'TransitionerProps.hasTransition';
-  static const String _$key__initiallyShown___$TransitionerProps =
-      'TransitionerProps.initiallyShown';
-  static const String _$key__transitionTimeout___$TransitionerProps =
-      'TransitionerProps.transitionTimeout';
-
-  static const List<PropDescriptor> $props = [
-    _$prop__onHandlePreShowing___$TransitionerProps,
-    _$prop__onHandleShowing___$TransitionerProps,
-    _$prop__onHandleShown___$TransitionerProps,
-    _$prop__onHandleHiding___$TransitionerProps,
-    _$prop__onHandleHidden___$TransitionerProps,
-    _$prop__onPrepareShow___$TransitionerProps,
-    _$prop__onPrepareHide___$TransitionerProps,
-    _$prop__hasTransition___$TransitionerProps,
-    _$prop__initiallyShown___$TransitionerProps,
-    _$prop__transitionTimeout___$TransitionerProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__onHandlePreShowing___$TransitionerProps,
-    _$key__onHandleShowing___$TransitionerProps,
-    _$key__onHandleShown___$TransitionerProps,
-    _$key__onHandleHiding___$TransitionerProps,
-    _$key__onHandleHidden___$TransitionerProps,
-    _$key__onPrepareShow___$TransitionerProps,
-    _$key__onPrepareHide___$TransitionerProps,
-    _$key__hasTransition___$TransitionerProps,
-    _$key__initiallyShown___$TransitionerProps,
-    _$key__transitionTimeout___$TransitionerProps
-  ];
-}
-
-const PropsMeta _$metaForTransitionerProps = PropsMeta(
-  fields: _$TransitionerPropsAccessorsMixin.$props,
-  keys: _$TransitionerPropsAccessorsMixin.$propKeys,
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+final $TransitionerComponentFactory = registerComponent2(
+  () => _$TransitionerComponent(),
+  builderFactory: _$Transitioner,
+  componentClass: TransitionerComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'Transitioner',
 );
 
-class TransitionerProps extends _$TransitionerProps
-    with _$TransitionerPropsAccessorsMixin {
-  static const PropsMeta meta = _$metaForTransitionerProps;
-}
-
-_$$TransitionerProps _$Transitioner([Map backingProps]) =>
-    _$$TransitionerProps(backingProps);
+_$$TransitionerProps _$Transitioner([Map backingProps]) => backingProps == null
+    ? _$$TransitionerProps$JsMap(JsBackedMap())
+    : _$$TransitionerProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$TransitionerProps extends _$TransitionerProps
-    with _$TransitionerPropsAccessorsMixin
-    implements TransitionerProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionerProps(Map backingMap) : this._props = {} {
-    this._props = backingMap ?? {};
-  }
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$TransitionerProps extends UiProps
+    with
+        TransitionerPropsMixin,
+        $TransitionerPropsMixin, // If this generated mixin is undefined, it's likely because TransitionerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TransitionerPropsMixin.
+        TransitionPropsMixin,
+        $TransitionPropsMixin // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TransitionPropsMixin.
+    implements
+        TransitionerProps {
+  _$$TransitionerProps._();
 
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
+  factory _$$TransitionerProps(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$TransitionerProps$JsMap(backingMap);
+    } else {
+      return _$$TransitionerProps$PlainMap(backingMap);
+    }
+  }
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -231,39 +59,81 @@ class _$$TransitionerProps extends _$TransitionerProps
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
-  String get propKeyNamespace => 'TransitionerProps.';
+  String get propKeyNamespace => '';
 }
 
-abstract class _$TransitionerStateAccessorsMixin
-    implements _$TransitionerState {
+// Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$TransitionerProps$PlainMap extends _$$TransitionerProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TransitionerProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
   @override
-  Map get state;
-
-  /* GENERATED CONSTANTS */
-
-  static const List<StateDescriptor> $state = [];
-  static const List<String> $stateKeys = [];
+  Map get props => _props;
+  Map _props;
 }
 
-const StateMeta _$metaForTransitionerState = StateMeta(
-  fields: _$TransitionerStateAccessorsMixin.$state,
-  keys: _$TransitionerStateAccessorsMixin.$stateKeys,
-);
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$TransitionerProps$JsMap extends _$$TransitionerProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TransitionerProps$JsMap(JsBackedMap backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
 
-class TransitionerState extends _$TransitionerState
-    with _$TransitionerStateAccessorsMixin {
-  static const StateMeta meta = _$metaForTransitionerState;
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
 }
 
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
-class _$$TransitionerState extends _$TransitionerState
-    with _$TransitionerStateAccessorsMixin
-    implements TransitionerState {
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$TransitionerState extends UiState
+    with
+        AbstractTransitionState,
+        $AbstractTransitionState // If this generated mixin is undefined, it's likely because AbstractTransitionState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of AbstractTransitionState.
+    implements
+        TransitionerState {
+  _$$TransitionerState._();
+
+  factory _$$TransitionerState(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$TransitionerState$JsMap(backingMap);
+    } else {
+      return _$$TransitionerState$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiState` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+}
+
+// Concrete state implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$TransitionerState$PlainMap extends _$$TransitionerState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionerState(Map backingMap) : this._state = {} {
+  _$$TransitionerState$PlainMap(Map backingMap)
+      : this._state = {},
+        super._() {
     this._state = backingMap ?? {};
   }
 
@@ -271,20 +141,77 @@ class _$$TransitionerState extends _$TransitionerState
   @override
   Map get state => _state;
   Map _state;
+}
 
-  /// Let `UiState` internals know that this class has been generated.
+// Concrete state implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$TransitionerState$JsMap extends _$$TransitionerState {
+  // This initializer of `_state` to an empty map, as well as the reassignment
+  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TransitionerState$JsMap(JsBackedMap backingMap)
+      : this._state = JsBackedMap(),
+        super._() {
+    this._state = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing state map proxied by this class.
   @override
-  bool get $isClassGenerated => true;
+  JsBackedMap get state => _state;
+  JsBackedMap _state;
 }
 
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 class _$TransitionerComponent extends TransitionerComponent {
+  _$$TransitionerProps$JsMap _cachedTypedProps;
+
+  @override
+  _$$TransitionerProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+  }
+
+  @override
+  _$$TransitionerProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$TransitionerProps$JsMap(backingMap);
+
   @override
   _$$TransitionerProps typedPropsFactory(Map backingMap) =>
       _$$TransitionerProps(backingMap);
+
+  _$$TransitionerState$JsMap _cachedTypedState;
+  @override
+  _$$TransitionerState$JsMap get state => _cachedTypedState;
+
+  @override
+  set state(Map value) {
+    assert(
+        value is JsBackedMap,
+        'Component2.state should only be set via '
+        'initialState or setState.');
+    super.state = value;
+    _cachedTypedState = typedStateFactoryJs(value);
+  }
+
+  @override
+  _$$TransitionerState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
+      _$$TransitionerState$JsMap(backingMap);
 
   @override
   _$$TransitionerState typedStateFactory(Map backingMap) =>
@@ -294,10 +221,169 @@ class _$TransitionerComponent extends TransitionerComponent {
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, taken from _$TransitionerProps.
-  /// Used in `ConsumedProps` if [consumedProps] is not overridden.
+  /// The default consumed props, comprising all props mixins used by TransitionerProps.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
-  final List<ConsumedProps> $defaultConsumedProps = const [
-    _$metaForTransitionerProps
+  get $defaultConsumedProps => propsMeta.all;
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because TransitionerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TransitionerPropsMixin.
+        TransitionerPropsMixin: $TransitionerPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TransitionPropsMixin.
+        TransitionPropsMixin: $TransitionPropsMixin.meta,
+      });
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $TransitionerPropsMixin on TransitionerPropsMixin {
+  static const PropsMeta meta = _$metaForTransitionerPropsMixin;
+  @override
+  Callback get onHandlePreShowing =>
+      props[_$key__onHandlePreShowing__TransitionerPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set onHandlePreShowing(Callback value) =>
+      props[_$key__onHandlePreShowing__TransitionerPropsMixin] = value;
+  @override
+  Callback get onHandleShowing =>
+      props[_$key__onHandleShowing__TransitionerPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set onHandleShowing(Callback value) =>
+      props[_$key__onHandleShowing__TransitionerPropsMixin] = value;
+  @override
+  Callback get onHandleShown =>
+      props[_$key__onHandleShown__TransitionerPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set onHandleShown(Callback value) =>
+      props[_$key__onHandleShown__TransitionerPropsMixin] = value;
+  @override
+  Callback get onHandleHiding =>
+      props[_$key__onHandleHiding__TransitionerPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set onHandleHiding(Callback value) =>
+      props[_$key__onHandleHiding__TransitionerPropsMixin] = value;
+  @override
+  Callback get onHandleHidden =>
+      props[_$key__onHandleHidden__TransitionerPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set onHandleHidden(Callback value) =>
+      props[_$key__onHandleHidden__TransitionerPropsMixin] = value;
+  @override
+  Callback get onPrepareShow =>
+      props[_$key__onPrepareShow__TransitionerPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set onPrepareShow(Callback value) =>
+      props[_$key__onPrepareShow__TransitionerPropsMixin] = value;
+  @override
+  Callback get onPrepareHide =>
+      props[_$key__onPrepareHide__TransitionerPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set onPrepareHide(Callback value) =>
+      props[_$key__onPrepareHide__TransitionerPropsMixin] = value;
+  @override
+  bool get hasTransition =>
+      props[_$key__hasTransition__TransitionerPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set hasTransition(bool value) =>
+      props[_$key__hasTransition__TransitionerPropsMixin] = value;
+  @override
+  bool get initiallyShown =>
+      props[_$key__initiallyShown__TransitionerPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set initiallyShown(bool value) =>
+      props[_$key__initiallyShown__TransitionerPropsMixin] = value;
+  @override
+  Duration get transitionTimeout =>
+      props[_$key__transitionTimeout__TransitionerPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set transitionTimeout(Duration value) =>
+      props[_$key__transitionTimeout__TransitionerPropsMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor
+      _$prop__onHandlePreShowing__TransitionerPropsMixin =
+      PropDescriptor(_$key__onHandlePreShowing__TransitionerPropsMixin);
+  static const PropDescriptor _$prop__onHandleShowing__TransitionerPropsMixin =
+      PropDescriptor(_$key__onHandleShowing__TransitionerPropsMixin);
+  static const PropDescriptor _$prop__onHandleShown__TransitionerPropsMixin =
+      PropDescriptor(_$key__onHandleShown__TransitionerPropsMixin);
+  static const PropDescriptor _$prop__onHandleHiding__TransitionerPropsMixin =
+      PropDescriptor(_$key__onHandleHiding__TransitionerPropsMixin);
+  static const PropDescriptor _$prop__onHandleHidden__TransitionerPropsMixin =
+      PropDescriptor(_$key__onHandleHidden__TransitionerPropsMixin);
+  static const PropDescriptor _$prop__onPrepareShow__TransitionerPropsMixin =
+      PropDescriptor(_$key__onPrepareShow__TransitionerPropsMixin);
+  static const PropDescriptor _$prop__onPrepareHide__TransitionerPropsMixin =
+      PropDescriptor(_$key__onPrepareHide__TransitionerPropsMixin);
+  static const PropDescriptor _$prop__hasTransition__TransitionerPropsMixin =
+      PropDescriptor(_$key__hasTransition__TransitionerPropsMixin);
+  static const PropDescriptor _$prop__initiallyShown__TransitionerPropsMixin =
+      PropDescriptor(_$key__initiallyShown__TransitionerPropsMixin);
+  static const PropDescriptor
+      _$prop__transitionTimeout__TransitionerPropsMixin =
+      PropDescriptor(_$key__transitionTimeout__TransitionerPropsMixin);
+  static const String _$key__onHandlePreShowing__TransitionerPropsMixin =
+      'TransitionerPropsMixin.onHandlePreShowing';
+  static const String _$key__onHandleShowing__TransitionerPropsMixin =
+      'TransitionerPropsMixin.onHandleShowing';
+  static const String _$key__onHandleShown__TransitionerPropsMixin =
+      'TransitionerPropsMixin.onHandleShown';
+  static const String _$key__onHandleHiding__TransitionerPropsMixin =
+      'TransitionerPropsMixin.onHandleHiding';
+  static const String _$key__onHandleHidden__TransitionerPropsMixin =
+      'TransitionerPropsMixin.onHandleHidden';
+  static const String _$key__onPrepareShow__TransitionerPropsMixin =
+      'TransitionerPropsMixin.onPrepareShow';
+  static const String _$key__onPrepareHide__TransitionerPropsMixin =
+      'TransitionerPropsMixin.onPrepareHide';
+  static const String _$key__hasTransition__TransitionerPropsMixin =
+      'TransitionerPropsMixin.hasTransition';
+  static const String _$key__initiallyShown__TransitionerPropsMixin =
+      'TransitionerPropsMixin.initiallyShown';
+  static const String _$key__transitionTimeout__TransitionerPropsMixin =
+      'TransitionerPropsMixin.transitionTimeout';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__onHandlePreShowing__TransitionerPropsMixin,
+    _$prop__onHandleShowing__TransitionerPropsMixin,
+    _$prop__onHandleShown__TransitionerPropsMixin,
+    _$prop__onHandleHiding__TransitionerPropsMixin,
+    _$prop__onHandleHidden__TransitionerPropsMixin,
+    _$prop__onPrepareShow__TransitionerPropsMixin,
+    _$prop__onPrepareHide__TransitionerPropsMixin,
+    _$prop__hasTransition__TransitionerPropsMixin,
+    _$prop__initiallyShown__TransitionerPropsMixin,
+    _$prop__transitionTimeout__TransitionerPropsMixin
+  ];
+  static const List<String> $propKeys = [
+    _$key__onHandlePreShowing__TransitionerPropsMixin,
+    _$key__onHandleShowing__TransitionerPropsMixin,
+    _$key__onHandleShown__TransitionerPropsMixin,
+    _$key__onHandleHiding__TransitionerPropsMixin,
+    _$key__onHandleHidden__TransitionerPropsMixin,
+    _$key__onPrepareShow__TransitionerPropsMixin,
+    _$key__onPrepareHide__TransitionerPropsMixin,
+    _$key__hasTransition__TransitionerPropsMixin,
+    _$key__initiallyShown__TransitionerPropsMixin,
+    _$key__transitionTimeout__TransitionerPropsMixin
   ];
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForTransitionerPropsMixin = PropsMeta(
+  fields: $TransitionerPropsMixin.$props,
+  keys: $TransitionerPropsMixin.$propKeys,
+);

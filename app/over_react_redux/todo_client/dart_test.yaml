@@ -1,0 +1,11 @@
+platforms:
+  - chrome
+concurrency: 4
+filename: "*_test.dart"
+
+presets:
+  # Pass "-P debug" to enable debugging configuration
+  debug:
+    pause_after_load: true
+    exclude_tags: undebuggable
+    reporter: expanded

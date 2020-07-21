@@ -1,44 +1,42 @@
+// Copyright 2020 Workiva Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import 'package:redux/redux.dart';
 
-class Action {
-  Action({this.type, this.value});
-
-  final String type;
-  final dynamic value;
-
-  toJson() {
-    return {'value': this.value};
-  }
-}
-
-class IncrementAction extends Action {
-  IncrementAction([value]):super(type: 'INCREMENT', value:value);
-}
-
-class DecrementAction extends Action {
-  DecrementAction([value]):super(type: 'DECREMENT', value:value);
-}
-
-class ResetAction extends Action {
-  ResetAction():super(type: 'RESET');
-}
-
-int initialValue = 0;
+import 'redux_actions.dart';
 
 int _resetCounterReducer(int currentCount, ResetAction action){
-  return initialValue;
+  return 0;
 }
 
 /////////////////////////////// STORE 1 "Counter" ///////////////////////////////
-Store store1 = Store<CounterState>(counterStateReducer, initialState: CounterState(count: initialValue));
+// To use in tests, copy-paste:
+// Store store1 = Store<CounterState>(counterStateReducer, initialState: CounterState(count: initialValue));
 
 class CounterState {
   final int count;
   final String name;
   CounterState({
-    this.count,
+    this.count = 0,
     this.name = 'Counter',
   });
+
+  @override
+  toString() => 'CounterState:${{
+        'count': count,
+        'name': name,
+      }}';
 }
 
 int _counterDecrementReducer(int currentCount, DecrementAction action) {
@@ -60,13 +58,14 @@ CounterState counterStateReducer(CounterState state, action) => CounterState(
 );
 
 /////////////////////////////// STORE 2 "BigCounter" ///////////////////////////////
-Store store2 = Store<BigCounterState>(bigCounterStateReducer, initialState: BigCounterState(bigCount: initialValue));
+// To use in tests, copy-paste:
+// Store store2 = Store<BigCounterState>(bigCounterStateReducer, initialState: BigCounterState(bigCount: initialValue));
 
 class BigCounterState {
   final int bigCount;
   final String name;
   BigCounterState({
-    this.bigCount,
+    this.bigCount = 0,
     this.name = 'BigCounter',
   });
 }
@@ -89,3 +88,25 @@ BigCounterState bigCounterStateReducer(BigCounterState state, action) => BigCoun
   bigCount: bigCounterActionsReducer(state.bigCount, action),
 );
 
+///////////////////////////////  "ImpureCounter" ///////////////////////////////
+
+class ImpureCounterState {
+  int count;
+  String name;
+
+  ImpureCounterState({
+    this.count = 0,
+    this.name = 'Counter',
+  });
+
+  @override
+  toString() => 'CounterState:${{
+    'count': count,
+    'name': name,
+  }}';
+}
+
+ImpureCounterState impureCounterStateReducer(
+        ImpureCounterState state, action) =>
+    // This is the impure part: modify the state directly
+    state..count = counterActionsReducer(state.count, action);
