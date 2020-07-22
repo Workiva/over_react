@@ -731,7 +731,7 @@ UiFactory<FooProps> Foo = uiFunction(
   (props) {
     return 'foo: ${props.foo}'; 
   },
-  $fooPropsConfig, // ignore: undefined_identifier
+  $FooPropsConfig, // ignore: undefined_identifier
 ); 
 
 mixin FooProps on UiProps {
@@ -761,7 +761,7 @@ UiFactory<FooProps> Foo = uiFunction(
 
     return 'foo: $foo'; 
   },
-  $fooPropsConfig, // ignore: undefined_identifier
+  $FooPropsConfig, // ignore: undefined_identifier
 ); 
 ```
 
@@ -772,7 +772,7 @@ UiFactory<FooProps> Foo = uiFunction(
   (props) {
     return 'foo: ${props.foo}'; 
   }, 
-  $fooPropsConfig, // ignore: undefined_identifier
+  $FooPropsConfig, // ignore: undefined_identifier
   getPropTypes: (keyFor) => {
     keyFor((p) => p.foo): (props, info) {
       if (props.foo == 'bar') {
@@ -810,7 +810,7 @@ UiFactory<FooProps> createFooHoc(UiFactory otherFactory) {
         Dom.div()('prop foo: ${props.foo}'), 
       );   
     },
-    $fooPropsConfig, // ignore: undefined_identifier 
+    $FooPropsConfig, // ignore: undefined_identifier 
   ); 
 
   return FooHoc; 
