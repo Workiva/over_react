@@ -402,7 +402,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   }
 }
 
-// Returns whether or not the props config argument of `uiFunctionComponent` is `null`.
+// Returns whether or not the props config argument of `uiFunction` is `null`.
 bool _hasConfigArg(BoilerplateFactory factory) {
   final rightHandSide = factory.node.variables.firstInitializer;
   final args = (rightHandSide as MethodInvocation).argumentList.arguments;
@@ -410,7 +410,7 @@ bool _hasConfigArg(BoilerplateFactory factory) {
   return args[1] is! NullLiteral;
 }
 
-// Returns the name of the props for [factory] based on typing arguments in the `uiFunctionComponent` declaration.
+// Returns the name of the props for [factory] based on typing arguments in the `uiFunction` declaration.
 String _getPropsNameFromFunctionComponent(BoilerplateFactory factory) {
   if (factory.propsGenericArg != null) {
     return factory.propsGenericArg.typeNameWithoutPrefix;

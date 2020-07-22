@@ -47,8 +47,7 @@ class BoilerplateFactory extends BoilerplateMember {
 
   bool get isFunctionComponentFactory =>
       node.variables.firstInitializer is MethodInvocation &&
-      (node.variables.firstInitializer as MethodInvocation).methodName.name ==
-          'uiFunctionComponent';
+      (node.variables.firstInitializer as MethodInvocation).methodName.name == 'uiFunction';
 
   /// Verifies the correct implementation of a boilerplate factory
   ///

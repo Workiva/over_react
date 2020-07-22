@@ -703,15 +703,15 @@ main() {
             
             mixin BarPropsMixin on UiProps {}
             
-            final Bar = uiFunctionComponent<BarPropsMixin>((props) {
+            final Bar = uiFunction<BarPropsMixin>((props) {
               return Dom.div()();
             }, $BarPropsMixinConfig);
             
-            final Foo = uiFunctionComponent<BarPropsMixin>((props) {
+            final Foo = uiFunction<BarPropsMixin>((props) {
               return Dom.div()();
             }, $FooPropsConfig);
                         
-            UiFactory<FooProps> Baz = uiFunctionComponent((props) {
+            UiFactory<FooProps> Baz = uiFunction((props) {
               return Dom.div()();
             }, $BazPropsConfig);
             
@@ -731,15 +731,15 @@ main() {
           setUpAndGenerate(r'''
             mixin FooPropsMixin on UiProps {}
             
-            final Bar = uiFunctionComponent<UiProps>((props) {
+            final Bar = uiFunction<UiProps>((props) {
               return Dom.div()();
             }, null);
             
-            final Foo = uiFunctionComponent<FooPropsMixin>((props) {
+            final Foo = uiFunction<FooPropsMixin>((props) {
               return Dom.div()();
             }, $FooPropsConfig);
             
-            final Baz = uiFunctionComponent<FooPropsMixin>((props) {
+            final Baz = uiFunction<FooPropsMixin>((props) {
               return Dom.div()();
             }, null, propsFactory: PropsFactory.fromUiFactory(Foo));
           ''');

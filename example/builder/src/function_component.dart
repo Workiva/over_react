@@ -27,8 +27,8 @@ mixin BasicProps on UiProps {
   String basic4;
 }
 
-UiFactory<BasicProps> Basic = uiFunctionComponent((props) {
-  return Dom.div()(
+UiFactory<BasicProps> Basic = uiFunction((props) {
+  return Fragment()(
     Dom.div()('prop id: ${props.id}'),
     Dom.div()('default prop testing: ${props.basicProp}'),
     Dom.div()('default prop testing: ${props.basic1}'),
@@ -36,11 +36,11 @@ UiFactory<BasicProps> Basic = uiFunctionComponent((props) {
   );
 }, $BasicPropsConfig);
 
-final Simple = uiFunctionComponent<BasicProps>((props) {
+final Simple = uiFunction<BasicProps>((props) {
   final basicProp = props.basicProp ?? 'basicProp';
   final basic1 = props.basic1 ?? 'basic1';
 
-  return Dom.div()(
+  return Fragment()(
     Dom.div()('prop id: ${props.id}'),
     Dom.div()('default prop testing: $basicProp'),
     Dom.div()('default prop testing: $basic1'),
@@ -50,16 +50,13 @@ final Simple = uiFunctionComponent<BasicProps>((props) {
 
 ReactElement functionComponentContent() {
   GenericFactory(props) {
-    return Dom.div()(
-      Dom.div()('prop id: ${props.id}'),
-    );
+    return Dom.div()('prop id: ${props.id}');
   }
+  final genericFactory = uiFunction<UiProps>(GenericFactory, null);
 
-  final genericFactory = uiFunctionComponent<UiProps>(GenericFactory, null);
-
-  final basicFactory = uiFunctionComponent<BasicProps>(
+  final basicFactory = uiFunction<BasicProps>(
     (props) {
-      return Dom.div()(
+      return Fragment()(
         Dom.div()('prop id: ${props.id}'),
         Dom.div()('prop basic1: ${props.basic1}'),
       );

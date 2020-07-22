@@ -24,7 +24,7 @@ import '../../../../test_util/test_util.dart';
 part 'function_component_test.over_react.g.dart';
 
 main() {
-  group('uiFunctionComponent', () {
+  group('uiFunction', () {
     group('with generated props config', () {
       functionComponentTestHelper(Test);
     });
@@ -34,7 +34,7 @@ main() {
     });
 
     group('with UiProps', () {
-      UiFactory<UiProps> TestUiProps = uiFunctionComponent(
+      UiFactory<UiProps> TestUiProps = uiFunction(
           (props) => (Dom.div()..addTestId('testId3'))('id: ${props.id}'),
           null);
 
@@ -80,7 +80,7 @@ main() {
     group('throws an error when', () {
       test('both propsFactory and config are set', () {
         expect(
-            () => uiFunctionComponent<TestProps>(
+            () => uiFunction<TestProps>(
                   (props) => Dom.div()(),
                   $TestPropsConfig,
                   propsFactory: PropsFactory.fromUiFactory(Test),
@@ -90,7 +90,7 @@ main() {
 
       test('config is not provided when using custom props class', () {
         expect(
-            () => uiFunctionComponent<TestProps>(
+            () => uiFunction<TestProps>(
                   (props) => Dom.div()(),
                   null,
                 ),
@@ -178,7 +178,7 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
   });
 }
 
-UiFactory<TestProps> Test = uiFunctionComponent((props) {
+UiFactory<TestProps> Test = uiFunction((props) {
   return (Dom.div()
     ..ref = props.forwardedRef
     ..addTestId('testId')
@@ -191,7 +191,7 @@ UiFactory<TestProps> Test = uiFunctionComponent((props) {
         props.customKeyAndNamespaceProp))('rendered content');
 }, $TestPropsConfig);
 
-UiFactory<TestProps> TestCustom = uiFunctionComponent((props) {
+UiFactory<TestProps> TestCustom = uiFunction((props) {
   return (Dom.div()
     ..ref = props.forwardedRef
     ..addTestId('testIdCustom')

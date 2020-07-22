@@ -727,7 +727,7 @@ import 'package:over_react/over_react.dart';
 
 part 'foo.over_react.g.dart';
 
-UiFactory<FooProps> Foo = uiFunctionComponent(
+UiFactory<FooProps> Foo = uiFunction(
   (props) {
     return 'foo: ${props.foo}'; 
   },
@@ -739,7 +739,7 @@ mixin FooProps on UiProps {
 }
 ```
 
-Here, `uiFunctionComponent` gets a generic parameter of `FooProps` inferred 
+Here, `uiFunction` gets a generic parameter of `FooProps` inferred 
 from the LHS typing, allowing props to be statically typed as `FooProps`.
 
 The generated `$FooPropsConfig` is passed in as an argument, and serves 
@@ -755,7 +755,7 @@ same behavior as `defaultProps`, but with the restriction that a given prop
 __must either be nullable or have a default value, but not both__.
 
 ```dart
-UiFactory<FooProps> Foo = uiFunctionComponent(
+UiFactory<FooProps> Foo = uiFunction(
   (props) {
     final foo = props.foo ?? 'default foo value';
 
@@ -768,7 +768,7 @@ UiFactory<FooProps> Foo = uiFunctionComponent(
 #### With propTypes
 
 ```dart
-UiFactory<FooProps> Foo = uiFunctionComponent(
+UiFactory<FooProps> Foo = uiFunction(
   (props) {
     return 'foo: ${props.foo}'; 
   }, 
@@ -803,7 +803,7 @@ UiFactory<FooProps> createFooHoc(UiFactory otherFactory) {
   Object closureVariable; 
   // ... 
 
-  final FooHoc = uiFunctionComponent<FooProps>(
+  final FooHoc = uiFunction<FooProps>(
     (props) { 
       return otherFactory()( 
         Dom.div()('closureVariable: ${closureVariable}'), 

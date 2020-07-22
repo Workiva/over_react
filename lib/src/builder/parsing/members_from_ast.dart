@@ -169,8 +169,7 @@ class _BoilerplateMemberDetector {
     }
 
     final rightHandSide = node.variables.firstInitializer;
-    if (rightHandSide is MethodInvocation &&
-        rightHandSide.methodName.name == 'uiFunctionComponent') {
+    if (rightHandSide is MethodInvocation && rightHandSide.methodName.name == 'uiFunction') {
       onFactory(BoilerplateFactory(
           node,
           VersionConfidences(

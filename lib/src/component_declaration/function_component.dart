@@ -25,13 +25,16 @@ import 'package:react/react_client/js_backed_map.dart';
 export 'component_type_checking.dart'
     show isComponentOfType, isValidElementOfType;
 
-/// Returns a `UiFactory<T>` for [functionComponent].
+/// A React component declared using a function that takes in [props] and returns rendered output.
 ///
-/// The return value of [functionComponent] should be the contents of the rendered component.
+/// See <https://facebook.github.io/react/docs/components-and-props.html#functional-and-class-components>.
+typedef dynamic UiFunctionComponent<T extends UiProps>(T props);
+
+/// Returns a `UiFactory<TProps>` for [functionComponent].
 ///
 /// __Example__:
 /// ```dart
-/// UiFactory<FooProps> Foo = uiFunctionComponent((props) {
+/// UiFactory<FooProps> Foo = uiFunction((props) {
 ///     // Set default props using null-aware operators.
 ///     final isDisabled = props.isDisabled ?? false;
 ///     final items = props.items ?? [];
@@ -52,7 +55,7 @@ export 'component_type_checking.dart'
 /// __OR__ Optionally pass in an existing [PropsFactory] in place of a props [config].
 ///
 /// ```dart
-/// UiFactory<FooProps> Bar = uiFunctionComponent((props) {
+/// UiFactory<FooProps> Bar = uiFunction((props) {
 ///     return Dom.div()(props.items);
 ///   },
 ///   null,
@@ -64,7 +67,7 @@ export 'component_type_checking.dart'
 /// __OR__ Set [config] to `null` when using `UiProps`.
 ///
 /// ```dart
-/// UiFactory<UiProps> Baz = uiFunctionComponent((props) {
+/// UiFactory<UiProps> Baz = uiFunction((props) {
 ///     return Dom.div()('prop id: ${props.id}');
 ///   },
 ///   null,
@@ -74,10 +77,10 @@ export 'component_type_checking.dart'
 ///
 /// Learn more: <https://reactjs.org/docs/components-and-props.html#function-and-class-components>.
 // FIXME right now only top level factory declarations will generate props configs.
-UiFactory<T> uiFunctionComponent<T extends UiProps>(
-  FunctionComponent<T> functionComponent,
-  FunctionComponentConfig<T> config, {
-  PropsFactory<T> propsFactory,
+UiFactory<TProps> uiFunction<TProps extends UiProps>(
+  UiFunctionComponent<TProps> functionComponent,
+  FunctionComponentConfig<TProps> config, {
+  PropsFactory<TProps> propsFactory,
   String displayName,
 }) {
   if (config != null) {
@@ -88,35 +91,31 @@ UiFactory<T> uiFunctionComponent<T extends UiProps>(
     displayName ??= config.componentName;
   }
 
-  // Get the display name from the inner function if possible so it doesn't become `_uiFunctionComponentWrapper`
-  // FIXME make this work in DDC and make more robust
-  displayName ??= getFunctionName(functionComponent);
+  // Get the display name from the inner function if possible so it doesn't become `_uiFunctionWrapper`
+  displayName ??= _getFunctionName(functionComponent);
 
-  dynamic _uiFunctionComponentWrapper(Map props) {
+  dynamic _uiFunctionWrapper(Map props) {
     return functionComponent(propsFactory.jsMap(props as JsBackedMap));
   }
 
-  // FIXME DartFunctionComponent should be JsBackedMap?
   ReactDartFunctionComponentFactoryProxy factory =
       react.registerFunctionComponent(
-    _uiFunctionComponentWrapper,
+    _uiFunctionWrapper,
     displayName: displayName,
   );
 
   if (propsFactory == null) {
-    // todo allow passing in of custom uiFactory/typedPropsFactory
-    // TODO make it easier to pass in parts of generatedInfo
-    if (T != UiProps && T != GenericUiProps) {
+    if (TProps != UiProps && TProps != _GenericUiProps) {
       throw ArgumentError(
           'config.propsFactory must be provided when using custom props classes');
     }
     propsFactory = PropsFactory.fromUiFactory(
-            ([backingMap]) => GenericUiProps(factory, backingMap))
-        as PropsFactory<T>;
+            ([backingMap]) => _GenericUiProps(factory, backingMap))
+        as PropsFactory<TProps>;
   }
 
-  T _uiFactory([Map backingMap]) {
-    T builder;
+  TProps _uiFactory([Map backingMap]) {
+    TProps builder;
     if (backingMap == null) {
       builder = propsFactory.jsMap(JsBackedMap());
     } else if (backingMap is JsBackedMap) {
@@ -131,22 +130,15 @@ UiFactory<T> uiFunctionComponent<T extends UiProps>(
   return _uiFactory;
 }
 
-String getFunctionName(Function function) {
-  if (function == null) throw ArgumentError.notNull('f');
-
-  final functionName = getProperty(function, 'name');
-  if (functionName.toString().isNotEmpty && functionName != null) {
-    return functionName;
-  }
-
-  return 'UiFunctionComponent';
+String _getFunctionName(Function function) {
+  return getProperty(function, 'name') ?? getProperty(function, '\$static_name');
 }
 
-class GenericUiProps extends UiProps {
+class _GenericUiProps extends UiProps {
   @override
   final Map props;
 
-  GenericUiProps(ReactComponentFactoryProxy componentFactory, [Map props])
+  _GenericUiProps(ReactComponentFactoryProxy componentFactory, [Map props])
       : this.props = props ?? JsBackedMap() {
     this.componentFactory = componentFactory;
   }
@@ -158,30 +150,32 @@ class GenericUiProps extends UiProps {
   bool get $isClassGenerated => true;
 }
 
-typedef FunctionFactoryFactory<T extends UiProps> = UiFactory<T> Function(
-    ReactDartFunctionComponentFactoryProxy);
-typedef dynamic FunctionComponent<T extends UiProps>(T props);
-
+/// Helper class used to keep track of generated information for [uiFunction].
 @protected
-class FunctionComponentConfig<T extends UiProps> {
+class FunctionComponentConfig<TProps extends UiProps> {
   @protected
-  final PropsFactory<T> propsFactory;
+  final PropsFactory<TProps> propsFactory;
   final String componentName;
 
   @protected
   FunctionComponentConfig({this.propsFactory, this.componentName});
 }
 
-class PropsFactory<T extends UiProps> {
-  final T Function(Map props) map;
-  final T Function(JsBackedMap props) jsMap;
+/// Helper class to keep track of props factories used by [uiFunction],
+class PropsFactory<TProps extends UiProps> {
+  /// Returns a typed props object backed by the specified [Map].
+  final TProps Function(Map props) map;
+
+  /// Returns a typed props object backed by the specified [JsBackedMap].
+  final TProps Function(JsBackedMap props) jsMap;
 
   PropsFactory({
     @required this.map,
     @required this.jsMap,
   });
 
-  PropsFactory.fromUiFactory(UiFactory<T> factory)
+  /// Creates a [PropsFactory] based on [factory].
+  PropsFactory.fromUiFactory(UiFactory<TProps> factory)
       : this.map = factory,
         this.jsMap = factory;
 }

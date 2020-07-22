@@ -1568,15 +1568,15 @@ main() {
           group('function component', () {
             test('(shorthand)', () {
               setUpAndParse('''
-                UiFactory<FooPropsMixin> Foo = uiFunctionComponent((props) {
+                UiFactory<FooPropsMixin> Foo = uiFunction((props) {
                   return Dom.div()();
                 },  \$FooPropsConfig);
                 
-                final Bar = uiFunctionComponent<FooPropsMixin>((props) {
+                final Bar = uiFunction<FooPropsMixin>((props) {
                   return Dom.div()();
                 },  \$BarPropsConfig);
                 
-                UiFactory<FooPropsMixin> Baz = uiFunctionComponent<FooPropsMixin>((props) {
+                UiFactory<FooPropsMixin> Baz = uiFunction<FooPropsMixin>((props) {
                   return Dom.div()();
                 }, null, propsFactory: PropsFactory.fromUiFactory(Foo));
                 
@@ -1609,7 +1609,7 @@ main() {
 
             test('(verbose)', () {
               setUpAndParse('''
-                final Foo = uiFunctionComponent<FooProps>((props) {
+                final Foo = uiFunction<FooProps>((props) {
                   return Dom.div()();
                 },  \$FooPropsConfig);
                 mixin FooPropsMixin on UiProps {}
@@ -1630,7 +1630,7 @@ main() {
 
             test('generic UiProps', () {
               setUpAndParse('''
-                final Foo = uiFunctionComponent<UiProps>((props) {
+                final Foo = uiFunction<UiProps>((props) {
                   return Dom.div()();
                 }, null);
               ''');
@@ -1644,15 +1644,15 @@ main() {
 
             test('with multiple mixins in the same file', () {
               setUpAndParse('''
-                UiFactory<FooPropsMixin> Foo = uiFunctionComponent((props) {
+                UiFactory<FooPropsMixin> Foo = uiFunction((props) {
                   return Dom.div()();
                 },  \$FooPropsConfig);
                 
-                final Bar = uiFunctionComponent<FooPropsMixin>((props) {
+                final Bar = uiFunction<FooPropsMixin>((props) {
                   return Dom.div()();
                 },  \$BarPropsConfig);
                 
-                UiFactory<BarPropsMixin> Baz = uiFunctionComponent((props) {
+                UiFactory<BarPropsMixin> Baz = uiFunction((props) {
                   return Dom.div()();
                 },  \$BazPropsConfig);
                 
@@ -1838,7 +1838,7 @@ main() {
         group('a function component is declared', () {
           test('without a props mixin', () {
             setUpAndParse(r'''
-              final Foo = uiFunctionComponent<FooProps>((props) {
+              final Foo = uiFunction<FooProps>((props) {
                 return Dom.div()();
               }, $FooPropsConfig);
             ''');
@@ -1848,7 +1848,7 @@ main() {
           test('without props typing arguments or left hand typing', () {
             setUpAndParse(r'''
               mixin FooProps on UiProps {}
-              final Foo = uiFunctionComponent((props) {
+              final Foo = uiFunction((props) {
                 return Dom.div()();
               }, $FooPropsConfig);
             ''');
@@ -1858,7 +1858,7 @@ main() {
           test('without a matching props mixin', () {
             setUpAndParse(r'''
               mixin FooPropsMixin on UiProps {}
-              UiFactory<FooProps> Foo = uiFunctionComponent((props) {
+              UiFactory<FooProps> Foo = uiFunction((props) {
                 return Dom.div()();
               }, $FooPropsConfig);
             ''');
@@ -1871,7 +1871,7 @@ main() {
               mixin FooProps on UiProps {}
               class FooComponent extends UiComponent2<FooProps> {}
               
-              final Foo = uiFunctionComponent<FooProps>((props) {
+              final Foo = uiFunction<FooProps>((props) {
                 return Dom.div()();
               }, $FooPropsConfig);
             ''');
