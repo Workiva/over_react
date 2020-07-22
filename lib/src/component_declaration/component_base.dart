@@ -512,7 +512,7 @@ abstract class UiProps extends MapBase
         componentFactory != null,
         'componentFactory is null. Possible causes:\n'
         '1. Something went wrong when initializing the `\$${runtimeType}Factory` variable in the generated code.\n'
-        '   It\'s possible React swallowed errors thrown during that initialization, so try pausing on caught exceptions to see it.\n'
+        '   Check for errors in the console for more information.'
         '2. This is a props map view factory (declared as just a factory and props), and should not be invoked.\n'
         '   This can also happen if your component didn\'t get grouped with your factory/props (e.g., if its name doesn\'t match).'
         '3. This is a function component factory that was set up improperly, not wrapping the generated function in `uiFunction`.\n'
