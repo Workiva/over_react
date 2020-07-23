@@ -33,6 +33,10 @@ main() {
       functionComponentTestHelper(TestCustom, testId: 'testIdCustom');
     });
 
+    group('with no left hand typing', () {
+      functionComponentTestHelper(NoLHSTest, testId: 'testIdNoLHS');
+    });
+
     group('with UiProps', () {
       UiFactory<UiProps> TestUiProps = uiFunction(
           (props) => (Dom.div()..addTestId('testId3'))('id: ${props.id}'),
@@ -82,7 +86,7 @@ main() {
         expect(
             () => uiFunction<TestProps>(
                   (props) => Dom.div()(),
-                  $TestPropsConfig,
+                  $TestConfig, // ignore: undefined_identifier
                   propsFactory: PropsFactory.fromUiFactory(Test),
                 ),
             throwsArgumentError);
@@ -178,34 +182,53 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
   });
 }
 
-UiFactory<TestProps> Test = uiFunction((props) {
-  return (Dom.div()
-    ..ref = props.forwardedRef
-    ..addTestId('testId')
-    ..addProp('data-prop-string-prop', props.stringProp)
-    ..addProp('data-prop-dynamic-prop', props.dynamicProp)
-    ..addProp('data-prop-untyped-prop', props.untypedProp)
-    ..addProp('data-prop-custom-key-prop', props.customKeyProp)
-    ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
-    ..addProp('data-prop-custom-key-and-namespace-prop',
-        props.customKeyAndNamespaceProp))('rendered content');
-}, $TestPropsConfig);
+UiFactory<TestProps> Test = uiFunction(
+  (props) {
+    return (Dom.div()
+      ..addTestId('testId')
+      ..addProp('data-prop-string-prop', props.stringProp)
+      ..addProp('data-prop-dynamic-prop', props.dynamicProp)
+      ..addProp('data-prop-untyped-prop', props.untypedProp)
+      ..addProp('data-prop-custom-key-prop', props.customKeyProp)
+      ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
+      ..addProp('data-prop-custom-key-and-namespace-prop',
+          props.customKeyAndNamespaceProp))('rendered content');
+  },
+  $TestConfig, // ignore: undefined_identifier
+);
 
-UiFactory<TestProps> TestCustom = uiFunction((props) {
-  return (Dom.div()
-    ..ref = props.forwardedRef
-    ..addTestId('testIdCustom')
-    ..addProp('data-prop-string-prop', props.stringProp)
-    ..addProp('data-prop-dynamic-prop', props.dynamicProp)
-    ..addProp('data-prop-untyped-prop', props.untypedProp)
-    ..addProp('data-prop-custom-key-prop', props.customKeyProp)
-    ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
-    ..addProp('data-prop-custom-key-and-namespace-prop',
-        props.customKeyAndNamespaceProp))('rendered content');
-}, null, propsFactory: PropsFactory.fromUiFactory(Test));
+UiFactory<TestProps> TestCustom = uiFunction(
+  (props) {
+    return (Dom.div()
+      ..addTestId('testIdCustom')
+      ..addProp('data-prop-string-prop', props.stringProp)
+      ..addProp('data-prop-dynamic-prop', props.dynamicProp)
+      ..addProp('data-prop-untyped-prop', props.untypedProp)
+      ..addProp('data-prop-custom-key-prop', props.customKeyProp)
+      ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
+      ..addProp('data-prop-custom-key-and-namespace-prop',
+          props.customKeyAndNamespaceProp))('rendered content');
+  },
+  null,
+  propsFactory: PropsFactory.fromUiFactory(Test),
+);
+
+final NoLHSTest = uiFunction<TestProps>(
+  (props) {
+    return (Dom.div()
+      ..addTestId('testIdNoLHS')
+      ..addProp('data-prop-string-prop', props.stringProp)
+      ..addProp('data-prop-dynamic-prop', props.dynamicProp)
+      ..addProp('data-prop-untyped-prop', props.untypedProp)
+      ..addProp('data-prop-custom-key-prop', props.customKeyProp)
+      ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
+      ..addProp('data-prop-custom-key-and-namespace-prop',
+          props.customKeyAndNamespaceProp))('rendered content');
+  },
+  $NoLHSTestConfig, // ignore: undefined_identifier
+);
 
 mixin TestProps on UiProps {
-  Ref forwardedRef;
   String stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables

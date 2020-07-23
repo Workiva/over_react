@@ -13,8 +13,6 @@
 // limitations under the License.
 
 import 'package:over_react/over_react.dart';
-import 'package:react/react_client.dart';
-import 'package:react/react_client/react_interop.dart';
 
 // ignore_for_file: uri_has_not_been_generated
 part 'function_component.over_react.g.dart';
@@ -28,30 +26,35 @@ mixin BasicProps on UiProps {
 }
 
 UiFactory<BasicProps> Basic = uiFunction((props) {
-  return Fragment()(
-    Dom.div()('prop id: ${props.id}'),
-    Dom.div()('default prop testing: ${props.basicProp}'),
-    Dom.div()('default prop testing: ${props.basic1}'),
-    Dom.div()(props.basic3, 'children: ${props.children}'),
-  );
-}, $BasicPropsConfig);
+    return Fragment()(
+      Dom.div()('prop id: ${props.id}'),
+      Dom.div()('default prop testing: ${props.basicProp}'),
+      Dom.div()('default prop testing: ${props.basic1}'),
+      Dom.div()(props.basic3, 'children: ${props.children}'),
+    );
+  },
+  $BasicConfig, // ignore: undefined_identifier
+);
 
 final Simple = uiFunction<BasicProps>((props) {
-  final basicProp = props.basicProp ?? 'basicProp';
-  final basic1 = props.basic1 ?? 'basic1';
+    final basicProp = props.basicProp ?? 'basicProp';
+    final basic1 = props.basic1 ?? 'basic1';
 
-  return Fragment()(
-    Dom.div()('prop id: ${props.id}'),
-    Dom.div()('default prop testing: $basicProp'),
-    Dom.div()('default prop testing: $basic1'),
-    Dom.div()(null, props.basic4, 'children: ${props.children}'),
-  );
-}, $SimplePropsConfig);
+    return Fragment()(
+      Dom.div()('prop id: ${props.id}'),
+      Dom.div()('default prop testing: $basicProp'),
+      Dom.div()('default prop testing: $basic1'),
+      Dom.div()(null, props.basic4, 'children: ${props.children}'),
+    );
+  },
+  $SimpleConfig, // ignore: undefined_identifier
+);
 
 ReactElement functionComponentContent() {
   GenericFactory(props) {
     return Dom.div()('prop id: ${props.id}');
   }
+
   final genericFactory = uiFunction<UiProps>(GenericFactory, null);
 
   final basicFactory = uiFunction<BasicProps>(

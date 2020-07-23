@@ -303,7 +303,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     ].expand((i) => i).whereNot(hasBeenConsumed);
 
     final standAloneFactories = _functionComponentFactories.where((factory) =>
-        _getPropsNameFromFunctionComponent(factory) == 'UiProps' || !_hasConfigArg(factory));
+        factory.propsGenericArg.typeNameWithoutPrefix == 'UiProps' || !_hasConfigArg(factory));
     for (final factory in standAloneFactories) {
       consume(factory);
       yield PropsMapViewOrFunctionComponentDeclaration(
@@ -315,7 +315,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     for (final propsClassOrMixin in allUnusedProps) {
       final associatedFactories = _functionComponentFactories.where((factory) =>
           !hasBeenConsumed(factory) &&
-          _getPropsNameFromFunctionComponent(factory) == propsClassOrMixin.name.name);
+          factory.propsGenericArg.typeNameWithoutPrefix == propsClassOrMixin.name.name);
       if (associatedFactories.isNotEmpty) {
         yield PropsMapViewOrFunctionComponentDeclaration(
           factories: associatedFactories.toList(),
@@ -408,17 +408,6 @@ bool _hasConfigArg(BoilerplateFactory factory) {
   final args = (rightHandSide as MethodInvocation).argumentList.arguments;
   if (args == null || args.length < 2) return false;
   return args[1] is! NullLiteral;
-}
-
-// Returns the name of the props for [factory] based on typing arguments in the `uiFunction` declaration.
-String _getPropsNameFromFunctionComponent(BoilerplateFactory factory) {
-  if (factory.propsGenericArg != null) {
-    return factory.propsGenericArg.typeNameWithoutPrefix;
-  }
-  final rightHandSide = factory.node.variables.firstInitializer;
-  assert(rightHandSide != null && rightHandSide is MethodInvocation);
-  final typeArgs = (rightHandSide as MethodInvocation).typeArguments?.arguments?.firstOrNull;
-  return typeArgs?.typeNameWithoutPrefix;
 }
 
 const errorStateOnly =

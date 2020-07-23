@@ -83,21 +83,21 @@ const PropsMeta _$metaForBasicProps = PropsMeta(
   keys: $BasicProps.$propKeys,
 );
 
-final FunctionComponentConfig<_$$BasicProps> $BasicPropsConfig =
+final FunctionComponentConfig<_$$BasicProps> $BasicConfig =
     FunctionComponentConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$BasicProps(map),
           jsMap: (map) => _$$BasicProps$JsMap(map),
         ),
-        componentName: 'Basic');
+        displayName: 'Basic');
 
-final FunctionComponentConfig<_$$BasicProps> $SimplePropsConfig =
+final FunctionComponentConfig<_$$BasicProps> $SimpleConfig =
     FunctionComponentConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$BasicProps(map),
           jsMap: (map) => _$$BasicProps$JsMap(map),
         ),
-        componentName: 'Simple');
+        displayName: 'Simple');
 
 // Concrete props implementation.
 //

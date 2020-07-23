@@ -71,6 +71,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
 
   void _generateFactory() {
     if (factoryNames == null) throw StateError('factoryNames must not be null');
+    assert(factoryNames.length == 1, 'factoryNames must have a length of 1');
 
     outputContentsBuffer
         .write('${names.implName} ${factoryNames.first.implName}([Map backingProps]) => ');
@@ -376,20 +377,21 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   @override
   bool get isComponent2 => true;
 
-  String _generateFunctionComponentPropsConfig(FactoryNames factoryName) {
+  String _generateFunctionComponentConfig(FactoryNames factoryName) {
     return 'final FunctionComponentConfig<${names.implName}> '
-        '\$${factoryName.consumerName}PropsConfig = FunctionComponentConfig(\n'
+        '${factoryName.configName} = FunctionComponentConfig(\n'
         'propsFactory: PropsFactory(\n'
         'map: (map) => ${names.implName}(map),\n'
         'jsMap: (map) => ${names.jsMapImplName}(map),),\n'
-        'componentName: \'${factoryName.consumerName}\');\n\n';
+        'displayName: \'${factoryName.consumerName}\');\n\n';
   }
 
   @override
   void _generateFactory() {
     if (isFunctionComponentDeclaration) {
-      factoryNames.forEach(
-          (factory) => outputContentsBuffer.write(_generateFunctionComponentPropsConfig(factory)));
+      for (final factoryName in factoryNames) {
+        outputContentsBuffer.write(_generateFunctionComponentConfig(factoryName));
+      }
     } else {
       super._generateFactory();
     }

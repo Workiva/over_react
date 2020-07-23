@@ -1569,16 +1569,23 @@ main() {
             test('(shorthand)', () {
               setUpAndParse('''
                 UiFactory<FooPropsMixin> Foo = uiFunction((props) {
-                  return Dom.div()();
-                },  \$FooPropsConfig);
+                    return Dom.div()();
+                  },
+                  \$FooConfig, // ignore: undefined_identifier
+                );
                 
                 final Bar = uiFunction<FooPropsMixin>((props) {
-                  return Dom.div()();
-                },  \$BarPropsConfig);
+                    return Dom.div()();
+                  },
+                  \$BarConfig, // ignore: undefined_identifier
+                );
                 
                 UiFactory<FooPropsMixin> Baz = uiFunction<FooPropsMixin>((props) {
-                  return Dom.div()();
-                }, null, propsFactory: PropsFactory.fromUiFactory(Foo));
+                    return Dom.div()();
+                  }, 
+                  null, 
+                  propsFactory: PropsFactory.fromUiFactory(Foo),
+                );
                 
                 mixin FooPropsMixin on UiProps {}
               ''');
@@ -1610,8 +1617,9 @@ main() {
             test('(verbose)', () {
               setUpAndParse('''
                 final Foo = uiFunction<FooProps>((props) {
-                  return Dom.div()();
-                },  \$FooPropsConfig);
+                    return Dom.div()();
+                  },  \$FooConfig, // ignore: undefined_identifier
+                );
                 mixin FooPropsMixin on UiProps {}
                 class FooProps = UiProps with FooPropsMixin;
               ''');
@@ -1645,16 +1653,22 @@ main() {
             test('with multiple mixins in the same file', () {
               setUpAndParse('''
                 UiFactory<FooPropsMixin> Foo = uiFunction((props) {
-                  return Dom.div()();
-                },  \$FooPropsConfig);
+                    return Dom.div()();
+                  },
+                  \$FooConfig, // ignore: undefined_identifier
+                );
                 
                 final Bar = uiFunction<FooPropsMixin>((props) {
-                  return Dom.div()();
-                },  \$BarPropsConfig);
+                    return Dom.div()();
+                  },
+                  \$BarConfig, // ignore: undefined_identifier
+                );
                 
                 UiFactory<BarPropsMixin> Baz = uiFunction((props) {
-                  return Dom.div()();
-                },  \$BazPropsConfig);
+                    return Dom.div()();
+                  },
+                  \$BazConfig, // ignore: undefined_identifier
+                );
                 
                 mixin FooPropsMixin on UiProps {}
                 mixin BarPropsMixin on UiProps {}
@@ -1839,8 +1853,10 @@ main() {
           test('without a props mixin', () {
             setUpAndParse(r'''
               final Foo = uiFunction<FooProps>((props) {
-                return Dom.div()();
-              }, $FooPropsConfig);
+                  return Dom.div()();
+                },
+                $FooConfig, // ignore: undefined_identifier
+              );
             ''');
             verify(logger.severe(contains(errorFactoryOnly)));
           });
@@ -1849,8 +1865,10 @@ main() {
             setUpAndParse(r'''
               mixin FooProps on UiProps {}
               final Foo = uiFunction((props) {
-                return Dom.div()();
-              }, $FooPropsConfig);
+                  return Dom.div()();
+                },
+                $FooConfig, // ignore: undefined_identifier
+              );
             ''');
             verify(logger.severe(contains(errorFactoryOnly)));
           });
@@ -1859,8 +1877,9 @@ main() {
             setUpAndParse(r'''
               mixin FooPropsMixin on UiProps {}
               UiFactory<FooProps> Foo = uiFunction((props) {
-                return Dom.div()();
-              }, $FooPropsConfig);
+                  return Dom.div()();
+                }, $FooConfig, // ignore: undefined_identifier
+              );
             ''');
             verify(logger.severe(contains(errorFactoryOnly)));
           });
@@ -1872,8 +1891,10 @@ main() {
               class FooComponent extends UiComponent2<FooProps> {}
               
               final Foo = uiFunction<FooProps>((props) {
-                return Dom.div()();
-              }, $FooPropsConfig);
+                  return Dom.div()();
+                },
+                $FooConfig, // ignore: undefined_identifier
+              );
             ''');
             verify(logger.severe(contains(errorFactoryOnly)));
           });

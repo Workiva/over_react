@@ -14,12 +14,6 @@ part of 'function_component_test.dart';
 mixin $TestProps on TestProps {
   static const PropsMeta meta = _$metaForTestProps;
   @override
-  Ref get forwardedRef =>
-      props[_$key__forwardedRef__TestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  @override
-  set forwardedRef(Ref value) => props[_$key__forwardedRef__TestProps] = value;
-  @override
   String get stringProp =>
       props[_$key__stringProp__TestProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
@@ -66,8 +60,6 @@ mixin $TestProps on TestProps {
   set customKeyAndNamespaceProp(dynamic value) =>
       props[_$key__customKeyAndNamespaceProp__TestProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__forwardedRef__TestProps =
-      PropDescriptor(_$key__forwardedRef__TestProps);
   static const PropDescriptor _$prop__stringProp__TestProps =
       PropDescriptor(_$key__stringProp__TestProps);
   static const PropDescriptor _$prop__dynamicProp__TestProps =
@@ -80,7 +72,6 @@ mixin $TestProps on TestProps {
       PropDescriptor(_$key__customNamespaceProp__TestProps);
   static const PropDescriptor _$prop__customKeyAndNamespaceProp__TestProps =
       PropDescriptor(_$key__customKeyAndNamespaceProp__TestProps);
-  static const String _$key__forwardedRef__TestProps = 'TestProps.forwardedRef';
   static const String _$key__stringProp__TestProps = 'TestProps.stringProp';
   static const String _$key__dynamicProp__TestProps = 'TestProps.dynamicProp';
   static const String _$key__untypedProp__TestProps = 'TestProps.untypedProp';
@@ -91,7 +82,6 @@ mixin $TestProps on TestProps {
       'custom namespace~~custom key!';
 
   static const List<PropDescriptor> $props = [
-    _$prop__forwardedRef__TestProps,
     _$prop__stringProp__TestProps,
     _$prop__dynamicProp__TestProps,
     _$prop__untypedProp__TestProps,
@@ -100,7 +90,6 @@ mixin $TestProps on TestProps {
     _$prop__customKeyAndNamespaceProp__TestProps
   ];
   static const List<String> $propKeys = [
-    _$key__forwardedRef__TestProps,
     _$key__stringProp__TestProps,
     _$key__dynamicProp__TestProps,
     _$key__untypedProp__TestProps,
@@ -117,13 +106,21 @@ const PropsMeta _$metaForTestProps = PropsMeta(
   keys: $TestProps.$propKeys,
 );
 
-final FunctionComponentConfig<_$$TestProps> $TestPropsConfig =
+final FunctionComponentConfig<_$$TestProps> $TestConfig =
     FunctionComponentConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$TestProps(map),
           jsMap: (map) => _$$TestProps$JsMap(map),
         ),
-        componentName: 'Test');
+        displayName: 'Test');
+
+final FunctionComponentConfig<_$$TestProps> $NoLHSTestConfig =
+    FunctionComponentConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$TestProps(map),
+          jsMap: (map) => _$$TestProps$JsMap(map),
+        ),
+        displayName: 'NoLHSTest');
 
 // Concrete props implementation.
 //

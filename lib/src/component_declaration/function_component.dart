@@ -19,18 +19,11 @@ import 'package:js/js_util.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:react/react.dart' as react;
-import 'package:react/react_client.dart';
-import 'package:react/react_client/js_backed_map.dart';
 
 export 'component_type_checking.dart'
     show isComponentOfType, isValidElementOfType;
 
-/// A React component declared using a function that takes in [props] and returns rendered output.
-///
-/// See <https://facebook.github.io/react/docs/components-and-props.html#functional-and-class-components>.
-typedef dynamic UiFunctionComponent<T extends UiProps>(T props);
-
-/// Returns a `UiFactory<TProps>` for [functionComponent].
+/// Declares a function component and returns a factory that can be used to render it.
 ///
 /// __Example__:
 /// ```dart
@@ -43,7 +36,14 @@ typedef dynamic UiFunctionComponent<T extends UiProps>(T props);
 ///     return Dom.div()(items);
 ///   },
 ///   // The generated props config will match the factory name.
-///   $FooPropsConfig,
+///   $FooConfig, // ignore: undefined_identifier
+/// );
+///
+/// // Multiple function components can be declared with the same props.
+/// UiFactory<FooProps> AnotherFoo = uiFunction((props) {
+///       return Dom.div()();
+///   },
+///   $AnotherFooConfig, // ignore: undefined_identifier
 /// );
 ///
 /// mixin FooProps on UiProps {
@@ -67,18 +67,18 @@ typedef dynamic UiFunctionComponent<T extends UiProps>(T props);
 /// __OR__ Set [config] to `null` when using `UiProps`.
 ///
 /// ```dart
-/// UiFactory<UiProps> Baz = uiFunction((props) {
+/// UiFactory<UiProps> Foo = uiFunction((props) {
 ///     return Dom.div()('prop id: ${props.id}');
 ///   },
 ///   null,
-///   displayName: 'Baz',
+///   displayName: 'Foo',
 /// );
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/components-and-props.html#function-and-class-components>.
 // FIXME right now only top level factory declarations will generate props configs.
 UiFactory<TProps> uiFunction<TProps extends UiProps>(
-  UiFunctionComponent<TProps> functionComponent,
+  dynamic Function(TProps props) functionComponent,
   FunctionComponentConfig<TProps> config, {
   PropsFactory<TProps> propsFactory,
   String displayName,
@@ -88,7 +88,7 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
       throw ArgumentError('propsFactory cannot be used along with config');
     }
     propsFactory = config.propsFactory;
-    displayName ??= config.componentName;
+    displayName ??= config.displayName;
   }
 
   // Get the display name from the inner function if possible so it doesn't become `_uiFunctionWrapper`
@@ -98,8 +98,7 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
     return functionComponent(propsFactory.jsMap(props as JsBackedMap));
   }
 
-  ReactDartFunctionComponentFactoryProxy factory =
-      react.registerFunctionComponent(
+  final factory = react.registerFunctionComponent(
     _uiFunctionWrapper,
     displayName: displayName,
   );
@@ -131,7 +130,8 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
 }
 
 String _getFunctionName(Function function) {
-  return getProperty(function, 'name') ?? getProperty(function, '\$static_name');
+  return getProperty(function, 'name') ??
+      getProperty(function, '\$static_name');
 }
 
 class _GenericUiProps extends UiProps {
@@ -155,10 +155,10 @@ class _GenericUiProps extends UiProps {
 class FunctionComponentConfig<TProps extends UiProps> {
   @protected
   final PropsFactory<TProps> propsFactory;
-  final String componentName;
+  final String displayName;
 
   @protected
-  FunctionComponentConfig({this.propsFactory, this.componentName});
+  FunctionComponentConfig({this.propsFactory, this.displayName});
 }
 
 /// Helper class to keep track of props factories used by [uiFunction],

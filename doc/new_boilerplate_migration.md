@@ -702,7 +702,7 @@ Most code within over_react has been updated to use this new boilerplate, includ
 - The Redux sample todo app under [`app/over_react_redux/todo_client/`](../app/over_react_redux/todo_client)
 
 
-## Function Component Boilerplate _(coming soon)_
+## Function Component Boilerplate
 
 ### Function Component Constraints 
 
@@ -731,7 +731,7 @@ UiFactory<FooProps> Foo = uiFunction(
   (props) {
     return 'foo: ${props.foo}'; 
   },
-  $FooPropsConfig, // ignore: undefined_identifier
+  $FooConfig, // ignore: undefined_identifier
 ); 
 
 mixin FooProps on UiProps {
@@ -742,7 +742,7 @@ mixin FooProps on UiProps {
 Here, `uiFunction` gets a generic parameter of `FooProps` inferred 
 from the LHS typing, allowing props to be statically typed as `FooProps`.
 
-The generated `$FooPropsConfig` is passed in as an argument, and serves 
+The generated `$FooConfig` is passed in as an argument, and serves 
 as the entrypoint to the generated code. 
 
 #### With Default Props
@@ -761,7 +761,7 @@ UiFactory<FooProps> Foo = uiFunction(
 
     return 'foo: $foo'; 
   },
-  $FooPropsConfig, // ignore: undefined_identifier
+  $FooConfig, // ignore: undefined_identifier
 ); 
 ```
 
@@ -772,7 +772,7 @@ UiFactory<FooProps> Foo = uiFunction(
   (props) {
     return 'foo: ${props.foo}'; 
   }, 
-  $FooPropsConfig, // ignore: undefined_identifier
+  $FooConfig, // ignore: undefined_identifier
   getPropTypes: (keyFor) => {
     keyFor((p) => p.foo): (props, info) {
       if (props.foo == 'bar') {
@@ -810,7 +810,7 @@ UiFactory<FooProps> createFooHoc(UiFactory otherFactory) {
         Dom.div()('prop foo: ${props.foo}'), 
       );   
     },
-    $FooPropsConfig, // ignore: undefined_identifier 
+    $FooConfig, // ignore: undefined_identifier 
   ); 
 
   return FooHoc; 

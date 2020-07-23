@@ -38,6 +38,12 @@ class BoilerplateFactory extends BoilerplateMember {
       }
     }
 
+    if (isFunctionComponentFactory) {
+      final rightHandSide = node.variables.firstInitializer;
+      final typeArgs = (rightHandSide as MethodInvocation).typeArguments?.arguments?.first;
+      return typeArgs;
+    }
+
     return null;
   }
 

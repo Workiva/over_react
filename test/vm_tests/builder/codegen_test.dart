@@ -657,9 +657,9 @@ main() {
       });
 
       group('and generates props config for function components', () {
-        String generatedPropsConfig(String propsName, String factoryName) {
+        String generatedConfig(String propsName, String factoryName) {
           return 'final FunctionComponentConfig<_\$\$$propsName> '
-            '\$${factoryName}PropsConfig = FunctionComponentConfig(\n'
+            '\$${factoryName}Config = FunctionComponentConfig(\n'
             'propsFactory: PropsFactory(\n'
             'map: (map) => _\$\$$propsName(map),\n'
             'jsMap: (map) => _\$\$$propsName\$JsMap(map),),\n'
@@ -704,16 +704,19 @@ main() {
             mixin BarPropsMixin on UiProps {}
             
             final Bar = uiFunction<BarPropsMixin>((props) {
-              return Dom.div()();
-            }, $BarPropsMixinConfig);
+                return Dom.div()();
+              }, $BarPropsMixinConfig, // ignore: undefined_identifier
+            );
             
             final Foo = uiFunction<BarPropsMixin>((props) {
-              return Dom.div()();
-            }, $FooPropsConfig);
+                return Dom.div()();
+              }, $FooConfig, // ignore: undefined_identifier
+            );
                         
             UiFactory<FooProps> Baz = uiFunction((props) {
-              return Dom.div()();
-            }, $BazPropsConfig);
+                return Dom.div()();
+              }, $BazConfig, // ignore: undefined_identifier
+            );
             
             mixin UnusedPropsMixin on UiProps {}
           ''');
@@ -722,9 +725,9 @@ main() {
           expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('BarPropsMixin')));
           expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooProps')));
 
-          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsConfig('BarPropsMixin', 'Bar')));
-          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsConfig('BarPropsMixin', 'Foo')));
-          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsConfig('FooProps', 'Baz')));
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('BarPropsMixin', 'Bar')));
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('BarPropsMixin', 'Foo')));
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooProps', 'Baz')));
         });
 
         test('unless function component is generic or does not have a props config', () {
@@ -732,23 +735,30 @@ main() {
             mixin FooPropsMixin on UiProps {}
             
             final Bar = uiFunction<UiProps>((props) {
-              return Dom.div()();
-            }, null);
+                return Dom.div()();
+              }, 
+              null,
+            );
             
             final Foo = uiFunction<FooPropsMixin>((props) {
-              return Dom.div()();
-            }, $FooPropsConfig);
+                return Dom.div()();
+              }, 
+              $FooConfig, // ignore: undefined_identifier
+            );
             
             final Baz = uiFunction<FooPropsMixin>((props) {
-              return Dom.div()();
-            }, null, propsFactory: PropsFactory.fromUiFactory(Foo));
+                return Dom.div()();
+              }, 
+              null, 
+              propsFactory: PropsFactory.fromUiFactory(Foo),
+            );
           ''');
 
           expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooPropsMixin')));
 
-          expect(implGenerator.outputContentsBuffer.toString().contains(generatedPropsConfig('UiProps', 'Bar')), isFalse, reason: '2');
-          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsConfig('FooPropsMixin', 'Foo')), reason: '1');
-          expect(implGenerator.outputContentsBuffer.toString().contains(generatedPropsConfig('FooPropsMixin', 'Baz')), isFalse, reason: '3');
+          expect(implGenerator.outputContentsBuffer.toString().contains(generatedConfig('UiProps', 'Bar')), isFalse, reason: '2');
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooPropsMixin', 'Foo')), reason: '1');
+          expect(implGenerator.outputContentsBuffer.toString().contains(generatedConfig('FooPropsMixin', 'Baz')), isFalse, reason: '3');
         });
       });
     });

@@ -133,7 +133,7 @@
       "",
       "UiFactory<${2:MyComponent}Props> ${2:MyComponent} = uiFunction(",
       "\t(props) {},",
-      "\t$${2:MyComponent}PropsConfig,",
+      "\t$${2:MyComponent}Config, // ignore: undefined_identifier",
       ");",
       "",
       "mixin ${2:MyComponent}Props on UiProps {}"
@@ -149,7 +149,7 @@
       "",
       "UiFactory<${2:MyComponent}Props> ${2:MyComponent} = uiFunction(",
       "\t(props) {},",
-      "\t$${2:MyComponent}PropsConfig,",
+      "\t$${2:MyComponent}Config, // ignore: undefined_identifier",
       ");",
       "",
       "mixin ${2:MyComponent}PropsMixin on UiProps {}",
