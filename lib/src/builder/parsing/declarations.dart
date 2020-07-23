@@ -279,7 +279,7 @@ class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
   final Union<BoilerplateProps, BoilerplatePropsMixin> props;
 
   @override
-  get _members => props == null ? factories : [...factories, props.either];
+  get _members => [...factories, props.either];
 
   @override
   get type => DeclarationType.propsMapViewOrFunctionComponentDeclaration;
@@ -287,8 +287,6 @@ class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
   @override
   void validate(ErrorCollector errorCollector) {
     super.validate(errorCollector);
-
-    if (props == null) return;
 
     for (final factory in factories) {
       _validateShorthand(errorCollector, PropsStateStringHelpers.props(),

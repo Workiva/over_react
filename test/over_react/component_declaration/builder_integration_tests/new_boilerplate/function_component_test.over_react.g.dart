@@ -122,6 +122,14 @@ final FunctionComponentConfig<_$$TestProps> $NoLHSTestConfig =
         ),
         displayName: 'NoLHSTest');
 
+final FunctionComponentConfig<_$$TestProps> $_TestConfig =
+    FunctionComponentConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$TestProps(map),
+          jsMap: (map) => _$$TestProps$JsMap(map),
+        ),
+        displayName: '_Test');
+
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.

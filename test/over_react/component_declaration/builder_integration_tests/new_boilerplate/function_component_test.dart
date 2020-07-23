@@ -37,10 +37,15 @@ main() {
       functionComponentTestHelper(NoLHSTest, testId: 'testIdNoLHS');
     });
 
+    group('with private prefix', () {
+      functionComponentTestHelper(_Test, testId: '_testId');
+    });
+
     group('with UiProps', () {
       UiFactory<UiProps> TestUiProps = uiFunction(
-          (props) => (Dom.div()..addTestId('testId3'))('id: ${props.id}'),
-          null);
+        (props) => (Dom.div()..addTestId('testId3'))('id: ${props.id}'),
+        null,
+      );
 
       test(
           'renders a component from end to end, successfully reading props via typed getters',
@@ -226,6 +231,21 @@ final NoLHSTest = uiFunction<TestProps>(
           props.customKeyAndNamespaceProp))('rendered content');
   },
   $NoLHSTestConfig, // ignore: undefined_identifier
+);
+
+final _Test = uiFunction<TestProps>(
+      (props) {
+    return (Dom.div()
+      ..addTestId('_testId')
+      ..addProp('data-prop-string-prop', props.stringProp)
+      ..addProp('data-prop-dynamic-prop', props.dynamicProp)
+      ..addProp('data-prop-untyped-prop', props.untypedProp)
+      ..addProp('data-prop-custom-key-prop', props.customKeyProp)
+      ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
+      ..addProp('data-prop-custom-key-and-namespace-prop',
+          props.customKeyAndNamespaceProp))('rendered content');
+  },
+  $_TestConfig, // ignore: undefined_identifier
 );
 
 mixin TestProps on UiProps {

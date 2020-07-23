@@ -27,7 +27,8 @@ export 'component_type_checking.dart'
 ///
 /// __Example__:
 /// ```dart
-/// UiFactory<FooProps> Foo = uiFunction((props) {
+/// UiFactory<FooProps> Foo = uiFunction(
+///   (props) {
 ///     // Set default props using null-aware operators.
 ///     final isDisabled = props.isDisabled ?? false;
 ///     final items = props.items ?? [];
@@ -40,7 +41,8 @@ export 'component_type_checking.dart'
 /// );
 ///
 /// // Multiple function components can be declared with the same props.
-/// UiFactory<FooProps> AnotherFoo = uiFunction((props) {
+/// UiFactory<FooProps> AnotherFoo = uiFunction(
+///   (props) {
 ///       return Dom.div()();
 ///   },
 ///   $AnotherFooConfig, // ignore: undefined_identifier
@@ -55,7 +57,8 @@ export 'component_type_checking.dart'
 /// __OR__ Optionally pass in an existing [PropsFactory] in place of a props [config].
 ///
 /// ```dart
-/// UiFactory<FooProps> Bar = uiFunction((props) {
+/// UiFactory<FooProps> Bar = uiFunction(
+///   (props) {
 ///     return Dom.div()(props.items);
 ///   },
 ///   null,
@@ -67,7 +70,8 @@ export 'component_type_checking.dart'
 /// __OR__ Set [config] to `null` when using `UiProps`.
 ///
 /// ```dart
-/// UiFactory<UiProps> Foo = uiFunction((props) {
+/// UiFactory<UiProps> Foo = uiFunction(
+///   (props) {
 ///     return Dom.div()('prop id: ${props.id}');
 ///   },
 ///   null,
@@ -76,7 +80,7 @@ export 'component_type_checking.dart'
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/components-and-props.html#function-and-class-components>.
-// FIXME right now only top level factory declarations will generate props configs.
+// TODO: right now only top level factory declarations will generate props configs.
 UiFactory<TProps> uiFunction<TProps extends UiProps>(
   dynamic Function(TProps props) functionComponent,
   FunctionComponentConfig<TProps> config, {

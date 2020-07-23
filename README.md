@@ -853,7 +853,8 @@ that you get for free from OverReact, you're ready to start building your own cu
   import 'package:over_react/over_react.dart';
   part 'foo_component.over_react.g.dart';
 
-  UiFactory<FooProps> Foo = uiFunction((props) {
+  UiFactory<FooProps> Foo = uiFunction(
+    (props) {
       // Set default props using null-aware operators.
       final isDisabled = props.isDisabled ?? false;
       final items = props.items ?? [];

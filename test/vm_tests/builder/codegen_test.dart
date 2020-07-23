@@ -663,7 +663,7 @@ main() {
             'propsFactory: PropsFactory(\n'
             'map: (map) => _\$\$$propsName(map),\n'
             'jsMap: (map) => _\$\$$propsName\$JsMap(map),),\n'
-            'componentName: \'$factoryName\');\n';
+            'displayName: \'$factoryName\');\n';
         }
 
         String generatedPropsMapsForConfig(String propsName) {
@@ -703,17 +703,20 @@ main() {
             
             mixin BarPropsMixin on UiProps {}
             
-            final Bar = uiFunction<BarPropsMixin>((props) {
+            final Bar = uiFunction<BarPropsMixin>(
+              (props) {
                 return Dom.div()();
               }, $BarPropsMixinConfig, // ignore: undefined_identifier
             );
             
-            final Foo = uiFunction<BarPropsMixin>((props) {
+            final Foo = uiFunction<BarPropsMixin>(
+              (props) {
                 return Dom.div()();
               }, $FooConfig, // ignore: undefined_identifier
             );
                         
-            UiFactory<FooProps> Baz = uiFunction((props) {
+            UiFactory<FooProps> Baz = uiFunction(
+              (props) {
                 return Dom.div()();
               }, $BazConfig, // ignore: undefined_identifier
             );
@@ -734,19 +737,22 @@ main() {
           setUpAndGenerate(r'''
             mixin FooPropsMixin on UiProps {}
             
-            final Bar = uiFunction<UiProps>((props) {
+            final Bar = uiFunction<UiProps>(
+              (props) {
                 return Dom.div()();
               }, 
               null,
             );
             
-            final Foo = uiFunction<FooPropsMixin>((props) {
+            final Foo = uiFunction<FooPropsMixin>(
+              (props) {
                 return Dom.div()();
               }, 
               $FooConfig, // ignore: undefined_identifier
             );
             
-            final Baz = uiFunction<FooPropsMixin>((props) {
+            final Baz = uiFunction<FooPropsMixin>(
+              (props) {
                 return Dom.div()();
               }, 
               null, 

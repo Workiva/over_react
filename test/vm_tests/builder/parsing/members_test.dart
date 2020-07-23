@@ -262,7 +262,8 @@ main() {
         group('on a function component factory', () {
           test('returns the correct props class', () {
             final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
-                UiFactory<FooProps> Foo = uiFunction((props) {
+                UiFactory<FooProps> Foo = uiFunction(
+                  (props) {
                     return Dom.div()();
                   },
                   $FooConfig, // ignore: undefined_identifier
@@ -273,7 +274,8 @@ main() {
 
           test('returns the correct props class without left hand typing', () {
             final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
-                final Foo = uiFunction<FooProps>((props) {
+                final Foo = uiFunction<FooProps>(
+                  (props) {
                     return Dom.div()();
                   },
                   $FooConfig, // ignore: undefined_identifier
@@ -284,7 +286,8 @@ main() {
 
           test('returns null if there is no type arg', () {
             final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
-                UiFactory Foo = uiFunction((props) {
+                UiFactory Foo = uiFunction(
+                  (props) {
                     return Dom.div()();
                   },
                   $FooConfig, // ignore: undefined_identifier
@@ -305,7 +308,8 @@ main() {
 
         test('returns true for function component factories', () {
           final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
-              UiFactory Foo = uiFunction((props) {
+              UiFactory Foo = uiFunction(
+                (props) {
                   return Dom.div()();
                 },
                 $FooConfig, // ignore: undefined_identifier

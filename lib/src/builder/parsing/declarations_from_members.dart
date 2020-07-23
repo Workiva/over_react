@@ -302,19 +302,10 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
       members.propsMixins,
     ].expand((i) => i).whereNot(hasBeenConsumed);
 
-    final standAloneFactories = _functionComponentFactories.where((factory) =>
-        factory.propsGenericArg.typeNameWithoutPrefix == 'UiProps' || !_hasConfigArg(factory));
-    for (final factory in standAloneFactories) {
-      consume(factory);
-      yield PropsMapViewOrFunctionComponentDeclaration(
-        factories: [factory],
-        props: null,
-      );
-    }
-
     for (final propsClassOrMixin in allUnusedProps) {
       final associatedFactories = _functionComponentFactories.where((factory) =>
           !hasBeenConsumed(factory) &&
+          factory.node.hasConfigArg &&
           factory.propsGenericArg.typeNameWithoutPrefix == propsClassOrMixin.name.name);
       if (associatedFactories.isNotEmpty) {
         yield PropsMapViewOrFunctionComponentDeclaration(
@@ -400,14 +391,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
           'Mismatched boilerplate member found', errorCollector.spanFor(member.node));
     }
   }
-}
-
-// Returns whether or not the props config argument of `uiFunction` is `null`.
-bool _hasConfigArg(BoilerplateFactory factory) {
-  final rightHandSide = factory.node.variables.firstInitializer;
-  final args = (rightHandSide as MethodInvocation).argumentList.arguments;
-  if (args == null || args.length < 2) return false;
-  return args[1] is! NullLiteral;
 }
 
 const errorStateOnly =

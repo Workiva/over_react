@@ -41,6 +41,15 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
 
   /// The first variable in this list.
   VariableDeclaration get firstVariable => variables.firstVariable;
+
+  /// Returns whether or not the config argument of `uiFunction` is `null`.
+  ///
+  /// Returns `false` if [firstInitializer] is not a method invocation.
+  bool get hasConfigArg {
+    final args = firstInitializer.tryCast<MethodInvocation>()?.argumentList?.arguments;
+    if (args == null || args.length < 2) return false;
+    return args[1] is! NullLiteral;
+  }
 }
 
 /// Extension built on both [TypeNameHelper] and [NameHelper] to allow

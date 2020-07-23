@@ -173,7 +173,7 @@ class _BoilerplateMemberDetector {
       onFactory(BoilerplateFactory(
           node,
           VersionConfidences(
-            v4_mixinBased: Confidence.likely,
+            v4_mixinBased: node.hasConfigArg ? Confidence.likely : Confidence.neutral,
             v3_legacyDart2Only: Confidence.none,
             v2_legacyBackwardsCompat: Confidence.none,
           )));
@@ -216,11 +216,6 @@ class _BoilerplateMemberDetector {
           return;
         }
       }
-    } else {
-      // todo implement function components; should LHS typing not be required?
-      // if ((node.variables.firstInitializer?.tryCast<MethodInvocation>()?.methodName?.name == 'uiFunction') {
-      //   factories.add(BoilerplateFactory(node));
-      // }
     }
 
     return;
