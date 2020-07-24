@@ -34,6 +34,7 @@ export 'package:react/react_client/js_backed_map.dart' show JsBackedMap;
 
 export 'package:react/react_client.dart' show setClientConfiguration, ReactElement, ReactComponentFactoryProxy;
 export 'package:react/react_client/react_interop.dart' show ReactErrorInfo, Ref;
+export 'package:react/hooks.dart' show StateHook, ReducerHook;
 
 export 'src/component/_deprecated/abstract_transition.dart';
 export 'src/component/_deprecated/abstract_transition_props.dart';
@@ -45,6 +46,7 @@ export 'src/component/dom_components.dart';
 export 'src/component/error_boundary_api.dart' show defaultErrorBoundaryLoggerName;
 export 'src/component/ref_util.dart';
 export 'src/component/fragment_component.dart';
+export 'src/component/hooks.dart';
 export 'src/component/strictmode_component.dart';
 export 'src/component/dummy_component.dart';
 export 'src/component/prop_mixins.dart';

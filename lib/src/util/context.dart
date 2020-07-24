@@ -49,7 +49,7 @@ class Context<TValue> {
   Context(this.Provider, this.Consumer, this.reactDartContext);
 
   /// The react.dart version of this context.
-  final react.Context reactDartContext;
+  final react.Context<TValue> reactDartContext;
 
   /// The react.js version of this context.
   ReactContext get jsThis => reactDartContext.jsThis;
