@@ -43,8 +43,6 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
   VariableDeclaration get firstVariable => variables.firstVariable;
 
   /// Returns whether or not the config argument of `uiFunction` is `null`.
-  ///
-  /// Returns `false` if [firstInitializer] is not a method invocation.
   bool get hasConfigArg {
     return firstInitializer != null &&
         anyDescendantIdentifiers(firstInitializer, (identifier) {
@@ -189,10 +187,18 @@ bool anyDescendantIdentifiers(Expression expression, bool Function(Identifier) t
   return visitor.hasMatch;
 }
 
+/// Returns the [Identifier] within [expression] matches the predicate [test].
+SimpleIdentifier getDescendantIdentifier(Expression expression, bool Function(Identifier) test) {
+  final visitor = _AnyDescendantIdentifiersVisitor(test);
+  expression.accept(visitor);
+  return visitor.match;
+}
+
 class _AnyDescendantIdentifiersVisitor extends UnifyingAstVisitor<void> {
   final bool Function(Identifier) _test;
 
   bool hasMatch = false;
+  SimpleIdentifier match;
 
   _AnyDescendantIdentifiersVisitor(this._test);
 
@@ -208,6 +214,7 @@ class _AnyDescendantIdentifiersVisitor extends UnifyingAstVisitor<void> {
   void visitSimpleIdentifier(SimpleIdentifier identifier) {
     if (_test(identifier)) {
       hasMatch = true;
+      match = identifier;
     }
 
     super.visitSimpleIdentifier(identifier);

@@ -39,8 +39,10 @@ class BoilerplateFactory extends BoilerplateMember {
     }
 
     if (isFunctionComponentFactory) {
-      final rightHandSide = node.variables.firstInitializer;
-      final typeArgs = rightHandSide.tryCast<MethodInvocation>()?.typeArguments?.arguments?.first;
+      final uiFunctionInvocation = getDescendantIdentifier(
+          node.variables.firstInitializer, (identifier) => identifier.name == 'uiFunction');
+      final methodInvocation = uiFunctionInvocation.thisOrAncestorOfType<MethodInvocation>();
+      final typeArgs = methodInvocation?.typeArguments?.arguments?.first;
       return typeArgs;
     }
 
