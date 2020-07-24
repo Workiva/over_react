@@ -174,7 +174,7 @@ class _BoilerplateMemberDetector {
       onFactory(BoilerplateFactory(
           node,
           VersionConfidences(
-            v4_mixinBased: node.hasConfigArg ? Confidence.likely : Confidence.neutral,
+            v4_mixinBased: node.hasGeneratedConfigArg ? Confidence.likely : Confidence.neutral,
             v3_legacyDart2Only: Confidence.none,
             v2_legacyBackwardsCompat: Confidence.none,
           )));

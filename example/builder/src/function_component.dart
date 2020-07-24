@@ -75,7 +75,10 @@ ReactElement functionComponentContent() {
     return Dom.div()('prop id: ${props.id}');
   }
 
-  final genericFactory = uiFunction<UiProps>(GenericFactory, null);
+  final genericFactory = uiFunction<UiProps>(
+    GenericFactory,
+    FunctionComponentConfig(),
+  );
 
   final basicFactory = uiFunction<BasicProps>(
     (props) {
@@ -84,9 +87,10 @@ ReactElement functionComponentContent() {
         Dom.div()('prop basic1: ${props.basic1}'),
       );
     },
-    null,
-    propsFactory: PropsFactory.fromUiFactory(Basic),
-    displayName: 'basicFactory',
+    FunctionComponentConfig(
+      propsFactory: PropsFactory.fromUiFactory(Basic),
+      displayName: 'basicFactory',
+    )
   );
 
   // Access the div element later using `divRef.current`.

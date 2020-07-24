@@ -67,9 +67,10 @@ export 'component_type_checking.dart'
 ///   (props) {
 ///     return (Dom.button()..disabled = props.isDisabled)('Click me!');
 ///   },
-///   null,
-///   propsFactory: PropsFactory.fromUiFactory(Foo),
-///   displayName: 'Bar',
+///   FunctionComponentConfig(
+///     propsFactory: PropsFactory.fromUiFactory(Foo),
+///     displayName: 'Bar',
+///   ),
 /// );
 /// ```
 ///
@@ -80,8 +81,9 @@ export 'component_type_checking.dart'
 ///   (props) {
 ///     return Dom.div()('prop id: ${props.id}');
 ///   },
-///   null,
-///   displayName: 'Foo',
+///   FunctionComponentConfig(
+///     displayName: 'Foo',
+///   ),
 /// );
 /// ```
 ///
@@ -89,20 +91,15 @@ export 'component_type_checking.dart'
 // TODO: right now only top level factory declarations will generate props configs.
 UiFactory<TProps> uiFunction<TProps extends UiProps>(
   dynamic Function(TProps props) functionComponent,
-  FunctionComponentConfig<TProps> config, {
-  PropsFactory<TProps> propsFactory,
-  String displayName,
-}) {
-  if (config != null) {
-    if (propsFactory != null) {
-      throw ArgumentError('propsFactory cannot be used along with config');
-    }
-    propsFactory = config.propsFactory;
-    displayName ??= config.displayName;
+  FunctionComponentConfig<TProps> config) {
+  if (config == null) {
+    throw ArgumentError('config must not be null');
   }
 
+  var propsFactory = config.propsFactory;
+
   // Get the display name from the inner function if possible so it doesn't become `_uiFunctionWrapper`
-  displayName ??= _getFunctionName(functionComponent);
+  final displayName = config.displayName ?? _getFunctionName(functionComponent);
 
   dynamic _uiFunctionWrapper(JsBackedMap props) {
     return functionComponent(propsFactory.jsMap(props));

@@ -1586,8 +1586,9 @@ main() {
                   (props) {
                     return Dom.div()();
                   }, 
-                  null, 
-                  propsFactory: PropsFactory.fromUiFactory(Foo),
+                  FunctionComponentConfig(
+                    propsFactory: PropsFactory.fromUiFactory(Foo),
+                  ),
                 );
                 
                 UiFactory<FooPropsMixin> FooForwarded = forwardRef<FooPropsMixin>((props, ref) {
@@ -1644,7 +1645,7 @@ main() {
                   (props) {
                     return Dom.div()();
                   }, 
-                  null,
+                  FunctionComponentConfig(),
                 );
               ''');
 
@@ -1660,6 +1661,29 @@ main() {
                   \$FooConfig, // ignore: undefined_identifier
                 ));
                 
+                final Bar = someHOC(uiFunction<FooPropsMixin>(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  \$FooConfig, // ignore: undefined_identifier
+                ));
+                
+                final Foo2 = someHOC(uiFunction<FooPropsMixin>(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  FunctionComponentConfig(
+                    propsFactory: PropsFactory.uiFactory(Foo),
+                  ), 
+                ));
+                
+                final Bar2 = someHOC(uiFunction<UiProps>(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  FunctionComponentConfig(),
+                ));
+                
                 mixin FooPropsMixin on UiProps {}
               ''');
 
@@ -1669,8 +1693,11 @@ main() {
               ]));
               final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
 
-              expect(decl.factories, hasLength(1));
-              expect(decl.factories.first.name.name, 'Foo');
+              expect(decl.factories, hasLength(2));
+              expect(decl.factories.map((factory) => factory.name.name), unorderedEquals([
+                'Foo',
+                'Bar',
+              ]));
               expect(decl.props.b?.name?.name, 'FooPropsMixin');
               expect(decl.version, Version.v4_mixinBased);
             });
@@ -1909,7 +1936,8 @@ main() {
               UiFactory<FooProps> Foo = uiFunction(
                 (props) {
                   return Dom.div()();
-                }, $FooConfig, // ignore: undefined_identifier
+                }, 
+                $FooConfig, // ignore: undefined_identifier
               );
             ''');
             verify(logger.severe(contains(errorFactoryOnly)));

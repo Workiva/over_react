@@ -44,7 +44,7 @@ main() {
     group('with UiProps', () {
       UiFactory<UiProps> TestUiProps = uiFunction(
         (props) => (Dom.div()..addTestId('testId3'))('id: ${props.id}'),
-        null,
+        FunctionComponentConfig(),
       );
 
       test(
@@ -87,21 +87,20 @@ main() {
     });
 
     group('throws an error when', () {
-      test('both propsFactory and config are set', () {
-        expect(
-            () => uiFunction<TestProps>(
-                  (props) => Dom.div()(),
-                  $TestConfig, // ignore: undefined_identifier
-                  propsFactory: PropsFactory.fromUiFactory(Test),
-                ),
-            throwsArgumentError);
-      });
-
-      test('config is not provided when using custom props class', () {
+      test('config is null', () {
         expect(
             () => uiFunction<TestProps>(
                   (props) => Dom.div()(),
                   null,
+                ),
+            throwsArgumentError);
+      });
+
+      test('props factory is not provided when using custom props class', () {
+        expect(
+            () => uiFunction<TestProps>(
+                  (props) => Dom.div()(),
+                  FunctionComponentConfig(displayName: 'Foo'),
                 ),
             throwsArgumentError);
       });
@@ -214,8 +213,9 @@ UiFactory<TestProps> TestCustom = uiFunction(
       ..addProp('data-prop-custom-key-and-namespace-prop',
           props.customKeyAndNamespaceProp))('rendered content');
   },
-  null,
-  propsFactory: PropsFactory.fromUiFactory(Test),
+  FunctionComponentConfig(
+    propsFactory: PropsFactory.fromUiFactory(Test),
+  )
 );
 
 final NoLHSTest = uiFunction<TestProps>(
