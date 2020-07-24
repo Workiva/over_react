@@ -104,8 +104,8 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
   // Get the display name from the inner function if possible so it doesn't become `_uiFunctionWrapper`
   displayName ??= _getFunctionName(functionComponent);
 
-  dynamic _uiFunctionWrapper(Map props) {
-    return functionComponent(propsFactory.jsMap(props as JsBackedMap));
+  dynamic _uiFunctionWrapper(JsBackedMap props) {
+    return functionComponent(propsFactory.jsMap(props));
   }
 
   final factory = react.registerFunctionComponent(

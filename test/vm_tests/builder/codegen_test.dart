@@ -733,6 +733,23 @@ main() {
           expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooProps', 'Baz')));
         });
 
+        test('wrapped in an hoc', () {
+          setUpAndGenerate('''
+                UiFactory<FooPropsMixin> Foo = someHOC(uiFunction(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  \$FooConfig, // ignore: undefined_identifier
+                ));
+                
+                mixin FooPropsMixin on UiProps {}
+              ''');
+
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooPropsMixin')));
+
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooPropsMixin', 'Foo')));
+        });
+
         test('unless function component is generic or does not have a props config', () {
           setUpAndGenerate(r'''
             mixin FooPropsMixin on UiProps {}

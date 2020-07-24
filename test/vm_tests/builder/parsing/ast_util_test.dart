@@ -70,6 +70,37 @@ main() {
           var foo;
         ''')).firstVariable.name.name, 'foo');
       });
+
+      test('hasConfig', () {
+        expect(InitializerHelperTopLevel(parseAndGetSingleWithType('''
+          final Foo = uiFunction<FooPropsMixin>(
+            (props) => Dom.div()(), 
+            \$FooConfig, // ignore: undefined_identifier
+          );
+        ''')).hasConfigArg, true);
+
+        expect(InitializerHelperTopLevel(parseAndGetSingleWithType('''
+          final Foo = uiFunction<UiProps>(
+            (props) => Dom.div()(), 
+            null,
+          );
+        ''')).hasConfigArg, false);
+
+        expect(InitializerHelperTopLevel(parseAndGetSingleWithType('''
+          final Foo = someHOC(uiFunction<FooPropsMixin>(
+            (props) => Dom.div()(), 
+            \$FooConfig, // ignore: undefined_identifier
+          ));
+        ''')).hasConfigArg, true);
+
+        expect(InitializerHelperTopLevel(parseAndGetSingleWithType('''
+          final Foo = uiFunction<FooPropsMixin>(
+            (props) => Dom.div()(), 
+            null,
+            propsFactory: PropsFactory.fromUiFactory(Bar),
+          );
+        ''')).hasConfigArg, false);
+      });
     });
 
     group('TypeAnnotationNameHelper', () {

@@ -1651,6 +1651,30 @@ main() {
               expect(declarations, isEmpty);
             });
 
+            test('wrapped in an hoc', () {
+              setUpAndParse('''
+                UiFactory<FooPropsMixin> Foo = someHOC(uiFunction(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  \$FooConfig, // ignore: undefined_identifier
+                ));
+                
+                mixin FooPropsMixin on UiProps {}
+              ''');
+
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<PropsMapViewOrFunctionComponentDeclaration>(),
+              ]));
+              final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
+
+              expect(decl.factories, hasLength(1));
+              expect(decl.factories.first.name.name, 'Foo');
+              expect(decl.props.b?.name?.name, 'FooPropsMixin');
+              expect(decl.version, Version.v4_mixinBased);
+            });
+
             test('with multiple mixins in the same file', () {
               setUpAndParse('''
                 UiFactory<FooPropsMixin> Foo = uiFunction(

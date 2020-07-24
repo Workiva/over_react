@@ -40,7 +40,7 @@ class BoilerplateFactory extends BoilerplateMember {
 
     if (isFunctionComponentFactory) {
       final rightHandSide = node.variables.firstInitializer;
-      final typeArgs = (rightHandSide as MethodInvocation).typeArguments?.arguments?.first;
+      final typeArgs = rightHandSide.tryCast<MethodInvocation>()?.typeArguments?.arguments?.first;
       return typeArgs;
     }
 
@@ -51,9 +51,8 @@ class BoilerplateFactory extends BoilerplateMember {
 
   bool get hasFactoryAnnotation => node.hasAnnotationWithName('Factory');
 
-  bool get isFunctionComponentFactory =>
-      node.variables.firstInitializer is MethodInvocation &&
-      (node.variables.firstInitializer as MethodInvocation).methodName.name == 'uiFunction';
+  bool get isFunctionComponentFactory => node.variables.firstInitializer != null &&
+      anyDescendantIdentifiers(node.variables.firstInitializer, (identifier) => identifier.name == 'uiFunction');
 
   /// Verifies the correct implementation of a boilerplate factory
   ///
