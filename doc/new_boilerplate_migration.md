@@ -772,7 +772,9 @@ UiFactory<UiProps> Foo = uiFunction(
   (props) {
     return 'id: ${props.id}'; 
   }, 
-  null,
+  FunctionComponentConfig(
+    displayName: 'Foo',
+  ),
 );
 ```
 
@@ -821,8 +823,10 @@ UiFactory<FooProps> createFooHoc(UiFactory otherFactory) {
         Dom.div()('prop foo: ${props.foo}'), 
       );   
     },
-    null,
-    propsFactory: PropsFactory.fromUiFactory(Foo),
+    FunctionComponentConfig(
+        displayName: 'FooHoc',
+        propsFactory: PropsFactory.fromUiFactory(Foo),
+    ),
   ); 
 
   return FooHoc; 

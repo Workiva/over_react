@@ -77,29 +77,30 @@ main() {
             (props) => Dom.div()(), 
             \$FooConfig, // ignore: undefined_identifier
           );
-        ''')).hasConfigArg, true);
+        ''')).hasGeneratedConfigArg, true);
 
         expect(InitializerHelperTopLevel(parseAndGetSingleWithType('''
           final Foo = uiFunction<UiProps>(
             (props) => Dom.div()(), 
-            null,
+            FunctionComponentConfig(),
           );
-        ''')).hasConfigArg, false);
+        ''')).hasGeneratedConfigArg, false);
 
         expect(InitializerHelperTopLevel(parseAndGetSingleWithType('''
           final Foo = someHOC(uiFunction<FooPropsMixin>(
             (props) => Dom.div()(), 
             \$FooConfig, // ignore: undefined_identifier
           ));
-        ''')).hasConfigArg, true);
+        ''')).hasGeneratedConfigArg, true);
 
         expect(InitializerHelperTopLevel(parseAndGetSingleWithType('''
           final Foo = uiFunction<FooPropsMixin>(
             (props) => Dom.div()(), 
-            null,
-            propsFactory: PropsFactory.fromUiFactory(Bar),
+            FunctionComponentConfig(
+              propsFactory: PropsFactory.fromUiFactory(Bar),
+            ),
           );
-        ''')).hasConfigArg, false);
+        ''')).hasGeneratedConfigArg, false);
       });
     });
 

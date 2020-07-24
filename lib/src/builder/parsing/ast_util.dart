@@ -42,15 +42,15 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
   /// The first variable in this list.
   VariableDeclaration get firstVariable => variables.firstVariable;
 
-  /// Returns whether or not the config argument of `uiFunction` is `null`.
-  bool get hasConfigArg {
+  /// Returns whether or not the config argument of `uiFunction` is generated.
+  bool get hasGeneratedConfigArg {
     return firstInitializer != null &&
         anyDescendantIdentifiers(firstInitializer, (identifier) {
           if (identifier.name == 'uiFunction') {
             final args =
                 identifier.thisOrAncestorOfType<MethodInvocation>()?.argumentList?.arguments;
             if (args == null || args.length < 2) return false;
-            return args[1] is! NullLiteral;
+            return args[1].toString().startsWith(RegExp(r'\$'));
           }
           return false;
         });

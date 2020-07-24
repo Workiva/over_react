@@ -1586,8 +1586,9 @@ main() {
                   (props) {
                     return Dom.div()();
                   }, 
-                  null, 
-                  propsFactory: PropsFactory.fromUiFactory(Foo),
+                  FunctionComponentConfig(
+                    propsFactory: PropsFactory.fromUiFactory(Foo),
+                  ),
                 );
                 
                 UiFactory<FooPropsMixin> FooForwarded = forwardRef<FooPropsMixin>((props, ref) {
@@ -1644,7 +1645,7 @@ main() {
                   (props) {
                     return Dom.div()();
                   }, 
-                  null,
+                  FunctionComponentConfig(),
                 );
               ''');
 
@@ -1665,6 +1666,22 @@ main() {
                     return Dom.div()();
                   },
                   \$FooConfig, // ignore: undefined_identifier
+                ));
+                
+                final Foo2 = someHOC(uiFunction<FooPropsMixin>(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  FunctionComponentConfig(
+                    propsFactory: PropsFactory.uiFactory(Foo),
+                  ), 
+                ));
+                
+                final Bar2 = someHOC(uiFunction<UiProps>(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  FunctionComponentConfig(),
                 ));
                 
                 mixin FooPropsMixin on UiProps {}
@@ -1919,7 +1936,8 @@ main() {
               UiFactory<FooProps> Foo = uiFunction(
                 (props) {
                   return Dom.div()();
-                }, $FooConfig, // ignore: undefined_identifier
+                }, 
+                $FooConfig, // ignore: undefined_identifier
               );
             ''');
             verify(logger.severe(contains(errorFactoryOnly)));

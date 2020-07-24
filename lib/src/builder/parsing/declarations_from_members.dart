@@ -246,7 +246,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     if (factory.isFunctionComponentFactory) {
       final factories = factoryGroups.firstWhere((group) => group.bestFactory == factory);
       final generatedFactories = factories.factories.where((factory) =>
-          factory.node.hasConfigArg &&
+          factory.node.hasGeneratedConfigArg &&
           factory.isFunctionComponentFactory &&
           factory.versionConfidences.maxConfidence.shouldGenerate);
       final associatedProps =

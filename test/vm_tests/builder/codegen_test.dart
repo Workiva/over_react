@@ -706,19 +706,22 @@ main() {
             final Bar = uiFunction<BarPropsMixin>(
               (props) {
                 return Dom.div()();
-              }, $BarPropsMixinConfig, // ignore: undefined_identifier
+              }, 
+              $BarPropsMixinConfig, // ignore: undefined_identifier
             );
             
             final Foo = uiFunction<BarPropsMixin>(
               (props) {
                 return Dom.div()();
-              }, $FooConfig, // ignore: undefined_identifier
+              }, 
+              $FooConfig, // ignore: undefined_identifier
             );
                         
             UiFactory<FooProps> Baz = uiFunction(
               (props) {
                 return Dom.div()();
-              }, $BazConfig, // ignore: undefined_identifier
+              }, 
+              $BazConfig, // ignore: undefined_identifier
             );
             
             mixin UnusedPropsMixin on UiProps {}
@@ -764,7 +767,7 @@ main() {
               (props) {
                 return Dom.div()();
               }, 
-              null,
+              FunctionComponentConfig(),
             );
             
             final Foo = uiFunction<FooPropsMixin>(
@@ -778,8 +781,9 @@ main() {
               (props) {
                 return Dom.div()();
               }, 
-              null, 
-              propsFactory: PropsFactory.fromUiFactory(Foo),
+              FunctionComponentConfig( 
+                propsFactory: PropsFactory.fromUiFactory(Foo),
+              )
             );
           ''');
 
