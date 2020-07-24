@@ -46,15 +46,16 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
   ///
   /// Returns `false` if [firstInitializer] is not a method invocation.
   bool get hasConfigArg {
-    if(firstInitializer == null) return false;
-    return anyDescendantIdentifiers(firstInitializer, (identifier) {
-      if(identifier.name == 'uiFunction') {
-        final args = identifier.thisOrAncestorOfType<MethodInvocation>()?.argumentList?.arguments;
-        if (args == null || args.length < 2) return false;
-        return args[1] is! NullLiteral;
-      }
-      return false;
-    });
+    return firstInitializer != null &&
+        anyDescendantIdentifiers(firstInitializer, (identifier) {
+          if (identifier.name == 'uiFunction') {
+            final args =
+                identifier.thisOrAncestorOfType<MethodInvocation>()?.argumentList?.arguments;
+            if (args == null || args.length < 2) return false;
+            return args[1] is! NullLiteral;
+          }
+          return false;
+        });
   }
 }
 

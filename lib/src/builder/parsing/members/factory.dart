@@ -51,8 +51,10 @@ class BoilerplateFactory extends BoilerplateMember {
 
   bool get hasFactoryAnnotation => node.hasAnnotationWithName('Factory');
 
-  bool get isFunctionComponentFactory => node.variables.firstInitializer != null &&
-      anyDescendantIdentifiers(node.variables.firstInitializer, (identifier) => identifier.name == 'uiFunction');
+  bool get isFunctionComponentFactory =>
+      node.variables.firstInitializer != null &&
+      anyDescendantIdentifiers(
+          node.variables.firstInitializer, (identifier) => identifier.name == 'uiFunction');
 
   /// Verifies the correct implementation of a boilerplate factory
   ///

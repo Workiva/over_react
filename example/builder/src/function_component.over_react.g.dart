@@ -99,28 +99,28 @@ const PropsMeta _$metaForBasicProps = PropsMeta(
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
     ' it is transitioned to the new mixin-based boilerplate.')
-mixin $_FooProps on FooProps {
-  static const PropsMeta meta = _$metaFor_FooProps;
+mixin $FooProps on FooProps {
+  static const PropsMeta meta = _$metaForFooProps;
   @override
   String get content =>
-      props[_$key__content___FooProps] ??
+      props[_$key__content__FooProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set content(String value) => props[_$key__content___FooProps] = value;
+  set content(String value) => props[_$key__content__FooProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__content___FooProps =
-      PropDescriptor(_$key__content___FooProps);
-  static const String _$key__content___FooProps = '_FooProps.content';
+  static const PropDescriptor _$prop__content__FooProps =
+      PropDescriptor(_$key__content__FooProps);
+  static const String _$key__content__FooProps = 'FooProps.content';
 
-  static const List<PropDescriptor> $props = [_$prop__content___FooProps];
-  static const List<String> $propKeys = [_$key__content___FooProps];
+  static const List<PropDescriptor> $props = [_$prop__content__FooProps];
+  static const List<String> $propKeys = [_$key__content__FooProps];
 }
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-const PropsMeta _$metaFor_FooProps = PropsMeta(
-  fields: $_FooProps.$props,
-  keys: $_FooProps.$propKeys,
+const PropsMeta _$metaForFooProps = PropsMeta(
+  fields: $FooProps.$props,
+  keys: $FooProps.$propKeys,
 );
 
 final FunctionComponentConfig<_$$BasicProps> $_BasicConfig =
@@ -205,31 +205,30 @@ class _$$BasicProps$JsMap extends _$$BasicProps {
   JsBackedMap _props;
 }
 
-final FunctionComponentConfig<_$$_FooProps> $FooConfig =
-    FunctionComponentConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$_FooProps(map),
-          jsMap: (map) => _$$_FooProps$JsMap(map),
-        ),
-        displayName: 'Foo');
+final FunctionComponentConfig<_$$FooProps> $FooConfig = FunctionComponentConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$FooProps(map),
+      jsMap: (map) => _$$FooProps$JsMap(map),
+    ),
+    displayName: 'Foo');
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$_FooProps extends UiProps
+abstract class _$$FooProps extends UiProps
     with
         FooProps,
-        $_FooProps // If this generated mixin is undefined, it's likely because _FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of _FooProps.
+        $FooProps // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FooProps.
 {
-  _$$_FooProps._();
+  _$$FooProps._();
 
-  factory _$$_FooProps(Map backingMap) {
+  factory _$$FooProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$_FooProps$JsMap(backingMap);
+      return _$$FooProps$JsMap(backingMap);
     } else {
-      return _$$_FooProps$PlainMap(backingMap);
+      return _$$FooProps$PlainMap(backingMap);
     }
   }
 
@@ -245,10 +244,10 @@ abstract class _$$_FooProps extends UiProps
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$_FooProps$PlainMap extends _$$_FooProps {
+class _$$FooProps$PlainMap extends _$$FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$_FooProps$PlainMap(Map backingMap)
+  _$$FooProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -264,10 +263,10 @@ class _$$_FooProps$PlainMap extends _$$_FooProps {
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$_FooProps$JsMap extends _$$_FooProps {
+class _$$FooProps$JsMap extends _$$FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$_FooProps$JsMap(JsBackedMap backingMap)
+  _$$FooProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
