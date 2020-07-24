@@ -1590,6 +1590,12 @@ main() {
                   propsFactory: PropsFactory.fromUiFactory(Foo),
                 );
                 
+                UiFactory<FooPropsMixin> FooForwarded = forwardRef<FooPropsMixin>((props, ref) {
+                  return (Foo()
+                    ..ref = ref
+                  )();
+                })(Foo);
+                
                 mixin FooPropsMixin on UiProps {}
               ''');
 

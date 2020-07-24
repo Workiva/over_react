@@ -765,6 +765,17 @@ UiFactory<FooProps> Foo = uiFunction(
 ); 
 ```
 
+#### With UiProps
+
+```dart
+UiFactory<UiProps> Foo = uiFunction(
+  (props) {
+    return 'id: ${props.id}'; 
+  }, 
+  null,
+);
+```
+
 #### With propTypes
 
 ```dart
@@ -810,11 +821,41 @@ UiFactory<FooProps> createFooHoc(UiFactory otherFactory) {
         Dom.div()('prop foo: ${props.foo}'), 
       );   
     },
-    $FooConfig, // ignore: undefined_identifier 
+    null,
+    propsFactory: PropsFactory.fromUiFactory(Foo),
   ); 
 
   return FooHoc; 
 } 
+```
+
+#### With forwardRef
+
+```dart
+mixin FooProps on UiProps {
+  Ref forwardedRef;
+  Function doSomething;
+}
+
+UiFactory<FooProps> Foo = forwardRef<FooProps>((props, ref) {
+  return (_Foo()
+    ..forwardedRef = ref
+    ..doSomething = props.doSomething
+  )();
+})(_Foo);
+
+UiFactory<FooProps> _Foo = uiFunction(
+  (props) {
+    return Fragment()(
+      Dom.div()('Some text.'),
+      (Dom.button()
+        ..ref = props.forwardedRef 
+        ..onClick = props.doSomething
+      )('Click me!'),
+    );
+  },
+  $_FooConfig, // ignore: undefined_identifier
+);
 ```
 
 ## Upgrading Existing Code

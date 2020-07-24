@@ -234,7 +234,7 @@ final NoLHSTest = uiFunction<TestProps>(
 );
 
 final _Test = uiFunction<TestProps>(
-      (props) {
+  (props) {
     return (Dom.div()
       ..addTestId('_testId')
       ..addProp('data-prop-string-prop', props.stringProp)

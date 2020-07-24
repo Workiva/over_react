@@ -861,6 +861,10 @@ that you get for free from OverReact, you're ready to start building your own cu
   
       // Return the rendered component contents here.
       // The `props` variable is typed; no need for string keys!
+      return Fragment()(
+        Dom.div()(items),
+        (Dom.button()..disabled = isDisabled)('Click me!'),
+      );
     },
     // The generated props config will match the factory name.
     $FooConfig, // ignore: undefined_identifier

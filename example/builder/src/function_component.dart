@@ -18,6 +18,7 @@ import 'package:over_react/over_react.dart';
 part 'function_component.over_react.g.dart';
 
 mixin BasicProps on UiProps {
+  Ref forwardedRef;
   String basicProp;
   String basic1;
   String basic2;
@@ -25,18 +26,27 @@ mixin BasicProps on UiProps {
   String basic4;
 }
 
-UiFactory<BasicProps> Basic = uiFunction((props) {
+UiFactory<BasicProps> Basic = forwardRef<BasicProps>((props, ref) {
+  return (_Basic()
+    ..forwardedRef = ref
+    ..addProps(props))();
+})(_Basic);
+
+UiFactory<BasicProps> _Basic = uiFunction(
+  (props) {
     return Fragment()(
       Dom.div()('prop id: ${props.id}'),
       Dom.div()('default prop testing: ${props.basicProp}'),
       Dom.div()('default prop testing: ${props.basic1}'),
-      Dom.div()(props.basic3, 'children: ${props.children}'),
+      (Dom.div()..ref = props.forwardedRef)(
+          props.basic3, 'children: ${props.children}'),
     );
   },
-  $BasicConfig, // ignore: undefined_identifier
+  $_BasicConfig, // ignore: undefined_identifier
 );
 
-final Simple = uiFunction<BasicProps>((props) {
+final Simple = uiFunction<BasicProps>(
+  (props) {
     final basicProp = props.basicProp ?? 'basicProp';
     final basic1 = props.basic1 ?? 'basic1';
 
@@ -45,9 +55,19 @@ final Simple = uiFunction<BasicProps>((props) {
       Dom.div()('default prop testing: $basicProp'),
       Dom.div()('default prop testing: $basic1'),
       Dom.div()(null, props.basic4, 'children: ${props.children}'),
+      (Foo()..content = props.basic2)(),
     );
   },
   $SimpleConfig, // ignore: undefined_identifier
+);
+
+mixin FooProps on UiProps {
+  String content;
+}
+
+final Foo = uiFunction<FooProps>(
+  (props) => Dom.div()('forwarded prop: ${props.content}'),
+  $FooConfig, // ignore: undefined_identifier
 );
 
 ReactElement functionComponentContent() {
@@ -69,14 +89,20 @@ ReactElement functionComponentContent() {
     displayName: 'basicFactory',
   );
 
+  // Access the div element later using `divRef.current`.
+  Ref divRef = createRef();
+
   return Fragment()(
     (genericFactory()..id = '1')(),
     (basicFactory()
       ..id = '2'
       ..basic1 = 'basic1 value')(),
     (Basic()
+      ..ref = divRef
       ..id = '3'
       ..basicProp = 'basicProp')(),
-    (Simple()..id = '4')(),
+    (Simple()
+      ..id = '4'
+      ..basic2 = 'basic2 value')(),
   );
 }

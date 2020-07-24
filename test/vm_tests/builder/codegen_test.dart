@@ -737,6 +737,12 @@ main() {
           setUpAndGenerate(r'''
             mixin FooPropsMixin on UiProps {}
             
+            UiFactory<FooPropsMixin> FooForwarded = forwardRef<FooPropsMixin>((props, ref) {
+              return (Foo()
+                ..ref = ref
+              )();
+            })(Foo);
+            
             final Bar = uiFunction<UiProps>(
               (props) {
                 return Dom.div()();

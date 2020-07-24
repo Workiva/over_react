@@ -34,7 +34,10 @@ export 'component_type_checking.dart'
 ///     final items = props.items ?? [];
 ///
 ///     // Return the rendered component contents here.
-///     return Dom.div()(items);
+///     return Fragment()(
+///       Dom.div()(items),
+///       (Dom.button()..disabled = isDisabled)('Click me!'),
+///     );
 ///   },
 ///   // The generated props config will match the factory name.
 ///   $FooConfig, // ignore: undefined_identifier
@@ -43,7 +46,10 @@ export 'component_type_checking.dart'
 /// // Multiple function components can be declared with the same props.
 /// UiFactory<FooProps> AnotherFoo = uiFunction(
 ///   (props) {
-///       return Dom.div()();
+///       return (Foo()
+///         ..items = props.items
+///         ..isDisabled = true
+///       )();
 ///   },
 ///   $AnotherFooConfig, // ignore: undefined_identifier
 /// );
@@ -59,7 +65,7 @@ export 'component_type_checking.dart'
 /// ```dart
 /// UiFactory<FooProps> Bar = uiFunction(
 ///   (props) {
-///     return Dom.div()(props.items);
+///     return (Dom.button()..disabled = props.isDisabled)('Click me!');
 ///   },
 ///   null,
 ///   propsFactory: PropsFactory.fromUiFactory(Foo),

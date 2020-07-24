@@ -343,3 +343,31 @@ class StateMixinDeclaration extends BoilerplateDeclaration with PropsOrStateMixi
     @required this.mixin,
   }) : super(version);
 }
+
+/// Factories that are grouped together via their props type.
+class FactoryGroup {
+  final List<BoilerplateFactory> factories;
+
+  FactoryGroup({this.factories});
+
+  /// The factory that best represents [factories].
+  ///
+  /// Priority: component factory, function component factory, forwardRef
+  BoilerplateFactory get bestFactory {
+    if (factories.length == 1) return factories[0];
+
+    final factoriesInitializedToIdentifier =
+        factories.where((factory) => factory.node.firstInitializer is Identifier).toList();
+    if (factoriesInitializedToIdentifier.length == 1) {
+      return factoriesInitializedToIdentifier.first;
+    }
+
+    final functionComponentFactories =
+        factories.where((factory) => factory.isFunctionComponentFactory);
+    if (functionComponentFactories.isNotEmpty) {
+      return functionComponentFactories.first;
+    }
+
+    return factories[0];
+  }
+}
