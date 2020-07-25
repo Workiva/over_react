@@ -24,7 +24,7 @@ import 'package:react/hooks.dart' as react_hooks;
 ///
 /// ```dart
 /// UiFactory<UiProps> UseStateExample = uiFunction(
-///       (props) {
+///   (props) {
 ///     final count = useState(0);
 ///     return Fragment()(
 ///       count.value,
@@ -47,7 +47,7 @@ StateHook<T> useState<T>(T initialValue) => react_hooks.useState<T>(initialValue
 ///
 /// ```dart
 /// UiFactory<UiProps> UseStateExample = uiFunction(
-///       (props) {
+///   (props) {
 ///     final count = useStateLazy(() {
 ///       var initialState = someExpensiveComputation(props);
 ///       return initialState;
@@ -80,7 +80,7 @@ StateHook<T> useStateLazy<T>(T Function() init) => react_hooks.useStateLazy<T>(i
 ///
 /// ```dart
 /// UiFactory<UiProps> UseEffectExample = uiFunction(
-///       (props) {
+///   (props) {
 ///     final count = useState(1);
 ///     final evenOdd = useState('even');
 ///
@@ -126,7 +126,7 @@ void useEffect(dynamic Function() sideEffect, [List<Object> dependencies]) => re
 /// }
 ///
 /// UiFactory<UiProps> UseReducerExample = uiFunction(
-///       (props) {
+///   (props) {
 ///     final state = useReducer(reducer, {'count': 0});
 ///
 ///     return Fragment()(
@@ -173,7 +173,7 @@ ReducerHook<TState, TAction, TInit> useReducer<TState, TAction, TInit>(
 /// }
 ///
 /// UiFactory<UseReducerExampleProps> UseReducerExample = uiFunction(
-///       (props) {
+///   (props) {
 ///     final ReducerHook<Map, Map, int> state =
 ///     useReducerLazy(reducer, props.initialCount, initializeCount);
 ///
@@ -210,7 +210,7 @@ ReducerHook<TState, TAction, TInit> useReducerLazy<TState, TAction, TInit>(
 ///
 /// ```dart
 /// UiFactory<UiProps> UseCallbackExample = uiFunction(
-///       (props) {
+///   (props) {
 ///     final count = useState(0);
 ///     final delta = useState(1);
 ///
@@ -253,7 +253,7 @@ T useCallback<T extends Function>(T callback, List dependencies) => react_hooks.
 /// Context countContext = createContext(0);
 ///
 /// final UseContextExample = uiFunction<UiProps>(
-///       (props) {
+///   (props) {
 ///     final count = useContext(countContext);
 ///
 ///     return Dom.div()(
@@ -284,7 +284,7 @@ T useContext<T>(Context<T> context) => react_hooks.useContext(context.reactDartC
 ///
 /// ```dart
 /// UiFactory<UiProps> UseRefExample = uiFunction(
-///       (props) {
+///   (props) {
 ///     final inputValue = useState('');
 ///
 ///     final inputRef = useRef<InputElement>();
@@ -323,7 +323,7 @@ Ref<T> useRef<T>([T initialValue]) => react_hooks.useRef(initialValue);
 ///
 /// ```dart
 /// UiFactory<UiProps> UseMemoExample = uiFunction(
-///       (props) {
+///   (props) {
 ///     final count = useState(0);
 ///
 ///     final fib = useMemo(
@@ -361,7 +361,7 @@ T useMemo<T>(T Function() createFunction, [List<dynamic> dependencies]) =>
 ///
 /// ```dart
 /// UiFactory<UiProps> UseLayoutEffectExample = uiFunction(
-///       (props) {
+///   (props) {
 ///     final width = useState(0);
 ///     final height = useState(0);
 ///
@@ -420,7 +420,7 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 /// })(_FancyInput);
 ///
 /// UiFactory<FancyInputProps> _FancyInput = uiFunction(
-///       (props) {
+///   (props) {
 ///     final inputRef = useRef<InputElement>();
 ///
 ///     useImperativeHandle(
@@ -441,7 +441,7 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 /// );
 ///
 /// UiFactory<UiProps> UseImperativeHandleExample = uiFunction(
-///       (props) {
+///   (props) {
 ///     final inputValue = useState('');
 ///     final fancyInputRef = useRef<FancyInputApi>();
 ///
@@ -511,7 +511,7 @@ void useImperativeHandle(Ref ref, dynamic Function() createHandle, [List<dynamic
 /// }
 ///
 /// final FriendListItem = uiFunction<FriendListItemProps>(
-///       (props) {
+///   (props) {
 ///     final isOnline = useFriendStatus(props.friend['id']);
 ///
 ///     return (Dom.li()..style = {'color': isOnline.value ? 'green' : 'black'})(
@@ -521,7 +521,7 @@ void useImperativeHandle(Ref ref, dynamic Function() createHandle, [List<dynamic
 /// );
 ///
 /// final UseDebugValueExample = uiFunction<UiProps>(
-///       (props) => Fragment()(
+///   (props) => Fragment()(
 ///     (FriendListItem()..friend = {'id': 1, 'name': 'user 1'})(),
 ///     (FriendListItem()..friend = {'id': 2, 'name': 'user 2'})(),
 ///     (FriendListItem()..friend = {'id': 3, 'name': 'user 3'})(),
