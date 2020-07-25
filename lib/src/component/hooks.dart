@@ -33,8 +33,7 @@ import 'package:react/hooks.dart' as react_hooks;
 ///         ..onClick = (_) => count.setWithUpdater((prev) => prev + 1))('+'),
 ///     );
 ///   },
-///   null,
-///   displayName: 'UseStateExample',
+///   FunctionComponentConfig(displayName: 'UseStateExample'),
 /// );
 /// ```
 ///
@@ -60,8 +59,7 @@ StateHook<T> useState<T>(T initialValue) => react_hooks.useState<T>(initialValue
 ///       (Dom.button()..onClick = (_) => count.setWithUpdater((prev) => prev + 1))('+'),
 ///     );
 ///   },
-///   null,
-///   displayName: 'UseStateExample',
+///   FunctionComponentConfig(displayName: 'UseStateExample'),
 /// );
 /// ```
 ///
@@ -104,8 +102,7 @@ StateHook<T> useStateLazy<T>(T Function() init) => react_hooks.useStateLazy<T>(i
 ///       (Dom.button()..onClick = (_) => count.set(count.value + 1))('+'),
 ///     );
 ///   },
-///   null,
-///   displayName: 'UseEffectExample',
+///   FunctionComponentConfig(displayName: 'UseEffectExample'),
 /// );
 /// ```
 ///
@@ -140,8 +137,7 @@ void useEffect(dynamic Function() sideEffect, [List<Object> dependencies]) => re
 ///         ..onClick = (_) => state.dispatch({'type': 'decrement'}))('-'),
 ///     );
 ///   },
-///   null,
-///   displayName: 'UseReducerExample',
+///   FunctionComponentConfig(displayName: 'UseReducerExample'),
 /// );
 /// ```
 ///
@@ -195,7 +191,6 @@ ReducerHook<TState, TAction, TInit> useReducer<TState, TAction, TInit>(
 ///     );
 ///   },
 ///   $UseReducerExampleConfig, // ignore: undefined_identifier
-///   displayName: 'UseReducerExample',
 /// );
 /// ```
 ///
@@ -234,8 +229,7 @@ ReducerHook<TState, TAction, TInit> useReducerLazy<TState, TAction, TInit>(
 ///       (Dom.button()..onClick = incrementDelta)('Increment delta'),
 ///     );
 ///   },
-///   null,
-///   displayName: 'UseCallbackExample',
+///   FunctionComponentConfig(displayName: 'UseCallbackExample'),
 /// );
 /// ```
 ///
@@ -258,13 +252,17 @@ T useCallback<T extends Function>(T callback, List dependencies) => react_hooks.
 /// ```dart
 /// Context countContext = createContext(0);
 ///
-/// UseCallbackTestComponent(Map props) {
-///   final count = useContext(countContext);
+/// final UseContextExample = uiFunction<UiProps>(
+///       (props) {
+///     final count = useContext(countContext);
 ///
-///   return react.div({}, [
-///     react.div({}, ['The count from context is $count']), // initially renders: 'The count from context is 0'
-///   ]);
-/// }
+///     return Dom.div()(
+///       Dom.div()(
+///           'The count from context is $count'), // initially renders: 'The count from context is 0'
+///     );
+///   },
+///   FunctionComponentConfig(displayName: 'UseContextExample'),
+/// );
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#usecontext>.
@@ -272,36 +270,266 @@ T useContext<T>(Context<T> context) => react_hooks.useContext(context.reactDartC
 
 /// Returns a mutable [Ref] object with [Ref.current] property initialized to [initialValue].
 ///
-/// Changes to the [Ref.current] property do not cause the containing [DartFunctionComponent] to re-render.
+/// Changes to the [Ref.current] property do not cause the containing [uiFunction] component to re-render.
 ///
-/// The returned [Ref] object will persist for the full lifetime of the [DartFunctionComponent].
+/// The returned [Ref] object will persist for the full lifetime of the [uiFunction] component.
 /// Compare to [createRef] which returns a new [Ref] object on each render.
 ///
 /// > __Note:__ there are two [rules for using Hooks](https://reactjs.org/docs/hooks-rules.html):
 /// >
 /// > * Only call Hooks at the top level.
-/// > * Only call Hooks from inside a [DartFunctionComponent].
+/// > * Only call Hooks from inside the first argument of [uiFunction].
 ///
 /// __Example__:
 ///
 /// ```dart
-/// UseRefTestComponent(Map props) {
-///   final inputValue = useState('');
+/// UiFactory<UiProps> UseRefExample = uiFunction(
+///       (props) {
+///     final inputValue = useState('');
 ///
-///   final inputRef = useRef<InputElement>();
-///   final prevInputValueRef = useRef<String>();
+///     final inputRef = useRef<InputElement>();
+///     final prevInputValueRef = useRef<String>();
 ///
-///   useEffect(() {
-///     prevInputValueRef.current = inputValue.value;
-///   });
+///     useEffect(() {
+///       prevInputValueRef.current = inputValue.value;
+///     });
 ///
-///   return react.Fragment({}, [
-///     react.p({}, ['Current Input: ${inputValue.value}, Previous Input: ${prevInputValueRef.current}']),
-///     react.input({'ref': inputRef}),
-///     react.button({'onClick': (_) => inputValue.set(inputRef.current.value)}, ['Update']),
-///   ]);
-/// }
+///     return Fragment()(
+///       Dom.p()('Current Input: ${inputValue.value}, '
+///           'Previous Input: ${prevInputValueRef.current}'),
+///       (Dom.input()..ref = inputRef)(),
+///       (Dom.button()
+///         ..onClick = (_) => inputValue.set(inputRef.current.value))('Update'),
+///     );
+///   },
+///   FunctionComponentConfig(displayName: 'UseRefExample'),
+/// );
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#useref>.
-Ref<T> useRef<T>([T initialValue]) => Ref.useRefInit(initialValue);
+Ref<T> useRef<T>([T initialValue]) => react_hooks.useRef(initialValue);
+
+/// Returns a memoized version of the return value of [createFunction].
+///
+/// If one of the [dependencies] has changed, [createFunction] is run during rendering of the [DartFunctionComponent].
+/// This optimization helps to avoid expensive calculations on every render.
+///
+/// > __Note:__ there are two [rules for using Hooks](https://reactjs.org/docs/hooks-rules.html):
+/// >
+/// > * Only call Hooks at the top level.
+/// > * Only call Hooks from inside the first argument of [uiFunction].
+///
+/// __Example__:
+///
+/// ```dart
+/// UiFactory<UiProps> UseMemoExample = uiFunction(
+///       (props) {
+///     final count = useState(0);
+///
+///     final fib = useMemo(
+///           () => fibonacci(count.value),
+///
+///       /// This dependency prevents [fib] from being re-calculated every time the component re-renders.
+///       [count.value],
+///     );
+///
+///     return Fragment()(
+///       Dom.div()('Fibonacci of ${count.value} is $fib'),
+///       (Dom.button()
+///         ..onClick = (_) => count.setWithUpdater((prev) => prev + 1))('+'),
+///     );
+///   },
+///   FunctionComponentConfig(displayName: 'UseMemoExample'),
+/// );
+/// ```
+///
+/// Learn more: <https://reactjs.org/docs/hooks-reference.html#usememo>.
+T useMemo<T>(T Function() createFunction, [List<dynamic> dependencies]) =>
+    react_hooks.useMemo(createFunction, dependencies);
+
+/// Runs [sideEffect] synchronously after a [DartFunctionComponent] renders, but before the screen is updated.
+///
+/// Compare to [useEffect] which runs [sideEffect] after the screen updates.
+/// Prefer the standard [useEffect] when possible to avoid blocking visual updates.
+///
+/// > __Note:__ there are two [rules for using Hooks](https://reactjs.org/docs/hooks-rules.html):
+/// >
+/// > * Only call Hooks at the top level.
+/// > * Only call Hooks from inside the first argument of [uiFunction].
+///
+/// __Example__:
+///
+/// ```dart
+/// UiFactory<UiProps> UseLayoutEffectExample = uiFunction(
+///       (props) {
+///     final width = useState(0);
+///     final height = useState(0);
+///
+///     Ref textareaRef = useRef();
+///
+///     useLayoutEffect(() {
+///       width.set(textareaRef.current.clientWidth);
+///       height.set(textareaRef.current.clientHeight);
+///     });
+///
+///     return Fragment()(
+///       Dom.div()('textarea width: ${width.value}'),
+///       Dom.div()('textarea height: ${height.value}'),
+///       (Dom.textarea()
+///         ..ref = textareaRef
+///         ..onClick = (_) => width.set(0))(),
+///     );
+///   },
+///   FunctionComponentConfig(displayName: 'UseLayoutEffectExample'),
+/// );
+/// ```
+///
+/// Learn more: <https://reactjs.org/docs/hooks-reference.html#uselayouteffect>.
+void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies]) => react_hooks.useLayoutEffect(sideEffect, dependencies);
+
+/// Customizes the [ref] value that is exposed to parent components when using [forwardRef] by setting [ref.current]
+/// to the return value of [createHandle].
+///
+/// In most cases, imperative code using refs should be avoided.
+/// For more information, see <https://reactjs.org/docs/refs-and-the-dom.html#when-to-use-refs>.
+///
+/// > __Note:__ there are two [rules for using Hooks](https://reactjs.org/docs/hooks-rules.html):
+/// >
+/// > * Only call Hooks at the top level.
+/// > * Only call Hooks from inside the first argument of [uiFunction].
+///
+/// __Example__:
+///
+/// ```dart
+/// mixin FancyInputProps on UiProps {
+///   String value;
+///   Function updater;
+///   Ref forwardedRef;
+/// }
+///
+/// class FancyInputApi {
+///   final void Function() focus;
+///   FancyInputApi(this.focus);
+/// }
+///
+/// UiFactory<FancyInputProps> FancyInput =
+/// forwardRef<FancyInputProps>((props, ref) {
+///   return (_FancyInput()
+///     ..forwardedRef = ref
+///     ..addProps(props))();
+/// })(_FancyInput);
+///
+/// UiFactory<FancyInputProps> _FancyInput = uiFunction(
+///       (props) {
+///     final inputRef = useRef<InputElement>();
+///
+///     useImperativeHandle(
+///       props.forwardedRef,
+///           () => FancyInputApi(() => inputRef.current.focus()),
+///
+///       /// Because the return value of [createHandle] never changes, it is not necessary for [ref.current]
+///       /// to be re-set on each render so this dependency list is empty.
+///       [],
+///     );
+///
+///     return (Dom.input()
+///       ..ref = inputRef
+///       ..value = props.value
+///       ..onChange = (e) => props.updater(e.target.value))();
+///   },
+///   $_FancyInputConfig, // ignore: undefined_identifier
+/// );
+///
+/// UiFactory<UiProps> UseImperativeHandleExample = uiFunction(
+///       (props) {
+///     final inputValue = useState('');
+///     final fancyInputRef = useRef<FancyInputApi>();
+///
+///     return Fragment()(
+///       (FancyInput()
+///         ..ref = fancyInputRef
+///         ..value = inputValue.value
+///         ..updater = inputValue.set)(),
+///       (Dom.button()
+///         ..onClick = (_) => fancyInputRef.current.focus())('Focus Input'),
+///     );
+///   },
+///   FunctionComponentConfig(displayName: 'UseImperativeHandleExample'),
+/// );
+/// ```
+///
+/// Learn more: <https://reactjs.org/docs/hooks-reference.html#useimperativehandle>.
+void useImperativeHandle(Ref ref, dynamic Function() createHandle, [List<dynamic> dependencies]) =>
+    react_hooks.useImperativeHandle(ref, createHandle, dependencies);
+
+/// Displays [value] as a label for a custom hook in React DevTools.
+///
+/// To [defer formatting](https://reactjs.org/docs/hooks-reference.html#defer-formatting-debug-values) [value] until
+/// the hooks are inspected, use optional [format] function.
+///
+/// > __Note:__ there are two [rules for using Hooks](https://reactjs.org/docs/hooks-rules.html):
+/// >
+/// > * Only call Hooks at the top level.
+/// > * Only call Hooks from inside the first argument of [uiFunction].
+///
+/// __Example__:
+///
+/// ```dart
+/// class ChatAPI {
+///   static void subscribeToFriendStatus(int id, Function handleStatusChange) =>
+///       handleStatusChange({'isOnline': id % 2 == 0});
+///
+///   static void unsubscribeFromFriendStatus(
+///       int id, Function handleStatusChange) =>
+///       handleStatusChange({'isOnline': false});
+/// }
+///
+/// // Custom Hook
+/// StateHook useFriendStatus(int friendID) {
+///   final isOnline = useState(false);
+///
+///   void handleStatusChange(Map status) {
+///     isOnline.set(status['isOnline']);
+///   }
+///
+///   useEffect(() {
+///     ChatAPI.subscribeToFriendStatus(friendID, handleStatusChange);
+///     return () {
+///       ChatAPI.unsubscribeFromFriendStatus(friendID, handleStatusChange);
+///     };
+///   });
+///
+///   // Use format function to avoid unnecessarily formatting `isOnline` when the hooks aren't inspected in React DevTools.
+///   useDebugValue<bool>(
+///       isOnline.value, (isOnline) => isOnline ? 'Online' : 'Not Online');
+///
+///   return isOnline;
+/// }
+///
+/// mixin FriendListItemProps on UiProps {
+///   Map<String, dynamic> friend;
+/// }
+///
+/// final FriendListItem = uiFunction<FriendListItemProps>(
+///       (props) {
+///     final isOnline = useFriendStatus(props.friend['id']);
+///
+///     return (Dom.li()..style = {'color': isOnline.value ? 'green' : 'black'})(
+///         props.friend['name']);
+///   },
+///   $FriendListItemConfig,
+/// );
+///
+/// final UseDebugValueExample = uiFunction<UiProps>(
+///       (props) => Fragment()(
+///     (FriendListItem()..friend = {'id': 1, 'name': 'user 1'})(),
+///     (FriendListItem()..friend = {'id': 2, 'name': 'user 2'})(),
+///     (FriendListItem()..friend = {'id': 3, 'name': 'user 3'})(),
+///     (FriendListItem()..friend = {'id': 4, 'name': 'user 4'})(),
+///   ),
+///   FunctionComponentConfig(displayName: 'UseDebugValueExample'),
+/// );
+/// ```
+///
+/// Learn more: <https://reactjs.org/docs/hooks-reference.html#usedebugvalue>.
+dynamic useDebugValue<T>(T value, [dynamic Function(T) format]) => react_hooks.useDebugValue(value, format);
