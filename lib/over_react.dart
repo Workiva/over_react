@@ -61,6 +61,7 @@ export 'src/component_declaration/component_base_2.dart' show
     UiStatefulMixin2;
 export 'src/component_declaration/built_redux_component.dart';
 export 'src/component_declaration/flux_component.dart';
+export 'src/component_declaration/function_component.dart';
 export 'src/util/character_constants.dart';
 export 'src/util/class_names.dart';
 export 'src/util/constants_base.dart';

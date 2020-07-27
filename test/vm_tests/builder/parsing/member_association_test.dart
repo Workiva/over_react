@@ -218,6 +218,28 @@ main() {
       });
     });
 
+    group('getPropsForFunctionComponent', () {
+      group('when passed a function component factory', () {
+        test('', () {
+          final factory = factories.firstWhere((factory) => factory.name.name == 'FunctionFoo');
+          expect(normalizeName(getPropsForFunctionComponent(props, propsMixins, factory).b.name.name),
+              'FunctionFoo2Props');
+        });
+
+        test('with no left hand typing', () {
+          final factory = factories.firstWhere((factory) => factory.name.name == 'FunctionFoo1');
+          expect(normalizeName(getPropsForFunctionComponent(props, propsMixins, factory).b.name.name),
+              'FunctionFoo2Props');
+        });
+
+        test('with prefixed props', () {
+          final factory = factories.firstWhere((factory) => factory.name.name == 'FunctionFoo2');
+          expect(normalizeName(getPropsForFunctionComponent(props, propsMixins, factory).b.name.name),
+              'FunctionFooProps');
+        });
+      });
+    });
+
     group('getStateFor gets the correct props class when passed', () {
       group('when passed', () {
         test('a factory', () {

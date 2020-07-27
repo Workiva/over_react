@@ -271,7 +271,7 @@ class ClassComponentDeclaration extends BoilerplateDeclaration
 class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
     with _TypedMapMixinShorthandDeclaration {
   /// The related factory instance.
-  final BoilerplateFactory factory;
+  final List<BoilerplateFactory> factories;
 
   /// The related props instance.
   ///
@@ -279,7 +279,7 @@ class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
   final Union<BoilerplateProps, BoilerplatePropsMixin> props;
 
   @override
-  get _members => [factory, props.either];
+  get _members => [...factories, props.either];
 
   @override
   get type => DeclarationType.propsMapViewOrFunctionComponentDeclaration;
@@ -288,12 +288,14 @@ class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
   void validate(ErrorCollector errorCollector) {
     super.validate(errorCollector);
 
-    _validateShorthand(errorCollector, PropsStateStringHelpers.props(),
-        propsOrState: props, shorthandUsage: factory.propsGenericArg ?? factory.node);
+    for (final factory in factories) {
+      _validateShorthand(errorCollector, PropsStateStringHelpers.props(),
+          propsOrState: props, shorthandUsage: factory.propsGenericArg ?? factory.node);
+    }
   }
 
   PropsMapViewOrFunctionComponentDeclaration({
-    @required this.factory,
+    @required this.factories,
     @required this.props,
   }) : super(Version.v4_mixinBased);
 }
@@ -340,4 +342,32 @@ class StateMixinDeclaration extends BoilerplateDeclaration with PropsOrStateMixi
     @required Version version,
     @required this.mixin,
   }) : super(version);
+}
+
+/// Factories that are grouped together via their props type.
+class FactoryGroup {
+  final List<BoilerplateFactory> factories;
+
+  FactoryGroup({this.factories});
+
+  /// The factory that best represents [factories].
+  ///
+  /// Priority: component factory, function component factory, forwardRef
+  BoilerplateFactory get bestFactory {
+    if (factories.length == 1) return factories[0];
+
+    final factoriesInitializedToIdentifier =
+        factories.where((factory) => factory.node.firstInitializer is Identifier).toList();
+    if (factoriesInitializedToIdentifier.length == 1) {
+      return factoriesInitializedToIdentifier.first;
+    }
+
+    final functionComponentFactories =
+        factories.where((factory) => factory.isFunctionComponentFactory);
+    if (functionComponentFactories.isNotEmpty) {
+      return functionComponentFactories.first;
+    }
+
+    return factories[0];
+  }
 }

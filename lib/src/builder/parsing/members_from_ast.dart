@@ -168,6 +168,19 @@ class _BoilerplateMemberDetector {
       return;
     }
 
+    final rightHandSide = node.variables.firstInitializer;
+    if (rightHandSide != null &&
+        anyDescendantIdentifiers(rightHandSide, (identifier) => identifier.name == 'uiFunction')) {
+      onFactory(BoilerplateFactory(
+          node,
+          VersionConfidences(
+            v4_mixinBased: node.hasGeneratedConfigArg ? Confidence.likely : Confidence.neutral,
+            v3_legacyDart2Only: Confidence.none,
+            v2_legacyBackwardsCompat: Confidence.none,
+          )));
+      return;
+    }
+
     final type = node.variables.type;
     if (type != null) {
       if (type?.typeNameWithoutPrefix == 'UiFactory') {
@@ -204,11 +217,6 @@ class _BoilerplateMemberDetector {
           return;
         }
       }
-    } else {
-      // todo implement function components; should LHS typing not be required?
-      // if ((node.variables.firstInitializer?.tryCast<MethodInvocation>()?.methodName?.name == 'uiFunction') {
-      //   factories.add(BoilerplateFactory(node));
-      // }
     }
 
     return;
@@ -300,7 +308,7 @@ class _BoilerplateMemberDetector {
         'this function assumes that all nodes passed to this function are annotated');
 
     assert(node is! MixinDeclaration,
-        'Mixins should never make it in herel they should be classified as Props/State mixins');
+        'Mixins should never make it in here they should be classified as Props/State mixins');
 
     final hasGeneratedPrefix = node.name.name.startsWith(r'_$');
     final hasCompanionClass = companion != null;
