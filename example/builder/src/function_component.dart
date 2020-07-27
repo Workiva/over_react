@@ -26,6 +26,7 @@ mixin BasicProps on UiProps {
   String basic4;
 }
 
+// The usage of forwardRef with uiFunction components will change in: CPLAT-11722
 UiFactory<BasicProps> Basic = forwardRef<BasicProps>((props, ref) {
   return (_Basic()
     ..forwardedRef = ref
