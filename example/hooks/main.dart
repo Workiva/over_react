@@ -17,31 +17,40 @@ import 'dart:html';
 import 'package:over_react/over_react.dart';
 
 import 'package:react/react_dom.dart' as react_dom;
-import './function_components.dart';
+
+import 'use_callback_example.dart';
+import 'use_context_example.dart';
+import 'use_debug_value_example.dart';
+import 'use_imperative_handle_example.dart';
+import 'use_layout_effect_example.dart';
+import 'use_memo_example.dart';
+import 'use_reducer_example.dart';
+import 'use_ref_example.dart';
+import 'use_state_example.dart';
 
 void main() {
   render() {
     react_dom.render(
         Fragment()(
-          (Dom.h1())('Function Component Tests'),
-          (Dom.h2())('useState & useEffect Hook Test'),
-          (UseStateTest())(),
-          Dom.h2()('useReducer Hook Test'),
-          (UseReducerTest()..initialCount = 10)(),
-          Dom.h2()('useCallback Hook Test'),
-          UseCallbackTest()(),
-          Dom.h2()('useContext Hook Test'),
-          UseContextTest()(),
-          Dom.h2()('useRef Hook Test'),
-          UseRefTest()(),
-          Dom.h2()('useMemo Hook Test'),
-          UseMemoTest()(),
-          Dom.h2()('UseLayoutEffect Hook Test'),
-          UseLayoutEffectTest()(),
-          Dom.h2()('UseImperativeHandle Hook Test'),
-          UseImperativeHandleTest()(),
-          Dom.h2()('UseDebugValue Hook Test'),
-          UseDebugValueTest()(),
+          Dom.h1()('Function Component Examples'),
+          Dom.h2()('useState & useEffect Hook Example'),
+          UseStateExample()(),
+          Dom.h2()('useReducer Hook Example'),
+          (UseReducerExample()..initialCount = 10)(),
+          Dom.h2()('useCallback Hook Example'),
+          UseCallbackExample()(),
+          Dom.h2()('useContext Hook Example'),
+          UseContextExample()(),
+          Dom.h2()('useRef Hook Example'),
+          UseRefExample()(),
+          Dom.h2()('useMemo Hook Example'),
+          UseMemoExample()(),
+          Dom.h2()('UseLayoutEffect Hook Example'),
+          UseLayoutEffectExample()(),
+          Dom.h2()('UseImperativeHandle Hook Example'),
+          UseImperativeHandleExample()(),
+          Dom.h2()('UseDebugValue Hook Example'),
+          UseDebugValueExample()(),
         ),
         querySelector('#content'));
   }
