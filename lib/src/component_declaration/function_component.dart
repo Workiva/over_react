@@ -91,10 +91,9 @@ export 'component_type_checking.dart'
 // TODO: right now only top level factory declarations will generate props configs.
 UiFactory<TProps> uiFunction<TProps extends UiProps>(
   dynamic Function(TProps props) functionComponent,
-  FunctionComponentConfig<TProps> config) {
-  if (config == null) {
-    throw ArgumentError('config must not be null');
-  }
+  FunctionComponentConfig<TProps> config,
+) {
+  ArgumentError.checkNotNull(config, 'config');
 
   var propsFactory = config.propsFactory;
 
@@ -158,13 +157,11 @@ class _GenericUiProps extends UiProps {
 }
 
 /// Helper class used to keep track of generated information for [uiFunction].
-@protected
 class FunctionComponentConfig<TProps extends UiProps> {
   @protected
   final PropsFactory<TProps> propsFactory;
   final String displayName;
 
-  @protected
   FunctionComponentConfig({this.propsFactory, this.displayName});
 }
 

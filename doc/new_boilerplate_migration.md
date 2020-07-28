@@ -841,24 +841,17 @@ mixin FooProps on UiProps {
   Function doSomething;
 }
 
-UiFactory<FooProps> Foo = forwardRef<FooProps>((props, ref) {
-  return (_Foo()
-    ..forwardedRef = ref
-    ..doSomething = props.doSomething
-  )();
-})(_Foo);
-
-UiFactory<FooProps> _Foo = uiFunction(
-  (props) {
+UiFactory<FooProps> Foo = uiForwardRef(
+  (props, ref) {
     return Fragment()(
       Dom.div()('Some text.'),
       (Dom.button()
-        ..ref = props.forwardedRef 
+        ..ref = ref
         ..onClick = props.doSomething
       )('Click me!'),
     );
   },
-  $_FooConfig, // ignore: undefined_identifier
+  $FooConfig, // ignore: undefined_identifier
 );
 ```
 
