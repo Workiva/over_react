@@ -23,17 +23,18 @@ import 'package:react/hooks.dart' as react_hooks;
 /// __Example__:
 ///
 /// ```dart
-/// UiFactory<UiProps> UseStateExample = uiFunction(
+/// UiFactory<UseStateExampleProps> UseStateExample = uiFunction(
 ///   (props) {
 ///     final count = useState(0);
 ///     return Fragment()(
 ///       count.value,
 ///       (Dom.button()..onClick = (_) => count.set(0))('Reset'),
 ///       (Dom.button()
-///         ..onClick = (_) => count.setWithUpdater((prev) => prev + 1))('+'),
+///         ..onClick = (_) => count.setWithUpdater((prev) => prev + 1)
+///       )('+'),
 ///     );
 ///   },
-///   FunctionComponentConfig(displayName: 'UseStateExample'),
+///   $UseStateExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -46,7 +47,7 @@ StateHook<T> useState<T>(T initialValue) => react_hooks.useState<T>(initialValue
 /// __Example__:
 ///
 /// ```dart
-/// UiFactory<UiProps> UseStateExample = uiFunction(
+/// UiFactory<UseStateExampleProps> UseStateExample = uiFunction(
 ///   (props) {
 ///     final count = useStateLazy(() {
 ///       var initialState = someExpensiveComputation(props);
@@ -56,10 +57,12 @@ StateHook<T> useState<T>(T initialValue) => react_hooks.useState<T>(initialValue
 ///     return Fragment()(
 ///       count.value,
 ///       (Dom.button()..onClick = (_) => count.set(0))('Reset'),
-///       (Dom.button()..onClick = (_) => count.setWithUpdater((prev) => prev + 1))('+'),
+///       (Dom.button()
+///         ..onClick = (_) => count.setWithUpdater((prev) => prev + 1)
+///       )('+'),
 ///     );
 ///   },
-///   FunctionComponentConfig(displayName: 'UseStateExample'),
+///   $UseStateExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -79,7 +82,7 @@ StateHook<T> useStateLazy<T>(T Function() init) => react_hooks.useStateLazy<T>(i
 /// __Example__:
 ///
 /// ```dart
-/// UiFactory<UiProps> UseEffectExample = uiFunction(
+/// UiFactory<UseEffectExampleProps> UseEffectExample = uiFunction(
 ///   (props) {
 ///     final count = useState(1);
 ///     final evenOdd = useState('even');
@@ -99,10 +102,12 @@ StateHook<T> useStateLazy<T>(T Function() init) => react_hooks.useStateLazy<T>(i
 ///
 ///     return Fragment()(
 ///       Dom.p()('${count.value} is ${evenOdd.value}'),
-///       (Dom.button()..onClick = (_) => count.set(count.value + 1))('+'),
+///       (Dom.button()
+///         ..onClick = (_) => count.set(count.value + 1)
+///       )('+'),
 ///     );
 ///   },
-///   FunctionComponentConfig(displayName: 'UseEffectExample'),
+///   $UseEffectExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -125,19 +130,21 @@ void useEffect(dynamic Function() sideEffect, [List<Object> dependencies]) => re
 ///   }
 /// }
 ///
-/// UiFactory<UiProps> UseReducerExample = uiFunction(
+/// UiFactory<UseReducerExampleProps> UseReducerExample = uiFunction(
 ///   (props) {
 ///     final state = useReducer(reducer, {'count': 0});
 ///
 ///     return Fragment()(
 ///       state.state['count'],
 ///       (Dom.button()
-///         ..onClick = (_) => state.dispatch({'type': 'increment'}))('+'),
+///         ..onClick = (_) => state.dispatch({'type': 'increment'})
+///       )('+'),
 ///       (Dom.button()
-///         ..onClick = (_) => state.dispatch({'type': 'decrement'}))('-'),
+///         ..onClick = (_) => state.dispatch({'type': 'decrement'})
+///       )('-'),
 ///     );
 ///   },
-///   FunctionComponentConfig(displayName: 'UseReducerExample'),
+///   $UseReducerExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -180,14 +187,17 @@ ReducerHook<TState, TAction, TInit> useReducer<TState, TAction, TInit>(
 ///     return Fragment()(
 ///       state.state['count'],
 ///       (Dom.button()
-///         ..onClick = (_) => state.dispatch({'type': 'increment'}))('+'),
+///         ..onClick = (_) => state.dispatch({'type': 'increment'})
+///       )('+'),
 ///       (Dom.button()
-///         ..onClick = (_) => state.dispatch({'type': 'decrement'}))('-'),
+///         ..onClick = (_) => state.dispatch({'type': 'decrement'})
+///       )('-'),
 ///       (Dom.button()
 ///         ..onClick = (_) => state.dispatch({
 ///           'type': 'reset',
 ///           'payload': props.initialCount,
-///         }))('reset'),
+///         })
+///       )('reset'),
 ///     );
 ///   },
 ///   $UseReducerExampleConfig, // ignore: undefined_identifier
@@ -209,7 +219,7 @@ ReducerHook<TState, TAction, TInit> useReducerLazy<TState, TAction, TInit>(
 /// __Example__:
 ///
 /// ```dart
-/// UiFactory<UiProps> UseCallbackExample = uiFunction(
+/// UiFactory<UseCallbackExampleProps> UseCallbackExample = uiFunction(
 ///   (props) {
 ///     final count = useState(0);
 ///     final delta = useState(1);
@@ -229,7 +239,7 @@ ReducerHook<TState, TAction, TInit> useReducerLazy<TState, TAction, TInit>(
 ///       (Dom.button()..onClick = incrementDelta)('Increment delta'),
 ///     );
 ///   },
-///   FunctionComponentConfig(displayName: 'UseCallbackExample'),
+///   $UseCallbackExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -252,16 +262,17 @@ T useCallback<T extends Function>(T callback, List dependencies) => react_hooks.
 /// ```dart
 /// Context countContext = createContext(0);
 ///
-/// final UseContextExample = uiFunction<UiProps>(
+/// final UseContextExample = uiFunction<UseContextExampleProps>(
 ///   (props) {
 ///     final count = useContext(countContext);
 ///
 ///     return Dom.div()(
 ///       Dom.div()(
-///           'The count from context is $count'), // initially renders: 'The count from context is 0'
+///         'The count from context is $count',
+///       ), // initially renders: 'The count from context is 0'
 ///     );
 ///   },
-///   FunctionComponentConfig(displayName: 'UseContextExample'),
+///   $UseContextExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -283,7 +294,7 @@ T useContext<T>(Context<T> context) => react_hooks.useContext(context.reactDartC
 /// __Example__:
 ///
 /// ```dart
-/// UiFactory<UiProps> UseRefExample = uiFunction(
+/// UiFactory<UseRefExampleProps> UseRefExample = uiFunction(
 ///   (props) {
 ///     final inputValue = useState('');
 ///
@@ -295,14 +306,17 @@ T useContext<T>(Context<T> context) => react_hooks.useContext(context.reactDartC
 ///     });
 ///
 ///     return Fragment()(
-///       Dom.p()('Current Input: ${inputValue.value}, '
-///           'Previous Input: ${prevInputValueRef.current}'),
+///       Dom.p()(
+///         'Current Input: ${inputValue.value}, '
+///         'Previous Input: ${prevInputValueRef.current}',
+///       ),
 ///       (Dom.input()..ref = inputRef)(),
 ///       (Dom.button()
-///         ..onClick = (_) => inputValue.set(inputRef.current.value))('Update'),
+///         ..onClick = (_) => inputValue.set(inputRef.current.value)
+///       )('Update'),
 ///     );
 ///   },
-///   FunctionComponentConfig(displayName: 'UseRefExample'),
+///   $UseRefExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -322,7 +336,7 @@ Ref<T> useRef<T>([T initialValue]) => react_hooks.useRef(initialValue);
 /// __Example__:
 ///
 /// ```dart
-/// UiFactory<UiProps> UseMemoExample = uiFunction(
+/// UiFactory<UseMemoExampleProps> UseMemoExample = uiFunction(
 ///   (props) {
 ///     final count = useState(0);
 ///
@@ -336,10 +350,11 @@ Ref<T> useRef<T>([T initialValue]) => react_hooks.useRef(initialValue);
 ///     return Fragment()(
 ///       Dom.div()('Fibonacci of ${count.value} is $fib'),
 ///       (Dom.button()
-///         ..onClick = (_) => count.setWithUpdater((prev) => prev + 1))('+'),
+///         ..onClick = (_) => count.setWithUpdater((prev) => prev + 1)
+///       )('+'),
 ///     );
 ///   },
-///   FunctionComponentConfig(displayName: 'UseMemoExample'),
+///   $UseMemoExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -360,7 +375,7 @@ T useMemo<T>(T Function() createFunction, [List<dynamic> dependencies]) =>
 /// __Example__:
 ///
 /// ```dart
-/// UiFactory<UiProps> UseLayoutEffectExample = uiFunction(
+/// UiFactory<UseLayoutEffectExampleProps> UseLayoutEffectExample = uiFunction(
 ///   (props) {
 ///     final width = useState(0);
 ///     final height = useState(0);
@@ -377,10 +392,11 @@ T useMemo<T>(T Function() createFunction, [List<dynamic> dependencies]) =>
 ///       Dom.div()('textarea height: ${height.value}'),
 ///       (Dom.textarea()
 ///         ..ref = textareaRef
-///         ..onClick = (_) => width.set(0))(),
+///         ..onClick = (_) => width.set(0)
+///       )(),
 ///     );
 ///   },
-///   FunctionComponentConfig(displayName: 'UseLayoutEffectExample'),
+///   $UseLayoutEffectExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -413,10 +429,11 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 /// }
 ///
 /// UiFactory<FancyInputProps> FancyInput =
-/// forwardRef<FancyInputProps>((props, ref) {
+///     forwardRef<FancyInputProps>((props, ref) {
 ///   return (_FancyInput()
 ///     ..forwardedRef = ref
-///     ..addProps(props))();
+///     ..addProps(props)
+///   )();
 /// })(_FancyInput);
 ///
 /// UiFactory<FancyInputProps> _FancyInput = uiFunction(
@@ -435,12 +452,13 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 ///     return (Dom.input()
 ///       ..ref = inputRef
 ///       ..value = props.value
-///       ..onChange = (e) => props.updater(e.target.value))();
+///       ..onChange = (e) => props.updater(e.target.value)
+///     )();
 ///   },
 ///   $_FancyInputConfig, // ignore: undefined_identifier
 /// );
 ///
-/// UiFactory<UiProps> UseImperativeHandleExample = uiFunction(
+/// UiFactory<UseImperativeHandleExampleProps> UseImperativeHandleExample = uiFunction(
 ///   (props) {
 ///     final inputValue = useState('');
 ///     final fancyInputRef = useRef<FancyInputApi>();
@@ -449,12 +467,14 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 ///       (FancyInput()
 ///         ..ref = fancyInputRef
 ///         ..value = inputValue.value
-///         ..updater = inputValue.set)(),
+///         ..updater = inputValue.set
+///       )(),
 ///       (Dom.button()
-///         ..onClick = (_) => fancyInputRef.current.focus())('Focus Input'),
+///         ..onClick = (_) => fancyInputRef.current.focus()
+///       )('Focus Input'),
 ///     );
 ///   },
-///   FunctionComponentConfig(displayName: 'UseImperativeHandleExample'),
+///   $UseImperativeHandleExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -515,19 +535,20 @@ void useImperativeHandle(Ref ref, dynamic Function() createHandle, [List<dynamic
 ///     final isOnline = useFriendStatus(props.friend['id']);
 ///
 ///     return (Dom.li()..style = {'color': isOnline.value ? 'green' : 'black'})(
-///         props.friend['name']);
+///       props.friend['name'],
+///     );
 ///   },
-///   $FriendListItemConfig,
+///   $FriendListItemConfig, // ignore: undefined_identifier
 /// );
 ///
-/// final UseDebugValueExample = uiFunction<UiProps>(
+/// final UseDebugValueExample = uiFunction<UseDebugValueExampleProps>(
 ///   (props) => Fragment()(
 ///     (FriendListItem()..friend = {'id': 1, 'name': 'user 1'})(),
 ///     (FriendListItem()..friend = {'id': 2, 'name': 'user 2'})(),
 ///     (FriendListItem()..friend = {'id': 3, 'name': 'user 3'})(),
 ///     (FriendListItem()..friend = {'id': 4, 'name': 'user 4'})(),
 ///   ),
-///   FunctionComponentConfig(displayName: 'UseDebugValueExample'),
+///   $UseDebugValueExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
