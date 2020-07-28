@@ -19,61 +19,52 @@ part 'use_context_example.over_react.g.dart';
 
 mixin UseContextExampleProps on UiProps {}
 
-Context countContext = createContext(0);
-
 final UseContextExample = uiFunction<UseContextExampleProps>(
   (props) {
-    final count = useContext(countContext);
-
+    final context = useContext(TestNewContext);
     return Dom.div()(
-      Dom.div()(
-        'The count from context is $count',
-      ), // initially renders: 'The count from context is 0'
+      Dom.div()('useContext counter value is ${context['renderCount']}'),
     );
   },
   $UseContextExampleConfig, // ignore: undefined_identifier
 );
 
-//final UseContextTest = uiFunction<UiProps>((props) {
-//  final context = useContext(TestNewContext);
-//  return Dom.div()(
-//    Dom.div()('useContext counter value is ${context['renderCount']}'),
-//  );
-//}, FunctionComponentConfig(displayName: 'UseContextTest'));
-//
-//int calculateChangedBits(currentValue, nextValue) {
-//  int result = 1 << 1;
-//  if (nextValue['renderCount'] % 2 == 0) {
-//    result |= 1 << 2;
-//  }
-//  return result;
-//}
-//
-//var TestNewContext =
-//    createContext<Map>({'renderCount': 0}, calculateChangedBits);
-//
-//final NewContextProvider = uiFunction<UiProps>(
-//  (props) {
-//    final renderCount = useState(0);
-//    final complexMap = useState(false);
-//
-//    _onButtonClick(event) {
-//      renderCount.setWithUpdater((oldValue) => oldValue + 1);
-//      complexMap.set(false);
-//    }
-//
-//    final provideMap = {'renderCount': renderCount.value};
-//
-//    return (Dom.div()..style = {'marginTop': 20})(
-//      (Dom.button()
-//        ..className = 'btn btn-primary'
-//        ..onClick = _onButtonClick)('Redraw'),
-//      Dom.br()(),
-//      'TestContext.Provider props.value: $provideMap',
-//      Dom.br()(),
-//      Dom.br()(),
-//      (TestNewContext.Provider()..value = provideMap)(props.children),
-//    );
-//  },
-//  FunctionComponentConfig(displayName: '_NewContextProvider'),
-//);
+int calculateChangedBits(currentValue, nextValue) {
+  int result = 1 << 1;
+  if (nextValue['renderCount'] % 2 == 0) {
+    result |= 1 << 2;
+  }
+  return result;
+}
+
+var TestNewContext =
+    createContext<Map>({'renderCount': 0}, calculateChangedBits);
+
+mixin NewContextProviderProps on UiProps {}
+
+final NewContextProvider = uiFunction<NewContextProviderProps>(
+  (props) {
+    final renderCount = useState(0);
+    final complexMap = useState(false);
+
+    _onButtonClick(event) {
+      renderCount.setWithUpdater((oldValue) => oldValue + 1);
+      complexMap.set(false);
+    }
+
+    final provideMap = {'renderCount': renderCount.value};
+
+    return (Dom.div()..style = {'marginTop': 20})(
+      (Dom.button()
+        ..className = 'btn btn-primary'
+        ..onClick = _onButtonClick
+      )('Redraw'),
+      Dom.br()(),
+      'TestContext.Provider props.value: $provideMap',
+      Dom.br()(),
+      Dom.br()(),
+      (TestNewContext.Provider()..value = provideMap)(props.children),
+    );
+  },
+  $NewContextProviderConfig, // ignore: undefined_identifier
+);

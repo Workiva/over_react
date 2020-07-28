@@ -40,7 +40,9 @@ void main() {
           Dom.h2()('useCallback Hook Example'),
           UseCallbackExample()(),
           Dom.h2()('useContext Hook Example'),
-          UseContextExample()(),
+          NewContextProvider()(
+            UseContextExample()(),
+          ),
           Dom.h2()('useRef Hook Example'),
           UseRefExample()(),
           Dom.h2()('useMemo Hook Example'),
