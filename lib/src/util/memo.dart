@@ -27,14 +27,17 @@ import 'package:over_react/component_base.dart';
 /// `memo` for a performance boost in some cases by memoizing the result. This means that React will skip
 /// rendering the component, and reuse the last rendered result.
 ///
-/// > __NOTE:__ This should only be used to wrap function components. It is redundant for connected function components.
+/// > __NOTE:__ This should only be used to wrap function components.
 ///
 /// ```dart
-/// import 'package:react/react.dart' as react;
+/// import 'package:over_react/over_react.dart' as react;
 ///
-/// final MyComponent = react.memo((props) {
-///   /* render using props */
-/// });
+/// UiFactory<UiProps> MemoExample = memo<UiProps>(uiFunction(
+///   (props) {
+///     // render using props
+///   },
+///   FunctionComponentConfig(),
+/// ));
 /// ```
 ///
 /// `memo` only affects props changes. If your function component wrapped in `memo` has a
@@ -45,11 +48,14 @@ import 'package:over_react/component_base.dart';
 /// function to the [areEqual] argument as shown in the example below.
 ///
 /// ```dart
-/// import 'package:react/react.dart' as react;
+/// import 'package:over_react/over_react.dart' as react;
 ///
-/// final MyComponent = react.memo((props) {
-///   // render using props
-/// }, areEqual: (prevProps, nextProps) {
+/// UiFactory<MemoWithComparisonProps> MemoWithComparison = memo<MemoWithComparisonProps>(uiFunction(
+///   (props) {
+///     // render using props
+///   },
+///   $MemoWithComparisonConfig, // ignore: undefined_identifier
+/// ), areEqual: (prevProps, nextProps) {
 ///   // Do some custom comparison logic to return a bool based on prevProps / nextProps
 /// });
 /// ```
@@ -59,35 +65,30 @@ import 'package:over_react/component_base.dart';
 /// > Do not rely on it to “prevent” a render, as this can lead to bugs.
 ///
 /// See: <https://reactjs.org/docs/react-api.html#reactmemo>.
-
-UiFactory<TProps> Function(UiFactory<TProps>) memo<TProps extends UiProps>(
-    dynamic Function(TProps props) wrapperFunction,
+UiFactory<TProps> memo<TProps extends UiProps>(UiFactory<TProps> factory,
     {bool Function(TProps prevProps, TProps nextProps) areEqual,
     String displayName}) {
-  UiFactory<TProps> wrapWithMemo(UiFactory<TProps> factory) {
-    enforceMinimumComponentVersionFor(factory().componentFactory);
+  enforceFunctionComponent(factory().componentFactory);
 
-    Object wrapProps(Map props) {
-      return wrapperFunction(factory(props));
+  ReactComponentFactoryProxy hoc;
+  if (areEqual != null) {
+    bool wrapProps(Map prevProps, Map nextProps) {
+      final tPrevProps = factory(prevProps);
+      final tNextProps = factory(nextProps);
+      return areEqual(tPrevProps, tNextProps);
     }
 
-    ReactComponentFactoryProxy hoc;
-    if (displayName != null) {
-      hoc = react_interop.memo(wrapProps,
-          areEqual: areEqual, displayName: displayName);
-    } else {
-      hoc = react_interop.memo(wrapProps, areEqual: areEqual);
-    }
-
-    setComponentTypeMeta(hoc,
-        isHoc: true, parentType: factory().componentFactory);
-
-    TProps forwardedFactory([Map props]) {
-      return factory(props)..componentFactory = hoc;
-    }
-
-    return forwardedFactory;
+    hoc = react_interop.memo(factory().componentFactory, areEqual: wrapProps);
+  } else {
+    hoc = react_interop.memo(factory().componentFactory);
   }
 
-  return wrapWithMemo;
+  setComponentTypeMeta(hoc,
+      isHoc: true, parentType: factory().componentFactory);
+
+  TProps forwardedFactory([Map props]) {
+    return factory(props)..componentFactory = hoc;
+  }
+
+  return forwardedFactory;
 }
