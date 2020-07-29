@@ -114,6 +114,20 @@ Union<BoilerplateProps, BoilerplatePropsMixin> getPropsFor(
       getRelatedName(member).mapIfNotNull((name) => _getNameMatchUnion(props, propsMixins, name));
 }
 
+Union<BoilerplateProps, BoilerplatePropsMixin> getPropsForFunctionComponent(
+    Iterable<BoilerplateProps> props,
+    Iterable<BoilerplatePropsMixin> mixins,
+    BoilerplateFactory factory) {
+  final name = factory.propsGenericArg.typeNameWithoutPrefix;
+  final a = props.firstWhere((member) => member.name.name == name, orElse: () => null);
+  if (a != null) return Union.a(a);
+
+  final b = mixins.firstWhere((member) => member.name.name == name, orElse: () => null);
+  if (b != null) return Union.b(b);
+
+  return null;
+}
+
 /// Retrieves the props for a given [member] if it is found in [states] or [stateMixins].
 ///
 /// This is done purely off of matching the name of the member class against the props

@@ -221,6 +221,27 @@ const mockComponentDeclarations = r'''
   mixin AVeryRandomNameForState on UiState {}
 
   class IsThisEvenAComponentNameComponent extends UiStatefulComponent<HowAboutARandomNameForProps, AVeryRandomNameForState>{}
+  
+  // -------------------------- Version.v4_mixinBased --------------------------
+  // Function components
+  UiFactory<FunctionFoo2Props> FunctionFoo = uiFunction(
+    (props) => Dom.div()(),
+    $FunctionFooConfig, // ignore: undefined_identifier
+  );
+  
+  final FunctionFoo1 = uiFunction<FunctionFoo2Props>(
+    (props) => Dom.div()(),
+    $FunctionFoo1Config, // ignore: undefined_identifier
+  );
+  
+  UiFactory<_$FunctionFooProps> FunctionFoo2 = uiFunction(
+    (props) => Dom.div()(),
+    $FunctionFoo2Config, // ignore: undefined_identifier
+  );
+  
+  mixin _$FunctionFooProps on UiProps {}
+  
+  mixin FunctionFoo2Props on UiProps {}
 ''';
 
 /// Utility class that holds boilerplate members that can be accessed during testing.

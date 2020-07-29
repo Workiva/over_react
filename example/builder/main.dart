@@ -22,6 +22,7 @@ import './src/basic.dart';
 import './src/basic_library.dart';
 import './src/generic_inheritance_sub.dart';
 import './src/generic_inheritance_super.dart';
+import './src/function_component.dart' as function;
 
 main() {
   setClientConfiguration();
@@ -52,6 +53,8 @@ main() {
           ..subProp = 'sub prop part of lib'
           ..superProp = 'super prop part of lib'
         )(),
+        Dom.h3()('Function component:'),
+        function.functionComponentContent(),
         Dom.h3()('getDefaultProps via component factories'),
         componentConstructorsByName.keys.map((name) => Dom.div()(
           'new $name()',

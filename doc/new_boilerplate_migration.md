@@ -702,7 +702,7 @@ Most code within over_react has been updated to use this new boilerplate, includ
 - The Redux sample todo app under [`app/over_react_redux/todo_client/`](../app/over_react_redux/todo_client)
 
 
-## Function Component Boilerplate _(coming soon)_
+## Function Component Boilerplate
 
 ### Function Component Constraints 
 
@@ -727,11 +727,11 @@ import 'package:over_react/over_react.dart';
 
 part 'foo.over_react.g.dart';
 
-UiFactory<FooProps> Foo = uiFunctionComponent(
+UiFactory<FooProps> Foo = uiFunction(
   (props) {
     return 'foo: ${props.foo}'; 
   },
-  $fooPropsConfig, // ignore: undefined_identifier
+  $FooConfig, // ignore: undefined_identifier
 ); 
 
 mixin FooProps on UiProps {
@@ -739,10 +739,10 @@ mixin FooProps on UiProps {
 }
 ```
 
-Here, `uiFunctionComponent` gets a generic parameter of `FooProps` inferred 
+Here, `uiFunction` gets a generic parameter of `FooProps` inferred 
 from the LHS typing, allowing props to be statically typed as `FooProps`.
 
-The generated `$FooPropsConfig` is passed in as an argument, and serves 
+The generated `$FooConfig` is passed in as an argument, and serves 
 as the entrypoint to the generated code. 
 
 #### With Default Props
@@ -755,24 +755,37 @@ same behavior as `defaultProps`, but with the restriction that a given prop
 __must either be nullable or have a default value, but not both__.
 
 ```dart
-UiFactory<FooProps> Foo = uiFunctionComponent(
+UiFactory<FooProps> Foo = uiFunction(
   (props) {
     final foo = props.foo ?? 'default foo value';
 
     return 'foo: $foo'; 
   },
-  $fooPropsConfig, // ignore: undefined_identifier
+  $FooConfig, // ignore: undefined_identifier
 ); 
+```
+
+#### With UiProps
+
+```dart
+UiFactory<UiProps> Foo = uiFunction(
+  (props) {
+    return 'id: ${props.id}'; 
+  }, 
+  FunctionComponentConfig(
+    displayName: 'Foo',
+  ),
+);
 ```
 
 #### With propTypes
 
 ```dart
-UiFactory<FooProps> Foo = uiFunctionComponent(
+UiFactory<FooProps> Foo = uiFunction(
   (props) {
     return 'foo: ${props.foo}'; 
   }, 
-  $fooPropsConfig, // ignore: undefined_identifier
+  $FooConfig, // ignore: undefined_identifier
   getPropTypes: (keyFor) => {
     keyFor((p) => p.foo): (props, info) {
       if (props.foo == 'bar') {
@@ -803,18 +816,43 @@ UiFactory<FooProps> createFooHoc(UiFactory otherFactory) {
   Object closureVariable; 
   // ... 
 
-  final FooHoc = uiFunctionComponent<FooProps>(
+  final FooHoc = uiFunction<FooProps>(
     (props) { 
       return otherFactory()( 
         Dom.div()('closureVariable: ${closureVariable}'), 
         Dom.div()('prop foo: ${props.foo}'), 
       );   
     },
-    $fooPropsConfig, // ignore: undefined_identifier 
+    FunctionComponentConfig(
+        displayName: 'FooHoc',
+        propsFactory: PropsFactory.fromUiFactory(Foo),
+    ),
   ); 
 
   return FooHoc; 
 } 
+```
+
+#### With forwardRef
+
+```dart
+mixin FooProps on UiProps {
+  Ref forwardedRef;
+  Function doSomething;
+}
+
+UiFactory<FooProps> Foo = uiForwardRef(
+  (props, ref) {
+    return Fragment()(
+      Dom.div()('Some text.'),
+      (Dom.button()
+        ..ref = ref
+        ..onClick = props.doSomething
+      )('Click me!'),
+    );
+  },
+  $FooConfig, // ignore: undefined_identifier
+);
 ```
 
 ## Upgrading Existing Code

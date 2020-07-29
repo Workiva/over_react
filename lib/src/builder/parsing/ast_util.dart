@@ -41,6 +41,20 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
 
   /// The first variable in this list.
   VariableDeclaration get firstVariable => variables.firstVariable;
+
+  /// Returns whether or not the config argument of `uiFunction` is generated.
+  bool get hasGeneratedConfigArg {
+    return firstInitializer != null &&
+        anyDescendantIdentifiers(firstInitializer, (identifier) {
+          if (identifier.name == 'uiFunction') {
+            final args =
+                identifier.thisOrAncestorOfType<MethodInvocation>()?.argumentList?.arguments;
+            if (args == null || args.length < 2) return false;
+            return args[1].toString().startsWith(RegExp(r'\$'));
+          }
+          return false;
+        });
+  }
 }
 
 /// Extension built on both [TypeNameHelper] and [NameHelper] to allow
@@ -173,10 +187,18 @@ bool anyDescendantIdentifiers(Expression expression, bool Function(Identifier) t
   return visitor.hasMatch;
 }
 
+/// Returns the [Identifier] within [expression] matches the predicate [test].
+SimpleIdentifier getDescendantIdentifier(Expression expression, bool Function(Identifier) test) {
+  final visitor = _AnyDescendantIdentifiersVisitor(test);
+  expression.accept(visitor);
+  return visitor.match;
+}
+
 class _AnyDescendantIdentifiersVisitor extends UnifyingAstVisitor<void> {
   final bool Function(Identifier) _test;
 
   bool hasMatch = false;
+  SimpleIdentifier match;
 
   _AnyDescendantIdentifiersVisitor(this._test);
 
@@ -192,6 +214,7 @@ class _AnyDescendantIdentifiersVisitor extends UnifyingAstVisitor<void> {
   void visitSimpleIdentifier(SimpleIdentifier identifier) {
     if (_test(identifier)) {
       hasMatch = true;
+      match = identifier;
     }
 
     super.visitSimpleIdentifier(identifier);
