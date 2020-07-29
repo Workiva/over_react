@@ -170,7 +170,7 @@ class _BoilerplateMemberDetector {
 
     final rightHandSide = node.variables.firstInitializer;
     if (rightHandSide != null &&
-        anyDescendantIdentifiers(rightHandSide, (identifier) => identifier.name == 'uiFunction')) {
+        anyDescendantIdentifiers(rightHandSide, (identifier) => identifier.isFunctionType)) {
       onFactory(BoilerplateFactory(
           node,
           VersionConfidences(

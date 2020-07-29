@@ -98,7 +98,7 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
   var propsFactory = config.propsFactory;
 
   // Get the display name from the inner function if possible so it doesn't become `_uiFunctionWrapper`
-  final displayName = config.displayName ?? _getFunctionName(functionComponent);
+  final displayName = config.displayName ?? getFunctionName(functionComponent);
 
   dynamic _uiFunctionWrapper(JsBackedMap props) {
     return functionComponent(propsFactory.jsMap(props));
@@ -110,12 +110,12 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
   );
 
   if (propsFactory == null) {
-    if (TProps != UiProps && TProps != _GenericUiProps) {
+    if (TProps != UiProps && TProps != GenericUiProps) {
       throw ArgumentError(
           'config.propsFactory must be provided when using custom props classes');
     }
     propsFactory = PropsFactory.fromUiFactory(
-            ([backingMap]) => _GenericUiProps(factory, backingMap))
+            ([backingMap]) => GenericUiProps(factory, backingMap))
         as PropsFactory<TProps>;
   }
 
@@ -135,16 +135,16 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
   return _uiFactory;
 }
 
-String _getFunctionName(Function function) {
+String getFunctionName(Function function) {
   return getProperty(function, 'name') ??
       getProperty(function, '\$static_name');
 }
 
-class _GenericUiProps extends UiProps {
+class GenericUiProps extends UiProps {
   @override
   final Map props;
 
-  _GenericUiProps(ReactComponentFactoryProxy componentFactory, [Map props])
+  GenericUiProps(ReactComponentFactoryProxy componentFactory, [Map props])
       : this.props = props ?? JsBackedMap() {
     this.componentFactory = componentFactory;
   }

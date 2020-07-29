@@ -40,7 +40,7 @@ class BoilerplateFactory extends BoilerplateMember {
 
     if (isFunctionComponentFactory) {
       final uiFunctionInvocation = getDescendantIdentifier(
-          node.variables.firstInitializer, (identifier) => identifier.name == 'uiFunction');
+          node.variables.firstInitializer, (identifier) => identifier.isFunctionType);
       final methodInvocation = uiFunctionInvocation.thisOrAncestorOfType<MethodInvocation>();
       final typeArgs = methodInvocation?.typeArguments?.arguments?.first;
       return typeArgs;
@@ -56,7 +56,7 @@ class BoilerplateFactory extends BoilerplateMember {
   bool get isFunctionComponentFactory =>
       node.variables.firstInitializer != null &&
       anyDescendantIdentifiers(
-          node.variables.firstInitializer, (identifier) => identifier.name == 'uiFunction');
+          node.variables.firstInitializer, (identifier) => identifier.isFunctionType);
 
   /// Verifies the correct implementation of a boilerplate factory
   ///

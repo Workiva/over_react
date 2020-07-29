@@ -46,7 +46,7 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
   bool get hasGeneratedConfigArg {
     return firstInitializer != null &&
         anyDescendantIdentifiers(firstInitializer, (identifier) {
-          if (identifier.name == 'uiFunction') {
+          if (identifier.isFunctionType) {
             final args =
                 identifier.thisOrAncestorOfType<MethodInvocation>()?.argumentList?.arguments;
             if (args == null || args.length < 2) return false;
@@ -79,6 +79,8 @@ extension NameHelper on Identifier {
     final self = this;
     return self is PrefixedIdentifier ? self.identifier.name : self.name;
   }
+
+  bool get isFunctionType => ['uiFunction', 'uiForwardRef'].contains(this.name);
 }
 
 /// Utilities related to detecting a super class on a [MixinDeclaration]
