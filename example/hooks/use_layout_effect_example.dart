@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:html';
+
 import 'package:over_react/over_react.dart';
 
 // ignore_for_file: uri_has_not_been_generated
@@ -24,7 +26,7 @@ UiFactory<UseLayoutEffectProps> UseLayoutEffectExample = uiFunction(
     final width = useState(0);
     final height = useState(0);
 
-    final textareaRef = useRef<TextareaElement>();
+    final textareaRef = useRef<TextAreaElement>();
 
     useLayoutEffect(() {
       width.set(textareaRef.current.clientWidth);
