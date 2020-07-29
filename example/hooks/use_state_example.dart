@@ -26,10 +26,10 @@ UiFactory<UseStateExampleProps> UseStateExample = uiFunction(
 
     useEffect(() {
       if (count.value % 2 == 0) {
-        print('count changed to ' + count.value.toString());
+        print('count changed to ${count.value}');
         evenOdd.set('even');
       } else {
-        print('count changed to ' + count.value.toString());
+        print('count changed to ${count.value}');
         evenOdd.set('odd');
       }
       return () {
