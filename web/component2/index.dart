@@ -22,6 +22,7 @@ import 'src/demos.dart';
 
 void main() {
   setClientConfiguration();
+  final fancyButtonNodeRef = createRef<Element>();
 
   react_dom.render(
     buttonExamplesDemo(), querySelector('$demoMountNodeSelectorPrefix--button'));
@@ -40,6 +41,18 @@ void main() {
 
   react_dom.render(
     radioToggleButtonDemo(), querySelector('$demoMountNodeSelectorPrefix--radio-toggle'));
+
+  react_dom.render(
+    (LogProps()
+      ..builder = FancyButton
+      ..className = 'btn btn-primary'
+      ..ref = fancyButtonNodeRef
+      ..onClick = (_) {
+        print(fancyButtonNodeRef.current.outerHtml);
+      }
+    )(),
+    querySelector('$demoMountNodeSelectorPrefix--forwardRef'),
+  );
 
   react_dom.render(
     (v2.ErrorBoundary()
