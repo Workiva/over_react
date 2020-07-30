@@ -80,7 +80,6 @@ Ref<T> createRef<T>() {
 /// // ---------- Component Consumption ----------
 ///
 /// void main() {
-///   setClientConfiguration();
 ///   final ref = createRef<Element>();
 ///
 ///   react_dom.render(
@@ -137,7 +136,6 @@ Ref<T> createRef<T>() {
 ///   Ref _forwardedRef;
 /// }
 ///
-/// @Component2()
 /// class LogPropsComponent extends UiComponent2<LogPropsProps> {
 ///   @override
 ///   void componentDidUpdate(Map prevProps, _, [__]) {
@@ -221,54 +219,233 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 /// > __NOTE:__ This should only be used to wrap components that extend from `Component2`
 /// > or components using the function syntax.
 ///
-/// __Example__:
+/// __Example 1:__ Forwarding refs to DOM components
 ///
-///     mixin FooProps on UiProps {
-///       Ref forwardedRef;
-///     }
+/// ```dart
+/// import 'dart:html';
+/// import 'package:over_react/over_react.dart';
+/// import 'package:over_react/react_dom.dart' as react_dom;
 ///
-///     final FunctionComponentSyntax = uiForwardRef<FooProps>((props, ref) {
-///         return (Dom.button()
-///           ..ref = ref
-///         )('Click this button');
-///       },
-///       $FunctionSyntaxConfig, // ignore: undefined_identifier
-///     );
+/// // ---------- Component Definition ----------
 ///
-/// ___ OR ___
+/// final FancyButton = uiForwardRef<DomProps>((props, ref) {
+///     final classes = ClassNameBuilder.fromProps(props)..add('FancyButton');
 ///
-///     final DomComponentForwarded = uiForwardRef<DomProps>((props, ref) {
-///       return (Dom.div()
+///     return (Dom.button()
+///       ..addProps(getPropsToForward(props, onlyCopyDomProps: true))
+///       ..className = classes.toClassName()
+///       ..ref = ref
+///     )('Click me!');
+///   },
+///   Dom.button.asForwardRefConfig<DomProps>(displayName: 'FancyButton'),
+/// );
+///
+/// // ---------- Component Consumption ----------
+///
+/// void main() {
+///   final ref = createRef<Element>();
+///
+///   react_dom.render(
+///       (FancyButton()
 ///         ..ref = ref
-///         ..className = 'special-class'
-///       )(
-///         props.children
-///       );
-///     })(Dom.div);
+///         ..onClick = (_) {
+///           print(ref.current.outerHtml);
+///         }
+///       )(),
+///       querySelector('#idOfSomeNodeInTheDom')
+///   );
 ///
-/// ___ OR ___
+///   // You can still get a ref directly to the DOM button:
+///   final buttonNode = ref.current;
+/// }
+/// ```
 ///
-///     final FooForwarded = uiForwardRef<FooProps>((props, ref) {
-///       return (Foo()
-///         ..forwardedRef = ref
-///       )();
-///     })(Foo);
+/// __Example 2:__ Forwarding refs in higher-order (non-function) components
 ///
-///     UiFactory<FooProps> Foo = _$Foo;
+/// ```dart
+/// import 'dart:html';
+/// import 'package:over_react/over_react.dart';
+/// import 'package:over_react/react_dom.dart' as react_dom;
 ///
-///     mixin FooProps on UiProps {
-///       Ref forwardedRef;
-///     }
+/// // ---------- Component Definitions ----------
 ///
-///     @Component2()
-///     class FooComponent extends UiComponent2<FooProps> {
-///       @override
-///       render() {
-///         return (Dom.button()
-///           ..ref = props.forwardedRef
-///         )('Click this button');
+/// final FancyButton = uiForwardRef<DomProps>((props, ref) {
+///     final classes = ClassNameBuilder.fromProps(props)..add('FancyButton');
+///
+///     return (Dom.button()
+///       ..addProps(getPropsToForward(props, onlyCopyDomProps: true))
+///       ..className = classes.toClassName()
+///       ..ref = ref
+///     )('Click me!');
+///   },
+///   Dom.button.asForwardRefConfig<DomProps>(displayName: 'FancyButton'),
+/// );
+///
+/// // ---------- Wrapping a Class Component ----------
+/// // Here you have two options:
+/// //   - Option 1: Use the class component's UI Factory to construct a function
+/// //   component config. This needs to be done because the builder recognizes
+/// //   `LogPropsProps` as already consumed (by the class component).
+/// //
+/// //   - Option 2: Create a new props class. This just works around the issue
+/// //   described for Option 1 because it is creating a new props class, but it
+/// //   only needs to mixin in the props mixins that the original props class used.
+/// //
+/// // Choosing between the options is likely circumstantial or at least preferential
+/// // if all else is the same. The advantage to Option 1 is that if the class component
+/// // has numerous mixins, it is much more concise to create the function component
+/// // config. Option 2 has the benefit that it matches the declaration of standard
+/// // function components (which `uiForwardRef` returns). Additionally, Option 2
+/// // illustrates how one could add additional props to the wrapping function component.
+///
+/// // Option 1 Example
+/// final LogsPropsComponent = uiForwardRef<LogPropsProps>((props, ref) {
+///     return (_LogProps()
+///       ..addProps(props)
+///       .._forwardedRef = ref)();
+///   },
+///   _LogProps.asForwardRefConfig<LogPropsProps>(displayName: 'LogsProps'),
+/// );
+///
+/// // Option 2 Example:
+///
+/// // This is not necessary but is just in place to illustrate that more props
+/// // can be specified and consumed.
+/// mixin AnotherPropsMixin on UiProps {
+///   String anExampleAdditionalProp;
+/// }
+///
+/// class LogsPropsComponent2Props = UiProps with AnotherPropsMixin, LogPropsProps;
+///
+/// final LogsPropsComponent2 = uiForwardRef<LogsPropsComponent2Props>((props, ref) {
+///     useEffect(() {
+///       print(props.anExampleAdditionalProp);
+///     });
+///
+///     return (_LogProps()
+///       ..addProps(props)
+///       .._forwardedRef = ref)();
+///   },
+///   $LogsPropsComponent2Config
+/// );
+///
+/// UiFactory<LogPropsProps> _LogProps = _$_LogProps;
+///
+/// mixin LogPropsProps on UiProps {
+///   BuilderOnlyUiFactory<DomProps> builder;
+///
+///   // Private since we only use this to pass along the value of `ref` to
+///   // the return value of forwardRef.
+///   //
+///   // Consumers can set this private field value using the public `ref` setter.
+///   Ref _forwardedRef;
+/// }
+///
+/// class LogPropsComponent extends UiComponent2<LogPropsProps> {
+///   @override
+///   void componentDidUpdate(Map prevProps, _, [__]) {
+///     print('old props: $prevProps');
+///     print('new props: $props');
+///   }
+///
+///   @override
+///   render() {
+///     return (props.builder()
+///       ..modifyProps(addUnconsumedDomProps)
+///       ..ref = props._forwardedRef
+///     )(props.children);
+///   }
+/// }
+///
+/// // ---------- Component Consumption ----------
+///
+/// void main() {
+///   final ref = createRef<Element>();
+///
+///   react_dom.render(
+///       (LogProps()
+///         ..builder = FancyButton
+///         ..className = 'btn btn-primary'
+///         ..ref = ref
+///         ..onClick = (_) {
+///           print(ref.current.outerHtml);
+///         }
+///       )(),
+///       querySelector('#idOfSomeNodeInTheDom')
+///   );
+///
+///   // You can still get a ref directly to the DOM button:
+///   final buttonNode = ref.current;
+/// }
+/// ```
+///
+/// __Example 3:__ Forwarding refs in higher-order (all function) components
+///
+/// ```dart
+/// import 'dart:html';
+/// import 'package:over_react/over_react.dart';
+/// import 'package:over_react/react_dom.dart' as react_dom;
+/// import 'package:react/hooks.dart';
+///
+/// // ---------- Component Definitions ----------
+///
+/// final FancyButton = uiForwardRef<DomProps>((props, ref) {
+///     final classes = ClassNameBuilder.fromProps(props)..add('FancyButton');
+///
+///     return (Dom.button()
+///       ..addProps(getPropsToForward(props, onlyCopyDomProps: true))
+///       ..className = classes.toClassName()
+///       ..ref = ref
+///     )('Click me!');
+///   },
+///   Dom.button.asForwardRefConfig<DomProps>(displayName: 'FancyButton'),
+/// );
+///
+/// mixin LogPropsProps on UiProps {
+///   BuilderOnlyUiFactory<DomProps> builder;
+/// }
+///
+/// final LogProps = uiForwardRef<LogPropsProps>(
+///   (props, ref) {
+///     final prevPropsRef = useRef<LogPropsProps>(null);
+///
+///     useEffect(() {
+///       if (prevPropsRef.current != null) {
+///         print('old props: ${prevPropsRef.current}');
+///         print('new props: $props');
 ///       }
-///     }
+///
+///       prevPropsRef.current = props;
+///     });
+///
+///     return ((props.builder()
+///       ..addProps(getPropsToForward(props, onlyCopyDomProps: true))
+///       ..ref = ref)(props.children));
+///   },
+///   $LogPropsConfig, // ignore: undefined_identifier
+/// );
+///
+/// // ---------- Component Consumption ----------
+///
+/// void main() {
+///   final ref = createRef<Element>();
+///
+///   react_dom.render(
+///       (LogProps()
+///         ..builder = FancyButton
+///         ..className = 'btn btn-primary'
+///         ..ref = ref
+///         ..onClick = (_) {
+///           print(ref.current.outerHtml);
+///         }
+///       )(),
+///       querySelector('#idOfSomeNodeInTheDom')
+///   );
+///
+///   // You can still get a ref directly to the DOM button:
+///   final buttonNode = ref.current;
+/// }
+/// ```
 ///
 /// Learn more: <https://reactjs.org/docs/forwarding-refs.html>.
 UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
@@ -288,9 +465,8 @@ UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
 
   ReactJsComponentFactoryProxy factory;
 
-  // It's not expected that `displayName` should ever be null, but if it is ever null and get's passed to `forwardRef`
-  // the name of the component becomes ' ' (an empty string). To protect against this ever happening, this check is in
-  // place so the name falls back to 'Anonymous'.
+  // If a consumer uses `asForwardRefConfig` to generate the function component
+  // config, displayName could be `null`.
   if (displayName != null) {
     factory = react_interop.forwardRef(_uiFunctionWrapper, displayName: displayName);
   } else {

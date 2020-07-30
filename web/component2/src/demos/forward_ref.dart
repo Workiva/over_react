@@ -1,6 +1,7 @@
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
+import 'package:react/hooks.dart';
 
 // ignore: uri_has_not_been_generated
 part 'forward_ref.over_react.g.dart';
@@ -8,20 +9,23 @@ part 'forward_ref.over_react.g.dart';
 // ------------ `uiForwardRef` with a function component (simple) ------------
 mixin UiForwardRefLogsFunctionComponentProps on UiProps {
   BuilderOnlyUiFactory<DomProps> builder;
-
-  // Private since we only use this to pass along the value of `ref` to
-  // the return value of forwardRef.
-  //
-  // Consumers can set this private field value using the public `ref` setter.
-  Ref _forwardedRef;
 }
 
 final UiForwardRefLogsFunctionComponent = uiForwardRef<UiForwardRefLogsFunctionComponentProps>(
   (props, ref) {
+    final prevPropsRef = useRef<UiForwardRefLogsFunctionComponentProps>(null);
+
+    useEffect(() {
+      if (prevPropsRef.current != null) {
+        print(prevPropsRef.current);
+        print(props);
+      }
+
+      prevPropsRef.current = props;
+    });
+
     return ((props.builder()
-      ..id = props.id
-      ..className = props.className
-      ..onClick = props.onClick
+      ..addProps(getPropsToForward(props, onlyCopyDomProps: true))
       ..ref = ref)(props.children));
   },
   $UiForwardRefLogsFunctionComponentConfig, // ignore: undefined_identifier
@@ -40,12 +44,21 @@ class UiForwardRefLogsPropsComplexFunctionComponentProps = UiProps
 final UiForwardRefLogsPropsComplexFunctionComponent =
     uiForwardRef<UiForwardRefLogsPropsComplexFunctionComponentProps>(
   (props, ref) {
+    final prevPropsRef = useRef<UiForwardRefLogsPropsComplexFunctionComponentProps>(null);
+
+    useEffect(() {
+      if (prevPropsRef.current != null) {
+        print(prevPropsRef.current);
+        print(props);
+      }
+
+      prevPropsRef.current = props;
+    });
+
     return (Fragment()(
       Dom.div()(props.buttonDescription),
       (props.builder()
-        ..id = props.id
-        ..className = props.className
-        ..onClick = props.onClick
+        ..addProps(getPropsToForward(props, onlyCopyDomProps: true))
         ..ref = ref)(props.children),
     ));
   },
@@ -55,12 +68,11 @@ final UiForwardRefLogsPropsComplexFunctionComponent =
 // ------------ `uiForwardRef` with a class component (simple) ------------
 final UiForwardRefLogsPropsComponent = uiForwardRef<LogPropsProps>(
   (props, ref) {
-    return (_LogsPropsFunctionComponent()
+    return (_LogProps()
       ..addProps(props)
       .._forwardedRef = ref)();
   },
-  FunctionComponentConfig(
-      propsFactory: PropsFactory.fromUiFactory(_LogsPropsFunctionComponent), displayName: null),
+  _LogProps.asForwardRefConfig<LogPropsProps>(displayName: 'UiForwardRefLogsProps'),
 );
 
 // ------------ `uiForwardRef` with a class component (complex) ------------
@@ -76,7 +88,7 @@ final UiForwardRefLogsPropsComplexComponent =
   (props, ref) {
     return Fragment()(
       Dom.div()(props.buttonDescription),
-      (_LogsPropsFunctionComponent()
+      (_LogProps()
         ..addProps(props)
         .._forwardedRef = ref)(),
     );
@@ -96,6 +108,9 @@ UiFactory<LogPropsProps> _LogProps = _$_LogProps;
 mixin LogPropsProps on UiProps {
   BuilderOnlyUiFactory<DomProps> builder;
 
+  // A simple prop to change in order to trigger the print.
+  bool thisWasClickedLast;
+
   // Private since we only use this to pass along the value of `ref` to
   // the return value of forwardRef.
   //
@@ -112,9 +127,11 @@ class LogPropsComponent extends UiComponent2<LogPropsProps> {
 
   @override
   render() {
-    return (props.builder()
-      ..modifyProps(addUnconsumedDomProps)
-      ..ref = props._forwardedRef)(props.children);
+    return Dom.div()(
+        Dom.p()('This was the last button clicked: ${props.thisWasClickedLast}'),
+        (props.builder()
+          ..modifyProps(addUnconsumedDomProps)
+          ..ref = props._forwardedRef)(props.children));
   }
 }
 
@@ -129,10 +146,19 @@ class _LogsPropsFunctionComponentProps = UiProps with LogPropsProps;
 
 final _LogsPropsFunctionComponent = uiFunction<_LogsPropsFunctionComponentProps>(
   (props) {
+    final prevPropsRef = useRef<_LogsPropsFunctionComponentProps>(null);
+
+    useEffect(() {
+      if (prevPropsRef.current != null) {
+        print(prevPropsRef.current);
+        print(props);
+      }
+
+      prevPropsRef.current = props;
+    });
+
     return ((props.builder()
-      ..id = props.id
-      ..className = props.className
-      ..onClick = props.onClick
+      ..addProps(getPropsToForward(props, onlyCopyDomProps: true))
       ..ref = props._forwardedRef)(props.children));
   },
   $_LogsPropsFunctionComponentConfig, // ignore: undefined_identifier
@@ -148,7 +174,7 @@ final FancyButton = uiForwardRef<DomProps>(
       ..className = classes.toClassName()
       ..ref = ref)('Click me!');
   },
-  FunctionComponentConfig(propsFactory: PropsFactory.fromUiFactory(Dom.button), displayName: null),
+  Dom.button.asForwardRefConfig<DomProps>(displayName: 'FancyButton'),
 );
 
 mixin RefDemoProps on UiProps {}
@@ -164,6 +190,8 @@ final RefDemoContainer = uiFunction<RefDemoProps>(
     // `forwardRef` Refs
     final fancyButtonNodeRef = createRef<Element>();
     final fancyFunctionalButtonNodeRef = createRef<Element>();
+
+    final lastClickedRef = useState<Ref>(null);
 
     return ((Dom.div()..style = {'padding': 10})(
       (RefDemoSection()..sectionTitle = 'uiForwardRef Demos')(
@@ -219,6 +247,7 @@ final RefDemoContainer = uiFunction<RefDemoProps>(
             ..ref = fancyButtonNodeRef
             ..onClick = (_) {
               print(fancyButtonNodeRef.current.outerHtml);
+              lastClickedRef.set(fancyButtonNodeRef);
             })(),
         ),
         (RefDemoHoc()..demoTitle = '`uiForwardRef` with function component')(
@@ -229,6 +258,7 @@ final RefDemoContainer = uiFunction<RefDemoProps>(
             ..ref = fancyFunctionalButtonNodeRef
             ..onClick = (_) {
               print(fancyFunctionalButtonNodeRef.current.outerHtml);
+              lastClickedRef.set(fancyFunctionalButtonNodeRef);
             })(),
         ),
       ),

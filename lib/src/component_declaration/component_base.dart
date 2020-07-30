@@ -20,6 +20,8 @@ import 'dart:collection';
 import 'package:meta/meta.dart';
 import 'package:over_react/src/component/dummy_component.dart';
 import 'package:over_react/src/component/prop_mixins.dart';
+import 'package:over_react/src/component_declaration/builder_helpers.dart' as bh;
+import 'package:over_react/src/component_declaration/function_component.dart';
 import 'package:over_react/src/util/class_names.dart';
 import 'package:over_react/src/util/map_util.dart';
 import 'package:over_react/src/util/pretty_print.dart';
@@ -90,6 +92,10 @@ ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentC
 /// For use in wrapping existing Maps in typed getters and setters, and for creating React components
 /// via a fluent-style builder interface.
 typedef TProps UiFactory<TProps extends UiProps>([Map backingProps]);
+
+extension UiFactoryHelpers on UiFactory {
+  FunctionComponentConfig<TProps> asForwardRefConfig<TProps extends bh.UiProps>({String displayName}) => FunctionComponentConfig(propsFactory: PropsFactory.fromUiFactory(this), displayName: displayName);
+}
 
 /// A utility variation on [UiFactory], __without__ a `backingProps` parameter.
 ///

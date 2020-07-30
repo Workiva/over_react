@@ -159,35 +159,18 @@ mixin $UiForwardRefLogsFunctionComponentProps
   @override
   set builder(BuilderOnlyUiFactory<DomProps> value) =>
       props[_$key__builder__UiForwardRefLogsFunctionComponentProps] = value;
-  @override
-  Ref get _forwardedRef =>
-      props[_$key___forwardedRef__UiForwardRefLogsFunctionComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  @override
-  set _forwardedRef(Ref value) =>
-      props[_$key___forwardedRef__UiForwardRefLogsFunctionComponentProps] =
-          value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__builder__UiForwardRefLogsFunctionComponentProps =
       PropDescriptor(_$key__builder__UiForwardRefLogsFunctionComponentProps);
-  static const PropDescriptor
-      _$prop___forwardedRef__UiForwardRefLogsFunctionComponentProps =
-      PropDescriptor(
-          _$key___forwardedRef__UiForwardRefLogsFunctionComponentProps);
   static const String _$key__builder__UiForwardRefLogsFunctionComponentProps =
       'UiForwardRefLogsFunctionComponentProps.builder';
-  static const String
-      _$key___forwardedRef__UiForwardRefLogsFunctionComponentProps =
-      'UiForwardRefLogsFunctionComponentProps._forwardedRef';
 
   static const List<PropDescriptor> $props = [
-    _$prop__builder__UiForwardRefLogsFunctionComponentProps,
-    _$prop___forwardedRef__UiForwardRefLogsFunctionComponentProps
+    _$prop__builder__UiForwardRefLogsFunctionComponentProps
   ];
   static const List<String> $propKeys = [
-    _$key__builder__UiForwardRefLogsFunctionComponentProps,
-    _$key___forwardedRef__UiForwardRefLogsFunctionComponentProps
+    _$key__builder__UiForwardRefLogsFunctionComponentProps
   ];
 }
 
@@ -297,6 +280,13 @@ mixin $LogPropsProps on LogPropsProps {
   set builder(BuilderOnlyUiFactory<DomProps> value) =>
       props[_$key__builder__LogPropsProps] = value;
   @override
+  bool get thisWasClickedLast =>
+      props[_$key__thisWasClickedLast__LogPropsProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set thisWasClickedLast(bool value) =>
+      props[_$key__thisWasClickedLast__LogPropsProps] = value;
+  @override
   Ref get _forwardedRef =>
       props[_$key___forwardedRef__LogPropsProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
@@ -306,18 +296,24 @@ mixin $LogPropsProps on LogPropsProps {
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__builder__LogPropsProps =
       PropDescriptor(_$key__builder__LogPropsProps);
+  static const PropDescriptor _$prop__thisWasClickedLast__LogPropsProps =
+      PropDescriptor(_$key__thisWasClickedLast__LogPropsProps);
   static const PropDescriptor _$prop___forwardedRef__LogPropsProps =
       PropDescriptor(_$key___forwardedRef__LogPropsProps);
   static const String _$key__builder__LogPropsProps = 'LogPropsProps.builder';
+  static const String _$key__thisWasClickedLast__LogPropsProps =
+      'LogPropsProps.thisWasClickedLast';
   static const String _$key___forwardedRef__LogPropsProps =
       'LogPropsProps._forwardedRef';
 
   static const List<PropDescriptor> $props = [
     _$prop__builder__LogPropsProps,
+    _$prop__thisWasClickedLast__LogPropsProps,
     _$prop___forwardedRef__LogPropsProps
   ];
   static const List<String> $propKeys = [
     _$key__builder__LogPropsProps,
+    _$key__thisWasClickedLast__LogPropsProps,
     _$key___forwardedRef__LogPropsProps
   ];
 }
