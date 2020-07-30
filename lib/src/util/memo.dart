@@ -41,7 +41,7 @@ import 'package:over_react/component_base.dart';
 /// ```
 ///
 /// `memo` only affects props changes. If your function component wrapped in `memo` has a
-/// [useState] or [useContext] Hook in its implementation, it will still rerender when `state` or `context` change.
+/// `useState` or `useContext` Hook in its implementation, it will still rerender when `state` or `context` change.
 ///
 /// By default it will only shallowly compare complex objects in the props map.
 /// If you want control over the comparison, you can also provide a custom comparison
