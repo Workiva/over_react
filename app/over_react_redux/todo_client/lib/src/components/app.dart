@@ -8,7 +8,7 @@ import 'package:todo_client/src/models/todo.dart';
 import 'package:todo_client/src/models/user.dart';
 import 'package:todo_client/src/components/app_bar/app_bar.dart';
 import 'package:todo_client/src/components/create_input.dart';
-import 'package:todo_client/src/components/shared/material_ui.dart';
+import 'package:react_material_ui/react_material_ui.dart';
 import 'package:todo_client/src/components/todo_list.dart';
 import 'package:todo_client/src/components/user_list.dart';
 

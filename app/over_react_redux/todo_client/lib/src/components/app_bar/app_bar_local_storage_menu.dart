@@ -8,7 +8,7 @@ import 'package:todo_client/src/local_storage.dart';
 import 'package:todo_client/src/store.dart';
 import 'package:todo_client/src/components/app_bar/save_as_menu_item.dart';
 import 'package:todo_client/src/components/app_bar/saved_data_menu_item.dart';
-import 'package:todo_client/src/components/shared/material_ui.dart';
+import 'package:react_material_ui/react_material_ui.dart';
 import 'package:todo_client/src/components/shared/menu_overlay.dart';
 
 part 'app_bar_local_storage_menu.over_react.g.dart';

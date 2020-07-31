@@ -7,7 +7,7 @@ import 'package:todo_client/src/actions.dart';
 import 'package:todo_client/src/models/todo.dart';
 import 'package:todo_client/src/components/shared/list_item_expansion_panel_summary.dart';
 import 'package:todo_client/src/components/shared/list_item_mixin.dart';
-import 'package:todo_client/src/components/shared/material_ui.dart';
+import 'package:react_material_ui/react_material_ui.dart';
 import 'package:todo_client/src/components/shared/redraw_counter_component_mixin.dart';
 import 'package:todo_client/src/components/shared/todo_item_text_field.dart';
 import 'package:todo_client/src/components/user_selector.dart';
@@ -85,7 +85,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
 
   ReactElement _renderTaskCheckbox() {
     return Box({
-      ...shrinkToFitProps,
+      ...shrinkToFit,
       'ml': -2,
       'mr': 1,
       'alignSelf': 'center',
@@ -110,7 +110,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
 
   ReactElement _renderTaskHeader() {
     return Box({
-      ...growProps,
+      ...grow,
       'key': 'taskHeader',
       'mr': 1,
       'alignSelf': 'center',
@@ -140,7 +140,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
 
   ReactElement _renderUserSelector() {
     return Box({
-      ...shrinkToFitProps,
+      ...shrinkToFit,
       'alignSelf': 'center',
     },
       (UserSelector()
@@ -186,7 +186,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
             _renderEditableTaskDeleteButton(),
             _renderEditableTaskPrivacyToggleButton(),
           ),
-          Box({...shrinkToFitProps},
+          Box({...shrinkToFit},
             _renderEditableTaskCancelButton(),
             _renderEditableTaskSaveButton(),
           ),

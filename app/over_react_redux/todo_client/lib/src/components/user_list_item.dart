@@ -8,7 +8,7 @@ import 'package:todo_client/src/models/user.dart';
 import 'package:todo_client/src/components/shared/avatar_with_colors.dart';
 import 'package:todo_client/src/components/shared/list_item_expansion_panel_summary.dart';
 import 'package:todo_client/src/components/shared/list_item_mixin.dart';
-import 'package:todo_client/src/components/shared/material_ui.dart';
+import 'package:react_material_ui/react_material_ui.dart';
 import 'package:todo_client/src/components/shared/redraw_counter_component_mixin.dart';
 import 'package:todo_client/src/components/shared/todo_item_text_field.dart';
 import 'package:todo_client/src/components/task_count.dart';
@@ -81,7 +81,7 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
 
   ReactElement _renderUserAvatar() {
     return Box({
-      ...shrinkToFitProps,
+      ...shrinkToFit,
       'ml': -1,
       'mr': 2,
       'alignSelf': 'center',
@@ -97,7 +97,7 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
 
   ReactElement _renderUserNameHeader() {
     return Box({
-      ...growProps,
+      ...grow,
       'mr': 1,
       'alignSelf': 'center',
     },
@@ -156,7 +156,7 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
           },
             _renderEditableUserDeleteButton(),
           ),
-          Box({...shrinkToFitProps},
+          Box({...shrinkToFit},
             _renderEditableUserCancelButton(),
             _renderEditableUserSaveButton(),
           ),

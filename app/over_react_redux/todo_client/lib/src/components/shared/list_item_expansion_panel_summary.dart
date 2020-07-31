@@ -3,7 +3,7 @@ import 'dart:html';
 import 'package:over_react/over_react.dart';
 
 import 'package:todo_client/src/components/shared/hoverable_item_mixin.dart';
-import 'package:todo_client/src/components/shared/material_ui.dart';
+import 'package:react_material_ui/react_material_ui.dart';
 
 part 'list_item_expansion_panel_summary.over_react.g.dart';
 
@@ -59,7 +59,7 @@ class ListItemExpansionPanelSummaryComponent
 
   ReactElement _renderEditButton() {
     return Box({
-      ...shrinkToFitProps,
+      ...shrinkToFit,
       'mr': -1,
       'alignSelf': 'center',
       'aria-hidden': !isHovered,

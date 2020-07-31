@@ -3,7 +3,7 @@ import 'package:over_react/over_react.dart';
 
 import 'package:todo_client/src/models/base_model.dart';
 import 'package:todo_client/src/components/shared/list_item_mixin.dart';
-import 'package:todo_client/src/components/shared/material_ui.dart';
+import 'package:react_material_ui/react_material_ui.dart';
 
 mixin ListItemMixin<M extends BaseModel, T extends ListItemPropsMixin, S extends ListItemStateMixin>
     on UiStatefulComponent2<T, S> {

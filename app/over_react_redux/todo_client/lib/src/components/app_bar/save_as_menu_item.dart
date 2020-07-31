@@ -1,7 +1,7 @@
 import 'package:over_react/over_react.dart';
 
 import 'package:todo_client/src/components/app_bar/local_storage_menu_item_input.dart';
-import 'package:todo_client/src/components/shared/material_ui.dart';
+import 'package:react_material_ui/react_material_ui.dart';
 
 part 'save_as_menu_item.over_react.g.dart';
 

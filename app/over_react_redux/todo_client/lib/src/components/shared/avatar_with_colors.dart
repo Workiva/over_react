@@ -4,7 +4,7 @@ import 'package:color/color.dart';
 import 'package:memoize/memoize.dart';
 import 'package:over_react/over_react.dart';
 
-import 'package:todo_client/src/components/shared/material_ui.dart';
+import 'package:react_material_ui/react_material_ui.dart';
 
 part 'avatar_with_colors.over_react.g.dart';
 

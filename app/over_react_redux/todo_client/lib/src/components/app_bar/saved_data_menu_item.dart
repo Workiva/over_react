@@ -5,7 +5,7 @@ import 'package:over_react/over_react.dart';
 import 'package:todo_client/src/local_storage.dart';
 import 'package:todo_client/src/components/app_bar/local_storage_menu_item_input.dart';
 import 'package:todo_client/src/components/shared/hoverable_item_mixin.dart';
-import 'package:todo_client/src/components/shared/material_ui.dart';
+import 'package:react_material_ui/react_material_ui.dart';
 import 'package:todo_client/src/components/shared/menu_overlay.dart';
 
 part 'saved_data_menu_item.over_react.g.dart';
@@ -70,7 +70,7 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
       'style': {'flexWrap': false},
     },
       Box({
-        ...growProps,
+        ...grow,
         'pr': 1,
         'justifyContent': 'center',
         'display': 'flex',
@@ -121,7 +121,7 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
       'enterDelay': 500,
     },
       Box({
-        ...shrinkToFitProps,
+        ...shrinkToFit,
         'color': 'error.main',
         'aria-hidden': !isHovered,
         'className': 'hide-using-aria',

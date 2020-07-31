@@ -7,7 +7,6 @@ import 'package:over_react/over_react.dart';
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:test/test.dart';
 
-import 'package:todo_client/src/components/shared/material_ui.dart';
 import 'package:todo_client/src/utils.dart';
 
 @JS()
@@ -26,11 +25,5 @@ main() {
     expect(jsBackedMapDeepFromJs(mockJsBackedMap.jsObject), isA<JsBackedMap>());
     expect(jsBackedMapDeepFromJs(mockJsBackedMap['nested']), isA<JsBackedMap>());
     expect(jsBackedMapDeepFromJs(mockJsBackedMap['nested'])['nested'], isA<JsBackedMap>());
-  });
-
-  test('muiColors is a JsBackedMap backed by the JS MaterialUI.colors object', () {
-    expect(muiColors, jsBackedMapDeepFromJs(MaterialUI.colors));
-    expect(muiColors['blue']['500'], isA<String>());
-    expect(muiColors['blue']['500'], isNotEmpty);
   });
 }

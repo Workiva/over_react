@@ -2,7 +2,7 @@ import 'dart:html';
 
 import 'package:over_react/over_react.dart';
 
-import 'package:todo_client/src/components/shared/material_ui.dart';
+import 'package:react_material_ui/react_material_ui.dart';
 
 part 'todo_item_text_field.over_react.g.dart';
 

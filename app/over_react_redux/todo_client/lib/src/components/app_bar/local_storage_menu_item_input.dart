@@ -3,7 +3,7 @@ import 'dart:html';
 import 'package:over_react/over_react.dart';
 
 import 'package:todo_client/src/local_storage.dart';
-import 'package:todo_client/src/components/shared/material_ui.dart';
+import 'package:react_material_ui/react_material_ui.dart';
 
 part 'local_storage_menu_item_input.over_react.g.dart';
 
