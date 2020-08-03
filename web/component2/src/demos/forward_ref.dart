@@ -1,7 +1,6 @@
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
-import 'package:react/hooks.dart';
 
 // ignore: uri_has_not_been_generated
 part 'forward_ref.over_react.g.dart';

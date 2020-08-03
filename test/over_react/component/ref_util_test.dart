@@ -26,7 +26,7 @@ import '../../test_util/test_util.dart';
 import '../component/fixtures/basic_child_component.dart';
 import 'fixtures/basic_ui_component.dart';
 
-part 'ref_test.over_react.g.dart'; // ignore: uri_has_not_been_generated
+part 'ref_util_test.over_react.g.dart'; // ignore: uri_has_not_been_generated
 
 main() {
   group('forward ref -', () {

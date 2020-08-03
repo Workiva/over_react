@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
-part of 'ref_test.dart';
+part of 'ref_util_test.dart';
 
 // **************************************************************************
 // OverReactBuilder (package:over_react/src/builder.dart)

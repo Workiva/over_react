@@ -32,7 +32,7 @@ import 'over_react/component/_deprecated/error_boundary_mixin_test.dart'
     as deprecated_error_boundary_mixin_test;
 import 'over_react/component/_deprecated/error_boundary_test.dart'
     as deprecated_error_boundary_test;
-import 'over_react/component/ref_test.dart' as ref_test;
+import 'over_react/component/ref_util_test.dart' as ref_test;
 import 'over_react/component/memo_test.dart' as memo_test;
 import 'over_react/component/prop_mixins_test.dart' as prop_mixins_test;
 import 'over_react/component/prop_typedefs_test.dart' as prop_typedefs_test;
