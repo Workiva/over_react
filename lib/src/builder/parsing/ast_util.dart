@@ -46,12 +46,15 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
   bool get hasGeneratedConfigArg {
     return firstInitializer != null &&
         anyDescendantIdentifiers(firstInitializer, (identifier) {
-          if (identifier.isFunctionType) {
-            final args =
-                identifier.thisOrAncestorOfType<MethodInvocation>()?.argumentList?.arguments;
+          final uiFactoryDeclaration = identifier.thisOrAncestorOfType<VariableDeclaration>();
+          final methodInvocation = identifier.thisOrAncestorOfType<MethodInvocation>();
+          if (methodInvocation != null && uiFactoryDeclaration != null) {
+            final args = methodInvocation.argumentList?.arguments;
             if (args == null || args.length < 2) return false;
-            return args[1].toString().startsWith(RegExp(r'\$'));
+
+            return args[1].toString() == '\$${uiFactoryDeclaration.name.name}Config';
           }
+
           return false;
         });
   }
@@ -80,7 +83,12 @@ extension NameHelper on Identifier {
     return self is PrefixedIdentifier ? self.identifier.name : self.name;
   }
 
-  bool get isFunctionType => ['uiFunction', 'uiForwardRef'].contains(this.name);
+  bool get isFunctionType => ['uiFunction', 'uiForwardRef', 'uiJsComponent'].contains(this.name);
+
+  bool get isAttachedToAGeneratedUiFactory {
+    final uiFactoryDeclaration = this.thisOrAncestorOfType<TopLevelVariableDeclaration>();
+    return uiFactoryDeclaration?.hasGeneratedConfigArg;
+  }
 }
 
 /// Utilities related to detecting a super class on a [MixinDeclaration]
