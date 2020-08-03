@@ -85,7 +85,7 @@ getters/setters.
     ```
     This concrete class is what will be used everywhere for this component's typed props (returned from the `UiFactory`, available via `props` inside `render`).
    
-    Note that in the above example, our component has props declared via just a props mixin, which is a shorthand syntax. For components with concrete props classes, the implementation is similar, and mixins in all generated mixins corresponding to the props mixins used:
+    Note that in the above example, our component has props declared via just a props mixin, which is a shorthand syntax for when no additional props are needed from other mixins. For components with concrete props classes which mix in other props, the implementation is similar. The generated concrete props class mixes in all generated mixins corresponding to the props mixins used:
    
     ```dart
     // Authored code:
@@ -103,7 +103,7 @@ getters/setters.
     }
     ``` 
    
-    It also overrides `UiProps`'s members that were stubbed out, and implements a constructor that delegates to other generated subclasses: one optimized for `JsBackedMap`, and one used for all other `Map`s. 
+    It also overrides stubbed out `UiProps` members, and implements a constructor that delegates to other generated subclasses: one optimized for `JsBackedMap`, and one used for all other `Map`s. 
     ```dart
     class _$$FooProps extends UiProps with FooProps, $FooProps {
       factory _$$FooProps(Map backingMap) {
