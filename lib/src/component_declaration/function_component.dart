@@ -20,6 +20,8 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:react/react.dart' as react;
 
+import 'component_type_checking.dart';
+
 export 'component_type_checking.dart'
     show isComponentOfType, isValidElementOfType;
 
@@ -131,6 +133,8 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
 
     return builder..componentFactory = factory;
   }
+
+  registerComponentTypeAlias(factory, _uiFactory);
 
   return _uiFactory;
 }
