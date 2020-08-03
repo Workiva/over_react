@@ -658,8 +658,8 @@ main() {
 
       group('and generates props config for function components', () {
         String generatedConfig(String propsName, String factoryName) {
-          return 'final FunctionComponentConfig<_\$\$$propsName> '
-            '\$${factoryName}Config = FunctionComponentConfig(\n'
+          return 'final UiFactoryConfig<_\$\$$propsName> '
+            '\$${factoryName}Config = UiFactoryConfig(\n'
             'propsFactory: PropsFactory(\n'
             'map: (map) => _\$\$$propsName(map),\n'
             'jsMap: (map) => _\$\$$propsName\$JsMap(map),),\n'
@@ -767,7 +767,7 @@ main() {
               (props) {
                 return Dom.div()();
               }, 
-              FunctionComponentConfig(),
+              UiFactoryConfig(),
             );
             
             final Foo = uiFunction<FooPropsMixin>(
@@ -781,7 +781,7 @@ main() {
               (props) {
                 return Dom.div()();
               }, 
-              FunctionComponentConfig( 
+              UiFactoryConfig( 
                 propsFactory: PropsFactory.fromUiFactory(Foo),
               )
             );

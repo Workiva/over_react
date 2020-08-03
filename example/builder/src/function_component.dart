@@ -78,7 +78,7 @@ ReactElement functionComponentContent() {
 
   final genericFactory = uiFunction<UiProps>(
     GenericFactory,
-    FunctionComponentConfig(),
+    UiFactoryConfig(),
   );
 
   final basicFactory = uiFunction<BasicProps>(
@@ -88,7 +88,7 @@ ReactElement functionComponentContent() {
         Dom.div()('prop basic1: ${props.basic1}'),
       );
     },
-    FunctionComponentConfig(
+    UiFactoryConfig(
       propsFactory: PropsFactory.fromUiFactory(Basic),
       displayName: 'basicFactory',
     )

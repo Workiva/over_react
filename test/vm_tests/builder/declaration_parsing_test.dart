@@ -1586,7 +1586,7 @@ main() {
                   (props) {
                     return Dom.div()();
                   }, 
-                  FunctionComponentConfig(
+                  UiFactoryConfig(
                     propsFactory: PropsFactory.fromUiFactory(Foo),
                   ),
                 );
@@ -1645,7 +1645,7 @@ main() {
                   (props) {
                     return Dom.div()();
                   }, 
-                  FunctionComponentConfig(),
+                  UiFactoryConfig(),
                 );
               ''');
 
@@ -1672,7 +1672,7 @@ main() {
                   (props) {
                     return Dom.div()();
                   },
-                  FunctionComponentConfig(
+                  UiFactoryConfig(
                     propsFactory: PropsFactory.uiFactory(Foo),
                   ), 
                 ));
@@ -1681,7 +1681,7 @@ main() {
                   (props) {
                     return Dom.div()();
                   },
-                  FunctionComponentConfig(),
+                  UiFactoryConfig(),
                 ));
                 
                 mixin FooPropsMixin on UiProps {}

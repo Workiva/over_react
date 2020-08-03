@@ -53,7 +53,7 @@ main() {
         (props) {
           return Dom.div()('prop id: ${props.id}');
         },
-        FunctionComponentConfig(),
+        UiFactoryConfig(),
       );
 
       UiFactory<UiProps> FunctionMemo = memo<UiProps>(FunctionTest);

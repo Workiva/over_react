@@ -45,8 +45,8 @@ const PropsMeta _$metaForNewContextProviderProps = PropsMeta(
   keys: $NewContextProviderProps.$propKeys,
 );
 
-final FunctionComponentConfig<_$$UseContextExampleProps>
-    $UseContextExampleConfig = FunctionComponentConfig(
+final UiFactoryConfig<_$$UseContextExampleProps> $UseContextExampleConfig =
+    UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseContextExampleProps(map),
           jsMap: (map) => _$$UseContextExampleProps$JsMap(map),
@@ -119,8 +119,8 @@ class _$$UseContextExampleProps$JsMap extends _$$UseContextExampleProps {
   JsBackedMap _props;
 }
 
-final FunctionComponentConfig<_$$NewContextProviderProps>
-    $NewContextProviderConfig = FunctionComponentConfig(
+final UiFactoryConfig<_$$NewContextProviderProps> $NewContextProviderConfig =
+    UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$NewContextProviderProps(map),
           jsMap: (map) => _$$NewContextProviderProps$JsMap(map),

@@ -410,8 +410,8 @@ const PropsMeta _$metaForRefDemoHocProps = PropsMeta(
   keys: $RefDemoHocProps.$propKeys,
 );
 
-final FunctionComponentConfig<_$$UiForwardRefLogsFunctionComponentProps>
-    $UiForwardRefLogsFunctionComponentConfig = FunctionComponentConfig(
+final UiFactoryConfig<_$$UiForwardRefLogsFunctionComponentProps>
+    $UiForwardRefLogsFunctionComponentConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UiForwardRefLogsFunctionComponentProps(map),
           jsMap: (map) => _$$UiForwardRefLogsFunctionComponentProps$JsMap(map),
@@ -486,10 +486,8 @@ class _$$UiForwardRefLogsFunctionComponentProps$JsMap
   JsBackedMap _props;
 }
 
-final FunctionComponentConfig<
-        _$$UiForwardRefLogsPropsComplexFunctionComponentProps>
-    $UiForwardRefLogsPropsComplexFunctionComponentConfig =
-    FunctionComponentConfig(
+final UiFactoryConfig<_$$UiForwardRefLogsPropsComplexFunctionComponentProps>
+    $UiForwardRefLogsPropsComplexFunctionComponentConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) =>
               _$$UiForwardRefLogsPropsComplexFunctionComponentProps(map),
@@ -574,8 +572,8 @@ class _$$UiForwardRefLogsPropsComplexFunctionComponentProps$JsMap
   JsBackedMap _props;
 }
 
-final FunctionComponentConfig<_$$UiForwardRefLogsPropsComplexComponentProps>
-    $UiForwardRefLogsPropsComplexComponentConfig = FunctionComponentConfig(
+final UiFactoryConfig<_$$UiForwardRefLogsPropsComplexComponentProps>
+    $UiForwardRefLogsPropsComplexComponentConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UiForwardRefLogsPropsComplexComponentProps(map),
           jsMap: (map) =>
@@ -654,8 +652,8 @@ class _$$UiForwardRefLogsPropsComplexComponentProps$JsMap
   JsBackedMap _props;
 }
 
-final FunctionComponentConfig<_$$_LogsPropsFunctionComponentProps>
-    $_LogsPropsFunctionComponentConfig = FunctionComponentConfig(
+final UiFactoryConfig<_$$_LogsPropsFunctionComponentProps>
+    $_LogsPropsFunctionComponentConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$_LogsPropsFunctionComponentProps(map),
           jsMap: (map) => _$$_LogsPropsFunctionComponentProps$JsMap(map),
@@ -731,8 +729,8 @@ class _$$_LogsPropsFunctionComponentProps$JsMap
   JsBackedMap _props;
 }
 
-final FunctionComponentConfig<_$$RefDemoProps> $RefDemoContainerConfig =
-    FunctionComponentConfig(
+final UiFactoryConfig<_$$RefDemoProps> $RefDemoContainerConfig =
+    UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$RefDemoProps(map),
           jsMap: (map) => _$$RefDemoProps$JsMap(map),
@@ -805,8 +803,8 @@ class _$$RefDemoProps$JsMap extends _$$RefDemoProps {
   JsBackedMap _props;
 }
 
-final FunctionComponentConfig<_$$RefDemoSectionProps> $RefDemoSectionConfig =
-    FunctionComponentConfig(
+final UiFactoryConfig<_$$RefDemoSectionProps> $RefDemoSectionConfig =
+    UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$RefDemoSectionProps(map),
           jsMap: (map) => _$$RefDemoSectionProps$JsMap(map),
@@ -879,13 +877,12 @@ class _$$RefDemoSectionProps$JsMap extends _$$RefDemoSectionProps {
   JsBackedMap _props;
 }
 
-final FunctionComponentConfig<_$$RefDemoHocProps> $RefDemoHocConfig =
-    FunctionComponentConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$RefDemoHocProps(map),
-          jsMap: (map) => _$$RefDemoHocProps$JsMap(map),
-        ),
-        displayName: 'RefDemoHoc');
+final UiFactoryConfig<_$$RefDemoHocProps> $RefDemoHocConfig = UiFactoryConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$RefDemoHocProps(map),
+      jsMap: (map) => _$$RefDemoHocProps$JsMap(map),
+    ),
+    displayName: 'RefDemoHoc');
 
 // Concrete props implementation.
 //

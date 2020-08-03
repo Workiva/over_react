@@ -69,7 +69,7 @@ export 'component_type_checking.dart'
 ///   (props) {
 ///     return (Dom.button()..disabled = props.isDisabled)('Click me!');
 ///   },
-///   FunctionComponentConfig(
+///   UiFactoryConfig(
 ///     propsFactory: PropsFactory.fromUiFactory(Foo),
 ///     displayName: 'Bar',
 ///   ),
@@ -83,7 +83,7 @@ export 'component_type_checking.dart'
 ///   (props) {
 ///     return Dom.div()('prop id: ${props.id}');
 ///   },
-///   FunctionComponentConfig(
+///   UiFactoryConfig(
 ///     displayName: 'Foo',
 ///   ),
 /// );
@@ -93,7 +93,7 @@ export 'component_type_checking.dart'
 // TODO: right now only top level factory declarations will generate props configs.
 UiFactory<TProps> uiFunction<TProps extends UiProps>(
   dynamic Function(TProps props) functionComponent,
-  FunctionComponentConfig<TProps> config,
+  UiFactoryConfig<TProps> config,
 ) {
   ArgumentError.checkNotNull(config, 'config');
 
@@ -161,12 +161,12 @@ class GenericUiProps extends UiProps {
 }
 
 /// Helper class used to keep track of generated information for [uiFunction].
-class FunctionComponentConfig<TProps extends UiProps> {
+class UiFactoryConfig<TProps extends UiProps> {
   @protected
   final PropsFactory<TProps> propsFactory;
   final String displayName;
 
-  FunctionComponentConfig({this.propsFactory, this.displayName});
+  UiFactoryConfig({this.propsFactory, this.displayName});
 }
 
 /// Helper class to keep track of props factories used by [uiFunction],

@@ -44,7 +44,7 @@ main() {
     group('with UiProps', () {
       UiFactory<UiProps> TestUiProps = uiFunction(
         (props) => (Dom.div()..addTestId('testId3'))('id: ${props.id}'),
-        FunctionComponentConfig(),
+        UiFactoryConfig(),
       );
 
       test(
@@ -100,7 +100,7 @@ main() {
         expect(
             () => uiFunction<TestProps>(
                   (props) => Dom.div()(),
-                  FunctionComponentConfig(displayName: 'Foo'),
+                  UiFactoryConfig(displayName: 'Foo'),
                 ),
             throwsArgumentError);
       });
@@ -213,7 +213,7 @@ UiFactory<TestProps> TestCustom = uiFunction(
       ..addProp('data-prop-custom-key-and-namespace-prop',
           props.customKeyAndNamespaceProp))('rendered content');
   },
-  FunctionComponentConfig(
+  UiFactoryConfig(
     propsFactory: PropsFactory.fromUiFactory(Test),
   )
 );

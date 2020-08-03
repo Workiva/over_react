@@ -450,7 +450,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 /// Learn more: <https://reactjs.org/docs/forwarding-refs.html>.
 UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
     dynamic Function(TProps props, dynamic ref) functionComponent,
-    FunctionComponentConfig<TProps> config) {
+    UiFactoryConfig<TProps> config) {
   ArgumentError.checkNotNull(config, 'config');
 
   // ignore: invalid_use_of_protected_member

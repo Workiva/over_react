@@ -26,8 +26,8 @@ const PropsMeta _$metaForUseCallbackExampleProps = PropsMeta(
   keys: $UseCallbackExampleProps.$propKeys,
 );
 
-final FunctionComponentConfig<_$$UseCallbackExampleProps>
-    $UseCallbackExampleConfig = FunctionComponentConfig(
+final UiFactoryConfig<_$$UseCallbackExampleProps> $UseCallbackExampleConfig =
+    UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseCallbackExampleProps(map),
           jsMap: (map) => _$$UseCallbackExampleProps$JsMap(map),

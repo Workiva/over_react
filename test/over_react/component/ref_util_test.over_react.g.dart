@@ -191,8 +191,8 @@ const PropsMeta _$metaForBasicUiFunctionProps = PropsMeta(
   keys: $BasicUiFunctionProps.$propKeys,
 );
 
-final FunctionComponentConfig<_$$BasicUiFunctionProps> $BasicUiFunctionConfig =
-    FunctionComponentConfig(
+final UiFactoryConfig<_$$BasicUiFunctionProps> $BasicUiFunctionConfig =
+    UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$BasicUiFunctionProps(map),
           jsMap: (map) => _$$BasicUiFunctionProps$JsMap(map),
@@ -265,8 +265,8 @@ class _$$BasicUiFunctionProps$JsMap extends _$$BasicUiFunctionProps {
   JsBackedMap _props;
 }
 
-final FunctionComponentConfig<_$$SecondaryBasicUiFunctionProps>
-    $TopLevelForwardUiRefFunctionConfig = FunctionComponentConfig(
+final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
+    $TopLevelForwardUiRefFunctionConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$SecondaryBasicUiFunctionProps(map),
           jsMap: (map) => _$$SecondaryBasicUiFunctionProps$JsMap(map),

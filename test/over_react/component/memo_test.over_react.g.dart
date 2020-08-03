@@ -202,8 +202,8 @@ const PropsMeta _$metaForFunctionCustomPropsProps = PropsMeta(
   keys: $FunctionCustomPropsProps.$propKeys,
 );
 
-final FunctionComponentConfig<_$$FunctionCustomPropsProps>
-    $FunctionCustomPropsConfig = FunctionComponentConfig(
+final UiFactoryConfig<_$$FunctionCustomPropsProps> $FunctionCustomPropsConfig =
+    UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$FunctionCustomPropsProps(map),
           jsMap: (map) => _$$FunctionCustomPropsProps$JsMap(map),

@@ -94,7 +94,7 @@ ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentC
 typedef TProps UiFactory<TProps extends UiProps>([Map backingProps]);
 
 extension UiFactoryHelpers on UiFactory {
-  FunctionComponentConfig<TProps> asForwardRefConfig<TProps extends bh.UiProps>({String displayName}) => FunctionComponentConfig(propsFactory: PropsFactory.fromUiFactory(this), displayName: displayName);
+  UiFactoryConfig<TProps> asForwardRefConfig<TProps extends bh.UiProps>({String displayName}) => UiFactoryConfig(propsFactory: PropsFactory.fromUiFactory(this), displayName: displayName);
 }
 
 /// A utility variation on [UiFactory], __without__ a `backingProps` parameter.

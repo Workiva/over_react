@@ -41,8 +41,8 @@ const PropsMeta _$metaForUseReducerExampleProps = PropsMeta(
   keys: $UseReducerExampleProps.$propKeys,
 );
 
-final FunctionComponentConfig<_$$UseReducerExampleProps>
-    $UseReducerExampleConfig = FunctionComponentConfig(
+final UiFactoryConfig<_$$UseReducerExampleProps> $UseReducerExampleConfig =
+    UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseReducerExampleProps(map),
           jsMap: (map) => _$$UseReducerExampleProps$JsMap(map),

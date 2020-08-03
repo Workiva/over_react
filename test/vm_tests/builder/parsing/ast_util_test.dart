@@ -82,7 +82,7 @@ main() {
         expect(InitializerHelperTopLevel(parseAndGetSingleWithType('''
           final Foo = uiFunction<UiProps>(
             (props) => Dom.div()(), 
-            FunctionComponentConfig(),
+            UiFactoryConfig(),
           );
         ''')).hasGeneratedConfigArg, false);
 
@@ -96,7 +96,7 @@ main() {
         expect(InitializerHelperTopLevel(parseAndGetSingleWithType('''
           final Foo = uiFunction<FooPropsMixin>(
             (props) => Dom.div()(), 
-            FunctionComponentConfig(
+            UiFactoryConfig(
               propsFactory: PropsFactory.fromUiFactory(Bar),
             ),
           );
