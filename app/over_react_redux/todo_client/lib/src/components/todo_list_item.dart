@@ -9,7 +9,6 @@ import 'package:todo_client/src/models/todo.dart';
 import 'package:todo_client/src/components/shared/list_item_expansion_panel_summary.dart';
 import 'package:todo_client/src/components/shared/list_item_mixin.dart';
 import 'package:react_material_ui/react_material_ui.dart';
-import 'package:todo_client/src/components/shared/redraw_counter_component_mixin.dart';
 import 'package:todo_client/src/components/shared/todo_item_text_field.dart';
 import 'package:todo_client/src/components/user_selector.dart';
 import 'package:todo_client/src/store.dart';
@@ -233,17 +232,17 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   }
 
   ReactElement _renderEditableTaskCancelButton() {
-    return Button({
-      'size': 'small',
-      'onClick': (_) { exitEditable(saveChanges: false); },
-    }, 'Cancel');
+    return (Button()
+        ..size = 'small'
+        ..onClick = (_) { exitEditable(saveChanges: false); }
+    )('Cancel');
   }
 
   ReactElement _renderEditableTaskSaveButton() {
-    return Button({
-      'size': 'small',
-      'color': 'primary',
-      'onClick': (_) { exitEditable(saveChanges: true); },
-    }, 'Save');
+    return (Button()
+        ..size = 'small'
+        ..onClick = (_) { exitEditable(saveChanges: true); }
+        ..color = 'primary'
+    )('Save');
   }
 }

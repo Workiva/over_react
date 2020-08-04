@@ -41,7 +41,7 @@ class AppBarLocalStorageMenuComponent extends UiComponent2<AppBarLocalStorageMen
   render() {
     return (MenuOverlay()
       ..modifyProps(addUnconsumedProps)
-      ..trigger = Button({'color': 'inherit'}, 'Data: ${props.currentDataSetName}')
+      ..trigger = (Button()..color = 'inherit')('Data: ${props.currentDataSetName}')
       ..useDerivedMaxWidth = true
       ..ref = _overlayRef
     )(

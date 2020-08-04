@@ -10,7 +10,6 @@ import 'package:todo_client/src/components/shared/avatar_with_colors.dart';
 import 'package:todo_client/src/components/shared/list_item_expansion_panel_summary.dart';
 import 'package:todo_client/src/components/shared/list_item_mixin.dart';
 import 'package:react_material_ui/react_material_ui.dart';
-import 'package:todo_client/src/components/shared/redraw_counter_component_mixin.dart';
 import 'package:todo_client/src/components/shared/todo_item_text_field.dart';
 import 'package:todo_client/src/components/task_count.dart';
 import 'package:todo_client/src/store.dart';
@@ -185,17 +184,17 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
   }
 
   ReactElement _renderEditableUserCancelButton() {
-    return Button({
-      'size': 'small',
-      'onClick': (_) { exitEditable(saveChanges: false); },
-    }, 'Cancel');
+    return (Button()
+      ..size = 'small'
+      ..onClick = (_) { exitEditable(saveChanges: false); }
+    )('Cancel');
   }
 
   ReactElement _renderEditableUserSaveButton() {
-    return Button({
-      'size': 'small',
-      'color': 'primary',
-      'onClick': (_) { exitEditable(saveChanges: true); },
-    }, 'Save');
+    return (Button()
+      ..size = 'small'
+      ..onClick = (_) { exitEditable(saveChanges: true); }
+      ..color = 'primary'
+    )('Save');
   }
 }
