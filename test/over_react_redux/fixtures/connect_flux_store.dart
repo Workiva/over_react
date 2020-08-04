@@ -18,10 +18,8 @@ import 'package:over_react/over_react_flux.dart';
 
 import 'redux_actions.dart';
 
-int initialValue = 0;
-
 int _resetCounterReducer(int currentCount, ResetAction action) {
-  return initialValue;
+  return 0;
 }
 
 class FluxActions {
@@ -43,7 +41,7 @@ class FluxStore extends flux.Store with InfluxStoreMixin<FluxCounterState> {
       state.listThatYouDefShouldntMutate;
 
   FluxStore(this._actions) {
-    state = FluxCounterState(count: initialValue);
+    state = FluxCounterState(count: 0);
 
     triggerOnActionV2(
         _actions.incrementAction, (_) => this.influxReducer(IncrementAction()));
@@ -74,7 +72,7 @@ FluxCounterState counterStateReducer(FluxCounterState state, Object action) {
   } else if (action is DecrementAction) {
     return FluxCounterState(count: state.count - (action?.value ?? 1));
   } else if (action is ResetAction) {
-    return FluxCounterState(count: initialValue);
+    return FluxCounterState(count: 0);
   } else if (action is MutateStoreDirectlyAction) {
     state.listThatYouDefShouldntMutate.add('woops');
   }
@@ -82,10 +80,10 @@ FluxCounterState counterStateReducer(FluxCounterState state, Object action) {
   return state;
 }
 
-FluxActions fluxActions = FluxActions();
-FluxStore fluxStore = FluxStore(fluxActions);
-FluxToReduxAdapterStore store1 =
-    FluxToReduxAdapterStore(fluxStore, fluxActions);
+// To use in tests, copy-paste:
+// var fluxActions = FluxActions();
+// var fluxStore = FluxStore(fluxActions);
+// var store1 = FluxToReduxAdapterStore(fluxStore, fluxActions);
 
 /////////////////////////////// STORE 2 "BigCounter" ///////////////////////////////
 class FluxStore2 extends flux.Store with InfluxStoreMixin<BigCounterState> {
@@ -98,7 +96,7 @@ class FluxStore2 extends flux.Store with InfluxStoreMixin<BigCounterState> {
   String get name => state.name;
 
   FluxStore2(this._actions) {
-    state = BigCounterState(bigCount: initialValue);
+    state = BigCounterState(bigCount: 0);
 
     triggerOnActionV2(_actions.incrementAction,
         (count) => this.influxReducer(IncrementAction(count)));
@@ -137,10 +135,10 @@ BigCounterState bigCounterStateReducer(BigCounterState state, action) =>
       bigCount: bigCounterActionsReducer(state.bigCount, action),
     );
 
-FluxActions bigFluxActions = FluxActions();
-FluxStore2 bigFluxCounter = FluxStore2(bigFluxActions);
-FluxToReduxAdapterStore store2 =
-    FluxToReduxAdapterStore(bigFluxCounter, bigFluxActions);
+// To use in tests, copy-paste:
+// final bigFluxActions = FluxActions();
+// final bigFluxCounter = FluxStore2(bigFluxActions);
+// final store2 = FluxToReduxAdapterStore(bigFluxCounter, bigFluxActions);
 
 /////////////////////////////// STORE 3 "AnotherFluxStore" ///////////////////////////////
 // Just created for testing context
@@ -178,10 +176,8 @@ class TestConnectableFluxStore extends flux.Store {
   }
 }
 
-FluxActions connectableStoreActions = FluxActions();
-TestConnectableFluxStore connectableFluxStore =
-    TestConnectableFluxStore(connectableStoreActions);
-TestConnectableFluxStore anotherConnectableFluxStore =
-    TestConnectableFluxStore(connectableStoreActions);
-ConnectFluxAdapterStore connectableFluxAdaptedStore =
-    ConnectFluxAdapterStore(connectableFluxStore, connectableStoreActions);
+// To use in tests, copy-paste
+// final connectableStoreActions = FluxActions();
+// final connectableFluxStore = TestConnectableFluxStore(connectableStoreActions);
+// final anotherConnectableFluxStore = TestConnectableFluxStore(connectableStoreActions);
+// final connectableFluxAdaptedStore = ConnectFluxAdapterStore(connectableFluxStore, connectableStoreActions);

@@ -41,6 +41,23 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
 
   /// The first variable in this list.
   VariableDeclaration get firstVariable => variables.firstVariable;
+
+  /// Returns whether or not the config argument of a Function type is generated.
+  bool get hasGeneratedConfigArg {
+    return firstInitializer != null &&
+        anyDescendantIdentifiers(firstInitializer, (identifier) {
+          final uiFactoryDeclaration = identifier.thisOrAncestorOfType<VariableDeclaration>();
+          final methodInvocation = identifier.thisOrAncestorOfType<MethodInvocation>();
+          if (methodInvocation != null && uiFactoryDeclaration != null) {
+            final args = methodInvocation.argumentList?.arguments;
+            if (args == null || args.length < 2) return false;
+
+            return args[1].toString() == '\$${uiFactoryDeclaration.name.name}Config';
+          }
+
+          return false;
+        });
+  }
 }
 
 /// Extension built on both [TypeNameHelper] and [NameHelper] to allow
@@ -64,6 +81,13 @@ extension NameHelper on Identifier {
   String get nameWithoutPrefix {
     final self = this;
     return self is PrefixedIdentifier ? self.identifier.name : self.name;
+  }
+
+  bool get isFunctionType => ['uiFunction', 'uiForwardRef', 'uiJsComponent'].contains(this.name);
+
+  bool get isAttachedToAGeneratedUiFactory {
+    final uiFactoryDeclaration = this.thisOrAncestorOfType<TopLevelVariableDeclaration>();
+    return uiFactoryDeclaration?.hasGeneratedConfigArg;
   }
 }
 
@@ -173,10 +197,18 @@ bool anyDescendantIdentifiers(Expression expression, bool Function(Identifier) t
   return visitor.hasMatch;
 }
 
+/// Returns the [Identifier] within [expression] matches the predicate [test].
+SimpleIdentifier getDescendantIdentifier(Expression expression, bool Function(Identifier) test) {
+  final visitor = _AnyDescendantIdentifiersVisitor(test);
+  expression.accept(visitor);
+  return visitor.match;
+}
+
 class _AnyDescendantIdentifiersVisitor extends UnifyingAstVisitor<void> {
   final bool Function(Identifier) _test;
 
   bool hasMatch = false;
+  SimpleIdentifier match;
 
   _AnyDescendantIdentifiersVisitor(this._test);
 
@@ -192,6 +224,7 @@ class _AnyDescendantIdentifiersVisitor extends UnifyingAstVisitor<void> {
   void visitSimpleIdentifier(SimpleIdentifier identifier) {
     if (_test(identifier)) {
       hasMatch = true;
+      match = identifier;
     }
 
     super.visitSimpleIdentifier(identifier);

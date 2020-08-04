@@ -2,8 +2,9 @@ import 'dart:html';
 
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
-import 'package:todo_client/src/actions.dart';
+import 'package:over_react/src/component/test_fixtures/redraw_counter_component_mixin.dart';
 
+import 'package:todo_client/src/actions.dart';
 import 'package:todo_client/src/models/user.dart';
 import 'package:todo_client/src/components/shared/avatar_with_colors.dart';
 import 'package:todo_client/src/components/shared/list_item_expansion_panel_summary.dart';

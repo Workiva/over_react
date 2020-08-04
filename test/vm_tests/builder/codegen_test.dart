@@ -655,6 +655,145 @@ main() {
         testStaticMetaField('abstract props', OverReactSrc.abstractProps());
         testStaticMetaField('abstract state', OverReactSrc.abstractState());
       });
+
+      group('and generates props config for function components', () {
+        String generatedConfig(String propsName, String factoryName) {
+          return 'final UiFactoryConfig<_\$\$$propsName> '
+            '\$${factoryName}Config = UiFactoryConfig(\n'
+            'propsFactory: PropsFactory(\n'
+            'map: (map) => _\$\$$propsName(map),\n'
+            'jsMap: (map) => _\$\$$propsName\$JsMap(map),),\n'
+            'displayName: \'$factoryName\');\n';
+        }
+
+        String generatedPropsMapsForConfig(String propsName) {
+          return '// Concrete props implementation that can be backed by any [Map].\n'
+              '@Deprecated(\'This API is for use only within generated code.\'\' Do not reference it in your code, as it may change at any time.\')\n'
+              'class _\$\$$propsName\$PlainMap extends _\$\$$propsName {\n'
+              '  // This initializer of `_props` to an empty map, as well as the reassignment\n'
+              '  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217\n'
+              '  _\$\$$propsName\$PlainMap(Map backingMap) : this._props = {}, super._() {\n'
+              '     this._props = backingMap ?? {};\n'
+              '  }\n'
+              '  /// The backing props map proxied by this class.\n'
+              '  @override\n'
+              '  Map get props => _props;\n'
+              '  Map _props;\n'
+              '}\n'
+              '// Concrete props implementation that can only be backed by [JsMap],\n'
+              '// allowing dart2js to compile more optimal code for key-value pair reads/writes.\n'
+              '@Deprecated(\'This API is for use only within generated code.\'\' Do not reference it in your code, as it may change at any time.\')\n'
+              'class _\$\$$propsName\$JsMap extends _\$\$$propsName {\n'
+              '  // This initializer of `_props` to an empty map, as well as the reassignment\n'
+              '  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217\n'
+              '  _\$\$$propsName\$JsMap(JsBackedMap backingMap) : this._props = JsBackedMap(), super._() {\n'
+              '     this._props = backingMap ?? JsBackedMap();\n'
+              '  }\n'
+              '  /// The backing props map proxied by this class.\n'
+              '  @override\n'
+              '  JsBackedMap get props => _props;\n'
+              '  JsBackedMap _props;\n'
+              '}\n';
+        }
+
+        test('with multiple props mixins and function components in file', () {
+          setUpAndGenerate(r'''
+            mixin FooPropsMixin on UiProps {}
+            class FooProps = UiProps with FooPropsMixin;
+            
+            mixin BarPropsMixin on UiProps {}
+            
+            final Bar = uiFunction<BarPropsMixin>(
+              (props) {
+                return Dom.div()();
+              }, 
+              $BarPropsMixinConfig, // ignore: undefined_identifier
+            );
+            
+            final Foo = uiFunction<BarPropsMixin>(
+              (props) {
+                return Dom.div()();
+              }, 
+              $FooConfig, // ignore: undefined_identifier
+            );
+                        
+            UiFactory<FooProps> Baz = uiFunction(
+              (props) {
+                return Dom.div()();
+              }, 
+              $BazConfig, // ignore: undefined_identifier
+            );
+            
+            mixin UnusedPropsMixin on UiProps {}
+          ''');
+
+          expect(implGenerator.outputContentsBuffer.toString().contains(generatedPropsMapsForConfig('UnusedPropsMixin')), isFalse);
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('BarPropsMixin')));
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooProps')));
+
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('BarPropsMixin', 'Bar')));
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('BarPropsMixin', 'Foo')));
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooProps', 'Baz')));
+        });
+
+        test('wrapped in an hoc', () {
+          setUpAndGenerate('''
+                UiFactory<FooPropsMixin> Foo = someHOC(uiFunction(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  \$FooConfig, // ignore: undefined_identifier
+                ));
+                
+                mixin FooPropsMixin on UiProps {}
+              ''');
+
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooPropsMixin')));
+
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooPropsMixin', 'Foo')));
+        });
+
+        test('unless function component is generic or does not have a props config', () {
+          setUpAndGenerate(r'''
+            mixin FooPropsMixin on UiProps {}
+            
+            UiFactory<FooPropsMixin> FooForwarded = forwardRef<FooPropsMixin>((props, ref) {
+              return (Foo()
+                ..ref = ref
+              )();
+            })(Foo);
+            
+            final Bar = uiFunction<UiProps>(
+              (props) {
+                return Dom.div()();
+              }, 
+              UiFactoryConfig(),
+            );
+            
+            final Foo = uiFunction<FooPropsMixin>(
+              (props) {
+                return Dom.div()();
+              }, 
+              $FooConfig, // ignore: undefined_identifier
+            );
+            
+            final Baz = uiFunction<FooPropsMixin>(
+              (props) {
+                return Dom.div()();
+              }, 
+              UiFactoryConfig( 
+                propsFactory: PropsFactory.fromUiFactory(Foo),
+              )
+            );
+          ''');
+
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooPropsMixin')));
+
+          expect(implGenerator.outputContentsBuffer.toString().contains(generatedConfig('UiProps', 'Bar')), isFalse, reason: '2');
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooPropsMixin', 'Foo')), reason: '1');
+          expect(implGenerator.outputContentsBuffer.toString().contains(generatedConfig('FooPropsMixin', 'Baz')), isFalse, reason: '3');
+        });
+      });
     });
 
     group('logs an error when', () {

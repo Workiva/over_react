@@ -36,6 +36,7 @@ final config = {
       Glob('lib/src/over_react_redux/**'),
       Glob('lib/src/util/**'),
       Glob('test/**'),
+      Glob('tools/analyzer_plugin/**'),
       Glob('test_fixtures/**'),
       Glob('web/**'),
     ],

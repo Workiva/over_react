@@ -1,0 +1,48 @@
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+*.scssc
+*.sassc
+
+# OS or Editor folders
+.DS_Store
+._*
+Thumbs.db
+.cache
+.project
+.settings
+.tmproj
+*.esproj
+nbproject
+*.sublime-project
+*.sublime-workspace
+.idea
+.vscode
+
+# Docs ignores
+_site
+.jekyll-metadata
+doc/analyzer_plugin
+
+# Pub ignores
+.pub
+packages
+.packages
+.dart_tool
+build/
+
+
+# Since over_react is a library package, we shouldn't track pubspec.lock:
+# https://www.dartlang.org/tools/pub/glossary.html#library-package
+pubspec.lock
+
+# Should not track the output of code coverage for now
+coverage/

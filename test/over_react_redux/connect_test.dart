@@ -16,6 +16,7 @@ library abstract_transition_test;
 
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
+import 'package:redux/redux.dart';
 import 'package:test/test.dart';
 
 import '../test_util/test_util.dart';
@@ -32,6 +33,8 @@ main() {
     UiFactory<CounterProps> ConnectedCounter;
     TestJacket<CounterComponent> jacket;
     final counterRef = createRef<CounterComponent>();
+    Store<CounterState> store1;
+    Store<BigCounterState> store2;
 
     JsConnectOptions connectOptions;
     final originalConnect = mockableJsConnect;
@@ -53,15 +56,12 @@ main() {
       mockableJsConnect = originalConnect;
     });
 
-    setUp(() async {
+    setUp(() {
       ConnectedCounter = null;
       jacket = null;
-      // Reset stores state to initalState value.
-      store1.dispatch(ResetAction());
-      store2.dispatch(ResetAction());
 
-      // wait for state to update
-      await Future(() {});
+      store1 = Store(counterStateReducer, initialState: CounterState());
+      store2 = Store(bigCounterStateReducer, initialState: BigCounterState());
     });
 
     test('throws when mounting a UiComponent', () {
@@ -248,10 +248,7 @@ main() {
     group('mapDispatchToProps', () {
       test('maps dispatcher to props correctly', () async {
         ConnectedCounter = connect<CounterState, CounterProps>(
-          mapStateToProps: (state) {
-            expect(state, isA<CounterState>());
-            return Counter()..currentCount = state.count;
-          },
+          mapStateToProps: (state) => (Counter()..currentCount = state.count),
           mapDispatchToProps: (dispatch) {
             return Counter()..decrement = () => dispatch(DecrementAction());
           },
@@ -285,10 +282,7 @@ main() {
     group('mapDispatchToPropsWithOwnProps', () {
       test('maps dispatcher to props correctly', () async {
         ConnectedCounter = connect<CounterState, CounterProps>(
-          mapStateToProps: (state) {
-            expect(state, isA<CounterState>());
-            return Counter()..currentCount = state.count;
-          },
+          mapStateToProps: (state) => (Counter()..currentCount = state.count),
           mapDispatchToPropsWithOwnProps: (dispatch, ownProps) {
             return Counter()..decrement = () => dispatch(DecrementAction());
           },
@@ -329,9 +323,6 @@ main() {
             return Counter()..decrement = () => dispatch(DecrementAction());
           },
           mergeProps: (stateProps, dispatchProps, ownProps) {
-            expect(stateProps, isA<CounterProps>());
-            expect(dispatchProps, isA<CounterProps>());
-            expect(ownProps, isA<CounterProps>());
             return Counter()
               // Return whatever value is passed through ownProps until the state count is over 1
               ..currentCount = stateProps.currentCount < 1
@@ -398,16 +389,14 @@ main() {
 
       group('areStatePropsEqual', () {
         test('', () async {
-          List<String> methodsCalled = [];
+          final calls = <Map<String, dynamic>>[];
           ConnectedCounter = connect<CounterState, CounterProps>(
             mapStateToProps: (state) {
-              methodsCalled.add('mapStateToProps');
+              calls.add({'name': 'mapStateToProps'});
               return Counter()..currentCount = state.count;
             },
             areStatePropsEqual: (next, prev) {
-              expect(next, isA<CounterProps>());
-              expect(prev, isA<CounterProps>());
-              methodsCalled.add('areStatePropsEqual');
+              calls.add({'name': 'areStatePropsEqual', 'next': next, 'prev': prev});
               // Force it to always be true, meaing it shouldnt re-render if they change.
               return true;
             },
@@ -422,8 +411,10 @@ main() {
               )('test'),
             ),
           );
-          expect(methodsCalled, ['mapStateToProps']);
-          methodsCalled.clear();
+          expect(calls, [
+            {'name': 'mapStateToProps'},
+          ]);
+          calls.clear();
 
           var dispatchButton =
               queryByTestId(jacket.mountNode, 'button-increment');
@@ -434,7 +425,14 @@ main() {
 
           // store.state.count should be 1 but does not re-render due to override in `areStatePropsEqual`
 
-          expect(methodsCalled, ['mapStateToProps', 'areStatePropsEqual']);
+          expect(calls, [
+            {'name': 'mapStateToProps'},
+            {
+              'name': 'areStatePropsEqual',
+              'next': isA<CounterProps>(),
+              'prev': isA<CounterProps>(),
+            }
+          ]);
           expect(jacket.mountNode.innerHtml, contains('Count: 0'));
         });
       });
@@ -462,16 +460,20 @@ main() {
 
       group('areStatesEqual', () {
         test('', () async {
-          List<String> methodsCalled = [];
+          final calls = <Map<String, dynamic>>[];
+          getCallNames() => calls.map((call) => call['name']).toList();
+
           ConnectedCounter = connect<CounterState, CounterProps>(
             areStatesEqual: (next, prev) {
-              expect(next, isA<CounterState>());
-              expect(prev, isA<CounterState>());
-              methodsCalled.add('areStatesEqual');
+              calls.add({
+                'name': 'areStatesEqual',
+                'prev': prev,
+                'next': next,
+              });
               return true;
             },
             mapStateToProps: (state) {
-              methodsCalled.add('mapStateToProps');
+              calls.add({'name': 'mapStateToProps'});
               return Counter()..currentCount = state.count;
             },
             forwardRef: true,
@@ -479,16 +481,21 @@ main() {
 
           jacket = mount(
             (ReduxProvider()..store = store1)(
-              (ConnectedCounter()
-                ..ref = counterRef
-                ..currentCount = 0
-              )('test'),
+              (ConnectedCounter()..ref = counterRef)('test'),
             ),
           );
 
-          expect(methodsCalled, contains('mapStateToProps'));
-          expect(methodsCalled, contains('areStatesEqual'));
-          methodsCalled.clear();
+          expect(getCallNames(),
+              containsAll({'areStatesEqual', 'mapStateToProps'}));
+          expect(
+              calls.firstWhere((call) => call['name'] == 'areStatesEqual'),
+              {
+                'name': 'areStatesEqual',
+                'prev': isA<CounterState>(),
+                'next': isA<CounterState>(),
+              },
+              reason: 'states should be passed in as arguments');
+          calls.clear();
 
           var dispatchButton =
               queryByTestId(jacket.mountNode, 'button-increment');
@@ -498,9 +505,45 @@ main() {
           await Future(() {});
 
           // only calls `areStatesEqual` and does not call `mapStateToProps` since it returned `true`.
-          expect(methodsCalled, isNot(contains('mapStateToProps')));
-          expect(methodsCalled, contains('areStatesEqual'));
+          expect(getCallNames(), isNot(contains('mapStateToProps')));
+          expect(getCallNames(), contains('areStatesEqual'));
           expect(jacket.mountNode.innerHtml, contains('Count: 0'));
+        });
+
+        group('when not specified,', () {
+          // This indirectly tests the memoization of wrapInteropValue
+          test('does not rerender when the state object is identical', () async {
+            List<String> methodsCalled = [];
+            ConnectedCounter = connect<CounterState, CounterProps>(
+              mapStateToProps: (state) {
+                methodsCalled.add('mapStateToProps');
+                return Counter()..currentCount = state.count;
+              },
+              forwardRef: true,
+            )(Counter);
+
+            final noopStore = Store<CounterState>((state, action) => state, initialState: CounterState(count: 0));
+
+            jacket = mount(
+              (ReduxProvider()..store = noopStore)(
+                (ConnectedCounter()..ref = counterRef..currentCount = 0)('test'),
+              ),
+            );
+
+            expect(methodsCalled, contains('mapStateToProps'));
+            methodsCalled.clear();
+
+            final stateBefore = noopStore.state;
+            noopStore.dispatch('Dummy action that does not mutate state, but triggers connect');
+            // wait for the next tick for the async dispatch to propagate
+            await Future(() {});
+            final stateAfter = noopStore.state;
+            expect(stateAfter, same(stateBefore),
+                reason: 'test setup check; store should have the exact same state object');
+
+            expect(methodsCalled, isEmpty,
+                reason: 'mapStateToProps should not be called since states are equal according to connect');
+          });
         });
       });
     });
