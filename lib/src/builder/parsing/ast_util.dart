@@ -52,7 +52,18 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
             final args = methodInvocation.argumentList?.arguments;
             if (args == null || args.length < 2) return false;
 
-            return args[1].toString() == '\$${uiFactoryDeclaration.name.name}Config';
+            if (args[1] is SimpleIdentifier) {
+              return args[1].toString() == '\$${uiFactoryDeclaration.name.name}Config';
+            } else if (args[1] is PrefixedIdentifier) {
+              return args[1]
+                  .childEntities
+                  .where((child) {
+                    return child is SimpleIdentifier &&
+                        child.name == '\$${uiFactoryDeclaration.name.name}Config';
+                  })
+                  .toList()
+                  .isNotEmpty;
+            }
           }
 
           return false;
