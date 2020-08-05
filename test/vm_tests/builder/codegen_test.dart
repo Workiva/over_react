@@ -707,7 +707,7 @@ main() {
               (props) {
                 return Dom.div()();
               }, 
-              $BarPropsMixinConfig, // ignore: undefined_identifier
+              $BarConfig, // ignore: undefined_identifier
             );
             
             final Foo = uiFunction<BarPropsMixin>(

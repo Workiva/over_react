@@ -47,7 +47,7 @@ main() {
     });
 
     group('on a function component child', () {
-      standardForwardRefTest(BasicChild, verifyRefValue: (ref) {
+      testForwardRefWith(BasicChild, verifyRefValue: (ref) {
         expect(ref, TypeMatcher<BasicChildComponent>());
       }, useUiForwardRef: true);
 
@@ -180,7 +180,7 @@ void commonRefForwardingTests({bool useUiForwardRef = false}) {
 
   group('- commonRefForwardingTests -', () {
     group('on a component with a dom component child', () {
-      standardForwardRefTest(Dom.span, verifyRefValue: (ref) {
+      testForwardRefWith(Dom.span, verifyRefValue: (ref) {
         expect(ref, TypeMatcher<SpanElement>());
       }, useUiForwardRef: useUiForwardRef);
 
@@ -227,7 +227,7 @@ void commonRefForwardingTests({bool useUiForwardRef = false}) {
     });
 
     group('on a component with a dart component child', () {
-      standardForwardRefTest(Basic, verifyRefValue: (ref) {
+      testForwardRefWith(Basic, verifyRefValue: (ref) {
         expect(ref, TypeMatcher<BasicComponent>());
       }, useUiForwardRef: useUiForwardRef);
 
@@ -267,7 +267,7 @@ void commonRefForwardingTests({bool useUiForwardRef = false}) {
 
 const displayName = 'AVerySpecificDisplayName';
 
-void standardForwardRefTest(dynamic factory,
+void testForwardRefWith(dynamic factory,
     {void Function(dynamic refValue) verifyRefValue, useUiForwardRef = false}) {
   test('- passes a ref through the parent to its child', () {
     UiFactory<BasicProps> BasicForwarded = useUiForwardRef

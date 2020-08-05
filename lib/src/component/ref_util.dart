@@ -177,11 +177,11 @@ Ref<T> createRef<T>() {
 ///
 /// Learn more: <https://reactjs.org/docs/forwarding-refs.html>.
 UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>(
-    Function(TProps props, Ref ref) wrapperFunction, {String displayName}) {
-
+    Function(TProps props, Ref ref) wrapperFunction,
+    {String displayName}) {
   UiFactory<TProps> wrapWithForwardRef(UiFactory<TProps> factory) {
     enforceMinimumComponentVersionFor(factory().componentFactory);
-    
+
     if (displayName == null) {
       final componentFactoryType = factory().componentFactory.type;
       if (componentFactoryType is String) {
@@ -197,10 +197,11 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
         }
       }
     }
-    
+
     Object wrapProps(Map props, Ref ref) {
       return wrapperFunction(factory(props), ref);
     }
+
     ReactComponentFactoryProxy hoc = react_interop.forwardRef(wrapProps, displayName: displayName);
     setComponentTypeMeta(hoc, isHoc: true, parentType: factory().componentFactory);
 
@@ -215,9 +216,6 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 }
 
 /// Automatically passes a [Ref] through a component to one of its children.
-///
-/// > __NOTE:__ This should only be used to wrap components that extend from `Component2`
-/// > or components using the function syntax.
 ///
 /// __Example 1:__ Forwarding refs to DOM components
 ///
@@ -283,20 +281,20 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 ///
 /// // ---------- Wrapping a Class Component ----------
 /// // Here you have two options:
-/// //   - Option 1: Use the class component's UI Factory to construct a function
+/// //   - Option 1: Use the class component's UI Factory to construct a UI
 /// //   component config. This needs to be done because the builder recognizes
 /// //   `LogPropsProps` as already consumed (by the class component).
 /// //
 /// //   - Option 2: Create a new props class. This just works around the issue
 /// //   described for Option 1 because it is creating a new props class, but it
-/// //   only needs to mixin in the props mixins that the original props class used.
+/// //   only needs to mix in the props mixins that the original props class used.
 /// //
-/// // Choosing between the options is likely circumstantial or at least preferential
-/// // if all else is the same. The advantage to Option 1 is that if the class component
-/// // has numerous mixins, it is much more concise to create the function component
-/// // config. Option 2 has the benefit that it matches the declaration of standard
+/// // Choosing between the options is likely circumstantial or preferential.
+/// // The advantage to Option 1 is that if the class component has numerous mixins,
+/// // it is much more concise to create the function component config.
+/// // Option 2 has the benefit that it matches the declaration of standard
 /// // function components (which `uiForwardRef` returns). Additionally, Option 2
-/// // illustrates how one could add additional props to the wrapping function component.
+/// // illustrates how one could add additional props to the wrapped function component.
 ///
 /// // Option 1 Example
 /// final LogsPropsComponent = uiForwardRef<LogPropsProps>((props, ref) {
@@ -449,8 +447,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 ///
 /// Learn more: <https://reactjs.org/docs/forwarding-refs.html>.
 UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
-    dynamic Function(TProps props, dynamic ref) functionComponent,
-    UiFactoryConfig<TProps> config) {
+    dynamic Function(TProps props, dynamic ref) functionComponent, UiFactoryConfig<TProps> config) {
   ArgumentError.checkNotNull(config, 'config');
 
   // ignore: invalid_use_of_protected_member
@@ -475,12 +472,10 @@ UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
 
   if (propsFactory == null) {
     if (TProps != UiProps && TProps != GenericUiProps) {
-      throw ArgumentError(
-          'config.propsFactory must be provided when using custom props classes');
+      throw ArgumentError('config.propsFactory must be provided when using custom props classes');
     }
-    propsFactory = PropsFactory.fromUiFactory(
-            ([backingMap]) => GenericUiProps(factory, backingMap))
-    as PropsFactory<TProps>;
+    propsFactory = PropsFactory.fromUiFactory(([backingMap]) => GenericUiProps(factory, backingMap))
+        as PropsFactory<TProps>;
   }
 
   TProps _uiFactory([Map backingMap]) {
