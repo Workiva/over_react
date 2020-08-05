@@ -166,10 +166,10 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
   }
 
   ReactElement _renderEditableUserDeleteButton() {
-    return (Tooltip()
-        ..enterDelay = 500
-        ..title = 'Delete Todo'
-    )(
+    return Tooltip({
+        'enterDelay': 500,
+        'title': 'Delete Todo'
+    },
       Box({'color': 'error.main'},
         IconButton({
           'size': 'small',

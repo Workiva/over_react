@@ -114,12 +114,12 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
   ReactElement _renderDeleteButton() {
     final isDisabled = localTodoAppStorage.currentStateJson['name'] == props.localStorageKey;
 
-    return (Tooltip()
-        ..enterDelay = 500
-        ..title = isDisabled
+    return Tooltip({
+        'enterDelay': 500,
+        'title': isDisabled
           ? 'Cannot delete the currently loaded data set.'
           : 'Delete the ${props.localStorageKey} data set.'
-    )(
+      },
       Box({
         ...shrinkToFit,
         'color': 'error.main',

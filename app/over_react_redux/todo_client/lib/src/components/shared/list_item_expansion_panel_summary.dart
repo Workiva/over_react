@@ -65,10 +65,10 @@ class ListItemExpansionPanelSummaryComponent
       'aria-hidden': !isHovered,
       'className': 'hide-using-aria',
     },
-      (Tooltip()
-          ..enterDelay = 500
-          ..title = props.isEditable ? 'Save Changes' : 'Make Changes'
-      )(
+      Tooltip({
+          'enterDelay': 500,
+          'title': props.isEditable ? 'Save Changes' : 'Make Changes'
+      },
         IconButton({
           'aria-label': props.isEditable ? 'Save Changes' : 'Make Changes',
           'className': 'todo-list__item__edit-btn',
