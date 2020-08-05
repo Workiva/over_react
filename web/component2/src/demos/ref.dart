@@ -3,11 +3,12 @@ import 'dart:html';
 import 'package:over_react/over_react.dart';
 
 // ignore: uri_has_not_been_generated
-part 'forward_ref.over_react.g.dart';
+part 'ref.over_react.g.dart';
 
 // ------------ `uiForwardRef` with a function component (simple) ------------
 mixin UiForwardRefLogsFunctionComponentProps on UiProps {
   BuilderOnlyUiFactory<DomProps> builder;
+  Ref<Element> lastClickedButton;
 }
 
 final UiForwardRefLogsFunctionComponent = uiForwardRef<UiForwardRefLogsFunctionComponentProps>(
@@ -16,8 +17,8 @@ final UiForwardRefLogsFunctionComponent = uiForwardRef<UiForwardRefLogsFunctionC
 
     useEffect(() {
       if (prevPropsRef.current != null) {
-        print(prevPropsRef.current);
-        print(props);
+        print('old props: ${prevPropsRef.current}');
+        print('new props: $props');
       }
 
       prevPropsRef.current = props;
@@ -47,8 +48,8 @@ final UiForwardRefLogsPropsComplexFunctionComponent =
 
     useEffect(() {
       if (prevPropsRef.current != null) {
-        print(prevPropsRef.current);
-        print(props);
+        print('old props: ${prevPropsRef.current}');
+        print('new props: $props');
       }
 
       prevPropsRef.current = props;
@@ -80,7 +81,7 @@ mixin UiForwardRefLogsPropsComplexComponentPropsMixin on UiProps {
 }
 
 class UiForwardRefLogsPropsComplexComponentProps = UiProps
-    with UiForwardRefLogsPropsComplexFunctionComponentPropsMixin, LogPropsProps;
+    with UiForwardRefLogsPropsComplexComponentPropsMixin, LogPropsProps;
 
 final UiForwardRefLogsPropsComplexComponent =
     uiForwardRef<UiForwardRefLogsPropsComplexComponentProps>(
@@ -108,7 +109,7 @@ mixin LogPropsProps on UiProps {
   BuilderOnlyUiFactory<DomProps> builder;
 
   // A simple prop to change in order to trigger the print.
-  bool thisWasClickedLast;
+  Ref lastClickedButton;
 
   // Private since we only use this to pass along the value of `ref` to
   // the return value of forwardRef.
@@ -126,11 +127,9 @@ class LogPropsComponent extends UiComponent2<LogPropsProps> {
 
   @override
   render() {
-    return Dom.div()(
-        Dom.p()('This was the last button clicked: ${props.thisWasClickedLast}'),
-        (props.builder()
-          ..modifyProps(addUnconsumedDomProps)
-          ..ref = props._forwardedRef)(props.children));
+    return Dom.div()((props.builder()
+      ..modifyProps(addUnconsumedDomProps)
+      ..ref = props._forwardedRef)(props.children));
   }
 }
 
@@ -149,8 +148,8 @@ final _LogsPropsFunctionComponent = uiFunction<_LogsPropsFunctionComponentProps>
 
     useEffect(() {
       if (prevPropsRef.current != null) {
-        print(prevPropsRef.current);
-        print(props);
+        print('old props: ${prevPropsRef.current}');
+        print('new props: $props');
       }
 
       prevPropsRef.current = props;
@@ -190,50 +189,58 @@ final RefDemoContainer = uiFunction<RefDemoProps>(
     final fancyButtonNodeRef = createRef<Element>();
     final fancyFunctionalButtonNodeRef = createRef<Element>();
 
-    final lastClickedRef = useState<Ref>(null);
+    final lastClickedRef = useState<Ref<Element>>(buttonNodeRefForComplexComponent);
 
     return ((Dom.div()..style = {'padding': 10})(
       (RefDemoSection()..sectionTitle = 'uiForwardRef Demos')(
         (RefDemoHoc()..demoTitle = '`uiForwardRef` with a function component (simple)')(
           (UiForwardRefLogsFunctionComponent()
             ..builder = FancyButton
+            ..lastClickedButton = lastClickedRef.value
             ..id = 'uiForwardRef-function-component'
             ..className = 'btn btn-primary'
             ..ref = buttonNodeRefForSimpleFunctionComponent
             ..onClick = (_) {
-              print(buttonNodeRefForSimpleFunctionComponent.current.outerHtml);
+              printButtonOuterHtml(buttonNodeRefForSimpleFunctionComponent);
+              lastClickedRef.set(buttonNodeRefForSimpleFunctionComponent);
             })(),
         ),
         (RefDemoHoc()..demoTitle = '`uiForwardRef` with a function component (complex)')(
           (UiForwardRefLogsPropsComplexFunctionComponent()
             ..buttonDescription = 'A button that logs the innerHtml'
             ..builder = FancyButton
+            ..lastClickedButton = lastClickedRef.value
             ..id = 'uiForwardRef-function-complex-component'
             ..className = 'btn btn-success'
             ..ref = buttonNodeRefForComplexFunctionComponent
             ..onClick = (_) {
-              print(buttonNodeRefForComplexFunctionComponent.current.outerHtml);
+              printButtonOuterHtml(buttonNodeRefForComplexFunctionComponent);
+              lastClickedRef.set(buttonNodeRefForComplexFunctionComponent);
             })(),
         ),
         (RefDemoHoc()..demoTitle = '`uiForwardRef` with a class component (simple)')(
           (UiForwardRefLogsPropsComponent()
             ..builder = FancyButton
+            ..lastClickedButton = lastClickedRef.value
             ..id = 'uiForwardRef-component'
             ..className = 'btn btn-warning'
             ..ref = buttonNodeRefForSimpleComponent
             ..onClick = (_) {
-              print(buttonNodeRefForSimpleComponent.current.outerHtml);
+              printButtonOuterHtml(buttonNodeRefForSimpleComponent);
+              lastClickedRef.set(buttonNodeRefForSimpleComponent);
             })(),
         ),
         (RefDemoHoc()..demoTitle = '`uiForwardRef` with a class component (complex)')(
           (UiForwardRefLogsPropsComplexComponent()
             ..buttonDescription = 'A button that logs the innerHtml'
             ..builder = FancyButton
+            ..lastClickedButton = lastClickedRef.value
             ..id = 'uiForwardRef-complex-component'
             ..className = 'btn btn-danger'
             ..ref = buttonNodeRefForComplexComponent
             ..onClick = (_) {
-              print(buttonNodeRefForComplexComponent.current.outerHtml);
+              printButtonOuterHtml(buttonNodeRefForComplexComponent);
+              lastClickedRef.set(buttonNodeRefForComplexComponent);
             })(),
         ),
       ),
@@ -241,22 +248,24 @@ final RefDemoContainer = uiFunction<RefDemoProps>(
         (RefDemoHoc()..demoTitle = '`forwardRef` with class component')(
           (LogProps()
             ..builder = FancyButton
+            ..lastClickedButton = lastClickedRef.value
             ..id = 'forwardRef-component'
             ..className = 'btn btn-primary'
             ..ref = fancyButtonNodeRef
             ..onClick = (_) {
-              print(fancyButtonNodeRef.current.outerHtml);
+              printButtonOuterHtml(fancyButtonNodeRef);
               lastClickedRef.set(fancyButtonNodeRef);
             })(),
         ),
         (RefDemoHoc()..demoTitle = '`uiForwardRef` with function component')(
           (LogsPropsFunctionComponent()
             ..builder = FancyButton
+            ..lastClickedButton = lastClickedRef.value
             ..id = 'forwardRef-function-component'
             ..className = 'btn btn-success'
             ..ref = fancyFunctionalButtonNodeRef
             ..onClick = (_) {
-              print(fancyFunctionalButtonNodeRef.current.outerHtml);
+              printButtonOuterHtml(fancyFunctionalButtonNodeRef);
               lastClickedRef.set(fancyFunctionalButtonNodeRef);
             })(),
         ),
@@ -265,6 +274,10 @@ final RefDemoContainer = uiFunction<RefDemoProps>(
   },
   $RefDemoContainerConfig, // ignore: undefined_identifier
 );
+
+void printButtonOuterHtml(Ref buttonRef) {
+  print('this button outerHTML: ${buttonRef.current.outerHtml}');
+}
 
 mixin RefDemoSectionProps on UiProps {
   String sectionTitle;

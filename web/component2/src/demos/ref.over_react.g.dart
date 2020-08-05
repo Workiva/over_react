@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
-part of 'forward_ref.dart';
+part of 'ref.dart';
 
 // **************************************************************************
 // OverReactBuilder (package:over_react/src/builder.dart)
@@ -159,18 +159,35 @@ mixin $UiForwardRefLogsFunctionComponentProps
   @override
   set builder(BuilderOnlyUiFactory<DomProps> value) =>
       props[_$key__builder__UiForwardRefLogsFunctionComponentProps] = value;
+  @override
+  Ref<Element> get lastClickedButton =>
+      props[_$key__lastClickedButton__UiForwardRefLogsFunctionComponentProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set lastClickedButton(Ref<Element> value) =>
+      props[_$key__lastClickedButton__UiForwardRefLogsFunctionComponentProps] =
+          value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
       _$prop__builder__UiForwardRefLogsFunctionComponentProps =
       PropDescriptor(_$key__builder__UiForwardRefLogsFunctionComponentProps);
+  static const PropDescriptor
+      _$prop__lastClickedButton__UiForwardRefLogsFunctionComponentProps =
+      PropDescriptor(
+          _$key__lastClickedButton__UiForwardRefLogsFunctionComponentProps);
   static const String _$key__builder__UiForwardRefLogsFunctionComponentProps =
       'UiForwardRefLogsFunctionComponentProps.builder';
+  static const String
+      _$key__lastClickedButton__UiForwardRefLogsFunctionComponentProps =
+      'UiForwardRefLogsFunctionComponentProps.lastClickedButton';
 
   static const List<PropDescriptor> $props = [
-    _$prop__builder__UiForwardRefLogsFunctionComponentProps
+    _$prop__builder__UiForwardRefLogsFunctionComponentProps,
+    _$prop__lastClickedButton__UiForwardRefLogsFunctionComponentProps
   ];
   static const List<String> $propKeys = [
-    _$key__builder__UiForwardRefLogsFunctionComponentProps
+    _$key__builder__UiForwardRefLogsFunctionComponentProps,
+    _$key__lastClickedButton__UiForwardRefLogsFunctionComponentProps
   ];
 }
 
@@ -280,12 +297,12 @@ mixin $LogPropsProps on LogPropsProps {
   set builder(BuilderOnlyUiFactory<DomProps> value) =>
       props[_$key__builder__LogPropsProps] = value;
   @override
-  bool get thisWasClickedLast =>
-      props[_$key__thisWasClickedLast__LogPropsProps] ??
+  Ref get lastClickedButton =>
+      props[_$key__lastClickedButton__LogPropsProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set thisWasClickedLast(bool value) =>
-      props[_$key__thisWasClickedLast__LogPropsProps] = value;
+  set lastClickedButton(Ref value) =>
+      props[_$key__lastClickedButton__LogPropsProps] = value;
   @override
   Ref get _forwardedRef =>
       props[_$key___forwardedRef__LogPropsProps] ??
@@ -296,24 +313,24 @@ mixin $LogPropsProps on LogPropsProps {
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__builder__LogPropsProps =
       PropDescriptor(_$key__builder__LogPropsProps);
-  static const PropDescriptor _$prop__thisWasClickedLast__LogPropsProps =
-      PropDescriptor(_$key__thisWasClickedLast__LogPropsProps);
+  static const PropDescriptor _$prop__lastClickedButton__LogPropsProps =
+      PropDescriptor(_$key__lastClickedButton__LogPropsProps);
   static const PropDescriptor _$prop___forwardedRef__LogPropsProps =
       PropDescriptor(_$key___forwardedRef__LogPropsProps);
   static const String _$key__builder__LogPropsProps = 'LogPropsProps.builder';
-  static const String _$key__thisWasClickedLast__LogPropsProps =
-      'LogPropsProps.thisWasClickedLast';
+  static const String _$key__lastClickedButton__LogPropsProps =
+      'LogPropsProps.lastClickedButton';
   static const String _$key___forwardedRef__LogPropsProps =
       'LogPropsProps._forwardedRef';
 
   static const List<PropDescriptor> $props = [
     _$prop__builder__LogPropsProps,
-    _$prop__thisWasClickedLast__LogPropsProps,
+    _$prop__lastClickedButton__LogPropsProps,
     _$prop___forwardedRef__LogPropsProps
   ];
   static const List<String> $propKeys = [
     _$key__builder__LogPropsProps,
-    _$key__thisWasClickedLast__LogPropsProps,
+    _$key__lastClickedButton__LogPropsProps,
     _$key___forwardedRef__LogPropsProps
   ];
 }
@@ -588,8 +605,8 @@ final UiFactoryConfig<_$$UiForwardRefLogsPropsComplexComponentProps>
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$UiForwardRefLogsPropsComplexComponentProps extends UiProps
     with
-        UiForwardRefLogsPropsComplexFunctionComponentPropsMixin,
-        $UiForwardRefLogsPropsComplexFunctionComponentPropsMixin, // If this generated mixin is undefined, it's likely because UiForwardRefLogsPropsComplexFunctionComponentPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of UiForwardRefLogsPropsComplexFunctionComponentPropsMixin.
+        UiForwardRefLogsPropsComplexComponentPropsMixin,
+        $UiForwardRefLogsPropsComplexComponentPropsMixin, // If this generated mixin is undefined, it's likely because UiForwardRefLogsPropsComplexComponentPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of UiForwardRefLogsPropsComplexComponentPropsMixin.
         LogPropsProps,
         $LogPropsProps // If this generated mixin is undefined, it's likely because LogPropsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of LogPropsProps.
     implements
