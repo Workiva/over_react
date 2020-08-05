@@ -42,7 +42,11 @@ class TaskCountBadgeComponent extends UiComponent2<TaskCountBadgeProps> {
         props.dispatch(UnHighlightTodosAction(props.assignedTodoIds));
       },
     },
-      Tooltip({
+      (Tooltip()
+          ..title = _tooltipContent
+          ..arrow = true
+          ..enterDelay = 500
+      )({
         'title': _tooltipContent,
         'arrow': true,
         'enterDelay': 500,

@@ -8,7 +8,7 @@ import 'package:todo_client/src/components/shared/hoverable_item_mixin.dart';
 import 'package:react_material_ui/react_material_ui.dart';
 import 'package:todo_client/src/components/shared/menu_overlay.dart';
 
-part 'saved_data_menu_item.over_react.g.dart';
+part 'saved_data_menu_item.over_react.g.dart'; // ignore: uri_has_not_been_generated
 
 UiFactory<SavedDataMenuItemProps> SavedDataMenuItem =
     _$SavedDataMenuItem; // ignore: undefined_identifier
@@ -114,12 +114,12 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
   ReactElement _renderDeleteButton() {
     final isDisabled = localTodoAppStorage.currentStateJson['name'] == props.localStorageKey;
 
-    return Tooltip({
-      'title': isDisabled
+    return (Tooltip()
+        ..enterDelay = 500
+        ..title = isDisabled
           ? 'Cannot delete the currently loaded data set.'
-          : 'Delete the ${props.localStorageKey} data set.',
-      'enterDelay': 500,
-    },
+          : 'Delete the ${props.localStorageKey} data set.'
+    )(
       Box({
         ...shrinkToFit,
         'color': 'error.main',

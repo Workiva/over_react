@@ -90,20 +90,20 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
       'mr': 1,
       'alignSelf': 'center',
     },
-      Tooltip({
-        'enterDelay': 500,
-        'title': model.isCompleted ? 'Mark as not completed' : 'Mark as completed',
-      },
-        Checkbox({
-          'checked': model.isCompleted,
-          'inputProps': {
-            'aria-label': 'Complete Task',
-          },
-          'value': 'isCompleted',
-          'onChange': (_) { updateModel(Todo.from(model)..isCompleted = !model.isCompleted); },
-          'onClick': (SyntheticEvent e) { e.stopPropagation(); },
-          'onFocus': (SyntheticEvent e) { e.stopPropagation(); },
-        }),
+      (Tooltip()
+        ..enterDelay = 500
+        ..title = model.isCompleted ? 'Mark as not completed' : 'Mark as completed'
+      )(
+        (Checkbox()
+            ..checked = model.isCompleted
+            ..inputProps = {
+              'aria-label': 'Complete Task'
+            }
+            ..value = 'isCompleted'
+            ..onChange = (_) { updateModel(Todo.from(model)..isCompleted = !model.isCompleted); }
+            ..onClick = (SyntheticEvent e) { e.stopPropagation(); }
+            ..onFocus = (SyntheticEvent e) { e.stopPropagation(); }
+        )()
       ),
     );
   }
@@ -196,10 +196,10 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   }
 
   ReactElement _renderEditableTaskDeleteButton() {
-    return Tooltip({
-      'enterDelay': 500,
-      'title': 'Delete Todo',
-    },
+    return (Tooltip()
+        ..enterDelay = 500
+        ..title = 'Delete Todo'
+    )(
       Box({'color': 'error.main'},
         IconButton({
           'size': 'small',
@@ -217,10 +217,10 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   ReactElement _renderEditableTaskPrivacyToggleButton() {
     final tooltipTitle = model.isPublic ? 'Make Private' : 'Make Public';
 
-    return Tooltip({
-      'enterDelay': 500,
-      'title': tooltipTitle,
-    },
+    return (Tooltip()
+        ..enterDelay = 500
+        ..title = tooltipTitle
+    )(
       IconButton({
         'size': 'small',
         'aria-label': model.isPublic ? 'Make Private' : 'Make Public',
