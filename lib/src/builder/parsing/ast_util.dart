@@ -46,12 +46,7 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
   bool get usesAGeneratedConfig {
     return firstInitializer != null &&
         anyDescendantIdentifiers(firstInitializer, (identifier) {
-          final uiFactoryDeclaration = identifier.thisOrAncestorOfType<VariableDeclaration>();
-
-          return firstInitializer != null &&
-              anyDescendantIdentifiers(firstInitializer, (identifier) {
-                return identifier.nameWithoutPrefix == '\$${uiFactoryDeclaration.name.name}Config';
-              });
+          return identifier.nameWithoutPrefix == '\$${firstVariable.name.name}Config';
         });
   }
 }
