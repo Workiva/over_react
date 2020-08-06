@@ -233,14 +233,14 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
 
   ReactElement _renderEditableTaskCancelButton() {
     return (Button()
-        ..size = 'small'
+        ..size = ButtonSize.SMALL
         ..onClick = (_) { exitEditable(saveChanges: false); }
     )('Cancel');
   }
 
   ReactElement _renderEditableTaskSaveButton() {
     return (Button()
-        ..size = 'small'
+        ..size = ButtonSize.SMALL
         ..onClick = (_) { exitEditable(saveChanges: true); }
         ..color = MuiColor.PRIMARY
     )('Save');

@@ -185,14 +185,14 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
 
   ReactElement _renderEditableUserCancelButton() {
     return (Button()
-      ..size = 'small'
+      ..size = ButtonSize.SMALL
       ..onClick = (_) { exitEditable(saveChanges: false); }
     )('Cancel');
   }
 
   ReactElement _renderEditableUserSaveButton() {
     return (Button()
-      ..size = 'small'
+      ..size = ButtonSize.SMALL
       ..onClick = (_) { exitEditable(saveChanges: true); }
       ..color = MuiColor.PRIMARY
     )('Save');
