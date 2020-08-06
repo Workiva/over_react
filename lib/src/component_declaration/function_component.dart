@@ -140,8 +140,13 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
 }
 
 String getFunctionName(Function function) {
-  return getProperty(function, 'name') ??
+  String functionName = getProperty(function, 'name') ??
       getProperty(function, '\$static_name');
+
+  // Anonymous JS functions do get a name property, but it's an empty string.
+  if (functionName.isEmpty) return null;
+
+  return functionName;
 }
 
 class GenericUiProps extends UiProps {
@@ -166,7 +171,11 @@ class UiFactoryConfig<TProps extends UiProps> {
   final PropsFactory<TProps> propsFactory;
   final String displayName;
 
-  UiFactoryConfig({this.propsFactory, this.displayName});
+  UiFactoryConfig({this.propsFactory, this.displayName}) {
+    print('ayoo');
+    print(displayName);
+    print(displayName == null);
+  }
 }
 
 /// Helper class to keep track of props factories used by [uiFunction],

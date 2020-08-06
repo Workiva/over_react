@@ -391,7 +391,7 @@ UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
 
   // If a consumer uses `asForwardRefConfig` to generate the function component
   // config, displayName could be `null`.
-  if (displayName != null && displayName.trim().isNotEmpty) {
+  if (displayName != null) {
     factory = react_interop.forwardRef(_uiFunctionWrapper, displayName: displayName);
   } else {
     factory = react_interop.forwardRef(_uiFunctionWrapper);
