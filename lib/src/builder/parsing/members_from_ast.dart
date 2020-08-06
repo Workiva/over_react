@@ -169,9 +169,7 @@ class _BoilerplateMemberDetector {
     }
 
     final rightHandSide = node.variables.firstInitializer;
-    if (rightHandSide != null &&
-        anyDescendantIdentifiers(
-            rightHandSide, (identifier) => identifier.isAttachedToAGeneratedUiFactory)) {
+    if (rightHandSide != null && node.usesAGeneratedConfig) {
       onFactory(BoilerplateFactory(
           node,
           VersionConfidences(

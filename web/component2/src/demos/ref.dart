@@ -1,3 +1,4 @@
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
@@ -11,7 +12,7 @@ mixin UiForwardRefLogsFunctionComponentProps on UiProps {
   Ref<Element> lastClickedButton;
 }
 
-final UiForwardRefLogsFunctionComponent = uiForwardRef<UiForwardRefLogsFunctionComponentProps>(
+UiFactory<UiForwardRefLogsFunctionComponentProps> UiForwardRefLogsFunctionComponent = uiForwardRef(
   (props, ref) {
     final prevPropsRef = useRef<UiForwardRefLogsFunctionComponentProps>(null);
 
@@ -41,8 +42,8 @@ class UiForwardRefLogsPropsComplexFunctionComponentProps = UiProps
         UiForwardRefLogsPropsComplexFunctionComponentPropsMixin,
         UiForwardRefLogsFunctionComponentProps;
 
-final UiForwardRefLogsPropsComplexFunctionComponent =
-    uiForwardRef<UiForwardRefLogsPropsComplexFunctionComponentProps>(
+UiFactory<UiForwardRefLogsPropsComplexFunctionComponentProps> UiForwardRefLogsPropsComplexFunctionComponent =
+    uiForwardRef(
   (props, ref) {
     final prevPropsRef = useRef<UiForwardRefLogsPropsComplexFunctionComponentProps>(null);
 
@@ -66,13 +67,13 @@ final UiForwardRefLogsPropsComplexFunctionComponent =
 );
 
 // ------------ `uiForwardRef` with a class component (simple) ------------
-final UiForwardRefLogsPropsComponent = uiForwardRef<LogPropsProps>(
+UiFactory<LogPropsProps> UiForwardRefLogsPropsComponent = uiForwardRef(
   (props, ref) {
     return (_LogProps()
       ..addProps(props)
       .._forwardedRef = ref)();
   },
-  _LogProps.asForwardRefConfig<LogPropsProps>(displayName: 'UiForwardRefLogsProps'),
+  _LogProps.asForwardRefConfig(),
 );
 
 // ------------ `uiForwardRef` with a class component (complex) ------------
@@ -83,8 +84,8 @@ mixin UiForwardRefLogsPropsComplexComponentPropsMixin on UiProps {
 class UiForwardRefLogsPropsComplexComponentProps = UiProps
     with UiForwardRefLogsPropsComplexComponentPropsMixin, LogPropsProps;
 
-final UiForwardRefLogsPropsComplexComponent =
-    uiForwardRef<UiForwardRefLogsPropsComplexComponentProps>(
+UiFactory<UiForwardRefLogsPropsComplexComponentProps> UiForwardRefLogsPropsComplexComponent =
+    uiForwardRef(
   (props, ref) {
     return Fragment()(
       Dom.div()(props.buttonDescription),
@@ -97,7 +98,7 @@ final UiForwardRefLogsPropsComplexComponent =
 );
 
 // ------------ `forwardRef` (deprecated) with class component ------------
-final LogProps = forwardRef<LogPropsProps>((props, ref) {
+UiFactory<LogPropsProps> LogProps = forwardRef<LogPropsProps>((props, ref) {
   return (_LogProps()
     ..addProps(props)
     .._forwardedRef = ref)();
@@ -134,7 +135,7 @@ class LogPropsComponent extends UiComponent2<LogPropsProps> {
 }
 
 // ------------ `forwardRef` (deprecated) with Function component ------------
-final LogsPropsFunctionComponent = forwardRef<_LogsPropsFunctionComponentProps>((props, ref) {
+UiFactory<_LogsPropsFunctionComponentProps> LogsPropsFunctionComponent = forwardRef<_LogsPropsFunctionComponentProps>((props, ref) {
   return (_LogsPropsFunctionComponent()
     ..addProps(props)
     .._forwardedRef = ref)();
@@ -163,7 +164,7 @@ final _LogsPropsFunctionComponent = uiFunction<_LogsPropsFunctionComponentProps>
 );
 
 // -------------------------------- Demo Display Logic --------------------------------
-final FancyButton = uiForwardRef<DomProps>(
+UiFactory<DomProps> FancyButton = uiForwardRef(
   (props, ref) {
     final classes = ClassNameBuilder.fromProps(props)..add('FancyButton');
 
@@ -172,12 +173,12 @@ final FancyButton = uiForwardRef<DomProps>(
       ..className = classes.toClassName()
       ..ref = ref)('Click me!');
   },
-  Dom.button.asForwardRefConfig<DomProps>(displayName: 'FancyButton'),
+  Dom.button.asForwardRefConfig(displayName: 'FancyButton'),
 );
 
 mixin RefDemoProps on UiProps {}
 
-final RefDemoContainer = uiFunction<RefDemoProps>(
+UiFactory<RefDemoProps> RefDemoContainer = uiFunction(
   (props) {
     // `uiForwardRef` Refs 
     final buttonNodeRefForSimpleFunctionComponent = createRef<Element>();
@@ -283,7 +284,7 @@ mixin RefDemoSectionProps on UiProps {
   String sectionTitle;
 }
 
-final RefDemoSection = uiFunction<RefDemoSectionProps>(
+UiFactory<RefDemoSectionProps> RefDemoSection = uiFunction(
   (props) {
     return (Fragment()(
         (Dom.h3()..style = {'color': 'gray', 'borderBottom': '1px solid gray', 'marginTop': 10})(
@@ -304,7 +305,7 @@ mixin RefDemoHocProps on UiProps {
   String demoTitle;
 }
 
-final RefDemoHoc = uiFunction<RefDemoHocProps>(
+UiFactory<RefDemoHocProps> RefDemoHoc = uiFunction(
   (props) {
     return ((Dom.div()..style = {'flex': '0 50%', 'width': '100%', 'marginTop': 10})(
       Dom.h4()(props.demoTitle),

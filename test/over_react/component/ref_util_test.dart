@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+// ignore_for_file: deprecated_member_use_from_same_package
 library forward_ref_test;
 
 import 'dart:html';
@@ -184,7 +184,7 @@ void commonRefForwardingTests({bool useUiForwardRef = false}) {
         expect(ref, TypeMatcher<SpanElement>());
       }, useUiForwardRef: useUiForwardRef);
 
-      test('- using DomProps', () {
+      test('- while consuming the `DomProps` props class', () {
         UiFactory<DomProps> DivForwarded = getFactoryForDiv();
 
         final Ref<DivElement> refObject = createRef();
@@ -297,7 +297,7 @@ void testForwardRefWith(dynamic factory,
       idValue = refObject.current.props['id'];
     }
 
-    expect(idValue, equals('test'), reason: 'child component should have access to parent props');
+    expect(idValue, equals('test'), reason: 'child component receives props passed to it');
     verifyRefValue(refObject.current);
   });
 }

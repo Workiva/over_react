@@ -93,8 +93,12 @@ ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentC
 /// via a fluent-style builder interface.
 typedef TProps UiFactory<TProps extends UiProps>([Map backingProps]);
 
-extension UiFactoryHelpers on UiFactory {
-  UiFactoryConfig<TProps> asForwardRefConfig<TProps extends bh.UiProps>({String displayName}) => UiFactoryConfig(propsFactory: PropsFactory.fromUiFactory(this), displayName: displayName);
+extension UiFactoryHelpers<TProps extends bh.UiProps> on UiFactory<TProps> {
+  /// Generates the configuration necessary to construct a UiFactory while invoking
+  /// `uiForwardRef` with a props class that has already been consumed.
+  ///
+  /// See `uiForwardRef` for examples and context.
+  UiFactoryConfig<TProps> asForwardRefConfig({String displayName}) => UiFactoryConfig(propsFactory: PropsFactory.fromUiFactory(this), displayName: displayName);
 }
 
 /// A utility variation on [UiFactory], __without__ a `backingProps` parameter.
