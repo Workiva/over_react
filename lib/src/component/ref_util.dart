@@ -380,7 +380,9 @@ UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
   // ignore: invalid_use_of_protected_member
   var propsFactory = config.propsFactory;
 
-  // Get the display name from the inner function if possible so it doesn't become `_uiFunctionWrapper`
+  // Get the display name from the inner function if possible so it doesn't become `_uiFunctionWrapper`.
+  // If the function is an anonymous function and a display name is not set,
+  // this will be an empty string.
   final displayName = config.displayName ?? getFunctionName(functionComponent);
 
   dynamic _uiFunctionWrapper(dynamic props, dynamic ref) {
@@ -390,7 +392,7 @@ UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
   ReactJsComponentFactoryProxy factory;
 
   // If a consumer uses `asForwardRefConfig` to generate the function component
-  // config, displayName could be `null`.
+  // config, displayName could be `null` or an empty string.
   if (displayName != null && displayName.isNotEmpty) {
     factory = react_interop.forwardRef(_uiFunctionWrapper, displayName: displayName);
   } else {
