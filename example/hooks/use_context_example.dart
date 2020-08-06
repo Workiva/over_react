@@ -45,9 +45,11 @@ mixin NewContextProviderProps on UiProps {}
 final NewContextProvider = uiFunction<NewContextProviderProps>(
   (props) {
     final renderCount = useState(0);
+    final complexMap = useState(false);
 
     _onButtonClick(event) {
       renderCount.setWithUpdater((oldValue) => oldValue + 1);
+      complexMap.set(false);
     }
 
     final provideMap = {'renderCount': renderCount.value};
