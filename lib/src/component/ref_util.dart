@@ -176,6 +176,27 @@ Ref<T> createRef<T>() {
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/forwarding-refs.html>.
+///
+/// DEPRECATED: use [uiForwardRef] instead. Updating an existing usage can be done
+/// like so:
+///
+/// ```dart
+/// // Before:
+/// final FooForwarded = forwardRef<FooProps>((props, ref) {
+///   return (Foo()
+///     ..addAll(props)
+///     ..forwardedRef = ref
+///   )();
+/// })(Foo);
+///
+/// // After:
+/// UiFactory<FooProps> FooForwarded = uiForwardRef((props, ref) {
+///   return (Foo()
+///     ..addAll(props)
+///     ..forwardedRef = ref
+///   )();
+/// }, Foo.asForwardRefConfig(displayName: 'FooForwarded'));
+/// ```
 @Deprecated('Use uiForwardRef instead. Will be removed in 4.0.0')
 UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>(
     Function(TProps props, Ref ref) wrapperFunction,
