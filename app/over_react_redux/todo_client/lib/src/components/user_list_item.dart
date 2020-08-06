@@ -194,7 +194,7 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
     return (Button()
       ..size = 'small'
       ..onClick = (_) { exitEditable(saveChanges: true); }
-      ..color = 'primary'
+      ..color = MuiColor.PRIMARY
     )('Save');
   }
 }
