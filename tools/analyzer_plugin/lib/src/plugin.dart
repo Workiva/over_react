@@ -64,6 +64,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/missing_cascade_parens
 import 'package:over_react_analyzer_plugin/src/diagnostic/proptypes_return_value.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/pseudo_static_lifecycle.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/render_return_value.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/rules_of_hooks.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/string_ref.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/style_missing_unit.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/variadic_children.dart';
@@ -128,6 +129,7 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
         ConsumedPropsReturnValueDiagnostic(),
         ForwardOnlyDomPropsToDomBuildersDiagnostic(),
         IteratorKey(),
+        RulesOfHooks(),
       ];
 
   // @override
