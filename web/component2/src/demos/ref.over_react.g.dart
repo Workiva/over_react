@@ -377,11 +377,12 @@ mixin $LogProps on LogProps {
   set builder(BuilderOnlyUiFactory<UiProps> value) =>
       props[_$key__builder__LogProps] = value;
   @override
-  Ref get _forwardedRef =>
+  dynamic get _forwardedRef =>
       props[_$key___forwardedRef__LogProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set _forwardedRef(Ref value) => props[_$key___forwardedRef__LogProps] = value;
+  set _forwardedRef(dynamic value) =>
+      props[_$key___forwardedRef__LogProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__builder__LogProps =
       PropDescriptor(_$key__builder__LogProps);
@@ -421,11 +422,12 @@ mixin $BazProps on BazProps {
   set builder(BuilderOnlyUiFactory<UiProps> value) =>
       props[_$key__builder__BazProps] = value;
   @override
-  Ref get _forwardedRef =>
+  dynamic get _forwardedRef =>
       props[_$key___forwardedRef__BazProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set _forwardedRef(Ref value) => props[_$key___forwardedRef__BazProps] = value;
+  set _forwardedRef(dynamic value) =>
+      props[_$key___forwardedRef__BazProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__builder__BazProps =
       PropDescriptor(_$key__builder__BazProps);

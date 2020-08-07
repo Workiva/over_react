@@ -23,7 +23,8 @@ UiFactory<FancyButtonProps> FancyButton = uiForwardRef(
     return (Dom.button()
       ..ref = ref
       ..addProps(getPropsToForward(props, onlyCopyDomProps: true))
-      ..className = classes.toClassName())('Click me!');
+      ..className = classes.toClassName()
+    )('Click me!');
   },
   $FancyButtonConfig, // ignore: undefined_identifier
 );
@@ -43,7 +44,8 @@ UiFactory<TProps> withLogging<TProps extends UiProps>(UiFactory<TProps> factoryT
       // is fixed.
       return (factoryToWrap() // ignore: invocation_of_non_function_expression
         ..addAll(props)
-        ..ref = ref)(props.children);
+        ..ref = ref
+      )(props.children);
     },
     factoryToWrap.asForwardRefConfig(
       displayName: 'WithLogging',
@@ -70,10 +72,13 @@ mixin FooProps on UiProps {
 class FooComponent extends UiComponent2<FooProps> {
   @override
   render() {
-    return Dom.div()((Dom.input()
-      ..modifyProps(addUnconsumedDomProps)
-      ..type = 'text'
-      ..ref = props._inputRef)());
+    return Dom.div()(
+      (Dom.input()
+        ..modifyProps(addUnconsumedDomProps)
+        ..type = 'text'
+        ..ref = props._inputRef
+      )(),
+    );
   }
 }
 
@@ -82,7 +87,8 @@ UiFactory<FooProps> Foo = uiForwardRef(
   (props, ref) {
     return (_Foo()
       ..addProps(props)
-      .._inputRef = ref)();
+      .._inputRef = ref
+    )();
   },
   _Foo.asForwardRefConfig(),
 );
@@ -99,7 +105,8 @@ final Foo2 = uiForwardRef<Foo2Props>(
     print(props.anExampleAdditionalProp);
     return (_Foo()
       ..addProps(props)
-      .._inputRef = ref)();
+      .._inputRef = ref
+    )();
   },
   $Foo2Config, // ignore: undefined_identifier
 );
@@ -116,7 +123,8 @@ final Foo2 = uiForwardRef<Foo2Props>(
 UiFactory<LogProps> LogPropsHoc = forwardRef<LogProps>((props, ref) {
   return (_Log()
     ..addProps(props)
-    .._forwardedRef = ref)();
+    .._forwardedRef = ref
+  )();
 }, displayName: 'LogProps')(_Log);
 
 UiFactory<LogProps> _Log = _$_Log; // ignore: undefined_identifier
@@ -128,7 +136,7 @@ mixin LogProps on UiProps {
   // the return value of forwardRef.
   //
   // Consumers can set this private field value using the public `ref` setter.
-  Ref _forwardedRef;
+  dynamic _forwardedRef;
 }
 
 class _LogComponent extends UiComponent2<LogProps> {
@@ -140,9 +148,12 @@ class _LogComponent extends UiComponent2<LogProps> {
 
   @override
   render() {
-    return Dom.div()((props.builder()
-      ..modifyProps(addUnconsumedDomProps)
-      ..ref = props._forwardedRef)(props.children));
+    return Dom.div()(
+      (props.builder()
+        ..modifyProps(addUnconsumedDomProps)
+        ..ref = props._forwardedRef
+      )(props.children),
+    );
   }
 }
 
@@ -155,7 +166,8 @@ UiFactory<BazProps> LoggingFunctionWrapper = forwardRef<BazProps>((props, ref) {
   return (Baz()
     ..addProps(props)
     ..builder = props.builder
-    .._forwardedRef = ref)();
+    .._forwardedRef = ref
+  )();
 }, displayName: 'LoggingFunctionWrapper')(Baz);
 
 mixin BazProps on UiProps {
@@ -165,14 +177,15 @@ mixin BazProps on UiProps {
   // the return value of forwardRef.
   //
   // Consumers can set this private field value using the public `ref` setter.
-  Ref _forwardedRef;
+  dynamic _forwardedRef;
 }
 
 final Baz = uiFunction<BazProps>(
   (props) {
     return ((props.builder()
       ..addProps(getPropsToForward(props, onlyCopyDomProps: true))
-      ..ref = props._forwardedRef)(props.children));
+      ..ref = props._forwardedRef
+    )(props.children));
   },
   $BazConfig, // ignore: undefined_identifier
 );
@@ -199,21 +212,29 @@ UiFactory<RefDemoProps> RefDemoContainer = uiFunction(
           (FancyButton()
             ..className = 'btn btn-primary'
             ..ref = fancyButtonUiForwardRef
-            ..onClick = (_) => printButtonOuterHtml(fancyButtonUiForwardRef))(),
+            ..onClick = (_) => printButtonOuterHtml(fancyButtonUiForwardRef)
+          )(),
         ),
         (RefDemoHoc()..demoTitle = '`uiForwardRef` wrapped in HOC')(
           (FancyButtonWithLogging()
             ..className = 'btn btn-success'
             ..ref = fancyButtonWithLoggingReg
-            ..onClick = (_) => printButtonOuterHtml(fancyButtonUiForwardRef))(),
+            ..onClick = (_) => printButtonOuterHtml(fancyButtonUiForwardRef)
+          )(),
         ),
-        (RefDemoHoc()..demoTitle = '`uiForwardRef` wrapping a class (option 1)')((Foo()
-          ..ref = fooInputRef
-          ..onChange = (e) => print('Foo Input Ref: ${e.target.value}'))()),
-        (RefDemoHoc()..demoTitle = '`uiForwardRef` wrapping a class (option 2)')((Foo2()
-          ..anExampleAdditionalProp = 'This additional prop logs on renders!'
-          ..ref = foo2InputRef
-          ..onChange = (e) => print('Foo2 Input Ref: ${e.target.value}'))()),
+        (RefDemoHoc()..demoTitle = '`uiForwardRef` wrapping a class (option 1)')(
+          (Foo()
+            ..ref = fooInputRef
+            ..onChange = (e) => print('Foo Input Ref: ${e.target.value}')
+          )(),
+        ),
+        (RefDemoHoc()..demoTitle = '`uiForwardRef` wrapping a class (option 2)')(
+          (Foo2()
+            ..anExampleAdditionalProp = 'This additional prop logs on renders!'
+            ..ref = foo2InputRef
+            ..onChange = (e) => print('Foo2 Input Ref: ${e.target.value}')
+          )(),
+        ),
       ),
       (RefDemoSection()..sectionTitle = 'forwardRef (deprecated) Demos')(
         (RefDemoHoc()..demoTitle = '`forwardRef` with class component')(
@@ -221,7 +242,8 @@ UiFactory<RefDemoProps> RefDemoContainer = uiFunction(
             ..builder = FancyButton
             ..ref = fancyButtonNodeRef
             ..className = 'btn btn-primary'
-            ..onClick = (_) => printButtonOuterHtml(fancyButtonNodeRef))(),
+            ..onClick = (_) => printButtonOuterHtml(fancyButtonNodeRef)
+          )(),
         ),
         (RefDemoHoc()..demoTitle = '`uiForwardRef` with function component')(
           (LoggingFunctionWrapper()
@@ -230,7 +252,8 @@ UiFactory<RefDemoProps> RefDemoContainer = uiFunction(
             ..ref = fancyFunctionalButtonNodeRef
             ..onClick = (_) {
               printButtonOuterHtml(fancyFunctionalButtonNodeRef);
-            })(),
+            }
+          )(),
         ),
       ),
     ));
@@ -249,16 +272,18 @@ mixin RefDemoSectionProps on UiProps {
 UiFactory<RefDemoSectionProps> RefDemoSection = uiFunction(
   (props) {
     return (Fragment()(
-        (Dom.h3()..style = {'color': 'gray', 'borderBottom': '1px solid gray', 'marginTop': 10})(
-          props.sectionTitle,
-        ),
-        (Dom.div()
-          ..style = {
-            'display': 'flex',
-            'flexWrap': 'wrap',
-          })(
-          props.children,
-        )));
+      (Dom.h3()..style = {'color': 'gray', 'borderBottom': '1px solid gray', 'marginTop': 10})(
+        props.sectionTitle,
+      ),
+      (Dom.div()
+        ..style = {
+          'display': 'flex',
+          'flexWrap': 'wrap',
+        }
+      )(
+        props.children,
+      ),
+    ));
   },
   $RefDemoSectionConfig, // ignore: undefined_identifier
 );
