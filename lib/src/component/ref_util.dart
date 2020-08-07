@@ -371,7 +371,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 ///       .._inputRef = ref
 ///     )();
 ///   },
-///   _Foo.asForwardRefConfig(),
+///   _Foo.asForwardRefConfig(displayName: 'Foo'),
 /// );
 ///
 /// //

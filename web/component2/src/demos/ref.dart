@@ -90,6 +90,9 @@ UiFactory<FooProps> Foo = uiForwardRef(
       .._inputRef = ref
     )();
   },
+  // Note that `displayName` is not passed in here.
+  // In the React devtools, the name of `Foo` will be
+  // 'Anonymous'. 
   _Foo.asForwardRefConfig(),
 );
 
