@@ -242,7 +242,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
     return (Button()
         ..size = ButtonSize.SMALL
         ..onClick = (_) { exitEditable(saveChanges: true); }
-        ..color = MuiColor.PRIMARY
+        ..color = ButtonColor.PRIMARY
     )('Save');
   }
 }
