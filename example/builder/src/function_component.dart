@@ -26,24 +26,17 @@ mixin BasicProps on UiProps {
   String basic4;
 }
 
-// The usage of forwardRef with uiFunction components will change in: CPLAT-11722
-UiFactory<BasicProps> Basic = uiForwardRef((props, ref) {
-  return (_Basic()
-    ..forwardedRef = ref
-    ..addProps(props))();
-}, _Basic.asForwardRefConfig(displayName: 'BasicForwardRef'));
-
-UiFactory<BasicProps> _Basic = uiFunction(
-  (props) {
+UiFactory<BasicProps> Basic = uiForwardRef(
+  (props, ref) {
     return Fragment()(
       Dom.div()('prop id: ${props.id}'),
       Dom.div()('default prop testing: ${props.basicProp}'),
       Dom.div()('default prop testing: ${props.basic1}'),
-      (Dom.div()..ref = props.forwardedRef)(
+      (Dom.div()..ref = ref)(
           props.basic3, 'children: ${props.children}'),
     );
   },
-  $_BasicConfig, // ignore: undefined_identifier
+  $BasicConfig, // ignore: undefined_identifier
 );
 
 final Simple = uiFunction<BasicProps>(

@@ -428,20 +428,12 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 ///   FancyInputApi(this.focus);
 /// }
 ///
-/// UiFactory<FancyInputProps> FancyInput = uiForwardRef((props, ref) {
-///   return (_FancyInput()
-///     ..forwardedRef = ref
-///     ..addProps(props)
-///   )();
-/// }, _FancyInput.asForwardRefConfig(displayName: 'FancyInputForwardRef'));
-///
-/// UiFactory<FancyInputProps> _FancyInput = uiFunction(
-///   (props) {
+/// UiFactory<FancyInputProps> FancyInput = uiForwardRef(
+///   (props, ref) {
 ///     final inputRef = useRef<InputElement>();
 ///
-///     useImperativeHandle(
-///       props.forwardedRef,
-///           () => FancyInputApi(() => inputRef.current.focus()),
+///     useImperativeHandle(ref,
+///       () => FancyInputApi(() => inputRef.current.focus()),
 ///
 ///       /// Because the return value of [createHandle] never changes, it is not necessary for [ref.current]
 ///       /// to be re-set on each render so this dependency list is empty.
@@ -454,7 +446,7 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 ///       ..onChange = (e) => props.updater(e.target.value)
 ///     )();
 ///   },
-///   $_FancyInputConfig, // ignore: undefined_identifier
+///   $FancyInputConfig, // ignore: undefined_identifier
 /// );
 ///
 /// UiFactory<UseImperativeHandleExampleProps> UseImperativeHandleExample = uiFunction(
