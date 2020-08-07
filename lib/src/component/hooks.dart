@@ -403,7 +403,7 @@ T useMemo<T>(T Function() createFunction, [List<dynamic> dependencies]) =>
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#uselayouteffect>.
 void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies]) => react_hooks.useLayoutEffect(sideEffect, dependencies);
 
-/// Customizes the [ref] value that is exposed to parent components when using [forwardRef] by setting [ref.current]
+/// Customizes the [ref] value that is exposed to parent components when using [uiForwardRef] by setting [ref.current]
 /// to the return value of [createHandle].
 ///
 /// In most cases, imperative code using refs should be avoided.
@@ -428,13 +428,12 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 ///   FancyInputApi(this.focus);
 /// }
 ///
-/// UiFactory<FancyInputProps> FancyInput =
-///     forwardRef<FancyInputProps>((props, ref) {
+/// UiFactory<FancyInputProps> FancyInput = uiForwardRef((props, ref) {
 ///   return (_FancyInput()
 ///     ..forwardedRef = ref
 ///     ..addProps(props)
 ///   )();
-/// })(_FancyInput);
+/// }, _FancyInput.asForwardRefConfig(displayName: 'FancyInputForwardRef'));
 ///
 /// UiFactory<FancyInputProps> _FancyInput = uiFunction(
 ///   (props) {

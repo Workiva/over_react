@@ -27,11 +27,11 @@ mixin BasicProps on UiProps {
 }
 
 // The usage of forwardRef with uiFunction components will change in: CPLAT-11722
-UiFactory<BasicProps> Basic = forwardRef<BasicProps>((props, ref) {
+UiFactory<BasicProps> Basic = uiForwardRef((props, ref) {
   return (_Basic()
     ..forwardedRef = ref
     ..addProps(props))();
-})(_Basic);
+}, _Basic.asForwardRefConfig(displayName: 'BasicForwardRef'));
 
 UiFactory<BasicProps> _Basic = uiFunction(
   (props) {
