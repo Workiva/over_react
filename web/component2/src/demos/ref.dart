@@ -92,7 +92,7 @@ UiFactory<FooProps> Foo = uiForwardRef(
   },
   // Note that `displayName` is not passed in here.
   // In the React devtools, the name of `Foo` will be
-  // 'Anonymous'. 
+  // 'Anonymous'.
   _Foo.asForwardRefConfig(),
 );
 
@@ -248,7 +248,7 @@ UiFactory<RefDemoProps> RefDemoContainer = uiFunction(
             ..onClick = (_) => printButtonOuterHtml(fancyButtonNodeRef)
           )(),
         ),
-        (RefDemoHoc()..demoTitle = '`uiForwardRef` with function component')(
+        (RefDemoHoc()..demoTitle = '`forwardRef` with function component')(
           (LoggingFunctionWrapper()
             ..builder = FancyButton
             ..className = 'btn btn-success'
