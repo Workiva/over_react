@@ -293,7 +293,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 /// UiFactory<TProps> withLogging<TProps extends UiProps>(UiFactory<TProps> factoryToWrap) {
 ///   return uiForwardRef(
 ///     (props, ref) {
-///       useEffect(() => 'the component rendered!');
+///       useEffect(() => '${factoryToWrap().componentFactory.type} rendered!');
 ///
 ///       return (factoryToWrap()
 ///         ..addAll(props)
@@ -301,7 +301,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 ///       )(props.children);
 ///     },
 ///     factoryToBeWrapped.asForwardRefConfig(
-///       displayName: 'withLogging(${getDisplayName(factoryToWrap)})',
+///       displayName: 'WithLogging',
 ///     ),
 ///   );
 /// }
@@ -326,7 +326,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 /// version wrapped in `uiForwardRef`:
 ///
 /// ```dart
-/// UiFactory<LogPropsProps> _Foo = _$_Foo; // ignore: undefined_identifier
+/// UiFactory<FooProps> _Foo = _$_Foo; // ignore: undefined_identifier
 /// mixin FooProps on UiProps {
 ///   // Private since we only use this to pass along the ref provided in
 ///   // uiForwardRef.
@@ -340,9 +340,9 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 ///     return Dom.div()(
 ///       (Dom.input()
 ///         ..type = 'text'
-///         ..ref = _inputRef
-///       )();
-///     )
+///         ..ref = props._inputRef
+///       )()
+///     );
 ///   }
 /// }
 ///
@@ -384,7 +384,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 /// }
 ///
 /// class Foo2Props = UiProps with AnotherPropsMixin, FooProps;
-/// final Foo2 = uiForwardRef<LogsPropsComponent2Props>((props, ref) {
+/// final Foo2 = uiForwardRef<Foo2Props>((props, ref) {
 ///     print(props.anExampleAdditionalProp);
 ///
 ///     return (_Foo()
