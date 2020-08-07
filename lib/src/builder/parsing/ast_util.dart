@@ -42,7 +42,7 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
   /// The first variable in this list.
   VariableDeclaration get firstVariable => variables.firstVariable;
 
-  /// Returns whether or not the config argument of a Function type is generated.
+  /// Returns whether or not there is a generated config being used.
   bool get usesAGeneratedConfig {
     return firstInitializer != null &&
         anyDescendantIdentifiers(firstInitializer, (identifier) {
