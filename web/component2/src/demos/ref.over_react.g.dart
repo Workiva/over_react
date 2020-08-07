@@ -149,36 +149,36 @@ class _$FooComponent extends FooComponent {
 // Registers component implementation and links type meta to builder factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-final $_LogPropsComponentFactory = registerComponent2(
-  () => _$_LogPropsComponent(),
-  builderFactory: _$_LogProps,
-  componentClass: _LogPropsComponent,
+final $_LogComponentFactory = registerComponent2(
+  () => _$_LogComponent(),
+  builderFactory: _$_Log,
+  componentClass: _LogComponent,
   isWrapper: false,
   parentType: null,
-  displayName: '_LogProps',
+  displayName: '_Log',
 );
 
-_$$LogPropsProps _$_LogProps([Map backingProps]) => backingProps == null
-    ? _$$LogPropsProps$JsMap(JsBackedMap())
-    : _$$LogPropsProps(backingProps);
+_$$LogProps _$_Log([Map backingProps]) => backingProps == null
+    ? _$$LogProps$JsMap(JsBackedMap())
+    : _$$LogProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$LogPropsProps extends UiProps
+abstract class _$$LogProps extends UiProps
     with
-        LogPropsProps,
-        $LogPropsProps // If this generated mixin is undefined, it's likely because LogPropsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of LogPropsProps.
+        LogProps,
+        $LogProps // If this generated mixin is undefined, it's likely because LogProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of LogProps.
 {
-  _$$LogPropsProps._();
+  _$$LogProps._();
 
-  factory _$$LogPropsProps(Map backingMap) {
+  factory _$$LogProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$LogPropsProps$JsMap(backingMap);
+      return _$$LogProps$JsMap(backingMap);
     } else {
-      return _$$LogPropsProps$PlainMap(backingMap);
+      return _$$LogProps$PlainMap(backingMap);
     }
   }
 
@@ -189,7 +189,7 @@ abstract class _$$LogPropsProps extends UiProps
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $_LogPropsComponentFactory;
+      super.componentFactory ?? $_LogComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -199,10 +199,10 @@ abstract class _$$LogPropsProps extends UiProps
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$LogPropsProps$PlainMap extends _$$LogPropsProps {
+class _$$LogProps$PlainMap extends _$$LogProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$LogPropsProps$PlainMap(Map backingMap)
+  _$$LogProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -218,10 +218,10 @@ class _$$LogPropsProps$PlainMap extends _$$LogPropsProps {
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$LogPropsProps$JsMap extends _$$LogPropsProps {
+class _$$LogProps$JsMap extends _$$LogProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$LogPropsProps$JsMap(JsBackedMap backingMap)
+  _$$LogProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -239,11 +239,11 @@ class _$$LogPropsProps$JsMap extends _$$LogPropsProps {
 // generated for the associated props class.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$_LogPropsComponent extends _LogPropsComponent {
-  _$$LogPropsProps$JsMap _cachedTypedProps;
+class _$_LogComponent extends _LogComponent {
+  _$$LogProps$JsMap _cachedTypedProps;
 
   @override
-  _$$LogPropsProps$JsMap get props => _cachedTypedProps;
+  _$$LogProps$JsMap get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -259,26 +259,25 @@ class _$_LogPropsComponent extends _LogPropsComponent {
   }
 
   @override
-  _$$LogPropsProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$LogPropsProps$JsMap(backingMap);
+  _$$LogProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$LogProps$JsMap(backingMap);
 
   @override
-  _$$LogPropsProps typedPropsFactory(Map backingMap) =>
-      _$$LogPropsProps(backingMap);
+  _$$LogProps typedPropsFactory(Map backingMap) => _$$LogProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, comprising all props mixins used by LogPropsProps.
+  /// The default consumed props, comprising all props mixins used by LogProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   get $defaultConsumedProps => propsMeta.all;
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because LogPropsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of LogPropsProps.
-        LogPropsProps: $LogPropsProps.meta,
+        // If this generated mixin is undefined, it's likely because LogProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of LogProps.
+        LogProps: $LogProps.meta,
       });
 }
 
@@ -368,46 +367,44 @@ const PropsMeta _$metaForAnotherPropsMixin = PropsMeta(
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
     ' it is transitioned to the new mixin-based boilerplate.')
-mixin $LogPropsProps on LogPropsProps {
-  static const PropsMeta meta = _$metaForLogPropsProps;
+mixin $LogProps on LogProps {
+  static const PropsMeta meta = _$metaForLogProps;
   @override
   BuilderOnlyUiFactory<UiProps> get builder =>
-      props[_$key__builder__LogPropsProps] ??
+      props[_$key__builder__LogProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
   set builder(BuilderOnlyUiFactory<UiProps> value) =>
-      props[_$key__builder__LogPropsProps] = value;
+      props[_$key__builder__LogProps] = value;
   @override
   Ref get _forwardedRef =>
-      props[_$key___forwardedRef__LogPropsProps] ??
+      props[_$key___forwardedRef__LogProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set _forwardedRef(Ref value) =>
-      props[_$key___forwardedRef__LogPropsProps] = value;
+  set _forwardedRef(Ref value) => props[_$key___forwardedRef__LogProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__builder__LogPropsProps =
-      PropDescriptor(_$key__builder__LogPropsProps);
-  static const PropDescriptor _$prop___forwardedRef__LogPropsProps =
-      PropDescriptor(_$key___forwardedRef__LogPropsProps);
-  static const String _$key__builder__LogPropsProps = 'LogPropsProps.builder';
-  static const String _$key___forwardedRef__LogPropsProps =
-      'LogPropsProps._forwardedRef';
+  static const PropDescriptor _$prop__builder__LogProps =
+      PropDescriptor(_$key__builder__LogProps);
+  static const PropDescriptor _$prop___forwardedRef__LogProps =
+      PropDescriptor(_$key___forwardedRef__LogProps);
+  static const String _$key__builder__LogProps = 'LogProps.builder';
+  static const String _$key___forwardedRef__LogProps = 'LogProps._forwardedRef';
 
   static const List<PropDescriptor> $props = [
-    _$prop__builder__LogPropsProps,
-    _$prop___forwardedRef__LogPropsProps
+    _$prop__builder__LogProps,
+    _$prop___forwardedRef__LogProps
   ];
   static const List<String> $propKeys = [
-    _$key__builder__LogPropsProps,
-    _$key___forwardedRef__LogPropsProps
+    _$key__builder__LogProps,
+    _$key___forwardedRef__LogProps
   ];
 }
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-const PropsMeta _$metaForLogPropsProps = PropsMeta(
-  fields: $LogPropsProps.$props,
-  keys: $LogPropsProps.$propKeys,
+const PropsMeta _$metaForLogProps = PropsMeta(
+  fields: $LogProps.$props,
+  keys: $LogProps.$propKeys,
 );
 
 @Deprecated('This API is for use only within generated code.'
