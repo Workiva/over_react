@@ -295,6 +295,8 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 ///     (props, ref) {
 ///       useEffect(() => '${factoryToWrap().componentFactory.type} rendered!');
 ///
+///       // ignore statement addresses analyzer bug with this syntax (https://github.com/dart-lang/sdk/issues/42975)
+///       // ignore: invocation_of_non_function_expression
 ///       return (factoryToWrap()
 ///         ..addAll(props)
 ///         ..ref = ref
@@ -384,7 +386,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 /// }
 ///
 /// class Foo2Props = UiProps with AnotherPropsMixin, FooProps;
-/// final Foo2 = uiForwardRef<Foo2Props>((props, ref) {
+/// UiFactory<Foo2Props> Foo2 = uiForwardRef((props, ref) {
 ///     print(props.anExampleAdditionalProp);
 ///
 ///     return (_Foo()

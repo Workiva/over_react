@@ -52,7 +52,7 @@ mixin FriendListItemProps on UiProps {
   Map<String, dynamic> friend;
 }
 
-final FriendListItem = uiFunction<FriendListItemProps>(
+UiFactory<FriendListItemProps> FriendListItem = uiFunction(
   (props) {
     final isOnline = useFriendStatus(props.friend['id']);
 
@@ -65,7 +65,7 @@ final FriendListItem = uiFunction<FriendListItemProps>(
 
 mixin UseDebugValueExampleProps on UiProps {}
 
-final UseDebugValueExample = uiFunction<UseDebugValueExampleProps>(
+UiFactory<UseDebugValueExampleProps> UseDebugValueExample = uiFunction(
   (props) => Fragment()(
     (FriendListItem()..friend = {'id': 1, 'name': 'user 1'})(),
     (FriendListItem()..friend = {'id': 2, 'name': 'user 2'})(),

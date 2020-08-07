@@ -36,7 +36,7 @@ import 'package:over_react/component_base.dart';
 ///   (props) {
 ///     // render using props
 ///   },
-///   UiFactoryConfig(),
+///   UiFactoryConfig(displayName: 'MemoExample'),
 /// ));
 /// ```
 ///

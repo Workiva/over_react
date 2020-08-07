@@ -39,7 +39,7 @@ UiFactory<BasicProps> Basic = uiForwardRef(
   $BasicConfig, // ignore: undefined_identifier
 );
 
-final Simple = uiFunction<BasicProps>(
+UiFactory<BasicProps> Simple = uiFunction(
   (props) {
     final basicProp = props.basicProp ?? 'basicProp';
     final basic1 = props.basic1 ?? 'basic1';
@@ -59,7 +59,7 @@ mixin FooProps on UiProps {
   String content;
 }
 
-final Foo = uiFunction<FooProps>(
+UiFactory<FooProps> Foo = uiFunction(
   (props) => Dom.div()('forwarded prop: ${props.content}'),
   $FooConfig, // ignore: undefined_identifier
 );
@@ -69,12 +69,12 @@ ReactElement functionComponentContent() {
     return Dom.div()('prop id: ${props.id}');
   }
 
-  final genericFactory = uiFunction<UiProps>(
+  UiFactory<UiProps> genericFactory = uiFunction(
     GenericFactory,
     UiFactoryConfig(),
   );
 
-  final basicFactory = uiFunction<BasicProps>(
+  UiFactory<BasicProps> basicFactory = uiFunction(
     (props) {
       return Fragment()(
         Dom.div()('prop id: ${props.id}'),

@@ -262,7 +262,7 @@ T useCallback<T extends Function>(T callback, List dependencies) => react_hooks.
 /// ```dart
 /// Context countContext = createContext(0);
 ///
-/// final UseContextExample = uiFunction<UseContextExampleProps>(
+/// UiFactory<UseContextExampleProps> UseContextExample = uiFunction(
 ///   (props) {
 ///     final count = useContext(countContext);
 ///
@@ -521,7 +521,7 @@ void useImperativeHandle(Ref ref, dynamic Function() createHandle, [List<dynamic
 ///   Map<String, dynamic> friend;
 /// }
 ///
-/// final FriendListItem = uiFunction<FriendListItemProps>(
+/// UiFactory<FriendListItemProps> FriendListItem = uiFunction(
 ///   (props) {
 ///     final isOnline = useFriendStatus(props.friend['id']);
 ///
@@ -532,7 +532,7 @@ void useImperativeHandle(Ref ref, dynamic Function() createHandle, [List<dynamic
 ///   $FriendListItemConfig, // ignore: undefined_identifier
 /// );
 ///
-/// final UseDebugValueExample = uiFunction<UseDebugValueExampleProps>(
+/// UiFactory<UseDebugValueExampleProps> UseDebugValueExample = uiFunction(
 ///   (props) => Fragment()(
 ///     (FriendListItem()..friend = {'id': 1, 'name': 'user 1'})(),
 ///     (FriendListItem()..friend = {'id': 2, 'name': 'user 2'})(),
