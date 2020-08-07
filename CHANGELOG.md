@@ -38,7 +38,6 @@ __New Features__
           props.children,
         );
       }, 
-      // this is the `UiFactoryConfig`
       $FancyBorderConfig, // ignore: undefined_identifier
     );
     ```
