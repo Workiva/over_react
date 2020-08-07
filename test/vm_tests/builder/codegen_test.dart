@@ -656,10 +656,10 @@ main() {
         testStaticMetaField('abstract state', OverReactSrc.abstractState());
       });
 
-      group('and generates props config for function components', () {
+      group('and generates props config for function components constructed with', () {
         String generatedConfig(String propsName, String factoryName) {
-          return 'final FunctionComponentConfig<_\$\$$propsName> '
-            '\$${factoryName}Config = FunctionComponentConfig(\n'
+          return 'final UiFactoryConfig<_\$\$$propsName> '
+            '\$${factoryName}Config = UiFactoryConfig(\n'
             'propsFactory: PropsFactory(\n'
             'map: (map) => _\$\$$propsName(map),\n'
             'jsMap: (map) => _\$\$$propsName\$JsMap(map),),\n'
@@ -696,49 +696,50 @@ main() {
               '}\n';
         }
 
-        test('with multiple props mixins and function components in file', () {
-          setUpAndGenerate(r'''
+        void sharedUiConfigGenerationTests(String wrapperFunction) {
+          test('with multiple props mixins and function components in file', () {
+            setUpAndGenerate('''
             mixin FooPropsMixin on UiProps {}
             class FooProps = UiProps with FooPropsMixin;
             
             mixin BarPropsMixin on UiProps {}
             
-            final Bar = uiFunction<BarPropsMixin>(
+            UiFactory<BarPropsMixin> Bar = $wrapperFunction(
               (props) {
                 return Dom.div()();
               }, 
-              $BarPropsMixinConfig, // ignore: undefined_identifier
+              \$BarConfig, // ignore: undefined_identifier
             );
             
-            final Foo = uiFunction<BarPropsMixin>(
+            UiFactory<BarPropsMixin> Foo = $wrapperFunction(
               (props) {
                 return Dom.div()();
               }, 
-              $FooConfig, // ignore: undefined_identifier
+              \$FooConfig, // ignore: undefined_identifier
             );
                         
-            UiFactory<FooProps> Baz = uiFunction(
+            UiFactory<FooProps> Baz = $wrapperFunction(
               (props) {
                 return Dom.div()();
               }, 
-              $BazConfig, // ignore: undefined_identifier
+              \$BazConfig, // ignore: undefined_identifier
             );
             
             mixin UnusedPropsMixin on UiProps {}
           ''');
 
-          expect(implGenerator.outputContentsBuffer.toString().contains(generatedPropsMapsForConfig('UnusedPropsMixin')), isFalse);
-          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('BarPropsMixin')));
-          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooProps')));
+            expect(implGenerator.outputContentsBuffer.toString().contains(generatedPropsMapsForConfig('UnusedPropsMixin')), isFalse);
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('BarPropsMixin')));
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooProps')));
 
-          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('BarPropsMixin', 'Bar')));
-          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('BarPropsMixin', 'Foo')));
-          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooProps', 'Baz')));
-        });
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('BarPropsMixin', 'Bar')));
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('BarPropsMixin', 'Foo')));
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooProps', 'Baz')));
+          });
 
-        test('wrapped in an hoc', () {
-          setUpAndGenerate('''
-                UiFactory<FooPropsMixin> Foo = someHOC(uiFunction(
+          test('wrapped in an hoc', () {
+            setUpAndGenerate('''
+                UiFactory<FooPropsMixin> Foo = someHOC($wrapperFunction(
                   (props) {
                     return Dom.div()();
                   },
@@ -748,9 +749,66 @@ main() {
                 mixin FooPropsMixin on UiProps {}
               ''');
 
-          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooPropsMixin')));
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooPropsMixin')));
 
-          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooPropsMixin', 'Foo')));
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooPropsMixin', 'Foo')));
+          });
+        }
+
+        group('uiFunction', () {
+          sharedUiConfigGenerationTests('uiFunction');
+        });
+
+        group('uiForwardRef', () {
+          // Note: this doesn't test any of the ref forwarding capabilities of `uiForwardRef`,
+          // and just tests the generation of the UiFactoryConfig for `uiForwardRef`
+          // explicitly.
+          sharedUiConfigGenerationTests('uiForwardRef');
+
+          test('when the config does not need to be generated', () {
+            setUpAndGenerate(r'''
+              UiFactory<FooProps> ForwardRefFoo = uiForwardRef((props, ref) {
+                return (Foo()
+                  ..ref = ref
+                )();
+              }, Foo.asForwardRefConfig());
+            ''');
+
+            expect(implGenerator.outputContentsBuffer.toString().contains(generatedConfig('FooProps', 'ForwardRefFoo')), isFalse);
+          });
+
+          test('when the config does need to be generated but mixes in an already consumed props class', () {
+            setUpAndGenerate(r'''
+              UiFactory<FooProps> Foo = _$Foo;
+              
+              mixin FooProps on UiProps {}
+              
+              class FooComponent extends UiComponent2<FooProps>{
+                @override
+                render() => null;
+              }
+            
+              class UiForwardRefFooProps = UiProps with FooProps;
+              
+              UiFactory<UiForwardRefFooProps> UiForwardRefFoo = uiForwardRef(
+                (props, ref) {
+                  return (Foo()
+                    ..ref = ref
+                  )();
+                }, 
+                $UiForwardRefFooConfig,
+              );
+            ''');
+
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('UiForwardRefFooProps')));
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('UiForwardRefFooProps', 'UiForwardRefFoo')));
+          });
+        });
+
+        // The builder should support generation of UiFactoryConfig's whenever
+        // it recognizes that a generated config is being referenced
+        group('arbitrary HOC', () {
+          sharedUiConfigGenerationTests('anArbitraryHOC');
         });
 
         test('unless function component is generic or does not have a props config', () {
@@ -763,11 +821,22 @@ main() {
               )();
             })(Foo);
             
+            UiFactory<FooPropsMixin> ArbitraryFoo = anArbitraryHoc(
+              (props) {
+                return (Foo()
+                  ..ref = ref
+                )();
+              }, 
+              UiFactoryConfig(
+                  propsFactory: PropsFactory.fromUiFactory(Foo)
+              )
+            );
+            
             final Bar = uiFunction<UiProps>(
               (props) {
                 return Dom.div()();
               }, 
-              FunctionComponentConfig(),
+              UiFactoryConfig(),
             );
             
             final Foo = uiFunction<FooPropsMixin>(
@@ -781,7 +850,7 @@ main() {
               (props) {
                 return Dom.div()();
               }, 
-              FunctionComponentConfig( 
+              UiFactoryConfig( 
                 propsFactory: PropsFactory.fromUiFactory(Foo),
               )
             );
@@ -790,6 +859,7 @@ main() {
           expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooPropsMixin')));
 
           expect(implGenerator.outputContentsBuffer.toString().contains(generatedConfig('UiProps', 'Bar')), isFalse, reason: '2');
+          expect(implGenerator.outputContentsBuffer.toString().contains(generatedConfig('FooPropsMixin', 'ArbitraryFoo')), isFalse, reason: '2');
           expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooPropsMixin', 'Foo')), reason: '1');
           expect(implGenerator.outputContentsBuffer.toString().contains(generatedConfig('FooPropsMixin', 'Baz')), isFalse, reason: '3');
         });

@@ -169,12 +169,11 @@ class _BoilerplateMemberDetector {
     }
 
     final rightHandSide = node.variables.firstInitializer;
-    if (rightHandSide != null &&
-        anyDescendantIdentifiers(rightHandSide, (identifier) => identifier.name == 'uiFunction')) {
+    if (rightHandSide != null && node.usesAGeneratedConfig) {
       onFactory(BoilerplateFactory(
           node,
           VersionConfidences(
-            v4_mixinBased: node.hasGeneratedConfigArg ? Confidence.likely : Confidence.neutral,
+            v4_mixinBased: Confidence.likely,
             v3_legacyDart2Only: Confidence.none,
             v2_legacyBackwardsCompat: Confidence.none,
           )));

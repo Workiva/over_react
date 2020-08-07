@@ -41,50 +41,10 @@ main() {
       functionComponentTestHelper(_Test, testId: '_testId');
     });
 
-    group('with UiProps', () {
-      UiFactory<UiProps> TestUiProps = uiFunction(
-        (props) => (Dom.div()..addTestId('testId3'))('id: ${props.id}'),
-        FunctionComponentConfig(),
-      );
-
-      test(
-          'renders a component from end to end, successfully reading props via typed getters',
-          () {
-        final jacket = mount((TestUiProps()..id = '1')());
-        final node = queryAllByTestId(jacket.mountNode, 'testId3').first;
-
-        expect(node, isA<DivElement>());
-        expect(node.text, 'id: 1');
-      });
-
-      group('initializes the factory variable with a function', () {
-        test('that returns a new props class implementation instance', () {
-          final instance = TestUiProps();
-          expect(instance, isA<UiProps>());
-          expect(instance, isA<Map>());
-        });
-
-        test(
-            'that returns a new props class implementation instance backed by an existing map',
-            () {
-          Map existingMap = {'key': 'test'};
-          final props = TestUiProps(existingMap);
-
-          expect(props.key, equals('test'));
-
-          props.key = 'modified';
-          expect(props.key, equals('modified'));
-          expect(existingMap['key'], equals('modified'));
-        });
-      });
-
-      test(
-          'generates prop getters/setters with the prop name as the key by default',
-          () {
-        expect(TestUiProps()..key = 'test', containsPair('key', 'test'));
-        expect(TestUiProps()..id = '2', containsPair('id', '2'));
-      });
-    });
+    uiPropsTest(uiFunction(
+              (props) => (Dom.div()..addTestId('testId3'))('id: ${props.id}'),
+          UiFactoryConfig(),
+        ));
 
     group('throws an error when', () {
       test('config is null', () {
@@ -100,11 +60,99 @@ main() {
         expect(
             () => uiFunction<TestProps>(
                   (props) => Dom.div()(),
-                  FunctionComponentConfig(displayName: 'Foo'),
+                  UiFactoryConfig(displayName: 'Foo'),
                 ),
             throwsArgumentError);
       });
     });
+  });
+
+  group('uiForwardRef', () {
+    group('with generated props config', () {
+      functionComponentTestHelper(BasicUiForwardRef);
+    });
+
+    group('with custom PropsFactory', () {
+      functionComponentTestHelper(CustomUiForwardRef, testId: 'testIdCustom');
+    });
+
+    group('with no left hand typing', () {
+      functionComponentTestHelper(NoLHSUiForwardRefTest, testId: 'testIdNoLHS');
+    });
+
+    group('with private prefix', () {
+      functionComponentTestHelper(_UiForwardRef, testId: '_testId');
+    });
+
+    uiPropsTest(uiForwardRef(
+          (props, ref) => (Dom.div()
+              ..addTestId('testId3')
+              ..ref = ref
+          )('id: ${props.id}'),
+      Dom.div.asForwardRefConfig(),
+    ));
+
+    group('throws an error when', () {
+      test('config is null', () {
+        expect(
+                () => uiForwardRef<TestProps>(
+                  (props, ref) => Dom.div()(),
+              null,
+            ),
+            throwsArgumentError);
+      });
+
+      test('props factory is not provided when using custom props class', () {
+        expect(
+                () => uiForwardRef<TestProps>(
+                  (props, ref) => Dom.div()(),
+              UiFactoryConfig(displayName: 'Foo'),
+            ),
+            throwsArgumentError);
+      });
+    });
+  });
+}
+
+void uiPropsTest(UiFactory<UiProps> factory) {
+  group('with UiProps', () {
+    test(
+        'renders a component from end to end, successfully reading props via typed getters',
+            () {
+          final jacket = mount((factory()..id = '1')());
+          final node = queryAllByTestId(jacket.mountNode, 'testId3').first;
+
+          expect(node, isA<DivElement>());
+          expect(node.text, 'id: 1');
+        });
+
+    group('initializes the factory variable with a function', () {
+      test('that returns a new props class implementation instance', () {
+        final instance = factory();
+        expect(instance, isA<UiProps>());
+        expect(instance, isA<Map>());
+      });
+
+      test(
+          'that returns a new props class implementation instance backed by an existing map',
+              () {
+            Map existingMap = {'key': 'test'};
+            final props = factory(existingMap);
+
+            expect(props.key, equals('test'));
+
+            props.key = 'modified';
+            expect(props.key, equals('modified'));
+            expect(existingMap['key'], equals('modified'));
+          });
+    });
+
+    test(
+        'generates prop getters/setters with the prop name as the key by default',
+            () {
+          expect(factory()..key = 'test', containsPair('key', 'test'));
+          expect(factory()..id = '2', containsPair('id', '2'));
+        });
   });
 }
 
@@ -186,6 +234,72 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
   });
 }
 
+UiFactory<TestProps> BasicUiForwardRef = uiForwardRef(
+      (props, ref) {
+    return (Dom.div()
+      ..ref = ref
+      ..addTestId('testId')
+      ..addProp('data-prop-string-prop', props.stringProp)
+      ..addProp('data-prop-dynamic-prop', props.dynamicProp)
+      ..addProp('data-prop-untyped-prop', props.untypedProp)
+      ..addProp('data-prop-custom-key-prop', props.customKeyProp)
+      ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
+      ..addProp('data-prop-custom-key-and-namespace-prop',
+          props.customKeyAndNamespaceProp))('rendered content');
+  },
+  $TestConfig, // ignore: undefined_identifier
+);
+
+UiFactory<TestProps> CustomUiForwardRef = uiForwardRef(
+        (props, ref) {
+      return (Dom.div()
+        ..ref = ref
+        ..addTestId('testIdCustom')
+        ..addProp('data-prop-string-prop', props.stringProp)
+        ..addProp('data-prop-dynamic-prop', props.dynamicProp)
+        ..addProp('data-prop-untyped-prop', props.untypedProp)
+        ..addProp('data-prop-custom-key-prop', props.customKeyProp)
+        ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
+        ..addProp('data-prop-custom-key-and-namespace-prop',
+            props.customKeyAndNamespaceProp))('rendered content');
+    },
+    UiFactoryConfig(
+      propsFactory: PropsFactory.fromUiFactory(BasicUiForwardRef),
+    )
+);
+
+final NoLHSUiForwardRefTest = uiForwardRef<TestProps>(
+      (props, ref) {
+    return (Dom.div()
+      ..ref = ref
+      ..addTestId('testIdNoLHS')
+      ..addProp('data-prop-string-prop', props.stringProp)
+      ..addProp('data-prop-dynamic-prop', props.dynamicProp)
+      ..addProp('data-prop-untyped-prop', props.untypedProp)
+      ..addProp('data-prop-custom-key-prop', props.customKeyProp)
+      ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
+      ..addProp('data-prop-custom-key-and-namespace-prop',
+          props.customKeyAndNamespaceProp))('rendered content');
+  },
+  $NoLHSTestConfig, // ignore: undefined_identifier
+);
+
+UiFactory<TestProps> _UiForwardRef = uiForwardRef(
+      (props, ref) {
+    return (Dom.div()
+      ..ref = ref
+      ..addTestId('_testId')
+      ..addProp('data-prop-string-prop', props.stringProp)
+      ..addProp('data-prop-dynamic-prop', props.dynamicProp)
+      ..addProp('data-prop-untyped-prop', props.untypedProp)
+      ..addProp('data-prop-custom-key-prop', props.customKeyProp)
+      ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
+      ..addProp('data-prop-custom-key-and-namespace-prop',
+          props.customKeyAndNamespaceProp))('rendered content');
+  },
+  $_TestConfig, // ignore: undefined_identifier
+);
+
 UiFactory<TestProps> Test = uiFunction(
   (props) {
     return (Dom.div()
@@ -213,7 +327,7 @@ UiFactory<TestProps> TestCustom = uiFunction(
       ..addProp('data-prop-custom-key-and-namespace-prop',
           props.customKeyAndNamespaceProp))('rendered content');
   },
-  FunctionComponentConfig(
+  UiFactoryConfig(
     propsFactory: PropsFactory.fromUiFactory(Test),
   )
 );

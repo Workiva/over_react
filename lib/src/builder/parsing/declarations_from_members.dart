@@ -243,12 +243,10 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
       }
     }
 
-    if (factory.isFunctionComponentFactory) {
+    if (factory.shouldGenerateConfig) {
       final factories = factoryGroups.firstWhere((group) => group.bestFactory == factory);
-      final generatedFactories = factories.factories.where((factory) =>
-          factory.node.hasGeneratedConfigArg &&
-          factory.isFunctionComponentFactory &&
-          factory.versionConfidences.maxConfidence.shouldGenerate);
+      final generatedFactories = factories.factories
+          .where((factory) => factory.versionConfidences.maxConfidence.shouldGenerate);
       final associatedProps =
           getPropsForFunctionComponent(members.props, members.propsMixins, factory);
       if (generatedFactories.isNotEmpty &&

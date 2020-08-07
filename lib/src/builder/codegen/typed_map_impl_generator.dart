@@ -371,15 +371,15 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         member = declaration.props.either,
         isProps = true,
         componentFactoryName = 'null',
-        isFunctionComponentDeclaration = declaration.factories.first.isFunctionComponentFactory,
+        isFunctionComponentDeclaration = declaration.factories.first.shouldGenerateConfig,
         version = declaration.version;
 
   @override
   bool get isComponent2 => true;
 
-  String _generateFunctionComponentConfig(FactoryNames factoryName) {
-    return 'final FunctionComponentConfig<${names.implName}> '
-        '${factoryName.configName} = FunctionComponentConfig(\n'
+  String _generateUiFactoryConfig(FactoryNames factoryName) {
+    return 'final UiFactoryConfig<${names.implName}> '
+        '${factoryName.configName} = UiFactoryConfig(\n'
         'propsFactory: PropsFactory(\n'
         'map: (map) => ${names.implName}(map),\n'
         'jsMap: (map) => ${names.jsMapImplName}(map),),\n'
@@ -390,7 +390,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   void _generateFactory() {
     if (isFunctionComponentDeclaration) {
       for (final factoryName in factoryNames) {
-        outputContentsBuffer.write(_generateFunctionComponentConfig(factoryName));
+        outputContentsBuffer.write(_generateUiFactoryConfig(factoryName));
       }
     } else {
       super._generateFactory();

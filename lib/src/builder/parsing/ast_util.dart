@@ -42,17 +42,11 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
   /// The first variable in this list.
   VariableDeclaration get firstVariable => variables.firstVariable;
 
-  /// Returns whether or not the config argument of `uiFunction` is generated.
-  bool get hasGeneratedConfigArg {
+  /// Returns whether or not there is a generated config being used.
+  bool get usesAGeneratedConfig {
     return firstInitializer != null &&
         anyDescendantIdentifiers(firstInitializer, (identifier) {
-          if (identifier.name == 'uiFunction') {
-            final args =
-                identifier.thisOrAncestorOfType<MethodInvocation>()?.argumentList?.arguments;
-            if (args == null || args.length < 2) return false;
-            return args[1].toString().startsWith(RegExp(r'\$'));
-          }
-          return false;
+          return identifier.nameWithoutPrefix == '\$${firstVariable.name.name}Config';
         });
   }
 }
@@ -79,6 +73,8 @@ extension NameHelper on Identifier {
     final self = this;
     return self is PrefixedIdentifier ? self.identifier.name : self.name;
   }
+
+  bool get isFunctionType => ['uiFunction', 'uiForwardRef', 'uiJsComponent'].contains(this.name);
 }
 
 /// Utilities related to detecting a super class on a [MixinDeclaration]

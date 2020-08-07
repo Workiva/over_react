@@ -26,8 +26,8 @@ const PropsMeta _$metaForUseMemoExampleProps = PropsMeta(
   keys: $UseMemoExampleProps.$propKeys,
 );
 
-final FunctionComponentConfig<_$$UseMemoExampleProps> $UseMemoExampleConfig =
-    FunctionComponentConfig(
+final UiFactoryConfig<_$$UseMemoExampleProps> $UseMemoExampleConfig =
+    UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseMemoExampleProps(map),
           jsMap: (map) => _$$UseMemoExampleProps$JsMap(map),

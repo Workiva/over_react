@@ -38,9 +38,9 @@ class BoilerplateFactory extends BoilerplateMember {
       }
     }
 
-    if (isFunctionComponentFactory) {
+    if (shouldGenerateConfig) {
       final uiFunctionInvocation = getDescendantIdentifier(
-          node.variables.firstInitializer, (identifier) => identifier.name == 'uiFunction');
+          node.variables.firstInitializer, (identifier) => identifier.isFunctionType);
       final methodInvocation = uiFunctionInvocation.thisOrAncestorOfType<MethodInvocation>();
       final typeArgs = methodInvocation?.typeArguments?.arguments?.first;
       return typeArgs;
@@ -53,10 +53,7 @@ class BoilerplateFactory extends BoilerplateMember {
 
   bool get hasFactoryAnnotation => node.hasAnnotationWithName('Factory');
 
-  bool get isFunctionComponentFactory =>
-      node.variables.firstInitializer != null &&
-      anyDescendantIdentifiers(
-          node.variables.firstInitializer, (identifier) => identifier.name == 'uiFunction');
+  bool get shouldGenerateConfig => node.usesAGeneratedConfig;
 
   /// Verifies the correct implementation of a boilerplate factory
   ///
@@ -94,7 +91,7 @@ class BoilerplateFactory extends BoilerplateMember {
         anyDescendantIdentifiers(
             initializer, (identifier) => identifier.name == generatedFactoryName);
 
-    if (!referencesGeneratedFactory && !isFunctionComponentFactory) {
+    if (!referencesGeneratedFactory && !shouldGenerateConfig) {
       errorCollector.addError(
           'Factory variables are stubs for the generated factories, and must '
           'be initialized with or otherwise reference the generated factory. Should be: `$factoryName = $generatedFactoryName`',

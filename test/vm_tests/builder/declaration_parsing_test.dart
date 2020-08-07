@@ -1586,7 +1586,7 @@ main() {
                   (props) {
                     return Dom.div()();
                   }, 
-                  FunctionComponentConfig(
+                  UiFactoryConfig(
                     propsFactory: PropsFactory.fromUiFactory(Foo),
                   ),
                 );
@@ -1645,7 +1645,7 @@ main() {
                   (props) {
                     return Dom.div()();
                   }, 
-                  FunctionComponentConfig(),
+                  UiFactoryConfig(),
                 );
               ''');
 
@@ -1665,14 +1665,14 @@ main() {
                   (props) {
                     return Dom.div()();
                   },
-                  \$FooConfig, // ignore: undefined_identifier
+                  \$BarConfig, // ignore: undefined_identifier
                 ));
                 
                 final Foo2 = someHOC(uiFunction<FooPropsMixin>(
                   (props) {
                     return Dom.div()();
                   },
-                  FunctionComponentConfig(
+                  UiFactoryConfig(
                     propsFactory: PropsFactory.uiFactory(Foo),
                   ), 
                 ));
@@ -1681,7 +1681,7 @@ main() {
                   (props) {
                     return Dom.div()();
                   },
-                  FunctionComponentConfig(),
+                  UiFactoryConfig(),
                 ));
                 
                 mixin FooPropsMixin on UiProps {}

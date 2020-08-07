@@ -15,6 +15,9 @@
 import 'dart:js_util';
 
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
+import 'package:over_react/src/component_declaration/function_component.dart';
+import 'package:over_react/src/component_declaration/builder_helpers.dart' as bh;
+import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react_client/react_interop.dart' as react_interop;
 import 'package:react/react_client.dart';
 import 'package:over_react/component_base.dart';
@@ -77,7 +80,6 @@ Ref<T> createRef<T>() {
 /// // ---------- Component Consumption ----------
 ///
 /// void main() {
-///   setClientConfiguration();
 ///   final ref = createRef<Element>();
 ///
 ///   react_dom.render(
@@ -134,7 +136,6 @@ Ref<T> createRef<T>() {
 ///   Ref _forwardedRef;
 /// }
 ///
-/// @Component2()
 /// class LogPropsComponent extends UiComponent2<LogPropsProps> {
 ///   @override
 ///   void componentDidUpdate(Map prevProps, _, [__]) {
@@ -175,12 +176,34 @@ Ref<T> createRef<T>() {
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/forwarding-refs.html>.
+///
+/// DEPRECATED: use [uiForwardRef] instead. Updating an existing usage can be done
+/// like so:
+///
+/// ```dart
+/// // Before:
+/// final FooForwarded = forwardRef<FooProps>((props, ref) {
+///   return (Foo()
+///     ..addAll(props)
+///     ..forwardedRef = ref
+///   )();
+/// })(Foo);
+///
+/// // After:
+/// UiFactory<FooProps> FooForwarded = uiForwardRef((props, ref) {
+///   return (Foo()
+///     ..addAll(props)
+///     ..forwardedRef = ref
+///   )();
+/// }, Foo.asForwardRefConfig(displayName: 'FooForwarded'));
+/// ```
+@Deprecated('Use uiForwardRef instead. Will be removed in 4.0.0')
 UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>(
-    Function(TProps props, Ref ref) wrapperFunction, {String displayName}) {
-
+    Function(TProps props, Ref ref) wrapperFunction,
+    {String displayName}) {
   UiFactory<TProps> wrapWithForwardRef(UiFactory<TProps> factory) {
     enforceMinimumComponentVersionFor(factory().componentFactory);
-    
+
     if (displayName == null) {
       final componentFactoryType = factory().componentFactory.type;
       if (componentFactoryType is String) {
@@ -196,10 +219,11 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
         }
       }
     }
-    
+
     Object wrapProps(Map props, Ref ref) {
       return wrapperFunction(factory(props), ref);
     }
+
     ReactComponentFactoryProxy hoc = react_interop.forwardRef(wrapProps, displayName: displayName);
     setComponentTypeMeta(hoc, isHoc: true, parentType: factory().componentFactory);
 
@@ -211,4 +235,211 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
   }
 
   return wrapWithForwardRef;
+}
+
+/// Creates a function component capable of forwarding its ref to
+/// a component it renders.
+///
+/// Learn more: <https://reactjs.org/docs/forwarding-refs.html>.
+///
+/// ### Example 1: Updating a function component to forward a ref:
+///
+/// _This example mirrors the JS example in the link above._
+///
+/// Consider a `FancyButton` function component that renders the native button DOM element:
+/// ```dart
+/// mixin FancyButtonProps on UiProps {}
+///
+/// UiFactory<FancyButtonProps> FancyButton = uiFunction(
+///   (props) {
+///     return (Dom.button()
+///       ..className = 'FancyButton'
+///     )(props.children);
+///   },
+///   $FancyButtonConfig, // ignore: undefined_identifier
+/// );
+/// ```
+///
+/// Normally, you can't set a ref on function components, but if you change
+/// [uiFunction] to `uiForwardRef`, you'll get a new `ref` argument that will be
+/// populate with any ref set on `FancyButton`. We This ref can then be
+/// "forwarded" to some other component.
+///
+/// ```dart
+/// mixin FancyButtonProps on UiProps {}
+///
+/// UiFactory<FancyButtonProps> FancyButton = uiForwardRef(
+///   (props, ref) {
+///     return (Dom.button()
+///       ..ref = ref
+///       ..className = 'FancyButton'
+///     )(props.children);
+///   },
+///   $FancyButtonConfig, // ignore: undefined_identifier
+/// );
+///
+/// usageExample() {
+///   // You can now get a ref directly to the DOM button:
+///   final ref = createRef<ButtonElement>();
+///   return (FancyButton()..ref = ref)();
+/// }
+/// ```
+///
+/// ### Example 2: Creating a [higher-order component](https://reactjs.org/docs/higher-order-components.html)
+/// that forwards its ref to the wrapped component.
+///
+/// ```dart
+/// /// Wraps a component ([factoryToWrap]) in a new component that logs when rendered.
+/// UiFactory<TProps> withLogging<TProps extends UiProps>(UiFactory<TProps> factoryToWrap) {
+///   return uiForwardRef(
+///     (props, ref) {
+///       useEffect(() => '${factoryToWrap().componentFactory.type} rendered!');
+///
+///       return (factoryToWrap()
+///         ..addAll(props)
+///         ..ref = ref
+///       )(props.children);
+///     },
+///     factoryToBeWrapped.asForwardRefConfig(
+///       displayName: 'WithLogging',
+///     ),
+///   );
+/// }
+///
+/// UiFactory<FancyButtonProps> FancyButton = ...;
+///
+/// /// This can be used just like FancyButton, and setting a ref on it will work the same!
+/// UiFactory<FancyButtonProps> FancyButtonWithLogging = withLogging(FancyButton);
+/// ```
+///
+/// ### Example 3: Exposing inner refs in class components
+///
+/// While it's usually easier to pass `uiForwardRef`'s `ref` argument directly
+/// to the desired component, sometimes it's nested within a class component
+/// that can't forward refs itself, and it's non-trivial to update that class
+/// component to a function component.
+///
+/// In this case, you can pass the ref to the class component as a custom prop,
+/// and have the class component forward it to the right location.
+///
+/// Here, we'll make our class component factory private and only expose a
+/// version wrapped in `uiForwardRef`:
+///
+/// ```dart
+/// UiFactory<FooProps> _Foo = _$_Foo; // ignore: undefined_identifier
+/// mixin FooProps on UiProps {
+///   // Private since we only use this to pass along the ref provided in
+///   // uiForwardRef.
+///   //
+///   // Consumers will effectively be setting this when they set `ref` on the public factory.
+///   dynamic _inputRef;
+/// }
+/// class FooComponent extends UiComponent2<FooProps> {
+///   @override
+///   render() {
+///     return Dom.div()(
+///       (Dom.input()
+///         ..type = 'text'
+///         ..ref = props._inputRef
+///       )()
+///     );
+///   }
+/// }
+///
+/// // ---------- Wrapping a Class Component ----------
+/// // Here you have two options:
+/// //   - Option 1: Use the class component's factory as the UiFactoryConfig arg.
+/// //   This needs to be done because the builder recognizes
+/// //   `FooProps` as already consumed (by the class component).
+/// //
+/// //   - Option 2: Create a new props class. This just works around the issue
+/// //   described for Option 1 because it is creating a new props class, but it
+/// //   only needs to mix in the props mixins that the original props class used.
+/// //
+/// // Choosing between the options is likely circumstantial or preferential.
+/// // The advantage to Option 1 is that if the class component has numerous mixins,
+/// // it is much more concise to create the function component config.
+/// // Option 2 has the benefit that it matches the declaration of standard
+/// // function components (which `uiForwardRef` returns). Additionally, Option 2
+/// // illustrates how one could add additional props to the wrapped function component.
+///
+/// //
+/// // Option 1 Example
+/// UiFactory<FooProps> Foo = uiForwardRef((props, ref) {
+///     return (_Foo()
+///       ..addProps(props)
+///       .._inputRef = ref
+///     )();
+///   },
+///   _Foo.asForwardRefConfig(displayName: 'Foo'),
+/// );
+///
+/// //
+/// // Option 2 Example:
+///
+/// // This is not necessary but is just in place to illustrate that more props
+/// // can be specified and consumed.
+/// mixin AnotherPropsMixin on UiProps {
+///   String anExampleAdditionalProp;
+/// }
+///
+/// class Foo2Props = UiProps with AnotherPropsMixin, FooProps;
+/// final Foo2 = uiForwardRef<Foo2Props>((props, ref) {
+///     print(props.anExampleAdditionalProp);
+///
+///     return (_Foo()
+///       ..addProps(props)
+///       .._inputRef = ref
+///     )();
+///   },
+///   $Foo2Config, // ignore: undefined_identifier
+/// );
+UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
+    dynamic Function(TProps props, dynamic ref) functionComponent, UiFactoryConfig<TProps> config) {
+  ArgumentError.checkNotNull(config, 'config');
+
+  // ignore: invalid_use_of_protected_member
+  var propsFactory = config.propsFactory;
+
+  // Get the display name from the inner function if possible so it doesn't become `_uiFunctionWrapper`.
+  // If the function is an anonymous function and a display name is not set,
+  // this will be an empty string.
+  final displayName = config.displayName ?? getFunctionName(functionComponent);
+
+  dynamic _uiFunctionWrapper(dynamic props, dynamic ref) {
+    return functionComponent(propsFactory.jsMap(props), ref);
+  }
+
+  ReactJsComponentFactoryProxy factory;
+
+  // If a consumer uses `asForwardRefConfig` to generate the function component
+  // config, displayName could be `null` or an empty string.
+  if (displayName != null && displayName.isNotEmpty) {
+    factory = react_interop.forwardRef(_uiFunctionWrapper, displayName: displayName);
+  } else {
+    factory = react_interop.forwardRef(_uiFunctionWrapper);
+  }
+
+  if (propsFactory == null) {
+    if (TProps != UiProps && TProps != GenericUiProps) {
+      throw ArgumentError('config.propsFactory must be provided when using custom props classes');
+    }
+    propsFactory = PropsFactory.fromUiFactory(([backingMap]) => GenericUiProps(factory, backingMap))
+        as PropsFactory<TProps>;
+  }
+
+  TProps _uiFactory([Map backingMap]) {
+    TProps builder;
+    if (backingMap == null) {
+      builder = propsFactory.jsMap(JsBackedMap());
+    } else if (backingMap is JsBackedMap) {
+      builder = propsFactory.jsMap(backingMap);
+    } else {
+      builder = propsFactory.map(backingMap);
+    }
+
+    return builder..componentFactory = factory;
+  }
+
+  return _uiFactory;
 }

@@ -83,13 +83,12 @@ const PropsMeta _$metaForUseImperativeHandleExampleProps = PropsMeta(
   keys: $UseImperativeHandleExampleProps.$propKeys,
 );
 
-final FunctionComponentConfig<_$$FancyInputProps> $_FancyInputConfig =
-    FunctionComponentConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$FancyInputProps(map),
-          jsMap: (map) => _$$FancyInputProps$JsMap(map),
-        ),
-        displayName: '_FancyInput');
+final UiFactoryConfig<_$$FancyInputProps> $_FancyInputConfig = UiFactoryConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$FancyInputProps(map),
+      jsMap: (map) => _$$FancyInputProps$JsMap(map),
+    ),
+    displayName: '_FancyInput');
 
 // Concrete props implementation.
 //
@@ -157,8 +156,8 @@ class _$$FancyInputProps$JsMap extends _$$FancyInputProps {
   JsBackedMap _props;
 }
 
-final FunctionComponentConfig<_$$UseImperativeHandleExampleProps>
-    $UseImperativeHandleExampleConfig = FunctionComponentConfig(
+final UiFactoryConfig<_$$UseImperativeHandleExampleProps>
+    $UseImperativeHandleExampleConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseImperativeHandleExampleProps(map),
           jsMap: (map) => _$$UseImperativeHandleExampleProps$JsMap(map),

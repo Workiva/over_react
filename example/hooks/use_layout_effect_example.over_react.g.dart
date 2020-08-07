@@ -26,8 +26,8 @@ const PropsMeta _$metaForUseLayoutEffectProps = PropsMeta(
   keys: $UseLayoutEffectProps.$propKeys,
 );
 
-final FunctionComponentConfig<_$$UseLayoutEffectProps>
-    $UseLayoutEffectExampleConfig = FunctionComponentConfig(
+final UiFactoryConfig<_$$UseLayoutEffectProps> $UseLayoutEffectExampleConfig =
+    UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseLayoutEffectProps(map),
           jsMap: (map) => _$$UseLayoutEffectProps$JsMap(map),

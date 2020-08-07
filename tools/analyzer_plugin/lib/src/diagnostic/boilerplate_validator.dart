@@ -253,16 +253,6 @@ extension on SourceSpan {
   SourceRange asRangeOrEmpty() => this == null ? SourceRange.EMPTY : asRange();
 }
 
-extension<E> on Iterable<E> {
-  void forEachIndexed(void Function(E, int) callback) {
-    var i = 0;
-    forEach((e) {
-      callback(e, i);
-      i++;
-    });
-  }
-}
-
 // TODO use the version from over_react instead after initial release
 Iterable<PartDirective> getNonGeneratedParts(CompilationUnit libraryUnit) {
   return libraryUnit.directives

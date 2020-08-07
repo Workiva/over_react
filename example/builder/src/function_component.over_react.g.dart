@@ -123,21 +123,19 @@ const PropsMeta _$metaForFooProps = PropsMeta(
   keys: $FooProps.$propKeys,
 );
 
-final FunctionComponentConfig<_$$BasicProps> $_BasicConfig =
-    FunctionComponentConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$BasicProps(map),
-          jsMap: (map) => _$$BasicProps$JsMap(map),
-        ),
-        displayName: '_Basic');
+final UiFactoryConfig<_$$BasicProps> $_BasicConfig = UiFactoryConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$BasicProps(map),
+      jsMap: (map) => _$$BasicProps$JsMap(map),
+    ),
+    displayName: '_Basic');
 
-final FunctionComponentConfig<_$$BasicProps> $SimpleConfig =
-    FunctionComponentConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$BasicProps(map),
-          jsMap: (map) => _$$BasicProps$JsMap(map),
-        ),
-        displayName: 'Simple');
+final UiFactoryConfig<_$$BasicProps> $SimpleConfig = UiFactoryConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$BasicProps(map),
+      jsMap: (map) => _$$BasicProps$JsMap(map),
+    ),
+    displayName: 'Simple');
 
 // Concrete props implementation.
 //
@@ -205,7 +203,7 @@ class _$$BasicProps$JsMap extends _$$BasicProps {
   JsBackedMap _props;
 }
 
-final FunctionComponentConfig<_$$FooProps> $FooConfig = FunctionComponentConfig(
+final UiFactoryConfig<_$$FooProps> $FooConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$FooProps(map),
       jsMap: (map) => _$$FooProps$JsMap(map),

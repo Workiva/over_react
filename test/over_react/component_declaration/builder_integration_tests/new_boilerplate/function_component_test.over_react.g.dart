@@ -106,29 +106,26 @@ const PropsMeta _$metaForTestProps = PropsMeta(
   keys: $TestProps.$propKeys,
 );
 
-final FunctionComponentConfig<_$$TestProps> $TestConfig =
-    FunctionComponentConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$TestProps(map),
-          jsMap: (map) => _$$TestProps$JsMap(map),
-        ),
-        displayName: 'Test');
+final UiFactoryConfig<_$$TestProps> $TestConfig = UiFactoryConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$TestProps(map),
+      jsMap: (map) => _$$TestProps$JsMap(map),
+    ),
+    displayName: 'Test');
 
-final FunctionComponentConfig<_$$TestProps> $NoLHSTestConfig =
-    FunctionComponentConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$TestProps(map),
-          jsMap: (map) => _$$TestProps$JsMap(map),
-        ),
-        displayName: 'NoLHSTest');
+final UiFactoryConfig<_$$TestProps> $NoLHSTestConfig = UiFactoryConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$TestProps(map),
+      jsMap: (map) => _$$TestProps$JsMap(map),
+    ),
+    displayName: 'NoLHSTest');
 
-final FunctionComponentConfig<_$$TestProps> $_TestConfig =
-    FunctionComponentConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$TestProps(map),
-          jsMap: (map) => _$$TestProps$JsMap(map),
-        ),
-        displayName: '_Test');
+final UiFactoryConfig<_$$TestProps> $_TestConfig = UiFactoryConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$TestProps(map),
+      jsMap: (map) => _$$TestProps$JsMap(map),
+    ),
+    displayName: '_Test');
 
 // Concrete props implementation.
 //

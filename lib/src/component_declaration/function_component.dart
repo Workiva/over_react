@@ -69,7 +69,7 @@ export 'component_type_checking.dart'
 ///   (props) {
 ///     return (Dom.button()..disabled = props.isDisabled)('Click me!');
 ///   },
-///   FunctionComponentConfig(
+///   UiFactoryConfig(
 ///     propsFactory: PropsFactory.fromUiFactory(Foo),
 ///     displayName: 'Bar',
 ///   ),
@@ -84,7 +84,7 @@ export 'component_type_checking.dart'
 ///   (props) {
 ///     return Dom.div()('prop id: ${props.id}');
 ///   },
-///   FunctionComponentConfig(
+///   UiFactoryConfig(
 ///     displayName: 'Foo',
 ///   ),
 /// );
@@ -94,14 +94,14 @@ export 'component_type_checking.dart'
 // TODO: right now only top level factory declarations will generate props configs.
 UiFactory<TProps> uiFunction<TProps extends UiProps>(
   dynamic Function(TProps props) functionComponent,
-  FunctionComponentConfig<TProps> config,
+  UiFactoryConfig<TProps> config,
 ) {
   ArgumentError.checkNotNull(config, 'config');
 
   var propsFactory = config.propsFactory;
 
   // Get the display name from the inner function if possible so it doesn't become `_uiFunctionWrapper`
-  final displayName = config.displayName ?? _getFunctionName(functionComponent);
+  final displayName = config.displayName ?? getFunctionName(functionComponent);
 
   dynamic _uiFunctionWrapper(JsBackedMap props) {
     return functionComponent(propsFactory.jsMap(props));
@@ -113,12 +113,12 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
   );
 
   if (propsFactory == null) {
-    if (TProps != UiProps && TProps != _GenericUiProps) {
+    if (TProps != UiProps && TProps != GenericUiProps) {
       throw ArgumentError(
           'config.propsFactory must be provided when using custom props classes');
     }
     propsFactory = PropsFactory.fromUiFactory(
-            ([backingMap]) => _GenericUiProps(factory, backingMap))
+            ([backingMap]) => GenericUiProps(factory, backingMap))
         as PropsFactory<TProps>;
   }
 
@@ -140,16 +140,15 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
   return _uiFactory;
 }
 
-String _getFunctionName(Function function) {
-  return getProperty(function, 'name') ??
-      getProperty(function, '\$static_name');
+String getFunctionName(Function function) {
+  return getProperty(function, 'name') ?? getProperty(function, '\$static_name');
 }
 
-class _GenericUiProps extends UiProps {
+class GenericUiProps extends UiProps {
   @override
   final Map props;
 
-  _GenericUiProps(ReactComponentFactoryProxy componentFactory, [Map props])
+  GenericUiProps(ReactComponentFactoryProxy componentFactory, [Map props])
       : this.props = props ?? JsBackedMap() {
     this.componentFactory = componentFactory;
   }
@@ -162,12 +161,12 @@ class _GenericUiProps extends UiProps {
 }
 
 /// Helper class used to keep track of generated information for [uiFunction].
-class FunctionComponentConfig<TProps extends UiProps> {
+class UiFactoryConfig<TProps extends UiProps> {
   @protected
   final PropsFactory<TProps> propsFactory;
   final String displayName;
 
-  FunctionComponentConfig({this.propsFactory, this.displayName});
+  UiFactoryConfig({this.propsFactory, this.displayName});
 }
 
 /// Helper class to keep track of props factories used by [uiFunction],

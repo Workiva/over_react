@@ -58,8 +58,8 @@ const PropsMeta _$metaForUseDebugValueExampleProps = PropsMeta(
   keys: $UseDebugValueExampleProps.$propKeys,
 );
 
-final FunctionComponentConfig<_$$FriendListItemProps> $FriendListItemConfig =
-    FunctionComponentConfig(
+final UiFactoryConfig<_$$FriendListItemProps> $FriendListItemConfig =
+    UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$FriendListItemProps(map),
           jsMap: (map) => _$$FriendListItemProps$JsMap(map),
@@ -132,8 +132,8 @@ class _$$FriendListItemProps$JsMap extends _$$FriendListItemProps {
   JsBackedMap _props;
 }
 
-final FunctionComponentConfig<_$$UseDebugValueExampleProps>
-    $UseDebugValueExampleConfig = FunctionComponentConfig(
+final UiFactoryConfig<_$$UseDebugValueExampleProps>
+    $UseDebugValueExampleConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseDebugValueExampleProps(map),
           jsMap: (map) => _$$UseDebugValueExampleProps$JsMap(map),
