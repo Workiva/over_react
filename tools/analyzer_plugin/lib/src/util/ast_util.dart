@@ -149,7 +149,7 @@ T getMatchingConst<T>(DartObject object, Iterable<T> values) {
   });
 }
 
-extension on DartObject {
+extension DynamicDartObject on DartObject {
   Object toWhateverValue() =>
       toBoolValue() ??
       toDoubleValue() ??
