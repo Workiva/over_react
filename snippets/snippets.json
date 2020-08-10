@@ -123,5 +123,40 @@
       "}"
     ],
     "description": "Creates a stateless and connected OverReact component"
+  },
+  "abbreviatedFunctionComponent": {
+    "prefix": "orFunc",
+    "body": [
+      "import 'package:over_react/over_react.dart';",
+      "",
+      "part '${1:FileName}.over_react.g.dart';",
+      "",
+      "UiFactory<${2:MyComponent}Props> ${2:MyComponent} = uiFunction(",
+      "\t(props) {},",
+      "\t$${2:MyComponent}Config, // ignore: undefined_identifier",
+      ");",
+      "",
+      "mixin ${2:MyComponent}Props on UiProps {}"
+    ],
+    "description": "Creates an OverReact function component with an abbreviated props declaration"
+  },
+  "functionComponent": {
+    "prefix": "orAdvFunc",
+    "body": [
+      "import 'package:over_react/over_react.dart';",
+      "",
+      "part '${1:FileName}.over_react.g.dart';",
+      "",
+      "UiFactory<${2:MyComponent}Props> ${2:MyComponent} = uiFunction(",
+      "\t(props) {},",
+      "\t$${2:MyComponent}Config, // ignore: undefined_identifier",
+      ");",
+      "",
+      "mixin ${2:MyComponent}PropsMixin on UiProps {}",
+      "",
+      "class ${2:MyComponent}Props = UiProps with ${2:MyComponent}PropsMixin;",
+      ""
+    ],
+    "description": "Creates an OverReact function component with a props class alias"
   }
 }

@@ -89,4 +89,8 @@ void main() {
   react_dom.render(ListExample()(), querySelector('$demoMountNodeSelectorPrefix--list-component'));
   react_dom.render(NumExample()(), querySelector('$demoMountNodeSelectorPrefix--num-component'));
   react_dom.render(StringExample()(), querySelector('$demoMountNodeSelectorPrefix--string-component'));
+  react_dom.render(
+    (RefDemoContainer())(),
+    querySelector('$demoMountNodeSelectorPrefix--forwardRef'),
+  );
 }
