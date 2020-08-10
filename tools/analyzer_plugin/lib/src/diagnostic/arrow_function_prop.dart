@@ -3,7 +3,6 @@ import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:analyzer_plugin/utilities/fixes/fixes.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/fluent_interface_util.dart';
-import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 
 const _desc = "Props can't be cascaded after unparenthesized arrow functions.";
 // <editor-fold desc="Documentation Details">

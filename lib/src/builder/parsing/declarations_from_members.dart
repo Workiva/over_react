@@ -69,6 +69,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   if (members.isEmpty) return;
 
   final _consumedMembers = <BoilerplateMember>{};
+  final _functionComponentFactories = <BoilerplateFactory>{};
 
   /// Indicate that [member] has been grouped into a declaration,
   /// so that it is not grouped into another declaration.
@@ -205,7 +206,8 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
   // Give the more confident factories priority when grouping, so that medium-confidence related
   // factories that don't require generation (like aliased factories) don't trump the real factory.
-  final factoriesMostToLeastConfidence = List.of(members.factories)
+  final factoryGroups = _groupFactories(members);
+  final factoriesMostToLeastConfidence = factoryGroups.map((group) => group.bestFactory).toList()
     ..sort((a, b) => b.versionConfidences.maxConfidence.confidence
         .compareTo(a.versionConfidences.maxConfidence.confidence));
   for (final factory in factoriesMostToLeastConfidence) {
@@ -239,6 +241,25 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
       if (stateClassOrMixin != null) {
         consume(stateClassOrMixin.either);
       }
+    }
+
+    if (factory.shouldGenerateConfig) {
+      final factories = factoryGroups.firstWhere((group) => group.bestFactory == factory);
+      final generatedFactories = factories.factories
+          .where((factory) => factory.versionConfidences.maxConfidence.shouldGenerate);
+      final associatedProps =
+          getPropsForFunctionComponent(members.props, members.propsMixins, factory);
+      if (generatedFactories.isNotEmpty &&
+          associatedProps?.either != null &&
+          !hasBeenConsumed(associatedProps.either)) {
+        consume(associatedProps.either);
+        factories.factories.forEach(consume);
+        yield PropsMapViewOrFunctionComponentDeclaration(
+          factories: generatedFactories.toList(),
+          props: associatedProps,
+        );
+      }
+      continue;
     }
 
     if (component != null) {
@@ -280,7 +301,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         consume(factory);
         consumePropsAndState();
         yield PropsMapViewOrFunctionComponentDeclaration(
-          factory: factory,
+          factories: [factory],
           props: propsClassOrMixin,
         );
       }
@@ -358,6 +379,26 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
           'Mismatched boilerplate member found', errorCollector.spanFor(member.node));
     }
   }
+}
+
+/// Group [BoilerplateMembers.factories] by type.
+List<FactoryGroup> _groupFactories(BoilerplateMembers members) {
+  var factoriesByType = <String, List<BoilerplateFactory>>{};
+
+  for (final factory in members.factories) {
+    final typeString = factory.propsGenericArg.typeNameWithoutPrefix;
+    factoriesByType.putIfAbsent(typeString, () => []).add(factory);
+  }
+
+  final groups = <FactoryGroup>[];
+  factoriesByType.forEach((key, value) {
+    if (key == null) {
+      groups.addAll(value.map((factory) => FactoryGroup(factories: [factory])));
+    } else {
+      groups.add(FactoryGroup(factories: value));
+    }
+  });
+  return groups;
 }
 
 const errorStateOnly =

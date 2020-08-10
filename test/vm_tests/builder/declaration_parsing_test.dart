@@ -1538,7 +1538,8 @@ main() {
                 ]));
                 final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
 
-                expect(decl.factory?.name?.name, name);
+                expect(decl.factories, hasLength(1));
+                expect(decl.factories.first.name.name, name);
                 expect(decl.props.b?.name?.name, propsName);
                 expect(decl.version, Version.v4_mixinBased);
               });
@@ -1550,7 +1551,8 @@ main() {
                 ''');
                 final decl = expectSingleOfType<PropsMapViewOrFunctionComponentDeclaration>(declarations);
 
-                expect(decl.factory?.name?.name, name);
+                expect(decl.factories, hasLength(1));
+                expect(decl.factories.first.name.name, name);
                 expect(decl.props.a?.name?.name, propsName);
                 expect(decl.version, Version.v4_mixinBased);
               });
@@ -1560,6 +1562,194 @@ main() {
 
             group('with a mapview name suffix', () {
               sharedMapViewTests(hasMapViewSuffix: true);
+            });
+          });
+
+          group('function component', () {
+            test('(shorthand)', () {
+              setUpAndParse('''
+                UiFactory<FooPropsMixin> Foo = uiFunction(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  \$FooConfig, // ignore: undefined_identifier
+                );
+                
+                final Bar = uiFunction<FooPropsMixin>(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  \$BarConfig, // ignore: undefined_identifier
+                );
+                
+                UiFactory<FooPropsMixin> Baz = uiFunction<FooPropsMixin>(
+                  (props) {
+                    return Dom.div()();
+                  }, 
+                  UiFactoryConfig(
+                    propsFactory: PropsFactory.fromUiFactory(Foo),
+                  ),
+                );
+                
+                UiFactory<FooPropsMixin> FooForwarded = forwardRef<FooPropsMixin>((props, ref) {
+                  return (Foo()
+                    ..ref = ref
+                  )();
+                })(Foo);
+                
+                mixin FooPropsMixin on UiProps {}
+              ''');
+
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<PropsMapViewOrFunctionComponentDeclaration>(),
+              ]));
+              final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
+
+              expect(decl.factories, hasLength(2));
+              expect(decl.factories.map((factory) => factory.name.name), unorderedEquals([
+                'Foo',
+                'Bar',
+              ]));
+              expect(decl.props.b?.name?.name, 'FooPropsMixin');
+              expect(decl.version, Version.v4_mixinBased);
+            });
+
+            test('(verbose)', () {
+              setUpAndParse('''
+                final Foo = uiFunction<FooProps>(
+                  (props) {
+                    return Dom.div()();
+                  },  
+                  \$FooConfig, // ignore: undefined_identifier
+                );
+                mixin FooPropsMixin on UiProps {}
+                class FooProps = UiProps with FooPropsMixin;
+              ''');
+
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<PropsMapViewOrFunctionComponentDeclaration>(),
+              ]));
+              final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
+
+              expect(decl.factories, hasLength(1));
+              expect(decl.factories.first.name.name, 'Foo');
+              expect(decl.props.a?.name?.name, 'FooProps');
+              expect(decl.version, Version.v4_mixinBased);
+            });
+
+            test('generic UiProps', () {
+              setUpAndParse('''
+                final Foo = uiFunction<UiProps>(
+                  (props) {
+                    return Dom.div()();
+                  }, 
+                  UiFactoryConfig(),
+                );
+              ''');
+
+              expect(declarations, isEmpty);
+            });
+
+            test('wrapped in an hoc', () {
+              setUpAndParse('''
+                UiFactory<FooPropsMixin> Foo = someHOC(uiFunction(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  \$FooConfig, // ignore: undefined_identifier
+                ));
+                
+                final Bar = someHOC(uiFunction<FooPropsMixin>(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  \$BarConfig, // ignore: undefined_identifier
+                ));
+                
+                final Foo2 = someHOC(uiFunction<FooPropsMixin>(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  UiFactoryConfig(
+                    propsFactory: PropsFactory.uiFactory(Foo),
+                  ), 
+                ));
+                
+                final Bar2 = someHOC(uiFunction<UiProps>(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  UiFactoryConfig(),
+                ));
+                
+                mixin FooPropsMixin on UiProps {}
+              ''');
+
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<PropsMapViewOrFunctionComponentDeclaration>(),
+              ]));
+              final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
+
+              expect(decl.factories, hasLength(2));
+              expect(decl.factories.map((factory) => factory.name.name), unorderedEquals([
+                'Foo',
+                'Bar',
+              ]));
+              expect(decl.props.b?.name?.name, 'FooPropsMixin');
+              expect(decl.version, Version.v4_mixinBased);
+            });
+
+            test('with multiple mixins in the same file', () {
+              setUpAndParse('''
+                UiFactory<FooPropsMixin> Foo = uiFunction(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  \$FooConfig, // ignore: undefined_identifier
+                );
+                
+                final Bar = uiFunction<FooPropsMixin>(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  \$BarConfig, // ignore: undefined_identifier
+                );
+                
+                UiFactory<BarPropsMixin> Baz = uiFunction(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  \$BazConfig, // ignore: undefined_identifier
+                );
+                
+                mixin FooPropsMixin on UiProps {}
+                mixin BarPropsMixin on UiProps {}
+              ''');
+
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<PropsMixinDeclaration>(),
+                isA<PropsMapViewOrFunctionComponentDeclaration>(),
+                isA<PropsMapViewOrFunctionComponentDeclaration>(),
+              ]));
+              final decl = declarations.whereType<PropsMapViewOrFunctionComponentDeclaration>().toList();
+              expect(decl, hasLength(2));
+
+              expect(decl.first.factories, hasLength(2));
+              expect(decl.first.factories.map((factory) => factory.name.name), unorderedEquals([
+                'Foo',
+                'Bar',
+              ]));
+              expect(decl.first.props.b?.name?.name, 'FooPropsMixin');
+              expect(decl.first.version, Version.v4_mixinBased);
+
+              expect(decl[1].factories, hasLength(1));
+              expect(decl[1].factories.first.name.name, 'Baz');
+              expect(decl[1].props.b?.name?.name, 'BarPropsMixin');
+              expect(decl[1].version, Version.v4_mixinBased);
             });
           });
         });
@@ -1705,11 +1895,67 @@ main() {
 
           test('a factory or a component class', () {
             setUpAndParse(propsSrc);
-            verify(logger.severe(contains(errorPropsClassOnly)));;
+            verify(logger.severe(contains(errorPropsClassOnly)));
           });
 
           test('a component or props class', () {
             setUpAndParse(factorySrc);
+            verify(logger.severe(contains(errorFactoryOnly)));
+          });
+        });
+
+        group('a function component is declared', () {
+          test('without a props mixin', () {
+            setUpAndParse(r'''
+              final Foo = uiFunction<FooProps>(
+                (props) {
+                  return Dom.div()();
+                },
+                $FooConfig, // ignore: undefined_identifier
+              );
+            ''');
+            verify(logger.severe(contains(errorFactoryOnly)));
+          });
+
+          test('without props typing arguments or left hand typing', () {
+            setUpAndParse(r'''
+              mixin FooProps on UiProps {}
+              final Foo = uiFunction(
+                (props) {
+                  return Dom.div()();
+                },
+                $FooConfig, // ignore: undefined_identifier
+              );
+            ''');
+            verify(logger.severe(contains(errorFactoryOnly)));
+          });
+
+          test('without a matching props mixin', () {
+            setUpAndParse(r'''
+              mixin FooPropsMixin on UiProps {}
+              UiFactory<FooProps> Foo = uiFunction(
+                (props) {
+                  return Dom.div()();
+                }, 
+                $FooConfig, // ignore: undefined_identifier
+              );
+            ''');
+            verify(logger.severe(contains(errorFactoryOnly)));
+          });
+
+          test('with a props mixin that is used by a component class', () {
+            setUpAndParse(r'''
+              UiFactory<FooProps> Foo = _$Foo;
+              mixin FooProps on UiProps {}
+              class FooComponent extends UiComponent2<FooProps> {}
+              
+              final Foo = uiFunction<FooProps>(
+                (props) {
+                  return Dom.div()();
+                },
+                $FooConfig, // ignore: undefined_identifier
+              );
+            ''');
             verify(logger.severe(contains(errorFactoryOnly)));
           });
         });

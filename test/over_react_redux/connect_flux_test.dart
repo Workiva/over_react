@@ -15,6 +15,7 @@
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_flux.dart';
 import 'package:over_react/over_react_redux.dart';
+import 'package:redux/redux.dart' as redux;
 import 'package:test/test.dart';
 
 import '../test_util/test_util.dart';
@@ -32,6 +33,14 @@ main() {
     UiFactory<ConnectFluxCounterProps> ConnectedCounter;
     TestJacket<ConnectFluxCounterComponent> jacket;
     final counterRef = createRef<ConnectFluxCounterComponent>();
+
+    FluxActions fluxActions;
+    FluxStore fluxStore;
+    FluxToReduxAdapterStore store1;
+
+    FluxActions bigFluxActions;
+    FluxStore2 bigFluxCounter;
+    FluxToReduxAdapterStore store2;
 
     JsConnectOptions connectOptions;
     final originalConnect = mockableJsConnect;
@@ -53,15 +62,17 @@ main() {
       mockableJsConnect = originalConnect;
     });
 
-    setUp(() async {
+    setUp(() {
       ConnectedCounter = null;
       jacket = null;
-      // Reset stores state to initialState value
-      store1.dispatch(ResetAction());
-      store2.dispatch(ResetAction());
 
-      // wait for state to update
-      await Future(() {});
+      fluxActions = FluxActions();
+      fluxStore = FluxStore(fluxActions);
+      store1 = FluxToReduxAdapterStore(fluxStore, fluxActions);
+
+      bigFluxActions = FluxActions();
+      bigFluxCounter = FluxStore2(bigFluxActions);
+      store2 = FluxToReduxAdapterStore(bigFluxCounter, bigFluxActions);
     });
 
     group('behaves like redux with', () {
@@ -379,17 +390,15 @@ main() {
 
         group('areStatePropsEqual', () {
           List<Map<String, dynamic>> methodsCalled;
-          const mountMethodCalls = [
+          const expectedMountMethodCalls = [
             'mapStateToProps',
             'mapStateToProps',
             'areStatePropsEqual',
           ];
 
-          const updateMethodCalls = [
+          const expectedUpdateMethodCalls = [
             'mapStateToProps',
             'areStatePropsEqual',
-            'mapStateToProps',
-            'areStatePropsEqual'
           ];
 
           setUp(() {
@@ -400,7 +409,7 @@ main() {
             ConnectedCounter =
                 connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
               mapStateToProps: (state) {
-                methodsCalled.add({'called': 'mapStateToProps'});
+                methodsCalled.add({'called': 'mapStateToProps', 'state': state});
                 return ConnectFluxCounter()..currentCount = state.count;
               },
               mapActionsToProps: (actions) =>
@@ -419,16 +428,16 @@ main() {
 
             jacket = mount(
               (ReduxProvider()..store = store1)(
-                (ConnectedCounter()
-                  ..ref = counterRef
-                  ..currentCount = 0
-                )('test'),
+                (ConnectedCounter()..ref = counterRef)('test'),
               ),
             );
 
             // Because `areStatesEqual` is false, we expect additional method calls
-            expect(methodsCalled.map((methodObj) => methodObj['called']),
-                mountMethodCalls);
+            expect(
+                methodsCalled,
+                expectedMountMethodCalls
+                    .map((expected) => containsPair('called', expected))
+                    .toList());
             for (final methodCall in methodsCalled) {
               if (methodCall['called'] == 'areStatePropsEqual') {
                 expect(methodCall['prev'], isA<ConnectFluxCounterProps>());
@@ -446,8 +455,11 @@ main() {
             await Future(() {});
 
             // store.state.count should be 1 but does not re-render due to override in `areStatePropsEqual`
-            expect(methodsCalled.map((methodObj) => methodObj['called']),
-                updateMethodCalls);
+            expect(
+                methodsCalled,
+                expectedUpdateMethodCalls
+                    .map((expected) => containsPair('called', expected))
+                    .toList());
             for (final methodCall in methodsCalled) {
               if (methodCall['called'] == 'areStatePropsEqual') {
                 expect(methodCall['prev'], isA<ConnectFluxCounterProps>());
@@ -459,15 +471,18 @@ main() {
           });
 
           test(
-              'matches a standard Redux component when `areStatesEqual` is false',
+              'matches a Redux component with impure state when `areStatesEqual` is false',
               () async {
             final localReduxRef = createRef<CounterComponent>();
 
             final ReduxConnectedCounter =
-                connect<redux_store.CounterState, CounterProps>(
+                connect<redux_store.ImpureCounterState, CounterProps>(
               mapStateToProps: (state) {
-                methodsCalled.add({'called': 'mapStateToProps'});
-                return ConnectFluxCounter()..currentCount = state.count;
+                methodsCalled.add({
+                  'called': 'mapStateToProps',
+                  'state': state,
+                });
+                return Counter()..currentCount = state.count;
               },
               areStatePropsEqual: (next, prev) {
                 methodsCalled.add({
@@ -482,18 +497,28 @@ main() {
               areStatesEqual: (_, __) => false,
             )(Counter);
 
+            // In this setup with an idiomatic redux store, we'd expect double the updates when the state is updated
+            // since we're dealing with a new state object instance every time.
+            //
+            // However, in Flux, it's the same, identical state object (the Flux store) every time
+            // which allows react-redux's memoization to skip the extra calls after the component renders.
+            //
+            // Simulate this by using an Redux store that has the same impurity as Flux stores.
+            final impureReduxStore = redux.Store(redux_store.impureCounterStateReducer,
+                initialState: redux_store.ImpureCounterState());
+
             jacket = mount(
-              (ReduxProvider()..store = redux_store.store1)(
-                (ReduxConnectedCounter()
-                  ..ref = localReduxRef
-                  ..currentCount = 0
-                )('test'),
+              (ReduxProvider()..store = impureReduxStore)(
+                (ReduxConnectedCounter()..ref = localReduxRef)('test'),
               ),
             );
 
             // Because `areStatesEqual` is false, we expect additional method calls
-            expect(methodsCalled.map((methodObj) => methodObj['called']),
-                mountMethodCalls);
+            expect(
+                methodsCalled,
+                expectedMountMethodCalls
+                    .map((expected) => containsPair('called', expected))
+                    .toList());
             for (final methodCall in methodsCalled) {
               if (methodCall['called'] == 'areStatePropsEqual') {
                 expect(methodCall['prev'], isA<CounterProps>());
@@ -510,8 +535,14 @@ main() {
             await Future(() {});
 
             // store.state.count should be 1 but does not re-render due to override in `areStatePropsEqual`
-            expect(methodsCalled.map((methodObj) => methodObj['called']),
-                updateMethodCalls);
+            expect(
+                methodsCalled,
+                expectedUpdateMethodCalls
+                    .map((expected) => containsPair('called', expected))
+                    .toList(),
+                reason:
+                    'connect\'s sequence of calls should match expectedUpdateMethodCalls');
+
             for (final methodCall in methodsCalled) {
               if (methodCall['called'] == 'areStatePropsEqual') {
                 expect(methodCall['prev'], isA<CounterProps>());
@@ -691,7 +722,53 @@ main() {
         },
       };
 
-      testParameterCases(testCases);
+      testCases.forEach((parameterCase, parameters) {
+        bool shouldDomUpdate(Map parameters) =>
+            (parameters['mapStateToProps'] != null ||
+                parameters['mapStateToPropsWithOwnProps'] != null);
+
+        test(parameterCase, () async {
+          final ConnectedFluxComponent =
+              connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
+            mapStateToProps: parameters['mapStateToProps'],
+            mapActionsToProps: parameters['mapActionsToProps'],
+            mapStateToPropsWithOwnProps:
+                parameters['mapStateToPropsWithOwnProps'],
+            mapActionsToPropsWithOwnProps:
+                parameters['mapActionsToPropsWithOwnProps'],
+          )(ConnectFluxCounter);
+
+          final jacket2 = mount((ReduxProvider()..store = store1)(
+            (ConnectedFluxComponent()
+              ..actions = fluxActions
+              ..addTestId('flux-component')
+            )(),
+          ));
+
+          final fluxCounter =
+              queryByTestId(jacket2.mountNode, 'flux-component');
+          final fluxButton = queryByTestId(fluxCounter, 'button-increment');
+
+          expect(fluxStore.state.count, 0);
+
+          click(fluxButton);
+          await Future(() {});
+
+          expect(fluxStore.state.count, 1);
+
+          if (shouldDomUpdate(parameters)) {
+            expect(findDomNode(fluxCounter).innerHtml, contains('Count: 1'));
+          }
+
+          store1.dispatch(ResetAction());
+          await Future(() {});
+
+          expect(fluxStore.state.count, 0);
+          if (shouldDomUpdate(parameters)) {
+            expect(findDomNode(fluxCounter).innerHtml, contains('Count: 0'));
+          }
+        });
+      });
     });
 
     test('prints a warning when state is mutated directly', () async {
@@ -739,49 +816,3 @@ mapStateToPropsWithOwnProps get testMapStateToPropsWithOwnProps =>
 mapActionsToPropsWithOwnProps get testMapActionsToPropsWithOwnProps =>
     (actions, ownProps) =>
         (ConnectFluxCounter()..increment = actions.incrementAction);
-
-void testParameterCases(Map<String, Map> cases) {
-  for (final parameterCase in cases.keys) {
-    final parameters = cases[parameterCase];
-    bool shouldDomUpdate(Map parameters) =>
-        (parameters['mapStateToProps'] != null ||
-            parameters['mapStateToPropsWithOwnProps'] != null);
-
-    test(parameterCase, () async {
-      final ConnectedFluxComponent =
-          connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
-        mapStateToProps: parameters['mapStateToProps'],
-        mapActionsToProps: parameters['mapActionsToProps'],
-        mapStateToPropsWithOwnProps: parameters['mapStateToPropsWithOwnProps'],
-        mapActionsToPropsWithOwnProps:
-            parameters['mapActionsToPropsWithOwnProps'],
-      )(ConnectFluxCounter);
-
-      final jacket = mount((ReduxProvider()..store = store1)(
-        (ConnectedFluxComponent()..addTestId('flux-component'))(),
-      ));
-
-      final fluxCounter = queryByTestId(jacket.mountNode, 'flux-component');
-      final fluxButton = queryByTestId(fluxCounter, 'button-increment');
-
-      expect(fluxStore.state.count, 0);
-
-      click(fluxButton);
-      await Future(() {});
-
-      expect(fluxStore.state.count, 1);
-
-      if (shouldDomUpdate(parameters)) {
-        expect(findDomNode(fluxCounter).innerHtml, contains('Count: 1'));
-      }
-
-      store1.dispatch(ResetAction());
-      await Future(() {});
-
-      expect(fluxStore.state.count, 0);
-      if (shouldDomUpdate(parameters)) {
-        expect(findDomNode(fluxCounter).innerHtml, contains('Count: 0'));
-      }
-    });
-  }
-}

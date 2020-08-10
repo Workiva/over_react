@@ -20,6 +20,8 @@ import 'dart:collection';
 import 'package:meta/meta.dart';
 import 'package:over_react/src/component/dummy_component.dart';
 import 'package:over_react/src/component/prop_mixins.dart';
+import 'package:over_react/src/component_declaration/builder_helpers.dart' as bh;
+import 'package:over_react/src/component_declaration/function_component.dart';
 import 'package:over_react/src/util/class_names.dart';
 import 'package:over_react/src/util/map_util.dart';
 import 'package:over_react/src/util/pretty_print.dart';
@@ -90,6 +92,14 @@ ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentC
 /// For use in wrapping existing Maps in typed getters and setters, and for creating React components
 /// via a fluent-style builder interface.
 typedef TProps UiFactory<TProps extends UiProps>([Map backingProps]);
+
+extension UiFactoryHelpers<TProps extends bh.UiProps> on UiFactory<TProps> {
+  /// Generates the configuration necessary to construct a UiFactory while invoking
+  /// `uiForwardRef` with a props class that has already been consumed.
+  ///
+  /// See `uiForwardRef` for examples and context.
+  UiFactoryConfig<TProps> asForwardRefConfig({String displayName}) => UiFactoryConfig(propsFactory: PropsFactory.fromUiFactory(this), displayName: displayName);
+}
 
 /// A utility variation on [UiFactory], __without__ a `backingProps` parameter.
 ///
@@ -512,7 +522,7 @@ abstract class UiProps extends MapBase
         componentFactory != null,
         'componentFactory is null. Possible causes:\n'
         '1. Something went wrong when initializing the `\$${runtimeType}Factory` variable in the generated code.\n'
-        '   It\'s possible React swallowed errors thrown during that initialization, so try pausing on caught exceptions to see it.\n'
+        '   Check for errors in the console for more information.'
         '2. This is a props map view factory (declared as just a factory and props), and should not be invoked.\n'
         '   This can also happen if your component didn\'t get grouped with your factory/props (e.g., if its name doesn\'t match).'
         '3. This is a function component factory that was set up improperly, not wrapping the generated function in `uiFunction`.\n'
@@ -541,7 +551,10 @@ abstract class UiProps extends MapBase
     // Use `identical` since it compiles down to `===` in dart2js instead of calling equality helper functions,
     // and we don't want to allow any object overriding `operator==` to claim it's equal to `_notSpecified`.
     if (identical(c1, notSpecified)) {
-      childArguments = [];
+      // Use a const list so that empty children prop values are always identical
+      // in the JS props, resulting in JS libraries (e.g., react-redux) and Dart code alike
+      // not marking props as having changed as a result of rerendering the ReactElement with a new list.
+      childArguments = const [];
     } else if (identical(c2, notSpecified)) {
       childArguments = [c1];
     } else if (identical(c3, notSpecified)) {
