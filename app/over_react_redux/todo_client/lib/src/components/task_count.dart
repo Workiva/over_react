@@ -34,14 +34,14 @@ class TaskCountBadgeProps = UiProps with TaskCountBadgePropsMixin, ConnectPropsM
 class TaskCountBadgeComponent extends UiComponent2<TaskCountBadgeProps> {
   @override
   render() {
-    return Box({
-      'onMouseEnter': (_) {
-        props.dispatch(HighlightTodosAction(props.assignedTodoIds));
-      },
-      'onMouseLeave': (_) {
-        props.dispatch(UnHighlightTodosAction(props.assignedTodoIds));
-      },
-    },
+    return (Box()
+        ..onMouseEnter = (_) {
+          props.dispatch(HighlightTodosAction(props.assignedTodoIds));
+        }
+        ..onMouseLeave = (_) {
+          props.dispatch(UnHighlightTodosAction(props.assignedTodoIds));
+        }
+    )(
       Tooltip({
         'title': _tooltipContent,
         'arrow': true,

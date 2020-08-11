@@ -33,16 +33,14 @@ class DisplayListComponent extends UiComponent2<DisplayListProps> {
     }
 
     final propsToForward = {...props}..remove('listItemTypeDescription');
-    return Box({
-      'key': 'scrollableList',
-      'flexGrow': 1,
-      'flexShrink': 1,
-      'flexBasis': '0%',
-      'paddingTop': 2,
-      'style': {...props.style ?? {}, 'overflowY': 'auto'},
-      ...propsToForward,
-      'ref': scrollingBoxRef,
-    },
+    return (Box()
+        ..key = 'scrollableList'
+        ..grow = true
+        ..paddingTop = 2
+        ..style = {...props.style ?? {}, 'overflowY': 'auto'}
+        ..ref = scrollingBoxRef
+
+    )(
       props.children,
     );
   }

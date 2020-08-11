@@ -80,12 +80,12 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
   }
 
   ReactElement _renderUserAvatar() {
-    return Box({
-      ...shrinkToFit,
-      'ml': -1,
-      'mr': 2,
-      'alignSelf': 'center',
-    },
+    return (Box()
+        ..ml = -1
+        ..mr = 2
+        ..alignSelf = 'center'
+        ..shrinkToFit = true
+    )(
       (TaskCountBadge()..user = model)(
         (AvatarWithColors()
           ..key = 'avatar'
@@ -96,11 +96,11 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
   }
 
   ReactElement _renderUserNameHeader() {
-    return Box({
-      ...grow,
-      'mr': 1,
-      'alignSelf': 'center',
-    },
+    return (Box()
+        ..mr = 1
+        ..alignSelf = 'center'
+        ..grow = true
+    )(
       (TodoItemTextField()
         ..readOnly = !props.isEditable
         ..autoFocus = props.isEditable
@@ -150,13 +150,15 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
           'container': true,
           'direction': 'row',
         },
-          Box({
-            'flexGrow': 1,
-            'display': 'flex',
-          },
+          (Box()
+              ..flexGrow = 1
+              ..display = 'flex'
+          )(
             _renderEditableUserDeleteButton(),
           ),
-          Box({...shrinkToFit},
+          (Box()
+              ..shrinkToFit = true
+          )(
             _renderEditableUserCancelButton(),
             _renderEditableUserSaveButton(),
           ),
@@ -170,7 +172,9 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
         'enterDelay': 500,
         'title': 'Delete Todo'
     },
-      Box({'color': 'error.main'},
+      (Box()
+          ..color = 'error.main'
+      )(
         IconButton({
           'size': 'small',
           'aria-label': 'delete todo',

@@ -16,7 +16,9 @@ class TodoAppBarComponent extends UiComponent2<TodoAppBarProps> {
     return Fragment()(
       AppBar(props,
         Toolbar({},
-          Box({'flexGrow': 1},
+          (Box()
+              ..flexGrow = 1
+          )(
             Typography({
               'variant': 'h6',
             }, 'OverReact Redux Todo Demo App'),

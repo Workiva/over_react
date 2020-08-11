@@ -30,7 +30,9 @@ class CreateInputComponent extends UiComponent2<CreateInputProps> {
   render() {
     final propsToForward = {...props}..remove('onCreate');
 
-    return Box({...shrinkToFit},
+    return (Box()
+        ..shrinkToFit = true
+    )(
       TextField({
         'fullWidth': true,
         'variant': 'outlined',

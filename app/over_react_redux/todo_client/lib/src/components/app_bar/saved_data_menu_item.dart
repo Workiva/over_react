@@ -69,17 +69,17 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
       'direction': 'row',
       'style': {'flexWrap': false},
     },
-      Box({
-        ...grow,
-        'pr': 1,
-        'justifyContent': 'center',
-        'display': 'flex',
-      },
-        Box({
-          'pr': 1,
-          'display': 'flex',
-          'justifyContent': 'center',
-        },
+      (Box()
+          ..grow = true
+          ..pr = 1
+          ..justifyContent = 'center'
+          ..display = 'flex'
+      )(
+        (Box()
+            ..pr = 1
+            ..display = 'flex'
+            ..justifyContent = 'center'
+        )(
           StorageIcon({
             'style': {'alignSelf': 'center'},
           }),
@@ -120,12 +120,12 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
           ? 'Cannot delete the currently loaded data set.'
           : 'Delete the ${props.localStorageKey} data set.'
       },
-      Box({
-        ...shrinkToFit,
-        'color': 'error.main',
-        'aria-hidden': !isHovered,
-        'className': 'hide-using-aria',
-      },
+      (Box()
+          ..shrinkToFit = true
+          ..color = 'error.main'
+          ..aria.hidden = !isHovered
+          ..className = 'hide-using-aria'
+      )(
         IconButton({
           'size': 'small',
           'color': 'inherit',

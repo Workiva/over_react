@@ -84,12 +84,12 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   }
 
   ReactElement _renderTaskCheckbox() {
-    return Box({
-      ...shrinkToFit,
-      'ml': -2,
-      'mr': 1,
-      'alignSelf': 'center',
-    },
+    return (Box()
+        ..shrinkToFit = true
+        ..ml = -2
+        ..mr = 1
+        ..alignSelf = 'center'
+    )(
       (Tooltip2()
         ..enterDelay = 500
         ..title = model.isCompleted ? 'Mark as not completed' : 'Mark as completed'
@@ -109,12 +109,12 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   }
 
   ReactElement _renderTaskHeader() {
-    return Box({
-      ...grow,
-      'key': 'taskHeader',
-      'mr': 1,
-      'alignSelf': 'center',
-    },
+    return (Box()
+        ..grow = true
+        ..key = 'taskHeader'
+        ..mr = 1
+        ..alignSelf =  'center'
+    )(
       (TodoItemTextField()
         ..readOnly = !props.isEditable
         ..autoFocus = props.isEditable
@@ -139,10 +139,10 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   }
 
   ReactElement _renderUserSelector() {
-    return Box({
-      ...shrinkToFit,
-      'alignSelf': 'center',
-    },
+    return (Box()
+      ..shrinkToFit = true
+      ..alignSelf = 'center'
+    )(
       (UserSelector()
         ..selectedUserId = model.assignedUserId
         ..onUserSelect = (userId) { updateModel(Todo.from(model)..assignedUserId = userId); }
@@ -179,14 +179,16 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
           'container': true,
           'direction': 'row'
         },
-          Box({
-            'flexGrow': 1,
-            'display': 'flex'
-          },
+          (Box()
+              ..flexGrow = 1
+              ..display = 'flex'
+          )(
             _renderEditableTaskDeleteButton(),
             _renderEditableTaskPrivacyToggleButton(),
           ),
-          Box({...shrinkToFit},
+          (Box()
+              ..shrinkToFit = true
+          )(
             _renderEditableTaskCancelButton(),
             _renderEditableTaskSaveButton(),
           ),
@@ -200,7 +202,9 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
         'enterDelay': 500,
         'title': 'Delete Todo'
       },
-      Box({'color': 'error.main'},
+      (Box()
+          ..color = 'error.main'
+      )(
         IconButton({
           'size': 'small',
           'aria-label': 'delete todo',

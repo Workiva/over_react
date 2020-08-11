@@ -58,13 +58,13 @@ class ListItemExpansionPanelSummaryComponent
   }
 
   ReactElement _renderEditButton() {
-    return Box({
-      ...shrinkToFit,
-      'mr': -1,
-      'alignSelf': 'center',
-      'aria-hidden': !isHovered,
-      'className': 'hide-using-aria',
-    },
+    return (Box()
+        ..shrinkToFit = true
+        ..mr = -1
+        ..alignSelf = 'center'
+        ..aria.hidden = !isHovered
+        ..className = 'hide-using-aria'
+    )(
       Tooltip({
           'enterDelay': 500,
           'title': props.isEditable ? 'Save Changes' : 'Make Changes'

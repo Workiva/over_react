@@ -62,7 +62,9 @@ class UserSelectorComponent extends UiComponent2<UserSelectorProps> with RedrawC
         _handleUserSelect(user);
       },
     },
-      Box({'mr': 1},
+      (Box()
+          ..mr = 1
+      )(
         (AvatarWithColors()..fullName = user.name)(),
       ),
       user.name,

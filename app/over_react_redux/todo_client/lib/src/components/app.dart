@@ -41,12 +41,13 @@ class TodoAppComponent extends UiComponent2<TodoAppProps> with RedrawCounterMixi
   render() {
     return Fragment()(
       TodoAppBar()(),
-      Box({'className': 'app-content'},
-        CssBaseline({}),
-        Container({
-          'maxWidth': 'lg',
-          'className': 'app-content__container'
-        },
+      (Box()
+          ..className = 'app-content'
+      )(
+        CssBaseline()(),
+        (Container()
+            ..className = 'app-content__container'
+        )(
           Grid({
             'container': true,
             'direction': 'row',
