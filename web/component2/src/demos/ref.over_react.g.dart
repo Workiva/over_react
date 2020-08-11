@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
-part of 'forward_ref.dart';
+part of 'ref.dart';
 
 // **************************************************************************
 // OverReactBuilder (package:over_react/src/builder.dart)
@@ -12,36 +12,36 @@ part of 'forward_ref.dart';
 // Registers component implementation and links type meta to builder factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-final $LogPropsComponentFactory = registerComponent2(
-  () => _$LogPropsComponent(),
-  builderFactory: _$_LogProps,
-  componentClass: LogPropsComponent,
+final $FooComponentFactory = registerComponent2(
+  () => _$FooComponent(),
+  builderFactory: _$_Foo,
+  componentClass: FooComponent,
   isWrapper: false,
   parentType: null,
-  displayName: '_LogProps',
+  displayName: '_Foo',
 );
 
-_$$LogPropsProps _$_LogProps([Map backingProps]) => backingProps == null
-    ? _$$LogPropsProps$JsMap(JsBackedMap())
-    : _$$LogPropsProps(backingProps);
+_$$FooProps _$_Foo([Map backingProps]) => backingProps == null
+    ? _$$FooProps$JsMap(JsBackedMap())
+    : _$$FooProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$LogPropsProps extends UiProps
+abstract class _$$FooProps extends UiProps
     with
-        LogPropsProps,
-        $LogPropsProps // If this generated mixin is undefined, it's likely because LogPropsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of LogPropsProps.
+        FooProps,
+        $FooProps // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FooProps.
 {
-  _$$LogPropsProps._();
+  _$$FooProps._();
 
-  factory _$$LogPropsProps(Map backingMap) {
+  factory _$$FooProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$LogPropsProps$JsMap(backingMap);
+      return _$$FooProps$JsMap(backingMap);
     } else {
-      return _$$LogPropsProps$PlainMap(backingMap);
+      return _$$FooProps$PlainMap(backingMap);
     }
   }
 
@@ -52,7 +52,7 @@ abstract class _$$LogPropsProps extends UiProps
   /// The `ReactComponentFactory` associated with the component built by this class.
   @override
   ReactComponentFactoryProxy get componentFactory =>
-      super.componentFactory ?? $LogPropsComponentFactory;
+      super.componentFactory ?? $FooComponentFactory;
 
   /// The default namespace for the prop getters/setters generated for this class.
   @override
@@ -62,10 +62,10 @@ abstract class _$$LogPropsProps extends UiProps
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$LogPropsProps$PlainMap extends _$$LogPropsProps {
+class _$$FooProps$PlainMap extends _$$FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$LogPropsProps$PlainMap(Map backingMap)
+  _$$FooProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -81,10 +81,10 @@ class _$$LogPropsProps$PlainMap extends _$$LogPropsProps {
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$LogPropsProps$JsMap extends _$$LogPropsProps {
+class _$$FooProps$JsMap extends _$$FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$LogPropsProps$JsMap(JsBackedMap backingMap)
+  _$$FooProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -102,11 +102,11 @@ class _$$LogPropsProps$JsMap extends _$$LogPropsProps {
 // generated for the associated props class.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$LogPropsComponent extends LogPropsComponent {
-  _$$LogPropsProps$JsMap _cachedTypedProps;
+class _$FooComponent extends FooComponent {
+  _$$FooProps$JsMap _cachedTypedProps;
 
   @override
-  _$$LogPropsProps$JsMap get props => _cachedTypedProps;
+  _$$FooProps$JsMap get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -122,26 +122,162 @@ class _$LogPropsComponent extends LogPropsComponent {
   }
 
   @override
-  _$$LogPropsProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$LogPropsProps$JsMap(backingMap);
+  _$$FooProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$FooProps$JsMap(backingMap);
 
   @override
-  _$$LogPropsProps typedPropsFactory(Map backingMap) =>
-      _$$LogPropsProps(backingMap);
+  _$$FooProps typedPropsFactory(Map backingMap) => _$$FooProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override
   bool get $isClassGenerated => true;
 
-  /// The default consumed props, comprising all props mixins used by LogPropsProps.
+  /// The default consumed props, comprising all props mixins used by FooProps.
   /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
   @override
   get $defaultConsumedProps => propsMeta.all;
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because LogPropsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of LogPropsProps.
-        LogPropsProps: $LogPropsProps.meta,
+        // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FooProps.
+        FooProps: $FooProps.meta,
+      });
+}
+
+// React component factory implementation.
+//
+// Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+final $_LogComponentFactory = registerComponent2(
+  () => _$_LogComponent(),
+  builderFactory: _$_Log,
+  componentClass: _LogComponent,
+  isWrapper: false,
+  parentType: null,
+  displayName: '_Log',
+);
+
+_$$LogProps _$_Log([Map backingProps]) => backingProps == null
+    ? _$$LogProps$JsMap(JsBackedMap())
+    : _$$LogProps(backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$LogProps extends UiProps
+    with
+        LogProps,
+        $LogProps // If this generated mixin is undefined, it's likely because LogProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of LogProps.
+{
+  _$$LogProps._();
+
+  factory _$$LogProps(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$LogProps$JsMap(backingMap);
+    } else {
+      return _$$LogProps$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The `ReactComponentFactory` associated with the component built by this class.
+  @override
+  ReactComponentFactoryProxy get componentFactory =>
+      super.componentFactory ?? $_LogComponentFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '';
+}
+
+// Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$LogProps$PlainMap extends _$$LogProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$LogProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$LogProps$JsMap extends _$$LogProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$LogProps$JsMap(JsBackedMap backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+// Concrete component implementation mixin.
+//
+// Implements typed props/state factories, defaults `consumedPropKeys` to the keys
+// generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$_LogComponent extends _LogComponent {
+  _$$LogProps$JsMap _cachedTypedProps;
+
+  @override
+  _$$LogProps$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+  }
+
+  @override
+  _$$LogProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$LogProps$JsMap(backingMap);
+
+  @override
+  _$$LogProps typedPropsFactory(Map backingMap) => _$$LogProps(backingMap);
+
+  /// Let `UiComponent` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default consumed props, comprising all props mixins used by LogProps.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
+  @override
+  get $defaultConsumedProps => propsMeta.all;
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because LogProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of LogProps.
+        LogProps: $LogProps.meta,
       });
 }
 
@@ -149,180 +285,172 @@ class _$LogPropsComponent extends LogPropsComponent {
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
     ' it is transitioned to the new mixin-based boilerplate.')
-mixin $UiForwardRefLogsFunctionComponentProps
-    on UiForwardRefLogsFunctionComponentProps {
-  static const PropsMeta meta = _$metaForUiForwardRefLogsFunctionComponentProps;
-  @override
-  BuilderOnlyUiFactory<DomProps> get builder =>
-      props[_$key__builder__UiForwardRefLogsFunctionComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  @override
-  set builder(BuilderOnlyUiFactory<DomProps> value) =>
-      props[_$key__builder__UiForwardRefLogsFunctionComponentProps] = value;
+mixin $FancyButtonProps on FancyButtonProps {
+  static const PropsMeta meta = _$metaForFancyButtonProps;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor
-      _$prop__builder__UiForwardRefLogsFunctionComponentProps =
-      PropDescriptor(_$key__builder__UiForwardRefLogsFunctionComponentProps);
-  static const String _$key__builder__UiForwardRefLogsFunctionComponentProps =
-      'UiForwardRefLogsFunctionComponentProps.builder';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__builder__UiForwardRefLogsFunctionComponentProps
-  ];
-  static const List<String> $propKeys = [
-    _$key__builder__UiForwardRefLogsFunctionComponentProps
-  ];
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
 }
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-const PropsMeta _$metaForUiForwardRefLogsFunctionComponentProps = PropsMeta(
-  fields: $UiForwardRefLogsFunctionComponentProps.$props,
-  keys: $UiForwardRefLogsFunctionComponentProps.$propKeys,
+const PropsMeta _$metaForFancyButtonProps = PropsMeta(
+  fields: $FancyButtonProps.$props,
+  keys: $FancyButtonProps.$propKeys,
 );
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
     ' it is transitioned to the new mixin-based boilerplate.')
-mixin $UiForwardRefLogsPropsComplexFunctionComponentPropsMixin
-    on UiForwardRefLogsPropsComplexFunctionComponentPropsMixin {
-  static const PropsMeta meta =
-      _$metaForUiForwardRefLogsPropsComplexFunctionComponentPropsMixin;
+mixin $FooProps on FooProps {
+  static const PropsMeta meta = _$metaForFooProps;
   @override
-  String get buttonDescription =>
-      props[
-          _$key__buttonDescription__UiForwardRefLogsPropsComplexFunctionComponentPropsMixin] ??
+  dynamic get _inputRef =>
+      props[_$key___inputRef__FooProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set buttonDescription(String value) => props[
-          _$key__buttonDescription__UiForwardRefLogsPropsComplexFunctionComponentPropsMixin] =
-      value;
+  set _inputRef(dynamic value) => props[_$key___inputRef__FooProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor
-      _$prop__buttonDescription__UiForwardRefLogsPropsComplexFunctionComponentPropsMixin =
-      PropDescriptor(
-          _$key__buttonDescription__UiForwardRefLogsPropsComplexFunctionComponentPropsMixin);
-  static const String
-      _$key__buttonDescription__UiForwardRefLogsPropsComplexFunctionComponentPropsMixin =
-      'UiForwardRefLogsPropsComplexFunctionComponentPropsMixin.buttonDescription';
+  static const PropDescriptor _$prop___inputRef__FooProps =
+      PropDescriptor(_$key___inputRef__FooProps);
+  static const String _$key___inputRef__FooProps = 'FooProps._inputRef';
 
-  static const List<PropDescriptor> $props = [
-    _$prop__buttonDescription__UiForwardRefLogsPropsComplexFunctionComponentPropsMixin
-  ];
-  static const List<String> $propKeys = [
-    _$key__buttonDescription__UiForwardRefLogsPropsComplexFunctionComponentPropsMixin
-  ];
+  static const List<PropDescriptor> $props = [_$prop___inputRef__FooProps];
+  static const List<String> $propKeys = [_$key___inputRef__FooProps];
 }
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-const PropsMeta
-    _$metaForUiForwardRefLogsPropsComplexFunctionComponentPropsMixin =
-    PropsMeta(
-  fields: $UiForwardRefLogsPropsComplexFunctionComponentPropsMixin.$props,
-  keys: $UiForwardRefLogsPropsComplexFunctionComponentPropsMixin.$propKeys,
+const PropsMeta _$metaForFooProps = PropsMeta(
+  fields: $FooProps.$props,
+  keys: $FooProps.$propKeys,
 );
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
     ' it is transitioned to the new mixin-based boilerplate.')
-mixin $UiForwardRefLogsPropsComplexComponentPropsMixin
-    on UiForwardRefLogsPropsComplexComponentPropsMixin {
-  static const PropsMeta meta =
-      _$metaForUiForwardRefLogsPropsComplexComponentPropsMixin;
+mixin $AnotherPropsMixin on AnotherPropsMixin {
+  static const PropsMeta meta = _$metaForAnotherPropsMixin;
   @override
-  String get buttonDescription =>
-      props[
-          _$key__buttonDescription__UiForwardRefLogsPropsComplexComponentPropsMixin] ??
+  String get anExampleAdditionalProp =>
+      props[_$key__anExampleAdditionalProp__AnotherPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set buttonDescription(String value) => props[
-          _$key__buttonDescription__UiForwardRefLogsPropsComplexComponentPropsMixin] =
-      value;
+  set anExampleAdditionalProp(String value) =>
+      props[_$key__anExampleAdditionalProp__AnotherPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
-      _$prop__buttonDescription__UiForwardRefLogsPropsComplexComponentPropsMixin =
-      PropDescriptor(
-          _$key__buttonDescription__UiForwardRefLogsPropsComplexComponentPropsMixin);
-  static const String
-      _$key__buttonDescription__UiForwardRefLogsPropsComplexComponentPropsMixin =
-      'UiForwardRefLogsPropsComplexComponentPropsMixin.buttonDescription';
+      _$prop__anExampleAdditionalProp__AnotherPropsMixin =
+      PropDescriptor(_$key__anExampleAdditionalProp__AnotherPropsMixin);
+  static const String _$key__anExampleAdditionalProp__AnotherPropsMixin =
+      'AnotherPropsMixin.anExampleAdditionalProp';
 
   static const List<PropDescriptor> $props = [
-    _$prop__buttonDescription__UiForwardRefLogsPropsComplexComponentPropsMixin
+    _$prop__anExampleAdditionalProp__AnotherPropsMixin
   ];
   static const List<String> $propKeys = [
-    _$key__buttonDescription__UiForwardRefLogsPropsComplexComponentPropsMixin
+    _$key__anExampleAdditionalProp__AnotherPropsMixin
   ];
 }
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-const PropsMeta _$metaForUiForwardRefLogsPropsComplexComponentPropsMixin =
-    PropsMeta(
-  fields: $UiForwardRefLogsPropsComplexComponentPropsMixin.$props,
-  keys: $UiForwardRefLogsPropsComplexComponentPropsMixin.$propKeys,
+const PropsMeta _$metaForAnotherPropsMixin = PropsMeta(
+  fields: $AnotherPropsMixin.$props,
+  keys: $AnotherPropsMixin.$propKeys,
 );
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
     ' it is transitioned to the new mixin-based boilerplate.')
-mixin $LogPropsProps on LogPropsProps {
-  static const PropsMeta meta = _$metaForLogPropsProps;
+mixin $LogProps on LogProps {
+  static const PropsMeta meta = _$metaForLogProps;
   @override
-  BuilderOnlyUiFactory<DomProps> get builder =>
-      props[_$key__builder__LogPropsProps] ??
+  BuilderOnlyUiFactory<UiProps> get builder =>
+      props[_$key__builder__LogProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set builder(BuilderOnlyUiFactory<DomProps> value) =>
-      props[_$key__builder__LogPropsProps] = value;
+  set builder(BuilderOnlyUiFactory<UiProps> value) =>
+      props[_$key__builder__LogProps] = value;
   @override
-  bool get thisWasClickedLast =>
-      props[_$key__thisWasClickedLast__LogPropsProps] ??
+  dynamic get _forwardedRef =>
+      props[_$key___forwardedRef__LogProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set thisWasClickedLast(bool value) =>
-      props[_$key__thisWasClickedLast__LogPropsProps] = value;
-  @override
-  Ref get _forwardedRef =>
-      props[_$key___forwardedRef__LogPropsProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  @override
-  set _forwardedRef(Ref value) =>
-      props[_$key___forwardedRef__LogPropsProps] = value;
+  set _forwardedRef(dynamic value) =>
+      props[_$key___forwardedRef__LogProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__builder__LogPropsProps =
-      PropDescriptor(_$key__builder__LogPropsProps);
-  static const PropDescriptor _$prop__thisWasClickedLast__LogPropsProps =
-      PropDescriptor(_$key__thisWasClickedLast__LogPropsProps);
-  static const PropDescriptor _$prop___forwardedRef__LogPropsProps =
-      PropDescriptor(_$key___forwardedRef__LogPropsProps);
-  static const String _$key__builder__LogPropsProps = 'LogPropsProps.builder';
-  static const String _$key__thisWasClickedLast__LogPropsProps =
-      'LogPropsProps.thisWasClickedLast';
-  static const String _$key___forwardedRef__LogPropsProps =
-      'LogPropsProps._forwardedRef';
+  static const PropDescriptor _$prop__builder__LogProps =
+      PropDescriptor(_$key__builder__LogProps);
+  static const PropDescriptor _$prop___forwardedRef__LogProps =
+      PropDescriptor(_$key___forwardedRef__LogProps);
+  static const String _$key__builder__LogProps = 'LogProps.builder';
+  static const String _$key___forwardedRef__LogProps = 'LogProps._forwardedRef';
 
   static const List<PropDescriptor> $props = [
-    _$prop__builder__LogPropsProps,
-    _$prop__thisWasClickedLast__LogPropsProps,
-    _$prop___forwardedRef__LogPropsProps
+    _$prop__builder__LogProps,
+    _$prop___forwardedRef__LogProps
   ];
   static const List<String> $propKeys = [
-    _$key__builder__LogPropsProps,
-    _$key__thisWasClickedLast__LogPropsProps,
-    _$key___forwardedRef__LogPropsProps
+    _$key__builder__LogProps,
+    _$key___forwardedRef__LogProps
   ];
 }
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-const PropsMeta _$metaForLogPropsProps = PropsMeta(
-  fields: $LogPropsProps.$props,
-  keys: $LogPropsProps.$propKeys,
+const PropsMeta _$metaForLogProps = PropsMeta(
+  fields: $LogProps.$props,
+  keys: $LogProps.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $BazProps on BazProps {
+  static const PropsMeta meta = _$metaForBazProps;
+  @override
+  BuilderOnlyUiFactory<UiProps> get builder =>
+      props[_$key__builder__BazProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set builder(BuilderOnlyUiFactory<UiProps> value) =>
+      props[_$key__builder__BazProps] = value;
+  @override
+  dynamic get _forwardedRef =>
+      props[_$key___forwardedRef__BazProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set _forwardedRef(dynamic value) =>
+      props[_$key___forwardedRef__BazProps] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__builder__BazProps =
+      PropDescriptor(_$key__builder__BazProps);
+  static const PropDescriptor _$prop___forwardedRef__BazProps =
+      PropDescriptor(_$key___forwardedRef__BazProps);
+  static const String _$key__builder__BazProps = 'BazProps.builder';
+  static const String _$key___forwardedRef__BazProps = 'BazProps._forwardedRef';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__builder__BazProps,
+    _$prop___forwardedRef__BazProps
+  ];
+  static const List<String> $propKeys = [
+    _$key__builder__BazProps,
+    _$key___forwardedRef__BazProps
+  ];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForBazProps = PropsMeta(
+  fields: $BazProps.$props,
+  keys: $BazProps.$propKeys,
 );
 
 @Deprecated('This API is for use only within generated code.'
@@ -410,31 +538,30 @@ const PropsMeta _$metaForRefDemoHocProps = PropsMeta(
   keys: $RefDemoHocProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$UiForwardRefLogsFunctionComponentProps>
-    $UiForwardRefLogsFunctionComponentConfig = UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$UiForwardRefLogsFunctionComponentProps(map),
-          jsMap: (map) => _$$UiForwardRefLogsFunctionComponentProps$JsMap(map),
-        ),
-        displayName: 'UiForwardRefLogsFunctionComponent');
+final UiFactoryConfig<_$$FancyButtonProps> $FancyButtonConfig = UiFactoryConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$FancyButtonProps(map),
+      jsMap: (map) => _$$FancyButtonProps$JsMap(map),
+    ),
+    displayName: 'FancyButton');
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$UiForwardRefLogsFunctionComponentProps extends UiProps
+abstract class _$$FancyButtonProps extends UiProps
     with
-        UiForwardRefLogsFunctionComponentProps,
-        $UiForwardRefLogsFunctionComponentProps // If this generated mixin is undefined, it's likely because UiForwardRefLogsFunctionComponentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of UiForwardRefLogsFunctionComponentProps.
+        FancyButtonProps,
+        $FancyButtonProps // If this generated mixin is undefined, it's likely because FancyButtonProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FancyButtonProps.
 {
-  _$$UiForwardRefLogsFunctionComponentProps._();
+  _$$FancyButtonProps._();
 
-  factory _$$UiForwardRefLogsFunctionComponentProps(Map backingMap) {
+  factory _$$FancyButtonProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$UiForwardRefLogsFunctionComponentProps$JsMap(backingMap);
+      return _$$FancyButtonProps$JsMap(backingMap);
     } else {
-      return _$$UiForwardRefLogsFunctionComponentProps$PlainMap(backingMap);
+      return _$$FancyButtonProps$PlainMap(backingMap);
     }
   }
 
@@ -450,11 +577,10 @@ abstract class _$$UiForwardRefLogsFunctionComponentProps extends UiProps
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$UiForwardRefLogsFunctionComponentProps$PlainMap
-    extends _$$UiForwardRefLogsFunctionComponentProps {
+class _$$FancyButtonProps$PlainMap extends _$$FancyButtonProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UiForwardRefLogsFunctionComponentProps$PlainMap(Map backingMap)
+  _$$FancyButtonProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -470,11 +596,10 @@ class _$$UiForwardRefLogsFunctionComponentProps$PlainMap
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$UiForwardRefLogsFunctionComponentProps$JsMap
-    extends _$$UiForwardRefLogsFunctionComponentProps {
+class _$$FancyButtonProps$JsMap extends _$$FancyButtonProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UiForwardRefLogsFunctionComponentProps$JsMap(JsBackedMap backingMap)
+  _$$FancyButtonProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -486,40 +611,33 @@ class _$$UiForwardRefLogsFunctionComponentProps$JsMap
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$UiForwardRefLogsPropsComplexFunctionComponentProps>
-    $UiForwardRefLogsPropsComplexFunctionComponentConfig = UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) =>
-              _$$UiForwardRefLogsPropsComplexFunctionComponentProps(map),
-          jsMap: (map) =>
-              _$$UiForwardRefLogsPropsComplexFunctionComponentProps$JsMap(map),
-        ),
-        displayName: 'UiForwardRefLogsPropsComplexFunctionComponent');
+final UiFactoryConfig<_$$Foo2Props> $Foo2Config = UiFactoryConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$Foo2Props(map),
+      jsMap: (map) => _$$Foo2Props$JsMap(map),
+    ),
+    displayName: 'Foo2');
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$UiForwardRefLogsPropsComplexFunctionComponentProps
-    extends UiProps
+abstract class _$$Foo2Props extends UiProps
     with
-        UiForwardRefLogsPropsComplexFunctionComponentPropsMixin,
-        $UiForwardRefLogsPropsComplexFunctionComponentPropsMixin, // If this generated mixin is undefined, it's likely because UiForwardRefLogsPropsComplexFunctionComponentPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of UiForwardRefLogsPropsComplexFunctionComponentPropsMixin.
-        UiForwardRefLogsFunctionComponentProps,
-        $UiForwardRefLogsFunctionComponentProps // If this generated mixin is undefined, it's likely because UiForwardRefLogsFunctionComponentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of UiForwardRefLogsFunctionComponentProps.
+        AnotherPropsMixin,
+        $AnotherPropsMixin, // If this generated mixin is undefined, it's likely because AnotherPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of AnotherPropsMixin.
+        FooProps,
+        $FooProps // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FooProps.
     implements
-        UiForwardRefLogsPropsComplexFunctionComponentProps {
-  _$$UiForwardRefLogsPropsComplexFunctionComponentProps._();
+        Foo2Props {
+  _$$Foo2Props._();
 
-  factory _$$UiForwardRefLogsPropsComplexFunctionComponentProps(
-      Map backingMap) {
+  factory _$$Foo2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$UiForwardRefLogsPropsComplexFunctionComponentProps$JsMap(
-          backingMap);
+      return _$$Foo2Props$JsMap(backingMap);
     } else {
-      return _$$UiForwardRefLogsPropsComplexFunctionComponentProps$PlainMap(
-          backingMap);
+      return _$$Foo2Props$PlainMap(backingMap);
     }
   }
 
@@ -535,11 +653,10 @@ abstract class _$$UiForwardRefLogsPropsComplexFunctionComponentProps
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$UiForwardRefLogsPropsComplexFunctionComponentProps$PlainMap
-    extends _$$UiForwardRefLogsPropsComplexFunctionComponentProps {
+class _$$Foo2Props$PlainMap extends _$$Foo2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UiForwardRefLogsPropsComplexFunctionComponentProps$PlainMap(Map backingMap)
+  _$$Foo2Props$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -555,12 +672,10 @@ class _$$UiForwardRefLogsPropsComplexFunctionComponentProps$PlainMap
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$UiForwardRefLogsPropsComplexFunctionComponentProps$JsMap
-    extends _$$UiForwardRefLogsPropsComplexFunctionComponentProps {
+class _$$Foo2Props$JsMap extends _$$Foo2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UiForwardRefLogsPropsComplexFunctionComponentProps$JsMap(
-      JsBackedMap backingMap)
+  _$$Foo2Props$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -572,35 +687,30 @@ class _$$UiForwardRefLogsPropsComplexFunctionComponentProps$JsMap
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$UiForwardRefLogsPropsComplexComponentProps>
-    $UiForwardRefLogsPropsComplexComponentConfig = UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$UiForwardRefLogsPropsComplexComponentProps(map),
-          jsMap: (map) =>
-              _$$UiForwardRefLogsPropsComplexComponentProps$JsMap(map),
-        ),
-        displayName: 'UiForwardRefLogsPropsComplexComponent');
+final UiFactoryConfig<_$$BazProps> $BazConfig = UiFactoryConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$BazProps(map),
+      jsMap: (map) => _$$BazProps$JsMap(map),
+    ),
+    displayName: 'Baz');
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$UiForwardRefLogsPropsComplexComponentProps extends UiProps
+abstract class _$$BazProps extends UiProps
     with
-        UiForwardRefLogsPropsComplexFunctionComponentPropsMixin,
-        $UiForwardRefLogsPropsComplexFunctionComponentPropsMixin, // If this generated mixin is undefined, it's likely because UiForwardRefLogsPropsComplexFunctionComponentPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of UiForwardRefLogsPropsComplexFunctionComponentPropsMixin.
-        LogPropsProps,
-        $LogPropsProps // If this generated mixin is undefined, it's likely because LogPropsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of LogPropsProps.
-    implements
-        UiForwardRefLogsPropsComplexComponentProps {
-  _$$UiForwardRefLogsPropsComplexComponentProps._();
+        BazProps,
+        $BazProps // If this generated mixin is undefined, it's likely because BazProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BazProps.
+{
+  _$$BazProps._();
 
-  factory _$$UiForwardRefLogsPropsComplexComponentProps(Map backingMap) {
+  factory _$$BazProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$UiForwardRefLogsPropsComplexComponentProps$JsMap(backingMap);
+      return _$$BazProps$JsMap(backingMap);
     } else {
-      return _$$UiForwardRefLogsPropsComplexComponentProps$PlainMap(backingMap);
+      return _$$BazProps$PlainMap(backingMap);
     }
   }
 
@@ -616,11 +726,10 @@ abstract class _$$UiForwardRefLogsPropsComplexComponentProps extends UiProps
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$UiForwardRefLogsPropsComplexComponentProps$PlainMap
-    extends _$$UiForwardRefLogsPropsComplexComponentProps {
+class _$$BazProps$PlainMap extends _$$BazProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UiForwardRefLogsPropsComplexComponentProps$PlainMap(Map backingMap)
+  _$$BazProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -636,88 +745,10 @@ class _$$UiForwardRefLogsPropsComplexComponentProps$PlainMap
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$UiForwardRefLogsPropsComplexComponentProps$JsMap
-    extends _$$UiForwardRefLogsPropsComplexComponentProps {
+class _$$BazProps$JsMap extends _$$BazProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UiForwardRefLogsPropsComplexComponentProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
-final UiFactoryConfig<_$$_LogsPropsFunctionComponentProps>
-    $_LogsPropsFunctionComponentConfig = UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$_LogsPropsFunctionComponentProps(map),
-          jsMap: (map) => _$$_LogsPropsFunctionComponentProps$JsMap(map),
-        ),
-        displayName: '_LogsPropsFunctionComponent');
-
-// Concrete props implementation.
-//
-// Implements constructor and backing map, and links up to generated component factory.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$_LogsPropsFunctionComponentProps extends UiProps
-    with
-        LogPropsProps,
-        $LogPropsProps // If this generated mixin is undefined, it's likely because LogPropsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of LogPropsProps.
-    implements
-        _LogsPropsFunctionComponentProps {
-  _$$_LogsPropsFunctionComponentProps._();
-
-  factory _$$_LogsPropsFunctionComponentProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$_LogsPropsFunctionComponentProps$JsMap(backingMap);
-    } else {
-      return _$$_LogsPropsFunctionComponentProps$PlainMap(backingMap);
-    }
-  }
-
-  /// Let `UiProps` internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
-  /// The default namespace for the prop getters/setters generated for this class.
-  @override
-  String get propKeyNamespace => '';
-}
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$_LogsPropsFunctionComponentProps$PlainMap
-    extends _$$_LogsPropsFunctionComponentProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$_LogsPropsFunctionComponentProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$_LogsPropsFunctionComponentProps$JsMap
-    extends _$$_LogsPropsFunctionComponentProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$_LogsPropsFunctionComponentProps$JsMap(JsBackedMap backingMap)
+  _$$BazProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

@@ -1,6 +1,5 @@
 // ignore: deprecated_member_use
-import 'package:analyzer/analyzer.dart'
-    show CompileTimeErrorCode, NodeLocator, StaticTypeWarningCode, StaticWarningCode;
+import 'package:analyzer/analyzer.dart' show CompileTimeErrorCode, NodeLocator;
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
@@ -63,8 +62,8 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
   computeErrors(result, collector) async {
     for (final error in result.errors) {
       final isBadFunction = const {
-        StaticTypeWarningCode.INVOCATION_OF_NON_FUNCTION,
-        StaticTypeWarningCode.INVOCATION_OF_NON_FUNCTION_EXPRESSION,
+        CompileTimeErrorCode.INVOCATION_OF_NON_FUNCTION,
+        CompileTimeErrorCode.INVOCATION_OF_NON_FUNCTION_EXPRESSION,
       }.contains(error.errorCode);
       final isBadArity = const {
         CompileTimeErrorCode.NOT_ENOUGH_POSITIONAL_ARGUMENTS,
@@ -72,7 +71,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
         CompileTimeErrorCode.EXTRA_POSITIONAL_ARGUMENTS,
       }.contains(error.errorCode);
       final isVoidUsage = const {
-        StaticWarningCode.USE_OF_VOID_RESULT,
+        CompileTimeErrorCode.USE_OF_VOID_RESULT,
       }.contains(error.errorCode);
 
       if (isBadFunction || isBadArity || isVoidUsage) {

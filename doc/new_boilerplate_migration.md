@@ -816,7 +816,7 @@ UiFactory<FooProps> createFooHoc(UiFactory otherFactory) {
   Object closureVariable; 
   // ... 
 
-  final FooHoc = uiFunction<FooProps>(
+  UiFactory<FooProps> FooHoc = uiFunction(
     (props) { 
       return otherFactory()( 
         Dom.div()('closureVariable: ${closureVariable}'), 

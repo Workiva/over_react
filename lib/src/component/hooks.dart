@@ -262,7 +262,7 @@ T useCallback<T extends Function>(T callback, List dependencies) => react_hooks.
 /// ```dart
 /// Context countContext = createContext(0);
 ///
-/// final UseContextExample = uiFunction<UseContextExampleProps>(
+/// UiFactory<UseContextExampleProps> UseContextExample = uiFunction(
 ///   (props) {
 ///     final count = useContext(countContext);
 ///
@@ -403,7 +403,7 @@ T useMemo<T>(T Function() createFunction, [List<dynamic> dependencies]) =>
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#uselayouteffect>.
 void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies]) => react_hooks.useLayoutEffect(sideEffect, dependencies);
 
-/// Customizes the [ref] value that is exposed to parent components when using [forwardRef] by setting [ref.current]
+/// Customizes the [ref] value that is exposed to parent components when using [uiForwardRef] by setting [ref.current]
 /// to the return value of [createHandle].
 ///
 /// In most cases, imperative code using refs should be avoided.
@@ -428,21 +428,12 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 ///   FancyInputApi(this.focus);
 /// }
 ///
-/// UiFactory<FancyInputProps> FancyInput =
-///     forwardRef<FancyInputProps>((props, ref) {
-///   return (_FancyInput()
-///     ..forwardedRef = ref
-///     ..addProps(props)
-///   )();
-/// })(_FancyInput);
-///
-/// UiFactory<FancyInputProps> _FancyInput = uiFunction(
-///   (props) {
+/// UiFactory<FancyInputProps> FancyInput = uiForwardRef(
+///   (props, ref) {
 ///     final inputRef = useRef<InputElement>();
 ///
-///     useImperativeHandle(
-///       props.forwardedRef,
-///           () => FancyInputApi(() => inputRef.current.focus()),
+///     useImperativeHandle(ref,
+///       () => FancyInputApi(() => inputRef.current.focus()),
 ///
 ///       /// Because the return value of [createHandle] never changes, it is not necessary for [ref.current]
 ///       /// to be re-set on each render so this dependency list is empty.
@@ -455,7 +446,7 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 ///       ..onChange = (e) => props.updater(e.target.value)
 ///     )();
 ///   },
-///   $_FancyInputConfig, // ignore: undefined_identifier
+///   $FancyInputConfig, // ignore: undefined_identifier
 /// );
 ///
 /// UiFactory<UseImperativeHandleExampleProps> UseImperativeHandleExample = uiFunction(
@@ -530,7 +521,7 @@ void useImperativeHandle(Ref ref, dynamic Function() createHandle, [List<dynamic
 ///   Map<String, dynamic> friend;
 /// }
 ///
-/// final FriendListItem = uiFunction<FriendListItemProps>(
+/// UiFactory<FriendListItemProps> FriendListItem = uiFunction(
 ///   (props) {
 ///     final isOnline = useFriendStatus(props.friend['id']);
 ///
@@ -541,7 +532,7 @@ void useImperativeHandle(Ref ref, dynamic Function() createHandle, [List<dynamic
 ///   $FriendListItemConfig, // ignore: undefined_identifier
 /// );
 ///
-/// final UseDebugValueExample = uiFunction<UseDebugValueExampleProps>(
+/// UiFactory<UseDebugValueExampleProps> UseDebugValueExample = uiFunction(
 ///   (props) => Fragment()(
 ///     (FriendListItem()..friend = {'id': 1, 'name': 'user 1'})(),
 ///     (FriendListItem()..friend = {'id': 2, 'name': 'user 2'})(),

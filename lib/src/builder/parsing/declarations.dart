@@ -362,8 +362,7 @@ class FactoryGroup {
       return factoriesInitializedToIdentifier.first;
     }
 
-    final functionComponentFactories =
-        factories.where((factory) => factory.isFunctionComponentFactory);
+    final functionComponentFactories = factories.where((factory) => factory.shouldGenerateConfig);
     if (functionComponentFactories.isNotEmpty) {
       return functionComponentFactories.first;
     }

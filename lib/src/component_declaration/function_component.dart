@@ -76,7 +76,8 @@ export 'component_type_checking.dart'
 /// );
 /// ```
 ///
-/// __OR__ Set [config] to `null` when using `UiProps`.
+/// __OR__ Don't set `propsFactory` when using `UiProps`, as a generic one will be
+/// created for the component in [uiFunction].
 ///
 /// ```dart
 /// UiFactory<UiProps> Foo = uiFunction(
@@ -140,8 +141,7 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
 }
 
 String getFunctionName(Function function) {
-  return getProperty(function, 'name') ??
-      getProperty(function, '\$static_name');
+  return getProperty(function, 'name') ?? getProperty(function, '\$static_name');
 }
 
 class GenericUiProps extends UiProps {
