@@ -78,9 +78,9 @@ UiFactory<TProps> memo<TProps extends UiProps>(UiFactory<TProps> factory,
       return areEqual(tPrevProps, tNextProps);
     }
 
-    hoc = react_interop.memo(factory().componentFactory, areEqual: wrapProps);
+    hoc = react_interop.memo2(factory().componentFactory, areEqual: wrapProps);
   } else {
-    hoc = react_interop.memo(factory().componentFactory);
+    hoc = react_interop.memo2(factory().componentFactory);
   }
 
   setComponentTypeMeta(hoc,
