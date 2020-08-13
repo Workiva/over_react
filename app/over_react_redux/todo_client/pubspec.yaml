@@ -33,6 +33,4 @@ dependency_overrides:
   over_react:
     path: '../../../'
   react:
-    git:
-      url: git@github.com:cleandart/react-dart.git
-      ref: 5.5.0/mui-experiments
+    path: ../../../../react-dart
