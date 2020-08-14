@@ -14,7 +14,11 @@ UiFactory<ExampleEntrypointProps> ExampleEntrypoint = uiFunction((props) {
           (BoxWrapper()..color='blue')(),
           NoPropsBoxWrapper()(),
           (FunctionStylesBoxWrapper()..height=100..width=100)(),
-        )
+          FunctionStylesNoPropsBoxWrapper()(),
+        ),
+        (ContainerWrapper()..backgroundColor='papayawhip')(
+            OptionsBoxWrapper()('lets throw some children in here'),
+      ),
     );
   },
   $ExampleEntrypointConfig, // ignore: undefined_identifier

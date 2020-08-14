@@ -1,6 +1,5 @@
 import 'package:over_react/over_react.dart';
 import 'package:react_material_ui/react_material_ui.dart';
-import 'package:react/react_client/js_backed_map.dart';
 
 part 'box.over_react.g.dart'; // ignore: uri_has_not_been_generated
 
@@ -11,15 +10,6 @@ Map getBoxColored(String boxColor) {
     'width': 100,
   };
 }
-
-//final useStyles = makeStyles2({
-//  'arbitrary': (BoxWrapperProps props) {
-//    print(props.color);
-//    return getBoxColored(props.color);
-//  },
-//  'arbitrary-2': getBoxColored('blue'),
-//  'noProps': getBoxColored('red'),
-//}, $BoxWrapperConfig);  // ignore: undefined_identifier
 
 final useStyles = makeStyles<BoxWrapperProps>({
   'arbitrary': (props) {
@@ -57,11 +47,16 @@ final useFunctionStyles = makeStyles<FunctionStylesBoxWrapperProps>((theme) {
   return {
     'root': (FunctionStylesBoxWrapperProps props) {
       return {
-        'backgroundColor': theme['backgroundColor'] ?? 'orange',
+        'backgroundColor': theme['palette']['primary']['dark'],
         'height': props.height,
         'width': props.width,
       };
     },
+    'noProps': {
+      'backgroundColor':  theme['palette']['primary']['light'],
+      'height': 100,
+      'width': 100,
+    }
   };
 },
   config: $FunctionStylesBoxWrapperConfig, // ignore: undefined_identifier
@@ -77,4 +72,40 @@ UiFactory<FunctionStylesBoxWrapperProps> FunctionStylesBoxWrapper = uiFunction((
     return (Box()..className = styles['root'])(props.children);
   },
   $FunctionStylesBoxWrapperConfig, // ignore: undefined_identifier
+);
+
+UiFactory<FunctionStylesBoxWrapperProps> FunctionStylesNoPropsBoxWrapper = uiFunction((props) {
+  final styles = useFunctionStyles();
+  return (Box()..className = styles['noProps'])(props.children);
+},
+  $FunctionStylesNoPropsBoxWrapperConfig, // ignore: undefined_identifier
+);
+
+final backupTheme = MuiTheme()..palette = MuiPalette({
+  'primary': {
+    'light': 'green',
+    'main': 'orange',
+    'dark': 'blue',
+  }
+})..direction='rtl';
+
+final useStylesWithOptions = makeStyles((theme) => {
+  'root': {
+    'backgroundColor': theme['palette']['primary']['light'],
+    'height': 100,
+    'width': 100,
+  },
+}, options: MakeStylesOptions()
+  ..name='this-is-a-custom-name'
+  ..defaultTheme = backupTheme
+);
+
+mixin OptionsBoxWrapperProps on UiProps {}
+
+UiFactory<NoPropsBoxWrapperProps> OptionsBoxWrapper = uiFunction((props) {
+  final styles = useStylesWithOptions();
+
+  return (Box()..className = styles['root'])(props.children);
+},
+  $OptionsBoxWrapperConfig, // ignore: undefined_identifier
 );
