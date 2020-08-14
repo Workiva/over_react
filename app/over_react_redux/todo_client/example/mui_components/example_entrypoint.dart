@@ -13,6 +13,7 @@ UiFactory<ExampleEntrypointProps> ExampleEntrypoint = uiFunction((props) {
         ContainerWrapper()(
           (BoxWrapper()..color='blue')(),
           NoPropsBoxWrapper()(),
+          (FunctionStylesBoxWrapper()..height=100..width=100)(),
         )
     );
   },

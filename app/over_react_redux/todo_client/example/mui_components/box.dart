@@ -53,14 +53,28 @@ UiFactory<NoPropsBoxWrapperProps> NoPropsBoxWrapper = uiFunction((props) {
   $NoPropsBoxWrapperConfig, // ignore: undefined_identifier
 );
 
-final useFunctionStyles = makeStyles((theme) {
+final useFunctionStyles = makeStyles<FunctionStylesBoxWrapperProps>((theme) {
   return {
-    'root': (props) {
+    'root': (FunctionStylesBoxWrapperProps props) {
       return {
-        'backgroundColor': theme.backgroundColor,
+        'backgroundColor': theme['backgroundColor'] ?? 'orange',
         'height': props.height,
         'width': props.width,
       };
     },
   };
-});
+},
+  config: $FunctionStylesBoxWrapperConfig, // ignore: undefined_identifier
+);
+
+mixin FunctionStylesBoxWrapperProps on UiProps {
+  int height;
+  int width;
+}
+
+UiFactory<FunctionStylesBoxWrapperProps> FunctionStylesBoxWrapper = uiFunction((props) {
+    final styles = useFunctionStyles(props);
+    return (Box()..className = styles['root'])(props.children);
+  },
+  $FunctionStylesBoxWrapperConfig, // ignore: undefined_identifier
+);
