@@ -42,20 +42,17 @@ class TaskCountBadgeComponent extends UiComponent2<TaskCountBadgeProps> {
           props.dispatch(UnHighlightTodosAction(props.assignedTodoIds));
         }
     )(
-      Tooltip({
-        'title': _tooltipContent,
-        'arrow': true,
-        'enterDelay': 500,
-      },
-        Badge({
-          'badgeContent': props.assignedTodoIds.length,
-          'color': 'secondary',
-          'overlap': 'circle',
-          'anchorOrigin': {
-            'vertical': 'bottom',
-            'horizontal': 'right',
-          },
-        },
+      (Tooltip()
+          ..title = _tooltipContent
+          ..arrow = true
+          ..enterDelay = 500
+      )(
+        (Badge()
+            ..badgeContent = Dom.span()(props.assignedTodoIds.length)
+            ..color = BadgeColor.SECONDARY
+            ..overlap = BadgeOverlap.CIRCLE
+            ..anchorOrigin = BadgeAnchorOrigin(horizontal: 'right', vertical: 'bottom')
+        )(
           props.children,
         ),
       ),

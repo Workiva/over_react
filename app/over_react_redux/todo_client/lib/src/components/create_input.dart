@@ -28,27 +28,25 @@ class CreateInputComponent extends UiComponent2<CreateInputProps> {
 
   @override
   render() {
-    final propsToForward = {...props}..remove('onCreate');
-
     return (Box()
         ..shrinkToFit = true
     )(
-      TextField({
-        'fullWidth': true,
-        'variant': 'outlined',
-        ...propsToForward,
-        'inputRef': textFieldRef,
-        // TODO: How do we get this to play nice with something like forwardRef instead of storing a ref inside the parent component?
-        'onKeyDown': (SyntheticKeyboardEvent event) {
-          if (props.onKeyDown != null) props.onKeyDown(event);
-          InputElement target = event.target;
-          final trimmedValue = target.value.trim();
-          if (event.keyCode == KeyCode.ENTER && trimmedValue.isNotEmpty) {
-            props.onCreate(trimmedValue);
-            target.value = '';
+      (TextField()
+          ..modifyProps(addUnconsumedProps)
+          ..fullWidth = true
+          ..variant = TextFieldVariant.OUTLINED
+          ..inputRef = textFieldRef
+          // TODO: How do we get this to play nice with something like forwardRef instead of storing a ref inside the parent component?
+          ..onKeyDown = (SyntheticKeyboardEvent event) {
+            if (props.onKeyDown != null) props.onKeyDown(event);
+            InputElement target = event.target;
+            final trimmedValue = target.value.trim();
+            if (event.keyCode == KeyCode.ENTER && trimmedValue.isNotEmpty) {
+              props.onCreate(trimmedValue);
+              target.value = '';
+            }
           }
-        },
-      }),
+      )()
     );
   }
 }

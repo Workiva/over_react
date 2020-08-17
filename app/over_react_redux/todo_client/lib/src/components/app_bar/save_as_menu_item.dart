@@ -27,10 +27,10 @@ class SaveAsMenuItemComponent extends UiStatefulComponent2<SaveAsMenuItemProps, 
 
   @override
   render() {
-    return MenuItem({
-      'onClick': _handleMenuItemClick,
-      'style': {'minWidth': '300px'}
-    },
+    return (MenuItem()
+        ..onClick = _handleMenuItemClick
+        ..style = {'minWidth': '300px'}
+    )(
       state.isEditable ? _renderSaveAsTextInput() : 'Save As...'
     );
   }

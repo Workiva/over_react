@@ -18,12 +18,12 @@ mixin AvatarWithColorsProps on UiProps {
 class AvatarWithColorsComponent extends UiComponent2<AvatarWithColorsProps> {
   @override
   render() {
-    return Avatar({
-      'style': {
+    return (Avatar()
+        ..style = {
         'backgroundColor': _backgroundColorMemo(props.fullName),
         'color': _textColorMemo(_backgroundColorMemo(props.fullName)),
-      },
-    },
+        }
+    )(
       _renderAvatarContent(),
     );
   }

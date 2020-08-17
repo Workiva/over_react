@@ -62,10 +62,12 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
 
   @override
   render() {
-    return ExpansionPanel({
-      ...sharedExpansionPanelProps,
-      'className': model.isCompleted ? 'Mui-disabled' : null,
-    },
+    return (ExpansionPanel()
+        ..className = model.isCompleted ? 'Mui-disabled' : null
+        ..onChange = sharedExpansionPanelProps['onChange']
+        ..expanded = sharedExpansionPanelProps['expanded']
+        ..style = sharedExpansionPanelProps['style']
+    )(
       (ListItemExpansionPanelSummary()
         ..modelId = model.id
         ..allowExpansion = allowExpansion
@@ -76,7 +78,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
         _renderTaskHeader(),
         _renderUserSelector(),
       ),
-      ExpansionPanelDetails({},
+      ExpansionPanelDetails()(
         _renderTaskNotes(),
       ),
       _renderEditableTaskActions(),
@@ -90,7 +92,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
         ..mr = 1
         ..alignSelf = 'center'
     )(
-      (Tooltip2()
+      (Tooltip()
         ..enterDelay = 500
         ..title = model.isCompleted ? 'Mark as not completed' : 'Mark as completed'
       )(
@@ -174,11 +176,11 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
 
     return Fragment()(
       Divider({}),
-      ExpansionPanelActions({},
-        Grid({
-          'container': true,
-          'direction': 'row'
-        },
+      ExpansionPanelActions()(
+        (Grid()
+            ..container = true
+            ..direction = GridDirection.ROW
+        )(
           (Box()
               ..flexGrow = 1
               ..display = 'flex'
@@ -198,20 +200,20 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   }
 
   ReactElement _renderEditableTaskDeleteButton() {
-    return Tooltip({
-        'enterDelay': 500,
-        'title': 'Delete Todo'
-      },
+    return (Tooltip()
+        ..enterDelay = 500
+        ..title = 'Delete Todo'
+    )(
       (Box()
           ..color = 'error.main'
       )(
-        IconButton({
-          'size': 'small',
-          'aria-label': 'delete todo',
-          'color': 'inherit',
-          'disabled': model.isCompleted,
-          'onClick': (_) { remove(); },
-        },
+        (IconButton()
+            ..size = IconButtonSize.SMALL
+            ..color = ButtonColor.INHERIT
+            ..disabled = model.isCompleted
+            ..aria.label = 'delete todo'
+            ..onClick = (_) { remove(); }
+        )(
           TrashIcon(),
         ),
       ),
@@ -221,15 +223,15 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   ReactElement _renderEditableTaskPrivacyToggleButton() {
     final tooltipTitle = model.isPublic ? 'Make Private' : 'Make Public';
 
-    return Tooltip({
-        'enterDelay': 500,
-        'title': tooltipTitle
-      },
-      IconButton({
-        'size': 'small',
-        'aria-label': model.isPublic ? 'Make Private' : 'Make Public',
-        'onClick': (_) { updateModel(Todo.from(model)..isPublic = !model.isPublic); },
-      },
+    return (Tooltip()
+        ..enterDelay = 500
+        ..title = tooltipTitle
+    )(
+      (IconButton()
+          ..size = IconButtonSize.SMALL
+          ..aria.label = model.isPublic ? 'Make Private' : 'Make Public'
+          ..onClick = (_) { updateModel(Todo.from(model)..isPublic = !model.isPublic); }
+      )(
         model.isPublic ? VisibilityIcon() : VisibilityOffIcon(),
       ),
     );

@@ -50,25 +50,26 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
       ..remove('onDelete')
       ..remove('onRename');
 
-    return MenuItem({
-      ...propsToForward,
-      'ref': itemNodeRef,
-      'onClick': _handleMenuItemClick,
-      'onMouseEnter': handleItemMouseEnter,
-      'onMouseLeave': handleItemMouseLeave,
-      'onFocus': handleChildFocus,
-      'onBlur': handleChildBlur,
-    },
+    return (MenuItem()
+        ..modifyProps(addUnconsumedProps)
+        ..ref = itemNodeRef
+        ..onClick = _handleMenuItemClick
+        ..onMouseEnter = handleItemMouseEnter
+        ..onMouseLeave = handleItemMouseLeave
+        ..onFocus = handleChildFocus
+        ..onBlur = handleChildBlur
+
+    )(
       state.isEditable ? _renderRenameTextInput() : _renderNameWithOptions(),
     );
   }
 
   ReactElement _renderNameWithOptions() {
-    return Grid({
-      'container': true,
-      'direction': 'row',
-      'style': {'flexWrap': false},
-    },
+    return (Grid()
+        ..container = true
+        ..direction = GridDirection.ROW
+        ..style = {'flexWrap': false}
+    )(
       (Box()
           ..grow = true
           ..pr = 1
@@ -84,27 +85,27 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
             'style': {'alignSelf': 'center'},
           }),
         ),
-        Typography({
-          'noWrap': true,
-          'style': {
-            'alignSelf': 'center',
-            'flexGrow': 1,
-          },
-        },
+        (Typography()
+            ..noWrap = true
+            ..style = {
+              'alignSelf': 'center',
+              'flexGrow': 1,
+            }
+        )(
           props.localStorageKey,
         ),
       ),
-      IconButton({
-        'size': 'small',
-        'color': 'inherit',
-        'aria-label': 'Rename',
-        'aria-hidden': !isHovered,
-        'className': 'hide-using-aria',
-        'onClick': (SyntheticMouseEvent event) {
-          event.stopPropagation(); // Do not trigger the onClick handler of the parent MenuItem
-          setState(newState()..isEditable = true);
-        },
-      },
+      (IconButton()
+          ..size = IconButtonSize.SMALL
+          ..color = ButtonColor.INHERIT
+          ..aria.label = 'Rename'
+          ..aria.hidden = !isHovered
+          ..className = 'hide-using-aria'
+          ..onClick = (SyntheticMouseEvent event) {
+            event.stopPropagation(); // Do not trigger the onClick handler of the parent MenuItem
+            setState(newState()..isEditable = true);
+          }
+      )(
         EditPencilIcon(),
       ),
       _renderDeleteButton(),
@@ -114,28 +115,28 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
   ReactElement _renderDeleteButton() {
     final isDisabled = localTodoAppStorage.currentStateJson['name'] == props.localStorageKey;
 
-    return Tooltip({
-        'enterDelay': 500,
-        'title': isDisabled
-          ? 'Cannot delete the currently loaded data set.'
-          : 'Delete the ${props.localStorageKey} data set.'
-      },
+    return (Tooltip()
+        ..enterDelay = 500
+        ..title = isDisabled
+            ? 'Cannot delete the currently loaded data set.'
+            : 'Delete the ${props.localStorageKey} data set.'
+    )(
       (Box()
           ..shrinkToFit = true
           ..color = 'error.main'
           ..aria.hidden = !isHovered
           ..className = 'hide-using-aria'
       )(
-        IconButton({
-          'size': 'small',
-          'color': 'inherit',
-          'aria-label': 'Delete',
-          'disabled': isDisabled,
-          'onClick': (SyntheticMouseEvent event) {
-            event.stopPropagation(); // Do not trigger the onClick handler of the parent MenuItem
-            props.onDelete(props.localStorageKey);
-          },
-        },
+        (IconButton()
+            ..size = IconButtonSize.SMALL
+            ..color = ButtonColor.INHERIT
+            ..aria.label = 'Delete'
+            ..disabled = isDisabled
+            ..onClick = (SyntheticMouseEvent event) {
+              event.stopPropagation(); // Do not trigger the onClick handler of the parent MenuItem
+              props.onDelete(props.localStorageKey);
+            }
+        )(
           TrashIcon(),
         ),
       ),

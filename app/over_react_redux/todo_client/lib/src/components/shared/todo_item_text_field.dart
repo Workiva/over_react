@@ -47,31 +47,23 @@ class TodoItemTextFieldComponent extends UiStatefulComponent2<TodoItemTextFieldP
   }
 
   ReactElement _renderReadonlyBaseInput() {
-    final propsToForward = Map.of(props)
-      ..remove('variant')
-      ..remove('label')
-      ..remove('autoFocus')
-      ..remove('onClickWhenEditable');
-
-    return InputBase({
-      ...propsToForward,
-      'inputRef': textFieldRef.jsRef,
-      'inputProps': {
-        'style': {
-          'whiteSpace': 'nowrap',
-          'textOverflow': 'ellipsis',
-        },
-      },
-    });
+    return (InputBase()
+        ..modifyProps(addUnconsumedProps)
+        ..inputRef = textFieldRef.jsRef
+        ..inputProps = {
+          'style': {
+            'whiteSpace': 'nowrap',
+            'textOverflow': 'ellipsis',
+          },
+        }
+    )();
   }
 
   ReactElement _renderEditableInput() {
-    final propsToForward = Map.of(props)..remove('onClickWhenEditable');
-
-    return TextField({
-      ...propsToForward,
-      'inputRef': textFieldRef.jsRef,
-      'onClick': props.onClickWhenEditable,
-    });
+    return (TextField()
+        ..modifyProps(addUnconsumedProps)
+        ..inputRef = textFieldRef.jsRef
+        ..onClick = props.onClickWhenEditable
+    )();
   }
 }

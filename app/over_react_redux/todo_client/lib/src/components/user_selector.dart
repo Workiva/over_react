@@ -54,14 +54,14 @@ class UserSelectorComponent extends UiComponent2<UserSelectorProps> with RedrawC
   }
 
   ReactElement _renderMenuItem(User user) {
-    return MenuItem({
-      'key': user.id,
-      'onClick': (SyntheticMouseEvent event) {
-        // Don't expand / collapse the user list item
-        event.stopPropagation();
-        _handleUserSelect(user);
-      },
-    },
+    return (MenuItem()
+        ..key = user.id
+        ..onClick = (SyntheticMouseEvent event) {
+          // Don't expand / collapse the user list item
+          event.stopPropagation();
+          _handleUserSelect(user);
+        }
+    )(
       (Box()
           ..mr = 1
       )(

@@ -34,32 +34,28 @@ class LocalStorageMenuItemInputComponent
 
   @override
   render() {
-    final propsToForward = Map.of(props)
-      ..remove('initialValue')
-      ..remove('onSave')
-      ..remove('onCancel');
+    return (TextField()
+        ..autoFocus = true
+        ..variant = TextFieldVariant.OUTLINED
+        ..size = TextFieldSize.SMALL
+        ..fullWidth = true
+        ..inputProps = {
+          'size': props.initialValue.length,
+        }
+        ..modifyProps(addUnconsumedProps)
+        ..value = state.currentValue
+        ..error = props.error || !_isValidValue
+        ..helperText = _inputHelperText
+        ..onKeyDown = _handleInputKeyDown
+        ..onClick = (SyntheticMouseEvent event) {
+          // Prevent the menu from closing when clicking inside the input
+          event.stopPropagation();
+        }
+        ..onChange = (SyntheticFormEvent event) {
+          setState(newState()..currentValue = event.target.value);
+        }
 
-    return TextField({
-      'autoFocus': true,
-      'variant': 'outlined',
-      'size': 'small',
-      'fullWidth': true,
-      'inputProps': {
-        'size': props.initialValue.length,
-      },
-      ...propsToForward,
-      'value': state.currentValue,
-      'error': props.error || !_isValidValue,
-      'helperText': _inputHelperText,
-      'onKeyDown': _handleInputKeyDown,
-      'onClick': (SyntheticMouseEvent event) {
-        // Prevent the menu from closing when clicking inside the input
-        event.stopPropagation();
-      },
-      'onChange': (SyntheticFormEvent event) {
-        setState(newState()..currentValue = event.target.value);
-      }
-    });
+    )();
   }
 
   String get _trimmedValue => state.currentValue.trim();
