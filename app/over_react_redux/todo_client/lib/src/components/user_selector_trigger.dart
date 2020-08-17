@@ -19,6 +19,13 @@ class UserSelectorTriggerComponent extends UiComponent2<UserSelectorTriggerProps
   @override
   get defaultProps => (newProps()..disabled = false);
 
+  static final _selectedUserNamePropKey = getPropKey((p) => p.selectedUserName, UserSelectorTrigger);
+
+  @override
+  Iterable<ConsumedProps> get consumedProps => [
+    PropsMeta.forSimpleKey(_selectedUserNamePropKey)
+  ];
+
   @override
   render() {
     return (IconButton()

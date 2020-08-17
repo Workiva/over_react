@@ -34,6 +34,9 @@ class MenuOverlayComponent extends UiStatefulComponent2<MenuOverlayProps, MenuOv
   get initialState => (newState()..menuMaxWidth = 'none');
 
   @override
+  Iterable<ConsumedProps> get consumedProps => [];
+
+  @override
   render() {
     return Dom.div()(
       cloneElement(props.trigger, {

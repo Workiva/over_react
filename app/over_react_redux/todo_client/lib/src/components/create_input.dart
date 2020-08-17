@@ -26,6 +26,13 @@ class CreateInputComponent extends UiComponent2<CreateInputProps> {
   @override
   get defaultProps => (newProps()..autoFocus = false);
 
+  static final _onCreatePropKey = getPropKey((p) => p.onCreate, CreateInput);
+
+  @override
+  Iterable<ConsumedProps> get consumedProps => [
+    PropsMeta.forSimpleKey(_onCreatePropKey)
+  ];
+
   @override
   render() {
     return (Box()

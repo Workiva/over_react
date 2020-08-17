@@ -12,6 +12,9 @@ mixin TodoAppBarProps on UiProps {}
 
 class TodoAppBarComponent extends UiComponent2<TodoAppBarProps> {
   @override
+  Iterable<ConsumedProps> get consumedProps => [];
+
+  @override
   render() {
     return Fragment()(
       (AppBar()

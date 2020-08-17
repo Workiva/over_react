@@ -39,6 +39,13 @@ class TodoItemTextFieldComponent extends UiStatefulComponent2<TodoItemTextFieldP
     ..variant = 'outlined'
   );
 
+  static final _onClickPropKey = getPropKey((p) => p.onClickWhenEditable, TodoItemTextField);
+
+  @override
+  Iterable<ConsumedProps> get consumedProps => [
+    PropsMeta.forSimpleKey(_onClickPropKey)
+  ];
+
   @override
   render() {
     if (props.readOnly) return _renderReadonlyBaseInput();

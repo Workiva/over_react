@@ -33,6 +33,9 @@ class LocalStorageMenuItemInputComponent
   get initialState => (newState()..currentValue = props.initialValue);
 
   @override
+  Iterable<ConsumedProps> get consumedProps => [];
+
+  @override
   render() {
     return (TextField()
         ..autoFocus = true

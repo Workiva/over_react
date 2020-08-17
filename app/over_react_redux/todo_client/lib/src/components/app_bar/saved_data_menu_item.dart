@@ -43,13 +43,10 @@ class SavedDataMenuItemComponent extends UiStatefulComponent2<SavedDataMenuItemP
   );
 
   @override
-  render() {
-    final propsToForward = Map.of(props)
-      ..remove('localStorageKey')
-      ..remove('onSelect')
-      ..remove('onDelete')
-      ..remove('onRename');
+  Iterable<ConsumedProps> get consumedProps => [];
 
+  @override
+  render() {
     return (MenuItem()
         ..modifyProps(addUnconsumedProps)
         ..ref = itemNodeRef
