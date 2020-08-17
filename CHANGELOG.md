@@ -1,5 +1,66 @@
 # OverReact Changelog
 
+## [3.8.0](https://github.com/Workiva/over_react/compare/3.7.0...3.8.0)
+
+__New Features__
+
+- 🎉 🎉 🎉 __Support for function components, memo and hooks!!!__ 🎉 🎉 🎉
+
+    Sooooo much work from so many amazing people made this possible, but to summarize: 
+    
+    - [#606] Add support for function components
+    - [#613] Add support for `memo` higher order component
+    - [#611] Hooks, hooks, and more hooks!
+        - useState
+        - useCallback
+        - useContext
+        - useEffect
+        - useLayoutEffect
+        - useReducer
+        - useRef
+        - useMemo
+        - useImperativeHandle
+        - useDebugValue
+
+    <p><br>It works like this...</p>
+    
+    Define the component
+    ```dart
+    mixin FancyBorderProps on UiProps {
+      String color;
+    }
+    
+    UiFactory<FancyBorderProps> FancyBorder = uiFunction(
+      (props) {
+        // props is typed as a `FancyBorderProps`
+        // whatever you return here will be rendered
+        return (Dom.div()..className = 'fancy-border border-${props.color}')( 
+          props.children,
+        );
+      }, 
+      $FancyBorderConfig, // ignore: undefined_identifier
+    );
+    ```
+    
+    Render the component _(exact same consumer API as a class-based component)_:
+    ```dart
+    import 'package:over_react/over_react.dart';
+    import 'fancy_border.dart'; // Where your component is defined
+    
+    main() {
+      final renderedWidget = (FancyBorder()..color = /* some color value */)(
+        // put some children here!
+      );
+    
+      react_dom.render(renderedWidget, querySelector('#idOfSomeNodeInTheDom'));
+    }
+    ```
+  
+__Other Changes__
+
+- [#612] Deprecate `forwardRef` / add `uiForwardRef` as its replacement
+
+
 ## [3.7.0](https://github.com/Workiva/over_react/compare/3.6.0...3.7.0)
 
 __Library Changes:__

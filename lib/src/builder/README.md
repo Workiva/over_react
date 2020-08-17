@@ -1,12 +1,8 @@
-# NOTE: This content is outdated, and will be updated soon to reflect changes made to the builder when implementing the new mixin-based boilerplate 
-
----
-
 # OverReact Builder
 
 [](#__START_EMBEDDED_README__)
 
-OverReact components are declared using a set of [annotations] which are 
+OverReact components are declared using a set of "boilerplate" declarations which are 
 picked up by the `over_react` builder.
 
 This builder generates code, wiring up the different pieces of component 
@@ -32,18 +28,15 @@ The builder wires up your factory, props class, and component class so that you 
 > All of this generation happens "under the hood", but you can see it in action for your 
 own components by viewing the generated .over_react.g.dart file.
 
-1. A component is declared.
+1. The builder parses files and looks for things to generate. Let's start with this component:
 
     ```dart
-    @Factory()
-    UiFactory<FooProps> Foo = _$Foo;
+    UiFactory<FooProps> Foo = _$Foo; // undefined_identifier
     
-    @Props()
-    class _$FooProps extends UiProps { 
-      // ...
+    mixin FooProps on UiProps { 
+      int foo;
     }
     
-    @Component2()
     class FooComponent extends UiComponent2<FooProps> {
       @override
       render() { 
@@ -52,26 +45,74 @@ own components by viewing the generated .over_react.g.dart file.
     }
     ```
 
-    Note that we've annotated our component pieces with `@Factory()`, `@Props()`, and `@Component2()`. 
-    These are what the builder uses as "hooks" to find your component.
-
-    Okay, so we've defined our component. Let's look at what the builder does.
+    In [parsing/members_from_ast.dart](parsing/members_from_ast.dart), the builder identifies for top-level declarations that could be part of a component declaration:
+    - `UiFactory` variables
+    - Mixins that are `on UiProps` and whose names end with `Props` or `PropsMixin` (same thing for state)
+    - Classes that extend directly from `UiProps` and whose names end with `Props`
+    - Classes whose names end with `Component`
     
-2. The builder creates the consumable implementation of the props class. This is the class which contains concrete 
-getters/setters (via the `_$FooPropsAccessorsMixin` class)
+    Then, in, [parsing/declarations_from_members.dart](parsing/declarations_from_members.dart), it uses the names of these declarations to group them together, and determines whether those groups are actually an over_react declaration that needs code generation (vs unrelated code that happens to look similar).
+    
+    In this case:
+    1. The builder identifies the compilation unit members `Foo`, `FooProps`, `FooComponent`, which all look like pieces of over_react boilerplate.
+    2. The builder sees that `FooProps` meets the requirements for declaring a props mixin, and thus  can confidently proceed with code generation for it.
+        - Props mixins need code generation regardless of whether they're associated with a component, since they can be declared on their own.
+    3. The builder starts with the factory, and looks for other members with matching names that it could use to create a complete group that forms a class component. It finds all the pieces it needs:
+        - [x] a factory: ***Foo***
+        - [x] either a props mixin or a concrete props class:  ***Foo***Props
+        - [ ] either a state mixin or a concrete state class (optional)
+        - [x] a component class: ***Foo***Component
+    2. The builder checks to see if the group is really an over_react declaration that needs code generation. It sees that the factory is referencing a generated variable (`Foo = _$Foo`) and thus can confidently say that the factory needs code generation. Because of that, it proceeds with code generation for all the members in this group. 
+   
+   The builder has recognized our code as a class component that requires code generation! If it hadn't, the builder would have gone through similar logic to identify other types of declarations like function components and props map views, and perform similar code generation to wire them up.
+   
+   Next up, let's see what code generation looks like for our class component.
+    
+2. The builder generates a version of the props mixin which contains concrete 
+getters/setters. 
     ```dart
-   class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
-     static const PropsMeta meta = _$metaForFooProps;
+   mixin $FooProps on FooProps {
+     int get foo => props['FooProps.foo'];
+     set foo(int value) => props['FooProps.foo'] = value;
    } 
     ```
-    
-3. The builder creates a concrete props implementation class
+       
+2. The builder creates a concrete props implementation class, which mixes in the generated props mixin:
     ```dart
-    // Concrete props implementation.
-    //
-    // Implements constructor and backing map, and links up to generated component factory.
-    class _$$FooProps extends _$FooProps with _$FooPropsAccessorsMixin implements FooProps {
-      _$$FooProps(Map backingMap) : this._props = backingMap ?? {};
+    class _$$FooProps extends UiProps with FooProps, $FooProps {
+      ...   
+    }
+    ```
+    This concrete class is what will be used everywhere for this component's typed props (returned from the `UiFactory`, available via `props` inside `render`).
+   
+    Note that in the above example, our component has props declared via just a props mixin, which is a shorthand syntax for when no additional props are needed from other mixins. For components with concrete props classes which mix in other props, the implementation is similar. The generated concrete props class mixes in all generated mixins corresponding to the props mixins used:
+   
+    ```dart
+    // Authored code:
+    UiFactory<BarProps> Bar = _$Bar;
+    class BarProps = UiProps with BarPropsMixin, FooProps;
+    class BarComponent extends UiComponent2<BarProps> { ... }
+    
+    // Generated code:
+    class _$$BarProps extends UiProps 
+        with 
+            BarPropsMixin, $BarPropsMixin, 
+            FooProps, $FooProps
+        implements BarProps {
+      ...   
+    }
+    ``` 
+   
+    It also overrides stubbed out `UiProps` members, and implements a constructor that delegates to other generated subclasses: one optimized for `JsBackedMap`, and one used for all other `Map`s. 
+    ```dart
+    class _$$FooProps extends UiProps with FooProps, $FooProps {
+      factory _$$FooProps(Map backingMap) {
+        if (backingMap == null || backingMap is JsBackedMap) {
+          return _$$FooProps$JsMap(backingMap);
+        } else {
+          return _$$FooProps$PlainMap(backingMap);
+        }
+      }
     
       /// The backing props map proxied by this class.
       @override
@@ -84,36 +125,7 @@ getters/setters (via the `_$FooPropsAccessorsMixin` class)
     
       /// The `ReactComponentFactory` associated with the component built by this class.
       @override
-      ReactComponentFactoryProxy get componentFactory => $FooComponentFactory;
-    
-      /// The default namespace for the prop getters/setters generated for this class.
-      @override
-      String get propKeyNamespace => 'FooProps.';
-    }
-    ```
-    
-    It does this since the class we defined in our code inherits pseudo-abstract stubbed 
-    members and doesn't have the constructor we need.
-
-3. A fully implemented component class which extends our component class.
-
-    ```dart
-    // Concrete component implementation.
-    //
-    // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
-    // generated for the associated props class.
-    class _$FooComponent extends FooComponent {
-      @override
-      typedPropsFactory(Map backingMap) => new _$$FooProps(backingMap);
-    
-      /// Let `UiComponent` internals know that this class has been generated.
-      @override
-      bool get $isClassGenerated => true;
-    
-      /// The default consumed props, taken from _$FooProps.
-      /// Used in `ConsumedProps` if [consumedProps] is not overridden.
-      @override
-      final List<ConsumedProps> $defaultConsumedProps = const [_$metaForFooProps];
+      ReactComponentFactoryProxy get componentFactory => $FooComponentFactory;   
     }
     ```
 
@@ -128,21 +140,24 @@ getters/setters (via the `_$FooPropsAccessorsMixin` class)
     // React component factory implementation.
     //
     // Registers component implementation and links type meta to builder factory.
-    final $FooComponentFactory = registerComponent(() => new _$FooComponent(),
-        builderFactory: Foo,
-        componentClass: FooComponent,
-        isWrapper: false,
-        parentType: null,
-        displayName: 'Foo');
-
+    final $FooComponentFactory = registerComponent2(
+      () => new _$FooComponent(),
+      builderFactory: Foo,
+      componentClass: FooComponent,
+      isWrapper: false,
+      parentType: null,
+      displayName: 'Foo',
+    );
     ```
 
-5. Finally, the initializer for our factory (_$Foo) is generated with a function that returns a new instance of our 
+5. Finally, the initializer for our factory (`_$Foo`) is generated with a function that returns a new instance of our 
 private props implementation. This factory is __the entry-point__ to externally consuming our 
 component and props class.
 
     ```dart
-    _$$FooProps _$Foo([Map backingProps]) => new _$$FooProps(backingProps);
+    _$$FooProps _$Foo([Map backingProps]) => backingProps == null
+        ? _$$FooProps$JsMap(JsBackedMap())
+        : _$$FooProps(backingProps);
     ```
 
 &nbsp;
@@ -182,8 +197,7 @@ Props and state are declared using _fields_, making the actual code you write mu
 and much more like the React JS library intended:
 
 ```dart
-@Props()
-class _$FooProps extends UiProps {
+mixin FooProps on UiProps {
   String title;
 
   bool isEnabled;
@@ -193,8 +207,7 @@ class _$FooProps extends UiProps {
   // ...
 }
 
-@State()
-class _$FooState extends UiState {
+mixin FooState on UiState {
   bool isShown;
 
   String currentText;

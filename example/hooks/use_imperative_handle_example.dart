@@ -31,13 +31,14 @@ class FancyInputApi {
   FancyInputApi(this.focus);
 }
 
-UiFactory<FancyInputProps> FancyInput =
-    forwardRef<FancyInputProps>((props, ref) {
-  return (_FancyInput()
-    ..forwardedRef = ref
-    ..addProps(props)
-  )();
-})(_FancyInput);
+UiFactory<FancyInputProps> FancyInput = uiForwardRef((props, ref) {
+    return (_FancyInput()
+      ..forwardedRef = ref
+      ..addProps(props)
+    )();
+  },
+  _FancyInput.asForwardRefConfig(displayName: 'FancyInputForwardRef')
+);
 
 UiFactory<FancyInputProps> _FancyInput = uiFunction(
   (props) {

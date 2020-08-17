@@ -1665,7 +1665,7 @@ main() {
                   (props) {
                     return Dom.div()();
                   },
-                  \$FooConfig, // ignore: undefined_identifier
+                  \$BarConfig, // ignore: undefined_identifier
                 ));
                 
                 final Foo2 = someHOC(uiFunction<FooPropsMixin>(

@@ -371,7 +371,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         member = declaration.props.either,
         isProps = true,
         componentFactoryName = 'null',
-        isFunctionComponentDeclaration = declaration.factories.first.isFunctionComponentFactory,
+        isFunctionComponentDeclaration = declaration.factories.first.shouldGenerateConfig,
         version = declaration.version;
 
   @override

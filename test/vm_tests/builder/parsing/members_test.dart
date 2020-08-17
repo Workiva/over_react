@@ -303,7 +303,7 @@ main() {
           final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
               UiFactory<FooProps> Foo = _$Foo;
           '''), VersionConfidences.none());
-          expect(factory.isFunctionComponentFactory, isFalse);
+          expect(factory.shouldGenerateConfig, isFalse);
         });
 
         test('returns true for function component factories', () {
@@ -315,7 +315,7 @@ main() {
                 $FooConfig, // ignore: undefined_identifier
               );
           '''), VersionConfidences.none());
-          expect(factory.isFunctionComponentFactory, isTrue);
+          expect(factory.shouldGenerateConfig, isTrue);
         });
       });
 

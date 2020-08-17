@@ -123,12 +123,12 @@ const PropsMeta _$metaForFooProps = PropsMeta(
   keys: $FooProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$BasicProps> $_BasicConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$BasicProps> $BasicConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$BasicProps(map),
       jsMap: (map) => _$$BasicProps$JsMap(map),
     ),
-    displayName: '_Basic');
+    displayName: 'Basic');
 
 final UiFactoryConfig<_$$BasicProps> $SimpleConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
