@@ -145,6 +145,8 @@ typedef dynamic Dispatcher(dynamic action);
 UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extends UiProps>({
   Map Function(TReduxState state) mapStateToProps,
   Map Function(TReduxState state, TProps ownProps) mapStateToPropsWithOwnProps,
+  Map Function(TReduxState state) Function(TReduxState initialState, TProps initialOwnProps) makeMapStateToProps,
+  Map Function(TReduxState state, TProps ownProps) Function(TReduxState initialState, TProps initialOwnProps) makeMapStateToPropsWithOwnProps,
   Map Function(Dispatcher dispatch) mapDispatchToProps,
   Map Function(dynamic Function(dynamic) dispatch, TProps ownProps) mapDispatchToPropsWithOwnProps,
   Map Function(TProps stateProps, TProps dispatchProps, TProps ownProps) mergeProps,
@@ -188,6 +190,35 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
           jsPropsToTProps(jsOwnProps),
         ),
       );
+    }
+
+    JsMap Function(ReactInteropValue jsState) handleMakeMapStateToProps(ReactInteropValue initialJsState, JsMap initialJsOwnProps) {
+      var mapToFactory = makeMapStateToProps(
+        unwrapInteropValue(initialJsState),
+        jsPropsToTProps(initialJsOwnProps)
+      );
+      return allowInteropWithArgCount((jsState) {
+        return jsMapFromProps(
+          mapToFactory(
+            unwrapInteropValue(jsState),
+          ),
+        );
+      }, 1);
+    }
+
+    JsMap Function(ReactInteropValue jsState, JsMap jsOwnProps) handleMakeMapStateToPropsWithOwnProps(ReactInteropValue initialJsState, JsMap initialJsOwnProps) {
+      var mapToFactory = makeMapStateToPropsWithOwnProps(
+        unwrapInteropValue(initialJsState),
+        jsPropsToTProps(initialJsOwnProps)
+      );
+      return allowInteropWithArgCount((jsState, jsOwnProps) {
+        return jsMapFromProps(
+          mapToFactory(
+            unwrapInteropValue(jsState),
+            jsPropsToTProps(jsOwnProps),
+          ),
+        );
+      }, 2);
     }
 
     JsMap handleMapDispatchToProps(dynamic Function(dynamic) dispatch) {
@@ -247,9 +278,35 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       connectOptions.areMergedPropsEqual = allowInterop(handleAreMergedPropsEqual);
     }
 
+    Function interopStateMapper() {
+      if (mapStateToProps != null) {
+        return allowInteropWithArgCount(handleMapStateToProps, 1);
+      }
+      if (mapStateToPropsWithOwnProps != null) {
+        return allowInteropWithArgCount(handleMapStateToPropsWithOwnProps, 2);
+      }
+      if (makeMapStateToProps != null) {
+        return allowInteropWithArgCount(handleMakeMapStateToProps, 2);
+      }
+      if (makeMapStateToPropsWithOwnProps != null) {
+        return allowInteropWithArgCount(handleMakeMapStateToPropsWithOwnProps, 2);
+      }
+      return null;
+    }
+
+    Function interopDispatchMapper() {
+      if (mapDispatchToProps != null) {
+        return allowInteropWithArgCount(handleMapDispatchToProps, 1);
+      }
+      if (mapDispatchToPropsWithOwnProps != null) {
+        return allowInteropWithArgCount(handleMapDispatchToPropsWithOwnProps, 2);
+      }
+      return null;
+    }
+
     final hoc = mockableJsConnect(
-      mapStateToProps != null ? allowInteropWithArgCount(handleMapStateToProps, 1) : mapStateToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapStateToPropsWithOwnProps, 2) : null,
-      mapDispatchToProps != null ? allowInteropWithArgCount(handleMapDispatchToProps, 1) : mapDispatchToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapDispatchToPropsWithOwnProps, 2) : null,
+      interopStateMapper(),
+      interopDispatchMapper(),
       mergeProps != null ? allowInterop(handleMergeProps) : null,
       connectOptions,
     )(dartComponentClass);
@@ -275,7 +332,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
 @JS('ReactRedux.connect')
 external ReactClass Function(ReactClass) _jsConnect(
     [
-      /* JsMap Function(dynamic state, [JsMap ownProps]) */ Function mapStateToProps,
+      /* JsMap Function(dynamic state, [JsMap ownProps]) | JsMap Function(dynamic state, [JsMap ownProps]) Function(dynamic state, [JsMap ownProps]) */ Function mapStateToProps,
       /* JsMap Function(dynamic dispatch, [JsMap ownProps]) | JsMap */ dynamic mapDispatchToProps,
       /* Function(JsMap stateProps, JsMap dispatchProps, JsMap ownProps) */ Function mergeProps,
       JsConnectOptions options,

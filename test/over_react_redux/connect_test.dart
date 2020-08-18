@@ -245,6 +245,33 @@ main() {
       });
     });
 
+    group('makeMapStateToProps',
+        () {
+      test('only calls factory on initial load', () {
+        var factoryCount = 0;
+        ConnectedCounter = connect<CounterState, CounterProps>(
+            makeMapStateToProps: (initialState, initialOwnProps) {
+              factoryCount++;
+              return (state) {
+                return Counter()..currentCount = state.count;
+              };
+            },
+            forwardRef: true)(Counter);
+
+        var element = (ReduxProvider()..store = store1)(
+            (ConnectedCounter()..ref = counterRef)('test'),
+          );
+        jacket = mount(element);
+
+        expect(counterRef.current.props.currentCount, 0);
+        expect(factoryCount, 1);
+
+        jacket.rerender(element);
+
+        expect(factoryCount, 1);
+      });
+    });
+
     group('mapDispatchToProps', () {
       test('maps dispatcher to props correctly', () async {
         ConnectedCounter = connect<CounterState, CounterProps>(
