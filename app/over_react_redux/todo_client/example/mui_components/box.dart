@@ -161,3 +161,65 @@ UiFactory<NoPropsBoxWrapperProps> BoxWithMedia = uiFunction(
   },
   $BoxWithMediaConfig, // ignore: undefined_identifier
 );
+
+final nestedUseStylesParent = makeStyles(styleMap: {
+  'the_parent_class': {
+    'backgroundColor': 'red',
+    'color': '#FFF',
+    ...standardHeightAndWidth,
+  },
+  'the_parent_class_with_background_override': {
+    'backgroundColor': 'orange !important',
+    'color': '#FFF',
+    ...standardHeightAndWidth,
+  },
+});
+
+final nestedUseStylesChild = makeStyles(
+  styleFunction: (theme) => {
+    'the_child_class': {
+      'backgroundColor': 'blue',
+      ...standardHeightAndWidth,
+    },
+  },
+  config: $NestedBoxWrapperConfig, // ignore: undefined_identifier
+);
+
+mixin NestedBoxWrapperProps on UiProps {
+  Map<String, String> classes;
+}
+
+UiFactory<NestedBoxWrapperProps> NestedBoxWrapper = uiFunction(
+  (props) {
+    final classes = nestedUseStylesChild(props);
+
+    return (Box()..className = classes['the_child_class'])(props.children);
+  },
+  $NestedBoxWrapperConfig, // ignore: undefined_identifier
+);
+
+mixin ParentBoxWrapperProps on UiProps {
+  Map<String, String> classes;
+}
+
+UiFactory<ParentBoxWrapperProps> ParentBoxWrapper = uiFunction(
+  (props) {
+    final classes = nestedUseStylesParent();
+
+    return Fragment()(
+      (Box()..className = classes['the_parent_class'])(),
+      (NestedBoxWrapper()
+        ..classes = {
+          'the_child_class': classes['the_parent_class']
+        }
+      )('A nested box'),
+      (NestedBoxWrapper()
+        ..classes = {
+          'the_child_class':
+              classes['the_parent_class_with_background_override']
+        }
+      )('A nested box'),
+    );
+  },
+  $ParentBoxWrapperConfig, // ignore: undefined_identifier
+);

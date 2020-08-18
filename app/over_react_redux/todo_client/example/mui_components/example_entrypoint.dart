@@ -23,7 +23,9 @@ UiFactory<ExampleEntrypointProps> ExampleEntrypoint = uiFunction(
         OptionsBoxWrapper()(),
         BoxWithElement()('This box is tied to a custom style element'),
         BoxWithMedia()(
-            'This box is tied to a Style element has a media attribute'),
+          'This box is tied to a Style element has a media attribute',
+        ),
+        ParentBoxWrapper()(),
       ),
     );
   },
