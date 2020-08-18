@@ -245,30 +245,57 @@ main() {
       });
     });
 
-    group('makeMapStateToProps',
-        () {
-      test('only calls factory on initial load', () {
-        var factoryCount = 0;
+    group('makeMapStateToProps', () {
+      test('only calls factory on initial load', () async {
         ConnectedCounter = connect<CounterState, CounterProps>(
-            makeMapStateToProps: (initialState, initialOwnProps) {
-              factoryCount++;
-              return (state) {
+            makeMapStateToProps: expectAsync2((initialState, initialOwnProps) {
+              return expectAsync1((state) {
                 return Counter()..currentCount = state.count;
-              };
-            },
-            forwardRef: true)(Counter);
+              }, count: 2);
+            }, count: 1),
+          forwardRef: true)(Counter);
 
-        var element = (ReduxProvider()..store = store1)(
+        jacket = mount((ReduxProvider()..store = store1)(
             (ConnectedCounter()..ref = counterRef)('test'),
-          );
-        jacket = mount(element);
+          ));
 
         expect(counterRef.current.props.currentCount, 0);
-        expect(factoryCount, 1);
 
-        jacket.rerender(element);
+        var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
+        // causes a state change that calls the makeMapStateToProps returned "real" mapStateToProps function.
+        click(dispatchButton);
 
-        expect(factoryCount, 1);
+        // wait for the next tick for the async dispatch to propagate
+        await Future(() {});
+
+        expect(counterRef.current.props.currentCount, 1);
+      });
+    });
+
+    group('makeMapStateToPropsWithOwnProps', () {
+      test('only calls factory on initial load', () async {
+        ConnectedCounter = connect<CounterState, CounterProps>(
+            makeMapStateToPropsWithOwnProps: expectAsync2((initialState, initialOwnProps) {
+              return expectAsync2((state, ownProps) {
+                return Counter()..currentCount = state.count;
+              }, count: 2);
+            }, count: 1),
+          forwardRef:true)(Counter);
+
+        jacket = mount((ReduxProvider()..store = store1)(
+            (ConnectedCounter()..ref = counterRef)('test'),
+          ));
+
+        expect(counterRef.current.props.currentCount, 0);
+
+        var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
+        // causes a state change that calls the makeMapStateToPropsWithOwnProps returned "real" mapStateToProps function.
+        click(dispatchButton);
+
+        // wait for the next tick for the async dispatch to propagate
+        await Future(() {});
+
+        expect(counterRef.current.props.currentCount, 1);
       });
     });
 
