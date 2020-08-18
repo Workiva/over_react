@@ -42,11 +42,12 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   final Logger log = Logger('OverReactReduxDevToolsMiddleware');
 
   _OverReactReduxDevToolsMiddleware() {
+    var windowConsole = getProperty(window, 'console');
     log.onRecord.listen((rec) {
       if (rec.level == Level.WARNING) {
-        window.console.warn('${log.name} [${rec.level.name}]: ${rec.message}');
+        callMethod(windowConsole, 'warn', ['${log.name} [${rec.level.name}]: ${rec.message}', if (rec.error != null) rec.error]);
       } else {
-        window.console.log('${log.name} [${rec.level.name}]: ${rec.message}');
+        callMethod(windowConsole, 'log', ['${log.name} [${rec.level.name}]: ${rec.message}', if (rec.error != null) rec.error]);
       }
     });
     try {
@@ -134,8 +135,12 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
       case 'ACTION':
         _handleRemoteAction(data['action'] as String);
         break;
+      case 'START':
+        // This is an event from `@devtools-extension` letting us know that it has started.
+        // We don't need to do anything.
+        break;
       default:
-        log.warning('Unknown type:' + data['type'].toString());
+        log.warning("Unknown event from ${data['source'] ?? 'remote'}: ${data['type']}. Ignoring", jsData);
     }
   }
 
