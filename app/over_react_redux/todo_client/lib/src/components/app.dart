@@ -48,12 +48,12 @@ class TodoAppComponent extends UiComponent2<TodoAppProps> with RedrawCounterMixi
         (Container()
             ..className = 'app-content__container'
         )(
-          Grid({
-            'container': true,
-            'direction': 'row',
-            'spacing': 3,
-            'className': 'app-content__container-grid'
-          },
+          (Grid()
+              ..container = true
+              ..direction = GridDirection.ROW
+              ..spacing = GridSpacing.THREE
+              ..className = 'app-content__container-grid'
+          )(
             renderTodosColumn(),
             renderUsersColumn(),
           ),
@@ -63,14 +63,14 @@ class TodoAppComponent extends UiComponent2<TodoAppProps> with RedrawCounterMixi
   }
 
   ReactElement renderTodosColumn() {
-    return Grid({
-      'container': true,
-      'item': true,
-      'sm': 8,
-      'direction': 'column',
-      'alignItems': 'stretch',
-      'style': {'height': '100%'},
-    },
+    return (Grid()
+        ..container = true
+        ..item = true
+        ..sm = GridNum.EIGHT
+        ..direction = GridDirection.COLUMN
+        ..alignItems = GridAlignItems.STRETCH
+        ..style = {'height': '100%'}
+    )(
       (CreateInput()
         ..autoFocus = true
         ..label = 'New Todo'
@@ -83,13 +83,13 @@ class TodoAppComponent extends UiComponent2<TodoAppProps> with RedrawCounterMixi
   }
 
   ReactElement renderUsersColumn() {
-    return Grid({
-      'container': true,
-      'item': true,
-      'sm': 4,
-      'direction': 'column',
-      'style': {'height': '100%'},
-    },
+    return (Grid()
+        ..container = true
+        ..item = true
+        ..sm = GridNum.FOUR
+        ..direction = GridDirection.COLUMN
+        ..style = {'height': '100%'}
+    )(
       (CreateInput()
         ..label = 'New User'
         ..placeholder = 'Create new User'

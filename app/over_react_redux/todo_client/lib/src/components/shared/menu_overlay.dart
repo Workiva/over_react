@@ -34,36 +34,34 @@ class MenuOverlayComponent extends UiStatefulComponent2<MenuOverlayProps, MenuOv
   get initialState => (newState()..menuMaxWidth = 'none');
 
   @override
-  render() {
-    final propsToForward = Map.of(props)
-      ..remove('trigger')
-      ..remove('dispatch')
-      ..remove('useDerivedMaxWidth');
+  Iterable<ConsumedProps> get consumedProps => [];
 
+  @override
+  render() {
     return Dom.div()(
       cloneElement(props.trigger, {
         'onClick': _handleTriggerClick,
         'aria-describedby': id,
       }),
-      Menu({
-        ...propsToForward,
-        'MenuListProps': {
-          'id': id,
-          'style': {
-            'maxWidth': state.menuMaxWidth,
-          },
-        },
-        'open': open,
-        'anchorEl': state.anchorEl,
-        'onClose': close,
-        'onEntered': (_, __) {
-          if (!props.useDerivedMaxWidth) return;
-          final currentMenuWidth = querySelector('#$id')?.getBoundingClientRect()?.width?.ceil();
-          if (currentMenuWidth != state.menuMaxWidth) {
-            setState(newState()..menuMaxWidth = currentMenuWidth ?? 'none');
+      (Menu()
+          ..MenuListProps = {
+            'id': id,
+            'style': {
+              'maxWidth': state.menuMaxWidth,
+            }
           }
-        },
-      },
+          ..open = open
+          ..anchorEl = state.anchorEl
+          ..onClose = close
+          ..onEntered = (_, __) {
+            if (!props.useDerivedMaxWidth) return;
+            final currentMenuWidth = querySelector('#$id')?.getBoundingClientRect()?.width?.ceil();
+            if (currentMenuWidth != state.menuMaxWidth) {
+              setState(newState()..menuMaxWidth = currentMenuWidth ?? 'none');
+            }
+          }
+          ..modifyProps(addUnconsumedProps)
+      )(
         props.children,
       ),
     );

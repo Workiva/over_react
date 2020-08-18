@@ -5,34 +5,34 @@ import 'package:react_material_ui/react_material_ui.dart';
 
 part 'app_bar.over_react.g.dart';
 
+UiFactory<TodoAppBarProps> TodoAppBar =
+    _$TodoAppBar; // ignore: undefined_identifier
+
 mixin TodoAppBarProps on UiProps {}
 
-UiFactory<TodoAppBarProps> TodoAppBar = uiFunction((props) {
- return Fragment()(
-      AppBar(props,
-        Toolbar({'classes': {
-          'root': {
-            'backgroundColor': 'green',
-            'border': '1px solid red',
-          }
-        }
-        },
+class TodoAppBarComponent extends UiComponent2<TodoAppBarProps> {
+  @override
+  Iterable<ConsumedProps> get consumedProps => [];
+
+  @override
+  render() {
+    return Fragment()(
+      (AppBar()
+          ..modifyProps(addUnconsumedProps)
+      )(
+        Toolbar()(
           (Box()
               ..flexGrow = 1
           )(
-            Typography({
-              'variant': 'h6',
-            }, 'OverReact Redux Todo Demo App'),
-            Typography({
-              'variant': 'h6',
-            }, 'Another Title'),
+            (Typography()
+                ..variant = TypographyVariant.H6
+            )('OverReact Redux Todo Demo App'),
           ),
           AppBarLocalStorageMenu()(),
         ),
       ),
-      Toolbar({}),
+      Toolbar()(),
     );
-  },
-  $TodoAppBarConfig, // ignore: undefined_identifier
-);
+  }
+}
 

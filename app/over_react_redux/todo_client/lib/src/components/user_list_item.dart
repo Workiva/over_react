@@ -62,7 +62,11 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
 
   @override
   render() {
-    return ExpansionPanel(sharedExpansionPanelProps,
+    return (ExpansionPanel()
+      ..onChange = sharedExpansionPanelProps['onChange']
+      ..expanded = sharedExpansionPanelProps['expanded']
+      ..style = sharedExpansionPanelProps['style']
+    )(
       (ListItemExpansionPanelSummary()
         ..modelId = model.id
         ..allowExpansion = allowExpansion
@@ -72,7 +76,7 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
         _renderUserAvatar(),
         _renderUserNameHeader(),
       ),
-      ExpansionPanelDetails({},
+      ExpansionPanelDetails()(
         _renderUserBio(),
       ),
       _renderEditableUserActions(),
@@ -145,11 +149,11 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
 
     return Fragment()(
       Divider({}),
-      ExpansionPanelActions({},
-        Grid({
-          'container': true,
-          'direction': 'row',
-        },
+      ExpansionPanelActions()(
+        (Grid()
+            ..container = true
+            ..direction = GridDirection.ROW
+        )(
           (Box()
               ..flexGrow = 1
               ..display = 'flex'
@@ -168,19 +172,19 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
   }
 
   ReactElement _renderEditableUserDeleteButton() {
-    return Tooltip({
-        'enterDelay': 500,
-        'title': 'Delete Todo'
-    },
+    return (Tooltip()
+        ..enterDelay = 500
+        ..title = 'Delete Todo'
+    )(
       (Box()
           ..color = 'error.main'
       )(
-        IconButton({
-          'size': 'small',
-          'aria-label': 'delete todo',
-          'color': 'inherit',
-          'onClick': (_) { remove(); },
-        },
+        (IconButton()
+            ..size = IconButtonSize.SMALL
+            ..aria.label = 'delete todo'
+            ..color = ButtonColor.INHERIT
+            ..onClick = (_) { remove(); }
+        )(
           TrashIcon(),
         ),
       ),

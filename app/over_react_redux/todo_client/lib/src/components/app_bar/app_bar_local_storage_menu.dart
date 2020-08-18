@@ -47,16 +47,16 @@ class AppBarLocalStorageMenuComponent extends UiComponent2<AppBarLocalStorageMen
     )(
       _renderSaveMenuItem(),
       _renderSaveAsMenuItem(),
-      MenuItem({
-        'onClick': (_) {
-          _loadFromLocalStorage(TodoAppLocalStorage.defaultStateKey);
-        },
-      }, 'Load Default Data'),
-      MenuItem({
-        'onClick': (_) {
-          _loadFromLocalStorage(TodoAppLocalStorage.emptyStateKey);
-        },
-      }, 'Load Empty Data'),
+      (MenuItem()
+          ..onClick = (_) {
+            _loadFromLocalStorage(TodoAppLocalStorage.defaultStateKey);
+          }
+      )('Load Default Data'),
+      (MenuItem()
+          ..onClick = (_) {
+            _loadFromLocalStorage(TodoAppLocalStorage.emptyStateKey);
+          }
+      )('Load Empty Data'),
       _renderSavedStateMenuItems(),
     );
   }
@@ -64,12 +64,12 @@ class AppBarLocalStorageMenuComponent extends UiComponent2<AppBarLocalStorageMen
   ReactElement _renderSaveMenuItem() {
     if (!props.currentDataHasBeenModified || _currentStateKeyIsReadOnly) return null;
 
-    return MenuItem({
-      'onClick': (SyntheticMouseEvent event) {
-        event.stopPropagation(); // Don't close the menu
-        _handleCurrentLocalStorageStateSaveAs(newStateName: props.currentDataSetName);
-      }
-    },
+    return (MenuItem()
+        ..onClick = (SyntheticMouseEvent event) {
+          event.stopPropagation(); // Don't close the menu
+          _handleCurrentLocalStorageStateSaveAs(newStateName: props.currentDataSetName);
+        }
+    )(
       'Save ${props.currentDataSetName}',
     );
   }
@@ -106,12 +106,12 @@ class AppBarLocalStorageMenuComponent extends UiComponent2<AppBarLocalStorageMen
     return [
       Divider({'key': 'divider'}),
       (Dom.li()..key = 'dividerLabel')(
-        Typography({
-          'color': 'textSecondary',
-          'display': 'block',
-          'variant': 'caption',
-          'style': {'margin': '5px 0 0 16px'},
-        },
+        (Typography()
+            ..color = TypographyColor.TEXT_SECONDARY
+            ..display = TypographyDisplay.BLOCK
+            ..variant = TypographyVariant.CAPTION
+            ..style = {'margin': '5px 0 0 16px'}
+        )(
           'Custom Data Sets',
         ),
       ),

@@ -65,7 +65,9 @@ class EmptyViewComponent extends UiComponent2<EmptyViewProps> {
     )(
       _renderAboveHeaderContent(),
       _renderHeader(),
-      Typography({'variant': 'body1'}, props.children),
+      (Typography()
+          ..variant = TypographyVariant.BODY1
+      )(props.children),
     );
   }
 
@@ -76,12 +78,12 @@ class EmptyViewComponent extends UiComponent2<EmptyViewProps> {
   }
 
   ReactElement _renderHeader() {
-    return Typography({
-      'component': props.type.headerFactory,
-      'variant': props.type.headerFactory,
-      'gutterBottom': true,
-      'className': 'empty-view__message-heading',
-    }, props.header);
+    return (Typography()
+        ..component = ElementType.fromString(props.type.headerFactory)
+        ..variant = TypographyVariant(props.type.headerFactory)
+        ..gutterBottom = true
+        ..className = 'empty-view__message-heading'
+    )(props.header);
   }
 
   ReactElement _renderAboveHeaderContent() {

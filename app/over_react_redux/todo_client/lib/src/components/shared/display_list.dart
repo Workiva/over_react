@@ -32,7 +32,6 @@ class DisplayListComponent extends UiComponent2<DisplayListProps> {
       );
     }
 
-    final propsToForward = {...props}..remove('listItemTypeDescription');
     return (Box()
         ..key = 'scrollableList'
         ..grow = true
