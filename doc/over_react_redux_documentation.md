@@ -181,7 +181,10 @@ UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
 - #### `mapStateToProps`
 
   - Used for selecting the part of the data from the store that the connected
-    component needs. - Called every time the store state changes. - Receives the entire store state, and should return an object of data this component needs.
+    component needs.
+
+    - Called every time the store state changes.
+    - Receives the entire store state, and should return an object of data this component needs.
 
   - If you need access to the props provided to the connected component you can use `mapStateToPropsWithOwnProps`,
     the second argument will be `ownProps`.
@@ -200,8 +203,8 @@ UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
 
   - Called with dispatch as the first argument.
 
-    You can make use of this by returning new functions that call dispatch() inside themselves,
-    and either pass in a plain action directly or pass in the result of an action creator.
+    - You can make use of this by returning new functions that call dispatch() inside themselves,
+      and either pass in a plain action directly or pass in the result of an action creator.
 
   - If you need access to the props provided to the connected component you can use `mapDispatchToPropsWithOwnProps`,
     the second argument will be `ownProps`.
@@ -329,7 +332,17 @@ In the case that you need to have multiple stores, here are the steps to do so:
    ```
 1. Add an additional `ReduxProvider`, with its `context` prop set to the next Context instance and the `store` prop
    set to your additional store.
-   `dart // ... Wrapped in a reactDom.render() (ReduxProvider()..store = store1)( (ReduxProvider() ..store = store2 ..context = bigCounterContext )( // ... connected componentry ), )`
+   ```dart
+   // ... Wrapped in a reactDom.render()
+   (ReduxProvider()..store = store1)(
+     (ReduxProvider()
+       ..store = store2
+       ..context = bigCounterContext
+     )(
+       // ... connected componentry
+     ),
+   )
+   ```
 
 ## Using Redux DevTools
 
