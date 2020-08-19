@@ -223,7 +223,9 @@ UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
 
   - Defines how the final props for the wrapped component are determined.
   - If you do not provide `mergeProps`, the wrapped component receives the default:
-    `dart {...ownProps, ...stateProps, ...dispatchProps}`
+    ```dart
+    {...ownProps, ...stateProps, ...dispatchProps}
+    ```
 
 - #### `areStatesEqual`
 
