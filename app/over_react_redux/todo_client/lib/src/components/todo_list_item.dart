@@ -62,11 +62,11 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
 
   @override
   render() {
-    return ExpansionPanel({
-      ...sharedExpansionPanelProps,
+    return Accordion({
+      ...sharedAccordionProps,
       'className': model.isCompleted ? 'Mui-disabled' : null,
     },
-      (ListItemExpansionPanelSummary()
+      (ListItemAccordionSummary()
         ..modelId = model.id
         ..allowExpansion = allowExpansion
         ..isEditable = props.isEditable
@@ -76,7 +76,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
         _renderTaskHeader(),
         _renderUserSelector(),
       ),
-      ExpansionPanelDetails({},
+      AccordionDetails({},
         _renderTaskNotes(),
       ),
       _renderEditableTaskActions(),
@@ -174,7 +174,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
 
     return Fragment()(
       Divider({}),
-      ExpansionPanelActions({},
+      AccordionActions({},
         Grid({
           'container': true,
           'direction': 'row'
