@@ -299,6 +299,62 @@ main() {
       });
     });
 
+    group('makeMapDispatchToProps', () {
+      test('only calls factory on initial load', () async {
+        ConnectedCounter = connect<CounterState, CounterProps>(
+            mapStateToProps: (state) => (Counter()..currentCount = state.count),
+            makeMapDispatchToProps: expectAsync2((dispatch, initialOwnProps) {
+              return expectAsync1((dispatch) {
+                return Counter()..decrement = () => dispatch(DecrementAction());
+              }, count: 1);
+            }, count: 1),
+            forwardRef: true)(Counter);
+
+        jacket = mount((ReduxProvider()..store = store1)(
+            (ConnectedCounter()..ref = counterRef)('test'),
+          ));
+
+        expect(counterRef.current.props.currentCount, 0);
+
+        var dispatchButton = queryByTestId(jacket.mountNode, 'button-decrement');
+        // causes a state change that calls the makeMapDispatchToProps returned "real" mapDispatchToProps function.
+        click(dispatchButton);
+
+        // wait for the next tick for the async dispatch to propagate
+        await Future(() {});
+
+        expect(counterRef.current.props.currentCount, -1);
+      });
+    });
+
+    group('makeMapDispatchToPropsWithOwnProps', () {
+      test('only calls factory on initial load', () async {
+        ConnectedCounter = connect<CounterState, CounterProps>(
+            mapStateToProps: (state) => (Counter()..currentCount = state.count),
+            makeMapDispatchToPropsWithOwnProps: expectAsync2((dispatch, initialOwnProps) {
+              return expectAsync2((dispatch, ownProps) {
+                return Counter()..decrement = () => dispatch(DecrementAction());
+              }, count: 1);
+            }, count: 1),
+          forwardRef:true)(Counter);
+
+        jacket = mount((ReduxProvider()..store = store1)(
+            (ConnectedCounter()..ref = counterRef)('test'),
+          ));
+
+        expect(counterRef.current.props.currentCount, 0);
+
+        var dispatchButton = queryByTestId(jacket.mountNode, 'button-decrement');
+        // causes a state change that calls the makeMapDispatchToPropsWithOwnProps returned "real" mapDispatchToProps function.
+        click(dispatchButton);
+
+        // wait for the next tick for the async dispatch to propagate
+        await Future(() {});
+
+        expect(counterRef.current.props.currentCount, -1);
+      });
+    });
+
     group('mapDispatchToProps', () {
       test('maps dispatcher to props correctly', () async {
         ConnectedCounter = connect<CounterState, CounterProps>(

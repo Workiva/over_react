@@ -77,6 +77,10 @@ typedef dynamic Dispatcher(dynamic action);
 /// If you need access to the props provided to the connected component you can use [mapStateToPropsWithOwnProps],
 /// the second argument will be `ownProps`.
 /// See: <https://react-redux.js.org/using-react-redux/connect-mapstate#defining-mapstatetoprops>
+/// If you need component-instance-specific initialization, such as to setup instance based selectors with memoization,
+/// you can use [makeMapStateToProps] or [makeMapStateToPropsWithOwnProps] as a factory function, they will be called
+/// once when the component instantiates, and their returns will be used as the actual [mapStateToProps].
+/// See: <https://react-redux.js.org/api/connect#factory-functions>
 ///
 /// - [mapDispatchToProps] will be called with dispatch as the first argument.
 /// You will normally make use of this by returning new functions that call dispatch() inside themselves,
@@ -84,7 +88,10 @@ typedef dynamic Dispatcher(dynamic action);
 /// If you need access to the props provided to the connected component you can use [mapDispatchToPropsWithOwnProps],
 /// the second argument will be `ownProps`.
 /// See: <https://react-redux.js.org/using-react-redux/connect-mapdispatch#defining-mapdispatchtoprops-as-a-function>
-///
+/// If you need component-instance-specific initialization, such as to setup instance based selectors with memoization,
+/// you can use [makeMapDispatchToProps] or [makeMapDispatchToPropsWithOwnProps] as a factory function, they will be
+/// called once when the component instantiates, and their returns will be used as the actual [mapDispatchToProps].
+/// See: <https://react-redux.js.org/api/connect#factory-functions>
 /// - [mergeProps] if specified, defines how the final props for the wrapped component are determined.
 /// If you do not provide [mergeProps], the wrapped component receives {...ownProps, ...stateProps, ...dispatchProps}
 /// by default.
@@ -148,7 +155,9 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
   Map Function(TReduxState state) Function(TReduxState initialState, TProps initialOwnProps) makeMapStateToProps,
   Map Function(TReduxState state, TProps ownProps) Function(TReduxState initialState, TProps initialOwnProps) makeMapStateToPropsWithOwnProps,
   Map Function(Dispatcher dispatch) mapDispatchToProps,
-  Map Function(dynamic Function(dynamic) dispatch, TProps ownProps) mapDispatchToPropsWithOwnProps,
+  Map Function(Dispatcher dispatch, TProps ownProps) mapDispatchToPropsWithOwnProps,
+  Map Function(Dispatcher dispatch) Function(Dispatcher dispatch, TProps ownProps) makeMapDispatchToProps,
+  Map Function(Dispatcher dispatch, TProps ownProps) Function(Dispatcher dispatch, TProps ownProps) makeMapDispatchToPropsWithOwnProps,
   Map Function(TProps stateProps, TProps dispatchProps, TProps ownProps) mergeProps,
   bool Function(TReduxState nextState, TReduxState prevState) areStatesEqual,
   // Use default parameter values instead of ??= in the function body to allow consumers
@@ -221,19 +230,48 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       }, 2);
     }
 
-    JsMap handleMapDispatchToProps(dynamic Function(dynamic) dispatch) {
+    JsMap handleMapDispatchToProps(Dispatcher dispatch) {
       return jsMapFromProps(
         mapDispatchToProps(dispatch),
       );
     }
 
-    JsMap handleMapDispatchToPropsWithOwnProps(Function dispatch, JsMap jsOwnProps) {
+    JsMap handleMapDispatchToPropsWithOwnProps(Dispatcher dispatch, JsMap jsOwnProps) {
       return jsMapFromProps(
         mapDispatchToPropsWithOwnProps(
           dispatch,
           jsPropsToTProps(jsOwnProps),
         )
       );
+    }
+
+    JsMap Function(Dispatcher dispatch) handleMakeMapDispatchToProps(Dispatcher dispatch, JsMap initialJsOwnProps) {
+      var mapToFactory = makeMapDispatchToProps(
+        dispatch,
+        jsPropsToTProps(initialJsOwnProps)
+      );
+      return allowInteropWithArgCount((dispatch) {
+        return jsMapFromProps(
+          mapToFactory(
+            dispatch,
+          ),
+        );
+      }, 1);
+    }
+
+    JsMap Function(Dispatcher dispatch, JsMap jsOwnProps) handleMakeMapDispatchToPropsWithOwnProps(Dispatcher dispatch, JsMap initialJsOwnProps) {
+      var mapToFactory = makeMapDispatchToPropsWithOwnProps(
+        dispatch,
+        jsPropsToTProps(initialJsOwnProps)
+      );
+      return allowInteropWithArgCount((dispatch, jsOwnProps) {
+        return jsMapFromProps(
+          mapToFactory(
+            dispatch,
+            jsPropsToTProps(jsOwnProps),
+          ),
+        );
+      }, 2);
     }
 
     JsMap handleMergeProps(JsMap jsStateProps, JsMap jsDispatchProps, JsMap jsOwnProps) {
@@ -278,7 +316,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       connectOptions.areMergedPropsEqual = allowInterop(handleAreMergedPropsEqual);
     }
 
-    Function interopStateMapper() {
+    dynamic interopMapStateToPropsHandler() {
       if (mapStateToProps != null) {
         return allowInteropWithArgCount(handleMapStateToProps, 1);
       }
@@ -294,19 +332,25 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       return null;
     }
 
-    Function interopDispatchMapper() {
+    dynamic interopMapDispatchToPropsHandler() {
       if (mapDispatchToProps != null) {
         return allowInteropWithArgCount(handleMapDispatchToProps, 1);
       }
       if (mapDispatchToPropsWithOwnProps != null) {
         return allowInteropWithArgCount(handleMapDispatchToPropsWithOwnProps, 2);
       }
+      if (makeMapDispatchToProps != null) {
+        return allowInteropWithArgCount(handleMakeMapDispatchToProps, 2);
+      }
+      if (makeMapDispatchToPropsWithOwnProps != null) {
+        return allowInteropWithArgCount(handleMakeMapDispatchToPropsWithOwnProps, 2);
+      }
       return null;
     }
 
     final hoc = mockableJsConnect(
-      interopStateMapper(),
-      interopDispatchMapper(),
+      interopMapStateToPropsHandler(),
+      interopMapDispatchToPropsHandler(),
       mergeProps != null ? allowInterop(handleMergeProps) : null,
       connectOptions,
     )(dartComponentClass);
@@ -454,7 +498,7 @@ JsReactReduxStore _reduxifyStore(Store store) {
 class JsReactReduxStore {
   external factory JsReactReduxStore({
     ReactInteropValue Function() getState,
-    void Function(dynamic) dispatch,
+    Dispatcher dispatch,
     Function Function(Function) subscribe,
   });
 }
