@@ -74,26 +74,25 @@ typedef dynamic Dispatcher(dynamic action);
 ///  component needs.
 ///  - It is called every time the store state changes.
 ///  - It receives the entire store state, and should return an object of data this component needs.
-/// If you need access to the props provided to the connected component you can use [mapStateToPropsWithOwnProps],
-/// the second argument will be `ownProps`.
-/// See: <https://react-redux.js.org/using-react-redux/connect-mapstate#defining-mapstatetoprops>
-/// If you need component-instance-specific initialization, such as to setup instance based selectors with memoization,
-/// you can use [makeMapStateToProps] or [makeMapStateToPropsWithOwnProps] as a factory function, they will be called
-/// once when the component instantiates, and their returns will be used as the actual [mapStateToProps].
-/// See: <https://redux.js.org/recipes/computing-derived-data#sharing-selectors-across-multiple-components>
-/// See: <https://react-redux.js.org/api/connect#factory-functions>
-///
+///   - If you need access to the props provided to the connected component you can use [mapStateToPropsWithOwnProps],
+///     the second argument will be `ownProps`.
+///     See: <https://react-redux.js.org/using-react-redux/connect-mapstate#defining-mapstatetoprops>
+///   - If you need component-instance-specific initialization, such as to setup instance based selectors with memoization,
+///     you can use [makeMapStateToProps] or [makeMapStateToPropsWithOwnProps] as a factory function, they will be called
+///     once when the component instantiates, and their returns will be used as the actual [mapStateToProps].
+///     See: <https://redux.js.org/recipes/computing-derived-data#sharing-selectors-across-multiple-components>
+///     See: <https://react-redux.js.org/api/connect#factory-functions>
 /// - [mapDispatchToProps] will be called with dispatch as the first argument.
-/// You will normally make use of this by returning new functions that call dispatch() inside themselves,
-/// and either pass in a plain action directly or pass in the result of an action creator.
-/// If you need access to the props provided to the connected component you can use [mapDispatchToPropsWithOwnProps],
-/// the second argument will be `ownProps`.
-/// See: <https://react-redux.js.org/using-react-redux/connect-mapdispatch#defining-mapdispatchtoprops-as-a-function>
-/// If you need component-instance-specific initialization, such as to setup instance based selectors with memoization,
-/// you can use [makeMapDispatchToProps] or [makeMapDispatchToPropsWithOwnProps] as a factory function, they will be
-/// called once when the component instantiates, and their returns will be used as the actual [mapDispatchToProps].
-/// See: <https://redux.js.org/recipes/computing-derived-data#sharing-selectors-across-multiple-components>
-/// See: <https://react-redux.js.org/api/connect#factory-functions>
+///   - You will normally make use of this by returning new functions that call dispatch() inside themselves,
+///     and either pass in a plain action directly or pass in the result of an action creator.
+///   - If you need access to the props provided to the connected component you can use [mapDispatchToPropsWithOwnProps],
+///     the second argument will be `ownProps`.
+///     See: <https://react-redux.js.org/using-react-redux/connect-mapdispatch#defining-mapdispatchtoprops-as-a-function>
+///   - If you need component-instance-specific initialization, such as to setup instance based selectors with memoization,
+///     you can use [makeMapDispatchToProps] or [makeMapDispatchToPropsWithOwnProps] as a factory function, they will be
+///     called once when the component instantiates, and their returns will be used as the actual [mapDispatchToProps].
+///     See: <https://redux.js.org/recipes/computing-derived-data#sharing-selectors-across-multiple-components>
+///     See: <https://react-redux.js.org/api/connect#factory-functions>
 /// - [mergeProps] if specified, defines how the final props for the wrapped component are determined.
 /// If you do not provide [mergeProps], the wrapped component receives {...ownProps, ...stateProps, ...dispatchProps}
 /// by default.
