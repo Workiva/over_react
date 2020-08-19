@@ -10,7 +10,7 @@ import 'package:todo_client/src/components/user_list_item.dart';
 part 'user_list.over_react.g.dart';
 
 UiFactory<UserListProps> UserList = connect<AppState, UserListProps>(
-    makeMapStateToProps: (initialState, initialOwnProps) => (state) {
+    mapStateToProps: (state) {
       return (UserList()
         ..users = state.users
       );
