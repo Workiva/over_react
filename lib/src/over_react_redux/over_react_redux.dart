@@ -80,6 +80,7 @@ typedef dynamic Dispatcher(dynamic action);
 /// If you need component-instance-specific initialization, such as to setup instance based selectors with memoization,
 /// you can use [makeMapStateToProps] or [makeMapStateToPropsWithOwnProps] as a factory function, they will be called
 /// once when the component instantiates, and their returns will be used as the actual [mapStateToProps].
+/// See: <https://redux.js.org/recipes/computing-derived-data#sharing-selectors-across-multiple-components>
 /// See: <https://react-redux.js.org/api/connect#factory-functions>
 ///
 /// - [mapDispatchToProps] will be called with dispatch as the first argument.
@@ -91,6 +92,7 @@ typedef dynamic Dispatcher(dynamic action);
 /// If you need component-instance-specific initialization, such as to setup instance based selectors with memoization,
 /// you can use [makeMapDispatchToProps] or [makeMapDispatchToPropsWithOwnProps] as a factory function, they will be
 /// called once when the component instantiates, and their returns will be used as the actual [mapDispatchToProps].
+/// See: <https://redux.js.org/recipes/computing-derived-data#sharing-selectors-across-multiple-components>
 /// See: <https://react-redux.js.org/api/connect#factory-functions>
 /// - [mergeProps] if specified, defines how the final props for the wrapped component are determined.
 /// If you do not provide [mergeProps], the wrapped component receives {...ownProps, ...stateProps, ...dispatchProps}
