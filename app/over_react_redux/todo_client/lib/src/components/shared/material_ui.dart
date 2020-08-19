@@ -20,6 +20,10 @@ import 'package:todo_client/src/utils.dart';
 class MaterialUI {
   external static JsMap get colors;
 
+  external static ReactClass get Accordion;
+  external static ReactClass get AccordionActions;
+  external static ReactClass get AccordionDetails;
+  external static ReactClass get AccordionSummary;
   external static ReactClass get AppBar;
   external static ReactClass get Avatar;
   external static ReactClass get Badge;
@@ -29,10 +33,7 @@ class MaterialUI {
   external static ReactClass get Container;
   external static ReactClass get CssBaseline;
   external static ReactClass get Divider;
-  external static ReactClass get ExpansionPanel;
-  external static ReactClass get ExpansionPanelActions;
-  external static ReactClass get ExpansionPanelDetails;
-  external static ReactClass get ExpansionPanelSummary;
+
   external static ReactClass get Grid;
   external static ReactClass get IconButton;
   external static ReactClass get InputBase;
@@ -54,6 +55,18 @@ final muiColors = jsBackedMapDeepFromJs(MaterialUI.colors);
 // Below, you'll find the top level JS component factories
 // that we can use just like any other react-dart component in our app!
 // -----------------------------------------------------------------------
+
+/// See: <https://material-ui.com/components/accordion/>
+final Accordion = ReactJsComponentFactoryProxy(MaterialUI.Accordion);
+
+/// See: <https://material-ui.com/components/accordion/>
+final AccordionActions = ReactJsComponentFactoryProxy(MaterialUI.AccordionActions);
+
+/// See: <https://material-ui.com/components/accordion/>
+final AccordionDetails = ReactJsComponentFactoryProxy(MaterialUI.AccordionDetails);
+
+/// See: <https://material-ui.com/components/accordion/>
+final AccordionSummary = ReactJsComponentFactoryProxy(MaterialUI.AccordionSummary);
 
 /// See: <https://material-ui.com/components/app-bar/>
 final AppBar = ReactJsComponentFactoryProxy(MaterialUI.AppBar);
@@ -81,18 +94,6 @@ final CssBaseline = ReactJsComponentFactoryProxy(MaterialUI.CssBaseline);
 
 /// See: <https://material-ui.com/components/dividers/>
 final Divider = ReactJsComponentFactoryProxy(MaterialUI.Divider);
-
-/// See: <https://material-ui.com/components/expansion-panels/>
-final ExpansionPanel = ReactJsComponentFactoryProxy(MaterialUI.ExpansionPanel);
-
-/// See: <https://material-ui.com/components/expansion-panels/>
-final ExpansionPanelActions = ReactJsComponentFactoryProxy(MaterialUI.ExpansionPanelActions);
-
-/// See: <https://material-ui.com/components/expansion-panels/>
-final ExpansionPanelDetails = ReactJsComponentFactoryProxy(MaterialUI.ExpansionPanelDetails);
-
-/// See: <https://material-ui.com/components/expansion-panels/>
-final ExpansionPanelSummary = ReactJsComponentFactoryProxy(MaterialUI.ExpansionPanelSummary);
 
 /// See: <https://material-ui.com/components/grid/>
 final Grid = ReactJsComponentFactoryProxy(MaterialUI.Grid);
