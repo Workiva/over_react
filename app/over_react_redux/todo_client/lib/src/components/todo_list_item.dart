@@ -6,7 +6,7 @@ import 'package:over_react/src/component/test_fixtures/redraw_counter_component_
 
 import 'package:todo_client/src/actions.dart';
 import 'package:todo_client/src/models/todo.dart';
-import 'package:todo_client/src/components/shared/list_item_expansion_panel_summary.dart';
+import 'package:todo_client/src/components/shared/list_item_accordion_summary.dart';
 import 'package:todo_client/src/components/shared/list_item_mixin.dart';
 import 'package:react_material_ui/react_material_ui.dart';
 import 'package:todo_client/src/components/shared/todo_item_text_field.dart';
@@ -62,13 +62,13 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
 
   @override
   render() {
-    return (ExpansionPanel()
+    return (Accordion()
         ..className = model.isCompleted ? 'Mui-disabled' : null
-        ..onChange = sharedExpansionPanelProps['onChange']
-        ..expanded = sharedExpansionPanelProps['expanded']
-        ..style = sharedExpansionPanelProps['style']
+        ..onChange = sharedAccordionProps['onChange']
+        ..expanded = sharedAccordionProps['expanded']
+        ..style = sharedAccordionProps['style']
     )(
-      (ListItemExpansionPanelSummary()
+      (ListItemAccordionSummary()
         ..modelId = model.id
         ..allowExpansion = allowExpansion
         ..isEditable = props.isEditable
@@ -78,7 +78,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
         _renderTaskHeader(),
         _renderUserSelector(),
       ),
-      ExpansionPanelDetails()(
+      AccordionDetails()(
         _renderTaskNotes(),
       ),
       _renderEditableTaskActions(),
@@ -176,7 +176,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
 
     return Fragment()(
       Divider({}),
-      ExpansionPanelActions()(
+      AccordionActions()(
         (Grid()
             ..container = true
             ..direction = GridDirection.ROW

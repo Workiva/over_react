@@ -5,12 +5,12 @@ import 'package:over_react/over_react.dart';
 import 'package:todo_client/src/components/shared/hoverable_item_mixin.dart';
 import 'package:react_material_ui/react_material_ui.dart';
 
-part 'list_item_expansion_panel_summary.over_react.g.dart';
+part 'list_item_accordion_summary.over_react.g.dart';
 
-UiFactory<ListItemExpansionPanelSummaryProps> ListItemExpansionPanelSummary =
-    _$ListItemExpansionPanelSummary; // ignore: undefined_identifier
+UiFactory<ListItemAccordionSummaryProps> ListItemAccordionSummary =
+    _$ListItemAccordionSummary; // ignore: undefined_identifier
 
-mixin ListItemExpansionPanelSummaryProps on UiProps {
+mixin ListItemAccordionSummaryProps on UiProps {
   @requiredProp
   String modelId;
   @requiredProp
@@ -21,17 +21,17 @@ mixin ListItemExpansionPanelSummaryProps on UiProps {
   Function() onToggleEditable;
 }
 
-class ListItemExpansionPanelSummaryState = UiState with HoverableItemStateMixin;
+class ListItemAccordionSummaryState = UiState with HoverableItemStateMixin;
 
-class ListItemExpansionPanelSummaryComponent
-    extends UiStatefulComponent2<ListItemExpansionPanelSummaryProps, ListItemExpansionPanelSummaryState>
-    with HoverableItemMixin<ListItemExpansionPanelSummaryProps, ListItemExpansionPanelSummaryState> {
+class ListItemAccordionSummaryComponent
+    extends UiStatefulComponent2<ListItemAccordionSummaryProps, ListItemAccordionSummaryState>
+    with HoverableItemMixin<ListItemAccordionSummaryProps, ListItemAccordionSummaryState> {
   @override
   get itemNodeRef => createRef<Element>();
 
   @override
   render() {
-    return (ExpansionPanelSummary()
+    return (AccordionSummary()
         ..ref = itemNodeRef
         ..aria.controls = 'details_${props.modelId}'
         ..id = 'summary_${props.modelId}'
