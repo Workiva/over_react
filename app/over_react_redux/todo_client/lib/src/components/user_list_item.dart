@@ -7,7 +7,7 @@ import 'package:over_react/src/component/test_fixtures/redraw_counter_component_
 import 'package:todo_client/src/actions.dart';
 import 'package:todo_client/src/models/user.dart';
 import 'package:todo_client/src/components/shared/avatar_with_colors.dart';
-import 'package:todo_client/src/components/shared/list_item_expansion_panel_summary.dart';
+import 'package:todo_client/src/components/shared/list_item_accordion_summary.dart';
 import 'package:todo_client/src/components/shared/list_item_mixin.dart';
 import 'package:react_material_ui/react_material_ui.dart';
 import 'package:todo_client/src/components/shared/todo_item_text_field.dart';
@@ -63,9 +63,9 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
   @override
   render() {
     return (Accordion()
-      ..onChange = sharedExpansionPanelProps['onChange']
-      ..expanded = sharedExpansionPanelProps['expanded']
-      ..style = sharedExpansionPanelProps['style']
+      ..onChange = sharedAccordionProps['onChange']
+      ..expanded = sharedAccordionProps['expanded']
+      ..style = sharedAccordionProps['style']
     )(
       (ListItemAccordionSummary()
         ..modelId = model.id
