@@ -62,12 +62,12 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
 
   @override
   render() {
-    return (ExpansionPanel()
+    return (Accordion()
       ..onChange = sharedExpansionPanelProps['onChange']
       ..expanded = sharedExpansionPanelProps['expanded']
       ..style = sharedExpansionPanelProps['style']
     )(
-      (ListItemExpansionPanelSummary()
+      (ListItemAccordionSummary()
         ..modelId = model.id
         ..allowExpansion = allowExpansion
         ..isEditable = props.isEditable
@@ -76,7 +76,7 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
         _renderUserAvatar(),
         _renderUserNameHeader(),
       ),
-      ExpansionPanelDetails()(
+      AccordionDetails()(
         _renderUserBio(),
       ),
       _renderEditableUserActions(),
@@ -149,7 +149,7 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
 
     return Fragment()(
       Divider({}),
-      ExpansionPanelActions()(
+      AccordionActions()(
         (Grid()
             ..container = true
             ..direction = GridDirection.ROW
