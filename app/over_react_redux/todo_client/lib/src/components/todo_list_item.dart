@@ -243,7 +243,7 @@ final useStyles = makeStyles(styleFunction: (theme) => MuiStyleMap()
   })
   ..addRule('colorSecondary', {
     'color': theme.palette.secondary.light,
-  }), options: MakeStylesOptions()..defaultTheme = simpleTheme);
+  }), options: MuiStyleOptions()..defaultTheme = simpleTheme);
 
 mixin TodoCheckboxProps on UiProps {
   Todo model;

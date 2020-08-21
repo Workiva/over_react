@@ -110,7 +110,7 @@ final useStylesWithOptions = makeStyles(
             'width': 100,
           },
         }),
-    options: (MakeStylesOptions()
+    options: (MuiStyleOptions()
       ..name = 'this-is-a-custom-name'
       ..defaultTheme = backupTheme
       ..meta = 'the_last_tag_because_of_index'
@@ -135,7 +135,7 @@ final stylesWithElementOption = makeStyles(
         ...standardHeightAndWidth,
       }
     },
-    options: MakeStylesOptions()
+    options: MuiStyleOptions()
       ..element = (StyleElement()..id = 'a_custom_style_tag'));
 
 UiFactory<NoPropsBoxWrapperProps> BoxWithElement = uiFunction(
@@ -151,7 +151,7 @@ final stylesWithMediaOption = makeStyles(styleMap: {
   'root': {
     ...standardHeightAndWidth,
   }
-}, options: MakeStylesOptions()..media = 'print');
+}, options: MuiStyleOptions()..media = 'print');
 
 UiFactory<NoPropsBoxWrapperProps> BoxWithMedia = uiFunction(
   (props) {

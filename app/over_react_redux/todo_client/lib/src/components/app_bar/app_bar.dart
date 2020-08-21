@@ -10,7 +10,7 @@ part 'app_bar.over_react.g.dart';
 final useStyles = makeStyles(styleFunction: (theme) => MuiStyleMap()
       ..addRule('app-bar', {
         'backgroundColor': theme.palette.grey['900'],
-      }), options: MakeStylesOptions()..defaultTheme = simpleTheme);
+      }), options: MuiStyleOptions()..defaultTheme = simpleTheme);
 
 mixin TodoAppBarProps on UiProps {}
 
