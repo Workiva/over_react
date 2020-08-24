@@ -105,12 +105,6 @@ UiFactory<ParentProps> Parent = uiFunction(
   $ParentConfig, // ignore: undefined_identifier
 );
 
-Map<String, dynamic> themedStyles(MuiTheme theme) => {
-      'root': {
-        'backgroundColor': theme.palette.primary.dark,
-      }
-    };
-
 class ThemedButtonProps = UiProps with WithStyleClassesPropsMixin;
 
 UiFactory<ThemedButtonProps> ThemedButton = uiFunction(
@@ -123,4 +117,10 @@ UiFactory<ThemedButtonProps> ThemedButton = uiFunction(
 );
 
 UiFactory<ThemedButtonProps> ThemedButtonWithStyles =
-    withStyles<ThemedButtonProps>(themedStyles)(ThemedButton);
+    withThemedStyles<ThemedButtonProps>((theme) {
+  return {
+    'root': {
+      'backgroundColor': theme.palette.primary.dark,
+    }
+  };
+})(ThemedButton);
