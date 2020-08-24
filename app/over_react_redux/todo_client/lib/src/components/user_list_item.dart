@@ -7,7 +7,7 @@ import 'package:over_react/src/component/test_fixtures/redraw_counter_component_
 import 'package:todo_client/src/actions.dart';
 import 'package:todo_client/src/models/user.dart';
 import 'package:todo_client/src/components/shared/avatar_with_colors.dart';
-import 'package:todo_client/src/components/shared/list_item_expansion_panel_summary.dart';
+import 'package:todo_client/src/components/shared/list_item_accordion_summary.dart';
 import 'package:todo_client/src/components/shared/list_item_mixin.dart';
 import 'package:react_material_ui/react_material_ui.dart';
 import 'package:todo_client/src/components/shared/todo_item_text_field.dart';
@@ -62,12 +62,12 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
 
   @override
   render() {
-    return (ExpansionPanel()
-      ..onChange = sharedExpansionPanelProps['onChange']
-      ..expanded = sharedExpansionPanelProps['expanded']
-      ..style = sharedExpansionPanelProps['style']
+    return (Accordion()
+      ..onChange = sharedAccordionProps['onChange']
+      ..expanded = sharedAccordionProps['expanded']
+      ..style = sharedAccordionProps['style']
     )(
-      (ListItemExpansionPanelSummary()
+      (ListItemAccordionSummary()
         ..modelId = model.id
         ..allowExpansion = allowExpansion
         ..isEditable = props.isEditable
@@ -76,7 +76,7 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
         _renderUserAvatar(),
         _renderUserNameHeader(),
       ),
-      ExpansionPanelDetails()(
+      AccordionDetails()(
         _renderUserBio(),
       ),
       _renderEditableUserActions(),
@@ -149,7 +149,7 @@ class UserListItemComponent extends UiStatefulComponent2<UserListItemProps, User
 
     return Fragment()(
       Divider({}),
-      ExpansionPanelActions()(
+      AccordionActions()(
         (Grid()
             ..container = true
             ..direction = GridDirection.ROW
