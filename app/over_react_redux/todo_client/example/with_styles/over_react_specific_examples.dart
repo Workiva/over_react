@@ -28,6 +28,7 @@ class ClassBasedComponentComponent
   @override
   render() {
     return (Button()..classes = {'root': props.withStyleClasses['root']})(
-        'Styled OverReact Button');
+      'Styled OverReact Button',
+    );
   }
 }
