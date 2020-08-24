@@ -2,6 +2,7 @@ import 'package:over_react/over_react.dart';
 import 'package:react_material_ui/react_material_ui.dart';
 
 import 'mui_basic_example.dart';
+import 'options_examples.dart';
 
 part 'example_entrypoint.over_react.g.dart'; // ignore: uri_has_not_been_generated
 
@@ -36,13 +37,18 @@ UiFactory<ExampleEntrypointProps> ExampleEntrypoint = uiFunction(
           (Grid()..container = true)(
             (Grid()..item = true)(
               Dom.h5()('No Styles'),
-              MyButtonRaw()(),
+              MyButtonRaw()('No Color'),
             ),
             (Grid()..item = true)(
               Dom.h5()('Styles'),
               (MyButton()..color = 'red')('Red'),
               (MyButton()..color = 'Blue')('Blue'),
             ),
+          ),
+        ),
+        (Grid()..container = true)(
+          (Grid()..item = true)(
+            Dom.h5()('Nested Example'),
           ),
           (Grid()..container = true)(
             (Grid()..item = true)(
@@ -70,18 +76,58 @@ UiFactory<ExampleEntrypointProps> ExampleEntrypoint = uiFunction(
             ),
           ),
         ),
+      ),
+      Container()(
+        Dom.h4()(
+          'withStyles Options Examples',
+        ),
         (Grid()..container = true)(
           (Grid()..item = true)(
-            Dom.h5()('Custom Themed Styles'),
+            Dom.h5()('Backup theme'),
           ),
           (Grid()..container = true)(
             (Grid()..item = true)(
-              Dom.h5()('Custom Themed'),
+              CustomThemedButtonWithStyles()(),
             ),
-            (Grid()..container = true)(
-              (Grid()..item = true)(
-                CustomThemedButtonWithStyles()(),
-              ),
+          ),
+        ),
+        (Grid()..container = true)(
+          (Grid()..item = true)(
+            Dom.h5()('Custom Style Element'),
+          ),
+          (Grid()..container = true)(
+            (Grid()..item = true)(
+              CustomStyleElementWithStyles()(),
+            ),
+          ),
+        ),
+        (Grid()..container = true)(
+          (Grid()..item = true)(
+            Dom.h5()('Media Option'),
+          ),
+          (Grid()..container = true)(
+            (Grid()..item = true)(
+              MediaOptionButton()(),
+            ),
+          ),
+        ),
+        (Grid()..container = true)(
+          (Grid()..item = true)(
+            Dom.h5()('Specified Index'),
+          ),
+          (Grid()..container = true)(
+            (Grid()..item = true)(
+              SpecifiedIndexButtonWithStyles()(),
+            ),
+          ),
+        ),
+        (Grid()..container = true)(
+          (Grid()..item = true)(
+            Dom.h5()('Misc.'),
+          ),
+          (Grid()..container = true)(
+            (Grid()..item = true)(
+              MiscOptionsWithStyles()(),
             ),
           ),
         ),

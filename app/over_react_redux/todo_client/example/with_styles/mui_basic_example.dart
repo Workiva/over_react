@@ -2,8 +2,6 @@ import 'package:over_react/over_react.dart';
 import 'package:react_material_ui/react_material_ui.dart';
 import 'package:react/react_client/js_backed_map.dart';
 
-import '../make_styles/box.dart';
-
 part 'mui_basic_example.over_react.g.dart'; // ignore: uri_has_not_been_generated
 
 const styles = {
@@ -126,19 +124,3 @@ UiFactory<ThemedButtonProps> ThemedButton = uiFunction(
 
 UiFactory<ThemedButtonProps> ThemedButtonWithStyles =
     withStyles<ThemedButtonProps>(themedStyles)(ThemedButton);
-
-class CustomThemedButtonProps = UiProps with WithStyleClassesPropsMixin;
-
-UiFactory<CustomThemedButtonProps> CustomThemedButton = uiFunction(
-  (props) {
-    return ((Button()..className = props.withStyleClasses['root'])(
-      'Themed Button',
-    ));
-  },
-  $CustomThemedButtonConfig, // ignore: undefined_identifier
-);
-
-UiFactory<CustomThemedButtonProps> CustomThemedButtonWithStyles =
-    withStyles<CustomThemedButtonProps>(themedStyles,
-        options: MuiStyleOptions()
-          ..defaultTheme = backupTheme)(CustomThemedButton);
