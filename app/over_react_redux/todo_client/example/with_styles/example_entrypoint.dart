@@ -3,6 +3,7 @@ import 'package:react_material_ui/react_material_ui.dart';
 
 import 'mui_basic_example.dart';
 import 'options_examples.dart';
+import 'over_react_specific_examples.dart';
 
 part 'example_entrypoint.over_react.g.dart'; // ignore: uri_has_not_been_generated
 
@@ -128,6 +129,21 @@ UiFactory<ExampleEntrypointProps> ExampleEntrypoint = uiFunction(
           (Grid()..container = true)(
             (Grid()..item = true)(
               MiscOptionsWithStyles()(),
+            ),
+          ),
+        ),
+      ),
+      Container()(
+        Dom.h4()(
+          'OverReact specific examples',
+        ),
+        (Grid()..container = true)(
+          (Grid()..item = true)(
+            Dom.h5()('A class wrapped in withStyles'),
+          ),
+          (Grid()..container = true)(
+            (Grid()..item = true)(
+              (StyledClassBasedComponent()..color = 'blue')(),
             ),
           ),
         ),

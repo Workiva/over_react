@@ -68,7 +68,7 @@ UiFactory<MyButtonRawProps> MyButtonRaw = uiFunction(
 
 UiFactory<MyButtonRawProps> MyButton = withStyles<MyButtonRawProps>(
   dynamicStyles,
-  propsFactory: $MyButtonRawConfig.propsFactory, // ignore: undefined_identifier
+  propsBuilder: $MyButtonRawConfig.propsFactory, // ignore: undefined_identifier
 )(MyButtonRaw);
 
 class NestedProps = UiProps with WithStyleClassesPropsMixin;
