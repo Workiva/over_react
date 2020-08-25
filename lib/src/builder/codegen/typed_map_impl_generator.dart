@@ -46,7 +46,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
 
   TypedMapNames get names;
   bool get isComponent2;
-  FactoryNames get factoryNames;
+  List<FactoryNames> get factoryNames;
   bool get isProps;
 
   BoilerplateTypedMapMember get member;
@@ -71,9 +71,10 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
 
   void _generateFactory() {
     if (factoryNames == null) throw StateError('factoryNames must not be null');
+    assert(factoryNames.length == 1, 'factoryNames must have a length of 1');
 
     outputContentsBuffer
-        .write('${names.implName} ${factoryNames.implName}([Map backingProps]) => ');
+        .write('${names.implName} ${factoryNames.first.implName}([Map backingProps]) => ');
 
     if (!isComponent2) {
       /// _$$FooProps _$Foo([Map backingProps]) => _$$FooProps(backingProps);
@@ -266,7 +267,7 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
   final TypedMapNames names;
 
   @override
-  final FactoryNames factoryNames;
+  final List<FactoryNames> factoryNames;
 
   @override
   final bool isProps;
@@ -278,13 +279,13 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
 
   _LegacyTypedMapImplGenerator.props(this.declaration)
       : names = TypedMapNames(declaration.props.name.name),
-        factoryNames = FactoryNames(declaration.factory.name.name),
+        factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.props,
         isProps = true;
 
   _LegacyTypedMapImplGenerator.state(this.declaration)
       : names = TypedMapNames(declaration.state.name.name),
-        factoryNames = FactoryNames(declaration.factory.name.name),
+        factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.state,
         isProps = false;
 
@@ -329,7 +330,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   final TypedMapNames names;
 
   @override
-  final FactoryNames factoryNames;
+  final List<FactoryNames> factoryNames;
 
   @override
   final bool isProps;
@@ -339,36 +340,62 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
 
   final String componentFactoryName;
 
+  final bool isFunctionComponentDeclaration;
+
   @override
   final Version version;
 
   _TypedMapImplGenerator.props(ClassComponentDeclaration declaration)
       : names = TypedMapNames(declaration.props.either.name.name),
-        factoryNames = FactoryNames(declaration.factory.name.name),
+        factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.props.either,
         isProps = true,
         componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName,
+        isFunctionComponentDeclaration = false,
         version = declaration.version;
 
   _TypedMapImplGenerator.state(ClassComponentDeclaration declaration)
       : names = TypedMapNames(declaration.state.either.name.name),
-        factoryNames = FactoryNames(declaration.factory.name.name),
+        factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.state.either,
         isProps = false,
         componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName,
+        isFunctionComponentDeclaration = false,
         version = declaration.version;
 
   _TypedMapImplGenerator.propsMapViewOrFunctionComponent(
       PropsMapViewOrFunctionComponentDeclaration declaration)
       : names = TypedMapNames(declaration.props.either.name.name),
-        factoryNames = FactoryNames(declaration.factory.name.name),
+        factoryNames =
+            declaration.factories.map((factory) => FactoryNames(factory.name.name)).toList(),
         member = declaration.props.either,
         isProps = true,
         componentFactoryName = 'null',
+        isFunctionComponentDeclaration = declaration.factories.first.shouldGenerateConfig,
         version = declaration.version;
 
   @override
   bool get isComponent2 => true;
+
+  String _generateUiFactoryConfig(FactoryNames factoryName) {
+    return 'final UiFactoryConfig<${names.implName}> '
+        '${factoryName.configName} = UiFactoryConfig(\n'
+        'propsFactory: PropsFactory(\n'
+        'map: (map) => ${names.implName}(map),\n'
+        'jsMap: (map) => ${names.jsMapImplName}(map),),\n'
+        'displayName: \'${factoryName.consumerName}\');\n\n';
+  }
+
+  @override
+  void _generateFactory() {
+    if (isFunctionComponentDeclaration) {
+      for (final factoryName in factoryNames) {
+        outputContentsBuffer.write(_generateUiFactoryConfig(factoryName));
+      }
+    } else {
+      super._generateFactory();
+    }
+  }
 
   @override
   void _generatePropsImpl() {

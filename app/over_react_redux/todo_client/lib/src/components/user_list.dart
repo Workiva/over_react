@@ -1,10 +1,10 @@
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
+import 'package:over_react/src/component/test_fixtures/redraw_counter_component_mixin.dart';
 
 import 'package:todo_client/src/store.dart';
 import 'package:todo_client/src/models/user.dart';
 import 'package:todo_client/src/components/shared/display_list.dart';
-import 'package:todo_client/src/components/shared/redraw_counter_component_mixin.dart';
 import 'package:todo_client/src/components/user_list_item.dart';
 
 part 'user_list.over_react.g.dart';

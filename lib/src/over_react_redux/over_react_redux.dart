@@ -18,16 +18,16 @@ library over_react_redux;
 
 import 'dart:html';
 import 'dart:js_util' as js_util;
-import 'package:meta/meta.dart';
-import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
-import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
-import 'package:collection/collection.dart';
+
 import 'package:js/js.dart';
+import 'package:memoize/memoize.dart';
+import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
+import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
 import 'package:react/react_client.dart';
-import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_client/js_backed_map.dart';
+import 'package:react/react_client/react_interop.dart';
 import 'package:redux/redux.dart';
 
 part 'over_react_redux.over_react.g.dart';
@@ -89,10 +89,10 @@ typedef dynamic Dispatcher(dynamic action);
 /// If you do not provide [mergeProps], the wrapped component receives {...ownProps, ...stateProps, ...dispatchProps}
 /// by default.
 ///
-/// - [areStatesEqual] does a simple `==` check by default.
-/// - [areOwnPropsEqual] does a shallow Map equality check by default.
-/// - [areStatePropsEqual] does a shallow Map equality check by default.
-/// - [areMergedPropsEqual] does a shallow Map equality check by default.
+/// - [areStatesEqual] does an equality check using JS `===` (equivalent to [identical]) by default.
+/// - [areOwnPropsEqual] does a shallow Map equality check using [propsOrStateMapsEqual] by default.
+/// - [areStatePropsEqual] does a shallow Map equality check using [propsOrStateMapsEqual] by default.
+/// - [areMergedPropsEqual] does a shallow Map equality check using [propsOrStateMapsEqual] by default.
 ///
 /// - [context] can be utilized to provide a custom context object created with `createContext`.
 /// [context] is how you can utilize multiple stores. While supported, this is not recommended. :P
@@ -149,18 +149,15 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
   Map Function(dynamic Function(dynamic) dispatch, TProps ownProps) mapDispatchToPropsWithOwnProps,
   Map Function(TProps stateProps, TProps dispatchProps, TProps ownProps) mergeProps,
   bool Function(TReduxState nextState, TReduxState prevState) areStatesEqual,
-  bool Function(TProps nextProps, TProps prevProps) areOwnPropsEqual,
-  bool Function(TProps nextProps, TProps prevProps) areStatePropsEqual,
-  bool Function(TProps nextProps, TProps prevProps) areMergedPropsEqual,
+  // Use default parameter values instead of ??= in the function body to allow consumers
+  // to specify `null` and fall back to the JS default.
+  bool Function(TProps nextProps, TProps prevProps) areOwnPropsEqual = propsOrStateMapsEqual,
+  bool Function(TProps nextProps, TProps prevProps) areStatePropsEqual = propsOrStateMapsEqual,
+  bool Function(TProps nextProps, TProps prevProps) areMergedPropsEqual = propsOrStateMapsEqual,
   Context context,
   bool pure = true,
   bool forwardRef = false,
 }) {
-  areStatesEqual ??= _defaultEquality;
-  areOwnPropsEqual ??= _shallowMapEquality;
-  areStatePropsEqual ??= _shallowMapEquality;
-  areMergedPropsEqual ??= _shallowMapEquality;
-
   UiFactory<TProps> wrapWithConnect(UiFactory<TProps> factory) {
     final dartComponentFactory = factory().componentFactory;
     final dartComponentClass = dartComponentFactory.type;
@@ -230,19 +227,31 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
     bool handleAreMergedPropsEqual(JsMap jsNext, JsMap jsPrev) =>
         areMergedPropsEqual(jsPropsToTProps(jsNext), jsPropsToTProps(jsPrev));
 
+    final connectOptions = JsConnectOptions(
+      forwardRef: forwardRef,
+      pure: pure,
+      context: context?.jsThis ?? JsReactRedux.ReactReduxContext,
+    );
+    // These can't be `null` in the JS object, so we conditionally define them
+    // so they won't exist in the object if we don't want to specify them.
+    if (areStatesEqual != null) {
+      connectOptions.areStatesEqual = allowInterop(handleAreStatesEqual);
+    }
+    if (areOwnPropsEqual != null) {
+      connectOptions.areOwnPropsEqual = allowInterop(handleAreOwnPropsEqual);
+    }
+    if (areStatePropsEqual != null) {
+      connectOptions.areStatePropsEqual = allowInterop(handleAreStatePropsEqual);
+    }
+    if (areMergedPropsEqual != null) {
+      connectOptions.areMergedPropsEqual = allowInterop(handleAreMergedPropsEqual);
+    }
+
     final hoc = mockableJsConnect(
       mapStateToProps != null ? allowInteropWithArgCount(handleMapStateToProps, 1) : mapStateToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapStateToPropsWithOwnProps, 2) : null,
       mapDispatchToProps != null ? allowInteropWithArgCount(handleMapDispatchToProps, 1) : mapDispatchToPropsWithOwnProps != null ? allowInteropWithArgCount(handleMapDispatchToPropsWithOwnProps, 2) : null,
       mergeProps != null ? allowInterop(handleMergeProps) : null,
-      JsConnectOptions(
-        areStatesEqual: allowInterop(handleAreStatesEqual),
-        areOwnPropsEqual: allowInterop(handleAreOwnPropsEqual),
-        areStatePropsEqual: allowInterop(handleAreStatePropsEqual),
-        areMergedPropsEqual: allowInterop(handleAreMergedPropsEqual),
-        forwardRef: forwardRef,
-        pure: pure,
-        context: context?.jsThis ?? JsReactRedux.ReactReduxContext,
-      ),
+      connectOptions,
     )(dartComponentClass);
 
     /// Use a Dart proxy instead of a JS one since we're treating it like a Dart component:
@@ -262,9 +271,6 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
 
   return wrapWithConnect;
 }
-
-bool _defaultEquality(Object a, Object b) => a == b;
-bool _shallowMapEquality(Map a, Map b) => const MapEquality().equals(a, b);
 
 @JS('ReactRedux.connect')
 external ReactClass Function(ReactClass) _jsConnect(
@@ -367,10 +373,15 @@ class ReactJsReactReduxComponentFactoryProxy extends ReactJsContextComponentFact
 }
 
 /// Converts a Redux.dart [Store] into a Javascript object formatted for consumption by react-redux.
-JsReactReduxStore _reduxifyStore(Store store){
+JsReactReduxStore _reduxifyStore(Store store) {
+  // Memoize this so that the same ReactInteropValue instances will be used
+  // for a given state, allowing JS `===` checks to not fail when the same
+  // state object is passed.
+  final memoizedWrapInteropValue = imemo1(wrapInteropValue);
+
   return JsReactReduxStore(
     getState: allowInterop(() {
-      return wrapInteropValue(store.state);
+      return memoizedWrapInteropValue(store.state);
     }),
     subscribe: allowInterop((cb) {
       return allowInterop(store.onChange.listen((_){cb();}).cancel);

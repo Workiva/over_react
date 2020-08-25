@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:meta/meta.dart';
-import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
 import 'package:over_react/over_react.dart';
 import 'package:react/react_client/react_interop.dart';
@@ -49,7 +48,7 @@ class Context<TValue> {
   Context(this.Provider, this.Consumer, this.reactDartContext);
 
   /// The react.dart version of this context.
-  final react.Context reactDartContext;
+  final react.Context<TValue> reactDartContext;
 
   /// The react.js version of this context.
   ReactContext get jsThis => reactDartContext.jsThis;
@@ -237,7 +236,7 @@ class _DO_NOT_USE_OR_YOU_WILL_BE_FIRED {
 ///
 /// Learn more: <https://reactjs.org/docs/context.html#reactcreatecontext>
 Context<TValue> createContext<TValue>([TValue defaultValue, int Function(TValue, TValue) calculateChangedBits]) {
-  react.Context reactDartContext = react.createContext(defaultValue, calculateChangedBits != null ? (dynamic arg1, dynamic arg2) => calculateChangedBits(arg1, arg2) : null);
+  final reactDartContext = react.createContext<TValue>(defaultValue, calculateChangedBits != null ? (dynamic arg1, dynamic arg2) => calculateChangedBits(arg1, arg2) : null);
   // ignore: prefer_function_declarations_over_variables, avoid_types_on_closure_parameters
   UiFactory<ProviderProps> Provider = ([Map map]) => (ProviderProps<TValue>(map)..componentFactory = reactDartContext.Provider);
   // ignore: prefer_function_declarations_over_variables, avoid_types_on_closure_parameters

@@ -243,18 +243,79 @@ main() {
       });
 
       group('propsGenericArg', () {
-        test('returns the correct props class', () {
+        group('on a component factory', () {
+          test('returns the correct props class', () {
+            final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
+                UiFactory<FooProps> Foo = _$Foo;
+            '''), VersionConfidences.none());
+            expect(factory.propsGenericArg?.typeNameWithoutPrefix, 'FooProps');
+          });
+
+          test('returns null if there is no type arg', () {
+            final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
+                UiFactory Foo = _$Foo;
+            '''), VersionConfidences.none());
+            expect(factory.propsGenericArg, isNull);
+          });
+        });
+
+        group('on a function component factory', () {
+          test('returns the correct props class', () {
+            final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
+                UiFactory<FooProps> Foo = uiFunction(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  $FooConfig, // ignore: undefined_identifier
+                );
+            '''), VersionConfidences.none());
+            expect(factory.propsGenericArg?.typeNameWithoutPrefix, 'FooProps');
+          });
+
+          test('returns the correct props class without left hand typing', () {
+            final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
+                final Foo = uiFunction<FooProps>(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  $FooConfig, // ignore: undefined_identifier
+                );
+            '''), VersionConfidences.none());
+            expect(factory.propsGenericArg?.typeNameWithoutPrefix, 'FooProps');
+          });
+
+          test('returns null if there is no type arg', () {
+            final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
+                UiFactory Foo = uiFunction(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  $FooConfig, // ignore: undefined_identifier
+                );
+            '''), VersionConfidences.none());
+            expect(factory.propsGenericArg, isNull);
+          });
+        });
+      });
+
+      group('isFunctionComponentFactory', () {
+        test('returns false for component factories', () {
           final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
               UiFactory<FooProps> Foo = _$Foo;
           '''), VersionConfidences.none());
-          expect(factory.propsGenericArg?.typeNameWithoutPrefix, 'FooProps');
+          expect(factory.shouldGenerateConfig, isFalse);
         });
 
-        test('returns null if there is no type arg', () {
+        test('returns true for function component factories', () {
           final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
-              UiFactory Foo = _$Foo;
+              UiFactory Foo = uiFunction(
+                (props) {
+                  return Dom.div()();
+                },
+                $FooConfig, // ignore: undefined_identifier
+              );
           '''), VersionConfidences.none());
-          expect(factory.propsGenericArg, isNull);
+          expect(factory.shouldGenerateConfig, isTrue);
         });
       });
 
