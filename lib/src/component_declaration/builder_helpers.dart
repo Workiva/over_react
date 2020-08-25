@@ -185,9 +185,10 @@ class IllegalInstantiationError extends Error {
 
 abstract class GeneratedErrorMessages {
   static const String typedStateFactory = '\n\n'
-        'This error may be due to your `UiState` class not being annotated with `@State()`,\n'
-        'or because you are extending a stateful component without redeclaring your own `@State()`, like so:\n\n'
-        '    @State()\n';
+      'This error may be due to your state not being picked up by the builder,'
+      ' or because you are extending a stateful component without redeclaring your own state.'
+      '\nDouble-check that your component has a state mixin and/or class and that its name matches'
+      ' that of the factory/props/component.';
 
   static const String component1AnnotationOnComponent2 = '\n\n'
         'This error may be due to using @Component() instead of @Component2() on your component extending from UiComponent2.';
