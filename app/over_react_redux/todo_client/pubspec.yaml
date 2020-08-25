@@ -38,4 +38,4 @@ dependency_overrides:
   react_material_ui:
     git:
       url: git@github.com:aaronlademann-wf/react_material_ui.git
-      ref: beginnings-v2
+      ref: CPLAT-11503-css-in-js
