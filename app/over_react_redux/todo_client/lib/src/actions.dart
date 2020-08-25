@@ -43,6 +43,10 @@ class SaveLocalStorageStateAsAction {
   Map<String, dynamic> toJson() => _$SaveLocalStorageStateAsActionToJson(this);
 }
 
+class UseThemeAction extends _Action<String> {
+  UseThemeAction(String value) : super(value);
+}
+
 // ------------ ITEM ACTIONS ------------------
 
 class SelectTodoAction extends _Action<String> {

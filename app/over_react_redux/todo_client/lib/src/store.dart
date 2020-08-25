@@ -3,6 +3,7 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_dev_tools/redux_dev_tools.dart';
+import 'package:todo_client/src/components/app_bar/app_bar_theme_menu.dart';
 
 import 'package:todo_client/src/models/todo.dart';
 import 'package:todo_client/src/models/user.dart';
@@ -38,6 +39,7 @@ class AppState {
   List<String> selectedUserIds;
   List<String> editableUserIds;
   List<String> highlightedUserIds;
+  String theme;
 
   AppState(this.name, {
     this.todos,
@@ -48,6 +50,7 @@ class AppState {
     this.selectedUserIds,
     this.editableUserIds,
     this.highlightedUserIds,
+    this.theme
   }) : assert(name != null && name.isNotEmpty);
 
   factory AppState.fromJson(Map<String, dynamic> json) => _$AppStateFromJson(json);
@@ -69,6 +72,7 @@ AppState appStateReducer(AppState state, dynamic action) {
     editableUserIds: editableUsersReducer(state.editableUserIds, action),
     selectedUserIds: selectedUsersReducer(state.selectedUserIds, action),
     highlightedUserIds: highlightedUsersReducer(state.highlightedUserIds, action),
+    theme: themeNameReducer(state.theme, action),
   );
 }
 
@@ -103,6 +107,10 @@ Middleware<AppState> localStorageMiddleware() {
 
 final stateNameReducer = TypedReducer<String, SaveLocalStorageStateAsAction>((name, action) {
   return action.name;
+});
+
+final themeNameReducer = TypedReducer<String, UseThemeAction>((theme, action) {
+  return action.value;
 });
 
 final todosReducer = combineReducers<List<Todo>>([
