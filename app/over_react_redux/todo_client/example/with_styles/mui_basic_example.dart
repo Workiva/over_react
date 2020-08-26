@@ -16,11 +16,11 @@ const styles = {
   },
 };
 
-class HigherOrderComponentProps = UiProps with WithStyleClassesPropsMixin;
+class HigherOrderComponentProps = UiProps with MuiClassesMixin;
 
 UiFactory<HigherOrderComponentProps> HigherOrderComponent = uiFunction(
   (props) {
-    return ((Button()..className = props.withStyleClasses['root'])(
+    return ((Button()..className = props.muiClasses['root'])(
       'Higher-order component',
     ));
   },
@@ -54,12 +54,11 @@ mixin MyButtonRawPropsMixin on UiProps {
   String color;
 }
 
-class MyButtonRawProps = UiProps
-    with MyButtonRawPropsMixin, WithStyleClassesPropsMixin;
+class MyButtonRawProps = UiProps with MyButtonRawPropsMixin, MuiClassesMixin;
 
 UiFactory<MyButtonRawProps> MyButtonRaw = uiFunction(
   (props) {
-    return ((Button()..className = props.withStyleClasses['root'])(
+    return ((Button()..className = props.muiClasses['root'])(
       props.children,
     ));
   },
@@ -71,12 +70,12 @@ UiFactory<MyButtonRawProps> MyButton = withStyles<MyButtonRawProps>(
   propsBuilder: $MyButtonRawConfig.propsFactory, // ignore: undefined_identifier
 )(MyButtonRaw);
 
-class NestedProps = UiProps with WithStyleClassesPropsMixin;
+class NestedProps = UiProps with MuiClassesMixin;
 
 UiFactory<NestedProps> Nested = uiFunction(
   (props) {
-    return ((Dom.button()..className = props.withStyleClasses['root'])(
-      (Dom.span()..className = props.withStyleClasses['label'])(
+    return ((Dom.button()..className = props.muiClasses['root'])(
+      (Dom.span()..className = props.muiClasses['label'])(
         'Nested',
       ),
     ));
@@ -100,16 +99,16 @@ mixin ParentProps on UiProps {}
 
 UiFactory<ParentProps> Parent = uiFunction(
   (props) {
-    return (NestedWithStyles()..withStyleClasses = {'label': 'my-label'})();
+    return (NestedWithStyles()..muiClasses = {'label': 'my-label'})();
   },
   $ParentConfig, // ignore: undefined_identifier
 );
 
-class ThemedButtonProps = UiProps with WithStyleClassesPropsMixin;
+class ThemedButtonProps = UiProps with MuiClassesMixin;
 
 UiFactory<ThemedButtonProps> ThemedButton = uiFunction(
   (props) {
-    return ((Button()..className = props.withStyleClasses['root'])(
+    return ((Button()..className = props.muiClasses['root'])(
       'Themed Button',
     ));
   },

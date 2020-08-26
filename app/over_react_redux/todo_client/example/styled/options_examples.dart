@@ -15,19 +15,14 @@ final backupTheme = MuiTheme()
   });
 
 Map<String, dynamic> themedStyles(MuiTheme theme) => {
-      'root': {
-        'backgroundColor': theme.palette.primary.dark,
-      },
-      'light': {
-        'backgroundColor': theme.palette.primary.light,
-      },
+      'backgroundColor': theme.palette.primary.dark,
     };
 
-class CustomThemedButtonProps = UiProps with MuiClassesMixin;
+mixin CustomThemedButtonProps on UiProps {}
 
 UiFactory<CustomThemedButtonProps> CustomThemedButton = uiFunction(
   (props) {
-    return ((Button()..className = props.muiClasses['root'])(
+    return ((Button()..className = props.className)(
       'Themed Button',
     ));
   },
@@ -35,15 +30,17 @@ UiFactory<CustomThemedButtonProps> CustomThemedButton = uiFunction(
 );
 
 UiFactory<CustomThemedButtonProps> CustomThemedButtonWithStyles =
-    withStyles<CustomThemedButtonProps>(themedStyles,
-        options: MuiStyleOptions()
-          ..defaultTheme = backupTheme)(CustomThemedButton);
+    styledWithTheme<CustomThemedButtonProps>(CustomThemedButton)((theme) {
+  return {
+    'backgroundColor': theme.palette.primary.main,
+  };
+}, options: MuiStyleOptions()..defaultTheme = backupTheme);
 
-class CustomStyleElementProps = UiProps with MuiClassesMixin;
+mixin CustomStyleElementProps on UiProps {}
 
 UiFactory<CustomStyleElementProps> CustomStyleElement = uiFunction(
   (props) {
-    return ((Button()..className = props.muiClasses['light'])(
+    return ((Button()..className = props.className)(
       'With a Custom Style Tag',
     ));
   },
@@ -51,16 +48,15 @@ UiFactory<CustomStyleElementProps> CustomStyleElement = uiFunction(
 );
 
 UiFactory<CustomStyleElementProps> CustomStyleElementWithStyles =
-    withStyles<CustomStyleElementProps>(themedStyles,
+    styledWithTheme<CustomStyleElementProps>(CustomStyleElement)(themedStyles,
         options: MuiStyleOptions()
-          ..element =
-              (StyleElement()..id = 'custom-style-tag'))(CustomStyleElement);
+          ..element = (StyleElement()..id = 'custom-style-tag'));
 
-class MediaOptionButtonProps = UiProps with MuiClassesMixin;
+mixin MediaOptionButtonProps on UiProps {}
 
 UiFactory<MediaOptionButtonProps> MediaOptionButton = uiFunction(
   (props) {
-    return ((Button()..className = props.muiClasses['light'])(
+    return ((Button()..className = props.className)(
       'With the Print Media Option',
     ));
   },
@@ -68,14 +64,14 @@ UiFactory<MediaOptionButtonProps> MediaOptionButton = uiFunction(
 );
 
 UiFactory<MediaOptionButtonProps> MediaOptionButtonWithStyles =
-    withStyles<MediaOptionButtonProps>(themedStyles,
-        options: MuiStyleOptions()..media = 'print')(MediaOptionButton);
+    styledWithTheme<MediaOptionButtonProps>(MediaOptionButton)(themedStyles,
+        options: MuiStyleOptions()..media = 'print');
 
-class SpecifiedIndexButtonProps = UiProps with MuiClassesMixin;
+mixin SpecifiedIndexButtonProps on UiProps {}
 
 UiFactory<SpecifiedIndexButtonProps> SpecifiedIndexButton = uiFunction(
   (props) {
-    return ((Button()..className = props.muiClasses['light'])(
+    return ((Button()..className = props.className)(
       'With specified index',
     ));
   },
@@ -83,17 +79,17 @@ UiFactory<SpecifiedIndexButtonProps> SpecifiedIndexButton = uiFunction(
 );
 
 UiFactory<SpecifiedIndexButtonProps> SpecifiedIndexButtonWithStyles =
-    withStyles<SpecifiedIndexButtonProps>(themedStyles,
-            options: MuiStyleOptions()
-              ..index = 1
-              ..meta = 'This should be the last style tag in the header')(
-        SpecifiedIndexButton);
+    styledWithTheme<SpecifiedIndexButtonProps>(SpecifiedIndexButton)(
+        themedStyles,
+        options: MuiStyleOptions()
+          ..index = 1
+          ..meta = 'This should be the last style tag in the header');
 
 class MiscOptionsProps = UiProps with MuiClassesMixin;
 
 UiFactory<MiscOptionsProps> MiscOptions = uiFunction(
   (props) {
-    return ((Button()..className = props.muiClasses['light'])(
+    return ((Button()..className = props.className)(
       'Button With Misc Options',
     ));
   },
@@ -101,7 +97,7 @@ UiFactory<MiscOptionsProps> MiscOptions = uiFunction(
 );
 
 UiFactory<MiscOptionsProps> MiscOptionsWithStyles =
-    withStyles<MiscOptionsProps>(themedStyles,
+    styledWithTheme<MiscOptionsProps>(MiscOptions)(themedStyles,
         options: MuiStyleOptions()
           ..name = 'this-is-a-custom-name'
-          ..meta = 'this meta is set manually')(MiscOptions);
+          ..meta = 'this meta is set manually');
