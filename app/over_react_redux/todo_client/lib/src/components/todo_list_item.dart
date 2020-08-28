@@ -237,7 +237,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   }
 }
 
-final useStyles = makeStyles(styleFunction: (theme) => MuiStyleMap()
+final useStyles = makeThemedStyles((theme) => MuiStyleMap()
   ..addRule('colorPrimary', {
     'color': theme.palette.primary.light,
   })

@@ -3,8 +3,7 @@ import 'package:react_material_ui/react_material_ui.dart';
 
 part 'container.over_react.g.dart'; // ignore: uri_has_not_been_generated
 
-final useStyles = makeStyles(
-  styleMap: MuiStyleMap({
+final useStyles = makeStyles(MuiStyleMap({
     'newRoot': (ContainerWrapperProps props) => ({
           // Note that the null aware here is essentially serving the purpose of default props
           // Do we want a better interface for that?
@@ -12,7 +11,7 @@ final useStyles = makeStyles(
           'height': 500,
         })
   }),
-  config: $ContainerWrapperConfig, // ignore: undefined_identifier
+  propsBuilder: $ContainerWrapperConfig.propsFactory, // ignore: undefined_identifier, invalid_use_of_protected_member
 );
 
 mixin ContainerWrapperProps on UiProps {

@@ -17,14 +17,13 @@ Map<String, dynamic> getBoxColored(String boxColor) {
   };
 }
 
-final useStyles = makeStyles<BoxWrapperProps>(
-  styleMap: MuiStyleMap<BoxWrapperProps>()
+final useStyles = makeStyles<BoxWrapperProps>(MuiStyleMap<BoxWrapperProps>()
     ..addFunctionRule('arbitrary', (props) {
       return getBoxColored(props.color);
     })
     ..addRule('arbitrary-2', getBoxColored('blue'))
     ..addRule('noProps', getBoxColored('red')),
-  config: $BoxWrapperConfig, // ignore: undefined_identifier
+  propsBuilder: $BoxWrapperConfig.propsFactory, // ignore: undefined_identifier, invalid_use_of_protected_member
 );
 
 mixin BoxWrapperProps on UiProps {
@@ -51,8 +50,7 @@ UiFactory<NoPropsBoxWrapperProps> NoPropsBoxWrapper = uiFunction(
   $NoPropsBoxWrapperConfig, // ignore: undefined_identifier
 );
 
-final useFunctionStyles = makeStyles<FunctionStylesBoxWrapperProps>(
-  styleFunction: (theme) {
+final useFunctionStyles = makeThemedStyles<FunctionStylesBoxWrapperProps>((theme) {
     return MuiStyleMap<FunctionStylesBoxWrapperProps>()
       ..addFunctionRule('root', (props) {
         return {
@@ -66,7 +64,7 @@ final useFunctionStyles = makeStyles<FunctionStylesBoxWrapperProps>(
         ...standardHeightAndWidth,
       });
   },
-  config: $FunctionStylesBoxWrapperConfig, // ignore: undefined_identifier
+  propsBuilder: $FunctionStylesBoxWrapperConfig.propsFactory, // ignore: undefined_identifier, invalid_use_of_protected_member
 );
 
 mixin FunctionStylesBoxWrapperProps on UiProps {
@@ -102,8 +100,7 @@ final backupTheme = MuiTheme()
 
 // When inspecting the DOM, this `<style>` tag should be last because
 // of the index.
-final useStylesWithOptions = makeStyles(
-    styleFunction: (theme) => MuiStyleMap({
+final useStylesWithOptions = makeThemedStyles((theme) => MuiStyleMap({
           'root': {
             'backgroundColor': theme.palette.primary.light,
             'height': 100,
@@ -127,8 +124,7 @@ UiFactory<NoPropsBoxWrapperProps> OptionsBoxWrapper = uiFunction(
   $OptionsBoxWrapperConfig, // ignore: undefined_identifier
 );
 
-final stylesWithElementOption = makeStyles(
-    styleMap: {
+final stylesWithElementOption = makeStyles({
       'root': {
         'backgroundColor': 'orange',
         'color': 'white',
@@ -147,7 +143,7 @@ UiFactory<NoPropsBoxWrapperProps> BoxWithElement = uiFunction(
   $BoxWithMediaConfig, // ignore: undefined_identifier
 );
 
-final stylesWithMediaOption = makeStyles(styleMap: {
+final stylesWithMediaOption = makeStyles({
   'root': {
     ...standardHeightAndWidth,
   }
@@ -162,7 +158,7 @@ UiFactory<NoPropsBoxWrapperProps> BoxWithMedia = uiFunction(
   $BoxWithMediaConfig, // ignore: undefined_identifier
 );
 
-final nestedUseStylesParent = makeStyles(styleMap: {
+final nestedUseStylesParent = makeStyles({
   'the_parent_class': {
     'backgroundColor': 'red',
     'color': '#FFF',
@@ -175,14 +171,13 @@ final nestedUseStylesParent = makeStyles(styleMap: {
   },
 });
 
-final nestedUseStylesChild = makeStyles(
-  styleFunction: (theme) => {
+final nestedUseStylesChild = makeThemedStyles((theme) => {
     'the_child_class': {
       'backgroundColor': 'blue',
       ...standardHeightAndWidth,
     },
   },
-  config: $NestedBoxWrapperConfig, // ignore: undefined_identifier
+  propsBuilder: $NestedBoxWrapperConfig.propsFactory, // ignore: undefined_identifier, invalid_use_of_protected_member
 );
 
 mixin NestedBoxWrapperProps on UiProps {

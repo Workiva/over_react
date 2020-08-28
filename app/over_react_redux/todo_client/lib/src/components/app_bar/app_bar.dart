@@ -8,7 +8,7 @@ import '../../theme.dart';
 
 part 'app_bar.over_react.g.dart';
 
-final useStyles = makeStyles(styleFunction: (theme) => MuiStyleMap()
+final useStyles = makeThemedStyles((theme) => MuiStyleMap()
       ..addRule('app-bar', {
         'backgroundColor': theme.palette.grey['900'],
       }), options: MuiStyleOptions()..defaultTheme = simpleTheme);

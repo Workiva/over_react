@@ -18,7 +18,7 @@ final useStyles = makeStyles<BoxWrapperProps>({
   'arbitrary-2': getBoxColored('blue'),
   'noProps': getBoxColored('red'),
 },
-  config: $BoxWrapperConfig, // ignore: undefined_identifier
+  propsBuilder: $BoxWrapperConfig.propsFactory, // ignore: undefined_identifier
 );
 
 mixin BoxWrapperProps on UiProps {
@@ -59,7 +59,7 @@ final useFunctionStyles = makeStyles<FunctionStylesBoxWrapperProps>((theme) {
     }
   };
 },
-  config: $FunctionStylesBoxWrapperConfig, // ignore: undefined_identifier
+  propsBuilder: $FunctionStylesBoxWrapperConfig.propsFactory, // ignore: undefined_identifier
 );
 
 mixin FunctionStylesBoxWrapperProps on UiProps {
