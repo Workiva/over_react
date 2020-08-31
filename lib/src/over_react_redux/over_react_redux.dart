@@ -170,6 +170,17 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
   bool pure = true,
   bool forwardRef = false,
 }) {
+  List<dynamic> mapStateToPropsCheck = [mapStateToProps, mapStateToPropsWithOwnProps, makeMapStateToProps, makeMapStateToPropsWithOwnProps]..removeWhere((x) => x == null);
+  List<dynamic> mapDispatchToPropsCheck = [mapDispatchToProps, mapDispatchToPropsWithOwnProps, makeMapDispatchToProps, makeMapDispatchToPropsWithOwnProps]..removeWhere((x) => x == null);
+
+  if (mapStateToPropsCheck.length > 1) {
+    throw ArgumentError('Only one of the following arguments can be provided at a time: [mapStateToProps, mapStateToPropsWithOwnProps, makeMapStateToProps, makeMapStateToPropsWithOwnProps]');
+  }
+
+  if (mapDispatchToPropsCheck.length > 1) {
+    throw ArgumentError('Only one of the following arguments can be provided at a time: [mapDispatchToProps, mapDispatchToPropsWithOwnProps, makeMapDispatchToProps, makeMapDispatchToPropsWithOwnProps]');
+  }
+
   UiFactory<TProps> wrapWithConnect(UiFactory<TProps> factory) {
     final dartComponentFactory = factory().componentFactory;
     final dartComponentClass = dartComponentFactory.type;

@@ -68,6 +68,24 @@ main() {
       expect(() => connect<CounterState, NonComponentTwoCounterProps>()(NonComponentTwoCounter), throwsArgumentError);
     });
 
+    test('throws when multiple `mapStateToProps` type args are provided', () {
+      expect(() => connect<CounterState, NonComponentTwoCounterProps>(
+          mapStateToProps: (state){},
+          makeMapStateToProps: (state, ownProps){}
+        )(NonComponentTwoCounter),
+        throwsArgumentError
+      );
+    });
+
+    test('throws when multiple `mapDispatchToProps` type args are provided', () {
+      expect(() => connect<CounterState, NonComponentTwoCounterProps>(
+          mapDispatchToProps: (state){},
+          makeMapDispatchToProps: (state, ownProps){}
+        )(NonComponentTwoCounter),
+        throwsArgumentError
+      );
+    });
+
     group('Provider Usage', () {
       test('throws without a provider', () {
         ConnectedCounter = connect<CounterState, CounterProps>()(Counter);
@@ -105,7 +123,7 @@ main() {
 
     group('mapStateToProps properly maps the state to the components props',
         () {
-      test('on inital load', () {
+      test('on initial load', () {
         ConnectedCounter = connect<CounterState, CounterProps>(
             mapStateToProps: (state) {
               return Counter()..currentCount = state.count;
@@ -151,7 +169,7 @@ main() {
 
       test('without converting the props whatsoever', () {
         // Test functions/Maps to ensure they're not allowInterop'd,
-        // test event handlers to ensure they're not oterwise converted
+        // test event handlers to ensure they're not otherwise converted
         testFunction() => 'foo';
         const testMap = {'foo': 'bar'};
         testEventHandler(SyntheticMouseEvent e) {}
@@ -200,7 +218,7 @@ main() {
     group(
         'mapStateToPropsWithOwnProps properly maps the state to the components props',
         () {
-      test('on inital load', () {
+      test('on initial load', () {
         ConnectedCounter = connect<CounterState, CounterProps>(
             mapStateToPropsWithOwnProps: (state, ownProps) {
               return Counter()..currentCount = state.count;
@@ -507,7 +525,7 @@ main() {
             },
             areStatePropsEqual: (next, prev) {
               calls.add({'name': 'areStatePropsEqual', 'next': next, 'prev': prev});
-              // Force it to always be true, meaing it shouldnt re-render if they change.
+              // Force it to always be true, meaning it shouldn't re-render if they change.
               return true;
             },
             forwardRef: true,
@@ -696,7 +714,7 @@ main() {
         expect(bigCounter.innerHtml, contains('Count: 100'));
       });
 
-      test('correctly renderes when contexts are nested', () async {
+      test('correctly renders when contexts are nested', () async {
         var bigCounterContext = createContext();
         ConnectedCounter = connect<CounterState, CounterProps>(
           mapStateToProps: (state) {
