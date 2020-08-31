@@ -207,13 +207,14 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
         unwrapInteropValue(initialJsState),
         jsPropsToTProps(initialJsOwnProps)
       );
-      return allowInteropWithArgCount((jsState) {
+      handleMakeMapStateToPropsFactory(jsState) {
         return jsMapFromProps(
           mapToFactory(
             unwrapInteropValue(jsState),
           ),
         );
-      }, 1);
+      }
+      return allowInteropWithArgCount(handleMakeMapStateToPropsFactory, 1);
     }
 
     JsMap Function(ReactInteropValue jsState, JsMap jsOwnProps) handleMakeMapStateToPropsWithOwnProps(ReactInteropValue initialJsState, JsMap initialJsOwnProps) {
@@ -221,14 +222,15 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
         unwrapInteropValue(initialJsState),
         jsPropsToTProps(initialJsOwnProps)
       );
-      return allowInteropWithArgCount((jsState, jsOwnProps) {
+      handleMakeMapStateToPropsWithOwnPropsFactory(jsState, jsOwnProps) {
         return jsMapFromProps(
           mapToFactory(
             unwrapInteropValue(jsState),
             jsPropsToTProps(jsOwnProps),
           ),
         );
-      }, 2);
+      }
+      return allowInteropWithArgCount(handleMakeMapStateToPropsWithOwnPropsFactory, 2);
     }
 
     JsMap handleMapDispatchToProps(Dispatcher dispatch) {
@@ -251,13 +253,14 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
         dispatch,
         jsPropsToTProps(initialJsOwnProps)
       );
-      return allowInteropWithArgCount((dispatch) {
+      handleMakeMapDispatchToPropsFactory(dispatch) {
         return jsMapFromProps(
           mapToFactory(
             dispatch,
           ),
         );
-      }, 1);
+      }
+      return allowInteropWithArgCount(handleMakeMapDispatchToPropsFactory, 1);
     }
 
     JsMap Function(Dispatcher dispatch, JsMap jsOwnProps) handleMakeMapDispatchToPropsWithOwnProps(Dispatcher dispatch, JsMap initialJsOwnProps) {
@@ -265,14 +268,15 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
         dispatch,
         jsPropsToTProps(initialJsOwnProps)
       );
-      return allowInteropWithArgCount((dispatch, jsOwnProps) {
+      handleMakeMapDispatchToPropsWithOwnPropsFactory(dispatch, jsOwnProps) {
         return jsMapFromProps(
           mapToFactory(
             dispatch,
             jsPropsToTProps(jsOwnProps),
           ),
         );
-      }, 2);
+      }
+      return allowInteropWithArgCount(handleMakeMapDispatchToPropsWithOwnPropsFactory, 2);
     }
 
     JsMap handleMergeProps(JsMap jsStateProps, JsMap jsDispatchProps, JsMap jsOwnProps) {
@@ -317,6 +321,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       connectOptions.areMergedPropsEqual = allowInterop(handleAreMergedPropsEqual);
     }
 
+    // return typed as dynamic in case we ever want to allow for the object based syntax
     dynamic interopMapStateToPropsHandler() {
       if (mapStateToProps != null) {
         return allowInteropWithArgCount(handleMapStateToProps, 1);
@@ -333,6 +338,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       return null;
     }
 
+    // return typed as dynamic in case we ever want to allow for the object based syntax
     dynamic interopMapDispatchToPropsHandler() {
       if (mapDispatchToProps != null) {
         return allowInteropWithArgCount(handleMapDispatchToProps, 1);
