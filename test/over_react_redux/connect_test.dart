@@ -69,19 +69,19 @@ main() {
     });
 
     test('throws when multiple `mapStateToProps` type args are provided', () {
-      expect(() => connect<CounterState, NonComponentTwoCounterProps>(
+      expect(() => connect<CounterState, CounterProps>(
           mapStateToProps: (state){},
           makeMapStateToProps: (state, ownProps){}
-        )(NonComponentTwoCounter),
+        )(Counter),
         throwsArgumentError
       );
     });
 
     test('throws when multiple `mapDispatchToProps` type args are provided', () {
-      expect(() => connect<CounterState, NonComponentTwoCounterProps>(
+      expect(() => connect<CounterState, CounterProps>(
           mapDispatchToProps: (state){},
           makeMapDispatchToProps: (state, ownProps){}
-        )(NonComponentTwoCounter),
+        )(Counter),
         throwsArgumentError
       );
     });
