@@ -246,7 +246,7 @@ main() {
     });
 
     group('makeMapStateToProps', () {
-      test('only calls factory on initial load', () async {
+      test('only calls factory on component mount', () async {
         ConnectedCounter = connect<CounterState, CounterProps>(
             makeMapStateToProps: expectAsync2((initialState, initialOwnProps) {
               return expectAsync1((state) {
@@ -273,7 +273,7 @@ main() {
     });
 
     group('makeMapStateToPropsWithOwnProps', () {
-      test('only calls factory on initial load', () async {
+      test('only calls factory on component mount', () async {
         ConnectedCounter = connect<CounterState, CounterProps>(
             makeMapStateToPropsWithOwnProps: expectAsync2((initialState, initialOwnProps) {
               return expectAsync2((state, ownProps) {
