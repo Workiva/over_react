@@ -80,32 +80,32 @@ To run and experiment with the "Todo" app:
 
 1. Add the `redux` package as a dependency in your `pubspec.yaml`.
 
-   ```yaml
-   dependencies:
-     redux: '>=3.0.0'
-   ```
+    ```yaml
+    dependencies:
+      redux: '>=3.0.0'
+    ```
 
 1. Create your store and reducer. See the [example store](../web/over_react_redux/examples/simple/store.dart) for
    ways to do this.
 1. Import OverReact Redux and your store into your `index.dart`.
-   ```dart
-   import 'package:over_react/over_react_redux.dart';
-   ```
+    ```dart
+    import 'package:over_react/over_react_redux.dart';
+    ```
 1. Wrap your component tree in a `ReduxProvider` and pass in the store.
 
-   ```dart
-   import 'package:over_react/over_react_redux.dart';
-   import 'package:over_react/react_dom.dart' as react_dom;
+    ```dart
+    import 'package:over_react/over_react_redux.dart';
+    import 'package:over_react/react_dom.dart' as react_dom;
 
-   main() {
-     react_dom.render(
-       (ReduxProvider()..store = fooStore)(
-         // ... React component tree with connected components
-       ),
-       mountNode,
-     );
-   }
-   ```
+    main() {
+      react_dom.render(
+        (ReduxProvider()..store = fooStore)(
+          // ... React component tree with connected components
+        ),
+        mountNode,
+      );
+    }
+    ```
 
 1. Import OverReact Redux and your store into the file with your component.
 1. Update your component class.
@@ -117,24 +117,24 @@ To run and experiment with the "Todo" app:
         `mapDispatchToProps`, by default the `dispatch` property on `props` is removed. It can be added back
         using `ConnectPropsToMixin`.
 
-   ```dart
-   // AppState is a class that represents the application's state and can be defined in the same file as the store.
-   UiFactory<FooProps> Foo = connect<AppState, FooProps>(
-       ...
-   )(_$Foo);
+    ```dart
+    // AppState is a class that represents the application's state and can be defined in the same file as the store.
+    UiFactory<FooProps> Foo = connect<AppState, FooProps>(
+        ...
+    )(_$Foo);
 
-   // Use the ConnectPropsMixin to gain access to React Redux's dispatch function, which can be accessed via
-   // props.dispatch.
-   mixin FooPropsMixin on UiProps {
-       ...
-   }
+    // Use the ConnectPropsMixin to gain access to React Redux's dispatch function, which can be accessed via
+    // props.dispatch.
+    mixin FooPropsMixin on UiProps {
+        ...
+    }
 
-   class FooProps = UiProps with ConnectPropsMixin, FooPropsMixin;
+    class FooProps = UiProps with ConnectPropsMixin, FooPropsMixin;
 
-   class FooComponent extends UiComponent2<FooProps> {
-       ...
-   }
-   ```
+    class FooComponent extends UiComponent2<FooProps> {
+        ...
+    }
+    ```
 
 ## ReduxProvider
 
@@ -322,29 +322,29 @@ react_dom.render(
 In the case that you need to have multiple stores, here are the steps to do so:
 
 1. Create a `Context` instance to provide to the `ReduxProvider` and the components that will be in that context.
-   ```dart
-   final fooContext = createContext();
-   ```
+    ```dart
+    final fooContext = createContext();
+    ```
 1. In the `connect` function wrapping the component, pass in the context instance.
-   ```dart
-   UiFactory<BarProps> Bar = connect<BarState, BarProps>(
-     // ... mapStateToProps
-     context: fooContext,
-   )(_$Bar);
-   ```
+    ```dart
+    UiFactory<BarProps> Bar = connect<BarState, BarProps>(
+      // ... mapStateToProps
+      context: fooContext,
+    )(_$Bar);
+    ```
 1. Add an additional `ReduxProvider`, with its `context` prop set to the next Context instance and the `store` prop
    set to your additional store.
-   ```dart
-   // ... Wrapped in a reactDom.render()
-   (ReduxProvider()..store = store1)(
-     (ReduxProvider()
-       ..store = store2
-       ..context = bigCounterContext
-     )(
-       // ... connected componentry
-     ),
-   )
-   ```
+    ```dart
+    // ... Wrapped in a reactDom.render()
+    (ReduxProvider()..store = store1)(
+      (ReduxProvider()
+        ..store = store2
+        ..context = bigCounterContext
+      )(
+        // ... connected componentry
+      ),
+    )
+    ```
 
 ## Using Redux DevTools
 
@@ -353,23 +353,23 @@ Redux DevTools can be set up easily by adding only a few lines of code.
 > Additional information about `redux_dev_tools` and `DevToolsStore`s can be found [here](https://github.com/brianegan/redux_dev_tools#redux_dev_tools)
 
 1. Add `redux_dev_tools` as a dev dependency in your `pubspec.yaml`.
-   ```yaml
-   dev_dependencies:
-     redux_dev_tools: ^0.4.0
-   ```
+    ```yaml
+    dev_dependencies:
+      redux_dev_tools: ^0.4.0
+    ```
 1. Import `redux_dev_tools` into your store file.
-   ```dart
-   import 'package:redux_dev_tools/redux_dev_tools.dart';
-   ```
+    ```dart
+    import 'package:redux_dev_tools/redux_dev_tools.dart';
+    ```
 1. Change your `Store` to a `DevToolsStore` instance and add the constant `overReactReduxDevToolsMiddleware` to your middleware.
-   ```diff
-   - var store = new Store<AppState>(
-   + var store = new DevToolsStore<AppState>(
-       /*ReducerName*/,
-       initialState: /*Default App State Object*/,
-   +   middleware: [overReactReduxDevToolsMiddleware],
-     );
-   ```
+    ```diff
+    - var store = new Store<AppState>(
+    + var store = new DevToolsStore<AppState>(
+        /*ReducerName*/,
+        initialState: /*Default App State Object*/,
+    +   middleware: [overReactReduxDevToolsMiddleware],
+      );
+    ```
    > **NOTE:** You should revert back to a normal `Store` without the `overReactReduxDevToolsMiddleware` prior to making your code public (via publishing a package or deploying to production) as it will be less performant and could be a security risk.
 1. Get the Redux Devtools extension:
    - Chrome: https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en
