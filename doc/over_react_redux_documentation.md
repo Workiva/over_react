@@ -148,10 +148,10 @@ optionally take in a context object when using multiple stores.
 
 ```dart
 react_dom.render(
- (ReduxProvider()..store = fooStore)(
-   // ... React component tree with connected components
- ),
- mountNode,
+  (ReduxProvider()..store = fooStore)(
+    // ... React component tree with connected components
+  ),
+  mountNode,
 );
 ```
 
