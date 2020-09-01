@@ -19,17 +19,17 @@ class TodoAppBarComponent extends UiComponent2<TodoAppBarProps> {
   @override
   render() {
     return Fragment()(
-        (AppBar()..modifyProps(addUnconsumedProps))(
-          Toolbar()(
+      (AppBar()..modifyProps(addUnconsumedProps))(
+        Toolbar()(
             (Box()..flexGrow = 1)(
               (Typography()
                 ..variant =
                     TypographyVariant.H6)('OverReact Redux Todo Demo App'),
             ),
             AppBarLocalStorageMenu()(),
-          ),
-        ),
-        Toolbar()(),
-        AppBarThemeMenu()());
+            AppBarThemeMenu()()),
+      ),
+      Toolbar()(),
+    );
   }
 }
