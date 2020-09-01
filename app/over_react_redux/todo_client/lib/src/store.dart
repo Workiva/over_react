@@ -3,7 +3,6 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_dev_tools/redux_dev_tools.dart';
-import 'package:todo_client/src/components/app_bar/app_bar_theme_menu.dart';
 
 import 'package:todo_client/src/models/todo.dart';
 import 'package:todo_client/src/models/user.dart';
@@ -20,13 +19,13 @@ AppState initializeState() {
 }
 
 DevToolsStore<AppState> getStore() => DevToolsStore<AppState>(
-  appStateReducer,
-  initialState: initializeState(),
-  middleware: [
-    overReactReduxDevToolsMiddleware,
-    localStorageMiddleware(),
-  ],
-);
+      appStateReducer,
+      initialState: initializeState(),
+      middleware: [
+        overReactReduxDevToolsMiddleware,
+        localStorageMiddleware(),
+      ],
+    );
 
 @JsonSerializable(explicitToJson: true)
 class AppState {
@@ -41,19 +40,20 @@ class AppState {
   List<String> highlightedUserIds;
   String theme;
 
-  AppState(this.name, {
-    this.todos,
-    this.users,
-    this.selectedTodoIds,
-    this.editableTodoIds,
-    this.highlightedTodoIds,
-    this.selectedUserIds,
-    this.editableUserIds,
-    this.highlightedUserIds,
-    this.theme
-  }) : assert(name != null && name.isNotEmpty);
+  AppState(this.name,
+      {this.todos,
+      this.users,
+      this.selectedTodoIds,
+      this.editableTodoIds,
+      this.highlightedTodoIds,
+      this.selectedUserIds,
+      this.editableUserIds,
+      this.highlightedUserIds,
+      this.theme})
+      : assert(name != null && name.isNotEmpty);
 
-  factory AppState.fromJson(Map<String, dynamic> json) => _$AppStateFromJson(json);
+  factory AppState.fromJson(Map<String, dynamic> json) =>
+      _$AppStateFromJson(json);
   Map<String, dynamic> toJson() => _$AppStateToJson(this);
 }
 
@@ -63,19 +63,21 @@ AppState appStateReducer(AppState state, dynamic action) {
     return action.value;
   }
 
-  return AppState(stateNameReducer(state.name, action),
+  return AppState(
+    stateNameReducer(state.name, action),
     todos: todosReducer(state.todos, action),
     users: usersReducer(state.users, action),
     editableTodoIds: editableTodosReducer(state.editableTodoIds, action),
     selectedTodoIds: selectedTodosReducer(state.selectedTodoIds, action),
-    highlightedTodoIds: highlightedTodosReducer(state.highlightedTodoIds, action),
+    highlightedTodoIds:
+        highlightedTodosReducer(state.highlightedTodoIds, action),
     editableUserIds: editableUsersReducer(state.editableUserIds, action),
     selectedUserIds: selectedUsersReducer(state.selectedUserIds, action),
-    highlightedUserIds: highlightedUsersReducer(state.highlightedUserIds, action),
+    highlightedUserIds:
+        highlightedUsersReducer(state.highlightedUserIds, action),
     theme: themeNameReducer(state.theme, action),
   );
 }
-
 
 // todo inject localTodoAppStorage as an arg instead of using a global variable
 Middleware<AppState> localStorageMiddleware() {
@@ -83,7 +85,8 @@ Middleware<AppState> localStorageMiddleware() {
     next(action);
 
     if (action is LoadStateFromLocalStorageAction) {
-      final localStorageState = AppState.fromJson(localTodoAppStorage[action.value]);
+      final localStorageState =
+          AppState.fromJson(localTodoAppStorage[action.value]);
       store.dispatch(LocalStorageStateLoadedAction(localStorageState));
     } else if (action is SaveLocalStorageStateAsAction) {
       if (action.previousName != null) {
@@ -105,7 +108,8 @@ Middleware<AppState> localStorageMiddleware() {
 
 // ------------ ITEM REDUCERS ------------------
 
-final stateNameReducer = TypedReducer<String, SaveLocalStorageStateAsAction>((name, action) {
+final stateNameReducer =
+    TypedReducer<String, SaveLocalStorageStateAsAction>((name, action) {
   return action.name;
 });
 
@@ -150,11 +154,14 @@ final editableTodosReducer = combineReducers<List<String>>([
 ]);
 
 final highlightedTodosReducer = combineReducers<List<String>>([
-  TypedReducer<List<String>, HighlightTodosAction>((highlightedTodoIds, action) {
+  TypedReducer<List<String>, HighlightTodosAction>(
+      (highlightedTodoIds, action) {
     return [...highlightedTodoIds, ...action.value];
   }),
-  TypedReducer<List<String>, UnHighlightTodosAction>((highlightedTodoIds, action) {
-    return List.of(highlightedTodoIds)..removeWhere((id) => action.value.contains(id));
+  TypedReducer<List<String>, UnHighlightTodosAction>(
+      (highlightedTodoIds, action) {
+    return List.of(highlightedTodoIds)
+      ..removeWhere((id) => action.value.contains(id));
   }),
 ]);
 
@@ -197,10 +204,13 @@ Reducer<List<String>> editableUsersReducer = combineReducers<List<String>>([
 ]);
 
 final highlightedUsersReducer = combineReducers<List<String>>([
-  TypedReducer<List<String>, HighlightUsersAction>((highlightedUserIds, action) {
+  TypedReducer<List<String>, HighlightUsersAction>(
+      (highlightedUserIds, action) {
     return [...highlightedUserIds, ...action.value];
   }),
-  TypedReducer<List<String>, UnHighlightUsersAction>((highlightedUserIds, action) {
-    return List.of(highlightedUserIds)..removeWhere((id) => action.value.contains(id));
+  TypedReducer<List<String>, UnHighlightUsersAction>(
+      (highlightedUserIds, action) {
+    return List.of(highlightedUserIds)
+      ..removeWhere((id) => action.value.contains(id));
   }),
 ]);

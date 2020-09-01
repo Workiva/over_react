@@ -6,7 +6,7 @@ import 'package:todo_client/src/store.dart';
 import 'package:react_material_ui/react_material_ui.dart';
 import 'package:todo_client/src/components/shared/menu_overlay.dart';
 
-part 'app_bar_theme_menu.over_react.g.dart';
+part 'app_bar_theme_menu.over_react.g.dart'; // ignore: uri_has_not_been_generated
 
 class AppTheme {
   static const String defaultMui = 'defaultMui';

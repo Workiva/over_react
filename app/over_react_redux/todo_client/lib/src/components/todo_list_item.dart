@@ -13,8 +13,6 @@ import 'package:todo_client/src/components/shared/todo_item_text_field.dart';
 import 'package:todo_client/src/components/user_selector.dart';
 import 'package:todo_client/src/store.dart';
 
-import '../theme.dart';
-
 part 'todo_list_item.over_react.g.dart';
 
 UiFactory<TodoListItemProps> TodoListItem = connect<AppState, TodoListItemProps>(
@@ -76,10 +74,7 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
         ..isEditable = props.isEditable
         ..onToggleEditable = toggleEditable
       )(
-        (TodoCheckbox()
-          ..model = model
-          ..updateModel = updateModel
-        )(),
+        _renderTaskCheckbox(),
         _renderTaskHeader(),
         _renderUserSelector(),
       ),
@@ -91,7 +86,28 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
   }
 
   ReactElement _renderTaskCheckbox() {
-
+    return (Box()
+        ..shrinkToFit = true
+        ..ml = -2
+        ..mr = 1
+        ..alignSelf = 'center'
+    )(
+      (Tooltip()
+        ..enterDelay = 500
+        ..title = model.isCompleted ? 'Mark as not completed' : 'Mark as completed'
+      )(
+        (Checkbox()
+            ..checked = model.isCompleted
+            ..inputProps = {
+              'aria-label': 'Complete Task'
+            }
+            ..value = 'isCompleted'
+            ..onChange = (_) { updateModel(Todo.from(model)..isCompleted = !model.isCompleted); }
+            ..onClick = (SyntheticEvent e) { e.stopPropagation(); }
+            ..onFocus = (SyntheticEvent e) { e.stopPropagation(); }
+        )()
+      ),
+    );
   }
 
   ReactElement _renderTaskHeader() {
@@ -236,47 +252,3 @@ class TodoListItemComponent extends UiStatefulComponent2<TodoListItemProps, Todo
     )('Save');
   }
 }
-
-final useStyles = makeStyles(styleFunction: (theme) => MuiStyleMap()
-  ..addRule('colorPrimary', {
-    'color': theme.palette.primary.light,
-  })
-  ..addRule('colorSecondary', {
-    'color': theme.palette.secondary.light,
-  }), options: MuiStyleOptions()..defaultTheme = simpleTheme);
-
-mixin TodoCheckboxProps on UiProps {
-  Todo model;
-  void Function(Todo newModelValue) updateModel;
-}
-
-UiFactory<TodoCheckboxProps> TodoCheckbox = uiFunction((props) {
-  final classes = useStyles();
-
-  return (Box()
-    ..shrinkToFit = true
-    ..ml = -2
-    ..mr = 1
-    ..alignSelf = 'center'
-  )(
-    (Tooltip()
-      ..enterDelay = 500
-      ..title = props.model.isCompleted ? 'Mark as not completed' : 'Mark as completed'
-    )(
-        (Checkbox()
-          ..classes = classes
-          ..checked = props.model.isCompleted
-          ..inputProps = {
-            'aria-label': 'Complete Task'
-          }
-          ..color=CheckboxColor.PRIMARY
-          ..value = 'isCompleted'
-          ..onChange = (_) { props.updateModel(Todo.from(props.model)..isCompleted = !props.model.isCompleted); }
-          ..onClick = (SyntheticEvent e) { e.stopPropagation(); }
-          ..onFocus = (SyntheticEvent e) { e.stopPropagation(); }
-        )()
-    ),
-  );
-},
- $TodoCheckboxConfig, // ignore: undefined_identifier
-);
