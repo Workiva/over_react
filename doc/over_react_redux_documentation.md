@@ -191,7 +191,7 @@ UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
 
     > See: <https://react-redux.js.org/using-react-redux/connect-mapstate#defining-mapstatetoprops>
 
-  - If you need component-instance-specific initialization, such as to setup instance based selectors with
+  - If you need component-instance-specific initialization, such as to set up instance based selectors with
     memoization, you can use `makeMapStateToProps` or `makeMapStateToPropsWithOwnProps` to define factory functions,
     they will be called once when the component instantiates, and their returns will be used as the actual `mapStateToProps`.
 
@@ -211,7 +211,7 @@ UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
 
     > See: <https://react-redux.js.org/using-react-redux/connect-mapdispatch#defining-mapdispatchtoprops-as-a-function>
 
-  - If you need component-instance-specific initialization, such as to setup instance based selectors with
+  - If you need component-instance-specific initialization, such as to set up instance based selectors with
     memoization, you can use `makeMapDispatchToProps` or `makeMapDispatchToPropsWithOwnProps` to define factory functions,
     they will be called once when the component instantiates, and their returns will be used as the actual `mapDispatchToProps`.
 
