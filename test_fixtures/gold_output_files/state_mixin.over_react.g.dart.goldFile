@@ -7,6 +7,7 @@ part of 'state_mixin.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
+@deprecated
 abstract class ExampleStateMixinClass implements _$ExampleStateMixinClass {
   @override
   Map get state;

@@ -7,6 +7,9 @@ part of 'error_boundary_mixins.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
+@Deprecated(
+    'Building custom error boundaries with this mixin will no longer be supported in version 4.0.0.'
+    'Use ErrorBoundary and its prop API to customize error handling instead.')
 abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   @override
   Map get props;
@@ -312,6 +315,9 @@ const PropsMeta _$metaForErrorBoundaryPropsMixin = PropsMeta(
   keys: ErrorBoundaryPropsMixin.$propKeys,
 );
 
+@Deprecated(
+    'Building custom error boundaries with this mixin will no longer be supported in version 4.0.0.'
+    'Use ErrorBoundary and its prop API to customize error handling instead.')
 abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
   @override
   Map get state;

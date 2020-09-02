@@ -7,6 +7,7 @@ part of 'props_mixin.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
+@deprecated
 abstract class ExamplePropsMixinClass implements _$ExamplePropsMixinClass {
   @override
   Map get props;
@@ -41,6 +42,7 @@ const PropsMeta _$metaForExamplePropsMixinClass = PropsMeta(
   keys: ExamplePropsMixinClass.$propKeys,
 );
 
+@deprecated
 abstract class MixesInOtherMixinMixin<T extends Iterable, U>
     implements _$MixesInOtherMixinMixin<T, U> {
   @override
