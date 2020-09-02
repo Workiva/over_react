@@ -22,39 +22,41 @@ UiFactory<TaskCountBadgeProps> TaskCountBadge =
     return ListEquality()
         .equals(nextProps.assignedTodoIds, prevProps.assignedTodoIds);
   },
-)(uiFunction((props) {
-  String _getTooltipContent() {
-    final taskCount = props.assignedTodoIds.length;
-    if (taskCount == 1) {
-      return 'There is $taskCount task assigned to ${props.user.name}';
+)(uiFunction(
+  (props) {
+    String _getTooltipContent() {
+      final taskCount = props.assignedTodoIds.length;
+      if (taskCount == 1) {
+        return 'There is $taskCount task assigned to ${props.user.name}';
+      }
+
+      return 'There are $taskCount tasks assigned to ${props.user.name}';
     }
 
-    return 'There are $taskCount tasks assigned to ${props.user.name}';
-  }
-
-  return (Box()
-    ..onMouseEnter = (_) {
-      props.dispatch(HighlightTodosAction(props.assignedTodoIds));
-    }
-    ..onMouseLeave = (_) {
-      props.dispatch(UnHighlightTodosAction(props.assignedTodoIds));
-    })(
-    (Tooltip()
-      ..title = _getTooltipContent()
-      ..arrow = true
-      ..enterDelay = 500)(
-      (Badge()
-        ..badgeContent = Dom.span()(props.assignedTodoIds.length)
-        ..color = BadgeColor.SECONDARY
-        ..overlap = BadgeOverlap.CIRCLE
-        ..anchorOrigin =
-            BadgeAnchorOrigin(horizontal: 'right', vertical: 'bottom'))(
-        props.children,
+    return (Box()
+      ..onMouseEnter = (_) {
+        props.dispatch(HighlightTodosAction(props.assignedTodoIds));
+      }
+      ..onMouseLeave = (_) {
+        props.dispatch(UnHighlightTodosAction(props.assignedTodoIds));
+      })(
+      (Tooltip()
+        ..title = _getTooltipContent()
+        ..arrow = true
+        ..enterDelay = 500)(
+        (Badge()
+          ..badgeContent = Dom.span()(props.assignedTodoIds.length)
+          ..color = BadgeColor.SECONDARY
+          ..overlap = BadgeOverlap.CIRCLE
+          ..anchorOrigin =
+              BadgeAnchorOrigin(horizontal: 'right', vertical: 'bottom'))(
+          props.children,
+        ),
       ),
-    ),
-  );
-}, $TaskCountBadgeConfig // ignore: undefined_identifier
-        ));
+    );
+  },
+  $TaskCountBadgeConfig, // ignore: undefined_identifier
+));
 
 mixin TaskCountBadgePropsMixin on UiProps {
   @requiredProp
