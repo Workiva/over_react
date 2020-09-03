@@ -66,12 +66,10 @@ mixin FooPropsMixin on UiProps {
 class FooBarProps = UiProps with FooPropsMixin, BarPropsMixin;
 
 class FooBarComponent extends UiComponent2<FooBarProps> {
+  // Only consume the props found within FooPropsMixin, so that any prop values 
+  // found in BarPropsMixin get forwarded to the child Bar component via `addUnconsumedProps`.
   @override
-  get consumedProps => [
-    // Only consume the props found within FooPropsMixin, so that any prop values 
-    // found in BarPropsMixin get forwarded to the child Bar component via `addUnconsumedProps`. 
-    propsMeta.forMixin(FooPropsMixin),
-  ];
+  get consumedProps => propsMeta.forMixins({FooPropsMixin});
 
   @override
   render() {
