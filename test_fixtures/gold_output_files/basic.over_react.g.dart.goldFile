@@ -19,6 +19,7 @@ final $BasicComponentFactory = registerComponent(
   displayName: 'Basic',
 );
 
+@deprecated
 abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
   @override
   Map get props;
@@ -127,6 +128,7 @@ const PropsMeta _$metaForBasicProps = PropsMeta(
   keys: _$BasicPropsAccessorsMixin.$propKeys,
 );
 
+@deprecated
 class BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin {
   static const String defaultProps = 'some_default_props';
   static String get defaultGetter => 'some_defualt_getter';

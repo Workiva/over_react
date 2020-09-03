@@ -20,6 +20,8 @@ final $RecoverableErrorBoundaryComponentFactory = registerComponent2(
   skipMethods: const [],
 );
 
+@Deprecated(
+    'For internal use with deprecated ErrorBoundary components only. Remove in the 4.0.0 release.')
 abstract class _$RecoverableErrorBoundaryPropsAccessorsMixin
     implements _$RecoverableErrorBoundaryProps {
   @override
@@ -115,6 +117,8 @@ class _$$RecoverableErrorBoundaryProps$JsMap
   JsBackedMap _props;
 }
 
+@Deprecated(
+    'For internal use with deprecated ErrorBoundary components only. Remove in the 4.0.0 release.')
 abstract class _$RecoverableErrorBoundaryStateAccessorsMixin
     implements _$RecoverableErrorBoundaryState {
   @override
