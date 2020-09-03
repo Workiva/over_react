@@ -21,3 +21,12 @@ abstract class _$MixesInOtherMixinMixin<T extends Iterable, U>
   String otherPropMixin;
 }
 
+@deprecated
+@PropsMixin()
+abstract class _$_PrivateMixin implements UiProps {
+  @override
+  Map get props;
+
+  String privatePropMixin;
+}
+

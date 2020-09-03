@@ -77,3 +77,38 @@ const PropsMeta _$metaForMixesInOtherMixinMixin = PropsMeta(
   fields: MixesInOtherMixinMixin.$props,
   keys: MixesInOtherMixinMixin.$propKeys,
 );
+
+@deprecated
+abstract class _PrivateMixin implements _$_PrivateMixin {
+  @override
+  Map get props;
+
+  static const PropsMeta meta = _$metaFor_PrivateMixin;
+
+  /// <!-- Generated from [_$_PrivateMixin.privatePropMixin] -->
+  @override
+  String get privatePropMixin =>
+      props[_$key__privatePropMixin___$_PrivateMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  /// <!-- Generated from [_$_PrivateMixin.privatePropMixin] -->
+  @override
+  set privatePropMixin(String value) =>
+      props[_$key__privatePropMixin___$_PrivateMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__privatePropMixin___$_PrivateMixin =
+      PropDescriptor(_$key__privatePropMixin___$_PrivateMixin);
+  static const String _$key__privatePropMixin___$_PrivateMixin =
+      '_PrivateMixin.privatePropMixin';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__privatePropMixin___$_PrivateMixin
+  ];
+  static const List<String> $propKeys = [
+    _$key__privatePropMixin___$_PrivateMixin
+  ];
+}
+
+const PropsMeta _$metaFor_PrivateMixin = PropsMeta(
+  fields: _PrivateMixin.$props,
+  keys: _PrivateMixin.$propKeys,
+);

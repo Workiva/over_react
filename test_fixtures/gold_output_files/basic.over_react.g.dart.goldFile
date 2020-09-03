@@ -19,6 +19,7 @@ final $BasicComponentFactory = registerComponent(
   displayName: 'Basic',
 );
 
+@deprecated
 abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
   @override
   Map get props;

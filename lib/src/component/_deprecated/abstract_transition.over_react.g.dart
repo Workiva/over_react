@@ -7,6 +7,8 @@ part of 'abstract_transition.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
+@Deprecated(
+    'Use the `AbstractTransitionProps` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release.')
 abstract class _$AbstractTransitionPropsAccessorsMixin
     implements _$AbstractTransitionProps {
   @override
@@ -30,6 +32,8 @@ abstract class AbstractTransitionProps extends _$AbstractTransitionProps
   static const PropsMeta meta = _$metaForAbstractTransitionProps;
 }
 
+@Deprecated(
+    'Use the `AbstractTransitionState` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release.')
 abstract class _$AbstractTransitionStateAccessorsMixin
     implements _$AbstractTransitionState {
   @override
