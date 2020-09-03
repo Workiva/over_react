@@ -64,7 +64,7 @@ mixin ButtonProps on UiProps {
   ///
   /// If set, the item will render via [Dom.a].
   ///
-  /// _Proxies [DomProps.href]_
+  /// _Proxies [DomPropsMixin.href]_
   @Accessor(keyNamespace: '')
   String href;
 
@@ -72,7 +72,7 @@ mixin ButtonProps on UiProps {
   ///
   /// If set, the item will render via [Dom.a].
   ///
-  /// _Proxies [DomProps.target]_
+  /// _Proxies [DomPropsMixin.target]_
   @Accessor(keyNamespace: '')
   String target;
 
@@ -81,7 +81,7 @@ mixin ButtonProps on UiProps {
   ///
   /// This will only be applied if [href] is not set.
   ///
-  /// _Proxies [DomProps.type]_
+  /// _Proxies [DomPropsMixin.type]_
   ///
   /// Default: [ButtonType.BUTTON]
   ButtonType type;

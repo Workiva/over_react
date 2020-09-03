@@ -172,7 +172,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// If set, the item will render via [Dom.a].
   ///
-  /// _Proxies [DomProps.href]_
+  /// _Proxies [DomPropsMixin.href]_
   ///
   /// <!-- Generated from [_$ListGroupItemProps.href] -->
   @override
@@ -184,7 +184,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// If set, the item will render via [Dom.a].
   ///
-  /// _Proxies [DomProps.href]_
+  /// _Proxies [DomPropsMixin.href]_
   ///
   /// <!-- Generated from [_$ListGroupItemProps.href] -->
   @override
@@ -195,7 +195,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// If set, the item will render via [Dom.a].
   ///
-  /// _Proxies [DomProps.target]_
+  /// _Proxies [DomPropsMixin.target]_
   ///
   /// <!-- Generated from [_$ListGroupItemProps.target] -->
   @override
@@ -207,7 +207,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// If set, the item will render via [Dom.a].
   ///
-  /// _Proxies [DomProps.target]_
+  /// _Proxies [DomPropsMixin.target]_
   ///
   /// <!-- Generated from [_$ListGroupItemProps.target] -->
   @override
@@ -220,7 +220,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// This will only be applied if [onClick] is also set.
   ///
-  /// _Proxies [DomProps.type]_
+  /// _Proxies [DomPropsMixin.type]_
   ///
   /// Default: [ButtonType.BUTTON]
   ///
@@ -234,7 +234,7 @@ abstract class _$ListGroupItemPropsAccessorsMixin
   ///
   /// This will only be applied if [onClick] is also set.
   ///
-  /// _Proxies [DomProps.type]_
+  /// _Proxies [DomPropsMixin.type]_
   ///
   /// Default: [ButtonType.BUTTON]
   ///

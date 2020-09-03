@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
 import 'package:over_react/over_react.dart';
 part 'constants.over_react.g.dart';
 
@@ -63,14 +64,14 @@ abstract class _$AbstractInputPropsMixin {
   ///
   /// If unspecified, [AbstractInputStateMixin.id] will be generated.
   ///
-  /// _Proxies [DomProps.id]._
+  /// _Proxies [DomPropsMixin.id]._
   String get id;
 
   /// The HTML `name` attribute to be applied to `<input>`.
   ///
   /// If unspecified, [AbstractInputStateMixin.name] will be generated.
   ///
-  /// _Proxies [DomProps.name]._
+  /// _Proxies [DomPropsMixin.name]._
   @Accessor(keyNamespace: '')
   String name;
 
@@ -79,7 +80,7 @@ abstract class _$AbstractInputPropsMixin {
   ///
   /// See: [React Controlled Components](https://facebook.github.io/react/docs/forms.html#controlled-components)
   ///
-  /// _Proxies [DomProps.value]._
+  /// _Proxies [DomPropsMixin.value]._
   @Accessor(keyNamespace: '')
   dynamic value;
 

@@ -13,8 +13,6 @@
 // limitations under the License.
 
 import 'package:over_react/over_react.dart';
-import 'props_mixin.dart' as pm;
-import 'state_mixin.dart';
 
 part 'basic_with_state.over_react.g.dart';
 

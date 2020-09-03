@@ -132,7 +132,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// If set, the item will render via [Dom.a].
   ///
-  /// _Proxies [DomProps.href]_
+  /// _Proxies [DomPropsMixin.href]_
   ///
   /// <!-- Generated from [_$ButtonProps.href] -->
   @override
@@ -144,7 +144,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// If set, the item will render via [Dom.a].
   ///
-  /// _Proxies [DomProps.href]_
+  /// _Proxies [DomPropsMixin.href]_
   ///
   /// <!-- Generated from [_$ButtonProps.href] -->
   @override
@@ -155,7 +155,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// If set, the item will render via [Dom.a].
   ///
-  /// _Proxies [DomProps.target]_
+  /// _Proxies [DomPropsMixin.target]_
   ///
   /// <!-- Generated from [_$ButtonProps.target] -->
   @override
@@ -167,7 +167,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// If set, the item will render via [Dom.a].
   ///
-  /// _Proxies [DomProps.target]_
+  /// _Proxies [DomPropsMixin.target]_
   ///
   /// <!-- Generated from [_$ButtonProps.target] -->
   @override
@@ -179,7 +179,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// This will only be applied if [href] is not set.
   ///
-  /// _Proxies [DomProps.type]_
+  /// _Proxies [DomPropsMixin.type]_
   ///
   /// Default: [ButtonType.BUTTON]
   ///
@@ -193,7 +193,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// This will only be applied if [href] is not set.
   ///
-  /// _Proxies [DomProps.type]_
+  /// _Proxies [DomPropsMixin.type]_
   ///
   /// Default: [ButtonType.BUTTON]
   ///

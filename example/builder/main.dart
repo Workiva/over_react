@@ -25,8 +25,6 @@ import './src/generic_inheritance_super.dart';
 import './src/function_component.dart' as function;
 
 main() {
-  setClientConfiguration();
-
   react_dom.render(
       Dom.div()(
         Dom.h3()('Components'),

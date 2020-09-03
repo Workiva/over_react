@@ -7,6 +7,8 @@ analyzer:
     - app/**
     - tools/analyzer_plugin/**
   errors:
+    unused_import: warning
+    duplicate_import: warning
     missing_required_param: error
     must_call_super: error
 linter:

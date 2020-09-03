@@ -22,6 +22,7 @@ mixin BasicPropsMixin on UiProps {
   String basicProp;
 }
 
+// ignore: deprecated_member_use_from_same_package
 class BasicProps = UiProps with BasicPropsMixin, TransitionPropsMixin;
 
 class BasicComponent extends UiComponent2<BasicProps> {

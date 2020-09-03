@@ -18,7 +18,7 @@ import '../demo_components.dart';
 part 'toggle_button_group.over_react.g.dart';
 
 /// A specialized [ButtonGroup] component that will surround one or more child
-/// [ToggleButton] components so that a single shared [ToggleButtonGroupProps.name]
+/// [ToggleButton] components so that a single shared `ToggleButtonGroupProps.name`
 /// value can be applied to the aforementioned children via [cloneElement].
 ///
 /// __Renders HTML Markup:__
@@ -51,8 +51,8 @@ class ToggleButtonGroupComponent
 
   /// The name to use for all children of a [ToggleButtonGroup].
   ///
-  /// Attempts to use [ToggleButtonGroupProps.name] _(specified by the consumer)_, falling back to
-  /// [ToggleButtonGroupState.name] _(auto-generated)_.
+  /// Attempts to use `ToggleButtonGroupProps.name` _(specified by the consumer)_, falling back to
+  /// `ToggleButtonGroupState.name` _(auto-generated)_.
   String get name => props.name ?? state.name;
 
   @override

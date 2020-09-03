@@ -37,6 +37,7 @@ abstract class $ConnectFluxPropsMixin {
   static const PropsMeta meta = _$metaForConnectFluxPropsMixin;
 }
 
+// ignore: deprecated_member_use_from_same_package
 @PropsMixin(keyNamespace: '')
 abstract class _$ConnectFluxPropsMixin<TActions> implements UiProps {
   @override

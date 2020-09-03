@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
+
 /// Various prop related mixins to be used with `UiComponent` descendants.
 library over_react.prop_mixins;
 

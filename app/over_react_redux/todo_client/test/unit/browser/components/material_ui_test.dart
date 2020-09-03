@@ -7,7 +7,6 @@ import 'package:todo_client/src/components/shared/material_ui.dart';
 import 'fixtures/utils.dart';
 
 main() {
-  setClientConfiguration();
   if (!muiJsIsAvailable()) return;
 
   group('MaterialUI', () {
