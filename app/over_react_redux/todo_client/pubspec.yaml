@@ -36,6 +36,4 @@ dependency_overrides:
       url: git@github.com:cleandart/react-dart.git
       ref: 5.5.0/mui-experiments
   react_material_ui:
-    git:
-      url: git@github.com:aaronlademann-wf/react_material_ui.git
-      ref: beginnings
+    path: '../../../../react_material_ui'

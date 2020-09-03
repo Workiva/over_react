@@ -9,17 +9,54 @@ import 'package:react_material_ui/react_material_ui.dart';
 
 part 'task_count.over_react.g.dart';
 
-UiFactory<TaskCountBadgeProps> TaskCountBadge = connect<AppState, TaskCountBadgeProps>(
-    mapStateToPropsWithOwnProps: (state, ownProps) {
-      return (TaskCountBadge()
-        ..assignedTodoIds = state.todos.where((todo) => todo.assignedUserId == ownProps.user.id)
-            .map((todo) => todo.id).toList()
-      );
-    },
-    areStatePropsEqual: (nextProps, prevProps) {
-      return ListEquality().equals(nextProps.assignedTodoIds, prevProps.assignedTodoIds);
-    },
-)(_$TaskCountBadge); // ignore: undefined_identifier
+UiFactory<TaskCountBadgeProps> TaskCountBadge =
+    connect<AppState, TaskCountBadgeProps>(
+  mapStateToPropsWithOwnProps: (state, ownProps) {
+    return (TaskCountBadge()
+      ..assignedTodoIds = state.todos
+          .where((todo) => todo.assignedUserId == ownProps.user.id)
+          .map((todo) => todo.id)
+          .toList());
+  },
+  areStatePropsEqual: (nextProps, prevProps) {
+    return ListEquality()
+        .equals(nextProps.assignedTodoIds, prevProps.assignedTodoIds);
+  },
+)(uiFunction(
+  (props) {
+    String _getTooltipContent() {
+      final taskCount = props.assignedTodoIds.length;
+      if (taskCount == 1) {
+        return 'There is $taskCount task assigned to ${props.user.name}';
+      }
+
+      return 'There are $taskCount tasks assigned to ${props.user.name}';
+    }
+
+    return (Box()
+      ..onMouseEnter = (_) {
+        props.dispatch(HighlightTodosAction(props.assignedTodoIds));
+      }
+      ..onMouseLeave = (_) {
+        props.dispatch(UnHighlightTodosAction(props.assignedTodoIds));
+      })(
+      (Tooltip()
+        ..title = _getTooltipContent()
+        ..arrow = true
+        ..enterDelay = 500)(
+        (Badge()
+          ..badgeContent = Dom.span()(props.assignedTodoIds.length)
+          ..color = BadgeColor.SECONDARY
+          ..overlap = BadgeOverlap.CIRCLE
+          ..anchorOrigin =
+              BadgeAnchorOrigin(horizontal: 'right', vertical: 'bottom'))(
+          props.children,
+        ),
+      ),
+    );
+  },
+  $TaskCountBadgeConfig, // ignore: undefined_identifier
+));
 
 mixin TaskCountBadgePropsMixin on UiProps {
   @requiredProp
@@ -29,42 +66,5 @@ mixin TaskCountBadgePropsMixin on UiProps {
   List<String> assignedTodoIds;
 }
 
-class TaskCountBadgeProps = UiProps with TaskCountBadgePropsMixin, ConnectPropsMixin;
-
-class TaskCountBadgeComponent extends UiComponent2<TaskCountBadgeProps> {
-  @override
-  render() {
-    return (Box()
-        ..onMouseEnter = (_) {
-          props.dispatch(HighlightTodosAction(props.assignedTodoIds));
-        }
-        ..onMouseLeave = (_) {
-          props.dispatch(UnHighlightTodosAction(props.assignedTodoIds));
-        }
-    )(
-      (Tooltip()
-          ..title = _tooltipContent
-          ..arrow = true
-          ..enterDelay = 500
-      )(
-        (Badge()
-            ..badgeContent = Dom.span()(props.assignedTodoIds.length)
-            ..color = BadgeColor.SECONDARY
-            ..overlap = BadgeOverlap.CIRCLE
-            ..anchorOrigin = BadgeAnchorOrigin(horizontal: 'right', vertical: 'bottom')
-        )(
-          props.children,
-        ),
-      ),
-    );
-  }
-
-  String get _tooltipContent {
-    final taskCount = props.assignedTodoIds.length;
-    if (taskCount == 1) {
-      return 'There is $taskCount task assigned to ${props.user.name}';
-    }
-
-    return 'There are $taskCount tasks assigned to ${props.user.name}';
-  }
-}
+class TaskCountBadgeProps = UiProps
+    with TaskCountBadgePropsMixin, ConnectPropsMixin, WithThemePropsMixin;
