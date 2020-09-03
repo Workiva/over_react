@@ -1,5 +1,14 @@
 # OverReact Changelog
 
+## [3.8.1](https://github.com/Workiva/over_react/compare/3.8.0...3.8.1)
+
+__Bug Fixes__
+  - [#623] Include deprecation annotations on legacy props mixins
+
+__Other Changes__
+  - [#487] Readme Improvements
+  - [#619] Redux example app: Replace deprecated ExpansionPanel with new Accordion from MaterialUi
+
 ## [3.8.0](https://github.com/Workiva/over_react/compare/3.7.0...3.8.0)
 
 __New Features__
