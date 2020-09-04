@@ -6,6 +6,7 @@
 // LICENSE file in the root directory of this source tree.
 
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
@@ -74,11 +75,69 @@ class RulesOfHooks extends DiagnosticContributor {
                   ancestor is ConditionalExpression ||
                   ancestor is IfElement ||
                   ancestor == body;
-              // todo what about on RHS of short-circuiting operators like `??`
             });
         if (isWithinCondition) {
           addErrorForHook("React Hook '${hook.hookName}' is called "
               "conditionally. React Hooks must be called in the exact "
+              "same order in every component render.");
+          continue;
+        }
+
+        final isPotentiallyShortCircuited = body !=
+            hook.node.thisOrAncestorMatching((ancestor) {
+              if (ancestor == body) return true;
+
+              // Short-circuiting binary expression
+              if (ancestor is BinaryExpression && const {
+                TokenType.QUESTION_QUESTION,
+                TokenType.BAR_BAR,
+                TokenType.AMPERSAND_AMPERSAND,
+              }.contains(ancestor.operator.type) && (ancestor.rightOperand?.containsRangeOf(hook.node) ?? false)) {
+                return true;
+              }
+
+
+              if (ancestor is AssignmentExpression) {
+                // Short-circuiting assignment expression
+                if (const {
+                  TokenType.QUESTION_QUESTION_EQ,
+                  TokenType.BAR_BAR_EQ,
+                  TokenType.AMPERSAND_AMPERSAND_EQ,
+                }.contains(ancestor.operator.type) && (ancestor.rightHandSide?.containsRangeOf(hook.node) ?? false)) {
+                  return true;
+                }
+                // Null-aware assignment expression
+                if (ancestor.leftHandSide.tryCast<PropertyAccess>()?.isNullAware ?? false) {
+                  return true;
+                }
+              }
+
+              // Null-awares (besides `??` and assignnments, handled above)
+              // TODO handle null-shorting in nnbd
+              if ((ancestor is CascadeExpression && ancestor.isNullAware) ||
+                  (ancestor is IndexExpression && ancestor.isNullAware) ||
+                  (ancestor is MethodInvocation && ancestor.isNullAware) ||
+                  (ancestor is PropertyAccess && ancestor.isNullAware) ||
+                  (ancestor is SpreadElement && ancestor.isNullAware)) {
+                return true;
+              }
+
+              // In these cases we have to traverse back down the AST:
+              //
+              // - `foo?.bar()` (should be a MethodInvocation?)
+              // - `foo.bar?.baz()`
+              // TODO check all of the LHS for null-shorting instead of just parts of it?
+              if (ancestor is FunctionExpressionInvocation) {
+                if (ancestor.function.tryCast<PropertyAccess>()?.isNullAware ?? false) {
+                  return true;
+                }
+              }
+
+              return false;
+            });
+        if (isPotentiallyShortCircuited) {
+          addErrorForHook("React Hook '${hook.hookName}' is called "
+              "conditionally due to short-circuiting. React Hooks must be called in the exact "
               "same order in every component render.");
           continue;
         }
@@ -130,6 +189,10 @@ class RulesOfHooks extends DiagnosticContributor {
       }
     }
   }
+}
+
+extension on AstNode {
+  bool containsRangeOf(AstNode other) => other.offset >= offset && other.end <= end;
 }
 
 class HookUsage {

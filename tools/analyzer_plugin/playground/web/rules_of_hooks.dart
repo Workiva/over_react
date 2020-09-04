@@ -14,13 +14,14 @@
 
 import 'package:over_react/over_react.dart';
 
-// ignore_for_file: uri_has_not_been_generated
+// ignore_for_file: uri_has_not_been_generated, unnecessary_statements, avoid_single_cascade_in_expression_statements
 part 'rules_of_hooks.over_react.g.dart';
 
 mixin FooProps on UiProps {
   bool condition;
   List items;
   String type;
+  Function(dynamic) callback;
 }
 
 UiFactory<FooProps> Foo = uiFunction(
@@ -45,6 +46,31 @@ UiFactory<FooProps> Foo = uiFunction(
         useState(0);
         break;
     }
+
+    //
+    // Bad hooks: inside short-circuiting expressions
+    //
+
+    useState(0).value ?? useState(1).value;
+    useState(true).value || useState(false).value;
+    useState(true).value && useState(false).value;
+
+    dynamic variable;
+    variable ??= useState(0);
+
+    // only available w/ nnbd?
+    // props?..callback(useState(0));
+    // only available w/ nnbd
+    // props.style?['foo']?.call(useState(0));
+    // not supported, only valid with nnbd null-shorting
+    //props?.callback.call(useState(0)); // ignore: can_be_null_after_null_aware
+    props.callback?.call(useState(0));
+    props?.callback(useState(0));
+    props.callback?.call(useState(0)); // ignore: can_be_null_after_null_aware
+    domProps()?.tabIndex = useState(0);
+    [
+      ...?(useState([]).value)
+    ];
 
     //
     // Bad hooks: inside loops
