@@ -46,7 +46,7 @@ class RulesOfHooks extends DiagnosticContributor {
       }
       // todo look for tearOff usages as well! e.g., .map
 
-      if (hook.isDirectlyInsideFunctionComponent || hook.isDirectlyInsideHook) {
+      if (body.isFunctionComponent || body.isCustomHook) {
         // Report an error if a hook may be called more then once.
         final isWithinLoop = body !=
             hook.node.thisOrAncestorMatching((ancestor) {
@@ -204,30 +204,18 @@ class HookUsage {
 
   FunctionBody get nearestFunctionBody =>
       node.thisOrAncestorOfType<FunctionBody>();
-
-  bool get isDirectlyInsideFunctionComponent {
-    return nearestFunctionBody?.isFunctionComponent ?? false;
-  }
-
-  bool get isDirectlyInsideHook {
-    final functionDeclaration =
-        nearestFunctionBody.parentExpression.parentDeclaration;
-    return functionDeclaration != null &&
-        isHookName(functionDeclaration.name.name);
-  }
 }
 
 extension on FunctionBody {
-  FunctionExpression get parentExpression => parent.tryCast();
-
-  MethodDeclaration get parentMethod => parent.tryCast();
+  FunctionExpression get parentExpression => parent?.tryCast();
+  FunctionDeclaration get parentDeclaration => parentExpression?.parentDeclaration;
+  MethodDeclaration get parentMethod => parent?.tryCast();
 
   bool get isFunctionComponent {
     // Function expression or top-level function
     // Perform a crude/lenient check for function components since they can take on so many forms
     // fixme make this way better
-    if (parent
-            ?.tryCast<FunctionExpression>()
+    if (parentExpression
             ?.parameters
             ?.parameters
             ?.any((parameter) {
@@ -240,10 +228,15 @@ extension on FunctionBody {
     // Method/constructor declaration, getter, etc
     return false;
   }
+
+  bool get isCustomHook {
+    final declaration = parentDeclaration;
+    return declaration != null && isHookName(declaration.name.name);
+  }
 }
 
 extension on FunctionExpression {
-  FunctionDeclaration get parentDeclaration => parent.tryCast();
+  FunctionDeclaration get parentDeclaration => parent?.tryCast();
 }
 
 class HooksUsagesVisitor extends RecursiveAstVisitor<void> {

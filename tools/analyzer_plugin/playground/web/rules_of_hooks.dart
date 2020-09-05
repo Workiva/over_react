@@ -113,3 +113,24 @@ UiFactory<FooProps> Foo = uiFunction(
   },
   $FooPropsConfig, // ignore: undefined_identifier
 );
+
+
+// Good hook: used in custom hook
+void useSomething() {
+  useEffect(() {});
+}
+
+// Bad hook: used in a function that's not a custom hook
+void notACustomHook() {
+  useEffect(() {});
+}
+
+// Bad hook: used in a class
+class SomeClass {
+  someMethod() {
+    useEffect(() {});
+  }
+}
+
+// Bad hook: used outside of a function body
+var value = useState(1);
