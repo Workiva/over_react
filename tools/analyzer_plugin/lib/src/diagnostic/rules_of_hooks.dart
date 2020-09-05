@@ -40,7 +40,7 @@ class RulesOfHooks extends DiagnosticContributor {
 
       if (body == null) {
         addErrorForHook("React Hook '${hook.hookName}' cannot be called "
-            "at the top level. React Hooks must be called in a "
+            "outside of a function. React Hooks must be called in a "
             "React function component or a custom React Hook function.");
         continue;
       }

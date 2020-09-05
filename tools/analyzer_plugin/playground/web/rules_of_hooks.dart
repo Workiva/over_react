@@ -132,5 +132,8 @@ class SomeClass {
   }
 }
 
-// Bad hook: used outside of a function body
-var value = useState(1);
+// Bad hooks: used outside of a function body
+var value = useState(0);
+class SomeClass2 {
+  var value = useState(0);
+}
