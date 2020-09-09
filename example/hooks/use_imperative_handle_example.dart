@@ -22,7 +22,7 @@ part 'use_imperative_handle_example.over_react.g.dart';
 mixin FancyInputProps on UiProps {
   String value;
   Function updater;
-  Ref forwardedRef;
+  dynamic forwardedRef;
 }
 
 /// The type of ref returned when rendering [UseImperativeHandleExample].
