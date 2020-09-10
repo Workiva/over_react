@@ -23,7 +23,7 @@ final $PureTestWrapperComponentFactory = registerComponent2(
 
 _$$PureTestWrapperProps _$PureTestWrapper([Map backingProps]) =>
     backingProps == null
-        ? _$$PureTestWrapperProps$JsMap(JsBackedMap())
+        ? _$$PureTestWrapperProps(JsBackedMap())
         : _$$PureTestWrapperProps(backingProps);
 
 // Concrete props implementation.
@@ -31,21 +31,22 @@ _$$PureTestWrapperProps _$PureTestWrapper([Map backingProps]) =>
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$PureTestWrapperProps extends UiProps
+class _$$PureTestWrapperProps extends UiProps
     with
         SharedPureTestPropsMixin,
         $SharedPureTestPropsMixin // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SharedPureTestPropsMixin.
     implements
         PureTestWrapperProps {
-  _$$PureTestWrapperProps._();
-
-  factory _$$PureTestWrapperProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$PureTestWrapperProps$JsMap(backingMap);
-    } else {
-      return _$$PureTestWrapperProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$PureTestWrapperProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -61,43 +62,6 @@ abstract class _$$PureTestWrapperProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$PureTestWrapperProps$PlainMap extends _$$PureTestWrapperProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$PureTestWrapperProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$PureTestWrapperProps$JsMap extends _$$PureTestWrapperProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$PureTestWrapperProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -105,10 +69,10 @@ class _$$PureTestWrapperProps$JsMap extends _$$PureTestWrapperProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$PureTestWrapperComponent extends PureTestWrapperComponent {
-  _$$PureTestWrapperProps$JsMap _cachedTypedProps;
+  _$$PureTestWrapperProps _cachedTypedProps;
 
   @override
-  _$$PureTestWrapperProps$JsMap get props => _cachedTypedProps;
+  _$$PureTestWrapperProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -124,8 +88,8 @@ class _$PureTestWrapperComponent extends PureTestWrapperComponent {
   }
 
   @override
-  _$$PureTestWrapperProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$PureTestWrapperProps$JsMap(backingMap);
+  _$$PureTestWrapperProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$PureTestWrapperProps(backingMap);
 
   @override
   _$$PureTestWrapperProps typedPropsFactory(Map backingMap) =>
@@ -162,7 +126,7 @@ final $PureTestComponentFactory = registerComponent2(
 );
 
 _$$PureTestProps _$PureTest([Map backingProps]) => backingProps == null
-    ? _$$PureTestProps$JsMap(JsBackedMap())
+    ? _$$PureTestProps(JsBackedMap())
     : _$$PureTestProps(backingProps);
 
 // Concrete props implementation.
@@ -170,7 +134,7 @@ _$$PureTestProps _$PureTest([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$PureTestProps extends UiProps
+class _$$PureTestProps extends UiProps
     with
         SharedPureTestPropsMixin,
         $SharedPureTestPropsMixin, // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SharedPureTestPropsMixin.
@@ -178,15 +142,16 @@ abstract class _$$PureTestProps extends UiProps
         $PureTestPropsMixin // If this generated mixin is undefined, it's likely because PureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of PureTestPropsMixin.
     implements
         PureTestProps {
-  _$$PureTestProps._();
-
-  factory _$$PureTestProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$PureTestProps$JsMap(backingMap);
-    } else {
-      return _$$PureTestProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$PureTestProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -202,77 +167,19 @@ abstract class _$$PureTestProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$PureTestProps$PlainMap extends _$$PureTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$PureTestProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$PureTestProps$JsMap extends _$$PureTestProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$PureTestProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$PureTestState extends UiState
+class _$$PureTestState extends UiState
     with
         PureTestState,
         $PureTestState // If this generated mixin is undefined, it's likely because PureTestState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of PureTestState.
 {
-  _$$PureTestState._();
-
-  factory _$$PureTestState(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$PureTestState$JsMap(backingMap);
-    } else {
-      return _$$PureTestState$PlainMap(backingMap);
-    }
-  }
-
-  /// Let `UiState` internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$PureTestState$PlainMap extends _$$PureTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$PureTestState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
+  _$$PureTestState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -280,25 +187,10 @@ class _$$PureTestState$PlainMap extends _$$PureTestState {
   @override
   Map get state => _state;
   Map _state;
-}
 
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$PureTestState$JsMap extends _$$PureTestState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$PureTestState$JsMap(JsBackedMap backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
+  /// Let `UiState` internals know that this class has been generated.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -308,10 +200,10 @@ class _$$PureTestState$JsMap extends _$$PureTestState {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$PureTestComponent extends PureTestComponent {
-  _$$PureTestProps$JsMap _cachedTypedProps;
+  _$$PureTestProps _cachedTypedProps;
 
   @override
-  _$$PureTestProps$JsMap get props => _cachedTypedProps;
+  _$$PureTestProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -327,16 +219,16 @@ class _$PureTestComponent extends PureTestComponent {
   }
 
   @override
-  _$$PureTestProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$PureTestProps$JsMap(backingMap);
+  _$$PureTestProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$PureTestProps(backingMap);
 
   @override
   _$$PureTestProps typedPropsFactory(Map backingMap) =>
       _$$PureTestProps(backingMap);
 
-  _$$PureTestState$JsMap _cachedTypedState;
+  _$$PureTestState _cachedTypedState;
   @override
-  _$$PureTestState$JsMap get state => _cachedTypedState;
+  _$$PureTestState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -349,8 +241,8 @@ class _$PureTestComponent extends PureTestComponent {
   }
 
   @override
-  _$$PureTestState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      _$$PureTestState$JsMap(backingMap);
+  _$$PureTestState typedStateFactoryJs(JsBackedMap backingMap) =>
+      _$$PureTestState(backingMap);
 
   @override
   _$$PureTestState typedStateFactory(Map backingMap) =>

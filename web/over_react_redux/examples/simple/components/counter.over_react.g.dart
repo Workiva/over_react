@@ -22,7 +22,7 @@ final $CounterComponentFactory = registerComponent2(
 );
 
 _$$CounterProps _$_Counter([Map backingProps]) => backingProps == null
-    ? _$$CounterProps$JsMap(JsBackedMap())
+    ? _$$CounterProps(JsBackedMap())
     : _$$CounterProps(backingProps);
 
 // Concrete props implementation.
@@ -30,7 +30,7 @@ _$$CounterProps _$_Counter([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$CounterProps extends UiProps
+class _$$CounterProps extends UiProps
     with
         CounterPropsMixin,
         $CounterPropsMixin, // If this generated mixin is undefined, it's likely because CounterPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of CounterPropsMixin.
@@ -38,15 +38,16 @@ abstract class _$$CounterProps extends UiProps
         $ConnectPropsMixin // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
     implements
         CounterProps {
-  _$$CounterProps._();
-
-  factory _$$CounterProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CounterProps$JsMap(backingMap);
-    } else {
-      return _$$CounterProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$CounterProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -62,43 +63,6 @@ abstract class _$$CounterProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$CounterProps$PlainMap extends _$$CounterProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CounterProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$CounterProps$JsMap extends _$$CounterProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CounterProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -106,10 +70,10 @@ class _$$CounterProps$JsMap extends _$$CounterProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$CounterComponent extends CounterComponent {
-  _$$CounterProps$JsMap _cachedTypedProps;
+  _$$CounterProps _cachedTypedProps;
 
   @override
-  _$$CounterProps$JsMap get props => _cachedTypedProps;
+  _$$CounterProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -125,8 +89,8 @@ class _$CounterComponent extends CounterComponent {
   }
 
   @override
-  _$$CounterProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$CounterProps$JsMap(backingMap);
+  _$$CounterProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$CounterProps(backingMap);
 
   @override
   _$$CounterProps typedPropsFactory(Map backingMap) =>

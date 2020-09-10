@@ -37,24 +37,25 @@ const PropsMeta _$metaForFragmentExampleProps = PropsMeta(
 
 _$$FragmentExampleProps _$FragmentExample([Map backingProps]) =>
     backingProps == null
-        ? _$$FragmentExampleProps$JsMap(JsBackedMap())
+        ? _$$FragmentExampleProps(JsBackedMap())
         : _$$FragmentExampleProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$FragmentExampleProps extends _$FragmentExampleProps
+class _$$FragmentExampleProps extends _$FragmentExampleProps
     with _$FragmentExamplePropsAccessorsMixin
     implements FragmentExampleProps {
-  _$$FragmentExampleProps._();
-
-  factory _$$FragmentExampleProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FragmentExampleProps$JsMap(backingMap);
-    } else {
-      return _$$FragmentExampleProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$FragmentExampleProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -70,48 +71,15 @@ abstract class _$$FragmentExampleProps extends _$FragmentExampleProps
   String get propKeyNamespace => 'FragmentExampleProps.';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-class _$$FragmentExampleProps$PlainMap extends _$$FragmentExampleProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FragmentExampleProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$FragmentExampleProps$JsMap extends _$$FragmentExampleProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FragmentExampleProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$FragmentExampleComponent extends FragmentExampleComponent {
-  _$$FragmentExampleProps$JsMap _cachedTypedProps;
+  _$$FragmentExampleProps _cachedTypedProps;
 
   @override
-  _$$FragmentExampleProps$JsMap get props => _cachedTypedProps;
+  _$$FragmentExampleProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -127,8 +95,8 @@ class _$FragmentExampleComponent extends FragmentExampleComponent {
   }
 
   @override
-  _$$FragmentExampleProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$FragmentExampleProps$JsMap(backingMap);
+  _$$FragmentExampleProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$FragmentExampleProps(backingMap);
 
   @override
   _$$FragmentExampleProps typedPropsFactory(Map backingMap) =>

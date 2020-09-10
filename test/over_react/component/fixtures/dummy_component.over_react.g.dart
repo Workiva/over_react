@@ -52,24 +52,25 @@ const PropsMeta _$metaForDummyProps = PropsMeta(
 );
 
 _$$DummyProps _$Dummy([Map backingProps]) => backingProps == null
-    ? _$$DummyProps$JsMap(JsBackedMap())
+    ? _$$DummyProps(JsBackedMap())
     : _$$DummyProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$DummyProps extends _$DummyProps
+class _$$DummyProps extends _$DummyProps
     with _$DummyPropsAccessorsMixin
     implements DummyProps {
-  _$$DummyProps._();
-
-  factory _$$DummyProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$DummyProps$JsMap(backingMap);
-    } else {
-      return _$$DummyProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$DummyProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -85,48 +86,15 @@ abstract class _$$DummyProps extends _$DummyProps
   String get propKeyNamespace => 'DummyProps.';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-class _$$DummyProps$PlainMap extends _$$DummyProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DummyProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$DummyProps$JsMap extends _$$DummyProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DummyProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$DummyComponent extends DummyComponent {
-  _$$DummyProps$JsMap _cachedTypedProps;
+  _$$DummyProps _cachedTypedProps;
 
   @override
-  _$$DummyProps$JsMap get props => _cachedTypedProps;
+  _$$DummyProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -142,8 +110,8 @@ class _$DummyComponent extends DummyComponent {
   }
 
   @override
-  _$$DummyProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$DummyProps$JsMap(backingMap);
+  _$$DummyProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$DummyProps(backingMap);
 
   @override
   _$$DummyProps typedPropsFactory(Map backingMap) => _$$DummyProps(backingMap);

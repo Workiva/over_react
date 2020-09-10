@@ -22,7 +22,7 @@ final $MyProviderComponentFactory = registerComponent2(
 );
 
 _$$MyProviderProps _$MyProvider([Map backingProps]) => backingProps == null
-    ? _$$MyProviderProps$JsMap(JsBackedMap())
+    ? _$$MyProviderProps(JsBackedMap())
     : _$$MyProviderProps(backingProps);
 
 // Concrete props implementation.
@@ -30,20 +30,21 @@ _$$MyProviderProps _$MyProvider([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$MyProviderProps extends UiProps
+class _$$MyProviderProps extends UiProps
     with
         MyProviderProps,
         $MyProviderProps // If this generated mixin is undefined, it's likely because MyProviderProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of MyProviderProps.
 {
-  _$$MyProviderProps._();
-
-  factory _$$MyProviderProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$MyProviderProps$JsMap(backingMap);
-    } else {
-      return _$$MyProviderProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$MyProviderProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -59,77 +60,19 @@ abstract class _$$MyProviderProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$MyProviderProps$PlainMap extends _$$MyProviderProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$MyProviderProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$MyProviderProps$JsMap extends _$$MyProviderProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$MyProviderProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$MyProviderState extends UiState
+class _$$MyProviderState extends UiState
     with
         MyProviderState,
         $MyProviderState // If this generated mixin is undefined, it's likely because MyProviderState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of MyProviderState.
 {
-  _$$MyProviderState._();
-
-  factory _$$MyProviderState(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$MyProviderState$JsMap(backingMap);
-    } else {
-      return _$$MyProviderState$PlainMap(backingMap);
-    }
-  }
-
-  /// Let `UiState` internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$MyProviderState$PlainMap extends _$$MyProviderState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$MyProviderState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
+  _$$MyProviderState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -137,25 +80,10 @@ class _$$MyProviderState$PlainMap extends _$$MyProviderState {
   @override
   Map get state => _state;
   Map _state;
-}
 
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$MyProviderState$JsMap extends _$$MyProviderState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$MyProviderState$JsMap(JsBackedMap backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
+  /// Let `UiState` internals know that this class has been generated.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -165,10 +93,10 @@ class _$$MyProviderState$JsMap extends _$$MyProviderState {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$MyProviderComponent extends MyProviderComponent {
-  _$$MyProviderProps$JsMap _cachedTypedProps;
+  _$$MyProviderProps _cachedTypedProps;
 
   @override
-  _$$MyProviderProps$JsMap get props => _cachedTypedProps;
+  _$$MyProviderProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -184,16 +112,16 @@ class _$MyProviderComponent extends MyProviderComponent {
   }
 
   @override
-  _$$MyProviderProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$MyProviderProps$JsMap(backingMap);
+  _$$MyProviderProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$MyProviderProps(backingMap);
 
   @override
   _$$MyProviderProps typedPropsFactory(Map backingMap) =>
       _$$MyProviderProps(backingMap);
 
-  _$$MyProviderState$JsMap _cachedTypedState;
+  _$$MyProviderState _cachedTypedState;
   @override
-  _$$MyProviderState$JsMap get state => _cachedTypedState;
+  _$$MyProviderState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -206,8 +134,8 @@ class _$MyProviderComponent extends MyProviderComponent {
   }
 
   @override
-  _$$MyProviderState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      _$$MyProviderState$JsMap(backingMap);
+  _$$MyProviderState typedStateFactoryJs(JsBackedMap backingMap) =>
+      _$$MyProviderState(backingMap);
 
   @override
   _$$MyProviderState typedStateFactory(Map backingMap) =>

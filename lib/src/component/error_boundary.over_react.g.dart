@@ -24,7 +24,7 @@ final $ErrorBoundaryComponentFactory = registerComponent2(
 
 _$$ErrorBoundaryProps _$ErrorBoundary([Map backingProps]) =>
     backingProps == null
-        ? _$$ErrorBoundaryProps$JsMap(JsBackedMap())
+        ? _$$ErrorBoundaryProps(JsBackedMap())
         : _$$ErrorBoundaryProps(backingProps);
 
 // Concrete props implementation.
@@ -32,20 +32,21 @@ _$$ErrorBoundaryProps _$ErrorBoundary([Map backingProps]) =>
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$ErrorBoundaryProps extends UiProps
+class _$$ErrorBoundaryProps extends UiProps
     with
         ErrorBoundaryProps,
         $ErrorBoundaryProps // If this generated mixin is undefined, it's likely because ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ErrorBoundaryProps.
 {
-  _$$ErrorBoundaryProps._();
-
-  factory _$$ErrorBoundaryProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ErrorBoundaryProps$JsMap(backingMap);
-    } else {
-      return _$$ErrorBoundaryProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ErrorBoundaryProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -61,77 +62,19 @@ abstract class _$$ErrorBoundaryProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ErrorBoundaryProps$PlainMap extends _$$ErrorBoundaryProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ErrorBoundaryProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ErrorBoundaryProps$JsMap extends _$$ErrorBoundaryProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ErrorBoundaryProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$ErrorBoundaryState extends UiState
+class _$$ErrorBoundaryState extends UiState
     with
         ErrorBoundaryState,
         $ErrorBoundaryState // If this generated mixin is undefined, it's likely because ErrorBoundaryState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ErrorBoundaryState.
 {
-  _$$ErrorBoundaryState._();
-
-  factory _$$ErrorBoundaryState(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ErrorBoundaryState$JsMap(backingMap);
-    } else {
-      return _$$ErrorBoundaryState$PlainMap(backingMap);
-    }
-  }
-
-  /// Let `UiState` internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ErrorBoundaryState$PlainMap extends _$$ErrorBoundaryState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ErrorBoundaryState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
+  _$$ErrorBoundaryState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -139,25 +82,10 @@ class _$$ErrorBoundaryState$PlainMap extends _$$ErrorBoundaryState {
   @override
   Map get state => _state;
   Map _state;
-}
 
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ErrorBoundaryState$JsMap extends _$$ErrorBoundaryState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ErrorBoundaryState$JsMap(JsBackedMap backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
+  /// Let `UiState` internals know that this class has been generated.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -167,10 +95,10 @@ class _$$ErrorBoundaryState$JsMap extends _$$ErrorBoundaryState {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
-  _$$ErrorBoundaryProps$JsMap _cachedTypedProps;
+  _$$ErrorBoundaryProps _cachedTypedProps;
 
   @override
-  _$$ErrorBoundaryProps$JsMap get props => _cachedTypedProps;
+  _$$ErrorBoundaryProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -186,16 +114,16 @@ class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
   }
 
   @override
-  _$$ErrorBoundaryProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$ErrorBoundaryProps$JsMap(backingMap);
+  _$$ErrorBoundaryProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$ErrorBoundaryProps(backingMap);
 
   @override
   _$$ErrorBoundaryProps typedPropsFactory(Map backingMap) =>
       _$$ErrorBoundaryProps(backingMap);
 
-  _$$ErrorBoundaryState$JsMap _cachedTypedState;
+  _$$ErrorBoundaryState _cachedTypedState;
   @override
-  _$$ErrorBoundaryState$JsMap get state => _cachedTypedState;
+  _$$ErrorBoundaryState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -208,8 +136,8 @@ class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
   }
 
   @override
-  _$$ErrorBoundaryState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      _$$ErrorBoundaryState$JsMap(backingMap);
+  _$$ErrorBoundaryState typedStateFactoryJs(JsBackedMap backingMap) =>
+      _$$ErrorBoundaryState(backingMap);
 
   @override
   _$$ErrorBoundaryState typedStateFactory(Map backingMap) =>

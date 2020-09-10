@@ -22,7 +22,7 @@ final $TagComponentFactory = registerComponent2(
 );
 
 _$$TagProps _$Tag([Map backingProps]) => backingProps == null
-    ? _$$TagProps$JsMap(JsBackedMap())
+    ? _$$TagProps(JsBackedMap())
     : _$$TagProps(backingProps);
 
 // Concrete props implementation.
@@ -30,20 +30,21 @@ _$$TagProps _$Tag([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$TagProps extends UiProps
+class _$$TagProps extends UiProps
     with
         TagProps,
         $TagProps // If this generated mixin is undefined, it's likely because TagProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TagProps.
 {
-  _$$TagProps._();
-
-  factory _$$TagProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TagProps$JsMap(backingMap);
-    } else {
-      return _$$TagProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TagProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -59,43 +60,6 @@ abstract class _$$TagProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TagProps$PlainMap extends _$$TagProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TagProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TagProps$JsMap extends _$$TagProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TagProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -103,10 +67,10 @@ class _$$TagProps$JsMap extends _$$TagProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$TagComponent extends TagComponent {
-  _$$TagProps$JsMap _cachedTypedProps;
+  _$$TagProps _cachedTypedProps;
 
   @override
-  _$$TagProps$JsMap get props => _cachedTypedProps;
+  _$$TagProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -122,8 +86,8 @@ class _$TagComponent extends TagComponent {
   }
 
   @override
-  _$$TagProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$TagProps$JsMap(backingMap);
+  _$$TagProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$TagProps(backingMap);
 
   @override
   _$$TagProps typedPropsFactory(Map backingMap) => _$$TagProps(backingMap);

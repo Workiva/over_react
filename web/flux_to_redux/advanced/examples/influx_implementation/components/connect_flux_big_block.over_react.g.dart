@@ -23,7 +23,7 @@ final $ConnectFluxBigBlockComponentFactory = registerComponent2(
 
 _$$ConnectFluxBigBlockProps _$ConnectFluxBigBlock([Map backingProps]) =>
     backingProps == null
-        ? _$$ConnectFluxBigBlockProps$JsMap(JsBackedMap())
+        ? _$$ConnectFluxBigBlockProps(JsBackedMap())
         : _$$ConnectFluxBigBlockProps(backingProps);
 
 // Concrete props implementation.
@@ -31,7 +31,7 @@ _$$ConnectFluxBigBlockProps _$ConnectFluxBigBlock([Map backingProps]) =>
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$ConnectFluxBigBlockProps extends UiProps
+class _$$ConnectFluxBigBlockProps extends UiProps
     with
         ConnectFluxBigBlockPropsMixin,
         $ConnectFluxBigBlockPropsMixin, // If this generated mixin is undefined, it's likely because ConnectFluxBigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectFluxBigBlockPropsMixin.
@@ -39,15 +39,16 @@ abstract class _$$ConnectFluxBigBlockProps extends UiProps
         $ConnectPropsMixin // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
     implements
         ConnectFluxBigBlockProps {
-  _$$ConnectFluxBigBlockProps._();
-
-  factory _$$ConnectFluxBigBlockProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ConnectFluxBigBlockProps$JsMap(backingMap);
-    } else {
-      return _$$ConnectFluxBigBlockProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ConnectFluxBigBlockProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -63,43 +64,6 @@ abstract class _$$ConnectFluxBigBlockProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ConnectFluxBigBlockProps$PlainMap extends _$$ConnectFluxBigBlockProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ConnectFluxBigBlockProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ConnectFluxBigBlockProps$JsMap extends _$$ConnectFluxBigBlockProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ConnectFluxBigBlockProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -107,10 +71,10 @@ class _$$ConnectFluxBigBlockProps$JsMap extends _$$ConnectFluxBigBlockProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$ConnectFluxBigBlockComponent extends ConnectFluxBigBlockComponent {
-  _$$ConnectFluxBigBlockProps$JsMap _cachedTypedProps;
+  _$$ConnectFluxBigBlockProps _cachedTypedProps;
 
   @override
-  _$$ConnectFluxBigBlockProps$JsMap get props => _cachedTypedProps;
+  _$$ConnectFluxBigBlockProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -126,9 +90,8 @@ class _$ConnectFluxBigBlockComponent extends ConnectFluxBigBlockComponent {
   }
 
   @override
-  _$$ConnectFluxBigBlockProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
-      _$$ConnectFluxBigBlockProps$JsMap(backingMap);
+  _$$ConnectFluxBigBlockProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$ConnectFluxBigBlockProps(backingMap);
 
   @override
   _$$ConnectFluxBigBlockProps typedPropsFactory(Map backingMap) =>

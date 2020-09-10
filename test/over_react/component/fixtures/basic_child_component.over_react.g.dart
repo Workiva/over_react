@@ -40,24 +40,25 @@ class BasicChildProps extends _$BasicChildProps
 }
 
 _$$BasicChildProps _$BasicChild([Map backingProps]) => backingProps == null
-    ? _$$BasicChildProps$JsMap(JsBackedMap())
+    ? _$$BasicChildProps(JsBackedMap())
     : _$$BasicChildProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$BasicChildProps extends _$BasicChildProps
+class _$$BasicChildProps extends _$BasicChildProps
     with _$BasicChildPropsAccessorsMixin
     implements BasicChildProps {
-  _$$BasicChildProps._();
-
-  factory _$$BasicChildProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicChildProps$JsMap(backingMap);
-    } else {
-      return _$$BasicChildProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$BasicChildProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -73,48 +74,15 @@ abstract class _$$BasicChildProps extends _$BasicChildProps
   String get propKeyNamespace => 'BasicChildProps.';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-class _$$BasicChildProps$PlainMap extends _$$BasicChildProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicChildProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$BasicChildProps$JsMap extends _$$BasicChildProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicChildProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$BasicChildComponent extends BasicChildComponent {
-  _$$BasicChildProps$JsMap _cachedTypedProps;
+  _$$BasicChildProps _cachedTypedProps;
 
   @override
-  _$$BasicChildProps$JsMap get props => _cachedTypedProps;
+  _$$BasicChildProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -130,8 +98,8 @@ class _$BasicChildComponent extends BasicChildComponent {
   }
 
   @override
-  _$$BasicChildProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$BasicChildProps$JsMap(backingMap);
+  _$$BasicChildProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$BasicChildProps(backingMap);
 
   @override
   _$$BasicChildProps typedPropsFactory(Map backingMap) =>

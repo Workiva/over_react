@@ -22,7 +22,7 @@ final $ButtonComponentFactory = registerComponent2(
 );
 
 _$$ButtonProps _$Button([Map backingProps]) => backingProps == null
-    ? _$$ButtonProps$JsMap(JsBackedMap())
+    ? _$$ButtonProps(JsBackedMap())
     : _$$ButtonProps(backingProps);
 
 // Concrete props implementation.
@@ -30,20 +30,21 @@ _$$ButtonProps _$Button([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$ButtonProps extends UiProps
+class _$$ButtonProps extends UiProps
     with
         ButtonProps,
         $ButtonProps // If this generated mixin is undefined, it's likely because ButtonProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonProps.
 {
-  _$$ButtonProps._();
-
-  factory _$$ButtonProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ButtonProps$JsMap(backingMap);
-    } else {
-      return _$$ButtonProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ButtonProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -59,77 +60,19 @@ abstract class _$$ButtonProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ButtonProps$PlainMap extends _$$ButtonProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ButtonProps$JsMap extends _$$ButtonProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$ButtonState extends UiState
+class _$$ButtonState extends UiState
     with
         ButtonState,
         $ButtonState // If this generated mixin is undefined, it's likely because ButtonState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonState.
 {
-  _$$ButtonState._();
-
-  factory _$$ButtonState(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ButtonState$JsMap(backingMap);
-    } else {
-      return _$$ButtonState$PlainMap(backingMap);
-    }
-  }
-
-  /// Let `UiState` internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ButtonState$PlainMap extends _$$ButtonState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
+  _$$ButtonState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -137,25 +80,10 @@ class _$$ButtonState$PlainMap extends _$$ButtonState {
   @override
   Map get state => _state;
   Map _state;
-}
 
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ButtonState$JsMap extends _$$ButtonState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonState$JsMap(JsBackedMap backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
+  /// Let `UiState` internals know that this class has been generated.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -165,10 +93,10 @@ class _$$ButtonState$JsMap extends _$$ButtonState {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$ButtonComponent extends ButtonComponent {
-  _$$ButtonProps$JsMap _cachedTypedProps;
+  _$$ButtonProps _cachedTypedProps;
 
   @override
-  _$$ButtonProps$JsMap get props => _cachedTypedProps;
+  _$$ButtonProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -184,16 +112,16 @@ class _$ButtonComponent extends ButtonComponent {
   }
 
   @override
-  _$$ButtonProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$ButtonProps$JsMap(backingMap);
+  _$$ButtonProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$ButtonProps(backingMap);
 
   @override
   _$$ButtonProps typedPropsFactory(Map backingMap) =>
       _$$ButtonProps(backingMap);
 
-  _$$ButtonState$JsMap _cachedTypedState;
+  _$$ButtonState _cachedTypedState;
   @override
-  _$$ButtonState$JsMap get state => _cachedTypedState;
+  _$$ButtonState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -206,8 +134,8 @@ class _$ButtonComponent extends ButtonComponent {
   }
 
   @override
-  _$$ButtonState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      _$$ButtonState$JsMap(backingMap);
+  _$$ButtonState typedStateFactoryJs(JsBackedMap backingMap) =>
+      _$$ButtonState(backingMap);
 
   @override
   _$$ButtonState typedStateFactory(Map backingMap) =>

@@ -42,24 +42,25 @@ class TwoLevelWrapper2Props extends _$TwoLevelWrapper2Props
 
 _$$TwoLevelWrapper2Props _$TwoLevelWrapper2([Map backingProps]) =>
     backingProps == null
-        ? _$$TwoLevelWrapper2Props$JsMap(JsBackedMap())
+        ? _$$TwoLevelWrapper2Props(JsBackedMap())
         : _$$TwoLevelWrapper2Props(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$TwoLevelWrapper2Props extends _$TwoLevelWrapper2Props
+class _$$TwoLevelWrapper2Props extends _$TwoLevelWrapper2Props
     with _$TwoLevelWrapper2PropsAccessorsMixin
     implements TwoLevelWrapper2Props {
-  _$$TwoLevelWrapper2Props._();
-
-  factory _$$TwoLevelWrapper2Props(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TwoLevelWrapper2Props$JsMap(backingMap);
-    } else {
-      return _$$TwoLevelWrapper2Props$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TwoLevelWrapper2Props(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -75,48 +76,15 @@ abstract class _$$TwoLevelWrapper2Props extends _$TwoLevelWrapper2Props
   String get propKeyNamespace => 'TwoLevelWrapper2Props.';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-class _$$TwoLevelWrapper2Props$PlainMap extends _$$TwoLevelWrapper2Props {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TwoLevelWrapper2Props$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TwoLevelWrapper2Props$JsMap extends _$$TwoLevelWrapper2Props {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TwoLevelWrapper2Props$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TwoLevelWrapper2Component extends TwoLevelWrapper2Component {
-  _$$TwoLevelWrapper2Props$JsMap _cachedTypedProps;
+  _$$TwoLevelWrapper2Props _cachedTypedProps;
 
   @override
-  _$$TwoLevelWrapper2Props$JsMap get props => _cachedTypedProps;
+  _$$TwoLevelWrapper2Props get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -132,8 +100,8 @@ class _$TwoLevelWrapper2Component extends TwoLevelWrapper2Component {
   }
 
   @override
-  _$$TwoLevelWrapper2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$TwoLevelWrapper2Props$JsMap(backingMap);
+  _$$TwoLevelWrapper2Props typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$TwoLevelWrapper2Props(backingMap);
 
   @override
   _$$TwoLevelWrapper2Props typedPropsFactory(Map backingMap) =>

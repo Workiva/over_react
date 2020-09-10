@@ -23,7 +23,7 @@ final $ShouldNotUpdateComponentFactory = registerComponent2(
 
 _$$ShouldNotUpdateProps _$ShouldNotUpdate([Map backingProps]) =>
     backingProps == null
-        ? _$$ShouldNotUpdateProps$JsMap(JsBackedMap())
+        ? _$$ShouldNotUpdateProps(JsBackedMap())
         : _$$ShouldNotUpdateProps(backingProps);
 
 // Concrete props implementation.
@@ -31,20 +31,21 @@ _$$ShouldNotUpdateProps _$ShouldNotUpdate([Map backingProps]) =>
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$ShouldNotUpdateProps extends UiProps
+class _$$ShouldNotUpdateProps extends UiProps
     with
         ShouldNotUpdateProps,
         $ShouldNotUpdateProps // If this generated mixin is undefined, it's likely because ShouldNotUpdateProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ShouldNotUpdateProps.
 {
-  _$$ShouldNotUpdateProps._();
-
-  factory _$$ShouldNotUpdateProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ShouldNotUpdateProps$JsMap(backingMap);
-    } else {
-      return _$$ShouldNotUpdateProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ShouldNotUpdateProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -60,43 +61,6 @@ abstract class _$$ShouldNotUpdateProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ShouldNotUpdateProps$PlainMap extends _$$ShouldNotUpdateProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ShouldNotUpdateProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ShouldNotUpdateProps$JsMap extends _$$ShouldNotUpdateProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ShouldNotUpdateProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -104,10 +68,10 @@ class _$$ShouldNotUpdateProps$JsMap extends _$$ShouldNotUpdateProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$ShouldNotUpdateComponent extends ShouldNotUpdateComponent {
-  _$$ShouldNotUpdateProps$JsMap _cachedTypedProps;
+  _$$ShouldNotUpdateProps _cachedTypedProps;
 
   @override
-  _$$ShouldNotUpdateProps$JsMap get props => _cachedTypedProps;
+  _$$ShouldNotUpdateProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -123,8 +87,8 @@ class _$ShouldNotUpdateComponent extends ShouldNotUpdateComponent {
   }
 
   @override
-  _$$ShouldNotUpdateProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$ShouldNotUpdateProps$JsMap(backingMap);
+  _$$ShouldNotUpdateProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$ShouldNotUpdateProps(backingMap);
 
   @override
   _$$ShouldNotUpdateProps typedPropsFactory(Map backingMap) =>

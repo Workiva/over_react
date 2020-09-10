@@ -22,7 +22,7 @@ final $ProgressComponentFactory = registerComponent2(
 );
 
 _$$ProgressProps _$Progress([Map backingProps]) => backingProps == null
-    ? _$$ProgressProps$JsMap(JsBackedMap())
+    ? _$$ProgressProps(JsBackedMap())
     : _$$ProgressProps(backingProps);
 
 // Concrete props implementation.
@@ -30,20 +30,21 @@ _$$ProgressProps _$Progress([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$ProgressProps extends UiProps
+class _$$ProgressProps extends UiProps
     with
         ProgressProps,
         $ProgressProps // If this generated mixin is undefined, it's likely because ProgressProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ProgressProps.
 {
-  _$$ProgressProps._();
-
-  factory _$$ProgressProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ProgressProps$JsMap(backingMap);
-    } else {
-      return _$$ProgressProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ProgressProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -59,77 +60,19 @@ abstract class _$$ProgressProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ProgressProps$PlainMap extends _$$ProgressProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ProgressProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ProgressProps$JsMap extends _$$ProgressProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ProgressProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$ProgressState extends UiState
+class _$$ProgressState extends UiState
     with
         ProgressState,
         $ProgressState // If this generated mixin is undefined, it's likely because ProgressState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ProgressState.
 {
-  _$$ProgressState._();
-
-  factory _$$ProgressState(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ProgressState$JsMap(backingMap);
-    } else {
-      return _$$ProgressState$PlainMap(backingMap);
-    }
-  }
-
-  /// Let `UiState` internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ProgressState$PlainMap extends _$$ProgressState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ProgressState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
+  _$$ProgressState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -137,25 +80,10 @@ class _$$ProgressState$PlainMap extends _$$ProgressState {
   @override
   Map get state => _state;
   Map _state;
-}
 
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ProgressState$JsMap extends _$$ProgressState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ProgressState$JsMap(JsBackedMap backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
+  /// Let `UiState` internals know that this class has been generated.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -165,10 +93,10 @@ class _$$ProgressState$JsMap extends _$$ProgressState {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$ProgressComponent extends ProgressComponent {
-  _$$ProgressProps$JsMap _cachedTypedProps;
+  _$$ProgressProps _cachedTypedProps;
 
   @override
-  _$$ProgressProps$JsMap get props => _cachedTypedProps;
+  _$$ProgressProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -184,16 +112,16 @@ class _$ProgressComponent extends ProgressComponent {
   }
 
   @override
-  _$$ProgressProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$ProgressProps$JsMap(backingMap);
+  _$$ProgressProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$ProgressProps(backingMap);
 
   @override
   _$$ProgressProps typedPropsFactory(Map backingMap) =>
       _$$ProgressProps(backingMap);
 
-  _$$ProgressState$JsMap _cachedTypedState;
+  _$$ProgressState _cachedTypedState;
   @override
-  _$$ProgressState$JsMap get state => _cachedTypedState;
+  _$$ProgressState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -206,8 +134,8 @@ class _$ProgressComponent extends ProgressComponent {
   }
 
   @override
-  _$$ProgressState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      _$$ProgressState$JsMap(backingMap);
+  _$$ProgressState typedStateFactoryJs(JsBackedMap backingMap) =>
+      _$$ProgressState(backingMap);
 
   @override
   _$$ProgressState typedStateFactory(Map backingMap) =>

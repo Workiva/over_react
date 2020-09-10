@@ -22,7 +22,7 @@ final $ButtonGroupComponentFactory = registerComponent2(
 );
 
 _$$ButtonGroupProps _$ButtonGroup([Map backingProps]) => backingProps == null
-    ? _$$ButtonGroupProps$JsMap(JsBackedMap())
+    ? _$$ButtonGroupProps(JsBackedMap())
     : _$$ButtonGroupProps(backingProps);
 
 // Concrete props implementation.
@@ -30,20 +30,21 @@ _$$ButtonGroupProps _$ButtonGroup([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$ButtonGroupProps extends UiProps
+class _$$ButtonGroupProps extends UiProps
     with
         ButtonGroupProps,
         $ButtonGroupProps // If this generated mixin is undefined, it's likely because ButtonGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonGroupProps.
 {
-  _$$ButtonGroupProps._();
-
-  factory _$$ButtonGroupProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ButtonGroupProps$JsMap(backingMap);
-    } else {
-      return _$$ButtonGroupProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ButtonGroupProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -59,77 +60,19 @@ abstract class _$$ButtonGroupProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ButtonGroupProps$PlainMap extends _$$ButtonGroupProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonGroupProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ButtonGroupProps$JsMap extends _$$ButtonGroupProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonGroupProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$ButtonGroupState extends UiState
+class _$$ButtonGroupState extends UiState
     with
         ButtonGroupState,
         $ButtonGroupState // If this generated mixin is undefined, it's likely because ButtonGroupState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonGroupState.
 {
-  _$$ButtonGroupState._();
-
-  factory _$$ButtonGroupState(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ButtonGroupState$JsMap(backingMap);
-    } else {
-      return _$$ButtonGroupState$PlainMap(backingMap);
-    }
-  }
-
-  /// Let `UiState` internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ButtonGroupState$PlainMap extends _$$ButtonGroupState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonGroupState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
+  _$$ButtonGroupState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -137,25 +80,10 @@ class _$$ButtonGroupState$PlainMap extends _$$ButtonGroupState {
   @override
   Map get state => _state;
   Map _state;
-}
 
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ButtonGroupState$JsMap extends _$$ButtonGroupState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonGroupState$JsMap(JsBackedMap backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
+  /// Let `UiState` internals know that this class has been generated.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -165,10 +93,10 @@ class _$$ButtonGroupState$JsMap extends _$$ButtonGroupState {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$ButtonGroupComponent extends ButtonGroupComponent {
-  _$$ButtonGroupProps$JsMap _cachedTypedProps;
+  _$$ButtonGroupProps _cachedTypedProps;
 
   @override
-  _$$ButtonGroupProps$JsMap get props => _cachedTypedProps;
+  _$$ButtonGroupProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -184,16 +112,16 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
   }
 
   @override
-  _$$ButtonGroupProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$ButtonGroupProps$JsMap(backingMap);
+  _$$ButtonGroupProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$ButtonGroupProps(backingMap);
 
   @override
   _$$ButtonGroupProps typedPropsFactory(Map backingMap) =>
       _$$ButtonGroupProps(backingMap);
 
-  _$$ButtonGroupState$JsMap _cachedTypedState;
+  _$$ButtonGroupState _cachedTypedState;
   @override
-  _$$ButtonGroupState$JsMap get state => _cachedTypedState;
+  _$$ButtonGroupState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -206,8 +134,8 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
   }
 
   @override
-  _$$ButtonGroupState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      _$$ButtonGroupState$JsMap(backingMap);
+  _$$ButtonGroupState typedStateFactoryJs(JsBackedMap backingMap) =>
+      _$$ButtonGroupState(backingMap);
 
   @override
   _$$ButtonGroupState typedStateFactory(Map backingMap) =>

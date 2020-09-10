@@ -22,7 +22,7 @@ final $BigBlockComponentFactory = registerComponent2(
 );
 
 _$$BigBlockProps _$BigBlock([Map backingProps]) => backingProps == null
-    ? _$$BigBlockProps$JsMap(JsBackedMap())
+    ? _$$BigBlockProps(JsBackedMap())
     : _$$BigBlockProps(backingProps);
 
 // Concrete props implementation.
@@ -30,22 +30,23 @@ _$$BigBlockProps _$BigBlock([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$BigBlockProps extends UiProps
+class _$$BigBlockProps extends UiProps
     with
         FluxUiPropsMixin<RandomColorActions, RandomColorStore>,
         $FluxUiPropsMixin<RandomColorActions,
             RandomColorStore> // If this generated mixin is undefined, it's likely because FluxUiPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FluxUiPropsMixin.
     implements
         BigBlockProps {
-  _$$BigBlockProps._();
-
-  factory _$$BigBlockProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BigBlockProps$JsMap(backingMap);
-    } else {
-      return _$$BigBlockProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$BigBlockProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -61,43 +62,6 @@ abstract class _$$BigBlockProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$BigBlockProps$PlainMap extends _$$BigBlockProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BigBlockProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$BigBlockProps$JsMap extends _$$BigBlockProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BigBlockProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -105,10 +69,10 @@ class _$$BigBlockProps$JsMap extends _$$BigBlockProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$BigBlockComponent extends BigBlockComponent {
-  _$$BigBlockProps$JsMap _cachedTypedProps;
+  _$$BigBlockProps _cachedTypedProps;
 
   @override
-  _$$BigBlockProps$JsMap get props => _cachedTypedProps;
+  _$$BigBlockProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -124,8 +88,8 @@ class _$BigBlockComponent extends BigBlockComponent {
   }
 
   @override
-  _$$BigBlockProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$BigBlockProps$JsMap(backingMap);
+  _$$BigBlockProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$BigBlockProps(backingMap);
 
   @override
   _$$BigBlockProps typedPropsFactory(Map backingMap) =>

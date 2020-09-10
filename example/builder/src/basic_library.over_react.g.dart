@@ -23,7 +23,7 @@ final $BasicPartOfLibComponentFactory = registerComponent2(
 
 _$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
     backingProps == null
-        ? _$$BasicPartOfLibProps$JsMap(JsBackedMap())
+        ? _$$BasicPartOfLibProps(JsBackedMap())
         : _$$BasicPartOfLibProps(backingProps);
 
 // Concrete props implementation.
@@ -31,7 +31,7 @@ _$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$BasicPartOfLibProps extends UiProps
+class _$$BasicPartOfLibProps extends UiProps
     with
         ExamplePropsMixin,
         $ExamplePropsMixin, // If this generated mixin is undefined, it's likely because ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ExamplePropsMixin.
@@ -39,15 +39,16 @@ abstract class _$$BasicPartOfLibProps extends UiProps
         $BasicPartOfLibPropsMixin // If this generated mixin is undefined, it's likely because BasicPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicPartOfLibPropsMixin.
     implements
         BasicPartOfLibProps {
-  _$$BasicPartOfLibProps._();
-
-  factory _$$BasicPartOfLibProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicPartOfLibProps$JsMap(backingMap);
-    } else {
-      return _$$BasicPartOfLibProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$BasicPartOfLibProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -63,49 +64,12 @@ abstract class _$$BasicPartOfLibProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$BasicPartOfLibProps$PlainMap extends _$$BasicPartOfLibProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicPartOfLibProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$BasicPartOfLibProps$JsMap extends _$$BasicPartOfLibProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicPartOfLibProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$BasicPartOfLibState extends UiState
+class _$$BasicPartOfLibState extends UiState
     with
         ExampleStateMixin,
         $ExampleStateMixin, // If this generated mixin is undefined, it's likely because ExampleStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ExampleStateMixin.
@@ -113,30 +77,9 @@ abstract class _$$BasicPartOfLibState extends UiState
         $BasicPartOfLibStateMixin // If this generated mixin is undefined, it's likely because BasicPartOfLibStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicPartOfLibStateMixin.
     implements
         BasicPartOfLibState {
-  _$$BasicPartOfLibState._();
-
-  factory _$$BasicPartOfLibState(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicPartOfLibState$JsMap(backingMap);
-    } else {
-      return _$$BasicPartOfLibState$PlainMap(backingMap);
-    }
-  }
-
-  /// Let `UiState` internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$BasicPartOfLibState$PlainMap extends _$$BasicPartOfLibState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicPartOfLibState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
+  _$$BasicPartOfLibState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -144,25 +87,10 @@ class _$$BasicPartOfLibState$PlainMap extends _$$BasicPartOfLibState {
   @override
   Map get state => _state;
   Map _state;
-}
 
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$BasicPartOfLibState$JsMap extends _$$BasicPartOfLibState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicPartOfLibState$JsMap(JsBackedMap backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
+  /// Let `UiState` internals know that this class has been generated.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -172,10 +100,10 @@ class _$$BasicPartOfLibState$JsMap extends _$$BasicPartOfLibState {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
-  _$$BasicPartOfLibProps$JsMap _cachedTypedProps;
+  _$$BasicPartOfLibProps _cachedTypedProps;
 
   @override
-  _$$BasicPartOfLibProps$JsMap get props => _cachedTypedProps;
+  _$$BasicPartOfLibProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -191,16 +119,16 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   }
 
   @override
-  _$$BasicPartOfLibProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$BasicPartOfLibProps$JsMap(backingMap);
+  _$$BasicPartOfLibProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$BasicPartOfLibProps(backingMap);
 
   @override
   _$$BasicPartOfLibProps typedPropsFactory(Map backingMap) =>
       _$$BasicPartOfLibProps(backingMap);
 
-  _$$BasicPartOfLibState$JsMap _cachedTypedState;
+  _$$BasicPartOfLibState _cachedTypedState;
   @override
-  _$$BasicPartOfLibState$JsMap get state => _cachedTypedState;
+  _$$BasicPartOfLibState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -213,8 +141,8 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
   }
 
   @override
-  _$$BasicPartOfLibState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      _$$BasicPartOfLibState$JsMap(backingMap);
+  _$$BasicPartOfLibState typedStateFactoryJs(JsBackedMap backingMap) =>
+      _$$BasicPartOfLibState(backingMap);
 
   @override
   _$$BasicPartOfLibState typedStateFactory(Map backingMap) =>
@@ -386,7 +314,7 @@ final $SubPartOfLibComponentFactory = registerComponent2(
 );
 
 _$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) => backingProps == null
-    ? _$$SubPartOfLibProps$JsMap(JsBackedMap())
+    ? _$$SubPartOfLibProps(JsBackedMap())
     : _$$SubPartOfLibProps(backingProps);
 
 // Concrete props implementation.
@@ -394,7 +322,7 @@ _$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$SubPartOfLibProps extends UiProps
+class _$$SubPartOfLibProps extends UiProps
     with
         SuperPartOfLibPropsMixin,
         $SuperPartOfLibPropsMixin, // If this generated mixin is undefined, it's likely because SuperPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SuperPartOfLibPropsMixin.
@@ -402,15 +330,16 @@ abstract class _$$SubPartOfLibProps extends UiProps
         $SubPartOfLibPropsMixin // If this generated mixin is undefined, it's likely because SubPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SubPartOfLibPropsMixin.
     implements
         SubPartOfLibProps {
-  _$$SubPartOfLibProps._();
-
-  factory _$$SubPartOfLibProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SubPartOfLibProps$JsMap(backingMap);
-    } else {
-      return _$$SubPartOfLibProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$SubPartOfLibProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -426,43 +355,6 @@ abstract class _$$SubPartOfLibProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$SubPartOfLibProps$PlainMap extends _$$SubPartOfLibProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SubPartOfLibProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$SubPartOfLibProps$JsMap extends _$$SubPartOfLibProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$SubPartOfLibProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -470,10 +362,10 @@ class _$$SubPartOfLibProps$JsMap extends _$$SubPartOfLibProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$SubPartOfLibComponent extends SubPartOfLibComponent {
-  _$$SubPartOfLibProps$JsMap _cachedTypedProps;
+  _$$SubPartOfLibProps _cachedTypedProps;
 
   @override
-  _$$SubPartOfLibProps$JsMap get props => _cachedTypedProps;
+  _$$SubPartOfLibProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -489,8 +381,8 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
   }
 
   @override
-  _$$SubPartOfLibProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$SubPartOfLibProps$JsMap(backingMap);
+  _$$SubPartOfLibProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$SubPartOfLibProps(backingMap);
 
   @override
   _$$SubPartOfLibProps typedPropsFactory(Map backingMap) =>

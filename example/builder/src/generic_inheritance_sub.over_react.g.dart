@@ -22,7 +22,7 @@ final $GenericSubComponentFactory = registerComponent2(
 );
 
 _$$GenericSubProps _$GenericSub([Map backingProps]) => backingProps == null
-    ? _$$GenericSubProps$JsMap(JsBackedMap())
+    ? _$$GenericSubProps(JsBackedMap())
     : _$$GenericSubProps(backingProps);
 
 // Concrete props implementation.
@@ -30,7 +30,7 @@ _$$GenericSubProps _$GenericSub([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$GenericSubProps extends UiProps
+class _$$GenericSubProps extends UiProps
     with
         GenericSuperPropsMixin,
         $GenericSuperPropsMixin, // If this generated mixin is undefined, it's likely because GenericSuperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of GenericSuperPropsMixin.
@@ -38,15 +38,16 @@ abstract class _$$GenericSubProps extends UiProps
         $GenericSubPropsMixin // If this generated mixin is undefined, it's likely because GenericSubPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of GenericSubPropsMixin.
     implements
         GenericSubProps {
-  _$$GenericSubProps._();
-
-  factory _$$GenericSubProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$GenericSubProps$JsMap(backingMap);
-    } else {
-      return _$$GenericSubProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$GenericSubProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -62,49 +63,12 @@ abstract class _$$GenericSubProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$GenericSubProps$PlainMap extends _$$GenericSubProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$GenericSubProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$GenericSubProps$JsMap extends _$$GenericSubProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$GenericSubProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$GenericSubState extends UiState
+class _$$GenericSubState extends UiState
     with
         GenericSuperStateMixin,
         $GenericSuperStateMixin, // If this generated mixin is undefined, it's likely because GenericSuperStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of GenericSuperStateMixin.
@@ -112,30 +76,9 @@ abstract class _$$GenericSubState extends UiState
         $GenericSubStateMixin // If this generated mixin is undefined, it's likely because GenericSubStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of GenericSubStateMixin.
     implements
         GenericSubState {
-  _$$GenericSubState._();
-
-  factory _$$GenericSubState(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$GenericSubState$JsMap(backingMap);
-    } else {
-      return _$$GenericSubState$PlainMap(backingMap);
-    }
-  }
-
-  /// Let `UiState` internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$GenericSubState$PlainMap extends _$$GenericSubState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$GenericSubState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
+  _$$GenericSubState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -143,25 +86,10 @@ class _$$GenericSubState$PlainMap extends _$$GenericSubState {
   @override
   Map get state => _state;
   Map _state;
-}
 
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$GenericSubState$JsMap extends _$$GenericSubState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$GenericSubState$JsMap(JsBackedMap backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
+  /// Let `UiState` internals know that this class has been generated.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -171,10 +99,10 @@ class _$$GenericSubState$JsMap extends _$$GenericSubState {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$GenericSubComponent extends GenericSubComponent {
-  _$$GenericSubProps$JsMap _cachedTypedProps;
+  _$$GenericSubProps _cachedTypedProps;
 
   @override
-  _$$GenericSubProps$JsMap get props => _cachedTypedProps;
+  _$$GenericSubProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -190,16 +118,16 @@ class _$GenericSubComponent extends GenericSubComponent {
   }
 
   @override
-  _$$GenericSubProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$GenericSubProps$JsMap(backingMap);
+  _$$GenericSubProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$GenericSubProps(backingMap);
 
   @override
   _$$GenericSubProps typedPropsFactory(Map backingMap) =>
       _$$GenericSubProps(backingMap);
 
-  _$$GenericSubState$JsMap _cachedTypedState;
+  _$$GenericSubState _cachedTypedState;
   @override
-  _$$GenericSubState$JsMap get state => _cachedTypedState;
+  _$$GenericSubState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -212,8 +140,8 @@ class _$GenericSubComponent extends GenericSubComponent {
   }
 
   @override
-  _$$GenericSubState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      _$$GenericSubState$JsMap(backingMap);
+  _$$GenericSubState typedStateFactoryJs(JsBackedMap backingMap) =>
+      _$$GenericSubState(backingMap);
 
   @override
   _$$GenericSubState typedStateFactory(Map backingMap) =>

@@ -22,7 +22,7 @@ final $TransitionerComponentFactory = registerComponent2(
 );
 
 _$$TransitionerProps _$Transitioner([Map backingProps]) => backingProps == null
-    ? _$$TransitionerProps$JsMap(JsBackedMap())
+    ? _$$TransitionerProps(JsBackedMap())
     : _$$TransitionerProps(backingProps);
 
 // Concrete props implementation.
@@ -30,7 +30,7 @@ _$$TransitionerProps _$Transitioner([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$TransitionerProps extends UiProps
+class _$$TransitionerProps extends UiProps
     with
         TransitionerPropsMixin,
         $TransitionerPropsMixin, // If this generated mixin is undefined, it's likely because TransitionerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TransitionerPropsMixin.
@@ -38,15 +38,16 @@ abstract class _$$TransitionerProps extends UiProps
         $TransitionPropsMixin // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TransitionPropsMixin.
     implements
         TransitionerProps {
-  _$$TransitionerProps._();
-
-  factory _$$TransitionerProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TransitionerProps$JsMap(backingMap);
-    } else {
-      return _$$TransitionerProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TransitionerProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -62,78 +63,20 @@ abstract class _$$TransitionerProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TransitionerProps$PlainMap extends _$$TransitionerProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionerProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TransitionerProps$JsMap extends _$$TransitionerProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionerProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$TransitionerState extends UiState
+class _$$TransitionerState extends UiState
     with
         AbstractTransitionState,
         $AbstractTransitionState // If this generated mixin is undefined, it's likely because AbstractTransitionState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of AbstractTransitionState.
     implements
         TransitionerState {
-  _$$TransitionerState._();
-
-  factory _$$TransitionerState(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TransitionerState$JsMap(backingMap);
-    } else {
-      return _$$TransitionerState$PlainMap(backingMap);
-    }
-  }
-
-  /// Let `UiState` internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TransitionerState$PlainMap extends _$$TransitionerState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionerState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
+  _$$TransitionerState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -141,25 +84,10 @@ class _$$TransitionerState$PlainMap extends _$$TransitionerState {
   @override
   Map get state => _state;
   Map _state;
-}
 
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TransitionerState$JsMap extends _$$TransitionerState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionerState$JsMap(JsBackedMap backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
+  /// Let `UiState` internals know that this class has been generated.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -169,10 +97,10 @@ class _$$TransitionerState$JsMap extends _$$TransitionerState {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$TransitionerComponent extends TransitionerComponent {
-  _$$TransitionerProps$JsMap _cachedTypedProps;
+  _$$TransitionerProps _cachedTypedProps;
 
   @override
-  _$$TransitionerProps$JsMap get props => _cachedTypedProps;
+  _$$TransitionerProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -188,16 +116,16 @@ class _$TransitionerComponent extends TransitionerComponent {
   }
 
   @override
-  _$$TransitionerProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$TransitionerProps$JsMap(backingMap);
+  _$$TransitionerProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$TransitionerProps(backingMap);
 
   @override
   _$$TransitionerProps typedPropsFactory(Map backingMap) =>
       _$$TransitionerProps(backingMap);
 
-  _$$TransitionerState$JsMap _cachedTypedState;
+  _$$TransitionerState _cachedTypedState;
   @override
-  _$$TransitionerState$JsMap get state => _cachedTypedState;
+  _$$TransitionerState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -210,8 +138,8 @@ class _$TransitionerComponent extends TransitionerComponent {
   }
 
   @override
-  _$$TransitionerState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      _$$TransitionerState$JsMap(backingMap);
+  _$$TransitionerState typedStateFactoryJs(JsBackedMap backingMap) =>
+      _$$TransitionerState(backingMap);
 
   @override
   _$$TransitionerState typedStateFactory(Map backingMap) =>

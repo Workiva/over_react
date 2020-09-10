@@ -40,24 +40,25 @@ class ContextTypeProps extends _$ContextTypeProps
 }
 
 _$$ContextTypeProps _$ContextType([Map backingProps]) => backingProps == null
-    ? _$$ContextTypeProps$JsMap(JsBackedMap())
+    ? _$$ContextTypeProps(JsBackedMap())
     : _$$ContextTypeProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$ContextTypeProps extends _$ContextTypeProps
+class _$$ContextTypeProps extends _$ContextTypeProps
     with _$ContextTypePropsAccessorsMixin
     implements ContextTypeProps {
-  _$$ContextTypeProps._();
-
-  factory _$$ContextTypeProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ContextTypeProps$JsMap(backingMap);
-    } else {
-      return _$$ContextTypeProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ContextTypeProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -73,48 +74,15 @@ abstract class _$$ContextTypeProps extends _$ContextTypeProps
   String get propKeyNamespace => 'ContextTypeProps.';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-class _$$ContextTypeProps$PlainMap extends _$$ContextTypeProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ContextTypeProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$ContextTypeProps$JsMap extends _$$ContextTypeProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ContextTypeProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ContextTypeComponent extends ContextTypeComponent {
-  _$$ContextTypeProps$JsMap _cachedTypedProps;
+  _$$ContextTypeProps _cachedTypedProps;
 
   @override
-  _$$ContextTypeProps$JsMap get props => _cachedTypedProps;
+  _$$ContextTypeProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -130,8 +98,8 @@ class _$ContextTypeComponent extends ContextTypeComponent {
   }
 
   @override
-  _$$ContextTypeProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$ContextTypeProps$JsMap(backingMap);
+  _$$ContextTypeProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$ContextTypeProps(backingMap);
 
   @override
   _$$ContextTypeProps typedPropsFactory(Map backingMap) =>

@@ -73,7 +73,7 @@ const PropsMeta _$metaForUseImperativeHandleExampleProps = PropsMeta(
 final UiFactoryConfig<_$$FancyInputProps> $FancyInputConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$FancyInputProps(map),
-      jsMap: (map) => _$$FancyInputProps$JsMap(map),
+      jsMap: (map) => _$$FancyInputProps(map),
     ),
     displayName: 'FancyInput');
 
@@ -82,20 +82,21 @@ final UiFactoryConfig<_$$FancyInputProps> $FancyInputConfig = UiFactoryConfig(
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$FancyInputProps extends UiProps
+class _$$FancyInputProps extends UiProps
     with
         FancyInputProps,
         $FancyInputProps // If this generated mixin is undefined, it's likely because FancyInputProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FancyInputProps.
 {
-  _$$FancyInputProps._();
-
-  factory _$$FancyInputProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FancyInputProps$JsMap(backingMap);
-    } else {
-      return _$$FancyInputProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$FancyInputProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -106,48 +107,11 @@ abstract class _$$FancyInputProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$FancyInputProps$PlainMap extends _$$FancyInputProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FancyInputProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$FancyInputProps$JsMap extends _$$FancyInputProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FancyInputProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 final UiFactoryConfig<_$$UseImperativeHandleExampleProps>
     $UseImperativeHandleExampleConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseImperativeHandleExampleProps(map),
-          jsMap: (map) => _$$UseImperativeHandleExampleProps$JsMap(map),
+          jsMap: (map) => _$$UseImperativeHandleExampleProps(map),
         ),
         displayName: 'UseImperativeHandleExample');
 
@@ -156,20 +120,21 @@ final UiFactoryConfig<_$$UseImperativeHandleExampleProps>
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$UseImperativeHandleExampleProps extends UiProps
+class _$$UseImperativeHandleExampleProps extends UiProps
     with
         UseImperativeHandleExampleProps,
         $UseImperativeHandleExampleProps // If this generated mixin is undefined, it's likely because UseImperativeHandleExampleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of UseImperativeHandleExampleProps.
 {
-  _$$UseImperativeHandleExampleProps._();
-
-  factory _$$UseImperativeHandleExampleProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$UseImperativeHandleExampleProps$JsMap(backingMap);
-    } else {
-      return _$$UseImperativeHandleExampleProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$UseImperativeHandleExampleProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -178,43 +143,4 @@ abstract class _$$UseImperativeHandleExampleProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
-}
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$UseImperativeHandleExampleProps$PlainMap
-    extends _$$UseImperativeHandleExampleProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UseImperativeHandleExampleProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$UseImperativeHandleExampleProps$JsMap
-    extends _$$UseImperativeHandleExampleProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UseImperativeHandleExampleProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }

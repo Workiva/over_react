@@ -23,7 +23,7 @@ final $FaultyOnMountComponentFactory = registerComponent2(
 
 _$$FaultyOnMountProps _$FaultyOnMount([Map backingProps]) =>
     backingProps == null
-        ? _$$FaultyOnMountProps$JsMap(JsBackedMap())
+        ? _$$FaultyOnMountProps(JsBackedMap())
         : _$$FaultyOnMountProps(backingProps);
 
 // Concrete props implementation.
@@ -31,20 +31,21 @@ _$$FaultyOnMountProps _$FaultyOnMount([Map backingProps]) =>
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$FaultyOnMountProps extends UiProps
+class _$$FaultyOnMountProps extends UiProps
     with
         FaultyOnMountProps,
         $FaultyOnMountProps // If this generated mixin is undefined, it's likely because FaultyOnMountProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FaultyOnMountProps.
 {
-  _$$FaultyOnMountProps._();
-
-  factory _$$FaultyOnMountProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FaultyOnMountProps$JsMap(backingMap);
-    } else {
-      return _$$FaultyOnMountProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$FaultyOnMountProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -60,43 +61,6 @@ abstract class _$$FaultyOnMountProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$FaultyOnMountProps$PlainMap extends _$$FaultyOnMountProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FaultyOnMountProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$FaultyOnMountProps$JsMap extends _$$FaultyOnMountProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FaultyOnMountProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -104,10 +68,10 @@ class _$$FaultyOnMountProps$JsMap extends _$$FaultyOnMountProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$FaultyOnMountComponent extends FaultyOnMountComponent {
-  _$$FaultyOnMountProps$JsMap _cachedTypedProps;
+  _$$FaultyOnMountProps _cachedTypedProps;
 
   @override
-  _$$FaultyOnMountProps$JsMap get props => _cachedTypedProps;
+  _$$FaultyOnMountProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -123,8 +87,8 @@ class _$FaultyOnMountComponent extends FaultyOnMountComponent {
   }
 
   @override
-  _$$FaultyOnMountProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$FaultyOnMountProps$JsMap(backingMap);
+  _$$FaultyOnMountProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$FaultyOnMountProps(backingMap);
 
   @override
   _$$FaultyOnMountProps typedPropsFactory(Map backingMap) =>

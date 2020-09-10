@@ -533,7 +533,7 @@ const StateMeta _$metaForTestCustomNamespaceWithStateAnnotationStateMixin =
 );
 
 _$$TestPropsMixin _$Test([Map backingProps]) => backingProps == null
-    ? _$$TestPropsMixin$JsMap(JsBackedMap())
+    ? _$$TestPropsMixin(JsBackedMap())
     : _$$TestPropsMixin(backingProps);
 
 // Concrete props implementation.
@@ -541,20 +541,21 @@ _$$TestPropsMixin _$Test([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$TestPropsMixin extends UiProps
+class _$$TestPropsMixin extends UiProps
     with
         TestPropsMixin,
         $TestPropsMixin // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TestPropsMixin.
 {
-  _$$TestPropsMixin._();
-
-  factory _$$TestPropsMixin(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestPropsMixin$JsMap(backingMap);
-    } else {
-      return _$$TestPropsMixin$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TestPropsMixin(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -565,46 +566,9 @@ abstract class _$$TestPropsMixin extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TestPropsMixin$PlainMap extends _$$TestPropsMixin {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestPropsMixin$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TestPropsMixin$JsMap extends _$$TestPropsMixin {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestPropsMixin$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 _$$TestCustomNamespaceProps _$TestCustomNamespace([Map backingProps]) =>
     backingProps == null
-        ? _$$TestCustomNamespaceProps$JsMap(JsBackedMap())
+        ? _$$TestCustomNamespaceProps(JsBackedMap())
         : _$$TestCustomNamespaceProps(backingProps);
 
 // Concrete props implementation.
@@ -612,7 +576,7 @@ _$$TestCustomNamespaceProps _$TestCustomNamespace([Map backingProps]) =>
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$TestCustomNamespaceProps extends UiProps
+class _$$TestCustomNamespaceProps extends UiProps
     with
         TestCustomNamespacePropsMixin,
         $TestCustomNamespacePropsMixin, // If this generated mixin is undefined, it's likely because TestCustomNamespacePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TestCustomNamespacePropsMixin.
@@ -620,15 +584,16 @@ abstract class _$$TestCustomNamespaceProps extends UiProps
         $TestCustomNamespaceWithPropsAnnotationPropsMixin // If this generated mixin is undefined, it's likely because TestCustomNamespaceWithPropsAnnotationPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TestCustomNamespaceWithPropsAnnotationPropsMixin.
     implements
         TestCustomNamespaceProps {
-  _$$TestCustomNamespaceProps._();
-
-  factory _$$TestCustomNamespaceProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestCustomNamespaceProps$JsMap(backingMap);
-    } else {
-      return _$$TestCustomNamespaceProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TestCustomNamespaceProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -637,41 +602,4 @@ abstract class _$$TestCustomNamespaceProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
-}
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TestCustomNamespaceProps$PlainMap extends _$$TestCustomNamespaceProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestCustomNamespaceProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$TestCustomNamespaceProps$JsMap extends _$$TestCustomNamespaceProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestCustomNamespaceProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
 }

@@ -22,7 +22,7 @@ final $_PrivateComponentFactory = registerComponent2(
 );
 
 _$$_PrivateProps _$_Private([Map backingProps]) => backingProps == null
-    ? _$$_PrivateProps$JsMap(JsBackedMap())
+    ? _$$_PrivateProps(JsBackedMap())
     : _$$_PrivateProps(backingProps);
 
 // Concrete props implementation.
@@ -30,20 +30,21 @@ _$$_PrivateProps _$_Private([Map backingProps]) => backingProps == null
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$_PrivateProps extends UiProps
+class _$$_PrivateProps extends UiProps
     with
         _PrivateProps,
         $_PrivateProps // If this generated mixin is undefined, it's likely because _PrivateProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of _PrivateProps.
 {
-  _$$_PrivateProps._();
-
-  factory _$$_PrivateProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$_PrivateProps$JsMap(backingMap);
-    } else {
-      return _$$_PrivateProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$_PrivateProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -59,77 +60,19 @@ abstract class _$$_PrivateProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$_PrivateProps$PlainMap extends _$$_PrivateProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$_PrivateProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$_PrivateProps$JsMap extends _$$_PrivateProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$_PrivateProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete state implementation.
 //
 // Implements constructor and backing map.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$_PrivateState extends UiState
+class _$$_PrivateState extends UiState
     with
         _PrivateState,
         $_PrivateState // If this generated mixin is undefined, it's likely because _PrivateState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of _PrivateState.
 {
-  _$$_PrivateState._();
-
-  factory _$$_PrivateState(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$_PrivateState$JsMap(backingMap);
-    } else {
-      return _$$_PrivateState$PlainMap(backingMap);
-    }
-  }
-
-  /// Let `UiState` internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-}
-
-// Concrete state implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$_PrivateState$PlainMap extends _$$_PrivateState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$_PrivateState$PlainMap(Map backingMap)
-      : this._state = {},
-        super._() {
+  _$$_PrivateState(Map backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -137,25 +80,10 @@ class _$$_PrivateState$PlainMap extends _$$_PrivateState {
   @override
   Map get state => _state;
   Map _state;
-}
 
-// Concrete state implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$_PrivateState$JsMap extends _$$_PrivateState {
-  // This initializer of `_state` to an empty map, as well as the reassignment
-  // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$_PrivateState$JsMap(JsBackedMap backingMap)
-      : this._state = JsBackedMap(),
-        super._() {
-    this._state = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing state map proxied by this class.
+  /// Let `UiState` internals know that this class has been generated.
   @override
-  JsBackedMap get state => _state;
-  JsBackedMap _state;
+  bool get $isClassGenerated => true;
 }
 
 // Concrete component implementation mixin.
@@ -165,10 +93,10 @@ class _$$_PrivateState$JsMap extends _$$_PrivateState {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$_PrivateComponent extends _PrivateComponent {
-  _$$_PrivateProps$JsMap _cachedTypedProps;
+  _$$_PrivateProps _cachedTypedProps;
 
   @override
-  _$$_PrivateProps$JsMap get props => _cachedTypedProps;
+  _$$_PrivateProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -184,16 +112,16 @@ class _$_PrivateComponent extends _PrivateComponent {
   }
 
   @override
-  _$$_PrivateProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$_PrivateProps$JsMap(backingMap);
+  _$$_PrivateProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$_PrivateProps(backingMap);
 
   @override
   _$$_PrivateProps typedPropsFactory(Map backingMap) =>
       _$$_PrivateProps(backingMap);
 
-  _$$_PrivateState$JsMap _cachedTypedState;
+  _$$_PrivateState _cachedTypedState;
   @override
-  _$$_PrivateState$JsMap get state => _cachedTypedState;
+  _$$_PrivateState get state => _cachedTypedState;
 
   @override
   set state(Map value) {
@@ -206,8 +134,8 @@ class _$_PrivateComponent extends _PrivateComponent {
   }
 
   @override
-  _$$_PrivateState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
-      _$$_PrivateState$JsMap(backingMap);
+  _$$_PrivateState typedStateFactoryJs(JsBackedMap backingMap) =>
+      _$$_PrivateState(backingMap);
 
   @override
   _$$_PrivateState typedStateFactory(Map backingMap) =>

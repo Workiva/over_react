@@ -23,7 +23,7 @@ final $ListGroupItemComponentFactory = registerComponent2(
 
 _$$ListGroupItemProps _$ListGroupItem([Map backingProps]) =>
     backingProps == null
-        ? _$$ListGroupItemProps$JsMap(JsBackedMap())
+        ? _$$ListGroupItemProps(JsBackedMap())
         : _$$ListGroupItemProps(backingProps);
 
 // Concrete props implementation.
@@ -31,20 +31,21 @@ _$$ListGroupItemProps _$ListGroupItem([Map backingProps]) =>
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$ListGroupItemProps extends UiProps
+class _$$ListGroupItemProps extends UiProps
     with
         ListGroupItemProps,
         $ListGroupItemProps // If this generated mixin is undefined, it's likely because ListGroupItemProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ListGroupItemProps.
 {
-  _$$ListGroupItemProps._();
-
-  factory _$$ListGroupItemProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ListGroupItemProps$JsMap(backingMap);
-    } else {
-      return _$$ListGroupItemProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ListGroupItemProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -60,43 +61,6 @@ abstract class _$$ListGroupItemProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ListGroupItemProps$PlainMap extends _$$ListGroupItemProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ListGroupItemProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$ListGroupItemProps$JsMap extends _$$ListGroupItemProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ListGroupItemProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -104,10 +68,10 @@ class _$$ListGroupItemProps$JsMap extends _$$ListGroupItemProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$ListGroupItemComponent extends ListGroupItemComponent {
-  _$$ListGroupItemProps$JsMap _cachedTypedProps;
+  _$$ListGroupItemProps _cachedTypedProps;
 
   @override
-  _$$ListGroupItemProps$JsMap get props => _cachedTypedProps;
+  _$$ListGroupItemProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -123,8 +87,8 @@ class _$ListGroupItemComponent extends ListGroupItemComponent {
   }
 
   @override
-  _$$ListGroupItemProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$ListGroupItemProps$JsMap(backingMap);
+  _$$ListGroupItemProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$ListGroupItemProps(backingMap);
 
   @override
   _$$ListGroupItemProps typedPropsFactory(Map backingMap) =>

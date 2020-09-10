@@ -43,25 +43,25 @@ class TestSubtypeOfComponent1Props extends _$TestSubtypeOfComponent1Props
 
 _$$TestSubtypeOfComponent1Props _$TestSubtypeOfComponent1([Map backingProps]) =>
     backingProps == null
-        ? _$$TestSubtypeOfComponent1Props$JsMap(JsBackedMap())
+        ? _$$TestSubtypeOfComponent1Props(JsBackedMap())
         : _$$TestSubtypeOfComponent1Props(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$TestSubtypeOfComponent1Props
-    extends _$TestSubtypeOfComponent1Props
+class _$$TestSubtypeOfComponent1Props extends _$TestSubtypeOfComponent1Props
     with _$TestSubtypeOfComponent1PropsAccessorsMixin
     implements TestSubtypeOfComponent1Props {
-  _$$TestSubtypeOfComponent1Props._();
-
-  factory _$$TestSubtypeOfComponent1Props(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestSubtypeOfComponent1Props$JsMap(backingMap);
-    } else {
-      return _$$TestSubtypeOfComponent1Props$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TestSubtypeOfComponent1Props(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -77,51 +77,16 @@ abstract class _$$TestSubtypeOfComponent1Props
   String get propKeyNamespace => 'TestSubtypeOfComponent1Props.';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-class _$$TestSubtypeOfComponent1Props$PlainMap
-    extends _$$TestSubtypeOfComponent1Props {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSubtypeOfComponent1Props$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$TestSubtypeOfComponent1Props$JsMap
-    extends _$$TestSubtypeOfComponent1Props {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSubtypeOfComponent1Props$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestSubtypeOfComponent1Component
     extends TestSubtypeOfComponent1Component {
-  _$$TestSubtypeOfComponent1Props$JsMap _cachedTypedProps;
+  _$$TestSubtypeOfComponent1Props _cachedTypedProps;
 
   @override
-  _$$TestSubtypeOfComponent1Props$JsMap get props => _cachedTypedProps;
+  _$$TestSubtypeOfComponent1Props get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -137,9 +102,8 @@ class _$TestSubtypeOfComponent1Component
   }
 
   @override
-  _$$TestSubtypeOfComponent1Props$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
-      _$$TestSubtypeOfComponent1Props$JsMap(backingMap);
+  _$$TestSubtypeOfComponent1Props typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$TestSubtypeOfComponent1Props(backingMap);
 
   @override
   _$$TestSubtypeOfComponent1Props typedPropsFactory(Map backingMap) =>

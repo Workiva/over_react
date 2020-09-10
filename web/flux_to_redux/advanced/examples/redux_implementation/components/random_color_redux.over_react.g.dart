@@ -23,7 +23,7 @@ final $RandomColorReduxComponentFactory = registerComponent2(
 
 _$$RandomColorReduxProps _$RandomColorRedux([Map backingProps]) =>
     backingProps == null
-        ? _$$RandomColorReduxProps$JsMap(JsBackedMap())
+        ? _$$RandomColorReduxProps(JsBackedMap())
         : _$$RandomColorReduxProps(backingProps);
 
 // Concrete props implementation.
@@ -31,7 +31,7 @@ _$$RandomColorReduxProps _$RandomColorRedux([Map backingProps]) =>
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$RandomColorReduxProps extends UiProps
+class _$$RandomColorReduxProps extends UiProps
     with
         RandomColorReduxPropsMixin,
         $RandomColorReduxPropsMixin, // If this generated mixin is undefined, it's likely because RandomColorReduxPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of RandomColorReduxPropsMixin.
@@ -39,15 +39,16 @@ abstract class _$$RandomColorReduxProps extends UiProps
         $ConnectPropsMixin // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
     implements
         RandomColorReduxProps {
-  _$$RandomColorReduxProps._();
-
-  factory _$$RandomColorReduxProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$RandomColorReduxProps$JsMap(backingMap);
-    } else {
-      return _$$RandomColorReduxProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$RandomColorReduxProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -63,43 +64,6 @@ abstract class _$$RandomColorReduxProps extends UiProps
   String get propKeyNamespace => '';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$RandomColorReduxProps$PlainMap extends _$$RandomColorReduxProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$RandomColorReduxProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$RandomColorReduxProps$JsMap extends _$$RandomColorReduxProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$RandomColorReduxProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
@@ -107,10 +71,10 @@ class _$$RandomColorReduxProps$JsMap extends _$$RandomColorReduxProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$RandomColorReduxComponent extends RandomColorReduxComponent {
-  _$$RandomColorReduxProps$JsMap _cachedTypedProps;
+  _$$RandomColorReduxProps _cachedTypedProps;
 
   @override
-  _$$RandomColorReduxProps$JsMap get props => _cachedTypedProps;
+  _$$RandomColorReduxProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -126,8 +90,8 @@ class _$RandomColorReduxComponent extends RandomColorReduxComponent {
   }
 
   @override
-  _$$RandomColorReduxProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$RandomColorReduxProps$JsMap(backingMap);
+  _$$RandomColorReduxProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$RandomColorReduxProps(backingMap);
 
   @override
   _$$RandomColorReduxProps typedPropsFactory(Map backingMap) =>

@@ -40,24 +40,25 @@ class FluxCounterProps extends _$FluxCounterProps
 }
 
 _$$FluxCounterProps _$FluxCounter([Map backingProps]) => backingProps == null
-    ? _$$FluxCounterProps$JsMap(JsBackedMap())
+    ? _$$FluxCounterProps(JsBackedMap())
     : _$$FluxCounterProps(backingProps);
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-abstract class _$$FluxCounterProps extends _$FluxCounterProps
+class _$$FluxCounterProps extends _$FluxCounterProps
     with _$FluxCounterPropsAccessorsMixin
     implements FluxCounterProps {
-  _$$FluxCounterProps._();
-
-  factory _$$FluxCounterProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FluxCounterProps$JsMap(backingMap);
-    } else {
-      return _$$FluxCounterProps$PlainMap(backingMap);
-    }
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$FluxCounterProps(Map backingMap) : this._props = {} {
+    this._props = backingMap ?? {};
   }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
 
   /// Let `UiProps` internals know that this class has been generated.
   @override
@@ -73,48 +74,15 @@ abstract class _$$FluxCounterProps extends _$FluxCounterProps
   String get propKeyNamespace => 'FluxCounterProps.';
 }
 
-// Concrete props implementation that can be backed by any [Map].
-class _$$FluxCounterProps$PlainMap extends _$$FluxCounterProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FluxCounterProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-class _$$FluxCounterProps$JsMap extends _$$FluxCounterProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FluxCounterProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
 // Concrete component implementation mixin.
 //
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$FluxCounterComponent extends FluxCounterComponent {
-  _$$FluxCounterProps$JsMap _cachedTypedProps;
+  _$$FluxCounterProps _cachedTypedProps;
 
   @override
-  _$$FluxCounterProps$JsMap get props => _cachedTypedProps;
+  _$$FluxCounterProps get props => _cachedTypedProps;
 
   @override
   set props(Map value) {
@@ -130,8 +98,8 @@ class _$FluxCounterComponent extends FluxCounterComponent {
   }
 
   @override
-  _$$FluxCounterProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
-      _$$FluxCounterProps$JsMap(backingMap);
+  _$$FluxCounterProps typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$FluxCounterProps(backingMap);
 
   @override
   _$$FluxCounterProps typedPropsFactory(Map backingMap) =>
