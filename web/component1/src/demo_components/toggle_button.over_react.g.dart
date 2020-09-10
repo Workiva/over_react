@@ -27,7 +27,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
 
   /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
   ///
-  /// _Proxies [DomProps.autoFocus]._
+  /// _Proxies [DomPropsMixin.autoFocus]._
   ///
   /// Default: `false`
   ///
@@ -39,7 +39,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
   ///
-  /// _Proxies [DomProps.autoFocus]._
+  /// _Proxies [DomPropsMixin.autoFocus]._
   ///
   /// Default: `false`
   ///
@@ -58,7 +58,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   ///
   /// Related: [checked]
   ///
-  /// _Proxies [DomProps.defaultChecked]._
+  /// _Proxies [DomPropsMixin.defaultChecked]._
   ///
   /// See: <https://facebook.github.io/react/docs/forms.html#uncontrolled-components>.
   ///
@@ -77,7 +77,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   ///
   /// Related: [checked]
   ///
-  /// _Proxies [DomProps.defaultChecked]._
+  /// _Proxies [DomPropsMixin.defaultChecked]._
   ///
   /// See: <https://facebook.github.io/react/docs/forms.html#uncontrolled-components>.
   ///
@@ -95,7 +95,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   ///
   /// Related: [defaultChecked]
   ///
-  /// _Proxies [DomProps.checked]._
+  /// _Proxies [DomPropsMixin.checked]._
   ///
   /// See: <https://facebook.github.io/react/docs/forms.html#controlled-components>.
   ///
@@ -113,7 +113,7 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   ///
   /// Related: [defaultChecked]
   ///
-  /// _Proxies [DomProps.checked]._
+  /// _Proxies [DomPropsMixin.checked]._
   ///
   /// See: <https://facebook.github.io/react/docs/forms.html#controlled-components>.
   ///
@@ -197,7 +197,7 @@ abstract class _$ToggleButtonStateAccessorsMixin
   /// Tracks if the [ToggleButton] is focused. Determines whether to render with the `js-focus` CSS
   /// class.
   ///
-  /// Initial: [ToggleButtonProps.autoFocus]
+  /// Initial: `ToggleButtonProps.autoFocus`
   ///
   /// <!-- Generated from [_$ToggleButtonState.isFocused] -->
   @override
@@ -207,7 +207,7 @@ abstract class _$ToggleButtonStateAccessorsMixin
   /// Tracks if the [ToggleButton] is focused. Determines whether to render with the `js-focus` CSS
   /// class.
   ///
-  /// Initial: [ToggleButtonProps.autoFocus]
+  /// Initial: `ToggleButtonProps.autoFocus`
   ///
   /// <!-- Generated from [_$ToggleButtonState.isFocused] -->
   @override
@@ -216,7 +216,7 @@ abstract class _$ToggleButtonStateAccessorsMixin
 
   /// Tracks if the [ToggleButton] input is `checked`. Determines whether to render with the `active` CSS class.
   ///
-  /// Initial: [ToggleButtonProps.checked] `??` [ToggleButtonProps.defaultChecked] `?? false`
+  /// Initial: `ToggleButtonProps.checked ?? ToggleButtonProps.defaultChecked ?? false`
   ///
   /// <!-- Generated from [_$ToggleButtonState.isChecked] -->
   @override
@@ -225,7 +225,7 @@ abstract class _$ToggleButtonStateAccessorsMixin
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   /// Tracks if the [ToggleButton] input is `checked`. Determines whether to render with the `active` CSS class.
   ///
-  /// Initial: [ToggleButtonProps.checked] `??` [ToggleButtonProps.defaultChecked] `?? false`
+  /// Initial: `ToggleButtonProps.checked ?? ToggleButtonProps.defaultChecked ?? false`
   ///
   /// <!-- Generated from [_$ToggleButtonState.isChecked] -->
   @override

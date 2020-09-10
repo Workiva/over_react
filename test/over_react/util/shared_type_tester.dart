@@ -67,9 +67,9 @@ void sharedTypeTests(
       });
       if (!skipNumTypes) {
         test('num types', () {
-          final intValue = (1 as int); // ignore: unnecessary_cast
+          const intValue = (1 as int); // ignore: unnecessary_cast
           const doubleValue = 1.1;
-          final numValue = (1 as num); // ignore: unnecessary_cast
+          const numValue = (1 as num); // ignore: unnecessary_cast
 
           testTypeValue(intValue);
           testTypeValue(doubleValue);

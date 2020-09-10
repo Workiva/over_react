@@ -29,7 +29,7 @@ UiFactory<ToggleButtonProps> ToggleButton = _$ToggleButton;
 mixin ToggleButtonPropsMixin on UiProps {
   /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.
   ///
-  /// _Proxies [DomProps.autoFocus]._
+  /// _Proxies [DomPropsMixin.autoFocus]._
   ///
   /// Default: `false`
   @Accessor(keyNamespace: '')
@@ -44,7 +44,7 @@ mixin ToggleButtonPropsMixin on UiProps {
   ///
   /// Related: [checked]
   ///
-  /// _Proxies [DomProps.defaultChecked]._
+  /// _Proxies [DomPropsMixin.defaultChecked]._
   ///
   /// See: <https://facebook.github.io/react/docs/forms.html#uncontrolled-components>.
   @Accessor(keyNamespace: '')
@@ -58,7 +58,7 @@ mixin ToggleButtonPropsMixin on UiProps {
   ///
   /// Related: [defaultChecked]
   ///
-  /// _Proxies [DomProps.checked]._
+  /// _Proxies [DomPropsMixin.checked]._
   ///
   /// See: <https://facebook.github.io/react/docs/forms.html#controlled-components>.
   @Accessor(keyNamespace: '')
@@ -71,12 +71,12 @@ mixin ToggleButtonStateMixin on UiState {
   /// Tracks if the [ToggleButton] is focused. Determines whether to render with the `js-focus` CSS
   /// class.
   ///
-  /// Initial: [ToggleButtonProps.autoFocus]
+  /// Initial: `ToggleButtonProps.autoFocus`
   bool isFocused;
 
   /// Tracks if the [ToggleButton] input is `checked`. Determines whether to render with the `active` CSS class.
   ///
-  /// Initial: [ToggleButtonProps.checked] `??` [ToggleButtonProps.defaultChecked] `?? false`
+  /// Initial: `ToggleButtonProps.checked ?? ToggleButtonProps.defaultChecked ?? false`
   bool isChecked;
 }
 
@@ -186,10 +186,10 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
     'pointerEvents': 'none'
   };
 
-  /// Checks the `<input>` element to ensure that [ToggleButtonState.isChecked]
+  /// Checks the `<input>` element to ensure that `ToggleButtonState.isChecked`
   /// matches the value of the [InputElement.checked] attribute.
   ///
-  /// Does not refresh the state if [ToggleButtonProps.checked] is not null
+  /// Does not refresh the state if `ToggleButtonProps.checked` is not null
   /// (the component is a "controlled" component).
   void refreshState() {
     if (!_isControlled) setState(newState()..isChecked = inputRef.checked);

@@ -69,7 +69,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   if (members.isEmpty) return;
 
   final _consumedMembers = <BoilerplateMember>{};
-  final _functionComponentFactories = <BoilerplateFactory>{};
 
   /// Indicate that [member] has been grouped into a declaration,
   /// so that it is not grouped into another declaration.

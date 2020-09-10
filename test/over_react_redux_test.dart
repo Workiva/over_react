@@ -20,7 +20,6 @@
 library over_react_component_test;
 
 import 'package:over_react/over_react.dart';
-import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 
 import './over_react_redux/connect_test.dart' as connect_test;
@@ -31,8 +30,6 @@ import './over_react_redux/value_mutation_checker_test.dart' as value_mutation_c
 
 
 void main() {
-  setClientConfiguration();
-
   enableTestMode();
   connect_test.main();
   connect_flux_test.main();

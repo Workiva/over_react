@@ -43,6 +43,7 @@ abstract class $ConnectPropsMixin {
   static const PropsMeta meta = _$metaForConnectPropsMixin;
 }
 
+// ignore: deprecated_member_use_from_same_package
 @PropsMixin(keyNamespace: '')
 abstract class _$ConnectPropsMixin implements UiProps {
   @override

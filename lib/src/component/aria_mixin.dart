@@ -36,6 +36,7 @@ abstract class $AriaPropsMixin {
 
 /// Typed getters/setters for accessibility props.
 /// To be used as a mixin for React components and builders.
+// ignore: deprecated_member_use_from_same_package
 @PropsMixin(keyNamespace: '')
 abstract class _$AriaPropsMixin {
   Map get props;

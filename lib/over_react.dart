@@ -34,6 +34,7 @@ export 'package:react/react.dart'
 export 'package:react/react_client/js_backed_map.dart' show JsBackedMap;
 
 export 'package:react/react_client.dart'
+    // ignore: deprecated_member_use
     show setClientConfiguration, ReactElement, ReactComponentFactoryProxy;
 export 'package:react/react_client/react_interop.dart' show ReactErrorInfo, Ref;
 export 'package:react/hooks.dart' show StateHook, ReducerHook;
