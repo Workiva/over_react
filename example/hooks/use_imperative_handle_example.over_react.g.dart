@@ -25,35 +25,22 @@ mixin $FancyInputProps on FancyInputProps {
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
   set updater(Function value) => props[_$key__updater__FancyInputProps] = value;
-  @override
-  Ref get forwardedRef =>
-      props[_$key__forwardedRef__FancyInputProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
-  @override
-  set forwardedRef(Ref value) =>
-      props[_$key__forwardedRef__FancyInputProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__value__FancyInputProps =
       PropDescriptor(_$key__value__FancyInputProps);
   static const PropDescriptor _$prop__updater__FancyInputProps =
       PropDescriptor(_$key__updater__FancyInputProps);
-  static const PropDescriptor _$prop__forwardedRef__FancyInputProps =
-      PropDescriptor(_$key__forwardedRef__FancyInputProps);
   static const String _$key__value__FancyInputProps = 'FancyInputProps.value';
   static const String _$key__updater__FancyInputProps =
       'FancyInputProps.updater';
-  static const String _$key__forwardedRef__FancyInputProps =
-      'FancyInputProps.forwardedRef';
 
   static const List<PropDescriptor> $props = [
     _$prop__value__FancyInputProps,
-    _$prop__updater__FancyInputProps,
-    _$prop__forwardedRef__FancyInputProps
+    _$prop__updater__FancyInputProps
   ];
   static const List<String> $propKeys = [
     _$key__value__FancyInputProps,
-    _$key__updater__FancyInputProps,
-    _$key__forwardedRef__FancyInputProps
+    _$key__updater__FancyInputProps
   ];
 }
 
@@ -83,12 +70,12 @@ const PropsMeta _$metaForUseImperativeHandleExampleProps = PropsMeta(
   keys: $UseImperativeHandleExampleProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$FancyInputProps> $_FancyInputConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$FancyInputProps> $FancyInputConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$FancyInputProps(map),
       jsMap: (map) => _$$FancyInputProps$JsMap(map),
     ),
-    displayName: '_FancyInput');
+    displayName: 'FancyInput');
 
 // Concrete props implementation.
 //

@@ -1,5 +1,6 @@
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
+// ignore: implementation_imports
 import 'package:over_react/src/component/test_fixtures/redraw_counter_component_mixin.dart';
 import 'package:react_material_ui/react_material_ui.dart';
 

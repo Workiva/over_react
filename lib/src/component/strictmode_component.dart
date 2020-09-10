@@ -42,7 +42,7 @@ class StrictModeProps extends component_base.UiProps
 /// > Note:
 /// > Strict mode checks are run in development mode only; they do not impact the production build.
 ///
-/// Like [Fragment], [StrictMode] does not render any visible UI.
+/// Like [react.Fragment], [StrictMode] does not render any visible UI.
 /// It activates additional checks and warnings for its descendants.
 /// [StrictMode] currently helps with:
 /// - Identifying components with unsafe lifecycles

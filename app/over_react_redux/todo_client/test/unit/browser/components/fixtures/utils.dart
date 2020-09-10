@@ -16,7 +16,6 @@ bool muiJsIsAvailable() {
 }
 
 void initializeComponentTests() {
-  setClientConfiguration();
   enableTestMode();
   if (!muiJsIsAvailable()) return;
 }

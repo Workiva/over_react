@@ -48,8 +48,8 @@ Element closest(Element lowerBound, String selector, {Element upperBound}) {
   return null;
 }
 
-/// Returns the currently focused element ([HtmlDocument.activeElement]),
-/// or `null` if nothing is focused (e.g. [HtmlDocument.activeElement] is [BodyElement]).
+/// Returns the currently focused element ([Document.activeElement]),
+/// or `null` if nothing is focused (e.g. [Document.activeElement] is [BodyElement]).
 Element getActiveElement() {
   var activeElement = document.activeElement;
 

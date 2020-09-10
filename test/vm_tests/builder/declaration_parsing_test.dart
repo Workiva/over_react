@@ -61,7 +61,7 @@ main() {
 
         for (var type in types) {
           test(type, () => expect(mightContainDeclarations(type), isTrue));
-        };
+        }
       });
 
       test('returns true when there is an over_react part file', () {

@@ -77,7 +77,7 @@ class _$ListGroupItemProps extends UiProps {
   ///
   /// If set, the item will render via [Dom.a].
   ///
-  /// _Proxies [DomProps.href]_
+  /// _Proxies [DomPropsMixin.href]_
   @Accessor(keyNamespace: '')
   String href;
 
@@ -85,7 +85,7 @@ class _$ListGroupItemProps extends UiProps {
   ///
   /// If set, the item will render via [Dom.a].
   ///
-  /// _Proxies [DomProps.target]_
+  /// _Proxies [DomPropsMixin.target]_
   @Accessor(keyNamespace: '')
   String target;
 
@@ -94,7 +94,7 @@ class _$ListGroupItemProps extends UiProps {
   ///
   /// This will only be applied if [onClick] is also set.
   ///
-  /// _Proxies [DomProps.type]_
+  /// _Proxies [DomPropsMixin.type]_
   ///
   /// Default: [ButtonType.BUTTON]
   ButtonType type;
@@ -216,23 +216,23 @@ class ListGroupItemElementType {
 
   /// A [Dom.li] (HTML `<li>` element)
   ///
-  /// Will only be used if [ListGroupItemProps.href] and
-  /// [ListGroupItemProps.onClick] are both `null`.
+  /// Will only be used if `ListGroupItemProps.href` and
+  /// `ListGroupItemProps.onClick` are both `null`.
   ///
   /// Only use this when the parent [ListGroup] has
-  /// [ListGroupProps.elementType] set to [ListGroupElementType.UL].
+  /// `ListGroupProps.elementType` set to [ListGroupElementType.UL].
   static final ListGroupItemElementType LI =
       ListGroupItemElementType._internal(Dom.li);
 
   /// A [Dom.span] (HTML `<span>` element)
   ///
-  /// Will only be used if [ListGroupItemProps.href] and
-  /// [ListGroupItemProps.onClick] are both `null`.
+  /// Will only be used if `ListGroupItemProps.href` and
+  /// `ListGroupItemProps.onClick` are both `null`.
   static final ListGroupItemElementType SPAN =
       ListGroupItemElementType._internal(Dom.span);
 }
 
-/// Options for the [Element] that will be used when rendering a [ListGroupItemProps.header].
+/// Options for the [Element] that will be used when rendering a `ListGroupItemProps.header`.
 class ListGroupItemHeaderElementSize {
   final BuilderOnlyUiFactory<DomProps> componentBuilderFactory;
   ListGroupItemHeaderElementSize._internal(this.componentBuilderFactory);

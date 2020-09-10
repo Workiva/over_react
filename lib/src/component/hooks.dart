@@ -325,7 +325,7 @@ Ref<T> useRef<T>([T initialValue]) => react_hooks.useRef(initialValue);
 
 /// Returns a memoized version of the return value of [createFunction].
 ///
-/// If one of the [dependencies] has changed, [createFunction] is run during rendering of the [DartFunctionComponent].
+/// If one of the [dependencies] has changed, [createFunction] is run during rendering of the dart function component.
 /// This optimization helps to avoid expensive calculations on every render.
 ///
 /// > __Note:__ there are two [rules for using Hooks](https://reactjs.org/docs/hooks-rules.html):
@@ -362,7 +362,7 @@ Ref<T> useRef<T>([T initialValue]) => react_hooks.useRef(initialValue);
 T useMemo<T>(T Function() createFunction, [List<dynamic> dependencies]) =>
     react_hooks.useMemo(createFunction, dependencies);
 
-/// Runs [sideEffect] synchronously after a [DartFunctionComponent] renders, but before the screen is updated.
+/// Runs [sideEffect] synchronously after a dart function component renders, but before the screen is updated.
 ///
 /// Compare to [useEffect] which runs [sideEffect] after the screen updates.
 /// Prefer the standard [useEffect] when possible to avoid blocking visual updates.
@@ -403,7 +403,7 @@ T useMemo<T>(T Function() createFunction, [List<dynamic> dependencies]) =>
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#uselayouteffect>.
 void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies]) => react_hooks.useLayoutEffect(sideEffect, dependencies);
 
-/// Customizes the [ref] value that is exposed to parent components when using [uiForwardRef] by setting [ref.current]
+/// Customizes the [ref] value that is exposed to parent components when using [uiForwardRef] by setting [Ref.current]
 /// to the return value of [createHandle].
 ///
 /// In most cases, imperative code using refs should be avoided.
@@ -470,7 +470,7 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#useimperativehandle>.
-void useImperativeHandle(Ref ref, dynamic Function() createHandle, [List<dynamic> dependencies]) =>
+void useImperativeHandle(dynamic ref, dynamic Function() createHandle, [List<dynamic> dependencies]) =>
     react_hooks.useImperativeHandle(ref, createHandle, dependencies);
 
 /// Displays [value] as a label for a custom hook in React DevTools.

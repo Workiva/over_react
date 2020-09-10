@@ -16,7 +16,7 @@ abstract class CssClassPropsMixin implements _$CssClassPropsMixin {
   /// String of space-delimited CSS classes to be added to the resultant DOM.
   ///
   /// All over_react components merge any added classes with this prop and the [classNameBlacklist] prop (see
-  /// [UiComponent.forwardingClassNameBuilder]).
+  /// `UiComponent.forwardingClassNameBuilder`).
   ///
   /// <!-- Generated from [_$CssClassPropsMixin.className] -->
   @override
@@ -26,7 +26,7 @@ abstract class CssClassPropsMixin implements _$CssClassPropsMixin {
   /// String of space-delimited CSS classes to be added to the resultant DOM.
   ///
   /// All over_react components merge any added classes with this prop and the [classNameBlacklist] prop (see
-  /// [UiComponent.forwardingClassNameBuilder]).
+  /// `UiComponent.forwardingClassNameBuilder`).
   ///
   /// <!-- Generated from [_$CssClassPropsMixin.className] -->
   @override
@@ -36,7 +36,7 @@ abstract class CssClassPropsMixin implements _$CssClassPropsMixin {
   /// String of space-delimited CSS classes to be blacklisted from being added to the resultant DOM.
   ///
   /// All over_react components merge any added classes with this prop and the [className] prop (see
-  /// [UiComponent.forwardingClassNameBuilder]).
+  /// `UiComponent.forwardingClassNameBuilder`).
   ///
   /// <!-- Generated from [_$CssClassPropsMixin.classNameBlacklist] -->
   @override
@@ -46,7 +46,7 @@ abstract class CssClassPropsMixin implements _$CssClassPropsMixin {
   /// String of space-delimited CSS classes to be blacklisted from being added to the resultant DOM.
   ///
   /// All over_react components merge any added classes with this prop and the [className] prop (see
-  /// [UiComponent.forwardingClassNameBuilder]).
+  /// `UiComponent.forwardingClassNameBuilder`).
   ///
   /// <!-- Generated from [_$CssClassPropsMixin.classNameBlacklist] -->
   @override

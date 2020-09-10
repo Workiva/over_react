@@ -17,7 +17,7 @@ import 'package:over_react/over_react.dart';
 part 'dummy_component2.over_react.g.dart';
 
 @Factory()
-// ignore: undefined_identifier
+// ignore: undefined_identifier, unused_element
 UiFactory<_Dummy2Props> _Dummy2 = _$_Dummy2;
 
 @Props()

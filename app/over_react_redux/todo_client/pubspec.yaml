@@ -9,6 +9,7 @@ dependencies:
   memoize: ^2.0.0
   meta: ^1.0.0
   over_react: ^3.1.5
+  json_annotation: ^3.0.0
   react_material_ui: ^0.0.1
   redux: ">=3.0.0 <5.0.0"
   redux_dev_tools: ">=0.4.0 <0.6.0"

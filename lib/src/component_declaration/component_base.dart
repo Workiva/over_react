@@ -799,7 +799,7 @@ class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
 
   /// A convenience constructor to make a metadata object for a single key.
   ///
-  /// Useful within [UiComponent.consumedProps].
+  /// Useful within `UiComponent2.consumedProps`.
   ///
   /// Example:
   ///

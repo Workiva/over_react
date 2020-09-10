@@ -14,7 +14,7 @@
 
 import 'package:over_react/over_react.dart';
 
-/// A mixin to make a [react.Component2] instance behave
+/// A mixin to make a `Component2` instance behave
 /// like a [ReactJS `PureComponent`](https://reactjs.org/docs/react-api.html#reactpurecomponent).
 ///
 /// The value of `props.children` is not compared deeply by default. Any time a new `ReactElement`

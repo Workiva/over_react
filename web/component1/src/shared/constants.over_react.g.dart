@@ -19,7 +19,7 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   ///
   /// If unspecified, [AbstractInputStateMixin.name] will be generated.
   ///
-  /// _Proxies [DomProps.name]._
+  /// _Proxies [DomPropsMixin.name]._
   ///
   /// <!-- Generated from [_$AbstractInputPropsMixin.name] -->
   @override
@@ -31,7 +31,7 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   ///
   /// If unspecified, [AbstractInputStateMixin.name] will be generated.
   ///
-  /// _Proxies [DomProps.name]._
+  /// _Proxies [DomPropsMixin.name]._
   ///
   /// <!-- Generated from [_$AbstractInputPropsMixin.name] -->
   @override
@@ -44,7 +44,7 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   ///
   /// See: [React Controlled Components](https://facebook.github.io/react/docs/forms.html#controlled-components)
   ///
-  /// _Proxies [DomProps.value]._
+  /// _Proxies [DomPropsMixin.value]._
   ///
   /// <!-- Generated from [_$AbstractInputPropsMixin.value] -->
   @override
@@ -57,7 +57,7 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
   ///
   /// See: [React Controlled Components](https://facebook.github.io/react/docs/forms.html#controlled-components)
   ///
-  /// _Proxies [DomProps.value]._
+  /// _Proxies [DomPropsMixin.value]._
   ///
   /// <!-- Generated from [_$AbstractInputPropsMixin.value] -->
   @override

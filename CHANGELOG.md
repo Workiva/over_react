@@ -1,5 +1,20 @@
 # OverReact Changelog
 
+## [3.9.0](https://github.com/Workiva/over_react/compare/3.8.1...3.9.0)
+
+- [#620] Fix issue where `uiForwardRef`/`memo` components were being passed JSified props (by consuming [react-dart's `forwardRef2`/`memo2`](https://github.com/cleandart/react-dart/pull/275))
+- [#618] Add `makeMapStateToProps`/etc. arguments to `connect` to enable creation of closures specific to component instances
+- [#625] Address analyzer lints / hints
+
+## [3.8.1](https://github.com/Workiva/over_react/compare/3.8.0...3.8.1)
+
+__Bug Fixes__
+  - [#623] Include deprecation annotations on legacy props mixins
+
+__Other Changes__
+  - [#487] Readme Improvements
+  - [#619] Redux example app: Replace deprecated ExpansionPanel with new Accordion from MaterialUi
+
 ## [3.8.0](https://github.com/Workiva/over_react/compare/3.7.0...3.8.0)
 
 __New Features__
@@ -203,10 +218,10 @@ __Analyzer Plugin Changes:__
   the awesome [redux.dart library](https://github.com/johnpryan/redux.dart) to make it easy
   to set up redux provider(s) / consumer(s) for OverReact components that enable granular, targeted updates!
     - Check out [some examples](https://github.com/Workiva/over_react/tree/master/web/over_react_redux)
-      by cloning this project locally, running `webdev serve` from the root of the project, and navigating to <http://localhost:8080/over_react_redux/>.
+      by cloning this project locally, running `webdev serve` from the root of the project, and navigating to `http://localhost:8080/over_react_redux/`.
     - Use it in your project by [upgrading your `UiComponent`s to `UiComponent2`](https://github.com/Workiva/over_react/blob/master/doc/ui_component2_transition.md#updating) and importing `package:over_react/over_react_redux.dart`!
 - We've even got some sweet [redux dev tools you can use](https://github.com/Workiva/over_react/blob/master/doc/over_react_redux_documentation.md#using-redux-devtools) to make the inspection of connected state a breeze!
-  ![over_react_redux.dart developer tools](http://g.recordit.co/NLeAZQkCFm.gif)
+  ![over_react_redux.dart developer tools](https://g.recordit.co/NLeAZQkCFm.gif)
 
 > [__Learn more about using over_react_redux.dart__](https://github.com/Workiva/over_react/blob/master/doc/over_react_redux_documentation.md)
 
@@ -1014,7 +1029,7 @@ __Bug Fixes__
 
 __New Features__
 
-* [#76]: Add support for [`covariant`](http://news.dartlang.org/2017/02/dart-122-faster-tools-assert-messages.html) props / state fields.
+* [#76]: Add support for [`covariant`](https://news.dartlang.org/2017/02/dart-122-faster-tools-assert-messages.html) props / state fields.
   * Closes [#49]
 
 __Bug Fixes__
@@ -2287,5 +2302,4 @@ Initial public release of the library.
 [#997]: https://github.com/Workiva/over_react/pull/997
 [#998]: https://github.com/Workiva/over_react/pull/998
 [#999]: https://github.com/Workiva/over_react/pull/999
-
 

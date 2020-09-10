@@ -43,7 +43,7 @@ class FactoryNames {
   ///
   /// - Input: `Foo`
   /// - Output: `_$Foo`
-  String get implName => '$_prefix$privateSourcePrefix${unprefixedConsumerName}';
+  String get implName => '$_prefix$privateSourcePrefix$unprefixedConsumerName';
 
   /// The name of the generated function component props config for the factory.
   ///

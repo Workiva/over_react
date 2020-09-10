@@ -20,6 +20,8 @@ final $ErrorBoundaryComponentFactory = registerComponent2(
   skipMethods: const [],
 );
 
+@Deprecated(
+    'Use the `ErrorBoundaryProps` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
 abstract class _$ErrorBoundaryPropsAccessorsMixin
     implements _$ErrorBoundaryProps {
   @override
@@ -111,6 +113,8 @@ class _$$ErrorBoundaryProps$JsMap extends _$$ErrorBoundaryProps {
   JsBackedMap _props;
 }
 
+@Deprecated(
+    'Use the `ErrorBoundaryState` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
 abstract class _$ErrorBoundaryStateAccessorsMixin
     implements _$ErrorBoundaryState {
   @override

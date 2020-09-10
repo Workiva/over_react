@@ -20,7 +20,6 @@
 library util_test;
 
 import 'package:over_react/over_react.dart';
-import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 
 import 'over_react/util/class_names_test.dart' as class_names_test;
@@ -44,8 +43,6 @@ import 'over_react/util/string_util_test.dart' as string_util_test;
 import 'over_react/util/test_mode_test.dart' as test_mode_test;
 
 void main() {
-  setClientConfiguration();
-
   enableTestMode();
 
   class_names_test.main();

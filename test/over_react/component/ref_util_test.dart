@@ -60,7 +60,7 @@ main() {
           final Ref refObject = createRef();
           final vDomElement = (BasicForwarded()..ref = refObject)();
 
-          expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), 'Anonymous');
+          expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'), '');
         });
 
         test('when displayName argument is passed to the config constructor', () {
@@ -71,7 +71,7 @@ main() {
           final Ref refObject = createRef();
           final vDomElement = (BasicForwarded()..ref = refObject)();
 
-          expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), displayName);
+          expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'), displayName);
         });
 
         group('returns normally when passed children', () {
@@ -99,7 +99,7 @@ main() {
         final Ref refObject = createRef();
         final vDomElement = (TopLevelForwardUiRefFunction()..ref = refObject)();
 
-        expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'),
+        expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'),
             'TopLevelForwardUiRefFunction');
       });
 
@@ -153,7 +153,7 @@ void commonRefForwardingTests({bool useUiForwardRef = false}) {
   UiFactory<DomProps> getFactoryForDiv({
     String displayName,
   }) {
-    ReactElement div(Ref ref, dynamic children) => (Dom.div()..ref = ref)(children);
+    ReactElement div(dynamic ref, dynamic children) => (Dom.div()..ref = ref)(children);
 
     if (useUiForwardRef) {
       if (displayName == null) {
@@ -201,8 +201,11 @@ void commonRefForwardingTests({bool useUiForwardRef = false}) {
           final refObject = createRef<DivElement>();
           final vDomElement = (DivForwarded()..ref = refObject)();
 
-          expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'),
-              useUiForwardRef ? 'Anonymous' : 'div');
+          if (useUiForwardRef) {
+            expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'), '');
+          } else {
+            expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), 'div');
+          }
         });
 
         test('when displayName argument is passed to the config constructor', () {
@@ -211,7 +214,12 @@ void commonRefForwardingTests({bool useUiForwardRef = false}) {
           final refObject = createRef<DivElement>();
           final vDomElement = (DivForwarded()..ref = refObject)();
 
-          expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), displayName);
+
+          if (useUiForwardRef) {
+            expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'), displayName);
+          } else {
+            expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), displayName);
+          }
         });
       });
 
@@ -238,8 +246,11 @@ void commonRefForwardingTests({bool useUiForwardRef = false}) {
           final Ref refObject = createRef();
           final vDomElement = (BasicForwarded()..ref = refObject)();
 
-          expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'),
-              useUiForwardRef ? 'Anonymous' : 'Basic');
+          if (useUiForwardRef) {
+            expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'), '');
+          } else {
+            expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), 'Basic');
+          }
         });
 
         test('when displayName argument is passed to the config constructor', () {
@@ -248,7 +259,11 @@ void commonRefForwardingTests({bool useUiForwardRef = false}) {
           final Ref refObject = createRef();
           final vDomElement = (BasicForwarded()..ref = refObject)();
 
-          expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), displayName);
+          if (useUiForwardRef) {
+            expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'), displayName);
+          } else {
+            expect(getProperty(getProperty(vDomElement.type, 'render'), 'displayName'), displayName);
+          }
         });
       });
 

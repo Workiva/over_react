@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:over_react/src/component_declaration/component_base.dart'
-    as component_base;
 import 'package:over_react/src/component_declaration/builder_helpers.dart'
     as builder_helpers;
 import 'package:react/react_client.dart';

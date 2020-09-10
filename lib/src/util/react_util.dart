@@ -21,7 +21,7 @@ import 'package:react/react_client.dart';
 
 /// A `MapView` helper that stubs in unimplemented pieces of [UiProps].
 ///
-/// Useful when you need a `MapView` for a [PropsMixin] that implements [UiProps].
+/// Useful when you need a `MapView` for a `PropsMixin` that implements [UiProps].
 class UiPropsMapView extends MapView
     with
         ReactPropsMixin,
