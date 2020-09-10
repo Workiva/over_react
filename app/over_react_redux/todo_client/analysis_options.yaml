@@ -1,5 +1,9 @@
 include: package:pedantic/analysis_options.1.8.0.yaml
 
+analyzer:
+  errors:
+    uri_has_not_been_generated: ignore
+
 linter:
   rules:
     # -------------------
