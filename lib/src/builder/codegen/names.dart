@@ -136,30 +136,6 @@ class TypedMapNames {
   /// | Mixin-based | FooProps       | $FooProps    |
   String get implName => '$_prefix$privateSourcePrefix\$$_normalizedName';
 
-  /// The name of the generated concrete props/state implementation subclass
-  /// that can be backed by any Map.
-  ///
-  /// Example:
-  ///
-  /// | Version     | [consumerName] | Value                 |
-  /// |-------------|----------------|-----------------------|
-  /// | Legacy      | _$FooProps     | _$$FooProps$PlainMap  |
-  /// | Legacy      | _$_FooProps    | _$$_FooProps$PlainMap |
-  /// | Mixin-based | FooProps       | $FooProps$PlainMap    |
-  String get plainMapImplName => '$implName\$PlainMap';
-
-  /// The name of the generated concrete props/state implementation subclass
-  /// that can be backed only by JsBackedMaps.
-  ///
-  /// Example:
-  ///
-  /// | Version     | [consumerName] | Value              |
-  /// |-------------|----------------|--------------------|
-  /// | Legacy      | _$FooProps     | _$$FooProps$JsMap  |
-  /// | Legacy      | _$_FooProps    | _$$_FooProps$JsMap |
-  /// | Mixin-based | FooProps       | $FooProps$JsMap    |
-  String get jsMapImplName => '$implName\$JsMap';
-
   /// The name of the consumable props/state class.
   ///
   /// - For legacy backwards compatible boilerplate, this is the companion class.

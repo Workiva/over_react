@@ -75,8 +75,6 @@ main() {
 
           test('consumerName', () => expect(names.consumerName, r'_$FooProps'));
           test('implName', () => expect(names.implName, r'_$$FooProps'));
-          test('plainMapImplName', () => expect(names.plainMapImplName, r'_$$FooProps$PlainMap'));
-          test('jsMapImplName', () => expect(names.jsMapImplName, r'_$$FooProps$JsMap'));
           test('publicName', () => expect(names.publicName, r'FooProps'));
           test('legacyAccessorsMixinName', () => expect(names.legacyAccessorsMixinName, r'_$FooPropsAccessorsMixin'));
           test('generatedMixinName', () => expect(names.generatedMixinName, r'FooProps'));
@@ -91,8 +89,6 @@ main() {
 
           test('consumerName', () => expect(names.consumerName, r'FooProps'));
           test('implName', () => expect(names.implName, r'_$$FooProps'));
-          test('plainMapImplName', () => expect(names.plainMapImplName, r'_$$FooProps$PlainMap'));
-          test('jsMapImplName', () => expect(names.jsMapImplName, r'_$$FooProps$JsMap'));
           test('publicName', () => expect(names.publicName, r'FooProps'));
           // legacyAccessorsMixinName not applicable
           test('generatedMixinName', () => expect(names.generatedMixinName, r'$FooProps'));
@@ -109,8 +105,6 @@ main() {
 
           test('consumerName', () => expect(names.consumerName, r'foo._$FooProps'));
           test('implName', () => expect(names.implName, r'foo._$$FooProps'));
-          test('plainMapImplName', () => expect(names.plainMapImplName, r'foo._$$FooProps$PlainMap'));
-          test('jsMapImplName', () => expect(names.jsMapImplName, r'foo._$$FooProps$JsMap'));
           test('publicName', () => expect(names.publicName, r'foo.FooProps'));
           test('legacyAccessorsMixinName', () => expect(names.legacyAccessorsMixinName, r'foo._$FooPropsAccessorsMixin'));
           test('generatedMixinName', () => expect(names.generatedMixinName, r'foo.FooProps'));
@@ -125,8 +119,6 @@ main() {
 
           test('consumerName', () => expect(names.consumerName, r'foo.FooProps'));
           test('implName', () => expect(names.implName, r'foo._$$FooProps'));
-          test('plainMapImplName', () => expect(names.plainMapImplName, r'foo._$$FooProps$PlainMap'));
-          test('jsMapImplName', () => expect(names.jsMapImplName, r'foo._$$FooProps$JsMap'));
           test('publicName', () => expect(names.publicName, r'foo.FooProps'));
           // legacyAccessorsMixinName not applicable
           test('generatedMixinName', () => expect(names.generatedMixinName, r'foo.$FooProps'));
