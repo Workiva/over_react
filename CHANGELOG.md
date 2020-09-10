@@ -1,5 +1,10 @@
 # OverReact Changelog
 
+## [3.9.0](https://github.com/Workiva/over_react/compare/3.8.1...3.9.0)
+
+- [#620] Consume/update typing for forwardRef2/memo2 functions
+- [#625] Address analyzer lints / hints
+
 ## [3.8.1](https://github.com/Workiva/over_react/compare/3.8.0...3.8.1)
 
 __Bug Fixes__
