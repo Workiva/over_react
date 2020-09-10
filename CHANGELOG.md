@@ -1,5 +1,11 @@
 # OverReact Changelog
 
+## [3.9.0](https://github.com/Workiva/over_react/compare/3.8.1...3.9.0)
+
+- [#620] Fix issue where `uiForwardRef`/`memo` components were being passed JSified props (by consuming [react-dart's `forwardRef2`/`memo2`](https://github.com/cleandart/react-dart/pull/275))
+- [#618] Add `makeMapStateToProps`/etc. arguments to `connect` to enable creation of closures specific to component instances
+- [#625] Address analyzer lints / hints
+
 ## [3.8.1](https://github.com/Workiva/over_react/compare/3.8.0...3.8.1)
 
 __Bug Fixes__
@@ -2296,5 +2302,4 @@ Initial public release of the library.
 [#997]: https://github.com/Workiva/over_react/pull/997
 [#998]: https://github.com/Workiva/over_react/pull/998
 [#999]: https://github.com/Workiva/over_react/pull/999
-
 
