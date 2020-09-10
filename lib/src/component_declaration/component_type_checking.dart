@@ -25,6 +25,7 @@ import 'package:over_react/src/component_declaration/annotations.dart'
 import 'package:over_react/src/util/react_wrappers.dart';
 import 'package:over_react/src/util/string_util.dart';
 import 'package:react/react_client.dart';
+import 'package:react/react_client/component_factory.dart';
 import 'package:react/react_client/react_interop.dart';
 
 // ----------------------------------------------------------------------
@@ -301,7 +302,7 @@ void enforceMinimumComponentVersionFor(ReactComponentFactoryProxy component) {
 
 /// Validates that a [ReactComponentFactoryProxy]'s component is a function component.
 void enforceFunctionComponent(ReactComponentFactoryProxy component) {
-  if (component is ReactDartFunctionComponentFactoryProxy) return;
+  if (component is ReactDartFunctionComponentFactoryProxy || component is ReactDartWrappedComponentFactoryProxy) return;
 
   throw ArgumentError(unindent('''
         The UiFactory provided should be for a function component.

@@ -412,15 +412,10 @@ UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
     return functionComponent(propsFactory.jsMap(props), ref);
   }
 
-  ReactJsComponentFactoryProxy factory;
-
-  // If a consumer uses `asForwardRefConfig` to generate the function component
-  // config, displayName could be `null` or an empty string.
-  if (displayName != null && displayName.isNotEmpty) {
-    factory = react_interop.forwardRef(_uiFunctionWrapper, displayName: displayName);
-  } else {
-    factory = react_interop.forwardRef(_uiFunctionWrapper);
-  }
+  // Always pass displayName, even if it's empty,
+  // since we don't want forwardRef2 to use _uiFunctionWrapper as the name.
+  final factory =
+      react_interop.forwardRef2(_uiFunctionWrapper, displayName: displayName);
 
   if (propsFactory == null) {
     if (TProps != UiProps && TProps != GenericUiProps) {
