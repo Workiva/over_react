@@ -26,6 +26,8 @@ import 'over_react/component/_deprecated/abstract_transition_test.dart'
     as deprecated_abstract_transition_test;
 import 'over_react/component/abstract_transition_test.dart'
     as abstract_transition_test;
+import 'over_react/component/with_transition_test.dart'
+    as with_transition_test;
 import 'over_react/component/dom_components_test.dart' as dom_components_test;
 import 'over_react/component/error_boundary_test.dart' as error_boundary_test;
 import 'over_react/component/_deprecated/error_boundary_mixin_test.dart'
@@ -54,6 +56,7 @@ void main() {
   pure_component_mixin_test.main();
   deprecated_abstract_transition_test.main();
   abstract_transition_test.main();
+  with_transition_test.main();
   error_boundary_test.main();
   deprecated_error_boundary_mixin_test.main();
   deprecated_error_boundary_test.main();
