@@ -59,7 +59,7 @@ String generatedMixinWarningCommentLine(TypedMapNames mixinNames, {@required boo
   final value = '// If this generated mixin is undefined, it\'s likely because'
       ' ${mixinNames.consumerName} is not a valid `mixin`-based ${isProps ? 'props' : 'state'} mixin,'
       ' or because it is but the generated mixin is not be imported.'
-      ' Check the declaration of ${mixinNames.consumerName}, '
+      ' Check the declaration of ${mixinNames.consumerName},'
       ' and check that ${mixinNames.generatedMixinName} is exported/imported properly.\n';
 
   assert(value.endsWith('\n'));
