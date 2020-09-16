@@ -84,7 +84,10 @@ class BoilerplateFactory extends BoilerplateMember {
 
     final variable = node.variables.variables.first;
     final factoryName = variable.name.name;
-    final generatedFactoryName = '$privateSourcePrefix$factoryName';
+
+    final names = FactoryNames(factoryName);
+    final generatedFactoryName = names.implName;
+    final generatedConfigName = names.configName;
 
     final initializer = variable.initializer;
     final referencesGeneratedFactory = initializer != null &&
@@ -93,8 +96,14 @@ class BoilerplateFactory extends BoilerplateMember {
 
     if (!referencesGeneratedFactory && !shouldGenerateConfig) {
       errorCollector.addError(
-          'Factory variables are stubs for the generated factories, and must '
-          'be initialized with or otherwise reference the generated factory. Should be: `$factoryName = $generatedFactoryName`',
+          'Factory variables are stubs for generated code, and must'
+          ' be initialized with an expression containing either '
+          ' the generated factory ($generatedFactoryName) or'
+          ' the generated factory config ($generatedConfigName).'
+          '\nExamples:'
+          '\n\n    $factoryName = $generatedFactoryName;'
+          '\n\n    $factoryName = connect(...)($generatedFactoryName);'
+          '\n\n    $factoryName = uiFunction((props) { ... }, $generatedConfigName);',
           errorCollector.spanFor(variable));
     }
   }
