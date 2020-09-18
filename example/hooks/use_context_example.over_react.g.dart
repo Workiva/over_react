@@ -61,7 +61,7 @@ final UiFactoryConfig<_$$UseContextExampleProps> $UseContextExampleConfig =
 abstract class _$$UseContextExampleProps extends UiProps
     with
         UseContextExampleProps,
-        $UseContextExampleProps // If this generated mixin is undefined, it's likely because UseContextExampleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of UseContextExampleProps.
+        $UseContextExampleProps // If this generated mixin is undefined, it's likely because UseContextExampleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseContextExampleProps, and check that $UseContextExampleProps is exported/imported properly.
 {
   _$$UseContextExampleProps._();
 
@@ -135,7 +135,7 @@ final UiFactoryConfig<_$$NewContextProviderProps> $NewContextProviderConfig =
 abstract class _$$NewContextProviderProps extends UiProps
     with
         NewContextProviderProps,
-        $NewContextProviderProps // If this generated mixin is undefined, it's likely because NewContextProviderProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of NewContextProviderProps.
+        $NewContextProviderProps // If this generated mixin is undefined, it's likely because NewContextProviderProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of NewContextProviderProps, and check that $NewContextProviderProps is exported/imported properly.
 {
   _$$NewContextProviderProps._();
 

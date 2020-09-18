@@ -42,7 +42,7 @@ final UiFactoryConfig<_$$UseRefExampleProps> $UseRefExampleConfig =
 abstract class _$$UseRefExampleProps extends UiProps
     with
         UseRefExampleProps,
-        $UseRefExampleProps // If this generated mixin is undefined, it's likely because UseRefExampleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of UseRefExampleProps.
+        $UseRefExampleProps // If this generated mixin is undefined, it's likely because UseRefExampleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseRefExampleProps, and check that $UseRefExampleProps is exported/imported properly.
 {
   _$$UseRefExampleProps._();
 

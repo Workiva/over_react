@@ -34,7 +34,7 @@ _$$PureTestWrapperProps _$PureTestWrapper([Map backingProps]) =>
 abstract class _$$PureTestWrapperProps extends UiProps
     with
         SharedPureTestPropsMixin,
-        $SharedPureTestPropsMixin // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SharedPureTestPropsMixin.
+        $SharedPureTestPropsMixin // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SharedPureTestPropsMixin, and check that $SharedPureTestPropsMixin is exported/imported properly.
     implements
         PureTestWrapperProps {
   _$$PureTestWrapperProps._();
@@ -142,7 +142,7 @@ class _$PureTestWrapperComponent extends PureTestWrapperComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SharedPureTestPropsMixin.
+        // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SharedPureTestPropsMixin, and check that $SharedPureTestPropsMixin is exported/imported properly.
         SharedPureTestPropsMixin: $SharedPureTestPropsMixin.meta,
       });
 }
@@ -173,9 +173,9 @@ _$$PureTestProps _$PureTest([Map backingProps]) => backingProps == null
 abstract class _$$PureTestProps extends UiProps
     with
         SharedPureTestPropsMixin,
-        $SharedPureTestPropsMixin, // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SharedPureTestPropsMixin.
+        $SharedPureTestPropsMixin, // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SharedPureTestPropsMixin, and check that $SharedPureTestPropsMixin is exported/imported properly.
         PureTestPropsMixin,
-        $PureTestPropsMixin // If this generated mixin is undefined, it's likely because PureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of PureTestPropsMixin.
+        $PureTestPropsMixin // If this generated mixin is undefined, it's likely because PureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of PureTestPropsMixin, and check that $PureTestPropsMixin is exported/imported properly.
     implements
         PureTestProps {
   _$$PureTestProps._();
@@ -247,7 +247,7 @@ class _$$PureTestProps$JsMap extends _$$PureTestProps {
 abstract class _$$PureTestState extends UiState
     with
         PureTestState,
-        $PureTestState // If this generated mixin is undefined, it's likely because PureTestState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of PureTestState.
+        $PureTestState // If this generated mixin is undefined, it's likely because PureTestState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of PureTestState, and check that $PureTestState is exported/imported properly.
 {
   _$$PureTestState._();
 
@@ -367,9 +367,9 @@ class _$PureTestComponent extends PureTestComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SharedPureTestPropsMixin.
+        // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SharedPureTestPropsMixin, and check that $SharedPureTestPropsMixin is exported/imported properly.
         SharedPureTestPropsMixin: $SharedPureTestPropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because PureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of PureTestPropsMixin.
+        // If this generated mixin is undefined, it's likely because PureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of PureTestPropsMixin, and check that $PureTestPropsMixin is exported/imported properly.
         PureTestPropsMixin: $PureTestPropsMixin.meta,
       });
 }

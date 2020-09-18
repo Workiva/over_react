@@ -42,7 +42,7 @@ final UiFactoryConfig<_$$UseLayoutEffectProps> $UseLayoutEffectExampleConfig =
 abstract class _$$UseLayoutEffectProps extends UiProps
     with
         UseLayoutEffectProps,
-        $UseLayoutEffectProps // If this generated mixin is undefined, it's likely because UseLayoutEffectProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of UseLayoutEffectProps.
+        $UseLayoutEffectProps // If this generated mixin is undefined, it's likely because UseLayoutEffectProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseLayoutEffectProps, and check that $UseLayoutEffectProps is exported/imported properly.
 {
   _$$UseLayoutEffectProps._();
 

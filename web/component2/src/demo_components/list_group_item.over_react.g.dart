@@ -34,7 +34,7 @@ _$$ListGroupItemProps _$ListGroupItem([Map backingProps]) =>
 abstract class _$$ListGroupItemProps extends UiProps
     with
         ListGroupItemProps,
-        $ListGroupItemProps // If this generated mixin is undefined, it's likely because ListGroupItemProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ListGroupItemProps.
+        $ListGroupItemProps // If this generated mixin is undefined, it's likely because ListGroupItemProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ListGroupItemProps, and check that $ListGroupItemProps is exported/imported properly.
 {
   _$$ListGroupItemProps._();
 
@@ -141,7 +141,7 @@ class _$ListGroupItemComponent extends ListGroupItemComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ListGroupItemProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ListGroupItemProps.
+        // If this generated mixin is undefined, it's likely because ListGroupItemProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ListGroupItemProps, and check that $ListGroupItemProps is exported/imported properly.
         ListGroupItemProps: $ListGroupItemProps.meta,
       });
 }

@@ -33,7 +33,7 @@ _$$BasicProps _$Basic([Map backingProps]) => backingProps == null
 abstract class _$$BasicProps extends UiProps
     with
         BasicProps,
-        $BasicProps // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicProps.
+        $BasicProps // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
 {
   _$$BasicProps._();
 
@@ -104,7 +104,7 @@ class _$$BasicProps$JsMap extends _$$BasicProps {
 abstract class _$$BasicState extends UiState
     with
         BasicState,
-        $BasicState // If this generated mixin is undefined, it's likely because BasicState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicState.
+        $BasicState // If this generated mixin is undefined, it's likely because BasicState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicState, and check that $BasicState is exported/imported properly.
 {
   _$$BasicState._();
 
@@ -222,7 +222,7 @@ class _$BasicComponent extends BasicComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicProps.
+        // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
         BasicProps: $BasicProps.meta,
       });
 }

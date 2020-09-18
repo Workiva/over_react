@@ -33,7 +33,7 @@ _$$BasicProps _$Basic([Map backingProps]) => backingProps == null
 abstract class _$$BasicProps extends UiProps
     with
         BasicProps,
-        $BasicProps // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicProps.
+        $BasicProps // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
 {
   _$$BasicProps._();
 
@@ -139,7 +139,7 @@ class _$BasicComponent extends BasicComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicProps.
+        // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
         BasicProps: $BasicProps.meta,
       });
 }
@@ -207,7 +207,7 @@ final UiFactoryConfig<_$$BasicUiFunctionProps> $BasicUiFunctionConfig =
 abstract class _$$BasicUiFunctionProps extends UiProps
     with
         BasicUiFunctionProps,
-        $BasicUiFunctionProps // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicUiFunctionProps.
+        $BasicUiFunctionProps // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
 {
   _$$BasicUiFunctionProps._();
 
@@ -281,7 +281,7 @@ final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
 abstract class _$$SecondaryBasicUiFunctionProps extends UiProps
     with
         BasicUiFunctionProps,
-        $BasicUiFunctionProps // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicUiFunctionProps.
+        $BasicUiFunctionProps // If this generated mixin is undefined, it's likely because BasicUiFunctionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicUiFunctionProps, and check that $BasicUiFunctionProps is exported/imported properly.
     implements
         SecondaryBasicUiFunctionProps {
   _$$SecondaryBasicUiFunctionProps._();

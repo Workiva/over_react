@@ -34,7 +34,7 @@ abstract class _$$BasicProps<T, U extends UiProps> extends UiProps
     with
         BasicPropsMixin<T, U>,
         $BasicPropsMixin<T,
-            U> // If this generated mixin is undefined, it's likely because BasicPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicPropsMixin.
+            U> // If this generated mixin is undefined, it's likely because BasicPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPropsMixin, and check that $BasicPropsMixin is exported/imported properly.
     implements
         BasicProps<T, U> {
   _$$BasicProps._();
@@ -141,7 +141,7 @@ class _$BasicComponent extends BasicComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because BasicPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicPropsMixin.
+        // If this generated mixin is undefined, it's likely because BasicPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPropsMixin, and check that $BasicPropsMixin is exported/imported properly.
         BasicPropsMixin: $BasicPropsMixin.meta,
       });
 }

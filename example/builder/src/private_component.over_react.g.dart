@@ -33,7 +33,7 @@ _$$_PrivateProps _$_Private([Map backingProps]) => backingProps == null
 abstract class _$$_PrivateProps extends UiProps
     with
         _PrivateProps,
-        $_PrivateProps // If this generated mixin is undefined, it's likely because _PrivateProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of _PrivateProps.
+        $_PrivateProps // If this generated mixin is undefined, it's likely because _PrivateProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of _PrivateProps, and check that $_PrivateProps is exported/imported properly.
 {
   _$$_PrivateProps._();
 
@@ -104,7 +104,7 @@ class _$$_PrivateProps$JsMap extends _$$_PrivateProps {
 abstract class _$$_PrivateState extends UiState
     with
         _PrivateState,
-        $_PrivateState // If this generated mixin is undefined, it's likely because _PrivateState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of _PrivateState.
+        $_PrivateState // If this generated mixin is undefined, it's likely because _PrivateState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of _PrivateState, and check that $_PrivateState is exported/imported properly.
 {
   _$$_PrivateState._();
 
@@ -224,7 +224,7 @@ class _$_PrivateComponent extends _PrivateComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because _PrivateProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of _PrivateProps.
+        // If this generated mixin is undefined, it's likely because _PrivateProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of _PrivateProps, and check that $_PrivateProps is exported/imported properly.
         _PrivateProps: $_PrivateProps.meta,
       });
 }

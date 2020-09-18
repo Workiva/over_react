@@ -33,7 +33,7 @@ _$$FooProps _$Foo([Map backingProps]) => backingProps == null
 abstract class _$$FooProps extends UiProps
     with
         FooProps,
-        $FooProps // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FooProps.
+        $FooProps // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FooProps, and check that $FooProps is exported/imported properly.
 {
   _$$FooProps._();
 
@@ -139,7 +139,7 @@ class _$FooComponent extends FooComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FooProps.
+        // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FooProps, and check that $FooProps is exported/imported properly.
         FooProps: $FooProps.meta,
       });
 }

@@ -33,7 +33,7 @@ _$$FaultyProps _$Faulty([Map backingProps]) => backingProps == null
 abstract class _$$FaultyProps extends UiProps
     with
         FaultyProps,
-        $FaultyProps // If this generated mixin is undefined, it's likely because FaultyProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FaultyProps.
+        $FaultyProps // If this generated mixin is undefined, it's likely because FaultyProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FaultyProps, and check that $FaultyProps is exported/imported properly.
 {
   _$$FaultyProps._();
 
@@ -104,7 +104,7 @@ class _$$FaultyProps$JsMap extends _$$FaultyProps {
 abstract class _$$FaultyState extends UiState
     with
         FaultyState,
-        $FaultyState // If this generated mixin is undefined, it's likely because FaultyState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of FaultyState.
+        $FaultyState // If this generated mixin is undefined, it's likely because FaultyState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of FaultyState, and check that $FaultyState is exported/imported properly.
 {
   _$$FaultyState._();
 
@@ -224,7 +224,7 @@ class _$FaultyComponent extends FaultyComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because FaultyProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FaultyProps.
+        // If this generated mixin is undefined, it's likely because FaultyProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FaultyProps, and check that $FaultyProps is exported/imported properly.
         FaultyProps: $FaultyProps.meta,
       });
 }

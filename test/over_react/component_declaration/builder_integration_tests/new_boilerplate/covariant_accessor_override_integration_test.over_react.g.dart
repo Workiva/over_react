@@ -78,9 +78,9 @@ _$$TestProps _$Test([Map backingProps]) => backingProps == null
 abstract class _$$TestProps extends UiProps
     with
         BasePropsMixin,
-        $BasePropsMixin, // If this generated mixin is undefined, it's likely because BasePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasePropsMixin.
+        $BasePropsMixin, // If this generated mixin is undefined, it's likely because BasePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasePropsMixin, and check that $BasePropsMixin is exported/imported properly.
         OverridePropsMixin,
-        $OverridePropsMixin // If this generated mixin is undefined, it's likely because OverridePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of OverridePropsMixin.
+        $OverridePropsMixin // If this generated mixin is undefined, it's likely because OverridePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of OverridePropsMixin, and check that $OverridePropsMixin is exported/imported properly.
     implements
         TestProps {
   _$$TestProps._();

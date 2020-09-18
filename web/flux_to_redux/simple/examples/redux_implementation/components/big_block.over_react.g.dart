@@ -33,7 +33,7 @@ _$$BigBlockProps _$BigBlock([Map backingProps]) => backingProps == null
 abstract class _$$BigBlockProps extends UiProps
     with
         BigBlockProps,
-        $BigBlockProps // If this generated mixin is undefined, it's likely because BigBlockProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BigBlockProps.
+        $BigBlockProps // If this generated mixin is undefined, it's likely because BigBlockProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BigBlockProps, and check that $BigBlockProps is exported/imported properly.
 {
   _$$BigBlockProps._();
 
@@ -140,7 +140,7 @@ class _$BigBlockComponent extends BigBlockComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because BigBlockProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BigBlockProps.
+        // If this generated mixin is undefined, it's likely because BigBlockProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BigBlockProps, and check that $BigBlockProps is exported/imported properly.
         BigBlockProps: $BigBlockProps.meta,
       });
 }

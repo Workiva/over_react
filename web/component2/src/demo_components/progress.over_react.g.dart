@@ -33,7 +33,7 @@ _$$ProgressProps _$Progress([Map backingProps]) => backingProps == null
 abstract class _$$ProgressProps extends UiProps
     with
         ProgressProps,
-        $ProgressProps // If this generated mixin is undefined, it's likely because ProgressProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ProgressProps.
+        $ProgressProps // If this generated mixin is undefined, it's likely because ProgressProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ProgressProps, and check that $ProgressProps is exported/imported properly.
 {
   _$$ProgressProps._();
 
@@ -104,7 +104,7 @@ class _$$ProgressProps$JsMap extends _$$ProgressProps {
 abstract class _$$ProgressState extends UiState
     with
         ProgressState,
-        $ProgressState // If this generated mixin is undefined, it's likely because ProgressState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ProgressState.
+        $ProgressState // If this generated mixin is undefined, it's likely because ProgressState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of ProgressState, and check that $ProgressState is exported/imported properly.
 {
   _$$ProgressState._();
 
@@ -224,7 +224,7 @@ class _$ProgressComponent extends ProgressComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ProgressProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ProgressProps.
+        // If this generated mixin is undefined, it's likely because ProgressProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ProgressProps, and check that $ProgressProps is exported/imported properly.
         ProgressProps: $ProgressProps.meta,
       });
 }

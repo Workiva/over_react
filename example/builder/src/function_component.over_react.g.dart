@@ -145,7 +145,7 @@ final UiFactoryConfig<_$$BasicProps> $SimpleConfig = UiFactoryConfig(
 abstract class _$$BasicProps extends UiProps
     with
         BasicProps,
-        $BasicProps // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicProps.
+        $BasicProps // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
 {
   _$$BasicProps._();
 
@@ -218,7 +218,7 @@ final UiFactoryConfig<_$$FooProps> $FooConfig = UiFactoryConfig(
 abstract class _$$FooProps extends UiProps
     with
         FooProps,
-        $FooProps // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FooProps.
+        $FooProps // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FooProps, and check that $FooProps is exported/imported properly.
 {
   _$$FooProps._();
 

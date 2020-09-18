@@ -33,9 +33,9 @@ _$$BasicProps _$Basic([Map backingProps]) => backingProps == null
 abstract class _$$BasicProps extends UiProps
     with
         pm.ExamplePropsMixin,
-        pm.$ExamplePropsMixin, // If this generated mixin is undefined, it's likely because pm.ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of pm.ExamplePropsMixin.
+        pm.$ExamplePropsMixin, // If this generated mixin is undefined, it's likely because pm.ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of pm.ExamplePropsMixin, and check that pm.$ExamplePropsMixin is exported/imported properly.
         BasicPropsMixin,
-        $BasicPropsMixin // If this generated mixin is undefined, it's likely because BasicPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicPropsMixin.
+        $BasicPropsMixin // If this generated mixin is undefined, it's likely because BasicPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPropsMixin, and check that $BasicPropsMixin is exported/imported properly.
     implements
         BasicProps {
   _$$BasicProps._();
@@ -107,9 +107,9 @@ class _$$BasicProps$JsMap extends _$$BasicProps {
 abstract class _$$BasicState extends UiState
     with
         sm.ExampleStateMixin,
-        sm.$ExampleStateMixin, // If this generated mixin is undefined, it's likely because sm.ExampleStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of sm.ExampleStateMixin.
+        sm.$ExampleStateMixin, // If this generated mixin is undefined, it's likely because sm.ExampleStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of sm.ExampleStateMixin, and check that sm.$ExampleStateMixin is exported/imported properly.
         BasicStateMixin,
-        $BasicStateMixin // If this generated mixin is undefined, it's likely because BasicStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicStateMixin.
+        $BasicStateMixin // If this generated mixin is undefined, it's likely because BasicStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicStateMixin, and check that $BasicStateMixin is exported/imported properly.
     implements
         BasicState {
   _$$BasicState._();
@@ -228,9 +228,9 @@ class _$BasicComponent extends BasicComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because pm.ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of pm.ExamplePropsMixin.
+        // If this generated mixin is undefined, it's likely because pm.ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of pm.ExamplePropsMixin, and check that pm.$ExamplePropsMixin is exported/imported properly.
         pm.ExamplePropsMixin: pm.$ExamplePropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because BasicPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicPropsMixin.
+        // If this generated mixin is undefined, it's likely because BasicPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPropsMixin, and check that $BasicPropsMixin is exported/imported properly.
         BasicPropsMixin: $BasicPropsMixin.meta,
       });
 }

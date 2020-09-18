@@ -33,7 +33,7 @@ _$$FooProps _$_Foo([Map backingProps]) => backingProps == null
 abstract class _$$FooProps extends UiProps
     with
         FooProps,
-        $FooProps // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FooProps.
+        $FooProps // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FooProps, and check that $FooProps is exported/imported properly.
 {
   _$$FooProps._();
 
@@ -139,7 +139,7 @@ class _$FooComponent extends FooComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FooProps.
+        // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FooProps, and check that $FooProps is exported/imported properly.
         FooProps: $FooProps.meta,
       });
 }
@@ -170,7 +170,7 @@ _$$LogProps _$_Log([Map backingProps]) => backingProps == null
 abstract class _$$LogProps extends UiProps
     with
         LogProps,
-        $LogProps // If this generated mixin is undefined, it's likely because LogProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of LogProps.
+        $LogProps // If this generated mixin is undefined, it's likely because LogProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of LogProps, and check that $LogProps is exported/imported properly.
 {
   _$$LogProps._();
 
@@ -276,7 +276,7 @@ class _$_LogComponent extends _LogComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because LogProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of LogProps.
+        // If this generated mixin is undefined, it's likely because LogProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of LogProps, and check that $LogProps is exported/imported properly.
         LogProps: $LogProps.meta,
       });
 }
@@ -553,7 +553,7 @@ final UiFactoryConfig<_$$FancyButtonProps> $FancyButtonConfig = UiFactoryConfig(
 abstract class _$$FancyButtonProps extends UiProps
     with
         FancyButtonProps,
-        $FancyButtonProps // If this generated mixin is undefined, it's likely because FancyButtonProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FancyButtonProps.
+        $FancyButtonProps // If this generated mixin is undefined, it's likely because FancyButtonProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FancyButtonProps, and check that $FancyButtonProps is exported/imported properly.
 {
   _$$FancyButtonProps._();
 
@@ -626,9 +626,9 @@ final UiFactoryConfig<_$$Foo2Props> $Foo2Config = UiFactoryConfig(
 abstract class _$$Foo2Props extends UiProps
     with
         AnotherPropsMixin,
-        $AnotherPropsMixin, // If this generated mixin is undefined, it's likely because AnotherPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of AnotherPropsMixin.
+        $AnotherPropsMixin, // If this generated mixin is undefined, it's likely because AnotherPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of AnotherPropsMixin, and check that $AnotherPropsMixin is exported/imported properly.
         FooProps,
-        $FooProps // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FooProps.
+        $FooProps // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FooProps, and check that $FooProps is exported/imported properly.
     implements
         Foo2Props {
   _$$Foo2Props._();
@@ -702,7 +702,7 @@ final UiFactoryConfig<_$$BazProps> $BazConfig = UiFactoryConfig(
 abstract class _$$BazProps extends UiProps
     with
         BazProps,
-        $BazProps // If this generated mixin is undefined, it's likely because BazProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BazProps.
+        $BazProps // If this generated mixin is undefined, it's likely because BazProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BazProps, and check that $BazProps is exported/imported properly.
 {
   _$$BazProps._();
 
@@ -776,7 +776,7 @@ final UiFactoryConfig<_$$RefDemoProps> $RefDemoContainerConfig =
 abstract class _$$RefDemoProps extends UiProps
     with
         RefDemoProps,
-        $RefDemoProps // If this generated mixin is undefined, it's likely because RefDemoProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of RefDemoProps.
+        $RefDemoProps // If this generated mixin is undefined, it's likely because RefDemoProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of RefDemoProps, and check that $RefDemoProps is exported/imported properly.
 {
   _$$RefDemoProps._();
 
@@ -850,7 +850,7 @@ final UiFactoryConfig<_$$RefDemoSectionProps> $RefDemoSectionConfig =
 abstract class _$$RefDemoSectionProps extends UiProps
     with
         RefDemoSectionProps,
-        $RefDemoSectionProps // If this generated mixin is undefined, it's likely because RefDemoSectionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of RefDemoSectionProps.
+        $RefDemoSectionProps // If this generated mixin is undefined, it's likely because RefDemoSectionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of RefDemoSectionProps, and check that $RefDemoSectionProps is exported/imported properly.
 {
   _$$RefDemoSectionProps._();
 
@@ -923,7 +923,7 @@ final UiFactoryConfig<_$$RefDemoHocProps> $RefDemoHocConfig = UiFactoryConfig(
 abstract class _$$RefDemoHocProps extends UiProps
     with
         RefDemoHocProps,
-        $RefDemoHocProps // If this generated mixin is undefined, it's likely because RefDemoHocProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of RefDemoHocProps.
+        $RefDemoHocProps // If this generated mixin is undefined, it's likely because RefDemoHocProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of RefDemoHocProps, and check that $RefDemoHocProps is exported/imported properly.
 {
   _$$RefDemoHocProps._();
 

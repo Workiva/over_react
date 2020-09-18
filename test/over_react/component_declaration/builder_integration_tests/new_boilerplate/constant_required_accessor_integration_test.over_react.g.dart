@@ -34,7 +34,7 @@ _$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
 abstract class _$$ComponentTestProps extends UiProps
     with
         ComponentTestProps,
-        $ComponentTestProps // If this generated mixin is undefined, it's likely because ComponentTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ComponentTestProps.
+        $ComponentTestProps // If this generated mixin is undefined, it's likely because ComponentTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ComponentTestProps, and check that $ComponentTestProps is exported/imported properly.
 {
   _$$ComponentTestProps._();
 
@@ -141,7 +141,7 @@ class _$ComponentTestComponent extends ComponentTestComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ComponentTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ComponentTestProps.
+        // If this generated mixin is undefined, it's likely because ComponentTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ComponentTestProps, and check that $ComponentTestProps is exported/imported properly.
         ComponentTestProps: $ComponentTestProps.meta,
       });
 }

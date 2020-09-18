@@ -34,9 +34,9 @@ _$$ReduxBigBlockProps _$ReduxBigBlock([Map backingProps]) =>
 abstract class _$$ReduxBigBlockProps extends UiProps
     with
         ReduxBigBlockPropsMixin,
-        $ReduxBigBlockPropsMixin, // If this generated mixin is undefined, it's likely because ReduxBigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ReduxBigBlockPropsMixin.
+        $ReduxBigBlockPropsMixin, // If this generated mixin is undefined, it's likely because ReduxBigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ReduxBigBlockPropsMixin, and check that $ReduxBigBlockPropsMixin is exported/imported properly.
         ConnectPropsMixin,
-        $ConnectPropsMixin // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
+        $ConnectPropsMixin // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ConnectPropsMixin, and check that $ConnectPropsMixin is exported/imported properly.
     implements
         ReduxBigBlockProps {
   _$$ReduxBigBlockProps._();
@@ -144,9 +144,9 @@ class _$ReduxBigBlockComponent extends ReduxBigBlockComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ReduxBigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ReduxBigBlockPropsMixin.
+        // If this generated mixin is undefined, it's likely because ReduxBigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ReduxBigBlockPropsMixin, and check that $ReduxBigBlockPropsMixin is exported/imported properly.
         ReduxBigBlockPropsMixin: $ReduxBigBlockPropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
+        // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ConnectPropsMixin, and check that $ConnectPropsMixin is exported/imported properly.
         ConnectPropsMixin: $ConnectPropsMixin.meta,
       });
 }

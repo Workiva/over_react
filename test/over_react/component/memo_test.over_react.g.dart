@@ -218,7 +218,7 @@ final UiFactoryConfig<_$$FunctionCustomPropsProps> $FunctionCustomPropsConfig =
 abstract class _$$FunctionCustomPropsProps extends UiProps
     with
         FunctionCustomPropsProps,
-        $FunctionCustomPropsProps // If this generated mixin is undefined, it's likely because FunctionCustomPropsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FunctionCustomPropsProps.
+        $FunctionCustomPropsProps // If this generated mixin is undefined, it's likely because FunctionCustomPropsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FunctionCustomPropsProps, and check that $FunctionCustomPropsProps is exported/imported properly.
 {
   _$$FunctionCustomPropsProps._();
 

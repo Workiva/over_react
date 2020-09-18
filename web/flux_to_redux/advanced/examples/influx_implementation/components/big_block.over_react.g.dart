@@ -34,9 +34,9 @@ abstract class _$$BigBlockProps extends UiProps
     with
         FluxUiPropsMixin<RandomColorActions, RandomColorStore>,
         $FluxUiPropsMixin<RandomColorActions,
-            RandomColorStore>, // If this generated mixin is undefined, it's likely because FluxUiPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FluxUiPropsMixin.
+            RandomColorStore>, // If this generated mixin is undefined, it's likely because FluxUiPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FluxUiPropsMixin, and check that $FluxUiPropsMixin is exported/imported properly.
         BigBlockPropsMixin,
-        $BigBlockPropsMixin // If this generated mixin is undefined, it's likely because BigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BigBlockPropsMixin.
+        $BigBlockPropsMixin // If this generated mixin is undefined, it's likely because BigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BigBlockPropsMixin, and check that $BigBlockPropsMixin is exported/imported properly.
     implements
         BigBlockProps {
   _$$BigBlockProps._();
@@ -144,9 +144,9 @@ class _$BigBlockComponent extends BigBlockComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because FluxUiPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FluxUiPropsMixin.
+        // If this generated mixin is undefined, it's likely because FluxUiPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FluxUiPropsMixin, and check that $FluxUiPropsMixin is exported/imported properly.
         FluxUiPropsMixin: $FluxUiPropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because BigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BigBlockPropsMixin.
+        // If this generated mixin is undefined, it's likely because BigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BigBlockPropsMixin, and check that $BigBlockPropsMixin is exported/imported properly.
         BigBlockPropsMixin: $BigBlockPropsMixin.meta,
       });
 }

@@ -34,9 +34,9 @@ _$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
 abstract class _$$ComponentTestProps extends UiProps
     with
         ComponentTestPropsMixin,
-        $ComponentTestPropsMixin, // If this generated mixin is undefined, it's likely because ComponentTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ComponentTestPropsMixin.
+        $ComponentTestPropsMixin, // If this generated mixin is undefined, it's likely because ComponentTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ComponentTestPropsMixin, and check that $ComponentTestPropsMixin is exported/imported properly.
         TestPropsMixin,
-        $TestPropsMixin // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TestPropsMixin.
+        $TestPropsMixin // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestPropsMixin, and check that $TestPropsMixin is exported/imported properly.
     implements
         ComponentTestProps {
   _$$ComponentTestProps._();
@@ -144,9 +144,9 @@ class _$ComponentTestComponent extends ComponentTestComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ComponentTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ComponentTestPropsMixin.
+        // If this generated mixin is undefined, it's likely because ComponentTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ComponentTestPropsMixin, and check that $ComponentTestPropsMixin is exported/imported properly.
         ComponentTestPropsMixin: $ComponentTestPropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TestPropsMixin.
+        // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestPropsMixin, and check that $TestPropsMixin is exported/imported properly.
         TestPropsMixin: $TestPropsMixin.meta,
       });
 }

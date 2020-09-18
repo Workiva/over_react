@@ -33,7 +33,7 @@ _$$ButtonGroupProps _$ButtonGroup([Map backingProps]) => backingProps == null
 abstract class _$$ButtonGroupProps extends UiProps
     with
         ButtonGroupProps,
-        $ButtonGroupProps // If this generated mixin is undefined, it's likely because ButtonGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonGroupProps.
+        $ButtonGroupProps // If this generated mixin is undefined, it's likely because ButtonGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ButtonGroupProps, and check that $ButtonGroupProps is exported/imported properly.
 {
   _$$ButtonGroupProps._();
 
@@ -104,7 +104,7 @@ class _$$ButtonGroupProps$JsMap extends _$$ButtonGroupProps {
 abstract class _$$ButtonGroupState extends UiState
     with
         ButtonGroupState,
-        $ButtonGroupState // If this generated mixin is undefined, it's likely because ButtonGroupState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonGroupState.
+        $ButtonGroupState // If this generated mixin is undefined, it's likely because ButtonGroupState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of ButtonGroupState, and check that $ButtonGroupState is exported/imported properly.
 {
   _$$ButtonGroupState._();
 
@@ -224,7 +224,7 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ButtonGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonGroupProps.
+        // If this generated mixin is undefined, it's likely because ButtonGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ButtonGroupProps, and check that $ButtonGroupProps is exported/imported properly.
         ButtonGroupProps: $ButtonGroupProps.meta,
       });
 }

@@ -33,7 +33,7 @@ _$$GenericSuperProps _$GenericSuper([Map backingProps]) => backingProps == null
 abstract class _$$GenericSuperProps extends UiProps
     with
         GenericSuperPropsMixin,
-        $GenericSuperPropsMixin // If this generated mixin is undefined, it's likely because GenericSuperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of GenericSuperPropsMixin.
+        $GenericSuperPropsMixin // If this generated mixin is undefined, it's likely because GenericSuperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of GenericSuperPropsMixin, and check that $GenericSuperPropsMixin is exported/imported properly.
     implements
         GenericSuperProps {
   _$$GenericSuperProps._();
@@ -105,7 +105,7 @@ class _$$GenericSuperProps$JsMap extends _$$GenericSuperProps {
 abstract class _$$GenericSuperStateMixin extends UiState
     with
         GenericSuperStateMixin,
-        $GenericSuperStateMixin // If this generated mixin is undefined, it's likely because GenericSuperStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of GenericSuperStateMixin.
+        $GenericSuperStateMixin // If this generated mixin is undefined, it's likely because GenericSuperStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of GenericSuperStateMixin, and check that $GenericSuperStateMixin is exported/imported properly.
 {
   _$$GenericSuperStateMixin._();
 
@@ -225,7 +225,7 @@ class _$GenericSuperComponent extends GenericSuperComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because GenericSuperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of GenericSuperPropsMixin.
+        // If this generated mixin is undefined, it's likely because GenericSuperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of GenericSuperPropsMixin, and check that $GenericSuperPropsMixin is exported/imported properly.
         GenericSuperPropsMixin: $GenericSuperPropsMixin.meta,
       });
 }
