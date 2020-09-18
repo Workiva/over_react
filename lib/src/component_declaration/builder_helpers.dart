@@ -188,7 +188,7 @@ abstract class GeneratedErrorMessages {
       'This error may be due to your state not being picked up by the builder,'
       ' or because you are extending a stateful component without redeclaring your own state.'
       '\nDouble-check that your component has a state mixin and/or class and that its name matches'
-      ' that of the factory/props/component.';
+      ' that of the factory/props/component (e.g., "Foo" in Foo/FooProps/FooState/FooComponent).';
 
   static const String component1AnnotationOnComponent2 = '\n\n'
         'This error may be due to using @Component() instead of @Component2() on your component extending from UiComponent2.';
