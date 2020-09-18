@@ -97,10 +97,10 @@ class BoilerplateFactory extends BoilerplateMember {
     if (!referencesGeneratedFactory && !shouldGenerateConfig) {
       errorCollector.addError(
           'Factory variables are stubs for generated code, and must'
-          ' be initialized with an expression containing either '
+          ' be initialized with an expression containing either'
           ' the generated factory ($generatedFactoryName) or'
           ' the generated factory config ($generatedConfigName).'
-          '\nExamples:'
+          '\n\nExamples:'
           '\n\n    $factoryName = $generatedFactoryName;'
           '\n\n    $factoryName = connect(...)($generatedFactoryName);'
           '\n\n    $factoryName = uiFunction((props) { ... }, $generatedConfigName);',
