@@ -100,7 +100,8 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
           if (companion == null) {
             // Don't emit this and the prefix error.
             if (node.name.name.startsWith(privateSourcePrefix)) {
-              errorCollector.addError('Should have companion class', errorCollector.spanFor(node.name));
+              errorCollector.addError(
+                  'Should have companion class', errorCollector.spanFor(node.name));
             }
           } else {
             validateMetaField(companion, propsOrStateMetaStructName, errorCollector);
