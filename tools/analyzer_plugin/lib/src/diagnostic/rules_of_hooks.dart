@@ -42,37 +42,21 @@ class RulesOfHooks extends DiagnosticContributor {
       final body = hook.nearestFunctionBody;
       if (body == null) {
         addErrorForHook("React Hook '${hook.hookName}' cannot be called outside of a function. $mustBeCalledInMessage");
-        continue;
-      }
-      // todo look for tearOff usages as well! e.g., .map
-
-      if (body.isFunctionComponent || body.isCustomHook) {
-        //
+      } else if (body.isFunctionComponent || body.isCustomHook) {
         // Validate that the order of this hook is the same every call.
-        //
-
+        String errorMessage;
         if (_isWithinLoop(body, hook)) {
-          addErrorForHook("React Hook '${hook.hookName}' may be executed more than once because it is called in a loop."
-              " $sameOrderMessage");
-          continue;
+          errorMessage = "may be executed more than once because it is called in a loop.";
+        } else if (_isWithinCondition(body, hook)) {
+          errorMessage = "is called conditionally.";
+        } else if (_isPotentiallyShortCircuited(body, hook)) {
+          errorMessage = "is called conditionally due to short-circuiting.";
+        } else if (_isAfterConditionalReturn(body, hook)) {
+          errorMessage = "is called conditionally because it comes after a conditional return statement.";
         }
 
-        if (_isWithinCondition(body, hook)) {
-          addErrorForHook("React Hook '${hook.hookName}' is called conditionally. $sameOrderMessage");
-          continue;
-        }
-
-        if (_isPotentiallyShortCircuited(body, hook)) {
-          addErrorForHook("React Hook '${hook.hookName}' is called conditionally due to short-circuiting."
-              " $sameOrderMessage");
-          continue;
-        }
-
-        if (_isAfterConditionalReturn(body, hook)) {
-          addErrorForHook("React Hook '${hook.hookName}' is called conditionally"
-              " because it comes after a conditional return statement."
-              " $sameOrderMessage");
-          continue;
+        if (errorMessage != null) {
+          addErrorForHook("React Hook '${hook.hookName}' $errorMessage $sameOrderMessage");
         }
       } else if (body.parentMethod != null) {
         // Custom message for hooks inside a class
@@ -97,6 +81,7 @@ class RulesOfHooks extends DiagnosticContributor {
         addErrorForHook("React Hook '${hook.hookName}' cannot be called inside a callback. $mustBeCalledInMessage");
 //        }
       }
+      // todo look for tearOff usages as well! e.g., .map
     }
   }
 
