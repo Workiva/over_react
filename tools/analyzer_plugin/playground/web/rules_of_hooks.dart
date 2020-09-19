@@ -14,7 +14,7 @@
 
 import 'package:over_react/over_react.dart';
 
-// ignore_for_file: uri_has_not_been_generated, unnecessary_statements, avoid_single_cascade_in_expression_statements
+// ignore_for_file: uri_has_not_been_generated, unnecessary_statements, avoid_single_cascade_in_expression_statements, over_react_boilerplate_error
 part 'rules_of_hooks.over_react.g.dart';
 
 mixin FooProps on UiProps {
@@ -26,7 +26,7 @@ mixin FooProps on UiProps {
 
 UiFactory<FooProps> Foo = uiFunction(
   (props) {
-    // Good hooks
+    // Good hook; used directly within function component
     useState(0);
 
     //
@@ -111,13 +111,32 @@ UiFactory<FooProps> Foo = uiFunction(
 
     return 'content';
   },
-  $FooPropsConfig, // ignore: undefined_identifier
+  $FooConfig, // ignore: undefined_identifier
 );
 
+mixin BarProps on UiProps {}
 
-// Good hook: used in custom hook
+// Good hook; used directly within function component (uiForwardRef)
+UiFactory<BarProps> Bar = uiForwardRef(
+  (props, ref) {
+    useState(0);
+  },
+  $BarConfig, // ignore: undefined_identifier
+);
+
+// Good hook: used directly within custom hook
 void useSomething() {
   useEffect(() {});
+}
+
+// Good hook: after non-conditional return
+// This is invalid, but we shouldn't warn for it because
+// the analyzer already warns about dead code.
+void useSomethingElse() {
+  return;
+
+  // ignore: dead_code
+  useState(0);
 }
 
 // Bad hook: used in a function that's not a custom hook

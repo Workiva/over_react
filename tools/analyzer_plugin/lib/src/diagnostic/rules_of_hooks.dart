@@ -161,10 +161,9 @@ class RulesOfHooks extends DiagnosticContributor {
           continue;
         }
       } else if (body.parentMethod != null) {
-        // todo fix up message to talk about classes; maybe combine check with previous and say hooks should be top level functions?
         // Custom message for hooks inside a class
         addErrorForHook("React Hook '${hook.hookName}' cannot be called "
-            "in a class component. React Hooks must be called in a "
+            "in a class or class component. React Hooks must be called in a "
             "React function component or a custom React Hook function.");
       } else if (body.parentExpression?.parentDeclaration != null) {
         // Custom message if we found an invalid function name.
@@ -214,15 +213,16 @@ extension on FunctionBody {
   bool get isFunctionComponent {
     // Function expression or top-level function
     // Perform a crude/lenient check for function components since they can take on so many forms
-    // fixme make this way better
-    if (parentExpression
-            ?.parameters
-            ?.parameters
-            ?.any((parameter) {
-          return parameter.identifier.name == 'props';
-        }) ??
-        false) {
-      return true;
+
+    final nameOfFunctionThisIsAnArgTo = parentExpression?.parent
+        ?.tryCast<ArgumentList>()
+        ?.parent
+        ?.tryCast<MethodInvocation>()
+        ?.methodName
+        ?.name;
+
+    if (nameOfFunctionThisIsAnArgTo != null) {
+      return const {'uiFunction', 'uiForwardRef'}.contains(nameOfFunctionThisIsAnArgTo);
     }
 
     // Method/constructor declaration, getter, etc
