@@ -32,65 +32,59 @@ class RulesOfHooks extends DiagnosticContributor {
     final visitor = HooksUsagesVisitor();
     result.unit.accept(visitor);
     for (final hook in visitor.hookUsages) {
+      const sameOrderMessage = "React Hooks must be called in the exact same order in every component render.";
+      const mustBeCalledInMessage =
+          "React Hooks must be called in a React function component or a custom React Hook function.";
+
       void addErrorForHook(String message) =>
           collector.addError(code, result.locationFor(hook.node), errorMessageArgs: [message]);
 
       final body = hook.nearestFunctionBody;
-
       if (body == null) {
-        addErrorForHook("React Hook '${hook.hookName}' cannot be called "
-            "outside of a function. React Hooks must be called in a "
-            "React function component or a custom React Hook function.");
+        addErrorForHook("React Hook '${hook.hookName}' cannot be called outside of a function. $mustBeCalledInMessage");
         continue;
       }
       // todo look for tearOff usages as well! e.g., .map
 
       if (body.isFunctionComponent || body.isCustomHook) {
+        //
         // Validate that the order of this hook is the same every call.
+        //
 
         if (_isWithinLoop(body, hook)) {
-          addErrorForHook(
-            "React Hook '${hook.hookName}' may be executed "
-            "more than once because it is called in a loop. "
-            "React Hooks must be called in the exact same order in "
-            "every component render.",
-          );
+          addErrorForHook("React Hook '${hook.hookName}' may be executed more than once because it is called in a loop."
+              " $sameOrderMessage");
           continue;
         }
 
         if (_isWithinCondition(body, hook)) {
-          addErrorForHook("React Hook '${hook.hookName}' is called "
-              "conditionally. React Hooks must be called in the exact "
-              "same order in every component render.");
+          addErrorForHook("React Hook '${hook.hookName}' is called conditionally. $sameOrderMessage");
           continue;
         }
 
         if (_isPotentiallyShortCircuited(body, hook)) {
-          addErrorForHook("React Hook '${hook.hookName}' is called "
-              "conditionally due to short-circuiting. React Hooks must be called in the exact "
-              "same order in every component render.");
+          addErrorForHook("React Hook '${hook.hookName}' is called conditionally due to short-circuiting."
+              " $sameOrderMessage");
           continue;
         }
 
         if (_isAfterConditionalReturn(body, hook)) {
-          addErrorForHook("React Hook '${hook.hookName}' is called "
-              "conditionally because it comes after a conditional return statement."
-              " React Hooks must be called in the exact "
-              "same order in every component render.");
+          addErrorForHook("React Hook '${hook.hookName}' is called conditionally"
+              " because it comes after a conditional return statement."
+              " $sameOrderMessage");
           continue;
         }
       } else if (body.parentMethod != null) {
         // Custom message for hooks inside a class
-        addErrorForHook("React Hook '${hook.hookName}' cannot be called "
-            "in a class or class component. React Hooks must be called in a "
-            "React function component or a custom React Hook function.");
-      } else if (body.parentExpression?.parentDeclaration != null) {
+        addErrorForHook("React Hook '${hook.hookName}' cannot be called in a class or class component."
+            " $mustBeCalledInMessage");
+      } else if (body.parentDeclaration != null) {
         // Custom message if we found an invalid function name.
-        addErrorForHook("React Hook '${hook.hookName}' is called in "
-            "function '${body.parentExpression.parentDeclaration.name.name}' "
-            "that is neither a React function component nor a custom "
-            "React Hook function."
-//                " React component names must start with an uppercase letter."
+        addErrorForHook(
+            "React Hook '${hook.hookName}' is called in function '${body.parentExpression.parentDeclaration.name.name}'"
+            " that is neither a React function component nor a custom React Hook function."
+            " React function components must be declared using 'uiFunction' or 'uiForwardRef' in over_react,"
+            " or using 'registerFunctionComponent' or 'forwardRef2' in react-dart."
             " React hook names must start with 'use'.");
       } else {
         // Assume in all other cases the user called a hook in some
@@ -100,9 +94,7 @@ class RulesOfHooks extends DiagnosticContributor {
         // uncommon cases doesn't matter.
         // fixme why was this check necessary in the original code?
 //        if (isSomewhereInsideComponentOrHook) {
-        addErrorForHook("React Hook '${hook.hookName}' cannot be called "
-            "inside a callback. React Hooks must be called in a "
-            "React function component or a custom React Hook function.");
+        addErrorForHook("React Hook '${hook.hookName}' cannot be called inside a callback. $mustBeCalledInMessage");
 //        }
       }
     }
