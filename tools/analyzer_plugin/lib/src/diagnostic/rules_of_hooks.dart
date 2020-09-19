@@ -33,8 +33,7 @@ class RulesOfHooks extends DiagnosticContributor {
     result.unit.accept(visitor);
     for (final hook in visitor.hookUsages) {
       void addErrorForHook(String message) =>
-          collector.addError(code, result.locationFor(hook.node),
-              errorMessageArgs: [message]);
+          collector.addError(code, result.locationFor(hook.node), errorMessageArgs: [message]);
 
       final body = hook.nearestFunctionBody;
 
@@ -88,22 +87,24 @@ class RulesOfHooks extends DiagnosticContributor {
               if (ancestor == body) return true;
 
               // Short-circuiting binary expression
-              if (ancestor is BinaryExpression && const {
-                TokenType.QUESTION_QUESTION,
-                TokenType.BAR_BAR,
-                TokenType.AMPERSAND_AMPERSAND,
-              }.contains(ancestor.operator.type) && (ancestor.rightOperand?.containsRangeOf(hook.node) ?? false)) {
+              if (ancestor is BinaryExpression &&
+                  const {
+                    TokenType.QUESTION_QUESTION,
+                    TokenType.BAR_BAR,
+                    TokenType.AMPERSAND_AMPERSAND,
+                  }.contains(ancestor.operator.type) &&
+                  (ancestor.rightOperand?.containsRangeOf(hook.node) ?? false)) {
                 return true;
               }
-
 
               if (ancestor is AssignmentExpression) {
                 // Short-circuiting assignment expression
                 if (const {
-                  TokenType.QUESTION_QUESTION_EQ,
-                  TokenType.BAR_BAR_EQ,
-                  TokenType.AMPERSAND_AMPERSAND_EQ,
-                }.contains(ancestor.operator.type) && (ancestor.rightHandSide?.containsRangeOf(hook.node) ?? false)) {
+                      TokenType.QUESTION_QUESTION_EQ,
+                      TokenType.BAR_BAR_EQ,
+                      TokenType.AMPERSAND_AMPERSAND_EQ,
+                    }.contains(ancestor.operator.type) &&
+                    (ancestor.rightHandSide?.containsRangeOf(hook.node) ?? false)) {
                   return true;
                 }
                 // Null-aware assignment expression
@@ -201,8 +202,7 @@ class HookUsage {
 
   String get hookName => node.methodName.name;
 
-  FunctionBody get nearestFunctionBody =>
-      node.thisOrAncestorOfType<FunctionBody>();
+  FunctionBody get nearestFunctionBody => node.thisOrAncestorOfType<FunctionBody>();
 }
 
 extension on FunctionBody {
@@ -214,12 +214,8 @@ extension on FunctionBody {
     // Function expression or top-level function
     // Perform a crude/lenient check for function components since they can take on so many forms
 
-    final nameOfFunctionThisIsAnArgTo = parentExpression?.parent
-        ?.tryCast<ArgumentList>()
-        ?.parent
-        ?.tryCast<MethodInvocation>()
-        ?.methodName
-        ?.name;
+    final nameOfFunctionThisIsAnArgTo =
+        parentExpression?.parent?.tryCast<ArgumentList>()?.parent?.tryCast<MethodInvocation>()?.methodName?.name;
 
     if (nameOfFunctionThisIsAnArgTo != null) {
       return const {'uiFunction', 'uiForwardRef'}.contains(nameOfFunctionThisIsAnArgTo);
