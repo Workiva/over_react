@@ -193,14 +193,31 @@ extension on FunctionBody {
   MethodDeclaration get parentMethod => parent?.tryCast();
 
   bool get isFunctionComponent {
-    // Function expression or top-level function
-    // Perform a crude/lenient check for function components since they can take on so many forms
+    final invocationOfFunctionThisIsAnArgTo =
+        parentExpression?.parent?.tryCast<ArgumentList>()?.parent?.tryCast<InvocationExpression>();
 
-    final nameOfFunctionThisIsAnArgTo =
-        parentExpression?.parent?.tryCast<ArgumentList>()?.parent?.tryCast<MethodInvocation>()?.methodName?.name;
+    // ignore: omit_local_variable_types
+    final String nameOfFunctionThisIsAnArgTo =
+        // Top-level function invocations (optionally namespaced)
+        invocationOfFunctionThisIsAnArgTo?.tryCast<MethodInvocation>()?.methodName?.name ??
+            // Invocations top-level function variables with namespaced imports (e.g., registerFunctionComponent)
+            invocationOfFunctionThisIsAnArgTo
+                ?.tryCast<FunctionExpressionInvocation>()
+                ?.function
+                ?.tryCast<PrefixedIdentifier>()
+                ?.identifier
+                ?.name;
 
     if (nameOfFunctionThisIsAnArgTo != null) {
-      return const {'uiFunction', 'uiForwardRef'}.contains(nameOfFunctionThisIsAnArgTo);
+      return const {
+        // over_react
+        'uiFunction',
+        'uiForwardRef',
+        // react-dart
+        'registerFunctionComponent',
+        'forwardRef',
+        'forwardRef2',
+      }.contains(nameOfFunctionThisIsAnArgTo);
     }
 
     // Method/constructor declaration, getter, etc

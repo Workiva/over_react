@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:react/react.dart' as react;
 import 'package:over_react/over_react.dart';
 
 // ignore_for_file: uri_has_not_been_generated, unnecessary_statements, avoid_single_cascade_in_expression_statements, over_react_boilerplate_error
@@ -124,6 +125,23 @@ UiFactory<BarProps> Bar = uiForwardRef(
   $BarConfig, // ignore: undefined_identifier
 );
 
+
+// Good hooks; used directly within function component (react-dart)
+final reactDart1 = react.registerFunctionComponent((props) {
+  useState(0);
+});
+
+// Good hooks; used directly within function component (react-dart forwardRef)
+// ignore: deprecated_member_use
+final reactDart2 = react.forwardRef((props, ref) {
+  useState(0);
+});
+
+// Good hooks; used directly within function component (react-dart forwardRef)
+final reactDart3 = react.forwardRef2((props, ref) {
+  useState(0);
+});
+
 // Good hook: used directly within custom hook
 void useSomething() {
   useEffect(() {});
@@ -143,6 +161,12 @@ void useSomethingElse() {
 void notACustomHook() {
   useEffect(() {});
 }
+
+// Bad hook: used in a function expression that's not a function component
+final notAFunctionComponent = notUiFunction((props) {
+  useEffect(() {});
+});
+dynamic notUiFunction(dynamic _) {}
 
 // Bad hook: used in a class
 class SomeClass {
