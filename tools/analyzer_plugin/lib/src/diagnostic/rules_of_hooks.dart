@@ -46,16 +46,9 @@ class RulesOfHooks extends DiagnosticContributor {
       // todo look for tearOff usages as well! e.g., .map
 
       if (body.isFunctionComponent || body.isCustomHook) {
-        // Report an error if a hook may be called more then once.
-        final isWithinLoop = body !=
-            hook.node.thisOrAncestorMatching((ancestor) {
-              return ancestor is ForStatement ||
-                  ancestor is WhileStatement ||
-                  ancestor is DoStatement ||
-                  ancestor is ForElement ||
-                  ancestor == body;
-            });
-        if (isWithinLoop) {
+        // Validate that the order of this hook is the same every call.
+
+        if (_isWithinLoop(body, hook)) {
           addErrorForHook(
             "React Hook '${hook.hookName}' may be executed "
             "more than once because it is called in a loop. "
@@ -65,96 +58,21 @@ class RulesOfHooks extends DiagnosticContributor {
           continue;
         }
 
-        // Report an error if a hook is called conditionally.
-
-        final isWithinCondition = body !=
-            hook.node.thisOrAncestorMatching((ancestor) {
-              return ancestor is IfStatement ||
-                  ancestor is SwitchStatement ||
-                  ancestor is ConditionalExpression ||
-                  ancestor is IfElement ||
-                  ancestor == body;
-            });
-        if (isWithinCondition) {
+        if (_isWithinCondition(body, hook)) {
           addErrorForHook("React Hook '${hook.hookName}' is called "
               "conditionally. React Hooks must be called in the exact "
               "same order in every component render.");
           continue;
         }
 
-        final isPotentiallyShortCircuited = body !=
-            hook.node.thisOrAncestorMatching((ancestor) {
-              if (ancestor == body) return true;
-
-              // Short-circuiting binary expression
-              if (ancestor is BinaryExpression &&
-                  const {
-                    TokenType.QUESTION_QUESTION,
-                    TokenType.BAR_BAR,
-                    TokenType.AMPERSAND_AMPERSAND,
-                  }.contains(ancestor.operator.type) &&
-                  (ancestor.rightOperand?.containsRangeOf(hook.node) ?? false)) {
-                return true;
-              }
-
-              if (ancestor is AssignmentExpression) {
-                // Short-circuiting assignment expression
-                if (const {
-                      TokenType.QUESTION_QUESTION_EQ,
-                      TokenType.BAR_BAR_EQ,
-                      TokenType.AMPERSAND_AMPERSAND_EQ,
-                    }.contains(ancestor.operator.type) &&
-                    (ancestor.rightHandSide?.containsRangeOf(hook.node) ?? false)) {
-                  return true;
-                }
-                // Null-aware assignment expression
-                if (ancestor.leftHandSide.tryCast<PropertyAccess>()?.isNullAware ?? false) {
-                  return true;
-                }
-              }
-
-              // Null-awares (besides `??` and assignnments, handled above)
-              // TODO handle null-shorting in nnbd
-              if ((ancestor is CascadeExpression && ancestor.isNullAware) ||
-                  (ancestor is IndexExpression && ancestor.isNullAware) ||
-                  (ancestor is MethodInvocation && ancestor.isNullAware) ||
-                  (ancestor is PropertyAccess && ancestor.isNullAware) ||
-                  (ancestor is SpreadElement && ancestor.isNullAware)) {
-                return true;
-              }
-
-              // In these cases we have to traverse back down the AST:
-              //
-              // - `foo?.bar()` (should be a MethodInvocation?)
-              // - `foo.bar?.baz()`
-              // TODO check all of the LHS for null-shorting instead of just parts of it?
-              if (ancestor is FunctionExpressionInvocation) {
-                if (ancestor.function.tryCast<PropertyAccess>()?.isNullAware ?? false) {
-                  return true;
-                }
-              }
-
-              return false;
-            });
-        if (isPotentiallyShortCircuited) {
+        if (_isPotentiallyShortCircuited(body, hook)) {
           addErrorForHook("React Hook '${hook.hookName}' is called "
               "conditionally due to short-circuiting. React Hooks must be called in the exact "
               "same order in every component render.");
           continue;
         }
 
-        // Report an error if a hook is called conditionally as a result of early returns.
-
-        final isAfterReturn = body is BlockFunctionBody &&
-            body.returnStatements.any((ret) {
-              // Ignore any return statements that are not nested within function body and thus not conditional.
-              // Hooks after those will show up as dead code via built-in analyzer warnings.
-              // todo this isn't working for some reason
-              if (ret.parent == body.block) return false;
-
-              return hook.node.offset > ret.offset;
-            });
-        if (isAfterReturn) {
+        if (_isAfterConditionalReturn(body, hook)) {
           addErrorForHook("React Hook '${hook.hookName}' is called "
               "conditionally because it comes after a conditional return statement."
               " React Hooks must be called in the exact "
@@ -189,6 +107,93 @@ class RulesOfHooks extends DiagnosticContributor {
       }
     }
   }
+
+  static bool _isWithinLoop(FunctionBody body, HookUsage hook) =>
+      body !=
+      hook.node.thisOrAncestorMatching((ancestor) {
+        return ancestor is ForStatement ||
+            ancestor is WhileStatement ||
+            ancestor is DoStatement ||
+            ancestor is ForElement ||
+            ancestor == body;
+      });
+
+  static bool _isWithinCondition(FunctionBody body, HookUsage hook) =>
+      body !=
+      hook.node.thisOrAncestorMatching((ancestor) {
+        return ancestor is IfStatement ||
+            ancestor is SwitchStatement ||
+            ancestor is ConditionalExpression ||
+            ancestor is IfElement ||
+            ancestor == body;
+      });
+
+  static bool _isPotentiallyShortCircuited(FunctionBody body, HookUsage hook) =>
+      body !=
+      hook.node.thisOrAncestorMatching((ancestor) {
+        if (ancestor == body) return true;
+
+        // Short-circuiting binary expression
+        if (ancestor is BinaryExpression &&
+            const {
+              TokenType.QUESTION_QUESTION,
+              TokenType.BAR_BAR,
+              TokenType.AMPERSAND_AMPERSAND,
+            }.contains(ancestor.operator.type) &&
+            (ancestor.rightOperand?.containsRangeOf(hook.node) ?? false)) {
+          return true;
+        }
+
+        if (ancestor is AssignmentExpression) {
+          // Short-circuiting assignment expression
+          if (const {
+                TokenType.QUESTION_QUESTION_EQ,
+                TokenType.BAR_BAR_EQ,
+                TokenType.AMPERSAND_AMPERSAND_EQ,
+              }.contains(ancestor.operator.type) &&
+              (ancestor.rightHandSide?.containsRangeOf(hook.node) ?? false)) {
+            return true;
+          }
+          // Null-aware assignment expression
+          if (ancestor.leftHandSide.tryCast<PropertyAccess>()?.isNullAware ?? false) {
+            return true;
+          }
+        }
+
+        // Null-awares (besides `??` and assignnments, handled above)
+        // TODO handle null-shorting in nnbd
+        if ((ancestor is CascadeExpression && ancestor.isNullAware) ||
+            (ancestor is IndexExpression && ancestor.isNullAware) ||
+            (ancestor is MethodInvocation && ancestor.isNullAware) ||
+            (ancestor is PropertyAccess && ancestor.isNullAware) ||
+            (ancestor is SpreadElement && ancestor.isNullAware)) {
+          return true;
+        }
+
+        // In these cases we have to traverse back down the AST:
+        //
+        // - `foo?.bar()` (should be a MethodInvocation?)
+        // - `foo.bar?.baz()`
+        // TODO check all of the LHS for null-shorting instead of just parts of it?
+        if (ancestor is FunctionExpressionInvocation) {
+          if (ancestor.function.tryCast<PropertyAccess>()?.isNullAware ?? false) {
+            return true;
+          }
+        }
+
+        return false;
+      });
+
+  static bool _isAfterConditionalReturn(FunctionBody body, HookUsage hook) =>
+      body is BlockFunctionBody &&
+      body.returnStatements.any((ret) {
+        // Ignore any return statements that are not nested within function body and thus not conditional.
+        // Hooks after those will show up as dead code via built-in analyzer warnings.
+        // todo this isn't working for some reason
+        if (ret.parent == body.block) return false;
+
+        return hook.node.offset > ret.offset;
+      });
 }
 
 extension on AstNode {
