@@ -27,7 +27,7 @@ import '../../test_util/test_util.dart';
 
 part 'with_transition_test.over_react.g.dart';
 
-/// Main entry point for AbstractTransition testing
+/// Main entry point for WithTransition testing
 main() {
   group('WithTransition', () {
     TestJacket<WithTransitionTesterComponent> jacket;
