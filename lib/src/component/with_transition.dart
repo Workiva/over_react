@@ -49,7 +49,7 @@ mixin WithTransitionPropsMixin on UiProps {
   ///   (props) {
   ///     final isShown = useState(false);
   ///
-  ///     (WithTransition()
+  ///     return (WithTransition()
   ///       ..isShown = isShown.value
   ///       ..childPropsByPhase = useMemo(() => {
   ///         TransitionPhase.PRE_SHOWING: domProps()..className = 'before-showing',
@@ -60,7 +60,7 @@ mixin WithTransitionPropsMixin on UiProps {
   ///       })
   ///     )(
   ///       // The child that has CSS transitions
-  ///     )
+  ///     );
   ///   },
   ///   $WithTransitionExampleConfig, // ignore: undefined_identifier
   /// );
@@ -97,13 +97,10 @@ class WithTransitionProps = UiProps with v2.TransitionPropsMixin, WithTransition
 /// }
 ///
 /// UiFactory<WithTransitionExampleProps> WithTransitionExample = uiFunction(
-///   (_props) {
-///     final defaultProps = useMemo(() {
-///       return WithTransitionExample()..initiallyShown = false;
-///     }, const []);
-///     final props = defaultProps..addProps(_props);
+///   (props) {
+///     final initiallyShown = props.initiallyShown ?? false;
 ///
-///     final isShown = useState(props.initiallyShown);
+///     final isShown = useState(initiallyShown);
 ///
 ///     final classes = ClassNameBuilder.fromProps(props)
 ///       ..add('fade')
@@ -166,28 +163,23 @@ class WithTransitionProps = UiProps with v2.TransitionPropsMixin, WithTransition
 /// );
 /// ```
 UiFactory<WithTransitionProps> WithTransition = memo(uiFunction(
-  (_props) {
+  (props) {
     // ----- Default Props ----- //
-    final defaultProps = useMemo(() {
-      return WithTransition()
-      ..isShown = false
-      ..transitionTimeout = const Duration(seconds: 1)
-      ..childPropsByPhase = const {
-        v2.TransitionPhase.PRE_SHOWING: {},
-        v2.TransitionPhase.SHOWING: {},
-        v2.TransitionPhase.SHOWN: {},
-        v2.TransitionPhase.HIDING: {},
-        v2.TransitionPhase.HIDDEN: {},
-      }
-      ..addProps(v2.TransitionPropsMixin.defaultProps);
-    }, const []);
-    final props = defaultProps..addProps(_props);
+    final isShown = props.isShown ?? false;
+    final transitionTimeout = props.transitionTimeout ?? const Duration(seconds: 1);
+    final childPropsByPhase = props.childPropsByPhase ?? const {
+      v2.TransitionPhase.PRE_SHOWING: {},
+      v2.TransitionPhase.SHOWING: {},
+      v2.TransitionPhase.SHOWN: {},
+      v2.TransitionPhase.HIDING: {},
+      v2.TransitionPhase.HIDDEN: {},
+    };
 
     assert(_hasSingleValidChild(props));
 
     // ----- State / Hooks ----- //
     final transitionNodeRef = useRef<Element>();
-    final transitionPhaseDerivedFromProps = props.isShown ? TransitionPhase.SHOWN : TransitionPhase.HIDDEN;
+    final transitionPhaseDerivedFromProps = isShown ? TransitionPhase.SHOWN : TransitionPhase.HIDDEN;
     final transitionPhase = useState(transitionPhaseDerivedFromProps);
 
     /// Begin showing the node unless the [currentPhase] is already shown or is in the process of showing.
@@ -205,13 +197,6 @@ UiFactory<WithTransitionProps> WithTransition = memo(uiFunction(
       tProps.onWillHide?.call();
       transitionPhase.set(
           _hasTransitionOut(tProps) ? TransitionPhase.HIDING : TransitionPhase.HIDDEN);
-    }
-
-    // getDerivedStateFromProps
-    if (props.isShown && _isOrWillBeHidden(transitionPhase.value)) {
-      _handleShow(props, transitionPhase.value);
-    } else if (!props.isShown && _isOrWillBeShown(transitionPhase.value)) {
-      _handleHide(props, transitionPhase.value);
     }
 
     // ----- transitionend event handling ----- //
@@ -252,7 +237,7 @@ UiFactory<WithTransitionProps> WithTransition = memo(uiFunction(
       _cancelTransitionEventListener();
       _cancelTransitionEndTimer();
 
-      _transitionEndTimer.current = Timer(props.transitionTimeout, () {
+      _transitionEndTimer.current = Timer(transitionTimeout, () {
         assert(ValidationUtil.warn(
             'The number of transitions expected to complete have not completed. Something is most likely wrong.',
         ));
@@ -287,6 +272,15 @@ UiFactory<WithTransitionProps> WithTransition = memo(uiFunction(
         _cancelTransitionEventListener();
       };
     }, const []);
+
+    useLayoutEffect(() {
+      // getDerivedStateFromProps
+      if (isShown && _isOrWillBeHidden(transitionPhase.value)) {
+        _handleShow(props, transitionPhase.value);
+      } else if (!isShown && _isOrWillBeShown(transitionPhase.value)) {
+        _handleHide(props, transitionPhase.value);
+      }
+    }, [isShown, props.onWillShow, props.onWillHide]);
 
     // componentDidUpdate
     useLayoutEffect(() {
@@ -348,14 +342,22 @@ UiFactory<WithTransitionProps> WithTransition = memo(uiFunction(
           props.onDidShow?.call();
           break;
       }
-    }, [transitionPhase.value]);
+    }, [
+      transitionPhase.value,
+      props.onDidHide,
+      props.onDidShow,
+      transitionTimeout,
+      props.transitionCount,
+      props.transitionInCount,
+      props.transitionOutCount,
+    ]);
 
     // ----- Rendering ----- //
 
     // NOTE: This cast is safe because we validate that it is a ReactElement via `_hasSingleValidChild`.
     final childElement = props.children.single as ReactElement;
     final childProps = domProps({...getProps(childElement)});
-    final phaseProps = props.childPropsByPhase[transitionPhase.value];
+    final phaseProps = childPropsByPhase[transitionPhase.value];
     final phaseClasses = ClassNameBuilder.fromProps(childProps)
       ..addFromProps(phaseProps);
 
