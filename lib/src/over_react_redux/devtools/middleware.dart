@@ -44,6 +44,9 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
   _OverReactReduxDevToolsMiddleware() {
     var windowConsole = getProperty(window, 'console');
     log.onRecord.listen((rec) {
+      // This return is to safeguard against this listener acting like
+      // `Logger.root.onRecord` when `hierarchicalLoggingEnabled` is false.
+      if (rec.loggerName != log.name) return;
       if (rec.level == Level.WARNING) {
         callMethod(windowConsole, 'warn', ['${log.name} [${rec.level.name}]: ${rec.message}', if (rec.error != null) rec.error]);
       } else {
