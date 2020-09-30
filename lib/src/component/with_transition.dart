@@ -174,18 +174,6 @@ mixin WithTransitionState on UiState {
 }
 
 class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, WithTransitionState> {
-  /// Whether the overlay is not guaranteed to transition in response to the current
-  /// state change.
-  ///
-  /// _Stored as variable as workaround for not adding breaking change to [_stateToBeginHiding] API._
-  ///
-  /// A transition may not always occur when the state moves from SHOWING to HIDING
-  /// if the PRE_SHOWING-->SHOWING-->HIDING transition happens back-to-back.
-  ///
-  /// Better to not always transition when the user is ninja-toggling a transitionable
-  /// component than to break state changes waiting for a transition that will never happen.
-  var _transitionNotGuaranteed = false;
-
   /// Timer used to determine if a transition timeout has occurred.
   Timer _transitionEndTimer;
 
@@ -230,8 +218,6 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
   void componentDidUpdate(Map prevProps, Map prevState, [dynamic snapshot]) {
     if (state.$transitionPhase == typedStateFactory(prevState).$transitionPhase) return;
 
-    _transitionNotGuaranteed = false;
-
     if (state.$transitionPhase != TransitionPhase.SHOWING) {
       // Allows the `WithTransitionComponent` to handle state changes that interrupt state
       // changes waiting on `transitionend` events.
@@ -247,7 +233,6 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
         break;
       case TransitionPhase.HIDING:
         props.onWillHide?.call();
-        _transitionNotGuaranteed = state.$transitionPhase == TransitionPhase.SHOWING;
         _handleHiding();
         break;
       case TransitionPhase.HIDDEN:
@@ -335,19 +320,11 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
 
   /// Called from `componentDidUpdate` when `state.transitionPhase` is `TransitionPhase.HIDING`.
   void _handleHiding() {
-    if (_transitionNotGuaranteed) {
-      // No transition will occur, so kick off the state change manually.
-      setState(newState()..$transitionPhase = TransitionPhase.HIDDEN);
-
-      _cancelTransitionEventListener();
-      _cancelTransitionEndTimer();
-    } else {
-      onNextTransitionEnd(() {
-        if (_isMounted && state.$transitionPhase == TransitionPhase.HIDING) {
-          setState(newState()..$transitionPhase = TransitionPhase.HIDDEN);
-        }
-      });
-    }
+    onNextTransitionEnd(() {
+      if (_isMounted && state.$transitionPhase == TransitionPhase.HIDING) {
+        setState(newState()..$transitionPhase = TransitionPhase.HIDDEN);
+      }
+    });
   }
 
   /// Listens for the next `transitionend` event and invokes a callback after
