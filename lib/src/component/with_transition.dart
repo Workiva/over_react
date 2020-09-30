@@ -280,7 +280,7 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
     assert(_hasSingleValidChild(props));
 
     final childElement = props.children.single as ReactElement;
-    final childProps = domProps({...getProps(childElement)});
+    final childProps = domProps(getProps(childElement));
     final phaseProps = props.childPropsByPhase[state.$transitionPhase];
     final phaseClasses = ClassNameBuilder.fromProps(childProps)
       ..addFromProps(phaseProps);
