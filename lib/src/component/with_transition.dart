@@ -17,67 +17,11 @@ library over_react.abstract_controlled_transition;
 import 'dart:async';
 import 'dart:html';
 
+import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/components.dart' as v2;
 
 part 'with_transition.over_react.g.dart';
-
-mixin WithTransitionPropsMixin on UiProps {
-  /// Controls the visibility of the component.
-  ///
-  /// * When set to `true` - the component will begin to transition into a visible state.
-  /// * When set to `false` - the component will begin to transition into a hidden state.
-  ///
-  /// > Default: `false`
-  ///
-  /// > See: [WithTransition] for example usage.
-  bool isShown;
-
-  /// An optional map of props to apply to the single child based on the current transition phase.
-  ///
-  /// This provides you with the ability to add CSS classes / other DOM attributes based on the granular
-  /// transition states that are confined within the [WithTransition] component without having to
-  /// utilize state change callbacks to update your component's state.
-  ///
-  /// __NOTE:__ These values will override any prop values set on the child itself if the
-  /// key(s) in the `Map` are the same.
-  ///
-  /// __Example:__
-  ///
-  /// ```dart
-  /// UiFactory<WithTransitionExampleProps> WithTransitionExample = uiFunction(
-  ///   (props) {
-  ///     final isShown = useState(false);
-  ///
-  ///     return (WithTransition()
-  ///       ..isShown = isShown.value
-  ///       ..childPropsByPhase = useMemo(() => {
-  ///         TransitionPhase.PRE_SHOWING: domProps()..className = 'before-showing',
-  ///         TransitionPhase.SHOWING: domProps()..className = 'showing',
-  ///         TransitionPhase.SHOWN: domProps()..className = 'shown',
-  ///         TransitionPhase.HIDING: domProps()..className = 'hiding',
-  ///         TransitionPhase.HIDDEN: domProps()..className = 'hidden',
-  ///       })
-  ///     )(
-  ///       // The child that has CSS transitions
-  ///     );
-  ///   },
-  ///   $WithTransitionExampleConfig, // ignore: undefined_identifier
-  /// );
-  /// ```
-  Map<TransitionPhase, Map> childPropsByPhase;
-
-  /// The amount of time to wait for a CSS transition to complete before assuming something went wrong
-  /// and canceling the subscription.
-  ///
-  /// If the CSS transition duration on the node is longer than `1s`, you will need to set this to a Duration
-  /// that is greater than or equal to the expected CSS duration of the node.
-  ///
-  /// > Default `const Duration(seconds: 1)`
-  Duration transitionTimeout;
-}
-
-class WithTransitionProps = UiProps with v2.TransitionPropsMixin, WithTransitionPropsMixin;
 
 /// A wrapper component that hooks into CSS transition(s) present on a single child passed to it.
 ///
@@ -162,202 +106,184 @@ class WithTransitionProps = UiProps with v2.TransitionPropsMixin, WithTransition
 ///   $CustomChildConfig, // ignore: undefined_identifier
 /// );
 /// ```
-UiFactory<WithTransitionProps> WithTransition = memo(uiFunction(
-  (props) {
-    // ----- Default Props ----- //
-    final isShown = props.isShown ?? false;
-    final transitionTimeout = props.transitionTimeout ?? const Duration(seconds: 1);
-    final childPropsByPhase = props.childPropsByPhase ?? const {
+UiFactory<WithTransitionProps> WithTransition = _$WithTransition;
+
+mixin WithTransitionPropsMixin on UiProps {
+  /// Controls the visibility of the component.
+  ///
+  /// * When set to `true` - the component will begin to transition into a visible state.
+  /// * When set to `false` - the component will begin to transition into a hidden state.
+  ///
+  /// > Default: `false`
+  ///
+  /// > See: [WithTransition] for example usage.
+  bool isShown;
+
+  /// An optional map of props to apply to the single child based on the current transition phase.
+  ///
+  /// This provides you with the ability to add CSS classes / other DOM attributes based on the granular
+  /// transition states that are confined within the [WithTransition] component without having to
+  /// utilize state change callbacks to update your component's state.
+  ///
+  /// __NOTE:__ These values will override any prop values set on the child itself if the
+  /// key(s) in the `Map` are the same.
+  ///
+  /// __Example:__
+  ///
+  /// ```dart
+  /// UiFactory<WithTransitionExampleProps> WithTransitionExample = uiFunction(
+  ///   (props) {
+  ///     final isShown = useState(false);
+  ///
+  ///     return (WithTransition()
+  ///       ..isShown = isShown.value
+  ///       ..childPropsByPhase = useMemo(() => {
+  ///         TransitionPhase.PRE_SHOWING: domProps()..className = 'before-showing',
+  ///         TransitionPhase.SHOWING: domProps()..className = 'showing',
+  ///         TransitionPhase.SHOWN: domProps()..className = 'shown',
+  ///         TransitionPhase.HIDING: domProps()..className = 'hiding',
+  ///         TransitionPhase.HIDDEN: domProps()..className = 'hidden',
+  ///       })
+  ///     )(
+  ///       // The child that has CSS transitions
+  ///     );
+  ///   },
+  ///   $WithTransitionExampleConfig, // ignore: undefined_identifier
+  /// );
+  /// ```
+  Map<TransitionPhase, Map> childPropsByPhase;
+
+  /// The amount of time to wait for a CSS transition to complete before assuming something went wrong
+  /// and canceling the subscription.
+  ///
+  /// If the CSS transition duration on the node is longer than `1s`, you will need to set this to a Duration
+  /// that is greater than or equal to the expected CSS duration of the node.
+  ///
+  /// > Default `const Duration(seconds: 1)`
+  Duration transitionTimeout;
+}
+
+class WithTransitionProps = UiProps with v2.TransitionPropsMixin, WithTransitionPropsMixin;
+
+mixin WithTransitionState on UiState {
+  /// The current transition phase, derived from the current [WithTransitionPropsMixin.isShown] value.
+  ///
+  /// Do not set directly.
+  @protected
+  TransitionPhase $transitionPhase;
+}
+
+class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, WithTransitionState> {
+  /// Whether the overlay is not guaranteed to transition in response to the current
+  /// state change.
+  ///
+  /// _Stored as variable as workaround for not adding breaking change to [_stateToBeginHiding] API._
+  ///
+  /// A transition may not always occur when the state moves from SHOWING to HIDING
+  /// if the PRE_SHOWING-->SHOWING-->HIDING transition happens back-to-back.
+  ///
+  /// Better to not always transition when the user is ninja-toggling a transitionable
+  /// component than to break state changes waiting for a transition that will never happen.
+  var _transitionNotGuaranteed = false;
+
+  /// Timer used to determine if a transition timeout has occurred.
+  Timer _transitionEndTimer;
+
+  /// Stream for listening to `transitionend` events on the node.
+  StreamSubscription _endTransitionSubscription;
+
+  final _transitionNodeRef = createRef<Element>();
+
+  @override
+  get defaultProps => (newProps()
+    ..addProps(v2.TransitionPropsMixin.defaultProps)
+    ..isShown = false
+    ..transitionTimeout = const Duration(seconds: 1)
+    ..childPropsByPhase = const {
       v2.TransitionPhase.PRE_SHOWING: {},
       v2.TransitionPhase.SHOWING: {},
       v2.TransitionPhase.SHOWN: {},
       v2.TransitionPhase.HIDING: {},
       v2.TransitionPhase.HIDDEN: {},
-    };
+    }
+  );
 
+  @override
+  get initialState => (newState()
+    ..$transitionPhase = _transitionPhaseDerivedFromProps(props)
+  );
+
+  @override
+  getDerivedStateFromProps(Map nextProps, Map prevState) {
+    final tNextProps = typedPropsFactory(nextProps);
+    final tPrevState = typedStateFactory(prevState);
+    if (tNextProps.isShown && _isOrWillBeHidden(tPrevState.$transitionPhase)) {
+      return _stateToBeginShowing(tNextProps, tPrevState.$transitionPhase);
+    } else if (!tNextProps.isShown && _isOrWillBeShown(tPrevState.$transitionPhase)) {
+      return _stateToBeginHiding(tNextProps, tPrevState.$transitionPhase);
+    }
+
+    return null;
+  }
+
+  @override
+  void componentDidUpdate(Map prevProps, Map prevState, [dynamic snapshot]) {
+    if (state.$transitionPhase == typedStateFactory(prevState).$transitionPhase) return;
+
+    _transitionNotGuaranteed = false;
+
+    if (state.$transitionPhase != TransitionPhase.SHOWING) {
+      // Allows the `WithTransitionComponent` to handle state changes that interrupt state
+      // changes waiting on `transitionend` events.
+      _cancelTransitionEventListener();
+    }
+
+    switch (state.$transitionPhase) {
+      case TransitionPhase.PRE_SHOWING:
+        _handlePreShowing();
+        break;
+      case TransitionPhase.SHOWING:
+        // NOTE: props.onWillShow is called within _handleShow in the handler that
+        // triggers an update to `$transitionPhase` that will result in this effect being processed.
+        break;
+      case TransitionPhase.HIDING:
+        // NOTE: props.onWillHide is called within _handleHide in the handler that
+        // triggers an update to `$transitionPhase` that will result in this effect being processed.
+        _transitionNotGuaranteed = state.$transitionPhase == TransitionPhase.SHOWING;
+        _handleHiding();
+        break;
+      case TransitionPhase.HIDDEN:
+        props.onDidHide?.call();
+        break;
+      case TransitionPhase.SHOWN:
+        props.onDidShow?.call();
+        break;
+    }
+  }
+
+  var _isMounted = false;
+
+  @override
+  void componentDidMount() {
+    _isMounted = true;
+  }
+
+  @override
+  void componentWillUnmount() {
+    super.componentWillUnmount();
+
+    _isMounted = false;
+    _cancelTransitionEndTimer();
+    _cancelTransitionEventListener();
+  }
+
+  @override
+  render() {
     assert(_hasSingleValidChild(props));
 
-    // ----- State / Hooks ----- //
-    final transitionNodeRef = useRef<Element>();
-    final transitionPhaseDerivedFromProps = isShown ? TransitionPhase.SHOWN : TransitionPhase.HIDDEN;
-    final transitionPhase = useState(transitionPhaseDerivedFromProps);
-
-    /// Begin showing the node unless the [currentPhase] is already shown or is in the process of showing.
-    void _handleShow(WithTransitionProps tProps, TransitionPhase currentPhase) {
-      if (_isOrWillBeShown(currentPhase)) return;
-
-      tProps.onWillShow?.call();
-      transitionPhase.set(_hasTransitionIn(tProps) ? TransitionPhase.PRE_SHOWING : TransitionPhase.SHOWN);
-    }
-
-    /// Begin hiding node unless the [currentPhase] is already hidden or is in the process of hiding.
-    void _handleHide(WithTransitionProps tProps, TransitionPhase currentPhase) {
-      if (_isOrWillBeHidden(currentPhase)) return;
-
-      tProps.onWillHide?.call();
-      transitionPhase.set(
-          _hasTransitionOut(tProps) ? TransitionPhase.HIDING : TransitionPhase.HIDDEN);
-    }
-
-    // ----- transitionend event handling ----- //
-
-    /// Whether the overlay is not guaranteed to transition in response to the current
-    /// state change.
-    ///
-    /// _Stored as variable as workaround for not adding breaking change to [handleHiding] API._
-    ///
-    /// A transition may not always occur when the state moves from SHOWING to HIDING
-    /// if the PRE_SHOWING-->SHOWING-->HIDING transition happens back-to-back.
-    ///
-    /// Better to not always transition when the user is ninja-toggling a transitionable
-    /// component than to break state changes waiting for a transition that will never happen.
-    final _transitionNotGuaranteed = useRef(false);
-
-    /// Timer used to determine if a transition timeout has occurred.
-    final _transitionEndTimer = useRef<Timer>();
-
-    /// Stream for listening to `transitionend` events on the node.
-    final _endTransitionSubscription = useRef<StreamSubscription>();
-
-    void _cancelTransitionEventListener() {
-      _endTransitionSubscription.current?.cancel();
-      _endTransitionSubscription.current = null;
-    }
-
-    void _cancelTransitionEndTimer() {
-      _transitionEndTimer.current?.cancel();
-      _transitionEndTimer.current = null;
-    }
-
-    /// Listens for the next `transitionend` event and invokes a callback after
-    /// the event is dispatched.
-    void onNextTransitionEnd(Function() complete) {
-      var transitionCount = _isOrWillBeHidden(transitionPhase.value) ? _transitionOutCount(props) : _transitionInCount(props);
-
-      _cancelTransitionEventListener();
-      _cancelTransitionEndTimer();
-
-      _transitionEndTimer.current = Timer(transitionTimeout, () {
-        assert(ValidationUtil.warn(
-            'The number of transitions expected to complete have not completed. Something is most likely wrong.',
-        ));
-
-        _cancelTransitionEventListener();
-
-        complete();
-      });
-
-      _endTransitionSubscription.current =
-          transitionNodeRef.current?.onTransitionEnd?.skip(transitionCount - 1)?.take(1)?.listen((_) {
-        _cancelTransitionEndTimer();
-
-        complete();
-      });
-    }
-
-    // ----- Effects (Lifecycle) ----- //
-
-    final _isMounted = useRef(false);
-
-    // Mount + Unmount
-    useEffect(() {
-      // componentDidMount
-      _isMounted.current = true;
-
-      // componentWillUnmount
-      return () {
-        _isMounted.current = false;
-
-        _cancelTransitionEndTimer();
-        _cancelTransitionEventListener();
-      };
-    }, const []);
-
-    useLayoutEffect(() {
-      // getDerivedStateFromProps
-      if (isShown && _isOrWillBeHidden(transitionPhase.value)) {
-        _handleShow(props, transitionPhase.value);
-      } else if (!isShown && _isOrWillBeShown(transitionPhase.value)) {
-        _handleHide(props, transitionPhase.value);
-      }
-    }, [isShown, props.onWillShow, props.onWillHide]);
-
-    // componentDidUpdate
-    useLayoutEffect(() {
-      if (!_isMounted.current) return;
-      _transitionNotGuaranteed.current = false;
-
-      if (transitionPhase.value != TransitionPhase.SHOWING) {
-        // Allows the AbstractWithTransitionComponent to handle state changes that interrupt state
-        // changes waiting on transitionend events.
-        _cancelTransitionEventListener();
-      }
-
-      /// Called when `transitionPhase` is `TransitionPhase.PRE_SHOWING`.
-      void _handlePreShowing() {
-        onNextTransitionEnd(() {
-          if (_isOrWillBeShown(transitionPhase.value)) {
-            transitionPhase.set(TransitionPhase.SHOWN);
-          }
-        });
-
-        transitionPhase.set(TransitionPhase.SHOWING);
-      }
-
-      /// Called when `transitionPhase` is `TransitionPhase.HIDING`.
-      void _handleHiding() {
-        if (_transitionNotGuaranteed.current) {
-          // No transition will occur, so kick off the state change manually.
-          transitionPhase.set(TransitionPhase.HIDDEN);
-
-          _cancelTransitionEventListener();
-          _cancelTransitionEndTimer();
-        } else {
-          onNextTransitionEnd(() {
-            if (_isMounted.current && transitionPhase.value == TransitionPhase.HIDING) {
-              transitionPhase.set(TransitionPhase.HIDDEN);
-            }
-          });
-        }
-      }
-
-      switch (transitionPhase.value) {
-        case TransitionPhase.PRE_SHOWING:
-          _handlePreShowing();
-          break;
-        case TransitionPhase.SHOWING:
-          // NOTE: props.onWillShow is called within _handleShow in the handler that
-          // triggers an update to `transitionPhase` that will result in this effect being processed.
-          break;
-        case TransitionPhase.HIDING:
-          // NOTE: props.onWillHide is called within _handleHide in the handler that
-          // triggers an update to `transitionPhase` that will result in this effect being processed.
-          _transitionNotGuaranteed.current = transitionPhase.value == TransitionPhase.SHOWING;
-          _handleHiding();
-          break;
-        case TransitionPhase.HIDDEN:
-          props.onDidHide?.call();
-          break;
-        case TransitionPhase.SHOWN:
-          props.onDidShow?.call();
-          break;
-      }
-    }, [
-      transitionPhase.value,
-      props.onDidHide,
-      props.onDidShow,
-      transitionTimeout,
-      props.transitionCount,
-      props.transitionInCount,
-      props.transitionOutCount,
-    ]);
-
-    // ----- Rendering ----- //
-
-    // NOTE: This cast is safe because we validate that it is a ReactElement via `_hasSingleValidChild`.
     final childElement = props.children.single as ReactElement;
     final childProps = domProps({...getProps(childElement)});
-    final phaseProps = childPropsByPhase[transitionPhase.value];
+    final phaseProps = props.childPropsByPhase[state.$transitionPhase];
     final phaseClasses = ClassNameBuilder.fromProps(childProps)
       ..addFromProps(phaseProps);
 
@@ -366,11 +292,96 @@ UiFactory<WithTransitionProps> WithTransition = memo(uiFunction(
       ..addTestId('ovr.WithTransition.node')
       ..addProps(phaseProps)
       ..className = phaseClasses.toClassName()
-      ..ref = chainRefs(childElement.ref, transitionNodeRef)
+      ..ref = chainRefs(childElement.ref, _transitionNodeRef)
     );
-  },
-  $WithTransitionConfig, // ignore: undefined_identifier
-));
+  }
+
+  void _cancelTransitionEventListener() {
+    _endTransitionSubscription?.cancel();
+    _endTransitionSubscription = null;
+  }
+
+  void _cancelTransitionEndTimer() {
+    _transitionEndTimer?.cancel();
+    _transitionEndTimer = null;
+  }
+
+  /// Return a state value that will result in the component beginning to show the node
+  /// unless the [currentPhase] is already shown or is in the process of showing.
+  Map _stateToBeginShowing(WithTransitionProps tProps, TransitionPhase currentPhase) {
+    if (_isOrWillBeShown(currentPhase)) return null;
+
+    tProps.onWillShow?.call();
+    return newState()
+      ..$transitionPhase = _hasTransitionIn(tProps) ? TransitionPhase.PRE_SHOWING : TransitionPhase.SHOWN;
+  }
+
+  /// Return a state value that wll result in the component beginning to hide the node
+  /// unless the [currentPhase] is already hidden or is in the process of hiding.
+  Map _stateToBeginHiding(WithTransitionProps tProps, TransitionPhase currentPhase) {
+    if (_isOrWillBeHidden(currentPhase)) return null;
+
+    tProps.onWillHide?.call();
+    return newState()
+      ..$transitionPhase = _hasTransitionOut(tProps) ? TransitionPhase.HIDING : TransitionPhase.HIDDEN;
+  }
+
+  /// Called from `componentDidUpdate` when `state.transitionPhase` is `TransitionPhase.PRE_SHOWING`.
+  void _handlePreShowing() {
+    onNextTransitionEnd(() {
+      if (_isOrWillBeShown(state.$transitionPhase)) {
+        setState(newState()..$transitionPhase = TransitionPhase.SHOWN);
+      }
+    });
+
+    setState(newState()..$transitionPhase = TransitionPhase.SHOWING);
+  }
+
+  /// Called from `componentDidUpdate` when `state.transitionPhase` is `TransitionPhase.HIDING`.
+  void _handleHiding() {
+    if (_transitionNotGuaranteed) {
+      // No transition will occur, so kick off the state change manually.
+      setState(newState()..$transitionPhase = TransitionPhase.HIDDEN);
+
+      _cancelTransitionEventListener();
+      _cancelTransitionEndTimer();
+    } else {
+      onNextTransitionEnd(() {
+        if (_isMounted && state.$transitionPhase == TransitionPhase.HIDING) {
+          setState(newState()..$transitionPhase = TransitionPhase.HIDDEN);
+        }
+      });
+    }
+  }
+
+  /// Listens for the next `transitionend` event and invokes a callback after
+  /// the event is dispatched.
+  void onNextTransitionEnd(Function() complete) {
+    var transitionCount = _isOrWillBeHidden(state.$transitionPhase)
+        ? _transitionOutCount(props)
+        : _transitionInCount(props);
+
+    _cancelTransitionEventListener();
+    _cancelTransitionEndTimer();
+
+    _transitionEndTimer = Timer(props.transitionTimeout, () {
+      assert(ValidationUtil.warn(
+          'The number of transitions expected to complete have not completed. Something is most likely wrong.',
+      ));
+
+      _cancelTransitionEventListener();
+
+      complete();
+    });
+
+    _endTransitionSubscription =
+        _transitionNodeRef.current?.onTransitionEnd?.skip(transitionCount - 1)?.take(1)?.listen((_) {
+      _cancelTransitionEndTimer();
+
+      complete();
+    });
+  }
+}
 
 bool _hasSingleValidChild(WithTransitionProps props) {
   if (props.children.length == 1 && isValidElement(props.children.single)) return true;
@@ -378,6 +389,9 @@ bool _hasSingleValidChild(WithTransitionProps props) {
   throw PropError.value(props.children, 'children',
       'WithValidation only accepts a single child which must be a valid ReactElement.');
 }
+
+TransitionPhase _transitionPhaseDerivedFromProps(WithTransitionProps tProps) =>
+    tProps.isShown ? TransitionPhase.SHOWN : TransitionPhase.HIDDEN;
 
 bool _isOrWillBeHidden(TransitionPhase currentPhase) =>
     currentPhase == TransitionPhase.HIDING ||
