@@ -1,5 +1,9 @@
 # OverReact Changelog
 
+## [3.10.0](https://github.com/Workiva/over_react/compare/3.9.0...3.10.0)
+- [#621] Add WithTransition wrapper component to enable "controlled" transitions using props
+* [#628] Fix Redux dev tools middleware console logging when `hierarchicalLoggingEnabled` is false
+
 ## [3.9.0](https://github.com/Workiva/over_react/compare/3.8.1...3.9.0)
 
 - [#620] Fix issue where `uiForwardRef`/`memo` components were being passed JSified props (by consuming [react-dart's `forwardRef2`/`memo2`](https://github.com/cleandart/react-dart/pull/275))
