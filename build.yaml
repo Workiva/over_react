@@ -61,5 +61,6 @@ targets:
           - "example/**.dart"
           - "test/*.browser_test.dart"
           - "web/**/index.dart"
-        dart2js_args:
-          - --no-minify
+        options:
+          dart2js_args:
+            - --no-minify
