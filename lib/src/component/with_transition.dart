@@ -243,12 +243,10 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
         _handlePreShowing();
         break;
       case TransitionPhase.SHOWING:
-        // NOTE: props.onWillShow is called within _handleShow in the handler that
-        // triggers an update to `$transitionPhase` that will result in this effect being processed.
+        props.onWillShow?.call();
         break;
       case TransitionPhase.HIDING:
-        // NOTE: props.onWillHide is called within _handleHide in the handler that
-        // triggers an update to `$transitionPhase` that will result in this effect being processed.
+        props.onWillHide?.call();
         _transitionNotGuaranteed = state.$transitionPhase == TransitionPhase.SHOWING;
         _handleHiding();
         break;
@@ -311,7 +309,6 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
   Map _stateToBeginShowing(WithTransitionProps tProps, TransitionPhase currentPhase) {
     if (_isOrWillBeShown(currentPhase)) return null;
 
-    tProps.onWillShow?.call();
     return newState()
       ..$transitionPhase = _hasTransitionIn(tProps) ? TransitionPhase.PRE_SHOWING : TransitionPhase.SHOWN;
   }
@@ -321,7 +318,6 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
   Map _stateToBeginHiding(WithTransitionProps tProps, TransitionPhase currentPhase) {
     if (_isOrWillBeHidden(currentPhase)) return null;
 
-    tProps.onWillHide?.call();
     return newState()
       ..$transitionPhase = _hasTransitionOut(tProps) ? TransitionPhase.HIDING : TransitionPhase.HIDDEN;
   }
