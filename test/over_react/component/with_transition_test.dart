@@ -31,7 +31,7 @@ part 'with_transition_test.over_react.g.dart';
 main() {
   group('WithTransition', () {
     TestJacket<WithTransitionTesterComponent> jacket;
-    Element getRootNode() => queryByTestId(jacket.mountNode, 'ovr.WithTransition.node');
+    Element getRootNode() => queryByTestId(jacket.mountNode, 'or.WithTransition.node');
     void expectNodeInTransitionPhase(TransitionPhase phase, {String reason}) {
       expect(
         getRootNode(),

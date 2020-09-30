@@ -289,7 +289,7 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
 
     return cloneElement(childElement, domProps()
       ..addTestId(childProps.getTestId())
-      ..addTestId('ovr.WithTransition.node')
+      ..addTestId('or.WithTransition.node')
       ..addProps(phaseProps)
       ..className = phaseClasses.toClassName()
       ..ref = chainRefs(childElement.ref, _transitionNodeRef)
