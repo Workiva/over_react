@@ -34,9 +34,9 @@ _$$BasicPartOfLibProps _$BasicPartOfLib([Map backingProps]) =>
 abstract class _$$BasicPartOfLibProps extends UiProps
     with
         ExamplePropsMixin,
-        $ExamplePropsMixin, // If this generated mixin is undefined, it's likely because ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ExamplePropsMixin.
+        $ExamplePropsMixin, // If this generated mixin is undefined, it's likely because ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExamplePropsMixin, and check that $ExamplePropsMixin is exported/imported properly.
         BasicPartOfLibPropsMixin,
-        $BasicPartOfLibPropsMixin // If this generated mixin is undefined, it's likely because BasicPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicPartOfLibPropsMixin.
+        $BasicPartOfLibPropsMixin // If this generated mixin is undefined, it's likely because BasicPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibPropsMixin, and check that $BasicPartOfLibPropsMixin is exported/imported properly.
     implements
         BasicPartOfLibProps {
   _$$BasicPartOfLibProps._();
@@ -108,9 +108,9 @@ class _$$BasicPartOfLibProps$JsMap extends _$$BasicPartOfLibProps {
 abstract class _$$BasicPartOfLibState extends UiState
     with
         ExampleStateMixin,
-        $ExampleStateMixin, // If this generated mixin is undefined, it's likely because ExampleStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ExampleStateMixin.
+        $ExampleStateMixin, // If this generated mixin is undefined, it's likely because ExampleStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of ExampleStateMixin, and check that $ExampleStateMixin is exported/imported properly.
         BasicPartOfLibStateMixin,
-        $BasicPartOfLibStateMixin // If this generated mixin is undefined, it's likely because BasicPartOfLibStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicPartOfLibStateMixin.
+        $BasicPartOfLibStateMixin // If this generated mixin is undefined, it's likely because BasicPartOfLibStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibStateMixin, and check that $BasicPartOfLibStateMixin is exported/imported properly.
     implements
         BasicPartOfLibState {
   _$$BasicPartOfLibState._();
@@ -231,9 +231,9 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ExamplePropsMixin.
+        // If this generated mixin is undefined, it's likely because ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ExamplePropsMixin, and check that $ExamplePropsMixin is exported/imported properly.
         ExamplePropsMixin: $ExamplePropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because BasicPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BasicPartOfLibPropsMixin.
+        // If this generated mixin is undefined, it's likely because BasicPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPartOfLibPropsMixin, and check that $BasicPartOfLibPropsMixin is exported/imported properly.
         BasicPartOfLibPropsMixin: $BasicPartOfLibPropsMixin.meta,
       });
 }
@@ -397,9 +397,9 @@ _$$SubPartOfLibProps _$SubPartOfLib([Map backingProps]) => backingProps == null
 abstract class _$$SubPartOfLibProps extends UiProps
     with
         SuperPartOfLibPropsMixin,
-        $SuperPartOfLibPropsMixin, // If this generated mixin is undefined, it's likely because SuperPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SuperPartOfLibPropsMixin.
+        $SuperPartOfLibPropsMixin, // If this generated mixin is undefined, it's likely because SuperPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuperPartOfLibPropsMixin, and check that $SuperPartOfLibPropsMixin is exported/imported properly.
         SubPartOfLibPropsMixin,
-        $SubPartOfLibPropsMixin // If this generated mixin is undefined, it's likely because SubPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SubPartOfLibPropsMixin.
+        $SubPartOfLibPropsMixin // If this generated mixin is undefined, it's likely because SubPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SubPartOfLibPropsMixin, and check that $SubPartOfLibPropsMixin is exported/imported properly.
     implements
         SubPartOfLibProps {
   _$$SubPartOfLibProps._();
@@ -507,9 +507,9 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because SuperPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SuperPartOfLibPropsMixin.
+        // If this generated mixin is undefined, it's likely because SuperPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuperPartOfLibPropsMixin, and check that $SuperPartOfLibPropsMixin is exported/imported properly.
         SuperPartOfLibPropsMixin: $SuperPartOfLibPropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because SubPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SubPartOfLibPropsMixin.
+        // If this generated mixin is undefined, it's likely because SubPartOfLibPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SubPartOfLibPropsMixin, and check that $SubPartOfLibPropsMixin is exported/imported properly.
         SubPartOfLibPropsMixin: $SubPartOfLibPropsMixin.meta,
       });
 }

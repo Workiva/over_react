@@ -33,7 +33,7 @@ _$$ResizeSensorProps _$ResizeSensor([Map backingProps]) => backingProps == null
 abstract class _$$ResizeSensorProps extends UiProps
     with
         ResizeSensorProps,
-        $ResizeSensorProps // If this generated mixin is undefined, it's likely because ResizeSensorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ResizeSensorProps.
+        $ResizeSensorProps // If this generated mixin is undefined, it's likely because ResizeSensorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ResizeSensorProps, and check that $ResizeSensorProps is exported/imported properly.
 {
   _$$ResizeSensorProps._();
 
@@ -140,7 +140,7 @@ class _$ResizeSensorComponent extends ResizeSensorComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ResizeSensorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ResizeSensorProps.
+        // If this generated mixin is undefined, it's likely because ResizeSensorProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ResizeSensorProps, and check that $ResizeSensorProps is exported/imported properly.
         ResizeSensorProps: $ResizeSensorProps.meta,
       });
 }

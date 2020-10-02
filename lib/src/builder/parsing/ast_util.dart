@@ -16,6 +16,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:over_react/src/builder/codegen/names.dart';
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart';
 
@@ -44,9 +45,10 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
 
   /// Returns whether or not there is a generated config being used.
   bool get usesAGeneratedConfig {
+    final generatedConfigName = FactoryNames(firstVariable.name.name).configName;
     return firstInitializer != null &&
         anyDescendantIdentifiers(firstInitializer, (identifier) {
-          return identifier.nameWithoutPrefix == '\$${firstVariable.name.name}Config';
+          return identifier.nameWithoutPrefix == generatedConfigName;
         });
   }
 }

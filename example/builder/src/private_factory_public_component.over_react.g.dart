@@ -34,7 +34,7 @@ _$$FormActionInputProps _$_FormActionInput([Map backingProps]) =>
 abstract class _$$FormActionInputProps extends UiProps
     with
         FormActionInputProps,
-        $FormActionInputProps // If this generated mixin is undefined, it's likely because FormActionInputProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FormActionInputProps.
+        $FormActionInputProps // If this generated mixin is undefined, it's likely because FormActionInputProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FormActionInputProps, and check that $FormActionInputProps is exported/imported properly.
 {
   _$$FormActionInputProps._();
 
@@ -141,7 +141,7 @@ class _$FormActionInputComponent extends FormActionInputComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because FormActionInputProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FormActionInputProps.
+        // If this generated mixin is undefined, it's likely because FormActionInputProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FormActionInputProps, and check that $FormActionInputProps is exported/imported properly.
         FormActionInputProps: $FormActionInputProps.meta,
       });
 }

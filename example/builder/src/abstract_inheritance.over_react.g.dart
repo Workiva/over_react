@@ -33,9 +33,9 @@ _$$SubProps _$Sub([Map backingProps]) => backingProps == null
 abstract class _$$SubProps extends UiProps
     with
         SuperPropsMixin,
-        $SuperPropsMixin, // If this generated mixin is undefined, it's likely because SuperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SuperPropsMixin.
+        $SuperPropsMixin, // If this generated mixin is undefined, it's likely because SuperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuperPropsMixin, and check that $SuperPropsMixin is exported/imported properly.
         SubPropsMixin,
-        $SubPropsMixin // If this generated mixin is undefined, it's likely because SubPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SubPropsMixin.
+        $SubPropsMixin // If this generated mixin is undefined, it's likely because SubPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SubPropsMixin, and check that $SubPropsMixin is exported/imported properly.
     implements
         SubProps {
   _$$SubProps._();
@@ -107,9 +107,9 @@ class _$$SubProps$JsMap extends _$$SubProps {
 abstract class _$$SubState extends UiState
     with
         SuperStateMixin,
-        $SuperStateMixin, // If this generated mixin is undefined, it's likely because SuperStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of SuperStateMixin.
+        $SuperStateMixin, // If this generated mixin is undefined, it's likely because SuperStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of SuperStateMixin, and check that $SuperStateMixin is exported/imported properly.
         SubStateMixin,
-        $SubStateMixin // If this generated mixin is undefined, it's likely because SubStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of SubStateMixin.
+        $SubStateMixin // If this generated mixin is undefined, it's likely because SubStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of SubStateMixin, and check that $SubStateMixin is exported/imported properly.
     implements
         SubState {
   _$$SubState._();
@@ -228,9 +228,9 @@ class _$SubComponent extends SubComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because SuperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SuperPropsMixin.
+        // If this generated mixin is undefined, it's likely because SuperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuperPropsMixin, and check that $SuperPropsMixin is exported/imported properly.
         SuperPropsMixin: $SuperPropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because SubPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SubPropsMixin.
+        // If this generated mixin is undefined, it's likely because SubPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SubPropsMixin, and check that $SubPropsMixin is exported/imported properly.
         SubPropsMixin: $SubPropsMixin.meta,
       });
 }

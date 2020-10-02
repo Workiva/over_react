@@ -34,7 +34,7 @@ _$$NamespacedAccessorTestProps _$NamespacedAccessorTest([Map backingProps]) =>
 abstract class _$$NamespacedAccessorTestProps extends UiProps
     with
         NamespacedAccessorTestProps,
-        $NamespacedAccessorTestProps // If this generated mixin is undefined, it's likely because NamespacedAccessorTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of NamespacedAccessorTestProps.
+        $NamespacedAccessorTestProps // If this generated mixin is undefined, it's likely because NamespacedAccessorTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of NamespacedAccessorTestProps, and check that $NamespacedAccessorTestProps is exported/imported properly.
 {
   _$$NamespacedAccessorTestProps._();
 
@@ -107,7 +107,7 @@ class _$$NamespacedAccessorTestProps$JsMap
 abstract class _$$NamespacedAccessorTestState extends UiState
     with
         NamespacedAccessorTestState,
-        $NamespacedAccessorTestState // If this generated mixin is undefined, it's likely because NamespacedAccessorTestState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of NamespacedAccessorTestState.
+        $NamespacedAccessorTestState // If this generated mixin is undefined, it's likely because NamespacedAccessorTestState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of NamespacedAccessorTestState, and check that $NamespacedAccessorTestState is exported/imported properly.
 {
   _$$NamespacedAccessorTestState._();
 
@@ -232,7 +232,7 @@ class _$NamespacedAccessorTestComponent
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because NamespacedAccessorTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of NamespacedAccessorTestProps.
+        // If this generated mixin is undefined, it's likely because NamespacedAccessorTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of NamespacedAccessorTestProps, and check that $NamespacedAccessorTestProps is exported/imported properly.
         NamespacedAccessorTestProps: $NamespacedAccessorTestProps.meta,
       });
 }

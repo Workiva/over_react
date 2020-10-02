@@ -42,7 +42,7 @@ final UiFactoryConfig<_$$UseCallbackExampleProps> $UseCallbackExampleConfig =
 abstract class _$$UseCallbackExampleProps extends UiProps
     with
         UseCallbackExampleProps,
-        $UseCallbackExampleProps // If this generated mixin is undefined, it's likely because UseCallbackExampleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of UseCallbackExampleProps.
+        $UseCallbackExampleProps // If this generated mixin is undefined, it's likely because UseCallbackExampleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseCallbackExampleProps, and check that $UseCallbackExampleProps is exported/imported properly.
 {
   _$$UseCallbackExampleProps._();
 

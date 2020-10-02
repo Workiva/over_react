@@ -74,7 +74,7 @@ final UiFactoryConfig<_$$FriendListItemProps> $FriendListItemConfig =
 abstract class _$$FriendListItemProps extends UiProps
     with
         FriendListItemProps,
-        $FriendListItemProps // If this generated mixin is undefined, it's likely because FriendListItemProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FriendListItemProps.
+        $FriendListItemProps // If this generated mixin is undefined, it's likely because FriendListItemProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FriendListItemProps, and check that $FriendListItemProps is exported/imported properly.
 {
   _$$FriendListItemProps._();
 
@@ -148,7 +148,7 @@ final UiFactoryConfig<_$$UseDebugValueExampleProps>
 abstract class _$$UseDebugValueExampleProps extends UiProps
     with
         UseDebugValueExampleProps,
-        $UseDebugValueExampleProps // If this generated mixin is undefined, it's likely because UseDebugValueExampleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of UseDebugValueExampleProps.
+        $UseDebugValueExampleProps // If this generated mixin is undefined, it's likely because UseDebugValueExampleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseDebugValueExampleProps, and check that $UseDebugValueExampleProps is exported/imported properly.
 {
   _$$UseDebugValueExampleProps._();
 

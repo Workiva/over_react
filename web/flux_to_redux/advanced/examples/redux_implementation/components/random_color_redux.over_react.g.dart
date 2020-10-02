@@ -34,9 +34,9 @@ _$$RandomColorReduxProps _$RandomColorRedux([Map backingProps]) =>
 abstract class _$$RandomColorReduxProps extends UiProps
     with
         RandomColorReduxPropsMixin,
-        $RandomColorReduxPropsMixin, // If this generated mixin is undefined, it's likely because RandomColorReduxPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of RandomColorReduxPropsMixin.
+        $RandomColorReduxPropsMixin, // If this generated mixin is undefined, it's likely because RandomColorReduxPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of RandomColorReduxPropsMixin, and check that $RandomColorReduxPropsMixin is exported/imported properly.
         ConnectPropsMixin,
-        $ConnectPropsMixin // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
+        $ConnectPropsMixin // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ConnectPropsMixin, and check that $ConnectPropsMixin is exported/imported properly.
     implements
         RandomColorReduxProps {
   _$$RandomColorReduxProps._();
@@ -144,9 +144,9 @@ class _$RandomColorReduxComponent extends RandomColorReduxComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because RandomColorReduxPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of RandomColorReduxPropsMixin.
+        // If this generated mixin is undefined, it's likely because RandomColorReduxPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of RandomColorReduxPropsMixin, and check that $RandomColorReduxPropsMixin is exported/imported properly.
         RandomColorReduxPropsMixin: $RandomColorReduxPropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
+        // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ConnectPropsMixin, and check that $ConnectPropsMixin is exported/imported properly.
         ConnectPropsMixin: $ConnectPropsMixin.meta,
       });
 }

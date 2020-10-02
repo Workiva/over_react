@@ -33,7 +33,7 @@ _$$ButtonProps _$Button([Map backingProps]) => backingProps == null
 abstract class _$$ButtonProps extends UiProps
     with
         ButtonProps,
-        $ButtonProps // If this generated mixin is undefined, it's likely because ButtonProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonProps.
+        $ButtonProps // If this generated mixin is undefined, it's likely because ButtonProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ButtonProps, and check that $ButtonProps is exported/imported properly.
 {
   _$$ButtonProps._();
 
@@ -104,7 +104,7 @@ class _$$ButtonProps$JsMap extends _$$ButtonProps {
 abstract class _$$ButtonState extends UiState
     with
         ButtonState,
-        $ButtonState // If this generated mixin is undefined, it's likely because ButtonState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonState.
+        $ButtonState // If this generated mixin is undefined, it's likely because ButtonState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of ButtonState, and check that $ButtonState is exported/imported properly.
 {
   _$$ButtonState._();
 
@@ -224,7 +224,7 @@ class _$ButtonComponent extends ButtonComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ButtonProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonProps.
+        // If this generated mixin is undefined, it's likely because ButtonProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ButtonProps, and check that $ButtonProps is exported/imported properly.
         ButtonProps: $ButtonProps.meta,
       });
 }

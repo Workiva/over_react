@@ -34,7 +34,7 @@ _$$FaultyOnMountProps _$FaultyOnMount([Map backingProps]) =>
 abstract class _$$FaultyOnMountProps extends UiProps
     with
         FaultyOnMountProps,
-        $FaultyOnMountProps // If this generated mixin is undefined, it's likely because FaultyOnMountProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FaultyOnMountProps.
+        $FaultyOnMountProps // If this generated mixin is undefined, it's likely because FaultyOnMountProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FaultyOnMountProps, and check that $FaultyOnMountProps is exported/imported properly.
 {
   _$$FaultyOnMountProps._();
 
@@ -141,7 +141,7 @@ class _$FaultyOnMountComponent extends FaultyOnMountComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because FaultyOnMountProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FaultyOnMountProps.
+        // If this generated mixin is undefined, it's likely because FaultyOnMountProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FaultyOnMountProps, and check that $FaultyOnMountProps is exported/imported properly.
         FaultyOnMountProps: $FaultyOnMountProps.meta,
       });
 }

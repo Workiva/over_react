@@ -58,8 +58,9 @@ String getAccessorKeyNamespace(TypedMapNames names, annotations.TypedMap meta) {
 String generatedMixinWarningCommentLine(TypedMapNames mixinNames, {@required bool isProps}) {
   final value = '// If this generated mixin is undefined, it\'s likely because'
       ' ${mixinNames.consumerName} is not a valid `mixin`-based ${isProps ? 'props' : 'state'} mixin,'
-      ' or because it is but the generated mixin was not exported.'
-      ' Check the declaration of ${mixinNames.consumerName}.\n';
+      ' or because it is but the generated mixin was not imported.'
+      ' Check the declaration of ${mixinNames.consumerName},'
+      ' and check that ${mixinNames.generatedMixinName} is exported/imported properly.\n';
 
   assert(value.endsWith('\n'));
 

@@ -34,7 +34,7 @@ _$$PropTypesWrapProps _$PropTypesWrap([Map backingProps]) =>
 abstract class _$$PropTypesWrapProps extends UiProps
     with
         PropTypesWrapProps,
-        $PropTypesWrapProps // If this generated mixin is undefined, it's likely because PropTypesWrapProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of PropTypesWrapProps.
+        $PropTypesWrapProps // If this generated mixin is undefined, it's likely because PropTypesWrapProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of PropTypesWrapProps, and check that $PropTypesWrapProps is exported/imported properly.
 {
   _$$PropTypesWrapProps._();
 
@@ -105,7 +105,7 @@ class _$$PropTypesWrapProps$JsMap extends _$$PropTypesWrapProps {
 abstract class _$$PropTypesWrapState extends UiState
     with
         PropTypesWrapState,
-        $PropTypesWrapState // If this generated mixin is undefined, it's likely because PropTypesWrapState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of PropTypesWrapState.
+        $PropTypesWrapState // If this generated mixin is undefined, it's likely because PropTypesWrapState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of PropTypesWrapState, and check that $PropTypesWrapState is exported/imported properly.
 {
   _$$PropTypesWrapState._();
 
@@ -225,7 +225,7 @@ class _$PropTypesWrapComponent extends PropTypesWrapComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because PropTypesWrapProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of PropTypesWrapProps.
+        // If this generated mixin is undefined, it's likely because PropTypesWrapProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of PropTypesWrapProps, and check that $PropTypesWrapProps is exported/imported properly.
         PropTypesWrapProps: $PropTypesWrapProps.meta,
       });
 }

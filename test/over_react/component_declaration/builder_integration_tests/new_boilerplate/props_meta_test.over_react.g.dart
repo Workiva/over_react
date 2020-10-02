@@ -33,11 +33,11 @@ _$$TestProps _$Test([Map backingProps]) => backingProps == null
 abstract class _$$TestProps extends UiProps
     with
         TestPropsMixin,
-        $TestPropsMixin, // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TestPropsMixin.
+        $TestPropsMixin, // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestPropsMixin, and check that $TestPropsMixin is exported/imported properly.
         FooPropsMixin,
-        $FooPropsMixin, // If this generated mixin is undefined, it's likely because FooPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FooPropsMixin.
+        $FooPropsMixin, // If this generated mixin is undefined, it's likely because FooPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FooPropsMixin, and check that $FooPropsMixin is exported/imported properly.
         BazPropsMixin,
-        $BazPropsMixin // If this generated mixin is undefined, it's likely because BazPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BazPropsMixin.
+        $BazPropsMixin // If this generated mixin is undefined, it's likely because BazPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BazPropsMixin, and check that $BazPropsMixin is exported/imported properly.
     implements
         TestProps {
   _$$TestProps._();
@@ -144,11 +144,11 @@ class _$TestComponent extends TestComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TestPropsMixin.
+        // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestPropsMixin, and check that $TestPropsMixin is exported/imported properly.
         TestPropsMixin: $TestPropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because FooPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FooPropsMixin.
+        // If this generated mixin is undefined, it's likely because FooPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FooPropsMixin, and check that $FooPropsMixin is exported/imported properly.
         FooPropsMixin: $FooPropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because BazPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of BazPropsMixin.
+        // If this generated mixin is undefined, it's likely because BazPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BazPropsMixin, and check that $BazPropsMixin is exported/imported properly.
         BazPropsMixin: $BazPropsMixin.meta,
       });
 }

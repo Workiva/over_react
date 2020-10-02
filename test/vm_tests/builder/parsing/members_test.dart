@@ -424,7 +424,10 @@ main() {
 
             factory.validate(resolveVersion(members).version, collector);
             expect(validateResults, [
-              contains('Should be: `${factory.name.name} = _\$${factory.name.name}`'),
+              contains('Factory variables are stubs for generated code, and must'
+                  ' be initialized with an expression containing either'
+                  ' the generated factory (_\$Foo) or'
+                  ' the generated factory config (\$FooConfig).'),
             ]);
           });
         });

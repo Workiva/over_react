@@ -57,7 +57,7 @@ final UiFactoryConfig<_$$UseReducerExampleProps> $UseReducerExampleConfig =
 abstract class _$$UseReducerExampleProps extends UiProps
     with
         UseReducerExampleProps,
-        $UseReducerExampleProps // If this generated mixin is undefined, it's likely because UseReducerExampleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of UseReducerExampleProps.
+        $UseReducerExampleProps // If this generated mixin is undefined, it's likely because UseReducerExampleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseReducerExampleProps, and check that $UseReducerExampleProps is exported/imported properly.
 {
   _$$UseReducerExampleProps._();
 

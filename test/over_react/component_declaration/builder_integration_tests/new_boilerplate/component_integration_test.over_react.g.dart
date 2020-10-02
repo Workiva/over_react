@@ -34,7 +34,7 @@ _$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
 abstract class _$$ComponentTestProps extends UiProps
     with
         ComponentTestProps,
-        $ComponentTestProps // If this generated mixin is undefined, it's likely because ComponentTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ComponentTestProps.
+        $ComponentTestProps // If this generated mixin is undefined, it's likely because ComponentTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ComponentTestProps, and check that $ComponentTestProps is exported/imported properly.
 {
   _$$ComponentTestProps._();
 
@@ -141,7 +141,7 @@ class _$ComponentTestComponent extends ComponentTestComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ComponentTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ComponentTestProps.
+        // If this generated mixin is undefined, it's likely because ComponentTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ComponentTestProps, and check that $ComponentTestProps is exported/imported properly.
         ComponentTestProps: $ComponentTestProps.meta,
       });
 }
@@ -307,7 +307,7 @@ _$$IsErrorBoundaryProps _$IsErrorBoundary([Map backingProps]) =>
 abstract class _$$IsErrorBoundaryProps extends UiProps
     with
         IsErrorBoundaryProps,
-        $IsErrorBoundaryProps // If this generated mixin is undefined, it's likely because IsErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of IsErrorBoundaryProps.
+        $IsErrorBoundaryProps // If this generated mixin is undefined, it's likely because IsErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of IsErrorBoundaryProps, and check that $IsErrorBoundaryProps is exported/imported properly.
 {
   _$$IsErrorBoundaryProps._();
 
@@ -414,7 +414,7 @@ class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because IsErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of IsErrorBoundaryProps.
+        // If this generated mixin is undefined, it's likely because IsErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of IsErrorBoundaryProps, and check that $IsErrorBoundaryProps is exported/imported properly.
         IsErrorBoundaryProps: $IsErrorBoundaryProps.meta,
       });
 }
@@ -465,7 +465,7 @@ _$$IsNotErrorBoundaryProps _$IsNotErrorBoundary([Map backingProps]) =>
 abstract class _$$IsNotErrorBoundaryProps extends UiProps
     with
         IsNotErrorBoundaryProps,
-        $IsNotErrorBoundaryProps // If this generated mixin is undefined, it's likely because IsNotErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of IsNotErrorBoundaryProps.
+        $IsNotErrorBoundaryProps // If this generated mixin is undefined, it's likely because IsNotErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of IsNotErrorBoundaryProps, and check that $IsNotErrorBoundaryProps is exported/imported properly.
 {
   _$$IsNotErrorBoundaryProps._();
 
@@ -573,7 +573,7 @@ class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because IsNotErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of IsNotErrorBoundaryProps.
+        // If this generated mixin is undefined, it's likely because IsNotErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of IsNotErrorBoundaryProps, and check that $IsNotErrorBoundaryProps is exported/imported properly.
         IsNotErrorBoundaryProps: $IsNotErrorBoundaryProps.meta,
       });
 }

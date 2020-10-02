@@ -33,7 +33,7 @@ _$$ListGroupProps _$ListGroup([Map backingProps]) => backingProps == null
 abstract class _$$ListGroupProps extends UiProps
     with
         ListGroupProps,
-        $ListGroupProps // If this generated mixin is undefined, it's likely because ListGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ListGroupProps.
+        $ListGroupProps // If this generated mixin is undefined, it's likely because ListGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ListGroupProps, and check that $ListGroupProps is exported/imported properly.
 {
   _$$ListGroupProps._();
 
@@ -140,7 +140,7 @@ class _$ListGroupComponent extends ListGroupComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ListGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ListGroupProps.
+        // If this generated mixin is undefined, it's likely because ListGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ListGroupProps, and check that $ListGroupProps is exported/imported properly.
         ListGroupProps: $ListGroupProps.meta,
       });
 }

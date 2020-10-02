@@ -35,9 +35,9 @@ _$$ToggleButtonGroupProps _$ToggleButtonGroup([Map backingProps]) =>
 abstract class _$$ToggleButtonGroupProps extends UiProps
     with
         ButtonGroupProps,
-        $ButtonGroupProps, // If this generated mixin is undefined, it's likely because ButtonGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonGroupProps.
+        $ButtonGroupProps, // If this generated mixin is undefined, it's likely because ButtonGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ButtonGroupProps, and check that $ButtonGroupProps is exported/imported properly.
         AbstractInputPropsMixin,
-        $AbstractInputPropsMixin // If this generated mixin is undefined, it's likely because AbstractInputPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of AbstractInputPropsMixin.
+        $AbstractInputPropsMixin // If this generated mixin is undefined, it's likely because AbstractInputPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of AbstractInputPropsMixin, and check that $AbstractInputPropsMixin is exported/imported properly.
     implements
         ToggleButtonGroupProps {
   _$$ToggleButtonGroupProps._();
@@ -109,9 +109,9 @@ class _$$ToggleButtonGroupProps$JsMap extends _$$ToggleButtonGroupProps {
 abstract class _$$ToggleButtonGroupState extends UiState
     with
         ButtonGroupState,
-        $ButtonGroupState, // If this generated mixin is undefined, it's likely because ButtonGroupState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonGroupState.
+        $ButtonGroupState, // If this generated mixin is undefined, it's likely because ButtonGroupState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of ButtonGroupState, and check that $ButtonGroupState is exported/imported properly.
         AbstractInputStateMixin,
-        $AbstractInputStateMixin // If this generated mixin is undefined, it's likely because AbstractInputStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of AbstractInputStateMixin.
+        $AbstractInputStateMixin // If this generated mixin is undefined, it's likely because AbstractInputStateMixin is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of AbstractInputStateMixin, and check that $AbstractInputStateMixin is exported/imported properly.
     implements
         ToggleButtonGroupState {
   _$$ToggleButtonGroupState._();
@@ -232,9 +232,9 @@ class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ButtonGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ButtonGroupProps.
+        // If this generated mixin is undefined, it's likely because ButtonGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ButtonGroupProps, and check that $ButtonGroupProps is exported/imported properly.
         ButtonGroupProps: $ButtonGroupProps.meta,
-        // If this generated mixin is undefined, it's likely because AbstractInputPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of AbstractInputPropsMixin.
+        // If this generated mixin is undefined, it's likely because AbstractInputPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of AbstractInputPropsMixin, and check that $AbstractInputPropsMixin is exported/imported properly.
         AbstractInputPropsMixin: $AbstractInputPropsMixin.meta,
       });
 }

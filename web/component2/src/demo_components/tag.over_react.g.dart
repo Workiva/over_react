@@ -33,7 +33,7 @@ _$$TagProps _$Tag([Map backingProps]) => backingProps == null
 abstract class _$$TagProps extends UiProps
     with
         TagProps,
-        $TagProps // If this generated mixin is undefined, it's likely because TagProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TagProps.
+        $TagProps // If this generated mixin is undefined, it's likely because TagProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TagProps, and check that $TagProps is exported/imported properly.
 {
   _$$TagProps._();
 
@@ -139,7 +139,7 @@ class _$TagComponent extends TagComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because TagProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TagProps.
+        // If this generated mixin is undefined, it's likely because TagProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TagProps, and check that $TagProps is exported/imported properly.
         TagProps: $TagProps.meta,
       });
 }

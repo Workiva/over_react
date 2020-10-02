@@ -34,9 +34,9 @@ _$$ConnectFluxBigBlockProps _$ConnectFluxBigBlock([Map backingProps]) =>
 abstract class _$$ConnectFluxBigBlockProps extends UiProps
     with
         ConnectFluxBigBlockPropsMixin,
-        $ConnectFluxBigBlockPropsMixin, // If this generated mixin is undefined, it's likely because ConnectFluxBigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectFluxBigBlockPropsMixin.
+        $ConnectFluxBigBlockPropsMixin, // If this generated mixin is undefined, it's likely because ConnectFluxBigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ConnectFluxBigBlockPropsMixin, and check that $ConnectFluxBigBlockPropsMixin is exported/imported properly.
         ConnectPropsMixin,
-        $ConnectPropsMixin // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
+        $ConnectPropsMixin // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ConnectPropsMixin, and check that $ConnectPropsMixin is exported/imported properly.
     implements
         ConnectFluxBigBlockProps {
   _$$ConnectFluxBigBlockProps._();
@@ -145,9 +145,9 @@ class _$ConnectFluxBigBlockComponent extends ConnectFluxBigBlockComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ConnectFluxBigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectFluxBigBlockPropsMixin.
+        // If this generated mixin is undefined, it's likely because ConnectFluxBigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ConnectFluxBigBlockPropsMixin, and check that $ConnectFluxBigBlockPropsMixin is exported/imported properly.
         ConnectFluxBigBlockPropsMixin: $ConnectFluxBigBlockPropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ConnectPropsMixin.
+        // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ConnectPropsMixin, and check that $ConnectPropsMixin is exported/imported properly.
         ConnectPropsMixin: $ConnectPropsMixin.meta,
       });
 }

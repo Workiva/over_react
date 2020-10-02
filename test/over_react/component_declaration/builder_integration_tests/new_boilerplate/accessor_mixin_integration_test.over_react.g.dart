@@ -544,7 +544,7 @@ _$$TestPropsMixin _$Test([Map backingProps]) => backingProps == null
 abstract class _$$TestPropsMixin extends UiProps
     with
         TestPropsMixin,
-        $TestPropsMixin // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TestPropsMixin.
+        $TestPropsMixin // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestPropsMixin, and check that $TestPropsMixin is exported/imported properly.
 {
   _$$TestPropsMixin._();
 
@@ -615,9 +615,9 @@ _$$TestCustomNamespaceProps _$TestCustomNamespace([Map backingProps]) =>
 abstract class _$$TestCustomNamespaceProps extends UiProps
     with
         TestCustomNamespacePropsMixin,
-        $TestCustomNamespacePropsMixin, // If this generated mixin is undefined, it's likely because TestCustomNamespacePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TestCustomNamespacePropsMixin.
+        $TestCustomNamespacePropsMixin, // If this generated mixin is undefined, it's likely because TestCustomNamespacePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestCustomNamespacePropsMixin, and check that $TestCustomNamespacePropsMixin is exported/imported properly.
         TestCustomNamespaceWithPropsAnnotationPropsMixin,
-        $TestCustomNamespaceWithPropsAnnotationPropsMixin // If this generated mixin is undefined, it's likely because TestCustomNamespaceWithPropsAnnotationPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TestCustomNamespaceWithPropsAnnotationPropsMixin.
+        $TestCustomNamespaceWithPropsAnnotationPropsMixin // If this generated mixin is undefined, it's likely because TestCustomNamespaceWithPropsAnnotationPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestCustomNamespaceWithPropsAnnotationPropsMixin, and check that $TestCustomNamespaceWithPropsAnnotationPropsMixin is exported/imported properly.
     implements
         TestCustomNamespaceProps {
   _$$TestCustomNamespaceProps._();

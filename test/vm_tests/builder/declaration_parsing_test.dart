@@ -1996,11 +1996,12 @@ main() {
               $restOfComponent
             ''');
 
-            verify(logger.severe(contains(
-                'Factory variables are stubs for the generated factories, and must '
-                  'be initialized with or otherwise reference the generated factory. '
-                  'Should be: `Foo = _\$Foo`')));
+            verify(logger.severe(contains('Factory variables are stubs for generated code, and must'
+                ' be initialized with an expression containing either'
+                ' the generated factory (_\$Foo) or'
+                ' the generated factory config (\$FooConfig).')));
           });
+
           test('declared using multiple variables', () {
             setUpAndParse('''
               @Factory()
@@ -2020,11 +2021,10 @@ main() {
               $restOfComponent
             ''');
 
-            verify(logger.severe(contains(
-                'Factory variables are stubs for the generated factories, and must '
-                  'be initialized with or otherwise reference the generated factory. '
-                  'Should be: `Foo = _\$Foo`')));
-
+            verify(logger.severe(contains('Factory variables are stubs for generated code, and must'
+                ' be initialized with an expression containing either'
+                ' the generated factory (_\$Foo) or'
+                ' the generated factory config (\$FooConfig).')));
           });
 
           test('private and declared with an invalid initializer', () {
@@ -2035,10 +2035,10 @@ main() {
               $restOfComponent
             ''');
 
-            verify(logger.severe(contains(
-                'Factory variables are stubs for the generated factories, and must '
-                  'be initialized with or otherwise reference the generated factory. '
-                  'Should be: `_Foo = _\$_Foo`')));
+            verify(logger.severe(contains('Factory variables are stubs for generated code, and must'
+                ' be initialized with an expression containing either'
+                ' the generated factory (_\$_Foo) or'
+                ' the generated factory config (\$_FooConfig).')));
           });
         });
 

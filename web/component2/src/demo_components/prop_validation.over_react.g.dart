@@ -34,7 +34,7 @@ _$$PropTypesTestProps _$PropTypesTest([Map backingProps]) =>
 abstract class _$$PropTypesTestProps extends UiProps
     with
         PropTypesTestProps,
-        $PropTypesTestProps // If this generated mixin is undefined, it's likely because PropTypesTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of PropTypesTestProps.
+        $PropTypesTestProps // If this generated mixin is undefined, it's likely because PropTypesTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of PropTypesTestProps, and check that $PropTypesTestProps is exported/imported properly.
 {
   _$$PropTypesTestProps._();
 
@@ -141,7 +141,7 @@ class _$PropTypesTestComponent extends PropTypesTestComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because PropTypesTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of PropTypesTestProps.
+        // If this generated mixin is undefined, it's likely because PropTypesTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of PropTypesTestProps, and check that $PropTypesTestProps is exported/imported properly.
         PropTypesTestProps: $PropTypesTestProps.meta,
       });
 }

@@ -85,7 +85,7 @@ final UiFactoryConfig<_$$FancyInputProps> $FancyInputConfig = UiFactoryConfig(
 abstract class _$$FancyInputProps extends UiProps
     with
         FancyInputProps,
-        $FancyInputProps // If this generated mixin is undefined, it's likely because FancyInputProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of FancyInputProps.
+        $FancyInputProps // If this generated mixin is undefined, it's likely because FancyInputProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FancyInputProps, and check that $FancyInputProps is exported/imported properly.
 {
   _$$FancyInputProps._();
 
@@ -159,7 +159,7 @@ final UiFactoryConfig<_$$UseImperativeHandleExampleProps>
 abstract class _$$UseImperativeHandleExampleProps extends UiProps
     with
         UseImperativeHandleExampleProps,
-        $UseImperativeHandleExampleProps // If this generated mixin is undefined, it's likely because UseImperativeHandleExampleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of UseImperativeHandleExampleProps.
+        $UseImperativeHandleExampleProps // If this generated mixin is undefined, it's likely because UseImperativeHandleExampleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseImperativeHandleExampleProps, and check that $UseImperativeHandleExampleProps is exported/imported properly.
 {
   _$$UseImperativeHandleExampleProps._();
 

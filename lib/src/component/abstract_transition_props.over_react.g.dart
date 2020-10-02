@@ -132,7 +132,7 @@ _$$TransitionPropsMixin _$TransitionPropsMapView([Map backingProps]) =>
 abstract class _$$TransitionPropsMixin extends UiProps
     with
         TransitionPropsMixin,
-        $TransitionPropsMixin // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TransitionPropsMixin.
+        $TransitionPropsMixin // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionPropsMixin, and check that $TransitionPropsMixin is exported/imported properly.
 {
   _$$TransitionPropsMixin._();
 

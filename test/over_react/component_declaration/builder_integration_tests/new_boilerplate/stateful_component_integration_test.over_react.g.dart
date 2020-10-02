@@ -34,7 +34,7 @@ _$$StatefulComponentTestProps _$StatefulComponentTest([Map backingProps]) =>
 abstract class _$$StatefulComponentTestProps extends UiProps
     with
         StatefulComponentTestProps,
-        $StatefulComponentTestProps // If this generated mixin is undefined, it's likely because StatefulComponentTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of StatefulComponentTestProps.
+        $StatefulComponentTestProps // If this generated mixin is undefined, it's likely because StatefulComponentTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of StatefulComponentTestProps, and check that $StatefulComponentTestProps is exported/imported properly.
 {
   _$$StatefulComponentTestProps._();
 
@@ -107,7 +107,7 @@ class _$$StatefulComponentTestProps$JsMap
 abstract class _$$StatefulComponentTestState extends UiState
     with
         StatefulComponentTestState,
-        $StatefulComponentTestState // If this generated mixin is undefined, it's likely because StatefulComponentTestState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of StatefulComponentTestState.
+        $StatefulComponentTestState // If this generated mixin is undefined, it's likely because StatefulComponentTestState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of StatefulComponentTestState, and check that $StatefulComponentTestState is exported/imported properly.
 {
   _$$StatefulComponentTestState._();
 
@@ -231,7 +231,7 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because StatefulComponentTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of StatefulComponentTestProps.
+        // If this generated mixin is undefined, it's likely because StatefulComponentTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of StatefulComponentTestProps, and check that $StatefulComponentTestProps is exported/imported properly.
         StatefulComponentTestProps: $StatefulComponentTestProps.meta,
       });
 }

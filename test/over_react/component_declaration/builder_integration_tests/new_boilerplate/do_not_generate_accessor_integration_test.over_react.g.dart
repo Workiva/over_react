@@ -35,7 +35,7 @@ _$$DoNotGenerateAccessorTestProps _$DoNotGenerateAccessorTest(
 abstract class _$$DoNotGenerateAccessorTestProps extends UiProps
     with
         DoNotGenerateAccessorTestProps,
-        $DoNotGenerateAccessorTestProps // If this generated mixin is undefined, it's likely because DoNotGenerateAccessorTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of DoNotGenerateAccessorTestProps.
+        $DoNotGenerateAccessorTestProps // If this generated mixin is undefined, it's likely because DoNotGenerateAccessorTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoNotGenerateAccessorTestProps, and check that $DoNotGenerateAccessorTestProps is exported/imported properly.
 {
   _$$DoNotGenerateAccessorTestProps._();
 
@@ -108,7 +108,7 @@ class _$$DoNotGenerateAccessorTestProps$JsMap
 abstract class _$$DoNotGenerateAccessorTestState extends UiState
     with
         DoNotGenerateAccessorTestState,
-        $DoNotGenerateAccessorTestState // If this generated mixin is undefined, it's likely because DoNotGenerateAccessorTestState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of DoNotGenerateAccessorTestState.
+        $DoNotGenerateAccessorTestState // If this generated mixin is undefined, it's likely because DoNotGenerateAccessorTestState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of DoNotGenerateAccessorTestState, and check that $DoNotGenerateAccessorTestState is exported/imported properly.
 {
   _$$DoNotGenerateAccessorTestState._();
 
@@ -233,7 +233,7 @@ class _$DoNotGenerateAccessorTestComponent
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because DoNotGenerateAccessorTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of DoNotGenerateAccessorTestProps.
+        // If this generated mixin is undefined, it's likely because DoNotGenerateAccessorTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoNotGenerateAccessorTestProps, and check that $DoNotGenerateAccessorTestProps is exported/imported properly.
         DoNotGenerateAccessorTestProps: $DoNotGenerateAccessorTestProps.meta,
       });
 }

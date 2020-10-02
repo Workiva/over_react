@@ -33,7 +33,7 @@ _$$MyProviderProps _$MyProvider([Map backingProps]) => backingProps == null
 abstract class _$$MyProviderProps extends UiProps
     with
         MyProviderProps,
-        $MyProviderProps // If this generated mixin is undefined, it's likely because MyProviderProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of MyProviderProps.
+        $MyProviderProps // If this generated mixin is undefined, it's likely because MyProviderProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of MyProviderProps, and check that $MyProviderProps is exported/imported properly.
 {
   _$$MyProviderProps._();
 
@@ -104,7 +104,7 @@ class _$$MyProviderProps$JsMap extends _$$MyProviderProps {
 abstract class _$$MyProviderState extends UiState
     with
         MyProviderState,
-        $MyProviderState // If this generated mixin is undefined, it's likely because MyProviderState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of MyProviderState.
+        $MyProviderState // If this generated mixin is undefined, it's likely because MyProviderState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of MyProviderState, and check that $MyProviderState is exported/imported properly.
 {
   _$$MyProviderState._();
 
@@ -224,7 +224,7 @@ class _$MyProviderComponent extends MyProviderComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because MyProviderProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of MyProviderProps.
+        // If this generated mixin is undefined, it's likely because MyProviderProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of MyProviderProps, and check that $MyProviderProps is exported/imported properly.
         MyProviderProps: $MyProviderProps.meta,
       });
 }

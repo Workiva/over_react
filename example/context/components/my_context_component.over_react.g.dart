@@ -34,7 +34,7 @@ _$$MyContextComponentProps _$MyContext([Map backingProps]) =>
 abstract class _$$MyContextComponentProps extends UiProps
     with
         MyContextComponentProps,
-        $MyContextComponentProps // If this generated mixin is undefined, it's likely because MyContextComponentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of MyContextComponentProps.
+        $MyContextComponentProps // If this generated mixin is undefined, it's likely because MyContextComponentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of MyContextComponentProps, and check that $MyContextComponentProps is exported/imported properly.
 {
   _$$MyContextComponentProps._();
 
@@ -142,7 +142,7 @@ class _$MyContextComponentComponent extends MyContextComponentComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because MyContextComponentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of MyContextComponentProps.
+        // If this generated mixin is undefined, it's likely because MyContextComponentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of MyContextComponentProps, and check that $MyContextComponentProps is exported/imported properly.
         MyContextComponentProps: $MyContextComponentProps.meta,
       });
 }
