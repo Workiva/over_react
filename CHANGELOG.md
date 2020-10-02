@@ -1,5 +1,10 @@
 # OverReact Changelog
 
+## [3.10.1](https://github.com/Workiva/over_react/compare/3.10.0...3.10.1)
+
+- [#500] Improve error messages for boilerplate-related issues
+    - This notably includes major improvements to build/analyzer errors for function components
+
 ## [3.10.0](https://github.com/Workiva/over_react/compare/3.9.0...3.10.0)
 - [#621] Add WithTransition wrapper component to enable "controlled" transitions using props
 * [#628] Fix Redux dev tools middleware console logging when `hierarchicalLoggingEnabled` is false
