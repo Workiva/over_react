@@ -172,16 +172,7 @@ class _ComponentGenerator extends ComponentGenerator {
 
   @override
   void _generateAdditionalComponentBody() {
-    outputContentsBuffer
-      ..writeln()
-      ..writeln('  @override')
-      ..writeln('  PropsMetaCollection get propsMeta => const PropsMetaCollection({');
-    for (final name in declaration.allPropsMixins) {
-      final names = TypedMapNames(name.name);
-      outputContentsBuffer.write('    ${generatedMixinWarningCommentLine(names, isProps: true)}');
-      outputContentsBuffer.writeln('    ${names.consumerName}: ${names.publicGeneratedMetaName},');
-    }
-    outputContentsBuffer.writeln('  });');
+    generatePropsMeta(outputContentsBuffer, declaration.allPropsMixins);
   }
 }
 
