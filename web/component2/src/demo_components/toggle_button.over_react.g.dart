@@ -63,6 +63,16 @@ abstract class _$$ToggleButtonProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsInstanceMeta get $meta => PropsInstanceMeta({
+        // If this generated mixin is undefined, it's likely because ButtonProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ButtonProps, and check that $ButtonProps is exported/imported properly.
+        ButtonProps: $ButtonProps.meta,
+        // If this generated mixin is undefined, it's likely because ToggleButtonPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ToggleButtonPropsMixin, and check that $ToggleButtonPropsMixin is exported/imported properly.
+        ToggleButtonPropsMixin: $ToggleButtonPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because AbstractInputPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of AbstractInputPropsMixin, and check that $AbstractInputPropsMixin is exported/imported properly.
+        AbstractInputPropsMixin: $AbstractInputPropsMixin.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].

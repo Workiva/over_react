@@ -59,6 +59,12 @@ abstract class _$$PureTestWrapperProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsInstanceMeta get $meta => PropsInstanceMeta({
+        // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SharedPureTestPropsMixin, and check that $SharedPureTestPropsMixin is exported/imported properly.
+        SharedPureTestPropsMixin: $SharedPureTestPropsMixin.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].
@@ -200,6 +206,14 @@ abstract class _$$PureTestProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsInstanceMeta get $meta => PropsInstanceMeta({
+        // If this generated mixin is undefined, it's likely because SharedPureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SharedPureTestPropsMixin, and check that $SharedPureTestPropsMixin is exported/imported properly.
+        SharedPureTestPropsMixin: $SharedPureTestPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because PureTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of PureTestPropsMixin, and check that $PureTestPropsMixin is exported/imported properly.
+        PureTestPropsMixin: $PureTestPropsMixin.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].

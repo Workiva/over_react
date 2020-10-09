@@ -61,6 +61,14 @@ abstract class _$$ReduxBigBlockProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsInstanceMeta get $meta => PropsInstanceMeta({
+        // If this generated mixin is undefined, it's likely because ReduxBigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ReduxBigBlockPropsMixin, and check that $ReduxBigBlockPropsMixin is exported/imported properly.
+        ReduxBigBlockPropsMixin: $ReduxBigBlockPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ConnectPropsMixin, and check that $ConnectPropsMixin is exported/imported properly.
+        ConnectPropsMixin: $ConnectPropsMixin.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].

@@ -60,6 +60,14 @@ abstract class _$$GenericSubProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsInstanceMeta get $meta => PropsInstanceMeta({
+        // If this generated mixin is undefined, it's likely because GenericSuperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of GenericSuperPropsMixin, and check that $GenericSuperPropsMixin is exported/imported properly.
+        GenericSuperPropsMixin: $GenericSuperPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because GenericSubPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of GenericSubPropsMixin, and check that $GenericSubPropsMixin is exported/imported properly.
+        GenericSubPropsMixin: $GenericSubPropsMixin.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].

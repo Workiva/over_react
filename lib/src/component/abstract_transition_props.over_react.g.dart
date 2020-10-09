@@ -151,6 +151,9 @@ abstract class _$$TransitionPropsMixin extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsInstanceMeta get $meta => PropsInstanceMeta({});
 }
 
 // Concrete props implementation that can be backed by any [Map].

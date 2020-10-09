@@ -225,7 +225,8 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
         ..writeln('  String get propKeyNamespace => ${stringLiteral(propKeyNamespace)};');
 
       if (allPropsMixins != null) {
-        generatePropsMeta(buffer, allPropsMixins, classType: 'PropsInstanceMeta', fieldName: r'$meta', isConst: false);
+        generatePropsMeta(buffer, allPropsMixins,
+            classType: 'PropsInstanceMeta', fieldName: r'$meta', isConst: false);
       }
     }
 
@@ -378,7 +379,9 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         factoryNames =
             declaration.factories.map((factory) => FactoryNames(factory.name.name)).toList(),
         member = declaration.props.either,
-        allPropsMixins = declaration.props.either.nodeHelper.mixins?.map<Identifier>((mixin) => mixin.name)?.toList(),
+        allPropsMixins = declaration.props.either.nodeHelper.mixins
+            ?.map<Identifier>((mixin) => mixin.name)
+            ?.toList(),
         isProps = true,
         componentFactoryName = 'null',
         isFunctionComponentDeclaration = declaration.factories.first.shouldGenerateConfig,

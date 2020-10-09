@@ -20,6 +20,8 @@ import 'package:react/react_client.dart';
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react.dart' as react;
 
+import '../../over_react.dart';
+
 class StrictModeProps extends component_base.UiProps
     with builder_helpers.GeneratedClass
     implements builder_helpers.UiProps {
@@ -29,6 +31,9 @@ class StrictModeProps extends component_base.UiProps
 
   @override
   ReactComponentFactoryProxy componentFactory = react.StrictMode;
+
+  @override
+  PropsInstanceMeta get $meta => throw UnimplementedError('StrictModeProps instances do not implement instance meta');
 
   @override
   final Map props;

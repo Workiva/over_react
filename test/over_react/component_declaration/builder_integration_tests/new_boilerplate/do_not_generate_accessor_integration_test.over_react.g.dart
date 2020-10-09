@@ -59,6 +59,12 @@ abstract class _$$DoNotGenerateAccessorTestProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsInstanceMeta get $meta => PropsInstanceMeta({
+        // If this generated mixin is undefined, it's likely because DoNotGenerateAccessorTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoNotGenerateAccessorTestProps, and check that $DoNotGenerateAccessorTestProps is exported/imported properly.
+        DoNotGenerateAccessorTestProps: $DoNotGenerateAccessorTestProps.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].

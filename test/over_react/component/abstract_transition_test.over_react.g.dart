@@ -60,6 +60,14 @@ abstract class _$$TransitionerProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsInstanceMeta get $meta => PropsInstanceMeta({
+        // If this generated mixin is undefined, it's likely because TransitionerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionerPropsMixin, and check that $TransitionerPropsMixin is exported/imported properly.
+        TransitionerPropsMixin: $TransitionerPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionPropsMixin, and check that $TransitionPropsMixin is exported/imported properly.
+        TransitionPropsMixin: $TransitionPropsMixin.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].

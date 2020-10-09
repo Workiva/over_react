@@ -68,7 +68,9 @@ String generatedMixinWarningCommentLine(TypedMapNames mixinNames, {@required boo
   return value;
 }
 
-void generatePropsMeta(StringBuffer buffer, List<Identifier> mixins, {
+void generatePropsMeta(
+  StringBuffer buffer,
+  List<Identifier> mixins, {
   String classType = 'PropsMetaCollection',
   String fieldName = 'propsMeta',
   bool isConst = true,
