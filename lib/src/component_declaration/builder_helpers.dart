@@ -14,6 +14,12 @@
 
 library over_react.component_declaration.builder_helpers;
 
+import 'dart:collection';
+
+import 'package:over_react/src/util/map_util.dart';
+
+import '../../component_base.dart';
+import '../../over_react.dart';
 import './component_base.dart' as component_base;
 import './annotations.dart' as annotations;
 
@@ -120,8 +126,101 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
       ' Will be removed in 4.0.0.')
   @toBeGenerated String get propKeyNamespace => throw UngeneratedError(member: #propKeyNamespace);
 
+  @toBeGenerated PropsInstanceMeta get $meta => throw UngeneratedError(member: #meta);
+
   @override @toBeGenerated Map get props => throw UngeneratedError(member: #props);
 }
+
+mixin PropsConsumptionMixin on PropsMetaCollection {
+  Iterable<ConsumedProps> get defaultConsumedProps => all;
+
+  final List<ConsumedProps> _consumedProps = [];
+
+  Iterable<ConsumedProps> get consumedProps => _consumedProps.isEmpty ? defaultConsumedProps : _consumedProps;
+
+  void consume(Type mixin) {
+    _consumedProps.add(forMixin(mixin));
+  }
+
+  void consumeMixins(Set<Type> mixins) {
+    _consumedProps.addAll(forMixins(mixins));
+  }
+
+  void consumeAllExceptFor(Set<Type> mixins) {
+    _consumedProps.addAll(allExceptForMixins(mixins));
+  }
+
+  void deriveUnconsumedProps(Map baseProps, Map propsToMutate) {
+    final consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
+    _forwardUnconsumedProps(baseProps, propsToUpdate: propsToMutate, keySetsToOmit: consumedPropKeys);
+  }
+
+  void deriveUnconsumedDomProps(Map baseProps, Map propsToMutate) {
+    final consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
+    _forwardUnconsumedProps(baseProps, propsToUpdate: propsToMutate, keySetsToOmit: consumedPropKeys, onlyCopyDomProps: true);
+  }
+
+  void _forwardUnconsumedProps(Map props, {
+    bool omitReactProps = true,
+    bool onlyCopyDomProps = false,
+    Iterable keysToOmit,
+    Iterable<Iterable> keySetsToOmit,
+    Map propsToUpdate,
+  }) {
+    if (onlyCopyDomProps) {
+      for (String key in props.keys) {
+        if (keysToOmit != null && keysToOmit.contains(key)) continue;
+
+        if (key.startsWith('aria-') ||
+            key.startsWith('data-') ||
+            _validDomProps.contains(key)) {
+          propsToUpdate[key] = props[key];
+        }
+      }
+      return;
+    }
+
+    for (String key in props.keys) {
+      if (keysToOmit != null && keysToOmit.contains(key)) continue;
+
+      if (keySetsToOmit != null && keySetsToOmit.isNotEmpty) {
+        // If the passed in value of [keySetsToOmit] comes from
+        // [deriveUnconsumedProps], there should only be a single index.
+        // Consequently, this case exists to give the opportunity for the loop
+        // to continue without initiating another loop (which is less
+        // performant than `.first.contains()`).
+        // TODO: further optimize this by identifying the best looping / data structure
+        if (keySetsToOmit.first.contains(key)) continue;
+
+        if (keySetsToOmit.length > 1) {
+          bool shouldContinue = false;
+          for (final keySet in keySetsToOmit) {
+            if (keySet.contains(key)) {
+              shouldContinue = true;
+              break;
+            }
+          }
+
+          if (shouldContinue) continue;
+        }
+      }
+
+      if (omitReactProps && const ['key', 'ref', 'children'].contains(key)) continue;
+
+      propsToUpdate[key] = props[key];
+    }
+  }
+}
+
+class PropsInstanceMeta = PropsMetaCollection with PropsConsumptionMixin;
+
+extension UiPropsMeta on UiProps {
+  PropsInstanceMeta get meta => $meta;
+}
+
+HashSet _validDomProps = HashSet()
+  ..addAll(DomPropsMixin.meta.keys)
+  ..addAll(SvgPropsMixin.meta.keys);
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
 ///
