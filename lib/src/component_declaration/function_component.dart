@@ -165,9 +165,8 @@ class UiFactoryConfig<TProps extends UiProps> {
   @protected
   final PropsFactory<TProps> propsFactory;
   final String displayName;
-  final PropsMeta meta;
 
-  UiFactoryConfig({this.propsFactory, this.displayName, this.meta});
+  UiFactoryConfig({this.propsFactory, this.displayName});
 }
 
 /// Helper class to keep track of props factories used by [uiFunction],
