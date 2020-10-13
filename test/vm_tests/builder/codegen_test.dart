@@ -875,18 +875,29 @@ main() {
       });
 
       group('a props mixin is', () {
-        const String expectedPropsGetterError =
-            'Props mixin classes must declare an abstract props getter `Map get props;` '
-            'so that they can be statically analyzed properly.';
+        const String expectedPropsGetterError = 'For static analysis purposes, Props mixin classes must either:'
+            ' A) `implement UiProps`'
+            ' or B) declare an abstract props getter `Map get props;`.';
 
-        test('declared without an abstract `props` getter', () {
-          setUpAndGenerate('''
-            @PropsMixin()
-            abstract class _\$FooPropsMixin {
-              var bar;
-            }
-          ''');
-          verify(logger.severe(contains(expectedPropsGetterError)));
+        group('declared without an abstract `props` getter', () {
+          test('', () {
+            setUpAndGenerate('''
+              @PropsMixin()
+              abstract class _\$FooPropsMixin {
+                var bar;
+              }
+            ''');
+            verify(logger.severe(contains(expectedPropsGetterError)));
+          });
+
+          test('unless it implements UiProps', () {
+            setUpAndGenerate('''
+              @PropsMixin()
+              abstract class _\$FooPropsMixin implements UiProps {
+                var bar;
+              }
+            ''');
+          });
         });
 
         group('declared with a malformed `props` getter:', () {

@@ -67,10 +67,16 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
             errorCollector.spanFor(node.name));
       }
 
-      if (!node.hasAbstractGetter('Map', propsOrStateString)) {
+      bool implementsBaseClass() =>
+          node.implementsClause?.interfaces
+              ?.any((type) => type.name.nameWithoutPrefix == propsOrStateBaseClassString) ??
+          false;
+
+      if (!node.hasAbstractGetter('Map', propsOrStateString) && !implementsBaseClass()) {
         errorCollector.addError(
-            '$propsOrStateMixinString classes must declare an abstract $propsOrStateString getter `Map get $propsOrStateString;` '
-            'so that they can be statically analyzed properly.',
+            'For static analysis purposes, $propsOrStateMixinString classes must either:'
+            ' A) `implement $propsOrStateBaseClassString`'
+            ' or B) declare an abstract $propsOrStateString getter `Map get $propsOrStateString;`.',
             errorCollector.spanFor(node.name));
       }
     }
