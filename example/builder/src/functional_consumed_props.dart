@@ -28,14 +28,15 @@ mixin SharedPropsMixin on UiProps {
 class SomeParentProps = UiProps with ParentOnlyPropsMixin, SharedPropsMixin;
 
 UiFactory<SomeParentProps> SomeParent = uiFunction((props) {
-    final meta = UiPropsMeta(props).meta;
-    meta.consume(ParentOnlyPropsMixin);
+    final consumedProps = UiPropsMeta(props).meta.forMixin(ParentOnlyPropsMixin);
 
     return (
-      Dom.div()(
-        'The parent prop is: ${props.aParentProp}',
-        (SomeChild()..modifyProps((propsToChange) => meta.deriveUnconsumedProps(props, propsToChange)))(),
-      )
+        Dom.div()(
+          Dom.div()(
+            'The parent prop is: ${props.aParentProp}',
+          ),
+          (SomeChild()..addUnconsumedProps(props, consumedProps))(),
+        )
     );
   },
   $SomeParentConfig, // ignore: undefined_identifier

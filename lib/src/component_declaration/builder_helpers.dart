@@ -14,8 +14,6 @@
 
 library over_react.component_declaration.builder_helpers;
 
-import 'dart:collection';
-
 import 'package:over_react/src/util/map_util.dart';
 
 import '../../component_base.dart';
@@ -131,96 +129,91 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   @override @toBeGenerated Map get props => throw UngeneratedError(member: #props);
 }
 
-mixin PropsConsumptionMixin on PropsMetaCollection {
-  Iterable<ConsumedProps> get defaultConsumedProps => all;
-
-  final List<ConsumedProps> _consumedProps = [];
-
-  Iterable<ConsumedProps> get consumedProps => _consumedProps.isEmpty ? defaultConsumedProps : _consumedProps;
-
-  void consume(Type mixin) {
-    _consumedProps.add(forMixin(mixin));
-  }
-
-  void consumeMixins(Set<Type> mixins) {
-    _consumedProps.addAll(forMixins(mixins));
-  }
-
-  void consumeAllExceptFor(Set<Type> mixins) {
-    _consumedProps.addAll(allExceptForMixins(mixins));
-  }
-
-  void deriveUnconsumedProps(Map baseProps, Map propsToMutate) {
-    final consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
-    _forwardUnconsumedProps(baseProps, propsToUpdate: propsToMutate, keySetsToOmit: consumedPropKeys);
-  }
-
-  void deriveUnconsumedDomProps(Map baseProps, Map propsToMutate) {
-    final consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
-    _forwardUnconsumedProps(baseProps, propsToUpdate: propsToMutate, keySetsToOmit: consumedPropKeys, onlyCopyDomProps: true);
-  }
-
-  void _forwardUnconsumedProps(Map props, {
-    bool omitReactProps = true,
-    bool onlyCopyDomProps = false,
-    Iterable keysToOmit,
-    Iterable<Iterable> keySetsToOmit,
-    Map propsToUpdate,
-  }) {
-    if (onlyCopyDomProps) {
-      for (String key in props.keys) {
-        if (keysToOmit != null && keysToOmit.contains(key)) continue;
-
-        if (key.startsWith('aria-') ||
-            key.startsWith('data-') ||
-            _validDomProps.contains(key)) {
-          propsToUpdate[key] = props[key];
-        }
-      }
-      return;
-    }
-
-    for (String key in props.keys) {
-      if (keysToOmit != null && keysToOmit.contains(key)) continue;
-
-      if (keySetsToOmit != null && keySetsToOmit.isNotEmpty) {
-        // If the passed in value of [keySetsToOmit] comes from
-        // [deriveUnconsumedProps], there should only be a single index.
-        // Consequently, this case exists to give the opportunity for the loop
-        // to continue without initiating another loop (which is less
-        // performant than `.first.contains()`).
-        // TODO: further optimize this by identifying the best looping / data structure
-        if (keySetsToOmit.first.contains(key)) continue;
-
-        if (keySetsToOmit.length > 1) {
-          bool shouldContinue = false;
-          for (final keySet in keySetsToOmit) {
-            if (keySet.contains(key)) {
-              shouldContinue = true;
-              break;
-            }
-          }
-
-          if (shouldContinue) continue;
-        }
-      }
-
-      if (omitReactProps && const ['key', 'ref', 'children'].contains(key)) continue;
-
-      propsToUpdate[key] = props[key];
-    }
-  }
-}
+mixin PropsConsumptionMixin on PropsMetaCollection {}
 
 class PropsInstanceMeta = PropsMetaCollection with PropsConsumptionMixin;
 
 extension UiPropsMeta on UiProps {
-  PropsInstanceMeta get meta => $meta;
-}
+  static const consumedPropsAssertMessage = 'consumedProps must be either an Iterable<PropsMeta> or PropsMeta';
 
-HashSet _validDomProps = HashSet()
-  ..addAll(DomPropsMixin.meta.keys)
-  ..addAll(SvgPropsMixin.meta.keys);
+  /// A collection of metadata for the prop fields in all prop mixins used by
+  /// this props instance's generated props class.
+  ///
+  /// Synonymous with [UiComponent2]'s `propsMeta`.
+  ///
+  /// This can be used to derive consumed props by usage in conjunction with [addUnconsumedProps]
+  /// and [addUnconsumedDomProps].
+  PropsInstanceMeta get meta => $meta;
+
+
+  /// Copies props from the provided [props] instance to this [UiProps] instance,
+  /// filtering out props found in [consumedProps].
+  ///
+  /// [consumedProps] should be either a [PropsMeta] or `Iterable<PropsMeta>` instance.
+  /// These are both return types of [PropsMetaCollection]'s related APIs
+  /// (`forMixin`, `forMixins`, `allExceptForMixins`).
+  ///
+  /// To only add DOM props, use [addUnconsumedDomProps].
+  ///
+  /// Related: [UiComponent2]'s `addUnconsumedProps`
+  void addUnconsumedProps(Map props, /*PropsMeta || Iterable<PropsMeta>*/ dynamic consumedProps) {
+    // It's safe for this to be `null` because `_forwardUnconsumedProps` uses
+    // `null` as a flag to short circuit for a minor performance boost.
+    Iterable<Iterable> consumedPropKeys;
+
+    assert(consumedProps is Iterable || consumedProps is PropsMeta,
+        UiPropsMeta.consumedPropsAssertMessage);
+
+    if (consumedProps is Iterable) {
+      consumedPropKeys = consumedProps.map((consumedProps) {
+        assert(consumedProps is PropsMeta, UiPropsMeta.consumedPropsAssertMessage);
+        if (consumedProps is PropsMeta) {
+          return consumedProps.keys;
+        }
+
+        return null;
+      });
+    } else if (consumedProps is PropsMeta){
+      consumedPropKeys = [consumedProps.keys];
+    }
+
+    forwardUnconsumedPropsV2(props, propsToUpdate: this, keySetsToOmit: consumedPropKeys);
+  }
+
+  /// Copies DOM props from the provided [props] instance to this [UiProps] instance,
+  /// filtering out props found in [consumedProps].
+  ///
+  /// [consumedProps] should be either a [PropsMeta] or `Iterable<PropsMeta>` instance.
+  /// These are both return types of [PropsMetaCollection]'s related APIs
+  /// (`forMixin`, `forMixins`, `allExceptForMixins`).
+  ///
+  /// To add all unconsumed props, including DOM props, use [addUnconsumedProps].
+  ///
+  /// Related: [UiComponent2]'s `addUnconsumedDomProps`
+  void addUnconsumedDomProps(Map props, /*PropsMeta || Iterable<PropsMeta>*/ dynamic consumedProps) {
+    // It's safe for this to be `null` because `_forwardUnconsumedProps` uses
+    // `null` as a flag to short circuit for a minor performance boost.
+    Iterable<Iterable> consumedPropKeys;
+
+    assert(consumedProps is Iterable || consumedProps is PropsMeta,
+        UiPropsMeta.consumedPropsAssertMessage);
+
+    if (consumedProps is Iterable) {
+      consumedPropKeys = consumedProps.map((consumedProps) {
+        assert(consumedProps is PropsMeta, UiPropsMeta.consumedPropsAssertMessage);
+        if (consumedProps is PropsMeta) {
+          return consumedProps.keys;
+        }
+
+        return null;
+      });
+    } else if (consumedProps is PropsMeta){
+      consumedPropKeys = [consumedProps.keys];
+    }
+
+    forwardUnconsumedPropsV2(props, propsToUpdate: this, keySetsToOmit: consumedPropKeys, onlyCopyDomProps: true);
+  }
+}
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.
 ///
