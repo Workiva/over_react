@@ -33,7 +33,7 @@ class StrictModeProps extends component_base.UiProps
   ReactComponentFactoryProxy componentFactory = react.StrictMode;
 
   @override
-  PropsInstanceMeta get $meta => throw UnimplementedError('StrictModeProps instances do not implement instance meta');
+  PropsMetaCollection get $meta => throw UnimplementedError('StrictModeProps instances do not implement instance meta');
 
   @override
   final Map props;

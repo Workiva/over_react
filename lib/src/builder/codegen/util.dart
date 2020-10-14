@@ -73,12 +73,11 @@ void generatePropsMeta(
   List<Identifier> mixins, {
   String classType = 'PropsMetaCollection',
   String fieldName = 'propsMeta',
-  bool isConst = true,
 }) {
   buffer
     ..writeln()
     ..writeln('  @override')
-    ..writeln('  $classType get $fieldName => ${isConst ? 'const' : ''} $classType({');
+    ..writeln('  $classType get $fieldName => const $classType({');
   for (final name in mixins) {
     final names = TypedMapNames(name.name);
     buffer.write('    ${generatedMixinWarningCommentLine(names, isProps: true)}');

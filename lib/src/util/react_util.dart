@@ -40,7 +40,7 @@ class UiPropsMapView extends MapView
   bool get $isClassGenerated =>
       throw UnimplementedError('@PropsMixin instances do not implement \$isClassGenerated');
 
-  PropsInstanceMeta get $meta => throw UnimplementedError('@PropsMixin instances do not implement instance meta');
+  PropsMetaCollection get $meta => throw UnimplementedError('@PropsMixin instances do not implement instance meta');
 
   String get propKeyNamespace =>
       throw UnimplementedError('@PropsMixin instances do not implement propKeyNamespace');

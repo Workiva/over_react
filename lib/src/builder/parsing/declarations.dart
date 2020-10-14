@@ -221,6 +221,17 @@ mixin _TypedMapMixinShorthandDeclaration {
   }
 }
 
+extension on Union<BoilerplateProps, BoilerplatePropsMixin> {
+  /// Retrieves all of the mixins related to a props class declaration.
+  ///
+  /// This is the safest way to retrieve that information because it takes
+  /// into account the nature of the [Union] typing of `props`.
+  List<Identifier> get allPropsMixins => this.switchCase(
+        (a) => a.nodeHelper.mixins.map((name) => name.name).toList(),
+        (b) => [b.name],
+      );
+}
+
 /// A boilerplate declaration for a class-based component declared using the new mixin-based
 /// boilerplate.
 ///
@@ -238,11 +249,7 @@ class ClassComponentDeclaration extends BoilerplateDeclaration
   @override
   get type => DeclarationType.classComponentDeclaration;
 
-  /// All the props mixins related to this component declaration
-  List<Identifier> get allPropsMixins => props.switchCase(
-        (a) => a.nodeHelper.mixins.map((name) => name.name).toList(),
-        (b) => [b.name],
-      );
+  List<Identifier> get allPropsMixins => props.allPropsMixins;
 
   @override
   void validate(ErrorCollector errorCollector) {
@@ -277,6 +284,8 @@ class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
   ///
   /// Can be either [BoilerplateProps] or [BoilerplatePropsMixin], but not both.
   final Union<BoilerplateProps, BoilerplatePropsMixin> props;
+
+  List<Identifier> get allPropsMixins => props.allPropsMixins;
 
   @override
   get _members => [...factories, props.either];
