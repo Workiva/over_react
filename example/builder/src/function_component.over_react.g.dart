@@ -166,7 +166,10 @@ abstract class _$$BasicProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsInstanceMeta get $meta => PropsInstanceMeta({});
+  PropsMetaCollection get $meta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because BasicProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicProps, and check that $BasicProps is exported/imported properly.
+        BasicProps: $BasicProps.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].
@@ -242,7 +245,10 @@ abstract class _$$FooProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsInstanceMeta get $meta => PropsInstanceMeta({});
+  PropsMetaCollection get $meta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FooProps, and check that $FooProps is exported/imported properly.
+        FooProps: $FooProps.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].

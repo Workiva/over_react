@@ -59,7 +59,7 @@ abstract class _$$ListGroupProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsInstanceMeta get $meta => PropsInstanceMeta({
+  PropsMetaCollection get $meta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because ListGroupProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ListGroupProps, and check that $ListGroupProps is exported/imported properly.
         ListGroupProps: $ListGroupProps.meta,
       });

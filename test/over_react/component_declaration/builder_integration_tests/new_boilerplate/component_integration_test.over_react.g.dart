@@ -60,7 +60,7 @@ abstract class _$$ComponentTestProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsInstanceMeta get $meta => PropsInstanceMeta({
+  PropsMetaCollection get $meta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because ComponentTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ComponentTestProps, and check that $ComponentTestProps is exported/imported properly.
         ComponentTestProps: $ComponentTestProps.meta,
       });
@@ -339,7 +339,7 @@ abstract class _$$IsErrorBoundaryProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsInstanceMeta get $meta => PropsInstanceMeta({
+  PropsMetaCollection get $meta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because IsErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of IsErrorBoundaryProps, and check that $IsErrorBoundaryProps is exported/imported properly.
         IsErrorBoundaryProps: $IsErrorBoundaryProps.meta,
       });
@@ -503,7 +503,7 @@ abstract class _$$IsNotErrorBoundaryProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsInstanceMeta get $meta => PropsInstanceMeta({
+  PropsMetaCollection get $meta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because IsNotErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of IsNotErrorBoundaryProps, and check that $IsNotErrorBoundaryProps is exported/imported properly.
         IsNotErrorBoundaryProps: $IsNotErrorBoundaryProps.meta,
       });

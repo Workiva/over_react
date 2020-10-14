@@ -60,7 +60,7 @@ abstract class _$$GenericSuperProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsInstanceMeta get $meta => PropsInstanceMeta({
+  PropsMetaCollection get $meta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because GenericSuperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of GenericSuperPropsMixin, and check that $GenericSuperPropsMixin is exported/imported properly.
         GenericSuperPropsMixin: $GenericSuperPropsMixin.meta,
       });

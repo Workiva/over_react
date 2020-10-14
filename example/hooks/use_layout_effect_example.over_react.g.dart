@@ -63,7 +63,10 @@ abstract class _$$UseLayoutEffectProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsInstanceMeta get $meta => PropsInstanceMeta({});
+  PropsMetaCollection get $meta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because UseLayoutEffectProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseLayoutEffectProps, and check that $UseLayoutEffectProps is exported/imported properly.
+        UseLayoutEffectProps: $UseLayoutEffectProps.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].

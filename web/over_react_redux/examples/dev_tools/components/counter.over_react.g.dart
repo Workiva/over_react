@@ -62,7 +62,7 @@ abstract class _$$CounterProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsInstanceMeta get $meta => PropsInstanceMeta({
+  PropsMetaCollection get $meta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because CounterPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterPropsMixin, and check that $CounterPropsMixin is exported/imported properly.
         CounterPropsMixin: $CounterPropsMixin.meta,
         // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ConnectPropsMixin, and check that $ConnectPropsMixin is exported/imported properly.

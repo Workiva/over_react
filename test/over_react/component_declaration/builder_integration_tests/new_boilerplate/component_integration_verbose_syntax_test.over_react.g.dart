@@ -63,7 +63,7 @@ abstract class _$$ComponentTestProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsInstanceMeta get $meta => PropsInstanceMeta({
+  PropsMetaCollection get $meta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because ComponentTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ComponentTestPropsMixin, and check that $ComponentTestPropsMixin is exported/imported properly.
         ComponentTestPropsMixin: $ComponentTestPropsMixin.meta,
         // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestPropsMixin, and check that $TestPropsMixin is exported/imported properly.

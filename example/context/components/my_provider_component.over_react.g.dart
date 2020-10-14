@@ -59,7 +59,7 @@ abstract class _$$MyProviderProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsInstanceMeta get $meta => PropsInstanceMeta({
+  PropsMetaCollection get $meta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because MyProviderProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of MyProviderProps, and check that $MyProviderProps is exported/imported properly.
         MyProviderProps: $MyProviderProps.meta,
       });

@@ -60,7 +60,7 @@ abstract class _$$FormActionInputProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsInstanceMeta get $meta => PropsInstanceMeta({
+  PropsMetaCollection get $meta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because FormActionInputProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FormActionInputProps, and check that $FormActionInputProps is exported/imported properly.
         FormActionInputProps: $FormActionInputProps.meta,
       });

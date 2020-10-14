@@ -95,7 +95,10 @@ abstract class _$$FriendListItemProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsInstanceMeta get $meta => PropsInstanceMeta({});
+  PropsMetaCollection get $meta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because FriendListItemProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FriendListItemProps, and check that $FriendListItemProps is exported/imported properly.
+        FriendListItemProps: $FriendListItemProps.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].
@@ -172,7 +175,10 @@ abstract class _$$UseDebugValueExampleProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsInstanceMeta get $meta => PropsInstanceMeta({});
+  PropsMetaCollection get $meta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because UseDebugValueExampleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseDebugValueExampleProps, and check that $UseDebugValueExampleProps is exported/imported properly.
+        UseDebugValueExampleProps: $UseDebugValueExampleProps.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].

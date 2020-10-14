@@ -239,7 +239,10 @@ abstract class _$$FunctionCustomPropsProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsInstanceMeta get $meta => PropsInstanceMeta({});
+  PropsMetaCollection get $meta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because FunctionCustomPropsProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FunctionCustomPropsProps, and check that $FunctionCustomPropsProps is exported/imported properly.
+        FunctionCustomPropsProps: $FunctionCustomPropsProps.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].
