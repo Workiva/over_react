@@ -1,5 +1,9 @@
 # OverReact Changelog
 
+## [3.10.2](https://github.com/Workiva/over_react/compare/3.10.1...3.10.2)
+
+- Bump `react` minimum version to 5.6.1 to pull in the [Chrome 86 DDC workaround](https://github.com/cleandart/react-dart/pull/280)
+
 ## [3.10.1](https://github.com/Workiva/over_react/compare/3.10.0...3.10.1)
 
 - [#500] Improve error messages for boilerplate-related issues
