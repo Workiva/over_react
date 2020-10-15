@@ -35,7 +35,7 @@ UiFactory<SomeParentProps> SomeParent = uiFunction((props) {
           Dom.div()(
             'The parent prop is: ${props.aParentProp}',
           ),
-          (SomeChild()..addUnconsumedProps(props, consumedProps))(),
+          (SomeChild()..addUnconsumedProps(props, consumedProps.inList()))(),
         )
     );
   },

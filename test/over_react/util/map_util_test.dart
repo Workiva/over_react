@@ -245,6 +245,30 @@ main() {
           expect(actual, equals(expected));
         });
 
+        test('when keySetsToOmit is null', () {
+          var actual = {};
+
+          functionToTest({
+            'prop 1': 'my prop #1',
+            'prop 2': 'my prop #2',
+            'prop 3': 'my prop #3',
+            'prop 4': 'my prop #4',
+            'prop 5': 'my prop #5',
+            'prop 6': 'my prop #6',
+          }, keySetsToOmit: null, propsToUpdate: actual);
+
+          var expected = {
+            'prop 1': 'my prop #1',
+            'prop 2': 'my prop #2',
+            'prop 3': 'my prop #3',
+            'prop 4': 'my prop #4',
+            'prop 5': 'my prop #5',
+            'prop 6': 'my prop #6',
+          };
+
+          expect(actual, equals(expected));
+        });
+
         test('with only valid DOM/SVG props', () {
           var actual = {};
 

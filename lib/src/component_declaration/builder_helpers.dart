@@ -152,27 +152,10 @@ extension UiPropsMeta on UiProps {
   /// To only add DOM props, use [addUnconsumedDomProps].
   ///
   /// Related: [UiComponent2]'s `addUnconsumedProps`
-  void addUnconsumedProps(Map props, /*PropsMeta || Iterable<PropsMeta>*/ dynamic consumedProps) {
-    // It's safe for this to be `null` because `_forwardUnconsumedProps` uses
+  void addUnconsumedProps(Map props, Iterable<PropsMeta> consumedProps) {
+    // It's safe for this to be `null` because `forwardUnconsumedPropsV2` uses
     // `null` as a flag to short circuit for a minor performance boost.
-    Iterable<Iterable> consumedPropKeys;
-
-    assert(consumedProps is Iterable || consumedProps is PropsMeta,
-        UiPropsMeta.consumedPropsAssertMessage);
-
-    if (consumedProps is Iterable) {
-      consumedPropKeys = consumedProps.map((consumedProps) {
-        assert(consumedProps is PropsMeta, UiPropsMeta.consumedPropsAssertMessage);
-        if (consumedProps is PropsMeta) {
-          return consumedProps.keys;
-        }
-
-        return null;
-      });
-    } else if (consumedProps is PropsMeta){
-      consumedPropKeys = [consumedProps.keys];
-    }
-
+    final consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
     forwardUnconsumedPropsV2(props, propsToUpdate: this, keySetsToOmit: consumedPropKeys);
   }
 
@@ -186,27 +169,10 @@ extension UiPropsMeta on UiProps {
   /// To add all unconsumed props, including DOM props, use [addUnconsumedProps].
   ///
   /// Related: [UiComponent2]'s `addUnconsumedDomProps`
-  void addUnconsumedDomProps(Map props, /*PropsMeta || Iterable<PropsMeta>*/ dynamic consumedProps) {
-    // It's safe for this to be `null` because `_forwardUnconsumedProps` uses
+  void addUnconsumedDomProps(Map props, Iterable<PropsMeta> consumedProps) {
+    // It's safe for this to be `null` because `forwardUnconsumedPropsV2` uses
     // `null` as a flag to short circuit for a minor performance boost.
-    Iterable<Iterable> consumedPropKeys;
-
-    assert(consumedProps is Iterable || consumedProps is PropsMeta,
-        UiPropsMeta.consumedPropsAssertMessage);
-
-    if (consumedProps is Iterable) {
-      consumedPropKeys = consumedProps.map((consumedProps) {
-        assert(consumedProps is PropsMeta, UiPropsMeta.consumedPropsAssertMessage);
-        if (consumedProps is PropsMeta) {
-          return consumedProps.keys;
-        }
-
-        return null;
-      });
-    } else if (consumedProps is PropsMeta){
-      consumedPropKeys = [consumedProps.keys];
-    }
-
+    final consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
     forwardUnconsumedPropsV2(props, propsToUpdate: this, keySetsToOmit: consumedPropKeys, onlyCopyDomProps: true);
   }
 }

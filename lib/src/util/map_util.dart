@@ -146,6 +146,28 @@ void forwardUnconsumedPropsV2(Map props, {
     for (String key in props.keys) {
       if (keysToOmit != null && keysToOmit.contains(key)) continue;
 
+      if (keySetsToOmit != null && keySetsToOmit.isNotEmpty) {
+        // If the passed in value of [keySetsToOmit] comes from
+        // [addUnconsumedProps], there should only be a single index.
+        // Consequently, this case exists to give the opportunity for the loop
+        // to continue without initiating another loop (which is less
+        // performant than `.first.contains()`).
+        // TODO: further optimize this by identifying the best looping / data structure
+        if (keySetsToOmit != null && keySetsToOmit.first.contains(key)) continue;
+
+        if (keySetsToOmit.length > 1) {
+          bool shouldContinue = false;
+          for (final keySet in keySetsToOmit) {
+            if (keySet.contains(key)) {
+              shouldContinue = true;
+              break;
+            }
+          }
+
+          if (shouldContinue) continue;
+        }
+      }
+
       if (key.startsWith('aria-') ||
           key.startsWith('data-') ||
           _validDomProps.contains(key)) {
@@ -160,7 +182,7 @@ void forwardUnconsumedPropsV2(Map props, {
 
     if (keySetsToOmit != null && keySetsToOmit.isNotEmpty) {
       // If the passed in value of [keySetsToOmit] comes from
-      // [deriveUnconsumedProps], there should only be a single index.
+      // [addUnconsumedProps], there should only be a single index.
       // Consequently, this case exists to give the opportunity for the loop
       // to continue without initiating another loop (which is less
       // performant than `.first.contains()`).

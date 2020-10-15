@@ -39,7 +39,7 @@ class SomeClassParentComponent extends UiComponent2<SomeParentProps> {
           Dom.div()(
             'The parent prop is: ${props.aParentProp}',
           ),
-          (SomeClassChild()..addUnconsumedProps(props, meta))(),
+          (SomeClassChild()..addUnconsumedProps(props, meta.inList()))(),
         )
     );
   }
