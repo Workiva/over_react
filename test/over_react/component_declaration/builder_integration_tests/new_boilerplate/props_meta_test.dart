@@ -166,13 +166,13 @@ main() {
           });
 
           test('via explicitly using the UiPropsMeta extension method', () {
-            expect(UiPropsMeta(Test()).meta, isNotNull);
-            expect(UiPropsMeta(Test()).meta, isA<PropsMetaCollection>());
+            expect(Test().staticMeta, isNotNull);
+            expect(Test().staticMeta, isA<PropsMetaCollection>());
           });
         });
       });
 
-      commonMetaTests(UiPropsMeta(Test()).meta);
+      commonMetaTests(Test().staticMeta);
     });
   });
 }

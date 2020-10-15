@@ -261,7 +261,7 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
       });
 
       test('and consumed props are correctly filtered', () {
-        final consumedProps = UiPropsMeta(initialProps).meta.forMixin(TestPropsMixin);
+        final consumedProps = initialProps.staticMeta.forMixin(TestPropsMixin);
         secondProps.addUnconsumedProps(initialProps, consumedProps.inList());
         expect(secondProps.stringProp, isNull);
         expect(secondProps.anotherProp, anotherProp);

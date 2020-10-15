@@ -65,8 +65,8 @@ main() {
         test('props',            () {expect(() => unimplemented.props,            throwsUngeneratedError);});
         test('propKeyNamespace', () {expect(() => unimplemented.propKeyNamespace, throwsUngeneratedError);});
         test('a map method',     () {expect(() => unimplemented.keys,             throwsUngeneratedError);});
-        test(r'meta (via $meta)',() {expect(() => unimplemented.$meta,            throwsUngeneratedError);});
-        test(r'meta (via UiPropsMeta.meta)', () {expect(() => UiPropsMeta(unimplemented).meta, throwsUngeneratedError);});
+        test(r'$meta (via $meta)',() {expect(() => unimplemented.$meta,            throwsUngeneratedError);});
+        test(r'$meta (via UiPropsMeta.staticMeta)', () {expect(() => unimplemented.staticMeta, throwsUngeneratedError);});
 
         testStubbedMapMembers(() => UnimplementedUiProps());
       });

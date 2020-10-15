@@ -139,7 +139,7 @@ extension UiPropsMeta on UiProps {
   ///
   /// This can be used to derive consumed props by usage in conjunction with [addUnconsumedProps]
   /// and [addUnconsumedDomProps].
-  PropsMetaCollection get meta => $meta;
+  PropsMetaCollection get staticMeta => $meta;
 
 
   /// Copies props from the provided [props] instance to this [UiProps] instance,

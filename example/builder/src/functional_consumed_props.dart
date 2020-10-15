@@ -28,7 +28,7 @@ mixin SharedPropsMixin on UiProps {
 class SomeParentProps = UiProps with ParentOnlyPropsMixin, SharedPropsMixin;
 
 UiFactory<SomeParentProps> SomeParent = uiFunction((props) {
-    final consumedProps = UiPropsMeta(props).meta.forMixin(ParentOnlyPropsMixin);
+    final consumedProps = props.staticMeta.forMixin(ParentOnlyPropsMixin);
 
     return (
         Dom.div()(
