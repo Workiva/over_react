@@ -22,6 +22,10 @@ import 'package:react/react_client.dart';
 /// A `MapView` helper that stubs in unimplemented pieces of [UiProps].
 ///
 /// Useful when you need a `MapView` for a `PropsMixin` that implements [UiProps].
+///
+/// DEPRECATED: Use new boilerplate mixin pattern instead (see the New Boilerplate Migration
+/// Guide for more information).
+@Deprecated('This pattern is deprecated in favor of the mixin props mixin pattern. See the New Boilerplate Migration guide for more information.')
 class UiPropsMapView extends MapView
     with
         ReactPropsMixin,
