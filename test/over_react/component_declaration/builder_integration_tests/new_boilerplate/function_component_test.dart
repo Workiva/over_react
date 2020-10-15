@@ -238,7 +238,6 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
     const anotherProp = 'this should be filtered';
     const className = 'aClassName';
 
-
     group('using `addUnconsumedProps`', () {
       TestProps initialProps;
       TestProps secondProps;
@@ -250,8 +249,10 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
         );
 
         secondProps = factory();
-      });
 
+        expect(secondProps.stringProp, isNull, reason: 'Test setup sanity check');
+        expect(secondProps.anotherProp, isNull, reason: 'Test setup sanity check');
+      });
 
       test('', () {
         secondProps.addUnconsumedProps(initialProps, null);
@@ -280,11 +281,14 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
         );
 
         secondProps = factory();
-      });
 
+        expect(secondProps.className, isNull, reason: 'Test setup sanity check');
+      });
 
       test('', () {
         secondProps.addUnconsumedDomProps(initialProps, null);
+        expect(secondProps.stringProp, isNull);
+        expect(secondProps.anotherProp, isNull);
         expect(secondProps.className, className);
       });
 

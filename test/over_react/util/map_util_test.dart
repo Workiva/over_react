@@ -302,38 +302,74 @@ main() {
     // for `forwardUnconsumedProps` and `forwardUnconsumedPropsV2` is useful
     // to demonstrate the change in behavior.
     void commonDomPropsFilteringTest(ForwardUnconsumedPropsFunction functionToTest, {bool shouldFilter = true}) {
-      test('(common DOM props filtering test) ${shouldFilter ? 'should' : 'shouldn\'t'} filter DOM props', () {
-        final actual = {};
-        const startingDomProps = {
-          'tabIndex': '0',
-          'className': 'my classname',
-          'cx': '0',
-          'stroke': 'red',
-          'data-test-prop': 'my data attr',
-          'aria-test-prop': 'my aria attr',
-        };
+      group('(common DOM props filtering test) ${shouldFilter ? 'should' : 'shouldn\'t'} filter DOM props', () {
+        test('when `keysToOmit` is set', () {
+          final actual = {};
+          const startingDomProps = {
+            'tabIndex': '0',
+            'className': 'my classname',
+            'cx': '0',
+            'stroke': 'red',
+            'data-test-prop': 'my data attr',
+            'aria-test-prop': 'my aria attr',
+          };
 
-        const mapWithDomAndCustomProps = {
-          ...startingDomProps,
-          'classNameBlacklist': 'my classname blacklist',
-          'custom prop': 'my custom prop',
-        };
+          const mapWithDomAndCustomProps = {
+            ...startingDomProps,
+            'classNameBlacklist': 'my classname blacklist',
+            'custom prop': 'my custom prop',
+          };
 
-        functionToTest(
-            mapWithDomAndCustomProps,
-            keysToOmit: [
-              'stroke',
-              'className',
-            ], onlyCopyDomProps: true, propsToUpdate: actual);
+          functionToTest(
+              mapWithDomAndCustomProps,
+              keysToOmit: [
+                'stroke',
+                'className',
+              ], onlyCopyDomProps: true, propsToUpdate: actual);
 
-        final expected = shouldFilter ? {
-          'tabIndex': '0',
-          'cx': '0',
-          'data-test-prop': 'my data attr',
-          'aria-test-prop': 'my aria attr',
-        } : startingDomProps;
+          final expected = shouldFilter ? {
+            'tabIndex': '0',
+            'cx': '0',
+            'data-test-prop': 'my data attr',
+            'aria-test-prop': 'my aria attr',
+          } : startingDomProps;
 
-        expect(actual, equals(expected));
+          expect(actual, equals(expected));
+        });
+
+        test('when `keySetsToOmit` is set', () {
+          final actual = {};
+          const startingDomProps = {
+            'tabIndex': '0',
+            'className': 'my classname',
+            'cx': '0',
+            'stroke': 'red',
+            'data-test-prop': 'my data attr',
+            'aria-test-prop': 'my aria attr',
+          };
+
+          const mapWithDomAndCustomProps = {
+            ...startingDomProps,
+            'classNameBlacklist': 'my classname blacklist',
+            'custom prop': 'my custom prop',
+          };
+
+          functionToTest(
+              mapWithDomAndCustomProps,
+              keySetsToOmit: [
+                ['stroke'],
+                ['className', 'tabIndex'],
+              ], onlyCopyDomProps: true, propsToUpdate: actual);
+
+          final expected = shouldFilter ? {
+            'cx': '0',
+            'data-test-prop': 'my data attr',
+            'aria-test-prop': 'my aria attr',
+          } : startingDomProps;
+
+          expect(actual, equals(expected));
+        });
+
       });
     }
     group('forwardUnconsumedProps', () {

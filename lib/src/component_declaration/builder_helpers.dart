@@ -145,9 +145,10 @@ extension UiPropsMeta on UiProps {
   /// Copies props from the provided [props] instance to this [UiProps] instance,
   /// filtering out props found in [consumedProps].
   ///
-  /// [consumedProps] should be either a [PropsMeta] or `Iterable<PropsMeta>` instance.
-  /// These are both return types of [PropsMetaCollection]'s related APIs
-  /// (`forMixin`, `forMixins`, `allExceptForMixins`).
+  /// [consumedProps] should be a `Iterable<PropsMeta>` instance.
+  /// This is the return type of [PropsMetaCollection]'s related APIs `forMixins`
+  /// and `allExceptForMixins`. `forMixin` can be used easily by then calling `.inList()`
+  /// on the returned [PropsMeta] instance.
   ///
   /// To only add DOM props, use [addUnconsumedDomProps].
   ///
@@ -162,9 +163,10 @@ extension UiPropsMeta on UiProps {
   /// Copies DOM props from the provided [props] instance to this [UiProps] instance,
   /// filtering out props found in [consumedProps].
   ///
-  /// [consumedProps] should be either a [PropsMeta] or `Iterable<PropsMeta>` instance.
-  /// These are both return types of [PropsMetaCollection]'s related APIs
-  /// (`forMixin`, `forMixins`, `allExceptForMixins`).
+  /// [consumedProps] should be a `Iterable<PropsMeta>` instance.
+  /// This is the return type of [PropsMetaCollection]'s related APIs `forMixins`
+  /// and `allExceptForMixins`. `forMixin` can be used easily by then calling `.inList()`
+  /// on the returned [PropsMeta] instance.
   ///
   /// To add all unconsumed props, including DOM props, use [addUnconsumedProps].
   ///
