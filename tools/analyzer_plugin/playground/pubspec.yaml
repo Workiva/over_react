@@ -13,3 +13,7 @@ dependency_overrides:
   # Pull in the local copy of over_react so it pulls in the local copy of the plugin
   over_react:
       path: ../../..
+  react:
+    git:
+      url: https://github.com/cleandart/react-dart.git
+      ref: testing-react-17-rc
