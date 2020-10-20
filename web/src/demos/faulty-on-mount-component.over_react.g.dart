@@ -60,7 +60,7 @@ abstract class _$$FaultyOnMountProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because FaultyOnMountProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FaultyOnMountProps, and check that $FaultyOnMountProps is exported/imported properly.
         FaultyOnMountProps: $FaultyOnMountProps.meta,
       });

@@ -59,7 +59,7 @@ abstract class _$$LittleBlockProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because LittleBlockProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of LittleBlockProps, and check that $LittleBlockProps is exported/imported properly.
         LittleBlockProps: $LittleBlockProps.meta,
       });

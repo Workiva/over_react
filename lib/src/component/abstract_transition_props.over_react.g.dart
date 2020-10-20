@@ -153,7 +153,7 @@ abstract class _$$TransitionPropsMixin extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionPropsMixin, and check that $TransitionPropsMixin is exported/imported properly.
         TransitionPropsMixin: $TransitionPropsMixin.meta,
       });

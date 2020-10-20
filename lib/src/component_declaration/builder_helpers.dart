@@ -124,13 +124,7 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
       ' Will be removed in 4.0.0.')
   @toBeGenerated String get propKeyNamespace => throw UngeneratedError(member: #propKeyNamespace);
 
-  @toBeGenerated PropsMetaCollection get $meta => throw UngeneratedError(member: #meta);
-
   @override @toBeGenerated Map get props => throw UngeneratedError(member: #props);
-}
-
-extension UiPropsMeta on UiProps {
-  static const consumedPropsAssertMessage = 'consumedProps must be either an Iterable<PropsMeta> or PropsMeta';
 
   /// A collection of metadata for the prop fields in all prop mixins used by
   /// this props instance's generated props class.
@@ -139,8 +133,7 @@ extension UiPropsMeta on UiProps {
   ///
   /// This can be used to derive consumed props by usage in conjunction with [addUnconsumedProps]
   /// and [addUnconsumedDomProps].
-  PropsMetaCollection get staticMeta => $meta;
-
+  @toBeGenerated PropsMetaCollection get staticMeta => throw UngeneratedError(member: #meta);
 
   /// Copies props from the provided [props] instance to this [UiProps] instance,
   /// filtering out props found in [consumedProps].

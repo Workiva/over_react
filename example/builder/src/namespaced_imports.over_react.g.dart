@@ -62,7 +62,7 @@ abstract class _$$BasicProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because pm.ExamplePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of pm.ExamplePropsMixin, and check that pm.$ExamplePropsMixin is exported/imported properly.
         pm.ExamplePropsMixin: pm.$ExamplePropsMixin.meta,
         // If this generated mixin is undefined, it's likely because BasicPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BasicPropsMixin, and check that $BasicPropsMixin is exported/imported properly.

@@ -114,7 +114,7 @@ abstract class _$$SomeParentProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because ParentOnlyPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ParentOnlyPropsMixin, and check that $ParentOnlyPropsMixin is exported/imported properly.
         ParentOnlyPropsMixin: $ParentOnlyPropsMixin.meta,
         // If this generated mixin is undefined, it's likely because SharedPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SharedPropsMixin, and check that $SharedPropsMixin is exported/imported properly.
@@ -196,7 +196,7 @@ abstract class _$$SomeChildProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because SharedPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SharedPropsMixin, and check that $SharedPropsMixin is exported/imported properly.
         SharedPropsMixin: $SharedPropsMixin.meta,
       });

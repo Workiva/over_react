@@ -226,7 +226,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
 
       if (allPropsMixins != null) {
         generatePropsMeta(buffer, allPropsMixins,
-            classType: 'PropsMetaCollection', fieldName: r'$meta');
+            classType: 'PropsMetaCollection', fieldName: r'staticMeta');
       }
     }
 

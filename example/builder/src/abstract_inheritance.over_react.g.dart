@@ -62,7 +62,7 @@ abstract class _$$SubProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because SuperPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SuperPropsMixin, and check that $SuperPropsMixin is exported/imported properly.
         SuperPropsMixin: $SuperPropsMixin.meta,
         // If this generated mixin is undefined, it's likely because SubPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SubPropsMixin, and check that $SubPropsMixin is exported/imported properly.

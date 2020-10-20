@@ -565,7 +565,7 @@ abstract class _$$TestPropsMixin extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestPropsMixin, and check that $TestPropsMixin is exported/imported properly.
         TestPropsMixin: $TestPropsMixin.meta,
       });
@@ -645,7 +645,7 @@ abstract class _$$TestCustomNamespaceProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because TestCustomNamespacePropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestCustomNamespacePropsMixin, and check that $TestCustomNamespacePropsMixin is exported/imported properly.
         TestCustomNamespacePropsMixin: $TestCustomNamespacePropsMixin.meta,
         // If this generated mixin is undefined, it's likely because TestCustomNamespaceWithPropsAnnotationPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestCustomNamespaceWithPropsAnnotationPropsMixin, and check that $TestCustomNamespaceWithPropsAnnotationPropsMixin is exported/imported properly.

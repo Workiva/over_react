@@ -106,7 +106,7 @@ abstract class _$$FancyInputProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because FancyInputProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FancyInputProps, and check that $FancyInputProps is exported/imported properly.
         FancyInputProps: $FancyInputProps.meta,
       });
@@ -186,7 +186,7 @@ abstract class _$$UseImperativeHandleExampleProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because UseImperativeHandleExampleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseImperativeHandleExampleProps, and check that $UseImperativeHandleExampleProps is exported/imported properly.
         UseImperativeHandleExampleProps: $UseImperativeHandleExampleProps.meta,
       });

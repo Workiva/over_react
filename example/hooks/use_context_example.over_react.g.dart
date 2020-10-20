@@ -82,7 +82,7 @@ abstract class _$$UseContextExampleProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because UseContextExampleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseContextExampleProps, and check that $UseContextExampleProps is exported/imported properly.
         UseContextExampleProps: $UseContextExampleProps.meta,
       });
@@ -162,7 +162,7 @@ abstract class _$$NewContextProviderProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because NewContextProviderProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of NewContextProviderProps, and check that $NewContextProviderProps is exported/imported properly.
         NewContextProviderProps: $NewContextProviderProps.meta,
       });

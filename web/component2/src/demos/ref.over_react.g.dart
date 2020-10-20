@@ -59,7 +59,7 @@ abstract class _$$FooProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FooProps, and check that $FooProps is exported/imported properly.
         FooProps: $FooProps.meta,
       });
@@ -202,7 +202,7 @@ abstract class _$$LogProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because LogProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of LogProps, and check that $LogProps is exported/imported properly.
         LogProps: $LogProps.meta,
       });
@@ -586,7 +586,7 @@ abstract class _$$FancyButtonProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because FancyButtonProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FancyButtonProps, and check that $FancyButtonProps is exported/imported properly.
         FancyButtonProps: $FancyButtonProps.meta,
       });
@@ -668,7 +668,7 @@ abstract class _$$Foo2Props extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because AnotherPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of AnotherPropsMixin, and check that $AnotherPropsMixin is exported/imported properly.
         AnotherPropsMixin: $AnotherPropsMixin.meta,
         // If this generated mixin is undefined, it's likely because FooProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FooProps, and check that $FooProps is exported/imported properly.
@@ -749,7 +749,7 @@ abstract class _$$BazProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because BazProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BazProps, and check that $BazProps is exported/imported properly.
         BazProps: $BazProps.meta,
       });
@@ -829,7 +829,7 @@ abstract class _$$RefDemoProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because RefDemoProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of RefDemoProps, and check that $RefDemoProps is exported/imported properly.
         RefDemoProps: $RefDemoProps.meta,
       });
@@ -909,7 +909,7 @@ abstract class _$$RefDemoSectionProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because RefDemoSectionProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of RefDemoSectionProps, and check that $RefDemoSectionProps is exported/imported properly.
         RefDemoSectionProps: $RefDemoSectionProps.meta,
       });
@@ -988,7 +988,7 @@ abstract class _$$RefDemoHocProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because RefDemoHocProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of RefDemoHocProps, and check that $RefDemoHocProps is exported/imported properly.
         RefDemoHocProps: $RefDemoHocProps.meta,
       });

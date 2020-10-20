@@ -153,17 +153,10 @@ main() {
 
     group('(props instance)', () {
       group('generates props meta utilities attached to the props instance', () {
-        group('that can be accessed', () {
-          test(r'directly via $meta', () {
-            expect(Test().$meta, isNotNull);
-            expect(Test().$meta, isA<PropsMetaCollection>());
-          });
-
-          test('via explicitly using the UiPropsMeta extension method', () {
+          test(r'that can be accessed directly via staticMeta', () {
             expect(Test().staticMeta, isNotNull);
             expect(Test().staticMeta, isA<PropsMetaCollection>());
           });
-        });
       });
 
       commonMetaTests(Test().staticMeta);

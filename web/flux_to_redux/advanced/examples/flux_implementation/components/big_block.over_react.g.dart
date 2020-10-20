@@ -63,7 +63,7 @@ abstract class _$$BigBlockProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because FluxUiPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FluxUiPropsMixin, and check that $FluxUiPropsMixin is exported/imported properly.
         FluxUiPropsMixin: $FluxUiPropsMixin.meta,
         // If this generated mixin is undefined, it's likely because BigBlockPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of BigBlockPropsMixin, and check that $BigBlockPropsMixin is exported/imported properly.

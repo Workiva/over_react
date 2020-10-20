@@ -65,7 +65,7 @@ abstract class _$$ToggleButtonProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because ButtonProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ButtonProps, and check that $ButtonProps is exported/imported properly.
         ButtonProps: $ButtonProps.meta,
         // If this generated mixin is undefined, it's likely because ToggleButtonPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ToggleButtonPropsMixin, and check that $ToggleButtonPropsMixin is exported/imported properly.

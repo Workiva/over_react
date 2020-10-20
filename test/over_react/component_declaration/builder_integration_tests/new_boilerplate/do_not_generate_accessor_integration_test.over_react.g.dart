@@ -61,7 +61,7 @@ abstract class _$$DoNotGenerateAccessorTestProps extends UiProps
   String get propKeyNamespace => '';
 
   @override
-  PropsMetaCollection get $meta => const PropsMetaCollection({
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
         // If this generated mixin is undefined, it's likely because DoNotGenerateAccessorTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoNotGenerateAccessorTestProps, and check that $DoNotGenerateAccessorTestProps is exported/imported properly.
         DoNotGenerateAccessorTestProps: $DoNotGenerateAccessorTestProps.meta,
       });

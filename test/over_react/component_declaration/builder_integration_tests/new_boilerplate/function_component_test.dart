@@ -294,7 +294,7 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
 
       test('and consumed props are correctly filtered', () {
         expect(initialProps.className, isNotNull, reason: 'Test setup sanity check');
-        secondProps.addUnconsumedDomProps(initialProps, [PropsMeta(fields: [PropDescriptor('className')], keys: ['className'])]);
+        secondProps.addUnconsumedDomProps(initialProps, [PropsMeta.forSimpleKey('className')]);
         expect(secondProps.stringProp, isNull);
         expect(secondProps.anotherProp, isNull);
         expect(secondProps.className, isNull);

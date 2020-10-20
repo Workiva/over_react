@@ -44,10 +44,16 @@ class UiPropsMapView extends MapView
   bool get $isClassGenerated =>
       throw UnimplementedError('@PropsMixin instances do not implement \$isClassGenerated');
 
-  PropsMetaCollection get $meta => throw UnimplementedError('@PropsMixin instances do not implement instance meta');
+  PropsMetaCollection get staticMeta => throw UnimplementedError('@PropsMixin instances do not implement instance meta');
 
   String get propKeyNamespace =>
       throw UnimplementedError('@PropsMixin instances do not implement propKeyNamespace');
+
+  void addUnconsumedProps(Map props, Iterable<PropsMeta> consumedProps) =>
+      throw UnimplementedError('@PropsMixin instances do not implement addUnconsumedProps');
+
+  void addUnconsumedDomProps(Map props, Iterable<PropsMeta> consumedProps) =>
+      throw UnimplementedError('@PropsMixin instances do not implement addUnconsumedDomProps');
 
   // ----- component_base.UiProps ----- //
 
@@ -73,6 +79,8 @@ class UiPropsMapView extends MapView
 
   @override
   String get testId => getTestId();
+
+
 
   @override
   Map get componentDefaultProps => throw UnimplementedError('@PropsMixin instances do not implement defaultProps');
