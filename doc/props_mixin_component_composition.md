@@ -117,7 +117,7 @@ main() {
 
 Produces the following HTML:
 ```html
-<div class="bar foo__bar foo__bar--abc">
+<div class="foo foo__bar foo__bar--abc">
   Qux: 234
   <div class="foo__bar__bizzles">
     Bizzles: 
@@ -196,7 +196,7 @@ main() {
 
 Produces the following HTML:
 ```html
-<div class="bar foo__baz foo__baz--abc">
+<div class="foo foo__baz foo__baz--abc">
   Qux: 234
   <div class="foo__baz__bizzles">
     Bizzles: 

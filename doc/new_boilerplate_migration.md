@@ -770,7 +770,7 @@ UiFactory<FooProps> Foo = uiFunction(
 Because functional components have no instance that track consumed props, the syntax for passing unconsumed 
 props changes within functional components.
 
-`UiProps` exposes a field `staticMeta` that can be used to generate an iterable containing props meta of specific mixins. 
+`UiProps` exposes a field `staticMeta` that can be used to generate an iterable containing props meta for specific mixins. 
 This is similar to accessing `propsMeta` within a class based component. Using the iterable returned from `staticMeta`'s 
 APIs (such as `forMixins`), we can generate unconsumed props and pass them to a child component.
 
