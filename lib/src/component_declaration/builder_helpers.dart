@@ -135,37 +135,53 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   /// and [addUnconsumedDomProps].
   @toBeGenerated PropsMetaCollection get staticMeta => throw UngeneratedError(member: #meta);
 
-  /// Copies props from the provided [props] instance to this [UiProps] instance,
-  /// filtering out props found in [consumedProps].
+  /// Copies key-value pairs from the provided [props] map into this map,
+  /// excluding those with keys found in [consumedProps].
   ///
   /// [consumedProps] should be a `Iterable<PropsMeta>` instance.
   /// This is the return type of [PropsMetaCollection]'s related APIs `forMixins`,
   /// `allExceptForMixins`, and `all`.
+  ///
+  /// __Example:__
+  ///
+  /// ```dart
+  /// // within a functional component (wrapped in `uiFunction`)
+  /// // Consider props in FooProps "consumed"...
+  /// final consumedProps = props.staticMeta.forMixins({FooProps});
+  /// // ...and filter them out when forwarding props to Bar.
+  /// return (Bar()..addUnconsumedProps(props, consumedProps))();
+  /// ```
   ///
   /// To only add DOM props, use [addUnconsumedDomProps].
   ///
   /// Related: [UiComponent2]'s `addUnconsumedProps`
   void addUnconsumedProps(Map props, Iterable<PropsMeta> consumedProps) {
-    // It's safe for this to be `null` because `forwardUnconsumedPropsV2` uses
-    // `null` as a flag to short circuit for a minor performance boost.
-    final consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
+    final consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
     forwardUnconsumedPropsV2(props, propsToUpdate: this, keySetsToOmit: consumedPropKeys);
   }
 
-  /// Copies DOM props from the provided [props] instance to this [UiProps] instance,
-  /// filtering out props found in [consumedProps].
+  /// Copies DOM only key-value pairs from the provided [props] map into this map,
+  /// excluding those with keys found in [consumedProps].
   ///
   /// [consumedProps] should be a `Iterable<PropsMeta>` instance.
   /// This is the return type of [PropsMetaCollection]'s related APIs `forMixins`,
   /// `allExceptForMixins`, and `all`.
   ///
+  /// __Example:__
+  ///
+  /// ```dart
+  /// // within a functional component (wrapped in `uiFunction`)
+  /// // Consider props in FooProps "consumed"...
+  /// final consumedProps = [PropsMeta.forSimpleKey('className')];
+  /// // ...and filter them out when forwarding props to Bar.
+  /// return (Bar()..addUnconsumedDomProps(props, consumedProps))();
+  /// ```
+  ///
   /// To add all unconsumed props, including DOM props, use [addUnconsumedProps].
   ///
   /// Related: [UiComponent2]'s `addUnconsumedDomProps`
   void addUnconsumedDomProps(Map props, Iterable<PropsMeta> consumedProps) {
-    // It's safe for this to be `null` because `forwardUnconsumedPropsV2` uses
-    // `null` as a flag to short circuit for a minor performance boost.
-    final consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
+    final consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
     forwardUnconsumedPropsV2(props, propsToUpdate: this, keySetsToOmit: consumedPropKeys, onlyCopyDomProps: true);
   }
 }

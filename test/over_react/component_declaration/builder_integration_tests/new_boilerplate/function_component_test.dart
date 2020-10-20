@@ -255,7 +255,7 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
       });
 
       test('', () {
-        secondProps.addUnconsumedProps(initialProps, null);
+        secondProps.addUnconsumedProps(initialProps, []);
         expect(secondProps.anotherProp, anotherProp);
         expect(secondProps.stringProp, stringProp);
       });
@@ -286,7 +286,7 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
       });
 
       test('', () {
-        secondProps.addUnconsumedDomProps(initialProps, null);
+        secondProps.addUnconsumedDomProps(initialProps, []);
         expect(secondProps.stringProp, isNull);
         expect(secondProps.anotherProp, isNull);
         expect(secondProps.className, className);
