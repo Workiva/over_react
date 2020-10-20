@@ -261,8 +261,8 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
       });
 
       test('and consumed props are correctly filtered', () {
-        final consumedProps = initialProps.staticMeta.forMixin(TestPropsMixin);
-        secondProps.addUnconsumedProps(initialProps, consumedProps.inList());
+        final consumedProps = initialProps.staticMeta.forMixins({TestPropsMixin});
+        secondProps.addUnconsumedProps(initialProps, consumedProps);
         expect(secondProps.stringProp, isNull);
         expect(secondProps.anotherProp, anotherProp);
       });
@@ -294,7 +294,7 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
 
       test('and consumed props are correctly filtered', () {
         expect(initialProps.className, isNotNull, reason: 'Test setup sanity check');
-        secondProps.addUnconsumedDomProps(initialProps, PropsMeta(fields: [PropDescriptor('className')], keys: ['className']).inList());
+        secondProps.addUnconsumedDomProps(initialProps, [PropsMeta(fields: [PropDescriptor('className')], keys: ['className'])]);
         expect(secondProps.stringProp, isNull);
         expect(secondProps.anotherProp, isNull);
         expect(secondProps.className, isNull);

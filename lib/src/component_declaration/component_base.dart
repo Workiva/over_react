@@ -818,12 +818,6 @@ class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
 
   @override
   String toString() => 'PropsMeta:$keys';
-
-  /// Wraps this instance in a [List].
-  ///
-  /// This is useful in conjunction with [UiProps]'s `addUnconsumedProps`,
-  /// which expects [PropsMeta] to be provided in a [List].
-  List<PropsMeta> inList() => [this];
 }
 
 /// Metadata for the state fields declared in a specific state class--
@@ -931,11 +925,4 @@ class PropsMetaCollection extends _AccessorMetaCollection<PropDescriptor, PropsM
 
   @override
   List<PropDescriptor> get props => fields;
-
-  /// Wraps this instance in a [List].
-  ///
-  /// This is useful in conjunction with [UiProps]'s `addUnconsumedProps`,
-  /// which expects [PropsMeta] to be provided in a [List].
-  @override
-  List<PropsMeta> inList() => [this];
 }

@@ -32,14 +32,14 @@ class SomeParentProps = UiProps with ParentOnlyPropsMixin, SharedPropsMixin;
 class SomeClassParentComponent extends UiComponent2<SomeParentProps> {
   @override
   render() {
-    final meta = UiPropsMeta(props).staticMeta.forMixin(ParentOnlyPropsMixin);
+    final meta = UiPropsMeta(props).staticMeta.forMixins({ParentOnlyPropsMixin});
 
     return (
         Dom.div()(
           Dom.div()(
             'The parent prop is: ${props.aParentProp}',
           ),
-          (SomeClassChild()..addUnconsumedProps(props, meta.inList()))(),
+          (SomeClassChild()..addUnconsumedProps(props, meta))(),
         )
     );
   }

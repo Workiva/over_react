@@ -50,12 +50,6 @@ main() {
             reason:
                 'Because `foo` is part of a different mixin, metaForTestPropsMixin should not have access to it.');
       });
-
-      test('`inList()` returns the instance wrapped in a List', () {
-        final metaInList = emptyPropsMeta.inList();
-        expect(metaInList, hasLength(1));
-        expect(metaInList.first, emptyPropsMeta);
-      });
     });
 
     void commonMetaTests(PropsMetaCollection propsMeta) {
