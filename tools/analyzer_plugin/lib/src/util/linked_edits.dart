@@ -1,4 +1,8 @@
+import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer_plugin/utilities/change_builder/change_builder_dart.dart';
+import 'package:analyzer_plugin/utilities/range_factory.dart';
+// ignore: implementation_imports
+import 'package:over_react/src/builder/parsing.dart';
 
 void _addUiComponentBoilerplateFactory(
   DartEditBuilder builder, {
@@ -176,4 +180,84 @@ void addFluxUiStatefulComponentBoilerplateLinkedEdit(
       baseComponentClassName: 'FluxUiStatefulComponent2',
       componentFactoryName: componentFactoryName,
       getComponentRenderReturnValueSrc: getComponentRenderReturnValueSrc);
+}
+
+void renameComponentFactoryLinkedEdit(
+    DartFileEditBuilder builder,
+    BoilerplateFactory factory,
+    String newFactoryName,
+    String groupName,
+    ) {
+  if (factory.propsGenericArg != null) {
+    builder.addReplacement(range.startLength(factory.propsGenericArg, factory.propsGenericArg.length), (builder) {
+      builder
+        ..addSimpleLinkedEdit(groupName, newFactoryName)
+        ..write('Props');
+    });
+  }
+  final initializer = factory.node.variables.variables.firstOrNull?.initializer;
+  if (initializer != null) {
+    builder.addReplacement(range.startLength(initializer, initializer.length), (builder) {
+      builder
+        ..write('_\$')
+        ..addSimpleLinkedEdit(groupName, newFactoryName);
+    });
+  }
+}
+
+void renameBoilerplateMemberHelper(
+    DartFileEditBuilder builder,
+    BoilerplateMember member,
+    String newFactoryName,
+    String groupName,
+    ) {
+  if (member.name == null) return;
+
+  SimpleIdentifier nameNode;
+  String nameSuffix;
+  if (member is BoilerplateFactory) {
+    nameSuffix = '';
+    nameNode = member.node.variables.variables.firstOrNull?.name;
+  } else if (member is BoilerplateProps) {
+    nameSuffix = 'Props';
+    nameNode = member.node.name;
+  } else if (member is BoilerplatePropsMixin) {
+    nameSuffix = 'PropsMixin';
+    nameNode = member.node.name;
+  } else if (member is BoilerplateState) {
+    nameSuffix = 'State';
+    nameNode = member.node.name;
+  } else if (member is BoilerplateStateMixin) {
+    nameSuffix = 'StateMixin';
+    nameNode = member.node.name;
+  } else if (member is BoilerplateComponent) {
+    nameSuffix = 'Component';
+    nameNode = member.node.name;
+  }
+  if (nameNode == null || nameSuffix == null) return;
+
+  builder.addReplacement(range.node(nameNode), (builder) {
+    builder
+      ..addSimpleLinkedEdit(groupName, newFactoryName)
+      ..write(nameSuffix);
+  });
+//  if(member is BoilerplatePropsOrState) {
+//    member.node.name = SyntheticIdentifier('abc');
+//  }
+}
+
+void renameBoilerplateMemberHelper2(
+    DartFileEditBuilder builder,
+    ClassOrMixinDeclaration member,
+    String newFactoryName,
+    String groupName,
+    String nameSuffix,
+    ) {
+  if (member.name == null) return;
+
+  builder.addReplacement(range.node(member.name), (builder) {
+    builder
+      ..addSimpleLinkedEdit(groupName, newFactoryName)
+      ..write(nameSuffix);
+  });
 }
