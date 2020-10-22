@@ -49,12 +49,6 @@ class UiPropsMapView extends MapView
   String get propKeyNamespace =>
       throw UnimplementedError('@PropsMixin instances do not implement propKeyNamespace');
 
-  void addUnconsumedProps(Map props, Iterable<PropsMeta> consumedProps) =>
-      throw UnimplementedError('@PropsMixin instances do not implement addUnconsumedProps');
-
-  void addUnconsumedDomProps(Map props, Iterable<PropsMeta> consumedProps) =>
-      throw UnimplementedError('@PropsMixin instances do not implement addUnconsumedDomProps');
-
   // ----- component_base.UiProps ----- //
 
   @override
@@ -70,6 +64,14 @@ class UiPropsMapView extends MapView
       throw UnimplementedError('@PropsMixin instances do not implement modifyProps');
 
   @override
+  void addUnconsumedProps(Map props, Iterable<PropsMeta> consumedProps) =>
+      throw UnimplementedError('@PropsMixin instances do not implement addUnconsumedProps');
+
+  @override
+  void addUnconsumedDomProps(Map props, Iterable<PropsMeta> consumedProps) =>
+      throw UnimplementedError('@PropsMixin instances do not implement addUnconsumedDomProps');
+
+  @override
   void addTestId(String value, {String key = defaultTestIdKey}) =>
       throw UnimplementedError('@PropsMixin instances do not implement addTestId');
 
@@ -79,8 +81,6 @@ class UiPropsMapView extends MapView
 
   @override
   String get testId => getTestId();
-
-
 
   @override
   Map get componentDefaultProps => throw UnimplementedError('@PropsMixin instances do not implement defaultProps');
