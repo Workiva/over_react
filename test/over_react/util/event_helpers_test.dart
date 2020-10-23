@@ -52,6 +52,8 @@ main() {
 
     var syntheticKeyboardEvent = wrapNativeKeyboardEvent(nativeKeyboardEvent);
 
+    expect(syntheticKeyboardEvent, isA<SyntheticKeyboardEvent>());
+
     expect(syntheticKeyboardEvent.bubbles, isTrue);
     expect(syntheticKeyboardEvent.cancelable, isTrue);
     expect(syntheticKeyboardEvent.currentTarget, currentTarget);
@@ -102,8 +104,13 @@ main() {
     when(nativeMouseEvent.metaKey).thenReturn(false);
     when(nativeMouseEvent.relatedTarget).thenReturn(relatedTarget);
     when(nativeMouseEvent.shiftKey).thenReturn(false);
+    when(nativeMouseEvent.client).thenReturn(Point(1, 2));
+    when(nativeMouseEvent.page).thenReturn(Point(3, 4));
+    when(nativeMouseEvent.screen).thenReturn(Point(5, 6));
 
     var syntheticMouseEvent = wrapNativeMouseEvent(nativeMouseEvent);
+
+    expect(syntheticMouseEvent, isA<SyntheticMouseEvent>());
 
     expect(syntheticMouseEvent.bubbles, isTrue);
     expect(syntheticMouseEvent.cancelable, isTrue);
@@ -122,22 +129,24 @@ main() {
     expect(syntheticMouseEvent.altKey, isFalse);
     expect(syntheticMouseEvent.button, 0);
     expect(syntheticMouseEvent.buttons, isNull);
-    expect(syntheticMouseEvent.clientX, isNull);
-    expect(syntheticMouseEvent.clientY, isNull);
+    expect(syntheticMouseEvent.clientX, 1);
+    expect(syntheticMouseEvent.clientY, 2);
     expect(syntheticMouseEvent.ctrlKey, isFalse);
     expect(syntheticMouseEvent.dataTransfer, isNull);
     expect(syntheticMouseEvent.metaKey, isFalse);
-    expect(syntheticMouseEvent.pageX, isNull);
-    expect(syntheticMouseEvent.pageY, isNull);
+    expect(syntheticMouseEvent.pageX, 3);
+    expect(syntheticMouseEvent.pageY, 4);
     expect(syntheticMouseEvent.relatedTarget, relatedTarget);
-    expect(syntheticMouseEvent.screenX, isNull);
-    expect(syntheticMouseEvent.screenY, isNull);
+    expect(syntheticMouseEvent.screenX, 5);
+    expect(syntheticMouseEvent.screenY, 6);
     expect(syntheticMouseEvent.shiftKey, isFalse);
   });
 
   test('fakeSyntheticFormEvent', () {
     var element = DivElement();
     var fakeEvent = fakeSyntheticFormEvent(element, 'change');
+
+    expect(fakeEvent, isA<SyntheticFormEvent>());
 
     expect(fakeEvent.bubbles, isFalse);
     expect(fakeEvent.cancelable, isFalse);
@@ -154,8 +163,8 @@ main() {
   });
 }
 
-
 // ignore: avoid_implementing_value_types
 class MockKeyboardEvent extends Mock implements KeyboardEvent {}
+
 // ignore: avoid_implementing_value_types
 class MockMouseEvent extends Mock implements MouseEvent {}
