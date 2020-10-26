@@ -52,4 +52,4 @@ dependency_overrides:
   react:
     git:
       url: https://github.com/cleandart/react-dart.git
-      ref: testing-react-17-rc
+      ref: react-17-no-event-wrappers
