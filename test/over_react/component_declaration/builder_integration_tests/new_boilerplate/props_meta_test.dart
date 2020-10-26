@@ -52,9 +52,7 @@ main() {
       });
     });
 
-    group('(field)', () {
-      final propsMeta = _$TestComponent().propsMeta;
-
+    void commonMetaTests(PropsMetaCollection propsMeta) {
       test('provides access to the expected props', () {
         expect(propsMeta.props.length, 3);
         expect(propsMeta.props.map((prop) => prop.key), containsAll(expectedKeys));
@@ -147,6 +145,21 @@ main() {
           }, tags: 'no-ddc');
         });
       });
+    }
+
+    group('(field)', () {
+      commonMetaTests(_$TestComponent().propsMeta);
+    });
+
+    group('(props instance)', () {
+      group('generates props meta utilities attached to the props instance', () {
+          test(r'that can be accessed directly via staticMeta', () {
+            expect(Test().staticMeta, isNotNull);
+            expect(Test().staticMeta, isA<PropsMetaCollection>());
+          });
+      });
+
+      commonMetaTests(Test().staticMeta);
     });
   });
 }
