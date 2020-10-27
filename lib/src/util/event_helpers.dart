@@ -19,8 +19,6 @@ import 'dart:html';
 import 'package:over_react/over_react.dart';
 import 'package:react/react_client/js_interop_helpers.dart';
 
-// FIXME move these to react-dart and re-export here so the implementations don't get out of sync, possibly deprecate them?
-
 /// Helper util that wraps a native [KeyboardEvent] in a [SyntheticKeyboardEvent].
 ///
 /// Used where a native [KeyboardEvent] is given and a [SyntheticKeyboardEvent] is needed.
