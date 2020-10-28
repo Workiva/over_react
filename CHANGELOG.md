@@ -1,8 +1,10 @@
 # OverReact Changelog
 
-## [3.10.2](https://github.com/Workiva/over_react/compare/3.10.1...3.10.2)
+## [3.11.0](https://github.com/Workiva/over_react/compare/3.10.1...3.11.0)
 
-- Bump `react` minimum version to 5.6.1 to pull in the [Chrome 86 DDC workaround](https://github.com/cleandart/react-dart/pull/280)
+- [#633] Add `staticMeta`, `addUnconsumedProps`, and `addUnconsumedDomProps` to the `UiProps` component base class to allow
+for deriving consumed props in function components. See the [Props Mixin Component Composition Doc](./doc/props_mixin_component_composition.md) for examples.
+- [#635] Bump `react` minimum version to 5.6.1 to pull in the [Chrome 86 DDC workaround](https://github.com/cleandart/react-dart/pull/280)
 
 ## [3.10.1](https://github.com/Workiva/over_react/compare/3.10.0...3.10.1)
 
