@@ -48,4 +48,4 @@ dependency_overrides:
   react:
     git:
       url: https://github.com/cleandart/react-dart.git
-      ref: testing-react-17-rc
+      ref: 6.0.0-wip
