@@ -464,6 +464,56 @@ abstract class UiProps extends MapBase
     modifier(this);
   }
 
+  /// Copies key-value pairs from the provided [props] map into this map,
+  /// excluding those with keys found in [consumedProps].
+  ///
+  /// [consumedProps] should be a `Iterable<PropsMeta>` instance.
+  /// This is the return type of [PropsMetaCollection]'s related APIs `forMixins`,
+  /// `allExceptForMixins`, and `all`.
+  ///
+  /// __Example:__
+  ///
+  /// ```dart
+  /// // within a functional component (wrapped in `uiFunction`)
+  /// // Consider props in FooProps "consumed"...
+  /// final consumedProps = props.staticMeta.forMixins({FooProps});
+  /// // ...and filter them out when forwarding props to Bar.
+  /// return (Bar()..addUnconsumedProps(props, consumedProps))();
+  /// ```
+  ///
+  /// To only add DOM props, use [addUnconsumedDomProps].
+  ///
+  /// Related: `UiComponent2`'s `addUnconsumedProps`
+  void addUnconsumedProps(Map props, Iterable<PropsMeta> consumedProps) {
+    final consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
+    forwardUnconsumedPropsV2(props, propsToUpdate: this, keySetsToOmit: consumedPropKeys);
+  }
+
+  /// Copies DOM only key-value pairs from the provided [props] map into this map,
+  /// excluding those with keys found in [consumedProps].
+  ///
+  /// [consumedProps] should be a `Iterable<PropsMeta>` instance.
+  /// This is the return type of [PropsMetaCollection]'s related APIs `forMixins`,
+  /// `allExceptForMixins`, and `all`.
+  ///
+  /// __Example:__
+  ///
+  /// ```dart
+  /// // within a functional component (wrapped in `uiFunction`)
+  /// // Consider props in FooProps "consumed"...
+  /// final consumedProps = [PropsMeta.forSimpleKey('className')];
+  /// // ...and filter them out when forwarding props to Bar.
+  /// return (Bar()..addUnconsumedDomProps(props, consumedProps))();
+  /// ```
+  ///
+  /// To add all unconsumed props, including DOM props, use [addUnconsumedProps].
+  ///
+  /// Related: `UiComponent2`'s `addUnconsumedDomProps`
+  void addUnconsumedDomProps(Map props, Iterable<PropsMeta> consumedProps) {
+    final consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
+    forwardUnconsumedPropsV2(props, propsToUpdate: this, keySetsToOmit: consumedPropKeys, onlyCopyDomProps: true);
+  }
+
   /// Whether [UiProps] is in a testing environment.
   ///
   /// Do not set this directly; Call [enableTestMode] or [disableTestMode] instead.

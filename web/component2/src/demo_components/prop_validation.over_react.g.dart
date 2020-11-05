@@ -58,6 +58,12 @@ abstract class _$$PropTypesTestProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because PropTypesTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of PropTypesTestProps, and check that $PropTypesTestProps is exported/imported properly.
+        PropTypesTestProps: $PropTypesTestProps.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].

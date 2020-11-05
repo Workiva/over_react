@@ -23,6 +23,8 @@ import './src/basic_library.dart';
 import './src/generic_inheritance_sub.dart';
 import './src/generic_inheritance_super.dart';
 import './src/function_component.dart' as function;
+import 'src/functional_consumed_props.dart';
+import 'src/new_class_consumed_props.dart';
 
 main() {
   react_dom.render(
@@ -59,6 +61,14 @@ main() {
           ' - ',
           componentConstructorsByName[name]().toString(),
         )).toList(),
+        (SomeParent()
+          ..aParentProp = 'parent'
+          ..aPropToBePassed = 'passed'
+        )(),
+          (SomeClassParent()
+            ..aParentProp = 'classParent'
+            ..aPropToBePassed = 'passed'
+          )()
       ), querySelector('#content')
   );
 }

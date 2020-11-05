@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
 library over_react.map_util;
 
 import 'dart:collection';
@@ -75,6 +76,9 @@ Map getPropsToForward(Map props, {
 ///
 /// Based upon configuration, the function will overlook [props] that are not
 /// meant to be passed on, such as non-DOM props or specified values.
+///
+/// DEPRECATED: Use [forwardUnconsumedPropsV2] instead.
+@Deprecated('This implementation does not filter DOM props correctly. Use forwardUnconsumedPropsV2 instead.')
 void forwardUnconsumedProps(Map props, {
   bool omitReactProps = true,
   bool onlyCopyDomProps = false,
@@ -117,6 +121,57 @@ void forwardUnconsumedProps(Map props, {
         if (shouldContinue) continue;
       }
     }
+
+    if (omitReactProps && const ['key', 'ref', 'children'].contains(key)) continue;
+
+    propsToUpdate[key] = props[key];
+  }
+}
+
+/// Adds unconsumed props to a passed in [Map] reference ([propsToUpdate]).
+///
+/// Based upon configuration, the function will overlook [props] that are not
+/// meant to be passed on, such as non-DOM props or specified values.
+///
+/// Identical to [forwardUnconsumedProps], with the exception of properly filtering
+/// DOM props.
+void forwardUnconsumedPropsV2(Map props, {
+  bool omitReactProps = true,
+  bool onlyCopyDomProps = false,
+  Iterable keysToOmit,
+  Iterable<Iterable> keySetsToOmit,
+  Map propsToUpdate,
+}) {
+    for (final key in props.keys) {
+      if (keysToOmit != null && keysToOmit.contains(key)) continue;
+
+      if (keySetsToOmit != null && keySetsToOmit.isNotEmpty) {
+        // If the passed in value of [keySetsToOmit] comes from
+        // [addUnconsumedProps], there should only be a single index.
+        // Consequently, this case exists to give the opportunity for the loop
+        // to continue without initiating another loop (which is less
+        // performant than `.first.contains()`).
+        // TODO: further optimize this by identifying the best looping / data structure
+        if (keySetsToOmit != null && keySetsToOmit.first.contains(key)) continue;
+
+        if (keySetsToOmit.length > 1) {
+          bool shouldContinue = false;
+          for (final keySet in keySetsToOmit) {
+            if (keySet.contains(key)) {
+              shouldContinue = true;
+              break;
+            }
+          }
+
+          if (shouldContinue) continue;
+        }
+      }
+
+      if (onlyCopyDomProps && !((key is String && (key.startsWith('aria-') ||
+          key.startsWith('data-'))) ||
+          _validDomProps.contains(key))) {
+        continue;
+      }
 
     if (omitReactProps && const ['key', 'ref', 'children'].contains(key)) continue;
 

@@ -134,6 +134,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
   String _generateConcretePropsOrStateImpl({
     String componentFactoryName,
     String propKeyNamespace,
+    List<Identifier> allPropsMixins,
   }) {
     if (isProps) {
       if (componentFactoryName == null || propKeyNamespace == null) {
@@ -222,6 +223,11 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
             '  /// The default namespace for the prop getters/setters generated for this class.')
         ..writeln('  @override')
         ..writeln('  String get propKeyNamespace => ${stringLiteral(propKeyNamespace)};');
+
+      if (allPropsMixins != null) {
+        generatePropsMeta(buffer, allPropsMixins,
+            classType: 'PropsMetaCollection', fieldName: r'staticMeta');
+      }
     }
 
     // End of class body
@@ -345,10 +351,13 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   @override
   final Version version;
 
+  final List<Identifier> allPropsMixins;
+
   _TypedMapImplGenerator.props(ClassComponentDeclaration declaration)
       : names = TypedMapNames(declaration.props.either.name.name),
         factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.props.either,
+        allPropsMixins = declaration.allPropsMixins,
         isProps = true,
         componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName,
         isFunctionComponentDeclaration = false,
@@ -358,6 +367,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
       : names = TypedMapNames(declaration.state.either.name.name),
         factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.state.either,
+        allPropsMixins = null,
         isProps = false,
         componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName,
         isFunctionComponentDeclaration = false,
@@ -369,6 +379,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         factoryNames =
             declaration.factories.map((factory) => FactoryNames(factory.name.name)).toList(),
         member = declaration.props.either,
+        allPropsMixins = declaration.allPropsMixins,
         isProps = true,
         componentFactoryName = 'null',
         isFunctionComponentDeclaration = declaration.factories.first.shouldGenerateConfig,
@@ -403,6 +414,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
       componentFactoryName: componentFactoryName,
       // This doesn't really apply to the new boilerplate
       propKeyNamespace: '',
+      allPropsMixins: allPropsMixins,
     ));
   }
 

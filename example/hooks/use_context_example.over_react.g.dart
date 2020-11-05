@@ -80,6 +80,12 @@ abstract class _$$UseContextExampleProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because UseContextExampleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseContextExampleProps, and check that $UseContextExampleProps is exported/imported properly.
+        UseContextExampleProps: $UseContextExampleProps.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].
@@ -154,6 +160,12 @@ abstract class _$$NewContextProviderProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because NewContextProviderProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of NewContextProviderProps, and check that $NewContextProviderProps is exported/imported properly.
+        NewContextProviderProps: $NewContextProviderProps.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].
