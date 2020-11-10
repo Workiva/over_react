@@ -52,4 +52,4 @@ dependency_overrides:
   react:
     git:
       url: https://github.com/cleandart/react-dart.git
-      ref: react-17-no-event-wrappers
+      ref: CPLAT-12470-remove-synthetic-event-wrappers
