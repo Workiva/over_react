@@ -60,6 +60,14 @@ abstract class _$$CounterProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because CounterPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterPropsMixin, and check that $CounterPropsMixin is exported/imported properly.
+        CounterPropsMixin: $CounterPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because ConnectPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ConnectPropsMixin, and check that $ConnectPropsMixin is exported/imported properly.
+        ConnectPropsMixin: $ConnectPropsMixin.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].

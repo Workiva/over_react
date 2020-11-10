@@ -14,6 +14,8 @@
 
 library over_react.component_declaration.builder_helpers;
 
+import '../../component_base.dart';
+import '../../over_react.dart';
 import './component_base.dart' as component_base;
 import './annotations.dart' as annotations;
 
@@ -121,6 +123,15 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   @toBeGenerated String get propKeyNamespace => throw UngeneratedError(member: #propKeyNamespace);
 
   @override @toBeGenerated Map get props => throw UngeneratedError(member: #props);
+
+  /// A collection of metadata for the prop fields in all prop mixins used by
+  /// this props instance's generated props class.
+  ///
+  /// Synonymous with [UiComponent2]'s `propsMeta`.
+  ///
+  /// This can be used to derive consumed props by usage in conjunction with [addUnconsumedProps]
+  /// and [addUnconsumedDomProps].
+  @toBeGenerated PropsMetaCollection get staticMeta => throw UngeneratedError(member: #meta);
 }
 
 /// A [dart.collection.MapView]-like class with strongly-typed getters/setters for React state.

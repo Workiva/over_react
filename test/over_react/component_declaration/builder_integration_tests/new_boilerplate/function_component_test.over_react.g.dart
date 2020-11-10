@@ -11,99 +11,171 @@ part of 'function_component_test.dart';
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
     ' it is transitioned to the new mixin-based boilerplate.')
-mixin $TestProps on TestProps {
-  static const PropsMeta meta = _$metaForTestProps;
+mixin $TestPropsMixin on TestPropsMixin {
+  static const PropsMeta meta = _$metaForTestPropsMixin;
   @override
   String get stringProp =>
-      props[_$key__stringProp__TestProps] ??
+      props[_$key__stringProp__TestPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set stringProp(String value) => props[_$key__stringProp__TestProps] = value;
+  set stringProp(String value) =>
+      props[_$key__stringProp__TestPropsMixin] = value;
   @override
   dynamic get dynamicProp =>
-      props[_$key__dynamicProp__TestProps] ??
+      props[_$key__dynamicProp__TestPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
   set dynamicProp(dynamic value) =>
-      props[_$key__dynamicProp__TestProps] = value;
+      props[_$key__dynamicProp__TestPropsMixin] = value;
   @override
   get untypedProp =>
-      props[_$key__untypedProp__TestProps] ??
+      props[_$key__untypedProp__TestPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set untypedProp(value) => props[_$key__untypedProp__TestProps] = value;
+  set untypedProp(value) => props[_$key__untypedProp__TestPropsMixin] = value;
   @override
   @Accessor(key: 'custom key!')
   dynamic get customKeyProp =>
-      props[_$key__customKeyProp__TestProps] ??
+      props[_$key__customKeyProp__TestPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
   @Accessor(key: 'custom key!')
   set customKeyProp(dynamic value) =>
-      props[_$key__customKeyProp__TestProps] = value;
+      props[_$key__customKeyProp__TestPropsMixin] = value;
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   dynamic get customNamespaceProp =>
-      props[_$key__customNamespaceProp__TestProps] ??
+      props[_$key__customNamespaceProp__TestPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceProp(dynamic value) =>
-      props[_$key__customNamespaceProp__TestProps] = value;
+      props[_$key__customNamespaceProp__TestPropsMixin] = value;
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   dynamic get customKeyAndNamespaceProp =>
-      props[_$key__customKeyAndNamespaceProp__TestProps] ??
+      props[_$key__customKeyAndNamespaceProp__TestPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceProp(dynamic value) =>
-      props[_$key__customKeyAndNamespaceProp__TestProps] = value;
+      props[_$key__customKeyAndNamespaceProp__TestPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__stringProp__TestProps =
-      PropDescriptor(_$key__stringProp__TestProps);
-  static const PropDescriptor _$prop__dynamicProp__TestProps =
-      PropDescriptor(_$key__dynamicProp__TestProps);
-  static const PropDescriptor _$prop__untypedProp__TestProps =
-      PropDescriptor(_$key__untypedProp__TestProps);
-  static const PropDescriptor _$prop__customKeyProp__TestProps =
-      PropDescriptor(_$key__customKeyProp__TestProps);
-  static const PropDescriptor _$prop__customNamespaceProp__TestProps =
-      PropDescriptor(_$key__customNamespaceProp__TestProps);
-  static const PropDescriptor _$prop__customKeyAndNamespaceProp__TestProps =
-      PropDescriptor(_$key__customKeyAndNamespaceProp__TestProps);
-  static const String _$key__stringProp__TestProps = 'TestProps.stringProp';
-  static const String _$key__dynamicProp__TestProps = 'TestProps.dynamicProp';
-  static const String _$key__untypedProp__TestProps = 'TestProps.untypedProp';
-  static const String _$key__customKeyProp__TestProps = 'TestProps.custom key!';
-  static const String _$key__customNamespaceProp__TestProps =
+  static const PropDescriptor _$prop__stringProp__TestPropsMixin =
+      PropDescriptor(_$key__stringProp__TestPropsMixin);
+  static const PropDescriptor _$prop__dynamicProp__TestPropsMixin =
+      PropDescriptor(_$key__dynamicProp__TestPropsMixin);
+  static const PropDescriptor _$prop__untypedProp__TestPropsMixin =
+      PropDescriptor(_$key__untypedProp__TestPropsMixin);
+  static const PropDescriptor _$prop__customKeyProp__TestPropsMixin =
+      PropDescriptor(_$key__customKeyProp__TestPropsMixin);
+  static const PropDescriptor _$prop__customNamespaceProp__TestPropsMixin =
+      PropDescriptor(_$key__customNamespaceProp__TestPropsMixin);
+  static const PropDescriptor
+      _$prop__customKeyAndNamespaceProp__TestPropsMixin =
+      PropDescriptor(_$key__customKeyAndNamespaceProp__TestPropsMixin);
+  static const String _$key__stringProp__TestPropsMixin =
+      'TestPropsMixin.stringProp';
+  static const String _$key__dynamicProp__TestPropsMixin =
+      'TestPropsMixin.dynamicProp';
+  static const String _$key__untypedProp__TestPropsMixin =
+      'TestPropsMixin.untypedProp';
+  static const String _$key__customKeyProp__TestPropsMixin =
+      'TestPropsMixin.custom key!';
+  static const String _$key__customNamespaceProp__TestPropsMixin =
       'custom namespace~~customNamespaceProp';
-  static const String _$key__customKeyAndNamespaceProp__TestProps =
+  static const String _$key__customKeyAndNamespaceProp__TestPropsMixin =
       'custom namespace~~custom key!';
 
   static const List<PropDescriptor> $props = [
-    _$prop__stringProp__TestProps,
-    _$prop__dynamicProp__TestProps,
-    _$prop__untypedProp__TestProps,
-    _$prop__customKeyProp__TestProps,
-    _$prop__customNamespaceProp__TestProps,
-    _$prop__customKeyAndNamespaceProp__TestProps
+    _$prop__stringProp__TestPropsMixin,
+    _$prop__dynamicProp__TestPropsMixin,
+    _$prop__untypedProp__TestPropsMixin,
+    _$prop__customKeyProp__TestPropsMixin,
+    _$prop__customNamespaceProp__TestPropsMixin,
+    _$prop__customKeyAndNamespaceProp__TestPropsMixin
   ];
   static const List<String> $propKeys = [
-    _$key__stringProp__TestProps,
-    _$key__dynamicProp__TestProps,
-    _$key__untypedProp__TestProps,
-    _$key__customKeyProp__TestProps,
-    _$key__customNamespaceProp__TestProps,
-    _$key__customKeyAndNamespaceProp__TestProps
+    _$key__stringProp__TestPropsMixin,
+    _$key__dynamicProp__TestPropsMixin,
+    _$key__untypedProp__TestPropsMixin,
+    _$key__customKeyProp__TestPropsMixin,
+    _$key__customNamespaceProp__TestPropsMixin,
+    _$key__customKeyAndNamespaceProp__TestPropsMixin
   ];
 }
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-const PropsMeta _$metaForTestProps = PropsMeta(
-  fields: $TestProps.$props,
-  keys: $TestProps.$propKeys,
+const PropsMeta _$metaForTestPropsMixin = PropsMeta(
+  fields: $TestPropsMixin.$props,
+  keys: $TestPropsMixin.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $ASecondPropsMixin on ASecondPropsMixin {
+  static const PropsMeta meta = _$metaForASecondPropsMixin;
+  @override
+  String get anotherProp =>
+      props[_$key__anotherProp__ASecondPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set anotherProp(String value) =>
+      props[_$key__anotherProp__ASecondPropsMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__anotherProp__ASecondPropsMixin =
+      PropDescriptor(_$key__anotherProp__ASecondPropsMixin);
+  static const String _$key__anotherProp__ASecondPropsMixin =
+      'ASecondPropsMixin.anotherProp';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__anotherProp__ASecondPropsMixin
+  ];
+  static const List<String> $propKeys = [_$key__anotherProp__ASecondPropsMixin];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForASecondPropsMixin = PropsMeta(
+  fields: $ASecondPropsMixin.$props,
+  keys: $ASecondPropsMixin.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $AThirdPropsMixin on AThirdPropsMixin {
+  static const PropsMeta meta = _$metaForAThirdPropsMixin;
+  @override
+  String get aPropsFromAThirdMixin =>
+      props[_$key__aPropsFromAThirdMixin__AThirdPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set aPropsFromAThirdMixin(String value) =>
+      props[_$key__aPropsFromAThirdMixin__AThirdPropsMixin] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__aPropsFromAThirdMixin__AThirdPropsMixin =
+      PropDescriptor(_$key__aPropsFromAThirdMixin__AThirdPropsMixin);
+  static const String _$key__aPropsFromAThirdMixin__AThirdPropsMixin =
+      'AThirdPropsMixin.aPropsFromAThirdMixin';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__aPropsFromAThirdMixin__AThirdPropsMixin
+  ];
+  static const List<String> $propKeys = [
+    _$key__aPropsFromAThirdMixin__AThirdPropsMixin
+  ];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForAThirdPropsMixin = PropsMeta(
+  fields: $AThirdPropsMixin.$props,
+  keys: $AThirdPropsMixin.$propKeys,
 );
 
 final UiFactoryConfig<_$$TestProps> $TestConfig = UiFactoryConfig(
@@ -134,9 +206,14 @@ final UiFactoryConfig<_$$TestProps> $_TestConfig = UiFactoryConfig(
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$TestProps extends UiProps
     with
-        TestProps,
-        $TestProps // If this generated mixin is undefined, it's likely because TestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestProps, and check that $TestProps is exported/imported properly.
-{
+        TestPropsMixin,
+        $TestPropsMixin, // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestPropsMixin, and check that $TestPropsMixin is exported/imported properly.
+        ASecondPropsMixin,
+        $ASecondPropsMixin, // If this generated mixin is undefined, it's likely because ASecondPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ASecondPropsMixin, and check that $ASecondPropsMixin is exported/imported properly.
+        AThirdPropsMixin,
+        $AThirdPropsMixin // If this generated mixin is undefined, it's likely because AThirdPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of AThirdPropsMixin, and check that $AThirdPropsMixin is exported/imported properly.
+    implements
+        TestProps {
   _$$TestProps._();
 
   factory _$$TestProps(Map backingMap) {
@@ -154,6 +231,16 @@ abstract class _$$TestProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestPropsMixin, and check that $TestPropsMixin is exported/imported properly.
+        TestPropsMixin: $TestPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because ASecondPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ASecondPropsMixin, and check that $ASecondPropsMixin is exported/imported properly.
+        ASecondPropsMixin: $ASecondPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because AThirdPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of AThirdPropsMixin, and check that $AThirdPropsMixin is exported/imported properly.
+        AThirdPropsMixin: $AThirdPropsMixin.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].

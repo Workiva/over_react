@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
-part of 'use_debug_value_example.dart';
+part of 'functional_consumed_props.dart';
 
 // **************************************************************************
 // OverReactBuilder (package:over_react/src/builder.dart)
@@ -11,78 +11,97 @@ part of 'use_debug_value_example.dart';
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
     ' it is transitioned to the new mixin-based boilerplate.')
-mixin $FriendListItemProps on FriendListItemProps {
-  static const PropsMeta meta = _$metaForFriendListItemProps;
+mixin $ParentOnlyPropsMixin on ParentOnlyPropsMixin {
+  static const PropsMeta meta = _$metaForParentOnlyPropsMixin;
   @override
-  Map<String, dynamic> get friend =>
-      props[_$key__friend__FriendListItemProps] ??
+  String get aParentProp =>
+      props[_$key__aParentProp__ParentOnlyPropsMixin] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
-  set friend(Map<String, dynamic> value) =>
-      props[_$key__friend__FriendListItemProps] = value;
+  set aParentProp(String value) =>
+      props[_$key__aParentProp__ParentOnlyPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__friend__FriendListItemProps =
-      PropDescriptor(_$key__friend__FriendListItemProps);
-  static const String _$key__friend__FriendListItemProps =
-      'FriendListItemProps.friend';
+  static const PropDescriptor _$prop__aParentProp__ParentOnlyPropsMixin =
+      PropDescriptor(_$key__aParentProp__ParentOnlyPropsMixin);
+  static const String _$key__aParentProp__ParentOnlyPropsMixin =
+      'ParentOnlyPropsMixin.aParentProp';
 
   static const List<PropDescriptor> $props = [
-    _$prop__friend__FriendListItemProps
+    _$prop__aParentProp__ParentOnlyPropsMixin
   ];
-  static const List<String> $propKeys = [_$key__friend__FriendListItemProps];
+  static const List<String> $propKeys = [
+    _$key__aParentProp__ParentOnlyPropsMixin
+  ];
 }
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-const PropsMeta _$metaForFriendListItemProps = PropsMeta(
-  fields: $FriendListItemProps.$props,
-  keys: $FriendListItemProps.$propKeys,
+const PropsMeta _$metaForParentOnlyPropsMixin = PropsMeta(
+  fields: $ParentOnlyPropsMixin.$props,
+  keys: $ParentOnlyPropsMixin.$propKeys,
 );
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
     ' it is transitioned to the new mixin-based boilerplate.')
-mixin $UseDebugValueExampleProps on UseDebugValueExampleProps {
-  static const PropsMeta meta = _$metaForUseDebugValueExampleProps;
+mixin $SharedPropsMixin on SharedPropsMixin {
+  static const PropsMeta meta = _$metaForSharedPropsMixin;
+  @override
+  String get aPropToBePassed =>
+      props[_$key__aPropToBePassed__SharedPropsMixin] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set aPropToBePassed(String value) =>
+      props[_$key__aPropToBePassed__SharedPropsMixin] = value;
   /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__aPropToBePassed__SharedPropsMixin =
+      PropDescriptor(_$key__aPropToBePassed__SharedPropsMixin);
+  static const String _$key__aPropToBePassed__SharedPropsMixin =
+      'SharedPropsMixin.aPropToBePassed';
 
-  static const List<PropDescriptor> $props = [];
-  static const List<String> $propKeys = [];
+  static const List<PropDescriptor> $props = [
+    _$prop__aPropToBePassed__SharedPropsMixin
+  ];
+  static const List<String> $propKeys = [
+    _$key__aPropToBePassed__SharedPropsMixin
+  ];
 }
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-const PropsMeta _$metaForUseDebugValueExampleProps = PropsMeta(
-  fields: $UseDebugValueExampleProps.$props,
-  keys: $UseDebugValueExampleProps.$propKeys,
+const PropsMeta _$metaForSharedPropsMixin = PropsMeta(
+  fields: $SharedPropsMixin.$props,
+  keys: $SharedPropsMixin.$propKeys,
 );
 
-final UiFactoryConfig<_$$FriendListItemProps> $FriendListItemConfig =
-    UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$FriendListItemProps(map),
-          jsMap: (map) => _$$FriendListItemProps$JsMap(map),
-        ),
-        displayName: 'FriendListItem');
+final UiFactoryConfig<_$$SomeParentProps> $SomeParentConfig = UiFactoryConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$SomeParentProps(map),
+      jsMap: (map) => _$$SomeParentProps$JsMap(map),
+    ),
+    displayName: 'SomeParent');
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$FriendListItemProps extends UiProps
+abstract class _$$SomeParentProps extends UiProps
     with
-        FriendListItemProps,
-        $FriendListItemProps // If this generated mixin is undefined, it's likely because FriendListItemProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FriendListItemProps, and check that $FriendListItemProps is exported/imported properly.
-{
-  _$$FriendListItemProps._();
+        ParentOnlyPropsMixin,
+        $ParentOnlyPropsMixin, // If this generated mixin is undefined, it's likely because ParentOnlyPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ParentOnlyPropsMixin, and check that $ParentOnlyPropsMixin is exported/imported properly.
+        SharedPropsMixin,
+        $SharedPropsMixin // If this generated mixin is undefined, it's likely because SharedPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SharedPropsMixin, and check that $SharedPropsMixin is exported/imported properly.
+    implements
+        SomeParentProps {
+  _$$SomeParentProps._();
 
-  factory _$$FriendListItemProps(Map backingMap) {
+  factory _$$SomeParentProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FriendListItemProps$JsMap(backingMap);
+      return _$$SomeParentProps$JsMap(backingMap);
     } else {
-      return _$$FriendListItemProps$PlainMap(backingMap);
+      return _$$SomeParentProps$PlainMap(backingMap);
     }
   }
 
@@ -96,18 +115,20 @@ abstract class _$$FriendListItemProps extends UiProps
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because FriendListItemProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of FriendListItemProps, and check that $FriendListItemProps is exported/imported properly.
-        FriendListItemProps: $FriendListItemProps.meta,
+        // If this generated mixin is undefined, it's likely because ParentOnlyPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ParentOnlyPropsMixin, and check that $ParentOnlyPropsMixin is exported/imported properly.
+        ParentOnlyPropsMixin: $ParentOnlyPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because SharedPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SharedPropsMixin, and check that $SharedPropsMixin is exported/imported properly.
+        SharedPropsMixin: $SharedPropsMixin.meta,
       });
 }
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$FriendListItemProps$PlainMap extends _$$FriendListItemProps {
+class _$$SomeParentProps$PlainMap extends _$$SomeParentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FriendListItemProps$PlainMap(Map backingMap)
+  _$$SomeParentProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -123,10 +144,10 @@ class _$$FriendListItemProps$PlainMap extends _$$FriendListItemProps {
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$FriendListItemProps$JsMap extends _$$FriendListItemProps {
+class _$$SomeParentProps$JsMap extends _$$SomeParentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FriendListItemProps$JsMap(JsBackedMap backingMap)
+  _$$SomeParentProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -138,31 +159,31 @@ class _$$FriendListItemProps$JsMap extends _$$FriendListItemProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$UseDebugValueExampleProps>
-    $UseDebugValueExampleConfig = UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$UseDebugValueExampleProps(map),
-          jsMap: (map) => _$$UseDebugValueExampleProps$JsMap(map),
-        ),
-        displayName: 'UseDebugValueExample');
+final UiFactoryConfig<_$$SomeChildProps> $SomeChildConfig = UiFactoryConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$SomeChildProps(map),
+      jsMap: (map) => _$$SomeChildProps$JsMap(map),
+    ),
+    displayName: 'SomeChild');
 
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$UseDebugValueExampleProps extends UiProps
+abstract class _$$SomeChildProps extends UiProps
     with
-        UseDebugValueExampleProps,
-        $UseDebugValueExampleProps // If this generated mixin is undefined, it's likely because UseDebugValueExampleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseDebugValueExampleProps, and check that $UseDebugValueExampleProps is exported/imported properly.
-{
-  _$$UseDebugValueExampleProps._();
+        SharedPropsMixin,
+        $SharedPropsMixin // If this generated mixin is undefined, it's likely because SharedPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SharedPropsMixin, and check that $SharedPropsMixin is exported/imported properly.
+    implements
+        SomeChildProps {
+  _$$SomeChildProps._();
 
-  factory _$$UseDebugValueExampleProps(Map backingMap) {
+  factory _$$SomeChildProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$UseDebugValueExampleProps$JsMap(backingMap);
+      return _$$SomeChildProps$JsMap(backingMap);
     } else {
-      return _$$UseDebugValueExampleProps$PlainMap(backingMap);
+      return _$$SomeChildProps$PlainMap(backingMap);
     }
   }
 
@@ -176,19 +197,18 @@ abstract class _$$UseDebugValueExampleProps extends UiProps
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because UseDebugValueExampleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of UseDebugValueExampleProps, and check that $UseDebugValueExampleProps is exported/imported properly.
-        UseDebugValueExampleProps: $UseDebugValueExampleProps.meta,
+        // If this generated mixin is undefined, it's likely because SharedPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SharedPropsMixin, and check that $SharedPropsMixin is exported/imported properly.
+        SharedPropsMixin: $SharedPropsMixin.meta,
       });
 }
 
 // Concrete props implementation that can be backed by any [Map].
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$UseDebugValueExampleProps$PlainMap
-    extends _$$UseDebugValueExampleProps {
+class _$$SomeChildProps$PlainMap extends _$$SomeChildProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UseDebugValueExampleProps$PlainMap(Map backingMap)
+  _$$SomeChildProps$PlainMap(Map backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -204,10 +224,10 @@ class _$$UseDebugValueExampleProps$PlainMap
 // allowing dart2js to compile more optimal code for key-value pair reads/writes.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-class _$$UseDebugValueExampleProps$JsMap extends _$$UseDebugValueExampleProps {
+class _$$SomeChildProps$JsMap extends _$$SomeChildProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UseDebugValueExampleProps$JsMap(JsBackedMap backingMap)
+  _$$SomeChildProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
