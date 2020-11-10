@@ -1,5 +1,9 @@
 # OverReact Changelog
 
+## [3.12.0](https://github.com/Workiva/over_react/compare/3.11.0...3.12.0)
+- [#641] Expose new event helper APIs. In react-dart, using the `SyntheticEvent` class constructors were deprecated. 
+New event helpers were added as a replacement, and to make their usage convenient, these helpers have been exposed directly via OverReact. 
+
 ## [3.11.0](https://github.com/Workiva/over_react/compare/3.10.1...3.11.0)
 
 - [#633] Add `staticMeta`, `addUnconsumedProps`, and `addUnconsumedDomProps` to the `UiProps` component base class to allow
