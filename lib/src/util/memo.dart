@@ -32,11 +32,11 @@ import 'package:over_react/component_base.dart';
 /// ```dart
 /// import 'package:over_react/over_react.dart';
 ///
-/// UiFactory<UiProps> MemoExample = memo<UiProps>(uiFunction(
+/// UiFactory<UiProps> MemoExample = memo(uiFunction(
 ///   (props) {
 ///     // render using props
 ///   },
-///   UiFactoryConfig(displayName: 'MemoExample'),
+///   $MemoExampleConfig, // ignore: undefined_identifier
 /// ));
 /// ```
 ///
@@ -50,7 +50,7 @@ import 'package:over_react/component_base.dart';
 /// ```dart
 /// import 'package:over_react/over_react.dart';
 ///
-/// UiFactory<MemoWithComparisonProps> MemoWithComparison = memo<MemoWithComparisonProps>(uiFunction(
+/// UiFactory<MemoWithComparisonProps> MemoWithComparison = memo(uiFunction(
 ///   (props) {
 ///     // render using props
 ///   },
