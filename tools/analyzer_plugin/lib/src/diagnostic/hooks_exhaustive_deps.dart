@@ -95,7 +95,7 @@ V Function(K) memoizeWithWeakMap<K, V>(V Function(K) fn, WeakMap<K, V> map) {
 
 // Rough port of https://eslint.org/docs/developer-guide/scope-manager-interface
 // https://github.com/eslint/eslint-scope
-// Could use Dart  VariableResolverVisitor or ScopedVisitor ?
+// Could use Dart  VariableResolverVisitor or ScopedVisitor or even ScopedNameFinder in cases ?
 class ScopeManager {
   List<Scope> get scopes => null;
 
@@ -1320,14 +1320,14 @@ create(context, {RegExp additionalHooks}) {
   }
 
   void visitCallExpression(InvocationExpression node) {
-    final callbackIndex = getReactiveHookCallbackIndex(node.callee, options);
+    final callbackIndex = getReactiveHookCallbackIndex(node.function, additionalHooks: additionalHooks);
     if (callbackIndex == -1) {
       // Not a React Hook call that needs deps.
       return;
     }
     final callback = node.argumentList.arguments[callbackIndex];
     final reactiveHook = node.function;
-    final reactiveHookName = getNodeWithoutReactNamespace(reactiveHook).name as String;
+    final reactiveHookName = getNodeWithoutReactNamespace(reactiveHook).toSource();
     final declaredDependenciesNode = node.argumentList.arguments[callbackIndex + 1];
     final isEffect = RegExp(r'Effect($|[^a-z])').hasMatch(reactiveHookName);
 
@@ -1362,7 +1362,7 @@ create(context, {RegExp additionalHooks}) {
         );
         return; // Handled
     } else if (callback is Identifier) {
-      switch(null) {
+      switch (null) {
         case null:
         if (declaredDependenciesNode == null) {
           // No deps, no problems.
@@ -1381,54 +1381,28 @@ create(context, {RegExp additionalHooks}) {
           return; // Handled
         }
         // We'll do our best effort to find it, complain otherwise.
-        final variable = context.getScope().set.get(callback.name);
-        if (variable == null || variable.defs == null) {
+        final declaration = callback.staticElement?.declaration;
+        if (declaration == null) {
           // If it's not in scope, we don't care.
           return; // Handled
         }
         // The function passed as a callback is not written inline.
         // But it's defined somewhere in the render scope.
         // We'll do our best effort to find and check it, complain otherwise.
-        final def = variable.defs[0];
-        if (def == null || def.node == null) {
-          break; // Unhandled
-        }
-        if (def.type != 'Variable' && def.type != 'FunctionName') {
-          // Parameter or an unusual pattern. Bail out.
-          break; // Unhandled
-        }
-        switch (def.node.type) {
-          case 'FunctionDeclaration':
-            // useEffect(() => { ... }, []);
-            visitFunctionWithDependencies(
-              def.node,
-              declaredDependenciesNode,
-              reactiveHook,
-              reactiveHookName,
-              isEffect,
-            );
-            return; // Handled
-          case 'VariableDeclarator':
-            final init = def.node.init;
-            if (!init) {
-              break; // Unhandled
-            }
-            switch (init.type) {
-              // const effectBody = () => {...};
-              // useEffect(effectBody, []);
-              case 'ArrowFunctionExpression':
-              case 'FunctionExpression':
-                // We can inspect this function as if it were inline.
-                visitFunctionWithDependencies(
-                  init,
-                  declaredDependenciesNode,
-                  reactiveHook,
-                  reactiveHookName,
-                  isEffect,
-                );
-                return; // Handled
-            }
-            break; // Unhandled
+        final function = lookUpFunction(declaration, callback.root);
+        if (function != null) {
+          // effectBody() {...};
+          // // or
+          // final effectBody = () {...};
+          // useEffect(() => { ... }, []);
+          visitFunctionWithDependencies(
+            node: function.body,
+            declaredDependenciesNode: declaredDependenciesNode,
+            reactiveHook: reactiveHook,
+            reactiveHookName: reactiveHookName,
+            isEffect: isEffect,
+          );
+          return; // Handled
         }
         break; // Unhandled
       }
@@ -1498,16 +1472,16 @@ class _Recommendations {
 
 class _DepTree {
   /// True if used in code
-  final bool isUsed;
+  bool isUsed;
 
   /// True if specified in deps
-  final bool isSatisfiedRecursively;
+  bool isSatisfiedRecursively;
 
   /// True if something deeper is used by code
-  final bool isSubtreeUsed;
+  bool isSubtreeUsed;
 
   // Nodes for properties
-  final Map children;
+  final Map<String, _DepTree> children;
 
   _DepTree({this.isUsed, this.isSatisfiedRecursively, this.isSubtreeUsed, this.children});
 }
@@ -1515,6 +1489,8 @@ class _DepTree {
 class _DeclaredDependency {
   final String key;
   final AstNode node;
+
+  _DeclaredDependency(this.key, this.node);
 }
 
 // The meat of the logic.
@@ -1544,10 +1520,36 @@ _Recommendations collectRecommendations({
   }
   final depTree = createDepTree();
 
+  // Tree manipulation helpers.
+  _DepTree getOrCreateNodeByPath(_DepTree rootNode, String path) {
+    final keys = path.split('.');
+    var node = rootNode;
+    for (final key in keys) {
+      var child = node.children[key];
+      if (child == null) {
+        child = createDepTree();
+        node.children[key] = child;
+      }
+      node = child;
+    }
+    return node;
+  }
+  void markAllParentsByPath(_DepTree rootNode, String path, void Function(_DepTree) fn) {
+    final keys = path.split('.');
+    var node = rootNode;
+    for (final key in keys) {
+      final child = node.children[key];
+      if (child == null) {
+        return;
+      }
+      fn(child);
+      node = child;
+    }
+  }
 
   // Mark all required nodes first.
   // Imagine exclamation marks next to each used deep property.
-  dependencies.forEach((_, key)  {
+  dependencies.forEach((key, _)  {
     final node = getOrCreateNodeByPath(depTree, key);
     node.isUsed = true;
     markAllParentsByPath(depTree, key, (parent) {
@@ -1558,7 +1560,7 @@ _Recommendations collectRecommendations({
   // Mark all satisfied nodes.
   // Imagine checkmarks next to each declared dependency.
   declaredDependencies.forEach((_entry) {
-    final key = _entry;
+    final key = _entry.key;
     final node = getOrCreateNodeByPath(depTree, key);
     node.isSatisfiedRecursively = true;
   });
@@ -1567,38 +1569,11 @@ _Recommendations collectRecommendations({
     node.isSatisfiedRecursively = true;
   });
 
-  // Tree manipulation helpers.
-  getOrCreateNodeByPath(rootNode, path) {
-    final keys = path.split('.');
-    var node = rootNode;
-    for (final key in keys) {
-      var child = node.children.get(key);
-      if (child == null) {
-        child = createDepTree();
-        node.children.set(key, child);
-      }
-      node = child;
-    }
-    return node;
-  }
-  markAllParentsByPath(rootNode, path, fn) {
-    final keys = path.split('.');
-    var node = rootNode;
-    for (final key in keys) {
-      final child = node.children.get(key);
-      if (child == null) {
-        return;
-      }
-      fn(child);
-      node = child;
-    }
-  }
-
   // Now we can learn which dependencies are missing or necessary.
   final missingDependencies = <String>{};
   final satisfyingDependencies = <String>{};
-  scanTreeRecursively(_DepTree node, missingPaths, satisfyingPaths, keyToPath) {
-    node.children.forEach((child, key) {
+  void scanTreeRecursively(_DepTree node, Set<String> missingPaths, Set<String> satisfyingPaths, String Function(String) keyToPath) {
+    node.children.forEach((key, child) {
       final path = keyToPath(key);
       if (child.isSatisfiedRecursively) {
         if (child.isSubtreeUsed) {
@@ -1642,7 +1617,7 @@ _Recommendations collectRecommendations({
     if (satisfyingDependencies.contains(key)) {
       if (!suggestedDependencies.contains(key)) {
         // Good one.
-        suggestedDependencies.push(key);
+        suggestedDependencies.add(key);
       } else {
         // Duplicate.
         duplicateDependencies.add(key);
@@ -1658,7 +1633,7 @@ _Recommendations collectRecommendations({
         // Consider them legit.
         // The exception is ref.current which is always wrong.
         if (!suggestedDependencies.contains(key)) {
-          suggestedDependencies.push(key);
+          suggestedDependencies.add(key);
         }
       } else {
         // It's definitely not needed.
@@ -1930,12 +1905,12 @@ AstNode getNodeWithoutReactNamespace(node) {
 // 0 for useEffect/useMemo/useCallback(fn).
 // 1 for useImperativeHandle(ref, fn).
 // For additionally configured Hooks, assume that they're like useEffect (0).
-int getReactiveHookCallbackIndex(calleeNode, options) {
+int getReactiveHookCallbackIndex(Expression calleeNode, {RegExp additionalHooks}) {
   final node = getNodeWithoutReactNamespace(calleeNode);
-  if (node.type != 'Identifier') {
+  if (node is! Identifier) {
     return -1;
   }
-  switch (node.name) {
+  switch ((node as Identifier).name) {
     case 'useEffect':
     case 'useLayoutEffect':
     case 'useCallback':
@@ -1946,20 +1921,20 @@ int getReactiveHookCallbackIndex(calleeNode, options) {
       // useImperativeHandle(ref, fn)
       return 1;
     default:
-      if (node == calleeNode && options != null && options.additionalHooks != null) {
+      if (node == calleeNode && additionalHooks != null) {
         // Allow the user to provide a regular expression which enables the lint to
         // target custom reactive hooks.
-        var name;
+        String name;
         try {
           name = analyzePropertyChain(node, null);
-        } catch (error) {
+        } on Object catch (error) {
           if (error.toString().contains('Unsupported node type')) {
             return 0;
           } else {
             rethrow;
           }
         }
-        return options.additionalHooks.test(name) ? 0 : -1;
+        return additionalHooks.hasMatch(name) ? 0 : -1;
       } else {
         return -1;
       }
