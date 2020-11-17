@@ -181,17 +181,30 @@ mixin $FunctionCustomPropsProps on FunctionCustomPropsProps {
   @override
   set testProp(int value) =>
       props[_$key__testProp__FunctionCustomPropsProps] = value;
+  @override
+  Function() get testFuncProp =>
+      props[_$key__testFuncProp__FunctionCustomPropsProps] ??
+      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  @override
+  set testFuncProp(Function() value) =>
+      props[_$key__testFuncProp__FunctionCustomPropsProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__testProp__FunctionCustomPropsProps =
       PropDescriptor(_$key__testProp__FunctionCustomPropsProps);
+  static const PropDescriptor _$prop__testFuncProp__FunctionCustomPropsProps =
+      PropDescriptor(_$key__testFuncProp__FunctionCustomPropsProps);
   static const String _$key__testProp__FunctionCustomPropsProps =
       'FunctionCustomPropsProps.testProp';
+  static const String _$key__testFuncProp__FunctionCustomPropsProps =
+      'FunctionCustomPropsProps.testFuncProp';
 
   static const List<PropDescriptor> $props = [
-    _$prop__testProp__FunctionCustomPropsProps
+    _$prop__testProp__FunctionCustomPropsProps,
+    _$prop__testFuncProp__FunctionCustomPropsProps
   ];
   static const List<String> $propKeys = [
-    _$key__testProp__FunctionCustomPropsProps
+    _$key__testProp__FunctionCustomPropsProps,
+    _$key__testFuncProp__FunctionCustomPropsProps
   ];
 }
 
