@@ -42,13 +42,15 @@ export 'package:react/react.dart'
         createSyntheticAnimationEvent,
         createSyntheticUIEvent,
         createSyntheticWheelEvent,
-        SyntheticEventTypeHelpers;
+        SyntheticEventTypeHelpers,
+        DataTransferHelper;
 
 export 'package:react/react_client/js_backed_map.dart' show JsBackedMap;
 
 export 'package:react/react_client.dart'
     // ignore: deprecated_member_use
     show
+        // ignore: deprecated_member_use
         setClientConfiguration,
         chainRefs,
         ReactElement,
