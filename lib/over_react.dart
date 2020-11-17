@@ -29,7 +29,21 @@ export 'package:react/react.dart'
         SyntheticTransitionEvent,
         SyntheticUIEvent,
         SyntheticWheelEvent,
-        TypedSnapshot;
+        TypedSnapshot,
+        createSyntheticEvent,
+        createSyntheticClipboardEvent,
+        createSyntheticKeyboardEvent,
+        createSyntheticCompositionEvent,
+        createSyntheticFocusEvent,
+        createSyntheticFormEvent,
+        createSyntheticMouseEvent,
+        createSyntheticPointerEvent,
+        createSyntheticTouchEvent,
+        createSyntheticTransitionEvent,
+        createSyntheticAnimationEvent,
+        createSyntheticUIEvent,
+        createSyntheticWheelEvent,
+        SyntheticEventTypeHelpers;
 
 export 'package:react/react_client/js_backed_map.dart' show JsBackedMap;
 
