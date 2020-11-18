@@ -43,8 +43,7 @@ export 'package:react/react.dart'
         createSyntheticUIEvent,
         createSyntheticWheelEvent,
         SyntheticEventTypeHelpers,
-        DataTransferHelper,
-        SyntheticEventHelper;
+        DataTransferHelper;
 
 export 'package:react/react_client/js_backed_map.dart' show JsBackedMap;
 
