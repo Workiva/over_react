@@ -26,7 +26,6 @@ import 'over_react/util/class_names_test.dart' as class_names_test;
 import 'over_react/util/constants_base_test.dart' as constants_base_test;
 import 'over_react/util/css_value_util_test.dart' as css_value_util_test;
 import 'over_react/util/dom_util_test.dart' as dom_util_test;
-import 'over_react/util/event_helpers_test.dart' as event_helpers_test;
 import 'over_react/util/equality_test.dart' as equality_test;
 import 'over_react/util/guid_util_test.dart' as guid_util_test;
 import 'over_react/util/handler_chain_util_test.dart' as handler_chain_util_test;
@@ -49,7 +48,6 @@ void main() {
   constants_base_test.main();
   css_value_util_test.main();
   dom_util_test.main();
-  event_helpers_test.main();
   equality_test.main();
   guid_util_test.main();
   handler_chain_util_test.main();

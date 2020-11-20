@@ -15,4 +15,4 @@
 library over_react.event_helpers;
 
 export 'package:react/react.dart'
-    show wrapNativeKeyboardEvent, wrapNativeMouseEvent, fakeSyntheticFormEvent;
+    show wrapNativeKeyboardEvent, wrapNativeMouseEvent, fakeSyntheticFormEvent, SyntheticEventTypeHelpers, DataTransferHelper;
