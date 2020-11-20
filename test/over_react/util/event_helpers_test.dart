@@ -61,7 +61,7 @@ main() {
     expect(() => syntheticKeyboardEvent.stopPropagation(), returnsNormally);
     expect(calls, contains('stopPropagation'));
     expect(syntheticKeyboardEvent.eventPhase, 0);
-    expect(syntheticKeyboardEvent.isTrusted, isNull);
+    expect(syntheticKeyboardEvent.isTrusted, isFalse);
     expect(syntheticKeyboardEvent.nativeEvent, nativeKeyboardEvent);
     expect(syntheticKeyboardEvent.target, target);
     expect(syntheticKeyboardEvent.timeStamp, 0);
@@ -114,7 +114,7 @@ main() {
     expect(() => syntheticMouseEvent.stopPropagation(), returnsNormally);
     expect(calls, contains('stopPropagation'));
     expect(syntheticMouseEvent.eventPhase, 0);
-    expect(syntheticMouseEvent.isTrusted, isNull);
+    expect(syntheticMouseEvent.isTrusted, isFalse);
     expect(syntheticMouseEvent.nativeEvent, nativeMouseEvent);
     expect(syntheticMouseEvent.target, target);
     expect(syntheticMouseEvent.timeStamp, 0);

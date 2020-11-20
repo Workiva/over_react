@@ -22,64 +22,53 @@ import 'package:over_react/over_react.dart';
 ///
 /// Used where a native [KeyboardEvent] is given and a [SyntheticKeyboardEvent] is needed.
 SyntheticKeyboardEvent wrapNativeKeyboardEvent(KeyboardEvent nativeKeyboardEvent) {
-  return SyntheticKeyboardEvent(
-    nativeKeyboardEvent.bubbles,
-    nativeKeyboardEvent.cancelable,
-    nativeKeyboardEvent.currentTarget,
-    nativeKeyboardEvent.defaultPrevented,
-    nativeKeyboardEvent.preventDefault,
-    nativeKeyboardEvent.stopPropagation,
-    nativeKeyboardEvent.eventPhase,
-    null, // isTrusted
-    nativeKeyboardEvent,
-    nativeKeyboardEvent.target,
-    nativeKeyboardEvent.timeStamp,
-    nativeKeyboardEvent.type,
-    nativeKeyboardEvent.altKey,
-    nativeKeyboardEvent.charCode == null ? null : String.fromCharCode(nativeKeyboardEvent.charCode),
-    nativeKeyboardEvent.charCode,
-    nativeKeyboardEvent.ctrlKey,
-    null, // locale
-    nativeKeyboardEvent.location,
-    null, // key
-    nativeKeyboardEvent.keyCode,
-    nativeKeyboardEvent.metaKey,
-    nativeKeyboardEvent.repeat,
-    nativeKeyboardEvent.shiftKey);
+  return createSyntheticKeyboardEvent(
+    bubbles: nativeKeyboardEvent.bubbles,
+    cancelable: nativeKeyboardEvent.cancelable,
+    currentTarget: nativeKeyboardEvent.currentTarget,
+    defaultPrevented: nativeKeyboardEvent.defaultPrevented,
+    preventDefault: nativeKeyboardEvent.preventDefault,
+    stopPropagation: nativeKeyboardEvent.stopPropagation,
+    eventPhase: nativeKeyboardEvent.eventPhase,
+    nativeEvent: nativeKeyboardEvent,
+    target: nativeKeyboardEvent.target,
+    timeStamp: nativeKeyboardEvent.timeStamp,
+    type: nativeKeyboardEvent.type,
+    altKey: nativeKeyboardEvent.altKey,
+    char: nativeKeyboardEvent.charCode == null ? null : String.fromCharCode(nativeKeyboardEvent.charCode),
+    charCode: nativeKeyboardEvent.charCode,
+    ctrlKey: nativeKeyboardEvent.ctrlKey,
+    location: nativeKeyboardEvent.location,
+    keyCode: nativeKeyboardEvent.keyCode,
+    metaKey: nativeKeyboardEvent.metaKey,
+    repeat: nativeKeyboardEvent.repeat,
+    shiftKey: nativeKeyboardEvent.shiftKey,
+  );
 }
 
 /// Helper util that wraps a native [MouseEvent] in a [SyntheticMouseEvent].
 ///
 /// Used where a native [MouseEvent] is given and a [SyntheticMouseEvent] is needed.
 SyntheticMouseEvent wrapNativeMouseEvent(MouseEvent nativeMouseEvent) {
-  return SyntheticMouseEvent(
-    nativeMouseEvent.bubbles,
-    nativeMouseEvent.cancelable,
-    nativeMouseEvent.currentTarget,
-    nativeMouseEvent.defaultPrevented,
-    nativeMouseEvent.preventDefault,
-    nativeMouseEvent.stopPropagation,
-    nativeMouseEvent.eventPhase,
-    null, // isTrusted
-    nativeMouseEvent,
-    nativeMouseEvent.target,
-    nativeMouseEvent.timeStamp,
-    nativeMouseEvent.type,
-    nativeMouseEvent.altKey,
-    nativeMouseEvent.button,
-    null, // buttons
-    null, // clientX
-    null, // clientY
-
-    nativeMouseEvent.ctrlKey,
-    null, // dataTransfer
-    nativeMouseEvent.metaKey,
-    null, // pageX
-    null, // pageY
-    nativeMouseEvent.relatedTarget,
-    null, // screenX
-    null, // screenY
-    nativeMouseEvent.shiftKey);
+  return createSyntheticMouseEvent(
+    bubbles: nativeMouseEvent.bubbles,
+    cancelable: nativeMouseEvent.cancelable,
+    currentTarget: nativeMouseEvent.currentTarget,
+    defaultPrevented: nativeMouseEvent.defaultPrevented,
+    preventDefault: nativeMouseEvent.preventDefault,
+    stopPropagation: nativeMouseEvent.stopPropagation,
+    eventPhase: nativeMouseEvent.eventPhase,
+    nativeEvent: nativeMouseEvent,
+    target: nativeMouseEvent.target,
+    timeStamp: nativeMouseEvent.timeStamp,
+    type: nativeMouseEvent.type,
+    altKey: nativeMouseEvent.altKey,
+    button: nativeMouseEvent.button,
+    ctrlKey: nativeMouseEvent.ctrlKey,
+    metaKey: nativeMouseEvent.metaKey,
+    relatedTarget: nativeMouseEvent.relatedTarget,
+    shiftKey: nativeMouseEvent.shiftKey,
+  );
 }
 
 /// If the consumer specifies a callback like `onChange` on one of our custom form components that are not *actually*
@@ -88,18 +77,12 @@ SyntheticMouseEvent wrapNativeMouseEvent(MouseEvent nativeMouseEvent) {
 /// This helper method generates a "fake" [SyntheticFormEvent], with nothing but the `target` set to [element],
 /// `type` set to [type] and `timeStamp` set to the current time. All other arguments are `noop`, `false` or `null`.
 SyntheticFormEvent fakeSyntheticFormEvent(Element element, String type) {
-  return SyntheticFormEvent(
-    false,
-    false,
-    element,
-    false,
-    () {},
-    () {},
-    Event.AT_TARGET,
-    false,
-    null,
-    element,
-    DateTime.now().millisecondsSinceEpoch,
-    type
+  return createSyntheticFormEvent(
+    cancelable: false,
+    currentTarget: element,
+    eventPhase: Event.AT_TARGET,
+    target: element,
+    timeStamp: DateTime.now().millisecondsSinceEpoch,
+    type: type,
   );
 }
