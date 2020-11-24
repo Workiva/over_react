@@ -1,5 +1,8 @@
 # OverReact Changelog
 
+## [3.12.1](https://github.com/Workiva/over_react/compare/3.12.0...3.12.1)
+- [#643] Use `propsOrStateMapsEqual` in `memo` so that function tearoffs don't cause unnecessary rerenders. 
+
 ## [3.12.0](https://github.com/Workiva/over_react/compare/3.11.0...3.12.0)
 - [#641] Expose new event helper APIs. In react-dart, using the `SyntheticEvent` class constructors were deprecated. 
 New event helpers were added as a replacement, and to make their usage convenient, these helpers have been exposed directly via OverReact. 

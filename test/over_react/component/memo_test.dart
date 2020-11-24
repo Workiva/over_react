@@ -25,6 +25,7 @@ part 'memo_test.over_react.g.dart';
 int renderCount = 0;
 mixin FunctionCustomPropsProps on UiProps {
   int testProp;
+  Function() testFuncProp;
 }
 
 UiFactory<FunctionCustomPropsProps> FunctionCustomProps = uiFunction(
@@ -82,6 +83,24 @@ main() {
       testJacket.rerender((FunctionCustomPropsMemo()..testProp = 1)());
 
       expect(renderCount, equals(1));
+    });
+
+    // Asserts that propsOrStateMapsEqual is being used for the equality check
+    // when the consumer does not provide a custom `areEqual` parameter.
+    test('memoizes properly when a tear-off is passed as a function prop value', () {
+      renderCount = 0;
+      UiFactory<FunctionCustomPropsProps> FunctionCustomPropsMemo = memo(FunctionCustomProps);
+      void handleTestFunc() {}
+      void handleTestFunc2() {}
+      final testJacket = mount((FunctionCustomPropsMemo()..testFuncProp = handleTestFunc)());
+      testJacket.rerender((FunctionCustomPropsMemo()..testFuncProp = handleTestFunc)());
+      testJacket.rerender((FunctionCustomPropsMemo()..testFuncProp = handleTestFunc)());
+
+      expect(renderCount, equals(1), reason: 'An identical tear-off value should not result in a re-render');
+
+      testJacket.rerender((FunctionCustomPropsMemo()..testFuncProp = handleTestFunc2)());
+
+      expect(renderCount, equals(2), reason: 'A different tear-off value should result in a re-render');
     });
 
     test('memoizes based on areEqual parameter', () {
