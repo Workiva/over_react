@@ -42,6 +42,9 @@ export 'package:react/react.dart'
         createSyntheticAnimationEvent,
         createSyntheticUIEvent,
         createSyntheticWheelEvent,
+        fakeSyntheticFormEvent,
+        wrapNativeKeyboardEvent,
+        wrapNativeMouseEvent,
         SyntheticEventTypeHelpers,
         DataTransferHelper;
 
@@ -93,7 +96,6 @@ export 'src/util/constants_base.dart';
 export 'src/util/css_value_util.dart';
 export 'src/util/dom_util.dart';
 export 'src/util/equality.dart' show propsOrStateMapsEqual;
-export 'src/util/event_helpers.dart';
 export 'src/util/guid_util.dart';
 export 'src/util/hoc.dart';
 export 'src/util/handler_chain_util.dart';

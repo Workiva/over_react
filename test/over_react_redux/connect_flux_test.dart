@@ -741,8 +741,9 @@ main() {
         await Future(() {});
       });
 
+      logs.removeWhere((log) => log.contains('Cannot find native JavaScript type'));
       expect(
-          logs[1],
+          logs.first,
           contains(
               'The instance of the value mapped from store "FluxStore" to prop "ConnectFluxCounterProps.mutatedList" was mutated directly,'));
     }, tags: 'ddc');
