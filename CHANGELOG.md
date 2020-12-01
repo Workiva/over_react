@@ -8,18 +8,7 @@ This stable, __major__ release of over_react includes:
 
 The underlying `.js` files provided by this package are now ReactJS version `17.0.1`.
 
----
-
-### Breaking Changes
-
-#### __ReactJS 17 Breaking Changes__
-> Source: https://reactjs.org/blog/2020/08/10/react-v17-rc.html#other-breaking-changes
-
-React 17 includes some breaking changes, but rather than being large API removals, they are mostly subtle behavior changes of existing APIs. Please refer to their [blog post](https://reactjs.org/blog/2020/08/10/react-v17-rc.html#other-breaking-changes) for all behavior changes.
-
-#### __Dart API Breaking Changes__
-
-All of the Dart API breaking changes come from re-exports of members of the `react` package. Check out the [react 6.0.0 breaking changes](https://github.com/cleandart/react-dart/pull/285) for more information.
+> __[Full List of Breaking Changes](https://github.com/Workiva/over_react/pull/647)__
 
 ## [3.12.1](https://github.com/Workiva/over_react/compare/3.12.0...3.12.1)
 - [#643] Use `propsOrStateMapsEqual` in `memo` so that function tearoffs don't cause unnecessary rerenders. 
