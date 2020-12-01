@@ -52,7 +52,7 @@ dependency_overrides:
   react:
     git:
       url: https://github.com/cleandart/react-dart.git
-      ref: 6.0.0-wip
+      ref: test-proptypes-in-getDerivedStateFromProps
   over_react_test:
     git:
       url: https://github.com/Workiva/over_react_test.git
