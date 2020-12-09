@@ -28,6 +28,8 @@ main() {
 
         test('consumerName', () => expect(names.consumerName, r'Foo'));
         test('implName', () => expect(names.implName, r'_$Foo'));
+        test('privateConfigName', () => expect(names.privateConfigName, r'_$FooConfig'));
+        test('publicConfigName', () => expect(names.publicConfigName, r'$FooConfig'));
       });
 
       group('prefixed -', () {
@@ -37,6 +39,8 @@ main() {
 
         test('consumerName', () => expect(names.consumerName, r'foo.Foo'));
         test('implName', () => expect(names.implName, r'foo._$Foo'));
+        test('privateConfigName', () => expect(names.privateConfigName, r'_$foo.FooConfig'));
+        test('publicConfigName', () => expect(names.publicConfigName, r'$foo.FooConfig'));
       });
     });
 

@@ -659,11 +659,14 @@ main() {
       group('and generates props config for function components constructed with', () {
         String generatedConfig(String propsName, String factoryName) {
           return 'final UiFactoryConfig<_\$\$$propsName> '
-            '\$${factoryName}Config = UiFactoryConfig(\n'
+            '_\$${factoryName}Config = UiFactoryConfig(\n'
             'propsFactory: PropsFactory(\n'
             'map: (map) => _\$\$$propsName(map),\n'
             'jsMap: (map) => _\$\$$propsName\$JsMap(map),),\n'
-            'displayName: \'$factoryName\');\n';
+            'displayName: \'${factoryName}\');\n\n'
+            '@Deprecated(\'Use `_\\\$${factoryName}Config` instead.\')\n'
+            'final UiFactoryConfig<_\$\$$propsName> '
+            '\$${factoryName}Config = _\$${factoryName}Config;\n\n';
         }
 
         String generatedPropsMapsForConfig(String propsName) {
@@ -708,21 +711,21 @@ main() {
               (props) {
                 return Dom.div()();
               }, 
-              \$BarConfig, // ignore: undefined_identifier
+              _\$BarConfig, // ignore: undefined_identifier
             );
             
             UiFactory<BarPropsMixin> Foo = $wrapperFunction(
               (props) {
                 return Dom.div()();
               }, 
-              \$FooConfig, // ignore: undefined_identifier
+              _\$FooConfig, // ignore: undefined_identifier
             );
                         
             UiFactory<FooProps> Baz = $wrapperFunction(
               (props) {
                 return Dom.div()();
               }, 
-              \$BazConfig, // ignore: undefined_identifier
+              _\$BazConfig, // ignore: undefined_identifier
             );
             
             mixin UnusedPropsMixin on UiProps {}
@@ -743,7 +746,7 @@ main() {
                   (props) {
                     return Dom.div()();
                   },
-                  \$FooConfig, // ignore: undefined_identifier
+                  _\$FooConfig, // ignore: undefined_identifier
                 ));
                 
                 mixin FooPropsMixin on UiProps {}
@@ -752,6 +755,23 @@ main() {
             expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooPropsMixin')));
 
             expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooPropsMixin', 'Foo')));
+          });
+
+          test('with public generated config', () {
+            setUpAndGenerate('''
+                UiFactory<FooProps> Foo = $wrapperFunction(
+                  (props) {
+                    return Dom.div()();
+                  }, 
+                  \$FooConfig, // ignore: undefined_identifier
+                );
+                
+                mixin FooProps on UiProps {}
+              ''');
+
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooProps')));
+
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooProps', 'Foo')));
           });
         }
 
@@ -796,7 +816,7 @@ main() {
                     ..ref = ref
                   )();
                 }, 
-                $UiForwardRefFooConfig,
+                _$UiForwardRefFooConfig,
               );
             ''');
 
@@ -843,7 +863,7 @@ main() {
               (props) {
                 return Dom.div()();
               }, 
-              $FooConfig, // ignore: undefined_identifier
+              _$FooConfig, // ignore: undefined_identifier
             );
             
             final Baz = uiFunction<FooPropsMixin>(

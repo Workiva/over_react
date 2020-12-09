@@ -226,12 +226,12 @@ const mockComponentDeclarations = r'''
   // Function components
   UiFactory<FunctionFoo2Props> FunctionFoo = uiFunction(
     (props) => Dom.div()(),
-    $FunctionFooConfig, // ignore: undefined_identifier
+    _$FunctionFooConfig, // ignore: undefined_identifier
   );
   
   final FunctionFoo1 = uiFunction<FunctionFoo2Props>(
     (props) => Dom.div()(),
-    $FunctionFoo1Config, // ignore: undefined_identifier
+    _$FunctionFoo1Config, // ignore: undefined_identifier
   );
   
   UiFactory<_$FunctionFooProps> FunctionFoo2 = uiFunction(

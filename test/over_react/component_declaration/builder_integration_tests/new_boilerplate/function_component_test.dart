@@ -29,6 +29,10 @@ main() {
       functionComponentTestHelper(Test);
     });
 
+    group('with public generated props config (deprecated)', () {
+      functionComponentTestHelper(TestPublicConfig);
+    });
+
     group('with custom PropsFactory', () {
       functionComponentTestHelper(TestCustom, testId: 'testIdCustom');
     });
@@ -316,7 +320,7 @@ UiFactory<TestProps> BasicUiForwardRef = uiForwardRef(
       ..addProp('data-prop-custom-key-and-namespace-prop',
           props.customKeyAndNamespaceProp))('rendered content');
   },
-  $TestConfig, // ignore: undefined_identifier
+  _$TestConfig, // ignore: undefined_identifier
 );
 
 UiFactory<TestProps> CustomUiForwardRef = uiForwardRef(
@@ -350,7 +354,7 @@ final NoLHSUiForwardRefTest = uiForwardRef<TestProps>(
       ..addProp('data-prop-custom-key-and-namespace-prop',
           props.customKeyAndNamespaceProp))('rendered content');
   },
-  $NoLHSTestConfig, // ignore: undefined_identifier
+  _$NoLHSTestConfig, // ignore: undefined_identifier
 );
 
 UiFactory<TestProps> _UiForwardRef = uiForwardRef(
@@ -366,7 +370,7 @@ UiFactory<TestProps> _UiForwardRef = uiForwardRef(
       ..addProp('data-prop-custom-key-and-namespace-prop',
           props.customKeyAndNamespaceProp))('rendered content');
   },
-  $_TestConfig, // ignore: undefined_identifier
+  _$_TestConfig, // ignore: undefined_identifier
 );
 
 UiFactory<TestProps> Test = uiFunction(
@@ -381,7 +385,22 @@ UiFactory<TestProps> Test = uiFunction(
       ..addProp('data-prop-custom-key-and-namespace-prop',
           props.customKeyAndNamespaceProp))('rendered content');
   },
-  $TestConfig, // ignore: undefined_identifier
+  _$TestConfig, // ignore: undefined_identifier
+);
+
+UiFactory<TestProps> TestPublicConfig = uiFunction(
+      (props) {
+    return (Dom.div()
+      ..addTestId('testId')
+      ..addProp('data-prop-string-prop', props.stringProp)
+      ..addProp('data-prop-dynamic-prop', props.dynamicProp)
+      ..addProp('data-prop-untyped-prop', props.untypedProp)
+      ..addProp('data-prop-custom-key-prop', props.customKeyProp)
+      ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
+      ..addProp('data-prop-custom-key-and-namespace-prop',
+          props.customKeyAndNamespaceProp))('rendered content');
+  },
+  $TestConfig, // ignore: undefined_identifier, deprecated_member_use_from_same_package
 );
 
 UiFactory<TestProps> TestCustom = uiFunction(
@@ -413,7 +432,7 @@ final NoLHSTest = uiFunction<TestProps>(
       ..addProp('data-prop-custom-key-and-namespace-prop',
           props.customKeyAndNamespaceProp))('rendered content');
   },
-  $NoLHSTestConfig, // ignore: undefined_identifier
+  _$NoLHSTestConfig, // ignore: undefined_identifier
 );
 
 final _Test = uiFunction<TestProps>(
@@ -428,7 +447,7 @@ final _Test = uiFunction<TestProps>(
       ..addProp('data-prop-custom-key-and-namespace-prop',
           props.customKeyAndNamespaceProp))('rendered content');
   },
-  $_TestConfig, // ignore: undefined_identifier
+  _$_TestConfig, // ignore: undefined_identifier
 );
 
 mixin TestPropsMixin on UiProps {
