@@ -390,11 +390,14 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
 
   String _generateUiFactoryConfig(FactoryNames factoryName) {
     return 'final UiFactoryConfig<${names.implName}> '
-        '${factoryName.configName} = UiFactoryConfig(\n'
+        '${factoryName.privateConfigName} = UiFactoryConfig(\n'
         'propsFactory: PropsFactory(\n'
         'map: (map) => ${names.implName}(map),\n'
         'jsMap: (map) => ${names.jsMapImplName}(map),),\n'
-        'displayName: \'${factoryName.consumerName}\');\n\n';
+        'displayName: \'${factoryName.consumerName}\');\n\n'
+        '@Deprecated(\'Use `_\\${factoryName.publicConfigName}` instead.\')\n'
+        'final UiFactoryConfig<${names.implName}> '
+        '${factoryName.publicConfigName} = ${factoryName.privateConfigName};\n\n';
   }
 
   @override

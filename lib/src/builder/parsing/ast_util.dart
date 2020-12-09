@@ -45,10 +45,12 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
 
   /// Returns whether or not there is a generated config being used.
   bool get usesAGeneratedConfig {
-    final generatedConfigName = FactoryNames(firstVariable.name.name).configName;
+    final generatedPrivateConfigName = FactoryNames(firstVariable.name.name).privateConfigName;
+    final generatedPublicConfigName = FactoryNames(firstVariable.name.name).publicConfigName;
     return firstInitializer != null &&
         anyDescendantIdentifiers(firstInitializer, (identifier) {
-          return identifier.nameWithoutPrefix == generatedConfigName;
+          return identifier.nameWithoutPrefix == generatedPrivateConfigName ||
+              identifier.nameWithoutPrefix == generatedPublicConfigName;
         });
   }
 }
