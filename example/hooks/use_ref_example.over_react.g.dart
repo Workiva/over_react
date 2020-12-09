@@ -26,13 +26,17 @@ const PropsMeta _$metaForUseRefExampleProps = PropsMeta(
   keys: $UseRefExampleProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$UseRefExampleProps> $UseRefExampleConfig =
+final UiFactoryConfig<_$$UseRefExampleProps> _$UseRefExampleConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseRefExampleProps(map),
           jsMap: (map) => _$$UseRefExampleProps$JsMap(map),
         ),
         displayName: 'UseRefExample');
+
+@Deprecated('Use `_\$UseRefExampleConfig` instead.')
+final UiFactoryConfig<_$$UseRefExampleProps> $UseRefExampleConfig =
+    _$UseRefExampleConfig;
 
 // Concrete props implementation.
 //

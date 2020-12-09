@@ -26,13 +26,17 @@ const PropsMeta _$metaForUseLayoutEffectProps = PropsMeta(
   keys: $UseLayoutEffectProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$UseLayoutEffectProps> $UseLayoutEffectExampleConfig =
+final UiFactoryConfig<_$$UseLayoutEffectProps> _$UseLayoutEffectExampleConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseLayoutEffectProps(map),
           jsMap: (map) => _$$UseLayoutEffectProps$JsMap(map),
         ),
         displayName: 'UseLayoutEffectExample');
+
+@Deprecated('Use `_\$UseLayoutEffectExampleConfig` instead.')
+final UiFactoryConfig<_$$UseLayoutEffectProps> $UseLayoutEffectExampleConfig =
+    _$UseLayoutEffectExampleConfig;
 
 // Concrete props implementation.
 //

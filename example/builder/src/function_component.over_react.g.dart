@@ -123,19 +123,25 @@ const PropsMeta _$metaForFooProps = PropsMeta(
   keys: $FooProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$BasicProps> $BasicConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$BasicProps> _$BasicConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$BasicProps(map),
       jsMap: (map) => _$$BasicProps$JsMap(map),
     ),
     displayName: 'Basic');
 
-final UiFactoryConfig<_$$BasicProps> $SimpleConfig = UiFactoryConfig(
+@Deprecated('Use `_\$BasicConfig` instead.')
+final UiFactoryConfig<_$$BasicProps> $BasicConfig = _$BasicConfig;
+
+final UiFactoryConfig<_$$BasicProps> _$SimpleConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$BasicProps(map),
       jsMap: (map) => _$$BasicProps$JsMap(map),
     ),
     displayName: 'Simple');
+
+@Deprecated('Use `_\$SimpleConfig` instead.')
+final UiFactoryConfig<_$$BasicProps> $SimpleConfig = _$SimpleConfig;
 
 // Concrete props implementation.
 //
@@ -209,12 +215,15 @@ class _$$BasicProps$JsMap extends _$$BasicProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$FooProps> $FooConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$FooProps> _$FooConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$FooProps(map),
       jsMap: (map) => _$$FooProps$JsMap(map),
     ),
     displayName: 'Foo');
+
+@Deprecated('Use `_\$FooConfig` instead.')
+final UiFactoryConfig<_$$FooProps> $FooConfig = _$FooConfig;
 
 // Concrete props implementation.
 //

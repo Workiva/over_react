@@ -44,5 +44,5 @@ UiFactory<UseMemoExampleProps> UseMemoExample = uiFunction(
       )('+'),
     );
   },
-  $UseMemoExampleConfig, // ignore: undefined_identifier
+  _$UseMemoExampleConfig, // ignore: undefined_identifier
 );

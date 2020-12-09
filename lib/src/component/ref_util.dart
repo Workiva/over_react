@@ -256,7 +256,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 ///       ..className = 'FancyButton'
 ///     )(props.children);
 ///   },
-///   $FancyButtonConfig, // ignore: undefined_identifier
+///   _$FancyButtonConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -275,7 +275,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 ///       ..className = 'FancyButton'
 ///     )(props.children);
 ///   },
-///   $FancyButtonConfig, // ignore: undefined_identifier
+///   _$FancyButtonConfig, // ignore: undefined_identifier
 /// );
 ///
 /// usageExample() {

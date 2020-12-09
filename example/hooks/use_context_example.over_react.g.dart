@@ -45,13 +45,17 @@ const PropsMeta _$metaForNewContextProviderProps = PropsMeta(
   keys: $NewContextProviderProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$UseContextExampleProps> $UseContextExampleConfig =
+final UiFactoryConfig<_$$UseContextExampleProps> _$UseContextExampleConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseContextExampleProps(map),
           jsMap: (map) => _$$UseContextExampleProps$JsMap(map),
         ),
         displayName: 'UseContextExample');
+
+@Deprecated('Use `_\$UseContextExampleConfig` instead.')
+final UiFactoryConfig<_$$UseContextExampleProps> $UseContextExampleConfig =
+    _$UseContextExampleConfig;
 
 // Concrete props implementation.
 //
@@ -125,13 +129,17 @@ class _$$UseContextExampleProps$JsMap extends _$$UseContextExampleProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$NewContextProviderProps> $NewContextProviderConfig =
+final UiFactoryConfig<_$$NewContextProviderProps> _$NewContextProviderConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$NewContextProviderProps(map),
           jsMap: (map) => _$$NewContextProviderProps$JsMap(map),
         ),
         displayName: 'NewContextProvider');
+
+@Deprecated('Use `_\$NewContextProviderConfig` instead.')
+final UiFactoryConfig<_$$NewContextProviderProps> $NewContextProviderConfig =
+    _$NewContextProviderConfig;
 
 // Concrete props implementation.
 //

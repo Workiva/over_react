@@ -178,26 +178,35 @@ const PropsMeta _$metaForAThirdPropsMixin = PropsMeta(
   keys: $AThirdPropsMixin.$propKeys,
 );
 
-final UiFactoryConfig<_$$TestProps> $TestConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$TestProps> _$TestConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$TestProps(map),
       jsMap: (map) => _$$TestProps$JsMap(map),
     ),
     displayName: 'Test');
 
-final UiFactoryConfig<_$$TestProps> $NoLHSTestConfig = UiFactoryConfig(
+@Deprecated('Use `_\$TestConfig` instead.')
+final UiFactoryConfig<_$$TestProps> $TestConfig = _$TestConfig;
+
+final UiFactoryConfig<_$$TestProps> _$NoLHSTestConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$TestProps(map),
       jsMap: (map) => _$$TestProps$JsMap(map),
     ),
     displayName: 'NoLHSTest');
 
-final UiFactoryConfig<_$$TestProps> $_TestConfig = UiFactoryConfig(
+@Deprecated('Use `_\$NoLHSTestConfig` instead.')
+final UiFactoryConfig<_$$TestProps> $NoLHSTestConfig = _$NoLHSTestConfig;
+
+final UiFactoryConfig<_$$TestProps> _$_TestConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$TestProps(map),
       jsMap: (map) => _$$TestProps$JsMap(map),
     ),
     displayName: '_Test');
+
+@Deprecated('Use `_\$_TestConfig` instead.')
+final UiFactoryConfig<_$$TestProps> $_TestConfig = _$_TestConfig;
 
 // Concrete props implementation.
 //

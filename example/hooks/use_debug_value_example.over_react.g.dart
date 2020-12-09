@@ -58,13 +58,17 @@ const PropsMeta _$metaForUseDebugValueExampleProps = PropsMeta(
   keys: $UseDebugValueExampleProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$FriendListItemProps> $FriendListItemConfig =
+final UiFactoryConfig<_$$FriendListItemProps> _$FriendListItemConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$FriendListItemProps(map),
           jsMap: (map) => _$$FriendListItemProps$JsMap(map),
         ),
         displayName: 'FriendListItem');
+
+@Deprecated('Use `_\$FriendListItemConfig` instead.')
+final UiFactoryConfig<_$$FriendListItemProps> $FriendListItemConfig =
+    _$FriendListItemConfig;
 
 // Concrete props implementation.
 //
@@ -139,12 +143,16 @@ class _$$FriendListItemProps$JsMap extends _$$FriendListItemProps {
 }
 
 final UiFactoryConfig<_$$UseDebugValueExampleProps>
-    $UseDebugValueExampleConfig = UiFactoryConfig(
+    _$UseDebugValueExampleConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseDebugValueExampleProps(map),
           jsMap: (map) => _$$UseDebugValueExampleProps$JsMap(map),
         ),
         displayName: 'UseDebugValueExample');
+
+@Deprecated('Use `_\$UseDebugValueExampleConfig` instead.')
+final UiFactoryConfig<_$$UseDebugValueExampleProps>
+    $UseDebugValueExampleConfig = _$UseDebugValueExampleConfig;
 
 // Concrete props implementation.
 //

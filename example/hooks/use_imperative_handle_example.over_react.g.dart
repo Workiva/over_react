@@ -70,12 +70,16 @@ const PropsMeta _$metaForUseImperativeHandleExampleProps = PropsMeta(
   keys: $UseImperativeHandleExampleProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$FancyInputProps> $FancyInputConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$FancyInputProps> _$FancyInputConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$FancyInputProps(map),
       jsMap: (map) => _$$FancyInputProps$JsMap(map),
     ),
     displayName: 'FancyInput');
+
+@Deprecated('Use `_\$FancyInputConfig` instead.')
+final UiFactoryConfig<_$$FancyInputProps> $FancyInputConfig =
+    _$FancyInputConfig;
 
 // Concrete props implementation.
 //
@@ -150,12 +154,16 @@ class _$$FancyInputProps$JsMap extends _$$FancyInputProps {
 }
 
 final UiFactoryConfig<_$$UseImperativeHandleExampleProps>
-    $UseImperativeHandleExampleConfig = UiFactoryConfig(
+    _$UseImperativeHandleExampleConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseImperativeHandleExampleProps(map),
           jsMap: (map) => _$$UseImperativeHandleExampleProps$JsMap(map),
         ),
         displayName: 'UseImperativeHandleExample');
+
+@Deprecated('Use `_\$UseImperativeHandleExampleConfig` instead.')
+final UiFactoryConfig<_$$UseImperativeHandleExampleProps>
+    $UseImperativeHandleExampleConfig = _$UseImperativeHandleExampleConfig;
 
 // Concrete props implementation.
 //

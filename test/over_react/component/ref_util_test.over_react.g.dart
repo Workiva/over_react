@@ -197,13 +197,17 @@ const PropsMeta _$metaForBasicUiFunctionProps = PropsMeta(
   keys: $BasicUiFunctionProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$BasicUiFunctionProps> $BasicUiFunctionConfig =
+final UiFactoryConfig<_$$BasicUiFunctionProps> _$BasicUiFunctionConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$BasicUiFunctionProps(map),
           jsMap: (map) => _$$BasicUiFunctionProps$JsMap(map),
         ),
         displayName: 'BasicUiFunction');
+
+@Deprecated('Use `_\$BasicUiFunctionConfig` instead.')
+final UiFactoryConfig<_$$BasicUiFunctionProps> $BasicUiFunctionConfig =
+    _$BasicUiFunctionConfig;
 
 // Concrete props implementation.
 //
@@ -278,12 +282,16 @@ class _$$BasicUiFunctionProps$JsMap extends _$$BasicUiFunctionProps {
 }
 
 final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
-    $TopLevelForwardUiRefFunctionConfig = UiFactoryConfig(
+    _$TopLevelForwardUiRefFunctionConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$SecondaryBasicUiFunctionProps(map),
           jsMap: (map) => _$$SecondaryBasicUiFunctionProps$JsMap(map),
         ),
         displayName: 'TopLevelForwardUiRefFunction');
+
+@Deprecated('Use `_\$TopLevelForwardUiRefFunctionConfig` instead.')
+final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
+    $TopLevelForwardUiRefFunctionConfig = _$TopLevelForwardUiRefFunctionConfig;
 
 // Concrete props implementation.
 //

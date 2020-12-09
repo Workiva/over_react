@@ -215,13 +215,17 @@ const PropsMeta _$metaForFunctionCustomPropsProps = PropsMeta(
   keys: $FunctionCustomPropsProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$FunctionCustomPropsProps> $FunctionCustomPropsConfig =
+final UiFactoryConfig<_$$FunctionCustomPropsProps> _$FunctionCustomPropsConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$FunctionCustomPropsProps(map),
           jsMap: (map) => _$$FunctionCustomPropsProps$JsMap(map),
         ),
         displayName: 'FunctionCustomProps');
+
+@Deprecated('Use `_\$FunctionCustomPropsConfig` instead.')
+final UiFactoryConfig<_$$FunctionCustomPropsProps> $FunctionCustomPropsConfig =
+    _$FunctionCustomPropsConfig;
 
 // Concrete props implementation.
 //

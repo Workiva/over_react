@@ -26,13 +26,17 @@ const PropsMeta _$metaForUseStateExampleProps = PropsMeta(
   keys: $UseStateExampleProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$UseStateExampleProps> $UseStateExampleConfig =
+final UiFactoryConfig<_$$UseStateExampleProps> _$UseStateExampleConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseStateExampleProps(map),
           jsMap: (map) => _$$UseStateExampleProps$JsMap(map),
         ),
         displayName: 'UseStateExample');
+
+@Deprecated('Use `_\$UseStateExampleConfig` instead.')
+final UiFactoryConfig<_$$UseStateExampleProps> $UseStateExampleConfig =
+    _$UseStateExampleConfig;
 
 // Concrete props implementation.
 //

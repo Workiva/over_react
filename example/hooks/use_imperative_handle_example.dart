@@ -49,7 +49,7 @@ UiFactory<FancyInputProps> FancyInput = uiForwardRef(
       ..onChange = (e) => props.updater(e.target.value)
     )();
   },
-  $FancyInputConfig, // ignore: undefined_identifier
+  _$FancyInputConfig, // ignore: undefined_identifier
 );
 
 mixin UseImperativeHandleExampleProps on UiProps {}
@@ -71,5 +71,5 @@ UiFactory<UseImperativeHandleExampleProps> UseImperativeHandleExample =
       )('Focus Input'),
     );
   },
-  $UseImperativeHandleExampleConfig, // ignore: undefined_identifier
+  _$UseImperativeHandleExampleConfig, // ignore: undefined_identifier
 );

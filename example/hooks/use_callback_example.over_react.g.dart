@@ -26,13 +26,17 @@ const PropsMeta _$metaForUseCallbackExampleProps = PropsMeta(
   keys: $UseCallbackExampleProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$UseCallbackExampleProps> $UseCallbackExampleConfig =
+final UiFactoryConfig<_$$UseCallbackExampleProps> _$UseCallbackExampleConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseCallbackExampleProps(map),
           jsMap: (map) => _$$UseCallbackExampleProps$JsMap(map),
         ),
         displayName: 'UseCallbackExample');
+
+@Deprecated('Use `_\$UseCallbackExampleConfig` instead.')
+final UiFactoryConfig<_$$UseCallbackExampleProps> $UseCallbackExampleConfig =
+    _$UseCallbackExampleConfig;
 
 // Concrete props implementation.
 //

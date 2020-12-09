@@ -60,7 +60,7 @@ UiFactory<FriendListItemProps> FriendListItem = uiFunction(
       props.friend['name'],
     );
   },
-  $FriendListItemConfig, // ignore: undefined_identifier
+  _$FriendListItemConfig, // ignore: undefined_identifier
 );
 
 mixin UseDebugValueExampleProps on UiProps {}
@@ -72,5 +72,5 @@ UiFactory<UseDebugValueExampleProps> UseDebugValueExample = uiFunction(
     (FriendListItem()..friend = {'id': 3, 'name': 'user 3'})(),
     (FriendListItem()..friend = {'id': 4, 'name': 'user 4'})(),
   ),
-  $UseDebugValueExampleConfig, // ignore: undefined_identifier
+  _$UseDebugValueExampleConfig, // ignore: undefined_identifier
 );

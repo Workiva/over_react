@@ -34,7 +34,7 @@ import 'package:react/hooks.dart' as react_hooks;
 ///       )('+'),
 ///     );
 ///   },
-///   $UseStateExampleConfig, // ignore: undefined_identifier
+///   _$UseStateExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -62,7 +62,7 @@ StateHook<T> useState<T>(T initialValue) => react_hooks.useState<T>(initialValue
 ///       )('+'),
 ///     );
 ///   },
-///   $UseStateExampleConfig, // ignore: undefined_identifier
+///   _$UseStateExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -107,7 +107,7 @@ StateHook<T> useStateLazy<T>(T Function() init) => react_hooks.useStateLazy<T>(i
 ///       )('+'),
 ///     );
 ///   },
-///   $UseEffectExampleConfig, // ignore: undefined_identifier
+///   _$UseEffectExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -144,7 +144,7 @@ void useEffect(dynamic Function() sideEffect, [List<Object> dependencies]) => re
 ///       )('-'),
 ///     );
 ///   },
-///   $UseReducerExampleConfig, // ignore: undefined_identifier
+///   _$UseReducerExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -200,7 +200,7 @@ ReducerHook<TState, TAction, TInit> useReducer<TState, TAction, TInit>(
 ///       )('reset'),
 ///     );
 ///   },
-///   $UseReducerExampleConfig, // ignore: undefined_identifier
+///   _$UseReducerExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -239,7 +239,7 @@ ReducerHook<TState, TAction, TInit> useReducerLazy<TState, TAction, TInit>(
 ///       (Dom.button()..onClick = incrementDelta)('Increment delta'),
 ///     );
 ///   },
-///   $UseCallbackExampleConfig, // ignore: undefined_identifier
+///   _$UseCallbackExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -272,7 +272,7 @@ T useCallback<T extends Function>(T callback, List dependencies) => react_hooks.
 ///       ), // initially renders: 'The count from context is 0'
 ///     );
 ///   },
-///   $UseContextExampleConfig, // ignore: undefined_identifier
+///   _$UseContextExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -316,7 +316,7 @@ T useContext<T>(Context<T> context) => react_hooks.useContext(context.reactDartC
 ///       )('Update'),
 ///     );
 ///   },
-///   $UseRefExampleConfig, // ignore: undefined_identifier
+///   _$UseRefExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -354,7 +354,7 @@ Ref<T> useRef<T>([T initialValue]) => react_hooks.useRef(initialValue);
 ///       )('+'),
 ///     );
 ///   },
-///   $UseMemoExampleConfig, // ignore: undefined_identifier
+///   _$UseMemoExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -396,7 +396,7 @@ T useMemo<T>(T Function() createFunction, [List<dynamic> dependencies]) =>
 ///       )(),
 ///     );
 ///   },
-///   $UseLayoutEffectExampleConfig, // ignore: undefined_identifier
+///   _$UseLayoutEffectExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -446,7 +446,7 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 ///       ..onChange = (e) => props.updater(e.target.value)
 ///     )();
 ///   },
-///   $FancyInputConfig, // ignore: undefined_identifier
+///   _$FancyInputConfig, // ignore: undefined_identifier
 /// );
 ///
 /// UiFactory<UseImperativeHandleExampleProps> UseImperativeHandleExample = uiFunction(
@@ -465,7 +465,7 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 ///       )('Focus Input'),
 ///     );
 ///   },
-///   $UseImperativeHandleExampleConfig, // ignore: undefined_identifier
+///   _$UseImperativeHandleExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -529,7 +529,7 @@ void useImperativeHandle(dynamic ref, dynamic Function() createHandle, [List<dyn
 ///       props.friend['name'],
 ///     );
 ///   },
-///   $FriendListItemConfig, // ignore: undefined_identifier
+///   _$FriendListItemConfig, // ignore: undefined_identifier
 /// );
 ///
 /// UiFactory<UseDebugValueExampleProps> UseDebugValueExample = uiFunction(
@@ -539,7 +539,7 @@ void useImperativeHandle(dynamic ref, dynamic Function() createHandle, [List<dyn
 ///     (FriendListItem()..friend = {'id': 3, 'name': 'user 3'})(),
 ///     (FriendListItem()..friend = {'id': 4, 'name': 'user 4'})(),
 ///   ),
-///   $UseDebugValueExampleConfig, // ignore: undefined_identifier
+///   _$UseDebugValueExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///

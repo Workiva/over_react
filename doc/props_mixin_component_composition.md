@@ -168,7 +168,7 @@ UiFactory<FooBazProps> FooBaz = uiFunction(
       return (Dom.li()..key = bizzle)(bizzle);
     }
   },
-  $FooBazConfig, // ignore: undefined_identifier
+  _$FooBazConfig, // ignore: undefined_identifier
 );
 ```
 

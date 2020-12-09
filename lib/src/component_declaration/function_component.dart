@@ -42,7 +42,7 @@ export 'component_type_checking.dart'
 ///     );
 ///   },
 ///   // The generated props config will match the factory name.
-///   $FooConfig, // ignore: undefined_identifier
+///   _$FooConfig, // ignore: undefined_identifier
 /// );
 ///
 /// // Multiple function components can be declared with the same props.
@@ -53,7 +53,7 @@ export 'component_type_checking.dart'
 ///         ..isDisabled = true
 ///       )();
 ///   },
-///   $AnotherFooConfig, // ignore: undefined_identifier
+///   _$AnotherFooConfig, // ignore: undefined_identifier
 /// );
 ///
 /// mixin FooProps on UiProps {

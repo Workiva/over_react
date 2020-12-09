@@ -75,12 +75,16 @@ const PropsMeta _$metaForSharedPropsMixin = PropsMeta(
   keys: $SharedPropsMixin.$propKeys,
 );
 
-final UiFactoryConfig<_$$SomeParentProps> $SomeParentConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$SomeParentProps> _$SomeParentConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$SomeParentProps(map),
       jsMap: (map) => _$$SomeParentProps$JsMap(map),
     ),
     displayName: 'SomeParent');
+
+@Deprecated('Use `_\$SomeParentConfig` instead.')
+final UiFactoryConfig<_$$SomeParentProps> $SomeParentConfig =
+    _$SomeParentConfig;
 
 // Concrete props implementation.
 //
@@ -159,12 +163,15 @@ class _$$SomeParentProps$JsMap extends _$$SomeParentProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$SomeChildProps> $SomeChildConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$SomeChildProps> _$SomeChildConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$SomeChildProps(map),
       jsMap: (map) => _$$SomeChildProps$JsMap(map),
     ),
     displayName: 'SomeChild');
+
+@Deprecated('Use `_\$SomeChildConfig` instead.')
+final UiFactoryConfig<_$$SomeChildProps> $SomeChildConfig = _$SomeChildConfig;
 
 // Concrete props implementation.
 //

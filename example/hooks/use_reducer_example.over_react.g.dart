@@ -41,13 +41,17 @@ const PropsMeta _$metaForUseReducerExampleProps = PropsMeta(
   keys: $UseReducerExampleProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$UseReducerExampleProps> $UseReducerExampleConfig =
+final UiFactoryConfig<_$$UseReducerExampleProps> _$UseReducerExampleConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseReducerExampleProps(map),
           jsMap: (map) => _$$UseReducerExampleProps$JsMap(map),
         ),
         displayName: 'UseReducerExample');
+
+@Deprecated('Use `_\$UseReducerExampleConfig` instead.')
+final UiFactoryConfig<_$$UseReducerExampleProps> $UseReducerExampleConfig =
+    _$UseReducerExampleConfig;
 
 // Concrete props implementation.
 //

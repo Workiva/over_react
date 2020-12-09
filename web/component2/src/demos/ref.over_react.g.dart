@@ -550,12 +550,17 @@ const PropsMeta _$metaForRefDemoHocProps = PropsMeta(
   keys: $RefDemoHocProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$FancyButtonProps> $FancyButtonConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$FancyButtonProps(map),
-      jsMap: (map) => _$$FancyButtonProps$JsMap(map),
-    ),
-    displayName: 'FancyButton');
+final UiFactoryConfig<_$$FancyButtonProps> _$FancyButtonConfig =
+    UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$FancyButtonProps(map),
+          jsMap: (map) => _$$FancyButtonProps$JsMap(map),
+        ),
+        displayName: 'FancyButton');
+
+@Deprecated('Use `_\$FancyButtonConfig` instead.')
+final UiFactoryConfig<_$$FancyButtonProps> $FancyButtonConfig =
+    _$FancyButtonConfig;
 
 // Concrete props implementation.
 //
@@ -629,12 +634,15 @@ class _$$FancyButtonProps$JsMap extends _$$FancyButtonProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$Foo2Props> $Foo2Config = UiFactoryConfig(
+final UiFactoryConfig<_$$Foo2Props> _$Foo2Config = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$Foo2Props(map),
       jsMap: (map) => _$$Foo2Props$JsMap(map),
     ),
     displayName: 'Foo2');
+
+@Deprecated('Use `_\$Foo2Config` instead.')
+final UiFactoryConfig<_$$Foo2Props> $Foo2Config = _$Foo2Config;
 
 // Concrete props implementation.
 //
@@ -713,12 +721,15 @@ class _$$Foo2Props$JsMap extends _$$Foo2Props {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$BazProps> $BazConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$BazProps> _$BazConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$BazProps(map),
       jsMap: (map) => _$$BazProps$JsMap(map),
     ),
     displayName: 'Baz');
+
+@Deprecated('Use `_\$BazConfig` instead.')
+final UiFactoryConfig<_$$BazProps> $BazConfig = _$BazConfig;
 
 // Concrete props implementation.
 //
@@ -792,13 +803,17 @@ class _$$BazProps$JsMap extends _$$BazProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$RefDemoProps> $RefDemoContainerConfig =
+final UiFactoryConfig<_$$RefDemoProps> _$RefDemoContainerConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$RefDemoProps(map),
           jsMap: (map) => _$$RefDemoProps$JsMap(map),
         ),
         displayName: 'RefDemoContainer');
+
+@Deprecated('Use `_\$RefDemoContainerConfig` instead.')
+final UiFactoryConfig<_$$RefDemoProps> $RefDemoContainerConfig =
+    _$RefDemoContainerConfig;
 
 // Concrete props implementation.
 //
@@ -872,13 +887,17 @@ class _$$RefDemoProps$JsMap extends _$$RefDemoProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$RefDemoSectionProps> $RefDemoSectionConfig =
+final UiFactoryConfig<_$$RefDemoSectionProps> _$RefDemoSectionConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$RefDemoSectionProps(map),
           jsMap: (map) => _$$RefDemoSectionProps$JsMap(map),
         ),
         displayName: 'RefDemoSection');
+
+@Deprecated('Use `_\$RefDemoSectionConfig` instead.')
+final UiFactoryConfig<_$$RefDemoSectionProps> $RefDemoSectionConfig =
+    _$RefDemoSectionConfig;
 
 // Concrete props implementation.
 //
@@ -952,12 +971,16 @@ class _$$RefDemoSectionProps$JsMap extends _$$RefDemoSectionProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$RefDemoHocProps> $RefDemoHocConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$RefDemoHocProps> _$RefDemoHocConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$RefDemoHocProps(map),
       jsMap: (map) => _$$RefDemoHocProps$JsMap(map),
     ),
     displayName: 'RefDemoHoc');
+
+@Deprecated('Use `_\$RefDemoHocConfig` instead.')
+final UiFactoryConfig<_$$RefDemoHocProps> $RefDemoHocConfig =
+    _$RefDemoHocConfig;
 
 // Concrete props implementation.
 //

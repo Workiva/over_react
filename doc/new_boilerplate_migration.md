@@ -731,7 +731,7 @@ UiFactory<FooProps> Foo = uiFunction(
   (props) {
     return 'foo: ${props.foo}'; 
   },
-  $FooConfig, // ignore: undefined_identifier
+  _$FooConfig, // ignore: undefined_identifier
 ); 
 
 mixin FooProps on UiProps {
@@ -761,7 +761,7 @@ UiFactory<FooProps> Foo = uiFunction(
 
     return 'foo: $foo'; 
   },
-  $FooConfig, // ignore: undefined_identifier
+  _$FooConfig, // ignore: undefined_identifier
 ); 
 ```
 
@@ -792,14 +792,14 @@ UiFactory<FooBarProps> FooBar = uiFunction(
 
     return (Foo()..addUnconsumedProps(props, consumedProps))();
   },
-  $FooBarConfig, // ignore: undefined_identifier
+  _$FooBarConfig, // ignore: undefined_identifier
 ); 
 
 UiFactory<FooPropsMixin> Foo = uiFunction(
   (props) {
     return 'foo: ${props.passedProp}'; 
   },
-  $FooConfig, // ignore: undefined_identifier
+  _$FooConfig, // ignore: undefined_identifier
 ); 
 ```
 
@@ -823,7 +823,7 @@ UiFactory<FooProps> Foo = uiFunction(
   (props) {
     return 'foo: ${props.foo}'; 
   }, 
-  $FooConfig, // ignore: undefined_identifier
+  _$FooConfig, // ignore: undefined_identifier
   getPropTypes: (keyFor) => {
     keyFor((p) => p.foo): (props, info) {
       if (props.foo == 'bar') {
@@ -889,7 +889,7 @@ UiFactory<FooProps> Foo = uiForwardRef(
       )('Click me!'),
     );
   },
-  $FooConfig, // ignore: undefined_identifier
+  _$FooConfig, // ignore: undefined_identifier
 );
 ```
 

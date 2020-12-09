@@ -59,5 +59,5 @@ UiFactory<UseReducerExampleProps> UseReducerExample = uiFunction(
       )('reset'),
     );
   },
-  $UseReducerExampleConfig, // ignore: undefined_identifier
+  _$UseReducerExampleConfig, // ignore: undefined_identifier
 );
