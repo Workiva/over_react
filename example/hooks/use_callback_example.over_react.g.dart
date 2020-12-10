@@ -34,7 +34,8 @@ final UiFactoryConfig<_$$UseCallbackExampleProps> _$UseCallbackExampleConfig =
         ),
         displayName: 'UseCallbackExample');
 
-@Deprecated('Use `_\$UseCallbackExampleConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$UseCallbackExampleConfig` instead.')
 final UiFactoryConfig<_$$UseCallbackExampleProps> $UseCallbackExampleConfig =
     _$UseCallbackExampleConfig;
 

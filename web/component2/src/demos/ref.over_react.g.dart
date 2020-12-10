@@ -558,7 +558,8 @@ final UiFactoryConfig<_$$FancyButtonProps> _$FancyButtonConfig =
         ),
         displayName: 'FancyButton');
 
-@Deprecated('Use `_\$FancyButtonConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$FancyButtonConfig` instead.')
 final UiFactoryConfig<_$$FancyButtonProps> $FancyButtonConfig =
     _$FancyButtonConfig;
 
@@ -641,7 +642,8 @@ final UiFactoryConfig<_$$Foo2Props> _$Foo2Config = UiFactoryConfig(
     ),
     displayName: 'Foo2');
 
-@Deprecated('Use `_\$Foo2Config` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$Foo2Config` instead.')
 final UiFactoryConfig<_$$Foo2Props> $Foo2Config = _$Foo2Config;
 
 // Concrete props implementation.
@@ -728,7 +730,8 @@ final UiFactoryConfig<_$$BazProps> _$BazConfig = UiFactoryConfig(
     ),
     displayName: 'Baz');
 
-@Deprecated('Use `_\$BazConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$BazConfig` instead.')
 final UiFactoryConfig<_$$BazProps> $BazConfig = _$BazConfig;
 
 // Concrete props implementation.
@@ -811,7 +814,8 @@ final UiFactoryConfig<_$$RefDemoProps> _$RefDemoContainerConfig =
         ),
         displayName: 'RefDemoContainer');
 
-@Deprecated('Use `_\$RefDemoContainerConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$RefDemoContainerConfig` instead.')
 final UiFactoryConfig<_$$RefDemoProps> $RefDemoContainerConfig =
     _$RefDemoContainerConfig;
 
@@ -895,7 +899,8 @@ final UiFactoryConfig<_$$RefDemoSectionProps> _$RefDemoSectionConfig =
         ),
         displayName: 'RefDemoSection');
 
-@Deprecated('Use `_\$RefDemoSectionConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$RefDemoSectionConfig` instead.')
 final UiFactoryConfig<_$$RefDemoSectionProps> $RefDemoSectionConfig =
     _$RefDemoSectionConfig;
 
@@ -978,7 +983,8 @@ final UiFactoryConfig<_$$RefDemoHocProps> _$RefDemoHocConfig = UiFactoryConfig(
     ),
     displayName: 'RefDemoHoc');
 
-@Deprecated('Use `_\$RefDemoHocConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$RefDemoHocConfig` instead.')
 final UiFactoryConfig<_$$RefDemoHocProps> $RefDemoHocConfig =
     _$RefDemoHocConfig;
 

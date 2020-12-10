@@ -49,7 +49,8 @@ final UiFactoryConfig<_$$UseReducerExampleProps> _$UseReducerExampleConfig =
         ),
         displayName: 'UseReducerExample');
 
-@Deprecated('Use `_\$UseReducerExampleConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$UseReducerExampleConfig` instead.')
 final UiFactoryConfig<_$$UseReducerExampleProps> $UseReducerExampleConfig =
     _$UseReducerExampleConfig;
 

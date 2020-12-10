@@ -34,7 +34,8 @@ final UiFactoryConfig<_$$UseMemoExampleProps> _$UseMemoExampleConfig =
         ),
         displayName: 'UseMemoExample');
 
-@Deprecated('Use `_\$UseMemoExampleConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$UseMemoExampleConfig` instead.')
 final UiFactoryConfig<_$$UseMemoExampleProps> $UseMemoExampleConfig =
     _$UseMemoExampleConfig;
 

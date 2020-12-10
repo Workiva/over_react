@@ -77,7 +77,8 @@ final UiFactoryConfig<_$$FancyInputProps> _$FancyInputConfig = UiFactoryConfig(
     ),
     displayName: 'FancyInput');
 
-@Deprecated('Use `_\$FancyInputConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$FancyInputConfig` instead.')
 final UiFactoryConfig<_$$FancyInputProps> $FancyInputConfig =
     _$FancyInputConfig;
 
@@ -161,7 +162,8 @@ final UiFactoryConfig<_$$UseImperativeHandleExampleProps>
         ),
         displayName: 'UseImperativeHandleExample');
 
-@Deprecated('Use `_\$UseImperativeHandleExampleConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$UseImperativeHandleExampleConfig` instead.')
 final UiFactoryConfig<_$$UseImperativeHandleExampleProps>
     $UseImperativeHandleExampleConfig = _$UseImperativeHandleExampleConfig;
 

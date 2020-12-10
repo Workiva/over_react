@@ -47,12 +47,14 @@ class FactoryNames {
 
   /// The name of the private generated function component props config for the factory.
   ///
-  /// Example: `$FooConfig
-  String get privateConfigName => '_$publicConfigName';
+  /// Example: `_$FooConfig
+  String get privateConfigName => '_\$${consumerName}Config';
 
   /// The name of the public generated function component props config for the factory.
   ///
   /// Example: `$FooConfig
+  @Deprecated('The public config is incompatible with Dart >2.9.0 and will be '
+      'removed. Use `privateConfigName` instead.')
   String get publicConfigName => '\$${consumerName}Config';
 }
 

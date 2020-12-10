@@ -223,7 +223,8 @@ final UiFactoryConfig<_$$FunctionCustomPropsProps> _$FunctionCustomPropsConfig =
         ),
         displayName: 'FunctionCustomProps');
 
-@Deprecated('Use `_\$FunctionCustomPropsConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$FunctionCustomPropsConfig` instead.')
 final UiFactoryConfig<_$$FunctionCustomPropsProps> $FunctionCustomPropsConfig =
     _$FunctionCustomPropsConfig;
 

@@ -664,7 +664,7 @@ main() {
             'map: (map) => _\$\$$propsName(map),\n'
             'jsMap: (map) => _\$\$$propsName\$JsMap(map),),\n'
             'displayName: \'${factoryName}\');\n\n'
-            '@Deprecated(\'Use `_\\\$${factoryName}Config` instead.\')\n'
+            '@Deprecated(r\'This member is incompatible with Dart >2.9.0. Use `_\$${factoryName}Config` instead.\')\n'
             'final UiFactoryConfig<_\$\$$propsName> '
             '\$${factoryName}Config = _\$${factoryName}Config;\n\n';
         }

@@ -66,7 +66,8 @@ final UiFactoryConfig<_$$FriendListItemProps> _$FriendListItemConfig =
         ),
         displayName: 'FriendListItem');
 
-@Deprecated('Use `_\$FriendListItemConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$FriendListItemConfig` instead.')
 final UiFactoryConfig<_$$FriendListItemProps> $FriendListItemConfig =
     _$FriendListItemConfig;
 
@@ -150,7 +151,8 @@ final UiFactoryConfig<_$$UseDebugValueExampleProps>
         ),
         displayName: 'UseDebugValueExample');
 
-@Deprecated('Use `_\$UseDebugValueExampleConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$UseDebugValueExampleConfig` instead.')
 final UiFactoryConfig<_$$UseDebugValueExampleProps>
     $UseDebugValueExampleConfig = _$UseDebugValueExampleConfig;
 

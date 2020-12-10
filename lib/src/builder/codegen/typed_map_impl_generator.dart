@@ -395,8 +395,9 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         'map: (map) => ${names.implName}(map),\n'
         'jsMap: (map) => ${names.jsMapImplName}(map),),\n'
         'displayName: \'${factoryName.consumerName}\');\n\n'
-        '@Deprecated(\'Use `_\\${factoryName.publicConfigName}` instead.\')\n'
+        '@Deprecated(r\'This member is incompatible with Dart >2.9.0. Use `${factoryName.privateConfigName}` instead.\')\n'
         'final UiFactoryConfig<${names.implName}> '
+        // ignore: deprecated_member_use_from_same_package
         '${factoryName.publicConfigName} = ${factoryName.privateConfigName};\n\n';
   }
 

@@ -130,7 +130,8 @@ final UiFactoryConfig<_$$BasicProps> _$BasicConfig = UiFactoryConfig(
     ),
     displayName: 'Basic');
 
-@Deprecated('Use `_\$BasicConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$BasicConfig` instead.')
 final UiFactoryConfig<_$$BasicProps> $BasicConfig = _$BasicConfig;
 
 final UiFactoryConfig<_$$BasicProps> _$SimpleConfig = UiFactoryConfig(
@@ -140,7 +141,8 @@ final UiFactoryConfig<_$$BasicProps> _$SimpleConfig = UiFactoryConfig(
     ),
     displayName: 'Simple');
 
-@Deprecated('Use `_\$SimpleConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$SimpleConfig` instead.')
 final UiFactoryConfig<_$$BasicProps> $SimpleConfig = _$SimpleConfig;
 
 // Concrete props implementation.
@@ -222,7 +224,8 @@ final UiFactoryConfig<_$$FooProps> _$FooConfig = UiFactoryConfig(
     ),
     displayName: 'Foo');
 
-@Deprecated('Use `_\$FooConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$FooConfig` instead.')
 final UiFactoryConfig<_$$FooProps> $FooConfig = _$FooConfig;
 
 // Concrete props implementation.

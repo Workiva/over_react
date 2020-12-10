@@ -46,6 +46,7 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
   /// Returns whether or not there is a generated config being used.
   bool get usesAGeneratedConfig {
     final generatedPrivateConfigName = FactoryNames(firstVariable.name.name).privateConfigName;
+    // ignore: deprecated_member_use_from_same_package
     final generatedPublicConfigName = FactoryNames(firstVariable.name.name).publicConfigName;
     return firstInitializer != null &&
         anyDescendantIdentifiers(firstInitializer, (identifier) {

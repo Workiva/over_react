@@ -34,7 +34,8 @@ final UiFactoryConfig<_$$UseRefExampleProps> _$UseRefExampleConfig =
         ),
         displayName: 'UseRefExample');
 
-@Deprecated('Use `_\$UseRefExampleConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$UseRefExampleConfig` instead.')
 final UiFactoryConfig<_$$UseRefExampleProps> $UseRefExampleConfig =
     _$UseRefExampleConfig;
 

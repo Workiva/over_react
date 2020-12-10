@@ -82,7 +82,8 @@ final UiFactoryConfig<_$$SomeParentProps> _$SomeParentConfig = UiFactoryConfig(
     ),
     displayName: 'SomeParent');
 
-@Deprecated('Use `_\$SomeParentConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$SomeParentConfig` instead.')
 final UiFactoryConfig<_$$SomeParentProps> $SomeParentConfig =
     _$SomeParentConfig;
 
@@ -170,7 +171,8 @@ final UiFactoryConfig<_$$SomeChildProps> _$SomeChildConfig = UiFactoryConfig(
     ),
     displayName: 'SomeChild');
 
-@Deprecated('Use `_\$SomeChildConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$SomeChildConfig` instead.')
 final UiFactoryConfig<_$$SomeChildProps> $SomeChildConfig = _$SomeChildConfig;
 
 // Concrete props implementation.

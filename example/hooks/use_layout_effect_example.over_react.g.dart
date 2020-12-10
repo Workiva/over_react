@@ -34,7 +34,8 @@ final UiFactoryConfig<_$$UseLayoutEffectProps> _$UseLayoutEffectExampleConfig =
         ),
         displayName: 'UseLayoutEffectExample');
 
-@Deprecated('Use `_\$UseLayoutEffectExampleConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$UseLayoutEffectExampleConfig` instead.')
 final UiFactoryConfig<_$$UseLayoutEffectProps> $UseLayoutEffectExampleConfig =
     _$UseLayoutEffectExampleConfig;
 

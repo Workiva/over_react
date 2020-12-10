@@ -53,7 +53,8 @@ final UiFactoryConfig<_$$UseContextExampleProps> _$UseContextExampleConfig =
         ),
         displayName: 'UseContextExample');
 
-@Deprecated('Use `_\$UseContextExampleConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$UseContextExampleConfig` instead.')
 final UiFactoryConfig<_$$UseContextExampleProps> $UseContextExampleConfig =
     _$UseContextExampleConfig;
 
@@ -137,7 +138,8 @@ final UiFactoryConfig<_$$NewContextProviderProps> _$NewContextProviderConfig =
         ),
         displayName: 'NewContextProvider');
 
-@Deprecated('Use `_\$NewContextProviderConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$NewContextProviderConfig` instead.')
 final UiFactoryConfig<_$$NewContextProviderProps> $NewContextProviderConfig =
     _$NewContextProviderConfig;
 

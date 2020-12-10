@@ -34,7 +34,8 @@ final UiFactoryConfig<_$$UseStateExampleProps> _$UseStateExampleConfig =
         ),
         displayName: 'UseStateExample');
 
-@Deprecated('Use `_\$UseStateExampleConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$UseStateExampleConfig` instead.')
 final UiFactoryConfig<_$$UseStateExampleProps> $UseStateExampleConfig =
     _$UseStateExampleConfig;
 

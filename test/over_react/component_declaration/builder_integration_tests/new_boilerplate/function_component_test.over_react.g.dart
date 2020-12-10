@@ -185,7 +185,8 @@ final UiFactoryConfig<_$$TestProps> _$TestConfig = UiFactoryConfig(
     ),
     displayName: 'Test');
 
-@Deprecated('Use `_\$TestConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$TestConfig` instead.')
 final UiFactoryConfig<_$$TestProps> $TestConfig = _$TestConfig;
 
 final UiFactoryConfig<_$$TestProps> _$NoLHSTestConfig = UiFactoryConfig(
@@ -195,7 +196,8 @@ final UiFactoryConfig<_$$TestProps> _$NoLHSTestConfig = UiFactoryConfig(
     ),
     displayName: 'NoLHSTest');
 
-@Deprecated('Use `_\$NoLHSTestConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$NoLHSTestConfig` instead.')
 final UiFactoryConfig<_$$TestProps> $NoLHSTestConfig = _$NoLHSTestConfig;
 
 final UiFactoryConfig<_$$TestProps> _$_TestConfig = UiFactoryConfig(
@@ -205,7 +207,8 @@ final UiFactoryConfig<_$$TestProps> _$_TestConfig = UiFactoryConfig(
     ),
     displayName: '_Test');
 
-@Deprecated('Use `_\$_TestConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$_TestConfig` instead.')
 final UiFactoryConfig<_$$TestProps> $_TestConfig = _$_TestConfig;
 
 // Concrete props implementation.

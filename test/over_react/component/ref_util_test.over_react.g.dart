@@ -205,7 +205,8 @@ final UiFactoryConfig<_$$BasicUiFunctionProps> _$BasicUiFunctionConfig =
         ),
         displayName: 'BasicUiFunction');
 
-@Deprecated('Use `_\$BasicUiFunctionConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$BasicUiFunctionConfig` instead.')
 final UiFactoryConfig<_$$BasicUiFunctionProps> $BasicUiFunctionConfig =
     _$BasicUiFunctionConfig;
 
@@ -289,7 +290,8 @@ final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
         ),
         displayName: 'TopLevelForwardUiRefFunction');
 
-@Deprecated('Use `_\$TopLevelForwardUiRefFunctionConfig` instead.')
+@Deprecated(
+    r'This member is incompatible with Dart >2.9.0. Use `_$TopLevelForwardUiRefFunctionConfig` instead.')
 final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
     $TopLevelForwardUiRefFunctionConfig = _$TopLevelForwardUiRefFunctionConfig;
 
