@@ -53,8 +53,9 @@ final UiFactoryConfig<_$$UseContextExampleProps> _$UseContextExampleConfig =
         ),
         displayName: 'UseContextExample');
 
-@Deprecated(
-    r'This member is incompatible with Dart >2.9.0. Use `_$UseContextExampleConfig` instead.')
+@Deprecated(r'Use the private variable, _$UseContextExampleConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$UseContextExampleProps> $UseContextExampleConfig =
     _$UseContextExampleConfig;
 
@@ -138,8 +139,9 @@ final UiFactoryConfig<_$$NewContextProviderProps> _$NewContextProviderConfig =
         ),
         displayName: 'NewContextProvider');
 
-@Deprecated(
-    r'This member is incompatible with Dart >2.9.0. Use `_$NewContextProviderConfig` instead.')
+@Deprecated(r'Use the private variable, _$NewContextProviderConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$NewContextProviderProps> $NewContextProviderConfig =
     _$NewContextProviderConfig;
 

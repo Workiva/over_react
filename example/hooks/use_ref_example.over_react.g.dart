@@ -34,8 +34,9 @@ final UiFactoryConfig<_$$UseRefExampleProps> _$UseRefExampleConfig =
         ),
         displayName: 'UseRefExample');
 
-@Deprecated(
-    r'This member is incompatible with Dart >2.9.0. Use `_$UseRefExampleConfig` instead.')
+@Deprecated(r'Use the private variable, _$UseRefExampleConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$UseRefExampleProps> $UseRefExampleConfig =
     _$UseRefExampleConfig;
 

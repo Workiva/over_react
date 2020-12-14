@@ -40,9 +40,9 @@ main() {
 
         test('consumerName', () => expect(names.consumerName, r'foo.Foo'));
         test('implName', () => expect(names.implName, r'foo._$Foo'));
-        test('privateConfigName', () => expect(names.privateConfigName, r'_$foo.FooConfig'));
+        test('privateConfigName', () => expect(names.privateConfigName, r'foo._$FooConfig'));
         // ignore: deprecated_member_use_from_same_package
-        test('publicConfigName', () => expect(names.publicConfigName, r'$foo.FooConfig'));
+        test('publicConfigName', () => expect(names.publicConfigName, r'foo.$FooConfig'));
       });
     });
 

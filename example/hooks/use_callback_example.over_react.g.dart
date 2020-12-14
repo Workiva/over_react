@@ -34,8 +34,9 @@ final UiFactoryConfig<_$$UseCallbackExampleProps> _$UseCallbackExampleConfig =
         ),
         displayName: 'UseCallbackExample');
 
-@Deprecated(
-    r'This member is incompatible with Dart >2.9.0. Use `_$UseCallbackExampleConfig` instead.')
+@Deprecated(r'Use the private variable, _$UseCallbackExampleConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$UseCallbackExampleProps> $UseCallbackExampleConfig =
     _$UseCallbackExampleConfig;
 

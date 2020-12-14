@@ -77,8 +77,9 @@ final UiFactoryConfig<_$$FancyInputProps> _$FancyInputConfig = UiFactoryConfig(
     ),
     displayName: 'FancyInput');
 
-@Deprecated(
-    r'This member is incompatible with Dart >2.9.0. Use `_$FancyInputConfig` instead.')
+@Deprecated(r'Use the private variable, _$FancyInputConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$FancyInputProps> $FancyInputConfig =
     _$FancyInputConfig;
 
@@ -163,7 +164,9 @@ final UiFactoryConfig<_$$UseImperativeHandleExampleProps>
         displayName: 'UseImperativeHandleExample');
 
 @Deprecated(
-    r'This member is incompatible with Dart >2.9.0. Use `_$UseImperativeHandleExampleConfig` instead.')
+    r'Use the private variable, _$UseImperativeHandleExampleConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$UseImperativeHandleExampleProps>
     $UseImperativeHandleExampleConfig = _$UseImperativeHandleExampleConfig;
 

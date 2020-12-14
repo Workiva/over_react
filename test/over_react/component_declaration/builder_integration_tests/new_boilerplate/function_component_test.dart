@@ -30,7 +30,7 @@ main() {
     });
 
     group('with public generated props config (deprecated)', () {
-      functionComponentTestHelper(TestPublicConfig);
+      functionComponentTestHelper(TestPublic);
     });
 
     group('with custom PropsFactory', () {
@@ -388,7 +388,7 @@ UiFactory<TestProps> Test = uiFunction(
   _$TestConfig, // ignore: undefined_identifier
 );
 
-UiFactory<TestProps> TestPublicConfig = uiFunction(
+UiFactory<TestProps> TestPublic = uiFunction(
       (props) {
     return (Dom.div()
       ..addTestId('testId')
@@ -400,7 +400,7 @@ UiFactory<TestProps> TestPublicConfig = uiFunction(
       ..addProp('data-prop-custom-key-and-namespace-prop',
           props.customKeyAndNamespaceProp))('rendered content');
   },
-  $TestConfig, // ignore: undefined_identifier, deprecated_member_use_from_same_package
+  $TestPublicConfig, // ignore: undefined_identifier, deprecated_member_use_from_same_package
 );
 
 UiFactory<TestProps> TestCustom = uiFunction(

@@ -130,8 +130,9 @@ final UiFactoryConfig<_$$BasicProps> _$BasicConfig = UiFactoryConfig(
     ),
     displayName: 'Basic');
 
-@Deprecated(
-    r'This member is incompatible with Dart >2.9.0. Use `_$BasicConfig` instead.')
+@Deprecated(r'Use the private variable, _$BasicConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$BasicProps> $BasicConfig = _$BasicConfig;
 
 final UiFactoryConfig<_$$BasicProps> _$SimpleConfig = UiFactoryConfig(
@@ -141,8 +142,9 @@ final UiFactoryConfig<_$$BasicProps> _$SimpleConfig = UiFactoryConfig(
     ),
     displayName: 'Simple');
 
-@Deprecated(
-    r'This member is incompatible with Dart >2.9.0. Use `_$SimpleConfig` instead.')
+@Deprecated(r'Use the private variable, _$SimpleConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$BasicProps> $SimpleConfig = _$SimpleConfig;
 
 // Concrete props implementation.
@@ -224,8 +226,9 @@ final UiFactoryConfig<_$$FooProps> _$FooConfig = UiFactoryConfig(
     ),
     displayName: 'Foo');
 
-@Deprecated(
-    r'This member is incompatible with Dart >2.9.0. Use `_$FooConfig` instead.')
+@Deprecated(r'Use the private variable, _$FooConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$FooProps> $FooConfig = _$FooConfig;
 
 // Concrete props implementation.

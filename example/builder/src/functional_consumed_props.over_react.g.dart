@@ -82,8 +82,9 @@ final UiFactoryConfig<_$$SomeParentProps> _$SomeParentConfig = UiFactoryConfig(
     ),
     displayName: 'SomeParent');
 
-@Deprecated(
-    r'This member is incompatible with Dart >2.9.0. Use `_$SomeParentConfig` instead.')
+@Deprecated(r'Use the private variable, _$SomeParentConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$SomeParentProps> $SomeParentConfig =
     _$SomeParentConfig;
 
@@ -171,8 +172,9 @@ final UiFactoryConfig<_$$SomeChildProps> _$SomeChildConfig = UiFactoryConfig(
     ),
     displayName: 'SomeChild');
 
-@Deprecated(
-    r'This member is incompatible with Dart >2.9.0. Use `_$SomeChildConfig` instead.')
+@Deprecated(r'Use the private variable, _$SomeChildConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$SomeChildProps> $SomeChildConfig = _$SomeChildConfig;
 
 // Concrete props implementation.

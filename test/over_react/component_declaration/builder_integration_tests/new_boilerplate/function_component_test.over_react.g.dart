@@ -185,9 +185,22 @@ final UiFactoryConfig<_$$TestProps> _$TestConfig = UiFactoryConfig(
     ),
     displayName: 'Test');
 
-@Deprecated(
-    r'This member is incompatible with Dart >2.9.0. Use `_$TestConfig` instead.')
+@Deprecated(r'Use the private variable, _$TestConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$TestProps> $TestConfig = _$TestConfig;
+
+final UiFactoryConfig<_$$TestProps> _$TestPublicConfig = UiFactoryConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$TestProps(map),
+      jsMap: (map) => _$$TestProps$JsMap(map),
+    ),
+    displayName: 'TestPublic');
+
+@Deprecated(r'Use the private variable, _$TestPublicConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$TestProps> $TestPublicConfig = _$TestPublicConfig;
 
 final UiFactoryConfig<_$$TestProps> _$NoLHSTestConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
@@ -196,8 +209,9 @@ final UiFactoryConfig<_$$TestProps> _$NoLHSTestConfig = UiFactoryConfig(
     ),
     displayName: 'NoLHSTest');
 
-@Deprecated(
-    r'This member is incompatible with Dart >2.9.0. Use `_$NoLHSTestConfig` instead.')
+@Deprecated(r'Use the private variable, _$NoLHSTestConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$TestProps> $NoLHSTestConfig = _$NoLHSTestConfig;
 
 final UiFactoryConfig<_$$TestProps> _$_TestConfig = UiFactoryConfig(
@@ -207,8 +221,9 @@ final UiFactoryConfig<_$$TestProps> _$_TestConfig = UiFactoryConfig(
     ),
     displayName: '_Test');
 
-@Deprecated(
-    r'This member is incompatible with Dart >2.9.0. Use `_$_TestConfig` instead.')
+@Deprecated(r'Use the private variable, _$_TestConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$TestProps> $_TestConfig = _$_TestConfig;
 
 // Concrete props implementation.

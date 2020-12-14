@@ -205,8 +205,9 @@ final UiFactoryConfig<_$$BasicUiFunctionProps> _$BasicUiFunctionConfig =
         ),
         displayName: 'BasicUiFunction');
 
-@Deprecated(
-    r'This member is incompatible with Dart >2.9.0. Use `_$BasicUiFunctionConfig` instead.')
+@Deprecated(r'Use the private variable, _$BasicUiFunctionConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$BasicUiFunctionProps> $BasicUiFunctionConfig =
     _$BasicUiFunctionConfig;
 
@@ -291,7 +292,9 @@ final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
         displayName: 'TopLevelForwardUiRefFunction');
 
 @Deprecated(
-    r'This member is incompatible with Dart >2.9.0. Use `_$TopLevelForwardUiRefFunctionConfig` instead.')
+    r'Use the private variable, _$TopLevelForwardUiRefFunctionConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
     $TopLevelForwardUiRefFunctionConfig = _$TopLevelForwardUiRefFunctionConfig;
 
