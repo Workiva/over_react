@@ -10,6 +10,12 @@ dev_dependencies:
   workiva_analysis_options: ^1.1.0
 
 dependency_overrides:
-  # Pull in the local copy of over_react so it pulls in the local copy of the plugin
-  over_react:
-      path: ../../..
+  react:
+    git:
+      url: https://github.com/cleandart/react-dart.git
+      ref: 6.0.0-wip
+  # Pull in the local copy of over_react so it pulls in the local copy of the plugin  over_react:
+    git:
+      url: https://github.com/Workiva/over_react.git
+      ref: release_over_react_4.0.0
+
