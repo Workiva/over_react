@@ -389,7 +389,7 @@ class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
   }
 
   @override
-  ReactElement render() {
+  dynamic render() {
     return (Dom.div()
       ..modifyProps(addUnconsumedDomProps)
       ..style = {
@@ -759,7 +759,7 @@ that you get for free from OverReact, you're ready to start building your own cu
       );
 
       @override
-      ReactElement render() {
+      dynamic render() {
         // Return the rendered component contents here.
         // The `props` variable is typed; no need for string keys!
       }
@@ -800,7 +800,7 @@ that you get for free from OverReact, you're ready to start building your own cu
       );
 
       @override
-      ReactElement render() {
+      dynamic render() {
         // Return the rendered component contents here.
         // The `props` variable is typed; no need for string keys!
       }
