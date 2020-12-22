@@ -367,17 +367,17 @@ mixin FooState on UiState {
 
 class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
   @override
-  get defaultProps => (newProps()
+  Map get defaultProps => (newProps()
     ..color = '#66cc00'
   );
 
   @override
-  get initialState => (newState()
+  Map get initialState => (newState()
     ..isActive = false
   );
 
   @override
-  componentDidUpdate(Map prevProps, Map prevState, [dynamic snapshot]) {
+  void componentDidUpdate(Map prevProps, Map prevState, [dynamic snapshot]) {
     var tPrevState = typedStateFactory(prevState);
     var tPrevProps = typedPropsFactory(prevProps);
 
@@ -389,7 +389,7 @@ class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
   }
 
   @override
-  render() {
+  ReactElement render() {
     return (Dom.div()
       ..modifyProps(addUnconsumedDomProps)
       ..style = {
@@ -752,14 +752,14 @@ that you get for free from OverReact, you're ready to start building your own cu
 
     class FooComponent extends UiComponent2<FooProps> {
       @override
-      get defaultProps => (newProps()
+      Map get defaultProps => (newProps()
         // Cascade default props here
         ..isDisabled = false
         ..items = []
       );
 
       @override
-      render() {
+      ReactElement render() {
         // Return the rendered component contents here.
         // The `props` variable is typed; no need for string keys!
       }
@@ -787,20 +787,20 @@ that you get for free from OverReact, you're ready to start building your own cu
 
     class BarComponent extends UiStatefulComponent2<BarProps, BarState> {
       @override
-      get defaultProps => (newProps()
+      Map get defaultProps => (newProps()
         // Cascade default props here
         ..isDisabled = false
         ..items = []
       );
 
       @override
-      get initialState => (newState()
+      Map get initialState => (newState()
         // Cascade initial state here
         ..isShown = true
       );
 
       @override
-      render() {
+      ReactElement render() {
         // Return the rendered component contents here.
         // The `props` variable is typed; no need for string keys!
       }
@@ -901,13 +901,13 @@ and document that value in a comment.
     DropdownButtonComponent
         extends UiStatefulComponent2<DropdownButtonProps, DropdownButtonState> {
       @override
-      get defaultProps => (newProps()
+      Map get defaultProps => (newProps()
         ..isDisabled = false
         ..initiallyOpen = false
       );
 
       @override
-      get initialState => (newState()
+      Map get initialState => (newState()
         ..isOpen = props.initiallyOpen
       );
     }
