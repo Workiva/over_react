@@ -380,7 +380,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
     /// into Dart code (e.g., those passed into mapStateToPropsWithOwnProps/areOwnPropsEqual)
     /// without needing unwrapping/conversion.
     final hocFactoryProxy = ReactDartComponentFactoryProxy2(hoc);
-    setComponentTypeMeta(hocFactoryProxy, isHoc: true, parentType: dartComponentFactory);
+    setComponentTypeMeta(hocFactoryProxy.type, isHoc: true, parentType: dartComponentFactory.type);
 
     TProps connectedFactory([Map props]) {
       return (factory(props)..componentFactory = hocFactoryProxy);

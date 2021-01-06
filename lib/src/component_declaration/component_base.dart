@@ -70,7 +70,7 @@ ReactDartComponentFactoryProxy registerComponent(react.Component Function() dart
   registerComponentTypeAlias(reactComponentFactory, builderFactory);
   registerComponentTypeAlias(reactComponentFactory, componentClass);
 
-  setComponentTypeMeta(reactComponentFactory, isWrapper: isWrapper, parentType: parentType);
+  setComponentTypeMeta(reactComponentFactory.type, isWrapper: isWrapper, parentType: parentType?.type);
 
   return reactComponentFactory;
 }
