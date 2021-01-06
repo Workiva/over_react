@@ -53,7 +53,8 @@ class FactoryNames {
   /// The name of the public generated function component props config for the factory.
   ///
   /// Example: `$FooConfig
-  @Deprecated('The public config is deprecated and will be removed. Use `privateConfigName` instead.')
+  @Deprecated(
+      'The public config is deprecated and will be removed. Use `privateConfigName` instead.')
   String get publicConfigName => '$_prefix$publicGeneratedPrefix${unprefixedConsumerName}Config';
 }
 
