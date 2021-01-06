@@ -663,8 +663,10 @@ main() {
             'propsFactory: PropsFactory(\n'
             'map: (map) => _\$\$$propsName(map),\n'
             'jsMap: (map) => _\$\$$propsName\$JsMap(map),),\n'
-            'displayName: \'${factoryName}\');\n\n'
-            '@Deprecated(r\'This member is incompatible with Dart >2.9.0. Use `_\$${factoryName}Config` instead.\')\n'
+            'displayName: \'$factoryName\');\n\n'
+            '@Deprecated(r\'Use the private variable, _\$${factoryName}Config, instead \'\n'
+            '\'and update the `over_react` lower bound to version 4.1.0. \'\n'
+            '\'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650\')\n'
             'final UiFactoryConfig<_\$\$$propsName> '
             '\$${factoryName}Config = _\$${factoryName}Config;\n\n';
         }
