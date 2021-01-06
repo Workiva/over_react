@@ -438,5 +438,7 @@ UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
     return builder..componentFactory = factory;
   }
 
+  registerComponentTypeAlias(factory, _uiFactory);
+
   return _uiFactory;
 }

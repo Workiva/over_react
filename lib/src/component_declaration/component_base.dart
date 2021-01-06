@@ -37,7 +37,7 @@ import 'component_type_checking.dart';
 import 'disposable_manager_proxy.dart';
 import 'util.dart';
 
-export 'component_type_checking.dart' show isComponentOfType, isValidElementOfType;
+export 'component_type_checking.dart' show isComponentOfType, isValidElementOfType, UiFactoryTypeMeta;
 
 /// Helper function that wraps react.registerComponent, and allows attachment of additional
 /// component factory metadata.

@@ -15,6 +15,7 @@
 library over_react.component_declaration.component_type_checking_test;
 
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart' show connect;
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
@@ -45,6 +46,8 @@ import 'component2_type_checking_test/type_inheritance/subtype2.dart';
 import 'component2_type_checking_test/type_inheritance/subsubtype_of_component1.dart';
 import 'component2_type_checking_test/type_inheritance/subtype_of_component1.dart';
 
+import 'function_type_checking_test/components.dart' as function;
+
 main() {
   group('Component1', () {
     testComponentTypeChecking(
@@ -52,7 +55,6 @@ main() {
       TestSubtype: TestSubtype,
       TestSubsubtype: TestSubsubtype,
       TestExtendtype: TestExtendtype,
-      TestExtendtypeComponent: TestExtendtypeComponent,
       TestAbstractComponent: TestAbstractComponent,
       TestA: TestA,
       TestAComponent: TestAComponent,
@@ -62,6 +64,7 @@ main() {
       TwoLevelWrapper: TwoLevelWrapper,
     );
   });
+
   group('Component2', () {
     testComponentTypeChecking(
       isComponent2: true,
@@ -69,7 +72,6 @@ main() {
       TestSubtype: TestSubtype2,
       TestSubsubtype: TestSubsubtype2,
       TestExtendtype: TestExtendtype2,
-      TestExtendtypeComponent: TestExtendtype2Component,
       TestAbstractComponent: TestAbstract2Component,
       TestA: TestA2,
       TestAComponent: TestA2Component,
@@ -79,6 +81,7 @@ main() {
       TwoLevelWrapper: TwoLevelWrapper2,
     );
   });
+
   group('Component2 (subtypeOf: Component1)', () {
     testComponentTypeChecking(
       isComponent2: true,
@@ -86,7 +89,6 @@ main() {
       TestSubtype: TestSubtypeOfComponent1,
       TestSubsubtype: TestSubsubtypeOfComponent1,
       TestExtendtype: TestExtendtype2,
-      TestExtendtypeComponent: TestExtendtype2Component,
       TestAbstractComponent: TestAbstract2Component,
       TestA: TestA2,
       TestAComponent: TestA2Component,
@@ -96,22 +98,38 @@ main() {
       TwoLevelWrapper: TwoLevelWrapper2,
     );
   });
+
+  group('Function component', () {
+    testComponentTypeChecking(
+      isComponent2: true,
+      TestParent: function.TestParent,
+      TestSubtype: function.TestSubtype,
+      TestSubsubtype: function.TestSubsubtype,
+      TestExtendtype: function.TestExtendtype,
+      TestAbstractComponent: TestAbstract2Component,
+      TestA: function.TestA,
+      TestAComponent: null,
+      TestB: function.TestB,
+      TestBComponent: null,
+      OneLevelWrapper: function.OneLevelWrapper,
+      TwoLevelWrapper: function.TwoLevelWrapper,
+    );
+  });
 }
 
 testComponentTypeChecking({
   bool isComponent2 = false,
-  UiFactory TestParent,
-  UiFactory TestSubtype,
-  UiFactory TestSubsubtype,
-  UiFactory TestExtendtype,
-  Type TestExtendtypeComponent,
-  Type TestAbstractComponent,
-  UiFactory TestA,
-  Type TestAComponent,
-  UiFactory TestB,
-  Type TestBComponent,
-  UiFactory OneLevelWrapper,
-  UiFactory TwoLevelWrapper,
+  @required UiFactory TestParent,
+  @required UiFactory TestSubtype,
+  @required UiFactory TestSubsubtype,
+  @required UiFactory TestExtendtype,
+  @required Type TestAbstractComponent,
+  @required UiFactory TestA,
+  @required Type TestAComponent,
+  @required UiFactory TestB,
+  @required Type TestBComponent,
+  @required UiFactory OneLevelWrapper,
+  @required UiFactory TwoLevelWrapper,
 }) {
   group('type checking:', () {
     group('getComponentTypeFromAlias', () {
@@ -218,7 +236,7 @@ testComponentTypeChecking({
 
           test('that contains all of a component\'s parent abstract types', () {
             expect(
-                getParentTypes(getComponentTypeFromAlias(TestExtendtypeComponent)),
+                getParentTypes(getComponentTypeFromAlias(TestExtendtype)),
                 orderedEquals([
                   getComponentTypeFromAlias(TestAbstractComponent),
                 ]));
@@ -252,9 +270,11 @@ testComponentTypeChecking({
           expect(isComponentOfType(TestA()(), TestA().componentFactory), isTrue);
         });
 
-        test('a component and its component class', () {
-          expect(isComponentOfType(TestA()(), TestAComponent), isTrue);
-        });
+        if (TestAComponent != null) {
+          test('a component and its component class', () {
+            expect(isComponentOfType(TestA()(), TestAComponent), isTrue);
+          });
+        }
 
         test('a component and its component type', () {
           expect(isComponentOfType(TestA()(), TestA()().type), isTrue);
@@ -268,9 +288,11 @@ testComponentTypeChecking({
           expect(isComponentOfType(TestA()(), TestB().componentFactory), isFalse);
         });
 
-        test('a component and a component class for a different component', () {
-          expect(isComponentOfType(TestA()(), TestBComponent), isFalse);
-        });
+        if (TestBComponent != null) {
+          test('a component and a component class for a different component', () {
+            expect(isComponentOfType(TestA()(), TestBComponent), isFalse);
+          });
+        }
 
         test('a component and a component type for a different component', () {
           expect(isComponentOfType(TestA()(), TestB()().type), isFalse);
