@@ -197,13 +197,19 @@ const PropsMeta _$metaForBasicUiFunctionProps = PropsMeta(
   keys: $BasicUiFunctionProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$BasicUiFunctionProps> $BasicUiFunctionConfig =
+final UiFactoryConfig<_$$BasicUiFunctionProps> _$BasicUiFunctionConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$BasicUiFunctionProps(map),
           jsMap: (map) => _$$BasicUiFunctionProps$JsMap(map),
         ),
         displayName: 'BasicUiFunction');
+
+@Deprecated(r'Use the private variable, _$BasicUiFunctionConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$BasicUiFunctionProps> $BasicUiFunctionConfig =
+    _$BasicUiFunctionConfig;
 
 // Concrete props implementation.
 //
@@ -278,12 +284,19 @@ class _$$BasicUiFunctionProps$JsMap extends _$$BasicUiFunctionProps {
 }
 
 final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
-    $TopLevelForwardUiRefFunctionConfig = UiFactoryConfig(
+    _$TopLevelForwardUiRefFunctionConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$SecondaryBasicUiFunctionProps(map),
           jsMap: (map) => _$$SecondaryBasicUiFunctionProps$JsMap(map),
         ),
         displayName: 'TopLevelForwardUiRefFunction');
+
+@Deprecated(
+    r'Use the private variable, _$TopLevelForwardUiRefFunctionConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
+    $TopLevelForwardUiRefFunctionConfig = _$TopLevelForwardUiRefFunctionConfig;
 
 // Concrete props implementation.
 //

@@ -39,7 +39,7 @@ UiFactory<SomeParentProps> SomeParent = uiFunction((props) {
         )
     );
   },
-  $SomeParentConfig, // ignore: undefined_identifier
+  _$SomeParentConfig, // ignore: undefined_identifier
 );
 
 class SomeChildProps = UiProps with SharedPropsMixin;
@@ -51,5 +51,5 @@ UiFactory<SomeChildProps> SomeChild = uiFunction((props) {
     )
   );
 },
-  $SomeChildConfig, // ignore: undefined_identifier
+  _$SomeChildConfig, // ignore: undefined_identifier
 );

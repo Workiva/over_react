@@ -266,7 +266,7 @@ main() {
                   (props) {
                     return Dom.div()();
                   },
-                  $FooConfig, // ignore: undefined_identifier
+                  _$FooConfig, // ignore: undefined_identifier
                 );
             '''), VersionConfidences.none());
             expect(factory.propsGenericArg?.typeNameWithoutPrefix, 'FooProps');
@@ -278,7 +278,7 @@ main() {
                   (props) {
                     return Dom.div()();
                   },
-                  $FooConfig, // ignore: undefined_identifier
+                  _$FooConfig, // ignore: undefined_identifier
                 );
             '''), VersionConfidences.none());
             expect(factory.propsGenericArg?.typeNameWithoutPrefix, 'FooProps');
@@ -290,7 +290,7 @@ main() {
                   (props) {
                     return Dom.div()();
                   },
-                  $FooConfig, // ignore: undefined_identifier
+                  _$FooConfig, // ignore: undefined_identifier
                 );
             '''), VersionConfidences.none());
             expect(factory.propsGenericArg, isNull);
@@ -307,6 +307,18 @@ main() {
         });
 
         test('returns true for function component factories', () {
+          final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
+              UiFactory Foo = uiFunction(
+                (props) {
+                  return Dom.div()();
+                },
+                _$FooConfig, // ignore: undefined_identifier
+              );
+          '''), VersionConfidences.none());
+          expect(factory.shouldGenerateConfig, isTrue);
+        });
+
+        test('returns true for function component factories with public config', () {
           final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
               UiFactory Foo = uiFunction(
                 (props) {
@@ -427,7 +439,7 @@ main() {
               contains('Factory variables are stubs for generated code, and must'
                   ' be initialized with an expression containing either'
                   ' the generated factory (_\$Foo) or'
-                  ' the generated factory config (\$FooConfig).'),
+                  ' the generated factory config (_\$FooConfig).'),
             ]);
           });
         });

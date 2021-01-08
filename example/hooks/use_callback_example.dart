@@ -39,5 +39,5 @@ UiFactory<UseCallbackExampleProps> UseCallbackExample = uiFunction(
       (Dom.button()..onClick = incrementDelta)('Increment delta'),
     );
   },
-  $UseCallbackExampleConfig, // ignore: undefined_identifier
+  _$UseCallbackExampleConfig, // ignore: undefined_identifier
 );

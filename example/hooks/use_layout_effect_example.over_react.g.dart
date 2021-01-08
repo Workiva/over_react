@@ -26,13 +26,20 @@ const PropsMeta _$metaForUseLayoutEffectProps = PropsMeta(
   keys: $UseLayoutEffectProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$UseLayoutEffectProps> $UseLayoutEffectExampleConfig =
+final UiFactoryConfig<_$$UseLayoutEffectProps> _$UseLayoutEffectExampleConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseLayoutEffectProps(map),
           jsMap: (map) => _$$UseLayoutEffectProps$JsMap(map),
         ),
         displayName: 'UseLayoutEffectExample');
+
+@Deprecated(
+    r'Use the private variable, _$UseLayoutEffectExampleConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$UseLayoutEffectProps> $UseLayoutEffectExampleConfig =
+    _$UseLayoutEffectExampleConfig;
 
 // Concrete props implementation.
 //

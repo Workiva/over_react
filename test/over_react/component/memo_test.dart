@@ -34,7 +34,7 @@ UiFactory<FunctionCustomPropsProps> FunctionCustomProps = uiFunction(
     return Dom.div()(Dom.div()('prop id: ${props.id}'),
         Dom.div()('test Prop: ${props.testProp}'));
   },
-  $FunctionCustomPropsConfig, // ignore: undefined_identifier
+  _$FunctionCustomPropsConfig, // ignore: undefined_identifier
 );
 
 main() {

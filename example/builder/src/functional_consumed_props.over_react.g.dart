@@ -75,12 +75,18 @@ const PropsMeta _$metaForSharedPropsMixin = PropsMeta(
   keys: $SharedPropsMixin.$propKeys,
 );
 
-final UiFactoryConfig<_$$SomeParentProps> $SomeParentConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$SomeParentProps> _$SomeParentConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$SomeParentProps(map),
       jsMap: (map) => _$$SomeParentProps$JsMap(map),
     ),
     displayName: 'SomeParent');
+
+@Deprecated(r'Use the private variable, _$SomeParentConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$SomeParentProps> $SomeParentConfig =
+    _$SomeParentConfig;
 
 // Concrete props implementation.
 //
@@ -159,12 +165,17 @@ class _$$SomeParentProps$JsMap extends _$$SomeParentProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$SomeChildProps> $SomeChildConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$SomeChildProps> _$SomeChildConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$SomeChildProps(map),
       jsMap: (map) => _$$SomeChildProps$JsMap(map),
     ),
     displayName: 'SomeChild');
+
+@Deprecated(r'Use the private variable, _$SomeChildConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$SomeChildProps> $SomeChildConfig = _$SomeChildConfig;
 
 // Concrete props implementation.
 //

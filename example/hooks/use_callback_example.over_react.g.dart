@@ -26,13 +26,19 @@ const PropsMeta _$metaForUseCallbackExampleProps = PropsMeta(
   keys: $UseCallbackExampleProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$UseCallbackExampleProps> $UseCallbackExampleConfig =
+final UiFactoryConfig<_$$UseCallbackExampleProps> _$UseCallbackExampleConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseCallbackExampleProps(map),
           jsMap: (map) => _$$UseCallbackExampleProps$JsMap(map),
         ),
         displayName: 'UseCallbackExample');
+
+@Deprecated(r'Use the private variable, _$UseCallbackExampleConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$UseCallbackExampleProps> $UseCallbackExampleConfig =
+    _$UseCallbackExampleConfig;
 
 // Concrete props implementation.
 //

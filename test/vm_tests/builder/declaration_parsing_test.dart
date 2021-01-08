@@ -1572,14 +1572,14 @@ main() {
                   (props) {
                     return Dom.div()();
                   },
-                  \$FooConfig, // ignore: undefined_identifier
+                  _\$FooConfig, // ignore: undefined_identifier
                 );
                 
                 final Bar = uiFunction<FooPropsMixin>(
                   (props) {
                     return Dom.div()();
                   },
-                  \$BarConfig, // ignore: undefined_identifier
+                  _\$BarConfig, // ignore: undefined_identifier
                 );
                 
                 UiFactory<FooPropsMixin> Baz = uiFunction<FooPropsMixin>(
@@ -1621,7 +1621,7 @@ main() {
                   (props) {
                     return Dom.div()();
                   },  
-                  \$FooConfig, // ignore: undefined_identifier
+                  _\$FooConfig, // ignore: undefined_identifier
                 );
                 mixin FooPropsMixin on UiProps {}
                 class FooProps = UiProps with FooPropsMixin;
@@ -1652,20 +1652,44 @@ main() {
               expect(declarations, isEmpty);
             });
 
+            test('with public generated config', () {
+              setUpAndParse('''
+                UiFactory<FooPropsMixin> Foo = uiFunction(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  \$FooConfig, // ignore: undefined_identifier
+                );
+                
+                mixin FooPropsMixin on UiProps {}
+              ''');
+
+              expect(declarations, unorderedEquals([
+                isA<PropsMixinDeclaration>(),
+                isA<PropsMapViewOrFunctionComponentDeclaration>(),
+              ]));
+              final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
+
+              expect(decl.factories, hasLength(1));
+              expect(decl.factories.first.name.name, equals('Foo'));
+              expect(decl.props.b?.name?.name, 'FooPropsMixin');
+              expect(decl.version, Version.v4_mixinBased);
+            });
+
             test('wrapped in an hoc', () {
               setUpAndParse('''
                 UiFactory<FooPropsMixin> Foo = someHOC(uiFunction(
                   (props) {
                     return Dom.div()();
                   },
-                  \$FooConfig, // ignore: undefined_identifier
+                  _\$FooConfig, // ignore: undefined_identifier
                 ));
                 
                 final Bar = someHOC(uiFunction<FooPropsMixin>(
                   (props) {
                     return Dom.div()();
                   },
-                  \$BarConfig, // ignore: undefined_identifier
+                  _\$BarConfig, // ignore: undefined_identifier
                 ));
                 
                 final Foo2 = someHOC(uiFunction<FooPropsMixin>(
@@ -1708,21 +1732,21 @@ main() {
                   (props) {
                     return Dom.div()();
                   },
-                  \$FooConfig, // ignore: undefined_identifier
+                  _\$FooConfig, // ignore: undefined_identifier
                 );
                 
                 final Bar = uiFunction<FooPropsMixin>(
                   (props) {
                     return Dom.div()();
                   },
-                  \$BarConfig, // ignore: undefined_identifier
+                  _\$BarConfig, // ignore: undefined_identifier
                 );
                 
                 UiFactory<BarPropsMixin> Baz = uiFunction(
                   (props) {
                     return Dom.div()();
                   },
-                  \$BazConfig, // ignore: undefined_identifier
+                  _\$BazConfig, // ignore: undefined_identifier
                 );
                 
                 mixin FooPropsMixin on UiProps {}
@@ -1911,7 +1935,7 @@ main() {
                 (props) {
                   return Dom.div()();
                 },
-                $FooConfig, // ignore: undefined_identifier
+                _$FooConfig, // ignore: undefined_identifier
               );
             ''');
             verify(logger.severe(contains(errorFactoryOnly)));
@@ -1924,7 +1948,7 @@ main() {
                 (props) {
                   return Dom.div()();
                 },
-                $FooConfig, // ignore: undefined_identifier
+                _$FooConfig, // ignore: undefined_identifier
               );
             ''');
             verify(logger.severe(contains(errorFactoryOnly)));
@@ -1937,7 +1961,7 @@ main() {
                 (props) {
                   return Dom.div()();
                 }, 
-                $FooConfig, // ignore: undefined_identifier
+                _$FooConfig, // ignore: undefined_identifier
               );
             ''');
             verify(logger.severe(contains(errorFactoryOnly)));
@@ -1953,7 +1977,7 @@ main() {
                 (props) {
                   return Dom.div()();
                 },
-                $FooConfig, // ignore: undefined_identifier
+                _$FooConfig, // ignore: undefined_identifier
               );
             ''');
             verify(logger.severe(contains(errorFactoryOnly)));
@@ -1999,7 +2023,7 @@ main() {
             verify(logger.severe(contains('Factory variables are stubs for generated code, and must'
                 ' be initialized with an expression containing either'
                 ' the generated factory (_\$Foo) or'
-                ' the generated factory config (\$FooConfig).')));
+                ' the generated factory config (_\$FooConfig).')));
           });
 
           test('declared using multiple variables', () {
@@ -2024,7 +2048,7 @@ main() {
             verify(logger.severe(contains('Factory variables are stubs for generated code, and must'
                 ' be initialized with an expression containing either'
                 ' the generated factory (_\$Foo) or'
-                ' the generated factory config (\$FooConfig).')));
+                ' the generated factory config (_\$FooConfig).')));
           });
 
           test('private and declared with an invalid initializer', () {
@@ -2038,7 +2062,7 @@ main() {
             verify(logger.severe(contains('Factory variables are stubs for generated code, and must'
                 ' be initialized with an expression containing either'
                 ' the generated factory (_\$_Foo) or'
-                ' the generated factory config (\$_FooConfig).')));
+                ' the generated factory config (_\$_FooConfig).')));
           });
         });
 

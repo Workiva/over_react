@@ -58,13 +58,19 @@ const PropsMeta _$metaForUseDebugValueExampleProps = PropsMeta(
   keys: $UseDebugValueExampleProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$FriendListItemProps> $FriendListItemConfig =
+final UiFactoryConfig<_$$FriendListItemProps> _$FriendListItemConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$FriendListItemProps(map),
           jsMap: (map) => _$$FriendListItemProps$JsMap(map),
         ),
         displayName: 'FriendListItem');
+
+@Deprecated(r'Use the private variable, _$FriendListItemConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$FriendListItemProps> $FriendListItemConfig =
+    _$FriendListItemConfig;
 
 // Concrete props implementation.
 //
@@ -139,12 +145,18 @@ class _$$FriendListItemProps$JsMap extends _$$FriendListItemProps {
 }
 
 final UiFactoryConfig<_$$UseDebugValueExampleProps>
-    $UseDebugValueExampleConfig = UiFactoryConfig(
+    _$UseDebugValueExampleConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseDebugValueExampleProps(map),
           jsMap: (map) => _$$UseDebugValueExampleProps$JsMap(map),
         ),
         displayName: 'UseDebugValueExample');
+
+@Deprecated(r'Use the private variable, _$UseDebugValueExampleConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$UseDebugValueExampleProps>
+    $UseDebugValueExampleConfig = _$UseDebugValueExampleConfig;
 
 // Concrete props implementation.
 //

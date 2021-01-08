@@ -26,13 +26,19 @@ const PropsMeta _$metaForUseRefExampleProps = PropsMeta(
   keys: $UseRefExampleProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$UseRefExampleProps> $UseRefExampleConfig =
+final UiFactoryConfig<_$$UseRefExampleProps> _$UseRefExampleConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseRefExampleProps(map),
           jsMap: (map) => _$$UseRefExampleProps$JsMap(map),
         ),
         displayName: 'UseRefExample');
+
+@Deprecated(r'Use the private variable, _$UseRefExampleConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$UseRefExampleProps> $UseRefExampleConfig =
+    _$UseRefExampleConfig;
 
 // Concrete props implementation.
 //

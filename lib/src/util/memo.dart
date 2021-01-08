@@ -37,7 +37,7 @@ import 'package:over_react/component_base.dart';
 ///   (props) {
 ///     // render using props
 ///   },
-///   $MemoExampleConfig, // ignore: undefined_identifier
+///   _$MemoExampleConfig, // ignore: undefined_identifier
 /// ));
 /// ```
 ///
@@ -55,7 +55,7 @@ import 'package:over_react/component_base.dart';
 ///   (props) {
 ///     // render using props
 ///   },
-///   $MemoWithComparisonConfig, // ignore: undefined_identifier
+///   _$MemoWithComparisonConfig, // ignore: undefined_identifier
 /// ), areEqual: (prevProps, nextProps) {
 ///   // Do some custom comparison logic to return a bool based on prevProps / nextProps
 /// });

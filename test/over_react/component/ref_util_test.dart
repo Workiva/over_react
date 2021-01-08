@@ -336,12 +336,12 @@ final BasicUiFunction = uiFunction<BasicUiFunctionProps>(
   (props) {
     return props.children.isEmpty ? 'basic component' : props.children;
   },
-  $BasicUiFunctionConfig, // ignore: undefined_identifier
+  _$BasicUiFunctionConfig, // ignore: undefined_identifier
 );
 
 final TopLevelForwardUiRefFunction = uiForwardRef<SecondaryBasicUiFunctionProps>(
   (props, ref) {
     return (BasicUiFunction()..ref = ref)(props.children);
   },
-  $TopLevelForwardUiRefFunctionConfig, // ignore: undefined_identifier
+  _$TopLevelForwardUiRefFunctionConfig, // ignore: undefined_identifier
 );

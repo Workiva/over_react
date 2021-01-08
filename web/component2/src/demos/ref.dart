@@ -26,7 +26,7 @@ UiFactory<FancyButtonProps> FancyButton = uiForwardRef(
       ..className = classes.toClassName()
     )('Click me!');
   },
-  $FancyButtonConfig, // ignore: undefined_identifier
+  _$FancyButtonConfig, // ignore: undefined_identifier
 );
 
 //----------------------------------------------------------------------------//
@@ -190,7 +190,7 @@ final Baz = uiFunction<BazProps>(
       ..ref = props._forwardedRef
     )(props.children));
   },
-  $BazConfig, // ignore: undefined_identifier
+  _$BazConfig, // ignore: undefined_identifier
 );
 
 // -------------------------------- Demo Display Logic --------------------------------
@@ -261,7 +261,7 @@ UiFactory<RefDemoProps> RefDemoContainer = uiFunction(
       ),
     ));
   },
-  $RefDemoContainerConfig, // ignore: undefined_identifier
+  _$RefDemoContainerConfig, // ignore: undefined_identifier
 );
 
 void printButtonOuterHtml(Ref buttonRef) {
@@ -288,7 +288,7 @@ UiFactory<RefDemoSectionProps> RefDemoSection = uiFunction(
       ),
     ));
   },
-  $RefDemoSectionConfig, // ignore: undefined_identifier
+  _$RefDemoSectionConfig, // ignore: undefined_identifier
 );
 
 mixin RefDemoHocProps on UiProps {
@@ -302,5 +302,5 @@ UiFactory<RefDemoHocProps> RefDemoHoc = uiFunction(
       props.children,
     ));
   },
-  $RefDemoHocConfig, // ignore: undefined_identifier
+  _$RefDemoHocConfig, // ignore: undefined_identifier
 );

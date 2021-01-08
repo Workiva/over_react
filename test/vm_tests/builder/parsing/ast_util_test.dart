@@ -75,6 +75,13 @@ main() {
         expect(InitializerHelperTopLevel(parseAndGetSingleWithType('''
           final Foo = uiFunction<FooPropsMixin>(
             (props) => Dom.div()(), 
+            _\$FooConfig, // ignore: undefined_identifier
+          );
+        ''')).usesAGeneratedConfig, true);
+
+        expect(InitializerHelperTopLevel(parseAndGetSingleWithType('''
+          final Foo = uiFunction<FooPropsMixin>(
+            (props) => Dom.div()(), 
             \$FooConfig, // ignore: undefined_identifier
           );
         ''')).usesAGeneratedConfig, true);
@@ -85,6 +92,13 @@ main() {
             UiFactoryConfig(),
           );
         ''')).usesAGeneratedConfig, false);
+
+        expect(InitializerHelperTopLevel(parseAndGetSingleWithType('''
+          final Foo = someHOC(uiFunction<FooPropsMixin>(
+            (props) => Dom.div()(), 
+            _\$FooConfig, // ignore: undefined_identifier
+          ));
+        ''')).usesAGeneratedConfig, true);
 
         expect(InitializerHelperTopLevel(parseAndGetSingleWithType('''
           final Foo = someHOC(uiFunction<FooPropsMixin>(

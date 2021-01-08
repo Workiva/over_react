@@ -827,7 +827,7 @@ that you get for free from OverReact, you're ready to start building your own cu
       );
     },
     // The generated props config will match the factory name.
-    $FooConfig, // ignore: undefined_identifier
+    _$FooConfig, // ignore: undefined_identifier
   );
 
   mixin FooProps on UiProps {

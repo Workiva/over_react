@@ -48,5 +48,5 @@ UiFactory<UseStateExampleProps> UseStateExample = uiFunction(
       Dom.p()('${count.value} is ${evenOdd.value}'),
     );
   },
-  $UseStateExampleConfig, // ignore: undefined_identifier
+  _$UseStateExampleConfig, // ignore: undefined_identifier
 );
