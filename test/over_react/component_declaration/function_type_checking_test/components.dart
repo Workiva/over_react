@@ -40,20 +40,20 @@ mixin TestSubtypeProps on UiProps {}
 UiFactory<TestSubtypeProps> TestSubtype = uiFunction(
   (props) {},
   $TestSubtypeConfig,
-)..parentType = TestParent;
+)..setTypeMeta(subtypeOfFactory: TestParent);
 
 mixin TestSubsubtypeProps on UiProps {}
 UiFactory<TestSubsubtypeProps> TestSubsubtype = uiFunction(
   (props) {},
   $TestSubsubtypeConfig,
-)..parentType = TestSubtype;
+)..setTypeMeta(subtypeOfFactory: TestSubtype);
 
 
 mixin TestExtendtypeProps on UiProps {}
 UiFactory<TestExtendtypeProps> TestExtendtype = uiFunction(
   (props) {},
   $TestExtendtypeConfig,
-)..parentType = $TestAbstract2ComponentFactory;
+)..setTypeMeta(subtypeOfRaw: $TestAbstract2ComponentFactory.type);
 
 mixin OneLevelWrapperProps on UiProps {}
 UiFactory<OneLevelWrapperProps> OneLevelWrapper = uiFunction(
@@ -61,7 +61,7 @@ UiFactory<OneLevelWrapperProps> OneLevelWrapper = uiFunction(
     return Dom.div()(props.children.single);
   },
   $OneLevelWrapperConfig,
-)..isWrapper = true;
+)..setTypeMeta(isWrapper: true);
 
 mixin TwoLevelWrapperProps on UiProps {}
 UiFactory<OneLevelWrapperProps> TwoLevelWrapper = uiFunction(
@@ -69,4 +69,4 @@ UiFactory<OneLevelWrapperProps> TwoLevelWrapper = uiFunction(
     return Dom.div()(props.children.single);
   },
   $TwoLevelWrapperConfig,
-)..isWrapper = true;
+)..setTypeMeta(isWrapper: true);

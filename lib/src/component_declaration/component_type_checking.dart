@@ -34,69 +34,26 @@ import 'package:react/react_client/react_interop.dart';
 
 /// Extensions to allow setting type-checking-related metadata on components.
 extension UiFactoryTypeMeta on UiFactory {
-  void _updateMeta(ComponentTypeMeta Function(ComponentTypeMeta oldMeta) update) {
-    final type = this().componentFactory.type;
-    final oldMeta = getComponentTypeMeta(type);
-    final newMeta = update(oldMeta);
-    setComponentTypeMeta(
-      type,
-      parentType: newMeta.parentType,
-      isWrapper: newMeta.isWrapper,
-      isHoc: newMeta.isHoc,
-    );
-  }
-
-  ComponentTypeMeta get _meta => getComponentTypeMeta(this().componentFactory);
-
-  // TODO only expose this once there's a use for it; isHoc's implementation seems incomplete
-  // bool get isHoc => _meta.isHoc;
-  // set isHoc(bool value) {
-  //   _updateMeta((oldMeta) => ComponentTypeMeta(
-  //     parentType: oldMeta.parentType,
-  //     isWrapper: oldMeta.isWrapper,
-  //     isHoc: value,
-  //   ));
-  // }
-
-  /// Whether the component clones or passes through its children and needs to be
-  /// treated as if it were the wrapped component when passed in to [isComponentOfType].
+  /// Sets metadata for the underlying component class/type associated with this
+  /// factory, functionally equivalent to the [annotations.Component2] annotation.
   ///
-  /// This field is the same as the value passed to the [annotations.Component2] annotation,
-  /// and can also be set for function components, which don't have annotations.
+  /// However, unlike the annotation, this can be use for function components.
   ///
-  /// ```
-  /// // Class component
-  /// @Component2(isHoc: true)
-  /// class FooComponent extends UiComponent2<FooProps> { ... }
+  /// ## subtypeOf arguments: [subtypeOfFactory]/[subtypeOfRaw]
   ///
-  /// // Function component
-  /// UiFactory<FooProps> Foo = uiFunction(...)
-  ///   ..isHoc = true;
-  /// ```
-  bool get isWrapper => _meta.isWrapper;
-  set isWrapper(bool value) {
-    _updateMeta((oldMeta) => ComponentTypeMeta(
-      parentType: oldMeta.parentType,
-      isWrapper: value,
-      isHoc: oldMeta.isHoc,
-    ));
-  }
-
   /// The raw JS component type that is this component's "parent type".
   ///
   /// Used to enable inheritance in component type-checking in `isComponentOfType`.
   ///
-  /// This field is derived from the `subtypeOf` argument value passed to the [annotations.Component2] annotation,
-  /// and can also be set for function components, which don't have annotations.
+  /// [subtypeOfRaw] accepts the raw underlying type, and
+  /// [subtypeOfFactory] accepts a factory, for convenience.
   ///
-  /// The value passed to the setter is normalized and stored as the
-  /// raw JS component type, and accepts either:
-  ///
-  /// * [UiFactory] (Dart components only)
-  /// * [UiComponent] [Type] (Dart components only)
-  /// * [ReactComponentFactoryProxy]
-  /// * [ReactClass] component factory
-  /// * [String] tag name (DOM components only)
+  /// For example, the following are equivalent:
+  /// ```dart
+  /// subtypeOfFactory: Foo,
+  /// subtypeOfRaw: Foo().componentFactory.type,
+  /// subtypeOfRaw: $FooComponentFactory.type,
+  /// ```
   ///
   /// E.g., if component `Bar` is a subtype of component `Foo`:
   ///
@@ -112,7 +69,7 @@ extension UiFactoryTypeMeta on UiFactory {
   /// UiFactory<FooProps> Foo = uiFunction(...);
   ///
   /// UiFactory<FooProps> Bar = uiFunction(...)
-  ///   ..parentType = Foo;
+  ///   ..setComponentMeta(subtypeOfFactory: Foo);
   /// ```
   ///
   /// then:
@@ -120,24 +77,49 @@ extension UiFactoryTypeMeta on UiFactory {
   /// isComponentOfType(Bar()(), Bar); // true (due to normal type-checking)
   /// isComponentOfType(Bar()(), Foo); // true (due to parent type-checking)
   /// ```
-  dynamic get parentType => _meta.parentType;
-
-  set parentType(dynamic value) {
-    final type = getComponentTypeFromAlias(value);
-    if (type == null) {
-      if (value is Type) {
-        throw ArgumentError.value(value, 'value', 'Invalid parent type. '
-            'If this is an abstract component, you must reference the `registerAbstractComponent` factory instead of the class.');
-      } else {
-        throw ArgumentError.value(value, 'value', 'Invalid parent type');
-      }
+  ///
+  /// ## [isWrapper]
+  ///
+  /// Whether the component clones or passes through its children and needs to be
+  /// treated as if it were the wrapped component when passed in to [isComponentOfType].
+  ///
+  /// ```
+  /// // Class component
+  /// @Component2(isWrapper: true)
+  /// class FooComponent extends UiComponent2<FooProps> { ... }
+  ///
+  /// // Function component
+  /// UiFactory<FooProps> Foo = uiFunction(...)
+  ///   ..setComponentMeta(isWrapper: true);
+  /// ```
+  void setTypeMeta({
+    // These are separate arguments because it's very difficult to tell
+    // the difference between a UiFactory and a ReactClass at runtime.
+    UiFactory subtypeOfFactory,
+    dynamic subtypeOfRaw,
+    bool isWrapper = false,
+  }) {
+    if (subtypeOfFactory != null && subtypeOfRaw != null) {
+      throw ArgumentError('subtypeOfFactory and subtypeOfRawJsType cannot both be specified.');
     }
+    final parentType = subtypeOfFactory != null
+        // Get the type directly as opposed to using getComponentTypeFromAlias
+        // because the alias might not have been registered yet
+        // due to lazy-initialization of generated component factories.
+        ? subtypeOfFactory().componentFactory.type
+        : subtypeOfRaw;
 
-    _updateMeta((oldMeta) => ComponentTypeMeta(
-      parentType: type,
-      isWrapper: oldMeta.isWrapper,
+    final type = this().componentFactory.type;
+    // Fetch the old meta and preserve the value of isHoc for now.
+    // isHoc's implementation/usage seems incomplete and may be removed,
+    // so we won't expose it as an argument, at least for now.
+    final oldMeta = getComponentTypeMeta(type);
+    setComponentTypeMeta(
+      type,
+      parentType: parentType,
+      isWrapper: isWrapper,
       isHoc: oldMeta.isHoc,
-    ));
+    );
   }
 }
 
