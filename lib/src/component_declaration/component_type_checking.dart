@@ -96,7 +96,7 @@ extension UiFactoryTypeMeta on UiFactory {
     // These are separate arguments because it's very difficult to tell
     // the difference between a UiFactory and a ReactClass at runtime.
     UiFactory subtypeOfFactory,
-    dynamic subtypeOfRaw,
+    dynamic /*ReactClass|JS component function|string*/ subtypeOfRaw,
     bool isWrapper = false,
   }) {
     if (subtypeOfFactory != null && subtypeOfRaw != null) {
@@ -110,15 +110,14 @@ extension UiFactoryTypeMeta on UiFactory {
         : subtypeOfRaw;
 
     final type = this().componentFactory.type;
-    // Fetch the old meta and preserve the value of isHoc for now.
-    // isHoc's implementation/usage seems incomplete and may be removed,
-    // so we won't expose it as an argument, at least for now.
-    final oldMeta = getComponentTypeMeta(type);
     setComponentTypeMeta(
       type,
       parentType: parentType,
       isWrapper: isWrapper,
-      isHoc: oldMeta.isHoc,
+      // Fetch the old meta and preserve the value of isHoc for now.
+      // isHoc's implementation/usage seems incomplete and may be removed,
+      // so we won't expose it as an argument, at least for now.
+      isHoc: getComponentTypeMeta(type).isHoc,
     );
   }
 }
@@ -146,8 +145,8 @@ const String _componentTypeMetaKey = '_componentTypeMeta';
 ///
 /// This meta is retrievable via [getComponentTypeMeta].
 void setComponentTypeMeta(
-  ReactClass type, {
-  @required dynamic parentType,
+  dynamic /* ReactClass|JS component function|string */ type, {
+  @required dynamic  /* ReactClass|JS component function|string */ parentType,
   bool isWrapper = false,
   bool isHoc = false,
 }) {
@@ -228,7 +227,7 @@ class ComponentTypeMeta {
   ///
   /// > See: `subtypeOf` (within [annotations.Component2])
   // ignore: deprecated_member_use
-  final dynamic parentType;
+  final dynamic /*ReactClass|JS component function|string*/ parentType;
 
   ComponentTypeMeta(
       {this.parentType, this.isWrapper = false, this.isHoc = false})

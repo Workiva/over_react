@@ -7,6 +7,173 @@ part of 'components.dart';
 // OverReactBuilder (package:over_react/src/builder.dart)
 // **************************************************************************
 
+// React component factory implementation.
+//
+// Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+final $DoNotReferenceThisFactoryExceptForInASingleTestComponentnFactory =
+    registerComponent2(
+  () => _$DoNotReferenceThisFactoryExceptForInASingleTestComponentn(),
+  builderFactory: _$DoNotReferenceThisFactoryExceptForInASingleTest,
+  componentClass: DoNotReferenceThisFactoryExceptForInASingleTestComponentn,
+  isWrapper: false,
+  parentType: $TestAbstract2ComponentFactory,
+  /* from `subtypeOf: TestAbstract2Component` */
+  displayName: 'DoNotReferenceThisFactoryExceptForInASingleTest',
+);
+
+_$$DoNotReferenceThisFactoryExceptForInASingleTestProps
+    _$DoNotReferenceThisFactoryExceptForInASingleTest([Map backingProps]) =>
+        backingProps == null
+            ? _$$DoNotReferenceThisFactoryExceptForInASingleTestProps$JsMap(
+                JsBackedMap())
+            : _$$DoNotReferenceThisFactoryExceptForInASingleTestProps(
+                backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$DoNotReferenceThisFactoryExceptForInASingleTestProps
+    extends UiProps
+    with
+        DoNotReferenceThisFactoryExceptForInASingleTestProps,
+        $DoNotReferenceThisFactoryExceptForInASingleTestProps // If this generated mixin is undefined, it's likely because DoNotReferenceThisFactoryExceptForInASingleTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoNotReferenceThisFactoryExceptForInASingleTestProps, and check that $DoNotReferenceThisFactoryExceptForInASingleTestProps is exported/imported properly.
+{
+  _$$DoNotReferenceThisFactoryExceptForInASingleTestProps._();
+
+  factory _$$DoNotReferenceThisFactoryExceptForInASingleTestProps(
+      Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$DoNotReferenceThisFactoryExceptForInASingleTestProps$JsMap(
+          backingMap);
+    } else {
+      return _$$DoNotReferenceThisFactoryExceptForInASingleTestProps$PlainMap(
+          backingMap);
+    }
+  }
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The `ReactComponentFactory` associated with the component built by this class.
+  @override
+  ReactComponentFactoryProxy get componentFactory =>
+      super.componentFactory ??
+      $DoNotReferenceThisFactoryExceptForInASingleTestComponentnFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because DoNotReferenceThisFactoryExceptForInASingleTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoNotReferenceThisFactoryExceptForInASingleTestProps, and check that $DoNotReferenceThisFactoryExceptForInASingleTestProps is exported/imported properly.
+        DoNotReferenceThisFactoryExceptForInASingleTestProps:
+            $DoNotReferenceThisFactoryExceptForInASingleTestProps.meta,
+      });
+}
+
+// Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$DoNotReferenceThisFactoryExceptForInASingleTestProps$PlainMap
+    extends _$$DoNotReferenceThisFactoryExceptForInASingleTestProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$DoNotReferenceThisFactoryExceptForInASingleTestProps$PlainMap(
+      Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$DoNotReferenceThisFactoryExceptForInASingleTestProps$JsMap
+    extends _$$DoNotReferenceThisFactoryExceptForInASingleTestProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$DoNotReferenceThisFactoryExceptForInASingleTestProps$JsMap(
+      JsBackedMap backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+// Concrete component implementation mixin.
+//
+// Implements typed props/state factories, defaults `consumedPropKeys` to the keys
+// generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$DoNotReferenceThisFactoryExceptForInASingleTestComponentn
+    extends DoNotReferenceThisFactoryExceptForInASingleTestComponentn {
+  _$$DoNotReferenceThisFactoryExceptForInASingleTestProps$JsMap
+      _cachedTypedProps;
+
+  @override
+  _$$DoNotReferenceThisFactoryExceptForInASingleTestProps$JsMap get props =>
+      _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
+    super.props = value;
+    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+  }
+
+  @override
+  _$$DoNotReferenceThisFactoryExceptForInASingleTestProps$JsMap
+      typedPropsFactoryJs(JsBackedMap backingMap) =>
+          _$$DoNotReferenceThisFactoryExceptForInASingleTestProps$JsMap(
+              backingMap);
+
+  @override
+  _$$DoNotReferenceThisFactoryExceptForInASingleTestProps typedPropsFactory(
+          Map backingMap) =>
+      _$$DoNotReferenceThisFactoryExceptForInASingleTestProps(backingMap);
+
+  /// Let `UiComponent` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default consumed props, comprising all props mixins used by DoNotReferenceThisFactoryExceptForInASingleTestProps.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
+  @override
+  get $defaultConsumedProps => propsMeta.all;
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because DoNotReferenceThisFactoryExceptForInASingleTestProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoNotReferenceThisFactoryExceptForInASingleTestProps, and check that $DoNotReferenceThisFactoryExceptForInASingleTestProps is exported/imported properly.
+        DoNotReferenceThisFactoryExceptForInASingleTestProps:
+            $DoNotReferenceThisFactoryExceptForInASingleTestProps.meta,
+      });
+}
+
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
@@ -157,6 +324,47 @@ mixin $TwoLevelWrapperProps on TwoLevelWrapperProps {
 const PropsMeta _$metaForTwoLevelWrapperProps = PropsMeta(
   fields: $TwoLevelWrapperProps.$props,
   keys: $TwoLevelWrapperProps.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $DoNotReferenceThisFactoryExceptForInASingleTestProps
+    on DoNotReferenceThisFactoryExceptForInASingleTestProps {
+  static const PropsMeta meta =
+      _$metaForDoNotReferenceThisFactoryExceptForInASingleTestProps;
+  /* GENERATED CONSTANTS */
+
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForDoNotReferenceThisFactoryExceptForInASingleTestProps =
+    PropsMeta(
+  fields: $DoNotReferenceThisFactoryExceptForInASingleTestProps.$props,
+  keys: $DoNotReferenceThisFactoryExceptForInASingleTestProps.$propKeys,
+);
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $TestUninitializedParentProps on TestUninitializedParentProps {
+  static const PropsMeta meta = _$metaForTestUninitializedParentProps;
+  /* GENERATED CONSTANTS */
+
+  static const List<PropDescriptor> $props = [];
+  static const List<String> $propKeys = [];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForTestUninitializedParentProps = PropsMeta(
+  fields: $TestUninitializedParentProps.$props,
+  keys: $TestUninitializedParentProps.$propKeys,
 );
 
 final UiFactoryConfig<_$$TestAProps> $TestAConfig = UiFactoryConfig(
@@ -643,14 +851,6 @@ final UiFactoryConfig<_$$OneLevelWrapperProps> $OneLevelWrapperConfig =
         ),
         displayName: 'OneLevelWrapper');
 
-final UiFactoryConfig<_$$OneLevelWrapperProps> $TwoLevelWrapperConfig =
-    UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$OneLevelWrapperProps(map),
-          jsMap: (map) => _$$OneLevelWrapperProps$JsMap(map),
-        ),
-        displayName: 'TwoLevelWrapper');
-
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
@@ -712,6 +912,168 @@ class _$$OneLevelWrapperProps$JsMap extends _$$OneLevelWrapperProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$OneLevelWrapperProps$JsMap(JsBackedMap backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+final UiFactoryConfig<_$$TwoLevelWrapperProps> $TwoLevelWrapperConfig =
+    UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$TwoLevelWrapperProps(map),
+          jsMap: (map) => _$$TwoLevelWrapperProps$JsMap(map),
+        ),
+        displayName: 'TwoLevelWrapper');
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$TwoLevelWrapperProps extends UiProps
+    with
+        TwoLevelWrapperProps,
+        $TwoLevelWrapperProps // If this generated mixin is undefined, it's likely because TwoLevelWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TwoLevelWrapperProps, and check that $TwoLevelWrapperProps is exported/imported properly.
+{
+  _$$TwoLevelWrapperProps._();
+
+  factory _$$TwoLevelWrapperProps(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$TwoLevelWrapperProps$JsMap(backingMap);
+    } else {
+      return _$$TwoLevelWrapperProps$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because TwoLevelWrapperProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TwoLevelWrapperProps, and check that $TwoLevelWrapperProps is exported/imported properly.
+        TwoLevelWrapperProps: $TwoLevelWrapperProps.meta,
+      });
+}
+
+// Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$TwoLevelWrapperProps$PlainMap extends _$$TwoLevelWrapperProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TwoLevelWrapperProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$TwoLevelWrapperProps$JsMap extends _$$TwoLevelWrapperProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TwoLevelWrapperProps$JsMap(JsBackedMap backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+final UiFactoryConfig<_$$TestUninitializedParentProps>
+    $TestUninitializedParentConfig = UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$TestUninitializedParentProps(map),
+          jsMap: (map) => _$$TestUninitializedParentProps$JsMap(map),
+        ),
+        displayName: 'TestUninitializedParent');
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$TestUninitializedParentProps extends UiProps
+    with
+        TestUninitializedParentProps,
+        $TestUninitializedParentProps // If this generated mixin is undefined, it's likely because TestUninitializedParentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestUninitializedParentProps, and check that $TestUninitializedParentProps is exported/imported properly.
+{
+  _$$TestUninitializedParentProps._();
+
+  factory _$$TestUninitializedParentProps(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$TestUninitializedParentProps$JsMap(backingMap);
+    } else {
+      return _$$TestUninitializedParentProps$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because TestUninitializedParentProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestUninitializedParentProps, and check that $TestUninitializedParentProps is exported/imported properly.
+        TestUninitializedParentProps: $TestUninitializedParentProps.meta,
+      });
+}
+
+// Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$TestUninitializedParentProps$PlainMap
+    extends _$$TestUninitializedParentProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TestUninitializedParentProps$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$TestUninitializedParentProps$JsMap
+    extends _$$TestUninitializedParentProps {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$TestUninitializedParentProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

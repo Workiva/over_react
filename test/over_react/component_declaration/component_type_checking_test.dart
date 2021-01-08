@@ -114,24 +114,18 @@ main() {
       OneLevelWrapper: function.OneLevelWrapper,
       TwoLevelWrapper: function.TwoLevelWrapper,
     );
-  });
-}
 
-testComponentTypeChecking({
-  bool isComponent2 = false,
-  @required UiFactory TestParent,
-  @required UiFactory TestSubtype,
-  @required UiFactory TestSubsubtype,
-  @required UiFactory TestExtendtype,
-  @required Type TestAbstractComponent,
-  @required UiFactory TestA,
-  @required Type TestAComponent,
-  @required UiFactory TestB,
-  @required Type TestBComponent,
-  @required UiFactory OneLevelWrapper,
-  @required UiFactory TwoLevelWrapper,
-}) {
-  group('type checking:', () {
+    // This is a regression test for issues encountered in an earlier implementation
+    // where auto-detecting the subtypeOf arg resulted in the UiFactory itself
+    // being treated as the subtype, causing type checking to fail.
+    test('works when subtyping a component whose factory hasn\'t been initialized yet', () {
+      final element = function.TestUninitializedParent()();
+      expect(isComponentOfType(element, function.DoNotReferenceThisFactoryExceptForInASingleTest), isTrue);
+      expect(isComponentOfType(element, TestAbstract2Component), isTrue);
+    });
+  });
+
+  group('private utilities', () {
     group('getComponentTypeFromAlias', () {
       group('passes through valid component types:', () {
         test('String', () {
@@ -144,10 +138,16 @@ testComponentTypeChecking({
         });
       });
 
-      test('returns the ReactClass type for a ReactDartComponentFactoryProxy${isComponent2 ? '2' : ''}', () {
+      test('returns the ReactClass type for a ReactDartComponentFactoryProxy', () {
         var reactClass = createTestReactClass();
         // ignore: deprecated_member_use
-        var factory = isComponent2 ? ReactDartComponentFactoryProxy2(reactClass) : ReactDartComponentFactoryProxy(reactClass);
+        var factory = ReactDartComponentFactoryProxy(reactClass);
+        expect(getComponentTypeFromAlias(factory), same(reactClass));
+      });
+
+      test('returns the ReactClass type for a ReactDartComponentFactoryProxy2', () {
+        var reactClass = createTestReactClass();
+        var factory = ReactDartComponentFactoryProxy2(reactClass);
         expect(getComponentTypeFromAlias(factory), same(reactClass));
       });
 
@@ -156,10 +156,20 @@ testComponentTypeChecking({
         expect(getComponentTypeFromAlias(factory), equals('div'));
       });
 
-      test('returns the ReactClass type for an aliased ReactDartComponentFactoryProxy${isComponent2 ? '2' : ''}', () {
+      test('returns the ReactClass type for an aliased ReactDartComponentFactoryProxy', () {
         var reactClass = createTestReactClass();
         // ignore: deprecated_member_use
-        var factory = isComponent2 ? ReactDartComponentFactoryProxy2(reactClass) : ReactDartComponentFactoryProxy(reactClass);
+        var factory = ReactDartComponentFactoryProxy(reactClass);
+
+        var typeAlias = Object();
+        registerComponentTypeAlias(factory, typeAlias);
+
+        expect(getComponentTypeFromAlias(typeAlias), same(reactClass));
+      });
+
+      test('returns the ReactClass type for an aliased ReactDartComponentFactoryProxy2', () {
+        var reactClass = createTestReactClass();
+        var factory = ReactDartComponentFactoryProxy2(reactClass);
 
         var typeAlias = Object();
         registerComponentTypeAlias(factory, typeAlias);
@@ -201,6 +211,91 @@ testComponentTypeChecking({
       });
     });
 
+    void sharedAliasTests(void Function(dynamic alias) testBody) {
+      group('an alias', () {
+        test('a UiFactory', () {
+          // This need to be a new instance every test run, which is why we
+          // don't set it up within the group.
+          final UiFactory alias = ([_]) => null; // ignore: prefer_function_declarations_over_variables
+          final factory = ReactDartComponentFactoryProxy2(createTestReactClass());
+          registerComponentTypeAlias(factory, alias);
+          testBody(alias);
+        });
+
+        test('an arbitrary object', () {
+          // This need to be a new instance every test run, which is why we
+          // don't set it up within the group.
+          final alias = Object();
+          final factory = ReactDartComponentFactoryProxy2(createTestReactClass());
+          registerComponentTypeAlias(factory, alias);
+          testBody(alias);
+        });
+      });
+    }
+
+    void sharedBadTypeTests(void Function(dynamic badType) testBody) {
+      group('a bad type', () {
+        test('null', () => testBody(null));
+        test('a primitive', () => testBody(1));
+        test('a string', () => testBody('I am a string'));
+      });
+    }
+
+    Matcher throwsAssertionErrorContaining(String messageSubstring) =>
+        throwsA(isA<AssertionError>().having((e) => e.toString(),
+            'toString() value', contains(messageSubstring)));
+
+    group('setComponentTypeMeta', () {
+      // other behavior is tested functionally as part of the shared suite and other callers like registerComponent
+
+      group('asserts that the type argument is not', () {
+        sharedAliasTests((alias) {
+          expect(() => setComponentTypeMeta(alias, parentType: null),
+              throwsAssertionErrorContaining('must pass in the raw JS component type'));
+        });
+
+        sharedBadTypeTests((badType) {
+          expect(() => setComponentTypeMeta(badType, parentType: null),
+              throwsAssertionErrorContaining(badType is String
+                  ? 'cannot set type metadata on strings'
+                  : 'must pass in the raw JS component type'));
+        });
+      }, tags: 'no-dart2js');
+    });
+
+    group('ComponentTypeMeta constrictor', () {
+      // other behavior is tested functionally as part of the shared suite and other callers like setComponentTypeMeta and its callers
+
+      group('asserts that the parentType argument is not', () {
+        sharedAliasTests((alias) {
+          expect(() => ComponentTypeMeta(parentType: alias),
+              throwsAssertionErrorContaining('must pass in the raw JS component type'));
+        });
+
+        sharedBadTypeTests((badType) {
+          expect(() => ComponentTypeMeta(parentType: badType),
+              throwsAssertionErrorContaining('must pass in the raw JS component type'));
+        });
+      });
+    });
+  });
+}
+
+testComponentTypeChecking({
+  bool isComponent2 = false,
+  @required UiFactory TestParent,
+  @required UiFactory TestSubtype,
+  @required UiFactory TestSubsubtype,
+  @required UiFactory TestExtendtype,
+  @required Type TestAbstractComponent,
+  @required UiFactory TestA,
+  @required Type TestAComponent,
+  @required UiFactory TestB,
+  @required Type TestBComponent,
+  @required UiFactory OneLevelWrapper,
+  @required UiFactory TwoLevelWrapper,
+}) {
+  group('type checking:', () {
     group('getParentTypes', () {
       group('getParentTypes', () {
         group('returns an iterable of the parent types', () {

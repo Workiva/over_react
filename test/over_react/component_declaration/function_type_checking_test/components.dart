@@ -1,4 +1,4 @@
-// Copyright 2016 Workiva Inc.
+// Copyright 2020 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,11 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//library test_component2.test_b;
-
 import 'package:over_react/over_react.dart';
 
-import '../component2_type_checking_test/type_inheritance/abstract_inheritance/abstract2.dart' show $TestAbstract2ComponentFactory;
+import '../component2_type_checking_test/type_inheritance/abstract_inheritance/abstract2.dart' show $TestAbstract2ComponentFactory, TestAbstract2Component;
 
 part 'components.over_react.g.dart';
 
@@ -64,9 +62,25 @@ UiFactory<OneLevelWrapperProps> OneLevelWrapper = uiFunction(
 )..setTypeMeta(isWrapper: true);
 
 mixin TwoLevelWrapperProps on UiProps {}
-UiFactory<OneLevelWrapperProps> TwoLevelWrapper = uiFunction(
+UiFactory<TwoLevelWrapperProps> TwoLevelWrapper = uiFunction(
   (props) {
     return Dom.div()(props.children.single);
   },
   $TwoLevelWrapperConfig,
 )..setTypeMeta(isWrapper: true);
+
+UiFactory<DoNotReferenceThisFactoryExceptForInASingleTestProps> DoNotReferenceThisFactoryExceptForInASingleTest = _$DoNotReferenceThisFactoryExceptForInASingleTest;
+mixin DoNotReferenceThisFactoryExceptForInASingleTestProps on UiProps {}
+@Component2(subtypeOf: TestAbstract2Component)
+class DoNotReferenceThisFactoryExceptForInASingleTestComponentn extends UiComponent2<DoNotReferenceThisFactoryExceptForInASingleTestProps> {
+  @override
+  render() {}
+}
+
+mixin TestUninitializedParentProps on UiProps {}
+UiFactory<TestUninitializedParentProps> TestUninitializedParent = uiFunction(
+  (props) {
+    return Dom.div()(props.children.single);
+  },
+  $TestUninitializedParentConfig,
+)..setTypeMeta(subtypeOfFactory: DoNotReferenceThisFactoryExceptForInASingleTest);
