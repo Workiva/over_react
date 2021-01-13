@@ -174,7 +174,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
         ..writeln()
         ..writeln('  factory ${names.implName}(Map backingMap) {')
         ..writeln('    if (backingMap == null || backingMap is JsBackedMap) {')
-        ..writeln('      return ${names.jsMapImplName}(backingMap);')
+        ..writeln('      return ${names.jsMapImplName}(backingMap as JsBackedMap);')
         ..writeln('    } else {')
         ..writeln('      return ${names.plainMapImplName}(backingMap);')
         ..writeln('    }')
