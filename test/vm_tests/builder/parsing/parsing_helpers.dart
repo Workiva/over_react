@@ -33,6 +33,7 @@ enum BoilerplateVersions {
   v7,
   v8,
   v9,
+  v10,
 }
 
 /// String descriptions of [BoilerplateVersions] versions.
@@ -47,6 +48,7 @@ const versionDescriptions = {
   BoilerplateVersions.v7: 'legacy (Dart2 only - component 2)',
   BoilerplateVersions.v8: 'mixin based (abbreviated - with annotations)',
   BoilerplateVersions.v9: 'mixin based (with class alias - with annotations)',
+  BoilerplateVersions.v10: 'mixin based (with Dart >=2.9.0 factory syntax)',
 };
 
 /// Generates a string representation of a provided boilerplate version.
@@ -136,7 +138,12 @@ String getBoilerplateString({@required BoilerplateVersions version, String depre
         shouldIncludeAnnotations: true,
         baseName: componentBaseName,
       ).source;
-      break;
+    case BoilerplateVersions.v10:
+      return OverReactSrc.mixinBasedBoilerplateState(
+        componentBody: deprecatedMethod,
+        useDart290Factory: true,
+        baseName: componentBaseName,
+      ).source;
     default:
       return '';
   }
@@ -242,6 +249,16 @@ const mockComponentDeclarations = r'''
   mixin _$FunctionFooProps on UiProps {}
   
   mixin FunctionFoo2Props on UiProps {}
+  
+  // -------------------------- Version.v4_mixinBased --------------------------
+  // But with Dart 2.9.0 syntax
+  UiFactory<FourthFooProps> FourthFoo = castUiFactory(_$FourthFoo);
+
+  mixin FourthFooProps on UiProps {}
+
+  mixin FourthFooState on UiState {}
+
+  class FourthFooComponent extends UiStatefulComponent2<FourthFooProps, FourthFooState>{}
 ''';
 
 /// Utility class that holds boilerplate members that can be accessed during testing.
