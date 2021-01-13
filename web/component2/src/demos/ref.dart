@@ -40,12 +40,11 @@ UiFactory<TProps> withLogging<TProps extends UiProps>(UiFactory<TProps> factoryT
     (props, ref) {
       useEffect(() => 'withLogging rendered!');
 
-      // This requires an ignore until https://github.com/dart-lang/sdk/issues/42975
-      // is fixed.
-      return (factoryToWrap() // ignore: invocation_of_non_function_expression
+      // Needs to be split up due to https://github.com/dart-lang/sdk/issues/42975
+      final builder = factoryToWrap()
         ..addAll(props)
-        ..ref = ref
-      )(props.children);
+        ..ref = ref;
+       return builder(props.children);
     },
     factoryToWrap.asForwardRefConfig(
       displayName: 'WithLogging',

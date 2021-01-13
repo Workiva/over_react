@@ -42,8 +42,8 @@ main() {
 
       test('"resolve" with averages between certain thresholds for plausible sets of confidences',
           () {
-        double average<T extends num>(Iterable<T> values) =>
-            values.reduce((a, b) => a + b) / values.length;
+        double average(Iterable<num> values) =>
+            values.reduce((a, b) => (a + b).toDouble()) / values.length;
 
         // These cases represent potential real-world confidence scores and the resolved confidence
         // we expect.

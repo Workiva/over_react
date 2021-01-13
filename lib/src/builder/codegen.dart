@@ -35,25 +35,25 @@ class ImplGenerator {
   void generate(BoilerplateDeclaration declaration) {
     switch (declaration.type) {
       case DeclarationType.propsMapViewOrFunctionComponentDeclaration:
-        _generatePropsMapViewOrFunctionComponent(declaration);
+        _generatePropsMapViewOrFunctionComponent(declaration as PropsMapViewOrFunctionComponentDeclaration);
         break;
       case DeclarationType.classComponentDeclaration:
-        _generateClassComponent(declaration);
+        _generateClassComponent(declaration as ClassComponentDeclaration);
         break;
       case DeclarationType.legacyClassComponentDeclaration:
-        _generateLegacyClassComponent(declaration);
+        _generateLegacyClassComponent(declaration as LegacyClassComponentDeclaration);
         break;
       case DeclarationType.legacyAbstractPropsDeclaration:
-        _generateLegacyAbstractProps(declaration);
+        _generateLegacyAbstractProps(declaration as LegacyAbstractPropsDeclaration);
         break;
       case DeclarationType.legacyAbstractStateDeclaration:
-        _generateLegacyAbstractState(declaration);
+        _generateLegacyAbstractState(declaration as LegacyAbstractStateDeclaration);
         break;
       case DeclarationType.propsMixinDeclaration:
-        _generatePropsMixin(declaration);
+        _generatePropsMixin(declaration as PropsMixinDeclaration);
         break;
       case DeclarationType.stateMixinDeclaration:
-        _generateStateMixin(declaration);
+        _generateStateMixin(declaration as StateMixinDeclaration);
         break;
       default:
         throw ArgumentError('Unhandled declaration type: $declaration');

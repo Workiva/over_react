@@ -894,9 +894,9 @@ main() {
 
         setUpAndTestMeta(
             {@required bool isProps,
-            @required isAbstract,
+            @required bool isAbstract,
             @required String source,
-            isMixin = false}) {
+            bool isMixin = false}) {
           members = BoilerplateMemberHelper.getBoilerplateMembersFromString(source).allMembers;
 
           BoilerplateMember memberClass = members.firstWhere((member) {

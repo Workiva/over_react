@@ -650,7 +650,7 @@ main() {
           var calls = [];
           Map appliedProps;
           var initialProps = {
-            'onValidateProps': (propsMap) {
+            'onValidateProps': (Map propsMap) {
               appliedProps = propsMap;
               calls.add('onValidateProps');
             },
@@ -668,7 +668,7 @@ main() {
           Map appliedProps;
           var newProps = {'key': 'value'};
           component.props = {
-            'onValidateProps': (propsMap) {
+            'onValidateProps': (Map propsMap) {
               appliedProps = propsMap;
               calls.add('onValidateProps');
             },
@@ -683,7 +683,7 @@ main() {
 
       group('on unmount', () {
         TestComponentComponent component;
-        ReactElement instance;
+        dynamic instance;
         Duration longDuration = const Duration(milliseconds: 200);
         Duration shortDuration = const Duration(milliseconds: 100);
 
@@ -1024,7 +1024,7 @@ main() {
 
       group('on unmount', () {
         TestComponent2Component component2;
-        ReactElement instance;
+        dynamic instance;
         Duration longDuration = const Duration(milliseconds: 200);
         Duration shortDuration = const Duration(milliseconds: 100);
 
@@ -1291,7 +1291,7 @@ main() {
       });
 
       test('newState() returns a new UiState instance backed by a new Map', () {
-        statefulComponent = renderAndGetComponent(TestStatefulComponent2()());
+        statefulComponent = renderAndGetComponent(TestStatefulComponent2()()) as TestStatefulComponent2Component;
         var newState1 = statefulComponent.newState();
         var newState2 = statefulComponent.newState();
         expect(newState1, isA<TestStatefulComponent2State>());
@@ -1303,7 +1303,7 @@ main() {
         setUp(() {
           statefulComponent = renderAndGetComponent((TestStatefulComponent2()
             ..id = 'test prop value'
-          )());
+          )()) as TestStatefulComponent2Component;
           statefulComponent.setState({'test state key': 'test state value'});
         });
 
@@ -1472,7 +1472,7 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
   }
 }
 
-UiFactory<TestComponent2Props> TestComponent2 = ([props]) => TestComponent2Props(props);
+UiFactory<TestComponent2Props> TestComponent2 = ([props]) => TestComponent2Props(props as JsBackedMap);
 
 class TestComponent2Props extends over_react.UiProps {
   @override final ReactComponentFactoryProxy componentFactory = _TestComponent2ComponentFactory;
@@ -1512,13 +1512,13 @@ class TestComponent2Component extends UiComponent2<TestComponent2Props> {
   render() => (Dom.div()..ref = 'foo')();
 
   @override
-  TestComponent2Props typedPropsFactory(Map propsMap) => TestComponent2Props(propsMap);
+  TestComponent2Props typedPropsFactory(Map propsMap) => TestComponent2Props(propsMap as JsBackedMap);
 
   @override
-  TestComponent2Props typedPropsFactoryJs(Map propsMap) => TestComponent2Props(propsMap);
+  TestComponent2Props typedPropsFactoryJs(Map propsMap) => TestComponent2Props(propsMap as JsBackedMap);
 }
 
-UiFactory<TestStatefulComponent2Props> TestStatefulComponent2 = ([props]) => TestStatefulComponent2Props(props);
+UiFactory<TestStatefulComponent2Props> TestStatefulComponent2 = ([props]) => TestStatefulComponent2Props(props as JsBackedMap);
 
 class TestStatefulComponent2Props extends over_react.UiProps {
   @override final ReactComponentFactoryProxy componentFactory = _TestStatefulComponent2ComponentFactory;
@@ -1597,16 +1597,16 @@ class TestStatefulComponent2Component extends UiStatefulComponent2<TestStatefulC
         consumedProps = testConsumedProps;
 
   @override
-  TestStatefulComponent2Props typedPropsFactory(Map propsMap) => TestStatefulComponent2Props(propsMap);
+  TestStatefulComponent2Props typedPropsFactory(Map propsMap) => TestStatefulComponent2Props(propsMap as JsBackedMap);
 
   @override
-  TestStatefulComponent2Props typedPropsFactoryJs(Map propsMap) => TestStatefulComponent2Props(propsMap);
+  TestStatefulComponent2Props typedPropsFactoryJs(Map propsMap) => TestStatefulComponent2Props(propsMap as JsBackedMap);
 
   @override
-  TestStatefulComponent2State typedStateFactory(Map state) => TestStatefulComponent2State(state);
+  TestStatefulComponent2State typedStateFactory(Map state) => TestStatefulComponent2State(state as JsBackedMap);
 
   @override
-  TestStatefulComponent2State typedStateFactoryJs(Map propsMap) => TestStatefulComponent2State(propsMap);
+  TestStatefulComponent2State typedStateFactoryJs(Map propsMap) => TestStatefulComponent2State(propsMap as JsBackedMap);
 }
 
 Map getBackingMap(Map map) {

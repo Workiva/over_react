@@ -133,7 +133,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     JsBackedMap data = JsBackedMap.fromJs(jsData);
     switch (data['type'] as String) {
       case 'DISPATCH':
-        _handleDispatch(JsBackedMap.fromJs(data['payload']));
+        _handleDispatch(JsBackedMap.fromJs(data['payload'] as JsMap));
         break;
       case 'ACTION':
         _handleRemoteAction(data['action'] as String);

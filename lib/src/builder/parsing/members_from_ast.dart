@@ -226,6 +226,7 @@ class _BoilerplateMemberDetector {
   //
 
   bool _detectClassBasedOnAnnotations(ClassishDeclaration classish, ClassishDeclaration companion) {
+    final node = classish.node;
     for (final annotation in classish.metadata) {
       switch (annotation.name.nameWithoutPrefix) {
         case 'Props':
@@ -233,9 +234,9 @@ class _BoilerplateMemberDetector {
           // assume that Dart mixins are not concrete props classes.
           //
           // Special-case: `@Props()` is allowed on the new boilerplate mixins
-          if (classish.node is MixinDeclaration) {
+          if (node is MixinDeclaration) {
             onPropsMixin(BoilerplatePropsMixin(
-                classish.node,
+                node,
                 companion,
                 _annotatedPropsOrStateMixinConfidence(classish, companion,
                     disableAnnotationAssert: true)));
@@ -250,9 +251,9 @@ class _BoilerplateMemberDetector {
           // assume that Dart mixins are not concrete state classes.
           //
           // Special-case: `@State()` is allowed on the new boilerplate mixins
-          if (classish.node is MixinDeclaration) {
+          if (node is MixinDeclaration) {
             onStateMixin(BoilerplateStateMixin(
-                classish.node,
+                node,
                 companion,
                 _annotatedPropsOrStateMixinConfidence(classish, companion,
                     disableAnnotationAssert: true)));
@@ -263,12 +264,12 @@ class _BoilerplateMemberDetector {
           return true;
 
         case 'PropsMixin':
-          onPropsMixin(BoilerplatePropsMixin(classish.node, companion,
+          onPropsMixin(BoilerplatePropsMixin(node as ClassOrMixinDeclaration, companion,
               _annotatedPropsOrStateMixinConfidence(classish, companion)));
           return true;
 
         case 'StateMixin':
-          onStateMixin(BoilerplateStateMixin(classish.node, companion,
+          onStateMixin(BoilerplateStateMixin(node as ClassOrMixinDeclaration, companion,
               _annotatedPropsOrStateMixinConfidence(classish, companion)));
           return true;
 

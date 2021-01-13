@@ -1,6 +1,8 @@
 include: package:pedantic/analysis_options.1.8.0.yaml
 
 analyzer:
+  strong-mode:
+    implicit-casts: false
   exclude:
     - _site/**
     - test_fixtures/**

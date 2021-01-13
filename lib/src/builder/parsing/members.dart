@@ -123,7 +123,7 @@ class BoilerplateMembers {
   });
 
   @override
-  toString() => 'BoilerplateMembers:${prettyPrintMap({
+  toString() => 'BoilerplateMembers:${prettyPrintMap(<String, Iterable>{
         'factories': factories,
         'props': props,
         'propsMixins': propsMixins,

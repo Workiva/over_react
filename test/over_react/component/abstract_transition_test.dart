@@ -565,7 +565,7 @@ main() {
             for (var record in records) {
               if (record.attributeName != transitionPhaseTestAttr) continue;
               transitionAttrMutations.add([
-                record.oldValue,
+                record.oldValue as String,
                 // ignore: avoid_as
                 (record.target as Element).attributes[record.attributeName],
               ]);
@@ -747,8 +747,8 @@ class TransitionerComponent extends AbstractTransitionComponent<TransitionerProp
   List<TransitionPhase> transitionPhasesSet = [];
 
   @override
-  void setState(dynamic newState, [Function() callback]) {
+  void setState(newState, [Function() callback]) {
     super.setState(newState, callback);
-    transitionPhasesSet.add(newState.transitionPhase);
+    transitionPhasesSet.add(typedStateFactory(newState).transitionPhase);
   }
 }

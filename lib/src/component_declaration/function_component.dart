@@ -141,7 +141,7 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
 }
 
 String getFunctionName(Function function) {
-  return getProperty(function, 'name') ?? getProperty(function, '\$static_name');
+  return getProperty(function, 'name') as String ?? getProperty(function, '\$static_name') as String;
 }
 
 class GenericUiProps extends UiProps {
