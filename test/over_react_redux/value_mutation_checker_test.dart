@@ -147,9 +147,6 @@ void sharedHashTests(InstanceHasher Function() getHasher) {
 
       map['newField'] = true;
       expect(hasher.hasHashChanged(map), isTrue);
-
-      map['test'] = false;
-      expect(hasher.hasHashChanged(map), isTrue);
     });
   });
 }
