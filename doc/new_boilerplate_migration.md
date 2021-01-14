@@ -210,6 +210,19 @@ ecosystems.
 
 ### Updates
 
+#### Wrap Factory in `castUiFactory`
+
+A utility called `castUiFactory` has been added that protects against implicit cast warnings
+on factory declarations. All that needs to be done is to wrap the generated factory with
+`castUiFactory`, so that it can infer the typing from the left hand side and cast the
+factory (considered "dynamic") to the correct type.
+
+```diff
+@Factory()
+UiFactory<FooProps> Foo =
++    castUiFactory(_$Foo); // ignore: undefined_identifier
+```
+
 #### Remove Annotations
 
 `@Factory()`, `@Props()` and `@Component()` annotations add additional 
@@ -221,8 +234,7 @@ logic that a component is being defined, and what each part is.
 ```diff
 - @Factory()
 UiFactory<FooProps> Foo =
-    // ignore: undefined_identifier
-    $Foo;
+    castUiFactory(_$Foo); // ignore: undefined_identifier
 
 - @Props()
 class _$FooProps extends BarProps {
@@ -291,8 +303,7 @@ part 'foo.over_react.g.dart';
 
 - @Factory()
 UiFactory<FooProps> Foo =
-    // ignore: undefined_identifier
-    $Foo;
++    castUiFactory(_$Foo); // ignore: undefined_identifier
 
 - @Props()
 - class _$FooProps extends BarProps {
@@ -347,7 +358,8 @@ import 'package:over_react/over_react.dart';
 
 part 'foo.over_react.g.dart';
 
-UiFactory<FooProps> Foo = $Foo; // ignore: undefined_identifier
+UiFactory<FooProps> Foo = 
+    castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooProps on UiProps {
   String foo;
