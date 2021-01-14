@@ -15,8 +15,7 @@ mixin $ParentOnlyPropsMixin on ParentOnlyPropsMixin {
   static const PropsMeta meta = _$metaForParentOnlyPropsMixin;
   @override
   String get aParentProp =>
-      props[_$key__aParentProp__ParentOnlyPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__aParentProp__ParentOnlyPropsMixin] ?? null) as String;
   @override
   set aParentProp(String value) =>
       props[_$key__aParentProp__ParentOnlyPropsMixin] = value;
@@ -49,8 +48,7 @@ mixin $SharedPropsMixin on SharedPropsMixin {
   static const PropsMeta meta = _$metaForSharedPropsMixin;
   @override
   String get aPropToBePassed =>
-      props[_$key__aPropToBePassed__SharedPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__aPropToBePassed__SharedPropsMixin] ?? null) as String;
   @override
   set aPropToBePassed(String value) =>
       props[_$key__aPropToBePassed__SharedPropsMixin] = value;
@@ -105,7 +103,7 @@ abstract class _$$SomeParentProps extends UiProps
 
   factory _$$SomeParentProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SomeParentProps$JsMap(backingMap);
+      return _$$SomeParentProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$SomeParentProps$PlainMap(backingMap);
     }
@@ -192,7 +190,7 @@ abstract class _$$SomeChildProps extends UiProps
 
   factory _$$SomeChildProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SomeChildProps$JsMap(backingMap);
+      return _$$SomeChildProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$SomeChildProps$PlainMap(backingMap);
     }

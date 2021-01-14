@@ -48,7 +48,7 @@ abstract class _$$NumExampleProps extends _$NumExampleProps
 
   factory _$$NumExampleProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$NumExampleProps$JsMap(backingMap);
+      return _$$NumExampleProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$NumExampleProps$PlainMap(backingMap);
     }
@@ -121,7 +121,8 @@ class _$NumExampleComponent extends NumExampleComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override

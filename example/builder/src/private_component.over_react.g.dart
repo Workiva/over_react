@@ -39,7 +39,7 @@ abstract class _$$_PrivateProps extends UiProps
 
   factory _$$_PrivateProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$_PrivateProps$JsMap(backingMap);
+      return _$$_PrivateProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$_PrivateProps$PlainMap(backingMap);
     }
@@ -116,7 +116,7 @@ abstract class _$$_PrivateState extends UiState
 
   factory _$$_PrivateState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$_PrivateState$JsMap(backingMap);
+      return _$$_PrivateState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$_PrivateState$PlainMap(backingMap);
     }
@@ -186,7 +186,8 @@ class _$_PrivateComponent extends _PrivateComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -208,7 +209,7 @@ class _$_PrivateComponent extends _PrivateComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -242,9 +243,7 @@ class _$_PrivateComponent extends _PrivateComponent {
 mixin $_PrivateProps on _PrivateProps {
   static const PropsMeta meta = _$metaFor_PrivateProps;
   @override
-  bool get prop1 =>
-      props[_$key__prop1___PrivateProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get prop1 => (props[_$key__prop1___PrivateProps] ?? null) as bool;
   @override
   set prop1(bool value) => props[_$key__prop1___PrivateProps] = value;
   /* GENERATED CONSTANTS */
@@ -270,9 +269,7 @@ const PropsMeta _$metaFor_PrivateProps = PropsMeta(
 mixin $_PrivateState on _PrivateState {
   static const StateMeta meta = _$metaFor_PrivateState;
   @override
-  bool get state1 =>
-      state[_$key__state1___PrivateState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get state1 => (state[_$key__state1___PrivateState] ?? null) as bool;
   @override
   set state1(bool value) => state[_$key__state1___PrivateState] = value;
   /* GENERATED CONSTANTS */

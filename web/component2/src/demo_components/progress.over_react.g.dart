@@ -39,7 +39,7 @@ abstract class _$$ProgressProps extends UiProps
 
   factory _$$ProgressProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ProgressProps$JsMap(backingMap);
+      return _$$ProgressProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ProgressProps$PlainMap(backingMap);
     }
@@ -116,7 +116,7 @@ abstract class _$$ProgressState extends UiState
 
   factory _$$ProgressState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ProgressState$JsMap(backingMap);
+      return _$$ProgressState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ProgressState$PlainMap(backingMap);
     }
@@ -186,7 +186,8 @@ class _$ProgressComponent extends ProgressComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -208,7 +209,7 @@ class _$ProgressComponent extends ProgressComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -242,72 +243,58 @@ class _$ProgressComponent extends ProgressComponent {
 mixin $ProgressProps on ProgressProps {
   static const PropsMeta meta = _$metaForProgressProps;
   @override
-  double get value =>
-      props[_$key__value__ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  double get value => (props[_$key__value__ProgressProps] ?? null) as double;
   @override
   set value(double value) => props[_$key__value__ProgressProps] = value;
   @override
-  double get min =>
-      props[_$key__min__ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  double get min => (props[_$key__min__ProgressProps] ?? null) as double;
   @override
   set min(double value) => props[_$key__min__ProgressProps] = value;
   @override
-  double get max =>
-      props[_$key__max__ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  double get max => (props[_$key__max__ProgressProps] ?? null) as double;
   @override
   set max(double value) => props[_$key__max__ProgressProps] = value;
   @override
   ProgressSkin get skin =>
-      props[_$key__skin__ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__skin__ProgressProps] ?? null) as ProgressSkin;
   @override
   set skin(ProgressSkin value) => props[_$key__skin__ProgressProps] = value;
   @override
   bool get isStriped =>
-      props[_$key__isStriped__ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__isStriped__ProgressProps] ?? null) as bool;
   @override
   set isStriped(bool value) => props[_$key__isStriped__ProgressProps] = value;
   @override
   bool get isAnimated =>
-      props[_$key__isAnimated__ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__isAnimated__ProgressProps] ?? null) as bool;
   @override
   set isAnimated(bool value) => props[_$key__isAnimated__ProgressProps] = value;
   @override
   String get caption =>
-      props[_$key__caption__ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__caption__ProgressProps] ?? null) as String;
   @override
   set caption(String value) => props[_$key__caption__ProgressProps] = value;
   @override
   Map get captionProps =>
-      props[_$key__captionProps__ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__captionProps__ProgressProps] ?? null) as Map;
   @override
   set captionProps(Map value) =>
       props[_$key__captionProps__ProgressProps] = value;
   @override
   bool get showCaption =>
-      props[_$key__showCaption__ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__showCaption__ProgressProps] ?? null) as bool;
   @override
   set showCaption(bool value) =>
       props[_$key__showCaption__ProgressProps] = value;
   @override
   bool get showPercentComplete =>
-      props[_$key__showPercentComplete__ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__showPercentComplete__ProgressProps] ?? null) as bool;
   @override
   set showPercentComplete(bool value) =>
       props[_$key__showPercentComplete__ProgressProps] = value;
   @override
   Map get rootNodeProps =>
-      props[_$key__rootNodeProps__ProgressProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__rootNodeProps__ProgressProps] ?? null) as Map;
   @override
   set rootNodeProps(Map value) =>
       props[_$key__rootNodeProps__ProgressProps] = value;
@@ -394,9 +381,7 @@ const PropsMeta _$metaForProgressProps = PropsMeta(
 mixin $ProgressState on ProgressState {
   static const StateMeta meta = _$metaForProgressState;
   @override
-  String get id =>
-      state[_$key__id__ProgressState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get id => (state[_$key__id__ProgressState] ?? null) as String;
   @override
   set id(String value) => state[_$key__id__ProgressState] = value;
   /* GENERATED CONSTANTS */

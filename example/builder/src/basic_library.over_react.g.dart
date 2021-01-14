@@ -43,7 +43,7 @@ abstract class _$$BasicPartOfLibProps extends UiProps
 
   factory _$$BasicPartOfLibProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicPartOfLibProps$JsMap(backingMap);
+      return _$$BasicPartOfLibProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$BasicPartOfLibProps$PlainMap(backingMap);
     }
@@ -125,7 +125,7 @@ abstract class _$$BasicPartOfLibState extends UiState
 
   factory _$$BasicPartOfLibState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicPartOfLibState$JsMap(backingMap);
+      return _$$BasicPartOfLibState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$BasicPartOfLibState$PlainMap(backingMap);
     }
@@ -195,7 +195,8 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -217,7 +218,7 @@ class _$BasicPartOfLibComponent extends BasicPartOfLibComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -254,43 +255,37 @@ mixin $BasicPartOfLibPropsMixin on BasicPartOfLibPropsMixin {
   static const PropsMeta meta = _$metaForBasicPartOfLibPropsMixin;
   @override
   String get basicProp =>
-      props[_$key__basicProp__BasicPartOfLibPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__basicProp__BasicPartOfLibPropsMixin] ?? null) as String;
   @override
   set basicProp(String value) =>
       props[_$key__basicProp__BasicPartOfLibPropsMixin] = value;
   @override
   String get basic1 =>
-      props[_$key__basic1__BasicPartOfLibPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__basic1__BasicPartOfLibPropsMixin] ?? null) as String;
   @override
   set basic1(String value) =>
       props[_$key__basic1__BasicPartOfLibPropsMixin] = value;
   @override
   String get basic2 =>
-      props[_$key__basic2__BasicPartOfLibPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__basic2__BasicPartOfLibPropsMixin] ?? null) as String;
   @override
   set basic2(String value) =>
       props[_$key__basic2__BasicPartOfLibPropsMixin] = value;
   @override
   String get basic3 =>
-      props[_$key__basic3__BasicPartOfLibPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__basic3__BasicPartOfLibPropsMixin] ?? null) as String;
   @override
   set basic3(String value) =>
       props[_$key__basic3__BasicPartOfLibPropsMixin] = value;
   @override
   String get basic4 =>
-      props[_$key__basic4__BasicPartOfLibPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__basic4__BasicPartOfLibPropsMixin] ?? null) as String;
   @override
   set basic4(String value) =>
       props[_$key__basic4__BasicPartOfLibPropsMixin] = value;
   @override
   String get basic5 =>
-      props[_$key__basic5__BasicPartOfLibPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__basic5__BasicPartOfLibPropsMixin] ?? null) as String;
   @override
   set basic5(String value) =>
       props[_$key__basic5__BasicPartOfLibPropsMixin] = value;
@@ -353,8 +348,7 @@ mixin $BasicPartOfLibStateMixin on BasicPartOfLibStateMixin {
   static const StateMeta meta = _$metaForBasicPartOfLibStateMixin;
   @override
   String get basicState =>
-      state[_$key__basicState__BasicPartOfLibStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__basicState__BasicPartOfLibStateMixin] ?? null) as String;
   @override
   set basicState(String value) =>
       state[_$key__basicState__BasicPartOfLibStateMixin] = value;
@@ -414,7 +408,7 @@ abstract class _$$SubPartOfLibProps extends UiProps
 
   factory _$$SubPartOfLibProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SubPartOfLibProps$JsMap(backingMap);
+      return _$$SubPartOfLibProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$SubPartOfLibProps$PlainMap(backingMap);
     }
@@ -501,7 +495,8 @@ class _$SubPartOfLibComponent extends SubPartOfLibComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -538,8 +533,7 @@ mixin $SuperPartOfLibPropsMixin on SuperPartOfLibPropsMixin {
   static const PropsMeta meta = _$metaForSuperPartOfLibPropsMixin;
   @override
   String get superProp =>
-      props[_$key__superProp__SuperPartOfLibPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__superProp__SuperPartOfLibPropsMixin] ?? null) as String;
   @override
   set superProp(String value) =>
       props[_$key__superProp__SuperPartOfLibPropsMixin] = value;
@@ -572,8 +566,7 @@ mixin $SubPartOfLibPropsMixin on SubPartOfLibPropsMixin {
   static const PropsMeta meta = _$metaForSubPartOfLibPropsMixin;
   @override
   String get subProp =>
-      props[_$key__subProp__SubPartOfLibPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__subProp__SubPartOfLibPropsMixin] ?? null) as String;
   @override
   set subProp(String value) =>
       props[_$key__subProp__SubPartOfLibPropsMixin] = value;

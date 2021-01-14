@@ -43,7 +43,7 @@ abstract class _$$ConnectFluxBigBlockProps extends UiProps
 
   factory _$$ConnectFluxBigBlockProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ConnectFluxBigBlockProps$JsMap(backingMap);
+      return _$$ConnectFluxBigBlockProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ConnectFluxBigBlockProps$PlainMap(backingMap);
     }
@@ -130,7 +130,8 @@ class _$ConnectFluxBigBlockComponent extends ConnectFluxBigBlockComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -168,15 +169,15 @@ mixin $ConnectFluxBigBlockPropsMixin on ConnectFluxBigBlockPropsMixin {
   static const PropsMeta meta = _$metaForConnectFluxBigBlockPropsMixin;
   @override
   String get backgroundColor =>
-      props[_$key__backgroundColor__ConnectFluxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__backgroundColor__ConnectFluxBigBlockPropsMixin] ?? null)
+          as String;
   @override
   set backgroundColor(String value) =>
       props[_$key__backgroundColor__ConnectFluxBigBlockPropsMixin] = value;
   @override
   void Function() get changeBackgroundColor =>
-      props[_$key__changeBackgroundColor__ConnectFluxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__changeBackgroundColor__ConnectFluxBigBlockPropsMixin] ??
+          null) as void Function();
   @override
   set changeBackgroundColor(void Function() value) =>
       props[_$key__changeBackgroundColor__ConnectFluxBigBlockPropsMixin] =

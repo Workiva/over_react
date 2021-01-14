@@ -40,7 +40,7 @@ abstract class _$$MyContextComponentProps extends UiProps
 
   factory _$$MyContextComponentProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$MyContextComponentProps$JsMap(backingMap);
+      return _$$MyContextComponentProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$MyContextComponentProps$PlainMap(backingMap);
     }
@@ -125,7 +125,8 @@ class _$MyContextComponentComponent extends MyContextComponentComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override

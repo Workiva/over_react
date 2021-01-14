@@ -41,7 +41,7 @@ abstract class _$$BigBlockProps extends UiProps
 
   factory _$$BigBlockProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BigBlockProps$JsMap(backingMap);
+      return _$$BigBlockProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$BigBlockProps$PlainMap(backingMap);
     }
@@ -126,7 +126,8 @@ class _$BigBlockComponent extends BigBlockComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override

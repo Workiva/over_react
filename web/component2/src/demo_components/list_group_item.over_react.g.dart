@@ -40,7 +40,7 @@ abstract class _$$ListGroupItemProps extends UiProps
 
   factory _$$ListGroupItemProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ListGroupItemProps$JsMap(backingMap);
+      return _$$ListGroupItemProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ListGroupItemProps$PlainMap(backingMap);
     }
@@ -125,7 +125,8 @@ class _$ListGroupItemComponent extends ListGroupItemComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -160,74 +161,65 @@ mixin $ListGroupItemProps on ListGroupItemProps {
   static const PropsMeta meta = _$metaForListGroupItemProps;
   @override
   ListGroupItemElementType get elementType =>
-      props[_$key__elementType__ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__elementType__ListGroupItemProps] ?? null)
+          as ListGroupItemElementType;
   @override
   set elementType(ListGroupItemElementType value) =>
       props[_$key__elementType__ListGroupItemProps] = value;
   @override
   dynamic get header =>
-      props[_$key__header__ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__header__ListGroupItemProps] ?? null) as dynamic;
   @override
   set header(dynamic value) => props[_$key__header__ListGroupItemProps] = value;
   @override
   ListGroupItemHeaderElementSize get headerSize =>
-      props[_$key__headerSize__ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__headerSize__ListGroupItemProps] ?? null)
+          as ListGroupItemHeaderElementSize;
   @override
   set headerSize(ListGroupItemHeaderElementSize value) =>
       props[_$key__headerSize__ListGroupItemProps] = value;
   @override
   Map get headerProps =>
-      props[_$key__headerProps__ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__headerProps__ListGroupItemProps] ?? null) as Map;
   @override
   set headerProps(Map value) =>
       props[_$key__headerProps__ListGroupItemProps] = value;
   @override
   ListGroupItemSkin get skin =>
-      props[_$key__skin__ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__skin__ListGroupItemProps] ?? null) as ListGroupItemSkin;
   @override
   set skin(ListGroupItemSkin value) =>
       props[_$key__skin__ListGroupItemProps] = value;
   @override
   bool get isActive =>
-      props[_$key__isActive__ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__isActive__ListGroupItemProps] ?? null) as bool;
   @override
   set isActive(bool value) =>
       props[_$key__isActive__ListGroupItemProps] = value;
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
   bool get isDisabled =>
-      props[_$key__isDisabled__ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__isDisabled__ListGroupItemProps] ?? null) as bool;
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
   set isDisabled(bool value) =>
       props[_$key__isDisabled__ListGroupItemProps] = value;
   @override
   @Accessor(keyNamespace: '')
-  String get href =>
-      props[_$key__href__ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get href => (props[_$key__href__ListGroupItemProps] ?? null) as String;
   @override
   @Accessor(keyNamespace: '')
   set href(String value) => props[_$key__href__ListGroupItemProps] = value;
   @override
   @Accessor(keyNamespace: '')
   String get target =>
-      props[_$key__target__ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__target__ListGroupItemProps] ?? null) as String;
   @override
   @Accessor(keyNamespace: '')
   set target(String value) => props[_$key__target__ListGroupItemProps] = value;
   @override
   ButtonType get type =>
-      props[_$key__type__ListGroupItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__type__ListGroupItemProps] ?? null) as ButtonType;
   @override
   set type(ButtonType value) => props[_$key__type__ListGroupItemProps] = value;
   /* GENERATED CONSTANTS */

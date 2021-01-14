@@ -43,7 +43,7 @@ abstract class _$$ConnectFluxBigBlockProps extends UiProps
 
   factory _$$ConnectFluxBigBlockProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ConnectFluxBigBlockProps$JsMap(backingMap);
+      return _$$ConnectFluxBigBlockProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ConnectFluxBigBlockProps$PlainMap(backingMap);
     }
@@ -130,7 +130,8 @@ class _$ConnectFluxBigBlockComponent extends ConnectFluxBigBlockComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -168,66 +169,63 @@ mixin $ConnectFluxBigBlockPropsMixin on ConnectFluxBigBlockPropsMixin {
   static const PropsMeta meta = _$metaForConnectFluxBigBlockPropsMixin;
   @override
   String get backgroundColor =>
-      props[_$key__backgroundColor__ConnectFluxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__backgroundColor__ConnectFluxBigBlockPropsMixin] ?? null)
+          as String;
   @override
   set backgroundColor(String value) =>
       props[_$key__backgroundColor__ConnectFluxBigBlockPropsMixin] = value;
   @override
   String get blockTwoBackgroundColor =>
-      props[_$key__blockTwoBackgroundColor__ConnectFluxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__blockTwoBackgroundColor__ConnectFluxBigBlockPropsMixin] ??
+          null) as String;
   @override
   set blockTwoBackgroundColor(String value) =>
       props[_$key__blockTwoBackgroundColor__ConnectFluxBigBlockPropsMixin] =
           value;
   @override
   String get blockThreeBackgroundColor =>
-      props[_$key__blockThreeBackgroundColor__ConnectFluxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__blockThreeBackgroundColor__ConnectFluxBigBlockPropsMixin] ??
+          null) as String;
   @override
   set blockThreeBackgroundColor(String value) =>
       props[_$key__blockThreeBackgroundColor__ConnectFluxBigBlockPropsMixin] =
           value;
   @override
   String get blockOneBackgroundColor =>
-      props[_$key__blockOneBackgroundColor__ConnectFluxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__blockOneBackgroundColor__ConnectFluxBigBlockPropsMixin] ??
+          null) as String;
   @override
   set blockOneBackgroundColor(String value) =>
       props[_$key__blockOneBackgroundColor__ConnectFluxBigBlockPropsMixin] =
           value;
   @override
   void Function() get changeMainBackgroundColor =>
-      props[_$key__changeMainBackgroundColor__ConnectFluxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__changeMainBackgroundColor__ConnectFluxBigBlockPropsMixin] ??
+          null) as void Function();
   @override
   set changeMainBackgroundColor(void Function() value) =>
       props[_$key__changeMainBackgroundColor__ConnectFluxBigBlockPropsMixin] =
           value;
   @override
-  void Function() get changeBlockOneBackgroundColor =>
-      props[
+  void Function() get changeBlockOneBackgroundColor => (props[
           _$key__changeBlockOneBackgroundColor__ConnectFluxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      null) as void Function();
   @override
   set changeBlockOneBackgroundColor(void Function() value) => props[
           _$key__changeBlockOneBackgroundColor__ConnectFluxBigBlockPropsMixin] =
       value;
   @override
-  void Function() get changeBlockTwoBackgroundColor =>
-      props[
+  void Function() get changeBlockTwoBackgroundColor => (props[
           _$key__changeBlockTwoBackgroundColor__ConnectFluxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      null) as void Function();
   @override
   set changeBlockTwoBackgroundColor(void Function() value) => props[
           _$key__changeBlockTwoBackgroundColor__ConnectFluxBigBlockPropsMixin] =
       value;
   @override
-  void Function() get changeBlockThreeBackgroundColor =>
-      props[
+  void Function() get changeBlockThreeBackgroundColor => (props[
           _$key__changeBlockThreeBackgroundColor__ConnectFluxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      null) as void Function();
   @override
   set changeBlockThreeBackgroundColor(void Function() value) => props[
           _$key__changeBlockThreeBackgroundColor__ConnectFluxBigBlockPropsMixin] =

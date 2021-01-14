@@ -27,8 +27,8 @@ abstract class _$BasicUiComponent2PropsAccessorsMixin
   /// <!-- Generated from [_$BasicUiComponent2Props.childId] -->
   @override
   String get childId =>
-      props[_$key__childId___$BasicUiComponent2Props] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__childId___$BasicUiComponent2Props] ?? null) as String;
+
   /// <!-- Generated from [_$BasicUiComponent2Props.childId] -->
   @override
   set childId(String value) =>
@@ -72,7 +72,7 @@ abstract class _$$BasicUiComponent2Props extends _$BasicUiComponent2Props
 
   factory _$$BasicUiComponent2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicUiComponent2Props$JsMap(backingMap);
+      return _$$BasicUiComponent2Props$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$BasicUiComponent2Props$PlainMap(backingMap);
     }
@@ -145,7 +145,8 @@ class _$BasicUiComponent2Component extends BasicUiComponent2Component {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -176,15 +177,14 @@ mixin $FunctionCustomPropsProps on FunctionCustomPropsProps {
   static const PropsMeta meta = _$metaForFunctionCustomPropsProps;
   @override
   int get testProp =>
-      props[_$key__testProp__FunctionCustomPropsProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__testProp__FunctionCustomPropsProps] ?? null) as int;
   @override
   set testProp(int value) =>
       props[_$key__testProp__FunctionCustomPropsProps] = value;
   @override
   Function() get testFuncProp =>
-      props[_$key__testFuncProp__FunctionCustomPropsProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__testFuncProp__FunctionCustomPropsProps] ?? null)
+          as Function();
   @override
   set testFuncProp(Function() value) =>
       props[_$key__testFuncProp__FunctionCustomPropsProps] = value;
@@ -243,7 +243,7 @@ abstract class _$$FunctionCustomPropsProps extends UiProps
 
   factory _$$FunctionCustomPropsProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FunctionCustomPropsProps$JsMap(backingMap);
+      return _$$FunctionCustomPropsProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$FunctionCustomPropsProps$PlainMap(backingMap);
     }

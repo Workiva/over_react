@@ -53,7 +53,7 @@ abstract class _$$BasicChildProps extends _$BasicChildProps
 
   factory _$$BasicChildProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicChildProps$JsMap(backingMap);
+      return _$$BasicChildProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$BasicChildProps$PlainMap(backingMap);
     }
@@ -126,7 +126,8 @@ class _$BasicChildComponent extends BasicChildComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override

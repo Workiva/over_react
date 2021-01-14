@@ -39,7 +39,7 @@ abstract class _$$ButtonGroupProps extends UiProps
 
   factory _$$ButtonGroupProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ButtonGroupProps$JsMap(backingMap);
+      return _$$ButtonGroupProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ButtonGroupProps$PlainMap(backingMap);
     }
@@ -116,7 +116,7 @@ abstract class _$$ButtonGroupState extends UiState
 
   factory _$$ButtonGroupState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ButtonGroupState$JsMap(backingMap);
+      return _$$ButtonGroupState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ButtonGroupState$PlainMap(backingMap);
     }
@@ -186,7 +186,8 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -208,7 +209,7 @@ class _$ButtonGroupComponent extends ButtonGroupComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -243,21 +244,18 @@ mixin $ButtonGroupProps on ButtonGroupProps {
   static const PropsMeta meta = _$metaForButtonGroupProps;
   @override
   ButtonGroupSize get size =>
-      props[_$key__size__ButtonGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__size__ButtonGroupProps] ?? null) as ButtonGroupSize;
   @override
   set size(ButtonGroupSize value) =>
       props[_$key__size__ButtonGroupProps] = value;
   @override
   ButtonSkin get skin =>
-      props[_$key__skin__ButtonGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__skin__ButtonGroupProps] ?? null) as ButtonSkin;
   @override
   set skin(ButtonSkin value) => props[_$key__skin__ButtonGroupProps] = value;
   @override
   bool get isVertical =>
-      props[_$key__isVertical__ButtonGroupProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__isVertical__ButtonGroupProps] ?? null) as bool;
   @override
   set isVertical(bool value) =>
       props[_$key__isVertical__ButtonGroupProps] = value;

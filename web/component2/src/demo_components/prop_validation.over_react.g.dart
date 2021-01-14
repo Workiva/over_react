@@ -40,7 +40,7 @@ abstract class _$$PropTypesTestProps extends UiProps
 
   factory _$$PropTypesTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$PropTypesTestProps$JsMap(backingMap);
+      return _$$PropTypesTestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$PropTypesTestProps$PlainMap(backingMap);
     }
@@ -125,7 +125,8 @@ class _$PropTypesTestComponent extends PropTypesTestComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -159,69 +160,58 @@ class _$PropTypesTestComponent extends PropTypesTestComponent {
 mixin $PropTypesTestProps on PropTypesTestProps {
   static const PropsMeta meta = _$metaForPropTypesTestProps;
   @override
-  int get count =>
-      props[_$key__count__PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  int get count => (props[_$key__count__PropTypesTestProps] ?? null) as int;
   @override
   set count(int value) => props[_$key__count__PropTypesTestProps] = value;
   @override
   List get twoObjects =>
-      props[_$key__twoObjects__PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__twoObjects__PropTypesTestProps] ?? null) as List;
   @override
   set twoObjects(List value) =>
       props[_$key__twoObjects__PropTypesTestProps] = value;
   @override
   int get defaultCount =>
-      props[_$key__defaultCount__PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__defaultCount__PropTypesTestProps] ?? null) as int;
   @override
   set defaultCount(int value) =>
       props[_$key__defaultCount__PropTypesTestProps] = value;
   @override
   bool get content =>
-      props[_$key__content__PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__content__PropTypesTestProps] ?? null) as bool;
   @override
   set content(bool value) => props[_$key__content__PropTypesTestProps] = value;
   @override
   bool get hideHeader =>
-      props[_$key__hideHeader__PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__hideHeader__PropTypesTestProps] ?? null) as bool;
   @override
   set hideHeader(bool value) =>
       props[_$key__hideHeader__PropTypesTestProps] = value;
   @override
   dynamic get header =>
-      props[_$key__header__PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__header__PropTypesTestProps] ?? null) as dynamic;
   @override
   set header(dynamic value) => props[_$key__header__PropTypesTestProps] = value;
   @override
   List get initiallyExpandedKeys =>
-      props[_$key__initiallyExpandedKeys__PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__initiallyExpandedKeys__PropTypesTestProps] ?? null) as List;
   @override
   set initiallyExpandedKeys(List value) =>
       props[_$key__initiallyExpandedKeys__PropTypesTestProps] = value;
   @override
   dynamic get targetKey =>
-      props[_$key__targetKey__PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__targetKey__PropTypesTestProps] ?? null) as dynamic;
   @override
   set targetKey(dynamic value) =>
       props[_$key__targetKey__PropTypesTestProps] = value;
   @override
   bool get hideLabel =>
-      props[_$key__hideLabel__PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__hideLabel__PropTypesTestProps] ?? null) as bool;
   @override
   set hideLabel(bool value) =>
       props[_$key__hideLabel__PropTypesTestProps] = value;
   @override
   String get label =>
-      props[_$key__label__PropTypesTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__label__PropTypesTestProps] ?? null) as String;
   @override
   set label(String value) => props[_$key__label__PropTypesTestProps] = value;
   /* GENERATED CONSTANTS */
