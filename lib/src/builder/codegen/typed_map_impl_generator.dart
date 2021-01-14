@@ -398,7 +398,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         '@Deprecated(r\'Use the private variable, ${factoryName.privateConfigName}, instead \'\n'
         '\'and update the `over_react` lower bound to version 4.1.0. \'\n'
         '\'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650\')\n'
-        'final UiFactoryConfig<${names.implName}> '
+        'final dynamic '
         // ignore: deprecated_member_use_from_same_package
         '${factoryName.publicConfigName} = ${factoryName.privateConfigName};\n\n';
   }

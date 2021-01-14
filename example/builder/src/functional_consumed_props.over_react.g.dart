@@ -85,8 +85,7 @@ final UiFactoryConfig<_$$SomeParentProps> _$SomeParentConfig = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$SomeParentConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$SomeParentProps> $SomeParentConfig =
-    _$SomeParentConfig;
+final dynamic $SomeParentConfig = _$SomeParentConfig;
 
 // Concrete props implementation.
 //
@@ -175,7 +174,7 @@ final UiFactoryConfig<_$$SomeChildProps> _$SomeChildConfig = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$SomeChildConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$SomeChildProps> $SomeChildConfig = _$SomeChildConfig;
+final dynamic $SomeChildConfig = _$SomeChildConfig;
 
 // Concrete props implementation.
 //

@@ -37,8 +37,7 @@ final UiFactoryConfig<_$$UseRefExampleProps> _$UseRefExampleConfig =
 @Deprecated(r'Use the private variable, _$UseRefExampleConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$UseRefExampleProps> $UseRefExampleConfig =
-    _$UseRefExampleConfig;
+final dynamic $UseRefExampleConfig = _$UseRefExampleConfig;
 
 // Concrete props implementation.
 //

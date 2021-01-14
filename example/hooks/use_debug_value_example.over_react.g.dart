@@ -69,8 +69,7 @@ final UiFactoryConfig<_$$FriendListItemProps> _$FriendListItemConfig =
 @Deprecated(r'Use the private variable, _$FriendListItemConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$FriendListItemProps> $FriendListItemConfig =
-    _$FriendListItemConfig;
+final dynamic $FriendListItemConfig = _$FriendListItemConfig;
 
 // Concrete props implementation.
 //
@@ -155,8 +154,7 @@ final UiFactoryConfig<_$$UseDebugValueExampleProps>
 @Deprecated(r'Use the private variable, _$UseDebugValueExampleConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$UseDebugValueExampleProps>
-    $UseDebugValueExampleConfig = _$UseDebugValueExampleConfig;
+final dynamic $UseDebugValueExampleConfig = _$UseDebugValueExampleConfig;
 
 // Concrete props implementation.
 //

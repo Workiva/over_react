@@ -208,8 +208,7 @@ final UiFactoryConfig<_$$BasicUiFunctionProps> _$BasicUiFunctionConfig =
 @Deprecated(r'Use the private variable, _$BasicUiFunctionConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$BasicUiFunctionProps> $BasicUiFunctionConfig =
-    _$BasicUiFunctionConfig;
+final dynamic $BasicUiFunctionConfig = _$BasicUiFunctionConfig;
 
 // Concrete props implementation.
 //
@@ -295,8 +294,8 @@ final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
     r'Use the private variable, _$TopLevelForwardUiRefFunctionConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
-    $TopLevelForwardUiRefFunctionConfig = _$TopLevelForwardUiRefFunctionConfig;
+final dynamic $TopLevelForwardUiRefFunctionConfig =
+    _$TopLevelForwardUiRefFunctionConfig;
 
 // Concrete props implementation.
 //

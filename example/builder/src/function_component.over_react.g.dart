@@ -133,7 +133,7 @@ final UiFactoryConfig<_$$BasicProps> _$BasicConfig = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$BasicConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$BasicProps> $BasicConfig = _$BasicConfig;
+final dynamic $BasicConfig = _$BasicConfig;
 
 final UiFactoryConfig<_$$BasicProps> _$SimpleConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
@@ -145,7 +145,7 @@ final UiFactoryConfig<_$$BasicProps> _$SimpleConfig = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$SimpleConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$BasicProps> $SimpleConfig = _$SimpleConfig;
+final dynamic $SimpleConfig = _$SimpleConfig;
 
 // Concrete props implementation.
 //
@@ -229,7 +229,7 @@ final UiFactoryConfig<_$$FooProps> _$FooConfig = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$FooConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$FooProps> $FooConfig = _$FooConfig;
+final dynamic $FooConfig = _$FooConfig;
 
 // Concrete props implementation.
 //

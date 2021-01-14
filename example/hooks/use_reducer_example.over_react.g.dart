@@ -52,8 +52,7 @@ final UiFactoryConfig<_$$UseReducerExampleProps> _$UseReducerExampleConfig =
 @Deprecated(r'Use the private variable, _$UseReducerExampleConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$UseReducerExampleProps> $UseReducerExampleConfig =
-    _$UseReducerExampleConfig;
+final dynamic $UseReducerExampleConfig = _$UseReducerExampleConfig;
 
 // Concrete props implementation.
 //

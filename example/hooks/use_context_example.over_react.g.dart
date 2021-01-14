@@ -56,8 +56,7 @@ final UiFactoryConfig<_$$UseContextExampleProps> _$UseContextExampleConfig =
 @Deprecated(r'Use the private variable, _$UseContextExampleConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$UseContextExampleProps> $UseContextExampleConfig =
-    _$UseContextExampleConfig;
+final dynamic $UseContextExampleConfig = _$UseContextExampleConfig;
 
 // Concrete props implementation.
 //
@@ -142,8 +141,7 @@ final UiFactoryConfig<_$$NewContextProviderProps> _$NewContextProviderConfig =
 @Deprecated(r'Use the private variable, _$NewContextProviderConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$NewContextProviderProps> $NewContextProviderConfig =
-    _$NewContextProviderConfig;
+final dynamic $NewContextProviderConfig = _$NewContextProviderConfig;
 
 // Concrete props implementation.
 //

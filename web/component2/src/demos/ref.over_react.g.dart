@@ -561,8 +561,7 @@ final UiFactoryConfig<_$$FancyButtonProps> _$FancyButtonConfig =
 @Deprecated(r'Use the private variable, _$FancyButtonConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$FancyButtonProps> $FancyButtonConfig =
-    _$FancyButtonConfig;
+final dynamic $FancyButtonConfig = _$FancyButtonConfig;
 
 // Concrete props implementation.
 //
@@ -646,7 +645,7 @@ final UiFactoryConfig<_$$Foo2Props> _$Foo2Config = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$Foo2Config, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$Foo2Props> $Foo2Config = _$Foo2Config;
+final dynamic $Foo2Config = _$Foo2Config;
 
 // Concrete props implementation.
 //
@@ -735,7 +734,7 @@ final UiFactoryConfig<_$$BazProps> _$BazConfig = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$BazConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$BazProps> $BazConfig = _$BazConfig;
+final dynamic $BazConfig = _$BazConfig;
 
 // Concrete props implementation.
 //
@@ -820,8 +819,7 @@ final UiFactoryConfig<_$$RefDemoProps> _$RefDemoContainerConfig =
 @Deprecated(r'Use the private variable, _$RefDemoContainerConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$RefDemoProps> $RefDemoContainerConfig =
-    _$RefDemoContainerConfig;
+final dynamic $RefDemoContainerConfig = _$RefDemoContainerConfig;
 
 // Concrete props implementation.
 //
@@ -906,8 +904,7 @@ final UiFactoryConfig<_$$RefDemoSectionProps> _$RefDemoSectionConfig =
 @Deprecated(r'Use the private variable, _$RefDemoSectionConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$RefDemoSectionProps> $RefDemoSectionConfig =
-    _$RefDemoSectionConfig;
+final dynamic $RefDemoSectionConfig = _$RefDemoSectionConfig;
 
 // Concrete props implementation.
 //
@@ -991,8 +988,7 @@ final UiFactoryConfig<_$$RefDemoHocProps> _$RefDemoHocConfig = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$RefDemoHocConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$RefDemoHocProps> $RefDemoHocConfig =
-    _$RefDemoHocConfig;
+final dynamic $RefDemoHocConfig = _$RefDemoHocConfig;
 
 // Concrete props implementation.
 //

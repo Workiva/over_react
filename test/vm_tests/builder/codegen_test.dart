@@ -667,7 +667,7 @@ main() {
             '@Deprecated(r\'Use the private variable, _\$${factoryName}Config, instead \'\n'
             '\'and update the `over_react` lower bound to version 4.1.0. \'\n'
             '\'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650\')\n'
-            'final UiFactoryConfig<_\$\$$propsName> '
+            'final dynamic '
             '\$${factoryName}Config = _\$${factoryName}Config;\n\n';
         }
 

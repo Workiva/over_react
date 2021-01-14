@@ -80,8 +80,7 @@ final UiFactoryConfig<_$$FancyInputProps> _$FancyInputConfig = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$FancyInputConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$FancyInputProps> $FancyInputConfig =
-    _$FancyInputConfig;
+final dynamic $FancyInputConfig = _$FancyInputConfig;
 
 // Concrete props implementation.
 //
@@ -167,8 +166,8 @@ final UiFactoryConfig<_$$UseImperativeHandleExampleProps>
     r'Use the private variable, _$UseImperativeHandleExampleConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final UiFactoryConfig<_$$UseImperativeHandleExampleProps>
-    $UseImperativeHandleExampleConfig = _$UseImperativeHandleExampleConfig;
+final dynamic $UseImperativeHandleExampleConfig =
+    _$UseImperativeHandleExampleConfig;
 
 // Concrete props implementation.
 //
