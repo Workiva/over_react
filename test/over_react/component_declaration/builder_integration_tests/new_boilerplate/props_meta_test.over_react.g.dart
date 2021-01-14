@@ -44,7 +44,7 @@ abstract class _$$TestProps extends UiProps
 
   factory _$$TestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestProps$JsMap(backingMap);
+      return _$$TestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestProps$PlainMap(backingMap);
     }
@@ -133,7 +133,8 @@ class _$TestComponent extends TestComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -170,9 +171,7 @@ class _$TestComponent extends TestComponent {
 mixin $TestPropsMixin on TestPropsMixin {
   static const PropsMeta meta = _$metaForTestPropsMixin;
   @override
-  String get test =>
-      props[_$key__test__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get test => (props[_$key__test__TestPropsMixin] ?? null) as String;
   @override
   set test(String value) => props[_$key__test__TestPropsMixin] = value;
   /* GENERATED CONSTANTS */
@@ -198,9 +197,7 @@ const PropsMeta _$metaForTestPropsMixin = PropsMeta(
 mixin $FooPropsMixin on FooPropsMixin {
   static const PropsMeta meta = _$metaForFooPropsMixin;
   @override
-  bool get foo =>
-      props[_$key__foo__FooPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get foo => (props[_$key__foo__FooPropsMixin] ?? null) as bool;
   @override
   set foo(bool value) => props[_$key__foo__FooPropsMixin] = value;
   /* GENERATED CONSTANTS */
@@ -226,9 +223,7 @@ const PropsMeta _$metaForFooPropsMixin = PropsMeta(
 mixin $BazPropsMixin on BazPropsMixin {
   static const PropsMeta meta = _$metaForBazPropsMixin;
   @override
-  bool get baz =>
-      props[_$key__baz__BazPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get baz => (props[_$key__baz__BazPropsMixin] ?? null) as bool;
   @override
   set baz(bool value) => props[_$key__baz__BazPropsMixin] = value;
   /* GENERATED CONSTANTS */

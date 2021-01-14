@@ -41,7 +41,7 @@ abstract class _$$PureTestWrapperProps extends UiProps
 
   factory _$$PureTestWrapperProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$PureTestWrapperProps$JsMap(backingMap);
+      return _$$PureTestWrapperProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$PureTestWrapperProps$PlainMap(backingMap);
     }
@@ -126,7 +126,8 @@ class _$PureTestWrapperComponent extends PureTestWrapperComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -188,7 +189,7 @@ abstract class _$$PureTestProps extends UiProps
 
   factory _$$PureTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$PureTestProps$JsMap(backingMap);
+      return _$$PureTestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$PureTestProps$PlainMap(backingMap);
     }
@@ -267,7 +268,7 @@ abstract class _$$PureTestState extends UiState
 
   factory _$$PureTestState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$PureTestState$JsMap(backingMap);
+      return _$$PureTestState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$PureTestState$PlainMap(backingMap);
     }
@@ -337,7 +338,8 @@ class _$PureTestComponent extends PureTestComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -359,7 +361,7 @@ class _$PureTestComponent extends PureTestComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -396,15 +398,14 @@ mixin $PureTestPropsMixin on PureTestPropsMixin {
   static const PropsMeta meta = _$metaForPureTestPropsMixin;
   @override
   bool get childBoolProp =>
-      props[_$key__childBoolProp__PureTestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__childBoolProp__PureTestPropsMixin] ?? null) as bool;
   @override
   set childBoolProp(bool value) =>
       props[_$key__childBoolProp__PureTestPropsMixin] = value;
   @override
   void Function() get childFuncProp =>
-      props[_$key__childFuncProp__PureTestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__childFuncProp__PureTestPropsMixin] ?? null) as void
+          Function();
   @override
   set childFuncProp(void Function() value) =>
       props[_$key__childFuncProp__PureTestPropsMixin] = value;
@@ -443,15 +444,14 @@ mixin $SharedPureTestPropsMixin on SharedPureTestPropsMixin {
   static const PropsMeta meta = _$metaForSharedPureTestPropsMixin;
   @override
   bool get sharedBoolProp =>
-      props[_$key__sharedBoolProp__SharedPureTestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__sharedBoolProp__SharedPureTestPropsMixin] ?? null) as bool;
   @override
   set sharedBoolProp(bool value) =>
       props[_$key__sharedBoolProp__SharedPureTestPropsMixin] = value;
   @override
   ReactElement get someVDomEl =>
-      props[_$key__someVDomEl__SharedPureTestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__someVDomEl__SharedPureTestPropsMixin] ?? null)
+          as ReactElement;
   @override
   set someVDomEl(ReactElement value) =>
       props[_$key__someVDomEl__SharedPureTestPropsMixin] = value;
@@ -490,8 +490,7 @@ mixin $PureTestState on PureTestState {
   static const StateMeta meta = _$metaForPureTestState;
   @override
   bool get childBoolState =>
-      state[_$key__childBoolState__PureTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__childBoolState__PureTestState] ?? null) as bool;
   @override
   set childBoolState(bool value) =>
       state[_$key__childBoolState__PureTestState] = value;

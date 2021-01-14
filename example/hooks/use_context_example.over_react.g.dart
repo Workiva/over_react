@@ -73,7 +73,7 @@ abstract class _$$UseContextExampleProps extends UiProps
 
   factory _$$UseContextExampleProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$UseContextExampleProps$JsMap(backingMap);
+      return _$$UseContextExampleProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$UseContextExampleProps$PlainMap(backingMap);
     }
@@ -159,7 +159,7 @@ abstract class _$$NewContextProviderProps extends UiProps
 
   factory _$$NewContextProviderProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$NewContextProviderProps$JsMap(backingMap);
+      return _$$NewContextProviderProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$NewContextProviderProps$PlainMap(backingMap);
     }

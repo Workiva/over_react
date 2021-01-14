@@ -15,8 +15,8 @@ mixin $FriendListItemProps on FriendListItemProps {
   static const PropsMeta meta = _$metaForFriendListItemProps;
   @override
   Map<String, dynamic> get friend =>
-      props[_$key__friend__FriendListItemProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__friend__FriendListItemProps] ?? null)
+          as Map<String, dynamic>;
   @override
   set friend(Map<String, dynamic> value) =>
       props[_$key__friend__FriendListItemProps] = value;
@@ -86,7 +86,7 @@ abstract class _$$FriendListItemProps extends UiProps
 
   factory _$$FriendListItemProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FriendListItemProps$JsMap(backingMap);
+      return _$$FriendListItemProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$FriendListItemProps$PlainMap(backingMap);
     }
@@ -172,7 +172,7 @@ abstract class _$$UseDebugValueExampleProps extends UiProps
 
   factory _$$UseDebugValueExampleProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$UseDebugValueExampleProps$JsMap(backingMap);
+      return _$$UseDebugValueExampleProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$UseDebugValueExampleProps$PlainMap(backingMap);
     }

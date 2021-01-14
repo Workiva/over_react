@@ -40,7 +40,7 @@ abstract class _$$GenericSuperProps extends UiProps
 
   factory _$$GenericSuperProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$GenericSuperProps$JsMap(backingMap);
+      return _$$GenericSuperProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$GenericSuperProps$PlainMap(backingMap);
     }
@@ -117,7 +117,7 @@ abstract class _$$GenericSuperStateMixin extends UiState
 
   factory _$$GenericSuperStateMixin(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$GenericSuperStateMixin$JsMap(backingMap);
+      return _$$GenericSuperStateMixin$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$GenericSuperStateMixin$PlainMap(backingMap);
     }
@@ -187,7 +187,8 @@ class _$GenericSuperComponent extends GenericSuperComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -209,7 +210,7 @@ class _$GenericSuperComponent extends GenericSuperComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -244,22 +245,19 @@ mixin $GenericSuperPropsMixin on GenericSuperPropsMixin {
   static const PropsMeta meta = _$metaForGenericSuperPropsMixin;
   @override
   String get otherSuperProp =>
-      props[_$key__otherSuperProp__GenericSuperPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__otherSuperProp__GenericSuperPropsMixin] ?? null) as String;
   @override
   set otherSuperProp(String value) =>
       props[_$key__otherSuperProp__GenericSuperPropsMixin] = value;
   @override
   String get superProp =>
-      props[_$key__superProp__GenericSuperPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__superProp__GenericSuperPropsMixin] ?? null) as String;
   @override
   set superProp(String value) =>
       props[_$key__superProp__GenericSuperPropsMixin] = value;
   @override
   String get superProp1 =>
-      props[_$key__superProp1__GenericSuperPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__superProp1__GenericSuperPropsMixin] ?? null) as String;
   @override
   set superProp1(String value) =>
       props[_$key__superProp1__GenericSuperPropsMixin] = value;
@@ -304,8 +302,7 @@ mixin $GenericSuperStateMixin on GenericSuperStateMixin {
   static const StateMeta meta = _$metaForGenericSuperStateMixin;
   @override
   String get superState =>
-      state[_$key__superState__GenericSuperStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__superState__GenericSuperStateMixin] ?? null) as String;
   @override
   set superState(String value) =>
       state[_$key__superState__GenericSuperStateMixin] = value;

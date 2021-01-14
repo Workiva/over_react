@@ -43,7 +43,7 @@ abstract class _$$ComponentTestProps extends UiProps
 
   factory _$$ComponentTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ComponentTestProps$JsMap(backingMap);
+      return _$$ComponentTestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ComponentTestProps$PlainMap(backingMap);
     }
@@ -130,7 +130,8 @@ class _$ComponentTestComponent extends ComponentTestComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -167,8 +168,7 @@ mixin $TestPropsMixin on TestPropsMixin {
   static const PropsMeta meta = _$metaForTestPropsMixin;
   @override
   dynamic get propsMixinProp =>
-      props[_$key__propsMixinProp__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__propsMixinProp__TestPropsMixin] ?? null) as dynamic;
   @override
   set propsMixinProp(dynamic value) =>
       props[_$key__propsMixinProp__TestPropsMixin] = value;
@@ -199,44 +199,39 @@ mixin $ComponentTestPropsMixin on ComponentTestPropsMixin {
   static const PropsMeta meta = _$metaForComponentTestPropsMixin;
   @override
   String get stringProp =>
-      props[_$key__stringProp__ComponentTestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__stringProp__ComponentTestPropsMixin] ?? null) as String;
   @override
   set stringProp(String value) =>
       props[_$key__stringProp__ComponentTestPropsMixin] = value;
   @override
   bool get shouldSetPropsDirectly =>
-      props[_$key__shouldSetPropsDirectly__ComponentTestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__shouldSetPropsDirectly__ComponentTestPropsMixin] ?? null)
+          as bool;
   @override
   set shouldSetPropsDirectly(bool value) =>
       props[_$key__shouldSetPropsDirectly__ComponentTestPropsMixin] = value;
   @override
   bool get shouldUseJsFactory =>
-      props[_$key__shouldUseJsFactory__ComponentTestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__shouldUseJsFactory__ComponentTestPropsMixin] ?? null)
+          as bool;
   @override
   set shouldUseJsFactory(bool value) =>
       props[_$key__shouldUseJsFactory__ComponentTestPropsMixin] = value;
   @override
   dynamic get dynamicProp =>
-      props[_$key__dynamicProp__ComponentTestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__dynamicProp__ComponentTestPropsMixin] ?? null) as dynamic;
   @override
   set dynamicProp(dynamic value) =>
       props[_$key__dynamicProp__ComponentTestPropsMixin] = value;
   @override
-  get untypedProp =>
-      props[_$key__untypedProp__ComponentTestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get untypedProp => props[_$key__untypedProp__ComponentTestPropsMixin] ?? null;
   @override
   set untypedProp(value) =>
       props[_$key__untypedProp__ComponentTestPropsMixin] = value;
   @override
   @Accessor(key: 'custom key!')
   dynamic get customKeyProp =>
-      props[_$key__customKeyProp__ComponentTestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__customKeyProp__ComponentTestPropsMixin] ?? null) as dynamic;
   @override
   @Accessor(key: 'custom key!')
   set customKeyProp(dynamic value) =>
@@ -244,8 +239,8 @@ mixin $ComponentTestPropsMixin on ComponentTestPropsMixin {
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   dynamic get customNamespaceProp =>
-      props[_$key__customNamespaceProp__ComponentTestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__customNamespaceProp__ComponentTestPropsMixin] ?? null)
+          as dynamic;
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceProp(dynamic value) =>
@@ -253,8 +248,8 @@ mixin $ComponentTestPropsMixin on ComponentTestPropsMixin {
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   dynamic get customKeyAndNamespaceProp =>
-      props[_$key__customKeyAndNamespaceProp__ComponentTestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__customKeyAndNamespaceProp__ComponentTestPropsMixin] ?? null)
+          as dynamic;
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceProp(dynamic value) =>

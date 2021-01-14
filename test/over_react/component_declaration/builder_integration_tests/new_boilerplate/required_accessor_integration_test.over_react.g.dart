@@ -40,7 +40,7 @@ abstract class _$$ComponentTestProps extends UiProps
 
   factory _$$ComponentTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ComponentTestProps$JsMap(backingMap);
+      return _$$ComponentTestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ComponentTestProps$PlainMap(backingMap);
     }
@@ -125,7 +125,8 @@ class _$ComponentTestComponent extends ComponentTestComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -163,8 +164,7 @@ mixin $ComponentTestProps on ComponentTestProps {
       isRequired: true,
       requiredErrorMessage: 'This Prop is Required for testing purposes.')
   dynamic get required =>
-      props[_$key__required__ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__required__ComponentTestProps] ?? null) as dynamic;
   @override
   @Accessor(
       isRequired: true,
@@ -177,8 +177,7 @@ mixin $ComponentTestProps on ComponentTestProps {
       isNullable: true,
       requiredErrorMessage: 'This prop can be set to null!')
   dynamic get nullable =>
-      props[_$key__nullable__ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__nullable__ComponentTestProps] ?? null) as dynamic;
   @override
   @Accessor(
       isRequired: true,
@@ -192,8 +191,8 @@ mixin $ComponentTestProps on ComponentTestProps {
       isNullable: false,
       requiredErrorMessage: 'This Prop Array is Required for testing purposes.')
   List get requiredAndLengthLimited =>
-      props[_$key__requiredAndLengthLimited__ComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__requiredAndLengthLimited__ComponentTestProps] ?? null)
+          as List;
   @override
   @Accessor(
       isRequired: true,

@@ -55,7 +55,7 @@ abstract class _$$UseLayoutEffectProps extends UiProps
 
   factory _$$UseLayoutEffectProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$UseLayoutEffectProps$JsMap(backingMap);
+      return _$$UseLayoutEffectProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$UseLayoutEffectProps$PlainMap(backingMap);
     }

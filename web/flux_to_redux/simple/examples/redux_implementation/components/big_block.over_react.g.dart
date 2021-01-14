@@ -39,7 +39,7 @@ abstract class _$$BigBlockProps extends UiProps
 
   factory _$$BigBlockProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BigBlockProps$JsMap(backingMap);
+      return _$$BigBlockProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$BigBlockProps$PlainMap(backingMap);
     }
@@ -124,7 +124,8 @@ class _$BigBlockComponent extends BigBlockComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -159,15 +160,14 @@ mixin $BigBlockProps on BigBlockProps {
   static const PropsMeta meta = _$metaForBigBlockProps;
   @override
   String get backgroundColor =>
-      props[_$key__backgroundColor__BigBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__backgroundColor__BigBlockProps] ?? null) as String;
   @override
   set backgroundColor(String value) =>
       props[_$key__backgroundColor__BigBlockProps] = value;
   @override
   void Function() get changeBackgroundColor =>
-      props[_$key__changeBackgroundColor__BigBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__changeBackgroundColor__BigBlockProps] ?? null) as void
+          Function();
   @override
   set changeBackgroundColor(void Function() value) =>
       props[_$key__changeBackgroundColor__BigBlockProps] = value;

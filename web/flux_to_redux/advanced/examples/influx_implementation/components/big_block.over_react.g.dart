@@ -43,7 +43,7 @@ abstract class _$$BigBlockProps extends UiProps
 
   factory _$$BigBlockProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BigBlockProps$JsMap(backingMap);
+      return _$$BigBlockProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$BigBlockProps$PlainMap(backingMap);
     }
@@ -130,7 +130,8 @@ class _$BigBlockComponent extends BigBlockComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -167,15 +168,15 @@ mixin $BigBlockPropsMixin on BigBlockPropsMixin {
   static const PropsMeta meta = _$metaForBigBlockPropsMixin;
   @override
   LowLevelStore get lowLevelStore =>
-      props[_$key__lowLevelStore__BigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__lowLevelStore__BigBlockPropsMixin] ?? null)
+          as LowLevelStore;
   @override
   set lowLevelStore(LowLevelStore value) =>
       props[_$key__lowLevelStore__BigBlockPropsMixin] = value;
   @override
   AnotherColorStore get secondStore =>
-      props[_$key__secondStore__BigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__secondStore__BigBlockPropsMixin] ?? null)
+          as AnotherColorStore;
   @override
   set secondStore(AnotherColorStore value) =>
       props[_$key__secondStore__BigBlockPropsMixin] = value;

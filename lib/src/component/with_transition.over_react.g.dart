@@ -43,7 +43,7 @@ abstract class _$$WithTransitionProps extends UiProps
 
   factory _$$WithTransitionProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$WithTransitionProps$JsMap(backingMap);
+      return _$$WithTransitionProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$WithTransitionProps$PlainMap(backingMap);
     }
@@ -122,7 +122,7 @@ abstract class _$$WithTransitionState extends UiState
 
   factory _$$WithTransitionState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$WithTransitionState$JsMap(backingMap);
+      return _$$WithTransitionState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$WithTransitionState$PlainMap(backingMap);
     }
@@ -192,7 +192,8 @@ class _$WithTransitionComponent extends WithTransitionComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -214,7 +215,7 @@ class _$WithTransitionComponent extends WithTransitionComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -251,22 +252,21 @@ mixin $WithTransitionPropsMixin on WithTransitionPropsMixin {
   static const PropsMeta meta = _$metaForWithTransitionPropsMixin;
   @override
   bool get isShown =>
-      props[_$key__isShown__WithTransitionPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__isShown__WithTransitionPropsMixin] ?? null) as bool;
   @override
   set isShown(bool value) =>
       props[_$key__isShown__WithTransitionPropsMixin] = value;
   @override
   Map<TransitionPhase, Map> get childPropsByPhase =>
-      props[_$key__childPropsByPhase__WithTransitionPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__childPropsByPhase__WithTransitionPropsMixin] ?? null)
+          as Map<TransitionPhase, Map>;
   @override
   set childPropsByPhase(Map<TransitionPhase, Map> value) =>
       props[_$key__childPropsByPhase__WithTransitionPropsMixin] = value;
   @override
   Duration get transitionTimeout =>
-      props[_$key__transitionTimeout__WithTransitionPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__transitionTimeout__WithTransitionPropsMixin] ?? null)
+          as Duration;
   @override
   set transitionTimeout(Duration value) =>
       props[_$key__transitionTimeout__WithTransitionPropsMixin] = value;
@@ -314,8 +314,8 @@ mixin $WithTransitionState on WithTransitionState {
   @override
   @protected
   TransitionPhase get $transitionPhase =>
-      state[_$key__$transitionPhase__WithTransitionState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__$transitionPhase__WithTransitionState] ?? null)
+          as TransitionPhase;
   @override
   @protected
   set $transitionPhase(TransitionPhase value) =>

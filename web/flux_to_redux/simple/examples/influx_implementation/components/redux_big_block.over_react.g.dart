@@ -43,7 +43,7 @@ abstract class _$$ReduxBigBlockProps extends UiProps
 
   factory _$$ReduxBigBlockProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ReduxBigBlockProps$JsMap(backingMap);
+      return _$$ReduxBigBlockProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ReduxBigBlockProps$PlainMap(backingMap);
     }
@@ -130,7 +130,8 @@ class _$ReduxBigBlockComponent extends ReduxBigBlockComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -167,15 +168,15 @@ mixin $ReduxBigBlockPropsMixin on ReduxBigBlockPropsMixin {
   static const PropsMeta meta = _$metaForReduxBigBlockPropsMixin;
   @override
   String get backgroundColor =>
-      props[_$key__backgroundColor__ReduxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__backgroundColor__ReduxBigBlockPropsMixin] ?? null)
+          as String;
   @override
   set backgroundColor(String value) =>
       props[_$key__backgroundColor__ReduxBigBlockPropsMixin] = value;
   @override
   void Function() get changeBackgroundColor =>
-      props[_$key__changeBackgroundColor__ReduxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__changeBackgroundColor__ReduxBigBlockPropsMixin] ?? null)
+          as void Function();
   @override
   set changeBackgroundColor(void Function() value) =>
       props[_$key__changeBackgroundColor__ReduxBigBlockPropsMixin] = value;

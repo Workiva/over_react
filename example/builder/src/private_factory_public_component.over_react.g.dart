@@ -40,7 +40,7 @@ abstract class _$$FormActionInputProps extends UiProps
 
   factory _$$FormActionInputProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FormActionInputProps$JsMap(backingMap);
+      return _$$FormActionInputProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$FormActionInputProps$PlainMap(backingMap);
     }
@@ -125,7 +125,8 @@ class _$FormActionInputComponent extends FormActionInputComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -160,8 +161,7 @@ mixin $FormActionInputProps on FormActionInputProps {
   static const PropsMeta meta = _$metaForFormActionInputProps;
   @override
   String get prop1 =>
-      props[_$key__prop1__FormActionInputProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__prop1__FormActionInputProps] ?? null) as String;
   @override
   set prop1(String value) => props[_$key__prop1__FormActionInputProps] = value;
   /* GENERATED CONSTANTS */

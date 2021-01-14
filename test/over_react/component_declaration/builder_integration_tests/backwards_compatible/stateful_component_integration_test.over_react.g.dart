@@ -77,8 +77,9 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
   String get stringState =>
-      state[_$key__stringState___$StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__stringState___$StatefulComponentTestState] ?? null)
+          as String;
+
   /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
   set stringState(String value) =>
@@ -87,8 +88,9 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   /// <!-- Generated from [_$StatefulComponentTestState.dynamicState] -->
   @override
   dynamic get dynamicState =>
-      state[_$key__dynamicState___$StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__dynamicState___$StatefulComponentTestState] ?? null)
+          as dynamic;
+
   /// <!-- Generated from [_$StatefulComponentTestState.dynamicState] -->
   @override
   set dynamicState(dynamic value) =>
@@ -97,8 +99,8 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   /// <!-- Generated from [_$StatefulComponentTestState.untypedState] -->
   @override
   get untypedState =>
-      state[_$key__untypedState___$StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__untypedState___$StatefulComponentTestState] ?? null;
+
   /// <!-- Generated from [_$StatefulComponentTestState.untypedState] -->
   @override
   set untypedState(value) =>
@@ -108,8 +110,9 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   @override
   @Accessor(key: 'custom key!')
   dynamic get customKeyState =>
-      state[_$key__customKeyState___$StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__customKeyState___$StatefulComponentTestState] ?? null)
+          as dynamic;
+
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyState] -->
   @override
   @Accessor(key: 'custom key!')
@@ -120,8 +123,9 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   dynamic get customNamespaceState =>
-      state[_$key__customNamespaceState___$StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__customNamespaceState___$StatefulComponentTestState] ?? null)
+          as dynamic;
+
   /// <!-- Generated from [_$StatefulComponentTestState.customNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
@@ -132,8 +136,9 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   dynamic get customKeyAndNamespaceState =>
-      state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__customKeyAndNamespaceState___$StatefulComponentTestState] ??
+          null) as dynamic;
+
   /// <!-- Generated from [_$StatefulComponentTestState.customKeyAndNamespaceState] -->
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')

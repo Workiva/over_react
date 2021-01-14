@@ -39,7 +39,7 @@ abstract class _$$ButtonProps extends UiProps
 
   factory _$$ButtonProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ButtonProps$JsMap(backingMap);
+      return _$$ButtonProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ButtonProps$PlainMap(backingMap);
     }
@@ -116,7 +116,7 @@ abstract class _$$ButtonState extends UiState
 
   factory _$$ButtonState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ButtonState$JsMap(backingMap);
+      return _$$ButtonState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ButtonState$PlainMap(backingMap);
     }
@@ -186,7 +186,8 @@ class _$ButtonComponent extends ButtonComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -208,7 +209,7 @@ class _$ButtonComponent extends ButtonComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -243,56 +244,44 @@ mixin $ButtonProps on ButtonProps {
   static const PropsMeta meta = _$metaForButtonProps;
   @override
   ButtonSkin get skin =>
-      props[_$key__skin__ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__skin__ButtonProps] ?? null) as ButtonSkin;
   @override
   set skin(ButtonSkin value) => props[_$key__skin__ButtonProps] = value;
   @override
   ButtonSize get size =>
-      props[_$key__size__ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__size__ButtonProps] ?? null) as ButtonSize;
   @override
   set size(ButtonSize value) => props[_$key__size__ButtonProps] = value;
   @override
-  bool get isActive =>
-      props[_$key__isActive__ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get isActive => (props[_$key__isActive__ButtonProps] ?? null) as bool;
   @override
   set isActive(bool value) => props[_$key__isActive__ButtonProps] = value;
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
   bool get isDisabled =>
-      props[_$key__isDisabled__ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__isDisabled__ButtonProps] ?? null) as bool;
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
   set isDisabled(bool value) => props[_$key__isDisabled__ButtonProps] = value;
   @override
-  bool get isBlock =>
-      props[_$key__isBlock__ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get isBlock => (props[_$key__isBlock__ButtonProps] ?? null) as bool;
   @override
   set isBlock(bool value) => props[_$key__isBlock__ButtonProps] = value;
   @override
   @Accessor(keyNamespace: '')
-  String get href =>
-      props[_$key__href__ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get href => (props[_$key__href__ButtonProps] ?? null) as String;
   @override
   @Accessor(keyNamespace: '')
   set href(String value) => props[_$key__href__ButtonProps] = value;
   @override
   @Accessor(keyNamespace: '')
-  String get target =>
-      props[_$key__target__ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get target => (props[_$key__target__ButtonProps] ?? null) as String;
   @override
   @Accessor(keyNamespace: '')
   set target(String value) => props[_$key__target__ButtonProps] = value;
   @override
   ButtonType get type =>
-      props[_$key__type__ButtonProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__type__ButtonProps] ?? null) as ButtonType;
   @override
   set type(ButtonType value) => props[_$key__type__ButtonProps] = value;
   /* GENERATED CONSTANTS */

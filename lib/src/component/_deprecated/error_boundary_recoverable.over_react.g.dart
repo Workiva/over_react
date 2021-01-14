@@ -62,7 +62,7 @@ abstract class _$$RecoverableErrorBoundaryProps
 
   factory _$$RecoverableErrorBoundaryProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$RecoverableErrorBoundaryProps$JsMap(backingMap);
+      return _$$RecoverableErrorBoundaryProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$RecoverableErrorBoundaryProps$PlainMap(backingMap);
     }
@@ -153,7 +153,7 @@ abstract class _$$RecoverableErrorBoundaryState
 
   factory _$$RecoverableErrorBoundaryState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$RecoverableErrorBoundaryState$JsMap(backingMap);
+      return _$$RecoverableErrorBoundaryState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$RecoverableErrorBoundaryState$PlainMap(backingMap);
     }
@@ -220,7 +220,8 @@ class _$RecoverableErrorBoundaryComponent
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -243,7 +244,7 @@ class _$RecoverableErrorBoundaryComponent
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override

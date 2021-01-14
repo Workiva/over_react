@@ -43,7 +43,7 @@ abstract class _$$ReduxBigBlockProps extends UiProps
 
   factory _$$ReduxBigBlockProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ReduxBigBlockProps$JsMap(backingMap);
+      return _$$ReduxBigBlockProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ReduxBigBlockProps$PlainMap(backingMap);
     }
@@ -130,7 +130,8 @@ class _$ReduxBigBlockComponent extends ReduxBigBlockComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -167,59 +168,59 @@ mixin $ReduxBigBlockPropsMixin on ReduxBigBlockPropsMixin {
   static const PropsMeta meta = _$metaForReduxBigBlockPropsMixin;
   @override
   String get backgroundColor =>
-      props[_$key__backgroundColor__ReduxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__backgroundColor__ReduxBigBlockPropsMixin] ?? null)
+          as String;
   @override
   set backgroundColor(String value) =>
       props[_$key__backgroundColor__ReduxBigBlockPropsMixin] = value;
   @override
   String get blockTwoBackgroundColor =>
-      props[_$key__blockTwoBackgroundColor__ReduxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__blockTwoBackgroundColor__ReduxBigBlockPropsMixin] ?? null)
+          as String;
   @override
   set blockTwoBackgroundColor(String value) =>
       props[_$key__blockTwoBackgroundColor__ReduxBigBlockPropsMixin] = value;
   @override
   String get blockThreeBackgroundColor =>
-      props[_$key__blockThreeBackgroundColor__ReduxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__blockThreeBackgroundColor__ReduxBigBlockPropsMixin] ?? null)
+          as String;
   @override
   set blockThreeBackgroundColor(String value) =>
       props[_$key__blockThreeBackgroundColor__ReduxBigBlockPropsMixin] = value;
   @override
   String get blockOneBackgroundColor =>
-      props[_$key__blockOneBackgroundColor__ReduxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__blockOneBackgroundColor__ReduxBigBlockPropsMixin] ?? null)
+          as String;
   @override
   set blockOneBackgroundColor(String value) =>
       props[_$key__blockOneBackgroundColor__ReduxBigBlockPropsMixin] = value;
   @override
   void Function() get changeMainBackgroundColor =>
-      props[_$key__changeMainBackgroundColor__ReduxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__changeMainBackgroundColor__ReduxBigBlockPropsMixin] ?? null)
+          as void Function();
   @override
   set changeMainBackgroundColor(void Function() value) =>
       props[_$key__changeMainBackgroundColor__ReduxBigBlockPropsMixin] = value;
   @override
   void Function() get changeBlockOneBackgroundColor =>
-      props[_$key__changeBlockOneBackgroundColor__ReduxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__changeBlockOneBackgroundColor__ReduxBigBlockPropsMixin] ??
+          null) as void Function();
   @override
   set changeBlockOneBackgroundColor(void Function() value) =>
       props[_$key__changeBlockOneBackgroundColor__ReduxBigBlockPropsMixin] =
           value;
   @override
   void Function() get changeBlockTwoBackgroundColor =>
-      props[_$key__changeBlockTwoBackgroundColor__ReduxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__changeBlockTwoBackgroundColor__ReduxBigBlockPropsMixin] ??
+          null) as void Function();
   @override
   set changeBlockTwoBackgroundColor(void Function() value) =>
       props[_$key__changeBlockTwoBackgroundColor__ReduxBigBlockPropsMixin] =
           value;
   @override
   void Function() get changeBlockThreeBackgroundColor =>
-      props[_$key__changeBlockThreeBackgroundColor__ReduxBigBlockPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__changeBlockThreeBackgroundColor__ReduxBigBlockPropsMixin] ??
+          null) as void Function();
   @override
   set changeBlockThreeBackgroundColor(void Function() value) =>
       props[_$key__changeBlockThreeBackgroundColor__ReduxBigBlockPropsMixin] =

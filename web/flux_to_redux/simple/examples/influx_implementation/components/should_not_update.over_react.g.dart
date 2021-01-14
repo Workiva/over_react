@@ -40,7 +40,7 @@ abstract class _$$ShouldNotUpdateProps extends UiProps
 
   factory _$$ShouldNotUpdateProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ShouldNotUpdateProps$JsMap(backingMap);
+      return _$$ShouldNotUpdateProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ShouldNotUpdateProps$PlainMap(backingMap);
     }
@@ -125,7 +125,8 @@ class _$ShouldNotUpdateComponent extends ShouldNotUpdateComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -160,8 +161,7 @@ mixin $ShouldNotUpdateProps on ShouldNotUpdateProps {
   static const PropsMeta meta = _$metaForShouldNotUpdateProps;
   @override
   String get text =>
-      props[_$key__text__ShouldNotUpdateProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__text__ShouldNotUpdateProps] ?? null) as String;
   @override
   set text(String value) => props[_$key__text__ShouldNotUpdateProps] = value;
   /* GENERATED CONSTANTS */
