@@ -259,14 +259,19 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           docComment = '';
         }
 
+        String castGetterMapValueIfNecessary(String expression) {
+          if (typeSource == null) return expression;
+          return '($expression) as $typeSource';
+        }
+
         String generatedAccessor = '$docComment'
             // TODO reinstate inlining once https://github.com/dart-lang/sdk/issues/36217 is fixed and all workarounds are removed
             // inlining is necessary to get mixins to use $index/$indexSet instead of $index$asx
             // '  @tryInline\n'
             '  @override\n'
             '$metadataSrc'
-            '  ${typeString}get $accessorName => $proxiedMapName[$keyConstantName] ?? null;'
-            ' // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;\n'
+            // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052
+            '  ${typeString}get $accessorName => ${castGetterMapValueIfNecessary('$proxiedMapName[$keyConstantName] ?? null')};\n'
             '$docComment'
             // '  @tryInline\n'
             '  @override\n'
