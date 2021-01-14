@@ -72,7 +72,7 @@ main() {
         test('by chaining any existing callback ref', () {
           WrapperComponent existingWrapperRef;
 
-          renderManager.render((Wrapper()..ref = ((ref) => existingWrapperRef = ref))());
+          renderManager.render((Wrapper()..ref = ((ref) => existingWrapperRef = ref as WrapperComponent))());
 
           expect(renderManager.contentRef, isNotNull);
           expect(existingWrapperRef, same(renderManager.contentRef));

@@ -16,7 +16,7 @@
 part of over_react.component_declaration.component2.flux_component_test;
 
 @Factory()
-UiFactory<TestStoreHandlersProps> TestStatefulStoreHandlers = _$TestStatefulStoreHandlers;
+UiFactory<TestStatefulStoreHandlersProps> TestStatefulStoreHandlers = _$TestStatefulStoreHandlers;
 
 @Props()
 class _$TestStatefulStoreHandlersProps extends FluxUiProps<TestActions, TestStore> implements TestStoreHandlersProps {}

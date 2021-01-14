@@ -83,7 +83,7 @@ main() {
         verifyImplGenerationIsValid();
       });
 
-      void testImplGeneration(String groupName, {backwardsCompatible = true}) {
+      void testImplGeneration(String groupName, {bool backwardsCompatible = true}) {
         group(groupName, () {
           test('stateful components', () {
             generateFromSource(OverReactSrc.state(backwardsCompatible: backwardsCompatible).source);

@@ -158,7 +158,7 @@ void setSelectionRange(/* TextInputElement | TextAreaElement */Element input, in
 int getSelectionStart(Element input) {
   if (input is TextAreaElement) {
     return input.selectionStart;
-  } else if (input is TextInputElement && supportsSelectionRange(input)) {
+  } else if (input is InputElement && supportsSelectionRange(input)) {
     final inputType = input.getAttribute('type');
 
     if (browser.isChrome || browser.isFirefox) {
