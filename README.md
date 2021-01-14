@@ -9,8 +9,7 @@ This library also exposes _OverReact Redux_, which has [its own documentation](d
 [![OverReact Analyzer Plugin (beta)](https://img.shields.io/badge/docs-analyzer_plugin_(beta)-ff69b4.svg)](https://workiva.github.io/over_react/analyzer_plugin/)
 [![Join the gitter chat](https://badges.gitter.im/over_react/Lobby.svg)][gitter-chat]
 
-[![Build Status](https://travis-ci.org/Workiva/over_react.svg?branch=master)](https://travis-ci.org/Workiva/over_react)
-[![Test Coverage](https://codecov.io/github/Workiva/over_react/coverage.svg?branch=master)](https://codecov.io/github/Workiva/over_react?branch=master)
+[![Dart CI](https://github.com/Workiva/over_react/workflows/Dart%20CI/badge.svg?branch=master)](https://github.com/Workiva/over_react/actions?query=workflow%3A%22Dart+CI%22+branch%3Amaster)
 
 ---
 
@@ -367,17 +366,17 @@ mixin FooState on UiState {
 
 class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
   @override
-  get defaultProps => (newProps()
+  Map get defaultProps => (newProps()
     ..color = '#66cc00'
   );
 
   @override
-  get initialState => (newState()
+  Map get initialState => (newState()
     ..isActive = false
   );
 
   @override
-  componentDidUpdate(Map prevProps, Map prevState, [dynamic snapshot]) {
+  void componentDidUpdate(Map prevProps, Map prevState, [dynamic snapshot]) {
     var tPrevState = typedStateFactory(prevState);
     var tPrevProps = typedPropsFactory(prevProps);
 
@@ -389,7 +388,7 @@ class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
   }
 
   @override
-  render() {
+  dynamic render() {
     return (Dom.div()
       ..modifyProps(addUnconsumedDomProps)
       ..style = {
@@ -752,14 +751,14 @@ that you get for free from OverReact, you're ready to start building your own cu
 
     class FooComponent extends UiComponent2<FooProps> {
       @override
-      get defaultProps => (newProps()
+      Map get defaultProps => (newProps()
         // Cascade default props here
         ..isDisabled = false
         ..items = []
       );
 
       @override
-      render() {
+      dynamic render() {
         // Return the rendered component contents here.
         // The `props` variable is typed; no need for string keys!
       }
@@ -787,20 +786,20 @@ that you get for free from OverReact, you're ready to start building your own cu
 
     class BarComponent extends UiStatefulComponent2<BarProps, BarState> {
       @override
-      get defaultProps => (newProps()
+      Map get defaultProps => (newProps()
         // Cascade default props here
         ..isDisabled = false
         ..items = []
       );
 
       @override
-      get initialState => (newState()
+      Map get initialState => (newState()
         // Cascade initial state here
         ..isShown = true
       );
 
       @override
-      render() {
+      dynamic render() {
         // Return the rendered component contents here.
         // The `props` variable is typed; no need for string keys!
       }
@@ -901,13 +900,13 @@ and document that value in a comment.
     DropdownButtonComponent
         extends UiStatefulComponent2<DropdownButtonProps, DropdownButtonState> {
       @override
-      get defaultProps => (newProps()
+      Map get defaultProps => (newProps()
         ..isDisabled = false
         ..initiallyOpen = false
       );
 
       @override
-      get initialState => (newState()
+      Map get initialState => (newState()
         ..isOpen = props.initiallyOpen
       );
     }
