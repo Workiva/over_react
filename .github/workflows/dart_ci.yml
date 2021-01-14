@@ -12,10 +12,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [stable, dev]
+        sdk: [ stable@2.7.2, stable, dev ]
     steps:
       - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v0.1
+      - uses: ./.github/actions/setup_dart_version
         with:
           channel: ${{ matrix.sdk }}
 
@@ -24,35 +24,35 @@ jobs:
 
       - id: install
         name: Install dependencies
-        run: dart pub get
+        run: pub get
 
       - name: Validate dependencies
-        run: dart pub run dependency_validator --no-fatal-pins -i analyzer,build_runner,build_web_compilers,built_value_generator
+        run: pub run dependency_validator --no-fatal-pins -i analyzer,build_runner,build_web_compilers,built_value_generator
         if: always() && steps.install.outcome == 'success'
 
       - name: Verify formatting
-        run: dart pub run dart_dev format --check
+        run: pub run dart_dev format --check
         if: always() && ${{ matrix.sdk }} == 'stable' && steps.install.outcome == 'success'
 
       # Analyze before generated files are created to verify that component boilerplate analysis is "clean" without the need for building
       - name: Analyze project source (pre-build)
-        run: dart pub run dart_dev analyze
+        run: pub run dart_dev analyze
         if: always() && steps.install.outcome == 'success'
 
       - id: build
         name: Build generated files / precompile DDC assets
         run: |
-          dart pub run build_runner build --delete-conflicting-outputs -o ddc_precompiled
+          pub run build_runner build --delete-conflicting-outputs -o ddc_precompiled
           git diff --exit-code
         if: always() && steps.install.outcome == 'success'
 
       # Analyze again after generated files are created to verify that those generated classes don't cause analysis errors
       - name: Analyze project source (post-build)
-        run: dart pub run dart_dev analyze
+        run: pub run dart_dev analyze
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       - name: Run tests (VM)
-        run: dart pub run dart_dev test -P vm
+        run: pub run dart_dev test -P vm
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       - name: Run tests (DDC)
@@ -68,10 +68,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [ stable, dev ]
+        sdk: [ stable@2.7.2, stable, dev ]
     steps:
       - uses: actions/checkout@v2
-      - uses: dart-lang/setup-dart@v0.1
+      - uses: ./.github/actions/setup_dart_version
         with:
           channel: ${{ matrix.sdk }}
 
@@ -80,7 +80,7 @@ jobs:
 
       - id: install
         name: Install dependencies
-        run: dart pub get
+        run: pub get
 
       - name: Run analyzer_plugin checks
         run: |
