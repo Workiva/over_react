@@ -45,6 +45,6 @@
 ///   ),
 /// ])(castUiFactory(_$BigBlock));
 /// ```
-R Function(A) composeHocs<R, A extends R>(Iterable<R Function(A)> functions) {
+R Function(R) composeHocs<R>(Iterable<R Function(R)> functions) {
   return functions.reduce((a, b) => (result) => a(b(result)));
 }
