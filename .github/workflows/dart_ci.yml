@@ -3,11 +3,11 @@ name: Dart CI
 on:
   push:
     branches:
-      - master
-      - test_consume_*
+      - 'master'
+      - 'test_consume_*'
   pull_request:
     branches:
-      - *
+      - '*'
 
 jobs:
   build:
