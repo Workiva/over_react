@@ -270,7 +270,9 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
             // '  @tryInline\n'
             '  @override\n'
             '$metadataSrc'
-            // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052
+            // Add ` ?? null` to work around DDC bug: <https://github.com/dart-lang/sdk/issues/36052
+            // Apply this workaround ASAP, before the cast, to limit where undefined can leak into
+            // and potentially cause issues (for instance, DDC cast internals).
             '  ${typeString}get $accessorName => ${castGetterMapValueIfNecessary('$proxiedMapName[$keyConstantName] ?? null')};\n'
             '$docComment'
             // '  @tryInline\n'
