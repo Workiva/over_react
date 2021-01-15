@@ -8,6 +8,7 @@ _Preview of new boilerplate:_
 * __[New Boilerplate Updates](#new-boilerplate-updates)__
     * [Design Constraints](#design-constraints)
     * [Updates](#updates)
+        * [Add `castUiFactory` Utility](#add-castuifactory-utility)
         * [Remove Annotations](#remove-annotations)
         * [Ignore Ungenerated Warnings Project-Wide](#ignore-ungenerated-warnings-project-wide)
         * [Use Mixin-Based Props Declaration that Disallows Subclassing](#use-mixin-based-props-declaration-that-disallows-subclassing)
@@ -210,7 +211,7 @@ ecosystems.
 
 ### Updates
 
-#### Wrap Factory in `castUiFactory`
+#### Add `castUiFactory` Utility
 
 A utility called `castUiFactory` has been added that protects against implicit cast warnings
 on factory declarations. All that needs to be done is to wrap the generated factory with
