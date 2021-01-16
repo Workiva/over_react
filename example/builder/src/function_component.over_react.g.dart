@@ -123,7 +123,7 @@ const PropsMeta _$metaForFooProps = PropsMeta(
   keys: $FooProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$BasicProps> _$BasicConfig = UiFactoryConfig(
+final dynamic _$BasicConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$BasicProps(map),
       jsMap: (map) => _$$BasicProps$JsMap(map),
@@ -133,9 +133,9 @@ final UiFactoryConfig<_$$BasicProps> _$BasicConfig = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$BasicConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final dynamic $BasicConfig = _$BasicConfig;
+final UiFactoryConfig<_$$BasicProps> $BasicConfig = _$BasicConfig;
 
-final UiFactoryConfig<_$$BasicProps> _$SimpleConfig = UiFactoryConfig(
+final dynamic _$SimpleConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$BasicProps(map),
       jsMap: (map) => _$$BasicProps$JsMap(map),
@@ -145,7 +145,7 @@ final UiFactoryConfig<_$$BasicProps> _$SimpleConfig = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$SimpleConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final dynamic $SimpleConfig = _$SimpleConfig;
+final UiFactoryConfig<_$$BasicProps> $SimpleConfig = _$SimpleConfig;
 
 // Concrete props implementation.
 //
@@ -219,7 +219,7 @@ class _$$BasicProps$JsMap extends _$$BasicProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$FooProps> _$FooConfig = UiFactoryConfig(
+final dynamic _$FooConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$FooProps(map),
       jsMap: (map) => _$$FooProps$JsMap(map),
@@ -229,7 +229,7 @@ final UiFactoryConfig<_$$FooProps> _$FooConfig = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$FooConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final dynamic $FooConfig = _$FooConfig;
+final UiFactoryConfig<_$$FooProps> $FooConfig = _$FooConfig;
 
 // Concrete props implementation.
 //

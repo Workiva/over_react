@@ -658,7 +658,7 @@ main() {
 
       group('and generates props config for function components constructed with', () {
         String generatedConfig(String propsName, String factoryName) {
-          return 'final UiFactoryConfig<_\$\$$propsName> '
+          return 'final dynamic '
             '_\$${factoryName}Config = UiFactoryConfig(\n'
             'propsFactory: PropsFactory(\n'
             'map: (map) => _\$\$$propsName(map),\n'
@@ -667,7 +667,7 @@ main() {
             '@Deprecated(r\'Use the private variable, _\$${factoryName}Config, instead \'\n'
             '\'and update the `over_react` lower bound to version 4.1.0. \'\n'
             '\'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650\')\n'
-            'final dynamic '
+            'final UiFactoryConfig<_\$\$$propsName> '
             '\$${factoryName}Config = _\$${factoryName}Config;\n\n';
         }
 

@@ -550,18 +550,18 @@ const PropsMeta _$metaForRefDemoHocProps = PropsMeta(
   keys: $RefDemoHocProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$FancyButtonProps> _$FancyButtonConfig =
-    UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$FancyButtonProps(map),
-          jsMap: (map) => _$$FancyButtonProps$JsMap(map),
-        ),
-        displayName: 'FancyButton');
+final dynamic _$FancyButtonConfig = UiFactoryConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$FancyButtonProps(map),
+      jsMap: (map) => _$$FancyButtonProps$JsMap(map),
+    ),
+    displayName: 'FancyButton');
 
 @Deprecated(r'Use the private variable, _$FancyButtonConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final dynamic $FancyButtonConfig = _$FancyButtonConfig;
+final UiFactoryConfig<_$$FancyButtonProps> $FancyButtonConfig =
+    _$FancyButtonConfig;
 
 // Concrete props implementation.
 //
@@ -635,7 +635,7 @@ class _$$FancyButtonProps$JsMap extends _$$FancyButtonProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$Foo2Props> _$Foo2Config = UiFactoryConfig(
+final dynamic _$Foo2Config = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$Foo2Props(map),
       jsMap: (map) => _$$Foo2Props$JsMap(map),
@@ -645,7 +645,7 @@ final UiFactoryConfig<_$$Foo2Props> _$Foo2Config = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$Foo2Config, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final dynamic $Foo2Config = _$Foo2Config;
+final UiFactoryConfig<_$$Foo2Props> $Foo2Config = _$Foo2Config;
 
 // Concrete props implementation.
 //
@@ -724,7 +724,7 @@ class _$$Foo2Props$JsMap extends _$$Foo2Props {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$BazProps> _$BazConfig = UiFactoryConfig(
+final dynamic _$BazConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$BazProps(map),
       jsMap: (map) => _$$BazProps$JsMap(map),
@@ -734,7 +734,7 @@ final UiFactoryConfig<_$$BazProps> _$BazConfig = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$BazConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final dynamic $BazConfig = _$BazConfig;
+final UiFactoryConfig<_$$BazProps> $BazConfig = _$BazConfig;
 
 // Concrete props implementation.
 //
@@ -808,18 +808,18 @@ class _$$BazProps$JsMap extends _$$BazProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$RefDemoProps> _$RefDemoContainerConfig =
-    UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$RefDemoProps(map),
-          jsMap: (map) => _$$RefDemoProps$JsMap(map),
-        ),
-        displayName: 'RefDemoContainer');
+final dynamic _$RefDemoContainerConfig = UiFactoryConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$RefDemoProps(map),
+      jsMap: (map) => _$$RefDemoProps$JsMap(map),
+    ),
+    displayName: 'RefDemoContainer');
 
 @Deprecated(r'Use the private variable, _$RefDemoContainerConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final dynamic $RefDemoContainerConfig = _$RefDemoContainerConfig;
+final UiFactoryConfig<_$$RefDemoProps> $RefDemoContainerConfig =
+    _$RefDemoContainerConfig;
 
 // Concrete props implementation.
 //
@@ -893,18 +893,18 @@ class _$$RefDemoProps$JsMap extends _$$RefDemoProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$RefDemoSectionProps> _$RefDemoSectionConfig =
-    UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$RefDemoSectionProps(map),
-          jsMap: (map) => _$$RefDemoSectionProps$JsMap(map),
-        ),
-        displayName: 'RefDemoSection');
+final dynamic _$RefDemoSectionConfig = UiFactoryConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$RefDemoSectionProps(map),
+      jsMap: (map) => _$$RefDemoSectionProps$JsMap(map),
+    ),
+    displayName: 'RefDemoSection');
 
 @Deprecated(r'Use the private variable, _$RefDemoSectionConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final dynamic $RefDemoSectionConfig = _$RefDemoSectionConfig;
+final UiFactoryConfig<_$$RefDemoSectionProps> $RefDemoSectionConfig =
+    _$RefDemoSectionConfig;
 
 // Concrete props implementation.
 //
@@ -978,7 +978,7 @@ class _$$RefDemoSectionProps$JsMap extends _$$RefDemoSectionProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$RefDemoHocProps> _$RefDemoHocConfig = UiFactoryConfig(
+final dynamic _$RefDemoHocConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$RefDemoHocProps(map),
       jsMap: (map) => _$$RefDemoHocProps$JsMap(map),
@@ -988,7 +988,8 @@ final UiFactoryConfig<_$$RefDemoHocProps> _$RefDemoHocConfig = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$RefDemoHocConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final dynamic $RefDemoHocConfig = _$RefDemoHocConfig;
+final UiFactoryConfig<_$$RefDemoHocProps> $RefDemoHocConfig =
+    _$RefDemoHocConfig;
 
 // Concrete props implementation.
 //

@@ -178,7 +178,7 @@ const PropsMeta _$metaForAThirdPropsMixin = PropsMeta(
   keys: $AThirdPropsMixin.$propKeys,
 );
 
-final UiFactoryConfig<_$$TestProps> _$TestConfig = UiFactoryConfig(
+final dynamic _$TestConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$TestProps(map),
       jsMap: (map) => _$$TestProps$JsMap(map),
@@ -188,9 +188,9 @@ final UiFactoryConfig<_$$TestProps> _$TestConfig = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$TestConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final dynamic $TestConfig = _$TestConfig;
+final UiFactoryConfig<_$$TestProps> $TestConfig = _$TestConfig;
 
-final UiFactoryConfig<_$$TestProps> _$TestPublicConfig = UiFactoryConfig(
+final dynamic _$TestPublicConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$TestProps(map),
       jsMap: (map) => _$$TestProps$JsMap(map),
@@ -200,9 +200,9 @@ final UiFactoryConfig<_$$TestProps> _$TestPublicConfig = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$TestPublicConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final dynamic $TestPublicConfig = _$TestPublicConfig;
+final UiFactoryConfig<_$$TestProps> $TestPublicConfig = _$TestPublicConfig;
 
-final UiFactoryConfig<_$$TestProps> _$NoLHSTestConfig = UiFactoryConfig(
+final dynamic _$NoLHSTestConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$TestProps(map),
       jsMap: (map) => _$$TestProps$JsMap(map),
@@ -212,9 +212,9 @@ final UiFactoryConfig<_$$TestProps> _$NoLHSTestConfig = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$NoLHSTestConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final dynamic $NoLHSTestConfig = _$NoLHSTestConfig;
+final UiFactoryConfig<_$$TestProps> $NoLHSTestConfig = _$NoLHSTestConfig;
 
-final UiFactoryConfig<_$$TestProps> _$_TestConfig = UiFactoryConfig(
+final dynamic _$_TestConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$TestProps(map),
       jsMap: (map) => _$$TestProps$JsMap(map),
@@ -224,7 +224,7 @@ final UiFactoryConfig<_$$TestProps> _$_TestConfig = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$_TestConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final dynamic $_TestConfig = _$_TestConfig;
+final UiFactoryConfig<_$$TestProps> $_TestConfig = _$_TestConfig;
 
 // Concrete props implementation.
 //

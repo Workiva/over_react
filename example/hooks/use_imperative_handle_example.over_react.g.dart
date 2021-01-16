@@ -70,7 +70,7 @@ const PropsMeta _$metaForUseImperativeHandleExampleProps = PropsMeta(
   keys: $UseImperativeHandleExampleProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$FancyInputProps> _$FancyInputConfig = UiFactoryConfig(
+final dynamic _$FancyInputConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$FancyInputProps(map),
       jsMap: (map) => _$$FancyInputProps$JsMap(map),
@@ -80,7 +80,8 @@ final UiFactoryConfig<_$$FancyInputProps> _$FancyInputConfig = UiFactoryConfig(
 @Deprecated(r'Use the private variable, _$FancyInputConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final dynamic $FancyInputConfig = _$FancyInputConfig;
+final UiFactoryConfig<_$$FancyInputProps> $FancyInputConfig =
+    _$FancyInputConfig;
 
 // Concrete props implementation.
 //
@@ -154,20 +155,19 @@ class _$$FancyInputProps$JsMap extends _$$FancyInputProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$UseImperativeHandleExampleProps>
-    _$UseImperativeHandleExampleConfig = UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$UseImperativeHandleExampleProps(map),
-          jsMap: (map) => _$$UseImperativeHandleExampleProps$JsMap(map),
-        ),
-        displayName: 'UseImperativeHandleExample');
+final dynamic _$UseImperativeHandleExampleConfig = UiFactoryConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$UseImperativeHandleExampleProps(map),
+      jsMap: (map) => _$$UseImperativeHandleExampleProps$JsMap(map),
+    ),
+    displayName: 'UseImperativeHandleExample');
 
 @Deprecated(
     r'Use the private variable, _$UseImperativeHandleExampleConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final dynamic $UseImperativeHandleExampleConfig =
-    _$UseImperativeHandleExampleConfig;
+final UiFactoryConfig<_$$UseImperativeHandleExampleProps>
+    $UseImperativeHandleExampleConfig = _$UseImperativeHandleExampleConfig;
 
 // Concrete props implementation.
 //

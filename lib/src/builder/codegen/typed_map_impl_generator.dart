@@ -389,7 +389,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   bool get isComponent2 => true;
 
   String _generateUiFactoryConfig(FactoryNames factoryName) {
-    return 'final UiFactoryConfig<${names.implName}> '
+    return 'final dynamic '
         '${factoryName.privateConfigName} = UiFactoryConfig(\n'
         'propsFactory: PropsFactory(\n'
         'map: (map) => ${names.implName}(map),\n'
@@ -398,7 +398,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         '@Deprecated(r\'Use the private variable, ${factoryName.privateConfigName}, instead \'\n'
         '\'and update the `over_react` lower bound to version 4.1.0. \'\n'
         '\'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650\')\n'
-        'final dynamic '
+        'final UiFactoryConfig<${names.implName}> '
         // ignore: deprecated_member_use_from_same_package
         '${factoryName.publicConfigName} = ${factoryName.privateConfigName};\n\n';
   }

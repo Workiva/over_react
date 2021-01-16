@@ -41,18 +41,18 @@ const PropsMeta _$metaForUseReducerExampleProps = PropsMeta(
   keys: $UseReducerExampleProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$UseReducerExampleProps> _$UseReducerExampleConfig =
-    UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$UseReducerExampleProps(map),
-          jsMap: (map) => _$$UseReducerExampleProps$JsMap(map),
-        ),
-        displayName: 'UseReducerExample');
+final dynamic _$UseReducerExampleConfig = UiFactoryConfig(
+    propsFactory: PropsFactory(
+      map: (map) => _$$UseReducerExampleProps(map),
+      jsMap: (map) => _$$UseReducerExampleProps$JsMap(map),
+    ),
+    displayName: 'UseReducerExample');
 
 @Deprecated(r'Use the private variable, _$UseReducerExampleConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
-final dynamic $UseReducerExampleConfig = _$UseReducerExampleConfig;
+final UiFactoryConfig<_$$UseReducerExampleProps> $UseReducerExampleConfig =
+    _$UseReducerExampleConfig;
 
 // Concrete props implementation.
 //
