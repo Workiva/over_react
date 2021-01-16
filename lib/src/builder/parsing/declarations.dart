@@ -361,12 +361,25 @@ class FactoryGroup {
 
   /// The factory that best represents [factories].
   ///
-  /// Priority: component factory, function component factory, forwardRef
+  /// Priority: component factory (possibly wrapped in `castUiFactory`), function component factory, forwardRef
   BoilerplateFactory get bestFactory {
     if (factories.length == 1) return factories[0];
 
-    final factoriesInitializedToIdentifier =
-        factories.where((factory) => factory.node.firstInitializer is Identifier).toList();
+    final factoriesInitializedToIdentifier = factories.where((factory) {
+      if (factory.node.firstInitializer is Identifier) return true;
+
+      final initializer = factory.node.firstInitializer;
+
+      if (initializer is MethodInvocation) {
+        if (initializer.methodName.name == 'castUiFactory' &&
+            initializer.argumentList.arguments.first is SimpleIdentifier) {
+          return true;
+        }
+      }
+
+      return false;
+    }).toList();
+
     if (factoriesInitializedToIdentifier.length == 1) {
       return factoriesInitializedToIdentifier.first;
     }
