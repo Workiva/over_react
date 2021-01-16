@@ -27,7 +27,7 @@ UiFactory<CounterProps> CounterWithDifferentContext = connect<CounterState, Coun
   context: bigCounterContext,
 )(_Counter);
 
-UiFactory<CounterProps> _Counter = _$_Counter;
+UiFactory<CounterProps> _Counter = castUiFactory(_$_Counter);
 
 mixin CounterPropsMixin on UiProps {
   int currentCount;

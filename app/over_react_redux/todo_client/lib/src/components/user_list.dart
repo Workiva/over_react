@@ -17,7 +17,7 @@ UiFactory<UserListProps> UserList = connect<AppState, UserListProps>(
       );
     },
     forwardRef: true,
-)(_$UserList); // ignore: undefined_identifier
+)(castUiFactory(_$UserList)); // ignore: undefined_identifier
 
 mixin UserListPropsMixin on UiProps {
   @requiredProp

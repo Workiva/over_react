@@ -17,7 +17,7 @@ import 'package:over_react/over_react.dart';
 // ignore_for_file: uri_has_not_been_generated
 part 'new_class_consumed_props.over_react.g.dart';
 
-UiFactory<SomeParentProps> SomeClassParent = _$SomeClassParent; // ignore: undefined_identifier
+UiFactory<SomeParentProps> SomeClassParent = castUiFactory(_$SomeClassParent); // ignore: undefined_identifier
 
 mixin ParentOnlyPropsMixin on UiProps {
   String aParentProp;
@@ -45,7 +45,7 @@ class SomeClassParentComponent extends UiComponent2<SomeParentProps> {
   }
 }
 
-UiFactory<SomeChildProps> SomeClassChild = _$SomeClassChild; // ignore: undefined_identifier
+UiFactory<SomeChildProps> SomeClassChild = castUiFactory(_$SomeClassChild); // ignore: undefined_identifier
 
 class SomeChildProps = UiProps with SharedPropsMixin;
 

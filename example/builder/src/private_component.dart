@@ -16,7 +16,7 @@ import 'package:over_react/over_react.dart';
 
 part 'private_component.over_react.g.dart';
 
-UiFactory<_PrivateProps> _Private = _$_Private; // ignore: undefined_identifier, unused_element
+UiFactory<_PrivateProps> _Private = castUiFactory(_$_Private); // ignore: undefined_identifier, unused_element
 
 mixin _PrivateProps on UiProps {
   bool prop1;

@@ -19,7 +19,7 @@ import '../../component1/src/demo_components.dart';
 part 'faulty-component.over_react.g.dart';
 
 // ignore: undefined_identifier
-UiFactory<FaultyProps> Faulty = _$Faulty;
+UiFactory<FaultyProps> Faulty = castUiFactory(_$Faulty);
 
 mixin FaultyProps on UiProps {}
 

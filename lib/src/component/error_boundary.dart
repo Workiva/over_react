@@ -21,7 +21,7 @@ part 'error_boundary.over_react.g.dart';
 
 /// A higher-order component that will catch ReactJS errors anywhere within the child component tree and
 /// display a fallback UI instead of the component tree that crashed.
-UiFactory<ErrorBoundaryProps> ErrorBoundary = _$ErrorBoundary;
+UiFactory<ErrorBoundaryProps> ErrorBoundary = castUiFactory(_$ErrorBoundary);
 
 mixin ErrorBoundaryProps on UiProps {
   /// An optional callback that will be called with an [Error] _(or [Exception])_

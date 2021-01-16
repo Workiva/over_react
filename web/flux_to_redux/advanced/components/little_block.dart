@@ -16,7 +16,7 @@ import 'package:over_react/over_react.dart';
 
 part 'little_block.over_react.g.dart';
 
-UiFactory<LittleBlockProps> LittleBlock = _$LittleBlock;
+UiFactory<LittleBlockProps> LittleBlock = castUiFactory(_$LittleBlock);
 
 mixin LittleBlockProps on UiProps {
   String backgroundColor;

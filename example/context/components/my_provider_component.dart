@@ -18,7 +18,7 @@ import '../context.dart';
 
 part 'my_provider_component.over_react.g.dart';
 
-UiFactory<MyProviderProps> MyProvider = _$MyProvider; // ignore: undefined_identifier
+UiFactory<MyProviderProps> MyProvider = castUiFactory(_$MyProvider); // ignore: undefined_identifier
 
 mixin MyProviderProps on UiProps {}
 

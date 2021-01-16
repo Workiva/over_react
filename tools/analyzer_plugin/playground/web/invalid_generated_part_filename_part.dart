@@ -1,7 +1,7 @@
 //part 'invaid_generated_part_filename_part.over_react.g.dart';
 part of invalid_generated_part_filename;
 
-UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier
+UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooProps on UiProps {}
 

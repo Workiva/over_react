@@ -18,7 +18,7 @@ import 'package:over_react/over_react.dart';
 part 'private_factory_public_component.over_react.g.dart';
 
 UiFactory<FormActionInputProps> _FormActionInput =
-    _$_FormActionInput; // ignore: undefined_identifier
+    castUiFactory(_$_FormActionInput); // ignore: undefined_identifier
 
 UiFactory<FormActionInputProps> FormSubmitInput = ([backingMap]) =>
     _FormActionInput(backingMap);

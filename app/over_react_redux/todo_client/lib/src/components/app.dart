@@ -27,7 +27,7 @@ UiFactory<TodoAppProps> TodoApp = connect<AppState, TodoAppProps>(
       );
     },
     forwardRef: true,
-)(_$TodoApp); // ignore: undefined_identifier
+)(castUiFactory(_$TodoApp)); // ignore: undefined_identifier
 
 mixin TodoAppPropsMixin on UiProps {
   Function(String description) createTodo;

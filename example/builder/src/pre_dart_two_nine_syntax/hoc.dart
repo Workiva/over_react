@@ -8,7 +8,7 @@ part 'hoc.over_react.g.dart';
 UiFactory<HocProps> Hoc = connect<ExampleState, HocProps>(
   mapStateToPropsWithOwnProps: (state, props) => Hoc(),
   mapDispatchToPropsWithOwnProps: (state, props) => Hoc(),
-)(castUiFactory(_$Hoc)); // ignore: undefined_identifier
+)(_$Hoc); // ignore: undefined_identifier
 
 mixin HocProps on UiProps {
   String foo;
@@ -19,7 +19,7 @@ class HocComponent extends UiComponent2<HocProps> {
   render() => Dom.div()(props.foo);
 }
 
-UiFactory<HocWithTwoFactoriesProps> HocWithTwoFactories = castUiFactory(_$HocWithTwoFactories); // ignore: undefined_identifier
+UiFactory<HocWithTwoFactoriesProps> HocWithTwoFactories = _$HocWithTwoFactories; // ignore: undefined_identifier
 
 UiFactory<HocWithTwoFactoriesProps> ConnectedHocWithTwoFactories = connect<ExampleState, HocWithTwoFactoriesProps>(
   mapStateToPropsWithOwnProps: (state, props) => HocWithTwoFactories(),

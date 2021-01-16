@@ -106,7 +106,7 @@ part 'with_transition.over_react.g.dart';
 ///   _$CustomChildConfig, // ignore: undefined_identifier
 /// );
 /// ```
-UiFactory<WithTransitionProps> WithTransition = _$WithTransition;
+UiFactory<WithTransitionProps> WithTransition = castUiFactory(_$WithTransition);
 
 mixin WithTransitionPropsMixin on UiProps {
   /// Controls the visibility of the component.

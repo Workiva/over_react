@@ -61,7 +61,7 @@ part 'resize_sensor.over_react.g.dart';
 ///     )
 ///
 /// > The component _must_ be put in a relative or absolutely positioned container.
-UiFactory<ResizeSensorProps> ResizeSensor = _$ResizeSensor;
+UiFactory<ResizeSensorProps> ResizeSensor = castUiFactory(_$ResizeSensor);
 
 mixin ResizeSensorProps on UiProps {
   /// A function invoked with a `ResizeSensorEvent` argument when the resize sensor is initialized.
