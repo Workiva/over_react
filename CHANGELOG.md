@@ -1,5 +1,15 @@
 # OverReact Changelog
 
+## 4.0.0
+
+This stable, __major__ release of over_react includes:
+
+### ReactJS 17.x Support
+
+The underlying `.js` files provided by this package are now ReactJS version `17.0.1`.
+
+> __[Full List of Breaking Changes](https://github.com/Workiva/over_react/pull/647)__
+
 ## [3.12.1](https://github.com/Workiva/over_react/compare/3.12.0...3.12.1)
 - [#643] Use `propsOrStateMapsEqual` in `memo` so that function tearoffs don't cause unnecessary rerenders. 
 

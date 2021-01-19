@@ -23,7 +23,6 @@ export 'package:react/react.dart'
         SyntheticKeyboardEvent,
         SyntheticFocusEvent,
         SyntheticFormEvent,
-        SyntheticDataTransfer,
         SyntheticMouseEvent,
         SyntheticTouchEvent,
         SyntheticTransitionEvent,
@@ -43,13 +42,22 @@ export 'package:react/react.dart'
         createSyntheticAnimationEvent,
         createSyntheticUIEvent,
         createSyntheticWheelEvent,
-        SyntheticEventTypeHelpers;
+        fakeSyntheticFormEvent,
+        wrapNativeKeyboardEvent,
+        wrapNativeMouseEvent,
+        SyntheticEventTypeHelpers,
+        DataTransferHelper;
 
 export 'package:react/react_client/js_backed_map.dart' show JsBackedMap;
 
 export 'package:react/react_client.dart'
     // ignore: deprecated_member_use
-    show setClientConfiguration, chainRefs, ReactElement, ReactComponentFactoryProxy;
+    show
+        // ignore: deprecated_member_use
+        setClientConfiguration,
+        chainRefs,
+        ReactElement,
+        ReactComponentFactoryProxy;
 export 'package:react/react_client/react_interop.dart' show ReactErrorInfo, Ref;
 export 'package:react/hooks.dart' show StateHook, ReducerHook;
 
@@ -58,11 +66,9 @@ export 'src/component/_deprecated/abstract_transition_props.dart';
 export 'src/component/aria_mixin.dart';
 export 'src/component/callback_typedefs.dart';
 export 'src/component/_deprecated/error_boundary.dart';
-export 'src/component/_deprecated/error_boundary_mixins.dart'
-    hide LegacyErrorBoundaryApi;
+export 'src/component/_deprecated/error_boundary_mixins.dart' hide LegacyErrorBoundaryApi;
 export 'src/component/dom_components.dart';
-export 'src/component/error_boundary_api.dart'
-    show defaultErrorBoundaryLoggerName;
+export 'src/component/error_boundary_api.dart' show defaultErrorBoundaryLoggerName;
 export 'src/component/ref_util.dart';
 export 'src/component/fragment_component.dart';
 export 'src/component/hooks.dart';
@@ -73,8 +79,7 @@ export 'src/component/prop_typedefs.dart';
 export 'src/component/pure_component_mixin.dart';
 export 'src/component/_deprecated/resize_sensor.dart';
 export 'src/component_declaration/annotations.dart';
-export 'src/component_declaration/builder_helpers.dart'
-    hide GeneratedErrorMessages;
+export 'src/component_declaration/builder_helpers.dart' hide GeneratedErrorMessages;
 export 'src/component_declaration/component_base_2.dart'
     show
         registerComponent2,
@@ -91,7 +96,6 @@ export 'src/util/constants_base.dart';
 export 'src/util/css_value_util.dart';
 export 'src/util/dom_util.dart';
 export 'src/util/equality.dart' show propsOrStateMapsEqual;
-export 'src/util/event_helpers.dart';
 export 'src/util/guid_util.dart';
 export 'src/util/hoc.dart';
 export 'src/util/handler_chain_util.dart';

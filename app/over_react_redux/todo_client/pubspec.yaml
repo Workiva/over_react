@@ -8,7 +8,7 @@ dependencies:
   color: any
   memoize: ^2.0.0
   meta: ^1.0.0
-  over_react: ^3.1.5
+  over_react: ">=3.1.5 <5.0.0"
   json_annotation: ^3.0.0
   redux: ">=3.0.0 <5.0.0"
   redux_dev_tools: ">=0.4.0 <0.6.0"
@@ -21,7 +21,7 @@ dev_dependencies:
   dart_dev: ^3.0.0
   glob: ^1.2.0
   json_serializable: ^3.2.2
-  over_react_test: ^2.0.0
+  over_react_test: ^2.10.2
   pedantic: ^1.8.0
   test: ^1.9.1
   test_html_builder: ^1.0.0
@@ -32,3 +32,8 @@ dev_dependencies:
 dependency_overrides:
   over_react:
     path: '../../../'
+  react:
+    git:
+      url: https://github.com/cleandart/react-dart.git
+      ref: 6.0.0-wip
+
