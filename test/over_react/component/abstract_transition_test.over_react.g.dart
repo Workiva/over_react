@@ -42,7 +42,7 @@ abstract class _$$TransitionerProps extends UiProps
 
   factory _$$TransitionerProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TransitionerProps$JsMap(backingMap);
+      return _$$TransitionerProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TransitionerProps$PlainMap(backingMap);
     }
@@ -122,7 +122,7 @@ abstract class _$$TransitionerState extends UiState
 
   factory _$$TransitionerState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TransitionerState$JsMap(backingMap);
+      return _$$TransitionerState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TransitionerState$PlainMap(backingMap);
     }
@@ -192,7 +192,8 @@ class _$TransitionerComponent extends TransitionerComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -214,7 +215,7 @@ class _$TransitionerComponent extends TransitionerComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -251,71 +252,66 @@ mixin $TransitionerPropsMixin on TransitionerPropsMixin {
   static const PropsMeta meta = _$metaForTransitionerPropsMixin;
   @override
   Callback get onHandlePreShowing =>
-      props[_$key__onHandlePreShowing__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onHandlePreShowing__TransitionerPropsMixin] ?? null)
+          as Callback;
   @override
   set onHandlePreShowing(Callback value) =>
       props[_$key__onHandlePreShowing__TransitionerPropsMixin] = value;
   @override
   Callback get onHandleShowing =>
-      props[_$key__onHandleShowing__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onHandleShowing__TransitionerPropsMixin] ?? null)
+          as Callback;
   @override
   set onHandleShowing(Callback value) =>
       props[_$key__onHandleShowing__TransitionerPropsMixin] = value;
   @override
   Callback get onHandleShown =>
-      props[_$key__onHandleShown__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onHandleShown__TransitionerPropsMixin] ?? null) as Callback;
   @override
   set onHandleShown(Callback value) =>
       props[_$key__onHandleShown__TransitionerPropsMixin] = value;
   @override
   Callback get onHandleHiding =>
-      props[_$key__onHandleHiding__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onHandleHiding__TransitionerPropsMixin] ?? null)
+          as Callback;
   @override
   set onHandleHiding(Callback value) =>
       props[_$key__onHandleHiding__TransitionerPropsMixin] = value;
   @override
   Callback get onHandleHidden =>
-      props[_$key__onHandleHidden__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onHandleHidden__TransitionerPropsMixin] ?? null)
+          as Callback;
   @override
   set onHandleHidden(Callback value) =>
       props[_$key__onHandleHidden__TransitionerPropsMixin] = value;
   @override
   Callback get onPrepareShow =>
-      props[_$key__onPrepareShow__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPrepareShow__TransitionerPropsMixin] ?? null) as Callback;
   @override
   set onPrepareShow(Callback value) =>
       props[_$key__onPrepareShow__TransitionerPropsMixin] = value;
   @override
   Callback get onPrepareHide =>
-      props[_$key__onPrepareHide__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPrepareHide__TransitionerPropsMixin] ?? null) as Callback;
   @override
   set onPrepareHide(Callback value) =>
       props[_$key__onPrepareHide__TransitionerPropsMixin] = value;
   @override
   bool get hasTransition =>
-      props[_$key__hasTransition__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__hasTransition__TransitionerPropsMixin] ?? null) as bool;
   @override
   set hasTransition(bool value) =>
       props[_$key__hasTransition__TransitionerPropsMixin] = value;
   @override
   bool get initiallyShown =>
-      props[_$key__initiallyShown__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__initiallyShown__TransitionerPropsMixin] ?? null) as bool;
   @override
   set initiallyShown(bool value) =>
       props[_$key__initiallyShown__TransitionerPropsMixin] = value;
   @override
   Duration get transitionTimeout =>
-      props[_$key__transitionTimeout__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__transitionTimeout__TransitionerPropsMixin] ?? null)
+          as Duration;
   @override
   set transitionTimeout(Duration value) =>
       props[_$key__transitionTimeout__TransitionerPropsMixin] = value;

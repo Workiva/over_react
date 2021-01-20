@@ -44,7 +44,7 @@ abstract class _$$ToggleButtonGroupProps extends UiProps
 
   factory _$$ToggleButtonGroupProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ToggleButtonGroupProps$JsMap(backingMap);
+      return _$$ToggleButtonGroupProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ToggleButtonGroupProps$PlainMap(backingMap);
     }
@@ -126,7 +126,7 @@ abstract class _$$ToggleButtonGroupState extends UiState
 
   factory _$$ToggleButtonGroupState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ToggleButtonGroupState$JsMap(backingMap);
+      return _$$ToggleButtonGroupState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ToggleButtonGroupState$PlainMap(backingMap);
     }
@@ -196,7 +196,8 @@ class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -218,7 +219,7 @@ class _$ToggleButtonGroupComponent extends ToggleButtonGroupComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override

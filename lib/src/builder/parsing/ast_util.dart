@@ -160,8 +160,9 @@ extension SourceFileSpanHelper on SourceFile {
   /// Returns a span for the given [AstNode] or [Token].
   ///
   /// If it's an [AstNode], the span starts after the doc comment and metadata (see [getSpanForNode]).
-  FileSpan spanFor(SyntacticEntity nodeOrToken) =>
-      nodeOrToken is AstNode ? getSpanForNode(this, nodeOrToken) : _getSpanForEntity(nodeOrToken);
+  FileSpan spanFor(SyntacticEntity nodeOrToken) => nodeOrToken is AstNode
+      ? getSpanForNode(this, nodeOrToken) as FileSpan
+      : _getSpanForEntity(nodeOrToken);
 
   FileSpan _getSpanForEntity(SyntacticEntity node) => span(node.offset, node.end);
 }

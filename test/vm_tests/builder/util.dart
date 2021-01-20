@@ -105,7 +105,7 @@ class OverReactSrc {
     this.typeParameters = false,
     this.componentVersion = 1,
     this.baseName = 'AbstractFoo',
-    isPrivate = false})
+    bool isPrivate = false})
       :
         this.annotation = AnnotationType.abstractProps,
         this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
@@ -146,7 +146,7 @@ class OverReactSrc {
     this.typeParameters = false,
     this.componentVersion = 1,
     this.baseName = 'AbstractFoo',
-    isPrivate = false})
+    bool isPrivate = false})
       :
         this.annotation = AnnotationType.abstractState,
         this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
@@ -182,7 +182,7 @@ class OverReactSrc {
     this.typeParameters = false,
     this.componentVersion = 1,
     this.baseName = 'Foo',
-    isPrivate = false})
+    bool isPrivate = false})
       :
         this.annotation = AnnotationType.props,
         this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
@@ -222,7 +222,7 @@ class OverReactSrc {
     this.numMixins = 1,
     this.componentVersion = 1,
     this.baseName = 'Foo',
-    isPrivate = false})
+    bool isPrivate = false})
       :
         this.annotation = AnnotationType.propsMixin,
         this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
@@ -259,7 +259,7 @@ class OverReactSrc {
     this.typeParameters = false,
     this.componentVersion = 1,
     this.baseName = 'Foo',
-    isPrivate = false})
+    bool isPrivate = false})
       :
         this.annotation = AnnotationType.state,
         this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
@@ -299,7 +299,7 @@ class OverReactSrc {
     this.numMixins = 1,
     this.componentVersion = 1,
     this.baseName = 'Foo',
-    isPrivate = false})
+    bool isPrivate = false})
       :
         this.annotation = AnnotationType.stateMixin,
         this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
@@ -338,7 +338,7 @@ class OverReactSrc {
     this.shouldIncludePropsAlias = false,
     this.shouldIncludeAnnotations = false,
     this.baseName = 'Foo',
-    isPrivate = false})
+    bool isPrivate = false})
       :
         this.annotation = AnnotationType.props,
         this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
@@ -381,7 +381,7 @@ class OverReactSrc {
     this.shouldIncludePropsAlias = false,
     this.shouldIncludeAnnotations = false,
     this.baseName = 'Foo',
-    isPrivate = false})
+    bool isPrivate = false})
       :
         this.annotation = AnnotationType.state,
         this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',

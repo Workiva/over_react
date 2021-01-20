@@ -14,9 +14,7 @@ part of 'covariant_accessor_override_integration_test.dart';
 mixin $BasePropsMixin on BasePropsMixin {
   static const PropsMeta meta = _$metaForBasePropsMixin;
   @override
-  Object get foo =>
-      props[_$key__foo__BasePropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  Object get foo => (props[_$key__foo__BasePropsMixin] ?? null) as Object;
   @override
   set foo(Object value) => props[_$key__foo__BasePropsMixin] = value;
   /* GENERATED CONSTANTS */
@@ -43,9 +41,7 @@ mixin $OverridePropsMixin on OverridePropsMixin {
   static const PropsMeta meta = _$metaForOverridePropsMixin;
   @override
   @override
-  String get foo =>
-      props[_$key__foo__OverridePropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get foo => (props[_$key__foo__OverridePropsMixin] ?? null) as String;
   @override
   @override
   set foo(covariant String value) =>
@@ -87,7 +83,7 @@ abstract class _$$TestProps extends UiProps
 
   factory _$$TestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestProps$JsMap(backingMap);
+      return _$$TestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestProps$PlainMap(backingMap);
     }

@@ -50,7 +50,7 @@ abstract class _$$FlawedOnMountProps extends _$FlawedOnMountProps
 
   factory _$$FlawedOnMountProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FlawedOnMountProps$JsMap(backingMap);
+      return _$$FlawedOnMountProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$FlawedOnMountProps$PlainMap(backingMap);
     }
@@ -123,7 +123,8 @@ class _$FlawedOnMountComponent extends FlawedOnMountComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override

@@ -53,25 +53,23 @@ main() {
           });
 
           test('`null`', () {
-            ArgumentError error;
+            dynamic error;
             CssValue.parse(null, onError: (value, e) {
               error = e;
               return null;
             });
 
-            expect(error, isNotNull);
-            expect(error.message, equals('Must not be null'));
+            expect(error, isA<ArgumentError>().having((e) => e.message, 'message', equals('Must not be null')));
           });
 
           group('non-finite numbers:', () {
             void testValue(value) {
-              ArgumentError error;
+              dynamic error;
               CssValue.parse(value, onError: (val, err) {
                 error = err;
                 return null;
               });
-              expect(error, isNotNull);
-              expect(error.message, endsWith('must be finite'));
+              expect(error, isA<ArgumentError>().having((e) => e.message, 'message', endsWith('must be finite')));
             }
 
             test('infinity', () {
@@ -91,14 +89,13 @@ main() {
           });
 
           test('invalid numbers', () {
-            ArgumentError error;
+            dynamic error;
             CssValue.parse('aa123px', onError: (value, e) {
               error = e;
               return null;
             });
 
-            expect(error, isNotNull);
-            expect(error.message, endsWith('Invalid number/unit for CSS value'));
+            expect(error, isA<ArgumentError>().having((e) => e.message, 'message', endsWith('Invalid number/unit for CSS value')));
           });
         });
       });

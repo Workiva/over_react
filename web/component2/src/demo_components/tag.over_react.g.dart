@@ -39,7 +39,7 @@ abstract class _$$TagProps extends UiProps
 
   factory _$$TagProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TagProps$JsMap(backingMap);
+      return _$$TagProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TagProps$PlainMap(backingMap);
     }
@@ -124,7 +124,8 @@ class _$TagComponent extends TagComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -157,15 +158,11 @@ class _$TagComponent extends TagComponent {
 mixin $TagProps on TagProps {
   static const PropsMeta meta = _$metaForTagProps;
   @override
-  TagSkin get skin =>
-      props[_$key__skin__TagProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  TagSkin get skin => (props[_$key__skin__TagProps] ?? null) as TagSkin;
   @override
   set skin(TagSkin value) => props[_$key__skin__TagProps] = value;
   @override
-  bool get isPill =>
-      props[_$key__isPill__TagProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get isPill => (props[_$key__isPill__TagProps] ?? null) as bool;
   @override
   set isPill(bool value) => props[_$key__isPill__TagProps] = value;
   /* GENERATED CONSTANTS */

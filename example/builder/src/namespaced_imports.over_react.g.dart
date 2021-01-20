@@ -42,7 +42,7 @@ abstract class _$$BasicProps extends UiProps
 
   factory _$$BasicProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicProps$JsMap(backingMap);
+      return _$$BasicProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$BasicProps$PlainMap(backingMap);
     }
@@ -124,7 +124,7 @@ abstract class _$$BasicState extends UiState
 
   factory _$$BasicState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicState$JsMap(backingMap);
+      return _$$BasicState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$BasicState$PlainMap(backingMap);
     }
@@ -194,7 +194,8 @@ class _$BasicComponent extends BasicComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -215,7 +216,7 @@ class _$BasicComponent extends BasicComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -251,39 +252,33 @@ mixin $BasicPropsMixin on BasicPropsMixin {
   static const PropsMeta meta = _$metaForBasicPropsMixin;
   @override
   String get basicProp =>
-      props[_$key__basicProp__BasicPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__basicProp__BasicPropsMixin] ?? null) as String;
   @override
   set basicProp(String value) =>
       props[_$key__basicProp__BasicPropsMixin] = value;
   @override
   String get basic1 =>
-      props[_$key__basic1__BasicPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__basic1__BasicPropsMixin] ?? null) as String;
   @override
   set basic1(String value) => props[_$key__basic1__BasicPropsMixin] = value;
   @override
   String get basic2 =>
-      props[_$key__basic2__BasicPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__basic2__BasicPropsMixin] ?? null) as String;
   @override
   set basic2(String value) => props[_$key__basic2__BasicPropsMixin] = value;
   @override
   String get basic3 =>
-      props[_$key__basic3__BasicPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__basic3__BasicPropsMixin] ?? null) as String;
   @override
   set basic3(String value) => props[_$key__basic3__BasicPropsMixin] = value;
   @override
   String get basic4 =>
-      props[_$key__basic4__BasicPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__basic4__BasicPropsMixin] ?? null) as String;
   @override
   set basic4(String value) => props[_$key__basic4__BasicPropsMixin] = value;
   @override
   String get basic5 =>
-      props[_$key__basic5__BasicPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__basic5__BasicPropsMixin] ?? null) as String;
   @override
   set basic5(String value) => props[_$key__basic5__BasicPropsMixin] = value;
   /* GENERATED CONSTANTS */
@@ -340,8 +335,7 @@ mixin $BasicStateMixin on BasicStateMixin {
   static const StateMeta meta = _$metaForBasicStateMixin;
   @override
   String get basicState =>
-      state[_$key__basicState__BasicStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__basicState__BasicStateMixin] ?? null) as String;
   @override
   set basicState(String value) =>
       state[_$key__basicState__BasicStateMixin] = value;

@@ -15,29 +15,24 @@ mixin $TestPropsMixin on TestPropsMixin {
   static const PropsMeta meta = _$metaForTestPropsMixin;
   @override
   String get stringProp =>
-      props[_$key__stringProp__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__stringProp__TestPropsMixin] ?? null) as String;
   @override
   set stringProp(String value) =>
       props[_$key__stringProp__TestPropsMixin] = value;
   @override
   dynamic get dynamicProp =>
-      props[_$key__dynamicProp__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__dynamicProp__TestPropsMixin] ?? null) as dynamic;
   @override
   set dynamicProp(dynamic value) =>
       props[_$key__dynamicProp__TestPropsMixin] = value;
   @override
-  get untypedProp =>
-      props[_$key__untypedProp__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get untypedProp => props[_$key__untypedProp__TestPropsMixin] ?? null;
   @override
   set untypedProp(value) => props[_$key__untypedProp__TestPropsMixin] = value;
   @override
   @Accessor(key: 'custom key!')
   dynamic get customKeyProp =>
-      props[_$key__customKeyProp__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__customKeyProp__TestPropsMixin] ?? null) as dynamic;
   @override
   @Accessor(key: 'custom key!')
   set customKeyProp(dynamic value) =>
@@ -45,8 +40,7 @@ mixin $TestPropsMixin on TestPropsMixin {
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   dynamic get customNamespaceProp =>
-      props[_$key__customNamespaceProp__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__customNamespaceProp__TestPropsMixin] ?? null) as dynamic;
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceProp(dynamic value) =>
@@ -54,8 +48,8 @@ mixin $TestPropsMixin on TestPropsMixin {
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   dynamic get customKeyAndNamespaceProp =>
-      props[_$key__customKeyAndNamespaceProp__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__customKeyAndNamespaceProp__TestPropsMixin] ?? null)
+          as dynamic;
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceProp(dynamic value) =>
@@ -120,8 +114,7 @@ mixin $ASecondPropsMixin on ASecondPropsMixin {
   static const PropsMeta meta = _$metaForASecondPropsMixin;
   @override
   String get anotherProp =>
-      props[_$key__anotherProp__ASecondPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__anotherProp__ASecondPropsMixin] ?? null) as String;
   @override
   set anotherProp(String value) =>
       props[_$key__anotherProp__ASecondPropsMixin] = value;
@@ -152,8 +145,7 @@ mixin $AThirdPropsMixin on AThirdPropsMixin {
   static const PropsMeta meta = _$metaForAThirdPropsMixin;
   @override
   String get aPropsFromAThirdMixin =>
-      props[_$key__aPropsFromAThirdMixin__AThirdPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__aPropsFromAThirdMixin__AThirdPropsMixin] ?? null) as String;
   @override
   set aPropsFromAThirdMixin(String value) =>
       props[_$key__aPropsFromAThirdMixin__AThirdPropsMixin] = value;
@@ -245,7 +237,7 @@ abstract class _$$TestProps extends UiProps
 
   factory _$$TestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestProps$JsMap(backingMap);
+      return _$$TestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestProps$PlainMap(backingMap);
     }

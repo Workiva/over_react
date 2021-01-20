@@ -238,7 +238,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
       ..className = 'resize-sensor-expand'
       ..onScroll = _handleSensorScroll
       ..style = props.shrink ? shrinkBaseStyle : baseStyle
-      ..ref = (ref) { _expandSensorRef = ref; }
+      ..ref = (ref) { _expandSensorRef = ref as Element; }
     )(
       (Dom.div()..style = expandSensorChildStyle)()
     );
@@ -247,7 +247,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
       ..className = 'resize-sensor-collapse'
       ..onScroll = _handleSensorScroll
       ..style = props.shrink ? shrinkBaseStyle : baseStyle
-      ..ref = (ref) { _collapseSensorRef = ref; }
+      ..ref = (ref) { _collapseSensorRef = ref as Element; }
     )(
       (Dom.div()..style = collapseSensorChildStyle)()
     );

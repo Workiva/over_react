@@ -15,28 +15,23 @@ mixin $TestProps on TestProps {
   static const PropsMeta meta = _$metaForTestProps;
   @override
   String get stringProp =>
-      props[_$key__stringProp__TestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__stringProp__TestProps] ?? null) as String;
   @override
   set stringProp(String value) => props[_$key__stringProp__TestProps] = value;
   @override
   dynamic get dynamicProp =>
-      props[_$key__dynamicProp__TestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__dynamicProp__TestProps] ?? null) as dynamic;
   @override
   set dynamicProp(dynamic value) =>
       props[_$key__dynamicProp__TestProps] = value;
   @override
-  get untypedProp =>
-      props[_$key__untypedProp__TestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get untypedProp => props[_$key__untypedProp__TestProps] ?? null;
   @override
   set untypedProp(value) => props[_$key__untypedProp__TestProps] = value;
   @override
   @Accessor(key: 'custom key!')
   dynamic get customKeyProp =>
-      props[_$key__customKeyProp__TestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__customKeyProp__TestProps] ?? null) as dynamic;
   @override
   @Accessor(key: 'custom key!')
   set customKeyProp(dynamic value) =>
@@ -44,8 +39,7 @@ mixin $TestProps on TestProps {
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   dynamic get customNamespaceProp =>
-      props[_$key__customNamespaceProp__TestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__customNamespaceProp__TestProps] ?? null) as dynamic;
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceProp(dynamic value) =>
@@ -53,8 +47,7 @@ mixin $TestProps on TestProps {
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   dynamic get customKeyAndNamespaceProp =>
-      props[_$key__customKeyAndNamespaceProp__TestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__customKeyAndNamespaceProp__TestProps] ?? null) as dynamic;
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceProp(dynamic value) =>
@@ -124,7 +117,7 @@ abstract class _$$TestProps extends UiProps
 
   factory _$$TestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestProps$JsMap(backingMap);
+      return _$$TestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestProps$PlainMap(backingMap);
     }

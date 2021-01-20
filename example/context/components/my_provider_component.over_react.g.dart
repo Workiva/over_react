@@ -39,7 +39,7 @@ abstract class _$$MyProviderProps extends UiProps
 
   factory _$$MyProviderProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$MyProviderProps$JsMap(backingMap);
+      return _$$MyProviderProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$MyProviderProps$PlainMap(backingMap);
     }
@@ -116,7 +116,7 @@ abstract class _$$MyProviderState extends UiState
 
   factory _$$MyProviderState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$MyProviderState$JsMap(backingMap);
+      return _$$MyProviderState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$MyProviderState$PlainMap(backingMap);
     }
@@ -186,7 +186,8 @@ class _$MyProviderComponent extends MyProviderComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -208,7 +209,7 @@ class _$MyProviderComponent extends MyProviderComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -262,8 +263,7 @@ mixin $MyProviderState on MyProviderState {
   static const StateMeta meta = _$metaForMyProviderState;
   @override
   String get latestValue =>
-      state[_$key__latestValue__MyProviderState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__latestValue__MyProviderState] ?? null) as String;
   @override
   set latestValue(String value) =>
       state[_$key__latestValue__MyProviderState] = value;

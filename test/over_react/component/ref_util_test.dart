@@ -283,7 +283,7 @@ void commonRefForwardingTests({bool useUiForwardRef = false}) {
 const displayName = 'AVerySpecificDisplayName';
 
 void testForwardRefWith(dynamic factory,
-    {void Function(dynamic refValue) verifyRefValue, useUiForwardRef = false}) {
+    {void Function(dynamic refValue) verifyRefValue, bool useUiForwardRef = false}) {
   test('- passes a ref through the parent to its child', () {
     UiFactory<BasicProps> BasicForwarded = useUiForwardRef
         ? uiForwardRef<BasicProps>((props, ref) {
@@ -306,14 +306,15 @@ void testForwardRefWith(dynamic factory,
     // component props are accessed differently depending on if it is a dom component
     // or a dart component
     String idValue;
-    if (refObject.current is Element) {
-      idValue = refObject.current.id;
+    final current = refObject.current;
+    if (current is Element) {
+      idValue = current.id;
     } else {
-      idValue = refObject.current.props['id'];
+      idValue = current.props['id'] as String;
     }
 
     expect(idValue, equals('test'), reason: 'child component receives props passed to it');
-    verifyRefValue(refObject.current);
+    verifyRefValue(current);
   });
 }
 

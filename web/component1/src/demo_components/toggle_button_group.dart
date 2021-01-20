@@ -79,7 +79,7 @@ class ToggleButtonGroupComponent extends ButtonGroupComponent<ToggleButtonGroupP
   /// The props that should be added when we clone the given [child] using
   /// [cloneElement] via [renderButton].
   @override
-  ToggleButtonProps buttonPropsToAdd(dynamic child, int index) {
+  ToggleButtonProps buttonPropsToAdd(ReactElement child, int index) {
     var childProps = childFactory(getProps(child));
 
     ButtonProps superPropsToAdd = super.buttonPropsToAdd(child, index);

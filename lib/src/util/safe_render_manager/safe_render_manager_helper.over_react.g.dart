@@ -28,8 +28,9 @@ abstract class _$SafeRenderManagerHelperPropsAccessorsMixin
   @override
   @requiredProp
   ReactElement Function() get getInitialContent =>
-      props[_$key__getInitialContent___$SafeRenderManagerHelperProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__getInitialContent___$SafeRenderManagerHelperProps] ?? null)
+          as ReactElement Function();
+
   /// <!-- Generated from [_$SafeRenderManagerHelperProps.getInitialContent] -->
   @override
   @requiredProp
@@ -39,8 +40,9 @@ abstract class _$SafeRenderManagerHelperPropsAccessorsMixin
   /// <!-- Generated from [_$SafeRenderManagerHelperProps.contentRef] -->
   @override
   CallbackRef get contentRef =>
-      props[_$key__contentRef___$SafeRenderManagerHelperProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__contentRef___$SafeRenderManagerHelperProps] ?? null)
+          as CallbackRef;
+
   /// <!-- Generated from [_$SafeRenderManagerHelperProps.contentRef] -->
   @override
   set contentRef(CallbackRef value) =>
@@ -89,7 +91,7 @@ abstract class _$$SafeRenderManagerHelperProps
 
   factory _$$SafeRenderManagerHelperProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SafeRenderManagerHelperProps$JsMap(backingMap);
+      return _$$SafeRenderManagerHelperProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$SafeRenderManagerHelperProps$PlainMap(backingMap);
     }
@@ -152,8 +154,9 @@ abstract class _$SafeRenderManagerHelperStateAccessorsMixin
   /// <!-- Generated from [_$SafeRenderManagerHelperState.content] -->
   @override
   ReactElement get content =>
-      state[_$key__content___$SafeRenderManagerHelperState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__content___$SafeRenderManagerHelperState] ?? null)
+          as ReactElement;
+
   /// <!-- Generated from [_$SafeRenderManagerHelperState.content] -->
   @override
   set content(ReactElement value) =>
@@ -188,7 +191,7 @@ abstract class _$$SafeRenderManagerHelperState
 
   factory _$$SafeRenderManagerHelperState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SafeRenderManagerHelperState$JsMap(backingMap);
+      return _$$SafeRenderManagerHelperState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$SafeRenderManagerHelperState$PlainMap(backingMap);
     }
@@ -255,7 +258,8 @@ class _$SafeRenderManagerHelperComponent
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -278,7 +282,7 @@ class _$SafeRenderManagerHelperComponent
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override

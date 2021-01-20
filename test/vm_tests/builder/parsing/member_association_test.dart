@@ -22,12 +22,12 @@ import 'parsing_helpers.dart';
 main() {
   group('Member Association', () {
     BoilerplateMemberHelper memberHelper;
-    Iterable<BoilerplateFactory> factories;
-    Iterable<BoilerplateComponent> components;
-    Iterable<BoilerplateProps> props;
-    Iterable<BoilerplateState> states;
-    Iterable<BoilerplateStateMixin> stateMixins;
-    Iterable<BoilerplatePropsMixin> propsMixins;
+    List<BoilerplateFactory> factories;
+    List<BoilerplateComponent> components;
+    List<BoilerplateProps> props;
+    List<BoilerplateState> states;
+    List<BoilerplateStateMixin> stateMixins;
+    List<BoilerplatePropsMixin> propsMixins;
 
     group('normalizeName', () {
       test('removes the legacy prefixes from a string', () {

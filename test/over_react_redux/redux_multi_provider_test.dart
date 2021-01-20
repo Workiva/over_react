@@ -144,12 +144,3 @@ main() {
     });
   });
 }
-
-class ReduxState {
-  final String field;
-
-  ReduxState(this.field);
-}
-
-ReduxState reducer(ReduxState oldState, dynamic action) =>
-    ReduxState(action.field ?? oldState.field);

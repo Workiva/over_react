@@ -54,7 +54,7 @@ abstract class _$$UseStateExampleProps extends UiProps
 
   factory _$$UseStateExampleProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$UseStateExampleProps$JsMap(backingMap);
+      return _$$UseStateExampleProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$UseStateExampleProps$PlainMap(backingMap);
     }

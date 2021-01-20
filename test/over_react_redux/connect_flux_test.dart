@@ -646,48 +646,56 @@ main() {
     });
 
     group('properly handles parameter combinations for', () {
-      final testCases = {
-        'just mapStateToProps (case1)': {
-          'mapStateToProps': testMapStateToProps,
-        },
-        'just mapStateToPropsWithOwnProps (case2)': {
-          'mapStateToPropsWithOwnProps': testMapStateToPropsWithOwnProps,
-        },
-        'both mapStateToProps and mapActionsToProps (case3)': {
-          'mapStateToProps': testMapStateToProps,
-          'mapActionsToProps': testMapActionsToProps,
-        },
-        'just mapActionsToProps (case4)': {
-          'mapActionsToProps': testMapActionsToProps,
-        },
-        'both withOwnProps parameters (case5)': {
-          'mapStateToPropsWithOwnProps': testMapStateToPropsWithOwnProps,
-          'mapActionsToPropsWithOwnProps': testMapActionsToPropsWithOwnProps,
-        },
-        'just mapActionsToPropsWithOwnProps (case6)': {
-          'mapActionsToPropsWithOwnProps': testMapActionsToPropsWithOwnProps,
-        },
-        'mapStateToProps and mapActionsToPropsWithOwnProps (case7)': {
-          'mapStateToProps': testMapStateToProps,
-          'mapActionsToPropsWithOwnProps': testMapActionsToPropsWithOwnProps,
-        },
-        'mapStateToPropsWithOwnProps and mapActionsToProps (case8)': {
-          'mapStateToPropsWithOwnProps': testMapStateToPropsWithOwnProps,
-          'mapActionsToProps': testMapActionsToProps,
-        },
-      };
+      final testCases = [
+        ParameterTestCase(
+          'just mapStateToProps (case1)',
+          mapStateToProps: testMapStateToProps,
+        ),
+        ParameterTestCase(
+          'just mapStateToPropsWithOwnProps (case2)',
+          mapStateToPropsWithOwnProps: testMapStateToPropsWithOwnProps,
+        ),
+        ParameterTestCase(
+          'both mapStateToProps and mapActionsToProps (case3)',
+          mapStateToProps: testMapStateToProps,
+          mapActionsToProps: testMapActionsToProps,
+        ),
+        ParameterTestCase(
+          'just mapActionsToProps (case4)',
+          mapActionsToProps: testMapActionsToProps,
+        ),
+        ParameterTestCase(
+          'both withOwnProps parameters (case5)',
+          mapStateToPropsWithOwnProps: testMapStateToPropsWithOwnProps,
+          mapActionsToPropsWithOwnProps: testMapActionsToPropsWithOwnProps,
+        ),
+        ParameterTestCase(
+          'just mapActionsToPropsWithOwnProps (case6)',
+          mapActionsToPropsWithOwnProps: testMapActionsToPropsWithOwnProps,
+        ),
+        ParameterTestCase(
+          'mapStateToProps and mapActionsToPropsWithOwnProps (case7)',
+          mapStateToProps: testMapStateToProps,
+          mapActionsToPropsWithOwnProps: testMapActionsToPropsWithOwnProps,
+        ),
+        ParameterTestCase(
+          'mapStateToPropsWithOwnProps and mapActionsToProps (case8)',
+          mapStateToPropsWithOwnProps: testMapStateToPropsWithOwnProps,
+          mapActionsToProps: testMapActionsToProps,
+        ),
+      ];
 
-      testCases.forEach((parameterCase, parameters) {
-        bool shouldDomUpdate(Map parameters) => (parameters['mapStateToProps'] != null ||
-            parameters['mapStateToPropsWithOwnProps'] != null);
+      for (final parameterCase in testCases) {
+        bool shouldDomUpdate() => parameterCase.mapStateToProps != null ||
+            parameterCase.mapStateToPropsWithOwnProps != null;
 
-        test(parameterCase, () async {
+        test(parameterCase.name, () async {
           final ConnectedFluxComponent =
               connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
-            mapStateToProps: parameters['mapStateToProps'],
-            mapActionsToProps: parameters['mapActionsToProps'],
-            mapStateToPropsWithOwnProps: parameters['mapStateToPropsWithOwnProps'],
-            mapActionsToPropsWithOwnProps: parameters['mapActionsToPropsWithOwnProps'],
+            mapStateToProps: parameterCase.mapStateToProps,
+            mapActionsToProps: parameterCase.mapActionsToProps,
+            mapStateToPropsWithOwnProps: parameterCase.mapStateToPropsWithOwnProps,
+            mapActionsToPropsWithOwnProps: parameterCase.mapActionsToPropsWithOwnProps,
           )(ConnectFluxCounter);
 
           final jacket2 = mount((ReduxProvider()..store = store1)(
@@ -706,7 +714,7 @@ main() {
 
           expect(fluxStore.state.count, 1);
 
-          if (shouldDomUpdate(parameters)) {
+          if (shouldDomUpdate()) {
             expect(findDomNode(fluxCounter).innerHtml, contains('Count: 1'));
           }
 
@@ -714,11 +722,11 @@ main() {
           await Future(() {});
 
           expect(fluxStore.state.count, 0);
-          if (shouldDomUpdate(parameters)) {
+          if (shouldDomUpdate()) {
             expect(findDomNode(fluxCounter).innerHtml, contains('Count: 0'));
           }
         });
-      });
+      }
     });
 
     test('prints a warning when state is mutated directly', () async {
@@ -750,16 +758,32 @@ main() {
   });
 }
 
-typedef mapStateToProps = Map Function(FluxStore);
-typedef mapActionsToProps = Map Function(FluxActions);
-typedef mapStateToPropsWithOwnProps = Map Function(FluxStore, ConnectFluxCounterProps);
-typedef mapActionsToPropsWithOwnProps = Map Function(FluxActions, ConnectFluxCounterProps);
+typedef MapStateToPropsCallback = Map Function(FluxStore);
+typedef MapActionsToPropsCallback = Map Function(FluxActions);
+typedef MapStateToPropsWithOwnPropsCallback = Map Function(FluxStore, ConnectFluxCounterProps);
+typedef MapActionsToPropsWithOwnPropsCallback = Map Function(FluxActions, ConnectFluxCounterProps);
 
-mapStateToProps get testMapStateToProps =>
+MapStateToPropsCallback get testMapStateToProps =>
     (state) => (ConnectFluxCounter()..currentCount = state.count);
-mapActionsToProps get testMapActionsToProps =>
+MapActionsToPropsCallback get testMapActionsToProps =>
     (actions) => (ConnectFluxCounter()..increment = actions.incrementAction);
-mapStateToPropsWithOwnProps get testMapStateToPropsWithOwnProps =>
+MapStateToPropsWithOwnPropsCallback get testMapStateToPropsWithOwnProps =>
     (state, ownProps) => (ConnectFluxCounter()..currentCount = state.count);
-mapActionsToPropsWithOwnProps get testMapActionsToPropsWithOwnProps =>
+MapActionsToPropsWithOwnPropsCallback get testMapActionsToPropsWithOwnProps =>
     (actions, ownProps) => (ConnectFluxCounter()..increment = actions.incrementAction);
+
+class ParameterTestCase {
+  final String name;
+
+  final MapStateToPropsCallback mapStateToProps;
+  final MapActionsToPropsCallback mapActionsToProps;
+  final MapStateToPropsWithOwnPropsCallback mapStateToPropsWithOwnProps;
+  final MapActionsToPropsWithOwnPropsCallback mapActionsToPropsWithOwnProps;
+
+  ParameterTestCase(this.name, {
+    this.mapStateToProps,
+    this.mapActionsToProps,
+    this.mapStateToPropsWithOwnProps,
+    this.mapActionsToPropsWithOwnProps,
+  });
+}

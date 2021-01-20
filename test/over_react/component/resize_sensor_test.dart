@@ -32,12 +32,14 @@ void main() {
     const int defaultContainerHeight = 100;
 
     Element domTarget;
-    ResizeSensorComponent resizeSensorRef;
-    Element containerRef;
+    Ref<ResizeSensorComponent> resizeSensorRef;
+    Ref<Element> containerRef;
 
     setUp(() {
       domTarget = document.createElement('div');
       document.body.append(domTarget);
+      resizeSensorRef = createRef();
+      containerRef = createRef();
       // Perform setup needed for using 'zonedExpect'.
       storeZone();
     });
@@ -60,7 +62,7 @@ void main() {
         ..addProps(resizeSensorProps)
         ..onInitialize = onInitialize
         ..onResize = onResize
-        ..ref = (ref) { resizeSensorRef = ref; }
+        ..ref = resizeSensorRef
       )();
       var container = (Dom.div()
         ..className =  'container'
@@ -69,7 +71,7 @@ void main() {
           'width': width,
           'height': height
         }
-        ..ref = (ref) { containerRef = ref; }
+        ..ref = containerRef
       )(sensor);
 
       // Render into DOM and validate.
@@ -101,7 +103,7 @@ void main() {
         resizes.add(event);
       }, width: width, height: height, onInitialize: onInitialize, resizeSensorProps: resizeSensorProps);
 
-      if (resizeSensorRef.props.quickMount) {
+      if (resizeSensorRef.current.props.quickMount) {
         // Quick-mount ResizeSensors can't detect changes until one animation frame and two scroll events
         // after mounting. Give them some time to settle.
         await window.animationFrame;
@@ -228,14 +230,14 @@ void main() {
           testResizeAmounts.forEach((description, amount) {
             test('by a $description amount (${amount}px)', () async {
               await expectResizeAfter(() {
-                containerRef.style.width = '${defaultContainerWidth + amount}px';
+                containerRef.current.style.width = '${defaultContainerWidth + amount}px';
               }, resizeSensorProps: props);
             });
           });
 
           test('even when the bounding rect is very small', () async {
             await expectResizeAfter(() {
-              containerRef.style.width = '4px';
+              containerRef.current.style.width = '4px';
             }, width: 2, height: 2, resizeSensorProps: props);
           });
 
@@ -243,7 +245,7 @@ void main() {
             props.shrink = true;
 
             await expectResizeAfter(() {
-              containerRef.style.width = '${defaultContainerWidth * 2}px';
+              containerRef.current.style.width = '${defaultContainerWidth * 2}px';
             }, resizeSensorProps: props);
           });
         });
@@ -252,14 +254,14 @@ void main() {
           testResizeAmounts.forEach((description, amount) {
             test('by a $description amount (${amount}px)', () async{
               await expectResizeAfter(() {
-                containerRef.style.height = '${defaultContainerHeight + amount}px';
+                containerRef.current.style.height = '${defaultContainerHeight + amount}px';
               }, resizeSensorProps: props);
             });
           });
 
           test('even when the bounding rect is very small', () async {
             await expectResizeAfter(() {
-              containerRef.style.height = '4px';
+              containerRef.current.style.height = '4px';
             }, width: 2, height: 2, resizeSensorProps: props);
           });
 
@@ -267,7 +269,7 @@ void main() {
             props.shrink = true;
 
             await expectResizeAfter(() {
-              containerRef.style.height = '${defaultContainerHeight * 2}px';
+              containerRef.current.style.height = '${defaultContainerHeight * 2}px';
             }, resizeSensorProps: props);
           });
         });
@@ -276,14 +278,14 @@ void main() {
           testResizeAmounts.forEach((description, amount) {
             test('by a $description amount (${amount}px)', () async{
               await expectResizeAfter(() {
-                containerRef.style.width = '${defaultContainerWidth}px';
+                containerRef.current.style.width = '${defaultContainerWidth}px';
               }, width: defaultContainerWidth + amount, resizeSensorProps: props);
             });
           });
 
           test('even when the bounding rect is very small', () async {
             await expectResizeAfter(() {
-              containerRef.style.width = '1px';
+              containerRef.current.style.width = '1px';
             }, width: 2, height: 2, resizeSensorProps: props);
           });
 
@@ -291,7 +293,7 @@ void main() {
             props.shrink = true;
 
             await expectResizeAfter(() {
-              containerRef.style.width = '${defaultContainerWidth / 2}px';
+              containerRef.current.style.width = '${defaultContainerWidth / 2}px';
             }, resizeSensorProps: props);
           });
         });
@@ -300,14 +302,14 @@ void main() {
           testResizeAmounts.forEach((description, amount) {
             test('by a $description amount (${amount}px)', () async{
               await expectResizeAfter(() {
-                containerRef.style.height = '${defaultContainerHeight}px';
+                containerRef.current.style.height = '${defaultContainerHeight}px';
               }, height: defaultContainerHeight + amount, resizeSensorProps: props);
             });
           });
 
           test('even when the bounding rect is very small', () async {
             await expectResizeAfter(() {
-              containerRef.style.height = '1px';
+              containerRef.current.style.height = '1px';
             }, width: 2, height: 2, resizeSensorProps: props);
           });
 
@@ -315,7 +317,7 @@ void main() {
             props.shrink = true;
 
             await expectResizeAfter(() {
-              containerRef.style.height = '${defaultContainerHeight / 2}px';
+              containerRef.current.style.height = '${defaultContainerHeight / 2}px';
             }, resizeSensorProps: props);
           });
         });
@@ -329,8 +331,8 @@ void main() {
       group('false:', () {
         test('passes the correct event args on resize', () async {
           await expectResizeAfter(() {
-            containerRef.style.width = '${defaultContainerWidth * 2}px';
-            containerRef.style.height = '${defaultContainerHeight * 2}px';
+            containerRef.current.style.width = '${defaultContainerWidth * 2}px';
+            containerRef.current.style.height = '${defaultContainerHeight * 2}px';
           }, onResize: (event) {
             zonedExpect(event.newWidth, equals(defaultContainerWidth * 2));
             zonedExpect(event.newHeight, equals(defaultContainerHeight * 2));
@@ -386,8 +388,8 @@ void main() {
           bool onInitializeCalled = false;
 
           await expectResizeAfter(() {
-            containerRef.style.width = '${defaultContainerWidth * 2}px';
-            containerRef.style.height = '${defaultContainerHeight * 2}px';
+            containerRef.current.style.width = '${defaultContainerWidth * 2}px';
+            containerRef.current.style.height = '${defaultContainerHeight * 2}px';
           }, onInitialize: (_) {
             onInitializeCalled = true;
           }, resizeSensorProps: props);
@@ -398,8 +400,8 @@ void main() {
 
         test('does not warn about props.onInitialize when it is not set', () async {
           await expectResizeAfter(() {
-            containerRef.style.width = '${defaultContainerWidth * 2}px';
-            containerRef.style.height = '${defaultContainerHeight * 2}px';
+            containerRef.current.style.width = '${defaultContainerWidth * 2}px';
+            containerRef.current.style.height = '${defaultContainerHeight * 2}px';
           }, resizeSensorProps: props);
 
           rejectValidationWarning(contains('onInitialize'));
@@ -409,14 +411,14 @@ void main() {
           var resizeEvents = <ResizeSensorEvent>[];
 
           await expectResizeAfter(() async {
-            containerRef.style.width = '${defaultContainerWidth + 10}px';
-            containerRef.style.height = '${defaultContainerHeight + 10}px';
+            containerRef.current.style.width = '${defaultContainerWidth + 10}px';
+            containerRef.current.style.height = '${defaultContainerHeight + 10}px';
 
             await window.animationFrame;
             await window.animationFrame;
 
-            containerRef.style.width = '${defaultContainerWidth + 20}px';
-            containerRef.style.height = '${defaultContainerHeight + 20}px';
+            containerRef.current.style.width = '${defaultContainerWidth + 20}px';
+            containerRef.current.style.height = '${defaultContainerHeight + 20}px';
           }, onResize: resizeEvents.add, resizeEventCount: 2, resizeSensorProps: props);
 
           expect(resizeEvents, hasLength(2));

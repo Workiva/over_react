@@ -41,7 +41,7 @@ abstract class _$$BasicProps<T, U extends UiProps> extends UiProps
 
   factory _$$BasicProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicProps$JsMap(backingMap);
+      return _$$BasicProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$BasicProps$PlainMap(backingMap);
     }
@@ -126,7 +126,8 @@ class _$BasicComponent extends BasicComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -160,15 +161,13 @@ mixin $BasicPropsMixin<T, U extends UiProps> on BasicPropsMixin<T, U> {
   static const PropsMeta meta = _$metaForBasicPropsMixin;
   @override
   List<T> get someGenericListProp =>
-      props[_$key__someGenericListProp__BasicPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__someGenericListProp__BasicPropsMixin] ?? null) as List<T>;
   @override
   set someGenericListProp(List<T> value) =>
       props[_$key__someGenericListProp__BasicPropsMixin] = value;
   @override
   U get somePropsClass =>
-      props[_$key__somePropsClass__BasicPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__somePropsClass__BasicPropsMixin] ?? null) as U;
   @override
   set somePropsClass(U value) =>
       props[_$key__somePropsClass__BasicPropsMixin] = value;

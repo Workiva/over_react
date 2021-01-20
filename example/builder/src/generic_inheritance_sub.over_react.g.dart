@@ -42,7 +42,7 @@ abstract class _$$GenericSubProps extends UiProps
 
   factory _$$GenericSubProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$GenericSubProps$JsMap(backingMap);
+      return _$$GenericSubProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$GenericSubProps$PlainMap(backingMap);
     }
@@ -124,7 +124,7 @@ abstract class _$$GenericSubState extends UiState
 
   factory _$$GenericSubState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$GenericSubState$JsMap(backingMap);
+      return _$$GenericSubState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$GenericSubState$PlainMap(backingMap);
     }
@@ -194,7 +194,8 @@ class _$GenericSubComponent extends GenericSubComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -216,7 +217,7 @@ class _$GenericSubComponent extends GenericSubComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -253,8 +254,7 @@ mixin $GenericSubPropsMixin on GenericSubPropsMixin {
   static const PropsMeta meta = _$metaForGenericSubPropsMixin;
   @override
   String get subProp =>
-      props[_$key__subProp__GenericSubPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__subProp__GenericSubPropsMixin] ?? null) as String;
   @override
   set subProp(String value) =>
       props[_$key__subProp__GenericSubPropsMixin] = value;
@@ -285,8 +285,7 @@ mixin $GenericSubStateMixin on GenericSubStateMixin {
   static const StateMeta meta = _$metaForGenericSubStateMixin;
   @override
   String get subState =>
-      state[_$key__subState__GenericSubStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__subState__GenericSubStateMixin] ?? null) as String;
   @override
   set subState(String value) =>
       state[_$key__subState__GenericSubStateMixin] = value;

@@ -39,7 +39,7 @@ abstract class _$$BasicProps extends UiProps
 
   factory _$$BasicProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicProps$JsMap(backingMap);
+      return _$$BasicProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$BasicProps$PlainMap(backingMap);
     }
@@ -116,7 +116,7 @@ abstract class _$$BasicState extends UiState
 
   factory _$$BasicState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicState$JsMap(backingMap);
+      return _$$BasicState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$BasicState$PlainMap(backingMap);
     }
@@ -186,7 +186,8 @@ class _$BasicComponent extends BasicComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -207,7 +208,7 @@ class _$BasicComponent extends BasicComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -241,38 +242,27 @@ mixin $BasicProps on BasicProps {
   static const PropsMeta meta = _$metaForBasicProps;
   @override
   String get basicProp =>
-      props[_$key__basicProp__BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__basicProp__BasicProps] ?? null) as String;
   @override
   set basicProp(String value) => props[_$key__basicProp__BasicProps] = value;
   @override
-  String get basic1 =>
-      props[_$key__basic1__BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic1 => (props[_$key__basic1__BasicProps] ?? null) as String;
   @override
   set basic1(String value) => props[_$key__basic1__BasicProps] = value;
   @override
-  String get basic2 =>
-      props[_$key__basic2__BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic2 => (props[_$key__basic2__BasicProps] ?? null) as String;
   @override
   set basic2(String value) => props[_$key__basic2__BasicProps] = value;
   @override
-  String get basic3 =>
-      props[_$key__basic3__BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic3 => (props[_$key__basic3__BasicProps] ?? null) as String;
   @override
   set basic3(String value) => props[_$key__basic3__BasicProps] = value;
   @override
-  String get basic4 =>
-      props[_$key__basic4__BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic4 => (props[_$key__basic4__BasicProps] ?? null) as String;
   @override
   set basic4(String value) => props[_$key__basic4__BasicProps] = value;
   @override
-  String get basic5 =>
-      props[_$key__basic5__BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get basic5 => (props[_$key__basic5__BasicProps] ?? null) as String;
   @override
   set basic5(String value) => props[_$key__basic5__BasicProps] = value;
   /* GENERATED CONSTANTS */
@@ -328,8 +318,7 @@ mixin $BasicState on BasicState {
   static const StateMeta meta = _$metaForBasicState;
   @override
   String get basicState =>
-      state[_$key__basicState__BasicState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__basicState__BasicState] ?? null) as String;
   @override
   set basicState(String value) => state[_$key__basicState__BasicState] = value;
   /* GENERATED CONSTANTS */

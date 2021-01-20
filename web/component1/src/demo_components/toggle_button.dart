@@ -88,7 +88,7 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   // Refs
 
   /// A reference to the [Dom.input] rendered via [renderInput] within the [ToggleButton].
-  InputElement inputRef;
+  final inputRef = createRef<InputElement>();
 
   @override
   Map getDefaultProps() => (newProps()
@@ -150,7 +150,7 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
       ..onChange = props.onChange
       ..onClick = props.onClick
       ..style = makeInputNodeInvisible
-      ..ref = (ref) { inputRef = ref; }
+      ..ref = inputRef
       ..key = 'input';
 
     // ********************************************************
@@ -201,7 +201,7 @@ class ToggleButtonComponent extends ButtonComponent<ToggleButtonProps, ToggleBut
   /// Does not refresh the state if `ToggleButtonProps.checked` is not null
   /// (the component is a "controlled" component).
   void refreshState() {
-    if (!_isControlled) setState(newState()..isChecked = inputRef.checked);
+    if (!_isControlled) setState(newState()..isChecked = inputRef.current.checked);
   }
 
   void _validateProps(ToggleButtonProps props) {

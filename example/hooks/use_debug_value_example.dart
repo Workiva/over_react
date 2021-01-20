@@ -31,7 +31,7 @@ StateHook<bool> useFriendStatus(int friendID) {
   final isOnline = useState(false);
 
   void handleStatusChange(Map status) {
-    isOnline.set(status['isOnline']);
+    isOnline.set(status['isOnline'] as bool);
   }
 
   useEffect(() {
@@ -54,7 +54,7 @@ mixin FriendListItemProps on UiProps {
 
 UiFactory<FriendListItemProps> FriendListItem = uiFunction(
   (props) {
-    final isOnline = useFriendStatus(props.friend['id']);
+    final isOnline = useFriendStatus(props.friend['id'] as int);
 
     return (Dom.li()..style = {'color': isOnline.value ? 'green' : 'black'})(
       props.friend['name'],
