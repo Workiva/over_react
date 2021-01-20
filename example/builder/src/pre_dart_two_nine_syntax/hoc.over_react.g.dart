@@ -39,7 +39,7 @@ abstract class _$$HocProps extends UiProps
 
   factory _$$HocProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$HocProps$JsMap(backingMap);
+      return _$$HocProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$HocProps$PlainMap(backingMap);
     }
@@ -124,7 +124,8 @@ class _$HocComponent extends HocComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -183,7 +184,7 @@ abstract class _$$HocWithTwoFactoriesProps extends UiProps
 
   factory _$$HocWithTwoFactoriesProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$HocWithTwoFactoriesProps$JsMap(backingMap);
+      return _$$HocWithTwoFactoriesProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$HocWithTwoFactoriesProps$PlainMap(backingMap);
     }
@@ -268,7 +269,8 @@ class _$HocWithTwoFactoriesComponent extends HocWithTwoFactoriesComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -303,9 +305,7 @@ class _$HocWithTwoFactoriesComponent extends HocWithTwoFactoriesComponent {
 mixin $HocProps on HocProps {
   static const PropsMeta meta = _$metaForHocProps;
   @override
-  String get foo =>
-      props[_$key__foo__HocProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get foo => (props[_$key__foo__HocProps] ?? null) as String;
   @override
   set foo(String value) => props[_$key__foo__HocProps] = value;
   /* GENERATED CONSTANTS */
@@ -332,8 +332,7 @@ mixin $HocWithTwoFactoriesProps on HocWithTwoFactoriesProps {
   static const PropsMeta meta = _$metaForHocWithTwoFactoriesProps;
   @override
   String get foo =>
-      props[_$key__foo__HocWithTwoFactoriesProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__foo__HocWithTwoFactoriesProps] ?? null) as String;
   @override
   set foo(String value) => props[_$key__foo__HocWithTwoFactoriesProps] = value;
   /* GENERATED CONSTANTS */

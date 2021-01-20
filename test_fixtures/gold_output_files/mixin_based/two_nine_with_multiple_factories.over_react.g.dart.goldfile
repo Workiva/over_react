@@ -42,7 +42,7 @@ abstract class _$$CounterProps extends UiProps
 
   factory _$$CounterProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CounterProps$JsMap(backingMap);
+      return _$$CounterProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$CounterProps$PlainMap(backingMap);
     }
@@ -129,7 +129,8 @@ class _$CounterComponent extends CounterComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override

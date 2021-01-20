@@ -39,7 +39,7 @@ abstract class _$$Foo290Props extends UiProps
 
   factory _$$Foo290Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$Foo290Props$JsMap(backingMap);
+      return _$$Foo290Props$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$Foo290Props$PlainMap(backingMap);
     }
@@ -124,7 +124,8 @@ class _$FooComponent290 extends FooComponent290 {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -302,9 +303,7 @@ class _$FooComponent extends FooComponent {
 mixin $Foo290Props on Foo290Props {
   static const PropsMeta meta = _$metaForFoo290Props;
   @override
-  String get foo =>
-      props[_$key__foo__Foo290Props] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get foo => (props[_$key__foo__Foo290Props] ?? null) as String;
   @override
   set foo(String value) => props[_$key__foo__Foo290Props] = value;
   /* GENERATED CONSTANTS */

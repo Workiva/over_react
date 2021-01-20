@@ -40,7 +40,7 @@ abstract class _$$ComponentTest290Props extends UiProps
 
   factory _$$ComponentTest290Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ComponentTest290Props$JsMap(backingMap);
+      return _$$ComponentTest290Props$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ComponentTest290Props$PlainMap(backingMap);
     }
@@ -125,7 +125,8 @@ class _$ComponentTest290Component extends ComponentTest290Component {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -306,44 +307,38 @@ mixin $ComponentTest290Props on ComponentTest290Props {
   static const PropsMeta meta = _$metaForComponentTest290Props;
   @override
   String get stringProp =>
-      props[_$key__stringProp__ComponentTest290Props] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__stringProp__ComponentTest290Props] ?? null) as String;
   @override
   set stringProp(String value) =>
       props[_$key__stringProp__ComponentTest290Props] = value;
   @override
   bool get shouldSetPropsDirectly =>
-      props[_$key__shouldSetPropsDirectly__ComponentTest290Props] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__shouldSetPropsDirectly__ComponentTest290Props] ?? null)
+          as bool;
   @override
   set shouldSetPropsDirectly(bool value) =>
       props[_$key__shouldSetPropsDirectly__ComponentTest290Props] = value;
   @override
   bool get shouldUseJsFactory =>
-      props[_$key__shouldUseJsFactory__ComponentTest290Props] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__shouldUseJsFactory__ComponentTest290Props] ?? null) as bool;
   @override
   set shouldUseJsFactory(bool value) =>
       props[_$key__shouldUseJsFactory__ComponentTest290Props] = value;
   @override
   dynamic get dynamicProp =>
-      props[_$key__dynamicProp__ComponentTest290Props] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__dynamicProp__ComponentTest290Props] ?? null) as dynamic;
   @override
   set dynamicProp(dynamic value) =>
       props[_$key__dynamicProp__ComponentTest290Props] = value;
   @override
-  get untypedProp =>
-      props[_$key__untypedProp__ComponentTest290Props] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get untypedProp => props[_$key__untypedProp__ComponentTest290Props] ?? null;
   @override
   set untypedProp(value) =>
       props[_$key__untypedProp__ComponentTest290Props] = value;
   @override
   @Accessor(key: 'custom key!')
   dynamic get customKeyProp =>
-      props[_$key__customKeyProp__ComponentTest290Props] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__customKeyProp__ComponentTest290Props] ?? null) as dynamic;
   @override
   @Accessor(key: 'custom key!')
   set customKeyProp(dynamic value) =>
@@ -351,8 +346,8 @@ mixin $ComponentTest290Props on ComponentTest290Props {
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   dynamic get customNamespaceProp =>
-      props[_$key__customNamespaceProp__ComponentTest290Props] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__customNamespaceProp__ComponentTest290Props] ?? null)
+          as dynamic;
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceProp(dynamic value) =>
@@ -360,8 +355,8 @@ mixin $ComponentTest290Props on ComponentTest290Props {
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   dynamic get customKeyAndNamespaceProp =>
-      props[_$key__customKeyAndNamespaceProp__ComponentTest290Props] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__customKeyAndNamespaceProp__ComponentTest290Props] ?? null)
+          as dynamic;
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceProp(dynamic value) =>

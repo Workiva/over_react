@@ -43,7 +43,7 @@ abstract class _$$ComponentTestProps290Props extends UiProps
 
   factory _$$ComponentTestProps290Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ComponentTestProps290Props$JsMap(backingMap);
+      return _$$ComponentTestProps290Props$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ComponentTestProps290Props$PlainMap(backingMap);
     }
@@ -132,7 +132,8 @@ class _$ComponentTest290Component extends ComponentTest290Component {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
