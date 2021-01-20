@@ -29,7 +29,7 @@ main() {
     });
 
     test('can use generics to set the type', () {
-      final testFactory = castUiFactory<UiFactory<BasicProps>>(_$Basic);
+      final testFactory = castUiFactory<BasicProps>(_$Basic);
 
       expect(testFactory, isA<UiFactory<BasicProps>>());
     });
@@ -37,7 +37,11 @@ main() {
     test('will leave the type a `UiFactory<UiProps` if no type is provided', () {
       final testFactory = castUiFactory(_$Basic);
 
-      expect(testFactory, isA<UiFactory<UiProps>>());
+      // This assignment should analyze properly without any static implicit_cast errors
+      UiFactory<UiProps> testAssignment = testFactory;
+
+      // This is just here to avoid an unused variable lint
+      expect(testAssignment, isA<UiFactory<UiProps>>());
     });
   });
 }

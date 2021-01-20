@@ -1,4 +1,4 @@
-import 'package:over_react/component_base.dart';
+import 'package:over_react/src/component_declaration/builder_helpers.dart';
 
 /// Casts [value] to `UiFactory<T>`, which can be inferred from the surrounding context,
 /// allowing you to perform casts of dynamic values without having to repeat the type
@@ -26,4 +26,4 @@ import 'package:over_react/component_base.dart';
 ///
 /// This works around those limitations by reducing the amount of code necessary
 /// to cast the generated factory.
-T castUiFactory<T extends UiFactory>(dynamic value) => value as T;
+UiFactory<T> castUiFactory<T extends UiProps>(dynamic value) => value as UiFactory<T>;
