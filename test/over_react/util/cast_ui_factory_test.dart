@@ -1,4 +1,4 @@
-// Copyright 2020 Workiva Inc.
+// Copyright 2021 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -42,6 +42,10 @@ main() {
 
       // This is just here to avoid an unused variable lint
       expect(testAssignment, isA<UiFactory<UiProps>>());
+    });
+
+    test('throws an error if provided something other than a UiFactory', () {
+      expect(() => castUiFactory('test'), throwsA(isA<CastError>()));
     });
   });
 }
