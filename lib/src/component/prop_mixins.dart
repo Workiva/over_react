@@ -57,7 +57,7 @@ abstract class _$ReactPropsMixin {
   ///
   /// * <https://facebook.github.io/react/docs/multiple-components.html#children>
   /// * <https://facebook.github.io/react/docs/reconciliation.html>
-  String get key        => props['key'];
+  String get key        => props['key'] as String;
   /// ignore: prefer_null_aware_operators
   set key(Object value) => props['key'] = value == null ? null : value.toString();
 

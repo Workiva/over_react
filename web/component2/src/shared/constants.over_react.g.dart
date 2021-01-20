@@ -16,24 +16,22 @@ mixin $AbstractInputPropsMixin on AbstractInputPropsMixin {
   @override
   @Accessor(keyNamespace: '')
   String get name =>
-      props[_$key__name__AbstractInputPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__name__AbstractInputPropsMixin] ?? null) as String;
   @override
   @Accessor(keyNamespace: '')
   set name(String value) => props[_$key__name__AbstractInputPropsMixin] = value;
   @override
   @Accessor(keyNamespace: '')
   dynamic get value =>
-      props[_$key__value__AbstractInputPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__value__AbstractInputPropsMixin] ?? null) as dynamic;
   @override
   @Accessor(keyNamespace: '')
   set value(dynamic value) =>
       props[_$key__value__AbstractInputPropsMixin] = value;
   @override
   ToggleBehaviorType get toggleType =>
-      props[_$key__toggleType__AbstractInputPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__toggleType__AbstractInputPropsMixin] ?? null)
+          as ToggleBehaviorType;
   @override
   set toggleType(ToggleBehaviorType value) =>
       props[_$key__toggleType__AbstractInputPropsMixin] = value;
@@ -76,14 +74,12 @@ mixin $AbstractInputStateMixin on AbstractInputStateMixin {
   static const StateMeta meta = _$metaForAbstractInputStateMixin;
   @override
   String get id =>
-      state[_$key__id__AbstractInputStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__id__AbstractInputStateMixin] ?? null) as String;
   @override
   set id(String value) => state[_$key__id__AbstractInputStateMixin] = value;
   @override
   String get name =>
-      state[_$key__name__AbstractInputStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__name__AbstractInputStateMixin] ?? null) as String;
   @override
   set name(String value) => state[_$key__name__AbstractInputStateMixin] = value;
   /* GENERATED CONSTANTS */

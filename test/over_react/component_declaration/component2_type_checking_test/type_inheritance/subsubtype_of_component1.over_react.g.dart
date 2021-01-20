@@ -58,7 +58,8 @@ abstract class _$$TestSubsubtypeOfComponent1Props
 
   factory _$$TestSubsubtypeOfComponent1Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestSubsubtypeOfComponent1Props$JsMap(backingMap);
+      return _$$TestSubsubtypeOfComponent1Props$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$TestSubsubtypeOfComponent1Props$PlainMap(backingMap);
     }
@@ -134,7 +135,8 @@ class _$TestSubsubtypeOfComponent1Component
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override

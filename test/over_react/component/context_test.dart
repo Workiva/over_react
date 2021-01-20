@@ -38,7 +38,7 @@ void main() {
     group('Componentry', () {
       group('sets and retrieves values correctly:', () {
         void testTypeValue(dynamic typeToTest) {
-          ContextTypeComponent contextTypeRef;
+          final contextTypeRef = createRef<ContextTypeComponent>();
           render(
             (someContext.Provider()..value = typeToTest)(
               someContext.Consumer()(
@@ -46,12 +46,12 @@ void main() {
                   expect(value, same(typeToTest), reason: 'Consumer did not recieve the correct type.');
                 }
               ),
-              (ContextType()..ref = (ref) { contextTypeRef = ref; })(),
+              (ContextType()..ref = contextTypeRef)(),
             ),
           );
 
           expect(
-            contextTypeRef.context,
+            contextTypeRef.current.context,
             same(typeToTest),
             reason: 'ContextType based component did not recieve the correct type.',
           );
@@ -60,16 +60,15 @@ void main() {
       });
 
       group('experimental calculateChangeBits argument functions correctly', () {
-        ContextProviderWrapperComponent providerRef;
+        Ref<ContextProviderWrapperComponent> providerRef;
         int consumerEvenValue;
         int consumerOddValue;
 
         setUp(() {
+          providerRef = createRef();
           render(
             (ContextProviderWrapper()
-              ..ref = (ref) {
-                providerRef = ref;
-              }
+              ..ref = providerRef
             )(
               (counterContext.Consumer()
                 ..key = 'EvenContextConsumer'
@@ -97,13 +96,13 @@ void main() {
         });
 
         test('on value updates', () {
-          providerRef.increment();
+          providerRef.current.increment();
           expect(consumerEvenValue, 2);
           expect(consumerOddValue, 1);
-          providerRef.increment();
+          providerRef.current.increment();
           expect(consumerEvenValue, 2);
           expect(consumerOddValue, 3);
-          providerRef.increment();
+          providerRef.current.increment();
           expect(consumerEvenValue, 4);
           expect(consumerOddValue, 3);
         });

@@ -42,7 +42,7 @@ abstract class _$$SubProps extends UiProps
 
   factory _$$SubProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SubProps$JsMap(backingMap);
+      return _$$SubProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$SubProps$PlainMap(backingMap);
     }
@@ -124,7 +124,7 @@ abstract class _$$SubState extends UiState
 
   factory _$$SubState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SubState$JsMap(backingMap);
+      return _$$SubState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$SubState$PlainMap(backingMap);
     }
@@ -194,7 +194,8 @@ class _$SubComponent extends SubComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -215,7 +216,7 @@ class _$SubComponent extends SubComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -251,8 +252,7 @@ mixin $SuperPropsMixin on SuperPropsMixin {
   static const PropsMeta meta = _$metaForSuperPropsMixin;
   @override
   String get superProp =>
-      props[_$key__superProp__SuperPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__superProp__SuperPropsMixin] ?? null) as String;
   @override
   set superProp(String value) =>
       props[_$key__superProp__SuperPropsMixin] = value;
@@ -283,8 +283,7 @@ mixin $SubPropsMixin on SubPropsMixin {
   static const PropsMeta meta = _$metaForSubPropsMixin;
   @override
   String get subProp =>
-      props[_$key__subProp__SubPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__subProp__SubPropsMixin] ?? null) as String;
   @override
   set subProp(String value) => props[_$key__subProp__SubPropsMixin] = value;
   /* GENERATED CONSTANTS */
@@ -311,8 +310,7 @@ mixin $SuperStateMixin on SuperStateMixin {
   static const StateMeta meta = _$metaForSuperStateMixin;
   @override
   String get superState =>
-      state[_$key__superState__SuperStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__superState__SuperStateMixin] ?? null) as String;
   @override
   set superState(String value) =>
       state[_$key__superState__SuperStateMixin] = value;
@@ -343,8 +341,7 @@ mixin $SubStateMixin on SubStateMixin {
   static const StateMeta meta = _$metaForSubStateMixin;
   @override
   String get subState =>
-      state[_$key__subState__SubStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__subState__SubStateMixin] ?? null) as String;
   @override
   set subState(String value) => state[_$key__subState__SubStateMixin] = value;
   /* GENERATED CONSTANTS */

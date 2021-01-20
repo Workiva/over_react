@@ -54,7 +54,7 @@ abstract class _$$UseRefExampleProps extends UiProps
 
   factory _$$UseRefExampleProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$UseRefExampleProps$JsMap(backingMap);
+      return _$$UseRefExampleProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$UseRefExampleProps$PlainMap(backingMap);
     }

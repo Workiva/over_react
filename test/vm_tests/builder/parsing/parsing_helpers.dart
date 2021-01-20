@@ -265,12 +265,12 @@ const mockComponentDeclarations = r'''
 class BoilerplateMemberHelper {
   BoilerplateMembers members;
 
-  Iterable<BoilerplateFactory> factories;
-  Iterable<BoilerplateComponent> components;
-  Iterable<BoilerplateProps> props;
-  Iterable<BoilerplateState> states;
-  Iterable<BoilerplateStateMixin> stateMixins;
-  Iterable<BoilerplatePropsMixin> propsMixins;
+  List<BoilerplateFactory> factories;
+  List<BoilerplateComponent> components;
+  List<BoilerplateProps> props;
+  List<BoilerplateState> states;
+  List<BoilerplateStateMixin> stateMixins;
+  List<BoilerplatePropsMixin> propsMixins;
 
   BoilerplateMemberHelper(String boilerplateString) {
     final unit = parseString(content: boilerplateString).unit;

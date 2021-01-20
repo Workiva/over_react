@@ -39,7 +39,7 @@ abstract class _$$LittleBlockProps extends UiProps
 
   factory _$$LittleBlockProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$LittleBlockProps$JsMap(backingMap);
+      return _$$LittleBlockProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$LittleBlockProps$PlainMap(backingMap);
     }
@@ -124,7 +124,8 @@ class _$LittleBlockComponent extends LittleBlockComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -159,22 +160,19 @@ mixin $LittleBlockProps on LittleBlockProps {
   static const PropsMeta meta = _$metaForLittleBlockProps;
   @override
   String get backgroundColor =>
-      props[_$key__backgroundColor__LittleBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__backgroundColor__LittleBlockProps] ?? null) as String;
   @override
   set backgroundColor(String value) =>
       props[_$key__backgroundColor__LittleBlockProps] = value;
   @override
   String get colorString =>
-      props[_$key__colorString__LittleBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__colorString__LittleBlockProps] ?? null) as String;
   @override
   set colorString(String value) =>
       props[_$key__colorString__LittleBlockProps] = value;
   @override
   String get blockTitle =>
-      props[_$key__blockTitle__LittleBlockProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__blockTitle__LittleBlockProps] ?? null) as String;
   @override
   set blockTitle(String value) =>
       props[_$key__blockTitle__LittleBlockProps] = value;

@@ -211,11 +211,11 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
         displayName = componentFactoryType;
       } else if (componentFactoryType is Function) {
         // JS component factories, Dart function components, Dart composite components
-        displayName = getProperty(componentFactoryType, 'displayName');
+        displayName = getProperty(componentFactoryType, 'displayName') as String;
 
         if (displayName == null) {
           final ctor = getProperty(componentFactoryType, 'constructor');
-          displayName = (ctor == null ? null : getProperty(ctor, 'name')) ?? 'Anonymous';
+          displayName = (ctor == null ? null : getProperty(ctor, 'name') as String) ?? 'Anonymous';
         }
       }
     }
@@ -408,7 +408,7 @@ UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
   // this will be an empty string.
   final displayName = config.displayName ?? getFunctionName(functionComponent);
 
-  dynamic _uiFunctionWrapper(dynamic props, dynamic ref) {
+  dynamic _uiFunctionWrapper(JsBackedMap props, dynamic ref) {
     return functionComponent(propsFactory.jsMap(props), ref);
   }
 

@@ -40,7 +40,7 @@ abstract class _$$StatefulComponentTestProps extends UiProps
 
   factory _$$StatefulComponentTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$StatefulComponentTestProps$JsMap(backingMap);
+      return _$$StatefulComponentTestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$StatefulComponentTestProps$PlainMap(backingMap);
     }
@@ -119,7 +119,7 @@ abstract class _$$StatefulComponentTestState extends UiState
 
   factory _$$StatefulComponentTestState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$StatefulComponentTestState$JsMap(backingMap);
+      return _$$StatefulComponentTestState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$StatefulComponentTestState$PlainMap(backingMap);
     }
@@ -191,7 +191,8 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -214,7 +215,7 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -250,8 +251,8 @@ mixin $StatefulComponentTestProps on StatefulComponentTestProps {
   static const PropsMeta meta = _$metaForStatefulComponentTestProps;
   @override
   bool get setStateDirectly =>
-      props[_$key__setStateDirectly__StatefulComponentTestProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__setStateDirectly__StatefulComponentTestProps] ?? null)
+          as bool;
   @override
   set setStateDirectly(bool value) =>
       props[_$key__setStateDirectly__StatefulComponentTestProps] = value;
@@ -285,30 +286,28 @@ mixin $StatefulComponentTestState on StatefulComponentTestState {
   static const StateMeta meta = _$metaForStatefulComponentTestState;
   @override
   String get stringState =>
-      state[_$key__stringState__StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__stringState__StatefulComponentTestState] ?? null) as String;
   @override
   set stringState(String value) =>
       state[_$key__stringState__StatefulComponentTestState] = value;
   @override
   dynamic get dynamicState =>
-      state[_$key__dynamicState__StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__dynamicState__StatefulComponentTestState] ?? null)
+          as dynamic;
   @override
   set dynamicState(dynamic value) =>
       state[_$key__dynamicState__StatefulComponentTestState] = value;
   @override
   get untypedState =>
-      state[_$key__untypedState__StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__untypedState__StatefulComponentTestState] ?? null;
   @override
   set untypedState(value) =>
       state[_$key__untypedState__StatefulComponentTestState] = value;
   @override
   @Accessor(key: 'custom key!')
   dynamic get customKeyState =>
-      state[_$key__customKeyState__StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__customKeyState__StatefulComponentTestState] ?? null)
+          as dynamic;
   @override
   @Accessor(key: 'custom key!')
   set customKeyState(dynamic value) =>
@@ -316,8 +315,8 @@ mixin $StatefulComponentTestState on StatefulComponentTestState {
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   dynamic get customNamespaceState =>
-      state[_$key__customNamespaceState__StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__customNamespaceState__StatefulComponentTestState] ?? null)
+          as dynamic;
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceState(dynamic value) =>
@@ -325,8 +324,8 @@ mixin $StatefulComponentTestState on StatefulComponentTestState {
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   dynamic get customKeyAndNamespaceState =>
-      state[_$key__customKeyAndNamespaceState__StatefulComponentTestState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__customKeyAndNamespaceState__StatefulComponentTestState] ??
+          null) as dynamic;
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceState(dynamic value) =>

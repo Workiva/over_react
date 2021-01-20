@@ -39,7 +39,7 @@ abstract class _$$FooProps extends UiProps
 
   factory _$$FooProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FooProps$JsMap(backingMap);
+      return _$$FooProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$FooProps$PlainMap(backingMap);
     }
@@ -124,7 +124,8 @@ class _$FooComponent extends FooComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -182,7 +183,7 @@ abstract class _$$LogProps extends UiProps
 
   factory _$$LogProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$LogProps$JsMap(backingMap);
+      return _$$LogProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$LogProps$PlainMap(backingMap);
     }
@@ -267,7 +268,8 @@ class _$_LogComponent extends _LogComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -320,8 +322,7 @@ mixin $FooProps on FooProps {
   static const PropsMeta meta = _$metaForFooProps;
   @override
   dynamic get _inputRef =>
-      props[_$key___inputRef__FooProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key___inputRef__FooProps] ?? null) as dynamic;
   @override
   set _inputRef(dynamic value) => props[_$key___inputRef__FooProps] = value;
   /* GENERATED CONSTANTS */
@@ -348,8 +349,8 @@ mixin $AnotherPropsMixin on AnotherPropsMixin {
   static const PropsMeta meta = _$metaForAnotherPropsMixin;
   @override
   String get anExampleAdditionalProp =>
-      props[_$key__anExampleAdditionalProp__AnotherPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__anExampleAdditionalProp__AnotherPropsMixin] ?? null)
+          as String;
   @override
   set anExampleAdditionalProp(String value) =>
       props[_$key__anExampleAdditionalProp__AnotherPropsMixin] = value;
@@ -383,15 +384,14 @@ mixin $LogProps on LogProps {
   static const PropsMeta meta = _$metaForLogProps;
   @override
   BuilderOnlyUiFactory<UiProps> get builder =>
-      props[_$key__builder__LogProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__builder__LogProps] ?? null)
+          as BuilderOnlyUiFactory<UiProps>;
   @override
   set builder(BuilderOnlyUiFactory<UiProps> value) =>
       props[_$key__builder__LogProps] = value;
   @override
   dynamic get _forwardedRef =>
-      props[_$key___forwardedRef__LogProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key___forwardedRef__LogProps] ?? null) as dynamic;
   @override
   set _forwardedRef(dynamic value) =>
       props[_$key___forwardedRef__LogProps] = value;
@@ -428,15 +428,14 @@ mixin $BazProps on BazProps {
   static const PropsMeta meta = _$metaForBazProps;
   @override
   BuilderOnlyUiFactory<UiProps> get builder =>
-      props[_$key__builder__BazProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__builder__BazProps] ?? null)
+          as BuilderOnlyUiFactory<UiProps>;
   @override
   set builder(BuilderOnlyUiFactory<UiProps> value) =>
       props[_$key__builder__BazProps] = value;
   @override
   dynamic get _forwardedRef =>
-      props[_$key___forwardedRef__BazProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key___forwardedRef__BazProps] ?? null) as dynamic;
   @override
   set _forwardedRef(dynamic value) =>
       props[_$key___forwardedRef__BazProps] = value;
@@ -492,8 +491,7 @@ mixin $RefDemoSectionProps on RefDemoSectionProps {
   static const PropsMeta meta = _$metaForRefDemoSectionProps;
   @override
   String get sectionTitle =>
-      props[_$key__sectionTitle__RefDemoSectionProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__sectionTitle__RefDemoSectionProps] ?? null) as String;
   @override
   set sectionTitle(String value) =>
       props[_$key__sectionTitle__RefDemoSectionProps] = value;
@@ -526,8 +524,7 @@ mixin $RefDemoHocProps on RefDemoHocProps {
   static const PropsMeta meta = _$metaForRefDemoHocProps;
   @override
   String get demoTitle =>
-      props[_$key__demoTitle__RefDemoHocProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__demoTitle__RefDemoHocProps] ?? null) as String;
   @override
   set demoTitle(String value) =>
       props[_$key__demoTitle__RefDemoHocProps] = value;
@@ -578,7 +575,7 @@ abstract class _$$FancyButtonProps extends UiProps
 
   factory _$$FancyButtonProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FancyButtonProps$JsMap(backingMap);
+      return _$$FancyButtonProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$FancyButtonProps$PlainMap(backingMap);
     }
@@ -665,7 +662,7 @@ abstract class _$$Foo2Props extends UiProps
 
   factory _$$Foo2Props(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$Foo2Props$JsMap(backingMap);
+      return _$$Foo2Props$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$Foo2Props$PlainMap(backingMap);
     }
@@ -751,7 +748,7 @@ abstract class _$$BazProps extends UiProps
 
   factory _$$BazProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BazProps$JsMap(backingMap);
+      return _$$BazProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$BazProps$PlainMap(backingMap);
     }
@@ -837,7 +834,7 @@ abstract class _$$RefDemoProps extends UiProps
 
   factory _$$RefDemoProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$RefDemoProps$JsMap(backingMap);
+      return _$$RefDemoProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$RefDemoProps$PlainMap(backingMap);
     }
@@ -923,7 +920,7 @@ abstract class _$$RefDemoSectionProps extends UiProps
 
   factory _$$RefDemoSectionProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$RefDemoSectionProps$JsMap(backingMap);
+      return _$$RefDemoSectionProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$RefDemoSectionProps$PlainMap(backingMap);
     }
@@ -1008,7 +1005,7 @@ abstract class _$$RefDemoHocProps extends UiProps
 
   factory _$$RefDemoHocProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$RefDemoHocProps$JsMap(backingMap);
+      return _$$RefDemoHocProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$RefDemoHocProps$PlainMap(backingMap);
     }

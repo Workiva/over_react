@@ -52,7 +52,7 @@ abstract class _$$DomTestProps extends _$DomTestProps
 
   factory _$$DomTestProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$DomTestProps$JsMap(backingMap);
+      return _$$DomTestProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$DomTestProps$PlainMap(backingMap);
     }
@@ -125,7 +125,8 @@ class _$DomTestComponent extends DomTestComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override

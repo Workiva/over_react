@@ -15,29 +15,24 @@ mixin $TestPropsMixin on TestPropsMixin {
   static const PropsMeta meta = _$metaForTestPropsMixin;
   @override
   String get stringProp =>
-      props[_$key__stringProp__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__stringProp__TestPropsMixin] ?? null) as String;
   @override
   set stringProp(String value) =>
       props[_$key__stringProp__TestPropsMixin] = value;
   @override
   dynamic get dynamicProp =>
-      props[_$key__dynamicProp__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__dynamicProp__TestPropsMixin] ?? null) as dynamic;
   @override
   set dynamicProp(dynamic value) =>
       props[_$key__dynamicProp__TestPropsMixin] = value;
   @override
-  get untypedProp =>
-      props[_$key__untypedProp__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get untypedProp => props[_$key__untypedProp__TestPropsMixin] ?? null;
   @override
   set untypedProp(value) => props[_$key__untypedProp__TestPropsMixin] = value;
   @override
   @Accessor(key: 'custom key!')
   dynamic get customKeyProp =>
-      props[_$key__customKeyProp__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__customKeyProp__TestPropsMixin] ?? null) as dynamic;
   @override
   @Accessor(key: 'custom key!')
   set customKeyProp(dynamic value) =>
@@ -45,8 +40,7 @@ mixin $TestPropsMixin on TestPropsMixin {
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   dynamic get customNamespaceProp =>
-      props[_$key__customNamespaceProp__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__customNamespaceProp__TestPropsMixin] ?? null) as dynamic;
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceProp(dynamic value) =>
@@ -54,8 +48,8 @@ mixin $TestPropsMixin on TestPropsMixin {
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   dynamic get customKeyAndNamespaceProp =>
-      props[_$key__customKeyAndNamespaceProp__TestPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__customKeyAndNamespaceProp__TestPropsMixin] ?? null)
+          as dynamic;
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceProp(dynamic value) =>
@@ -120,30 +114,29 @@ mixin $TestCustomNamespacePropsMixin on TestCustomNamespacePropsMixin {
   static const PropsMeta meta = _$metaForTestCustomNamespacePropsMixin;
   @override
   String get stringProp =>
-      props[_$key__stringProp__TestCustomNamespacePropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__stringProp__TestCustomNamespacePropsMixin] ?? null)
+          as String;
   @override
   set stringProp(String value) =>
       props[_$key__stringProp__TestCustomNamespacePropsMixin] = value;
   @override
   dynamic get dynamicProp =>
-      props[_$key__dynamicProp__TestCustomNamespacePropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__dynamicProp__TestCustomNamespacePropsMixin] ?? null)
+          as dynamic;
   @override
   set dynamicProp(dynamic value) =>
       props[_$key__dynamicProp__TestCustomNamespacePropsMixin] = value;
   @override
   get untypedProp =>
-      props[_$key__untypedProp__TestCustomNamespacePropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      props[_$key__untypedProp__TestCustomNamespacePropsMixin] ?? null;
   @override
   set untypedProp(value) =>
       props[_$key__untypedProp__TestCustomNamespacePropsMixin] = value;
   @override
   @Accessor(key: 'custom key!')
   dynamic get customKeyProp =>
-      props[_$key__customKeyProp__TestCustomNamespacePropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__customKeyProp__TestCustomNamespacePropsMixin] ?? null)
+          as dynamic;
   @override
   @Accessor(key: 'custom key!')
   set customKeyProp(dynamic value) =>
@@ -151,8 +144,8 @@ mixin $TestCustomNamespacePropsMixin on TestCustomNamespacePropsMixin {
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   dynamic get customNamespaceProp =>
-      props[_$key__customNamespaceProp__TestCustomNamespacePropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__customNamespaceProp__TestCustomNamespacePropsMixin] ?? null)
+          as dynamic;
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceProp(dynamic value) =>
@@ -160,8 +153,8 @@ mixin $TestCustomNamespacePropsMixin on TestCustomNamespacePropsMixin {
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   dynamic get customKeyAndNamespaceProp =>
-      props[_$key__customKeyAndNamespaceProp__TestCustomNamespacePropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__customKeyAndNamespaceProp__TestCustomNamespacePropsMixin] ??
+          null) as dynamic;
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceProp(dynamic value) =>
@@ -236,10 +229,9 @@ mixin $TestCustomNamespaceWithPropsAnnotationPropsMixin
   static const PropsMeta meta =
       _$metaForTestCustomNamespaceWithPropsAnnotationPropsMixin;
   @override
-  String get propsAnnotationProp =>
-      props[
+  String get propsAnnotationProp => (props[
           _$key__propsAnnotationProp__TestCustomNamespaceWithPropsAnnotationPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      null) as String;
   @override
   set propsAnnotationProp(String value) => props[
           _$key__propsAnnotationProp__TestCustomNamespaceWithPropsAnnotationPropsMixin] =
@@ -277,29 +269,24 @@ mixin $TestStateMixin on TestStateMixin {
   static const StateMeta meta = _$metaForTestStateMixin;
   @override
   String get stringState =>
-      state[_$key__stringState__TestStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__stringState__TestStateMixin] ?? null) as String;
   @override
   set stringState(String value) =>
       state[_$key__stringState__TestStateMixin] = value;
   @override
   dynamic get dynamicState =>
-      state[_$key__dynamicState__TestStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__dynamicState__TestStateMixin] ?? null) as dynamic;
   @override
   set dynamicState(dynamic value) =>
       state[_$key__dynamicState__TestStateMixin] = value;
   @override
-  get untypedState =>
-      state[_$key__untypedState__TestStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  get untypedState => state[_$key__untypedState__TestStateMixin] ?? null;
   @override
   set untypedState(value) => state[_$key__untypedState__TestStateMixin] = value;
   @override
   @Accessor(key: 'custom key!')
   dynamic get customKeyState =>
-      state[_$key__customKeyState__TestStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__customKeyState__TestStateMixin] ?? null) as dynamic;
   @override
   @Accessor(key: 'custom key!')
   set customKeyState(dynamic value) =>
@@ -307,8 +294,7 @@ mixin $TestStateMixin on TestStateMixin {
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   dynamic get customNamespaceState =>
-      state[_$key__customNamespaceState__TestStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__customNamespaceState__TestStateMixin] ?? null) as dynamic;
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceState(dynamic value) =>
@@ -316,8 +302,8 @@ mixin $TestStateMixin on TestStateMixin {
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   dynamic get customKeyAndNamespaceState =>
-      state[_$key__customKeyAndNamespaceState__TestStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__customKeyAndNamespaceState__TestStateMixin] ?? null)
+          as dynamic;
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceState(dynamic value) =>
@@ -382,30 +368,29 @@ mixin $TestCustomNamespaceStateMixin on TestCustomNamespaceStateMixin {
   static const StateMeta meta = _$metaForTestCustomNamespaceStateMixin;
   @override
   String get stringState =>
-      state[_$key__stringState__TestCustomNamespaceStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__stringState__TestCustomNamespaceStateMixin] ?? null)
+          as String;
   @override
   set stringState(String value) =>
       state[_$key__stringState__TestCustomNamespaceStateMixin] = value;
   @override
   dynamic get dynamicState =>
-      state[_$key__dynamicState__TestCustomNamespaceStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__dynamicState__TestCustomNamespaceStateMixin] ?? null)
+          as dynamic;
   @override
   set dynamicState(dynamic value) =>
       state[_$key__dynamicState__TestCustomNamespaceStateMixin] = value;
   @override
   get untypedState =>
-      state[_$key__untypedState__TestCustomNamespaceStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      state[_$key__untypedState__TestCustomNamespaceStateMixin] ?? null;
   @override
   set untypedState(value) =>
       state[_$key__untypedState__TestCustomNamespaceStateMixin] = value;
   @override
   @Accessor(key: 'custom key!')
   dynamic get customKeyState =>
-      state[_$key__customKeyState__TestCustomNamespaceStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__customKeyState__TestCustomNamespaceStateMixin] ?? null)
+          as dynamic;
   @override
   @Accessor(key: 'custom key!')
   set customKeyState(dynamic value) =>
@@ -413,17 +398,17 @@ mixin $TestCustomNamespaceStateMixin on TestCustomNamespaceStateMixin {
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   dynamic get customNamespaceState =>
-      state[_$key__customNamespaceState__TestCustomNamespaceStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__customNamespaceState__TestCustomNamespaceStateMixin] ??
+          null) as dynamic;
   @override
   @Accessor(keyNamespace: 'custom namespace~~')
   set customNamespaceState(dynamic value) =>
       state[_$key__customNamespaceState__TestCustomNamespaceStateMixin] = value;
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
-  dynamic get customKeyAndNamespaceState =>
-      state[_$key__customKeyAndNamespaceState__TestCustomNamespaceStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get customKeyAndNamespaceState => (state[
+          _$key__customKeyAndNamespaceState__TestCustomNamespaceStateMixin] ??
+      null) as dynamic;
   @override
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   set customKeyAndNamespaceState(dynamic value) =>
@@ -499,10 +484,9 @@ mixin $TestCustomNamespaceWithStateAnnotationStateMixin
   static const StateMeta meta =
       _$metaForTestCustomNamespaceWithStateAnnotationStateMixin;
   @override
-  String get stateAnnotationState =>
-      state[
+  String get stateAnnotationState => (state[
           _$key__stateAnnotationState__TestCustomNamespaceWithStateAnnotationStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      null) as String;
   @override
   set stateAnnotationState(String value) => state[
           _$key__stateAnnotationState__TestCustomNamespaceWithStateAnnotationStateMixin] =
@@ -550,7 +534,7 @@ abstract class _$$TestPropsMixin extends UiProps
 
   factory _$$TestPropsMixin(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestPropsMixin$JsMap(backingMap);
+      return _$$TestPropsMixin$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestPropsMixin$PlainMap(backingMap);
     }
@@ -630,7 +614,7 @@ abstract class _$$TestCustomNamespaceProps extends UiProps
 
   factory _$$TestCustomNamespaceProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestCustomNamespaceProps$JsMap(backingMap);
+      return _$$TestCustomNamespaceProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestCustomNamespaceProps$PlainMap(backingMap);
     }

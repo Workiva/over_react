@@ -42,7 +42,7 @@ abstract class _$$CounterProps extends UiProps
 
   factory _$$CounterProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CounterProps$JsMap(backingMap);
+      return _$$CounterProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$CounterProps$PlainMap(backingMap);
     }
@@ -129,7 +129,8 @@ class _$CounterComponent extends CounterComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -166,29 +167,26 @@ mixin $CounterPropsMixin on CounterPropsMixin {
   static const PropsMeta meta = _$metaForCounterPropsMixin;
   @override
   int get currentCount =>
-      props[_$key__currentCount__CounterPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__currentCount__CounterPropsMixin] ?? null) as int;
   @override
   set currentCount(int value) =>
       props[_$key__currentCount__CounterPropsMixin] = value;
   @override
   Map<String, dynamic> get wrapperStyles =>
-      props[_$key__wrapperStyles__CounterPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__wrapperStyles__CounterPropsMixin] ?? null)
+          as Map<String, dynamic>;
   @override
   set wrapperStyles(Map<String, dynamic> value) =>
       props[_$key__wrapperStyles__CounterPropsMixin] = value;
   @override
   void Function() get increment =>
-      props[_$key__increment__CounterPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__increment__CounterPropsMixin] ?? null) as void Function();
   @override
   set increment(void Function() value) =>
       props[_$key__increment__CounterPropsMixin] = value;
   @override
   void Function() get decrement =>
-      props[_$key__decrement__CounterPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__decrement__CounterPropsMixin] ?? null) as void Function();
   @override
   set decrement(void Function() value) =>
       props[_$key__decrement__CounterPropsMixin] = value;

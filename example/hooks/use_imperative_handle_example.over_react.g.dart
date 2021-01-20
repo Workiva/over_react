@@ -14,15 +14,12 @@ part of 'use_imperative_handle_example.dart';
 mixin $FancyInputProps on FancyInputProps {
   static const PropsMeta meta = _$metaForFancyInputProps;
   @override
-  String get value =>
-      props[_$key__value__FancyInputProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get value => (props[_$key__value__FancyInputProps] ?? null) as String;
   @override
   set value(String value) => props[_$key__value__FancyInputProps] = value;
   @override
   Function get updater =>
-      props[_$key__updater__FancyInputProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__updater__FancyInputProps] ?? null) as Function;
   @override
   set updater(Function value) => props[_$key__updater__FancyInputProps] = value;
   /* GENERATED CONSTANTS */
@@ -97,7 +94,7 @@ abstract class _$$FancyInputProps extends UiProps
 
   factory _$$FancyInputProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FancyInputProps$JsMap(backingMap);
+      return _$$FancyInputProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$FancyInputProps$PlainMap(backingMap);
     }
@@ -184,7 +181,8 @@ abstract class _$$UseImperativeHandleExampleProps extends UiProps
 
   factory _$$UseImperativeHandleExampleProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$UseImperativeHandleExampleProps$JsMap(backingMap);
+      return _$$UseImperativeHandleExampleProps$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$UseImperativeHandleExampleProps$PlainMap(backingMap);
     }

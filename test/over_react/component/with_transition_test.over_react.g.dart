@@ -43,7 +43,7 @@ abstract class _$$WithTransitionTesterProps extends UiProps
 
   factory _$$WithTransitionTesterProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$WithTransitionTesterProps$JsMap(backingMap);
+      return _$$WithTransitionTesterProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$WithTransitionTesterProps$PlainMap(backingMap);
     }
@@ -131,7 +131,8 @@ class _$WithTransitionTesterComponent extends WithTransitionTesterComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override

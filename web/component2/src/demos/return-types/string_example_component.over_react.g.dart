@@ -50,7 +50,7 @@ abstract class _$$StringExampleProps extends _$StringExampleProps
 
   factory _$$StringExampleProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$StringExampleProps$JsMap(backingMap);
+      return _$$StringExampleProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$StringExampleProps$PlainMap(backingMap);
     }
@@ -123,7 +123,8 @@ class _$StringExampleComponent extends StringExampleComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override

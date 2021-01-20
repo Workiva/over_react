@@ -39,7 +39,7 @@ abstract class _$$FaultyProps extends UiProps
 
   factory _$$FaultyProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FaultyProps$JsMap(backingMap);
+      return _$$FaultyProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$FaultyProps$PlainMap(backingMap);
     }
@@ -116,7 +116,7 @@ abstract class _$$FaultyState extends UiState
 
   factory _$$FaultyState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FaultyState$JsMap(backingMap);
+      return _$$FaultyState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$FaultyState$PlainMap(backingMap);
     }
@@ -186,7 +186,8 @@ class _$FaultyComponent extends FaultyComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -208,7 +209,7 @@ class _$FaultyComponent extends FaultyComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -262,8 +263,7 @@ mixin $FaultyState on FaultyState {
   static const StateMeta meta = _$metaForFaultyState;
   @override
   bool get hasErrored =>
-      state[_$key__hasErrored__FaultyState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__hasErrored__FaultyState] ?? null) as bool;
   @override
   set hasErrored(bool value) => state[_$key__hasErrored__FaultyState] = value;
   /* GENERATED CONSTANTS */

@@ -40,7 +40,7 @@ abstract class _$$ShouldNotUpdateProps extends UiProps
 
   factory _$$ShouldNotUpdateProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ShouldNotUpdateProps$JsMap(backingMap);
+      return _$$ShouldNotUpdateProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ShouldNotUpdateProps$PlainMap(backingMap);
     }
@@ -125,7 +125,8 @@ class _$ShouldNotUpdateComponent extends ShouldNotUpdateComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override

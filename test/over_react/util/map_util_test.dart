@@ -437,7 +437,7 @@ void sharedGetBackingMapTests({
       assert(!(shouldTestProps && shouldTestState));
 
       if (shouldTestProps) {
-        finalMap = getBackingMap(TestProps(startingMap));
+        finalMap = getBackingMap(TestProps(startingMap as JsBackedMap));
       } else if (shouldTestState) {
         finalMap = getBackingMap(TestState(startingMap));
       } else {

@@ -478,7 +478,7 @@ main() {
           });
 
           group('abstract props class with builder-compatible dual-class setup', () {
-            void testAbstractPropsDualClassSetup({backwardsCompatible = true, isPrivate = false}) {
+            void testAbstractPropsDualClassSetup({bool backwardsCompatible = true, bool isPrivate = false}) {
               final ors = OverReactSrc.abstractProps(backwardsCompatible: backwardsCompatible, isPrivate: isPrivate);
               setUpAndParse(ors.source);
 
@@ -508,7 +508,7 @@ main() {
           });
 
           group('abstract state class with builder-compatible dual-class setup', () {
-            void testAbstractStateDualClassSetup({backwardsCompatible = true, isPrivate = false}) {
+            void testAbstractStateDualClassSetup({bool backwardsCompatible = true, bool isPrivate = false}) {
               final ors = OverReactSrc.abstractState(backwardsCompatible: true, isPrivate: isPrivate);
               setUpAndParse(ors.source);
 

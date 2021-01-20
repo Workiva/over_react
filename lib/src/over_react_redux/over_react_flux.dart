@@ -634,7 +634,7 @@ extension FluxStoreExtension<S extends flux.Store> on S {
   /// Returns a [ConnectFluxAdapterStore] instance from the Flux store instance.
   ///
   /// This is meant to be a more succinct way to instantiate the adapter store.
-  ConnectFluxAdapterStore asConnectFluxStore(dynamic actions,
+  ConnectFluxAdapterStore<S> asConnectFluxStore(dynamic actions,
       {List<redux.Middleware<S>> middleware}) {
     if (this is InfluxStoreMixin) {
       throw ArgumentError.value(
@@ -643,7 +643,19 @@ extension FluxStoreExtension<S extends flux.Store> on S {
           '`asConnectFluxStore` should not be used when the store is implementing InfluxStoreMixin. Use `asReduxStore` instead');
     }
 
-    return _connectFluxAdapterFor[this] ??=
-        ConnectFluxAdapterStore(this, actions, middleware: middleware);
+    return _connectFluxAdapterFor.putIfAbsentCasted(this, () => ConnectFluxAdapterStore(this, actions, middleware: middleware));
+  }
+}
+
+extension<T> on Expando<T> {
+  S putIfAbsentCasted<S extends T>(Object object, S Function() ifAbsent) {
+    final existingValue = this[object];
+    if (existingValue != null) {
+      return existingValue as S;
+    }
+
+    final newValue = ifAbsent();
+    this[object] = newValue;
+    return newValue;
   }
 }

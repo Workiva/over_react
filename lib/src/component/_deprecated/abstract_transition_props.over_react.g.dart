@@ -26,8 +26,8 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   /// <!-- Generated from [_$TransitionPropsMixin.transitionCount] -->
   @override
   int get transitionCount =>
-      props[_$key__transitionCount___$TransitionPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__transitionCount___$TransitionPropsMixin] ?? null) as int;
+
   /// The number of `transitionend` event that occur when the transition node is shown/hidden.
   ///
   /// Serves as the default for [transitionInCount]/[transitionOutCount] when they are not specified.
@@ -46,8 +46,8 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   /// <!-- Generated from [_$TransitionPropsMixin.transitionInCount] -->
   @override
   int get transitionInCount =>
-      props[_$key__transitionInCount___$TransitionPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__transitionInCount___$TransitionPropsMixin] ?? null) as int;
+
   /// The number of `transitionend` event that occur when the transition node is shown.
   ///
   /// Default: [transitionCount]
@@ -64,8 +64,8 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   /// <!-- Generated from [_$TransitionPropsMixin.transitionOutCount] -->
   @override
   int get transitionOutCount =>
-      props[_$key__transitionOutCount___$TransitionPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__transitionOutCount___$TransitionPropsMixin] ?? null) as int;
+
   /// The number of `transitionend` event that occur when the transition node is hidden.
   ///
   /// Default: [transitionCount]
@@ -82,8 +82,8 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   /// <!-- Generated from [_$TransitionPropsMixin.onWillHide] -->
   @override
   Callback get onWillHide =>
-      props[_$key__onWillHide___$TransitionPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onWillHide___$TransitionPropsMixin] ?? null) as Callback;
+
   /// Optional callback that fires before the [AbstractTransitionComponent] is hidden.
   ///
   /// Returning `false` will cancel default behavior, and the [AbstractTransitionComponent] will remain visible.
@@ -98,8 +98,8 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   /// <!-- Generated from [_$TransitionPropsMixin.onDidHide] -->
   @override
   Callback get onDidHide =>
-      props[_$key__onDidHide___$TransitionPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDidHide___$TransitionPropsMixin] ?? null) as Callback;
+
   /// Optional callback that fires after the [AbstractTransitionComponent] is hidden.
   ///
   /// <!-- Generated from [_$TransitionPropsMixin.onDidHide] -->
@@ -114,8 +114,8 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   /// <!-- Generated from [_$TransitionPropsMixin.onWillShow] -->
   @override
   Callback get onWillShow =>
-      props[_$key__onWillShow___$TransitionPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onWillShow___$TransitionPropsMixin] ?? null) as Callback;
+
   /// Optional callback that fires before the [AbstractTransitionComponent] appears.
   ///
   /// Returning `false` will cancel default behavior, and the [AbstractTransitionComponent] will not appear.
@@ -130,8 +130,8 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   /// <!-- Generated from [_$TransitionPropsMixin.onDidShow] -->
   @override
   Callback get onDidShow =>
-      props[_$key__onDidShow___$TransitionPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDidShow___$TransitionPropsMixin] ?? null) as Callback;
+
   /// Optional callback that fires after the [AbstractTransitionComponent] appears.
   ///
   /// <!-- Generated from [_$TransitionPropsMixin.onDidShow] -->

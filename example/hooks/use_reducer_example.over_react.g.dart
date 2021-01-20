@@ -15,8 +15,7 @@ mixin $UseReducerExampleProps on UseReducerExampleProps {
   static const PropsMeta meta = _$metaForUseReducerExampleProps;
   @override
   int get initialCount =>
-      props[_$key__initialCount__UseReducerExampleProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__initialCount__UseReducerExampleProps] ?? null) as int;
   @override
   set initialCount(int value) =>
       props[_$key__initialCount__UseReducerExampleProps] = value;
@@ -69,7 +68,7 @@ abstract class _$$UseReducerExampleProps extends UiProps
 
   factory _$$UseReducerExampleProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$UseReducerExampleProps$JsMap(backingMap);
+      return _$$UseReducerExampleProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$UseReducerExampleProps$PlainMap(backingMap);
     }

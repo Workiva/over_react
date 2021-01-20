@@ -79,7 +79,7 @@ ComponentTypeMeta getComponentTypeMeta(dynamic type) {
           is String);
 
   if (type is! String) {
-    return getProperty(type, _componentTypeMetaKey) ??
+    return getProperty(type, _componentTypeMetaKey) as ComponentTypeMeta ??
         const ComponentTypeMeta.none();
   }
 
@@ -254,12 +254,12 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias,
     assert(isDartComponent(instance) &&
         'Non-Dart components should not be wrappers' is String);
 
-    List children = getProps(instance)['children'];
+    final children = getProps(instance)['children'] as List;
     if (children == null || children.isEmpty) {
       return false;
     }
 
-    return isComponentOfType(children.first, type,
+    return isComponentOfType(children.first as ReactElement, type,
         traverseWrappers: true, matchParentTypes: matchParentTypes);
   }
 
@@ -282,7 +282,7 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias,
 ///
 /// > Related: [isComponentOfType]
 bool isValidElementOfType(dynamic instance, dynamic typeAlias) {
-  return isValidElement(instance) && isComponentOfType(instance, typeAlias);
+  return isValidElement(instance) && isComponentOfType(instance as ReactElement, typeAlias);
 }
 
 /// Validates that a [ReactComponentFactoryProxy]'s component is not `Component`

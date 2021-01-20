@@ -40,7 +40,7 @@ abstract class _$$FaultyOnMountProps extends UiProps
 
   factory _$$FaultyOnMountProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FaultyOnMountProps$JsMap(backingMap);
+      return _$$FaultyOnMountProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$FaultyOnMountProps$PlainMap(backingMap);
     }
@@ -125,7 +125,8 @@ class _$FaultyOnMountComponent extends FaultyOnMountComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override

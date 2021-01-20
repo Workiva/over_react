@@ -45,7 +45,7 @@ abstract class _$$ToggleButtonProps extends UiProps
 
   factory _$$ToggleButtonProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ToggleButtonProps$JsMap(backingMap);
+      return _$$ToggleButtonProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ToggleButtonProps$PlainMap(backingMap);
     }
@@ -131,7 +131,7 @@ abstract class _$$ToggleButtonState extends UiState
 
   factory _$$ToggleButtonState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ToggleButtonState$JsMap(backingMap);
+      return _$$ToggleButtonState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ToggleButtonState$PlainMap(backingMap);
     }
@@ -201,7 +201,8 @@ class _$ToggleButtonComponent extends ToggleButtonComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -223,7 +224,7 @@ class _$ToggleButtonComponent extends ToggleButtonComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -263,8 +264,7 @@ mixin $ToggleButtonPropsMixin on ToggleButtonPropsMixin {
   @override
   @Accessor(keyNamespace: '')
   bool get autoFocus =>
-      props[_$key__autoFocus__ToggleButtonPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__autoFocus__ToggleButtonPropsMixin] ?? null) as bool;
   @override
   @Accessor(keyNamespace: '')
   set autoFocus(bool value) =>
@@ -272,8 +272,7 @@ mixin $ToggleButtonPropsMixin on ToggleButtonPropsMixin {
   @override
   @Accessor(keyNamespace: '')
   bool get defaultChecked =>
-      props[_$key__defaultChecked__ToggleButtonPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__defaultChecked__ToggleButtonPropsMixin] ?? null) as bool;
   @override
   @Accessor(keyNamespace: '')
   set defaultChecked(bool value) =>
@@ -281,8 +280,7 @@ mixin $ToggleButtonPropsMixin on ToggleButtonPropsMixin {
   @override
   @Accessor(keyNamespace: '')
   bool get checked =>
-      props[_$key__checked__ToggleButtonPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__checked__ToggleButtonPropsMixin] ?? null) as bool;
   @override
   @Accessor(keyNamespace: '')
   set checked(bool value) =>
@@ -326,15 +324,13 @@ mixin $ToggleButtonStateMixin on ToggleButtonStateMixin {
   static const StateMeta meta = _$metaForToggleButtonStateMixin;
   @override
   bool get isFocused =>
-      state[_$key__isFocused__ToggleButtonStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__isFocused__ToggleButtonStateMixin] ?? null) as bool;
   @override
   set isFocused(bool value) =>
       state[_$key__isFocused__ToggleButtonStateMixin] = value;
   @override
   bool get isChecked =>
-      state[_$key__isChecked__ToggleButtonStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__isChecked__ToggleButtonStateMixin] ?? null) as bool;
   @override
   set isChecked(bool value) =>
       state[_$key__isChecked__ToggleButtonStateMixin] = value;

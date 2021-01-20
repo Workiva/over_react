@@ -40,7 +40,7 @@ abstract class _$$PropTypesWrapProps extends UiProps
 
   factory _$$PropTypesWrapProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$PropTypesWrapProps$JsMap(backingMap);
+      return _$$PropTypesWrapProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$PropTypesWrapProps$PlainMap(backingMap);
     }
@@ -117,7 +117,7 @@ abstract class _$$PropTypesWrapState extends UiState
 
   factory _$$PropTypesWrapState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$PropTypesWrapState$JsMap(backingMap);
+      return _$$PropTypesWrapState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$PropTypesWrapState$PlainMap(backingMap);
     }
@@ -187,7 +187,8 @@ class _$PropTypesWrapComponent extends PropTypesWrapComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -209,7 +210,7 @@ class _$PropTypesWrapComponent extends PropTypesWrapComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -263,8 +264,7 @@ mixin $PropTypesWrapState on PropTypesWrapState {
   static const StateMeta meta = _$metaForPropTypesWrapState;
   @override
   List get twoObjects =>
-      state[_$key__twoObjects__PropTypesWrapState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__twoObjects__PropTypesWrapState] ?? null) as List;
   @override
   set twoObjects(List value) =>
       state[_$key__twoObjects__PropTypesWrapState] = value;
