@@ -183,13 +183,13 @@ __`UiFactory` is a function__ that returns a new instance of a
 [`UiComponent2`](#uicomponent2)’s [`UiProps`](#uiprops) class.
 
 ```dart
-UiFactory<FooProps> Foo = castUiFactory(_$Foo);
+UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 ```
 
 * This factory is __the entry-point__ to consuming any OverReact component.
 * The `UiProps` instance it returns can be used [as a component builder](#uiprops-as-a-builder),
 or [as a typed view into an existing props map](#uiprops-as-a-map).
-* `castUiFactory` is necessary to prevent implicit cast analysis warnings.
+* `castUiFactory` is necessary to prevent implicit cast analysis warnings before code generation has been run.
 
 &nbsp;
 
@@ -215,7 +215,7 @@ mixin FooProps on UiProps {
 __To compose props mixin classes__, create a class alias that uses `UiProps` as the base and mix in multiple props mixins. The generated props implementation will then use it as the base class and implement the generated version of those props mixins.
 
 ```dart
-UiFactory<FooProps> Foo = castUiFactory(_$Foo);
+UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooPropsMixin on UiProps {
   String bar;
@@ -240,7 +240,7 @@ The use-case for composing multiple props mixins into a single component props c
 #### UiProps as a Map
 
 ```dart
-UiFactory<FooProps> Foo = castUiFactory(_$Foo);
+UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooProps on UiProps {
   String color;
@@ -275,7 +275,7 @@ void baz() {
 #### UiProps as a builder
 
 ```dart
-UiFactory<FooProps> Foo = castUiFactory(_$Foo);
+UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooProps on UiProps {
   String color;
@@ -354,7 +354,7 @@ They are instances of `UiProps` and `UiState`, __which means you don’t need St
 * `typedPropsFactory()` and `typedStateFactory()` are also exposed to conveniently create typed `props` / `state` objects out of any provided backing map.
 
 ```dart
-UiFactory<FooProps> Foo = castUiFactory(_$Foo);
+UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooProps on UiProps {
   String color;

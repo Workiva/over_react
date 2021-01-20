@@ -18,6 +18,8 @@ _Preview of new boilerplate:_
     * [Constraints](#function-component-constraints)
     * [Syntax](#syntax)
 * __[Upgrading Existing Code](#upgrading-existing-code)__
+    * [Upgrade to the Mixin Based Boilerplate](#upgrade-to-the-mixin-based-boilerplate)
+    * [Upgrade to the New Factory Syntax](#upgrade-to-the-new-factory-syntax)
 
 ## Background
 
@@ -213,15 +215,16 @@ ecosystems.
 
 #### Add `castUiFactory` Utility
 
-A utility called `castUiFactory` has been added that protects against implicit cast warnings
-on factory declarations. All that needs to be done is to wrap the generated factory with
-`castUiFactory`, so that it can infer the typing from the left hand side and cast the
-factory (considered "dynamic") to the correct type.
+A utility called `castUiFactory` has been added that prevent implicit cast errors 
+(which are no longer ignorable as of Dart 2.9) on factory declarations. All that needs to be done is to wrap the generated 
+factory with `castUiFactory`, so that it can infer the typing from the left hand side and cast the factory (considered 
+"dynamic" before code generation is run) to the correct type.
 
 ```diff
 @Factory()
 UiFactory<FooProps> Foo =
-+    castUiFactory(_$Foo); // ignore: undefined_identifier
+-     _$Foo; // ignore: undefined_identifier
++     castUiFactory(_$Foo); // ignore: undefined_identifier
 ```
 
 #### Remove Annotations
@@ -908,9 +911,15 @@ UiFactory<FooProps> Foo = uiForwardRef(
 
 ## Upgrading Existing Code
 
-To update your repository to the new boilerplate, you can use 
-[over_react_codemod](https://github.com/Workiva/over_react_codemod)'s 
-`boilerplate_upgrade` executable to make it easier. This codemod goes 
+To update your repository to the new boilerplate, there are two steps:
+1. Upgrade to the `mixin` based boilerplate.
+1. Upgrade to use the new factory syntax.
+
+If you are already using the mixin based boilerplate, skip to [Upgrade to the New Factory Syntax](#upgrade-to-the-new-factory-syntax).
+
+### Upgrade to the Mixin Based Boilerplate
+You can use [over_react_codemod](https://github.com/Workiva/over_react_codemod)'s 
+`boilerplate_upgrade` executable to make this step easier. This codemod goes 
 through the repository and updates the boilerplate as necessary. While 
 the codemod will handle many basic updates, it will still need to be 
 supplemented with some manual checks and refactoring. 
@@ -945,3 +954,13 @@ semver report) _will not_ be upgraded.
 * `--convert-classes-with-external-superclasses`: allows classes with external
 superclasses to be upgraded to the new boilerplate. Without this flag, all classes
 with external superclasses _will not_ be upgraded.
+
+### Upgrade to the new factory syntax
+Similar to step number 1, there is a codemod to assist with this. After activating over_react_codemod, within your 
+project, run:
+```bash
+pub global run over_react_codemod:dart2_9_upgrade
+```
+
+This upgrade is considered very minor, and while manual intervention may be necessary, we are not 
+aware of any edge cases that will be notably difficult.
