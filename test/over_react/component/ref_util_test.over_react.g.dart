@@ -197,12 +197,13 @@ const PropsMeta _$metaForBasicUiFunctionProps = PropsMeta(
   keys: $BasicUiFunctionProps.$propKeys,
 );
 
-final dynamic _$BasicUiFunctionConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$BasicUiFunctionProps(map),
-      jsMap: (map) => _$$BasicUiFunctionProps$JsMap(map),
-    ),
-    displayName: 'BasicUiFunction');
+final UiFactoryConfig<_$$BasicUiFunctionProps> _$BasicUiFunctionConfig =
+    UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$BasicUiFunctionProps(map),
+          jsMap: (map) => _$$BasicUiFunctionProps$JsMap(map),
+        ),
+        displayName: 'BasicUiFunction');
 
 @Deprecated(r'Use the private variable, _$BasicUiFunctionConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
@@ -282,12 +283,13 @@ class _$$BasicUiFunctionProps$JsMap extends _$$BasicUiFunctionProps {
   JsBackedMap _props;
 }
 
-final dynamic _$TopLevelForwardUiRefFunctionConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$SecondaryBasicUiFunctionProps(map),
-      jsMap: (map) => _$$SecondaryBasicUiFunctionProps$JsMap(map),
-    ),
-    displayName: 'TopLevelForwardUiRefFunction');
+final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
+    _$TopLevelForwardUiRefFunctionConfig = UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$SecondaryBasicUiFunctionProps(map),
+          jsMap: (map) => _$$SecondaryBasicUiFunctionProps$JsMap(map),
+        ),
+        displayName: 'TopLevelForwardUiRefFunction');
 
 @Deprecated(
     r'Use the private variable, _$TopLevelForwardUiRefFunctionConfig, instead '

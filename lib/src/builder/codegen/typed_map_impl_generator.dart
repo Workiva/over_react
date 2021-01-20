@@ -389,7 +389,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   bool get isComponent2 => true;
 
   String _generateUiFactoryConfig(FactoryNames factoryName) {
-    return 'final dynamic '
+    return 'final UiFactoryConfig<${names.implName}> '
         '${factoryName.privateConfigName} = UiFactoryConfig(\n'
         'propsFactory: PropsFactory(\n'
         'map: (map) => ${names.implName}(map),\n'

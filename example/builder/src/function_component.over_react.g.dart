@@ -123,7 +123,7 @@ const PropsMeta _$metaForFooProps = PropsMeta(
   keys: $FooProps.$propKeys,
 );
 
-final dynamic _$BasicConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$BasicProps> _$BasicConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$BasicProps(map),
       jsMap: (map) => _$$BasicProps$JsMap(map),
@@ -135,7 +135,7 @@ final dynamic _$BasicConfig = UiFactoryConfig(
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$BasicProps> $BasicConfig = _$BasicConfig;
 
-final dynamic _$SimpleConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$BasicProps> _$SimpleConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$BasicProps(map),
       jsMap: (map) => _$$BasicProps$JsMap(map),
@@ -219,7 +219,7 @@ class _$$BasicProps$JsMap extends _$$BasicProps {
   JsBackedMap _props;
 }
 
-final dynamic _$FooConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$FooProps> _$FooConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$FooProps(map),
       jsMap: (map) => _$$FooProps$JsMap(map),

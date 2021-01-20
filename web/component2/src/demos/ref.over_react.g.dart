@@ -550,12 +550,13 @@ const PropsMeta _$metaForRefDemoHocProps = PropsMeta(
   keys: $RefDemoHocProps.$propKeys,
 );
 
-final dynamic _$FancyButtonConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$FancyButtonProps(map),
-      jsMap: (map) => _$$FancyButtonProps$JsMap(map),
-    ),
-    displayName: 'FancyButton');
+final UiFactoryConfig<_$$FancyButtonProps> _$FancyButtonConfig =
+    UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$FancyButtonProps(map),
+          jsMap: (map) => _$$FancyButtonProps$JsMap(map),
+        ),
+        displayName: 'FancyButton');
 
 @Deprecated(r'Use the private variable, _$FancyButtonConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
@@ -635,7 +636,7 @@ class _$$FancyButtonProps$JsMap extends _$$FancyButtonProps {
   JsBackedMap _props;
 }
 
-final dynamic _$Foo2Config = UiFactoryConfig(
+final UiFactoryConfig<_$$Foo2Props> _$Foo2Config = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$Foo2Props(map),
       jsMap: (map) => _$$Foo2Props$JsMap(map),
@@ -724,7 +725,7 @@ class _$$Foo2Props$JsMap extends _$$Foo2Props {
   JsBackedMap _props;
 }
 
-final dynamic _$BazConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$BazProps> _$BazConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$BazProps(map),
       jsMap: (map) => _$$BazProps$JsMap(map),
@@ -808,12 +809,13 @@ class _$$BazProps$JsMap extends _$$BazProps {
   JsBackedMap _props;
 }
 
-final dynamic _$RefDemoContainerConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$RefDemoProps(map),
-      jsMap: (map) => _$$RefDemoProps$JsMap(map),
-    ),
-    displayName: 'RefDemoContainer');
+final UiFactoryConfig<_$$RefDemoProps> _$RefDemoContainerConfig =
+    UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$RefDemoProps(map),
+          jsMap: (map) => _$$RefDemoProps$JsMap(map),
+        ),
+        displayName: 'RefDemoContainer');
 
 @Deprecated(r'Use the private variable, _$RefDemoContainerConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
@@ -893,12 +895,13 @@ class _$$RefDemoProps$JsMap extends _$$RefDemoProps {
   JsBackedMap _props;
 }
 
-final dynamic _$RefDemoSectionConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$RefDemoSectionProps(map),
-      jsMap: (map) => _$$RefDemoSectionProps$JsMap(map),
-    ),
-    displayName: 'RefDemoSection');
+final UiFactoryConfig<_$$RefDemoSectionProps> _$RefDemoSectionConfig =
+    UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$RefDemoSectionProps(map),
+          jsMap: (map) => _$$RefDemoSectionProps$JsMap(map),
+        ),
+        displayName: 'RefDemoSection');
 
 @Deprecated(r'Use the private variable, _$RefDemoSectionConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
@@ -978,7 +981,7 @@ class _$$RefDemoSectionProps$JsMap extends _$$RefDemoSectionProps {
   JsBackedMap _props;
 }
 
-final dynamic _$RefDemoHocConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$RefDemoHocProps> _$RefDemoHocConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$RefDemoHocProps(map),
       jsMap: (map) => _$$RefDemoHocProps$JsMap(map),

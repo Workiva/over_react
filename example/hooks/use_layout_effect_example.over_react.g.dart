@@ -26,12 +26,13 @@ const PropsMeta _$metaForUseLayoutEffectProps = PropsMeta(
   keys: $UseLayoutEffectProps.$propKeys,
 );
 
-final dynamic _$UseLayoutEffectExampleConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$UseLayoutEffectProps(map),
-      jsMap: (map) => _$$UseLayoutEffectProps$JsMap(map),
-    ),
-    displayName: 'UseLayoutEffectExample');
+final UiFactoryConfig<_$$UseLayoutEffectProps> _$UseLayoutEffectExampleConfig =
+    UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$UseLayoutEffectProps(map),
+          jsMap: (map) => _$$UseLayoutEffectProps$JsMap(map),
+        ),
+        displayName: 'UseLayoutEffectExample');
 
 @Deprecated(
     r'Use the private variable, _$UseLayoutEffectExampleConfig, instead '

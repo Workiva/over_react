@@ -45,12 +45,13 @@ const PropsMeta _$metaForNewContextProviderProps = PropsMeta(
   keys: $NewContextProviderProps.$propKeys,
 );
 
-final dynamic _$UseContextExampleConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$UseContextExampleProps(map),
-      jsMap: (map) => _$$UseContextExampleProps$JsMap(map),
-    ),
-    displayName: 'UseContextExample');
+final UiFactoryConfig<_$$UseContextExampleProps> _$UseContextExampleConfig =
+    UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$UseContextExampleProps(map),
+          jsMap: (map) => _$$UseContextExampleProps$JsMap(map),
+        ),
+        displayName: 'UseContextExample');
 
 @Deprecated(r'Use the private variable, _$UseContextExampleConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
@@ -130,12 +131,13 @@ class _$$UseContextExampleProps$JsMap extends _$$UseContextExampleProps {
   JsBackedMap _props;
 }
 
-final dynamic _$NewContextProviderConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$NewContextProviderProps(map),
-      jsMap: (map) => _$$NewContextProviderProps$JsMap(map),
-    ),
-    displayName: 'NewContextProvider');
+final UiFactoryConfig<_$$NewContextProviderProps> _$NewContextProviderConfig =
+    UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$NewContextProviderProps(map),
+          jsMap: (map) => _$$NewContextProviderProps$JsMap(map),
+        ),
+        displayName: 'NewContextProvider');
 
 @Deprecated(r'Use the private variable, _$NewContextProviderConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '

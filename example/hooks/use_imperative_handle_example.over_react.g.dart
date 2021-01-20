@@ -70,7 +70,7 @@ const PropsMeta _$metaForUseImperativeHandleExampleProps = PropsMeta(
   keys: $UseImperativeHandleExampleProps.$propKeys,
 );
 
-final dynamic _$FancyInputConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$FancyInputProps> _$FancyInputConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$FancyInputProps(map),
       jsMap: (map) => _$$FancyInputProps$JsMap(map),
@@ -155,12 +155,13 @@ class _$$FancyInputProps$JsMap extends _$$FancyInputProps {
   JsBackedMap _props;
 }
 
-final dynamic _$UseImperativeHandleExampleConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$UseImperativeHandleExampleProps(map),
-      jsMap: (map) => _$$UseImperativeHandleExampleProps$JsMap(map),
-    ),
-    displayName: 'UseImperativeHandleExample');
+final UiFactoryConfig<_$$UseImperativeHandleExampleProps>
+    _$UseImperativeHandleExampleConfig = UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$UseImperativeHandleExampleProps(map),
+          jsMap: (map) => _$$UseImperativeHandleExampleProps$JsMap(map),
+        ),
+        displayName: 'UseImperativeHandleExample');
 
 @Deprecated(
     r'Use the private variable, _$UseImperativeHandleExampleConfig, instead '

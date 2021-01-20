@@ -58,12 +58,13 @@ const PropsMeta _$metaForUseDebugValueExampleProps = PropsMeta(
   keys: $UseDebugValueExampleProps.$propKeys,
 );
 
-final dynamic _$FriendListItemConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$FriendListItemProps(map),
-      jsMap: (map) => _$$FriendListItemProps$JsMap(map),
-    ),
-    displayName: 'FriendListItem');
+final UiFactoryConfig<_$$FriendListItemProps> _$FriendListItemConfig =
+    UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$FriendListItemProps(map),
+          jsMap: (map) => _$$FriendListItemProps$JsMap(map),
+        ),
+        displayName: 'FriendListItem');
 
 @Deprecated(r'Use the private variable, _$FriendListItemConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
@@ -143,12 +144,13 @@ class _$$FriendListItemProps$JsMap extends _$$FriendListItemProps {
   JsBackedMap _props;
 }
 
-final dynamic _$UseDebugValueExampleConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$UseDebugValueExampleProps(map),
-      jsMap: (map) => _$$UseDebugValueExampleProps$JsMap(map),
-    ),
-    displayName: 'UseDebugValueExample');
+final UiFactoryConfig<_$$UseDebugValueExampleProps>
+    _$UseDebugValueExampleConfig = UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$UseDebugValueExampleProps(map),
+          jsMap: (map) => _$$UseDebugValueExampleProps$JsMap(map),
+        ),
+        displayName: 'UseDebugValueExample');
 
 @Deprecated(r'Use the private variable, _$UseDebugValueExampleConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '

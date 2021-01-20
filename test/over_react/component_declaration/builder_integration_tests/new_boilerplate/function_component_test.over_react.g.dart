@@ -178,7 +178,7 @@ const PropsMeta _$metaForAThirdPropsMixin = PropsMeta(
   keys: $AThirdPropsMixin.$propKeys,
 );
 
-final dynamic _$TestConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$TestProps> _$TestConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$TestProps(map),
       jsMap: (map) => _$$TestProps$JsMap(map),
@@ -190,7 +190,7 @@ final dynamic _$TestConfig = UiFactoryConfig(
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$TestProps> $TestConfig = _$TestConfig;
 
-final dynamic _$TestPublicConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$TestProps> _$TestPublicConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$TestProps(map),
       jsMap: (map) => _$$TestProps$JsMap(map),
@@ -202,7 +202,7 @@ final dynamic _$TestPublicConfig = UiFactoryConfig(
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$TestProps> $TestPublicConfig = _$TestPublicConfig;
 
-final dynamic _$NoLHSTestConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$TestProps> _$NoLHSTestConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$TestProps(map),
       jsMap: (map) => _$$TestProps$JsMap(map),
@@ -214,7 +214,7 @@ final dynamic _$NoLHSTestConfig = UiFactoryConfig(
     'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
 final UiFactoryConfig<_$$TestProps> $NoLHSTestConfig = _$NoLHSTestConfig;
 
-final dynamic _$_TestConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$TestProps> _$_TestConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$TestProps(map),
       jsMap: (map) => _$$TestProps$JsMap(map),

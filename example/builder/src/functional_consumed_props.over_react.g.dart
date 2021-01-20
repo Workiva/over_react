@@ -75,7 +75,7 @@ const PropsMeta _$metaForSharedPropsMixin = PropsMeta(
   keys: $SharedPropsMixin.$propKeys,
 );
 
-final dynamic _$SomeParentConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$SomeParentProps> _$SomeParentConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$SomeParentProps(map),
       jsMap: (map) => _$$SomeParentProps$JsMap(map),
@@ -165,7 +165,7 @@ class _$$SomeParentProps$JsMap extends _$$SomeParentProps {
   JsBackedMap _props;
 }
 
-final dynamic _$SomeChildConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$SomeChildProps> _$SomeChildConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$SomeChildProps(map),
       jsMap: (map) => _$$SomeChildProps$JsMap(map),

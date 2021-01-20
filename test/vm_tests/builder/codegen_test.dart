@@ -658,7 +658,7 @@ main() {
 
       group('and generates props config for function components constructed with', () {
         String generatedConfig(String propsName, String factoryName) {
-          return 'final dynamic '
+          return 'final UiFactoryConfig<_\$\$$propsName> '
             '_\$${factoryName}Config = UiFactoryConfig(\n'
             'propsFactory: PropsFactory(\n'
             'map: (map) => _\$\$$propsName(map),\n'

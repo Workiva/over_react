@@ -215,12 +215,13 @@ const PropsMeta _$metaForFunctionCustomPropsProps = PropsMeta(
   keys: $FunctionCustomPropsProps.$propKeys,
 );
 
-final dynamic _$FunctionCustomPropsConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$FunctionCustomPropsProps(map),
-      jsMap: (map) => _$$FunctionCustomPropsProps$JsMap(map),
-    ),
-    displayName: 'FunctionCustomProps');
+final UiFactoryConfig<_$$FunctionCustomPropsProps> _$FunctionCustomPropsConfig =
+    UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$FunctionCustomPropsProps(map),
+          jsMap: (map) => _$$FunctionCustomPropsProps$JsMap(map),
+        ),
+        displayName: 'FunctionCustomProps');
 
 @Deprecated(r'Use the private variable, _$FunctionCustomPropsConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '

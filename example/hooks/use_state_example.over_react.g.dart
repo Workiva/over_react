@@ -26,12 +26,13 @@ const PropsMeta _$metaForUseStateExampleProps = PropsMeta(
   keys: $UseStateExampleProps.$propKeys,
 );
 
-final dynamic _$UseStateExampleConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$UseStateExampleProps(map),
-      jsMap: (map) => _$$UseStateExampleProps$JsMap(map),
-    ),
-    displayName: 'UseStateExample');
+final UiFactoryConfig<_$$UseStateExampleProps> _$UseStateExampleConfig =
+    UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$UseStateExampleProps(map),
+          jsMap: (map) => _$$UseStateExampleProps$JsMap(map),
+        ),
+        displayName: 'UseStateExample');
 
 @Deprecated(r'Use the private variable, _$UseStateExampleConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '

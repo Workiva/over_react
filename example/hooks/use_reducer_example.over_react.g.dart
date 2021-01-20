@@ -41,12 +41,13 @@ const PropsMeta _$metaForUseReducerExampleProps = PropsMeta(
   keys: $UseReducerExampleProps.$propKeys,
 );
 
-final dynamic _$UseReducerExampleConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$UseReducerExampleProps(map),
-      jsMap: (map) => _$$UseReducerExampleProps$JsMap(map),
-    ),
-    displayName: 'UseReducerExample');
+final UiFactoryConfig<_$$UseReducerExampleProps> _$UseReducerExampleConfig =
+    UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$UseReducerExampleProps(map),
+          jsMap: (map) => _$$UseReducerExampleProps$JsMap(map),
+        ),
+        displayName: 'UseReducerExample');
 
 @Deprecated(r'Use the private variable, _$UseReducerExampleConfig, instead '
     'and update the `over_react` lower bound to version 4.1.0. '
