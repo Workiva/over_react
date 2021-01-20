@@ -212,7 +212,7 @@ main() {
     });
 
     void sharedAliasTests(void Function(dynamic alias) testBody) {
-      group('an alias', () {
+      group('an alias, when the argument is', () {
         test('a UiFactory', () {
           // This need to be a new instance every test run, which is why we
           // don't set it up within the group.
@@ -234,7 +234,7 @@ main() {
     }
 
     void sharedBadTypeTests(void Function(dynamic badType) testBody) {
-      group('a bad type', () {
+      group('a bad type, when the argument is', () {
         test('null', () => testBody(null));
         test('a primitive', () => testBody(1));
         test('a string', () => testBody('I am a string'));
@@ -260,10 +260,10 @@ main() {
                   ? 'cannot set type metadata on strings'
                   : 'must pass in the raw JS component type'));
         });
-      }, tags: 'no-dart2js');
+      }, tags: 'ddc');
     });
 
-    group('ComponentTypeMeta constrictor', () {
+    group('ComponentTypeMeta constructor', () {
       // other behavior is tested functionally as part of the shared suite and other callers like setComponentTypeMeta and its callers
 
       group('asserts that the parentType argument is not', () {
@@ -273,10 +273,20 @@ main() {
         });
 
         sharedBadTypeTests((badType) {
-          expect(() => ComponentTypeMeta(parentType: badType),
-              throwsAssertionErrorContaining('must pass in the raw JS component type'));
+          if (badType == null) {
+            expect(
+                () => ComponentTypeMeta(parentType: badType), returnsNormally,
+                reason: 'null parentTypes are permitted');
+          } else if (badType is String) {
+            expect(
+                () => ComponentTypeMeta(parentType: badType), returnsNormally,
+                reason: 'string parentTypes are permitted');
+          } else {
+            expect(() => ComponentTypeMeta(parentType: badType),
+                throwsAssertionErrorContaining('must pass in the raw JS component type'));
+          }
         });
-      });
+      }, tags: 'ddc');
     });
   });
 }
