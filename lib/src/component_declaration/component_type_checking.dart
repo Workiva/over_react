@@ -37,13 +37,13 @@ extension UiFactoryTypeMeta on UiFactory {
   /// Sets metadata for the underlying component class/type associated with this
   /// factory, functionally equivalent to the [annotations.Component2] annotation.
   ///
-  /// However, unlike the annotation, this can be use for function components.
+  /// However, unlike the annotation, this can be used for function components.
   ///
   /// ## subtypeOf arguments: [subtypeOfFactory]/[subtypeOfRaw]
   ///
   /// The raw JS component type that is this component's "parent type".
   ///
-  /// Used to enable inheritance in component type-checking in `isComponentOfType`.
+  /// Used to enable inheritance in component type-checking in [isComponentOfType].
   ///
   /// [subtypeOfRaw] accepts the raw underlying type, and
   /// [subtypeOfFactory] accepts a factory, for convenience.
