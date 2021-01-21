@@ -25,23 +25,22 @@ main() {
     test('infers the typing of a factory', () {
       UiFactory<BasicProps> testFactory = castUiFactory(_$Basic);
 
-      expect(testFactory, isA<UiFactory<BasicProps>>());
+      // This assignment should analyze properly without any static implicit_cast errors
+      UiFactory<BasicProps> testAssignment = testFactory; // ignore: unused_local_variable
     });
 
     test('can use generics to set the type', () {
       final testFactory = castUiFactory<BasicProps>(_$Basic);
 
-      expect(testFactory, isA<UiFactory<BasicProps>>());
+      // This assignment should analyze properly without any static implicit_cast errors
+      UiFactory<BasicProps> testAssignment = testFactory; // ignore: unused_local_variable
     });
 
     test('will leave the type a `UiFactory<UiProps` if no type is provided', () {
       final testFactory = castUiFactory(_$Basic);
 
       // This assignment should analyze properly without any static implicit_cast errors
-      UiFactory<UiProps> testAssignment = testFactory;
-
-      // This is just here to avoid an unused variable lint
-      expect(testAssignment, isA<UiFactory<UiProps>>());
+      UiFactory<UiProps> testAssignment = testFactory; // ignore: unused_local_variable
     });
 
     test('throws an error if provided something other than a UiFactory', () {
