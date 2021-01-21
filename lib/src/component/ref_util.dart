@@ -394,19 +394,19 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 ///       .._inputRef = ref
 ///     )();
 ///   },
-///   $Foo2Config, // ignore: undefined_identifier
+///   _$Foo2Config, // ignore: undefined_identifier
 /// );
 UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
-    dynamic Function(TProps props, dynamic ref) functionComponent, UiFactoryConfig<TProps> config) {
+    dynamic Function(TProps props, dynamic ref) functionComponent, dynamic config) {
   ArgumentError.checkNotNull(config, 'config');
 
   // ignore: invalid_use_of_protected_member
-  var propsFactory = config.propsFactory;
+  var propsFactory = config.propsFactory as PropsFactory<TProps>;
 
   // Get the display name from the inner function if possible so it doesn't become `_uiFunctionWrapper`.
   // If the function is an anonymous function and a display name is not set,
   // this will be an empty string.
-  final displayName = config.displayName ?? getFunctionName(functionComponent);
+  final displayName = (config.displayName as String) ?? getFunctionName(functionComponent);
 
   dynamic _uiFunctionWrapper(JsBackedMap props, dynamic ref) {
     return functionComponent(propsFactory.jsMap(props), ref);

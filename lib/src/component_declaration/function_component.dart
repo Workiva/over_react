@@ -94,14 +94,14 @@ export 'component_type_checking.dart'
 // TODO: right now only top level factory declarations will generate props configs.
 UiFactory<TProps> uiFunction<TProps extends UiProps>(
   dynamic Function(TProps props) functionComponent,
-  UiFactoryConfig<TProps> config,
+  dynamic config,
 ) {
   ArgumentError.checkNotNull(config, 'config');
 
-  var propsFactory = config.propsFactory;
+  var propsFactory = config.propsFactory as PropsFactory<TProps>;
 
   // Get the display name from the inner function if possible so it doesn't become `_uiFunctionWrapper`
-  final displayName = config.displayName ?? getFunctionName(functionComponent);
+  final displayName = (config.displayName as String) ?? getFunctionName(functionComponent);
 
   dynamic _uiFunctionWrapper(JsBackedMap props) {
     return functionComponent(propsFactory.jsMap(props));
