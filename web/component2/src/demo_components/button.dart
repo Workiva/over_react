@@ -22,7 +22,7 @@ part 'button.over_react.g.dart';
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
 
-UiFactory<ButtonProps> Button = _$Button;
+UiFactory<ButtonProps> Button = castUiFactory(_$Button);
 
 mixin ButtonProps on UiProps {
   /// The skin / "context" for the [Button].

@@ -21,23 +21,58 @@ part 'compact_hoc_syntax_integration_test.over_react.g.dart';
 
 main() {
   group('Compact HOC syntax, with generated factory used in factory initializer:', () {
-    test('variable initializes correctly', () {
-      expect(() => Foo, returnsNormally);
-      expect(Foo, isNotNull);
+    group('(using Dart <2.9.0 syntax)', () {
+      test('variable initializes correctly', () {
+        expect(() => Foo, returnsNormally);
+        expect(Foo, isNotNull);
+      });
+
+      test('component renders normally, and reading/writing props works', () {
+        TestJacket<FooComponent> jacket;
+        expect(() {
+          jacket = mount(
+            (ReduxProvider()..store = Store((_, __) => null))(
+              (Foo()..foo = 'bar')(),
+            ),
+          );
+        }, returnsNormally);
+        expect(jacket.mountNode.text, contains('bar'));
+      });
     });
 
-    test('component renders normally, and reading/writing props works', () {
-      TestJacket<FooComponent> jacket;
-      expect(() {
-        jacket = mount(
-          (ReduxProvider()..store = Store((_, __) => null))(
-            (Foo()..foo = 'bar')(),
-          ),
-        );
-      }, returnsNormally);
-      expect(jacket.mountNode.text, contains('bar'));
+    group('(using Dart >=2.9.0 syntax)', () {
+      test('variable initializes correctly', () {
+        expect(() => Foo290, returnsNormally);
+        expect(Foo290, isNotNull);
+      });
+
+      test('component renders normally, and reading/writing props works', () {
+        TestJacket<FooComponent290> jacket;
+        expect(() {
+          jacket = mount(
+            (ReduxProvider()..store = Store((_, __) => null))(
+              (Foo290()..foo = 'bar')(),
+            ),
+          );
+        }, returnsNormally);
+        expect(jacket.mountNode.text, contains('bar'));
+      });
     });
   });
+}
+
+UiFactory<Foo290Props> Foo290 = connect<Null, Foo290Props>(
+  mapStateToPropsWithOwnProps: (state, props) => Foo(),
+  mapDispatchToPropsWithOwnProps: (state, props) => Foo(),
+)(castUiFactory(_$Foo290)); // ignore: undefined_identifier
+
+mixin Foo290Props on UiProps {
+  String foo;
+}
+
+class FooComponent290 extends UiComponent2<Foo290Props> {
+  @override
+  render() => props.foo;
 }
 
 UiFactory<FooProps> Foo = connect<Null, FooProps>(

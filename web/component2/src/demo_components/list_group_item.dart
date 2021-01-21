@@ -22,7 +22,7 @@ part 'list_group_item.over_react.g.dart';
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
 
-UiFactory<ListGroupItemProps> ListGroupItem = _$ListGroupItem;
+UiFactory<ListGroupItemProps> ListGroupItem = castUiFactory(_$ListGroupItem);
 
 mixin ListGroupItemProps on UiProps {
   /// The HTML element type for the [ListGroupItem], specifying its DOM

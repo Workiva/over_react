@@ -12,6 +12,162 @@ part of 'component_integration_verbose_syntax_test.dart';
 // Registers component implementation and links type meta to builder factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
+final $ComponentTest290ComponentFactory = registerComponent2(
+  () => _$ComponentTest290Component(),
+  builderFactory: _$ComponentTest290,
+  componentClass: ComponentTest290Component,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'ComponentTest290',
+);
+
+_$$ComponentTestProps290Props _$ComponentTest290([Map backingProps]) =>
+    backingProps == null
+        ? _$$ComponentTestProps290Props$JsMap(JsBackedMap())
+        : _$$ComponentTestProps290Props(backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ComponentTestProps290Props extends UiProps
+    with
+        ComponentTestPropsMixin,
+        $ComponentTestPropsMixin, // If this generated mixin is undefined, it's likely because ComponentTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ComponentTestPropsMixin, and check that $ComponentTestPropsMixin is exported/imported properly.
+        TestPropsMixin,
+        $TestPropsMixin // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestPropsMixin, and check that $TestPropsMixin is exported/imported properly.
+    implements
+        ComponentTestProps290Props {
+  _$$ComponentTestProps290Props._();
+
+  factory _$$ComponentTestProps290Props(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$ComponentTestProps290Props$JsMap(backingMap as JsBackedMap);
+    } else {
+      return _$$ComponentTestProps290Props$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The `ReactComponentFactory` associated with the component built by this class.
+  @override
+  ReactComponentFactoryProxy get componentFactory =>
+      super.componentFactory ?? $ComponentTest290ComponentFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ComponentTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ComponentTestPropsMixin, and check that $ComponentTestPropsMixin is exported/imported properly.
+        ComponentTestPropsMixin: $ComponentTestPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestPropsMixin, and check that $TestPropsMixin is exported/imported properly.
+        TestPropsMixin: $TestPropsMixin.meta,
+      });
+}
+
+// Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$ComponentTestProps290Props$PlainMap
+    extends _$$ComponentTestProps290Props {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ComponentTestProps290Props$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$ComponentTestProps290Props$JsMap
+    extends _$$ComponentTestProps290Props {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ComponentTestProps290Props$JsMap(JsBackedMap backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+// Concrete component implementation mixin.
+//
+// Implements typed props/state factories, defaults `consumedPropKeys` to the keys
+// generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$ComponentTest290Component extends ComponentTest290Component {
+  _$$ComponentTestProps290Props$JsMap _cachedTypedProps;
+
+  @override
+  _$$ComponentTestProps290Props$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
+    super.props = value;
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+  }
+
+  @override
+  _$$ComponentTestProps290Props$JsMap typedPropsFactoryJs(
+          JsBackedMap backingMap) =>
+      _$$ComponentTestProps290Props$JsMap(backingMap);
+
+  @override
+  _$$ComponentTestProps290Props typedPropsFactory(Map backingMap) =>
+      _$$ComponentTestProps290Props(backingMap);
+
+  /// Let `UiComponent` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default consumed props, comprising all props mixins used by ComponentTestProps290Props.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
+  @override
+  get $defaultConsumedProps => propsMeta.all;
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ComponentTestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ComponentTestPropsMixin, and check that $ComponentTestPropsMixin is exported/imported properly.
+        ComponentTestPropsMixin: $ComponentTestPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because TestPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TestPropsMixin, and check that $TestPropsMixin is exported/imported properly.
+        TestPropsMixin: $TestPropsMixin.meta,
+      });
+}
+
+// React component factory implementation.
+//
+// Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $ComponentTestComponentFactory = registerComponent2(
   () => _$ComponentTestComponent(),
   builderFactory: _$ComponentTest,

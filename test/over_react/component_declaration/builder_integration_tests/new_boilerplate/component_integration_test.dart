@@ -45,6 +45,27 @@ main() {
       expect(node.dataset, containsPair('prop-custom-key-and-namespace-prop', '6'));
     });
 
+    test('(Dart >= 2.9.0 syntax) renders a component from end to end, successfully reading props via typed getters', () {
+      var instance = render((ComponentTest290()
+        ..stringProp = '1'
+        ..dynamicProp = '2'
+        ..untypedProp = '3'
+        ..customKeyProp = '4'
+        ..customNamespaceProp = '5'
+        ..customKeyAndNamespaceProp = '6'
+      )());
+      expect(instance, isNotNull);
+
+      var node = findDomNode(instance);
+      expect(node.text, 'rendered content');
+      expect(node.dataset, containsPair('prop-string-prop', '1'));
+      expect(node.dataset, containsPair('prop-dynamic-prop', '2'));
+      expect(node.dataset, containsPair('prop-untyped-prop', '3'));
+      expect(node.dataset, containsPair('prop-custom-key-prop', '4'));
+      expect(node.dataset, containsPair('prop-custom-namespace-prop', '5'));
+      expect(node.dataset, containsPair('prop-custom-key-and-namespace-prop', '6'));
+    });
+
     group('isErrorBoundary annotation is set to', () {
       test('true, allowing use of getDerivedStateFromError and componentDidCatch', () {
         var jacket = mount(
@@ -164,6 +185,56 @@ main() {
       expect(shallowPropKeys.where((key) => !key.startsWith('data-prop-')), unorderedEquals(['id', 'extraneous', 'children']));
     });
   });
+}
+
+UiFactory<ComponentTest290Props> ComponentTest290 = castUiFactory(_$ComponentTest290); // ignore: undefined_identifier
+
+mixin ComponentTest290Props on UiProps {
+  String stringProp;
+  bool shouldSetPropsDirectly;
+  bool shouldUseJsFactory;
+  dynamic dynamicProp;
+  var untypedProp; // ignore: prefer_typing_uninitialized_variables
+
+  @Accessor(key: 'custom key!')
+  dynamic customKeyProp;
+
+  @Accessor(keyNamespace: 'custom namespace~~')
+  dynamic customNamespaceProp;
+
+  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
+  dynamic customKeyAndNamespaceProp;
+}
+
+
+class ComponentTest290Component extends UiComponent2<ComponentTest290Props> {
+  @override
+  Map get defaultProps => newProps()
+    ..id = 'testId'
+    ..shouldSetPropsDirectly = false
+    ..shouldUseJsFactory = false;
+
+  @override
+  render() => (Dom.div()
+    ..modifyProps(addUnconsumedProps)
+    ..addProp('data-prop-string-prop', props.stringProp)
+    ..addProp('data-prop-dynamic-prop', props.dynamicProp)
+    ..addProp('data-prop-untyped-prop', props.untypedProp)
+    ..addProp('data-prop-custom-key-prop', props.customKeyProp)
+    ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
+    ..addProp('data-prop-custom-key-and-namespace-prop', props.customKeyAndNamespaceProp)
+  )('rendered content');
+
+  @override
+  void componentDidMount() {
+    if (props.shouldSetPropsDirectly) {
+      if (props.shouldUseJsFactory) {
+        this.props = typedPropsFactoryJs(JsBackedMap());
+      } else {
+        this.props = {'shouldSetPropsDirectly': false};
+      }
+    }
+  }
 }
 
 UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;

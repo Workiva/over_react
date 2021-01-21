@@ -31,7 +31,7 @@ UiFactory<CounterProps> BigCounter = connect<CounterState, CounterProps>(
   ),
 )(_Counter);
 
-UiFactory<CounterProps> _Counter = _$_Counter;
+UiFactory<CounterProps> _Counter = castUiFactory(_$_Counter);
 
 mixin CounterPropsMixin on UiProps {
   int currentCount;

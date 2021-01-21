@@ -292,12 +292,12 @@ Store store2 = new Store<BigCounterState>(bigCounterStateReducer, initialState: 
 
 UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
   mapStateToProps: (state) => (Counter()..count = state.count)
-)(_$Counter);
+)(castUiFactory(_$Counter));
 
 UiFactory<CounterProps> BigCounter = connect<BigCounterState, CounterProps>(
   mapStateToProps: (state) => (BigCounter()..count = state.bigCount),
   context: bigCounterContext,
-)(_$Counter);
+)(castUiFactory(_$Counter));
 
 react_dom.render(
   Dom.div()(
@@ -330,7 +330,7 @@ In the case that you need to have multiple stores, here are the steps to do so:
     UiFactory<BarProps> Bar = connect<BarState, BarProps>(
       // ... mapStateToProps
       context: fooContext,
-    )(_$Bar);
+    )(castUiFactory(_$Bar));
     ```
 1. Add an additional `ReduxProvider`, with its `context` prop set to the next Context instance and the `store` prop
    set to your additional store.

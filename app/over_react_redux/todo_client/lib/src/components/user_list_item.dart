@@ -39,7 +39,7 @@ UiFactory<UserListItemProps> UserListItem = connect<AppState, UserListItemProps>
       ..isHighlighted = isHighlighted
     );
   },
-)(_$UserListItem); // ignore: undefined_identifier
+)(castUiFactory(_$UserListItem)); // ignore: undefined_identifier
 
 mixin UserListItemPropsMixin on UiProps, ListItemPropsMixin {
   @requiredProp

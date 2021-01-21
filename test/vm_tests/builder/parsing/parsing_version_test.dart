@@ -82,8 +82,13 @@ main() {
           expect(resolveVersion(members).version, Version.v3_legacyDart2Only);
         });
 
-        test('v4_mixinBased', () {
+        test('v4_mixinBased (Dart <2.9.0 syntax)', () {
           members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v4);
+          expect(resolveVersion(members).version, Version.v4_mixinBased);
+        });
+
+        test('v4_mixinBased', () {
+          members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v10);
           expect(resolveVersion(members).version, Version.v4_mixinBased);
         });
       });
@@ -104,7 +109,10 @@ main() {
         test('detects non-legacy instances correctly', () {
           final newBoilerplateMembers =
               BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v4);
+          final dart290BoilerplateMembers =
+            BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v10);
           expect(resolveVersion(newBoilerplateMembers).version.isLegacy, isFalse);
+          expect(resolveVersion(dart290BoilerplateMembers).version.isLegacy, isFalse);
         });
       });
     });

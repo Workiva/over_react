@@ -1777,6 +1777,41 @@ main() {
             });
           });
         });
+
+        group('(Dart >=2.9.0 syntax)', () {
+          test('a component', () {
+            setUpAndParse(r'''
+                UiFactory<FooProps> Foo = castUiFactory(_$Foo);
+                
+                mixin FooProps on UiProps {
+                  String foo;
+                }
+                
+                class FooComponent extends UiComponent2<FooProps> {
+                  render() {}
+                }
+            ''');
+
+            expect(declarations, unorderedEquals([
+              isA<PropsMixinDeclaration>(),
+              isA<ClassComponentDeclaration>(),
+            ]));
+
+            final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
+            expect(propsMixinDecl.mixin?.name?.name, 'FooProps');
+
+            final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+
+            expect(decl.factory?.name?.name, 'Foo');
+            expect(decl.props?.b?.name?.name, 'FooProps');
+            expect(decl.component?.name?.name, 'FooComponent');
+            expect(decl.state?.either, isNull);
+
+            expect(decl.factory.meta, isA<annotations.Factory>());
+            expect(decl.props.b.meta, isA<annotations.Props>());
+            expect(decl.component.meta, isA<annotations.Component>());
+          });
+        });
       });
 
       const String restOfComponent = '''

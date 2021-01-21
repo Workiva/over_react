@@ -58,7 +58,7 @@ UiFactory<FancyButtonProps> FancyButtonWithLogging = withLogging(FancyButton);
 //----------------------------------------------------------------------------//
 // ### Example 3: Exposing inner refs in class components
 //----------------------------------------------------------------------------//
-UiFactory<FooProps> _Foo = _$_Foo; // ignore: undefined_identifier
+UiFactory<FooProps> _Foo = castUiFactory(_$_Foo); // ignore: undefined_identifier
 
 mixin FooProps on UiProps {
   // Private since we only use this to pass along the ref provided in
@@ -110,7 +110,7 @@ final Foo2 = uiForwardRef<Foo2Props>(
       .._inputRef = ref
     )();
   },
-  $Foo2Config, // ignore: undefined_identifier
+  _$Foo2Config, // ignore: undefined_identifier
 );
 
 //----------------------------------------------------------------------------//
@@ -129,7 +129,7 @@ UiFactory<LogProps> LogPropsHoc = forwardRef<LogProps>((props, ref) {
   )();
 }, displayName: 'LogProps')(_Log);
 
-UiFactory<LogProps> _Log = _$_Log; // ignore: undefined_identifier
+UiFactory<LogProps> _Log = castUiFactory(_$_Log); // ignore: undefined_identifier
 
 mixin LogProps on UiProps {
   BuilderOnlyUiFactory<UiProps> builder;

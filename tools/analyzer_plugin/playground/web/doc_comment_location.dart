@@ -26,7 +26,7 @@ class BarComponent extends UiStatefulComponent2<BarProps, BarState> {
 }
 
 /// This doc comment is on the factory.
-UiFactory<AnotherBarPropsMixin> AnotherBar = _$AnotherBar; // ignore: undefined_identifier
+UiFactory<AnotherBarPropsMixin> AnotherBar = castUiFactory(_$AnotherBar); // ignore: undefined_identifier
 
 /// This doc comment is okay because the factory already has a doc comment.
 mixin AnotherBarPropsMixin on UiProps {}
@@ -50,4 +50,4 @@ mixin FooPropsMixin on UiProps {
 }
 
 UiFactory<FooPropsMixin> FooPropsMixinMapView =
-    _$FooPropsMixinMapView; // ignore: undefined_identifier
+    castUiFactory(_$FooPropsMixinMapView); // ignore: undefined_identifier

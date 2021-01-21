@@ -30,7 +30,7 @@
 ///   // `connect` implementation
 /// )(connect<AnotherColorStore, BigBlockProps>(
 ///   // `connect` implementation
-/// )(_$BigBlock)));
+/// )(castUiFactory(_$BigBlock))));
 ///
 /// // With composeHocs:
 /// UiFactory<BigBlockProps> BigBlock = composeHocs([
@@ -43,7 +43,7 @@
 ///   connect<AnotherColorStore, BigBlockProps>(
 ///     // `connect` implementation
 ///   ),
-/// ])(_$BigBlock);
+/// ])(castUiFactory(_$BigBlock));
 /// ```
 R Function(R) composeHocs<R>(Iterable<R Function(R)> functions) {
   return functions.reduce((a, b) => (result) => a(b(result)));

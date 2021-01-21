@@ -12,6 +12,152 @@ part of 'component_integration_test.dart';
 // Registers component implementation and links type meta to builder factory.
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
+final $ComponentTest290ComponentFactory = registerComponent2(
+  () => _$ComponentTest290Component(),
+  builderFactory: _$ComponentTest290,
+  componentClass: ComponentTest290Component,
+  isWrapper: false,
+  parentType: null,
+  displayName: 'ComponentTest290',
+);
+
+_$$ComponentTest290Props _$ComponentTest290([Map backingProps]) =>
+    backingProps == null
+        ? _$$ComponentTest290Props$JsMap(JsBackedMap())
+        : _$$ComponentTest290Props(backingProps);
+
+// Concrete props implementation.
+//
+// Implements constructor and backing map, and links up to generated component factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+abstract class _$$ComponentTest290Props extends UiProps
+    with
+        ComponentTest290Props,
+        $ComponentTest290Props // If this generated mixin is undefined, it's likely because ComponentTest290Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ComponentTest290Props, and check that $ComponentTest290Props is exported/imported properly.
+{
+  _$$ComponentTest290Props._();
+
+  factory _$$ComponentTest290Props(Map backingMap) {
+    if (backingMap == null || backingMap is JsBackedMap) {
+      return _$$ComponentTest290Props$JsMap(backingMap as JsBackedMap);
+    } else {
+      return _$$ComponentTest290Props$PlainMap(backingMap);
+    }
+  }
+
+  /// Let `UiProps` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The `ReactComponentFactory` associated with the component built by this class.
+  @override
+  ReactComponentFactoryProxy get componentFactory =>
+      super.componentFactory ?? $ComponentTest290ComponentFactory;
+
+  /// The default namespace for the prop getters/setters generated for this class.
+  @override
+  String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ComponentTest290Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ComponentTest290Props, and check that $ComponentTest290Props is exported/imported properly.
+        ComponentTest290Props: $ComponentTest290Props.meta,
+      });
+}
+
+// Concrete props implementation that can be backed by any [Map].
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$ComponentTest290Props$PlainMap extends _$$ComponentTest290Props {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ComponentTest290Props$PlainMap(Map backingMap)
+      : this._props = {},
+        super._() {
+    this._props = backingMap ?? {};
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  Map get props => _props;
+  Map _props;
+}
+
+// Concrete props implementation that can only be backed by [JsMap],
+// allowing dart2js to compile more optimal code for key-value pair reads/writes.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$$ComponentTest290Props$JsMap extends _$$ComponentTest290Props {
+  // This initializer of `_props` to an empty map, as well as the reassignment
+  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
+  _$$ComponentTest290Props$JsMap(JsBackedMap backingMap)
+      : this._props = JsBackedMap(),
+        super._() {
+    this._props = backingMap ?? JsBackedMap();
+  }
+
+  /// The backing props map proxied by this class.
+  @override
+  JsBackedMap get props => _props;
+  JsBackedMap _props;
+}
+
+// Concrete component implementation mixin.
+//
+// Implements typed props/state factories, defaults `consumedPropKeys` to the keys
+// generated for the associated props class.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+class _$ComponentTest290Component extends ComponentTest290Component {
+  _$$ComponentTest290Props$JsMap _cachedTypedProps;
+
+  @override
+  _$$ComponentTest290Props$JsMap get props => _cachedTypedProps;
+
+  @override
+  set props(Map value) {
+    assert(
+        getBackingMap(value) is JsBackedMap,
+        'Component2.props should never be set directly in '
+        'production. If this is required for testing, the '
+        'component should be rendered within the test. If '
+        'that does not have the necessary result, the last '
+        'resort is to use typedPropsFactoryJs.');
+    super.props = value;
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+  }
+
+  @override
+  _$$ComponentTest290Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+      _$$ComponentTest290Props$JsMap(backingMap);
+
+  @override
+  _$$ComponentTest290Props typedPropsFactory(Map backingMap) =>
+      _$$ComponentTest290Props(backingMap);
+
+  /// Let `UiComponent` internals know that this class has been generated.
+  @override
+  bool get $isClassGenerated => true;
+
+  /// The default consumed props, comprising all props mixins used by ComponentTest290Props.
+  /// Used in `*ConsumedProps` methods if [consumedProps] is not overridden.
+  @override
+  get $defaultConsumedProps => propsMeta.all;
+
+  @override
+  PropsMetaCollection get propsMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ComponentTest290Props is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ComponentTest290Props, and check that $ComponentTest290Props is exported/imported properly.
+        ComponentTest290Props: $ComponentTest290Props.meta,
+      });
+}
+
+// React component factory implementation.
+//
+// Registers component implementation and links type meta to builder factory.
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
 final $ComponentTestComponentFactory = registerComponent2(
   () => _$ComponentTestComponent(),
   builderFactory: _$ComponentTest,
@@ -152,6 +298,135 @@ class _$ComponentTestComponent extends ComponentTestComponent {
         ComponentTestProps: $ComponentTestProps.meta,
       });
 }
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.'
+    ' EXCEPTION: this may be used in legacy boilerplate until'
+    ' it is transitioned to the new mixin-based boilerplate.')
+mixin $ComponentTest290Props on ComponentTest290Props {
+  static const PropsMeta meta = _$metaForComponentTest290Props;
+  @override
+  String get stringProp =>
+      (props[_$key__stringProp__ComponentTest290Props] ?? null) as String;
+  @override
+  set stringProp(String value) =>
+      props[_$key__stringProp__ComponentTest290Props] = value;
+  @override
+  bool get shouldSetPropsDirectly =>
+      (props[_$key__shouldSetPropsDirectly__ComponentTest290Props] ?? null)
+          as bool;
+  @override
+  set shouldSetPropsDirectly(bool value) =>
+      props[_$key__shouldSetPropsDirectly__ComponentTest290Props] = value;
+  @override
+  bool get shouldUseJsFactory =>
+      (props[_$key__shouldUseJsFactory__ComponentTest290Props] ?? null) as bool;
+  @override
+  set shouldUseJsFactory(bool value) =>
+      props[_$key__shouldUseJsFactory__ComponentTest290Props] = value;
+  @override
+  dynamic get dynamicProp =>
+      (props[_$key__dynamicProp__ComponentTest290Props] ?? null) as dynamic;
+  @override
+  set dynamicProp(dynamic value) =>
+      props[_$key__dynamicProp__ComponentTest290Props] = value;
+  @override
+  get untypedProp => props[_$key__untypedProp__ComponentTest290Props] ?? null;
+  @override
+  set untypedProp(value) =>
+      props[_$key__untypedProp__ComponentTest290Props] = value;
+  @override
+  @Accessor(key: 'custom key!')
+  dynamic get customKeyProp =>
+      (props[_$key__customKeyProp__ComponentTest290Props] ?? null) as dynamic;
+  @override
+  @Accessor(key: 'custom key!')
+  set customKeyProp(dynamic value) =>
+      props[_$key__customKeyProp__ComponentTest290Props] = value;
+  @override
+  @Accessor(keyNamespace: 'custom namespace~~')
+  dynamic get customNamespaceProp =>
+      (props[_$key__customNamespaceProp__ComponentTest290Props] ?? null)
+          as dynamic;
+  @override
+  @Accessor(keyNamespace: 'custom namespace~~')
+  set customNamespaceProp(dynamic value) =>
+      props[_$key__customNamespaceProp__ComponentTest290Props] = value;
+  @override
+  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
+  dynamic get customKeyAndNamespaceProp =>
+      (props[_$key__customKeyAndNamespaceProp__ComponentTest290Props] ?? null)
+          as dynamic;
+  @override
+  @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
+  set customKeyAndNamespaceProp(dynamic value) =>
+      props[_$key__customKeyAndNamespaceProp__ComponentTest290Props] = value;
+  /* GENERATED CONSTANTS */
+  static const PropDescriptor _$prop__stringProp__ComponentTest290Props =
+      PropDescriptor(_$key__stringProp__ComponentTest290Props);
+  static const PropDescriptor
+      _$prop__shouldSetPropsDirectly__ComponentTest290Props =
+      PropDescriptor(_$key__shouldSetPropsDirectly__ComponentTest290Props);
+  static const PropDescriptor
+      _$prop__shouldUseJsFactory__ComponentTest290Props =
+      PropDescriptor(_$key__shouldUseJsFactory__ComponentTest290Props);
+  static const PropDescriptor _$prop__dynamicProp__ComponentTest290Props =
+      PropDescriptor(_$key__dynamicProp__ComponentTest290Props);
+  static const PropDescriptor _$prop__untypedProp__ComponentTest290Props =
+      PropDescriptor(_$key__untypedProp__ComponentTest290Props);
+  static const PropDescriptor _$prop__customKeyProp__ComponentTest290Props =
+      PropDescriptor(_$key__customKeyProp__ComponentTest290Props);
+  static const PropDescriptor
+      _$prop__customNamespaceProp__ComponentTest290Props =
+      PropDescriptor(_$key__customNamespaceProp__ComponentTest290Props);
+  static const PropDescriptor
+      _$prop__customKeyAndNamespaceProp__ComponentTest290Props =
+      PropDescriptor(_$key__customKeyAndNamespaceProp__ComponentTest290Props);
+  static const String _$key__stringProp__ComponentTest290Props =
+      'ComponentTest290Props.stringProp';
+  static const String _$key__shouldSetPropsDirectly__ComponentTest290Props =
+      'ComponentTest290Props.shouldSetPropsDirectly';
+  static const String _$key__shouldUseJsFactory__ComponentTest290Props =
+      'ComponentTest290Props.shouldUseJsFactory';
+  static const String _$key__dynamicProp__ComponentTest290Props =
+      'ComponentTest290Props.dynamicProp';
+  static const String _$key__untypedProp__ComponentTest290Props =
+      'ComponentTest290Props.untypedProp';
+  static const String _$key__customKeyProp__ComponentTest290Props =
+      'ComponentTest290Props.custom key!';
+  static const String _$key__customNamespaceProp__ComponentTest290Props =
+      'custom namespace~~customNamespaceProp';
+  static const String _$key__customKeyAndNamespaceProp__ComponentTest290Props =
+      'custom namespace~~custom key!';
+
+  static const List<PropDescriptor> $props = [
+    _$prop__stringProp__ComponentTest290Props,
+    _$prop__shouldSetPropsDirectly__ComponentTest290Props,
+    _$prop__shouldUseJsFactory__ComponentTest290Props,
+    _$prop__dynamicProp__ComponentTest290Props,
+    _$prop__untypedProp__ComponentTest290Props,
+    _$prop__customKeyProp__ComponentTest290Props,
+    _$prop__customNamespaceProp__ComponentTest290Props,
+    _$prop__customKeyAndNamespaceProp__ComponentTest290Props
+  ];
+  static const List<String> $propKeys = [
+    _$key__stringProp__ComponentTest290Props,
+    _$key__shouldSetPropsDirectly__ComponentTest290Props,
+    _$key__shouldUseJsFactory__ComponentTest290Props,
+    _$key__dynamicProp__ComponentTest290Props,
+    _$key__untypedProp__ComponentTest290Props,
+    _$key__customKeyProp__ComponentTest290Props,
+    _$key__customNamespaceProp__ComponentTest290Props,
+    _$key__customKeyAndNamespaceProp__ComponentTest290Props
+  ];
+}
+
+@Deprecated('This API is for use only within generated code.'
+    ' Do not reference it in your code, as it may change at any time.')
+const PropsMeta _$metaForComponentTest290Props = PropsMeta(
+  fields: $ComponentTest290Props.$props,
+  keys: $ComponentTest290Props.$propKeys,
+);
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.'

@@ -31,7 +31,7 @@ own components by viewing the generated .over_react.g.dart file.
 1. The builder parses files and looks for things to generate. Let's start with this component:
 
     ```dart
-    UiFactory<FooProps> Foo = _$Foo; // undefined_identifier
+    UiFactory<FooProps> Foo = castUiFactory(_$Foo); // undefined_identifier
     
     mixin FooProps on UiProps { 
       int foo;
@@ -89,7 +89,7 @@ getters/setters.
    
     ```dart
     // Authored code:
-    UiFactory<BarProps> Bar = _$Bar;
+    UiFactory<BarProps> Bar = castUiFactory(_$Bar);
     class BarProps = UiProps with BarPropsMixin, FooProps;
     class BarComponent extends UiComponent2<BarProps> { ... }
     

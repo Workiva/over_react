@@ -16,7 +16,7 @@ import 'package:over_react/over_react.dart';
 
 part 'prop_validation.over_react.g.dart';
 
-UiFactory<PropTypesTestProps> PropTypesTest = _$PropTypesTest;
+UiFactory<PropTypesTestProps> PropTypesTest = castUiFactory(_$PropTypesTest);
 
 mixin PropTypesTestProps on UiProps {
   int count;
