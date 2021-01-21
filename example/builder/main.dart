@@ -23,6 +23,7 @@ import './src/abstract_inheritance.dart';
 import './src/basic.dart';
 import './src/pre_dart_two_nine_syntax/basic.dart' as pre_dart_two_nine_basic;
 import './src/pre_dart_two_nine_syntax/hoc.dart';
+import './src/pre_dart_two_nine_syntax/function_component.dart';
 import './src/basic_library.dart';
 import './src/generic_inheritance_sub.dart';
 import './src/generic_inheritance_super.dart';
@@ -87,6 +88,7 @@ main() {
           ..basic1 = '<basic prop>'
           ..id = 'the id of this component'
         )(null, null, ['this is another child']),
+        FunctionComponent()(),
         (Hoc()
           ..foo = 'HOC test'
         )(),
