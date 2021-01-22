@@ -173,10 +173,6 @@ class RulesOfHooks extends DiagnosticContributor {
       });
 }
 
-extension on AstNode {
-  bool containsRangeOf(AstNode other) => other.offset >= offset && other.end <= end;
-}
-
 class HookUsage {
   final MethodInvocation node;
 

@@ -279,13 +279,13 @@ extension on Element {
 
 class _Dependency {
   final bool isStable;
-  final List<Reference> references;
+  final List<Identifier> references;
 
-  _Dependency({this.isStable = false, this.references = const []});
+  _Dependency({@required this.isStable, @required this.references});
 }
 
 class _RefInEffectCleanup {
-  final Reference reference;
+  final Identifier reference;
   final Identifier dependencyNode;
 
   _RefInEffectCleanup({this.reference, this.dependencyNode});
@@ -330,6 +330,12 @@ Declaration lookUpDeclaration(Element element, AstNode root) {
 
 bool isConstExpression(Expression expression) =>
     expression.accept(ConstantEvaluator()) != ConstantEvaluator.NOT_A_CONSTANT;
+
+
+Iterable<Identifier> resolvedReferencesWithin(AstNode node) =>
+    allDescendantsOfType<Identifier>(node)
+    .where((e) => e.staticElement != null);
+
 
 
 
@@ -395,6 +401,10 @@ create(context, {RegExp additionalHooks}) {
     assert(componentFunction != node.thisOrAncestorOfType<FunctionExpression>());
 
     final componentFunctionElement = componentFunction.declaredElement;
+
+
+    // FIXME this is a crude implementation of isWithinPureScope
+    bool isDeclaredInPureScope(Element element) => element.enclosingElement == componentFunctionElement;
 
     // uiFunction((props), {
     //   // Pure scope 2
@@ -516,41 +526,19 @@ create(context, {RegExp additionalHooks}) {
       // fixme convert to AST, account for function variables
       final fnNode = lookUpFunction(resolved, rootNode);
 
-      // Search the direct component subscopes for
-      // top-level function definitions matching this reference.
-      final childScopes = componentScope.childScopes;
-      Scope fnScope;
-      for (final childScope in childScopes) {
-        final childScopeBlock = childScope.block;
-        if (
-          fnNode.body.tryCast<BlockFunctionBody>().block == childScopeBlock
-          // function handleChange() {}
-          // (fnNode.type == 'FunctionDeclaration' &&
-          //   childScopeBlock == fnNode) ||
-          // // const handleChange = () => {}
-          // // const handleChange = function() {}
-          // (fnNode.type == 'VariableDeclarator' &&
-          //   childScopeBlock.parent == fnNode)
-        ) {
-          // Found it!
-          fnScope = childScope;
-          break;
-        }
-      }
-      if (fnScope == null) {
+      if (!componentFunction.containsRangeOf(fnNode)) {
+        // TODO it seems like we should return true here for functions that are outside of the component scope...
         return false;
       }
       // Does this function capture any values
       // that are in pure scopes (aka render)?
-      for (final ref in fnScope.through) {
-        if (ref.resolved == null) {
-          continue;
-        }
+      final referencedElements = resolvedReferencesWithin(fnNode.body).map((e) => e.staticElement);
+      for (final ref in referencedElements) {
         if (
-          pureScopes.contains(ref.resolved.scope) &&
+          isDeclaredInPureScope(ref) &&
           // Stable values are fine though,
           // although we won't check functions deeper.
-          !memoizedIsStableKnownHookValue(ref.resolved)
+          !memoizedIsStableKnownHookValue(ref)
         ) {
           return false;
         }
@@ -570,17 +558,14 @@ create(context, {RegExp additionalHooks}) {
     // Is this reference inside a cleanup function for this effect node?
     // We can check by traversing scopes upwards  from the reference, and checking
     // if the last "return () => " we encounter is located directly inside the effect.
-    bool isInsideEffectCleanup(Reference reference) {
-      var curScope = reference.from;
+    bool isInsideEffectCleanup(AstNode reference) {
       var isInReturnedFunction = false;
-      while (curScope.block != node.tryCast<BlockFunctionBody>().block) {
-        if (curScope.type == ScopeType.function) {
-          isInReturnedFunction = curScope.block
-              ?.parentOfType<FunctionBody>()
-              ?.parentOfType<FunctionExpression>()
-              ?.parentOfType<ReturnStatement>() != null;
-        }
-        curScope = curScope.upper;
+      var current = reference.thisOrAncestorOfType<FunctionBody>();
+      while (current != node) {
+        isInReturnedFunction = current
+            ?.parentOfType<FunctionExpression>()
+            ?.parentOfType<ReturnStatement>() != null;
+        current = current.thisOrAncestorOfType<FunctionBody>();
       }
       return isInReturnedFunction;
     }
@@ -588,86 +573,77 @@ create(context, {RegExp additionalHooks}) {
     // Get dependencies from all our resolved references in pure scopes.
     // Key is dependency string, value is whether it's stable.
     final dependencies = <String, _Dependency>{};
-    final optionalChains = {};
+    final optionalChains = <String, bool>{};
 
-    void gatherDependenciesRecursively(Scope currentScope) {
-      for (final reference in currentScope.references) {
-        // If this reference is not resolved or it is not declared in a pure
-        // scope then we don't care about this reference.
-        if (reference.resolved == null) {
-          continue;
-        }
-        if (!pureScopes.contains(reference.resolved.scope)) {
-          continue;
-        }
-
-        // Narrow the scope of a dependency if it is, say, a member expression.
-        // Then normalize the narrowed dependency.
-        final referenceNode = fastFindReferenceWithParent(
-          node,
-          reference.identifier,
-        );
-        final dependencyNode = getDependency(referenceNode);
-        final dependency = analyzePropertyChain(
-          dependencyNode,
-          optionalChains,
-        );
-
-
-        // Accessing ref.current inside effect cleanup is bad.
-        if (
-          // We're in an effect...
-          isEffect &&
-          // ... and this look like accessing .current...
-          dependencyNode is Identifier &&
-          dependencyNode.parent.tryCast<PropertyAccess>()?.propertyName?.name == 'current' &&
-          // ...in a cleanup function or below...
-          isInsideEffectCleanup(reference)
-        ) {
-          currentRefsInEffectCleanup[dependency] = _RefInEffectCleanup(
-            reference: reference,
-            dependencyNode: dependencyNode,
-          );
-        }
-
-        //todo what are these cases?
-        // if (
-        //   dependencyNode.parent.type == 'TSTypeQuery' ||
-        //   dependencyNode.parent.type == 'TSTypeReference'
-        // ) {
-        //   continue;
-        // }
-
-        final def = lookUpDeclaration(reference.resolved, rootNode);
-        if (def == null) {
-          continue;
-        }
-        // Ignore references to the function itself as it's not defined yet.
-        if (def.tryCast<FunctionDeclaration>()?.functionExpression?.body == node.parent) {
-          continue;
-        }
-
-        // Add the dependency to a map so we can make sure it is referenced
-        // again in our dependencies array. Remember whether it's stable.
-        if (!dependencies.containsKey(dependency)) {
-          final resolved = reference.resolved;
-          final isStable =
-            memoizedIsStableKnownHookValue(resolved) ||
-            memoizedIsFunctionWithoutCapturedValues(resolved);
-          dependencies[dependency] = _Dependency(
-            isStable: isStable,
-            references: [reference],
-          );
-        } else {
-          dependencies[dependency].references.add(reference);
-        }
+    for (final reference in resolvedReferencesWithin(node)) {
+      // If this reference is not resolved or it is not declared in a pure
+      // scope then we don't care about this reference.
+      if (!isDeclaredInPureScope(reference.staticElement)) {
+        continue;
       }
 
-      for (final childScope in currentScope.childScopes) {
-        gatherDependenciesRecursively(childScope);
+      // Narrow the scope of a dependency if it is, say, a member expression.
+      // Then normalize the narrowed dependency.
+      final referenceNode = fastFindReferenceWithParent(
+        node,
+        reference,
+      );
+      final dependencyNode = getDependency(referenceNode);
+      final dependency = analyzePropertyChain(
+        dependencyNode,
+        optionalChains,
+      );
+
+
+      // Accessing ref.current inside effect cleanup is bad.
+      if (
+        // We're in an effect...
+        isEffect &&
+        // ... and this look like accessing .current...
+        dependencyNode is Identifier &&
+        dependencyNode.parent.tryCast<PropertyAccess>()?.propertyName?.name == 'current' &&
+        // ...in a cleanup function or below...
+        isInsideEffectCleanup(reference)
+      ) {
+        currentRefsInEffectCleanup[dependency] = _RefInEffectCleanup(
+          reference: reference,
+          dependencyNode: dependencyNode,
+        );
+      }
+
+      //todo what are these cases?
+      // if (
+      //   dependencyNode.parent.type == 'TSTypeQuery' ||
+      //   dependencyNode.parent.type == 'TSTypeReference'
+      // ) {
+      //   continue;
+      // }
+
+      final def = lookUpDeclaration(reference.staticElement, rootNode);
+      if (def == null) {
+        continue;
+      }
+      // Ignore references to the function itself as it's not defined yet.
+      // TODO this ase might not apply to Dart
+      if (def.tryCast<FunctionDeclaration>()?.functionExpression?.body == node.parent) {
+        continue;
+      }
+
+      // Add the dependency to a map so we can make sure it is referenced
+      // again in our dependencies array. Remember whether it's stable.
+      if (!dependencies.containsKey(dependency)) {
+        final resolved = reference.staticElement;
+        final isStable =
+          memoizedIsStableKnownHookValue(resolved) ||
+          memoizedIsFunctionWithoutCapturedValues(resolved);
+        dependencies[dependency] = _Dependency(
+          isStable: isStable,
+          references: [reference],
+        );
+      } else {
+        dependencies[dependency].references.add(reference);
       }
     }
-    gatherDependenciesRecursively(scope);
 
     // Warn about accessing .current in cleanup effects.
     currentRefsInEffectCleanup.forEach(
@@ -960,8 +936,6 @@ create(context, {RegExp additionalHooks}) {
       final constructions = scanForConstructions(
         declaredDependencies: declaredDependencies,
         declaredDependenciesNode: declaredDependenciesNode,
-        componentScope: componentScope,
-        scope: scope,
       );
       constructions.forEach(
         (_construction) {
@@ -1755,31 +1729,20 @@ List<_Construction> scanForConstructions({
     })
     .whereNotNull();
 
-  bool isUsedOutsideOfHook(Declaration ref) {
-    var foundWriteExpr = false;
-    for (final reference in findReferences(ref)) {
+  bool isUsedOutsideOfHook(Declaration declaration) {
+    for (final reference in findReferences(declaration)) {
       // FIXME WIP, keep converting this
 
-      if (reference.writeExpr != null) {
-        if (foundWriteExpr) {
-          // Two writes to the same function.
-          return true;
-        } else {
-          // Ignore first write as it's not usage.
-          foundWriteExpr = true;
-          continue;
-        }
+      // TODO better implementation of this
+      // Crude implementation of ignoring initializer
+      if (declaration.containsRangeOf(reference)) {
+        continue;
       }
-      var currentScope = reference.from;
-      while (currentScope != scope && currentScope != null) {
-        currentScope = currentScope.upper;
-      }
-      if (currentScope != scope) {
-        // This reference is outside the Hook callback.
-        // It can only be legit if it's the deps array.
-        if (!isAncestorNodeOf(declaredDependenciesNode, reference.identifier)) {
-          return true;
-        }
+
+      // This reference is outside the Hook callback.
+      // It can only be legit if it's the deps array.
+      if (!isAncestorNodeOf(declaredDependenciesNode, reference)) {
+        return true;
       }
     }
     return false;
