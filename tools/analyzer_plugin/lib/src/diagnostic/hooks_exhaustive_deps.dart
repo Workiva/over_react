@@ -5,17 +5,13 @@
 // This source code is licensed under the MIT license found in the
 // LICENSE file in the root directory of this source tree.
 //
-import 'dart:collection';
 
-import 'package:analyzer/analyzer.dart';
+import 'package:analyzer/analyzer.dart' show NodeLocator2, ConstantEvaluator;
 import 'package:analyzer/dart/ast/ast.dart';
-import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
-import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 //
