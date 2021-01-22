@@ -4,7 +4,7 @@
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
-      "part '${TM_FILENAME_BASE}.over_react.g.dart'; // ignore: uri_has_not_been_generated",
+      "part '${TM_FILENAME_BASE}.over_react.g.dart';",
       "",
       "UiFactory<${1:MyComponent}Props> ${1:MyComponent} =",
       "    castUiFactory(_$${1:MyComponent}); // ignore: undefined_identifier",
@@ -28,7 +28,7 @@
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
-      "part '${TM_FILENAME_BASE}.over_react.g.dart'; // ignore: uri_has_not_been_generated",
+      "part '${TM_FILENAME_BASE}.over_react.g.dart';",
       "",
       "UiFactory<${1:MyComponent}Props> ${1:MyComponent} =",
       "    castUiFactory(_$${1:MyComponent}); // ignore: undefined_identifier",
@@ -59,7 +59,7 @@
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
-      "part '${TM_FILENAME_BASE}.over_react.g.dart'; // ignore: uri_has_not_been_generated",
+      "part '${TM_FILENAME_BASE}.over_react.g.dart';",
       "",
       "UiFactory<${1:MyComponent}Props> ${1:MyComponent} =",
       "    castUiFactory(_$${1:MyComponent}); // ignore: undefined_identifier",
@@ -81,7 +81,7 @@
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
-      "part '${TM_FILENAME_BASE}.over_react.g.dart'; // ignore: uri_has_not_been_generated",
+      "part '${TM_FILENAME_BASE}.over_react.g.dart';",
       "",
       "UiFactory<${1:MyComponent}Props> ${1:MyComponent} =",
       "    castUiFactory(_$${1:MyComponent}); // ignore: undefined_identifier",
@@ -109,7 +109,7 @@
       "import 'package:over_react/over_react.dart';",
       "import 'package:over_react/over_react_redux.dart';",
       "",
-      "part '${TM_FILENAME_BASE}.over_react.g.dart'; // ignore: uri_has_not_been_generated",
+      "part '${TM_FILENAME_BASE}.over_react.g.dart';",
       "",
       "UiFactory<${1:MyComponent}Props> ${1:MyComponent} = connect<${3:SomeReduxStoreState}, ${1:MyComponent}Props>(",
       "\tmapStateToProps: (state) => (${1:MyComponent}()),",
@@ -133,7 +133,7 @@
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
-      "part '${TM_FILENAME_BASE}.over_react.g.dart'; // ignore: uri_has_not_been_generated",
+      "part '${TM_FILENAME_BASE}.over_react.g.dart';",
       "",
       "UiFactory<${1:MyComponent}Props> ${1:MyComponent} = uiFunction(",
       "\t(props) {},",
@@ -149,7 +149,7 @@
     "body": [
       "import 'package:over_react/over_react.dart';",
       "",
-      "part '${TM_FILENAME_BASE}.over_react.g.dart'; // ignore: uri_has_not_been_generated",
+      "part '${TM_FILENAME_BASE}.over_react.g.dart';",
       "",
       "UiFactory<${1:MyComponent}Props> ${1:MyComponent} = uiFunction(",
       "\t(props) {},",
