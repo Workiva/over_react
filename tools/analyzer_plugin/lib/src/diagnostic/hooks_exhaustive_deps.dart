@@ -341,7 +341,6 @@ create(context, {RegExp additionalHooks}) {
   AstNode rootNode;
   void reportProblem({AstNode node, String message}) {}
 
-  final ScopeManager scopeManager = null;
 
   // Should be shared between visitors.
   final setStateCallSites = WeakMap();
@@ -385,25 +384,31 @@ create(context, {RegExp additionalHooks}) {
     // According to the rules of React you can't read a mutable value in pure
     // scope. We can't enforce this in a lint so we trust that all variables
     // declared outside of pure scope are indeed frozen.
-    final pureScopes = <Scope>{};
-    Scope componentScope;
-    {
-      var currentScope = scope.upper;
-      while (currentScope != null) {
-        pureScopes.add(currentScope);
-        if (currentScope.type == ScopeType.function) {
-          break;
-        }
-        currentScope = currentScope.upper;
-      }
-      // If there is no parent function scope then there are no pure scopes.
-      // The ones we've collected so far are incorrect. So don't continue with
-      // the lint.
-      if (currentScope == null) {
-        return;
-      }
-      componentScope = currentScope;
-    }
+
+    // Pure scopes include all scopes from the parent scope of the callback
+    // to the first function scope (which will be either the component/render function or a custom hook,
+    // since hooks can only be called from the top level).
+
+    // todo improve this
+    final componentFunction = node.parent?.thisOrAncestorOfType<FunctionExpression>();
+    assert(componentFunction != null);
+    assert(componentFunction != node.thisOrAncestorOfType<FunctionExpression>());
+
+    final componentFunctionElement = componentFunction.declaredElement;
+
+    // uiFunction((props), {
+    //   // Pure scope 2
+    //   var renderVar;
+    //   {
+    //     // Pure scope 1
+    //     var blockVar;
+    //
+    //     useEffect(() {
+    //       // This effect callback block is <node>, the function we're visiting
+    //     });
+    //   }
+    // }, ...)
+
 
     // Next we'll define a few helpers that helps us
     // tell if some values don't have to be declared as deps.
@@ -821,23 +826,26 @@ create(context, {RegExp additionalHooks}) {
           'dependencies.',
       );
     } else {
-      for (final declaredDependencyNode in (declaredDependenciesNode as ListLiteral).elements) {
+      for (final _declaredDependencyNode in (declaredDependenciesNode as ListLiteral).elements) {
         // Skip elided elements.
-        if (declaredDependencyNode == null) {
+        if (_declaredDependencyNode == null) {
           continue;
         }
 
         String invalidType;
-        if (declaredDependencyNode is SpreadElement) {
+        if (_declaredDependencyNode is SpreadElement) {
           invalidType = 'a spread element';
-        } else if (declaredDependenciesNode is IfElement) {
+        } else if (_declaredDependencyNode is IfElement) {
           invalidType = "an 'if' element";
-        } else if (declaredDependenciesNode is ForElement) {
+        } else if (_declaredDependencyNode is ForElement) {
           invalidType = "a 'for' element";
+        } else if (_declaredDependencyNode is! Expression) {
+          // TODO better message for tis
+          invalidType = "a non-expression";
         }
         if (invalidType != null) {
           reportProblem(
-            node: declaredDependencyNode,
+            node: _declaredDependencyNode,
             message:
               "React Hook ${context.getSource(reactiveHook)} has $invalidType"
               "in its dependency list. This means we can't "
@@ -847,10 +855,21 @@ create(context, {RegExp additionalHooks}) {
           continue;
         }
 
+        // new variable since breaks don't have type promition yet. TODO switch to the following when nnbd is enabled
+        // if (declaredDependencyNode is! Expression) { ...  continue;}
+        final declaredDependencyNode = _declaredDependencyNode as Expression;
 
-        // FIXNE check here or somewhere else to ensure whole hook (state, ref?) isn't passed in, provide quick fix
+        // FIXME check here or somewhere else to ensure whole hook (state, ref?) isn't passed in, provide quick fix; perhaps non-destructured hooks being passed in are accounted for alredy?
 
-        // TODO add isConstExpression check
+        if (isAConstantValue(declaredDependencyNode)) {
+          reportProblem(
+            node: declaredDependencyNode,
+            message:
+              "The '${declaredDependencyNode.toSource()}' constant expression is not a valid dependency "
+              "because it never changes. ",
+          );
+          continue;
+        }
 
         // Try to normalize the declared dependency. If we can't then an error
         // will be thrown. We will catch that error and report an error.
@@ -862,24 +881,25 @@ create(context, {RegExp additionalHooks}) {
           );
         } catch (error) {
           if (error.toString().contains('Unsupported node type')) {
-            if (declaredDependencyNode.type == 'Literal') {
-              if (dependencies.containsKey(declaredDependencyNode.value)) {
-                reportProblem(
-                  node: declaredDependencyNode,
-                  message:
-                    "The ${declaredDependencyNode.raw} literal is not a valid dependency "
-                    "because it never changes. "
-                    "Did you mean to include ${declaredDependencyNode.value} in the array instead?",
-                );
-              } else {
-                reportProblem(
-                  node: declaredDependencyNode,
-                  message:
-                    "The ${declaredDependencyNode.raw} literal is not a valid dependency "
-                    'because it never changes. You can safely remove it.',
-                );
-              }
-            } else {
+            // FIXME figure out what was actually going on here with .raw/.value
+            // if (declaredDependencyNode.type == 'Literal') {
+            //   if (dependencies.containsKey(declaredDependencyNode.value)) {
+            //     reportProblem(
+            //       node: declaredDependencyNode,
+            //       message:
+            //         "The ${declaredDependencyNode.raw} literal is not a valid dependency "
+            //         "because it never changes. "
+            //         "Did you mean to include ${declaredDependencyNode.value} in the array instead?",
+            //     );
+            //   } else {
+            //     reportProblem(
+            //       node: declaredDependencyNode,
+            //       message:
+            //         "The ${declaredDependencyNode.raw} literal is not a valid dependency "
+            //         'because it never changes. You can safely remove it.',
+            //     );
+            //   }
+            // } else {
               reportProblem(
                 node: declaredDependencyNode,
                 message:
@@ -887,7 +907,7 @@ create(context, {RegExp additionalHooks}) {
                   "complex expression in the dependency array. "
                   'Extract it to a separate variable so it can be statically checked.',
               );
-            }
+            // }
 
             continue;
           } else {
@@ -895,23 +915,20 @@ create(context, {RegExp additionalHooks}) {
           }
         }
 
+        // todo handle / warn about cascades?
         var maybeID = declaredDependencyNode;
-        while (
-          maybeID.type == 'MemberExpression' ||
-          maybeID.type == 'OptionalMemberExpression' ||
-          maybeID.type == 'ChainExpression'
-        ) {
-          maybeID = maybeID.object || maybeID.expression.object;
+        while (maybeID is PropertyAccess) {
+          maybeID = (maybeID as PropertyAccess).target;
         }
-        final isDeclaredInComponent = !componentScope.through.any(
-          (ref) => ref.identifier == maybeID,
-        );
+        final isDeclaredInComponent =
+            maybeID.tryCast<Identifier>()?.staticElement?.enclosingElement ==
+                componentFunctionElement;
 
         // Add the dependency to our declared dependency map.
-        declaredDependencies.push({
-          key: declaredDependency,
-          node: declaredDependencyNode,
-        });
+        declaredDependencies.add(_DeclaredDependency(
+          declaredDependency,
+          declaredDependencyNode,
+        ));
 
         if (!isDeclaredInComponent) {
           externalDependencies.add(declaredDependency);
@@ -948,7 +965,7 @@ create(context, {RegExp additionalHooks}) {
       );
       constructions.forEach(
         (_construction) {
-          final construction = _construction.construction;
+          final construction = _construction.declaration;
           final isUsedOutsideOfHook = _construction.isUsedOutsideOfHook;
           final depType = _construction.depType;
           final wrapperHook =
@@ -1488,7 +1505,7 @@ class _DepTree {
 
 class _DeclaredDependency {
   final String key;
-  final AstNode node;
+  final Expression node;
 
   _DeclaredDependency(this.key, this.node);
 }
@@ -1695,57 +1712,54 @@ String getConstructionExpressionType(Expression node) {
 // Finds variables declared as dependencies
 // that would invalidate on every render.
 List<_Construction> scanForConstructions({
-  Iterable<_DeclaredDependency> declaredDependencies,
-  AstNode declaredDependenciesNode,
-  Scope componentScope,
-  Scope scope,
+  @required Iterable<_DeclaredDependency> declaredDependencies,
+  @required AstNode declaredDependenciesNode,
 }) {
   final constructions = declaredDependencies
-    .map<Tuple2<Variable, String>>((dep) {
-      final key = dep.key;
+    .map<Tuple2<Declaration, String>>((dep) {
+      // FIXME this should be equivalent, but need to figure out how chained properties work... I'm not sure how that would work with analyzePropertyChain being used with the existing code to look up identifiers
+      // final ref = componentScope.variables.firstWhere((v) => v.name == key, orElse: () => null);
+      final refElement = dep.node?.tryCast<Identifier>()?.staticElement;
+      if (refElement == null) return null;
 
-      final ref = componentScope.variables.firstWhere((v) => v.name == key, orElse: () => null);
-      if (ref == null) {
-        return null;
-      }
-
-      final node = ref.identifier;
-      if (node == null) {
+      final declaration = lookUpDeclaration(refElement, dep.node.root);
+      if (declaration == null) {
         return null;
       }
       // final handleChange = () {};
       // final foo = {};
       // final foo = [];
       // etc.
-      final parent = node.parent;
-      if (parent is VariableDeclaration) {
+      if (declaration is VariableDeclaration) {
         // Const variables never change
-        if (parent.isConst) return null;
-        if (parent.initializer != null) {
+        if (declaration.isConst) return null;
+        if (declaration.initializer != null) {
+          // todo should this be stricter in Dart?
           final constantExpressionType = getConstructionExpressionType(
-            parent.initializer,
+            declaration.initializer,
           );
           if (constantExpressionType != null) {
-            return Tuple2(ref, constantExpressionType);
+            return Tuple2(declaration, constantExpressionType);
           }
         }
         return null;
       }
       // handleChange() {}
       if (
-        parent is FunctionDeclaration
+        declaration is FunctionDeclaration
       ) {
-        return Tuple2(ref, _DepType.function);
+        return Tuple2(declaration, _DepType.function);
       }
 
       return null;
     })
     .whereNotNull();
 
-  bool isUsedOutsideOfHook(Reference ref) {
+  bool isUsedOutsideOfHook(Declaration ref) {
     var foundWriteExpr = false;
-    for (var i = 0; i < ref.references.length; i++) {
-      final reference = ref.references[i];
+    for (final reference in findReferences(ref)) {
+      // FIXME WIP, keep converting this
+
       if (reference.writeExpr != null) {
         if (foundWriteExpr) {
           // Two writes to the same function.
@@ -1772,12 +1786,12 @@ List<_Construction> scanForConstructions({
   }
 
   return constructions.map((tuple) {
-    final ref = tuple.first;
+    final declaration = tuple.first;
     final depType = tuple.second;
     return _Construction(
-      construction: ref.defs[0],
+      declaration: declaration,
       depType: depType,
-      isUsedOutsideOfHook: isUsedOutsideOfHook(ref),
+      isUsedOutsideOfHook: isUsedOutsideOfHook(declaration),
     );
   }).toList();
 }
@@ -1789,11 +1803,11 @@ class Tuple2<T1, T2> {
 }
 
 class _Construction {
-  final AstNode construction;
+  final Declaration declaration;
   final String depType;
   final bool isUsedOutsideOfHook;
 
-  _Construction({this.construction, this.depType, this.isUsedOutsideOfHook});
+  _Construction({this.declaration, this.depType, this.isUsedOutsideOfHook});
 }
 abstract class _DepType {
   static const classDep = 'class';
@@ -1832,13 +1846,40 @@ Expression getDependency(Expression node) {
   }
 }
 
+List<Identifier> findReferences(Element element, AstNode root) {
+  final visitor = ReferenceVisitor(element);
+  root.accept(visitor);
+  return visitor.references;
+}
+
+class ReferenceVisitor extends RecursiveAstVisitor<void> {
+  final Element _targetElement;
+
+  final List<Identifier> references = [];
+
+  ReferenceVisitor(this._targetElement);
+
+  @override
+  void visitSimpleIdentifier(SimpleIdentifier node) {
+    super.visitSimpleIdentifier(node);
+
+    if (node.staticElement == _targetElement) {
+      references.add(node);
+    }
+  }
+}
+
 /// Mark a node as either optional or required.
 /// Note: If the node argument is an OptionalMemberExpression, it doesn't necessarily mean it is optional.
 /// It just means there is an optional member somewhere inside.
 /// This particular node might still represent a required member, so check .optional field.
-void markNode(AstNode node, Map<String, bool> optionalChains, String result) {
+void markNode(AstNode node, Map<String, bool> optionalChains, String result, {@required bool isOptional}) {
+  if ((optionalChains == null) != (isOptional == null)) {
+    throw ArgumentError('isOptional and optionalChains must be specified together');
+  }
+
   if (optionalChains != null) {
-    if (node.optional) {
+    if (isOptional) {
       // We only want to consider it optional if *all* usages were optional.
       if (!optionalChains.containsKey(result)) {
         // Mark as (maybe) optional. If there's a required usage, this will be overridden.
@@ -1857,34 +1898,28 @@ void markNode(AstNode node, Map<String, bool> optionalChains, String result) {
 /// foo.bar(.)baz -> 'foo.bar.baz'
 /// Otherwise throw.
 String analyzePropertyChain(AstNode node, Map<String, bool> optionalChains) {
-  if (node.type == 'Identifier' || node.type == 'JSXIdentifier') {
+  if (node is SimpleIdentifier) {
     final result = node.name;
     if (optionalChains != null) {
       // Mark as required.
       optionalChains[result] = false;
     }
     return result;
-  } else if (node.type == 'MemberExpression') {
-    final object = analyzePropertyChain(node.object, optionalChains);
-    final property = analyzePropertyChain(node.property, null);
+  } else if (node is PropertyAccess) {
+    // todo what about method calls?
+    final object = analyzePropertyChain(node.target, optionalChains);
+    final property = analyzePropertyChain(node.propertyName, null);
     final result = "$object.$property";
-    markNode(node, optionalChains, result);
+    markNode(node, optionalChains, result, isOptional: node.isNullAware);
     return result;
-  } else if (node.type == 'OptionalMemberExpression') {
-    final object = analyzePropertyChain(node.object, optionalChains);
-    final property = analyzePropertyChain(node.property, null);
+  } else if (node is PrefixedIdentifier) {
+    final object = analyzePropertyChain(node.prefix, optionalChains);
+    final property = analyzePropertyChain(node.identifier, null);
     final result = "$object.$property";
-    markNode(node, optionalChains, result);
-    return result;
-  } else if (node.type == 'ChainExpression') {
-    final expression = node.expression;
-    final object = analyzePropertyChain(expression.object, optionalChains);
-    final property = analyzePropertyChain(expression.property, null);
-    final result = "$object.$property";
-    markNode(expression, optionalChains, result);
+    markNode(node, optionalChains, result, isOptional: false);
     return result;
   } else {
-    throw ArgumentError("Unsupported node type: ${node.type}");
+    throw ArgumentError("Unsupported node type: ${node.runtimeType}");
   }
 }
 
