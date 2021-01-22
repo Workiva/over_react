@@ -12,6 +12,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
+import 'package:analyzer/source/line_info.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
@@ -349,7 +350,8 @@ create(context, {RegExp additionalHooks}) {
 
 
   // Should be shared between visitors.
-  final setStateCallSites = WeakMap();
+  /// A mapping from setState references to setState declarations
+  final setStateCallSites = WeakMap<Identifier, Expression>();
   final stateVariables = WeakSet();
   final stableKnownValueCache = WeakMap<Element, bool>();
   final functionWithoutCapturedValueCache = WeakMap<Element, bool>();
@@ -378,9 +380,6 @@ create(context, {RegExp additionalHooks}) {
           'Learn more about data fetching with Hooks: https://reactjs.org/link/hooks-data-fetching',
       );
     }
-
-    // Get the current scope.
-    final scope = scopeManager.acquire(node);
 
     // Find all our "pure scopes". On every re-render of a component these
     // pure scopes may have changes to the variables declared within. So all
@@ -584,11 +583,7 @@ create(context, {RegExp additionalHooks}) {
 
       // Narrow the scope of a dependency if it is, say, a member expression.
       // Then normalize the narrowed dependency.
-      final referenceNode = fastFindReferenceWithParent(
-        node,
-        reference,
-      );
-      final dependencyNode = getDependency(referenceNode);
+      final dependencyNode = getDependency(reference);
       final dependency = analyzePropertyChain(
         dependencyNode,
         optionalChains,
@@ -654,9 +649,9 @@ create(context, {RegExp additionalHooks}) {
         // Is React managing this ref or us?
         // Let's see if we can find a .current assignment.
         var foundCurrentAssignment = false;
-        for (final reference in reference.resolved.references) {
-          final identifier = reference.identifier;
-          final parent = identifier.parent;
+        // TODO find root for reference element, which may be in a different AST than the reference
+        for (final reference in findReferences(reference.staticElement, reference.root)) {
+          final parent = reference.parent;
           if (
             // ref.current
             parent?.tryCast<PropertyAccess>()?.propertyName?.name == 'current' &&
@@ -710,8 +705,10 @@ create(context, {RegExp additionalHooks}) {
         stableDependencies.add(key);
       }
       for (final reference in dep.references) {
-        if (reference.writeExpr != null) {
-          reportStaleAssignment(reference.writeExpr, key);
+        final parent = reference.parent;
+        // todo make a utility to check for assignments
+        if (parent is AssignmentExpression && parent.leftHandSide == reference) {
+          reportStaleAssignment(parent, key);
         }
       }
     });
@@ -726,7 +723,6 @@ create(context, {RegExp additionalHooks}) {
       // Those tend to lead to infinite loops.
       String setStateInsideEffectWithoutDeps;
       dependencies.forEach((key, _entry) {
-        final isStable = _entry.isStable;
         final references = _entry.references;
         if (setStateInsideEffectWithoutDeps != null) {
           return;
@@ -736,17 +732,13 @@ create(context, {RegExp additionalHooks}) {
             return;
           }
 
-          final id = reference.identifier;
-          final isSetState = setStateCallSites.has(id);
+          // FIXME should this use Dart element model to check this as opposed to WeakMap?
+          final isSetState = setStateCallSites.has(reference);
           if (!isSetState) {
             return;
           }
 
-          var fnScope = reference.from;
-          while (fnScope.type != ScopeType.function) {
-            fnScope = fnScope.upper;
-          }
-          final isDirectlyInsideEffect = fnScope.block.parentOfType<FunctionBody>() == node;
+          final isDirectlyInsideEffect = reference.thisOrAncestorOfType<FunctionBody>() == node;
           if (isDirectlyInsideEffect) {
             // TODO: we could potentially ignore early returns.
             setStateInsideEffectWithoutDeps = key;
@@ -940,6 +932,8 @@ create(context, {RegExp additionalHooks}) {
       constructions.forEach(
         (_construction) {
           final construction = _construction.declaration;
+          final constructionName = construction.declaredElement.name;
+
           final isUsedOutsideOfHook = _construction.isUsedOutsideOfHook;
           final depType = _construction.depType;
           final wrapperHook =
@@ -948,7 +942,7 @@ create(context, {RegExp additionalHooks}) {
           final constructionType =
             depType == 'function' ? 'definition' : 'initialization';
 
-          final defaultAdvice = "wrap the $constructionType of '${construction.name.name}' in its own $wrapperHook() Hook.";
+          final defaultAdvice = "wrap the $constructionType of '$constructionName' in its own $wrapperHook() Hook.";
 
           final advice = isUsedOutsideOfHook
             ? "To fix this, $defaultAdvice"
@@ -959,9 +953,12 @@ create(context, {RegExp additionalHooks}) {
               ? 'could make'
               : 'makes';
 
+          // TODO implement
+          LineInfo lineInfo;
+
           final message =
-            "The '${construction.name.name}' $depType $causation the dependencies of "
-            "$reactiveHookName Hook (at line ${declaredDependenciesNode.loc.start.line}) "
+            "The '$constructionName' $depType $causation the dependencies of "
+            "$reactiveHookName Hook (at line ${lineInfo?.getLocation(declaredDependenciesNode.offset)?.lineNumber}) "
             "change on every render. $advice";
 
           var suggest;
@@ -969,7 +966,7 @@ create(context, {RegExp additionalHooks}) {
           // Wrapping function declarations can mess up hoisting.
           if (
             isUsedOutsideOfHook &&
-            construction.type == 'Variable' &&
+            construction is VariableDeclaration &&
             // Objects may be mutated ater construction, which would make this
             // fix unsafe. Functions _probably_ won't be mutated, so we'll
             // allow this fix for them.
@@ -977,7 +974,7 @@ create(context, {RegExp additionalHooks}) {
           ) {
             // suggest = [
             //   {
-            //     desc: "Wrap the $constructionType of '${construction.name.name}' in its own $wrapperHook() Hook.",
+            //     desc: "Wrap the $constructionType of '$constructionName' in its own $wrapperHook() Hook.",
             //     fix(fixer) {
             //       final parts =
             //         wrapperHook == 'useMemo'
@@ -1002,7 +999,7 @@ create(context, {RegExp additionalHooks}) {
           // Should we suggest removing effect deps as an appropriate fix too?
           reportProblem(
             // TODO: Why not report this at the dependency site?
-            node: construction.node,
+            node: construction,
             message: message,
             // suggest: suggest,
           );
@@ -1077,14 +1074,15 @@ create(context, {RegExp additionalHooks}) {
           " Mutable values like '$badRef' aren't valid dependencies "
           "because mutating them doesn't re-render the component.";
       } else if (externalDependencies.isNotEmpty) {
-        final dep = externalDependencies.first;
-        // Don't show this warning for things that likely just got moved *inside* the callback
-        // because in that case they're clearly not referring to globals.
-        if (!scope.set.contains(dep)) {
-          extraWarning =
-            " Outer scope values like '$dep' aren't valid dependencies "
-            "because mutating them doesn't re-render the component.";
-        }
+        // FIXME store actual reference to dep instead of just string representation
+        // final dep = externalDependencies.first;
+        // // Don't show this warning for things that likely just got moved *inside* the callback
+        // // because in that case they're clearly not referring to globals.
+        // if (!scope.set.contains(dep)) {
+        //   extraWarning =
+        //     " Outer scope values like '$dep' aren't valid dependencies "
+        //     "because mutating them doesn't re-render the component.";
+        // }
       }
     }
 
@@ -1102,22 +1100,18 @@ create(context, {RegExp additionalHooks}) {
       }
       var isPropsOnlyUsedInMembers = true;
       for (final ref in refs) {
-        final id = fastFindReferenceWithParent(
-          componentScope.block,
-          ref.identifier,
-        );
-        if (id == null) {
+        if (ref == null) {
           isPropsOnlyUsedInMembers = false;
           break;
         }
-        final parent = id.parent;
+        final parent = ref.parent;
         if (parent == null) {
           isPropsOnlyUsedInMembers = false;
           break;
         }
         if (
-          parent.type != 'MemberExpression' &&
-          parent.type != 'OptionalMemberExpression'
+          !(parent is PropertyAccess && parent.target == ref) &&
+          !(parent is MethodInvocation && parent.target == ref)
         ) {
           isPropsOnlyUsedInMembers = false;
           break;
@@ -1937,38 +1931,6 @@ int getReactiveHookCallbackIndex(Expression calleeNode, {RegExp additionalHooks}
         return -1;
       }
   }
-}
-
-/// ESLint won't assign node.parent to references from context.getScope()
-///
-/// So instead we search for the node from an ancestor assigning node.parent
-/// as we go. This mutates the AST.
-///
-/// This traversal is:
-/// - optimized by only searching nodes with a range surrounding our target node
-/// - agnostic to AST node types, it looks for "{ type: string, ... }"
-Identifier fastFindReferenceWithParent(AstNode start, Identifier target) {
-  final queue = Queue.of([start]);
-  AstNode item;
-
-  while (queue.isNotEmpty) {
-    item = queue.removeFirst();
-
-    if (isSameIdentifier(item, target)) {
-      return item as Identifier;
-    }
-
-    if (!isAncestorNodeOf(item, target)) {
-      continue;
-    }
-
-    for (final value in item.childEntities.whereType<AstNode>()) {
-      value.parent = item;
-      queue.add(value);
-    }
-  }
-
-  return null;
 }
 
 String joinEnglish(List<String> arr) {
