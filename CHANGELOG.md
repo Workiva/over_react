@@ -85,7 +85,7 @@ __New Features__
           props.children,
         );
       }, 
-      _$FancyBorderConfig, // ignore: undefined_identifier
+      $FancyBorderConfig, // ignore: undefined_identifier
     );
     ```
     
