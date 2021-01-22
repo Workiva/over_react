@@ -65,7 +65,7 @@ export 'component_type_checking.dart'
 /// }
 /// ```
 ///
-/// __OR__ Optionally pass in an existing [PropsFactory] in place of a props [config].
+/// __OR__ Optionally pass in an existing [PropsFactory] in place of a props [_config].
 ///
 /// ```dart
 /// UiFactory<FooProps> Bar = uiFunction(

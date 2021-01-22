@@ -8,7 +8,8 @@ UiFactory<FunctionComponentProps> FunctionComponent = uiFunction(
       'This is a pre-Dart 2.9.0 functional component.'
     );
   },
-  _$FunctionComponentConfig, // ignore: undefined_identifier
+  // ignore: deprecated_member_use_from_same_package
+  $FunctionComponentConfig, // ignore: undefined_identifier
 );
 
 mixin FunctionComponentProps on UiProps {}
