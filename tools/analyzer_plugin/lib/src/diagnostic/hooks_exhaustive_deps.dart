@@ -93,191 +93,6 @@ V Function(K) memoizeWithWeakMap<K, V>(V Function(K) fn, WeakMap<K, V> map) {
   };
 }
 
-
-// Rough port of https://eslint.org/docs/developer-guide/scope-manager-interface
-// https://github.com/eslint/eslint-scope
-// Could use Dart  VariableResolverVisitor or ScopedVisitor or even ScopedNameFinder in cases ?
-class ScopeManager {
-  List<Scope> get scopes => null;
-
-  Scope acquire(FunctionBody node) {}
-}
-
-
-
-// Rough port of https://eslint.org/docs/developer-guide/scope-manager-interface#scope-interface
-class Scope {
-  // The parent scope. If this is the global scope then this property is null.
-  Scope get upper => null;
-
-  /// The type of this scope.
-  ///
-  /// This is one of "block", "catch", "class", "for", "function", "function-expression-name", "global", "module", "switch", "with"
-  ScopeType get type => null;
-
-  /// The array of all references on this scope. This does not include references in child scopes.
-  List<Reference> get references => null;
-
-  // The array of child scopes. This does not include grandchild scopes.
-  List<Scope> get childScopes => null;
-
-  /// The AST node which created this scope.
-  Block get block => null;
-
-  /// The array of references which could not be resolved in this scope.
-  List<Reference> get through => null;
-
-  // The array of all variables which are defined on this scope. This does not include variables which are defined in child scopes.
-  List<Variable> get variables => null;
-}
-
-
-class LazyScopeImpl implements Scope {
-  static final globalScope = LazyScopeImpl(null, ScopeType.global);
-
-  @override
-  final ScopeType type;
-
-  @override
-  final Block block;
-
-  @override
-  Scope get upper {
-    if (type == ScopeType.global) return null;
-
-    final ancestorBlock = block.parent?.thisOrAncestorOfType<Block>();
-    return ancestorBlock != null ? LazyScopeImpl.detect(ancestorBlock) : globalScope;
-  }
-
-  void _visit() {
-    final visitor = _ScopeVisitor();
-    block.visitChildren(visitor);
-    _childScopes = visitor.childScopes.map((block) => LazyScopeImpl.detect(block)).toList();
-    _variables = visitor.variables;
-    _references = visitor.references;
-    _through = visitor.through;
-  }
-
-  List<Scope> _childScopes;
-  @override
-  List<Scope> get childScopes {
-    if (_childScopes == null) _visit();
-    return _childScopes;
-  }
-
-
-  List<Reference> _references;
-  @override
-  List<Reference> get references {
-    if (_references == null) _visit();
-    return _references;
-  }
-
-  List<Reference> _through;
-  @override
-  List<Reference> get through {
-    if (_through == null) _visit();
-    return _through;
-  }
-
-  LazyScopeImpl(this.block, this.type);
-  LazyScopeImpl.detect(this.block) : type = detectType(block);
-
-  static ScopeType detectType(Block block) {
-    ArgumentError.checkNotNull(block, 'block');
-
-    if (block.parent is BlockFunctionBody) {
-      return ScopeType.function;
-    }
-    return ScopeType.block;
-  }
-}
-
-class _ScopeVisitor extends RecursiveAstVisitor<void> {
-  final childScopes = <Block>[];
-  final references = <Identifier>[];
-
-  @override
-  void visitBlock(Block node) {
-    childScopes.add(node);
-    // Don't recurse into scopes by calling super
-  }
-
-
-  // idenfier / references
-
-  @override
-  void visitSimpleIdentifier(SimpleIdentifier node) {
-    final parent = node.parent;
-    if (parent is MethodInvocation && parent.methodName == node) return;
-    if (parent is NamedExpression && parent.name.label == node) return;
-    if (parent is FormalParameter && parent.identifier == node) return;
-    if (parent is Label && parent.label == node) return;
-    if (parent is ContinueStatement || parent is BreakStatement) return;
-    if (parent is PropertyAccess && parent.propertyName == node) return;
-
-    // variables declared in other ways
-    // error / stack trace vars
-    if (parent is VariableDeclaration && parent.name == node) return;
-    if (parent is CatchClause) return;
-    // for-in variable
-    if (parent is DeclaredIdentifier) return;
-    if (parent is FunctionDeclaration) return;
-
-    references.add(node);
-  }
-
-
-  @override
-  void visitConstructorName(ConstructorName node) {}
-  @override
-  void visitTypeParameter(TypeParameter node) {}
-
-  @override
-  void visitPrefixedIdentifier(PrefixedIdentifier node) {
-    references.add(node.prefix);
-  }
-}
-
-enum ScopeType {
-  global,
-  function,
-  block,
-}
-
-
-
-// Rough port of https://eslint.org/docs/developer-guide/scope-manager-interface#reference-interface
-class Reference {
-  // The Identifier node of this reference.
-  Identifier identifier;
-
-  /// The Scope object that this reference is on.
-  Scope from;
-
-  Variable resolved;
-
-  /// The ASTNode object which is right-hand side.
-  Expression writeExpr;
-}
-
-class Variable {
-  /// The name of this variable.
-  String name;
-
-  /// The array of Identifier nodes which define this variable. If this variable is redeclared, this array includes two or more nodes.
-  Identifier identifier;
-
-  /// The array of the references of this variable.
-  List<Reference> references;
-}
-
-
-extension on Element {
-  Scope get scope => null;
-}
-
-
 class _Dependency {
   final bool isStable;
   final List<Identifier> references;
@@ -351,7 +166,7 @@ create(context, {RegExp additionalHooks}) {
 
   // Should be shared between visitors.
   /// A mapping from setState references to setState declarations
-  final setStateCallSites = WeakMap<Identifier, Expression>();
+  final setStateCallSites = WeakMap<Identifier, Identifier>();
   final stateVariables = WeakSet();
   final stableKnownValueCache = WeakMap<Element, bool>();
   final functionWithoutCapturedValueCache = WeakMap<Element, bool>();
@@ -1137,7 +952,7 @@ create(context, {RegExp additionalHooks}) {
         }
         // Is this a variable from top scope?
         final topScopeRef = componentScope.set.get(missingDep);
-        final usedDep = dependencies.get(missingDep);
+        final usedDep = dependencies[missingDep];
         if (usedDep.references[0].resolved != topScopeRef) {
           return;
         }
@@ -1148,16 +963,8 @@ create(context, {RegExp additionalHooks}) {
         }
         // Was it called in at least one case? Then it's a function.
         var isFunctionCall = false;
-        var id;
-        for (var i = 0; i < usedDep.references.length; i++) {
-          id = usedDep.references[i].identifier;
-          if (
-            id != null &&
-            id.parent != null &&
-            (id.parent.type == 'CallExpression' ||
-              id.parent.type == 'OptionalCallExpression') &&
-            id.parent.callee == id
-          ) {
+        for (final id in usedDep.references) {
+          if (id?.parent?.tryCast<InvocationExpression>()?.function == id) {
             isFunctionCall = true;
             break;
           }
@@ -1184,48 +991,51 @@ create(context, {RegExp additionalHooks}) {
         if (setStateRecommendation != null) {
           return;
         }
-        final usedDep = dependencies.get(missingDep);
+        final usedDep = dependencies[missingDep];
         final references = usedDep.references;
-        var id;
-        var maybeCall;
+        Identifier id;
+        AstNode maybeCall;
         for (var i = 0; i < references.length; i++) {
-          id = references[i].identifier;
+          id = references[i];
           maybeCall = id.parent;
           // Try to see if we have setState(someExpr(missingDep)).
-          while (maybeCall != null && maybeCall != componentScope.block) {
+          while (maybeCall != null && maybeCall != componentFunction.body) {
             if (maybeCall is InvocationExpression) {
+              final maybeCallFunction = maybeCall.function;
+              final maybeCallFunctionName = maybeCallFunction
+                      .tryCast<MethodInvocation>()
+                      ?.methodName
+                      ?.name ??
+                  maybeCallFunction.tryCast<Identifier>()?.name;
               final correspondingStateVariable = setStateCallSites.get(
-                maybeCall.callee,
+                maybeCallFunction.tryCast(),
               );
               if (correspondingStateVariable != null) {
                 if (correspondingStateVariable.name == missingDep) {
                   // setCount(count + 1)
                   setStateRecommendation = _SetStateRecommendation(
                     missingDep: missingDep,
-                    setter: maybeCall.callee.name,
-                    form: 'updater',
+                    setter: maybeCallFunctionName,
+                    form: _SetStateRecommendationForm.updater,
                   );
                 } else if (stateVariables.has(id)) {
                   // setCount(count + increment)
                   setStateRecommendation = _SetStateRecommendation(
                     missingDep: missingDep,
-                    setter: maybeCall.callee.name,
-                    form: 'reducer',
+                    setter: maybeCallFunctionName,
+                    form: _SetStateRecommendationForm.reducer,
                   );
                 } else {
-                  final resolved = references[i].resolved;
-                  if (resolved != null) {
-                    // If it's a parameter *and* a missing dep,
-                    // it must be a prop or something inside a prop.
-                    // Therefore, recommend an inline reducer.
-                    final def = resolved.defs[0];
-                    if (def != null && def.type == 'Parameter') {
-                      setStateRecommendation = _SetStateRecommendation(
-                        missingDep: missingDep,
-                        setter: maybeCall.callee.name,
-                        form: 'inlineReducer',
-                      );
-                    }
+                  // If it's a parameter *and* a missing dep,
+                  // it must be a prop or something inside a prop.
+                  // Therefore, recommend an inline reducer.
+                  final def = references[i].staticElement;
+                  if (def != null && def is ParameterElement) {
+                    setStateRecommendation = _SetStateRecommendation(
+                      missingDep: missingDep,
+                      setter: maybeCallFunctionName,
+                      form: _SetStateRecommendationForm.inlineReducer,
+                    );
                   }
                 }
                 break;
@@ -1403,18 +1213,20 @@ create(context, {RegExp additionalHooks}) {
     }
 
     // Something unusual. Fall back to suggesting to add the body itself as a dep.
+    // todo fix this name logic
+    final callbackName = callback.tryCast<Identifier>()?.name;
     reportProblem(
       node: reactiveHook,
       message:
-        "React Hook $reactiveHookName has a missing dependency: '${callback.name}'. "
+        "React Hook $reactiveHookName has a missing dependency: '$callbackName'. "
         "Either include it or remove the dependency array.",
       // suggest: [
       //   {
-      //     desc: "Update the dependencies array to be: [${callback.name}]",
+      //     desc: "Update the dependencies array to be: [$callbackName]",
       //     fix(fixer) {
       //       return fixer.replaceText(
       //         declaredDependenciesNode,
-      //         "[${callback.name}]",
+      //         "[$callbackName]",
       //       );
       //     },
       //   },
@@ -1432,7 +1244,7 @@ enum _SetStateRecommendationForm {
 class _SetStateRecommendation {
   final String missingDep;
   final String setter;
-  final String form;
+  final _SetStateRecommendationForm form;
 
   _SetStateRecommendation({this.missingDep, this.setter, this.form});
 }
@@ -1724,7 +1536,7 @@ List<_Construction> scanForConstructions({
     .whereNotNull();
 
   bool isUsedOutsideOfHook(Declaration declaration) {
-    for (final reference in findReferences(declaration)) {
+    for (final reference in findReferences(declaration.declaredElement, declaration.root)) {
       // FIXME WIP, keep converting this
 
       // TODO better implementation of this
