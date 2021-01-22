@@ -333,7 +333,6 @@ create(context, {RegExp additionalHooks}) {
 
     // Some are just functions that don't reference anything dynamic.
     bool isFunctionWithoutCapturedValues(Element resolved) {
-      // fixme convert to AST, account for function variables
       final fnNode = lookUpFunction(resolved, rootNode);
 
       if (!componentFunction.containsRangeOf(fnNode)) {
@@ -1533,17 +1532,20 @@ List<_Construction> scanForConstructions({
 
   bool isUsedOutsideOfHook(Declaration declaration) {
     for (final reference in findReferences(declaration.declaredElement, declaration.root)) {
-      // FIXME WIP, keep converting this
-
       // TODO better implementation of this
       // Crude implementation of ignoring initializer
       if (declaration.containsRangeOf(reference)) {
         continue;
       }
 
+      final parent = reference.parent;
+      if (parent is AssignmentExpression && parent.leftHandSide == reference) {
+        return true;
+      }
+
       // This reference is outside the Hook callback.
       // It can only be legit if it's the deps array.
-      if (!isAncestorNodeOf(declaredDependenciesNode, reference)) {
+      if (!declaredDependenciesNode.containsRangeOf(reference)) {
         return true;
       }
     }
@@ -1754,18 +1756,6 @@ String joinEnglish(List<String> arr) {
   }
   return s;
 }
-
-bool isSameIdentifier(AstNode a, Identifier b) {
-  return a is Identifier &&
-      a.name == b.name &&
-      a.offset == b.offset &&
-      a.end == b.end;
-}
-
-bool isAncestorNodeOf(AstNode a, AstNode b) {
-  return a.offset <= b.offset && a.end >= b.end;
-}
-
 
 extension<E extends Comparable> on Iterable<E> {
   /// Whether the elements in this collection are already sorted.
