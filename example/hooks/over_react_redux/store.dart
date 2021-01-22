@@ -1,4 +1,4 @@
-// Copyright 2020 Workiva Inc.
+// Copyright 2021 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -59,11 +59,11 @@ class DartModelCounter {
 }
 
 int _counterDecrementReducer(int currentCount, DecrementAction action) {
-  return currentCount - (action?.value != null ? action.value : 1);
+  return currentCount - (action.value ?? 1);
 }
 
 int _counterIncrementReducer(int currentCount, IncrementAction action) {
-  return currentCount + (action?.value != null ? action.value : 1);
+  return currentCount + (action.value ?? 1);
 }
 
 Reducer<int> counterActionsReducer = combineReducers<int>([
@@ -77,10 +77,10 @@ Reducer<DartModelCounter> modelCounterActionsReducer = combineReducers<DartModel
     return DartModelCounter(count: 0);
   }),
   TypedReducer<DartModelCounter, IncrementModelCountAction>((currentModel, action) {
-    return DartModelCounter(count: currentModel.count + (action?.value != null ? action.value : 1));
+    return DartModelCounter(count: currentModel.count + (action.value ?? 1));
   }),
   TypedReducer<DartModelCounter, DecrementModelCountAction>((currentModel, action) {
-    return DartModelCounter(count: currentModel.count - (action?.value != null ? action.value : 1));
+    return DartModelCounter(count: currentModel.count - (action.value ?? 1));
   }),
 ]);
 

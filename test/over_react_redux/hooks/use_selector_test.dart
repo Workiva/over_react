@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:developer';
+
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 import 'package:redux/redux.dart';
@@ -61,7 +63,8 @@ main() {
           jacket = mount(
             (ReduxProvider()..store = counterStore)(
               (CounterFn()..countEqualityFn = (nextCount, prevCount) {
-                return nextCount == 1;
+                // Use 2 so that the equalityFn returns false once, and then returns true.
+                return nextCount == 2;
               })(),
               // Use a sibling connected component for dispatching actions in these tests
               // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
@@ -70,12 +73,19 @@ main() {
 
           expectCountValue(jacket, 0);
           await clickSiblingConnectedIncrementButton(jacket);
-          expectCountValue(jacket, 0);
+          expectCountValue(jacket, 1, reason: 'Component should update when equalityFn returns false');
+          await clickSiblingConnectedIncrementButton(jacket);
+          expectCountValue(jacket, 1, reason: 'Component should not update when equalityFn returns true');
         });
       });
 
       // Exercise js interop wrapping / unwrapping of dart types
       group('a selector with a Dart value is updated', () {
+        void expectModelCountValue(TestJacket jacket, int expectedValue, {String reason}) {
+          expect(queryByTestId(jacket.mountNode, 'count-from-model').text, 'Model Count: $expectedValue',
+              reason: reason);
+        }
+
         test('', () async {
           jacket = mount(
             (ReduxProvider()..store = counterStore)(
@@ -94,7 +104,8 @@ main() {
           jacket = mount(
             (ReduxProvider()..store = counterStore)(
               (ModelCounterFn()..modelCountEqualityFn = (nextModel, prevModel) {
-                return nextModel.count == 1;
+                // Use 2 so that the equalityFn returns false once, and then returns true.
+                return nextModel.count == 2;
               })(),
               // Use a sibling connected component for dispatching actions in these tests
               // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
@@ -103,7 +114,9 @@ main() {
 
           expectModelCountValue(jacket, 0);
           await clickSiblingConnectedModelCountIncrementButton(jacket);
-          expectModelCountValue(jacket, 0);
+          expectModelCountValue(jacket, 1, reason: 'Component should update when equalityFn returns false');
+          await clickSiblingConnectedModelCountIncrementButton(jacket);
+          expectModelCountValue(jacket, 1, reason: 'Component should not update when equalityFn returns true');
         });
       });
     });
@@ -136,7 +149,7 @@ main() {
           expectCountValue(jacket, 1);
         });
 
-        test('unless a custom equalityFn returns false', () async {
+        test('unless a custom equalityFn returns true', () async {
           jacket = mount(
               (ReduxProvider()..store = counterStore)(
                 (ReduxProvider()
@@ -144,7 +157,8 @@ main() {
                   ..context = bigCounterContext
                 )(
                   (CustomContextCounterFn()..bigCountEqualityFn = (nextBigCount, prevBigCount) {
-                    return nextBigCount == 109;
+                    // Use 209 so that the equalityFn returns false once, and then returns true.
+                    return nextBigCount == 209;
                   })(),
                   // Use a sibling connected component for dispatching actions in these tests
                   // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
@@ -157,7 +171,9 @@ main() {
 
           expectBigCountValue(jacket, 9);
           await clickSiblingConnectedBigCountIncrementButton(jacket);
-          expectBigCountValue(jacket, 9);
+          expectBigCountValue(jacket, 109, reason: 'Component should update when equalityFn returns false');
+          await clickSiblingConnectedBigCountIncrementButton(jacket);
+          expectBigCountValue(jacket, 109, reason: 'Component should not update when equalityFn returns true');
 
           expectCountValue(jacket, 0);
           await clickSiblingConnectedIncrementButton(jacket);

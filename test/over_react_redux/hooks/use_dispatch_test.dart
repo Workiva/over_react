@@ -12,15 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:test/test.dart';
 
 import '../../test_util/test_util.dart';
-import '../fixtures/counter_fn.dart';
+import '../fixtures/counter_fn.dart' show CounterFn, CustomContextCounterFn;
+import '../fixtures/redux_actions.dart';
 import '../fixtures/store.dart';
 
 import 'utils.dart';
+
+// ignore_for_file: uri_has_not_been_generated
+part 'use_dispatch_test.over_react.g.dart';
 
 main() {
   group('useDispatch hook', () {
@@ -38,11 +43,13 @@ main() {
     test('dispatches an action', () async {
       jacket = mount(
         (ReduxProvider()..store = counterStore)(
-          CounterFn()(),
+          UseDispatchCounterFn()(),
         ), attachedToDocument: true);
 
       expectCountValue(jacket, 0);
-      await clickIncrementButton(jacket);
+      final incrementButton = queryByTestId(jacket.mountNode, 'button-increment');
+      incrementButton.click();
+      await pumpEventQueue();
       expectCountValue(jacket, 1);
     });
 
@@ -53,13 +60,73 @@ main() {
               ..store = bigCounterStore
               ..context = bigCounterContext
             )(
-              CustomContextCounterFn()(),
+              CustomContextUseDispatchCounterFn()(),
             ),
           ), attachedToDocument: true);
 
       expectBigCountValue(jacket, 9);
-      await clickBigIncrementButton(jacket);
+      final incrementButton = queryByTestId(jacket.mountNode, 'button-big-increment');
+      incrementButton.click();
+      await pumpEventQueue();
       expectBigCountValue(jacket, 109);
     });
   });
 }
+
+mixin UseDispatchCounterFnProps on UiProps {}
+
+UiFactory<UseDispatchCounterFnProps> UseDispatchCounterFn = uiFunction(
+  (props) {
+    final dispatch = useDispatch();
+
+    return (CounterFn()..addTestId('use-dispatch-counter-component'))(
+      Dom.div()(
+        'Mutate Count:',
+        (Dom.button()
+          ..addTestId('button-increment')
+          ..onClick = (_) {
+            dispatch(IncrementAction());
+          }
+        )('+'),
+        (Dom.button()
+          ..addTestId('button-decrement')
+          ..onClick = (_) {
+            dispatch(DecrementAction());
+          }
+        )('-'),
+      ),
+    );
+  },
+  $UseDispatchCounterFnConfig, // ignore: undefined_identifier
+);
+
+final useBigCountDispatch = createDispatchHook(bigCounterContext);
+
+mixin CustomContextUseDispatchCounterFnProps on UiProps {}
+
+UiFactory<CustomContextUseDispatchCounterFnProps> CustomContextUseDispatchCounterFn = uiFunction(
+  (props) {
+    final bigDispatch = useBigCountDispatch();
+
+    return (CustomContextCounterFn()
+      ..addTestId('use-big-store-counter-component')
+    )(
+      Dom.div()(
+        'Mutate Big Count:',
+        (Dom.button()
+          ..addTestId('button-big-increment')
+          ..onClick = (_) {
+            bigDispatch(IncrementAction());
+          }
+        )('+'),
+        (Dom.button()
+          ..addTestId('button-big-decrement')
+          ..onClick = (_) {
+            bigDispatch(DecrementAction());
+          }
+        )('-'),
+      ),
+    );
+  },
+  $CustomContextUseDispatchCounterFnConfig, // ignore: undefined_identifier
+);

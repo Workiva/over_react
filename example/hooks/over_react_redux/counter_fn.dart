@@ -14,7 +14,6 @@
 
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
-import 'package:redux/redux.dart';
 
 import 'redux_actions.dart';
 import 'store.dart';
@@ -31,7 +30,7 @@ class CounterFnProps = UiProps with CounterFnPropsMixin;
 UiFactory<CounterFnProps> CounterFn = memo(uiFunction(
   (props) {
     final currentCount =
-        useSelector<int, CounterState>((state) => state.count, props.countEqualityFn);
+        useSelector<CounterState, int>((state) => state.count, props.countEqualityFn);
     final dispatch = useDispatch();
     final store = useStore<CounterState>();
 
@@ -71,7 +70,7 @@ class ModelCounterFnProps = UiProps with CounterFnPropsMixin, ModelCounterFnProp
 UiFactory<ModelCounterFnProps> ModelCounterFn = uiFunction(
   (props) {
     final currentModelCount =
-        useSelector<DartModelCounter, CounterState>((state) => state.modelCount, props.modelCountEqualityFn);
+        useSelector<CounterState, DartModelCounter>((state) => state.modelCount, props.modelCountEqualityFn);
 
     final dispatch = useDispatch();
 
@@ -102,9 +101,9 @@ UiFactory<ModelCounterFnProps> ModelCounterFn = uiFunction(
   $ModelCounterFnConfig, // ignore: undefined_identifier
 );
 
-final bigCounterContext = createContext<Store<BigCounterState>>();
-final useBigCountStore = createStoreHook(bigCounterContext);
-final useBigCountSelector = createSelectorHook(bigCounterContext);
+final bigCounterContext = createContext();
+final useBigCountStore = createStoreHook<BigCounterState>(bigCounterContext);
+final useBigCountSelector = createSelectorHook<BigCounterState>(bigCounterContext);
 final useBigCountDispatch = createDispatchHook(bigCounterContext);
 
 mixin CustomContextCounterFnPropsMixin on UiProps {

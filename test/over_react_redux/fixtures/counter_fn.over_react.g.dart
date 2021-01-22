@@ -11,34 +11,34 @@ part of 'counter_fn.dart';
     ' Do not reference it in your code, as it may change at any time.'
     ' EXCEPTION: this may be used in legacy boilerplate until'
     ' it is transitioned to the new mixin-based boilerplate.')
-mixin $CounterFnPropsMixin on CounterFnPropsMixin {
-  static const PropsMeta meta = _$metaForCounterFnPropsMixin;
+mixin $CounterFnProps on CounterFnProps {
+  static const PropsMeta meta = _$metaForCounterFnProps;
   @override
   bool Function(int nextCount, int prevCount) get countEqualityFn =>
-      props[_$key__countEqualityFn__CounterFnPropsMixin] ??
+      props[_$key__countEqualityFn__CounterFnProps] ??
       null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
   @override
   set countEqualityFn(bool Function(int nextCount, int prevCount) value) =>
-      props[_$key__countEqualityFn__CounterFnPropsMixin] = value;
+      props[_$key__countEqualityFn__CounterFnProps] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__countEqualityFn__CounterFnPropsMixin =
-      PropDescriptor(_$key__countEqualityFn__CounterFnPropsMixin);
-  static const String _$key__countEqualityFn__CounterFnPropsMixin =
-      'CounterFnPropsMixin.countEqualityFn';
+  static const PropDescriptor _$prop__countEqualityFn__CounterFnProps =
+      PropDescriptor(_$key__countEqualityFn__CounterFnProps);
+  static const String _$key__countEqualityFn__CounterFnProps =
+      'CounterFnProps.countEqualityFn';
 
   static const List<PropDescriptor> $props = [
-    _$prop__countEqualityFn__CounterFnPropsMixin
+    _$prop__countEqualityFn__CounterFnProps
   ];
   static const List<String> $propKeys = [
-    _$key__countEqualityFn__CounterFnPropsMixin
+    _$key__countEqualityFn__CounterFnProps
   ];
 }
 
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
-const PropsMeta _$metaForCounterFnPropsMixin = PropsMeta(
-  fields: $CounterFnPropsMixin.$props,
-  keys: $CounterFnPropsMixin.$propKeys,
+const PropsMeta _$metaForCounterFnProps = PropsMeta(
+  fields: $CounterFnProps.$props,
+  keys: $CounterFnProps.$propKeys,
 );
 
 @Deprecated('This API is for use only within generated code.'
@@ -134,10 +134,9 @@ final UiFactoryConfig<_$$CounterFnProps> $CounterFnConfig = UiFactoryConfig(
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$CounterFnProps extends UiProps
     with
-        CounterFnPropsMixin,
-        $CounterFnPropsMixin // If this generated mixin is undefined, it's likely because CounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnPropsMixin, and check that $CounterFnPropsMixin is exported/imported properly.
-    implements
-        CounterFnProps {
+        CounterFnProps,
+        $CounterFnProps // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
+{
   _$$CounterFnProps._();
 
   factory _$$CounterFnProps(Map backingMap) {
@@ -158,8 +157,8 @@ abstract class _$$CounterFnProps extends UiProps
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because CounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnPropsMixin, and check that $CounterFnPropsMixin is exported/imported properly.
-        CounterFnPropsMixin: $CounterFnPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
+        CounterFnProps: $CounterFnProps.meta,
       });
 }
 
@@ -215,8 +214,8 @@ final UiFactoryConfig<_$$ModelCounterFnProps> $ModelCounterFnConfig =
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$ModelCounterFnProps extends UiProps
     with
-        CounterFnPropsMixin,
-        $CounterFnPropsMixin, // If this generated mixin is undefined, it's likely because CounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnPropsMixin, and check that $CounterFnPropsMixin is exported/imported properly.
+        CounterFnProps,
+        $CounterFnProps, // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
         ModelCounterFnPropsMixin,
         $ModelCounterFnPropsMixin // If this generated mixin is undefined, it's likely because ModelCounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ModelCounterFnPropsMixin, and check that $ModelCounterFnPropsMixin is exported/imported properly.
     implements
@@ -241,8 +240,8 @@ abstract class _$$ModelCounterFnProps extends UiProps
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because CounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnPropsMixin, and check that $CounterFnPropsMixin is exported/imported properly.
-        CounterFnPropsMixin: $CounterFnPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
+        CounterFnProps: $CounterFnProps.meta,
         // If this generated mixin is undefined, it's likely because ModelCounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ModelCounterFnPropsMixin, and check that $ModelCounterFnPropsMixin is exported/imported properly.
         ModelCounterFnPropsMixin: $ModelCounterFnPropsMixin.meta,
       });
@@ -300,8 +299,8 @@ final UiFactoryConfig<_$$CustomContextCounterFnProps>
     ' Do not reference it in your code, as it may change at any time.')
 abstract class _$$CustomContextCounterFnProps extends UiProps
     with
-        CounterFnPropsMixin,
-        $CounterFnPropsMixin, // If this generated mixin is undefined, it's likely because CounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnPropsMixin, and check that $CounterFnPropsMixin is exported/imported properly.
+        CounterFnProps,
+        $CounterFnProps, // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
         CustomContextCounterFnPropsMixin,
         $CustomContextCounterFnPropsMixin // If this generated mixin is undefined, it's likely because CustomContextCounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomContextCounterFnPropsMixin, and check that $CustomContextCounterFnPropsMixin is exported/imported properly.
     implements
@@ -326,8 +325,8 @@ abstract class _$$CustomContextCounterFnProps extends UiProps
 
   @override
   PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because CounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnPropsMixin, and check that $CounterFnPropsMixin is exported/imported properly.
-        CounterFnPropsMixin: $CounterFnPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because CounterFnProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnProps, and check that $CounterFnProps is exported/imported properly.
+        CounterFnProps: $CounterFnProps.meta,
         // If this generated mixin is undefined, it's likely because CustomContextCounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CustomContextCounterFnPropsMixin, and check that $CustomContextCounterFnPropsMixin is exported/imported properly.
         CustomContextCounterFnPropsMixin:
             $CustomContextCounterFnPropsMixin.meta,
@@ -362,87 +361,6 @@ class _$$CustomContextCounterFnProps$JsMap
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$CustomContextCounterFnProps$JsMap(JsBackedMap backingMap)
-      : this._props = JsBackedMap(),
-        super._() {
-    this._props = backingMap ?? JsBackedMap();
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  JsBackedMap get props => _props;
-  JsBackedMap _props;
-}
-
-final UiFactoryConfig<_$$UseStoreCounterFnProps> $UseStoreCounterFnConfig =
-    UiFactoryConfig(
-        propsFactory: PropsFactory(
-          map: (map) => _$$UseStoreCounterFnProps(map),
-          jsMap: (map) => _$$UseStoreCounterFnProps$JsMap(map),
-        ),
-        displayName: 'UseStoreCounterFn');
-
-// Concrete props implementation.
-//
-// Implements constructor and backing map, and links up to generated component factory.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-abstract class _$$UseStoreCounterFnProps extends UiProps
-    with
-        CounterFnPropsMixin,
-        $CounterFnPropsMixin // If this generated mixin is undefined, it's likely because CounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnPropsMixin, and check that $CounterFnPropsMixin is exported/imported properly.
-    implements
-        UseStoreCounterFnProps {
-  _$$UseStoreCounterFnProps._();
-
-  factory _$$UseStoreCounterFnProps(Map backingMap) {
-    if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$UseStoreCounterFnProps$JsMap(backingMap);
-    } else {
-      return _$$UseStoreCounterFnProps$PlainMap(backingMap);
-    }
-  }
-
-  /// Let `UiProps` internals know that this class has been generated.
-  @override
-  bool get $isClassGenerated => true;
-
-  /// The default namespace for the prop getters/setters generated for this class.
-  @override
-  String get propKeyNamespace => '';
-
-  @override
-  PropsMetaCollection get staticMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because CounterFnPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of CounterFnPropsMixin, and check that $CounterFnPropsMixin is exported/imported properly.
-        CounterFnPropsMixin: $CounterFnPropsMixin.meta,
-      });
-}
-
-// Concrete props implementation that can be backed by any [Map].
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$UseStoreCounterFnProps$PlainMap extends _$$UseStoreCounterFnProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UseStoreCounterFnProps$PlainMap(Map backingMap)
-      : this._props = {},
-        super._() {
-    this._props = backingMap ?? {};
-  }
-
-  /// The backing props map proxied by this class.
-  @override
-  Map get props => _props;
-  Map _props;
-}
-
-// Concrete props implementation that can only be backed by [JsMap],
-// allowing dart2js to compile more optimal code for key-value pair reads/writes.
-@Deprecated('This API is for use only within generated code.'
-    ' Do not reference it in your code, as it may change at any time.')
-class _$$UseStoreCounterFnProps$JsMap extends _$$UseStoreCounterFnProps {
-  // This initializer of `_props` to an empty map, as well as the reassignment
-  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UseStoreCounterFnProps$JsMap(JsBackedMap backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

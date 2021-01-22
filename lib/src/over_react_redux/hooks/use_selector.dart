@@ -20,7 +20,6 @@ import 'package:over_react/src/over_react_redux/over_react_redux.dart';
 import 'package:over_react/src/over_react_redux/hooks/use_dispatch.dart';
 import 'package:over_react/src/util/context.dart';
 import 'package:react/react_client/react_interop.dart' show ReactContext;
-import 'package:redux/redux.dart';
 
 // ----------------------------------------------------
 //  useSelector hook
@@ -57,7 +56,7 @@ import 'package:redux/redux.dart';
 ///
 /// UiFactory<CounterProps> Counter = uiFunction(
 ///   (props) {
-///     final count = useSelector<int, CounterState>((state) => state.count);
+///     final count = useSelector<CounterState, int>((state) => state.count);
 ///
 ///     return Dom.div()('The current count is $count');
 ///   },
@@ -65,17 +64,74 @@ import 'package:redux/redux.dart';
 /// );
 /// ```
 ///
+/// ### Multiple Selectors
+///
+/// If you need to use multiple selectors in a single component, use [createSelectorHook] to
+/// shadow `useSelector` as shown below to remove a bunch of unnecessary boilerplate as shown
+/// in the example below.
+///
+/// Consider the previous example, but instead of only needing to access `count` from the store,
+/// you need to access `count`, and two other field values as well. Using `useSelector` for all
+/// of these can get a little messy:
+///
+/// ```dart
+/// import 'package:over_react/over_react.dart';
+/// import 'package:over_react/over_react_redux.dart';
+/// import 'counter_state.dart';
+///
+/// mixin CounterProps on UiProps {}
+///
+/// UiFactory<CounterProps> Counter = uiFunction(
+///   (props) {
+///     final count = useSelector<CounterState, int>((state) => state.count);
+///     final foo = useSelector<CounterState, String>((state) => state.foo);
+///     final bar = useSelector<CounterState, Map>((state) => state.bar);
+///
+///     return Dom.div()('The current $foo count is $count. $bar my dude.');
+///   },
+///   $CounterConfig, // ignore: undefined_identifier
+/// );
+/// ```
+///
+/// Instead of needing to declare those generic parameters each time on `useSelector`, shadow it like so:
+///
+/// ```dart
+/// import 'package:over_react/over_react.dart';
+/// import 'package:over_react/over_react_redux.dart';
+/// import 'counter_state.dart';
+///
+/// /// All the types for state fields within `CounterState` will be inferred!
+/// final useSelector = createSelectorHook<CounterState>();
+///
+/// mixin CounterProps on UiProps {}
+///
+/// UiFactory<CounterProps> Counter = uiFunction(
+///   (props) {
+///     final count = useSelector((state) => state.count);
+///     final foo = useSelector((state) => state.foo);
+///     final bar = useSelector((state) => state.bar);
+///
+///     return Dom.div()('The current $foo count is $count. $bar my dude.');
+///   },
+///   $CounterConfig, // ignore: undefined_identifier
+/// );
+/// ```
+///
+/// > __CAUTION:__ Be sure to not export the shadowed value of `useSelector` unless you know exactly what you're doing,
+///   and the consumers of your library expect the hook to always have the context of the state you
+///   parameterize it with.
+///
 /// > Related: [useDispatch]
-TSelector useSelector<TSelector, TReduxState>(TSelector Function(TReduxState state) selector, [
-  bool Function(TSelector tNextSelector, TSelector tPrevSelector) equalityFn,
+TValue useSelector<TReduxState, TValue>(TValue Function(TReduxState state) selector, [
+  bool Function(TValue tNextValue, TValue tPrevValue) equalityFn,
 ]) {
   ReactInteropValue jsSelector(ReactInteropValue jsState) => wrapInteropValue(selector(unwrapInteropValue(jsState)));
   _JsReduxStateEqualityFn jsEqualityFn = equalityFn == null
       ? null
-      : allowInterop((nextJsSelector, prevJsSelector) =>
-          equalityFn(unwrapInteropValue(nextJsSelector), unwrapInteropValue(prevJsSelector)));
+      : allowInterop((nextJsValue, prevJsValue) =>
+          equalityFn(unwrapInteropValue(nextJsValue), unwrapInteropValue(prevJsValue)));
 
-  return unwrapInteropValue<TSelector>(_jsUseSelector(allowInterop(jsSelector), jsEqualityFn));
+  return unwrapInteropValue<TValue>(_jsUseSelector(allowInterop(jsSelector), jsEqualityFn));
 }
 
 @JS('ReactRedux.useSelector')
@@ -103,39 +159,19 @@ external ReactInteropValue _jsUseSelector(_JsSelectorFn selector, [_JsReduxState
 /// // ------------------------------------
 /// //  1. Declare the custom context
 /// // ------------------------------------
-/// final MyContext = createContext<Store<MyState>>();
-/// final useMySelector = createSelectorHook(MyContext);
+/// final MyContext = createContext();
+/// final useSelector = createSelectorHook<MyState>(MyContext);
 /// final myStore = Store(myReducer);
 ///
 /// // ------------------------------------
-/// //  2. (Optional) Create a custom
-/// //  provider component that uses the
-/// //  context defined above.
-/// // ------------------------------------
-/// mixin MyProviderProps = UiProps with ReduxProviderProps;
-///
-/// UiFactory<MyProviderProps> MyProvider = uiFunction(
-///   (props) {
-///     return (ReduxProvider()
-///       ..addUnconsumedProps(props, const [])
-///       ..context = MyContext
-///       ..store = myStore
-///     )(
-///       props.children,
-///     );
-///   },
-///   $MyProviderConfig, // ignore: undefined_identifier
-/// );
-///
-/// // ------------------------------------
-/// //  3. Create a function component that
-/// //  uses `useMySelector`.
+/// //  2. Create a function component that
+/// //  uses the shadowed `useSelector`.
 /// // ------------------------------------
 /// mixin MyComponentProps on UiProps {}
 ///
 /// UiFactory<MyComponentProps> MyComponent = uiFunction(
 ///   (props) {
-///     final count = useMySelector((state) => state.count);
+///     final count = useSelector((state) => state.count);
 ///
 ///     return Dom.div()('The current count is $count');
 ///   },
@@ -143,29 +179,37 @@ external ReactInteropValue _jsUseSelector(_JsSelectorFn selector, [_JsReduxState
 /// );
 ///
 /// // ------------------------------------
-/// //  4. Render the function component
-/// //  nested within the custom provider.
+/// //  3. Render the function component
+/// //  nested within the ReduxProvider
+/// //  that is wired up to the
+/// //  custom context / store.
 /// // ------------------------------------
 /// main() {
-///   final app = MyProvider()(
+///   final app = (ReduxProvider()
+///     ..context = MyContext
+///     ..store = myStore
+///   )(
 ///     MyComponent()(),
 ///   );
 ///
 ///   react_dom.render(app, querySelector('#id_of_mount_node'));
 /// }
 /// ```
-_SelectorFnHook<TReduxState> createSelectorHook<TReduxState>([Context<Store<TReduxState>> context]) {
+_SelectorFnHook<TReduxState> createSelectorHook<TReduxState>([Context context]) {
   final jsHook = _jsCreateSelectorHook(context?.jsThis ?? JsReactRedux.ReactReduxContext);
-
-  return <TSelector>(selector, [equalityFn]) {
-    ReactInteropValue jsSelector(jsState) => wrapInteropValue(selector(unwrapInteropValue(jsState)));
+  // Using a var instead of a named function here to avoid having to redeclare the type on the LHS
+  // ignore: prefer_function_declarations_over_variables
+  _SelectorFnHook<TReduxState> dartHook = <TValue>(selector, [equalityFn]) {
+    ReactInteropValue jsSelector(ReactInteropValue jsState) => wrapInteropValue(selector(unwrapInteropValue(jsState)));
     _JsReduxStateEqualityFn jsEqualityFn = equalityFn == null
         ? null
-        : allowInterop((nextJsSelector, prevJsSelector) =>
-            equalityFn(unwrapInteropValue(nextJsSelector), unwrapInteropValue(prevJsSelector)));
+        : allowInterop((nextJsValue, prevJsValue) =>
+            equalityFn(unwrapInteropValue(nextJsValue), unwrapInteropValue(prevJsValue)));
 
-    return unwrapInteropValue<TSelector>(jsHook(allowInterop(jsSelector), jsEqualityFn));
+    return unwrapInteropValue<TValue>(jsHook(allowInterop(jsSelector), jsEqualityFn));
   };
+
+  return dartHook;
 }
 
 @JS('ReactRedux.createSelectorHook')
@@ -176,9 +220,9 @@ external _JsSelectorFnHook _jsCreateSelectorHook(ReactContext context);
 // ----------------------------------------------------
 
 typedef _JsSelectorFn = ReactInteropValue Function(ReactInteropValue jsState);
-typedef _JsReduxStateEqualityFn = bool Function(ReactInteropValue nextJsSelector, ReactInteropValue prevJsSelector);
+typedef _JsReduxStateEqualityFn = bool Function(ReactInteropValue nextJsValue, ReactInteropValue prevJsValue);
 typedef _JsSelectorFnHook = ReactInteropValue Function(_JsSelectorFn selector, [_JsReduxStateEqualityFn equalityFn]);
-typedef _SelectorFnHook<TReduxState> = TSelector Function<TSelector>(
-  TSelector Function(TReduxState state) selector, [
-  bool Function(TSelector tNextSelector, TSelector tPrevSelector) equalityFn,
+typedef _SelectorFnHook<TReduxState> = TValue Function<TValue>(
+  TValue Function(TReduxState state) selector, [
+  bool Function(TValue tNextValue, TValue tPrevValue) equalityFn,
 ]);

@@ -12,31 +12,40 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:test/test.dart';
 
 import '../../test_util/test_util.dart';
-import '../fixtures/counter_fn.dart';
 import '../fixtures/store.dart';
 
 import 'utils.dart';
 
+// ignore_for_file: uri_has_not_been_generated
+part 'use_store_test.over_react.g.dart';
+
 main() {
   group('useStore hook', () {
-    test('subscribes to the store and redraws when it updates', () async {
-      final counterStore = Store(counterStateReducer, initialState: CounterState());
+    void expectStoreCountValue(TestJacket jacket, int expectedValue) {
+      expect(queryByTestId(jacket.mountNode, 'count-from-store').text, 'Store Count: $expectedValue');
+    }
+
+    void expectStoreBigCountValue(TestJacket jacket, int expectedValue) {
+      expect(queryByTestId(jacket.mountNode, 'big-count-from-store').text, 'Big Store Count: $expectedValue');
+    }
+
+    test('provides access to the correct store', () {
+      final counterStore = Store(counterStateReducer, initialState: CounterState(count: 12));
       final jacket = mount(
         (ReduxProvider()..store = counterStore)(
-          CounterFn()(),
+          UseStoreCounterFn()(),
         ), attachedToDocument: true);
 
-      expectStoreCountValue(jacket, 0);
-      await clickIncrementButton(jacket);
-      expectStoreCountValue(jacket, 1);
+      expectStoreCountValue(jacket, 12);
     });
 
-    test('subscribes to custom context when createStoreHook is used and redraws when it updates', () async {
+    test('provides access to the correct store when custom context is specified via createStoreHook', () async {
       final counterStore = Store(counterStateReducer, initialState: CounterState());
       final bigCounterStore = Store(bigCounterStateReducer, initialState: BigCounterState(bigCount: 9));
       final jacket = mount(
@@ -45,17 +54,47 @@ main() {
               ..store = bigCounterStore
               ..context = bigCounterContext
             )(
-              CustomContextCounterFn()(),
+              CustomContextUseStoreCounterFn()(),
             ),
           ), attachedToDocument: true);
 
       expectStoreBigCountValue(jacket, 9);
-      await clickBigIncrementButton(jacket);
-      expectStoreBigCountValue(jacket, 109);
-
-      expectCountValue(jacket, 0);
-      await clickIncrementButton(jacket);
-      expectCountValue(jacket, 1);
     });
   });
 }
+
+mixin UseStoreCounterFnProps on UiProps {}
+
+UiFactory<UseStoreCounterFnProps> UseStoreCounterFn = uiFunction(
+  (props) {
+    final store = useStore<CounterState>();
+
+    return (Dom.div()
+      ..addUnconsumedDomProps(props, const [])
+      ..addTestId('use-store-counter-component')
+    )(
+      (Dom.div()..addTestId('count-from-store'))('Store Count: ${store.state.count}'),
+      props.children,
+    );
+  },
+  $UseStoreCounterFnConfig, // ignore: undefined_identifier
+);
+
+final useBigCountStore = createStoreHook<BigCounterState>(bigCounterContext);
+
+mixin CustomContextUseStoreCounterFnProps on UiProps {}
+
+UiFactory<CustomContextUseStoreCounterFnProps> CustomContextUseStoreCounterFn = uiFunction(
+  (props) {
+    final bigStore = useBigCountStore();
+
+    return (Dom.div()
+      ..addUnconsumedDomProps(props, const [])
+      ..addTestId('use-big-store-counter-component')
+    )(
+      (Dom.div()..addTestId('big-count-from-store'))('Big Store Count: ${bigStore.state.bigCount}'),
+      props.children,
+    );
+  },
+  $CustomContextUseStoreCounterFnConfig, // ignore: undefined_identifier
+);

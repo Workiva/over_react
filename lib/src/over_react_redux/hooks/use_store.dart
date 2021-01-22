@@ -37,8 +37,7 @@ import 'package:redux/redux.dart';
 /// use [createStoreHook] instead.
 ///
 /// See the [react-redux JS documentation](https://react-redux.js.org/api/hooks#usestore) for more details.
-Store<TReduxState> useStore<TReduxState>() =>
-    _jsUseStore().dartStore; // ignore: invalid_use_of_protected_member
+Store<TReduxState> useStore<TReduxState>() => _jsUseStore().dartStore;
 
 @JS('ReactRedux.useStore')
 external JsReactReduxStore _jsUseStore();
@@ -53,15 +52,18 @@ external JsReactReduxStore _jsUseStore();
 /// This is useful if you're building a complex reusable component, and you don't want your [Store] to collide
 /// with any Redux [Store] your consumers' applications might use.
 ///
+/// This should probably not be used frequently. Prefer [createSelectorHook] as your primary choice.
+/// However, this may be useful for less common scenarios that do require access to the [Store],
+/// such as replacing reducers. __Using this hook will not result in the component updating when store values change!__
+///
 /// See the [react-redux JS documentation](https://react-redux.js.org/api/hooks#custom-context) for more details.
 ///
 /// See the [createSelectorHook] documentation for an example of creating / using custom context.
-Store<TReduxState> Function() createStoreHook<TReduxState>([Context<Store<TReduxState>> context]) {
-  return () {
-    final jsHook = _jsCreateStoreHook(context?.jsThis ?? JsReactRedux.ReactReduxContext);
-    // ignore: invalid_use_of_protected_member
-    return jsHook().dartStore;
-  };
+Store<TReduxState> Function() createStoreHook<TReduxState>([Context context]) {
+  final jsHook = _jsCreateStoreHook(context?.jsThis ?? JsReactRedux.ReactReduxContext);
+  Store<TReduxState> dartHook() => jsHook().dartStore;
+
+  return dartHook;
 }
 
 @JS('ReactRedux.createStoreHook')

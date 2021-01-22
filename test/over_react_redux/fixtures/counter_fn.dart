@@ -14,64 +14,44 @@
 
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
-import 'package:redux/redux.dart';
 
+import '../hooks/utils.dart';
 import 'redux_actions.dart';
 import 'store.dart';
 
 // ignore_for_file: uri_has_not_been_generated
 part 'counter_fn.over_react.g.dart';
 
-mixin CounterFnPropsMixin on UiProps {
+mixin CounterFnProps on UiProps {
   bool Function(int nextCount, int prevCount) countEqualityFn;
 }
 
-class CounterFnProps = UiProps with CounterFnPropsMixin;
-
-UiFactory<CounterFnProps> CounterFn = memo(uiFunction(
+UiFactory<CounterFnProps> CounterFn = uiFunction(
   (props) {
     final currentCount =
-        useSelector<int, CounterState>((state) => state.count, props.countEqualityFn);
-    final dispatch = useDispatch();
-    final store = useStore<CounterState>();
+        useSelector<CounterState, int>((state) => state.count, props.countEqualityFn);
 
     return (Dom.div()
       ..addUnconsumedDomProps(props, const [])
       ..addTestId('counter-component')
     )(
       (Dom.div()..addTestId('count'))('Count: $currentCount'),
-      (Dom.div()..addTestId('count-from-store'))('Store Count: ${store.state.count}'),
-      Dom.div()(
-        'Mutate Count:',
-        (Dom.button()
-          ..addTestId('button-increment')
-          ..onClick = (_) {
-            dispatch(IncrementAction());
-          }
-        )('+'),
-        (Dom.button()
-          ..addTestId('button-decrement')
-          ..onClick = (_) {
-            dispatch(DecrementAction());
-          }
-        )('-'),
-      ),
       props.children,
     );
   },
   $CounterFnConfig, // ignore: undefined_identifier
-));
+);
 
 mixin ModelCounterFnPropsMixin on UiProps {
   bool Function(DartModelCounter nextCount, DartModelCounter prevCount) modelCountEqualityFn;
 }
 
-class ModelCounterFnProps = UiProps with CounterFnPropsMixin, ModelCounterFnPropsMixin;
+class ModelCounterFnProps = UiProps with CounterFnProps, ModelCounterFnPropsMixin;
 
 UiFactory<ModelCounterFnProps> ModelCounterFn = uiFunction(
   (props) {
     final currentModelCount =
-        useSelector<DartModelCounter, CounterState>((state) => state.modelCount, props.modelCountEqualityFn);
+        useSelector<CounterState, DartModelCounter>((state) => state.modelCount, props.modelCountEqualityFn);
 
     final dispatch = useDispatch();
 
@@ -102,22 +82,17 @@ UiFactory<ModelCounterFnProps> ModelCounterFn = uiFunction(
   $ModelCounterFnConfig, // ignore: undefined_identifier
 );
 
-final bigCounterContext = createContext<Store<BigCounterState>>();
-final useBigCountStore = createStoreHook(bigCounterContext);
-final useBigCountSelector = createSelectorHook(bigCounterContext);
-final useBigCountDispatch = createDispatchHook(bigCounterContext);
+final useBigCountSelector = createSelectorHook<BigCounterState>(bigCounterContext);
 
 mixin CustomContextCounterFnPropsMixin on UiProps {
   bool Function(int nextBigCount, int prevBigCount) bigCountEqualityFn;
 }
 
-class CustomContextCounterFnProps = UiProps with CounterFnPropsMixin, CustomContextCounterFnPropsMixin;
+class CustomContextCounterFnProps = UiProps with CounterFnProps, CustomContextCounterFnPropsMixin;
 
 UiFactory<CustomContextCounterFnProps> CustomContextCounterFn = uiFunction(
   (props) {
     final bigCount = useBigCountSelector((state) => state.bigCount, props.bigCountEqualityFn);
-    final bigDispatch = useBigCountDispatch();
-    final bigStore = useBigCountStore();
 
     final consumedProps = props.staticMeta.allExceptForMixins({CustomContextCounterFnPropsMixin});
 
@@ -126,35 +101,8 @@ UiFactory<CustomContextCounterFnProps> CustomContextCounterFn = uiFunction(
       ..addTestId('custom-context-counter-component')
     )(
       (Dom.div()..addTestId('big-count'))('Big Count: $bigCount'),
-      (Dom.div()..addTestId('big-count-from-store'))('Big Store Count: ${bigStore.state.bigCount}'),
-      Dom.div()(
-        'Mutate Big Count:',
-        (Dom.button()
-          ..addTestId('button-big-increment')
-          ..onClick = (_) {
-            bigDispatch(IncrementAction());
-          }
-        )('+'),
-        (Dom.button()
-          ..addTestId('button-big-decrement')
-          ..onClick = (_) {
-            bigDispatch(DecrementAction());
-          }
-        )('-'),
-      ),
+      props.children,
     );
   },
   $CustomContextCounterFnConfig, // ignore: undefined_identifier
-);
-
-class UseStoreCounterFnProps = UiProps with CounterFnPropsMixin;
-
-UiFactory<UseStoreCounterFnProps> UseStoreCounterFn = uiFunction(
-  (props) {
-    return (CounterFn()
-      ..addUnconsumedDomProps(props, const [])
-      ..addTestId('use-store-counter-component')
-    )();
-  },
-  $UseStoreCounterFnConfig, // ignore: undefined_identifier
 );

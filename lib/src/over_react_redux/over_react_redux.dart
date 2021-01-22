@@ -509,7 +509,8 @@ JsReactReduxStore _reduxifyStore(Store store) {
     dispatch: allowInterop((action) {
       store.dispatch(action);
     }),
-  )..dartStore = store;
+    dartStore: store,
+  );
 }
 
 @JS()
@@ -520,13 +521,13 @@ class JsReactReduxStore {
   /// Set once within [_reduxifyStore], and should only be used internally.
   ///
   /// > See: `createStoreHook` / `useStore`.
-  @protected
-  Store dartStore;
+  external Store get dartStore;
 
   external factory JsReactReduxStore({
     ReactInteropValue Function() getState,
     Dispatcher dispatch,
     Function Function(Function) subscribe,
+    Store dartStore,
   });
 }
 
