@@ -1589,27 +1589,25 @@ abstract class _DepType {
 /// props.foo.(bar) => (props).foo.bar
 /// props.foo.bar.(baz) => (props).foo.bar.baz
 Expression getDependency(Expression node) {
+  final parent = node.parent;
+  final grandparent = parent?.parent;
   if (
-    (node.parent.type == 'MemberExpression' ||
-      node.parent.type == 'OptionalMemberExpression') &&
-    node.parent.object == node &&
-    node.parent.property.name != 'current' &&
+    (parent is PropertyAccess && parent.propertyName == node) ||
+    // todo replace 'current' ccheck with static check for ref objects?
+    (parent is MethodInvocation && parent.methodName == node && parent.methodName.name != 'current') &&
     !(
-      node.parent.parent != null &&
-      (node.parent.parent.type == 'CallExpression' ||
-        node.parent.parent.type == 'OptionalCallExpression') &&
-      node.parent.parent.callee == node.parent
+      grandparent != null &&
+      grandparent is MethodInvocation &&
+      grandparent.function == parent
     )
   ) {
-    return getDependency(node.parent);
+    return getDependency(parent as Expression);
   } else if (
-    // Note: we don't check OptionalMemberExpression because it can't be LHS.
-    node.type == 'MemberExpression' &&
-    node.parent &&
-    node.parent.type == 'AssignmentExpression' &&
-    node.parent.left == node
+    node is PropertyAccess &&
+    parent is AssignmentExpression &&
+    parent.leftHandSide == node
   ) {
-    return node.object;
+    return node.realTarget;
   } else {
     return node;
   }
@@ -1692,14 +1690,15 @@ String analyzePropertyChain(AstNode node, Map<String, bool> optionalChains) {
   }
 }
 
-AstNode getNodeWithoutReactNamespace(node) {
-  if (
-    node.type == 'MemberExpression' &&
-    node.object.type == 'Identifier' &&
-    node.object.name == 'React' &&
-    node.property.type == 'Identifier'
-  ) {
-    return node.property;
+// todo unit test this and remove extraneous cases
+AstNode getNodeWithoutReactNamespace(Expression node) {
+  if (node is PrefixedIdentifier) {
+    if (node.prefix.staticElement is LibraryElement) {}
+  } else if (node is PropertyAccess) {
+    if (node.realTarget?.tryCast<Identifier>()?.staticElement
+        is LibraryElement) {
+      return node.propertyName;
+    }
   }
   return node;
 }
