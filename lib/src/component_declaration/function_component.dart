@@ -27,6 +27,9 @@ export 'component_type_checking.dart'
 
 /// Declares a function component and returns a factory that can be used to render it.
 ///
+/// [_config] should always be a `UiFactoryConfig<TProps>` and is only `dynamic` to
+/// avoid an unnecessary cast in the boilerplate.
+///
 /// __Example__:
 /// ```dart
 /// UiFactory<FooProps> Foo = uiFunction(
@@ -94,14 +97,22 @@ export 'component_type_checking.dart'
 // TODO: right now only top level factory declarations will generate props configs.
 UiFactory<TProps> uiFunction<TProps extends UiProps>(
   dynamic Function(TProps props) functionComponent,
-  dynamic config,
+  dynamic _config,
 ) {
-  ArgumentError.checkNotNull(config, 'config');
+  ArgumentError.checkNotNull(_config, '_config');
 
-  var propsFactory = config.propsFactory as PropsFactory<TProps>;
+  if (_config is! UiFactoryConfig<TProps>) {
+    throw ArgumentError('_config should be a UiFactory<TProps>. Make sure you are '
+    r'using either the generated factory config (i.e. _$FooConfig) or manually '
+    'declaring your config correctly.');
+  }
+
+  final config = _config as UiFactoryConfig<TProps>;
+
+  var propsFactory = config.propsFactory;
 
   // Get the display name from the inner function if possible so it doesn't become `_uiFunctionWrapper`
-  final displayName = (config.displayName as String) ?? getFunctionName(functionComponent);
+  final displayName = config.displayName ?? getFunctionName(functionComponent);
 
   dynamic _uiFunctionWrapper(JsBackedMap props) {
     return functionComponent(propsFactory.jsMap(props));

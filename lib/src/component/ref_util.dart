@@ -242,6 +242,9 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 ///
 /// Learn more: <https://reactjs.org/docs/forwarding-refs.html>.
 ///
+/// [_config] should always be a `UiFactoryConfig<TProps>` and is only `dynamic` to
+/// avoid an unnecessary cast in the boilerplate.
+///
 /// ### Example 1: Updating a function component to forward a ref:
 ///
 /// _This example mirrors the JS example in the link above._
@@ -397,16 +400,24 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 ///   _$Foo2Config, // ignore: undefined_identifier
 /// );
 UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
-    dynamic Function(TProps props, dynamic ref) functionComponent, dynamic config) {
-  ArgumentError.checkNotNull(config, 'config');
+    dynamic Function(TProps props, dynamic ref) functionComponent, dynamic _config) {
+  ArgumentError.checkNotNull(_config, '_config');
+
+  if (_config is! UiFactoryConfig<TProps>) {
+    throw ArgumentError('_config should be a UiFactory<TProps>. Make sure you are '
+        r'using either the generated factory config (i.e. _$FooConfig) or manually '
+        'declaring your config correctly.');
+  }
+
+  final config = _config as UiFactoryConfig<TProps>;
 
   // ignore: invalid_use_of_protected_member
-  var propsFactory = config.propsFactory as PropsFactory<TProps>;
+  var propsFactory = config.propsFactory;
 
   // Get the display name from the inner function if possible so it doesn't become `_uiFunctionWrapper`.
   // If the function is an anonymous function and a display name is not set,
   // this will be an empty string.
-  final displayName = (config.displayName as String) ?? getFunctionName(functionComponent);
+  final displayName = config.displayName ?? getFunctionName(functionComponent);
 
   dynamic _uiFunctionWrapper(JsBackedMap props, dynamic ref) {
     return functionComponent(propsFactory.jsMap(props), ref);
