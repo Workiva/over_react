@@ -242,6 +242,9 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 ///
 /// Learn more: <https://reactjs.org/docs/forwarding-refs.html>.
 ///
+/// [_config] should always be a `UiFactoryConfig<TProps>` and is only `dynamic` to
+/// avoid an unnecessary cast in the boilerplate.
+///
 /// ### Example 1: Updating a function component to forward a ref:
 ///
 /// _This example mirrors the JS example in the link above._
@@ -394,11 +397,19 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
 ///       .._inputRef = ref
 ///     )();
 ///   },
-///   $Foo2Config, // ignore: undefined_identifier
+///   _$Foo2Config, // ignore: undefined_identifier
 /// );
 UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
-    dynamic Function(TProps props, dynamic ref) functionComponent, UiFactoryConfig<TProps> config) {
-  ArgumentError.checkNotNull(config, 'config');
+    dynamic Function(TProps props, dynamic ref) functionComponent, dynamic _config) {
+  ArgumentError.checkNotNull(_config, '_config');
+
+  if (_config is! UiFactoryConfig<TProps>) {
+    throw ArgumentError('_config should be a UiFactory<TProps>. Make sure you are '
+        r'using either the generated factory config (i.e. _$FooConfig) or manually '
+        'declaring your config correctly.');
+  }
+
+  final config = _config as UiFactoryConfig<TProps>;
 
   // ignore: invalid_use_of_protected_member
   var propsFactory = config.propsFactory;

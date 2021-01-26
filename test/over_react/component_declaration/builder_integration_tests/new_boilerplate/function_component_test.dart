@@ -68,6 +68,15 @@ main() {
                 ),
             throwsArgumentError);
       });
+
+      test('config not the correct type', () {
+        expect(
+                () => uiFunction<TestProps>(
+                  (props) => Dom.div()(),
+              'foo',
+            ),
+            throwsArgumentError);
+      });
     });
   });
 
@@ -111,6 +120,15 @@ main() {
                 () => uiForwardRef<TestProps>(
                   (props, ref) => Dom.div()(),
               UiFactoryConfig(displayName: 'Foo'),
+            ),
+            throwsArgumentError);
+      });
+
+      test('config not the correct type', () {
+        expect(
+                () => uiForwardRef<TestProps>(
+                  (props, ref) => Dom.div()(),
+              'foo',
             ),
             throwsArgumentError);
       });
