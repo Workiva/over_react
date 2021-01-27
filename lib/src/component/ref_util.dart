@@ -225,7 +225,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) forwardRef<TProps extends UiProps>
     }
 
     ReactComponentFactoryProxy hoc = react_interop.forwardRef(wrapProps, displayName: displayName);
-    setComponentTypeMeta(hoc, isHoc: true, parentType: factory().componentFactory);
+    setComponentTypeMeta(hoc.type, isHoc: true, parentType: factory().componentFactory.type);
 
     TProps forwardedFactory([Map props]) {
       return factory(props)..componentFactory = hoc;
@@ -437,6 +437,8 @@ UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
 
     return builder..componentFactory = factory;
   }
+
+  registerComponentTypeAlias(factory, _uiFactory);
 
   return _uiFactory;
 }
