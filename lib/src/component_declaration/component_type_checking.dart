@@ -32,6 +32,96 @@ import 'package:react/react_client/react_interop.dart';
 //   Component type registration and internal type metadata management
 // ----------------------------------------------------------------------
 
+/// Extensions to allow setting type-checking-related metadata on components.
+extension UiFactoryTypeMeta on UiFactory {
+  /// Sets metadata for the underlying component class/type associated with this
+  /// factory, functionally equivalent to the [annotations.Component2] annotation.
+  ///
+  /// However, unlike the annotation, this can be used for function components.
+  ///
+  /// ## subtypeOf arguments: [subtypeOfFactory]/[subtypeOfRaw]
+  ///
+  /// The raw JS component type that is this component's "parent type".
+  ///
+  /// Used to enable inheritance in component type-checking in [isComponentOfType].
+  ///
+  /// [subtypeOfRaw] accepts the raw underlying type, and
+  /// [subtypeOfFactory] accepts a factory, for convenience.
+  ///
+  /// For example, the following are equivalent:
+  /// ```dart
+  /// subtypeOfFactory: Foo,
+  /// subtypeOfRaw: Foo().componentFactory.type,
+  /// subtypeOfRaw: $FooComponentFactory.type,
+  /// ```
+  ///
+  /// E.g., if component `Bar` is a subtype of component `Foo`:
+  ///
+  /// ```dart
+  /// // Class component example:
+  /// class FooComponent ... {...}
+  ///
+  /// @Component2(subtypeOf: FooComponent)
+  /// class BarComponent ... {...}
+  /// ```
+  /// ```dart
+  /// // Function component example:
+  /// UiFactory<FooProps> Foo = uiFunction(...);
+  ///
+  /// UiFactory<FooProps> Bar = uiFunction(...)
+  ///   ..setComponentMeta(subtypeOfFactory: Foo);
+  /// ```
+  ///
+  /// then:
+  /// ```dart
+  /// isComponentOfType(Bar()(), Bar); // true (due to normal type-checking)
+  /// isComponentOfType(Bar()(), Foo); // true (due to parent type-checking)
+  /// ```
+  ///
+  /// ## [isWrapper]
+  ///
+  /// Whether the component clones or passes through its children and needs to be
+  /// treated as if it were the wrapped component when passed in to [isComponentOfType].
+  ///
+  /// ```
+  /// // Class component
+  /// @Component2(isWrapper: true)
+  /// class FooComponent extends UiComponent2<FooProps> { ... }
+  ///
+  /// // Function component
+  /// UiFactory<FooProps> Foo = uiFunction(...)
+  ///   ..setComponentMeta(isWrapper: true);
+  /// ```
+  void setTypeMeta({
+    // These are separate arguments because it's very difficult to tell
+    // the difference between a UiFactory and a ReactClass at runtime.
+    UiFactory subtypeOfFactory,
+    dynamic /*ReactClass|JS component function|string*/ subtypeOfRaw,
+    bool isWrapper = false,
+  }) {
+    if (subtypeOfFactory != null && subtypeOfRaw != null) {
+      throw ArgumentError('subtypeOfFactory and subtypeOfRawJsType cannot both be specified.');
+    }
+    final parentType = subtypeOfFactory != null
+        // Get the type directly as opposed to using getComponentTypeFromAlias
+        // because the alias might not have been registered yet
+        // due to lazy-initialization of generated component factories.
+        ? subtypeOfFactory().componentFactory.type
+        : subtypeOfRaw;
+
+    final type = this().componentFactory.type;
+    setComponentTypeMeta(
+      type,
+      parentType: parentType,
+      isWrapper: isWrapper,
+      // Fetch the old meta and preserve the value of isHoc for now.
+      // isHoc's implementation/usage seems incomplete and may be removed,
+      // so we won't expose it as an argument, at least for now.
+      isHoc: getComponentTypeMeta(type).isHoc,
+    );
+  }
+}
+
 // ignore: deprecated_member_use
 Expando<ReactComponentFactoryProxy> _typeAliasToFactory =
     Expando<ReactComponentFactoryProxy>();
@@ -55,20 +145,27 @@ const String _componentTypeMetaKey = '_componentTypeMeta';
 ///
 /// This meta is retrievable via [getComponentTypeMeta].
 void setComponentTypeMeta(
-  ReactComponentFactoryProxy factory, {
-  @required ReactComponentFactoryProxy parentType,
+  dynamic /* ReactClass|JS component function|string */ type, {
+  @required dynamic  /* ReactClass|JS component function|string */ parentType,
   bool isWrapper = false,
   bool isHoc = false,
 }) {
-  // ignore: argument_type_not_assignable
+  assert(!isTypeAlias(type) && isPotentiallyValidComponentType(type), 'must pass in the raw JS component type');
+  assert(type is! String, 'cannot set type metadata on strings');
+
   setProperty(
-      factory.type,
+      type,
       _componentTypeMetaKey,
       ComponentTypeMeta(
         parentType: parentType,
         isWrapper: isWrapper,
         isHoc: isHoc,
       ));
+}
+
+bool isTypeAlias(dynamic type) {
+  final alias = getComponentTypeFromAlias(type);
+  return alias != null && alias != type;
 }
 
 /// Returns the [ComponentTypeMeta] associated with the component type [type] in [setComponentTypeMeta],
@@ -94,7 +191,7 @@ class ComponentTypeMeta {
   /// Whether the component is a higher-order component that wraps [parentType].
   final bool isHoc;
 
-  /// The factory of this component's "parent type".
+  /// The raw JS type of this component's "parent type".
   ///
   /// Used to enable inheritance in component type-checking in [isComponentOfType].
   ///
@@ -130,10 +227,11 @@ class ComponentTypeMeta {
   ///
   /// > See: `subtypeOf` (within [annotations.Component2])
   // ignore: deprecated_member_use
-  final ReactComponentFactoryProxy parentType;
+  final dynamic /*ReactClass|JS component function|string*/ parentType;
 
   ComponentTypeMeta(
-      {@required this.parentType, this.isWrapper = false, this.isHoc = false});
+      {this.parentType, this.isWrapper = false, this.isHoc = false})
+        : assert(parentType == null || (!isTypeAlias(parentType) && isPotentiallyValidComponentType(parentType)), 'must pass in the raw JS component type');
 
   const ComponentTypeMeta.none()
       : this.isWrapper = false,
@@ -213,11 +311,8 @@ Iterable<dynamic> getParentTypes(dynamic type) sync* {
           is String);
 
   var currentType = type;
-  dynamic parentType;
-
-  while ((parentType = getComponentTypeMeta(currentType).parentType) != null) {
-    currentType = getComponentTypeFromAlias(parentType);
-    yield currentType ?? parentType;
+  while ((currentType = getComponentTypeMeta(currentType).parentType) != null) {
+    yield currentType;
   }
 }
 

@@ -84,8 +84,8 @@ UiFactory<TProps> memo<TProps extends UiProps>(UiFactory<TProps> factory,
     hoc = react_interop.memo2(factory().componentFactory, areEqual: propsOrStateMapsEqual);
   }
 
-  setComponentTypeMeta(hoc,
-      isHoc: true, parentType: factory().componentFactory);
+  setComponentTypeMeta(hoc.type,
+      isHoc: true, parentType: factory().componentFactory.type);
 
   TProps forwardedFactory([Map props]) {
     return factory(props)..componentFactory = hoc;

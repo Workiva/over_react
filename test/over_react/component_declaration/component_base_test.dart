@@ -1379,7 +1379,7 @@ main() {
             var meta = getComponentTypeMeta(reactComponentFactory.type);
 
             expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
-            expect(meta.parentType, equals(parentFactory));
+            expect(meta.parentType, equals(parentFactory.type));
           });
         });
 
@@ -1420,7 +1420,7 @@ main() {
       var meta = getComponentTypeMeta(reactComponentFactory.type);
 
       expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
-      expect(meta.parentType, equals(parentFactory));
+      expect(meta.parentType, equals(parentFactory.type));
       expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
     });
 
@@ -1438,7 +1438,7 @@ main() {
       var meta = getComponentTypeMeta(reactComponentFactory.type);
 
       expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
-      expect(meta.parentType, equals(parentFactory));
+      expect(meta.parentType, equals(parentFactory.type));
       expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
     });
   });

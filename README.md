@@ -67,7 +67,7 @@ __Once you have migrated your components to `UiComponent2`__, you're ready to st
 
     ```yaml
     dependencies:
-      over_react: ^3.5.0
+      over_react: ^4.0.0
     ```
    
 1. Enable the **[OverReact Analyzer Plugin (beta)](tools/analyzer_plugin/)**, which has many lints and assists to make authoring OverReact components easier!
