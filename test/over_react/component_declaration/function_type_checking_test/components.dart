@@ -20,37 +20,39 @@ part 'components.over_react.g.dart';
 
 mixin TestAProps on UiProps {}
 UiFactory<TestAProps> TestA = uiFunction(
-  (props) {}, $TestAConfig,
+  (props) {},
+  _$TestAConfig, // ignore: undefined_identifier
 );
 
 mixin TestBProps on UiProps {}
 UiFactory<TestBProps> TestB = uiFunction(
-  (props) {}, $TestBConfig,
+  (props) {},
+  _$TestBConfig, // ignore: undefined_identifier
 );
 
 mixin TestParentProps on UiProps {}
 UiFactory<TestParentProps> TestParent = uiFunction(
   (props) {},
-  $TestParentConfig,
+  _$TestParentConfig, // ignore: undefined_identifier
 );
 
 mixin TestSubtypeProps on UiProps {}
 UiFactory<TestSubtypeProps> TestSubtype = uiFunction(
   (props) {},
-  $TestSubtypeConfig,
+  _$TestSubtypeConfig, // ignore: undefined_identifier
 )..setTypeMeta(subtypeOfFactory: TestParent);
 
 mixin TestSubsubtypeProps on UiProps {}
 UiFactory<TestSubsubtypeProps> TestSubsubtype = uiFunction(
   (props) {},
-  $TestSubsubtypeConfig,
+  _$TestSubsubtypeConfig, // ignore: undefined_identifier
 )..setTypeMeta(subtypeOfFactory: TestSubtype);
 
 
 mixin TestExtendtypeProps on UiProps {}
 UiFactory<TestExtendtypeProps> TestExtendtype = uiFunction(
   (props) {},
-  $TestExtendtypeConfig,
+  _$TestExtendtypeConfig, // ignore: undefined_identifier
 )..setTypeMeta(subtypeOfRaw: $TestAbstract2ComponentFactory.type);
 
 mixin OneLevelWrapperProps on UiProps {}
@@ -58,7 +60,7 @@ UiFactory<OneLevelWrapperProps> OneLevelWrapper = uiFunction(
   (props) {
     return Dom.div()(props.children.single);
   },
-  $OneLevelWrapperConfig,
+  _$OneLevelWrapperConfig, // ignore: undefined_identifier
 )..setTypeMeta(isWrapper: true);
 
 mixin TwoLevelWrapperProps on UiProps {}
@@ -66,10 +68,12 @@ UiFactory<TwoLevelWrapperProps> TwoLevelWrapper = uiFunction(
   (props) {
     return Dom.div()(props.children.single);
   },
-  $TwoLevelWrapperConfig,
+  _$TwoLevelWrapperConfig, // ignore: undefined_identifier
 )..setTypeMeta(isWrapper: true);
 
-UiFactory<DoNotReferenceThisFactoryExceptForInASingleTestProps> DoNotReferenceThisFactoryExceptForInASingleTest = _$DoNotReferenceThisFactoryExceptForInASingleTest;
+UiFactory<DoNotReferenceThisFactoryExceptForInASingleTestProps>
+    DoNotReferenceThisFactoryExceptForInASingleTest = castUiFactory(
+        _$DoNotReferenceThisFactoryExceptForInASingleTest); // ignore: undefined_identifier
 mixin DoNotReferenceThisFactoryExceptForInASingleTestProps on UiProps {}
 @Component2(subtypeOf: TestAbstract2Component)
 class DoNotReferenceThisFactoryExceptForInASingleTestComponentn extends UiComponent2<DoNotReferenceThisFactoryExceptForInASingleTestProps> {
@@ -82,5 +86,5 @@ UiFactory<TestUninitializedParentProps> TestUninitializedParent = uiFunction(
   (props) {
     return Dom.div()(props.children.single);
   },
-  $TestUninitializedParentConfig,
+  _$TestUninitializedParentConfig, // ignore: undefined_identifier
 )..setTypeMeta(subtypeOfFactory: DoNotReferenceThisFactoryExceptForInASingleTest);
