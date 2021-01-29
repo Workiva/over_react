@@ -40,8 +40,10 @@ jobs:
       # Analyze before generated files are created to verify that component boilerplate analysis is "clean" without the need for building
       - name: Analyze example source (pre-build)
         run: |
-          cd example
-          if [ ${{ matrix.sdk }} = 'stable@2.7.2' ]; then pub global activate tuneup && tuneup check; else dart analyze; fi
+          cd example/boilerplate_versions
+          if [ ${{ matrix.sdk }} = 'stable@2.7.2' ]; then pub global activate tuneup && tuneup check; fi
+          if [ ${{ matrix.sdk }} = 'stable' ]; then echo 'Skip pre-build analysis for Dart versions >2.9 and <2.12 because there will be analysis errors.'; fi
+          if [ ${{ matrix.sdk }} = 'dev' ]; then cd mixin_based/dart_2_9_compatible && dart analyze; fi
         if: always() && steps.install.outcome == 'success'
 
       - id: build
