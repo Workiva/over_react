@@ -20,14 +20,29 @@ targets:
       over_react|_over_react_local_builder:
         enabled: true
         generate_for:
+          include:
+            - "lib/**"
+            - "test/**"
+            - "web/component1/**"
           exclude:
+            - "test/over_react/component_declaration/builder_integration_tests/backwards_compatible/**"
+            - "test/over_react/component_declaration/builder_integration_tests/new_boilerplate/**"
             # These test un-built base class behavior, and contain code that might look like declarations
             # and should definitely not be built
             - "test/over_react/component_declaration/builder_helpers_test.dart"
             - "test/over_react/component_declaration/component_base_test.dart"
 
       over_react|overReactBuilder:
-        enabled: false
+        enabled: true
+        generate_for:
+          include:
+            - "test/over_react/component_declaration/builder_integration_tests/backwards_compatible/**"
+            - "test/over_react/component_declaration/builder_integration_tests/new_boilerplate/**"
+            - "web/**"
+            - "example/**"
+          exclude:
+            - "lib/**"
+            - "web/component1/**"
 
       built_value_generator|built_value:
         generate_for:
