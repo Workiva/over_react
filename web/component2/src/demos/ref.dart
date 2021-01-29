@@ -141,6 +141,7 @@ mixin LogProps on UiProps {
   dynamic _forwardedRef;
 }
 
+// ignore: unused_element
 class _LogComponent extends UiComponent2<LogProps> {
   @override
   void componentDidUpdate(Map prevProps, _, [__]) {

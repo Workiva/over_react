@@ -244,27 +244,27 @@ class TestCustomNamespaceAbstractStateSubclass extends TestCustomNamespaceAbstra
 // AF-3369 This will be removed once the transition to Dart 2 is complete.
 // ignore: mixin_of_non_class, undefined_class
 abstract class TestAbstractProps extends _$TestAbstractProps with _$TestAbstractPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value, invalid_assignment
   static const PropsMeta meta = _$metaForTestAbstractProps;
 }
 
 // AF-3369 This will be removed once the transition to Dart 2 is complete.
 // ignore: mixin_of_non_class, undefined_class
 abstract class TestCustomNamespaceAbstractProps extends _$TestCustomNamespaceAbstractProps with _$TestCustomNamespaceAbstractPropsAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value, invalid_assignment
   static const PropsMeta meta = _$metaForTestCustomNamespaceAbstractProps;
 }
 
 // AF-3369 This will be removed once the transition to Dart 2 is complete.
 // ignore: mixin_of_non_class, undefined_class
 abstract class TestAbstractState extends _$TestAbstractState with _$TestAbstractStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value, invalid_assignment
   static const StateMeta meta = _$metaForTestAbstractState;
 }
 
 // AF-3369 This will be removed once the transition to Dart 2 is complete.
 // ignore: mixin_of_non_class, undefined_class
 abstract class TestCustomNamespaceAbstractState extends _$TestCustomNamespaceAbstractState with _$TestCustomNamespaceAbstractStateAccessorsMixin {
-  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value
+  // ignore: undefined_identifier, undefined_class, const_initialized_with_non_constant_value, invalid_assignment
   static const StateMeta meta = _$metaForTestCustomNamespaceAbstractState;
 }

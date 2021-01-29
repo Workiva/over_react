@@ -19,6 +19,7 @@ import 'package:over_react/over_react.dart';
 part 'two_level_wrapper.over_react.g.dart';
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<TwoLevelWrapperProps> TwoLevelWrapper = _$TwoLevelWrapper;
 
 @Props()

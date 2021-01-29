@@ -466,7 +466,7 @@ main() {
   });
 }
 
-UiFactory<WithTransitionTesterProps> WithTransitionTester = _$WithTransitionTester;
+UiFactory<WithTransitionTesterProps> WithTransitionTester = _$WithTransitionTester; // ignore: undefined_identifier, invalid_assignment
 
 class WithTransitionTesterProps = UiProps
     with

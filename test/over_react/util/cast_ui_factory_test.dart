@@ -23,21 +23,21 @@ part 'cast_ui_factory_test.over_react.g.dart';
 main() {
   group('castUiFactory', () {
     test('infers the typing of a factory', () {
-      UiFactory<BasicProps> testFactory = castUiFactory(_$Basic);
+      UiFactory<BasicProps> testFactory = castUiFactory(_$Basic); // ignore: undefined_identifier
 
       // This assignment should analyze properly without any static implicit_cast errors
       UiFactory<BasicProps> testAssignment = testFactory; // ignore: unused_local_variable
     });
 
     test('can use generics to set the type', () {
-      final testFactory = castUiFactory<BasicProps>(_$Basic);
+      final testFactory = castUiFactory<BasicProps>(_$Basic); // ignore: undefined_identifier
 
       // This assignment should analyze properly without any static implicit_cast errors
       UiFactory<BasicProps> testAssignment = testFactory; // ignore: unused_local_variable
     });
 
     test('will leave the type a `UiFactory<UiProps` if no type is provided', () {
-      final testFactory = castUiFactory(_$Basic);
+      final testFactory = castUiFactory(_$Basic); // ignore: undefined_identifier
 
       // This assignment should analyze properly without any static implicit_cast errors
       UiFactory<UiProps> testAssignment = testFactory; // ignore: unused_local_variable

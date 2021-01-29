@@ -36,6 +36,7 @@ main() {
   });
 }
 
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<FooProps> Foo = _$Foo;
 
 mixin FooProps on UiProps {

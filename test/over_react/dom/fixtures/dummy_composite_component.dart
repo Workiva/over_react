@@ -18,6 +18,7 @@ import 'package:over_react/over_react.dart';
 part 'dummy_composite_component.over_react.g.dart';
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<TestCompositeComponentProps> TestCompositeComponent = _$TestCompositeComponent;
 
 @Props()

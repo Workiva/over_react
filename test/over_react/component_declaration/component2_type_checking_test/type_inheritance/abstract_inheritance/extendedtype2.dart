@@ -20,6 +20,7 @@ import './abstract2.dart';
 part 'extendedtype2.over_react.g.dart';
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<TestExtendtype2Props> TestExtendtype2 = _$TestExtendtype2;
 
 @Props()

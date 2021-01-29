@@ -25,6 +25,7 @@ part 'toggle_button.over_react.g.dart';
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#checkbox-and-radio-buttons>
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<ToggleButtonProps> ToggleButton = _$ToggleButton;
 
 @Props()
