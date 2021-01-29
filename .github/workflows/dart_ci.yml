@@ -38,8 +38,10 @@ jobs:
         if: always() && ${{ matrix.sdk }} == 'stable' && steps.install.outcome == 'success'
 
       # Analyze before generated files are created to verify that component boilerplate analysis is "clean" without the need for building
-      - name: Analyze project source (pre-build)
-        run: pub run dart_dev analyze
+      - name: Analyze example source (pre-build)
+        run: |
+          cd example
+          if [ ${{ matrix.sdk }} = 'stable@2.7.2' ]; then pub global activate tuneup && tuneup check; else dart analyze; fi
         if: always() && steps.install.outcome == 'success'
 
       - id: build
@@ -51,7 +53,7 @@ jobs:
 
       # Analyze again after generated files are created to verify that those generated classes don't cause analysis errors
       - name: Analyze project source (post-build)
-        run: pub run dart_dev analyze
+        run: if [ ${{ matrix.sdk }} = 'stable@2.7.2' ]; then pub global activate tuneup && tuneup check; else dart analyze; fi
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       - name: Run tests (VM)
