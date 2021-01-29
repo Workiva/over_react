@@ -27,7 +27,8 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
   @override
   @Deprecated('This is deprecated')
   @requiredProp
-  String get basicProp => (props[_$key__basicProp___$BasicProps] ?? null) as String;
+  String get basicProp =>
+      (props[_$key__basicProp___$BasicProps] ?? null) as String;
 
   /// <!-- Generated from [_$BasicProps.basicProp] -->
   @override
@@ -121,8 +122,9 @@ class BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForBasicProps;
 }
 
-_$$BasicProps _$Basic([Map backingProps]) =>
-    backingProps == null ? _$$BasicProps$JsMap(JsBackedMap()) : _$$BasicProps(backingProps);
+_$$BasicProps _$Basic([Map backingProps]) => backingProps == null
+    ? _$$BasicProps$JsMap(JsBackedMap())
+    : _$$BasicProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -207,7 +209,8 @@ class _$Basic2Component extends Basic2Component {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override

@@ -28,7 +28,8 @@ abstract class _$BasicPropsAccessorsMixin implements _$BasicProps {
   @override
   @Deprecated('This is deprecated')
   @requiredProp
-  String get basicProp => (props[_$key__basicProp___$BasicProps] ?? null) as String;
+  String get basicProp =>
+      (props[_$key__basicProp___$BasicProps] ?? null) as String;
 
   /// <!-- Generated from [_$BasicProps.basicProp] -->
   @override
@@ -128,7 +129,9 @@ _$$BasicProps _$Basic([Map backingProps]) => _$$BasicProps(backingProps);
 // Concrete props implementation.
 //
 // Implements constructor and backing map, and links up to generated component factory.
-class _$$BasicProps extends _$BasicProps with _$BasicPropsAccessorsMixin implements BasicProps {
+class _$$BasicProps extends _$BasicProps
+    with _$BasicPropsAccessorsMixin
+    implements BasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$BasicProps(Map backingMap) : this._props = {} {
