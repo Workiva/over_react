@@ -280,9 +280,11 @@ UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
 > [More information about the `connect` function](https://react-redux.js.org/api/connect#connect)
 
 ## Hooks
-OverReact offers a set of hook APIs as an alternative to the existing [`connect()`](#connect) Higher Order Component. 
+OverReact exposes wrappers around React Redux hook APIs, which serve as an alternative to the existing [`connect()`](#connect) Higher Order Component. 
 These APIs allow you to subscribe to the Redux store and dispatch actions, without having to wrap your components 
 in [`connect()`](#connect).
+
+> See: <https://react-redux.js.org/api/hooks>
 
 As with [`connect()`](#connect), you should start by wrapping your entire application in a 
 [`ReduxProvider`](#reduxprovider) component to make the store available throughout the component tree:
@@ -320,7 +322,7 @@ an action is dispatched.
 * The `selector` will be called with the entire Redux `Store` state as its only argument.
 * The `selector` will be run whenever the function component renders.
 
-By default, the return value of `selector` is compared using strict (`===`) equality. If you want to
+By default, the return value of `selector` is compared using strict JavaScript (`===`) equality. If you want to
 customize how equality is defined, pass a comparator function to the `equalityFn` argument.
 
 If you need to use a selector with custom `Context`, use [`createSelectorHook`](#custom-context-for-hooks) instead.
@@ -613,6 +615,8 @@ In the case that you need to have multiple stores, here are the steps to do so:
       ),
     )
     ```
+   
+> To use multiple stores with function components / hooks, check out the [Custom Context for hooks](#custom-context-for-hooks) example.
 
 ## Using Redux DevTools
 
