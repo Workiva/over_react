@@ -197,9 +197,9 @@ external ReactInteropValue _jsUseSelector(_JsSelectorFn selector, [_JsReduxState
 /// ```
 _SelectorFnHook<TReduxState> createSelectorHook<TReduxState>([Context context]) {
   final jsHook = _jsCreateSelectorHook(context?.jsThis ?? JsReactRedux.ReactReduxContext);
-  // Using a var instead of a named function here to avoid having to redeclare the type on the LHS
-  // ignore: prefer_function_declarations_over_variables
-  _SelectorFnHook<TReduxState> dartHook = <TValue>(selector, [equalityFn]) {
+  TValue dartHook<TValue>(TValue Function(TReduxState state) selector, [
+    bool Function(TValue tNextValue, TValue tPrevValue) equalityFn,
+  ]) {
     ReactInteropValue jsSelector(ReactInteropValue jsState) => wrapInteropValue(selector(unwrapInteropValue(jsState)));
     _JsReduxStateEqualityFn jsEqualityFn = equalityFn == null
         ? null
