@@ -120,6 +120,7 @@ main() {
 }
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<BasicUiComponent2Props> BasicUiComponent2 = _$BasicUiComponent2;
 
 @Props()

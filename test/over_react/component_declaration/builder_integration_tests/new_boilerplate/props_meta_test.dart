@@ -23,7 +23,7 @@ part 'props_meta_test.over_react.g.dart';
 main() {
   group('propsMeta', () {
     const expectedKeys = ['TestPropsMixin.test', 'FooPropsMixin.foo', 'BazPropsMixin.baz'];
-    const metas = [_$metaForTestPropsMixin, _$metaForFooPropsMixin, _$metaForBazPropsMixin];
+    final metas = [_$metaForTestPropsMixin, _$metaForFooPropsMixin, _$metaForBazPropsMixin]; // ignore: undefined_identifier
     const emptyPropsMeta = PropsMeta(fields: [], keys: []);
 
     group('(class)', () {
@@ -45,8 +45,8 @@ main() {
       test('does not provide access to props outside of the mixin', () {
         bool testCallback(PropDescriptor prop) => prop.key == 'FooPropsMixin.foo';
 
-        expect(_$metaForFooPropsMixin.props.where(testCallback), isNotEmpty);
-        expect(_$metaForTestPropsMixin.props.where(testCallback), isEmpty,
+        expect(_$metaForFooPropsMixin.props.where(testCallback), isNotEmpty); // ignore: undefined_identifier
+        expect(_$metaForTestPropsMixin.props.where(testCallback), isEmpty, // ignore: undefined_identifier
             reason:
                 'Because `foo` is part of a different mixin, metaForTestPropsMixin should not have access to it.');
       });
@@ -148,7 +148,7 @@ main() {
     }
 
     group('(field)', () {
-      commonMetaTests(_$TestComponent().propsMeta);
+      commonMetaTests(_$TestComponent().propsMeta); // ignore: undefined_function, argument_type_not_assignable
     });
 
     group('(props instance)', () {
@@ -164,7 +164,7 @@ main() {
   });
 }
 
-UiFactory<TestProps> Test = _$Test;
+UiFactory<TestProps> Test = _$Test; // ignore: undefined_identifier, invalid_assignment
 
 mixin TestPropsMixin on UiProps {
   String test;

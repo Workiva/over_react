@@ -385,6 +385,7 @@ main() {
 }
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<DomTestProps> DomTest = _$DomTest;
 
 @Props()

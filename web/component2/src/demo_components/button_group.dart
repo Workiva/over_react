@@ -21,7 +21,7 @@ part 'button_group.over_react.g.dart';
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/button-group/>.
 
-UiFactory<ButtonGroupProps> ButtonGroup = castUiFactory(_$ButtonGroup);
+UiFactory<ButtonGroupProps> ButtonGroup = castUiFactory(_$ButtonGroup); // ignore: undefined_identifier
 
 mixin ButtonGroupProps on UiProps {
   /// Apply a button size variation universally to every [Button] within the [ButtonGroup].

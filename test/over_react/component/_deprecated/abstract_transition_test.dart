@@ -637,7 +637,7 @@ main() {
 }
 
 @Factory()
-UiFactory<TransitionerProps> Transitioner = _$Transitioner;
+UiFactory<TransitionerProps> Transitioner = _$Transitioner; // ignore: undefined_identifier, invalid_assignment
 
 @Props()
 class _$TransitionerProps extends AbstractTransitionProps {

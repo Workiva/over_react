@@ -37,6 +37,7 @@ part 'toggle_button_group.over_react.g.dart';
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#checkbox-and-radio-buttons>
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory <ToggleButtonGroupProps> ToggleButtonGroup = _$ToggleButtonGroup;
 
 @Props()

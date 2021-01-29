@@ -18,6 +18,7 @@ import './subtype_of_component1.dart';
 part 'subsubtype_of_component1.over_react.g.dart';
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<TestSubsubtypeOfComponent1Props> TestSubsubtypeOfComponent1 = _$TestSubsubtypeOfComponent1;
 
 @Props()

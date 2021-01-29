@@ -40,14 +40,14 @@ main() {
       });
 
       test('omitting the field annotated with doNotGenerate from the list of props', () {
-        // ignore: deprecated_member_use_from_same_package
+        // ignore: deprecated_member_use_from_same_package, undefined_identifier
         expect(_$metaForDoNotGenerateAccessorTestProps.keys, [
           contains('generated1Prop'),
           contains('generated2Prop'),
           contains('explicitlyGeneratedProp'),
         ], reason: 'should only include generated props');
 
-        // ignore: deprecated_member_use_from_same_package
+        // ignore: deprecated_member_use_from_same_package, undefined_identifier
         expect(_$metaForDoNotGenerateAccessorTestProps.props.map((prop) => prop.key).toList(), [
           contains('generated1Prop'),
           contains('generated2Prop'),
@@ -84,6 +84,7 @@ main() {
   });
 }
 
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<DoNotGenerateAccessorTestProps> DoNotGenerateAccessorTest = _$DoNotGenerateAccessorTest;
 
 mixin DoNotGenerateAccessorTestProps on UiProps {

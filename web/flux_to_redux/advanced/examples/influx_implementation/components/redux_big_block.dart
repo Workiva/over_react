@@ -80,7 +80,7 @@ UiFactory<ReduxBigBlockProps> ReduxBigBlock = composeHocs([
     ),
     pure: false, // [8]
   ),
-])(_$ReduxBigBlock); // ignore: undefined_identifier
+])(castUiFactory(_$ReduxBigBlock)); // ignore: undefined_identifier
 
 mixin ReduxBigBlockPropsMixin on UiProps {
   String backgroundColor; // [1]
