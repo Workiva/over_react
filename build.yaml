@@ -24,7 +24,11 @@ targets:
             - "lib/**"
             - "test/**"
             - "web/component1/**"
+            # The Dart 2 only boilerplate does not analyze cleanly without a build so the generated files need to be
+            # checked in.
+            - "example/boilerplate_versions/dart2_only/**"
           exclude:
+            # These tests analyze cleanly without a build so the generated files do not need to be checked in.
             - "test/over_react/component_declaration/builder_integration_tests/backwards_compatible/**"
             - "test/over_react/component_declaration/builder_integration_tests/new_boilerplate/**"
             # These test un-built base class behavior, and contain code that might look like declarations
@@ -36,13 +40,17 @@ targets:
         enabled: true
         generate_for:
           include:
-            - "test/over_react/component_declaration/builder_integration_tests/backwards_compatible/**"
-            - "test/over_react/component_declaration/builder_integration_tests/new_boilerplate/**"
             - "web/**"
             - "example/**"
+            # These tests analyze cleanly without a build so the generated files do not need to be checked in.
+            - "test/over_react/component_declaration/builder_integration_tests/backwards_compatible/**"
+            - "test/over_react/component_declaration/builder_integration_tests/new_boilerplate/**"
           exclude:
             - "lib/**"
             - "web/component1/**"
+            # The Dart 2 only boilerplate does not analyze cleanly without a build so the generated files need to be
+            # checked in.
+            - "example/boilerplate_versions/dart2_only/**"
 
       built_value_generator|built_value:
         generate_for:

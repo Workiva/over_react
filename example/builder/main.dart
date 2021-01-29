@@ -21,9 +21,6 @@ import 'package:redux/redux.dart';
 
 import './src/abstract_inheritance.dart';
 import './src/basic.dart';
-import './src/pre_dart_two_nine_syntax/basic.dart' as pre_dart_two_nine_basic;
-import './src/pre_dart_two_nine_syntax/hoc.dart';
-import './src/pre_dart_two_nine_syntax/function_component.dart';
 import './src/basic_library.dart';
 import './src/generic_inheritance_sub.dart';
 import './src/generic_inheritance_super.dart';
@@ -82,18 +79,6 @@ main() {
         (SomeClassParent()
           ..aParentProp = 'classParent'
           ..aPropToBePassed = 'passed'
-        )(),
-        Dom.h3()('Components (Dart <2.9.0 syntax)'),
-        (pre_dart_two_nine_basic.Basic()
-          ..basic1 = '<basic prop>'
-          ..id = 'the id of this component'
-        )(null, null, ['this is another child']),
-        FunctionComponent()(),
-        (Hoc()
-          ..foo = 'HOC test'
-        )(),
-        (ConnectedHocWithTwoFactories()
-          ..foo = 'HOC test'
         )(),
       )
       ), querySelector('#content')
