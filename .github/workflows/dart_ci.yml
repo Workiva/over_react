@@ -15,12 +15,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [ stable@2.7.2, stable, dev ]
+        sdk: [ 2.7.2, stable, dev ]
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/actions/setup_dart_version
+      - uses: dart-lang/setup-dart@v0.2
         with:
-          channel: ${{ matrix.sdk }}
+          sdk: ${{ matrix.sdk }}
 
       - name: Print Dart SDK version
         run: dart --version
@@ -35,7 +35,7 @@ jobs:
 
       - name: Verify formatting
         run: pub run dart_dev format --check
-        if: always() && ${{ matrix.sdk }} == 'stable' && steps.install.outcome == 'success'
+        if: always() && ${{ matrix.sdk }} == '2.7.2' && steps.install.outcome == 'success'
 
       # Analyze before generated files are created to verify that component boilerplate analysis is "clean" without the need for building
       - name: Analyze project source (pre-build)
@@ -71,12 +71,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [ stable@2.7.2, stable, dev ]
+        sdk: [ 2.7.2, stable, dev ]
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/actions/setup_dart_version
+      - uses: dart-lang/setup-dart@v0.2
         with:
-          channel: ${{ matrix.sdk }}
+          sdk: ${{ matrix.sdk }}
 
       - name: Print Dart SDK version
         run: dart --version
