@@ -15,4 +15,7 @@
 library over_react_redux;
 
 export 'src/over_react_redux/over_react_redux.dart';
+export 'src/over_react_redux/hooks/use_dispatch.dart' show createDispatchHook, useDispatch;
+export 'src/over_react_redux/hooks/use_selector.dart' show createSelectorHook, useSelector;
+export 'src/over_react_redux/hooks/use_store.dart' show createStoreHook, useStore;
 export 'src/over_react_redux/devtools/middleware.dart' show overReactReduxDevToolsMiddleware;

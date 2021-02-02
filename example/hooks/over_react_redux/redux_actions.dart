@@ -1,4 +1,4 @@
-// Copyright 2020 Workiva Inc.
+// Copyright 2021 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,23 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-class Action<T> {
+class Action {
   Action({this.type, this.value});
 
   final String type;
-  final T value;
+  final dynamic value;
 
   toJson() {
     return {'value': this.value};
   }
 }
 
-class IncrementAction extends Action<int> {
-  IncrementAction([int value]) : super(type: 'INCREMENT', value: value);
+class IncrementAction extends Action {
+  IncrementAction([value]) : super(type: 'INCREMENT', value: value);
 }
 
-class DecrementAction extends Action<int> {
-  DecrementAction([int value]) : super(type: 'DECREMENT', value: value);
+class DecrementAction extends Action {
+  DecrementAction([value]) : super(type: 'DECREMENT', value: value);
 }
 
 class IncrementModelCountAction extends Action {
@@ -41,8 +41,4 @@ class DecrementModelCountAction extends Action {
 
 class ResetAction extends Action {
   ResetAction() : super(type: 'RESET');
-}
-
-class MutateStoreDirectlyAction extends Action {
-  MutateStoreDirectlyAction() : super(type: 'RESET_STORE_DIRECTLY');
 }

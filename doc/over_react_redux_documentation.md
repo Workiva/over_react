@@ -22,6 +22,10 @@ A Dart wrapper for React Redux, providing targeted state updates.
     - [context](#context)
     - [pure](#pure)
     - [forwardRef](#forwardref)
+- **[Hooks](#hooks)**
+  - [useSelector](#useselector)
+  - [useDispatch](#usedispatch)
+  - [useStore](#usestore)
 - **[Using Multiple Stores](#using-multiple-stores)**
 - **[Using Redux DevTools](#using-redux-devtools)**
 
@@ -275,6 +279,272 @@ UiFactory<CounterProps> Counter = connect<CounterState, CounterProps>(
 
 > [More information about the `connect` function](https://react-redux.js.org/api/connect#connect)
 
+## Hooks
+OverReact exposes wrappers around React Redux hook APIs, which serve as an alternative to the existing [`connect()`](#connect) Higher Order Component. 
+These APIs allow you to subscribe to the Redux store and dispatch actions, without having to wrap your components 
+in [`connect()`](#connect).
+
+> See: <https://react-redux.js.org/api/hooks>
+
+As with [`connect()`](#connect), you should start by wrapping your entire application in a 
+[`ReduxProvider`](#reduxprovider) component to make the store available throughout the component tree:
+
+```dart
+import 'package:over_react/over_react_redux.dart';
+import 'package:over_react/react_dom.dart' as react_dom;
+
+main() {
+  react_dom.render(
+      (ReduxProvider()..store = yourReduxStoreInstance)(
+        // Function components that use the hooks in this section go here.
+      ), 
+      querySelector('#id_of_mount_node'));
+}
+```
+
+From there, you may import any of the hook APIs listed below and use them within your function components.
+
+### useSelector()
+```dart
+TValue useSelector<TReduxState, TValue>(
+  TValue Function(TReduxState state) selector, [
+  bool Function(TValue tNextValue, TValue tPrevValue) equalityFn,
+]);
+```
+
+Allows you to extract data from the Redux `Store` state, using a `selector` function.
+
+The use of this hook will also subscribe your component to the Redux `Store`, and run your `selector` whenever
+an action is dispatched.
+
+* The `selector` should be pure since it is potentially executed multiple times and at arbitrary points in time.
+* The `selector` is approximately equivalent to the `mapStateToProps` argument of [`connect`](#connect) conceptually.
+* The `selector` will be called with the entire Redux `Store` state as its only argument.
+* The `selector` will be run whenever the function component renders.
+
+By default, the return value of `selector` is compared using strict JavaScript (`===`) equality. If you want to
+customize how equality is defined, pass a comparator function to the `equalityFn` argument.
+
+If you need to use a selector with custom `Context`, use [`createSelectorHook`](#custom-context-for-hooks) instead.
+
+> See the [react-redux JS documentation](https://react-redux.js.org/api/hooks#useselector) for more details.
+
+#### Example
+
+> This example assumes that your `Counter` component is rendered as the descendant of a [`ReduxProvider`](#reduxprovider) component
+  that is wired up to a Redux `Store` instance with a `CounterState` instance containing a field called `count`.
+
+```dart
+import 'package:over_react/over_react.dart';
+import 'package:over_react/over_react_redux.dart';
+import 'counter_state.dart';
+
+mixin CounterProps on UiProps {}
+
+UiFactory<CounterProps> Counter = uiFunction(
+  (props) {
+    final count = useSelector<CounterState, int>((state) => state.count);
+
+    return Dom.div()('The current count is $count');
+  },
+  $CounterConfig, // ignore: undefined_identifier
+);
+```
+
+#### Multiple Selectors
+
+If you need to use multiple selectors in a single component, use [createSelectorHook](#custom-context-for-hooks) to
+shadow `useSelector` as shown below to remove a bunch of unnecessary boilerplate as shown in the example below.
+
+Consider the previous example, but instead of only needing to access `count` from the store, you need to access `count`, 
+and two other field values as well. Using `useSelector` for all of these can get a little messy:
+
+```dart
+import 'package:over_react/over_react.dart';
+import 'package:over_react/over_react_redux.dart';
+import 'counter_state.dart';
+
+mixin CounterProps on UiProps {}
+
+UiFactory<CounterProps> Counter = uiFunction(
+  (props) {
+    final count = useSelector<CounterState, int>((state) => state.count);
+    final foo = useSelector<CounterState, String>((state) => state.foo);
+    final bar = useSelector<CounterState, Map>((state) => state.bar);
+
+    return Dom.div()('The current $foo count is $count. $bar my dude.');
+  },
+  $CounterConfig, // ignore: undefined_identifier
+);
+```
+
+Instead of needing to declare those generic parameters each time on `useSelector`, shadow it like so:
+
+```dart
+import 'package:over_react/over_react.dart';
+import 'package:over_react/over_react_redux.dart';
+import 'counter_state.dart';
+
+/// All the types for state fields within `CounterState` will be inferred!
+final useSelector = createSelectorHook<CounterState>();
+
+mixin CounterProps on UiProps {}
+
+UiFactory<CounterProps> Counter = uiFunction(
+  (props) {
+    final count = useSelector((state) => state.count);
+    final foo = useSelector((state) => state.foo);
+    final bar = useSelector((state) => state.bar);
+
+    return Dom.div()('The current $foo count is $count. $bar my dude.');
+  },
+  $CounterConfig, // ignore: undefined_identifier
+);
+```
+
+> __CAUTION:__ Be sure to not export the shadowed value of `useSelector` unless you know exactly what you're doing,
+  and the consumers of your library expect the hook to always have the context of the state you parameterize it with. 
+
+### useDispatch()
+
+```dart
+dynamic Function(dynamic action) useDispatch();
+```
+
+Returns a reference to the Redux `Store.dispatch()` function.
+
+You may use it to dispatch actions as needed.
+
+If you need to dispatch actions within a custom `Context`, use [`createDispatchHook`](#custom-context-for-hooks) instead.
+
+> See the [react-redux JS documentation](https://react-redux.js.org/api/hooks#usedispatch) for more details.
+
+#### Example
+
+> This example assumes that your `Counter` component is rendered as the descendant of a [`ReduxProvider`](#reduxprovider) component
+  that is wired up to a Redux `Store` instance with a `CounterState` instance containing a field called `count`.
+>
+> It also assumes that you have two actions wired up to your reducer - `IncrementAction` and `DecrementAction`.
+
+```dart
+import 'package:over_react/over_react.dart';
+import 'package:over_react/over_react_redux.dart';
+import 'counter_state.dart';
+
+mixin CounterProps on UiProps {}
+
+UiFactory<CounterProps> Counter = uiFunction(
+  (props) {
+    final count = useSelector<CounterState, int>((state) => state.count);
+    final dispatch = useDispatch();
+
+    return Dom.div()(
+      Dom.div()('The current count is $count'),
+      (Dom.button()
+        ..onClick = (_) {
+          dispatch(IncrementAction());
+        }
+      )('+'),
+      (Dom.button()
+        ..onClick = (_) {
+          dispatch(DecrementAction());
+        }
+      )('-'),
+    );
+  },
+  $CounterConfig, // ignore: undefined_identifier
+);
+```
+
+### useStore()
+
+```dart
+Store<TReduxState> useStore<TReduxState>();
+```
+
+Returns a reference to the same Redux `Store` that was passed in to the [`ReduxProvider`](#reduxprovider)
+component that the function component using the hook is a descendant of.
+
+**This hook should probably not be used frequently.** Prefer [`useSelector()`](#useselector) as your primary choice.
+However, this may be useful for less common scenarios that do require access to the `Store`,
+such as replacing reducers.
+
+If you need access to a specific store from a nested [`ReduxProvider`](#reduxprovider) with a custom `Context`, 
+use [`createStoreHook`](#custom-context-for-hooks) instead.
+
+> See the [react-redux JS documentation](https://react-redux.js.org/api/hooks#usestore) for more details.
+
+### Custom Context For Hooks
+The [`ReduxProvider`](#reduxprovider) component allows you to specify an alternate `Context` via `props.context`. 
+This is useful if you're building a complex reusable component, and you don't want your store to collide with any 
+Redux store your consumers' applications might use, or you're using [multiple Redux stores](#using-multiple-stores) 
+in your application.
+
+To access an alternate context via the hooks API, use the hook creator functions:
+
+```dart
+import 'package:over_react/over_react.dart';
+import 'package:over_react/over_react_redux.dart';
+import 'package:redux/redux.dart';
+
+// ------------------------------------
+//  1. Declare the custom context
+// ------------------------------------
+final MyContext = createContext();
+final useSelector = createSelectorHook<MyState>(MyContext);
+final useDispatch = createDispatchHook(MyContext);
+// This should probably not be used frequently. Prefer `createSelectorHook` as your primary choice.
+// However, this may be useful for less common scenarios that do require access to the `Store`,
+// such as replacing reducers.
+final useStore = createStoreHook<MyState>(MyContext);
+
+final myStore = Store(myReducer);
+
+// ------------------------------------
+//  2. Create a function component that
+//  uses the shadowed `useSelector`.
+// ------------------------------------
+mixin MyComponentProps on UiProps {}
+
+UiFactory<MyComponentProps> MyComponent = uiFunction(
+  (props) {
+    final count = useSelector((state) => state.count);
+    // This should probably not be used frequently. Prefer `createSelectorHook` as your primary choice.
+    // However, this may be useful for less common scenarios that do require access to the `Store`,
+    // such as replacing reducers.
+    final store = useStore();
+    final dispatch = useDispatch();
+
+    return Dom.div()('The current count is $count');
+  },
+  $MyComponentConfig, // ignore: undefined_identifier
+);
+
+// ------------------------------------
+//  3. Render the function component
+//  nested within the ReduxProvider
+//  that is wired up to the 
+//  custom context / store.
+// ------------------------------------
+main() {
+  final app = (ReduxProvider()
+    ..context = MyContext
+    ..store = myStore
+  )(
+    MyComponent()(),
+  );
+
+  react_dom.render(app, querySelector('#id_of_mount_node'));
+}
+```
+
+> __CAUTION:__ Be sure to not export the shadowed values of `useSelector`, `useDispatch` or `useStore` unless you know 
+  exactly what you're doing, and the consumers of your library expect the hook to always have the context of the 
+  state you parameterize it with.
+
+> See the [react-redux JS documentation](https://react-redux.js.org/api/hooks#custom-context) for more details.
+
+
 ## Using Multiple Stores
 
 An application can have multiple stores by both utilizing the `context` prop of `ReduxProvider` and setting the
@@ -345,6 +615,8 @@ In the case that you need to have multiple stores, here are the steps to do so:
       ),
     )
     ```
+   
+> To use multiple stores with function components / hooks, check out the [Custom Context for hooks](#custom-context-for-hooks) example.
 
 ## Using Redux DevTools
 
