@@ -97,7 +97,7 @@ UiFactory<UseDispatchCounterFnProps> UseDispatchCounterFn = uiFunction(
       ),
     );
   },
-  $UseDispatchCounterFnConfig, // ignore: undefined_identifier
+  _$UseDispatchCounterFnConfig, // ignore: undefined_identifier
 );
 
 final useBigCountDispatch = createDispatchHook(bigCounterContext);
@@ -128,5 +128,5 @@ UiFactory<CustomContextUseDispatchCounterFnProps> CustomContextUseDispatchCounte
       ),
     );
   },
-  $CustomContextUseDispatchCounterFnConfig, // ignore: undefined_identifier
+  _$CustomContextUseDispatchCounterFnConfig, // ignore: undefined_identifier
 );

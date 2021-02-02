@@ -47,12 +47,18 @@ const PropsMeta _$metaForCustomContextUseDispatchCounterFnProps = PropsMeta(
 );
 
 final UiFactoryConfig<_$$UseDispatchCounterFnProps>
-    $UseDispatchCounterFnConfig = UiFactoryConfig(
+    _$UseDispatchCounterFnConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseDispatchCounterFnProps(map),
           jsMap: (map) => _$$UseDispatchCounterFnProps$JsMap(map),
         ),
         displayName: 'UseDispatchCounterFn');
+
+@Deprecated(r'Use the private variable, _$UseDispatchCounterFnConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$UseDispatchCounterFnProps>
+    $UseDispatchCounterFnConfig = _$UseDispatchCounterFnConfig;
 
 // Concrete props implementation.
 //
@@ -68,7 +74,7 @@ abstract class _$$UseDispatchCounterFnProps extends UiProps
 
   factory _$$UseDispatchCounterFnProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$UseDispatchCounterFnProps$JsMap(backingMap);
+      return _$$UseDispatchCounterFnProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$UseDispatchCounterFnProps$PlainMap(backingMap);
     }
@@ -128,12 +134,20 @@ class _$$UseDispatchCounterFnProps$JsMap extends _$$UseDispatchCounterFnProps {
 }
 
 final UiFactoryConfig<_$$CustomContextUseDispatchCounterFnProps>
-    $CustomContextUseDispatchCounterFnConfig = UiFactoryConfig(
+    _$CustomContextUseDispatchCounterFnConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$CustomContextUseDispatchCounterFnProps(map),
           jsMap: (map) => _$$CustomContextUseDispatchCounterFnProps$JsMap(map),
         ),
         displayName: 'CustomContextUseDispatchCounterFn');
+
+@Deprecated(
+    r'Use the private variable, _$CustomContextUseDispatchCounterFnConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$CustomContextUseDispatchCounterFnProps>
+    $CustomContextUseDispatchCounterFnConfig =
+    _$CustomContextUseDispatchCounterFnConfig;
 
 // Concrete props implementation.
 //
@@ -149,7 +163,8 @@ abstract class _$$CustomContextUseDispatchCounterFnProps extends UiProps
 
   factory _$$CustomContextUseDispatchCounterFnProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CustomContextUseDispatchCounterFnProps$JsMap(backingMap);
+      return _$$CustomContextUseDispatchCounterFnProps$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$CustomContextUseDispatchCounterFnProps$PlainMap(backingMap);
     }

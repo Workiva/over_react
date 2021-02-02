@@ -41,5 +41,5 @@ UiFactory<UseSelectorExampleProps> UseSelectorExample = uiFunction(
       ),
     );
   },
-  $UseSelectorExampleConfig, // ignore: undefined_identifier
+  _$UseSelectorExampleConfig, // ignore: undefined_identifier
 );

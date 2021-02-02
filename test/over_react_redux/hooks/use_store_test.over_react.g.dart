@@ -46,13 +46,19 @@ const PropsMeta _$metaForCustomContextUseStoreCounterFnProps = PropsMeta(
   keys: $CustomContextUseStoreCounterFnProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$UseStoreCounterFnProps> $UseStoreCounterFnConfig =
+final UiFactoryConfig<_$$UseStoreCounterFnProps> _$UseStoreCounterFnConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$UseStoreCounterFnProps(map),
           jsMap: (map) => _$$UseStoreCounterFnProps$JsMap(map),
         ),
         displayName: 'UseStoreCounterFn');
+
+@Deprecated(r'Use the private variable, _$UseStoreCounterFnConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$UseStoreCounterFnProps> $UseStoreCounterFnConfig =
+    _$UseStoreCounterFnConfig;
 
 // Concrete props implementation.
 //
@@ -68,7 +74,7 @@ abstract class _$$UseStoreCounterFnProps extends UiProps
 
   factory _$$UseStoreCounterFnProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$UseStoreCounterFnProps$JsMap(backingMap);
+      return _$$UseStoreCounterFnProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$UseStoreCounterFnProps$PlainMap(backingMap);
     }
@@ -127,12 +133,20 @@ class _$$UseStoreCounterFnProps$JsMap extends _$$UseStoreCounterFnProps {
 }
 
 final UiFactoryConfig<_$$CustomContextUseStoreCounterFnProps>
-    $CustomContextUseStoreCounterFnConfig = UiFactoryConfig(
+    _$CustomContextUseStoreCounterFnConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$CustomContextUseStoreCounterFnProps(map),
           jsMap: (map) => _$$CustomContextUseStoreCounterFnProps$JsMap(map),
         ),
         displayName: 'CustomContextUseStoreCounterFn');
+
+@Deprecated(
+    r'Use the private variable, _$CustomContextUseStoreCounterFnConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$CustomContextUseStoreCounterFnProps>
+    $CustomContextUseStoreCounterFnConfig =
+    _$CustomContextUseStoreCounterFnConfig;
 
 // Concrete props implementation.
 //
@@ -148,7 +162,8 @@ abstract class _$$CustomContextUseStoreCounterFnProps extends UiProps
 
   factory _$$CustomContextUseStoreCounterFnProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CustomContextUseStoreCounterFnProps$JsMap(backingMap);
+      return _$$CustomContextUseStoreCounterFnProps$JsMap(
+          backingMap as JsBackedMap);
     } else {
       return _$$CustomContextUseStoreCounterFnProps$PlainMap(backingMap);
     }
