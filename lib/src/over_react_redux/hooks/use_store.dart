@@ -37,7 +37,7 @@ import 'package:redux/redux.dart';
 /// use [createStoreHook] instead.
 ///
 /// See the [react-redux JS documentation](https://react-redux.js.org/api/hooks#usestore) for more details.
-Store<TReduxState> useStore<TReduxState>() => _jsUseStore().dartStore;
+Store<TReduxState> useStore<TReduxState>() => _jsUseStore().dartStore as Store<TReduxState>;
 
 @JS('ReactRedux.useStore')
 external JsReactReduxStore _jsUseStore();
@@ -61,7 +61,7 @@ external JsReactReduxStore _jsUseStore();
 /// See the [createSelectorHook] documentation for an example of creating / using custom context.
 Store<TReduxState> Function() createStoreHook<TReduxState>([Context context]) {
   final jsHook = _jsCreateStoreHook(context?.jsThis ?? JsReactRedux.ReactReduxContext);
-  Store<TReduxState> dartHook() => jsHook().dartStore;
+  Store<TReduxState> dartHook() => jsHook().dartStore as Store<TReduxState>;
 
   return dartHook;
 }

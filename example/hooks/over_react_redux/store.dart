@@ -59,11 +59,11 @@ class DartModelCounter {
 }
 
 int _counterDecrementReducer(int currentCount, DecrementAction action) {
-  return currentCount - (action.value ?? 1);
+  return currentCount - (action.value as int ?? 1);
 }
 
 int _counterIncrementReducer(int currentCount, IncrementAction action) {
-  return currentCount + (action.value ?? 1);
+  return currentCount + (action.value as int ?? 1);
 }
 
 Reducer<int> counterActionsReducer = combineReducers<int>([
@@ -77,10 +77,10 @@ Reducer<DartModelCounter> modelCounterActionsReducer = combineReducers<DartModel
     return DartModelCounter(count: 0);
   }),
   TypedReducer<DartModelCounter, IncrementModelCountAction>((currentModel, action) {
-    return DartModelCounter(count: currentModel.count + (action.value ?? 1));
+    return DartModelCounter(count: currentModel.count + (action.value as int ?? 1));
   }),
   TypedReducer<DartModelCounter, DecrementModelCountAction>((currentModel, action) {
-    return DartModelCounter(count: currentModel.count - (action.value ?? 1));
+    return DartModelCounter(count: currentModel.count - (action.value as int ?? 1));
   }),
 ]);
 
@@ -103,11 +103,11 @@ class BigCounterState {
 }
 
 int _bigCounterDecrementReducer(int currentCount, DecrementAction action) {
-  return currentCount - (action?.value != null ? action.value : 100);
+  return currentCount - (action?.value != null ? action.value as int : 100);
 }
 
 int _bigCounterIncrementReducer(int currentCount, IncrementAction action) {
-  return currentCount + (action?.value != null ? action.value : 100);
+  return currentCount + (action?.value != null ? action.value as int : 100);
 }
 
 Reducer<int> bigCounterActionsReducer = combineReducers<int>([
