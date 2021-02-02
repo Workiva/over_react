@@ -41,7 +41,7 @@ jobs:
       - name: Analyze example source (pre-build)
         run: |
           cd example/boilerplate_versions
-          if [ ${{ matrix.sdk }} = 'stable@2.7.2' ]; then pub global activate tuneup && tuneup check; fi
+          if [ ${{ matrix.sdk }} = '2.7.2' ]; then pub global activate tuneup && tuneup check; fi
           if [ ${{ matrix.sdk }} = 'stable' ]; then echo 'Skip pre-build analysis for Dart versions >=2.9 and <2.12 because there will be analysis errors.'; fi
           if [ ${{ matrix.sdk }} = 'dev' ]; then cd mixin_based/dart_2_9_compatible && dart analyze; fi
         if: always() && steps.install.outcome == 'success'
@@ -55,7 +55,7 @@ jobs:
 
       # Analyze again after generated files are created to verify that those generated classes don't cause analysis errors
       - name: Analyze project source (post-build)
-        run: if [ ${{ matrix.sdk }} = 'stable@2.7.2' ]; then pub global activate tuneup && tuneup check; else dart analyze; fi
+        run: if [ ${{ matrix.sdk }} = '2.7.2' ]; then pub global activate tuneup && tuneup check; else dart analyze; fi
         if: always() && steps.install.outcome == 'success' && steps.build.outcome == 'success'
 
       - name: Run tests (VM)
