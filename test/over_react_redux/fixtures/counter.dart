@@ -38,7 +38,7 @@ class CounterComponent extends UiComponent2<CounterProps> {
   @override
   render() {
     return (Dom.div()
-      ..modifyProps(addUnconsumedProps)
+      ..modifyProps(addUnconsumedDomProps)
       ..style = props.wrapperStyles
       ..addTestId('counter-component')
     )(
@@ -63,7 +63,23 @@ class CounterComponent extends UiComponent2<CounterProps> {
           }
         }
       )('-'),
-      props.children
+      (Dom.button()
+        ..addTestId('button-model-increment')
+        ..onClick = (_) {
+          if (props.dispatch != null) {
+            props.dispatch(IncrementModelCountAction());
+          }
+        }
+      )('+'),
+      (Dom.button()
+        ..addTestId('button-model-decrement')
+        ..onClick = (_) {
+          if (props.dispatch != null) {
+            props.dispatch(DecrementModelCountAction());
+          }
+        }
+      )('-'),
+      props.children,
     );
   }
 }

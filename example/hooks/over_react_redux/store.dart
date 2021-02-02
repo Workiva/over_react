@@ -1,4 +1,4 @@
-// Copyright 2020 Workiva Inc.
+// Copyright 2021 Workiva Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -73,6 +73,9 @@ Reducer<int> counterActionsReducer = combineReducers<int>([
 ]);
 
 Reducer<DartModelCounter> modelCounterActionsReducer = combineReducers<DartModelCounter>([
+  TypedReducer<DartModelCounter, ResetAction>((currentModel, action) {
+    return DartModelCounter(count: 0);
+  }),
   TypedReducer<DartModelCounter, IncrementModelCountAction>((currentModel, action) {
     return DartModelCounter(count: currentModel.count + (action.value ?? 1));
   }),
