@@ -46,7 +46,6 @@ targets:
             - "test/over_react/component_declaration/builder_integration_tests/backwards_compatible/**"
             - "test/over_react/component_declaration/builder_integration_tests/new_boilerplate/**"
           exclude:
-            - "lib/**"
             - "web/component1/**"
             # The Dart 2 only boilerplate does not analyze cleanly without a build so the generated files need to be
             # checked in.
@@ -62,10 +61,10 @@ targets:
           include:
             - test/over_react/component_declaration/redux_component_test/test_reducer.dart
 
-      build_vm_compilers|entrypoint:
-        generate_for:
-          include:
-            - "test/vm_tests/**"
+#      build_vm_compilers|entrypoint:
+#        generate_for:
+#          include:
+#            - "test/vm_tests/**"
 
       # builder uses mirrors and will cause a build to fail when using build web compilers
       # vm tests require the use of mirrors
