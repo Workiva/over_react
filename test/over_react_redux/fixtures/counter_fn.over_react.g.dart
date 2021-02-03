@@ -15,8 +15,8 @@ mixin $CounterFnProps on CounterFnProps {
   static const PropsMeta meta = _$metaForCounterFnProps;
   @override
   bool Function(int nextCount, int prevCount) get countEqualityFn =>
-      props[_$key__countEqualityFn__CounterFnProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__countEqualityFn__CounterFnProps] ?? null) as bool Function(
+          int nextCount, int prevCount);
   @override
   set countEqualityFn(bool Function(int nextCount, int prevCount) value) =>
       props[_$key__countEqualityFn__CounterFnProps] = value;
@@ -48,12 +48,11 @@ const PropsMeta _$metaForCounterFnProps = PropsMeta(
 mixin $ModelCounterFnPropsMixin on ModelCounterFnPropsMixin {
   static const PropsMeta meta = _$metaForModelCounterFnPropsMixin;
   @override
-  bool Function(
-      DartModelCounter nextCount,
-      DartModelCounter
-          prevCount) get modelCountEqualityFn =>
-      props[_$key__modelCountEqualityFn__ModelCounterFnPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool Function(DartModelCounter nextCount, DartModelCounter prevCount)
+      get modelCountEqualityFn =>
+          (props[_$key__modelCountEqualityFn__ModelCounterFnPropsMixin] ?? null)
+              as bool Function(
+                  DartModelCounter nextCount, DartModelCounter prevCount);
   @override
   set modelCountEqualityFn(
           bool Function(DartModelCounter nextCount, DartModelCounter prevCount)
@@ -89,8 +88,8 @@ mixin $CustomContextCounterFnPropsMixin on CustomContextCounterFnPropsMixin {
   static const PropsMeta meta = _$metaForCustomContextCounterFnPropsMixin;
   @override
   bool Function(int nextBigCount, int prevBigCount) get bigCountEqualityFn =>
-      props[_$key__bigCountEqualityFn__CustomContextCounterFnPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__bigCountEqualityFn__CustomContextCounterFnPropsMixin] ??
+          null) as bool Function(int nextBigCount, int prevBigCount);
   @override
   set bigCountEqualityFn(
           bool Function(int nextBigCount, int prevBigCount) value) =>
@@ -120,12 +119,17 @@ const PropsMeta _$metaForCustomContextCounterFnPropsMixin = PropsMeta(
   keys: $CustomContextCounterFnPropsMixin.$propKeys,
 );
 
-final UiFactoryConfig<_$$CounterFnProps> $CounterFnConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$CounterFnProps> _$CounterFnConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$CounterFnProps(map),
       jsMap: (map) => _$$CounterFnProps$JsMap(map),
     ),
     displayName: 'CounterFn');
+
+@Deprecated(r'Use the private variable, _$CounterFnConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$CounterFnProps> $CounterFnConfig = _$CounterFnConfig;
 
 // Concrete props implementation.
 //
@@ -141,7 +145,7 @@ abstract class _$$CounterFnProps extends UiProps
 
   factory _$$CounterFnProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CounterFnProps$JsMap(backingMap);
+      return _$$CounterFnProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$CounterFnProps$PlainMap(backingMap);
     }
@@ -199,13 +203,19 @@ class _$$CounterFnProps$JsMap extends _$$CounterFnProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$ModelCounterFnProps> $ModelCounterFnConfig =
+final UiFactoryConfig<_$$ModelCounterFnProps> _$ModelCounterFnConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$ModelCounterFnProps(map),
           jsMap: (map) => _$$ModelCounterFnProps$JsMap(map),
         ),
         displayName: 'ModelCounterFn');
+
+@Deprecated(r'Use the private variable, _$ModelCounterFnConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$ModelCounterFnProps> $ModelCounterFnConfig =
+    _$ModelCounterFnConfig;
 
 // Concrete props implementation.
 //
@@ -224,7 +234,7 @@ abstract class _$$ModelCounterFnProps extends UiProps
 
   factory _$$ModelCounterFnProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ModelCounterFnProps$JsMap(backingMap);
+      return _$$ModelCounterFnProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ModelCounterFnProps$PlainMap(backingMap);
     }
@@ -285,12 +295,19 @@ class _$$ModelCounterFnProps$JsMap extends _$$ModelCounterFnProps {
 }
 
 final UiFactoryConfig<_$$CustomContextCounterFnProps>
-    $CustomContextCounterFnConfig = UiFactoryConfig(
+    _$CustomContextCounterFnConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$CustomContextCounterFnProps(map),
           jsMap: (map) => _$$CustomContextCounterFnProps$JsMap(map),
         ),
         displayName: 'CustomContextCounterFn');
+
+@Deprecated(
+    r'Use the private variable, _$CustomContextCounterFnConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$CustomContextCounterFnProps>
+    $CustomContextCounterFnConfig = _$CustomContextCounterFnConfig;
 
 // Concrete props implementation.
 //
@@ -309,7 +326,7 @@ abstract class _$$CustomContextCounterFnProps extends UiProps
 
   factory _$$CustomContextCounterFnProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CustomContextCounterFnProps$JsMap(backingMap);
+      return _$$CustomContextCounterFnProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$CustomContextCounterFnProps$PlainMap(backingMap);
     }

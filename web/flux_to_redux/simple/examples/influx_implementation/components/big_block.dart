@@ -18,7 +18,7 @@ import '../store.dart';
 
 part 'big_block.over_react.g.dart';
 
-UiFactory<BigBlockProps> BigBlock = castUiFactory(_$BigBlock);
+UiFactory<BigBlockProps> BigBlock = castUiFactory(_$BigBlock); // ignore: undefined_identifier
 
 class BigBlockProps = UiProps with FluxUiPropsMixin<RandomColorActions, FluxStore>;
 

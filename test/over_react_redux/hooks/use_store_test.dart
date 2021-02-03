@@ -77,7 +77,7 @@ UiFactory<UseStoreCounterFnProps> UseStoreCounterFn = uiFunction(
       props.children,
     );
   },
-  $UseStoreCounterFnConfig, // ignore: undefined_identifier
+  _$UseStoreCounterFnConfig, // ignore: undefined_identifier
 );
 
 final useBigCountStore = createStoreHook<BigCounterState>(bigCounterContext);
@@ -96,5 +96,5 @@ UiFactory<CustomContextUseStoreCounterFnProps> CustomContextUseStoreCounterFn = 
       props.children,
     );
   },
-  $CustomContextUseStoreCounterFnConfig, // ignore: undefined_identifier
+  _$CustomContextUseStoreCounterFnConfig, // ignore: undefined_identifier
 );

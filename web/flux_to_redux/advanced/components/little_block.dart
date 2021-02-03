@@ -16,7 +16,7 @@ import 'package:over_react/over_react.dart';
 
 part 'little_block.over_react.g.dart';
 
-UiFactory<LittleBlockProps> LittleBlock = castUiFactory(_$LittleBlock);
+UiFactory<LittleBlockProps> LittleBlock = castUiFactory(_$LittleBlock); // ignore: undefined_identifier
 
 mixin LittleBlockProps on UiProps {
   String backgroundColor;

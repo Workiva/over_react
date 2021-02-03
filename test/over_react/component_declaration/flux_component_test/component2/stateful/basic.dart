@@ -16,6 +16,7 @@
 part of over_react.component_declaration.component2.flux_component_test;
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<TestStatefulBasicProps> TestStatefulBasic = _$TestStatefulBasic;
 
 @Props()

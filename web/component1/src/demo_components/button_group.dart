@@ -22,6 +22,7 @@ part 'button_group.over_react.g.dart';
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/button-group/>.
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<ButtonGroupProps> ButtonGroup = _$ButtonGroup;
 
 @Props()

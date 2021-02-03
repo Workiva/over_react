@@ -8,11 +8,13 @@ analyzer:
     - test_fixtures/**
     - app/**
     - tools/analyzer_plugin/**
+    - ddc_precompiled/**
   errors:
     unused_import: warning
     duplicate_import: warning
     missing_required_param: error
     must_call_super: error
+    uri_has_not_been_generated: ignore
 linter:
   rules:
     # -------------------

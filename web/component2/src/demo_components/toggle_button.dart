@@ -24,7 +24,7 @@ part 'toggle_button.over_react.g.dart';
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#checkbox-and-radio-buttons>
 
-UiFactory<ToggleButtonProps> ToggleButton = castUiFactory(_$ToggleButton);
+UiFactory<ToggleButtonProps> ToggleButton = castUiFactory(_$ToggleButton); // ignore: undefined_identifier
 
 mixin ToggleButtonPropsMixin on UiProps {
   /// Whether the `<input>` rendered by the [ToggleButton] should have focus upon mounting.

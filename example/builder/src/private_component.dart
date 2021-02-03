@@ -26,6 +26,7 @@ mixin _PrivateState on UiState {
   bool state1;
 }
 
+// ignore: unused_element
 class _PrivateComponent extends UiStatefulComponent2<_PrivateProps, _PrivateState> {
   @override
   get defaultProps => newProps()..prop1 = true;

@@ -17,7 +17,7 @@ import 'package:over_react/src/component/test_fixtures/redraw_counter_component_
 
 part 'pure_test_components.over_react.g.dart';
 
-UiFactory<PureTestWrapperProps> PureTestWrapper = _$PureTestWrapper; // ignore: undefined_identifier
+UiFactory<PureTestWrapperProps> PureTestWrapper = _$PureTestWrapper; // ignore: undefined_identifier, invalid_assignment
 
 class PureTestWrapperProps = UiProps with SharedPureTestPropsMixin;
 
@@ -47,7 +47,7 @@ class PureTestWrapperComponent extends UiComponent2<PureTestWrapperProps>
   void handleChildFunc() {}
 }
 
-UiFactory<PureTestProps> PureTest = _$PureTest; // ignore: undefined_identifier
+UiFactory<PureTestProps> PureTest = _$PureTest; // ignore: undefined_identifier, invalid_assignment
 
 mixin PureTestPropsMixin on UiProps {
   bool childBoolProp;

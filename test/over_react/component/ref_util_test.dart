@@ -318,7 +318,7 @@ void testForwardRefWith(dynamic factory,
   });
 }
 
-UiFactory<BasicProps> Basic = _$Basic; // ignore: undefined_identifier
+UiFactory<BasicProps> Basic = _$Basic; // ignore: undefined_identifier, invalid_assignment
 
 mixin BasicProps on UiProps {
   String childId;

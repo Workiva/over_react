@@ -58,7 +58,7 @@ UiFactory<CounterFnProps> CounterFn = memo(uiFunction(
       props.children,
     );
   },
-  $CounterFnConfig, // ignore: undefined_identifier
+  _$CounterFnConfig, // ignore: undefined_identifier
 ));
 
 mixin ModelCounterFnPropsMixin on UiProps {
@@ -98,7 +98,7 @@ UiFactory<ModelCounterFnProps> ModelCounterFn = uiFunction(
       ),
     );
   },
-  $ModelCounterFnConfig, // ignore: undefined_identifier
+  _$ModelCounterFnConfig, // ignore: undefined_identifier
 );
 
 final bigCounterContext = createContext();
@@ -143,7 +143,7 @@ UiFactory<CustomContextCounterFnProps> CustomContextCounterFn = uiFunction(
       ),
     );
   },
-  $CustomContextCounterFnConfig, // ignore: undefined_identifier
+  _$CustomContextCounterFnConfig, // ignore: undefined_identifier
 );
 
 class UseStoreCounterFnProps = UiProps with CounterFnPropsMixin;
@@ -155,5 +155,5 @@ UiFactory<UseStoreCounterFnProps> UseStoreCounterFn = uiFunction(
       ..addTestId('use-store-counter-component')
     )();
   },
-  $UseStoreCounterFnConfig, // ignore: undefined_identifier
+  _$UseStoreCounterFnConfig, // ignore: undefined_identifier
 );

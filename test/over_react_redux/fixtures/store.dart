@@ -74,10 +74,10 @@ Reducer<int> counterActionsReducer = combineReducers<int>([
 
 Reducer<DartModelCounter> modelCounterActionsReducer = combineReducers<DartModelCounter>([
   TypedReducer<DartModelCounter, IncrementModelCountAction>((currentModel, action) {
-    return DartModelCounter(count: currentModel.count + (action.value ?? 1));
+    return DartModelCounter(count: currentModel.count + (action.value as int ?? 1));
   }),
   TypedReducer<DartModelCounter, DecrementModelCountAction>((currentModel, action) {
-    return DartModelCounter(count: currentModel.count - (action.value ?? 1));
+    return DartModelCounter(count: currentModel.count - (action.value as int ?? 1));
   }),
 ]);
 

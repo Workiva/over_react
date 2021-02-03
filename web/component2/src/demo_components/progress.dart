@@ -22,7 +22,7 @@ part 'progress.over_react.g.dart';
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/progress/>
 
-UiFactory<ProgressProps> Progress = castUiFactory(_$Progress);
+UiFactory<ProgressProps> Progress = castUiFactory(_$Progress); // ignore: undefined_identifier
 
 mixin ProgressProps on UiProps {
   /// The current value of the [Progress] component.

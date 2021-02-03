@@ -20,7 +20,7 @@ part 'tag.over_react.g.dart';
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/tag/>
 
-UiFactory<TagProps> Tag = castUiFactory(_$Tag);
+UiFactory<TagProps> Tag = castUiFactory(_$Tag); // ignore: undefined_identifier
 
 mixin TagProps on UiProps {
   /// The skin / "context" for the [Tag].

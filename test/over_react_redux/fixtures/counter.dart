@@ -20,6 +20,7 @@ import 'redux_actions.dart';
 part 'counter.over_react.g.dart';
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<CounterProps> Counter = _$Counter;
 
 @Props()
