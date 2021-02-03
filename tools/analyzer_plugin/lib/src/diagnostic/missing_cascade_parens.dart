@@ -1,6 +1,6 @@
 // ignore: deprecated_member_use
-import 'package:analyzer/analyzer.dart' show NodeLocator;
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:over_react_analyzer_plugin/src/analyzer.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';

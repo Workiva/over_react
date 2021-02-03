@@ -3,15 +3,12 @@ library over_react_analyzer_plugin.src.ast_util;
 
 import 'dart:collection';
 import 'dart:mirrors';
-// This is necessary for `ConstantEvaluator`. If that API is removed, it can just
-// be copied and pasted into this analyzer package (if still needed).
-// ignore: deprecated_member_use
-import 'package:analyzer/analyzer.dart' show ConstantEvaluator;
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/constant/value.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/source/line_info.dart';
+import 'package:over_react_analyzer_plugin/src/analyzer.dart';
 
 export 'package:over_react/src/builder/parsing/ast_util.dart';
 export 'package:over_react/src/builder/parsing/util.dart';
