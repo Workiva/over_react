@@ -72,7 +72,7 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
           await collector.addErrorWithFix(
             code,
             location,
-            errorMessageArgs: [invalidType.getDisplayString(), missingBuilderMessageSuffix],
+            errorMessageArgs: [invalidType.getDisplayString(withNullability: false), missingBuilderMessageSuffix],
             fixKind: addBuilderInvocationFix,
             computeFix: () => buildFileEdit(result, (builder) {
               buildMissingInvocationEdits(argument, builder);
@@ -81,7 +81,7 @@ class InvalidChildDiagnostic extends ComponentUsageDiagnosticContributor {
         } else if (invalidType is FunctionType || invalidType.isDartCoreFunction) {
           // Functions can be used as children
         } else {
-          collector.addError(code, location, errorMessageArgs: [invalidType.getDisplayString()]);
+          collector.addError(code, location, errorMessageArgs: [invalidType.getDisplayString(withNullability: false)]);
         }
       });
     }
