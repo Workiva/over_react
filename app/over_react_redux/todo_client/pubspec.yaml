@@ -32,8 +32,3 @@ dev_dependencies:
 dependency_overrides:
   over_react:
     path: '../../../'
-  react:
-    git:
-      url: https://github.com/cleandart/react-dart.git
-      ref: 6.0.0-wip
-

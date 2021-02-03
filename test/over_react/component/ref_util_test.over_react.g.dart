@@ -39,7 +39,7 @@ abstract class _$$BasicProps extends UiProps
 
   factory _$$BasicProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicProps$JsMap(backingMap);
+      return _$$BasicProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$BasicProps$PlainMap(backingMap);
     }
@@ -124,7 +124,8 @@ class _$BasicComponent extends BasicComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -157,9 +158,7 @@ class _$BasicComponent extends BasicComponent {
 mixin $BasicProps on BasicProps {
   static const PropsMeta meta = _$metaForBasicProps;
   @override
-  String get childId =>
-      props[_$key__childId__BasicProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get childId => (props[_$key__childId__BasicProps] ?? null) as String;
   @override
   set childId(String value) => props[_$key__childId__BasicProps] = value;
   /* GENERATED CONSTANTS */
@@ -197,13 +196,19 @@ const PropsMeta _$metaForBasicUiFunctionProps = PropsMeta(
   keys: $BasicUiFunctionProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$BasicUiFunctionProps> $BasicUiFunctionConfig =
+final UiFactoryConfig<_$$BasicUiFunctionProps> _$BasicUiFunctionConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$BasicUiFunctionProps(map),
           jsMap: (map) => _$$BasicUiFunctionProps$JsMap(map),
         ),
         displayName: 'BasicUiFunction');
+
+@Deprecated(r'Use the private variable, _$BasicUiFunctionConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$BasicUiFunctionProps> $BasicUiFunctionConfig =
+    _$BasicUiFunctionConfig;
 
 // Concrete props implementation.
 //
@@ -219,7 +224,7 @@ abstract class _$$BasicUiFunctionProps extends UiProps
 
   factory _$$BasicUiFunctionProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicUiFunctionProps$JsMap(backingMap);
+      return _$$BasicUiFunctionProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$BasicUiFunctionProps$PlainMap(backingMap);
     }
@@ -278,12 +283,19 @@ class _$$BasicUiFunctionProps$JsMap extends _$$BasicUiFunctionProps {
 }
 
 final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
-    $TopLevelForwardUiRefFunctionConfig = UiFactoryConfig(
+    _$TopLevelForwardUiRefFunctionConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$SecondaryBasicUiFunctionProps(map),
           jsMap: (map) => _$$SecondaryBasicUiFunctionProps$JsMap(map),
         ),
         displayName: 'TopLevelForwardUiRefFunction');
+
+@Deprecated(
+    r'Use the private variable, _$TopLevelForwardUiRefFunctionConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$SecondaryBasicUiFunctionProps>
+    $TopLevelForwardUiRefFunctionConfig = _$TopLevelForwardUiRefFunctionConfig;
 
 // Concrete props implementation.
 //
@@ -300,7 +312,7 @@ abstract class _$$SecondaryBasicUiFunctionProps extends UiProps
 
   factory _$$SecondaryBasicUiFunctionProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SecondaryBasicUiFunctionProps$JsMap(backingMap);
+      return _$$SecondaryBasicUiFunctionProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$SecondaryBasicUiFunctionProps$PlainMap(backingMap);
     }

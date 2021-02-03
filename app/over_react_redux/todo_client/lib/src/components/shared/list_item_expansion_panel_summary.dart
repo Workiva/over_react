@@ -8,7 +8,7 @@ import 'package:todo_client/src/components/shared/material_ui.dart';
 part 'list_item_expansion_panel_summary.over_react.g.dart';
 
 UiFactory<ListItemAccordionSummaryProps> ListItemAccordionSummary =
-    _$ListItemAccordionSummary; // ignore: undefined_identifier
+    castUiFactory(_$ListItemAccordionSummary); // ignore: undefined_identifier
 
 mixin ListItemAccordionSummaryProps on UiProps {
   @requiredProp

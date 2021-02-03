@@ -207,7 +207,7 @@ _SelectorFnHook<TReduxState> createSelectorHook<TReduxState>([Context context]) 
             equalityFn(unwrapInteropValue(nextJsValue), unwrapInteropValue(prevJsValue)));
 
     return unwrapInteropValue<TValue>(jsHook(allowInterop(jsSelector), jsEqualityFn));
-  };
+  }
 
   return dartHook;
 }

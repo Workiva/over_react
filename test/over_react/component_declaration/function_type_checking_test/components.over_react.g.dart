@@ -48,7 +48,7 @@ abstract class _$$DoNotReferenceThisFactoryExceptForInASingleTestProps
       Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
       return _$$DoNotReferenceThisFactoryExceptForInASingleTestProps$JsMap(
-          backingMap);
+          backingMap as JsBackedMap);
     } else {
       return _$$DoNotReferenceThisFactoryExceptForInASingleTestProps$PlainMap(
           backingMap);
@@ -143,7 +143,8 @@ class _$DoNotReferenceThisFactoryExceptForInASingleTestComponentn
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -367,12 +368,17 @@ const PropsMeta _$metaForTestUninitializedParentProps = PropsMeta(
   keys: $TestUninitializedParentProps.$propKeys,
 );
 
-final UiFactoryConfig<_$$TestAProps> $TestAConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$TestAProps> _$TestAConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$TestAProps(map),
       jsMap: (map) => _$$TestAProps$JsMap(map),
     ),
     displayName: 'TestA');
+
+@Deprecated(r'Use the private variable, _$TestAConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$TestAProps> $TestAConfig = _$TestAConfig;
 
 // Concrete props implementation.
 //
@@ -388,7 +394,7 @@ abstract class _$$TestAProps extends UiProps
 
   factory _$$TestAProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestAProps$JsMap(backingMap);
+      return _$$TestAProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestAProps$PlainMap(backingMap);
     }
@@ -446,12 +452,17 @@ class _$$TestAProps$JsMap extends _$$TestAProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$TestBProps> $TestBConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$TestBProps> _$TestBConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$TestBProps(map),
       jsMap: (map) => _$$TestBProps$JsMap(map),
     ),
     displayName: 'TestB');
+
+@Deprecated(r'Use the private variable, _$TestBConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$TestBProps> $TestBConfig = _$TestBConfig;
 
 // Concrete props implementation.
 //
@@ -467,7 +478,7 @@ abstract class _$$TestBProps extends UiProps
 
   factory _$$TestBProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestBProps$JsMap(backingMap);
+      return _$$TestBProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestBProps$PlainMap(backingMap);
     }
@@ -525,12 +536,18 @@ class _$$TestBProps$JsMap extends _$$TestBProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$TestParentProps> $TestParentConfig = UiFactoryConfig(
+final UiFactoryConfig<_$$TestParentProps> _$TestParentConfig = UiFactoryConfig(
     propsFactory: PropsFactory(
       map: (map) => _$$TestParentProps(map),
       jsMap: (map) => _$$TestParentProps$JsMap(map),
     ),
     displayName: 'TestParent');
+
+@Deprecated(r'Use the private variable, _$TestParentConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$TestParentProps> $TestParentConfig =
+    _$TestParentConfig;
 
 // Concrete props implementation.
 //
@@ -546,7 +563,7 @@ abstract class _$$TestParentProps extends UiProps
 
   factory _$$TestParentProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestParentProps$JsMap(backingMap);
+      return _$$TestParentProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestParentProps$PlainMap(backingMap);
     }
@@ -604,12 +621,19 @@ class _$$TestParentProps$JsMap extends _$$TestParentProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$TestSubtypeProps> $TestSubtypeConfig = UiFactoryConfig(
-    propsFactory: PropsFactory(
-      map: (map) => _$$TestSubtypeProps(map),
-      jsMap: (map) => _$$TestSubtypeProps$JsMap(map),
-    ),
-    displayName: 'TestSubtype');
+final UiFactoryConfig<_$$TestSubtypeProps> _$TestSubtypeConfig =
+    UiFactoryConfig(
+        propsFactory: PropsFactory(
+          map: (map) => _$$TestSubtypeProps(map),
+          jsMap: (map) => _$$TestSubtypeProps$JsMap(map),
+        ),
+        displayName: 'TestSubtype');
+
+@Deprecated(r'Use the private variable, _$TestSubtypeConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$TestSubtypeProps> $TestSubtypeConfig =
+    _$TestSubtypeConfig;
 
 // Concrete props implementation.
 //
@@ -625,7 +649,7 @@ abstract class _$$TestSubtypeProps extends UiProps
 
   factory _$$TestSubtypeProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestSubtypeProps$JsMap(backingMap);
+      return _$$TestSubtypeProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestSubtypeProps$PlainMap(backingMap);
     }
@@ -683,13 +707,19 @@ class _$$TestSubtypeProps$JsMap extends _$$TestSubtypeProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$TestSubsubtypeProps> $TestSubsubtypeConfig =
+final UiFactoryConfig<_$$TestSubsubtypeProps> _$TestSubsubtypeConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$TestSubsubtypeProps(map),
           jsMap: (map) => _$$TestSubsubtypeProps$JsMap(map),
         ),
         displayName: 'TestSubsubtype');
+
+@Deprecated(r'Use the private variable, _$TestSubsubtypeConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$TestSubsubtypeProps> $TestSubsubtypeConfig =
+    _$TestSubsubtypeConfig;
 
 // Concrete props implementation.
 //
@@ -705,7 +735,7 @@ abstract class _$$TestSubsubtypeProps extends UiProps
 
   factory _$$TestSubsubtypeProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestSubsubtypeProps$JsMap(backingMap);
+      return _$$TestSubsubtypeProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestSubsubtypeProps$PlainMap(backingMap);
     }
@@ -763,13 +793,19 @@ class _$$TestSubsubtypeProps$JsMap extends _$$TestSubsubtypeProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$TestExtendtypeProps> $TestExtendtypeConfig =
+final UiFactoryConfig<_$$TestExtendtypeProps> _$TestExtendtypeConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$TestExtendtypeProps(map),
           jsMap: (map) => _$$TestExtendtypeProps$JsMap(map),
         ),
         displayName: 'TestExtendtype');
+
+@Deprecated(r'Use the private variable, _$TestExtendtypeConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$TestExtendtypeProps> $TestExtendtypeConfig =
+    _$TestExtendtypeConfig;
 
 // Concrete props implementation.
 //
@@ -785,7 +821,7 @@ abstract class _$$TestExtendtypeProps extends UiProps
 
   factory _$$TestExtendtypeProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestExtendtypeProps$JsMap(backingMap);
+      return _$$TestExtendtypeProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestExtendtypeProps$PlainMap(backingMap);
     }
@@ -843,13 +879,19 @@ class _$$TestExtendtypeProps$JsMap extends _$$TestExtendtypeProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$OneLevelWrapperProps> $OneLevelWrapperConfig =
+final UiFactoryConfig<_$$OneLevelWrapperProps> _$OneLevelWrapperConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$OneLevelWrapperProps(map),
           jsMap: (map) => _$$OneLevelWrapperProps$JsMap(map),
         ),
         displayName: 'OneLevelWrapper');
+
+@Deprecated(r'Use the private variable, _$OneLevelWrapperConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$OneLevelWrapperProps> $OneLevelWrapperConfig =
+    _$OneLevelWrapperConfig;
 
 // Concrete props implementation.
 //
@@ -865,7 +907,7 @@ abstract class _$$OneLevelWrapperProps extends UiProps
 
   factory _$$OneLevelWrapperProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$OneLevelWrapperProps$JsMap(backingMap);
+      return _$$OneLevelWrapperProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$OneLevelWrapperProps$PlainMap(backingMap);
     }
@@ -923,13 +965,19 @@ class _$$OneLevelWrapperProps$JsMap extends _$$OneLevelWrapperProps {
   JsBackedMap _props;
 }
 
-final UiFactoryConfig<_$$TwoLevelWrapperProps> $TwoLevelWrapperConfig =
+final UiFactoryConfig<_$$TwoLevelWrapperProps> _$TwoLevelWrapperConfig =
     UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$TwoLevelWrapperProps(map),
           jsMap: (map) => _$$TwoLevelWrapperProps$JsMap(map),
         ),
         displayName: 'TwoLevelWrapper');
+
+@Deprecated(r'Use the private variable, _$TwoLevelWrapperConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$TwoLevelWrapperProps> $TwoLevelWrapperConfig =
+    _$TwoLevelWrapperConfig;
 
 // Concrete props implementation.
 //
@@ -945,7 +993,7 @@ abstract class _$$TwoLevelWrapperProps extends UiProps
 
   factory _$$TwoLevelWrapperProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TwoLevelWrapperProps$JsMap(backingMap);
+      return _$$TwoLevelWrapperProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TwoLevelWrapperProps$PlainMap(backingMap);
     }
@@ -1004,12 +1052,19 @@ class _$$TwoLevelWrapperProps$JsMap extends _$$TwoLevelWrapperProps {
 }
 
 final UiFactoryConfig<_$$TestUninitializedParentProps>
-    $TestUninitializedParentConfig = UiFactoryConfig(
+    _$TestUninitializedParentConfig = UiFactoryConfig(
         propsFactory: PropsFactory(
           map: (map) => _$$TestUninitializedParentProps(map),
           jsMap: (map) => _$$TestUninitializedParentProps$JsMap(map),
         ),
         displayName: 'TestUninitializedParent');
+
+@Deprecated(
+    r'Use the private variable, _$TestUninitializedParentConfig, instead '
+    'and update the `over_react` lower bound to version 4.1.0. '
+    'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650')
+final UiFactoryConfig<_$$TestUninitializedParentProps>
+    $TestUninitializedParentConfig = _$TestUninitializedParentConfig;
 
 // Concrete props implementation.
 //
@@ -1025,7 +1080,7 @@ abstract class _$$TestUninitializedParentProps extends UiProps
 
   factory _$$TestUninitializedParentProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestUninitializedParentProps$JsMap(backingMap);
+      return _$$TestUninitializedParentProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TestUninitializedParentProps$PlainMap(backingMap);
     }

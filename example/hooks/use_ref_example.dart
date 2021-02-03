@@ -43,5 +43,5 @@ UiFactory<UseRefExampleProps> UseRefExample = uiFunction(
       )('Update'),
     );
   },
-  $UseRefExampleConfig, // ignore: undefined_identifier
+  _$UseRefExampleConfig, // ignore: undefined_identifier
 );

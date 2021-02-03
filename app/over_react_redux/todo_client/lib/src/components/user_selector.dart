@@ -24,7 +24,7 @@ UiFactory<UserSelectorProps> UserSelector = connect<AppState, UserSelectorProps>
       );
     },
     forwardRef: true
-)(_$UserSelector); // ignore: undefined_identifier
+)(castUiFactory(_$UserSelector)); // ignore: undefined_identifier
 
 mixin UserSelectorProps on UiProps {
   String selectedUserId;

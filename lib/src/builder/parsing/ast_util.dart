@@ -45,10 +45,13 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
 
   /// Returns whether or not there is a generated config being used.
   bool get usesAGeneratedConfig {
-    final generatedConfigName = FactoryNames(firstVariable.name.name).configName;
+    final generatedPrivateConfigName = FactoryNames(firstVariable.name.name).privateConfigName;
+    // ignore: deprecated_member_use_from_same_package
+    final generatedPublicConfigName = FactoryNames(firstVariable.name.name).publicConfigName;
     return firstInitializer != null &&
         anyDescendantIdentifiers(firstInitializer, (identifier) {
-          return identifier.nameWithoutPrefix == generatedConfigName;
+          return identifier.nameWithoutPrefix == generatedPrivateConfigName ||
+              identifier.nameWithoutPrefix == generatedPublicConfigName;
         });
   }
 }
@@ -157,8 +160,9 @@ extension SourceFileSpanHelper on SourceFile {
   /// Returns a span for the given [AstNode] or [Token].
   ///
   /// If it's an [AstNode], the span starts after the doc comment and metadata (see [getSpanForNode]).
-  FileSpan spanFor(SyntacticEntity nodeOrToken) =>
-      nodeOrToken is AstNode ? getSpanForNode(this, nodeOrToken) : _getSpanForEntity(nodeOrToken);
+  FileSpan spanFor(SyntacticEntity nodeOrToken) => nodeOrToken is AstNode
+      ? getSpanForNode(this, nodeOrToken) as FileSpan
+      : _getSpanForEntity(nodeOrToken);
 
   FileSpan _getSpanForEntity(SyntacticEntity node) => span(node.offset, node.end);
 }

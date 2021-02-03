@@ -82,7 +82,7 @@ part 'with_transition.over_react.g.dart';
 ///       )
 ///     );
 ///   },
-///   $WithTransitionExampleConfig, // ignore: undefined_identifier
+///   _$WithTransitionExampleConfig, // ignore: undefined_identifier
 /// );
 /// ```
 ///
@@ -103,10 +103,10 @@ part 'with_transition.over_react.g.dart';
 ///       props.children,
 ///     ),
 ///   },
-///   $CustomChildConfig, // ignore: undefined_identifier
+///   _$CustomChildConfig, // ignore: undefined_identifier
 /// );
 /// ```
-UiFactory<WithTransitionProps> WithTransition = _$WithTransition;
+UiFactory<WithTransitionProps> WithTransition = castUiFactory(_$WithTransition);
 
 mixin WithTransitionPropsMixin on UiProps {
   /// Controls the visibility of the component.
@@ -148,7 +148,7 @@ mixin WithTransitionPropsMixin on UiProps {
   ///       // The child that has CSS transitions
   ///     );
   ///   },
-  ///   $WithTransitionExampleConfig, // ignore: undefined_identifier
+  ///   _$WithTransitionExampleConfig, // ignore: undefined_identifier
   /// );
   /// ```
   Map<TransitionPhase, Map> childPropsByPhase;

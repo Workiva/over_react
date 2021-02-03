@@ -211,6 +211,7 @@ void main() {
 }
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 
 @Props()

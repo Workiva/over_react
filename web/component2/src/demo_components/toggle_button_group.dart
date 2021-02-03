@@ -36,7 +36,7 @@ part 'toggle_button_group.over_react.g.dart';
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#checkbox-and-radio-buttons>
 
-UiFactory<ToggleButtonGroupProps> ToggleButtonGroup = _$ToggleButtonGroup;
+UiFactory<ToggleButtonGroupProps> ToggleButtonGroup = castUiFactory(_$ToggleButtonGroup); // ignore: undefined_identifier
 
 class ToggleButtonGroupProps = UiProps with ButtonGroupProps, AbstractInputPropsMixin;
 
@@ -73,7 +73,7 @@ class ToggleButtonGroupComponent
   /// The props that should be added when we clone the given [child] using
   /// [cloneElement] via [renderButton].
   @override
-  ToggleButtonProps buttonPropsToAdd(dynamic child, int index) {
+  ToggleButtonProps buttonPropsToAdd(ReactElement child, int index) {
     var childProps = childFactory(getProps(child));
 
     ButtonProps superPropsToAdd = super.buttonPropsToAdd(child, index);

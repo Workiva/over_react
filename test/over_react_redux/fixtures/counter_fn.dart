@@ -39,7 +39,7 @@ UiFactory<CounterFnProps> CounterFn = uiFunction(
       props.children,
     );
   },
-  $CounterFnConfig, // ignore: undefined_identifier
+  _$CounterFnConfig, // ignore: undefined_identifier
 );
 
 mixin ModelCounterFnPropsMixin on UiProps {
@@ -79,7 +79,7 @@ UiFactory<ModelCounterFnProps> ModelCounterFn = uiFunction(
       ),
     );
   },
-  $ModelCounterFnConfig, // ignore: undefined_identifier
+  _$ModelCounterFnConfig, // ignore: undefined_identifier
 );
 
 final useBigCountSelector = createSelectorHook<BigCounterState>(bigCounterContext);
@@ -104,5 +104,5 @@ UiFactory<CustomContextCounterFnProps> CustomContextCounterFn = uiFunction(
       props.children,
     );
   },
-  $CustomContextCounterFnConfig, // ignore: undefined_identifier
+  _$CustomContextCounterFnConfig, // ignore: undefined_identifier
 );

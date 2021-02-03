@@ -61,7 +61,7 @@ ReactDartComponentFactoryProxy registerComponent(react.Component Function() dart
     String displayName,
 }) {
   // ignore: deprecated_member_use
-  ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
+  final reactComponentFactory = react.registerComponent(dartComponentFactory) as ReactDartComponentFactoryProxy;
 
   if (displayName != null) {
     reactComponentFactory.reactClass.displayName = displayName;
@@ -375,7 +375,7 @@ class _WarnOnModify<K, V> extends MapView<K, V> {
 
   String message;
 
-  _WarnOnModify(Map componentData, this.isProps) : super(componentData);
+  _WarnOnModify(Map<K, V> componentData, this.isProps) : super(componentData);
 
   @override
   operator []=(K key, V value) {
@@ -553,7 +553,7 @@ abstract class UiProps extends MapBase
   ///
   /// > For use in a testing environment (when [testMode] is true).
   String getTestId({String key = defaultTestIdKey}) {
-    return props[key];
+    return props[key] as String;
   }
 
   /// Gets the `data-test-id` prop key for use in a testing environment.
@@ -584,7 +584,7 @@ abstract class UiProps extends MapBase
     assert(_validateChildren(children));
 
     _assertComponentFactoryIsNotNull();
-    return componentFactory(props, children);
+    return componentFactory(props, children) as ReactElement;
   }
 
   /// Creates a new component with this builder's props and the specified [children].
@@ -629,7 +629,7 @@ abstract class UiProps extends MapBase
     // https://github.com/dart-lang/sdk/issues/29904
     // Should have the benefit of better performance;
     _assertComponentFactoryIsNotNull();
-    return componentFactory.build(props, childArguments);
+    return componentFactory.build(props, childArguments) as ReactElement;
   }
 
   /// Validates that no [children] are instances of [UiProps], and prints a helpful message for a better debugging
@@ -637,11 +637,9 @@ abstract class UiProps extends MapBase
   bool _validateChildren(dynamic children) {
     // Should not validate non-list iterables to avoid more than one iteration.
     if (children != null && (children is! Iterable || children is List)) {
-      if (children is! List) {
-        children = [children];
-      }
+      final childrenList = children is List ? children : [children];
 
-      if (children.any((child) => child is UiProps)) {
+      if (childrenList.any((child) => child is UiProps)) {
         var errorMessage = unindent(
             '''
             It looks like you are trying to use a non-invoked builder as a child. That is an invalid use of UiProps, try

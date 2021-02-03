@@ -33,9 +33,7 @@ const PropsMeta _$metaForNoneProps = PropsMeta(
 mixin $SingleProps<T> on SingleProps<T> {
   static const PropsMeta meta = _$metaForSingleProps;
   @override
-  T get single =>
-      props[_$key__single__SingleProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  T get single => (props[_$key__single__SingleProps] ?? null) as T;
   @override
   set single(T value) => props[_$key__single__SingleProps] = value;
   /* GENERATED CONSTANTS */
@@ -61,9 +59,9 @@ const PropsMeta _$metaForSingleProps = PropsMeta(
 mixin $SingleThatWontBeSpecifiedProps<T> on SingleThatWontBeSpecifiedProps<T> {
   static const PropsMeta meta = _$metaForSingleThatWontBeSpecifiedProps;
   @override
-  T get singleThatWontBeSpecified =>
-      props[_$key__singleThatWontBeSpecified__SingleThatWontBeSpecifiedProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  T get singleThatWontBeSpecified => (props[
+          _$key__singleThatWontBeSpecified__SingleThatWontBeSpecifiedProps] ??
+      null) as T;
   @override
   set singleThatWontBeSpecified(T value) =>
       props[_$key__singleThatWontBeSpecified__SingleThatWontBeSpecifiedProps] =
@@ -100,8 +98,7 @@ mixin $SingleWithBoundProps<S extends Pattern> on SingleWithBoundProps<S> {
   static const PropsMeta meta = _$metaForSingleWithBoundProps;
   @override
   S get singleWithBound =>
-      props[_$key__singleWithBound__SingleWithBoundProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__singleWithBound__SingleWithBoundProps] ?? null) as S;
   @override
   set singleWithBound(S value) =>
       props[_$key__singleWithBound__SingleWithBoundProps] = value;
@@ -133,15 +130,11 @@ const PropsMeta _$metaForSingleWithBoundProps = PropsMeta(
 mixin $DoubleProps<A, B> on DoubleProps<A, B> {
   static const PropsMeta meta = _$metaForDoubleProps;
   @override
-  A get doubleA =>
-      props[_$key__doubleA__DoubleProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  A get doubleA => (props[_$key__doubleA__DoubleProps] ?? null) as A;
   @override
   set doubleA(A value) => props[_$key__doubleA__DoubleProps] = value;
   @override
-  B get doubleB =>
-      props[_$key__doubleB__DoubleProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  B get doubleB => (props[_$key__doubleB__DoubleProps] ?? null) as B;
   @override
   set doubleB(B value) => props[_$key__doubleB__DoubleProps] = value;
   /* GENERATED CONSTANTS */
@@ -188,7 +181,7 @@ abstract class _$$SingleProps<T> extends UiProps
 
   factory _$$SingleProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SingleProps$JsMap(backingMap);
+      return _$$SingleProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$SingleProps$PlainMap(backingMap);
     }
@@ -266,7 +259,7 @@ abstract class _$$SingleWithBoundProps<S extends Pattern> extends UiProps
 
   factory _$$SingleWithBoundProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SingleWithBoundProps$JsMap(backingMap);
+      return _$$SingleWithBoundProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$SingleWithBoundProps$PlainMap(backingMap);
     }
@@ -345,7 +338,7 @@ abstract class _$$DoubleProps<A, B> extends UiProps
 
   factory _$$DoubleProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$DoubleProps$JsMap(backingMap);
+      return _$$DoubleProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$DoubleProps$PlainMap(backingMap);
     }
@@ -433,7 +426,7 @@ abstract class _$$ConcreteNoneProps extends UiProps
 
   factory _$$ConcreteNoneProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ConcreteNoneProps$JsMap(backingMap);
+      return _$$ConcreteNoneProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ConcreteNoneProps$PlainMap(backingMap);
     }
@@ -529,7 +522,7 @@ abstract class _$$ConcreteArgsProps<U, V extends Iterable> extends UiProps
 
   factory _$$ConcreteArgsProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ConcreteArgsProps$JsMap(backingMap);
+      return _$$ConcreteArgsProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ConcreteArgsProps$PlainMap(backingMap);
     }

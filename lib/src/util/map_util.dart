@@ -87,9 +87,9 @@ void forwardUnconsumedProps(Map props, {
   Map propsToUpdate,
 }) {
   if (onlyCopyDomProps) {
-    for (String key in props.keys) {
-      if (key.startsWith('aria-') ||
-          key.startsWith('data-') ||
+    for (final key in props.keys) {
+      if ((key is String && (key.startsWith('aria-') ||
+          key.startsWith('data-'))) ||
           _validDomProps.contains(key)) {
         propsToUpdate[key] = props[key];
       }
@@ -97,7 +97,7 @@ void forwardUnconsumedProps(Map props, {
     return;
   }
 
-  for (String key in props.keys) {
+  for (final key in props.keys) {
     if (keysToOmit != null && keysToOmit.contains(key)) continue;
 
     if (keySetsToOmit != null && keySetsToOmit.isNotEmpty) {

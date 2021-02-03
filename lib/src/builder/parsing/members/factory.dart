@@ -87,7 +87,7 @@ class BoilerplateFactory extends BoilerplateMember {
 
     final names = FactoryNames(factoryName);
     final generatedFactoryName = names.implName;
-    final generatedConfigName = names.configName;
+    final generatedConfigName = names.privateConfigName;
 
     final initializer = variable.initializer;
     final referencesGeneratedFactory = initializer != null &&

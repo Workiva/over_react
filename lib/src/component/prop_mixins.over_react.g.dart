@@ -13,7 +13,7 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
 
   static const PropsMeta meta = _$metaForReactPropsMixin;
   @override
-  String get key => props['key'];
+  String get key => props['key'] as String;
   @override
   set key(Object value) =>
       props['key'] = value == null ? null : value.toString();
@@ -23,8 +23,8 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
   /// <!-- Generated from [_$ReactPropsMixin.children] -->
   @override
   List get children =>
-      props[_$key__children___$ReactPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__children___$ReactPropsMixin] ?? null) as List;
+
   /// The children that were passed in to this component when it was built.
   ///
   /// <!-- Generated from [_$ReactPropsMixin.children] -->
@@ -38,9 +38,8 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
   ///
   /// <!-- Generated from [_$ReactPropsMixin.ref] -->
   @override
-  dynamic get ref =>
-      props[_$key__ref___$ReactPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get ref => (props[_$key__ref___$ReactPropsMixin] ?? null) as dynamic;
+
   /// Either a String used to retrieve the element at a later time via [react.Component.ref],
   /// or a Function that gets called with the element when it is mounted.
   ///
@@ -80,9 +79,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.cols] -->
   @override
-  int get cols =>
-      props[_$key__cols___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  int get cols => (props[_$key__cols___$DomPropsMixin] ?? null) as int;
+
   /// <!-- Generated from [_$DomPropsMixin.cols] -->
   @override
   set cols(int value) => props[_$key__cols___$DomPropsMixin] = value;
@@ -90,62 +88,56 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.minLength] -->
   @override
   int get minLength =>
-      props[_$key__minLength___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__minLength___$DomPropsMixin] ?? null) as int;
+
   /// <!-- Generated from [_$DomPropsMixin.minLength] -->
   @override
   set minLength(int value) => props[_$key__minLength___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.rows] -->
   @override
-  int get rows =>
-      props[_$key__rows___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  int get rows => (props[_$key__rows___$DomPropsMixin] ?? null) as int;
+
   /// <!-- Generated from [_$DomPropsMixin.rows] -->
   @override
   set rows(int value) => props[_$key__rows___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.size] -->
   @override
-  int get size =>
-      props[_$key__size___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  int get size => (props[_$key__size___$DomPropsMixin] ?? null) as int;
+
   /// <!-- Generated from [_$DomPropsMixin.size] -->
   @override
   set size(int value) => props[_$key__size___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.span] -->
   @override
-  int get span =>
-      props[_$key__span___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  int get span => (props[_$key__span___$DomPropsMixin] ?? null) as int;
+
   /// <!-- Generated from [_$DomPropsMixin.span] -->
   @override
   set span(int value) => props[_$key__span___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.start] -->
   @override
-  int get start =>
-      props[_$key__start___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  int get start => (props[_$key__start___$DomPropsMixin] ?? null) as int;
+
   /// <!-- Generated from [_$DomPropsMixin.start] -->
   @override
   set start(int value) => props[_$key__start___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.high] -->
   @override
-  num get high =>
-      props[_$key__high___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  num get high => (props[_$key__high___$DomPropsMixin] ?? null) as num;
+
   /// <!-- Generated from [_$DomPropsMixin.high] -->
   @override
   set high(num value) => props[_$key__high___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.low] -->
   @override
-  num get low =>
-      props[_$key__low___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  num get low => (props[_$key__low___$DomPropsMixin] ?? null) as num;
+
   /// <!-- Generated from [_$DomPropsMixin.low] -->
   @override
   set low(num value) => props[_$key__low___$DomPropsMixin] = value;
@@ -153,8 +145,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.marginHeight] -->
   @override
   num get marginHeight =>
-      props[_$key__marginHeight___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__marginHeight___$DomPropsMixin] ?? null) as num;
+
   /// <!-- Generated from [_$DomPropsMixin.marginHeight] -->
   @override
   set marginHeight(num value) =>
@@ -163,8 +155,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.marginWidth] -->
   @override
   num get marginWidth =>
-      props[_$key__marginWidth___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__marginWidth___$DomPropsMixin] ?? null) as num;
+
   /// <!-- Generated from [_$DomPropsMixin.marginWidth] -->
   @override
   set marginWidth(num value) =>
@@ -172,9 +164,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.optimum] -->
   @override
-  num get optimum =>
-      props[_$key__optimum___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  num get optimum => (props[_$key__optimum___$DomPropsMixin] ?? null) as num;
+
   /// <!-- Generated from [_$DomPropsMixin.optimum] -->
   @override
   set optimum(num value) => props[_$key__optimum___$DomPropsMixin] = value;
@@ -183,8 +174,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   @Accessor(key: 'default')
   bool get htmlDefault =>
-      props[_$key__htmlDefault___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__htmlDefault___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.htmlDefault] -->
   @override
   @Accessor(key: 'default')
@@ -195,8 +186,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   @Accessor(key: 'is')
   String get htmlIs =>
-      props[_$key__htmlIs___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__htmlIs___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.htmlIs] -->
   @override
   @Accessor(key: 'is')
@@ -205,8 +196,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.allowFullScreen] -->
   @override
   bool get allowFullScreen =>
-      props[_$key__allowFullScreen___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__allowFullScreen___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.allowFullScreen] -->
   @override
   set allowFullScreen(bool value) =>
@@ -214,9 +205,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.async] -->
   @override
-  bool get async =>
-      props[_$key__async___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get async => (props[_$key__async___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.async] -->
   @override
   set async(bool value) => props[_$key__async___$DomPropsMixin] = value;
@@ -224,17 +214,16 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.autoPlay] -->
   @override
   bool get autoPlay =>
-      props[_$key__autoPlay___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__autoPlay___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.autoPlay] -->
   @override
   set autoPlay(bool value) => props[_$key__autoPlay___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.checked] -->
   @override
-  bool get checked =>
-      props[_$key__checked___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get checked => (props[_$key__checked___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.checked] -->
   @override
   set checked(bool value) => props[_$key__checked___$DomPropsMixin] = value;
@@ -242,17 +231,16 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.controls] -->
   @override
   bool get controls =>
-      props[_$key__controls___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__controls___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.controls] -->
   @override
   set controls(bool value) => props[_$key__controls___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.defer] -->
   @override
-  bool get defer =>
-      props[_$key__defer___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get defer => (props[_$key__defer___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.defer] -->
   @override
   set defer(bool value) => props[_$key__defer___$DomPropsMixin] = value;
@@ -260,8 +248,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.disabled] -->
   @override
   bool get disabled =>
-      props[_$key__disabled___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__disabled___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.disabled] -->
   @override
   set disabled(bool value) => props[_$key__disabled___$DomPropsMixin] = value;
@@ -269,8 +257,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.formNoValidate] -->
   @override
   bool get formNoValidate =>
-      props[_$key__formNoValidate___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__formNoValidate___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.formNoValidate] -->
   @override
   set formNoValidate(bool value) =>
@@ -278,18 +266,16 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.hidden] -->
   @override
-  bool get hidden =>
-      props[_$key__hidden___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get hidden => (props[_$key__hidden___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.hidden] -->
   @override
   set hidden(bool value) => props[_$key__hidden___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.loop] -->
   @override
-  bool get loop =>
-      props[_$key__loop___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get loop => (props[_$key__loop___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.loop] -->
   @override
   set loop(bool value) => props[_$key__loop___$DomPropsMixin] = value;
@@ -297,17 +283,16 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.multiple] -->
   @override
   bool get multiple =>
-      props[_$key__multiple___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__multiple___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.multiple] -->
   @override
   set multiple(bool value) => props[_$key__multiple___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.muted] -->
   @override
-  bool get muted =>
-      props[_$key__muted___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get muted => (props[_$key__muted___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.muted] -->
   @override
   set muted(bool value) => props[_$key__muted___$DomPropsMixin] = value;
@@ -315,8 +300,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.noValidate] -->
   @override
   bool get noValidate =>
-      props[_$key__noValidate___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__noValidate___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.noValidate] -->
   @override
   set noValidate(bool value) =>
@@ -324,9 +309,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.open] -->
   @override
-  bool get open =>
-      props[_$key__open___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get open => (props[_$key__open___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.open] -->
   @override
   set open(bool value) => props[_$key__open___$DomPropsMixin] = value;
@@ -334,8 +318,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.readOnly] -->
   @override
   bool get readOnly =>
-      props[_$key__readOnly___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__readOnly___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.readOnly] -->
   @override
   set readOnly(bool value) => props[_$key__readOnly___$DomPropsMixin] = value;
@@ -343,8 +327,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.required] -->
   @override
   bool get required =>
-      props[_$key__required___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__required___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.required] -->
   @override
   set required(bool value) => props[_$key__required___$DomPropsMixin] = value;
@@ -352,17 +336,16 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.reversed] -->
   @override
   bool get reversed =>
-      props[_$key__reversed___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__reversed___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.reversed] -->
   @override
   set reversed(bool value) => props[_$key__reversed___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.scoped] -->
   @override
-  bool get scoped =>
-      props[_$key__scoped___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  bool get scoped => (props[_$key__scoped___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.scoped] -->
   @override
   set scoped(bool value) => props[_$key__scoped___$DomPropsMixin] = value;
@@ -370,8 +353,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.seamless] -->
   @override
   bool get seamless =>
-      props[_$key__seamless___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__seamless___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.seamless] -->
   @override
   set seamless(bool value) => props[_$key__seamless___$DomPropsMixin] = value;
@@ -379,8 +362,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.selected] -->
   @override
   bool get selected =>
-      props[_$key__selected___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__selected___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.selected] -->
   @override
   set selected(bool value) => props[_$key__selected___$DomPropsMixin] = value;
@@ -388,8 +371,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.style] -->
   @override
   Map<String, dynamic> get style =>
-      props[_$key__style___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__style___$DomPropsMixin] ?? null) as Map<String, dynamic>;
+
   /// <!-- Generated from [_$DomPropsMixin.style] -->
   @override
   set style(Map<String, dynamic> value) =>
@@ -398,8 +381,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.challenge] -->
   @override
   String get challenge =>
-      props[_$key__challenge___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__challenge___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.challenge] -->
   @override
   set challenge(String value) =>
@@ -407,9 +390,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.cite] -->
   @override
-  String get cite =>
-      props[_$key__cite___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get cite => (props[_$key__cite___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.cite] -->
   @override
   set cite(String value) => props[_$key__cite___$DomPropsMixin] = value;
@@ -417,8 +399,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.className] -->
   @override
   String get className =>
-      props[_$key__className___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__className___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.className] -->
   @override
   set className(String value) =>
@@ -427,8 +409,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.controlsList] -->
   @override
   String get controlsList =>
-      props[_$key__controlsList___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__controlsList___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.controlsList] -->
   @override
   set controlsList(String value) =>
@@ -437,8 +419,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.formAction] -->
   @override
   String get formAction =>
-      props[_$key__formAction___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__formAction___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.formAction] -->
   @override
   set formAction(String value) =>
@@ -447,8 +429,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.formEncType] -->
   @override
   String get formEncType =>
-      props[_$key__formEncType___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__formEncType___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.formEncType] -->
   @override
   set formEncType(String value) =>
@@ -457,8 +439,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.formMethod] -->
   @override
   String get formMethod =>
-      props[_$key__formMethod___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__formMethod___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.formMethod] -->
   @override
   set formMethod(String value) =>
@@ -467,8 +449,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.formTarget] -->
   @override
   String get formTarget =>
-      props[_$key__formTarget___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__formTarget___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.formTarget] -->
   @override
   set formTarget(String value) =>
@@ -477,17 +459,16 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.headers] -->
   @override
   String get headers =>
-      props[_$key__headers___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__headers___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.headers] -->
   @override
   set headers(String value) => props[_$key__headers___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.id] -->
   @override
-  String get id =>
-      props[_$key__id___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get id => (props[_$key__id___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.id] -->
   @override
   set id(String value) => props[_$key__id___$DomPropsMixin] = value;
@@ -495,8 +476,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.inputMode] -->
   @override
   String get inputMode =>
-      props[_$key__inputMode___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__inputMode___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.inputMode] -->
   @override
   set inputMode(String value) =>
@@ -505,8 +486,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.integrity] -->
   @override
   String get integrity =>
-      props[_$key__integrity___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__integrity___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.integrity] -->
   @override
   set integrity(String value) =>
@@ -515,8 +496,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.keyParams] -->
   @override
   String get keyParams =>
-      props[_$key__keyParams___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__keyParams___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.keyParams] -->
   @override
   set keyParams(String value) =>
@@ -525,26 +506,24 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.keyType] -->
   @override
   String get keyType =>
-      props[_$key__keyType___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__keyType___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.keyType] -->
   @override
   set keyType(String value) => props[_$key__keyType___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.kind] -->
   @override
-  String get kind =>
-      props[_$key__kind___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get kind => (props[_$key__kind___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.kind] -->
   @override
   set kind(String value) => props[_$key__kind___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.nonce] -->
   @override
-  String get nonce =>
-      props[_$key__nonce___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get nonce => (props[_$key__nonce___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.nonce] -->
   @override
   set nonce(String value) => props[_$key__nonce___$DomPropsMixin] = value;
@@ -552,8 +531,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.srcLang] -->
   @override
   String get srcLang =>
-      props[_$key__srcLang___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__srcLang___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.srcLang] -->
   @override
   set srcLang(String value) => props[_$key__srcLang___$DomPropsMixin] = value;
@@ -561,26 +540,24 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.summary] -->
   @override
   String get summary =>
-      props[_$key__summary___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__summary___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.summary] -->
   @override
   set summary(String value) => props[_$key__summary___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.title] -->
   @override
-  String get title =>
-      props[_$key__title___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get title => (props[_$key__title___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.title] -->
   @override
   set title(String value) => props[_$key__title___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.wrap] -->
   @override
-  String get wrap =>
-      props[_$key__wrap___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get wrap => (props[_$key__wrap___$DomPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$DomPropsMixin.wrap] -->
   @override
   set wrap(String value) => props[_$key__wrap___$DomPropsMixin] = value;
@@ -588,8 +565,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.accept] -->
   @override
   dynamic get accept =>
-      props[_$key__accept___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__accept___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.accept] -->
   @override
   set accept(dynamic value) => props[_$key__accept___$DomPropsMixin] = value;
@@ -597,8 +574,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.acceptCharset] -->
   @override
   dynamic get acceptCharset =>
-      props[_$key__acceptCharset___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__acceptCharset___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.acceptCharset] -->
   @override
   set acceptCharset(dynamic value) =>
@@ -607,8 +584,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.accessKey] -->
   @override
   dynamic get accessKey =>
-      props[_$key__accessKey___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__accessKey___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.accessKey] -->
   @override
   set accessKey(dynamic value) =>
@@ -617,8 +594,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.action] -->
   @override
   dynamic get action =>
-      props[_$key__action___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__action___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.action] -->
   @override
   set action(dynamic value) => props[_$key__action___$DomPropsMixin] = value;
@@ -626,8 +603,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.allowTransparency] -->
   @override
   dynamic get allowTransparency =>
-      props[_$key__allowTransparency___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__allowTransparency___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.allowTransparency] -->
   @override
   set allowTransparency(dynamic value) =>
@@ -635,9 +612,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.alt] -->
   @override
-  dynamic get alt =>
-      props[_$key__alt___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get alt => (props[_$key__alt___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.alt] -->
   @override
   set alt(dynamic value) => props[_$key__alt___$DomPropsMixin] = value;
@@ -645,8 +621,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.autoComplete] -->
   @override
   dynamic get autoComplete =>
-      props[_$key__autoComplete___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__autoComplete___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.autoComplete] -->
   @override
   set autoComplete(dynamic value) =>
@@ -655,8 +631,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.capture] -->
   @override
   dynamic get capture =>
-      props[_$key__capture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__capture___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.capture] -->
   @override
   set capture(dynamic value) => props[_$key__capture___$DomPropsMixin] = value;
@@ -664,8 +640,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.cellPadding] -->
   @override
   dynamic get cellPadding =>
-      props[_$key__cellPadding___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__cellPadding___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.cellPadding] -->
   @override
   set cellPadding(dynamic value) =>
@@ -674,8 +650,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.cellSpacing] -->
   @override
   dynamic get cellSpacing =>
-      props[_$key__cellSpacing___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__cellSpacing___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.cellSpacing] -->
   @override
   set cellSpacing(dynamic value) =>
@@ -684,8 +660,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.charSet] -->
   @override
   dynamic get charSet =>
-      props[_$key__charSet___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__charSet___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.charSet] -->
   @override
   set charSet(dynamic value) => props[_$key__charSet___$DomPropsMixin] = value;
@@ -693,8 +669,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.classID] -->
   @override
   dynamic get classID =>
-      props[_$key__classID___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__classID___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.classID] -->
   @override
   set classID(dynamic value) => props[_$key__classID___$DomPropsMixin] = value;
@@ -702,8 +678,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.colSpan] -->
   @override
   dynamic get colSpan =>
-      props[_$key__colSpan___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__colSpan___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.colSpan] -->
   @override
   set colSpan(dynamic value) => props[_$key__colSpan___$DomPropsMixin] = value;
@@ -711,8 +687,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.content] -->
   @override
   dynamic get content =>
-      props[_$key__content___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__content___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.content] -->
   @override
   set content(dynamic value) => props[_$key__content___$DomPropsMixin] = value;
@@ -720,8 +696,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.contentEditable] -->
   @override
   dynamic get contentEditable =>
-      props[_$key__contentEditable___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__contentEditable___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.contentEditable] -->
   @override
   set contentEditable(dynamic value) =>
@@ -730,8 +706,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.contextMenu] -->
   @override
   dynamic get contextMenu =>
-      props[_$key__contextMenu___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__contextMenu___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.contextMenu] -->
   @override
   set contextMenu(dynamic value) =>
@@ -740,8 +716,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.coords] -->
   @override
   dynamic get coords =>
-      props[_$key__coords___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__coords___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.coords] -->
   @override
   set coords(dynamic value) => props[_$key__coords___$DomPropsMixin] = value;
@@ -749,8 +725,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.crossOrigin] -->
   @override
   dynamic get crossOrigin =>
-      props[_$key__crossOrigin___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__crossOrigin___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.crossOrigin] -->
   @override
   set crossOrigin(dynamic value) =>
@@ -758,9 +734,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.data] -->
   @override
-  dynamic get data =>
-      props[_$key__data___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get data => (props[_$key__data___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.data] -->
   @override
   set data(dynamic value) => props[_$key__data___$DomPropsMixin] = value;
@@ -768,8 +743,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.dateTime] -->
   @override
   dynamic get dateTime =>
-      props[_$key__dateTime___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__dateTime___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.dateTime] -->
   @override
   set dateTime(dynamic value) =>
@@ -777,9 +752,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.dir] -->
   @override
-  dynamic get dir =>
-      props[_$key__dir___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get dir => (props[_$key__dir___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.dir] -->
   @override
   set dir(dynamic value) => props[_$key__dir___$DomPropsMixin] = value;
@@ -787,8 +761,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.download] -->
   @override
   dynamic get download =>
-      props[_$key__download___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__download___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.download] -->
   @override
   set download(dynamic value) =>
@@ -797,8 +771,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.draggable] -->
   @override
   dynamic get draggable =>
-      props[_$key__draggable___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__draggable___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.draggable] -->
   @override
   set draggable(dynamic value) =>
@@ -807,17 +781,16 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.encType] -->
   @override
   dynamic get encType =>
-      props[_$key__encType___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__encType___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.encType] -->
   @override
   set encType(dynamic value) => props[_$key__encType___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.form] -->
   @override
-  dynamic get form =>
-      props[_$key__form___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get form => (props[_$key__form___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.form] -->
   @override
   set form(dynamic value) => props[_$key__form___$DomPropsMixin] = value;
@@ -825,8 +798,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.frameBorder] -->
   @override
   dynamic get frameBorder =>
-      props[_$key__frameBorder___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__frameBorder___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.frameBorder] -->
   @override
   set frameBorder(dynamic value) =>
@@ -835,17 +808,16 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.height] -->
   @override
   dynamic get height =>
-      props[_$key__height___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__height___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.height] -->
   @override
   set height(dynamic value) => props[_$key__height___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.href] -->
   @override
-  dynamic get href =>
-      props[_$key__href___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get href => (props[_$key__href___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.href] -->
   @override
   set href(dynamic value) => props[_$key__href___$DomPropsMixin] = value;
@@ -853,8 +825,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.hrefLang] -->
   @override
   dynamic get hrefLang =>
-      props[_$key__hrefLang___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__hrefLang___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.hrefLang] -->
   @override
   set hrefLang(dynamic value) =>
@@ -863,8 +835,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.htmlFor] -->
   @override
   dynamic get htmlFor =>
-      props[_$key__htmlFor___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__htmlFor___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.htmlFor] -->
   @override
   set htmlFor(dynamic value) => props[_$key__htmlFor___$DomPropsMixin] = value;
@@ -872,8 +844,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.httpEquiv] -->
   @override
   dynamic get httpEquiv =>
-      props[_$key__httpEquiv___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__httpEquiv___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.httpEquiv] -->
   @override
   set httpEquiv(dynamic value) =>
@@ -881,9 +853,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.icon] -->
   @override
-  dynamic get icon =>
-      props[_$key__icon___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get icon => (props[_$key__icon___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.icon] -->
   @override
   set icon(dynamic value) => props[_$key__icon___$DomPropsMixin] = value;
@@ -891,26 +862,24 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.label] -->
   @override
   dynamic get label =>
-      props[_$key__label___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__label___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.label] -->
   @override
   set label(dynamic value) => props[_$key__label___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.lang] -->
   @override
-  dynamic get lang =>
-      props[_$key__lang___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get lang => (props[_$key__lang___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.lang] -->
   @override
   set lang(dynamic value) => props[_$key__lang___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.list] -->
   @override
-  dynamic get list =>
-      props[_$key__list___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get list => (props[_$key__list___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.list] -->
   @override
   set list(dynamic value) => props[_$key__list___$DomPropsMixin] = value;
@@ -918,8 +887,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.manifest] -->
   @override
   dynamic get manifest =>
-      props[_$key__manifest___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__manifest___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.manifest] -->
   @override
   set manifest(dynamic value) =>
@@ -927,9 +896,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.max] -->
   @override
-  dynamic get max =>
-      props[_$key__max___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get max => (props[_$key__max___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.max] -->
   @override
   set max(dynamic value) => props[_$key__max___$DomPropsMixin] = value;
@@ -937,8 +905,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.maxLength] -->
   @override
   dynamic get maxLength =>
-      props[_$key__maxLength___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__maxLength___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.maxLength] -->
   @override
   set maxLength(dynamic value) =>
@@ -947,8 +915,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.media] -->
   @override
   dynamic get media =>
-      props[_$key__media___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__media___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.media] -->
   @override
   set media(dynamic value) => props[_$key__media___$DomPropsMixin] = value;
@@ -956,8 +924,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.mediaGroup] -->
   @override
   dynamic get mediaGroup =>
-      props[_$key__mediaGroup___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__mediaGroup___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.mediaGroup] -->
   @override
   set mediaGroup(dynamic value) =>
@@ -966,26 +934,24 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.method] -->
   @override
   dynamic get method =>
-      props[_$key__method___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__method___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.method] -->
   @override
   set method(dynamic value) => props[_$key__method___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.min] -->
   @override
-  dynamic get min =>
-      props[_$key__min___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get min => (props[_$key__min___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.min] -->
   @override
   set min(dynamic value) => props[_$key__min___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.name] -->
   @override
-  dynamic get name =>
-      props[_$key__name___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get name => (props[_$key__name___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.name] -->
   @override
   set name(dynamic value) => props[_$key__name___$DomPropsMixin] = value;
@@ -993,8 +959,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.pattern] -->
   @override
   dynamic get pattern =>
-      props[_$key__pattern___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__pattern___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.pattern] -->
   @override
   set pattern(dynamic value) => props[_$key__pattern___$DomPropsMixin] = value;
@@ -1002,8 +968,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.placeholder] -->
   @override
   dynamic get placeholder =>
-      props[_$key__placeholder___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__placeholder___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.placeholder] -->
   @override
   set placeholder(dynamic value) =>
@@ -1012,8 +978,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.poster] -->
   @override
   dynamic get poster =>
-      props[_$key__poster___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__poster___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.poster] -->
   @override
   set poster(dynamic value) => props[_$key__poster___$DomPropsMixin] = value;
@@ -1021,8 +987,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.preload] -->
   @override
   dynamic get preload =>
-      props[_$key__preload___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__preload___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.preload] -->
   @override
   set preload(dynamic value) => props[_$key__preload___$DomPropsMixin] = value;
@@ -1030,8 +996,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.radioGroup] -->
   @override
   dynamic get radioGroup =>
-      props[_$key__radioGroup___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__radioGroup___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.radioGroup] -->
   @override
   set radioGroup(dynamic value) =>
@@ -1039,18 +1005,16 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.rel] -->
   @override
-  dynamic get rel =>
-      props[_$key__rel___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get rel => (props[_$key__rel___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.rel] -->
   @override
   set rel(dynamic value) => props[_$key__rel___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.role] -->
   @override
-  dynamic get role =>
-      props[_$key__role___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get role => (props[_$key__role___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.role] -->
   @override
   set role(dynamic value) => props[_$key__role___$DomPropsMixin] = value;
@@ -1058,8 +1022,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.rowSpan] -->
   @override
   dynamic get rowSpan =>
-      props[_$key__rowSpan___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__rowSpan___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.rowSpan] -->
   @override
   set rowSpan(dynamic value) => props[_$key__rowSpan___$DomPropsMixin] = value;
@@ -1067,8 +1031,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.sandbox] -->
   @override
   dynamic get sandbox =>
-      props[_$key__sandbox___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__sandbox___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.sandbox] -->
   @override
   set sandbox(dynamic value) => props[_$key__sandbox___$DomPropsMixin] = value;
@@ -1076,8 +1040,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.scope] -->
   @override
   dynamic get scope =>
-      props[_$key__scope___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__scope___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.scope] -->
   @override
   set scope(dynamic value) => props[_$key__scope___$DomPropsMixin] = value;
@@ -1085,8 +1049,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.scrolling] -->
   @override
   dynamic get scrolling =>
-      props[_$key__scrolling___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__scrolling___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.scrolling] -->
   @override
   set scrolling(dynamic value) =>
@@ -1095,8 +1059,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.shape] -->
   @override
   dynamic get shape =>
-      props[_$key__shape___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__shape___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.shape] -->
   @override
   set shape(dynamic value) => props[_$key__shape___$DomPropsMixin] = value;
@@ -1104,8 +1068,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.sizes] -->
   @override
   dynamic get sizes =>
-      props[_$key__sizes___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__sizes___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.sizes] -->
   @override
   set sizes(dynamic value) => props[_$key__sizes___$DomPropsMixin] = value;
@@ -1113,8 +1077,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.spellCheck] -->
   @override
   dynamic get spellCheck =>
-      props[_$key__spellCheck___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__spellCheck___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.spellCheck] -->
   @override
   set spellCheck(dynamic value) =>
@@ -1122,9 +1086,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.src] -->
   @override
-  dynamic get src =>
-      props[_$key__src___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get src => (props[_$key__src___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.src] -->
   @override
   set src(dynamic value) => props[_$key__src___$DomPropsMixin] = value;
@@ -1132,8 +1095,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.srcDoc] -->
   @override
   dynamic get srcDoc =>
-      props[_$key__srcDoc___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__srcDoc___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.srcDoc] -->
   @override
   set srcDoc(dynamic value) => props[_$key__srcDoc___$DomPropsMixin] = value;
@@ -1141,17 +1104,16 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.srcSet] -->
   @override
   dynamic get srcSet =>
-      props[_$key__srcSet___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__srcSet___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.srcSet] -->
   @override
   set srcSet(dynamic value) => props[_$key__srcSet___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.step] -->
   @override
-  dynamic get step =>
-      props[_$key__step___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get step => (props[_$key__step___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.step] -->
   @override
   set step(dynamic value) => props[_$key__step___$DomPropsMixin] = value;
@@ -1159,8 +1121,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.tabIndex] -->
   @override
   dynamic get tabIndex =>
-      props[_$key__tabIndex___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__tabIndex___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.tabIndex] -->
   @override
   set tabIndex(dynamic value) =>
@@ -1169,17 +1131,16 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.target] -->
   @override
   dynamic get target =>
-      props[_$key__target___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__target___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.target] -->
   @override
   set target(dynamic value) => props[_$key__target___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.type] -->
   @override
-  dynamic get type =>
-      props[_$key__type___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get type => (props[_$key__type___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.type] -->
   @override
   set type(dynamic value) => props[_$key__type___$DomPropsMixin] = value;
@@ -1187,8 +1148,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.useMap] -->
   @override
   dynamic get useMap =>
-      props[_$key__useMap___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__useMap___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.useMap] -->
   @override
   set useMap(dynamic value) => props[_$key__useMap___$DomPropsMixin] = value;
@@ -1196,8 +1157,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.value] -->
   @override
   dynamic get value =>
-      props[_$key__value___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__value___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.value] -->
   @override
   set value(dynamic value) => props[_$key__value___$DomPropsMixin] = value;
@@ -1205,8 +1166,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.width] -->
   @override
   dynamic get width =>
-      props[_$key__width___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__width___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.width] -->
   @override
   set width(dynamic value) => props[_$key__width___$DomPropsMixin] = value;
@@ -1214,8 +1175,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.wmode] -->
   @override
   dynamic get wmode =>
-      props[_$key__wmode___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__wmode___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.wmode] -->
   @override
   set wmode(dynamic value) => props[_$key__wmode___$DomPropsMixin] = value;
@@ -1223,8 +1184,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onAnimationEnd] -->
   @override
   AnimationEventCallback get onAnimationEnd =>
-      props[_$key__onAnimationEnd___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onAnimationEnd___$DomPropsMixin] ?? null)
+          as AnimationEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onAnimationEnd] -->
   @override
   set onAnimationEnd(AnimationEventCallback value) =>
@@ -1233,8 +1195,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onAnimationIteration] -->
   @override
   AnimationEventCallback get onAnimationIteration =>
-      props[_$key__onAnimationIteration___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onAnimationIteration___$DomPropsMixin] ?? null)
+          as AnimationEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onAnimationIteration] -->
   @override
   set onAnimationIteration(AnimationEventCallback value) =>
@@ -1243,8 +1206,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onAnimationStart] -->
   @override
   AnimationEventCallback get onAnimationStart =>
-      props[_$key__onAnimationStart___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onAnimationStart___$DomPropsMixin] ?? null)
+          as AnimationEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onAnimationStart] -->
   @override
   set onAnimationStart(AnimationEventCallback value) =>
@@ -1253,8 +1217,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onCopy] -->
   @override
   ClipboardEventCallback get onCopy =>
-      props[_$key__onCopy___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onCopy___$DomPropsMixin] ?? null) as ClipboardEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onCopy] -->
   @override
   set onCopy(ClipboardEventCallback value) =>
@@ -1263,8 +1227,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onCut] -->
   @override
   ClipboardEventCallback get onCut =>
-      props[_$key__onCut___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onCut___$DomPropsMixin] ?? null) as ClipboardEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onCut] -->
   @override
   set onCut(ClipboardEventCallback value) =>
@@ -1273,8 +1237,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onPaste] -->
   @override
   ClipboardEventCallback get onPaste =>
-      props[_$key__onPaste___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPaste___$DomPropsMixin] ?? null)
+          as ClipboardEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onPaste] -->
   @override
   set onPaste(ClipboardEventCallback value) =>
@@ -1283,8 +1248,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onKeyDown] -->
   @override
   KeyboardEventCallback get onKeyDown =>
-      props[_$key__onKeyDown___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onKeyDown___$DomPropsMixin] ?? null)
+          as KeyboardEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onKeyDown] -->
   @override
   set onKeyDown(KeyboardEventCallback value) =>
@@ -1293,8 +1259,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onKeyPress] -->
   @override
   KeyboardEventCallback get onKeyPress =>
-      props[_$key__onKeyPress___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onKeyPress___$DomPropsMixin] ?? null)
+          as KeyboardEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onKeyPress] -->
   @override
   set onKeyPress(KeyboardEventCallback value) =>
@@ -1303,8 +1270,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onKeyUp] -->
   @override
   KeyboardEventCallback get onKeyUp =>
-      props[_$key__onKeyUp___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onKeyUp___$DomPropsMixin] ?? null) as KeyboardEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onKeyUp] -->
   @override
   set onKeyUp(KeyboardEventCallback value) =>
@@ -1313,8 +1280,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onFocus] -->
   @override
   FocusEventCallback get onFocus =>
-      props[_$key__onFocus___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onFocus___$DomPropsMixin] ?? null) as FocusEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onFocus] -->
   @override
   set onFocus(FocusEventCallback value) =>
@@ -1323,8 +1290,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onBlur] -->
   @override
   FocusEventCallback get onBlur =>
-      props[_$key__onBlur___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onBlur___$DomPropsMixin] ?? null) as FocusEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onBlur] -->
   @override
   set onBlur(FocusEventCallback value) =>
@@ -1333,8 +1300,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onChange] -->
   @override
   FormEventCallback get onChange =>
-      props[_$key__onChange___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onChange___$DomPropsMixin] ?? null) as FormEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onChange] -->
   @override
   set onChange(FormEventCallback value) =>
@@ -1343,8 +1310,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onInput] -->
   @override
   FormEventCallback get onInput =>
-      props[_$key__onInput___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onInput___$DomPropsMixin] ?? null) as FormEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onInput] -->
   @override
   set onInput(FormEventCallback value) =>
@@ -1353,8 +1320,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onSubmit] -->
   @override
   FormEventCallback get onSubmit =>
-      props[_$key__onSubmit___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onSubmit___$DomPropsMixin] ?? null) as FormEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onSubmit] -->
   @override
   set onSubmit(FormEventCallback value) =>
@@ -1363,8 +1330,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onReset] -->
   @override
   FormEventCallback get onReset =>
-      props[_$key__onReset___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onReset___$DomPropsMixin] ?? null) as FormEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onReset] -->
   @override
   set onReset(FormEventCallback value) =>
@@ -1373,8 +1340,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onClick] -->
   @override
   MouseEventCallback get onClick =>
-      props[_$key__onClick___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onClick___$DomPropsMixin] ?? null) as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onClick] -->
   @override
   set onClick(MouseEventCallback value) =>
@@ -1383,8 +1350,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onContextMenu] -->
   @override
   MouseEventCallback get onContextMenu =>
-      props[_$key__onContextMenu___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onContextMenu___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onContextMenu] -->
   @override
   set onContextMenu(MouseEventCallback value) =>
@@ -1393,8 +1361,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDoubleClick] -->
   @override
   MouseEventCallback get onDoubleClick =>
-      props[_$key__onDoubleClick___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDoubleClick___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onDoubleClick] -->
   @override
   set onDoubleClick(MouseEventCallback value) =>
@@ -1403,8 +1372,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDrag] -->
   @override
   MouseEventCallback get onDrag =>
-      props[_$key__onDrag___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDrag___$DomPropsMixin] ?? null) as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onDrag] -->
   @override
   set onDrag(MouseEventCallback value) =>
@@ -1413,8 +1382,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDragEnd] -->
   @override
   MouseEventCallback get onDragEnd =>
-      props[_$key__onDragEnd___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDragEnd___$DomPropsMixin] ?? null) as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onDragEnd] -->
   @override
   set onDragEnd(MouseEventCallback value) =>
@@ -1423,8 +1392,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDragEnter] -->
   @override
   MouseEventCallback get onDragEnter =>
-      props[_$key__onDragEnter___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDragEnter___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onDragEnter] -->
   @override
   set onDragEnter(MouseEventCallback value) =>
@@ -1433,8 +1403,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDragExit] -->
   @override
   MouseEventCallback get onDragExit =>
-      props[_$key__onDragExit___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDragExit___$DomPropsMixin] ?? null) as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onDragExit] -->
   @override
   set onDragExit(MouseEventCallback value) =>
@@ -1443,8 +1413,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDragLeave] -->
   @override
   MouseEventCallback get onDragLeave =>
-      props[_$key__onDragLeave___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDragLeave___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onDragLeave] -->
   @override
   set onDragLeave(MouseEventCallback value) =>
@@ -1453,8 +1424,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDragOver] -->
   @override
   MouseEventCallback get onDragOver =>
-      props[_$key__onDragOver___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDragOver___$DomPropsMixin] ?? null) as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onDragOver] -->
   @override
   set onDragOver(MouseEventCallback value) =>
@@ -1463,8 +1434,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDragStart] -->
   @override
   MouseEventCallback get onDragStart =>
-      props[_$key__onDragStart___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDragStart___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onDragStart] -->
   @override
   set onDragStart(MouseEventCallback value) =>
@@ -1473,8 +1445,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDrop] -->
   @override
   MouseEventCallback get onDrop =>
-      props[_$key__onDrop___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDrop___$DomPropsMixin] ?? null) as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onDrop] -->
   @override
   set onDrop(MouseEventCallback value) =>
@@ -1483,8 +1455,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseDown] -->
   @override
   MouseEventCallback get onMouseDown =>
-      props[_$key__onMouseDown___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseDown___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onMouseDown] -->
   @override
   set onMouseDown(MouseEventCallback value) =>
@@ -1493,8 +1466,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseEnter] -->
   @override
   MouseEventCallback get onMouseEnter =>
-      props[_$key__onMouseEnter___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseEnter___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onMouseEnter] -->
   @override
   set onMouseEnter(MouseEventCallback value) =>
@@ -1503,8 +1477,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseLeave] -->
   @override
   MouseEventCallback get onMouseLeave =>
-      props[_$key__onMouseLeave___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseLeave___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onMouseLeave] -->
   @override
   set onMouseLeave(MouseEventCallback value) =>
@@ -1513,8 +1488,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseMove] -->
   @override
   MouseEventCallback get onMouseMove =>
-      props[_$key__onMouseMove___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseMove___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onMouseMove] -->
   @override
   set onMouseMove(MouseEventCallback value) =>
@@ -1523,8 +1499,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseOut] -->
   @override
   MouseEventCallback get onMouseOut =>
-      props[_$key__onMouseOut___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseOut___$DomPropsMixin] ?? null) as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onMouseOut] -->
   @override
   set onMouseOut(MouseEventCallback value) =>
@@ -1533,8 +1509,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseOver] -->
   @override
   MouseEventCallback get onMouseOver =>
-      props[_$key__onMouseOver___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseOver___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onMouseOver] -->
   @override
   set onMouseOver(MouseEventCallback value) =>
@@ -1543,8 +1520,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseUp] -->
   @override
   MouseEventCallback get onMouseUp =>
-      props[_$key__onMouseUp___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseUp___$DomPropsMixin] ?? null) as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onMouseUp] -->
   @override
   set onMouseUp(MouseEventCallback value) =>
@@ -1553,8 +1530,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onPointerCancel] -->
   @override
   PointerEventCallback get onPointerCancel =>
-      props[_$key__onPointerCancel___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPointerCancel___$DomPropsMixin] ?? null)
+          as PointerEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onPointerCancel] -->
   @override
   set onPointerCancel(PointerEventCallback value) =>
@@ -1563,8 +1541,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onPointerDown] -->
   @override
   PointerEventCallback get onPointerDown =>
-      props[_$key__onPointerDown___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPointerDown___$DomPropsMixin] ?? null)
+          as PointerEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onPointerDown] -->
   @override
   set onPointerDown(PointerEventCallback value) =>
@@ -1573,8 +1552,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onPointerEnter] -->
   @override
   PointerEventCallback get onPointerEnter =>
-      props[_$key__onPointerEnter___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPointerEnter___$DomPropsMixin] ?? null)
+          as PointerEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onPointerEnter] -->
   @override
   set onPointerEnter(PointerEventCallback value) =>
@@ -1583,8 +1563,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onPointerLeave] -->
   @override
   PointerEventCallback get onPointerLeave =>
-      props[_$key__onPointerLeave___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPointerLeave___$DomPropsMixin] ?? null)
+          as PointerEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onPointerLeave] -->
   @override
   set onPointerLeave(PointerEventCallback value) =>
@@ -1593,8 +1574,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onPointerMove] -->
   @override
   PointerEventCallback get onPointerMove =>
-      props[_$key__onPointerMove___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPointerMove___$DomPropsMixin] ?? null)
+          as PointerEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onPointerMove] -->
   @override
   set onPointerMove(PointerEventCallback value) =>
@@ -1603,8 +1585,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onPointerOver] -->
   @override
   PointerEventCallback get onPointerOver =>
-      props[_$key__onPointerOver___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPointerOver___$DomPropsMixin] ?? null)
+          as PointerEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onPointerOver] -->
   @override
   set onPointerOver(PointerEventCallback value) =>
@@ -1613,8 +1596,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onPointerOut] -->
   @override
   PointerEventCallback get onPointerOut =>
-      props[_$key__onPointerOut___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPointerOut___$DomPropsMixin] ?? null)
+          as PointerEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onPointerOut] -->
   @override
   set onPointerOut(PointerEventCallback value) =>
@@ -1623,8 +1607,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onPointerUp] -->
   @override
   PointerEventCallback get onPointerUp =>
-      props[_$key__onPointerUp___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPointerUp___$DomPropsMixin] ?? null)
+          as PointerEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onPointerUp] -->
   @override
   set onPointerUp(PointerEventCallback value) =>
@@ -1633,8 +1618,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onTouchCancel] -->
   @override
   TouchEventCallback get onTouchCancel =>
-      props[_$key__onTouchCancel___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onTouchCancel___$DomPropsMixin] ?? null)
+          as TouchEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onTouchCancel] -->
   @override
   set onTouchCancel(TouchEventCallback value) =>
@@ -1643,8 +1629,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onTouchEnd] -->
   @override
   TouchEventCallback get onTouchEnd =>
-      props[_$key__onTouchEnd___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onTouchEnd___$DomPropsMixin] ?? null) as TouchEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onTouchEnd] -->
   @override
   set onTouchEnd(TouchEventCallback value) =>
@@ -1653,8 +1639,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onTouchMove] -->
   @override
   TouchEventCallback get onTouchMove =>
-      props[_$key__onTouchMove___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onTouchMove___$DomPropsMixin] ?? null)
+          as TouchEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onTouchMove] -->
   @override
   set onTouchMove(TouchEventCallback value) =>
@@ -1663,8 +1650,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onTouchStart] -->
   @override
   TouchEventCallback get onTouchStart =>
-      props[_$key__onTouchStart___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onTouchStart___$DomPropsMixin] ?? null)
+          as TouchEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onTouchStart] -->
   @override
   set onTouchStart(TouchEventCallback value) =>
@@ -1673,8 +1661,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onTransitionEnd] -->
   @override
   TransitionEventCallback get onTransitionEnd =>
-      props[_$key__onTransitionEnd___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onTransitionEnd___$DomPropsMixin] ?? null)
+          as TransitionEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onTransitionEnd] -->
   @override
   set onTransitionEnd(TransitionEventCallback value) =>
@@ -1683,8 +1672,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onScroll] -->
   @override
   UIEventCallback get onScroll =>
-      props[_$key__onScroll___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onScroll___$DomPropsMixin] ?? null) as UIEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onScroll] -->
   @override
   set onScroll(UIEventCallback value) =>
@@ -1693,8 +1682,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onWheel] -->
   @override
   WheelEventCallback get onWheel =>
-      props[_$key__onWheel___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onWheel___$DomPropsMixin] ?? null) as WheelEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onWheel] -->
   @override
   set onWheel(WheelEventCallback value) =>
@@ -1703,8 +1692,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onCopyCapture] -->
   @override
   ClipboardEventCallback get onCopyCapture =>
-      props[_$key__onCopyCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onCopyCapture___$DomPropsMixin] ?? null)
+          as ClipboardEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onCopyCapture] -->
   @override
   set onCopyCapture(ClipboardEventCallback value) =>
@@ -1713,8 +1703,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onCutCapture] -->
   @override
   ClipboardEventCallback get onCutCapture =>
-      props[_$key__onCutCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onCutCapture___$DomPropsMixin] ?? null)
+          as ClipboardEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onCutCapture] -->
   @override
   set onCutCapture(ClipboardEventCallback value) =>
@@ -1723,8 +1714,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onPasteCapture] -->
   @override
   ClipboardEventCallback get onPasteCapture =>
-      props[_$key__onPasteCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPasteCapture___$DomPropsMixin] ?? null)
+          as ClipboardEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onPasteCapture] -->
   @override
   set onPasteCapture(ClipboardEventCallback value) =>
@@ -1733,8 +1725,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onKeyDownCapture] -->
   @override
   KeyboardEventCallback get onKeyDownCapture =>
-      props[_$key__onKeyDownCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onKeyDownCapture___$DomPropsMixin] ?? null)
+          as KeyboardEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onKeyDownCapture] -->
   @override
   set onKeyDownCapture(KeyboardEventCallback value) =>
@@ -1743,8 +1736,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onKeyPressCapture] -->
   @override
   KeyboardEventCallback get onKeyPressCapture =>
-      props[_$key__onKeyPressCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onKeyPressCapture___$DomPropsMixin] ?? null)
+          as KeyboardEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onKeyPressCapture] -->
   @override
   set onKeyPressCapture(KeyboardEventCallback value) =>
@@ -1753,8 +1747,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onKeyUpCapture] -->
   @override
   KeyboardEventCallback get onKeyUpCapture =>
-      props[_$key__onKeyUpCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onKeyUpCapture___$DomPropsMixin] ?? null)
+          as KeyboardEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onKeyUpCapture] -->
   @override
   set onKeyUpCapture(KeyboardEventCallback value) =>
@@ -1763,8 +1758,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onFocusCapture] -->
   @override
   FocusEventCallback get onFocusCapture =>
-      props[_$key__onFocusCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onFocusCapture___$DomPropsMixin] ?? null)
+          as FocusEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onFocusCapture] -->
   @override
   set onFocusCapture(FocusEventCallback value) =>
@@ -1773,8 +1769,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onBlurCapture] -->
   @override
   FocusEventCallback get onBlurCapture =>
-      props[_$key__onBlurCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onBlurCapture___$DomPropsMixin] ?? null)
+          as FocusEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onBlurCapture] -->
   @override
   set onBlurCapture(FocusEventCallback value) =>
@@ -1783,8 +1780,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onChangeCapture] -->
   @override
   FormEventCallback get onChangeCapture =>
-      props[_$key__onChangeCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onChangeCapture___$DomPropsMixin] ?? null)
+          as FormEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onChangeCapture] -->
   @override
   set onChangeCapture(FormEventCallback value) =>
@@ -1793,8 +1791,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onInputCapture] -->
   @override
   FormEventCallback get onInputCapture =>
-      props[_$key__onInputCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onInputCapture___$DomPropsMixin] ?? null)
+          as FormEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onInputCapture] -->
   @override
   set onInputCapture(FormEventCallback value) =>
@@ -1803,8 +1802,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onSubmitCapture] -->
   @override
   FormEventCallback get onSubmitCapture =>
-      props[_$key__onSubmitCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onSubmitCapture___$DomPropsMixin] ?? null)
+          as FormEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onSubmitCapture] -->
   @override
   set onSubmitCapture(FormEventCallback value) =>
@@ -1813,8 +1813,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onResetCapture] -->
   @override
   FormEventCallback get onResetCapture =>
-      props[_$key__onResetCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onResetCapture___$DomPropsMixin] ?? null)
+          as FormEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onResetCapture] -->
   @override
   set onResetCapture(FormEventCallback value) =>
@@ -1823,8 +1824,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onClickCapture] -->
   @override
   MouseEventCallback get onClickCapture =>
-      props[_$key__onClickCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onClickCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onClickCapture] -->
   @override
   set onClickCapture(MouseEventCallback value) =>
@@ -1833,8 +1835,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onContextMenuCapture] -->
   @override
   MouseEventCallback get onContextMenuCapture =>
-      props[_$key__onContextMenuCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onContextMenuCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onContextMenuCapture] -->
   @override
   set onContextMenuCapture(MouseEventCallback value) =>
@@ -1843,8 +1846,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDoubleClickCapture] -->
   @override
   MouseEventCallback get onDoubleClickCapture =>
-      props[_$key__onDoubleClickCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDoubleClickCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onDoubleClickCapture] -->
   @override
   set onDoubleClickCapture(MouseEventCallback value) =>
@@ -1853,8 +1857,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDragCapture] -->
   @override
   MouseEventCallback get onDragCapture =>
-      props[_$key__onDragCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDragCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onDragCapture] -->
   @override
   set onDragCapture(MouseEventCallback value) =>
@@ -1863,8 +1868,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDragEndCapture] -->
   @override
   MouseEventCallback get onDragEndCapture =>
-      props[_$key__onDragEndCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDragEndCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onDragEndCapture] -->
   @override
   set onDragEndCapture(MouseEventCallback value) =>
@@ -1873,8 +1879,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDragEnterCapture] -->
   @override
   MouseEventCallback get onDragEnterCapture =>
-      props[_$key__onDragEnterCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDragEnterCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onDragEnterCapture] -->
   @override
   set onDragEnterCapture(MouseEventCallback value) =>
@@ -1883,8 +1890,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDragExitCapture] -->
   @override
   MouseEventCallback get onDragExitCapture =>
-      props[_$key__onDragExitCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDragExitCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onDragExitCapture] -->
   @override
   set onDragExitCapture(MouseEventCallback value) =>
@@ -1893,8 +1901,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDragLeaveCapture] -->
   @override
   MouseEventCallback get onDragLeaveCapture =>
-      props[_$key__onDragLeaveCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDragLeaveCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onDragLeaveCapture] -->
   @override
   set onDragLeaveCapture(MouseEventCallback value) =>
@@ -1903,8 +1912,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDragOverCapture] -->
   @override
   MouseEventCallback get onDragOverCapture =>
-      props[_$key__onDragOverCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDragOverCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onDragOverCapture] -->
   @override
   set onDragOverCapture(MouseEventCallback value) =>
@@ -1913,8 +1923,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDragStartCapture] -->
   @override
   MouseEventCallback get onDragStartCapture =>
-      props[_$key__onDragStartCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDragStartCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onDragStartCapture] -->
   @override
   set onDragStartCapture(MouseEventCallback value) =>
@@ -1923,8 +1934,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDropCapture] -->
   @override
   MouseEventCallback get onDropCapture =>
-      props[_$key__onDropCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDropCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onDropCapture] -->
   @override
   set onDropCapture(MouseEventCallback value) =>
@@ -1933,8 +1945,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseDownCapture] -->
   @override
   MouseEventCallback get onMouseDownCapture =>
-      props[_$key__onMouseDownCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseDownCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onMouseDownCapture] -->
   @override
   set onMouseDownCapture(MouseEventCallback value) =>
@@ -1943,8 +1956,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseEnterCapture] -->
   @override
   MouseEventCallback get onMouseEnterCapture =>
-      props[_$key__onMouseEnterCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseEnterCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onMouseEnterCapture] -->
   @override
   set onMouseEnterCapture(MouseEventCallback value) =>
@@ -1953,8 +1967,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseLeaveCapture] -->
   @override
   MouseEventCallback get onMouseLeaveCapture =>
-      props[_$key__onMouseLeaveCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseLeaveCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onMouseLeaveCapture] -->
   @override
   set onMouseLeaveCapture(MouseEventCallback value) =>
@@ -1963,8 +1978,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseMoveCapture] -->
   @override
   MouseEventCallback get onMouseMoveCapture =>
-      props[_$key__onMouseMoveCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseMoveCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onMouseMoveCapture] -->
   @override
   set onMouseMoveCapture(MouseEventCallback value) =>
@@ -1973,8 +1989,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseOutCapture] -->
   @override
   MouseEventCallback get onMouseOutCapture =>
-      props[_$key__onMouseOutCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseOutCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onMouseOutCapture] -->
   @override
   set onMouseOutCapture(MouseEventCallback value) =>
@@ -1983,8 +2000,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseOverCapture] -->
   @override
   MouseEventCallback get onMouseOverCapture =>
-      props[_$key__onMouseOverCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseOverCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onMouseOverCapture] -->
   @override
   set onMouseOverCapture(MouseEventCallback value) =>
@@ -1993,8 +2011,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseUpCapture] -->
   @override
   MouseEventCallback get onMouseUpCapture =>
-      props[_$key__onMouseUpCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseUpCapture___$DomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onMouseUpCapture] -->
   @override
   set onMouseUpCapture(MouseEventCallback value) =>
@@ -2003,8 +2022,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onGotPointerCapture] -->
   @override
   PointerEventCallback get onGotPointerCapture =>
-      props[_$key__onGotPointerCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onGotPointerCapture___$DomPropsMixin] ?? null)
+          as PointerEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onGotPointerCapture] -->
   @override
   set onGotPointerCapture(PointerEventCallback value) =>
@@ -2013,8 +2033,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onLostPointerCapture] -->
   @override
   PointerEventCallback get onLostPointerCapture =>
-      props[_$key__onLostPointerCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onLostPointerCapture___$DomPropsMixin] ?? null)
+          as PointerEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onLostPointerCapture] -->
   @override
   set onLostPointerCapture(PointerEventCallback value) =>
@@ -2023,8 +2044,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onTouchCancelCapture] -->
   @override
   TouchEventCallback get onTouchCancelCapture =>
-      props[_$key__onTouchCancelCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onTouchCancelCapture___$DomPropsMixin] ?? null)
+          as TouchEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onTouchCancelCapture] -->
   @override
   set onTouchCancelCapture(TouchEventCallback value) =>
@@ -2033,8 +2055,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onTouchEndCapture] -->
   @override
   TouchEventCallback get onTouchEndCapture =>
-      props[_$key__onTouchEndCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onTouchEndCapture___$DomPropsMixin] ?? null)
+          as TouchEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onTouchEndCapture] -->
   @override
   set onTouchEndCapture(TouchEventCallback value) =>
@@ -2043,8 +2066,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onTouchMoveCapture] -->
   @override
   TouchEventCallback get onTouchMoveCapture =>
-      props[_$key__onTouchMoveCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onTouchMoveCapture___$DomPropsMixin] ?? null)
+          as TouchEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onTouchMoveCapture] -->
   @override
   set onTouchMoveCapture(TouchEventCallback value) =>
@@ -2053,8 +2077,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onTouchStartCapture] -->
   @override
   TouchEventCallback get onTouchStartCapture =>
-      props[_$key__onTouchStartCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onTouchStartCapture___$DomPropsMixin] ?? null)
+          as TouchEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onTouchStartCapture] -->
   @override
   set onTouchStartCapture(TouchEventCallback value) =>
@@ -2063,8 +2088,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onScrollCapture] -->
   @override
   UIEventCallback get onScrollCapture =>
-      props[_$key__onScrollCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onScrollCapture___$DomPropsMixin] ?? null)
+          as UIEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onScrollCapture] -->
   @override
   set onScrollCapture(UIEventCallback value) =>
@@ -2073,8 +2099,9 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onWheelCapture] -->
   @override
   WheelEventCallback get onWheelCapture =>
-      props[_$key__onWheelCapture___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onWheelCapture___$DomPropsMixin] ?? null)
+          as WheelEventCallback;
+
   /// <!-- Generated from [_$DomPropsMixin.onWheelCapture] -->
   @override
   set onWheelCapture(WheelEventCallback value) =>
@@ -2083,8 +2110,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.defaultChecked] -->
   @override
   bool get defaultChecked =>
-      props[_$key__defaultChecked___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__defaultChecked___$DomPropsMixin] ?? null) as bool;
+
   /// <!-- Generated from [_$DomPropsMixin.defaultChecked] -->
   @override
   set defaultChecked(bool value) =>
@@ -2093,8 +2120,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.defaultValue] -->
   @override
   dynamic get defaultValue =>
-      props[_$key__defaultValue___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__defaultValue___$DomPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$DomPropsMixin.defaultValue] -->
   @override
   set defaultValue(dynamic value) =>
@@ -2106,8 +2133,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.autoFocus] -->
   @override
   bool get autoFocus =>
-      props[_$key__autoFocus___$DomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__autoFocus___$DomPropsMixin] ?? null) as bool;
+
   /// Polyfills/normalizes the `autofocus` attribute via AutoFocusMixin
   /// (mixed in by React DOM <input>, <textarea>, and <select>).
   ///
@@ -3225,8 +3252,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   @override
   @Accessor(key: 'in')
   String get htmlIn =>
-      props[_$key__htmlIn___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__htmlIn___$SvgPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.htmlIn] -->
   @override
   @Accessor(key: 'in')
@@ -3236,8 +3263,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   @override
   @Accessor(key: 'values')
   String get htmlValues =>
-      props[_$key__htmlValues___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__htmlValues___$SvgPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.htmlValues] -->
   @override
   @Accessor(key: 'values')
@@ -3247,8 +3274,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.accumulate] -->
   @override
   String get accumulate =>
-      props[_$key__accumulate___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__accumulate___$SvgPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.accumulate] -->
   @override
   set accumulate(String value) =>
@@ -3257,8 +3284,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.additive] -->
   @override
   String get additive =>
-      props[_$key__additive___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__additive___$SvgPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.additive] -->
   @override
   set additive(String value) => props[_$key__additive___$SvgPropsMixin] = value;
@@ -3266,8 +3293,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.alignmentBaseline] -->
   @override
   String get alignmentBaseline =>
-      props[_$key__alignmentBaseline___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__alignmentBaseline___$SvgPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.alignmentBaseline] -->
   @override
   set alignmentBaseline(String value) =>
@@ -3276,8 +3303,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.allowReorder] -->
   @override
   String get allowReorder =>
-      props[_$key__allowReorder___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__allowReorder___$SvgPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.allowReorder] -->
   @override
   set allowReorder(String value) =>
@@ -3286,8 +3313,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.arabicForm] -->
   @override
   String get arabicForm =>
-      props[_$key__arabicForm___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__arabicForm___$SvgPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.arabicForm] -->
   @override
   set arabicForm(String value) =>
@@ -3296,8 +3323,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.attributeName] -->
   @override
   String get attributeName =>
-      props[_$key__attributeName___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__attributeName___$SvgPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.attributeName] -->
   @override
   set attributeName(String value) =>
@@ -3306,8 +3333,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.attributeType] -->
   @override
   String get attributeType =>
-      props[_$key__attributeType___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__attributeType___$SvgPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.attributeType] -->
   @override
   set attributeType(String value) =>
@@ -3316,8 +3343,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.colorInterpolationFilters] -->
   @override
   String get colorInterpolationFilters =>
-      props[_$key__colorInterpolationFilters___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__colorInterpolationFilters___$SvgPropsMixin] ?? null)
+          as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.colorInterpolationFilters] -->
   @override
   set colorInterpolationFilters(String value) =>
@@ -3326,8 +3354,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.fillRule] -->
   @override
   String get fillRule =>
-      props[_$key__fillRule___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__fillRule___$SvgPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.fillRule] -->
   @override
   set fillRule(String value) => props[_$key__fillRule___$SvgPropsMixin] = value;
@@ -3335,17 +3363,16 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.filter] -->
   @override
   String get filter =>
-      props[_$key__filter___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__filter___$SvgPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.filter] -->
   @override
   set filter(String value) => props[_$key__filter___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.mask] -->
   @override
-  String get mask =>
-      props[_$key__mask___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get mask => (props[_$key__mask___$SvgPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.mask] -->
   @override
   set mask(String value) => props[_$key__mask___$SvgPropsMixin] = value;
@@ -3353,8 +3380,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.result] -->
   @override
   String get result =>
-      props[_$key__result___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__result___$SvgPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.result] -->
   @override
   set result(String value) => props[_$key__result___$SvgPropsMixin] = value;
@@ -3362,8 +3389,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.strokeLinejoin] -->
   @override
   String get strokeLinejoin =>
-      props[_$key__strokeLinejoin___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__strokeLinejoin___$SvgPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.strokeLinejoin] -->
   @override
   set strokeLinejoin(String value) =>
@@ -3372,8 +3399,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.xChannelSelector] -->
   @override
   String get xChannelSelector =>
-      props[_$key__xChannelSelector___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__xChannelSelector___$SvgPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.xChannelSelector] -->
   @override
   set xChannelSelector(String value) =>
@@ -3381,9 +3408,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlns] -->
   @override
-  String get xmlns =>
-      props[_$key__xmlns___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  String get xmlns => (props[_$key__xmlns___$SvgPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.xmlns] -->
   @override
   set xmlns(String value) => props[_$key__xmlns___$SvgPropsMixin] = value;
@@ -3391,8 +3417,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.xmlnsXlink] -->
   @override
   String get xmlnsXlink =>
-      props[_$key__xmlnsXlink___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__xmlnsXlink___$SvgPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.xmlnsXlink] -->
   @override
   set xmlnsXlink(String value) =>
@@ -3401,8 +3427,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.yChannelSelector] -->
   @override
   String get yChannelSelector =>
-      props[_$key__yChannelSelector___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__yChannelSelector___$SvgPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.yChannelSelector] -->
   @override
   set yChannelSelector(String value) =>
@@ -3411,8 +3437,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.zoomAndPan] -->
   @override
   String get zoomAndPan =>
-      props[_$key__zoomAndPan___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__zoomAndPan___$SvgPropsMixin] ?? null) as String;
+
   /// <!-- Generated from [_$SvgPropsMixin.zoomAndPan] -->
   @override
   set zoomAndPan(String value) =>
@@ -3421,8 +3447,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.accentHeight] -->
   @override
   dynamic get accentHeight =>
-      props[_$key__accentHeight___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__accentHeight___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.accentHeight] -->
   @override
   set accentHeight(dynamic value) =>
@@ -3431,8 +3457,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.alphabetic] -->
   @override
   dynamic get alphabetic =>
-      props[_$key__alphabetic___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__alphabetic___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.alphabetic] -->
   @override
   set alphabetic(dynamic value) =>
@@ -3441,8 +3467,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.amplitude] -->
   @override
   dynamic get amplitude =>
-      props[_$key__amplitude___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__amplitude___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.amplitude] -->
   @override
   set amplitude(dynamic value) =>
@@ -3451,8 +3477,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.ascent] -->
   @override
   dynamic get ascent =>
-      props[_$key__ascent___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__ascent___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.ascent] -->
   @override
   set ascent(dynamic value) => props[_$key__ascent___$SvgPropsMixin] = value;
@@ -3460,8 +3486,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.autoReverse] -->
   @override
   dynamic get autoReverse =>
-      props[_$key__autoReverse___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__autoReverse___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.autoReverse] -->
   @override
   set autoReverse(dynamic value) =>
@@ -3470,8 +3496,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.azimuth] -->
   @override
   dynamic get azimuth =>
-      props[_$key__azimuth___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__azimuth___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.azimuth] -->
   @override
   set azimuth(dynamic value) => props[_$key__azimuth___$SvgPropsMixin] = value;
@@ -3479,8 +3505,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.baseFrequency] -->
   @override
   dynamic get baseFrequency =>
-      props[_$key__baseFrequency___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__baseFrequency___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.baseFrequency] -->
   @override
   set baseFrequency(dynamic value) =>
@@ -3489,8 +3515,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.baseProfile] -->
   @override
   dynamic get baseProfile =>
-      props[_$key__baseProfile___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__baseProfile___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.baseProfile] -->
   @override
   set baseProfile(dynamic value) =>
@@ -3499,8 +3525,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.baselineShift] -->
   @override
   dynamic get baselineShift =>
-      props[_$key__baselineShift___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__baselineShift___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.baselineShift] -->
   @override
   set baselineShift(dynamic value) =>
@@ -3508,9 +3534,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.bbox] -->
   @override
-  dynamic get bbox =>
-      props[_$key__bbox___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get bbox => (props[_$key__bbox___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.bbox] -->
   @override
   set bbox(dynamic value) => props[_$key__bbox___$SvgPropsMixin] = value;
@@ -3518,26 +3543,24 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.begin] -->
   @override
   dynamic get begin =>
-      props[_$key__begin___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__begin___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.begin] -->
   @override
   set begin(dynamic value) => props[_$key__begin___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.bias] -->
   @override
-  dynamic get bias =>
-      props[_$key__bias___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get bias => (props[_$key__bias___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.bias] -->
   @override
   set bias(dynamic value) => props[_$key__bias___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.by] -->
   @override
-  dynamic get by =>
-      props[_$key__by___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get by => (props[_$key__by___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.by] -->
   @override
   set by(dynamic value) => props[_$key__by___$SvgPropsMixin] = value;
@@ -3545,8 +3568,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.calcMode] -->
   @override
   dynamic get calcMode =>
-      props[_$key__calcMode___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__calcMode___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.calcMode] -->
   @override
   set calcMode(dynamic value) =>
@@ -3555,8 +3578,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.capHeight] -->
   @override
   dynamic get capHeight =>
-      props[_$key__capHeight___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__capHeight___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.capHeight] -->
   @override
   set capHeight(dynamic value) =>
@@ -3564,9 +3587,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.clip] -->
   @override
-  dynamic get clip =>
-      props[_$key__clip___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get clip => (props[_$key__clip___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.clip] -->
   @override
   set clip(dynamic value) => props[_$key__clip___$SvgPropsMixin] = value;
@@ -3574,8 +3596,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.clipPath] -->
   @override
   dynamic get clipPath =>
-      props[_$key__clipPath___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__clipPath___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.clipPath] -->
   @override
   set clipPath(dynamic value) =>
@@ -3584,8 +3606,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.clipPathUnits] -->
   @override
   dynamic get clipPathUnits =>
-      props[_$key__clipPathUnits___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__clipPathUnits___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.clipPathUnits] -->
   @override
   set clipPathUnits(dynamic value) =>
@@ -3594,8 +3616,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.clipRule] -->
   @override
   dynamic get clipRule =>
-      props[_$key__clipRule___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__clipRule___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.clipRule] -->
   @override
   set clipRule(dynamic value) =>
@@ -3604,8 +3626,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.colorInterpolation] -->
   @override
   dynamic get colorInterpolation =>
-      props[_$key__colorInterpolation___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__colorInterpolation___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.colorInterpolation] -->
   @override
   set colorInterpolation(dynamic value) =>
@@ -3614,8 +3636,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.colorProfile] -->
   @override
   dynamic get colorProfile =>
-      props[_$key__colorProfile___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__colorProfile___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.colorProfile] -->
   @override
   set colorProfile(dynamic value) =>
@@ -3624,8 +3646,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.colorRendering] -->
   @override
   dynamic get colorRendering =>
-      props[_$key__colorRendering___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__colorRendering___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.colorRendering] -->
   @override
   set colorRendering(dynamic value) =>
@@ -3634,8 +3656,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.contentScriptType] -->
   @override
   dynamic get contentScriptType =>
-      props[_$key__contentScriptType___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__contentScriptType___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.contentScriptType] -->
   @override
   set contentScriptType(dynamic value) =>
@@ -3644,8 +3666,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.contentStyleType] -->
   @override
   dynamic get contentStyleType =>
-      props[_$key__contentStyleType___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__contentStyleType___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.contentStyleType] -->
   @override
   set contentStyleType(dynamic value) =>
@@ -3654,35 +3676,32 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.cursor] -->
   @override
   dynamic get cursor =>
-      props[_$key__cursor___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__cursor___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.cursor] -->
   @override
   set cursor(dynamic value) => props[_$key__cursor___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.cx] -->
   @override
-  dynamic get cx =>
-      props[_$key__cx___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get cx => (props[_$key__cx___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.cx] -->
   @override
   set cx(dynamic value) => props[_$key__cx___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.cy] -->
   @override
-  dynamic get cy =>
-      props[_$key__cy___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get cy => (props[_$key__cy___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.cy] -->
   @override
   set cy(dynamic value) => props[_$key__cy___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.d] -->
   @override
-  dynamic get d =>
-      props[_$key__d___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get d => (props[_$key__d___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.d] -->
   @override
   set d(dynamic value) => props[_$key__d___$SvgPropsMixin] = value;
@@ -3690,8 +3709,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.decelerate] -->
   @override
   dynamic get decelerate =>
-      props[_$key__decelerate___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__decelerate___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.decelerate] -->
   @override
   set decelerate(dynamic value) =>
@@ -3700,8 +3719,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.descent] -->
   @override
   dynamic get descent =>
-      props[_$key__descent___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__descent___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.descent] -->
   @override
   set descent(dynamic value) => props[_$key__descent___$SvgPropsMixin] = value;
@@ -3709,8 +3728,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.diffuseConstant] -->
   @override
   dynamic get diffuseConstant =>
-      props[_$key__diffuseConstant___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__diffuseConstant___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.diffuseConstant] -->
   @override
   set diffuseConstant(dynamic value) =>
@@ -3719,8 +3738,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.direction] -->
   @override
   dynamic get direction =>
-      props[_$key__direction___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__direction___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.direction] -->
   @override
   set direction(dynamic value) =>
@@ -3729,8 +3748,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.display] -->
   @override
   dynamic get display =>
-      props[_$key__display___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__display___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.display] -->
   @override
   set display(dynamic value) => props[_$key__display___$SvgPropsMixin] = value;
@@ -3738,8 +3757,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.divisor] -->
   @override
   dynamic get divisor =>
-      props[_$key__divisor___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__divisor___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.divisor] -->
   @override
   set divisor(dynamic value) => props[_$key__divisor___$SvgPropsMixin] = value;
@@ -3747,8 +3766,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.dominantBaseline] -->
   @override
   dynamic get dominantBaseline =>
-      props[_$key__dominantBaseline___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__dominantBaseline___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.dominantBaseline] -->
   @override
   set dominantBaseline(dynamic value) =>
@@ -3756,27 +3775,24 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.dur] -->
   @override
-  dynamic get dur =>
-      props[_$key__dur___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get dur => (props[_$key__dur___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.dur] -->
   @override
   set dur(dynamic value) => props[_$key__dur___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.dx] -->
   @override
-  dynamic get dx =>
-      props[_$key__dx___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get dx => (props[_$key__dx___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.dx] -->
   @override
   set dx(dynamic value) => props[_$key__dx___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.dy] -->
   @override
-  dynamic get dy =>
-      props[_$key__dy___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get dy => (props[_$key__dy___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.dy] -->
   @override
   set dy(dynamic value) => props[_$key__dy___$SvgPropsMixin] = value;
@@ -3784,8 +3800,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.edgeMode] -->
   @override
   dynamic get edgeMode =>
-      props[_$key__edgeMode___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__edgeMode___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.edgeMode] -->
   @override
   set edgeMode(dynamic value) =>
@@ -3794,8 +3810,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.elevation] -->
   @override
   dynamic get elevation =>
-      props[_$key__elevation___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__elevation___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.elevation] -->
   @override
   set elevation(dynamic value) =>
@@ -3804,8 +3820,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.enableBackground] -->
   @override
   dynamic get enableBackground =>
-      props[_$key__enableBackground___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__enableBackground___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.enableBackground] -->
   @override
   set enableBackground(dynamic value) =>
@@ -3813,9 +3829,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.end] -->
   @override
-  dynamic get end =>
-      props[_$key__end___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get end => (props[_$key__end___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.end] -->
   @override
   set end(dynamic value) => props[_$key__end___$SvgPropsMixin] = value;
@@ -3823,8 +3838,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.exponent] -->
   @override
   dynamic get exponent =>
-      props[_$key__exponent___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__exponent___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.exponent] -->
   @override
   set exponent(dynamic value) =>
@@ -3833,8 +3848,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.externalResourcesRequired] -->
   @override
   dynamic get externalResourcesRequired =>
-      props[_$key__externalResourcesRequired___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__externalResourcesRequired___$SvgPropsMixin] ?? null)
+          as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.externalResourcesRequired] -->
   @override
   set externalResourcesRequired(dynamic value) =>
@@ -3842,9 +3858,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.fill] -->
   @override
-  dynamic get fill =>
-      props[_$key__fill___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get fill => (props[_$key__fill___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.fill] -->
   @override
   set fill(dynamic value) => props[_$key__fill___$SvgPropsMixin] = value;
@@ -3852,8 +3867,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.fillOpacity] -->
   @override
   dynamic get fillOpacity =>
-      props[_$key__fillOpacity___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__fillOpacity___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.fillOpacity] -->
   @override
   set fillOpacity(dynamic value) =>
@@ -3862,8 +3877,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.filterRes] -->
   @override
   dynamic get filterRes =>
-      props[_$key__filterRes___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__filterRes___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.filterRes] -->
   @override
   set filterRes(dynamic value) =>
@@ -3872,8 +3887,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.filterUnits] -->
   @override
   dynamic get filterUnits =>
-      props[_$key__filterUnits___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__filterUnits___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.filterUnits] -->
   @override
   set filterUnits(dynamic value) =>
@@ -3882,8 +3897,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.floodColor] -->
   @override
   dynamic get floodColor =>
-      props[_$key__floodColor___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__floodColor___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.floodColor] -->
   @override
   set floodColor(dynamic value) =>
@@ -3892,8 +3907,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.floodOpacity] -->
   @override
   dynamic get floodOpacity =>
-      props[_$key__floodOpacity___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__floodOpacity___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.floodOpacity] -->
   @override
   set floodOpacity(dynamic value) =>
@@ -3902,8 +3917,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.focusable] -->
   @override
   dynamic get focusable =>
-      props[_$key__focusable___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__focusable___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.focusable] -->
   @override
   set focusable(dynamic value) =>
@@ -3912,8 +3927,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.fontFamily] -->
   @override
   dynamic get fontFamily =>
-      props[_$key__fontFamily___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__fontFamily___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.fontFamily] -->
   @override
   set fontFamily(dynamic value) =>
@@ -3922,8 +3937,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.fontSize] -->
   @override
   dynamic get fontSize =>
-      props[_$key__fontSize___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__fontSize___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.fontSize] -->
   @override
   set fontSize(dynamic value) =>
@@ -3932,8 +3947,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.fontSizeAdjust] -->
   @override
   dynamic get fontSizeAdjust =>
-      props[_$key__fontSizeAdjust___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__fontSizeAdjust___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.fontSizeAdjust] -->
   @override
   set fontSizeAdjust(dynamic value) =>
@@ -3942,8 +3957,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.fontStretch] -->
   @override
   dynamic get fontStretch =>
-      props[_$key__fontStretch___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__fontStretch___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.fontStretch] -->
   @override
   set fontStretch(dynamic value) =>
@@ -3952,8 +3967,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.fontStyle] -->
   @override
   dynamic get fontStyle =>
-      props[_$key__fontStyle___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__fontStyle___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.fontStyle] -->
   @override
   set fontStyle(dynamic value) =>
@@ -3962,8 +3977,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.fontVariant] -->
   @override
   dynamic get fontVariant =>
-      props[_$key__fontVariant___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__fontVariant___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.fontVariant] -->
   @override
   set fontVariant(dynamic value) =>
@@ -3972,8 +3987,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.fontWeight] -->
   @override
   dynamic get fontWeight =>
-      props[_$key__fontWeight___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__fontWeight___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.fontWeight] -->
   @override
   set fontWeight(dynamic value) =>
@@ -3982,53 +3997,48 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.format] -->
   @override
   dynamic get format =>
-      props[_$key__format___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__format___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.format] -->
   @override
   set format(dynamic value) => props[_$key__format___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.from] -->
   @override
-  dynamic get from =>
-      props[_$key__from___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get from => (props[_$key__from___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.from] -->
   @override
   set from(dynamic value) => props[_$key__from___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.fx] -->
   @override
-  dynamic get fx =>
-      props[_$key__fx___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get fx => (props[_$key__fx___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.fx] -->
   @override
   set fx(dynamic value) => props[_$key__fx___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.fy] -->
   @override
-  dynamic get fy =>
-      props[_$key__fy___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get fy => (props[_$key__fy___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.fy] -->
   @override
   set fy(dynamic value) => props[_$key__fy___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.g1] -->
   @override
-  dynamic get g1 =>
-      props[_$key__g1___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get g1 => (props[_$key__g1___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.g1] -->
   @override
   set g1(dynamic value) => props[_$key__g1___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.g2] -->
   @override
-  dynamic get g2 =>
-      props[_$key__g2___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get g2 => (props[_$key__g2___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.g2] -->
   @override
   set g2(dynamic value) => props[_$key__g2___$SvgPropsMixin] = value;
@@ -4036,8 +4046,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.glyphName] -->
   @override
   dynamic get glyphName =>
-      props[_$key__glyphName___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__glyphName___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.glyphName] -->
   @override
   set glyphName(dynamic value) =>
@@ -4046,8 +4056,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.glyphOrientationHorizontal] -->
   @override
   dynamic get glyphOrientationHorizontal =>
-      props[_$key__glyphOrientationHorizontal___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__glyphOrientationHorizontal___$SvgPropsMixin] ?? null)
+          as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.glyphOrientationHorizontal] -->
   @override
   set glyphOrientationHorizontal(dynamic value) =>
@@ -4056,8 +4067,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.glyphOrientationVertical] -->
   @override
   dynamic get glyphOrientationVertical =>
-      props[_$key__glyphOrientationVertical___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__glyphOrientationVertical___$SvgPropsMixin] ?? null)
+          as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.glyphOrientationVertical] -->
   @override
   set glyphOrientationVertical(dynamic value) =>
@@ -4066,8 +4078,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.glyphRef] -->
   @override
   dynamic get glyphRef =>
-      props[_$key__glyphRef___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__glyphRef___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.glyphRef] -->
   @override
   set glyphRef(dynamic value) =>
@@ -4076,8 +4088,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.gradientTransform] -->
   @override
   dynamic get gradientTransform =>
-      props[_$key__gradientTransform___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__gradientTransform___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.gradientTransform] -->
   @override
   set gradientTransform(dynamic value) =>
@@ -4086,8 +4098,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.gradientUnits] -->
   @override
   dynamic get gradientUnits =>
-      props[_$key__gradientUnits___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__gradientUnits___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.gradientUnits] -->
   @override
   set gradientUnits(dynamic value) =>
@@ -4096,8 +4108,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.hanging] -->
   @override
   dynamic get hanging =>
-      props[_$key__hanging___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__hanging___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.hanging] -->
   @override
   set hanging(dynamic value) => props[_$key__hanging___$SvgPropsMixin] = value;
@@ -4105,8 +4117,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.horizAdvX] -->
   @override
   dynamic get horizAdvX =>
-      props[_$key__horizAdvX___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__horizAdvX___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.horizAdvX] -->
   @override
   set horizAdvX(dynamic value) =>
@@ -4115,8 +4127,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.horizOriginX] -->
   @override
   dynamic get horizOriginX =>
-      props[_$key__horizOriginX___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__horizOriginX___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.horizOriginX] -->
   @override
   set horizOriginX(dynamic value) =>
@@ -4125,8 +4137,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.ideographic] -->
   @override
   dynamic get ideographic =>
-      props[_$key__ideographic___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__ideographic___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.ideographic] -->
   @override
   set ideographic(dynamic value) =>
@@ -4135,8 +4147,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.imageRendering] -->
   @override
   dynamic get imageRendering =>
-      props[_$key__imageRendering___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__imageRendering___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.imageRendering] -->
   @override
   set imageRendering(dynamic value) =>
@@ -4144,9 +4156,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.in2] -->
   @override
-  dynamic get in2 =>
-      props[_$key__in2___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get in2 => (props[_$key__in2___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.in2] -->
   @override
   set in2(dynamic value) => props[_$key__in2___$SvgPropsMixin] = value;
@@ -4154,8 +4165,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.intercept] -->
   @override
   dynamic get intercept =>
-      props[_$key__intercept___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__intercept___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.intercept] -->
   @override
   set intercept(dynamic value) =>
@@ -4163,45 +4174,40 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.k] -->
   @override
-  dynamic get k =>
-      props[_$key__k___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get k => (props[_$key__k___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.k] -->
   @override
   set k(dynamic value) => props[_$key__k___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.k1] -->
   @override
-  dynamic get k1 =>
-      props[_$key__k1___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get k1 => (props[_$key__k1___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.k1] -->
   @override
   set k1(dynamic value) => props[_$key__k1___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.k2] -->
   @override
-  dynamic get k2 =>
-      props[_$key__k2___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get k2 => (props[_$key__k2___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.k2] -->
   @override
   set k2(dynamic value) => props[_$key__k2___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.k3] -->
   @override
-  dynamic get k3 =>
-      props[_$key__k3___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get k3 => (props[_$key__k3___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.k3] -->
   @override
   set k3(dynamic value) => props[_$key__k3___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.k4] -->
   @override
-  dynamic get k4 =>
-      props[_$key__k4___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get k4 => (props[_$key__k4___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.k4] -->
   @override
   set k4(dynamic value) => props[_$key__k4___$SvgPropsMixin] = value;
@@ -4209,8 +4215,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.kernelMatrix] -->
   @override
   dynamic get kernelMatrix =>
-      props[_$key__kernelMatrix___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__kernelMatrix___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.kernelMatrix] -->
   @override
   set kernelMatrix(dynamic value) =>
@@ -4219,8 +4225,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.kernelUnitLength] -->
   @override
   dynamic get kernelUnitLength =>
-      props[_$key__kernelUnitLength___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__kernelUnitLength___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.kernelUnitLength] -->
   @override
   set kernelUnitLength(dynamic value) =>
@@ -4229,8 +4235,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.kerning] -->
   @override
   dynamic get kerning =>
-      props[_$key__kerning___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__kerning___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.kerning] -->
   @override
   set kerning(dynamic value) => props[_$key__kerning___$SvgPropsMixin] = value;
@@ -4238,8 +4244,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.keyPoints] -->
   @override
   dynamic get keyPoints =>
-      props[_$key__keyPoints___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__keyPoints___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.keyPoints] -->
   @override
   set keyPoints(dynamic value) =>
@@ -4248,8 +4254,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.keySplines] -->
   @override
   dynamic get keySplines =>
-      props[_$key__keySplines___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__keySplines___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.keySplines] -->
   @override
   set keySplines(dynamic value) =>
@@ -4258,8 +4264,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.keyTimes] -->
   @override
   dynamic get keyTimes =>
-      props[_$key__keyTimes___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__keyTimes___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.keyTimes] -->
   @override
   set keyTimes(dynamic value) =>
@@ -4268,8 +4274,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.lengthAdjust] -->
   @override
   dynamic get lengthAdjust =>
-      props[_$key__lengthAdjust___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__lengthAdjust___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.lengthAdjust] -->
   @override
   set lengthAdjust(dynamic value) =>
@@ -4278,8 +4284,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.letterSpacing] -->
   @override
   dynamic get letterSpacing =>
-      props[_$key__letterSpacing___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__letterSpacing___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.letterSpacing] -->
   @override
   set letterSpacing(dynamic value) =>
@@ -4288,8 +4294,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.lightingColor] -->
   @override
   dynamic get lightingColor =>
-      props[_$key__lightingColor___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__lightingColor___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.lightingColor] -->
   @override
   set lightingColor(dynamic value) =>
@@ -4298,8 +4304,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.limitingConeAngle] -->
   @override
   dynamic get limitingConeAngle =>
-      props[_$key__limitingConeAngle___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__limitingConeAngle___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.limitingConeAngle] -->
   @override
   set limitingConeAngle(dynamic value) =>
@@ -4308,8 +4314,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.local] -->
   @override
   dynamic get local =>
-      props[_$key__local___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__local___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.local] -->
   @override
   set local(dynamic value) => props[_$key__local___$SvgPropsMixin] = value;
@@ -4317,8 +4323,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.markerEnd] -->
   @override
   dynamic get markerEnd =>
-      props[_$key__markerEnd___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__markerEnd___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.markerEnd] -->
   @override
   set markerEnd(dynamic value) =>
@@ -4327,8 +4333,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.markerHeight] -->
   @override
   dynamic get markerHeight =>
-      props[_$key__markerHeight___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__markerHeight___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.markerHeight] -->
   @override
   set markerHeight(dynamic value) =>
@@ -4337,8 +4343,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.markerMid] -->
   @override
   dynamic get markerMid =>
-      props[_$key__markerMid___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__markerMid___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.markerMid] -->
   @override
   set markerMid(dynamic value) =>
@@ -4347,8 +4353,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.markerStart] -->
   @override
   dynamic get markerStart =>
-      props[_$key__markerStart___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__markerStart___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.markerStart] -->
   @override
   set markerStart(dynamic value) =>
@@ -4357,8 +4363,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.markerUnits] -->
   @override
   dynamic get markerUnits =>
-      props[_$key__markerUnits___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__markerUnits___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.markerUnits] -->
   @override
   set markerUnits(dynamic value) =>
@@ -4367,8 +4373,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.markerWidth] -->
   @override
   dynamic get markerWidth =>
-      props[_$key__markerWidth___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__markerWidth___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.markerWidth] -->
   @override
   set markerWidth(dynamic value) =>
@@ -4377,8 +4383,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.maskContentUnits] -->
   @override
   dynamic get maskContentUnits =>
-      props[_$key__maskContentUnits___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__maskContentUnits___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.maskContentUnits] -->
   @override
   set maskContentUnits(dynamic value) =>
@@ -4387,8 +4393,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.maskUnits] -->
   @override
   dynamic get maskUnits =>
-      props[_$key__maskUnits___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__maskUnits___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.maskUnits] -->
   @override
   set maskUnits(dynamic value) =>
@@ -4397,8 +4403,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.mathematical] -->
   @override
   dynamic get mathematical =>
-      props[_$key__mathematical___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__mathematical___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.mathematical] -->
   @override
   set mathematical(dynamic value) =>
@@ -4406,9 +4412,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.mode] -->
   @override
-  dynamic get mode =>
-      props[_$key__mode___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get mode => (props[_$key__mode___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.mode] -->
   @override
   set mode(dynamic value) => props[_$key__mode___$SvgPropsMixin] = value;
@@ -4416,8 +4421,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.numOctaves] -->
   @override
   dynamic get numOctaves =>
-      props[_$key__numOctaves___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__numOctaves___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.numOctaves] -->
   @override
   set numOctaves(dynamic value) =>
@@ -4426,8 +4431,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.offset] -->
   @override
   dynamic get offset =>
-      props[_$key__offset___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__offset___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.offset] -->
   @override
   set offset(dynamic value) => props[_$key__offset___$SvgPropsMixin] = value;
@@ -4435,8 +4440,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.opacity] -->
   @override
   dynamic get opacity =>
-      props[_$key__opacity___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__opacity___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.opacity] -->
   @override
   set opacity(dynamic value) => props[_$key__opacity___$SvgPropsMixin] = value;
@@ -4444,8 +4449,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.operator] -->
   @override
   dynamic get operator =>
-      props[_$key__operator___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__operator___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.operator] -->
   @override
   set operator(dynamic value) =>
@@ -4454,8 +4459,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.order] -->
   @override
   dynamic get order =>
-      props[_$key__order___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__order___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.order] -->
   @override
   set order(dynamic value) => props[_$key__order___$SvgPropsMixin] = value;
@@ -4463,8 +4468,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.orient] -->
   @override
   dynamic get orient =>
-      props[_$key__orient___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__orient___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.orient] -->
   @override
   set orient(dynamic value) => props[_$key__orient___$SvgPropsMixin] = value;
@@ -4472,8 +4477,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.orientation] -->
   @override
   dynamic get orientation =>
-      props[_$key__orientation___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__orientation___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.orientation] -->
   @override
   set orientation(dynamic value) =>
@@ -4482,8 +4487,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.origin] -->
   @override
   dynamic get origin =>
-      props[_$key__origin___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__origin___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.origin] -->
   @override
   set origin(dynamic value) => props[_$key__origin___$SvgPropsMixin] = value;
@@ -4491,8 +4496,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.overflow] -->
   @override
   dynamic get overflow =>
-      props[_$key__overflow___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__overflow___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.overflow] -->
   @override
   set overflow(dynamic value) =>
@@ -4501,8 +4506,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.overlinePosition] -->
   @override
   dynamic get overlinePosition =>
-      props[_$key__overlinePosition___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__overlinePosition___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.overlinePosition] -->
   @override
   set overlinePosition(dynamic value) =>
@@ -4511,8 +4516,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.overlineThickness] -->
   @override
   dynamic get overlineThickness =>
-      props[_$key__overlineThickness___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__overlineThickness___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.overlineThickness] -->
   @override
   set overlineThickness(dynamic value) =>
@@ -4521,8 +4526,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.paintOrder] -->
   @override
   dynamic get paintOrder =>
-      props[_$key__paintOrder___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__paintOrder___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.paintOrder] -->
   @override
   set paintOrder(dynamic value) =>
@@ -4531,8 +4536,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.panose1] -->
   @override
   dynamic get panose1 =>
-      props[_$key__panose1___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__panose1___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.panose1] -->
   @override
   set panose1(dynamic value) => props[_$key__panose1___$SvgPropsMixin] = value;
@@ -4540,8 +4545,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.pathLength] -->
   @override
   dynamic get pathLength =>
-      props[_$key__pathLength___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__pathLength___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.pathLength] -->
   @override
   set pathLength(dynamic value) =>
@@ -4550,8 +4555,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.patternContentUnits] -->
   @override
   dynamic get patternContentUnits =>
-      props[_$key__patternContentUnits___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__patternContentUnits___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.patternContentUnits] -->
   @override
   set patternContentUnits(dynamic value) =>
@@ -4560,8 +4565,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.patternTransform] -->
   @override
   dynamic get patternTransform =>
-      props[_$key__patternTransform___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__patternTransform___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.patternTransform] -->
   @override
   set patternTransform(dynamic value) =>
@@ -4570,8 +4575,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.patternUnits] -->
   @override
   dynamic get patternUnits =>
-      props[_$key__patternUnits___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__patternUnits___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.patternUnits] -->
   @override
   set patternUnits(dynamic value) =>
@@ -4580,8 +4585,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.pointerEvents] -->
   @override
   dynamic get pointerEvents =>
-      props[_$key__pointerEvents___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__pointerEvents___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.pointerEvents] -->
   @override
   set pointerEvents(dynamic value) =>
@@ -4590,8 +4595,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.points] -->
   @override
   dynamic get points =>
-      props[_$key__points___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__points___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.points] -->
   @override
   set points(dynamic value) => props[_$key__points___$SvgPropsMixin] = value;
@@ -4599,8 +4604,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.pointsAtX] -->
   @override
   dynamic get pointsAtX =>
-      props[_$key__pointsAtX___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__pointsAtX___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.pointsAtX] -->
   @override
   set pointsAtX(dynamic value) =>
@@ -4609,8 +4614,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.pointsAtY] -->
   @override
   dynamic get pointsAtY =>
-      props[_$key__pointsAtY___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__pointsAtY___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.pointsAtY] -->
   @override
   set pointsAtY(dynamic value) =>
@@ -4619,8 +4624,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.pointsAtZ] -->
   @override
   dynamic get pointsAtZ =>
-      props[_$key__pointsAtZ___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__pointsAtZ___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.pointsAtZ] -->
   @override
   set pointsAtZ(dynamic value) =>
@@ -4629,8 +4634,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.preserveAlpha] -->
   @override
   dynamic get preserveAlpha =>
-      props[_$key__preserveAlpha___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__preserveAlpha___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.preserveAlpha] -->
   @override
   set preserveAlpha(dynamic value) =>
@@ -4639,8 +4644,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.preserveAspectRatio] -->
   @override
   dynamic get preserveAspectRatio =>
-      props[_$key__preserveAspectRatio___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__preserveAspectRatio___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.preserveAspectRatio] -->
   @override
   set preserveAspectRatio(dynamic value) =>
@@ -4649,8 +4654,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.primitiveUnits] -->
   @override
   dynamic get primitiveUnits =>
-      props[_$key__primitiveUnits___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__primitiveUnits___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.primitiveUnits] -->
   @override
   set primitiveUnits(dynamic value) =>
@@ -4658,9 +4663,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.r] -->
   @override
-  dynamic get r =>
-      props[_$key__r___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get r => (props[_$key__r___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.r] -->
   @override
   set r(dynamic value) => props[_$key__r___$SvgPropsMixin] = value;
@@ -4668,26 +4672,24 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.radius] -->
   @override
   dynamic get radius =>
-      props[_$key__radius___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__radius___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.radius] -->
   @override
   set radius(dynamic value) => props[_$key__radius___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.refX] -->
   @override
-  dynamic get refX =>
-      props[_$key__refX___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get refX => (props[_$key__refX___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.refX] -->
   @override
   set refX(dynamic value) => props[_$key__refX___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.refY] -->
   @override
-  dynamic get refY =>
-      props[_$key__refY___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get refY => (props[_$key__refY___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.refY] -->
   @override
   set refY(dynamic value) => props[_$key__refY___$SvgPropsMixin] = value;
@@ -4695,8 +4697,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.renderingIntent] -->
   @override
   dynamic get renderingIntent =>
-      props[_$key__renderingIntent___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__renderingIntent___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.renderingIntent] -->
   @override
   set renderingIntent(dynamic value) =>
@@ -4705,8 +4707,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.repeatCount] -->
   @override
   dynamic get repeatCount =>
-      props[_$key__repeatCount___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__repeatCount___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.repeatCount] -->
   @override
   set repeatCount(dynamic value) =>
@@ -4715,8 +4717,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.repeatDur] -->
   @override
   dynamic get repeatDur =>
-      props[_$key__repeatDur___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__repeatDur___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.repeatDur] -->
   @override
   set repeatDur(dynamic value) =>
@@ -4725,8 +4727,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.requiredExtensions] -->
   @override
   dynamic get requiredExtensions =>
-      props[_$key__requiredExtensions___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__requiredExtensions___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.requiredExtensions] -->
   @override
   set requiredExtensions(dynamic value) =>
@@ -4735,8 +4737,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.requiredFeatures] -->
   @override
   dynamic get requiredFeatures =>
-      props[_$key__requiredFeatures___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__requiredFeatures___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.requiredFeatures] -->
   @override
   set requiredFeatures(dynamic value) =>
@@ -4745,8 +4747,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.restart] -->
   @override
   dynamic get restart =>
-      props[_$key__restart___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__restart___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.restart] -->
   @override
   set restart(dynamic value) => props[_$key__restart___$SvgPropsMixin] = value;
@@ -4754,26 +4756,24 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.rotate] -->
   @override
   dynamic get rotate =>
-      props[_$key__rotate___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__rotate___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.rotate] -->
   @override
   set rotate(dynamic value) => props[_$key__rotate___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.rx] -->
   @override
-  dynamic get rx =>
-      props[_$key__rx___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get rx => (props[_$key__rx___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.rx] -->
   @override
   set rx(dynamic value) => props[_$key__rx___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.ry] -->
   @override
-  dynamic get ry =>
-      props[_$key__ry___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get ry => (props[_$key__ry___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.ry] -->
   @override
   set ry(dynamic value) => props[_$key__ry___$SvgPropsMixin] = value;
@@ -4781,17 +4781,16 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.scale] -->
   @override
   dynamic get scale =>
-      props[_$key__scale___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__scale___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.scale] -->
   @override
   set scale(dynamic value) => props[_$key__scale___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.seed] -->
   @override
-  dynamic get seed =>
-      props[_$key__seed___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get seed => (props[_$key__seed___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.seed] -->
   @override
   set seed(dynamic value) => props[_$key__seed___$SvgPropsMixin] = value;
@@ -4799,8 +4798,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.shapeRendering] -->
   @override
   dynamic get shapeRendering =>
-      props[_$key__shapeRendering___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__shapeRendering___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.shapeRendering] -->
   @override
   set shapeRendering(dynamic value) =>
@@ -4809,8 +4808,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.slope] -->
   @override
   dynamic get slope =>
-      props[_$key__slope___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__slope___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.slope] -->
   @override
   set slope(dynamic value) => props[_$key__slope___$SvgPropsMixin] = value;
@@ -4818,8 +4817,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.spacing] -->
   @override
   dynamic get spacing =>
-      props[_$key__spacing___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__spacing___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.spacing] -->
   @override
   set spacing(dynamic value) => props[_$key__spacing___$SvgPropsMixin] = value;
@@ -4827,8 +4826,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.specularConstant] -->
   @override
   dynamic get specularConstant =>
-      props[_$key__specularConstant___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__specularConstant___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.specularConstant] -->
   @override
   set specularConstant(dynamic value) =>
@@ -4837,8 +4836,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.specularExponent] -->
   @override
   dynamic get specularExponent =>
-      props[_$key__specularExponent___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__specularExponent___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.specularExponent] -->
   @override
   set specularExponent(dynamic value) =>
@@ -4847,8 +4846,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.speed] -->
   @override
   dynamic get speed =>
-      props[_$key__speed___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__speed___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.speed] -->
   @override
   set speed(dynamic value) => props[_$key__speed___$SvgPropsMixin] = value;
@@ -4856,8 +4855,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.spreadMethod] -->
   @override
   dynamic get spreadMethod =>
-      props[_$key__spreadMethod___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__spreadMethod___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.spreadMethod] -->
   @override
   set spreadMethod(dynamic value) =>
@@ -4866,8 +4865,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.startOffset] -->
   @override
   dynamic get startOffset =>
-      props[_$key__startOffset___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__startOffset___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.startOffset] -->
   @override
   set startOffset(dynamic value) =>
@@ -4876,8 +4875,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.stdDeviation] -->
   @override
   dynamic get stdDeviation =>
-      props[_$key__stdDeviation___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__stdDeviation___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.stdDeviation] -->
   @override
   set stdDeviation(dynamic value) =>
@@ -4886,8 +4885,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.stemh] -->
   @override
   dynamic get stemh =>
-      props[_$key__stemh___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__stemh___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.stemh] -->
   @override
   set stemh(dynamic value) => props[_$key__stemh___$SvgPropsMixin] = value;
@@ -4895,8 +4894,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.stemv] -->
   @override
   dynamic get stemv =>
-      props[_$key__stemv___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__stemv___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.stemv] -->
   @override
   set stemv(dynamic value) => props[_$key__stemv___$SvgPropsMixin] = value;
@@ -4904,8 +4903,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.stitchTiles] -->
   @override
   dynamic get stitchTiles =>
-      props[_$key__stitchTiles___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__stitchTiles___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.stitchTiles] -->
   @override
   set stitchTiles(dynamic value) =>
@@ -4914,8 +4913,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.stopColor] -->
   @override
   dynamic get stopColor =>
-      props[_$key__stopColor___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__stopColor___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.stopColor] -->
   @override
   set stopColor(dynamic value) =>
@@ -4924,8 +4923,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.stopOpacity] -->
   @override
   dynamic get stopOpacity =>
-      props[_$key__stopOpacity___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__stopOpacity___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.stopOpacity] -->
   @override
   set stopOpacity(dynamic value) =>
@@ -4934,8 +4933,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.strikethroughPosition] -->
   @override
   dynamic get strikethroughPosition =>
-      props[_$key__strikethroughPosition___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__strikethroughPosition___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.strikethroughPosition] -->
   @override
   set strikethroughPosition(dynamic value) =>
@@ -4944,8 +4943,9 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.strikethroughThickness] -->
   @override
   dynamic get strikethroughThickness =>
-      props[_$key__strikethroughThickness___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__strikethroughThickness___$SvgPropsMixin] ?? null)
+          as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.strikethroughThickness] -->
   @override
   set strikethroughThickness(dynamic value) =>
@@ -4954,8 +4954,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.string] -->
   @override
   dynamic get string =>
-      props[_$key__string___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__string___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.string] -->
   @override
   set string(dynamic value) => props[_$key__string___$SvgPropsMixin] = value;
@@ -4963,8 +4963,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.stroke] -->
   @override
   dynamic get stroke =>
-      props[_$key__stroke___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__stroke___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.stroke] -->
   @override
   set stroke(dynamic value) => props[_$key__stroke___$SvgPropsMixin] = value;
@@ -4972,8 +4972,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.strokeDasharray] -->
   @override
   dynamic get strokeDasharray =>
-      props[_$key__strokeDasharray___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__strokeDasharray___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.strokeDasharray] -->
   @override
   set strokeDasharray(dynamic value) =>
@@ -4982,8 +4982,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.strokeDashoffset] -->
   @override
   dynamic get strokeDashoffset =>
-      props[_$key__strokeDashoffset___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__strokeDashoffset___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.strokeDashoffset] -->
   @override
   set strokeDashoffset(dynamic value) =>
@@ -4992,8 +4992,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.strokeLinecap] -->
   @override
   dynamic get strokeLinecap =>
-      props[_$key__strokeLinecap___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__strokeLinecap___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.strokeLinecap] -->
   @override
   set strokeLinecap(dynamic value) =>
@@ -5002,8 +5002,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.strokeMiterlimit] -->
   @override
   dynamic get strokeMiterlimit =>
-      props[_$key__strokeMiterlimit___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__strokeMiterlimit___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.strokeMiterlimit] -->
   @override
   set strokeMiterlimit(dynamic value) =>
@@ -5012,8 +5012,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.strokeOpacity] -->
   @override
   dynamic get strokeOpacity =>
-      props[_$key__strokeOpacity___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__strokeOpacity___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.strokeOpacity] -->
   @override
   set strokeOpacity(dynamic value) =>
@@ -5022,8 +5022,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.strokeWidth] -->
   @override
   dynamic get strokeWidth =>
-      props[_$key__strokeWidth___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__strokeWidth___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.strokeWidth] -->
   @override
   set strokeWidth(dynamic value) =>
@@ -5032,8 +5032,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.surfaceScale] -->
   @override
   dynamic get surfaceScale =>
-      props[_$key__surfaceScale___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__surfaceScale___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.surfaceScale] -->
   @override
   set surfaceScale(dynamic value) =>
@@ -5042,8 +5042,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.systemLanguage] -->
   @override
   dynamic get systemLanguage =>
-      props[_$key__systemLanguage___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__systemLanguage___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.systemLanguage] -->
   @override
   set systemLanguage(dynamic value) =>
@@ -5052,8 +5052,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.tableValues] -->
   @override
   dynamic get tableValues =>
-      props[_$key__tableValues___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__tableValues___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.tableValues] -->
   @override
   set tableValues(dynamic value) =>
@@ -5062,8 +5062,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.targetX] -->
   @override
   dynamic get targetX =>
-      props[_$key__targetX___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__targetX___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.targetX] -->
   @override
   set targetX(dynamic value) => props[_$key__targetX___$SvgPropsMixin] = value;
@@ -5071,8 +5071,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.targetY] -->
   @override
   dynamic get targetY =>
-      props[_$key__targetY___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__targetY___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.targetY] -->
   @override
   set targetY(dynamic value) => props[_$key__targetY___$SvgPropsMixin] = value;
@@ -5080,8 +5080,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.textAnchor] -->
   @override
   dynamic get textAnchor =>
-      props[_$key__textAnchor___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__textAnchor___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.textAnchor] -->
   @override
   set textAnchor(dynamic value) =>
@@ -5090,8 +5090,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.textDecoration] -->
   @override
   dynamic get textDecoration =>
-      props[_$key__textDecoration___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__textDecoration___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.textDecoration] -->
   @override
   set textDecoration(dynamic value) =>
@@ -5100,8 +5100,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.textLength] -->
   @override
   dynamic get textLength =>
-      props[_$key__textLength___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__textLength___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.textLength] -->
   @override
   set textLength(dynamic value) =>
@@ -5110,8 +5110,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.textRendering] -->
   @override
   dynamic get textRendering =>
-      props[_$key__textRendering___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__textRendering___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.textRendering] -->
   @override
   set textRendering(dynamic value) =>
@@ -5119,9 +5119,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.to] -->
   @override
-  dynamic get to =>
-      props[_$key__to___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get to => (props[_$key__to___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.to] -->
   @override
   set to(dynamic value) => props[_$key__to___$SvgPropsMixin] = value;
@@ -5129,8 +5128,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.transform] -->
   @override
   dynamic get transform =>
-      props[_$key__transform___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__transform___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.transform] -->
   @override
   set transform(dynamic value) =>
@@ -5138,18 +5137,16 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.u1] -->
   @override
-  dynamic get u1 =>
-      props[_$key__u1___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get u1 => (props[_$key__u1___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.u1] -->
   @override
   set u1(dynamic value) => props[_$key__u1___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.u2] -->
   @override
-  dynamic get u2 =>
-      props[_$key__u2___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get u2 => (props[_$key__u2___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.u2] -->
   @override
   set u2(dynamic value) => props[_$key__u2___$SvgPropsMixin] = value;
@@ -5157,8 +5154,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.underlinePosition] -->
   @override
   dynamic get underlinePosition =>
-      props[_$key__underlinePosition___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__underlinePosition___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.underlinePosition] -->
   @override
   set underlinePosition(dynamic value) =>
@@ -5167,8 +5164,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.underlineThickness] -->
   @override
   dynamic get underlineThickness =>
-      props[_$key__underlineThickness___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__underlineThickness___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.underlineThickness] -->
   @override
   set underlineThickness(dynamic value) =>
@@ -5177,8 +5174,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.unicode] -->
   @override
   dynamic get unicode =>
-      props[_$key__unicode___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__unicode___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.unicode] -->
   @override
   set unicode(dynamic value) => props[_$key__unicode___$SvgPropsMixin] = value;
@@ -5186,8 +5183,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.unicodeBidi] -->
   @override
   dynamic get unicodeBidi =>
-      props[_$key__unicodeBidi___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__unicodeBidi___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.unicodeBidi] -->
   @override
   set unicodeBidi(dynamic value) =>
@@ -5196,8 +5193,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.unicodeRange] -->
   @override
   dynamic get unicodeRange =>
-      props[_$key__unicodeRange___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__unicodeRange___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.unicodeRange] -->
   @override
   set unicodeRange(dynamic value) =>
@@ -5206,8 +5203,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.unitsPerEm] -->
   @override
   dynamic get unitsPerEm =>
-      props[_$key__unitsPerEm___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__unitsPerEm___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.unitsPerEm] -->
   @override
   set unitsPerEm(dynamic value) =>
@@ -5216,8 +5213,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.vAlphabetic] -->
   @override
   dynamic get vAlphabetic =>
-      props[_$key__vAlphabetic___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__vAlphabetic___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.vAlphabetic] -->
   @override
   set vAlphabetic(dynamic value) =>
@@ -5226,8 +5223,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.vHanging] -->
   @override
   dynamic get vHanging =>
-      props[_$key__vHanging___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__vHanging___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.vHanging] -->
   @override
   set vHanging(dynamic value) =>
@@ -5236,8 +5233,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.vIdeographic] -->
   @override
   dynamic get vIdeographic =>
-      props[_$key__vIdeographic___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__vIdeographic___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.vIdeographic] -->
   @override
   set vIdeographic(dynamic value) =>
@@ -5246,8 +5243,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.vMathematical] -->
   @override
   dynamic get vMathematical =>
-      props[_$key__vMathematical___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__vMathematical___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.vMathematical] -->
   @override
   set vMathematical(dynamic value) =>
@@ -5256,8 +5253,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.vectorEffect] -->
   @override
   dynamic get vectorEffect =>
-      props[_$key__vectorEffect___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__vectorEffect___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.vectorEffect] -->
   @override
   set vectorEffect(dynamic value) =>
@@ -5266,8 +5263,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.version] -->
   @override
   dynamic get version =>
-      props[_$key__version___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__version___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.version] -->
   @override
   set version(dynamic value) => props[_$key__version___$SvgPropsMixin] = value;
@@ -5275,8 +5272,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.vertAdvY] -->
   @override
   dynamic get vertAdvY =>
-      props[_$key__vertAdvY___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__vertAdvY___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.vertAdvY] -->
   @override
   set vertAdvY(dynamic value) =>
@@ -5285,8 +5282,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.vertOriginX] -->
   @override
   dynamic get vertOriginX =>
-      props[_$key__vertOriginX___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__vertOriginX___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.vertOriginX] -->
   @override
   set vertOriginX(dynamic value) =>
@@ -5295,8 +5292,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.vertOriginY] -->
   @override
   dynamic get vertOriginY =>
-      props[_$key__vertOriginY___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__vertOriginY___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.vertOriginY] -->
   @override
   set vertOriginY(dynamic value) =>
@@ -5305,8 +5302,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.viewBox] -->
   @override
   dynamic get viewBox =>
-      props[_$key__viewBox___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__viewBox___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.viewBox] -->
   @override
   set viewBox(dynamic value) => props[_$key__viewBox___$SvgPropsMixin] = value;
@@ -5314,8 +5311,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.viewTarget] -->
   @override
   dynamic get viewTarget =>
-      props[_$key__viewTarget___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__viewTarget___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.viewTarget] -->
   @override
   set viewTarget(dynamic value) =>
@@ -5324,8 +5321,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.visibility] -->
   @override
   dynamic get visibility =>
-      props[_$key__visibility___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__visibility___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.visibility] -->
   @override
   set visibility(dynamic value) =>
@@ -5334,8 +5331,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.widths] -->
   @override
   dynamic get widths =>
-      props[_$key__widths___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__widths___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.widths] -->
   @override
   set widths(dynamic value) => props[_$key__widths___$SvgPropsMixin] = value;
@@ -5343,8 +5340,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.wordSpacing] -->
   @override
   dynamic get wordSpacing =>
-      props[_$key__wordSpacing___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__wordSpacing___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.wordSpacing] -->
   @override
   set wordSpacing(dynamic value) =>
@@ -5353,8 +5350,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.writingMode] -->
   @override
   dynamic get writingMode =>
-      props[_$key__writingMode___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__writingMode___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.writingMode] -->
   @override
   set writingMode(dynamic value) =>
@@ -5362,27 +5359,24 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.x] -->
   @override
-  dynamic get x =>
-      props[_$key__x___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get x => (props[_$key__x___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.x] -->
   @override
   set x(dynamic value) => props[_$key__x___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.x1] -->
   @override
-  dynamic get x1 =>
-      props[_$key__x1___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get x1 => (props[_$key__x1___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.x1] -->
   @override
   set x1(dynamic value) => props[_$key__x1___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.x2] -->
   @override
-  dynamic get x2 =>
-      props[_$key__x2___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get x2 => (props[_$key__x2___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.x2] -->
   @override
   set x2(dynamic value) => props[_$key__x2___$SvgPropsMixin] = value;
@@ -5390,8 +5384,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.xHeight] -->
   @override
   dynamic get xHeight =>
-      props[_$key__xHeight___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__xHeight___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.xHeight] -->
   @override
   set xHeight(dynamic value) => props[_$key__xHeight___$SvgPropsMixin] = value;
@@ -5399,8 +5393,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.xlinkActuate] -->
   @override
   dynamic get xlinkActuate =>
-      props[_$key__xlinkActuate___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__xlinkActuate___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.xlinkActuate] -->
   @override
   set xlinkActuate(dynamic value) =>
@@ -5409,8 +5403,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.xlinkArcrole] -->
   @override
   dynamic get xlinkArcrole =>
-      props[_$key__xlinkArcrole___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__xlinkArcrole___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.xlinkArcrole] -->
   @override
   set xlinkArcrole(dynamic value) =>
@@ -5419,8 +5413,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.xlinkHref] -->
   @override
   dynamic get xlinkHref =>
-      props[_$key__xlinkHref___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__xlinkHref___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.xlinkHref] -->
   @override
   set xlinkHref(dynamic value) =>
@@ -5429,8 +5423,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.xlinkRole] -->
   @override
   dynamic get xlinkRole =>
-      props[_$key__xlinkRole___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__xlinkRole___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.xlinkRole] -->
   @override
   set xlinkRole(dynamic value) =>
@@ -5439,8 +5433,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.xlinkShow] -->
   @override
   dynamic get xlinkShow =>
-      props[_$key__xlinkShow___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__xlinkShow___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.xlinkShow] -->
   @override
   set xlinkShow(dynamic value) =>
@@ -5449,8 +5443,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.xlinkTitle] -->
   @override
   dynamic get xlinkTitle =>
-      props[_$key__xlinkTitle___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__xlinkTitle___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.xlinkTitle] -->
   @override
   set xlinkTitle(dynamic value) =>
@@ -5459,8 +5453,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.xlinkType] -->
   @override
   dynamic get xlinkType =>
-      props[_$key__xlinkType___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__xlinkType___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.xlinkType] -->
   @override
   set xlinkType(dynamic value) =>
@@ -5469,8 +5463,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.xmlBase] -->
   @override
   dynamic get xmlBase =>
-      props[_$key__xmlBase___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__xmlBase___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.xmlBase] -->
   @override
   set xmlBase(dynamic value) => props[_$key__xmlBase___$SvgPropsMixin] = value;
@@ -5478,8 +5472,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.xmlLang] -->
   @override
   dynamic get xmlLang =>
-      props[_$key__xmlLang___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__xmlLang___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.xmlLang] -->
   @override
   set xmlLang(dynamic value) => props[_$key__xmlLang___$SvgPropsMixin] = value;
@@ -5487,8 +5481,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.xmlSpace] -->
   @override
   dynamic get xmlSpace =>
-      props[_$key__xmlSpace___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__xmlSpace___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.xmlSpace] -->
   @override
   set xmlSpace(dynamic value) =>
@@ -5496,27 +5490,24 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.y1] -->
   @override
-  dynamic get y1 =>
-      props[_$key__y1___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get y1 => (props[_$key__y1___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.y1] -->
   @override
   set y1(dynamic value) => props[_$key__y1___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.y2] -->
   @override
-  dynamic get y2 =>
-      props[_$key__y2___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get y2 => (props[_$key__y2___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.y2] -->
   @override
   set y2(dynamic value) => props[_$key__y2___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.y] -->
   @override
-  dynamic get y =>
-      props[_$key__y___$SvgPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  dynamic get y => (props[_$key__y___$SvgPropsMixin] ?? null) as dynamic;
+
   /// <!-- Generated from [_$SvgPropsMixin.y] -->
   @override
   set y(dynamic value) => props[_$key__y___$SvgPropsMixin] = value;
@@ -6788,8 +6779,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.tabIndex] -->
   @override
   dynamic get tabIndex =>
-      props[_$key__tabIndex___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__tabIndex___$UbiquitousDomPropsMixin] ?? null) as dynamic;
+
   /// Whether the element if focusable.
   /// Must be a valid integer or String of valid integer.
   ///
@@ -6804,8 +6795,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.id] -->
   @override
   String get id =>
-      props[_$key__id___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__id___$UbiquitousDomPropsMixin] ?? null) as String;
+
   /// Unique identifier.
   /// Must be unique amongst all the ids, and contain at least one character.
   ///
@@ -6818,8 +6809,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.title] -->
   @override
   String get title =>
-      props[_$key__title___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__title___$UbiquitousDomPropsMixin] ?? null) as String;
+
   /// Represents advisory information about the element.
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.title] -->
@@ -6839,8 +6830,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.style] -->
   @override
   Map<String, dynamic> get style =>
-      props[_$key__style___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__style___$UbiquitousDomPropsMixin] ?? null)
+          as Map<String, dynamic>;
+
   /// An inline CSS style for the element.
   ///
   ///     ..style = {
@@ -6862,8 +6854,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationEnd] -->
   @override
   AnimationEventCallback get onAnimationEnd =>
-      props[_$key__onAnimationEnd___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onAnimationEnd___$UbiquitousDomPropsMixin] ?? null)
+          as AnimationEventCallback;
+
   /// Callback for when a CSS Animation has completed.
   ///
   /// > Related: [onAnimationIteration], [onAnimationStart], [onTransitionEnd]
@@ -6880,8 +6873,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationIteration] -->
   @override
   AnimationEventCallback get onAnimationIteration =>
-      props[_$key__onAnimationIteration___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onAnimationIteration___$UbiquitousDomPropsMixin] ?? null)
+          as AnimationEventCallback;
+
   /// Callback for when an iteration of a CSS Animation ends, and another one begins.
   ///
   /// > Related: [onAnimationEnd], [onAnimationStart]
@@ -6898,8 +6892,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationStart] -->
   @override
   AnimationEventCallback get onAnimationStart =>
-      props[_$key__onAnimationStart___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onAnimationStart___$UbiquitousDomPropsMixin] ?? null)
+          as AnimationEventCallback;
+
   /// Callback for when a CSS animation has started.
   ///
   /// > Related: [onAnimationEnd], [onAnimationIteration]
@@ -6914,8 +6909,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onCopy] -->
   @override
   ClipboardEventCallback get onCopy =>
-      props[_$key__onCopy___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onCopy___$UbiquitousDomPropsMixin] ?? null)
+          as ClipboardEventCallback;
+
   /// Callback for when the user copies the content of an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onCopy] -->
@@ -6928,8 +6924,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onCut] -->
   @override
   ClipboardEventCallback get onCut =>
-      props[_$key__onCut___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onCut___$UbiquitousDomPropsMixin] ?? null)
+          as ClipboardEventCallback;
+
   /// Callback for when the user cuts the content of an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onCut] -->
@@ -6942,8 +6939,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPaste] -->
   @override
   ClipboardEventCallback get onPaste =>
-      props[_$key__onPaste___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPaste___$UbiquitousDomPropsMixin] ?? null)
+          as ClipboardEventCallback;
+
   /// Callback for when the user pastes some content in an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPaste] -->
@@ -6956,8 +6954,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyDown] -->
   @override
   KeyboardEventCallback get onKeyDown =>
-      props[_$key__onKeyDown___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onKeyDown___$UbiquitousDomPropsMixin] ?? null)
+          as KeyboardEventCallback;
+
   /// Callback for when the user is pressing a key
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyDown] -->
@@ -6970,8 +6969,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyPress] -->
   @override
   KeyboardEventCallback get onKeyPress =>
-      props[_$key__onKeyPress___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onKeyPress___$UbiquitousDomPropsMixin] ?? null)
+          as KeyboardEventCallback;
+
   /// Callback for when the user presses a key
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyPress] -->
@@ -6984,8 +6984,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyUp] -->
   @override
   KeyboardEventCallback get onKeyUp =>
-      props[_$key__onKeyUp___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onKeyUp___$UbiquitousDomPropsMixin] ?? null)
+          as KeyboardEventCallback;
+
   /// Callback for when the user releases a key
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyUp] -->
@@ -6998,8 +6999,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onFocus] -->
   @override
   FocusEventCallback get onFocus =>
-      props[_$key__onFocus___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onFocus___$UbiquitousDomPropsMixin] ?? null)
+          as FocusEventCallback;
+
   /// Callback for when an element gets focus
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onFocus] -->
@@ -7012,8 +7014,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onBlur] -->
   @override
   FocusEventCallback get onBlur =>
-      props[_$key__onBlur___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onBlur___$UbiquitousDomPropsMixin] ?? null)
+          as FocusEventCallback;
+
   /// Callback for when an element loses focus
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onBlur] -->
@@ -7027,8 +7030,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onChange] -->
   @override
   FormEventCallback get onChange =>
-      props[_$key__onChange___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onChange___$UbiquitousDomPropsMixin] ?? null)
+          as FormEventCallback;
+
   /// Callback for  when the content of a form element, the selection, or the checked state have changed (for <input>,
   /// <keygen>, <select>, and <textarea>)
   ///
@@ -7042,8 +7046,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onInput] -->
   @override
   FormEventCallback get onInput =>
-      props[_$key__onInput___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onInput___$UbiquitousDomPropsMixin] ?? null)
+          as FormEventCallback;
+
   /// Callback for when an element gets user input
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onInput] -->
@@ -7056,8 +7061,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onSubmit] -->
   @override
   FormEventCallback get onSubmit =>
-      props[_$key__onSubmit___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onSubmit___$UbiquitousDomPropsMixin] ?? null)
+          as FormEventCallback;
+
   /// Callback for when a form is submitted
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onSubmit] -->
@@ -7070,8 +7076,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onReset] -->
   @override
   FormEventCallback get onReset =>
-      props[_$key__onReset___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onReset___$UbiquitousDomPropsMixin] ?? null)
+          as FormEventCallback;
+
   /// Callback for when a form is reset
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onReset] -->
@@ -7084,8 +7091,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onClick] -->
   @override
   MouseEventCallback get onClick =>
-      props[_$key__onClick___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onClick___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// Callback for when the user clicks on an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onClick] -->
@@ -7098,8 +7106,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onContextMenu] -->
   @override
   MouseEventCallback get onContextMenu =>
-      props[_$key__onContextMenu___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onContextMenu___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// Callback for when the user right-clicks on an element to open a context menu
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onContextMenu] -->
@@ -7112,8 +7121,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDoubleClick] -->
   @override
   MouseEventCallback get onDoubleClick =>
-      props[_$key__onDoubleClick___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDoubleClick___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// Callback for when the user double-clicks on an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDoubleClick] -->
@@ -7126,8 +7136,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDrag] -->
   @override
   MouseEventCallback get onDrag =>
-      props[_$key__onDrag___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDrag___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// Callback for when an element is being dragged
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDrag] -->
@@ -7140,8 +7151,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragEnd] -->
   @override
   MouseEventCallback get onDragEnd =>
-      props[_$key__onDragEnd___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDragEnd___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// Callback for when the user has finished dragging an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragEnd] -->
@@ -7154,8 +7166,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragEnter] -->
   @override
   MouseEventCallback get onDragEnter =>
-      props[_$key__onDragEnter___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDragEnter___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// Callback for when the dragged element enters the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragEnter] -->
@@ -7168,8 +7181,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragExit] -->
   @override
   MouseEventCallback get onDragExit =>
-      props[_$key__onDragExit___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDragExit___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// Callback for when the dragged element exits the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragExit] -->
@@ -7182,8 +7196,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragLeave] -->
   @override
   MouseEventCallback get onDragLeave =>
-      props[_$key__onDragLeave___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDragLeave___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// Callback for when the dragged element leaves the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragLeave] -->
@@ -7196,8 +7211,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragOver] -->
   @override
   MouseEventCallback get onDragOver =>
-      props[_$key__onDragOver___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDragOver___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// Callback for when the dragged element is over the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragOver] -->
@@ -7210,8 +7226,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragStart] -->
   @override
   MouseEventCallback get onDragStart =>
-      props[_$key__onDragStart___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDragStart___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// Callback for when the user starts to drag an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragStart] -->
@@ -7224,8 +7241,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDrop] -->
   @override
   MouseEventCallback get onDrop =>
-      props[_$key__onDrop___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDrop___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// Callback for when the dragged element is dropped on the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDrop] -->
@@ -7238,8 +7256,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseDown] -->
   @override
   MouseEventCallback get onMouseDown =>
-      props[_$key__onMouseDown___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseDown___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// Callback for when the user presses a mouse button over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseDown] -->
@@ -7252,8 +7271,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseEnter] -->
   @override
   MouseEventCallback get onMouseEnter =>
-      props[_$key__onMouseEnter___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseEnter___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// Callback for when the pointer is moved onto an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseEnter] -->
@@ -7266,8 +7286,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseLeave] -->
   @override
   MouseEventCallback get onMouseLeave =>
-      props[_$key__onMouseLeave___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseLeave___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// Callback for when the pointer is moved out of an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseLeave] -->
@@ -7280,8 +7301,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseMove] -->
   @override
   MouseEventCallback get onMouseMove =>
-      props[_$key__onMouseMove___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseMove___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// Callback for when the pointer is moving while it is over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseMove] -->
@@ -7294,8 +7316,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseOut] -->
   @override
   MouseEventCallback get onMouseOut =>
-      props[_$key__onMouseOut___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseOut___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// Callback for when a user moves the mouse pointer out of an element, or out of one of its children
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseOut] -->
@@ -7308,8 +7331,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseOver] -->
   @override
   MouseEventCallback get onMouseOver =>
-      props[_$key__onMouseOver___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseOver___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// Callback for when the pointer is moved onto an element, or onto one of its children
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseOver] -->
@@ -7322,8 +7346,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseUp] -->
   @override
   MouseEventCallback get onMouseUp =>
-      props[_$key__onMouseUp___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onMouseUp___$UbiquitousDomPropsMixin] ?? null)
+          as MouseEventCallback;
+
   /// Callback for when a user releases a mouse button over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseUp] -->
@@ -7336,8 +7361,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerCancel] -->
   @override
   PointerEventCallback get onPointerCancel =>
-      props[_$key__onPointerCancel___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPointerCancel___$UbiquitousDomPropsMixin] ?? null)
+          as PointerEventCallback;
+
   /// Callback for when the pointing device is interrupted
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerCancel] -->
@@ -7350,8 +7376,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerDown] -->
   @override
   PointerEventCallback get onPointerDown =>
-      props[_$key__onPointerDown___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPointerDown___$UbiquitousDomPropsMixin] ?? null)
+          as PointerEventCallback;
+
   /// Callback for when the pointer becomes active over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerDown] -->
@@ -7364,8 +7391,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerEnter] -->
   @override
   PointerEventCallback get onPointerEnter =>
-      props[_$key__onPointerEnter___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPointerEnter___$UbiquitousDomPropsMixin] ?? null)
+          as PointerEventCallback;
+
   /// Callback for when the pointer is moved onto an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerEnter] -->
@@ -7378,8 +7406,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerLeave] -->
   @override
   PointerEventCallback get onPointerLeave =>
-      props[_$key__onPointerLeave___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPointerLeave___$UbiquitousDomPropsMixin] ?? null)
+          as PointerEventCallback;
+
   /// Callback for when the pointer is moved out of an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerLeave] -->
@@ -7392,8 +7421,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerMove] -->
   @override
   PointerEventCallback get onPointerMove =>
-      props[_$key__onPointerMove___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPointerMove___$UbiquitousDomPropsMixin] ?? null)
+          as PointerEventCallback;
+
   /// Callback for when the pointer is moving while it is over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerMove] -->
@@ -7406,8 +7436,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOver] -->
   @override
   PointerEventCallback get onPointerOver =>
-      props[_$key__onPointerOver___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPointerOver___$UbiquitousDomPropsMixin] ?? null)
+          as PointerEventCallback;
+
   /// Callback for when the pointer is moved onto an element, or onto one of its children
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOver] -->
@@ -7420,8 +7451,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOut] -->
   @override
   PointerEventCallback get onPointerOut =>
-      props[_$key__onPointerOut___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPointerOut___$UbiquitousDomPropsMixin] ?? null)
+          as PointerEventCallback;
+
   /// Callback for when the pointer is moved out of an element, or out of one of its children
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOut] -->
@@ -7434,8 +7466,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerUp] -->
   @override
   PointerEventCallback get onPointerUp =>
-      props[_$key__onPointerUp___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPointerUp___$UbiquitousDomPropsMixin] ?? null)
+          as PointerEventCallback;
+
   /// Callback for when the pointer becomes inactive over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerUp] -->
@@ -7448,8 +7481,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchCancel] -->
   @override
   TouchEventCallback get onTouchCancel =>
-      props[_$key__onTouchCancel___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onTouchCancel___$UbiquitousDomPropsMixin] ?? null)
+          as TouchEventCallback;
+
   /// Callback for when the touch is interrupted
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchCancel] -->
@@ -7462,8 +7496,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchEnd] -->
   @override
   TouchEventCallback get onTouchEnd =>
-      props[_$key__onTouchEnd___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onTouchEnd___$UbiquitousDomPropsMixin] ?? null)
+          as TouchEventCallback;
+
   /// Callback for when a finger is removed from a touch screen
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchEnd] -->
@@ -7476,8 +7511,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchMove] -->
   @override
   TouchEventCallback get onTouchMove =>
-      props[_$key__onTouchMove___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onTouchMove___$UbiquitousDomPropsMixin] ?? null)
+          as TouchEventCallback;
+
   /// Callback for when a finger is dragged across the screen
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchMove] -->
@@ -7490,8 +7526,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchStart] -->
   @override
   TouchEventCallback get onTouchStart =>
-      props[_$key__onTouchStart___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onTouchStart___$UbiquitousDomPropsMixin] ?? null)
+          as TouchEventCallback;
+
   /// Callback for when a finger is placed on a touch screen
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchStart] -->
@@ -7506,8 +7543,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTransitionEnd] -->
   @override
   TransitionEventCallback get onTransitionEnd =>
-      props[_$key__onTransitionEnd___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onTransitionEnd___$UbiquitousDomPropsMixin] ?? null)
+          as TransitionEventCallback;
+
   /// Callback for when a CSS transition has completed.
   ///
   /// > Related: [onAnimationEnd]
@@ -7522,8 +7560,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onScroll] -->
   @override
   UIEventCallback get onScroll =>
-      props[_$key__onScroll___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onScroll___$UbiquitousDomPropsMixin] ?? null)
+          as UIEventCallback;
+
   /// Callback for when an element's scrollbar is being scrolled
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onScroll] -->
@@ -7536,8 +7575,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onWheel] -->
   @override
   WheelEventCallback get onWheel =>
-      props[_$key__onWheel___$UbiquitousDomPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onWheel___$UbiquitousDomPropsMixin] ?? null)
+          as WheelEventCallback;
+
   /// Callback for when the mouse wheel rolls up or down over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onWheel] -->

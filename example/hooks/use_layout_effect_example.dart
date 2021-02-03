@@ -42,5 +42,5 @@ UiFactory<UseLayoutEffectProps> UseLayoutEffectExample = uiFunction(
       )(),
     );
   },
-  $UseLayoutEffectExampleConfig, // ignore: undefined_identifier
+  _$UseLayoutEffectExampleConfig, // ignore: undefined_identifier
 );

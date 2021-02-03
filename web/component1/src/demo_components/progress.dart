@@ -23,6 +23,7 @@ part 'progress.over_react.g.dart';
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/progress/>
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<ProgressProps> Progress = _$Progress;
 
 @Props()

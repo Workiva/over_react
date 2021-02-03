@@ -17,7 +17,7 @@ import 'package:over_react/over_react.dart';
 part 'basic_ui_component.over_react.g.dart';
 // ignore_for_file: deprecated_member_use_from_same_package
 @Factory()
-UiFactory<BasicUiComponentProps> BasicUiComponent = _$BasicUiComponent;
+UiFactory<BasicUiComponentProps> BasicUiComponent = _$BasicUiComponent; // ignore: undefined_identifier, invalid_assignment
 
 @Props()
 class _$BasicUiComponentProps extends UiProps {}

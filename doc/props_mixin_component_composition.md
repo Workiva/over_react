@@ -16,7 +16,8 @@ import 'package:over_react/over_react.dart';
 
 part 'foo.over_react.g.dart';
 
-UiFactory<FooPropsMixin> Foo = _$Foo; // ignore: undefined_identifier
+UiFactory<FooPropsMixin> Foo = 
+    castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooPropsMixin on UiProps {
   Set<int> qux;
@@ -57,7 +58,8 @@ import 'foo.dart';
 
 part 'foo_bar.over_react.g.dart';
 
-UiFactory<FooBarProps> FooBar = _$FooBar; // ignore: undefined_identifier
+UiFactory<FooBarProps> FooBar = 
+    castUiFactory(_$FooBar); // ignore: undefined_identifier
 
 mixin BarPropsMixin on UiProps {
   bool baz;
@@ -168,7 +170,7 @@ UiFactory<FooBazProps> FooBaz = uiFunction(
       return (Dom.li()..key = bizzle)(bizzle);
     }
   },
-  $FooBazConfig, // ignore: undefined_identifier
+  _$FooBazConfig, // ignore: undefined_identifier
 );
 ```
 

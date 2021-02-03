@@ -34,7 +34,7 @@ UiFactory<FunctionCustomPropsProps> FunctionCustomProps = uiFunction(
     return Dom.div()(Dom.div()('prop id: ${props.id}'),
         Dom.div()('test Prop: ${props.testProp}'));
   },
-  $FunctionCustomPropsConfig, // ignore: undefined_identifier
+  _$FunctionCustomPropsConfig, // ignore: undefined_identifier
 );
 
 main() {
@@ -120,6 +120,7 @@ main() {
 }
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<BasicUiComponent2Props> BasicUiComponent2 = _$BasicUiComponent2;
 
 @Props()

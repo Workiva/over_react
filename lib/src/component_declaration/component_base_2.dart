@@ -717,7 +717,7 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
       react.PropValidatorInfo _info,
     ) {
       var convertedProps = component.typedPropsFactoryJs(_props);
-      return _validator(convertedProps, _info);
+      return _validator(convertedProps, _info) as Error;
     }
 
     // Add [PropValidator]s for props annotated as required.

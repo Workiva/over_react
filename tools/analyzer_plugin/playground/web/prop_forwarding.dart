@@ -2,7 +2,7 @@ import 'package:over_react/over_react.dart';
 
 part 'prop_forwarding.over_react.g.dart';
 
-UiFactory<DomWrapperProps> DomWrapper = _$DomWrapper; // ignore: undefined_identifier
+UiFactory<DomWrapperProps> DomWrapper = castUiFactory(_$DomWrapper); // ignore: undefined_identifier
 
 mixin DomWrapperProps on UiProps {}
 

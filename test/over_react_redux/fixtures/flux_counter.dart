@@ -20,6 +20,7 @@ import 'connect_flux_store.dart';
 part 'flux_counter.over_react.g.dart';
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<FluxCounterProps> FluxCounter = _$FluxCounter;
 
 @Props()

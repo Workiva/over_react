@@ -12,23 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-class Action {
+class Action<T> {
   Action({this.type, this.value});
 
   final String type;
-  final dynamic value;
+  final T value;
 
   toJson() {
     return {'value': this.value};
   }
 }
 
-class IncrementAction extends Action {
-  IncrementAction([value]) : super(type: 'INCREMENT', value: value);
+class IncrementAction extends Action<int> {
+  IncrementAction([int value]) : super(type: 'INCREMENT', value: value);
 }
 
-class DecrementAction extends Action {
-  DecrementAction([value]) : super(type: 'DECREMENT', value: value);
+class DecrementAction extends Action<int> {
+  DecrementAction([int value]) : super(type: 'DECREMENT', value: value);
 }
 
 class IncrementModelCountAction extends Action {

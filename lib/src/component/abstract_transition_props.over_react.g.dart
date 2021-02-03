@@ -15,50 +15,43 @@ mixin $TransitionPropsMixin on TransitionPropsMixin {
   static const PropsMeta meta = _$metaForTransitionPropsMixin;
   @override
   int get transitionCount =>
-      props[_$key__transitionCount__TransitionPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__transitionCount__TransitionPropsMixin] ?? null) as int;
   @override
   set transitionCount(int value) =>
       props[_$key__transitionCount__TransitionPropsMixin] = value;
   @override
   int get transitionInCount =>
-      props[_$key__transitionInCount__TransitionPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__transitionInCount__TransitionPropsMixin] ?? null) as int;
   @override
   set transitionInCount(int value) =>
       props[_$key__transitionInCount__TransitionPropsMixin] = value;
   @override
   int get transitionOutCount =>
-      props[_$key__transitionOutCount__TransitionPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__transitionOutCount__TransitionPropsMixin] ?? null) as int;
   @override
   set transitionOutCount(int value) =>
       props[_$key__transitionOutCount__TransitionPropsMixin] = value;
   @override
   Callback get onWillHide =>
-      props[_$key__onWillHide__TransitionPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onWillHide__TransitionPropsMixin] ?? null) as Callback;
   @override
   set onWillHide(Callback value) =>
       props[_$key__onWillHide__TransitionPropsMixin] = value;
   @override
   Callback get onDidHide =>
-      props[_$key__onDidHide__TransitionPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDidHide__TransitionPropsMixin] ?? null) as Callback;
   @override
   set onDidHide(Callback value) =>
       props[_$key__onDidHide__TransitionPropsMixin] = value;
   @override
   Callback get onWillShow =>
-      props[_$key__onWillShow__TransitionPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onWillShow__TransitionPropsMixin] ?? null) as Callback;
   @override
   set onWillShow(Callback value) =>
       props[_$key__onWillShow__TransitionPropsMixin] = value;
   @override
   Callback get onDidShow =>
-      props[_$key__onDidShow__TransitionPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onDidShow__TransitionPropsMixin] ?? null) as Callback;
   @override
   set onDidShow(Callback value) =>
       props[_$key__onDidShow__TransitionPropsMixin] = value;
@@ -138,7 +131,7 @@ abstract class _$$TransitionPropsMixin extends UiProps
 
   factory _$$TransitionPropsMixin(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TransitionPropsMixin$JsMap(backingMap);
+      return _$$TransitionPropsMixin$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TransitionPropsMixin$PlainMap(backingMap);
     }

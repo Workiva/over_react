@@ -26,7 +26,7 @@ UiFactory<FancyButtonProps> FancyButton = uiForwardRef(
       ..className = classes.toClassName()
     )('Click me!');
   },
-  $FancyButtonConfig, // ignore: undefined_identifier
+  _$FancyButtonConfig, // ignore: undefined_identifier
 );
 
 //----------------------------------------------------------------------------//
@@ -40,12 +40,11 @@ UiFactory<TProps> withLogging<TProps extends UiProps>(UiFactory<TProps> factoryT
     (props, ref) {
       useEffect(() => 'withLogging rendered!');
 
-      // This requires an ignore until https://github.com/dart-lang/sdk/issues/42975
-      // is fixed.
-      return (factoryToWrap() // ignore: invocation_of_non_function_expression
+      // Needs to be split up due to https://github.com/dart-lang/sdk/issues/42975
+      final builder = factoryToWrap()
         ..addAll(props)
-        ..ref = ref
-      )(props.children);
+        ..ref = ref;
+       return builder(props.children);
     },
     factoryToWrap.asForwardRefConfig(
       displayName: 'WithLogging',
@@ -59,7 +58,7 @@ UiFactory<FancyButtonProps> FancyButtonWithLogging = withLogging(FancyButton);
 //----------------------------------------------------------------------------//
 // ### Example 3: Exposing inner refs in class components
 //----------------------------------------------------------------------------//
-UiFactory<FooProps> _Foo = _$_Foo; // ignore: undefined_identifier
+UiFactory<FooProps> _Foo = castUiFactory(_$_Foo); // ignore: undefined_identifier
 
 mixin FooProps on UiProps {
   // Private since we only use this to pass along the ref provided in
@@ -111,7 +110,7 @@ final Foo2 = uiForwardRef<Foo2Props>(
       .._inputRef = ref
     )();
   },
-  $Foo2Config, // ignore: undefined_identifier
+  _$Foo2Config, // ignore: undefined_identifier
 );
 
 //----------------------------------------------------------------------------//
@@ -130,7 +129,7 @@ UiFactory<LogProps> LogPropsHoc = forwardRef<LogProps>((props, ref) {
   )();
 }, displayName: 'LogProps')(_Log);
 
-UiFactory<LogProps> _Log = _$_Log; // ignore: undefined_identifier
+UiFactory<LogProps> _Log = castUiFactory(_$_Log); // ignore: undefined_identifier
 
 mixin LogProps on UiProps {
   BuilderOnlyUiFactory<UiProps> builder;
@@ -142,6 +141,7 @@ mixin LogProps on UiProps {
   dynamic _forwardedRef;
 }
 
+// ignore: unused_element
 class _LogComponent extends UiComponent2<LogProps> {
   @override
   void componentDidUpdate(Map prevProps, _, [__]) {
@@ -190,7 +190,7 @@ final Baz = uiFunction<BazProps>(
       ..ref = props._forwardedRef
     )(props.children));
   },
-  $BazConfig, // ignore: undefined_identifier
+  _$BazConfig, // ignore: undefined_identifier
 );
 
 // -------------------------------- Demo Display Logic --------------------------------
@@ -261,7 +261,7 @@ UiFactory<RefDemoProps> RefDemoContainer = uiFunction(
       ),
     ));
   },
-  $RefDemoContainerConfig, // ignore: undefined_identifier
+  _$RefDemoContainerConfig, // ignore: undefined_identifier
 );
 
 void printButtonOuterHtml(Ref buttonRef) {
@@ -288,7 +288,7 @@ UiFactory<RefDemoSectionProps> RefDemoSection = uiFunction(
       ),
     ));
   },
-  $RefDemoSectionConfig, // ignore: undefined_identifier
+  _$RefDemoSectionConfig, // ignore: undefined_identifier
 );
 
 mixin RefDemoHocProps on UiProps {
@@ -302,5 +302,5 @@ UiFactory<RefDemoHocProps> RefDemoHoc = uiFunction(
       props.children,
     ));
   },
-  $RefDemoHocConfig, // ignore: undefined_identifier
+  _$RefDemoHocConfig, // ignore: undefined_identifier
 );
