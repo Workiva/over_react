@@ -1,5 +1,19 @@
 # OverReact Changelog
 
+## [4.1.0](https://github.com/Workiva/over_react/compare/4.0.0...4.1.0)
+
+- [#679] Update boilerplate to be compatible with Dart >=2.9.0.
+
+  This introduced a new component factory syntax that future proofs the boilerplate syntax through Dart 2.12! For more information and migration instructions, refer to the [PR description](https://github.com/Workiva/over_react/pull/679).
+
+- [#674] Add Redux hooks. 
+
+  Introducing new Redux hook APIs! OverReact consumers also using OverReact Redux can now use the `useDispatch`, `useSelector`, and `useStore` hooks. For more information, refer to the [documenation](https://github.com/Workiva/over_react/blob/master/doc/over_react_redux_documentation.md#hooks).
+
+- [#655] Add the capability to configure `ComponentTypeMeta` on functional components via `setComponentMeta`.
+
+  Those who used class based components were accustomed to being able to modify meta data by using the `@Component2()` annotation. Previously, there was no way to do this on functional components. However, the new `setComponentMeta` API fixes this and allows for similar capabilities on functional components.
+
 ## 4.0.0
 
 This stable, __major__ release of over_react includes:
