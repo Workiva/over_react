@@ -40,7 +40,7 @@ jobs:
       # Analyze before generated files are created to verify that component boilerplate analysis is "clean" without the need for building
       - name: Analyze example source (pre-build)
         run: |
-          # Analyze lib to ensure public APIs don't depend on build-to-cache files, 
+          # Analyze lib to ensure public APIs don't depend on build-to-cache files,
           # which could cause analysis issues for consumers who haven't run a build yet.
           dartanalyzer lib
           cd example/boilerplate_versions
@@ -53,8 +53,11 @@ jobs:
         name: Build generated files / precompile DDC assets
         run: |
           pub run build_runner build --delete-conflicting-outputs -o ddc_precompiled
-          git diff --exit-code
         if: always() && steps.install.outcome == 'success'
+        
+      - name: Verify that generated files are up-to-date
+        run: git diff --exit-code
+        if: always() && steps.install.build == 'success'
 
       # Analyze again after generated files are created to verify that those generated classes don't cause analysis errors
       - name: Analyze project source (post-build)
