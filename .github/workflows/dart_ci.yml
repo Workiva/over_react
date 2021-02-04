@@ -54,10 +54,10 @@ jobs:
         run: |
           pub run build_runner build --delete-conflicting-outputs -o ddc_precompiled
         if: always() && steps.install.outcome == 'success'
-        
+
       - name: Verify that generated files are up-to-date
         run: git diff --exit-code
-        if: always() && steps.install.build == 'success'
+        if: always() && steps.install.outcome == 'success' && steps.install.build == 'success'
 
       # Analyze again after generated files are created to verify that those generated classes don't cause analysis errors
       - name: Analyze project source (post-build)
