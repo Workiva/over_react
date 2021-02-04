@@ -72,7 +72,7 @@ main() {
   });
 }
 
-UiFactory<StatefulComponentTestProps> StatefulComponentTest = _$StatefulComponentTest; // ignore: undefined_identifier, invalid_assignment
+UiFactory<StatefulComponentTestProps> StatefulComponentTest = castUiFactory(_$StatefulComponentTest); // ignore: undefined_identifier
 
 mixin StatefulComponentTestProps on UiProps {
   /// Used to test if a component has the capability to set state via this.setState.

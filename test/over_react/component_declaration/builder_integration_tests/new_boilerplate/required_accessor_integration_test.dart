@@ -210,8 +210,8 @@ void main() {
   });
 }
 
-// ignore: undefined_identifier, invalid_assignment
-UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
+// ignore: undefined_identifier
+UiFactory<ComponentTestProps> ComponentTest = castUiFactory(_$ComponentTest);
 
 mixin ComponentTestProps on UiProps {
   @Accessor(isRequired: true, requiredErrorMessage: 'This Prop is Required for testing purposes.')

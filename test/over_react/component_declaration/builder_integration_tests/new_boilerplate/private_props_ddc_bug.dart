@@ -31,8 +31,8 @@ main() {
   });
 }
 
-// ignore: undefined_identifier, invalid_assignment
-UiFactory<FooProps> Foo = _$Foo;
+// ignore: undefined_identifier
+UiFactory<FooProps> Foo = castUiFactory(_$Foo);
 
 mixin FooProps on UiProps {
   String _privateProp;

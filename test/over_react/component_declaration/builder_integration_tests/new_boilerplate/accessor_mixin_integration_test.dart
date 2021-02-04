@@ -154,7 +154,7 @@ class TestUiStateBaseClass extends UiState {
   bool get $isClassGenerated => true;
 }
 
-UiFactory<TestPropsMixin> Test = _$Test; // ignore: undefined_identifier, invalid_assignment
+UiFactory<TestPropsMixin> Test = castUiFactory(_$Test); // ignore: undefined_identifier
 
 mixin TestPropsMixin on UiProps {
   String stringProp;
@@ -174,7 +174,7 @@ mixin TestPropsMixin on UiProps {
 // ---
 
 UiFactory<TestCustomNamespaceProps> TestCustomNamespace =
-    _$TestCustomNamespace; // ignore: undefined_identifier, invalid_assignment
+    castUiFactory(_$TestCustomNamespace); // ignore: undefined_identifier
 
 @PropsMixin(keyNamespace: 'custom mixin namespace**')
 mixin TestCustomNamespacePropsMixin on UiProps {

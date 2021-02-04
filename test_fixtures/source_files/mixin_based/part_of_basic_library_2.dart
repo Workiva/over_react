@@ -16,7 +16,7 @@ abstract class SuperPartOfLibComponent<T extends SuperPartOfLibPropsMixin> exten
   }
 }
 
-UiFactory<SubPartOfLibProps> SubPartOfLib = _$SubPartOfLib; // ignore: undefined_identifier
+UiFactory<SubPartOfLibProps> SubPartOfLib = castUiFactory(_$SubPartOfLib); // ignore: undefined_identifier
 
 class SubPartOfLibProps = UiProps with SuperPartOfLibPropsMixin, SubPartOfLibPropsMixin;
 

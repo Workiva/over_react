@@ -237,8 +237,8 @@ class ComponentTest290Component extends UiComponent2<ComponentTest290Props> {
   }
 }
 
-// ignore: undefined_identifier, invalid_assignment
-UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
+// ignore: undefined_identifier
+UiFactory<ComponentTestProps> ComponentTest = castUiFactory(_$ComponentTest);
 
 mixin ComponentTestProps on UiProps {
   String stringProp;

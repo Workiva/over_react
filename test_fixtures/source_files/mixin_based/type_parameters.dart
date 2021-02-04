@@ -25,14 +25,14 @@ mixin DoubleProps<A, B> on UiProps {
 
 // Test shorthand syntax
 
-UiFactory<SingleProps> Single = _$Single; // ignore: undefined_identifier
-UiFactory<SingleWithBoundProps> SingleWithBound = _$SingleWithBound; // ignore: undefined_identifier
-UiFactory<DoubleProps> Double = _$Double; // ignore: undefined_identifier
+UiFactory<SingleProps> Single = castUiFactory(_$Single); // ignore: undefined_identifier
+UiFactory<SingleWithBoundProps> SingleWithBound = castUiFactory(_$SingleWithBound); // ignore: undefined_identifier
+UiFactory<DoubleProps> Double = castUiFactory(_$Double); // ignore: undefined_identifier
 
 // Test that the generated class impl has the correct generic params
 // and passes the specified generic params to uses the mixins correctly.
 
-UiFactory<ConcreteNoneProps> ConcreteNone = _$ConcreteNone; // ignore: undefined_identifier
+UiFactory<ConcreteNoneProps> ConcreteNone = castUiFactory(_$ConcreteNone); // ignore: undefined_identifier
 class ConcreteNoneProps = UiProps
     with
         NoneProps,
@@ -43,7 +43,7 @@ class ConcreteNoneProps = UiProps
 
 // Test that the generated class impl works when passing its generic params to mixins.
 
-UiFactory<ConcreteArgsProps> ConcreteArgs = _$ConcreteArgs; // ignore: undefined_identifier
+UiFactory<ConcreteArgsProps> ConcreteArgs = castUiFactory(_$ConcreteArgs); // ignore: undefined_identifier
 class ConcreteArgsProps<U, V extends Iterable> = UiProps
     with
         NoneProps,

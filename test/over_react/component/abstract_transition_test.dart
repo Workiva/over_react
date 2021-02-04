@@ -635,7 +635,7 @@ main() {
   });
 }
 
-UiFactory<TransitionerProps> Transitioner = _$Transitioner; // ignore: undefined_identifier, invalid_assignment
+UiFactory<TransitionerProps> Transitioner = castUiFactory(_$Transitioner); // ignore: undefined_identifier
 
 mixin TransitionerPropsMixin on UiProps {
   Callback onHandlePreShowing;

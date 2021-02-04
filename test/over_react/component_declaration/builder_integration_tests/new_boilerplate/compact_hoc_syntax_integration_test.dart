@@ -78,7 +78,7 @@ class FooComponent290 extends UiComponent2<Foo290Props> {
 UiFactory<FooProps> Foo = connect<Null, FooProps>(
   mapStateToPropsWithOwnProps: (state, props) => Foo(),
   mapDispatchToPropsWithOwnProps: (state, props) => Foo(),
-)(_$Foo); // ignore: undefined_identifier, argument_type_not_assignable
+)(castUiFactory(_$Foo)); // ignore: undefined_identifier
 
 mixin FooProps on UiProps {
   String foo;

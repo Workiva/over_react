@@ -418,7 +418,7 @@ UiFactory<TestProps> TestPublic = uiFunction(
       ..addProp('data-prop-custom-key-and-namespace-prop',
           props.customKeyAndNamespaceProp))('rendered content');
   },
-  $TestPublicConfig, // ignore: undefined_identifier, deprecated_member_use_from_same_package
+  _$TestPublicConfig, // ignore: undefined_identifier, deprecated_member_use_from_same_package
 );
 
 UiFactory<TestProps> TestCustom = uiFunction(

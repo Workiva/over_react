@@ -1,6 +1,6 @@
 part of 'library.dart';
 
-UiFactory<BasicPartOfLibProps> BasicPartOfLib = _$BasicPartOfLib; // ignore: undefined_identifier
+UiFactory<BasicPartOfLibProps> BasicPartOfLib = castUiFactory(_$BasicPartOfLib); // ignore: undefined_identifier
 
 mixin BasicPartOfLibProps on UiProps {
   String basicProp;

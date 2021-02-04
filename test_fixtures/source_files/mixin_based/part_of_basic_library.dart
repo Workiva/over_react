@@ -1,6 +1,6 @@
 part of basic.library;
 
-UiFactory<BasicPartOfLibProps> BasicPartOfLib = _$BasicPartOfLib; // ignore: undefined_identifier
+UiFactory<BasicPartOfLibProps> BasicPartOfLib = castUiFactory(_$BasicPartOfLib); // ignore: undefined_identifier
 
 class BasicPartOfLibProps = UiProps with ExamplePropsMixin, BasicPartOfLibPropsMixin;
 class BasicPartOfLibState = UiState with ExampleStateMixin, BasicPartOfLibStateMixin;

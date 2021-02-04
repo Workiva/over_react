@@ -14,7 +14,7 @@
 
 part of '../component_integration_test.dart';
 
-UiFactory<IsErrorBoundaryProps> IsErrorBoundary = _$IsErrorBoundary; // ignore: undefined_identifier, invalid_assignment
+UiFactory<IsErrorBoundaryProps> IsErrorBoundary = castUiFactory(_$IsErrorBoundary); // ignore: undefined_identifier
 
 mixin IsErrorBoundaryProps on UiProps {}
 

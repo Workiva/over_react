@@ -167,8 +167,8 @@ mixin TestPropsMixin on UiProps {
   dynamic propsMixinProp;
 }
 
-// ignore: undefined_identifier, invalid_assignment
-UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
+// ignore: undefined_identifier
+UiFactory<ComponentTestProps> ComponentTest = castUiFactory(_$ComponentTest);
 
 mixin ComponentTestPropsMixin on UiProps {
   String stringProp;

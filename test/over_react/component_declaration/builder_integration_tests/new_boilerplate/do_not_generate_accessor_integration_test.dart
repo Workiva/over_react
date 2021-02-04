@@ -84,8 +84,8 @@ main() {
   });
 }
 
-// ignore: undefined_identifier, invalid_assignment
-UiFactory<DoNotGenerateAccessorTestProps> DoNotGenerateAccessorTest = _$DoNotGenerateAccessorTest;
+// ignore: undefined_identifier
+UiFactory<DoNotGenerateAccessorTestProps> DoNotGenerateAccessorTest = castUiFactory(_$DoNotGenerateAccessorTest);
 
 mixin DoNotGenerateAccessorTestProps on UiProps {
   dynamic generated1Prop;
