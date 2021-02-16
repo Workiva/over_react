@@ -51,3 +51,9 @@ workiva:
   core_checks:
     version: 1
     react_boilerplate: disabled
+
+dependency_overrides:
+  react:
+    git:
+      url: https://github.com/Workiva/react-dart.git
+      ref: CPLAT-13185-fix-jsbackedmap-dart-2.12

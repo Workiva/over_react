@@ -12,4 +12,8 @@ dev_dependencies:
 dependency_overrides:
   # Pull in the local copy of over_react so it pulls in the local copy of the plugin
   over_react:
-      path: ../../..
+    path: ../../..
+  react:
+    git:
+      url: https://github.com/Workiva/react-dart.git
+      ref: CPLAT-13185-fix-jsbackedmap-dart-2.12
