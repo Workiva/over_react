@@ -175,7 +175,7 @@ class GenericUiProps extends UiProps {
 class UiFactoryConfig<TProps extends UiProps> {
   @protected
   final PropsFactory<TProps> propsFactory;
-  final String displayName;
+  String displayName;
 
   UiFactoryConfig({this.propsFactory, this.displayName});
 }
