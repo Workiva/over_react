@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'dart:async';
+import 'dart:io' show Platform;
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
@@ -159,7 +160,8 @@ class OverReactBuilder extends Builder {
         log.severe('Missing "part \'$expectedPart\';".');
       }
 
-      await _writePart(buildStep, outputId, outputs);
+      final dartVersionCommentMatch = RegExp(r'//\s*@dart = (\d+)\.(\d+)').firstMatch(source);
+      await _writePart(buildStep, outputId, outputs, dartVersionCommentMatch: dartVersionCommentMatch);
     } else {
       if (hasOutputPartDirective()) {
         log.warning('An over_react part directive was found in ${buildStep.inputId.path}, '
@@ -186,10 +188,17 @@ class OverReactBuilder extends Builder {
     return null;
   }
 
-  static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs) async {
+  static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs, {RegExpMatch dartVersionCommentMatch}) async {
+    final isNullSafe = Platform.version.startsWith('2.12') && (int.tryParse(dartVersionCommentMatch?.group(2)) ?? 0) >= 12;
     final partOf = "'${p.basename(buildStep.inputId.uri.toString())}'";
 
-    final buffer = StringBuffer()
+    final buffer = StringBuffer();
+
+    if (!isNullSafe) {
+      buffer.writeln('// @dart = ${dartVersionCommentMatch.group(1)}.${dartVersionCommentMatch.group(2)}');
+    }
+
+    buffer
       ..writeln('// GENERATED CODE - DO NOT MODIFY BY HAND')
       ..writeln()
       ..writeln('// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators')
