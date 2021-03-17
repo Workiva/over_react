@@ -160,7 +160,10 @@ class OverReactBuilder extends Builder {
         log.severe('Missing "part \'$expectedPart\';".');
       }
 
-      final dartVersionCommentMatch = RegExp(r'//\s*@dart = (\d+)\.(\d+)').firstMatch(source);
+      RegExpMatch dartVersionCommentMatch;
+      if (source != null) {
+        dartVersionCommentMatch = RegExp(r'//\s*@dart = (\d+)\.(\d+)').firstMatch(source);
+      }
       await _writePart(buildStep, outputId, outputs, dartVersionCommentMatch: dartVersionCommentMatch);
     } else {
       if (hasOutputPartDirective()) {
@@ -189,7 +192,15 @@ class OverReactBuilder extends Builder {
   }
 
   static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs, {RegExpMatch dartVersionCommentMatch}) async {
-    final isNullSafe = Platform.version.startsWith('2.12') && (int.tryParse(dartVersionCommentMatch?.group(2)) ?? 0) >= 12;
+    final dartVersion = Platform.version;
+    bool nullSafetyIsTurnedOnByDefault = (int.tryParse(RegExp(r'(\d+)\.(\d+)').firstMatch(dartVersion).group(2)) ?? 0) >= 12;
+    bool isNullSafe = true;
+    if (dartVersionCommentMatch != null) {
+      isNullSafe = (int.tryParse(dartVersionCommentMatch?.group(2)) ?? 0) >= 12;
+    }
+    if (isNullSafe && nullSafetyIsTurnedOnByDefault) {
+      throw UnsupportedError('The over_react builder does not yet support null safety. Add a // @dart = 2.7 comment at the top of your file.');
+    }
     final partOf = "'${p.basename(buildStep.inputId.uri.toString())}'";
 
     final buffer = StringBuffer();
