@@ -95,16 +95,7 @@ String _getDartComponentVersionFromInstance(/* ReactElement|ReactComponent|Eleme
 /// - `true` for dart2js and Dart VM
 /// - `false` for DDC
 final bool _canUseExpandoOnReactElement = (() {
-  var expando = Expando<bool>('_canUseExpandoOnReactElement test');
-  var reactElement = react.div({});
-
-  try {
-    expando[reactElement] = true;
-  } catch (_) {
-    return false;
-  }
-
-  return true;
+  return false;
 })();
 
 /// A cache of props for a given [ReactElement].
