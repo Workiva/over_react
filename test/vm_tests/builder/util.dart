@@ -105,14 +105,15 @@ class OverReactSrc {
     this.typeParameters = false,
     this.componentVersion = 1,
     this.baseName = 'AbstractFoo',
-    isPrivate = false})
+    bool isPrivate = false})
       :
         this.annotation = AnnotationType.abstractProps,
         this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
         this.numMixins = 0,
         this.isMixinBasedBoilerplate = false,
         this.shouldIncludePropsAlias = false,
-        this.shouldIncludeAnnotations = true;
+        this.shouldIncludeAnnotations = true,
+        this.useDart290Factory = false;
 
   /// Creates valid over_react [source] with an abstract state class included.
   ///
@@ -146,14 +147,15 @@ class OverReactSrc {
     this.typeParameters = false,
     this.componentVersion = 1,
     this.baseName = 'AbstractFoo',
-    isPrivate = false})
+    bool isPrivate = false})
       :
         this.annotation = AnnotationType.abstractState,
         this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
         this.numMixins = 0,
         this.isMixinBasedBoilerplate = false,
         this.shouldIncludePropsAlias = false,
-        this.shouldIncludeAnnotations = true;
+        this.shouldIncludeAnnotations = true,
+        this.useDart290Factory = false;
 
   /// Creates valid over_react [source] with a props class included.
   ///
@@ -182,7 +184,7 @@ class OverReactSrc {
     this.typeParameters = false,
     this.componentVersion = 1,
     this.baseName = 'Foo',
-    isPrivate = false})
+    bool isPrivate = false})
       :
         this.annotation = AnnotationType.props,
         this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
@@ -190,7 +192,8 @@ class OverReactSrc {
         this.numMixins = 0,
         this.isMixinBasedBoilerplate = false,
         this.shouldIncludePropsAlias = false,
-        this.shouldIncludeAnnotations = true;
+        this.shouldIncludeAnnotations = true,
+        this.useDart290Factory = false;
 
   /// Creates valid over_react [source] with a props mixin class included.
   ///
@@ -222,14 +225,15 @@ class OverReactSrc {
     this.numMixins = 1,
     this.componentVersion = 1,
     this.baseName = 'Foo',
-    isPrivate = false})
+    bool isPrivate = false})
       :
         this.annotation = AnnotationType.propsMixin,
         this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
         this.needsComponent = false,
         this.isMixinBasedBoilerplate = false,
         this.shouldIncludePropsAlias = false,
-        this.shouldIncludeAnnotations = true;
+        this.shouldIncludeAnnotations = true,
+        this.useDart290Factory = false;
 
   /// Creates valid over_react [source] with a state class included.
   ///
@@ -259,7 +263,7 @@ class OverReactSrc {
     this.typeParameters = false,
     this.componentVersion = 1,
     this.baseName = 'Foo',
-    isPrivate = false})
+    bool isPrivate = false})
       :
         this.annotation = AnnotationType.state,
         this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
@@ -267,7 +271,8 @@ class OverReactSrc {
         this.numMixins = 0,
         this.isMixinBasedBoilerplate = false,
         this.shouldIncludePropsAlias = false,
-        this.shouldIncludeAnnotations = true;
+        this.shouldIncludeAnnotations = true,
+        this.useDart290Factory = false;
 
   /// Creates valid over_react [source] with a props mixin class included.
   ///
@@ -299,14 +304,15 @@ class OverReactSrc {
     this.numMixins = 1,
     this.componentVersion = 1,
     this.baseName = 'Foo',
-    isPrivate = false})
+    bool isPrivate = false})
       :
         this.annotation = AnnotationType.stateMixin,
         this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
         this.needsComponent = false,
         this.isMixinBasedBoilerplate = false,
         this.shouldIncludePropsAlias = false,
-        this.shouldIncludeAnnotations = true;
+        this.shouldIncludeAnnotations = true,
+        this.useDart290Factory = false;
 
   /// Creates valid over_react [source] using the mixin based boilerplate for props.
   ///
@@ -338,7 +344,8 @@ class OverReactSrc {
     this.shouldIncludePropsAlias = false,
     this.shouldIncludeAnnotations = false,
     this.baseName = 'Foo',
-    isPrivate = false})
+    this.useDart290Factory = false,
+    bool isPrivate = false})
       :
         this.annotation = AnnotationType.props,
         this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
@@ -381,7 +388,8 @@ class OverReactSrc {
     this.shouldIncludePropsAlias = false,
     this.shouldIncludeAnnotations = false,
     this.baseName = 'Foo',
-    isPrivate = false})
+    this.useDart290Factory = false,
+    bool isPrivate = false})
       :
         this.annotation = AnnotationType.state,
         this.prefixedBaseName = '${isPrivate ? '_' : ''}$baseName',
@@ -406,10 +414,12 @@ class OverReactSrc {
   final bool isMixinBasedBoilerplate;
   final bool shouldIncludePropsAlias;
   final bool shouldIncludeAnnotations;
+  final bool useDart290Factory;
 
   String get componentName => '${prefixedBaseName}Component';
   String get constantListName => isProps(annotation) ? '\$props' : '\$state';
   String get factoryInitializer => '_\$$prefixedBaseName';
+  String get factoryInitializerWithPossibleCast => useDart290Factory ? '_\$$prefixedBaseName' : 'castUiFactory(_\$$prefixedBaseName)';
   String get keyListName => isProps(annotation) ? '\$propKeys' : '\$stateKeys';
   String get propsClassName => '${prefixedBaseName}Props';
   String get propsMixinClassName => '${prefixedBaseName}PropsMixin';
@@ -431,9 +441,9 @@ class OverReactSrc {
       String componentStr = componentVersion == 2 ? 'Component2' : 'Component';
       if (!isAbstract(annotation)) {
         if (shouldIncludeAnnotations) {
-          buffer.writeln('\n@Factory()\nUiFactory<$propsClassName> $prefixedBaseName = _\$$prefixedBaseName;\n');
+          buffer.writeln('\n@Factory()\nUiFactory<$propsClassName> $prefixedBaseName = $factoryInitializerWithPossibleCast;\n');
         } else {
-          buffer.writeln('\nUiFactory<$propsClassName> $prefixedBaseName = _\$$prefixedBaseName;\n');
+          buffer.writeln('\nUiFactory<$propsClassName> $prefixedBaseName = $factoryInitializerWithPossibleCast;\n');
         }
       }
 

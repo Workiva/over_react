@@ -83,7 +83,7 @@ main() {
         verifyImplGenerationIsValid();
       });
 
-      void testImplGeneration(String groupName, {backwardsCompatible = true}) {
+      void testImplGeneration(String groupName, {bool backwardsCompatible = true}) {
         group(groupName, () {
           test('stateful components', () {
             generateFromSource(OverReactSrc.state(backwardsCompatible: backwardsCompatible).source);
@@ -164,16 +164,16 @@ main() {
 
                 group('with concrete implementations', () {
                   test('', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  String get someField => ${isProps ? 'props' : 'state'}[_\$key__someField___\$$className] ?? null;'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  String get someField => (${isProps ? 'props' : 'state'}[_\$key__someField___\$$className] ?? null) as String;'));
                     expect(implGenerator.outputContentsBuffer.toString(), contains('  set someField(String value) => ${isProps ? 'props' : 'state'}[_\$key__someField___\$$className] = value'));
                   });
 
                   test('for multiple fields declared on same line', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get foo => ${isProps ? 'props' : 'state'}[_\$key__foo___\$$className] ?? null;'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get foo => (${isProps ? 'props' : 'state'}[_\$key__foo___\$$className] ?? null) as bool;'));
                     expect(implGenerator.outputContentsBuffer.toString(), contains('  set foo(bool value) => ${isProps ? 'props' : 'state'}[_\$key__foo___\$$className] = value'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get bar => ${isProps ? 'props' : 'state'}[_\$key__bar___\$$className] ?? null;'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get bar => (${isProps ? 'props' : 'state'}[_\$key__bar___\$$className] ?? null) as bool;'));
                     expect(implGenerator.outputContentsBuffer.toString(), contains('  set bar(bool value) => ${isProps ? 'props' : 'state'}[_\$key__bar___\$$className] = value'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get baz => ${isProps ? 'props' : 'state'}[_\$key__baz___\$$className] ?? null;'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get baz => (${isProps ? 'props' : 'state'}[_\$key__baz___\$$className] ?? null) as bool;'));
                     expect(implGenerator.outputContentsBuffer.toString(), contains('  set baz(bool value) => ${isProps ? 'props' : 'state'}[_\$key__baz___\$$className] = value'));
                   });
 
@@ -222,16 +222,16 @@ main() {
 
                 group('with concrete implementations', () {
                   test('', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  String get someField => ${isProps ? 'props' : 'state'}[_\$key__someField__$className] ?? null;'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  String get someField => (${isProps ? 'props' : 'state'}[_\$key__someField__$className] ?? null) as String;'));
                     expect(implGenerator.outputContentsBuffer.toString(), contains('  set someField(String value) => ${isProps ? 'props' : 'state'}[_\$key__someField__$className] = value'));
                   });
 
                   test('for multiple fields declared on same line', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get foo => ${isProps ? 'props' : 'state'}[_\$key__foo__$className] ?? null;'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get foo => (${isProps ? 'props' : 'state'}[_\$key__foo__$className] ?? null) as bool;'));
                     expect(implGenerator.outputContentsBuffer.toString(), contains('  set foo(bool value) => ${isProps ? 'props' : 'state'}[_\$key__foo__$className] = value'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get bar => ${isProps ? 'props' : 'state'}[_\$key__bar__$className] ?? null;'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get bar => (${isProps ? 'props' : 'state'}[_\$key__bar__$className] ?? null) as bool;'));
                     expect(implGenerator.outputContentsBuffer.toString(), contains('  set bar(bool value) => ${isProps ? 'props' : 'state'}[_\$key__bar__$className] = value'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get baz => ${isProps ? 'props' : 'state'}[_\$key__baz__$className] ?? null;'));
+                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get baz => (${isProps ? 'props' : 'state'}[_\$key__baz__$className] ?? null) as bool;'));
                     expect(implGenerator.outputContentsBuffer.toString(), contains('  set baz(bool value) => ${isProps ? 'props' : 'state'}[_\$key__baz__$className] = value'));
                   });
 
@@ -409,7 +409,7 @@ main() {
           test('for covariant keywords', () {
             final ors = OverReactSrc.abstractProps(backwardsCompatible: backwardsCompatible, body: 'covariant String foo;');
             generateFromSource(ors.source);
-            expect(implGenerator.outputContentsBuffer.toString(), contains('String get foo => props[_\$key__foo___\$${ors.propsClassName}] ?? null;'));
+            expect(implGenerator.outputContentsBuffer.toString(), contains('String get foo => (props[_\$key__foo___\$${ors.propsClassName}] ?? null) as String;'));
             expect(implGenerator.outputContentsBuffer.toString(), contains('set foo(covariant String value) => props[_\$key__foo___\$${ors.propsClassName}] = value;'));
           });
 
@@ -654,6 +654,237 @@ main() {
         testStaticMetaField('state mixin', OverReactSrc.stateMixin());
         testStaticMetaField('abstract props', OverReactSrc.abstractProps());
         testStaticMetaField('abstract state', OverReactSrc.abstractState());
+      });
+
+      group('and generates props config for function components constructed with', () {
+        String generatedConfig(String propsName, String factoryName) {
+          return 'final UiFactoryConfig<_\$\$$propsName> '
+            '_\$${factoryName}Config = UiFactoryConfig(\n'
+            'propsFactory: PropsFactory(\n'
+            'map: (map) => _\$\$$propsName(map),\n'
+            'jsMap: (map) => _\$\$$propsName\$JsMap(map),),\n'
+            'displayName: \'$factoryName\');\n\n'
+            '@Deprecated(r\'Use the private variable, _\$${factoryName}Config, instead \'\n'
+            '\'and update the `over_react` lower bound to version 4.1.0. \'\n'
+            '\'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650\')\n'
+            'final UiFactoryConfig<_\$\$$propsName> '
+            '\$${factoryName}Config = _\$${factoryName}Config;\n\n';
+        }
+
+        String generatedPropsMapsForConfig(String propsName) {
+          return '// Concrete props implementation that can be backed by any [Map].\n'
+              '@Deprecated(\'This API is for use only within generated code.\'\' Do not reference it in your code, as it may change at any time.\')\n'
+              'class _\$\$$propsName\$PlainMap extends _\$\$$propsName {\n'
+              '  // This initializer of `_props` to an empty map, as well as the reassignment\n'
+              '  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217\n'
+              '  _\$\$$propsName\$PlainMap(Map backingMap) : this._props = {}, super._() {\n'
+              '     this._props = backingMap ?? {};\n'
+              '  }\n'
+              '  /// The backing props map proxied by this class.\n'
+              '  @override\n'
+              '  Map get props => _props;\n'
+              '  Map _props;\n'
+              '}\n'
+              '// Concrete props implementation that can only be backed by [JsMap],\n'
+              '// allowing dart2js to compile more optimal code for key-value pair reads/writes.\n'
+              '@Deprecated(\'This API is for use only within generated code.\'\' Do not reference it in your code, as it may change at any time.\')\n'
+              'class _\$\$$propsName\$JsMap extends _\$\$$propsName {\n'
+              '  // This initializer of `_props` to an empty map, as well as the reassignment\n'
+              '  // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217\n'
+              '  _\$\$$propsName\$JsMap(JsBackedMap backingMap) : this._props = JsBackedMap(), super._() {\n'
+              '     this._props = backingMap ?? JsBackedMap();\n'
+              '  }\n'
+              '  /// The backing props map proxied by this class.\n'
+              '  @override\n'
+              '  JsBackedMap get props => _props;\n'
+              '  JsBackedMap _props;\n'
+              '}\n';
+        }
+
+        void sharedUiConfigGenerationTests(String wrapperFunction) {
+          test('with multiple props mixins and function components in file', () {
+            setUpAndGenerate('''
+            mixin FooPropsMixin on UiProps {}
+            class FooProps = UiProps with FooPropsMixin;
+            
+            mixin BarPropsMixin on UiProps {}
+            
+            UiFactory<BarPropsMixin> Bar = $wrapperFunction(
+              (props) {
+                return Dom.div()();
+              }, 
+              _\$BarConfig, // ignore: undefined_identifier
+            );
+            
+            UiFactory<BarPropsMixin> Foo = $wrapperFunction(
+              (props) {
+                return Dom.div()();
+              }, 
+              _\$FooConfig, // ignore: undefined_identifier
+            );
+                        
+            UiFactory<FooProps> Baz = $wrapperFunction(
+              (props) {
+                return Dom.div()();
+              }, 
+              _\$BazConfig, // ignore: undefined_identifier
+            );
+            
+            mixin UnusedPropsMixin on UiProps {}
+          ''');
+
+            expect(implGenerator.outputContentsBuffer.toString().contains(generatedPropsMapsForConfig('UnusedPropsMixin')), isFalse);
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('BarPropsMixin')));
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooProps')));
+
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('BarPropsMixin', 'Bar')));
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('BarPropsMixin', 'Foo')));
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooProps', 'Baz')));
+          });
+
+          test('wrapped in an hoc', () {
+            setUpAndGenerate('''
+                UiFactory<FooPropsMixin> Foo = someHOC($wrapperFunction(
+                  (props) {
+                    return Dom.div()();
+                  },
+                  _\$FooConfig, // ignore: undefined_identifier
+                ));
+                
+                mixin FooPropsMixin on UiProps {}
+              ''');
+
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooPropsMixin')));
+
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooPropsMixin', 'Foo')));
+          });
+
+          test('with public generated config', () {
+            setUpAndGenerate('''
+                UiFactory<FooProps> Foo = $wrapperFunction(
+                  (props) {
+                    return Dom.div()();
+                  }, 
+                  \$FooConfig, // ignore: undefined_identifier
+                );
+                
+                mixin FooProps on UiProps {}
+              ''');
+
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooProps')));
+
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooProps', 'Foo')));
+          });
+        }
+
+        group('uiFunction', () {
+          sharedUiConfigGenerationTests('uiFunction');
+        });
+
+        group('uiForwardRef', () {
+          // Note: this doesn't test any of the ref forwarding capabilities of `uiForwardRef`,
+          // and just tests the generation of the UiFactoryConfig for `uiForwardRef`
+          // explicitly.
+          sharedUiConfigGenerationTests('uiForwardRef');
+
+          test('when the config does not need to be generated', () {
+            setUpAndGenerate(r'''
+              UiFactory<FooProps> ForwardRefFoo = uiForwardRef((props, ref) {
+                return (Foo()
+                  ..ref = ref
+                )();
+              }, Foo.asForwardRefConfig());
+            ''');
+
+            expect(implGenerator.outputContentsBuffer.toString().contains(generatedConfig('FooProps', 'ForwardRefFoo')), isFalse);
+          });
+
+          test('when the config does need to be generated but mixes in an already consumed props class', () {
+            setUpAndGenerate(r'''
+              UiFactory<FooProps> Foo = _$Foo;
+              
+              mixin FooProps on UiProps {}
+              
+              class FooComponent extends UiComponent2<FooProps>{
+                @override
+                render() => null;
+              }
+            
+              class UiForwardRefFooProps = UiProps with FooProps;
+              
+              UiFactory<UiForwardRefFooProps> UiForwardRefFoo = uiForwardRef(
+                (props, ref) {
+                  return (Foo()
+                    ..ref = ref
+                  )();
+                }, 
+                _$UiForwardRefFooConfig,
+              );
+            ''');
+
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('UiForwardRefFooProps')));
+            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('UiForwardRefFooProps', 'UiForwardRefFoo')));
+          });
+        });
+
+        // The builder should support generation of UiFactoryConfig's whenever
+        // it recognizes that a generated config is being referenced
+        group('arbitrary HOC', () {
+          sharedUiConfigGenerationTests('anArbitraryHOC');
+        });
+
+        test('unless function component is generic or does not have a props config', () {
+          setUpAndGenerate(r'''
+            mixin FooPropsMixin on UiProps {}
+            
+            UiFactory<FooPropsMixin> FooForwarded = forwardRef<FooPropsMixin>((props, ref) {
+              return (Foo()
+                ..ref = ref
+              )();
+            })(Foo);
+            
+            UiFactory<FooPropsMixin> ArbitraryFoo = anArbitraryHoc(
+              (props) {
+                return (Foo()
+                  ..ref = ref
+                )();
+              }, 
+              UiFactoryConfig(
+                  propsFactory: PropsFactory.fromUiFactory(Foo)
+              )
+            );
+            
+            final Bar = uiFunction<UiProps>(
+              (props) {
+                return Dom.div()();
+              }, 
+              UiFactoryConfig(),
+            );
+            
+            final Foo = uiFunction<FooPropsMixin>(
+              (props) {
+                return Dom.div()();
+              }, 
+              _$FooConfig, // ignore: undefined_identifier
+            );
+            
+            final Baz = uiFunction<FooPropsMixin>(
+              (props) {
+                return Dom.div()();
+              }, 
+              UiFactoryConfig( 
+                propsFactory: PropsFactory.fromUiFactory(Foo),
+              )
+            );
+          ''');
+
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooPropsMixin')));
+
+          expect(implGenerator.outputContentsBuffer.toString().contains(generatedConfig('UiProps', 'Bar')), isFalse, reason: '2');
+          expect(implGenerator.outputContentsBuffer.toString().contains(generatedConfig('FooPropsMixin', 'ArbitraryFoo')), isFalse, reason: '2');
+          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooPropsMixin', 'Foo')), reason: '1');
+          expect(implGenerator.outputContentsBuffer.toString().contains(generatedConfig('FooPropsMixin', 'Baz')), isFalse, reason: '3');
+        });
       });
     });
 

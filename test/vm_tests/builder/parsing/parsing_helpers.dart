@@ -33,6 +33,7 @@ enum BoilerplateVersions {
   v7,
   v8,
   v9,
+  v10,
 }
 
 /// String descriptions of [BoilerplateVersions] versions.
@@ -47,6 +48,7 @@ const versionDescriptions = {
   BoilerplateVersions.v7: 'legacy (Dart2 only - component 2)',
   BoilerplateVersions.v8: 'mixin based (abbreviated - with annotations)',
   BoilerplateVersions.v9: 'mixin based (with class alias - with annotations)',
+  BoilerplateVersions.v10: 'mixin based (with Dart >=2.9.0 factory syntax)',
 };
 
 /// Generates a string representation of a provided boilerplate version.
@@ -136,7 +138,12 @@ String getBoilerplateString({@required BoilerplateVersions version, String depre
         shouldIncludeAnnotations: true,
         baseName: componentBaseName,
       ).source;
-      break;
+    case BoilerplateVersions.v10:
+      return OverReactSrc.mixinBasedBoilerplateState(
+        componentBody: deprecatedMethod,
+        useDart290Factory: true,
+        baseName: componentBaseName,
+      ).source;
     default:
       return '';
   }
@@ -221,18 +228,49 @@ const mockComponentDeclarations = r'''
   mixin AVeryRandomNameForState on UiState {}
 
   class IsThisEvenAComponentNameComponent extends UiStatefulComponent<HowAboutARandomNameForProps, AVeryRandomNameForState>{}
+  
+  // -------------------------- Version.v4_mixinBased --------------------------
+  // Function components
+  UiFactory<FunctionFoo2Props> FunctionFoo = uiFunction(
+    (props) => Dom.div()(),
+    _$FunctionFooConfig, // ignore: undefined_identifier
+  );
+  
+  final FunctionFoo1 = uiFunction<FunctionFoo2Props>(
+    (props) => Dom.div()(),
+    _$FunctionFoo1Config, // ignore: undefined_identifier
+  );
+  
+  UiFactory<_$FunctionFooProps> FunctionFoo2 = uiFunction(
+    (props) => Dom.div()(),
+    $FunctionFoo2Config, // ignore: undefined_identifier
+  );
+  
+  mixin _$FunctionFooProps on UiProps {}
+  
+  mixin FunctionFoo2Props on UiProps {}
+  
+  // -------------------------- Version.v4_mixinBased --------------------------
+  // But with Dart 2.9.0 syntax
+  UiFactory<FourthFooProps> FourthFoo = castUiFactory(_$FourthFoo);
+
+  mixin FourthFooProps on UiProps {}
+
+  mixin FourthFooState on UiState {}
+
+  class FourthFooComponent extends UiStatefulComponent2<FourthFooProps, FourthFooState>{}
 ''';
 
 /// Utility class that holds boilerplate members that can be accessed during testing.
 class BoilerplateMemberHelper {
   BoilerplateMembers members;
 
-  Iterable<BoilerplateFactory> factories;
-  Iterable<BoilerplateComponent> components;
-  Iterable<BoilerplateProps> props;
-  Iterable<BoilerplateState> states;
-  Iterable<BoilerplateStateMixin> stateMixins;
-  Iterable<BoilerplatePropsMixin> propsMixins;
+  List<BoilerplateFactory> factories;
+  List<BoilerplateComponent> components;
+  List<BoilerplateProps> props;
+  List<BoilerplateState> states;
+  List<BoilerplateStateMixin> stateMixins;
+  List<BoilerplatePropsMixin> propsMixins;
 
   BoilerplateMemberHelper(String boilerplateString) {
     final unit = parseString(content: boilerplateString).unit;

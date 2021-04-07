@@ -86,19 +86,35 @@ main() {
     });
   }
 
-  void _commonVariadicChildrenTests(UiProps builder) {
+  void _commonVariadicChildrenTests(UiProps builder, {bool alwaysExpectList = false}) {
     // There are different code paths for 0, 1, 2, 3, 4, 5, 6, and 6+ arguments.
     // Test all of them.
     group('a number of variadic children:', () {
-      test('0', () {
-        final instance = builder();
-        expect(getJsChildren(instance), isNull);
-      });
+      if (alwaysExpectList) {
+        test('0', () {
+          final instance = builder();
+          expect(getJsChildren(instance), []);
 
-      test('1', () {
-        final instance = builder(1);
-        expect(getJsChildren(instance), equals(1));
-      });
+          final instance2 = builder();
+          expect(getJsChildren(instance2), same(getJsChildren(instance)),
+              reason: 'zero arg children should always be the same List instance for perf reasons');
+        });
+
+        test('1', () {
+          final instance = builder(1);
+          expect(getJsChildren(instance), [1]);
+        });
+      } else {
+        test('0', () {
+          final instance = builder();
+          expect(getJsChildren(instance), isNull);
+        });
+
+        test('1', () {
+          final instance = builder(1);
+          expect(getJsChildren(instance), equals(1));
+        });
+      }
 
       const firstGeneralCaseVariadicChildCount = 2;
       const maxSupportedVariadicChildCount = 40;
@@ -137,9 +153,22 @@ main() {
         stopRecordingValidationWarnings();
       });
 
-      group('renders a DOM component with the correct children when', () {
-        _commonVariadicChildrenTests(Dom.div());
+      group('creates a ReactElement with the correct children:', () {
+        group('DomProps:', () {
+          _commonVariadicChildrenTests(Dom.div());
+        });
 
+        // Need to test these separately because they have different JS factory proxies
+        group('Dart Component:', () {
+          _commonVariadicChildrenTests(TestComponent());
+        });
+
+        group('Dart Component2:', () {
+          _commonVariadicChildrenTests(TestComponent2(), alwaysExpectList: true);
+        });
+      });
+
+      group('renders a DOM component with the correct children when', () {
         test('no children are passed in', () {
           var renderedNode = renderAndGetDom(Dom.div()());
 
@@ -201,8 +230,6 @@ main() {
       }, tags: 'ddc');
 
       group('renders a composite Dart component with the correct children when', () {
-        _commonVariadicChildrenTests(TestComponent());
-
         test('no children are passed in', () {
 
           var renderedInstance = render(TestComponent()());
@@ -623,7 +650,8 @@ main() {
           var calls = [];
           Map appliedProps;
           var initialProps = {
-            'onValidateProps': (propsMap) {
+            // ignore: avoid_types_on_closure_parameters
+            'onValidateProps': (Map propsMap) {
               appliedProps = propsMap;
               calls.add('onValidateProps');
             },
@@ -641,7 +669,8 @@ main() {
           Map appliedProps;
           var newProps = {'key': 'value'};
           component.props = {
-            'onValidateProps': (propsMap) {
+            // ignore: avoid_types_on_closure_parameters
+            'onValidateProps': (Map propsMap) {
               appliedProps = propsMap;
               calls.add('onValidateProps');
             },
@@ -656,7 +685,7 @@ main() {
 
       group('on unmount', () {
         TestComponentComponent component;
-        ReactElement instance;
+        dynamic instance;
         Duration longDuration = const Duration(milliseconds: 200);
         Duration shortDuration = const Duration(milliseconds: 100);
 
@@ -997,7 +1026,7 @@ main() {
 
       group('on unmount', () {
         TestComponent2Component component2;
-        ReactElement instance;
+        dynamic instance;
         Duration longDuration = const Duration(milliseconds: 200);
         Duration shortDuration = const Duration(milliseconds: 100);
 
@@ -1264,7 +1293,7 @@ main() {
       });
 
       test('newState() returns a new UiState instance backed by a new Map', () {
-        statefulComponent = renderAndGetComponent(TestStatefulComponent2()());
+        statefulComponent = renderAndGetComponent(TestStatefulComponent2()()) as TestStatefulComponent2Component;
         var newState1 = statefulComponent.newState();
         var newState2 = statefulComponent.newState();
         expect(newState1, isA<TestStatefulComponent2State>());
@@ -1276,7 +1305,7 @@ main() {
         setUp(() {
           statefulComponent = renderAndGetComponent((TestStatefulComponent2()
             ..id = 'test prop value'
-          )());
+          )()) as TestStatefulComponent2Component;
           statefulComponent.setState({'test state key': 'test state value'});
         });
 
@@ -1350,7 +1379,7 @@ main() {
             var meta = getComponentTypeMeta(reactComponentFactory.type);
 
             expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
-            expect(meta.parentType, equals(parentFactory));
+            expect(meta.parentType, equals(parentFactory.type));
           });
         });
 
@@ -1391,7 +1420,7 @@ main() {
       var meta = getComponentTypeMeta(reactComponentFactory.type);
 
       expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
-      expect(meta.parentType, equals(parentFactory));
+      expect(meta.parentType, equals(parentFactory.type));
       expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
     });
 
@@ -1409,7 +1438,7 @@ main() {
       var meta = getComponentTypeMeta(reactComponentFactory.type);
 
       expect(meta, isNot(same(const ComponentTypeMeta.none())), reason: 'should have stored a new meta instance');
-      expect(meta.parentType, equals(parentFactory));
+      expect(meta.parentType, equals(parentFactory.type));
       expect(getComponentTypeFromAlias(TestRegisterComponentClassAlias), equals(reactComponentFactory.type));
     });
   });
@@ -1445,7 +1474,7 @@ class TestComponentComponent extends UiComponent<TestComponentProps> {
   }
 }
 
-UiFactory<TestComponent2Props> TestComponent2 = ([props]) => TestComponent2Props(props);
+UiFactory<TestComponent2Props> TestComponent2 = ([props]) => TestComponent2Props(props as JsBackedMap);
 
 class TestComponent2Props extends over_react.UiProps {
   @override final ReactComponentFactoryProxy componentFactory = _TestComponent2ComponentFactory;
@@ -1485,13 +1514,13 @@ class TestComponent2Component extends UiComponent2<TestComponent2Props> {
   render() => (Dom.div()..ref = 'foo')();
 
   @override
-  TestComponent2Props typedPropsFactory(Map propsMap) => TestComponent2Props(propsMap);
+  TestComponent2Props typedPropsFactory(Map propsMap) => TestComponent2Props(propsMap as JsBackedMap);
 
   @override
-  TestComponent2Props typedPropsFactoryJs(Map propsMap) => TestComponent2Props(propsMap);
+  TestComponent2Props typedPropsFactoryJs(Map propsMap) => TestComponent2Props(propsMap as JsBackedMap);
 }
 
-UiFactory<TestStatefulComponent2Props> TestStatefulComponent2 = ([props]) => TestStatefulComponent2Props(props);
+UiFactory<TestStatefulComponent2Props> TestStatefulComponent2 = ([props]) => TestStatefulComponent2Props(props as JsBackedMap);
 
 class TestStatefulComponent2Props extends over_react.UiProps {
   @override final ReactComponentFactoryProxy componentFactory = _TestStatefulComponent2ComponentFactory;
@@ -1570,16 +1599,16 @@ class TestStatefulComponent2Component extends UiStatefulComponent2<TestStatefulC
         consumedProps = testConsumedProps;
 
   @override
-  TestStatefulComponent2Props typedPropsFactory(Map propsMap) => TestStatefulComponent2Props(propsMap);
+  TestStatefulComponent2Props typedPropsFactory(Map propsMap) => TestStatefulComponent2Props(propsMap as JsBackedMap);
 
   @override
-  TestStatefulComponent2Props typedPropsFactoryJs(Map propsMap) => TestStatefulComponent2Props(propsMap);
+  TestStatefulComponent2Props typedPropsFactoryJs(Map propsMap) => TestStatefulComponent2Props(propsMap as JsBackedMap);
 
   @override
-  TestStatefulComponent2State typedStateFactory(Map state) => TestStatefulComponent2State(state);
+  TestStatefulComponent2State typedStateFactory(Map state) => TestStatefulComponent2State(state as JsBackedMap);
 
   @override
-  TestStatefulComponent2State typedStateFactoryJs(Map propsMap) => TestStatefulComponent2State(propsMap);
+  TestStatefulComponent2State typedStateFactoryJs(Map propsMap) => TestStatefulComponent2State(propsMap as JsBackedMap);
 }
 
 Map getBackingMap(Map map) {

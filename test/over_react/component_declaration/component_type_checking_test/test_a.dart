@@ -20,7 +20,7 @@ import 'package:over_react/over_react.dart';
 part 'test_a.over_react.g.dart';
 
 @Factory()
-UiFactory<TestAProps> TestA = _$TestA;
+UiFactory<TestAProps> TestA = _$TestA; // ignore: undefined_identifier, invalid_assignment
 
 @Props()
 class _$TestAProps extends UiProps {}

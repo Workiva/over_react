@@ -1003,7 +1003,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
         expect(logRecords.single.loggerName, 'myCustomLoggerLoggerName');
         expect(logRecords.single.error, calls.single['onComponentDidCatch'][0]);
 
-        ReactErrorInfo infoSentToCallback = calls.single['onComponentDidCatch'][1];
+        final infoSentToCallback = calls.single['onComponentDidCatch'][1] as ReactErrorInfo;
         expect(logRecords.single.stackTrace, infoSentToCallback.dartStackTrace);
         expect(logRecords.single.message, 'An error was caught by an ErrorBoundary:'
             ' \nInfo: ${infoSentToCallback.componentStack}');
@@ -1028,7 +1028,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
         expect(logRecords.single.loggerName, defaultErrorBoundaryLoggerName);
         expect(logRecords.single.error, calls.single['onComponentDidCatch'][0]);
 
-        ReactErrorInfo infoSentToCallback = calls.single['onComponentDidCatch'][1];
+        final infoSentToCallback = calls.single['onComponentDidCatch'][1] as ReactErrorInfo;
         expect(logRecords.single.stackTrace, infoSentToCallback.dartStackTrace);
         expect(logRecords.single.message, 'An error was caught by an ErrorBoundary:'
             ' \nInfo: ${infoSentToCallback.componentStack}');
@@ -1044,7 +1044,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
         expect(logRecords[1].loggerName, defaultErrorBoundaryLoggerName);
         expect(logRecords[1].error, calls[2]['onComponentIsUnrecoverable'][0]);
 
-        ReactErrorInfo infoSentToCallback = calls[2]['onComponentIsUnrecoverable'][1];
+        final infoSentToCallback = calls[2]['onComponentIsUnrecoverable'][1] as ReactErrorInfo;
         expect(logRecords[1].stackTrace, infoSentToCallback.dartStackTrace);
         expect(logRecords[1].message,
             'An unrecoverable error was caught by an ErrorBoundary (attempting to remount it was unsuccessful):'

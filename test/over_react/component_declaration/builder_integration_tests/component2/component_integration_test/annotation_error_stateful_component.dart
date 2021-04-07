@@ -16,7 +16,7 @@ part of '../annotation_error_integration_test.dart';
 
 @Factory()
 UiFactory<AnnotationErrorStatefulProps> AnnotationErrorStateful =
-    _$AnnotationErrorStateful;
+    _$AnnotationErrorStateful; // ignore: undefined_identifier, invalid_assignment
 
 @Props()
 class _$AnnotationErrorStatefulProps extends UiProps {}

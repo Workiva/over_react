@@ -205,7 +205,8 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
 
   // Give the more confident factories priority when grouping, so that medium-confidence related
   // factories that don't require generation (like aliased factories) don't trump the real factory.
-  final factoriesMostToLeastConfidence = List.of(members.factories)
+  final factoryGroups = _groupFactories(members);
+  final factoriesMostToLeastConfidence = factoryGroups.map((group) => group.bestFactory).toList()
     ..sort((a, b) => b.versionConfidences.maxConfidence.confidence
         .compareTo(a.versionConfidences.maxConfidence.confidence));
   for (final factory in factoriesMostToLeastConfidence) {
@@ -239,6 +240,25 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
       if (stateClassOrMixin != null) {
         consume(stateClassOrMixin.either);
       }
+    }
+
+    if (factory.shouldGenerateConfig) {
+      final factories = factoryGroups.firstWhere((group) => group.bestFactory == factory);
+      final generatedFactories = factories.factories
+          .where((factory) => factory.versionConfidences.maxConfidence.shouldGenerate);
+      final associatedProps =
+          getPropsForFunctionComponent(members.props, members.propsMixins, factory);
+      if (generatedFactories.isNotEmpty &&
+          associatedProps?.either != null &&
+          !hasBeenConsumed(associatedProps.either)) {
+        consume(associatedProps.either);
+        factories.factories.forEach(consume);
+        yield PropsMapViewOrFunctionComponentDeclaration(
+          factories: generatedFactories.toList(),
+          props: associatedProps,
+        );
+      }
+      continue;
     }
 
     if (component != null) {
@@ -280,7 +300,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         consume(factory);
         consumePropsAndState();
         yield PropsMapViewOrFunctionComponentDeclaration(
-          factory: factory,
+          factories: [factory],
           props: propsClassOrMixin,
         );
       }
@@ -321,7 +341,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     if (nonNullFactoryPropsOrComponents.isEmpty) {
       assert(stateClass != null);
       if (resolveVersion([stateClass]).shouldGenerate) {
-        errorCollector.addError(errorStateOnly, errorCollector.spanFor(stateClass.node));
+        errorCollector.addError(errorStateOnly, errorCollector.spanFor(stateClass.name));
       }
       continue;
     }
@@ -330,7 +350,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     switch (nonNullFactoryPropsOrComponents.length) {
       case 1:
         final single = nonNullFactoryPropsOrComponents.single;
-        final span = errorCollector.spanFor(single.node);
+        final span = errorCollector.spanFor(single.name);
         if (single == factory) {
           errorCollector.addError(errorFactoryOnly, span);
         } else if (single == propsClass) {
@@ -340,7 +360,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
         }
         continue;
       case 2:
-        final span = errorCollector.spanFor((factory ?? propsClass).node);
+        final span = errorCollector.spanFor((factory ?? propsClass).name);
         if (factory == null) {
           errorCollector.addError(errorNoFactory, span);
         } else if (propsClass == null) {
@@ -355,31 +375,54 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
     // General case (should be rare if not impossible)
     for (final member in group) {
       errorCollector.addError(
-          'Mismatched boilerplate member found', errorCollector.spanFor(member.node));
+          'Mismatched boilerplate member found', errorCollector.spanFor(member.name));
     }
   }
 }
 
+const _ensureMatchingNames = 'If all the correct boilerplate members seem to be present, '
+    'ensure that they all have matching names (e.g., "Foo" in Foo/FooProps/FooState/FooComponent).';
+
+/// Group [BoilerplateMembers.factories] by type.
+List<FactoryGroup> _groupFactories(BoilerplateMembers members) {
+  var factoriesByType = <String, List<BoilerplateFactory>>{};
+
+  for (final factory in members.factories) {
+    final typeString = factory.propsGenericArg.typeNameWithoutPrefix;
+    factoriesByType.putIfAbsent(typeString, () => []).add(factory);
+  }
+
+  final groups = <FactoryGroup>[];
+  factoriesByType.forEach((key, value) {
+    if (key == null) {
+      groups.addAll(value.map((factory) => FactoryGroup(factories: [factory])));
+    } else {
+      groups.add(FactoryGroup(factories: value));
+    }
+  });
+  return groups;
+}
+
 const errorStateOnly =
     'Could not find matching factory, props class, and component class in this file;'
-    ' these are required to use UiState.';
+    ' these are required to use UiState. $_ensureMatchingNames';
 
 const errorFactoryOnly = 'Could not find matching props class in this file;'
     ' this is required to declare a props map view or function component,'
-    ' and a component class is also required to declare a class-based component.';
+    ' and a component class is also required to declare a class-based component. $_ensureMatchingNames';
 
 const errorPropsClassOnly = 'Could not find matching factory in this file;'
     ' this is required to declare a props map view or function component,'
-    ' and a component class is also required to declare a class-based component.';
+    ' and a component class is also required to declare a class-based component. $_ensureMatchingNames';
 
 const errorComponentClassOnly = 'Could not find matching factory and props class in this file;'
-    ' these are required to declare a class-based component.';
+    ' these are required to declare a class-based component. $_ensureMatchingNames';
 
 const errorNoFactory = 'Could not find a matching factory in this file;'
-    ' this is required to declare a component or props map view.';
+    ' this is required to declare a component or props map view. $_ensureMatchingNames';
 
 const errorNoProps = 'Could not find a matching props class in this file;'
-    ' this is required to declare a component or props map view.';
+    ' this is required to declare a component or props map view. $_ensureMatchingNames';
 
 const errorNoComponent = 'Could not find a matching component class in this file;'
-    ' this is required to declare a class-based component.';
+    ' this is required to declare a class-based component. $_ensureMatchingNames';

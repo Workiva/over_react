@@ -22,7 +22,7 @@ import 'package:test/test.dart';
 main() {
   group('Value Mutation Checker:', () {
     group('CollectionLengthHasher', () {
-      sharedHashTests(useLengthHasher: false);
+      sharedHashTests(() => CollectionLengthHasher());
 
       group('hash', () {
         CollectionLengthHasher hasher;
@@ -33,7 +33,7 @@ main() {
 
         test('returns the correct value for a map', () {
           final map = {'a': 1, 'b': '2'};
-          final domProps = DomProps(react.a);
+          final domProps = DomProps(react.a as ReactComponentFactoryProxy);
           expect(hasher.hash(map), 2);
           expect(hasher.hash(domProps.props), 0);
 
@@ -58,7 +58,7 @@ main() {
     });
 
     group('CollectionShallowHasher', () {
-      sharedHashTests(useLengthHasher: false);
+      sharedHashTests(() => CollectionShallowHasher());
 
       group('hash', () {
         CollectionShallowHasher hasher;
@@ -89,12 +89,11 @@ main() {
   });
 }
 
-void sharedHashTests({bool useLengthHasher}) {
+void sharedHashTests(InstanceHasher Function() getHasher) {
   InstanceHasher hasher;
 
   setUp(() {
-    hasher =
-        useLengthHasher ? CollectionLengthHasher : CollectionShallowHasher();
+    hasher = getHasher();
   });
 
   group('canHash returns', () {
@@ -105,7 +104,7 @@ void sharedHashTests({bool useLengthHasher}) {
     });
 
     test('true if the object is a map or iterable', () {
-      final props = DomProps(react.a);
+      final props = DomProps(react.a as ReactComponentFactoryProxy);
       final list = MockList();
 
       expect(hasher.canHash({'e', 'a', 'b'}), isTrue);
@@ -128,7 +127,7 @@ void sharedHashTests({bool useLengthHasher}) {
       });
 
       test('the object has not been checked before', () {
-        final props = DomProps(react.a);
+        final props = DomProps(react.a as ReactComponentFactoryProxy);
         expect(hasher.hasHashChanged(props), isFalse);
       });
 
@@ -147,9 +146,6 @@ void sharedHashTests({bool useLengthHasher}) {
       expect(hasher.hasHashChanged(map), isFalse);
 
       map['newField'] = true;
-      expect(hasher.hasHashChanged(map), isTrue);
-
-      map['test'] = false;
       expect(hasher.hasHashChanged(map), isTrue);
     });
   });

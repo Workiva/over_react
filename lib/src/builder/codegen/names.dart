@@ -43,7 +43,19 @@ class FactoryNames {
   ///
   /// - Input: `Foo`
   /// - Output: `_$Foo`
-  String get implName => '$_prefix$privateSourcePrefix${unprefixedConsumerName}';
+  String get implName => '$_prefix$privateSourcePrefix$unprefixedConsumerName';
+
+  /// The name of the private generated function component props config for the factory.
+  ///
+  /// Example: `_$FooConfig
+  String get privateConfigName => '$_prefix$privateSourcePrefix${unprefixedConsumerName}Config';
+
+  /// The name of the public generated function component props config for the factory.
+  ///
+  /// Example: `$FooConfig
+  @Deprecated(
+      'The public config is deprecated and will be removed. Use `privateConfigName` instead.')
+  String get publicConfigName => '$_prefix$publicGeneratedPrefix${unprefixedConsumerName}Config';
 }
 
 /// A set of names of the different generated members for a given component class.

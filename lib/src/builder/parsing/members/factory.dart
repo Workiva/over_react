@@ -38,12 +38,22 @@ class BoilerplateFactory extends BoilerplateMember {
       }
     }
 
+    if (shouldGenerateConfig) {
+      final uiFunctionInvocation = getDescendantIdentifier(
+          node.variables.firstInitializer, (identifier) => identifier.isFunctionType);
+      final methodInvocation = uiFunctionInvocation.thisOrAncestorOfType<MethodInvocation>();
+      final typeArgs = methodInvocation?.typeArguments?.arguments?.first;
+      return typeArgs;
+    }
+
     return null;
   }
 
   BoilerplateFactory(this.node, VersionConfidences confidence) : super(confidence);
 
   bool get hasFactoryAnnotation => node.hasAnnotationWithName('Factory');
+
+  bool get shouldGenerateConfig => node.usesAGeneratedConfig;
 
   /// Verifies the correct implementation of a boilerplate factory
   ///
@@ -61,7 +71,7 @@ class BoilerplateFactory extends BoilerplateMember {
         if (!hasFactoryAnnotation) {
           errorCollector.addError(
               'Legacy boilerplate factories must be annotated with `@Factory()`.',
-              errorCollector.spanFor(node));
+              errorCollector.spanFor(name));
         }
 
         break;
@@ -74,17 +84,26 @@ class BoilerplateFactory extends BoilerplateMember {
 
     final variable = node.variables.variables.first;
     final factoryName = variable.name.name;
-    final generatedFactoryName = '$privateSourcePrefix$factoryName';
+
+    final names = FactoryNames(factoryName);
+    final generatedFactoryName = names.implName;
+    final generatedConfigName = names.privateConfigName;
 
     final initializer = variable.initializer;
     final referencesGeneratedFactory = initializer != null &&
         anyDescendantIdentifiers(
             initializer, (identifier) => identifier.name == generatedFactoryName);
 
-    if (!referencesGeneratedFactory) {
+    if (!referencesGeneratedFactory && !shouldGenerateConfig) {
       errorCollector.addError(
-          'Factory variables are stubs for the generated factories, and must '
-          'be initialized with or otherwise reference the generated factory. Should be: `$factoryName = $generatedFactoryName`',
+          'Factory variables are stubs for generated code, and must'
+          ' be initialized with an expression containing either'
+          ' the generated factory ($generatedFactoryName) or'
+          ' the generated factory config ($generatedConfigName).'
+          '\n\nExamples:'
+          '\n\n    $factoryName = $generatedFactoryName;'
+          '\n\n    $factoryName = connect(...)($generatedFactoryName);'
+          '\n\n    $factoryName = uiFunction((props) { ... }, $generatedConfigName);',
           errorCollector.spanFor(variable));
     }
   }

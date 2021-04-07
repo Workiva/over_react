@@ -22,7 +22,7 @@ part 'list_group_item.over_react.g.dart';
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/list-group/>
 
-UiFactory<ListGroupItemProps> ListGroupItem = _$ListGroupItem;
+UiFactory<ListGroupItemProps> ListGroupItem = castUiFactory(_$ListGroupItem); // ignore: undefined_identifier
 
 mixin ListGroupItemProps on UiProps {
   /// The HTML element type for the [ListGroupItem], specifying its DOM
@@ -73,7 +73,7 @@ mixin ListGroupItemProps on UiProps {
   ///
   /// If set, the item will render via [Dom.a].
   ///
-  /// _Proxies [DomProps.href]_
+  /// _Proxies [DomPropsMixin.href]_
   @Accessor(keyNamespace: '')
   String href;
 
@@ -81,7 +81,7 @@ mixin ListGroupItemProps on UiProps {
   ///
   /// If set, the item will render via [Dom.a].
   ///
-  /// _Proxies [DomProps.target]_
+  /// _Proxies [DomPropsMixin.target]_
   @Accessor(keyNamespace: '')
   String target;
 
@@ -90,7 +90,7 @@ mixin ListGroupItemProps on UiProps {
   ///
   /// This will only be applied if [onClick] is also set.
   ///
-  /// _Proxies [DomProps.type]_
+  /// _Proxies [DomPropsMixin.type]_
   ///
   /// Default: [ButtonType.BUTTON]
   ButtonType type;
@@ -212,7 +212,7 @@ class ListGroupItemElementType {
   /// A [Dom.li] (HTML `<li>` element)
   ///
   /// Will only be used if [ListGroupItemProps.href] and
-  /// [ListGroupItemProps.onClick] are both `null`.
+  /// `ListGroupItemProps.onClick` are both `null`.
   ///
   /// Only use this when the parent [ListGroup] has
   /// [ListGroupProps.elementType] set to [ListGroupElementType.UL].
@@ -222,7 +222,7 @@ class ListGroupItemElementType {
   /// A [Dom.span] (HTML `<span>` element)
   ///
   /// Will only be used if [ListGroupItemProps.href] and
-  /// [ListGroupItemProps.onClick] are both `null`.
+  /// `ListGroupItemProps.onClick` are both `null`.
   static final ListGroupItemElementType SPAN =
       ListGroupItemElementType._internal(Dom.span);
 }

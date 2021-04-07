@@ -2,13 +2,14 @@ library todo_client.src.components.user_selector;
 
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
+// ignore: implementation_imports
+import 'package:over_react/src/component/test_fixtures/redraw_counter_component_mixin.dart';
 
 import 'package:todo_client/src/store.dart';
 import 'package:todo_client/src/models/user.dart';
 import 'package:todo_client/src/components/shared/avatar_with_colors.dart';
 import 'package:todo_client/src/components/shared/material_ui.dart';
 import 'package:todo_client/src/components/shared/menu_overlay.dart';
-import 'package:todo_client/src/components/shared/redraw_counter_component_mixin.dart';
 
 part 'user_selector_trigger.dart';
 part 'user_selector.over_react.g.dart';
@@ -23,7 +24,7 @@ UiFactory<UserSelectorProps> UserSelector = connect<AppState, UserSelectorProps>
       );
     },
     forwardRef: true
-)(_$UserSelector); // ignore: undefined_identifier
+)(castUiFactory(_$UserSelector)); // ignore: undefined_identifier
 
 mixin UserSelectorProps on UiProps {
   String selectedUserId;

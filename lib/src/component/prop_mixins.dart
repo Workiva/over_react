@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
+
 /// Various prop related mixins to be used with `UiComponent` descendants.
 library over_react.prop_mixins;
 
@@ -55,7 +57,7 @@ abstract class _$ReactPropsMixin {
   ///
   /// * <https://facebook.github.io/react/docs/multiple-components.html#children>
   /// * <https://facebook.github.io/react/docs/reconciliation.html>
-  String get key        => props['key'];
+  String get key        => props['key'] as String;
   /// ignore: prefer_null_aware_operators
   set key(Object value) => props['key'] = value == null ? null : value.toString();
 

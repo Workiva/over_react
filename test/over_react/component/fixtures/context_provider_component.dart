@@ -19,6 +19,7 @@ import 'test_context.dart';
 part 'context_provider_component.over_react.g.dart';
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<ContextProviderWrapperProps> ContextProviderWrapper = _$ContextProviderWrapper;
 
 @Props()

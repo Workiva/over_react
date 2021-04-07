@@ -15,10 +15,10 @@
 import 'dart:async';
 import 'dart:html';
 
-import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart';
+import 'package:over_react/src/util/equality.dart';
 import 'package:redux/redux.dart' as redux;
 import 'package:w_flux/w_flux.dart' as flux;
 
@@ -37,6 +37,7 @@ abstract class $ConnectFluxPropsMixin {
   static const PropsMeta meta = _$metaForConnectFluxPropsMixin;
 }
 
+// ignore: deprecated_member_use_from_same_package
 @PropsMixin(keyNamespace: '')
 abstract class _$ConnectFluxPropsMixin<TActions> implements UiProps {
   @override
@@ -309,8 +310,6 @@ mixin InfluxStoreMixin<S> on flux.Store {
   }
 }
 
-bool _shallowMapEquality(Map a, Map b) => const MapEquality().equals(a, b);
-
 /// A wrapper around the `connect` function that provides a similar API into a Flux store.
 ///
 /// This is primarily for use while transitioning _to_ `connect` and OverReact Redux.
@@ -357,9 +356,9 @@ bool _shallowMapEquality(Map a, Map b) => const MapEquality().equals(a, b);
 /// If you do not provide [mergeProps], the wrapped component receives {...ownProps, ...stateProps, ...dispatchProps}
 /// by default.
 ///
-/// - [areOwnPropsEqual] does a shallow Map equality check by default.
-/// - [areStatePropsEqual] does a shallow Map equality check by default.
-/// - [areMergedPropsEqual] does a shallow Map equality check by default.
+/// - [areOwnPropsEqual] does an equality check using [propsOrStateMapsEqual] by default.
+/// - [areStatePropsEqual] does a shallow Map equality check using [propsOrStateMapsEqual] by default.
+/// - [areMergedPropsEqual] does a shallow Map equality check using [propsOrStateMapsEqual] by default.
 ///
 /// - [context] can be utilized to provide a custom context object created with `createContext`.
 /// [context] is how you can utilize multiple stores. While supported, this is not recommended.
@@ -419,9 +418,11 @@ UiFactory<TProps> Function(UiFactory<TProps>)
   Map Function(TActions actions, TProps ownProps) mapActionsToPropsWithOwnProps,
   Map Function(TProps stateProps, TProps dispatchProps, TProps ownProps)
       mergeProps,
-  bool Function(TProps nextProps, TProps prevProps) areOwnPropsEqual,
-  bool Function(TProps nextProps, TProps prevProps) areStatePropsEqual,
-  bool Function(TProps nextProps, TProps prevProps) areMergedPropsEqual,
+  // Use default parameter values instead of ??= in the function body to allow consumers
+  // to specify `null` and fall back to the JS default.
+  bool Function(TProps nextProps, TProps prevProps) areOwnPropsEqual = propsOrStateMapsEqual,
+  bool Function(TProps nextProps, TProps prevProps) areStatePropsEqual = propsOrStateMapsEqual,
+  bool Function(TProps nextProps, TProps prevProps) areMergedPropsEqual = propsOrStateMapsEqual,
   Context context,
   bool pure = true,
   bool forwardRef = false,
@@ -569,13 +570,13 @@ UiFactory<TProps> Function(UiFactory<TProps>)
   }
   /*--end usage of cases--*/
 
-  if (areStatePropsEqual == null) {
-    const defaultAreStatePropsEqual = _shallowMapEquality;
-    const propHasher = CollectionLengthHasher();
-    bool areStatePropsEqualWrapper(TProps nextProps, TProps prevProps) {
-      final result = defaultAreStatePropsEqual(nextProps, prevProps);
+  // In dev mode, if areStatePropsEqual is not specified, pass in a version
+  // that warns for common pitfall cases.
+  assert(() {
+    if (areStatePropsEqual == propsOrStateMapsEqual) {
+      bool areStatePropsEqualWrapper(TProps nextProps, TProps prevProps) {
+        const propHasher = CollectionLengthHasher();
 
-      assert(() {
         prevProps.forEach((key, value) {
           // If the value is the same instance, check if the instance has been mutated,
           // causing its hash to be updated
@@ -592,14 +593,13 @@ UiFactory<TProps> Function(UiFactory<TProps>)
           }
         });
 
-        return true;
-      }());
-
-      return result;
+        return propsOrStateMapsEqual(nextProps, prevProps);
+      }
+      areStatePropsEqual = areStatePropsEqualWrapper;
     }
 
-    areStatePropsEqual = areStatePropsEqualWrapper;
-  }
+    return true;
+  }());
 
   return connect(
     mapStateToProps: mapStateToProps,
@@ -634,7 +634,7 @@ extension FluxStoreExtension<S extends flux.Store> on S {
   /// Returns a [ConnectFluxAdapterStore] instance from the Flux store instance.
   ///
   /// This is meant to be a more succinct way to instantiate the adapter store.
-  ConnectFluxAdapterStore asConnectFluxStore(dynamic actions,
+  ConnectFluxAdapterStore<S> asConnectFluxStore(dynamic actions,
       {List<redux.Middleware<S>> middleware}) {
     if (this is InfluxStoreMixin) {
       throw ArgumentError.value(
@@ -643,7 +643,19 @@ extension FluxStoreExtension<S extends flux.Store> on S {
           '`asConnectFluxStore` should not be used when the store is implementing InfluxStoreMixin. Use `asReduxStore` instead');
     }
 
-    return _connectFluxAdapterFor[this] ??=
-        ConnectFluxAdapterStore(this, actions, middleware: middleware);
+    return _connectFluxAdapterFor.putIfAbsentCasted(this, () => ConnectFluxAdapterStore(this, actions, middleware: middleware));
+  }
+}
+
+extension<T> on Expando<T> {
+  S putIfAbsentCasted<S extends T>(Object object, S Function() ifAbsent) {
+    final existingValue = this[object];
+    if (existingValue != null) {
+      return existingValue as S;
+    }
+
+    final newValue = ifAbsent();
+    this[object] = newValue;
+    return newValue;
   }
 }

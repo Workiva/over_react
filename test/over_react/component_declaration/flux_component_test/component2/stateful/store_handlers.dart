@@ -12,10 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// ignore_for_file: deprecated_member_use_from_same_package
 part of over_react.component_declaration.component2.flux_component_test;
 
 @Factory()
-UiFactory<TestStoreHandlersProps> TestStatefulStoreHandlers = _$TestStatefulStoreHandlers;
+// ignore: undefined_identifier, invalid_assignment
+UiFactory<TestStatefulStoreHandlersProps> TestStatefulStoreHandlers = _$TestStatefulStoreHandlers;
 
 @Props()
 class _$TestStatefulStoreHandlersProps extends FluxUiProps<TestActions, TestStore> implements TestStoreHandlersProps {}

@@ -27,8 +27,9 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
   @override
   Function get onComponentDidMount =>
-      props[_$key__onComponentDidMount___$TestCompositeComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onComponentDidMount___$TestCompositeComponentProps] ?? null)
+          as Function;
+
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidMount] -->
   @override
   set onComponentDidMount(Function value) =>
@@ -37,8 +38,9 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
   Function get onComponentWillUnmount =>
-      props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onComponentWillUnmount___$TestCompositeComponentProps] ??
+          null) as Function;
+
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentWillUnmount] -->
   @override
   set onComponentWillUnmount(Function value) =>
@@ -48,8 +50,9 @@ abstract class _$TestCompositeComponentPropsAccessorsMixin
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override
   Function get onComponentDidUpdate =>
-      props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onComponentDidUpdate___$TestCompositeComponentProps] ??
+          null) as Function;
+
   /// <!-- Generated from [_$TestCompositeComponentProps.onComponentDidUpdate] -->
   @override
   set onComponentDidUpdate(Function value) =>

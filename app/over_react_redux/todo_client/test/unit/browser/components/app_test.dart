@@ -63,7 +63,8 @@ main() {
 
       test('that does not rerender when AppState is updated', () async {
         component.props.createTodo('some description');
-        await expectNoRedraws(component);
+        final redrawCount = await component.didRedraw().future.timeout(20.milliseconds, onTimeout: () => 0);
+        expect(redrawCount, 0);
       });
 
       group('that renders a CreateInput component for creating Todos', () {

@@ -33,16 +33,16 @@ _$$TransitionerProps _$Transitioner([Map backingProps]) => backingProps == null
 abstract class _$$TransitionerProps extends UiProps
     with
         TransitionerPropsMixin,
-        $TransitionerPropsMixin, // If this generated mixin is undefined, it's likely because TransitionerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TransitionerPropsMixin.
+        $TransitionerPropsMixin, // If this generated mixin is undefined, it's likely because TransitionerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionerPropsMixin, and check that $TransitionerPropsMixin is exported/imported properly.
         TransitionPropsMixin,
-        $TransitionPropsMixin // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TransitionPropsMixin.
+        $TransitionPropsMixin // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionPropsMixin, and check that $TransitionPropsMixin is exported/imported properly.
     implements
         TransitionerProps {
   _$$TransitionerProps._();
 
   factory _$$TransitionerProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TransitionerProps$JsMap(backingMap);
+      return _$$TransitionerProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TransitionerProps$PlainMap(backingMap);
     }
@@ -60,6 +60,14 @@ abstract class _$$TransitionerProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because TransitionerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionerPropsMixin, and check that $TransitionerPropsMixin is exported/imported properly.
+        TransitionerPropsMixin: $TransitionerPropsMixin.meta,
+        // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionPropsMixin, and check that $TransitionPropsMixin is exported/imported properly.
+        TransitionPropsMixin: $TransitionPropsMixin.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].
@@ -107,14 +115,14 @@ class _$$TransitionerProps$JsMap extends _$$TransitionerProps {
 abstract class _$$TransitionerState extends UiState
     with
         AbstractTransitionState,
-        $AbstractTransitionState // If this generated mixin is undefined, it's likely because AbstractTransitionState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of AbstractTransitionState.
+        $AbstractTransitionState // If this generated mixin is undefined, it's likely because AbstractTransitionState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of AbstractTransitionState, and check that $AbstractTransitionState is exported/imported properly.
     implements
         TransitionerState {
   _$$TransitionerState._();
 
   factory _$$TransitionerState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TransitionerState$JsMap(backingMap);
+      return _$$TransitionerState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$TransitionerState$PlainMap(backingMap);
     }
@@ -184,7 +192,8 @@ class _$TransitionerComponent extends TransitionerComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -206,7 +215,7 @@ class _$TransitionerComponent extends TransitionerComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -228,9 +237,9 @@ class _$TransitionerComponent extends TransitionerComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because TransitionerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TransitionerPropsMixin.
+        // If this generated mixin is undefined, it's likely because TransitionerPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionerPropsMixin, and check that $TransitionerPropsMixin is exported/imported properly.
         TransitionerPropsMixin: $TransitionerPropsMixin.meta,
-        // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of TransitionPropsMixin.
+        // If this generated mixin is undefined, it's likely because TransitionPropsMixin is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of TransitionPropsMixin, and check that $TransitionPropsMixin is exported/imported properly.
         TransitionPropsMixin: $TransitionPropsMixin.meta,
       });
 }
@@ -243,71 +252,66 @@ mixin $TransitionerPropsMixin on TransitionerPropsMixin {
   static const PropsMeta meta = _$metaForTransitionerPropsMixin;
   @override
   Callback get onHandlePreShowing =>
-      props[_$key__onHandlePreShowing__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onHandlePreShowing__TransitionerPropsMixin] ?? null)
+          as Callback;
   @override
   set onHandlePreShowing(Callback value) =>
       props[_$key__onHandlePreShowing__TransitionerPropsMixin] = value;
   @override
   Callback get onHandleShowing =>
-      props[_$key__onHandleShowing__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onHandleShowing__TransitionerPropsMixin] ?? null)
+          as Callback;
   @override
   set onHandleShowing(Callback value) =>
       props[_$key__onHandleShowing__TransitionerPropsMixin] = value;
   @override
   Callback get onHandleShown =>
-      props[_$key__onHandleShown__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onHandleShown__TransitionerPropsMixin] ?? null) as Callback;
   @override
   set onHandleShown(Callback value) =>
       props[_$key__onHandleShown__TransitionerPropsMixin] = value;
   @override
   Callback get onHandleHiding =>
-      props[_$key__onHandleHiding__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onHandleHiding__TransitionerPropsMixin] ?? null)
+          as Callback;
   @override
   set onHandleHiding(Callback value) =>
       props[_$key__onHandleHiding__TransitionerPropsMixin] = value;
   @override
   Callback get onHandleHidden =>
-      props[_$key__onHandleHidden__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onHandleHidden__TransitionerPropsMixin] ?? null)
+          as Callback;
   @override
   set onHandleHidden(Callback value) =>
       props[_$key__onHandleHidden__TransitionerPropsMixin] = value;
   @override
   Callback get onPrepareShow =>
-      props[_$key__onPrepareShow__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPrepareShow__TransitionerPropsMixin] ?? null) as Callback;
   @override
   set onPrepareShow(Callback value) =>
       props[_$key__onPrepareShow__TransitionerPropsMixin] = value;
   @override
   Callback get onPrepareHide =>
-      props[_$key__onPrepareHide__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onPrepareHide__TransitionerPropsMixin] ?? null) as Callback;
   @override
   set onPrepareHide(Callback value) =>
       props[_$key__onPrepareHide__TransitionerPropsMixin] = value;
   @override
   bool get hasTransition =>
-      props[_$key__hasTransition__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__hasTransition__TransitionerPropsMixin] ?? null) as bool;
   @override
   set hasTransition(bool value) =>
       props[_$key__hasTransition__TransitionerPropsMixin] = value;
   @override
   bool get initiallyShown =>
-      props[_$key__initiallyShown__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__initiallyShown__TransitionerPropsMixin] ?? null) as bool;
   @override
   set initiallyShown(bool value) =>
       props[_$key__initiallyShown__TransitionerPropsMixin] = value;
   @override
   Duration get transitionTimeout =>
-      props[_$key__transitionTimeout__TransitionerPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__transitionTimeout__TransitionerPropsMixin] ?? null)
+          as Duration;
   @override
   set transitionTimeout(Duration value) =>
       props[_$key__transitionTimeout__TransitionerPropsMixin] = value;

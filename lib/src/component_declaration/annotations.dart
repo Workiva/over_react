@@ -134,9 +134,17 @@ class Component {
 ///
 /// If utilizing legacy boilerplate, must be accompanied by a [Factory] and [Props]
 /// declaration.
+///
+/// See also: `UiFactory.setTypeMeta` (via extension UiFactoryTypeMeta),
+/// which can be used to provide configuration to function components,
+/// which don't have this annotation.
 class Component2 implements Component { // ignore: deprecated_member_use_from_same_package
   /// Whether the component clones or passes through its children and needs to be
   /// treated as if it were the wrapped component when passed in to `isComponentOfType`.
+  ///
+  /// See also: `UiFactory.setTypeMeta` (via extension UiFactoryTypeMeta),
+  /// which can be used to provide configuration to function components,
+  /// which don't have this annotation.
   @override
   final bool isWrapper;
 
@@ -156,6 +164,10 @@ class Component2 implements Component { // ignore: deprecated_member_use_from_sa
   final bool isErrorBoundary;
 
   /// The component class of this component's "parent type".
+  ///
+  /// See also: `UiFactory.setTypeMeta` (via extension UiFactoryTypeMeta),
+  /// which can be used to provide configuration to function components,
+  /// which don't have this annotation.
   ///
   /// Used to enable inheritance in component type-checking in `isComponentOfType`.
   ///

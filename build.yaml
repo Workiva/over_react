@@ -20,14 +20,36 @@ targets:
       over_react|_over_react_local_builder:
         enabled: true
         generate_for:
+          include:
+            - "lib/**"
+            - "test/**"
+            - "web/component1/**"
+            # The Dart 2 only boilerplate does not analyze cleanly without a build so the generated files need to be
+            # checked in.
+            - "example/boilerplate_versions/dart2_only/**"
           exclude:
+            # These tests analyze cleanly without a build so the generated files do not need to be checked in.
+            - "test/over_react/component_declaration/builder_integration_tests/backwards_compatible/**"
+            - "test/over_react/component_declaration/builder_integration_tests/new_boilerplate/**"
             # These test un-built base class behavior, and contain code that might look like declarations
             # and should definitely not be built
             - "test/over_react/component_declaration/builder_helpers_test.dart"
             - "test/over_react/component_declaration/component_base_test.dart"
 
       over_react|overReactBuilder:
-        enabled: false
+        enabled: true
+        generate_for:
+          include:
+            - "web/**"
+            - "example/**"
+            # These tests analyze cleanly without a build so the generated files do not need to be checked in.
+            - "test/over_react/component_declaration/builder_integration_tests/backwards_compatible/**"
+            - "test/over_react/component_declaration/builder_integration_tests/new_boilerplate/**"
+          exclude:
+            - "web/component1/**"
+            # The Dart 2 only boilerplate does not analyze cleanly without a build so the generated files need to be
+            # checked in.
+            - "example/boilerplate_versions/dart2_only/**"
 
       built_value_generator|built_value:
         generate_for:
@@ -39,10 +61,10 @@ targets:
           include:
             - test/over_react/component_declaration/redux_component_test/test_reducer.dart
 
-      build_vm_compilers|entrypoint:
-        generate_for:
-          include:
-            - "test/vm_tests/**"
+#      build_vm_compilers|entrypoint:
+#        generate_for:
+#          include:
+#            - "test/vm_tests/**"
 
       # builder uses mirrors and will cause a build to fail when using build web compilers
       # vm tests require the use of mirrors
@@ -61,3 +83,6 @@ targets:
           - "example/**.dart"
           - "test/*.browser_test.dart"
           - "web/**/index.dart"
+        options:
+          dart2js_args:
+            - --no-minify

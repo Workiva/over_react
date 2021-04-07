@@ -21,7 +21,7 @@ class TransformMatcher extends CustomMatcher {
   TransformMatcher(dynamic matcher) : super('Transform that', 'parsed value', matcher);
 
   @override
-  featureValueOf(transform) => parseCssTransform(transform);
+  featureValueOf(transform) => parseCssTransform(transform as String);
 }
 
 /// Parses a CSS transform into nested [List]s for easy matching.
@@ -83,7 +83,7 @@ Matcher matchesTransform(String transformString, {double tolerance = .01}) {
       // Also, don't apply tolerance to zero.
       if (number == 0) return [0, anything];
 
-      return [closeTo(number, tolerance), anyOf(unit, '')];
+      return [closeTo(number as num, tolerance), anyOf(unit, '')];
     }).toList();
 
     return [name, argumentMatcher];

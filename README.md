@@ -1,26 +1,22 @@
 # OverReact
 
-[![Pub](https://img.shields.io/pub/v/over_react.svg)](https://pub.dartlang.org/packages/over_react)
+A library for building statically-typed React UI components using Dart.
+
+This library also exposes _OverReact Redux_, which has [its own documentation](doc/over_react_redux_documentation.md).
+
+[![Pub](https://img.shields.io/pub/v/over_react.svg)](https://pub.dev/packages/over_react)
 [![Documentation](https://img.shields.io/badge/docs-over_react-blue.svg)](https://pub.dev/documentation/over_react/latest/)
-[![Join the chat at https://gitter.im/over_react/Lobby](https://badges.gitter.im/over_react/Lobby.svg)](https://gitter.im/over_react/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![OverReact Analyzer Plugin (beta)](https://img.shields.io/badge/docs-analyzer_plugin_(beta)-ff69b4.svg)](https://workiva.github.io/over_react/analyzer_plugin/)
+[![Join the gitter chat](https://badges.gitter.im/over_react/Lobby.svg)][gitter-chat]
 
-[![Build Status](https://travis-ci.org/Workiva/over_react.svg?branch=master)](https://travis-ci.org/Workiva/over_react)
-[![Test Coverage](https://codecov.io/github/Workiva/over_react/coverage.svg?branch=master)](https://codecov.io/github/Workiva/over_react?branch=master)
-
-> A library for building statically-typed React UI components using Dart.
->
-> This library also exposes _OverReact Redux_, which has [its own documentation](doc/over_react_redux_documentation.md).
-
----
- __UiComponent2 Migration Guide__
- 
-> For guidance on updating to `UiComponent2` from `UiComponent`, see the [UiComponent2 Transition Notes](doc/ui_component2_transition.md).
+[![Dart CI](https://github.com/Workiva/over_react/workflows/Dart%20CI/badge.svg?branch=master)](https://github.com/Workiva/over_react/actions?query=workflow%3A%22Dart+CI%22+branch%3Amaster)
 
 ---
 
-* __[Additional docs](#additional-docs)__
-* __[Using it in your project](#using-it-in-your-project)__
-    * [Running tests in your project](#running-tests-in-your-project)
+* __[Migration Guides](#migration-guides)__
+* __[Using OverReact](#using-overreact)__
+    * [Running tests in your project](#running-unit-tests-in-your-project)
+        * [OverReact Component Unit Test Examples](#overreact-component-unit-test-examples)
 * __[Anatomy of an OverReact component](#anatomy-of-an-overreact-component)__
     * [UiFactory](#uifactory)
     * [UiProps](#uiprops)
@@ -36,39 +32,53 @@
 
 [](#__START_EMBEDDED_README__)
 
-## Additional docs
-To further document APIs that can be found in OverReact, the [doc](doc) directory was created. The documentation found in that directory includes:
- - [OverReact Redux Documentation](doc/over_react_redux_documentation.md): The official documentation source for OverReact Redux, with an indepth description of `connect` and usage with `UiComponent2`.
-    
-    Migration guides from other state management libs:
-    - [BuiltRedux to Redux](doc/built_redux_to_redux.md): A guide to transitioning to OverReact Redux from BuiltRedux.
-    - [Flux to Redux](doc/flux_to_redux.md): A guide to how to transition from w_flux to OverReact Redux. This guide also introducers a new architecture, Influx, that can be used for incrementally refactoring.
-- Migration guides from older versions of over_react:
-    - [Dart2 Migration](doc/dart2_migration.md): Documentation on the Dart 2 builder updates and how to transition componentry to Dart 2.
-    - [UiComponent2 Transition](doc/ui_component2_transition.md): A document discussing the changes between `UiComponent` and `UiComponent2`, as well as how to migrate.
-    - [New Boilerplate Migration](doc/new_boilerplate_migration.md): Documentation on the changes to the component boilerplate, as well as how to migrate to the new boilerplate.
+## Migration Guides
 
-## Using it in your project
+### UiComponent2 / Component Boilerplate Migration
 
-> __If you are not familiar with React JS__
+__There have been a lot of fantastic [improvements in this library recently](https://pub.dev/packages/over_react#-changelog-tab-)__, all of which require some action on your part if you have existing components built prior to the `3.1.0` release of OverReact.  __We've done everything we can to make the migrations as painless as possible__ - with the vast majority of changes being handled by some codemod scripts you can run in your libraries locally. As always, if you encounter issues while working through the migration, you can reach out to us in [our gitter chat](https://gitter.im/over_react/Lobby), or [open a new issue][new-issue].
+
+__First, you should upgrade your components to `UiComponent2`__. Check out the [`UiComponent2` Migration Guide](doc/ui_component2_transition.md) to learn about the benefits of `UiComponent2`, the codemod script you can run, and other updates you may need to make manually.
+
+__Once you have migrated your components to `UiComponent2`__, you're ready to start using the "v3" component boilerplate - which is a _massive_ quality of life improvement for component authors! Check out the [Component Boilerplate Migration Guide](doc/new_boilerplate_migration.md) to learn about the benefits of the new boilerplate, the codemod script you can run, and other updates you may need to make manually.
+
+### More Migration Guides
+
+- [__BuiltRedux to Redux__](doc/built_redux_to_redux.md): A guide to transitioning to OverReact Redux from BuiltRedux.
+- [__Flux to Redux__](doc/flux_to_redux.md): A guide to how to transition from w_flux to OverReact Redux. This guide also introduces a new architecture, Influx, that can be used for incremental refactors.
+- [__Dart2 Migration__](doc/dart2_migration.md): Documentation on the Dart 2 builder updates and how to transition componentry to Dart 2.
+
+&nbsp;
+&nbsp;
+
+## Using OverReact
+
+> __Prerequisites__
 >
-> Since OverReact is built atop React JS, we strongly encourage you to gain
-> familiarity with it by reading this [React JS tutorial][react-js-tutorial] first.
+> - __Familiarize yourself with React JS__
+>
+>   Since OverReact is built atop React JS, we strongly encourage you to gain familiarity with it by reading some [React JS tutorials][react-js-tutorial] first.
+>
+> - __Familiarize yourself with Dart Web applications__
+>
+>   If you have never built a Web application in Dart, we strongly encourage you to gain familiarity with the core terminology, tools and boilerplate necessary to serve an application locally using Dart. [Dart has fantastic documentation and tutorials to get you started](https://dart.dev/tutorials/web/get-started).
 
 1. Add the `over_react` package as a dependency in your `pubspec.yaml`.
 
     ```yaml
     dependencies:
-      over_react: ^3.0.0
+      over_react: ^4.0.0
     ```
+   
+1. Enable the **[OverReact Analyzer Plugin (beta)](tools/analyzer_plugin/)**, which has many lints and assists to make authoring OverReact components easier!
 
-2. Include the native JavaScript `react` and `react_dom` libraries in your app’s `index.html` file,
+1. Include the native JavaScript `react` and `react_dom` libraries in your app’s `index.html` file,
 and add an HTML element with a unique identifier where you’ll mount your OverReact UI component(s).
 
     ```html
     <html>
       <head>
-       <!-- ... -->
+        <!-- ... -->
       </head>
       <body>
         <div id="react_mount_point">
@@ -78,7 +88,9 @@ and add an HTML element with a unique identifier where you’ll mount your OverR
         <script src="packages/react/react.js"></script>
         <script src="packages/react/react_dom.js"></script>
 
-        <script type="application/javascript" defer src="your_app_entrypoint.dart.js"></script>
+        <!-- NOTE: "index" should correspond to the
+             name of the `.dart` file that contains your `main()` entrypoint. -->
+        <script type="application/javascript" defer src="index.dart.js"></script>
       </body>
     </html>
     ```
@@ -86,9 +98,7 @@ and add an HTML element with a unique identifier where you’ll mount your OverR
     > __Note:__ When serving your application in production, use `packages/react/react_with_react_dom_prod.js`
     file instead of the un-minified `react.js` / `react_dom.js` files shown in the example above.
 
-4. Import the `over_react` and `react_dom` libraries into `your_app_name.dart`, and initialize
-React within your Dart application. Then [build a custom component](#building-custom-components) and
-mount / render it into the HTML element you created in step 3.
+1. Import the `over_react` and `react_dom` libraries into `index.dart`. Then [build some components](#building-custom-components) and mount / render a React tree within the HTML element you created in the previous step by calling `react_dom.render()` within the `main()` entrypoint of your Dart application.
 
     > Be sure to namespace the `react_dom.dart` import as `react_dom` to avoid collisions with `UiComponent.render`
       when [creating custom components](#building-custom-components).
@@ -98,42 +108,48 @@ mount / render it into the HTML element you created in step 3.
     import 'package:over_react/react_dom.dart' as react_dom;
     import 'package:over_react/over_react.dart';
 
+    // Example of where the `Foo` component might be exported from
+    import 'package:your_package_name/foo.dart';
+
     main() {
-      // Mount / render your component.
-      react_dom.render(Foo()(), querySelector('#react_mount_point'));
+      // Mount / render your component/application.
+      react_dom.render(
+        Foo()(),
+        querySelector('#react_mount_point'),
+      );
     }
     ```
 
-5. Run `pub run build_runner serve` in the root of your Dart project.
+1. Run `webdev serve` in the root of your Dart project.
 
-> **Note:** After running a build, you'll have to restart your analysis server in your IDE for the built types to resolve
-properly. Unfortunately, this is a known limitation in the analysis server at this time. See: https://github.com/dart-lang/sdk/issues/34344
+> **Note:** If you're not using [the latest component boilerplate](doc/new_boilerplate_migration.md), you'll have to restart your analysis server in your IDE for the built types to resolve properly after the build completes. Unfortunately, this is a [known limitation in the analysis server at this time](https://github.com/dart-lang/sdk/issues/34344).
+>
+> [__Migrate your components to the latest component boilerplate to never worry about this again!__](doc/new_boilerplate_migration.md)
 
 &nbsp;
 
-### Running tests in your project
+### Running unit tests in your project
 
-When running tests on code that uses our [builder] _(or any code that imports `over_react`)_,
-__you must run your tests using build_runner__.
->**Warning:** Do **_not_** run tests via `pub run build_runner test` in a package while another instance of `build_runner`
+When running unit tests on code that uses the over_react [builder] _(or any code that imports `over_react`)_,
+__you must run your tests using the `build_runner` package__.
+
+> **Warning:** Do **_not_** run tests via `pub run build_runner test` in a package while another instance of `build_runner`
 (e.g. `pub run build_runner serve`) is running in that same package. [This workflow is unsupported by build_runner](https://github.com/dart-lang/build/issues/352#issuecomment-461554316)
 
-1. Run tests through build_runner, and specify the platform to be a browser platform. Example:
+1. Run tests using the `build_runner` package, and specify the platform to be a browser platform. Example:
 
     ```bash
     $ pub run build_runner test -- -p chrome test/your_test_file.dart
     ```
 
-1. When running tests in `over_react`, our `dart_test.yaml` specifies some handy presets for running tests in DDC and dart2js:
-    > **Note:** These presets exist only in `over_react`.
-    * To run tests in `over_react` compiled via DDC, run:
-    ```bash
-    $ pub run build_runner test -- -P dartdevc
-    ```
-    * To run tests in `over_react` compiled via dart2js, run:
-    ```bash
-    $ pub run build_runner test -r -- -P dart2js
-    ```
+#### OverReact Component Unit Test Examples
+
+Below are links to a UI component from our example ["Todo App"](https://github.com/Workiva/over_react/tree/master/app/over_react_redux/todo_client), and its analogous tests that we've written for components we use in . We utilize the utilities found in our [`over_react_test` library](https://github.com/Workiva/over_react_test).
+
+* __`TodoListItem`__
+    * [Component Definition](app/over_react_redux/todo_client/lib/src/components/todo_list_item.dart)
+    * [Component Unit Tests](app/over_react_redux/todo_client/test/unit/browser/components/todo_list_item_test.dart)
+    * ["Connected" OverReact Redux Unit Tests](app/over_react_redux/todo_client/test/unit/browser/components/connected_todo_list_item_test.dart)
 
 &nbsp;
 &nbsp;
@@ -152,52 +168,59 @@ which handles the underlying JS interop that wraps around [React JS][react-js].
 
 The library strives to maintain a 1:1 relationship with the React JS component class and API.
 To do that, an OverReact component is comprised of four core pieces that are each wired up
-via our builder using an analogous [annotation].
+via our [builder].
 
 1. [UiFactory](#uifactory)
 2. [UiProps](#uiprops)
 3. _[UiState](#uistate) (optional)_
-4. [UiComponent](#uicomponent2)
+4. [UiComponent2](#uicomponent2)
 
 &nbsp;
 
 ### UiFactory
 
 __`UiFactory` is a function__ that returns a new instance of a
-[`UiComponent`](#uicomponent2)’s [`UiProps`](#uiprops) class.
+[`UiComponent2`](#uicomponent2)’s [`UiProps`](#uiprops) class.
 
 ```dart
-UiFactory<FooProps> Foo = _$Foo;
+UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 ```
 
-* This factory is __the entry-point__ to consuming every OverReact component.
+* This factory is __the entry-point__ to consuming any OverReact component.
 * The `UiProps` instance it returns can be used [as a component builder](#uiprops-as-a-builder),
 or [as a typed view into an existing props map](#uiprops-as-a-map).
+* `castUiFactory` is necessary to prevent implicit cast analysis warnings before code generation has been run.
 
 &nbsp;
 
 ### UiProps
 
-__`UiProps` is a Map class__ that adds statically-typed getters and setters for each React component prop.
-It can also be invoked as a function, serving as a builder for its analogous component.
+__`UiProps` is a `Map` class__ that adds statically-typed getters and setters for each React component prop.
+It can also be invoked as a function, serving [as a builder](#uiprops-as-a-builder) for its analogous component.
 
 ```dart
 mixin FooProps on UiProps {
-  // ...
+  // ... the props for your component go here
+  String bar;
+  bool baz;
+  List<int> bizzles;
 }
 ```
-* Note: The [builder] will make the concrete getters and setters available in a generated class. To mix props classes together, the mixin class should be used rather than the generated props class. See [With other mixins](#with-other-mixins) below for more information.
+* * **Note:** The [builder] generates a class with getters and setters overriding the fields you declare in your mixin, but you don't need to worry about that generated class. To use props from another mixin, simply mix it in! See [_"With other mixins"_](#with-other-mixins) below for more information.
 
 &nbsp;
 
 #### With other mixins
 
-__To compose props mixin classes__, create a class alias that uses `UiProps` as the base and mix in props mixins. The generated props implementation will then use it as the base class and implement the generated version of those props mixins.
+__To compose props mixin classes__, create a class alias that uses `UiProps` as the base and mix in multiple props mixins. The generated props implementation will then use it as the base class and implement the generated version of those props mixins.
+
 ```dart
-UiFactory<FooProps> Foo = _$Foo;
+UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooPropsMixin on UiProps {
-  // ...
+  String bar;
+  bool baz;
+  List<int> bizzles;
 }
 
 class FooProps = UiProps with FooPropsMixin, BarPropsMixin;
@@ -207,12 +230,17 @@ class FooComponent extends UiComponent2<FooProps> {
 }
 ```
 
+##### Composition
+The use-case for composing multiple props mixins into a single component props class is typically a component that renders another component, and therefore needs to expose the prop interface of that child component which will get forwarded via [`addUnconsumedProps`](https://pub.dev/documentation/over_react/3.1.0/over_react/UiComponent2/addUnconsumedProps.html). 
+
+[__Check out an example of props mixin component composition here__](doc/props_mixin_component_composition.md) 
+
 &nbsp;
 
 #### UiProps as a Map
 
 ```dart
-UiFactory<FooProps> Foo = _$Foo;
+UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooProps on UiProps {
   String color;
@@ -231,7 +259,7 @@ void bar() {
   print(props);       // {FooProps.color: #66cc00}
 }
 
-/// You can use the factory to create a UiProps instance
+/// You can also use the factory to create a UiProps instance
 /// backed by an existing Map.
 void baz() {
   Map existingMap = {'FooProps.color': '#0094ff'};
@@ -247,21 +275,21 @@ void baz() {
 #### UiProps as a builder
 
 ```dart
-UiFactory<FooProps> Foo = _$Foo;
+UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 
 mixin FooProps on UiProps {
   String color;
 }
 
-@Component2()
 class FooComponent extends UiComponent2<FooProps> {
   ReactElement bar() {
     // Create a UiProps instance to serve as a builder
     FooProps builder = Foo();
 
-    // Add props
-    builder.id = 'the_best_foo';
-    builder.color = '#ee2724';
+    // Set some prop values
+    builder
+      ..id = 'the_best_foo'
+      ..color = '#ee2724';
 
     // Invoke as a function with the desired children
     // to return a new instance of the component.
@@ -287,7 +315,7 @@ class FooComponent extends UiComponent2<FooProps> {
 
 ### UiState
 
-__`UiState` is a Map class__ _(just like `UiProps`)_ that adds statically-typed getters and setters
+__`UiState` is a `Map` class__ _(just like `UiProps`)_ that adds statically-typed getters and setters
 for each React component state property.
 
 ```dart
@@ -296,16 +324,16 @@ mixin FooState on UiState {
 }
 ```
 
-> UiState is optional, and won’t be used for every component.
-* Note: The [builder] will make the concrete getters and setters available in a generated class. To mix state classes together, the mixin class should be used rather than the generated state class. See [With other mixins](#with-other-mixins) above for  more information.
+> `UiState` is optional, and won’t be used for every component. Check out the [`UiStatefulComponent` boilerplate](#stateful-component-boilerplate) for more information.
+
+* **Note:** The [builder] will make the concrete getters and setters available from the mixin fields you author in a generated class. To mix state classes together, the mixin class should be used rather than the generated props class. See [_"With other mixins"_](#with-other-mixins) above for more information.
 
 &nbsp;
 
 ### UiComponent2
-> For guidance on updating to `UiComponent2` from `UiComponent`, see [UiComponent2 Transition Notes](doc/ui_component2_transition.md).
+> For guidance on updating to `UiComponent2` from `UiComponent`, check out the [UiComponent2 Migration Guide](doc/ui_component2_transition.md).
 
-__`UiComponent2` is a subclass of [`react.Component2`]__, containing lifecycle methods
-and rendering logic for components.
+__`UiComponent2` is a subclass of [`react.Component2`][react.Component2]__, containing lifecycle methods and rendering logic for components.
 
 ```dart
 class FooComponent extends UiComponent2<FooProps> {
@@ -313,61 +341,69 @@ class FooComponent extends UiComponent2<FooProps> {
 }
 ```
 
-* This component provides statically-typed props via [`UiProps`](#uiprops), as well as utilities for
-prop forwarding and CSS class merging.
-* The `UiStatefulComponent` flavor augments `UiComponent` behavior with statically-typed state via
-[`UiState`](#uistate).
+* This class provides statically-typed props via [`UiProps`](#uiprops), as well as utilities for prop forwarding and CSS class merging.
+* The `UiStatefulComponent2` flavor augments `UiComponent2` behavior with statically-typed state via [`UiState`](#uistate).
 
 &nbsp;
 
-#### Accessing and manipulating props / state within UiComponent
+#### Accessing and manipulating props / state within UiComponent2
 
 * Within the `UiComponent2` class, `props` and `state` are not just `Map`s.
 They are instances of `UiProps` and `UiState`, __which means you don’t need String keys to access them!__
-* `newProps()` and `newState()` are also exposed to conveniently create empty instances of `UiProps` and
-`UiState` as needed.
+* `newProps()` and `newState()` are also exposed to conveniently create empty instances of `UiProps` and `UiState` as needed.
 * `typedPropsFactory()` and `typedStateFactory()` are also exposed to conveniently create typed `props` / `state` objects out of any provided backing map.
 
 ```dart
+UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
+
+mixin FooProps on UiProps {
+  String color;
+  Function() onDidActivate;
+  Function() onDidDeactivate;
+}
+mixin FooState on UiState {
+  bool isActive;
+}
+
 class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
   @override
-  get defaultProps => (newProps()
+  Map get defaultProps => (newProps()
     ..color = '#66cc00'
   );
 
   @override
-  get initialState => (newState()
+  Map get initialState => (newState()
     ..isActive = false
   );
 
   @override
-  componentWillUpdate(Map newProps, Map newState, [dynamic snapshot]) {
-    var tNewState = typedStateFactory(newState);
-    var tNewProps = typedPropsFactory(newProps);
+  void componentDidUpdate(Map prevProps, Map prevState, [dynamic snapshot]) {
+    var tPrevState = typedStateFactory(prevState);
+    var tPrevProps = typedPropsFactory(prevProps);
 
-    var becameActive = !state.isActive && tNewState.isActive;
-
-    // Do something here!
+    if (state.isActive && !tPrevState.isActive) {
+      props.onDidActivate?.call();
+    } else if (!state.isActive && tPrevState.isActive) {
+      props.onDidDeactivate?.call();
+    }
   }
 
   @override
-  render() {
+  dynamic render() {
     return (Dom.div()
+      ..modifyProps(addUnconsumedDomProps)
       ..style = {
+        ...newStyleFromProps(props),
         'color': props.color,
-        'fontWeight': state.isActive ? 'bold' : 'normal'
+        'fontWeight': state.isActive ? 'bold' : 'normal', 
       }
     )(
       (Dom.button()..onClick = _handleButtonClick)('Toggle'),
-      props.children
+      props.children,
     );
   }
 
   void _handleButtonClick(SyntheticMouseEvent event) {
-    _toggleActive();
-  }
-
-  void _toggleActive() {
     setState(newState()
       ..isActive = !state.isActive
     );
@@ -382,15 +418,14 @@ class FooComponent extends UiStatefulComponent2<FooProps, FooState> {
 
 ## Fluent-style component consumption
 
-In OverReact, components are consumed by invoking a `UiFactory` to return a new `UiProps` builder, which is then
-modified and invoked to build a `ReactElement`.
+> The **[OverReact analyzer plugin](tools/analyzer_plugin/)** has many lints and assists to make authoring OverReact components easier!
 
-This is done to make ["fluent-style"](#fluent-style-component-consumption) component consumption possible, so that
-the OverReact consumer experience is very similar to the [React JS][react-js] / "vanilla" [react-dart]
+In OverReact, components are consumed by invoking a `UiFactory` to return a new `UiProps` builder, which is then modified and invoked to build a [`ReactElement`][ReactElement].
+
+This is done to make "fluent-style" component consumption possible, so that the OverReact consumer experience is very similar to the [React JS][react-js] / "vanilla" [react-dart]
 experience.
 
-To demonstrate the similarities, the example below shows a render method for JS, JSX, react-dart,
-and over_react that will have the exact same HTML markup result.
+To demonstrate the similarities, the example below shows a render method for JS, JSX, react-dart, and over_react that will have the exact same HTML markup result.
 
 * __React JS__:
 
@@ -503,10 +538,16 @@ ReactElement renderResizeHandle() {
 * OverReact DOM components return a new `DomProps` builder, which can be used
 to render them via our [fluent interface](#fluent-style-component-consumption)
 as shown in the examples above.
-* `DomProps` has statically-typed getters and setters for all "ubiquitous" HTML attribute props.
-  * The `domProps()` function is also available to create a new typed Map or a typed view into an
-  existing Map. Useful for manipulating DOM props and adding DOM props to components that don’t
-  forward them directly.
+  * `DomProps` has statically-typed getters and setters for all HTML attribute props.
+  * The `domProps()` function is also available to create a new typed Map or a typed view into an existing Map. Useful for manipulating DOM props and adding DOM props to components that don’t forward them directly, or to access a DOM prop from a plain map in a lifecycle method as shown below.
+  
+    ```dart
+    @override
+    void componentDidUpdate(Map prevProps, Map prevState, [dynamic snapshot]) {
+      // Say you want to compare the previous / current value of `DomProps.title` here...
+      final titleChanged = domProps(prevProps).title != props.title;
+    }
+    ```
 
 &nbsp;
 &nbsp;
@@ -668,25 +709,23 @@ To help ensure your OverReact code is readable and consistent, we've arrived at 
 
 ## Building custom components
 
-Now that we’ve gone over how to [use the `over_react` package in your project](#using-it-in-your-project),
+Now that we’ve gone over how to [use the `over_react` package in your project](#using-overreact),
 the [anatomy of a component](#anatomy-of-an-overreact-component) and the [DOM components](#dom-components-and-props)
 that you get for free from OverReact, you're ready to start building your own custom React UI components.
 
 1. Start with one of the [component boilerplate templates](#component-boilerplate-templates) below
-(Or, use OverReact's [code snippets for Intellij and Vs Code](https://github.com/Workiva/over_react/blob/master/snippets/README.md)).
+(Or, use OverReact's [code snippets for WebStorm/IntelliJ and VsCode](snippets/README.md)).
   * [Component](#component-boilerplate) _(props only)_
   * [Stateful Component](#stateful-component-boilerplate) _(props + state)_
-  * [Flux Component](#flux-component-boilerplate) _(props + store + actions)_
-  * [Stateful Flux Component](#stateful-flux-component-boilerplate) _(props + state + store + actions)_
 2. Fill in your props and rendering/lifecycle logic.
 3. Consume your component with the fluent interface.
-4. Run [the app you’ve set up to consume `over_react`](#using-it-in-your-project)
+4. Run [the app you’ve set up to consume `over_react`](#using-overreact)
 
     ```bash
-    $ pub run build_runner serve
+    $ webdev serve
     ```
 
-    _That’s it! Code will be automatically generated on the fly by the builder!_
+    _That’s it! Code will be automatically generated on the fly by the [builder]!_
 
 
 > __Check out some custom [component demos] to get a feel for what’s possible!__
@@ -695,7 +734,7 @@ that you get for free from OverReact, you're ready to start building your own cu
 
 ### Component Boilerplate Templates
 
-* #### [VS Code and WebStorm/IntelliJ Snippets](https://github.com/Workiva/over_react/blob/master/snippets/README.md)
+* #### [WebStorm/IntelliJ and VsCode Snippets](snippets/README.md)
 
 * #### Component Boilerplate
 
@@ -703,7 +742,7 @@ that you get for free from OverReact, you're ready to start building your own cu
     import 'package:over_react/over_react.dart';
     part 'foo_component.over_react.g.dart';
 
-    UiFactory<FooProps> Foo = _$Foo;
+    UiFactory<FooProps> Foo = castUiFactory(_$Foo); // ignore: undefined_identifier
 
     mixin FooProps on UiProps {
       // Props go here, declared as fields:
@@ -713,14 +752,14 @@ that you get for free from OverReact, you're ready to start building your own cu
 
     class FooComponent extends UiComponent2<FooProps> {
       @override
-      get defaultProps => (newProps()
+      Map get defaultProps => (newProps()
         // Cascade default props here
         ..isDisabled = false
         ..items = []
       );
 
       @override
-      render() {
+      dynamic render() {
         // Return the rendered component contents here.
         // The `props` variable is typed; no need for string keys!
       }
@@ -730,11 +769,10 @@ that you get for free from OverReact, you're ready to start building your own cu
 * #### Stateful Component Boilerplate
 
     ```dart
-    import 'dart:html';
     import 'package:over_react/over_react.dart';
     part 'foo_component.over_react.g.dart';
 
-    UiFactory<BarProps> Bar = _$Bar;
+    UiFactory<BarProps> Bar = castUiFactory(_$Bar); // ignore: undefined_identifier
 
     mixin BarProps on UiProps {
       // Props go here, declared as fields:
@@ -749,98 +787,55 @@ that you get for free from OverReact, you're ready to start building your own cu
 
     class BarComponent extends UiStatefulComponent2<BarProps, BarState> {
       @override
-      get defaultProps => (newProps()
+      Map get defaultProps => (newProps()
         // Cascade default props here
         ..isDisabled = false
         ..items = []
       );
 
       @override
-      get initialState => (newState()
+      Map get initialState => (newState()
         // Cascade initial state here
         ..isShown = true
       );
 
       @override
-      render() {
+      dynamic render() {
         // Return the rendered component contents here.
         // The `props` variable is typed; no need for string keys!
       }
     }
     ```
 
-* #### Flux Component Boilerplate
+* #### Function Component Boilerplate
 
-    ```dart
-    import 'dart:html';
-    import 'package:over_react/over_react.dart';
-    part 'foo_component.over_react.g.dart';
+  ```dart
+  import 'package:over_react/over_react.dart';
+  part 'foo_component.over_react.g.dart';
 
-    UiFactory<BazProps> Baz = _$Baz;
-
-    mixin BazPropsMixin on UiProps {
-      // Props go here, declared as fields.
-      // `actions` and `store` are already defined for you!
-    }
-
-    class BazProps = UiProps with FluxUiPropsMixin<BazActions, BazStore>, BazPropsMixin;
+  UiFactory<FooProps> Foo = uiFunction(
+    (props) {
+      // Set default props using null-aware operators.
+      final isDisabled = props.isDisabled ?? false;
+      final items = props.items ?? [];
   
-    class BazComponent extends FluxUiComponent2<BazProps> {
-      @override
-      get defaultProps => (newProps()
-        // Cascade default props here
+      // Return the rendered component contents here.
+      // The `props` variable is typed; no need for string keys!
+      return Fragment()(
+        Dom.div()(items),
+        (Dom.button()..disabled = isDisabled)('Click me!'),
       );
+    },
+    // The generated props config will match the factory name.
+    _$FooConfig, // ignore: undefined_identifier
+  );
 
-      @override
-      render() {
-        // Return the rendered component contents here.
-        // The `props` variables is typed; no need for string keys!
-        // E.g., `props.actions`, `props.store`.
-      }
-    }
-    ```
-
-* #### Stateful Flux Component Boilerplate
-
-    ```dart
-    import 'dart:html';
-    import 'package:over_react/over_react.dart';
-    part 'foo_component.over_react.g.dart';
-
-    UiFactory<BazProps> Baz = _$Baz;
-
-  
-    mixin BazPropsMixin on UiProps {
-      // Props go here, declared as fields.
-      // `actions` and `store` are already defined for you!
-    }
-
-    class BazProps = UiProps with FluxUiPropsMixin<BazActions, BazStore>, BazPropsMixin;
-
-  
-    mixin BazState on UiState {
-      // State goes here, declared as fields.
-    }
-
-    class BazComponent extends FluxUiStatefulComponent2<BazProps, BazState> {
-      @override
-      get defaultProps => (newProps()
-        // Cascade default props here
-      );
-
-      @override
-      get initialState => (newState()
-        // Cascade initial state here
-      );
-
-      @override
-      render() {
-        // Return the rendered component contents here.
-        // The `props` variables is typed; no need for string keys!
-        // E.g., `props.actions`, `props.store`.
-      }
-    }
-    ```
+  mixin FooProps on UiProps {
+    // Props go here, declared as fields:
+    bool isDisabled;
+    Iterable<String> items;
+  }
+  ```
 
 &nbsp;
 
@@ -861,18 +856,18 @@ another component.
     /// * Similar to [SplitButton].
     ///
     /// See: <https://link-to-any-relevant-documentation>.
-    UiFactory<DropdownButtonProps> DropdownButton = _$DropdownButton;
+    UiFactory<DropdownButtonProps> DropdownButton = castUiFactory(_$DropdownButton); // ignore: undefined_identifier
     ```
 
   _Bad:_
     ```dart
     /// Component Factory for a dropdown button component.
-    UiFactory<DropdownButtonProps> DropdownButton = _$DropdownButton;
+    UiFactory<DropdownButtonProps> DropdownButton = castUiFactory(_$DropdownButton); // ignore: undefined_identifier
     ```
 
 &nbsp;
 
-* __ALWAYS__ set a default / initial value for `props` / `state` fields,
+* __ALWAYS__ set a default / initial value for boolean `props` / `state` fields,
 and document that value in a comment.
 
   _Why?_ Without default prop values for bool fields, they could be
@@ -906,13 +901,13 @@ and document that value in a comment.
     DropdownButtonComponent
         extends UiStatefulComponent2<DropdownButtonProps, DropdownButtonState> {
       @override
-      get defaultProps => (newProps()
+      Map get defaultProps => (newProps()
         ..isDisabled = false
         ..initiallyOpen = false
       );
 
       @override
-      get initialState => (newState()
+      Map get initialState => (newState()
         ..isOpen = props.initiallyOpen
       );
     }
@@ -982,14 +977,14 @@ an informative comment.
 
 #### Ignore Ungenerated Warnings Project-Wide
 
-To avoid having to add `// ignore: uri_has_not_been_generated` to each 
-component library on the part/import that references generated code, 
+To avoid having to add `// ignore: uri_has_not_been_generated` to each
+component library on the part/import that references generated code,
 ignore this warning globally within analysis_options.yaml:
 
 ```yaml
  analyzer:
    errors:
-     uri_has_not_been_generated: ignore 
+     uri_has_not_been_generated: ignore
 ```
 
 Alternatively, `include` [workiva_analysis_options](https://github.com/Workiva/workiva_analysis_options)
@@ -1008,7 +1003,7 @@ Yes please! ([__Please read our contributor guidelines first__][contributing-doc
 
 ## Versioning
 
-The `over_react` library adheres to [Semantic Versioning](http://semver.org/):
+The `over_react` library adheres to [Semantic Versioning](https://semver.org/):
 
 * Any API changes that are not backwards compatible will __bump the major version__ _(and reset the minor / patch)_.
 * Any new functionality that is added in a backwards-compatible manner will __bump the minor version__
@@ -1027,8 +1022,10 @@ The `over_react` library adheres to [Semantic Versioning](http://semver.org/):
 
 [react-dart]: https://github.com/cleandart/react-dart
 [react-js]: https://github.com/facebook/react
-[react-js-tutorial]: https://facebook.github.io/react/docs/getting-started.html
+[react-js-tutorial]: https://reactjs.org/docs/getting-started.html
 
-[react.component]: https://www.dartdocs.org/documentation/react/latest/react/Component-class.html
+[react.Component2]: https://pub.dev/documentation/react/latest/react/Component2-class.html
+[ReactElement]: https://pub.dev/documentation/react/latest/react_client.react_interop/ReactElement-class.html
 
 [new-issue]: https://github.com/Workiva/over_react/issues/new
+[gitter-chat]: https://gitter.im/over_react/Lobby

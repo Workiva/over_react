@@ -26,3 +26,9 @@ dynamic getDartChildren(var renderedInstance) {
   assert(isDartComponent(renderedInstance));
   return getProps(renderedInstance)['children'];
 }
+
+bool isDDC() {
+  bool assertsEnabled = false;
+  assert(assertsEnabled = true);
+  return assertsEnabled;
+}

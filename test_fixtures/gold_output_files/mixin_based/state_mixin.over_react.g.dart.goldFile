@@ -15,8 +15,7 @@ mixin $ExampleStateMixin on ExampleStateMixin {
   static const StateMeta meta = _$metaForExampleStateMixin;
   @override
   String get stateMixin1 =>
-      state[_$key__stateMixin1__ExampleStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__stateMixin1__ExampleStateMixin] ?? null) as String;
   @override
   set stateMixin1(String value) =>
       state[_$key__stateMixin1__ExampleStateMixin] = value;

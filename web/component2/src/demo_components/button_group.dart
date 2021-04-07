@@ -21,7 +21,7 @@ part 'button_group.over_react.g.dart';
 ///
 /// See: <http://v4-alpha.getbootstrap.com/components/button-group/>.
 
-UiFactory<ButtonGroupProps> ButtonGroup = _$ButtonGroup;
+UiFactory<ButtonGroupProps> ButtonGroup = castUiFactory(_$ButtonGroup); // ignore: undefined_identifier
 
 mixin ButtonGroupProps on UiProps {
   /// Apply a button size variation universally to every [Button] within the [ButtonGroup].
@@ -57,7 +57,7 @@ class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupStat
     return renderButtonGroup(renderButtons());
   }
 
-  ReactElement renderButtonGroup(dynamic children) {
+  ReactElement renderButtonGroup(List children) {
     var componentBuilder = Dom.div();
 
     if (children.length > 1) {
@@ -77,8 +77,8 @@ class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupStat
   }
 
   /// Renders a list of [Button]s using [renderButton].
-  List<ReactElement> renderButtons() {
-    List<ReactElement> buttons = [];
+  List<dynamic> renderButtons() {
+    final buttons = [];
 
     for (int index = 0; index < props.children.length; index++) {
       buttons.add(renderButton(props.children[index], index));
@@ -88,9 +88,9 @@ class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupStat
   }
 
   /// Clones the provided [child] with the props specified in [buttonPropsToAdd].
-  ReactElement renderButton(dynamic child, int index) {
+  dynamic renderButton(dynamic child, int index) {
     if (isValidButtonChild(child)) {
-      return cloneElement(child, buttonPropsToAdd(child, index));
+      return cloneElement(child as ReactElement, buttonPropsToAdd(child as ReactElement, index));
     }
 
     print('invalid child');
@@ -99,7 +99,7 @@ class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupStat
 
   /// The props that should be added when we clone the given [child] using
   /// [cloneElement] via [renderButton].
-  ButtonProps buttonPropsToAdd(dynamic child, int index) {
+  ButtonProps buttonPropsToAdd(ReactElement child, int index) {
     var childProps = childFactory(getProps(child));
     var childKey = getInstanceKey(child);
 
@@ -112,7 +112,7 @@ class ButtonGroupComponent<T extends ButtonGroupProps, S extends ButtonGroupStat
   bool isValidButtonChild(dynamic child) {
     var isCloneable = false;
     if (isValidElement(child)) {
-      if (!isComponentOfType(child, childFactory)) {
+      if (!isComponentOfType(child as ReactElement, childFactory)) {
         assert(ValidationUtil.warn(
             'An unexpected child type was found within this component.',
             this

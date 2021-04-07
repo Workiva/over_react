@@ -17,8 +17,8 @@ abstract class ConnectFluxPropsMixin<TActions>
   /// <!-- Generated from [_$ConnectFluxPropsMixin.actions] -->
   @override
   TActions get actions =>
-      props[_$key__actions___$ConnectFluxPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__actions___$ConnectFluxPropsMixin] ?? null) as TActions;
+
   /// <!-- Generated from [_$ConnectFluxPropsMixin.actions] -->
   @override
   set actions(TActions value) =>

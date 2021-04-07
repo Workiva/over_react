@@ -33,9 +33,7 @@ const PropsMeta _$metaForNoneProps = PropsMeta(
 mixin $SingleProps<T> on SingleProps<T> {
   static const PropsMeta meta = _$metaForSingleProps;
   @override
-  T get single =>
-      props[_$key__single__SingleProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  T get single => (props[_$key__single__SingleProps] ?? null) as T;
   @override
   set single(T value) => props[_$key__single__SingleProps] = value;
   /* GENERATED CONSTANTS */
@@ -61,9 +59,9 @@ const PropsMeta _$metaForSingleProps = PropsMeta(
 mixin $SingleThatWontBeSpecifiedProps<T> on SingleThatWontBeSpecifiedProps<T> {
   static const PropsMeta meta = _$metaForSingleThatWontBeSpecifiedProps;
   @override
-  T get singleThatWontBeSpecified =>
-      props[_$key__singleThatWontBeSpecified__SingleThatWontBeSpecifiedProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  T get singleThatWontBeSpecified => (props[
+          _$key__singleThatWontBeSpecified__SingleThatWontBeSpecifiedProps] ??
+      null) as T;
   @override
   set singleThatWontBeSpecified(T value) =>
       props[_$key__singleThatWontBeSpecified__SingleThatWontBeSpecifiedProps] =
@@ -100,8 +98,7 @@ mixin $SingleWithBoundProps<S extends Pattern> on SingleWithBoundProps<S> {
   static const PropsMeta meta = _$metaForSingleWithBoundProps;
   @override
   S get singleWithBound =>
-      props[_$key__singleWithBound__SingleWithBoundProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__singleWithBound__SingleWithBoundProps] ?? null) as S;
   @override
   set singleWithBound(S value) =>
       props[_$key__singleWithBound__SingleWithBoundProps] = value;
@@ -133,15 +130,11 @@ const PropsMeta _$metaForSingleWithBoundProps = PropsMeta(
 mixin $DoubleProps<A, B> on DoubleProps<A, B> {
   static const PropsMeta meta = _$metaForDoubleProps;
   @override
-  A get doubleA =>
-      props[_$key__doubleA__DoubleProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  A get doubleA => (props[_$key__doubleA__DoubleProps] ?? null) as A;
   @override
   set doubleA(A value) => props[_$key__doubleA__DoubleProps] = value;
   @override
-  B get doubleB =>
-      props[_$key__doubleB__DoubleProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  B get doubleB => (props[_$key__doubleB__DoubleProps] ?? null) as B;
   @override
   set doubleB(B value) => props[_$key__doubleB__DoubleProps] = value;
   /* GENERATED CONSTANTS */
@@ -182,13 +175,13 @@ abstract class _$$SingleProps<T> extends UiProps
     with
         SingleProps<T>,
         $SingleProps<
-            T> // If this generated mixin is undefined, it's likely because SingleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SingleProps.
+            T> // If this generated mixin is undefined, it's likely because SingleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SingleProps, and check that $SingleProps is exported/imported properly.
 {
   _$$SingleProps._();
 
   factory _$$SingleProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SingleProps$JsMap(backingMap);
+      return _$$SingleProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$SingleProps$PlainMap(backingMap);
     }
@@ -201,6 +194,12 @@ abstract class _$$SingleProps<T> extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because SingleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SingleProps, and check that $SingleProps is exported/imported properly.
+        SingleProps: $SingleProps.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].
@@ -254,13 +253,13 @@ abstract class _$$SingleWithBoundProps<S extends Pattern> extends UiProps
     with
         SingleWithBoundProps<S>,
         $SingleWithBoundProps<
-            S> // If this generated mixin is undefined, it's likely because SingleWithBoundProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SingleWithBoundProps.
+            S> // If this generated mixin is undefined, it's likely because SingleWithBoundProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SingleWithBoundProps, and check that $SingleWithBoundProps is exported/imported properly.
 {
   _$$SingleWithBoundProps._();
 
   factory _$$SingleWithBoundProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$SingleWithBoundProps$JsMap(backingMap);
+      return _$$SingleWithBoundProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$SingleWithBoundProps$PlainMap(backingMap);
     }
@@ -273,6 +272,12 @@ abstract class _$$SingleWithBoundProps<S extends Pattern> extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because SingleWithBoundProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SingleWithBoundProps, and check that $SingleWithBoundProps is exported/imported properly.
+        SingleWithBoundProps: $SingleWithBoundProps.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].
@@ -327,13 +332,13 @@ abstract class _$$DoubleProps<A, B> extends UiProps
     with
         DoubleProps<A, B>,
         $DoubleProps<A,
-            B> // If this generated mixin is undefined, it's likely because DoubleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of DoubleProps.
+            B> // If this generated mixin is undefined, it's likely because DoubleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoubleProps, and check that $DoubleProps is exported/imported properly.
 {
   _$$DoubleProps._();
 
   factory _$$DoubleProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$DoubleProps$JsMap(backingMap);
+      return _$$DoubleProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$DoubleProps$PlainMap(backingMap);
     }
@@ -346,6 +351,12 @@ abstract class _$$DoubleProps<A, B> extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because DoubleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoubleProps, and check that $DoubleProps is exported/imported properly.
+        DoubleProps: $DoubleProps.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].
@@ -397,25 +408,25 @@ _$$ConcreteNoneProps _$ConcreteNone([Map backingProps]) => backingProps == null
 abstract class _$$ConcreteNoneProps extends UiProps
     with
         NoneProps,
-        $NoneProps, // If this generated mixin is undefined, it's likely because NoneProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of NoneProps.
+        $NoneProps, // If this generated mixin is undefined, it's likely because NoneProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of NoneProps, and check that $NoneProps is exported/imported properly.
         SingleProps<String>,
         $SingleProps<
-            String>, // If this generated mixin is undefined, it's likely because SingleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SingleProps.
+            String>, // If this generated mixin is undefined, it's likely because SingleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SingleProps, and check that $SingleProps is exported/imported properly.
         SingleThatWontBeSpecifiedProps,
-        $SingleThatWontBeSpecifiedProps, // If this generated mixin is undefined, it's likely because SingleThatWontBeSpecifiedProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SingleThatWontBeSpecifiedProps.
+        $SingleThatWontBeSpecifiedProps, // If this generated mixin is undefined, it's likely because SingleThatWontBeSpecifiedProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SingleThatWontBeSpecifiedProps, and check that $SingleThatWontBeSpecifiedProps is exported/imported properly.
         SingleWithBoundProps<RegExp>,
         $SingleWithBoundProps<
-            RegExp>, // If this generated mixin is undefined, it's likely because SingleWithBoundProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SingleWithBoundProps.
+            RegExp>, // If this generated mixin is undefined, it's likely because SingleWithBoundProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SingleWithBoundProps, and check that $SingleWithBoundProps is exported/imported properly.
         DoubleProps<double, int>,
         $DoubleProps<double,
-            int> // If this generated mixin is undefined, it's likely because DoubleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of DoubleProps.
+            int> // If this generated mixin is undefined, it's likely because DoubleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoubleProps, and check that $DoubleProps is exported/imported properly.
     implements
         ConcreteNoneProps {
   _$$ConcreteNoneProps._();
 
   factory _$$ConcreteNoneProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ConcreteNoneProps$JsMap(backingMap);
+      return _$$ConcreteNoneProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ConcreteNoneProps$PlainMap(backingMap);
     }
@@ -428,6 +439,20 @@ abstract class _$$ConcreteNoneProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because NoneProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of NoneProps, and check that $NoneProps is exported/imported properly.
+        NoneProps: $NoneProps.meta,
+        // If this generated mixin is undefined, it's likely because SingleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SingleProps, and check that $SingleProps is exported/imported properly.
+        SingleProps: $SingleProps.meta,
+        // If this generated mixin is undefined, it's likely because SingleThatWontBeSpecifiedProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SingleThatWontBeSpecifiedProps, and check that $SingleThatWontBeSpecifiedProps is exported/imported properly.
+        SingleThatWontBeSpecifiedProps: $SingleThatWontBeSpecifiedProps.meta,
+        // If this generated mixin is undefined, it's likely because SingleWithBoundProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SingleWithBoundProps, and check that $SingleWithBoundProps is exported/imported properly.
+        SingleWithBoundProps: $SingleWithBoundProps.meta,
+        // If this generated mixin is undefined, it's likely because DoubleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoubleProps, and check that $DoubleProps is exported/imported properly.
+        DoubleProps: $DoubleProps.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].
@@ -479,25 +504,25 @@ _$$ConcreteArgsProps _$ConcreteArgs([Map backingProps]) => backingProps == null
 abstract class _$$ConcreteArgsProps<U, V extends Iterable> extends UiProps
     with
         NoneProps,
-        $NoneProps, // If this generated mixin is undefined, it's likely because NoneProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of NoneProps.
+        $NoneProps, // If this generated mixin is undefined, it's likely because NoneProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of NoneProps, and check that $NoneProps is exported/imported properly.
         SingleProps<String>,
         $SingleProps<
-            String>, // If this generated mixin is undefined, it's likely because SingleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SingleProps.
+            String>, // If this generated mixin is undefined, it's likely because SingleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SingleProps, and check that $SingleProps is exported/imported properly.
         SingleThatWontBeSpecifiedProps,
-        $SingleThatWontBeSpecifiedProps, // If this generated mixin is undefined, it's likely because SingleThatWontBeSpecifiedProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SingleThatWontBeSpecifiedProps.
+        $SingleThatWontBeSpecifiedProps, // If this generated mixin is undefined, it's likely because SingleThatWontBeSpecifiedProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SingleThatWontBeSpecifiedProps, and check that $SingleThatWontBeSpecifiedProps is exported/imported properly.
         SingleWithBoundProps<RegExp>,
         $SingleWithBoundProps<
-            RegExp>, // If this generated mixin is undefined, it's likely because SingleWithBoundProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of SingleWithBoundProps.
+            RegExp>, // If this generated mixin is undefined, it's likely because SingleWithBoundProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SingleWithBoundProps, and check that $SingleWithBoundProps is exported/imported properly.
         DoubleProps<U, V>,
         $DoubleProps<U,
-            V> // If this generated mixin is undefined, it's likely because DoubleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of DoubleProps.
+            V> // If this generated mixin is undefined, it's likely because DoubleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoubleProps, and check that $DoubleProps is exported/imported properly.
     implements
         ConcreteArgsProps<U, V> {
   _$$ConcreteArgsProps._();
 
   factory _$$ConcreteArgsProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ConcreteArgsProps$JsMap(backingMap);
+      return _$$ConcreteArgsProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ConcreteArgsProps$PlainMap(backingMap);
     }
@@ -510,6 +535,20 @@ abstract class _$$ConcreteArgsProps<U, V extends Iterable> extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because NoneProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of NoneProps, and check that $NoneProps is exported/imported properly.
+        NoneProps: $NoneProps.meta,
+        // If this generated mixin is undefined, it's likely because SingleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SingleProps, and check that $SingleProps is exported/imported properly.
+        SingleProps: $SingleProps.meta,
+        // If this generated mixin is undefined, it's likely because SingleThatWontBeSpecifiedProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SingleThatWontBeSpecifiedProps, and check that $SingleThatWontBeSpecifiedProps is exported/imported properly.
+        SingleThatWontBeSpecifiedProps: $SingleThatWontBeSpecifiedProps.meta,
+        // If this generated mixin is undefined, it's likely because SingleWithBoundProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of SingleWithBoundProps, and check that $SingleWithBoundProps is exported/imported properly.
+        SingleWithBoundProps: $SingleWithBoundProps.meta,
+        // If this generated mixin is undefined, it's likely because DoubleProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of DoubleProps, and check that $DoubleProps is exported/imported properly.
+        DoubleProps: $DoubleProps.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].

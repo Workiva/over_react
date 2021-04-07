@@ -19,7 +19,6 @@ import 'package:test/test.dart';
 import '../test_util/test_util.dart';
 import 'fixtures/connect_flux_counter.dart';
 import 'fixtures/connect_flux_store.dart';
-import 'fixtures/redux_actions.dart';
 
 main() {
   Context context1;
@@ -34,6 +33,18 @@ main() {
 
   group('ReduxMultiProvider', () {
     test('creates a provider for every store', () async {
+      final fluxActions = FluxActions();
+      final fluxStore = FluxStore(fluxActions);
+      final store1 = FluxToReduxAdapterStore(fluxStore, fluxActions);
+
+      final bigFluxActions = FluxActions();
+      final bigFluxCounter = FluxStore2(bigFluxActions);
+      final store2 = FluxToReduxAdapterStore(bigFluxCounter, bigFluxActions);
+
+      final anotherFluxActionsInstance = FluxActions();
+      final anotherFluxStore = FluxStore(anotherFluxActionsInstance);
+      final store3 = FluxToReduxAdapterStore(anotherFluxStore, anotherFluxActionsInstance);
+
       final Context1ConnectedFluxComponent =
           connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
         mapStateToProps: (state) =>
@@ -133,12 +144,3 @@ main() {
     });
   });
 }
-
-class ReduxState {
-  final String field;
-
-  ReduxState(this.field);
-}
-
-ReduxState reducer(ReduxState oldState, dynamic action) =>
-    ReduxState(action.field ?? oldState.field);

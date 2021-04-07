@@ -135,6 +135,20 @@ main() {
             '${p.absolute(p.current)}/test_fixtures/gold_output_files/basic_library.over_react.g.dart.goldFile');
       });
 
+      test('builds for props mixins', () async {
+        await checkBuildForFile(
+            'over_react|test_fixtures/source_files/dart2_only/props_mixin.dart',
+            'over_react|test_fixtures/source_files/dart2_only/props_mixin.over_react.g.dart',
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/props_mixin.over_react.g.dart.goldFile');
+      });
+
+      test('builds for state mixins', () async {
+        await checkBuildForFile(
+            'over_react|test_fixtures/source_files/dart2_only/state_mixin.dart',
+            'over_react|test_fixtures/source_files/dart2_only/state_mixin.over_react.g.dart',
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/state_mixin.over_react.g.dart.goldFile');
+      });
+
       test('does not produce a build output for just a part file', () async {
         var basicAsset = makeAssetId('over_react|test_fixtures/source_files/dart2_only/part_of_basic_library.dart');
         await runBuilder(builder, [basicAsset], reader, writerSpy, AnalyzerResolvers(), logger: logger);
@@ -179,6 +193,13 @@ main() {
             '${p.absolute(p.current)}/test_fixtures/gold_output_files/mixin_based/basic.over_react.g.dart.goldFile');
       });
 
+      test('builds from basic component file using Dart >=2.9.0 syntax', () async {
+        await checkBuildForFile(
+            'over_react|test_fixtures/source_files/mixin_based/basic_two_nine.dart',
+            'over_react|test_fixtures/source_files/mixin_based/basic_two_nine.over_react.g.dart',
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/mixin_based/basic_two_nine.over_react.g.dart.goldFile');
+      });
+
       test('builds from basic multi-part library', () async {
         await checkBuildForFile(
             'over_react|test_fixtures/source_files/mixin_based/basic_library.dart',
@@ -202,9 +223,9 @@ main() {
 
       test('builds for state mixins', () async {
         await checkBuildForFile(
-            'over_react|test_fixtures/source_files/mixin_based/props_mixin.dart',
-            'over_react|test_fixtures/source_files/mixin_based/props_mixin.over_react.g.dart',
-            '${p.absolute(p.current)}/test_fixtures/gold_output_files/mixin_based/props_mixin.over_react.g.dart.goldFile');
+            'over_react|test_fixtures/source_files/mixin_based/state_mixin.dart',
+            'over_react|test_fixtures/source_files/mixin_based/state_mixin.over_react.g.dart',
+            '${p.absolute(p.current)}/test_fixtures/gold_output_files/mixin_based/state_mixin.over_react.g.dart.goldFile');
       });
 
       test('does not produce a build output for just a part file', () async {

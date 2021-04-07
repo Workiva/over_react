@@ -46,7 +46,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
 
   TypedMapNames get names;
   bool get isComponent2;
-  FactoryNames get factoryNames;
+  List<FactoryNames> get factoryNames;
   bool get isProps;
 
   BoilerplateTypedMapMember get member;
@@ -71,9 +71,10 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
 
   void _generateFactory() {
     if (factoryNames == null) throw StateError('factoryNames must not be null');
+    assert(factoryNames.length == 1, 'factoryNames must have a length of 1');
 
     outputContentsBuffer
-        .write('${names.implName} ${factoryNames.implName}([Map backingProps]) => ');
+        .write('${names.implName} ${factoryNames.first.implName}([Map backingProps]) => ');
 
     if (!isComponent2) {
       /// _$$FooProps _$Foo([Map backingProps]) => _$$FooProps(backingProps);
@@ -133,6 +134,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
   String _generateConcretePropsOrStateImpl({
     String componentFactoryName,
     String propKeyNamespace,
+    List<Identifier> allPropsMixins,
   }) {
     if (isProps) {
       if (componentFactoryName == null || propKeyNamespace == null) {
@@ -172,7 +174,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
         ..writeln()
         ..writeln('  factory ${names.implName}(Map backingMap) {')
         ..writeln('    if (backingMap == null || backingMap is JsBackedMap) {')
-        ..writeln('      return ${names.jsMapImplName}(backingMap);')
+        ..writeln('      return ${names.jsMapImplName}(backingMap as JsBackedMap);')
         ..writeln('    } else {')
         ..writeln('      return ${names.plainMapImplName}(backingMap);')
         ..writeln('    }')
@@ -221,6 +223,11 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
             '  /// The default namespace for the prop getters/setters generated for this class.')
         ..writeln('  @override')
         ..writeln('  String get propKeyNamespace => ${stringLiteral(propKeyNamespace)};');
+
+      if (allPropsMixins != null) {
+        generatePropsMeta(buffer, allPropsMixins,
+            classType: 'PropsMetaCollection', fieldName: r'staticMeta');
+      }
     }
 
     // End of class body
@@ -266,7 +273,7 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
   final TypedMapNames names;
 
   @override
-  final FactoryNames factoryNames;
+  final List<FactoryNames> factoryNames;
 
   @override
   final bool isProps;
@@ -278,13 +285,13 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
 
   _LegacyTypedMapImplGenerator.props(this.declaration)
       : names = TypedMapNames(declaration.props.name.name),
-        factoryNames = FactoryNames(declaration.factory.name.name),
+        factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.props,
         isProps = true;
 
   _LegacyTypedMapImplGenerator.state(this.declaration)
       : names = TypedMapNames(declaration.state.name.name),
-        factoryNames = FactoryNames(declaration.factory.name.name),
+        factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.state,
         isProps = false;
 
@@ -329,7 +336,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   final TypedMapNames names;
 
   @override
-  final FactoryNames factoryNames;
+  final List<FactoryNames> factoryNames;
 
   @override
   final bool isProps;
@@ -339,36 +346,73 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
 
   final String componentFactoryName;
 
+  final bool isFunctionComponentDeclaration;
+
   @override
   final Version version;
 
+  final List<Identifier> allPropsMixins;
+
   _TypedMapImplGenerator.props(ClassComponentDeclaration declaration)
       : names = TypedMapNames(declaration.props.either.name.name),
-        factoryNames = FactoryNames(declaration.factory.name.name),
+        factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.props.either,
+        allPropsMixins = declaration.allPropsMixins,
         isProps = true,
         componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName,
+        isFunctionComponentDeclaration = false,
         version = declaration.version;
 
   _TypedMapImplGenerator.state(ClassComponentDeclaration declaration)
       : names = TypedMapNames(declaration.state.either.name.name),
-        factoryNames = FactoryNames(declaration.factory.name.name),
+        factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.state.either,
+        allPropsMixins = null,
         isProps = false,
         componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName,
+        isFunctionComponentDeclaration = false,
         version = declaration.version;
 
   _TypedMapImplGenerator.propsMapViewOrFunctionComponent(
       PropsMapViewOrFunctionComponentDeclaration declaration)
       : names = TypedMapNames(declaration.props.either.name.name),
-        factoryNames = FactoryNames(declaration.factory.name.name),
+        factoryNames =
+            declaration.factories.map((factory) => FactoryNames(factory.name.name)).toList(),
         member = declaration.props.either,
+        allPropsMixins = declaration.allPropsMixins,
         isProps = true,
         componentFactoryName = 'null',
+        isFunctionComponentDeclaration = declaration.factories.first.shouldGenerateConfig,
         version = declaration.version;
 
   @override
   bool get isComponent2 => true;
+
+  String _generateUiFactoryConfig(FactoryNames factoryName) {
+    return 'final UiFactoryConfig<${names.implName}> '
+        '${factoryName.privateConfigName} = UiFactoryConfig(\n'
+        'propsFactory: PropsFactory(\n'
+        'map: (map) => ${names.implName}(map),\n'
+        'jsMap: (map) => ${names.jsMapImplName}(map),),\n'
+        'displayName: \'${factoryName.consumerName}\');\n\n'
+        '@Deprecated(r\'Use the private variable, ${factoryName.privateConfigName}, instead \'\n'
+        '\'and update the `over_react` lower bound to version 4.1.0. \'\n'
+        '\'For information on why this is deprecated, see https://github.com/Workiva/over_react/pull/650\')\n'
+        'final UiFactoryConfig<${names.implName}> '
+        // ignore: deprecated_member_use_from_same_package
+        '${factoryName.publicConfigName} = ${factoryName.privateConfigName};\n\n';
+  }
+
+  @override
+  void _generateFactory() {
+    if (isFunctionComponentDeclaration) {
+      for (final factoryName in factoryNames) {
+        outputContentsBuffer.write(_generateUiFactoryConfig(factoryName));
+      }
+    } else {
+      super._generateFactory();
+    }
+  }
 
   @override
   void _generatePropsImpl() {
@@ -376,6 +420,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
       componentFactoryName: componentFactoryName,
       // This doesn't really apply to the new boilerplate
       propKeyNamespace: '',
+      allPropsMixins: allPropsMixins,
     ));
   }
 

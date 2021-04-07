@@ -11,13 +11,15 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
+// ignore_for_file: deprecated_member_use_from_same_package
 library over_react.component_declaration.component_type_checking_test;
 
 import 'package:js/js.dart';
+import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart' show connect;
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
+import 'package:over_react/src/component_declaration/component_base.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart' as react_interop;
 import 'package:test/test.dart';
@@ -44,6 +46,8 @@ import 'component2_type_checking_test/type_inheritance/subtype2.dart';
 import 'component2_type_checking_test/type_inheritance/subsubtype_of_component1.dart';
 import 'component2_type_checking_test/type_inheritance/subtype_of_component1.dart';
 
+import 'function_type_checking_test/components.dart' as function;
+
 main() {
   group('Component1', () {
     testComponentTypeChecking(
@@ -51,7 +55,6 @@ main() {
       TestSubtype: TestSubtype,
       TestSubsubtype: TestSubsubtype,
       TestExtendtype: TestExtendtype,
-      TestExtendtypeComponent: TestExtendtypeComponent,
       TestAbstractComponent: TestAbstractComponent,
       TestA: TestA,
       TestAComponent: TestAComponent,
@@ -61,6 +64,7 @@ main() {
       TwoLevelWrapper: TwoLevelWrapper,
     );
   });
+
   group('Component2', () {
     testComponentTypeChecking(
       isComponent2: true,
@@ -68,7 +72,6 @@ main() {
       TestSubtype: TestSubtype2,
       TestSubsubtype: TestSubsubtype2,
       TestExtendtype: TestExtendtype2,
-      TestExtendtypeComponent: TestExtendtype2Component,
       TestAbstractComponent: TestAbstract2Component,
       TestA: TestA2,
       TestAComponent: TestA2Component,
@@ -78,6 +81,7 @@ main() {
       TwoLevelWrapper: TwoLevelWrapper2,
     );
   });
+
   group('Component2 (subtypeOf: Component1)', () {
     testComponentTypeChecking(
       isComponent2: true,
@@ -85,7 +89,6 @@ main() {
       TestSubtype: TestSubtypeOfComponent1,
       TestSubsubtype: TestSubsubtypeOfComponent1,
       TestExtendtype: TestExtendtype2,
-      TestExtendtypeComponent: TestExtendtype2Component,
       TestAbstractComponent: TestAbstract2Component,
       TestA: TestA2,
       TestAComponent: TestA2Component,
@@ -95,24 +98,34 @@ main() {
       TwoLevelWrapper: TwoLevelWrapper2,
     );
   });
-}
 
-testComponentTypeChecking({
-  bool isComponent2 = false,
-  UiFactory TestParent,
-  UiFactory TestSubtype,
-  UiFactory TestSubsubtype,
-  UiFactory TestExtendtype,
-  Type TestExtendtypeComponent,
-  Type TestAbstractComponent,
-  UiFactory TestA,
-  Type TestAComponent,
-  UiFactory TestB,
-  Type TestBComponent,
-  UiFactory OneLevelWrapper,
-  UiFactory TwoLevelWrapper,
-}) {
-  group('type checking:', () {
+  group('Function component', () {
+    testComponentTypeChecking(
+      isComponent2: true,
+      TestParent: function.TestParent,
+      TestSubtype: function.TestSubtype,
+      TestSubsubtype: function.TestSubsubtype,
+      TestExtendtype: function.TestExtendtype,
+      TestAbstractComponent: TestAbstract2Component,
+      TestA: function.TestA,
+      TestAComponent: null,
+      TestB: function.TestB,
+      TestBComponent: null,
+      OneLevelWrapper: function.OneLevelWrapper,
+      TwoLevelWrapper: function.TwoLevelWrapper,
+    );
+
+    // This is a regression test for issues encountered in an earlier implementation
+    // where auto-detecting the subtypeOf arg resulted in the UiFactory itself
+    // being treated as the subtype, causing type checking to fail.
+    test('works when subtyping a component whose factory hasn\'t been initialized yet', () {
+      final element = function.TestUninitializedParent()();
+      expect(isComponentOfType(element, function.DoNotReferenceThisFactoryExceptForInASingleTest), isTrue);
+      expect(isComponentOfType(element, TestAbstract2Component), isTrue);
+    });
+  });
+
+  group('private utilities', () {
     group('getComponentTypeFromAlias', () {
       group('passes through valid component types:', () {
         test('String', () {
@@ -125,10 +138,16 @@ testComponentTypeChecking({
         });
       });
 
-      test('returns the ReactClass type for a ReactDartComponentFactoryProxy${isComponent2 ? '2' : ''}', () {
+      test('returns the ReactClass type for a ReactDartComponentFactoryProxy', () {
         var reactClass = createTestReactClass();
         // ignore: deprecated_member_use
-        var factory = isComponent2 ? ReactDartComponentFactoryProxy2(reactClass) : ReactDartComponentFactoryProxy(reactClass);
+        var factory = ReactDartComponentFactoryProxy(reactClass);
+        expect(getComponentTypeFromAlias(factory), same(reactClass));
+      });
+
+      test('returns the ReactClass type for a ReactDartComponentFactoryProxy2', () {
+        var reactClass = createTestReactClass();
+        var factory = ReactDartComponentFactoryProxy2(reactClass);
         expect(getComponentTypeFromAlias(factory), same(reactClass));
       });
 
@@ -137,10 +156,20 @@ testComponentTypeChecking({
         expect(getComponentTypeFromAlias(factory), equals('div'));
       });
 
-      test('returns the ReactClass type for an aliased ReactDartComponentFactoryProxy${isComponent2 ? '2' : ''}', () {
+      test('returns the ReactClass type for an aliased ReactDartComponentFactoryProxy', () {
         var reactClass = createTestReactClass();
         // ignore: deprecated_member_use
-        var factory = isComponent2 ? ReactDartComponentFactoryProxy2(reactClass) : ReactDartComponentFactoryProxy(reactClass);
+        var factory = ReactDartComponentFactoryProxy(reactClass);
+
+        var typeAlias = Object();
+        registerComponentTypeAlias(factory, typeAlias);
+
+        expect(getComponentTypeFromAlias(typeAlias), same(reactClass));
+      });
+
+      test('returns the ReactClass type for an aliased ReactDartComponentFactoryProxy2', () {
+        var reactClass = createTestReactClass();
+        var factory = ReactDartComponentFactoryProxy2(reactClass);
 
         var typeAlias = Object();
         registerComponentTypeAlias(factory, typeAlias);
@@ -182,6 +211,101 @@ testComponentTypeChecking({
       });
     });
 
+    void sharedAliasTests(void Function(dynamic alias) testBody) {
+      group('an alias, when the argument is', () {
+        test('a UiFactory', () {
+          // This need to be a new instance every test run, which is why we
+          // don't set it up within the group.
+          final UiFactory alias = ([_]) => null; // ignore: prefer_function_declarations_over_variables
+          final factory = ReactDartComponentFactoryProxy2(createTestReactClass());
+          registerComponentTypeAlias(factory, alias);
+          testBody(alias);
+        });
+
+        test('an arbitrary object', () {
+          // This need to be a new instance every test run, which is why we
+          // don't set it up within the group.
+          final alias = Object();
+          final factory = ReactDartComponentFactoryProxy2(createTestReactClass());
+          registerComponentTypeAlias(factory, alias);
+          testBody(alias);
+        });
+      });
+    }
+
+    void sharedBadTypeTests(void Function(dynamic badType) testBody) {
+      group('a bad type, when the argument is', () {
+        test('null', () => testBody(null));
+        test('a primitive', () => testBody(1));
+        test('a string', () => testBody('I am a string'));
+      });
+    }
+
+    Matcher throwsAssertionErrorContaining(String messageSubstring) =>
+        throwsA(isA<AssertionError>().having((e) => e.toString(),
+            'toString() value', contains(messageSubstring)));
+
+    group('setComponentTypeMeta', () {
+      // other behavior is tested functionally as part of the shared suite and other callers like registerComponent
+
+      group('asserts that the type argument is not', () {
+        sharedAliasTests((alias) {
+          expect(() => setComponentTypeMeta(alias, parentType: null),
+              throwsAssertionErrorContaining('must pass in the raw JS component type'));
+        });
+
+        sharedBadTypeTests((badType) {
+          expect(() => setComponentTypeMeta(badType, parentType: null),
+              throwsAssertionErrorContaining(badType is String
+                  ? 'cannot set type metadata on strings'
+                  : 'must pass in the raw JS component type'));
+        });
+      }, tags: 'ddc');
+    });
+
+    group('ComponentTypeMeta constructor', () {
+      // other behavior is tested functionally as part of the shared suite and other callers like setComponentTypeMeta and its callers
+
+      group('asserts that the parentType argument is not', () {
+        sharedAliasTests((alias) {
+          expect(() => ComponentTypeMeta(parentType: alias),
+              throwsAssertionErrorContaining('must pass in the raw JS component type'));
+        });
+
+        sharedBadTypeTests((badType) {
+          if (badType == null) {
+            expect(
+                () => ComponentTypeMeta(parentType: badType), returnsNormally,
+                reason: 'null parentTypes are permitted');
+          } else if (badType is String) {
+            expect(
+                () => ComponentTypeMeta(parentType: badType), returnsNormally,
+                reason: 'string parentTypes are permitted');
+          } else {
+            expect(() => ComponentTypeMeta(parentType: badType),
+                throwsAssertionErrorContaining('must pass in the raw JS component type'));
+          }
+        });
+      }, tags: 'ddc');
+    });
+  });
+}
+
+testComponentTypeChecking({
+  bool isComponent2 = false,
+  @required UiFactory TestParent,
+  @required UiFactory TestSubtype,
+  @required UiFactory TestSubsubtype,
+  @required UiFactory TestExtendtype,
+  @required Type TestAbstractComponent,
+  @required UiFactory TestA,
+  @required Type TestAComponent,
+  @required UiFactory TestB,
+  @required Type TestBComponent,
+  @required UiFactory OneLevelWrapper,
+  @required UiFactory TwoLevelWrapper,
+}) {
+  group('type checking:', () {
     group('getParentTypes', () {
       group('getParentTypes', () {
         group('returns an iterable of the parent types', () {
@@ -217,7 +341,7 @@ testComponentTypeChecking({
 
           test('that contains all of a component\'s parent abstract types', () {
             expect(
-                getParentTypes(getComponentTypeFromAlias(TestExtendtypeComponent)),
+                getParentTypes(getComponentTypeFromAlias(TestExtendtype)),
                 orderedEquals([
                   getComponentTypeFromAlias(TestAbstractComponent),
                 ]));
@@ -251,9 +375,11 @@ testComponentTypeChecking({
           expect(isComponentOfType(TestA()(), TestA().componentFactory), isTrue);
         });
 
-        test('a component and its component class', () {
-          expect(isComponentOfType(TestA()(), TestAComponent), isTrue);
-        });
+        if (TestAComponent != null) {
+          test('a component and its component class', () {
+            expect(isComponentOfType(TestA()(), TestAComponent), isTrue);
+          });
+        }
 
         test('a component and its component type', () {
           expect(isComponentOfType(TestA()(), TestA()().type), isTrue);
@@ -267,9 +393,11 @@ testComponentTypeChecking({
           expect(isComponentOfType(TestA()(), TestB().componentFactory), isFalse);
         });
 
-        test('a component and a component class for a different component', () {
-          expect(isComponentOfType(TestA()(), TestBComponent), isFalse);
-        });
+        if (TestBComponent != null) {
+          test('a component and a component class for a different component', () {
+            expect(isComponentOfType(TestA()(), TestBComponent), isFalse);
+          });
+        }
 
         test('a component and a component type for a different component', () {
           expect(isComponentOfType(TestA()(), TestB()().type), isFalse);

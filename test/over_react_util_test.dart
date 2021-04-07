@@ -20,14 +20,14 @@
 library util_test;
 
 import 'package:over_react/over_react.dart';
-import 'package:react/react_client.dart';
 import 'package:test/test.dart';
 
+import 'over_react/util/cast_ui_factory_test.dart' as cast_ui_factory_test;
 import 'over_react/util/class_names_test.dart' as class_names_test;
 import 'over_react/util/constants_base_test.dart' as constants_base_test;
 import 'over_react/util/css_value_util_test.dart' as css_value_util_test;
 import 'over_react/util/dom_util_test.dart' as dom_util_test;
-import 'over_react/util/event_helpers_test.dart' as event_helpers_test;
+import 'over_react/util/equality_test.dart' as equality_test;
 import 'over_react/util/guid_util_test.dart' as guid_util_test;
 import 'over_react/util/handler_chain_util_test.dart' as handler_chain_util_test;
 import 'over_react/util/hoc_test.dart' as hoc_test;
@@ -43,15 +43,14 @@ import 'over_react/util/string_util_test.dart' as string_util_test;
 import 'over_react/util/test_mode_test.dart' as test_mode_test;
 
 void main() {
-  setClientConfiguration();
-
   enableTestMode();
 
+  cast_ui_factory_test.main();
   class_names_test.main();
   constants_base_test.main();
   css_value_util_test.main();
   dom_util_test.main();
-  event_helpers_test.main();
+  equality_test.main();
   guid_util_test.main();
   handler_chain_util_test.main();
   hoc_test.main();

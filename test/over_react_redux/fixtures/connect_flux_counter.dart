@@ -19,6 +19,7 @@ import 'connect_flux_store.dart';
 part 'connect_flux_counter.over_react.g.dart';
 
 @Factory()
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<ConnectFluxCounterProps> ConnectFluxCounter = _$ConnectFluxCounter;
 
 @Props()
@@ -34,6 +35,8 @@ class _$ConnectFluxCounterProps extends UiProps {
   void Function() decrement;
 
   void Function() mutateStoreDirectly;
+
+  FluxActions actions;
 }
 
 @Component2()
@@ -54,7 +57,7 @@ class ConnectFluxCounterComponent
           } else if (props.increment != null) {
             props.increment();
           } else {
-            fluxActions.incrementAction();
+            props.actions.incrementAction();
           }
         }
       )('+'),

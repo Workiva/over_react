@@ -42,6 +42,12 @@ Uri idToPackageUri(AssetId id) {
       path: p.url.join(id.package, id.path.replaceFirst('lib/', '')));
 }
 
+Iterable<PartDirective> getNonGeneratedParts(CompilationUnit libraryUnit) {
+  return libraryUnit.directives
+      .whereType<PartDirective>()
+      // Ignore all generated `.g.dart` parts.
+      .where((part) => !part.uri.stringValue.endsWith('.g.dart'));
+}
 /// Returns true if the given compilation unit is a part file.
 bool isPart(CompilationUnit unit) =>
     unit.directives.any((directive) => directive is PartOfDirective);
@@ -65,15 +71,13 @@ String removeBoundsFromTypeParameters(TypeParameterList typeParameters) {
 /// Returns a [FieldDeclaration] for the meta field on a [ClassDeclaration] if
 /// it exists, otherwise returns null.
 FieldDeclaration getMetaField(Iterable<ClassMember> members) {
-  bool isPropsOrStateMeta(ClassMember member) {
-    if (member is! FieldDeclaration) return false;
-    final FieldDeclaration fd = member;
+  bool isPropsOrStateMeta(FieldDeclaration fd) {
     if (!fd.isStatic) return false;
     if (fd.fields.variables.length > 1) return false;
     if (fd.fields.variables.single.name.name != 'meta') return false;
     return true;
   }
-  return members.firstWhere(isPropsOrStateMeta, orElse: () => null);
+  return members.whereType<FieldDeclaration>().firstWhere(isPropsOrStateMeta, orElse: () => null);
 }
 
 String messageWithSpan(String message, {SourceSpan span}) {
@@ -84,7 +88,7 @@ String messageWithSpan(String message, {SourceSpan span}) {
 /// Returns any [FieldDeclaration]s on [node] which have the name `meta`,
 /// otherwise `null`.
 FieldDeclaration metaFieldOrNull(ClassOrMixinDeclaration node) {
-  return node.members.firstWhere((member) => member is FieldDeclaration && fieldDeclarationHasMeta(member),
+  return node.members.whereType<FieldDeclaration>().firstWhere(fieldDeclarationHasMeta,
       orElse: () => null);
 }
 
@@ -104,7 +108,7 @@ bool fieldDeclarationHasName(FieldDeclaration field, String name) {
 /// Returns any [MethodDeclaration]s on [node] which have the name `meta`,
 /// otherwise `null`.
 MethodDeclaration metaMethodOrNull(ClassOrMixinDeclaration node) {
-  return node.members.firstWhere((member) =>
-      member is MethodDeclaration && member.name.name == 'meta',
+  return node.members.whereType<MethodDeclaration>().firstWhere((member) =>
+      member.name.name == 'meta',
       orElse: () => null);
 }

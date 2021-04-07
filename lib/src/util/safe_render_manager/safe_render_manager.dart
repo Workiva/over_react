@@ -192,8 +192,8 @@ class SafeRenderManager extends Disposable {
     }
   }
 
-  void _helperRef(ref) {
-    _helper = ref;
+  void _helperRef(dynamic ref) {
+    _helper = ref as SafeRenderManagerHelperComponent;
     if (_helper != null) {
       if (_state == _RenderState.mounting) {
         _state = _RenderState.mountedOrErrored;
@@ -222,7 +222,8 @@ class SafeRenderManager extends Disposable {
         // an indefinitely long lifetime.
         completer = null;
       });
-    }, onError: (error, stackTrace) {
+    // ignore: avoid_types_on_closure_parameters
+    }, onError: (error, StackTrace stackTrace) {
       completer?.completeError(error, stackTrace);
       // Clear out to not retain it in the onError closure, which has
       // an indefinitely long lifetime.
