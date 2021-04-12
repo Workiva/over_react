@@ -40,7 +40,7 @@ dependencies:
       ref: flutter-fix
   platform_detect:
     git:
-      url: git@github.com:hunterbreathat-wk/platform_detect.git
+      url: git@github.com:kyleferguson-wk/platform_detect.git
       ref: flutter-fix
   quiver: ">=0.25.0 <3.0.0"
   redux_dev_tools: ">=0.4.0 <0.6.0"
