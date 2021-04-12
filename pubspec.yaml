@@ -36,7 +36,7 @@ dependencies:
       ref: w-common-flutter-fix-new
   w_flux:
     git:
-      url: git@github.com:hunterbreathat-wk/w_flux.git
+      url: git@github.com:kyleferguson-wk/w_flux.git
       ref: flutter-fix
   platform_detect:
     git:
@@ -55,7 +55,7 @@ dev_dependencies:
   dart_dev:
     git:
       url: git@github.com:kyleferguson-wk/dart_dev.git
-      ref: flutter-fix
+      ref: master
   dependency_validator:
     git:
       url: git@github.com:kyleferguson-wk/dependency_validator.git
