@@ -13,3 +13,4 @@ dependency_overrides:
   # Pull in the local copy of over_react so it pulls in the local copy of the plugin
   over_react:
       path: ../../..
+  redux: 4.0.0

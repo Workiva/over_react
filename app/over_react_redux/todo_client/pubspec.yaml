@@ -32,3 +32,4 @@ dev_dependencies:
 dependency_overrides:
   over_react:
     path: '../../../'
+  redux: 4.0.0

@@ -48,3 +48,6 @@ workiva:
   core_checks:
     version: 1
     react_boilerplate: disabled
+
+dependency_overrides:
+  redux: 4.0.0
