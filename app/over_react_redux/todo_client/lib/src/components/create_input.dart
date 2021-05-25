@@ -8,7 +8,7 @@ import 'package:react_material_ui/react_material_ui.dart';
 part 'create_input.over_react.g.dart';
 
 UiFactory<CreateInputProps> CreateInput =
-    _$CreateInput; // ignore: undefined_identifier
+    castUiFactory(_$CreateInput); // ignore: undefined_identifier
 
 @Props(keyNamespace: '') // No namespace so prop forwarding works when passing to the JS TextField component.
 mixin CreateInputProps on UiProps {

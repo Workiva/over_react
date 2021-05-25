@@ -1,4 +1,6 @@
-include: package:pedantic/analysis_options.1.8.0.yaml
+# TODO use v1.recommended.yaml, remove duplicates in "rules" section
+# This includes a global ignore of `uri_has_not_been_generated`. See: https://github.com/Workiva/over_react/blob/new_boilerplate_wip/doc/new_boilerplate_migration.md#ignore-ungenerated-warnings-project-wide>
+include: package:workiva_analysis_options/v1.yaml
 
 analyzer:
   errors:
@@ -6,42 +8,6 @@ analyzer:
 
 linter:
   rules:
-    # -------------------
-    # Pedantic
-    # -------------------
-    avoid_empty_else: true
-    avoid_init_to_null: true
-    avoid_relative_lib_imports: true
-    avoid_return_types_on_setters: true
-    avoid_shadowing_type_parameters: true
-    avoid_types_as_parameter_names: true
-    curly_braces_in_flow_control_structures: true
-    empty_catches: true
-    empty_constructor_bodies: true
-    empty_statements: true
-    library_names: true
-    library_prefixes: true
-    no_duplicate_case_values: true
-    null_closures: true
-    prefer_contains: true
-    prefer_equal_for_default_values: true
-    prefer_is_empty: true
-    prefer_is_not_empty: true
-    prefer_iterable_whereType: true
-    recursive_getters: true
-    slash_for_doc_comments: true
-    type_init_formals: true
-    unawaited_futures: true
-    unnecessary_const: true
-    unnecessary_new: true
-    unnecessary_null_in_if_null_operators: true
-    unrelated_type_equality_checks: true
-    use_rethrow_when_possible: true
-    valid_regexps: true
-
-    # -------------------
-    # Other
-    # -------------------
     annotate_overrides: true
     avoid_bool_literals_in_conditional_expressions: true
     avoid_classes_with_only_static_members: true

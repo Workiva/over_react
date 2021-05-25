@@ -58,7 +58,7 @@ abstract class BoilerplateDeclaration {
     if (version == null) {
       // This should almost never happen.
       errorCollector.addError(
-          'Could not determine boilerplate version.', errorCollector.spanFor(_members.first.node));
+          'Could not determine boilerplate version.', errorCollector.spanFor(_members.first.name));
       return;
     }
 
@@ -106,17 +106,17 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
     if (!component.node.hasAnnotationWithNames({'Component', 'Component2'})) {
       errorCollector.addError(
           'Legacy boilerplate components must be annotated with `@Component()` or `@Component2()`.',
-          errorCollector.spanFor(component.node));
+          errorCollector.spanFor(component.name));
     }
 
     if (!props.node.hasAnnotationWithNames({'Props'})) {
       errorCollector.addError('Legacy boilerplate props classes must be annotated with `@Props()`.',
-          errorCollector.spanFor(props.node));
+          errorCollector.spanFor(props.name));
     }
 
     if (state != null && !state.node.hasAnnotationWithNames({'State'})) {
       errorCollector.addError('Legacy boilerplate state classes must be annotated with `@State()`.',
-          errorCollector.spanFor(state.node));
+          errorCollector.spanFor(state.name));
     }
   }
 }
@@ -221,6 +221,17 @@ mixin _TypedMapMixinShorthandDeclaration {
   }
 }
 
+extension on Union<BoilerplateProps, BoilerplatePropsMixin> {
+  /// Retrieves all of the mixins related to a props class declaration.
+  ///
+  /// This is the safest way to retrieve that information because it takes
+  /// into account the nature of the [Union] typing of `props`.
+  List<Identifier> get allPropsMixins => this.switchCase(
+        (a) => a.nodeHelper.mixins.map((name) => name.name).toList(),
+        (b) => [b.name],
+      );
+}
+
 /// A boilerplate declaration for a class-based component declared using the new mixin-based
 /// boilerplate.
 ///
@@ -238,11 +249,7 @@ class ClassComponentDeclaration extends BoilerplateDeclaration
   @override
   get type => DeclarationType.classComponentDeclaration;
 
-  /// All the props mixins related to this component declaration
-  List<Identifier> get allPropsMixins => props.switchCase(
-        (a) => a.nodeHelper.mixins.map((name) => name.name).toList(),
-        (b) => [b.name],
-      );
+  List<Identifier> get allPropsMixins => props.allPropsMixins;
 
   @override
   void validate(ErrorCollector errorCollector) {
@@ -277,6 +284,8 @@ class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
   ///
   /// Can be either [BoilerplateProps] or [BoilerplatePropsMixin], but not both.
   final Union<BoilerplateProps, BoilerplatePropsMixin> props;
+
+  List<Identifier> get allPropsMixins => props.allPropsMixins;
 
   @override
   get _members => [...factories, props.either];
@@ -352,12 +361,25 @@ class FactoryGroup {
 
   /// The factory that best represents [factories].
   ///
-  /// Priority: component factory, function component factory, forwardRef
+  /// Priority: component factory (possibly wrapped in `castUiFactory`), function component factory, forwardRef
   BoilerplateFactory get bestFactory {
     if (factories.length == 1) return factories[0];
 
-    final factoriesInitializedToIdentifier =
-        factories.where((factory) => factory.node.firstInitializer is Identifier).toList();
+    final factoriesInitializedToIdentifier = factories.where((factory) {
+      if (factory.node.firstInitializer is Identifier) return true;
+
+      final initializer = factory.node.firstInitializer;
+
+      if (initializer is MethodInvocation) {
+        if (initializer.methodName.name == 'castUiFactory' &&
+            initializer.argumentList.arguments.first is SimpleIdentifier) {
+          return true;
+        }
+      }
+
+      return false;
+    }).toList();
+
     if (factoriesInitializedToIdentifier.length == 1) {
       return factoriesInitializedToIdentifier.first;
     }

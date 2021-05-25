@@ -98,9 +98,9 @@ class FluxStore2 extends flux.Store with InfluxStoreMixin<BigCounterState> {
   FluxStore2(this._actions) {
     state = BigCounterState(bigCount: 0);
 
-    triggerOnActionV2(_actions.incrementAction,
+    triggerOnActionV2<int>(_actions.incrementAction,
         (count) => this.influxReducer(IncrementAction(count)));
-    triggerOnActionV2(_actions.decrementAction,
+    triggerOnActionV2<int>(_actions.decrementAction,
         (count) => this.influxReducer(DecrementAction(count)));
     triggerOnActionV2(
         _actions.resetAction, (_) => this.influxReducer(ResetAction()));

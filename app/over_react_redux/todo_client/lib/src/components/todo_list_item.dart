@@ -38,7 +38,7 @@ UiFactory<TodoListItemProps> TodoListItem = connect<AppState, TodoListItemProps>
       ..isHighlighted = isHighlighted
     );
   },
-)(_$TodoListItem); // ignore: undefined_identifier
+)(castUiFactory(_$TodoListItem)); // ignore: undefined_identifier
 
 mixin TodoListItemPropsMixin on UiProps, ListItemPropsMixin {
   @requiredProp

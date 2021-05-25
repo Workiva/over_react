@@ -38,8 +38,9 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.onComponentDidCatch] -->
   @override
   Function(dynamic error, ReactErrorInfo info) get onComponentDidCatch =>
-      props[_$key__onComponentDidCatch___$ErrorBoundaryPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onComponentDidCatch___$ErrorBoundaryPropsMixin] ?? null)
+          as Function(dynamic error, ReactErrorInfo info);
+
   /// An optional callback that will be called with an [Error] _(or [Exception])_
   /// and `errorInfo` containing information about which component in the tree
   /// threw when the `componentDidCatch` lifecycle method is called.
@@ -91,8 +92,9 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.onComponentIsUnrecoverable] -->
   @override
   Function(dynamic error, ReactErrorInfo info) get onComponentIsUnrecoverable =>
-      props[_$key__onComponentIsUnrecoverable___$ErrorBoundaryPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onComponentIsUnrecoverable___$ErrorBoundaryPropsMixin] ??
+          null) as Function(dynamic error, ReactErrorInfo info);
+
   /// An optional callback that will be called _(when [fallbackUIRenderer] is not set)_
   /// with an [Error] _(or [Exception])_ and `errorInfo` containing information about which component in
   /// the tree threw multiple consecutive errors/exceptions frequently enough that it has the potential
@@ -131,12 +133,11 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.fallbackUIRenderer] -->
   @override
-  ReactElement Function(
-      dynamic error,
-      ReactErrorInfo
-          info) get fallbackUIRenderer =>
-      props[_$key__fallbackUIRenderer___$ErrorBoundaryPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  ReactElement Function(dynamic error, ReactErrorInfo info)
+      get fallbackUIRenderer =>
+          (props[_$key__fallbackUIRenderer___$ErrorBoundaryPropsMixin] ?? null)
+              as ReactElement Function(dynamic error, ReactErrorInfo info);
+
   /// A renderer that will be used to render "fallback" UI instead of the child
   /// component tree that crashed.
   ///
@@ -168,10 +169,10 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.identicalErrorFrequencyTolerance] -->
   @override
-  Duration get identicalErrorFrequencyTolerance =>
-      props[
+  Duration get identicalErrorFrequencyTolerance => (props[
           _$key__identicalErrorFrequencyTolerance___$ErrorBoundaryPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      null) as Duration;
+
   /// The amount of time that is "acceptable" between consecutive identical errors thrown from a component
   /// within the tree wrapped by this [ErrorBoundary].
   ///
@@ -205,8 +206,8 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.loggerName] -->
   @override
   String get loggerName =>
-      props[_$key__loggerName___$ErrorBoundaryPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__loggerName___$ErrorBoundaryPropsMixin] ?? null) as String;
+
   /// The name to use when the component's logger logs an error via [ErrorBoundaryComponent.componentDidCatch].
   ///
   /// Not used if a custom [logger] is specified.
@@ -225,8 +226,9 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.shouldLogErrors] -->
   @override
   bool get shouldLogErrors =>
-      props[_$key__shouldLogErrors___$ErrorBoundaryPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__shouldLogErrors___$ErrorBoundaryPropsMixin] ?? null)
+          as bool;
+
   /// Whether errors caught by this [ErrorBoundary] should be logged using a [Logger].
   ///
   /// > Default: `true`
@@ -242,8 +244,8 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.logger] -->
   @override
   Logger get logger =>
-      props[_$key__logger___$ErrorBoundaryPropsMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__logger___$ErrorBoundaryPropsMixin] ?? null) as Logger;
+
   /// An optional custom logger instance that will be used to log errors caught by
   /// this [ErrorBoundary] when [shouldLogErrors] is true.
   ///
@@ -339,8 +341,8 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
   /// <!-- Generated from [_$ErrorBoundaryStateMixin.hasError] -->
   @override
   bool get hasError =>
-      state[_$key__hasError___$ErrorBoundaryStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__hasError___$ErrorBoundaryStateMixin] ?? null) as bool;
+
   /// Whether a component within the tree that the [ErrorBoundary] is wrapping around threw an error.
   ///
   /// * When `true`, and [ErrorBoundaryPropsMixin.fallbackUIRenderer] is set, the return value of that callback
@@ -365,8 +367,9 @@ abstract class ErrorBoundaryStateMixin implements _$ErrorBoundaryStateMixin {
   /// <!-- Generated from [_$ErrorBoundaryStateMixin.showFallbackUIOnError] -->
   @override
   bool get showFallbackUIOnError =>
-      state[_$key__showFallbackUIOnError___$ErrorBoundaryStateMixin] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__showFallbackUIOnError___$ErrorBoundaryStateMixin] ?? null)
+          as bool;
+
   /// Whether to show "fallback" UI when [hasError] is true.
   ///
   /// This value will always be true if [ErrorBoundaryPropsMixin.fallbackUIRenderer] is non-null.

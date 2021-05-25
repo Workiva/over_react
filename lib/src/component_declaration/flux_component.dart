@@ -325,11 +325,8 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
   ///     @override
   ///     redrawOn() => [store.tasks, store.users];
   List<Store> redrawOn() {
-    if (props.store is Store) {
-      return <Store>[props.store];
-    } else {
-      return [];
-    }
+    final store = props.store;
+    return store is Store ? [store] : [];
   }
 
   /// If you need more fine-grained control over store trigger handling,

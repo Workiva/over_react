@@ -7,7 +7,7 @@ import 'package:todo_client/src/components/shared/empty_view.dart';
 part 'display_list.over_react.g.dart';
 
 UiFactory<DisplayListProps> DisplayList =
-        _$DisplayList; // ignore: undefined_identifier
+        castUiFactory(_$DisplayList); // ignore: undefined_identifier
 
 @Props(keyNamespace: '') // No namespace so prop forwarding works when passing to the JS TextField component.
 mixin DisplayListProps on UiProps {

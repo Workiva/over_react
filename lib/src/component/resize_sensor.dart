@@ -61,7 +61,7 @@ part 'resize_sensor.over_react.g.dart';
 ///     )
 ///
 /// > The component _must_ be put in a relative or absolutely positioned container.
-UiFactory<ResizeSensorProps> ResizeSensor = _$ResizeSensor;
+UiFactory<ResizeSensorProps> ResizeSensor = castUiFactory(_$ResizeSensor);
 
 mixin ResizeSensorProps on UiProps {
   /// A function invoked with a `ResizeSensorEvent` argument when the resize sensor is initialized.
@@ -209,7 +209,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
       ..className = 'resize-sensor-expand'
       ..onScroll = _handleSensorScroll
       ..style = props.shrink ? shrinkBaseStyle : baseStyle
-      ..ref = (ref) { _expandSensorRef = ref; }
+      ..ref = (ref) { _expandSensorRef = ref as Element; }
     )(
       (Dom.div()..style = expandSensorChildStyle)()
     );
@@ -218,7 +218,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
       ..className = 'resize-sensor-collapse'
       ..onScroll = _handleSensorScroll
       ..style = props.shrink ? shrinkBaseStyle : baseStyle
-      ..ref = (ref) { _collapseSensorRef = ref; }
+      ..ref = (ref) { _collapseSensorRef = ref as Element; }
     )(
       (Dom.div()..style = collapseSensorChildStyle)()
     );

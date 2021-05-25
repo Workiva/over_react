@@ -75,7 +75,7 @@ ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 Function() d
   registerComponentTypeAlias(reactComponentFactory, builderFactory);
   registerComponentTypeAlias(reactComponentFactory, componentClass);
 
-  setComponentTypeMeta(reactComponentFactory, isWrapper: isWrapper, parentType: parentType);
+  setComponentTypeMeta(reactComponentFactory.type, isWrapper: isWrapper, parentType: parentType?.type);
 
   return reactComponentFactory;
 }
@@ -717,7 +717,7 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
       react.PropValidatorInfo _info,
     ) {
       var convertedProps = component.typedPropsFactoryJs(_props);
-      return _validator(convertedProps, _info);
+      return _validator(convertedProps, _info) as Error;
     }
 
     // Add [PropValidator]s for props annotated as required.

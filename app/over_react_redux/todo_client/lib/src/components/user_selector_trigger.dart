@@ -1,7 +1,7 @@
 part of todo_client.src.components.user_selector;
 
 UiFactory<UserSelectorTriggerProps> UserSelectorTrigger =
-    _$UserSelectorTrigger; // ignore: undefined_identifier
+    castUiFactory(_$UserSelectorTrigger); // ignore: undefined_identifier
 
 @Props(keyNamespace: '')
 mixin UserSelectorTriggerProps on UiProps {

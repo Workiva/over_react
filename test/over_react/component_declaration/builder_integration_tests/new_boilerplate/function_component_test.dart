@@ -29,6 +29,10 @@ main() {
       functionComponentTestHelper(Test);
     });
 
+    group('with public generated props config (deprecated)', () {
+      functionComponentTestHelper(TestPublic);
+    });
+
     group('with custom PropsFactory', () {
       functionComponentTestHelper(TestCustom, testId: 'testIdCustom');
     });
@@ -62,6 +66,15 @@ main() {
                   (props) => Dom.div()(),
                   UiFactoryConfig(displayName: 'Foo'),
                 ),
+            throwsArgumentError);
+      });
+
+      test('config not the correct type', () {
+        expect(
+                () => uiFunction<TestProps>(
+                  (props) => Dom.div()(),
+              'foo',
+            ),
             throwsArgumentError);
       });
     });
@@ -107,6 +120,15 @@ main() {
                 () => uiForwardRef<TestProps>(
                   (props, ref) => Dom.div()(),
               UiFactoryConfig(displayName: 'Foo'),
+            ),
+            throwsArgumentError);
+      });
+
+      test('config not the correct type', () {
+        expect(
+                () => uiForwardRef<TestProps>(
+                  (props, ref) => Dom.div()(),
+              'foo',
             ),
             throwsArgumentError);
       });
@@ -192,14 +214,14 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
     test(
         'that returns a new props class implementation instance backed by an existing map',
         () {
-      Map existingMap = {'TestProps.stringProp': 'test'};
+      Map existingMap = {'TestPropsMixin.stringProp': 'test'};
       final props = factory(existingMap);
 
       expect(props.stringProp, equals('test'));
 
       props.stringProp = 'modified';
       expect(props.stringProp, equals('modified'));
-      expect(existingMap['TestProps.stringProp'], equals('modified'));
+      expect(existingMap['TestPropsMixin.stringProp'], equals('modified'));
     });
   });
 
@@ -208,18 +230,18 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
         'the props class name as a namespace and the prop name as the key by default',
         () {
       expect(factory()..stringProp = 'test',
-          containsPair('TestProps.stringProp', 'test'));
+          containsPair('TestPropsMixin.stringProp', 'test'));
 
       expect(
-          factory()..dynamicProp = 2, containsPair('TestProps.dynamicProp', 2));
+          factory()..dynamicProp = 2, containsPair('TestPropsMixin.dynamicProp', 2));
 
       expect(factory()..untypedProp = false,
-          containsPair('TestProps.untypedProp', false));
+          containsPair('TestPropsMixin.untypedProp', false));
     });
 
     test('custom prop keys', () {
       expect(factory()..customKeyProp = 'test',
-          containsPair('TestProps.custom key!', 'test'));
+          containsPair('TestPropsMixin.custom key!', 'test'));
     });
 
     test('custom prop key namespaces', () {
@@ -230,6 +252,75 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
     test('custom prop keys and namespaces', () {
       expect(factory()..customKeyAndNamespaceProp = 'test',
           containsPair('custom namespace~~custom key!', 'test'));
+    });
+  });
+
+  group('can pass along unconsumed props', () {
+    const stringProp = 'a string';
+    const anotherProp = 'this should be filtered';
+    const className = 'aClassName';
+
+    group('using `addUnconsumedProps`', () {
+      TestProps initialProps;
+      TestProps secondProps;
+
+      setUp(() {
+        initialProps = (factory()
+          ..stringProp = stringProp
+          ..anotherProp = anotherProp
+        );
+
+        secondProps = factory();
+
+        expect(secondProps.stringProp, isNull, reason: 'Test setup sanity check');
+        expect(secondProps.anotherProp, isNull, reason: 'Test setup sanity check');
+      });
+
+      test('', () {
+        secondProps.addUnconsumedProps(initialProps, []);
+        expect(secondProps.anotherProp, anotherProp);
+        expect(secondProps.stringProp, stringProp);
+      });
+
+      test('and consumed props are correctly filtered', () {
+        final consumedProps = initialProps.staticMeta.forMixins({TestPropsMixin});
+        secondProps.addUnconsumedProps(initialProps, consumedProps);
+        expect(secondProps.stringProp, isNull);
+        expect(secondProps.anotherProp, anotherProp);
+      });
+    });
+
+    group('using `addUnconsumedDomProps`', ()
+    {
+      TestProps initialProps;
+      TestProps secondProps;
+
+      setUp(() {
+        initialProps = (factory()
+          ..stringProp = stringProp
+          ..anotherProp = anotherProp
+          ..className = className
+        );
+
+        secondProps = factory();
+
+        expect(secondProps.className, isNull, reason: 'Test setup sanity check');
+      });
+
+      test('', () {
+        secondProps.addUnconsumedDomProps(initialProps, []);
+        expect(secondProps.stringProp, isNull);
+        expect(secondProps.anotherProp, isNull);
+        expect(secondProps.className, className);
+      });
+
+      test('and consumed props are correctly filtered', () {
+        expect(initialProps.className, isNotNull, reason: 'Test setup sanity check');
+        secondProps.addUnconsumedDomProps(initialProps, [PropsMeta.forSimpleKey('className')]);
+        expect(secondProps.stringProp, isNull);
+        expect(secondProps.anotherProp, isNull);
+        expect(secondProps.className, isNull);
+      });
     });
   });
 }
@@ -247,7 +338,7 @@ UiFactory<TestProps> BasicUiForwardRef = uiForwardRef(
       ..addProp('data-prop-custom-key-and-namespace-prop',
           props.customKeyAndNamespaceProp))('rendered content');
   },
-  $TestConfig, // ignore: undefined_identifier
+  _$TestConfig, // ignore: undefined_identifier
 );
 
 UiFactory<TestProps> CustomUiForwardRef = uiForwardRef(
@@ -281,7 +372,7 @@ final NoLHSUiForwardRefTest = uiForwardRef<TestProps>(
       ..addProp('data-prop-custom-key-and-namespace-prop',
           props.customKeyAndNamespaceProp))('rendered content');
   },
-  $NoLHSTestConfig, // ignore: undefined_identifier
+  _$NoLHSTestConfig, // ignore: undefined_identifier
 );
 
 UiFactory<TestProps> _UiForwardRef = uiForwardRef(
@@ -297,7 +388,7 @@ UiFactory<TestProps> _UiForwardRef = uiForwardRef(
       ..addProp('data-prop-custom-key-and-namespace-prop',
           props.customKeyAndNamespaceProp))('rendered content');
   },
-  $_TestConfig, // ignore: undefined_identifier
+  _$_TestConfig, // ignore: undefined_identifier
 );
 
 UiFactory<TestProps> Test = uiFunction(
@@ -312,7 +403,22 @@ UiFactory<TestProps> Test = uiFunction(
       ..addProp('data-prop-custom-key-and-namespace-prop',
           props.customKeyAndNamespaceProp))('rendered content');
   },
-  $TestConfig, // ignore: undefined_identifier
+  _$TestConfig, // ignore: undefined_identifier
+);
+
+UiFactory<TestProps> TestPublic = uiFunction(
+      (props) {
+    return (Dom.div()
+      ..addTestId('testId')
+      ..addProp('data-prop-string-prop', props.stringProp)
+      ..addProp('data-prop-dynamic-prop', props.dynamicProp)
+      ..addProp('data-prop-untyped-prop', props.untypedProp)
+      ..addProp('data-prop-custom-key-prop', props.customKeyProp)
+      ..addProp('data-prop-custom-namespace-prop', props.customNamespaceProp)
+      ..addProp('data-prop-custom-key-and-namespace-prop',
+          props.customKeyAndNamespaceProp))('rendered content');
+  },
+  $TestPublicConfig, // ignore: undefined_identifier, deprecated_member_use_from_same_package
 );
 
 UiFactory<TestProps> TestCustom = uiFunction(
@@ -344,7 +450,7 @@ final NoLHSTest = uiFunction<TestProps>(
       ..addProp('data-prop-custom-key-and-namespace-prop',
           props.customKeyAndNamespaceProp))('rendered content');
   },
-  $NoLHSTestConfig, // ignore: undefined_identifier
+  _$NoLHSTestConfig, // ignore: undefined_identifier
 );
 
 final _Test = uiFunction<TestProps>(
@@ -359,10 +465,10 @@ final _Test = uiFunction<TestProps>(
       ..addProp('data-prop-custom-key-and-namespace-prop',
           props.customKeyAndNamespaceProp))('rendered content');
   },
-  $_TestConfig, // ignore: undefined_identifier
+  _$_TestConfig, // ignore: undefined_identifier
 );
 
-mixin TestProps on UiProps {
+mixin TestPropsMixin on UiProps {
   String stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
@@ -376,3 +482,13 @@ mixin TestProps on UiProps {
   @Accessor(keyNamespace: 'custom namespace~~', key: 'custom key!')
   dynamic customKeyAndNamespaceProp;
 }
+
+mixin ASecondPropsMixin on UiProps {
+  String anotherProp;
+}
+
+mixin AThirdPropsMixin on UiProps {
+  String aPropsFromAThirdMixin;
+}
+
+class TestProps = UiProps with TestPropsMixin, ASecondPropsMixin, AThirdPropsMixin;

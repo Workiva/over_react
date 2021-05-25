@@ -35,6 +35,7 @@ main() {
       BoilerplateComponent legacyBackwardCompatComponent;
       BoilerplateComponent legacyComponent;
       BoilerplateComponent newBoilerplateComponent;
+      BoilerplateComponent dart290BoilerplateComponent;
 
       setUp(() {
         legacyBackwardCompatComponent = mockDeclarationHelper.components
@@ -43,6 +44,8 @@ main() {
             .firstWhere((component) => component.name.name == 'SecondFooComponent');
         newBoilerplateComponent = mockDeclarationHelper.components
             .firstWhere((component) => component.name.name == 'ThirdFooComponent');
+        dart290BoilerplateComponent = mockDeclarationHelper.components
+            .firstWhere((component) => component.name.name == 'FourthFooComponent');
       });
 
       group('propsGenericArg', () {
@@ -51,6 +54,7 @@ main() {
               legacyBackwardCompatComponent.propsGenericArg.typeNameWithoutPrefix, 'FirstFooProps');
           expect(legacyComponent.propsGenericArg.typeNameWithoutPrefix, 'SecondFooProps');
           expect(newBoilerplateComponent.propsGenericArg.typeNameWithoutPrefix, 'ThirdFooProps');
+          expect(dart290BoilerplateComponent.propsGenericArg.typeNameWithoutPrefix, 'FourthFooProps');
         });
 
         test('returns null if there is no type arg', () {
@@ -66,18 +70,21 @@ main() {
           expect(legacyBackwardCompatComponent.hasAnnotation, true);
           expect(legacyComponent.hasAnnotation, true);
           expect(newBoilerplateComponent.hasAnnotation, false);
+          expect(dart290BoilerplateComponent.hasAnnotation, false);
         });
 
         test('hasComponent1OrAbstractAnnotation', () {
           expect(legacyBackwardCompatComponent.hasComponent1OrAbstractAnnotation, true);
           expect(legacyComponent.hasComponent1OrAbstractAnnotation, false);
           expect(newBoilerplateComponent.hasComponent1OrAbstractAnnotation, false);
+          expect(dart290BoilerplateComponent.hasComponent1OrAbstractAnnotation, false);
         });
 
         test('hasComponent2OrAbstractAnnotation', () {
           expect(legacyBackwardCompatComponent.hasComponent2OrAbstractAnnotation, false);
           expect(legacyComponent.hasComponent2OrAbstractAnnotation, true);
           expect(newBoilerplateComponent.hasComponent2OrAbstractAnnotation, false);
+          expect(dart290BoilerplateComponent.hasComponent2OrAbstractAnnotation, false);
         });
       });
 
@@ -94,6 +101,11 @@ main() {
             false);
         expect(
             BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v4)
+                .firstWhereType<BoilerplateComponent>()
+                .isComponent2(Version.v4_mixinBased),
+            true);
+        expect(
+            BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v10)
                 .firstWhereType<BoilerplateComponent>()
                 .isComponent2(Version.v4_mixinBased),
             true);
@@ -233,7 +245,7 @@ main() {
             final members = BoilerplateMemberHelper.parseAndReturnMembers(componentString);
             final factory = members.whereType<BoilerplateFactory>().first;
 
-            if (![BoilerplateVersions.v4, BoilerplateVersions.v5].contains(version)) {
+            if (![BoilerplateVersions.v4, BoilerplateVersions.v5, BoilerplateVersions.v10].contains(version)) {
               expect(factory.hasFactoryAnnotation, isTrue);
             } else {
               expect(factory.hasFactoryAnnotation, isFalse);
@@ -243,19 +255,37 @@ main() {
       });
 
       group('propsGenericArg', () {
-        group('on a component factory', () {
-          test('returns the correct props class', () {
-            final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
+        group('on a component factory using Dart', () {
+          group('<2.9.0 syntax', () {
+            test('returns the correct props class', () {
+              final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
                 UiFactory<FooProps> Foo = _$Foo;
             '''), VersionConfidences.none());
-            expect(factory.propsGenericArg?.typeNameWithoutPrefix, 'FooProps');
-          });
+              expect(factory.propsGenericArg?.typeNameWithoutPrefix, 'FooProps');
+            });
 
-          test('returns null if there is no type arg', () {
-            final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
+            test('returns null if there is no type arg', () {
+              final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
                 UiFactory Foo = _$Foo;
             '''), VersionConfidences.none());
-            expect(factory.propsGenericArg, isNull);
+              expect(factory.propsGenericArg, isNull);
+            });
+          });
+
+          group('>=2.9.0 syntax', () {
+              test('returns the correct props class', () {
+                final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
+                UiFactory<FooProps> Foo = castUiFactory(_$Foo);
+            '''), VersionConfidences.none());
+                expect(factory.propsGenericArg?.typeNameWithoutPrefix, 'FooProps');
+              });
+
+              test('returns null if there is no type arg', () {
+                final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
+                UiFactory Foo = castUiFactory(_$Foo);
+            '''), VersionConfidences.none());
+                expect(factory.propsGenericArg, isNull);
+            });
           });
         });
 
@@ -266,7 +296,7 @@ main() {
                   (props) {
                     return Dom.div()();
                   },
-                  $FooConfig, // ignore: undefined_identifier
+                  _$FooConfig, // ignore: undefined_identifier
                 );
             '''), VersionConfidences.none());
             expect(factory.propsGenericArg?.typeNameWithoutPrefix, 'FooProps');
@@ -278,7 +308,7 @@ main() {
                   (props) {
                     return Dom.div()();
                   },
-                  $FooConfig, // ignore: undefined_identifier
+                  _$FooConfig, // ignore: undefined_identifier
                 );
             '''), VersionConfidences.none());
             expect(factory.propsGenericArg?.typeNameWithoutPrefix, 'FooProps');
@@ -290,7 +320,7 @@ main() {
                   (props) {
                     return Dom.div()();
                   },
-                  $FooConfig, // ignore: undefined_identifier
+                  _$FooConfig, // ignore: undefined_identifier
                 );
             '''), VersionConfidences.none());
             expect(factory.propsGenericArg, isNull);
@@ -307,6 +337,18 @@ main() {
         });
 
         test('returns true for function component factories', () {
+          final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
+              UiFactory Foo = uiFunction(
+                (props) {
+                  return Dom.div()();
+                },
+                _$FooConfig, // ignore: undefined_identifier
+              );
+          '''), VersionConfidences.none());
+          expect(factory.shouldGenerateConfig, isTrue);
+        });
+
+        test('returns true for function component factories with public config', () {
           final factory = BoilerplateFactory(parseAndGetSingleWithType(r'''
               UiFactory Foo = uiFunction(
                 (props) {
@@ -350,12 +392,14 @@ main() {
           }
         });
 
-        group('throws when', () {
-          test('a Dart 2 only component does not have an annotation', () {
-            const boilerplateString = r'''
+        group('throws when using Dart', () {
+          group('<2.9.0 syntax', () {
+            test('a Dart 2 only component does not have an annotation', () {
+              const boilerplateString = r'''
               UiFactory<FooProps> Foo = _$Foo;
               
-              @Component() class FooComponent {}
+              @Component() 
+              class FooComponent {}
               
               @Props()
               class _$FooProps {}
@@ -364,24 +408,25 @@ main() {
               class _$FooState {}
             ''';
 
-            file = SourceFile.fromString(boilerplateString);
-            collector = ErrorCollector.callback(file, onError: validateCallback);
+              file = SourceFile.fromString(boilerplateString);
+              collector = ErrorCollector.callback(file, onError: validateCallback);
 
-            final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
-            final factory = members.whereType<BoilerplateFactory>().first;
+              final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
+              final factory = members.whereType<BoilerplateFactory>().first;
 
-            factory.validate(resolveVersion(members).version, collector);
-            expect(validateResults, [
-              contains('Legacy boilerplate factories must be annotated with `@Factory()`'),
-            ]);
-          });
+              factory.validate(resolveVersion(members).version, collector);
+              expect(validateResults, [
+                contains('Legacy boilerplate factories must be annotated with `@Factory()`'),
+              ]);
+            });
 
-          test('there is more than one variable', () {
-            const boilerplateString = r'''
+            test('there is more than one variable', () {
+              const boilerplateString = r'''
               @Factory()
               UiFactory<FooProps> Foo = _$Foo, _$Bar;
               
-              @Component() class FooComponent {}
+              @Component() 
+              class FooComponent {}
               
               @Props()
               class _$FooProps {}
@@ -390,24 +435,25 @@ main() {
               class _$FooState {}
             ''';
 
-            file = SourceFile.fromString(boilerplateString);
-            collector = ErrorCollector.callback(file, onError: validateCallback);
+              file = SourceFile.fromString(boilerplateString);
+              collector = ErrorCollector.callback(file, onError: validateCallback);
 
-            final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
-            final factory = members.whereType<BoilerplateFactory>().first;
+              final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
+              final factory = members.whereType<BoilerplateFactory>().first;
 
-            factory.validate(resolveVersion(members).version, collector);
-            expect(validateResults, [
-              contains('Factory declarations must be a single variable.'),
-            ]);
-          });
+              factory.validate(resolveVersion(members).version, collector);
+              expect(validateResults, [
+                contains('Factory declarations must be a single variable.'),
+              ]);
+            });
 
-          test('the factory is not set equal to the generated factory', () {
-            const boilerplateString = r'''
+            test('the factory is not set equal to the generated factory', () {
+              const boilerplateString = r'''
               @Factory()
               UiFactory<FooProps> Foo = Bar;
               
-              @Component() class FooComponent {}
+              @Component() 
+              class FooComponent {}
               
               @Props()
               class _$FooProps {}
@@ -416,16 +462,78 @@ main() {
               class _$FooState {}
             ''';
 
-            file = SourceFile.fromString(boilerplateString);
-            collector = ErrorCollector.callback(file, onError: validateCallback);
+              file = SourceFile.fromString(boilerplateString);
+              collector = ErrorCollector.callback(file, onError: validateCallback);
 
-            final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
-            final factory = members.whereType<BoilerplateFactory>().first;
+              final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
+              final factory = members.whereType<BoilerplateFactory>().first;
 
-            factory.validate(resolveVersion(members).version, collector);
-            expect(validateResults, [
-              contains('Should be: `${factory.name.name} = _\$${factory.name.name}`'),
-            ]);
+              factory.validate(resolveVersion(members).version, collector);
+              expect(validateResults, [
+                contains('Factory variables are stubs for generated code, and must'
+                    ' be initialized with an expression containing either'
+                    ' the generated factory (_\$Foo) or'
+                    ' the generated factory config (_\$FooConfig).'),
+              ]);
+            });
+          });
+
+          group('>=2.9.0 syntax', () {
+            test('a Dart 2 only component does not have an annotation', () {
+              const boilerplateString = r'''
+              UiFactory<FooProps> Foo = castUiFactory(_$Foo);
+              
+              @Component() 
+              class FooComponent {}
+              
+              @Props()
+              class _$FooProps {}
+              
+              @State()
+              class _$FooState {}
+            ''';
+
+              file = SourceFile.fromString(boilerplateString);
+              collector = ErrorCollector.callback(file, onError: validateCallback);
+
+              final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
+              final factory = members.whereType<BoilerplateFactory>().first;
+
+              factory.validate(resolveVersion(members).version, collector);
+              expect(validateResults, [
+                contains('Legacy boilerplate factories must be annotated with `@Factory()`'),
+              ]);
+            });
+
+            test('the factory is not set equal to the generated factory', () {
+              const boilerplateString = r'''
+              @Factory()
+              UiFactory<FooProps> Foo = castUiFactory(Bar);
+              
+              @Component() 
+              class FooComponent {}
+              
+              @Props()
+              class _$FooProps {}
+              
+              @State()
+              class _$FooState {}
+            ''';
+
+              file = SourceFile.fromString(boilerplateString);
+              collector = ErrorCollector.callback(file, onError: validateCallback);
+
+              final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
+              final factory = members.whereType<BoilerplateFactory>().first;
+
+              factory.validate(resolveVersion(members).version, collector);
+              expect(validateResults, [
+                contains('Factory variables are stubs for generated code, and must'
+                    ' be initialized with an expression containing either'
+                    ' the generated factory (_\$Foo) or'
+                    ' the generated factory config (_\$FooConfig).'),
+              ]);
+            });
           });
         });
       });
@@ -452,7 +560,7 @@ main() {
           // The number of classes in VersionOptions that would not have BoilerplatePropsOrState
           // classes. This would be new boilerplate components that do not have have props or state
           // class aliases.
-          const numberOfMixinBasedClasses = 2;
+          const numberOfMixinBasedClasses = 3;
 
           for (final version in BoilerplateVersions.values) {
             test(versionDescriptions[version], () {
@@ -737,7 +845,7 @@ main() {
           var classesDetected = 0;
           // The number of classes in VersionOptions that are mixin based. This
           // includes those that have class aliases.
-          const numberOfMixinBasedClasses = 4;
+          const numberOfMixinBasedClasses = 5;
 
           for (final version in BoilerplateVersions.values) {
             test(versionDescriptions[version], () {
@@ -879,9 +987,9 @@ main() {
 
         setUpAndTestMeta(
             {@required bool isProps,
-            @required isAbstract,
+            @required bool isAbstract,
             @required String source,
-            isMixin = false}) {
+            bool isMixin = false}) {
           members = BoilerplateMemberHelper.getBoilerplateMembersFromString(source).allMembers;
 
           BoilerplateMember memberClass = members.firstWhere((member) {

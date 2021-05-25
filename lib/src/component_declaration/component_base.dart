@@ -37,7 +37,7 @@ import 'component_type_checking.dart';
 import 'disposable_manager_proxy.dart';
 import 'util.dart';
 
-export 'component_type_checking.dart' show isComponentOfType, isValidElementOfType;
+export 'component_type_checking.dart' show isComponentOfType, isValidElementOfType, UiFactoryTypeMeta;
 
 /// Helper function that wraps react.registerComponent, and allows attachment of additional
 /// component factory metadata.
@@ -61,7 +61,7 @@ ReactDartComponentFactoryProxy registerComponent(react.Component Function() dart
     String displayName,
 }) {
   // ignore: deprecated_member_use
-  ReactDartComponentFactoryProxy reactComponentFactory = react.registerComponent(dartComponentFactory);
+  final reactComponentFactory = react.registerComponent(dartComponentFactory) as ReactDartComponentFactoryProxy;
 
   if (displayName != null) {
     reactComponentFactory.reactClass.displayName = displayName;
@@ -70,7 +70,7 @@ ReactDartComponentFactoryProxy registerComponent(react.Component Function() dart
   registerComponentTypeAlias(reactComponentFactory, builderFactory);
   registerComponentTypeAlias(reactComponentFactory, componentClass);
 
-  setComponentTypeMeta(reactComponentFactory, isWrapper: isWrapper, parentType: parentType);
+  setComponentTypeMeta(reactComponentFactory.type, isWrapper: isWrapper, parentType: parentType?.type);
 
   return reactComponentFactory;
 }
@@ -375,7 +375,7 @@ class _WarnOnModify<K, V> extends MapView<K, V> {
 
   String message;
 
-  _WarnOnModify(Map componentData, this.isProps) : super(componentData);
+  _WarnOnModify(Map<K, V> componentData, this.isProps) : super(componentData);
 
   @override
   operator []=(K key, V value) {
@@ -464,6 +464,56 @@ abstract class UiProps extends MapBase
     modifier(this);
   }
 
+  /// Copies key-value pairs from the provided [props] map into this map,
+  /// excluding those with keys found in [consumedProps].
+  ///
+  /// [consumedProps] should be a `Iterable<PropsMeta>` instance.
+  /// This is the return type of [PropsMetaCollection]'s related APIs `forMixins`,
+  /// `allExceptForMixins`, and `all`.
+  ///
+  /// __Example:__
+  ///
+  /// ```dart
+  /// // within a functional component (wrapped in `uiFunction`)
+  /// // Consider props in FooProps "consumed"...
+  /// final consumedProps = props.staticMeta.forMixins({FooProps});
+  /// // ...and filter them out when forwarding props to Bar.
+  /// return (Bar()..addUnconsumedProps(props, consumedProps))();
+  /// ```
+  ///
+  /// To only add DOM props, use [addUnconsumedDomProps].
+  ///
+  /// Related: `UiComponent2`'s `addUnconsumedProps`
+  void addUnconsumedProps(Map props, Iterable<PropsMeta> consumedProps) {
+    final consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
+    forwardUnconsumedPropsV2(props, propsToUpdate: this, keySetsToOmit: consumedPropKeys);
+  }
+
+  /// Copies DOM only key-value pairs from the provided [props] map into this map,
+  /// excluding those with keys found in [consumedProps].
+  ///
+  /// [consumedProps] should be a `Iterable<PropsMeta>` instance.
+  /// This is the return type of [PropsMetaCollection]'s related APIs `forMixins`,
+  /// `allExceptForMixins`, and `all`.
+  ///
+  /// __Example:__
+  ///
+  /// ```dart
+  /// // within a functional component (wrapped in `uiFunction`)
+  /// // Consider props in FooProps "consumed"...
+  /// final consumedProps = [PropsMeta.forSimpleKey('className')];
+  /// // ...and filter them out when forwarding props to Bar.
+  /// return (Bar()..addUnconsumedDomProps(props, consumedProps))();
+  /// ```
+  ///
+  /// To add all unconsumed props, including DOM props, use [addUnconsumedProps].
+  ///
+  /// Related: `UiComponent2`'s `addUnconsumedDomProps`
+  void addUnconsumedDomProps(Map props, Iterable<PropsMeta> consumedProps) {
+    final consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
+    forwardUnconsumedPropsV2(props, propsToUpdate: this, keySetsToOmit: consumedPropKeys, onlyCopyDomProps: true);
+  }
+
   /// Whether [UiProps] is in a testing environment.
   ///
   /// Do not set this directly; Call [enableTestMode] or [disableTestMode] instead.
@@ -503,7 +553,7 @@ abstract class UiProps extends MapBase
   ///
   /// > For use in a testing environment (when [testMode] is true).
   String getTestId({String key = defaultTestIdKey}) {
-    return props[key];
+    return props[key] as String;
   }
 
   /// Gets the `data-test-id` prop key for use in a testing environment.
@@ -534,7 +584,7 @@ abstract class UiProps extends MapBase
     assert(_validateChildren(children));
 
     _assertComponentFactoryIsNotNull();
-    return componentFactory(props, children);
+    return componentFactory(props, children) as ReactElement;
   }
 
   /// Creates a new component with this builder's props and the specified [children].
@@ -579,7 +629,7 @@ abstract class UiProps extends MapBase
     // https://github.com/dart-lang/sdk/issues/29904
     // Should have the benefit of better performance;
     _assertComponentFactoryIsNotNull();
-    return componentFactory.build(props, childArguments);
+    return componentFactory.build(props, childArguments) as ReactElement;
   }
 
   /// Validates that no [children] are instances of [UiProps], and prints a helpful message for a better debugging
@@ -587,11 +637,9 @@ abstract class UiProps extends MapBase
   bool _validateChildren(dynamic children) {
     // Should not validate non-list iterables to avoid more than one iteration.
     if (children != null && (children is! Iterable || children is List)) {
-      if (children is! List) {
-        children = [children];
-      }
+      final childrenList = children is List ? children : [children];
 
-      if (children.any((child) => child is UiProps)) {
+      if (childrenList.any((child) => child is UiProps)) {
         var errorMessage = unindent(
             '''
             It looks like you are trying to use a non-invoked builder as a child. That is an invalid use of UiProps, try

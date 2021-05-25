@@ -35,13 +35,13 @@ _$$ErrorBoundaryProps _$ErrorBoundary([Map backingProps]) =>
 abstract class _$$ErrorBoundaryProps extends UiProps
     with
         ErrorBoundaryProps,
-        $ErrorBoundaryProps // If this generated mixin is undefined, it's likely because ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ErrorBoundaryProps.
+        $ErrorBoundaryProps // If this generated mixin is undefined, it's likely because ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ErrorBoundaryProps, and check that $ErrorBoundaryProps is exported/imported properly.
 {
   _$$ErrorBoundaryProps._();
 
   factory _$$ErrorBoundaryProps(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ErrorBoundaryProps$JsMap(backingMap);
+      return _$$ErrorBoundaryProps$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ErrorBoundaryProps$PlainMap(backingMap);
     }
@@ -59,6 +59,12 @@ abstract class _$$ErrorBoundaryProps extends UiProps
   /// The default namespace for the prop getters/setters generated for this class.
   @override
   String get propKeyNamespace => '';
+
+  @override
+  PropsMetaCollection get staticMeta => const PropsMetaCollection({
+        // If this generated mixin is undefined, it's likely because ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ErrorBoundaryProps, and check that $ErrorBoundaryProps is exported/imported properly.
+        ErrorBoundaryProps: $ErrorBoundaryProps.meta,
+      });
 }
 
 // Concrete props implementation that can be backed by any [Map].
@@ -106,13 +112,13 @@ class _$$ErrorBoundaryProps$JsMap extends _$$ErrorBoundaryProps {
 abstract class _$$ErrorBoundaryState extends UiState
     with
         ErrorBoundaryState,
-        $ErrorBoundaryState // If this generated mixin is undefined, it's likely because ErrorBoundaryState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not exported. Check the declaration of ErrorBoundaryState.
+        $ErrorBoundaryState // If this generated mixin is undefined, it's likely because ErrorBoundaryState is not a valid `mixin`-based state mixin, or because it is but the generated mixin was not imported. Check the declaration of ErrorBoundaryState, and check that $ErrorBoundaryState is exported/imported properly.
 {
   _$$ErrorBoundaryState._();
 
   factory _$$ErrorBoundaryState(Map backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ErrorBoundaryState$JsMap(backingMap);
+      return _$$ErrorBoundaryState$JsMap(backingMap as JsBackedMap);
     } else {
       return _$$ErrorBoundaryState$PlainMap(backingMap);
     }
@@ -182,7 +188,8 @@ class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
         'that does not have the necessary result, the last '
         'resort is to use typedPropsFactoryJs.');
     super.props = value;
-    _cachedTypedProps = typedPropsFactoryJs(getBackingMap(value));
+    _cachedTypedProps =
+        typedPropsFactoryJs(getBackingMap(value) as JsBackedMap);
   }
 
   @override
@@ -204,7 +211,7 @@ class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
         'Component2.state should only be set via '
         'initialState or setState.');
     super.state = value;
-    _cachedTypedState = typedStateFactoryJs(value);
+    _cachedTypedState = typedStateFactoryJs(value as JsBackedMap);
   }
 
   @override
@@ -226,7 +233,7 @@ class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
 
   @override
   PropsMetaCollection get propsMeta => const PropsMetaCollection({
-        // If this generated mixin is undefined, it's likely because ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not exported. Check the declaration of ErrorBoundaryProps.
+        // If this generated mixin is undefined, it's likely because ErrorBoundaryProps is not a valid `mixin`-based props mixin, or because it is but the generated mixin was not imported. Check the declaration of ErrorBoundaryProps, and check that $ErrorBoundaryProps is exported/imported properly.
         ErrorBoundaryProps: $ErrorBoundaryProps.meta,
       });
 }
@@ -239,56 +246,51 @@ mixin $ErrorBoundaryProps on ErrorBoundaryProps {
   static const PropsMeta meta = _$metaForErrorBoundaryProps;
   @override
   Function(dynamic error, ReactErrorInfo info) get onComponentDidCatch =>
-      props[_$key__onComponentDidCatch__ErrorBoundaryProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onComponentDidCatch__ErrorBoundaryProps] ?? null)
+          as Function(dynamic error, ReactErrorInfo info);
   @override
   set onComponentDidCatch(Function(dynamic error, ReactErrorInfo info) value) =>
       props[_$key__onComponentDidCatch__ErrorBoundaryProps] = value;
   @override
   Function(dynamic error, ReactErrorInfo info) get onComponentIsUnrecoverable =>
-      props[_$key__onComponentIsUnrecoverable__ErrorBoundaryProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__onComponentIsUnrecoverable__ErrorBoundaryProps] ?? null)
+          as Function(dynamic error, ReactErrorInfo info);
   @override
   set onComponentIsUnrecoverable(
           Function(dynamic error, ReactErrorInfo info) value) =>
       props[_$key__onComponentIsUnrecoverable__ErrorBoundaryProps] = value;
   @override
-  ReactElement Function(
-      dynamic error,
-      ReactErrorInfo
-          info) get fallbackUIRenderer =>
-      props[_$key__fallbackUIRenderer__ErrorBoundaryProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+  ReactElement Function(dynamic error, ReactErrorInfo info)
+      get fallbackUIRenderer =>
+          (props[_$key__fallbackUIRenderer__ErrorBoundaryProps] ?? null)
+              as ReactElement Function(dynamic error, ReactErrorInfo info);
   @override
   set fallbackUIRenderer(
           ReactElement Function(dynamic error, ReactErrorInfo info) value) =>
       props[_$key__fallbackUIRenderer__ErrorBoundaryProps] = value;
   @override
   Duration get identicalErrorFrequencyTolerance =>
-      props[_$key__identicalErrorFrequencyTolerance__ErrorBoundaryProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__identicalErrorFrequencyTolerance__ErrorBoundaryProps] ??
+          null) as Duration;
   @override
   set identicalErrorFrequencyTolerance(Duration value) =>
       props[_$key__identicalErrorFrequencyTolerance__ErrorBoundaryProps] =
           value;
   @override
   String get loggerName =>
-      props[_$key__loggerName__ErrorBoundaryProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__loggerName__ErrorBoundaryProps] ?? null) as String;
   @override
   set loggerName(String value) =>
       props[_$key__loggerName__ErrorBoundaryProps] = value;
   @override
   bool get shouldLogErrors =>
-      props[_$key__shouldLogErrors__ErrorBoundaryProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__shouldLogErrors__ErrorBoundaryProps] ?? null) as bool;
   @override
   set shouldLogErrors(bool value) =>
       props[_$key__shouldLogErrors__ErrorBoundaryProps] = value;
   @override
   Logger get logger =>
-      props[_$key__logger__ErrorBoundaryProps] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (props[_$key__logger__ErrorBoundaryProps] ?? null) as Logger;
   @override
   set logger(Logger value) => props[_$key__logger__ErrorBoundaryProps] = value;
   /* GENERATED CONSTANTS */
@@ -360,15 +362,13 @@ mixin $ErrorBoundaryState on ErrorBoundaryState {
   static const StateMeta meta = _$metaForErrorBoundaryState;
   @override
   bool get hasError =>
-      state[_$key__hasError__ErrorBoundaryState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__hasError__ErrorBoundaryState] ?? null) as bool;
   @override
   set hasError(bool value) =>
       state[_$key__hasError__ErrorBoundaryState] = value;
   @override
   bool get showFallbackUIOnError =>
-      state[_$key__showFallbackUIOnError__ErrorBoundaryState] ??
-      null; // Add ` ?? null` to workaround DDC bug: <https://github.com/dart-lang/sdk/issues/36052>;
+      (state[_$key__showFallbackUIOnError__ErrorBoundaryState] ?? null) as bool;
   @override
   set showFallbackUIOnError(bool value) =>
       state[_$key__showFallbackUIOnError__ErrorBoundaryState] = value;

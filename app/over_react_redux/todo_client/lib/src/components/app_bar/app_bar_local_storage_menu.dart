@@ -20,7 +20,7 @@ UiFactory<AppBarLocalStorageMenuProps> AppBarLocalStorageMenu = connect<AppState
         ..currentDataHasBeenModified = json.encode(localTodoAppStorage[state.name]) != json.encode(state.toJson())
       );
     },
-)(_$AppBarLocalStorageMenu); // ignore: undefined_identifier
+)(castUiFactory(_$AppBarLocalStorageMenu)); // ignore: undefined_identifier
 
 mixin AppBarLocalStorageMenuPropsMixin on UiProps {
   String currentDataSetName;

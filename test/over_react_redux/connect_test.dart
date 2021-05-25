@@ -70,8 +70,8 @@ main() {
 
     test('throws when multiple `mapStateToProps` type args are provided', () {
       expect(() => connect<CounterState, CounterProps>(
-          mapStateToProps: (state){},
-          makeMapStateToProps: (state, ownProps){}
+          mapStateToProps: (state) => {},
+          makeMapStateToProps: (state, ownProps) => (_) => {}
         )(Counter),
         throwsArgumentError
       );
@@ -79,8 +79,8 @@ main() {
 
     test('throws when multiple `mapDispatchToProps` type args are provided', () {
       expect(() => connect<CounterState, CounterProps>(
-          mapDispatchToProps: (state){},
-          makeMapDispatchToProps: (state, ownProps){}
+          mapDispatchToProps: (state) => {},
+          makeMapDispatchToProps: (state, ownProps) => (_) => {}
         )(Counter),
         throwsArgumentError
       );

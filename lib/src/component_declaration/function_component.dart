@@ -27,6 +27,9 @@ export 'component_type_checking.dart'
 
 /// Declares a function component and returns a factory that can be used to render it.
 ///
+/// [_config] should always be a `UiFactoryConfig<TProps>` and is only `dynamic` to
+/// avoid an unnecessary cast in the boilerplate.
+///
 /// __Example__:
 /// ```dart
 /// UiFactory<FooProps> Foo = uiFunction(
@@ -42,7 +45,7 @@ export 'component_type_checking.dart'
 ///     );
 ///   },
 ///   // The generated props config will match the factory name.
-///   $FooConfig, // ignore: undefined_identifier
+///   _$FooConfig, // ignore: undefined_identifier
 /// );
 ///
 /// // Multiple function components can be declared with the same props.
@@ -53,7 +56,7 @@ export 'component_type_checking.dart'
 ///         ..isDisabled = true
 ///       )();
 ///   },
-///   $AnotherFooConfig, // ignore: undefined_identifier
+///   _$AnotherFooConfig, // ignore: undefined_identifier
 /// );
 ///
 /// mixin FooProps on UiProps {
@@ -62,7 +65,7 @@ export 'component_type_checking.dart'
 /// }
 /// ```
 ///
-/// __OR__ Optionally pass in an existing [PropsFactory] in place of a props [config].
+/// __OR__ Optionally pass in an existing [PropsFactory] in place of a props [_config].
 ///
 /// ```dart
 /// UiFactory<FooProps> Bar = uiFunction(
@@ -94,9 +97,17 @@ export 'component_type_checking.dart'
 // TODO: right now only top level factory declarations will generate props configs.
 UiFactory<TProps> uiFunction<TProps extends UiProps>(
   dynamic Function(TProps props) functionComponent,
-  UiFactoryConfig<TProps> config,
+  dynamic _config,
 ) {
-  ArgumentError.checkNotNull(config, 'config');
+  ArgumentError.checkNotNull(_config, '_config');
+
+  if (_config is! UiFactoryConfig<TProps>) {
+    throw ArgumentError('_config should be a UiFactory<TProps>. Make sure you are '
+    r'using either the generated factory config (i.e. _$FooConfig) or manually '
+    'declaring your config correctly.');
+  }
+
+  final config = _config as UiFactoryConfig<TProps>;
 
   var propsFactory = config.propsFactory;
 
@@ -141,7 +152,7 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
 }
 
 String getFunctionName(Function function) {
-  return getProperty(function, 'name') ?? getProperty(function, '\$static_name');
+  return getProperty(function, 'name') as String ?? getProperty(function, '\$static_name') as String;
 }
 
 class GenericUiProps extends UiProps {

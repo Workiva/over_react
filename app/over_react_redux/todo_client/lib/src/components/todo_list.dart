@@ -17,7 +17,7 @@ UiFactory<TodoListProps> TodoList = connect<AppState, TodoListProps>(
       );
     },
     forwardRef: true,
-)(_$TodoList); // ignore: undefined_identifier
+)(castUiFactory(_$TodoList)); // ignore: undefined_identifier
 
 mixin TodoListPropsMixin on UiProps {
   @requiredProp

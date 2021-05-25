@@ -16,7 +16,7 @@ import 'package:over_react/over_react.dart';
 
 part 'basic_with_state.over_react.g.dart';
 
-UiFactory<BasicProps> Basic = _$Basic; // ignore: undefined_identifier
+UiFactory<BasicProps> Basic = castUiFactory(_$Basic); // ignore: undefined_identifier
 
 mixin BasicProps on UiProps {
   String basicProp;

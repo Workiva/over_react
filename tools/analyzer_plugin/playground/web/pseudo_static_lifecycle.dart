@@ -4,7 +4,7 @@ part 'pseudo_static_lifecycle.over_react.g.dart';
 
 UiFactory<HammerTimeProps> HammerTime =
     // ignore: undefined_identifier
-    _$HammerTime;
+    castUiFactory(_$HammerTime);
 
 mixin HammerTimeProps on UiProps {
   String somethingThatCanBeTouched;

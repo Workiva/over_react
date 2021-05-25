@@ -10,7 +10,7 @@ part 'menu_overlay.over_react.g.dart';
 /// or an empty view such as a 404 error page.
 
 UiFactory<MenuOverlayProps> MenuOverlay =
-    _$MenuOverlay; // ignore: undefined_identifier
+    castUiFactory(_$MenuOverlay); // ignore: undefined_identifier
 
 @Props(keyNamespace: '')
 mixin MenuOverlayProps on UiProps {

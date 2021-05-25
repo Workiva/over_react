@@ -22,13 +22,13 @@ Map initializeCount(int initialValue) {
 }
 
 Map reducer(Map state, Map action) {
-  switch (action['type']) {
+  switch (action['type'] as String) {
     case 'increment':
       return {...state, 'count': state['count'] + 1};
     case 'decrement':
       return {...state, 'count': state['count'] - 1};
     case 'reset':
-      return initializeCount(action['payload']);
+      return initializeCount(action['payload'] as int);
     default:
       return state;
   }
@@ -59,5 +59,5 @@ UiFactory<UseReducerExampleProps> UseReducerExample = uiFunction(
       )('reset'),
     );
   },
-  $UseReducerExampleConfig, // ignore: undefined_identifier
+  _$UseReducerExampleConfig, // ignore: undefined_identifier
 );

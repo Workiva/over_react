@@ -23,21 +23,20 @@ import 'package:test/test.dart';
 void main() {
   group('StrictMode', () {
     test('renders only its children', () {
-      DivElement wrappingDivRef;
+      final wrappingDivRef = createRef<Element>();
 
       renderAttachedToDocument(
-        (Dom.div()
-          ..ref = (ref) {
-            wrappingDivRef = ref;
-          })(StrictMode()(
-          Dom.div()(),
-          Dom.div()(),
-          Dom.div()(),
-          Dom.div()(),
-        )),
+        (Dom.div()..ref = wrappingDivRef)(
+          StrictMode()(
+            Dom.div()(),
+            Dom.div()(),
+            Dom.div()(),
+            Dom.div()(),
+          ),
+        ),
       );
 
-      expect(wrappingDivRef.children, hasLength(4));
+      expect(wrappingDivRef.current.children, hasLength(4));
     });
   });
 }

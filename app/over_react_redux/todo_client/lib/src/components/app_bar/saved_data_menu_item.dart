@@ -11,7 +11,7 @@ import 'package:todo_client/src/components/shared/menu_overlay.dart';
 part 'saved_data_menu_item.over_react.g.dart'; // ignore: uri_has_not_been_generated
 
 UiFactory<SavedDataMenuItemProps> SavedDataMenuItem =
-    _$SavedDataMenuItem; // ignore: undefined_identifier
+    castUiFactory(_$SavedDataMenuItem); // ignore: undefined_identifier
 
 @Props(keyNamespace: '')
 mixin SavedDataMenuItemProps on UiProps {

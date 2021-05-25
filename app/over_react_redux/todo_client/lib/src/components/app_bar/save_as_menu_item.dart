@@ -6,7 +6,7 @@ import 'package:react_material_ui/react_material_ui.dart';
 part 'save_as_menu_item.over_react.g.dart';
 
 UiFactory<SaveAsMenuItemProps> SaveAsMenuItem =
-    _$SaveAsMenuItem; // ignore: undefined_identifier
+    castUiFactory(_$SaveAsMenuItem); // ignore: undefined_identifier
 
 mixin SaveAsMenuItemProps on UiProps {
   String initialValue;

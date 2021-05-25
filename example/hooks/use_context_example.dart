@@ -28,7 +28,7 @@ UiFactory<UseContextExampleProps> UseContextExample = uiFunction(
       Dom.div()('useContext counter value is ${context['renderCount']}'),
     );
   },
-  $UseContextExampleConfig, // ignore: undefined_identifier
+  _$UseContextExampleConfig, // ignore: undefined_identifier
 );
 
 mixin NewContextProviderProps on UiProps {}
@@ -55,5 +55,5 @@ UiFactory<NewContextProviderProps> NewContextProvider = uiFunction(
       (TestNewContext.Provider()..value = provideMap)(props.children),
     );
   },
-  $NewContextProviderConfig, // ignore: undefined_identifier
+  _$NewContextProviderConfig, // ignore: undefined_identifier
 );

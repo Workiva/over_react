@@ -1,5 +1,51 @@
 # OverReact Changelog
 
+## [4.1.0](https://github.com/Workiva/over_react/compare/4.0.0...4.1.0)
+
+- [#679] Update boilerplate to be compatible with Dart >=2.9.0.
+
+  This introduced a new component factory syntax that future proofs the boilerplate syntax through Dart 2.12! For more information and migration instructions, refer to the [PR description](https://github.com/Workiva/over_react/pull/679).
+
+- [#674] Add Redux hooks. 
+
+  Introducing new Redux hook APIs! OverReact consumers also using OverReact Redux can now use the `useDispatch`, `useSelector`, and `useStore` hooks. For more information, refer to the [documenation](https://github.com/Workiva/over_react/blob/master/doc/over_react_redux_documentation.md#hooks).
+
+- [#655] Add the capability to configure `ComponentTypeMeta` on functional components via `setComponentMeta`.
+
+  Those who used class based components were accustomed to being able to modify meta data by using the `@Component2()` annotation. Previously, there was no way to do this on functional components. However, the new `setComponentMeta` API fixes this and allows for similar capabilities on functional components.
+
+## 4.0.0
+
+This stable, __major__ release of over_react includes:
+
+### ReactJS 17.x Support
+
+The underlying `.js` files provided by this package are now ReactJS version `17.0.1`.
+
+> __[Full List of Breaking Changes](https://github.com/Workiva/over_react/pull/647)__
+
+## [3.12.1](https://github.com/Workiva/over_react/compare/3.12.0...3.12.1)
+- [#643] Use `propsOrStateMapsEqual` in `memo` so that function tearoffs don't cause unnecessary rerenders. 
+
+## [3.12.0](https://github.com/Workiva/over_react/compare/3.11.0...3.12.0)
+- [#641] Expose new event helper APIs. In react-dart, using the `SyntheticEvent` class constructors were deprecated. 
+New event helpers were added as a replacement, and to make their usage convenient, these helpers have been exposed directly via OverReact. 
+
+## [3.11.0](https://github.com/Workiva/over_react/compare/3.10.1...3.11.0)
+
+- [#633] Add `staticMeta`, `addUnconsumedProps`, and `addUnconsumedDomProps` to the `UiProps` component base class to allow
+for deriving consumed props in function components. See the [Props Mixin Component Composition Doc](./doc/props_mixin_component_composition.md) for examples.
+- [#635] Bump `react` minimum version to 5.6.1 to pull in the [Chrome 86 DDC workaround](https://github.com/cleandart/react-dart/pull/280)
+
+## [3.10.1](https://github.com/Workiva/over_react/compare/3.10.0...3.10.1)
+
+- [#500] Improve error messages for boilerplate-related issues
+    - This notably includes major improvements to build/analyzer errors for function components
+
+## [3.10.0](https://github.com/Workiva/over_react/compare/3.9.0...3.10.0)
+- [#621] Add WithTransition wrapper component to enable "controlled" transitions using props
+* [#628] Fix Redux dev tools middleware console logging when `hierarchicalLoggingEnabled` is false
+
 ## [3.9.0](https://github.com/Workiva/over_react/compare/3.8.1...3.9.0)
 
 - [#620] Fix issue where `uiForwardRef`/`memo` components were being passed JSified props (by consuming [react-dart's `forwardRef2`/`memo2`](https://github.com/cleandart/react-dart/pull/275))

@@ -36,7 +36,7 @@ UiFactory<BasicProps> Basic = uiForwardRef(
           props.basic3, 'children: ${props.children}'),
     );
   },
-  $BasicConfig, // ignore: undefined_identifier
+  _$BasicConfig, // ignore: undefined_identifier
 );
 
 UiFactory<BasicProps> Simple = uiFunction(
@@ -52,7 +52,7 @@ UiFactory<BasicProps> Simple = uiFunction(
       (Foo()..content = props.basic2)(),
     );
   },
-  $SimpleConfig, // ignore: undefined_identifier
+  _$SimpleConfig, // ignore: undefined_identifier
 );
 
 mixin FooProps on UiProps {
@@ -61,7 +61,7 @@ mixin FooProps on UiProps {
 
 UiFactory<FooProps> Foo = uiFunction(
   (props) => Dom.div()('forwarded prop: ${props.content}'),
-  $FooConfig, // ignore: undefined_identifier
+  _$FooConfig, // ignore: undefined_identifier
 );
 
 ReactElement functionComponentContent() {

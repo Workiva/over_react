@@ -19,7 +19,7 @@ import 'package:over_react/src/component/_deprecated/error_boundary_mixins.dart'
 part 'custom_error_boundary_component.over_react.g.dart';
 
 @Factory()
-// ignore: undefined_identifier
+// ignore: undefined_identifier, invalid_assignment
 UiFactory<CustomErrorBoundaryProps> CustomErrorBoundary = _$CustomErrorBoundary;
 
 @Props()

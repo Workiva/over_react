@@ -2,7 +2,7 @@ import 'package:over_react/over_react.dart';
 
 part 'refs.over_react.g.dart';
 
-UiFactory<HasNoRefsProps> HasNoRefs = _$HasNoRefs; // ignore: undefined_identifier
+UiFactory<HasNoRefsProps> HasNoRefs = castUiFactory(_$HasNoRefs); // ignore: undefined_identifier
 
 mixin HasNoRefsProps on UiProps {}
 
@@ -13,7 +13,7 @@ class HasNoRefsComponent extends UiComponent2<HasNoRefsProps> {
   }
 }
 
-UiFactory<UsesStringRefProps> UsesStringRef = _$UsesStringRef; // ignore: undefined_identifier
+UiFactory<UsesStringRefProps> UsesStringRef = castUiFactory(_$UsesStringRef); // ignore: undefined_identifier
 
 mixin UsesStringRefProps on UiProps {}
 
@@ -28,7 +28,7 @@ class UsesStringRefComponent extends UiComponent2<UsesStringRefProps> {
   get stringRefAccess => ref('child');
 }
 
-UiFactory<UsesCallbackRefProps> UsesCallbackRef = _$UsesCallbackRef; // ignore: undefined_identifier
+UiFactory<UsesCallbackRefProps> UsesCallbackRef = castUiFactory(_$UsesCallbackRef); // ignore: undefined_identifier
 
 mixin UsesCallbackRefProps on UiProps {}
 
@@ -61,7 +61,7 @@ class UsesCallbackRefComponent extends UiComponent2<UsesCallbackRefProps> {
   }
 }
 
-UiFactory<ChildProps> Child = _$Child; // ignore: undefined_identifier
+UiFactory<ChildProps> Child = castUiFactory(_$Child); // ignore: undefined_identifier
 
 mixin ChildProps on UiProps {}
 

@@ -31,7 +31,7 @@ StateHook<bool> useFriendStatus(int friendID) {
   final isOnline = useState(false);
 
   void handleStatusChange(Map status) {
-    isOnline.set(status['isOnline']);
+    isOnline.set(status['isOnline'] as bool);
   }
 
   useEffect(() {
@@ -54,13 +54,13 @@ mixin FriendListItemProps on UiProps {
 
 UiFactory<FriendListItemProps> FriendListItem = uiFunction(
   (props) {
-    final isOnline = useFriendStatus(props.friend['id']);
+    final isOnline = useFriendStatus(props.friend['id'] as int);
 
     return (Dom.li()..style = {'color': isOnline.value ? 'green' : 'black'})(
       props.friend['name'],
     );
   },
-  $FriendListItemConfig, // ignore: undefined_identifier
+  _$FriendListItemConfig, // ignore: undefined_identifier
 );
 
 mixin UseDebugValueExampleProps on UiProps {}
@@ -72,5 +72,5 @@ UiFactory<UseDebugValueExampleProps> UseDebugValueExample = uiFunction(
     (FriendListItem()..friend = {'id': 3, 'name': 'user 3'})(),
     (FriendListItem()..friend = {'id': 4, 'name': 'user 4'})(),
   ),
-  $UseDebugValueExampleConfig, // ignore: undefined_identifier
+  _$UseDebugValueExampleConfig, // ignore: undefined_identifier
 );

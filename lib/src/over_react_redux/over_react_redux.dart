@@ -22,9 +22,12 @@ import 'dart:js_util' as js_util;
 import 'package:js/js.dart';
 import 'package:memoize/memoize.dart';
 import 'package:meta/meta.dart';
-import 'package:over_react/over_react.dart';
+import 'package:over_react/component_base.dart';
+import 'package:over_react/src/component_declaration/annotations.dart';
 import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
+import 'package:over_react/src/util/context.dart';
+import 'package:over_react/src/util/equality.dart';
 import 'package:react/react_client.dart';
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react_client/react_interop.dart';
@@ -191,7 +194,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
 
     TProps jsPropsToTProps(JsMap jsProps) => factory(JsBackedMap.backedBy(jsProps));
 
-    Function allowInteropWithArgCount(Function dartFunction, int count) {
+    T allowInteropWithArgCount<T extends Function>(T dartFunction, int count) {
       var interopFunction = allowInterop(dartFunction);
       js_util.callMethod(js_util.getProperty(window, 'Object'), 'defineProperty', [interopFunction, 'length', js_util.jsify({'value': count})]);
       return interopFunction;
@@ -219,7 +222,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
         unwrapInteropValue(initialJsState),
         jsPropsToTProps(initialJsOwnProps)
       );
-      handleMakeMapStateToPropsFactory(jsState) {
+      JsMap handleMakeMapStateToPropsFactory(ReactInteropValue jsState) {
         return jsMapFromProps(
           mapToFactory(
             unwrapInteropValue(jsState),
@@ -234,7 +237,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
         unwrapInteropValue(initialJsState),
         jsPropsToTProps(initialJsOwnProps)
       );
-      handleMakeMapStateToPropsWithOwnPropsFactory(jsState, jsOwnProps) {
+      JsMap handleMakeMapStateToPropsWithOwnPropsFactory(ReactInteropValue jsState, JsMap jsOwnProps) {
         return jsMapFromProps(
           mapToFactory(
             unwrapInteropValue(jsState),
@@ -265,7 +268,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
         dispatch,
         jsPropsToTProps(initialJsOwnProps)
       );
-      handleMakeMapDispatchToPropsFactory(dispatch) {
+      JsMap handleMakeMapDispatchToPropsFactory(Dispatcher dispatch) {
         return jsMapFromProps(
           mapToFactory(
             dispatch,
@@ -280,7 +283,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
         dispatch,
         jsPropsToTProps(initialJsOwnProps)
       );
-      handleMakeMapDispatchToPropsWithOwnPropsFactory(dispatch, jsOwnProps) {
+      JsMap handleMakeMapDispatchToPropsWithOwnPropsFactory(Dispatcher dispatch, JsMap jsOwnProps) {
         return jsMapFromProps(
           mapToFactory(
             dispatch,
@@ -334,7 +337,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
     }
 
     // return typed as dynamic in case we ever want to allow for the object based syntax
-    dynamic interopMapStateToPropsHandler() {
+    Function interopMapStateToPropsHandler() {
       if (mapStateToProps != null) {
         return allowInteropWithArgCount(handleMapStateToProps, 1);
       }
@@ -351,7 +354,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
     }
 
     // return typed as dynamic in case we ever want to allow for the object based syntax
-    dynamic interopMapDispatchToPropsHandler() {
+    Function interopMapDispatchToPropsHandler() {
       if (mapDispatchToProps != null) {
         return allowInteropWithArgCount(handleMapDispatchToProps, 1);
       }
@@ -372,7 +375,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       interopMapDispatchToPropsHandler(),
       mergeProps != null ? allowInterop(handleMergeProps) : null,
       connectOptions,
-    )(dartComponentClass);
+    )(dartComponentClass as ReactClass);
 
     /// Use a Dart proxy instead of a JS one since we're treating it like a Dart component:
     /// props values should be passed to the underlying component (e.g., those returned by mapStateToProps)
@@ -380,7 +383,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
     /// into Dart code (e.g., those passed into mapStateToPropsWithOwnProps/areOwnPropsEqual)
     /// without needing unwrapping/conversion.
     final hocFactoryProxy = ReactDartComponentFactoryProxy2(hoc);
-    setComponentTypeMeta(hocFactoryProxy, isHoc: true, parentType: dartComponentFactory);
+    setComponentTypeMeta(hocFactoryProxy.type, isHoc: true, parentType: dartComponentFactory.type);
 
     TProps connectedFactory([Map props]) {
       return (factory(props)..componentFactory = hocFactoryProxy);
@@ -442,7 +445,7 @@ class ReduxProviderProps extends builder_helpers.UiProps {
   bool get $isClassGenerated => true;
 
   /// The __single__ Redux store in your application.
-  Store get store => props['store'];
+  Store get store => props['store'] as Store;
 
   /// The __single__ Redux store in your application.
   set store(covariant Store v) => props['store'] = v;
@@ -466,9 +469,9 @@ UiFactory<ReduxProviderProps> ReduxProvider = ([map]) => ReduxProviderProps(map)
 class ReactJsReactReduxComponentFactoryProxy extends ReactJsContextComponentFactoryProxy {
   ReactJsReactReduxComponentFactoryProxy(
     ReactClass jsClass, {
-    shouldConvertDomProps = true,
-    isConsumer = false,
-    isProvider = false,
+    bool shouldConvertDomProps = true,
+    bool isConsumer = false,
+    bool isProvider = false,
   }) : super(jsClass, isProvider: isProvider, isConsumer: isConsumer, shouldConvertDomProps: shouldConvertDomProps);
 
   @override
@@ -481,7 +484,7 @@ class ReactJsReactReduxComponentFactoryProxy extends ReactJsContextComponentFact
     JsBackedMap propsForJs = JsBackedMap.from(props);
 
     if (propsForJs['store'] != null) {
-      propsForJs['store'] = _reduxifyStore(propsForJs['store']);
+      propsForJs['store'] = _reduxifyStore(propsForJs['store'] as Store);
     }
 
     if (propsForJs['context'] != null) {
@@ -508,17 +511,26 @@ JsReactReduxStore _reduxifyStore(Store store) {
     }),
     dispatch: allowInterop((action) {
       store.dispatch(action);
-    })
+    }),
+    dartStore: store,
   );
 }
 
 @JS()
 @anonymous
 class JsReactReduxStore {
+  /// The Dart Redux `Store` instance.
+  ///
+  /// Set once within [_reduxifyStore], and should only be used internally.
+  ///
+  /// > See: `createStoreHook` / `useStore`.
+  external Store get dartStore;
+
   external factory JsReactReduxStore({
     ReactInteropValue Function() getState,
     Dispatcher dispatch,
     Function Function(Function) subscribe,
+    Store dartStore,
   });
 }
 
@@ -558,7 +570,7 @@ class ReactInteropValue {
 
 /// A helper function that retrieves the [value] from a [ReactInteropValue].
 T unwrapInteropValue<T>(ReactInteropValue value) {
-  return value.value;
+  return value.value as T;
 }
 
 /// A helper function that wraps a [value] in a [ReactInteropValue].

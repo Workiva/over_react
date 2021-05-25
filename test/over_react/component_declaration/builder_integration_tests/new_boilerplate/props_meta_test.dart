@@ -23,7 +23,7 @@ part 'props_meta_test.over_react.g.dart';
 main() {
   group('propsMeta', () {
     const expectedKeys = ['TestPropsMixin.test', 'FooPropsMixin.foo', 'BazPropsMixin.baz'];
-    const metas = [_$metaForTestPropsMixin, _$metaForFooPropsMixin, _$metaForBazPropsMixin];
+    final metas = [_$metaForTestPropsMixin, _$metaForFooPropsMixin, _$metaForBazPropsMixin]; // ignore: undefined_identifier
     const emptyPropsMeta = PropsMeta(fields: [], keys: []);
 
     group('(class)', () {
@@ -45,16 +45,14 @@ main() {
       test('does not provide access to props outside of the mixin', () {
         bool testCallback(PropDescriptor prop) => prop.key == 'FooPropsMixin.foo';
 
-        expect(_$metaForFooPropsMixin.props.where(testCallback), isNotEmpty);
-        expect(_$metaForTestPropsMixin.props.where(testCallback), isEmpty,
+        expect(_$metaForFooPropsMixin.props.where(testCallback), isNotEmpty); // ignore: undefined_identifier
+        expect(_$metaForTestPropsMixin.props.where(testCallback), isEmpty, // ignore: undefined_identifier
             reason:
                 'Because `foo` is part of a different mixin, metaForTestPropsMixin should not have access to it.');
       });
     });
 
-    group('(field)', () {
-      final propsMeta = _$TestComponent().propsMeta;
-
+    void commonMetaTests(PropsMetaCollection propsMeta) {
       test('provides access to the expected props', () {
         expect(propsMeta.props.length, 3);
         expect(propsMeta.props.map((prop) => prop.key), containsAll(expectedKeys));
@@ -147,11 +145,26 @@ main() {
           }, tags: 'no-ddc');
         });
       });
+    }
+
+    group('(field)', () {
+      commonMetaTests(_$TestComponent().propsMeta); // ignore: undefined_function, argument_type_not_assignable
+    });
+
+    group('(props instance)', () {
+      group('generates props meta utilities attached to the props instance', () {
+          test(r'that can be accessed directly via staticMeta', () {
+            expect(Test().staticMeta, isNotNull);
+            expect(Test().staticMeta, isA<PropsMetaCollection>());
+          });
+      });
+
+      commonMetaTests(Test().staticMeta);
     });
   });
 }
 
-UiFactory<TestProps> Test = _$Test;
+UiFactory<TestProps> Test = _$Test; // ignore: undefined_identifier, invalid_assignment
 
 mixin TestPropsMixin on UiProps {
   String test;

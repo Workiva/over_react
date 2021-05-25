@@ -28,7 +28,7 @@ part 'error_boundary_recoverable.over_react.g.dart';
 /// __NOTE:__
 ///   1. This component is not / should never be publicly exported.
 ///   2. This component should never be used, except as a child of the outer (public) `ErrorBoundary` component.
-UiFactory<RecoverableErrorBoundaryProps> RecoverableErrorBoundary = _$RecoverableErrorBoundary;
+UiFactory<RecoverableErrorBoundaryProps> RecoverableErrorBoundary = castUiFactory(_$RecoverableErrorBoundary);
 
 class RecoverableErrorBoundaryProps = UiProps with v2.ErrorBoundaryProps;
 

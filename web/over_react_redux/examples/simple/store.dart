@@ -18,11 +18,11 @@ import 'package:redux/redux.dart';
 ///
 /// While it can make life easier, this practice is optional as all as the
 /// reducer receives a valid type and value parameter.
-class Action {
+class Action<T> {
   Action({this.type, this.value});
 
   final String type;
-  final dynamic value;
+  final T value;
 
   /// Used to encode the data structure for the Redux DevTools.
   ///
@@ -37,19 +37,19 @@ class Action {
 /// Actions to be passed into `dispatch`.
 ///
 /// Note that the value can be hardcoded or passed into the constructor.
-class SmallIncrementAction extends Action {
+class SmallIncrementAction extends Action<int> {
   SmallIncrementAction():super(type: 'SMALL_INCREMENT_ACTION', value: 1);
 }
 
-class SmallDecrementAction extends Action {
+class SmallDecrementAction extends Action<int> {
   SmallDecrementAction():super(type: 'SMALL_DECREMENT_ACTION', value: 1);
 }
 
-class BigIncrementAction extends Action {
+class BigIncrementAction extends Action<int> {
   BigIncrementAction():super(type: 'BIG_INCREMENT_ACTION', value: 100);
 }
 
-class BigDecrementAction extends Action {
+class BigDecrementAction extends Action<int> {
   BigDecrementAction():super(type: 'BIG_DECREMENT_ACTION', value: 100);
 }
 

@@ -16,7 +16,8 @@
 part of over_react.component_declaration.flux_component_test;
 
 @Factory()
-UiFactory<TestStoreHandlersProps> TestStatefulStoreHandlers = _$TestStatefulStoreHandlers;
+// ignore: undefined_identifier, invalid_assignment
+UiFactory<TestStatefulStoreHandlersProps> TestStatefulStoreHandlers = _$TestStatefulStoreHandlers;
 
 @Props()
 class _$TestStatefulStoreHandlersProps extends FluxUiProps<TestActions, TestStore> implements TestStoreHandlersProps {}
