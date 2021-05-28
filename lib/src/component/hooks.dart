@@ -15,6 +15,8 @@
 import 'package:over_react/over_react.dart';
 import 'package:react/hooks.dart' as react_hooks;
 
+// FIXME null-safety just make the function signatures match those in react-dart
+
 /// Adds local state to a [uiFunction] component
 /// by returning a [StateHook] with [StateHook.value] initialized to [initialValue].
 ///

@@ -209,6 +209,7 @@ abstract class $UbiquitousDomPropsMixin {
 abstract class _$UbiquitousDomPropsMixin {
   Map get props;
 
+  // FIXME null-safety make these `late`?
   /// A cache for the MapView used for [aria].
   @Accessor(doNotGenerate: true)
   AriaPropsMapView _aria;

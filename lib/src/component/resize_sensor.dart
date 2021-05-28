@@ -205,6 +205,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
 
   @override
   render() {
+    // FIXME null-safety why was this changed from `var` to `ReactElement?`?
     var expandSensor = (Dom.div()
       ..className = 'resize-sensor-expand'
       ..onScroll = _handleSensorScroll
