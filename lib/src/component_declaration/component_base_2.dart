@@ -121,7 +121,7 @@ ReactDartComponentFactoryProxy2 registerComponent2(react.Component2 Function() d
 ///     }
 ///
 /// > Related: [UiStatefulComponent2]
-abstract class UiComponent2<TProps extends UiProps> extends react.Component2
+abstract class UiComponent2<TProps extends UiProps/*!*/> extends react.Component2
     with DisposableManagerProxy, GeneratedClass
     implements UiComponent<TProps> {
   // ***************************************************************************
@@ -170,7 +170,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// Required to properly instantiate the generic [TProps] class.
   @override
   @toBeGenerated
-  TProps typedPropsFactory(Map propsMap)=> throw UngeneratedError(member: #typedPropsFactory);
+  TProps typedPropsFactory(Map/*!*/ propsMap)=> throw UngeneratedError(member: #typedPropsFactory);
 
   /// Returns a typed props object backed by the specified [propsMap].
   ///
@@ -355,7 +355,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// the `@Props` class for this component, and not any inherited props. Also, [propsMeta] is not
   /// available.
   @override
-  Iterable<ConsumedProps> get consumedProps => $defaultConsumedProps;
+  Iterable<ConsumedProps>/*!*/ get consumedProps => $defaultConsumedProps;
 
   /// A collection of metadata for the prop fields in all prop mixins used by this component's
   /// generated props class.
@@ -654,7 +654,7 @@ mixin UiStatefulMixin2<TProps extends UiProps, TState extends UiState> on UiComp
   ///
   /// Required to properly instantiate the generic [TState] class.
   @toBeGenerated
-  TState typedStateFactory(Map stateMap) => throw UngeneratedError(member: #typedStateFactory,
+  TState typedStateFactory(Map/*!*/ stateMap) => throw UngeneratedError(member: #typedStateFactory,
       message: GeneratedErrorMessages.typedStateFactory);
 
   /// Returns a typed state object backed by the specified [stateMap].

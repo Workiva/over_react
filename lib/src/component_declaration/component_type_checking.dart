@@ -377,7 +377,7 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias,
 ///
 /// > Related: [isComponentOfType]
 bool isValidElementOfType(dynamic instance, dynamic typeAlias) {
-  return isValidElement(instance) && isComponentOfType(instance as ReactElement, typeAlias);
+  return isValidElement(instance) && isComponentOfType(instance as ReactElement/*!*/, typeAlias);
 }
 
 /// Validates that a [ReactComponentFactoryProxy]'s component is not `Component`

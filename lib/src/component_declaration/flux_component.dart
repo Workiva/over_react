@@ -274,7 +274,7 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
   ///
   /// Override to set up custom listener behavior.
   @protected
-  void listenToStoreForRedraw(Store store) {
+  void listenToStoreForRedraw(Store/*!*/ store) {
     _validateStoreDisposalState(store);
     _subscriptions.add(store.listen(handleRedrawOn));
   }
@@ -324,7 +324,7 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
   ///
   ///     @override
   ///     redrawOn() => [store.tasks, store.users];
-  List<Store> redrawOn() {
+  List<Store/*!*/> redrawOn() {
     final store = props.store;
     return store is Store ? [store] : [];
   }
@@ -338,7 +338,7 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
   /// If possible, however, [redrawOn] should be used instead of this in order
   /// to avoid keeping additional state within this component and manually
   /// managing redraws.
-  Map<Store, StoreHandler> getStoreHandlers() {
+  Map<Store/*!*/, StoreHandler> getStoreHandlers() {
     return {};
   }
 

@@ -55,6 +55,6 @@ dynamic render(ReactElement element, Element mountNode) {
 /// * Returns `true` if a `Component` was mounted in the [mountNode].
 ///
 /// > Proxies [react_dom.unmountComponentAtNode].
-bool unmountComponentAtNode(Element mountNode) {
+bool/*!*/ unmountComponentAtNode(Element mountNode) {
   return react_dom.unmountComponentAtNode(mountNode) as bool;
 }

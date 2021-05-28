@@ -80,11 +80,11 @@ Map getPropsToForward(Map props, {
 /// DEPRECATED: Use [forwardUnconsumedPropsV2] instead.
 @Deprecated('This implementation does not filter DOM props correctly. Use forwardUnconsumedPropsV2 instead.')
 void forwardUnconsumedProps(Map props, {
-  bool omitReactProps = true,
-  bool onlyCopyDomProps = false,
+  bool/*!*/ omitReactProps = true,
+  bool/*!*/ onlyCopyDomProps = false,
   Iterable keysToOmit,
   Iterable<Iterable> keySetsToOmit,
-  Map propsToUpdate,
+  Map/*!*/ propsToUpdate,
 }) {
   if (onlyCopyDomProps) {
     for (final key in props.keys) {
@@ -136,11 +136,11 @@ void forwardUnconsumedProps(Map props, {
 /// Identical to [forwardUnconsumedProps], with the exception of properly filtering
 /// DOM props.
 void forwardUnconsumedPropsV2(Map props, {
-  bool omitReactProps = true,
-  bool onlyCopyDomProps = false,
+  bool/*!*/ omitReactProps = true,
+  bool/*!*/ onlyCopyDomProps = false,
   Iterable keysToOmit,
   Iterable<Iterable> keySetsToOmit,
-  Map propsToUpdate,
+  Map/*!*/ propsToUpdate,
 }) {
     for (final key in props.keys) {
       if (keysToOmit != null && keysToOmit.contains(key)) continue;
@@ -192,7 +192,7 @@ Map<String, dynamic> newStyleFromProps(Map props) {
 /// Returns the underlying map object of either [UiProps] or [UiState].
 ///
 /// Used to take a typed factory object and get the underlying backing map.
-Map getBackingMap(Map map) {
+Map/*!*/ getBackingMap(Map/*!*/ map) {
   if (map is JsBackedMap) return map;
   if (map is component_base.UiProps) return getBackingMap(map.props);
   if (map is component_base.UiState) return getBackingMap(map.state);

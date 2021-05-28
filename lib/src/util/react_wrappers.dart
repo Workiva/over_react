@@ -158,7 +158,7 @@ Map getProps(/* ReactElement|ReactComponent */ instance, {bool traverseWrappers 
       if (cachedView != null) return cachedView;
     }
 
-    Map rawPropsOrCopy;
+    Map/*!*/ rawPropsOrCopy;
 
     final dartComponentVersion = _getDartComponentVersionFromInstance(instance);
     if (dartComponentVersion == ReactDartComponentVersion.component) { // ignore: invalid_use_of_protected_member

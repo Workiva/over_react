@@ -91,7 +91,7 @@ ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentC
 ///
 /// For use in wrapping existing Maps in typed getters and setters, and for creating React components
 /// via a fluent-style builder interface.
-typedef TProps UiFactory<TProps extends UiProps>([Map backingProps]);
+typedef TProps/*!*/ UiFactory<TProps extends UiProps>([Map backingProps]);
 
 extension UiFactoryHelpers<TProps extends bh.UiProps> on UiFactory<TProps> {
   /// Generates the configuration necessary to construct a UiFactory while invoking
@@ -154,7 +154,7 @@ typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 ///
 /// __Deprecated.__ Use `UiComponent2` instead. Will be removed in the `4.0.0` release.
 @Deprecated('4.0.0')
-abstract class UiComponent<TProps extends UiProps> extends react.Component with DisposableManagerProxy {
+abstract class UiComponent<TProps extends UiProps/*!*/> extends react.Component with DisposableManagerProxy {
   /// The props for the non-forwarding props defined in this component.
   Iterable<ConsumedProps> get consumedProps => null;
 
@@ -574,7 +574,7 @@ abstract class UiProps extends MapBase
   }
 
   /// Returns a new component with this builder's [props] and the specified [children].
-  ReactElement build([dynamic children]) {
+  ReactElement/*!*/ build([dynamic children]) {
     assert(_validateChildren(children));
 
     _assertComponentFactoryIsNotNull();
@@ -650,6 +650,7 @@ abstract class UiProps extends MapBase
     return true;
   }
 
+  // fixme null-safety: nullable or `late`?
   ReactComponentFactoryProxy componentFactory;
 
   /// An unmodifiable map view of the default props for this component brought
@@ -785,17 +786,17 @@ class ConsumedProps {
   /// Rich views of prop declarations.
   ///
   /// This includes string keys, and required prop validation related fields.
-  final List<PropDescriptor> props;
+  final List<PropDescriptor>/*!*/ props;
 
   /// Top-level accessor of string keys of props stored in [props].
-  final List<String> keys;
+  final List<String>/*!*/ keys;
 
   const ConsumedProps(this.props, this.keys);
 }
 
 abstract class AccessorMeta<T extends _Descriptor> {
-  List<T> get fields;
-  List<String> get keys;
+  List<T>/*!*/ get fields;
+  List<String>/*!*/ get keys;
 }
 
 /// Metadata for the prop fields declared in a specific props class--
@@ -831,11 +832,11 @@ class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
   ///
   /// This includes string keys, and required prop validation related fields.
   @override
-  final List<PropDescriptor> fields;
+  final List<PropDescriptor>/*!*/ fields;
 
   /// Top-level accessor of string keys of props stored in [fields].
   @override
-  final List<String> keys;
+  final List<String>/*!*/ keys;
 
   const PropsMeta({this.fields, this.keys});
 
@@ -856,7 +857,7 @@ class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
   );
 
   @override
-  List<PropDescriptor> get props => fields;
+  List<PropDescriptor>/*!*/ get props => fields;
 
   @override
   String toString() => 'PropsMeta:$keys';
@@ -911,6 +912,7 @@ abstract class _AccessorMetaCollection<T extends _Descriptor, U extends Accessor
   ///
   /// See `UiComponent2.consumedProps` for usage examples.
   U forMixin(Type mixinType) {
+    // FIXME null-safety remove `!` the migratin tool forces here
     final meta = _metaByMixin[mixinType];
     assert(meta != null,
         'No meta found for $mixinType;'

@@ -22,12 +22,12 @@ class CssValue implements Comparable<CssValue> {
   /// The number component of this CSS value.
   ///
   /// E.g., 1 for '1px'
-  final num number;
+  final num/*!*/ number;
 
   /// The unit component of this CSS value.
   ///
   /// E.g., 'px' for '1px'
-  final String unit;
+  final String/*!*/ unit;
 
   /// Creates a new [CssValue].
   ///
@@ -51,6 +51,7 @@ class CssValue implements Comparable<CssValue> {
   ///     20
   ///     '1.25em'
   ///     '-15%'
+  // FIXME null-safety this needs some manual migration after the tool
   factory CssValue.parse(dynamic source, {CssValue Function(dynamic value, dynamic error) onError}) {
     num number;
     String unit;
