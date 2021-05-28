@@ -25,7 +25,7 @@ main() {
 
     expect(instance, isNotNull); // sanity check
 
-    var node = findDomNode(instance);
+    var node = findDomNode(instance)!;
 
     expect(node.text, contains('some private value'));
   });
@@ -37,7 +37,7 @@ UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier, invalid_assign
 
 @Props()
 class _$FooProps extends UiProps {
-  String _privateProp;
+  String? _privateProp;
 }
 
 @Component2()

@@ -25,7 +25,7 @@ class _$TestConnectProps
 
 @Component()
 class TestConnectComponent
-    extends BuiltReduxUiComponent<BaseState, BaseStateBuilder, BaseActions, TestConnectProps, int> {
+    extends BuiltReduxUiComponent<BaseState, BaseStateBuilder, BaseActions, TestConnectProps, int?> {
   int numberOfRedraws = 0;
 
   @override
@@ -37,6 +37,6 @@ class TestConnectComponent
   render() => Dom.div()(connectedState);
 
   @override
-  int connect(BaseState state) => state.count1;
+  int? connect(BaseState state) => state.count1;
 }
 

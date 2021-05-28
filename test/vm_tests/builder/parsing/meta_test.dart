@@ -28,7 +28,7 @@ void main() {
       final meta = InstantiatedMeta<TestAnnotation>(member);
 
       expect(meta.metaNode, isNotNull);
-      expect(meta.metaNode.name.name, 'TestAnnotation');
+      expect(meta.metaNode!.name.name, 'TestAnnotation');
       expect(meta.value, isNotNull);
       expect(meta.value.positional, 'hello');
     });
@@ -41,7 +41,7 @@ void main() {
       final meta = InstantiatedMeta<TestAnnotation>(member);
 
       expect(meta.metaNode, isNotNull);
-      expect(meta.metaNode.name.name, 'TestAnnotation');
+      expect(meta.metaNode!.name.name, 'TestAnnotation');
 
       expect(meta.isIncomplete, isTrue);
       expect(meta.unsupportedArguments, hasLength(1));
@@ -67,9 +67,9 @@ void main() {
 }
 
 class TestAnnotation {
-  final Object positional;
-  final Object named;
-  final Object namedConstructorOnly;
+  final Object? positional;
+  final Object? named;
+  final Object? namedConstructorOnly;
 
   const TestAnnotation(this.positional, {this.named}) : namedConstructorOnly = null;
 

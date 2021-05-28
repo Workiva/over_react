@@ -38,7 +38,7 @@ class _Dummy2Props extends _$_Dummy2Props with _$_Dummy2PropsAccessorsMixin {
   static const PropsMeta meta = _$metaFor_Dummy2Props;
 }
 
-_$$_Dummy2Props _$_Dummy2([Map backingProps]) => backingProps == null
+_$$_Dummy2Props _$_Dummy2([Map? backingProps]) => backingProps == null
     ? _$$_Dummy2Props$JsMap(JsBackedMap())
     : _$$_Dummy2Props(backingProps);
 
@@ -110,7 +110,7 @@ class _$$_Dummy2Props$JsMap extends _$$_Dummy2Props {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$_Dummy2Component extends _Dummy2Component {
-  _$$_Dummy2Props$JsMap _cachedTypedProps;
+  late _$$_Dummy2Props$JsMap _cachedTypedProps;
 
   @override
   _$$_Dummy2Props$JsMap get props => _cachedTypedProps;

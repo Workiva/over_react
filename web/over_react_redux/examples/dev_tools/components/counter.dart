@@ -34,13 +34,13 @@ UiFactory<CounterProps> BigCounter = connect<CounterState, CounterProps>(
 UiFactory<CounterProps> _Counter = castUiFactory(_$_Counter); // ignore: undefined_identifier
 
 mixin CounterPropsMixin on UiProps {
-  int currentCount;
+  int? currentCount;
 
-  Map<String, dynamic> wrapperStyles;
+  Map<String, dynamic>? wrapperStyles;
 
-  void Function() increment;
+  void Function()? increment;
 
-  void Function() decrement;
+  void Function()? decrement;
 }
 
 class CounterProps = UiProps with CounterPropsMixin, ConnectPropsMixin;
@@ -52,16 +52,16 @@ class CounterComponent extends UiComponent2<CounterProps> {
         Dom.div()('Count: ${props.currentCount}'),
         (Dom.button()..onClick = (_) {
           if (props.increment != null) {
-            props.increment();
+            props.increment!();
           } else if (props.dispatch != null) {
-            props.dispatch(SmallIncrementAction());
+            props.dispatch!(SmallIncrementAction());
           }
         })('+'),
         (Dom.button()..onClick = (_) {
           if (props.decrement != null) {
-            props.decrement();
+            props.decrement!();
           } else if (props.dispatch != null) {
-            props.dispatch(SmallDecrementAction());
+            props.dispatch!(SmallDecrementAction());
           }
         })('-'),
         props.children

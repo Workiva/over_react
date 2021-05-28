@@ -15,12 +15,12 @@ abstract class TestPropsMixin implements _$TestPropsMixin {
 
   /// <!-- Generated from [_$TestPropsMixin.stringProp] -->
   @override
-  String get stringProp =>
-      (props[_$key__stringProp___$TestPropsMixin] ?? null) as String;
+  String? get stringProp =>
+      (props[_$key__stringProp___$TestPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$TestPropsMixin.stringProp] -->
   @override
-  set stringProp(String value) =>
+  set stringProp(String? value) =>
       props[_$key__stringProp___$TestPropsMixin] = value;
 
   /// <!-- Generated from [_$TestPropsMixin.dynamicProp] -->
@@ -136,13 +136,13 @@ abstract class TestCustomNamespacePropsMixin
 
   /// <!-- Generated from [_$TestCustomNamespacePropsMixin.stringProp] -->
   @override
-  String get stringProp =>
+  String? get stringProp =>
       (props[_$key__stringProp___$TestCustomNamespacePropsMixin] ?? null)
-          as String;
+          as String?;
 
   /// <!-- Generated from [_$TestCustomNamespacePropsMixin.stringProp] -->
   @override
-  set stringProp(String value) =>
+  set stringProp(String? value) =>
       props[_$key__stringProp___$TestCustomNamespacePropsMixin] = value;
 
   /// <!-- Generated from [_$TestCustomNamespacePropsMixin.dynamicProp] -->
@@ -273,12 +273,12 @@ abstract class TestStateMixin implements _$TestStateMixin {
 
   /// <!-- Generated from [_$TestStateMixin.stringState] -->
   @override
-  String get stringState =>
-      (state[_$key__stringState___$TestStateMixin] ?? null) as String;
+  String? get stringState =>
+      (state[_$key__stringState___$TestStateMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$TestStateMixin.stringState] -->
   @override
-  set stringState(String value) =>
+  set stringState(String? value) =>
       state[_$key__stringState___$TestStateMixin] = value;
 
   /// <!-- Generated from [_$TestStateMixin.dynamicState] -->
@@ -395,13 +395,13 @@ abstract class TestCustomNamespaceStateMixin
 
   /// <!-- Generated from [_$TestCustomNamespaceStateMixin.stringState] -->
   @override
-  String get stringState =>
+  String? get stringState =>
       (state[_$key__stringState___$TestCustomNamespaceStateMixin] ?? null)
-          as String;
+          as String?;
 
   /// <!-- Generated from [_$TestCustomNamespaceStateMixin.stringState] -->
   @override
-  set stringState(String value) =>
+  set stringState(String? value) =>
       state[_$key__stringState___$TestCustomNamespaceStateMixin] = value;
 
   /// <!-- Generated from [_$TestCustomNamespaceStateMixin.dynamicState] -->

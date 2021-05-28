@@ -16,7 +16,7 @@ import 'package:over_react/over_react.dart';
 
 import '../../demo_components.dart';
 
-ReactElement listGroupAnchorsAndButtonsDemo() =>
+ReactElement? listGroupAnchorsAndButtonsDemo() =>
   ListGroup()(
     (ListGroupItem()
       ..isActive = true

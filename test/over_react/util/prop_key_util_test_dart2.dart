@@ -24,25 +24,25 @@ main() {
   group('getPropKey', () {
     test('returns the expected key', () {
       var testProps = Test()..foo = 'baz';
-      var fooPropKey = getPropKey((props) { (props as TestProps).foo; }, Test);   // ignore: avoid_as
+      var fooPropKey = getPropKey((dynamic props) { (props as TestProps).foo; }, Test);   // ignore: avoid_as
       expect(testProps, equals({fooPropKey: 'baz'}));
     });
 
     test('throws if you don\'t access the prop', () {
-      expect(() => getPropKey((props) => false, Test), throwsStateError);
+      expect(() => getPropKey((dynamic props) => false, Test), throwsStateError);
     });
 
     test('throws if you access the prop multiple times', () {
-      expect(() => getPropKey((props) {
+      expect(() => getPropKey((dynamic props) {
         (props as TestProps).foo; // ignore: avoid_as
-        (props as TestProps).foo; // ignore: avoid_as
+        props.foo; // ignore: avoid_as
       }, Test), throwsStateError);
     });
 
     test('throws if you access multiple props', () {
-      expect(() => getPropKey((props) {
+      expect(() => getPropKey((dynamic props) {
         (props as TestProps).foo; // ignore: avoid_as
-        (props as TestProps).bar; // ignore: avoid_as
+        props.bar; // ignore: avoid_as
       }, Test), throwsStateError);
     });
   });
@@ -53,9 +53,9 @@ UiFactory<TestProps> Test = _$Test; // ignore: undefined_identifier, invalid_ass
 
 @Props()
 class _$TestProps extends UiProps {
-  String foo;
+  String? foo;
 
-  String bar;
+  String? bar;
 }
 
 @Component2()

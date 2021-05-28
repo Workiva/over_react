@@ -16,7 +16,7 @@ import 'package:over_react/over_react.dart';
 
 import '../../demo_components.dart';
 
-ReactElement tagPillsDemo() => Dom.div()(
+ReactElement? tagPillsDemo() => Dom.div()(
   (Tag()
     ..isPill = true
     ..skin = TagSkin.DEFAULT

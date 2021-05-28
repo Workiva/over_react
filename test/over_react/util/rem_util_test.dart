@@ -36,12 +36,12 @@ main() {
     });
 
     void setRootFontSize(String value) {
-      document.documentElement.style.fontSize = value;
-      expect(document.documentElement.getComputedStyle().fontSize, value);
+      document.documentElement!.style.fontSize = value;
+      expect(document.documentElement!.getComputedStyle().fontSize, value);
     }
 
     void unsetRootFontSize() {
-      document.documentElement.style.fontSize = null;
+      document.documentElement!.style.fontSize = null;
     }
 
     group('toRem', () {
@@ -297,14 +297,14 @@ main() {
         await initRemChangeSensor();
         expect(changeSensor, isNotNull, reason: 'test setup sanity check');
         expect(changeSensorMountNode, isNotNull, reason: 'test setup sanity check');
-        expect(document.body.children.single, changeSensorMountNode, reason: 'test setup sanity check');
+        expect(document.body!.children.single, changeSensorMountNode, reason: 'test setup sanity check');
 
         await destroyRemChangeSensor();
       });
 
       test('adds the `#rem_change_sensor` element', () {
         expect(changeSensorMountNode, isNull);
-        expect(document.body.children, isEmpty);
+        expect(document.body!.children, isEmpty);
       });
 
       test('sets `_changeSensor` to null', () {
@@ -317,14 +317,14 @@ main() {
         await destroyRemChangeSensor();
         expect(changeSensor, isNull, reason: 'test setup sanity check');
         expect(changeSensorMountNode, isNull, reason: 'test setup sanity check');
-        expect(document.body.children, isEmpty, reason: 'test setup sanity check');
+        expect(document.body!.children, isEmpty, reason: 'test setup sanity check');
 
         await initRemChangeSensor();
       });
 
       test('adds the `#rem_change_sensor` element', () {
         expect(changeSensorMountNode, isNotNull);
-        expect(document.body.children, [changeSensorMountNode]);
+        expect(document.body!.children, [changeSensorMountNode]);
       });
 
       test('initializes `_changeSensor` ', () {
@@ -350,7 +350,7 @@ main() {
         setUp(() async {
           expect(querySelector('#rem_change_sensor'), isNull,
               reason: '#rem_change_sensor element should not get mounted until `toRem` is first called.');
-          expect(document.documentElement.getComputedStyle().fontSize, isNot('20px'),
+          expect(document.documentElement!.getComputedStyle().fontSize, isNot('20px'),
               reason: 'The tests in this group will not work if the root font size is already 20px.');
 
           toRem('1rem');
@@ -365,7 +365,7 @@ main() {
         test('that results in `toRem` returning the expected value when the root document font size changes', () async {
           setRootFontSize('20px');
           await Future.delayed(const Duration(milliseconds: 100));
-          expect(toRem('20px').number, 1);
+          expect(toRem('20px')!.number, 1);
         });
       }, testOn: 'chrome');
 

@@ -40,7 +40,7 @@ class StatefulComponentTestProps extends _$StatefulComponentTestProps
   static const PropsMeta meta = _$metaForStatefulComponentTestProps;
 }
 
-_$$StatefulComponentTestProps _$StatefulComponentTest([Map backingProps]) =>
+_$$StatefulComponentTestProps _$StatefulComponentTest([Map? backingProps]) =>
     _$$StatefulComponentTestProps(backingProps);
 
 // Concrete props implementation.
@@ -51,7 +51,7 @@ class _$$StatefulComponentTestProps extends _$StatefulComponentTestProps
     implements StatefulComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$StatefulComponentTestProps(Map backingMap) : this._props = {} {
+  _$$StatefulComponentTestProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -81,13 +81,13 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
 
   /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
-  String get stringState =>
+  String? get stringState =>
       (state[_$key__stringState___$StatefulComponentTestState] ?? null)
-          as String;
+          as String?;
 
   /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
-  set stringState(String value) =>
+  set stringState(String? value) =>
       state[_$key__stringState___$StatefulComponentTestState] = value;
 
   /// <!-- Generated from [_$StatefulComponentTestState.dynamicState] -->
@@ -222,7 +222,7 @@ class _$$StatefulComponentTestState extends _$StatefulComponentTestState
     implements StatefulComponentTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$StatefulComponentTestState(Map backingMap) : this._state = {} {
+  _$$StatefulComponentTestState(Map? backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -242,11 +242,11 @@ class _$$StatefulComponentTestState extends _$StatefulComponentTestState
 // generated for the associated props class.
 class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
   @override
-  _$$StatefulComponentTestProps typedPropsFactory(Map backingMap) =>
+  _$$StatefulComponentTestProps typedPropsFactory(Map? backingMap) =>
       _$$StatefulComponentTestProps(backingMap);
 
   @override
-  _$$StatefulComponentTestState typedStateFactory(Map backingMap) =>
+  _$$StatefulComponentTestState typedStateFactory(Map? backingMap) =>
       _$$StatefulComponentTestState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

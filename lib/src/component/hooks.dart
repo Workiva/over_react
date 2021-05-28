@@ -114,7 +114,7 @@ StateHook<T> useStateLazy<T>(T Function() init) => react_hooks.useStateLazy<T>(i
 /// ```
 ///
 /// See: <https://reactjs.org/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects>.
-void useEffect(dynamic Function() sideEffect, [List<Object> dependencies]) => react_hooks.useEffect(sideEffect, dependencies);
+void useEffect(dynamic Function() sideEffect, [List<Object>? dependencies]) => react_hooks.useEffect(sideEffect, dependencies);
 
 /// Initializes state of a [uiFunction] component to [initialState] and creates [ReducerHook.dispatch] method.
 ///
@@ -323,7 +323,7 @@ T useContext<T>(Context<T> context) => react_hooks.useContext(context.reactDartC
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#useref>.
-Ref<T> useRef<T>([T initialValue]) => react_hooks.useRef(initialValue);
+Ref<T?> useRef<T>([T? initialValue]) => react_hooks.useRef(initialValue);
 
 /// Returns a memoized version of the return value of [createFunction].
 ///
@@ -361,7 +361,7 @@ Ref<T> useRef<T>([T initialValue]) => react_hooks.useRef(initialValue);
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#usememo>.
-T useMemo<T>(T Function() createFunction, [List<dynamic> dependencies]) =>
+T useMemo<T>(T Function() createFunction, [List<dynamic>? dependencies]) =>
     react_hooks.useMemo(createFunction, dependencies);
 
 /// Runs [sideEffect] synchronously after a dart function component renders, but before the screen is updated.
@@ -403,7 +403,7 @@ T useMemo<T>(T Function() createFunction, [List<dynamic> dependencies]) =>
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#uselayouteffect>.
-void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies]) => react_hooks.useLayoutEffect(sideEffect, dependencies);
+void useLayoutEffect(dynamic Function() sideEffect, [List<Object>? dependencies]) => react_hooks.useLayoutEffect(sideEffect, dependencies);
 
 /// Customizes the [ref] value that is exposed to parent components when using [uiForwardRef] by setting [Ref.current]
 /// to the return value of [createHandle].
@@ -472,7 +472,7 @@ void useLayoutEffect(dynamic Function() sideEffect, [List<Object> dependencies])
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#useimperativehandle>.
-void useImperativeHandle(dynamic ref, dynamic Function() createHandle, [List<dynamic> dependencies]) =>
+void useImperativeHandle(dynamic ref, dynamic Function() createHandle, [List<dynamic>? dependencies]) =>
     react_hooks.useImperativeHandle(ref, createHandle, dependencies);
 
 /// Displays [value] as a label for a custom hook in React DevTools.
@@ -546,4 +546,4 @@ void useImperativeHandle(dynamic ref, dynamic Function() createHandle, [List<dyn
 /// ```
 ///
 /// Learn more: <https://reactjs.org/docs/hooks-reference.html#usedebugvalue>.
-dynamic useDebugValue<T>(T value, [dynamic Function(T) format]) => react_hooks.useDebugValue(value, format);
+dynamic useDebugValue<T>(T value, [dynamic Function(T)? format]) => react_hooks.useDebugValue(value, format);

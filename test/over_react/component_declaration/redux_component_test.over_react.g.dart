@@ -39,7 +39,7 @@ class TestDefaultProps extends _$TestDefaultProps
   static const PropsMeta meta = _$metaForTestDefaultProps;
 }
 
-_$$TestDefaultProps _$TestDefault([Map backingProps]) =>
+_$$TestDefaultProps _$TestDefault([Map? backingProps]) =>
     _$$TestDefaultProps(backingProps);
 
 // Concrete props implementation.
@@ -50,7 +50,7 @@ class _$$TestDefaultProps extends _$TestDefaultProps
     implements TestDefaultProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestDefaultProps(Map backingMap) : this._props = {} {
+  _$$TestDefaultProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -79,7 +79,7 @@ class _$$TestDefaultProps extends _$TestDefaultProps
 // generated for the associated props class.
 class _$TestDefaultComponent extends TestDefaultComponent {
   @override
-  _$$TestDefaultProps typedPropsFactory(Map backingMap) =>
+  _$$TestDefaultProps typedPropsFactory(Map? backingMap) =>
       _$$TestDefaultProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -126,7 +126,7 @@ class TestConnectProps extends _$TestConnectProps
   static const PropsMeta meta = _$metaForTestConnectProps;
 }
 
-_$$TestConnectProps _$TestConnect([Map backingProps]) =>
+_$$TestConnectProps _$TestConnect([Map? backingProps]) =>
     _$$TestConnectProps(backingProps);
 
 // Concrete props implementation.
@@ -137,7 +137,7 @@ class _$$TestConnectProps extends _$TestConnectProps
     implements TestConnectProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestConnectProps(Map backingMap) : this._props = {} {
+  _$$TestConnectProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -166,7 +166,7 @@ class _$$TestConnectProps extends _$TestConnectProps
 // generated for the associated props class.
 class _$TestConnectComponent extends TestConnectComponent {
   @override
-  _$$TestConnectProps typedPropsFactory(Map backingMap) =>
+  _$$TestConnectProps typedPropsFactory(Map? backingMap) =>
       _$$TestConnectProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -212,7 +212,7 @@ class TestPureProps extends _$TestPureProps with _$TestPurePropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestPureProps;
 }
 
-_$$TestPureProps _$TestPure([Map backingProps]) =>
+_$$TestPureProps _$TestPure([Map? backingProps]) =>
     _$$TestPureProps(backingProps);
 
 // Concrete props implementation.
@@ -223,7 +223,7 @@ class _$$TestPureProps extends _$TestPureProps
     implements TestPureProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestPureProps(Map backingMap) : this._props = {} {
+  _$$TestPureProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -252,7 +252,7 @@ class _$$TestPureProps extends _$TestPureProps
 // generated for the associated props class.
 class _$TestPureComponent extends TestPureComponent {
   @override
-  _$$TestPureProps typedPropsFactory(Map backingMap) =>
+  _$$TestPureProps typedPropsFactory(Map? backingMap) =>
       _$$TestPureProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

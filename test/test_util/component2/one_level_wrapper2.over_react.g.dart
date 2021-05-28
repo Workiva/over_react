@@ -40,7 +40,7 @@ class OneLevelWrapper2Props extends _$OneLevelWrapper2Props
   static const PropsMeta meta = _$metaForOneLevelWrapper2Props;
 }
 
-_$$OneLevelWrapper2Props _$OneLevelWrapper2([Map backingProps]) =>
+_$$OneLevelWrapper2Props _$OneLevelWrapper2([Map? backingProps]) =>
     backingProps == null
         ? _$$OneLevelWrapper2Props$JsMap(JsBackedMap())
         : _$$OneLevelWrapper2Props(backingProps);
@@ -113,7 +113,7 @@ class _$$OneLevelWrapper2Props$JsMap extends _$$OneLevelWrapper2Props {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$OneLevelWrapper2Component extends OneLevelWrapper2Component {
-  _$$OneLevelWrapper2Props$JsMap _cachedTypedProps;
+  late _$$OneLevelWrapper2Props$JsMap _cachedTypedProps;
 
   @override
   _$$OneLevelWrapper2Props$JsMap get props => _cachedTypedProps;

@@ -145,7 +145,7 @@ class VersionConfidencePair {
 /// Returns a confidence pair with
 /// - a [VersionConfidencePair.version] equal to the highest-confidence version among all [members]
 /// - a [VersionConfidencePair.confidence] equal to the average of all confidences for that version
-VersionConfidencePair resolveVersion(Iterable<BoilerplateMember/*!*/> members) {
+VersionConfidencePair resolveVersion(Iterable<BoilerplateMember> members) {
   var totals = VersionConfidences.none();
   for (final member in members) {
     totals += member.versionConfidences;
@@ -174,9 +174,9 @@ class VersionConfidences {
   VersionConfidencePair get maxConfidence => _sortedVersions.first;
 
   VersionConfidences({
-    @required this.v2_legacyBackwardsCompat,
-    @required this.v3_legacyDart2Only,
-    @required this.v4_mixinBased,
+    required this.v2_legacyBackwardsCompat,
+    required this.v3_legacyDart2Only,
+    required this.v4_mixinBased,
   });
 
   /// Constructor to set all confidence values to the same thing

@@ -3,10 +3,10 @@ version: 4.1.0
 description: A library for building statically-typed React UI components using Dart.
 homepage: https://github.com/Workiva/over_react/
 environment:
-  sdk: '>=2.7.0 <3.0.0'
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  collection: ^1.14.11
+  collection: ^1.15.0-nullsafety.4
   analyzer: '>=0.40.0 <0.42.0'
   build: ^1.0.0
   built_redux:

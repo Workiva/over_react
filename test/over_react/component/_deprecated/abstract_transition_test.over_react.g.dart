@@ -26,104 +26,104 @@ abstract class _$TransitionerPropsAccessorsMixin
 
   /// <!-- Generated from [_$TransitionerProps.onHandlePreShowing] -->
   @override
-  Callback get onHandlePreShowing =>
+  Callback? get onHandlePreShowing =>
       (props[_$key__onHandlePreShowing___$TransitionerProps] ?? null)
-          as Callback;
+          as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onHandlePreShowing] -->
   @override
-  set onHandlePreShowing(Callback value) =>
+  set onHandlePreShowing(Callback? value) =>
       props[_$key__onHandlePreShowing___$TransitionerProps] = value;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleShowing] -->
   @override
-  Callback get onHandleShowing =>
-      (props[_$key__onHandleShowing___$TransitionerProps] ?? null) as Callback;
+  Callback? get onHandleShowing =>
+      (props[_$key__onHandleShowing___$TransitionerProps] ?? null) as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleShowing] -->
   @override
-  set onHandleShowing(Callback value) =>
+  set onHandleShowing(Callback? value) =>
       props[_$key__onHandleShowing___$TransitionerProps] = value;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleShown] -->
   @override
-  Callback get onHandleShown =>
-      (props[_$key__onHandleShown___$TransitionerProps] ?? null) as Callback;
+  Callback? get onHandleShown =>
+      (props[_$key__onHandleShown___$TransitionerProps] ?? null) as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleShown] -->
   @override
-  set onHandleShown(Callback value) =>
+  set onHandleShown(Callback? value) =>
       props[_$key__onHandleShown___$TransitionerProps] = value;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleHiding] -->
   @override
-  Callback get onHandleHiding =>
-      (props[_$key__onHandleHiding___$TransitionerProps] ?? null) as Callback;
+  Callback? get onHandleHiding =>
+      (props[_$key__onHandleHiding___$TransitionerProps] ?? null) as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleHiding] -->
   @override
-  set onHandleHiding(Callback value) =>
+  set onHandleHiding(Callback? value) =>
       props[_$key__onHandleHiding___$TransitionerProps] = value;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleHidden] -->
   @override
-  Callback get onHandleHidden =>
-      (props[_$key__onHandleHidden___$TransitionerProps] ?? null) as Callback;
+  Callback? get onHandleHidden =>
+      (props[_$key__onHandleHidden___$TransitionerProps] ?? null) as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onHandleHidden] -->
   @override
-  set onHandleHidden(Callback value) =>
+  set onHandleHidden(Callback? value) =>
       props[_$key__onHandleHidden___$TransitionerProps] = value;
 
   /// <!-- Generated from [_$TransitionerProps.onPrepareShow] -->
   @override
-  Callback get onPrepareShow =>
-      (props[_$key__onPrepareShow___$TransitionerProps] ?? null) as Callback;
+  Callback? get onPrepareShow =>
+      (props[_$key__onPrepareShow___$TransitionerProps] ?? null) as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onPrepareShow] -->
   @override
-  set onPrepareShow(Callback value) =>
+  set onPrepareShow(Callback? value) =>
       props[_$key__onPrepareShow___$TransitionerProps] = value;
 
   /// <!-- Generated from [_$TransitionerProps.onPrepareHide] -->
   @override
-  Callback get onPrepareHide =>
-      (props[_$key__onPrepareHide___$TransitionerProps] ?? null) as Callback;
+  Callback? get onPrepareHide =>
+      (props[_$key__onPrepareHide___$TransitionerProps] ?? null) as Callback?;
 
   /// <!-- Generated from [_$TransitionerProps.onPrepareHide] -->
   @override
-  set onPrepareHide(Callback value) =>
+  set onPrepareHide(Callback? value) =>
       props[_$key__onPrepareHide___$TransitionerProps] = value;
 
   /// <!-- Generated from [_$TransitionerProps.hasTransition] -->
   @override
-  bool get hasTransition =>
-      (props[_$key__hasTransition___$TransitionerProps] ?? null) as bool;
+  bool? get hasTransition =>
+      (props[_$key__hasTransition___$TransitionerProps] ?? null) as bool?;
 
   /// <!-- Generated from [_$TransitionerProps.hasTransition] -->
   @override
-  set hasTransition(bool value) =>
+  set hasTransition(bool? value) =>
       props[_$key__hasTransition___$TransitionerProps] = value;
 
   /// <!-- Generated from [_$TransitionerProps.initiallyShown] -->
   @override
-  bool get initiallyShown =>
-      (props[_$key__initiallyShown___$TransitionerProps] ?? null) as bool;
+  bool? get initiallyShown =>
+      (props[_$key__initiallyShown___$TransitionerProps] ?? null) as bool?;
 
   /// <!-- Generated from [_$TransitionerProps.initiallyShown] -->
   @override
-  set initiallyShown(bool value) =>
+  set initiallyShown(bool? value) =>
       props[_$key__initiallyShown___$TransitionerProps] = value;
 
   /// <!-- Generated from [_$TransitionerProps.transitionTimeout] -->
   @override
-  Duration get transitionTimeout =>
+  Duration? get transitionTimeout =>
       (props[_$key__transitionTimeout___$TransitionerProps] ?? null)
-          as Duration;
+          as Duration?;
 
   /// <!-- Generated from [_$TransitionerProps.transitionTimeout] -->
   @override
-  set transitionTimeout(Duration value) =>
+  set transitionTimeout(Duration? value) =>
       props[_$key__transitionTimeout___$TransitionerProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onHandlePreShowing___$TransitionerProps =
@@ -203,7 +203,7 @@ class TransitionerProps extends _$TransitionerProps
   static const PropsMeta meta = _$metaForTransitionerProps;
 }
 
-_$$TransitionerProps _$Transitioner([Map backingProps]) =>
+_$$TransitionerProps _$Transitioner([Map? backingProps]) =>
     _$$TransitionerProps(backingProps);
 
 // Concrete props implementation.
@@ -214,7 +214,7 @@ class _$$TransitionerProps extends _$TransitionerProps
     implements TransitionerProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionerProps(Map backingMap) : this._props = {} {
+  _$$TransitionerProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -266,7 +266,7 @@ class _$$TransitionerState extends _$TransitionerState
     implements TransitionerState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionerState(Map backingMap) : this._state = {} {
+  _$$TransitionerState(Map? backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -286,11 +286,11 @@ class _$$TransitionerState extends _$TransitionerState
 // generated for the associated props class.
 class _$TransitionerComponent extends TransitionerComponent {
   @override
-  _$$TransitionerProps typedPropsFactory(Map backingMap) =>
+  _$$TransitionerProps typedPropsFactory(Map? backingMap) =>
       _$$TransitionerProps(backingMap);
 
   @override
-  _$$TransitionerState typedStateFactory(Map backingMap) =>
+  _$$TransitionerState typedStateFactory(Map? backingMap) =>
       _$$TransitionerState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

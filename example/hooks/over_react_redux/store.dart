@@ -32,7 +32,7 @@ class CounterState {
   CounterState({
     this.count = 0,
     this.name = 'Counter',
-    DartModelCounter modelCount,
+    DartModelCounter? modelCount,
   }) : this.modelCount = modelCount ?? DartModelCounter(count: count);
 
   @override
@@ -59,29 +59,29 @@ class DartModelCounter {
 }
 
 int _counterDecrementReducer(int currentCount, DecrementAction action) {
-  return currentCount - (action.value as int ?? 1);
+  return currentCount - (action.value as int? ?? 1);
 }
 
 int _counterIncrementReducer(int currentCount, IncrementAction action) {
-  return currentCount + (action.value as int ?? 1);
+  return currentCount + (action.value as int? ?? 1);
 }
 
 Reducer<int> counterActionsReducer = combineReducers<int>([
-  TypedReducer<int, IncrementAction>(_counterIncrementReducer),
-  TypedReducer<int, DecrementAction>(_counterDecrementReducer),
-  TypedReducer<int, ResetAction>(_resetCounterReducer),
+  TypedReducer<int, IncrementAction>(_counterIncrementReducer) as int Function(int, dynamic),
+  TypedReducer<int, DecrementAction>(_counterDecrementReducer) as int Function(int, dynamic),
+  TypedReducer<int, ResetAction>(_resetCounterReducer) as int Function(int, dynamic),
 ]);
 
 Reducer<DartModelCounter> modelCounterActionsReducer = combineReducers<DartModelCounter>([
   TypedReducer<DartModelCounter, ResetAction>((currentModel, action) {
     return DartModelCounter(count: 0);
-  }),
+  }) as DartModelCounter Function(DartModelCounter, dynamic),
   TypedReducer<DartModelCounter, IncrementModelCountAction>((currentModel, action) {
-    return DartModelCounter(count: currentModel.count + (action.value as int ?? 1));
-  }),
+    return DartModelCounter(count: currentModel.count + (action.value as int? ?? 1));
+  }) as DartModelCounter Function(DartModelCounter, dynamic),
   TypedReducer<DartModelCounter, DecrementModelCountAction>((currentModel, action) {
-    return DartModelCounter(count: currentModel.count - (action.value as int ?? 1));
-  }),
+    return DartModelCounter(count: currentModel.count - (action.value as int? ?? 1));
+  }) as DartModelCounter Function(DartModelCounter, dynamic),
 ]);
 
 CounterState counterStateReducer(CounterState state, action) => CounterState(
@@ -103,17 +103,17 @@ class BigCounterState {
 }
 
 int _bigCounterDecrementReducer(int currentCount, DecrementAction action) {
-  return currentCount - (action?.value != null ? action.value as int : 100);
+  return currentCount - (action?.value != null ? (action.value as int?)! : 100);
 }
 
 int _bigCounterIncrementReducer(int currentCount, IncrementAction action) {
-  return currentCount + (action?.value != null ? action.value as int : 100);
+  return currentCount + (action?.value != null ? (action.value as int?)! : 100);
 }
 
 Reducer<int> bigCounterActionsReducer = combineReducers<int>([
-  TypedReducer<int, IncrementAction>(_bigCounterIncrementReducer),
-  TypedReducer<int, DecrementAction>(_bigCounterDecrementReducer),
-  TypedReducer<int, ResetAction>(_resetCounterReducer),
+  TypedReducer<int, IncrementAction>(_bigCounterIncrementReducer) as int Function(int, dynamic),
+  TypedReducer<int, DecrementAction>(_bigCounterDecrementReducer) as int Function(int, dynamic),
+  TypedReducer<int, ResetAction>(_resetCounterReducer) as int Function(int, dynamic),
 ]);
 
 BigCounterState bigCounterStateReducer(BigCounterState state, action) => BigCounterState(

@@ -15,8 +15,8 @@
 class Action<T> {
   Action({this.type, this.value});
 
-  final String type;
-  final T value;
+  final String? type;
+  final T? value;
 
   toJson() {
     return {'value': this.value};
@@ -24,11 +24,11 @@ class Action<T> {
 }
 
 class IncrementAction extends Action<int> {
-  IncrementAction([int value]) : super(type: 'INCREMENT', value: value);
+  IncrementAction([int? value]) : super(type: 'INCREMENT', value: value);
 }
 
 class DecrementAction extends Action<int> {
-  DecrementAction([int value]) : super(type: 'DECREMENT', value: value);
+  DecrementAction([int? value]) : super(type: 'DECREMENT', value: value);
 }
 
 class IncrementModelCountAction extends Action {

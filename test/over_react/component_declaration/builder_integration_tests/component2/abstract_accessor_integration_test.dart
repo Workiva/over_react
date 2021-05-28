@@ -147,7 +147,7 @@ main() {
 
 @AbstractProps()
 abstract class _$TestAbstractProps extends UiProps {
-  String stringProp;
+  String? stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
@@ -165,14 +165,14 @@ class TestAbstractPropsSubclass extends TestAbstractProps {
   @override final Map props = {};
   @override bool get $isClassGenerated => true;
 
-  @override String get propKeyNamespace => null;
-  @override ReactComponentFactoryProxy get componentFactory => null;
+  @override String? get propKeyNamespace => null;
+  @override ReactComponentFactoryProxy? get componentFactory => null;
 }
 
 
 @AbstractProps(keyNamespace: 'custom mixin namespace**')
 abstract class _$TestCustomNamespaceAbstractProps extends UiProps {
-  String stringProp;
+  String? stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
@@ -190,14 +190,14 @@ class TestCustomNamespaceAbstractPropsSubclass extends TestCustomNamespaceAbstra
   @override final Map props = {};
   @override bool get $isClassGenerated => true;
 
-  @override String get propKeyNamespace => null;
-  @override ReactComponentFactoryProxy get componentFactory => null;
+  @override String? get propKeyNamespace => null;
+  @override ReactComponentFactoryProxy? get componentFactory => null;
 }
 
 
 @AbstractState()
 abstract class _$TestAbstractState extends UiState {
-  String stringState;
+  String? stringState;
   dynamic dynamicState;
   var untypedState; // ignore: prefer_typing_uninitialized_variables
 
@@ -219,7 +219,7 @@ class TestAbstractStateSubclass extends TestAbstractState {
 
 @AbstractState(keyNamespace: 'custom mixin namespace**')
 abstract class _$TestCustomNamespaceAbstractState extends UiState {
-  String stringState;
+  String? stringState;
   dynamic dynamicState;
   var untypedState; // ignore: prefer_typing_uninitialized_variables
 

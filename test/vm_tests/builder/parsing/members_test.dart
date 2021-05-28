@@ -25,26 +25,26 @@ import 'parsing_helpers.dart';
 
 main() {
   group('members -', () {
-    BoilerplateMemberHelper mockDeclarationHelper;
+    late BoilerplateMemberHelper mockDeclarationHelper;
 
     setUp(() {
       mockDeclarationHelper = BoilerplateMemberHelper.withMockDeclarations();
     });
 
     group('component', () {
-      BoilerplateComponent legacyBackwardCompatComponent;
-      BoilerplateComponent legacyComponent;
-      BoilerplateComponent newBoilerplateComponent;
-      BoilerplateComponent dart290BoilerplateComponent;
+      late BoilerplateComponent legacyBackwardCompatComponent;
+      late BoilerplateComponent legacyComponent;
+      late BoilerplateComponent newBoilerplateComponent;
+      late BoilerplateComponent dart290BoilerplateComponent;
 
       setUp(() {
-        legacyBackwardCompatComponent = mockDeclarationHelper.components
+        legacyBackwardCompatComponent = mockDeclarationHelper.components!
             .firstWhere((component) => component.name.name == 'FirstFooComponent');
-        legacyComponent = mockDeclarationHelper.components
+        legacyComponent = mockDeclarationHelper.components!
             .firstWhere((component) => component.name.name == 'SecondFooComponent');
-        newBoilerplateComponent = mockDeclarationHelper.components
+        newBoilerplateComponent = mockDeclarationHelper.components!
             .firstWhere((component) => component.name.name == 'ThirdFooComponent');
-        dart290BoilerplateComponent = mockDeclarationHelper.components
+        dart290BoilerplateComponent = mockDeclarationHelper.components!
             .firstWhere((component) => component.name.name == 'FourthFooComponent');
       });
 
@@ -91,32 +91,32 @@ main() {
       test('isComponent2 returns the correct value', () {
         expect(
             BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v2)
-                .firstWhereType<BoilerplateComponent>()
+                .firstWhereType<BoilerplateComponent>()!
                 .isComponent2(Version.v2_legacyBackwardsCompat),
             false);
         expect(
             BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v3)
-                .firstWhereType<BoilerplateComponent>()
+                .firstWhereType<BoilerplateComponent>()!
                 .isComponent2(Version.v3_legacyDart2Only),
             false);
         expect(
             BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v4)
-                .firstWhereType<BoilerplateComponent>()
+                .firstWhereType<BoilerplateComponent>()!
                 .isComponent2(Version.v4_mixinBased),
             true);
         expect(
             BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v10)
-                .firstWhereType<BoilerplateComponent>()
+                .firstWhereType<BoilerplateComponent>()!
                 .isComponent2(Version.v4_mixinBased),
             true);
       });
 
       group('validate', () {
-        ErrorCollector collector;
-        SourceFile file;
+        ErrorCollector? collector;
+        SourceFile? file;
         var validateResults = <String>[];
 
-        void validateCallback(String message, [SourceSpan span]) {
+        void validateCallback(String message, [SourceSpan? span]) {
           validateResults.add(message);
         }
 
@@ -134,10 +134,10 @@ main() {
                 final component = members.whereType<BoilerplateComponent>().first;
                 final componentVersion = resolveVersion(members).version;
                 file = SourceFile.fromString(getBoilerplateString(version: version));
-                collector = ErrorCollector.callback(file,
+                collector = ErrorCollector.callback(file!,
                     onError: validateCallback, onWarning: validateCallback);
 
-                component.validate(componentVersion, collector);
+                component.validate(componentVersion, collector!);
                 expect(validateResults, []);
               });
             }
@@ -155,16 +155,16 @@ main() {
   
             class FooComponent extends UiStatefulComponent<FooProps, FooState>{}
             ''');
-            collector = ErrorCollector.callback(file,
+            collector = ErrorCollector.callback(file!,
                 onError: validateCallback, onWarning: validateCallback);
 
-            final members = BoilerplateMemberHelper.parseAndReturnMembers(file.getText(0));
+            final members = BoilerplateMemberHelper.parseAndReturnMembers(file!.getText(0));
 
             final component = members.whereType<BoilerplateComponent>().first;
             final componentVersion = resolveVersion(members).version;
             expect(componentVersion, Version.v4_mixinBased, reason: 'test setup check');
 
-            component.validate(componentVersion, collector);
+            component.validate(componentVersion, collector!);
             expect(validateResults, [contains('Must extend UiComponent2, not UiComponent.')]);
           });
 
@@ -179,16 +179,16 @@ main() {
             @Component()
             class FooComponent extends UiComponent2<FooProps, FooState>{}
             ''');
-            collector = ErrorCollector.callback(file,
+            collector = ErrorCollector.callback(file!,
                 onError: validateCallback, onWarning: validateCallback);
 
-            final members = BoilerplateMemberHelper.parseAndReturnMembers(file.getText(0));
+            final members = BoilerplateMemberHelper.parseAndReturnMembers(file!.getText(0));
 
             final component = members.whereType<BoilerplateComponent>().first;
             final componentVersion = resolveVersion(members).version;
             expect(componentVersion, Version.v4_mixinBased, reason: 'test setup check');
 
-            component.validate(componentVersion, collector);
+            component.validate(componentVersion, collector!);
             expect(validateResults, [contains('Only @Component2() is supported for this syntax.')]);
           });
         });
@@ -216,9 +216,9 @@ main() {
                       final component = members.whereType<BoilerplateComponent>().first;
                       final componentVersion = resolveVersion(members).version;
                       file = SourceFile.fromString(componentString);
-                      collector = ErrorCollector.callback(file, onError: validateCallback);
+                      collector = ErrorCollector.callback(file!, onError: validateCallback);
 
-                      component.validate(componentVersion, collector);
+                      component.validate(componentVersion, collector!);
 
                       // Warnings should only be logged if the component is a Component2
                       if (component.isComponent2(componentVersion)) {
@@ -362,11 +362,11 @@ main() {
       });
 
       group('validate', () {
-        ErrorCollector collector;
-        SourceFile file;
+        ErrorCollector? collector;
+        SourceFile? file;
         var validateResults = <String>[];
 
-        void validateCallback(String message, [SourceSpan span]) {
+        void validateCallback(String message, [SourceSpan? span]) {
           validateResults.add(message);
         }
 
@@ -383,9 +383,9 @@ main() {
               final members = BoilerplateMemberHelper.parseAndReturnMembers(componentString);
               final factory = members.whereType<BoilerplateFactory>().first;
               file = SourceFile.fromString(componentString);
-              collector = ErrorCollector.callback(file, onError: validateCallback);
+              collector = ErrorCollector.callback(file!, onError: validateCallback);
 
-              factory.validate(resolveVersion(members).version, collector);
+              factory.validate(resolveVersion(members).version, collector!);
 
               expect(validateResults, []);
             });
@@ -409,12 +409,12 @@ main() {
             ''';
 
               file = SourceFile.fromString(boilerplateString);
-              collector = ErrorCollector.callback(file, onError: validateCallback);
+              collector = ErrorCollector.callback(file!, onError: validateCallback);
 
               final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final factory = members.whereType<BoilerplateFactory>().first;
 
-              factory.validate(resolveVersion(members).version, collector);
+              factory.validate(resolveVersion(members).version, collector!);
               expect(validateResults, [
                 contains('Legacy boilerplate factories must be annotated with `@Factory()`'),
               ]);
@@ -436,12 +436,12 @@ main() {
             ''';
 
               file = SourceFile.fromString(boilerplateString);
-              collector = ErrorCollector.callback(file, onError: validateCallback);
+              collector = ErrorCollector.callback(file!, onError: validateCallback);
 
               final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final factory = members.whereType<BoilerplateFactory>().first;
 
-              factory.validate(resolveVersion(members).version, collector);
+              factory.validate(resolveVersion(members).version, collector!);
               expect(validateResults, [
                 contains('Factory declarations must be a single variable.'),
               ]);
@@ -463,12 +463,12 @@ main() {
             ''';
 
               file = SourceFile.fromString(boilerplateString);
-              collector = ErrorCollector.callback(file, onError: validateCallback);
+              collector = ErrorCollector.callback(file!, onError: validateCallback);
 
               final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final factory = members.whereType<BoilerplateFactory>().first;
 
-              factory.validate(resolveVersion(members).version, collector);
+              factory.validate(resolveVersion(members).version, collector!);
               expect(validateResults, [
                 contains('Factory variables are stubs for generated code, and must'
                     ' be initialized with an expression containing either'
@@ -494,12 +494,12 @@ main() {
             ''';
 
               file = SourceFile.fromString(boilerplateString);
-              collector = ErrorCollector.callback(file, onError: validateCallback);
+              collector = ErrorCollector.callback(file!, onError: validateCallback);
 
               final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final factory = members.whereType<BoilerplateFactory>().first;
 
-              factory.validate(resolveVersion(members).version, collector);
+              factory.validate(resolveVersion(members).version, collector!);
               expect(validateResults, [
                 contains('Legacy boilerplate factories must be annotated with `@Factory()`'),
               ]);
@@ -521,12 +521,12 @@ main() {
             ''';
 
               file = SourceFile.fromString(boilerplateString);
-              collector = ErrorCollector.callback(file, onError: validateCallback);
+              collector = ErrorCollector.callback(file!, onError: validateCallback);
 
               final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final factory = members.whereType<BoilerplateFactory>().first;
 
-              factory.validate(resolveVersion(members).version, collector);
+              factory.validate(resolveVersion(members).version, collector!);
               expect(validateResults, [
                 contains('Factory variables are stubs for generated code, and must'
                     ' be initialized with an expression containing either'
@@ -540,11 +540,11 @@ main() {
     });
 
     group('BoilerplatePropsOrState', () {
-      ErrorCollector collector;
-      SourceFile file;
+      ErrorCollector? collector;
+      SourceFile? file;
       var validateResults = <String>[];
 
-      void validateCallback(String message, [SourceSpan span]) {
+      void validateCallback(String message, [SourceSpan? span]) {
         validateResults.add(message);
       }
 
@@ -571,9 +571,9 @@ main() {
               if (propsOrStateClasses.isNotEmpty) {
                 final propsOrStateClass = propsOrStateClasses.first;
                 file = SourceFile.fromString(boilerplateString);
-                collector = ErrorCollector.callback(file, onError: validateCallback);
+                collector = ErrorCollector.callback(file!, onError: validateCallback);
 
-                propsOrStateClass.validate(resolveVersion(members).version, collector);
+                propsOrStateClass.validate(resolveVersion(members).version, collector!);
 
                 expect(validateResults, []);
                 classesDetected++;
@@ -604,13 +604,13 @@ main() {
               ''';
 
               file = SourceFile.fromString(boilerplateString);
-              collector = ErrorCollector.callback(file, onError: validateCallback);
+              collector = ErrorCollector.callback(file!, onError: validateCallback);
 
               final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final props = members.whereType<BoilerplateProps>().first;
               final state = members.whereType<BoilerplateState>().first;
 
-              props.validate(Version.v4_mixinBased, collector);
+              props.validate(Version.v4_mixinBased, collector!);
               expect(validateResults.length, 1);
               expect(
                   validateResults.first,
@@ -618,7 +618,7 @@ main() {
                       '${props.propsOrStateClassString} implementations must extend directly from ${props.propsOrStateBaseClassString}'));
 
               validateResults = <String>[];
-              state.validate(Version.v4_mixinBased, collector);
+              state.validate(Version.v4_mixinBased, collector!);
               expect(validateResults.length, 1);
               expect(
                   validateResults.first,
@@ -646,20 +646,20 @@ main() {
               ''';
 
               file = SourceFile.fromString(boilerplateString);
-              collector = ErrorCollector.callback(file, onError: validateCallback);
+              collector = ErrorCollector.callback(file!, onError: validateCallback);
 
               final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final props = members.whereType<BoilerplateProps>().first;
               final state = members.whereType<BoilerplateState>().first;
 
-              props.validate(Version.v4_mixinBased, collector);
+              props.validate(Version.v4_mixinBased, collector!);
               expect(validateResults, [
                 contains(
                     '${props.propsOrStateClassString} implementations must not declare any ${props.propsOrStateFieldsName} or other non-static members.'),
               ]);
 
               validateResults = <String>[];
-              state.validate(Version.v4_mixinBased, collector);
+              state.validate(Version.v4_mixinBased, collector!);
               expect(validateResults, [
                 contains(
                     '${state.propsOrStateClassString} implementations must not declare any ${state.propsOrStateFieldsName} or other non-static members.'),
@@ -679,20 +679,20 @@ main() {
               ''';
 
               file = SourceFile.fromString(boilerplateString);
-              collector = ErrorCollector.callback(file, onError: validateCallback);
+              collector = ErrorCollector.callback(file!, onError: validateCallback);
 
               final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final props = members.whereType<BoilerplateProps>().first;
               final state = members.whereType<BoilerplateState>().first;
 
-              props.validate(Version.v4_mixinBased, collector);
+              props.validate(Version.v4_mixinBased, collector!);
               expect(validateResults, [
                 contains(
                     '${props.propsOrStateClassString} implementations must not be abstract, as they cannot be extended.'),
               ]);
 
               validateResults = <String>[];
-              state.validate(Version.v4_mixinBased, collector);
+              state.validate(Version.v4_mixinBased, collector!);
               expect(validateResults, [
                 contains(
                     '${state.propsOrStateClassString} implementations must not be abstract, as they cannot be extended.'),
@@ -717,17 +717,17 @@ main() {
               ''';
 
               file = SourceFile.fromString(boilerplateString);
-              collector = ErrorCollector.callback(file, onError: validateCallback);
+              collector = ErrorCollector.callback(file!, onError: validateCallback);
 
               final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final props = members.whereType<BoilerplateProps>().first;
               final state = members.whereType<BoilerplateState>().first;
 
-              props.validate(Version.v2_legacyBackwardsCompat, collector);
+              props.validate(Version.v2_legacyBackwardsCompat, collector!);
               expect(validateResults, [contains('Should have companion class')]);
 
               validateResults = <String>[];
-              state.validate(Version.v2_legacyBackwardsCompat, collector);
+              state.validate(Version.v2_legacyBackwardsCompat, collector!);
               expect(validateResults, [contains('Should have companion class')]);
             });
           });
@@ -753,7 +753,7 @@ main() {
               ''';
 
               file = SourceFile.fromString(boilerplateString);
-              collector = ErrorCollector.callback(file, onError: validateCallback);
+              collector = ErrorCollector.callback(file!, onError: validateCallback);
 
               final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final props = members.whereType<BoilerplateProps>().first;
@@ -761,19 +761,19 @@ main() {
               const errorMessage =
                   'Legacy boilerplate must use classes or mixins, and not shorthand class declaration';
 
-              props.validate(Version.v2_legacyBackwardsCompat, collector);
+              props.validate(Version.v2_legacyBackwardsCompat, collector!);
               expect(validateResults, contains(errorMessage));
 
               validateResults = <String>[];
-              state.validate(Version.v2_legacyBackwardsCompat, collector);
+              state.validate(Version.v2_legacyBackwardsCompat, collector!);
               expect(validateResults, contains(errorMessage));
 
               validateResults = <String>[];
-              props.validate(Version.v3_legacyDart2Only, collector);
+              props.validate(Version.v3_legacyDart2Only, collector!);
               expect(validateResults, contains(errorMessage));
 
               validateResults = <String>[];
-              state.validate(Version.v3_legacyDart2Only, collector);
+              state.validate(Version.v3_legacyDart2Only, collector!);
               expect(validateResults, contains(errorMessage));
             });
 
@@ -797,7 +797,7 @@ main() {
               ''';
 
               file = SourceFile.fromString(boilerplateString);
-              collector = ErrorCollector.callback(file, onError: validateCallback);
+              collector = ErrorCollector.callback(file!, onError: validateCallback);
 
               final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final props = members.whereType<BoilerplateProps>().first;
@@ -805,19 +805,19 @@ main() {
               final propsError = 'The class `${props.name.name}` does not start with `_\$`';
               final stateError = 'The class `${state.name.name}` does not start with `_\$`';
 
-              props.validate(Version.v2_legacyBackwardsCompat, collector);
+              props.validate(Version.v2_legacyBackwardsCompat, collector!);
               expect(validateResults, anyElement(contains(propsError)));
 
               validateResults = <String>[];
-              state.validate(Version.v2_legacyBackwardsCompat, collector);
+              state.validate(Version.v2_legacyBackwardsCompat, collector!);
               expect(validateResults, anyElement(contains(stateError)));
 
               validateResults = <String>[];
-              props.validate(Version.v3_legacyDart2Only, collector);
+              props.validate(Version.v3_legacyDart2Only, collector!);
               expect(validateResults, anyElement(contains(propsError)));
 
               validateResults = <String>[];
-              state.validate(Version.v3_legacyDart2Only, collector);
+              state.validate(Version.v3_legacyDart2Only, collector!);
               expect(validateResults, anyElement(contains(stateError)));
             });
           });
@@ -826,11 +826,11 @@ main() {
     });
 
     group('BoilerplatePropsOrStateMixin', () {
-      ErrorCollector collector;
-      SourceFile file;
+      ErrorCollector? collector;
+      SourceFile? file;
       var validateResults = <String>[];
 
-      void validateCallback(String message, [SourceSpan span]) {
+      void validateCallback(String message, [SourceSpan? span]) {
         validateResults.add(message);
       }
 
@@ -856,9 +856,9 @@ main() {
               if (propsOrStateMixins.isNotEmpty) {
                 final propsOrStateClass = propsOrStateMixins.first;
                 file = SourceFile.fromString(boilerplateString);
-                collector = ErrorCollector.callback(file, onError: validateCallback);
+                collector = ErrorCollector.callback(file!, onError: validateCallback);
 
-                propsOrStateClass.validate(resolveVersion(members).version, collector);
+                propsOrStateClass.validate(resolveVersion(members).version, collector!);
 
                 expect(validateResults, []);
                 classesDetected++;
@@ -889,17 +889,17 @@ main() {
                 ''';
 
               file = SourceFile.fromString(boilerplateString);
-              collector = ErrorCollector.callback(file, onError: validateCallback);
+              collector = ErrorCollector.callback(file!, onError: validateCallback);
 
               final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final props = members.whereType<BoilerplatePropsMixin>().first;
               final state = members.whereType<BoilerplateStateMixin>().first;
 
-              props.validate(Version.v4_mixinBased, collector);
+              props.validate(Version.v4_mixinBased, collector!);
               expect(validateResults, ['props mixins must be mixins']);
 
               validateResults = <String>[];
-              state.validate(Version.v4_mixinBased, collector);
+              state.validate(Version.v4_mixinBased, collector!);
               expect(validateResults, ['state mixins must be mixins']);
             });
           });
@@ -925,7 +925,7 @@ main() {
                 ''';
 
               file = SourceFile.fromString(boilerplateString);
-              collector = ErrorCollector.callback(file, onError: validateCallback);
+              collector = ErrorCollector.callback(file!, onError: validateCallback);
 
               final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
               final props = members.whereType<BoilerplatePropsMixin>().first;
@@ -935,19 +935,19 @@ main() {
               const stateError =
                   'Legacy boilerplate State mixins must be annotated with `@StateMixin()`';
 
-              props.validate(Version.v2_legacyBackwardsCompat, collector);
+              props.validate(Version.v2_legacyBackwardsCompat, collector!);
               expect(validateResults, [propsError]);
 
               validateResults = <String>[];
-              state.validate(Version.v2_legacyBackwardsCompat, collector);
+              state.validate(Version.v2_legacyBackwardsCompat, collector!);
               expect(validateResults, [stateError]);
 
               validateResults = <String>[];
-              props.validate(Version.v3_legacyDart2Only, collector);
+              props.validate(Version.v3_legacyDart2Only, collector!);
               expect(validateResults, [propsError]);
 
               validateResults = <String>[];
-              state.validate(Version.v3_legacyDart2Only, collector);
+              state.validate(Version.v3_legacyDart2Only, collector!);
               expect(validateResults, [stateError]);
             });
           });
@@ -956,16 +956,16 @@ main() {
     });
 
     group('utils', () {
-      ErrorCollector collector;
-      SourceFile file;
+      ErrorCollector? collector;
+      SourceFile? file;
       var errorList = <String>[];
       var warnList = <String>[];
 
-      void onErrorCallback(String message, [SourceSpan span]) {
+      void onErrorCallback(String message, [SourceSpan? span]) {
         errorList.add(message);
       }
 
-      void onWarnCallback(String message, [SourceSpan span]) {
+      void onWarnCallback(String message, [SourceSpan? span]) {
         warnList.add(message);
       }
 
@@ -977,8 +977,8 @@ main() {
       });
 
       group('getPropsOrStateAnnotation', () {
-        Iterable<BoilerplateMember> members;
-        String source;
+        Iterable<BoilerplateMember>? members;
+        String? source;
 
         tearDown(() {
           members = null;
@@ -986,13 +986,13 @@ main() {
         });
 
         setUpAndTestMeta(
-            {@required bool isProps,
-            @required bool isAbstract,
-            @required String source,
+            {required bool isProps,
+            required bool isAbstract,
+            required String? source,
             bool isMixin = false}) {
           members = BoilerplateMemberHelper.getBoilerplateMembersFromString(source).allMembers;
 
-          BoilerplateMember memberClass = members.firstWhere((member) {
+          BoilerplateMember memberClass = members!.firstWhere((member) {
             if (isMixin) {
               return member is BoilerplatePropsOrStateMixin && member.isProps == isProps;
             } else {
@@ -1095,12 +1095,12 @@ main() {
 
             file = SourceFile.fromString(boilerplateString);
             collector =
-                ErrorCollector.callback(file, onError: onErrorCallback, onWarning: onWarnCallback);
+                ErrorCollector.callback(file!, onError: onErrorCallback, onWarning: onWarnCallback);
 
             final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
             final props = members.whereType<BoilerplatePropsMixin>().first;
 
-            checkForMetaPresence(props.node, collector);
+            checkForMetaPresence(props.node, collector!);
             expect(errorList, []);
             expect(warnList, []);
           });
@@ -1126,12 +1126,12 @@ main() {
 
             file = SourceFile.fromString(boilerplateString);
             collector =
-                ErrorCollector.callback(file, onError: onErrorCallback, onWarning: onWarnCallback);
+                ErrorCollector.callback(file!, onError: onErrorCallback, onWarning: onWarnCallback);
 
             final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
             final props = members.whereType<BoilerplatePropsMixin>().first;
 
-            checkForMetaPresence(props.node, collector);
+            checkForMetaPresence(props.node, collector!);
             expect(errorList, []);
             expect(warnList, [
               stringContainsInOrder(['Static class member `meta` is declared in FooProps']),
@@ -1159,12 +1159,12 @@ main() {
 
             file = SourceFile.fromString(boilerplateString);
             collector =
-                ErrorCollector.callback(file, onError: onErrorCallback, onWarning: onWarnCallback);
+                ErrorCollector.callback(file!, onError: onErrorCallback, onWarning: onWarnCallback);
 
             final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
             final props = members.whereType<BoilerplatePropsMixin>().first;
 
-            checkForMetaPresence(props.node, collector);
+            checkForMetaPresence(props.node, collector!);
             expect(errorList, [
               stringContainsInOrder(['Non-static class member `meta` is declared in FooProps']),
             ]);
@@ -1202,20 +1202,20 @@ main() {
 
             file = SourceFile.fromString(boilerplateString);
             collector =
-                ErrorCollector.callback(file, onError: onErrorCallback, onWarning: onWarnCallback);
+                ErrorCollector.callback(file!, onError: onErrorCallback, onWarning: onWarnCallback);
 
             final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
             final props = members.whereType<BoilerplateProps>().first;
             final state = members.whereType<BoilerplateState>().first;
 
-            validateMetaField(props.companion, 'PropsMeta', collector);
+            validateMetaField(props.companion!, 'PropsMeta', collector!);
             expect(errorList, [
               stringContainsInOrder(
                   ['Static meta field in accessor class must be of type `PropsMeta`']),
             ]);
 
             errorList = <String>[];
-            validateMetaField(state.companion, 'StateMeta', collector);
+            validateMetaField(state.companion!, 'StateMeta', collector!);
             expect(errorList, [
               stringContainsInOrder(
                   ['Static meta field in accessor class must be of type `StateMeta`']),
@@ -1249,13 +1249,13 @@ main() {
 
             file = SourceFile.fromString(boilerplateString);
             collector =
-                ErrorCollector.callback(file, onError: onErrorCallback, onWarning: onWarnCallback);
+                ErrorCollector.callback(file!, onError: onErrorCallback, onWarning: onWarnCallback);
 
             final members = BoilerplateMemberHelper.parseAndReturnMembers(boilerplateString);
             final props = members.whereType<BoilerplateProps>().first;
             final state = members.whereType<BoilerplateState>().first;
 
-            validateMetaField(props.companion, 'PropsMeta', collector);
+            validateMetaField(props.companion!, 'PropsMeta', collector!);
             expect(errorList, [
               stringContainsInOrder([
                 'Static PropsMeta field in accessor class must be initialized to:`_\$metaForFooProps`'
@@ -1263,7 +1263,7 @@ main() {
             ]);
 
             errorList = <String>[];
-            validateMetaField(state.companion, 'StateMeta', collector);
+            validateMetaField(state.companion!, 'StateMeta', collector!);
             expect(errorList, [
               stringContainsInOrder([
                 'Static StateMeta field in accessor class must be initialized to:`_\$metaForFooState`'

@@ -23,7 +23,7 @@ import 'store.dart';
 part 'counter_fn.over_react.g.dart';
 
 mixin CounterFnProps on UiProps {
-  bool Function(int nextCount, int prevCount) countEqualityFn;
+  bool Function(int? nextCount, int? prevCount)? countEqualityFn;
 }
 
 UiFactory<CounterFnProps> CounterFn = uiFunction(
@@ -43,7 +43,7 @@ UiFactory<CounterFnProps> CounterFn = uiFunction(
 );
 
 mixin ModelCounterFnPropsMixin on UiProps {
-  bool Function(DartModelCounter nextCount, DartModelCounter prevCount) modelCountEqualityFn;
+  bool Function(DartModelCounter? nextCount, DartModelCounter? prevCount)? modelCountEqualityFn;
 }
 
 class ModelCounterFnProps = UiProps with CounterFnProps, ModelCounterFnPropsMixin;
@@ -55,7 +55,7 @@ UiFactory<ModelCounterFnProps> ModelCounterFn = uiFunction(
 
     final dispatch = useDispatch();
 
-    final consumedProps = props.staticMeta.allExceptForMixins({ModelCounterFnPropsMixin});
+    final Iterable<PropsMeta> consumedProps = props.staticMeta.allExceptForMixins({ModelCounterFnPropsMixin});
 
     return (CounterFn()
       ..addUnconsumedDomProps(props, consumedProps)
@@ -85,7 +85,7 @@ UiFactory<ModelCounterFnProps> ModelCounterFn = uiFunction(
 final useBigCountSelector = createSelectorHook<BigCounterState>(bigCounterContext);
 
 mixin CustomContextCounterFnPropsMixin on UiProps {
-  bool Function(int nextBigCount, int prevBigCount) bigCountEqualityFn;
+  bool Function(int nextBigCount, int prevBigCount)? bigCountEqualityFn;
 }
 
 class CustomContextCounterFnProps = UiProps with CounterFnProps, CustomContextCounterFnPropsMixin;
@@ -94,7 +94,7 @@ UiFactory<CustomContextCounterFnProps> CustomContextCounterFn = uiFunction(
   (props) {
     final bigCount = useBigCountSelector((state) => state.bigCount, props.bigCountEqualityFn);
 
-    final consumedProps = props.staticMeta.allExceptForMixins({CustomContextCounterFnPropsMixin});
+    final Iterable<PropsMeta> consumedProps = props.staticMeta.allExceptForMixins({CustomContextCounterFnPropsMixin});
 
     return (CounterFn()
       ..addUnconsumedDomProps(props, consumedProps)

@@ -16,7 +16,7 @@ import 'package:over_react/over_react.dart';
 
 import '../../demo_components.dart';
 
-ReactElement listGroupHeaderDemo() =>
+ReactElement? listGroupHeaderDemo() =>
   ListGroup()(
     (ListGroupItem()
       ..header = 'List group item heading'

@@ -106,19 +106,19 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   @override
   void componentDidCatch(error, ReactErrorInfo info) {
     if (props.onComponentDidCatch != null) {
-      props.onComponentDidCatch(error, info);
+      props.onComponentDidCatch!(error, info);
     }
 
     _logErrorCaughtByErrorBoundary(error, info);
 
     if (props.onComponentIsUnrecoverable != null) {
-      props.onComponentIsUnrecoverable(error, info);
+      props.onComponentIsUnrecoverable!(error, info);
     }
   }
 
   @override
   render() {
-    if (state.hasError) { // [2]
+    if (state.hasError!) { // [2]
       return (Dom.div()
         ..key = 'ohnoes'
         ..addTestId('ErrorBoundary.unrecoverableErrorInnerHtmlContainerNode')
@@ -134,9 +134,9 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   void componentDidUpdate(Map prevProps, Map prevState, [dynamic snapshot]) {
     // If the child is different, and the error boundary is currently in an error state,
     // give the children a chance to mount.
-    if (state.hasError) {
-      final childThatCausedError = typedPropsFactory(prevProps).children.single;
-      if (childThatCausedError != props.children.single) {
+    if (state.hasError!) {
+      final childThatCausedError = typedPropsFactory(prevProps).children!.single;
+      if (childThatCausedError != props.children!.single) {
         reset();
       }
     }
@@ -152,7 +152,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
   }
 
   String get _loggerName {
-    if (props.logger != null) return props.logger.name;
+    if (props.logger != null) return props.logger!.name;
 
     return props.loggerName ?? defaultErrorBoundaryLoggerName;
   }
@@ -162,7 +162,7 @@ class ErrorBoundaryComponent<T extends ErrorBoundaryProps, S extends ErrorBounda
     ReactErrorInfo info, {
     bool isRecoverable = true,
   }) {
-    if (!props.shouldLogErrors) return;
+    if (!props.shouldLogErrors!) return;
 
     final message = 'An unrecoverable error was caught by an ErrorBoundary (attempting to remount it was unsuccessful): \nInfo: ${info.componentStack}';
 

@@ -26,23 +26,23 @@ import 'fixtures/dummy_composite_component.dart';
 main() {
   group('`react_dom.render`', () {
     dynamic renderedInstance;
-    Element mountNode;
+    Element? mountNode;
 
     setUp(() {
       mountNode = DivElement();
-      document.body.append(mountNode);
+      document.body!.append(mountNode!);
     });
 
     tearDown(() {
-      mountNode.remove();
+      mountNode!.remove();
       mountNode = null;
       renderedInstance = null;
     });
 
     group('mounts and renders', () {
       group('a composite component into the DOM', () {
-        int componentDidMountCount;
-        int componentDidUpdateCount;
+        late int componentDidMountCount;
+        late int componentDidUpdateCount;
 
         setUp(() {
           componentDidMountCount = 0;
@@ -63,7 +63,7 @@ main() {
         });
 
         test('within the provided `mountNode`', () {
-          expect(findDomNode(renderedInstance), mountNode.children.single);
+          expect(findDomNode(renderedInstance), mountNode!.children.single);
         });
 
         test('and re-renders it when `react_dom.render` is called again for the same mountNode', () {
@@ -87,7 +87,7 @@ main() {
         });
 
         test('within the provided `mountNode`', () {
-          expect(renderedInstance, mountNode.children.single);
+          expect(renderedInstance, mountNode!.children.single);
         });
       });
     });

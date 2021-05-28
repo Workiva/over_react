@@ -35,7 +35,7 @@ const PropsMeta _$metaForFlawedWithNoChildProps = PropsMeta(
   keys: _$FlawedWithNoChildPropsAccessorsMixin.$propKeys,
 );
 
-_$$FlawedWithNoChildProps _$FlawedWithNoChild([Map backingProps]) =>
+_$$FlawedWithNoChildProps _$FlawedWithNoChild([Map? backingProps]) =>
     backingProps == null
         ? _$$FlawedWithNoChildProps$JsMap(JsBackedMap())
         : _$$FlawedWithNoChildProps(backingProps);
@@ -108,7 +108,7 @@ class _$$FlawedWithNoChildProps$JsMap extends _$$FlawedWithNoChildProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$FlawedWithNoChildComponent extends FlawedWithNoChildComponent {
-  _$$FlawedWithNoChildProps$JsMap _cachedTypedProps;
+  late _$$FlawedWithNoChildProps$JsMap _cachedTypedProps;
 
   @override
   _$$FlawedWithNoChildProps$JsMap get props => _cachedTypedProps;

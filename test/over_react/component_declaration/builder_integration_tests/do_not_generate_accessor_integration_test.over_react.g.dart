@@ -101,7 +101,7 @@ class DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
 }
 
 _$$DoNotGenerateAccessorTestProps _$DoNotGenerateAccessorTest(
-        [Map backingProps]) =>
+        [Map? backingProps]) =>
     _$$DoNotGenerateAccessorTestProps(backingProps);
 
 // Concrete props implementation.
@@ -112,7 +112,7 @@ class _$$DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
     implements DoNotGenerateAccessorTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DoNotGenerateAccessorTestProps(Map backingMap) : this._props = {} {
+  _$$DoNotGenerateAccessorTestProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -224,7 +224,7 @@ class _$$DoNotGenerateAccessorTestState extends _$DoNotGenerateAccessorTestState
     implements DoNotGenerateAccessorTestState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DoNotGenerateAccessorTestState(Map backingMap) : this._state = {} {
+  _$$DoNotGenerateAccessorTestState(Map? backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -245,11 +245,11 @@ class _$$DoNotGenerateAccessorTestState extends _$DoNotGenerateAccessorTestState
 class _$DoNotGenerateAccessorTestComponent
     extends DoNotGenerateAccessorTestComponent {
   @override
-  _$$DoNotGenerateAccessorTestProps typedPropsFactory(Map backingMap) =>
+  _$$DoNotGenerateAccessorTestProps typedPropsFactory(Map? backingMap) =>
       _$$DoNotGenerateAccessorTestProps(backingMap);
 
   @override
-  _$$DoNotGenerateAccessorTestState typedStateFactory(Map backingMap) =>
+  _$$DoNotGenerateAccessorTestState typedStateFactory(Map? backingMap) =>
       _$$DoNotGenerateAccessorTestState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

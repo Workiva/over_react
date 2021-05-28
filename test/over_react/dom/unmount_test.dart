@@ -24,22 +24,22 @@ import 'fixtures/dummy_composite_component.dart';
 
 main() {
   group('`react_dom.unmountComponentAtNode`', () {
-    Element mountNode;
-    bool unmountComponentAtNodeReturnValue;
+    Element? mountNode;
+    bool? unmountComponentAtNodeReturnValue;
 
     setUp(() {
       mountNode = DivElement();
-      document.body.append(mountNode);
+      document.body!.append(mountNode!);
     });
 
     tearDown(() {
-      mountNode.remove();
+      mountNode!.remove();
       mountNode = null;
     });
 
     group('when called on a mountNode that has a mounted component:', () {
       int componentDidMountCount;
-      bool componentWillUnmount;
+      late bool componentWillUnmount;
 
       setUp(() {
         componentDidMountCount = 0;
@@ -60,7 +60,7 @@ main() {
       });
 
       test('removes the rendered component from the DOM', () {
-        expect(mountNode.children, isEmpty);
+        expect(mountNode!.children, isEmpty);
       });
 
       test('returns true', () {

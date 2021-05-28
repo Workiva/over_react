@@ -71,7 +71,7 @@ class ValidationUtil {
     WARNING_COUNT += 1;
 
     if (onWarning != null) {
-      onWarning(message);
+      onWarning!(message);
     }
 
     if (WARNINGS_ENABLED) {
@@ -104,12 +104,12 @@ class ValidationUtil {
   /// Useful for verifying warnings in unit tests.
   ///
   /// > See: `startRecordingValidationWarnings`
-  static ValidationUtilWarningCallback onWarning;
+  static ValidationUtilWarningCallback? onWarning;
 }
 
 class ValidationWarning extends Error {
   /// Message describing the problem.
-  final String message;
+  final String? message;
 
   ValidationWarning([this.message]);
 }

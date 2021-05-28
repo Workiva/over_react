@@ -90,7 +90,7 @@ external dynamic Function(dynamic action) _jsUseDispatch();
 /// See the [react-redux JS documentation](https://react-redux.js.org/api/hooks#custom-context) for more details.
 ///
 /// See the [createSelectorHook] documentation for an example of creating / using custom context.
-dynamic Function(dynamic action) Function() createDispatchHook<TReduxState>([Context context]) {
+dynamic Function(dynamic action) Function() createDispatchHook<TReduxState>([Context? context]) {
   return _jsCreateDispatchHook(context?.jsThis ?? JsReactRedux.ReactReduxContext);
 }
 

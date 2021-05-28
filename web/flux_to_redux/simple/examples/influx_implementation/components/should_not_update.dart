@@ -25,7 +25,7 @@ UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = connect<FluxStore, ShouldNotUp
 )(castUiFactory(_$ShouldNotUpdate)); // ignore: undefined_identifier
 
 mixin ShouldNotUpdateProps on UiProps {
-  String text;
+  String? text;
 }
 
 class ShouldNotUpdateComponent extends UiComponent2<ShouldNotUpdateProps> {

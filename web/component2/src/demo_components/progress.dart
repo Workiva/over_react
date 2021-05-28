@@ -30,59 +30,59 @@ mixin ProgressProps on UiProps {
   /// This value should be between the [min] and [max] values.
   ///
   /// Default: `0.0`
-  double value;
+  double? value;
 
   /// The min value of the [Progress] component.
   ///
   /// Default: `0.0`
-  double min;
+  double? min;
 
   /// The max value of the [Progress] component.
   ///
   /// Default: `100.0`
-  double max;
+  double? max;
 
   /// The skin / "context" for the [Progress] component.
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/progress/#contextual-alternatives>.
   ///
   /// Default: [ProgressSkin.DEFAULT]
-  ProgressSkin skin;
+  ProgressSkin? skin;
 
   /// Whether to render a "Barber Pole" gradient stripe effect in the [Progress] component.
   ///
   /// Default: false
-  bool isStriped;
+  bool? isStriped;
 
   /// Whether to animate the "Barber Pole" gradient stripe effect in the [Progress] component.
   ///
   /// __Note:__ Has no effect if [isStriped] is `false`.
   ///
   /// Default: false
-  bool isAnimated;
+  bool? isAnimated;
 
   /// Optionally add a caption that describes the context of the [Progress] component.
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/progress/#example>.
   ///
   /// Default: [ProgressComponent._getPercentComplete]%
-  String caption;
+  String? caption;
 
   /// Additional props to be added to the [caption] element _(if specified)_.
-  Map captionProps;
+  Map? captionProps;
 
   /// Whether the [caption] should be visible.
   ///
   /// Default: false
-  bool showCaption;
+  bool? showCaption;
 
   /// Whether the [caption] should be appended with the value of [value].
   ///
   /// Default: true
-  bool showPercentComplete;
+  bool? showPercentComplete;
 
   /// Additional props to be added to the [Dom.div] that wraps around the [caption] element and `<progress>` element.
-  Map rootNodeProps;
+  Map? rootNodeProps;
 }
 
 mixin ProgressState on UiState {
@@ -91,7 +91,7 @@ mixin ProgressState on UiState {
   ///
   /// HTML id attributes are needed on `<progress>` elements for proper accessibility support,
   /// so this state value ensures there's always a valid ID value to use.
-  String id;
+  String? id;
 }
 
 class ProgressComponent extends UiStatefulComponent2<ProgressProps, ProgressState> {
@@ -121,7 +121,7 @@ class ProgressComponent extends UiStatefulComponent2<ProgressProps, ProgressStat
     );
   }
 
-  ReactElement renderProgressNode() {
+  ReactElement? renderProgressNode() {
     return (Dom.progress()
       ..modifyProps(addUnconsumedDomProps)
       ..addProps(ariaProps()
@@ -134,13 +134,13 @@ class ProgressComponent extends UiStatefulComponent2<ProgressProps, ProgressStat
     )();
   }
 
-  ReactElement renderCaptionNode() {
+  ReactElement? renderCaptionNode() {
     var captionClasses = ClassNameBuilder.fromProps(props.captionProps)
-      ..add('sr-only', !props.showCaption);
+      ..add('sr-only', !props.showCaption!);
 
     var captionText = props.caption  ?? '';
 
-    if (props.showPercentComplete) {
+    if (props.showPercentComplete!) {
       captionText += ' ${_getPercentComplete()}%';
     }
 
@@ -154,14 +154,14 @@ class ProgressComponent extends UiStatefulComponent2<ProgressProps, ProgressStat
   ClassNameBuilder _getProgressNodeClasses() {
     return ClassNameBuilder()
       ..add('progress')
-      ..add('progress-striped', props.isStriped)
-      ..add('progress-animated', props.isAnimated)
-      ..add(props.skin.className);
+      ..add('progress-striped', props.isStriped!)
+      ..add('progress-animated', props.isAnimated!)
+      ..add(props.skin!.className);
   }
 
   /// Get the percentage complete based on [ProgressProps.min], [ProgressProps.max] and [ProgressProps.value].
   double _getPercentComplete() {
-    return (props.value - props.min) / (props.max - props.min) * 100;
+    return (props.value! - props.min!) / (props.max! - props.min!) * 100;
   }
 
   /// Returns the value that determines the width of the progress bar
@@ -169,9 +169,9 @@ class ProgressComponent extends UiStatefulComponent2<ProgressProps, ProgressStat
   ///
   /// Note that the value of the HTML `<progress>` element's value
   /// attribute will never be less than the value of [ProgressProps.min].
-  double get currentValue => max(props.min, props.value);
+  double get currentValue => max(props.min!, props.value!);
 
-  String get id => props.id ?? state.id;
+  String? get id => props.id ?? state.id;
 
   String get captionId => '${id}_caption';
 }

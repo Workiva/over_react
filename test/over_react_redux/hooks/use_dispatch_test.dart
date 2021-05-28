@@ -29,9 +29,9 @@ part 'use_dispatch_test.over_react.g.dart';
 
 main() {
   group('useDispatch hook', () {
-    TestJacket jacket;
-    Store<CounterState> counterStore;
-    Store<BigCounterState> bigCounterStore;
+    TestJacket? jacket;
+    late Store<CounterState> counterStore;
+    late Store<BigCounterState> bigCounterStore;
 
     setUp(() {
       jacket = null;
@@ -46,11 +46,11 @@ main() {
           UseDispatchCounterFn()(),
         ), attachedToDocument: true);
 
-      expectCountValue(jacket, 0);
-      final incrementButton = queryByTestId(jacket.mountNode, 'button-increment');
+      expectCountValue(jacket!, 0);
+      final incrementButton = queryByTestId(jacket!.mountNode, 'button-increment');
       incrementButton.click();
       await pumpEventQueue();
-      expectCountValue(jacket, 1);
+      expectCountValue(jacket!, 1);
     });
 
     test('dispatches an action within a custom context when createDispatchHook is used', () async {
@@ -64,11 +64,11 @@ main() {
             ),
           ), attachedToDocument: true);
 
-      expectBigCountValue(jacket, 9);
-      final incrementButton = queryByTestId(jacket.mountNode, 'button-big-increment');
+      expectBigCountValue(jacket!, 9);
+      final incrementButton = queryByTestId(jacket!.mountNode, 'button-big-increment');
       incrementButton.click();
       await pumpEventQueue();
-      expectBigCountValue(jacket, 109);
+      expectBigCountValue(jacket!, 109);
     });
   });
 }

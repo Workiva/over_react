@@ -49,7 +49,7 @@ main() {
     });
 
     group('generates state getters/setters, when there is a custom key namespace, with', () {
-      NamespacedAccessorTestComponent component;
+      NamespacedAccessorTestComponent? component;
 
       setUp(() {
         var renderedInstance = render(NamespacedAccessorTest()());
@@ -57,28 +57,28 @@ main() {
       });
 
       test('the custom namespace and the state name as the key by default', () {
-        expect(component.newState()..stringState = 'test',
+        expect(component!.newState()..stringState = 'test',
             containsPair('custom state class namespace**stringState', 'test'));
 
-        expect(component.newState()..dynamicState = 2,
+        expect(component!.newState()..dynamicState = 2,
             containsPair('custom state class namespace**dynamicState', 2));
 
-        expect(component.newState()..untypedState = false,
+        expect(component!.newState()..untypedState = false,
             containsPair('custom state class namespace**untypedState', false));
       });
 
       test('custom state keys', () {
-        expect(component.newState()..customKeyState = 'test',
+        expect(component!.newState()..customKeyState = 'test',
             containsPair('custom state class namespace**custom key!', 'test'));
       });
 
       test('custom state key namespaces', () {
-        expect(component.newState()..customNamespaceState = 'test',
+        expect(component!.newState()..customNamespaceState = 'test',
             containsPair('custom namespace~~customNamespaceState', 'test'));
       });
 
       test('custom state keys and namespaces', () {
-        expect(component.newState()..customKeyAndNamespaceState = 'test',
+        expect(component!.newState()..customKeyAndNamespaceState = 'test',
             containsPair('custom namespace~~custom key!', 'test'));
       });
     });
@@ -108,7 +108,7 @@ UiFactory<NamespacedAccessorTestProps> NamespacedAccessorTest = _$NamespacedAcce
 
 @Props(keyNamespace: 'custom props class namespace**')
 class _$NamespacedAccessorTestProps extends UiProps {
-  String stringProp;
+  String? stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
@@ -124,7 +124,7 @@ class _$NamespacedAccessorTestProps extends UiProps {
 
 @State(keyNamespace: 'custom state class namespace**')
 class _$NamespacedAccessorTestState extends UiState {
-  String stringState;
+  String? stringState;
   dynamic dynamicState;
   var untypedState; // ignore: prefer_typing_uninitialized_variables
 

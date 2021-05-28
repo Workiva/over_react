@@ -17,7 +17,7 @@ import 'package:over_react/over_react.dart';
 
 import '../../demo_components.dart';
 
-ReactElement tagContextualDemo() => Dom.div()(
+ReactElement? tagContextualDemo() => Dom.div()(
   (Tag()..skin = TagSkin.DEFAULT)('Default'),
   (Tag()..skin = TagSkin.PRIMARY)('Primary'),
   (Tag()..skin = TagSkin.SUCCESS)('Success'),

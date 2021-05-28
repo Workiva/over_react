@@ -34,9 +34,9 @@ abstract class _$ReduxMultiProviderPropsAccessorsMixin
   /// <!-- Generated from [_$ReduxMultiProviderProps.storesByContext] -->
   @override
   @requiredProp
-  Map<Context, Store> get storesByContext =>
+  Map<Context, Store>? get storesByContext =>
       (props[_$key__storesByContext___$ReduxMultiProviderProps] ?? null)
-          as Map<Context, Store>;
+          as Map<Context, Store>?;
 
   /// A `Map` of contexts that connected components within the component tree
   /// can use to receive updates from specific stores.
@@ -48,7 +48,7 @@ abstract class _$ReduxMultiProviderPropsAccessorsMixin
   /// <!-- Generated from [_$ReduxMultiProviderProps.storesByContext] -->
   @override
   @requiredProp
-  set storesByContext(Map<Context, Store> value) =>
+  set storesByContext(Map<Context, Store>? value) =>
       props[_$key__storesByContext___$ReduxMultiProviderProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
@@ -76,7 +76,7 @@ class ReduxMultiProviderProps extends _$ReduxMultiProviderProps
   static const PropsMeta meta = _$metaForReduxMultiProviderProps;
 }
 
-_$$ReduxMultiProviderProps _$ReduxMultiProvider([Map backingProps]) =>
+_$$ReduxMultiProviderProps _$ReduxMultiProvider([Map? backingProps]) =>
     backingProps == null
         ? _$$ReduxMultiProviderProps$JsMap(JsBackedMap())
         : _$$ReduxMultiProviderProps(backingProps);
@@ -149,7 +149,7 @@ class _$$ReduxMultiProviderProps$JsMap extends _$$ReduxMultiProviderProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ReduxMultiProviderComponent extends ReduxMultiProviderComponent {
-  _$$ReduxMultiProviderProps$JsMap _cachedTypedProps;
+  late _$$ReduxMultiProviderProps$JsMap _cachedTypedProps;
 
   @override
   _$$ReduxMultiProviderProps$JsMap get props => _cachedTypedProps;

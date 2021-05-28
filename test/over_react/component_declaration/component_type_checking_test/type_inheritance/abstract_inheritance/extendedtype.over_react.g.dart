@@ -41,7 +41,7 @@ class TestExtendtypeProps extends _$TestExtendtypeProps
   static const PropsMeta meta = _$metaForTestExtendtypeProps;
 }
 
-_$$TestExtendtypeProps _$TestExtendtype([Map backingProps]) =>
+_$$TestExtendtypeProps _$TestExtendtype([Map? backingProps]) =>
     _$$TestExtendtypeProps(backingProps);
 
 // Concrete props implementation.
@@ -52,7 +52,7 @@ class _$$TestExtendtypeProps extends _$TestExtendtypeProps
     implements TestExtendtypeProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestExtendtypeProps(Map backingMap) : this._props = {} {
+  _$$TestExtendtypeProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -81,7 +81,7 @@ class _$$TestExtendtypeProps extends _$TestExtendtypeProps
 // generated for the associated props class.
 class _$TestExtendtypeComponent extends TestExtendtypeComponent {
   @override
-  _$$TestExtendtypeProps typedPropsFactory(Map backingMap) =>
+  _$$TestExtendtypeProps typedPropsFactory(Map? backingMap) =>
       _$$TestExtendtypeProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

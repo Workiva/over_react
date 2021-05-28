@@ -27,10 +27,10 @@ class StrictModeProps extends component_base.UiProps
     implements builder_helpers.UiProps {
   // Initialize to a JsBackedMap so that copying can be optimized
   // when converting props during ReactElement creation.
-  StrictModeProps([Map props]) : this.props = props ?? JsBackedMap();
+  StrictModeProps([Map? props]) : this.props = props ?? JsBackedMap();
 
   @override
-  ReactComponentFactoryProxy componentFactory = react.StrictMode;
+  ReactComponentFactoryProxy? componentFactory = react.StrictMode;
 
   @override
   PropsMetaCollection get staticMeta => throw UnimplementedError('StrictModeProps instances do not implement instance meta');
@@ -77,4 +77,4 @@ class StrictModeProps extends component_base.UiProps
 /// StrictMode logs all warnings to the browser console.
 ///
 /// See: <https://reactjs.org/docs/strict-mode.html>
-StrictModeProps StrictMode([Map backingMap]) => StrictModeProps(backingMap);
+StrictModeProps StrictMode([Map? backingMap]) => StrictModeProps(backingMap);

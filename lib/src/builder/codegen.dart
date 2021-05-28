@@ -27,8 +27,8 @@ import 'parsing.dart';
 /// and appends them to [outputContentsBuffer].
 class ImplGenerator {
   final StringBuffer outputContentsBuffer = StringBuffer();
-  final Logger/*!*/ logger;
-  final SourceFile/*!*/ sourceFile;
+  final Logger logger;
+  final SourceFile sourceFile;
 
   ImplGenerator(this.logger, this.sourceFile);
 

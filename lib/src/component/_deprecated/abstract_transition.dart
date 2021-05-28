@@ -37,7 +37,7 @@ abstract class _$AbstractTransitionState extends UiState {
   /// The current phase of transition the [AbstractTransitionComponent] is in.
   ///
   /// Default:  [AbstractTransitionComponent.initiallyShown] ? [TransitionPhase.SHOWN] : [TransitionPhase.HIDDEN]
-  TransitionPhase transitionPhase;
+  TransitionPhase? transitionPhase;
 }
 
 /// How to use [AbstractTransitionComponent]:
@@ -120,16 +120,16 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   );
 
   /// Stream for listening to `transitionend` events on the [AbstractTransitionComponent].
-  StreamSubscription _endTransitionSubscription;
+  StreamSubscription? _endTransitionSubscription;
 
   /// Whether the [AbstractTransitionComponent] should be visible initially when mounted.
-  bool/*!*/ get initiallyShown;
+  bool get initiallyShown;
 
   /// Returns the DOM node that will transition.
-  Element getTransitionDomNode();
+  Element? getTransitionDomNode();
 
   /// Whether transitions are enabled for this component.
-  bool/*!*/ get hasTransition => true;
+  bool get hasTransition => true;
 
   /// Whether the Element returned by [getTransitionDomNode] will have a transition event when showing.
   bool get hasTransitionIn => hasTransition && transitionInCount > 0;
@@ -148,10 +148,10 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   int get transitionOutCount => props.transitionOutCount ?? props.transitionCount ?? 1;
 
   /// The duration that can elapse before a transition timeout occurs.
-  Duration/*!*/ get transitionTimeout => const Duration(seconds: 1);
+  Duration get transitionTimeout => const Duration(seconds: 1);
 
   /// Timer used to determine if a transition timeout has occurred.
-  Timer _transitionEndTimer;
+  Timer? _transitionEndTimer;
 
   // --------------------------------------------------------------------------
   // Private Utility Methods
@@ -165,7 +165,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
       return;
     }
 
-    if (props.onWillShow != null && props.onWillShow() == false) {
+    if (props.onWillShow != null && props.onWillShow!() == false) {
       // Short-circuit default behavior if the callback cancelled this action by returning 'false'.
       return;
     }
@@ -185,7 +185,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
       return;
     }
 
-    if (props.onWillHide != null && props.onWillHide() == false) {
+    if (props.onWillHide != null && props.onWillHide!() == false) {
       // Short-circuit default behavior if the callback cancelled this action by returning 'false'.
       return;
     }
@@ -280,7 +280,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   void componentDidUpdate(Map prevProps, Map prevState) {
     _transitionNotGuaranteed = false;
 
-    var tPrevState = typedStateFactory(prevState);
+    S tPrevState = typedStateFactory(prevState);
 
     if (tPrevState.transitionPhase != state.transitionPhase) {
       if (state.transitionPhase != TransitionPhase.SHOWING) {
@@ -383,7 +383,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   /// Method that will be called when [AbstractTransitionComponent]  first enters the `hidden` state.
   void handleHidden() {
     if (props.onDidHide != null) {
-      props.onDidHide();
+      props.onDidHide!();
     }
   }
 
@@ -391,12 +391,12 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   /// Method that will be called when [AbstractTransitionComponent]  first enters the `shown` state.
   void handleShown() {
     if (props.onDidShow != null) {
-      props.onDidShow();
+      props.onDidShow!();
     }
   }
 
   /// Returns attributes only available during testing that indicate the state of the transition.
-  Map<String, String> getTransitionTestAttributes() {
+  Map<String, String?> getTransitionTestAttributes() {
     if (!component_base.UiProps.testMode) return const {};
 
     const enumToAttrValue = <TransitionPhase, String>{
@@ -408,7 +408,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
     };
 
     return {
-      transitionPhaseTestAttr: enumToAttrValue[state.transitionPhase],
+      transitionPhaseTestAttr: enumToAttrValue[state.transitionPhase!],
     };
   }
 

@@ -22,42 +22,42 @@ class ChatAPI {
       handleStatusChange({'isOnline': id % 2 == 0});
 
   static void unsubscribeFromFriendStatus(
-          int id, Function handleStatusChange) =>
+          int? id, Function handleStatusChange) =>
       handleStatusChange({'isOnline': false});
 }
 
 // Custom Hook
-StateHook<bool> useFriendStatus(int friendID) {
+StateHook<bool?> useFriendStatus(int? friendID) {
   final isOnline = useState(false);
 
   void handleStatusChange(Map status) {
-    isOnline.set(status['isOnline'] as bool);
+    isOnline.set(status['isOnline'] as bool?);
   }
 
   useEffect(() {
-    ChatAPI.subscribeToFriendStatus(friendID, handleStatusChange);
+    ChatAPI.subscribeToFriendStatus(friendID!, handleStatusChange);
     return () {
       ChatAPI.unsubscribeFromFriendStatus(friendID, handleStatusChange);
     };
   });
 
   // Use format function to avoid unnecessarily formatting `isOnline` when the hooks aren't inspected in React DevTools.
-  useDebugValue<bool>(
-      isOnline.value, (isOnline) => isOnline ? 'Online' : 'Not Online');
+  useDebugValue<bool?>(
+      isOnline.value, (isOnline) => isOnline! ? 'Online' : 'Not Online');
 
   return isOnline;
 }
 
 mixin FriendListItemProps on UiProps {
-  Map<String, dynamic> friend;
+  Map<String, dynamic>? friend;
 }
 
 UiFactory<FriendListItemProps> FriendListItem = uiFunction(
   (props) {
-    final isOnline = useFriendStatus(props.friend['id'] as int);
+    final isOnline = useFriendStatus(props.friend!['id'] as int?);
 
-    return (Dom.li()..style = {'color': isOnline.value ? 'green' : 'black'})(
-      props.friend['name'],
+    return (Dom.li()..style = {'color': isOnline.value! ? 'green' : 'black'})(
+      props.friend!['name'],
     );
   },
   _$FriendListItemConfig, // ignore: undefined_identifier

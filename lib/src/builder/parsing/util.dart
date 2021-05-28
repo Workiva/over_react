@@ -30,7 +30,7 @@ extension TryCast<T> on T {
   ///     // With tryCast
   ///     final block = node.body?.tryCast<BlockFunctionBody>()?.block;
   ///
-  S tryCast<S extends T>() {
+  S? tryCast<S extends T>() {
     final value = this;
     return value is S ? value : null;
   }
@@ -38,7 +38,7 @@ extension TryCast<T> on T {
 
 extension IterableUtil<E> on Iterable<E> {
   /// Returns the first element, or `null` if the element is empty.
-  E get firstOrNull => isEmpty ? null : first;
+  E? get firstOrNull => isEmpty ? null : first;
 
   /// Returns a new lazy iterable with all the elements for which
   /// the [test] predicate returns `false`.
@@ -48,13 +48,13 @@ extension IterableUtil<E> on Iterable<E> {
   /// if no such element is found.
   ///
   /// Throws a [StateError] if there is no matching element and [orElse] is omitted.
-  T firstWhereType<T>({T Function() orElse}) =>
-      whereType<T>().firstWhere((_) => true, orElse: orElse);
+  T? firstWhereType<T>({T? Function()? orElse}) =>
+      whereType<T?>().firstWhere((_) => true, orElse: orElse);
 }
 
-extension IterableUtil2<E> on Iterable<E> {
+extension IterableUtil2<E> on Iterable<E?> {
   /// Returns a new lazy iterable with all elements that are not `null`.
-  Iterable<E/*!*/> whereNotNull() => where((element) => element != null);
+  Iterable<E> whereNotNull() => where((element) => element != null) as Iterable<E>;
 }
 
 /// A wrapper around two classes that can be used to pass data when the possible
@@ -62,8 +62,8 @@ extension IterableUtil2<E> on Iterable<E> {
 ///
 /// Subset of package:union functionality
 class Union<A, B> {
-  final A a;
-  final B b;
+  final A? a;
+  final B? b;
 
   Union.a(this.a)
       : b = null,
@@ -73,9 +73,9 @@ class Union<A, B> {
         assert(b != null);
 
   /// Executes a callback based upon which field is set.
-  T/*!*/ switchCase<T>(T Function(A/*!*/) onA, T Function(B/*!*/) onB) {
-    if (a != null) return onA(a);
-    if (b != null) return onB(b);
+  T switchCase<T>(T Function(A) onA, T Function(B) onB) {
+    if (a != null) return onA(a!);
+    if (b != null) return onB(b!);
     return null;
   }
 }
@@ -86,5 +86,5 @@ class Union<A, B> {
 extension UnionHelper<C> on Union<C, C> {
   /// Access [a] or [b] while allowing the analyzer to provide type inference
   /// when possible.
-  C/*!*/ get either => a ?? b;
+  C get either => a ?? b!;
 }

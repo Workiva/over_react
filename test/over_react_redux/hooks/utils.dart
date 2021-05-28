@@ -18,7 +18,7 @@ import 'package:test/test.dart';
 
 final bigCounterContext = createContext();
 
-void expectCountValue(TestJacket jacket, int expectedValue, {String reason}) {
+void expectCountValue(TestJacket jacket, int expectedValue, {String? reason}) {
   expect(queryByTestId(jacket.mountNode, 'count').text, 'Count: $expectedValue', reason: reason);
 }
 
@@ -38,7 +38,7 @@ Future<Null> clickSiblingConnectedModelCountIncrementButton(TestJacket jacket) a
   await pumpEventQueue();
 }
 
-void expectBigCountValue(TestJacket jacket, int expectedValue, {String reason}) {
+void expectBigCountValue(TestJacket jacket, int expectedValue, {String? reason}) {
   expect(queryByTestId(jacket.mountNode, 'big-count').text, 'Big Count: $expectedValue', reason: reason);
 }
 

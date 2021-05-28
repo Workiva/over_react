@@ -16,7 +16,7 @@ import 'package:over_react/over_react.dart';
 
 import '../../demo_components.dart';
 
-ReactElement buttonExamplesDemo() =>
+ReactElement? buttonExamplesDemo() =>
   (Dom.div()..className = 'btn-toolbar')(
     Button()('Primary'),
     (Button()..skin = ButtonSkin.SECONDARY)('Secondary'),

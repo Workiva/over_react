@@ -41,7 +41,7 @@ class CustomErrorBoundaryProps extends _$CustomErrorBoundaryProps
   static const PropsMeta meta = _$metaForCustomErrorBoundaryProps;
 }
 
-_$$CustomErrorBoundaryProps _$CustomErrorBoundary([Map backingProps]) =>
+_$$CustomErrorBoundaryProps _$CustomErrorBoundary([Map? backingProps]) =>
     backingProps == null
         ? _$$CustomErrorBoundaryProps$JsMap(JsBackedMap())
         : _$$CustomErrorBoundaryProps(backingProps);
@@ -189,7 +189,7 @@ class _$$CustomErrorBoundaryState$JsMap extends _$$CustomErrorBoundaryState {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$CustomErrorBoundaryComponent extends CustomErrorBoundaryComponent {
-  _$$CustomErrorBoundaryProps$JsMap _cachedTypedProps;
+  late _$$CustomErrorBoundaryProps$JsMap _cachedTypedProps;
 
   @override
   _$$CustomErrorBoundaryProps$JsMap get props => _cachedTypedProps;
@@ -217,7 +217,7 @@ class _$CustomErrorBoundaryComponent extends CustomErrorBoundaryComponent {
   _$$CustomErrorBoundaryProps typedPropsFactory(Map backingMap) =>
       _$$CustomErrorBoundaryProps(backingMap);
 
-  _$$CustomErrorBoundaryState$JsMap _cachedTypedState;
+  late _$$CustomErrorBoundaryState$JsMap _cachedTypedState;
   @override
   _$$CustomErrorBoundaryState$JsMap get state => _cachedTypedState;
 

@@ -121,7 +121,7 @@ main() {
           test('allSuperTypes', () {
             expect(parseAndGetSingleClassish('''
               class Foo extends Bar with Baz implements Qux {}
-            ''').allSuperTypes.map((m) => m.name.name), unorderedEquals(['Bar', 'Baz', 'Qux']));
+            ''').allSuperTypes.map((m) => m!.name.name), unorderedEquals(['Bar', 'Baz', 'Qux']));
           });
         });
       });
@@ -192,7 +192,7 @@ main() {
           test('allSuperTypes', () {
             expect(parseAndGetSingleClassish('''
               class Foo = Bar with Baz implements Qux;
-            ''').allSuperTypes.map((m) => m.name.name), unorderedEquals(['Bar', 'Baz', 'Qux']));
+            ''').allSuperTypes.map((m) => m!.name.name), unorderedEquals(['Bar', 'Baz', 'Qux']));
           });
         });
       });
@@ -268,7 +268,7 @@ main() {
           test('allSuperTypes', () {
             expect(parseAndGetSingleClassish('''
               mixin Foo on Bar implements Baz {}
-            ''').allSuperTypes.map((m) => m.name.name), unorderedEquals(['Bar', 'Baz']));
+            ''').allSuperTypes.map((m) => m!.name.name), unorderedEquals(['Bar', 'Baz']));
           });
         });
       });

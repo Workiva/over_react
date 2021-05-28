@@ -22,9 +22,9 @@ import '../parsing.dart';
 import 'names.dart';
 
 abstract class BoilerplateDeclarationGenerator {
-  SourceFile/*?*/ sourceFile;
-  StringBuffer/*?*/ outputContentsBuffer;
-  Logger/*?*/ logger;
+  SourceFile? sourceFile;
+  StringBuffer? outputContentsBuffer;
+  Logger? logger;
 
   @protected
   Version get version;
@@ -56,7 +56,7 @@ String getAccessorKeyNamespace(TypedMapNames names, annotations.TypedMap meta) {
   return specifiedKeyNamespace ?? defaultNamespace;
 }
 
-String generatedMixinWarningCommentLine(TypedMapNames mixinNames, {@required bool isProps}) {
+String generatedMixinWarningCommentLine(TypedMapNames mixinNames, {required bool isProps}) {
   final value = '// If this generated mixin is undefined, it\'s likely because'
       ' ${mixinNames.consumerName} is not a valid `mixin`-based ${isProps ? 'props' : 'state'} mixin,'
       ' or because it is but the generated mixin was not imported.'

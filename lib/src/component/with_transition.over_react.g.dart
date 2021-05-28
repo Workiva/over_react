@@ -21,7 +21,7 @@ final $WithTransitionComponentFactory = registerComponent2(
   displayName: 'WithTransition',
 );
 
-_$$WithTransitionProps _$WithTransition([Map backingProps]) =>
+_$$WithTransitionProps _$WithTransition([Map? backingProps]) =>
     backingProps == null
         ? _$$WithTransitionProps$JsMap(JsBackedMap())
         : _$$WithTransitionProps(backingProps);
@@ -177,7 +177,7 @@ class _$$WithTransitionState$JsMap extends _$$WithTransitionState {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$WithTransitionComponent extends WithTransitionComponent {
-  _$$WithTransitionProps$JsMap _cachedTypedProps;
+  late _$$WithTransitionProps$JsMap _cachedTypedProps;
 
   @override
   _$$WithTransitionProps$JsMap get props => _cachedTypedProps;
@@ -204,7 +204,7 @@ class _$WithTransitionComponent extends WithTransitionComponent {
   _$$WithTransitionProps typedPropsFactory(Map backingMap) =>
       _$$WithTransitionProps(backingMap);
 
-  _$$WithTransitionState$JsMap _cachedTypedState;
+  late _$$WithTransitionState$JsMap _cachedTypedState;
   @override
   _$$WithTransitionState$JsMap get state => _cachedTypedState;
 
@@ -251,24 +251,24 @@ class _$WithTransitionComponent extends WithTransitionComponent {
 mixin $WithTransitionPropsMixin on WithTransitionPropsMixin {
   static const PropsMeta meta = _$metaForWithTransitionPropsMixin;
   @override
-  bool get isShown =>
-      (props[_$key__isShown__WithTransitionPropsMixin] ?? null) as bool;
+  bool? get isShown =>
+      (props[_$key__isShown__WithTransitionPropsMixin] ?? null) as bool?;
   @override
-  set isShown(bool value) =>
+  set isShown(bool? value) =>
       props[_$key__isShown__WithTransitionPropsMixin] = value;
   @override
-  Map<TransitionPhase, Map> get childPropsByPhase =>
+  Map<TransitionPhase, Map>? get childPropsByPhase =>
       (props[_$key__childPropsByPhase__WithTransitionPropsMixin] ?? null)
-          as Map<TransitionPhase, Map>;
+          as Map<TransitionPhase, Map>?;
   @override
-  set childPropsByPhase(Map<TransitionPhase, Map> value) =>
+  set childPropsByPhase(Map<TransitionPhase, Map?>? value) =>
       props[_$key__childPropsByPhase__WithTransitionPropsMixin] = value;
   @override
-  Duration get transitionTimeout =>
+  Duration? get transitionTimeout =>
       (props[_$key__transitionTimeout__WithTransitionPropsMixin] ?? null)
-          as Duration;
+          as Duration?;
   @override
-  set transitionTimeout(Duration value) =>
+  set transitionTimeout(Duration? value) =>
       props[_$key__transitionTimeout__WithTransitionPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__isShown__WithTransitionPropsMixin =
@@ -313,12 +313,12 @@ mixin $WithTransitionState on WithTransitionState {
   static const StateMeta meta = _$metaForWithTransitionState;
   @override
   @protected
-  TransitionPhase get $transitionPhase =>
+  TransitionPhase? get $transitionPhase =>
       (state[_$key__$transitionPhase__WithTransitionState] ?? null)
-          as TransitionPhase;
+          as TransitionPhase?;
   @override
   @protected
-  set $transitionPhase(TransitionPhase value) =>
+  set $transitionPhase(TransitionPhase? value) =>
       state[_$key__$transitionPhase__WithTransitionState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__$transitionPhase__WithTransitionState =

@@ -26,26 +26,26 @@ UiFactory<SafeRenderManagerHelperProps> SafeRenderManagerHelper =
 @Props()
 class _$SafeRenderManagerHelperProps extends UiProps {
   @requiredProp
-  ReactElement Function() getInitialContent;
+  ReactElement Function()? getInitialContent;
 
-  CallbackRef contentRef;
+  CallbackRef? contentRef;
 }
 
 @State()
 class _$SafeRenderManagerHelperState extends UiState {
-  ReactElement content;
+  ReactElement? content;
 }
 
 @Component2()
 class SafeRenderManagerHelperComponent extends UiStatefulComponent2<SafeRenderManagerHelperProps, SafeRenderManagerHelperState> {
   @override
-  get initialState => (newState()..content = props.getInitialContent());
+  get initialState => (newState()..content = props.getInitialContent!());
 
-  void renderContent(ReactElement content) {
+  void renderContent(ReactElement? content) {
     setState(newState()..content = content);
   }
 
-  void tryUnmountContent({void Function(bool isUnmounted) onMaybeUnmounted}) {
+  void tryUnmountContent({void Function(bool isUnmounted)? onMaybeUnmounted}) {
     setState(newState()..content = null, () {
       onMaybeUnmounted?.call(state.content == null);
     });
@@ -57,7 +57,7 @@ class SafeRenderManagerHelperComponent extends UiStatefulComponent2<SafeRenderMa
   render() {
     if (state.content == null) return null;
 
-    return cloneElement(state.content, domProps()..ref = chainRef(state.content, _contentRef));
+    return cloneElement(state.content, domProps()..ref = chainRef(state.content!, _contentRef));
   }
 
   void _contentRef(ref) {

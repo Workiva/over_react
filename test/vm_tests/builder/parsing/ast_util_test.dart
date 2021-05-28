@@ -289,7 +289,7 @@ main() {
 
     group('SourceFileSpanHelper', () {
       group('spanFor', () {
-        SourceFile sourceFile;
+        late SourceFile sourceFile;
 
         setUpAll(() {
           // Offsets of characters, for convenience

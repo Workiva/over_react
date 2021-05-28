@@ -18,12 +18,12 @@ import 'package:over_react/over_react.dart';
 part 'function_component.over_react.g.dart';
 
 mixin BasicProps on UiProps {
-  Ref forwardedRef;
-  String basicProp;
-  String basic1;
-  String basic2;
-  String basic3;
-  String basic4;
+  Ref? forwardedRef;
+  String? basicProp;
+  String? basic1;
+  String? basic2;
+  String? basic3;
+  String? basic4;
 }
 
 UiFactory<BasicProps> Basic = uiForwardRef(
@@ -56,7 +56,7 @@ UiFactory<BasicProps> Simple = uiFunction(
 );
 
 mixin FooProps on UiProps {
-  String content;
+  String? content;
 }
 
 UiFactory<FooProps> Foo = uiFunction(
@@ -64,7 +64,7 @@ UiFactory<FooProps> Foo = uiFunction(
   _$FooConfig, // ignore: undefined_identifier
 );
 
-ReactElement functionComponentContent() {
+ReactElement? functionComponentContent() {
   GenericFactory(props) {
     return Dom.div()('prop id: ${props.id}');
   }

@@ -35,7 +35,7 @@ const PropsMeta _$metaForFlawedOnMountProps = PropsMeta(
   keys: _$FlawedOnMountPropsAccessorsMixin.$propKeys,
 );
 
-_$$FlawedOnMountProps _$FlawedOnMount([Map backingProps]) =>
+_$$FlawedOnMountProps _$FlawedOnMount([Map? backingProps]) =>
     backingProps == null
         ? _$$FlawedOnMountProps$JsMap(JsBackedMap())
         : _$$FlawedOnMountProps(backingProps);
@@ -108,7 +108,7 @@ class _$$FlawedOnMountProps$JsMap extends _$$FlawedOnMountProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$FlawedOnMountComponent extends FlawedOnMountComponent {
-  _$$FlawedOnMountProps$JsMap _cachedTypedProps;
+  late _$$FlawedOnMountProps$JsMap _cachedTypedProps;
 
   @override
   _$$FlawedOnMountProps$JsMap get props => _cachedTypedProps;

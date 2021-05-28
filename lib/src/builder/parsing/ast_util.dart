@@ -58,10 +58,10 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
 
 /// Extension built on both [TypeNameHelper] and [NameHelper] to allow
 /// for easy access to the `name` field of [Identifier]s.
-extension TypeAnnotationNameHelper on TypeAnnotation {
+extension TypeAnnotationNameHelper on TypeAnnotation? {
   /// The unprefixed name of the node if the node is a [NamedType], or `null`
   /// if this type is not named.
-  String get typeNameWithoutPrefix => tryCast<NamedType>()?.nameWithoutPrefix;
+  String? get typeNameWithoutPrefix => tryCast<NamedType>()?.nameWithoutPrefix;
 }
 
 /// Extension built on [NameHelper] to allow for easy access to the `name`
@@ -125,7 +125,7 @@ extension MetadataHelper on AnnotatedNode {
   }
 
   /// Returns the first annotation on this node whose class or variable name is [name].
-  Annotation getAnnotationWithName(String name) {
+  Annotation? getAnnotationWithName(String name) {
     assert(!name.contains('.'), 'must be a class or variable name, unprefixed');
 
     return metadata.firstWhere(
@@ -134,7 +134,7 @@ extension MetadataHelper on AnnotatedNode {
   }
 
   /// Returns the first annotation on this node whose class or variable name is included in [names].
-  Annotation getAnnotationWithNames(Set<String> names) {
+  Annotation? getAnnotationWithNames(Set<String> names) {
     assert(
         !names.any((name) => name.contains('.')), 'must be a class or variable name, unprefixed');
 
@@ -160,7 +160,7 @@ extension SourceFileSpanHelper on SourceFile {
   /// Returns a span for the given [AstNode] or [Token].
   ///
   /// If it's an [AstNode], the span starts after the doc comment and metadata (see [getSpanForNode]).
-  FileSpan spanFor(SyntacticEntity/*!*/ nodeOrToken) => nodeOrToken is AstNode
+  FileSpan spanFor(SyntacticEntity nodeOrToken) => nodeOrToken is AstNode
       ? getSpanForNode(this, nodeOrToken) as FileSpan
       : _getSpanForEntity(nodeOrToken);
 
@@ -190,7 +190,7 @@ bool anyDescendantIdentifiers(Expression expression, bool Function(Identifier) t
 }
 
 /// Returns the [Identifier] within [expression] matches the predicate [test].
-SimpleIdentifier getDescendantIdentifier(Expression expression, bool Function(Identifier) test) {
+SimpleIdentifier? getDescendantIdentifier(Expression expression, bool Function(Identifier) test) {
   final visitor = _AnyDescendantIdentifiersVisitor(test);
   expression.accept(visitor);
   return visitor.match;
@@ -200,7 +200,7 @@ class _AnyDescendantIdentifiersVisitor extends UnifyingAstVisitor<void> {
   final bool Function(Identifier) _test;
 
   bool hasMatch = false;
-  SimpleIdentifier match;
+  SimpleIdentifier? match;
 
   _AnyDescendantIdentifiersVisitor(this._test);
 

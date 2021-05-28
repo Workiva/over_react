@@ -17,7 +17,7 @@ import 'package:over_react/over_react.dart';
 
 import '../../demo_components.dart';
 
-ReactElement progressContextualDemo() => Dom.div()(
+ReactElement? progressContextualDemo() => Dom.div()(
   (Progress()
     ..value = 25.0
     ..skin = ProgressSkin.SUCCESS

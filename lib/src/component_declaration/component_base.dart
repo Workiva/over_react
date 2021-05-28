@@ -55,10 +55,10 @@ export 'component_type_checking.dart' show isComponentOfType, isValidElementOfTy
 ReactDartComponentFactoryProxy registerComponent(react.Component Function() dartComponentFactory, {
     bool isWrapper = false,
     // ignore: deprecated_member_use
-    ReactDartComponentFactoryProxy parentType,
-    UiFactory builderFactory,
-    Type componentClass,
-    String displayName,
+    ReactDartComponentFactoryProxy? parentType,
+    UiFactory? builderFactory,
+    Type? componentClass,
+    String? displayName,
 }) {
   // ignore: deprecated_member_use
   final reactComponentFactory = react.registerComponent(dartComponentFactory) as ReactDartComponentFactoryProxy;
@@ -84,21 +84,21 @@ ReactDartComponentFactoryProxy registerComponent(react.Component Function() dart
 ///
 /// __Deprecated.__ Use `registerAbstractComponent2` instead. Will be removed in the `4.0.0` release.
 @Deprecated('4.0.0')
-ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentClass, {ReactDartComponentFactoryProxy parentType}) =>
+ReactDartComponentFactoryProxy registerAbstractComponent(Type abstractComponentClass, {ReactDartComponentFactoryProxy? parentType}) =>
     registerComponent(() => DummyComponent(), componentClass: abstractComponentClass, parentType: parentType);
 
 /// A function that returns a new [TProps] instance, optionally backed by the specified [backingProps].
 ///
 /// For use in wrapping existing Maps in typed getters and setters, and for creating React components
 /// via a fluent-style builder interface.
-typedef TProps/*!*/ UiFactory<TProps extends UiProps>([Map backingProps]);
+typedef TProps UiFactory<TProps extends UiProps>([Map? backingProps]);
 
 extension UiFactoryHelpers<TProps extends bh.UiProps> on UiFactory<TProps> {
   /// Generates the configuration necessary to construct a UiFactory while invoking
   /// `uiForwardRef` with a props class that has already been consumed.
   ///
   /// See `uiForwardRef` for examples and context.
-  UiFactoryConfig<TProps> asForwardRefConfig({String displayName}) => UiFactoryConfig(propsFactory: PropsFactory.fromUiFactory(this), displayName: displayName);
+  UiFactoryConfig<TProps> asForwardRefConfig({String? displayName}) => UiFactoryConfig(propsFactory: PropsFactory.fromUiFactory(this), displayName: displayName);
 }
 
 /// A utility variation on [UiFactory], __without__ a `backingProps` parameter.
@@ -154,9 +154,9 @@ typedef TProps BuilderOnlyUiFactory<TProps extends UiProps>();
 ///
 /// __Deprecated.__ Use `UiComponent2` instead. Will be removed in the `4.0.0` release.
 @Deprecated('4.0.0')
-abstract class UiComponent<TProps extends UiProps/*!*/> extends react.Component with DisposableManagerProxy {
+abstract class UiComponent<TProps extends UiProps> extends react.Component with DisposableManagerProxy {
   /// The props for the non-forwarding props defined in this component.
-  Iterable<ConsumedProps> get consumedProps => null;
+  Iterable<ConsumedProps>? get consumedProps => null;
 
   /// Returns a copy of this component's props with keys found in [consumedProps] omitted.
   ///
@@ -182,7 +182,7 @@ abstract class UiComponent<TProps extends UiProps/*!*/> extends react.Component 
 
   /// Returns a copy of this component's props with React props optionally omitted, and
   /// with the specified [keysToOmit] and [keySetsToOmit] omitted.
-  Map copyProps({bool omitReservedReactProps = true, bool onlyCopyDomProps = false, Iterable keysToOmit, Iterable<Iterable> keySetsToOmit}) {
+  Map copyProps({bool omitReservedReactProps = true, bool onlyCopyDomProps = false, Iterable? keysToOmit, Iterable<Iterable>? keySetsToOmit}) {
     return getPropsToForward(this.props,
         omitReactProps: omitReservedReactProps,
         onlyCopyDomProps: onlyCopyDomProps,
@@ -441,7 +441,7 @@ abstract class UiProps extends MapBase
   /// Is a noop if [shouldAdd] is `false` or [propMap] is `null`.
   ///
   /// > Related: [addProp], [modifyProps]
-  void addProps(Map propMap, [bool shouldAdd = true]) {
+  void addProps(Map? propMap, [bool shouldAdd = true]) {
     if (!shouldAdd || propMap == null) return;
 
     this.addAll(propMap);
@@ -452,7 +452,7 @@ abstract class UiProps extends MapBase
   /// Is a noop if [shouldModify] is `false` or [modifier] is `null`.
   ///
   /// > Related: [addProps]
-  void modifyProps(PropsModifier modifier, [bool shouldModify = true]) {
+  void modifyProps(PropsModifier? modifier, [bool shouldModify = true]) {
     if (!shouldModify || modifier == null) return;
 
     modifier(this);
@@ -529,32 +529,32 @@ abstract class UiProps extends MapBase
   /// Allows for an element to have multiple test IDs to prevent overwriting when cloning elements or components.
   ///
   /// > For use in a testing environment (when [testMode] is true).
-  void addTestId(String value, {String key = defaultTestIdKey}) {
+  void addTestId(String? value, {String key = defaultTestIdKey}) {
     if (!_inTestMode || value == null) {
       return;
     }
 
-    String testId = getTestId(key: key);
+    String? testId = getTestId(key: key);
 
     if (testId == null) {
       props[key] = value;
     } else {
-      props[key] = getTestId(key: key) + ' $value';
+      props[key] = getTestId(key: key)! + ' $value';
     }
   }
 
   /// Gets the [defaultTestIdKey] prop value, or one testId from the prop _(or custom [key] prop value)_.
   ///
   /// > For use in a testing environment (when [testMode] is true).
-  String getTestId({String key = defaultTestIdKey}) {
-    return props[key] as String;
+  String? getTestId({String key = defaultTestIdKey}) {
+    return props[key] as String?;
   }
 
   /// Gets the `data-test-id` prop key for use in a testing environment.
   ///
   /// DEPRECATED. Use [getTestId] instead.
   @Deprecated('2.0.0')
-  String get testId {
+  String? get testId {
     return getTestId();
   }
 
@@ -574,11 +574,11 @@ abstract class UiProps extends MapBase
   }
 
   /// Returns a new component with this builder's [props] and the specified [children].
-  ReactElement/*!*/ build([dynamic children]) {
+  ReactElement build([dynamic children]) {
     assert(_validateChildren(children));
 
     _assertComponentFactoryIsNotNull();
-    return componentFactory(props, children) as ReactElement;
+    return componentFactory!(props, children) as ReactElement;
   }
 
   /// Creates a new component with this builder's props and the specified [children].
@@ -623,7 +623,7 @@ abstract class UiProps extends MapBase
     // https://github.com/dart-lang/sdk/issues/29904
     // Should have the benefit of better performance;
     _assertComponentFactoryIsNotNull();
-    return componentFactory.build(props, childArguments) as ReactElement;
+    return componentFactory!.build(props, childArguments) as ReactElement;
   }
 
   /// Validates that no [children] are instances of [UiProps], and prints a helpful message for a better debugging
@@ -651,7 +651,7 @@ abstract class UiProps extends MapBase
   }
 
   // fixme null-safety: nullable or `late`?
-  ReactComponentFactoryProxy componentFactory;
+  ReactComponentFactoryProxy? componentFactory;
 
   /// An unmodifiable map view of the default props for this component brought
   /// in from the [componentFactory].
@@ -712,22 +712,22 @@ abstract class MapViewMixin<K, V> implements _OverReactMapViewBase<K, V>, Map<K,
   @override Iterable<MapEntry<K, V>> get entries => _map.entries;
   @override void addEntries(Iterable<MapEntry<K, V>> newEntries) => _map.addEntries(newEntries);
   @override void removeWhere(bool Function(K key, V value) predicate) => _map.removeWhere(predicate);
-  @override V update(K key, V Function(V value) update, {V Function() ifAbsent}) => _map.update(key, update, ifAbsent: ifAbsent);
+  @override V update(K key, V Function(V value) update, {V Function()? ifAbsent}) => _map.update(key, update, ifAbsent: ifAbsent);
   @override void updateAll(V Function(K key, V value) update) => _map.updateAll(update);
   @override Map<RK, RV> cast<RK, RV>() => _map.cast<RK, RV>();
-  @override V operator [](Object key) => _map[key];
+  @override V? operator [](Object? key) => _map[key as K*];
   @override void operator []=(K key, V value) { _map[key] = value; }
   @override void addAll(Map<K, V> other) { _map.addAll(other); }
   @override void clear() { _map.clear(); }
   @override V putIfAbsent(K key, V Function() ifAbsent) => _map.putIfAbsent(key, ifAbsent);
-  @override bool containsKey(Object key) => _map.containsKey(key);
-  @override bool containsValue(Object value) => _map.containsValue(value);
+  @override bool containsKey(Object? key) => _map.containsKey(key);
+  @override bool containsValue(Object? value) => _map.containsValue(value);
   @override void forEach(void Function(K key, V value) action) { _map.forEach(action); }
   @override bool get isEmpty => _map.isEmpty;
   @override bool get isNotEmpty => _map.isNotEmpty;
   @override int get length => _map.length;
   @override Iterable<K> get keys => _map.keys;
-  @override V remove(Object key) => _map.remove(key);
+  @override V? remove(Object? key) => _map.remove(key);
   @override Iterable<V> get values => _map.values;
 }
 
@@ -776,7 +776,7 @@ class StateDescriptor implements _Descriptor {
   /// The message included in the thrown error if the `state` is not set.
   ///
   /// __Currently not used.__
-  final String errorMessage;
+  final String? errorMessage;
 
   const StateDescriptor(this.key, {this.isRequired = false, this.isNullable = false, this.errorMessage});
 }
@@ -786,17 +786,17 @@ class ConsumedProps {
   /// Rich views of prop declarations.
   ///
   /// This includes string keys, and required prop validation related fields.
-  final List<PropDescriptor>/*!*/ props;
+  final List<PropDescriptor> props;
 
   /// Top-level accessor of string keys of props stored in [props].
-  final List<String>/*!*/ keys;
+  final List<String> keys;
 
   const ConsumedProps(this.props, this.keys);
 }
 
 abstract class AccessorMeta<T extends _Descriptor> {
-  List<T>/*!*/ get fields;
-  List<String>/*!*/ get keys;
+  List<T> get fields;
+  List<String> get keys;
 }
 
 /// Metadata for the prop fields declared in a specific props class--
@@ -832,13 +832,13 @@ class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
   ///
   /// This includes string keys, and required prop validation related fields.
   @override
-  final List<PropDescriptor>/*!*/ fields;
+  final List<PropDescriptor> fields;
 
   /// Top-level accessor of string keys of props stored in [fields].
   @override
-  final List<String>/*!*/ keys;
+  final List<String> keys;
 
-  const PropsMeta({this.fields, this.keys});
+  const PropsMeta({required this.fields, required this.keys});
 
   /// A convenience constructor to make a metadata object for a single key.
   ///
@@ -857,7 +857,7 @@ class PropsMeta implements ConsumedProps, AccessorMeta<PropDescriptor> {
   );
 
   @override
-  List<PropDescriptor>/*!*/ get props => fields;
+  List<PropDescriptor> get props => fields;
 
   @override
   String toString() => 'PropsMeta:$keys';
@@ -898,7 +898,7 @@ class StateMeta implements AccessorMeta<StateDescriptor> {
   @override
   final List<String> keys;
 
-  const StateMeta({this.fields, this.keys});
+  const StateMeta({required this.fields, required this.keys});
 }
 
 abstract class _AccessorMetaCollection<T extends _Descriptor, U extends AccessorMeta<T>> implements AccessorMeta<T> {
@@ -913,7 +913,7 @@ abstract class _AccessorMetaCollection<T extends _Descriptor, U extends Accessor
   /// See `UiComponent2.consumedProps` for usage examples.
   U forMixin(Type mixinType) {
     // FIXME null-safety remove `!` the migratin tool forces here
-    final meta = _metaByMixin[mixinType];
+    final U meta = _metaByMixin[mixinType]!;
     assert(meta != null,
         'No meta found for $mixinType;'
         'it likely isn\'t mixed in by the props/state class.');

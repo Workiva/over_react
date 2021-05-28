@@ -40,7 +40,7 @@ class ContextProviderWrapperProps extends _$ContextProviderWrapperProps
   static const PropsMeta meta = _$metaForContextProviderWrapperProps;
 }
 
-_$$ContextProviderWrapperProps _$ContextProviderWrapper([Map backingProps]) =>
+_$$ContextProviderWrapperProps _$ContextProviderWrapper([Map? backingProps]) =>
     backingProps == null
         ? _$$ContextProviderWrapperProps$JsMap(JsBackedMap())
         : _$$ContextProviderWrapperProps(backingProps);
@@ -118,12 +118,12 @@ abstract class _$ContextProviderWrapperStateAccessorsMixin
 
   /// <!-- Generated from [_$ContextProviderWrapperState.latestValue] -->
   @override
-  int get latestValue =>
-      (state[_$key__latestValue___$ContextProviderWrapperState] ?? null) as int;
+  int? get latestValue =>
+      (state[_$key__latestValue___$ContextProviderWrapperState] ?? null) as int?;
 
   /// <!-- Generated from [_$ContextProviderWrapperState.latestValue] -->
   @override
-  set latestValue(int value) =>
+  set latestValue(int? value) =>
       state[_$key__latestValue___$ContextProviderWrapperState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor
@@ -213,7 +213,7 @@ class _$$ContextProviderWrapperState$JsMap
 // generated for the associated props class.
 class _$ContextProviderWrapperComponent
     extends ContextProviderWrapperComponent {
-  _$$ContextProviderWrapperProps$JsMap _cachedTypedProps;
+  late _$$ContextProviderWrapperProps$JsMap _cachedTypedProps;
 
   @override
   _$$ContextProviderWrapperProps$JsMap get props => _cachedTypedProps;
@@ -241,7 +241,7 @@ class _$ContextProviderWrapperComponent
   _$$ContextProviderWrapperProps typedPropsFactory(Map backingMap) =>
       _$$ContextProviderWrapperProps(backingMap);
 
-  _$$ContextProviderWrapperState$JsMap _cachedTypedState;
+  late _$$ContextProviderWrapperState$JsMap _cachedTypedState;
   @override
   _$$ContextProviderWrapperState$JsMap get state => _cachedTypedState;
 

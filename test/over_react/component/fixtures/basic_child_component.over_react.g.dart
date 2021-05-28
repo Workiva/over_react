@@ -39,7 +39,7 @@ class BasicChildProps extends _$BasicChildProps
   static const PropsMeta meta = _$metaForBasicChildProps;
 }
 
-_$$BasicChildProps _$BasicChild([Map backingProps]) => backingProps == null
+_$$BasicChildProps _$BasicChild([Map? backingProps]) => backingProps == null
     ? _$$BasicChildProps$JsMap(JsBackedMap())
     : _$$BasicChildProps(backingProps);
 
@@ -111,7 +111,7 @@ class _$$BasicChildProps$JsMap extends _$$BasicChildProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$BasicChildComponent extends BasicChildComponent {
-  _$$BasicChildProps$JsMap _cachedTypedProps;
+  late _$$BasicChildProps$JsMap _cachedTypedProps;
 
   @override
   _$$BasicChildProps$JsMap get props => _cachedTypedProps;

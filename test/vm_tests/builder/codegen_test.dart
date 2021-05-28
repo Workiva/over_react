@@ -28,12 +28,12 @@ import './util.dart';
 
 main() {
   group('ImplGenerator', () {
-    ImplGenerator implGenerator;
+    ImplGenerator? implGenerator;
 
-    MockLogger logger;
-    SourceFile sourceFile;
+    late MockLogger logger;
+    late SourceFile sourceFile;
     CompilationUnit unit;
-    List<BoilerplateDeclaration> declarations;
+    late List<BoilerplateDeclaration> declarations;
 
     tearDown(() {
       implGenerator = null;
@@ -56,7 +56,7 @@ main() {
       setUpAndParse(source);
 
       implGenerator = ImplGenerator(logger, sourceFile);
-      declarations.forEach(implGenerator.generate);
+      declarations.forEach(implGenerator!.generate);
     }
 
     void verifyNoErrorLogs() {
@@ -65,7 +65,7 @@ main() {
     }
 
     void verifyImplGenerationIsValid() {
-      var buildOutput = implGenerator.outputContentsBuffer.toString();
+      var buildOutput = implGenerator!.outputContentsBuffer.toString();
 
       final result = parseString(content: buildOutput, throwIfDiagnostics: false);
       expect(result.errors, isEmpty, reason: 'transformed source should parse without errors:\n');
@@ -73,7 +73,7 @@ main() {
 
     void generateFromSource(String source) {
       setUpAndParse(source);
-      declarations.forEach(implGenerator.generate);
+      declarations.forEach(implGenerator!.generate);
     }
 
     group('generates an implementation that parses correctly', () {
@@ -96,21 +96,21 @@ main() {
           group('that subtypes another component, referencing the component class via', () {
             test('a simple identifier', () {
               generateFromSource(OverReactSrc.props(backwardsCompatible: backwardsCompatible, componentAnnotationArg: 'subtypeOf: BarComponent').source);
-              expect(implGenerator.outputContentsBuffer.toString(), contains('parentType: \$BarComponentFactory'));
+              expect(implGenerator!.outputContentsBuffer.toString(), contains('parentType: \$BarComponentFactory'));
             });
 
             test('a prefixed identifier', () {
               generateFromSource(OverReactSrc.props(backwardsCompatible: backwardsCompatible, componentAnnotationArg: 'subtypeOf: baz.BarComponent').source);
-              expect(implGenerator.outputContentsBuffer.toString(), contains('parentType: baz.\$BarComponentFactory'));
+              expect(implGenerator!.outputContentsBuffer.toString(), contains('parentType: baz.\$BarComponentFactory'));
             });
           });
 
           group('and includes concrete accessors class for', () {
             void testAccessorGeneration(String testName, OverReactSrc ors) {
               group(testName, () {
-                bool isProps;
-                String className;
-                String descriptorType;
+                late bool isProps;
+                late String className;
+                late String descriptorType;
                 setUp(() {
                   generateFromSource(ors.source);
                   isProps = ors.isProps(ors.annotation);
@@ -119,17 +119,17 @@ main() {
                 });
 
                 test('with proper accessors class declaration, retaining type parameters', () {
-                  expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       'abstract class _\$${className}AccessorsMixin${ors.typeParamSrc} '
                           'implements _\$$className${ors.typeParamSrcWithoutBounds} {'));
                 });
 
                 test('with abstract props/state getter', () {
-                  expect(implGenerator.outputContentsBuffer.toString(), contains('@override  Map get ${isProps ? 'props' : 'state'};'));
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains('@override  Map get ${isProps ? 'props' : 'state'};'));
                 });
 
                 test('contains props or state descriptors for all fields', () {
-                  expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  static const $descriptorType _\$prop__someField___\$$className = $descriptorType(_\$key__someField___\$$className);\n'
                       '  static const $descriptorType _\$prop__foo___\$$className = $descriptorType(_\$key__foo___\$$className);\n'
                       '  static const $descriptorType _\$prop__bar___\$$className = $descriptorType(_\$key__bar___\$$className);\n'
@@ -137,7 +137,7 @@ main() {
                 });
 
                 test('contains string keys', () {
-                  expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  static const String _\$key__someField___\$$className = \'$className.someField\';\n'
                       '  static const String _\$key__foo___\$$className = \'$className.foo\';\n'
                       '  static const String _\$key__bar___\$$className = \'$className.bar\';\n'
@@ -145,7 +145,7 @@ main() {
                 });
 
                 test('contains list of descriptors', () {
-                  expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  static const List<$descriptorType> ${ors.constantListName} = '
                       '[_\$prop__someField___\$$className, '
                       '_\$prop__foo___\$$className, '
@@ -154,7 +154,7 @@ main() {
                 });
 
                 test('contains list of keys', () {
-                  expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  static const List<String> ${ors.keyListName} = '
                       '[_\$key__someField___\$$className, '
                       '_\$key__foo___\$$className, '
@@ -164,34 +164,34 @@ main() {
 
                 group('with concrete implementations', () {
                   test('', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  String get someField => (${isProps ? 'props' : 'state'}[_\$key__someField___\$$className] ?? null) as String;'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  set someField(String value) => ${isProps ? 'props' : 'state'}[_\$key__someField___\$$className] = value'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('  String get someField => (${isProps ? 'props' : 'state'}[_\$key__someField___\$$className] ?? null) as String;'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('  set someField(String value) => ${isProps ? 'props' : 'state'}[_\$key__someField___\$$className] = value'));
                   });
 
                   test('for multiple fields declared on same line', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get foo => (${isProps ? 'props' : 'state'}[_\$key__foo___\$$className] ?? null) as bool;'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  set foo(bool value) => ${isProps ? 'props' : 'state'}[_\$key__foo___\$$className] = value'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get bar => (${isProps ? 'props' : 'state'}[_\$key__bar___\$$className] ?? null) as bool;'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  set bar(bool value) => ${isProps ? 'props' : 'state'}[_\$key__bar___\$$className] = value'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get baz => (${isProps ? 'props' : 'state'}[_\$key__baz___\$$className] ?? null) as bool;'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  set baz(bool value) => ${isProps ? 'props' : 'state'}[_\$key__baz___\$$className] = value'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('  bool get foo => (${isProps ? 'props' : 'state'}[_\$key__foo___\$$className] ?? null) as bool;'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('  set foo(bool value) => ${isProps ? 'props' : 'state'}[_\$key__foo___\$$className] = value'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('  bool get bar => (${isProps ? 'props' : 'state'}[_\$key__bar___\$$className] ?? null) as bool;'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('  set bar(bool value) => ${isProps ? 'props' : 'state'}[_\$key__bar___\$$className] = value'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('  bool get baz => (${isProps ? 'props' : 'state'}[_\$key__baz___\$$className] ?? null) as bool;'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('  set baz(bool value) => ${isProps ? 'props' : 'state'}[_\$key__baz___\$$className] = value'));
                   });
 
                   test('containing links to source', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  /// <!-- Generated from [_\$$className.someField] -->\n'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('  /// <!-- Generated from [_\$$className.someField] -->\n'));
                   });
 
                   test('that carry over annotations', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains(
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains(
                         '  @deprecated()\n'
                         '  String get someField => '));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains(
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains(
                         '  @deprecated()\n'
                         '  set someField(String value) => '));
                   });
 
                   test('but does not create implementations for non-fields', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), isNot(contains('abstractGetter')));
+                    expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains('abstractGetter')));
                   });
                 });
               });
@@ -199,9 +199,9 @@ main() {
 
             void testAccessorGenerationForMixins(String testName, OverReactSrc ors) {
               group(testName, () {
-                bool isProps;
-                String className;
-                String consumableClassName;
+                late bool isProps;
+                late String className;
+                late String consumableClassName;
                 setUp(() {
                   generateFromSource(ors.source);
                   isProps = ors.isProps(ors.annotation);
@@ -211,53 +211,53 @@ main() {
                 });
 
                 test('with proper accessors class declaration, retaining type parameters', () {
-                  expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       'abstract class $consumableClassName${ors.typeParamSrc} '
                           'implements $className${ors.typeParamSrcWithoutBounds} {'));
                 });
 
                 test('with abstract props/state getter', () {
-                  expect(implGenerator.outputContentsBuffer.toString(), contains('@override  Map get ${isProps ? 'props' : 'state'};'));
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains('@override  Map get ${isProps ? 'props' : 'state'};'));
                 });
 
                 group('with concrete implementations', () {
                   test('', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  String get someField => (${isProps ? 'props' : 'state'}[_\$key__someField__$className] ?? null) as String;'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  set someField(String value) => ${isProps ? 'props' : 'state'}[_\$key__someField__$className] = value'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('  String get someField => (${isProps ? 'props' : 'state'}[_\$key__someField__$className] ?? null) as String;'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('  set someField(String value) => ${isProps ? 'props' : 'state'}[_\$key__someField__$className] = value'));
                   });
 
                   test('for multiple fields declared on same line', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get foo => (${isProps ? 'props' : 'state'}[_\$key__foo__$className] ?? null) as bool;'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  set foo(bool value) => ${isProps ? 'props' : 'state'}[_\$key__foo__$className] = value'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get bar => (${isProps ? 'props' : 'state'}[_\$key__bar__$className] ?? null) as bool;'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  set bar(bool value) => ${isProps ? 'props' : 'state'}[_\$key__bar__$className] = value'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  bool get baz => (${isProps ? 'props' : 'state'}[_\$key__baz__$className] ?? null) as bool;'));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  set baz(bool value) => ${isProps ? 'props' : 'state'}[_\$key__baz__$className] = value'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('  bool get foo => (${isProps ? 'props' : 'state'}[_\$key__foo__$className] ?? null) as bool;'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('  set foo(bool value) => ${isProps ? 'props' : 'state'}[_\$key__foo__$className] = value'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('  bool get bar => (${isProps ? 'props' : 'state'}[_\$key__bar__$className] ?? null) as bool;'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('  set bar(bool value) => ${isProps ? 'props' : 'state'}[_\$key__bar__$className] = value'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('  bool get baz => (${isProps ? 'props' : 'state'}[_\$key__baz__$className] ?? null) as bool;'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('  set baz(bool value) => ${isProps ? 'props' : 'state'}[_\$key__baz__$className] = value'));
                   });
 
                   test('containing links to source', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('  /// <!-- Generated from [$className.someField] -->\n'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('  /// <!-- Generated from [$className.someField] -->\n'));
                   });
 
                   test('that carry over annotations', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains(
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains(
                         '  @deprecated()\n'
                         '  String get someField => '));
-                    expect(implGenerator.outputContentsBuffer.toString(), contains(
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains(
                         '  @deprecated()\n'
                         '  set someField(String value) => '));
                   });
 
                   test('but does not create implementations for non-fields', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), isNot(contains('abstractGetter => ')));
+                    expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains('abstractGetter => ')));
                   });
 
                   test('and copies over non-field implementations', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('String get abstractGetter;'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('String get abstractGetter;'));
                   });
 
                   test('and copies over fields marked with `@Accessor(doNotGenerate: true)`', () {
-                    expect(implGenerator.outputContentsBuffer.toString(), contains('String _someNonGeneratedField;'));
+                    expect(implGenerator!.outputContentsBuffer.toString(), contains('String _someNonGeneratedField;'));
                   });
                 });
               });
@@ -306,7 +306,7 @@ main() {
               test(testName, () {
                 setUpAndGenerate(ors.source);
                 final baseName = ors.prefixedBaseName;
-                expect(implGenerator.outputContentsBuffer.toString(), contains(
+                expect(implGenerator!.outputContentsBuffer.toString(), contains(
                     'final \$${baseName}ComponentFactory = registerComponent(\n'
                     '  () => _\$${baseName}Component(),\n'
                     '  builderFactory: _\$$baseName,\n'
@@ -329,7 +329,7 @@ main() {
               test(testName, () {
                 setUpAndGenerate(ors.source);
                 final baseName = ors.prefixedBaseName;
-                expect(implGenerator.outputContentsBuffer.toString(), contains(
+                expect(implGenerator!.outputContentsBuffer.toString(), contains(
                     '_\$\$${baseName}Props ${ors.factoryInitializer}([Map backingProps]) => _\$\$${baseName}Props(backingProps);\n'));
               });
             }
@@ -349,7 +349,7 @@ main() {
                 });
 
                 test('with the correct class declaration', () {
-                  expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       'class _\$\$${ors.prefixedBaseName}Props${ors.typeParamSrc} '
                       'extends _\$${ors.propsClassName}${ors.typeParamSrcWithoutBounds} '
                       'with _\$${ors.propsClassName}AccessorsMixin${ors.typeParamSrcWithoutBounds} '
@@ -357,33 +357,33 @@ main() {
                 });
 
                 test('with the correct constructor', () {
-                  expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  _\$\$${ors.prefixedBaseName}Props(Map backingMap) : this._props = {} {\n'
                       '     this._props = backingMap ?? {};\n'
                       '  }'));
                 });
 
                 test('with props backing map getter', () {
-                  expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  @override\n'
                       '  Map get props => _props;\n'
                       '  Map _props;'));
                 });
 
                 test('overrides `\$isClassGenerated` to return `true`', () {
-                  expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  @override\n'
                       '  bool get \$isClassGenerated => true;\n'));
                 });
 
                 test('overrides `componentFactory` to return the correct component factory', () {
-                  expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  @override\n'
                       '  ReactComponentFactoryProxy get componentFactory => super.componentFactory ?? \$${ors.prefixedBaseName}ComponentFactory;\n'));
                 });
 
                 test('sets the default prop key namespace', () {
-                  expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  @override\n'
                       '  String get propKeyNamespace => \'${ors.propsClassName}.\';\n'));
                 });
@@ -403,14 +403,14 @@ main() {
 
           test('does not include react component factory implementation for abstract component', () {
             setUpAndGenerate(OverReactSrc.abstractProps(backwardsCompatible: backwardsCompatible, needsComponent: true).source);
-            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains('registerComponent(()')));
+            expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains('registerComponent(()')));
           });
 
           test('for covariant keywords', () {
             final ors = OverReactSrc.abstractProps(backwardsCompatible: backwardsCompatible, body: 'covariant String foo;');
             generateFromSource(ors.source);
-            expect(implGenerator.outputContentsBuffer.toString(), contains('String get foo => (props[_\$key__foo___\$${ors.propsClassName}] ?? null) as String;'));
-            expect(implGenerator.outputContentsBuffer.toString(), contains('set foo(covariant String value) => props[_\$key__foo___\$${ors.propsClassName}] = value;'));
+            expect(implGenerator!.outputContentsBuffer.toString(), contains('String get foo => (props[_\$key__foo___\$${ors.propsClassName}] ?? null) as String;'));
+            expect(implGenerator!.outputContentsBuffer.toString(), contains('set foo(covariant String value) => props[_\$key__foo___\$${ors.propsClassName}] = value;'));
           });
 
           group('and creates concrete state implementation', () {
@@ -421,7 +421,7 @@ main() {
                 });
 
                 test('with the correct class declaration', () {
-                  expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       'class _\$\$${ors.prefixedBaseName}State${ors.typeParamSrc} '
                       'extends _\$${ors.stateClassName}${ors.typeParamSrcWithoutBounds} '
                       'with _\$${ors.stateClassName}AccessorsMixin${ors.typeParamSrcWithoutBounds} '
@@ -429,21 +429,21 @@ main() {
                 });
 
                 test('with the correct constructor', () {
-                  expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  _\$\$${ors.prefixedBaseName}State(Map backingMap) : this._state = {} {\n'
                       '     this._state = backingMap ?? {};\n'
                       '  }'));
                 });
 
                 test('with state backing map getter', () {
-                  expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  @override\n'
                       '  Map get state => _state;\n'
                       '  Map _state;'));
                 });
 
                 test('overrides `\$isClassGenerated` to return `true`', () {
-                  expect(implGenerator.outputContentsBuffer.toString(), contains(
+                  expect(implGenerator!.outputContentsBuffer.toString(), contains(
                       '  @override\n'
                       '  bool get \$isClassGenerated => true;\n'));
                 });
@@ -469,7 +469,7 @@ main() {
             setUpAndGenerate(ors.source);
             final className = ors.isProps(ors.annotation) ? ors.propsClassName : ors.stateClassName;
             final metaStructName = ors.isProps(ors.annotation) ? 'PropsMeta' : 'StateMeta';
-            expect(implGenerator.outputContentsBuffer.toString(), contains(
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(
                   'class $className extends _\$$className with _\$${className}AccessorsMixin {\n'
                   '  static const $metaStructName meta = _\$metaFor$className;\n'
                   '}\n'));
@@ -499,7 +499,7 @@ main() {
         void testStaticFieldCopying(OverReactSrc ors) {
           setUpAndGenerate(ors.source);
           fieldDeclarations.forEach((piece) {
-            expect(implGenerator.outputContentsBuffer.toString().trim(), contains(piece));
+            expect(implGenerator!.outputContentsBuffer.toString().trim(), contains(piece));
           });
         }
 
@@ -510,14 +510,14 @@ main() {
 
           test(', except for static `meta` field', () {
             testStaticFieldCopying(OverReactSrc.props(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
-            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
+            expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
             verify(logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.props(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
-            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
+            expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
             verify(logger.warning(startsWith('Static class member `meta`')));
           });
@@ -530,14 +530,14 @@ main() {
 
           test(', except for static `meta` field', () {
             testStaticFieldCopying(OverReactSrc.state(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
-            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
+            expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
             verify(logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.state(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
-            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
+            expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
             verify(logger.warning(startsWith('Static class member `meta`')));
           });
@@ -550,14 +550,14 @@ main() {
 
           test(', except for static `meta` field', () {
             testStaticFieldCopying(OverReactSrc.abstractProps(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
-            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
+            expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
             verify(logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.abstractProps(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
-            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
+            expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
             verify(logger.warning(startsWith('Static class member `meta`')));
           });
@@ -570,14 +570,14 @@ main() {
 
           test(', except for static `meta` field', () {
             testStaticFieldCopying(OverReactSrc.abstractState(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
-            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
+            expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
             verify(logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.abstractState(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
-            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
+            expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
             verify(logger.warning(startsWith('Static class member `meta`')));
           });
@@ -590,14 +590,14 @@ main() {
 
           test(', except for static `meta` field', () {
             testStaticFieldCopying(OverReactSrc.propsMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
-            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
+            expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
             verify(logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.propsMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
-            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
+            expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
             verify(logger.warning(startsWith('Static class member `meta`')));
           });
@@ -610,14 +610,14 @@ main() {
 
           test(', except for static `meta` field', () {
             testStaticFieldCopying(OverReactSrc.stateMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaField.join('\n')));
-            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
+            expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaField)));
             // clear the warning coming from declaration parsing about having static meta
             verify(logger.warning(startsWith('Static class member `meta`')));
           });
 
           test(', except for static `meta` method', () {
             testStaticFieldCopying(OverReactSrc.stateMixin(backwardsCompatible: false, body: fieldDeclarationsWithMetaMethod.join('\n')));
-            expect(implGenerator.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
+            expect(implGenerator!.outputContentsBuffer.toString(), isNot(contains(uselessMetaMethod)));
             // clear the warning coming from declaration parsing about having static meta
             verify(logger.warning(startsWith('Static class member `meta`')));
           });
@@ -643,8 +643,8 @@ main() {
               ..writeln(');')
             ).toString();
 
-            expect(implGenerator.outputContentsBuffer.toString(), contains(expectedAccessorsMixinClass));
-            expect(implGenerator.outputContentsBuffer.toString(), contains(expectedMetaForInstance));
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(expectedAccessorsMixinClass));
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(expectedMetaForInstance));
           });
         }
 
@@ -733,13 +733,13 @@ main() {
             mixin UnusedPropsMixin on UiProps {}
           ''');
 
-            expect(implGenerator.outputContentsBuffer.toString().contains(generatedPropsMapsForConfig('UnusedPropsMixin')), isFalse);
-            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('BarPropsMixin')));
-            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooProps')));
+            expect(implGenerator!.outputContentsBuffer.toString().contains(generatedPropsMapsForConfig('UnusedPropsMixin')), isFalse);
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('BarPropsMixin')));
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooProps')));
 
-            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('BarPropsMixin', 'Bar')));
-            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('BarPropsMixin', 'Foo')));
-            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooProps', 'Baz')));
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedConfig('BarPropsMixin', 'Bar')));
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedConfig('BarPropsMixin', 'Foo')));
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedConfig('FooProps', 'Baz')));
           });
 
           test('wrapped in an hoc', () {
@@ -754,9 +754,9 @@ main() {
                 mixin FooPropsMixin on UiProps {}
               ''');
 
-            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooPropsMixin')));
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooPropsMixin')));
 
-            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooPropsMixin', 'Foo')));
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedConfig('FooPropsMixin', 'Foo')));
           });
 
           test('with public generated config', () {
@@ -771,9 +771,9 @@ main() {
                 mixin FooProps on UiProps {}
               ''');
 
-            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooProps')));
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooProps')));
 
-            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooProps', 'Foo')));
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedConfig('FooProps', 'Foo')));
           });
         }
 
@@ -796,7 +796,7 @@ main() {
               }, Foo.asForwardRefConfig());
             ''');
 
-            expect(implGenerator.outputContentsBuffer.toString().contains(generatedConfig('FooProps', 'ForwardRefFoo')), isFalse);
+            expect(implGenerator!.outputContentsBuffer.toString().contains(generatedConfig('FooProps', 'ForwardRefFoo')), isFalse);
           });
 
           test('when the config does need to be generated but mixes in an already consumed props class', () {
@@ -822,8 +822,8 @@ main() {
               );
             ''');
 
-            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('UiForwardRefFooProps')));
-            expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('UiForwardRefFooProps', 'UiForwardRefFoo')));
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('UiForwardRefFooProps')));
+            expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedConfig('UiForwardRefFooProps', 'UiForwardRefFoo')));
           });
         });
 
@@ -878,12 +878,12 @@ main() {
             );
           ''');
 
-          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooPropsMixin')));
+          expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedPropsMapsForConfig('FooPropsMixin')));
 
-          expect(implGenerator.outputContentsBuffer.toString().contains(generatedConfig('UiProps', 'Bar')), isFalse, reason: '2');
-          expect(implGenerator.outputContentsBuffer.toString().contains(generatedConfig('FooPropsMixin', 'ArbitraryFoo')), isFalse, reason: '2');
-          expect(implGenerator.outputContentsBuffer.toString(), contains(generatedConfig('FooPropsMixin', 'Foo')), reason: '1');
-          expect(implGenerator.outputContentsBuffer.toString().contains(generatedConfig('FooPropsMixin', 'Baz')), isFalse, reason: '3');
+          expect(implGenerator!.outputContentsBuffer.toString().contains(generatedConfig('UiProps', 'Bar')), isFalse, reason: '2');
+          expect(implGenerator!.outputContentsBuffer.toString().contains(generatedConfig('FooPropsMixin', 'ArbitraryFoo')), isFalse, reason: '2');
+          expect(implGenerator!.outputContentsBuffer.toString(), contains(generatedConfig('FooPropsMixin', 'Foo')), reason: '1');
+          expect(implGenerator!.outputContentsBuffer.toString().contains(generatedConfig('FooPropsMixin', 'Baz')), isFalse, reason: '3');
         });
       });
     });

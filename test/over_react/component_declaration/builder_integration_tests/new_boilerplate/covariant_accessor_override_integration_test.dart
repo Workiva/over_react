@@ -23,7 +23,7 @@ main() {
 
       expect(() => test.foo = 'bar', returnsNormally);
 
-      String value;
+      String? value;
       expect(() => value = test.foo, returnsNormally);
 
       expect(value, 'bar');
@@ -34,12 +34,12 @@ main() {
 UiFactory<TestProps> Test = _$Test; // ignore: undefined_identifier, invalid_assignment
 
 mixin BasePropsMixin on UiProps {
-  Object foo;
+  Object? foo;
 }
 
 mixin OverridePropsMixin on UiProps, BasePropsMixin {
   @override
-  covariant String foo;
+  covariant String? foo;
 }
 
 class TestProps = UiProps with BasePropsMixin, OverridePropsMixin;

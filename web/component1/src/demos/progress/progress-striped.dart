@@ -17,7 +17,7 @@ import 'package:over_react/over_react.dart';
 
 import '../../demo_components.dart';
 
-ReactElement progressStripedDemo() => Dom.div()(
+ReactElement? progressStripedDemo() => Dom.div()(
   (Progress()
     ..value = 10.0
     ..isStriped = true

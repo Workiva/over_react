@@ -35,8 +35,8 @@ main() {
   enableTestMode();
 
   group('SafeRenderManager', () {
-    Element mountNode;
-    SafeRenderManager renderManager;
+    late Element mountNode;
+    SafeRenderManager? renderManager;
 
     setUp(() {
       mountNode = DivElement();
@@ -50,32 +50,32 @@ main() {
 
     group('render()', () {
       test('renders a component into the specified `mountNode`', () {
-        renderManager.render(Dom.div()('foo'));
+        renderManager!.render(Dom.div()('foo'));
         expect(mountNode.text, 'foo');
       });
 
       test('rerenders a component into the specified `mountNode`', () {
-        renderManager.render(Dom.div()('foo'));
-        renderManager.render(Dom.div()('bar'));
+        renderManager!.render(Dom.div()('foo'));
+        renderManager!.render(Dom.div()('bar'));
 
         expect(mountNode.text, 'bar');
       });
 
       group('renders a component and exposes a ref to it via `contentRef`', () {
         test('when there is no existing ref', () {
-          renderManager.render(Wrapper()());
+          renderManager!.render(Wrapper()());
 
-          expect(renderManager.contentRef, isNotNull);
-          expect(renderManager.contentRef, isA<WrapperComponent>());
+          expect(renderManager!.contentRef, isNotNull);
+          expect(renderManager!.contentRef, isA<WrapperComponent>());
         });
 
         test('by chaining any existing callback ref', () {
-          WrapperComponent existingWrapperRef;
+          WrapperComponent? existingWrapperRef;
 
-          renderManager.render((Wrapper()..ref = ((ref) => existingWrapperRef = ref as WrapperComponent))());
+          renderManager!.render((Wrapper()..ref = ((ref) => existingWrapperRef = ref as WrapperComponent))());
 
-          expect(renderManager.contentRef, isNotNull);
-          expect(existingWrapperRef, same(renderManager.contentRef));
+          expect(renderManager!.contentRef, isNotNull);
+          expect(existingWrapperRef, same(renderManager!.contentRef));
         });
       });
     });
@@ -83,23 +83,23 @@ main() {
     group('tryUnmount()', () {
       group('unmounts the rendered component', () {
         setUp(() {
-          renderManager.render(Wrapper()());
+          renderManager!.render(Wrapper()());
           expect(mountNode.children, isNotEmpty);
         });
 
         test('', () {
-          renderManager.tryUnmount();
+          renderManager!.tryUnmount();
           expect(mountNode.children, isEmpty);
         });
 
         test('and calls the provided callback when complete', () async {
-          renderManager.render(Wrapper()());
+          renderManager!.render(Wrapper()());
 
           expect(mountNode.children, isNotEmpty);
 
           final onUnmountCompleter = Completer();
 
-          renderManager.tryUnmount(onMaybeUnmounted: bind1Guarded((isUnmounted) {
+          renderManager!.tryUnmount(onMaybeUnmounted: bind1Guarded((isUnmounted) {
             expect(mountNode.children, isEmpty);
             expect(isUnmounted, isTrue);
 
@@ -115,7 +115,7 @@ main() {
 
         bool onUnmountCalledSynchronously = false;
 
-        renderManager.tryUnmount(onMaybeUnmounted: bind1Guarded((isUnmounted) {
+        renderManager!.tryUnmount(onMaybeUnmounted: bind1Guarded((isUnmounted) {
           expect(isUnmounted, isTrue);
           onUnmountCalledSynchronously = true;
         }));
@@ -133,28 +133,28 @@ main() {
 
       test('when autoAttachMountNode is true', () {
         renderManager = SafeRenderManager(autoAttachMountNode: true);
-        expect(document.contains(renderManager.mountNode), isFalse, reason: 'test setup check');
+        expect(document.contains(renderManager!.mountNode), isFalse, reason: 'test setup check');
 
-        renderManager.render(Dom.div()());
-        expect(renderManager.mountNode.parent, document.body);
+        renderManager!.render(Dom.div()());
+        expect(renderManager!.mountNode.parent, document.body);
 
-        renderManager.tryUnmount();
-        expect(renderManager.mountNode.parent, isNull);
+        renderManager!.tryUnmount();
+        expect(renderManager!.mountNode.parent, isNull);
       });
 
       test('unless autoAttachMountNode is false', () {
         renderManager = SafeRenderManager(autoAttachMountNode: false);
-        expect(renderManager.mountNode.parent, isNull, reason: 'test setup check');
+        expect(renderManager!.mountNode.parent, isNull, reason: 'test setup check');
 
-        renderManager.render(Dom.div()());
-        expect(renderManager.mountNode.parent, isNull);
+        renderManager!.render(Dom.div()());
+        expect(renderManager!.mountNode.parent, isNull);
 
         // Attach the node manually
-        document.body.append(renderManager.mountNode);
-        addTearDown(renderManager.mountNode.remove);
+        document.body!.append(renderManager!.mountNode);
+        addTearDown(renderManager!.mountNode.remove);
 
-        renderManager.tryUnmount();
-        expect(renderManager.mountNode.parent, document.body, reason: 'should not have removed the mount node');
+        renderManager!.tryUnmount();
+        expect(renderManager!.mountNode.parent, document.body, reason: 'should not have removed the mount node');
       });
     });
 
@@ -162,15 +162,15 @@ main() {
       final throwsObjectDisposedException = throwsA(isA<ObjectDisposedException>());
 
       setUp(() async {
-        await renderManager.dispose();
+        await renderManager!.dispose();
       });
 
       test('render', () {
-        expect(() => renderManager.render(Dom.div()()), throwsObjectDisposedException);
+        expect(() => renderManager!.render(Dom.div()()), throwsObjectDisposedException);
       });
 
       test('tryUnmount', () {
-        expect(() => renderManager.tryUnmount(), throwsObjectDisposedException);
+        expect(() => renderManager!.tryUnmount(), throwsObjectDisposedException);
       });
     });
 
@@ -179,16 +179,16 @@ main() {
         group('recovers,', () {
           test('and can dispose properly', () async {
             // Should not throw
-            await renderManager.dispose();
+            await renderManager!.dispose();
           });
 
           test('and can render content again and then dispose properly', () async {
-            renderManager.render(Dom.div()('second render'));
-            expect(renderManager.mountNode.text, 'second render');
+            renderManager!.render(Dom.div()('second render'));
+            expect(renderManager!.mountNode.text, 'second render');
 
             // Should not throw
-            await renderManager.dispose();
-            expect(renderManager.mountNode.text, isEmpty);
+            await renderManager!.dispose();
+            expect(renderManager!.mountNode.text, isEmpty);
           });
         });
       }
@@ -196,7 +196,7 @@ main() {
       group('on initial mount,', () {
         setUp(() {
           try {
-            renderManager.render((Test()
+            renderManager!.render((Test()
               ..onComponentDidMount = bind0(expectAsync0(() {
                 throw TestExceptionThrownFromLifecycle();
               }, id: 'onComponentDidMount'))
@@ -212,7 +212,7 @@ main() {
 
     group('edge-cases:', () {
       group('rerenders content correctly when when initial and second render happen synchronously and', () {
-        LifecycleCallback onRender;
+        LifecycleCallback? onRender;
 
         setUp(() {
           onRender = null;
@@ -220,12 +220,12 @@ main() {
 
         // ---------------------------------------------------------------------
         // Begin unmount sharedTests
-        void sharedRerenderTests({@required bool isThrowingTest}) {
+        void sharedRerenderTests({required bool isThrowingTest}) {
           group('calls come from', () {
             const render1Text = 'render1';
             const render2Text = 'render2';
 
-            bool onMaybeUnmountedCalled;
+            late bool onMaybeUnmountedCalled;
 
             setUp(() {
               onMaybeUnmountedCalled = false;
@@ -233,20 +233,20 @@ main() {
 
             tearDown(() async {
               const additionalRenderText = 'additionalRenderText';
-              renderManager.render(Test()(additionalRenderText));
+              renderManager!.render(Test()(additionalRenderText));
               expect(mountNode.text, additionalRenderText,
                   reason: 'should be able to render additional content properly afterwards');
 
               // Should not throw
-              await renderManager.dispose();
-              expect(renderManager.mountNode.text, isEmpty,
+              await renderManager!.dispose();
+              expect(renderManager!.mountNode.text, isEmpty,
                   reason: 'should be able to dispose properly afterwards');
             });
 
             // ignore: use_function_type_syntax_for_parameters
-            Future<Null> sharedTest({@required void Function() setUpAndReturnTriggerRender(void doRenders()),
-              @required bool verifyImmediateRender,
-              @required bool verifyDeferredRender,
+            Future<Null> sharedTest({required void Function() setUpAndReturnTriggerRender(void doRenders()),
+              required bool verifyImmediateRender,
+              required bool verifyDeferredRender,
             }) async {
               if (verifyImmediateRender && verifyDeferredRender) {
                 throw ArgumentError('verifyImmediateRender and verifyDeferredRender '
@@ -258,11 +258,11 @@ main() {
               // by whichever zone they end up being run in
               // (e.g., the root zone in the case of event handlers).
               final doRenders = bind0Guarded(expectAsync0(() {
-                renderManager.render(Test()(render1Text));
+                renderManager!.render(Test()(render1Text));
                 // Catch any errors thrown synchronously by this call, which will
                 // happen only when rendering is not deferred...
                 try {
-                  renderManager.render((Test()..onRender = onRender)(render2Text));
+                  renderManager!.render((Test()..onRender = onRender)(render2Text));
                 } on TestExceptionThrownFromLifecycle catch (_) {
                   // ...but rethrow them if we're not expecting them so they aren't swallowed.
                   if (!isThrowingTest) rethrow;
@@ -310,15 +310,15 @@ main() {
                   verifyImmediateRender: false,
                   verifyDeferredRender: true,
                   setUpAndReturnTriggerRender: (doRenders) {
-                    document.body.append(renderManager.mountNode);
-                    renderManager.render((Wrapper()
+                    document.body!.append(renderManager!.mountNode);
+                    renderManager!.render((Wrapper()
                       ..onClick = (_) {
                         doRenders();
                       }
                     )('setup render'));
 
                     // Use a real click since simulated clicks don't trigger this async behavior
-                    return () => findDomNode(renderManager.contentRef).click();
+                    return () => findDomNode(renderManager!.contentRef)!.click();
                   },
                 );
               });
@@ -328,15 +328,15 @@ main() {
                   verifyImmediateRender: false,
                   verifyDeferredRender: true,
                   setUpAndReturnTriggerRender: (doRenders) {
-                    document.body.append(renderManager.mountNode);
-                    renderManager.render((Wrapper()
+                    document.body!.append(renderManager!.mountNode);
+                    renderManager!.render((Wrapper()
                       ..onClick = (_) {
-                        (renderManager.contentRef as react.Component).setState({}, doRenders);
+                        (renderManager!.contentRef as react.Component).setState({}, doRenders);
                       }
                     )('setup render'));
 
                     // Use a real click since simulated clicks don't trigger this async behavior
-                    return () => findDomNode(renderManager.contentRef).click();
+                    return () => findDomNode(renderManager!.contentRef)!.click();
                   },
                 );
               });
@@ -346,11 +346,11 @@ main() {
                   verifyImmediateRender: false,
                   verifyDeferredRender: true,
                   setUpAndReturnTriggerRender: (doRenders) {
-                    renderManager.render((Test()
+                    renderManager!.render((Test()
                       ..onComponentWillUpdate = doRenders
                     )());
 
-                    return () => (renderManager.contentRef as react.Component).redraw();
+                    return () => (renderManager!.contentRef as react.Component).redraw();
                   },
                 );
               });
@@ -360,11 +360,11 @@ main() {
                   verifyImmediateRender: false,
                   verifyDeferredRender: true,
                   setUpAndReturnTriggerRender: (doRenders) {
-                    renderManager.render((Test()
+                    renderManager!.render((Test()
                       ..onComponentDidUpdate = doRenders
                     )());
 
-                    return () => (renderManager.contentRef as react.Component).redraw();
+                    return () => (renderManager!.contentRef as react.Component).redraw();
                   },
                 );
               });
@@ -393,7 +393,7 @@ main() {
                   verifyImmediateRender: false,
                   verifyDeferredRender: true,
                   setUpAndReturnTriggerRender: (doRenders) {
-                    TestJacket jacket;
+                    late TestJacket jacket;
                     jacket = mount((Wrapper()
                       ..onClick = (_) {
                         jacket.getDartInstance().setState({}, doRenders);
@@ -455,7 +455,7 @@ main() {
       });
 
       group('unmounts content safely when', () {
-        LifecycleCallback onComponentWillUnmount;
+        LifecycleCallback? onComponentWillUnmount;
 
         setUp(() {
           onComponentWillUnmount = null;
@@ -463,30 +463,30 @@ main() {
 
         tearDown(() async {
           const additionalRenderText = 'additionalRenderText';
-          renderManager.render(Test()(additionalRenderText));
+          renderManager!.render(Test()(additionalRenderText));
           expect(mountNode.text, additionalRenderText,
               reason: 'should be able to render additional content properly afterwards');
 
           // Should not throw
-          await renderManager.dispose();
-          expect(renderManager.mountNode.text, isEmpty,
+          await renderManager!.dispose();
+          expect(renderManager!.mountNode.text, isEmpty,
               reason: 'should be able to dispose properly afterwards');
         });
 
         // ---------------------------------------------------------------------
         // Begin unmount sharedTests
-        void sharedUnmountTests({@required bool isThrowingTest}) {
+        void sharedUnmountTests({required bool isThrowingTest}) {
           group('unmount calls come from', () {
-            bool onMaybeUnmountedCalled;
+            late bool onMaybeUnmountedCalled;
 
             setUp(() {
               onMaybeUnmountedCalled = false;
             });
 
             // ignore: use_function_type_syntax_for_parameters
-            Future<Null> sharedTest({@required void Function() setUpAndReturnUnmounter(void doUnmount()),
-              @required bool verifyImmediateUnmount,
-              @required bool verifyDeferredUnmount,
+            Future<Null> sharedTest({required void Function() setUpAndReturnUnmounter(void doUnmount()),
+              required bool verifyImmediateUnmount,
+              required bool verifyDeferredUnmount,
             }) async {
               if (verifyImmediateUnmount && verifyDeferredUnmount) {
                 throw ArgumentError('verifyImmediateUnmount and verifyDeferredUnmount '
@@ -496,7 +496,7 @@ main() {
               void _doUnmount() {
                 expect(mountNode.text, '1', reason: 'test setup check; should not have unmounted yet');
 
-                renderManager.tryUnmount(onMaybeUnmounted: bind1Guarded(expectAsync1((isUnmounted) {
+                renderManager!.tryUnmount(onMaybeUnmounted: bind1Guarded(expectAsync1((isUnmounted) {
                   onMaybeUnmountedCalled = true;
                   expect(isUnmounted, isTrue, reason: 'should have unmounted');
                 }, id: 'onMaybeUnmounted', reason: 'should always be called on unmount')));
@@ -545,8 +545,8 @@ main() {
                   verifyImmediateUnmount: false,
                   verifyDeferredUnmount: true,
                   setUpAndReturnUnmounter: (callUnmount) {
-                    document.body.append(renderManager.mountNode);
-                    renderManager.render((Test()
+                    document.body!.append(renderManager!.mountNode);
+                    renderManager!.render((Test()
                       ..onClick = (_) {
                         callUnmount();
                       }
@@ -554,7 +554,7 @@ main() {
                     )('1'));
 
                     // Use a real click since simulated clicks don't trigger this async behavior
-                    return () => findDomNode(renderManager.contentRef).click();
+                    return () => findDomNode(renderManager!.contentRef)!.click();
                   },
                 );
               });
@@ -564,16 +564,16 @@ main() {
                   verifyImmediateUnmount: false,
                   verifyDeferredUnmount: true,
                   setUpAndReturnUnmounter: (callUnmount) {
-                    document.body.append(renderManager.mountNode);
-                    renderManager.render((Test()
+                    document.body!.append(renderManager!.mountNode);
+                    renderManager!.render((Test()
                       ..onClick = (_) {
-                        (renderManager.contentRef as react.Component).setState({}, callUnmount);
+                        (renderManager!.contentRef as react.Component).setState({}, callUnmount);
                       }
                       ..onComponentWillUnmount = onComponentWillUnmount
                     )('1'));
 
                     // Use a real click since simulated clicks don't trigger this async behavior
-                    return () => findDomNode(renderManager.contentRef).click();
+                    return () => findDomNode(renderManager!.contentRef)!.click();
                   },
                 );
               });
@@ -583,12 +583,12 @@ main() {
                   verifyImmediateUnmount: false,
                   verifyDeferredUnmount: true,
                   setUpAndReturnUnmounter: (callUnmount) {
-                    renderManager.render((Test()
+                    renderManager!.render((Test()
                       ..onComponentWillUpdate = callUnmount
                       ..onComponentWillUnmount = onComponentWillUnmount
                     )('1'));
 
-                    return () => (renderManager.contentRef as react.Component).redraw();
+                    return () => (renderManager!.contentRef as react.Component).redraw();
                   },
                 );
               });
@@ -598,12 +598,12 @@ main() {
                   verifyImmediateUnmount: false,
                   verifyDeferredUnmount: true,
                   setUpAndReturnUnmounter: (callUnmount) {
-                    renderManager.render((Test()
+                    renderManager!.render((Test()
                       ..onComponentDidUpdate = callUnmount
                       ..onComponentWillUnmount = onComponentWillUnmount
                     )('1'));
 
-                    return () => (renderManager.contentRef as react.Component).redraw();
+                    return () => (renderManager!.contentRef as react.Component).redraw();
                   },
                 );
               });
@@ -611,7 +611,7 @@ main() {
 
             group('another React tree, from a', () {
               setUp(() {
-                renderManager.render((Test()
+                renderManager!.render((Test()
                   ..onComponentWillUnmount = onComponentWillUnmount
                 )('1'));
                 expect(mountNode.text, '1', reason: 'test setup check');
@@ -639,7 +639,7 @@ main() {
                   verifyImmediateUnmount: false,
                   verifyDeferredUnmount: true,
                   setUpAndReturnUnmounter: (callUnmount) {
-                    TestJacket jacket;
+                    late TestJacket jacket;
                     jacket = mount((Test()
                       ..onClick = (_) {
                         jacket.getDartInstance().setState({}, callUnmount);

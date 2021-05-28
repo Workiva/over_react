@@ -35,7 +35,7 @@ const PropsMeta _$metaForFlawedWithStringChildProps = PropsMeta(
   keys: _$FlawedWithStringChildPropsAccessorsMixin.$propKeys,
 );
 
-_$$FlawedWithStringChildProps _$FlawedWithStringChild([Map backingProps]) =>
+_$$FlawedWithStringChildProps _$FlawedWithStringChild([Map? backingProps]) =>
     backingProps == null
         ? _$$FlawedWithStringChildProps$JsMap(JsBackedMap())
         : _$$FlawedWithStringChildProps(backingProps);
@@ -111,7 +111,7 @@ class _$$FlawedWithStringChildProps$JsMap
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$FlawedWithStringChildComponent extends FlawedWithStringChildComponent {
-  _$$FlawedWithStringChildProps$JsMap _cachedTypedProps;
+  late _$$FlawedWithStringChildProps$JsMap _cachedTypedProps;
 
   @override
   _$$FlawedWithStringChildProps$JsMap get props => _cachedTypedProps;

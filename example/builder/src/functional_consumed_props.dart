@@ -18,17 +18,17 @@ import 'package:over_react/over_react.dart';
 part 'functional_consumed_props.over_react.g.dart';
 
 mixin ParentOnlyPropsMixin on UiProps {
-  String aParentProp;
+  String? aParentProp;
 }
 
 mixin SharedPropsMixin on UiProps {
-  String aPropToBePassed;
+  String? aPropToBePassed;
 }
 
 class SomeParentProps = UiProps with ParentOnlyPropsMixin, SharedPropsMixin;
 
 UiFactory<SomeParentProps> SomeParent = uiFunction((props) {
-    final consumedProps = props.staticMeta.forMixins({ParentOnlyPropsMixin});
+    final Iterable<PropsMeta> consumedProps = props.staticMeta.forMixins({ParentOnlyPropsMixin});
 
     return (
         Dom.div()(

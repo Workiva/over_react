@@ -39,7 +39,7 @@ class ContextTypeProps extends _$ContextTypeProps
   static const PropsMeta meta = _$metaForContextTypeProps;
 }
 
-_$$ContextTypeProps _$ContextType([Map backingProps]) => backingProps == null
+_$$ContextTypeProps _$ContextType([Map? backingProps]) => backingProps == null
     ? _$$ContextTypeProps$JsMap(JsBackedMap())
     : _$$ContextTypeProps(backingProps);
 
@@ -111,7 +111,7 @@ class _$$ContextTypeProps$JsMap extends _$$ContextTypeProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ContextTypeComponent extends ContextTypeComponent {
-  _$$ContextTypeProps$JsMap _cachedTypedProps;
+  late _$$ContextTypeProps$JsMap _cachedTypedProps;
 
   @override
   _$$ContextTypeProps$JsMap get props => _cachedTypedProps;

@@ -43,7 +43,7 @@ abstract class _$ConnectFluxPropsMixin<TActions> implements UiProps {
   @override
   Map get props;
 
-  TActions actions;
+  TActions? actions;
 }
 
 /// The actions that are associated with a given [InfluxStoreMixin] store
@@ -115,10 +115,10 @@ class ConnectFluxAdapterStore<S extends flux.Store> extends redux.Store<S> {
   /// Unlike a [FluxToReduxAdapterStore], updates to the store should come from Flux.
   final S store;
 
-  StreamSubscription _storeListener;
+  late StreamSubscription _storeListener;
 
   ConnectFluxAdapterStore(this.store, dynamic actions,
-      {List<redux.Middleware<S>> middleware})
+      {List<redux.Middleware<S>>? middleware})
       : super((_, __) => store,
             middleware: middleware ?? const [],
             initialState: store,
@@ -172,10 +172,10 @@ class FluxToReduxAdapterStore<S extends InfluxStoreMixin>
   /// of the adapter).
   final S store;
 
-  StreamSubscription _storeListener;
+  late StreamSubscription _storeListener;
 
   FluxToReduxAdapterStore(this.store, dynamic actions,
-      {List<redux.Middleware<S>> middleware})
+      {List<redux.Middleware<S>>? middleware})
       : super((_, action) {
           store.influxReducer(action);
           return store;
@@ -251,10 +251,10 @@ mixin InfluxStoreMixin<S> on flux.Store {
   ///
   /// This is used in [influxReducer] to update the [state] field before triggering
   /// an update.
-  redux.Reducer<S> get reduxReducer;
+  redux.Reducer<S?> get reduxReducer;
 
   /// An instance of the Redux state model that the Flux store is migrating to.
-  S state;
+  S? state;
 
   /// A field to track if Flux has already tried to update Redux.
   ///
@@ -412,18 +412,18 @@ mixin InfluxStoreMixin<S> on flux.Store {
 /// For more info see the <https://github.com/Workiva/over_react/blob/master/doc/flux_to_redux.md>.
 UiFactory<TProps> Function(UiFactory<TProps>)
     connectFlux<TStore extends flux.Store, TActions, TProps extends UiProps>({
-  Map Function(TStore state) mapStateToProps,
-  Map Function(TStore state, TProps ownProps) mapStateToPropsWithOwnProps,
-  Map Function(TActions actions) mapActionsToProps,
-  Map Function(TActions actions, TProps ownProps) mapActionsToPropsWithOwnProps,
-  Map Function(TProps stateProps, TProps dispatchProps, TProps ownProps)
+  Map Function(TStore state)? mapStateToProps,
+  Map Function(TStore state, TProps ownProps)? mapStateToPropsWithOwnProps,
+  Map Function(TActions? actions)? mapActionsToProps,
+  Map Function(TActions? actions, TProps ownProps)? mapActionsToPropsWithOwnProps,
+  Map Function(TProps stateProps, TProps dispatchProps, TProps ownProps)?
       mergeProps,
   // Use default parameter values instead of ??= in the function body to allow consumers
   // to specify `null` and fall back to the JS default.
   bool Function(TProps nextProps, TProps prevProps) areOwnPropsEqual = propsOrStateMapsEqual,
   bool Function(TProps nextProps, TProps prevProps) areStatePropsEqual = propsOrStateMapsEqual,
   bool Function(TProps nextProps, TProps prevProps) areMergedPropsEqual = propsOrStateMapsEqual,
-  Context context,
+  Context? context,
   bool pure = true,
   bool forwardRef = false,
 }) {
@@ -496,8 +496,8 @@ UiFactory<TProps> Function(UiFactory<TProps>)
       final originalMapStateToProps = mapStateToProps;
       Map wrappedMapStateToProps(TStore state) {
         return {
-          ...originalMapStateToProps(state),
-          ...mapActionsToProps(actionsForStore[state] as TActions),
+          ...originalMapStateToProps!(state),
+          ...mapActionsToProps!(actionsForStore[state] as TActions?),
         };
       }
 
@@ -508,7 +508,7 @@ UiFactory<TProps> Function(UiFactory<TProps>)
     if (case4) {
       mapStateToProps = (state) {
         return {
-          ...mapActionsToProps(actionsForStore[state] as TActions),
+          ...mapActionsToProps!(actionsForStore[state] as TActions?),
         };
       };
     }
@@ -518,9 +518,9 @@ UiFactory<TProps> Function(UiFactory<TProps>)
       final originalMapStateWithOwnProps = mapStateToPropsWithOwnProps;
       Map wrappedMapStateWithOwnProps(TStore state, TProps ownProps) {
         return {
-          ...originalMapStateWithOwnProps(state, ownProps),
-          ...mapActionsToPropsWithOwnProps(
-              actionsForStore[state] as TActions, ownProps),
+          ...originalMapStateWithOwnProps!(state, ownProps),
+          ...mapActionsToPropsWithOwnProps!(
+              actionsForStore[state] as TActions?, ownProps),
         };
       }
 
@@ -531,8 +531,8 @@ UiFactory<TProps> Function(UiFactory<TProps>)
     if (case6) {
       mapStateToPropsWithOwnProps = (state, ownProps) {
         return {
-          ...mapActionsToPropsWithOwnProps(
-              actionsForStore[state] as TActions, ownProps),
+          ...mapActionsToPropsWithOwnProps!(
+              actionsForStore[state] as TActions?, ownProps),
         };
       };
     }
@@ -544,9 +544,9 @@ UiFactory<TProps> Function(UiFactory<TProps>)
       final newMapStateToProps = mapStateToProps;
       mapStateToPropsWithOwnProps = (state, ownProps) {
         return {
-          ...newMapStateToProps(state),
-          ...mapActionsToPropsWithOwnProps(
-              actionsForStore[state] as TActions, ownProps),
+          ...newMapStateToProps!(state),
+          ...mapActionsToPropsWithOwnProps!(
+              actionsForStore[state] as TActions?, ownProps),
         };
       };
 
@@ -560,8 +560,8 @@ UiFactory<TProps> Function(UiFactory<TProps>)
       final originalMapStateWithOwnProps = mapStateToPropsWithOwnProps;
       Map wrappedMapStateToPropsWithOwnProps(TStore state, TProps ownProps) {
         return {
-          ...originalMapStateWithOwnProps(state, ownProps),
-          ...mapActionsToProps(actionsForStore[state] as TActions),
+          ...originalMapStateWithOwnProps!(state, ownProps),
+          ...mapActionsToProps!(actionsForStore[state] as TActions?),
         };
       }
 
@@ -614,7 +614,7 @@ UiFactory<TProps> Function(UiFactory<TProps>)
     // Don't pass along the dispatcher as props by default
     mapDispatchToProps: (_) => const {},
     // This will always be false, since both arguments will also be the same store
-    areStatesEqual: (_, __) => false,
+    areStatesEqual: (dynamic _, dynamic __) => false,
   );
 }
 
@@ -625,7 +625,7 @@ extension InfluxStoreExtension<S extends InfluxStoreMixin> on S {
   ///
   /// This is meant to be a more succinct way to instantiate the adapter store.
   FluxToReduxAdapterStore asReduxStore(dynamic actions,
-          {List<redux.Middleware> middleware}) =>
+          {List<redux.Middleware>? middleware}) =>
       _storeAdapterFor[this] ??=
           FluxToReduxAdapterStore(this, actions, middleware: middleware);
 }
@@ -635,7 +635,7 @@ extension FluxStoreExtension<S extends flux.Store> on S {
   ///
   /// This is meant to be a more succinct way to instantiate the adapter store.
   ConnectFluxAdapterStore<S> asConnectFluxStore(dynamic actions,
-      {List<redux.Middleware<S>> middleware}) {
+      {List<redux.Middleware<S>>? middleware}) {
     if (this is InfluxStoreMixin) {
       throw ArgumentError.value(
           'instance of InfluxStoreMixin',

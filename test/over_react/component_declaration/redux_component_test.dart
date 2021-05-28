@@ -32,9 +32,9 @@ part 'redux_component_test/pure.dart';
 part 'redux_component_test.over_react.g.dart';
 
 void main() {
-  ReducerBuilder<BaseState, BaseStateBuilder> baseReducerBuilder;
-  BaseState baseState;
-  BaseActions baseActions;
+  ReducerBuilder<BaseState, BaseStateBuilder>? baseReducerBuilder;
+  BaseState? baseState;
+  BaseActions? baseActions;
 
   setUp(() {
     baseReducerBuilder = (ReducerBuilder<BaseState, BaseStateBuilder>()
@@ -55,9 +55,9 @@ void main() {
     test('exposes a store getter', () {
       var props = TestDefault();
       var baseStore = Store<BaseState, BaseStateBuilder, BaseActions>(
-        baseReducerBuilder.build(),
-        baseState,
-        baseActions,
+        baseReducerBuilder!.build(),
+        baseState!,
+        baseActions!,
       );
 
       props.store = baseStore;
@@ -72,12 +72,12 @@ void main() {
   group('ReduxUiComponent', () {
     test('subscribes to a single store by default', () async {
       var store = Store<BaseState, BaseStateBuilder, BaseActions>(
-        baseReducerBuilder.build(),
-        baseState,
-        baseActions,
+        baseReducerBuilder!.build(),
+        baseState!,
+        baseActions!,
       );
       var renderedInstance = render(TestDefault()..store = store);
-      TestDefaultComponent component = getDartComponent(renderedInstance);
+      TestDefaultComponent component = getDartComponent(renderedInstance) as TestDefaultComponent;
 
       store.actions.trigger1();
       await Future.delayed(d2c.Duration.zero);
@@ -95,12 +95,12 @@ void main() {
 
     test('only the state changes subscribed to in connect', () async {
       var stores = Store<BaseState, BaseStateBuilder, BaseActions>(
-        baseReducerBuilder.build(),
-        baseState,
-        baseActions,
+        baseReducerBuilder!.build(),
+        baseState!,
+        baseActions!,
       );
       var renderedInstance = render(TestConnect()..store = stores);
-      TestConnectComponent component = getDartComponent(renderedInstance);
+      TestConnectComponent component = getDartComponent(renderedInstance) as TestConnectComponent;
 
       stores.actions.trigger1();
       await Future.delayed(d2c.Duration.zero);
@@ -114,9 +114,9 @@ void main() {
     group('properly redraws when isPure is true', () {
       test('when an action is triggered', () async {
         var store = Store<BaseState, BaseStateBuilder, BaseActions>(
-          baseReducerBuilder.build(),
-          baseState,
-          baseActions,
+          baseReducerBuilder!.build(),
+          baseState!,
+          baseActions!,
         );
         var jacket = mount<TestPureComponent>((TestPure()..store = store)());
         TestPureComponent component = jacket.getDartInstance();
@@ -128,9 +128,9 @@ void main() {
 
       test('by not redrawing when other props change', () async {
         var store = Store<BaseState, BaseStateBuilder, BaseActions>(
-          baseReducerBuilder.build(),
-          baseState,
-          baseActions,
+          baseReducerBuilder!.build(),
+          baseState!,
+          baseActions!,
         );
         var jacket = mount<TestPureComponent>((TestPure()..store = store)());
         TestPureComponent component = jacket.getDartInstance();
@@ -147,12 +147,12 @@ void main() {
 
       test('by redrawing when store changes', () async {
         var store = Store<BaseState, BaseStateBuilder, BaseActions>(
-          baseReducerBuilder.build(),
-          baseState,
-          baseActions,
+          baseReducerBuilder!.build(),
+          baseState!,
+          baseActions!,
         );
         var updatedStore = Store<BaseState, BaseStateBuilder, BaseActions>(
-          baseReducerBuilder.build(),
+          baseReducerBuilder!.build(),
           BaseState(),
           BaseActions(),
         );
@@ -168,9 +168,9 @@ void main() {
 
       test('when calling redraw', () {
         var store = Store<BaseState, BaseStateBuilder, BaseActions>(
-          baseReducerBuilder.build(),
-          baseState,
-          baseActions,
+          baseReducerBuilder!.build(),
+          baseState!,
+          baseActions!,
         );
         var jacket = mount<TestPureComponent>((TestPure()..store = store)());
         TestPureComponent component = jacket.getDartInstance();
@@ -185,12 +185,12 @@ void main() {
 
     test('updates subscriptions when new props are passed', () async {
       var store = Store<BaseState, BaseStateBuilder, BaseActions>(
-        baseReducerBuilder.build(),
-        baseState,
-        baseActions,
+        baseReducerBuilder!.build(),
+        baseState!,
+        baseActions!,
       );
       var updatedStore = Store<BaseState, BaseStateBuilder, BaseActions>(
-        baseReducerBuilder.build(),
+        baseReducerBuilder!.build(),
         BaseState(),
         BaseActions(),
       );
@@ -212,5 +212,5 @@ void main() {
   });
 }
 
-increment1(BaseState state, Action<String> action, BaseStateBuilder builder) => builder.count1 = state.count1 + 1;
-increment2(BaseState state, Action<String> action, BaseStateBuilder builder) => builder.count2 = state.count2 + 1;
+increment1(BaseState state, Action<String> action, BaseStateBuilder builder) => builder.count1 = state.count1! + 1;
+increment2(BaseState state, Action<String> action, BaseStateBuilder builder) => builder.count2 = state.count2! + 1;

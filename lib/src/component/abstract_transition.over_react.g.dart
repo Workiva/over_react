@@ -14,11 +14,11 @@ part of 'abstract_transition.dart';
 mixin $AbstractTransitionState on AbstractTransitionState {
   static const StateMeta meta = _$metaForAbstractTransitionState;
   @override
-  TransitionPhase get transitionPhase =>
+  TransitionPhase? get transitionPhase =>
       (state[_$key__transitionPhase__AbstractTransitionState] ?? null)
-          as TransitionPhase;
+          as TransitionPhase?;
   @override
-  set transitionPhase(TransitionPhase value) =>
+  set transitionPhase(TransitionPhase? value) =>
       state[_$key__transitionPhase__AbstractTransitionState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor

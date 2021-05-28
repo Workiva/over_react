@@ -40,7 +40,7 @@ class TestSubtypeProps extends _$TestSubtypeProps
   static const PropsMeta meta = _$metaForTestSubtypeProps;
 }
 
-_$$TestSubtypeProps _$TestSubtype([Map backingProps]) =>
+_$$TestSubtypeProps _$TestSubtype([Map? backingProps]) =>
     _$$TestSubtypeProps(backingProps);
 
 // Concrete props implementation.
@@ -51,7 +51,7 @@ class _$$TestSubtypeProps extends _$TestSubtypeProps
     implements TestSubtypeProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestSubtypeProps(Map backingMap) : this._props = {} {
+  _$$TestSubtypeProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -80,7 +80,7 @@ class _$$TestSubtypeProps extends _$TestSubtypeProps
 // generated for the associated props class.
 class _$TestSubtypeComponent extends TestSubtypeComponent {
   @override
-  _$$TestSubtypeProps typedPropsFactory(Map backingMap) =>
+  _$$TestSubtypeProps typedPropsFactory(Map? backingMap) =>
       _$$TestSubtypeProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

@@ -28,15 +28,15 @@ abstract class _$StatefulComponentTestPropsAccessorsMixin
   ///
   /// <!-- Generated from [_$StatefulComponentTestProps.setStateDirectly] -->
   @override
-  bool get setStateDirectly =>
+  bool? get setStateDirectly =>
       (props[_$key__setStateDirectly___$StatefulComponentTestProps] ?? null)
-          as bool;
+          as bool?;
 
   /// Used to test if a component has the capability to set state via this.setState.
   ///
   /// <!-- Generated from [_$StatefulComponentTestProps.setStateDirectly] -->
   @override
-  set setStateDirectly(bool value) =>
+  set setStateDirectly(bool? value) =>
       props[_$key__setStateDirectly___$StatefulComponentTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
@@ -63,7 +63,7 @@ class StatefulComponentTestProps extends _$StatefulComponentTestProps
   static const PropsMeta meta = _$metaForStatefulComponentTestProps;
 }
 
-_$$StatefulComponentTestProps _$StatefulComponentTest([Map backingProps]) =>
+_$$StatefulComponentTestProps _$StatefulComponentTest([Map? backingProps]) =>
     backingProps == null
         ? _$$StatefulComponentTestProps$JsMap(JsBackedMap())
         : _$$StatefulComponentTestProps(backingProps);
@@ -141,13 +141,13 @@ abstract class _$StatefulComponentTestStateAccessorsMixin
 
   /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
-  String get stringState =>
+  String? get stringState =>
       (state[_$key__stringState___$StatefulComponentTestState] ?? null)
-          as String;
+          as String?;
 
   /// <!-- Generated from [_$StatefulComponentTestState.stringState] -->
   @override
-  set stringState(String value) =>
+  set stringState(String? value) =>
       state[_$key__stringState___$StatefulComponentTestState] = value;
 
   /// <!-- Generated from [_$StatefulComponentTestState.dynamicState] -->
@@ -336,7 +336,7 @@ class _$$StatefulComponentTestState$JsMap
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
-  _$$StatefulComponentTestProps$JsMap _cachedTypedProps;
+  late _$$StatefulComponentTestProps$JsMap _cachedTypedProps;
 
   @override
   _$$StatefulComponentTestProps$JsMap get props => _cachedTypedProps;
@@ -364,7 +364,7 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
   _$$StatefulComponentTestProps typedPropsFactory(Map backingMap) =>
       _$$StatefulComponentTestProps(backingMap);
 
-  _$$StatefulComponentTestState$JsMap _cachedTypedState;
+  late _$$StatefulComponentTestState$JsMap _cachedTypedState;
   @override
   _$$StatefulComponentTestState$JsMap get state => _cachedTypedState;
 

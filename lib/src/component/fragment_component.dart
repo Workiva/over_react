@@ -21,10 +21,10 @@ import 'package:react/react.dart' as react;
 class FragmentProps extends builder_helpers.UiProps {
   // Initialize to a JsBackedMap so that copying can be optimized
   // when converting props during ReactElement creation.
-  FragmentProps([Map props]) : this.props = props ?? JsBackedMap();
+  FragmentProps([Map? props]) : this.props = props ?? JsBackedMap();
 
   @override
-  ReactComponentFactoryProxy componentFactory = react.Fragment;
+  ReactComponentFactoryProxy? componentFactory = react.Fragment;
 
   @override
   final Map props;
@@ -40,4 +40,4 @@ class FragmentProps extends builder_helpers.UiProps {
 /// an element that adds an additional layer to the DOM (div, span, etc).
 ///
 /// See: <https://reactjs.org/docs/fragments.html>
-FragmentProps Fragment([Map backingMap]) => FragmentProps(backingMap);
+FragmentProps Fragment([Map? backingMap]) => FragmentProps(backingMap);

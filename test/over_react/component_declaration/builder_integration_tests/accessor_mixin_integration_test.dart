@@ -153,7 +153,7 @@ main() {
 abstract class _$TestPropsMixin {
   Map get props;
 
-  String stringProp;
+  String? stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
@@ -177,7 +177,7 @@ class TestPropsMixinSubclass extends Object with
 abstract class _$TestCustomNamespacePropsMixin {
   Map get props;
 
-  String stringProp;
+  String? stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
@@ -201,7 +201,7 @@ class TestCustomNamespacePropsMixinSubclass extends Object with
 abstract class _$TestStateMixin {
   Map get state;
 
-  String stringState;
+  String? stringState;
   dynamic dynamicState;
   var untypedState; // ignore: prefer_typing_uninitialized_variables
 
@@ -225,7 +225,7 @@ class TestStateMixinSubclass extends Object with
 abstract class _$TestCustomNamespaceStateMixin {
   Map get state;
 
-  String stringState;
+  String? stringState;
   dynamic dynamicState;
   var untypedState; // ignore: prefer_typing_uninitialized_variables
 

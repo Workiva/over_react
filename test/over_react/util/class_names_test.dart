@@ -23,7 +23,7 @@ main() {
   group('class_names part', () {
     group('ClassNameBuilder', () {
       group('created with default constructor', () {
-        ClassNameBuilder builder;
+        late ClassNameBuilder builder;
 
         setUp(() {
           builder = ClassNameBuilder();

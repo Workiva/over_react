@@ -22,7 +22,7 @@ import 'store.dart';
 part 'counter_fn.over_react.g.dart';
 
 mixin CounterFnPropsMixin on UiProps {
-  bool Function(int nextCount, int prevCount) countEqualityFn;
+  bool Function(int? nextCount, int? prevCount)? countEqualityFn;
 }
 
 class CounterFnProps = UiProps with CounterFnPropsMixin;
@@ -62,7 +62,7 @@ UiFactory<CounterFnProps> CounterFn = memo(uiFunction(
 ));
 
 mixin ModelCounterFnPropsMixin on UiProps {
-  bool Function(DartModelCounter nextCount, DartModelCounter prevCount) modelCountEqualityFn;
+  bool Function(DartModelCounter? nextCount, DartModelCounter? prevCount)? modelCountEqualityFn;
 }
 
 class ModelCounterFnProps = UiProps with CounterFnPropsMixin, ModelCounterFnPropsMixin;
@@ -74,7 +74,7 @@ UiFactory<ModelCounterFnProps> ModelCounterFn = uiFunction(
 
     final dispatch = useDispatch();
 
-    final consumedProps = props.staticMeta.allExceptForMixins({ModelCounterFnPropsMixin});
+    final Iterable<PropsMeta> consumedProps = props.staticMeta.allExceptForMixins({ModelCounterFnPropsMixin});
 
     return (CounterFn()
       ..addUnconsumedDomProps(props, consumedProps)
@@ -107,7 +107,7 @@ final useBigCountSelector = createSelectorHook<BigCounterState>(bigCounterContex
 final useBigCountDispatch = createDispatchHook(bigCounterContext);
 
 mixin CustomContextCounterFnPropsMixin on UiProps {
-  bool Function(int nextBigCount, int prevBigCount) bigCountEqualityFn;
+  bool Function(int nextBigCount, int prevBigCount)? bigCountEqualityFn;
 }
 
 class CustomContextCounterFnProps = UiProps with CounterFnPropsMixin, CustomContextCounterFnPropsMixin;
@@ -118,7 +118,7 @@ UiFactory<CustomContextCounterFnProps> CustomContextCounterFn = uiFunction(
     final bigDispatch = useBigCountDispatch();
     final bigStore = useBigCountStore();
 
-    final consumedProps = props.staticMeta.allExceptForMixins({CustomContextCounterFnPropsMixin});
+    final Iterable<PropsMeta> consumedProps = props.staticMeta.allExceptForMixins({CustomContextCounterFnPropsMixin});
 
     return (CounterFn()
       ..addUnconsumedDomProps(props, consumedProps)

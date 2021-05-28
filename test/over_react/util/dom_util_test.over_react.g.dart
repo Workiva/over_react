@@ -38,7 +38,7 @@ class DomTestProps extends _$DomTestProps with _$DomTestPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForDomTestProps;
 }
 
-_$$DomTestProps _$DomTest([Map backingProps]) => backingProps == null
+_$$DomTestProps _$DomTest([Map? backingProps]) => backingProps == null
     ? _$$DomTestProps$JsMap(JsBackedMap())
     : _$$DomTestProps(backingProps);
 
@@ -110,7 +110,7 @@ class _$$DomTestProps$JsMap extends _$$DomTestProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$DomTestComponent extends DomTestComponent {
-  _$$DomTestProps$JsMap _cachedTypedProps;
+  late _$$DomTestProps$JsMap _cachedTypedProps;
 
   @override
   _$$DomTestProps$JsMap get props => _cachedTypedProps;

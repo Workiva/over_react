@@ -19,8 +19,8 @@ import 'package:test/test.dart';
 main() {
   group('parsing utils - ', () {
     group('Union', () {
-      Union<String, int> unionA;
-      Union<String, int> unionB;
+      late Union<String, int> unionA;
+      late Union<String, int> unionB;
 
       setUp(() {
         unionA = Union.a('test');
@@ -84,24 +84,24 @@ main() {
       });
 
       group('firstWhereType', () {
-        var iterable = [0, true, false, 1, 'bye'];
+        List<Object>? iterable = [0, true, false, 1, 'bye'];
 
         tearDownAll(() {
           iterable = null;
         });
 
         test('returns the first of the given type', () {
-          expect(iterable.firstWhereType<bool>(), true);
-          expect(iterable.firstWhereType<String>(), 'bye');
-          expect(iterable.firstWhereType<int>(), 0);
+          expect(iterable!.firstWhereType<bool>(), true);
+          expect(iterable!.firstWhereType<String>(), 'bye');
+          expect(iterable!.firstWhereType<int>(), 0);
         });
 
         test('calls the provided callback if nothing is found', () {
-          expect(iterable.firstWhereType<Union>(orElse: () => Union<String, dynamic>.a('Nothing there!')), isA<Union<String, dynamic>>());
+          expect(iterable!.firstWhereType<Union>(orElse: () => Union<String, dynamic>.a('Nothing there!')), isA<Union<String, dynamic>>());
         });
 
         test('throws an error if no callback is specified and nothing is found', () {
-          expect(() => iterable.firstWhereType<Union>(), throwsStateError);
+          expect(() => iterable!.firstWhereType<Union>(), throwsStateError);
         });
       });
 

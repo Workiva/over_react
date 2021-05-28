@@ -19,6 +19,7 @@ library declaration_parsing_test;
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:meta/meta.dart';
 import 'package:mockito/mockito.dart';
 import 'package:over_react/src/builder/parsing.dart';
@@ -79,28 +80,28 @@ main() {
     });
 
     group('parses', () {
-      MockLogger logger;
-      SourceFile sourceFile;
-      CompilationUnit unit;
-      List<BoilerplateDeclaration> declarations;
+      MockLogger? logger;
+      SourceFile? sourceFile;
+      CompilationUnit? unit;
+      List<BoilerplateDeclaration>? declarations;
 
       void setUpAndParse(String source) {
         logger = MockLogger();
         sourceFile = SourceFile.fromString(source);
         unit = parseString(content: source).unit;
 
-        final errorCollector = ErrorCollector.log(sourceFile, logger);
+        final errorCollector = ErrorCollector.log(sourceFile!, logger!);
 
-        final members = detectBoilerplateMembers(unit);
+        final members = detectBoilerplateMembers(unit!);
         declarations = getBoilerplateDeclarations(members, errorCollector).toList();
-        for (var declaration in declarations) {
+        for (var declaration in declarations!) {
           declaration.validate(errorCollector);
         }
       }
 
       void verifyNoMoreErrorLogs() {
-        verifyNever(logger.warning(any));
-        verifyNever(logger.severe(any));
+        verifyNever(logger!.warning(any));
+        verifyNever(logger!.severe(any));
       }
 
       tearDown(() {
@@ -143,7 +144,7 @@ main() {
               setUpAndParse(ors.source);
 
               expect(declarations, [isA<LegacyClassComponentDeclaration>()]);
-              final decl = declarations[0] as LegacyClassComponentDeclaration;
+              final decl = declarations![0] as LegacyClassComponentDeclaration;
 
               expect(decl.component, isNotNull);
               expect(decl.factory?.name?.name, ors.prefixedBaseName);
@@ -153,7 +154,7 @@ main() {
 
               if (isStatefulComponent) {
                 expect(decl.state?.name?.name, '_\$${ors.prefixedBaseName}State');
-                expect(decl.state.meta, isA<annotations.State>());
+                expect(decl.state!.meta, isA<annotations.State>());
               }
 
               expect(decl.component?.name?.name, '${ors.prefixedBaseName}Component');
@@ -269,7 +270,7 @@ main() {
                 }
               ''');
 
-              final component = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
+              final component = expectSingleOfType<LegacyClassComponentDeclaration>(declarations!);
               expect(component.factory?.name?.name, 'Foo');
               expect(component.props?.name?.name, endsWith('FooProps'));
               expect(component.state, isNull);
@@ -293,7 +294,7 @@ main() {
                   class BarProps extends _$BarProps {}
                 ''');
 
-                final component = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
+                final component = expectSingleOfType<LegacyClassComponentDeclaration>(declarations!);
                 expect(component.factory?.name?.name, 'Foo');
                 expect(component.props?.name?.name, endsWith('BarProps'));
                 expect(component.state, isNull);
@@ -321,7 +322,7 @@ main() {
                   class QuxState extends _$QuxState {}
                 ''');
 
-                final component = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
+                final component = expectSingleOfType<LegacyClassComponentDeclaration>(declarations!);
                 expect(component.factory?.name?.name, 'Foo');
                 expect(component.props?.name?.name, endsWith('BarProps'));
                 expect(component.state?.name?.name, endsWith('QuxState'));
@@ -360,7 +361,7 @@ main() {
                   isA<StateMixinDeclaration>(),
                 ]));
 
-                final component = declarations.firstWhereType<LegacyClassComponentDeclaration>();
+                final component = declarations!.firstWhereType<LegacyClassComponentDeclaration>()!;
                 expect(component.factory?.name?.name, 'Foo');
                 expect(component.props?.name?.name, endsWith('BarProps'));
                 expect(component.state, isNull);
@@ -374,7 +375,7 @@ main() {
                 test(name, () {
                   setUpAndParse(source);
 
-                  final component = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
+                  final component = expectSingleOfType<LegacyClassComponentDeclaration>(declarations!);
                   expect(component.factory?.name?.name, 'Foo');
                   expect(component.props?.name?.name, endsWith('FooProps'));
                   expect(component.state, isNull);
@@ -434,7 +435,7 @@ main() {
               setUpAndParse(source);
 
               expect(declarations, hasLength(mixinNames.length));
-              final mixins = expectAllOfType<PropsMixinDeclaration>(declarations);
+              final mixins = expectAllOfType<PropsMixinDeclaration>(declarations!);
 
               for (var mixin in mixins) {
                 expect(mixinNames, contains(mixin.mixin.name.name));
@@ -458,7 +459,7 @@ main() {
               setUpAndParse(source);
 
               expect(declarations, hasLength(mixinNames.length));
-              final mixins = expectAllOfType<StateMixinDeclaration>(declarations);
+              final mixins = expectAllOfType<StateMixinDeclaration>(declarations!);
 
               for (var mixin in mixins) {
                 expect(mixinNames, contains(mixin.mixin.name.name));
@@ -482,7 +483,7 @@ main() {
               final ors = OverReactSrc.abstractProps(backwardsCompatible: backwardsCompatible, isPrivate: isPrivate);
               setUpAndParse(ors.source);
 
-              final decl = expectSingleOfType<LegacyAbstractPropsDeclaration>(declarations);
+              final decl = expectSingleOfType<LegacyAbstractPropsDeclaration>(declarations!);
 
               expect(decl.props, isNotNull);
 
@@ -512,7 +513,7 @@ main() {
               final ors = OverReactSrc.abstractState(backwardsCompatible: true, isPrivate: isPrivate);
               setUpAndParse(ors.source);
 
-              final decl = expectSingleOfType<LegacyAbstractStateDeclaration>(declarations);
+              final decl = expectSingleOfType<LegacyAbstractStateDeclaration>(declarations!);
 
               expect(decl.state, isNotNull);
 
@@ -558,10 +559,10 @@ main() {
                   class FooComponent {}
                 ''');
 
-                final decl = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
+                final decl = expectSingleOfType<LegacyClassComponentDeclaration>(declarations!);
 
                 expect(decl.props.meta.keyNamespace, 'bar');
-                expect(decl.state.meta.keyNamespace, 'baz');
+                expect(decl.state!.meta.keyNamespace, 'baz');
                 expect(decl.component.meta.isWrapper, isTrue);
               });
 
@@ -584,10 +585,10 @@ main() {
                   class FooComponent {}
                 ''');
 
-                final decl = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
+                final decl = expectSingleOfType<LegacyClassComponentDeclaration>(declarations!);
 
                 expect(decl.props.meta.keyNamespace, 'bar');
-                expect(decl.state.meta.keyNamespace, 'baz');
+                expect(decl.state!.meta.keyNamespace, 'baz');
                 expect(decl.component.meta.isWrapper, isTrue);
               });
 
@@ -598,7 +599,7 @@ main() {
                     Map get props;
                   }
                 ''');
-                final decl = expectSingleOfType<PropsMixinDeclaration>(declarations);
+                final decl = expectSingleOfType<PropsMixinDeclaration>(declarations!);
                 expect(decl.mixin.meta.keyNamespace, 'bar');
               });
 
@@ -609,7 +610,7 @@ main() {
                     Map get state;
                   }
                 ''');
-                final decl = expectSingleOfType<StateMixinDeclaration>(declarations);
+                final decl = expectSingleOfType<StateMixinDeclaration>(declarations!);
                 expect(decl.mixin.meta.keyNamespace, 'bar');
               });
 
@@ -619,7 +620,7 @@ main() {
                   class _\$AbstractFooProps {}
                   class AbstractFooProps extends _\$AbstractFooProps with _\$AbstractFooPropsAccessorsMixin {}
                 ''');
-                final decl = expectSingleOfType<LegacyAbstractPropsDeclaration>(declarations);
+                final decl = expectSingleOfType<LegacyAbstractPropsDeclaration>(declarations!);
                 expect(decl.props.meta.keyNamespace, 'bar');
               });
 
@@ -629,7 +630,7 @@ main() {
                   class _\$AbstractFooState {}
                   class AbstractFooState extends _\$AbstractFooState with _\$AbstractFooStateAccessorsMixin {}
                 ''');
-                final decl = expectSingleOfType<LegacyAbstractStateDeclaration>(declarations);
+                final decl = expectSingleOfType<LegacyAbstractStateDeclaration>(declarations!);
                 expect(decl.state.meta.keyNamespace, 'bar');
               });
             });
@@ -649,10 +650,10 @@ main() {
                   @Component(isWrapper: true)
                   class FooComponent {}
                 ''');
-                final decl = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
+                final decl = expectSingleOfType<LegacyClassComponentDeclaration>(declarations!);
 
                 expect(decl.props.meta.keyNamespace, 'bar');
-                expect(decl.state.meta.keyNamespace, 'baz');
+                expect(decl.state!.meta.keyNamespace, 'baz');
                 expect(decl.component.meta.isWrapper, isTrue);
               });
 
@@ -670,10 +671,10 @@ main() {
                   @Component2(isWrapper: true)
                   class FooComponent {}
                 ''');
-                final decl = expectSingleOfType<LegacyClassComponentDeclaration>(declarations);
+                final decl = expectSingleOfType<LegacyClassComponentDeclaration>(declarations!);
 
                 expect(decl.props.meta.keyNamespace, 'bar');
-                expect(decl.state.meta.keyNamespace, 'baz');
+                expect(decl.state!.meta.keyNamespace, 'baz');
                 expect(decl.component.meta.isWrapper, isTrue);
               });
 
@@ -684,7 +685,7 @@ main() {
                     Map get props;
                   }
                 ''');
-                final decl = expectSingleOfType<PropsMixinDeclaration>(declarations);
+                final decl = expectSingleOfType<PropsMixinDeclaration>(declarations!);
                 expect(decl.mixin.meta.keyNamespace, 'bar');
               });
 
@@ -695,7 +696,7 @@ main() {
                     Map get state;
                   }
                 ''');
-                final decl = expectSingleOfType<StateMixinDeclaration>(declarations);
+                final decl = expectSingleOfType<StateMixinDeclaration>(declarations!);
                 expect(decl.mixin.meta.keyNamespace, 'bar');
               });
 
@@ -704,7 +705,7 @@ main() {
                   @AbstractProps(keyNamespace: "bar")
                   class _\$AbstractFooProps {}
                 ''');
-                final decl = expectSingleOfType<LegacyAbstractPropsDeclaration>(declarations);
+                final decl = expectSingleOfType<LegacyAbstractPropsDeclaration>(declarations!);
                 expect(decl.props.meta.keyNamespace, 'bar');
               });
 
@@ -713,7 +714,7 @@ main() {
                   @AbstractState(keyNamespace: "bar")
                   class _\$AbstractFooState {}
                 ''');
-                final decl = expectSingleOfType<LegacyAbstractStateDeclaration>(declarations);
+                final decl = expectSingleOfType<LegacyAbstractStateDeclaration>(declarations!);
                 expect(decl.state.meta.keyNamespace, 'bar');
               });
             });
@@ -731,7 +732,7 @@ main() {
               }
             ''');
 
-            final props = expectAllOfType<BoilerplateProps>(declarations).firstOrNull;
+            final props = expectAllOfType<BoilerplateProps>(declarations!).firstOrNull;
             expect(props?.versionConfidences?.maxConfidence?.confidence, anyOf(isNull, Confidence.none));
           });
 
@@ -743,7 +744,7 @@ main() {
               }
             ''');
 
-            final props = expectAllOfType<BoilerplateProps>(declarations).firstOrNull;
+            final props = expectAllOfType<BoilerplateProps>(declarations!).firstOrNull;
             expect(props?.versionConfidences?.maxConfidence?.confidence, anyOf(isNull, Confidence.none));
           });
 
@@ -752,7 +753,7 @@ main() {
               abstract class FooProps implements UiProps, BarProps, BazProps {}
             ''');
 
-            final props = expectAllOfType<BoilerplateProps>(declarations).firstOrNull;
+            final props = expectAllOfType<BoilerplateProps>(declarations!).firstOrNull;
             expect(props?.versionConfidences?.maxConfidence?.confidence, anyOf(isNull, Confidence.none));
           });
 
@@ -789,7 +790,7 @@ main() {
               class FooComponent extends UiComponent2<FooProps> {}
             ''');
 
-            final decl = expectSingleOfType<ClassComponentDeclaration>(declarations);
+            final decl = expectSingleOfType<ClassComponentDeclaration>(declarations!);
             expect(decl.state, isNull);
           });
 
@@ -804,7 +805,7 @@ main() {
               class FooComponent extends UiComponent2<FooProps> {}
             ''');
 
-            final decl = expectSingleOfType<ClassComponentDeclaration>(declarations);
+            final decl = expectSingleOfType<ClassComponentDeclaration>(declarations!);
             expect(decl.factory.name.name, 'ConnectedFoo');
           });
 
@@ -832,7 +833,7 @@ main() {
               isA<PropsMixinDeclaration>(),
             ]));
 
-            final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+            final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
             expect(decl.factory.name.name, '_FormActionInput');
           });
 
@@ -852,7 +853,7 @@ main() {
               isA<PropsMixinDeclaration>(),
             ]), reason: 'should parse the mixin and one of the factories properly');
 
-            verify(logger.severe(contains(errorFactoryOnly)));
+            verify(logger!.severe(contains(errorFactoryOnly)));
           });
 
           test('multiple factories aliasing a private factory', () {
@@ -880,7 +881,7 @@ main() {
               isA<PropsMixinDeclaration>(),
             ]));
 
-            final componentDecl = declarations.firstWhereType<ClassComponentDeclaration>();
+            final componentDecl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
 
             expect(componentDecl.factory.name.name, '_Counter');
           });
@@ -913,12 +914,12 @@ main() {
                 }
               ''');
 
-              final declaration = declarations.firstWhereType<LegacyClassComponentDeclaration>();
+              final declaration = declarations!.firstWhereType<LegacyClassComponentDeclaration>()!;
               expect(declaration, isNotNull, reason: 'Sanity check to make sure a component is detected');
 
               expect(declaration.state, isNotNull, reason: 'A state class should have been detected');
-              expect(declaration.state.name.name, r'_$DifferentState');
-              expect(declaration.state.companion, isNotNull);
+              expect(declaration.state!.name.name, r'_$DifferentState');
+              expect(declaration.state!.companion, isNotNull);
 
               expect(declaration.props, isNotNull, reason: 'A props class should have been detected');
               expect(declaration.props.name.name, r'_$SomeRandomProps');
@@ -940,12 +941,12 @@ main() {
                 class FooComponent extends UiStatefulComponent2<SomeRandomProps, DifferentState> {}
               ''');
 
-              final declaration = declarations.firstWhereType<LegacyClassComponentDeclaration>();
+              final declaration = declarations!.firstWhereType<LegacyClassComponentDeclaration>()!;
               expect(declaration, isNotNull, reason: 'Sanity check to make sure a component is detected');
 
               expect(declaration.state, isNotNull, reason: 'A state class should have been detected');
-              expect(declaration.state.name.name, r'_$DifferentState');
-              expect(declaration.state.companion, isNull);
+              expect(declaration.state!.name.name, r'_$DifferentState');
+              expect(declaration.state!.companion, isNull);
 
               expect(declaration.props, isNotNull, reason: 'A props class should have been detected');
               expect(declaration.props.name.name, r'_$SomeRandomProps');
@@ -964,17 +965,17 @@ main() {
               });
 
               test('detects the correct number of components', () {
-                expect(declarations.whereType<ClassComponentDeclaration>().length, 1,
+                expect(declarations!.whereType<ClassComponentDeclaration>().length, 1,
                     reason: 'The mixin boilerplate should be the only thing found.');
-                expect(declarations.whereType<LegacyClassComponentDeclaration>().length, 1,
+                expect(declarations!.whereType<LegacyClassComponentDeclaration>().length, 1,
                     reason: 'The legacy component string should be the only thing found');
               });
 
               test('with names that match expectations', () {
-                final mixinBasedMember = declarations
+                final mixinBasedMember = declarations!
                     .whereType<ClassComponentDeclaration>()
                     .firstWhereNameEquals('FirstFoo');
-                final legacyBasedName = declarations
+                final legacyBasedName = declarations!
                     .whereType<LegacyClassComponentDeclaration>()
                     .firstWhereNameEquals('SecondFoo');
                 expect(mixinBasedMember, isNotNull);
@@ -983,9 +984,9 @@ main() {
 
               test('that are the correct version', () {
                 final versionForMixin =
-                resolveVersion(declarations.firstWhereType<ClassComponentDeclaration>().members);
+                resolveVersion(declarations!.firstWhereType<ClassComponentDeclaration>()!.members);
                 final versionForLegacy = resolveVersion(
-                    declarations.firstWhereType<LegacyClassComponentDeclaration>().members);
+                    declarations!.firstWhereType<LegacyClassComponentDeclaration>()!.members);
 
                 expect(versionForMixin.version, Version.v4_mixinBased);
                 expect(
@@ -1007,7 +1008,7 @@ main() {
             });
 
             group('and they are mixin based', () {
-              Iterable<ClassComponentDeclaration> componentDeclarations;
+              late Iterable<ClassComponentDeclaration> componentDeclarations;
 
               setUp(() {
                 setUpAndParse('''
@@ -1016,7 +1017,7 @@ main() {
                   ${getBoilerplateString(version: BoilerplateVersions.v4, componentBaseName: 'SecondFoo')}
                 ''');
 
-                componentDeclarations = declarations.whereType<ClassComponentDeclaration>();
+                componentDeclarations = declarations!.whereType<ClassComponentDeclaration>();
               });
 
               test('detects the correct number of components', () {
@@ -1033,9 +1034,9 @@ main() {
 
               test('that are the correct version', () {
                 final versionForFirstMixin =
-                    resolveVersion(componentDeclarations.firstWhereNameEquals('FirstFoo').members);
+                    resolveVersion(componentDeclarations.firstWhereNameEquals('FirstFoo')!.members);
                 final versionForSecondMixin =
-                    resolveVersion(componentDeclarations.firstWhereNameEquals('SecondFoo').members);
+                    resolveVersion(componentDeclarations.firstWhereNameEquals('SecondFoo')!.members);
 
                 expect(versionForFirstMixin.version, Version.v4_mixinBased);
                 expect(versionForSecondMixin.version, Version.v4_mixinBased);
@@ -1043,7 +1044,7 @@ main() {
             });
 
             group('and there is a mix of abstract and concrete', () {
-              Iterable<LegacyClassComponentDeclaration> componentDeclarations;
+              late Iterable<LegacyClassComponentDeclaration> componentDeclarations;
 
               setUp(() {
                 setUpAndParse('''
@@ -1056,7 +1057,7 @@ main() {
                   ${getBoilerplateString(version: BoilerplateVersions.v3, componentBaseName: 'ThirdFoo')}
                 ''');
 
-                componentDeclarations = declarations.whereType<LegacyClassComponentDeclaration>();
+                componentDeclarations = declarations!.whereType<LegacyClassComponentDeclaration>();
               });
 
               test('detects the correct number of components', () {
@@ -1077,24 +1078,24 @@ main() {
                 expect(secondComponent, isNotNull);
                 expect(thirdComponent, isNotNull);
 
-                final abstractProps = declarations.whereType<LegacyAbstractPropsDeclaration>();
+                final abstractProps = declarations!.whereType<LegacyAbstractPropsDeclaration>();
                 expect(abstractProps.length, 1);
                 expect(abstractProps.first.props.name.name, r'_$PropsFooProps');
 
-                final abstractState = declarations.whereType<LegacyAbstractStateDeclaration>();
+                final abstractState = declarations!.whereType<LegacyAbstractStateDeclaration>();
                 expect(abstractState.length, 1);
                 expect(abstractState.first.state.name.name, r'_$StateFooState');
               });
 
               test('that are the correct version', () {
                 final versionForFirstMixin =
-                    resolveVersion(componentDeclarations.firstWhereNameEquals('SecondFoo').members);
+                    resolveVersion(componentDeclarations.firstWhereNameEquals('SecondFoo')!.members);
                 final versionForSecondMixin =
-                    resolveVersion(componentDeclarations.firstWhereNameEquals('ThirdFoo').members);
+                    resolveVersion(componentDeclarations.firstWhereNameEquals('ThirdFoo')!.members);
                 final abstractProps = resolveVersion(
-                    declarations.firstWhereType<LegacyAbstractPropsDeclaration>().members);
+                    declarations!.firstWhereType<LegacyAbstractPropsDeclaration>()!.members);
                 final abstractState = resolveVersion(
-                    declarations.firstWhereType<LegacyAbstractStateDeclaration>().members);
+                    declarations!.firstWhereType<LegacyAbstractStateDeclaration>()!.members);
 
                 expect(versionForFirstMixin.version, Version.v2_legacyBackwardsCompat);
                 expect(versionForSecondMixin.version, Version.v3_legacyDart2Only);
@@ -1125,10 +1126,10 @@ main() {
                 isA<ClassComponentDeclaration>(),
               ]));
 
-              final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
+              final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
               expect(propsMixinDecl.mixin?.name?.name, 'FooProps');
 
-              final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+              final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
 
               expect(decl.factory?.name?.name, 'Foo');
               expect(decl.props?.b?.name?.name, 'FooProps');
@@ -1136,7 +1137,7 @@ main() {
               expect(decl.state?.either, isNull);
 
               expect(decl.factory.meta, isA<annotations.Factory>());
-              expect(decl.props.b.meta, isA<annotations.Props>());
+              expect(decl.props.b!.meta, isA<annotations.Props>());
               expect(decl.component.meta, isA<annotations.Component>());
             });
 
@@ -1160,10 +1161,10 @@ main() {
                 isA<ClassComponentDeclaration>(),
               ]));
 
-              final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
+              final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
               expect(propsMixinDecl.mixin?.name?.name, 'FooPropsMixin');
 
-              final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+              final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
 
               expect(decl.factory?.name?.name, 'Foo');
               expect(decl.props?.a?.name?.name, 'FooProps');
@@ -1171,7 +1172,7 @@ main() {
               expect(decl.state?.either, isNull);
 
               expect(decl.factory.meta, isA<annotations.Factory>());
-              expect(decl.props.a.meta, isA<annotations.Props>());
+              expect(decl.props.a!.meta, isA<annotations.Props>());
               expect(decl.component.meta, isA<annotations.Component>());
             });
 
@@ -1198,10 +1199,10 @@ main() {
                 isA<ClassComponentDeclaration>(),
               ]));
 
-              final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
+              final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
               expect(propsMixinDecl.mixin?.name?.name, 'FooPropsMixin');
 
-              final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+              final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
 
               expect(decl.factory?.name?.name, 'Foo');
               expect(decl.props?.a?.name?.name, 'FooProps');
@@ -1209,7 +1210,7 @@ main() {
               expect(decl.state?.either, isNull);
 
               expect(decl.factory.meta, isA<annotations.Factory>());
-              expect(decl.props.a.meta, isA<annotations.Props>());
+              expect(decl.props.a!.meta, isA<annotations.Props>());
               expect(decl.component.meta, isA<annotations.Component>());
             });
 
@@ -1236,13 +1237,13 @@ main() {
                 isA<ClassComponentDeclaration>(),
               ]));
 
-              final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
+              final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
               expect(propsMixinDecl.mixin?.name?.name, 'FooProps');
 
-              final stateMixinDecl = declarations.firstWhereType<StateMixinDeclaration>();
+              final stateMixinDecl = declarations!.firstWhereType<StateMixinDeclaration>()!;
               expect(stateMixinDecl.mixin?.name?.name, 'FooState');
 
-              final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+              final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
 
               expect(decl.factory?.name?.name, 'Foo');
               expect(decl.props?.b?.name?.name, 'FooProps');
@@ -1250,8 +1251,8 @@ main() {
               expect(decl.state?.b?.name?.name, 'FooState');
 
               expect(decl.factory.meta, isA<annotations.Factory>());
-              expect(decl.props.b.meta, isA<annotations.Props>());
-              expect(decl.state.b.meta, isA<annotations.State>());
+              expect(decl.props.b!.meta, isA<annotations.Props>());
+              expect(decl.state!.b!.meta, isA<annotations.State>());
               expect(decl.component.meta, isA<annotations.Component>());
             });
 
@@ -1278,13 +1279,13 @@ main() {
                 isA<ClassComponentDeclaration>(),
               ]));
 
-              final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
+              final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
               expect(propsMixinDecl.mixin?.name?.name, 'FooPropsMixin');
 
-              final stateMixinDecl = declarations.firstWhereType<StateMixinDeclaration>();
+              final stateMixinDecl = declarations!.firstWhereType<StateMixinDeclaration>()!;
               expect(stateMixinDecl.mixin?.name?.name, 'FooStateMixin');
 
-              final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+              final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
 
               expect(decl.factory?.name?.name, 'Foo');
               expect(decl.props?.b?.name?.name, 'FooPropsMixin');
@@ -1292,8 +1293,8 @@ main() {
               expect(decl.state?.b?.name?.name, 'FooStateMixin');
 
               expect(decl.factory.meta, isA<annotations.Factory>());
-              expect(decl.props.b.meta, isA<annotations.Props>());
-              expect(decl.state.b.meta, isA<annotations.State>());
+              expect(decl.props.b!.meta, isA<annotations.Props>());
+              expect(decl.state!.b!.meta, isA<annotations.State>());
               expect(decl.component.meta, isA<annotations.Component>());
             });
 
@@ -1324,13 +1325,13 @@ main() {
                 isA<ClassComponentDeclaration>(),
               ]));
 
-              final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
+              final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
               expect(propsMixinDecl.mixin?.name?.name, 'FooPropsMixin');
 
-              final stateMixinDecl = declarations.firstWhereType<StateMixinDeclaration>();
+              final stateMixinDecl = declarations!.firstWhereType<StateMixinDeclaration>()!;
               expect(stateMixinDecl.mixin?.name?.name, 'FooStateMixin');
 
-              final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+              final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
 
               expect(decl.factory?.name?.name, 'Foo');
               expect(decl.props?.a?.name?.name, 'FooProps');
@@ -1338,8 +1339,8 @@ main() {
               expect(decl.state?.a?.name?.name, 'FooState');
 
               expect(decl.factory.meta, isA<annotations.Factory>());
-              expect(decl.props.a.meta, isA<annotations.Props>());
-              expect(decl.state.a.meta, isA<annotations.State>());
+              expect(decl.props.a!.meta, isA<annotations.Props>());
+              expect(decl.state!.a!.meta, isA<annotations.State>());
               expect(decl.component.meta, isA<annotations.Component>());
             });
 
@@ -1361,7 +1362,7 @@ main() {
                 isA<ClassComponentDeclaration>(),
               ]));
 
-              final component = declarations.firstWhereType<ClassComponentDeclaration>();
+              final component = declarations!.firstWhereType<ClassComponentDeclaration>()!;
               expect(component.factory?.name?.name, 'Foo');
               expect(component.props?.b?.name?.name, endsWith('FooProps'));
               expect(component.state, isNull);
@@ -1378,7 +1379,7 @@ main() {
                     isA<ClassComponentDeclaration>(),
                   ]));
 
-                  final component = declarations.firstWhereType<ClassComponentDeclaration>();
+                  final component = declarations!.firstWhereType<ClassComponentDeclaration>()!;
                   expect(component.factory?.name?.name, 'Foo');
                   expect(component.props?.either?.name?.name, endsWith('FooProps'));
                   expect(component.state, isNull);
@@ -1413,7 +1414,7 @@ main() {
               mixin BazPropsMixin on UiProps {}
             ''');
 
-            final mixins = expectLengthAndAllOfType<PropsMixinDeclaration>(declarations, 3);
+            final mixins = expectLengthAndAllOfType<PropsMixinDeclaration>(declarations!, 3);
 
             expect(mixins.map((m) => m.mixin.name.name).toList(),
                 ['FooPropsMixin', 'BarPropsMixin', 'BazPropsMixin']);
@@ -1426,7 +1427,7 @@ main() {
               mixin BazStateMixin on UiState {}
             ''');
 
-            final mixins = expectLengthAndAllOfType<StateMixinDeclaration>(declarations, 3);
+            final mixins = expectLengthAndAllOfType<StateMixinDeclaration>(declarations!, 3);
 
             expect(mixins.map((m) => m.mixin.name.name).toList(),
                 ['FooStateMixin', 'BarStateMixin', 'BazStateMixin']);
@@ -1466,10 +1467,10 @@ main() {
                 ''');
 
                 expect(declarations, contains(isA<ClassComponentDeclaration>()));
-                final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+                final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
 
-                expect(decl.props.b.meta.keyNamespace, 'bar');
-                expect(decl.state.b.meta.keyNamespace, 'baz');
+                expect(decl.props.b!.meta.keyNamespace, 'bar');
+                expect(decl.state!.b!.meta.keyNamespace, 'baz');
                 expect(decl.component.meta.isWrapper, isTrue);
                 expect(decl.component.configSubtypeOf?.name, 'BarComponent');
               });
@@ -1492,10 +1493,10 @@ main() {
                 ''');
 
                 expect(declarations, contains(isA<ClassComponentDeclaration>()));
-                final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+                final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
 
-                expect(decl.props.b.meta.keyNamespace, 'bar');
-                expect(decl.state.b.meta.keyNamespace, 'baz');
+                expect(decl.props.b!.meta.keyNamespace, 'bar');
+                expect(decl.state!.b!.meta.keyNamespace, 'baz');
                 expect(decl.component.meta.isWrapper, isTrue);
                 expect(decl.component.configSubtypeOf?.name, 'BarComponent');
               });
@@ -1506,7 +1507,7 @@ main() {
                 @PropsMixin(keyNamespace: "bar")
                 mixin FooPropsMixin on UiProps {}
               ''');
-              final decl = expectSingleOfType<PropsMixinDeclaration>(declarations);
+              final decl = expectSingleOfType<PropsMixinDeclaration>(declarations!);
               expect(decl.mixin.meta.keyNamespace, 'bar');
             });
 
@@ -1515,13 +1516,13 @@ main() {
                 @StateMixin(keyNamespace: "bar")
                 mixin FooStateMixin on UiState {}
               ''');
-              final decl = expectSingleOfType<StateMixinDeclaration>(declarations);
+              final decl = expectSingleOfType<StateMixinDeclaration>(declarations!);
               expect(decl.mixin.meta.keyNamespace, 'bar');
             });
           });
 
           group('props mapview', () {
-            void sharedMapViewTests({bool hasMapViewSuffix}) {
+            void sharedMapViewTests({required bool hasMapViewSuffix}) {
               // These tests ensure that the 'Props' in the name don't throw things off.
               final name = 'Foo${hasMapViewSuffix ? 'PropsMapView' : ''}';
               final propsName = '${name}Props';
@@ -1536,7 +1537,7 @@ main() {
                   isA<PropsMixinDeclaration>(),
                   isA<PropsMapViewOrFunctionComponentDeclaration>(),
                 ]));
-                final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
+                final decl = declarations!.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>()!;
 
                 expect(decl.factories, hasLength(1));
                 expect(decl.factories.first.name.name, name);
@@ -1549,7 +1550,7 @@ main() {
                   UiFactory<$propsName> $name = _\$$name;
                   class $propsName = UiProps with FooPropsMixin;
                 ''');
-                final decl = expectSingleOfType<PropsMapViewOrFunctionComponentDeclaration>(declarations);
+                final decl = expectSingleOfType<PropsMapViewOrFunctionComponentDeclaration>(declarations!);
 
                 expect(decl.factories, hasLength(1));
                 expect(decl.factories.first.name.name, name);
@@ -1604,7 +1605,7 @@ main() {
                 isA<PropsMixinDeclaration>(),
                 isA<PropsMapViewOrFunctionComponentDeclaration>(),
               ]));
-              final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
+              final decl = declarations!.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>()!;
 
               expect(decl.factories, hasLength(2));
               expect(decl.factories.map((factory) => factory.name.name), unorderedEquals([
@@ -1631,7 +1632,7 @@ main() {
                 isA<PropsMixinDeclaration>(),
                 isA<PropsMapViewOrFunctionComponentDeclaration>(),
               ]));
-              final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
+              final decl = declarations!.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>()!;
 
               expect(decl.factories, hasLength(1));
               expect(decl.factories.first.name.name, 'Foo');
@@ -1668,7 +1669,7 @@ main() {
                 isA<PropsMixinDeclaration>(),
                 isA<PropsMapViewOrFunctionComponentDeclaration>(),
               ]));
-              final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
+              final decl = declarations!.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>()!;
 
               expect(decl.factories, hasLength(1));
               expect(decl.factories.first.name.name, equals('Foo'));
@@ -1715,7 +1716,7 @@ main() {
                 isA<PropsMixinDeclaration>(),
                 isA<PropsMapViewOrFunctionComponentDeclaration>(),
               ]));
-              final decl = declarations.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>();
+              final decl = declarations!.firstWhereType<PropsMapViewOrFunctionComponentDeclaration>()!;
 
               expect(decl.factories, hasLength(2));
               expect(decl.factories.map((factory) => factory.name.name), unorderedEquals([
@@ -1759,7 +1760,7 @@ main() {
                 isA<PropsMapViewOrFunctionComponentDeclaration>(),
                 isA<PropsMapViewOrFunctionComponentDeclaration>(),
               ]));
-              final decl = declarations.whereType<PropsMapViewOrFunctionComponentDeclaration>().toList();
+              final decl = declarations!.whereType<PropsMapViewOrFunctionComponentDeclaration>().toList();
               expect(decl, hasLength(2));
 
               expect(decl.first.factories, hasLength(2));
@@ -1797,10 +1798,10 @@ main() {
               isA<ClassComponentDeclaration>(),
             ]));
 
-            final propsMixinDecl = declarations.firstWhereType<PropsMixinDeclaration>();
+            final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
             expect(propsMixinDecl.mixin?.name?.name, 'FooProps');
 
-            final decl = declarations.firstWhereType<ClassComponentDeclaration>();
+            final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
 
             expect(decl.factory?.name?.name, 'Foo');
             expect(decl.props?.b?.name?.name, 'FooProps');
@@ -1808,7 +1809,7 @@ main() {
             expect(decl.state?.either, isNull);
 
             expect(decl.factory.meta, isA<annotations.Factory>());
-            expect(decl.props.b.meta, isA<annotations.Props>());
+            expect(decl.props.b!.meta, isA<annotations.Props>());
             expect(decl.component.meta, isA<annotations.Component>());
           });
         });
@@ -1833,7 +1834,7 @@ main() {
                 $restOfComponent
               ''');
 
-              verifyNever(logger.severe(any));
+              verifyNever(logger!.severe(any));
             });
           });
 
@@ -1846,7 +1847,7 @@ main() {
                 $restOfComponent
               ''');
 
-              verifyNever(logger.severe(any));
+              verifyNever(logger!.severe(any));
             });
           });
         });
@@ -1854,7 +1855,7 @@ main() {
 
       group('and logs a hard error when', () {
         void verifyErrorLog(String publicClassName) {
-          verify(logger.severe(contains(
+          verify(logger!.severe(contains(
             'Non-static class member `meta` is declared in _\$$publicClassName. '
             '`meta` is a field declared by the over_react builder, and is therefore not '
             'valid for use as a class member in any class annotated with  @Props(), @State(), '
@@ -1913,14 +1914,14 @@ main() {
         group('there is not Dart-2 compatible naming on', () {
           test('a class annotated with @AbstractProps()', () {
             setUpAndParse(abstractPropsSrcDart1 + abstractComponentSrc);
-            verify(logger.severe(contains(
+            verify(logger!.severe(contains(
                 'The class `AbstractFooProps` does not start with `_\$`. All Props, State, '
                     'AbstractProps, and AbstractState classes should begin with `_\$` on Dart 2')));
           });
 
           test('a class annotated with @AbstractState()', () {
             setUpAndParse(abstractStateSrcDart1 + abstractComponentSrc + abstractPropsSrc);
-            verify(logger.severe(contains(
+            verify(logger!.severe(contains(
                 'The class `AbstractFooState` does not start with `_\$`. All Props, State, '
                     'AbstractProps, and AbstractState classes should begin with `_\$` on Dart 2')));
           });
@@ -1929,37 +1930,37 @@ main() {
         group('a component is declared without', () {
           test('a factory', () {
             setUpAndParse(propsSrc + companionClassProps + componentSrc);
-            verify(logger.severe(contains(errorNoFactory)));
+            verify(logger!.severe(contains(errorNoFactory)));
           });
 
           test('a props class', () {
             setUpAndParse(factorySrc + componentSrc);
-            verify(logger.severe(contains(errorNoProps)));
+            verify(logger!.severe(contains(errorNoProps)));
           });
 
           test('a component class', () {
             setUpAndParse(factorySrc + propsSrc);
-            verify(logger.severe(contains(errorNoComponent)));
+            verify(logger!.severe(contains(errorNoComponent)));
           });
 
           test('a factory or a props class', () {
             setUpAndParse(componentSrc);
-            verify(logger.severe(contains(errorComponentClassOnly)));
+            verify(logger!.severe(contains(errorComponentClassOnly)));
           });
 
           test('a factory or a props class (v2 component)', () {
             setUpAndParse(component2Src);
-            verify(logger.severe(contains(errorComponentClassOnly)));
+            verify(logger!.severe(contains(errorComponentClassOnly)));
           });
 
           test('a factory or a component class', () {
             setUpAndParse(propsSrc);
-            verify(logger.severe(contains(errorPropsClassOnly)));
+            verify(logger!.severe(contains(errorPropsClassOnly)));
           });
 
           test('a component or props class', () {
             setUpAndParse(factorySrc);
-            verify(logger.severe(contains(errorFactoryOnly)));
+            verify(logger!.severe(contains(errorFactoryOnly)));
           });
         });
 
@@ -1973,7 +1974,7 @@ main() {
                 _$FooConfig, // ignore: undefined_identifier
               );
             ''');
-            verify(logger.severe(contains(errorFactoryOnly)));
+            verify(logger!.severe(contains(errorFactoryOnly)));
           });
 
           test('without props typing arguments or left hand typing', () {
@@ -1986,7 +1987,7 @@ main() {
                 _$FooConfig, // ignore: undefined_identifier
               );
             ''');
-            verify(logger.severe(contains(errorFactoryOnly)));
+            verify(logger!.severe(contains(errorFactoryOnly)));
           });
 
           test('without a matching props mixin', () {
@@ -1999,7 +2000,7 @@ main() {
                 _$FooConfig, // ignore: undefined_identifier
               );
             ''');
-            verify(logger.severe(contains(errorFactoryOnly)));
+            verify(logger!.severe(contains(errorFactoryOnly)));
           });
 
           test('with a props mixin that is used by a component class', () {
@@ -2015,35 +2016,35 @@ main() {
                 _$FooConfig, // ignore: undefined_identifier
               );
             ''');
-            verify(logger.severe(contains(errorFactoryOnly)));
+            verify(logger!.severe(contains(errorFactoryOnly)));
           });
         });
 
         group('a state class is declared without', () {
           test('any component pieces', () {
             setUpAndParse(stateSrc);
-            verify(logger.severe(contains(errorStateOnly)));
+            verify(logger!.severe(contains(errorStateOnly)));
           });
 
           test('some component pieces', () {
             setUpAndParse(stateSrc + componentSrc);
             /// Should only log regarding the missing pieces, and not the state.
-            verify(logger.severe(contains(errorComponentClassOnly)));
+            verify(logger!.severe(contains(errorComponentClassOnly)));
           });
 
           test('some component2 pieces', () {
             setUpAndParse(stateSrc + component2Src);
             /// Should only log regarding the missing pieces, and not the state.
-            verify(logger.severe(contains(errorComponentClassOnly)));
+            verify(logger!.severe(contains(errorComponentClassOnly)));
           });
         });
 
         test('a component v2 uses legacy lifecycle methods', () {
           setUpAndParse(factorySrc + propsSrc + component2LegacySrc);
           /// Should log for each legacy method, suggesting the alternative.
-          verify(logger.severe(contains('Use getDerivedStateFromProps instead.')));
-          verify(logger.severe(contains('Use componentDidMount instead.')));
-          verify(logger.severe(contains('Use getSnapshotBeforeUpdate and/or componentDidUpdate instead.')));
+          verify(logger!.severe(contains('Use getDerivedStateFromProps instead.')));
+          verify(logger!.severe(contains('Use componentDidMount instead.')));
+          verify(logger!.severe(contains('Use getSnapshotBeforeUpdate and/or componentDidUpdate instead.')));
         });
 
         group('a factory is', () {
@@ -2055,7 +2056,7 @@ main() {
               $restOfComponent
             ''');
 
-            verify(logger.severe(contains('Factory variables are stubs for generated code, and must'
+            verify(logger!.severe(contains('Factory variables are stubs for generated code, and must'
                 ' be initialized with an expression containing either'
                 ' the generated factory (_\$Foo) or'
                 ' the generated factory config (_\$FooConfig).')));
@@ -2069,7 +2070,7 @@ main() {
               $restOfComponent
             ''');
 
-            verify(logger.severe(contains('Factory declarations must be a single variable.')));
+            verify(logger!.severe(contains('Factory declarations must be a single variable.')));
           });
 
           test('public and declared with an invalid initializer', () {
@@ -2080,7 +2081,7 @@ main() {
               $restOfComponent
             ''');
 
-            verify(logger.severe(contains('Factory variables are stubs for generated code, and must'
+            verify(logger!.severe(contains('Factory variables are stubs for generated code, and must'
                 ' be initialized with an expression containing either'
                 ' the generated factory (_\$Foo) or'
                 ' the generated factory config (_\$FooConfig).')));
@@ -2094,7 +2095,7 @@ main() {
               $restOfComponent
             ''');
 
-            verify(logger.severe(contains('Factory variables are stubs for generated code, and must'
+            verify(logger!.severe(contains('Factory variables are stubs for generated code, and must'
                 ' be initialized with an expression containing either'
                 ' the generated factory (_\$_Foo) or'
                 ' the generated factory config (_\$_FooConfig).')));
@@ -2109,7 +2110,7 @@ main() {
                   static const StateMeta meta = _\$metaForFooProps;
                 }
               ''');
-              verify(logger.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
+              verify(logger!.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
             });
 
             test('is initialized incorrectly', () {
@@ -2118,7 +2119,7 @@ main() {
                   static const PropsMeta meta = \$metaForBarProps;
                 }
               ''');
-              verify(logger.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
+              verify(logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
                   '`_\$metaForFooProps`')));
             });
 
@@ -2128,7 +2129,7 @@ main() {
                   static const PropsMeta meta = \$metaForFooProps;
                 }
               ''');
-              verify(logger.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
+              verify(logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
                   '`_\$metaFor_FooProps`')));
             });
           });
@@ -2140,7 +2141,7 @@ main() {
                   static const PropsMeta meta = _\$metaForFooState;
                 }
               ''');
-              verify(logger.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));
+              verify(logger!.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));
             });
 
             test('is initialized incorrectly', () {
@@ -2149,7 +2150,7 @@ main() {
                   static const StateMeta meta = \$metaForBarState;
                 }
               ''');
-              verify(logger.severe(contains('Static StateMeta field in accessor class must be initialized to:'
+              verify(logger!.severe(contains('Static StateMeta field in accessor class must be initialized to:'
                   '`_\$metaForFooState`')));
             });
 
@@ -2159,7 +2160,7 @@ main() {
                   static const StateMeta meta = \$metaForBarState;
                 }
               ''');
-              verify(logger.severe(contains('Static StateMeta field in accessor class must be initialized to:'
+              verify(logger!.severe(contains('Static StateMeta field in accessor class must be initialized to:'
                   '`_\$metaFor_FooState`')));
             });
           });
@@ -2172,7 +2173,7 @@ main() {
                   static const StateMeta meta = _\$metaForAbstractFooProps;
                 }
               ''');
-              verify(logger.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
+              verify(logger!.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
             });
 
             test('is initialized incorrectly', () {
@@ -2182,7 +2183,7 @@ main() {
                   static const PropsMeta meta = \$metaForAbstractBarProps;
                 }
               ''');
-              verify(logger.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
+              verify(logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
                     '`_\$metaForAbstractFooProps`')));
             });
 
@@ -2193,7 +2194,7 @@ main() {
                   static const PropsMeta meta = \$metaForAbstractBarProps;
                 }
               ''');
-              verify(logger.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
+              verify(logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
                     '`_\$metaFor_AbstractFooProps`')));
             });
           });
@@ -2206,7 +2207,7 @@ main() {
                   static const PropsMeta meta = _\$metaForAbstractFooState;
                 }
               ''');
-              verify(logger.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));
+              verify(logger!.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));
             });
 
             test('is initialized incorrectly', () {
@@ -2216,7 +2217,7 @@ main() {
                   static const StateMeta meta = \$metaForAbstractBarState;
                 }
               ''');
-              verify(logger.severe(contains('Static StateMeta field in accessor class must be initialized to:'
+              verify(logger!.severe(contains('Static StateMeta field in accessor class must be initialized to:'
                   '`_\$metaForAbstractFooState`')));
             });
 
@@ -2227,7 +2228,7 @@ main() {
                   static const StateMeta meta = \$metaForAbstractBarState;
                 }
               ''');
-              verify(logger.severe(contains('Static StateMeta field in accessor class must be initialized to:'
+              verify(logger!.severe(contains('Static StateMeta field in accessor class must be initialized to:'
                   '`_\$metaFor_AbstractFooState`')));
             });
           });
@@ -2240,7 +2241,7 @@ main() {
                   Map get props;
                 }
               ''');
-              verify(logger.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
+              verify(logger!.severe(contains('Static meta field in accessor class must be of type `PropsMeta`')));
             });
 
             test('is initialized incorrectly', () {
@@ -2250,7 +2251,7 @@ main() {
                   Map get props;
                 }
               ''');
-              verify(logger.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
+              verify(logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
                   '`_\$metaForFooPropsMixin`')));
             });
 
@@ -2261,7 +2262,7 @@ main() {
                   Map get props;
                 }
               ''');
-              verify(logger.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
+              verify(logger!.severe(contains('Static PropsMeta field in accessor class must be initialized to:'
                   '`_\$metaFor_FooPropsMixin`')));
             });
           });
@@ -2274,7 +2275,7 @@ main() {
                   Map get state;
                 }
               ''');
-              verify(logger.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));
+              verify(logger!.severe(contains('Static meta field in accessor class must be of type `StateMeta`')));
             });
 
             test('is initialized incorrectly', () {
@@ -2284,7 +2285,7 @@ main() {
                   Map get state;
                 }
               ''');
-              verify(logger.severe(contains('Static StateMeta field in accessor class must be initialized to:'
+              verify(logger!.severe(contains('Static StateMeta field in accessor class must be initialized to:'
                   '`_\$metaForFooStateMixin`')));
             });
 
@@ -2295,7 +2296,7 @@ main() {
                   Map get state;
                 }
               ''');
-              verify(logger.severe(contains('Static StateMeta field in accessor class must be initialized to:'
+              verify(logger!.severe(contains('Static StateMeta field in accessor class must be initialized to:'
                   '`_\$metaFor_FooStateMixin`')));
             });
           });
@@ -2309,7 +2310,7 @@ main() {
               UiFactory<FooProps> Foo = _$Foo;
               mixin FooProps on UiProps, BarProps {}
             ''');
-            verify(logger.severe(allOf(
+            verify(logger!.severe(allOf(
               contains('FooProps can\'t be used in shorthand syntax since it has'
                   ' the following `on` constraints: `BarProps`'),
               // verify the factory is used for the span
@@ -2323,7 +2324,7 @@ main() {
               mixin FooProps on UiProps, BarProps {}
               class FooComponent extends UiComponent2<FooProps> {}
             ''');
-            verify(logger.severe(allOf(
+            verify(logger!.severe(allOf(
               contains('FooProps can\'t be used in shorthand syntax since it has'
                   ' the following `on` constraints: `BarProps`'),
               // verify the factory is used for the span
@@ -2342,7 +2343,7 @@ main() {
               mixin FooState on UiState, BarState {}
               class FooComponent extends UiStatefulComponent2<FooProps, FooState> {}
             ''');
-            verify(logger.severe(allOf(
+            verify(logger!.severe(allOf(
               contains('FooState can\'t be used in shorthand syntax since it has'
                   ' the following `on` constraints: `BarState`'),
               // verify the component is used for the span
@@ -2363,7 +2364,7 @@ main() {
               }
             ''');
 
-            verify(logger.severe(contains(errorComponentClassOnly)));
+            verify(logger!.severe(contains(errorComponentClassOnly)));
           });
 
           group('a component is declared without matching factory/props', () {
@@ -2377,7 +2378,7 @@ main() {
                     }
                   ''');
 
-                  verify(logger.severe(contains(errorComponentClassOnly)));
+                  verify(logger!.severe(contains(errorComponentClassOnly)));
                 });
               }
 
@@ -2425,7 +2426,7 @@ main() {
               backwardsCompatible: false,
               componentBody: 'typedPropsFactory(Map backingMap) => {};',
             ).source);
-            verify(logger.warning(contains(
+            verify(logger!.warning(contains(
                 'Components should not add their own implementations of typedPropsFactory.')));
           });
 
@@ -2434,7 +2435,7 @@ main() {
               backwardsCompatible: false,
               componentBody: 'typedPropsFactoryJs(JsBackedMap backingMap) => {};',
             ).source);
-            verify(logger.warning(contains(
+            verify(logger!.warning(contains(
                 'Components should not add their own implementations of typedPropsFactoryJs.')));
           });
 
@@ -2443,7 +2444,7 @@ main() {
               backwardsCompatible: false,
               componentBody: 'typedStateFactory(Map backingMap) => {};',
             ).source);
-            verify(logger.warning(contains(
+            verify(logger!.warning(contains(
                 'Components should not add their own implementations of typedStateFactory.')));
           });
 
@@ -2452,7 +2453,7 @@ main() {
               backwardsCompatible: false,
               componentBody: 'typedStateFactoryJs(JsBackedMap backingMap) => {};',
             ).source);
-            verify(logger.warning(contains(
+            verify(logger!.warning(contains(
                 'Components should not add their own implementations of typedStateFactoryJs.')));
           });
         });
@@ -2460,7 +2461,7 @@ main() {
         group('on Dart 2 only boilerplate', () {
           group('a static `meta` field is declared in ', () {
             void verifyWarningLog(String publicClassName) {
-              verify(logger.warning(contains(
+              verify(logger!.warning(contains(
                 'Static class member `meta` is declared in _\$$publicClassName. '
                 '`meta` is a field declared by the over_react builder, and therefore this '
                 'class member will be unused and should be removed or renamed.'
@@ -2549,13 +2550,11 @@ main() {
 }
 
 extension on Iterable<ClassComponentDeclaration> {
-  ClassComponentDeclaration firstWhereNameEquals(String baseName) =>
-      firstWhere((declaration) => normalizeNameAndRemoveSuffix(declaration.component) == baseName,
-          orElse: () => null);
+  ClassComponentDeclaration? firstWhereNameEquals(String baseName) =>
+      firstWhereOrNull((declaration) => normalizeNameAndRemoveSuffix(declaration.component) == baseName);
 }
 
 extension on Iterable<LegacyClassComponentDeclaration> {
-  LegacyClassComponentDeclaration firstWhereNameEquals(String baseName) =>
-      firstWhere((declaration) => normalizeNameAndRemoveSuffix(declaration.component) == baseName,
-          orElse: () => null);
+  LegacyClassComponentDeclaration? firstWhereNameEquals(String baseName) =>
+      firstWhereOrNull((declaration) => normalizeNameAndRemoveSuffix(declaration.component) == baseName);
 }

@@ -41,7 +41,7 @@ class TestSubsubtype2Props extends _$TestSubsubtype2Props
   static const PropsMeta meta = _$metaForTestSubsubtype2Props;
 }
 
-_$$TestSubsubtype2Props _$TestSubsubtype2([Map backingProps]) =>
+_$$TestSubsubtype2Props _$TestSubsubtype2([Map? backingProps]) =>
     backingProps == null
         ? _$$TestSubsubtype2Props$JsMap(JsBackedMap())
         : _$$TestSubsubtype2Props(backingProps);
@@ -114,7 +114,7 @@ class _$$TestSubsubtype2Props$JsMap extends _$$TestSubsubtype2Props {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestSubsubtype2Component extends TestSubsubtype2Component {
-  _$$TestSubsubtype2Props$JsMap _cachedTypedProps;
+  late _$$TestSubsubtype2Props$JsMap _cachedTypedProps;
 
   @override
   _$$TestSubsubtype2Props$JsMap get props => _cachedTypedProps;

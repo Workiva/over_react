@@ -25,9 +25,9 @@ import '../util.dart';
 main() {
   group('error collection -', () {
     group('ErrorCollector', () {
-      ErrorCollector collector;
-      SourceFile file;
-      MockLogger logger;
+      ErrorCollector? collector;
+      SourceFile? file;
+      MockLogger? logger;
 
       const boilerplateString = r'''
               @Factory()
@@ -53,8 +53,8 @@ main() {
 
       group('utilities', () {
         group('stringCallback', () {
-          Function(String, [SourceSpan]) callback;
-          String callbackResult;
+          late Function(String, [SourceSpan?]) callback;
+          String? callbackResult;
 
           setUp(() {
             file = SourceFile.fromString(boilerplateString);
@@ -75,7 +75,7 @@ main() {
           });
 
           test('can be used to generate a string with a span', () {
-            callback('test message', file.span(0, file.getOffset(2)));
+            callback('test message', file!.span(0, file!.getOffset(2)));
 
             expect(callbackResult, contains('test message'));
             expect(callbackResult, contains('@Factory()'));
@@ -86,7 +86,7 @@ main() {
         group('spanFor returns the expected span', () {
           setUp(() {
             file = SourceFile.fromString(boilerplateString);
-            collector = ErrorCollector.print(file);
+            collector = ErrorCollector.print(file!);
           });
 
           tearDown(() {
@@ -101,8 +101,8 @@ main() {
                 .first
                 .name;
 
-            final localFileSpan = file.spanFor(propsNameToken);
-            final collectorFileSpan = collector.spanFor(propsNameToken);
+            final localFileSpan = file!.spanFor(propsNameToken);
+            final collectorFileSpan = collector!.spanFor(propsNameToken);
 
             // Sanity check
             expect(localFileSpan.text, r'_$FooProps');
@@ -115,8 +115,8 @@ main() {
             final localFileParseResult = parseString(content: boilerplateString);
             final beginToken = localFileParseResult.unit.beginToken;
 
-            final localFileSpan = file.spanFor(beginToken);
-            final collectorFileSpan = collector.spanFor(beginToken);
+            final localFileSpan = file!.spanFor(beginToken);
+            final collectorFileSpan = collector!.spanFor(beginToken);
 
             // Sanity check
             expect(localFileSpan.text, r'@');
@@ -128,19 +128,19 @@ main() {
 
         test('span returns the expected span', () {
           file = SourceFile.fromString(boilerplateString);
-          collector = ErrorCollector.print(file);
+          collector = ErrorCollector.print(file!);
 
           addTearDown(() {
             file = null;
             collector = null;
           });
 
-          final expectedSpan = file.span(0, 25);
+          final expectedSpan = file!.span(0, 25);
 
           // Sanity check
           expect(expectedSpan.text, contains('@Factory'));
 
-          expect(collector.span(0, 25), expectedSpan);
+          expect(collector!.span(0, 25), expectedSpan);
         });
       });
 
@@ -151,15 +151,15 @@ main() {
         setUp(() {
           file = SourceFile.fromString(boilerplateString);
 
-          void customError(String message, [SourceSpan span]) {
+          void customError(String message, [SourceSpan? span]) {
             errorList.add('CUSTOM ERROR MESSAGE: $message; ${span?.text}');
           }
 
-          void customWarning(String message, [SourceSpan span]) {
+          void customWarning(String message, [SourceSpan? span]) {
             warnList.add('CUSTOM WARNING MESSAGE: $message; ${span?.text}');
           }
 
-          collector = ErrorCollector.callback(file, onError: customError, onWarning: customWarning);
+          collector = ErrorCollector.callback(file!, onError: customError, onWarning: customWarning);
         });
 
         tearDown(() {
@@ -169,13 +169,13 @@ main() {
 
         group('will print', () {
           test('errors', () {
-            collector.addError(message);
+            collector!.addError(message);
             expect(errorList.first, contains('CUSTOM ERROR MESSAGE'));
             expect(errorList.first, contains(message));
           });
 
           test('warnings', () {
-            collector.addWarning(message);
+            collector!.addWarning(message);
             expect(warnList.first, contains('CUSTOM WARNING MESSAGE'));
             expect(warnList.first, contains(message));
           });
@@ -183,14 +183,14 @@ main() {
 
         group('logs a span correctly for', () {
           test('errors', () {
-            collector.addError(message, file.span(0, file.getOffset(2)));
+            collector!.addError(message, file!.span(0, file!.getOffset(2)));
             expect(errorList.first, contains('CUSTOM ERROR MESSAGE'));
             expect(errorList.first, contains(message));
             expect(errorList.first, contains('@Factory()'));
           });
 
           test('warnings', () {
-            collector.addWarning(message, file.span(0, file.getOffset(2)));
+            collector!.addWarning(message, file!.span(0, file!.getOffset(2)));
             expect(warnList.first, contains('CUSTOM WARNING MESSAGE'));
             expect(warnList.first, contains(message));
             expect(warnList.first, contains('@Factory()'));
@@ -201,16 +201,16 @@ main() {
       group('print', () {
         setUp(() {
           file = SourceFile.fromString(boilerplateString);
-          collector = ErrorCollector.print(file);
+          collector = ErrorCollector.print(file!);
         });
 
         group('will print', () {
           test('correctly prints errors', () {
-            expect(() => collector.addError(message), prints(contains(message)));
+            expect(() => collector!.addError(message), prints(contains(message)));
           });
 
           test('correctly prints warnings', () {
-            expect(() => collector.addWarning('warning: $message'),
+            expect(() => collector!.addWarning('warning: $message'),
                 prints(contains('warning: $message')));
           });
         });
@@ -219,30 +219,30 @@ main() {
           test('errors', () {
             var expectedOutput = '';
 
-            final callbackTest = ErrorCollector.stringCallback((generatedString) {
+            final void Function(String, [SourceSpan]) callbackTest = ErrorCollector.stringCallback((generatedString) {
               expectedOutput = generatedString;
             });
 
             // Create the string that is expected
-            callbackTest(message, file.span(0, file.getOffset(2)));
+            callbackTest(message, file!.span(0, file!.getOffset(2)));
 
             // Look for the expected output
-            expect(() => collector.addError(message, file.span(0, file.getOffset(2))),
+            expect(() => collector!.addError(message, file!.span(0, file!.getOffset(2))),
                 prints(contains(expectedOutput)));
           });
 
           test('warnings', () {
             var expectedOutput = '';
 
-            final callbackTest = ErrorCollector.stringCallback((generatedString) {
+            final void Function(String, [SourceSpan]) callbackTest = ErrorCollector.stringCallback((generatedString) {
               expectedOutput = generatedString;
             });
 
             // Create the string that is expected
-            callbackTest('warning: $message', file.span(0, file.getOffset(2)));
+            callbackTest('warning: $message', file!.span(0, file!.getOffset(2)));
 
             // Look for the expected output
-            expect(() => collector.addWarning('warning: $message', file.span(0, file.getOffset(2))),
+            expect(() => collector!.addWarning('warning: $message', file!.span(0, file!.getOffset(2))),
                 prints(contains('$expectedOutput')));
           });
         });
@@ -253,18 +253,18 @@ main() {
           logger = MockLogger();
           file = SourceFile.fromString(boilerplateString);
 
-          collector = ErrorCollector.log(file, logger);
+          collector = ErrorCollector.log(file!, logger!);
         });
 
         group('will print', () {
           test('correctly prints errors', () {
-            collector.addError(message);
-            verify(logger.severe(message));
+            collector!.addError(message);
+            verify(logger!.severe(message));
           });
 
           test('correctly prints warnings', () {
-            collector.addWarning(message);
-            verify(logger.warning(contains(message)));
+            collector!.addWarning(message);
+            verify(logger!.warning(contains(message)));
           });
         });
 
@@ -272,35 +272,35 @@ main() {
           test('errors', () {
             var expectedOutput = '';
 
-            final callbackTest = ErrorCollector.stringCallback((generatedString) {
+            final void Function(String, [SourceSpan]) callbackTest = ErrorCollector.stringCallback((generatedString) {
               expectedOutput = generatedString;
             });
 
             // Create the string that is expected
-            callbackTest(message, file.span(0, file.getOffset(2)));
+            callbackTest(message, file!.span(0, file!.getOffset(2)));
 
             // Add the warning
-            collector.addError(message, file.span(0, file.getOffset(2)));
+            collector!.addError(message, file!.span(0, file!.getOffset(2)));
 
             // Look for the expected output
-            verify(logger.severe(expectedOutput));
+            verify(logger!.severe(expectedOutput));
           });
 
           test('warnings', () {
             var expectedOutput = '';
 
-            final callbackTest = ErrorCollector.stringCallback((generatedString) {
+            final void Function(String, [SourceSpan]) callbackTest = ErrorCollector.stringCallback((generatedString) {
               expectedOutput = generatedString;
             });
 
             // Create the string that is expected
-            callbackTest(message, file.span(0, file.getOffset(2)));
+            callbackTest(message, file!.span(0, file!.getOffset(2)));
 
             // Add the warning
-            collector.addWarning(message, file.span(0, file.getOffset(2)));
+            collector!.addWarning(message, file!.span(0, file!.getOffset(2)));
 
             // Look for the expected output
-            verify(logger.warning(expectedOutput));
+            verify(logger!.warning(expectedOutput));
           });
         });
       });

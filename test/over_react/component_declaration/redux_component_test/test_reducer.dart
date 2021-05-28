@@ -23,14 +23,14 @@ abstract class BaseActions extends ReduxActions {
   factory BaseActions() => _$BaseActions();
   BaseActions._();
 
-  ActionDispatcher<Null> trigger1;
-  ActionDispatcher<Null> trigger2;
+  late ActionDispatcher<Null> trigger1;
+  late ActionDispatcher<Null> trigger2;
 }
 
 abstract class BaseState implements Built<BaseState, BaseStateBuilder> {
   factory BaseState() => _$BaseState._(count1: 0, count2: 0);
   BaseState._();
 
-  int get count1;
-  int get count2;
+  int? get count1;
+  int? get count2;
 }

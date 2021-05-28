@@ -36,7 +36,7 @@ main() {
       )());
       expect(instance, isNotNull);
 
-      var node = findDomNode(instance);
+      var node = findDomNode(instance)!;
       expect(node.text, 'rendered content');
       expect(node.dataset, containsPair('prop-string-prop', '1'));
       expect(node.dataset, containsPair('prop-dynamic-prop', '2'));
@@ -118,9 +118,9 @@ main() {
       )());
 
       var shallowProps = getProps(shallowInstance);
-      Iterable<String> shallowPropKeys = shallowProps.keys.map((key) => key as String); // ignore: avoid_as
+      Iterable<String?> shallowPropKeys = shallowProps.keys.map((key) => key as String?); // ignore: avoid_as
 
-      expect(shallowPropKeys.where((key) => !key.startsWith('data-prop-')), unorderedEquals(['id', 'extraneous', 'children']));
+      expect(shallowPropKeys.where((key) => !key!.startsWith('data-prop-')), unorderedEquals(['id', 'extraneous', 'children']));
     });
   });
 }
@@ -132,7 +132,7 @@ UiFactory<ComponentTestProps> ComponentTest = _$ComponentTest;
 
 @Props()
 class _$ComponentTestProps extends UiProps {
-  String stringProp;
+  String? stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
 

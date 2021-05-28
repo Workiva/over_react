@@ -22,12 +22,12 @@ UiFactory<TestProps> Test = _$Test; // ignore: undefined_identifier, invalid_ass
 
 @Props()
 class _$TestProps extends UiProps {
-  LifecycleCallback onComponentDidMount;
-  LifecycleCallback onComponentWillUpdate;
-  LifecycleCallback onComponentWillReceiveProps;
-  LifecycleCallback onComponentDidUpdate;
-  LifecycleCallback onComponentWillUnmount;
-  LifecycleCallback onRender;
+  LifecycleCallback? onComponentDidMount;
+  LifecycleCallback? onComponentWillUpdate;
+  LifecycleCallback? onComponentWillReceiveProps;
+  LifecycleCallback? onComponentDidUpdate;
+  LifecycleCallback? onComponentWillUnmount;
+  LifecycleCallback? onRender;
 }
 
 @Component(isWrapper: true)

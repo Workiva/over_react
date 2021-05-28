@@ -21,7 +21,7 @@ import 'package:w_common/disposable.dart';
 /// An implementation of [DisposableManagerV7] for use by
 /// `UiComponent` and `UiComponent2`.
 mixin DisposableManagerProxy on react.Component implements DisposableManagerV7 { // ignore: deprecated_member_use
-  Disposable _disposableProxy;
+  Disposable? _disposableProxy;
 
   @override
   @mustCallSuper
@@ -59,7 +59,7 @@ mixin DisposableManagerProxy on react.Component implements DisposableManagerV7 {
   @override
   StreamSubscription<T> listenToStream<T>(
           Stream<T> stream, void Function(T event) onData,
-          {Function onError, void Function() onDone, bool cancelOnError,}) =>
+          {required Function onError, required void Function() onDone, required bool cancelOnError,}) =>
       _getDisposableProxy().listenToStream(stream, onData,
           onError: onError, onDone: onDone, cancelOnError: cancelOnError);
 

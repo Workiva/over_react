@@ -25,67 +25,67 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
 
   /// <!-- Generated from [_$TestProps.onComponentDidMount] -->
   @override
-  LifecycleCallback get onComponentDidMount =>
+  LifecycleCallback? get onComponentDidMount =>
       (props[_$key__onComponentDidMount___$TestProps] ?? null)
-          as LifecycleCallback;
+          as LifecycleCallback?;
 
   /// <!-- Generated from [_$TestProps.onComponentDidMount] -->
   @override
-  set onComponentDidMount(LifecycleCallback value) =>
+  set onComponentDidMount(LifecycleCallback? value) =>
       props[_$key__onComponentDidMount___$TestProps] = value;
 
   /// <!-- Generated from [_$TestProps.onComponentWillUpdate] -->
   @override
-  LifecycleCallback get onComponentWillUpdate =>
+  LifecycleCallback? get onComponentWillUpdate =>
       (props[_$key__onComponentWillUpdate___$TestProps] ?? null)
-          as LifecycleCallback;
+          as LifecycleCallback?;
 
   /// <!-- Generated from [_$TestProps.onComponentWillUpdate] -->
   @override
-  set onComponentWillUpdate(LifecycleCallback value) =>
+  set onComponentWillUpdate(LifecycleCallback? value) =>
       props[_$key__onComponentWillUpdate___$TestProps] = value;
 
   /// <!-- Generated from [_$TestProps.onComponentWillReceiveProps] -->
   @override
-  LifecycleCallback get onComponentWillReceiveProps =>
+  LifecycleCallback? get onComponentWillReceiveProps =>
       (props[_$key__onComponentWillReceiveProps___$TestProps] ?? null)
-          as LifecycleCallback;
+          as LifecycleCallback?;
 
   /// <!-- Generated from [_$TestProps.onComponentWillReceiveProps] -->
   @override
-  set onComponentWillReceiveProps(LifecycleCallback value) =>
+  set onComponentWillReceiveProps(LifecycleCallback? value) =>
       props[_$key__onComponentWillReceiveProps___$TestProps] = value;
 
   /// <!-- Generated from [_$TestProps.onComponentDidUpdate] -->
   @override
-  LifecycleCallback get onComponentDidUpdate =>
+  LifecycleCallback? get onComponentDidUpdate =>
       (props[_$key__onComponentDidUpdate___$TestProps] ?? null)
-          as LifecycleCallback;
+          as LifecycleCallback?;
 
   /// <!-- Generated from [_$TestProps.onComponentDidUpdate] -->
   @override
-  set onComponentDidUpdate(LifecycleCallback value) =>
+  set onComponentDidUpdate(LifecycleCallback? value) =>
       props[_$key__onComponentDidUpdate___$TestProps] = value;
 
   /// <!-- Generated from [_$TestProps.onComponentWillUnmount] -->
   @override
-  LifecycleCallback get onComponentWillUnmount =>
+  LifecycleCallback? get onComponentWillUnmount =>
       (props[_$key__onComponentWillUnmount___$TestProps] ?? null)
-          as LifecycleCallback;
+          as LifecycleCallback?;
 
   /// <!-- Generated from [_$TestProps.onComponentWillUnmount] -->
   @override
-  set onComponentWillUnmount(LifecycleCallback value) =>
+  set onComponentWillUnmount(LifecycleCallback? value) =>
       props[_$key__onComponentWillUnmount___$TestProps] = value;
 
   /// <!-- Generated from [_$TestProps.onRender] -->
   @override
-  LifecycleCallback get onRender =>
-      (props[_$key__onRender___$TestProps] ?? null) as LifecycleCallback;
+  LifecycleCallback? get onRender =>
+      (props[_$key__onRender___$TestProps] ?? null) as LifecycleCallback?;
 
   /// <!-- Generated from [_$TestProps.onRender] -->
   @override
-  set onRender(LifecycleCallback value) =>
+  set onRender(LifecycleCallback? value) =>
       props[_$key__onRender___$TestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onComponentDidMount___$TestProps =
@@ -139,7 +139,7 @@ class TestProps extends _$TestProps with _$TestPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestProps;
 }
 
-_$$TestProps _$Test([Map backingProps]) => _$$TestProps(backingProps);
+_$$TestProps _$Test([Map? backingProps]) => _$$TestProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -149,7 +149,7 @@ class _$$TestProps extends _$TestProps
     implements TestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestProps(Map backingMap) : this._props = {} {
+  _$$TestProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -178,7 +178,7 @@ class _$$TestProps extends _$TestProps
 // generated for the associated props class.
 class _$TestComponent extends TestComponent {
   @override
-  _$$TestProps typedPropsFactory(Map backingMap) => _$$TestProps(backingMap);
+  _$$TestProps typedPropsFactory(Map? backingMap) => _$$TestProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

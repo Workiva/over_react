@@ -21,7 +21,7 @@ final $WithTransitionTesterComponentFactory = registerComponent2(
   displayName: 'WithTransitionTester',
 );
 
-_$$WithTransitionTesterProps _$WithTransitionTester([Map backingProps]) =>
+_$$WithTransitionTesterProps _$WithTransitionTester([Map? backingProps]) =>
     backingProps == null
         ? _$$WithTransitionTesterProps$JsMap(JsBackedMap())
         : _$$WithTransitionTesterProps(backingProps);
@@ -116,7 +116,7 @@ class _$$WithTransitionTesterProps$JsMap extends _$$WithTransitionTesterProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$WithTransitionTesterComponent extends WithTransitionTesterComponent {
-  _$$WithTransitionTesterProps$JsMap _cachedTypedProps;
+  late _$$WithTransitionTesterProps$JsMap _cachedTypedProps;
 
   @override
   _$$WithTransitionTesterProps$JsMap get props => _cachedTypedProps;

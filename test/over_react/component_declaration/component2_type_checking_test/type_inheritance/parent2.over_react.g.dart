@@ -39,7 +39,7 @@ class TestParent2Props extends _$TestParent2Props
   static const PropsMeta meta = _$metaForTestParent2Props;
 }
 
-_$$TestParent2Props _$TestParent2([Map backingProps]) => backingProps == null
+_$$TestParent2Props _$TestParent2([Map? backingProps]) => backingProps == null
     ? _$$TestParent2Props$JsMap(JsBackedMap())
     : _$$TestParent2Props(backingProps);
 
@@ -111,7 +111,7 @@ class _$$TestParent2Props$JsMap extends _$$TestParent2Props {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestParent2Component extends TestParent2Component {
-  _$$TestParent2Props$JsMap _cachedTypedProps;
+  late _$$TestParent2Props$JsMap _cachedTypedProps;
 
   @override
   _$$TestParent2Props$JsMap get props => _cachedTypedProps;

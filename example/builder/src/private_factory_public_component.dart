@@ -27,7 +27,7 @@ UiFactory<FormActionInputProps> FormResetInput = ([backingMap]) =>
     _FormActionInput(backingMap);
 
 mixin FormActionInputProps on UiProps {
-  String prop1;
+  String? prop1;
 }
 
 class FormActionInputComponent extends UiComponent2<FormActionInputProps> {

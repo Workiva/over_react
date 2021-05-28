@@ -34,11 +34,11 @@ abstract class BuiltReduxUiProps<V extends Built<V, B>, B extends Builder<V, B>,
   String get _storePropKey => '${propKeyNamespace}store';
 
   /// The [Store] prop defined by [V], [B], and [A].
-  Store<V, B, A> get store => props[_storePropKey] as Store<V, B, A>;
-  set store(Store<V, B, A> value) => props[_storePropKey] = value;
+  Store<V, B, A>? get store => props[_storePropKey] as Store<V, B, A>?;
+  set store(Store<V, B, A>? value) => props[_storePropKey] = value;
 
   /// The [ReduxActions] prop defined by [A].
-  A get actions => store.actions;
+  A get actions => store!.actions;
 }
 
 /// Builds on top of [UiComponent], adding `built_redux` integration.
@@ -74,7 +74,7 @@ abstract class BuiltReduxUiComponent<
   @override
   void componentWillReceiveProps(Map nextProps) {
     super.componentWillReceiveProps(nextProps);
-    var tNextProps = typedPropsFactory(nextProps);
+    T tNextProps = typedPropsFactory(nextProps);
 
     if (tNextProps.store != props.store) {
       _tearDownSub();
@@ -99,7 +99,7 @@ abstract class BuiltReduxUiComponent<
 
   @mustCallSuper
   @override
-  void redraw([Function() callback]) {
+  void redraw([Function()? callback]) {
     _isDirty = true;
 
     // ignore: deprecated_member_use
@@ -110,9 +110,9 @@ abstract class BuiltReduxUiComponent<
     });
   }
 
-  bool _isDirty;
+  late bool _isDirty;
 
-  Substate _connectedState;
+  Substate? _connectedState;
 
   /// The substate values of the redux store that this component subscribes to.
   ///
@@ -120,7 +120,7 @@ abstract class BuiltReduxUiComponent<
   /// if you need to access other state values from the store then they should be connected with [connect].
   ///
   /// Related: [connect]
-  Substate get connectedState => _connectedState;
+  Substate? get connectedState => _connectedState;
 
   /// Returns a subset of the values derived from the redux store that this component cares about.
   ///
@@ -181,18 +181,18 @@ abstract class BuiltReduxUiComponent<
   /// Related: [shouldComponentUpdate], [redraw]
   bool get isPure => false;
 
-  StreamSubscription _storeSub;
+  StreamSubscription? _storeSub;
 
-  void _setUpSub([Map propsMap]) {
+  void _setUpSub([Map? propsMap]) {
     if (_storeSub != null) {
       throw StateError('Store subscription is already set up');
     }
 
     propsMap ??= props;
-    var tPropsMap = typedPropsFactory(propsMap);
-    _connectedState = connect(tPropsMap.store.state);
+    T tPropsMap = typedPropsFactory(propsMap);
+    _connectedState = connect(tPropsMap.store!.state);
 
-    _storeSub = tPropsMap.store.nextSubstate(connect).listen((s) {
+    _storeSub = tPropsMap.store!.nextSubstate(connect).listen((s) {
       _connectedState = s;
       redraw();
     });

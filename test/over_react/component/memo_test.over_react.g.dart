@@ -26,12 +26,12 @@ abstract class _$BasicUiComponent2PropsAccessorsMixin
 
   /// <!-- Generated from [_$BasicUiComponent2Props.childId] -->
   @override
-  String get childId =>
-      (props[_$key__childId___$BasicUiComponent2Props] ?? null) as String;
+  String? get childId =>
+      (props[_$key__childId___$BasicUiComponent2Props] ?? null) as String?;
 
   /// <!-- Generated from [_$BasicUiComponent2Props.childId] -->
   @override
-  set childId(String value) =>
+  set childId(String? value) =>
       props[_$key__childId___$BasicUiComponent2Props] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__childId___$BasicUiComponent2Props =
@@ -57,7 +57,7 @@ class BasicUiComponent2Props extends _$BasicUiComponent2Props
   static const PropsMeta meta = _$metaForBasicUiComponent2Props;
 }
 
-_$$BasicUiComponent2Props _$BasicUiComponent2([Map backingProps]) =>
+_$$BasicUiComponent2Props _$BasicUiComponent2([Map? backingProps]) =>
     backingProps == null
         ? _$$BasicUiComponent2Props$JsMap(JsBackedMap())
         : _$$BasicUiComponent2Props(backingProps);
@@ -130,7 +130,7 @@ class _$$BasicUiComponent2Props$JsMap extends _$$BasicUiComponent2Props {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$BasicUiComponent2Component extends BasicUiComponent2Component {
-  _$$BasicUiComponent2Props$JsMap _cachedTypedProps;
+  late _$$BasicUiComponent2Props$JsMap _cachedTypedProps;
 
   @override
   _$$BasicUiComponent2Props$JsMap get props => _cachedTypedProps;
@@ -176,17 +176,17 @@ class _$BasicUiComponent2Component extends BasicUiComponent2Component {
 mixin $FunctionCustomPropsProps on FunctionCustomPropsProps {
   static const PropsMeta meta = _$metaForFunctionCustomPropsProps;
   @override
-  int get testProp =>
-      (props[_$key__testProp__FunctionCustomPropsProps] ?? null) as int;
+  int? get testProp =>
+      (props[_$key__testProp__FunctionCustomPropsProps] ?? null) as int?;
   @override
-  set testProp(int value) =>
+  set testProp(int? value) =>
       props[_$key__testProp__FunctionCustomPropsProps] = value;
   @override
-  Function() get testFuncProp =>
+  Function()? get testFuncProp =>
       (props[_$key__testFuncProp__FunctionCustomPropsProps] ?? null)
-          as Function();
+          as Function()?;
   @override
-  set testFuncProp(Function() value) =>
+  set testFuncProp(Function()? value) =>
       props[_$key__testFuncProp__FunctionCustomPropsProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__testProp__FunctionCustomPropsProps =

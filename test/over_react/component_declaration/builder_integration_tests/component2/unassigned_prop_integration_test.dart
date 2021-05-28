@@ -27,7 +27,7 @@ main() {
 
     expect(instance, isNotNull); // sanity check
 
-    var node = findDomNode(instance);
+    var node = findDomNode(instance)!;
 
     // This tests a workaround added to impl_generation.dart to add ` ?? null;` to the getters
     // for props/state members. Details: <https://github.com/dart-lang/sdk/issues/36052>
@@ -42,8 +42,8 @@ UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier, invalid_assign
 
 @Props()
 class _$FooProps extends UiProps {
-  String stringProp;
-  String unassignedProp;
+  String? stringProp;
+  String? unassignedProp;
 }
 
 @Component2()

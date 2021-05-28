@@ -50,14 +50,14 @@ class PureTestWrapperComponent extends UiComponent2<PureTestWrapperProps>
 UiFactory<PureTestProps> PureTest = _$PureTest; // ignore: undefined_identifier, invalid_assignment
 
 mixin PureTestPropsMixin on UiProps {
-  bool childBoolProp;
-  void Function() childFuncProp;
+  bool? childBoolProp;
+  void Function()? childFuncProp;
 }
 
 class PureTestProps = UiProps with SharedPureTestPropsMixin, PureTestPropsMixin;
 
 mixin PureTestState on UiState {
-  bool childBoolState;
+  bool? childBoolState;
 }
 
 class PureTestComponent extends UiStatefulComponent2<PureTestProps, PureTestState>
@@ -87,6 +87,6 @@ mixin SharedPureTestPropsMixin on UiProps {
     ..sharedBoolProp = false
   );
 
-  bool sharedBoolProp;
-  ReactElement someVDomEl;
+  bool? sharedBoolProp;
+  ReactElement? someVDomEl;
 }

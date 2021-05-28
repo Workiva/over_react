@@ -39,7 +39,7 @@ import './safe_render_manager_helper.dart';
 /// via Component state changes, ensuring that the content is mounted/unmounted as it
 /// normally would be.
 class SafeRenderManager extends Disposable {
-  SafeRenderManagerHelperComponent _helper;
+  SafeRenderManagerHelperComponent? _helper;
 
   /// Whether to automatically add [mountNode] to the document body when
   /// rendered, and remove it when unmounted.
@@ -62,14 +62,14 @@ class SafeRenderManager extends Disposable {
 
   /// A list of [render] calls queued up while the component is in the process
   /// of rendering.
-  List<ReactElement> _renderQueue = [];
+  List<ReactElement?> _renderQueue = [];
 
-  SafeRenderManager({Element mountNode, this.autoAttachMountNode = false})
+  SafeRenderManager({Element? mountNode, this.autoAttachMountNode = false})
       : mountNode = mountNode ?? DivElement();
 
   /// Renders [content] into [mountNode], chaining existing callback refs to
   /// provide access to the rendered component via [contentRef].
-  void render(ReactElement content) {
+  void render(ReactElement? content) {
     _checkDisposalState();
 
     switch (_state) {
@@ -81,7 +81,7 @@ class SafeRenderManager extends Disposable {
         if (_helper == null) {
           _mountContent(content);
         } else {
-          _helper.renderContent(content);
+          _helper!.renderContent(content);
         }
         break;
       case _RenderState.unmounted:
@@ -90,12 +90,12 @@ class SafeRenderManager extends Disposable {
     }
   }
 
-  void _mountContent(ReactElement content) {
+  void _mountContent(ReactElement? content) {
     try {
       _state = _RenderState.mounting;
       // Use document.contains since `.isConnected` isn't supported in IE11.
       if (autoAttachMountNode && !document.contains(mountNode)) {
-        document.body.append(mountNode);
+        document.body!.append(mountNode);
       }
       react_dom.render((SafeRenderManagerHelper()
         ..ref = _helperRef
@@ -125,7 +125,7 @@ class SafeRenderManager extends Disposable {
   /// other.
   ///
   /// If nothing is currently rendered, [onMaybeUnmounted] will be called immediately.
-  void tryUnmount({void Function(bool isUnmounted) onMaybeUnmounted}) {
+  void tryUnmount({void Function(bool isUnmounted)? onMaybeUnmounted}) {
     // Check here since we call _tryUnmountContent in this class's disposal logic.
     _checkDisposalState();
     _safeUnmountContent(onMaybeUnmounted: onMaybeUnmounted, force: false);
@@ -144,7 +144,7 @@ class SafeRenderManager extends Disposable {
   }
 
   void _safeUnmountContent(
-      {void Function(bool isUnmounted) onMaybeUnmounted, @required bool force}) {
+      {void Function(bool isUnmounted)? onMaybeUnmounted, required bool force}) {
     var _hasBeenCalled = false;
     /// Helper to call onMaybeUnmounted at most one time, for cases
     /// where there have to be error handlers at multiple levels
@@ -159,7 +159,7 @@ class SafeRenderManager extends Disposable {
       callOnMaybeUnmounted(true);
     } else if (_state == _RenderState.mountedOrErrored && _helper != null) {
       try {
-        _helper.tryUnmountContent(onMaybeUnmounted: (isUnmounted) {
+        _helper!.tryUnmountContent(onMaybeUnmounted: (isUnmounted) {
           if (isUnmounted || force) {
             try {
               _unmountContent();
@@ -198,7 +198,7 @@ class SafeRenderManager extends Disposable {
       if (_state == _RenderState.mounting) {
         _state = _RenderState.mountedOrErrored;
       }
-      _renderQueue.forEach(_helper.renderContent);
+      _renderQueue.forEach(_helper!.renderContent);
       _renderQueue = [];
     }
   }

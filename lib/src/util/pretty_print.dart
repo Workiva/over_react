@@ -58,7 +58,7 @@ String _indentString(String str) {
   return str.split('\n').map((line) => (_indent + line).trimRight()).join('\n');
 }
 
-String _prettyObj(Object obj) {
+String _prettyObj(Object? obj) {
   if (obj is List) {
     var items = obj.map(_prettyObj).toList();
 

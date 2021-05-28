@@ -41,7 +41,7 @@ class TestSubtypeOfComponent1Props extends _$TestSubtypeOfComponent1Props
   static const PropsMeta meta = _$metaForTestSubtypeOfComponent1Props;
 }
 
-_$$TestSubtypeOfComponent1Props _$TestSubtypeOfComponent1([Map backingProps]) =>
+_$$TestSubtypeOfComponent1Props _$TestSubtypeOfComponent1([Map? backingProps]) =>
     backingProps == null
         ? _$$TestSubtypeOfComponent1Props$JsMap(JsBackedMap())
         : _$$TestSubtypeOfComponent1Props(backingProps);
@@ -118,7 +118,7 @@ class _$$TestSubtypeOfComponent1Props$JsMap
 // generated for the associated props class.
 class _$TestSubtypeOfComponent1Component
     extends TestSubtypeOfComponent1Component {
-  _$$TestSubtypeOfComponent1Props$JsMap _cachedTypedProps;
+  late _$$TestSubtypeOfComponent1Props$JsMap _cachedTypedProps;
 
   @override
   _$$TestSubtypeOfComponent1Props$JsMap get props => _cachedTypedProps;

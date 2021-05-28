@@ -25,7 +25,7 @@ main() {
   group('transformation generation helpers:', () {
     void testStubbedMapMembers(Map Function() mapFactory) {
       group('Map members:', () {
-        Map map;
+        late Map map;
 
         setUp(() {
           map = mapFactory();
@@ -56,7 +56,7 @@ main() {
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {
-        UiProps unimplemented;
+        late UiProps unimplemented;
 
         setUp(() {
           unimplemented = UnimplementedUiProps();
@@ -77,7 +77,7 @@ main() {
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {
-        UiComponent unimplemented;
+        late UiComponent unimplemented;
 
         setUp(() {
           unimplemented = UnimplementedUiComponent();
@@ -94,7 +94,7 @@ main() {
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {
-        UiState unimplemented;
+        late UiState unimplemented;
 
         setUp(() {
           unimplemented = UnimplementedUiState();
@@ -114,7 +114,7 @@ main() {
       });
 
       group('throws errors when stubbed members are called that have not been generated:', () {
-        UiStatefulComponent unimplemented;
+        late UiStatefulComponent unimplemented;
 
         setUp(() {
           unimplemented = UnimplementedUiStatefulComponent();

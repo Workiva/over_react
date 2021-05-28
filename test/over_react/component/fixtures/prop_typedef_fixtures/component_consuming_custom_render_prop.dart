@@ -22,8 +22,8 @@ UiFactory<TestConsumingCustomRendererComponentProps> TestConsumingCustomRenderer
 
 @Props()
 class _$TestConsumingCustomRendererComponentProps extends UiProps {
-  String propKeyValueToTest;
-  String stateKeyValueToTest;
+  String? propKeyValueToTest;
+  String? stateKeyValueToTest;
 }
 
 @Component2()

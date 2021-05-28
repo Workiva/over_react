@@ -68,12 +68,12 @@ YamlDocument getAndValidateAnalyzerPubspecYaml(File pluginPubspec) {
     throw Exception('pubspec.yaml does not exist in package root');
   }
 
-  String name;
+  String? name;
   YamlDocument pubspecYaml;
   try {
     final pubspecContents = pluginPubspec.readAsStringSync();
     pubspecYaml = loadYamlDocument(pubspecContents);
-    name = (pubspecYaml.contents as YamlMap)['name'] as String;
+    name = (pubspecYaml.contents as YamlMap)['name'] as String?;
   } on FileSystemException catch (_) {
     logger.severe('Error reading plugin pubspec.');
     rethrow;

@@ -23,7 +23,7 @@ final $RecoverableErrorBoundaryComponentFactory = registerComponent2(
 );
 
 _$$RecoverableErrorBoundaryProps _$RecoverableErrorBoundary(
-        [Map backingProps]) =>
+        [Map? backingProps]) =>
     backingProps == null
         ? _$$RecoverableErrorBoundaryProps$JsMap(JsBackedMap())
         : _$$RecoverableErrorBoundaryProps(backingProps);
@@ -181,7 +181,7 @@ class _$$RecoverableErrorBoundaryState$JsMap
     ' Do not reference it in your code, as it may change at any time.')
 class _$RecoverableErrorBoundaryComponent
     extends RecoverableErrorBoundaryComponent {
-  _$$RecoverableErrorBoundaryProps$JsMap _cachedTypedProps;
+  late _$$RecoverableErrorBoundaryProps$JsMap _cachedTypedProps;
 
   @override
   _$$RecoverableErrorBoundaryProps$JsMap get props => _cachedTypedProps;
@@ -209,7 +209,7 @@ class _$RecoverableErrorBoundaryComponent
   _$$RecoverableErrorBoundaryProps typedPropsFactory(Map backingMap) =>
       _$$RecoverableErrorBoundaryProps(backingMap);
 
-  _$$RecoverableErrorBoundaryState$JsMap _cachedTypedState;
+  late _$$RecoverableErrorBoundaryState$JsMap _cachedTypedState;
   @override
   _$$RecoverableErrorBoundaryState$JsMap get state => _cachedTypedState;
 

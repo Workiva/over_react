@@ -53,7 +53,7 @@ class ToggleButtonGroupComponent
   ///
   /// Attempts to use `ToggleButtonGroupProps.name` _(specified by the consumer)_, falling back to
   /// `ToggleButtonGroupState.name` _(auto-generated)_.
-  String get name => props.name ?? state.name;
+  String? get name => props.name ?? state.name;
 
   @override
   get defaultProps => (newProps()

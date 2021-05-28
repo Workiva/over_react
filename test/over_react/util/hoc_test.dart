@@ -23,7 +23,7 @@ import '../../test_util/test_util.dart';
 
 main() {
   group('composeHocs', () {
-    Store<CounterState> store1;
+    late Store<CounterState> store1;
 
     setUp(() {
       store1 = Store(counterStateReducer, initialState: CounterState());

@@ -26,12 +26,12 @@ abstract class _$TypedFactoryTesterPropsAccessorsMixin
 
   /// <!-- Generated from [_$TypedFactoryTesterProps.testProp] -->
   @override
-  bool get testProp =>
-      (props[_$key__testProp___$TypedFactoryTesterProps] ?? null) as bool;
+  bool? get testProp =>
+      (props[_$key__testProp___$TypedFactoryTesterProps] ?? null) as bool?;
 
   /// <!-- Generated from [_$TypedFactoryTesterProps.testProp] -->
   @override
-  set testProp(bool value) =>
+  set testProp(bool? value) =>
       props[_$key__testProp___$TypedFactoryTesterProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__testProp___$TypedFactoryTesterProps =
@@ -57,7 +57,7 @@ class TypedFactoryTesterProps extends _$TypedFactoryTesterProps
   static const PropsMeta meta = _$metaForTypedFactoryTesterProps;
 }
 
-_$$TypedFactoryTesterProps _$TypedFactoryTester([Map backingProps]) =>
+_$$TypedFactoryTesterProps _$TypedFactoryTester([Map? backingProps]) =>
     backingProps == null
         ? _$$TypedFactoryTesterProps$JsMap(JsBackedMap())
         : _$$TypedFactoryTesterProps(backingProps);
@@ -70,9 +70,9 @@ abstract class _$$TypedFactoryTesterProps extends _$TypedFactoryTesterProps
     implements TypedFactoryTesterProps {
   _$$TypedFactoryTesterProps._();
 
-  factory _$$TypedFactoryTesterProps(Map backingMap) {
+  factory _$$TypedFactoryTesterProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TypedFactoryTesterProps$JsMap(backingMap as JsBackedMap);
+      return _$$TypedFactoryTesterProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TypedFactoryTesterProps$PlainMap(backingMap);
     }
@@ -113,7 +113,7 @@ class _$$TypedFactoryTesterProps$PlainMap extends _$$TypedFactoryTesterProps {
 class _$$TypedFactoryTesterProps$JsMap extends _$$TypedFactoryTesterProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TypedFactoryTesterProps$JsMap(JsBackedMap backingMap)
+  _$$TypedFactoryTesterProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -132,12 +132,12 @@ abstract class _$TypedFactoryTesterStateAccessorsMixin
 
   /// <!-- Generated from [_$TypedFactoryTesterState.testState] -->
   @override
-  bool get testState =>
-      (state[_$key__testState___$TypedFactoryTesterState] ?? null) as bool;
+  bool? get testState =>
+      (state[_$key__testState___$TypedFactoryTesterState] ?? null) as bool?;
 
   /// <!-- Generated from [_$TypedFactoryTesterState.testState] -->
   @override
-  set testState(bool value) =>
+  set testState(bool? value) =>
       state[_$key__testState___$TypedFactoryTesterState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__testState___$TypedFactoryTesterState =
@@ -171,9 +171,9 @@ abstract class _$$TypedFactoryTesterState extends _$TypedFactoryTesterState
     implements TypedFactoryTesterState {
   _$$TypedFactoryTesterState._();
 
-  factory _$$TypedFactoryTesterState(Map backingMap) {
+  factory _$$TypedFactoryTesterState(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TypedFactoryTesterState$JsMap(backingMap as JsBackedMap);
+      return _$$TypedFactoryTesterState$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TypedFactoryTesterState$PlainMap(backingMap);
     }
@@ -205,7 +205,7 @@ class _$$TypedFactoryTesterState$PlainMap extends _$$TypedFactoryTesterState {
 class _$$TypedFactoryTesterState$JsMap extends _$$TypedFactoryTesterState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TypedFactoryTesterState$JsMap(JsBackedMap backingMap)
+  _$$TypedFactoryTesterState$JsMap(JsBackedMap? backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -222,7 +222,7 @@ class _$$TypedFactoryTesterState$JsMap extends _$$TypedFactoryTesterState {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TypedFactoryTesterComponent extends TypedFactoryTesterComponent {
-  _$$TypedFactoryTesterProps$JsMap _cachedTypedProps;
+  late _$$TypedFactoryTesterProps$JsMap _cachedTypedProps;
 
   @override
   _$$TypedFactoryTesterProps$JsMap get props => _cachedTypedProps;
@@ -247,10 +247,10 @@ class _$TypedFactoryTesterComponent extends TypedFactoryTesterComponent {
       _$$TypedFactoryTesterProps$JsMap(backingMap);
 
   @override
-  _$$TypedFactoryTesterProps typedPropsFactory(Map backingMap) =>
+  _$$TypedFactoryTesterProps typedPropsFactory(Map? backingMap) =>
       _$$TypedFactoryTesterProps(backingMap);
 
-  _$$TypedFactoryTesterState$JsMap _cachedTypedState;
+  late _$$TypedFactoryTesterState$JsMap _cachedTypedState;
   @override
   _$$TypedFactoryTesterState$JsMap get state => _cachedTypedState;
 
@@ -270,7 +270,7 @@ class _$TypedFactoryTesterComponent extends TypedFactoryTesterComponent {
       _$$TypedFactoryTesterState$JsMap(backingMap);
 
   @override
-  _$$TypedFactoryTesterState typedStateFactory(Map backingMap) =>
+  _$$TypedFactoryTesterState typedStateFactory(Map? backingMap) =>
       _$$TypedFactoryTesterState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
