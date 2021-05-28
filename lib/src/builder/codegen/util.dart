@@ -22,9 +22,9 @@ import '../parsing.dart';
 import 'names.dart';
 
 abstract class BoilerplateDeclarationGenerator {
-  SourceFile/*!*/ sourceFile;
-  StringBuffer/*!*/ outputContentsBuffer;
-  Logger/*!*/ logger;
+  SourceFile/*?*/ sourceFile;
+  StringBuffer/*?*/ outputContentsBuffer;
+  Logger/*?*/ logger;
 
   @protected
   Version get version;

@@ -46,7 +46,7 @@ abstract class BoilerplateDeclaration {
   final Version version;
 
   /// The explicit type of declaration this class is tied to.
-  DeclarationType type;
+  DeclarationType get type;
 
   BoilerplateDeclaration(this.version);
 

@@ -81,7 +81,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   }
 
   /// Returns whether [member] has already been grouped into a declaration.
-  bool hasBeenConsumed(BoilerplateMember member) {
+  bool hasBeenConsumed(BoilerplateMember/*?*/ member) {
     if (member == null) throw ArgumentError.notNull('member');
 
     return _consumedMembers.contains(member);
