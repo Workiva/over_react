@@ -53,14 +53,14 @@ class _PropsStateStringHelpersImpl extends Object with PropsStateStringHelpers {
 /// Uses [InstantiatedMeta] to analyze [node] and determine the proper annotation.
 annotations.TypedMap getPropsOrStateAnnotation(bool isProps, AnnotatedNode node) {
   final meta = isProps
-      ? (InstantiatedMeta<annotations.Props>(node) ??
-          InstantiatedMeta<annotations.AbstractProps>(node) ??
+      ? (InstantiatedMeta.fromNode<annotations.Props>(node) ??
+          InstantiatedMeta.fromNode<annotations.AbstractProps>(node) ??
           // ignore: deprecated_member_use_from_same_package
-          InstantiatedMeta<annotations.PropsMixin>(node))
-      : (InstantiatedMeta<annotations.State>(node) ??
-          InstantiatedMeta<annotations.AbstractState>(node) ??
+          InstantiatedMeta.fromNode<annotations.PropsMixin>(node))
+      : (InstantiatedMeta.fromNode<annotations.State>(node) ??
+          InstantiatedMeta.fromNode<annotations.AbstractState>(node) ??
           // ignore: deprecated_member_use_from_same_package
-          InstantiatedMeta<annotations.StateMixin>(node));
+          InstantiatedMeta.fromNode<annotations.StateMixin>(node));
 
   return meta?.value ?? (isProps ? annotations.Props() : annotations.State());
 }

@@ -76,7 +76,8 @@ class Union<A, B> {
   T switchCase<T>(T Function(A) onA, T Function(B) onB) {
     if (a != null) return onA(a!);
     if (b != null) return onB(b!);
-    return null;
+
+    throw StateError('Unexpected both values to be null');
   }
 }
 
@@ -86,5 +87,5 @@ class Union<A, B> {
 extension UnionHelper<C> on Union<C, C> {
   /// Access [a] or [b] while allowing the analyzer to provide type inference
   /// when possible.
-  C get either => a ?? b!;
+  C get either => (a ?? b)!;
 }

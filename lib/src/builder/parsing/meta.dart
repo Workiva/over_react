@@ -61,7 +61,7 @@ class InstantiatedMeta<TMeta> {
   /// The original node will be available via [node].
   ///
   /// The instantiated annotation will be available via [value].
-  factory InstantiatedMeta(AnnotatedNode node) {
+  static InstantiatedMeta<TMeta>? fromNode<TMeta>(AnnotatedNode node) {
     final metaNode = _getMatchingAnnotation(node, TMeta);
     final unsupportedArguments = <Expression>[];
     final value =
@@ -105,8 +105,8 @@ class InstantiatedComponentMeta<TMeta> extends InstantiatedMeta<TMeta> {
       Annotation? metaNode, TMeta meta, List<Expression> unsupportedArguments, this.subtypeOfValue)
       : super._(metaNode, meta, unsupportedArguments);
 
-  factory InstantiatedComponentMeta(AnnotatedNode node) {
-    final instantiated = InstantiatedMeta<TMeta>(node);
+  static InstantiatedComponentMeta<TMeta>? fromNode<TMeta>(AnnotatedNode node) {
+    final instantiated = InstantiatedMeta.fromNode<TMeta>(node);
 
     if (instantiated == null) return null;
 
