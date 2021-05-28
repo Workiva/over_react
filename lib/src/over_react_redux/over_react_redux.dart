@@ -475,7 +475,7 @@ class ReactJsReactReduxComponentFactoryProxy extends ReactJsContextComponentFact
   }) : super(jsClass, isProvider: isProvider, isConsumer: isConsumer, shouldConvertDomProps: shouldConvertDomProps);
 
   @override
-  ReactElement build(Map props, [List childrenArgs]) {
+  ReactElement build(Map props, [List childrenArgs = const []]) {
     return super.build(_generateReduxJsProps(props), childrenArgs);
   }
 

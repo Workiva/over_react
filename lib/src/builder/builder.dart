@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import 'dart:async';
-import 'dart:io' show Platform;
+// import 'dart:io' show Platform;
 
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
@@ -192,15 +192,15 @@ class OverReactBuilder extends Builder {
   }
 
   static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs, {RegExpMatch dartVersionCommentMatch}) async {
-    final dartVersion = Platform.version;
-    bool nullSafetyIsTurnedOnByDefault = (int.tryParse(RegExp(r'(\d+)\.(\d+)').firstMatch(dartVersion).group(2)) ?? 0) >= 12;
+    // final dartVersion = Platform.version;
+    // bool nullSafetyIsTurnedOnByDefault = (int.tryParse(RegExp(r'(\d+)\.(\d+)').firstMatch(dartVersion).group(2)) ?? 0) >= 12;
     bool isNullSafe = true;
-    if (dartVersionCommentMatch != null) {
-      isNullSafe = (int.tryParse(dartVersionCommentMatch?.group(2)) ?? 0) >= 12;
-    }
-    if (isNullSafe && nullSafetyIsTurnedOnByDefault) {
-      throw UnsupportedError('The over_react builder does not yet support null safety. Add a // @dart = 2.7 comment at the top of your file.');
-    }
+    // if (dartVersionCommentMatch != null) {
+    //   isNullSafe = (int.tryParse(dartVersionCommentMatch?.group(2)) ?? 0) >= 12;
+    // }
+    // if (isNullSafe && nullSafetyIsTurnedOnByDefault) {
+    //   throw UnsupportedError('The over_react builder does not yet support null safety. Add a // @dart = 2.7 comment at the top of your file.');
+    // }
     final partOf = "'${p.basename(buildStep.inputId.uri.toString())}'";
 
     final buffer = StringBuffer();

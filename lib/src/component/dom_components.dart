@@ -325,7 +325,7 @@ abstract class Dom {
 
   /// Returns a new builder that renders a `<main>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
-  static DomProps main([Map backingMap]) => DomProps(react.main as ReactComponentFactoryProxy, backingMap);
+  static DomProps main([Map backingMap]) => DomProps(react.htmlMain as ReactComponentFactoryProxy, backingMap);
 
   /// Returns a new builder that renders a `<backingMap>` tag with getters/setters for all DOM-related React props,
   /// optionally backed by a specified map.
