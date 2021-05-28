@@ -21,6 +21,7 @@ import 'package:meta/meta.dart';
 import '../util.dart';
 import 'ast_util.dart';
 import 'members.dart';
+import 'util.dart';
 import 'version.dart';
 
 /// A pattern that can detect a props class or mixin (assuming it follows naming convention).
@@ -444,6 +445,7 @@ class _BoilerplateMemberDetector {
       if (classish.name.name.endsWith('Component') ||
           classish.allSuperTypes
               .map((t) => t.typeNameWithoutPrefix)
+              .whereNotNull()
               .any(_componentBaseClassPattern.hasMatch) ||
           (classish.superclass?.typeArguments?.arguments
                   ?.map((t) => t.typeNameWithoutPrefix)
@@ -489,8 +491,8 @@ class _BoilerplateMemberDetectorVisitor extends SimpleAstVisitor<void> {
   final void Function(TopLevelVariableDeclaration) onTopLevelVariableDeclaration;
 
   _BoilerplateMemberDetectorVisitor({
-    this.onClassishDeclaration,
-    this.onTopLevelVariableDeclaration,
+    @required this.onClassishDeclaration,
+    @required this.onTopLevelVariableDeclaration,
   });
 
   @override

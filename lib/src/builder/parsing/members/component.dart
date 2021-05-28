@@ -42,7 +42,7 @@ class BoilerplateComponent extends BoilerplateMember {
   /// or [annotations.Component2].
   @override
   // ignore: deprecated_member_use_from_same_package
-  annotations.Component meta;
+  annotations.Component/*!*/ meta;
 
   // The superclass that can be noted in the `@Component()` or `@Component2()` annotation.
   Identifier configSubtypeOf;
@@ -80,7 +80,7 @@ class BoilerplateComponent extends BoilerplateMember {
   /// - Verifying no reserved static members are overridden
   /// - Checking for deprecated lifecycle method usage in conjunction with `Component2`
   @override
-  void validate(Version version, ErrorCollector errorCollector) {
+  void validate(Version version, ErrorCollector/*!*/ errorCollector) {
     switch (version) {
       case Version.v4_mixinBased:
         final superclass = nodeHelper.superclass;

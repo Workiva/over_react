@@ -145,7 +145,7 @@ class VersionConfidencePair {
 /// Returns a confidence pair with
 /// - a [VersionConfidencePair.version] equal to the highest-confidence version among all [members]
 /// - a [VersionConfidencePair.confidence] equal to the average of all confidences for that version
-VersionConfidencePair resolveVersion(Iterable<BoilerplateMember> members) {
+VersionConfidencePair resolveVersion(Iterable<BoilerplateMember/*!*/> members) {
   var totals = VersionConfidences.none();
   for (final member in members) {
     totals += member.versionConfidences;

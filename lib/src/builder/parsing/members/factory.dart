@@ -62,7 +62,7 @@ class BoilerplateFactory extends BoilerplateMember {
   /// - Preventing the presence of multiple initializer variables
   /// - Verifying the presence of a generated factory
   @override
-  void validate(Version version, ErrorCollector errorCollector) {
+  void validate(Version version, ErrorCollector/*!*/ errorCollector) {
     switch (version) {
       case Version.v4_mixinBased:
         break;

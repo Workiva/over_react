@@ -58,7 +58,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
   /// - Enforce that the node has an abstract getter
   /// - Verify mixins are implemented correctly
   @override
-  void validate(Version version, ErrorCollector errorCollector) {
+  void validate(Version version, ErrorCollector/*!*/ errorCollector) {
     void _sharedLegacyValidation() {
       if (!node.hasAnnotationWithName(propsOrStateMixinAnnotationName)) {
         errorCollector.addError(

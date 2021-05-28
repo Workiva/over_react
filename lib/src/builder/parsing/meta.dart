@@ -24,7 +24,7 @@ import 'ast_util.dart';
 ///
 /// > See [instantiateAnnotation] for more information.
 T instantiateAnnotationTyped<T>(AnnotatedNode member,
-    {dynamic Function(Expression argument) onUnsupportedArgument}) {
+    {dynamic Function(Expression argument)/*?*/ onUnsupportedArgument}) {
   return instantiateAnnotation(member, T, onUnsupportedArgument: onUnsupportedArgument) as T;
 }
 

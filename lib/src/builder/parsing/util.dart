@@ -40,9 +40,6 @@ extension IterableUtil<E> on Iterable<E> {
   /// Returns the first element, or `null` if the element is empty.
   E get firstOrNull => isEmpty ? null : first;
 
-  /// Returns a new lazy iterable with all elements that are not `null`.
-  Iterable<E> whereNotNull() => where((element) => element != null);
-
   /// Returns a new lazy iterable with all the elements for which
   /// the [test] predicate returns `false`.
   Iterable<E> whereNot(bool Function(E) test) => where((element) => !test(element));
@@ -53,6 +50,11 @@ extension IterableUtil<E> on Iterable<E> {
   /// Throws a [StateError] if there is no matching element and [orElse] is omitted.
   T firstWhereType<T>({T Function() orElse}) =>
       whereType<T>().firstWhere((_) => true, orElse: orElse);
+}
+
+extension IterableUtil2<E> on Iterable<E> {
+  /// Returns a new lazy iterable with all elements that are not `null`.
+  Iterable<E/*!*/> whereNotNull() => where((element) => element != null);
 }
 
 /// A wrapper around two classes that can be used to pass data when the possible
@@ -71,7 +73,7 @@ class Union<A, B> {
         assert(b != null);
 
   /// Executes a callback based upon which field is set.
-  T switchCase<T>(T Function(A) onA, T Function(B) onB) {
+  T/*!*/ switchCase<T>(T Function(A/*!*/) onA, T Function(B/*!*/) onB) {
     if (a != null) return onA(a);
     if (b != null) return onB(b);
     return null;
@@ -84,5 +86,5 @@ class Union<A, B> {
 extension UnionHelper<C> on Union<C, C> {
   /// Access [a] or [b] while allowing the analyzer to provide type inference
   /// when possible.
-  C get either => a ?? b;
+  C/*!*/ get either => a ?? b;
 }

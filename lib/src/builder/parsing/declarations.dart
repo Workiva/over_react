@@ -50,7 +50,7 @@ abstract class BoilerplateDeclaration {
 
   BoilerplateDeclaration(this.version);
 
-  Iterable<BoilerplateMember> get members => _members;
+  Iterable<BoilerplateMember/*!*/> get members => _members;
 
   /// Validates this declaration, including all members, against the provided [version].
   @mustCallSuper
@@ -67,7 +67,7 @@ abstract class BoilerplateDeclaration {
     }
   }
 
-  Iterable<BoilerplateMember> get _members;
+  Iterable<BoilerplateMember/*!*/> get _members;
 
   @override
   String toString() => '$runtimeType: $version, members: $_members';
@@ -77,7 +77,7 @@ abstract class BoilerplateDeclaration {
 class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
   final BoilerplateFactory factory;
   final BoilerplateComponent component;
-  final BoilerplateProps props;
+  final BoilerplateProps/*!*/ props;
   final BoilerplateState state;
 
   /// Whether this is Component2 based.
@@ -283,7 +283,7 @@ class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
   /// The related props instance.
   ///
   /// Can be either [BoilerplateProps] or [BoilerplatePropsMixin], but not both.
-  final Union<BoilerplateProps, BoilerplatePropsMixin> props;
+  final Union<BoilerplateProps, BoilerplatePropsMixin>/*!*/ props;
 
   List<Identifier> get allPropsMixins => props.allPropsMixins;
 
@@ -315,7 +315,7 @@ class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
 /// See [BoilerplateDeclaration] for more info.
 mixin PropsOrStateMixinDeclaration on BoilerplateDeclaration {
   /// The corresponding mixin instance for the class.
-  BoilerplatePropsOrStateMixin mixin;
+  BoilerplatePropsOrStateMixin get mixin;
 
   @override
   get _members => [mixin];
@@ -355,9 +355,9 @@ class StateMixinDeclaration extends BoilerplateDeclaration with PropsOrStateMixi
 
 /// Factories that are grouped together via their props type.
 class FactoryGroup {
-  final List<BoilerplateFactory> factories;
+  final List<BoilerplateFactory>/*!*/ factories;
 
-  FactoryGroup({this.factories});
+  FactoryGroup(this.factories);
 
   /// The factory that best represents [factories].
   ///

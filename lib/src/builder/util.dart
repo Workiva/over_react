@@ -59,7 +59,7 @@ bool isPart(CompilationUnit unit) =>
 ///     '<T extends Iterable, U>' //TypeParameterList.toSource()
 ///   Output:
 ///     '<T, U>'
-String removeBoundsFromTypeParameters(TypeParameterList typeParameters) {
+String removeBoundsFromTypeParameters(TypeParameterList/*?*/ typeParameters) {
   return typeParameters != null ? (StringBuffer()
     ..write('${typeParameters.leftBracket}')..write(
         typeParameters.typeParameters.map((t) => t.name.name).join(

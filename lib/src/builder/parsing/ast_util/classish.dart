@@ -44,9 +44,9 @@ abstract class ClassishDeclaration {
   SimpleIdentifier get name => node.name;
   NodeList<Annotation> get metadata => node.metadata;
 
-  TypeParameterList get typeParameters;
+  TypeParameterList/*?*/ get typeParameters;
   List<ClassMember> get members;
-  Token get classOrMixinKeyword;
+  Token/*!*/ get classOrMixinKeyword;
 
   /// All interfaces used by this class, including mixin superclass constraints.
   List<TypeName> get interfaces;
@@ -88,7 +88,7 @@ class _ClassishClass extends _ClassishClassOrMixin {
   _ClassishClass(this.node) : super._();
 
   @override
-  Token get abstractKeyword => node.abstractKeyword;
+  Token/*?*/ get abstractKeyword => node.abstractKeyword;
 
   @override
   List<TypeName> get interfaces => [
@@ -96,13 +96,13 @@ class _ClassishClass extends _ClassishClassOrMixin {
       ];
 
   @override
-  TypeName get superclass => node.extendsClause?.superclass;
+  TypeName/*?*/ get superclass => node.extendsClause?.superclass;
 
   @override
-  WithClause get withClause => node.withClause;
+  WithClause/*?*/ get withClause => node.withClause;
 
   @override
-  Token get classOrMixinKeyword => node.classKeyword;
+  Token/*!*/ get classOrMixinKeyword => node.classKeyword;
 }
 
 class _ClasssishMixin extends _ClassishClassOrMixin {
@@ -115,7 +115,7 @@ class _ClasssishMixin extends _ClassishClassOrMixin {
   Token get abstractKeyword => null;
 
   @override
-  Token get classOrMixinKeyword => node.mixinKeyword;
+  Token/*!*/ get classOrMixinKeyword => node.mixinKeyword;
 
   @override
   List<TypeName> get interfaces => [
@@ -137,22 +137,22 @@ class _ClassishClassTypeAlias extends ClassishDeclaration {
   _ClassishClassTypeAlias(this.node) : super._();
 
   @override
-  Token get abstractKeyword => node.abstractKeyword;
+  Token/*?*/ get abstractKeyword => node.abstractKeyword;
 
   @override
-  Token get classOrMixinKeyword => node.typedefKeyword;
+  Token/*!*/ get classOrMixinKeyword => node.typedefKeyword;
 
   @override
   List<ClassMember> get members => const [];
 
   @override
-  TypeName get superclass => node.superclass;
+  TypeName/*?*/ get superclass => node.superclass;
 
   @override
-  TypeParameterList get typeParameters => node.typeParameters;
+  TypeParameterList/*?*/ get typeParameters => node.typeParameters;
 
   @override
-  WithClause get withClause => node.withClause;
+  WithClause/*?*/ get withClause => node.withClause;
 
   @override
   List<TypeName> get interfaces => [

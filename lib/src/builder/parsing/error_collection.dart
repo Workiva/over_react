@@ -35,13 +35,13 @@ abstract class ErrorCollector {
   /// The use of [stringCallback] may still be useful as it handles the [SourceSpan]
   /// but provides the opportunity to implement custom logic.
   factory ErrorCollector.callback(
-    SourceFile sourceFile, {
+    SourceFile/*!*/ sourceFile, {
     ErrorCollectorCallback onError,
     ErrorCollectorCallback onWarning,
   }) = _CallbackErrorCollector;
 
   /// Constructor to simply log all messages and spans to the console.
-  factory ErrorCollector.print(SourceFile sourceFile) {
+  factory ErrorCollector.print(SourceFile/*!*/ sourceFile) {
     return _CallbackErrorCollector(
       sourceFile,
       onError: stringCallback(print),
@@ -51,7 +51,7 @@ abstract class ErrorCollector {
 
   /// Constructor that allows for the customization via the usage of a [Logger]
   /// instance.
-  factory ErrorCollector.log(SourceFile sourceFile, Logger logger) {
+  factory ErrorCollector.log(SourceFile/*!*/ sourceFile, Logger logger) {
     return _CallbackErrorCollector(
       sourceFile,
       onError: stringCallback(logger.severe),
@@ -59,7 +59,7 @@ abstract class ErrorCollector {
     );
   }
 
-  SourceFile get _sourceFile;
+  SourceFile/*!*/ get _sourceFile;
 
   /// Triggers the callback that is implemented to respond to errors.
   void addError(String message, [SourceSpan span]);
@@ -75,7 +75,7 @@ typedef ErrorCollectorCallback = void Function(String message, [SourceSpan span]
 
 class _CallbackErrorCollector extends ErrorCollector {
   @override
-  final SourceFile _sourceFile;
+  final SourceFile/*!*/ _sourceFile;
   final ErrorCollectorCallback onError;
   final ErrorCollectorCallback onWarning;
 

@@ -105,18 +105,18 @@ BoilerplateComponent getComponentFor(
 ///
 /// This is done purely off of matching the name of the member class against the props
 /// classes.
-Union<BoilerplateProps, BoilerplatePropsMixin> getPropsFor(
+Union<BoilerplateProps, BoilerplatePropsMixin>/*?*/ getPropsFor(
   BoilerplateMember member,
   Iterable<BoilerplateProps> props,
-  Iterable<BoilerplatePropsMixin> propsMixins,
+  Iterable<BoilerplatePropsMixin>/*!*/ propsMixins,
 ) {
   return _getNameMatchUnion(props, propsMixins, normalizeNameAndRemoveSuffix(member)) ??
       getRelatedName(member).mapIfNotNull((name) => _getNameMatchUnion(props, propsMixins, name));
 }
 
-Union<BoilerplateProps, BoilerplatePropsMixin> getPropsForFunctionComponent(
+Union<BoilerplateProps, BoilerplatePropsMixin>/*?*/ getPropsForFunctionComponent(
     Iterable<BoilerplateProps> props,
-    Iterable<BoilerplatePropsMixin> mixins,
+    Iterable<BoilerplatePropsMixin>/*!*/ mixins,
     BoilerplateFactory factory) {
   final name = factory.propsGenericArg.typeNameWithoutPrefix;
   final a = props.firstWhere((member) => member.name.name == name, orElse: () => null);
@@ -132,11 +132,12 @@ Union<BoilerplateProps, BoilerplatePropsMixin> getPropsForFunctionComponent(
 ///
 /// This is done purely off of matching the name of the member class against the props
 /// classes.
-Union<BoilerplateState, BoilerplateStateMixin> getStateFor(
+Union<BoilerplateState, BoilerplateStateMixin>/*?*/ getStateFor(
   BoilerplateMember member,
   Iterable<BoilerplateState> states,
-  Iterable<BoilerplateStateMixin> stateMixins,
+  Iterable<BoilerplateStateMixin>/*!*/ stateMixins,
 ) {
+  // FIXME null-safety remove cast added by migration tool
   return _getNameMatchUnion(states, stateMixins, normalizeNameAndRemoveSuffix(member)) ??
       getRelatedName(member).mapIfNotNull((name) => _getNameMatchUnion(states, stateMixins, name));
 }
@@ -160,5 +161,5 @@ String getRelatedName(BoilerplateMember member) {
 }
 
 extension<T> on T {
-  S mapIfNotNull<S>(S Function(T) callback) => this == null ? null : callback(this);
+  S/*!*/ mapIfNotNull<S>(S Function(T/*!*/) callback) => this == null ? null : callback(this);
 }

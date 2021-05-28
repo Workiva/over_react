@@ -60,7 +60,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
   /// - Enforcing that no members are instantiated
   /// - Verifying legacy prefixes and companions are present
   @override
-  void validate(Version version, ErrorCollector errorCollector) {
+  void validate(Version version, ErrorCollector/*!*/ errorCollector) {
     switch (version) {
       case Version.v4_mixinBased:
         final node = this.node;

@@ -328,10 +328,10 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   }
 
   for (final group in unusedMembersByName.values) {
-    final factory = group.firstWhereType<BoilerplateFactory>(orElse: () => null);
-    final propsClass = group.firstWhereType<BoilerplateProps>(orElse: () => null);
-    final stateClass = group.firstWhereType<BoilerplateState>(orElse: () => null);
-    final componentClass = group.firstWhereType<BoilerplateComponent>(orElse: () => null);
+    final factory = group.firstWhereType<BoilerplateFactory/*!*/>(orElse: () => null);
+    final propsClass = group.firstWhereType<BoilerplateProps/*!*/>(orElse: () => null);
+    final stateClass = group.firstWhereType<BoilerplateState/*!*/>(orElse: () => null);
+    final componentClass = group.firstWhereType<BoilerplateComponent/*!*/>(orElse: () => null);
 
     //
     // Special cases
@@ -395,9 +395,9 @@ List<FactoryGroup> _groupFactories(BoilerplateMembers members) {
   final groups = <FactoryGroup>[];
   factoriesByType.forEach((key, value) {
     if (key == null) {
-      groups.addAll(value.map((factory) => FactoryGroup(factories: [factory])));
+      groups.addAll(value.map((factory) => FactoryGroup([factory])));
     } else {
-      groups.add(FactoryGroup(factories: value));
+      groups.add(FactoryGroup(value));
     }
   });
   return groups;
