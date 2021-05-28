@@ -71,17 +71,16 @@ String _prettyObj(Object obj) {
     }
   } else if (obj is Map) {
     final namespacedKeys = <String, List<String>>{};
-    final otherKeys = [];
+    final otherKeys = <dynamic>[];
 
-    obj.keys.forEach((dynamic key) {
+    obj.keys.forEach((key) {
       const namespaceSeparator = '.';
       if (key is String && key.contains(namespaceSeparator)) {
         var index = key.indexOf(namespaceSeparator);
         var namespace = key.substring(0, index);
         var subkey = key.substring(index);
 
-        namespacedKeys[namespace] ??= <String>[];
-        namespacedKeys[namespace].add(subkey);
+        namespacedKeys.putIfAbsent(namespace, () => []).add(subkey);
       } else {
         otherKeys.add(key);
       }
@@ -89,7 +88,10 @@ String _prettyObj(Object obj) {
 
     final pairs = <String>[];
 
-    pairs.addAll(namespacedKeys.keys.map((namespace) {
+    pairs.addAll(namespacedKeys.entries.map((entry) {
+      final namespace = entry.key;
+      final subkeys = entry.value;
+
       String renderSubKey(String subkey) {
         var key = '$namespace$subkey';
         var value = obj[key];
@@ -97,16 +99,14 @@ String _prettyObj(Object obj) {
         return '$subkey: ' + _prettyObj(value);
       }
 
-      Iterable<String> subkeys = namespacedKeys[namespace];
-
       return '$namespace…\n' + _indentString(subkeys.map(renderSubKey).map((pair) => pair + ',\n').join());
     }));
 
-    pairs.addAll(otherKeys.map((dynamic key) {
+    pairs.addAll(otherKeys.map((key) {
       return '$key: ' + _prettyObj(obj[key]) + ',';
     }));
 
-    final RegExp trailingComma = RegExp(r'\s*,\s*$');
+    final trailingComma = RegExp(r'\s*,\s*$');
 
     if (pairs.length > _maxKeyValuePairsPerLine || pairs.any((pair) => pair.contains('\n'))) {
       var inner = _indentString(pairs.join('\n')).replaceFirst(trailingComma, '');
