@@ -48,7 +48,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
   TypedMapType get type;
 
-  BoilerplateTypedMapMember get member;
+  BoilerplateTypedMapMember/*!*/ get member;
 
   TypedMapNames get names;
 

@@ -123,13 +123,13 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   StreamSubscription _endTransitionSubscription;
 
   /// Whether the [AbstractTransitionComponent] should be visible initially when mounted.
-  bool get initiallyShown;
+  bool/*!*/ get initiallyShown;
 
   /// Returns the DOM node that will transition.
   Element getTransitionDomNode();
 
   /// Whether transitions are enabled for this component.
-  bool get hasTransition => true;
+  bool/*!*/ get hasTransition => true;
 
   /// Whether the Element returned by [getTransitionDomNode] will have a transition event when showing.
   bool get hasTransitionIn => hasTransition && transitionInCount > 0;
@@ -148,7 +148,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
   int get transitionOutCount => props.transitionOutCount ?? props.transitionCount ?? 1;
 
   /// The duration that can elapse before a transition timeout occurs.
-  Duration get transitionTimeout => const Duration(seconds: 1);
+  Duration/*!*/ get transitionTimeout => const Duration(seconds: 1);
 
   /// Timer used to determine if a transition timeout has occurred.
   Timer _transitionEndTimer;
