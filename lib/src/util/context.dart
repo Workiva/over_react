@@ -12,12 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'dart:html';
+
 import 'package:meta/meta.dart';
 import 'package:over_react/src/component_declaration/builder_helpers.dart' as builder_helpers;
 import 'package:over_react/over_react.dart';
 import 'package:react/react_client/react_interop.dart';
 import 'package:react/react_client/js_backed_map.dart';
 import 'package:react/react.dart' as react;
+
+import 'package:react/react_client/component_factory.dart' show ReactJsContextComponentFactoryProxy;
 
 /// The return type of [createContext], Wraps [ReactContext] for use in Dart.
 /// Allows access to [Provider] and [Consumer] Components.
@@ -237,6 +241,17 @@ class _DO_NOT_USE_OR_YOU_WILL_BE_FIRED {
 /// Learn more: <https://reactjs.org/docs/context.html#reactcreatecontext>
 Context<TValue> createContext<TValue>([TValue defaultValue, int Function(TValue, TValue) calculateChangedBits]) {
   final reactDartContext = react.createContext<TValue>(defaultValue, calculateChangedBits != null ? (dynamic arg1, dynamic arg2) => calculateChangedBits(arg1 as TValue, arg2 as TValue) : null);
+  Provider([Map map]) => (ProviderProps<TValue>(map as JsBackedMap)..componentFactory = reactDartContext.Provider);
+  Consumer([Map map]) => (ConsumerProps<TValue>(map as JsBackedMap)..componentFactory = reactDartContext.Consumer);
+  return Context<TValue>(Provider, Consumer, reactDartContext);
+}
+
+Context<TValue> hydrateContextFromJs<TValue>(ReactContext jsContext) {
+  final reactDartContext = react.Context<TValue>(
+    ReactJsContextComponentFactoryProxy(jsContext.Provider, isProvider: true),
+    ReactJsContextComponentFactoryProxy(jsContext.Consumer, isConsumer: true),
+    jsContext,
+  );
   Provider([Map map]) => (ProviderProps<TValue>(map as JsBackedMap)..componentFactory = reactDartContext.Provider);
   Consumer([Map map]) => (ConsumerProps<TValue>(map as JsBackedMap)..componentFactory = reactDartContext.Consumer);
   return Context<TValue>(Provider, Consumer, reactDartContext);
