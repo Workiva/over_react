@@ -1,3 +1,5 @@
+// @dart=2.7
+// ^ Do not remove until migrated to null safety. More info at https://wiki.atl.workiva.net/pages/viewpage.action?pageId=189370832
 /// Generates allowedHtmlElementsForAttribute for use in dom_prop_types.dart
 void main() {
   final supportedElements = <String, List<String>>{};
