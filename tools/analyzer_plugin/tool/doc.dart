@@ -1,3 +1,5 @@
+// @dart=2.7
+// ^ Do not remove until migrated to null safety. More info at https://wiki.atl.workiva.net/pages/viewpage.action?pageId=189370832
 // Adapted from https://github.com/dart-lang/linter/blob/aab17d378181df057ca7dbd4f1b4889b3babad52/tool/doc.dart
 //
 // Copyright 2015, the Dart project authors. All rights reserved.

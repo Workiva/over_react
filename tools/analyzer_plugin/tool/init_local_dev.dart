@@ -1,3 +1,5 @@
+// @dart=2.7
+// ^ Do not remove until migrated to null safety. More info at https://wiki.atl.workiva.net/pages/viewpage.action?pageId=189370832
 import 'dart:io';
 
 import 'package:analyzer/file_system/file_system.dart' as file_system;
