@@ -1,3 +1,4 @@
+// @dart=2.7
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators
