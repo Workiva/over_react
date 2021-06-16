@@ -36,6 +36,7 @@ abstract class $TransitionPropsMixin {
 @Deprecated('Use the `TransitionPropsMixin` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release.')
 @PropsMixin()
 abstract class _$TransitionPropsMixin {
+  // ignore: unused_field
   static final TransitionPropsMapView defaultProps = TransitionPropsMapView({})
     ..transitionCount = 1;
 

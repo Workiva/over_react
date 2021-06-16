@@ -40,6 +40,7 @@ class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps,
   @override
   Map get defaultProps => (newProps()
     ..identicalErrorFrequencyTolerance = Duration(seconds: 5)
+    // ignore: invalid_use_of_visible_for_testing_member
     ..loggerName = defaultErrorBoundaryLoggerName
     ..shouldLogErrors = true
   );
@@ -231,6 +232,7 @@ class RecoverableErrorBoundaryComponent<T extends RecoverableErrorBoundaryProps,
   String get _loggerName {
     if (props.logger != null) return props.logger.name;
 
+    // ignore: invalid_use_of_visible_for_testing_member
     return props.loggerName ?? defaultErrorBoundaryLoggerName;
   }
 

@@ -217,7 +217,7 @@ mixin TestStateMixin on UiState {
   dynamic customKeyAndNamespaceState;
 }
 
-// ignore: deprecated_member_use_from_same_package, mixin_of_non_class, undefined_class
+// ignore: mixin_of_non_class, undefined_class
 class TestState = TestUiStateBaseClass with TestStateMixin, $TestStateMixin;
 
 // ---
@@ -246,8 +246,8 @@ mixin TestCustomNamespaceWithStateAnnotationStateMixin on UiState {
 class TestCustomNamespaceState = TestUiStateBaseClass
     with
         TestCustomNamespaceStateMixin,
-        // ignore: deprecated_member_use_from_same_package, mixin_of_non_class, undefined_class
+        // ignore: mixin_of_non_class, undefined_class
         $TestCustomNamespaceStateMixin,
         TestCustomNamespaceWithStateAnnotationStateMixin,
-        // ignore: deprecated_member_use_from_same_package, mixin_of_non_class, undefined_class
+        // ignore: mixin_of_non_class, undefined_class
         $TestCustomNamespaceWithStateAnnotationStateMixin;

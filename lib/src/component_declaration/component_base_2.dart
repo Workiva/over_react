@@ -668,7 +668,7 @@ mixin UiStatefulMixin2<TProps extends UiProps, TState extends UiState> on UiComp
 
   /// Returns a typed state object backed by a Map.
   ///
-  /// Convenient for use with [getInitialState] and [setState].
+  /// Convenient for use with [initialState] and [setState].
   TState newState() => typedStateFactoryJs(JsBackedMap());
 
   @override

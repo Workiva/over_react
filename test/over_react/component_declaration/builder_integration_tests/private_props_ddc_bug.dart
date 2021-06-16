@@ -40,6 +40,7 @@ UiFactory<FooProps> Foo = _$Foo; // ignore: undefined_identifier, invalid_assign
 
 @Props()
 class _$FooProps extends UiProps {
+  // ignore: unused_field
   String _privateProp;
 }
 

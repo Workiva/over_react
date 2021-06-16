@@ -82,6 +82,7 @@ abstract class $ResizeSensorPropsMixin {
 @Deprecated('Use the `ResizeSensorProps` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
 @PropsMixin()
 abstract class _$ResizeSensorPropsMixin {
+  // ignore: unused_field
   static final ResizeSensorPropsMixinMapView defaultProps = ResizeSensorPropsMixinMapView({})
     ..isFlexChild = false
     ..isFlexContainer = false

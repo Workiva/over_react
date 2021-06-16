@@ -41,6 +41,7 @@ UiFactory<FooProps> Foo = _$Foo;
 
 @Props()
 class _$FooProps extends UiProps {
+  // ignore: unused_field
   String _privateProp;
 }
 
