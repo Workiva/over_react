@@ -87,7 +87,6 @@ export 'src/component_declaration/component_base_2.dart'
         UiComponent2,
         UiStatefulComponent2,
         UiStatefulMixin2;
-export 'src/component_declaration/built_redux_component.dart';
 export 'src/component_declaration/flux_component.dart';
 export 'src/component_declaration/function_component.dart' hide getFunctionName, GenericUiProps;
 export 'src/util/character_constants.dart';
