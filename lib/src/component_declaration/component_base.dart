@@ -578,7 +578,7 @@ abstract class UiProps extends MapBase
     assert(_validateChildren(children));
 
     _assertComponentFactoryIsNotNull();
-    return componentFactory(props, children) as ReactElement;
+    return componentFactory(props, children);
   }
 
   /// Creates a new component with this builder's props and the specified [children].
@@ -623,7 +623,7 @@ abstract class UiProps extends MapBase
     // https://github.com/dart-lang/sdk/issues/29904
     // Should have the benefit of better performance;
     _assertComponentFactoryIsNotNull();
-    return componentFactory.build(props, childArguments) as ReactElement;
+    return componentFactory.build(props, childArguments);
   }
 
   /// Validates that no [children] are instances of [UiProps], and prints a helpful message for a better debugging
