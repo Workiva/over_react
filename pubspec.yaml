@@ -12,10 +12,7 @@ dependencies:
   # to enable proper opting out of null-safety.
   analyzer: '>=0.39.0 <0.42.0'
   build: ^1.0.0
-  built_redux:
-    git:
-      url: https://github.com/aaronlademann-wf/built_redux.git
-      ref: widen-analyzer-range
+  built_redux: ^7.4.2
   built_value: '>=6.8.2 <9.0.0'
   dart_style: ^1.2.5
   js: ^0.6.1+1
