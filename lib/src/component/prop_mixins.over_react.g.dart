@@ -13,23 +13,28 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
 
   static const PropsMeta meta = _$metaForReactPropsMixin;
   @override
+  List<dynamic> get children =>
+      _conditionallyUnconvertChildren(_raw$ReactProps$children);
+  @override
+  set children(List<dynamic> value) => _raw$ReactProps$children = value;
+  @override
   String get key => props['key'] as String;
   @override
   set key(Object value) =>
       props['key'] = value == null ? null : value.toString();
 
-  /// The children that were passed in to this component when it was built.
-  ///
-  /// <!-- Generated from [_$ReactPropsMixin.children] -->
+  /// <!-- Generated from [_$ReactPropsMixin._raw$ReactProps$children] -->
   @override
-  List get children =>
-      (props[_$key__children___$ReactPropsMixin] ?? null) as List;
+  @Accessor(key: 'children')
+  dynamic get _raw$ReactProps$children =>
+      (props[_$key___raw$ReactProps$children___$ReactPropsMixin] ?? null)
+          as dynamic;
 
-  /// The children that were passed in to this component when it was built.
-  ///
-  /// <!-- Generated from [_$ReactPropsMixin.children] -->
+  /// <!-- Generated from [_$ReactPropsMixin._raw$ReactProps$children] -->
   @override
-  set children(List value) => props[_$key__children___$ReactPropsMixin] = value;
+  @Accessor(key: 'children')
+  set _raw$ReactProps$children(dynamic value) =>
+      props[_$key___raw$ReactProps$children___$ReactPropsMixin] = value;
 
   /// Either a String used to retrieve the element at a later time via [react.Component.ref],
   /// or a Function that gets called with the element when it is mounted.
@@ -49,19 +54,21 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
   @override
   set ref(dynamic value) => props[_$key__ref___$ReactPropsMixin] = value;
   /* GENERATED CONSTANTS */
-  static const PropDescriptor _$prop__children___$ReactPropsMixin =
-      PropDescriptor(_$key__children___$ReactPropsMixin);
+  static const PropDescriptor
+      _$prop___raw$ReactProps$children___$ReactPropsMixin =
+      PropDescriptor(_$key___raw$ReactProps$children___$ReactPropsMixin);
   static const PropDescriptor _$prop__ref___$ReactPropsMixin =
       PropDescriptor(_$key__ref___$ReactPropsMixin);
-  static const String _$key__children___$ReactPropsMixin = 'children';
+  static const String _$key___raw$ReactProps$children___$ReactPropsMixin =
+      'children';
   static const String _$key__ref___$ReactPropsMixin = 'ref';
 
   static const List<PropDescriptor> $props = [
-    _$prop__children___$ReactPropsMixin,
+    _$prop___raw$ReactProps$children___$ReactPropsMixin,
     _$prop__ref___$ReactPropsMixin
   ];
   static const List<String> $propKeys = [
-    _$key__children___$ReactPropsMixin,
+    _$key___raw$ReactProps$children___$ReactPropsMixin,
     _$key__ref___$ReactPropsMixin
   ];
 }
@@ -76,6 +83,11 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   Map get props;
 
   static const PropsMeta meta = _$metaForDomPropsMixin;
+  @override
+  Map<String, dynamic> get style =>
+      _conditionallyUnconvertStyle(_raw$DomProps$style);
+  @override
+  set style(Map<String, dynamic> value) => _raw$DomProps$style = value;
 
   /// <!-- Generated from [_$DomPropsMixin.cols] -->
   @override
@@ -368,15 +380,17 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   @override
   set selected(bool value) => props[_$key__selected___$DomPropsMixin] = value;
 
-  /// <!-- Generated from [_$DomPropsMixin.style] -->
+  /// <!-- Generated from [_$DomPropsMixin._raw$DomProps$style] -->
   @override
-  Map<String, dynamic> get style =>
-      (props[_$key__style___$DomPropsMixin] ?? null) as Map<String, dynamic>;
+  @Accessor(key: 'style')
+  dynamic get _raw$DomProps$style =>
+      (props[_$key___raw$DomProps$style___$DomPropsMixin] ?? null) as dynamic;
 
-  /// <!-- Generated from [_$DomPropsMixin.style] -->
+  /// <!-- Generated from [_$DomPropsMixin._raw$DomProps$style] -->
   @override
-  set style(Map<String, dynamic> value) =>
-      props[_$key__style___$DomPropsMixin] = value;
+  @Accessor(key: 'style')
+  set _raw$DomProps$style(dynamic value) =>
+      props[_$key___raw$DomProps$style___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.challenge] -->
   @override
@@ -2208,8 +2222,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
       PropDescriptor(_$key__seamless___$DomPropsMixin);
   static const PropDescriptor _$prop__selected___$DomPropsMixin =
       PropDescriptor(_$key__selected___$DomPropsMixin);
-  static const PropDescriptor _$prop__style___$DomPropsMixin =
-      PropDescriptor(_$key__style___$DomPropsMixin);
+  static const PropDescriptor _$prop___raw$DomProps$style___$DomPropsMixin =
+      PropDescriptor(_$key___raw$DomProps$style___$DomPropsMixin);
   static const PropDescriptor _$prop__challenge___$DomPropsMixin =
       PropDescriptor(_$key__challenge___$DomPropsMixin);
   static const PropDescriptor _$prop__cite___$DomPropsMixin =
@@ -2598,7 +2612,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   static const String _$key__scoped___$DomPropsMixin = 'scoped';
   static const String _$key__seamless___$DomPropsMixin = 'seamless';
   static const String _$key__selected___$DomPropsMixin = 'selected';
-  static const String _$key__style___$DomPropsMixin = 'style';
+  static const String _$key___raw$DomProps$style___$DomPropsMixin = 'style';
   static const String _$key__challenge___$DomPropsMixin = 'challenge';
   static const String _$key__cite___$DomPropsMixin = 'cite';
   static const String _$key__className___$DomPropsMixin = 'className';
@@ -2843,7 +2857,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$prop__scoped___$DomPropsMixin,
     _$prop__seamless___$DomPropsMixin,
     _$prop__selected___$DomPropsMixin,
-    _$prop__style___$DomPropsMixin,
+    _$prop___raw$DomProps$style___$DomPropsMixin,
     _$prop__challenge___$DomPropsMixin,
     _$prop__cite___$DomPropsMixin,
     _$prop__className___$DomPropsMixin,
@@ -3056,7 +3070,7 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
     _$key__scoped___$DomPropsMixin,
     _$key__seamless___$DomPropsMixin,
     _$key__selected___$DomPropsMixin,
-    _$key__style___$DomPropsMixin,
+    _$key___raw$DomProps$style___$DomPropsMixin,
     _$key__challenge___$DomPropsMixin,
     _$key__cite___$DomPropsMixin,
     _$key__className___$DomPropsMixin,
@@ -6773,6 +6787,13 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
     return _dom ??= DomProps(null, props);
   }
 
+  @override
+  Map<String, dynamic> get style =>
+      _conditionallyUnconvertStyle(_raw$UbiquitousDomProps$style);
+  @override
+  set style(Map<String, dynamic> value) =>
+      _raw$UbiquitousDomProps$style = value;
+
   /// Whether the element if focusable.
   /// Must be a valid integer or String of valid integer.
   ///
@@ -6818,34 +6839,19 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   set title(String value) =>
       props[_$key__title___$UbiquitousDomPropsMixin] = value;
 
-  /// An inline CSS style for the element.
-  ///
-  ///     ..style = {
-  ///       'width': '${state.progress * 100}%',
-  ///       'display': state.isHidden ? 'none' : '',
-  ///     }
-  ///
-  /// See: <https://facebook.github.io/react/tips/inline-styles.html>
-  ///
-  /// <!-- Generated from [_$UbiquitousDomPropsMixin.style] -->
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin._raw$UbiquitousDomProps$style] -->
   @override
-  Map<String, dynamic> get style =>
-      (props[_$key__style___$UbiquitousDomPropsMixin] ?? null)
-          as Map<String, dynamic>;
+  @Accessor(key: 'style')
+  dynamic get _raw$UbiquitousDomProps$style =>
+      (props[_$key___raw$UbiquitousDomProps$style___$UbiquitousDomPropsMixin] ??
+          null) as dynamic;
 
-  /// An inline CSS style for the element.
-  ///
-  ///     ..style = {
-  ///       'width': '${state.progress * 100}%',
-  ///       'display': state.isHidden ? 'none' : '',
-  ///     }
-  ///
-  /// See: <https://facebook.github.io/react/tips/inline-styles.html>
-  ///
-  /// <!-- Generated from [_$UbiquitousDomPropsMixin.style] -->
+  /// <!-- Generated from [_$UbiquitousDomPropsMixin._raw$UbiquitousDomProps$style] -->
   @override
-  set style(Map<String, dynamic> value) =>
-      props[_$key__style___$UbiquitousDomPropsMixin] = value;
+  @Accessor(key: 'style')
+  set _raw$UbiquitousDomProps$style(dynamic value) =>
+      props[_$key___raw$UbiquitousDomProps$style___$UbiquitousDomPropsMixin] =
+          value;
 
   /// Callback for when a CSS Animation has completed.
   ///
@@ -7591,8 +7597,10 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
       PropDescriptor(_$key__id___$UbiquitousDomPropsMixin);
   static const PropDescriptor _$prop__title___$UbiquitousDomPropsMixin =
       PropDescriptor(_$key__title___$UbiquitousDomPropsMixin);
-  static const PropDescriptor _$prop__style___$UbiquitousDomPropsMixin =
-      PropDescriptor(_$key__style___$UbiquitousDomPropsMixin);
+  static const PropDescriptor
+      _$prop___raw$UbiquitousDomProps$style___$UbiquitousDomPropsMixin =
+      PropDescriptor(
+          _$key___raw$UbiquitousDomProps$style___$UbiquitousDomPropsMixin);
   static const PropDescriptor
       _$prop__onAnimationEnd___$UbiquitousDomPropsMixin =
       PropDescriptor(_$key__onAnimationEnd___$UbiquitousDomPropsMixin);
@@ -7699,7 +7707,8 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   static const String _$key__tabIndex___$UbiquitousDomPropsMixin = 'tabIndex';
   static const String _$key__id___$UbiquitousDomPropsMixin = 'id';
   static const String _$key__title___$UbiquitousDomPropsMixin = 'title';
-  static const String _$key__style___$UbiquitousDomPropsMixin = 'style';
+  static const String
+      _$key___raw$UbiquitousDomProps$style___$UbiquitousDomPropsMixin = 'style';
   static const String _$key__onAnimationEnd___$UbiquitousDomPropsMixin =
       'onAnimationEnd';
   static const String _$key__onAnimationIteration___$UbiquitousDomPropsMixin =
@@ -7783,7 +7792,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
     _$prop__tabIndex___$UbiquitousDomPropsMixin,
     _$prop__id___$UbiquitousDomPropsMixin,
     _$prop__title___$UbiquitousDomPropsMixin,
-    _$prop__style___$UbiquitousDomPropsMixin,
+    _$prop___raw$UbiquitousDomProps$style___$UbiquitousDomPropsMixin,
     _$prop__onAnimationEnd___$UbiquitousDomPropsMixin,
     _$prop__onAnimationIteration___$UbiquitousDomPropsMixin,
     _$prop__onAnimationStart___$UbiquitousDomPropsMixin,
@@ -7837,7 +7846,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
     _$key__tabIndex___$UbiquitousDomPropsMixin,
     _$key__id___$UbiquitousDomPropsMixin,
     _$key__title___$UbiquitousDomPropsMixin,
-    _$key__style___$UbiquitousDomPropsMixin,
+    _$key___raw$UbiquitousDomProps$style___$UbiquitousDomPropsMixin,
     _$key__onAnimationEnd___$UbiquitousDomPropsMixin,
     _$key__onAnimationIteration___$UbiquitousDomPropsMixin,
     _$key__onAnimationStart___$UbiquitousDomPropsMixin,
