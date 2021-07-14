@@ -146,6 +146,18 @@ main() {
 
       await triggerFocus(activeElement);
 
+      expect(getActiveElement(getWithinShadowRoots: false), isNull);
+      expect(getActiveElement(), activeElement);
+      activeElement.remove();
+    });
+
+    test('a valid element within a ShadowRoot', () async {
+      var divWithShadowRoot = DivElement()..attachShadow({'mode':'open'});
+      var activeElement = DivElement()..tabIndex = 1;
+      divWithShadowRoot.shadowRoot.append(activeElement);
+
+      await triggerFocus(activeElement);
+
       expect(getActiveElement(), activeElement);
       activeElement.remove();
     });
