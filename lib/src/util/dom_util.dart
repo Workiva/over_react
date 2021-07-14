@@ -49,9 +49,14 @@ Element closest(Element lowerBound, String selector, {Element upperBound}) {
 }
 
 /// Returns the currently focused element ([Document.activeElement]),
+/// or the focused element within a ShadowDOM ([ShadowRoot.activeElement]),
 /// or `null` if nothing is focused (e.g. [Document.activeElement] is [BodyElement]).
 Element getActiveElement() {
   var activeElement = document.activeElement;
+
+  while (activeElement.shadowRoot != null) {
+    activeElement = activeElement.shadowRoot.activeElement;
+  }
 
   if (activeElement is! Element || activeElement == document.body) return null;
 
