@@ -2,11 +2,11 @@ analyzer:
   strong-mode:
     implicit-casts: false
   exclude:
-    _site/**: true
-    test_fixtures/**: true
-    app/**: true
-    tools/analyzer_plugin/**: true
-    ddc_precompiled/**: true
+    - _site/**
+    - test_fixtures/**
+    - app/**
+    - tools/analyzer_plugin/**
+    - ddc_precompiled/**
   errors:
     unused_import: warning
     duplicate_import: warning
