@@ -2,17 +2,18 @@ analyzer:
   strong-mode:
     implicit-casts: false
   exclude:
-    - _site/**
-    - test_fixtures/**
-    - app/**
-    - tools/analyzer_plugin/**
-    - ddc_precompiled/**
+    _site/**: true
+    test_fixtures/**: true
+    app/**: true
+    tools/analyzer_plugin/**: true
+    ddc_precompiled/**: true
   errors:
     unused_import: warning
     duplicate_import: warning
     missing_required_param: error
     must_call_super: error
     uri_has_not_been_generated: ignore
+
 linter:
   rules:
     # -------------------
@@ -103,31 +104,31 @@ linter:
     void_checks: true
 
     # Copied from https://github.com/google/pedantic/blob/v1.8.0/lib/analysis_options.1.8.0.yaml
-    - avoid_empty_else
-    - avoid_init_to_null
-    - avoid_relative_lib_imports
-    - avoid_return_types_on_setters
-    - avoid_shadowing_type_parameters
-    - avoid_types_as_parameter_names
-    - curly_braces_in_flow_control_structures
-    - empty_catches
-    - empty_constructor_bodies
-    - library_names
-    - library_prefixes
-    - no_duplicate_case_values
-    - null_closures
-    - prefer_contains
-    - prefer_equal_for_default_values
-    - prefer_is_empty
-    - prefer_is_not_empty
-    - prefer_iterable_whereType
-    - recursive_getters
-    - slash_for_doc_comments
-    - type_init_formals
-    - unawaited_futures
-    - unnecessary_const
-    - unnecessary_new
-    - unnecessary_null_in_if_null_operators
-    - unrelated_type_equality_checks
-    - use_rethrow_when_possible
-    - valid_regexps
+    avoid_empty_else: true
+    avoid_init_to_null: true
+    avoid_relative_lib_imports: true
+    avoid_return_types_on_setters: true
+    avoid_shadowing_type_parameters: true
+    avoid_types_as_parameter_names: true
+    curly_braces_in_flow_control_structures: true
+    empty_catches: true
+    empty_constructor_bodies: true
+    library_names: true
+    library_prefixes: true
+    no_duplicate_case_values: true
+    null_closures: true
+    prefer_contains: true
+    prefer_equal_for_default_values: true
+    prefer_is_empty: true
+    prefer_is_not_empty: true
+    prefer_iterable_whereType: true
+    recursive_getters: true
+    slash_for_doc_comments: true
+    type_init_formals: true
+    unawaited_futures: true
+    unnecessary_const: true
+    unnecessary_new: true
+    unnecessary_null_in_if_null_operators: true
+    unrelated_type_equality_checks: true
+    use_rethrow_when_possible: true
+    valid_regexps: true
