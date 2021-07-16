@@ -132,38 +132,39 @@ linter:
     use_function_type_syntax_for_parameters: true
     use_to_and_as_if_applicable: true
     void_checks: true
-    annotate_overrides: true
-    avoid_double_and_int_checks: true
+    # Copied from workiva_analysis
+    # annotate_overrides: true
+    # avoid_double_and_int_checks: true
     avoid_empty_else: true
     avoid_init_to_null: true
     avoid_private_typedef_functions: true
     avoid_return_types_on_setters: true
     avoid_shadowing_type_parameters: true
-    avoid_single_cascade_in_expression_statements: true
+    # avoid_single_cascade_in_expression_statements: true
     avoid_types_as_parameter_names: true
-    await_only_futures: true
+    # await_only_futures: true
     camel_case_extensions: true
-    camel_case_types: true
-    cancel_subscriptions: true
-    close_sinks: true
+    # camel_case_types: true
+    # cancel_subscriptions: true
+    # close_sinks: true
     empty_catches: true
     empty_constructor_bodies: true
     empty_statements: true
     file_names: true
-    hash_and_equals: true
-    implementation_imports: true
-    iterable_contains_unrelated_type: true
+    # hash_and_equals: true
+    # implementation_imports: true
+    # iterable_contains_unrelated_type: true
     library_names: true
     library_prefixes: true
-    list_remove_unrelated_type: true
-    no_adjacent_strings_in_list: true
+    # list_remove_unrelated_type: true
+    # no_adjacent_strings_in_list: true
     no_duplicate_case_values: true
     null_closures: true
     only_throw_errors: true
     prefer_contains: true
     prefer_equal_for_default_values: true
-    prefer_generic_function_type_aliases: true
-    prefer_if_null_operators: true
+    # prefer_generic_function_type_aliases: true
+    # prefer_if_null_operators: true
     prefer_is_empty: true
     prefer_is_not_empty: true
     recursive_getters: true
@@ -171,10 +172,10 @@ linter:
     type_init_formals: true
     unnecessary_const: true
     unnecessary_new: true
-    unnecessary_null_aware_assignments: true
+    # unnecessary_null_aware_assignments: true
     unnecessary_null_in_if_null_operators: true
-    unnecessary_statements: true
-    unsafe_html: true
+    # unnecessary_statements: true
+    # unsafe_html: true
     unrelated_type_equality_checks: true
     valid_regexps: true
-    void_checks: true
+    # void_checks: true

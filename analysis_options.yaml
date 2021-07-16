@@ -104,31 +104,32 @@ linter:
     void_checks: true
 
     # Copied from https://github.com/google/pedantic/blob/v1.8.0/lib/analysis_options.1.8.0.yaml
-    avoid_empty_else: true
-    avoid_init_to_null: true
-    avoid_relative_lib_imports: true
-    avoid_return_types_on_setters: true
-    avoid_shadowing_type_parameters: true
-    avoid_types_as_parameter_names: true
-    curly_braces_in_flow_control_structures: true
-    empty_catches: true
-    empty_constructor_bodies: true
-    library_names: true
-    library_prefixes: true
-    no_duplicate_case_values: true
-    null_closures: true
-    prefer_contains: true
-    prefer_equal_for_default_values: true
-    prefer_is_empty: true
-    prefer_is_not_empty: true
-    prefer_iterable_whereType: true
-    recursive_getters: true
-    slash_for_doc_comments: true
-    type_init_formals: true
-    unawaited_futures: true
-    unnecessary_const: true
-    unnecessary_new: true
-    unnecessary_null_in_if_null_operators: true
-    unrelated_type_equality_checks: true
-    use_rethrow_when_possible: true
-    valid_regexps: true
+    # But they are all duplicates...
+    # avoid_empty_else: true
+    # avoid_init_to_null: true
+    # avoid_relative_lib_imports: true
+    # avoid_return_types_on_setters: true
+    # avoid_shadowing_type_parameters: true
+    # avoid_types_as_parameter_names: true
+    # curly_braces_in_flow_control_structures: true
+    # empty_catches: true
+    # empty_constructor_bodies: true
+    # library_names: true
+    # library_prefixes: true
+    # no_duplicate_case_values: true
+    # null_closures: true
+    # prefer_contains: true
+    # prefer_equal_for_default_values: true
+    # prefer_is_empty: true
+    # prefer_is_not_empty: true
+    # prefer_iterable_whereType: true
+    # recursive_getters: true
+    # slash_for_doc_comments: true
+    # type_init_formals: true
+    # unawaited_futures: true
+    # unnecessary_const: true
+    # unnecessary_new: true
+    # unnecessary_null_in_if_null_operators: true
+    # unrelated_type_equality_checks: true
+    # use_rethrow_when_possible: true
+    # valid_regexps: true
