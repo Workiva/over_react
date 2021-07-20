@@ -135,6 +135,11 @@ class ConnectFluxAdapterStore<S extends flux.Store> extends redux.Store<S> {
 
   @override
   Future teardown() async {
+    print('Removing Weak Map Refs for: $store');
+    actionsForStore[store] = null;
+    _connectFluxAdapterFor[store] = null;
+
+    print('Tearing Down: $store');
     await _storeListener.cancel();
     await super.teardown();
   }
