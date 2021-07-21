@@ -6,21 +6,20 @@ repository: https://github.com/Workiva/over_react/tree/master/tools/analyzer_plu
 environment:
   sdk: '>=2.7.0 <3.0.0'
 dependencies:
-  analyzer: '^0.39.10'
+  analyzer: ">=0.39.10 <0.42.0"
   analyzer_plugin: '^0.2.4'
   collection: ^1.14.0
   # Upon release, this should be pinned to the over_react version from ../../pubspec.yaml
   # so that it always resolves to the same version of over_react that the user has pulled in,
   # and thus has the same boilerplate parsing code that's running in the builder.
   over_react: 4.1.1
-  meta: ^1.1.6
+  meta: ">=1.2.2 <1.7.0" # Workaround to avoid https://github.com/dart-lang/sdk/issues/46142
   path: ^1.5.1
   source_span: ^1.7.0
 dev_dependencies:
   args: ^1.6.0
   build_runner: ^1.0.0
   build_test: ^1.0.0
-  build_vm_compilers: ^1.0.0
   convert: ^2.1.1
   crypto: ^2.1.5
   dart_dev: ^3.0.0
@@ -31,7 +30,7 @@ dev_dependencies:
   markdown: ^2.1.5
   mockito: ^4.1.1
   package_config: ^1.9.3
-  test: ^1.14.0
+  test: ^1.15.7
   test_reflective_loader: ^0.1.9
   workiva_analysis_options: ^1.1.0
   yaml: ^2.2.1
