@@ -25,7 +25,7 @@ void main() {
         @TestAnnotation("hello")
         var a;
       ''');
-      final meta = InstantiatedMeta<TestAnnotation>(member);
+      final meta = InstantiatedMeta.fromNode<TestAnnotation>(member)!;
 
       expect(meta.metaNode, isNotNull);
       expect(meta.metaNode!.name.name, 'TestAnnotation');
@@ -38,7 +38,7 @@ void main() {
         @TestAnnotation(someIdentifier, named: "hello")
         var a;
       ''');
-      final meta = InstantiatedMeta<TestAnnotation>(member);
+      final meta = InstantiatedMeta.fromNode<TestAnnotation>(member)!;
 
       expect(meta.metaNode, isNotNull);
       expect(meta.metaNode!.name.name, 'TestAnnotation');
@@ -59,7 +59,7 @@ void main() {
       final member = parseAndGetSingleMember(r'''
         var a;
       ''');
-      final meta = InstantiatedMeta<TestAnnotation>(member);
+      final meta = InstantiatedMeta.fromNode<TestAnnotation>(member);
 
       expect(meta, isNull);
     });
