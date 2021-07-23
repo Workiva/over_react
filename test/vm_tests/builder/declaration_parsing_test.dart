@@ -147,17 +147,17 @@ main() {
               final decl = declarations![0] as LegacyClassComponentDeclaration;
 
               expect(decl.component, isNotNull);
-              expect(decl.factory?.name?.name, ors.prefixedBaseName);
-              expect(decl.props?.name?.name, '_\$${ors.prefixedBaseName}Props');
+              expect(decl.factory.name.name, ors.prefixedBaseName);
+              expect(decl.props.name.name, '_\$${ors.prefixedBaseName}Props');
 
               expect(decl.props.meta, isA<annotations.Props>());
 
               if (isStatefulComponent) {
-                expect(decl.state?.name?.name, '_\$${ors.prefixedBaseName}State');
+                expect(decl.state?.name.name, '_\$${ors.prefixedBaseName}State');
                 expect(decl.state!.meta, isA<annotations.State>());
               }
 
-              expect(decl.component?.name?.name, '${ors.prefixedBaseName}Component');
+              expect(decl.component.name.name, '${ors.prefixedBaseName}Component');
 
               final boilerplateVersion = backwardsCompatible
                   ? Version.v2_legacyBackwardsCompat
@@ -271,10 +271,10 @@ main() {
               ''');
 
               final component = expectSingleOfType<LegacyClassComponentDeclaration>(declarations!);
-              expect(component.factory?.name?.name, 'Foo');
-              expect(component.props?.name?.name, endsWith('FooProps'));
+              expect(component.factory.name.name, 'Foo');
+              expect(component.props.name.name, endsWith('FooProps'));
               expect(component.state, isNull);
-              expect(component.component?.name?.name, 'FooComponent');
+              expect(component.component.name.name, 'FooComponent');
             });
 
             group('with mismatched names', () {
@@ -295,10 +295,10 @@ main() {
                 ''');
 
                 final component = expectSingleOfType<LegacyClassComponentDeclaration>(declarations!);
-                expect(component.factory?.name?.name, 'Foo');
-                expect(component.props?.name?.name, endsWith('BarProps'));
+                expect(component.factory.name.name, 'Foo');
+                expect(component.props.name.name, endsWith('BarProps'));
                 expect(component.state, isNull);
-                expect(component.component?.name?.name, 'BazComponent');
+                expect(component.component.name.name, 'BazComponent');
               });
 
               test('that is stateful', () {
@@ -323,10 +323,10 @@ main() {
                 ''');
 
                 final component = expectSingleOfType<LegacyClassComponentDeclaration>(declarations!);
-                expect(component.factory?.name?.name, 'Foo');
-                expect(component.props?.name?.name, endsWith('BarProps'));
-                expect(component.state?.name?.name, endsWith('QuxState'));
-                expect(component.component?.name?.name, 'BazComponent');
+                expect(component.factory.name.name, 'Foo');
+                expect(component.props.name.name, endsWith('BarProps'));
+                expect(component.state?.name.name, endsWith('QuxState'));
+                expect(component.component.name.name, 'BazComponent');
               });
 
               test('and other non-component boilerplate declarations in the file', () {
@@ -362,10 +362,10 @@ main() {
                 ]));
 
                 final component = declarations!.firstWhereType<LegacyClassComponentDeclaration>()!;
-                expect(component.factory?.name?.name, 'Foo');
-                expect(component.props?.name?.name, endsWith('BarProps'));
+                expect(component.factory.name.name, 'Foo');
+                expect(component.props.name.name, endsWith('BarProps'));
                 expect(component.state, isNull);
-                expect(component.component?.name?.name, 'BazComponent');
+                expect(component.component.name.name, 'BazComponent');
               });
             });
 
@@ -376,10 +376,10 @@ main() {
                   setUpAndParse(source);
 
                   final component = expectSingleOfType<LegacyClassComponentDeclaration>(declarations!);
-                  expect(component.factory?.name?.name, 'Foo');
-                  expect(component.props?.name?.name, endsWith('FooProps'));
+                  expect(component.factory.name.name, 'Foo');
+                  expect(component.props.name.name, endsWith('FooProps'));
                   expect(component.state, isNull);
-                  expect(component.component?.name?.name, 'FooComponent');
+                  expect(component.component.name.name, 'FooComponent');
                 });
               }
 
@@ -517,7 +517,7 @@ main() {
 
               expect(decl.state, isNotNull);
 
-              expect(decl.state.name?.name, '_\$${ors.prefixedBaseName}State');
+              expect(decl.state.name.name, '_\$${ors.prefixedBaseName}State');
               expect(decl.state.meta, TypeMatcher<annotations.TypedMap>());
             }
 
@@ -733,7 +733,7 @@ main() {
             ''');
 
             final props = expectAllOfType<BoilerplateProps>(declarations!).firstOrNull;
-            expect(props?.versionConfidences?.maxConfidence?.confidence, anyOf(isNull, Confidence.none));
+            expect(props?.versionConfidences.maxConfidence.confidence, anyOf(isNull, Confidence.none));
           });
 
           test('a props class that should not be generated', () {
@@ -745,7 +745,7 @@ main() {
             ''');
 
             final props = expectAllOfType<BoilerplateProps>(declarations!).firstOrNull;
-            expect(props?.versionConfidences?.maxConfidence?.confidence, anyOf(isNull, Confidence.none));
+            expect(props?.versionConfidences.maxConfidence.confidence, anyOf(isNull, Confidence.none));
           });
 
           test('a props class that acts solely as an interface', () {
@@ -754,7 +754,7 @@ main() {
             ''');
 
             final props = expectAllOfType<BoilerplateProps>(declarations!).firstOrNull;
-            expect(props?.versionConfidences?.maxConfidence?.confidence, anyOf(isNull, Confidence.none));
+            expect(props?.versionConfidences.maxConfidence.confidence, anyOf(isNull, Confidence.none));
           });
 
           test('empty props/state mixins (regression test for these being skipped)', () {
@@ -1127,13 +1127,13 @@ main() {
               ]));
 
               final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
-              expect(propsMixinDecl.mixin?.name?.name, 'FooProps');
+              expect(propsMixinDecl.mixin.name.name, 'FooProps');
 
               final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
 
-              expect(decl.factory?.name?.name, 'Foo');
-              expect(decl.props?.b?.name?.name, 'FooProps');
-              expect(decl.component?.name?.name, 'FooComponent');
+              expect(decl.factory.name.name, 'Foo');
+              expect(decl.props.b?.name.name, 'FooProps');
+              expect(decl.component.name.name, 'FooComponent');
               expect(decl.state?.either, isNull);
 
               expect(decl.factory.meta, isA<annotations.Factory>());
@@ -1162,13 +1162,13 @@ main() {
               ]));
 
               final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
-              expect(propsMixinDecl.mixin?.name?.name, 'FooPropsMixin');
+              expect(propsMixinDecl.mixin.name.name, 'FooPropsMixin');
 
               final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
 
-              expect(decl.factory?.name?.name, 'Foo');
-              expect(decl.props?.a?.name?.name, 'FooProps');
-              expect(decl.component?.name?.name, 'FooComponent');
+              expect(decl.factory.name.name, 'Foo');
+              expect(decl.props.a?.name.name, 'FooProps');
+              expect(decl.component.name.name, 'FooComponent');
               expect(decl.state?.either, isNull);
 
               expect(decl.factory.meta, isA<annotations.Factory>());
@@ -1200,13 +1200,13 @@ main() {
               ]));
 
               final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
-              expect(propsMixinDecl.mixin?.name?.name, 'FooPropsMixin');
+              expect(propsMixinDecl.mixin.name.name, 'FooPropsMixin');
 
               final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
 
-              expect(decl.factory?.name?.name, 'Foo');
-              expect(decl.props?.a?.name?.name, 'FooProps');
-              expect(decl.component?.name?.name, 'FooComponent');
+              expect(decl.factory.name.name, 'Foo');
+              expect(decl.props.a?.name.name, 'FooProps');
+              expect(decl.component.name.name, 'FooComponent');
               expect(decl.state?.either, isNull);
 
               expect(decl.factory.meta, isA<annotations.Factory>());
@@ -1238,17 +1238,17 @@ main() {
               ]));
 
               final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
-              expect(propsMixinDecl.mixin?.name?.name, 'FooProps');
+              expect(propsMixinDecl.mixin.name.name, 'FooProps');
 
               final stateMixinDecl = declarations!.firstWhereType<StateMixinDeclaration>()!;
-              expect(stateMixinDecl.mixin?.name?.name, 'FooState');
+              expect(stateMixinDecl.mixin.name.name, 'FooState');
 
               final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
 
-              expect(decl.factory?.name?.name, 'Foo');
-              expect(decl.props?.b?.name?.name, 'FooProps');
-              expect(decl.component?.name?.name, 'FooComponent');
-              expect(decl.state?.b?.name?.name, 'FooState');
+              expect(decl.factory.name.name, 'Foo');
+              expect(decl.props.b?.name.name, 'FooProps');
+              expect(decl.component.name.name, 'FooComponent');
+              expect(decl.state?.b?.name.name, 'FooState');
 
               expect(decl.factory.meta, isA<annotations.Factory>());
               expect(decl.props.b!.meta, isA<annotations.Props>());
@@ -1280,17 +1280,17 @@ main() {
               ]));
 
               final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
-              expect(propsMixinDecl.mixin?.name?.name, 'FooPropsMixin');
+              expect(propsMixinDecl.mixin.name.name, 'FooPropsMixin');
 
               final stateMixinDecl = declarations!.firstWhereType<StateMixinDeclaration>()!;
-              expect(stateMixinDecl.mixin?.name?.name, 'FooStateMixin');
+              expect(stateMixinDecl.mixin.name.name, 'FooStateMixin');
 
               final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
 
-              expect(decl.factory?.name?.name, 'Foo');
-              expect(decl.props?.b?.name?.name, 'FooPropsMixin');
-              expect(decl.component?.name?.name, 'FooComponent');
-              expect(decl.state?.b?.name?.name, 'FooStateMixin');
+              expect(decl.factory.name.name, 'Foo');
+              expect(decl.props.b?.name.name, 'FooPropsMixin');
+              expect(decl.component.name.name, 'FooComponent');
+              expect(decl.state?.b?.name.name, 'FooStateMixin');
 
               expect(decl.factory.meta, isA<annotations.Factory>());
               expect(decl.props.b!.meta, isA<annotations.Props>());
@@ -1326,17 +1326,17 @@ main() {
               ]));
 
               final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
-              expect(propsMixinDecl.mixin?.name?.name, 'FooPropsMixin');
+              expect(propsMixinDecl.mixin.name.name, 'FooPropsMixin');
 
               final stateMixinDecl = declarations!.firstWhereType<StateMixinDeclaration>()!;
-              expect(stateMixinDecl.mixin?.name?.name, 'FooStateMixin');
+              expect(stateMixinDecl.mixin.name.name, 'FooStateMixin');
 
               final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
 
-              expect(decl.factory?.name?.name, 'Foo');
-              expect(decl.props?.a?.name?.name, 'FooProps');
-              expect(decl.component?.name?.name, 'FooComponent');
-              expect(decl.state?.a?.name?.name, 'FooState');
+              expect(decl.factory.name.name, 'Foo');
+              expect(decl.props.a?.name.name, 'FooProps');
+              expect(decl.component.name.name, 'FooComponent');
+              expect(decl.state?.a?.name.name, 'FooState');
 
               expect(decl.factory.meta, isA<annotations.Factory>());
               expect(decl.props.a!.meta, isA<annotations.Props>());
@@ -1363,10 +1363,10 @@ main() {
               ]));
 
               final component = declarations!.firstWhereType<ClassComponentDeclaration>()!;
-              expect(component.factory?.name?.name, 'Foo');
-              expect(component.props?.b?.name?.name, endsWith('FooProps'));
+              expect(component.factory.name.name, 'Foo');
+              expect(component.props.b?.name.name, endsWith('FooProps'));
               expect(component.state, isNull);
-              expect(component.component?.name?.name, 'FooComponent');
+              expect(component.component.name.name, 'FooComponent');
             });
 
             group('missing generic params referencing props class', () {
@@ -1380,10 +1380,10 @@ main() {
                   ]));
 
                   final component = declarations!.firstWhereType<ClassComponentDeclaration>()!;
-                  expect(component.factory?.name?.name, 'Foo');
-                  expect(component.props?.either?.name?.name, endsWith('FooProps'));
+                  expect(component.factory.name.name, 'Foo');
+                  expect(component.props.either.name.name, endsWith('FooProps'));
                   expect(component.state, isNull);
-                  expect(component.component?.name?.name, 'FooComponent');
+                  expect(component.component.name.name, 'FooComponent');
                 });
               }
 
@@ -1541,7 +1541,7 @@ main() {
 
                 expect(decl.factories, hasLength(1));
                 expect(decl.factories.first.name.name, name);
-                expect(decl.props.b?.name?.name, propsName);
+                expect(decl.props.b?.name.name, propsName);
                 expect(decl.version, Version.v4_mixinBased);
               });
 
@@ -1554,7 +1554,7 @@ main() {
 
                 expect(decl.factories, hasLength(1));
                 expect(decl.factories.first.name.name, name);
-                expect(decl.props.a?.name?.name, propsName);
+                expect(decl.props.a?.name.name, propsName);
                 expect(decl.version, Version.v4_mixinBased);
               });
             }
@@ -1612,7 +1612,7 @@ main() {
                 'Foo',
                 'Bar',
               ]));
-              expect(decl.props.b?.name?.name, 'FooPropsMixin');
+              expect(decl.props.b?.name.name, 'FooPropsMixin');
               expect(decl.version, Version.v4_mixinBased);
             });
 
@@ -1636,7 +1636,7 @@ main() {
 
               expect(decl.factories, hasLength(1));
               expect(decl.factories.first.name.name, 'Foo');
-              expect(decl.props.a?.name?.name, 'FooProps');
+              expect(decl.props.a?.name.name, 'FooProps');
               expect(decl.version, Version.v4_mixinBased);
             });
 
@@ -1673,7 +1673,7 @@ main() {
 
               expect(decl.factories, hasLength(1));
               expect(decl.factories.first.name.name, equals('Foo'));
-              expect(decl.props.b?.name?.name, 'FooPropsMixin');
+              expect(decl.props.b?.name.name, 'FooPropsMixin');
               expect(decl.version, Version.v4_mixinBased);
             });
 
@@ -1723,7 +1723,7 @@ main() {
                 'Foo',
                 'Bar',
               ]));
-              expect(decl.props.b?.name?.name, 'FooPropsMixin');
+              expect(decl.props.b?.name.name, 'FooPropsMixin');
               expect(decl.version, Version.v4_mixinBased);
             });
 
@@ -1768,12 +1768,12 @@ main() {
                 'Foo',
                 'Bar',
               ]));
-              expect(decl.first.props.b?.name?.name, 'FooPropsMixin');
+              expect(decl.first.props.b?.name.name, 'FooPropsMixin');
               expect(decl.first.version, Version.v4_mixinBased);
 
               expect(decl[1].factories, hasLength(1));
               expect(decl[1].factories.first.name.name, 'Baz');
-              expect(decl[1].props.b?.name?.name, 'BarPropsMixin');
+              expect(decl[1].props.b?.name.name, 'BarPropsMixin');
               expect(decl[1].version, Version.v4_mixinBased);
             });
           });
@@ -1799,13 +1799,13 @@ main() {
             ]));
 
             final propsMixinDecl = declarations!.firstWhereType<PropsMixinDeclaration>()!;
-            expect(propsMixinDecl.mixin?.name?.name, 'FooProps');
+            expect(propsMixinDecl.mixin.name.name, 'FooProps');
 
             final decl = declarations!.firstWhereType<ClassComponentDeclaration>()!;
 
-            expect(decl.factory?.name?.name, 'Foo');
-            expect(decl.props?.b?.name?.name, 'FooProps');
-            expect(decl.component?.name?.name, 'FooComponent');
+            expect(decl.factory.name.name, 'Foo');
+            expect(decl.props.b?.name.name, 'FooProps');
+            expect(decl.component.name.name, 'FooComponent');
             expect(decl.state?.either, isNull);
 
             expect(decl.factory.meta, isA<annotations.Factory>());
