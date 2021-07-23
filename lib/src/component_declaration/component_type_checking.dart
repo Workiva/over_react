@@ -96,7 +96,7 @@ extension UiFactoryTypeMeta on UiFactory {
     // These are separate arguments because it's very difficult to tell
     // the difference between a UiFactory and a ReactClass at runtime.
     UiFactory? subtypeOfFactory,
-    dynamic /*ReactClass|JS component function|string*/ subtypeOfRaw,
+    Object? /*ReactClass|JS component function|string*/ subtypeOfRaw,
     bool isWrapper = false,
   }) {
     if (subtypeOfFactory != null && subtypeOfRaw != null) {
@@ -109,7 +109,7 @@ extension UiFactoryTypeMeta on UiFactory {
         ? subtypeOfFactory().componentFactory!.type
         : subtypeOfRaw;
 
-    final type = this().componentFactory!.type;
+    final type = this().componentFactory!.type as Object;
     setComponentTypeMeta(
       type,
       parentType: parentType,
@@ -130,7 +130,7 @@ Expando<ReactComponentFactoryProxy> _typeAliasToFactory =
 /// called with [typeAlias] to retrieve [factory]'s [ReactClass] type.
 // ignore: deprecated_member_use
 void registerComponentTypeAlias(
-    ReactComponentFactoryProxy factory, dynamic typeAlias) {
+    ReactComponentFactoryProxy factory, Object? typeAlias) {
   if (typeAlias != null) {
     _typeAliasToFactory[typeAlias] = factory;
   }
@@ -145,8 +145,8 @@ const String _componentTypeMetaKey = '_componentTypeMeta';
 ///
 /// This meta is retrievable via [getComponentTypeMeta].
 void setComponentTypeMeta(
-  dynamic /* ReactClass|JS component function|string */ type, {
-  required dynamic  /* ReactClass|JS component function|string */ parentType,
+  Object /* ReactClass|JS component function|string */ type, {
+  required Object?  /* ReactClass|JS component function|string */ parentType,
   bool isWrapper = false,
   bool isHoc = false,
 }) {
@@ -170,7 +170,7 @@ bool isTypeAlias(dynamic type) {
 
 /// Returns the [ComponentTypeMeta] associated with the component type [type] in [setComponentTypeMeta],
 /// or `const ComponentTypeMeta.none()` if there is no associated meta.
-ComponentTypeMeta getComponentTypeMeta(dynamic type) {
+ComponentTypeMeta getComponentTypeMeta(Object type) {
   assert(isPotentiallyValidComponentType(type) &&
       '`type` should be a valid component type (and not null or a type alias).'
           is String);
@@ -227,7 +227,7 @@ class ComponentTypeMeta {
   ///
   /// > See: `subtypeOf` (within [annotations.Component2])
   // ignore: deprecated_member_use
-  final dynamic /*ReactClass|JS component function|string*/ parentType;
+  final Object? /*ReactClass|JS component function|string*/ parentType;
 
   ComponentTypeMeta(
       {this.parentType, this.isWrapper = false, this.isHoc = false})
@@ -261,7 +261,7 @@ class ComponentTypeMeta {
 ///
 /// > __CAVEAT:__ Due to type-checking limitations on JS-interop types, when [typeAlias] is a [Function],
 /// and it is not found to be an alias for another type, it will be returned as if it were a valid type.
-dynamic getComponentTypeFromAlias(dynamic typeAlias) {
+dynamic getComponentTypeFromAlias(Object? typeAlias) {
   /// If `typeAlias` is a factory, return its type.
   if (typeAlias is ReactComponentFactoryProxy) {
     return typeAlias.type;
@@ -305,13 +305,14 @@ bool isPotentiallyValidComponentType(dynamic type) {
 ///     getParentTypes(getComponentTypeFromAlias(A)); // []
 ///     getParentTypes(getComponentTypeFromAlias(B)); // [A].map(getTypeFromAlias)
 ///     getParentTypes(getComponentTypeFromAlias(C)); // [B, A].map(getTypeFromAlias)
-Iterable<dynamic> getParentTypes(dynamic type) sync* {
+Iterable<dynamic> getParentTypes(Object type) sync* {
   assert(isPotentiallyValidComponentType(type) &&
       '`type` should be a valid component type (and not null or a type alias).'
           is String);
 
-  var currentType = type;
-  while ((currentType = getComponentTypeMeta(currentType).parentType) != null) {
+  // FIXME null-safety what's the recommended way to write this kind of loop?
+  Object? currentType = type;
+  while ((currentType = getComponentTypeMeta(currentType as Object).parentType) != null) {
     yield currentType;
   }
 }
@@ -335,14 +336,14 @@ bool isComponentOfType(ReactElement? instance, dynamic typeAlias,
     return false;
   }
 
-  var instanceType = instance.type;
+  var instanceType = instance.type as Object?;
 
   var type = getComponentTypeFromAlias(typeAlias);
   if (type == null) {
     return false;
   }
 
-  var instanceTypeMeta = getComponentTypeMeta(instanceType);
+  var instanceTypeMeta = getComponentTypeMeta(instanceType!);
 
   // Type-check instance wrappers.
   if (traverseWrappers && instanceTypeMeta.isWrapper) {
