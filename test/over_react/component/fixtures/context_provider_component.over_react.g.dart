@@ -242,7 +242,7 @@ class _$ContextProviderWrapperComponent
   _$$ContextProviderWrapperProps typedPropsFactory(Map? backingMap) =>
       _$$ContextProviderWrapperProps(backingMap);
 
-  _$$ContextProviderWrapperState$JsMap _cachedTypedState;
+  late _$$ContextProviderWrapperState$JsMap _cachedTypedState;
   @override
   _$$ContextProviderWrapperState$JsMap get state => _cachedTypedState;
 

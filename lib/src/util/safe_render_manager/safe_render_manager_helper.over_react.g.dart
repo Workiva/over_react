@@ -272,7 +272,7 @@ class _$SafeRenderManagerHelperComponent
   _$$SafeRenderManagerHelperProps typedPropsFactory(Map? backingMap) =>
       _$$SafeRenderManagerHelperProps(backingMap);
 
-  _$$SafeRenderManagerHelperState$JsMap _cachedTypedState;
+  late _$$SafeRenderManagerHelperState$JsMap _cachedTypedState;
   @override
   _$$SafeRenderManagerHelperState$JsMap get state => _cachedTypedState;
 

@@ -217,7 +217,7 @@ class _$CustomErrorBoundaryComponent extends CustomErrorBoundaryComponent {
   _$$CustomErrorBoundaryProps typedPropsFactory(Map? backingMap) =>
       _$$CustomErrorBoundaryProps(backingMap);
 
-  _$$CustomErrorBoundaryState$JsMap _cachedTypedState;
+  late _$$CustomErrorBoundaryState$JsMap _cachedTypedState;
   @override
   _$$CustomErrorBoundaryState$JsMap get state => _cachedTypedState;
 

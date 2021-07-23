@@ -250,7 +250,7 @@ class _$TypedFactoryTesterComponent extends TypedFactoryTesterComponent {
   _$$TypedFactoryTesterProps typedPropsFactory(Map? backingMap) =>
       _$$TypedFactoryTesterProps(backingMap);
 
-  _$$TypedFactoryTesterState$JsMap _cachedTypedState;
+  late _$$TypedFactoryTesterState$JsMap _cachedTypedState;
   @override
   _$$TypedFactoryTesterState$JsMap get state => _cachedTypedState;
 

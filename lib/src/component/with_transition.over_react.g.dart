@@ -204,7 +204,7 @@ class _$WithTransitionComponent extends WithTransitionComponent {
   _$$WithTransitionProps typedPropsFactory(Map? backingMap) =>
       _$$WithTransitionProps(backingMap);
 
-  _$$WithTransitionState$JsMap _cachedTypedState;
+  late _$$WithTransitionState$JsMap _cachedTypedState;
   @override
   _$$WithTransitionState$JsMap get state => _cachedTypedState;
 

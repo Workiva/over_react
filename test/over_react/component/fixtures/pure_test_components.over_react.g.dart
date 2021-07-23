@@ -350,7 +350,7 @@ class _$PureTestComponent extends PureTestComponent {
   _$$PureTestProps typedPropsFactory(Map? backingMap) =>
       _$$PureTestProps(backingMap);
 
-  _$$PureTestState$JsMap _cachedTypedState;
+  late _$$PureTestState$JsMap _cachedTypedState;
   @override
   _$$PureTestState$JsMap get state => _cachedTypedState;
 

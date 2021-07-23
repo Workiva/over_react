@@ -252,7 +252,7 @@ class _$FlawedComponent extends FlawedComponent {
   _$$FlawedProps typedPropsFactory(Map? backingMap) =>
       _$$FlawedProps(backingMap);
 
-  _$$FlawedState$JsMap _cachedTypedState;
+  late _$$FlawedState$JsMap _cachedTypedState;
   @override
   _$$FlawedState$JsMap get state => _cachedTypedState;
 

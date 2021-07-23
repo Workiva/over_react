@@ -346,7 +346,7 @@ class _$DoNotGenerateAccessorTestComponent
   _$$DoNotGenerateAccessorTestProps typedPropsFactory(Map? backingMap) =>
       _$$DoNotGenerateAccessorTestProps(backingMap);
 
-  _$$DoNotGenerateAccessorTestState$JsMap _cachedTypedState;
+  late _$$DoNotGenerateAccessorTestState$JsMap _cachedTypedState;
   @override
   _$$DoNotGenerateAccessorTestState$JsMap get state => _cachedTypedState;
 

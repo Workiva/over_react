@@ -1111,7 +1111,7 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
   _$$TestStatefulBasicProps typedPropsFactory(Map? backingMap) =>
       _$$TestStatefulBasicProps(backingMap);
 
-  _$$TestStatefulBasicState$JsMap _cachedTypedState;
+  late _$$TestStatefulBasicState$JsMap _cachedTypedState;
   @override
   _$$TestStatefulBasicState$JsMap get state => _cachedTypedState;
 
@@ -1367,7 +1367,7 @@ class _$TestStatefulHandlerLifecycleComponent
   _$$TestStatefulHandlerLifecycleProps typedPropsFactory(Map? backingMap) =>
       _$$TestStatefulHandlerLifecycleProps(backingMap);
 
-  _$$TestStatefulHandlerLifecycleState$JsMap _cachedTypedState;
+  late _$$TestStatefulHandlerLifecycleState$JsMap _cachedTypedState;
   @override
   _$$TestStatefulHandlerLifecycleState$JsMap get state => _cachedTypedState;
 
@@ -1623,7 +1623,7 @@ class _$TestStatefulHandlerPrecedenceComponent
   _$$TestStatefulHandlerPrecedenceProps typedPropsFactory(Map? backingMap) =>
       _$$TestStatefulHandlerPrecedenceProps(backingMap);
 
-  _$$TestStatefulHandlerPrecedenceState$JsMap _cachedTypedState;
+  late _$$TestStatefulHandlerPrecedenceState$JsMap _cachedTypedState;
   @override
   _$$TestStatefulHandlerPrecedenceState$JsMap get state => _cachedTypedState;
 
@@ -1901,7 +1901,7 @@ class _$TestStatefulPropValidationComponent
   _$$TestStatefulPropValidationProps typedPropsFactory(Map? backingMap) =>
       _$$TestStatefulPropValidationProps(backingMap);
 
-  _$$TestStatefulPropValidationState$JsMap _cachedTypedState;
+  late _$$TestStatefulPropValidationState$JsMap _cachedTypedState;
   @override
   _$$TestStatefulPropValidationState$JsMap get state => _cachedTypedState;
 
@@ -2147,7 +2147,7 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
   _$$TestStatefulRedrawOnProps typedPropsFactory(Map? backingMap) =>
       _$$TestStatefulRedrawOnProps(backingMap);
 
-  _$$TestStatefulRedrawOnState$JsMap _cachedTypedState;
+  late _$$TestStatefulRedrawOnState$JsMap _cachedTypedState;
   @override
   _$$TestStatefulRedrawOnState$JsMap get state => _cachedTypedState;
 
@@ -2401,7 +2401,7 @@ class _$TestStatefulStoreHandlersComponent
   _$$TestStatefulStoreHandlersProps typedPropsFactory(Map? backingMap) =>
       _$$TestStatefulStoreHandlersProps(backingMap);
 
-  _$$TestStatefulStoreHandlersState$JsMap _cachedTypedState;
+  late _$$TestStatefulStoreHandlersState$JsMap _cachedTypedState;
   @override
   _$$TestStatefulStoreHandlersState$JsMap get state => _cachedTypedState;
 

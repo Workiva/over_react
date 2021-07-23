@@ -820,7 +820,7 @@ class _$TestCustomRendererFromAbstractComponentComponent
           Map? backingMap) =>
       _$$TestCustomRendererFromAbstractComponentProps(backingMap);
 
-  _$$TestCustomRendererFromAbstractComponentState$JsMap _cachedTypedState;
+  late _$$TestCustomRendererFromAbstractComponentState$JsMap _cachedTypedState;
   @override
   _$$TestCustomRendererFromAbstractComponentState$JsMap get state =>
       _cachedTypedState;
@@ -1190,7 +1190,7 @@ class _$TestCustomRendererComponentComponent
   _$$TestCustomRendererComponentProps typedPropsFactory(Map? backingMap) =>
       _$$TestCustomRendererComponentProps(backingMap);
 
-  _$$TestCustomRendererComponentState$JsMap _cachedTypedState;
+  late _$$TestCustomRendererComponentState$JsMap _cachedTypedState;
   @override
   _$$TestCustomRendererComponentState$JsMap get state => _cachedTypedState;
 

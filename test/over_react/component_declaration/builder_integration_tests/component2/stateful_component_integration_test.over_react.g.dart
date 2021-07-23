@@ -364,7 +364,7 @@ class _$StatefulComponentTestComponent extends StatefulComponentTestComponent {
   _$$StatefulComponentTestProps typedPropsFactory(Map? backingMap) =>
       _$$StatefulComponentTestProps(backingMap);
 
-  _$$StatefulComponentTestState$JsMap _cachedTypedState;
+  late _$$StatefulComponentTestState$JsMap _cachedTypedState;
   @override
   _$$StatefulComponentTestState$JsMap get state => _cachedTypedState;
 

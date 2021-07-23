@@ -209,7 +209,7 @@ class _$RecoverableErrorBoundaryComponent
   _$$RecoverableErrorBoundaryProps typedPropsFactory(Map? backingMap) =>
       _$$RecoverableErrorBoundaryProps(backingMap);
 
-  _$$RecoverableErrorBoundaryState$JsMap _cachedTypedState;
+  late _$$RecoverableErrorBoundaryState$JsMap _cachedTypedState;
   @override
   _$$RecoverableErrorBoundaryState$JsMap get state => _cachedTypedState;
 

@@ -460,7 +460,7 @@ class _$NamespacedAccessorTestComponent
   _$$NamespacedAccessorTestProps typedPropsFactory(Map? backingMap) =>
       _$$NamespacedAccessorTestProps(backingMap);
 
-  _$$NamespacedAccessorTestState$JsMap _cachedTypedState;
+  late _$$NamespacedAccessorTestState$JsMap _cachedTypedState;
   @override
   _$$NamespacedAccessorTestState$JsMap get state => _cachedTypedState;
 

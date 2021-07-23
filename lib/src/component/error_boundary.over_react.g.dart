@@ -200,7 +200,7 @@ class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
   _$$ErrorBoundaryProps typedPropsFactory(Map? backingMap) =>
       _$$ErrorBoundaryProps(backingMap);
 
-  _$$ErrorBoundaryState$JsMap _cachedTypedState;
+  late _$$ErrorBoundaryState$JsMap _cachedTypedState;
   @override
   _$$ErrorBoundaryState$JsMap get state => _cachedTypedState;
 

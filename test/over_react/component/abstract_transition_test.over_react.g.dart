@@ -204,7 +204,7 @@ class _$TransitionerComponent extends TransitionerComponent {
   _$$TransitionerProps typedPropsFactory(Map? backingMap) =>
       _$$TransitionerProps(backingMap);
 
-  _$$TransitionerState$JsMap _cachedTypedState;
+  late _$$TransitionerState$JsMap _cachedTypedState;
   @override
   _$$TransitionerState$JsMap get state => _cachedTypedState;
 
