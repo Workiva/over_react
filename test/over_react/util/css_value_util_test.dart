@@ -15,7 +15,6 @@
 @TestOn('browser')
 library css_value_util_test;
 
-import 'package:dart2_constant/core.dart' as d2c;
 import 'package:over_react/over_react.dart';
 import 'package:test/test.dart';
 
@@ -73,18 +72,18 @@ main() {
             }
 
             test('infinity', () {
-              testValue(d2c.double.infinity);
-              testValue(d2c.double.infinity.toString());
+              testValue(double.infinity);
+              testValue(double.infinity.toString());
             });
 
             test('negative infinity', () {
-              testValue(d2c.double.negativeInfinity);
-              testValue(d2c.double.negativeInfinity.toString());
+              testValue(double.negativeInfinity);
+              testValue(double.negativeInfinity.toString());
             });
 
             test('NaN', () {
-              testValue(d2c.double.nan);
-              testValue(d2c.double.nan.toString());
+              testValue(double.nan);
+              testValue(double.nan.toString());
             });
           });
 
