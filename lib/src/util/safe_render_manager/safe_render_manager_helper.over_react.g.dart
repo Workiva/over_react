@@ -27,14 +27,14 @@ abstract class _$SafeRenderManagerHelperPropsAccessorsMixin
   /// <!-- Generated from [_$SafeRenderManagerHelperProps.getInitialContent] -->
   @override
   @requiredProp
-  ReactElement Function()? get getInitialContent =>
+  ReactElement? Function()? get getInitialContent =>
       (props[_$key__getInitialContent___$SafeRenderManagerHelperProps] ?? null)
-          as ReactElement Function()?;
+          as ReactElement? Function()?;
 
   /// <!-- Generated from [_$SafeRenderManagerHelperProps.getInitialContent] -->
   @override
   @requiredProp
-  set getInitialContent(ReactElement Function()? value) =>
+  set getInitialContent(ReactElement? Function()? value) =>
       props[_$key__getInitialContent___$SafeRenderManagerHelperProps] = value;
 
   /// <!-- Generated from [_$SafeRenderManagerHelperProps.contentRef] -->

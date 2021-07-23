@@ -92,10 +92,10 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.onComponentIsUnrecoverable] -->
   @override
-  Function(dynamic error, ReactErrorInfo info)?
+  Function(dynamic error, ReactErrorInfo? info)?
       get onComponentIsUnrecoverable => (props[
               _$key__onComponentIsUnrecoverable___$ErrorBoundaryPropsMixin] ??
-          null) as Function(dynamic error, ReactErrorInfo info)?;
+          null) as Function(dynamic error, ReactErrorInfo? info)?;
 
   /// An optional callback that will be called _(when [fallbackUIRenderer] is not set)_
   /// with an [Error] _(or [Exception])_ and `errorInfo` containing information about which component in
@@ -124,7 +124,7 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.onComponentIsUnrecoverable] -->
   @override
   set onComponentIsUnrecoverable(
-          Function(dynamic error, ReactErrorInfo info)? value) =>
+          Function(dynamic error, ReactErrorInfo? info)? value) =>
       props[_$key__onComponentIsUnrecoverable___$ErrorBoundaryPropsMixin] =
           value;
 
@@ -135,10 +135,10 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   ///
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.fallbackUIRenderer] -->
   @override
-  ReactElement Function(dynamic error, ReactErrorInfo info)?
+  ReactElement Function(dynamic error, ReactErrorInfo? info)?
       get fallbackUIRenderer =>
           (props[_$key__fallbackUIRenderer___$ErrorBoundaryPropsMixin] ?? null)
-              as ReactElement Function(dynamic error, ReactErrorInfo info)?;
+              as ReactElement Function(dynamic error, ReactErrorInfo? info)?;
 
   /// A renderer that will be used to render "fallback" UI instead of the child
   /// component tree that crashed.
@@ -148,7 +148,7 @@ abstract class ErrorBoundaryPropsMixin implements _$ErrorBoundaryPropsMixin {
   /// <!-- Generated from [_$ErrorBoundaryPropsMixin.fallbackUIRenderer] -->
   @override
   set fallbackUIRenderer(
-          ReactElement Function(dynamic error, ReactErrorInfo info)? value) =>
+          ReactElement Function(dynamic error, ReactErrorInfo? info)? value) =>
       props[_$key__fallbackUIRenderer___$ErrorBoundaryPropsMixin] = value;
 
   /// The amount of time that is "acceptable" between consecutive identical errors thrown from a component
