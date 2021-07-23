@@ -138,7 +138,6 @@ Union<BoilerplateState, BoilerplateStateMixin>? getStateFor(
   Iterable<BoilerplateState> states,
   Iterable<BoilerplateStateMixin> stateMixins,
 ) {
-  // FIXME null-safety remove cast added by migration tool
   return _getNameMatchUnion(states, stateMixins, normalizeNameAndRemoveSuffix(member)) ??
       getRelatedName(member).mapIfNotNull((name) => _getNameMatchUnion(states, stateMixins, name));
 }

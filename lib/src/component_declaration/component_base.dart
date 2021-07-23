@@ -912,8 +912,7 @@ abstract class _AccessorMetaCollection<T extends _Descriptor, U extends Accessor
   ///
   /// See `UiComponent2.consumedProps` for usage examples.
   U forMixin(Type mixinType) {
-    // FIXME null-safety remove `!` the migratin tool forces here
-    final U meta = _metaByMixin[mixinType]!;
+    final meta = _metaByMixin[mixinType];
     assert(meta != null,
         'No meta found for $mixinType;'
         'it likely isn\'t mixed in by the props/state class.');
