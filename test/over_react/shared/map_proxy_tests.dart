@@ -36,8 +36,8 @@ void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
     test('map', () {
       callback(key, value) {}
 
-      proxy.map(callback as MapEntry<_, _> Function(dynamic, dynamic));
-      verify(backingMap.map(callback as MapEntry<_, _> Function(dynamic, dynamic)));
+      proxy.map(callback as MapEntry Function(dynamic, dynamic));
+      verify(backingMap.map(callback as MapEntry Function(dynamic, dynamic)));
     });
 
     test('entries', () {
