@@ -21,4 +21,9 @@ import 'package:over_react/over_react.dart';
 class DummyComponent2 extends UiComponent2 {
   @override
   render() {}
+
+  // Make it so we can instantiate this class without runtime errors,
+  // and also make the builder ignore it.
+  @override
+  bool get $isClassGenerated => true;
 }
