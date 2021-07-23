@@ -73,7 +73,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
     assert(factoryNames.length == 1, 'factoryNames must have a length of 1');
 
     outputContentsBuffer!
-        .write('${names.implName} ${factoryNames.first.implName}([Map backingProps]) => ');
+        .write('${names.implName} ${factoryNames.first.implName}([Map? backingProps]) => ');
 
     if (!isComponent2) {
       /// _$$FooProps _$Foo([Map backingProps]) => _$$FooProps(backingProps);
@@ -171,9 +171,9 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
       buffer
         ..writeln('  ${names.implName}._();')
         ..writeln()
-        ..writeln('  factory ${names.implName}(Map backingMap) {')
+        ..writeln('  factory ${names.implName}(Map? backingMap) {')
         ..writeln('    if (backingMap == null || backingMap is JsBackedMap) {')
-        ..writeln('      return ${names.jsMapImplName}(backingMap as JsBackedMap);')
+        ..writeln('      return ${names.jsMapImplName}(backingMap as JsBackedMap?);')
         ..writeln('    } else {')
         ..writeln('      return ${names.plainMapImplName}(backingMap);')
         ..writeln('    }')
@@ -185,7 +185,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
         ..writeln(
             '  // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217')
         // TODO need to remove this workaround once https://github.com/dart-lang/sdk/issues/36217 is fixed get nice dart2js output
-        ..writeln('  ${names.implName}(Map backingMap) : this._$propsOrState = {} {')
+        ..writeln('  ${names.implName}(Map? backingMap) : this._$propsOrState = {} {')
         ..writeln('     this._$propsOrState = backingMap ?? {};')
         ..writeln('  }');
     }
@@ -240,7 +240,7 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
 ${internalGeneratedMemberDeprecationLine()}class ${names.plainMapImplName}$typeParamsOnClass extends ${names.implName}$typeParamsOnSuper {
   // This initializer of `_$propsOrState` to an empty map, as well as the reassignment
   // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  ${names.plainMapImplName}(Map backingMap) : this._$propsOrState = {}, super._() {
+  ${names.plainMapImplName}(Map? backingMap) : this._$propsOrState = {}, super._() {
      this._$propsOrState = backingMap ?? {};
   }
   /// The backing $propsOrState map proxied by this class.
@@ -253,7 +253,7 @@ ${internalGeneratedMemberDeprecationLine()}class ${names.plainMapImplName}$typeP
 ${internalGeneratedMemberDeprecationLine()}class ${names.jsMapImplName}$typeParamsOnClass extends ${names.implName}$typeParamsOnSuper {
   // This initializer of `_$propsOrState` to an empty map, as well as the reassignment
   // of `_$propsOrState` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  ${names.jsMapImplName}(JsBackedMap backingMap) : this._$propsOrState = JsBackedMap(), super._() {
+  ${names.jsMapImplName}(JsBackedMap? backingMap) : this._$propsOrState = JsBackedMap(), super._() {
      this._$propsOrState = backingMap ?? JsBackedMap();
   }
   /// The backing $propsOrState map proxied by this class.

@@ -57,7 +57,7 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
       // implemented for Component2.
       // This implementation here is necessary so that mixin accesses aren't compiled as index$ax
       outputContentsBuffer!
-        ..writeln('  ${propsNames.jsMapImplName} _cachedTypedProps;')
+        ..writeln('  late ${propsNames.jsMapImplName} _cachedTypedProps;')
         ..writeln()
         ..writeln('  @override')
         ..writeln('  ${propsNames.jsMapImplName} get props => _cachedTypedProps;')
@@ -77,7 +77,7 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
         ..writeln('  }')
         ..writeln()
         ..writeln('  @override ')
-        ..writeln('  ${propsNames.jsMapImplName} typedPropsFactoryJs(JsBackedMap backingMap)'
+        ..writeln('  ${propsNames.jsMapImplName} typedPropsFactoryJs(JsBackedMap? backingMap)'
             ' => ${propsNames.jsMapImplName}(backingMap);')
         ..writeln();
     }
@@ -85,7 +85,7 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
     outputContentsBuffer!
       ..writeln('  @override')
       ..writeln(
-          '  ${propsNames.implName} typedPropsFactory(Map backingMap) => ${propsNames.implName}(backingMap);')
+          '  ${propsNames.implName} typedPropsFactory(Map? backingMap) => ${propsNames.implName}(backingMap);')
       ..writeln();
 
     if (isComponent2 && hasState) {
@@ -104,7 +104,7 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
         ..writeln('  }')
         ..writeln()
         ..writeln('  @override ')
-        ..writeln('  ${stateNames!.jsMapImplName} typedStateFactoryJs(JsBackedMap backingMap)'
+        ..writeln('  ${stateNames!.jsMapImplName} typedStateFactoryJs(JsBackedMap? backingMap)'
             ' => ${stateNames!.jsMapImplName}(backingMap);')
         ..writeln();
     }
@@ -112,7 +112,7 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
     if (hasState) {
       outputContentsBuffer!
         ..writeln('  @override')
-        ..writeln('  ${stateNames!.implName} typedStateFactory(Map backingMap)'
+        ..writeln('  ${stateNames!.implName} typedStateFactory(Map? backingMap)'
             ' => ${stateNames!.implName}(backingMap);')
         ..writeln();
     }
