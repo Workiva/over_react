@@ -21,10 +21,10 @@ import 'dart:collection';
 /// __Example:__
 ///
 ///     var valuePropKey = getPropKey((props) => props.value, TextInput);
-String? getPropKey<T extends Map>(void Function(T keySpy) accessProp, T Function(Map props) factory) {
+String getPropKey<T extends Map>(void Function(T keySpy) accessProp, T Function(Map props) factory) {
   return _getKey((keySpy) {
     return accessProp(factory(keySpy));
-  }) as String?;
+  }) as String;
 }
 
 dynamic _getKey(void Function(Map keySpy) accessKey) {

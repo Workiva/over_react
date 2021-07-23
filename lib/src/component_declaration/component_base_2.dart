@@ -278,7 +278,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///   }
   /// }
   /// ```
-  String? keyForProp(void Function(TProps props) accessProp) => prop_key_util.getPropKey(accessProp, typedPropsFactory);
+  String keyForProp(void Function(TProps props) accessProp) => prop_key_util.getPropKey(accessProp, typedPropsFactory);
 
   // ***************************************************************************
   //
