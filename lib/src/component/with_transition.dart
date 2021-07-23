@@ -117,7 +117,7 @@ mixin WithTransitionPropsMixin on UiProps {
   /// > Default: `false`
   ///
   /// > See: [WithTransition] for example usage.
-  bool isShown;
+  bool? isShown;
 
   /// An optional map of props to apply to the single child based on the current transition phase.
   ///
@@ -151,7 +151,7 @@ mixin WithTransitionPropsMixin on UiProps {
   ///   _$WithTransitionExampleConfig, // ignore: undefined_identifier
   /// );
   /// ```
-  Map<TransitionPhase, Map> childPropsByPhase;
+  Map<TransitionPhase, Map?>? childPropsByPhase;
 
   /// The amount of time to wait for a CSS transition to complete before assuming something went wrong
   /// and canceling the subscription.
@@ -160,7 +160,7 @@ mixin WithTransitionPropsMixin on UiProps {
   /// that is greater than or equal to the expected CSS duration of the node.
   ///
   /// > Default `const Duration(seconds: 1)`
-  Duration transitionTimeout;
+  Duration? transitionTimeout;
 }
 
 class WithTransitionProps = UiProps with v2.TransitionPropsMixin, WithTransitionPropsMixin;
@@ -170,15 +170,15 @@ mixin WithTransitionState on UiState {
   ///
   /// Do not set directly.
   @protected
-  TransitionPhase $transitionPhase;
+  TransitionPhase? $transitionPhase;
 }
 
 class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, WithTransitionState> {
   /// Timer used to determine if a transition timeout has occurred.
-  Timer _transitionEndTimer;
+  Timer? _transitionEndTimer;
 
   /// Stream for listening to `transitionend` events on the node.
-  StreamSubscription _endTransitionSubscription;
+  StreamSubscription? _endTransitionSubscription;
 
   final _transitionNodeRef = createRef<Element>();
 
@@ -203,11 +203,11 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
 
   @override
   getDerivedStateFromProps(Map nextProps, Map prevState) {
-    final tNextProps = typedPropsFactory(nextProps);
-    final tPrevState = typedStateFactory(prevState);
-    if (tNextProps.isShown && _isOrWillBeHidden(tPrevState.$transitionPhase)) {
+    final WithTransitionProps tNextProps = typedPropsFactory(nextProps);
+    final WithTransitionState tPrevState = typedStateFactory(prevState);
+    if (tNextProps.isShown! && _isOrWillBeHidden(tPrevState.$transitionPhase)) {
       return _stateToBeginShowing(tNextProps, tPrevState.$transitionPhase);
-    } else if (!tNextProps.isShown && _isOrWillBeShown(tPrevState.$transitionPhase)) {
+    } else if (!tNextProps.isShown! && _isOrWillBeShown(tPrevState.$transitionPhase)) {
       return _stateToBeginHiding(tNextProps, tPrevState.$transitionPhase);
     }
 
@@ -264,9 +264,9 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
   render() {
     assert(_hasSingleValidChild(props));
 
-    final childElement = props.children.single as ReactElement;
+    final childElement = props.children!.single as ReactElement;
     final childProps = domProps(getProps(childElement));
-    final phaseProps = props.childPropsByPhase[state.$transitionPhase] ?? const {};
+    final phaseProps = props.childPropsByPhase![state.$transitionPhase!] ?? const {};
     final phaseClasses = ClassNameBuilder.fromProps(childProps)
       ..addFromProps(phaseProps);
 
@@ -291,7 +291,7 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
 
   /// Return a state value that will result in the component beginning to show the node
   /// unless the [currentPhase] is already shown or is in the process of showing.
-  Map _stateToBeginShowing(WithTransitionProps tProps, TransitionPhase currentPhase) {
+  Map? _stateToBeginShowing(WithTransitionProps tProps, TransitionPhase? currentPhase) {
     if (_isOrWillBeShown(currentPhase)) return null;
 
     return newState()
@@ -300,7 +300,7 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
 
   /// Return a state value that wll result in the component beginning to hide the node
   /// unless the [currentPhase] is already hidden or is in the process of hiding.
-  Map _stateToBeginHiding(WithTransitionProps tProps, TransitionPhase currentPhase) {
+  Map? _stateToBeginHiding(WithTransitionProps tProps, TransitionPhase? currentPhase) {
     if (_isOrWillBeHidden(currentPhase)) return null;
 
     return newState()
@@ -337,7 +337,7 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
     _cancelTransitionEventListener();
     _cancelTransitionEndTimer();
 
-    _transitionEndTimer = Timer(props.transitionTimeout, () {
+    _transitionEndTimer = Timer(props.transitionTimeout!, () {
       assert(ValidationUtil.warn(
           'The number of transitions expected to complete have not completed. Something is most likely wrong.',
       ));
@@ -357,20 +357,20 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
 }
 
 bool _hasSingleValidChild(WithTransitionProps props) {
-  if (props.children.length == 1 && isValidElement(props.children.single)) return true;
+  if (props.children!.length == 1 && isValidElement(props.children!.single)) return true;
 
   throw PropError.value(props.children, 'children',
       'WithValidation only accepts a single child which must be a valid ReactElement.');
 }
 
 TransitionPhase _transitionPhaseDerivedFromProps(WithTransitionProps tProps) =>
-    tProps.isShown ? TransitionPhase.SHOWN : TransitionPhase.HIDDEN;
+    tProps.isShown! ? TransitionPhase.SHOWN : TransitionPhase.HIDDEN;
 
-bool _isOrWillBeHidden(TransitionPhase currentPhase) =>
+bool _isOrWillBeHidden(TransitionPhase? currentPhase) =>
     currentPhase == TransitionPhase.HIDING ||
     currentPhase == TransitionPhase.HIDDEN;
 
-bool _isOrWillBeShown(TransitionPhase currentPhase) =>
+bool _isOrWillBeShown(TransitionPhase? currentPhase) =>
     currentPhase == TransitionPhase.PRE_SHOWING ||
     currentPhase == TransitionPhase.SHOWING ||
     currentPhase == TransitionPhase.SHOWN;

@@ -28,11 +28,11 @@ import 'utils.dart';
 
 main() {
   group('useSelector hook', () {
-    UiFactory<CounterProps> ConnectedCounter;
-    UiFactory<CounterProps> ConnectedBigCounter;
-    TestJacket jacket;
-    Store<CounterState> counterStore;
-    Store<BigCounterState> bigCounterStore;
+    late UiFactory<CounterProps> ConnectedCounter;
+    late UiFactory<CounterProps> ConnectedBigCounter;
+    TestJacket? jacket;
+    late Store<CounterState> counterStore;
+    late Store<BigCounterState> bigCounterStore;
 
     setUp(() {
       jacket = null;
@@ -54,9 +54,9 @@ main() {
               (ConnectedCounter()..addTestId('sibling-counter'))(),
             ), attachedToDocument: true);
 
-          expectCountValue(jacket, 0);
-          await clickSiblingConnectedIncrementButton(jacket);
-          expectCountValue(jacket, 1);
+          expectCountValue(jacket!, 0);
+          await clickSiblingConnectedIncrementButton(jacket!);
+          expectCountValue(jacket!, 1);
         });
 
         test('unless a custom equalityFn returns true', () async {
@@ -71,17 +71,17 @@ main() {
               (ConnectedCounter()..addTestId('sibling-counter'))(),
             ), attachedToDocument: true);
 
-          expectCountValue(jacket, 0);
-          await clickSiblingConnectedIncrementButton(jacket);
-          expectCountValue(jacket, 1, reason: 'Component should update when equalityFn returns false');
-          await clickSiblingConnectedIncrementButton(jacket);
-          expectCountValue(jacket, 1, reason: 'Component should not update when equalityFn returns true');
+          expectCountValue(jacket!, 0);
+          await clickSiblingConnectedIncrementButton(jacket!);
+          expectCountValue(jacket!, 1, reason: 'Component should update when equalityFn returns false');
+          await clickSiblingConnectedIncrementButton(jacket!);
+          expectCountValue(jacket!, 1, reason: 'Component should not update when equalityFn returns true');
         });
       });
 
       // Exercise js interop wrapping / unwrapping of dart types
       group('a selector with a Dart value is updated', () {
-        void expectModelCountValue(TestJacket jacket, int expectedValue, {String reason}) {
+        void expectModelCountValue(TestJacket jacket, int expectedValue, {String? reason}) {
           expect(queryByTestId(jacket.mountNode, 'count-from-model').text, 'Model Count: $expectedValue',
               reason: reason);
         }
@@ -95,9 +95,9 @@ main() {
               (ConnectedCounter()..addTestId('sibling-counter'))(),
             ), attachedToDocument: true);
 
-          expectModelCountValue(jacket, 0);
-          await clickSiblingConnectedModelCountIncrementButton(jacket);
-          expectModelCountValue(jacket, 1);
+          expectModelCountValue(jacket!, 0);
+          await clickSiblingConnectedModelCountIncrementButton(jacket!);
+          expectModelCountValue(jacket!, 1);
         });
 
         test('unless a custom equalityFn returns true', () async {
@@ -105,18 +105,18 @@ main() {
             (ReduxProvider()..store = counterStore)(
               (ModelCounterFn()..modelCountEqualityFn = (nextModel, prevModel) {
                 // Use 2 so that the equalityFn returns false once, and then returns true.
-                return nextModel.count == 2;
+                return nextModel!.count == 2;
               })(),
               // Use a sibling connected component for dispatching actions in these tests
               // that shouldn't rely on `useDispatch` to ensure the subscription to context is wired up correctly
               (ConnectedCounter()..addTestId('sibling-counter'))(),
             ), attachedToDocument: true);
 
-          expectModelCountValue(jacket, 0);
-          await clickSiblingConnectedModelCountIncrementButton(jacket);
-          expectModelCountValue(jacket, 1, reason: 'Component should update when equalityFn returns false');
-          await clickSiblingConnectedModelCountIncrementButton(jacket);
-          expectModelCountValue(jacket, 1, reason: 'Component should not update when equalityFn returns true');
+          expectModelCountValue(jacket!, 0);
+          await clickSiblingConnectedModelCountIncrementButton(jacket!);
+          expectModelCountValue(jacket!, 1, reason: 'Component should update when equalityFn returns false');
+          await clickSiblingConnectedModelCountIncrementButton(jacket!);
+          expectModelCountValue(jacket!, 1, reason: 'Component should not update when equalityFn returns true');
         });
       });
     });
@@ -140,13 +140,13 @@ main() {
                 (ConnectedCounter()..addTestId('sibling-counter'))(),
               ), attachedToDocument: true);
 
-          expectBigCountValue(jacket, 9);
-          await clickSiblingConnectedBigCountIncrementButton(jacket);
-          expectBigCountValue(jacket, 109);
+          expectBigCountValue(jacket!, 9);
+          await clickSiblingConnectedBigCountIncrementButton(jacket!);
+          expectBigCountValue(jacket!, 109);
 
-          expectCountValue(jacket, 0);
-          await clickSiblingConnectedIncrementButton(jacket);
-          expectCountValue(jacket, 1);
+          expectCountValue(jacket!, 0);
+          await clickSiblingConnectedIncrementButton(jacket!);
+          expectCountValue(jacket!, 1);
         });
 
         test('unless a custom equalityFn returns true', () async {
@@ -169,15 +169,15 @@ main() {
                 (ConnectedCounter()..addTestId('sibling-counter'))(),
               ), attachedToDocument: true);
 
-          expectBigCountValue(jacket, 9);
-          await clickSiblingConnectedBigCountIncrementButton(jacket);
-          expectBigCountValue(jacket, 109, reason: 'Component should update when equalityFn returns false');
-          await clickSiblingConnectedBigCountIncrementButton(jacket);
-          expectBigCountValue(jacket, 109, reason: 'Component should not update when equalityFn returns true');
+          expectBigCountValue(jacket!, 9);
+          await clickSiblingConnectedBigCountIncrementButton(jacket!);
+          expectBigCountValue(jacket!, 109, reason: 'Component should update when equalityFn returns false');
+          await clickSiblingConnectedBigCountIncrementButton(jacket!);
+          expectBigCountValue(jacket!, 109, reason: 'Component should not update when equalityFn returns true');
 
-          expectCountValue(jacket, 0);
-          await clickSiblingConnectedIncrementButton(jacket);
-          expectCountValue(jacket, 1);
+          expectCountValue(jacket!, 0);
+          await clickSiblingConnectedIncrementButton(jacket!);
+          expectCountValue(jacket!, 1);
         });
       });
     });

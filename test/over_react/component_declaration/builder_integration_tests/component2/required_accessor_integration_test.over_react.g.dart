@@ -64,9 +64,9 @@ abstract class _$ComponentTestPropsAccessorsMixin
       isRequired: true,
       isNullable: false,
       requiredErrorMessage: 'This Prop Array is Required for testing purposes.')
-  List get requiredAndLengthLimited =>
+  List? get requiredAndLengthLimited =>
       (props[_$key__requiredAndLengthLimited___$ComponentTestProps] ?? null)
-          as List;
+          as List?;
 
   /// <!-- Generated from [_$ComponentTestProps.requiredAndLengthLimited] -->
   @override
@@ -74,7 +74,7 @@ abstract class _$ComponentTestPropsAccessorsMixin
       isRequired: true,
       isNullable: false,
       requiredErrorMessage: 'This Prop Array is Required for testing purposes.')
-  set requiredAndLengthLimited(List value) =>
+  set requiredAndLengthLimited(List? value) =>
       props[_$key__requiredAndLengthLimited___$ComponentTestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__required___$ComponentTestProps =
@@ -120,7 +120,7 @@ class ComponentTestProps extends _$ComponentTestProps
   static const PropsMeta meta = _$metaForComponentTestProps;
 }
 
-_$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
+_$$ComponentTestProps _$ComponentTest([Map? backingProps]) =>
     backingProps == null
         ? _$$ComponentTestProps$JsMap(JsBackedMap())
         : _$$ComponentTestProps(backingProps);
@@ -193,7 +193,7 @@ class _$$ComponentTestProps$JsMap extends _$$ComponentTestProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ComponentTestComponent extends ComponentTestComponent {
-  _$$ComponentTestProps$JsMap _cachedTypedProps;
+  late _$$ComponentTestProps$JsMap _cachedTypedProps;
 
   @override
   _$$ComponentTestProps$JsMap get props => _cachedTypedProps;

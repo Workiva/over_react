@@ -16,7 +16,7 @@ import 'package:over_react/over_react.dart';
 
 import '../../demo_components.dart';
 
-ReactElement tagBasicDemo() => Fragment()(
+ReactElement? tagBasicDemo() => Fragment()(
   Dom.h1()('Example heading ', Tag()('New')),
   Dom.h2()('Example heading ', Tag()('New')),
   Dom.h3()('Example heading ', Tag()('New')),

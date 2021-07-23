@@ -16,6 +16,7 @@ import 'dart:mirrors';
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:build/build.dart' show AssetId;
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:path/path.dart' as p;
 import 'package:source_span/source_span.dart';
 
@@ -46,7 +47,7 @@ Iterable<PartDirective> getNonGeneratedParts(CompilationUnit libraryUnit) {
   return libraryUnit.directives
       .whereType<PartDirective>()
       // Ignore all generated `.g.dart` parts.
-      .where((part) => !part.uri.stringValue.endsWith('.g.dart'));
+      .where((part) => !part.uri.stringValue!.endsWith('.g.dart'));
 }
 /// Returns true if the given compilation unit is a part file.
 bool isPart(CompilationUnit unit) =>
@@ -59,7 +60,7 @@ bool isPart(CompilationUnit unit) =>
 ///     '<T extends Iterable, U>' //TypeParameterList.toSource()
 ///   Output:
 ///     '<T, U>'
-String removeBoundsFromTypeParameters(TypeParameterList/*?*/ typeParameters) {
+String removeBoundsFromTypeParameters(TypeParameterList? typeParameters) {
   return typeParameters != null ? (StringBuffer()
     ..write('${typeParameters.leftBracket}')..write(
         typeParameters.typeParameters.map((t) => t.name.name).join(
@@ -70,26 +71,25 @@ String removeBoundsFromTypeParameters(TypeParameterList/*?*/ typeParameters) {
 
 /// Returns a [FieldDeclaration] for the meta field on a [ClassDeclaration] if
 /// it exists, otherwise returns null.
-FieldDeclaration getMetaField(Iterable<ClassMember> members) {
+FieldDeclaration? getMetaField(Iterable<ClassMember> members) {
   bool isPropsOrStateMeta(FieldDeclaration fd) {
     if (!fd.isStatic) return false;
     if (fd.fields.variables.length > 1) return false;
     if (fd.fields.variables.single.name.name != 'meta') return false;
     return true;
   }
-  return members.whereType<FieldDeclaration>().firstWhere(isPropsOrStateMeta, orElse: () => null);
+  return members.whereType<FieldDeclaration>().firstWhereOrNull(isPropsOrStateMeta);
 }
 
-String messageWithSpan(String message, {SourceSpan span}) {
+String messageWithSpan(String message, {SourceSpan? span}) {
   final spanMsg = span != null ? '\nSource: ${span.highlight()}' : '';
   return '$message$spanMsg';
 }
 
 /// Returns any [FieldDeclaration]s on [node] which have the name `meta`,
 /// otherwise `null`.
-FieldDeclaration metaFieldOrNull(ClassOrMixinDeclaration node) {
-  return node.members.whereType<FieldDeclaration>().firstWhere(fieldDeclarationHasMeta,
-      orElse: () => null);
+FieldDeclaration? metaFieldOrNull(ClassOrMixinDeclaration node) {
+  return node.members.whereType<FieldDeclaration>().firstWhereOrNull(fieldDeclarationHasMeta);
 }
 
 /// Returns `true` if the supplied [FieldDeclaration] contains any variables named
@@ -101,14 +101,13 @@ bool fieldDeclarationHasMeta(FieldDeclaration field) {
 /// Returns `true` if the supplied [FieldDeclaration] contains any variables named
 /// [name], otherwise `false`.
 bool fieldDeclarationHasName(FieldDeclaration field, String name) {
-  return (field.fields.variables.firstWhere((variable) =>
-      variable.name.name == name, orElse: () => null)) != null;
+  return (field.fields.variables.firstWhereOrNull((variable) =>
+      variable.name.name == name)) != null;
 }
 
 /// Returns any [MethodDeclaration]s on [node] which have the name `meta`,
 /// otherwise `null`.
-MethodDeclaration metaMethodOrNull(ClassOrMixinDeclaration node) {
-  return node.members.whereType<MethodDeclaration>().firstWhere((member) =>
-      member.name.name == 'meta',
-      orElse: () => null);
+MethodDeclaration? metaMethodOrNull(ClassOrMixinDeclaration node) {
+  return node.members.whereType<MethodDeclaration>().firstWhereOrNull((member) =>
+      member.name.name == 'meta');
 }

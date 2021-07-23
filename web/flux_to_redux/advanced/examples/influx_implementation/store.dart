@@ -44,7 +44,7 @@ class TopLevelReduxState {
       : this.mainBackgroundColor = 'gray',
         this.blockOneBackgroundColor = 'red';
 
-  TopLevelReduxState.from(TopLevelReduxState oldState, {String mainBackgroundColor, String blockOneBackgroundColor})
+  TopLevelReduxState.from(TopLevelReduxState oldState, {String? mainBackgroundColor, String? blockOneBackgroundColor})
       : this.mainBackgroundColor = mainBackgroundColor ?? oldState.mainBackgroundColor,
         this.blockOneBackgroundColor = blockOneBackgroundColor ?? oldState.blockOneBackgroundColor;
 }
@@ -58,14 +58,14 @@ class RandomColorStore extends flux.Store with InfluxStoreMixin<TopLevelReduxSta
 
   RandomColorActions _actions;
 
-  String get mainBackgroundColor => state.mainBackgroundColor;
-  String get blockOneBackgroundColor => state.blockOneBackgroundColor;
+  String get mainBackgroundColor => state!.mainBackgroundColor;
+  String get blockOneBackgroundColor => state!.blockOneBackgroundColor;
 
   RandomColorStore(this._actions) {
     state = TopLevelReduxState.defaultState();
-    triggerOnActionV2(_actions.changeMainBackgroundColor, (_) => this.influxReducer(UpdateBackgroundColorAction()));
+    triggerOnActionV2(_actions.changeMainBackgroundColor, (dynamic _) => this.influxReducer(UpdateBackgroundColorAction()));
     triggerOnActionV2(
-        _actions.changeBlockOneBackgroundColor, (_) => this.influxReducer(UpdateBlockOneBackgroundColorAction()));
+        _actions.changeBlockOneBackgroundColor, (dynamic _) => this.influxReducer(UpdateBlockOneBackgroundColorAction()));
   }
 }
 
@@ -74,7 +74,7 @@ class LowLevelReduxState {
 
   LowLevelReduxState.defaultState() : this.backgroundColor = 'Orange';
 
-  LowLevelReduxState.from(LowLevelReduxState oldState, {String backgroundColor})
+  LowLevelReduxState.from(LowLevelReduxState oldState, {String? backgroundColor})
       : this.backgroundColor = backgroundColor ?? oldState.backgroundColor;
 }
 
@@ -85,12 +85,12 @@ class LowLevelStore extends flux.Store with InfluxStoreMixin<LowLevelReduxState>
   RandomColorActions _actions;
 
   /// Public data
-  String get backgroundColor => state.backgroundColor;
+  String get backgroundColor => state!.backgroundColor;
 
   LowLevelStore(this._actions) {
     state = LowLevelReduxState.defaultState();
     triggerOnActionV2(
-        _actions.changeBlockTwoBackgroundColor, (_) => this.influxReducer(UpdateBlockTwoBackgroundColorAction()));
+        _actions.changeBlockTwoBackgroundColor, (dynamic _) => this.influxReducer(UpdateBlockTwoBackgroundColorAction()));
   }
 }
 
@@ -99,7 +99,7 @@ class AnotherReduxState {
 
   AnotherReduxState.defaultState() : this.backgroundColor = 'Blue';
 
-  AnotherReduxState.from(AnotherReduxState oldState, {String backgroundColor})
+  AnotherReduxState.from(AnotherReduxState oldState, {String? backgroundColor})
       : this.backgroundColor = backgroundColor ?? oldState.backgroundColor;
 }
 
@@ -110,12 +110,12 @@ class AnotherColorStore extends flux.Store with InfluxStoreMixin<AnotherReduxSta
   RandomColorActions _actions;
 
   /// Public data
-  String get backgroundColor => state.backgroundColor;
+  String get backgroundColor => state!.backgroundColor;
 
   AnotherColorStore(this._actions) {
     state = AnotherReduxState.defaultState();
     triggerOnActionV2(
-        _actions.changeBlockThreeBackgroundColor, (_) => this.influxReducer(UpdateBlockThreeBackgroundColorAction()));
+        _actions.changeBlockThreeBackgroundColor, (dynamic _) => this.influxReducer(UpdateBlockThreeBackgroundColorAction()));
   }
 }
 

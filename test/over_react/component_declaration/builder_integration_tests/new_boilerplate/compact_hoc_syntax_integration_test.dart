@@ -28,7 +28,7 @@ main() {
       });
 
       test('component renders normally, and reading/writing props works', () {
-        TestJacket<FooComponent> jacket;
+        late TestJacket<FooComponent> jacket;
         expect(() {
           jacket = mount(
             (ReduxProvider()..store = Store((_, __) => null, initialState: null))(
@@ -47,7 +47,7 @@ main() {
       });
 
       test('component renders normally, and reading/writing props works', () {
-        TestJacket<FooComponent290> jacket;
+        late TestJacket<FooComponent290> jacket;
         expect(() {
           jacket = mount(
             (ReduxProvider()..store = Store((_, __) => null, initialState: null))(
@@ -62,12 +62,12 @@ main() {
 }
 
 UiFactory<Foo290Props> Foo290 = connect<Null, Foo290Props>(
-  mapStateToPropsWithOwnProps: (state, props) => Foo(),
+  mapStateToPropsWithOwnProps: ((state, props) => Foo()) as Map<dynamic, dynamic> Function(Null, Foo290Props)?,
   mapDispatchToPropsWithOwnProps: (state, props) => Foo(),
 )(castUiFactory(_$Foo290)); // ignore: undefined_identifier
 
 mixin Foo290Props on UiProps {
-  String foo;
+  String? foo;
 }
 
 class FooComponent290 extends UiComponent2<Foo290Props> {
@@ -76,12 +76,12 @@ class FooComponent290 extends UiComponent2<Foo290Props> {
 }
 
 UiFactory<FooProps> Foo = connect<Null, FooProps>(
-  mapStateToPropsWithOwnProps: (state, props) => Foo(),
+  mapStateToPropsWithOwnProps: ((state, props) => Foo()) as Map<dynamic, dynamic> Function(Null, FooProps)?,
   mapDispatchToPropsWithOwnProps: (state, props) => Foo(),
 )(_$Foo); // ignore: undefined_identifier, argument_type_not_assignable
 
 mixin FooProps on UiProps {
-  String foo;
+  String? foo;
 }
 
 class FooComponent extends UiComponent2<FooProps> {

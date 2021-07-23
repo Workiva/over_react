@@ -56,9 +56,9 @@ class ComponentFactoryProxyGenerator extends BoilerplateDeclarationGenerator {
     String parentTypeParam = 'null';
     String parentTypeParamComment = '';
 
-    Identifier parentType = component.configSubtypeOf;
+    Identifier? parentType = component.configSubtypeOf;
     if (parentType != null) {
-      parentTypeParamComment = ' /* from `subtypeOf: ${getSpan(sourceFile, parentType).text}` */';
+      parentTypeParamComment = ' /* from `subtypeOf: ${getSpan(sourceFile!, parentType).text}` */';
 
       final parentNames = ComponentNames(parentType.name);
       parentTypeParam = parentNames.componentFactoryName;
@@ -69,8 +69,8 @@ class ComponentFactoryProxyGenerator extends BoilerplateDeclarationGenerator {
       /// if a component's factory variable tries to reference itself during its initialization.
       /// Therefore, this is not allowed.
       // todo move to validation
-      logger.severe(messageWithSpan('A component cannot be a subtype of itself.',
-          span: getSpan(sourceFile, parentType)));
+      logger!.severe(messageWithSpan('A component cannot be a subtype of itself.',
+          span: getSpan(sourceFile!, parentType!)));
     }
 
     final registerComponent = isComponent2 ? 'registerComponent2' : 'registerComponent';
@@ -98,7 +98,7 @@ class ComponentFactoryProxyGenerator extends BoilerplateDeclarationGenerator {
       // Override `skipMethods` as an empty list so that
       // the `componentDidCatch` and `getDerivedStateFromError`
       // lifecycle methods are included in the component's JS bindings.
-      outputContentsBuffer.writeln('    skipMethods: const [],');
+      outputContentsBuffer!.writeln('    skipMethods: const [],');
     }
 
     outputContentsBuffer..writeln(');')..writeln();

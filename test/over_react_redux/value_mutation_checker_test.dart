@@ -25,7 +25,7 @@ main() {
       sharedHashTests(() => CollectionLengthHasher());
 
       group('hash', () {
-        CollectionLengthHasher hasher;
+        late CollectionLengthHasher hasher;
 
         setUp(() {
           hasher = CollectionLengthHasher();
@@ -33,7 +33,7 @@ main() {
 
         test('returns the correct value for a map', () {
           final map = {'a': 1, 'b': '2'};
-          final domProps = DomProps(react.a as ReactComponentFactoryProxy);
+          final domProps = DomProps(react.a as ReactComponentFactoryProxy?);
           expect(hasher.hash(map), 2);
           expect(hasher.hash(domProps.props), 0);
 
@@ -61,7 +61,7 @@ main() {
       sharedHashTests(() => CollectionShallowHasher());
 
       group('hash', () {
-        CollectionShallowHasher hasher;
+        late CollectionShallowHasher hasher;
 
         setUp(() {
           hasher = CollectionShallowHasher();
@@ -90,7 +90,7 @@ main() {
 }
 
 void sharedHashTests(InstanceHasher Function() getHasher) {
-  InstanceHasher hasher;
+  late InstanceHasher hasher;
 
   setUp(() {
     hasher = getHasher();
@@ -104,7 +104,7 @@ void sharedHashTests(InstanceHasher Function() getHasher) {
     });
 
     test('true if the object is a map or iterable', () {
-      final props = DomProps(react.a as ReactComponentFactoryProxy);
+      final props = DomProps(react.a as ReactComponentFactoryProxy?);
       final list = MockList();
 
       expect(hasher.canHash({'e', 'a', 'b'}), isTrue);
@@ -127,7 +127,7 @@ void sharedHashTests(InstanceHasher Function() getHasher) {
       });
 
       test('the object has not been checked before', () {
-        final props = DomProps(react.a as ReactComponentFactoryProxy);
+        final props = DomProps(react.a as ReactComponentFactoryProxy?);
         expect(hasher.hasHashChanged(props), isFalse);
       });
 

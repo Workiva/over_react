@@ -27,7 +27,7 @@ class _$ContextProviderWrapperProps extends UiProps {}
 
 @State()
 class _$ContextProviderWrapperState extends UiState {
-  int latestValue;
+  int? latestValue;
 }
 
 @Component2()
@@ -49,7 +49,7 @@ class ContextProviderWrapperComponent extends UiStatefulComponent2<ContextProvid
   void increment() {
     this.setState(
       (newState()
-        ..latestValue = (this.state.latestValue + 1)
+        ..latestValue = (this.state.latestValue! + 1)
       )
     );
   }

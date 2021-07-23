@@ -44,7 +44,7 @@ abstract class _$ReactPropsMixin {
   Map get props;
 
   /// The children that were passed in to this component when it was built.
-  List children;
+  List? children;
 
   /// A String that differentiates a component from its siblings.
   ///
@@ -57,9 +57,9 @@ abstract class _$ReactPropsMixin {
   ///
   /// * <https://facebook.github.io/react/docs/multiple-components.html#children>
   /// * <https://facebook.github.io/react/docs/reconciliation.html>
-  String get key        => props['key'] as String;
+  String? get key        => props['key'] as String?;
   /// ignore: prefer_null_aware_operators
-  set key(Object value) => props['key'] = value == null ? null : value.toString();
+  set key(Object? value) => props['key'] = value == null ? null : value.toString();
 
   /// Either a String used to retrieve the element at a later time via [react.Component.ref],
   /// or a Function that gets called with the element when it is mounted.
@@ -85,22 +85,22 @@ abstract class $DomPropsMixin {
 abstract class _$DomPropsMixin {
   Map get props;
 
-  int cols, minLength, rows, size, span, start;
+  int? cols, minLength, rows, size, span, start;
 
-  num high, low, marginHeight, marginWidth, optimum;
+  num? high, low, marginHeight, marginWidth, optimum;
 
   @Accessor(key: 'default')
-  bool htmlDefault;
+  bool? htmlDefault;
 
   @Accessor(key: 'is')
-  String htmlIs;
+  String? htmlIs;
 
-  bool allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, hidden, loop, multiple,
+  bool? allowFullScreen, async, autoPlay, checked, controls, defer, disabled, formNoValidate, hidden, loop, multiple,
       muted, noValidate, open, readOnly, required, reversed, scoped, seamless, selected;
 
-  Map<String, dynamic> style;
+  Map<String, dynamic>? style;
 
-  String challenge, cite, className, controlsList, formAction, formEncType, formMethod, formTarget, headers, id,
+  String? challenge, cite, className, controlsList, formAction, formEncType, formMethod, formTarget, headers, id,
       inputMode, integrity, keyParams, keyType, kind, nonce, srcLang, summary, title, wrap;
 
   dynamic accept, acceptCharset, accessKey, action, allowTransparency, alt, autoComplete, capture, cellPadding, cellSpacing,
@@ -110,39 +110,39 @@ abstract class _$DomPropsMixin {
     poster, preload, radioGroup, rel, role, rowSpan, sandbox, scope, scrolling, shape, sizes, spellCheck, src, srcDoc,
     srcSet, step, tabIndex, target, type, useMap, value, width, wmode;
 
-  AnimationEventCallback onAnimationEnd, onAnimationIteration, onAnimationStart;
-  ClipboardEventCallback onCopy, onCut, onPaste;
-  KeyboardEventCallback onKeyDown, onKeyPress, onKeyUp;
-  FocusEventCallback onFocus, onBlur;
-  FormEventCallback onChange, onInput, onSubmit, onReset;
-  MouseEventCallback
+  AnimationEventCallback? onAnimationEnd, onAnimationIteration, onAnimationStart;
+  ClipboardEventCallback? onCopy, onCut, onPaste;
+  KeyboardEventCallback? onKeyDown, onKeyPress, onKeyUp;
+  FocusEventCallback? onFocus, onBlur;
+  FormEventCallback? onChange, onInput, onSubmit, onReset;
+  MouseEventCallback?
     onClick, onContextMenu, onDoubleClick, onDrag, onDragEnd, onDragEnter, onDragExit, onDragLeave, onDragOver,
     onDragStart, onDrop, onMouseDown, onMouseEnter, onMouseLeave, onMouseMove, onMouseOut, onMouseOver, onMouseUp;
-  PointerEventCallback onPointerCancel, onPointerDown, onPointerEnter, onPointerLeave, onPointerMove, onPointerOver, onPointerOut, onPointerUp;
-  TouchEventCallback onTouchCancel, onTouchEnd, onTouchMove, onTouchStart;
-  TransitionEventCallback onTransitionEnd;
-  UIEventCallback onScroll;
-  WheelEventCallback onWheel;
+  PointerEventCallback? onPointerCancel, onPointerDown, onPointerEnter, onPointerLeave, onPointerMove, onPointerOver, onPointerOut, onPointerUp;
+  TouchEventCallback? onTouchCancel, onTouchEnd, onTouchMove, onTouchStart;
+  TransitionEventCallback? onTransitionEnd;
+  UIEventCallback? onScroll;
+  WheelEventCallback? onWheel;
 
-  ClipboardEventCallback onCopyCapture, onCutCapture, onPasteCapture;
-  KeyboardEventCallback onKeyDownCapture, onKeyPressCapture, onKeyUpCapture;
-  FocusEventCallback onFocusCapture, onBlurCapture;
-  FormEventCallback onChangeCapture, onInputCapture, onSubmitCapture, onResetCapture;
-  MouseEventCallback
+  ClipboardEventCallback? onCopyCapture, onCutCapture, onPasteCapture;
+  KeyboardEventCallback? onKeyDownCapture, onKeyPressCapture, onKeyUpCapture;
+  FocusEventCallback? onFocusCapture, onBlurCapture;
+  FormEventCallback? onChangeCapture, onInputCapture, onSubmitCapture, onResetCapture;
+  MouseEventCallback?
     onClickCapture, onContextMenuCapture, onDoubleClickCapture, onDragCapture, onDragEndCapture, onDragEnterCapture, onDragExitCapture, onDragLeaveCapture, onDragOverCapture,
     onDragStartCapture, onDropCapture, onMouseDownCapture, onMouseEnterCapture, onMouseLeaveCapture, onMouseMoveCapture, onMouseOutCapture, onMouseOverCapture, onMouseUpCapture;
-  PointerEventCallback onGotPointerCapture, onLostPointerCapture;
-  TouchEventCallback onTouchCancelCapture, onTouchEndCapture, onTouchMoveCapture, onTouchStartCapture;
-  UIEventCallback onScrollCapture;
-  WheelEventCallback onWheelCapture;
+  PointerEventCallback? onGotPointerCapture, onLostPointerCapture;
+  TouchEventCallback? onTouchCancelCapture, onTouchEndCapture, onTouchMoveCapture, onTouchStartCapture;
+  UIEventCallback? onScrollCapture;
+  WheelEventCallback? onWheelCapture;
 
   // props specific to React.INPUT
-  bool defaultChecked;
+  bool? defaultChecked;
   dynamic defaultValue;
 
   /// Polyfills/normalizes the `autofocus` attribute via AutoFocusMixin
   /// (mixed in by React DOM <input>, <textarea>, and <select>).
-  bool autoFocus;
+  bool? autoFocus;
 }
 
 /// This class is present:
@@ -161,12 +161,12 @@ abstract class _$SvgPropsMixin {
   Map get props;
 
   @Accessor(key: 'in')
-  String htmlIn;
+  String? htmlIn;
 
   @Accessor(key: 'values')
-  String htmlValues;
+  String? htmlValues;
 
-  String accumulate, additive, alignmentBaseline, allowReorder, arabicForm, attributeName, attributeType, colorInterpolationFilters,
+  String? accumulate, additive, alignmentBaseline, allowReorder, arabicForm, attributeName, attributeType, colorInterpolationFilters,
       fillRule, filter, mask, result, strokeLinejoin, xChannelSelector, xmlns, xmlnsXlink, yChannelSelector, zoomAndPan;
 
   dynamic accentHeight, alphabetic, amplitude, ascent, autoReverse, azimuth, baseFrequency,
@@ -212,11 +212,11 @@ abstract class _$UbiquitousDomPropsMixin {
   // FIXME null-safety make these `late`?
   /// A cache for the MapView used for [aria].
   @Accessor(doNotGenerate: true)
-  AriaPropsMapView _aria;
+  AriaPropsMapView? _aria;
 
   /// A cache for the MapView used for [dom].
   @Accessor(doNotGenerate: true)
-  DomProps _dom;
+  DomProps? _dom;
 
   /// A view into this map that can be used to access `aria-` props, for convenience.
   ///
@@ -246,10 +246,10 @@ abstract class _$UbiquitousDomPropsMixin {
 
   /// Unique identifier.
   /// Must be unique amongst all the ids, and contain at least one character.
-  String id;
+  String? id;
 
   /// Represents advisory information about the element.
-  String title;
+  String? title;
 
   /// An inline CSS style for the element.
   ///
@@ -259,158 +259,158 @@ abstract class _$UbiquitousDomPropsMixin {
   ///     }
   ///
   /// See: <https://facebook.github.io/react/tips/inline-styles.html>
-  Map<String, dynamic> style;
+  Map<String, dynamic>? style;
 
   /// Callback for when a CSS Animation has completed.
   ///
   /// > Related: [onAnimationIteration], [onAnimationStart], [onTransitionEnd]
-  AnimationEventCallback onAnimationEnd;
+  AnimationEventCallback? onAnimationEnd;
 
   /// Callback for when an iteration of a CSS Animation ends, and another one begins.
   ///
   /// > Related: [onAnimationEnd], [onAnimationStart]
-  AnimationEventCallback onAnimationIteration;
+  AnimationEventCallback? onAnimationIteration;
 
   /// Callback for when a CSS animation has started.
   ///
   /// > Related: [onAnimationEnd], [onAnimationIteration]
-  AnimationEventCallback onAnimationStart;
+  AnimationEventCallback? onAnimationStart;
 
   /// Callback for when the user copies the content of an element
-  ClipboardEventCallback onCopy;
+  ClipboardEventCallback? onCopy;
 
   /// Callback for when the user cuts the content of an element
-  ClipboardEventCallback onCut;
+  ClipboardEventCallback? onCut;
 
   /// Callback for when the user pastes some content in an element
-  ClipboardEventCallback onPaste;
+  ClipboardEventCallback? onPaste;
 
   /// Callback for when the user is pressing a key
-  KeyboardEventCallback onKeyDown;
+  KeyboardEventCallback? onKeyDown;
 
   /// Callback for when the user presses a key
-  KeyboardEventCallback onKeyPress;
+  KeyboardEventCallback? onKeyPress;
 
   /// Callback for when the user releases a key
-  KeyboardEventCallback onKeyUp;
+  KeyboardEventCallback? onKeyUp;
 
   /// Callback for when an element gets focus
-  FocusEventCallback onFocus;
+  FocusEventCallback? onFocus;
 
   /// Callback for when an element loses focus
-  FocusEventCallback onBlur;
+  FocusEventCallback? onBlur;
 
   /// Callback for  when the content of a form element, the selection, or the checked state have changed (for <input>,
   /// <keygen>, <select>, and <textarea>)
-  FormEventCallback onChange;
+  FormEventCallback? onChange;
 
   /// Callback for when an element gets user input
-  FormEventCallback onInput;
+  FormEventCallback? onInput;
 
   /// Callback for when a form is submitted
-  FormEventCallback onSubmit;
+  FormEventCallback? onSubmit;
 
   /// Callback for when a form is reset
-  FormEventCallback onReset;
+  FormEventCallback? onReset;
 
   /// Callback for when the user clicks on an element
-  MouseEventCallback onClick;
+  MouseEventCallback? onClick;
 
   /// Callback for when the user right-clicks on an element to open a context menu
-  MouseEventCallback onContextMenu;
+  MouseEventCallback? onContextMenu;
 
   /// Callback for when the user double-clicks on an element
-  MouseEventCallback onDoubleClick;
+  MouseEventCallback? onDoubleClick;
 
   /// Callback for when an element is being dragged
-  MouseEventCallback onDrag;
+  MouseEventCallback? onDrag;
 
   /// Callback for when the user has finished dragging an element
-  MouseEventCallback onDragEnd;
+  MouseEventCallback? onDragEnd;
 
   /// Callback for when the dragged element enters the drop target
-  MouseEventCallback onDragEnter;
+  MouseEventCallback? onDragEnter;
 
   /// Callback for when the dragged element exits the drop target
-  MouseEventCallback onDragExit;
+  MouseEventCallback? onDragExit;
 
   /// Callback for when the dragged element leaves the drop target
-  MouseEventCallback onDragLeave;
+  MouseEventCallback? onDragLeave;
 
   /// Callback for when the dragged element is over the drop target
-  MouseEventCallback onDragOver;
+  MouseEventCallback? onDragOver;
 
   /// Callback for when the user starts to drag an element
-  MouseEventCallback onDragStart;
+  MouseEventCallback? onDragStart;
 
   /// Callback for when the dragged element is dropped on the drop target
-  MouseEventCallback onDrop;
+  MouseEventCallback? onDrop;
 
   /// Callback for when the user presses a mouse button over an element
-  MouseEventCallback onMouseDown;
+  MouseEventCallback? onMouseDown;
 
   /// Callback for when the pointer is moved onto an element
-  MouseEventCallback onMouseEnter;
+  MouseEventCallback? onMouseEnter;
 
   /// Callback for when the pointer is moved out of an element
-  MouseEventCallback onMouseLeave;
+  MouseEventCallback? onMouseLeave;
 
   /// Callback for when the pointer is moving while it is over an element
-  MouseEventCallback onMouseMove;
+  MouseEventCallback? onMouseMove;
 
   /// Callback for when a user moves the mouse pointer out of an element, or out of one of its children
-  MouseEventCallback onMouseOut;
+  MouseEventCallback? onMouseOut;
 
   /// Callback for when the pointer is moved onto an element, or onto one of its children
-  MouseEventCallback onMouseOver;
+  MouseEventCallback? onMouseOver;
 
   /// Callback for when a user releases a mouse button over an element
-  MouseEventCallback onMouseUp;
+  MouseEventCallback? onMouseUp;
 
   /// Callback for when the pointing device is interrupted
-  PointerEventCallback onPointerCancel;
+  PointerEventCallback? onPointerCancel;
 
   /// Callback for when the pointer becomes active over an element
-  PointerEventCallback onPointerDown;
+  PointerEventCallback? onPointerDown;
 
   /// Callback for when the pointer is moved onto an element
-  PointerEventCallback onPointerEnter;
+  PointerEventCallback? onPointerEnter;
 
   /// Callback for when the pointer is moved out of an element
-  PointerEventCallback onPointerLeave;
+  PointerEventCallback? onPointerLeave;
 
   /// Callback for when the pointer is moving while it is over an element
-  PointerEventCallback onPointerMove;
+  PointerEventCallback? onPointerMove;
 
   /// Callback for when the pointer is moved onto an element, or onto one of its children
-  PointerEventCallback onPointerOver;
+  PointerEventCallback? onPointerOver;
 
   /// Callback for when the pointer is moved out of an element, or out of one of its children
-  PointerEventCallback onPointerOut;
+  PointerEventCallback? onPointerOut;
 
   /// Callback for when the pointer becomes inactive over an element
-  PointerEventCallback onPointerUp;
+  PointerEventCallback? onPointerUp;
 
   /// Callback for when the touch is interrupted
-  TouchEventCallback onTouchCancel;
+  TouchEventCallback? onTouchCancel;
 
   /// Callback for when a finger is removed from a touch screen
-  TouchEventCallback onTouchEnd;
+  TouchEventCallback? onTouchEnd;
 
   /// Callback for when a finger is dragged across the screen
-  TouchEventCallback onTouchMove;
+  TouchEventCallback? onTouchMove;
 
   /// Callback for when a finger is placed on a touch screen
-  TouchEventCallback onTouchStart;
+  TouchEventCallback? onTouchStart;
 
   /// Callback for when a CSS transition has completed.
   ///
   /// > Related: [onAnimationEnd]
-  TransitionEventCallback onTransitionEnd;
+  TransitionEventCallback? onTransitionEnd;
 
   /// Callback for when an element's scrollbar is being scrolled
-  UIEventCallback onScroll;
+  UIEventCallback? onScroll;
 
   /// Callback for when the mouse wheel rolls up or down over an element
-  WheelEventCallback onWheel;
+  WheelEventCallback? onWheel;
 }

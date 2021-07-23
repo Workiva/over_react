@@ -51,13 +51,13 @@ abstract class _$CssClassPropsMixin {
   ///
   /// All over_react components merge any added classes with this prop and the [classNameBlacklist] prop (see
   /// `UiComponent.forwardingClassNameBuilder`).
-  String className;
+  String? className;
 
   /// String of space-delimited CSS classes to be blacklisted from being added to the resultant DOM.
   ///
   /// All over_react components merge any added classes with this prop and the [className] prop (see
   /// `UiComponent.forwardingClassNameBuilder`).
-  String classNameBlacklist;
+  String? classNameBlacklist;
 }
 
 /// A `MapView` with typed getters/setters for all CSS-class-related props.
@@ -77,7 +77,7 @@ class CssClassPropsMapView extends MapView with
 /// with support for blacklisting CSS classes.
 class ClassNameBuilder {
   final StringBuffer _classNamesBuffer = StringBuffer();
-  StringBuffer _blacklistBuffer;
+  StringBuffer? _blacklistBuffer;
 
   /// Creates a new, empty `ClassNameBuilder` instance.
   ///
@@ -89,7 +89,7 @@ class ClassNameBuilder {
   /// provided [props] Map.
   ///
   /// This method gracefully handles null [props], as well as unspecified/null prop values.
-  ClassNameBuilder.fromProps(Map props) {
+  ClassNameBuilder.fromProps(Map? props) {
     addFromProps(props);
   }
 
@@ -115,7 +115,7 @@ class ClassNameBuilder {
   /// This method gracefully handles null [props], as well as unspecified/null prop values.
   ///
   /// > This method, along with [toProps], are useful for merging sets of className/blacklist props.
-  void addFromProps(Map props) {
+  void addFromProps(Map? props) {
     if (props == null) {
       return;
     }
@@ -150,7 +150,7 @@ class ClassNameBuilder {
   ///     }
   ///
   /// > Related: [blacklist]
-  void add(String className, [bool shouldAdd = true]) {
+  void add(String? className, [bool shouldAdd = true]) {
     if (!shouldAdd || className == null || className == '') {
       return;
     }
@@ -169,7 +169,7 @@ class ClassNameBuilder {
   /// Is a noop if [shouldBlacklist] is `false`, [className] is `null` or [className] is an empty string.
   ///
   /// > Related: [add]
-  void blacklist(String className, [bool shouldBlacklist = true]) {
+  void blacklist(String? className, [bool shouldBlacklist = true]) {
     if (!shouldBlacklist || className == null || className == '') {
       return;
     }
@@ -177,11 +177,11 @@ class ClassNameBuilder {
     if (_blacklistBuffer == null) {
       _blacklistBuffer = StringBuffer();
     } else {
-      if (_blacklistBuffer.isNotEmpty) {
-        _blacklistBuffer.write(' ');
+      if (_blacklistBuffer!.isNotEmpty) {
+        _blacklistBuffer!.write(' ');
       }
     }
-    _blacklistBuffer.write(className);
+    _blacklistBuffer!.write(className);
   }
 
 
@@ -191,11 +191,11 @@ class ClassNameBuilder {
     if (_blacklistBuffer == null) {
       _blacklistBuffer = StringBuffer();
     } else {
-      if (_blacklistBuffer.isNotEmpty) {
-        _blacklistBuffer.write(' ');
+      if (_blacklistBuffer!.isNotEmpty) {
+        _blacklistBuffer!.write(' ');
       }
     }
-    _blacklistBuffer.write(other._blacklistBuffer);
+    _blacklistBuffer!.write(other._blacklistBuffer);
 
     if (_classNamesBuffer.isNotEmpty) {
       _classNamesBuffer.write(' ');
@@ -227,7 +227,7 @@ class ClassNameBuilder {
   String toClassName() {
     String className = _classNamesBuffer.toString();
 
-    if (_blacklistBuffer != null && _blacklistBuffer.isNotEmpty) {
+    if (_blacklistBuffer != null && _blacklistBuffer!.isNotEmpty) {
       List blacklistedClasses = splitSpaceDelimitedString(_blacklistBuffer.toString());
 
       className = splitSpaceDelimitedString(className)
@@ -257,8 +257,8 @@ class ClassNameBuilder {
   ///     }
   ///
   /// > Related: [toClassName]
-  String toClassNameBlacklist() {
-    return _blacklistBuffer == null || _blacklistBuffer.isEmpty
+  String? toClassNameBlacklist() {
+    return _blacklistBuffer == null || _blacklistBuffer!.isEmpty
         ? null
         : _blacklistBuffer.toString();
   }

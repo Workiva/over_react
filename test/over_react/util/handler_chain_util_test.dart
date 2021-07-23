@@ -22,7 +22,7 @@ import 'package:test/test.dart';
 main() {
   group('HandlerChainUtil', () {
     group('generic chaining:', () {
-      Function createTestChainFunction({returnValue, Function(List args) onCall}) {
+      Function createTestChainFunction({returnValue, Function(List args)? onCall}) {
         testChainFunction([
             arg1 = unspecified,
             arg2 = unspecified,
@@ -69,7 +69,7 @@ main() {
             var chained = callbackUtil.chain(null, null);
 
             expect(chained, isA<Function>());
-            expect(() => Function.apply(chained, generateArgs()), returnsNormally);
+            expect(() => Function.apply(chained!, generateArgs()), returnsNormally);
           });
 
           group('returns a function of arity $arity that', () {
@@ -83,7 +83,7 @@ main() {
                 calls.add(['b', args]);
               });
 
-              var chained = callbackUtil.chain(a, b);
+              var chained = callbackUtil.chain(a, b)!;
 
               var expectedArgs = generateArgs();
 
@@ -100,7 +100,7 @@ main() {
                 var a = createTestChainFunction(returnValue: false);
                 var b = createTestChainFunction();
 
-                var chained = callbackUtil.chain(a, b);
+                var chained = callbackUtil.chain(a, b)!;
 
                 expect(Function.apply(chained, generateArgs()), isFalse);
               });
@@ -109,7 +109,7 @@ main() {
                 var a = createTestChainFunction();
                 var b = createTestChainFunction(returnValue: false);
 
-                var chained = callbackUtil.chain(a, b);
+                var chained = callbackUtil.chain(a, b)!;
 
                 expect(Function.apply(chained, generateArgs()), isFalse);
               });
@@ -118,7 +118,7 @@ main() {
                 var a = createTestChainFunction(returnValue: false);
                 var b = createTestChainFunction(returnValue: false);
 
-                var chained = callbackUtil.chain(a, b);
+                var chained = callbackUtil.chain(a, b)!;
 
                 expect(Function.apply(chained, generateArgs()), isFalse);
               });
@@ -129,7 +129,7 @@ main() {
                 var a = createTestChainFunction();
                 var b = createTestChainFunction();
 
-                var chained = callbackUtil.chain(a, b);
+                var chained = callbackUtil.chain(a, b)!;
 
                 expect(Function.apply(chained, generateArgs()), isNull);
               });
@@ -147,7 +147,7 @@ main() {
 
                 var chained = callbackUtil.chain(a, b);
 
-                expect(() => Function.apply(chained, generateBadTypeArgs()), throwsA(isA<TypeError>()));
+                expect(() => Function.apply(chained!, generateBadTypeArgs()), throwsA(isA<TypeError>()));
               }, tags: 'ddc');
             }
           });
@@ -201,7 +201,7 @@ main() {
             test('null functions', () {
               var calls = [];
 
-              var functions = List<S>.generate(5, (index) {
+              var functions = List<S?>.generate(5, (index) {
                 return createTestChainFunction(onCall: (args) {
                   calls.add(['function_$index', args]);
                 }) as S;

@@ -61,7 +61,7 @@ main() {
         });
 
         test('for a Dart Component', () {
-          var original = TestComponentFactory(testProps, testChildren);
+          var original = TestComponentFactory!(testProps, testChildren);
           var clone = cloneElement(original);
 
           // If these objects are equal, then they proxy the same JS props object.
@@ -82,8 +82,8 @@ main() {
           final clonePropsInternal = cloneProps['internal'] as ReactDartComponentInternal ; // ignore: deprecated_member_use
           expect(originalInternal.props, clonePropsInternal.props);
 
-          var dartRendered = getDartComponent(render(original));
-          var dartRenderedClone = getDartComponent(render(clone));
+          var dartRendered = getDartComponent(render(original))!;
+          var dartRenderedClone = getDartComponent(render(clone))!;
 
           expect(dartRenderedClone, isNot(same(dartRendered)));
           expect(dartRenderedClone.props, dartRendered.props);
@@ -104,8 +104,8 @@ main() {
           Map clonePropsShallowProps = Map.from(cloneProps);
           expect(originalShallowProps, clonePropsShallowProps);
 
-          var dartRendered = getDartComponent(render(original));
-          var dartRenderedClone = getDartComponent(render(clone));
+          var dartRendered = getDartComponent(render(original))!;
+          var dartRenderedClone = getDartComponent(render(clone))!;
 
           expect(dartRenderedClone, isNot(same(dartRendered)));
           expect(dartRenderedClone.props, dartRendered.props);
@@ -127,7 +127,7 @@ main() {
         };
 
         test('for a plain React JS component', () {
-          var original = (Dom.div()..addProps(testProps))(testChildren);
+          ReactElement? original = (Dom.div()..addProps(testProps))(testChildren);
           var clone = cloneElement(original, testPropsToAdd);
 
           Map cloneProps = unconvertJsProps(clone);
@@ -137,24 +137,24 @@ main() {
         });
 
         test('for a Dart Component', () {
-          var original = TestComponentFactory(testProps, testChildren);
+          ReactElement? original = TestComponentFactory!(testProps, testChildren);
           var clone = cloneElement(original, testPropsToAdd);
 
           var renderedClone = render(clone);
 
           // Verify all props are equal.
-          Map cloneDartProps = getDartComponent(renderedClone).props;
+          Map cloneDartProps = getDartComponent(renderedClone)!.props;
           expect(cloneDartProps, expectedPropsMerge);
         });
 
         test('for a Dart Component2', () {
-          var original = TestComponent2Factory(testProps, testChildren);
+          ReactElement? original = TestComponent2Factory(testProps, testChildren);
           var clone = cloneElement(original, testPropsToAdd);
 
           var renderedClone = render(clone);
 
           // Verify all props are equal.
-          Map cloneDartProps = getDartComponent(renderedClone).props;
+          Map cloneDartProps = getDartComponent(renderedClone)!.props;
           expect(cloneDartProps, expectedPropsMerge);
         });
       });
@@ -166,17 +166,17 @@ main() {
           };
 
           test('for DOM components', () {
-            var original = (Dom.div()..addProps(testProps))(testChildren);
+            ReactElement? original = (Dom.div()..addProps(testProps))(testChildren);
             var clone = cloneElement(original, testPropsToAdd);
 
             var renderedClone = react_test_utils.renderIntoDocument(clone);
-            var renderedCloneNode = findDomNode(renderedClone);
+            var renderedCloneNode = findDomNode(renderedClone)!;
 
             expect(renderedCloneNode.style.width, '100rem');
           });
 
           test('for JS composite components', () {
-            var original = testJsComponentFactory(testProps, testChildren) as ReactElement;
+            var original = testJsComponentFactory(testProps, testChildren) as ReactElement?;
             var clone = cloneElement(original, testPropsToAdd);
 
             final renderedClone = react_test_utils.renderIntoDocument(clone) as ReactComponent;
@@ -188,22 +188,22 @@ main() {
 
           group(', except', () {
             test('for a Dart Component', () {
-              var original = TestComponentFactory(testProps, testChildren);
+              ReactElement? original = TestComponentFactory!(testProps, testChildren);
               var clone = cloneElement(original, testPropsToAdd);
 
               var renderedClone = react_test_utils.renderIntoDocument(clone);
-              Map cloneProps = getDartComponent(renderedClone).props;
+              Map cloneProps = getDartComponent(renderedClone)!.props;
 
               var style = cloneProps['style'];
               expect(style, same(testPropsToAdd['style']), reason: 'style should be the same object passed in, unaltered');
             });
 
             test('for a Dart Component2', () {
-              var original = TestComponent2Factory(testProps, testChildren);
+              ReactElement? original = TestComponent2Factory(testProps, testChildren);
               var clone = cloneElement(original, testPropsToAdd);
 
               var renderedClone = react_test_utils.renderIntoDocument(clone);
-              Map cloneProps = getDartComponent(renderedClone).props;
+              Map cloneProps = getDartComponent(renderedClone)!.props;
 
               var style = cloneProps['style'];
               expect(style, same(testPropsToAdd['style']), reason: 'style should be the same object passed in, unaltered');
@@ -212,8 +212,8 @@ main() {
         });
 
         group('event callbacks', () {
-          Map testPropsToAdd;
-          bool onClickWasCalled;
+          late Map testPropsToAdd;
+          late bool onClickWasCalled;
 
           setUp(() {
             onClickWasCalled = false;
@@ -226,7 +226,7 @@ main() {
           });
 
           test('for DOM components', () {
-            var original = (Dom.div()..addProps(testProps))(testChildren);
+            ReactElement? original = (Dom.div()..addProps(testProps))(testChildren);
             var clone = cloneElement(original, testPropsToAdd);
 
             var renderedClone = react_test_utils.renderIntoDocument(clone);
@@ -239,7 +239,7 @@ main() {
 
           group(', except', () {
             test('for JS composite components', () {
-              var original = testJsComponentFactory(testProps, testChildren) as ReactElement;
+              var original = testJsComponentFactory(testProps, testChildren) as ReactElement?;
               var clone = cloneElement(original, testPropsToAdd);
 
               var renderedClone = react_test_utils.renderIntoDocument(clone);
@@ -255,11 +255,11 @@ main() {
             });
 
             test('for a Dart Component', () {
-              var original = TestComponentFactory(testProps, testChildren);
+              ReactElement? original = TestComponentFactory!(testProps, testChildren);
               var clone = cloneElement(original, testPropsToAdd);
 
               var renderedClone = react_test_utils.renderIntoDocument(clone);
-              Map cloneProps = getDartComponent(renderedClone).props;
+              Map cloneProps = getDartComponent(renderedClone)!.props;
 
               expect(() {
                 // Retrieve the callback passed to the component.
@@ -272,11 +272,11 @@ main() {
             });
 
             test('for a Dart Component2', () {
-              var original = TestComponent2Factory(testProps, testChildren);
+              ReactElement? original = TestComponent2Factory(testProps, testChildren);
               var clone = cloneElement(original, testPropsToAdd);
 
               var renderedClone = react_test_utils.renderIntoDocument(clone);
-              Map cloneProps = getDartComponent(renderedClone).props;
+              Map cloneProps = getDartComponent(renderedClone)!.props;
 
               expect(() {
                 // Retrieve the callback passed to the component.
@@ -310,7 +310,7 @@ main() {
         });
 
         test('for a plain React JS component', () {
-          var original = (Dom.div()..addProps(originalKeyRefProps))(testChildren);
+          ReactElement? original = (Dom.div()..addProps(originalKeyRefProps))(testChildren);
           var clone = cloneElement(original, overrideKeyRefProps);
 
           // Verify that "key" and "ref" are overridden according to React
@@ -319,14 +319,14 @@ main() {
         });
 
         test('for a Dart Component', () {
-          ReactElement original;
-          ReactElement clone;
+          ReactElement? original;
+          ReactElement? clone;
 
           // The 'ref' property can only be used from within a render() method, so use RenderingContainerComponent
           // to clone and render the test component.
-          var holder = RenderingContainerComponentFactory({
+          ReactElement? holder = RenderingContainerComponentFactory!({
             'renderer': () {
-              original = TestComponentFactory(originalKeyRefProps, testChildren);
+              original = TestComponentFactory!(originalKeyRefProps, testChildren);
               clone = cloneElement(original, overrideKeyRefProps);
 
               return clone;
@@ -335,24 +335,24 @@ main() {
           var renderedHolder = render(holder);
 
           // Verify that "key" and "ref" are overridden according to React
-          expect(clone.key, overrideKeyRefProps['key']);
+          expect(clone!.key, overrideKeyRefProps['key']);
           expect(cloneRefCalled, isTrue);
           expect(originalRefCalled, isFalse);
 
-          var renderedClone = react_test_utils.findRenderedComponentWithTypeV2(renderedHolder, TestComponentFactory);
+          var renderedClone = react_test_utils.findRenderedComponentWithTypeV2(renderedHolder, TestComponentFactory!);
 
-          Map cloneDartProps = getDartComponent(renderedClone).props;
+          Map cloneDartProps = getDartComponent(renderedClone)!.props;
           expect(cloneDartProps, isNot(anyOf(contains('key'), contains('ref'))),
               reason: '"key" and "ref" should not be visible to the rendered cloned component');
         });
 
         test('for a Dart Component2', () {
-          ReactElement original;
-          ReactElement clone;
+          ReactElement? original;
+          ReactElement? clone;
 
           // The 'ref' property can only be used from within a render() method, so use RenderingContainerComponent
           // to clone and render the test component.
-          var holder = RenderingContainerComponentFactory({
+          ReactElement? holder = RenderingContainerComponentFactory!({
             'renderer': () {
               original = TestComponent2Factory(originalKeyRefProps, testChildren);
               clone = cloneElement(original, overrideKeyRefProps);
@@ -363,7 +363,7 @@ main() {
           render(holder);
 
           // Verify that "key" and "ref" are overridden according to React
-          expect(clone.key, overrideKeyRefProps['key']);
+          expect(clone!.key, overrideKeyRefProps['key']);
           expect(cloneRefCalled, isTrue);
           expect(originalRefCalled, isFalse);
         });
@@ -373,7 +373,7 @@ main() {
         const List testOverrideChildren = ['child3', 'child4'];
 
         test('for a plain React JS component', () {
-          var original = (Dom.div()..addProps(testProps))(testChildren);
+          ReactElement? original = (Dom.div()..addProps(testProps))(testChildren);
           var clone = cloneElement(original, null, testOverrideChildren);
 
           Map cloneProps = unconvertJsProps(clone);
@@ -382,7 +382,7 @@ main() {
         });
 
         test('for a Dart Component', () {
-          var original = TestComponentFactory(testProps, testChildren);
+          ReactElement? original = TestComponentFactory!(testProps, testChildren);
           var clone = cloneElement(original, null, testOverrideChildren);
 
           var renderedClone = render(clone);
@@ -392,12 +392,12 @@ main() {
           expect(clonePropsChildren, testOverrideChildren);
 
           // Verify that children are overridden according to the Dart component.
-          Map cloneDartProps = getDartComponent(renderedClone).props;
+          Map cloneDartProps = getDartComponent(renderedClone)!.props;
           expect(cloneDartProps['children'], testOverrideChildren);
         });
 
         test('for a Dart Component2', () {
-          var original = TestComponent2Factory(testProps, testChildren);
+          ReactElement? original = TestComponent2Factory(testProps, testChildren);
           var clone = cloneElement(original, null, testOverrideChildren);
 
           var renderedClone = render(clone);
@@ -407,7 +407,7 @@ main() {
           expect(clonePropsChildren, testOverrideChildren);
 
           // Verify that children are overridden according to the Dart component.
-          Map cloneDartProps = getDartComponent(renderedClone).props;
+          Map cloneDartProps = getDartComponent(renderedClone)!.props;
           expect(cloneDartProps['children'], testOverrideChildren);
         });
       });
@@ -422,9 +422,9 @@ main() {
 
         // The 'ref' property can only be used from within a render() method, so use RenderingContainerComponent
         // to clone and render the test component.
-        var holder = RenderingContainerComponentFactory({
+        ReactElement? holder = RenderingContainerComponentFactory!({
           'renderer': () {
-            var original = TestComponentFactory({'ref': callbackRef}, testChildren);
+            ReactElement? original = TestComponentFactory!({'ref': callbackRef}, testChildren);
             var clone = cloneElement(original, {});
 
             return clone;
@@ -463,17 +463,17 @@ main() {
         });
 
         test('a ReactElement', () {
-          ReactElement instance = Dom.div()();
+          ReactElement? instance = Dom.div()();
           expect(isValidElement(instance), isTrue);
         });
 
         test('a ReactComponent', () {
-          final instance = render(TestComponentFactory({})) as ReactComponent;
+          final instance = render(TestComponentFactory!({})) as ReactComponent?;
           expect(isValidElement(instance), isFalse);
         });
 
         test('a ReactComponent from Dart Component2', () {
-          final instance = render(TestComponent2Factory({})) as ReactComponent;
+          final instance = render(TestComponent2Factory({})) as ReactComponent?;
           expect(isValidElement(instance), isFalse);
         });
       });
@@ -486,7 +486,7 @@ main() {
         });
 
         test('a Dart Component', () {
-          expect(isDomElement(TestComponentFactory({})), isFalse);
+          expect(isDomElement(TestComponentFactory!({})), isFalse);
         });
 
         test('a Dart Component2', () {
@@ -519,12 +519,12 @@ main() {
 
     group('isDartComponent', () {
       test('returns true for an unrendered instance (ReactElement) of a Dart Component', () {
-        final instance = TestComponentFactory({});
+        final ReactElement? instance = TestComponentFactory!({});
         expect(isDartComponent(instance), isTrue);
       });
 
       test('returns true for an unrendered instance (ReactElement) of a Dart Component2', () {
-        final instance = TestComponent2Factory({});
+        final ReactElement? instance = TestComponent2Factory({});
         expect(isDartComponent(instance), isTrue);
       });
 
@@ -534,12 +534,12 @@ main() {
       });
 
       test('returns false for an unrendered instance (ReactElement) of a DOM component', () {
-        ReactElement instance = Dom.div()();
+        ReactElement? instance = Dom.div()();
         expect(isDartComponent(instance), isFalse);
       });
 
       test('returns true for a mounted instance (ReactComponent) of a Dart Component', () {
-        var renderedInstance = render(TestComponentFactory({}));
+        var renderedInstance = render(TestComponentFactory!({}));
         expect(isDartComponent(renderedInstance), isTrue);
       });
 
@@ -585,7 +585,7 @@ main() {
       });
 
       test('returns null for a ReactElement', () {
-        ReactElement instance = Wrapper()();
+        ReactElement? instance = Wrapper()();
         expect(getDartComponent(instance), isNull);
       });
 
@@ -593,12 +593,12 @@ main() {
         final messageMatcher = contains('react-dart 4.0 no longer supports retrieving Dart components');
 
         test('warns when passed a ReactElement', () {
-          ReactElement instance = Wrapper()();
+          ReactElement? instance = Wrapper()();
           expect(() => getDartComponent(instance), prints(messageMatcher));
         }, tags: 'ddc');
 
         test('does not when passed a ReactElement in JS', () {
-          ReactElement instance = Wrapper()();
+          ReactElement? instance = Wrapper()();
           expect(() => getDartComponent(instance), isNot(prints(messageMatcher)));
         }, tags: 'no-ddc');
 
@@ -635,7 +635,7 @@ main() {
         final renderedInstance = render(testJsComponentFactory({
           'jsProp': 'js',
           'style': testStyle,
-        }, testChildren)) as ReactComponent;
+        }, testChildren)) as ReactComponent?;
 
         expect(getProps(renderedInstance), {
           'jsProp': 'js',
@@ -649,7 +649,7 @@ main() {
         var renderedInstance = react_dom.render(testJsComponentFactory({
           'jsProp': 'js',
           'style': testStyle,
-        }, testChildren) as ReactElement, mountNode) as ReactComponent;
+        }, testChildren) as ReactElement?, mountNode) as ReactComponent?;
 
         expect(getProps(renderedInstance), {
           'jsProp': 'js',
@@ -660,7 +660,7 @@ main() {
         renderedInstance = react_dom.render(testJsComponentFactory({
           'jsProp': 'other js',
           'style': testStyle,
-        }, testChildren) as ReactElement, mountNode) as ReactComponent;
+        }, testChildren) as ReactElement?, mountNode) as ReactComponent?;
 
         expect(getProps(renderedInstance), {
           'jsProp': 'other js',
@@ -670,7 +670,7 @@ main() {
       });
 
       test('returns props for a DOM component ReactElement', () {
-        ReactElement instance = (Dom.div()
+        ReactElement? instance = (Dom.div()
           ..addProp('domProp', 'dom')
           ..style = testStyle
         )(testChildren);
@@ -683,12 +683,12 @@ main() {
       });
 
       {
-        void sharedGetPropsTests({@required bool isComponent2}) {
+        void sharedGetPropsTests({required bool isComponent2}) {
           final factory = isComponent2 ? TestComponent2Factory : TestComponentFactory;
 
           group('returns props for a Dart ${isComponent2 ? 'Component2' : 'Component'}', () {
             test('ReactElement', () {
-              final instance = factory({
+              final ReactElement? instance = factory!({
                 'dartProp': 'dart',
                 'style': testStyle,
               }, testChildren);
@@ -701,10 +701,10 @@ main() {
             });
 
             test('ReactComponent', () {
-              final renderedInstance = render(factory({
+              final renderedInstance = render(factory!({
                 'dartProp': 'dart',
                 'style': testStyle,
-              }, testChildren)) as ReactComponent;
+              }, testChildren)) as ReactComponent?;
 
               expect(getProps(renderedInstance), {
                 'dartProp': 'dart',
@@ -714,7 +714,7 @@ main() {
             });
 
             test('ReactComponent, even when the props change', () {
-              final jacket = mount(factory({
+              final jacket = mount(factory!({
                 'jsProp': 'js',
                 'style': testStyle,
               }, testChildren));
@@ -745,7 +745,7 @@ main() {
         group('and returns props for a', () {
           group('composite JS ReactElement', () {
             test('', () {
-              ReactElement instance = OneLevelWrapper()(
+              ReactElement? instance = OneLevelWrapper()(
                 testJsComponentFactory({
                   'jsProp': 'js',
                   'style': testStyle,
@@ -760,7 +760,7 @@ main() {
             });
 
             test('even when there are multiple levels of wrappers', () {
-              ReactElement instance = TwoLevelWrapper()(
+              ReactElement? instance = TwoLevelWrapper()(
                 OneLevelWrapper()(
                   testJsComponentFactory({
                     'jsProp': 'js',
@@ -790,7 +790,7 @@ main() {
             });
 
             test('except when traverseWrappers is false', () {
-              ReactElement instance = OneLevelWrapper()(
+              ReactElement? instance = OneLevelWrapper()(
                 testJsComponentFactory({
                   'jsProp': 'js',
                   'style': testStyle,
@@ -808,7 +808,7 @@ main() {
                   'jsProp': 'js',
                   'style': testStyle,
                 }, testChildren)
-              )) as ReactComponent;
+              )) as ReactComponent?;
 
               expect(getProps(renderedInstance, traverseWrappers: true), {
                 'jsProp': 'js',
@@ -825,7 +825,7 @@ main() {
                     'style': testStyle,
                   }, testChildren)
                 )
-              )) as ReactComponent;
+              )) as ReactComponent?;
 
               expect(getProps(renderedInstance, traverseWrappers: true), {
                 'jsProp': 'js',
@@ -841,7 +841,7 @@ main() {
                   'jsProp': 'js',
                   'style': testStyle,
                 }, testChildren)
-              ), mountNode) as ReactComponent;
+              ), mountNode) as ReactComponent?;
 
               expect(getProps(renderedInstance, traverseWrappers: true), {
                 'jsProp': 'js',
@@ -854,7 +854,7 @@ main() {
                   'jsProp': 'other js',
                   'style': testStyle,
                 }, testChildren)
-              ), mountNode) as ReactComponent;
+              ), mountNode) as ReactComponent?;
 
               expect(getProps(renderedInstance, traverseWrappers: true), {
                 'jsProp': 'other js',
@@ -869,7 +869,7 @@ main() {
                   'jsProp': 'js',
                   'style': testStyle,
                 }, testChildren)
-              )) as ReactComponent;
+              )) as ReactComponent?;
 
               expect(getProps(renderedInstance), {'children': anything});
             });
@@ -877,7 +877,7 @@ main() {
 
           group('DOM component ReactElement', () {
             test('', () {
-              ReactElement instance = OneLevelWrapper()(
+              ReactElement? instance = OneLevelWrapper()(
                 (Dom.div()
                   ..addProp('domProp', 'dom')
                   ..style = testStyle
@@ -892,7 +892,7 @@ main() {
             });
 
             test('even when there are multiple levels of wrappers', () {
-              ReactElement instance = TwoLevelWrapper()(
+              ReactElement? instance = TwoLevelWrapper()(
                 OneLevelWrapper()(
                   (Dom.div()
                     ..addProp('domProp', 'dom')
@@ -909,7 +909,7 @@ main() {
             });
 
             test('except when the top level component is not a wrapper', () {
-              ReactElement instance = (Dom.div()
+              ReactElement? instance = (Dom.div()
                 ..addProp('domProp', 'dom')
                 ..style = testStyle
               )(testChildren);
@@ -922,7 +922,7 @@ main() {
             });
 
             test('except when traverseWrappers is false', () {
-              ReactElement instance = OneLevelWrapper()(
+              ReactElement? instance = OneLevelWrapper()(
                 (Dom.div()
                   ..addProp('domProp', 'dom')
                   ..style = testStyle
@@ -934,15 +934,15 @@ main() {
           });
 
           {
-            void sharedGetPropsWrapperTests({@required bool isComponent2, @required bool isRendered}) {
+            void sharedGetPropsWrapperTests({required bool isComponent2, required bool isRendered}) {
               final testComponentFactory = isComponent2 ? TestComponentFactory : TestComponent2Factory;
-              final oneLevelWrapperFactory = isComponent2 ? OneLevelWrapper : OneLevelWrapper2;
-              final twoLevelWrapperFactory = isComponent2 ? TwoLevelWrapper : TwoLevelWrapper2;
+              final UiProps Function([Map<dynamic, dynamic>]) oneLevelWrapperFactory = isComponent2 ? OneLevelWrapper : OneLevelWrapper2;
+              final UiProps Function([Map<dynamic, dynamic>]) twoLevelWrapperFactory = isComponent2 ? TwoLevelWrapper : TwoLevelWrapper2;
 
               group('Dart ${isComponent2 ? 'Component2' : 'Component'} ${isRendered ? 'ReactComponent' : 'ReactElement'}', () {
                 test('', () {
-                  final instance = oneLevelWrapperFactory()(
-                    testComponentFactory({
+                  final ReactElement? instance = oneLevelWrapperFactory()(
+                    testComponentFactory!({
                       'dartProp': 'dart',
                       'style': testStyle,
                     }, testChildren),
@@ -957,9 +957,9 @@ main() {
                 });
 
                 test('even when there are multiple levels of wrappers', () {
-                  final instance = twoLevelWrapperFactory()(
+                  final ReactElement? instance = twoLevelWrapperFactory()(
                     oneLevelWrapperFactory()(
-                      testComponentFactory({
+                      testComponentFactory!({
                         'dartProp': 'dart',
                         'style': testStyle,
                       }, testChildren),
@@ -975,7 +975,7 @@ main() {
                 });
 
                 test('except when the top level component is not a wrapper', () {
-                  final instance = testComponentFactory({
+                  final ReactElement? instance = testComponentFactory!({
                     'dartProp': 'dart',
                     'style': testStyle,
                   }, testChildren);
@@ -989,8 +989,8 @@ main() {
                 });
 
                 test('except when traverseWrappers is false', () {
-                  final instance = oneLevelWrapperFactory()(
-                    testComponentFactory({
+                  final ReactElement? instance = oneLevelWrapperFactory()(
+                    testComponentFactory!({
                       'dartProp': 'dart',
                       'style': testStyle,
                     }, testChildren)
@@ -1003,7 +1003,7 @@ main() {
                 if (isRendered) {
                   test('even when props change', () {
                     final jacket = mount(oneLevelWrapperFactory()(
-                      testComponentFactory({
+                      testComponentFactory!({
                         'dartProp': 'dart',
                         'style': testStyle,
                       }, testChildren)
@@ -1045,7 +1045,7 @@ main() {
           test('returns props as an unmodifiable map', () {
             final renderedInstance = render(factory({
               'dartProp': 'dart'
-            })) as ReactComponent;
+            })) as ReactComponent?;
 
             expect(() => getProps(renderedInstance)['style'] = testStyle, modificationThrowsMatcher);
           });
@@ -1123,9 +1123,9 @@ main() {
 
     group('chainRef', () {
       group('returns a ref that chains with the existing ref', () {
-        List calls;
+        late List calls;
         dynamic ref;
-        TestJacket jacket;
+        TestJacket? jacket;
         dynamic expectedRefValue;
 
         setUp(() {
@@ -1143,7 +1143,7 @@ main() {
           // so that component isn't unmounted by the time the expectations are called.
 
           group('and the provided instance is', () {
-            void Function() runExpectations;
+            late void Function() runExpectations;
 
             setUp(() {
               runExpectations = expectAsync0(() {
@@ -1153,13 +1153,13 @@ main() {
             });
 
             test('a Dart Component', () {
-              var instanceWithRef = TestComponentFactory({'ref': ref});
+              var instanceWithRef = TestComponentFactory!({'ref': ref});
               var chainedRef = chainRef(instanceWithRef, (ref) {
                 calls.add(['chained ref', ref]);
               });
 
               jacket = mount(cloneElement(instanceWithRef, {'ref': chainedRef}));
-              expectedRefValue = jacket.getDartInstance();
+              expectedRefValue = jacket!.getDartInstance();
               // ignore: deprecated_member_use
               expect(expectedRefValue, isA<react.Component>(), reason: 'test setup sanity check');
 
@@ -1173,7 +1173,7 @@ main() {
               });
 
               jacket = mount(cloneElement(instanceWithRef, {'ref': chainedRef}));
-              expectedRefValue = jacket.getDartInstance();
+              expectedRefValue = jacket!.getDartInstance();
               expect(expectedRefValue, isA<react.Component2>(), reason: 'test setup sanity check');
 
               runExpectations();
@@ -1186,7 +1186,7 @@ main() {
               });
 
               jacket = mount(cloneElement(instanceWithRef, {'ref': chainedRef}));
-              expectedRefValue = jacket.getInstance();
+              expectedRefValue = jacket!.getInstance();
 
               runExpectations();
             });
@@ -1198,7 +1198,7 @@ main() {
               });
 
               jacket = mount(cloneElement(instanceWithRef, domProps()..ref = chainedRef));
-              expectedRefValue = jacket.getNode();
+              expectedRefValue = jacket!.getNode();
 
               runExpectations();
             });
@@ -1236,7 +1236,7 @@ main() {
         test('when the provided instance has no ref', () {
           var calls = [];
 
-          var instanceWithoutRef = TestComponentFactory({});
+          var instanceWithoutRef = TestComponentFactory!({});
 
           var chainedRef = chainRef(instanceWithoutRef, (ref) {
             calls.add(['chained ref', ref]);
@@ -1257,7 +1257,7 @@ main() {
         test('when the provided ref is null', () {
           var calls = [];
 
-          var instanceWithRef = TestComponentFactory({'ref': (ref) {
+          var instanceWithRef = TestComponentFactory!({'ref': (ref) {
             calls.add(['original ref', ref]);
           }});
 
@@ -1278,7 +1278,7 @@ main() {
 
       test('throws when the provided instance has a String ref', () {
         expect(() {
-          chainRef(TestComponentFactory({'ref': 'foo'}), (_) {});
+          chainRef(TestComponentFactory!({'ref': 'foo'}), (_) {});
         }, throwsArgumentError);
       });
     });
@@ -1286,7 +1286,7 @@ main() {
 }
 
 /// Helper component for testing a Dart (react-dart) React component with cloneElement.
-final TestComponentFactory = react.registerComponent(() => TestComponent()) as ReactDartComponentFactoryProxy; // ignore: deprecated_member_use
+final TestComponentFactory = react.registerComponent(() => TestComponent()) as ReactDartComponentFactoryProxy?; // ignore: deprecated_member_use
 // ignore: deprecated_member_use
 class TestComponent extends react.Component {
   @override
@@ -1314,7 +1314,7 @@ class PlainObjectStyleMap {
 }
 
 /// Helper component that renders whatever you tell it to. Necessary for rendering components with the 'ref' prop.
-final RenderingContainerComponentFactory = react.registerComponent(() => RenderingContainerComponent()) as ReactDartComponentFactoryProxy; // ignore: deprecated_member_use
+final RenderingContainerComponentFactory = react.registerComponent(() => RenderingContainerComponent()) as ReactDartComponentFactoryProxy?; // ignore: deprecated_member_use
 
 // ignore: deprecated_member_use
 class RenderingContainerComponent extends react.Component {

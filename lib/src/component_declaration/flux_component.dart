@@ -53,7 +53,7 @@ mixin FluxUiPropsMixin<ActionsT, StoresT> on UiProps implements FluxUiProps<Acti
   /// structure, there may be [Action]s available directly on this object, or
   /// this object may represent a hierarchy of actions.
   @override
-  ActionsT actions;
+  ActionsT? actions;
 
   /// The flux [Store] instance(s) to be used by a [FluxUiComponent2] instance, or a reference to one.
   ///
@@ -70,7 +70,7 @@ mixin FluxUiPropsMixin<ActionsT, StoresT> on UiProps implements FluxUiProps<Acti
   /// Then, you can explicitly select the [Store] instances that should be
   /// listened to by overriding [_FluxComponentMixin.redrawOn].
   @override
-  StoresT store;
+  StoresT? store;
 
   @override
   String get _actionsPropKey {
@@ -105,8 +105,8 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
   /// There is no strict rule on the [ActionsT] type. Depending on application
   /// structure, there may be [Action]s available directly on this object, or
   /// this object may represent a hierarchy of actions.
-  ActionsT get actions => props[_actionsPropKey] as ActionsT;
-  set actions(ActionsT value) => props[_actionsPropKey] = value;
+  ActionsT? get actions => props[_actionsPropKey] as ActionsT?;
+  set actions(ActionsT? value) => props[_actionsPropKey] = value;
 
   /// The prop defined by [StoresT].
   ///
@@ -124,8 +124,8 @@ abstract class FluxUiProps<ActionsT, StoresT> extends UiProps {
   /// [StoresT] should be a class that provides access to these multiple stores.
   /// Then, you can explicitly select the [Store] instances that should be
   /// listened to by overriding [_FluxComponentMixin.redrawOn].
-  StoresT get store => props[_storePropKey] as StoresT;
-  set store(StoresT value) => props[_storePropKey] = value;
+  StoresT? get store => props[_storePropKey] as StoresT?;
+  set store(StoresT? value) => props[_storePropKey] = value;
 }
 
 /// Builds on top of [UiComponent], adding w_flux integration, much like the [FluxComponent] in w_flux.
@@ -274,7 +274,7 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
   ///
   /// Override to set up custom listener behavior.
   @protected
-  void listenToStoreForRedraw(Store/*!*/ store) {
+  void listenToStoreForRedraw(Store store) {
     _validateStoreDisposalState(store);
     _subscriptions.add(store.listen(handleRedrawOn));
   }
@@ -324,7 +324,7 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
   ///
   ///     @override
   ///     redrawOn() => [store.tasks, store.users];
-  List<Store/*!*/> redrawOn() {
+  List<Store> redrawOn() {
     final store = props.store;
     return store is Store ? [store] : [];
   }
@@ -338,7 +338,7 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
   /// If possible, however, [redrawOn] should be used instead of this in order
   /// to avoid keeping additional state within this component and manually
   /// managing redraws.
-  Map<Store/*!*/, StoreHandler> getStoreHandlers() {
+  Map<Store, StoreHandler> getStoreHandlers() {
     return {};
   }
 

@@ -25,12 +25,12 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
 
   /// <!-- Generated from [_$FooProps._privateProp] -->
   @override
-  String get _privateProp =>
-      (props[_$key___privateProp___$FooProps] ?? null) as String;
+  String? get _privateProp =>
+      (props[_$key___privateProp___$FooProps] ?? null) as String?;
 
   /// <!-- Generated from [_$FooProps._privateProp] -->
   @override
-  set _privateProp(String value) =>
+  set _privateProp(String? value) =>
       props[_$key___privateProp___$FooProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop___privateProp___$FooProps =
@@ -50,7 +50,7 @@ class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForFooProps;
 }
 
-_$$FooProps _$Foo([Map backingProps]) => backingProps == null
+_$$FooProps _$Foo([Map? backingProps]) => backingProps == null
     ? _$$FooProps$JsMap(JsBackedMap())
     : _$$FooProps(backingProps);
 
@@ -122,7 +122,7 @@ class _$$FooProps$JsMap extends _$$FooProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$FooComponent extends FooComponent {
-  _$$FooProps$JsMap _cachedTypedProps;
+  late _$$FooProps$JsMap _cachedTypedProps;
 
   @override
   _$$FooProps$JsMap get props => _cachedTypedProps;

@@ -22,7 +22,7 @@ UiFactory<DummyProps> Dummy = _$Dummy;
 
 @Props()
 class _$DummyProps extends UiProps {
-  Function onComponentDidMount;
+  Function? onComponentDidMount;
 }
 
 // AF-3369 This will be removed once the transition to Dart 2 is complete.
@@ -36,7 +36,7 @@ class DummyProps extends _$DummyProps with _$DummyPropsAccessorsMixin {
 class DummyComponent extends UiComponent2<DummyProps> {
   @override
   void componentDidMount() {
-    props.onComponentDidMount();
+    props.onComponentDidMount!();
   }
 
   @override

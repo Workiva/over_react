@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:collection/collection.dart' show IterableExtension;
 part of '../members.dart';
 
 /// The class that represents a boilerplate component.
@@ -42,16 +43,15 @@ class BoilerplateComponent extends BoilerplateMember {
   /// or [annotations.Component2].
   @override
   // ignore: deprecated_member_use_from_same_package
-  annotations.Component/*!*/ meta;
+  annotations.Component meta;
 
   // The superclass that can be noted in the `@Component()` or `@Component2()` annotation.
-  Identifier configSubtypeOf;
+  Identifier? configSubtypeOf;
 
   /// The [TypeAnnotation] for the component's prop class.
-  TypeAnnotation get propsGenericArg {
-    return nodeHelper.superclass.typeArguments?.arguments?.firstWhere(
-        (type) => propsOrMixinNamePattern.hasMatch(type.typeNameWithoutPrefix),
-        orElse: () => null);
+  TypeAnnotation? get propsGenericArg {
+    return nodeHelper.superclass!.typeArguments?.arguments?.firstWhereOrNull(
+        (type) => propsOrMixinNamePattern.hasMatch(type.typeNameWithoutPrefix!));
   }
 
   /// Whether or not the component has any annotation, ignoring component version
@@ -80,14 +80,14 @@ class BoilerplateComponent extends BoilerplateMember {
   /// - Verifying no reserved static members are overridden
   /// - Checking for deprecated lifecycle method usage in conjunction with `Component2`
   @override
-  void validate(Version version, ErrorCollector/*!*/ errorCollector) {
+  void validate(Version version, ErrorCollector errorCollector) {
     switch (version) {
       case Version.v4_mixinBased:
         final superclass = nodeHelper.superclass;
         if (const ['UiComponent', 'UiStatefulComponent', 'FluxUiComponent', 'BuiltReduxUiComponent']
             .contains(superclass?.nameWithoutPrefix)) {
           errorCollector.addError(
-              'Must extend UiComponent2, not UiComponent.', errorCollector.spanFor(superclass));
+              'Must extend UiComponent2, not UiComponent.', errorCollector.spanFor(superclass!));
         }
 
         final badAnnotation = node.getAnnotationWithNames({'Component', 'AbstractComponent'});

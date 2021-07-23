@@ -39,7 +39,7 @@ class TestBasicProps extends _$TestBasicProps
   static const PropsMeta meta = _$metaForTestBasicProps;
 }
 
-_$$TestBasicProps _$TestBasic([Map backingProps]) => backingProps == null
+_$$TestBasicProps _$TestBasic([Map? backingProps]) => backingProps == null
     ? _$$TestBasicProps$JsMap(JsBackedMap())
     : _$$TestBasicProps(backingProps);
 
@@ -111,7 +111,7 @@ class _$$TestBasicProps$JsMap extends _$$TestBasicProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestBasicComponent extends TestBasicComponent {
-  _$$TestBasicProps$JsMap _cachedTypedProps;
+  late _$$TestBasicProps$JsMap _cachedTypedProps;
 
   @override
   _$$TestBasicProps$JsMap get props => _cachedTypedProps;
@@ -183,7 +183,7 @@ class TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
   static const PropsMeta meta = _$metaForTestHandlerLifecycleProps;
 }
 
-_$$TestHandlerLifecycleProps _$TestHandlerLifecycle([Map backingProps]) =>
+_$$TestHandlerLifecycleProps _$TestHandlerLifecycle([Map? backingProps]) =>
     backingProps == null
         ? _$$TestHandlerLifecycleProps$JsMap(JsBackedMap())
         : _$$TestHandlerLifecycleProps(backingProps);
@@ -257,7 +257,7 @@ class _$$TestHandlerLifecycleProps$JsMap extends _$$TestHandlerLifecycleProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
-  _$$TestHandlerLifecycleProps$JsMap _cachedTypedProps;
+  late _$$TestHandlerLifecycleProps$JsMap _cachedTypedProps;
 
   @override
   _$$TestHandlerLifecycleProps$JsMap get props => _cachedTypedProps;
@@ -330,7 +330,7 @@ class TestHandlerPrecedenceProps extends _$TestHandlerPrecedenceProps
   static const PropsMeta meta = _$metaForTestHandlerPrecedenceProps;
 }
 
-_$$TestHandlerPrecedenceProps _$TestHandlerPrecedence([Map backingProps]) =>
+_$$TestHandlerPrecedenceProps _$TestHandlerPrecedence([Map? backingProps]) =>
     backingProps == null
         ? _$$TestHandlerPrecedenceProps$JsMap(JsBackedMap())
         : _$$TestHandlerPrecedenceProps(backingProps);
@@ -406,7 +406,7 @@ class _$$TestHandlerPrecedenceProps$JsMap
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
-  _$$TestHandlerPrecedenceProps$JsMap _cachedTypedProps;
+  late _$$TestHandlerPrecedenceProps$JsMap _cachedTypedProps;
 
   @override
   _$$TestHandlerPrecedenceProps$JsMap get props => _cachedTypedProps;
@@ -466,13 +466,13 @@ abstract class _$TestPropValidationPropsAccessorsMixin
   /// <!-- Generated from [_$TestPropValidationProps.required] -->
   @override
   @requiredProp
-  String get required =>
-      (props[_$key__required___$TestPropValidationProps] ?? null) as String;
+  String? get required =>
+      (props[_$key__required___$TestPropValidationProps] ?? null) as String?;
 
   /// <!-- Generated from [_$TestPropValidationProps.required] -->
   @override
   @requiredProp
-  set required(String value) =>
+  set required(String? value) =>
       props[_$key__required___$TestPropValidationProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__required___$TestPropValidationProps =
@@ -499,7 +499,7 @@ class TestPropValidationProps extends _$TestPropValidationProps
   static const PropsMeta meta = _$metaForTestPropValidationProps;
 }
 
-_$$TestPropValidationProps _$TestPropValidation([Map backingProps]) =>
+_$$TestPropValidationProps _$TestPropValidation([Map? backingProps]) =>
     backingProps == null
         ? _$$TestPropValidationProps$JsMap(JsBackedMap())
         : _$$TestPropValidationProps(backingProps);
@@ -572,7 +572,7 @@ class _$$TestPropValidationProps$JsMap extends _$$TestPropValidationProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestPropValidationComponent extends TestPropValidationComponent {
-  _$$TestPropValidationProps$JsMap _cachedTypedProps;
+  late _$$TestPropValidationProps$JsMap _cachedTypedProps;
 
   @override
   _$$TestPropValidationProps$JsMap get props => _cachedTypedProps;
@@ -645,7 +645,7 @@ class TestRedrawOnProps extends _$TestRedrawOnProps
   static const PropsMeta meta = _$metaForTestRedrawOnProps;
 }
 
-_$$TestRedrawOnProps _$TestRedrawOn([Map backingProps]) => backingProps == null
+_$$TestRedrawOnProps _$TestRedrawOn([Map? backingProps]) => backingProps == null
     ? _$$TestRedrawOnProps$JsMap(JsBackedMap())
     : _$$TestRedrawOnProps(backingProps);
 
@@ -717,7 +717,7 @@ class _$$TestRedrawOnProps$JsMap extends _$$TestRedrawOnProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestRedrawOnComponent extends TestRedrawOnComponent {
-  _$$TestRedrawOnProps$JsMap _cachedTypedProps;
+  late _$$TestRedrawOnProps$JsMap _cachedTypedProps;
 
   @override
   _$$TestRedrawOnProps$JsMap get props => _cachedTypedProps;
@@ -789,7 +789,7 @@ class TestStoreHandlersProps extends _$TestStoreHandlersProps
   static const PropsMeta meta = _$metaForTestStoreHandlersProps;
 }
 
-_$$TestStoreHandlersProps _$TestStoreHandlers([Map backingProps]) =>
+_$$TestStoreHandlersProps _$TestStoreHandlers([Map? backingProps]) =>
     backingProps == null
         ? _$$TestStoreHandlersProps$JsMap(JsBackedMap())
         : _$$TestStoreHandlersProps(backingProps);
@@ -862,7 +862,7 @@ class _$$TestStoreHandlersProps$JsMap extends _$$TestStoreHandlersProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
-  _$$TestStoreHandlersProps$JsMap _cachedTypedProps;
+  late _$$TestStoreHandlersProps$JsMap _cachedTypedProps;
 
   @override
   _$$TestStoreHandlersProps$JsMap get props => _cachedTypedProps;
@@ -934,7 +934,7 @@ class TestStatefulBasicProps extends _$TestStatefulBasicProps
   static const PropsMeta meta = _$metaForTestStatefulBasicProps;
 }
 
-_$$TestStatefulBasicProps _$TestStatefulBasic([Map backingProps]) =>
+_$$TestStatefulBasicProps _$TestStatefulBasic([Map? backingProps]) =>
     backingProps == null
         ? _$$TestStatefulBasicProps$JsMap(JsBackedMap())
         : _$$TestStatefulBasicProps(backingProps);
@@ -1082,7 +1082,7 @@ class _$$TestStatefulBasicState$JsMap extends _$$TestStatefulBasicState {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
-  _$$TestStatefulBasicProps$JsMap _cachedTypedProps;
+  late _$$TestStatefulBasicProps$JsMap _cachedTypedProps;
 
   @override
   _$$TestStatefulBasicProps$JsMap get props => _cachedTypedProps;
@@ -1109,7 +1109,7 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
   _$$TestStatefulBasicProps typedPropsFactory(Map backingMap) =>
       _$$TestStatefulBasicProps(backingMap);
 
-  _$$TestStatefulBasicState$JsMap _cachedTypedState;
+  late _$$TestStatefulBasicState$JsMap _cachedTypedState;
   @override
   _$$TestStatefulBasicState$JsMap get state => _cachedTypedState;
 
@@ -1178,7 +1178,7 @@ class TestStatefulHandlerLifecycleProps
 }
 
 _$$TestStatefulHandlerLifecycleProps _$TestStatefulHandlerLifecycle(
-        [Map backingProps]) =>
+        [Map? backingProps]) =>
     backingProps == null
         ? _$$TestStatefulHandlerLifecycleProps$JsMap(JsBackedMap())
         : _$$TestStatefulHandlerLifecycleProps(backingProps);
@@ -1336,7 +1336,7 @@ class _$$TestStatefulHandlerLifecycleState$JsMap
 // generated for the associated props class.
 class _$TestStatefulHandlerLifecycleComponent
     extends TestStatefulHandlerLifecycleComponent {
-  _$$TestStatefulHandlerLifecycleProps$JsMap _cachedTypedProps;
+  late _$$TestStatefulHandlerLifecycleProps$JsMap _cachedTypedProps;
 
   @override
   _$$TestStatefulHandlerLifecycleProps$JsMap get props => _cachedTypedProps;
@@ -1364,7 +1364,7 @@ class _$TestStatefulHandlerLifecycleComponent
   _$$TestStatefulHandlerLifecycleProps typedPropsFactory(Map backingMap) =>
       _$$TestStatefulHandlerLifecycleProps(backingMap);
 
-  _$$TestStatefulHandlerLifecycleState$JsMap _cachedTypedState;
+  late _$$TestStatefulHandlerLifecycleState$JsMap _cachedTypedState;
   @override
   _$$TestStatefulHandlerLifecycleState$JsMap get state => _cachedTypedState;
 
@@ -1434,7 +1434,7 @@ class TestStatefulHandlerPrecedenceProps
 }
 
 _$$TestStatefulHandlerPrecedenceProps _$TestStatefulHandlerPrecedence(
-        [Map backingProps]) =>
+        [Map? backingProps]) =>
     backingProps == null
         ? _$$TestStatefulHandlerPrecedenceProps$JsMap(JsBackedMap())
         : _$$TestStatefulHandlerPrecedenceProps(backingProps);
@@ -1592,7 +1592,7 @@ class _$$TestStatefulHandlerPrecedenceState$JsMap
 // generated for the associated props class.
 class _$TestStatefulHandlerPrecedenceComponent
     extends TestStatefulHandlerPrecedenceComponent {
-  _$$TestStatefulHandlerPrecedenceProps$JsMap _cachedTypedProps;
+  late _$$TestStatefulHandlerPrecedenceProps$JsMap _cachedTypedProps;
 
   @override
   _$$TestStatefulHandlerPrecedenceProps$JsMap get props => _cachedTypedProps;
@@ -1620,7 +1620,7 @@ class _$TestStatefulHandlerPrecedenceComponent
   _$$TestStatefulHandlerPrecedenceProps typedPropsFactory(Map backingMap) =>
       _$$TestStatefulHandlerPrecedenceProps(backingMap);
 
-  _$$TestStatefulHandlerPrecedenceState$JsMap _cachedTypedState;
+  late _$$TestStatefulHandlerPrecedenceState$JsMap _cachedTypedState;
   @override
   _$$TestStatefulHandlerPrecedenceState$JsMap get state => _cachedTypedState;
 
@@ -1676,15 +1676,15 @@ abstract class _$TestStatefulPropValidationPropsAccessorsMixin
   @override
   @override
   @requiredProp
-  String get required =>
+  String? get required =>
       (props[_$key__required___$TestStatefulPropValidationProps] ?? null)
-          as String;
+          as String?;
 
   /// <!-- Generated from [_$TestStatefulPropValidationProps.required] -->
   @override
   @override
   @requiredProp
-  set required(String value) =>
+  set required(String? value) =>
       props[_$key__required___$TestStatefulPropValidationProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
@@ -1713,7 +1713,7 @@ class TestStatefulPropValidationProps extends _$TestStatefulPropValidationProps
 }
 
 _$$TestStatefulPropValidationProps _$TestStatefulPropValidation(
-        [Map backingProps]) =>
+        [Map? backingProps]) =>
     backingProps == null
         ? _$$TestStatefulPropValidationProps$JsMap(JsBackedMap())
         : _$$TestStatefulPropValidationProps(backingProps);
@@ -1870,7 +1870,7 @@ class _$$TestStatefulPropValidationState$JsMap
 // generated for the associated props class.
 class _$TestStatefulPropValidationComponent
     extends TestStatefulPropValidationComponent {
-  _$$TestStatefulPropValidationProps$JsMap _cachedTypedProps;
+  late _$$TestStatefulPropValidationProps$JsMap _cachedTypedProps;
 
   @override
   _$$TestStatefulPropValidationProps$JsMap get props => _cachedTypedProps;
@@ -1898,7 +1898,7 @@ class _$TestStatefulPropValidationComponent
   _$$TestStatefulPropValidationProps typedPropsFactory(Map backingMap) =>
       _$$TestStatefulPropValidationProps(backingMap);
 
-  _$$TestStatefulPropValidationState$JsMap _cachedTypedState;
+  late _$$TestStatefulPropValidationState$JsMap _cachedTypedState;
   @override
   _$$TestStatefulPropValidationState$JsMap get state => _cachedTypedState;
 
@@ -1966,7 +1966,7 @@ class TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
   static const PropsMeta meta = _$metaForTestStatefulRedrawOnProps;
 }
 
-_$$TestStatefulRedrawOnProps _$TestStatefulRedrawOn([Map backingProps]) =>
+_$$TestStatefulRedrawOnProps _$TestStatefulRedrawOn([Map? backingProps]) =>
     backingProps == null
         ? _$$TestStatefulRedrawOnProps$JsMap(JsBackedMap())
         : _$$TestStatefulRedrawOnProps(backingProps);
@@ -2116,7 +2116,7 @@ class _$$TestStatefulRedrawOnState$JsMap extends _$$TestStatefulRedrawOnState {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
-  _$$TestStatefulRedrawOnProps$JsMap _cachedTypedProps;
+  late _$$TestStatefulRedrawOnProps$JsMap _cachedTypedProps;
 
   @override
   _$$TestStatefulRedrawOnProps$JsMap get props => _cachedTypedProps;
@@ -2144,7 +2144,7 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
   _$$TestStatefulRedrawOnProps typedPropsFactory(Map backingMap) =>
       _$$TestStatefulRedrawOnProps(backingMap);
 
-  _$$TestStatefulRedrawOnState$JsMap _cachedTypedState;
+  late _$$TestStatefulRedrawOnState$JsMap _cachedTypedState;
   @override
   _$$TestStatefulRedrawOnState$JsMap get state => _cachedTypedState;
 
@@ -2213,7 +2213,7 @@ class TestStatefulStoreHandlersProps extends _$TestStatefulStoreHandlersProps
 }
 
 _$$TestStatefulStoreHandlersProps _$TestStatefulStoreHandlers(
-        [Map backingProps]) =>
+        [Map? backingProps]) =>
     backingProps == null
         ? _$$TestStatefulStoreHandlersProps$JsMap(JsBackedMap())
         : _$$TestStatefulStoreHandlersProps(backingProps);
@@ -2368,7 +2368,7 @@ class _$$TestStatefulStoreHandlersState$JsMap
 // generated for the associated props class.
 class _$TestStatefulStoreHandlersComponent
     extends TestStatefulStoreHandlersComponent {
-  _$$TestStatefulStoreHandlersProps$JsMap _cachedTypedProps;
+  late _$$TestStatefulStoreHandlersProps$JsMap _cachedTypedProps;
 
   @override
   _$$TestStatefulStoreHandlersProps$JsMap get props => _cachedTypedProps;
@@ -2396,7 +2396,7 @@ class _$TestStatefulStoreHandlersComponent
   _$$TestStatefulStoreHandlersProps typedPropsFactory(Map backingMap) =>
       _$$TestStatefulStoreHandlersProps(backingMap);
 
-  _$$TestStatefulStoreHandlersState$JsMap _cachedTypedState;
+  late _$$TestStatefulStoreHandlersState$JsMap _cachedTypedState;
   @override
   _$$TestStatefulStoreHandlersState$JsMap get state => _cachedTypedState;
 

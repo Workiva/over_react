@@ -38,7 +38,7 @@ double _computeRootFontSize() {
     ..height = '0'
     ..position = 'absolute'
     ..zIndex = '-1';
-  document.body.append(remMeasurer);
+  document.body!.append(remMeasurer);
   final rem = CssValue.parse(remMeasurer.getComputedStyle().width).number.toDouble();
   remMeasurer.remove();
   return rem;
@@ -51,9 +51,9 @@ dynamic _changeSensor;
 dynamic get changeSensor => _changeSensor;
 
 bool _shouldStillMountRemChangeSensor = false;
-Element _changeSensorMountNode;
+Element? _changeSensorMountNode;
 @visibleForTesting
-Element get changeSensorMountNode => _changeSensorMountNode;
+Element? get changeSensorMountNode => _changeSensorMountNode;
 
 @visibleForTesting
 Future<Null> initRemChangeSensor() {
@@ -82,14 +82,14 @@ Future<Null> initRemChangeSensor() {
       ..id = 'rem_change_sensor';
 
     // Ensure the sensor doesn't interfere with the rest of the page.
-    _changeSensorMountNode.style
+    _changeSensorMountNode!.style
       ..width = '0'
       ..height = '0'
       ..overflow = 'hidden'
       ..position = 'absolute'
       ..zIndex = '-1';
 
-    document.body.append(_changeSensorMountNode);
+    document.body!.append(_changeSensorMountNode!);
 
     _changeSensor = react_dom.render((Dom.div()
       ..style = const {
@@ -140,7 +140,7 @@ Future<Null> destroyRemChangeSensor() {
 
     if (_changeSensor != null) {
       react_dom.unmountComponentAtNode(_changeSensorMountNode);
-      _changeSensorMountNode.remove();
+      _changeSensorMountNode!.remove();
       _changeSensorMountNode = null;
       _changeSensor = null;
     }
@@ -167,7 +167,7 @@ Future<Null> destroyRemChangeSensor() {
 ///     new CssValue(1.5, 'rem');
 ///
 /// > Related: [toPx]
-CssValue toRem(dynamic value, {bool treatNumAsRem = false, bool passThroughUnsupportedUnits = false}) {
+CssValue? toRem(dynamic value, {bool treatNumAsRem = false, bool passThroughUnsupportedUnits = false}) {
   // Because Chrome changes the value of its root font size when zoomed out lower than 90%, we need
   // to automatically wire up the rem change sensor so that any calls to `toRem` when the viewport is
   // zoomed return an accurate value.
@@ -227,7 +227,7 @@ CssValue toRem(dynamic value, {bool treatNumAsRem = false, bool passThroughUnsup
 ///     toPx(new CssValue(15, 'px'));
 ///
 /// > Related: [toRem]
-CssValue toPx(dynamic value, {bool treatNumAsPx = false, bool passThroughUnsupportedUnits = false}) {
+CssValue? toPx(dynamic value, {bool treatNumAsPx = false, bool passThroughUnsupportedUnits = false}) {
   if (value == null) return null;
 
   num pxValueNum;

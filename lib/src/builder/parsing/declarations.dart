@@ -50,7 +50,7 @@ abstract class BoilerplateDeclaration {
 
   BoilerplateDeclaration(this.version);
 
-  Iterable<BoilerplateMember/*!*/> get members => _members;
+  Iterable<BoilerplateMember> get members => _members;
 
   /// Validates this declaration, including all members, against the provided [version].
   @mustCallSuper
@@ -67,7 +67,7 @@ abstract class BoilerplateDeclaration {
     }
   }
 
-  Iterable<BoilerplateMember/*!*/> get _members;
+  Iterable<BoilerplateMember> get _members;
 
   @override
   String toString() => '$runtimeType: $version, members: $_members';
@@ -77,8 +77,8 @@ abstract class BoilerplateDeclaration {
 class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
   final BoilerplateFactory factory;
   final BoilerplateComponent component;
-  final BoilerplateProps/*!*/ props;
-  final BoilerplateState state;
+  final BoilerplateProps props;
+  final BoilerplateState? state;
 
   /// Whether this is Component2 based.
   bool get isComponent2 => component.isComponent2(version);
@@ -90,10 +90,10 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
   get type => DeclarationType.legacyClassComponentDeclaration;
 
   LegacyClassComponentDeclaration({
-    @required Version version,
-    @required this.factory,
-    @required this.component,
-    @required this.props,
+    required Version version,
+    required this.factory,
+    required this.component,
+    required this.props,
     this.state,
   })  : assert(version != Version.v4_mixinBased),
         super(version);
@@ -114,9 +114,9 @@ class LegacyClassComponentDeclaration extends BoilerplateDeclaration {
           errorCollector.spanFor(props.name));
     }
 
-    if (state != null && !state.node.hasAnnotationWithNames({'State'})) {
+    if (state != null && !state!.node.hasAnnotationWithNames({'State'})) {
       errorCollector.addError('Legacy boilerplate state classes must be annotated with `@State()`.',
-          errorCollector.spanFor(state.name));
+          errorCollector.spanFor(state!.name));
     }
   }
 }
@@ -134,8 +134,8 @@ class LegacyAbstractPropsDeclaration extends BoilerplateDeclaration {
   get type => DeclarationType.legacyAbstractPropsDeclaration;
 
   LegacyAbstractPropsDeclaration({
-    @required Version version,
-    @required this.props,
+    required Version version,
+    required this.props,
   })  : assert(version != Version.v4_mixinBased),
         super(version);
 
@@ -162,8 +162,8 @@ class LegacyAbstractStateDeclaration extends BoilerplateDeclaration {
   get type => DeclarationType.legacyAbstractStateDeclaration;
 
   LegacyAbstractStateDeclaration({
-    @required Version version,
-    @required this.state,
+    required Version version,
+    required this.state,
   })  : assert(version != Version.v4_mixinBased),
         super(version);
 
@@ -182,8 +182,8 @@ mixin _TypedMapMixinShorthandDeclaration {
   void _validateShorthand(
     ErrorCollector errorCollector,
     PropsStateStringHelpers helpers, {
-    @required Union<BoilerplatePropsOrState, BoilerplatePropsOrStateMixin> propsOrState,
-    @required AstNode shorthandUsage,
+    required Union<BoilerplatePropsOrState, BoilerplatePropsOrStateMixin> propsOrState,
+    required AstNode shorthandUsage,
   }) {
     final mixin = propsOrState.b;
     if (mixin == null) return;
@@ -202,7 +202,7 @@ mixin _TypedMapMixinShorthandDeclaration {
         ?.toList();
 
     if (badConstraints?.isNotEmpty ?? false) {
-      final badConstraintsString = badConstraints.map((c) => c.name.name).join(', ');
+      final badConstraintsString = badConstraints!.map((c) => c.name.name).join(', ');
 
       final suggestedImplName = mixin.name.name.endsWith('Mixin')
           ? mixin.name.name.replaceFirst(RegExp(r'Mixin$'), '')
@@ -241,7 +241,7 @@ class ClassComponentDeclaration extends BoilerplateDeclaration
   final BoilerplateFactory factory;
   final BoilerplateComponent component;
   final Union<BoilerplateProps, BoilerplatePropsMixin> props;
-  final Union<BoilerplateState, BoilerplateStateMixin> state;
+  final Union<BoilerplateState, BoilerplateStateMixin>? state;
 
   @override
   get _members => [factory, component, props.either, if (state != null) state?.either];
@@ -259,14 +259,14 @@ class ClassComponentDeclaration extends BoilerplateDeclaration
         propsOrState: props, shorthandUsage: factory.propsGenericArg ?? factory.node);
     if (state != null) {
       _validateShorthand(errorCollector, PropsStateStringHelpers.state(),
-          propsOrState: state, shorthandUsage: component.node);
+          propsOrState: state!, shorthandUsage: component.node);
     }
   }
 
   ClassComponentDeclaration({
-    @required this.factory,
-    @required this.component,
-    @required this.props,
+    required this.factory,
+    required this.component,
+    required this.props,
     this.state,
   }) : super(Version.v4_mixinBased);
 }
@@ -283,7 +283,7 @@ class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
   /// The related props instance.
   ///
   /// Can be either [BoilerplateProps] or [BoilerplatePropsMixin], but not both.
-  final Union<BoilerplateProps, BoilerplatePropsMixin>/*!*/ props;
+  final Union<BoilerplateProps, BoilerplatePropsMixin> props;
 
   List<Identifier> get allPropsMixins => props.allPropsMixins;
 
@@ -304,8 +304,8 @@ class PropsMapViewOrFunctionComponentDeclaration extends BoilerplateDeclaration
   }
 
   PropsMapViewOrFunctionComponentDeclaration({
-    @required this.factories,
-    @required this.props,
+    required this.factories,
+    required this.props,
   }) : super(Version.v4_mixinBased);
 }
 
@@ -332,8 +332,8 @@ class PropsMixinDeclaration extends BoilerplateDeclaration with PropsOrStateMixi
   get type => DeclarationType.propsMixinDeclaration;
 
   PropsMixinDeclaration({
-    @required Version version,
-    @required this.mixin,
+    required Version version,
+    required this.mixin,
   }) : super(version);
 }
 
@@ -348,14 +348,14 @@ class StateMixinDeclaration extends BoilerplateDeclaration with PropsOrStateMixi
   get type => DeclarationType.stateMixinDeclaration;
 
   StateMixinDeclaration({
-    @required Version version,
-    @required this.mixin,
+    required Version version,
+    required this.mixin,
   }) : super(version);
 }
 
 /// Factories that are grouped together via their props type.
 class FactoryGroup {
-  final List<BoilerplateFactory>/*!*/ factories;
+  final List<BoilerplateFactory> factories;
 
   FactoryGroup(this.factories);
 

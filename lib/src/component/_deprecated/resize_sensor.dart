@@ -96,7 +96,7 @@ abstract class _$ResizeSensorPropsMixin {
   /// > Will never be called if [quickMount] is `true`.
   ///
   /// Related: [onResize]
-  ResizeSensorHandler onInitialize;
+  ResizeSensorHandler? onInitialize;
 
   /// A function invoked with a `ResizeSensorEvent` argument when the [ResizeSensor]
   /// resizes, either due to its parent or children resizing.
@@ -105,19 +105,19 @@ abstract class _$ResizeSensorPropsMixin {
   ///   check out [onDetachedMountCheck] for a possible workaround.
   ///
   /// Related: [onInitialize]
-  ResizeSensorHandler onResize;
+  ResizeSensorHandler? onResize;
 
   /// Whether the [ResizeSensor] is a child of a flex item. Necessary to apply the correct styling.
   ///
   /// See this issue for details: <https://code.google.com/p/chromium/issues/detail?id=346275>
   ///
   /// Default: false
-  bool isFlexChild;
+  bool? isFlexChild;
 
   /// Whether the [ResizeSensor] is a flex container. Necessary to apply the correct styling.
   ///
   /// Default: false
-  bool isFlexContainer;
+  bool? isFlexContainer;
 
   /// Whether the [ResizeSensor] should shrink to the size of its child.
   ///
@@ -125,7 +125,7 @@ abstract class _$ResizeSensorPropsMixin {
   /// small.
   ///
   /// Default: false
-  bool shrink;
+  bool? shrink;
 
   /// Whether quick-mount mode is enabled, which minimizes layouts caused by accessing element dimensions
   /// during initialization, allowing the component to mount faster.
@@ -141,7 +141,7 @@ abstract class _$ResizeSensorPropsMixin {
   ///   helping to break up resulting layouts.
   ///
   /// Default: false
-  bool quickMount;
+  bool? quickMount;
 
   /// A callback that returns a `bool` that indicates whether the [ResizeSensor] was detached from the DOM
   /// when it first mounted.
@@ -167,12 +167,12 @@ abstract class _$ResizeSensorPropsMixin {
   ///   > __NOTE:__ If this happens - you most likely do not need to set this callback. If for some reason the callback
   ///     sometimes returns `true`, and sometimes returns `false` _(unexpected)_,
   ///     you may have other underlying issues in your implementation that should be addressed separately.
-  BoolCallback onDetachedMountCheck;
+  BoolCallback? onDetachedMountCheck;
 
   /// A callback intended for use only within internal unit tests that is called when [ResizeSensorComponent._reset]
   /// is called.
   @visibleForTesting
-  Callback onDidReset;
+  Callback? onDidReset;
 }
 
 @Deprecated('Use the `ResizeSensorProps` mixin exported from `package:over_react/components.dart` instead. Will be removed in the 4.0.0 release of over_react.')
@@ -184,8 +184,8 @@ class _$ResizeSensorProps extends UiProps with ResizeSensorPropsMixin {}
 class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAnimationFrameMixin {
   // Refs
 
-  Element _expandSensorRef;
-  Element _collapseSensorRef;
+  Element? _expandSensorRef;
+  Element? _collapseSensorRef;
 
   @override
   get defaultProps => (newProps()
@@ -205,7 +205,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
   void componentDidMount() {
     _checkForDetachedMount();
 
-    if (props.quickMount) {
+    if (props.quickMount!) {
       assert(props.onInitialize == null || ValidationUtil.warn(
           'props.onInitialize will not be called when props.quickMount is true.',
           this
@@ -228,41 +228,41 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
 
       if (props.onInitialize != null) {
         var event = ResizeSensorEvent(_lastWidth, _lastHeight, 0, 0);
-        props.onInitialize(event);
+        props.onInitialize!(event);
       }
     }
   }
 
   @override
   render() {
-    var expandSensor = (Dom.div()
+    ReactElement? expandSensor = (Dom.div()
       ..className = 'resize-sensor-expand'
       ..onScroll = _handleSensorScroll
-      ..style = props.shrink ? shrinkBaseStyle : baseStyle
+      ..style = props.shrink! ? shrinkBaseStyle : baseStyle
       ..ref = (ref) { _expandSensorRef = ref as Element; }
     )(
       (Dom.div()..style = expandSensorChildStyle)()
     );
 
-    var collapseSensor = (Dom.div()
+    ReactElement? collapseSensor = (Dom.div()
       ..className = 'resize-sensor-collapse'
       ..onScroll = _handleSensorScroll
-      ..style = props.shrink ? shrinkBaseStyle : baseStyle
+      ..style = props.shrink! ? shrinkBaseStyle : baseStyle
       ..ref = (ref) { _collapseSensorRef = ref as Element; }
     )(
       (Dom.div()..style = collapseSensorChildStyle)()
     );
 
-    var resizeSensor = (Dom.div()
+    ReactElement? resizeSensor = (Dom.div()
       ..className = 'resize-sensor'
-      ..style = props.shrink ? shrinkBaseStyle : baseStyle
+      ..style = props.shrink! ? shrinkBaseStyle : baseStyle
       ..key = 'resizeSensor'
     )(expandSensor, collapseSensor);
 
     Map<String, dynamic> wrapperStyles;
-    if (props.isFlexChild) {
+    if (props.isFlexChild!) {
       wrapperStyles = wrapperStylesFlexChild;
-    } else if (props.isFlexContainer) {
+    } else if (props.isFlexContainer!) {
       wrapperStyles = wrapperStylesFlexContainer;
     } else {
       wrapperStyles = defaultWrapperStyles;
@@ -289,7 +289,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
       return;
     }
 
-    var sensor = findDomNode(this);
+    var sensor = findDomNode(this)!;
 
     var newWidth = sensor.offsetWidth;
     var newHeight = sensor.offsetHeight;
@@ -297,7 +297,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
     if (newWidth != _lastWidth || newHeight != _lastHeight) {
       if (props.onResize != null) {
         var event = ResizeSensorEvent(newWidth, newHeight, _lastWidth, _lastHeight);
-        props.onResize(event);
+        props.onResize!(event);
       }
 
       _reset();
@@ -312,7 +312,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
   /// > Related: [forceResetDetachedSensor]
   void _reset({bool updateLastDimensions = true}) {
     if (updateLastDimensions) {
-      var sensor = findDomNode(this);
+      var sensor = findDomNode(this)!;
       _lastWidth = sensor.offsetWidth;
       _lastHeight = sensor.offsetHeight;
     }
@@ -329,7 +329,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
       ..scrollTop = maxSensorSize;
 
     if (props.onDidReset != null) {
-      props.onDidReset();
+      props.onDidReset!();
     }
   }
 
@@ -353,7 +353,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
   ///
   /// > __See: [ResizeSensorPropsMixin.onDetachedMountCheck] for more information.__
   bool _isAttachedToDocument() {
-    Node current = findDomNode(this);
+    Node? current = findDomNode(this);
     while (current != null) {
       if (current == document.body) return true;
       current = current.parentNode;
@@ -378,7 +378,7 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
         '''
     )));
 
-    props.onDetachedMountCheck(wasMountedDetachedFromDom);
+    props.onDetachedMountCheck!(wasMountedDetachedFromDom);
   }
 
   /// The number of future scroll events to ignore.

@@ -42,7 +42,7 @@ class AnnotationErrorDefaultPropsProps
 }
 
 _$$AnnotationErrorDefaultPropsProps _$AnnotationErrorDefaultProps(
-        [Map backingProps]) =>
+        [Map? backingProps]) =>
     _$$AnnotationErrorDefaultPropsProps(backingProps);
 
 // Concrete props implementation.
@@ -54,7 +54,7 @@ class _$$AnnotationErrorDefaultPropsProps
     implements AnnotationErrorDefaultPropsProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$AnnotationErrorDefaultPropsProps(Map backingMap) : this._props = {} {
+  _$$AnnotationErrorDefaultPropsProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -132,7 +132,7 @@ class AnnotationErrorProps extends _$AnnotationErrorProps
   static const PropsMeta meta = _$metaForAnnotationErrorProps;
 }
 
-_$$AnnotationErrorProps _$AnnotationError([Map backingProps]) =>
+_$$AnnotationErrorProps _$AnnotationError([Map? backingProps]) =>
     _$$AnnotationErrorProps(backingProps);
 
 // Concrete props implementation.
@@ -143,7 +143,7 @@ class _$$AnnotationErrorProps extends _$AnnotationErrorProps
     implements AnnotationErrorProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$AnnotationErrorProps(Map backingMap) : this._props = {} {
+  _$$AnnotationErrorProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -220,7 +220,7 @@ class AnnotationErrorStatefulProps extends _$AnnotationErrorStatefulProps
   static const PropsMeta meta = _$metaForAnnotationErrorStatefulProps;
 }
 
-_$$AnnotationErrorStatefulProps _$AnnotationErrorStateful([Map backingProps]) =>
+_$$AnnotationErrorStatefulProps _$AnnotationErrorStateful([Map? backingProps]) =>
     _$$AnnotationErrorStatefulProps(backingProps);
 
 // Concrete props implementation.
@@ -231,7 +231,7 @@ class _$$AnnotationErrorStatefulProps extends _$AnnotationErrorStatefulProps
     implements AnnotationErrorStatefulProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$AnnotationErrorStatefulProps(Map backingMap) : this._props = {} {
+  _$$AnnotationErrorStatefulProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -359,7 +359,7 @@ class AnnotationErrorStatefulDefaultPropsProps
 }
 
 _$$AnnotationErrorStatefulDefaultPropsProps
-    _$AnnotationErrorStatefulDefaultProps([Map backingProps]) =>
+    _$AnnotationErrorStatefulDefaultProps([Map? backingProps]) =>
         _$$AnnotationErrorStatefulDefaultPropsProps(backingProps);
 
 // Concrete props implementation.
@@ -371,7 +371,7 @@ class _$$AnnotationErrorStatefulDefaultPropsProps
     implements AnnotationErrorStatefulDefaultPropsProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$AnnotationErrorStatefulDefaultPropsProps(Map backingMap)
+  _$$AnnotationErrorStatefulDefaultPropsProps(Map? backingMap)
       : this._props = {} {
     this._props = backingMap ?? {};
   }

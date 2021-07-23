@@ -17,7 +17,7 @@ import 'package:over_react/over_react.dart';
 
 import '../../demo_components.dart';
 
-ReactElement listGroupBasicDemo() =>
+ReactElement? listGroupBasicDemo() =>
   ListGroup()(
     ListGroupItem()('Dapibus ac facilisis in'),
     ListGroupItem()('Cras sit amet nibh libero'),

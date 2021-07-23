@@ -16,17 +16,17 @@ part of prop_tyepdef_test_fixtures;
 
 @AbstractProps()
 abstract class _$TestAbstractCustomRendererComponentProps extends UiProps {
-  CustomRenderFunction customRenderer;
+  CustomRenderFunction? customRenderer;
   CustomRenderFunction<TestAbstractCustomRendererComponentProps,
                        TestAbstractCustomRendererComponentState,
-                       TestAbstractCustomRendererComponentComponent> parameterizedCustomRenderer;
+                       TestAbstractCustomRendererComponentComponent>? parameterizedCustomRenderer;
 
-  String somePropKey;
+  String? somePropKey;
 }
 
 @AbstractState()
 abstract class _$TestAbstractCustomRendererComponentState extends UiState {
-  String someStateKey;
+  String? someStateKey;
 }
 
 @AbstractComponent2()

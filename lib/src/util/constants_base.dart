@@ -41,7 +41,7 @@ abstract class DebugFriendlyConstant {
 /// that contains a CSS class name value.
 abstract class ClassNameConstant extends DebugFriendlyConstant {
   /// The CSS class name value associated with this constant.
-  final String className;
+  final String? className;
 
   const ClassNameConstant(String name, this.className) : super(name);
 

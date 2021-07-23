@@ -13,23 +13,23 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
 
   static const PropsMeta meta = _$metaForReactPropsMixin;
   @override
-  String get key => props['key'] as String;
+  String? get key => props['key'] as String?;
   @override
-  set key(Object value) =>
+  set key(Object? value) =>
       props['key'] = value == null ? null : value.toString();
 
   /// The children that were passed in to this component when it was built.
   ///
   /// <!-- Generated from [_$ReactPropsMixin.children] -->
   @override
-  List get children =>
-      (props[_$key__children___$ReactPropsMixin] ?? null) as List;
+  List? get children =>
+      (props[_$key__children___$ReactPropsMixin] ?? null) as List?;
 
   /// The children that were passed in to this component when it was built.
   ///
   /// <!-- Generated from [_$ReactPropsMixin.children] -->
   @override
-  set children(List value) => props[_$key__children___$ReactPropsMixin] = value;
+  set children(List? value) => props[_$key__children___$ReactPropsMixin] = value;
 
   /// Either a String used to retrieve the element at a later time via [react.Component.ref],
   /// or a Function that gets called with the element when it is mounted.
@@ -79,488 +79,488 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.cols] -->
   @override
-  int get cols => (props[_$key__cols___$DomPropsMixin] ?? null) as int;
+  int? get cols => (props[_$key__cols___$DomPropsMixin] ?? null) as int?;
 
   /// <!-- Generated from [_$DomPropsMixin.cols] -->
   @override
-  set cols(int value) => props[_$key__cols___$DomPropsMixin] = value;
+  set cols(int? value) => props[_$key__cols___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.minLength] -->
   @override
-  int get minLength =>
-      (props[_$key__minLength___$DomPropsMixin] ?? null) as int;
+  int? get minLength =>
+      (props[_$key__minLength___$DomPropsMixin] ?? null) as int?;
 
   /// <!-- Generated from [_$DomPropsMixin.minLength] -->
   @override
-  set minLength(int value) => props[_$key__minLength___$DomPropsMixin] = value;
+  set minLength(int? value) => props[_$key__minLength___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.rows] -->
   @override
-  int get rows => (props[_$key__rows___$DomPropsMixin] ?? null) as int;
+  int? get rows => (props[_$key__rows___$DomPropsMixin] ?? null) as int?;
 
   /// <!-- Generated from [_$DomPropsMixin.rows] -->
   @override
-  set rows(int value) => props[_$key__rows___$DomPropsMixin] = value;
+  set rows(int? value) => props[_$key__rows___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.size] -->
   @override
-  int get size => (props[_$key__size___$DomPropsMixin] ?? null) as int;
+  int? get size => (props[_$key__size___$DomPropsMixin] ?? null) as int?;
 
   /// <!-- Generated from [_$DomPropsMixin.size] -->
   @override
-  set size(int value) => props[_$key__size___$DomPropsMixin] = value;
+  set size(int? value) => props[_$key__size___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.span] -->
   @override
-  int get span => (props[_$key__span___$DomPropsMixin] ?? null) as int;
+  int? get span => (props[_$key__span___$DomPropsMixin] ?? null) as int?;
 
   /// <!-- Generated from [_$DomPropsMixin.span] -->
   @override
-  set span(int value) => props[_$key__span___$DomPropsMixin] = value;
+  set span(int? value) => props[_$key__span___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.start] -->
   @override
-  int get start => (props[_$key__start___$DomPropsMixin] ?? null) as int;
+  int? get start => (props[_$key__start___$DomPropsMixin] ?? null) as int?;
 
   /// <!-- Generated from [_$DomPropsMixin.start] -->
   @override
-  set start(int value) => props[_$key__start___$DomPropsMixin] = value;
+  set start(int? value) => props[_$key__start___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.high] -->
   @override
-  num get high => (props[_$key__high___$DomPropsMixin] ?? null) as num;
+  num? get high => (props[_$key__high___$DomPropsMixin] ?? null) as num?;
 
   /// <!-- Generated from [_$DomPropsMixin.high] -->
   @override
-  set high(num value) => props[_$key__high___$DomPropsMixin] = value;
+  set high(num? value) => props[_$key__high___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.low] -->
   @override
-  num get low => (props[_$key__low___$DomPropsMixin] ?? null) as num;
+  num? get low => (props[_$key__low___$DomPropsMixin] ?? null) as num?;
 
   /// <!-- Generated from [_$DomPropsMixin.low] -->
   @override
-  set low(num value) => props[_$key__low___$DomPropsMixin] = value;
+  set low(num? value) => props[_$key__low___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.marginHeight] -->
   @override
-  num get marginHeight =>
-      (props[_$key__marginHeight___$DomPropsMixin] ?? null) as num;
+  num? get marginHeight =>
+      (props[_$key__marginHeight___$DomPropsMixin] ?? null) as num?;
 
   /// <!-- Generated from [_$DomPropsMixin.marginHeight] -->
   @override
-  set marginHeight(num value) =>
+  set marginHeight(num? value) =>
       props[_$key__marginHeight___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.marginWidth] -->
   @override
-  num get marginWidth =>
-      (props[_$key__marginWidth___$DomPropsMixin] ?? null) as num;
+  num? get marginWidth =>
+      (props[_$key__marginWidth___$DomPropsMixin] ?? null) as num?;
 
   /// <!-- Generated from [_$DomPropsMixin.marginWidth] -->
   @override
-  set marginWidth(num value) =>
+  set marginWidth(num? value) =>
       props[_$key__marginWidth___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.optimum] -->
   @override
-  num get optimum => (props[_$key__optimum___$DomPropsMixin] ?? null) as num;
+  num? get optimum => (props[_$key__optimum___$DomPropsMixin] ?? null) as num?;
 
   /// <!-- Generated from [_$DomPropsMixin.optimum] -->
   @override
-  set optimum(num value) => props[_$key__optimum___$DomPropsMixin] = value;
+  set optimum(num? value) => props[_$key__optimum___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.htmlDefault] -->
   @override
   @Accessor(key: 'default')
-  bool get htmlDefault =>
-      (props[_$key__htmlDefault___$DomPropsMixin] ?? null) as bool;
+  bool? get htmlDefault =>
+      (props[_$key__htmlDefault___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.htmlDefault] -->
   @override
   @Accessor(key: 'default')
-  set htmlDefault(bool value) =>
+  set htmlDefault(bool? value) =>
       props[_$key__htmlDefault___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.htmlIs] -->
   @override
   @Accessor(key: 'is')
-  String get htmlIs =>
-      (props[_$key__htmlIs___$DomPropsMixin] ?? null) as String;
+  String? get htmlIs =>
+      (props[_$key__htmlIs___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.htmlIs] -->
   @override
   @Accessor(key: 'is')
-  set htmlIs(String value) => props[_$key__htmlIs___$DomPropsMixin] = value;
+  set htmlIs(String? value) => props[_$key__htmlIs___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.allowFullScreen] -->
   @override
-  bool get allowFullScreen =>
-      (props[_$key__allowFullScreen___$DomPropsMixin] ?? null) as bool;
+  bool? get allowFullScreen =>
+      (props[_$key__allowFullScreen___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.allowFullScreen] -->
   @override
-  set allowFullScreen(bool value) =>
+  set allowFullScreen(bool? value) =>
       props[_$key__allowFullScreen___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.async] -->
   @override
-  bool get async => (props[_$key__async___$DomPropsMixin] ?? null) as bool;
+  bool? get async => (props[_$key__async___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.async] -->
   @override
-  set async(bool value) => props[_$key__async___$DomPropsMixin] = value;
+  set async(bool? value) => props[_$key__async___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.autoPlay] -->
   @override
-  bool get autoPlay =>
-      (props[_$key__autoPlay___$DomPropsMixin] ?? null) as bool;
+  bool? get autoPlay =>
+      (props[_$key__autoPlay___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.autoPlay] -->
   @override
-  set autoPlay(bool value) => props[_$key__autoPlay___$DomPropsMixin] = value;
+  set autoPlay(bool? value) => props[_$key__autoPlay___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.checked] -->
   @override
-  bool get checked => (props[_$key__checked___$DomPropsMixin] ?? null) as bool;
+  bool? get checked => (props[_$key__checked___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.checked] -->
   @override
-  set checked(bool value) => props[_$key__checked___$DomPropsMixin] = value;
+  set checked(bool? value) => props[_$key__checked___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.controls] -->
   @override
-  bool get controls =>
-      (props[_$key__controls___$DomPropsMixin] ?? null) as bool;
+  bool? get controls =>
+      (props[_$key__controls___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.controls] -->
   @override
-  set controls(bool value) => props[_$key__controls___$DomPropsMixin] = value;
+  set controls(bool? value) => props[_$key__controls___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.defer] -->
   @override
-  bool get defer => (props[_$key__defer___$DomPropsMixin] ?? null) as bool;
+  bool? get defer => (props[_$key__defer___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.defer] -->
   @override
-  set defer(bool value) => props[_$key__defer___$DomPropsMixin] = value;
+  set defer(bool? value) => props[_$key__defer___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.disabled] -->
   @override
-  bool get disabled =>
-      (props[_$key__disabled___$DomPropsMixin] ?? null) as bool;
+  bool? get disabled =>
+      (props[_$key__disabled___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.disabled] -->
   @override
-  set disabled(bool value) => props[_$key__disabled___$DomPropsMixin] = value;
+  set disabled(bool? value) => props[_$key__disabled___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.formNoValidate] -->
   @override
-  bool get formNoValidate =>
-      (props[_$key__formNoValidate___$DomPropsMixin] ?? null) as bool;
+  bool? get formNoValidate =>
+      (props[_$key__formNoValidate___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.formNoValidate] -->
   @override
-  set formNoValidate(bool value) =>
+  set formNoValidate(bool? value) =>
       props[_$key__formNoValidate___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.hidden] -->
   @override
-  bool get hidden => (props[_$key__hidden___$DomPropsMixin] ?? null) as bool;
+  bool? get hidden => (props[_$key__hidden___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.hidden] -->
   @override
-  set hidden(bool value) => props[_$key__hidden___$DomPropsMixin] = value;
+  set hidden(bool? value) => props[_$key__hidden___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.loop] -->
   @override
-  bool get loop => (props[_$key__loop___$DomPropsMixin] ?? null) as bool;
+  bool? get loop => (props[_$key__loop___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.loop] -->
   @override
-  set loop(bool value) => props[_$key__loop___$DomPropsMixin] = value;
+  set loop(bool? value) => props[_$key__loop___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.multiple] -->
   @override
-  bool get multiple =>
-      (props[_$key__multiple___$DomPropsMixin] ?? null) as bool;
+  bool? get multiple =>
+      (props[_$key__multiple___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.multiple] -->
   @override
-  set multiple(bool value) => props[_$key__multiple___$DomPropsMixin] = value;
+  set multiple(bool? value) => props[_$key__multiple___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.muted] -->
   @override
-  bool get muted => (props[_$key__muted___$DomPropsMixin] ?? null) as bool;
+  bool? get muted => (props[_$key__muted___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.muted] -->
   @override
-  set muted(bool value) => props[_$key__muted___$DomPropsMixin] = value;
+  set muted(bool? value) => props[_$key__muted___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.noValidate] -->
   @override
-  bool get noValidate =>
-      (props[_$key__noValidate___$DomPropsMixin] ?? null) as bool;
+  bool? get noValidate =>
+      (props[_$key__noValidate___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.noValidate] -->
   @override
-  set noValidate(bool value) =>
+  set noValidate(bool? value) =>
       props[_$key__noValidate___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.open] -->
   @override
-  bool get open => (props[_$key__open___$DomPropsMixin] ?? null) as bool;
+  bool? get open => (props[_$key__open___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.open] -->
   @override
-  set open(bool value) => props[_$key__open___$DomPropsMixin] = value;
+  set open(bool? value) => props[_$key__open___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.readOnly] -->
   @override
-  bool get readOnly =>
-      (props[_$key__readOnly___$DomPropsMixin] ?? null) as bool;
+  bool? get readOnly =>
+      (props[_$key__readOnly___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.readOnly] -->
   @override
-  set readOnly(bool value) => props[_$key__readOnly___$DomPropsMixin] = value;
+  set readOnly(bool? value) => props[_$key__readOnly___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.required] -->
   @override
-  bool get required =>
-      (props[_$key__required___$DomPropsMixin] ?? null) as bool;
+  bool? get required =>
+      (props[_$key__required___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.required] -->
   @override
-  set required(bool value) => props[_$key__required___$DomPropsMixin] = value;
+  set required(bool? value) => props[_$key__required___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.reversed] -->
   @override
-  bool get reversed =>
-      (props[_$key__reversed___$DomPropsMixin] ?? null) as bool;
+  bool? get reversed =>
+      (props[_$key__reversed___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.reversed] -->
   @override
-  set reversed(bool value) => props[_$key__reversed___$DomPropsMixin] = value;
+  set reversed(bool? value) => props[_$key__reversed___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.scoped] -->
   @override
-  bool get scoped => (props[_$key__scoped___$DomPropsMixin] ?? null) as bool;
+  bool? get scoped => (props[_$key__scoped___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.scoped] -->
   @override
-  set scoped(bool value) => props[_$key__scoped___$DomPropsMixin] = value;
+  set scoped(bool? value) => props[_$key__scoped___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.seamless] -->
   @override
-  bool get seamless =>
-      (props[_$key__seamless___$DomPropsMixin] ?? null) as bool;
+  bool? get seamless =>
+      (props[_$key__seamless___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.seamless] -->
   @override
-  set seamless(bool value) => props[_$key__seamless___$DomPropsMixin] = value;
+  set seamless(bool? value) => props[_$key__seamless___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.selected] -->
   @override
-  bool get selected =>
-      (props[_$key__selected___$DomPropsMixin] ?? null) as bool;
+  bool? get selected =>
+      (props[_$key__selected___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.selected] -->
   @override
-  set selected(bool value) => props[_$key__selected___$DomPropsMixin] = value;
+  set selected(bool? value) => props[_$key__selected___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.style] -->
   @override
-  Map<String, dynamic> get style =>
-      (props[_$key__style___$DomPropsMixin] ?? null) as Map<String, dynamic>;
+  Map<String, dynamic>? get style =>
+      (props[_$key__style___$DomPropsMixin] ?? null) as Map<String, dynamic>?;
 
   /// <!-- Generated from [_$DomPropsMixin.style] -->
   @override
-  set style(Map<String, dynamic> value) =>
+  set style(Map<String, dynamic>? value) =>
       props[_$key__style___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.challenge] -->
   @override
-  String get challenge =>
-      (props[_$key__challenge___$DomPropsMixin] ?? null) as String;
+  String? get challenge =>
+      (props[_$key__challenge___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.challenge] -->
   @override
-  set challenge(String value) =>
+  set challenge(String? value) =>
       props[_$key__challenge___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.cite] -->
   @override
-  String get cite => (props[_$key__cite___$DomPropsMixin] ?? null) as String;
+  String? get cite => (props[_$key__cite___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.cite] -->
   @override
-  set cite(String value) => props[_$key__cite___$DomPropsMixin] = value;
+  set cite(String? value) => props[_$key__cite___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.className] -->
   @override
-  String get className =>
-      (props[_$key__className___$DomPropsMixin] ?? null) as String;
+  String? get className =>
+      (props[_$key__className___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.className] -->
   @override
-  set className(String value) =>
+  set className(String? value) =>
       props[_$key__className___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.controlsList] -->
   @override
-  String get controlsList =>
-      (props[_$key__controlsList___$DomPropsMixin] ?? null) as String;
+  String? get controlsList =>
+      (props[_$key__controlsList___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.controlsList] -->
   @override
-  set controlsList(String value) =>
+  set controlsList(String? value) =>
       props[_$key__controlsList___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.formAction] -->
   @override
-  String get formAction =>
-      (props[_$key__formAction___$DomPropsMixin] ?? null) as String;
+  String? get formAction =>
+      (props[_$key__formAction___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.formAction] -->
   @override
-  set formAction(String value) =>
+  set formAction(String? value) =>
       props[_$key__formAction___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.formEncType] -->
   @override
-  String get formEncType =>
-      (props[_$key__formEncType___$DomPropsMixin] ?? null) as String;
+  String? get formEncType =>
+      (props[_$key__formEncType___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.formEncType] -->
   @override
-  set formEncType(String value) =>
+  set formEncType(String? value) =>
       props[_$key__formEncType___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.formMethod] -->
   @override
-  String get formMethod =>
-      (props[_$key__formMethod___$DomPropsMixin] ?? null) as String;
+  String? get formMethod =>
+      (props[_$key__formMethod___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.formMethod] -->
   @override
-  set formMethod(String value) =>
+  set formMethod(String? value) =>
       props[_$key__formMethod___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.formTarget] -->
   @override
-  String get formTarget =>
-      (props[_$key__formTarget___$DomPropsMixin] ?? null) as String;
+  String? get formTarget =>
+      (props[_$key__formTarget___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.formTarget] -->
   @override
-  set formTarget(String value) =>
+  set formTarget(String? value) =>
       props[_$key__formTarget___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.headers] -->
   @override
-  String get headers =>
-      (props[_$key__headers___$DomPropsMixin] ?? null) as String;
+  String? get headers =>
+      (props[_$key__headers___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.headers] -->
   @override
-  set headers(String value) => props[_$key__headers___$DomPropsMixin] = value;
+  set headers(String? value) => props[_$key__headers___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.id] -->
   @override
-  String get id => (props[_$key__id___$DomPropsMixin] ?? null) as String;
+  String? get id => (props[_$key__id___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.id] -->
   @override
-  set id(String value) => props[_$key__id___$DomPropsMixin] = value;
+  set id(String? value) => props[_$key__id___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.inputMode] -->
   @override
-  String get inputMode =>
-      (props[_$key__inputMode___$DomPropsMixin] ?? null) as String;
+  String? get inputMode =>
+      (props[_$key__inputMode___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.inputMode] -->
   @override
-  set inputMode(String value) =>
+  set inputMode(String? value) =>
       props[_$key__inputMode___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.integrity] -->
   @override
-  String get integrity =>
-      (props[_$key__integrity___$DomPropsMixin] ?? null) as String;
+  String? get integrity =>
+      (props[_$key__integrity___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.integrity] -->
   @override
-  set integrity(String value) =>
+  set integrity(String? value) =>
       props[_$key__integrity___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.keyParams] -->
   @override
-  String get keyParams =>
-      (props[_$key__keyParams___$DomPropsMixin] ?? null) as String;
+  String? get keyParams =>
+      (props[_$key__keyParams___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.keyParams] -->
   @override
-  set keyParams(String value) =>
+  set keyParams(String? value) =>
       props[_$key__keyParams___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.keyType] -->
   @override
-  String get keyType =>
-      (props[_$key__keyType___$DomPropsMixin] ?? null) as String;
+  String? get keyType =>
+      (props[_$key__keyType___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.keyType] -->
   @override
-  set keyType(String value) => props[_$key__keyType___$DomPropsMixin] = value;
+  set keyType(String? value) => props[_$key__keyType___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.kind] -->
   @override
-  String get kind => (props[_$key__kind___$DomPropsMixin] ?? null) as String;
+  String? get kind => (props[_$key__kind___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.kind] -->
   @override
-  set kind(String value) => props[_$key__kind___$DomPropsMixin] = value;
+  set kind(String? value) => props[_$key__kind___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.nonce] -->
   @override
-  String get nonce => (props[_$key__nonce___$DomPropsMixin] ?? null) as String;
+  String? get nonce => (props[_$key__nonce___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.nonce] -->
   @override
-  set nonce(String value) => props[_$key__nonce___$DomPropsMixin] = value;
+  set nonce(String? value) => props[_$key__nonce___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.srcLang] -->
   @override
-  String get srcLang =>
-      (props[_$key__srcLang___$DomPropsMixin] ?? null) as String;
+  String? get srcLang =>
+      (props[_$key__srcLang___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.srcLang] -->
   @override
-  set srcLang(String value) => props[_$key__srcLang___$DomPropsMixin] = value;
+  set srcLang(String? value) => props[_$key__srcLang___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.summary] -->
   @override
-  String get summary =>
-      (props[_$key__summary___$DomPropsMixin] ?? null) as String;
+  String? get summary =>
+      (props[_$key__summary___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.summary] -->
   @override
-  set summary(String value) => props[_$key__summary___$DomPropsMixin] = value;
+  set summary(String? value) => props[_$key__summary___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.title] -->
   @override
-  String get title => (props[_$key__title___$DomPropsMixin] ?? null) as String;
+  String? get title => (props[_$key__title___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.title] -->
   @override
-  set title(String value) => props[_$key__title___$DomPropsMixin] = value;
+  set title(String? value) => props[_$key__title___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.wrap] -->
   @override
-  String get wrap => (props[_$key__wrap___$DomPropsMixin] ?? null) as String;
+  String? get wrap => (props[_$key__wrap___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.wrap] -->
   @override
-  set wrap(String value) => props[_$key__wrap___$DomPropsMixin] = value;
+  set wrap(String? value) => props[_$key__wrap___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.accept] -->
   @override
@@ -1183,938 +1183,938 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.onAnimationEnd] -->
   @override
-  AnimationEventCallback get onAnimationEnd =>
+  AnimationEventCallback? get onAnimationEnd =>
       (props[_$key__onAnimationEnd___$DomPropsMixin] ?? null)
-          as AnimationEventCallback;
+          as AnimationEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onAnimationEnd] -->
   @override
-  set onAnimationEnd(AnimationEventCallback value) =>
+  set onAnimationEnd(AnimationEventCallback? value) =>
       props[_$key__onAnimationEnd___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onAnimationIteration] -->
   @override
-  AnimationEventCallback get onAnimationIteration =>
+  AnimationEventCallback? get onAnimationIteration =>
       (props[_$key__onAnimationIteration___$DomPropsMixin] ?? null)
-          as AnimationEventCallback;
+          as AnimationEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onAnimationIteration] -->
   @override
-  set onAnimationIteration(AnimationEventCallback value) =>
+  set onAnimationIteration(AnimationEventCallback? value) =>
       props[_$key__onAnimationIteration___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onAnimationStart] -->
   @override
-  AnimationEventCallback get onAnimationStart =>
+  AnimationEventCallback? get onAnimationStart =>
       (props[_$key__onAnimationStart___$DomPropsMixin] ?? null)
-          as AnimationEventCallback;
+          as AnimationEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onAnimationStart] -->
   @override
-  set onAnimationStart(AnimationEventCallback value) =>
+  set onAnimationStart(AnimationEventCallback? value) =>
       props[_$key__onAnimationStart___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onCopy] -->
   @override
-  ClipboardEventCallback get onCopy =>
-      (props[_$key__onCopy___$DomPropsMixin] ?? null) as ClipboardEventCallback;
+  ClipboardEventCallback? get onCopy =>
+      (props[_$key__onCopy___$DomPropsMixin] ?? null) as ClipboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onCopy] -->
   @override
-  set onCopy(ClipboardEventCallback value) =>
+  set onCopy(ClipboardEventCallback? value) =>
       props[_$key__onCopy___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onCut] -->
   @override
-  ClipboardEventCallback get onCut =>
-      (props[_$key__onCut___$DomPropsMixin] ?? null) as ClipboardEventCallback;
+  ClipboardEventCallback? get onCut =>
+      (props[_$key__onCut___$DomPropsMixin] ?? null) as ClipboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onCut] -->
   @override
-  set onCut(ClipboardEventCallback value) =>
+  set onCut(ClipboardEventCallback? value) =>
       props[_$key__onCut___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPaste] -->
   @override
-  ClipboardEventCallback get onPaste =>
+  ClipboardEventCallback? get onPaste =>
       (props[_$key__onPaste___$DomPropsMixin] ?? null)
-          as ClipboardEventCallback;
+          as ClipboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPaste] -->
   @override
-  set onPaste(ClipboardEventCallback value) =>
+  set onPaste(ClipboardEventCallback? value) =>
       props[_$key__onPaste___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyDown] -->
   @override
-  KeyboardEventCallback get onKeyDown =>
+  KeyboardEventCallback? get onKeyDown =>
       (props[_$key__onKeyDown___$DomPropsMixin] ?? null)
-          as KeyboardEventCallback;
+          as KeyboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyDown] -->
   @override
-  set onKeyDown(KeyboardEventCallback value) =>
+  set onKeyDown(KeyboardEventCallback? value) =>
       props[_$key__onKeyDown___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyPress] -->
   @override
-  KeyboardEventCallback get onKeyPress =>
+  KeyboardEventCallback? get onKeyPress =>
       (props[_$key__onKeyPress___$DomPropsMixin] ?? null)
-          as KeyboardEventCallback;
+          as KeyboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyPress] -->
   @override
-  set onKeyPress(KeyboardEventCallback value) =>
+  set onKeyPress(KeyboardEventCallback? value) =>
       props[_$key__onKeyPress___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyUp] -->
   @override
-  KeyboardEventCallback get onKeyUp =>
-      (props[_$key__onKeyUp___$DomPropsMixin] ?? null) as KeyboardEventCallback;
+  KeyboardEventCallback? get onKeyUp =>
+      (props[_$key__onKeyUp___$DomPropsMixin] ?? null) as KeyboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyUp] -->
   @override
-  set onKeyUp(KeyboardEventCallback value) =>
+  set onKeyUp(KeyboardEventCallback? value) =>
       props[_$key__onKeyUp___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onFocus] -->
   @override
-  FocusEventCallback get onFocus =>
-      (props[_$key__onFocus___$DomPropsMixin] ?? null) as FocusEventCallback;
+  FocusEventCallback? get onFocus =>
+      (props[_$key__onFocus___$DomPropsMixin] ?? null) as FocusEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onFocus] -->
   @override
-  set onFocus(FocusEventCallback value) =>
+  set onFocus(FocusEventCallback? value) =>
       props[_$key__onFocus___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onBlur] -->
   @override
-  FocusEventCallback get onBlur =>
-      (props[_$key__onBlur___$DomPropsMixin] ?? null) as FocusEventCallback;
+  FocusEventCallback? get onBlur =>
+      (props[_$key__onBlur___$DomPropsMixin] ?? null) as FocusEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onBlur] -->
   @override
-  set onBlur(FocusEventCallback value) =>
+  set onBlur(FocusEventCallback? value) =>
       props[_$key__onBlur___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onChange] -->
   @override
-  FormEventCallback get onChange =>
-      (props[_$key__onChange___$DomPropsMixin] ?? null) as FormEventCallback;
+  FormEventCallback? get onChange =>
+      (props[_$key__onChange___$DomPropsMixin] ?? null) as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onChange] -->
   @override
-  set onChange(FormEventCallback value) =>
+  set onChange(FormEventCallback? value) =>
       props[_$key__onChange___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onInput] -->
   @override
-  FormEventCallback get onInput =>
-      (props[_$key__onInput___$DomPropsMixin] ?? null) as FormEventCallback;
+  FormEventCallback? get onInput =>
+      (props[_$key__onInput___$DomPropsMixin] ?? null) as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onInput] -->
   @override
-  set onInput(FormEventCallback value) =>
+  set onInput(FormEventCallback? value) =>
       props[_$key__onInput___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onSubmit] -->
   @override
-  FormEventCallback get onSubmit =>
-      (props[_$key__onSubmit___$DomPropsMixin] ?? null) as FormEventCallback;
+  FormEventCallback? get onSubmit =>
+      (props[_$key__onSubmit___$DomPropsMixin] ?? null) as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onSubmit] -->
   @override
-  set onSubmit(FormEventCallback value) =>
+  set onSubmit(FormEventCallback? value) =>
       props[_$key__onSubmit___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onReset] -->
   @override
-  FormEventCallback get onReset =>
-      (props[_$key__onReset___$DomPropsMixin] ?? null) as FormEventCallback;
+  FormEventCallback? get onReset =>
+      (props[_$key__onReset___$DomPropsMixin] ?? null) as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onReset] -->
   @override
-  set onReset(FormEventCallback value) =>
+  set onReset(FormEventCallback? value) =>
       props[_$key__onReset___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onClick] -->
   @override
-  MouseEventCallback get onClick =>
-      (props[_$key__onClick___$DomPropsMixin] ?? null) as MouseEventCallback;
+  MouseEventCallback? get onClick =>
+      (props[_$key__onClick___$DomPropsMixin] ?? null) as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onClick] -->
   @override
-  set onClick(MouseEventCallback value) =>
+  set onClick(MouseEventCallback? value) =>
       props[_$key__onClick___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onContextMenu] -->
   @override
-  MouseEventCallback get onContextMenu =>
+  MouseEventCallback? get onContextMenu =>
       (props[_$key__onContextMenu___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onContextMenu] -->
   @override
-  set onContextMenu(MouseEventCallback value) =>
+  set onContextMenu(MouseEventCallback? value) =>
       props[_$key__onContextMenu___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDoubleClick] -->
   @override
-  MouseEventCallback get onDoubleClick =>
+  MouseEventCallback? get onDoubleClick =>
       (props[_$key__onDoubleClick___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDoubleClick] -->
   @override
-  set onDoubleClick(MouseEventCallback value) =>
+  set onDoubleClick(MouseEventCallback? value) =>
       props[_$key__onDoubleClick___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDrag] -->
   @override
-  MouseEventCallback get onDrag =>
-      (props[_$key__onDrag___$DomPropsMixin] ?? null) as MouseEventCallback;
+  MouseEventCallback? get onDrag =>
+      (props[_$key__onDrag___$DomPropsMixin] ?? null) as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDrag] -->
   @override
-  set onDrag(MouseEventCallback value) =>
+  set onDrag(MouseEventCallback? value) =>
       props[_$key__onDrag___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEnd] -->
   @override
-  MouseEventCallback get onDragEnd =>
-      (props[_$key__onDragEnd___$DomPropsMixin] ?? null) as MouseEventCallback;
+  MouseEventCallback? get onDragEnd =>
+      (props[_$key__onDragEnd___$DomPropsMixin] ?? null) as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEnd] -->
   @override
-  set onDragEnd(MouseEventCallback value) =>
+  set onDragEnd(MouseEventCallback? value) =>
       props[_$key__onDragEnd___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEnter] -->
   @override
-  MouseEventCallback get onDragEnter =>
+  MouseEventCallback? get onDragEnter =>
       (props[_$key__onDragEnter___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEnter] -->
   @override
-  set onDragEnter(MouseEventCallback value) =>
+  set onDragEnter(MouseEventCallback? value) =>
       props[_$key__onDragEnter___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragExit] -->
   @override
-  MouseEventCallback get onDragExit =>
-      (props[_$key__onDragExit___$DomPropsMixin] ?? null) as MouseEventCallback;
+  MouseEventCallback? get onDragExit =>
+      (props[_$key__onDragExit___$DomPropsMixin] ?? null) as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragExit] -->
   @override
-  set onDragExit(MouseEventCallback value) =>
+  set onDragExit(MouseEventCallback? value) =>
       props[_$key__onDragExit___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragLeave] -->
   @override
-  MouseEventCallback get onDragLeave =>
+  MouseEventCallback? get onDragLeave =>
       (props[_$key__onDragLeave___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragLeave] -->
   @override
-  set onDragLeave(MouseEventCallback value) =>
+  set onDragLeave(MouseEventCallback? value) =>
       props[_$key__onDragLeave___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragOver] -->
   @override
-  MouseEventCallback get onDragOver =>
-      (props[_$key__onDragOver___$DomPropsMixin] ?? null) as MouseEventCallback;
+  MouseEventCallback? get onDragOver =>
+      (props[_$key__onDragOver___$DomPropsMixin] ?? null) as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragOver] -->
   @override
-  set onDragOver(MouseEventCallback value) =>
+  set onDragOver(MouseEventCallback? value) =>
       props[_$key__onDragOver___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragStart] -->
   @override
-  MouseEventCallback get onDragStart =>
+  MouseEventCallback? get onDragStart =>
       (props[_$key__onDragStart___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragStart] -->
   @override
-  set onDragStart(MouseEventCallback value) =>
+  set onDragStart(MouseEventCallback? value) =>
       props[_$key__onDragStart___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDrop] -->
   @override
-  MouseEventCallback get onDrop =>
-      (props[_$key__onDrop___$DomPropsMixin] ?? null) as MouseEventCallback;
+  MouseEventCallback? get onDrop =>
+      (props[_$key__onDrop___$DomPropsMixin] ?? null) as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDrop] -->
   @override
-  set onDrop(MouseEventCallback value) =>
+  set onDrop(MouseEventCallback? value) =>
       props[_$key__onDrop___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseDown] -->
   @override
-  MouseEventCallback get onMouseDown =>
+  MouseEventCallback? get onMouseDown =>
       (props[_$key__onMouseDown___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseDown] -->
   @override
-  set onMouseDown(MouseEventCallback value) =>
+  set onMouseDown(MouseEventCallback? value) =>
       props[_$key__onMouseDown___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseEnter] -->
   @override
-  MouseEventCallback get onMouseEnter =>
+  MouseEventCallback? get onMouseEnter =>
       (props[_$key__onMouseEnter___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseEnter] -->
   @override
-  set onMouseEnter(MouseEventCallback value) =>
+  set onMouseEnter(MouseEventCallback? value) =>
       props[_$key__onMouseEnter___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseLeave] -->
   @override
-  MouseEventCallback get onMouseLeave =>
+  MouseEventCallback? get onMouseLeave =>
       (props[_$key__onMouseLeave___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseLeave] -->
   @override
-  set onMouseLeave(MouseEventCallback value) =>
+  set onMouseLeave(MouseEventCallback? value) =>
       props[_$key__onMouseLeave___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseMove] -->
   @override
-  MouseEventCallback get onMouseMove =>
+  MouseEventCallback? get onMouseMove =>
       (props[_$key__onMouseMove___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseMove] -->
   @override
-  set onMouseMove(MouseEventCallback value) =>
+  set onMouseMove(MouseEventCallback? value) =>
       props[_$key__onMouseMove___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOut] -->
   @override
-  MouseEventCallback get onMouseOut =>
-      (props[_$key__onMouseOut___$DomPropsMixin] ?? null) as MouseEventCallback;
+  MouseEventCallback? get onMouseOut =>
+      (props[_$key__onMouseOut___$DomPropsMixin] ?? null) as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOut] -->
   @override
-  set onMouseOut(MouseEventCallback value) =>
+  set onMouseOut(MouseEventCallback? value) =>
       props[_$key__onMouseOut___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOver] -->
   @override
-  MouseEventCallback get onMouseOver =>
+  MouseEventCallback? get onMouseOver =>
       (props[_$key__onMouseOver___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOver] -->
   @override
-  set onMouseOver(MouseEventCallback value) =>
+  set onMouseOver(MouseEventCallback? value) =>
       props[_$key__onMouseOver___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseUp] -->
   @override
-  MouseEventCallback get onMouseUp =>
-      (props[_$key__onMouseUp___$DomPropsMixin] ?? null) as MouseEventCallback;
+  MouseEventCallback? get onMouseUp =>
+      (props[_$key__onMouseUp___$DomPropsMixin] ?? null) as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseUp] -->
   @override
-  set onMouseUp(MouseEventCallback value) =>
+  set onMouseUp(MouseEventCallback? value) =>
       props[_$key__onMouseUp___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerCancel] -->
   @override
-  PointerEventCallback get onPointerCancel =>
+  PointerEventCallback? get onPointerCancel =>
       (props[_$key__onPointerCancel___$DomPropsMixin] ?? null)
-          as PointerEventCallback;
+          as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerCancel] -->
   @override
-  set onPointerCancel(PointerEventCallback value) =>
+  set onPointerCancel(PointerEventCallback? value) =>
       props[_$key__onPointerCancel___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerDown] -->
   @override
-  PointerEventCallback get onPointerDown =>
+  PointerEventCallback? get onPointerDown =>
       (props[_$key__onPointerDown___$DomPropsMixin] ?? null)
-          as PointerEventCallback;
+          as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerDown] -->
   @override
-  set onPointerDown(PointerEventCallback value) =>
+  set onPointerDown(PointerEventCallback? value) =>
       props[_$key__onPointerDown___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerEnter] -->
   @override
-  PointerEventCallback get onPointerEnter =>
+  PointerEventCallback? get onPointerEnter =>
       (props[_$key__onPointerEnter___$DomPropsMixin] ?? null)
-          as PointerEventCallback;
+          as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerEnter] -->
   @override
-  set onPointerEnter(PointerEventCallback value) =>
+  set onPointerEnter(PointerEventCallback? value) =>
       props[_$key__onPointerEnter___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerLeave] -->
   @override
-  PointerEventCallback get onPointerLeave =>
+  PointerEventCallback? get onPointerLeave =>
       (props[_$key__onPointerLeave___$DomPropsMixin] ?? null)
-          as PointerEventCallback;
+          as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerLeave] -->
   @override
-  set onPointerLeave(PointerEventCallback value) =>
+  set onPointerLeave(PointerEventCallback? value) =>
       props[_$key__onPointerLeave___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerMove] -->
   @override
-  PointerEventCallback get onPointerMove =>
+  PointerEventCallback? get onPointerMove =>
       (props[_$key__onPointerMove___$DomPropsMixin] ?? null)
-          as PointerEventCallback;
+          as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerMove] -->
   @override
-  set onPointerMove(PointerEventCallback value) =>
+  set onPointerMove(PointerEventCallback? value) =>
       props[_$key__onPointerMove___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerOver] -->
   @override
-  PointerEventCallback get onPointerOver =>
+  PointerEventCallback? get onPointerOver =>
       (props[_$key__onPointerOver___$DomPropsMixin] ?? null)
-          as PointerEventCallback;
+          as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerOver] -->
   @override
-  set onPointerOver(PointerEventCallback value) =>
+  set onPointerOver(PointerEventCallback? value) =>
       props[_$key__onPointerOver___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerOut] -->
   @override
-  PointerEventCallback get onPointerOut =>
+  PointerEventCallback? get onPointerOut =>
       (props[_$key__onPointerOut___$DomPropsMixin] ?? null)
-          as PointerEventCallback;
+          as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerOut] -->
   @override
-  set onPointerOut(PointerEventCallback value) =>
+  set onPointerOut(PointerEventCallback? value) =>
       props[_$key__onPointerOut___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerUp] -->
   @override
-  PointerEventCallback get onPointerUp =>
+  PointerEventCallback? get onPointerUp =>
       (props[_$key__onPointerUp___$DomPropsMixin] ?? null)
-          as PointerEventCallback;
+          as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPointerUp] -->
   @override
-  set onPointerUp(PointerEventCallback value) =>
+  set onPointerUp(PointerEventCallback? value) =>
       props[_$key__onPointerUp___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchCancel] -->
   @override
-  TouchEventCallback get onTouchCancel =>
+  TouchEventCallback? get onTouchCancel =>
       (props[_$key__onTouchCancel___$DomPropsMixin] ?? null)
-          as TouchEventCallback;
+          as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchCancel] -->
   @override
-  set onTouchCancel(TouchEventCallback value) =>
+  set onTouchCancel(TouchEventCallback? value) =>
       props[_$key__onTouchCancel___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchEnd] -->
   @override
-  TouchEventCallback get onTouchEnd =>
-      (props[_$key__onTouchEnd___$DomPropsMixin] ?? null) as TouchEventCallback;
+  TouchEventCallback? get onTouchEnd =>
+      (props[_$key__onTouchEnd___$DomPropsMixin] ?? null) as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchEnd] -->
   @override
-  set onTouchEnd(TouchEventCallback value) =>
+  set onTouchEnd(TouchEventCallback? value) =>
       props[_$key__onTouchEnd___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchMove] -->
   @override
-  TouchEventCallback get onTouchMove =>
+  TouchEventCallback? get onTouchMove =>
       (props[_$key__onTouchMove___$DomPropsMixin] ?? null)
-          as TouchEventCallback;
+          as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchMove] -->
   @override
-  set onTouchMove(TouchEventCallback value) =>
+  set onTouchMove(TouchEventCallback? value) =>
       props[_$key__onTouchMove___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchStart] -->
   @override
-  TouchEventCallback get onTouchStart =>
+  TouchEventCallback? get onTouchStart =>
       (props[_$key__onTouchStart___$DomPropsMixin] ?? null)
-          as TouchEventCallback;
+          as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchStart] -->
   @override
-  set onTouchStart(TouchEventCallback value) =>
+  set onTouchStart(TouchEventCallback? value) =>
       props[_$key__onTouchStart___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onTransitionEnd] -->
   @override
-  TransitionEventCallback get onTransitionEnd =>
+  TransitionEventCallback? get onTransitionEnd =>
       (props[_$key__onTransitionEnd___$DomPropsMixin] ?? null)
-          as TransitionEventCallback;
+          as TransitionEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTransitionEnd] -->
   @override
-  set onTransitionEnd(TransitionEventCallback value) =>
+  set onTransitionEnd(TransitionEventCallback? value) =>
       props[_$key__onTransitionEnd___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onScroll] -->
   @override
-  UIEventCallback get onScroll =>
-      (props[_$key__onScroll___$DomPropsMixin] ?? null) as UIEventCallback;
+  UIEventCallback? get onScroll =>
+      (props[_$key__onScroll___$DomPropsMixin] ?? null) as UIEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onScroll] -->
   @override
-  set onScroll(UIEventCallback value) =>
+  set onScroll(UIEventCallback? value) =>
       props[_$key__onScroll___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onWheel] -->
   @override
-  WheelEventCallback get onWheel =>
-      (props[_$key__onWheel___$DomPropsMixin] ?? null) as WheelEventCallback;
+  WheelEventCallback? get onWheel =>
+      (props[_$key__onWheel___$DomPropsMixin] ?? null) as WheelEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onWheel] -->
   @override
-  set onWheel(WheelEventCallback value) =>
+  set onWheel(WheelEventCallback? value) =>
       props[_$key__onWheel___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onCopyCapture] -->
   @override
-  ClipboardEventCallback get onCopyCapture =>
+  ClipboardEventCallback? get onCopyCapture =>
       (props[_$key__onCopyCapture___$DomPropsMixin] ?? null)
-          as ClipboardEventCallback;
+          as ClipboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onCopyCapture] -->
   @override
-  set onCopyCapture(ClipboardEventCallback value) =>
+  set onCopyCapture(ClipboardEventCallback? value) =>
       props[_$key__onCopyCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onCutCapture] -->
   @override
-  ClipboardEventCallback get onCutCapture =>
+  ClipboardEventCallback? get onCutCapture =>
       (props[_$key__onCutCapture___$DomPropsMixin] ?? null)
-          as ClipboardEventCallback;
+          as ClipboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onCutCapture] -->
   @override
-  set onCutCapture(ClipboardEventCallback value) =>
+  set onCutCapture(ClipboardEventCallback? value) =>
       props[_$key__onCutCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onPasteCapture] -->
   @override
-  ClipboardEventCallback get onPasteCapture =>
+  ClipboardEventCallback? get onPasteCapture =>
       (props[_$key__onPasteCapture___$DomPropsMixin] ?? null)
-          as ClipboardEventCallback;
+          as ClipboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onPasteCapture] -->
   @override
-  set onPasteCapture(ClipboardEventCallback value) =>
+  set onPasteCapture(ClipboardEventCallback? value) =>
       props[_$key__onPasteCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyDownCapture] -->
   @override
-  KeyboardEventCallback get onKeyDownCapture =>
+  KeyboardEventCallback? get onKeyDownCapture =>
       (props[_$key__onKeyDownCapture___$DomPropsMixin] ?? null)
-          as KeyboardEventCallback;
+          as KeyboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyDownCapture] -->
   @override
-  set onKeyDownCapture(KeyboardEventCallback value) =>
+  set onKeyDownCapture(KeyboardEventCallback? value) =>
       props[_$key__onKeyDownCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyPressCapture] -->
   @override
-  KeyboardEventCallback get onKeyPressCapture =>
+  KeyboardEventCallback? get onKeyPressCapture =>
       (props[_$key__onKeyPressCapture___$DomPropsMixin] ?? null)
-          as KeyboardEventCallback;
+          as KeyboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyPressCapture] -->
   @override
-  set onKeyPressCapture(KeyboardEventCallback value) =>
+  set onKeyPressCapture(KeyboardEventCallback? value) =>
       props[_$key__onKeyPressCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyUpCapture] -->
   @override
-  KeyboardEventCallback get onKeyUpCapture =>
+  KeyboardEventCallback? get onKeyUpCapture =>
       (props[_$key__onKeyUpCapture___$DomPropsMixin] ?? null)
-          as KeyboardEventCallback;
+          as KeyboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyUpCapture] -->
   @override
-  set onKeyUpCapture(KeyboardEventCallback value) =>
+  set onKeyUpCapture(KeyboardEventCallback? value) =>
       props[_$key__onKeyUpCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onFocusCapture] -->
   @override
-  FocusEventCallback get onFocusCapture =>
+  FocusEventCallback? get onFocusCapture =>
       (props[_$key__onFocusCapture___$DomPropsMixin] ?? null)
-          as FocusEventCallback;
+          as FocusEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onFocusCapture] -->
   @override
-  set onFocusCapture(FocusEventCallback value) =>
+  set onFocusCapture(FocusEventCallback? value) =>
       props[_$key__onFocusCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onBlurCapture] -->
   @override
-  FocusEventCallback get onBlurCapture =>
+  FocusEventCallback? get onBlurCapture =>
       (props[_$key__onBlurCapture___$DomPropsMixin] ?? null)
-          as FocusEventCallback;
+          as FocusEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onBlurCapture] -->
   @override
-  set onBlurCapture(FocusEventCallback value) =>
+  set onBlurCapture(FocusEventCallback? value) =>
       props[_$key__onBlurCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onChangeCapture] -->
   @override
-  FormEventCallback get onChangeCapture =>
+  FormEventCallback? get onChangeCapture =>
       (props[_$key__onChangeCapture___$DomPropsMixin] ?? null)
-          as FormEventCallback;
+          as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onChangeCapture] -->
   @override
-  set onChangeCapture(FormEventCallback value) =>
+  set onChangeCapture(FormEventCallback? value) =>
       props[_$key__onChangeCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onInputCapture] -->
   @override
-  FormEventCallback get onInputCapture =>
+  FormEventCallback? get onInputCapture =>
       (props[_$key__onInputCapture___$DomPropsMixin] ?? null)
-          as FormEventCallback;
+          as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onInputCapture] -->
   @override
-  set onInputCapture(FormEventCallback value) =>
+  set onInputCapture(FormEventCallback? value) =>
       props[_$key__onInputCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onSubmitCapture] -->
   @override
-  FormEventCallback get onSubmitCapture =>
+  FormEventCallback? get onSubmitCapture =>
       (props[_$key__onSubmitCapture___$DomPropsMixin] ?? null)
-          as FormEventCallback;
+          as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onSubmitCapture] -->
   @override
-  set onSubmitCapture(FormEventCallback value) =>
+  set onSubmitCapture(FormEventCallback? value) =>
       props[_$key__onSubmitCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onResetCapture] -->
   @override
-  FormEventCallback get onResetCapture =>
+  FormEventCallback? get onResetCapture =>
       (props[_$key__onResetCapture___$DomPropsMixin] ?? null)
-          as FormEventCallback;
+          as FormEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onResetCapture] -->
   @override
-  set onResetCapture(FormEventCallback value) =>
+  set onResetCapture(FormEventCallback? value) =>
       props[_$key__onResetCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onClickCapture] -->
   @override
-  MouseEventCallback get onClickCapture =>
+  MouseEventCallback? get onClickCapture =>
       (props[_$key__onClickCapture___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onClickCapture] -->
   @override
-  set onClickCapture(MouseEventCallback value) =>
+  set onClickCapture(MouseEventCallback? value) =>
       props[_$key__onClickCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onContextMenuCapture] -->
   @override
-  MouseEventCallback get onContextMenuCapture =>
+  MouseEventCallback? get onContextMenuCapture =>
       (props[_$key__onContextMenuCapture___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onContextMenuCapture] -->
   @override
-  set onContextMenuCapture(MouseEventCallback value) =>
+  set onContextMenuCapture(MouseEventCallback? value) =>
       props[_$key__onContextMenuCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDoubleClickCapture] -->
   @override
-  MouseEventCallback get onDoubleClickCapture =>
+  MouseEventCallback? get onDoubleClickCapture =>
       (props[_$key__onDoubleClickCapture___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDoubleClickCapture] -->
   @override
-  set onDoubleClickCapture(MouseEventCallback value) =>
+  set onDoubleClickCapture(MouseEventCallback? value) =>
       props[_$key__onDoubleClickCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragCapture] -->
   @override
-  MouseEventCallback get onDragCapture =>
+  MouseEventCallback? get onDragCapture =>
       (props[_$key__onDragCapture___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragCapture] -->
   @override
-  set onDragCapture(MouseEventCallback value) =>
+  set onDragCapture(MouseEventCallback? value) =>
       props[_$key__onDragCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEndCapture] -->
   @override
-  MouseEventCallback get onDragEndCapture =>
+  MouseEventCallback? get onDragEndCapture =>
       (props[_$key__onDragEndCapture___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEndCapture] -->
   @override
-  set onDragEndCapture(MouseEventCallback value) =>
+  set onDragEndCapture(MouseEventCallback? value) =>
       props[_$key__onDragEndCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEnterCapture] -->
   @override
-  MouseEventCallback get onDragEnterCapture =>
+  MouseEventCallback? get onDragEnterCapture =>
       (props[_$key__onDragEnterCapture___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragEnterCapture] -->
   @override
-  set onDragEnterCapture(MouseEventCallback value) =>
+  set onDragEnterCapture(MouseEventCallback? value) =>
       props[_$key__onDragEnterCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragExitCapture] -->
   @override
-  MouseEventCallback get onDragExitCapture =>
+  MouseEventCallback? get onDragExitCapture =>
       (props[_$key__onDragExitCapture___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragExitCapture] -->
   @override
-  set onDragExitCapture(MouseEventCallback value) =>
+  set onDragExitCapture(MouseEventCallback? value) =>
       props[_$key__onDragExitCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragLeaveCapture] -->
   @override
-  MouseEventCallback get onDragLeaveCapture =>
+  MouseEventCallback? get onDragLeaveCapture =>
       (props[_$key__onDragLeaveCapture___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragLeaveCapture] -->
   @override
-  set onDragLeaveCapture(MouseEventCallback value) =>
+  set onDragLeaveCapture(MouseEventCallback? value) =>
       props[_$key__onDragLeaveCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragOverCapture] -->
   @override
-  MouseEventCallback get onDragOverCapture =>
+  MouseEventCallback? get onDragOverCapture =>
       (props[_$key__onDragOverCapture___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragOverCapture] -->
   @override
-  set onDragOverCapture(MouseEventCallback value) =>
+  set onDragOverCapture(MouseEventCallback? value) =>
       props[_$key__onDragOverCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragStartCapture] -->
   @override
-  MouseEventCallback get onDragStartCapture =>
+  MouseEventCallback? get onDragStartCapture =>
       (props[_$key__onDragStartCapture___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragStartCapture] -->
   @override
-  set onDragStartCapture(MouseEventCallback value) =>
+  set onDragStartCapture(MouseEventCallback? value) =>
       props[_$key__onDragStartCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onDropCapture] -->
   @override
-  MouseEventCallback get onDropCapture =>
+  MouseEventCallback? get onDropCapture =>
       (props[_$key__onDropCapture___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDropCapture] -->
   @override
-  set onDropCapture(MouseEventCallback value) =>
+  set onDropCapture(MouseEventCallback? value) =>
       props[_$key__onDropCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseDownCapture] -->
   @override
-  MouseEventCallback get onMouseDownCapture =>
+  MouseEventCallback? get onMouseDownCapture =>
       (props[_$key__onMouseDownCapture___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseDownCapture] -->
   @override
-  set onMouseDownCapture(MouseEventCallback value) =>
+  set onMouseDownCapture(MouseEventCallback? value) =>
       props[_$key__onMouseDownCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseEnterCapture] -->
   @override
-  MouseEventCallback get onMouseEnterCapture =>
+  MouseEventCallback? get onMouseEnterCapture =>
       (props[_$key__onMouseEnterCapture___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseEnterCapture] -->
   @override
-  set onMouseEnterCapture(MouseEventCallback value) =>
+  set onMouseEnterCapture(MouseEventCallback? value) =>
       props[_$key__onMouseEnterCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseLeaveCapture] -->
   @override
-  MouseEventCallback get onMouseLeaveCapture =>
+  MouseEventCallback? get onMouseLeaveCapture =>
       (props[_$key__onMouseLeaveCapture___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseLeaveCapture] -->
   @override
-  set onMouseLeaveCapture(MouseEventCallback value) =>
+  set onMouseLeaveCapture(MouseEventCallback? value) =>
       props[_$key__onMouseLeaveCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseMoveCapture] -->
   @override
-  MouseEventCallback get onMouseMoveCapture =>
+  MouseEventCallback? get onMouseMoveCapture =>
       (props[_$key__onMouseMoveCapture___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseMoveCapture] -->
   @override
-  set onMouseMoveCapture(MouseEventCallback value) =>
+  set onMouseMoveCapture(MouseEventCallback? value) =>
       props[_$key__onMouseMoveCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOutCapture] -->
   @override
-  MouseEventCallback get onMouseOutCapture =>
+  MouseEventCallback? get onMouseOutCapture =>
       (props[_$key__onMouseOutCapture___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOutCapture] -->
   @override
-  set onMouseOutCapture(MouseEventCallback value) =>
+  set onMouseOutCapture(MouseEventCallback? value) =>
       props[_$key__onMouseOutCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOverCapture] -->
   @override
-  MouseEventCallback get onMouseOverCapture =>
+  MouseEventCallback? get onMouseOverCapture =>
       (props[_$key__onMouseOverCapture___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOverCapture] -->
   @override
-  set onMouseOverCapture(MouseEventCallback value) =>
+  set onMouseOverCapture(MouseEventCallback? value) =>
       props[_$key__onMouseOverCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseUpCapture] -->
   @override
-  MouseEventCallback get onMouseUpCapture =>
+  MouseEventCallback? get onMouseUpCapture =>
       (props[_$key__onMouseUpCapture___$DomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseUpCapture] -->
   @override
-  set onMouseUpCapture(MouseEventCallback value) =>
+  set onMouseUpCapture(MouseEventCallback? value) =>
       props[_$key__onMouseUpCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onGotPointerCapture] -->
   @override
-  PointerEventCallback get onGotPointerCapture =>
+  PointerEventCallback? get onGotPointerCapture =>
       (props[_$key__onGotPointerCapture___$DomPropsMixin] ?? null)
-          as PointerEventCallback;
+          as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onGotPointerCapture] -->
   @override
-  set onGotPointerCapture(PointerEventCallback value) =>
+  set onGotPointerCapture(PointerEventCallback? value) =>
       props[_$key__onGotPointerCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onLostPointerCapture] -->
   @override
-  PointerEventCallback get onLostPointerCapture =>
+  PointerEventCallback? get onLostPointerCapture =>
       (props[_$key__onLostPointerCapture___$DomPropsMixin] ?? null)
-          as PointerEventCallback;
+          as PointerEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onLostPointerCapture] -->
   @override
-  set onLostPointerCapture(PointerEventCallback value) =>
+  set onLostPointerCapture(PointerEventCallback? value) =>
       props[_$key__onLostPointerCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchCancelCapture] -->
   @override
-  TouchEventCallback get onTouchCancelCapture =>
+  TouchEventCallback? get onTouchCancelCapture =>
       (props[_$key__onTouchCancelCapture___$DomPropsMixin] ?? null)
-          as TouchEventCallback;
+          as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchCancelCapture] -->
   @override
-  set onTouchCancelCapture(TouchEventCallback value) =>
+  set onTouchCancelCapture(TouchEventCallback? value) =>
       props[_$key__onTouchCancelCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchEndCapture] -->
   @override
-  TouchEventCallback get onTouchEndCapture =>
+  TouchEventCallback? get onTouchEndCapture =>
       (props[_$key__onTouchEndCapture___$DomPropsMixin] ?? null)
-          as TouchEventCallback;
+          as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchEndCapture] -->
   @override
-  set onTouchEndCapture(TouchEventCallback value) =>
+  set onTouchEndCapture(TouchEventCallback? value) =>
       props[_$key__onTouchEndCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchMoveCapture] -->
   @override
-  TouchEventCallback get onTouchMoveCapture =>
+  TouchEventCallback? get onTouchMoveCapture =>
       (props[_$key__onTouchMoveCapture___$DomPropsMixin] ?? null)
-          as TouchEventCallback;
+          as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchMoveCapture] -->
   @override
-  set onTouchMoveCapture(TouchEventCallback value) =>
+  set onTouchMoveCapture(TouchEventCallback? value) =>
       props[_$key__onTouchMoveCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchStartCapture] -->
   @override
-  TouchEventCallback get onTouchStartCapture =>
+  TouchEventCallback? get onTouchStartCapture =>
       (props[_$key__onTouchStartCapture___$DomPropsMixin] ?? null)
-          as TouchEventCallback;
+          as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchStartCapture] -->
   @override
-  set onTouchStartCapture(TouchEventCallback value) =>
+  set onTouchStartCapture(TouchEventCallback? value) =>
       props[_$key__onTouchStartCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onScrollCapture] -->
   @override
-  UIEventCallback get onScrollCapture =>
+  UIEventCallback? get onScrollCapture =>
       (props[_$key__onScrollCapture___$DomPropsMixin] ?? null)
-          as UIEventCallback;
+          as UIEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onScrollCapture] -->
   @override
-  set onScrollCapture(UIEventCallback value) =>
+  set onScrollCapture(UIEventCallback? value) =>
       props[_$key__onScrollCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.onWheelCapture] -->
   @override
-  WheelEventCallback get onWheelCapture =>
+  WheelEventCallback? get onWheelCapture =>
       (props[_$key__onWheelCapture___$DomPropsMixin] ?? null)
-          as WheelEventCallback;
+          as WheelEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onWheelCapture] -->
   @override
-  set onWheelCapture(WheelEventCallback value) =>
+  set onWheelCapture(WheelEventCallback? value) =>
       props[_$key__onWheelCapture___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.defaultChecked] -->
   @override
-  bool get defaultChecked =>
-      (props[_$key__defaultChecked___$DomPropsMixin] ?? null) as bool;
+  bool? get defaultChecked =>
+      (props[_$key__defaultChecked___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.defaultChecked] -->
   @override
-  set defaultChecked(bool value) =>
+  set defaultChecked(bool? value) =>
       props[_$key__defaultChecked___$DomPropsMixin] = value;
 
   /// <!-- Generated from [_$DomPropsMixin.defaultValue] -->
@@ -2132,15 +2132,15 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   ///
   /// <!-- Generated from [_$DomPropsMixin.autoFocus] -->
   @override
-  bool get autoFocus =>
-      (props[_$key__autoFocus___$DomPropsMixin] ?? null) as bool;
+  bool? get autoFocus =>
+      (props[_$key__autoFocus___$DomPropsMixin] ?? null) as bool?;
 
   /// Polyfills/normalizes the `autofocus` attribute via AutoFocusMixin
   /// (mixed in by React DOM <input>, <textarea>, and <select>).
   ///
   /// <!-- Generated from [_$DomPropsMixin.autoFocus] -->
   @override
-  set autoFocus(bool value) => props[_$key__autoFocus___$DomPropsMixin] = value;
+  set autoFocus(bool? value) => props[_$key__autoFocus___$DomPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__cols___$DomPropsMixin =
       PropDescriptor(_$key__cols___$DomPropsMixin);
@@ -3251,197 +3251,197 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
   /// <!-- Generated from [_$SvgPropsMixin.htmlIn] -->
   @override
   @Accessor(key: 'in')
-  String get htmlIn =>
-      (props[_$key__htmlIn___$SvgPropsMixin] ?? null) as String;
+  String? get htmlIn =>
+      (props[_$key__htmlIn___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.htmlIn] -->
   @override
   @Accessor(key: 'in')
-  set htmlIn(String value) => props[_$key__htmlIn___$SvgPropsMixin] = value;
+  set htmlIn(String? value) => props[_$key__htmlIn___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.htmlValues] -->
   @override
   @Accessor(key: 'values')
-  String get htmlValues =>
-      (props[_$key__htmlValues___$SvgPropsMixin] ?? null) as String;
+  String? get htmlValues =>
+      (props[_$key__htmlValues___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.htmlValues] -->
   @override
   @Accessor(key: 'values')
-  set htmlValues(String value) =>
+  set htmlValues(String? value) =>
       props[_$key__htmlValues___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.accumulate] -->
   @override
-  String get accumulate =>
-      (props[_$key__accumulate___$SvgPropsMixin] ?? null) as String;
+  String? get accumulate =>
+      (props[_$key__accumulate___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.accumulate] -->
   @override
-  set accumulate(String value) =>
+  set accumulate(String? value) =>
       props[_$key__accumulate___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.additive] -->
   @override
-  String get additive =>
-      (props[_$key__additive___$SvgPropsMixin] ?? null) as String;
+  String? get additive =>
+      (props[_$key__additive___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.additive] -->
   @override
-  set additive(String value) => props[_$key__additive___$SvgPropsMixin] = value;
+  set additive(String? value) => props[_$key__additive___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.alignmentBaseline] -->
   @override
-  String get alignmentBaseline =>
-      (props[_$key__alignmentBaseline___$SvgPropsMixin] ?? null) as String;
+  String? get alignmentBaseline =>
+      (props[_$key__alignmentBaseline___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.alignmentBaseline] -->
   @override
-  set alignmentBaseline(String value) =>
+  set alignmentBaseline(String? value) =>
       props[_$key__alignmentBaseline___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.allowReorder] -->
   @override
-  String get allowReorder =>
-      (props[_$key__allowReorder___$SvgPropsMixin] ?? null) as String;
+  String? get allowReorder =>
+      (props[_$key__allowReorder___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.allowReorder] -->
   @override
-  set allowReorder(String value) =>
+  set allowReorder(String? value) =>
       props[_$key__allowReorder___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.arabicForm] -->
   @override
-  String get arabicForm =>
-      (props[_$key__arabicForm___$SvgPropsMixin] ?? null) as String;
+  String? get arabicForm =>
+      (props[_$key__arabicForm___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.arabicForm] -->
   @override
-  set arabicForm(String value) =>
+  set arabicForm(String? value) =>
       props[_$key__arabicForm___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.attributeName] -->
   @override
-  String get attributeName =>
-      (props[_$key__attributeName___$SvgPropsMixin] ?? null) as String;
+  String? get attributeName =>
+      (props[_$key__attributeName___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.attributeName] -->
   @override
-  set attributeName(String value) =>
+  set attributeName(String? value) =>
       props[_$key__attributeName___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.attributeType] -->
   @override
-  String get attributeType =>
-      (props[_$key__attributeType___$SvgPropsMixin] ?? null) as String;
+  String? get attributeType =>
+      (props[_$key__attributeType___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.attributeType] -->
   @override
-  set attributeType(String value) =>
+  set attributeType(String? value) =>
       props[_$key__attributeType___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.colorInterpolationFilters] -->
   @override
-  String get colorInterpolationFilters =>
+  String? get colorInterpolationFilters =>
       (props[_$key__colorInterpolationFilters___$SvgPropsMixin] ?? null)
-          as String;
+          as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.colorInterpolationFilters] -->
   @override
-  set colorInterpolationFilters(String value) =>
+  set colorInterpolationFilters(String? value) =>
       props[_$key__colorInterpolationFilters___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.fillRule] -->
   @override
-  String get fillRule =>
-      (props[_$key__fillRule___$SvgPropsMixin] ?? null) as String;
+  String? get fillRule =>
+      (props[_$key__fillRule___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.fillRule] -->
   @override
-  set fillRule(String value) => props[_$key__fillRule___$SvgPropsMixin] = value;
+  set fillRule(String? value) => props[_$key__fillRule___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.filter] -->
   @override
-  String get filter =>
-      (props[_$key__filter___$SvgPropsMixin] ?? null) as String;
+  String? get filter =>
+      (props[_$key__filter___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.filter] -->
   @override
-  set filter(String value) => props[_$key__filter___$SvgPropsMixin] = value;
+  set filter(String? value) => props[_$key__filter___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.mask] -->
   @override
-  String get mask => (props[_$key__mask___$SvgPropsMixin] ?? null) as String;
+  String? get mask => (props[_$key__mask___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.mask] -->
   @override
-  set mask(String value) => props[_$key__mask___$SvgPropsMixin] = value;
+  set mask(String? value) => props[_$key__mask___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.result] -->
   @override
-  String get result =>
-      (props[_$key__result___$SvgPropsMixin] ?? null) as String;
+  String? get result =>
+      (props[_$key__result___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.result] -->
   @override
-  set result(String value) => props[_$key__result___$SvgPropsMixin] = value;
+  set result(String? value) => props[_$key__result___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeLinejoin] -->
   @override
-  String get strokeLinejoin =>
-      (props[_$key__strokeLinejoin___$SvgPropsMixin] ?? null) as String;
+  String? get strokeLinejoin =>
+      (props[_$key__strokeLinejoin___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.strokeLinejoin] -->
   @override
-  set strokeLinejoin(String value) =>
+  set strokeLinejoin(String? value) =>
       props[_$key__strokeLinejoin___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.xChannelSelector] -->
   @override
-  String get xChannelSelector =>
-      (props[_$key__xChannelSelector___$SvgPropsMixin] ?? null) as String;
+  String? get xChannelSelector =>
+      (props[_$key__xChannelSelector___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.xChannelSelector] -->
   @override
-  set xChannelSelector(String value) =>
+  set xChannelSelector(String? value) =>
       props[_$key__xChannelSelector___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlns] -->
   @override
-  String get xmlns => (props[_$key__xmlns___$SvgPropsMixin] ?? null) as String;
+  String? get xmlns => (props[_$key__xmlns___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlns] -->
   @override
-  set xmlns(String value) => props[_$key__xmlns___$SvgPropsMixin] = value;
+  set xmlns(String? value) => props[_$key__xmlns___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlnsXlink] -->
   @override
-  String get xmlnsXlink =>
-      (props[_$key__xmlnsXlink___$SvgPropsMixin] ?? null) as String;
+  String? get xmlnsXlink =>
+      (props[_$key__xmlnsXlink___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlnsXlink] -->
   @override
-  set xmlnsXlink(String value) =>
+  set xmlnsXlink(String? value) =>
       props[_$key__xmlnsXlink___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.yChannelSelector] -->
   @override
-  String get yChannelSelector =>
-      (props[_$key__yChannelSelector___$SvgPropsMixin] ?? null) as String;
+  String? get yChannelSelector =>
+      (props[_$key__yChannelSelector___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.yChannelSelector] -->
   @override
-  set yChannelSelector(String value) =>
+  set yChannelSelector(String? value) =>
       props[_$key__yChannelSelector___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.zoomAndPan] -->
   @override
-  String get zoomAndPan =>
-      (props[_$key__zoomAndPan___$SvgPropsMixin] ?? null) as String;
+  String? get zoomAndPan =>
+      (props[_$key__zoomAndPan___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.zoomAndPan] -->
   @override
-  set zoomAndPan(String value) =>
+  set zoomAndPan(String? value) =>
       props[_$key__zoomAndPan___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.accentHeight] -->
@@ -6759,10 +6759,10 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   static const PropsMeta meta = _$metaForUbiquitousDomPropsMixin;
   @override
   @Accessor(doNotGenerate: true)
-  AriaPropsMapView _aria;
+  AriaPropsMapView? _aria;
   @override
   @Accessor(doNotGenerate: true)
-  DomProps _dom;
+  DomProps? _dom;
   @override
   AriaPropsMixin get aria {
     return _aria ??= AriaPropsMapView(props);
@@ -6794,28 +6794,28 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.id] -->
   @override
-  String get id =>
-      (props[_$key__id___$UbiquitousDomPropsMixin] ?? null) as String;
+  String? get id =>
+      (props[_$key__id___$UbiquitousDomPropsMixin] ?? null) as String?;
 
   /// Unique identifier.
   /// Must be unique amongst all the ids, and contain at least one character.
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.id] -->
   @override
-  set id(String value) => props[_$key__id___$UbiquitousDomPropsMixin] = value;
+  set id(String? value) => props[_$key__id___$UbiquitousDomPropsMixin] = value;
 
   /// Represents advisory information about the element.
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.title] -->
   @override
-  String get title =>
-      (props[_$key__title___$UbiquitousDomPropsMixin] ?? null) as String;
+  String? get title =>
+      (props[_$key__title___$UbiquitousDomPropsMixin] ?? null) as String?;
 
   /// Represents advisory information about the element.
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.title] -->
   @override
-  set title(String value) =>
+  set title(String? value) =>
       props[_$key__title___$UbiquitousDomPropsMixin] = value;
 
   /// An inline CSS style for the element.
@@ -6829,9 +6829,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.style] -->
   @override
-  Map<String, dynamic> get style =>
+  Map<String, dynamic>? get style =>
       (props[_$key__style___$UbiquitousDomPropsMixin] ?? null)
-          as Map<String, dynamic>;
+          as Map<String, dynamic>?;
 
   /// An inline CSS style for the element.
   ///
@@ -6844,7 +6844,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.style] -->
   @override
-  set style(Map<String, dynamic> value) =>
+  set style(Map<String, dynamic>? value) =>
       props[_$key__style___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when a CSS Animation has completed.
@@ -6853,9 +6853,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationEnd] -->
   @override
-  AnimationEventCallback get onAnimationEnd =>
+  AnimationEventCallback? get onAnimationEnd =>
       (props[_$key__onAnimationEnd___$UbiquitousDomPropsMixin] ?? null)
-          as AnimationEventCallback;
+          as AnimationEventCallback?;
 
   /// Callback for when a CSS Animation has completed.
   ///
@@ -6863,7 +6863,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationEnd] -->
   @override
-  set onAnimationEnd(AnimationEventCallback value) =>
+  set onAnimationEnd(AnimationEventCallback? value) =>
       props[_$key__onAnimationEnd___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when an iteration of a CSS Animation ends, and another one begins.
@@ -6872,9 +6872,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationIteration] -->
   @override
-  AnimationEventCallback get onAnimationIteration =>
+  AnimationEventCallback? get onAnimationIteration =>
       (props[_$key__onAnimationIteration___$UbiquitousDomPropsMixin] ?? null)
-          as AnimationEventCallback;
+          as AnimationEventCallback?;
 
   /// Callback for when an iteration of a CSS Animation ends, and another one begins.
   ///
@@ -6882,7 +6882,7 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationIteration] -->
   @override
-  set onAnimationIteration(AnimationEventCallback value) =>
+  set onAnimationIteration(AnimationEventCallback? value) =>
       props[_$key__onAnimationIteration___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when a CSS animation has started.
@@ -6891,9 +6891,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationStart] -->
   @override
-  AnimationEventCallback get onAnimationStart =>
+  AnimationEventCallback? get onAnimationStart =>
       (props[_$key__onAnimationStart___$UbiquitousDomPropsMixin] ?? null)
-          as AnimationEventCallback;
+          as AnimationEventCallback?;
 
   /// Callback for when a CSS animation has started.
   ///
@@ -6901,127 +6901,127 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onAnimationStart] -->
   @override
-  set onAnimationStart(AnimationEventCallback value) =>
+  set onAnimationStart(AnimationEventCallback? value) =>
       props[_$key__onAnimationStart___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user copies the content of an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onCopy] -->
   @override
-  ClipboardEventCallback get onCopy =>
+  ClipboardEventCallback? get onCopy =>
       (props[_$key__onCopy___$UbiquitousDomPropsMixin] ?? null)
-          as ClipboardEventCallback;
+          as ClipboardEventCallback?;
 
   /// Callback for when the user copies the content of an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onCopy] -->
   @override
-  set onCopy(ClipboardEventCallback value) =>
+  set onCopy(ClipboardEventCallback? value) =>
       props[_$key__onCopy___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user cuts the content of an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onCut] -->
   @override
-  ClipboardEventCallback get onCut =>
+  ClipboardEventCallback? get onCut =>
       (props[_$key__onCut___$UbiquitousDomPropsMixin] ?? null)
-          as ClipboardEventCallback;
+          as ClipboardEventCallback?;
 
   /// Callback for when the user cuts the content of an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onCut] -->
   @override
-  set onCut(ClipboardEventCallback value) =>
+  set onCut(ClipboardEventCallback? value) =>
       props[_$key__onCut___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user pastes some content in an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPaste] -->
   @override
-  ClipboardEventCallback get onPaste =>
+  ClipboardEventCallback? get onPaste =>
       (props[_$key__onPaste___$UbiquitousDomPropsMixin] ?? null)
-          as ClipboardEventCallback;
+          as ClipboardEventCallback?;
 
   /// Callback for when the user pastes some content in an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPaste] -->
   @override
-  set onPaste(ClipboardEventCallback value) =>
+  set onPaste(ClipboardEventCallback? value) =>
       props[_$key__onPaste___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user is pressing a key
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyDown] -->
   @override
-  KeyboardEventCallback get onKeyDown =>
+  KeyboardEventCallback? get onKeyDown =>
       (props[_$key__onKeyDown___$UbiquitousDomPropsMixin] ?? null)
-          as KeyboardEventCallback;
+          as KeyboardEventCallback?;
 
   /// Callback for when the user is pressing a key
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyDown] -->
   @override
-  set onKeyDown(KeyboardEventCallback value) =>
+  set onKeyDown(KeyboardEventCallback? value) =>
       props[_$key__onKeyDown___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user presses a key
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyPress] -->
   @override
-  KeyboardEventCallback get onKeyPress =>
+  KeyboardEventCallback? get onKeyPress =>
       (props[_$key__onKeyPress___$UbiquitousDomPropsMixin] ?? null)
-          as KeyboardEventCallback;
+          as KeyboardEventCallback?;
 
   /// Callback for when the user presses a key
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyPress] -->
   @override
-  set onKeyPress(KeyboardEventCallback value) =>
+  set onKeyPress(KeyboardEventCallback? value) =>
       props[_$key__onKeyPress___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user releases a key
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyUp] -->
   @override
-  KeyboardEventCallback get onKeyUp =>
+  KeyboardEventCallback? get onKeyUp =>
       (props[_$key__onKeyUp___$UbiquitousDomPropsMixin] ?? null)
-          as KeyboardEventCallback;
+          as KeyboardEventCallback?;
 
   /// Callback for when the user releases a key
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onKeyUp] -->
   @override
-  set onKeyUp(KeyboardEventCallback value) =>
+  set onKeyUp(KeyboardEventCallback? value) =>
       props[_$key__onKeyUp___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when an element gets focus
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onFocus] -->
   @override
-  FocusEventCallback get onFocus =>
+  FocusEventCallback? get onFocus =>
       (props[_$key__onFocus___$UbiquitousDomPropsMixin] ?? null)
-          as FocusEventCallback;
+          as FocusEventCallback?;
 
   /// Callback for when an element gets focus
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onFocus] -->
   @override
-  set onFocus(FocusEventCallback value) =>
+  set onFocus(FocusEventCallback? value) =>
       props[_$key__onFocus___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when an element loses focus
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onBlur] -->
   @override
-  FocusEventCallback get onBlur =>
+  FocusEventCallback? get onBlur =>
       (props[_$key__onBlur___$UbiquitousDomPropsMixin] ?? null)
-          as FocusEventCallback;
+          as FocusEventCallback?;
 
   /// Callback for when an element loses focus
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onBlur] -->
   @override
-  set onBlur(FocusEventCallback value) =>
+  set onBlur(FocusEventCallback? value) =>
       props[_$key__onBlur___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for  when the content of a form element, the selection, or the checked state have changed (for <input>,
@@ -7029,511 +7029,511 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onChange] -->
   @override
-  FormEventCallback get onChange =>
+  FormEventCallback? get onChange =>
       (props[_$key__onChange___$UbiquitousDomPropsMixin] ?? null)
-          as FormEventCallback;
+          as FormEventCallback?;
 
   /// Callback for  when the content of a form element, the selection, or the checked state have changed (for <input>,
   /// <keygen>, <select>, and <textarea>)
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onChange] -->
   @override
-  set onChange(FormEventCallback value) =>
+  set onChange(FormEventCallback? value) =>
       props[_$key__onChange___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when an element gets user input
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onInput] -->
   @override
-  FormEventCallback get onInput =>
+  FormEventCallback? get onInput =>
       (props[_$key__onInput___$UbiquitousDomPropsMixin] ?? null)
-          as FormEventCallback;
+          as FormEventCallback?;
 
   /// Callback for when an element gets user input
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onInput] -->
   @override
-  set onInput(FormEventCallback value) =>
+  set onInput(FormEventCallback? value) =>
       props[_$key__onInput___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when a form is submitted
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onSubmit] -->
   @override
-  FormEventCallback get onSubmit =>
+  FormEventCallback? get onSubmit =>
       (props[_$key__onSubmit___$UbiquitousDomPropsMixin] ?? null)
-          as FormEventCallback;
+          as FormEventCallback?;
 
   /// Callback for when a form is submitted
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onSubmit] -->
   @override
-  set onSubmit(FormEventCallback value) =>
+  set onSubmit(FormEventCallback? value) =>
       props[_$key__onSubmit___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when a form is reset
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onReset] -->
   @override
-  FormEventCallback get onReset =>
+  FormEventCallback? get onReset =>
       (props[_$key__onReset___$UbiquitousDomPropsMixin] ?? null)
-          as FormEventCallback;
+          as FormEventCallback?;
 
   /// Callback for when a form is reset
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onReset] -->
   @override
-  set onReset(FormEventCallback value) =>
+  set onReset(FormEventCallback? value) =>
       props[_$key__onReset___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user clicks on an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onClick] -->
   @override
-  MouseEventCallback get onClick =>
+  MouseEventCallback? get onClick =>
       (props[_$key__onClick___$UbiquitousDomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// Callback for when the user clicks on an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onClick] -->
   @override
-  set onClick(MouseEventCallback value) =>
+  set onClick(MouseEventCallback? value) =>
       props[_$key__onClick___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user right-clicks on an element to open a context menu
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onContextMenu] -->
   @override
-  MouseEventCallback get onContextMenu =>
+  MouseEventCallback? get onContextMenu =>
       (props[_$key__onContextMenu___$UbiquitousDomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// Callback for when the user right-clicks on an element to open a context menu
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onContextMenu] -->
   @override
-  set onContextMenu(MouseEventCallback value) =>
+  set onContextMenu(MouseEventCallback? value) =>
       props[_$key__onContextMenu___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user double-clicks on an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDoubleClick] -->
   @override
-  MouseEventCallback get onDoubleClick =>
+  MouseEventCallback? get onDoubleClick =>
       (props[_$key__onDoubleClick___$UbiquitousDomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// Callback for when the user double-clicks on an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDoubleClick] -->
   @override
-  set onDoubleClick(MouseEventCallback value) =>
+  set onDoubleClick(MouseEventCallback? value) =>
       props[_$key__onDoubleClick___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when an element is being dragged
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDrag] -->
   @override
-  MouseEventCallback get onDrag =>
+  MouseEventCallback? get onDrag =>
       (props[_$key__onDrag___$UbiquitousDomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// Callback for when an element is being dragged
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDrag] -->
   @override
-  set onDrag(MouseEventCallback value) =>
+  set onDrag(MouseEventCallback? value) =>
       props[_$key__onDrag___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user has finished dragging an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragEnd] -->
   @override
-  MouseEventCallback get onDragEnd =>
+  MouseEventCallback? get onDragEnd =>
       (props[_$key__onDragEnd___$UbiquitousDomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// Callback for when the user has finished dragging an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragEnd] -->
   @override
-  set onDragEnd(MouseEventCallback value) =>
+  set onDragEnd(MouseEventCallback? value) =>
       props[_$key__onDragEnd___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the dragged element enters the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragEnter] -->
   @override
-  MouseEventCallback get onDragEnter =>
+  MouseEventCallback? get onDragEnter =>
       (props[_$key__onDragEnter___$UbiquitousDomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// Callback for when the dragged element enters the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragEnter] -->
   @override
-  set onDragEnter(MouseEventCallback value) =>
+  set onDragEnter(MouseEventCallback? value) =>
       props[_$key__onDragEnter___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the dragged element exits the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragExit] -->
   @override
-  MouseEventCallback get onDragExit =>
+  MouseEventCallback? get onDragExit =>
       (props[_$key__onDragExit___$UbiquitousDomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// Callback for when the dragged element exits the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragExit] -->
   @override
-  set onDragExit(MouseEventCallback value) =>
+  set onDragExit(MouseEventCallback? value) =>
       props[_$key__onDragExit___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the dragged element leaves the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragLeave] -->
   @override
-  MouseEventCallback get onDragLeave =>
+  MouseEventCallback? get onDragLeave =>
       (props[_$key__onDragLeave___$UbiquitousDomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// Callback for when the dragged element leaves the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragLeave] -->
   @override
-  set onDragLeave(MouseEventCallback value) =>
+  set onDragLeave(MouseEventCallback? value) =>
       props[_$key__onDragLeave___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the dragged element is over the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragOver] -->
   @override
-  MouseEventCallback get onDragOver =>
+  MouseEventCallback? get onDragOver =>
       (props[_$key__onDragOver___$UbiquitousDomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// Callback for when the dragged element is over the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragOver] -->
   @override
-  set onDragOver(MouseEventCallback value) =>
+  set onDragOver(MouseEventCallback? value) =>
       props[_$key__onDragOver___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user starts to drag an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragStart] -->
   @override
-  MouseEventCallback get onDragStart =>
+  MouseEventCallback? get onDragStart =>
       (props[_$key__onDragStart___$UbiquitousDomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// Callback for when the user starts to drag an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDragStart] -->
   @override
-  set onDragStart(MouseEventCallback value) =>
+  set onDragStart(MouseEventCallback? value) =>
       props[_$key__onDragStart___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the dragged element is dropped on the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDrop] -->
   @override
-  MouseEventCallback get onDrop =>
+  MouseEventCallback? get onDrop =>
       (props[_$key__onDrop___$UbiquitousDomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// Callback for when the dragged element is dropped on the drop target
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onDrop] -->
   @override
-  set onDrop(MouseEventCallback value) =>
+  set onDrop(MouseEventCallback? value) =>
       props[_$key__onDrop___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the user presses a mouse button over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseDown] -->
   @override
-  MouseEventCallback get onMouseDown =>
+  MouseEventCallback? get onMouseDown =>
       (props[_$key__onMouseDown___$UbiquitousDomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// Callback for when the user presses a mouse button over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseDown] -->
   @override
-  set onMouseDown(MouseEventCallback value) =>
+  set onMouseDown(MouseEventCallback? value) =>
       props[_$key__onMouseDown___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer is moved onto an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseEnter] -->
   @override
-  MouseEventCallback get onMouseEnter =>
+  MouseEventCallback? get onMouseEnter =>
       (props[_$key__onMouseEnter___$UbiquitousDomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// Callback for when the pointer is moved onto an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseEnter] -->
   @override
-  set onMouseEnter(MouseEventCallback value) =>
+  set onMouseEnter(MouseEventCallback? value) =>
       props[_$key__onMouseEnter___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer is moved out of an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseLeave] -->
   @override
-  MouseEventCallback get onMouseLeave =>
+  MouseEventCallback? get onMouseLeave =>
       (props[_$key__onMouseLeave___$UbiquitousDomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// Callback for when the pointer is moved out of an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseLeave] -->
   @override
-  set onMouseLeave(MouseEventCallback value) =>
+  set onMouseLeave(MouseEventCallback? value) =>
       props[_$key__onMouseLeave___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer is moving while it is over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseMove] -->
   @override
-  MouseEventCallback get onMouseMove =>
+  MouseEventCallback? get onMouseMove =>
       (props[_$key__onMouseMove___$UbiquitousDomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// Callback for when the pointer is moving while it is over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseMove] -->
   @override
-  set onMouseMove(MouseEventCallback value) =>
+  set onMouseMove(MouseEventCallback? value) =>
       props[_$key__onMouseMove___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when a user moves the mouse pointer out of an element, or out of one of its children
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseOut] -->
   @override
-  MouseEventCallback get onMouseOut =>
+  MouseEventCallback? get onMouseOut =>
       (props[_$key__onMouseOut___$UbiquitousDomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// Callback for when a user moves the mouse pointer out of an element, or out of one of its children
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseOut] -->
   @override
-  set onMouseOut(MouseEventCallback value) =>
+  set onMouseOut(MouseEventCallback? value) =>
       props[_$key__onMouseOut___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer is moved onto an element, or onto one of its children
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseOver] -->
   @override
-  MouseEventCallback get onMouseOver =>
+  MouseEventCallback? get onMouseOver =>
       (props[_$key__onMouseOver___$UbiquitousDomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// Callback for when the pointer is moved onto an element, or onto one of its children
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseOver] -->
   @override
-  set onMouseOver(MouseEventCallback value) =>
+  set onMouseOver(MouseEventCallback? value) =>
       props[_$key__onMouseOver___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when a user releases a mouse button over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseUp] -->
   @override
-  MouseEventCallback get onMouseUp =>
+  MouseEventCallback? get onMouseUp =>
       (props[_$key__onMouseUp___$UbiquitousDomPropsMixin] ?? null)
-          as MouseEventCallback;
+          as MouseEventCallback?;
 
   /// Callback for when a user releases a mouse button over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onMouseUp] -->
   @override
-  set onMouseUp(MouseEventCallback value) =>
+  set onMouseUp(MouseEventCallback? value) =>
       props[_$key__onMouseUp___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointing device is interrupted
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerCancel] -->
   @override
-  PointerEventCallback get onPointerCancel =>
+  PointerEventCallback? get onPointerCancel =>
       (props[_$key__onPointerCancel___$UbiquitousDomPropsMixin] ?? null)
-          as PointerEventCallback;
+          as PointerEventCallback?;
 
   /// Callback for when the pointing device is interrupted
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerCancel] -->
   @override
-  set onPointerCancel(PointerEventCallback value) =>
+  set onPointerCancel(PointerEventCallback? value) =>
       props[_$key__onPointerCancel___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer becomes active over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerDown] -->
   @override
-  PointerEventCallback get onPointerDown =>
+  PointerEventCallback? get onPointerDown =>
       (props[_$key__onPointerDown___$UbiquitousDomPropsMixin] ?? null)
-          as PointerEventCallback;
+          as PointerEventCallback?;
 
   /// Callback for when the pointer becomes active over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerDown] -->
   @override
-  set onPointerDown(PointerEventCallback value) =>
+  set onPointerDown(PointerEventCallback? value) =>
       props[_$key__onPointerDown___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer is moved onto an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerEnter] -->
   @override
-  PointerEventCallback get onPointerEnter =>
+  PointerEventCallback? get onPointerEnter =>
       (props[_$key__onPointerEnter___$UbiquitousDomPropsMixin] ?? null)
-          as PointerEventCallback;
+          as PointerEventCallback?;
 
   /// Callback for when the pointer is moved onto an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerEnter] -->
   @override
-  set onPointerEnter(PointerEventCallback value) =>
+  set onPointerEnter(PointerEventCallback? value) =>
       props[_$key__onPointerEnter___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer is moved out of an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerLeave] -->
   @override
-  PointerEventCallback get onPointerLeave =>
+  PointerEventCallback? get onPointerLeave =>
       (props[_$key__onPointerLeave___$UbiquitousDomPropsMixin] ?? null)
-          as PointerEventCallback;
+          as PointerEventCallback?;
 
   /// Callback for when the pointer is moved out of an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerLeave] -->
   @override
-  set onPointerLeave(PointerEventCallback value) =>
+  set onPointerLeave(PointerEventCallback? value) =>
       props[_$key__onPointerLeave___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer is moving while it is over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerMove] -->
   @override
-  PointerEventCallback get onPointerMove =>
+  PointerEventCallback? get onPointerMove =>
       (props[_$key__onPointerMove___$UbiquitousDomPropsMixin] ?? null)
-          as PointerEventCallback;
+          as PointerEventCallback?;
 
   /// Callback for when the pointer is moving while it is over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerMove] -->
   @override
-  set onPointerMove(PointerEventCallback value) =>
+  set onPointerMove(PointerEventCallback? value) =>
       props[_$key__onPointerMove___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer is moved onto an element, or onto one of its children
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOver] -->
   @override
-  PointerEventCallback get onPointerOver =>
+  PointerEventCallback? get onPointerOver =>
       (props[_$key__onPointerOver___$UbiquitousDomPropsMixin] ?? null)
-          as PointerEventCallback;
+          as PointerEventCallback?;
 
   /// Callback for when the pointer is moved onto an element, or onto one of its children
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOver] -->
   @override
-  set onPointerOver(PointerEventCallback value) =>
+  set onPointerOver(PointerEventCallback? value) =>
       props[_$key__onPointerOver___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer is moved out of an element, or out of one of its children
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOut] -->
   @override
-  PointerEventCallback get onPointerOut =>
+  PointerEventCallback? get onPointerOut =>
       (props[_$key__onPointerOut___$UbiquitousDomPropsMixin] ?? null)
-          as PointerEventCallback;
+          as PointerEventCallback?;
 
   /// Callback for when the pointer is moved out of an element, or out of one of its children
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerOut] -->
   @override
-  set onPointerOut(PointerEventCallback value) =>
+  set onPointerOut(PointerEventCallback? value) =>
       props[_$key__onPointerOut___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the pointer becomes inactive over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerUp] -->
   @override
-  PointerEventCallback get onPointerUp =>
+  PointerEventCallback? get onPointerUp =>
       (props[_$key__onPointerUp___$UbiquitousDomPropsMixin] ?? null)
-          as PointerEventCallback;
+          as PointerEventCallback?;
 
   /// Callback for when the pointer becomes inactive over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onPointerUp] -->
   @override
-  set onPointerUp(PointerEventCallback value) =>
+  set onPointerUp(PointerEventCallback? value) =>
       props[_$key__onPointerUp___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the touch is interrupted
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchCancel] -->
   @override
-  TouchEventCallback get onTouchCancel =>
+  TouchEventCallback? get onTouchCancel =>
       (props[_$key__onTouchCancel___$UbiquitousDomPropsMixin] ?? null)
-          as TouchEventCallback;
+          as TouchEventCallback?;
 
   /// Callback for when the touch is interrupted
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchCancel] -->
   @override
-  set onTouchCancel(TouchEventCallback value) =>
+  set onTouchCancel(TouchEventCallback? value) =>
       props[_$key__onTouchCancel___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when a finger is removed from a touch screen
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchEnd] -->
   @override
-  TouchEventCallback get onTouchEnd =>
+  TouchEventCallback? get onTouchEnd =>
       (props[_$key__onTouchEnd___$UbiquitousDomPropsMixin] ?? null)
-          as TouchEventCallback;
+          as TouchEventCallback?;
 
   /// Callback for when a finger is removed from a touch screen
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchEnd] -->
   @override
-  set onTouchEnd(TouchEventCallback value) =>
+  set onTouchEnd(TouchEventCallback? value) =>
       props[_$key__onTouchEnd___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when a finger is dragged across the screen
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchMove] -->
   @override
-  TouchEventCallback get onTouchMove =>
+  TouchEventCallback? get onTouchMove =>
       (props[_$key__onTouchMove___$UbiquitousDomPropsMixin] ?? null)
-          as TouchEventCallback;
+          as TouchEventCallback?;
 
   /// Callback for when a finger is dragged across the screen
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchMove] -->
   @override
-  set onTouchMove(TouchEventCallback value) =>
+  set onTouchMove(TouchEventCallback? value) =>
       props[_$key__onTouchMove___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when a finger is placed on a touch screen
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchStart] -->
   @override
-  TouchEventCallback get onTouchStart =>
+  TouchEventCallback? get onTouchStart =>
       (props[_$key__onTouchStart___$UbiquitousDomPropsMixin] ?? null)
-          as TouchEventCallback;
+          as TouchEventCallback?;
 
   /// Callback for when a finger is placed on a touch screen
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTouchStart] -->
   @override
-  set onTouchStart(TouchEventCallback value) =>
+  set onTouchStart(TouchEventCallback? value) =>
       props[_$key__onTouchStart___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when a CSS transition has completed.
@@ -7542,9 +7542,9 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTransitionEnd] -->
   @override
-  TransitionEventCallback get onTransitionEnd =>
+  TransitionEventCallback? get onTransitionEnd =>
       (props[_$key__onTransitionEnd___$UbiquitousDomPropsMixin] ?? null)
-          as TransitionEventCallback;
+          as TransitionEventCallback?;
 
   /// Callback for when a CSS transition has completed.
   ///
@@ -7552,37 +7552,37 @@ abstract class UbiquitousDomPropsMixin implements _$UbiquitousDomPropsMixin {
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onTransitionEnd] -->
   @override
-  set onTransitionEnd(TransitionEventCallback value) =>
+  set onTransitionEnd(TransitionEventCallback? value) =>
       props[_$key__onTransitionEnd___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when an element's scrollbar is being scrolled
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onScroll] -->
   @override
-  UIEventCallback get onScroll =>
+  UIEventCallback? get onScroll =>
       (props[_$key__onScroll___$UbiquitousDomPropsMixin] ?? null)
-          as UIEventCallback;
+          as UIEventCallback?;
 
   /// Callback for when an element's scrollbar is being scrolled
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onScroll] -->
   @override
-  set onScroll(UIEventCallback value) =>
+  set onScroll(UIEventCallback? value) =>
       props[_$key__onScroll___$UbiquitousDomPropsMixin] = value;
 
   /// Callback for when the mouse wheel rolls up or down over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onWheel] -->
   @override
-  WheelEventCallback get onWheel =>
+  WheelEventCallback? get onWheel =>
       (props[_$key__onWheel___$UbiquitousDomPropsMixin] ?? null)
-          as WheelEventCallback;
+          as WheelEventCallback?;
 
   /// Callback for when the mouse wheel rolls up or down over an element
   ///
   /// <!-- Generated from [_$UbiquitousDomPropsMixin.onWheel] -->
   @override
-  set onWheel(WheelEventCallback value) =>
+  set onWheel(WheelEventCallback? value) =>
       props[_$key__onWheel___$UbiquitousDomPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__tabIndex___$UbiquitousDomPropsMixin =

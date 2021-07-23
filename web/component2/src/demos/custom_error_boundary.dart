@@ -51,7 +51,7 @@ class CustomErrorBoundaryComponent extends UiStatefulComponent2<CustomErrorBound
     ..fallbackUIRenderer = _renderFallbackUI
   );
 
-  ReactElement _renderFallbackUI(_, __) {
+  ReactElement? _renderFallbackUI(_, __) {
     return Dom.div()(
       Dom.h3()('Error!'),
     );

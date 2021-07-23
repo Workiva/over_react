@@ -42,7 +42,7 @@ class TestSubsubtypeOfComponent1Props extends _$TestSubsubtypeOfComponent1Props
 }
 
 _$$TestSubsubtypeOfComponent1Props _$TestSubsubtypeOfComponent1(
-        [Map backingProps]) =>
+        [Map? backingProps]) =>
     backingProps == null
         ? _$$TestSubsubtypeOfComponent1Props$JsMap(JsBackedMap())
         : _$$TestSubsubtypeOfComponent1Props(backingProps);
@@ -120,7 +120,7 @@ class _$$TestSubsubtypeOfComponent1Props$JsMap
 // generated for the associated props class.
 class _$TestSubsubtypeOfComponent1Component
     extends TestSubsubtypeOfComponent1Component {
-  _$$TestSubsubtypeOfComponent1Props$JsMap _cachedTypedProps;
+  late _$$TestSubsubtypeOfComponent1Props$JsMap _cachedTypedProps;
 
   @override
   _$$TestSubsubtypeOfComponent1Props$JsMap get props => _cachedTypedProps;

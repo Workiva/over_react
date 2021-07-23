@@ -37,5 +37,5 @@ class IsErrorBoundaryComponent extends UiComponent2<IsErrorBoundaryProps> {
   }
 
   @override
-  render() => props.children.single;
+  render() => props.children!.single;
 }

@@ -15,13 +15,13 @@ abstract class ConnectPropsMixin implements _$ConnectPropsMixin {
 
   /// <!-- Generated from [_$ConnectPropsMixin.dispatch] -->
   @override
-  dynamic Function(dynamic action) get dispatch =>
+  dynamic Function(dynamic action)? get dispatch =>
       (props[_$key__dispatch___$ConnectPropsMixin] ?? null) as dynamic Function(
-          dynamic action);
+          dynamic action)?;
 
   /// <!-- Generated from [_$ConnectPropsMixin.dispatch] -->
   @override
-  set dispatch(dynamic Function(dynamic action) value) =>
+  set dispatch(dynamic Function(dynamic action)? value) =>
       props[_$key__dispatch___$ConnectPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__dispatch___$ConnectPropsMixin =

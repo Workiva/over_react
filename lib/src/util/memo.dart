@@ -67,8 +67,8 @@ import 'package:over_react/component_base.dart';
 ///
 /// See: <https://reactjs.org/docs/react-api.html#reactmemo>.
 UiFactory<TProps> memo<TProps extends UiProps>(UiFactory<TProps> factory,
-    {bool Function(TProps prevProps, TProps nextProps) areEqual,
-    String displayName}) {
+    {bool Function(TProps prevProps, TProps nextProps)? areEqual,
+    String? displayName}) {
   enforceFunctionComponent(factory().componentFactory);
 
   ReactComponentFactoryProxy hoc;
@@ -79,15 +79,15 @@ UiFactory<TProps> memo<TProps extends UiProps>(UiFactory<TProps> factory,
       return areEqual(tPrevProps, tNextProps);
     }
 
-    hoc = react_interop.memo2(factory().componentFactory, areEqual: wrapProps);
+    hoc = react_interop.memo2(factory().componentFactory!, areEqual: wrapProps);
   } else {
-    hoc = react_interop.memo2(factory().componentFactory, areEqual: propsOrStateMapsEqual);
+    hoc = react_interop.memo2(factory().componentFactory!, areEqual: propsOrStateMapsEqual);
   }
 
   setComponentTypeMeta(hoc.type,
-      isHoc: true, parentType: factory().componentFactory.type);
+      isHoc: true, parentType: factory().componentFactory!.type);
 
-  TProps forwardedFactory([Map props]) {
+  TProps forwardedFactory([Map? props]) {
     return factory(props)..componentFactory = hoc;
   }
 

@@ -63,7 +63,7 @@ main() {
         final keys = [];
 
         [TestPropsMixin, FooPropsMixin, BazPropsMixin].forEach((mixinType) {
-          final metaForMixin = propsMeta.forMixin(mixinType);
+          final PropsMeta metaForMixin = propsMeta.forMixin(mixinType);
 
           expect(metaForMixin.keys.length, 1);
           keys.add(metaForMixin.keys.first);
@@ -83,7 +83,7 @@ main() {
         }, tags: 'ddc');
 
         test('and returns an empty meta in dart2js', () {
-          final value = propsMeta.forMixin(WoopsMixin);
+          final PropsMeta value = propsMeta.forMixin(WoopsMixin);
           expect(value.keys, isEmpty);
           expect(value.fields, isEmpty);
         }, tags: 'no-ddc');
@@ -113,7 +113,7 @@ main() {
           }, tags: 'ddc');
 
           test('and ignores those values in dart2js', () {
-            final value = propsMeta.forMixins({WoopsMixin, TestPropsMixin});
+            final Iterable<PropsMeta> value = propsMeta.forMixins({WoopsMixin, TestPropsMixin});
             expect(value, unorderedEquals([emptyPropsMeta, propsMeta.forMixin(TestPropsMixin)]));
           }, tags: 'no-ddc');
         });
@@ -140,7 +140,7 @@ main() {
           }, tags: 'ddc');
 
           test('and ignores those values in dart2js', () {
-            final value = propsMeta.allExceptForMixins({WoopsMixin, TestPropsMixin});
+            final Iterable<PropsMeta> value = propsMeta.allExceptForMixins({WoopsMixin, TestPropsMixin});
             expect(value, unorderedEquals([FooPropsMixin, BazPropsMixin].map(propsMeta.forMixin)));
           }, tags: 'no-ddc');
         });
@@ -167,19 +167,19 @@ main() {
 UiFactory<TestProps> Test = _$Test; // ignore: undefined_identifier, invalid_assignment
 
 mixin TestPropsMixin on UiProps {
-  String test;
+  String? test;
 }
 
 mixin FooPropsMixin on UiProps {
-  bool foo;
+  bool? foo;
 }
 
 mixin BazPropsMixin on UiProps {
-  bool baz;
+  bool? baz;
 }
 
 mixin WoopsMixin on UiProps {
-  String isNotIncluded;
+  String? isNotIncluded;
 }
 
 class TestProps = UiProps with TestPropsMixin, FooPropsMixin, BazPropsMixin;

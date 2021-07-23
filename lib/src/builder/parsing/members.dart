@@ -78,19 +78,19 @@ abstract class BoilerplateTypedMapMember extends BoilerplateMember {
   ClassishDeclaration get nodeHelper;
 
   @override
-  annotations.TypedMap/*!*/ get meta;
+  annotations.TypedMap get meta;
 }
 
 /// A collection of all [BoilerplateMember]s within a given file.
 ///
 /// See [detectBoilerplateMembers].
 class BoilerplateMembers {
-  final List<BoilerplateFactory>/*!*/ factories;
-  final List<BoilerplateProps>/*!*/ props;
-  final List<BoilerplatePropsMixin>/*!*/ propsMixins;
-  final List<BoilerplateComponent>/*!*/ components;
-  final List<BoilerplateState>/*!*/ states;
-  final List<BoilerplateStateMixin>/*!*/ stateMixins;
+  final List<BoilerplateFactory> factories;
+  final List<BoilerplateProps> props;
+  final List<BoilerplatePropsMixin> propsMixins;
+  final List<BoilerplateComponent> components;
+  final List<BoilerplateState> states;
+  final List<BoilerplateStateMixin> stateMixins;
 
   /// A flat list composed of all boilerplate members.
   Iterable<BoilerplateMember> get allMembers => allMembersLists.expand((i) => i);
@@ -114,12 +114,12 @@ class BoilerplateMembers {
 
   @protected
   BoilerplateMembers({
-    this.factories,
-    this.props,
-    this.propsMixins,
-    this.components,
-    this.states,
-    this.stateMixins,
+    required this.factories,
+    required this.props,
+    required this.propsMixins,
+    required this.components,
+    required this.states,
+    required this.stateMixins,
   });
 
   @override

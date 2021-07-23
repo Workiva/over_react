@@ -29,18 +29,18 @@ class BoilerplateFactory extends BoilerplateMember {
   annotations.Factory get meta => const annotations.Factory();
 
   /// The [TypeAnnotation] for the component's factory.
-  TypeAnnotation get propsGenericArg {
+  TypeAnnotation? get propsGenericArg {
     final type = node.variables.type;
     if (type is NamedType && type.typeNameWithoutPrefix == 'UiFactory') {
       final typeArgs = type.typeArguments?.arguments;
       if (typeArgs?.length == 1) {
-        return typeArgs[0];
+        return typeArgs![0];
       }
     }
 
     if (shouldGenerateConfig) {
       final uiFunctionInvocation = getDescendantIdentifier(
-          node.variables.firstInitializer, (identifier) => identifier.isFunctionType);
+          node.variables.firstInitializer!, (identifier) => identifier.isFunctionType)!;
       final methodInvocation = uiFunctionInvocation.thisOrAncestorOfType<MethodInvocation>();
       final typeArgs = methodInvocation?.typeArguments?.arguments?.first;
       return typeArgs;
@@ -62,7 +62,7 @@ class BoilerplateFactory extends BoilerplateMember {
   /// - Preventing the presence of multiple initializer variables
   /// - Verifying the presence of a generated factory
   @override
-  void validate(Version version, ErrorCollector/*!*/ errorCollector) {
+  void validate(Version version, ErrorCollector errorCollector) {
     switch (version) {
       case Version.v4_mixinBased:
         break;

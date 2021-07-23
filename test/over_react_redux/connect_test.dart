@@ -30,21 +30,21 @@ import 'fixtures/store.dart';
 /// Main entry point for AbstractTransition testing
 main() {
   group('connect', () {
-    UiFactory<CounterProps> ConnectedCounter;
-    TestJacket<CounterComponent> jacket;
+    UiFactory<CounterProps>? ConnectedCounter;
+    TestJacket<CounterComponent>? jacket;
     final counterRef = createRef<CounterComponent>();
-    Store<CounterState> store1;
-    Store<BigCounterState> store2;
+    late Store<CounterState> store1;
+    late Store<BigCounterState> store2;
 
-    JsConnectOptions connectOptions;
+    JsConnectOptions? connectOptions;
     final originalConnect = mockableJsConnect;
 
     setUpAll(() {
       mockableJsConnect = ([
-        Function mapStateToProps,
+        Function? mapStateToProps,
         dynamic mapDispatchToProps,
-        Function mergeProps,
-        JsConnectOptions options,
+        Function? mergeProps,
+        JsConnectOptions? options,
       ]) {
         connectOptions = options;
         return originalConnect(
@@ -90,7 +90,7 @@ main() {
       test('throws without a provider', () {
         ConnectedCounter = connect<CounterState, CounterProps>()(Counter);
 
-        expect(() => render(ConnectedCounter()('test')), throwsA(anything));
+        expect(() => render(ConnectedCounter!()('test')), throwsA(anything));
       });
 
       test('does not throw with a provider', () {
@@ -99,7 +99,7 @@ main() {
         expect(
           () => render(
             (ReduxProvider()..store = store1)(
-              ConnectedCounter()('test'),
+              ConnectedCounter!()('test'),
             ),
           ),
           isNot(throwsA(anything)),
@@ -114,7 +114,7 @@ main() {
 
         render(
           (ReduxProvider()..store = store1)(
-            (ConnectedCounter()..ref = counterRef)('test'),
+            (ConnectedCounter!()..ref = counterRef)('test'),
           ),
         );
         expect(counterRef.current, isA<CounterComponent>());
@@ -132,12 +132,12 @@ main() {
 
         jacket = mount(
           (ReduxProvider()..store = store1)(
-            (ConnectedCounter()..ref = counterRef)('test'),
+            (ConnectedCounter!()..ref = counterRef)('test'),
           ),
         );
 
-        expect(counterRef.current.props.currentCount, 0);
-        expect(jacket.mountNode.innerHtml, contains('Count: 0'));
+        expect(counterRef.current!.props.currentCount, 0);
+        expect(jacket!.mountNode.innerHtml, contains('Count: 0'));
       });
 
       test('after dispatch', () async {
@@ -149,22 +149,22 @@ main() {
 
         jacket = mount(
           (ReduxProvider()..store = store1)(
-            (ConnectedCounter()..ref = counterRef)('test'),
+            (ConnectedCounter!()..ref = counterRef)('test'),
           ),
         );
 
-        expect(counterRef.current.props.currentCount, 0);
-        expect(jacket.mountNode.innerHtml, contains('Count: 0'));
+        expect(counterRef.current!.props.currentCount, 0);
+        expect(jacket!.mountNode.innerHtml, contains('Count: 0'));
 
         var dispatchButton =
-            queryByTestId(jacket.mountNode, 'button-increment');
+            queryByTestId(jacket!.mountNode, 'button-increment');
         click(dispatchButton);
 
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(counterRef.current.props.currentCount, 1);
-        expect(jacket.mountNode.innerHtml, contains('Count: 1'));
+        expect(counterRef.current!.props.currentCount, 1);
+        expect(jacket!.mountNode.innerHtml, contains('Count: 1'));
       });
 
       test('without converting the props whatsoever', () {
@@ -186,7 +186,7 @@ main() {
 
         jacket = mount(
           (ReduxProvider()..store = store1)(
-            (ConnectedCounter()
+            (ConnectedCounter!()
               ..ref = counterRef
               ..['functionPropSetOnHoc'] = testFunction
               ..['mapPropSetOnHoc'] = testMap
@@ -196,7 +196,7 @@ main() {
           ),
         );
 
-        final actualProps = counterRef.current.props;
+        final CounterProps actualProps = counterRef.current!.props;
         final expectedProps = {
           'functionPropSetInsideHoc': same(testFunction),
           'mapPropSetInsideHoc': same(testMap),
@@ -227,12 +227,12 @@ main() {
 
         jacket = mount(
           (ReduxProvider()..store = store1)(
-            (ConnectedCounter()..ref = counterRef)('test'),
+            (ConnectedCounter!()..ref = counterRef)('test'),
           ),
         );
 
-        expect(counterRef.current.props.currentCount, 0);
-        expect(jacket.mountNode.innerHtml, contains('Count: 0'));
+        expect(counterRef.current!.props.currentCount, 0);
+        expect(jacket!.mountNode.innerHtml, contains('Count: 0'));
       });
 
       test('after dispatch', () async {
@@ -244,22 +244,22 @@ main() {
 
         jacket = mount(
           (ReduxProvider()..store = store1)(
-            (ConnectedCounter()..ref = counterRef)('test'),
+            (ConnectedCounter!()..ref = counterRef)('test'),
           ),
         );
 
-        expect(counterRef.current.props.currentCount, 0);
-        expect(jacket.mountNode.innerHtml, contains('Count: 0'));
+        expect(counterRef.current!.props.currentCount, 0);
+        expect(jacket!.mountNode.innerHtml, contains('Count: 0'));
 
         var dispatchButton =
-            queryByTestId(jacket.mountNode, 'button-increment');
+            queryByTestId(jacket!.mountNode, 'button-increment');
         click(dispatchButton);
 
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(counterRef.current.props.currentCount, 1);
-        expect(jacket.mountNode.innerHtml, contains('Count: 1'));
+        expect(counterRef.current!.props.currentCount, 1);
+        expect(jacket!.mountNode.innerHtml, contains('Count: 1'));
       });
     });
 
@@ -274,19 +274,19 @@ main() {
           forwardRef: true)(Counter);
 
         jacket = mount((ReduxProvider()..store = store1)(
-            (ConnectedCounter()..ref = counterRef)('test'),
+            (ConnectedCounter!()..ref = counterRef)('test'),
           ));
 
-        expect(counterRef.current.props.currentCount, 0);
+        expect(counterRef.current!.props.currentCount, 0);
 
-        var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
+        var dispatchButton = queryByTestId(jacket!.mountNode, 'button-increment');
         // causes a state change that calls the makeMapStateToProps returned "real" mapStateToProps function.
         click(dispatchButton);
 
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(counterRef.current.props.currentCount, 1);
+        expect(counterRef.current!.props.currentCount, 1);
       });
     });
 
@@ -301,19 +301,19 @@ main() {
           forwardRef:true)(Counter);
 
         jacket = mount((ReduxProvider()..store = store1)(
-            (ConnectedCounter()..ref = counterRef)('test'),
+            (ConnectedCounter!()..ref = counterRef)('test'),
           ));
 
-        expect(counterRef.current.props.currentCount, 0);
+        expect(counterRef.current!.props.currentCount, 0);
 
-        var dispatchButton = queryByTestId(jacket.mountNode, 'button-increment');
+        var dispatchButton = queryByTestId(jacket!.mountNode, 'button-increment');
         // causes a state change that calls the makeMapStateToPropsWithOwnProps returned "real" mapStateToProps function.
         click(dispatchButton);
 
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(counterRef.current.props.currentCount, 1);
+        expect(counterRef.current!.props.currentCount, 1);
       });
     });
 
@@ -329,19 +329,19 @@ main() {
             forwardRef: true)(Counter);
 
         jacket = mount((ReduxProvider()..store = store1)(
-            (ConnectedCounter()..ref = counterRef)('test'),
+            (ConnectedCounter!()..ref = counterRef)('test'),
           ));
 
-        expect(counterRef.current.props.currentCount, 0);
+        expect(counterRef.current!.props.currentCount, 0);
 
-        var dispatchButton = queryByTestId(jacket.mountNode, 'button-decrement');
+        var dispatchButton = queryByTestId(jacket!.mountNode, 'button-decrement');
         // causes a state change that calls the makeMapDispatchToProps returned "real" mapDispatchToProps function.
         click(dispatchButton);
 
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(counterRef.current.props.currentCount, -1);
+        expect(counterRef.current!.props.currentCount, -1);
       });
     });
 
@@ -357,19 +357,19 @@ main() {
           forwardRef:true)(Counter);
 
         jacket = mount((ReduxProvider()..store = store1)(
-            (ConnectedCounter()..ref = counterRef)('test'),
+            (ConnectedCounter!()..ref = counterRef)('test'),
           ));
 
-        expect(counterRef.current.props.currentCount, 0);
+        expect(counterRef.current!.props.currentCount, 0);
 
-        var dispatchButton = queryByTestId(jacket.mountNode, 'button-decrement');
+        var dispatchButton = queryByTestId(jacket!.mountNode, 'button-decrement');
         // causes a state change that calls the makeMapDispatchToPropsWithOwnProps returned "real" mapDispatchToProps function.
         click(dispatchButton);
 
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(counterRef.current.props.currentCount, -1);
+        expect(counterRef.current!.props.currentCount, -1);
       });
     });
 
@@ -385,25 +385,25 @@ main() {
 
         jacket = mount(
           (ReduxProvider()..store = store1)(
-            (ConnectedCounter()..ref = counterRef)('test'),
+            (ConnectedCounter!()..ref = counterRef)('test'),
           ),
         );
 
-        expect(counterRef.current.props.decrement, isA<Function>());
+        expect(counterRef.current!.props.decrement, isA<Function>());
 
-        expect(counterRef.current.props.currentCount, 0);
-        expect(jacket.mountNode.innerHtml, contains('Count: 0'));
+        expect(counterRef.current!.props.currentCount, 0);
+        expect(jacket!.mountNode.innerHtml, contains('Count: 0'));
 
         // Click button mapped to trigger `propFromDispatch` prop.
         var dispatchButton =
-            queryByTestId(jacket.mountNode, 'button-decrement');
+            queryByTestId(jacket!.mountNode, 'button-decrement');
         click(dispatchButton);
 
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(counterRef.current.props.currentCount, -1);
-        expect(jacket.mountNode.innerHtml, contains('Count: -1'));
+        expect(counterRef.current!.props.currentCount, -1);
+        expect(jacket!.mountNode.innerHtml, contains('Count: -1'));
       });
     });
 
@@ -419,25 +419,25 @@ main() {
 
         jacket = mount(
           (ReduxProvider()..store = store1)(
-            (ConnectedCounter()..ref = counterRef)('test'),
+            (ConnectedCounter!()..ref = counterRef)('test'),
           ),
         );
 
-        expect(counterRef.current.props.decrement, isA<Function>());
+        expect(counterRef.current!.props.decrement, isA<Function>());
 
-        expect(counterRef.current.props.currentCount, 0);
-        expect(jacket.mountNode.innerHtml, contains('Count: 0'));
+        expect(counterRef.current!.props.currentCount, 0);
+        expect(jacket!.mountNode.innerHtml, contains('Count: 0'));
 
         // Click button mapped to trigger `propFromDispatch` prop.
         var dispatchButton =
-            queryByTestId(jacket.mountNode, 'button-decrement');
+            queryByTestId(jacket!.mountNode, 'button-decrement');
         click(dispatchButton);
 
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(counterRef.current.props.currentCount, -1);
-        expect(jacket.mountNode.innerHtml, contains('Count: -1'));
+        expect(counterRef.current!.props.currentCount, -1);
+        expect(jacket!.mountNode.innerHtml, contains('Count: -1'));
       });
     });
 
@@ -453,7 +453,7 @@ main() {
           mergeProps: (stateProps, dispatchProps, ownProps) {
             return Counter()
               // Return whatever value is passed through ownProps until the state count is over 1
-              ..currentCount = stateProps.currentCount < 1
+              ..currentCount = stateProps.currentCount! < 1
                   ? ownProps.currentCount
                   : stateProps.currentCount
               ..decrement = ownProps.decrement;
@@ -463,7 +463,7 @@ main() {
 
         jacket = mount(
           (ReduxProvider()..store = store1)(
-            (ConnectedCounter()
+            (ConnectedCounter!()
               ..ref = counterRef
               // make `decrement` increment
               ..decrement = () {
@@ -475,13 +475,13 @@ main() {
         );
         // `button-decrement` will be incrementing now
         var dispatchButton =
-            queryByTestId(jacket.mountNode, 'button-decrement');
+            queryByTestId(jacket!.mountNode, 'button-decrement');
 
-        expect(counterRef.current.props.decrement, isA<Function>());
+        expect(counterRef.current!.props.decrement, isA<Function>());
 
         // state.count is at 0
-        expect(counterRef.current.props.currentCount, 900);
-        expect(jacket.mountNode.innerHtml, contains('Count: 900'));
+        expect(counterRef.current!.props.currentCount, 900);
+        expect(jacket!.mountNode.innerHtml, contains('Count: 900'));
 
         // Click button mapped to trigger `propFromDispatch` prop.
         click(dispatchButton); // state.count is now equal to 1
@@ -489,8 +489,8 @@ main() {
         // wait for the next tick for the async dispatch to propagate
         await Future(() {});
 
-        expect(counterRef.current.props.currentCount, 1);
-        expect(jacket.mountNode.innerHtml, contains('Count: 1'));
+        expect(counterRef.current!.props.currentCount, 1);
+        expect(jacket!.mountNode.innerHtml, contains('Count: 1'));
       });
     });
 
@@ -507,7 +507,7 @@ main() {
             }),
           )(Counter);
 
-          var whatever = connectOptions.areOwnPropsEqual(
+          var whatever = connectOptions!.areOwnPropsEqual!(
               JsBackedMap.from({'id': 'test'}).jsObject,
               JsBackedMap.from({'id': 'test2'}).jsObject);
 
@@ -533,7 +533,7 @@ main() {
 
           jacket = mount(
             (ReduxProvider()..store = store1)(
-              (ConnectedCounter()
+              (ConnectedCounter!()
                 ..ref = counterRef
                 ..currentCount = 0
               )('test'),
@@ -545,7 +545,7 @@ main() {
           calls.clear();
 
           var dispatchButton =
-              queryByTestId(jacket.mountNode, 'button-increment');
+              queryByTestId(jacket!.mountNode, 'button-increment');
           click(dispatchButton);
 
           // wait for the next tick for the async dispatch to propagate
@@ -561,7 +561,7 @@ main() {
               'prev': isA<CounterProps>(),
             }
           ]);
-          expect(jacket.mountNode.innerHtml, contains('Count: 0'));
+          expect(jacket!.mountNode.innerHtml, contains('Count: 0'));
         });
       });
 
@@ -578,7 +578,7 @@ main() {
             pure: false,
           )(Counter);
 
-          var whatever = connectOptions.areMergedPropsEqual(
+          var whatever = connectOptions!.areMergedPropsEqual!(
               JsBackedMap.from({'id': 'test'}).jsObject,
               JsBackedMap.from({'id': 'test2'}).jsObject);
 
@@ -609,7 +609,7 @@ main() {
 
           jacket = mount(
             (ReduxProvider()..store = store1)(
-              (ConnectedCounter()..ref = counterRef)('test'),
+              (ConnectedCounter!()..ref = counterRef)('test'),
             ),
           );
 
@@ -626,7 +626,7 @@ main() {
           calls.clear();
 
           var dispatchButton =
-              queryByTestId(jacket.mountNode, 'button-increment');
+              queryByTestId(jacket!.mountNode, 'button-increment');
           click(dispatchButton);
 
           // wait for the next tick for the async dispatch to propagate
@@ -635,7 +635,7 @@ main() {
           // only calls `areStatesEqual` and does not call `mapStateToProps` since it returned `true`.
           expect(getCallNames(), isNot(contains('mapStateToProps')));
           expect(getCallNames(), contains('areStatesEqual'));
-          expect(jacket.mountNode.innerHtml, contains('Count: 0'));
+          expect(jacket!.mountNode.innerHtml, contains('Count: 0'));
         });
 
         group('when not specified,', () {
@@ -654,7 +654,7 @@ main() {
 
             jacket = mount(
               (ReduxProvider()..store = noopStore)(
-                (ConnectedCounter()..ref = counterRef..currentCount = 0)('test'),
+                (ConnectedCounter!()..ref = counterRef..currentCount = 0)('test'),
               ),
             );
 
@@ -685,7 +685,7 @@ main() {
           },
           forwardRef: true,
         )(Counter);
-        var ConnectedBigCounter = connect<BigCounterState, CounterProps>(
+        CounterProps Function([Map<dynamic, dynamic>]) ConnectedBigCounter = connect<BigCounterState, CounterProps>(
           mapStateToProps: (state) {
             return Counter()..currentCount = state.bigCount;
           },
@@ -699,13 +699,13 @@ main() {
             ..context = bigCounterContext
           )(
             Dom.div()(
-              ConnectedCounter()('test'),
+              ConnectedCounter!()('test'),
               (ConnectedBigCounter()..addTestId('big-counter'))(),
             ),
           ),
         ));
 
-        var bigCounter = queryByTestId(jacket.mountNode, 'big-counter');
+        var bigCounter = queryByTestId(jacket!.mountNode, 'big-counter');
         var dispatchButton = queryByTestId(bigCounter, 'button-increment');
         click(dispatchButton);
 
@@ -722,7 +722,7 @@ main() {
           },
           forwardRef: true,
         )(Counter);
-        var ConnectedBigCounter = connect<BigCounterState, CounterProps>(
+        CounterProps Function([Map<dynamic, dynamic>]) ConnectedBigCounter = connect<BigCounterState, CounterProps>(
           mapStateToProps: (state) {
             return Counter()..currentCount = state.bigCount;
           },
@@ -736,18 +736,18 @@ main() {
             ..context = bigCounterContext
           )(
             Dom.div()(
-              (ConnectedCounter()..addTestId('outside'))('test'),
+              (ConnectedCounter!()..addTestId('outside'))('test'),
             ),
             Dom.div()(
               (ConnectedBigCounter()..addTestId('big-counter'))(
-                (ConnectedCounter()..addTestId('small-counter'))(),
+                (ConnectedCounter!()..addTestId('small-counter'))(),
               ),
             ),
           ),
         ));
 
-        var bigCounter = queryByTestId(jacket.mountNode, 'big-counter');
-        var smallCounter = queryByTestId(jacket.mountNode, 'small-counter');
+        var bigCounter = queryByTestId(jacket!.mountNode, 'big-counter');
+        var smallCounter = queryByTestId(jacket!.mountNode, 'small-counter');
 
         var smallDispatchButton =
             queryByTestId(smallCounter, 'button-increment');
@@ -759,14 +759,14 @@ main() {
         await Future(() {});
 
         // Big counter updated to 100
-        expect(findDomNode(bigCounter).innerHtml, contains('Count: 100'),
+        expect(findDomNode(bigCounter)!.innerHtml, contains('Count: 100'),
             reason: 'Should have a count of 100');
 
         // Normal counter incremented only 1 at both instances
         expect(
-            findDomNode(queryByTestId(jacket.mountNode, 'outside')).innerHtml,
+            findDomNode(queryByTestId(jacket!.mountNode, 'outside'))!.innerHtml,
             contains('Count: 1</div>'));
-        expect(findDomNode(bigCounter).innerHtml, contains('Count: 1</div>'));
+        expect(findDomNode(bigCounter)!.innerHtml, contains('Count: 1</div>'));
       });
     });
   });

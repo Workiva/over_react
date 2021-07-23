@@ -26,33 +26,33 @@ abstract class _$ComponentTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$ComponentTestProps.stringProp] -->
   @override
-  String get stringProp =>
-      (props[_$key__stringProp___$ComponentTestProps] ?? null) as String;
+  String? get stringProp =>
+      (props[_$key__stringProp___$ComponentTestProps] ?? null) as String?;
 
   /// <!-- Generated from [_$ComponentTestProps.stringProp] -->
   @override
-  set stringProp(String value) =>
+  set stringProp(String? value) =>
       props[_$key__stringProp___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.shouldSetPropsDirectly] -->
   @override
-  bool get shouldSetPropsDirectly =>
+  bool? get shouldSetPropsDirectly =>
       (props[_$key__shouldSetPropsDirectly___$ComponentTestProps] ?? null)
-          as bool;
+          as bool?;
 
   /// <!-- Generated from [_$ComponentTestProps.shouldSetPropsDirectly] -->
   @override
-  set shouldSetPropsDirectly(bool value) =>
+  set shouldSetPropsDirectly(bool? value) =>
       props[_$key__shouldSetPropsDirectly___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.shouldUseJsFactory] -->
   @override
-  bool get shouldUseJsFactory =>
-      (props[_$key__shouldUseJsFactory___$ComponentTestProps] ?? null) as bool;
+  bool? get shouldUseJsFactory =>
+      (props[_$key__shouldUseJsFactory___$ComponentTestProps] ?? null) as bool?;
 
   /// <!-- Generated from [_$ComponentTestProps.shouldUseJsFactory] -->
   @override
-  set shouldUseJsFactory(bool value) =>
+  set shouldUseJsFactory(bool? value) =>
       props[_$key__shouldUseJsFactory___$ComponentTestProps] = value;
 
   /// <!-- Generated from [_$ComponentTestProps.dynamicProp] -->
@@ -180,7 +180,7 @@ class ComponentTestProps extends _$ComponentTestProps
   static const PropsMeta meta = _$metaForComponentTestProps;
 }
 
-_$$ComponentTestProps _$ComponentTest([Map backingProps]) =>
+_$$ComponentTestProps _$ComponentTest([Map? backingProps]) =>
     backingProps == null
         ? _$$ComponentTestProps$JsMap(JsBackedMap())
         : _$$ComponentTestProps(backingProps);
@@ -253,7 +253,7 @@ class _$$ComponentTestProps$JsMap extends _$$ComponentTestProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$ComponentTestComponent extends ComponentTestComponent {
-  _$$ComponentTestProps$JsMap _cachedTypedProps;
+  late _$$ComponentTestProps$JsMap _cachedTypedProps;
 
   @override
   _$$ComponentTestProps$JsMap get props => _cachedTypedProps;
@@ -326,7 +326,7 @@ class IsErrorBoundaryProps extends _$IsErrorBoundaryProps
   static const PropsMeta meta = _$metaForIsErrorBoundaryProps;
 }
 
-_$$IsErrorBoundaryProps _$IsErrorBoundary([Map backingProps]) =>
+_$$IsErrorBoundaryProps _$IsErrorBoundary([Map? backingProps]) =>
     backingProps == null
         ? _$$IsErrorBoundaryProps$JsMap(JsBackedMap())
         : _$$IsErrorBoundaryProps(backingProps);
@@ -399,7 +399,7 @@ class _$$IsErrorBoundaryProps$JsMap extends _$$IsErrorBoundaryProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
-  _$$IsErrorBoundaryProps$JsMap _cachedTypedProps;
+  late _$$IsErrorBoundaryProps$JsMap _cachedTypedProps;
 
   @override
   _$$IsErrorBoundaryProps$JsMap get props => _cachedTypedProps;
@@ -471,7 +471,7 @@ class IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
   static const PropsMeta meta = _$metaForIsNotErrorBoundaryProps;
 }
 
-_$$IsNotErrorBoundaryProps _$IsNotErrorBoundary([Map backingProps]) =>
+_$$IsNotErrorBoundaryProps _$IsNotErrorBoundary([Map? backingProps]) =>
     backingProps == null
         ? _$$IsNotErrorBoundaryProps$JsMap(JsBackedMap())
         : _$$IsNotErrorBoundaryProps(backingProps);
@@ -544,7 +544,7 @@ class _$$IsNotErrorBoundaryProps$JsMap extends _$$IsNotErrorBoundaryProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
-  _$$IsNotErrorBoundaryProps$JsMap _cachedTypedProps;
+  late _$$IsNotErrorBoundaryProps$JsMap _cachedTypedProps;
 
   @override
   _$$IsNotErrorBoundaryProps$JsMap get props => _cachedTypedProps;

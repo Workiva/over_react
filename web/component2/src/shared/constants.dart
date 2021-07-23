@@ -70,7 +70,7 @@ mixin AbstractInputPropsMixin on UiProps {
   ///
   /// _Proxies [DomPropsMixin.name]._
   @Accessor(keyNamespace: '')
-  String name;
+  String? name;
 
   /// The value of the input. Setting this will make the input's value _controlled_; it will not update automatically in
   /// response to user input, but instead will always render the value of this prop.
@@ -87,7 +87,7 @@ mixin AbstractInputPropsMixin on UiProps {
   /// * [ToggleBehaviorType.RADIO] - Only one can be active at once.
   ///
   /// Default: [ToggleBehaviorType.CHECKBOX]
-  ToggleBehaviorType toggleType;
+  ToggleBehaviorType? toggleType;
 }
 
 mixin AbstractInputStateMixin on UiState {
@@ -96,12 +96,12 @@ mixin AbstractInputStateMixin on UiState {
   ///
   /// HTML ids are needed in inputs for proper label linking and accessibility support,
   /// so this state value ensures there's always a valid ID value to use.
-  String id;
+  String? id;
 
   /// An auto-generated GUID, used as a fallback when the [AbstractInputPropsMixin.name] is unspecified,
   /// and saved on the state so it will persist across remounts.
   ///
   /// HTML names must be the same for anything that renders an HTML `<input type="radio">` element
   /// so that only one can be selected at a time.
-  String name;
+  String? name;
 }

@@ -44,12 +44,12 @@ UiFactory<TypedFactoryTesterProps> TypedFactoryTester = _$TypedFactoryTester;
 
 @Props()
 class _$TypedFactoryTesterProps extends UiProps {
-  bool testProp;
+  bool? testProp;
 }
 
 @State()
 class _$TypedFactoryTesterState extends UiState {
-  bool testState;
+  bool? testState;
 }
 
 @Component2()

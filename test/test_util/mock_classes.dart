@@ -21,17 +21,17 @@ import 'package:react/react.dart' as react;
 
 class MockTimer extends Mock implements Timer {
   bool _isInstantiated = false;
-  void Function() _callback;
-  Duration _duration;
+  void Function()? _callback;
+  Duration? _duration;
 
   /// Whether the timer has been initialized via [getTimerFactory].
   bool get isInstantiated => _isInstantiated;
 
   /// The callback the timer was initialized with.
-  void Function() get callback => _callback;
+  void Function()? get callback => _callback;
 
   /// The duration the timer was initialized with.
-  Duration get duration => _duration;
+  Duration? get duration => _duration;
 
   /// Returns a function that initializes [mock] with the given duration and callback.
   ///

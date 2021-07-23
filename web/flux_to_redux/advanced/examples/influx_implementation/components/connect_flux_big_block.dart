@@ -42,8 +42,8 @@ UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock = composeHocs([
       ..blockOneBackgroundColor = state.blockOneBackgroundColor
     ),
     mapActionsToProps: (actions) => (ConnectFluxBigBlock()
-      ..changeMainBackgroundColor = actions.changeMainBackgroundColor
-      ..changeBlockOneBackgroundColor = actions.changeBlockOneBackgroundColor
+      ..changeMainBackgroundColor = actions!.changeMainBackgroundColor as void Function()?
+      ..changeBlockOneBackgroundColor = actions.changeBlockOneBackgroundColor as void Function()?
     ),
   ),
   // [5]
@@ -52,7 +52,7 @@ UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock = composeHocs([
     // [7]
     mapStateToProps: (state) => (ConnectFluxBigBlock()..blockTwoBackgroundColor = state.backgroundColor),
     mapActionsToProps: (actions) =>
-        (ConnectFluxBigBlock()..changeBlockTwoBackgroundColor = actions.changeBlockTwoBackgroundColor),
+        (ConnectFluxBigBlock()..changeBlockTwoBackgroundColor = actions!.changeBlockTwoBackgroundColor as void Function()?),
   ),
   // [5]
   connectFlux<AnotherColorStore, RandomColorActions, ConnectFluxBigBlockProps>(
@@ -60,20 +60,20 @@ UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock = composeHocs([
     // [7]
     mapStateToProps: (state) => (ConnectFluxBigBlock()..blockThreeBackgroundColor = state.backgroundColor),
     mapActionsToProps: (actions) =>
-        (ConnectFluxBigBlock()..changeBlockThreeBackgroundColor = actions.changeBlockThreeBackgroundColor),
+        (ConnectFluxBigBlock()..changeBlockThreeBackgroundColor = actions!.changeBlockThreeBackgroundColor as void Function()?),
   ),
 ])(castUiFactory(_$ConnectFluxBigBlock)); // ignore: undefined_identifier
 
 mixin ConnectFluxBigBlockPropsMixin on UiProps {
-  String backgroundColor; // [1]
-  String blockTwoBackgroundColor; // [1]
-  String blockThreeBackgroundColor; // [1]
-  String blockOneBackgroundColor; // [1]
+  String? backgroundColor; // [1]
+  String? blockTwoBackgroundColor; // [1]
+  String? blockThreeBackgroundColor; // [1]
+  String? blockOneBackgroundColor; // [1]
 
-  void Function() changeMainBackgroundColor; // [2]
-  void Function() changeBlockOneBackgroundColor; // [2]
-  void Function() changeBlockTwoBackgroundColor; // [2]
-  void Function() changeBlockThreeBackgroundColor; // [2]
+  void Function()? changeMainBackgroundColor; // [2]
+  void Function()? changeBlockOneBackgroundColor; // [2]
+  void Function()? changeBlockTwoBackgroundColor; // [2]
+  void Function()? changeBlockThreeBackgroundColor; // [2]
 }
 
 class ConnectFluxBigBlockProps = UiProps with ConnectFluxBigBlockPropsMixin, ConnectPropsMixin;
@@ -101,25 +101,25 @@ class ConnectFluxBigBlockComponent extends UiComponent2<ConnectFluxBigBlockProps
         )(
           (Dom.button()
             ..onClick = (_) {
-              props.changeMainBackgroundColor(); // [3]
+              props.changeMainBackgroundColor!(); // [3]
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Main Background Color'),
           (Dom.button()
             ..onClick = (_) {
-              props.changeBlockOneBackgroundColor(); // [3]
+              props.changeBlockOneBackgroundColor!(); // [3]
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Block 1 Background Color'),
           (Dom.button()
             ..onClick = (_) {
-              props.changeBlockTwoBackgroundColor(); // [3]
+              props.changeBlockTwoBackgroundColor!(); // [3]
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Block 2 Background Color'),
           (Dom.button()
             ..onClick = (_) {
-              props.changeBlockThreeBackgroundColor(); // [3]
+              props.changeBlockThreeBackgroundColor!(); // [3]
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Block 3 Background Color'),

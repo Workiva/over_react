@@ -44,7 +44,7 @@ import 'package:react/react_dom.dart' as react_dom show render, unmountComponent
 /// Use [unmountComponentAtNode] to unmount the instance.
 ///
 /// > Proxies [react_dom.render].
-dynamic render(ReactElement element, Element mountNode) {
+dynamic render(ReactElement? element, Element? mountNode) {
   return react_dom.render(element, mountNode);
 }
 
@@ -55,6 +55,6 @@ dynamic render(ReactElement element, Element mountNode) {
 /// * Returns `true` if a `Component` was mounted in the [mountNode].
 ///
 /// > Proxies [react_dom.unmountComponentAtNode].
-bool/*!*/ unmountComponentAtNode(Element mountNode) {
+bool unmountComponentAtNode(Element? mountNode) {
   return react_dom.unmountComponentAtNode(mountNode) as bool;
 }

@@ -61,7 +61,7 @@ mixin _GeneratedUiComponentStubs<TProps extends UiProps>
   /// Returns a typed props object backed by the specified [propsMap].
   /// Required to properly instantiate the generic [TProps] class.
   @toBeGenerated
-  TProps typedPropsFactory(Map propsMap) => throw UngeneratedError(member: #typedPropsFactory);
+  TProps typedPropsFactory(Map? propsMap) => throw UngeneratedError(member: #typedPropsFactory);
 }
 
 /// See: [component_base.UiComponent]
@@ -99,7 +99,7 @@ abstract class UiStatefulComponent<TProps extends UiProps, TState extends UiStat
 
   @override
   @toBeGenerated
-  TState typedStateFactory(Map stateMap) => throw UngeneratedError(member: #typedStateFactory,
+  TState typedStateFactory(Map? stateMap) => throw UngeneratedError(member: #typedStateFactory,
       message: GeneratedErrorMessages.typedStateFactory);
 }
 
@@ -120,7 +120,7 @@ abstract class UiProps extends component_base.UiProps with GeneratedClass {
   @Deprecated(
       'Use `UiComponent2.propsMeta` (only available for new mixin-based-boilerplate) instead.'
       ' Will be removed in 4.0.0.')
-  @toBeGenerated String get propKeyNamespace => throw UngeneratedError(member: #propKeyNamespace);
+  @toBeGenerated String? get propKeyNamespace => throw UngeneratedError(member: #propKeyNamespace);
 
   @override @toBeGenerated Map get props => throw UngeneratedError(member: #props);
 
@@ -167,7 +167,7 @@ class _ToBeGenerated {
 class UngeneratedError extends Error implements UnimplementedError {
   @override
   final String message;
-  UngeneratedError({String message, Symbol member}) :
+  UngeneratedError({String? message, Symbol? member}) :
       this.message = '${member != null ? '' : '`$member` should be implemented by code generation.\n\n'}$message';
 
   @override
@@ -179,7 +179,7 @@ class UngeneratedError extends Error implements UnimplementedError {
 /// Thrown when a class is directly instantiated when it should not be.
 class IllegalInstantiationError extends Error {
   final String message;
-  IllegalInstantiationError({String message, Type runtimeType}) :
+  IllegalInstantiationError({String? message, Type? runtimeType}) :
       this.message = message ?? '`$runtimeType` cannot be instantated directly, but only indirectly via the UiFactory';
 
 

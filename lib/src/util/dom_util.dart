@@ -24,7 +24,7 @@ import './validation_util.dart';
 /// Returns whether [root] is the same as or contains the [other] node.
 ///
 /// Returns false if either [root] or [other] is null.
-bool isOrContains(Element root, Element other) => (
+bool isOrContains(Element? root, Element? other) => (
   (root != null && other != null) &&
   (root == other || root.contains(other))
 );
@@ -34,12 +34,12 @@ Iterable<Element> _hierarchy(Element element) sync* {
   var current = element;
   do {
     yield current;
-  } while ((current = current.parent) != null);
+  } while ((current = current.parent!) != null);
 }
 
 /// Returns the closest element in the hierarchy of [lowerBound] up to an optional [upperBound] (both inclusive)
 /// that matches [selector], or `null` if no matches are found.
-Element closest(Element lowerBound, String selector, {Element upperBound}) {
+Element? closest(Element lowerBound, String selector, {Element? upperBound}) {
   for (var element in _hierarchy(lowerBound)) {
     if (element.matches(selector)) return element;
     if (upperBound != null && upperBound == element) break;
@@ -50,7 +50,7 @@ Element closest(Element lowerBound, String selector, {Element upperBound}) {
 
 /// Returns the currently focused element ([Document.activeElement]),
 /// or `null` if nothing is focused (e.g. [Document.activeElement] is [BodyElement]).
-Element getActiveElement() {
+Element? getActiveElement() {
   var activeElement = document.activeElement;
 
   if (activeElement is! Element || activeElement == document.body) return null;
@@ -124,7 +124,7 @@ bool supportsSelectionRange(InputElement element) {
 ///     }
 ///
 /// See: <https://bugs.chromium.org/p/chromium/issues/detail?id=324360>
-void setSelectionRange(/* TextInputElement | TextAreaElement */Element input, int start, int end, [String direction]) {
+void setSelectionRange(/* TextInputElement | TextAreaElement */Element? input, int start, int end, [String? direction]) {
   if (input is TextAreaElement) {
     input.setSelectionRange(start, end, direction);
   } else if (input is InputElement && supportsSelectionRange(input)) {
@@ -155,7 +155,7 @@ void setSelectionRange(/* TextInputElement | TextAreaElement */Element input, in
 /// `null` will also be returned for any [input] that does not support `selectionStart`.
 ///
 /// See: <https://bugs.chromium.org/p/chromium/issues/detail?id=324360>
-int getSelectionStart(Element input) {
+int? getSelectionStart(Element? input) {
   if (input is TextAreaElement) {
     return input.selectionStart;
   } else if (input is InputElement && supportsSelectionRange(input)) {

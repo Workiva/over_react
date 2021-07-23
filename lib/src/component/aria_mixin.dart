@@ -58,7 +58,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-activedescendant>
   @Accessor(key: 'aria-activedescendant')
-  String activedescendant;
+  String? activedescendant;
 
   /// Indicates whether assistive technologies will present all, or only parts of, the changed region
   /// based on the change notifications defined by the aria-relevant attribute. See related aria-relevant.
@@ -81,7 +81,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-atomic>
   @Accessor(key: 'aria-atomic')
-  bool atomic;
+  bool? atomic;
 
   /// Indicates whether user input completion suggestions are provided.
   ///
@@ -104,7 +104,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-busy>
   @Accessor(key: 'aria-busy')
-  bool busy;
+  bool? busy;
 
   /// Indicates the current 'checked' state of checkboxes, radio buttons, and other widgets. See
   /// related aria-pressed and aria-selected.
@@ -166,7 +166,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-disabled>
   @Accessor(key: 'aria-disabled')
-  bool disabled;
+  bool? disabled;
 
   /// Indicates what functions can be performed when the dragged object is released on the drop
   /// target. This allows assistive technologies to convey the possible drag options available to
@@ -242,7 +242,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-haspopup>
   @Accessor(key: 'aria-haspopup')
-  bool haspopup;
+  bool? haspopup;
 
   /// Indicates that the element and all of its descendants are not visible or perceivable to any
   /// user as implemented by the author. See related aria-disabled.
@@ -289,7 +289,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-hidden>
   @Accessor(key: 'aria-hidden')
-  bool hidden;
+  bool? hidden;
 
   /// Indicates the entered value does not conform to the format expected by the application.
   ///
@@ -330,7 +330,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-label>
   @Accessor(key: 'aria-label')
-  String label;
+  String? label;
 
   /// Identifies the element (or elements) that labels the current element. See related aria-label
   /// and aria-describedby.
@@ -390,7 +390,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-level>
   @Accessor(key: 'aria-level')
-  int level;
+  int? level;
 
   /// Indicates that an element will be updated, and describes the types of updates the user agents,
   /// assistive technologies, and user can expect from the live region.
@@ -438,7 +438,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiline>
   @Accessor(key: 'aria-multiline')
-  bool multiline;
+  bool? multiline;
 
   /// Indicates that the user may select more than one item from the current selectable descendants.
   ///
@@ -451,7 +451,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-multiselectable>
   @Accessor(key: 'aria-multiselectable')
-  bool multiselectable;
+  bool? multiselectable;
 
   /// Indicates whether the element and orientation is horizontal or vertical.
   ///
@@ -491,7 +491,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-posinset>
   @Accessor(key: 'aria-posinset')
-  int posinset;
+  int? posinset;
 
   /// Indicates the current 'pressed' state of toggle buttons. See related aria-checked and aria-selected.
   ///
@@ -523,7 +523,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-readonly>
   @Accessor(key: 'aria-readonly')
-  bool readonly;
+  bool? readonly;
 
   /// Indicates what user agent change notifications (additions, removals, etc.) assistive technologies
   /// will receive within a live region. See related aria-atomic.
@@ -586,13 +586,13 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-required>
   @Accessor(key: 'aria-required')
-  bool required;
+  bool? required;
 
   /// Specifies the the type defining a user interface element. Enriches the semantics of markup and
   /// gives assistive technologies information about how to handle each element.
   ///
   /// See: <http://www.w3.org/TR/wai-aria/usage#usage_intro>
-  String role;
+  String? role;
 
   /// Indicates the current 'selected' state of various widgets. See related aria-checked and aria-pressed.
   ///
@@ -631,7 +631,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-setsize>
   @Accessor(key: 'aria-setsize')
-  int setsize;
+  int? setsize;
 
   /// Indicates if items in a table or grid are sorted in ascending or descending order.
   ///
@@ -656,7 +656,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemax>
   @Accessor(key: 'aria-valuemax')
-  num valuemax;
+  num? valuemax;
 
   /// Defines the minimum allowed value for a range widget.
   ///
@@ -672,7 +672,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuemin>
   @Accessor(key: 'aria-valuemin')
-  num valuemin;
+  num? valuemin;
 
   /// Defines the current value for a range widget. See related aria-valuetext.
   ///
@@ -705,7 +705,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuenow>
   @Accessor(key: 'aria-valuenow')
-  num valuenow;
+  num? valuenow;
 
   /// Defines the human readable text alternative of aria-valuenow for a range widget.
   ///
@@ -726,7 +726,7 @@ abstract class _$AriaPropsMixin {
   ///
   /// See: <http://www.w3.org/TR/wai-aria/states_and_properties#aria-valuetext>
   @Accessor(key: 'aria-valuetext')
-  String valuetext;
+  String? valuetext;
 }
 
 /// Options for WAI-ARIA role values.
@@ -1788,4 +1788,4 @@ class AriaPropsMapView extends MapView with
 /// <!>  )
 /// </pre>
 /// <!-- use pre tags and HTML markup until WebStorm fully supports Dart doc comment markdown -->
-AriaPropsMapView ariaProps([Map backingMap]) =>  AriaPropsMapView(backingMap ?? {});
+AriaPropsMapView ariaProps([Map? backingMap]) =>  AriaPropsMapView(backingMap ?? {});

@@ -21,7 +21,7 @@ final $BasicComponentFactory = registerComponent2(
   displayName: 'Basic',
 );
 
-_$$BasicProps _$Basic([Map backingProps]) => backingProps == null
+_$$BasicProps _$Basic([Map? backingProps]) => backingProps == null
     ? _$$BasicProps$JsMap(JsBackedMap())
     : _$$BasicProps(backingProps);
 
@@ -109,7 +109,7 @@ class _$$BasicProps$JsMap extends _$$BasicProps {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$BasicComponent extends BasicComponent {
-  _$$BasicProps$JsMap _cachedTypedProps;
+  late _$$BasicProps$JsMap _cachedTypedProps;
 
   @override
   _$$BasicProps$JsMap get props => _cachedTypedProps;
@@ -158,9 +158,9 @@ class _$BasicComponent extends BasicComponent {
 mixin $BasicProps on BasicProps {
   static const PropsMeta meta = _$metaForBasicProps;
   @override
-  String get childId => (props[_$key__childId__BasicProps] ?? null) as String;
+  String? get childId => (props[_$key__childId__BasicProps] ?? null) as String?;
   @override
-  set childId(String value) => props[_$key__childId__BasicProps] = value;
+  set childId(String? value) => props[_$key__childId__BasicProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__childId__BasicProps =
       PropDescriptor(_$key__childId__BasicProps);

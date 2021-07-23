@@ -20,7 +20,7 @@ import 'parsing_helpers.dart';
 
 main() {
   group('Version (Parsing)', () {
-    Iterable<BoilerplateMember> members;
+    Iterable<BoilerplateMember>? members;
 
     tearDown(() {
       members = null;
@@ -73,23 +73,23 @@ main() {
       group('returns the correct version -', () {
         test('v2_legacyBackwordsCompat', () {
           members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v2);
-          expect(resolveVersion(members).version, Version.v2_legacyBackwardsCompat);
+          expect(resolveVersion(members!).version, Version.v2_legacyBackwardsCompat);
         });
 
         test('v3_legacyDart2Only', () {
           members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v3);
 
-          expect(resolveVersion(members).version, Version.v3_legacyDart2Only);
+          expect(resolveVersion(members!).version, Version.v3_legacyDart2Only);
         });
 
         test('v4_mixinBased (Dart <2.9.0 syntax)', () {
           members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v4);
-          expect(resolveVersion(members).version, Version.v4_mixinBased);
+          expect(resolveVersion(members!).version, Version.v4_mixinBased);
         });
 
         test('v4_mixinBased', () {
           members = BoilerplateMemberHelper.getBoilerplateMembersForVersion(BoilerplateVersions.v10);
-          expect(resolveVersion(members).version, Version.v4_mixinBased);
+          expect(resolveVersion(members!).version, Version.v4_mixinBased);
         });
       });
     });
@@ -118,8 +118,8 @@ main() {
     });
 
     group('VersionConfidence', () {
-      VersionConfidences versionConfidence;
-      VersionConfidences otherVersionConfidence;
+      late VersionConfidences versionConfidence;
+      late VersionConfidences otherVersionConfidence;
 
       setUp(() {
         versionConfidence = VersionConfidences(

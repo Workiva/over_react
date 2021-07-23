@@ -33,7 +33,7 @@ void main() {
       });
 
       test('on re-render', () {
-        TestJacket jacket;
+        late TestJacket jacket;
 
         expect(() {
           jacket = mount(
@@ -69,7 +69,7 @@ void main() {
       });
 
       test('on re-render', () {
-        TestJacket jacket;
+        late TestJacket jacket;
 
         expect(() {
           jacket = mount(
@@ -102,7 +102,7 @@ void main() {
       });
 
       test('on re-render', () {
-        TestJacket jacket;
+        late TestJacket jacket;
 
         expect(() {
           jacket = mount(
@@ -165,7 +165,7 @@ void main() {
       });
 
       test('on re-render', () {
-        TestJacket jacket;
+        late TestJacket jacket;
 
         expect(() {
           jacket = mount(
@@ -221,7 +221,7 @@ mixin ComponentTestProps on UiProps {
   dynamic nullable;
 
   @Accessor(isRequired: true, isNullable: false, requiredErrorMessage: 'This Prop Array is Required for testing purposes.')
-  List requiredAndLengthLimited;
+  List? requiredAndLengthLimited;
 }
 
 class ComponentTestComponent extends UiComponent2<ComponentTestProps> {

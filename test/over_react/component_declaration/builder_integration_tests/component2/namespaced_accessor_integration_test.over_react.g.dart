@@ -26,13 +26,13 @@ abstract class _$NamespacedAccessorTestPropsAccessorsMixin
 
   /// <!-- Generated from [_$NamespacedAccessorTestProps.stringProp] -->
   @override
-  String get stringProp =>
+  String? get stringProp =>
       (props[_$key__stringProp___$NamespacedAccessorTestProps] ?? null)
-          as String;
+          as String?;
 
   /// <!-- Generated from [_$NamespacedAccessorTestProps.stringProp] -->
   @override
-  set stringProp(String value) =>
+  set stringProp(String? value) =>
       props[_$key__stringProp___$NamespacedAccessorTestProps] = value;
 
   /// <!-- Generated from [_$NamespacedAccessorTestProps.dynamicProp] -->
@@ -158,7 +158,7 @@ class NamespacedAccessorTestProps extends _$NamespacedAccessorTestProps
   static const PropsMeta meta = _$metaForNamespacedAccessorTestProps;
 }
 
-_$$NamespacedAccessorTestProps _$NamespacedAccessorTest([Map backingProps]) =>
+_$$NamespacedAccessorTestProps _$NamespacedAccessorTest([Map? backingProps]) =>
     backingProps == null
         ? _$$NamespacedAccessorTestProps$JsMap(JsBackedMap())
         : _$$NamespacedAccessorTestProps(backingProps);
@@ -236,13 +236,13 @@ abstract class _$NamespacedAccessorTestStateAccessorsMixin
 
   /// <!-- Generated from [_$NamespacedAccessorTestState.stringState] -->
   @override
-  String get stringState =>
+  String? get stringState =>
       (state[_$key__stringState___$NamespacedAccessorTestState] ?? null)
-          as String;
+          as String?;
 
   /// <!-- Generated from [_$NamespacedAccessorTestState.stringState] -->
   @override
-  set stringState(String value) =>
+  set stringState(String? value) =>
       state[_$key__stringState___$NamespacedAccessorTestState] = value;
 
   /// <!-- Generated from [_$NamespacedAccessorTestState.dynamicState] -->
@@ -432,7 +432,7 @@ class _$$NamespacedAccessorTestState$JsMap
 // generated for the associated props class.
 class _$NamespacedAccessorTestComponent
     extends NamespacedAccessorTestComponent {
-  _$$NamespacedAccessorTestProps$JsMap _cachedTypedProps;
+  late _$$NamespacedAccessorTestProps$JsMap _cachedTypedProps;
 
   @override
   _$$NamespacedAccessorTestProps$JsMap get props => _cachedTypedProps;
@@ -460,7 +460,7 @@ class _$NamespacedAccessorTestComponent
   _$$NamespacedAccessorTestProps typedPropsFactory(Map backingMap) =>
       _$$NamespacedAccessorTestProps(backingMap);
 
-  _$$NamespacedAccessorTestState$JsMap _cachedTypedState;
+  late _$$NamespacedAccessorTestState$JsMap _cachedTypedState;
   @override
   _$$NamespacedAccessorTestState$JsMap get state => _cachedTypedState;
 

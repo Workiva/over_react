@@ -17,7 +17,7 @@ import 'package:over_react/over_react.dart';
 
 import '../../demo_components.dart';
 
-ReactElement buttonBlockDemo() => Dom.div()(
+ReactElement? buttonBlockDemo() => Dom.div()(
   (Button()
     ..isBlock = true
   )('Block level button'),

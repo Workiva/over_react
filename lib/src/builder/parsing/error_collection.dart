@@ -35,13 +35,13 @@ abstract class ErrorCollector {
   /// The use of [stringCallback] may still be useful as it handles the [SourceSpan]
   /// but provides the opportunity to implement custom logic.
   factory ErrorCollector.callback(
-    SourceFile/*!*/ sourceFile, {
-    ErrorCollectorCallback onError,
-    ErrorCollectorCallback onWarning,
+    SourceFile sourceFile, {
+    ErrorCollectorCallback? onError,
+    ErrorCollectorCallback? onWarning,
   }) = _CallbackErrorCollector;
 
   /// Constructor to simply log all messages and spans to the console.
-  factory ErrorCollector.print(SourceFile/*!*/ sourceFile) {
+  factory ErrorCollector.print(SourceFile sourceFile) {
     return _CallbackErrorCollector(
       sourceFile,
       onError: stringCallback(print),
@@ -51,7 +51,7 @@ abstract class ErrorCollector {
 
   /// Constructor that allows for the customization via the usage of a [Logger]
   /// instance.
-  factory ErrorCollector.log(SourceFile/*!*/ sourceFile, Logger logger) {
+  factory ErrorCollector.log(SourceFile sourceFile, Logger logger) {
     return _CallbackErrorCollector(
       sourceFile,
       onError: stringCallback(logger.severe),
@@ -59,25 +59,25 @@ abstract class ErrorCollector {
     );
   }
 
-  SourceFile/*!*/ get _sourceFile;
+  SourceFile get _sourceFile;
 
   /// Triggers the callback that is implemented to respond to errors.
-  void addError(String message, [SourceSpan span]);
+  void addError(String message, [SourceSpan? span]);
 
   /// Triggers the callback that is implemented to respond to errors.
-  void addWarning(String message, [SourceSpan span]);
+  void addWarning(String message, [SourceSpan? span]);
 
   FileSpan spanFor(SyntacticEntity nodeOrToken) => _sourceFile.spanFor(nodeOrToken);
-  FileSpan span(int start, [int end]) => _sourceFile.span(start, end);
+  FileSpan span(int start, [int? end]) => _sourceFile.span(start, end);
 }
 
-typedef ErrorCollectorCallback = void Function(String message, [SourceSpan span]);
+typedef ErrorCollectorCallback = void Function(String message, [SourceSpan? span]);
 
 class _CallbackErrorCollector extends ErrorCollector {
   @override
-  final SourceFile/*!*/ _sourceFile;
-  final ErrorCollectorCallback onError;
-  final ErrorCollectorCallback onWarning;
+  final SourceFile _sourceFile;
+  final ErrorCollectorCallback? onError;
+  final ErrorCollectorCallback? onWarning;
 
   _CallbackErrorCollector(
     this._sourceFile, {
@@ -87,9 +87,9 @@ class _CallbackErrorCollector extends ErrorCollector {
 
   /// Triggers the callback that is implemented to respond to errors.
   @override
-  void addError(String message, [SourceSpan span]) => onError?.call(message, span);
+  void addError(String message, [SourceSpan? span]) => onError?.call(message, span);
 
   /// Triggers the callback that is implemented to respond to errors.
   @override
-  void addWarning(String message, [SourceSpan span]) => onWarning?.call(message, span);
+  void addWarning(String message, [SourceSpan? span]) => onWarning?.call(message, span);
 }

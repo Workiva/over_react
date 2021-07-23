@@ -95,7 +95,7 @@ extension UiFactoryTypeMeta on UiFactory {
   void setTypeMeta({
     // These are separate arguments because it's very difficult to tell
     // the difference between a UiFactory and a ReactClass at runtime.
-    UiFactory subtypeOfFactory,
+    UiFactory? subtypeOfFactory,
     dynamic /*ReactClass|JS component function|string*/ subtypeOfRaw,
     bool isWrapper = false,
   }) {
@@ -106,10 +106,10 @@ extension UiFactoryTypeMeta on UiFactory {
         // Get the type directly as opposed to using getComponentTypeFromAlias
         // because the alias might not have been registered yet
         // due to lazy-initialization of generated component factories.
-        ? subtypeOfFactory().componentFactory.type
+        ? subtypeOfFactory().componentFactory!.type
         : subtypeOfRaw;
 
-    final type = this().componentFactory.type;
+    final type = this().componentFactory!.type;
     setComponentTypeMeta(
       type,
       parentType: parentType,
@@ -146,7 +146,7 @@ const String _componentTypeMetaKey = '_componentTypeMeta';
 /// This meta is retrievable via [getComponentTypeMeta].
 void setComponentTypeMeta(
   dynamic /* ReactClass|JS component function|string */ type, {
-  @required dynamic  /* ReactClass|JS component function|string */ parentType,
+  required dynamic  /* ReactClass|JS component function|string */ parentType,
   bool isWrapper = false,
   bool isHoc = false,
 }) {
@@ -176,7 +176,7 @@ ComponentTypeMeta getComponentTypeMeta(dynamic type) {
           is String);
 
   if (type is! String) {
-    return getProperty(type, _componentTypeMetaKey) as ComponentTypeMeta ??
+    return getProperty(type, _componentTypeMetaKey) as ComponentTypeMeta? ??
         const ComponentTypeMeta.none();
   }
 
@@ -329,7 +329,7 @@ Iterable<dynamic> getParentTypes(dynamic type) sync* {
 /// * [String] tag name (DOM components only)
 ///
 /// > Related: [isValidElementOfType]
-bool isComponentOfType(ReactElement instance, dynamic typeAlias,
+bool isComponentOfType(ReactElement? instance, dynamic typeAlias,
     {bool traverseWrappers = true, bool matchParentTypes = true}) {
   if (instance == null) {
     return false;
@@ -349,7 +349,7 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias,
     assert(isDartComponent(instance) &&
         'Non-Dart components should not be wrappers' is String);
 
-    final children = getProps(instance)['children'] as List;
+    final children = getProps(instance)['children'] as List?;
     if (children == null || children.isEmpty) {
       return false;
     }
@@ -377,7 +377,7 @@ bool isComponentOfType(ReactElement instance, dynamic typeAlias,
 ///
 /// > Related: [isComponentOfType]
 bool isValidElementOfType(dynamic instance, dynamic typeAlias) {
-  return isValidElement(instance) && isComponentOfType(instance as ReactElement/*!*/, typeAlias);
+  return isValidElement(instance) && isComponentOfType(instance as ReactElement, typeAlias);
 }
 
 /// Validates that a [ReactComponentFactoryProxy]'s component is not `Component`
@@ -396,7 +396,7 @@ void enforceMinimumComponentVersionFor(ReactComponentFactoryProxy component) {
 }
 
 /// Validates that a [ReactComponentFactoryProxy]'s component is a function component.
-void enforceFunctionComponent(ReactComponentFactoryProxy component) {
+void enforceFunctionComponent(ReactComponentFactoryProxy? component) {
   if (component is ReactDartFunctionComponentFactoryProxy || component is ReactDartWrappedComponentFactoryProxy) return;
 
   throw ArgumentError(unindent('''

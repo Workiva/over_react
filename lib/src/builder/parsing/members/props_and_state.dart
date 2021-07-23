@@ -37,7 +37,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
   /// The companion class for the props or state.
   ///
   /// This will only be present for [Version.v2_legacyBackwardsCompat] classes.
-  final ClassishDeclaration companion;
+  final ClassishDeclaration? companion;
 
   /// The corresponding annotation.
   ///
@@ -60,7 +60,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
   /// - Enforcing that no members are instantiated
   /// - Verifying legacy prefixes and companions are present
   @override
-  void validate(Version version, ErrorCollector/*!*/ errorCollector) {
+  void validate(Version version, ErrorCollector errorCollector) {
     switch (version) {
       case Version.v4_mixinBased:
         final node = this.node;
@@ -86,7 +86,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
           if (nodeHelper.hasAbstractKeyword) {
             errorCollector.addError(
                 '$propsOrStateClassString implementations must not be abstract, as they cannot be extended.',
-                errorCollector.spanFor(nodeHelper.abstractKeyword));
+                errorCollector.spanFor(nodeHelper.abstractKeyword!));
           }
         }
         break;
@@ -104,7 +104,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
                   'Should have companion class', errorCollector.spanFor(node.name));
             }
           } else {
-            validateMetaField(companion, propsOrStateMetaStructName, errorCollector);
+            validateMetaField(companion!, propsOrStateMetaStructName, errorCollector);
           }
         }
         break;
@@ -139,7 +139,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
 /// See [BoilerplateMember] for more information.
 class BoilerplateProps extends BoilerplatePropsOrState {
   BoilerplateProps(
-      ClassishDeclaration nodeHelper, ClassishDeclaration companion, VersionConfidences confidence)
+      ClassishDeclaration nodeHelper, ClassishDeclaration? companion, VersionConfidences confidence)
       : super(nodeHelper, companion, confidence);
 
   @override
@@ -151,7 +151,7 @@ class BoilerplateProps extends BoilerplatePropsOrState {
 /// See [BoilerplateMember] for more information.
 class BoilerplateState extends BoilerplatePropsOrState {
   BoilerplateState(
-      ClassishDeclaration nodeHelper, ClassishDeclaration companion, VersionConfidences confidence)
+      ClassishDeclaration nodeHelper, ClassishDeclaration? companion, VersionConfidences confidence)
       : super(nodeHelper, companion, confidence);
 
   @override

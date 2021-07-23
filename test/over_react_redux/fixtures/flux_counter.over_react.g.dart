@@ -39,7 +39,7 @@ class FluxCounterProps extends _$FluxCounterProps
   static const PropsMeta meta = _$metaForFluxCounterProps;
 }
 
-_$$FluxCounterProps _$FluxCounter([Map backingProps]) => backingProps == null
+_$$FluxCounterProps _$FluxCounter([Map? backingProps]) => backingProps == null
     ? _$$FluxCounterProps$JsMap(JsBackedMap())
     : _$$FluxCounterProps(backingProps);
 
@@ -111,7 +111,7 @@ class _$$FluxCounterProps$JsMap extends _$$FluxCounterProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$FluxCounterComponent extends FluxCounterComponent {
-  _$$FluxCounterProps$JsMap _cachedTypedProps;
+  late _$$FluxCounterProps$JsMap _cachedTypedProps;
 
   @override
   _$$FluxCounterProps$JsMap get props => _cachedTypedProps;

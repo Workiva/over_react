@@ -49,9 +49,9 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
   List<FactoryNames> get factoryNames;
   bool get isProps;
 
-  BoilerplateTypedMapMember get member;
+  BoilerplateTypedMapMember? get member;
 
-  TypeParameterList get typeParameters => member.nodeHelper.typeParameters;
+  TypeParameterList? get typeParameters => member!.nodeHelper.typeParameters;
   String get typeParamsOnClass => typeParameters?.toSource() ?? '';
   String get typeParamsOnSuper => removeBoundsFromTypeParameters(typeParameters);
 
@@ -73,16 +73,16 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
     if (factoryNames == null) throw StateError('factoryNames must not be null');
     assert(factoryNames.length == 1, 'factoryNames must have a length of 1');
 
-    outputContentsBuffer
+    outputContentsBuffer!
         .write('${names.implName} ${factoryNames.first.implName}([Map backingProps]) => ');
 
     if (!isComponent2) {
       /// _$$FooProps _$Foo([Map backingProps]) => _$$FooProps(backingProps);
-      outputContentsBuffer.writeln('${names.implName}(backingProps);');
+      outputContentsBuffer!.writeln('${names.implName}(backingProps);');
     } else {
       /// _$$FooProps _$Foo([Map backingProps]) => backingProps == null ? $jsMapImplName(JsBackedMap()) : _$$FooProps(backingProps);
       // Optimize this case for when backingProps is null to promote inlining of `jsMapImplName` typing
-      outputContentsBuffer.writeln(
+      outputContentsBuffer!.writeln(
           'backingProps == null ? ${names.jsMapImplName}(JsBackedMap()) : ${names.implName}(backingProps);');
     }
   }
@@ -132,9 +132,9 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
   ///     this.foo.bar.baz.qux.isOpen;
   ///
   String _generateConcretePropsOrStateImpl({
-    String componentFactoryName,
-    String propKeyNamespace,
-    List<Identifier> allPropsMixins,
+    String? componentFactoryName,
+    String? propKeyNamespace,
+    List<Identifier>? allPropsMixins,
   }) {
     if (isProps) {
       if (componentFactoryName == null || propKeyNamespace == null) {
@@ -281,7 +281,7 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
   final LegacyClassComponentDeclaration declaration;
 
   @override
-  final BoilerplatePropsOrState member;
+  final BoilerplatePropsOrState? member;
 
   _LegacyTypedMapImplGenerator.props(this.declaration)
       : names = TypedMapNames(declaration.props.name.name),
@@ -290,7 +290,7 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
         isProps = true;
 
   _LegacyTypedMapImplGenerator.state(this.declaration)
-      : names = TypedMapNames(declaration.state.name.name),
+      : names = TypedMapNames(declaration.state!.name.name),
         factoryNames = [FactoryNames(declaration.factory.name.name)],
         member = declaration.state,
         isProps = false;
@@ -303,15 +303,15 @@ class _LegacyTypedMapImplGenerator extends TypedMapImplGenerator {
 
   @override
   void _generatePropsImpl() {
-    outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
+    outputContentsBuffer!.write(_generateConcretePropsOrStateImpl(
       componentFactoryName: ComponentNames(declaration.component.name.name).componentFactoryName,
-      propKeyNamespace: getAccessorKeyNamespace(names, member.meta),
+      propKeyNamespace: getAccessorKeyNamespace(names, member!.meta),
     ));
   }
 
   @override
   void _generateStateImpl() {
-    outputContentsBuffer.write(_generateConcretePropsOrStateImpl());
+    outputContentsBuffer!.write(_generateConcretePropsOrStateImpl());
   }
 
   @override
@@ -351,7 +351,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   @override
   final Version version;
 
-  final List<Identifier> allPropsMixins;
+  final List<Identifier>? allPropsMixins;
 
   _TypedMapImplGenerator.props(ClassComponentDeclaration declaration)
       : names = TypedMapNames(declaration.props.either.name.name),
@@ -364,9 +364,9 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
         version = declaration.version;
 
   _TypedMapImplGenerator.state(ClassComponentDeclaration declaration)
-      : names = TypedMapNames(declaration.state.either.name.name),
+      : names = TypedMapNames(declaration.state!.either.name.name),
         factoryNames = [FactoryNames(declaration.factory.name.name)],
-        member = declaration.state.either,
+        member = declaration.state!.either,
         allPropsMixins = null,
         isProps = false,
         componentFactoryName = ComponentNames(declaration.component.name.name).componentFactoryName,
@@ -407,7 +407,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
   void _generateFactory() {
     if (isFunctionComponentDeclaration) {
       for (final factoryName in factoryNames) {
-        outputContentsBuffer.write(_generateUiFactoryConfig(factoryName));
+        outputContentsBuffer!.write(_generateUiFactoryConfig(factoryName));
       }
     } else {
       super._generateFactory();
@@ -416,7 +416,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
 
   @override
   void _generatePropsImpl() {
-    outputContentsBuffer.write(_generateConcretePropsOrStateImpl(
+    outputContentsBuffer!.write(_generateConcretePropsOrStateImpl(
       componentFactoryName: componentFactoryName,
       // This doesn't really apply to the new boilerplate
       propKeyNamespace: '',
@@ -426,7 +426,7 @@ class _TypedMapImplGenerator extends TypedMapImplGenerator {
 
   @override
   void _generateStateImpl() {
-    outputContentsBuffer.write(_generateConcretePropsOrStateImpl());
+    outputContentsBuffer!.write(_generateConcretePropsOrStateImpl());
   }
 
   @override

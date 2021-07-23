@@ -101,7 +101,7 @@ class DoNotGenerateAccessorTestProps extends _$DoNotGenerateAccessorTestProps
 }
 
 _$$DoNotGenerateAccessorTestProps _$DoNotGenerateAccessorTest(
-        [Map backingProps]) =>
+        [Map? backingProps]) =>
     backingProps == null
         ? _$$DoNotGenerateAccessorTestProps$JsMap(JsBackedMap())
         : _$$DoNotGenerateAccessorTestProps(backingProps);
@@ -316,7 +316,7 @@ class _$$DoNotGenerateAccessorTestState$JsMap
 // generated for the associated props class.
 class _$DoNotGenerateAccessorTestComponent
     extends DoNotGenerateAccessorTestComponent {
-  _$$DoNotGenerateAccessorTestProps$JsMap _cachedTypedProps;
+  late _$$DoNotGenerateAccessorTestProps$JsMap _cachedTypedProps;
 
   @override
   _$$DoNotGenerateAccessorTestProps$JsMap get props => _cachedTypedProps;
@@ -344,7 +344,7 @@ class _$DoNotGenerateAccessorTestComponent
   _$$DoNotGenerateAccessorTestProps typedPropsFactory(Map backingMap) =>
       _$$DoNotGenerateAccessorTestProps(backingMap);
 
-  _$$DoNotGenerateAccessorTestState$JsMap _cachedTypedState;
+  late _$$DoNotGenerateAccessorTestState$JsMap _cachedTypedState;
   @override
   _$$DoNotGenerateAccessorTestState$JsMap get state => _cachedTypedState;
 

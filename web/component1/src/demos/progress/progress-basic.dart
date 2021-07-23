@@ -17,7 +17,7 @@ import 'package:over_react/over_react.dart';
 
 import '../../demo_components.dart';
 
-ReactElement progressBasicDemo() => Dom.div()(
+ReactElement? progressBasicDemo() => Dom.div()(
   (Progress()
     ..showCaption = true
     ..captionProps = (domProps()..className = 'text-xs-center')

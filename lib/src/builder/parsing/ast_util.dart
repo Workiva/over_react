@@ -16,6 +16,7 @@ import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/dart/ast/token.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:over_react/src/builder/codegen/names.dart';
 import 'package:source_span/source_span.dart';
 import 'package:transformer_utils/transformer_utils.dart';
@@ -28,7 +29,7 @@ export 'ast_util/classish.dart';
 /// Utils that allow for easier access into VariableDeclarationList
 extension InitializerHelper on VariableDeclarationList {
   /// The initializer for the first variable in this list.
-  Expression get firstInitializer => variables.first.initializer;
+  Expression? get firstInitializer => variables.first.initializer;
 
   /// The first variable in this list.
   VariableDeclaration get firstVariable => variables.first;
@@ -38,7 +39,7 @@ extension InitializerHelper on VariableDeclarationList {
 /// the variables within a [VariableDeclarationList].
 extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
   /// The initializer for the first variable in this list.
-  Expression get firstInitializer => variables.firstInitializer;
+  Expression? get firstInitializer => variables.firstInitializer;
 
   /// The first variable in this list.
   VariableDeclaration get firstVariable => variables.firstVariable;
@@ -49,7 +50,7 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
     // ignore: deprecated_member_use_from_same_package
     final generatedPublicConfigName = FactoryNames(firstVariable.name.name).publicConfigName;
     return firstInitializer != null &&
-        anyDescendantIdentifiers(firstInitializer, (identifier) {
+        anyDescendantIdentifiers(firstInitializer!, (identifier) {
           return identifier.nameWithoutPrefix == generatedPrivateConfigName ||
               identifier.nameWithoutPrefix == generatedPublicConfigName;
         });
@@ -58,10 +59,10 @@ extension InitializerHelperTopLevel on TopLevelVariableDeclaration {
 
 /// Extension built on both [TypeNameHelper] and [NameHelper] to allow
 /// for easy access to the `name` field of [Identifier]s.
-extension TypeAnnotationNameHelper on TypeAnnotation {
+extension TypeAnnotationNameHelper on TypeAnnotation? {
   /// The unprefixed name of the node if the node is a [NamedType], or `null`
   /// if this type is not named.
-  String get typeNameWithoutPrefix => tryCast<NamedType>()?.nameWithoutPrefix;
+  String? get typeNameWithoutPrefix => tryCast<NamedType>()?.nameWithoutPrefix;
 }
 
 /// Extension built on [NameHelper] to allow for easy access to the `name`
@@ -113,7 +114,7 @@ extension MetadataHelper on AnnotatedNode {
   static String _getAnnotationClassOrTopLevelVariableName(Annotation annotation) {
     var fullName = annotation.name.name;
     if (annotation.constructorName != null) {
-      fullName = '$fullName.${annotation.constructorName.name}';
+      fullName = '$fullName.${annotation.constructorName!.name}';
     }
 
     final segments = fullName.split('.');
@@ -125,22 +126,20 @@ extension MetadataHelper on AnnotatedNode {
   }
 
   /// Returns the first annotation on this node whose class or variable name is [name].
-  Annotation getAnnotationWithName(String name) {
+  Annotation? getAnnotationWithName(String name) {
     assert(!name.contains('.'), 'must be a class or variable name, unprefixed');
 
-    return metadata.firstWhere(
-        (annotation) => _getAnnotationClassOrTopLevelVariableName(annotation) == name,
-        orElse: () => null);
+    return metadata.firstWhereOrNull(
+        (annotation) => _getAnnotationClassOrTopLevelVariableName(annotation) == name);
   }
 
   /// Returns the first annotation on this node whose class or variable name is included in [names].
-  Annotation getAnnotationWithNames(Set<String> names) {
+  Annotation? getAnnotationWithNames(Set<String> names) {
     assert(
         !names.any((name) => name.contains('.')), 'must be a class or variable name, unprefixed');
 
-    return metadata.firstWhere(
-        (annotation) => names.contains(_getAnnotationClassOrTopLevelVariableName(annotation)),
-        orElse: () => null);
+    return metadata.firstWhereOrNull(
+        (annotation) => names.contains(_getAnnotationClassOrTopLevelVariableName(annotation)));
   }
 
   /// Returns whether a node has an annotation whose class or variable name matches [name].
@@ -160,7 +159,7 @@ extension SourceFileSpanHelper on SourceFile {
   /// Returns a span for the given [AstNode] or [Token].
   ///
   /// If it's an [AstNode], the span starts after the doc comment and metadata (see [getSpanForNode]).
-  FileSpan spanFor(SyntacticEntity/*!*/ nodeOrToken) => nodeOrToken is AstNode
+  FileSpan spanFor(SyntacticEntity nodeOrToken) => nodeOrToken is AstNode
       ? getSpanForNode(this, nodeOrToken) as FileSpan
       : _getSpanForEntity(nodeOrToken);
 
@@ -190,7 +189,7 @@ bool anyDescendantIdentifiers(Expression expression, bool Function(Identifier) t
 }
 
 /// Returns the [Identifier] within [expression] matches the predicate [test].
-SimpleIdentifier getDescendantIdentifier(Expression expression, bool Function(Identifier) test) {
+SimpleIdentifier? getDescendantIdentifier(Expression expression, bool Function(Identifier) test) {
   final visitor = _AnyDescendantIdentifiersVisitor(test);
   expression.accept(visitor);
   return visitor.match;
@@ -200,7 +199,7 @@ class _AnyDescendantIdentifiersVisitor extends UnifyingAstVisitor<void> {
   final bool Function(Identifier) _test;
 
   bool hasMatch = false;
-  SimpleIdentifier match;
+  SimpleIdentifier? match;
 
   _AnyDescendantIdentifiersVisitor(this._test);
 

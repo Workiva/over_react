@@ -16,7 +16,7 @@
 part of basic.library;
 
 mixin SuperPartOfLibPropsMixin on UiProps {
-  String superProp;
+  String? superProp;
 }
 
 abstract class SuperPartOfLibComponent<T extends SuperPartOfLibPropsMixin> extends UiComponent2<T> {
@@ -34,7 +34,7 @@ abstract class SuperPartOfLibComponent<T extends SuperPartOfLibPropsMixin> exten
 UiFactory<SubPartOfLibProps> SubPartOfLib = castUiFactory(_$SubPartOfLib); // ignore: undefined_identifier
 
 mixin SubPartOfLibPropsMixin on UiProps, SuperPartOfLibPropsMixin {
-  String subProp;
+  String? subProp;
 }
 
 class SubPartOfLibProps = UiProps with SuperPartOfLibPropsMixin, SubPartOfLibPropsMixin;

@@ -48,7 +48,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
   TypedMapType get type;
 
-  BoilerplateTypedMapMember/*!*/ get member;
+  BoilerplateTypedMapMember get member;
 
   TypedMapNames get names;
 
@@ -56,7 +56,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
   ClassOrMixinDeclaration get node => member.node as ClassOrMixinDeclaration;
 
-  TypeParameterList get typeParameters => member.nodeHelper.typeParameters;
+  TypeParameterList? get typeParameters => member.nodeHelper.typeParameters;
 
   @override
   void generate();
@@ -148,7 +148,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
     StringBuffer output = StringBuffer();
 
     node.members.whereType<FieldDeclaration>().where((field) => !field.isStatic).forEach((field) {
-      T getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
+      T? getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
         return member.metadata.any((annotation) => annotation.name?.name == name) ? value : null;
       }
 
@@ -163,10 +163,10 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
       field.fields.variables.forEach((variable) {
         if (variable.initializer != null) {
-          logger.severe(messageWithSpan(
+          logger!.severe(messageWithSpan(
               'Fields are stubs for generated setters/getters and should not have initializers.\n'
               'Instead, initialize ${type.isProps ? 'prop values within defaultProps' : 'state values within initialState'}.',
-              span: getSpan(sourceFile, variable)));
+              span: getSpan(sourceFile!, variable)));
         }
 
         String accessorName = variable.name.name;
@@ -197,7 +197,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
             if (accessorMeta.isNullable) constantValue += ', isNullable: true';
 
             if (accessorMeta.requiredErrorMessage != null &&
-                accessorMeta.requiredErrorMessage.isNotEmpty) {
+                accessorMeta.requiredErrorMessage!.isNotEmpty) {
               constantValue +=
                   ', errorMessage: ${stringLiteral(accessorMeta.requiredErrorMessage)}';
             }
@@ -215,10 +215,10 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
         }
 
         if (annotationCount > 1) {
-          logger.severe(messageWithSpan(
+          logger!.severe(messageWithSpan(
               '@requiredProp/@nullableProp/@Accessor cannot be used together.\n'
               'You can use `@Accessor(isRequired: true)` or `isNullable: true` instead of the shorthand versions.',
-              span: getSpan(sourceFile, field)));
+              span: getSpan(sourceFile!, field)));
         }
 
         constantValue += ')';
@@ -243,8 +243,8 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
           if (variable.documentationComment == null) {
             docComment = '';
           } else {
-            final existingCommentSource = sourceFile.getText(
-                variable.documentationComment.offset, variable.documentationComment.end);
+            final existingCommentSource = sourceFile!.getText(
+                variable.documentationComment!.offset, variable.documentationComment!.end);
             docComment = '  $existingCommentSource\n'
                 '  ///\n';
           }
@@ -286,10 +286,10 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
       if (version.isLegacy &&
           field.fields.variables.length > 1 &&
           (field.documentationComment != null || field.metadata.isNotEmpty)) {
-        logger.warning(messageWithSpan(
+        logger!.warning(messageWithSpan(
             'Note: accessors declared as comma-separated variables will not all be generated '
             'with the original doc comments and annotations; only the first variable will.',
-            span: getSpan(sourceFile, field.fields)));
+            span: getSpan(sourceFile!, field.fields)));
       }
     });
 
@@ -389,8 +389,8 @@ class _LegacyTypedMapAccessorsGenerator extends TypedMapAccessorsGenerator {
         type = TypedMapType.props;
 
   _LegacyTypedMapAccessorsGenerator.state(LegacyClassComponentDeclaration decl)
-      : member = decl.state,
-        names = TypedMapNames(decl.state.name.name),
+      : member = decl.state!,
+        names = TypedMapNames(decl.state!.name.name),
         version = decl.version,
         type = TypedMapType.state;
 

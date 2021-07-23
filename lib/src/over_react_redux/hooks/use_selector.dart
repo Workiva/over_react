@@ -122,20 +122,20 @@ import 'package:react/react_client/react_interop.dart' show ReactContext;
 ///   parameterize it with.
 ///
 /// > Related: [useDispatch]
-TValue/*!*/ useSelector<TReduxState, TValue>(TValue Function(TReduxState/*!*/ state) selector, [
-  bool Function(TValue tNextValue, TValue tPrevValue) equalityFn,
+TValue useSelector<TReduxState, TValue>(TValue Function(TReduxState state) selector, [
+  bool Function(TValue? tNextValue, TValue? tPrevValue)? equalityFn,
 ]) {
   ReactInteropValue jsSelector(ReactInteropValue jsState) => wrapInteropValue(selector(unwrapInteropValue(jsState) as TReduxState));
-  _JsReduxStateEqualityFn jsEqualityFn = equalityFn == null
+  _JsReduxStateEqualityFn? jsEqualityFn = equalityFn == null
       ? null
       : allowInterop((nextJsValue, prevJsValue) =>
-          equalityFn(unwrapInteropValue(nextJsValue) as TValue, unwrapInteropValue(prevJsValue) as TValue));
+          equalityFn(unwrapInteropValue(nextJsValue) as TValue?, unwrapInteropValue(prevJsValue) as TValue?));
 
   return unwrapInteropValue(_jsUseSelector(allowInterop(jsSelector), jsEqualityFn)) as TValue;
 }
 
 @JS('ReactRedux.useSelector')
-external ReactInteropValue _jsUseSelector(_JsSelectorFn selector, [_JsReduxStateEqualityFn equalityFn]);
+external ReactInteropValue _jsUseSelector(_JsSelectorFn selector, [_JsReduxStateEqualityFn? equalityFn]);
 
 // ----------------------------------------------------
 //  createSelectorHook
@@ -195,13 +195,13 @@ external ReactInteropValue _jsUseSelector(_JsSelectorFn selector, [_JsReduxState
 ///   react_dom.render(app, querySelector('#id_of_mount_node'));
 /// }
 /// ```
-_SelectorFnHook<TReduxState> createSelectorHook<TReduxState>([Context context]) {
+_SelectorFnHook<TReduxState> createSelectorHook<TReduxState>([Context? context]) {
   final jsHook = _jsCreateSelectorHook(context?.jsThis ?? JsReactRedux.ReactReduxContext);
-  TValue/*!*/ dartHook<TValue>(TValue Function(TReduxState/*!*/ state) selector, [
-    bool Function(TValue/*!*/ tNextValue, TValue/*!*/ tPrevValue) equalityFn,
+  TValue dartHook<TValue>(TValue Function(TReduxState state) selector, [
+    bool Function(TValue tNextValue, TValue tPrevValue)? equalityFn,
   ]) {
     ReactInteropValue jsSelector(ReactInteropValue jsState) => wrapInteropValue(selector(unwrapInteropValue(jsState) as TReduxState));
-    _JsReduxStateEqualityFn jsEqualityFn = equalityFn == null
+    _JsReduxStateEqualityFn? jsEqualityFn = equalityFn == null
         ? null
         : allowInterop((nextJsValue, prevJsValue) =>
             equalityFn(unwrapInteropValue(nextJsValue) as TValue, unwrapInteropValue(prevJsValue) as TValue));
@@ -210,7 +210,7 @@ _SelectorFnHook<TReduxState> createSelectorHook<TReduxState>([Context context]) 
   }
 
   // FIXME null-safety remove unnecessary cast here added by migration tool
-  return dartHook;
+  return dartHook as TValue Function<TValue extends Object>(TValue Function(TReduxState), [bool Function(TValue, TValue)?]);
 }
 
 @JS('ReactRedux.createSelectorHook')
@@ -222,8 +222,8 @@ external _JsSelectorFnHook _jsCreateSelectorHook(ReactContext context);
 
 typedef _JsSelectorFn = ReactInteropValue Function(ReactInteropValue jsState);
 typedef _JsReduxStateEqualityFn = bool Function(ReactInteropValue nextJsValue, ReactInteropValue prevJsValue);
-typedef _JsSelectorFnHook = ReactInteropValue Function(_JsSelectorFn selector, [_JsReduxStateEqualityFn equalityFn]);
-typedef _SelectorFnHook<TReduxState> = TValue/*!*/ Function<TValue>(
+typedef _JsSelectorFnHook = ReactInteropValue Function(_JsSelectorFn selector, [_JsReduxStateEqualityFn? equalityFn]);
+typedef _SelectorFnHook<TReduxState> = TValue Function<TValue>(
   TValue Function(TReduxState state) selector, [
-  bool Function(TValue tNextValue, TValue tPrevValue) equalityFn,
+  bool Function(TValue tNextValue, TValue tPrevValue)? equalityFn,
 ]);

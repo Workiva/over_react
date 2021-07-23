@@ -55,7 +55,7 @@ const versionDescriptions = {
 ///
 /// Meant to be used in conjunction with [BoilerplateVersions] and [versionDescriptions]
 /// to allow for tests to iterate over component versions, generating the appropriate boilerplate.
-String getBoilerplateString({@required BoilerplateVersions version, String deprecatedLifecycleMethod, String componentBaseName}) {
+String getBoilerplateString({required BoilerplateVersions version, String? deprecatedLifecycleMethod, String? componentBaseName}) {
   var deprecatedMethod = '';
 
   componentBaseName ??= 'Foo';
@@ -263,21 +263,21 @@ const mockComponentDeclarations = r'''
 
 /// Utility class that holds boilerplate members that can be accessed during testing.
 class BoilerplateMemberHelper {
-  BoilerplateMembers members;
+  BoilerplateMembers? members;
 
-  List<BoilerplateFactory> factories;
-  List<BoilerplateComponent> components;
-  List<BoilerplateProps> props;
-  List<BoilerplateState> states;
-  List<BoilerplateStateMixin> stateMixins;
-  List<BoilerplatePropsMixin> propsMixins;
+  List<BoilerplateFactory>? factories;
+  List<BoilerplateComponent>? components;
+  List<BoilerplateProps>? props;
+  List<BoilerplateState>? states;
+  List<BoilerplateStateMixin>? stateMixins;
+  List<BoilerplatePropsMixin>? propsMixins;
 
   BoilerplateMemberHelper(String boilerplateString) {
     final unit = parseString(content: boilerplateString).unit;
 
      members = detectBoilerplateMembers(unit);
 
-     _initializeMembers(members);
+     _initializeMembers(members!);
   }
 
   /// Constructs the object with all the components from [mockComponentDeclarations]
@@ -285,16 +285,16 @@ class BoilerplateMemberHelper {
     final unit = parseString(content: mockComponentDeclarations).unit;
 
     members ??= detectBoilerplateMembers(unit);
-    _initializeMembers(members);
+    _initializeMembers(members!);
   }
 
-  static BoilerplateMembers getBoilerplateMembersFromString([String content]) {
+  static BoilerplateMembers getBoilerplateMembersFromString([String? content]) {
     final unit = parseString(content: content ?? mockComponentDeclarations).unit;
 
     return detectBoilerplateMembers(unit);
   }
 
-  static Iterable<BoilerplateMember> getBoilerplateMembersForVersion(BoilerplateVersions version, {String componentBaseName}) {
+  static Iterable<BoilerplateMember> getBoilerplateMembersForVersion(BoilerplateVersions version, {String? componentBaseName}) {
     final unit = parseString(content: getBoilerplateString(version: version, componentBaseName: componentBaseName)).unit;
 
     return detectBoilerplateMembers(unit).allMembers;

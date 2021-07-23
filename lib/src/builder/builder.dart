@@ -26,7 +26,7 @@ import './util.dart';
 import 'codegen.dart';
 import 'parsing.dart';
 
-Builder overReactBuilder(BuilderOptions options) => OverReactBuilder();
+Builder overReactBuilder(BuilderOptions? options) => OverReactBuilder();
 
 class OverReactBuilder extends Builder {
   @override
@@ -141,7 +141,7 @@ class OverReactBuilder extends Builder {
     // Generate over_react code for each part file of the input library.
     for (final part in parts) {
       final partId = AssetId.resolve(
-        Uri.parse(part.uri.stringValue),
+        Uri.parse(part.uri.stringValue!),
         from: buildStep.inputId);
       if (!await buildStep.canRead(partId)) {
         continue;
@@ -160,7 +160,7 @@ class OverReactBuilder extends Builder {
         log.severe('Missing "part \'$expectedPart\';".');
       }
 
-      RegExpMatch dartVersionCommentMatch;
+      RegExpMatch? dartVersionCommentMatch;
       if (source != null) {
         dartVersionCommentMatch = RegExp(r'//\s*@dart = (\d+)\.(\d+)').firstMatch(source);
       }
@@ -178,7 +178,7 @@ class OverReactBuilder extends Builder {
 
   static final _formatter = DartFormatter();
 
-  static CompilationUnit _tryParseCompilationUnit(String source, AssetId id) {
+  static CompilationUnit? _tryParseCompilationUnit(String source, AssetId id) {
     final result = parseString(content: source, path: id.path, throwIfDiagnostics: false);
 
     if (result.errors.isEmpty) return result.unit;
@@ -191,7 +191,7 @@ class OverReactBuilder extends Builder {
     return null;
   }
 
-  static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs, {RegExpMatch dartVersionCommentMatch}) async {
+  static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs, {RegExpMatch? dartVersionCommentMatch}) async {
     // final dartVersion = Platform.version;
     // bool nullSafetyIsTurnedOnByDefault = (int.tryParse(RegExp(r'(\d+)\.(\d+)').firstMatch(dartVersion).group(2)) ?? 0) >= 12;
     bool isNullSafe = true;
@@ -206,7 +206,7 @@ class OverReactBuilder extends Builder {
     final buffer = StringBuffer();
 
     if (!isNullSafe) {
-      buffer.writeln('// @dart = ${dartVersionCommentMatch.group(1)}.${dartVersionCommentMatch.group(2)}');
+      buffer.writeln('// @dart = ${dartVersionCommentMatch!.group(1)}.${dartVersionCommentMatch.group(2)}');
     }
 
     buffer

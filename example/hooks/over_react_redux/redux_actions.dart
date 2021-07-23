@@ -15,7 +15,7 @@
 class Action {
   Action({this.type, this.value});
 
-  final String type;
+  final String? type;
   final dynamic value;
 
   toJson() {

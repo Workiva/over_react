@@ -21,13 +21,13 @@ UiFactory<GenericSuperProps> GenericSuper = castUiFactory(_$GenericSuper); // ig
 class GenericSuperProps = UiProps with GenericSuperPropsMixin;
 
 mixin GenericSuperPropsMixin on UiProps {
-  String otherSuperProp;
-  String superProp;
-  String superProp1;
+  String? otherSuperProp;
+  String? superProp;
+  String? superProp1;
 }
 
 mixin GenericSuperStateMixin on UiState {
-  String superState;
+  String? superState;
 }
 
 class GenericSuperComponent<T extends GenericSuperPropsMixin, V extends GenericSuperStateMixin> extends UiStatefulComponent2<T, V> {

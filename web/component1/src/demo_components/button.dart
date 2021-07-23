@@ -33,21 +33,21 @@ class _$ButtonProps extends UiProps {
   /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#examples>.
   ///
   /// Default: [ButtonSkin.PRIMARY]
-  ButtonSkin skin;
+  ButtonSkin? skin;
 
   /// The size of the [Button].
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#sizes>.
   ///
   /// Default: [ButtonSize.DEFAULT]
-  ButtonSize size;
+  ButtonSize? size;
 
   /// Whether the [Button] should appear "active".
   ///
   /// See: <http://v4-alpha.getbootstrap.com/components/buttons/#active-state>
   ///
   /// Default: false
-  bool isActive;
+  bool? isActive;
 
   /// Whether the [Button] is disabled.
   ///
@@ -55,13 +55,13 @@ class _$ButtonProps extends UiProps {
   ///
   /// Default: false
   @Accessor(key: 'disabled', keyNamespace: '')
-  bool isDisabled;
+  bool? isDisabled;
 
   /// Whether the [Button] is a block level button -- that which spans the full
   /// width of its parent.
   ///
   /// Default: false
-  bool isBlock;
+  bool? isBlock;
 
   /// The HTML `href` attribute value for the [Button].
   ///
@@ -69,7 +69,7 @@ class _$ButtonProps extends UiProps {
   ///
   /// _Proxies [DomPropsMixin.href]_
   @Accessor(keyNamespace: '')
-  String href;
+  String? href;
 
   /// The HTML `target` attribute value for the [Button].
   ///
@@ -77,7 +77,7 @@ class _$ButtonProps extends UiProps {
   ///
   /// _Proxies [DomPropsMixin.target]_
   @Accessor(keyNamespace: '')
-  String target;
+  String? target;
 
   /// The HTML `type` attribute value for the [Button] when
   /// rendered via [Dom.button].
@@ -87,7 +87,7 @@ class _$ButtonProps extends UiProps {
   /// _Proxies [DomPropsMixin.type]_
   ///
   /// Default: [ButtonType.BUTTON]
-  ButtonType type;
+  ButtonType? type;
 }
 
 @State()
@@ -112,7 +112,7 @@ class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiSt
     return renderButton(props.children);
   }
 
-  ReactElement renderButton(dynamic children) {
+  ReactElement? renderButton(dynamic children) {
     BuilderOnlyUiFactory<DomProps> factory = buttonDomNodeFactory;
 
     return (factory()
@@ -131,20 +131,20 @@ class ButtonComponent<T extends ButtonProps, S extends ButtonState> extends UiSt
   ClassNameBuilder getButtonClasses() {
     return forwardingClassNameBuilder()
       ..add('btn')
-      ..add('btn-block', props.isBlock)
-      ..add('active', isActive)
-      ..add('disabled', props.isDisabled)
-      ..add(props.skin.className)
-      ..add(props.size.className);
+      ..add('btn-block', props.isBlock!)
+      ..add('active', isActive!)
+      ..add('disabled', props.isDisabled!)
+      ..add(props.skin!.className)
+      ..add(props.size!.className);
   }
 
   BuilderOnlyUiFactory<DomProps> get buttonDomNodeFactory => isAnchorLink ? Dom.a : Dom.button;
 
   bool get isAnchorLink => props.href != null;
 
-  bool get isActive => props.isActive;
+  bool? get isActive => props.isActive;
 
-  String get type => isAnchorLink ? null : props.type.typeName;
+  String? get type => isAnchorLink ? null : props.type!.typeName;
 }
 
 /// Contextual skin options for a [Button] component.

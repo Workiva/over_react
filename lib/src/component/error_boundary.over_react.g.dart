@@ -22,7 +22,7 @@ final $ErrorBoundaryComponentFactory = registerComponent2(
   skipMethods: const [],
 );
 
-_$$ErrorBoundaryProps _$ErrorBoundary([Map backingProps]) =>
+_$$ErrorBoundaryProps _$ErrorBoundary([Map? backingProps]) =>
     backingProps == null
         ? _$$ErrorBoundaryProps$JsMap(JsBackedMap())
         : _$$ErrorBoundaryProps(backingProps);
@@ -173,7 +173,7 @@ class _$$ErrorBoundaryState$JsMap extends _$$ErrorBoundaryState {
 @Deprecated('This API is for use only within generated code.'
     ' Do not reference it in your code, as it may change at any time.')
 class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
-  _$$ErrorBoundaryProps$JsMap _cachedTypedProps;
+  late _$$ErrorBoundaryProps$JsMap _cachedTypedProps;
 
   @override
   _$$ErrorBoundaryProps$JsMap get props => _cachedTypedProps;
@@ -200,7 +200,7 @@ class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
   _$$ErrorBoundaryProps typedPropsFactory(Map backingMap) =>
       _$$ErrorBoundaryProps(backingMap);
 
-  _$$ErrorBoundaryState$JsMap _cachedTypedState;
+  late _$$ErrorBoundaryState$JsMap _cachedTypedState;
   @override
   _$$ErrorBoundaryState$JsMap get state => _cachedTypedState;
 
@@ -245,54 +245,54 @@ class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
 mixin $ErrorBoundaryProps on ErrorBoundaryProps {
   static const PropsMeta meta = _$metaForErrorBoundaryProps;
   @override
-  Function(dynamic error, ReactErrorInfo info) get onComponentDidCatch =>
+  Function(dynamic error, ReactErrorInfo info)? get onComponentDidCatch =>
       (props[_$key__onComponentDidCatch__ErrorBoundaryProps] ?? null)
-          as Function(dynamic error, ReactErrorInfo info);
+          as Function(dynamic error, ReactErrorInfo info)?;
   @override
-  set onComponentDidCatch(Function(dynamic error, ReactErrorInfo info) value) =>
+  set onComponentDidCatch(Function(dynamic error, ReactErrorInfo info)? value) =>
       props[_$key__onComponentDidCatch__ErrorBoundaryProps] = value;
   @override
-  Function(dynamic error, ReactErrorInfo info) get onComponentIsUnrecoverable =>
+  Function(dynamic error, ReactErrorInfo info)? get onComponentIsUnrecoverable =>
       (props[_$key__onComponentIsUnrecoverable__ErrorBoundaryProps] ?? null)
-          as Function(dynamic error, ReactErrorInfo info);
+          as Function(dynamic error, ReactErrorInfo info)?;
   @override
   set onComponentIsUnrecoverable(
-          Function(dynamic error, ReactErrorInfo info) value) =>
+          Function(dynamic error, ReactErrorInfo info)? value) =>
       props[_$key__onComponentIsUnrecoverable__ErrorBoundaryProps] = value;
   @override
-  ReactElement Function(dynamic error, ReactErrorInfo info)
+  ReactElement Function(dynamic error, ReactErrorInfo? info)?
       get fallbackUIRenderer =>
           (props[_$key__fallbackUIRenderer__ErrorBoundaryProps] ?? null)
-              as ReactElement Function(dynamic error, ReactErrorInfo info);
+              as ReactElement Function(dynamic error, ReactErrorInfo? info)?;
   @override
   set fallbackUIRenderer(
-          ReactElement Function(dynamic error, ReactErrorInfo info) value) =>
+          ReactElement? Function(dynamic error, ReactErrorInfo info)? value) =>
       props[_$key__fallbackUIRenderer__ErrorBoundaryProps] = value;
   @override
-  Duration get identicalErrorFrequencyTolerance =>
+  Duration? get identicalErrorFrequencyTolerance =>
       (props[_$key__identicalErrorFrequencyTolerance__ErrorBoundaryProps] ??
-          null) as Duration;
+          null) as Duration?;
   @override
-  set identicalErrorFrequencyTolerance(Duration value) =>
+  set identicalErrorFrequencyTolerance(Duration? value) =>
       props[_$key__identicalErrorFrequencyTolerance__ErrorBoundaryProps] =
           value;
   @override
-  String get loggerName =>
-      (props[_$key__loggerName__ErrorBoundaryProps] ?? null) as String;
+  String? get loggerName =>
+      (props[_$key__loggerName__ErrorBoundaryProps] ?? null) as String?;
   @override
-  set loggerName(String value) =>
+  set loggerName(String? value) =>
       props[_$key__loggerName__ErrorBoundaryProps] = value;
   @override
-  bool get shouldLogErrors =>
-      (props[_$key__shouldLogErrors__ErrorBoundaryProps] ?? null) as bool;
+  bool? get shouldLogErrors =>
+      (props[_$key__shouldLogErrors__ErrorBoundaryProps] ?? null) as bool?;
   @override
-  set shouldLogErrors(bool value) =>
+  set shouldLogErrors(bool? value) =>
       props[_$key__shouldLogErrors__ErrorBoundaryProps] = value;
   @override
-  Logger get logger =>
-      (props[_$key__logger__ErrorBoundaryProps] ?? null) as Logger;
+  Logger? get logger =>
+      (props[_$key__logger__ErrorBoundaryProps] ?? null) as Logger?;
   @override
-  set logger(Logger value) => props[_$key__logger__ErrorBoundaryProps] = value;
+  set logger(Logger? value) => props[_$key__logger__ErrorBoundaryProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onComponentDidCatch__ErrorBoundaryProps =
       PropDescriptor(_$key__onComponentDidCatch__ErrorBoundaryProps);
@@ -361,16 +361,16 @@ const PropsMeta _$metaForErrorBoundaryProps = PropsMeta(
 mixin $ErrorBoundaryState on ErrorBoundaryState {
   static const StateMeta meta = _$metaForErrorBoundaryState;
   @override
-  bool get hasError =>
-      (state[_$key__hasError__ErrorBoundaryState] ?? null) as bool;
+  bool? get hasError =>
+      (state[_$key__hasError__ErrorBoundaryState] ?? null) as bool?;
   @override
-  set hasError(bool value) =>
+  set hasError(bool? value) =>
       state[_$key__hasError__ErrorBoundaryState] = value;
   @override
-  bool get showFallbackUIOnError =>
-      (state[_$key__showFallbackUIOnError__ErrorBoundaryState] ?? null) as bool;
+  bool? get showFallbackUIOnError =>
+      (state[_$key__showFallbackUIOnError__ErrorBoundaryState] ?? null) as bool?;
   @override
-  set showFallbackUIOnError(bool value) =>
+  set showFallbackUIOnError(bool? value) =>
       state[_$key__showFallbackUIOnError__ErrorBoundaryState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__hasError__ErrorBoundaryState =

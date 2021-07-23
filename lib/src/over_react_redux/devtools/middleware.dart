@@ -37,8 +37,8 @@ class _ReduxDevToolsExtensionConnection {
 external _ReduxDevToolsExtensionConnection reduxExtConnect([dynamic options]);
 
 class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
-  Store _store;
-  _ReduxDevToolsExtensionConnection devToolsExt;
+  late Store _store;
+  _ReduxDevToolsExtensionConnection? devToolsExt;
   final Logger log = Logger('OverReactReduxDevToolsMiddleware');
 
   _OverReactReduxDevToolsMiddleware() {
@@ -55,7 +55,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     });
     try {
       devToolsExt = reduxExtConnect();
-      devToolsExt.subscribe(allowInterop(handleEventFromRemote));
+      devToolsExt!.subscribe(allowInterop(handleEventFromRemote));
     } catch (e) {
       log.warning(e);
       log.warning(
@@ -69,7 +69,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
 
   set store(Store v) {
     _store = v;
-    devToolsExt.init(_encodeForTransit(v.state));
+    devToolsExt!.init(_encodeForTransit(v.state));
   }
 
   Store get store => _store;
@@ -103,7 +103,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     return actionString;
   }
 
-  void _relay(String type, [Object state, dynamic action, String nextActionId]) {
+  void _relay(String type, [Object? state, dynamic action, String? nextActionId]) {
     final message = JsBackedMap();
     message['type'] = type;
 
@@ -123,20 +123,20 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     }
 
     if (message.containsKey('action')) {
-      devToolsExt.send(message['action'], message['payload']);
+      devToolsExt!.send(message['action'], message['payload']);
     } else {
-      devToolsExt.send(message.jsObject);
+      devToolsExt!.send(message.jsObject);
     }
   }
 
   void handleEventFromRemote(JsMap jsData) {
     JsBackedMap data = JsBackedMap.fromJs(jsData);
-    switch (data['type'] as String) {
+    switch (data['type'] as String?) {
       case 'DISPATCH':
         _handleDispatch(JsBackedMap.fromJs(data['payload'] as JsMap));
         break;
       case 'ACTION':
-        _handleRemoteAction(data['action'] as String);
+        _handleRemoteAction(data['action'] as String?);
         break;
       case 'START':
         // This is an event from `@devtools-extension` letting us know that it has started.
@@ -152,7 +152,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
       log.warning('No store reference set, cannot dispatch remote action');
       return;
     }
-    switch (action['type'] as String) {
+    switch (action['type'] as String?) {
       case 'JUMP_TO_ACTION':
       case 'JUMP_TO_STATE':
         store.dispatch(DevToolsAction.jumpToState(action['actionId'] as int));
@@ -162,12 +162,12 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     }
   }
 
-  void _handleRemoteAction(String action) {
+  void _handleRemoteAction(String? action) {
     if (store == null) {
       log.warning('No store reference set, cannot dispatch remote action');
       return;
     }
-    store.dispatch(DevToolsAction.perform(jsonDecode(action)));
+    store.dispatch(DevToolsAction.perform(jsonDecode(action!)));
   }
 
   /// Middleware function called by redux, dispatches actions to devtools

@@ -28,9 +28,9 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
   factory ComponentGenerator.legacy(LegacyClassComponentDeclaration declaration) =
       _LegacyComponentGenerator;
 
-  TypedMapNames propsNames;
-  TypedMapNames stateNames;
-  ComponentNames componentNames;
+  late TypedMapNames propsNames;
+  TypedMapNames? stateNames;
+  late ComponentNames componentNames;
 
   BoilerplateComponent get component;
   bool get hasState;
@@ -90,9 +90,9 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
 
     if (isComponent2 && hasState) {
       outputContentsBuffer
-        ..writeln('  ${stateNames.jsMapImplName} _cachedTypedState;')
+        ..writeln('  ${stateNames!.jsMapImplName} _cachedTypedState;')
         ..writeln('  @override')
-        ..writeln('  ${stateNames.jsMapImplName} get state => _cachedTypedState;')
+        ..writeln('  ${stateNames!.jsMapImplName} get state => _cachedTypedState;')
         ..writeln()
         ..writeln('  @override')
         ..writeln('  set state(Map value) {')
@@ -104,16 +104,16 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
         ..writeln('  }')
         ..writeln()
         ..writeln('  @override ')
-        ..writeln('  ${stateNames.jsMapImplName} typedStateFactoryJs(JsBackedMap backingMap)'
-            ' => ${stateNames.jsMapImplName}(backingMap);')
+        ..writeln('  ${stateNames!.jsMapImplName} typedStateFactoryJs(JsBackedMap backingMap)'
+            ' => ${stateNames!.jsMapImplName}(backingMap);')
         ..writeln();
     }
 
     if (hasState) {
       outputContentsBuffer
         ..writeln('  @override')
-        ..writeln('  ${stateNames.implName} typedStateFactory(Map backingMap)'
-            ' => ${stateNames.implName}(backingMap);')
+        ..writeln('  ${stateNames!.implName} typedStateFactory(Map backingMap)'
+            ' => ${stateNames!.implName}(backingMap);')
         ..writeln();
     }
 
@@ -126,7 +126,7 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
 
     _generateAdditionalComponentBody();
 
-    outputContentsBuffer.writeln('}');
+    outputContentsBuffer!.writeln('}');
   }
 
   void _generateAdditionalComponentBody() {}
@@ -140,7 +140,7 @@ class _ComponentGenerator extends ComponentGenerator {
   final TypedMapNames propsNames;
 
   @override
-  final TypedMapNames stateNames;
+  final TypedMapNames? stateNames;
 
   @override
   final ComponentNames componentNames;
@@ -148,7 +148,7 @@ class _ComponentGenerator extends ComponentGenerator {
   _ComponentGenerator(this.declaration)
       : this.propsNames = TypedMapNames(declaration.props.either.name.name),
         this.stateNames =
-            declaration.state == null ? null : TypedMapNames(declaration.state.either.name.name),
+            declaration.state == null ? null : TypedMapNames(declaration.state!.either.name.name),
         this.componentNames = ComponentNames(declaration.component.name.name),
         super._();
 
@@ -173,7 +173,7 @@ class _ComponentGenerator extends ComponentGenerator {
 
   @override
   void _generateAdditionalComponentBody() {
-    generatePropsMeta(outputContentsBuffer, declaration.allPropsMixins);
+    generatePropsMeta(outputContentsBuffer!, declaration.allPropsMixins);
   }
 }
 
@@ -185,7 +185,7 @@ class _LegacyComponentGenerator extends ComponentGenerator {
   final TypedMapNames propsNames;
 
   @override
-  final TypedMapNames stateNames;
+  final TypedMapNames? stateNames;
 
   @override
   final ComponentNames componentNames;
@@ -193,7 +193,7 @@ class _LegacyComponentGenerator extends ComponentGenerator {
   _LegacyComponentGenerator(this.declaration)
       : this.propsNames = TypedMapNames(declaration.props.name.name),
         this.stateNames =
-            declaration.state == null ? null : TypedMapNames(declaration.state.name.name),
+            declaration.state == null ? null : TypedMapNames(declaration.state!.name.name),
         this.componentNames = ComponentNames(declaration.component.name.name),
         super._();
 

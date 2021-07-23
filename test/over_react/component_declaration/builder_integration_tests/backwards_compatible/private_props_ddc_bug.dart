@@ -28,7 +28,7 @@ main() {
 
     expect(instance, isNotNull); // sanity check
 
-    var node = findDomNode(instance);
+    var node = findDomNode(instance)!;
 
     expect(node.text, contains('some private value'));
   });
@@ -42,7 +42,7 @@ UiFactory<FooProps> Foo = _$Foo;
 @Props()
 class _$FooProps extends UiProps {
   // ignore: unused_field
-  String _privateProp;
+  String? _privateProp;
 }
 
 @Component()

@@ -83,15 +83,15 @@ UiFactory<ReduxBigBlockProps> ReduxBigBlock = composeHocs([
 ])(castUiFactory(_$ReduxBigBlock)); // ignore: undefined_identifier
 
 mixin ReduxBigBlockPropsMixin on UiProps {
-  String backgroundColor; // [1]
-  String blockTwoBackgroundColor; // [1]
-  String blockThreeBackgroundColor; // [1]
-  String blockOneBackgroundColor; // [1]
+  String? backgroundColor; // [1]
+  String? blockTwoBackgroundColor; // [1]
+  String? blockThreeBackgroundColor; // [1]
+  String? blockOneBackgroundColor; // [1]
 
-  void Function() changeMainBackgroundColor; // [2]
-  void Function() changeBlockOneBackgroundColor; // [2]
-  void Function() changeBlockTwoBackgroundColor; // [2]
-  void Function() changeBlockThreeBackgroundColor; // [2]
+  void Function()? changeMainBackgroundColor; // [2]
+  void Function()? changeBlockOneBackgroundColor; // [2]
+  void Function()? changeBlockTwoBackgroundColor; // [2]
+  void Function()? changeBlockThreeBackgroundColor; // [2]
 }
 
 class ReduxBigBlockProps = UiProps with ReduxBigBlockPropsMixin, ConnectPropsMixin;
@@ -119,25 +119,25 @@ class ReduxBigBlockComponent extends UiComponent2<ReduxBigBlockProps> {
         )(
           (Dom.button()
             ..onClick = (_) {
-              props.changeMainBackgroundColor(); // [3]
+              props.changeMainBackgroundColor!(); // [3]
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Main Background Color'),
           (Dom.button()
             ..onClick = (_) {
-              props.changeBlockOneBackgroundColor(); // [3]
+              props.changeBlockOneBackgroundColor!(); // [3]
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Block 1 Background Color'),
           (Dom.button()
             ..onClick = (_) {
-              props.changeBlockTwoBackgroundColor(); // [3]
+              props.changeBlockTwoBackgroundColor!(); // [3]
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Block 2 Background Color'),
           (Dom.button()
             ..onClick = (_) {
-              props.changeBlockThreeBackgroundColor(); // [3]
+              props.changeBlockThreeBackgroundColor!(); // [3]
             }
             ..style = {'padding': '10px', 'margin': '10px'}
           )('Change Block 3 Background Color'),

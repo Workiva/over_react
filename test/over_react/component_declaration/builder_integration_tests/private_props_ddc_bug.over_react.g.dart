@@ -25,12 +25,12 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
 
   /// <!-- Generated from [_$FooProps._privateProp] -->
   @override
-  String get _privateProp =>
-      (props[_$key___privateProp___$FooProps] ?? null) as String;
+  String? get _privateProp =>
+      (props[_$key___privateProp___$FooProps] ?? null) as String?;
 
   /// <!-- Generated from [_$FooProps._privateProp] -->
   @override
-  set _privateProp(String value) =>
+  set _privateProp(String? value) =>
       props[_$key___privateProp___$FooProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop___privateProp___$FooProps =
@@ -50,7 +50,7 @@ class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForFooProps;
 }
 
-_$$FooProps _$Foo([Map backingProps]) => _$$FooProps(backingProps);
+_$$FooProps _$Foo([Map? backingProps]) => _$$FooProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -60,7 +60,7 @@ class _$$FooProps extends _$FooProps
     implements FooProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FooProps(Map backingMap) : this._props = {} {
+  _$$FooProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -89,7 +89,7 @@ class _$$FooProps extends _$FooProps
 // generated for the associated props class.
 class _$FooComponent extends FooComponent {
   @override
-  _$$FooProps typedPropsFactory(Map backingMap) => _$$FooProps(backingMap);
+  _$$FooProps typedPropsFactory(Map? backingMap) => _$$FooProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

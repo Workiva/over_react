@@ -25,19 +25,19 @@ abstract class _$TestPropsAccessorsMixin implements _$TestProps {
 
   /// <!-- Generated from [_$TestProps.foo] -->
   @override
-  String get foo => (props[_$key__foo___$TestProps] ?? null) as String;
+  String? get foo => (props[_$key__foo___$TestProps] ?? null) as String?;
 
   /// <!-- Generated from [_$TestProps.foo] -->
   @override
-  set foo(String value) => props[_$key__foo___$TestProps] = value;
+  set foo(String? value) => props[_$key__foo___$TestProps] = value;
 
   /// <!-- Generated from [_$TestProps.bar] -->
   @override
-  String get bar => (props[_$key__bar___$TestProps] ?? null) as String;
+  String? get bar => (props[_$key__bar___$TestProps] ?? null) as String?;
 
   /// <!-- Generated from [_$TestProps.bar] -->
   @override
-  set bar(String value) => props[_$key__bar___$TestProps] = value;
+  set bar(String? value) => props[_$key__bar___$TestProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__foo___$TestProps =
       PropDescriptor(_$key__foo___$TestProps);
@@ -65,7 +65,7 @@ class TestProps extends _$TestProps with _$TestPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestProps;
 }
 
-_$$TestProps _$Test([Map backingProps]) => backingProps == null
+_$$TestProps _$Test([Map? backingProps]) => backingProps == null
     ? _$$TestProps$JsMap(JsBackedMap())
     : _$$TestProps(backingProps);
 
@@ -137,7 +137,7 @@ class _$$TestProps$JsMap extends _$$TestProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestComponent extends TestComponent {
-  _$$TestProps$JsMap _cachedTypedProps;
+  late _$$TestProps$JsMap _cachedTypedProps;
 
   @override
   _$$TestProps$JsMap get props => _cachedTypedProps;

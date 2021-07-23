@@ -261,8 +261,8 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
     const className = 'aClassName';
 
     group('using `addUnconsumedProps`', () {
-      TestProps initialProps;
-      TestProps secondProps;
+      late TestProps initialProps;
+      late TestProps secondProps;
 
       setUp(() {
         initialProps = (factory()
@@ -283,7 +283,7 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
       });
 
       test('and consumed props are correctly filtered', () {
-        final consumedProps = initialProps.staticMeta.forMixins({TestPropsMixin});
+        final Iterable<PropsMeta> consumedProps = initialProps.staticMeta.forMixins({TestPropsMixin});
         secondProps.addUnconsumedProps(initialProps, consumedProps);
         expect(secondProps.stringProp, isNull);
         expect(secondProps.anotherProp, anotherProp);
@@ -292,8 +292,8 @@ void functionComponentTestHelper(UiFactory<TestProps> factory,
 
     group('using `addUnconsumedDomProps`', ()
     {
-      TestProps initialProps;
-      TestProps secondProps;
+      late TestProps initialProps;
+      late TestProps secondProps;
 
       setUp(() {
         initialProps = (factory()
@@ -469,7 +469,7 @@ final _Test = uiFunction<TestProps>(
 );
 
 mixin TestPropsMixin on UiProps {
-  String stringProp;
+  String? stringProp;
   dynamic dynamicProp;
   var untypedProp; // ignore: prefer_typing_uninitialized_variables
 
@@ -484,11 +484,11 @@ mixin TestPropsMixin on UiProps {
 }
 
 mixin ASecondPropsMixin on UiProps {
-  String anotherProp;
+  String? anotherProp;
 }
 
 mixin AThirdPropsMixin on UiProps {
-  String aPropsFromAThirdMixin;
+  String? aPropsFromAThirdMixin;
 }
 
 class TestProps = UiProps with TestPropsMixin, ASecondPropsMixin, AThirdPropsMixin;

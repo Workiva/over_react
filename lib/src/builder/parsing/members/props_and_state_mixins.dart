@@ -36,7 +36,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
   /// The companion class for the props or state mixins.
   ///
   /// This will only be present for [Version.v2_legacyBackwardsCompat] classes.
-  final ClassishDeclaration companion;
+  final ClassishDeclaration? companion;
 
   /// The corresponding annotation.
   ///
@@ -58,7 +58,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
   /// - Enforce that the node has an abstract getter
   /// - Verify mixins are implemented correctly
   @override
-  void validate(Version version, ErrorCollector/*!*/ errorCollector) {
+  void validate(Version version, ErrorCollector errorCollector) {
     void _sharedLegacyValidation() {
       if (!node.hasAnnotationWithName(propsOrStateMixinAnnotationName)) {
         errorCollector.addError(
@@ -109,7 +109,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
 /// See [BoilerplateMember] for more information.
 class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
   BoilerplatePropsMixin(
-      ClassOrMixinDeclaration node, ClassishDeclaration companion, VersionConfidences confidence)
+      ClassOrMixinDeclaration node, ClassishDeclaration? companion, VersionConfidences confidence)
       : super(node, companion, confidence);
 
   @override
@@ -121,7 +121,7 @@ class BoilerplatePropsMixin extends BoilerplatePropsOrStateMixin {
 /// See [BoilerplateMember] for more information.
 class BoilerplateStateMixin extends BoilerplatePropsOrStateMixin {
   BoilerplateStateMixin(
-      ClassOrMixinDeclaration node, ClassishDeclaration companion, VersionConfidences confidence)
+      ClassOrMixinDeclaration node, ClassishDeclaration? companion, VersionConfidences confidence)
       : super(node, companion, confidence);
 
   @override

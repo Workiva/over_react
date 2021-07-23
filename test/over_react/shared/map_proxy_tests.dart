@@ -20,8 +20,8 @@ import 'package:test/test.dart';
 
 void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
   group('proxies the Map member:', () {
-    Map proxy;
-    MockMap backingMap;
+    late Map proxy;
+    late MockMap backingMap;
 
     setUp(() {
       backingMap = MockMap();
@@ -36,8 +36,8 @@ void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
     test('map', () {
       callback(key, value) {}
 
-      proxy.map(callback);
-      verify(backingMap.map(callback));
+      proxy.map(callback as MapEntry<_, _> Function(dynamic, dynamic));
+      verify(backingMap.map(callback as MapEntry<_, _> Function(dynamic, dynamic)));
     });
 
     test('entries', () {
@@ -55,8 +55,8 @@ void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
 
     test('removeWhere', () {
       callback(key, value) {}
-      proxy.removeWhere(callback);
-      verify(backingMap.removeWhere(callback));
+      proxy.removeWhere(callback as bool Function(dynamic, dynamic));
+      verify(backingMap.removeWhere(callback as bool Function(dynamic, dynamic)));
     });
 
     test('update', () {
@@ -96,7 +96,7 @@ void mapProxyTests(Map Function(Map proxiedMap) mapProxyFactory) {
       var testMap = {};
 
       proxy.addAll(testMap);
-      verify(backingMap.addAll(argThat(same(testMap))));
+      verify(backingMap.addAll(argThat(same(testMap))!));
     });
 
     test('clear', () {

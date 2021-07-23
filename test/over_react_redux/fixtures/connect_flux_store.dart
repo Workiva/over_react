@@ -33,30 +33,30 @@ class FluxStore extends flux.Store with InfluxStoreMixin<FluxCounterState> {
   FluxActions _actions;
 
   @override
-  get reduxReducer => counterStateReducer;
+  get reduxReducer => counterStateReducer as FluxCounterState Function(FluxCounterState, dynamic);
 
-  int get count => state.count;
-  String get name => state.name;
+  int? get count => state!.count;
+  String get name => state!.name;
   List<String> get listYouDefShouldntMutate =>
-      state.listThatYouDefShouldntMutate;
+      state!.listThatYouDefShouldntMutate;
 
   FluxStore(this._actions) {
     state = FluxCounterState(count: 0);
 
     triggerOnActionV2(
-        _actions.incrementAction, (_) => this.influxReducer(IncrementAction()));
+        _actions.incrementAction, (dynamic _) => this.influxReducer(IncrementAction()));
     triggerOnActionV2(
-        _actions.decrementAction, (_) => this.influxReducer(DecrementAction()));
+        _actions.decrementAction, (dynamic _) => this.influxReducer(DecrementAction()));
     triggerOnActionV2(
-        _actions.resetAction, (_) => this.influxReducer(ResetAction()));
+        _actions.resetAction, (dynamic _) => this.influxReducer(ResetAction()));
     triggerOnActionV2(_actions.mutateStoreDirectly,
-        (_) => this.influxReducer(MutateStoreDirectlyAction()));
+        (dynamic _) => this.influxReducer(MutateStoreDirectlyAction()));
   }
 }
 
 /////////////////////////////// STORE 1 "Counter" ///////////////////////////////
 class FluxCounterState {
-  final int count;
+  final int? count;
   final String name;
   List<String> listThatYouDefShouldntMutate = [];
 
@@ -68,9 +68,9 @@ class FluxCounterState {
 
 FluxCounterState counterStateReducer(FluxCounterState state, Object action) {
   if (action is IncrementAction) {
-    return FluxCounterState(count: state.count + (action?.value ?? 1));
+    return FluxCounterState(count: state.count! + (action?.value ?? 1));
   } else if (action is DecrementAction) {
-    return FluxCounterState(count: state.count - (action?.value ?? 1));
+    return FluxCounterState(count: state.count! - (action?.value ?? 1));
   } else if (action is ResetAction) {
     return FluxCounterState(count: 0);
   } else if (action is MutateStoreDirectlyAction) {
@@ -92,8 +92,8 @@ class FluxStore2 extends flux.Store with InfluxStoreMixin<BigCounterState> {
   @override
   get reduxReducer => bigCounterStateReducer;
 
-  int get count => state.bigCount;
-  String get name => state.name;
+  int? get count => state!.bigCount;
+  String get name => state!.name;
 
   FluxStore2(this._actions) {
     state = BigCounterState(bigCount: 0);
@@ -103,12 +103,12 @@ class FluxStore2 extends flux.Store with InfluxStoreMixin<BigCounterState> {
     triggerOnActionV2<int>(_actions.decrementAction,
         (count) => this.influxReducer(DecrementAction(count)));
     triggerOnActionV2(
-        _actions.resetAction, (_) => this.influxReducer(ResetAction()));
+        _actions.resetAction, (dynamic _) => this.influxReducer(ResetAction()));
   }
 }
 
 class BigCounterState {
-  final int bigCount;
+  final int? bigCount;
   final String name;
   BigCounterState({
     this.bigCount,
@@ -117,17 +117,17 @@ class BigCounterState {
 }
 
 int _bigCounterDecrementReducer(int currentCount, DecrementAction action) {
-  return currentCount - (action?.value != null ? action.value : 100);
+  return currentCount - (action?.value != null ? action.value! : 100);
 }
 
 int _bigCounterIncrementReducer(int currentCount, IncrementAction action) {
-  return currentCount + (action?.value != null ? action.value : 100);
+  return currentCount + (action?.value != null ? action.value! : 100);
 }
 
-Reducer<int> bigCounterActionsReducer = combineReducers<int>([
-  TypedReducer<int, IncrementAction>(_bigCounterIncrementReducer),
-  TypedReducer<int, DecrementAction>(_bigCounterDecrementReducer),
-  TypedReducer<int, ResetAction>(_resetCounterReducer),
+Reducer<int?> bigCounterActionsReducer = combineReducers<int?>([
+  TypedReducer<int, IncrementAction>(_bigCounterIncrementReducer) as int? Function(int?, dynamic),
+  TypedReducer<int, DecrementAction>(_bigCounterDecrementReducer) as int? Function(int?, dynamic),
+  TypedReducer<int, ResetAction>(_resetCounterReducer) as int? Function(int?, dynamic),
 ]);
 
 BigCounterState bigCounterStateReducer(BigCounterState state, action) =>

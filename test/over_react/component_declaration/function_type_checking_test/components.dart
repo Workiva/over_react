@@ -58,7 +58,7 @@ UiFactory<TestExtendtypeProps> TestExtendtype = uiFunction(
 mixin OneLevelWrapperProps on UiProps {}
 UiFactory<OneLevelWrapperProps> OneLevelWrapper = uiFunction(
   (props) {
-    return Dom.div()(props.children.single);
+    return Dom.div()(props.children!.single);
   },
   _$OneLevelWrapperConfig, // ignore: undefined_identifier
 )..setTypeMeta(isWrapper: true);
@@ -66,7 +66,7 @@ UiFactory<OneLevelWrapperProps> OneLevelWrapper = uiFunction(
 mixin TwoLevelWrapperProps on UiProps {}
 UiFactory<TwoLevelWrapperProps> TwoLevelWrapper = uiFunction(
   (props) {
-    return Dom.div()(props.children.single);
+    return Dom.div()(props.children!.single);
   },
   _$TwoLevelWrapperConfig, // ignore: undefined_identifier
 )..setTypeMeta(isWrapper: true);
@@ -84,7 +84,7 @@ class DoNotReferenceThisFactoryExceptForInASingleTestComponentn extends UiCompon
 mixin TestUninitializedParentProps on UiProps {}
 UiFactory<TestUninitializedParentProps> TestUninitializedParent = uiFunction(
   (props) {
-    return Dom.div()(props.children.single);
+    return Dom.div()(props.children!.single);
   },
   _$TestUninitializedParentConfig, // ignore: undefined_identifier
 )..setTypeMeta(subtypeOfFactory: DoNotReferenceThisFactoryExceptForInASingleTest);

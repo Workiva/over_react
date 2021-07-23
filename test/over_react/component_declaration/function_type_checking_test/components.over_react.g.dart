@@ -24,7 +24,7 @@ final $DoNotReferenceThisFactoryExceptForInASingleTestComponentnFactory =
 );
 
 _$$DoNotReferenceThisFactoryExceptForInASingleTestProps
-    _$DoNotReferenceThisFactoryExceptForInASingleTest([Map backingProps]) =>
+    _$DoNotReferenceThisFactoryExceptForInASingleTest([Map? backingProps]) =>
         backingProps == null
             ? _$$DoNotReferenceThisFactoryExceptForInASingleTestProps$JsMap(
                 JsBackedMap())
@@ -126,7 +126,7 @@ class _$$DoNotReferenceThisFactoryExceptForInASingleTestProps$JsMap
     ' Do not reference it in your code, as it may change at any time.')
 class _$DoNotReferenceThisFactoryExceptForInASingleTestComponentn
     extends DoNotReferenceThisFactoryExceptForInASingleTestComponentn {
-  _$$DoNotReferenceThisFactoryExceptForInASingleTestProps$JsMap
+  late _$$DoNotReferenceThisFactoryExceptForInASingleTestProps$JsMap
       _cachedTypedProps;
 
   @override

@@ -38,7 +38,7 @@ class TestB2Props extends _$TestB2Props with _$TestB2PropsAccessorsMixin {
   static const PropsMeta meta = _$metaForTestB2Props;
 }
 
-_$$TestB2Props _$TestB2([Map backingProps]) => backingProps == null
+_$$TestB2Props _$TestB2([Map? backingProps]) => backingProps == null
     ? _$$TestB2Props$JsMap(JsBackedMap())
     : _$$TestB2Props(backingProps);
 
@@ -110,7 +110,7 @@ class _$$TestB2Props$JsMap extends _$$TestB2Props {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$TestB2Component extends TestB2Component {
-  _$$TestB2Props$JsMap _cachedTypedProps;
+  late _$$TestB2Props$JsMap _cachedTypedProps;
 
   @override
   _$$TestB2Props$JsMap get props => _cachedTypedProps;

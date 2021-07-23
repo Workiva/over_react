@@ -68,12 +68,12 @@ YamlDocument getAndValidateAnalyzerPubspecYaml(File pluginPubspec) {
     throw Exception('pubspec.yaml does not exist in package root');
   }
 
-  String name;
+  String? name;
   YamlDocument pubspecYaml;
   try {
     final pubspecContents = pluginPubspec.readAsStringSync();
     pubspecYaml = loadYamlDocument(pubspecContents);
-    name = (pubspecYaml.contents as YamlMap)['name'] as String;
+    name = (pubspecYaml.contents as YamlMap)['name'] as String?;
   } on FileSystemException catch (_) {
     logger.severe('Error reading plugin pubspec.');
     rethrow;
@@ -93,7 +93,7 @@ YamlDocument getAndValidateAnalyzerPubspecYaml(File pluginPubspec) {
 void initLogging({bool verbose = true}) {
   Logger.root.level = verbose ? Level.ALL : Level.INFO;
   Logger.root.onRecord.listen((rec) {
-    String Function(String) colorizer;
+    String? Function(String) colorizer;
     IOSink output;
 
     if (rec.level >= Level.SEVERE) {

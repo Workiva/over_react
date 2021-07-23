@@ -119,7 +119,7 @@ main() {
     // where auto-detecting the subtypeOf arg resulted in the UiFactory itself
     // being treated as the subtype, causing type checking to fail.
     test('works when subtyping a component whose factory hasn\'t been initialized yet', () {
-      final element = function.TestUninitializedParent()();
+      final react_interop.ReactElement? element = function.TestUninitializedParent()();
       expect(isComponentOfType(element, function.DoNotReferenceThisFactoryExceptForInASingleTest), isTrue);
       expect(isComponentOfType(element, TestAbstract2Component), isTrue);
     });
@@ -216,7 +216,7 @@ main() {
         test('a UiFactory', () {
           // This need to be a new instance every test run, which is why we
           // don't set it up within the group.
-          final UiFactory alias = ([_]) => null; // ignore: prefer_function_declarations_over_variables
+          final UiFactory alias = (([_]) => null) as UiProps Function([Map<dynamic, dynamic>?]); // ignore: prefer_function_declarations_over_variables
           final factory = ReactDartComponentFactoryProxy2(createTestReactClass());
           registerComponentTypeAlias(factory, alias);
           testBody(alias);
@@ -293,17 +293,17 @@ main() {
 
 testComponentTypeChecking({
   bool isComponent2 = false,
-  @required UiFactory TestParent,
-  @required UiFactory TestSubtype,
-  @required UiFactory TestSubsubtype,
-  @required UiFactory TestExtendtype,
-  @required Type TestAbstractComponent,
-  @required UiFactory TestA,
-  @required Type TestAComponent,
-  @required UiFactory TestB,
-  @required Type TestBComponent,
-  @required UiFactory OneLevelWrapper,
-  @required UiFactory TwoLevelWrapper,
+  required UiFactory TestParent,
+  required UiFactory TestSubtype,
+  required UiFactory TestSubsubtype,
+  required UiFactory TestExtendtype,
+  required Type TestAbstractComponent,
+  required UiFactory TestA,
+  required Type? TestAComponent,
+  required UiFactory TestB,
+  required Type? TestBComponent,
+  required UiFactory OneLevelWrapper,
+  required UiFactory TwoLevelWrapper,
 }) {
   group('type checking:', () {
     group('getParentTypes', () {
@@ -499,13 +499,13 @@ testComponentTypeChecking({
         });
 
         group('a higher-order component created by', () {
-          if (TestA().componentFactory.type.dartComponentVersion == '1') {
+          if (TestA().componentFactory!.type.dartComponentVersion == '1') {
             test('connect', () {
-              expect(() => connect(mapStateToProps: (state) => {})(TestA), throwsArgumentError);
+              expect(() => connect(mapStateToProps: (dynamic state) => {})(TestA), throwsArgumentError);
             });
           } else {
             test('connect', () {
-              final hocFactory = connect(mapStateToProps: (state) => {})(TestA);
+              final UiProps Function([Map<dynamic, dynamic>]) hocFactory = connect(mapStateToProps: (dynamic state) => {})(TestA);
               expect(isComponentOfType(hocFactory()(), TestA), isTrue);
             });
           }

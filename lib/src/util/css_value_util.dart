@@ -22,12 +22,12 @@ class CssValue implements Comparable<CssValue> {
   /// The number component of this CSS value.
   ///
   /// E.g., 1 for '1px'
-  final num/*!*/ number;
+  final num number;
 
   /// The unit component of this CSS value.
   ///
   /// E.g., 'px' for '1px'
-  final String/*!*/ unit;
+  final String unit;
 
   /// Creates a new [CssValue].
   ///
@@ -52,11 +52,11 @@ class CssValue implements Comparable<CssValue> {
   ///     '1.25em'
   ///     '-15%'
   // FIXME null-safety this needs some manual migration after the tool
-  factory CssValue.parse(dynamic source, {CssValue Function(dynamic value, dynamic error) onError}) {
-    num number;
-    String unit;
+  factory CssValue.parse(dynamic source, {CssValue? Function(dynamic value, dynamic error)? onError}) {
+    num? number;
+    String? unit;
 
-    ArgumentError error;
+    ArgumentError? error;
 
     if (source == null) {
       error = ArgumentError.notNull('value');
@@ -64,7 +64,7 @@ class CssValue implements Comparable<CssValue> {
       number = source;
       unit = 'px';
     } else {
-      var unitMatch = RegExp(r'(?:rem|em|ex|vh|vw|vmin|vmax|%|px|cm|mm|in|pt|pc|ch)?$').firstMatch(source.toString());
+      var unitMatch = RegExp(r'(?:rem|em|ex|vh|vw|vmin|vmax|%|px|cm|mm|in|pt|pc|ch)?$').firstMatch(source.toString())!;
         unit = unitMatch.group(0);
       if (unit == '') {
         unit = 'px';
@@ -81,7 +81,7 @@ class CssValue implements Comparable<CssValue> {
       error = ArgumentError.value(number, 'value', 'Number portion of CSS value ($source) must be finite');
     }
 
-    CssValue result;
+    CssValue? result;
     if (error != null) {
       if (onError == null) {
         result = null;
@@ -89,10 +89,10 @@ class CssValue implements Comparable<CssValue> {
         result = onError(source, error);
       }
     } else {
-      result = CssValue(number, unit);
+      result = CssValue(number!, unit!);
     }
 
-    return result;
+    return result!;
   }
 
   /// Throws an error if this value's [unit] does not match that of [other].

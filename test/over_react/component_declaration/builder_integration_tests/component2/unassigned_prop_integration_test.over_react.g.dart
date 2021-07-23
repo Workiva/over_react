@@ -25,21 +25,21 @@ abstract class _$FooPropsAccessorsMixin implements _$FooProps {
 
   /// <!-- Generated from [_$FooProps.stringProp] -->
   @override
-  String get stringProp =>
-      (props[_$key__stringProp___$FooProps] ?? null) as String;
+  String? get stringProp =>
+      (props[_$key__stringProp___$FooProps] ?? null) as String?;
 
   /// <!-- Generated from [_$FooProps.stringProp] -->
   @override
-  set stringProp(String value) => props[_$key__stringProp___$FooProps] = value;
+  set stringProp(String? value) => props[_$key__stringProp___$FooProps] = value;
 
   /// <!-- Generated from [_$FooProps.unassignedProp] -->
   @override
-  String get unassignedProp =>
-      (props[_$key__unassignedProp___$FooProps] ?? null) as String;
+  String? get unassignedProp =>
+      (props[_$key__unassignedProp___$FooProps] ?? null) as String?;
 
   /// <!-- Generated from [_$FooProps.unassignedProp] -->
   @override
-  set unassignedProp(String value) =>
+  set unassignedProp(String? value) =>
       props[_$key__unassignedProp___$FooProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__stringProp___$FooProps =
@@ -69,7 +69,7 @@ class FooProps extends _$FooProps with _$FooPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForFooProps;
 }
 
-_$$FooProps _$Foo([Map backingProps]) => backingProps == null
+_$$FooProps _$Foo([Map? backingProps]) => backingProps == null
     ? _$$FooProps$JsMap(JsBackedMap())
     : _$$FooProps(backingProps);
 
@@ -141,7 +141,7 @@ class _$$FooProps$JsMap extends _$$FooProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$FooComponent extends FooComponent {
-  _$$FooProps$JsMap _cachedTypedProps;
+  late _$$FooProps$JsMap _cachedTypedProps;
 
   @override
   _$$FooProps$JsMap get props => _cachedTypedProps;

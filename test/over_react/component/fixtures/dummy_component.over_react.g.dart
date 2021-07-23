@@ -25,12 +25,12 @@ abstract class _$DummyPropsAccessorsMixin implements _$DummyProps {
 
   /// <!-- Generated from [_$DummyProps.onComponentDidMount] -->
   @override
-  Function get onComponentDidMount =>
-      (props[_$key__onComponentDidMount___$DummyProps] ?? null) as Function;
+  Function? get onComponentDidMount =>
+      (props[_$key__onComponentDidMount___$DummyProps] ?? null) as Function?;
 
   /// <!-- Generated from [_$DummyProps.onComponentDidMount] -->
   @override
-  set onComponentDidMount(Function value) =>
+  set onComponentDidMount(Function? value) =>
       props[_$key__onComponentDidMount___$DummyProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__onComponentDidMount___$DummyProps =
@@ -51,7 +51,7 @@ const PropsMeta _$metaForDummyProps = PropsMeta(
   keys: _$DummyPropsAccessorsMixin.$propKeys,
 );
 
-_$$DummyProps _$Dummy([Map backingProps]) => backingProps == null
+_$$DummyProps _$Dummy([Map? backingProps]) => backingProps == null
     ? _$$DummyProps$JsMap(JsBackedMap())
     : _$$DummyProps(backingProps);
 
@@ -123,7 +123,7 @@ class _$$DummyProps$JsMap extends _$$DummyProps {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$DummyComponent extends DummyComponent {
-  _$$DummyProps$JsMap _cachedTypedProps;
+  late _$$DummyProps$JsMap _cachedTypedProps;
 
   @override
   _$$DummyProps$JsMap get props => _cachedTypedProps;

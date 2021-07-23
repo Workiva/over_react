@@ -94,12 +94,12 @@ UiFactory<FooProps> Foo = uiForwardRef(
 
 // Option 2: Create a new props class.
 mixin AnotherPropsMixin on UiProps {
-  String anExampleAdditionalProp;
+  String? anExampleAdditionalProp;
 }
 
 class Foo2Props = UiProps with AnotherPropsMixin, FooProps;
 
-final Foo2 = uiForwardRef<Foo2Props>(
+final Foo2Props Function([Map<dynamic, dynamic>]) Foo2 = uiForwardRef<Foo2Props>(
   (props, ref) {
     print(props.anExampleAdditionalProp);
     return (_Foo()

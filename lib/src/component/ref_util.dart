@@ -223,7 +223,7 @@ UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
         'declaring your config correctly.');
   }
 
-  final config = _config as UiFactoryConfig<TProps>;
+  final config = _config;
 
   // ignore: invalid_use_of_protected_member
   var propsFactory = config.propsFactory;
@@ -234,7 +234,7 @@ UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
   final displayName = config.displayName ?? getFunctionName(functionComponent);
 
   dynamic _uiFunctionWrapper(JsBackedMap props, dynamic ref) {
-    return functionComponent(propsFactory.jsMap(props), ref);
+    return functionComponent(propsFactory!.jsMap(props), ref);
   }
 
   // Always pass displayName, even if it's empty,
@@ -250,14 +250,14 @@ UiFactory<TProps> uiForwardRef<TProps extends bh.UiProps>(
         as PropsFactory<TProps>;
   }
 
-  TProps _uiFactory([Map backingMap]) {
+  TProps _uiFactory([Map? backingMap]) {
     TProps builder;
     if (backingMap == null) {
-      builder = propsFactory.jsMap(JsBackedMap());
+      builder = propsFactory!.jsMap(JsBackedMap());
     } else if (backingMap is JsBackedMap) {
-      builder = propsFactory.jsMap(backingMap);
+      builder = propsFactory!.jsMap(backingMap);
     } else {
-      builder = propsFactory.map(backingMap);
+      builder = propsFactory!.map(backingMap);
     }
 
     return builder..componentFactory = factory;

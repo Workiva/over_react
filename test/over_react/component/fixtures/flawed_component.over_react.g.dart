@@ -25,12 +25,12 @@ abstract class _$FlawedPropsAccessorsMixin implements _$FlawedProps {
 
   /// <!-- Generated from [_$FlawedProps.buttonTestIdPrefix] -->
   @override
-  String get buttonTestIdPrefix =>
-      (props[_$key__buttonTestIdPrefix___$FlawedProps] ?? null) as String;
+  String? get buttonTestIdPrefix =>
+      (props[_$key__buttonTestIdPrefix___$FlawedProps] ?? null) as String?;
 
   /// <!-- Generated from [_$FlawedProps.buttonTestIdPrefix] -->
   @override
-  set buttonTestIdPrefix(String value) =>
+  set buttonTestIdPrefix(String? value) =>
       props[_$key__buttonTestIdPrefix___$FlawedProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__buttonTestIdPrefix___$FlawedProps =
@@ -51,7 +51,7 @@ const PropsMeta _$metaForFlawedProps = PropsMeta(
   keys: _$FlawedPropsAccessorsMixin.$propKeys,
 );
 
-_$$FlawedProps _$Flawed([Map backingProps]) => backingProps == null
+_$$FlawedProps _$Flawed([Map? backingProps]) => backingProps == null
     ? _$$FlawedProps$JsMap(JsBackedMap())
     : _$$FlawedProps(backingProps);
 
@@ -124,21 +124,21 @@ abstract class _$FlawedStateAccessorsMixin implements _$FlawedState {
 
   /// <!-- Generated from [_$FlawedState.errorCount] -->
   @override
-  int get errorCount =>
-      (state[_$key__errorCount___$FlawedState] ?? null) as int;
+  int? get errorCount =>
+      (state[_$key__errorCount___$FlawedState] ?? null) as int?;
 
   /// <!-- Generated from [_$FlawedState.errorCount] -->
   @override
-  set errorCount(int value) => state[_$key__errorCount___$FlawedState] = value;
+  set errorCount(int? value) => state[_$key__errorCount___$FlawedState] = value;
 
   /// <!-- Generated from [_$FlawedState.differentTypeOfErrorCount] -->
   @override
-  int get differentTypeOfErrorCount =>
-      (state[_$key__differentTypeOfErrorCount___$FlawedState] ?? null) as int;
+  int? get differentTypeOfErrorCount =>
+      (state[_$key__differentTypeOfErrorCount___$FlawedState] ?? null) as int?;
 
   /// <!-- Generated from [_$FlawedState.differentTypeOfErrorCount] -->
   @override
-  set differentTypeOfErrorCount(int value) =>
+  set differentTypeOfErrorCount(int? value) =>
       state[_$key__differentTypeOfErrorCount___$FlawedState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__errorCount___$FlawedState =
@@ -225,7 +225,7 @@ class _$$FlawedState$JsMap extends _$$FlawedState {
 // Implements typed props/state factories, defaults `consumedPropKeys` to the keys
 // generated for the associated props class.
 class _$FlawedComponent extends FlawedComponent {
-  _$$FlawedProps$JsMap _cachedTypedProps;
+  late _$$FlawedProps$JsMap _cachedTypedProps;
 
   @override
   _$$FlawedProps$JsMap get props => _cachedTypedProps;
@@ -252,7 +252,7 @@ class _$FlawedComponent extends FlawedComponent {
   _$$FlawedProps typedPropsFactory(Map backingMap) =>
       _$$FlawedProps(backingMap);
 
-  _$$FlawedState$JsMap _cachedTypedState;
+  late _$$FlawedState$JsMap _cachedTypedState;
   @override
   _$$FlawedState$JsMap get state => _cachedTypedState;
 

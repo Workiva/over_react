@@ -22,7 +22,7 @@ UiFactory<FlawedProps> Flawed = _$Flawed;
 
 @Props()
 class _$FlawedProps extends UiProps {
-  String buttonTestIdPrefix;
+  String? buttonTestIdPrefix;
 }
 
 // AF-3369 This will be removed once the transition to Dart 2 is complete.
@@ -34,8 +34,8 @@ class FlawedProps extends _$FlawedProps with _$FlawedPropsAccessorsMixin {
 
 @State()
 class _$FlawedState extends UiState {
-  int errorCount;
-  int differentTypeOfErrorCount;
+  int? errorCount;
+  int? differentTypeOfErrorCount;
 }
 
 // AF-3369 This will be removed once the transition to Dart 2 is complete.
@@ -57,12 +57,12 @@ class FlawedComponent extends UiStatefulComponent2<FlawedProps, FlawedState> {
 
   @override
   getSnapshotBeforeUpdate(Map prevProps, Map prevState) {
-    final tPrevState = typedStateFactory(prevState);
-    if (state.errorCount > tPrevState.errorCount) {
+    final FlawedState tPrevState = typedStateFactory(prevState);
+    if (state.errorCount! > tPrevState.errorCount!) {
       throw FlawedComponentException();
     }
 
-    if (state.differentTypeOfErrorCount > tPrevState.differentTypeOfErrorCount) {
+    if (state.differentTypeOfErrorCount! > tPrevState.differentTypeOfErrorCount!) {
       throw FlawedComponentException2();
     }
   }
@@ -73,7 +73,7 @@ class FlawedComponent extends UiStatefulComponent2<FlawedProps, FlawedState> {
       (Dom.button()
         ..addTestId('${props.buttonTestIdPrefix}flawedButton')
         ..onClick = (_) {
-          setState(newState()..errorCount = state.errorCount + 1);
+          setState(newState()..errorCount = state.errorCount! + 1);
         }
       )(
         'oh hai',
@@ -82,7 +82,7 @@ class FlawedComponent extends UiStatefulComponent2<FlawedProps, FlawedState> {
         ..addTestId(
             '${props.buttonTestIdPrefix}flawedButtonThatThrowsADifferentError')
         ..onClick = (_) {
-          setState(newState()..differentTypeOfErrorCount = state.differentTypeOfErrorCount + 1);
+          setState(newState()..differentTypeOfErrorCount = state.differentTypeOfErrorCount! + 1);
         }
       )(
         'oh hai',

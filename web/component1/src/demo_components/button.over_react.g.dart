@@ -31,8 +31,8 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.skin] -->
   @override
-  ButtonSkin get skin =>
-      (props[_$key__skin___$ButtonProps] ?? null) as ButtonSkin;
+  ButtonSkin? get skin =>
+      (props[_$key__skin___$ButtonProps] ?? null) as ButtonSkin?;
 
   /// The skin / "context" for the [Button].
   ///
@@ -42,7 +42,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.skin] -->
   @override
-  set skin(ButtonSkin value) => props[_$key__skin___$ButtonProps] = value;
+  set skin(ButtonSkin? value) => props[_$key__skin___$ButtonProps] = value;
 
   /// The size of the [Button].
   ///
@@ -52,8 +52,8 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.size] -->
   @override
-  ButtonSize get size =>
-      (props[_$key__size___$ButtonProps] ?? null) as ButtonSize;
+  ButtonSize? get size =>
+      (props[_$key__size___$ButtonProps] ?? null) as ButtonSize?;
 
   /// The size of the [Button].
   ///
@@ -63,7 +63,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.size] -->
   @override
-  set size(ButtonSize value) => props[_$key__size___$ButtonProps] = value;
+  set size(ButtonSize? value) => props[_$key__size___$ButtonProps] = value;
 
   /// Whether the [Button] should appear "active".
   ///
@@ -73,7 +73,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.isActive] -->
   @override
-  bool get isActive => (props[_$key__isActive___$ButtonProps] ?? null) as bool;
+  bool? get isActive => (props[_$key__isActive___$ButtonProps] ?? null) as bool?;
 
   /// Whether the [Button] should appear "active".
   ///
@@ -83,7 +83,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.isActive] -->
   @override
-  set isActive(bool value) => props[_$key__isActive___$ButtonProps] = value;
+  set isActive(bool? value) => props[_$key__isActive___$ButtonProps] = value;
 
   /// Whether the [Button] is disabled.
   ///
@@ -94,8 +94,8 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.isDisabled] -->
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
-  bool get isDisabled =>
-      (props[_$key__isDisabled___$ButtonProps] ?? null) as bool;
+  bool? get isDisabled =>
+      (props[_$key__isDisabled___$ButtonProps] ?? null) as bool?;
 
   /// Whether the [Button] is disabled.
   ///
@@ -106,7 +106,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.isDisabled] -->
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
-  set isDisabled(bool value) => props[_$key__isDisabled___$ButtonProps] = value;
+  set isDisabled(bool? value) => props[_$key__isDisabled___$ButtonProps] = value;
 
   /// Whether the [Button] is a block level button -- that which spans the full
   /// width of its parent.
@@ -115,7 +115,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.isBlock] -->
   @override
-  bool get isBlock => (props[_$key__isBlock___$ButtonProps] ?? null) as bool;
+  bool? get isBlock => (props[_$key__isBlock___$ButtonProps] ?? null) as bool?;
 
   /// Whether the [Button] is a block level button -- that which spans the full
   /// width of its parent.
@@ -124,7 +124,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.isBlock] -->
   @override
-  set isBlock(bool value) => props[_$key__isBlock___$ButtonProps] = value;
+  set isBlock(bool? value) => props[_$key__isBlock___$ButtonProps] = value;
 
   /// The HTML `href` attribute value for the [Button].
   ///
@@ -135,7 +135,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.href] -->
   @override
   @Accessor(keyNamespace: '')
-  String get href => (props[_$key__href___$ButtonProps] ?? null) as String;
+  String? get href => (props[_$key__href___$ButtonProps] ?? null) as String?;
 
   /// The HTML `href` attribute value for the [Button].
   ///
@@ -146,7 +146,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.href] -->
   @override
   @Accessor(keyNamespace: '')
-  set href(String value) => props[_$key__href___$ButtonProps] = value;
+  set href(String? value) => props[_$key__href___$ButtonProps] = value;
 
   /// The HTML `target` attribute value for the [Button].
   ///
@@ -157,7 +157,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.target] -->
   @override
   @Accessor(keyNamespace: '')
-  String get target => (props[_$key__target___$ButtonProps] ?? null) as String;
+  String? get target => (props[_$key__target___$ButtonProps] ?? null) as String?;
 
   /// The HTML `target` attribute value for the [Button].
   ///
@@ -168,7 +168,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.target] -->
   @override
   @Accessor(keyNamespace: '')
-  set target(String value) => props[_$key__target___$ButtonProps] = value;
+  set target(String? value) => props[_$key__target___$ButtonProps] = value;
 
   /// The HTML `type` attribute value for the [Button] when
   /// rendered via [Dom.button].
@@ -181,8 +181,8 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.type] -->
   @override
-  ButtonType get type =>
-      (props[_$key__type___$ButtonProps] ?? null) as ButtonType;
+  ButtonType? get type =>
+      (props[_$key__type___$ButtonProps] ?? null) as ButtonType?;
 
   /// The HTML `type` attribute value for the [Button] when
   /// rendered via [Dom.button].
@@ -195,7 +195,7 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.type] -->
   @override
-  set type(ButtonType value) => props[_$key__type___$ButtonProps] = value;
+  set type(ButtonType? value) => props[_$key__type___$ButtonProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__skin___$ButtonProps =
       PropDescriptor(_$key__skin___$ButtonProps);
@@ -253,7 +253,7 @@ class ButtonProps extends _$ButtonProps with _$ButtonPropsAccessorsMixin {
   static const PropsMeta meta = _$metaForButtonProps;
 }
 
-_$$ButtonProps _$Button([Map backingProps]) => _$$ButtonProps(backingProps);
+_$$ButtonProps _$Button([Map? backingProps]) => _$$ButtonProps(backingProps);
 
 // Concrete props implementation.
 //
@@ -263,7 +263,7 @@ class _$$ButtonProps extends _$ButtonProps
     implements ButtonProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonProps(Map backingMap) : this._props = {} {
+  _$$ButtonProps(Map? backingMap) : this._props = {} {
     this._props = backingMap ?? {};
   }
 
@@ -313,7 +313,7 @@ class _$$ButtonState extends _$ButtonState
     implements ButtonState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ButtonState(Map backingMap) : this._state = {} {
+  _$$ButtonState(Map? backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -333,11 +333,11 @@ class _$$ButtonState extends _$ButtonState
 // generated for the associated props class.
 class _$ButtonComponent extends ButtonComponent {
   @override
-  _$$ButtonProps typedPropsFactory(Map backingMap) =>
+  _$$ButtonProps typedPropsFactory(Map? backingMap) =>
       _$$ButtonProps(backingMap);
 
   @override
-  _$$ButtonState typedStateFactory(Map backingMap) =>
+  _$$ButtonState typedStateFactory(Map? backingMap) =>
       _$$ButtonState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

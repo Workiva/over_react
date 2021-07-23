@@ -16,7 +16,7 @@ import 'package:over_react/over_react.dart';
 
 import '../../demo_components.dart';
 
-ReactElement listGroupContextualSkinDemo() =>
+ReactElement? listGroupContextualSkinDemo() =>
   ListGroup()(
     (ListGroupItem()
       ..onClick = (_) {}

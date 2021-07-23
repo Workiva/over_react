@@ -24,7 +24,7 @@ UiFactory<PropTypesWrapProps> PropTypesWrap = castUiFactory(_$PropTypesWrap); //
 mixin PropTypesWrapProps on UiProps {}
 
 mixin PropTypesWrapState on UiState {
-  List twoObjects;
+  List? twoObjects;
 }
 
 class PropTypesWrapComponent extends UiStatefulComponent2<PropTypesWrapProps, PropTypesWrapState> {

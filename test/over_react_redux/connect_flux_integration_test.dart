@@ -28,14 +28,14 @@ import 'fixtures/flux_counter.dart';
 
 main() {
   group('connectFlux integration -', () {
-    FluxActions fluxActions;
-    FluxStore fluxStore;
-    FluxToReduxAdapterStore store1;
+    late FluxActions fluxActions;
+    late FluxStore fluxStore;
+    late FluxToReduxAdapterStore store1;
 
-    FluxActions connectableStoreActions;
-    TestConnectableFluxStore connectableFluxStore;
-    TestConnectableFluxStore anotherConnectableFluxStore;
-    ConnectFluxAdapterStore connectableFluxAdaptedStore;
+    late FluxActions connectableStoreActions;
+    late TestConnectableFluxStore connectableFluxStore;
+    late TestConnectableFluxStore anotherConnectableFluxStore;
+    late ConnectFluxAdapterStore connectableFluxAdaptedStore;
 
     setUp(() {
       fluxActions = FluxActions();
@@ -53,7 +53,7 @@ main() {
     group('FluxToReduxAdapterStore', () {
       group('can receive both Flux and Redux updates', () {
         test('with the counter component using the `dispatch` prop', () async {
-          final ConnectedFluxComponent =
+          final ConnectFluxCounterProps Function([Map<dynamic, dynamic>]) ConnectedFluxComponent =
               connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
             mapStateToProps: (state) =>
                 (ConnectFluxCounter()..currentCount = state.count),
@@ -61,7 +61,7 @@ main() {
                 (ConnectFluxCounter()..actions = actions),
           )(ConnectFluxCounter);
 
-          final ConnectedReduxComponent = connect<FluxStore, CounterProps>(
+          final CounterProps Function([Map<dynamic, dynamic>]) ConnectedReduxComponent = connect<FluxStore, CounterProps>(
             mapStateToProps: (state) => (Counter()..currentCount = state.count),
             pure: false,
           )(Counter);
@@ -81,35 +81,35 @@ main() {
           click(fluxButton);
           await Future(() {});
 
-          expect(findDomNode(fluxCounter).innerHtml, contains('Count: 1'));
-          expect(findDomNode(reduxCounter).innerHtml, contains('Count: 1'));
+          expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 1'));
+          expect(findDomNode(reduxCounter)!.innerHtml, contains('Count: 1'));
 
           store1.dispatch(ResetAction());
           await Future(() {});
 
-          expect(findDomNode(fluxCounter).innerHtml, contains('Count: 0'));
-          expect(findDomNode(reduxCounter).innerHtml, contains('Count: 0'));
+          expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 0'));
+          expect(findDomNode(reduxCounter)!.innerHtml, contains('Count: 0'));
 
           click(reduxButton);
           await Future(() {});
 
-          expect(findDomNode(fluxCounter).innerHtml, contains('Count: 1'));
-          expect(findDomNode(reduxCounter).innerHtml, contains('Count: 1'));
+          expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 1'));
+          expect(findDomNode(reduxCounter)!.innerHtml, contains('Count: 1'));
         });
 
         test(
             'with the components using `mapDispatchToProps` and `mapActionsToProps`',
             () async {
-          final ConnectedFluxComponent =
+          final ConnectFluxCounterProps Function([Map<dynamic, dynamic>]) ConnectedFluxComponent =
               connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
             mapStateToProps: (state) =>
                 (ConnectFluxCounter()..currentCount = state.count),
             mapActionsToProps: (actions) => (ConnectFluxCounter()
-              ..increment = actions.incrementAction
-              ..decrement = actions.decrementAction),
+              ..increment = actions!.incrementAction as void Function()?
+              ..decrement = actions.decrementAction as void Function()?),
           )(ConnectFluxCounter);
 
-          final ConnectedReduxComponent = connect<FluxStore, CounterProps>(
+          final CounterProps Function([Map<dynamic, dynamic>]) ConnectedReduxComponent = connect<FluxStore, CounterProps>(
             mapStateToProps: (state) => (Counter()..currentCount = state.count),
             mapDispatchToProps: (dispatch) =>
                 (Counter()..increment = () => dispatch(IncrementAction())),
@@ -131,34 +131,34 @@ main() {
           click(fluxButton);
           await Future(() {});
 
-          expect(findDomNode(fluxCounter).innerHtml, contains('Count: 1'));
-          expect(findDomNode(reduxCounter).innerHtml, contains('Count: 1'));
+          expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 1'));
+          expect(findDomNode(reduxCounter)!.innerHtml, contains('Count: 1'));
 
           store1.dispatch(ResetAction());
           await Future(() {});
 
-          expect(findDomNode(fluxCounter).innerHtml, contains('Count: 0'));
-          expect(findDomNode(reduxCounter).innerHtml, contains('Count: 0'));
+          expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 0'));
+          expect(findDomNode(reduxCounter)!.innerHtml, contains('Count: 0'));
 
           click(reduxButton);
           await Future(() {});
 
-          expect(findDomNode(fluxCounter).innerHtml, contains('Count: 1'));
-          expect(findDomNode(reduxCounter).innerHtml, contains('Count: 1'));
+          expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 1'));
+          expect(findDomNode(reduxCounter)!.innerHtml, contains('Count: 1'));
         });
       });
 
       test('will not update Redux unless the component is impure', () async {
-        final ConnectedFluxComponent =
+        final ConnectFluxCounterProps Function([Map<dynamic, dynamic>]) ConnectedFluxComponent =
             connectFlux<FluxStore, FluxActions, ConnectFluxCounterProps>(
           mapStateToProps: (state) =>
               (ConnectFluxCounter()..currentCount = state.count),
           mapActionsToProps: (actions) => (ConnectFluxCounter()
-            ..increment = actions.incrementAction
-            ..decrement = actions.decrementAction),
+            ..increment = actions!.incrementAction as void Function()?
+            ..decrement = actions.decrementAction as void Function()?),
         )(ConnectFluxCounter);
 
-        final ConnectedReduxComponent = connect<FluxStore, CounterProps>(
+        final CounterProps Function([Map<dynamic, dynamic>]) ConnectedReduxComponent = connect<FluxStore, CounterProps>(
           mapStateToProps: (state) => (Counter()..currentCount = state.count),
           mapDispatchToProps: (dispatch) =>
               (Counter()..increment = () => dispatch(IncrementAction())),
@@ -178,20 +178,20 @@ main() {
         click(fluxButton);
         await Future(() {});
 
-        expect(findDomNode(fluxCounter).innerHtml, contains('Count: 1'));
-        expect(findDomNode(reduxCounter).innerHtml, contains('Count: 0'));
+        expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 1'));
+        expect(findDomNode(reduxCounter)!.innerHtml, contains('Count: 0'));
 
         store1.dispatch(ResetAction());
         await Future(() {});
 
-        expect(findDomNode(fluxCounter).innerHtml, contains('Count: 0'));
-        expect(findDomNode(reduxCounter).innerHtml, contains('Count: 0'));
+        expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 0'));
+        expect(findDomNode(reduxCounter)!.innerHtml, contains('Count: 0'));
 
         click(reduxButton);
         await Future(() {});
 
-        expect(findDomNode(fluxCounter).innerHtml, contains('Count: 1'));
-        expect(findDomNode(reduxCounter).innerHtml, contains('Count: 0'));
+        expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 1'));
+        expect(findDomNode(reduxCounter)!.innerHtml, contains('Count: 0'));
       });
 
       test('properly maps store instances to actions', () {
@@ -217,14 +217,14 @@ main() {
       UiFactory<ConnectFluxCounterProps> ConnectedFluxComponent;
       UiFactory<CounterProps> ConnectedReduxComponent;
       TestJacket jacket;
-      Element connectFluxCounter;
-      Element reduxCounter;
-      Element fluxCounter;
-      List<Element> containerList;
+      late Element connectFluxCounter;
+      late Element reduxCounter;
+      late Element fluxCounter;
+      late List<Element> containerList;
 
       void verifyCount(List<Element> containers, int count) {
         for (final container in containers) {
-          expect(findDomNode(container).innerHtml, contains('Count: $count'));
+          expect(findDomNode(container)!.innerHtml, contains('Count: $count'));
         }
       }
 
@@ -241,8 +241,8 @@ main() {
           mapStateToProps: (state) =>
               (ConnectFluxCounter()..currentCount = state.count),
           mapActionsToProps: (actions) => (ConnectFluxCounter()
-            ..increment = actions.incrementAction
-            ..decrement = actions.decrementAction),
+            ..increment = actions!.incrementAction as void Function()?
+            ..decrement = actions.decrementAction as void Function()?),
         )(ConnectFluxCounter);
 
         ConnectedReduxComponent =

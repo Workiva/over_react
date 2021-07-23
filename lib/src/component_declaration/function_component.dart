@@ -107,7 +107,7 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
     'declaring your config correctly.');
   }
 
-  final config = _config as UiFactoryConfig<TProps>;
+  final config = _config;
 
   var propsFactory = config.propsFactory;
 
@@ -115,7 +115,7 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
   final displayName = config.displayName ?? getFunctionName(functionComponent);
 
   dynamic _uiFunctionWrapper(JsBackedMap props) {
-    return functionComponent(propsFactory.jsMap(props));
+    return functionComponent(propsFactory!.jsMap(props));
   }
 
   final factory = react.registerFunctionComponent(
@@ -133,14 +133,14 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
         as PropsFactory<TProps>;
   }
 
-  TProps _uiFactory([Map backingMap]) {
+  TProps _uiFactory([Map? backingMap]) {
     TProps builder;
     if (backingMap == null) {
-      builder = propsFactory.jsMap(JsBackedMap());
+      builder = propsFactory!.jsMap(JsBackedMap());
     } else if (backingMap is JsBackedMap) {
-      builder = propsFactory.jsMap(backingMap);
+      builder = propsFactory!.jsMap(backingMap);
     } else {
-      builder = propsFactory.map(backingMap);
+      builder = propsFactory!.map(backingMap);
     }
 
     return builder..componentFactory = factory;
@@ -151,15 +151,15 @@ UiFactory<TProps> uiFunction<TProps extends UiProps>(
   return _uiFactory;
 }
 
-String getFunctionName(Function function) {
-  return getProperty(function, 'name') as String ?? getProperty(function, '\$static_name') as String;
+String? getFunctionName(Function function) {
+  return getProperty(function, 'name') as String? ?? getProperty(function, '\$static_name') as String?;
 }
 
 class GenericUiProps extends UiProps {
   @override
   final Map props;
 
-  GenericUiProps(ReactComponentFactoryProxy componentFactory, [Map props])
+  GenericUiProps(ReactComponentFactoryProxy componentFactory, [Map? props])
       : this.props = props ?? JsBackedMap() {
     this.componentFactory = componentFactory;
   }
@@ -174,8 +174,8 @@ class GenericUiProps extends UiProps {
 /// Helper class used to keep track of generated information for [uiFunction].
 class UiFactoryConfig<TProps extends UiProps> {
   @protected
-  final PropsFactory<TProps> propsFactory;
-  final String displayName;
+  final PropsFactory<TProps>? propsFactory;
+  final String? displayName;
 
   UiFactoryConfig({this.propsFactory, this.displayName});
 }
@@ -189,8 +189,8 @@ class PropsFactory<TProps extends UiProps> {
   final TProps Function(JsBackedMap props) jsMap;
 
   PropsFactory({
-    @required this.map,
-    @required this.jsMap,
+    required this.map,
+    required this.jsMap,
   });
 
   /// Creates a [PropsFactory] based on [factory].

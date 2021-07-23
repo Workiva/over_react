@@ -27,25 +27,25 @@ abstract class _$SafeRenderManagerHelperPropsAccessorsMixin
   /// <!-- Generated from [_$SafeRenderManagerHelperProps.getInitialContent] -->
   @override
   @requiredProp
-  ReactElement Function() get getInitialContent =>
+  ReactElement Function()? get getInitialContent =>
       (props[_$key__getInitialContent___$SafeRenderManagerHelperProps] ?? null)
-          as ReactElement Function();
+          as ReactElement Function()?;
 
   /// <!-- Generated from [_$SafeRenderManagerHelperProps.getInitialContent] -->
   @override
   @requiredProp
-  set getInitialContent(ReactElement Function() value) =>
+  set getInitialContent(ReactElement? Function()? value) =>
       props[_$key__getInitialContent___$SafeRenderManagerHelperProps] = value;
 
   /// <!-- Generated from [_$SafeRenderManagerHelperProps.contentRef] -->
   @override
-  CallbackRef get contentRef =>
+  CallbackRef? get contentRef =>
       (props[_$key__contentRef___$SafeRenderManagerHelperProps] ?? null)
-          as CallbackRef;
+          as CallbackRef?;
 
   /// <!-- Generated from [_$SafeRenderManagerHelperProps.contentRef] -->
   @override
-  set contentRef(CallbackRef value) =>
+  set contentRef(CallbackRef? value) =>
       props[_$key__contentRef___$SafeRenderManagerHelperProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor
@@ -75,7 +75,7 @@ const PropsMeta _$metaForSafeRenderManagerHelperProps = PropsMeta(
   keys: _$SafeRenderManagerHelperPropsAccessorsMixin.$propKeys,
 );
 
-_$$SafeRenderManagerHelperProps _$SafeRenderManagerHelper([Map backingProps]) =>
+_$$SafeRenderManagerHelperProps _$SafeRenderManagerHelper([Map? backingProps]) =>
     backingProps == null
         ? _$$SafeRenderManagerHelperProps$JsMap(JsBackedMap())
         : _$$SafeRenderManagerHelperProps(backingProps);
@@ -153,13 +153,13 @@ abstract class _$SafeRenderManagerHelperStateAccessorsMixin
 
   /// <!-- Generated from [_$SafeRenderManagerHelperState.content] -->
   @override
-  ReactElement get content =>
+  ReactElement? get content =>
       (state[_$key__content___$SafeRenderManagerHelperState] ?? null)
-          as ReactElement;
+          as ReactElement?;
 
   /// <!-- Generated from [_$SafeRenderManagerHelperState.content] -->
   @override
-  set content(ReactElement value) =>
+  set content(ReactElement? value) =>
       state[_$key__content___$SafeRenderManagerHelperState] = value;
   /* GENERATED CONSTANTS */
   static const StateDescriptor _$prop__content___$SafeRenderManagerHelperState =
@@ -243,7 +243,7 @@ class _$$SafeRenderManagerHelperState$JsMap
 // generated for the associated props class.
 class _$SafeRenderManagerHelperComponent
     extends SafeRenderManagerHelperComponent {
-  _$$SafeRenderManagerHelperProps$JsMap _cachedTypedProps;
+  late _$$SafeRenderManagerHelperProps$JsMap _cachedTypedProps;
 
   @override
   _$$SafeRenderManagerHelperProps$JsMap get props => _cachedTypedProps;
@@ -271,7 +271,7 @@ class _$SafeRenderManagerHelperComponent
   _$$SafeRenderManagerHelperProps typedPropsFactory(Map backingMap) =>
       _$$SafeRenderManagerHelperProps(backingMap);
 
-  _$$SafeRenderManagerHelperState$JsMap _cachedTypedState;
+  late _$$SafeRenderManagerHelperState$JsMap _cachedTypedState;
   @override
   _$$SafeRenderManagerHelperState$JsMap get state => _cachedTypedState;
 

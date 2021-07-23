@@ -51,7 +51,7 @@ void main() {
           );
 
           expect(
-            contextTypeRef.current.context,
+            contextTypeRef.current!.context,
             same(typeToTest),
             reason: 'ContextType based component did not recieve the correct type.',
           );
@@ -60,9 +60,9 @@ void main() {
       });
 
       group('experimental calculateChangeBits argument functions correctly', () {
-        Ref<ContextProviderWrapperComponent> providerRef;
-        int consumerEvenValue;
-        int consumerOddValue;
+        late Ref<ContextProviderWrapperComponent> providerRef;
+        int? consumerEvenValue;
+        int? consumerOddValue;
 
         setUp(() {
           providerRef = createRef();
@@ -96,13 +96,13 @@ void main() {
         });
 
         test('on value updates', () {
-          providerRef.current.increment();
+          providerRef.current!.increment();
           expect(consumerEvenValue, 2);
           expect(consumerOddValue, 1);
-          providerRef.current.increment();
+          providerRef.current!.increment();
           expect(consumerEvenValue, 2);
           expect(consumerOddValue, 3);
-          providerRef.current.increment();
+          providerRef.current!.increment();
           expect(consumerEvenValue, 4);
           expect(consumerOddValue, 3);
         });

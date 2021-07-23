@@ -21,7 +21,7 @@ import 'package:react/react_client.dart';
 
 /// A custom rendering prop typedef that allows a custom rendering function to be provided
 /// with the current [props] and [state] of the [component].
-typedef ReactElement CustomRenderFunction<T extends UiProps,
+typedef ReactElement? CustomRenderFunction<T extends UiProps,
                                           S extends UiState,
                                           // ignore: deprecated_member_use_from_same_package
                                           C extends component_base.UiComponent> (T props, S state, C component);
