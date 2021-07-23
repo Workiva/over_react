@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import 'package:analyzer/dart/analysis/utilities.dart';
-import 'package:meta/meta.dart';
 import 'package:over_react/src/builder/parsing.dart';
 
 import '../util.dart';

@@ -42,7 +42,7 @@ main() {
             }
           ''');
           expect(classish.node, isA<ClassDeclaration>());
-          expect(classish.name?.name, 'Foo');
+          expect(classish.name.name, 'Foo');
           expect(classish.metadata.firstOrNull?.toSource(), '@annotation');
           expect(classish.typeParameters?.toSource(), '<T>');
           expect(
@@ -105,7 +105,7 @@ main() {
 
             expect(parseAndGetSingleClassish('''
               class Foo extends Bar {}
-            ''').superclass?.name?.name, 'Bar');
+            ''').superclass?.name.name, 'Bar');
           });
 
           test('mixins', () {
@@ -133,7 +133,7 @@ main() {
             class Foo<T> = Object with Something;
           ''');
           expect(classish.node, isA<ClassTypeAlias>());
-          expect(classish.name?.name, 'Foo');
+          expect(classish.name.name, 'Foo');
           expect(classish.metadata.firstOrNull?.toSource(), '@annotation');
           expect(classish.typeParameters?.toSource(), '<T>');
           expect(classish.members, isEmpty);
@@ -180,7 +180,7 @@ main() {
           test('superclass', () {
             expect(parseAndGetSingleClassish('''
               class Foo = Bar with Baz;
-            ''').superclass?.name?.name, 'Bar');
+            ''').superclass?.name.name, 'Bar');
           });
 
           test('mixins', () {
@@ -210,7 +210,7 @@ main() {
             }
           ''');
           expect(classish.node, isA<MixinDeclaration>());
-          expect(classish.name?.name, 'Foo');
+          expect(classish.name.name, 'Foo');
           expect(classish.metadata.firstOrNull?.toSource(), '@annotation');
           expect(classish.typeParameters?.toSource(), '<T>');
           expect(

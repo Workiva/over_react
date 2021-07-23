@@ -33,7 +33,6 @@ main() {
     AssetReader? reader;
     InMemoryAssetWriter? writer;
     AssetWriterSpy? writerSpy;
-    late StreamSubscription logSub;
     List<LogRecord> logs = <LogRecord>[];
 
     setUp(() async {
@@ -44,11 +43,11 @@ main() {
       writer = InMemoryAssetWriter();
       writerSpy = AssetWriterSpy(writer!);
 
-      logSub = logger.onRecord.listen(logs.add);
+      final logSub = logger.onRecord.listen(logs.add);
+      addTearDown(logSub.cancel);
     });
 
     tearDown(() async {
-      await logSub?.cancel();
       logs.clear();
       reader = null;
       writer = null;

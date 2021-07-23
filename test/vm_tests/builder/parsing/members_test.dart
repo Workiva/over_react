@@ -15,7 +15,6 @@
 @TestOn('vm')
 import 'package:over_react/src/builder/parsing.dart';
 import 'package:over_react/src/component_declaration/annotations.dart';
-import 'package:meta/meta.dart';
 import 'package:source_span/source_span.dart';
 import 'package:test/test.dart';
 
