@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+export 'package:collection/collection.dart' show IterableExtension, IterableNullableExtension;
+
 extension TryCast<T> on T {
   /// Returns this casted as [S] if it is an instance of that type, or `null` otherwise.
   ///
@@ -37,24 +39,12 @@ extension TryCast<T> on T {
 }
 
 extension IterableUtil<E> on Iterable<E> {
-  /// Returns the first element, or `null` if the element is empty.
-  E? get firstOrNull => isEmpty ? null : first;
-
-  /// Returns a new lazy iterable with all the elements for which
-  /// the [test] predicate returns `false`.
-  Iterable<E> whereNot(bool Function(E) test) => where((element) => !test(element));
-
   /// Returns the first element of type [T], or the result of calling [orElse]
   /// if no such element is found.
   ///
   /// Throws a [StateError] if there is no matching element and [orElse] is omitted.
   T? firstWhereType<T>({T? Function()? orElse}) =>
       whereType<T?>().firstWhere((_) => true, orElse: orElse);
-}
-
-extension IterableUtil2<E> on Iterable<E?> {
-  /// Returns a new lazy iterable with all elements that are not `null`.
-  Iterable<E> whereNotNull() => where((element) => element != null) as Iterable<E>;
 }
 
 /// A wrapper around two classes that can be used to pass data when the possible

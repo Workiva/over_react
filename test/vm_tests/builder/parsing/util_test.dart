@@ -73,16 +73,6 @@ main() {
     });
 
     group('IterableUtil', () {
-      group('firstOrNull', () {
-        test('returns null if the iterable is empty', () {
-          expect([].firstOrNull, isNull);
-        });
-
-        test('returns the first element when the iterable is not empty', () {
-          expect([true, false, true].firstOrNull, isTrue);
-        });
-      });
-
       group('firstWhereType', () {
         List<Object>? iterable = [0, true, false, 1, 'bye'];
 
@@ -102,17 +92,6 @@ main() {
 
         test('throws an error if no callback is specified and nothing is found', () {
           expect(() => iterable!.firstWhereType<Union>(), throwsStateError);
-        });
-      });
-
-      group('whereNotNull', () {
-        test('returns an empty list of all element are null', () {
-          expect([null, null, null].whereNotNull(), []);
-        });
-
-        test('returns elements that are not null', () {
-          final union = Union.a(0);
-          expect([union.b, union.a, 1, null, 2].whereNotNull(), containsAllInOrder([0, 1, 2]));
         });
       });
     });
