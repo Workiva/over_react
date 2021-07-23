@@ -40,14 +40,16 @@ dev_dependencies:
   yaml: ^3.0.0
 
 dependency_overrides:
-  # Needed because of transformer_utils
-  analyzer: ^1.7.0
   # Needed because of platform_detect
   pub_semver: ^1.0.0
   react:
     git:
       url: https://github.com/Workiva/react-dart.git
       ref: null-safety-manual
+  transformer_utils:
+    git:
+      url: git@github.com:Workiva/dart_transformer_utils.git
+      ref: null-safety
 
 
 workiva:
