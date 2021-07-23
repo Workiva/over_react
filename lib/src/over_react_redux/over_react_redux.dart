@@ -16,9 +16,6 @@
 @JS()
 library over_react_redux;
 
-import 'dart:html';
-import 'dart:js_util' as js_util;
-
 import 'package:js/js.dart';
 import 'package:memoize/memoize.dart';
 import 'package:meta/meta.dart';
@@ -196,7 +193,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
 
     T allowInteropWithArgCount<T extends Function>(T dartFunction, int count) {
       var interopFunction = allowInterop(dartFunction);
-      js_util.callMethod(js_util.getProperty(window, 'Object'), 'defineProperty', [interopFunction, 'length', js_util.jsify({'value': count})]);
+      _defineProperty(interopFunction, 'length', _JsPropertyDescriptor(value: count));
       return interopFunction;
     }
 
@@ -577,4 +574,14 @@ dynamic unwrapInteropValue(ReactInteropValue value) {
 /// A helper function that wraps a [value] in a [ReactInteropValue].
 ReactInteropValue wrapInteropValue(dynamic value) {
   return ReactInteropValue()..value = value;
+}
+
+
+@JS('Object.defineProperty')
+external void _defineProperty(Object object, String propertyName, _JsPropertyDescriptor descriptor);
+
+@JS()
+@anonymous
+class _JsPropertyDescriptor extends JsMap {
+  external factory _JsPropertyDescriptor({dynamic value});
 }

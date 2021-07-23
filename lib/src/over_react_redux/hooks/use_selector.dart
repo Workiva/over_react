@@ -209,8 +209,7 @@ _SelectorFnHook<TReduxState> createSelectorHook<TReduxState>([Context? context])
     return unwrapInteropValue(jsHook(allowInterop(jsSelector), jsEqualityFn)) as TValue;
   }
 
-  // FIXME null-safety remove unnecessary cast here added by migration tool
-  return dartHook as TValue Function<TValue extends Object>(TValue Function(TReduxState), [bool Function(TValue, TValue)?]);
+  return dartHook;
 }
 
 @JS('ReactRedux.createSelectorHook')

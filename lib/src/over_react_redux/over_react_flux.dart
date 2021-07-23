@@ -647,7 +647,7 @@ extension FluxStoreExtension<S extends flux.Store> on S {
   }
 }
 
-extension<T> on Expando<T> {
+extension<T extends Object> on Expando<T> {
   S putIfAbsentCasted<S extends T>(Object object, S Function() ifAbsent) {
     final existingValue = this[object];
     if (existingValue != null) {
