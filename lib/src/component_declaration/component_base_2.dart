@@ -170,7 +170,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// Required to properly instantiate the generic [TProps] class.
   @override
   @toBeGenerated
-  TProps typedPropsFactory(Map propsMap)=> throw UngeneratedError(member: #typedPropsFactory);
+  TProps typedPropsFactory(Map? propsMap)=> throw UngeneratedError(member: #typedPropsFactory);
 
   /// Returns a typed props object backed by the specified [propsMap].
   ///
@@ -247,7 +247,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///
   /// > See: <https://reactjs.org/docs/typechecking-with-proptypes.html#proptypes>
   @override
-  Map<String?, react.PropValidator<TProps>> get propTypes => {};
+  Map<String, react.PropValidator<TProps>> get propTypes => {};
 
   /// Returns the string key of the [factory] prop accessed in [accessProp], including the namespace if one exists.
   ///
