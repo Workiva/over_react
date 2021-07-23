@@ -43,7 +43,7 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
   }
 
   void _generateComponentImpl() {
-    outputContentsBuffer
+    outputContentsBuffer!
       ..writeln('// Concrete component implementation mixin.')
       ..writeln('//')
       ..writeln(
@@ -56,7 +56,7 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
       // See _generateConcretePropsOrStateImpl for more info on why these additional methods are
       // implemented for Component2.
       // This implementation here is necessary so that mixin accesses aren't compiled as index$ax
-      outputContentsBuffer
+      outputContentsBuffer!
         ..writeln('  ${propsNames.jsMapImplName} _cachedTypedProps;')
         ..writeln()
         ..writeln('  @override')
@@ -82,14 +82,14 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
         ..writeln();
     }
 
-    outputContentsBuffer
+    outputContentsBuffer!
       ..writeln('  @override')
       ..writeln(
           '  ${propsNames.implName} typedPropsFactory(Map backingMap) => ${propsNames.implName}(backingMap);')
       ..writeln();
 
     if (isComponent2 && hasState) {
-      outputContentsBuffer
+      outputContentsBuffer!
         ..writeln('  ${stateNames!.jsMapImplName} _cachedTypedState;')
         ..writeln('  @override')
         ..writeln('  ${stateNames!.jsMapImplName} get state => _cachedTypedState;')
@@ -110,14 +110,14 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
     }
 
     if (hasState) {
-      outputContentsBuffer
+      outputContentsBuffer!
         ..writeln('  @override')
         ..writeln('  ${stateNames!.implName} typedStateFactory(Map backingMap)'
             ' => ${stateNames!.implName}(backingMap);')
         ..writeln();
     }
 
-    outputContentsBuffer
+    outputContentsBuffer!
       ..writeln('  /// Let `UiComponent` internals know that this class has been generated.')
       ..writeln('  @override')
       ..writeln('  bool get \$isClassGenerated => true;')

@@ -43,7 +43,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
   /// This is determined at runtime by detecting the type of class (props or state)
   /// based upon what annotation is present upon [node].
   @override
-  annotations.TypedMap meta;
+  late annotations.TypedMap meta;
 
   @override
   SimpleIdentifier get name => node.name;

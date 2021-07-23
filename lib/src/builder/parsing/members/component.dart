@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import 'package:collection/collection.dart' show IterableExtension;
 part of '../members.dart';
 
 /// The class that represents a boilerplate component.
@@ -20,9 +19,9 @@ class BoilerplateComponent extends BoilerplateMember {
   BoilerplateComponent(this.nodeHelper, VersionConfidences confidence)
       : node = nodeHelper.node,
         super(confidence) {
-    final meta = InstantiatedComponentMeta<annotations.Component2>(node) ??
+    final meta = InstantiatedComponentMeta.fromNode<annotations.Component2>(node) ??
         // ignore: deprecated_member_use_from_same_package
-        InstantiatedComponentMeta<annotations.Component>(node);
+        InstantiatedComponentMeta.fromNode<annotations.Component>(node);
 
     this.meta = meta?.value ?? annotations.Component2();
     configSubtypeOf = meta?.subtypeOfValue;
@@ -43,7 +42,7 @@ class BoilerplateComponent extends BoilerplateMember {
   /// or [annotations.Component2].
   @override
   // ignore: deprecated_member_use_from_same_package
-  annotations.Component meta;
+  late annotations.Component meta;
 
   // The superclass that can be noted in the `@Component()` or `@Component2()` annotation.
   Identifier? configSubtypeOf;

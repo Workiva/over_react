@@ -75,7 +75,7 @@ class ComponentFactoryProxyGenerator extends BoilerplateDeclarationGenerator {
 
     final registerComponent = isComponent2 ? 'registerComponent2' : 'registerComponent';
 
-    outputContentsBuffer
+    outputContentsBuffer!
       ..writeln('// React component factory implementation.')
       ..writeln('//')
       ..writeln('// Registers component implementation and links type meta to builder factory.')
@@ -101,6 +101,6 @@ class ComponentFactoryProxyGenerator extends BoilerplateDeclarationGenerator {
       outputContentsBuffer!.writeln('    skipMethods: const [],');
     }
 
-    outputContentsBuffer..writeln(');')..writeln();
+    outputContentsBuffer!..writeln(');')..writeln();
   }
 }

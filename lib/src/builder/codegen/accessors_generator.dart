@@ -363,7 +363,7 @@ class _TypedMapMixinAccessorsGenerator extends TypedMapAccessorsGenerator {
 
   @override
   void generate() {
-    outputContentsBuffer..write(_generateAccessorsMixin())..write(_generateMetaConstImpl());
+    outputContentsBuffer!..write(_generateAccessorsMixin())..write(_generateMetaConstImpl());
   }
 }
 
@@ -411,7 +411,7 @@ class _LegacyTypedMapAccessorsGenerator extends TypedMapAccessorsGenerator {
 
   @override
   void generate() {
-    outputContentsBuffer
+    outputContentsBuffer!
       ..write(_generateAccessorsMixin())
       ..write(_generateMetaConstImpl())
       ..write(_generateConsumablePropsOrStateClass());

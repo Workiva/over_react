@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:meta/meta.dart';
 import 'package:over_react/src/builder/codegen/names.dart';
 import 'package:over_react/src/component_declaration/annotations.dart' as annotations;

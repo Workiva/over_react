@@ -56,16 +56,16 @@ class InstantiatedMeta<TMeta> {
 
   InstantiatedMeta._(this.metaNode, this._value, this.unsupportedArguments);
 
-  /// Returns an instance representing the first annotation of type [TMeta]
+  /// Returns an instance representing the first annotation of type [T]
   /// on [node], or null if there is no matching annotation.
   /// The original node will be available via [node].
   ///
   /// The instantiated annotation will be available via [value].
-  factory InstantiatedMeta(AnnotatedNode node) {
-    final metaNode = _getMatchingAnnotation(node, TMeta);
+  static InstantiatedMeta<T>? fromNode<T>(AnnotatedNode node) {
+    final metaNode = _getMatchingAnnotation(node, T);
     final unsupportedArguments = <Expression>[];
     final value =
-        instantiateAnnotationTyped<TMeta>(node, onUnsupportedArgument: unsupportedArguments.add);
+        instantiateAnnotationTyped<T>(node, onUnsupportedArgument: unsupportedArguments.add);
 
     if (value == null) return null;
 
@@ -105,8 +105,8 @@ class InstantiatedComponentMeta<TMeta> extends InstantiatedMeta<TMeta> {
       Annotation? metaNode, TMeta meta, List<Expression> unsupportedArguments, this.subtypeOfValue)
       : super._(metaNode, meta, unsupportedArguments);
 
-  factory InstantiatedComponentMeta(AnnotatedNode node) {
-    final instantiated = InstantiatedMeta<TMeta>(node);
+  static InstantiatedComponentMeta<T>? fromNode<T>(AnnotatedNode node) {
+    final instantiated = InstantiatedMeta.fromNode<T>(node);
 
     if (instantiated == null) return null;
 

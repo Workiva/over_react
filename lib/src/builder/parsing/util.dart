@@ -76,7 +76,7 @@ class Union<A, B> {
   T switchCase<T>(T Function(A) onA, T Function(B) onB) {
     if (a != null) return onA(a!);
     if (b != null) return onB(b!);
-    return null;
+    throw StateError('One of a or b should have been non-null');
   }
 }
 

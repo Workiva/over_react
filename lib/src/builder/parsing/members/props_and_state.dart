@@ -44,7 +44,7 @@ abstract class BoilerplatePropsOrState extends BoilerplateTypedMapMember
   /// This is determined at runtime by detecting the type of class (props, state, abstract)
   /// based upon what annotation is present upon [node].
   @override
-  annotations.TypedMap meta;
+  late annotations.TypedMap meta;
 
   @override
   SimpleIdentifier get name => nodeHelper.name;
