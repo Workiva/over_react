@@ -73,8 +73,6 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
   /// Indicate that [member] has been grouped into a declaration,
   /// so that it is not grouped into another declaration.
   void consume(BoilerplateMember member) {
-    if (member == null) throw ArgumentError.notNull('member');
-
     final wasAdded = _consumedMembers.add(member);
 
     if (!wasAdded) throw StateError('Member should not have been consumed already: $member');

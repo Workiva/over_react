@@ -70,7 +70,6 @@ abstract class TypedMapImplGenerator extends BoilerplateDeclarationGenerator {
   void _generateStateImpl();
 
   void _generateFactory() {
-    if (factoryNames == null) throw StateError('factoryNames must not be null');
     assert(factoryNames.length == 1, 'factoryNames must have a length of 1');
 
     outputContentsBuffer!

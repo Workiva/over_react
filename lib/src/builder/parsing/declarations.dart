@@ -55,13 +55,6 @@ abstract class BoilerplateDeclaration {
   /// Validates this declaration, including all members, against the provided [version].
   @mustCallSuper
   void validate(ErrorCollector errorCollector) {
-    if (version == null) {
-      // This should almost never happen.
-      errorCollector.addError(
-          'Could not determine boilerplate version.', errorCollector.spanFor(_members.first.name));
-      return;
-    }
-
     for (final member in _members) {
       member.validate(version, errorCollector);
     }
