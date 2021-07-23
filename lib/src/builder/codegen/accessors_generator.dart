@@ -149,7 +149,7 @@ abstract class TypedMapAccessorsGenerator extends BoilerplateDeclarationGenerato
 
     node.members.whereType<FieldDeclaration>().where((field) => !field.isStatic).forEach((field) {
       T? getConstantAnnotation<T>(AnnotatedNode member, String name, T value) {
-        return member.metadata.any((annotation) => annotation.name?.name == name) ? value : null;
+        return member.metadata.any((annotation) => annotation.name.name == name) ? value : null;
       }
 
       final accessorMeta = instantiateAnnotationTyped<annotations.Accessor>(field);

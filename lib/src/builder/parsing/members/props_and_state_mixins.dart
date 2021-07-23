@@ -80,7 +80,7 @@ abstract class BoilerplatePropsOrStateMixin extends BoilerplateTypedMapMember
         final node = this.node;
         if (node is MixinDeclaration) {
           final isOnBaseClass = node.onClause?.superclassConstraints
-                  ?.any((type) => type.nameWithoutPrefix == propsOrStateBaseClassString) ??
+                  .any((type) => type.nameWithoutPrefix == propsOrStateBaseClassString) ??
               false;
           if (!isOnBaseClass) {
             errorCollector.addError(

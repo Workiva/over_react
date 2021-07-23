@@ -49,7 +49,7 @@ class BoilerplateComponent extends BoilerplateMember {
 
   /// The [TypeAnnotation] for the component's prop class.
   TypeAnnotation? get propsGenericArg {
-    return nodeHelper.superclass!.typeArguments?.arguments?.firstWhereOrNull(
+    return nodeHelper.superclass!.typeArguments?.arguments.firstWhereOrNull(
         (type) => propsOrMixinNamePattern.hasMatch(type.typeNameWithoutPrefix!));
   }
 

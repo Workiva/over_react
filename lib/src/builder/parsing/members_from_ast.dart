@@ -16,7 +16,6 @@ import 'dart:collection';
 
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
-import 'package:meta/meta.dart';
 
 import '../util.dart';
 import 'ast_util.dart';
@@ -183,7 +182,7 @@ class _BoilerplateMemberDetector {
 
     final type = node.variables.type;
     if (type != null) {
-      if (type?.typeNameWithoutPrefix == 'UiFactory') {
+      if (type.typeNameWithoutPrefix == 'UiFactory') {
         final firstVar = node.variables.variables.first;
         final name = firstVar.name.name;
         final initializer = firstVar.initializer;
@@ -448,8 +447,8 @@ class _BoilerplateMemberDetector {
               .whereNotNull()
               .any(_componentBaseClassPattern.hasMatch) ||
           (classish.superclass?.typeArguments?.arguments
-                  ?.map((t) => t.typeNameWithoutPrefix)
-                  ?.any(propsOrMixinNamePattern.hasMatch as bool Function(String?)) ??
+                  .map((t) => t.typeNameWithoutPrefix)
+                  .any(propsOrMixinNamePattern.hasMatch as bool Function(String?)) ??
               false)) {
         const mixinBoilerplateBaseClasses = {
           'UiComponent2',

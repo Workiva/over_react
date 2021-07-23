@@ -89,7 +89,7 @@ BoilerplateComponent? getComponentFor(
   // If there's no match by name, use the props generic parameter
   return components.firstWhereOrNull((comp) {
     final propsGenericArgName = comp.nodeHelper.superclass?.typeArguments?.arguments
-        ?.firstWhereOrNull((arg) => arg.typeNameWithoutPrefix!.contains('Props'))
+        .firstWhereOrNull((arg) => arg.typeNameWithoutPrefix!.contains('Props'))
         ?.typeNameWithoutPrefix;
     if (propsGenericArgName != null) {
       if (_normalizeBoilerplatePropsOrPropsMixinName(propsGenericArgName) ==

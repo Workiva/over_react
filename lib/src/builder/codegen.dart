@@ -66,7 +66,7 @@ class ImplGenerator {
   void _generateUsing(BoilerplateDeclarationGenerator generator) {
     generator
       ..sourceFile = sourceFile
-      ..outputContentsBuffer = outputContentsBuffer!
+      ..outputContentsBuffer = outputContentsBuffer
       ..logger = logger
       ..generate()
       // Clean these up so that `generator` can't use logger/outputContentsBuffer unexpectedly

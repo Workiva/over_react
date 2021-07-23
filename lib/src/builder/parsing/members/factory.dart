@@ -42,7 +42,7 @@ class BoilerplateFactory extends BoilerplateMember {
       final uiFunctionInvocation = getDescendantIdentifier(
           node.variables.firstInitializer!, (identifier) => identifier.isFunctionType)!;
       final methodInvocation = uiFunctionInvocation.thisOrAncestorOfType<MethodInvocation>();
-      final typeArgs = methodInvocation?.typeArguments?.arguments?.first;
+      final typeArgs = methodInvocation?.typeArguments?.arguments.first;
       return typeArgs;
     }
 

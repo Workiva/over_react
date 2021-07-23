@@ -217,7 +217,7 @@ Iterable<BoilerplateDeclaration> getBoilerplateDeclarations(
       continue;
     }
     if (hasBeenConsumed(propsClassOrMixin.either) ||
-        (stateClassOrMixin != null && hasBeenConsumed(stateClassOrMixin?.either))) {
+        (stateClassOrMixin != null && hasBeenConsumed(stateClassOrMixin.either))) {
       // Don't try to group if the matching class has already been consumed.
       // We do this instead of trying to get the next best match, since that can result in
       // unexpected behavior when a class has both a props class and props mixin with multiple

@@ -195,11 +195,11 @@ mixin _TypedMapMixinShorthandDeclaration {
     }
 
     final badConstraints = mixin.node
-        ?.tryCast<MixinDeclaration>()
+        .tryCast<MixinDeclaration>()
         ?.onClause
         ?.superclassConstraints
-        ?.where(isBadConstraint)
-        ?.toList();
+        .where(isBadConstraint)
+        .toList();
 
     if (badConstraints?.isNotEmpty ?? false) {
       final badConstraintsString = badConstraints!.map((c) => c.name.name).join(', ');

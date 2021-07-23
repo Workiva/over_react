@@ -89,7 +89,7 @@ extension SuperclassConstraint on MixinDeclaration {
   ///
   /// Any identifier prefixes in the `on` clause are removed before comparison.
   bool hasSuperclassConstraint(String superclassName) {
-    return onClause?.superclassConstraints?.any((s) => s.typeNameWithoutPrefix == superclassName) ??
+    return onClause?.superclassConstraints.any((s) => s.typeNameWithoutPrefix == superclassName) ??
         false;
   }
 }

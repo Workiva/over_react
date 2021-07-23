@@ -51,7 +51,7 @@ String getAccessorKeyNamespace(TypedMapNames names, annotations.TypedMap meta) {
   // Default to the name of the class followed by a period.
   final defaultNamespace = '${names.publicName}.';
   // Allow the consumer to specify a custom namespace that trumps the default.
-  final specifiedKeyNamespace = meta?.keyNamespace;
+  final specifiedKeyNamespace = meta.keyNamespace;
 
   return specifiedKeyNamespace ?? defaultNamespace;
 }
