@@ -51,16 +51,6 @@ targets:
             # checked in.
             - "example/boilerplate_versions/dart2_only/**"
 
-      built_value_generator|built_value:
-        generate_for:
-          include:
-            - test/over_react/component_declaration/redux_component_test/test_reducer.dart
-
-      built_redux|built_redux:
-        generate_for:
-          include:
-            - test/over_react/component_declaration/redux_component_test/test_reducer.dart
-
 #      build_vm_compilers|entrypoint:
 #        generate_for:
 #          include:
