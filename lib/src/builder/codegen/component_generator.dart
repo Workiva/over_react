@@ -90,7 +90,7 @@ abstract class ComponentGenerator extends BoilerplateDeclarationGenerator {
 
     if (isComponent2 && hasState) {
       outputContentsBuffer!
-        ..writeln('  ${stateNames!.jsMapImplName} _cachedTypedState;')
+        ..writeln('  late ${stateNames!.jsMapImplName} _cachedTypedState;')
         ..writeln('  @override')
         ..writeln('  ${stateNames!.jsMapImplName} get state => _cachedTypedState;')
         ..writeln()
