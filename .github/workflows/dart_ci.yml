@@ -50,10 +50,16 @@ jobs:
         if: always() && steps.install.outcome == 'success'
 
       - id: build
+        timeout-minutes: 6
         name: Build generated files / precompile DDC assets
         run: |
           pub run build_runner build --delete-conflicting-outputs -o ddc_precompiled
-          git diff --exit-code
+          if [ ${{ matrix.sdk }} = '2.7.2' ]; then
+            git diff --exit-code
+          else
+            # Exclude built_redux generated files since they get generated differently in Dart 2.7 vs other versions
+            git diff --exit-code -- ":(exclude)test/over_react/component_declaration/redux_component_test/test_reducer.g.dart"
+          fi
         if: always() && steps.install.outcome == 'success'
 
       # Analyze again after generated files are created to verify that those generated classes don't cause analysis errors
