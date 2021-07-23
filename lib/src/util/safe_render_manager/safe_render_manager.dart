@@ -209,7 +209,7 @@ class SafeRenderManager extends Disposable {
 
   @override
   Future<Null> onDispose() async {
-    var completer = Completer<Null>();
+    Completer<Null>? completer = Completer<Null>();
     final completerFuture = completer.future;
 
     // Set up an onError handler in case onMaybeUnmounted isn't called due to
@@ -223,7 +223,7 @@ class SafeRenderManager extends Disposable {
         completer = null;
       });
     // ignore: avoid_types_on_closure_parameters
-    }, onError: (error, StackTrace stackTrace) {
+    }, onError: (Object error, StackTrace stackTrace) {
       completer?.completeError(error, stackTrace);
       // Clear out to not retain it in the onError closure, which has
       // an indefinitely long lifetime.

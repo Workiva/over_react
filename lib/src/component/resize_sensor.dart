@@ -291,11 +291,11 @@ class ResizeSensorComponent extends UiComponent2<ResizeSensorProps> with SafeAni
     // Scroll positions are clamped to their maxes; use this behavior to scroll to the end
     // as opposed to scrollWidth/scrollHeight, which trigger reflows immediately.
 
-    _expandSensorRef
+    _expandSensorRef!
       ..scrollLeft = maxSensorSize
       ..scrollTop = maxSensorSize;
 
-    _collapseSensorRef
+    _collapseSensorRef!
       ..scrollLeft = maxSensorSize
       ..scrollTop = maxSensorSize;
 

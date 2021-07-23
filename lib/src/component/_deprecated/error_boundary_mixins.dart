@@ -96,13 +96,13 @@ abstract class _$ErrorBoundaryPropsMixin implements UiProps {
   /// > Will never be called when [fallbackUIRenderer] is set.
   ///
   /// > Related: [identicalErrorFrequencyTolerance]
-  Function(/*Error||Exception*/dynamic error, ReactErrorInfo info)? onComponentIsUnrecoverable;
+  Function(/*Error||Exception*/dynamic error, ReactErrorInfo? info)? onComponentIsUnrecoverable;
 
   /// A renderer that will be used to render "fallback" UI instead of the child
   /// component tree that crashed.
   ///
   /// > Related: [onComponentIsUnrecoverable], [onComponentDidCatch]
-  ReactElement Function(/*Error||Exception*/dynamic error, ReactErrorInfo info)? fallbackUIRenderer;
+  ReactElement Function(/*Error||Exception*/dynamic error, ReactErrorInfo? info)? fallbackUIRenderer;
 
   /// The amount of time that is "acceptable" between consecutive identical errors thrown from a component
   /// within the tree wrapped by this [ErrorBoundary].

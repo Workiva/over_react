@@ -26,7 +26,7 @@ UiFactory<SafeRenderManagerHelperProps> SafeRenderManagerHelper =
 @Props()
 class _$SafeRenderManagerHelperProps extends UiProps {
   @requiredProp
-  ReactElement Function()? getInitialContent;
+  ReactElement? Function()? getInitialContent;
 
   CallbackRef? contentRef;
 }
