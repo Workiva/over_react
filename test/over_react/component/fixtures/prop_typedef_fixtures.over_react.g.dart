@@ -251,10 +251,11 @@ abstract class _$$TestConsumingAbstractCustomRendererComponentProps
     implements TestConsumingAbstractCustomRendererComponentProps {
   _$$TestConsumingAbstractCustomRendererComponentProps._();
 
-  factory _$$TestConsumingAbstractCustomRendererComponentProps(Map backingMap) {
+  factory _$$TestConsumingAbstractCustomRendererComponentProps(
+      Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
       return _$$TestConsumingAbstractCustomRendererComponentProps$JsMap(
-          backingMap as JsBackedMap);
+          backingMap as JsBackedMap?);
     } else {
       return _$$TestConsumingAbstractCustomRendererComponentProps$PlainMap(
           backingMap);
@@ -282,7 +283,7 @@ class _$$TestConsumingAbstractCustomRendererComponentProps$PlainMap
     extends _$$TestConsumingAbstractCustomRendererComponentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestConsumingAbstractCustomRendererComponentProps$PlainMap(Map backingMap)
+  _$$TestConsumingAbstractCustomRendererComponentProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -301,7 +302,7 @@ class _$$TestConsumingAbstractCustomRendererComponentProps$JsMap
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
   _$$TestConsumingAbstractCustomRendererComponentProps$JsMap(
-      JsBackedMap backingMap)
+      JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -319,7 +320,8 @@ class _$$TestConsumingAbstractCustomRendererComponentProps$JsMap
 // generated for the associated props class.
 class _$TestConsumingAbstractCustomRendererComponentComponent
     extends TestConsumingAbstractCustomRendererComponentComponent {
-  late _$$TestConsumingAbstractCustomRendererComponentProps$JsMap _cachedTypedProps;
+  late _$$TestConsumingAbstractCustomRendererComponentProps$JsMap
+      _cachedTypedProps;
 
   @override
   _$$TestConsumingAbstractCustomRendererComponentProps$JsMap get props =>
@@ -341,13 +343,13 @@ class _$TestConsumingAbstractCustomRendererComponentComponent
 
   @override
   _$$TestConsumingAbstractCustomRendererComponentProps$JsMap
-      typedPropsFactoryJs(JsBackedMap backingMap) =>
+      typedPropsFactoryJs(JsBackedMap? backingMap) =>
           _$$TestConsumingAbstractCustomRendererComponentProps$JsMap(
               backingMap);
 
   @override
   _$$TestConsumingAbstractCustomRendererComponentProps typedPropsFactory(
-          Map backingMap) =>
+          Map? backingMap) =>
       _$$TestConsumingAbstractCustomRendererComponentProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -456,10 +458,10 @@ abstract class _$$TestConsumingCustomRendererComponentProps
     implements TestConsumingCustomRendererComponentProps {
   _$$TestConsumingCustomRendererComponentProps._();
 
-  factory _$$TestConsumingCustomRendererComponentProps(Map backingMap) {
+  factory _$$TestConsumingCustomRendererComponentProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
       return _$$TestConsumingCustomRendererComponentProps$JsMap(
-          backingMap as JsBackedMap);
+          backingMap as JsBackedMap?);
     } else {
       return _$$TestConsumingCustomRendererComponentProps$PlainMap(backingMap);
     }
@@ -485,7 +487,7 @@ class _$$TestConsumingCustomRendererComponentProps$PlainMap
     extends _$$TestConsumingCustomRendererComponentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestConsumingCustomRendererComponentProps$PlainMap(Map backingMap)
+  _$$TestConsumingCustomRendererComponentProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -503,7 +505,7 @@ class _$$TestConsumingCustomRendererComponentProps$JsMap
     extends _$$TestConsumingCustomRendererComponentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestConsumingCustomRendererComponentProps$JsMap(JsBackedMap backingMap)
+  _$$TestConsumingCustomRendererComponentProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -543,12 +545,12 @@ class _$TestConsumingCustomRendererComponentComponent
 
   @override
   _$$TestConsumingCustomRendererComponentProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TestConsumingCustomRendererComponentProps$JsMap(backingMap);
 
   @override
   _$$TestConsumingCustomRendererComponentProps typedPropsFactory(
-          Map backingMap) =>
+          Map? backingMap) =>
       _$$TestConsumingCustomRendererComponentProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -638,10 +640,10 @@ abstract class _$$TestCustomRendererFromAbstractComponentProps
     implements TestCustomRendererFromAbstractComponentProps {
   _$$TestCustomRendererFromAbstractComponentProps._();
 
-  factory _$$TestCustomRendererFromAbstractComponentProps(Map backingMap) {
+  factory _$$TestCustomRendererFromAbstractComponentProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
       return _$$TestCustomRendererFromAbstractComponentProps$JsMap(
-          backingMap as JsBackedMap);
+          backingMap as JsBackedMap?);
     } else {
       return _$$TestCustomRendererFromAbstractComponentProps$PlainMap(
           backingMap);
@@ -669,7 +671,7 @@ class _$$TestCustomRendererFromAbstractComponentProps$PlainMap
     extends _$$TestCustomRendererFromAbstractComponentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestCustomRendererFromAbstractComponentProps$PlainMap(Map backingMap)
+  _$$TestCustomRendererFromAbstractComponentProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -687,7 +689,7 @@ class _$$TestCustomRendererFromAbstractComponentProps$JsMap
     extends _$$TestCustomRendererFromAbstractComponentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestCustomRendererFromAbstractComponentProps$JsMap(JsBackedMap backingMap)
+  _$$TestCustomRendererFromAbstractComponentProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -732,10 +734,10 @@ abstract class _$$TestCustomRendererFromAbstractComponentState
     implements TestCustomRendererFromAbstractComponentState {
   _$$TestCustomRendererFromAbstractComponentState._();
 
-  factory _$$TestCustomRendererFromAbstractComponentState(Map backingMap) {
+  factory _$$TestCustomRendererFromAbstractComponentState(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
       return _$$TestCustomRendererFromAbstractComponentState$JsMap(
-          backingMap as JsBackedMap);
+          backingMap as JsBackedMap?);
     } else {
       return _$$TestCustomRendererFromAbstractComponentState$PlainMap(
           backingMap);
@@ -752,7 +754,7 @@ class _$$TestCustomRendererFromAbstractComponentState$PlainMap
     extends _$$TestCustomRendererFromAbstractComponentState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestCustomRendererFromAbstractComponentState$PlainMap(Map backingMap)
+  _$$TestCustomRendererFromAbstractComponentState$PlainMap(Map? backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -770,7 +772,7 @@ class _$$TestCustomRendererFromAbstractComponentState$JsMap
     extends _$$TestCustomRendererFromAbstractComponentState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestCustomRendererFromAbstractComponentState$JsMap(JsBackedMap backingMap)
+  _$$TestCustomRendererFromAbstractComponentState$JsMap(JsBackedMap? backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -810,15 +812,15 @@ class _$TestCustomRendererFromAbstractComponentComponent
 
   @override
   _$$TestCustomRendererFromAbstractComponentProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TestCustomRendererFromAbstractComponentProps$JsMap(backingMap);
 
   @override
   _$$TestCustomRendererFromAbstractComponentProps typedPropsFactory(
-          Map backingMap) =>
+          Map? backingMap) =>
       _$$TestCustomRendererFromAbstractComponentProps(backingMap);
 
-  late _$$TestCustomRendererFromAbstractComponentState$JsMap _cachedTypedState;
+  _$$TestCustomRendererFromAbstractComponentState$JsMap _cachedTypedState;
   @override
   _$$TestCustomRendererFromAbstractComponentState$JsMap get state =>
       _cachedTypedState;
@@ -835,12 +837,12 @@ class _$TestCustomRendererFromAbstractComponentComponent
 
   @override
   _$$TestCustomRendererFromAbstractComponentState$JsMap typedStateFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TestCustomRendererFromAbstractComponentState$JsMap(backingMap);
 
   @override
   _$$TestCustomRendererFromAbstractComponentState typedStateFactory(
-          Map backingMap) =>
+          Map? backingMap) =>
       _$$TestCustomRendererFromAbstractComponentState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -997,10 +999,10 @@ abstract class _$$TestCustomRendererComponentProps
     implements TestCustomRendererComponentProps {
   _$$TestCustomRendererComponentProps._();
 
-  factory _$$TestCustomRendererComponentProps(Map backingMap) {
+  factory _$$TestCustomRendererComponentProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
       return _$$TestCustomRendererComponentProps$JsMap(
-          backingMap as JsBackedMap);
+          backingMap as JsBackedMap?);
     } else {
       return _$$TestCustomRendererComponentProps$PlainMap(backingMap);
     }
@@ -1025,7 +1027,7 @@ class _$$TestCustomRendererComponentProps$PlainMap
     extends _$$TestCustomRendererComponentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestCustomRendererComponentProps$PlainMap(Map backingMap)
+  _$$TestCustomRendererComponentProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -1043,7 +1045,7 @@ class _$$TestCustomRendererComponentProps$JsMap
     extends _$$TestCustomRendererComponentProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestCustomRendererComponentProps$JsMap(JsBackedMap backingMap)
+  _$$TestCustomRendererComponentProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -1105,10 +1107,10 @@ abstract class _$$TestCustomRendererComponentState
     implements TestCustomRendererComponentState {
   _$$TestCustomRendererComponentState._();
 
-  factory _$$TestCustomRendererComponentState(Map backingMap) {
+  factory _$$TestCustomRendererComponentState(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
       return _$$TestCustomRendererComponentState$JsMap(
-          backingMap as JsBackedMap);
+          backingMap as JsBackedMap?);
     } else {
       return _$$TestCustomRendererComponentState$PlainMap(backingMap);
     }
@@ -1124,7 +1126,7 @@ class _$$TestCustomRendererComponentState$PlainMap
     extends _$$TestCustomRendererComponentState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestCustomRendererComponentState$PlainMap(Map backingMap)
+  _$$TestCustomRendererComponentState$PlainMap(Map? backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -1142,7 +1144,7 @@ class _$$TestCustomRendererComponentState$JsMap
     extends _$$TestCustomRendererComponentState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestCustomRendererComponentState$JsMap(JsBackedMap backingMap)
+  _$$TestCustomRendererComponentState$JsMap(JsBackedMap? backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -1181,14 +1183,14 @@ class _$TestCustomRendererComponentComponent
 
   @override
   _$$TestCustomRendererComponentProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TestCustomRendererComponentProps$JsMap(backingMap);
 
   @override
-  _$$TestCustomRendererComponentProps typedPropsFactory(Map backingMap) =>
+  _$$TestCustomRendererComponentProps typedPropsFactory(Map? backingMap) =>
       _$$TestCustomRendererComponentProps(backingMap);
 
-  late _$$TestCustomRendererComponentState$JsMap _cachedTypedState;
+  _$$TestCustomRendererComponentState$JsMap _cachedTypedState;
   @override
   _$$TestCustomRendererComponentState$JsMap get state => _cachedTypedState;
 
@@ -1204,11 +1206,11 @@ class _$TestCustomRendererComponentComponent
 
   @override
   _$$TestCustomRendererComponentState$JsMap typedStateFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TestCustomRendererComponentState$JsMap(backingMap);
 
   @override
-  _$$TestCustomRendererComponentState typedStateFactory(Map backingMap) =>
+  _$$TestCustomRendererComponentState typedStateFactory(Map? backingMap) =>
       _$$TestCustomRendererComponentState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

@@ -116,9 +116,9 @@ abstract class _$$CounterProps extends _$CounterProps
     implements CounterProps {
   _$$CounterProps._();
 
-  factory _$$CounterProps(Map backingMap) {
+  factory _$$CounterProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CounterProps$JsMap(backingMap as JsBackedMap);
+      return _$$CounterProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$CounterProps$PlainMap(backingMap);
     }
@@ -142,7 +142,7 @@ abstract class _$$CounterProps extends _$CounterProps
 class _$$CounterProps$PlainMap extends _$$CounterProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CounterProps$PlainMap(Map backingMap)
+  _$$CounterProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -159,7 +159,7 @@ class _$$CounterProps$PlainMap extends _$$CounterProps {
 class _$$CounterProps$JsMap extends _$$CounterProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CounterProps$JsMap(JsBackedMap backingMap)
+  _$$CounterProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -196,11 +196,11 @@ class _$CounterComponent extends CounterComponent {
   }
 
   @override
-  _$$CounterProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$CounterProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$CounterProps$JsMap(backingMap);
 
   @override
-  _$$CounterProps typedPropsFactory(Map backingMap) =>
+  _$$CounterProps typedPropsFactory(Map? backingMap) =>
       _$$CounterProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

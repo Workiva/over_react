@@ -72,9 +72,9 @@ abstract class _$$UseDispatchCounterFnProps extends UiProps
 {
   _$$UseDispatchCounterFnProps._();
 
-  factory _$$UseDispatchCounterFnProps(Map backingMap) {
+  factory _$$UseDispatchCounterFnProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$UseDispatchCounterFnProps$JsMap(backingMap as JsBackedMap);
+      return _$$UseDispatchCounterFnProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$UseDispatchCounterFnProps$PlainMap(backingMap);
     }
@@ -102,7 +102,7 @@ class _$$UseDispatchCounterFnProps$PlainMap
     extends _$$UseDispatchCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UseDispatchCounterFnProps$PlainMap(Map backingMap)
+  _$$UseDispatchCounterFnProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -121,7 +121,7 @@ class _$$UseDispatchCounterFnProps$PlainMap
 class _$$UseDispatchCounterFnProps$JsMap extends _$$UseDispatchCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UseDispatchCounterFnProps$JsMap(JsBackedMap backingMap)
+  _$$UseDispatchCounterFnProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -161,10 +161,10 @@ abstract class _$$CustomContextUseDispatchCounterFnProps extends UiProps
 {
   _$$CustomContextUseDispatchCounterFnProps._();
 
-  factory _$$CustomContextUseDispatchCounterFnProps(Map backingMap) {
+  factory _$$CustomContextUseDispatchCounterFnProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
       return _$$CustomContextUseDispatchCounterFnProps$JsMap(
-          backingMap as JsBackedMap);
+          backingMap as JsBackedMap?);
     } else {
       return _$$CustomContextUseDispatchCounterFnProps$PlainMap(backingMap);
     }
@@ -193,7 +193,7 @@ class _$$CustomContextUseDispatchCounterFnProps$PlainMap
     extends _$$CustomContextUseDispatchCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomContextUseDispatchCounterFnProps$PlainMap(Map backingMap)
+  _$$CustomContextUseDispatchCounterFnProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -213,7 +213,7 @@ class _$$CustomContextUseDispatchCounterFnProps$JsMap
     extends _$$CustomContextUseDispatchCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomContextUseDispatchCounterFnProps$JsMap(JsBackedMap backingMap)
+  _$$CustomContextUseDispatchCounterFnProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

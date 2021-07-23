@@ -48,9 +48,9 @@ abstract class _$$FlawedWithNoChildProps extends _$FlawedWithNoChildProps
     implements FlawedWithNoChildProps {
   _$$FlawedWithNoChildProps._();
 
-  factory _$$FlawedWithNoChildProps(Map backingMap) {
+  factory _$$FlawedWithNoChildProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FlawedWithNoChildProps$JsMap(backingMap as JsBackedMap);
+      return _$$FlawedWithNoChildProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$FlawedWithNoChildProps$PlainMap(backingMap);
     }
@@ -74,7 +74,7 @@ abstract class _$$FlawedWithNoChildProps extends _$FlawedWithNoChildProps
 class _$$FlawedWithNoChildProps$PlainMap extends _$$FlawedWithNoChildProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FlawedWithNoChildProps$PlainMap(Map backingMap)
+  _$$FlawedWithNoChildProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -91,7 +91,7 @@ class _$$FlawedWithNoChildProps$PlainMap extends _$$FlawedWithNoChildProps {
 class _$$FlawedWithNoChildProps$JsMap extends _$$FlawedWithNoChildProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FlawedWithNoChildProps$JsMap(JsBackedMap backingMap)
+  _$$FlawedWithNoChildProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -128,11 +128,12 @@ class _$FlawedWithNoChildComponent extends FlawedWithNoChildComponent {
   }
 
   @override
-  _$$FlawedWithNoChildProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$FlawedWithNoChildProps$JsMap typedPropsFactoryJs(
+          JsBackedMap? backingMap) =>
       _$$FlawedWithNoChildProps$JsMap(backingMap);
 
   @override
-  _$$FlawedWithNoChildProps typedPropsFactory(Map backingMap) =>
+  _$$FlawedWithNoChildProps typedPropsFactory(Map? backingMap) =>
       _$$FlawedWithNoChildProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

@@ -63,9 +63,9 @@ abstract class _$$DummyProps extends _$DummyProps
     implements DummyProps {
   _$$DummyProps._();
 
-  factory _$$DummyProps(Map backingMap) {
+  factory _$$DummyProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$DummyProps$JsMap(backingMap as JsBackedMap);
+      return _$$DummyProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$DummyProps$PlainMap(backingMap);
     }
@@ -89,7 +89,7 @@ abstract class _$$DummyProps extends _$DummyProps
 class _$$DummyProps$PlainMap extends _$$DummyProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DummyProps$PlainMap(Map backingMap)
+  _$$DummyProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -106,7 +106,7 @@ class _$$DummyProps$PlainMap extends _$$DummyProps {
 class _$$DummyProps$JsMap extends _$$DummyProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DummyProps$JsMap(JsBackedMap backingMap)
+  _$$DummyProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -143,11 +143,11 @@ class _$DummyComponent extends DummyComponent {
   }
 
   @override
-  _$$DummyProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$DummyProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$DummyProps$JsMap(backingMap);
 
   @override
-  _$$DummyProps typedPropsFactory(Map backingMap) => _$$DummyProps(backingMap);
+  _$$DummyProps typedPropsFactory(Map? backingMap) => _$$DummyProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
   @override

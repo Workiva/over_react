@@ -92,7 +92,8 @@ abstract class _$ConnectFluxCounterPropsAccessorsMixin
   /// <!-- Generated from [_$ConnectFluxCounterProps.actions] -->
   @override
   FluxActions? get actions =>
-      (props[_$key__actions___$ConnectFluxCounterProps] ?? null) as FluxActions?;
+      (props[_$key__actions___$ConnectFluxCounterProps] ?? null)
+          as FluxActions?;
 
   /// <!-- Generated from [_$ConnectFluxCounterProps.actions] -->
   @override
@@ -172,9 +173,9 @@ abstract class _$$ConnectFluxCounterProps extends _$ConnectFluxCounterProps
     implements ConnectFluxCounterProps {
   _$$ConnectFluxCounterProps._();
 
-  factory _$$ConnectFluxCounterProps(Map backingMap) {
+  factory _$$ConnectFluxCounterProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ConnectFluxCounterProps$JsMap(backingMap as JsBackedMap);
+      return _$$ConnectFluxCounterProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$ConnectFluxCounterProps$PlainMap(backingMap);
     }
@@ -198,7 +199,7 @@ abstract class _$$ConnectFluxCounterProps extends _$ConnectFluxCounterProps
 class _$$ConnectFluxCounterProps$PlainMap extends _$$ConnectFluxCounterProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ConnectFluxCounterProps$PlainMap(Map backingMap)
+  _$$ConnectFluxCounterProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -215,7 +216,7 @@ class _$$ConnectFluxCounterProps$PlainMap extends _$$ConnectFluxCounterProps {
 class _$$ConnectFluxCounterProps$JsMap extends _$$ConnectFluxCounterProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ConnectFluxCounterProps$JsMap(JsBackedMap backingMap)
+  _$$ConnectFluxCounterProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -253,11 +254,11 @@ class _$ConnectFluxCounterComponent extends ConnectFluxCounterComponent {
 
   @override
   _$$ConnectFluxCounterProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$ConnectFluxCounterProps$JsMap(backingMap);
 
   @override
-  _$$ConnectFluxCounterProps typedPropsFactory(Map backingMap) =>
+  _$$ConnectFluxCounterProps typedPropsFactory(Map? backingMap) =>
       _$$ConnectFluxCounterProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

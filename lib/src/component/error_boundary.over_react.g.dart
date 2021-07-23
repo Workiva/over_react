@@ -39,9 +39,9 @@ abstract class _$$ErrorBoundaryProps extends UiProps
 {
   _$$ErrorBoundaryProps._();
 
-  factory _$$ErrorBoundaryProps(Map backingMap) {
+  factory _$$ErrorBoundaryProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ErrorBoundaryProps$JsMap(backingMap as JsBackedMap);
+      return _$$ErrorBoundaryProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$ErrorBoundaryProps$PlainMap(backingMap);
     }
@@ -73,7 +73,7 @@ abstract class _$$ErrorBoundaryProps extends UiProps
 class _$$ErrorBoundaryProps$PlainMap extends _$$ErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ErrorBoundaryProps$PlainMap(Map backingMap)
+  _$$ErrorBoundaryProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -92,7 +92,7 @@ class _$$ErrorBoundaryProps$PlainMap extends _$$ErrorBoundaryProps {
 class _$$ErrorBoundaryProps$JsMap extends _$$ErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ErrorBoundaryProps$JsMap(JsBackedMap backingMap)
+  _$$ErrorBoundaryProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -116,9 +116,9 @@ abstract class _$$ErrorBoundaryState extends UiState
 {
   _$$ErrorBoundaryState._();
 
-  factory _$$ErrorBoundaryState(Map backingMap) {
+  factory _$$ErrorBoundaryState(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ErrorBoundaryState$JsMap(backingMap as JsBackedMap);
+      return _$$ErrorBoundaryState$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$ErrorBoundaryState$PlainMap(backingMap);
     }
@@ -135,7 +135,7 @@ abstract class _$$ErrorBoundaryState extends UiState
 class _$$ErrorBoundaryState$PlainMap extends _$$ErrorBoundaryState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ErrorBoundaryState$PlainMap(Map backingMap)
+  _$$ErrorBoundaryState$PlainMap(Map? backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -154,7 +154,7 @@ class _$$ErrorBoundaryState$PlainMap extends _$$ErrorBoundaryState {
 class _$$ErrorBoundaryState$JsMap extends _$$ErrorBoundaryState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ErrorBoundaryState$JsMap(JsBackedMap backingMap)
+  _$$ErrorBoundaryState$JsMap(JsBackedMap? backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -193,14 +193,14 @@ class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
   }
 
   @override
-  _$$ErrorBoundaryProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$ErrorBoundaryProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$ErrorBoundaryProps$JsMap(backingMap);
 
   @override
-  _$$ErrorBoundaryProps typedPropsFactory(Map backingMap) =>
+  _$$ErrorBoundaryProps typedPropsFactory(Map? backingMap) =>
       _$$ErrorBoundaryProps(backingMap);
 
-  late _$$ErrorBoundaryState$JsMap _cachedTypedState;
+  _$$ErrorBoundaryState$JsMap _cachedTypedState;
   @override
   _$$ErrorBoundaryState$JsMap get state => _cachedTypedState;
 
@@ -215,11 +215,11 @@ class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
   }
 
   @override
-  _$$ErrorBoundaryState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
+  _$$ErrorBoundaryState$JsMap typedStateFactoryJs(JsBackedMap? backingMap) =>
       _$$ErrorBoundaryState$JsMap(backingMap);
 
   @override
-  _$$ErrorBoundaryState typedStateFactory(Map backingMap) =>
+  _$$ErrorBoundaryState typedStateFactory(Map? backingMap) =>
       _$$ErrorBoundaryState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -249,24 +249,26 @@ mixin $ErrorBoundaryProps on ErrorBoundaryProps {
       (props[_$key__onComponentDidCatch__ErrorBoundaryProps] ?? null)
           as Function(dynamic error, ReactErrorInfo info)?;
   @override
-  set onComponentDidCatch(Function(dynamic error, ReactErrorInfo info)? value) =>
+  set onComponentDidCatch(
+          Function(dynamic error, ReactErrorInfo info)? value) =>
       props[_$key__onComponentDidCatch__ErrorBoundaryProps] = value;
   @override
-  Function(dynamic error, ReactErrorInfo info)? get onComponentIsUnrecoverable =>
-      (props[_$key__onComponentIsUnrecoverable__ErrorBoundaryProps] ?? null)
-          as Function(dynamic error, ReactErrorInfo info)?;
+  Function(dynamic error, ReactErrorInfo info)?
+      get onComponentIsUnrecoverable =>
+          (props[_$key__onComponentIsUnrecoverable__ErrorBoundaryProps] ?? null)
+              as Function(dynamic error, ReactErrorInfo info)?;
   @override
   set onComponentIsUnrecoverable(
           Function(dynamic error, ReactErrorInfo info)? value) =>
       props[_$key__onComponentIsUnrecoverable__ErrorBoundaryProps] = value;
   @override
-  ReactElement Function(dynamic error, ReactErrorInfo? info)?
+  ReactElement? Function(dynamic error, ReactErrorInfo? info)?
       get fallbackUIRenderer =>
           (props[_$key__fallbackUIRenderer__ErrorBoundaryProps] ?? null)
-              as ReactElement Function(dynamic error, ReactErrorInfo? info)?;
+              as ReactElement? Function(dynamic error, ReactErrorInfo? info)?;
   @override
   set fallbackUIRenderer(
-          ReactElement? Function(dynamic error, ReactErrorInfo info)? value) =>
+          ReactElement? Function(dynamic error, ReactErrorInfo? info)? value) =>
       props[_$key__fallbackUIRenderer__ErrorBoundaryProps] = value;
   @override
   Duration? get identicalErrorFrequencyTolerance =>
@@ -368,7 +370,8 @@ mixin $ErrorBoundaryState on ErrorBoundaryState {
       state[_$key__hasError__ErrorBoundaryState] = value;
   @override
   bool? get showFallbackUIOnError =>
-      (state[_$key__showFallbackUIOnError__ErrorBoundaryState] ?? null) as bool?;
+      (state[_$key__showFallbackUIOnError__ErrorBoundaryState] ?? null)
+          as bool?;
   @override
   set showFallbackUIOnError(bool? value) =>
       state[_$key__showFallbackUIOnError__ErrorBoundaryState] = value;

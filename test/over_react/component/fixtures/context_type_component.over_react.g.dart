@@ -51,9 +51,9 @@ abstract class _$$ContextTypeProps extends _$ContextTypeProps
     implements ContextTypeProps {
   _$$ContextTypeProps._();
 
-  factory _$$ContextTypeProps(Map backingMap) {
+  factory _$$ContextTypeProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ContextTypeProps$JsMap(backingMap as JsBackedMap);
+      return _$$ContextTypeProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$ContextTypeProps$PlainMap(backingMap);
     }
@@ -77,7 +77,7 @@ abstract class _$$ContextTypeProps extends _$ContextTypeProps
 class _$$ContextTypeProps$PlainMap extends _$$ContextTypeProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ContextTypeProps$PlainMap(Map backingMap)
+  _$$ContextTypeProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -94,7 +94,7 @@ class _$$ContextTypeProps$PlainMap extends _$$ContextTypeProps {
 class _$$ContextTypeProps$JsMap extends _$$ContextTypeProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ContextTypeProps$JsMap(JsBackedMap backingMap)
+  _$$ContextTypeProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -131,11 +131,11 @@ class _$ContextTypeComponent extends ContextTypeComponent {
   }
 
   @override
-  _$$ContextTypeProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$ContextTypeProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$ContextTypeProps$JsMap(backingMap);
 
   @override
-  _$$ContextTypeProps typedPropsFactory(Map backingMap) =>
+  _$$ContextTypeProps typedPropsFactory(Map? backingMap) =>
       _$$ContextTypeProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

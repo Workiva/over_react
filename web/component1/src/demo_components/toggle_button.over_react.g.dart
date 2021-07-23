@@ -120,7 +120,8 @@ abstract class _$ToggleButtonPropsAccessorsMixin
   /// <!-- Generated from [_$ToggleButtonProps.checked] -->
   @override
   @Accessor(keyNamespace: '')
-  set checked(bool? value) => props[_$key__checked___$ToggleButtonProps] = value;
+  set checked(bool? value) =>
+      props[_$key__checked___$ToggleButtonProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__autoFocus___$ToggleButtonProps =
       PropDescriptor(_$key__autoFocus___$ToggleButtonProps);

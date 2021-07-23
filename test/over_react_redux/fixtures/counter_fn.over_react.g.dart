@@ -18,7 +18,7 @@ mixin $CounterFnProps on CounterFnProps {
       (props[_$key__countEqualityFn__CounterFnProps] ?? null) as bool Function(
           int? nextCount, int? prevCount)?;
   @override
-  set countEqualityFn(bool Function(int nextCount, int prevCount)? value) =>
+  set countEqualityFn(bool Function(int? nextCount, int? prevCount)? value) =>
       props[_$key__countEqualityFn__CounterFnProps] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__countEqualityFn__CounterFnProps =
@@ -55,7 +55,8 @@ mixin $ModelCounterFnPropsMixin on ModelCounterFnPropsMixin {
                   DartModelCounter? nextCount, DartModelCounter? prevCount)?;
   @override
   set modelCountEqualityFn(
-          bool Function(DartModelCounter nextCount, DartModelCounter prevCount)?
+          bool Function(
+                  DartModelCounter? nextCount, DartModelCounter? prevCount)?
               value) =>
       props[_$key__modelCountEqualityFn__ModelCounterFnPropsMixin] = value;
   /* GENERATED CONSTANTS */
@@ -143,9 +144,9 @@ abstract class _$$CounterFnProps extends UiProps
 {
   _$$CounterFnProps._();
 
-  factory _$$CounterFnProps(Map backingMap) {
+  factory _$$CounterFnProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CounterFnProps$JsMap(backingMap as JsBackedMap);
+      return _$$CounterFnProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$CounterFnProps$PlainMap(backingMap);
     }
@@ -172,7 +173,7 @@ abstract class _$$CounterFnProps extends UiProps
 class _$$CounterFnProps$PlainMap extends _$$CounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CounterFnProps$PlainMap(Map backingMap)
+  _$$CounterFnProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -191,7 +192,7 @@ class _$$CounterFnProps$PlainMap extends _$$CounterFnProps {
 class _$$CounterFnProps$JsMap extends _$$CounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CounterFnProps$JsMap(JsBackedMap backingMap)
+  _$$CounterFnProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -232,9 +233,9 @@ abstract class _$$ModelCounterFnProps extends UiProps
         ModelCounterFnProps {
   _$$ModelCounterFnProps._();
 
-  factory _$$ModelCounterFnProps(Map backingMap) {
+  factory _$$ModelCounterFnProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ModelCounterFnProps$JsMap(backingMap as JsBackedMap);
+      return _$$ModelCounterFnProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$ModelCounterFnProps$PlainMap(backingMap);
     }
@@ -263,7 +264,7 @@ abstract class _$$ModelCounterFnProps extends UiProps
 class _$$ModelCounterFnProps$PlainMap extends _$$ModelCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ModelCounterFnProps$PlainMap(Map backingMap)
+  _$$ModelCounterFnProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -282,7 +283,7 @@ class _$$ModelCounterFnProps$PlainMap extends _$$ModelCounterFnProps {
 class _$$ModelCounterFnProps$JsMap extends _$$ModelCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ModelCounterFnProps$JsMap(JsBackedMap backingMap)
+  _$$ModelCounterFnProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -324,9 +325,9 @@ abstract class _$$CustomContextCounterFnProps extends UiProps
         CustomContextCounterFnProps {
   _$$CustomContextCounterFnProps._();
 
-  factory _$$CustomContextCounterFnProps(Map backingMap) {
+  factory _$$CustomContextCounterFnProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$CustomContextCounterFnProps$JsMap(backingMap as JsBackedMap);
+      return _$$CustomContextCounterFnProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$CustomContextCounterFnProps$PlainMap(backingMap);
     }
@@ -357,7 +358,7 @@ class _$$CustomContextCounterFnProps$PlainMap
     extends _$$CustomContextCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomContextCounterFnProps$PlainMap(Map backingMap)
+  _$$CustomContextCounterFnProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -377,7 +378,7 @@ class _$$CustomContextCounterFnProps$JsMap
     extends _$$CustomContextCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomContextCounterFnProps$JsMap(JsBackedMap backingMap)
+  _$$CustomContextCounterFnProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

@@ -684,7 +684,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.label] -->
   @override
   @Accessor(key: 'aria-label')
-  String? get label => (props[_$key__label___$AriaPropsMixin] ?? null) as String?;
+  String? get label =>
+      (props[_$key__label___$AriaPropsMixin] ?? null) as String?;
 
   /// Defines a string value that labels the current element. See related aria-labelledby.
   ///
@@ -1066,7 +1067,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.posinset] -->
   @override
   @Accessor(key: 'aria-posinset')
-  int? get posinset => (props[_$key__posinset___$AriaPropsMixin] ?? null) as int?;
+  int? get posinset =>
+      (props[_$key__posinset___$AriaPropsMixin] ?? null) as int?;
 
   /// Defines an element's number or position in the current set of listitems or treeitems. Not
   /// required if all elements in the set are present in the DOM. See related aria-setsize.
@@ -1458,7 +1460,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.valuemax] -->
   @override
   @Accessor(key: 'aria-valuemax')
-  num? get valuemax => (props[_$key__valuemax___$AriaPropsMixin] ?? null) as num?;
+  num? get valuemax =>
+      (props[_$key__valuemax___$AriaPropsMixin] ?? null) as num?;
 
   /// Defines the maximum allowed value for a range widget.
   ///
@@ -1495,7 +1498,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.valuemin] -->
   @override
   @Accessor(key: 'aria-valuemin')
-  num? get valuemin => (props[_$key__valuemin___$AriaPropsMixin] ?? null) as num?;
+  num? get valuemin =>
+      (props[_$key__valuemin___$AriaPropsMixin] ?? null) as num?;
 
   /// Defines the minimum allowed value for a range widget.
   ///
@@ -1550,7 +1554,8 @@ abstract class AriaPropsMixin implements _$AriaPropsMixin {
   /// <!-- Generated from [_$AriaPropsMixin.valuenow] -->
   @override
   @Accessor(key: 'aria-valuenow')
-  num? get valuenow => (props[_$key__valuenow___$AriaPropsMixin] ?? null) as num?;
+  num? get valuenow =>
+      (props[_$key__valuenow___$AriaPropsMixin] ?? null) as num?;
 
   /// Defines the current value for a range widget. See related aria-valuetext.
   ///

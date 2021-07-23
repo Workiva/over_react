@@ -31,7 +31,8 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.value] -->
   @override
-  double? get value => (props[_$key__value___$ProgressProps] ?? null) as double?;
+  double? get value =>
+      (props[_$key__value___$ProgressProps] ?? null) as double?;
 
   /// The current value of the [Progress] component.
   ///
@@ -111,7 +112,8 @@ abstract class _$ProgressPropsAccessorsMixin implements _$ProgressProps {
   ///
   /// <!-- Generated from [_$ProgressProps.isStriped] -->
   @override
-  set isStriped(bool? value) => props[_$key__isStriped___$ProgressProps] = value;
+  set isStriped(bool? value) =>
+      props[_$key__isStriped___$ProgressProps] = value;
 
   /// Whether to animate the "Barber Pole" gradient stripe effect in the [Progress] component.
   ///

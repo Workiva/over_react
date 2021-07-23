@@ -51,9 +51,9 @@ abstract class _$$TestParent2Props extends _$TestParent2Props
     implements TestParent2Props {
   _$$TestParent2Props._();
 
-  factory _$$TestParent2Props(Map backingMap) {
+  factory _$$TestParent2Props(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestParent2Props$JsMap(backingMap as JsBackedMap);
+      return _$$TestParent2Props$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestParent2Props$PlainMap(backingMap);
     }
@@ -77,7 +77,7 @@ abstract class _$$TestParent2Props extends _$TestParent2Props
 class _$$TestParent2Props$PlainMap extends _$$TestParent2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestParent2Props$PlainMap(Map backingMap)
+  _$$TestParent2Props$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -94,7 +94,7 @@ class _$$TestParent2Props$PlainMap extends _$$TestParent2Props {
 class _$$TestParent2Props$JsMap extends _$$TestParent2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestParent2Props$JsMap(JsBackedMap backingMap)
+  _$$TestParent2Props$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -131,11 +131,11 @@ class _$TestParent2Component extends TestParent2Component {
   }
 
   @override
-  _$$TestParent2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$TestParent2Props$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$TestParent2Props$JsMap(backingMap);
 
   @override
-  _$$TestParent2Props typedPropsFactory(Map backingMap) =>
+  _$$TestParent2Props typedPropsFactory(Map? backingMap) =>
       _$$TestParent2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

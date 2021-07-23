@@ -96,7 +96,7 @@ abstract class _$$TypedFactoryTesterProps extends _$TypedFactoryTesterProps
 class _$$TypedFactoryTesterProps$PlainMap extends _$$TypedFactoryTesterProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TypedFactoryTesterProps$PlainMap(Map backingMap)
+  _$$TypedFactoryTesterProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -188,7 +188,7 @@ abstract class _$$TypedFactoryTesterState extends _$TypedFactoryTesterState
 class _$$TypedFactoryTesterState$PlainMap extends _$$TypedFactoryTesterState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TypedFactoryTesterState$PlainMap(Map backingMap)
+  _$$TypedFactoryTesterState$PlainMap(Map? backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -243,14 +243,14 @@ class _$TypedFactoryTesterComponent extends TypedFactoryTesterComponent {
 
   @override
   _$$TypedFactoryTesterProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TypedFactoryTesterProps$JsMap(backingMap);
 
   @override
   _$$TypedFactoryTesterProps typedPropsFactory(Map? backingMap) =>
       _$$TypedFactoryTesterProps(backingMap);
 
-  late _$$TypedFactoryTesterState$JsMap _cachedTypedState;
+  _$$TypedFactoryTesterState$JsMap _cachedTypedState;
   @override
   _$$TypedFactoryTesterState$JsMap get state => _cachedTypedState;
 
@@ -266,7 +266,7 @@ class _$TypedFactoryTesterComponent extends TypedFactoryTesterComponent {
 
   @override
   _$$TypedFactoryTesterState$JsMap typedStateFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TypedFactoryTesterState$JsMap(backingMap);
 
   @override

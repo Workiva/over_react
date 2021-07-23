@@ -50,9 +50,9 @@ abstract class _$$DomTestProps extends _$DomTestProps
     implements DomTestProps {
   _$$DomTestProps._();
 
-  factory _$$DomTestProps(Map backingMap) {
+  factory _$$DomTestProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$DomTestProps$JsMap(backingMap as JsBackedMap);
+      return _$$DomTestProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$DomTestProps$PlainMap(backingMap);
     }
@@ -76,7 +76,7 @@ abstract class _$$DomTestProps extends _$DomTestProps
 class _$$DomTestProps$PlainMap extends _$$DomTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DomTestProps$PlainMap(Map backingMap)
+  _$$DomTestProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -93,7 +93,7 @@ class _$$DomTestProps$PlainMap extends _$$DomTestProps {
 class _$$DomTestProps$JsMap extends _$$DomTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$DomTestProps$JsMap(JsBackedMap backingMap)
+  _$$DomTestProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -130,11 +130,11 @@ class _$DomTestComponent extends DomTestComponent {
   }
 
   @override
-  _$$DomTestProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$DomTestProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$DomTestProps$JsMap(backingMap);
 
   @override
-  _$$DomTestProps typedPropsFactory(Map backingMap) =>
+  _$$DomTestProps typedPropsFactory(Map? backingMap) =>
       _$$DomTestProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

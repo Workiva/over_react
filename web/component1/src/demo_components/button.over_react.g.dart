@@ -73,7 +73,8 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   ///
   /// <!-- Generated from [_$ButtonProps.isActive] -->
   @override
-  bool? get isActive => (props[_$key__isActive___$ButtonProps] ?? null) as bool?;
+  bool? get isActive =>
+      (props[_$key__isActive___$ButtonProps] ?? null) as bool?;
 
   /// Whether the [Button] should appear "active".
   ///
@@ -106,7 +107,8 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.isDisabled] -->
   @override
   @Accessor(key: 'disabled', keyNamespace: '')
-  set isDisabled(bool? value) => props[_$key__isDisabled___$ButtonProps] = value;
+  set isDisabled(bool? value) =>
+      props[_$key__isDisabled___$ButtonProps] = value;
 
   /// Whether the [Button] is a block level button -- that which spans the full
   /// width of its parent.
@@ -157,7 +159,8 @@ abstract class _$ButtonPropsAccessorsMixin implements _$ButtonProps {
   /// <!-- Generated from [_$ButtonProps.target] -->
   @override
   @Accessor(keyNamespace: '')
-  String? get target => (props[_$key__target___$ButtonProps] ?? null) as String?;
+  String? get target =>
+      (props[_$key__target___$ButtonProps] ?? null) as String?;
 
   /// The HTML `target` attribute value for the [Button].
   ///

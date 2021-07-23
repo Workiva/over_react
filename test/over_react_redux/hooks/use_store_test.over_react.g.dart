@@ -72,9 +72,9 @@ abstract class _$$UseStoreCounterFnProps extends UiProps
 {
   _$$UseStoreCounterFnProps._();
 
-  factory _$$UseStoreCounterFnProps(Map backingMap) {
+  factory _$$UseStoreCounterFnProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$UseStoreCounterFnProps$JsMap(backingMap as JsBackedMap);
+      return _$$UseStoreCounterFnProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$UseStoreCounterFnProps$PlainMap(backingMap);
     }
@@ -101,7 +101,7 @@ abstract class _$$UseStoreCounterFnProps extends UiProps
 class _$$UseStoreCounterFnProps$PlainMap extends _$$UseStoreCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UseStoreCounterFnProps$PlainMap(Map backingMap)
+  _$$UseStoreCounterFnProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -120,7 +120,7 @@ class _$$UseStoreCounterFnProps$PlainMap extends _$$UseStoreCounterFnProps {
 class _$$UseStoreCounterFnProps$JsMap extends _$$UseStoreCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$UseStoreCounterFnProps$JsMap(JsBackedMap backingMap)
+  _$$UseStoreCounterFnProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -160,10 +160,10 @@ abstract class _$$CustomContextUseStoreCounterFnProps extends UiProps
 {
   _$$CustomContextUseStoreCounterFnProps._();
 
-  factory _$$CustomContextUseStoreCounterFnProps(Map backingMap) {
+  factory _$$CustomContextUseStoreCounterFnProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
       return _$$CustomContextUseStoreCounterFnProps$JsMap(
-          backingMap as JsBackedMap);
+          backingMap as JsBackedMap?);
     } else {
       return _$$CustomContextUseStoreCounterFnProps$PlainMap(backingMap);
     }
@@ -192,7 +192,7 @@ class _$$CustomContextUseStoreCounterFnProps$PlainMap
     extends _$$CustomContextUseStoreCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomContextUseStoreCounterFnProps$PlainMap(Map backingMap)
+  _$$CustomContextUseStoreCounterFnProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -212,7 +212,7 @@ class _$$CustomContextUseStoreCounterFnProps$JsMap
     extends _$$CustomContextUseStoreCounterFnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$CustomContextUseStoreCounterFnProps$JsMap(JsBackedMap backingMap)
+  _$$CustomContextUseStoreCounterFnProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

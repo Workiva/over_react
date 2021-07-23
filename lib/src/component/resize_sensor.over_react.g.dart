@@ -37,9 +37,9 @@ abstract class _$$ResizeSensorProps extends UiProps
 {
   _$$ResizeSensorProps._();
 
-  factory _$$ResizeSensorProps(Map backingMap) {
+  factory _$$ResizeSensorProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ResizeSensorProps$JsMap(backingMap as JsBackedMap);
+      return _$$ResizeSensorProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$ResizeSensorProps$PlainMap(backingMap);
     }
@@ -71,7 +71,7 @@ abstract class _$$ResizeSensorProps extends UiProps
 class _$$ResizeSensorProps$PlainMap extends _$$ResizeSensorProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ResizeSensorProps$PlainMap(Map backingMap)
+  _$$ResizeSensorProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -90,7 +90,7 @@ class _$$ResizeSensorProps$PlainMap extends _$$ResizeSensorProps {
 class _$$ResizeSensorProps$JsMap extends _$$ResizeSensorProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ResizeSensorProps$JsMap(JsBackedMap backingMap)
+  _$$ResizeSensorProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -129,11 +129,11 @@ class _$ResizeSensorComponent extends ResizeSensorComponent {
   }
 
   @override
-  _$$ResizeSensorProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$ResizeSensorProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$ResizeSensorProps$JsMap(backingMap);
 
   @override
-  _$$ResizeSensorProps typedPropsFactory(Map backingMap) =>
+  _$$ResizeSensorProps typedPropsFactory(Map? backingMap) =>
       _$$ResizeSensorProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -185,7 +185,8 @@ mixin $ResizeSensorProps on ResizeSensorProps {
   set isFlexContainer(bool? value) =>
       props[_$key__isFlexContainer__ResizeSensorProps] = value;
   @override
-  bool? get shrink => (props[_$key__shrink__ResizeSensorProps] ?? null) as bool?;
+  bool? get shrink =>
+      (props[_$key__shrink__ResizeSensorProps] ?? null) as bool?;
   @override
   set shrink(bool? value) => props[_$key__shrink__ResizeSensorProps] = value;
   @override

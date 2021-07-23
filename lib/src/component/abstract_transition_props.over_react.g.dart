@@ -129,9 +129,9 @@ abstract class _$$TransitionPropsMixin extends UiProps
 {
   _$$TransitionPropsMixin._();
 
-  factory _$$TransitionPropsMixin(Map backingMap) {
+  factory _$$TransitionPropsMixin(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TransitionPropsMixin$JsMap(backingMap as JsBackedMap);
+      return _$$TransitionPropsMixin$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TransitionPropsMixin$PlainMap(backingMap);
     }
@@ -158,7 +158,7 @@ abstract class _$$TransitionPropsMixin extends UiProps
 class _$$TransitionPropsMixin$PlainMap extends _$$TransitionPropsMixin {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionPropsMixin$PlainMap(Map backingMap)
+  _$$TransitionPropsMixin$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -177,7 +177,7 @@ class _$$TransitionPropsMixin$PlainMap extends _$$TransitionPropsMixin {
 class _$$TransitionPropsMixin$JsMap extends _$$TransitionPropsMixin {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionPropsMixin$JsMap(JsBackedMap backingMap)
+  _$$TransitionPropsMixin$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();

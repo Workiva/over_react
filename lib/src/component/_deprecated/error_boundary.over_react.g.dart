@@ -58,9 +58,9 @@ abstract class _$$ErrorBoundaryProps extends _$ErrorBoundaryProps
     implements ErrorBoundaryProps {
   _$$ErrorBoundaryProps._();
 
-  factory _$$ErrorBoundaryProps(Map backingMap) {
+  factory _$$ErrorBoundaryProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ErrorBoundaryProps$JsMap(backingMap as JsBackedMap);
+      return _$$ErrorBoundaryProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$ErrorBoundaryProps$PlainMap(backingMap);
     }
@@ -84,7 +84,7 @@ abstract class _$$ErrorBoundaryProps extends _$ErrorBoundaryProps
 class _$$ErrorBoundaryProps$PlainMap extends _$$ErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ErrorBoundaryProps$PlainMap(Map backingMap)
+  _$$ErrorBoundaryProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -101,7 +101,7 @@ class _$$ErrorBoundaryProps$PlainMap extends _$$ErrorBoundaryProps {
 class _$$ErrorBoundaryProps$JsMap extends _$$ErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ErrorBoundaryProps$JsMap(JsBackedMap backingMap)
+  _$$ErrorBoundaryProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -146,9 +146,9 @@ abstract class _$$ErrorBoundaryState extends _$ErrorBoundaryState
     implements ErrorBoundaryState {
   _$$ErrorBoundaryState._();
 
-  factory _$$ErrorBoundaryState(Map backingMap) {
+  factory _$$ErrorBoundaryState(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ErrorBoundaryState$JsMap(backingMap as JsBackedMap);
+      return _$$ErrorBoundaryState$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$ErrorBoundaryState$PlainMap(backingMap);
     }
@@ -163,7 +163,7 @@ abstract class _$$ErrorBoundaryState extends _$ErrorBoundaryState
 class _$$ErrorBoundaryState$PlainMap extends _$$ErrorBoundaryState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ErrorBoundaryState$PlainMap(Map backingMap)
+  _$$ErrorBoundaryState$PlainMap(Map? backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -180,7 +180,7 @@ class _$$ErrorBoundaryState$PlainMap extends _$$ErrorBoundaryState {
 class _$$ErrorBoundaryState$JsMap extends _$$ErrorBoundaryState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ErrorBoundaryState$JsMap(JsBackedMap backingMap)
+  _$$ErrorBoundaryState$JsMap(JsBackedMap? backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -217,14 +217,14 @@ class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
   }
 
   @override
-  _$$ErrorBoundaryProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$ErrorBoundaryProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$ErrorBoundaryProps$JsMap(backingMap);
 
   @override
-  _$$ErrorBoundaryProps typedPropsFactory(Map backingMap) =>
+  _$$ErrorBoundaryProps typedPropsFactory(Map? backingMap) =>
       _$$ErrorBoundaryProps(backingMap);
 
-  late _$$ErrorBoundaryState$JsMap _cachedTypedState;
+  _$$ErrorBoundaryState$JsMap _cachedTypedState;
   @override
   _$$ErrorBoundaryState$JsMap get state => _cachedTypedState;
 
@@ -239,11 +239,11 @@ class _$ErrorBoundaryComponent extends ErrorBoundaryComponent {
   }
 
   @override
-  _$$ErrorBoundaryState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
+  _$$ErrorBoundaryState$JsMap typedStateFactoryJs(JsBackedMap? backingMap) =>
       _$$ErrorBoundaryState$JsMap(backingMap);
 
   @override
-  _$$ErrorBoundaryState typedStateFactory(Map backingMap) =>
+  _$$ErrorBoundaryState typedStateFactory(Map? backingMap) =>
       _$$ErrorBoundaryState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

@@ -51,9 +51,9 @@ abstract class _$$BasicChildProps extends _$BasicChildProps
     implements BasicChildProps {
   _$$BasicChildProps._();
 
-  factory _$$BasicChildProps(Map backingMap) {
+  factory _$$BasicChildProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$BasicChildProps$JsMap(backingMap as JsBackedMap);
+      return _$$BasicChildProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$BasicChildProps$PlainMap(backingMap);
     }
@@ -77,7 +77,7 @@ abstract class _$$BasicChildProps extends _$BasicChildProps
 class _$$BasicChildProps$PlainMap extends _$$BasicChildProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicChildProps$PlainMap(Map backingMap)
+  _$$BasicChildProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -94,7 +94,7 @@ class _$$BasicChildProps$PlainMap extends _$$BasicChildProps {
 class _$$BasicChildProps$JsMap extends _$$BasicChildProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$BasicChildProps$JsMap(JsBackedMap backingMap)
+  _$$BasicChildProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -131,11 +131,11 @@ class _$BasicChildComponent extends BasicChildComponent {
   }
 
   @override
-  _$$BasicChildProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$BasicChildProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$BasicChildProps$JsMap(backingMap);
 
   @override
-  _$$BasicChildProps typedPropsFactory(Map backingMap) =>
+  _$$BasicChildProps typedPropsFactory(Map? backingMap) =>
       _$$BasicChildProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

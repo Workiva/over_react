@@ -54,9 +54,9 @@ abstract class _$$TestExtendtype2Props extends _$TestExtendtype2Props
     implements TestExtendtype2Props {
   _$$TestExtendtype2Props._();
 
-  factory _$$TestExtendtype2Props(Map backingMap) {
+  factory _$$TestExtendtype2Props(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestExtendtype2Props$JsMap(backingMap as JsBackedMap);
+      return _$$TestExtendtype2Props$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestExtendtype2Props$PlainMap(backingMap);
     }
@@ -80,7 +80,7 @@ abstract class _$$TestExtendtype2Props extends _$TestExtendtype2Props
 class _$$TestExtendtype2Props$PlainMap extends _$$TestExtendtype2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestExtendtype2Props$PlainMap(Map backingMap)
+  _$$TestExtendtype2Props$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -97,7 +97,7 @@ class _$$TestExtendtype2Props$PlainMap extends _$$TestExtendtype2Props {
 class _$$TestExtendtype2Props$JsMap extends _$$TestExtendtype2Props {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestExtendtype2Props$JsMap(JsBackedMap backingMap)
+  _$$TestExtendtype2Props$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -134,11 +134,11 @@ class _$TestExtendtype2Component extends TestExtendtype2Component {
   }
 
   @override
-  _$$TestExtendtype2Props$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$TestExtendtype2Props$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$TestExtendtype2Props$JsMap(backingMap);
 
   @override
-  _$$TestExtendtype2Props typedPropsFactory(Map backingMap) =>
+  _$$TestExtendtype2Props typedPropsFactory(Map? backingMap) =>
       _$$TestExtendtype2Props(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

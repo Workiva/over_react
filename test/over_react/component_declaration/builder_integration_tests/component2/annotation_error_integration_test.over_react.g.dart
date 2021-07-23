@@ -84,7 +84,7 @@ class _$$AnnotationErrorDefaultPropsProps
 class _$AnnotationErrorDefaultPropsComponent
     extends AnnotationErrorDefaultPropsComponent {
   @override
-  _$$AnnotationErrorDefaultPropsProps typedPropsFactory(Map backingMap) =>
+  _$$AnnotationErrorDefaultPropsProps typedPropsFactory(Map? backingMap) =>
       _$$AnnotationErrorDefaultPropsProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -172,7 +172,7 @@ class _$$AnnotationErrorProps extends _$AnnotationErrorProps
 // generated for the associated props class.
 class _$AnnotationErrorComponent extends AnnotationErrorComponent {
   @override
-  _$$AnnotationErrorProps typedPropsFactory(Map backingMap) =>
+  _$$AnnotationErrorProps typedPropsFactory(Map? backingMap) =>
       _$$AnnotationErrorProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -220,7 +220,8 @@ class AnnotationErrorStatefulProps extends _$AnnotationErrorStatefulProps
   static const PropsMeta meta = _$metaForAnnotationErrorStatefulProps;
 }
 
-_$$AnnotationErrorStatefulProps _$AnnotationErrorStateful([Map? backingProps]) =>
+_$$AnnotationErrorStatefulProps _$AnnotationErrorStateful(
+        [Map? backingProps]) =>
     _$$AnnotationErrorStatefulProps(backingProps);
 
 // Concrete props implementation.
@@ -283,7 +284,7 @@ class _$$AnnotationErrorStatefulState extends _$AnnotationErrorStatefulState
     implements AnnotationErrorStatefulState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$AnnotationErrorStatefulState(Map backingMap) : this._state = {} {
+  _$$AnnotationErrorStatefulState(Map? backingMap) : this._state = {} {
     this._state = backingMap ?? {};
   }
 
@@ -304,11 +305,11 @@ class _$$AnnotationErrorStatefulState extends _$AnnotationErrorStatefulState
 class _$AnnotationErrorStatefulComponent
     extends AnnotationErrorStatefulComponent {
   @override
-  _$$AnnotationErrorStatefulProps typedPropsFactory(Map backingMap) =>
+  _$$AnnotationErrorStatefulProps typedPropsFactory(Map? backingMap) =>
       _$$AnnotationErrorStatefulProps(backingMap);
 
   @override
-  _$$AnnotationErrorStatefulState typedStateFactory(Map backingMap) =>
+  _$$AnnotationErrorStatefulState typedStateFactory(Map? backingMap) =>
       _$$AnnotationErrorStatefulState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -428,7 +429,7 @@ class _$$AnnotationErrorStatefulDefaultPropsState
     implements AnnotationErrorStatefulDefaultPropsState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$AnnotationErrorStatefulDefaultPropsState(Map backingMap)
+  _$$AnnotationErrorStatefulDefaultPropsState(Map? backingMap)
       : this._state = {} {
     this._state = backingMap ?? {};
   }
@@ -451,12 +452,12 @@ class _$AnnotationErrorStatefulDefaultPropsComponent
     extends AnnotationErrorStatefulDefaultPropsComponent {
   @override
   _$$AnnotationErrorStatefulDefaultPropsProps typedPropsFactory(
-          Map backingMap) =>
+          Map? backingMap) =>
       _$$AnnotationErrorStatefulDefaultPropsProps(backingMap);
 
   @override
   _$$AnnotationErrorStatefulDefaultPropsState typedStateFactory(
-          Map backingMap) =>
+          Map? backingMap) =>
       _$$AnnotationErrorStatefulDefaultPropsState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

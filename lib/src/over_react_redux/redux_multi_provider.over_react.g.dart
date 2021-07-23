@@ -89,9 +89,9 @@ abstract class _$$ReduxMultiProviderProps extends _$ReduxMultiProviderProps
     implements ReduxMultiProviderProps {
   _$$ReduxMultiProviderProps._();
 
-  factory _$$ReduxMultiProviderProps(Map backingMap) {
+  factory _$$ReduxMultiProviderProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ReduxMultiProviderProps$JsMap(backingMap as JsBackedMap);
+      return _$$ReduxMultiProviderProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$ReduxMultiProviderProps$PlainMap(backingMap);
     }
@@ -115,7 +115,7 @@ abstract class _$$ReduxMultiProviderProps extends _$ReduxMultiProviderProps
 class _$$ReduxMultiProviderProps$PlainMap extends _$$ReduxMultiProviderProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ReduxMultiProviderProps$PlainMap(Map backingMap)
+  _$$ReduxMultiProviderProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -132,7 +132,7 @@ class _$$ReduxMultiProviderProps$PlainMap extends _$$ReduxMultiProviderProps {
 class _$$ReduxMultiProviderProps$JsMap extends _$$ReduxMultiProviderProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ReduxMultiProviderProps$JsMap(JsBackedMap backingMap)
+  _$$ReduxMultiProviderProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -170,11 +170,11 @@ class _$ReduxMultiProviderComponent extends ReduxMultiProviderComponent {
 
   @override
   _$$ReduxMultiProviderProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$ReduxMultiProviderProps$JsMap(backingMap);
 
   @override
-  _$$ReduxMultiProviderProps typedPropsFactory(Map backingMap) =>
+  _$$ReduxMultiProviderProps typedPropsFactory(Map? backingMap) =>
       _$$ReduxMultiProviderProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

@@ -63,9 +63,9 @@ abstract class _$$FlawedProps extends _$FlawedProps
     implements FlawedProps {
   _$$FlawedProps._();
 
-  factory _$$FlawedProps(Map backingMap) {
+  factory _$$FlawedProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FlawedProps$JsMap(backingMap as JsBackedMap);
+      return _$$FlawedProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$FlawedProps$PlainMap(backingMap);
     }
@@ -89,7 +89,7 @@ abstract class _$$FlawedProps extends _$FlawedProps
 class _$$FlawedProps$PlainMap extends _$$FlawedProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FlawedProps$PlainMap(Map backingMap)
+  _$$FlawedProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -106,7 +106,7 @@ class _$$FlawedProps$PlainMap extends _$$FlawedProps {
 class _$$FlawedProps$JsMap extends _$$FlawedProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FlawedProps$JsMap(JsBackedMap backingMap)
+  _$$FlawedProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -174,9 +174,9 @@ abstract class _$$FlawedState extends _$FlawedState
     implements FlawedState {
   _$$FlawedState._();
 
-  factory _$$FlawedState(Map backingMap) {
+  factory _$$FlawedState(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$FlawedState$JsMap(backingMap as JsBackedMap);
+      return _$$FlawedState$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$FlawedState$PlainMap(backingMap);
     }
@@ -191,7 +191,7 @@ abstract class _$$FlawedState extends _$FlawedState
 class _$$FlawedState$PlainMap extends _$$FlawedState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FlawedState$PlainMap(Map backingMap)
+  _$$FlawedState$PlainMap(Map? backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -208,7 +208,7 @@ class _$$FlawedState$PlainMap extends _$$FlawedState {
 class _$$FlawedState$JsMap extends _$$FlawedState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$FlawedState$JsMap(JsBackedMap backingMap)
+  _$$FlawedState$JsMap(JsBackedMap? backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -245,14 +245,14 @@ class _$FlawedComponent extends FlawedComponent {
   }
 
   @override
-  _$$FlawedProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$FlawedProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$FlawedProps$JsMap(backingMap);
 
   @override
-  _$$FlawedProps typedPropsFactory(Map backingMap) =>
+  _$$FlawedProps typedPropsFactory(Map? backingMap) =>
       _$$FlawedProps(backingMap);
 
-  late _$$FlawedState$JsMap _cachedTypedState;
+  _$$FlawedState$JsMap _cachedTypedState;
   @override
   _$$FlawedState$JsMap get state => _cachedTypedState;
 
@@ -267,11 +267,11 @@ class _$FlawedComponent extends FlawedComponent {
   }
 
   @override
-  _$$FlawedState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
+  _$$FlawedState$JsMap typedStateFactoryJs(JsBackedMap? backingMap) =>
       _$$FlawedState$JsMap(backingMap);
 
   @override
-  _$$FlawedState typedStateFactory(Map backingMap) =>
+  _$$FlawedState typedStateFactory(Map? backingMap) =>
       _$$FlawedState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

@@ -40,9 +40,9 @@ abstract class _$$TransitionerProps extends UiProps
         TransitionerProps {
   _$$TransitionerProps._();
 
-  factory _$$TransitionerProps(Map backingMap) {
+  factory _$$TransitionerProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TransitionerProps$JsMap(backingMap as JsBackedMap);
+      return _$$TransitionerProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TransitionerProps$PlainMap(backingMap);
     }
@@ -76,7 +76,7 @@ abstract class _$$TransitionerProps extends UiProps
 class _$$TransitionerProps$PlainMap extends _$$TransitionerProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionerProps$PlainMap(Map backingMap)
+  _$$TransitionerProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -95,7 +95,7 @@ class _$$TransitionerProps$PlainMap extends _$$TransitionerProps {
 class _$$TransitionerProps$JsMap extends _$$TransitionerProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionerProps$JsMap(JsBackedMap backingMap)
+  _$$TransitionerProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -120,9 +120,9 @@ abstract class _$$TransitionerState extends UiState
         TransitionerState {
   _$$TransitionerState._();
 
-  factory _$$TransitionerState(Map backingMap) {
+  factory _$$TransitionerState(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TransitionerState$JsMap(backingMap as JsBackedMap);
+      return _$$TransitionerState$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TransitionerState$PlainMap(backingMap);
     }
@@ -139,7 +139,7 @@ abstract class _$$TransitionerState extends UiState
 class _$$TransitionerState$PlainMap extends _$$TransitionerState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionerState$PlainMap(Map backingMap)
+  _$$TransitionerState$PlainMap(Map? backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -158,7 +158,7 @@ class _$$TransitionerState$PlainMap extends _$$TransitionerState {
 class _$$TransitionerState$JsMap extends _$$TransitionerState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TransitionerState$JsMap(JsBackedMap backingMap)
+  _$$TransitionerState$JsMap(JsBackedMap? backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -197,14 +197,14 @@ class _$TransitionerComponent extends TransitionerComponent {
   }
 
   @override
-  _$$TransitionerProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$TransitionerProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$TransitionerProps$JsMap(backingMap);
 
   @override
-  _$$TransitionerProps typedPropsFactory(Map backingMap) =>
+  _$$TransitionerProps typedPropsFactory(Map? backingMap) =>
       _$$TransitionerProps(backingMap);
 
-  late _$$TransitionerState$JsMap _cachedTypedState;
+  _$$TransitionerState$JsMap _cachedTypedState;
   @override
   _$$TransitionerState$JsMap get state => _cachedTypedState;
 
@@ -219,11 +219,11 @@ class _$TransitionerComponent extends TransitionerComponent {
   }
 
   @override
-  _$$TransitionerState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
+  _$$TransitionerState$JsMap typedStateFactoryJs(JsBackedMap? backingMap) =>
       _$$TransitionerState$JsMap(backingMap);
 
   @override
-  _$$TransitionerState typedStateFactory(Map backingMap) =>
+  _$$TransitionerState typedStateFactory(Map? backingMap) =>
       _$$TransitionerState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -266,7 +266,8 @@ mixin $TransitionerPropsMixin on TransitionerPropsMixin {
       props[_$key__onHandleShowing__TransitionerPropsMixin] = value;
   @override
   Callback? get onHandleShown =>
-      (props[_$key__onHandleShown__TransitionerPropsMixin] ?? null) as Callback?;
+      (props[_$key__onHandleShown__TransitionerPropsMixin] ?? null)
+          as Callback?;
   @override
   set onHandleShown(Callback? value) =>
       props[_$key__onHandleShown__TransitionerPropsMixin] = value;
@@ -286,13 +287,15 @@ mixin $TransitionerPropsMixin on TransitionerPropsMixin {
       props[_$key__onHandleHidden__TransitionerPropsMixin] = value;
   @override
   Callback? get onPrepareShow =>
-      (props[_$key__onPrepareShow__TransitionerPropsMixin] ?? null) as Callback?;
+      (props[_$key__onPrepareShow__TransitionerPropsMixin] ?? null)
+          as Callback?;
   @override
   set onPrepareShow(Callback? value) =>
       props[_$key__onPrepareShow__TransitionerPropsMixin] = value;
   @override
   Callback? get onPrepareHide =>
-      (props[_$key__onPrepareHide__TransitionerPropsMixin] ?? null) as Callback?;
+      (props[_$key__onPrepareHide__TransitionerPropsMixin] ?? null)
+          as Callback?;
   @override
   set onPrepareHide(Callback? value) =>
       props[_$key__onPrepareHide__TransitionerPropsMixin] = value;

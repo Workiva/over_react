@@ -29,7 +29,8 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
   ///
   /// <!-- Generated from [_$ReactPropsMixin.children] -->
   @override
-  set children(List? value) => props[_$key__children___$ReactPropsMixin] = value;
+  set children(List? value) =>
+      props[_$key__children___$ReactPropsMixin] = value;
 
   /// Either a String used to retrieve the element at a later time via [react.Component.ref],
   /// or a Function that gets called with the element when it is mounted.
@@ -222,7 +223,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.checked] -->
   @override
-  bool? get checked => (props[_$key__checked___$DomPropsMixin] ?? null) as bool?;
+  bool? get checked =>
+      (props[_$key__checked___$DomPropsMixin] ?? null) as bool?;
 
   /// <!-- Generated from [_$DomPropsMixin.checked] -->
   @override
@@ -522,7 +524,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.nonce] -->
   @override
-  String? get nonce => (props[_$key__nonce___$DomPropsMixin] ?? null) as String?;
+  String? get nonce =>
+      (props[_$key__nonce___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.nonce] -->
   @override
@@ -548,7 +551,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
 
   /// <!-- Generated from [_$DomPropsMixin.title] -->
   @override
-  String? get title => (props[_$key__title___$DomPropsMixin] ?? null) as String?;
+  String? get title =>
+      (props[_$key__title___$DomPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$DomPropsMixin.title] -->
   @override
@@ -1217,7 +1221,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onCopy] -->
   @override
   ClipboardEventCallback? get onCopy =>
-      (props[_$key__onCopy___$DomPropsMixin] ?? null) as ClipboardEventCallback?;
+      (props[_$key__onCopy___$DomPropsMixin] ?? null)
+          as ClipboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onCopy] -->
   @override
@@ -1270,7 +1275,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onKeyUp] -->
   @override
   KeyboardEventCallback? get onKeyUp =>
-      (props[_$key__onKeyUp___$DomPropsMixin] ?? null) as KeyboardEventCallback?;
+      (props[_$key__onKeyUp___$DomPropsMixin] ?? null)
+          as KeyboardEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onKeyUp] -->
   @override
@@ -1403,7 +1409,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDragExit] -->
   @override
   MouseEventCallback? get onDragExit =>
-      (props[_$key__onDragExit___$DomPropsMixin] ?? null) as MouseEventCallback?;
+      (props[_$key__onDragExit___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragExit] -->
   @override
@@ -1424,7 +1431,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onDragOver] -->
   @override
   MouseEventCallback? get onDragOver =>
-      (props[_$key__onDragOver___$DomPropsMixin] ?? null) as MouseEventCallback?;
+      (props[_$key__onDragOver___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onDragOver] -->
   @override
@@ -1499,7 +1507,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onMouseOut] -->
   @override
   MouseEventCallback? get onMouseOut =>
-      (props[_$key__onMouseOut___$DomPropsMixin] ?? null) as MouseEventCallback?;
+      (props[_$key__onMouseOut___$DomPropsMixin] ?? null)
+          as MouseEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onMouseOut] -->
   @override
@@ -1629,7 +1638,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   /// <!-- Generated from [_$DomPropsMixin.onTouchEnd] -->
   @override
   TouchEventCallback? get onTouchEnd =>
-      (props[_$key__onTouchEnd___$DomPropsMixin] ?? null) as TouchEventCallback?;
+      (props[_$key__onTouchEnd___$DomPropsMixin] ?? null)
+          as TouchEventCallback?;
 
   /// <!-- Generated from [_$DomPropsMixin.onTouchEnd] -->
   @override
@@ -2140,7 +2150,8 @@ abstract class DomPropsMixin implements _$DomPropsMixin {
   ///
   /// <!-- Generated from [_$DomPropsMixin.autoFocus] -->
   @override
-  set autoFocus(bool? value) => props[_$key__autoFocus___$DomPropsMixin] = value;
+  set autoFocus(bool? value) =>
+      props[_$key__autoFocus___$DomPropsMixin] = value;
   /* GENERATED CONSTANTS */
   static const PropDescriptor _$prop__cols___$DomPropsMixin =
       PropDescriptor(_$key__cols___$DomPropsMixin);
@@ -3288,7 +3299,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.additive] -->
   @override
-  set additive(String? value) => props[_$key__additive___$SvgPropsMixin] = value;
+  set additive(String? value) =>
+      props[_$key__additive___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.alignmentBaseline] -->
   @override
@@ -3358,7 +3370,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.fillRule] -->
   @override
-  set fillRule(String? value) => props[_$key__fillRule___$SvgPropsMixin] = value;
+  set fillRule(String? value) =>
+      props[_$key__fillRule___$SvgPropsMixin] = value;
 
   /// <!-- Generated from [_$SvgPropsMixin.filter] -->
   @override
@@ -3408,7 +3421,8 @@ abstract class SvgPropsMixin implements _$SvgPropsMixin {
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlns] -->
   @override
-  String? get xmlns => (props[_$key__xmlns___$SvgPropsMixin] ?? null) as String?;
+  String? get xmlns =>
+      (props[_$key__xmlns___$SvgPropsMixin] ?? null) as String?;
 
   /// <!-- Generated from [_$SvgPropsMixin.xmlns] -->
   @override

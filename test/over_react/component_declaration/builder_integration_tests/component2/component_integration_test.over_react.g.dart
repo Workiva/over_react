@@ -193,9 +193,9 @@ abstract class _$$ComponentTestProps extends _$ComponentTestProps
     implements ComponentTestProps {
   _$$ComponentTestProps._();
 
-  factory _$$ComponentTestProps(Map backingMap) {
+  factory _$$ComponentTestProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ComponentTestProps$JsMap(backingMap as JsBackedMap);
+      return _$$ComponentTestProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$ComponentTestProps$PlainMap(backingMap);
     }
@@ -219,7 +219,7 @@ abstract class _$$ComponentTestProps extends _$ComponentTestProps
 class _$$ComponentTestProps$PlainMap extends _$$ComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ComponentTestProps$PlainMap(Map backingMap)
+  _$$ComponentTestProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -236,7 +236,7 @@ class _$$ComponentTestProps$PlainMap extends _$$ComponentTestProps {
 class _$$ComponentTestProps$JsMap extends _$$ComponentTestProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ComponentTestProps$JsMap(JsBackedMap backingMap)
+  _$$ComponentTestProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -273,11 +273,11 @@ class _$ComponentTestComponent extends ComponentTestComponent {
   }
 
   @override
-  _$$ComponentTestProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$ComponentTestProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$ComponentTestProps$JsMap(backingMap);
 
   @override
-  _$$ComponentTestProps typedPropsFactory(Map backingMap) =>
+  _$$ComponentTestProps typedPropsFactory(Map? backingMap) =>
       _$$ComponentTestProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -339,9 +339,9 @@ abstract class _$$IsErrorBoundaryProps extends _$IsErrorBoundaryProps
     implements IsErrorBoundaryProps {
   _$$IsErrorBoundaryProps._();
 
-  factory _$$IsErrorBoundaryProps(Map backingMap) {
+  factory _$$IsErrorBoundaryProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$IsErrorBoundaryProps$JsMap(backingMap as JsBackedMap);
+      return _$$IsErrorBoundaryProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$IsErrorBoundaryProps$PlainMap(backingMap);
     }
@@ -365,7 +365,7 @@ abstract class _$$IsErrorBoundaryProps extends _$IsErrorBoundaryProps
 class _$$IsErrorBoundaryProps$PlainMap extends _$$IsErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$IsErrorBoundaryProps$PlainMap(Map backingMap)
+  _$$IsErrorBoundaryProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -382,7 +382,7 @@ class _$$IsErrorBoundaryProps$PlainMap extends _$$IsErrorBoundaryProps {
 class _$$IsErrorBoundaryProps$JsMap extends _$$IsErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$IsErrorBoundaryProps$JsMap(JsBackedMap backingMap)
+  _$$IsErrorBoundaryProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -419,11 +419,11 @@ class _$IsErrorBoundaryComponent extends IsErrorBoundaryComponent {
   }
 
   @override
-  _$$IsErrorBoundaryProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$IsErrorBoundaryProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$IsErrorBoundaryProps$JsMap(backingMap);
 
   @override
-  _$$IsErrorBoundaryProps typedPropsFactory(Map backingMap) =>
+  _$$IsErrorBoundaryProps typedPropsFactory(Map? backingMap) =>
       _$$IsErrorBoundaryProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -484,9 +484,9 @@ abstract class _$$IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
     implements IsNotErrorBoundaryProps {
   _$$IsNotErrorBoundaryProps._();
 
-  factory _$$IsNotErrorBoundaryProps(Map backingMap) {
+  factory _$$IsNotErrorBoundaryProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$IsNotErrorBoundaryProps$JsMap(backingMap as JsBackedMap);
+      return _$$IsNotErrorBoundaryProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$IsNotErrorBoundaryProps$PlainMap(backingMap);
     }
@@ -510,7 +510,7 @@ abstract class _$$IsNotErrorBoundaryProps extends _$IsNotErrorBoundaryProps
 class _$$IsNotErrorBoundaryProps$PlainMap extends _$$IsNotErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$IsNotErrorBoundaryProps$PlainMap(Map backingMap)
+  _$$IsNotErrorBoundaryProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -527,7 +527,7 @@ class _$$IsNotErrorBoundaryProps$PlainMap extends _$$IsNotErrorBoundaryProps {
 class _$$IsNotErrorBoundaryProps$JsMap extends _$$IsNotErrorBoundaryProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$IsNotErrorBoundaryProps$JsMap(JsBackedMap backingMap)
+  _$$IsNotErrorBoundaryProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -565,11 +565,11 @@ class _$IsNotErrorBoundaryComponent extends IsNotErrorBoundaryComponent {
 
   @override
   _$$IsNotErrorBoundaryProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$IsNotErrorBoundaryProps$JsMap(backingMap);
 
   @override
-  _$$IsNotErrorBoundaryProps typedPropsFactory(Map backingMap) =>
+  _$$IsNotErrorBoundaryProps typedPropsFactory(Map? backingMap) =>
       _$$IsNotErrorBoundaryProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

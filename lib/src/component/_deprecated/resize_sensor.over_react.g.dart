@@ -56,9 +56,9 @@ abstract class _$$ResizeSensorProps extends _$ResizeSensorProps
     implements ResizeSensorProps {
   _$$ResizeSensorProps._();
 
-  factory _$$ResizeSensorProps(Map backingMap) {
+  factory _$$ResizeSensorProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$ResizeSensorProps$JsMap(backingMap as JsBackedMap);
+      return _$$ResizeSensorProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$ResizeSensorProps$PlainMap(backingMap);
     }
@@ -82,7 +82,7 @@ abstract class _$$ResizeSensorProps extends _$ResizeSensorProps
 class _$$ResizeSensorProps$PlainMap extends _$$ResizeSensorProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ResizeSensorProps$PlainMap(Map backingMap)
+  _$$ResizeSensorProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -99,7 +99,7 @@ class _$$ResizeSensorProps$PlainMap extends _$$ResizeSensorProps {
 class _$$ResizeSensorProps$JsMap extends _$$ResizeSensorProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$ResizeSensorProps$JsMap(JsBackedMap backingMap)
+  _$$ResizeSensorProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -136,11 +136,11 @@ class _$ResizeSensorComponent extends ResizeSensorComponent {
   }
 
   @override
-  _$$ResizeSensorProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$ResizeSensorProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$ResizeSensorProps$JsMap(backingMap);
 
   @override
-  _$$ResizeSensorProps typedPropsFactory(Map backingMap) =>
+  _$$ResizeSensorProps typedPropsFactory(Map? backingMap) =>
       _$$ResizeSensorProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -248,7 +248,8 @@ abstract class ResizeSensorPropsMixin implements _$ResizeSensorPropsMixin {
   /// <!-- Generated from [_$ResizeSensorPropsMixin.isFlexContainer] -->
   @override
   bool? get isFlexContainer =>
-      (props[_$key__isFlexContainer___$ResizeSensorPropsMixin] ?? null) as bool?;
+      (props[_$key__isFlexContainer___$ResizeSensorPropsMixin] ?? null)
+          as bool?;
 
   /// Whether the [ResizeSensor] is a flex container. Necessary to apply the correct styling.
   ///

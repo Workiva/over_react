@@ -51,9 +51,9 @@ abstract class _$$TestBasicProps extends _$TestBasicProps
     implements TestBasicProps {
   _$$TestBasicProps._();
 
-  factory _$$TestBasicProps(Map backingMap) {
+  factory _$$TestBasicProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestBasicProps$JsMap(backingMap as JsBackedMap);
+      return _$$TestBasicProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestBasicProps$PlainMap(backingMap);
     }
@@ -77,7 +77,7 @@ abstract class _$$TestBasicProps extends _$TestBasicProps
 class _$$TestBasicProps$PlainMap extends _$$TestBasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestBasicProps$PlainMap(Map backingMap)
+  _$$TestBasicProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -94,7 +94,7 @@ class _$$TestBasicProps$PlainMap extends _$$TestBasicProps {
 class _$$TestBasicProps$JsMap extends _$$TestBasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestBasicProps$JsMap(JsBackedMap backingMap)
+  _$$TestBasicProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -131,11 +131,11 @@ class _$TestBasicComponent extends TestBasicComponent {
   }
 
   @override
-  _$$TestBasicProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$TestBasicProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$TestBasicProps$JsMap(backingMap);
 
   @override
-  _$$TestBasicProps typedPropsFactory(Map backingMap) =>
+  _$$TestBasicProps typedPropsFactory(Map? backingMap) =>
       _$$TestBasicProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -196,9 +196,9 @@ abstract class _$$TestHandlerLifecycleProps extends _$TestHandlerLifecycleProps
     implements TestHandlerLifecycleProps {
   _$$TestHandlerLifecycleProps._();
 
-  factory _$$TestHandlerLifecycleProps(Map backingMap) {
+  factory _$$TestHandlerLifecycleProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestHandlerLifecycleProps$JsMap(backingMap as JsBackedMap);
+      return _$$TestHandlerLifecycleProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestHandlerLifecycleProps$PlainMap(backingMap);
     }
@@ -223,7 +223,7 @@ class _$$TestHandlerLifecycleProps$PlainMap
     extends _$$TestHandlerLifecycleProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestHandlerLifecycleProps$PlainMap(Map backingMap)
+  _$$TestHandlerLifecycleProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -240,7 +240,7 @@ class _$$TestHandlerLifecycleProps$PlainMap
 class _$$TestHandlerLifecycleProps$JsMap extends _$$TestHandlerLifecycleProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestHandlerLifecycleProps$JsMap(JsBackedMap backingMap)
+  _$$TestHandlerLifecycleProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -278,11 +278,11 @@ class _$TestHandlerLifecycleComponent extends TestHandlerLifecycleComponent {
 
   @override
   _$$TestHandlerLifecycleProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TestHandlerLifecycleProps$JsMap(backingMap);
 
   @override
-  _$$TestHandlerLifecycleProps typedPropsFactory(Map backingMap) =>
+  _$$TestHandlerLifecycleProps typedPropsFactory(Map? backingMap) =>
       _$$TestHandlerLifecycleProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -344,9 +344,9 @@ abstract class _$$TestHandlerPrecedenceProps
     implements TestHandlerPrecedenceProps {
   _$$TestHandlerPrecedenceProps._();
 
-  factory _$$TestHandlerPrecedenceProps(Map backingMap) {
+  factory _$$TestHandlerPrecedenceProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestHandlerPrecedenceProps$JsMap(backingMap as JsBackedMap);
+      return _$$TestHandlerPrecedenceProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestHandlerPrecedenceProps$PlainMap(backingMap);
     }
@@ -371,7 +371,7 @@ class _$$TestHandlerPrecedenceProps$PlainMap
     extends _$$TestHandlerPrecedenceProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestHandlerPrecedenceProps$PlainMap(Map backingMap)
+  _$$TestHandlerPrecedenceProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -389,7 +389,7 @@ class _$$TestHandlerPrecedenceProps$JsMap
     extends _$$TestHandlerPrecedenceProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestHandlerPrecedenceProps$JsMap(JsBackedMap backingMap)
+  _$$TestHandlerPrecedenceProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -427,11 +427,11 @@ class _$TestHandlerPrecedenceComponent extends TestHandlerPrecedenceComponent {
 
   @override
   _$$TestHandlerPrecedenceProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TestHandlerPrecedenceProps$JsMap(backingMap);
 
   @override
-  _$$TestHandlerPrecedenceProps typedPropsFactory(Map backingMap) =>
+  _$$TestHandlerPrecedenceProps typedPropsFactory(Map? backingMap) =>
       _$$TestHandlerPrecedenceProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -512,9 +512,9 @@ abstract class _$$TestPropValidationProps extends _$TestPropValidationProps
     implements TestPropValidationProps {
   _$$TestPropValidationProps._();
 
-  factory _$$TestPropValidationProps(Map backingMap) {
+  factory _$$TestPropValidationProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestPropValidationProps$JsMap(backingMap as JsBackedMap);
+      return _$$TestPropValidationProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestPropValidationProps$PlainMap(backingMap);
     }
@@ -538,7 +538,7 @@ abstract class _$$TestPropValidationProps extends _$TestPropValidationProps
 class _$$TestPropValidationProps$PlainMap extends _$$TestPropValidationProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestPropValidationProps$PlainMap(Map backingMap)
+  _$$TestPropValidationProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -555,7 +555,7 @@ class _$$TestPropValidationProps$PlainMap extends _$$TestPropValidationProps {
 class _$$TestPropValidationProps$JsMap extends _$$TestPropValidationProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestPropValidationProps$JsMap(JsBackedMap backingMap)
+  _$$TestPropValidationProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -593,11 +593,11 @@ class _$TestPropValidationComponent extends TestPropValidationComponent {
 
   @override
   _$$TestPropValidationProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TestPropValidationProps$JsMap(backingMap);
 
   @override
-  _$$TestPropValidationProps typedPropsFactory(Map backingMap) =>
+  _$$TestPropValidationProps typedPropsFactory(Map? backingMap) =>
       _$$TestPropValidationProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -657,9 +657,9 @@ abstract class _$$TestRedrawOnProps extends _$TestRedrawOnProps
     implements TestRedrawOnProps {
   _$$TestRedrawOnProps._();
 
-  factory _$$TestRedrawOnProps(Map backingMap) {
+  factory _$$TestRedrawOnProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestRedrawOnProps$JsMap(backingMap as JsBackedMap);
+      return _$$TestRedrawOnProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestRedrawOnProps$PlainMap(backingMap);
     }
@@ -683,7 +683,7 @@ abstract class _$$TestRedrawOnProps extends _$TestRedrawOnProps
 class _$$TestRedrawOnProps$PlainMap extends _$$TestRedrawOnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestRedrawOnProps$PlainMap(Map backingMap)
+  _$$TestRedrawOnProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -700,7 +700,7 @@ class _$$TestRedrawOnProps$PlainMap extends _$$TestRedrawOnProps {
 class _$$TestRedrawOnProps$JsMap extends _$$TestRedrawOnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestRedrawOnProps$JsMap(JsBackedMap backingMap)
+  _$$TestRedrawOnProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -737,11 +737,11 @@ class _$TestRedrawOnComponent extends TestRedrawOnComponent {
   }
 
   @override
-  _$$TestRedrawOnProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$TestRedrawOnProps$JsMap typedPropsFactoryJs(JsBackedMap? backingMap) =>
       _$$TestRedrawOnProps$JsMap(backingMap);
 
   @override
-  _$$TestRedrawOnProps typedPropsFactory(Map backingMap) =>
+  _$$TestRedrawOnProps typedPropsFactory(Map? backingMap) =>
       _$$TestRedrawOnProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -802,9 +802,9 @@ abstract class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
     implements TestStoreHandlersProps {
   _$$TestStoreHandlersProps._();
 
-  factory _$$TestStoreHandlersProps(Map backingMap) {
+  factory _$$TestStoreHandlersProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStoreHandlersProps$JsMap(backingMap as JsBackedMap);
+      return _$$TestStoreHandlersProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestStoreHandlersProps$PlainMap(backingMap);
     }
@@ -828,7 +828,7 @@ abstract class _$$TestStoreHandlersProps extends _$TestStoreHandlersProps
 class _$$TestStoreHandlersProps$PlainMap extends _$$TestStoreHandlersProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStoreHandlersProps$PlainMap(Map backingMap)
+  _$$TestStoreHandlersProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -845,7 +845,7 @@ class _$$TestStoreHandlersProps$PlainMap extends _$$TestStoreHandlersProps {
 class _$$TestStoreHandlersProps$JsMap extends _$$TestStoreHandlersProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStoreHandlersProps$JsMap(JsBackedMap backingMap)
+  _$$TestStoreHandlersProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -882,11 +882,12 @@ class _$TestStoreHandlersComponent extends TestStoreHandlersComponent {
   }
 
   @override
-  _$$TestStoreHandlersProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$TestStoreHandlersProps$JsMap typedPropsFactoryJs(
+          JsBackedMap? backingMap) =>
       _$$TestStoreHandlersProps$JsMap(backingMap);
 
   @override
-  _$$TestStoreHandlersProps typedPropsFactory(Map backingMap) =>
+  _$$TestStoreHandlersProps typedPropsFactory(Map? backingMap) =>
       _$$TestStoreHandlersProps(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -947,9 +948,9 @@ abstract class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
     implements TestStatefulBasicProps {
   _$$TestStatefulBasicProps._();
 
-  factory _$$TestStatefulBasicProps(Map backingMap) {
+  factory _$$TestStatefulBasicProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulBasicProps$JsMap(backingMap as JsBackedMap);
+      return _$$TestStatefulBasicProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestStatefulBasicProps$PlainMap(backingMap);
     }
@@ -973,7 +974,7 @@ abstract class _$$TestStatefulBasicProps extends _$TestStatefulBasicProps
 class _$$TestStatefulBasicProps$PlainMap extends _$$TestStatefulBasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulBasicProps$PlainMap(Map backingMap)
+  _$$TestStatefulBasicProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -990,7 +991,7 @@ class _$$TestStatefulBasicProps$PlainMap extends _$$TestStatefulBasicProps {
 class _$$TestStatefulBasicProps$JsMap extends _$$TestStatefulBasicProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulBasicProps$JsMap(JsBackedMap backingMap)
+  _$$TestStatefulBasicProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -1031,9 +1032,9 @@ abstract class _$$TestStatefulBasicState extends _$TestStatefulBasicState
     implements TestStatefulBasicState {
   _$$TestStatefulBasicState._();
 
-  factory _$$TestStatefulBasicState(Map backingMap) {
+  factory _$$TestStatefulBasicState(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulBasicState$JsMap(backingMap as JsBackedMap);
+      return _$$TestStatefulBasicState$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestStatefulBasicState$PlainMap(backingMap);
     }
@@ -1048,7 +1049,7 @@ abstract class _$$TestStatefulBasicState extends _$TestStatefulBasicState
 class _$$TestStatefulBasicState$PlainMap extends _$$TestStatefulBasicState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulBasicState$PlainMap(Map backingMap)
+  _$$TestStatefulBasicState$PlainMap(Map? backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -1065,7 +1066,7 @@ class _$$TestStatefulBasicState$PlainMap extends _$$TestStatefulBasicState {
 class _$$TestStatefulBasicState$JsMap extends _$$TestStatefulBasicState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulBasicState$JsMap(JsBackedMap backingMap)
+  _$$TestStatefulBasicState$JsMap(JsBackedMap? backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -1102,14 +1103,15 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
   }
 
   @override
-  _$$TestStatefulBasicProps$JsMap typedPropsFactoryJs(JsBackedMap backingMap) =>
+  _$$TestStatefulBasicProps$JsMap typedPropsFactoryJs(
+          JsBackedMap? backingMap) =>
       _$$TestStatefulBasicProps$JsMap(backingMap);
 
   @override
-  _$$TestStatefulBasicProps typedPropsFactory(Map backingMap) =>
+  _$$TestStatefulBasicProps typedPropsFactory(Map? backingMap) =>
       _$$TestStatefulBasicProps(backingMap);
 
-  late _$$TestStatefulBasicState$JsMap _cachedTypedState;
+  _$$TestStatefulBasicState$JsMap _cachedTypedState;
   @override
   _$$TestStatefulBasicState$JsMap get state => _cachedTypedState;
 
@@ -1124,11 +1126,12 @@ class _$TestStatefulBasicComponent extends TestStatefulBasicComponent {
   }
 
   @override
-  _$$TestStatefulBasicState$JsMap typedStateFactoryJs(JsBackedMap backingMap) =>
+  _$$TestStatefulBasicState$JsMap typedStateFactoryJs(
+          JsBackedMap? backingMap) =>
       _$$TestStatefulBasicState$JsMap(backingMap);
 
   @override
-  _$$TestStatefulBasicState typedStateFactory(Map backingMap) =>
+  _$$TestStatefulBasicState typedStateFactory(Map? backingMap) =>
       _$$TestStatefulBasicState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -1192,10 +1195,10 @@ abstract class _$$TestStatefulHandlerLifecycleProps
     implements TestStatefulHandlerLifecycleProps {
   _$$TestStatefulHandlerLifecycleProps._();
 
-  factory _$$TestStatefulHandlerLifecycleProps(Map backingMap) {
+  factory _$$TestStatefulHandlerLifecycleProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
       return _$$TestStatefulHandlerLifecycleProps$JsMap(
-          backingMap as JsBackedMap);
+          backingMap as JsBackedMap?);
     } else {
       return _$$TestStatefulHandlerLifecycleProps$PlainMap(backingMap);
     }
@@ -1220,7 +1223,7 @@ class _$$TestStatefulHandlerLifecycleProps$PlainMap
     extends _$$TestStatefulHandlerLifecycleProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerLifecycleProps$PlainMap(Map backingMap)
+  _$$TestStatefulHandlerLifecycleProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -1238,7 +1241,7 @@ class _$$TestStatefulHandlerLifecycleProps$JsMap
     extends _$$TestStatefulHandlerLifecycleProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerLifecycleProps$JsMap(JsBackedMap backingMap)
+  _$$TestStatefulHandlerLifecycleProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -1281,10 +1284,10 @@ abstract class _$$TestStatefulHandlerLifecycleState
     implements TestStatefulHandlerLifecycleState {
   _$$TestStatefulHandlerLifecycleState._();
 
-  factory _$$TestStatefulHandlerLifecycleState(Map backingMap) {
+  factory _$$TestStatefulHandlerLifecycleState(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
       return _$$TestStatefulHandlerLifecycleState$JsMap(
-          backingMap as JsBackedMap);
+          backingMap as JsBackedMap?);
     } else {
       return _$$TestStatefulHandlerLifecycleState$PlainMap(backingMap);
     }
@@ -1300,7 +1303,7 @@ class _$$TestStatefulHandlerLifecycleState$PlainMap
     extends _$$TestStatefulHandlerLifecycleState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerLifecycleState$PlainMap(Map backingMap)
+  _$$TestStatefulHandlerLifecycleState$PlainMap(Map? backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -1318,7 +1321,7 @@ class _$$TestStatefulHandlerLifecycleState$JsMap
     extends _$$TestStatefulHandlerLifecycleState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerLifecycleState$JsMap(JsBackedMap backingMap)
+  _$$TestStatefulHandlerLifecycleState$JsMap(JsBackedMap? backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -1357,14 +1360,14 @@ class _$TestStatefulHandlerLifecycleComponent
 
   @override
   _$$TestStatefulHandlerLifecycleProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TestStatefulHandlerLifecycleProps$JsMap(backingMap);
 
   @override
-  _$$TestStatefulHandlerLifecycleProps typedPropsFactory(Map backingMap) =>
+  _$$TestStatefulHandlerLifecycleProps typedPropsFactory(Map? backingMap) =>
       _$$TestStatefulHandlerLifecycleProps(backingMap);
 
-  late _$$TestStatefulHandlerLifecycleState$JsMap _cachedTypedState;
+  _$$TestStatefulHandlerLifecycleState$JsMap _cachedTypedState;
   @override
   _$$TestStatefulHandlerLifecycleState$JsMap get state => _cachedTypedState;
 
@@ -1380,11 +1383,11 @@ class _$TestStatefulHandlerLifecycleComponent
 
   @override
   _$$TestStatefulHandlerLifecycleState$JsMap typedStateFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TestStatefulHandlerLifecycleState$JsMap(backingMap);
 
   @override
-  _$$TestStatefulHandlerLifecycleState typedStateFactory(Map backingMap) =>
+  _$$TestStatefulHandlerLifecycleState typedStateFactory(Map? backingMap) =>
       _$$TestStatefulHandlerLifecycleState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -1448,10 +1451,10 @@ abstract class _$$TestStatefulHandlerPrecedenceProps
     implements TestStatefulHandlerPrecedenceProps {
   _$$TestStatefulHandlerPrecedenceProps._();
 
-  factory _$$TestStatefulHandlerPrecedenceProps(Map backingMap) {
+  factory _$$TestStatefulHandlerPrecedenceProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
       return _$$TestStatefulHandlerPrecedenceProps$JsMap(
-          backingMap as JsBackedMap);
+          backingMap as JsBackedMap?);
     } else {
       return _$$TestStatefulHandlerPrecedenceProps$PlainMap(backingMap);
     }
@@ -1476,7 +1479,7 @@ class _$$TestStatefulHandlerPrecedenceProps$PlainMap
     extends _$$TestStatefulHandlerPrecedenceProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerPrecedenceProps$PlainMap(Map backingMap)
+  _$$TestStatefulHandlerPrecedenceProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -1494,7 +1497,7 @@ class _$$TestStatefulHandlerPrecedenceProps$JsMap
     extends _$$TestStatefulHandlerPrecedenceProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerPrecedenceProps$JsMap(JsBackedMap backingMap)
+  _$$TestStatefulHandlerPrecedenceProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -1537,10 +1540,10 @@ abstract class _$$TestStatefulHandlerPrecedenceState
     implements TestStatefulHandlerPrecedenceState {
   _$$TestStatefulHandlerPrecedenceState._();
 
-  factory _$$TestStatefulHandlerPrecedenceState(Map backingMap) {
+  factory _$$TestStatefulHandlerPrecedenceState(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
       return _$$TestStatefulHandlerPrecedenceState$JsMap(
-          backingMap as JsBackedMap);
+          backingMap as JsBackedMap?);
     } else {
       return _$$TestStatefulHandlerPrecedenceState$PlainMap(backingMap);
     }
@@ -1556,7 +1559,7 @@ class _$$TestStatefulHandlerPrecedenceState$PlainMap
     extends _$$TestStatefulHandlerPrecedenceState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerPrecedenceState$PlainMap(Map backingMap)
+  _$$TestStatefulHandlerPrecedenceState$PlainMap(Map? backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -1574,7 +1577,7 @@ class _$$TestStatefulHandlerPrecedenceState$JsMap
     extends _$$TestStatefulHandlerPrecedenceState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulHandlerPrecedenceState$JsMap(JsBackedMap backingMap)
+  _$$TestStatefulHandlerPrecedenceState$JsMap(JsBackedMap? backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -1613,14 +1616,14 @@ class _$TestStatefulHandlerPrecedenceComponent
 
   @override
   _$$TestStatefulHandlerPrecedenceProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TestStatefulHandlerPrecedenceProps$JsMap(backingMap);
 
   @override
-  _$$TestStatefulHandlerPrecedenceProps typedPropsFactory(Map backingMap) =>
+  _$$TestStatefulHandlerPrecedenceProps typedPropsFactory(Map? backingMap) =>
       _$$TestStatefulHandlerPrecedenceProps(backingMap);
 
-  late _$$TestStatefulHandlerPrecedenceState$JsMap _cachedTypedState;
+  _$$TestStatefulHandlerPrecedenceState$JsMap _cachedTypedState;
   @override
   _$$TestStatefulHandlerPrecedenceState$JsMap get state => _cachedTypedState;
 
@@ -1636,11 +1639,11 @@ class _$TestStatefulHandlerPrecedenceComponent
 
   @override
   _$$TestStatefulHandlerPrecedenceState$JsMap typedStateFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TestStatefulHandlerPrecedenceState$JsMap(backingMap);
 
   @override
-  _$$TestStatefulHandlerPrecedenceState typedStateFactory(Map backingMap) =>
+  _$$TestStatefulHandlerPrecedenceState typedStateFactory(Map? backingMap) =>
       _$$TestStatefulHandlerPrecedenceState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -1727,10 +1730,10 @@ abstract class _$$TestStatefulPropValidationProps
     implements TestStatefulPropValidationProps {
   _$$TestStatefulPropValidationProps._();
 
-  factory _$$TestStatefulPropValidationProps(Map backingMap) {
+  factory _$$TestStatefulPropValidationProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
       return _$$TestStatefulPropValidationProps$JsMap(
-          backingMap as JsBackedMap);
+          backingMap as JsBackedMap?);
     } else {
       return _$$TestStatefulPropValidationProps$PlainMap(backingMap);
     }
@@ -1755,7 +1758,7 @@ class _$$TestStatefulPropValidationProps$PlainMap
     extends _$$TestStatefulPropValidationProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulPropValidationProps$PlainMap(Map backingMap)
+  _$$TestStatefulPropValidationProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -1773,7 +1776,7 @@ class _$$TestStatefulPropValidationProps$JsMap
     extends _$$TestStatefulPropValidationProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulPropValidationProps$JsMap(JsBackedMap backingMap)
+  _$$TestStatefulPropValidationProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -1815,10 +1818,10 @@ abstract class _$$TestStatefulPropValidationState
     implements TestStatefulPropValidationState {
   _$$TestStatefulPropValidationState._();
 
-  factory _$$TestStatefulPropValidationState(Map backingMap) {
+  factory _$$TestStatefulPropValidationState(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
       return _$$TestStatefulPropValidationState$JsMap(
-          backingMap as JsBackedMap);
+          backingMap as JsBackedMap?);
     } else {
       return _$$TestStatefulPropValidationState$PlainMap(backingMap);
     }
@@ -1834,7 +1837,7 @@ class _$$TestStatefulPropValidationState$PlainMap
     extends _$$TestStatefulPropValidationState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulPropValidationState$PlainMap(Map backingMap)
+  _$$TestStatefulPropValidationState$PlainMap(Map? backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -1852,7 +1855,7 @@ class _$$TestStatefulPropValidationState$JsMap
     extends _$$TestStatefulPropValidationState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulPropValidationState$JsMap(JsBackedMap backingMap)
+  _$$TestStatefulPropValidationState$JsMap(JsBackedMap? backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -1891,14 +1894,14 @@ class _$TestStatefulPropValidationComponent
 
   @override
   _$$TestStatefulPropValidationProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TestStatefulPropValidationProps$JsMap(backingMap);
 
   @override
-  _$$TestStatefulPropValidationProps typedPropsFactory(Map backingMap) =>
+  _$$TestStatefulPropValidationProps typedPropsFactory(Map? backingMap) =>
       _$$TestStatefulPropValidationProps(backingMap);
 
-  late _$$TestStatefulPropValidationState$JsMap _cachedTypedState;
+  _$$TestStatefulPropValidationState$JsMap _cachedTypedState;
   @override
   _$$TestStatefulPropValidationState$JsMap get state => _cachedTypedState;
 
@@ -1914,11 +1917,11 @@ class _$TestStatefulPropValidationComponent
 
   @override
   _$$TestStatefulPropValidationState$JsMap typedStateFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TestStatefulPropValidationState$JsMap(backingMap);
 
   @override
-  _$$TestStatefulPropValidationState typedStateFactory(Map backingMap) =>
+  _$$TestStatefulPropValidationState typedStateFactory(Map? backingMap) =>
       _$$TestStatefulPropValidationState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -1979,9 +1982,9 @@ abstract class _$$TestStatefulRedrawOnProps extends _$TestStatefulRedrawOnProps
     implements TestStatefulRedrawOnProps {
   _$$TestStatefulRedrawOnProps._();
 
-  factory _$$TestStatefulRedrawOnProps(Map backingMap) {
+  factory _$$TestStatefulRedrawOnProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulRedrawOnProps$JsMap(backingMap as JsBackedMap);
+      return _$$TestStatefulRedrawOnProps$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestStatefulRedrawOnProps$PlainMap(backingMap);
     }
@@ -2006,7 +2009,7 @@ class _$$TestStatefulRedrawOnProps$PlainMap
     extends _$$TestStatefulRedrawOnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulRedrawOnProps$PlainMap(Map backingMap)
+  _$$TestStatefulRedrawOnProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -2023,7 +2026,7 @@ class _$$TestStatefulRedrawOnProps$PlainMap
 class _$$TestStatefulRedrawOnProps$JsMap extends _$$TestStatefulRedrawOnProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulRedrawOnProps$JsMap(JsBackedMap backingMap)
+  _$$TestStatefulRedrawOnProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -2064,9 +2067,9 @@ abstract class _$$TestStatefulRedrawOnState extends _$TestStatefulRedrawOnState
     implements TestStatefulRedrawOnState {
   _$$TestStatefulRedrawOnState._();
 
-  factory _$$TestStatefulRedrawOnState(Map backingMap) {
+  factory _$$TestStatefulRedrawOnState(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulRedrawOnState$JsMap(backingMap as JsBackedMap);
+      return _$$TestStatefulRedrawOnState$JsMap(backingMap as JsBackedMap?);
     } else {
       return _$$TestStatefulRedrawOnState$PlainMap(backingMap);
     }
@@ -2082,7 +2085,7 @@ class _$$TestStatefulRedrawOnState$PlainMap
     extends _$$TestStatefulRedrawOnState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulRedrawOnState$PlainMap(Map backingMap)
+  _$$TestStatefulRedrawOnState$PlainMap(Map? backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -2099,7 +2102,7 @@ class _$$TestStatefulRedrawOnState$PlainMap
 class _$$TestStatefulRedrawOnState$JsMap extends _$$TestStatefulRedrawOnState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulRedrawOnState$JsMap(JsBackedMap backingMap)
+  _$$TestStatefulRedrawOnState$JsMap(JsBackedMap? backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -2137,14 +2140,14 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
 
   @override
   _$$TestStatefulRedrawOnProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TestStatefulRedrawOnProps$JsMap(backingMap);
 
   @override
-  _$$TestStatefulRedrawOnProps typedPropsFactory(Map backingMap) =>
+  _$$TestStatefulRedrawOnProps typedPropsFactory(Map? backingMap) =>
       _$$TestStatefulRedrawOnProps(backingMap);
 
-  late _$$TestStatefulRedrawOnState$JsMap _cachedTypedState;
+  _$$TestStatefulRedrawOnState$JsMap _cachedTypedState;
   @override
   _$$TestStatefulRedrawOnState$JsMap get state => _cachedTypedState;
 
@@ -2160,11 +2163,11 @@ class _$TestStatefulRedrawOnComponent extends TestStatefulRedrawOnComponent {
 
   @override
   _$$TestStatefulRedrawOnState$JsMap typedStateFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TestStatefulRedrawOnState$JsMap(backingMap);
 
   @override
-  _$$TestStatefulRedrawOnState typedStateFactory(Map backingMap) =>
+  _$$TestStatefulRedrawOnState typedStateFactory(Map? backingMap) =>
       _$$TestStatefulRedrawOnState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.
@@ -2227,9 +2230,10 @@ abstract class _$$TestStatefulStoreHandlersProps
     implements TestStatefulStoreHandlersProps {
   _$$TestStatefulStoreHandlersProps._();
 
-  factory _$$TestStatefulStoreHandlersProps(Map backingMap) {
+  factory _$$TestStatefulStoreHandlersProps(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulStoreHandlersProps$JsMap(backingMap as JsBackedMap);
+      return _$$TestStatefulStoreHandlersProps$JsMap(
+          backingMap as JsBackedMap?);
     } else {
       return _$$TestStatefulStoreHandlersProps$PlainMap(backingMap);
     }
@@ -2254,7 +2258,7 @@ class _$$TestStatefulStoreHandlersProps$PlainMap
     extends _$$TestStatefulStoreHandlersProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulStoreHandlersProps$PlainMap(Map backingMap)
+  _$$TestStatefulStoreHandlersProps$PlainMap(Map? backingMap)
       : this._props = {},
         super._() {
     this._props = backingMap ?? {};
@@ -2272,7 +2276,7 @@ class _$$TestStatefulStoreHandlersProps$JsMap
     extends _$$TestStatefulStoreHandlersProps {
   // This initializer of `_props` to an empty map, as well as the reassignment
   // of `_props` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulStoreHandlersProps$JsMap(JsBackedMap backingMap)
+  _$$TestStatefulStoreHandlersProps$JsMap(JsBackedMap? backingMap)
       : this._props = JsBackedMap(),
         super._() {
     this._props = backingMap ?? JsBackedMap();
@@ -2314,9 +2318,10 @@ abstract class _$$TestStatefulStoreHandlersState
     implements TestStatefulStoreHandlersState {
   _$$TestStatefulStoreHandlersState._();
 
-  factory _$$TestStatefulStoreHandlersState(Map backingMap) {
+  factory _$$TestStatefulStoreHandlersState(Map? backingMap) {
     if (backingMap == null || backingMap is JsBackedMap) {
-      return _$$TestStatefulStoreHandlersState$JsMap(backingMap as JsBackedMap);
+      return _$$TestStatefulStoreHandlersState$JsMap(
+          backingMap as JsBackedMap?);
     } else {
       return _$$TestStatefulStoreHandlersState$PlainMap(backingMap);
     }
@@ -2332,7 +2337,7 @@ class _$$TestStatefulStoreHandlersState$PlainMap
     extends _$$TestStatefulStoreHandlersState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulStoreHandlersState$PlainMap(Map backingMap)
+  _$$TestStatefulStoreHandlersState$PlainMap(Map? backingMap)
       : this._state = {},
         super._() {
     this._state = backingMap ?? {};
@@ -2350,7 +2355,7 @@ class _$$TestStatefulStoreHandlersState$JsMap
     extends _$$TestStatefulStoreHandlersState {
   // This initializer of `_state` to an empty map, as well as the reassignment
   // of `_state` in the constructor body is necessary to work around a DDC bug: https://github.com/dart-lang/sdk/issues/36217
-  _$$TestStatefulStoreHandlersState$JsMap(JsBackedMap backingMap)
+  _$$TestStatefulStoreHandlersState$JsMap(JsBackedMap? backingMap)
       : this._state = JsBackedMap(),
         super._() {
     this._state = backingMap ?? JsBackedMap();
@@ -2389,14 +2394,14 @@ class _$TestStatefulStoreHandlersComponent
 
   @override
   _$$TestStatefulStoreHandlersProps$JsMap typedPropsFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TestStatefulStoreHandlersProps$JsMap(backingMap);
 
   @override
-  _$$TestStatefulStoreHandlersProps typedPropsFactory(Map backingMap) =>
+  _$$TestStatefulStoreHandlersProps typedPropsFactory(Map? backingMap) =>
       _$$TestStatefulStoreHandlersProps(backingMap);
 
-  late _$$TestStatefulStoreHandlersState$JsMap _cachedTypedState;
+  _$$TestStatefulStoreHandlersState$JsMap _cachedTypedState;
   @override
   _$$TestStatefulStoreHandlersState$JsMap get state => _cachedTypedState;
 
@@ -2412,11 +2417,11 @@ class _$TestStatefulStoreHandlersComponent
 
   @override
   _$$TestStatefulStoreHandlersState$JsMap typedStateFactoryJs(
-          JsBackedMap backingMap) =>
+          JsBackedMap? backingMap) =>
       _$$TestStatefulStoreHandlersState$JsMap(backingMap);
 
   @override
-  _$$TestStatefulStoreHandlersState typedStateFactory(Map backingMap) =>
+  _$$TestStatefulStoreHandlersState typedStateFactory(Map? backingMap) =>
       _$$TestStatefulStoreHandlersState(backingMap);
 
   /// Let `UiComponent` internals know that this class has been generated.

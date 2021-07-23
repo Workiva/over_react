@@ -64,7 +64,8 @@ abstract class TransitionPropsMixin implements _$TransitionPropsMixin {
   /// <!-- Generated from [_$TransitionPropsMixin.transitionOutCount] -->
   @override
   int? get transitionOutCount =>
-      (props[_$key__transitionOutCount___$TransitionPropsMixin] ?? null) as int?;
+      (props[_$key__transitionOutCount___$TransitionPropsMixin] ?? null)
+          as int?;
 
   /// The number of `transitionend` event that occur when the transition node is hidden.
   ///
