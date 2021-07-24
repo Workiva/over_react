@@ -22,7 +22,7 @@ abstract class DebugFriendlyConstant {
   const DebugFriendlyConstant(this._name);
 
   /// A helpful description of this constant, used in [toString].
-  String get debugDescription;
+  String? get debugDescription;
 
   @override
   String toString() {
