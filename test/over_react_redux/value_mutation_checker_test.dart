@@ -122,7 +122,13 @@ void sharedHashTests(InstanceHasher Function() getHasher) {
 
   group('hashHasChanged', () {
     group('returns false if', () {
+      test('passed null', () {
+        expect(hasher.hasHashChanged(null), isFalse);
+        expect(hasher.hasHashChanged(null), isFalse);
+      });
+
       test('canHash returns false', () {
+        expect(hasher.hasHashChanged(0), isFalse);
         expect(hasher.hasHashChanged(0), isFalse);
       });
 
@@ -143,6 +149,7 @@ void sharedHashTests(InstanceHasher Function() getHasher) {
 
     test('returns true if the hash has changed', () {
       final map = {'test': true};
+      expect(hasher.hasHashChanged(map), isFalse);
       expect(hasher.hasHashChanged(map), isFalse);
 
       map['newField'] = true;
