@@ -31,10 +31,10 @@ bool isOrContains(Element? root, Element? other) => (
 
 /// Returns an Iterable of [element] and all its ancestors, in ascending order.
 Iterable<Element> _hierarchy(Element element) sync* {
-  var current = element;
+  Element? current = element;
   do {
-    yield current;
-  } while ((current = current.parent!) != null);
+    yield current!;
+  } while ((current = current.parent) != null);
 }
 
 /// Returns the closest element in the hierarchy of [lowerBound] up to an optional [upperBound] (both inclusive)

@@ -192,8 +192,8 @@ class SafeRenderManager extends Disposable {
     }
   }
 
-  void _helperRef(dynamic ref) {
-    _helper = ref as SafeRenderManagerHelperComponent;
+  void _helperRef(SafeRenderManagerHelperComponent? ref) {
+    _helper = ref;
     if (_helper != null) {
       if (_state == _RenderState.mounting) {
         _state = _RenderState.mountedOrErrored;
