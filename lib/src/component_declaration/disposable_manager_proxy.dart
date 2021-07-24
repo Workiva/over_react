@@ -59,7 +59,7 @@ mixin DisposableManagerProxy on react.Component implements DisposableManagerV7 {
   @override
   StreamSubscription<T> listenToStream<T>(
           Stream<T> stream, void Function(T event) onData,
-          {required Function onError, required void Function() onDone, required bool cancelOnError,}) =>
+          {Function? onError, void Function()? onDone, bool? cancelOnError}) =>
       _getDisposableProxy().listenToStream(stream, onData,
           onError: onError, onDone: onDone, cancelOnError: cancelOnError);
 
