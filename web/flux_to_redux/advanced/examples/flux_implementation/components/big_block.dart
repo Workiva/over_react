@@ -31,10 +31,10 @@ class BigBlockProps = UiProps
 class BigBlockComponent extends FluxUiComponent2<BigBlockProps> {
   @override
   redrawOn() => [
-        props.store,
+        props.store!,
         props.store!.midLevelStore,
         props.store!.midLevelStore.lowLevelStore,
-        props.store2,
+        props.store2!,
       ];
 
   @override

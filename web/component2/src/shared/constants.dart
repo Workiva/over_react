@@ -62,7 +62,7 @@ mixin AbstractInputPropsMixin on UiProps {
   ///
   /// _Proxies [DomPropsMixin.id]._
   @override
-  String get id;
+  String? get id;
 
   /// The HTML `name` attribute to be applied to `<input>`.
   ///

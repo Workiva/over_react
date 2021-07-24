@@ -1497,7 +1497,7 @@ class TestComponent2Props extends over_react.UiProps {
 final _TestComponent2ComponentFactory = registerComponent2(() => TestComponent2Component());
 class TestComponent2Component extends UiComponent2<TestComponent2Props> {
   @override
-  final List<ConsumedProps> consumedProps;
+  final List<ConsumedProps>? consumedProps;
 
   late TestComponent2Props _props;
 
@@ -1507,7 +1507,7 @@ class TestComponent2Component extends UiComponent2<TestComponent2Props> {
   @override
   set props(Map value) => _props = typedPropsFactory(value);
 
-  TestComponent2Component({required List<ConsumedProps> testConsumedProps}) :
+  TestComponent2Component({List<ConsumedProps>? testConsumedProps}) :
         consumedProps = testConsumedProps;
 
   @override
@@ -1560,7 +1560,7 @@ class TestStatefulComponent2Component extends UiStatefulComponent2<TestStatefulC
   bool get $isClassGenerated => true;
 
   @override
-  final List<ConsumedProps> consumedProps;
+  final List<ConsumedProps>? consumedProps;
 
   late TestStatefulComponent2Props _props;
   late TestStatefulComponent2State _state;
@@ -1595,14 +1595,14 @@ class TestStatefulComponent2Component extends UiStatefulComponent2<TestStatefulC
     _state = typedStateFactoryJs(value);
   }
 
-  TestStatefulComponent2Component({required List<ConsumedProps> testConsumedProps}) :
+  TestStatefulComponent2Component({List<ConsumedProps>? testConsumedProps}) :
         consumedProps = testConsumedProps;
 
   @override
-  TestStatefulComponent2Props typedPropsFactory(Map propsMap) => TestStatefulComponent2Props(propsMap as JsBackedMap);
+  TestStatefulComponent2Props typedPropsFactory(Map? propsMap) => TestStatefulComponent2Props(propsMap! as JsBackedMap);
 
   @override
-  TestStatefulComponent2Props typedPropsFactoryJs(Map? propsMap) => TestStatefulComponent2Props(propsMap as JsBackedMap?);
+  TestStatefulComponent2Props typedPropsFactoryJs(Map? propsMap) => TestStatefulComponent2Props(propsMap! as JsBackedMap);
 
   @override
   TestStatefulComponent2State typedStateFactory(Map state) => TestStatefulComponent2State(state as JsBackedMap);

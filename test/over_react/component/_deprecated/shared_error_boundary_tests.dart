@@ -179,7 +179,7 @@ void sharedErrorBoundaryTests(BuilderOnlyUiFactory<ErrorBoundaryPropsMixin> buil
 
       if (!isWrapper) {
         test('and props.fallbackUIRenderer is set', () {
-          ReactElement? _fallbackUIRenderer(_, __) {
+          ReactElement _fallbackUIRenderer(_, __) {
             return Dom.h4()('Something super not awesome just happened.');
           }
 

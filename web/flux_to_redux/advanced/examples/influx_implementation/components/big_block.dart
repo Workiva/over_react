@@ -34,9 +34,9 @@ class BigBlockProps = UiProps
 class BigBlockComponent extends FluxUiComponent2<BigBlockProps> {
   @override
   redrawOn() => [
-        props.store,
-        props.lowLevelStore,
-        props.secondStore,
+        props.store!,
+        props.lowLevelStore!,
+        props.secondStore!,
       ];
 
   @override
@@ -45,7 +45,7 @@ class BigBlockComponent extends FluxUiComponent2<BigBlockProps> {
       (Dom.div()
         ..style = {
           'padding': '50px',
-          'backgroundColor': props.store!.state!.mainBackgroundColor,
+          'backgroundColor': props.store!.state.mainBackgroundColor,
           'color': 'white',
           'display': 'flex',
           'alignItems': 'center',
@@ -87,18 +87,18 @@ class BigBlockComponent extends FluxUiComponent2<BigBlockProps> {
         (Dom.div()..style = {'display': 'flex', 'flexDirection': 'column'})(
           (LittleBlock()
             ..blockTitle = 'Block 1'
-            ..backgroundColor = this.props.store!.state!.blockOneBackgroundColor
-            ..colorString = this.props.store!.state!.blockOneBackgroundColor
+            ..backgroundColor = props.store!.state.blockOneBackgroundColor
+            ..colorString = props.store!.state.blockOneBackgroundColor
           )(),
           (LittleBlock()
             ..blockTitle = 'Block 2'
-            ..backgroundColor = this.props.lowLevelStore!.state!.backgroundColor
-            ..colorString = this.props.lowLevelStore!.state!.backgroundColor
+            ..backgroundColor = props.lowLevelStore!.state.backgroundColor
+            ..colorString = props.lowLevelStore!.state.backgroundColor
           )(),
           (LittleBlock()
             ..blockTitle = 'Block 3'
-            ..backgroundColor = this.props.secondStore!.state!.backgroundColor
-            ..colorString = this.props.secondStore!.state!.backgroundColor
+            ..backgroundColor = props.secondStore!.state.backgroundColor
+            ..colorString = props.secondStore!.state.backgroundColor
           )(),
         ),
       ),

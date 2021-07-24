@@ -31,7 +31,7 @@ part 'connect_flux_big_block.over_react.g.dart';
 UiFactory<ConnectFluxBigBlockProps> ConnectFluxBigBlock =
     connectFlux<FluxStore, RandomColorActions, ConnectFluxBigBlockProps>(
   // [5]
-  mapStateToProps: (state) => (ConnectFluxBigBlock()..backgroundColor = state?.backgroundColor),
+  mapStateToProps: (state) => (ConnectFluxBigBlock()..backgroundColor = state.backgroundColor),
   mapActionsToProps: (actions) =>
       (ConnectFluxBigBlock()..changeBackgroundColor = actions!.changeBackgroundColor as void Function()?),
 )(castUiFactory(_$ConnectFluxBigBlock)); // ignore: undefined_identifier

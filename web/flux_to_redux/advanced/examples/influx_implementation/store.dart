@@ -58,8 +58,8 @@ class RandomColorStore extends flux.Store with InfluxStoreMixin<TopLevelReduxSta
 
   RandomColorActions _actions;
 
-  String get mainBackgroundColor => state!.mainBackgroundColor;
-  String get blockOneBackgroundColor => state!.blockOneBackgroundColor;
+  String get mainBackgroundColor => state.mainBackgroundColor;
+  String get blockOneBackgroundColor => state.blockOneBackgroundColor;
 
   RandomColorStore(this._actions) {
     state = TopLevelReduxState.defaultState();
@@ -85,7 +85,7 @@ class LowLevelStore extends flux.Store with InfluxStoreMixin<LowLevelReduxState>
   RandomColorActions _actions;
 
   /// Public data
-  String get backgroundColor => state!.backgroundColor;
+  String get backgroundColor => state.backgroundColor;
 
   LowLevelStore(this._actions) {
     state = LowLevelReduxState.defaultState();
@@ -110,7 +110,7 @@ class AnotherColorStore extends flux.Store with InfluxStoreMixin<AnotherReduxSta
   RandomColorActions _actions;
 
   /// Public data
-  String get backgroundColor => state!.backgroundColor;
+  String get backgroundColor => state.backgroundColor;
 
   AnotherColorStore(this._actions) {
     state = AnotherReduxState.defaultState();

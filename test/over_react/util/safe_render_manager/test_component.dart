@@ -53,7 +53,7 @@ class TestComponent extends UiComponent<TestProps> {
   @override
   componentWillUnmount() {
     super.componentWillUnmount();
-    typedPropsFactory(nextProps).onComponentWillUnmount?.call();
+    props.onComponentWillUnmount?.call();
   }
 
   @override

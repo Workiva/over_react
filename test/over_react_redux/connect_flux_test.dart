@@ -707,12 +707,12 @@ main() {
           final fluxCounter = queryByTestId(jacket2.mountNode, 'flux-component');
           final fluxButton = queryByTestId(fluxCounter, 'button-increment');
 
-          expect(fluxStore.state!.count, 0);
+          expect(fluxStore.state.count, 0);
 
           click(fluxButton);
           await Future(() {});
 
-          expect(fluxStore.state!.count, 1);
+          expect(fluxStore.state.count, 1);
 
           if (shouldDomUpdate()) {
             expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 1'));
@@ -721,7 +721,7 @@ main() {
           store1.dispatch(ResetAction());
           await Future(() {});
 
-          expect(fluxStore.state!.count, 0);
+          expect(fluxStore.state.count, 0);
           if (shouldDomUpdate()) {
             expect(findDomNode(fluxCounter)!.innerHtml, contains('Count: 0'));
           }

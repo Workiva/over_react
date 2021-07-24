@@ -130,7 +130,7 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
         _handleDispatch(JsBackedMap.fromJs(data['payload'] as JsMap));
         break;
       case 'ACTION':
-        _handleRemoteAction(data['action'] as String?);
+        _handleRemoteAction(data['action'] as String);
         break;
       case 'START':
         // This is an event from `@devtools-extension` letting us know that it has started.
@@ -156,12 +156,12 @@ class _OverReactReduxDevToolsMiddleware extends MiddlewareClass {
     }
   }
 
-  void _handleRemoteAction(String? action) {
+  void _handleRemoteAction(String action) {
     if (_store == null) {
       log.warning('No store reference set, cannot dispatch remote action');
       return;
     }
-    _store!.dispatch(DevToolsAction.perform(jsonDecode(action!)));
+    _store!.dispatch(DevToolsAction.perform(jsonDecode(action)));
   }
 
   /// Middleware function called by redux, dispatches actions to devtools

@@ -62,7 +62,7 @@ main() {
 }
 
 UiFactory<Foo290Props> Foo290 = connect<Null, Foo290Props>(
-  mapStateToPropsWithOwnProps: ((state, props) => Foo()) as Map<dynamic, dynamic> Function(Null, Foo290Props)?,
+  mapStateToPropsWithOwnProps: ((state, props) => Foo()),
   mapDispatchToPropsWithOwnProps: (state, props) => Foo(),
 )(castUiFactory(_$Foo290)); // ignore: undefined_identifier
 
@@ -76,7 +76,7 @@ class FooComponent290 extends UiComponent2<Foo290Props> {
 }
 
 UiFactory<FooProps> Foo = connect<Null, FooProps>(
-  mapStateToPropsWithOwnProps: ((state, props) => Foo()) as Map<dynamic, dynamic> Function(Null, FooProps)?,
+  mapStateToPropsWithOwnProps: ((state, props) => Foo()),
   mapDispatchToPropsWithOwnProps: (state, props) => Foo(),
 )(_$Foo); // ignore: undefined_identifier, argument_type_not_assignable
 

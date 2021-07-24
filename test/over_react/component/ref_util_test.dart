@@ -48,7 +48,7 @@ main() {
           final Ref refObject = createRef();
           final vDomElement = (BasicForwarded()..ref = refObject)();
 
-          expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'), '');
+          expect(getProperty(getProperty(vDomElement.type as Object, 'render') as Object, 'name'), '');
         });
 
         test('when displayName argument is passed to the config constructor', () {
@@ -59,7 +59,7 @@ main() {
           final Ref refObject = createRef();
           final vDomElement = (BasicForwarded()..ref = refObject)();
 
-          expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'), displayName);
+          expect(getProperty(getProperty(vDomElement.type as Object, 'render') as Object, 'name'), displayName);
         });
 
         group('returns normally when passed children', () {
@@ -87,7 +87,7 @@ main() {
         final Ref refObject = createRef();
         final vDomElement = (TopLevelForwardUiRefFunction()..ref = refObject)();
 
-        expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'),
+        expect(getProperty(getProperty(vDomElement.type as Object, 'render') as Object, 'name'),
             'TopLevelForwardUiRefFunction');
       });
 
@@ -165,7 +165,7 @@ void commonRefForwardingTests() {
           final refObject = createRef<DivElement>();
           final vDomElement = (DivForwarded()..ref = refObject)();
 
-          expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'), '');
+          expect(getProperty(getProperty(vDomElement.type as Object, 'render') as Object, 'name'), '');
         });
 
         test('when displayName argument is passed to the config constructor', () {
@@ -175,7 +175,7 @@ void commonRefForwardingTests() {
           final vDomElement = (DivForwarded()..ref = refObject)();
 
 
-          expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'), displayName);
+          expect(getProperty(getProperty(vDomElement.type as Object, 'render') as Object, 'name'), displayName);
         });
       });
 
@@ -202,7 +202,7 @@ void commonRefForwardingTests() {
           final Ref refObject = createRef();
           final vDomElement = (BasicForwarded()..ref = refObject)();
 
-          expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'), '');
+          expect(getProperty(getProperty(vDomElement.type as Object, 'render') as Object, 'name'), '');
         });
 
         test('when displayName argument is passed to the config constructor', () {
@@ -211,7 +211,7 @@ void commonRefForwardingTests() {
           final Ref refObject = createRef();
           final vDomElement = (BasicForwarded()..ref = refObject)();
 
-          expect(getProperty(getProperty(vDomElement.type, 'render'), 'name'), displayName);
+          expect(getProperty(getProperty(vDomElement.type as Object, 'render') as Object, 'name'), displayName);
         });
       });
 
@@ -275,14 +275,14 @@ mixin BasicUiFunctionProps on UiProps {}
 
 class SecondaryBasicUiFunctionProps = UiProps with BasicUiFunctionProps;
 
-final BasicUiFunctionProps Function([Map<dynamic, dynamic>]) BasicUiFunction = uiFunction<BasicUiFunctionProps>(
+final BasicUiFunction = uiFunction<BasicUiFunctionProps>(
   (props) {
     return props.children!.isEmpty ? 'basic component' : props.children;
   },
   _$BasicUiFunctionConfig, // ignore: undefined_identifier
 );
 
-final SecondaryBasicUiFunctionProps Function([Map<dynamic, dynamic>]) TopLevelForwardUiRefFunction = uiForwardRef<SecondaryBasicUiFunctionProps>(
+final TopLevelForwardUiRefFunction = uiForwardRef<SecondaryBasicUiFunctionProps>(
   (props, ref) {
     return (BasicUiFunction()..ref = ref)(props.children);
   },

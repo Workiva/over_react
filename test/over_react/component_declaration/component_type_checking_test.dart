@@ -211,12 +211,12 @@ main() {
       });
     });
 
-    void sharedAliasTests(void Function(dynamic alias) testBody) {
+    void sharedAliasTests(void Function(Object alias) testBody) {
       group('an alias, when the argument is', () {
         test('a UiFactory', () {
           // This need to be a new instance every test run, which is why we
           // don't set it up within the group.
-          final UiFactory alias = (([_]) => null) as UiProps Function([Map<dynamic, dynamic>?]); // ignore: prefer_function_declarations_over_variables
+          final UiFactory alias = ([_]) => Dom.div(); // ignore: prefer_function_declarations_over_variables
           final factory = ReactDartComponentFactoryProxy2(createTestReactClass());
           registerComponentTypeAlias(factory, alias);
           testBody(alias);
@@ -233,7 +233,7 @@ main() {
       });
     }
 
-    void sharedBadTypeTests(void Function(dynamic badType) testBody) {
+    void sharedBadTypeTests(void Function(Object? badType) testBody) {
       group('a bad type, when the argument is', () {
         test('null', () => testBody(null));
         test('a primitive', () => testBody(1));
@@ -255,6 +255,8 @@ main() {
         });
 
         sharedBadTypeTests((badType) {
+          // setComponentTypeMeta doesn't accept nullable values, so we can't pass in null
+          if (badType == null) return;
           expect(() => setComponentTypeMeta(badType, parentType: null),
               throwsAssertionErrorContaining(badType is String
                   ? 'cannot set type metadata on strings'
@@ -319,12 +321,12 @@ testComponentTypeChecking({
           });
 
           test('that is empty for a component without parent types', () {
-            expect(getParentTypes(getComponentTypeFromAlias(TestParent)), isEmpty);
+            expect(getParentTypes(getComponentTypeFromAlias(TestParent)!), isEmpty);
           });
 
           test('that contains a component\'s parent type', () {
             expect(
-                getParentTypes(getComponentTypeFromAlias(TestSubtype)),
+                getParentTypes(getComponentTypeFromAlias(TestSubtype)!),
                 orderedEquals([
                   getComponentTypeFromAlias(TestParent),
                 ]));
@@ -332,7 +334,7 @@ testComponentTypeChecking({
 
           test('that contains all of a component\'s parent types', () {
             expect(
-                getParentTypes(getComponentTypeFromAlias(TestSubsubtype)),
+                getParentTypes(getComponentTypeFromAlias(TestSubsubtype)!),
                 orderedEquals([
                   getComponentTypeFromAlias(TestSubtype),
                   getComponentTypeFromAlias(TestParent),
@@ -341,7 +343,7 @@ testComponentTypeChecking({
 
           test('that contains all of a component\'s parent abstract types', () {
             expect(
-                getParentTypes(getComponentTypeFromAlias(TestExtendtype)),
+                getParentTypes(getComponentTypeFromAlias(TestExtendtype)!),
                 orderedEquals([
                   getComponentTypeFromAlias(TestAbstractComponent),
                 ]));
@@ -505,7 +507,7 @@ testComponentTypeChecking({
             });
           } else {
             test('connect', () {
-              final UiProps Function([Map<dynamic, dynamic>]) hocFactory = connect(mapStateToProps: (dynamic state) => {})(TestA);
+              final UiFactory hocFactory = connect(mapStateToProps: (dynamic state) => {})(TestA);
               expect(isComponentOfType(hocFactory()(), TestA), isTrue);
             });
           }

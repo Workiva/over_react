@@ -33,12 +33,12 @@ class FluxStore extends flux.Store with InfluxStoreMixin<FluxCounterState> {
   FluxActions _actions;
 
   @override
-  get reduxReducer => counterStateReducer as FluxCounterState Function(FluxCounterState, dynamic);
+  get reduxReducer => counterStateReducer;
 
-  int? get count => state!.count;
-  String get name => state!.name;
+  int? get count => state.count;
+  String get name => state.name;
   List<String> get listYouDefShouldntMutate =>
-      state!.listThatYouDefShouldntMutate;
+      state.listThatYouDefShouldntMutate;
 
   FluxStore(this._actions) {
     state = FluxCounterState(count: 0);
@@ -66,11 +66,11 @@ class FluxCounterState {
   });
 }
 
-FluxCounterState counterStateReducer(FluxCounterState state, Object action) {
+FluxCounterState counterStateReducer(FluxCounterState state, dynamic action) {
   if (action is IncrementAction) {
-    return FluxCounterState(count: state.count! + (action?.value ?? 1));
+    return FluxCounterState(count: state.count! + (action.value ?? 1));
   } else if (action is DecrementAction) {
-    return FluxCounterState(count: state.count! - (action?.value ?? 1));
+    return FluxCounterState(count: state.count! - (action.value ?? 1));
   } else if (action is ResetAction) {
     return FluxCounterState(count: 0);
   } else if (action is MutateStoreDirectlyAction) {
@@ -92,8 +92,8 @@ class FluxStore2 extends flux.Store with InfluxStoreMixin<BigCounterState> {
   @override
   get reduxReducer => bigCounterStateReducer;
 
-  int? get count => state!.bigCount;
-  String get name => state!.name;
+  int? get count => state.bigCount;
+  String get name => state.name;
 
   FluxStore2(this._actions) {
     state = BigCounterState(bigCount: 0);
@@ -117,11 +117,11 @@ class BigCounterState {
 }
 
 int _bigCounterDecrementReducer(int currentCount, DecrementAction action) {
-  return currentCount - (action?.value != null ? action.value! : 100);
+  return currentCount - (action.value != null ? action.value! : 100);
 }
 
 int _bigCounterIncrementReducer(int currentCount, IncrementAction action) {
-  return currentCount + (action?.value != null ? action.value! : 100);
+  return currentCount + (action.value != null ? action.value! : 100);
 }
 
 Reducer<int?> bigCounterActionsReducer = combineReducers<int?>([
@@ -164,11 +164,11 @@ class TestConnectableFluxStore extends flux.Store {
   }
 
   void _incrementAction(int count) {
-    _count += count ?? 1;
+    _count += count;
   }
 
   void _decrementAction(int count) {
-    _count -= count ?? 1;
+    _count -= count;
   }
 
   void _resetAction(_) {

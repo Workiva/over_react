@@ -65,7 +65,7 @@ abstract class _$AbstractInputPropsMixin {
   /// If unspecified, [AbstractInputStateMixin.id] will be generated.
   ///
   /// _Proxies [DomPropsMixin.id]._
-  String get id;
+  String? get id;
 
   /// The HTML `name` attribute to be applied to `<input>`.
   ///

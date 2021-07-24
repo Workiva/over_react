@@ -13,7 +13,7 @@ abstract class AbstractInputPropsMixin implements _$AbstractInputPropsMixin {
 
   static const PropsMeta meta = _$metaForAbstractInputPropsMixin;
   @override
-  String get id;
+  String? get id;
 
   /// The HTML `name` attribute to be applied to `<input>`.
   ///

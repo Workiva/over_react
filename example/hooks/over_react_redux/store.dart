@@ -103,11 +103,11 @@ class BigCounterState {
 }
 
 int _bigCounterDecrementReducer(int currentCount, DecrementAction action) {
-  return currentCount - (action?.value != null ? (action.value as int?)! : 100);
+  return currentCount - (action.value != null ? (action.value as int?)! : 100);
 }
 
 int _bigCounterIncrementReducer(int currentCount, IncrementAction action) {
-  return currentCount + (action?.value != null ? (action.value as int?)! : 100);
+  return currentCount + (action.value != null ? (action.value as int?)! : 100);
 }
 
 Reducer<int> bigCounterActionsReducer = combineReducers<int>([

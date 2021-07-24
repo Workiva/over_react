@@ -16,6 +16,7 @@ import 'dart:math';
 
 import 'package:over_react/over_react_flux.dart';
 import 'package:over_react/over_react_redux.dart';
+import 'package:redux/redux.dart';
 import 'package:w_flux/w_flux.dart' as flux;
 
 /// An Influx store
@@ -32,7 +33,7 @@ class FluxStore extends flux.Store with /*[1]*/ InfluxStoreMixin< /*[2]*/ ReduxS
   @override
   get reduxReducer => reducer; // [3]
 
-  String get backgroundColor => state!.backgroundColor; // [4]
+  String get backgroundColor => state.backgroundColor; // [4]
 
   FluxStore(this._actions) {
     // [5]

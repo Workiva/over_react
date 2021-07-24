@@ -20,7 +20,7 @@ import 'package:test/test.dart';
 
 main() {
   group('Dom component:', () {
-    Map<UiProps Function([Map<dynamic, dynamic>]), String> expectedMethodsOnDom = <UiFactory /* dom method */, String /* method name */>{
+    const expectedMethodsOnDom = <UiFactory /* dom method */, String /* method name */>{
       Dom.a: 'a', Dom.abbr: 'abbr', Dom.address: 'address', Dom.area: 'area', Dom.article: 'article',
       Dom.aside: 'aside', Dom.audio: 'audio', Dom.b: 'b', Dom.base: 'base', Dom.bdi: 'bdi', Dom.bdo: 'bdo',
       Dom.big: 'big', Dom.blockquote: 'blockquote', Dom.body: 'body', Dom.br: 'br', Dom.button: 'button',

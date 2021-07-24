@@ -261,7 +261,7 @@ class ComponentTypeMeta {
 ///
 /// > __CAVEAT:__ Due to type-checking limitations on JS-interop types, when [typeAlias] is a [Function],
 /// and it is not found to be an alias for another type, it will be returned as if it were a valid type.
-dynamic getComponentTypeFromAlias(Object? typeAlias) {
+Object? getComponentTypeFromAlias(Object? typeAlias) {
   /// If `typeAlias` is a factory, return its type.
   if (typeAlias is ReactComponentFactoryProxy) {
     return typeAlias.type;
@@ -305,7 +305,7 @@ bool isPotentiallyValidComponentType(dynamic type) {
 ///     getParentTypes(getComponentTypeFromAlias(A)); // []
 ///     getParentTypes(getComponentTypeFromAlias(B)); // [A].map(getTypeFromAlias)
 ///     getParentTypes(getComponentTypeFromAlias(C)); // [B, A].map(getTypeFromAlias)
-Iterable<dynamic> getParentTypes(Object type) sync* {
+Iterable<Object> getParentTypes(Object type) sync* {
   assert(isPotentiallyValidComponentType(type) &&
       '`type` should be a valid component type (and not null or a type alias).'
           is String);
@@ -313,7 +313,7 @@ Iterable<dynamic> getParentTypes(Object type) sync* {
   // FIXME null-safety what's the recommended way to write this kind of loop?
   Object? currentType = type;
   while ((currentType = getComponentTypeMeta(currentType as Object).parentType) != null) {
-    yield currentType;
+    yield currentType!;
   }
 }
 

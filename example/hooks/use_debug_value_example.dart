@@ -31,7 +31,7 @@ StateHook<bool?> useFriendStatus(int? friendID) {
   final isOnline = useState(false);
 
   void handleStatusChange(Map status) {
-    isOnline.set(status['isOnline'] as bool?);
+    isOnline.set(status['isOnline'] as bool);
   }
 
   useEffect(() {
