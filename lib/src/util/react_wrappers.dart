@@ -121,7 +121,7 @@ final Expando<Map>? _elementPropsCache = _canUseExpandoOnReactElement
 /// instance.
 ///
 /// Throws if [instance] is not a valid [ReactElement] or composite [ReactComponent] .
-Map getProps(Object/* ReactElement|ReactComponent */ instance, {bool traverseWrappers = false}) {
+Map getProps(dynamic/* ReactElement|ReactComponent */ instance, {bool traverseWrappers = false}) {
   var isCompositeComponent = _isCompositeComponent(instance);
 
   if (isValidElement(instance) || isCompositeComponent) {
@@ -150,13 +150,13 @@ Map getProps(Object/* ReactElement|ReactComponent */ instance, {bool traverseWra
     }
 
     if (_elementPropsCache != null && !isCompositeComponent) {
-      var cachedView = _elementPropsCache![instance];
+      var cachedView = _elementPropsCache![instance as Object];
       if (cachedView != null) return cachedView;
     }
 
     Map rawPropsOrCopy;
 
-    final dartComponentVersion = _getDartComponentVersionFromInstance(instance);
+    final dartComponentVersion = _getDartComponentVersionFromInstance(instance as Object);
     if (dartComponentVersion == ReactDartComponentVersion.component) { // ignore: invalid_use_of_protected_member
       rawPropsOrCopy = _getExtendedProps(instance)!;
     } else if (dartComponentVersion == ReactDartComponentVersion.component2) { // ignore: invalid_use_of_protected_member
@@ -297,7 +297,7 @@ ReactElement cloneElement(ReactElement? element, [Map? props, Iterable? children
 ///
 /// Returns `null` if the [instance] is not Dart-based _(an [Element] or a JS composite component)_.
 // ignore: deprecated_member_use
-T? getDartComponent<T extends react.Component?>(Object /* ReactElement|ReactComponent|Element */ instance) {
+T? getDartComponent<T extends react.Component?>(dynamic /* ReactElement|ReactComponent|Element */ instance) {
   if (instance is Element) {
     return null;
   }
