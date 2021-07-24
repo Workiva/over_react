@@ -19,7 +19,6 @@ library deprecated_abstract_transition_test;
 import 'dart:async';
 import 'dart:html';
 
-import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react_test/over_react_test.dart';
 import 'package:test/test.dart';

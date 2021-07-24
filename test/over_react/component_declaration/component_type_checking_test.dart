@@ -15,7 +15,6 @@
 library over_react.component_declaration.component_type_checking_test;
 
 import 'package:js/js.dart';
-import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart' show connect;
 import 'package:over_react/src/component_declaration/component_type_checking.dart';

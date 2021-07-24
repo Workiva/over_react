@@ -19,7 +19,6 @@ library safe_render_manager_test;
 import 'dart:async';
 import 'dart:html';
 
-import 'package:meta/meta.dart';
 import 'package:react/react.dart' as react;
 import 'package:over_react/over_react.dart';
 import 'package:over_react/src/util/safe_render_manager/safe_render_manager.dart';

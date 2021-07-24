@@ -15,7 +15,6 @@
 import 'dart:async';
 import 'dart:html';
 
-import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/react_dom.dart' as react_dom;
 import 'package:w_common/disposable.dart';
