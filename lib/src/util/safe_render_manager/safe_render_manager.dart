@@ -214,7 +214,7 @@ class SafeRenderManager extends Disposable {
 
     // Set up an onError handler in case onMaybeUnmounted isn't called due to
     // an error, and an async error is thrown instead.
-    runZoned(() {
+    runZonedGuarded(() {
       // Attempt to unmount the content safely
       _safeUnmountContent(force: true, onMaybeUnmounted: (_) {
         completer?.complete();
@@ -222,8 +222,7 @@ class SafeRenderManager extends Disposable {
         // an indefinitely long lifetime.
         completer = null;
       });
-    // ignore: avoid_types_on_closure_parameters
-    }, onError: (Object error, StackTrace stackTrace) {
+    }, (error, stackTrace) {
       completer?.completeError(error, stackTrace);
       // Clear out to not retain it in the onError closure, which has
       // an indefinitely long lifetime.
