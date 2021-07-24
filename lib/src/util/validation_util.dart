@@ -70,9 +70,7 @@ class ValidationUtil {
   static bool warn(String message, [Object? data]) {
     WARNING_COUNT += 1;
 
-    if (onWarning != null) {
-      onWarning!(message);
-    }
+    onWarning?.call(message);
 
     if (WARNINGS_ENABLED) {
       if (THROW_ON_WARNING) {

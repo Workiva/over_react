@@ -302,11 +302,9 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
     shouldBatchRedraw = false;
 
     // Cancel all store subscriptions.
-    _subscriptions.forEach((subscription) {
-      if (subscription != null) {
-        subscription.cancel();
-      }
-    });
+    _subscriptions
+      ..forEach((subscription) => subscription.cancel())
+      ..clear();
   }
 
   /// Define the list of [Store] instances that this component should listen to.

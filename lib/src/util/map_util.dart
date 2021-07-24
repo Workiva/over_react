@@ -152,7 +152,7 @@ void forwardUnconsumedPropsV2(Map props, {
         // to continue without initiating another loop (which is less
         // performant than `.first.contains()`).
         // TODO: further optimize this by identifying the best looping / data structure
-        if (keySetsToOmit != null && keySetsToOmit.first.contains(key)) continue;
+        if (keySetsToOmit.first.contains(key)) continue;
 
         if (keySetsToOmit.length > 1) {
           bool shouldContinue = false;

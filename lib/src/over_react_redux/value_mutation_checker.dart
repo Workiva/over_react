@@ -27,7 +27,7 @@ abstract class InstanceHasher {
   /// as determined by [canHash].
   bool hasHashChanged(Object? instance) {
     if (instance != null && canHash(instance)) {
-      final last = _hashForInstance[instance!];
+      final last = _hashForInstance[instance];
       final current = _hashForInstance[instance] = hash(instance);
       return last != null && last != current;
     }
