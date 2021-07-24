@@ -39,7 +39,7 @@ double _computeRootFontSize() {
     ..position = 'absolute'
     ..zIndex = '-1';
   document.body!.append(remMeasurer);
-  final rem = CssValue.parse(remMeasurer.getComputedStyle().width).number.toDouble();
+  final rem = CssValue.parse(remMeasurer.getComputedStyle().width)!.number.toDouble();
   remMeasurer.remove();
   return rem;
 }
@@ -194,9 +194,9 @@ CssValue? toRem(dynamic value, {bool treatNumAsRem = false, bool passThroughUnsu
     var parsedValue = value is CssValue ? value : CssValue.parse(value);
 
     if (parsedValue?.unit == 'rem') {
-      remValueNum = parsedValue.number;
+      remValueNum = parsedValue!.number;
     } else if (parsedValue?.unit == 'px') {
-      remValueNum = parsedValue.number / rootFontSize;
+      remValueNum = parsedValue!.number / rootFontSize;
     } else {
       if (passThroughUnsupportedUnits) return parsedValue;
 
@@ -238,9 +238,9 @@ CssValue? toPx(dynamic value, {bool treatNumAsPx = false, bool passThroughUnsupp
     var parsedValue = value is CssValue ? value : CssValue.parse(value);
 
     if (parsedValue?.unit == 'px') {
-      pxValueNum = parsedValue.number;
+      pxValueNum = parsedValue!.number;
     } else if (parsedValue?.unit == 'rem') {
-      pxValueNum = parsedValue.number * rootFontSize;
+      pxValueNum = parsedValue!.number * rootFontSize;
     } else {
       if (passThroughUnsupportedUnits) return parsedValue;
 
