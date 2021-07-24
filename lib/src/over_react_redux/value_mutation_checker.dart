@@ -26,7 +26,7 @@ abstract class InstanceHasher {
   /// Returns false if hashing [instance] isn't supported,
   /// as determined by [canHash].
   bool hasHashChanged(Object? instance) {
-    if (canHash(instance)) {
+    if (instance != null && canHash(instance)) {
       final last = _hashForInstance[instance!];
       final current = _hashForInstance[instance] = hash(instance);
       return last != null && last != current;
@@ -36,20 +36,20 @@ abstract class InstanceHasher {
   }
 
   @protected
-  bool canHash(Object? value);
+  bool canHash(Object value);
 
   @protected
-  Object hash(Object? value);
+  Object hash(Object value);
 }
 
 class CollectionLengthHasher extends InstanceHasher {
   const CollectionLengthHasher();
 
   @override
-  bool canHash(Object? instance) => instance is Map || instance is Iterable;
+  bool canHash(Object instance) => instance is Map || instance is Iterable;
 
   @override
-  int hash(Object? instance) {
+  int hash(Object instance) {
     if (instance is Map) return instance.length;
     if (instance is Iterable) return instance.length;
     throw ArgumentError.value(instance, 'object', 'Unexpected type');
@@ -60,10 +60,10 @@ class CollectionShallowHasher extends InstanceHasher {
   const CollectionShallowHasher();
 
   @override
-  bool canHash(Object? instance) => instance is Map || instance is Iterable;
+  bool canHash(Object instance) => instance is Map || instance is Iterable;
 
   @override
-  int hash(Object? instance) {
+  int hash(Object instance) {
     if (instance is Map) return const MapEquality().hash(instance);
     // Don't use IterableEquality for sets, since the order affects the output.
     if (instance is Set) return const SetEquality().hash(instance);

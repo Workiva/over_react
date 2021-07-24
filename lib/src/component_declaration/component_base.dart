@@ -650,7 +650,6 @@ abstract class UiProps extends MapBase
     return true;
   }
 
-  // fixme null-safety: nullable or `late`?
   ReactComponentFactoryProxy? componentFactory;
 
   /// An unmodifiable map view of the default props for this component brought

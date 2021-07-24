@@ -29,7 +29,7 @@ main() {
   group('SafeRenderManagerHelper component', () {
     test('renders with the single child initially mounted', () {
       var renderedInstance = render((SafeRenderManagerHelper()
-        ..getInitialContent = (Dom.div() as ReactElement? Function()?..addTestId('singleChild'))
+        ..getInitialContent = (Dom.div()..addTestId('singleChild'))
       )());
 
       expect(getByTestId(renderedInstance, 'singleChild'), isNotNull);
@@ -41,7 +41,7 @@ main() {
 
       setUp(() {
         renderedInstance = render((SafeRenderManagerHelper()
-          ..getInitialContent = (Dom.div() as ReactElement? Function()?..addTestId('singleChild'))
+          ..getInitialContent = (Dom.div()..addTestId('singleChild'))
         )());
         component = getDartComponent(renderedInstance);
       });
@@ -65,7 +65,7 @@ main() {
 
       setUp(() {
         renderedInstance = render((SafeRenderManagerHelper()
-          ..getInitialContent = (Dom.div() as ReactElement? Function()?..addTestId('singleChild'))
+          ..getInitialContent = (Dom.div()..addTestId('singleChild'))
         )());
         component = getDartComponent(renderedInstance);
       });
