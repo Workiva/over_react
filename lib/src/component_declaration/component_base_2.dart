@@ -170,7 +170,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// Required to properly instantiate the generic [TProps] class.
   @override
   @toBeGenerated
-  TProps typedPropsFactory(Map? propsMap)=> throw UngeneratedError(member: #typedPropsFactory);
+  TProps typedPropsFactory(Map propsMap)=> throw UngeneratedError(member: #typedPropsFactory);
 
   /// Returns a typed props object backed by the specified [propsMap].
   ///
@@ -355,7 +355,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// the `@Props` class for this component, and not any inherited props. Also, [propsMeta] is not
   /// available.
   @override
-  Iterable<ConsumedProps> get consumedProps => $defaultConsumedProps;
+  Iterable<ConsumedProps>? get consumedProps => $defaultConsumedProps;
 
   /// A collection of metadata for the prop fields in all prop mixins used by this component's
   /// generated props class.
@@ -382,7 +382,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Related [addUnconsumedDomProps]
   void addUnconsumedProps(Map props) {
     // TODO: cache this value to avoid unnecessary looping
-    var consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
+    var consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys) ?? const [];
 
     forwardUnconsumedProps(this.props, propsToUpdate: props,
         keySetsToOmit: consumedPropKeys);
@@ -403,7 +403,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///
   /// > Related [addUnconsumedProps]
   void addUnconsumedDomProps(Map props) {
-    var consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
+    var consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys) ?? const [];
 
     forwardUnconsumedProps(this.props, propsToUpdate: props, keySetsToOmit:
         consumedPropKeys, onlyCopyDomProps: true);
@@ -472,7 +472,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   @override
   @Deprecated('4.0.0')
   Map copyUnconsumedProps() {
-    var consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
+    var consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys) ?? const [];
 
     return copyProps(keySetsToOmit: consumedPropKeys);
   }
@@ -489,7 +489,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   @override
   @Deprecated('4.0.0')
   Map copyUnconsumedDomProps() {
-    var consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
+    var consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys) ?? const [];
 
     return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
   }
@@ -718,7 +718,7 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
 
     // Add [PropValidator]s for props annotated as required.
     final newPropTypes = Map.of(propTypes);
-    component.consumedProps.forEach((consumedProps) {
+    component.consumedProps?.forEach((consumedProps) {
       consumedProps.props.forEach((prop) {
         if (!prop.isRequired) return;
 

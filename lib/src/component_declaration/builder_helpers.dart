@@ -56,12 +56,12 @@ mixin _GeneratedUiComponentStubs<TProps extends UiProps>
   ///
   /// For generated components, this defaults to the keys generated in the associated @[annotations.Props] class
   /// if this getter is not overridden.
-  Iterable<component_base.ConsumedProps> get consumedProps => $defaultConsumedProps;
+  Iterable<component_base.ConsumedProps>? get consumedProps => $defaultConsumedProps;
 
   /// Returns a typed props object backed by the specified [propsMap].
   /// Required to properly instantiate the generic [TProps] class.
   @toBeGenerated
-  TProps typedPropsFactory(Map? propsMap) => throw UngeneratedError(member: #typedPropsFactory);
+  TProps typedPropsFactory(Map propsMap) => throw UngeneratedError(member: #typedPropsFactory);
 }
 
 /// See: [component_base.UiComponent]
