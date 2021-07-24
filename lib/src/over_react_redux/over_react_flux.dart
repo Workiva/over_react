@@ -251,10 +251,10 @@ mixin InfluxStoreMixin<S> on flux.Store {
   ///
   /// This is used in [influxReducer] to update the [state] field before triggering
   /// an update.
-  redux.Reducer<S?> get reduxReducer;
+  redux.Reducer<S> get reduxReducer;
 
   /// An instance of the Redux state model that the Flux store is migrating to.
-  S? state;
+  late S state;
 
   /// A field to track if Flux has already tried to update Redux.
   ///
