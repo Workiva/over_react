@@ -382,7 +382,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   /// > Related [addUnconsumedDomProps]
   void addUnconsumedProps(Map props) {
     // TODO: cache this value to avoid unnecessary looping
-    var consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
+    var consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
 
     forwardUnconsumedProps(this.props, propsToUpdate: props,
         keySetsToOmit: consumedPropKeys);
@@ -403,7 +403,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   ///
   /// > Related [addUnconsumedProps]
   void addUnconsumedDomProps(Map props) {
-    var consumedPropKeys = consumedProps?.map((consumedProps) => consumedProps.keys);
+    var consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
 
     forwardUnconsumedProps(this.props, propsToUpdate: props, keySetsToOmit:
         consumedPropKeys, onlyCopyDomProps: true);
@@ -472,9 +472,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   @override
   @Deprecated('4.0.0')
   Map copyUnconsumedProps() {
-    var consumedPropKeys = consumedProps
-            ?.map((consumedProps) => consumedProps.keys) ??
-        const [];
+    var consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
 
     return copyProps(keySetsToOmit: consumedPropKeys);
   }
@@ -491,9 +489,7 @@ abstract class UiComponent2<TProps extends UiProps> extends react.Component2
   @override
   @Deprecated('4.0.0')
   Map copyUnconsumedDomProps() {
-    var consumedPropKeys = consumedProps
-            ?.map((consumedProps) => consumedProps.keys) ??
-        const [];
+    var consumedPropKeys = consumedProps.map((consumedProps) => consumedProps.keys);
 
     return copyProps(onlyCopyDomProps: true, keySetsToOmit: consumedPropKeys);
   }
@@ -722,7 +718,7 @@ class UiComponent2BridgeImpl extends Component2BridgeImpl {
 
     // Add [PropValidator]s for props annotated as required.
     final newPropTypes = Map.of(propTypes);
-    component.consumedProps?.forEach((consumedProps) {
+    component.consumedProps.forEach((consumedProps) {
       consumedProps.props.forEach((prop) {
         if (!prop.isRequired) return;
 

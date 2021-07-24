@@ -224,7 +224,7 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
       _cancelTransitionEventListener();
     }
 
-    switch (state.$transitionPhase) {
+    switch (state.$transitionPhase!) {
       case TransitionPhase.PRE_SHOWING:
         _handlePreShowing();
         break;
@@ -348,7 +348,7 @@ class WithTransitionComponent extends UiStatefulComponent2<WithTransitionProps, 
     });
 
     _endTransitionSubscription =
-        _transitionNodeRef.current?.onTransitionEnd?.skip(transitionCount - 1)?.take(1)?.listen((_) {
+        _transitionNodeRef.current?.onTransitionEnd.skip(transitionCount - 1).take(1).listen((_) {
       _cancelTransitionEndTimer();
 
       complete();
@@ -376,7 +376,7 @@ bool _isOrWillBeShown(TransitionPhase? currentPhase) =>
     currentPhase == TransitionPhase.SHOWN;
 
 /// Returns the value of [v2.TransitionPropsMixin.transitionCount], falling back to `null` for backwards compatibility.
-int _getTransitionCount(WithTransitionProps props) => props?.transitionCount ?? 1;
+int _getTransitionCount(WithTransitionProps props) => props.transitionCount ?? 1;
 
 /// Whether transitions are enabled based on the [props] provided.
 bool _hasTransition(WithTransitionProps props) => _getTransitionCount(props) > 0;
@@ -391,9 +391,9 @@ bool _hasTransitionOut(WithTransitionProps props) => _hasTransition(props) && _t
 /// rendered by the [WithTransition] component is shown.
 ///
 /// Defaults to `1` to match previous behavior in the case where `props.transitionCount` is `null`.
-int _transitionInCount(WithTransitionProps props) => props?.transitionInCount ?? _getTransitionCount(props);
+int _transitionInCount(WithTransitionProps props) => props.transitionInCount ?? _getTransitionCount(props);
 
 /// The number of `transitionend` events that occur when the transition node is hidden.
 ///
 /// Defaults to `1` to match previous behavior in the case where `props.transitionCount` is `null`.
-int _transitionOutCount(WithTransitionProps props) => props?.transitionOutCount ?? _getTransitionCount(props);
+int _transitionOutCount(WithTransitionProps props) => props.transitionOutCount ?? _getTransitionCount(props);

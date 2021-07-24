@@ -202,7 +202,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
       complete();
     });
 
-    _endTransitionSubscription = getTransitionDomNode()?.onTransitionEnd?.skip(transitionCount - 1)?.take(1)?.listen((_) {
+    _endTransitionSubscription = getTransitionDomNode()?.onTransitionEnd.skip(transitionCount - 1).take(1).listen((_) {
       _cancelTransitionEndTimer();
 
       complete();
@@ -274,7 +274,7 @@ abstract class AbstractTransitionComponent<T extends AbstractTransitionProps,
         _cancelTransitionEventListener();
       }
 
-      switch (state.transitionPhase) {
+      switch (state.transitionPhase!) {
         case TransitionPhase.PRE_SHOWING:
           handlePreShowing();
           break;
