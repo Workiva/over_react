@@ -49,7 +49,25 @@ abstract class _$ReactPropsMixin {
   dynamic _raw$ReactProps$children;
 
   /// The children that were passed in to this component when it was built.
-  List<dynamic> get children => _conditionallyUnconvertChildren(_raw$ReactProps$children);
+  List<dynamic> get children {
+    final value = _raw$ReactProps$children;
+
+    // Most common case; Dart components should all have List children
+    // when rendered by Dart code.
+    if (value is List) return value;
+
+    if (value == null) {
+      // Normalize explicit null values to an empty list, but still return null
+      // when children aren't specified so that we don't break existing usages
+      // where checking for null is equivalent to checking to see if the value was specified.
+      // E.g., `builder..children ??= ['foo']`.
+      return props.containsKey('children') ? const [] : null;
+    }
+
+    // Wrap single children in a list.
+    return [value];
+  }
+
   set children(List<dynamic> value) => _raw$ReactProps$children = value;
 
   /// A String that differentiates a component from its siblings.
@@ -83,14 +101,6 @@ abstract class $DomPropsMixin {
   @Deprecated('This API is for use only within generated code.'
       ' Do not reference it in your code, as it may change at any time.')
   static const PropsMeta meta = _$metaForDomPropsMixin;
-}
-
-List<dynamic> _conditionallyUnconvertChildren(dynamic children) {
-  // Most common case; Dart components should all have List children
-  // when rendered by Dart code.
-  if (children is List) return children;
-  if (children == null) return const [];
-  return [children];
 }
 
 Map<String, dynamic> _conditionallyUnconvertStyle(dynamic style) {

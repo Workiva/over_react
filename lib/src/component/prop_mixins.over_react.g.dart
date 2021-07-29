@@ -13,8 +13,15 @@ abstract class ReactPropsMixin implements _$ReactPropsMixin {
 
   static const PropsMeta meta = _$metaForReactPropsMixin;
   @override
-  List<dynamic> get children =>
-      _conditionallyUnconvertChildren(_raw$ReactProps$children);
+  List<dynamic> get children {
+    final value = _raw$ReactProps$children;
+    if (value is List) return value;
+    if (value == null) {
+      return props.containsKey('children') ? const [] : null;
+    }
+    return [value];
+  }
+
   @override
   set children(List<dynamic> value) => _raw$ReactProps$children = value;
   @override
