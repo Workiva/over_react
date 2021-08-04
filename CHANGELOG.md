@@ -1,5 +1,9 @@
 # OverReact Changelog
 
+## [4.1.3](https://github.com/Workiva/over_react/compare/4.1.2...4.1.3)
+
+- [#698] Conditionally unconvert style and children props
+
 ## [4.1.2](https://github.com/Workiva/over_react/compare/4.1.1...4.1.2)
 
 - [#689] Copy language version comments to generated part files
