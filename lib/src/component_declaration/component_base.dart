@@ -99,6 +99,13 @@ extension UiFactoryHelpers<TProps extends bh.UiProps> on UiFactory<TProps> {
   ///
   /// See `uiForwardRef` for examples and context.
   UiFactoryConfig<TProps> asForwardRefConfig({String displayName}) => UiFactoryConfig(propsFactory: PropsFactory.fromUiFactory(this), displayName: displayName);
+
+  /// The type of the element created by this factory.
+  ///
+  /// For DOM components, this will be a [String] tagName (e.g., `'div'`, `'a'`).
+  ///
+  /// For composite components (react-dart or pure JS), this will be a [ReactClass].
+  dynamic get elementType => this().componentFactory.type;
 }
 
 /// A utility variation on [UiFactory], __without__ a `backingProps` parameter.
