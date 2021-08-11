@@ -1,5 +1,9 @@
 # OverReact Changelog
 
+## [4.2.0](https://github.com/Workiva/over_react/compare/4.1.3...4.2.0)
+
+- [#701] Add `elementType` convenience getter to `UiFactory`, Change `meta` dependency lower-bound to `1.1.6` to prevent dependency gridlock (missed in [#695]).
+
 ## [4.1.3](https://github.com/Workiva/over_react/compare/4.1.2...4.1.3)
 
 - [#698] Conditionally unconvert style and children props
