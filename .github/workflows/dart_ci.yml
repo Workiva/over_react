@@ -35,7 +35,7 @@ jobs:
 
       - name: Verify formatting
         run: pub run dart_dev format --check
-        if: always() && ${{ matrix.sdk }} == '2.7.2' && steps.install.outcome == 'success'
+        if: always() && matrix.sdk == '2.7.2' && steps.install.outcome == 'success'
 
       # Analyze before generated files are created to verify that component boilerplate analysis is "clean" without the need for building
       - name: Analyze example source (pre-build)
@@ -112,7 +112,7 @@ jobs:
 
       - name: Verify formatting
         run: pub run dart_dev format --check
-        if: always() && ${{ matrix.sdk }} == '2.7.2' && steps.install.outcome == 'success'
+        if: always() && matrix.sdk == '2.7.2' && steps.install.outcome == 'success'
 
       - name: Run tests
         run: pub run dart_dev test
