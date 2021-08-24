@@ -196,7 +196,6 @@ class NodeLocator2 extends UnifyingAstVisitor<void> {
   }
 }
 
-
 /// Instances of the class [ConstantEvaluator] evaluate constant expressions to
 /// produce their compile-time value.
 ///
@@ -472,12 +471,10 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
   Object visitNullLiteral(NullLiteral node) => null;
 
   @override
-  Object visitParenthesizedExpression(ParenthesizedExpression node) =>
-      node.expression.accept(this);
+  Object visitParenthesizedExpression(ParenthesizedExpression node) => node.expression.accept(this);
 
   @override
-  Object visitPrefixedIdentifier(PrefixedIdentifier node) =>
-      _getConstantValue(null);
+  Object visitPrefixedIdentifier(PrefixedIdentifier node) => _getConstantValue(null);
 
   @override
   Object visitPrefixExpression(PrefixExpression node) {
@@ -536,8 +533,7 @@ class ConstantEvaluator extends GeneralizingAstVisitor<Object> {
   }
 
   @override
-  Object visitSimpleIdentifier(SimpleIdentifier node) =>
-      _getConstantValue(null);
+  Object visitSimpleIdentifier(SimpleIdentifier node) => _getConstantValue(null);
 
   @override
   Object visitSimpleStringLiteral(SimpleStringLiteral node) => node.value;

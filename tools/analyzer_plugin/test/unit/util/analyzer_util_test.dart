@@ -131,8 +131,7 @@ class B {}''');
     final node = locator.searchWithin(unit);
     expect(locator.foundNode, same(node));
     expect(node.offset <= start, isTrue, reason: "Node starts after range");
-    expect(node.offset + node.length > end, isTrue,
-        reason: "Node ends before range");
+    expect(node.offset + node.length > end, isTrue, reason: "Node ends before range");
     return node;
   }
 }
