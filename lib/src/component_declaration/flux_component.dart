@@ -228,24 +228,38 @@ abstract class FluxUiStatefulComponent2<TProps extends FluxUiProps, TState exten
 ///
 /// Private so it will only get used in this file, since having lifecycle methods in a mixin is risky.
 mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiComponent<TProps>, BatchedRedraws {
-  static final Logger _logger = Logger('over_react._FluxComponentMixin');
-
   /// List of store subscriptions created when the component mounts.
   ///
   /// These subscriptions are canceled when the component is unmounted.
   List<StreamSubscription> _subscriptions = [];
 
   void _validateStoreDisposalState(Store store) {
-    String message = 'Cannot listen to a disposed/disposing Store.';
+    if (store.isOrWillBeDisposed) {
+      // Include the component name in the logger so that
+      // 1. it's included in the log somewhere
+      // 2. logs from the same component can be easily grouped together
+      final logger = Logger('over_react._FluxComponentMixin.$displayName');
 
-    var isDisposedOrDisposing = store.isOrWillBeDisposed ?? false;
+      var storeNameOrType = store.disposableTypeName;
+      // Detect if they don't override disposableTypeName and use the default name.
+      if (storeNameOrType == 'Store') {
+        storeNameOrType = store.runtimeType.toString();
+      }
 
-    assert(!isDisposedOrDisposing, '$message This can be caused by BatchedRedraws '
-        'mounting the component asynchronously after the store has been disposed. If you are '
-        'in a test environment, try adding an `await window.animationFrame;` before disposing your '
-        'store.');
+      final message = 'Cannot listen to a disposed/disposing Store.'
+          ' (storeNameOrType: $storeNameOrType, shouldBatchRedraw: $shouldBatchRedraw)';
 
-    if (isDisposedOrDisposing) _logger.warning(message);
+      // Throw in dev mode, warn in prod.
+      assert(
+          false,
+          '$message This can be caused by BatchedRedraws '
+          'mounting the component asynchronously after the store has been disposed. If you are '
+          'in a test environment, try adding an `await window.animationFrame;` before disposing your '
+          'store.');
+
+      // Include a stack trace explicitly since it's not added by default.
+      logger.warning(message, null, StackTrace.current);
+    }
   }
 
   void _setUpStoreListeners() {
