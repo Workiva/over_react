@@ -10,6 +10,8 @@ import 'package:over_react/component_base.dart';
 ///
 /// __For use in debugging contexts only; not suitable for other use.__
 ///
+// Need to ignore this just for Dart 2.7.2
+// ignore: comment_references
 /// This is preferable to [UiComponent.displayName] since that doesn't include
 /// the generated displayName passed to [registerComponent]/
 String getDebugNameForDartComponent(UiComponent component) {
