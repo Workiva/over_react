@@ -21,6 +21,7 @@ import 'dart:async';
 import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 import 'package:over_react/component_base.dart' as component_base;
+import 'package:over_react/src/util/component_debug_name.dart';
 import 'package:w_flux/w_flux.dart';
 
 import 'annotations.dart' as annotations;
@@ -235,10 +236,12 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
 
   void _validateStoreDisposalState(Store store) {
     if (store.isOrWillBeDisposed) {
+      final componentName = getDebugNameForDartComponent(this);
+
       // Include the component name in the logger so that
       // 1. it's included in the log somewhere
       // 2. logs from the same component can be easily grouped together
-      final logger = Logger('over_react._FluxComponentMixin.$displayName');
+      final logger = Logger('over_react._FluxComponentMixin.$componentName');
 
       var storeNameOrType = store.disposableTypeName;
       // Detect if they don't override disposableTypeName and use the default name.
