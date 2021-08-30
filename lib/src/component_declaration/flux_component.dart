@@ -238,13 +238,13 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
     if (store.isOrWillBeDisposed) {
       final componentName = getDebugNameForDartComponent(this);
 
-      // Include the component name in the logger so that
+      // Include the component name in the logger name so that:
       // 1. it's included in the log somewhere
       // 2. logs from the same component can be easily grouped together
       final logger = Logger('over_react._FluxComponentMixin.$componentName');
 
       var storeNameOrType = store.disposableTypeName;
-      // Detect if they don't override disposableTypeName and use the default name.
+      // Detect if they don't override disposableTypeName by checking for the default name.
       if (storeNameOrType == 'Store') {
         storeNameOrType = store.runtimeType.toString();
       }
