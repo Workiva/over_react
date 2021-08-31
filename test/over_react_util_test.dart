@@ -24,6 +24,7 @@ import 'package:test/test.dart';
 
 import 'over_react/util/cast_ui_factory_test.dart' as cast_ui_factory_test;
 import 'over_react/util/class_names_test.dart' as class_names_test;
+import 'over_react/util/component_debug_name_test.dart' as component_debug_name_test;
 import 'over_react/util/constants_base_test.dart' as constants_base_test;
 import 'over_react/util/css_value_util_test.dart' as css_value_util_test;
 import 'over_react/util/dom_util_test.dart' as dom_util_test;
@@ -47,6 +48,7 @@ void main() {
 
   cast_ui_factory_test.main();
   class_names_test.main();
+  component_debug_name_test.main();
   constants_base_test.main();
   css_value_util_test.main();
   dom_util_test.main();
