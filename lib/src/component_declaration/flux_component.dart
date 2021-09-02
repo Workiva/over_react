@@ -235,7 +235,9 @@ mixin _FluxComponentMixin<TProps extends FluxUiProps> on component_base.UiCompon
   List<StreamSubscription> _subscriptions = [];
 
   void _validateStoreDisposalState(Store store) {
-    if (store.isOrWillBeDisposed) {
+    // We need a null-aware here since there are many mocked store classes
+    // in the wild that return null for isOrWillBeDisposed.
+    if (store.isOrWillBeDisposed ?? false) {
       final componentName = getDebugNameForDartComponent(this);
 
       // Include the component name in the logger name so that:
