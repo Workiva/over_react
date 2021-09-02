@@ -1,5 +1,9 @@
 # OverReact Changelog
 
+## [4.2.1](https://github.com/Workiva/over_react/compare/4.2.0...4.2.1)
+
+- [#703] Improve FluxUiComponent logging when attempting to subscribe to a disposed store
+
 ## [4.2.0](https://github.com/Workiva/over_react/compare/4.1.3...4.2.0)
 
 - [#701] Add `elementType` convenience getter to `UiFactory`, Change `meta` dependency lower-bound to `1.1.6` to prevent dependency gridlock (missed in [#695]).
