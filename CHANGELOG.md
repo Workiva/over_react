@@ -1,5 +1,9 @@
 # OverReact Changelog
 
+## [4.2.2](https://github.com/Workiva/over_react/compare/4.2.1...4.2.2)
+
+- Reinstate null-aware isDisposedOrDisposing (removed in [#703]/4.2.1) to support tests with mocked stores
+
 ## [4.2.1](https://github.com/Workiva/over_react/compare/4.2.0...4.2.1)
 
 - [#703] Improve FluxUiComponent logging when attempting to subscribe to a disposed store
