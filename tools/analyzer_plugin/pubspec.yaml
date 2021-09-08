@@ -6,7 +6,7 @@ repository: https://github.com/Workiva/over_react/tree/master/tools/analyzer_plu
 environment:
   sdk: '>=2.9.0 <3.0.0'
 dependencies:
-  analyzer: ">=0.39.10 <0.42.0"
+  analyzer: ">=0.39.14 <0.42.0"
   analyzer_plugin: '^0.2.4'
   collection: ^1.14.0
   # Upon release, this should be pinned to the over_react version from ../../pubspec.yaml

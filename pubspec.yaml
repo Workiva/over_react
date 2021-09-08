@@ -10,7 +10,7 @@ dependencies:
   # Dart 2.7 needs 0.39.x to resolve,
   # and Dart 2.12+ needs 0.42.x to resolve to build_web_compilers 2.12.0, etc.
   # to enable proper opting out of null-safety.
-  analyzer: '>=0.39.0 <0.42.0'
+  analyzer: '>=0.39.14 <0.42.0'
   build: ^1.0.0
   built_redux: ^7.4.2
   built_value: '>=6.8.2 <9.0.0'
