@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [ 2.7.2, stable, dev ]
+        sdk: [ 2.7.2, 2.13.4, stable, dev ]
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v0.2
@@ -44,9 +44,7 @@ jobs:
           # which could cause analysis issues for consumers who haven't run a build yet.
           dartanalyzer lib
           cd example/boilerplate_versions
-          if [ ${{ matrix.sdk }} = '2.7.2' ]; then pub global activate tuneup && tuneup check; fi
-          if [ ${{ matrix.sdk }} = 'stable' ]; then echo 'Skip pre-build analysis for Dart versions >=2.9 and <2.12 because there will be analysis errors.'; fi
-          if [ ${{ matrix.sdk }} = 'dev' ]; then cd mixin_based/dart_2_9_compatible && dart analyze; fi
+          if [ ${{ matrix.sdk }} = '2.7.2' ]; then pub global activate tuneup && tuneup check; else dart analyze; fi
         if: always() && steps.install.outcome == 'success'
 
       - id: build
@@ -87,7 +85,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [ 2.7.2, stable, dev ]
+        sdk: [ 2.7.2, 2.13.4, stable, dev ]
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v0.2

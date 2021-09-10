@@ -1,5 +1,31 @@
 # OverReact Changelog
 
+## [4.2.2](https://github.com/Workiva/over_react/compare/4.2.1...4.2.2)
+
+- Reinstate null-aware isDisposedOrDisposing (removed in [#703]/4.2.1) to support tests with mocked stores
+
+## [4.2.1](https://github.com/Workiva/over_react/compare/4.2.0...4.2.1)
+
+- [#703] Improve FluxUiComponent logging when attempting to subscribe to a disposed store
+
+## [4.2.0](https://github.com/Workiva/over_react/compare/4.1.3...4.2.0)
+
+- [#701] Add `elementType` convenience getter to `UiFactory`, Change `meta` dependency lower-bound to `1.1.6` to prevent dependency gridlock (missed in [#695]).
+
+## [4.1.3](https://github.com/Workiva/over_react/compare/4.1.2...4.1.3)
+
+- [#698] Conditionally unconvert style and children props
+
+## [4.1.2](https://github.com/Workiva/over_react/compare/4.1.1...4.1.2)
+
+- [#689] Copy language version comments to generated part files
+- [#695] Widen Dependency Ranges Blocking Dart 2.13
+
+## [4.1.1](https://github.com/Workiva/over_react/compare/4.1.0...4.1.1)
+
+- [#685] Remove deprecated authors field from pubspec.yaml
+- [#691] Enable resolution of build_web_compilers 2.12.0, fix Dart stable build
+
 ## [4.1.0](https://github.com/Workiva/over_react/compare/4.0.0...4.1.0)
 
 - [#679] Update boilerplate to be compatible with Dart >=2.9.0.
