@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [ 2.7.2, stable, dev ]
+        sdk: [ 2.7.2, 2.13.4, stable, dev ]
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v0.2
@@ -35,7 +35,7 @@ jobs:
 
       - name: Verify formatting
         run: pub run dart_dev format --check
-        if: always() && ${{ matrix.sdk }} == '2.7.2' && steps.install.outcome == 'success'
+        if: always() && matrix.sdk == '2.7.2' && steps.install.outcome == 'success'
 
       # Analyze before generated files are created to verify that component boilerplate analysis is "clean" without the need for building
       - name: Analyze example source (pre-build)
@@ -44,16 +44,20 @@ jobs:
           # which could cause analysis issues for consumers who haven't run a build yet.
           dartanalyzer lib
           cd example/boilerplate_versions
-          if [ ${{ matrix.sdk }} = '2.7.2' ]; then pub global activate tuneup && tuneup check; fi
-          if [ ${{ matrix.sdk }} = 'stable' ]; then echo 'Skip pre-build analysis for Dart versions >=2.9 and <2.12 because there will be analysis errors.'; fi
-          if [ ${{ matrix.sdk }} = 'dev' ]; then cd mixin_based/dart_2_9_compatible && dart analyze; fi
+          if [ ${{ matrix.sdk }} = '2.7.2' ]; then pub global activate tuneup && tuneup check; else dart analyze; fi
         if: always() && steps.install.outcome == 'success'
 
       - id: build
+        timeout-minutes: 6
         name: Build generated files / precompile DDC assets
         run: |
           pub run build_runner build --delete-conflicting-outputs -o ddc_precompiled
-          git diff --exit-code
+          if [ ${{ matrix.sdk }} = '2.7.2' ]; then
+            git diff --exit-code
+          else
+            # Exclude built_redux generated files since they get generated differently in Dart 2.7 vs other versions
+            git diff --exit-code -- ":(exclude)test/over_react/component_declaration/redux_component_test/test_reducer.g.dart"
+          fi
         if: always() && steps.install.outcome == 'success'
 
       # Analyze again after generated files are created to verify that those generated classes don't cause analysis errors
@@ -78,7 +82,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [ 2.7.2, stable, dev ]
+        sdk: [ 2.7.2, 2.13.4, stable, dev ]
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v0.2

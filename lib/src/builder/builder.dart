@@ -159,7 +159,10 @@ class OverReactBuilder extends Builder {
         log.severe('Missing "part \'$expectedPart\';".');
       }
 
-      await _writePart(buildStep, outputId, outputs);
+      // Generated part files must have matching language version comments, so copy them over if they exist.
+      // TODO use CompilationUnit.languageVersionToken instead of parsing this manually once we're sure we can get on analyzer version 0.39.5 or greater
+      final languageVersionCommentMatch = RegExp(r'//\s*@dart\s*=\s*.+').firstMatch(source);
+      await _writePart(buildStep, outputId, outputs, languageVersionComment: languageVersionCommentMatch?.group(0));
     } else {
       if (hasOutputPartDirective()) {
         log.warning('An over_react part directive was found in ${buildStep.inputId.path}, '
@@ -186,10 +189,14 @@ class OverReactBuilder extends Builder {
     return null;
   }
 
-  static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs) async {
+  static FutureOr<void> _writePart(BuildStep buildStep, AssetId outputId, Iterable<String> outputs, {String languageVersionComment}) async {
     final partOf = "'${p.basename(buildStep.inputId.uri.toString())}'";
 
-    final buffer = StringBuffer()
+    final buffer = StringBuffer();
+    if (languageVersionComment != null) {
+      buffer.writeln(languageVersionComment);
+    }
+    buffer
       ..writeln('// GENERATED CODE - DO NOT MODIFY BY HAND')
       ..writeln()
       ..writeln('// ignore_for_file: deprecated_member_use_from_same_package, unnecessary_null_in_if_null_operators, prefer_null_aware_operators')
