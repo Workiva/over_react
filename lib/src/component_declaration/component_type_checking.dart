@@ -20,6 +20,7 @@ import 'dart:js_util';
 import 'package:meta/meta.dart';
 import 'package:over_react/src/component_declaration/component_base.dart'
     show UiFactory;
+import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 import 'package:over_react/src/component_declaration/annotations.dart'
     as annotations show Component2;
 import 'package:over_react/src/util/react_wrappers.dart';
@@ -280,10 +281,15 @@ dynamic getComponentTypeFromAlias(dynamic typeAlias) {
   }
 
   if (typeAlias is UiFactory) {
-    final componentFactory = typeAlias().componentFactory;
-    if (componentFactory != null) {
-      return componentFactory.type;
-    }
+    // We need a try-catch and explicit test for UiProps here since type-checking
+    // JS functions with `is UiFactory` returns `true`, and we may not actually
+    // be invoking a UiFactory.
+    try {
+      final builder = typeAlias();
+      if (builder is component_base.UiProps) {
+        return builder.componentFactory?.type;
+      }
+    } catch (_) {}
   }
 
   /// If `typeAlias` is an actual type, return it.
