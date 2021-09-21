@@ -246,7 +246,7 @@ class ComponentTypeMeta {
 /// Returns the canonical "type" for a component ([ReactClass] or [String] `tagName`)
 /// associated with [typeAlias], which can be a component's:
 ///
-/// * [UiFactory] (Dart components only)
+/// * [UiFactory]
 /// * [UiComponent] [Type] (Dart components only)
 /// * [ReactComponentFactoryProxy]
 /// * [ReactClass] component factory
@@ -276,6 +276,13 @@ dynamic getComponentTypeFromAlias(dynamic typeAlias) {
     var aliasedType = _typeAliasToFactory[typeAlias]?.type;
     if (aliasedType != null) {
       return aliasedType;
+    }
+  }
+
+  if (typeAlias is UiFactory) {
+    final componentFactory = typeAlias().componentFactory;
+    if (componentFactory != null) {
+      return componentFactory.type;
     }
   }
 

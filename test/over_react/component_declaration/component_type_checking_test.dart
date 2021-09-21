@@ -19,13 +19,14 @@ import 'package:meta/meta.dart';
 import 'package:over_react/over_react.dart';
 import 'package:over_react/over_react_redux.dart' show connect;
 import 'package:over_react/src/component_declaration/component_type_checking.dart';
-import 'package:over_react/src/component_declaration/component_base.dart';
+import 'package:over_react/src/component_declaration/function_component.dart' show GenericUiProps;
 import 'package:react/react_client.dart';
 import 'package:react/react_client/react_interop.dart' as react_interop;
 import 'package:test/test.dart';
 
 import '../../test_util/one_level_wrapper.dart';
 import '../../test_util/two_level_wrapper.dart';
+import '../util/react_wrappers_test.dart';
 import 'component_type_checking_test/test_a.dart';
 import 'component_type_checking_test/test_b.dart';
 import 'component_type_checking_test/type_inheritance/abstract_inheritance/abstract.dart';
@@ -175,6 +176,24 @@ main() {
         registerComponentTypeAlias(factory, typeAlias);
 
         expect(getComponentTypeFromAlias(typeAlias), same(reactClass));
+      });
+
+      test('returns the componentFactory.type for an unregistered UiFactory', () {
+        final reactClass = createTestReactClass();
+        final factory = ReactDartComponentFactoryProxy2(createTestReactClass());
+        // This should be a new instance every test run, which is why we
+        // don't set it up within the group.
+        // ignore: prefer_function_declarations_over_variables
+        final UiFactory alias = ([backingMap]) => GenericUiProps(factory, backingMap);
+        expect(getComponentTypeFromAlias(alias), same(reactClass));
+      });
+
+      test('returns null for an unregistered UiFactory with a null componentFactory', () {
+        // This should be a new instance every test run, which is why we
+        // don't set it up within the group.
+        // ignore: prefer_function_declarations_over_variables
+        final UiFactory alias = ([backingMap]) => GenericUiProps(null, backingMap);
+        expect(getComponentTypeFromAlias(alias), isNull);
       });
 
       test('returns null for an unregistered/invalid type alias', () {
@@ -371,6 +390,12 @@ testComponentTypeChecking({
           expect(isComponentOfType(TestA()(), TestA), isTrue);
         });
 
+        test('a component and a non-registered factory', () {
+          // ignore: prefer_function_declarations_over_variables
+          UiFactory otherFactory = ([props]) => TestA(props);
+          expect(isComponentOfType(TestA()(), otherFactory), isTrue);
+        });
+
         test('a component and its ReactComponentFactory', () {
           expect(isComponentOfType(TestA()(), TestA().componentFactory), isTrue);
         });
@@ -401,6 +426,40 @@ testComponentTypeChecking({
 
         test('a component and a component type for a different component', () {
           expect(isComponentOfType(TestA()(), TestB()().type), isFalse);
+        });
+
+        test('a JS component and an invalid/unregistered type alias', () {
+          expect(isComponentOfType(TestJs()(), Object()), isFalse);
+        });
+
+        test('a JS component and its non-registered factory', () {
+          expect(isComponentOfType(TestJs()(), TestJs), isTrue);
+        });
+
+        test('a JS component and its ReactComponentFactory', () {
+          expect(isComponentOfType(TestJs()(), TestJs().componentFactory), isTrue);
+        });
+
+        test('a JS component and its component type', () {
+          expect(isComponentOfType(TestJs()(), TestJs()().type), isTrue);
+        });
+
+        test('a JS component and a factory for a different component', () {
+          expect(isComponentOfType(TestJs()(), TestB), isFalse);
+        });
+
+        test('a JS component and a ReactComponentFactory for a different component', () {
+          expect(isComponentOfType(TestJs()(), TestB().componentFactory), isFalse);
+        });
+
+        if (TestAComponent != null) {
+          test('a JS component and a component class for a different component', () {
+            expect(isComponentOfType(TestJs()(), TestAComponent), isFalse);
+          });
+        }
+
+        test('a JS component and a component type for a different component', () {
+          expect(isComponentOfType(TestJs()(), TestB()().type), isFalse);
         });
 
         test('a DOM component and a factory for a Dart component', () {
@@ -548,3 +607,6 @@ react_interop.ReactClass createTestReactClass() {
   // ignore: deprecated_member_use
   return react_interop.React.createClass(react_interop.ReactClassConfig(render: allowInterop(() => false)))..dartDefaultProps = const {};
 }
+
+// ignore: prefer_function_declarations_over_variables
+UiFactory<UiProps> TestJs = ([backingMap]) => GenericUiProps(testJsComponentFactoryProxy, backingMap);
