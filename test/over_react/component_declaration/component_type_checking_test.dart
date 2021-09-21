@@ -180,12 +180,21 @@ main() {
 
       test('returns the componentFactory.type for an unregistered UiFactory', () {
         final reactClass = createTestReactClass();
-        final factory = ReactDartComponentFactoryProxy2(createTestReactClass());
+        final factory = ReactDartComponentFactoryProxy2(reactClass);
         // This should be a new instance every test run, which is why we
         // don't set it up within the group.
         // ignore: prefer_function_declarations_over_variables
         final UiFactory alias = ([backingMap]) => GenericUiProps(factory, backingMap);
         expect(getComponentTypeFromAlias(alias), same(reactClass));
+      });
+
+      test('returns the componentFactory.type for an unregistered JS UiFactory', () {
+        final factory = testJsComponentFactoryProxy;
+        // This should be a new instance every test run, which is why we
+        // don't set it up within the group.
+        // ignore: prefer_function_declarations_over_variables
+        final UiFactory alias = ([backingMap]) => GenericUiProps(factory, backingMap);
+        expect(getComponentTypeFromAlias(alias), same(factory.type));
       });
 
       test('returns null for an unregistered UiFactory with a null componentFactory', () {
