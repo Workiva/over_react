@@ -20,6 +20,7 @@ import 'dart:js_util';
 import 'package:meta/meta.dart';
 import 'package:over_react/src/component_declaration/component_base.dart'
     show UiFactory;
+import 'package:over_react/src/component_declaration/component_base.dart' as component_base;
 import 'package:over_react/src/component_declaration/annotations.dart'
     as annotations show Component2;
 import 'package:over_react/src/util/react_wrappers.dart';
@@ -246,7 +247,7 @@ class ComponentTypeMeta {
 /// Returns the canonical "type" for a component ([ReactClass] or [String] `tagName`)
 /// associated with [typeAlias], which can be a component's:
 ///
-/// * [UiFactory] (Dart components only)
+/// * [UiFactory]
 /// * [UiComponent] [Type] (Dart components only)
 /// * [ReactComponentFactoryProxy]
 /// * [ReactClass] component factory
@@ -277,6 +278,18 @@ dynamic getComponentTypeFromAlias(dynamic typeAlias) {
     if (aliasedType != null) {
       return aliasedType;
     }
+  }
+
+  if (typeAlias is UiFactory) {
+    // We need a try-catch and explicit test for UiProps here since type-checking
+    // JS functions with `is UiFactory` returns `true`, and we may not actually
+    // be invoking a UiFactory.
+    try {
+      final builder = typeAlias();
+      if (builder is component_base.UiProps) {
+        return builder.componentFactory?.type;
+      }
+    } catch (_) {}
   }
 
   /// If `typeAlias` is an actual type, return it.
