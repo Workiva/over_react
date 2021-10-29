@@ -94,7 +94,7 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
         AddCreateRefAssistContributor(),
         ExtractComponentAssistContributor(),
         ExtractStatefulComponentAssistContributor(),
-        ToggleComponentStatefulness(),
+        // ToggleComponentStatefulness(),
         // TODO re-enable this when it's more polished
 //        WrapUnwrapAssistContributor(),
       ];
@@ -122,9 +122,9 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
         // TODO: Re-enable this once consumers can disable lints via analysis_options.yaml
 //        BoolPropNameReadabilityDiagnostic(),
         StyleMissingUnitDiagnostic(),
-        BoilerplateValidatorDiagnostic(),
+        // BoilerplateValidatorDiagnostic(),
         VariadicChildrenWithKeys(),
-        IncorrectDocCommentLocationDiagnostic(),
+        // IncorrectDocCommentLocationDiagnostic(),
         ConsumedPropsReturnValueDiagnostic(),
         ForwardOnlyDomPropsToDomBuildersDiagnostic(),
         IteratorKey(),
@@ -151,12 +151,16 @@ class OverReactAnalyzerPlugin extends OverReactAnalyzerPluginBase {
   AnalysisDriverGeneric createAnalysisDriver(plugin.ContextRoot contextRoot) {
     final root = ContextRoot(contextRoot.root, contextRoot.exclude, pathContext: resourceProvider.pathContext)
       ..optionsFilePath = contextRoot.optionsFile;
-    final contextBuilder = ContextBuilder(resourceProvider, sdkManager, null)
+    // final workspace = root.
+    final contextBuilder = ContextBuilder(resourceProvider, sdkManager)
       ..analysisDriverScheduler = analysisDriverScheduler
       ..byteStore = byteStore
-      ..performanceLog = performanceLog
-      ..fileContentOverlay = fileContentOverlay;
-    final result = contextBuilder.buildDriver(root);
+      ..performanceLog = performanceLog;
+    final workspace = ContextBuilder.createWorkspace(
+        resourceProvider: resourceProvider,
+        options: ContextBuilderOptions(),
+        rootPath: contextRoot.root);
+    final result = contextBuilder.buildDriver(root, workspace);
     runZoned(() {
       result.results.listen(processDiagnosticsForResult);
       // TODO: Once we are ready to bump the SDK lower bound to 2.8.x, we should swap this out for `runZoneGuarded`.

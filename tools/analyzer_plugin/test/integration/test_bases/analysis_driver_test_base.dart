@@ -3,11 +3,10 @@ import 'dart:io';
 import 'package:analyzer/file_system/file_system.dart';
 import 'package:analyzer/file_system/memory_file_system.dart';
 import 'package:analyzer/file_system/physical_file_system.dart';
-import 'package:analyzer/src/context/context_root.dart';
+import 'package:analyzer/src/context/packages.dart';
 import 'package:analyzer/src/dart/analysis/analysis_context_collection.dart';
 import 'package:analyzer/src/dart/analysis/byte_store.dart';
 import 'package:analyzer/src/dart/analysis/driver.dart' show AnalysisDriver, AnalysisDriverScheduler;
-import 'package:analyzer/src/dart/analysis/file_state.dart';
 import 'package:analyzer/src/dart/analysis/performance_logger.dart';
 import 'package:analyzer/src/generated/engine.dart';
 import 'package:analyzer/src/generated/source.dart';
@@ -89,19 +88,18 @@ abstract class AnalysisDriverTestBase {
 
     final logger = PerformanceLog(StringBuffer());
     final analysisScheduler = AnalysisDriverScheduler(logger)..start();
-    _analysisDriver = AnalysisDriver(
-      analysisScheduler,
-      logger,
-      resourceProvider,
-      MemoryByteStore(),
-      FileContentOverlay(),
-      ContextRoot(testPath, [], pathContext: null),
-      SourceFactory([
+    _analysisDriver = AnalysisDriver.tmp1(
+      scheduler: analysisScheduler,
+      logger: logger,
+      resourceProvider: resourceProvider,
+      byteStore: MemoryByteStore(),
+      sourceFactory: SourceFactory([
         DartUriResolver(sdk),
         PackageMapUriResolver(resourceProvider, packageMap),
         ResourceUriResolver(resourceProvider),
       ]),
-      AnalysisOptionsImpl(),
+      analysisOptions: AnalysisOptionsImpl(),
+      packages: Packages.empty,
     );
 
     final contextCollection = AnalysisContextCollectionImpl(

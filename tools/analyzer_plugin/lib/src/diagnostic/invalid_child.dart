@@ -107,7 +107,7 @@ Future<void> validateReactChildType(DartType type, TypeSystem typeSystem, TypePr
   if (typeSystem.isSubtypeOf(type, typeProvider.iterableDynamicType)) {
     // Use the least-upper-bound to get the an instance of the Iterable type with matching type arguments.
     // e.g., leastUpperBound(`List<String>`, `Iterable<bottom>`) should yield `Iterable<String>`
-    final lub = typeSystem.leastUpperBound(type, typeProvider.iterableType2(typeProvider.bottomType));
+    final lub = typeSystem.leastUpperBound(type, typeProvider.iterableType(typeProvider.bottomType));
     final iterableTypeArg =
         lub.isDartCoreIterable ? lub.tryCast<ParameterizedType>()?.typeArguments?.firstOrNull : null;
     if (iterableTypeArg != null) {

@@ -7,7 +7,7 @@ badKeys() {
   Object objectVar;
   dynamic dynamicVar;
 
-  return Fragment()(
+  return [
     // Good keys
     (Dom.div()..key = 'a string')(),
     (Dom.div()..key = 122)(),
@@ -34,7 +34,7 @@ badKeys() {
     // over_react_unknown_key_type (as Iterable/Map generic arguments)
     (Dom.div()..key = {'foo': modelVar, 'bar': 1})(),
     (Dom.div()..key = [1, modelVar])(),
-  );
+  ];
 }
 
 // ignore: missing_return

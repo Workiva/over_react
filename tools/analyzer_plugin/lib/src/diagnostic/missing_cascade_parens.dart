@@ -55,8 +55,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
   // Make smaller (higher priority) than
   // REMOVE_PARENTHESIS_IN_GETTER_INVOCATION
 
-  static final fixKind = FixKind(code.name, 400, 'Add parentheses around props cascade',
-      appliedTogetherMessage: 'Add parentheses around props cascades');
+  static final fixKind = FixKind(code.name, 400, 'Add parentheses around props cascade');
 
   @override
   computeErrors(result, collector) async {
