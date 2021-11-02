@@ -7,7 +7,7 @@ environment:
   sdk: ">=2.11.0 <3.0.0"
 dependencies:
   analyzer: ">=0.39.10 <0.42.0"
-  analyzer_plugin: '^0.2.4'
+  analyzer_plugin: ">=0.2.4 <0.5.0"
   collection: ^1.14.0
   # Upon release, this should be pinned to the over_react version from ../../pubspec.yaml
   # so that it always resolves to the same version of over_react that the user has pulled in,
@@ -28,7 +28,6 @@ dev_dependencies:
   io: ^0.3.2+1
   logging: ^0.11.3+2
   markdown: ^2.1.5
-  mockito: ^4.1.1
   package_config: ^1.9.3
   test: ^1.15.7
   test_reflective_loader: ^0.1.9

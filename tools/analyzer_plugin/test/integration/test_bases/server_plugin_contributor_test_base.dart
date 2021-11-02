@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:test/test.dart';
 
-import '../mocks.dart';
+import '../stubs.dart';
 import 'analysis_driver_test_base.dart';
 import 'assist_test_base.dart';
 
@@ -99,7 +99,7 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
         reason: 'Unexpected plugin error(s):\n${pluginErrors.map((e) => e.toJson()).join('\n')}');
   }
 
-  MockChannel _channel;
+  StubChannel _channel;
   PluginForTest _plugin;
 
   @override
@@ -107,7 +107,7 @@ abstract class ServerPluginContributorTestBase extends AnalysisDriverTestBase {
   Future<void> setUp() async {
     await super.setUp();
 
-    _channel = MockChannel();
+    _channel = StubChannel();
     _plugin = PluginForTest(analysisDriver, resourceProvider)..start(_channel);
 
     // ignore: missing_required_param

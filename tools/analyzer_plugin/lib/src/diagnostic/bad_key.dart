@@ -158,19 +158,19 @@ class BadKeyDiagnostic extends ComponentUsageDiagnosticContributor {
         collector.addError(
           dynamicOrObjectCode,
           result.locationFor(expression),
-          errorMessageArgs: [type.getDisplayString(), getTypeContextString()],
+          errorMessageArgs: [type.getDisplayString(withNullability: false), getTypeContextString()],
         );
       } else if (type.isDartCoreBool || type.isDartCoreNull) {
         collector.addError(
           lowQualityCode,
           result.locationFor(expression),
-          errorMessageArgs: [type.getDisplayString(), getTypeContextString()],
+          errorMessageArgs: [type.getDisplayString(withNullability: false), getTypeContextString()],
         );
       } else if (inheritsToStringImplFromObject(type?.element)) {
         collector.addError(
           toStringCode,
           result.locationFor(expression),
-          errorMessageArgs: [type.getDisplayString(), getTypeContextString()],
+          errorMessageArgs: [type.getDisplayString(withNullability: false), getTypeContextString()],
         );
       }
     }

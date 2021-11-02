@@ -1,6 +1,6 @@
 // ignore: deprecated_member_use
-import 'package:analyzer/analyzer.dart' show NodeLocator;
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:over_react_analyzer_plugin/src/util/analyzer_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 import 'package:analyzer_plugin/protocol/protocol_common.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
@@ -110,7 +110,7 @@ class MissingCascadeParensDiagnostic extends DiagnosticContributor {
           continue;
         }
 
-        debug.log('${invocation.function.staticType?.getDisplayString()}');
+        debug.log('${invocation.function.staticType?.getDisplayString(withNullability: false)}');
 
         if (isBadFunction && (invocation.function.staticType?.isReactElement ?? false)) {
           final expr = invocation.function?.tryCast<InvocationExpression>() ??
