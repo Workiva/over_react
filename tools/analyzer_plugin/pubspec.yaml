@@ -23,7 +23,7 @@ dev_dependencies:
   convert: ^2.1.1
   crypto: ^2.1.5
   dart_dev: ^3.0.0
-  dependency_validator: ^1.4.0
+  dependency_validator: ^2.0.0
   glob: ^1.2.0
   io: ^0.3.2+1
   logging: ^0.11.3+2
@@ -33,6 +33,11 @@ dev_dependencies:
   test_reflective_loader: ^0.1.9
   workiva_analysis_options: ^1.1.0
   yaml: ^2.2.1
+
+dependency_validator:
+  ignore:
+    - meta
+    - over_react
 
 # If you're developing on changes in over_react that the analyzer plugin needs to consume,
 # point to the local copy of over_react. This must be an absolute path.

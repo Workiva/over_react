@@ -30,7 +30,7 @@ jobs:
         run: pub get
 
       - name: Validate dependencies
-        run: pub run dependency_validator --no-fatal-pins -i analyzer,build_runner,build_web_compilers,built_value_generator
+        run: dart run dependency_validator
         if: always() && steps.install.outcome == 'success'
 
       - name: Verify formatting
@@ -105,7 +105,7 @@ jobs:
         if: always() && steps.link.outcome == 'success'
 
       - name: Validate dependencies
-        run: pub run dependency_validator --no-fatal-pins -i analyzer,build_runner,build_web_compilers,built_value_generator
+        run: dart run dependency_validator
         if: always() && steps.install.outcome == 'success'
 
       - name: Verify formatting

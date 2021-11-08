@@ -38,7 +38,7 @@ dev_dependencies:
   built_value_generator: '>=7.0.0 <9.0.0'
   dart2_constant: ^1.0.0
   dart_dev: ^3.6.4
-  dependency_validator: ^1.4.0
+  dependency_validator: ^2.0.0
   glob: ^1.2.0
   io: ^0.3.2+1
   mockito: ^4.1.1
@@ -51,3 +51,10 @@ workiva:
   core_checks:
     version: 1
     react_boilerplate: disabled
+
+dependency_validator:
+  exclude:
+    - app/**
+    - tools/**
+  ignore:
+    - meta
