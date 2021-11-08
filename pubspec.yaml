@@ -51,3 +51,10 @@ workiva:
   core_checks:
     version: 1
     react_boilerplate: disabled
+
+dependency_validator:
+  exclude:
+    - app/**
+    - tools/**
+  ignore:
+    - meta
