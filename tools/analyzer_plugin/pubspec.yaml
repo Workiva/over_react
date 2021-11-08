@@ -34,6 +34,11 @@ dev_dependencies:
   workiva_analysis_options: ^1.1.0
   yaml: ^2.2.1
 
+dependency_validator:
+  ignore:
+    - meta
+    - over_react
+
 # If you're developing on changes in over_react that the analyzer plugin needs to consume,
 # point to the local copy of over_react. This must be an absolute path.
 #
