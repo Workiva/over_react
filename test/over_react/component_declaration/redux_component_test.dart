@@ -16,7 +16,6 @@ library over_react.component_declaration.redux_component_test;
 
 import 'dart:async';
 
-import 'package:dart2_constant/core.dart' as d2c;
 import 'package:test/test.dart';
 import 'package:built_redux/built_redux.dart';
 import 'package:over_react/over_react.dart';
@@ -80,14 +79,14 @@ void main() {
       TestDefaultComponent component = getDartComponent(renderedInstance);
 
       store.actions.trigger1();
-      await Future.delayed(d2c.Duration.zero);
+      await Future.delayed(Duration.zero);
 
       expect(component.numberOfRedraws, 1);
 
       unmount(renderedInstance);
 
       store.actions.trigger1();
-      await Future.delayed(d2c.Duration.zero);
+      await Future.delayed(Duration.zero);
 
       expect(component.numberOfRedraws, 1,
           reason: 'component should no longer be listening after unmount');
@@ -103,11 +102,11 @@ void main() {
       TestConnectComponent component = getDartComponent(renderedInstance);
 
       stores.actions.trigger1();
-      await Future.delayed(d2c.Duration.zero);
+      await Future.delayed(Duration.zero);
       expect(component.numberOfRedraws, 1);
 
       stores.actions.trigger2();
-      await Future.delayed(d2c.Duration.zero);
+      await Future.delayed(Duration.zero);
       expect(component.numberOfRedraws, 1);
     });
 
@@ -122,7 +121,7 @@ void main() {
         TestPureComponent component = jacket.getDartInstance();
 
         store.actions.trigger1();
-        await Future.delayed(d2c.Duration.zero);
+        await Future.delayed(Duration.zero);
         expect(component.numberOfRedraws, 1);
       });
 
@@ -198,7 +197,7 @@ void main() {
       TestDefaultComponent component = jacket.getDartInstance();
 
       store.actions.trigger1();
-      await Future.delayed(d2c.Duration.zero);
+      await Future.delayed(Duration.zero);
       expect(component.numberOfRedraws, 1);
 
       jacket.rerender((TestDefault()..store = updatedStore)());
@@ -206,7 +205,7 @@ void main() {
       expect(component.numberOfRedraws, 2);
 
       updatedStore.actions.trigger1();
-      await Future.delayed(d2c.Duration.zero);
+      await Future.delayed(Duration.zero);
       expect(component.numberOfRedraws, 3);
     });
   });
