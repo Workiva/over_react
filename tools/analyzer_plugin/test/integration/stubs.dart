@@ -4,18 +4,20 @@ import 'package:analyzer_plugin/channel/channel.dart';
 import 'package:analyzer_plugin/plugin/plugin.dart';
 import 'package:analyzer_plugin/protocol/protocol.dart';
 import 'package:analyzer_plugin/protocol/protocol_generated.dart';
-import 'package:mockito/mockito.dart';
 import 'package:over_react_analyzer_plugin/src/plugin.dart';
 
 import 'test_bases/assist_test_base.dart';
 
-class MockChannel extends Mock implements PluginCommunicationChannel {
+class StubChannel implements PluginCommunicationChannel {
   final List<Notification> sentNotifications = <Notification>[];
 
   @override
   void sendNotification(Notification notification) {
     sentNotifications.add(notification);
   }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) {}
 }
 
 /// A concrete [ServerPlugin] implementation designed for use in testing a

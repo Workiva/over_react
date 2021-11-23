@@ -15,7 +15,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        sdk: [ 2.13.4, stable, dev ]
+        # Don't run on newer SDKs until we're able to get on analyzer 1.x,
+        # since our current analyzer version range results in build failures
+        # when analysis hits the `<<<` operator.
+        # sdk: [ 2.13.4, stable, dev ]
+        sdk: [ 2.13.4 ]
     steps:
       - uses: actions/checkout@v2
       - uses: dart-lang/setup-dart@v0.2
@@ -30,7 +34,7 @@ jobs:
         run: pub get
 
       - name: Validate dependencies
-        run: pub run dependency_validator --no-fatal-pins -i analyzer,build_runner,build_web_compilers,built_value_generator
+        run: dart run dependency_validator
         if: always() && steps.install.outcome == 'success'
 
       - name: Verify formatting
@@ -79,6 +83,9 @@ jobs:
 
   analyzer_plugin:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./tools/analyzer_plugin
     strategy:
       fail-fast: false
       matrix:
@@ -92,13 +99,23 @@ jobs:
       - name: Print Dart SDK version
         run: dart --version
 
+      - id: link
+        name: Override over_react dependency with local path
+        run: cd ../.. && pub get && dart tool/travis_link_plugin_deps.dart
+
       - id: install
         name: Install dependencies
         run: pub get
+        if: always() && steps.link.outcome == 'success'
 
-      - name: Run analyzer_plugin checks
-        run: |
-          dart tool/travis_link_plugin_deps.dart
-          cd ./tools/analyzer_plugin
-          ./tool/travis.sh
+      - name: Validate dependencies
+        run: dart run dependency_validator
+        if: always() && steps.install.outcome == 'success'
+
+      - name: Verify formatting
+        run: pub run dart_dev format --check
+        if: always() && matrix.sdk == '2.7.2' && steps.install.outcome == 'success'
+
+      - name: Run tests
+        run: pub run dart_dev test
         if: always() && steps.install.outcome == 'success'

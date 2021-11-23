@@ -181,7 +181,7 @@ class _DiagnosticGenerator {
     // but it doesn't do it for plugin errors, so we need to do that here.
     final lineInfo = unitResult.unit.lineInfo;
     final filteredErrors =
-        filterIgnores(collector.errors, lineInfo, () => IgnoreInfo.calculateIgnores(unitResult.content, lineInfo));
+        filterIgnores(collector.errors, lineInfo, () => IgnoreInfo.forDart(unitResult.unit, unitResult.content));
 
     return _GeneratorResult(filteredErrors, notifications);
   }

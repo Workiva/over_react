@@ -121,7 +121,7 @@ Future<Map<String, ResolvedUnitResult>> parseAndGetResolvedUnits(Map<String, Str
     final result = await context.currentSession.getResolvedUnit(transformPath(path));
     final lineInfo = result.unit.lineInfo;
     final filteredErrors =
-        filterIgnores(result.errors, lineInfo, () => IgnoreInfo.calculateIgnores(result.content, lineInfo));
+        filterIgnores(result.errors, lineInfo, () => IgnoreInfo.forDart(result.unit, result.content));
     if (filteredErrors.isNotEmpty) {
       throw ArgumentError('Parse errors in source "$path":\n${filteredErrors.join('\n')}');
     }
