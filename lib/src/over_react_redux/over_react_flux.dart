@@ -138,7 +138,9 @@ class ConnectFluxAdapterStore<S extends flux.Store> extends redux.Store<S> {
     // In most cases, though, from a memory management standpoint, tearing this
     // store down shouldn't be necessary, since any components subscribed to it
     // should have also been unmounted, leaving nothing to retain it.
-    store.didDispose.whenComplete(teardown);
+    //
+    // Use a null-aware to accommodate mock stores in unit tests that return null for `didDispose`.
+    store.didDispose?.whenComplete(teardown);
   }
 
   bool _teardownCalled = false;
