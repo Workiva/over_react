@@ -1,5 +1,21 @@
 # OverReact Changelog
 
+## [4.2.5](https://github.com/Workiva/over_react/compare/4.2.4...4.2.5)
+- [#720] Auto-tear-down ConnectFluxAdapterStores when backing Flux stores dispose
+- Bump react lower bound to 6.1.4
+
+Internal Tech Debt:
+- Dev dependencies: remove dart2_constant, update test_html_builder and dependency_validator to latest
+- CI: Don't run main build in Dart 2.14 until we can upgrade pkg:analyzer and get it passing again
+- CI: Fix analyzer plugin build
+
+## [4.2.4](https://github.com/Workiva/over_react/compare/4.2.3...4.2.4)
+- [#710] Support type-checking directly from the `UiFactory` to better support JS components
+
+## [4.2.3](https://github.com/Workiva/over_react/compare/4.2.2...4.2.3)
+- [#708] Add 2.13.4 to CI matrix
+- [#709] Raise the Dart SDK minimum to at least 2.11.0
+
 ## [4.2.2](https://github.com/Workiva/over_react/compare/4.2.1...4.2.2)
 
 - Reinstate null-aware isDisposedOrDisposing (removed in [#703]/4.2.1) to support tests with mocked stores
