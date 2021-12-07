@@ -50,7 +50,7 @@ class TaskCountBadgeComponent extends UiComponent2<TaskCountBadgeProps> {
         Badge({
           'badgeContent': props.assignedTodoIds.length,
           'color': 'secondary',
-          'overlap': 'circle',
+          'overlap': 'circular',
           'anchorOrigin': {
             'vertical': 'bottom',
             'horizontal': 'right',

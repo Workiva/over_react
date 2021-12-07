@@ -405,6 +405,17 @@ external ReactClass Function(ReactClass) _jsConnect(
     ]
   );
 
+@JS('ReactRedux.batch')
+external void _jsBatch(Function);
+
+/// batch(() {
+///   dispatch(AddTodoAction(Todo(description: description)));
+///   dispatch(AddTodoAction(Todo(description: description)));
+/// });
+void batch(void Function() callback) {
+  _jsBatch(allowInterop(([_]) => callback()));
+}
+
 @visibleForTesting
 ReactClass Function(ReactClass) Function(
     [
@@ -420,7 +431,6 @@ class JsReactRedux {
   external static ReactClass get Provider;
   external static ReactContext get ReactReduxContext;
 }
-
 
 /// [ReduxProviderProps] is a typed props class for [ReduxProvider].
 ///

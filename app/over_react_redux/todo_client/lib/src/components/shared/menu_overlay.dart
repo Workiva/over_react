@@ -56,12 +56,14 @@ class MenuOverlayComponent extends UiStatefulComponent2<MenuOverlayProps, MenuOv
         'open': open,
         'anchorEl': state.anchorEl,
         'onClose': close,
-        'onEntered': (_, __) {
-          if (!props.useDerivedMaxWidth) return;
-          final currentMenuWidth = querySelector('#$id')?.getBoundingClientRect()?.width?.ceil();
-          if (currentMenuWidth != state.menuMaxWidth) {
-            setState(newState()..menuMaxWidth = currentMenuWidth ?? 'none');
-          }
+        'TransitionProps': {
+          'onEntered': (_, __) {
+            if (!props.useDerivedMaxWidth) return;
+            final currentMenuWidth = querySelector('#$id')?.getBoundingClientRect()?.width?.ceil();
+            if (currentMenuWidth != state.menuMaxWidth) {
+              setState(newState()..menuMaxWidth = currentMenuWidth ?? 'none');
+            }
+          },
         },
       },
         props.children,
