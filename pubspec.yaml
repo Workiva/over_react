@@ -57,3 +57,6 @@ dependency_validator:
     - tools/**
   ignore:
     - meta
+
+dependency_overrides:
+  yaml: 3.0.0
