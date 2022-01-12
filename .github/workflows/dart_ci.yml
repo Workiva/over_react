@@ -7,7 +7,7 @@ on:
       - 'test_consume_*'
   pull_request:
     branches:
-      - '*'
+      - '**'
 
 jobs:
   build:
