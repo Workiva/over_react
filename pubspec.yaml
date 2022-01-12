@@ -57,3 +57,7 @@ dependency_validator:
     - tools/**
   ignore:
     - meta
+
+dependency_overrides:
+  built_collection: ^5.0.0
+  built_value: ^8.0.0

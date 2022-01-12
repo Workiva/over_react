@@ -32,3 +32,5 @@ dev_dependencies:
 dependency_overrides:
   over_react:
     path: '../../../'
+  built_collection: ^5.0.0
+  built_value: ^8.0.0

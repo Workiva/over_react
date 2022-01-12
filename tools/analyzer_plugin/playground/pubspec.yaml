@@ -13,3 +13,5 @@ dependency_overrides:
   # Pull in the local copy of over_react so it pulls in the local copy of the plugin
   over_react:
       path: ../../..
+  built_collection: ^5.0.0
+  built_value: ^8.0.0
