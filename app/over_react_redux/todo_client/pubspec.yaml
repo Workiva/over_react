@@ -32,3 +32,7 @@ dev_dependencies:
 dependency_overrides:
   over_react:
     path: '../../../'
+  react:
+    git:
+      url: https://github.com/Workiva/react-dart.git
+      ref: 4cd37652acd47f49dc998ccdb5dc8b3fa72754f5 # from react-18-rc-test

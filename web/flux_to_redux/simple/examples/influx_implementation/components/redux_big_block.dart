@@ -25,7 +25,6 @@ part 'redux_big_block.over_react.g.dart';
 // [3] Refactor calls to the `store` prop to the new props added in [1] and [2].
 // [4] Wrap the existing factory in a `connect` call.
 // [5] Use `mapStateToProps` and `mapDispatchToProps` to point props to the correct state values.
-// [6] Set the `pure` constructor on `connect` to be `false`.
 
 // [4]
 UiFactory<ReduxBigBlockProps> ReduxBigBlock = connect<FluxStore, ReduxBigBlockProps>(
@@ -33,8 +32,6 @@ UiFactory<ReduxBigBlockProps> ReduxBigBlock = connect<FluxStore, ReduxBigBlockPr
   mapStateToProps: (state) => (ReduxBigBlock()..backgroundColor = state.backgroundColor),
   mapDispatchToProps: (dispatch) =>
       (ReduxBigBlock()..changeBackgroundColor = () => dispatch(UpdateBackgroundColorAction())),
-  // [6]
-  pure: false,
 )(castUiFactory(_$ReduxBigBlock)); // ignore: undefined_identifier
 
 mixin ReduxBigBlockPropsMixin on UiProps {

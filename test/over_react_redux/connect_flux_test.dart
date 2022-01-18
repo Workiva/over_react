@@ -533,7 +533,6 @@ main() {
                 expect(prev.id, 'test2');
                 return true;
               }),
-              pure: false,
             )(ConnectFluxCounter);
 
             var whatever = connectOptions.areMergedPropsEqual(

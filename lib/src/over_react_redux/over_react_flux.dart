@@ -631,7 +631,6 @@ UiFactory<TProps> Function(UiFactory<TProps>)
     areStatePropsEqual: areStatePropsEqual,
     areMergedPropsEqual: areMergedPropsEqual,
     context: context,
-    pure: pure,
     forwardRef: forwardRef,
     // Don't pass along the dispatcher as props by default
     mapDispatchToProps: (_) => const {},

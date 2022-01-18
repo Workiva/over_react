@@ -54,7 +54,7 @@ UiFactory<ReduxBigBlockProps> ReduxBigBlock = composeHocs([
         dispatch(UpdateBlockThreeBackgroundColorAction());
       }
     ),
-    pure: false, // [8]
+
   ),
   // [5]
   connect<LowLevelStore, ReduxBigBlockProps>(
@@ -66,7 +66,6 @@ UiFactory<ReduxBigBlockProps> ReduxBigBlock = composeHocs([
         dispatch(UpdateBlockTwoBackgroundColorAction());
       }
     ),
-    pure: false, // [8]
   ),
   // [5]
   connect<AnotherColorStore, ReduxBigBlockProps>(
@@ -78,7 +77,6 @@ UiFactory<ReduxBigBlockProps> ReduxBigBlock = composeHocs([
         dispatch(UpdateBlockThreeBackgroundColorAction());
       }
     ),
-    pure: false, // [8]
   ),
 ])(castUiFactory(_$ReduxBigBlock)); // ignore: undefined_identifier
 

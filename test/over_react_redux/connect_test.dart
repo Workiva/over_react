@@ -575,7 +575,6 @@ main() {
               expect(prev.id, 'test2');
               return true;
             }),
-            pure: false,
           )(Counter);
 
           var whatever = connectOptions.areMergedPropsEqual(

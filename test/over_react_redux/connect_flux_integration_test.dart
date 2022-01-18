@@ -63,7 +63,6 @@ main() {
 
           final ConnectedReduxComponent = connect<FluxStore, CounterProps>(
             mapStateToProps: (state) => (Counter()..currentCount = state.count),
-            pure: false,
           )(Counter);
 
           final jacket = mount((ReduxProvider()..store = store1)(
@@ -113,7 +112,6 @@ main() {
             mapStateToProps: (state) => (Counter()..currentCount = state.count),
             mapDispatchToProps: (dispatch) =>
                 (Counter()..increment = () => dispatch(IncrementAction())),
-            pure: false,
           )(Counter);
 
           final jacket = mount((ReduxProvider()..store = store1)(
@@ -250,7 +248,6 @@ main() {
           mapStateToProps: (state) => (Counter()..currentCount = state.count),
           mapDispatchToProps: (dispatch) =>
               (Counter()..increment = () => dispatch(IncrementAction())),
-          pure: false,
         )(Counter);
 
         jacket = mount((ReduxProvider()..store = connectableFluxAdaptedStore)(

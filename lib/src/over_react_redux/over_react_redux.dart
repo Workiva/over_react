@@ -200,7 +200,7 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       return interopFunction;
     }
 
-    JsMap handleMapStateToProps(ReactInteropValue jsState) {
+    JsMap handleMapStateToProps(ReactInteropValue jsState, Null _) {
       return jsMapFromProps(
         mapStateToProps(
           unwrapInteropValue(jsState),
@@ -248,13 +248,16 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
       return allowInteropWithArgCount(handleMakeMapStateToPropsWithOwnPropsFactory, 2);
     }
 
-    JsMap handleMapDispatchToProps(Dispatcher dispatch) {
+    JsMap handleMapDispatchToProps(Dispatcher dispatch, Null _) {
       return jsMapFromProps(
         mapDispatchToProps(dispatch),
       );
     }
 
     JsMap handleMapDispatchToPropsWithOwnProps(Dispatcher dispatch, JsMap jsOwnProps) {
+      if (jsOwnProps == null) {
+        return handleMapDispatchToProps(dispatch, null);
+      }
       return jsMapFromProps(
         mapDispatchToPropsWithOwnProps(
           dispatch,
@@ -318,7 +321,6 @@ UiFactory<TProps> Function(UiFactory<TProps>) connect<TReduxState, TProps extend
 
     final connectOptions = JsConnectOptions(
       forwardRef: forwardRef,
-      pure: pure,
       context: context?.jsThis ?? JsReactRedux.ReactReduxContext,
     );
     // These can't be `null` in the JS object, so we conditionally define them
@@ -543,14 +545,12 @@ class JsConnectOptions {
     external set areStatePropsEqual(bool Function(JsMap, JsMap) value);
     external set areMergedPropsEqual(bool Function(JsMap, JsMap) value);
     external set forwardRef(bool value);
-    external set pure(bool value);
     external set context(ReactContext value);
     external bool Function(ReactInteropValue, ReactInteropValue) get areStatesEqual;
     external bool Function(JsMap, JsMap) get areOwnPropsEqual;
     external bool Function(JsMap, JsMap) get areStatePropsEqual;
     external bool Function(JsMap, JsMap) get areMergedPropsEqual;
     external bool get forwardRef;
-    external bool get pure;
     external ReactContext get context;
   external factory JsConnectOptions({
     bool Function(ReactInteropValue, ReactInteropValue) areStatesEqual,
@@ -558,7 +558,6 @@ class JsConnectOptions {
     bool Function(JsMap, JsMap) areStatePropsEqual,
     bool Function(JsMap, JsMap) areMergedPropsEqual,
     bool forwardRef,
-    bool pure,
     ReactContext context,
   });
 }

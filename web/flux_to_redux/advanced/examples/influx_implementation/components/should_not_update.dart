@@ -23,17 +23,14 @@ UiFactory<ShouldNotUpdateProps> ShouldNotUpdate = composeHocs([
   connect<RandomColorStore, ShouldNotUpdateProps>(
     context: randomColorStoreContext,
     mapStateToProps: (_) => {},
-    pure: false,
   ),
   connect<LowLevelStore, ShouldNotUpdateProps>(
     context: lowLevelStoreContext,
     mapStateToProps: (_) => {},
-    pure: false,
   ),
   connect<AnotherColorStore, ShouldNotUpdateProps>(
     context: anotherColorStoreContext,
     mapStateToProps: (_) => {},
-    pure: false,
   )
 ])(castUiFactory(_$ShouldNotUpdate)); // ignore: undefined_identifier
 

@@ -28,7 +28,8 @@ library over_react.react_dom;
 import 'dart:html';
 
 import 'package:over_react/over_react.dart';
-import 'package:react/react_dom.dart' as react_dom show render, unmountComponentAtNode;
+import 'package:react/react_dom.dart' as react_dom show render, createRoot, unmountComponentAtNode;
+import 'package:react/src/react_client/dart2_interop_workaround_bindings.dart';
 
 /// Renders the provided [element] into the DOM mounted in the provided [mountNode]
 /// and returns a reference to it based on its type:
@@ -47,6 +48,8 @@ import 'package:react/react_dom.dart' as react_dom show render, unmountComponent
 dynamic render(ReactElement element, Element mountNode) {
   return react_dom.render(element, mountNode);
 }
+
+final createRoot = react_dom.createRoot;
 
 /// Removes a React `Component` from the DOM that was mounted via [render]
 /// and cleans up its event handlers and state.

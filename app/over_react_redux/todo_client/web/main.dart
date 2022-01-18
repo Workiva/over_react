@@ -12,5 +12,7 @@ main() {
     TodoApp()(),
   );
 
-  react_dom.render(app, container);
+  final root = react_dom.createRoot(container);
+
+  root.render(app);
 }
