@@ -1,5 +1,25 @@
 # OverReact Changelog
 
+## [4.2.6](https://github.com/Workiva/over_react/compare/4.2.5...4.2.6)
+
+- [#722] Dependency upgrades
+
+## [4.2.5](https://github.com/Workiva/over_react/compare/4.2.4...4.2.5)
+- [#720] Auto-tear-down ConnectFluxAdapterStores when backing Flux stores dispose
+- Bump react lower bound to 6.1.4
+
+Internal Tech Debt:
+- Dev dependencies: remove dart2_constant, update test_html_builder and dependency_validator to latest
+- CI: Don't run main build in Dart 2.14 until we can upgrade pkg:analyzer and get it passing again
+- CI: Fix analyzer plugin build
+
+## [4.2.4](https://github.com/Workiva/over_react/compare/4.2.3...4.2.4)
+- [#710] Support type-checking directly from the `UiFactory` to better support JS components
+
+## [4.2.3](https://github.com/Workiva/over_react/compare/4.2.2...4.2.3)
+- [#708] Add 2.13.4 to CI matrix
+- [#709] Raise the Dart SDK minimum to at least 2.11.0
+
 ## [4.2.2](https://github.com/Workiva/over_react/compare/4.2.1...4.2.2)
 
 - Reinstate null-aware isDisposedOrDisposing (removed in [#703]/4.2.1) to support tests with mocked stores
@@ -32,7 +52,7 @@
 
   This introduced a new component factory syntax that future proofs the boilerplate syntax through Dart 2.12! For more information and migration instructions, refer to the [PR description](https://github.com/Workiva/over_react/pull/679).
 
-- [#674] Add Redux hooks. 
+- [#674] Add Redux hooks.
 
   Introducing new Redux hook APIs! OverReact consumers also using OverReact Redux can now use the `useDispatch`, `useSelector`, and `useStore` hooks. For more information, refer to the [documenation](https://github.com/Workiva/over_react/blob/master/doc/over_react_redux_documentation.md#hooks).
 
@@ -51,11 +71,11 @@ The underlying `.js` files provided by this package are now ReactJS version `17.
 > __[Full List of Breaking Changes](https://github.com/Workiva/over_react/pull/647)__
 
 ## [3.12.1](https://github.com/Workiva/over_react/compare/3.12.0...3.12.1)
-- [#643] Use `propsOrStateMapsEqual` in `memo` so that function tearoffs don't cause unnecessary rerenders. 
+- [#643] Use `propsOrStateMapsEqual` in `memo` so that function tearoffs don't cause unnecessary rerenders.
 
 ## [3.12.0](https://github.com/Workiva/over_react/compare/3.11.0...3.12.0)
-- [#641] Expose new event helper APIs. In react-dart, using the `SyntheticEvent` class constructors were deprecated. 
-New event helpers were added as a replacement, and to make their usage convenient, these helpers have been exposed directly via OverReact. 
+- [#641] Expose new event helper APIs. In react-dart, using the `SyntheticEvent` class constructors were deprecated.
+New event helpers were added as a replacement, and to make their usage convenient, these helpers have been exposed directly via OverReact.
 
 ## [3.11.0](https://github.com/Workiva/over_react/compare/3.10.1...3.11.0)
 
@@ -93,8 +113,8 @@ __New Features__
 
 - 🎉 🎉 🎉 __Support for function components, memo and hooks!!!__ 🎉 🎉 🎉
 
-    Sooooo much work from so many amazing people made this possible, but to summarize: 
-    
+    Sooooo much work from so many amazing people made this possible, but to summarize:
+
     - [#606] Add support for function components
     - [#613] Add support for `memo` higher order component
     - [#611] Hooks, hooks, and more hooks!
@@ -110,39 +130,39 @@ __New Features__
         - useDebugValue
 
     <p><br>It works like this...</p>
-    
+
     Define the component
     ```dart
     mixin FancyBorderProps on UiProps {
       String color;
     }
-    
+
     UiFactory<FancyBorderProps> FancyBorder = uiFunction(
       (props) {
         // props is typed as a `FancyBorderProps`
         // whatever you return here will be rendered
-        return (Dom.div()..className = 'fancy-border border-${props.color}')( 
+        return (Dom.div()..className = 'fancy-border border-${props.color}')(
           props.children,
         );
-      }, 
+      },
       $FancyBorderConfig, // ignore: undefined_identifier
     );
     ```
-    
+
     Render the component _(exact same consumer API as a class-based component)_:
     ```dart
     import 'package:over_react/over_react.dart';
     import 'fancy_border.dart'; // Where your component is defined
-    
+
     main() {
       final renderedWidget = (FancyBorder()..color = /* some color value */)(
         // put some children here!
       );
-    
+
       react_dom.render(renderedWidget, querySelector('#idOfSomeNodeInTheDom'));
     }
     ```
-  
+
 __Other Changes__
 
 - [#612] Deprecate `forwardRef` / add `uiForwardRef` as its replacement
@@ -164,7 +184,7 @@ __Analyzer Plugin Changes:__
 
 - Add [OverReact Analyzer Plugin (beta)](https://github.com/Workiva/over_react/tree/master/tools/analyzer_plugin) ⚡️
     > A Dart analyzer plugin for OverReact, bringing analysis-time checks and behavior to IDEs using the Dart Analysis Server (including JetBrains IDEs and VS Code).
-    > 
+    >
     > Functionality includes checking for issues that cause React warnings/errors at runtime, linting for best practices, adding "assists" for common edits to component syntax and boilerplate, and more!
 
 - [#498] Fix missing `allowInterop` call in `OverReactReduxDevToolsMiddleware.handleEventFromRemote`
@@ -184,14 +204,14 @@ __Analyzer Plugin Changes:__
 
 ## [3.5.0](https://github.com/Workiva/over_react/compare/3.4.1...3.5.0)
 - Introduce new and improved component boilerplate syntax 🎉
-    
+
     ![side-by-side comparison of old and new boilerplate for a simple component](doc/new-boilerplate-side-by-side.png)
-    
+
     See our [migration guide](https://github.com/Workiva/over_react/blob/master/doc/new_boilerplate_migration.md) for more information around these changes, including why we made them and how to convert existing components to use thew new syntax.
-    
-    The existing boilerplate syntax will be deprecated in a future release. 
-    
-- [#469] Throw helpful error when `connect`, `connectFlux`, and `forwardRef` are passed an invalid component. 
+
+    The existing boilerplate syntax will be deprecated in a future release.
+
+- [#469] Throw helpful error when `connect`, `connectFlux`, and `forwardRef` are passed an invalid component.
 
 ## [3.4.1](https://github.com/Workiva/over_react/compare/3.4.0...3.4.1)
 - [#468] Allow redux.dart version 4
@@ -2374,4 +2394,3 @@ Initial public release of the library.
 [#997]: https://github.com/Workiva/over_react/pull/997
 [#998]: https://github.com/Workiva/over_react/pull/998
 [#999]: https://github.com/Workiva/over_react/pull/999
-
