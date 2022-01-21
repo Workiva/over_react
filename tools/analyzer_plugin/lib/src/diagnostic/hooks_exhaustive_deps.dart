@@ -368,13 +368,12 @@ create(context, {RegExp additionalHooks}) {
     // if the last "return () => " we encounter is located directly inside the effect.
     bool isInsideEffectCleanup(AstNode reference) {
       var isInReturnedFunction = false;
-      var current = reference.thisOrAncestorOfType<FunctionBody>();
-      while (current != node) {
+      reference.ancestors.whereType<FunctionBody>().takeWhile((ancestor) => ancestor != node).forEach((current) {
+        // TODO why doesn't the original source just check the last one?
         isInReturnedFunction = current
             ?.parentOfType<FunctionExpression>()
             ?.parentOfType<ReturnStatement>() != null;
-        current = current.thisOrAncestorOfType<FunctionBody>();
-      }
+      });
       return isInReturnedFunction;
     }
 
@@ -1777,4 +1776,14 @@ SimpleIdentifier propertyNameFromNonCascadedAccess(Expression node) {
   }
 
   return null;
+}
+
+extension on AstNode {
+  Iterable<AstNode> get ancestors sync* {
+    final parent = this.parent;
+    if (parent != null) {
+      yield parent;
+      yield* parent.ancestors;
+    }
+  }
 }
