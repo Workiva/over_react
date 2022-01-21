@@ -105,6 +105,12 @@ class _Dependency {
   final List<Identifier> references;
 
   _Dependency({@required this.isStable, @required this.references});
+
+  @override
+  String toString() => '${{
+    'isStable': isStable,
+    'references': references,
+  }}';
 }
 
 class _RefInEffectCleanup {
@@ -112,6 +118,12 @@ class _RefInEffectCleanup {
   final Identifier dependencyNode;
 
   _RefInEffectCleanup({this.reference, this.dependencyNode});
+
+  @override
+  String toString() => '${{
+    'reference': reference,
+    'dependencyNode': dependencyNode,
+  }}';
 }
 
 
