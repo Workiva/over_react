@@ -164,7 +164,7 @@ create(context, {RegExp additionalHooks}) {
   /// A mapping from setState references to setState declarations
   final setStateCallSites = WeakMap<Identifier, Identifier>();
   final stateVariables = WeakSet();
-  final stableKnownValueCache = WeakMap<Element, bool>();
+  final stableKnownValueCache = WeakMap<Expression, bool>();
   final functionWithoutCapturedValueCache = WeakMap<Element, bool>();
   // Visitor for both function expressions and arrow function expressions.
   void visitFunctionWithDependencies({
@@ -241,11 +241,10 @@ create(context, {RegExp additionalHooks}) {
     // const ref = useRef()
     //       ^^^ true for this reference
     // False for everything else.
-    bool isStableKnownHookValue(Element resolved) { // fixme need to pass in reference to expression and not hhook itself? (`count.value` vs just ount)
-      // fixme switch to AST
-      // final init = resolved.tryCast<VariableElement>()?.initializer;
-      VariableDeclaration declaration;
-      var init = declaration.initializer;
+    bool isStableKnownHookValue(Identifier resolved) {
+      // FIXME what about function declarations? are those handled elsewhere
+      final declaration = lookUpDeclaration(resolved.staticElement, resolved.root)?.tryCast<VariableDeclaration>();
+      var init = declaration?.initializer;
       if (init == null) {
         return false;
       }
@@ -268,7 +267,22 @@ create(context, {RegExp additionalHooks}) {
       if (init is! InvocationExpression) {
         return false;
       }
-      // todo handle tearoffs of hooks nodes // final setCount = useCount(1).set;
+
+      const stableStateHookMethods = {'set', 'setWithUpdater'};
+      const stableReducerHookMethods = {'dispatch'};
+
+      // Handle tearoffs
+      // final setCount = useCount(1).set;
+      if (init is PropertyAccess) {
+        final property = init.propertyName.name;
+        if (stableStateHookMethods.contains(property) && (init.staticType?.element?.isStateHook ?? false)) {
+          return true;
+        }
+        if (stableReducerHookMethods.contains(property) && (init.staticType?.element?.isReducerHook ?? false)) {
+          return true;
+        }
+      }
+
       var callee = (init as InvocationExpression).function;
       // fixme handle namespaced imports
       if (callee is! Identifier) {
@@ -428,19 +442,13 @@ create(context, {RegExp additionalHooks}) {
       if (def == null) {
         continue;
       }
-      // Ignore references to the function itself as it's not defined yet.
-      // TODO this ase might not apply to Dart
-      if (def.tryCast<FunctionDeclaration>()?.functionExpression?.body == node.parent) {
-        continue;
-      }
 
       // Add the dependency to a map so we can make sure it is referenced
       // again in our dependencies array. Remember whether it's stable.
       if (!dependencies.containsKey(dependency)) {
-        final resolved = reference.staticElement;
         final isStable =
-          memoizedIsStableKnownHookValue(resolved) ||
-          memoizedIsFunctionWithoutCapturedValues(resolved);
+          memoizedIsStableKnownHookValue(reference) ||
+          memoizedIsFunctionWithoutCapturedValues(reference);
         dependencies[dependency] = _Dependency(
           isStable: isStable,
           references: [reference],
