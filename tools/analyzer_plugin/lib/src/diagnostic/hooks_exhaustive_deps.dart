@@ -13,6 +13,7 @@ import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:meta/meta.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/analyzer_debug_helper.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
@@ -36,12 +37,15 @@ class HooksExhaustiveDeps extends DiagnosticContributor {
 
   @override
   Future<void> computeErrors(result, collector) async {
+    final helper = AnalyzerDebugHelper(result, collector);
     result.unit.accept(_ExhaustiveDepsVisitor(
       getSource: (node) => result.content.substring(node.offset, node.end),
       reportProblem: ({message, @required node}) {
         collector.addError(code, result.locationFor(node), errorMessageArgs: [
           message ?? '',
         ]);
+      }, debug: (string, offset) {
+        helper.logWithLocation(string, result.location(offset: offset));
       },
     ));
   }
@@ -166,10 +170,12 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
   final Function({@required AstNode node, String message}) reportProblem;
   final Function(SyntacticEntity entity) getSource;
   final RegExp additionalHooks;
+  void Function(String string, int offset) debug;
 
   _ExhaustiveDepsVisitor({
     @required this.reportProblem,
     @required this.getSource,
+    @required this.debug,
     this.additionalHooks,
   });
 
@@ -720,6 +726,14 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
         }
       }
     }
+
+    debug({
+      'dependencies': dependencies,
+      'declaredDependencies': declaredDependencies,
+      'stableDependencies': stableDependencies,
+      'externalDependencies': externalDependencies,
+      'isEffect': isEffect,
+    }.toString(), node.offset);
 
     final recommendations = collectRecommendations(
       dependencies: dependencies,
@@ -1294,6 +1308,12 @@ class _DeclaredDependency {
   final Expression node;
 
   _DeclaredDependency(this.key, this.node);
+
+  @override
+  String toString() => {
+    'key': key,
+    'node': node,
+  }.toString();
 }
 
 // The meat of the logic.

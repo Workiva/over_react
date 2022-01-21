@@ -24,4 +24,13 @@ class AnalyzerDebugHelper {
     collector = new_collector ?? collector;
     collector.addError(code, Location(result.path, 0, 0, 1, 0), errorMessageArgs: [message]);
   }
+
+  /// Usage:
+  ///     AnalyzerDebugHelper debug = new AnalyzerDebugHelper(result, collector);
+  ///     debug.log('message');
+  void logWithLocation(String message, Location location, [ResolvedUnitResult new_result, DiagnosticCollector new_collector]) {
+    result = new_result ?? result;
+    collector = new_collector ?? collector;
+    collector.addError(code, location, errorMessageArgs: [message]);
+  }
 }
