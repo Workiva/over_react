@@ -383,7 +383,7 @@ create(context, {RegExp additionalHooks}) {
     final optionalChains = <String, bool>{};
 
     for (final reference in resolvedReferencesWithin(node)) {
-      // If this reference is not resolved or it is not declared in a pure
+      // If this reference is not not declared in a pure
       // scope then we don't care about this reference.
       if (!isDeclaredInPureScope(reference.staticElement)) {
         continue;
@@ -414,13 +414,12 @@ create(context, {RegExp additionalHooks}) {
         );
       }
 
-      //todo what are these cases?
-      // if (
-      //   dependencyNode.parent.type == 'TSTypeQuery' ||
-      //   dependencyNode.parent.type == 'TSTypeReference'
-      // ) {
-      //   continue;
-      // }
+      // FIXME need to check more parents for GenericFunctionType case?
+      if (node.parent is NamedType) {
+        continue;
+      }
+
+      // FIXME add tests to ensure references to type parameters don't make it this far.
 
       final def = lookUpDeclaration(reference.staticElement, rootNode);
       if (def == null) {
@@ -1664,7 +1663,6 @@ String analyzePropertyChain(AstNode node, Map<String, bool> optionalChains) {
     }
     return result;
   } else if (node is PropertyAccess) {
-    // todo what about method calls?
     final object = analyzePropertyChain(node.target, optionalChains);
     final property = analyzePropertyChain(node.propertyName, null);
     final result = "$object.$property";
