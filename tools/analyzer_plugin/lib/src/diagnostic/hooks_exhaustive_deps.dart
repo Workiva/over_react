@@ -405,9 +405,10 @@ class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
     for (final reference in resolvedReferencesWithin(node)) {
       // If this reference is not not declared in a pure
       // scope then we don't care about this reference.
-      if (!isDeclaredInPureScope(reference.staticElement)) {
-        continue;
-      }
+      // FIXME this check isn't working the way it's supposed to.
+      // if (!isDeclaredInPureScope(reference.staticElement)) {
+      //   continue;
+      // }
 
       // Narrow the scope of a dependency if it is, say, a member expression.
       // Then normalize the narrowed dependency.
