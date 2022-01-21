@@ -56,6 +56,7 @@ import 'package:over_react_analyzer_plugin/src/diagnostic/consumed_props_return_
 import 'package:over_react_analyzer_plugin/src/diagnostic/dom_prop_types.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/duplicate_prop_cascade.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/forward_only_dom_props_to_dom_builders.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic/hooks_exhaustive_deps.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/incorrect_doc_comment_location.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/invalid_child.dart';
 import 'package:over_react_analyzer_plugin/src/diagnostic/iterator_key.dart';
@@ -130,6 +131,7 @@ abstract class OverReactAnalyzerPluginBase extends ServerPlugin
         ForwardOnlyDomPropsToDomBuildersDiagnostic(),
         IteratorKey(),
         RulesOfHooks(),
+        HooksExhaustiveDeps(),
       ];
 
   // @override

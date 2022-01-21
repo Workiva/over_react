@@ -8,10 +8,12 @@
 
 import 'package:analyzer/analyzer.dart' show NodeLocator2, ConstantEvaluator;
 import 'package:analyzer/dart/ast/ast.dart';
+import 'package:analyzer/dart/ast/syntactic_entity.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/source/line_info.dart';
 import 'package:meta/meta.dart';
+import 'package:over_react_analyzer_plugin/src/diagnostic_contributor.dart';
 import 'package:over_react_analyzer_plugin/src/util/ast_util.dart';
 import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 //
@@ -21,23 +23,29 @@ import 'package:over_react_analyzer_plugin/src/util/react_types.dart';
 // /// character to exclude identifiers like "user".
 // bool isHookName(String s) => _hookNamePattern.hasMatch(s);
 //
-// class HooksExhaustiveDeps extends DiagnosticContributor {
-//   @DocsMeta('Verifies the list of dependencies for React Hooks like useEffect and similar', details: '')
-//   static const code = DiagnosticCode(
-//     'over_react_hooks_exhaustive_deps',
-//     "{0}",
-//     AnalysisErrorSeverity.ERROR,
-//     AnalysisErrorType.STATIC_WARNING,
-//     url: 'https://reactjs.org/docs/hooks-rules.html',
-//   );
-//
-//   @override
-//   Future<void> computeErrors(result, collector) async {}
-// }
-//
-//
 
+class HooksExhaustiveDeps extends DiagnosticContributor {
+  @DocsMeta('Verifies the list of dependencies for React Hooks like useEffect and similar', details: '')
+  static const code = DiagnosticCode(
+    'over_react_hooks_exhaustive_deps',
+    "{0}",
+    AnalysisErrorSeverity.ERROR,
+    AnalysisErrorType.STATIC_WARNING,
+    url: 'https://reactjs.org/docs/hooks-rules.html',
+  );
 
+  @override
+  Future<void> computeErrors(result, collector) async {
+    result.unit.accept(_ExhaustiveDepsVisitor(
+      getSource: (node) => result.content.substring(node.offset, node.end),
+      reportProblem: ({message, @required node}) {
+        collector.addError(code, result.locationFor(node), errorMessageArgs: [
+          message ?? '',
+        ]);
+      },
+    ));
+  }
+}
 
 class WeakSet<E> {
   final _isEntry = Expando<Object>();
@@ -147,24 +155,24 @@ Iterable<Identifier> resolvedReferencesWithin(AstNode node) =>
     allDescendantsOfType<Identifier>(node)
     .where((e) => e.staticElement != null);
 
-
-
-
-/// What thihs does
-///
-///
-
-create(context, {RegExp additionalHooks}) {
-  AstNode rootNode;
-  void reportProblem({AstNode node, String message}) {}
-
-
+class _ExhaustiveDepsVisitor extends GeneralizingAstVisitor<void> {
   // Should be shared between visitors.
   /// A mapping from setState references to setState declarations
   final setStateCallSites = WeakMap<Identifier, VariableDeclaration>();
   final stateVariables = WeakSet();
   final stableKnownValueCache = WeakMap<Identifier, bool>();
   final functionWithoutCapturedValueCache = WeakMap<Element, bool>();
+
+  final Function({@required AstNode node, String message}) reportProblem;
+  final Function(SyntacticEntity entity) getSource;
+  final RegExp additionalHooks;
+
+  _ExhaustiveDepsVisitor({
+    @required this.reportProblem,
+    @required this.getSource,
+    this.additionalHooks,
+  });
+
   // Visitor for both function expressions and arrow function expressions.
   void visitFunctionWithDependencies({
     @required FunctionBody node,
@@ -173,6 +181,8 @@ create(context, {RegExp additionalHooks}) {
     @required String reactiveHookName,
     @required bool isEffect,
   }) {
+    final rootNode = node.root;
+
     if (isEffect && node.isAsynchronous) {
       reportProblem(
         node: node,
@@ -496,11 +506,11 @@ create(context, {RegExp additionalHooks}) {
         node: writeExpr,
         message:
           "Assignments to the '$key' variable from inside React Hook "
-          "${context.getSource(reactiveHook)} will be lost after each "
+          "${getSource(reactiveHook)} will be lost after each "
           "render. To preserve the value over time, store it in a useRef "
           "Hook and keep the mutable value in the '.current' property. "
           "Otherwise, you can move this variable directly inside "
-          "${context.getSource(reactiveHook)}.",
+          "${getSource(reactiveHook)}.",
       );
     }
 
@@ -594,7 +604,7 @@ create(context, {RegExp additionalHooks}) {
       reportProblem(
         node: declaredDependenciesNode,
         message:
-          "React Hook ${context.getSource(reactiveHook)} was passed a "
+          "React Hook ${getSource(reactiveHook)} was passed a "
           'dependency list that is not a list literal. This means we '
           "can't statically verify whether you've passed the correct "
           'dependencies.',
@@ -622,7 +632,7 @@ create(context, {RegExp additionalHooks}) {
           reportProblem(
             node: _declaredDependencyNode,
             message:
-              "React Hook ${context.getSource(reactiveHook)} has $invalidType"
+              "React Hook ${getSource(reactiveHook)} has $invalidType"
               "in its dependency list. This means we can't "
               "statically verify whether you've passed the "
               'correct dependencies.',
@@ -678,7 +688,7 @@ create(context, {RegExp additionalHooks}) {
               reportProblem(
                 node: declaredDependencyNode,
                 message:
-                  "React Hook ${context.getSource(reactiveHook)} has a "
+                  "React Hook ${getSource(reactiveHook)} has a "
                   "complex expression in the dependency array. "
                   'Extract it to a separate variable so it can be statically checked.',
               );
@@ -929,7 +939,7 @@ create(context, {RegExp additionalHooks}) {
           " However, 'props' will change when *any* prop changes, so the "
           "preferred fix is to destructure the 'props' object outside of "
           "the $reactiveHookName call and refer to those specific props "
-          "inside ${context.getSource(reactiveHook)}.";
+          "inside ${getSource(reactiveHook)}.";
       }
     }
 
@@ -1074,7 +1084,7 @@ create(context, {RegExp additionalHooks}) {
     reportProblem(
       node: declaredDependenciesNode,
       message:
-        "React Hook ${context.getSource(reactiveHook)} has " +
+        "React Hook ${getSource(reactiveHook)} has " +
         // To avoid a long message, show the next actionable item.
         (getWarningMessage(missingDependencies, 'a', 'missing', 'include') ??
           getWarningMessage(
@@ -1107,7 +1117,10 @@ create(context, {RegExp additionalHooks}) {
     );
   }
 
-  void visitCallExpression(InvocationExpression node) {
+  @override
+  void visitInvocationExpression(InvocationExpression node) {
+    super.visitInvocationExpression(node);
+
     final callbackIndex = getReactiveHookCallbackIndex(node.function, additionalHooks: additionalHooks);
     if (callbackIndex == -1) {
       // Not a React Hook call that needs deps.
