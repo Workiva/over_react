@@ -614,8 +614,9 @@ create(context, {RegExp additionalHooks}) {
         } else if (_declaredDependencyNode is ForElement) {
           invalidType = "a 'for' element";
         } else if (_declaredDependencyNode is! Expression) {
-          // TODO better message for tis
-          invalidType = "a non-expression";
+          // This should be unreachable at the time of writing,
+          // since all other CollectionElement subtypes are handled
+          invalidType = "a non-expression (${_declaredDependencyNode.runtimeType})";
         }
         if (invalidType != null) {
           reportProblem(
